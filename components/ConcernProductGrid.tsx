@@ -52,9 +52,16 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
     return product.description
   }
 
+  const getSpfBadge = (name: string): string | null => {
+    const match = name.match(/SPF\s*(\d+\+?)/i)
+    return match ? `SPF ${match[1]}` : null
+  }
+
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6" dir={dir}>
-      {products.map(product => (
+      {products.map(product => {
+        const spfBadge = getSpfBadge(getName(product))
+        return (
         <Link
           key={product.id}
           href={`${prefix}/products/${product.id}`}
@@ -70,6 +77,11 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
               className="object-contain p-3 group-hover:scale-105 transition-transform duration-300"
               loading="lazy"
             />
+            {spfBadge && (
+              <div className="absolute top-2 right-2 bg-amber-500 text-white text-[10px] sm:text-xs font-bold px-2 py-0.5 rounded-full shadow-sm">
+                {spfBadge}
+              </div>
+            )}
             {!product.inStock && (
               <div className="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">
                 {t.outOfStock}
@@ -106,7 +118,8 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
             />
           </div>
         </Link>
-      ))}
+        )
+      })}
     </div>
   )
 }

@@ -23,7 +23,19 @@ export interface ConcernSeo {
   description: string
   h1: string
   intro: string
+  heroShort?: string      // Short 1-2 sentence hero tagline (shown above fold)
   keywords: string[]
+}
+
+export interface HighlightItem {
+  icon: string   // Emoji or text icon
+  label: string
+  detail: string
+}
+
+export interface WhySection {
+  title: string
+  items: HighlightItem[]
 }
 
 export interface ProtocolPdf {
@@ -33,12 +45,29 @@ export interface ProtocolPdf {
   fileSize: string
 }
 
+export interface RoutineStep {
+  step: number
+  title: string
+  duration: string
+  summary: string
+  detail: string
+  products: { name: string; url: string; price: string }[]
+}
+
+export interface RoutineSection {
+  title: string
+  subtitle: string
+  steps: RoutineStep[]
+}
+
 export interface ConcernPage {
   slug: string
   concernKeys: string[]      // Maps to targetConcerns / GENOSYS_PRODUCT_CONCERNS values
   categoryFallbacks: string[] // Fallback product categories
   relatedConcerns: string[]  // Slugs of related concerns for cross-linking
   protocolPdf?: ProtocolPdf  // Optional downloadable protocol PDF
+  why?: { en: WhySection; ar: WhySection; ru: WhySection }
+  routine?: { en: RoutineSection[]; ar: RoutineSection[]; ru: RoutineSection[] }
   seo: {
     en: ConcernSeo
     ar: ConcernSeo
@@ -61,22 +90,145 @@ export const CONCERN_PAGES: ConcernPage[] = [
     protocolPdf: {
       url: '/documents/PPT/Protocol_sun.pdf',
       title: {
-        en: 'Sun Protection Home Care Protocol',
-        ar: 'بروتوكول العناية المنزلية للحماية من الشمس',
-        ru: 'Протокол домашнего ухода: защита от солнца',
+        en: 'Daily Sun Protection Routine',
+        ar: 'روتين الحماية اليومية من الشمس',
+        ru: 'Ежедневный уход: защита от солнца',
       },
       description: {
-        en: 'Complete daily morning & evening routine for UAE climate — step-by-step application guide, reapplication schedule, and recommended product sets.',
-        ar: 'روتين يومي كامل صباحي ومسائي لمناخ الإمارات — دليل تطبيق خطوة بخطوة وجدول إعادة التطبيق ومجموعات المنتجات الموصى بها.',
-        ru: 'Полный ежедневный утренний и вечерний уход для климата ОАЭ — пошаговое руководство, график повторного нанесения и рекомендуемые наборы продуктов.',
+        en: 'Step-by-step morning & evening skincare routine designed for UAE climate — with product recommendations, reapplication schedule, and tips from our specialists.',
+        ar: 'روتين العناية بالبشرة خطوة بخطوة صباحي ومسائي مصمم لمناخ الإمارات — مع توصيات المنتجات وجدول إعادة التطبيق ونصائح المتخصصين.',
+        ru: 'Пошаговый утренний и вечерний уход за кожей для климата ОАЭ — с рекомендациями продуктов, графиком повторного нанесения и советами специалистов.',
       },
       fileSize: '190 KB',
+    },
+    routine: {
+      en: [
+        {
+          title: 'Morning Routine',
+          subtitle: 'Daily sun defence — takes just 5 minutes',
+          steps: [
+            {
+              step: 1, title: 'Cleanse', duration: '1 min',
+              summary: 'Remove overnight oils so sunscreen adheres properly.',
+              detail: 'Apply to a dry face, let the oxygen bubbles form naturally — they lift impurities from pores without rubbing. Rinse with lukewarm water and pat dry.',
+              products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
+            },
+            {
+              step: 2, title: 'Tone & Hydrate', duration: '30 sec',
+              summary: 'Restore pH and create a hydrated base. Sunscreen spreads more evenly on hydrated skin.',
+              detail: 'Apply with hands or cotton pad, gently pressing into skin. Move to the next step immediately — no wait needed.',
+              products: [{ name: 'SNOW BOOSTER', url: '/products/16', price: '260 AED' }],
+            },
+            {
+              step: 3, title: 'Serum', duration: '30 sec',
+              summary: 'Add an active treatment layer. Antioxidants work synergistically with SPF against UV and pollution.',
+              detail: 'Apply 2–3 drops and pat gently into the skin. Wait 30 seconds for absorption. Choose based on your concern: Hyaluron Serum for dehydration, Sensitive Serum for redness, Radiance Serum for dark spots, Anti-Wrinkle Serum for fine lines.',
+              products: [
+                { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
+                { name: 'ALL FOR SENSITIVE SERUM', url: '/products/19', price: '330 AED' },
+                { name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' },
+                { name: 'MULTI FUNCTIONAL ANTI-WRINKLE SERUM', url: '/products/22', price: '330 AED' },
+              ],
+            },
+            {
+              step: 4, title: 'Sun Protection', duration: '30 sec',
+              summary: 'The most critical step. Apply generously — most people under-apply sunscreen by 50%.',
+              detail: 'Option A: Sun cream only (ULTRA SHIELD SPF 50+ or MULTI SUN SPF 40) — apply a 2-finger length strip to face and neck. Option B: BB cream/cushion for coverage + SPF. Option C: Layer both — sun cream base, wait 1 minute, then BB on top for maximum protection with a flawless finish.',
+              products: [
+                { name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' },
+                { name: 'MULTI SUN CREAM SPF 40', url: '/products/40', price: '210 AED' },
+                { name: 'REVITA GLOW BB CREAM SPF 38', url: '/products/63', price: '250 AED' },
+                { name: 'SKIN CARING BB CUSHION SPF 50+', url: '/products/41', price: '300 AED' },
+              ],
+            },
+            {
+              step: 5, title: 'Refresh During the Day', duration: 'as needed',
+              summary: 'Mist over sunscreen and makeup to rehydrate. UAE heat strips moisture rapidly.',
+              detail: 'Spray 2–3 times from 20 cm distance. Can be used over makeup throughout the day. Contains pre/probiotics to support the skin microbiome.',
+              products: [{ name: 'MICROBIOME ENERGY INFUSING MIST', url: '/products/14', price: '160 AED' }],
+            },
+          ],
+        },
+        {
+          title: 'Evening Routine',
+          subtitle: 'Repair UV micro-damage and prepare for tomorrow',
+          steps: [
+            {
+              step: 1, title: 'Double Cleanse', duration: '2 min',
+              summary: 'Remove sunscreen thoroughly — SPF residue left on skin clogs pores.',
+              detail: 'First cleanse: Makeup remover to dissolve SPF on eye/lip area. Second cleanse: Oxygen cleanser to deep-clean residual SPF and impurities.',
+              products: [
+                { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
+                { name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' },
+              ],
+            },
+            {
+              step: 2, title: 'Tone', duration: '30 sec',
+              summary: 'Rebalance pH after cleansing.',
+              detail: 'Same toner as morning — apply with hands or cotton pad.',
+              products: [{ name: 'SNOW BOOSTER', url: '/products/16', price: '260 AED' }],
+            },
+            {
+              step: 3, title: 'Evening Serum', duration: '30 sec',
+              summary: 'Targeted treatment while your skin repairs overnight.',
+              detail: 'Use the same serum as morning, or choose a more targeted option: Radiance Serum to fade sun spots, Hyaluron Serum for deep hydration, Anti-Wrinkle Serum for overnight anti-aging.',
+              products: [
+                { name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' },
+                { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
+                { name: 'MULTI FUNCTIONAL ANTI-WRINKLE SERUM', url: '/products/22', price: '330 AED' },
+              ],
+            },
+            {
+              step: 4, title: 'Night Cream', duration: '30 sec',
+              summary: 'Seal in active ingredients and protect your renewed skin overnight.',
+              detail: 'Choose by skin type: Barrier Protecting Cream for all types, Hyaluron Cream for dry/dehydrated, Radiance Cream for dull/pigmented skin.',
+              products: [
+                { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
+                { name: 'MOISTURE REPLENISHING HYALURON CREAM', url: '/products/29', price: '290 AED' },
+                { name: 'MULTI VITA RADIANCE CREAM', url: '/products/31', price: '290 AED' },
+              ],
+            },
+          ],
+        },
+      ],
+      ar: [],
+      ru: [],
+    },
+    why: {
+      en: {
+        title: 'Why Sun Protection Is Essential in the UAE',
+        items: [
+          { icon: '☀️', label: 'UV Index 11+', detail: 'Dubai\'s UV regularly exceeds "extreme" levels year-round — not just in summer' },
+          { icon: '🛡️', label: 'Broad Spectrum', detail: 'UVA causes aging, UVB causes burns. Our SPF products block both.' },
+          { icon: '💧', label: 'Lightweight Formulas', detail: 'Non-greasy textures that stay comfortable in 40°C+ heat and humidity' },
+          { icon: '🧪', label: 'Korean Technology', detail: 'Dermatologically tested formulas with active repair ingredients, not just UV filters' },
+        ],
+      },
+      ar: {
+        title: 'لماذا الحماية من الشمس ضرورية في الإمارات',
+        items: [
+          { icon: '☀️', label: 'مؤشر UV 11+', detail: 'الأشعة فوق البنفسجية في دبي تتجاوز المستويات "الشديدة" طوال العام' },
+          { icon: '🛡️', label: 'حماية واسعة الطيف', detail: 'الأشعة فوق البنفسجية أ تسبب الشيخوخة، وب تسبب الحروق. منتجاتنا تحمي من كليهما.' },
+          { icon: '💧', label: 'تركيبات خفيفة', detail: 'تركيبات غير دهنية مريحة في درجات حرارة 40 درجة مئوية وأكثر' },
+          { icon: '🧪', label: 'تقنية كورية', detail: 'تركيبات مختبرة طبياً مع مكونات إصلاح نشطة وليس فقط فلاتر الأشعة فوق البنفسجية' },
+        ],
+      },
+      ru: {
+        title: 'Почему защита от солнца необходима в ОАЭ',
+        items: [
+          { icon: '☀️', label: 'УФ-индекс 11+', detail: 'УФ-излучение в Дубае регулярно превышает «экстремальный» уровень круглый год' },
+          { icon: '🛡️', label: 'Широкий спектр', detail: 'UVA вызывает старение, UVB — ожоги. Наши SPF-средства блокируют оба типа.' },
+          { icon: '💧', label: 'Лёгкие текстуры', detail: 'Нежирные формулы, комфортные при 40°C+ и высокой влажности' },
+          { icon: '🧪', label: 'Корейские технологии', detail: 'Дерматологически протестированные формулы с активными восстанавливающими ингредиентами' },
+        ],
+      },
     },
     seo: {
       en: {
         title: 'Sun Protection Products UAE | SPF Sunscreen Dubai | GENOSYS',
         description: 'Professional Korean sun protection for UAE climate. GENOSYS SPF sunscreens protect against intense UV exposure in Dubai, Abu Dhabi & all emirates. Dermatologically tested, lightweight formulas. Free shipping over 1000 AED.',
         h1: 'Sun Protection for UAE Climate',
+        heroShort: 'Professional-grade Korean sunscreens and BB cushions with SPF — lightweight, non-greasy formulas designed for the intense UAE sun.',
         intro: 'The UAE receives some of the highest UV radiation levels globally, making daily sun protection essential. GENOSYS professional sun creams are formulated with advanced Korean technology to provide broad-spectrum UV defense while keeping skin hydrated in hot, arid conditions. Our lightweight, non-greasy formulas are dermatologically tested and suitable for all skin types — designed specifically for professionals and consumers in Dubai, Abu Dhabi, Sharjah, and across the emirates.',
         keywords: ['sun protection UAE', 'sunscreen Dubai', 'SPF cream UAE', 'Korean sunscreen Dubai', 'UV protection UAE', 'sun cream Abu Dhabi', 'professional sunscreen UAE', 'GENOSYS sun cream'],
       },
@@ -99,12 +251,16 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         { question: 'What SPF level is recommended for UAE sun protection?', answer: 'In the UAE, dermatologists recommend SPF 50+ with broad-spectrum UVA/UVB protection for daily use. The UV index in Dubai regularly exceeds 11 (extreme), making high SPF essential year-round — not just in summer. GENOSYS sun creams provide professional-grade SPF protection designed for the intense Middle Eastern climate.' },
         { question: 'Can I use Korean sunscreen in hot UAE weather?', answer: 'Yes, Korean sunscreens are specifically engineered for hot, humid climates. GENOSYS sun creams use lightweight, non-greasy formulas that absorb quickly and stay effective even during perspiration. They are dermatologically tested and suitable for use under makeup or alone in UAE temperatures.' },
+        { question: 'What is the difference between sun cream and BB cushion with SPF?', answer: 'Sun creams (like ULTRA SHIELD SPF 50+) focus purely on maximum UV protection with skin-repairing ingredients. BB cushions and BB creams add natural coverage to conceal blemishes and even out skin tone while also providing SPF protection. Many people layer both — sun cream as a base, BB cushion on top for a flawless finish with double protection.' },
+        { question: 'How often should I reapply sunscreen in Dubai?', answer: 'Indoors with air conditioning: every 4–5 hours. Outdoors with shade: every 2–3 hours. Direct sun exposure (beach, pool, sports): every 90 minutes. Always reapply immediately after swimming, heavy sweating, or towelling your face. The GENOSYS BB Cushion compact is ideal for on-the-go touch-ups.' },
       ],
       ar: [
         { question: 'ما مستوى SPF الموصى به للحماية من الشمس في الإمارات؟', answer: 'في الإمارات، يوصي أطباء الجلدية باستخدام واقي شمس SPF 50+ مع حماية واسعة الطيف من الأشعة فوق البنفسجية للاستخدام اليومي. مؤشر الأشعة فوق البنفسجية في دبي يتجاوز بانتظام 11 (شديد)، مما يجعل الحماية العالية ضرورية طوال العام.' },
+        { question: 'ما الفرق بين كريم الشمس وكوشن BB مع SPF؟', answer: 'كريمات الشمس تركز على الحماية القصوى من الأشعة فوق البنفسجية. كوشن وكريمات BB تضيف تغطية طبيعية لإخفاء العيوب مع توفير حماية SPF. يمكن استخدام كليهما معاً — كريم الشمس كقاعدة والكوشن فوقه للحصول على مظهر مثالي.' },
       ],
       ru: [
         { question: 'Какой уровень SPF рекомендуется для защиты от солнца в ОАЭ?', answer: 'В ОАЭ дерматологи рекомендуют SPF 50+ с широкоспектральной защитой от UVA/UVB для ежедневного использования. Индекс УФ-излучения в Дубае регулярно превышает 11 (экстремальный), что делает высокую защиту необходимой круглый год.' },
+        { question: 'В чём разница между солнцезащитным кремом и BB-кушоном с SPF?', answer: 'Солнцезащитные кремы обеспечивают максимальную UV-защиту с восстанавливающими ингредиентами. BB-кушоны и BB-кремы добавляют натуральное покрытие несовершенств и выравнивают тон кожи, одновременно обеспечивая SPF-защиту. Можно использовать оба — крем как базу, а кушон сверху.' },
       ],
     },
   },

@@ -147,6 +147,47 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
+      {/* Protocol PDF Download */}
+      {concern.protocolPdf && (
+        <section className="py-8 sm:py-12 px-4">
+          <div className="max-w-4xl mx-auto">
+            <a
+              href={concern.protocolPdf.url}
+              download
+              className="group block rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-gray-50 p-6 sm:p-8 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-200"
+            >
+              <div className="flex items-start gap-4 sm:gap-6">
+                <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-amber-50 flex items-center justify-center group-hover:bg-amber-100 transition-colors">
+                  <svg className="w-6 h-6 sm:w-7 sm:h-7 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1">
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 group-hover:text-amber-700 transition-colors">
+                      {concern.protocolPdf.title.en}
+                    </h3>
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-amber-100 text-amber-800">
+                      PDF
+                    </span>
+                  </div>
+                  <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-2">
+                    {concern.protocolPdf.description.en}
+                  </p>
+                  <span className="inline-flex items-center gap-1.5 text-sm text-amber-700 font-medium group-hover:gap-2 transition-all">
+                    Download Protocol
+                    <span className="text-gray-400 font-normal">({concern.protocolPdf.fileSize})</span>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </section>
+      )}
+
       {/* FAQ Section (visible to users AND structured data for AI) */}
       {faq.length > 0 && (
         <section className="py-8 sm:py-12 px-4 bg-gray-50">

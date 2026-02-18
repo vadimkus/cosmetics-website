@@ -26,11 +26,19 @@ export interface ConcernSeo {
   keywords: string[]
 }
 
+export interface ProtocolPdf {
+  url: string
+  title: { en: string; ar: string; ru: string }
+  description: { en: string; ar: string; ru: string }
+  fileSize: string
+}
+
 export interface ConcernPage {
   slug: string
   concernKeys: string[]      // Maps to targetConcerns / GENOSYS_PRODUCT_CONCERNS values
   categoryFallbacks: string[] // Fallback product categories
   relatedConcerns: string[]  // Slugs of related concerns for cross-linking
+  protocolPdf?: ProtocolPdf  // Optional downloadable protocol PDF
   seo: {
     en: ConcernSeo
     ar: ConcernSeo
@@ -50,6 +58,20 @@ export const CONCERN_PAGES: ConcernPage[] = [
     concernKeys: ['sun-protection'],
     categoryFallbacks: ['sun', 'cushion bb'],
     relatedConcerns: ['pigmentation', 'sensitivity', 'anti-aging'],
+    protocolPdf: {
+      url: '/documents/PPT/Protocol_sun.pdf',
+      title: {
+        en: 'Sun Protection Home Care Protocol',
+        ar: 'بروتوكول العناية المنزلية للحماية من الشمس',
+        ru: 'Протокол домашнего ухода: защита от солнца',
+      },
+      description: {
+        en: 'Complete daily morning & evening routine for UAE climate — step-by-step application guide, reapplication schedule, and recommended product sets.',
+        ar: 'روتين يومي كامل صباحي ومسائي لمناخ الإمارات — دليل تطبيق خطوة بخطوة وجدول إعادة التطبيق ومجموعات المنتجات الموصى بها.',
+        ru: 'Полный ежедневный утренний и вечерний уход для климата ОАЭ — пошаговое руководство, график повторного нанесения и рекомендуемые наборы продуктов.',
+      },
+      fileSize: '190 KB',
+    },
     seo: {
       en: {
         title: 'Sun Protection Products UAE | SPF Sunscreen Dubai | GENOSYS',

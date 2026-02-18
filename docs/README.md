@@ -237,7 +237,25 @@
 
 | File | Description |
 |------|-------------|
-| [BUNDLE_BUILDER.md](./BUNDLE_BUILDER.md) | **NEW** Bundle Builder feature - custom routine creation with tiered discounts |
+| [BUNDLE_BUILDER.md](./BUNDLE_BUILDER.md) | Bundle Builder feature - custom routine creation with tiered discounts |
+
+---
+
+### 💉 Professional Treatment Protocols
+
+| File | Description |
+|------|-------------|
+| [protocols/CLINIC_971_MICRONEEDLING_PROTOCOLS.md](./protocols/CLINIC_971_MICRONEEDLING_PROTOCOLS.md) | **NEW** Complete microneedling protocols for Clinic 971 — 8 protocols (Anti-Wrinkle, Anti-Pigmentation, Acne, Rejuvenation, SRS Peeling, Hydration, Neck/Décolleté, Eye Area) with Carboxy + Power Solutions core |
+| [protocols/UNDERARM_BRIGHTENING.md](./protocols/UNDERARM_BRIGHTENING.md) | Underarm brightening protocol — EZ CO₂ + SWS + home care |
+| [PROTOCOL_UNDERARM_BRIGHTENING.md](./PROTOCOL_UNDERARM_BRIGHTENING.md) | Underarm brightening protocol (original version) |
+
+**Microneedling Protocol Document:**
+- **PDF download on website:** [genosys.ae/training](https://genosys.ae/training) → "Microneedling Protocols (Carboxy + Power Solutions)"
+- **PDF file location:** `public/documents/PPT/GENOSYS_Microneedling_Protocols.pdf`
+- **Source markdown:** `docs/protocols/CLINIC_971_MICRONEEDLING_PROTOCOLS.md`
+- **8 protocols** covering all 6 Power Solution ampoules (AWS, SWS, PCS, HES, CVS, CTS)
+- Each protocol includes: step-by-step instructions, needle depths, product selection, rationale, post-treatment masks, and home care programs
+- Quick reference card for treatment room (printable)
 
 ---
 
@@ -347,6 +365,7 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
+| [SESSION_CHANGES_2026-02-18.md](./SESSION_CHANGES_2026-02-18.md) | **NEW** Clinic 971 microneedling protocols (8 protocols, PDF + markdown), training page document addition, PPT case-sensitivity investigation |
 | [SESSION_CHANGES_2026-02-15.md](./SESSION_CHANGES_2026-02-15.md) | MoySklad refactor (auto→manual push), PCS gallery images, duplicate discount fix, MoySklad delivery mapping, GSC structured data fixes (shippingDetails, priceValidUntil, audience), SPF 50+ product video |
 | [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md) | Part 1: lastLoginSource fix; Part 2: **full activity tracking rework**; Part 3: **native app gallery image fix**; Part 4: **product 5 gallery DB update** (static file vs DB) |
 | [SESSION_CHANGES_2026-02-13.md](./SESSION_CHANGES_2026-02-13.md) | Native app productConfig fix, category pill badges, email duplicate discount fix, product 27/31/40/52 content (videos, images), native app video sound fix, **product documentation API fix** |
@@ -431,4 +450,4 @@ cosmetics-website/
 
 ---
 
-*Last updated: February 15, 2026*
+*Last updated: February 18, 2026*

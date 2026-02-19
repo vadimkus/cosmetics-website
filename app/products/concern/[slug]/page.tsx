@@ -8,6 +8,7 @@ import ConcernProductGrid from '@/components/ConcernProductGrid'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import CollectionPageSchema from '@/components/schema/CollectionPageSchema'
 import GeoFaqSchema from '@/components/schema/GeoFaqSchema'
+import RoutineProductChip from '@/components/RoutineProductChip'
 import type { Product } from '@/types'
 
 export const revalidate = 3600 // Revalidate every hour
@@ -99,6 +100,8 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
   const relatedConcerns = concern.relatedConcerns
     .map(s => CONCERN_PAGES.find(c => c.slug === s))
     .filter(Boolean)
+
+  const productById = new Map(products.map(p => [String(p.id), p]))
 
   return (
     <div className="min-h-screen bg-white">
@@ -243,17 +246,18 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
                       <div className="px-5 pb-5 pt-2 border-t border-gray-100">
                         <p className="text-sm text-gray-600 leading-relaxed mb-3">{step.detail}</p>
                         <div className="flex flex-wrap gap-2">
-                          {step.products.map((p, pi) => (
-                            <Link
-                              key={pi}
-                              href={p.url}
-                              className="inline-flex items-center gap-1.5 text-xs bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-lg px-3 py-2 transition-colors"
-                            >
-                              <span className="font-medium text-gray-800">{p.name}</span>
-                              <span className="text-gray-400">·</span>
-                              <span className="text-gray-500">{p.price}</span>
-                            </Link>
-                          ))}
+                          {step.products.map((p, pi) => {
+                            const pid = p.url?.match(/\/products\/(\d+)/)?.[1]
+                            return (
+                              <RoutineProductChip
+                                key={pi}
+                                product={pid ? productById.get(pid) ?? null : null}
+                                name={p.name}
+                                price={p.price}
+                                url={p.url}
+                              />
+                            )
+                          })}
                         </div>
                       </div>
                     </details>

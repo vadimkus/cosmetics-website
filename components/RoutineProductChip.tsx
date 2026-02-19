@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { Check } from 'lucide-react'
 import { useCart } from '@/components/cart/CartProvider'
@@ -13,8 +13,6 @@ interface RoutineProductChipProps {
   url: string
 }
 
-const DOUBLE_CLICK_MS = 350
-
 export default function RoutineProductChip({
   product,
   name,
@@ -24,8 +22,6 @@ export default function RoutineProductChip({
   const router = useRouter()
   const { addItem, removeItem, items } = useCart()
   const [justAdded, setJustAdded] = useState(false)
-  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const clickCount = useRef(0)
 
   const inCart =
     product &&
@@ -37,31 +33,29 @@ export default function RoutineProductChip({
     (e: React.MouseEvent) => {
       e.preventDefault()
       e.stopPropagation()
-      clickCount.current += 1
 
-      if (clickCount.current === 1) {
-        clickTimer.current = setTimeout(() => {
-          clickCount.current = 0
-          router.push(url)
-        }, DOUBLE_CLICK_MS)
-      } else if (clickCount.current >= 2) {
-        if (clickTimer.current) clearTimeout(clickTimer.current)
-        clickCount.current = 0
+      if (!product || product.isPriceOnRequest || product.inStock === false) {
+        router.push(url)
+        return
+      }
 
-        if (product && !product.isPriceOnRequest && product.inStock !== false) {
-          if (inCart) {
-            removeItem(String(product.id), '', '')
-          } else {
-            addItem(product, 1, '', '')
-            setJustAdded(true)
-            setTimeout(() => setJustAdded(false), 1200)
-          }
-        } else {
-          router.push(url)
-        }
+      if (inCart) {
+        removeItem(String(product.id), '', '')
+      } else {
+        addItem(product, 1, '', '')
+        setJustAdded(true)
+        setTimeout(() => setJustAdded(false), 1200)
       }
     },
-    [addItem, product, router, url]
+    [addItem, removeItem, inCart, product, router, url]
+  )
+
+  const handleContextMenu = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault()
+      router.push(url)
+    },
+    [router, url]
   )
 
   const showCheck = justAdded || inCart
@@ -70,12 +64,13 @@ export default function RoutineProductChip({
     <button
       type="button"
       onClick={handleClick}
-      className={`inline-flex items-center gap-1.5 text-xs rounded-lg px-3 py-2 transition-all duration-200 cursor-pointer border ${
+      onContextMenu={handleContextMenu}
+      className={`inline-flex items-center gap-1.5 text-xs rounded-lg px-3 py-2 transition-all duration-200 cursor-pointer border select-none ${
         showCheck
           ? 'bg-green-50 border-green-200 ring-1 ring-green-100'
           : 'bg-gray-50 hover:bg-gray-100 border-gray-200'
       }`}
-      title={product ? 'Double-click to add to bag' : ''}
+      title={product ? (showCheck ? 'Click to remove · Hold to view product' : 'Click to add to bag · Hold to view product') : ''}
     >
       {showCheck && (
         <Check className="h-3 w-3 text-green-600 flex-shrink-0" />

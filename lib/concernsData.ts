@@ -1137,6 +1137,20 @@ export const CONCERN_PAGES: ConcernPage[] = [
     concernKeys: ['scar-repair'],
     categoryFallbacks: [],
     relatedConcerns: ['acne-treatment', 'pigmentation', 'anti-aging'],
+    protocolPdf: {
+      url: '/documents/PPT/Protocol_scar.pdf',
+      title: {
+        en: 'Scar Treatment & Skin Repair Home Care Protocol',
+        ar: 'بروتوكول العناية المنزلية بعلاج الندبات وإصلاح البشرة',
+        ru: 'Протокол домашнего ухода при рубцах и восстановлении кожи',
+      },
+      description: {
+        en: 'Complete morning & evening routine for scar treatment — EGF regeneration, micro-exfoliation schedule, product sets by scar type, and post-procedure care tips.',
+        ar: 'روتين صباحي ومسائي كامل لعلاج الندبات — تجديد EGF، جدول التقشير الدقيق، مجموعات منتجات حسب نوع الندبة، ونصائح العناية بعد الإجراءات.',
+        ru: 'Полный утренний и вечерний уход при рубцах — EGF-регенерация, график микроэксфолиации, наборы по типу рубца и уход после процедур.',
+      },
+      fileSize: '163 KB',
+    },
     why: {
       en: {
         title: 'Why Scars Need a Specialised Repair Strategy',

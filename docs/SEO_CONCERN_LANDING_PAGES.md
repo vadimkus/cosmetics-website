@@ -2,13 +2,18 @@
 
 > **Purpose**: Condition-based landing pages for Google rankings, AI search citation (GEO), and internal link equity. Optimized for keywords like "sun protection UAE", "acne treatment Dubai", "pigmentation skincare", etc.
 
-**Last updated**: February 12, 2026
+**Last updated**: February 19, 2026
 
 ---
 
 ## Overview
 
-The cosmetics website includes dedicated SEO landing pages for skin concerns and product categories. These pages are **web-only** — they do not appear in the native mobile app (Genosys UAE iOS/Android). The native app uses its own product browsing flow.
+The cosmetics website includes dedicated SEO landing pages for skin concerns and product categories. These pages are available on **web and native app**:
+
+- **Website**: Full concern pages with product grids, routines, FAQs, protocol PDFs
+- **Native app**: "Skin Concern" category pill → native card grid (`app/skin-concerns.js`) → tapping a card opens the website concern page in WebView
+- **Chatbot (Genie)**: Trained to link concern pages in responses (see `lib/chatbot/config.ts`)
+- **Skin analysis results**: "Browse by Skin Concern" CTA links to concern pages after product recommendations
 
 ### Key URLs
 
@@ -37,9 +42,26 @@ Both have localized variants: `/ar/...` and `/ru/...`.
 Each concern page includes:
 - SEO metadata (title, description, H1, intro, keywords) in EN/AR/RU
 - FAQ section with `FAQPage` schema for AI citation (GEO)
-- Product grid filtered by concern
+- Product grid filtered by concern (curated via page-specific concern keys, 4-8 products each)
+- "Complete Your Routine" essentials section (cleanser, booster, SPF — except hair-loss)
+- Embedded AM/PM skincare routine
 - Related concerns cross-links
 - Breadcrumb schema
+- Protocol PDF download card
+
+### Product Curation Strategy (Feb 19, 2026)
+
+Products are filtered using **page-specific concern keys** (`page-acne`, `page-pigmentation`, `page-anti-aging`, `page-hydration`, `page-sensitivity`, `scar-repair`) in `GENOSYS_PRODUCT_CONCERNS` mapping (`lib/productsDb.ts`). These narrow keys ensure landing pages show only 4-8 highly relevant products. Generic concern keys (e.g., `anti-aging`, `hydration`) remain for the skin analysis scoring system.
+
+### Native App Integration (Feb 19, 2026)
+
+The native app (`genosys-mobile-app`) includes a native Skin Concerns screen at `app/skin-concerns.js`:
+- Accessed via "Skin Concern" category pill in shop (with NEW badge)
+- Also accessible via 🌿 highlight button in navigation drawer
+- Deep links: `skin-concerns`, `products/concern`
+- 2-column card grid with 8 concern cards (icon, title, description, "Explore" link)
+- Tapping a card opens the website concern page in the in-app WebView
+- Full EN/AR/RU + RTL support
 
 ---
 

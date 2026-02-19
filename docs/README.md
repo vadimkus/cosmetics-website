@@ -80,7 +80,8 @@
 - 61 products with prices and IDs
 - 35+ ingredients with scientific details
 - 6 complete skincare routines by skin type
-- 12 skin concern protocols
+- 12 skin concern protocols (with concern page cross-references)
+- 8 Skin Concern page URLs with usage instructions
 - 30+ partner salon locations
 - Brand story, technologies, certifications
 - Multi-language support (EN, AR, RU)
@@ -88,6 +89,7 @@
 **Key Features:**
 - GPT-4o-mini powered beauty advisor (Genie)
 - Product recommendations with Add to Cart links
+- **Skin Concern page linking** — trained to direct users to curated concern pages with routines
 - Educational skincare facts and ingredient science
 - Bundle Builder & AI Skin Analysis promotion
 - Rate limiting (10/min, 100/day per IP)
@@ -375,7 +377,8 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-18.md](./SESSION_CHANGES_2026-02-18.md) | **NEW** Sun-protection page overhaul — product filtering fix, embedded AM/PM skincare routine, SPF badges, "Why" highlights, protocol PDF, expanded FAQ, corporate color on open steps |
+| [SESSION_CHANGES_2026-02-19.md](./SESSION_CHANGES_2026-02-19.md) | **NEW** Concern page product refinement (page-specific keys), scoring algo overhaul (MAX=4, threshold=30), routine essentials, 8 protocol rework, Skin Concern category (web+native), native concerns screen, Genie chatbot training, Browse by Concern CTAs, PDRN mask video |
+| [SESSION_CHANGES_2026-02-18.md](./SESSION_CHANGES_2026-02-18.md) | Sun-protection page overhaul — product filtering fix, embedded AM/PM skincare routine, SPF badges, "Why" highlights, protocol PDF, expanded FAQ, corporate color on open steps |
 | [SESSION_CHANGES_2026-02-15.md](./SESSION_CHANGES_2026-02-15.md) | MoySklad refactor (auto→manual push), PCS gallery images, duplicate discount fix, MoySklad delivery mapping, GSC structured data fixes (shippingDetails, priceValidUntil, audience), SPF 50+ product video |
 | [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md) | Part 1: lastLoginSource fix; Part 2: **full activity tracking rework**; Part 3: **native app gallery image fix**; Part 4: **product 5 gallery DB update** (static file vs DB) |
 | [SESSION_CHANGES_2026-02-13.md](./SESSION_CHANGES_2026-02-13.md) | Native app productConfig fix, category pill badges, email duplicate discount fix, product 27/31/40/52 content (videos, images), native app video sound fix, **product documentation API fix** |
@@ -460,4 +463,4 @@ cosmetics-website/
 
 ---
 
-*Last updated: February 18, 2026*
+*Last updated: February 19, 2026*

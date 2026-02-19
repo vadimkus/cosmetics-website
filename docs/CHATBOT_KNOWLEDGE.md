@@ -5,7 +5,7 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 **File:** `lib/chatbot/config.ts`  
 **Size:** ~1,788 lines | 86 KB | ~24,000 tokens  
 **Model:** GPT-4o-mini (128K context window)  
-**Last Updated:** January 28, 2026
+**Last Updated:** February 19, 2026
 
 ---
 
@@ -782,6 +782,27 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 - Customer has multiple concerns
 - Customer says "I don't know what I need"
 - After any recommendation for confirmation
+
+### Skin Concern Pages (NEW — Feb 19, 2026)
+- **Browse All:** genosys.ae/products?categories=skin-concern
+- **8 dedicated pages** with curated products, AM/PM routines, and protocol PDFs:
+
+| Concern | URL |
+|---------|-----|
+| Sun Protection | genosys.ae/products/concern/sun-protection |
+| Acne & Blemishes | genosys.ae/products/concern/acne-treatment |
+| Pigmentation | genosys.ae/products/concern/pigmentation |
+| Scars & Repair | genosys.ae/products/concern/scars-treatment |
+| Hair Loss | genosys.ae/products/concern/hair-loss |
+| Anti-Aging | genosys.ae/products/concern/anti-aging |
+| Hydration | genosys.ae/products/concern/hydration |
+| Sensitive Skin | genosys.ae/products/concern/sensitivity |
+
+**Chatbot behavior:**
+- Links matching concern page when customer mentions a skin concern
+- Cross-references concern pages from protocol sections and product line sections
+- Suggests browsing all concerns when customer has multiple issues
+- Example: "Check out our [Acne Treatment](https://genosys.ae/products/concern/acne-treatment) page for a curated selection and full routine!"
 
 ### Image Library (for visual responses)
 Categories available:

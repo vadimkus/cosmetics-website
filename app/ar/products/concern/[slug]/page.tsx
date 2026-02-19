@@ -111,7 +111,7 @@ export default async function ArabicConcernPage({ params }: { params: Promise<{ 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-10 sm:py-14 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <nav className="text-sm text-gray-500 mb-4">
+          <nav className="hidden sm:block text-sm text-gray-500 mb-4">
             <Link href="/ar" className="hover:text-gray-700">الرئيسية</Link>
             <span className="mx-2">/</span>
             <Link href="/ar/products" className="hover:text-gray-700">المنتجات</Link>

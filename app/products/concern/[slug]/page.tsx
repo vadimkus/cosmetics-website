@@ -127,7 +127,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-gray-50 to-white py-10 sm:py-14 px-4">
         <div className="max-w-6xl mx-auto text-center">
-          <nav className="text-sm text-gray-500 mb-4">
+          <nav className="hidden sm:block text-sm text-gray-500 mb-4">
             <Link href="/" className="hover:text-gray-700">Home</Link>
             <span className="mx-2">/</span>
             <Link href="/products" className="hover:text-gray-700">Products</Link>

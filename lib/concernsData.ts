@@ -2424,6 +2424,20 @@ export const CONCERN_PAGES: ConcernPage[] = [
     concernKeys: ['page-sensitivity'],
     categoryFallbacks: [],
     relatedConcerns: ['hydration', 'sun-protection', 'acne-treatment'],
+    protocolPdf: {
+      url: '/documents/PPT/Protocol_Sensitive.pdf',
+      title: {
+        en: 'Sensitive Skin Home Care Protocol',
+        ar: 'بروتوكول العناية المنزلية بالبشرة الحساسة',
+        ru: 'Протокол домашнего ухода для чувствительной кожи',
+      },
+      description: {
+        en: 'Complete morning & evening routine for sensitive skin — barrier repair, calming actives, product sets by sensitivity level, and UAE climate protection tips.',
+        ar: 'روتين صباحي ومسائي كامل للبشرة الحساسة — إصلاح الحاجز، مكونات مهدئة، مجموعات منتجات حسب مستوى الحساسية، ونصائح للحماية في مناخ الإمارات.',
+        ru: 'Полный утренний и вечерний уход для чувствительной кожи — восстановление барьера, успокаивающие компоненты, наборы по степени чувствительности и защита в климате ОАЭ.',
+      },
+      fileSize: '164 KB',
+    },
     why: {
       en: {
         title: 'Why Sensitive Skin Is So Common in the UAE',

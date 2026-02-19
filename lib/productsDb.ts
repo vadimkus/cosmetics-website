@@ -547,3 +547,14 @@ export async function getProductsByConcern(
 // Note: getProductsByCategory already exists at the top of this file (line ~64)
 // It's used by both the admin API and the new SEO landing pages.
 
+export async function getProductsByNumbers(productNumbers: string[]): Promise<Product[]> {
+  if (productNumbers.length === 0) return []
+  try {
+    const allProducts = await getAllProducts()
+    return allProducts.filter(p => p.productNumber && productNumbers.includes(String(p.productNumber)))
+  } catch (error) {
+    errorLog('Error fetching products by numbers:', error)
+    return []
+  }
+}
+

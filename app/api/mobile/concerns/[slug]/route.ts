@@ -49,35 +49,56 @@ export async function GET(
 
     debugLog(`[CONCERNS_API] Fetching concern: ${slug}, locale: ${validLocale}`)
 
-    // Fetch and enhance products
+    // Extract all product numbers referenced in routine steps (all locales)
+    const routineProductNumbers = new Set<string>()
+    for (const localeRoutines of Object.values(concern.routine || {})) {
+      for (const section of localeRoutines as { steps: { products: { url: string }[] }[] }[]) {
+        for (const step of section.steps) {
+          for (const p of step.products) {
+            const m = p.url?.match(/\/products\/(\d+)/)
+            if (m?.[1]) routineProductNumbers.add(m[1])
+          }
+        }
+      }
+    }
+
+    // Fetch and enhance concern-matched products
     const rawProducts = await getProductsByConcern(concern.concernKeys, concern.categoryFallbacks)
     const productIds = rawProducts.map(p => String(p.id))
 
+    const productSelect = {
+      id: true, productNumber: true, name: true, nameRu: true, nameAr: true,
+      price: true, description: true, descriptionRu: true, descriptionAr: true,
+      image: true, images: true, category: true, inStock: true, rating: true,
+      size: true, noDiscount: true, isPriceOnRequest: true, createdAt: true, updatedAt: true,
+      skinType: true, targetConcerns: true, usage: true, ageGroup: true,
+      productDetails: true, keyFeatures: true, benefits: true, ingredients: true,
+      howToUse: true, directions: true, videoUrl: true,
+      variants: {
+        select: { id: true, size: true, color: true, price: true, available: true, isDefault: true, stockQuantity: true },
+        orderBy: [{ isDefault: 'desc' as const }, { price: 'asc' as const }],
+      },
+    }
+
     const dbProducts = productIds.length > 0
-      ? await prisma.product.findMany({
-          where: { id: { in: productIds }, isHidden: false },
-          select: {
-            id: true, productNumber: true, name: true, nameRu: true, nameAr: true,
-            price: true, description: true, descriptionRu: true, descriptionAr: true,
-            image: true, images: true, category: true, inStock: true, rating: true,
-            size: true, noDiscount: true, isPriceOnRequest: true, createdAt: true, updatedAt: true,
-            skinType: true, targetConcerns: true, usage: true, ageGroup: true,
-            productDetails: true, keyFeatures: true, benefits: true, ingredients: true,
-            howToUse: true, directions: true, videoUrl: true,
-            variants: {
-              select: { id: true, size: true, color: true, price: true, available: true, isDefault: true, stockQuantity: true },
-              orderBy: [{ isDefault: 'desc' }, { price: 'asc' }],
-            },
-          },
-        })
+      ? await prisma.product.findMany({ where: { id: { in: productIds }, isHidden: false }, select: productSelect })
       : []
 
-    const enhanced = generateBatchEnhancedProductData(dbProducts, null)
+    // Fetch routine-referenced products that weren't already included
+    const existingNumbers = new Set(dbProducts.map(p => String(p.productNumber || '')))
+    const missingNumbers = Array.from(routineProductNumbers).filter(n => !existingNumbers.has(n))
+
+    const routineDbProducts = missingNumbers.length > 0
+      ? await prisma.product.findMany({ where: { productNumber: { in: missingNumbers }, isHidden: false }, select: productSelect })
+      : []
+
+    const allDbProducts = [...dbProducts, ...routineDbProducts]
+    const enhanced = generateBatchEnhancedProductData(allDbProducts, null)
     const wantAr = validLocale === 'ar'
     const wantRu = validLocale === 'ru'
 
     const products = enhanced.map((p) => {
-      const db = dbProducts.find(d => String(d.id) === String(p.id))
+      const db = allDbProducts.find(d => String(d.id) === String(p.id))
       const pNum = String(db?.productNumber || p.id || '').trim()
       const fileTr = wantAr ? getProductTranslations(pNum) : wantRu ? getProductTranslationsRu(pNum) : null
       const localizedName = (wantAr ? db?.nameAr : wantRu ? db?.nameRu : null) || p.name || ''

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
 import { getConcernBySlug, getAllConcernSlugs, CONCERN_PAGES } from '@/lib/concernsData'
-import { getProductsByConcern } from '@/lib/productsDb'
+import { getProductsByConcern, getProductsByNumbers } from '@/lib/productsDb'
 import ConcernProductGrid from '@/components/ConcernProductGrid'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import CollectionPageSchema from '@/components/schema/CollectionPageSchema'
@@ -96,12 +96,33 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
   const why = concern.why?.en
   const routine = concern.routine?.en
   
+  // Extract productNumbers from routine steps and fetch any missing ones
+  const routineNums = new Set<string>()
+  if (routine) {
+    for (const section of routine) {
+      for (const step of section.steps) {
+        for (const p of step.products) {
+          const m = p.url?.match(/\/products\/(\d+)/)
+          if (m?.[1]) routineNums.add(m[1])
+        }
+      }
+    }
+  }
+  const existingNums = new Set(products.map(p => String(p.productNumber || '')))
+  const missingNums = Array.from(routineNums).filter(n => !existingNums.has(n))
+  const routineProducts = missingNums.length > 0 ? await getProductsByNumbers(missingNums) : []
+  const allProducts = [...products, ...routineProducts]
+
   // Get related concerns for cross-linking
   const relatedConcerns = concern.relatedConcerns
     .map(s => CONCERN_PAGES.find(c => c.slug === s))
     .filter(Boolean)
 
-  const productById = new Map(products.map(p => [String(p.id), p]))
+  const productById = new Map<string, Product>()
+  for (const p of allProducts) {
+    productById.set(String(p.id), p)
+    if (p.productNumber) productById.set(String(p.productNumber), p)
+  }
 
   return (
     <div className="min-h-screen bg-white">

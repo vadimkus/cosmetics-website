@@ -14,6 +14,7 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
+| 🟡 **Important** | [SESSION_CHANGES_2026-02-19_part2.md](./SESSION_CHANGES_2026-02-19_part2.md) | Routine add-to-cart, native screens, ID fix, TestFlight 64 |
 | 🟢 **Feature** | [CHATBOT_SETUP.md](./CHATBOT_SETUP.md) | AI Chatbot setup and configuration |
 | 🟢 **Feature** | [AI_EXPERT_ANALYSIS.md](./AI_EXPERT_ANALYSIS.md) | AI Expert Skin Analysis with GPT-4o vision |
 
@@ -145,10 +146,10 @@
 | Detail | Value |
 |--------|-------|
 | App Name | Genosys UAE |
-| Version | 1.1.0 |
+| Version | 1.5.0 (Build 64) |
 | Apple ID | 6756648064 |
 | SKU | GENOSYSUAE001 |
-| Status | **Live on App Store** (Feb 9, 2026) |
+| Status | **Live on App Store** · TestFlight Build 64 (Feb 19, 2026) |
 
 **Website Integration:**
 - App Store badge on homepage (Hero component)
@@ -162,6 +163,25 @@
 | File | Description |
 |------|-------------|
 | [AUTH_PAGES.md](./AUTH_PAGES.md) | **NEW** Forgot/reset password pages, API, security |
+
+---
+
+### 🧴 Skin Concern Pages — Interactive Routine
+
+All 8 skin concern pages have interactive routine product chips:
+
+| Platform | Action | Result |
+|----------|--------|--------|
+| Desktop / Mobile Web / PWA | Single click | Toggle add/remove from cart |
+| Desktop / Mobile Web / PWA | Long press / Right-click | Navigate to product page |
+| Native App (iOS/Android) | Single tap | Toggle add/remove from cart (with toast + haptic) |
+| Native App (iOS/Android) | Long press (500ms) | Navigate to product page |
+
+**Visual feedback:** Green background + checkmark icon when product is in cart.
+
+**Technical:** Products are matched by `productNumber` (from URL `/products/10`) to full product objects. The API and web pages both fetch routine-referenced products that may not be in the concern-matched set.
+
+**Key files:** `components/RoutineProductChip.tsx` (web), `app/concern-detail.js` (native), `app/api/mobile/concerns/[slug]/route.ts` (API)
 
 ---
 
@@ -377,7 +397,8 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-19.md](./SESSION_CHANGES_2026-02-19.md) | **NEW** Concern page product refinement (page-specific keys), scoring algo overhaul (MAX=4, threshold=30), routine essentials, 8 protocol rework, Skin Concern category (web+native), native concerns screen, Genie chatbot training, Browse by Concern CTAs, PDRN mask video |
+| [SESSION_CHANGES_2026-02-19_part2.md](./SESSION_CHANGES_2026-02-19_part2.md) | **NEW** Concern detail API, native concern-detail screen, native training screen, routine add-to-cart (tap toggle + long-press navigate), product ID mismatch fix (CUID vs productNumber), breadcrumb hiding, toast messages, TestFlight build 64 |
+| [SESSION_CHANGES_2026-02-19.md](./SESSION_CHANGES_2026-02-19.md) | Concern page product refinement (page-specific keys), scoring algo overhaul (MAX=4, threshold=30), routine essentials, 8 protocol rework, Skin Concern category (web+native), native concerns screen, Genie chatbot training, Browse by Concern CTAs, PDRN mask video |
 | [SESSION_CHANGES_2026-02-18.md](./SESSION_CHANGES_2026-02-18.md) | Sun-protection page overhaul — product filtering fix, embedded AM/PM skincare routine, SPF badges, "Why" highlights, protocol PDF, expanded FAQ, corporate color on open steps |
 | [SESSION_CHANGES_2026-02-15.md](./SESSION_CHANGES_2026-02-15.md) | MoySklad refactor (auto→manual push), PCS gallery images, duplicate discount fix, MoySklad delivery mapping, GSC structured data fixes (shippingDetails, priceValidUntil, audience), SPF 50+ product video |
 | [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md) | Part 1: lastLoginSource fix; Part 2: **full activity tracking rework**; Part 3: **native app gallery image fix**; Part 4: **product 5 gallery DB update** (static file vs DB) |
@@ -463,4 +484,4 @@ cosmetics-website/
 
 ---
 
-*Last updated: February 19, 2026*
+*Last updated: February 19, 2026 (Part 2)*

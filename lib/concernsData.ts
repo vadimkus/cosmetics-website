@@ -1424,6 +1424,19 @@ export const CONCERN_PAGES: ConcernPage[] = [
     concernKeys: ['hair', 'hair-loss'],
     categoryFallbacks: [],
     relatedConcerns: ['sensitivity', 'anti-aging'],
+    protocolPdf: {
+      url: '/documents/PPT/Protocol_Hair_Loss.pdf',
+      title: {
+        en: 'Hair Loss & Scalp Care Home Protocol',
+        ar: 'بروتوكول العناية المنزلية بتساقط الشعر وفروة الرأس',
+        ru: 'Протокол домашнего ухода при выпадении волос',
+      },
+      description: {
+        en: 'Complete scalp care routine with HR³ Matrix system — peptide scalp treatment, growth-boosting steps, product sets by hair loss stage, and UAE climate tips.',
+        ar: 'روتين كامل للعناية بفروة الرأس مع نظام HR³ Matrix — علاج فروة الرأس بالببتيدات، خطوات تعزيز النمو، مجموعات منتجات حسب مرحلة التساقط، ونصائح لمناخ الإمارات.',
+        ru: 'Полный уход за кожей головы с системой HR³ Matrix — пептидное лечение, этапы стимуляции роста, наборы по стадии выпадения и советы для климата ОАЭ.',
+      },
+    },
     why: {
       en: {
         title: 'Why Hair Loss Needs a Targeted Approach in the UAE',

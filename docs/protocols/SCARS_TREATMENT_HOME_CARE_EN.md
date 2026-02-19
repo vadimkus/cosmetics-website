@@ -126,50 +126,42 @@ Seal in the EGF cream with a thin layer of barrier cream. This final step:
 
 ---
 
-## Recommended Sets by Scar Type
+## Recommended Product Sets
 
-### Post-Acne Marks (PIH/PIE) — "Fade & Repair" Set
-*Flat discolouration, red or brown marks after breakouts*
-
-| Product | Price |
-|---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SNOW BOOSTER | 260 AED |
-| MOISTURE REPLENISHING HYALURON SERUM | 330 AED |
-| SOOTHING REPAIR POSTCREAM | 204 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **1,374 AED** |
-
-### Active Scars — "Full Repair" Set
-*Fresh scars, post-surgical, or recent trauma (2–6 months old)*
+### Essential — "Repair Starter" Set
+*Post-acne marks, mild scarring, barrier support*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SKIN DEFENDER MAKEUP REMOVER | 290 AED |
-| SNOW BOOSTER | 260 AED |
 | MOISTURE REPLENISHING HYALURON SERUM | 330 AED |
 | SOOTHING REPAIR POSTCREAM | 204 AED |
-| EGF REPAIR OXYMASK CREAM | 290 AED |
 | SKIN BARRIER PROTECTING CREAM | 450 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **2,404 AED** |
+| **Set Total** | **984 AED** |
 
-### Intensive Repair — "Complete Scar Care" Set
-*Older scars, atrophic/hypertrophic, or stubborn PIH*
+### Complete — "Full Repair" Set
+*Active scars, post-surgical recovery, texture improvement*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SKIN DEFENDER MAKEUP REMOVER | 290 AED |
-| SNOW BOOSTER | 260 AED |
-| MOISTURE REPLENISHING HYALURON SERUM | 330 AED |
-| SOOTHING REPAIR POSTCREAM | 204 AED |
 | EPI TURNOVER BOOSTING PEELING GEL | 250 AED |
+| MOISTURE REPLENISHING HYALURON SERUM | 330 AED |
+| SOOTHING REPAIR POSTCREAM | 204 AED |
 | EGF REPAIR OXYMASK CREAM | 290 AED |
 | SKIN BARRIER PROTECTING CREAM | 450 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **2,654 AED** |
+| **Set Total** | **1,524 AED** |
+
+### Professional — "Intensive Scar Care" Set
+*Stubborn scars, atrophic/hypertrophic, accelerated remodelling*
+
+| Product | Price |
+|---------|-------|
+| EPI TURNOVER BOOSTING PEELING GEL | 250 AED |
+| Microneedle Roller | 230 AED |
+| MOISTURE REPLENISHING HYALURON SERUM | 330 AED |
+| SOOTHING REPAIR POSTCREAM | 204 AED |
+| EGF REPAIR OXYMASK CREAM | 290 AED |
+| SKIN BARRIER PROTECTING CREAM | 450 AED |
+| **Set Total** | **1,754 AED** |
 
 > 💡 **Tip:** Orders over 1,000 AED qualify for free shipping on genosys.ae
 

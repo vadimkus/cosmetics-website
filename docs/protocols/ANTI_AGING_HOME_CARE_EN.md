@@ -152,50 +152,47 @@ Spray 2–3 times from 20 cm throughout the day, especially after AC exposure. A
 
 ---
 
-## Recommended Sets by Age & Severity
+## Recommended Product Sets
 
-### Prevention Set — "Early Defense" (30s)
+### Essential — "Early Defense" Set
 *Prevent premature aging, maintain youthful skin*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SNOW BOOSTER | 260 AED |
 | MULTI FUNCTIONAL ANTI-WRINKLE SERUM | 330 AED |
 | MULTI FUNCTIONAL ANTI-WRINKLE CREAM | 290 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **1,460 AED** |
+| EyeCell EYE CONTOUR CREAM | 370 AED |
+| POWER SOLUTION AWS | 580 AED |
+| **Set Total** | **1,570 AED** |
 
-### Active Treatment Set — "Age Control" (40s)
+### Complete — "Age Control" Set
 *Visible fine lines, early wrinkles, loss of elasticity*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SKIN DEFENDER MAKEUP REMOVER | 290 AED |
-| SNOW BOOSTER | 260 AED |
 | MULTI FUNCTIONAL ANTI-WRINKLE SERUM | 330 AED |
 | MULTI FUNCTIONAL ANTI-WRINKLE CREAM | 290 AED |
-| EGF REPAIR OXYMASK CREAM | 290 AED |
-| EPI TURNOVER PEELING GEL | 250 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **2,290 AED** |
+| ND Cell ANTI-WRINKLE CREAM | 370 AED |
+| EyeCell EYE CONTOUR CREAM | 370 AED |
+| PEPTIDE GEL MASK | 380 AED |
+| POWER SOLUTION AWS | 580 AED |
+| **Set Total** | **2,320 AED** |
 
-### Intensive Set — "Deep Repair" (50+)
+### Professional — "Deep Repair" Set
 *Deep wrinkles, significant sagging, advanced aging signs*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SKIN DEFENDER MAKEUP REMOVER | 290 AED |
-| SNOW BOOSTER | 260 AED |
 | MULTI FUNCTIONAL ANTI-WRINKLE SERUM | 330 AED |
+| MULTI FUNCTIONAL ANTI-WRINKLE CREAM | 290 AED |
 | ND Cell ANTI-WRINKLE CREAM | 370 AED |
-| EGF REPAIR OXYMASK CREAM | 290 AED |
-| SKIN RESCUE OVERNIGHT CREAM MASK | 340 AED |
-| EPI TURNOVER PEELING GEL | 250 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **2,710 AED** |
+| EyeCell EYE CONTOUR CREAM | 370 AED |
+| PEPTIDE GEL MASK | 380 AED |
+| POWER SOLUTION AWS | 580 AED |
+| BIO-FERMENT AGE DEFYING POWDER MASK | 250 AED |
+| Bio Meso PDRN Ampoule 60000 | Price on request |
+| SKIN REBOOT PDRN MASK PACK | 400 AED |
+| **Set Total** | **3,370 AED+** |
 
 > 💡 **Tip:** Orders over 1,000 AED qualify for free shipping on genosys.ae
 

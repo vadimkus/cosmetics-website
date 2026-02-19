@@ -144,42 +144,44 @@ Contains concentrated actives and application tools. Use as directed by your GEN
 
 ---
 
-## Recommended Sets by Severity
+## Recommended Product Sets
 
-### Prevention — "Maintenance" Set
+### Essential — "Maintenance" Set
 *Mild thinning, early-stage hair loss, preventive care*
 
 | Product | Price |
 |---------|-------|
-| HR3 MATRIX SHAMPOO | 340 AED |
-| HR3 MATRIX TONIC | 290 AED |
-| SCALP BRUSH | 50 AED |
+| HR³ MATRIX MEDI SCALP SHAMPOO α | 340 AED |
+| HR³ MATRIX HAIR TONIC α | 290 AED |
+| HR³ MATRIX SCALP BRUSH | 50 AED |
 | **Set Total** | **680 AED** |
 
-### Active Treatment — "Full System" Set
+### Complete — "Full System" Set
 *Moderate hair loss, visible thinning, active shedding*
 
 | Product | Price |
 |---------|-------|
-| HR3 MATRIX SHAMPOO | 340 AED |
-| HR3 MATRIX TONIC | 290 AED |
-| HR3 MATRIX SOLUTION | 740 AED |
-| HR3 SCALP PEELING | 290 AED |
-| SCALP BRUSH | 50 AED |
+| HR³ MATRIX MEDI SCALP SHAMPOO α | 340 AED |
+| HR³ MATRIX HAIR TONIC α | 290 AED |
+| HR³ MATRIX HAIR SOLUTION α | 740 AED |
+| HR³ MATRIX SCALP PEELING α | 290 AED |
+| HR³ MATRIX SCALP BRUSH | 50 AED |
 | **Set Total** | **1,710 AED** |
 
-### Intensive Recovery — "Maximum Strength" Set
-*Severe hair loss, post-procedure recovery, accelerated treatment*
+### Professional — "Maximum Strength" Set
+*Severe hair loss, accelerated treatment, device-assisted recovery*
 
 | Product | Price |
 |---------|-------|
-| HR3 MATRIX SHAMPOO | 340 AED |
-| HR3 MATRIX TONIC | 290 AED |
-| HR3 MATRIX SOLUTION | 740 AED |
-| HR3 SCALP PEELING | 290 AED |
-| HR3 MESOPECIA KIT | 1,100 AED |
-| SCALP BRUSH | 50 AED |
-| **Set Total** | **2,810 AED** |
+| HR³ MATRIX MEDI SCALP SHAMPOO α | 340 AED |
+| HR³ MATRIX HAIR TONIC α | 290 AED |
+| HR³ MATRIX HAIR SOLUTION α | 740 AED |
+| HR³ MATRIX SCALP PEELING α | 290 AED |
+| HR³ MATRIX MESOPECIA KIT | 1,100 AED |
+| HR³ MATRIX SCALP BRUSH | 50 AED |
+| HairGen BOOSTER | 1,800 AED |
+| Hair-GENTRON | 3,300 AED |
+| **Set Total** | **7,910 AED** |
 
 > 💡 **Tip:** Orders over 1,000 AED qualify for free shipping on genosys.ae
 

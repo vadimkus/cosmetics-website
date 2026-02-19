@@ -143,48 +143,47 @@ Contains pre/probiotics that support skin's natural microbiome — a healthy mic
 
 ---
 
-## Recommended Sets by Severity
+## Recommended Product Sets
 
-### Mild Sensitivity — "Calm Start" Set
+### Essential — "Calm Start" Set
 *Occasional redness, mild reactivity to products or environment*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SNOW BOOSTER | 260 AED |
 | ALL FOR SENSITIVE SERUM | 330 AED |
-| HYDRO SOOTHING CREAM | 290 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **1,460 AED** |
+| INTENSIVE HYDRO SOOTHING CREAM | 290 AED |
+| SOOTHING REPAIR POSTCREAM | 204 AED |
+| MICROBIOME ENERGY INFUSING MIST | 160 AED |
+| **Set Total** | **984 AED** |
 
-### Moderate Reactivity — "Barrier Repair" Set
+### Complete — "Barrier Repair" Set
 *Regular sensitivity reactions, barrier damage, post-procedure recovery*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SNOW BOOSTER | 260 AED |
 | ALL FOR SENSITIVE SERUM | 330 AED |
+| INTENSIVE HYDRO SOOTHING CREAM | 290 AED |
 | SKIN BARRIER PROTECTING CREAM | 450 AED |
 | SOOTHING REPAIR POSTCREAM | 204 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
 | MICROBIOME ENERGY INFUSING MIST | 160 AED |
-| **Set Total** | **1,974 AED** |
+| POWER SOLUTION CVS | 580 AED |
+| **Set Total** | **2,014 AED** |
 
-### Acute/Post-Procedure Recovery — "Intensive Soothing" Set
+### Professional — "Intensive Soothing" Set
 *Severe sensitivity, active inflammation, post-laser/peel recovery*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SNOW BOOSTER | 260 AED |
 | ALL FOR SENSITIVE SERUM | 330 AED |
+| INTENSIVE HYDRO SOOTHING CREAM | 290 AED |
 | SKIN BARRIER PROTECTING CREAM | 450 AED |
 | SOOTHING REPAIR POSTCREAM | 204 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
 | MICROBIOME ENERGY INFUSING MIST | 160 AED |
-| PEPTIDE GEL MASK | 380 AED |
-| **Set Total** | **2,354 AED** |
+| POWER SOLUTION CVS | 580 AED |
+| HYDRO COOL MODELING MASK | 300 AED |
+| SOOTHING BOMB SEA ALGAE MASK | 36 AED |
+| SENSITIVE SKIN BEAUTY BOX | 1,442 AED |
+| **Set Total** | **3,792 AED** |
 
 > 💡 **Tip:** Orders over 1,000 AED qualify for free shipping on genosys.ae
 

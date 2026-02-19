@@ -129,7 +129,7 @@ const ProductFilters = memo(function ProductFilters({
                   </button>
                   {expandedSections.category && (
                     <div className="space-y-2">
-                      {categories.map((category) => (
+                      {categories.filter(c => c.id !== 'all').map((category) => (
                         <label
                           key={category.id}
                           className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer hover:text-primary-600"

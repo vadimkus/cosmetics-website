@@ -22,9 +22,11 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { CONCERN_PAGES } from '@/lib/concernsData'
 
 const getCategories = (t: (key: string) => string): Array<{ id: string; name: string }> => [
   { id: 'all', name: t('products.allProducts') },
+  { id: 'skin-concern', name: t('products.skinConcern') },
   { id: 'microneedling', name: t('products.microneedling') },
   { id: 'pro-solution', name: t('products.proSolution') },
   { id: 'cleanser', name: t('products.cleanser') },
@@ -412,18 +414,22 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                   key={category.id}
                   type="button"
                   onClick={() => {
-                    // Use functional update for stable state updates
                     if (category.id === 'all') {
                       setFilters(prev => ({
                         ...prev,
                         categories: []
+                      }))
+                    } else if (category.id === 'skin-concern') {
+                      setFilters(prev => ({
+                        ...prev,
+                        categories: prev.categories.includes('skin-concern') ? [] : ['skin-concern']
                       }))
                     } else {
                       setFilters(prev => {
                         const wasActive = prev.categories.includes(category.id)
                         const newCategories = wasActive
                           ? prev.categories.filter(c => c !== category.id)
-                          : [...prev.categories.filter(c => c !== 'all'), category.id]
+                          : [...prev.categories.filter(c => c !== 'all'), category.id].filter(c => c !== 'skin-concern')
                         return {
                           ...prev,
                           categories: newCategories
@@ -441,7 +447,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                     WebkitTapHighlightColor: 'transparent'
                   }}
                 >
-                  {(category.id === 'beauty-boxes' || category.id === 'cream') && (
+                  {(category.id === 'beauty-boxes' || category.id === 'cream' || category.id === 'skin-concern') && (
                     <span className={`absolute -top-2 left-1/2 -translate-x-1/2 text-[8px] font-bold px-1.5 py-0.5 rounded-full ${
                       isActive 
                         ? 'bg-white text-primary-600' 
@@ -469,114 +475,159 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
 
           {/* Products Section */}
           <div className="flex-1">
-            {/* Results Header with Sort */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 products-header">
-              <div className="text-sm text-gray-600">
-                {filteredAndSortedProducts.length === products.length ? (
-                  <span>{t('products.showingAll', { count: filteredAndSortedProducts.length })}</span>
-                ) : (
-                  <span>
-                    {t('products.showing', { filtered: filteredAndSortedProducts.length, total: products.length })}
-                    {(searchQuery || filters.categories.length > 0 || filters.minRating > 0 || filters.inStockOnly) && (
-                      <button
-                        onClick={() => {
-                          setSearchQuery('')
-                          setFilters({
-                            categories: [],
-                            priceRange: [priceRange.min, priceRange.max],
-                            minRating: 0,
-                            inStockOnly: false
-                          })
-                        }}
-                        className="ml-2 text-primary-600 hover:text-primary-700 underline products-clear-filters"
+            {filters.categories.includes('skin-concern') ? (
+              /* Skin Concern Cards Grid */
+              <div>
+                <h2 className="text-xl font-bold text-gray-900 mb-1 text-center">
+                  {locale === 'ar' ? 'اختاري مشكلة بشرتك' : locale === 'ru' ? 'Выберите проблему кожи' : 'Choose Your Skin Concern'}
+                </h2>
+                <p className="text-sm text-gray-500 mb-5 text-center">
+                  {locale === 'ar' ? 'منتجات وبروتوكولات مخصصة لكل مشكلة' : locale === 'ru' ? 'Персональные продукты и протоколы для каждой проблемы' : 'Personalized products & protocols for every concern'}
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+                  {CONCERN_PAGES.map((concern) => {
+                    const seo = locale === 'ar' ? concern.seo.ar : locale === 'ru' ? concern.seo.ru : concern.seo.en
+                    const heroShort = seo.heroShort
+                    return (
+                      <Link
+                        key={concern.slug}
+                        href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
+                        className="group block rounded-2xl border border-gray-100 bg-white p-4 sm:p-5 shadow-sm hover:shadow-lg hover:border-primary-300 transition-all duration-200"
                       >
-                        {t('products.clearFilters')}
-                      </button>
-                    )}
-                  </span>
-                )}
-              </div>
-              <div className="hidden md:block">
-                <ProductSort sortBy={sortBy} onSortChange={handleSortChange} />
-              </div>
-            </div>
-
-            {/* Build Your Set Banner - Show when Beauty Boxes category is selected */}
-            {filters.categories.includes('beauty-boxes') && (
-              <div className="mb-6">
-                <BuildYourSetBanner />
-              </div>
-            )}
-
-            {/* Products Grid */}
-            {filteredAndSortedProducts.length > 0 ? (
-              // Disable motion wrapper animations in PWA mode to prevent touch event interference
-              isPWA ? (
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6">
-                  {filteredAndSortedProducts.map((product) => (
-                    <div key={product.id}>
-                      <ProductCard product={product} />
-                    </div>
-                  ))}
+                        {concern.icon && (
+                          <span className="text-3xl sm:text-4xl block mb-2">{concern.icon}</span>
+                        )}
+                        <h3 className="font-semibold text-gray-900 text-sm sm:text-base group-hover:text-primary-600 transition-colors leading-snug">
+                          {seo.h1}
+                        </h3>
+                        {heroShort && (
+                          <p className="text-xs text-gray-500 mt-1.5 line-clamp-2 leading-relaxed">
+                            {heroShort}
+                          </p>
+                        )}
+                        <span className="inline-flex items-center gap-1 text-xs font-medium text-primary-600 mt-3 group-hover:gap-2 transition-all">
+                          {locale === 'ar' ? 'اكتشف' : locale === 'ru' ? 'Подробнее' : 'Explore'}
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d={locale === 'ar' ? 'M19 12H5m0 0l7 7m-7-7l7-7' : 'M5 12h14m0 0l-7-7m7 7l-7 7'} />
+                          </svg>
+                        </span>
+                      </Link>
+                    )
+                  })}
                 </div>
-              ) : (
-                <motion.div 
-                  className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6"
-                  initial={animationsEnabled ? "hidden" : {}}
-                  animate={animationsEnabled ? "show" : {}}
-                  variants={animationsEnabled ? {
-                    hidden: { opacity: 0 },
-                    show: {
-                      opacity: 1,
-                      transition: {
-                        staggerChildren: 0.08,
-                        delayChildren: 0.1
-                      }
-                    }
-                  } : {}}
-                >
-                  {filteredAndSortedProducts.map((product) => (
-                    <motion.div
-                      key={product.id}
+              </div>
+            ) : (
+              /* Regular Products View */
+              <>
+                {/* Results Header with Sort */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 products-header">
+                  <div className="text-sm text-gray-600">
+                    {filteredAndSortedProducts.length === products.length ? (
+                      <span>{t('products.showingAll', { count: filteredAndSortedProducts.length })}</span>
+                    ) : (
+                      <span>
+                        {t('products.showing', { filtered: filteredAndSortedProducts.length, total: products.length })}
+                        {(searchQuery || filters.categories.length > 0 || filters.minRating > 0 || filters.inStockOnly) && (
+                          <button
+                            onClick={() => {
+                              setSearchQuery('')
+                              setFilters({
+                                categories: [],
+                                priceRange: [priceRange.min, priceRange.max],
+                                minRating: 0,
+                                inStockOnly: false
+                              })
+                            }}
+                            className="ml-2 text-primary-600 hover:text-primary-700 underline products-clear-filters"
+                          >
+                            {t('products.clearFilters')}
+                          </button>
+                        )}
+                      </span>
+                    )}
+                  </div>
+                  <div className="hidden md:block">
+                    <ProductSort sortBy={sortBy} onSortChange={handleSortChange} />
+                  </div>
+                </div>
+
+                {/* Build Your Set Banner - Show when Beauty Boxes category is selected */}
+                {filters.categories.includes('beauty-boxes') && (
+                  <div className="mb-6">
+                    <BuildYourSetBanner />
+                  </div>
+                )}
+
+                {/* Products Grid */}
+                {filteredAndSortedProducts.length > 0 ? (
+                  isPWA ? (
+                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6">
+                      {filteredAndSortedProducts.map((product) => (
+                        <div key={product.id}>
+                          <ProductCard product={product} />
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <motion.div 
+                      className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6"
+                      initial={animationsEnabled ? "hidden" : {}}
+                      animate={animationsEnabled ? "show" : {}}
                       variants={animationsEnabled ? {
-                        hidden: { opacity: 0, y: 30, scale: 0.9 },
-                        show: { 
-                          opacity: 1, 
-                          y: 0, 
-                          scale: 1,
-                          transition: { 
-                            duration: 0.4,
-                            ease: "easeOut"
+                        hidden: { opacity: 0 },
+                        show: {
+                          opacity: 1,
+                          transition: {
+                            staggerChildren: 0.08,
+                            delayChildren: 0.1
                           }
                         }
                       } : {}}
                     >
-                      <ProductCard product={product} />
+                      {filteredAndSortedProducts.map((product) => (
+                        <motion.div
+                          key={product.id}
+                          variants={animationsEnabled ? {
+                            hidden: { opacity: 0, y: 30, scale: 0.9 },
+                            show: { 
+                              opacity: 1, 
+                              y: 0, 
+                              scale: 1,
+                              transition: { 
+                                duration: 0.4,
+                                ease: "easeOut"
+                              }
+                            }
+                          } : {}}
+                        >
+                          <ProductCard product={product} />
+                        </motion.div>
+                      ))}
                     </motion.div>
-                  ))}
-                </motion.div>
-              )
-            ) : (
-              <div className="text-center py-12">
-                <p className="text-gray-600 text-lg mb-2">{t('products.noProductsFound')}</p>
-                <p className="text-gray-500 text-sm mb-4">
-                  {t('products.tryAdjustingFilters')}
-                </p>
-                <button
-                  onClick={() => {
-                    setSearchQuery('')
-                    setFilters({
-                      categories: [],
-                      priceRange: [priceRange.min, priceRange.max],
-                      minRating: 0,
-                      inStockOnly: false
-                    })
-                  }}
-                  className="text-primary-600 hover:text-primary-700 underline text-sm"
-                >
-                  {t('products.clearAllFilters')}
-                </button>
-              </div>
+                  )
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-gray-600 text-lg mb-2">{t('products.noProductsFound')}</p>
+                    <p className="text-gray-500 text-sm mb-4">
+                      {t('products.tryAdjustingFilters')}
+                    </p>
+                    <button
+                      onClick={() => {
+                        setSearchQuery('')
+                        setFilters({
+                          categories: [],
+                          priceRange: [priceRange.min, priceRange.max],
+                          minRating: 0,
+                          inStockOnly: false
+                        })
+                      }}
+                      className="text-primary-600 hover:text-primary-700 underline text-sm"
+                    >
+                      {t('products.clearAllFilters')}
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>

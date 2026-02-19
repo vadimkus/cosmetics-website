@@ -146,52 +146,46 @@ This mist:
 
 ---
 
-## Recommended Sets by Severity
+## Recommended Product Sets
 
-### Basic Hydration Set — "Daily Moisture"
+### Essential — "Daily Moisture" Set
 *Mild dehydration, occasional tightness*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SNOW BOOSTER | 260 AED |
 | MOISTURE REPLENISHING HYALURON SERUM | 330 AED |
 | MOISTURE REPLENISHING HYALURON CREAM | 290 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
 | MICROBIOME ENERGY INFUSING MIST | 160 AED |
-| **Set Total** | **1,620 AED** |
+| SNOW BOOSTER | 260 AED |
+| **Set Total** | **1,040 AED** |
 
-### Deep Hydration Set — "Intensive Repair"
+### Complete — "Intensive Hydration" Set
 *Moderate dehydration, barrier damage, persistent tightness*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SKIN DEFENDER MAKEUP REMOVER | 290 AED |
-| SNOW BOOSTER | 260 AED |
 | MOISTURE REPLENISHING HYALURON SERUM | 330 AED |
+| MOISTURE REPLENISHING HYALURON CREAM | 290 AED |
 | INTENSIVE HYDRO SOOTHING CREAM | 290 AED |
-| SKIN BARRIER PROTECTING CREAM | 450 AED |
-| SKIN RESCUE OVERNIGHT CREAM MASK | 340 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
 | MICROBIOME ENERGY INFUSING MIST | 160 AED |
-| **Set Total** | **2,700 AED** |
+| SKIN RESCUE OVERNIGHT CREAM MASK | 340 AED |
+| SNOW BOOSTER | 260 AED |
+| **Set Total** | **1,670 AED** |
 
-### Barrier Repair Set — "Complete Recovery"
-*Severe dehydration, compromised barrier, sensitivity, flakiness*
+### Professional — "Total Recovery" Set
+*Severe dehydration, compromised barrier, flakiness*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SKIN DEFENDER MAKEUP REMOVER | 290 AED |
-| SNOW BOOSTER | 260 AED |
 | MOISTURE REPLENISHING HYALURON SERUM | 330 AED |
+| MOISTURE REPLENISHING HYALURON CREAM | 290 AED |
 | INTENSIVE HYDRO SOOTHING CREAM | 290 AED |
-| SKIN BARRIER PROTECTING CREAM | 450 AED |
-| SKIN RESCUE OVERNIGHT CREAM MASK | 340 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
 | MICROBIOME ENERGY INFUSING MIST | 160 AED |
-| **Set Total** | **2,700 AED** |
+| SKIN RESCUE OVERNIGHT CREAM MASK | 340 AED |
+| SNOW BOOSTER | 260 AED |
+| POWER SOLUTION HES | 580 AED |
+| HYDRO COOL MODELING MASK | 300 AED |
+| **Set Total** | **2,550 AED** |
 
 > 💡 **Tip:** Orders over 1,000 AED qualify for free shipping on genosys.ae
 

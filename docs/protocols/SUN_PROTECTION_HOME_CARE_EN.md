@@ -176,61 +176,38 @@ Remove sunscreen thoroughly — SPF residue left on skin clogs pores.
 
 ---
 
-## Complete Recommended Sets by Lifestyle
+## Recommended Product Sets
 
-### "Dubai Commuter" — Everyday Office Protection
+### Essential — "Daily Shield" Set
+*Everyday sun protection for office and commute*
 
-For those who drive, commute, and spend most of the day indoors with air conditioning.
+| Product | Price |
+|---------|-------|
+| [MULTI SUN CREAM SPF 40](https://genosys.ae/products/40) | 210 AED |
+| [INTENSIVE BLEMISH BALM CREAM SPF 30](https://genosys.ae/products/42) | 250 AED |
+| **Set Total** | **460 AED** |
 
-| # | Step | Product | Price |
-|---|------|---------|-------|
-| 1 | Cleanse | [SNOW O₂ CLEANSER](https://genosys.ae/products/10) | 330 AED |
-| 2 | Tone | [SNOW BOOSTER](https://genosys.ae/products/16) | 260 AED |
-| 3 | Serum | [MOISTURE REPLENISHING HYALURON SERUM](https://genosys.ae/products/18) | 330 AED |
-| 4 | Sun Cream | [MULTI SUN CREAM SPF 40](https://genosys.ae/products/40) | 210 AED |
-| 5 | Refresh | [MICROBIOME ENERGY INFUSING MIST](https://genosys.ae/products/14) | 160 AED |
-| | **Total** | | **1,290 AED** |
+### Complete — "Full Coverage" Set
+*Outdoor activities, beach, sports + coverage + touch-ups*
 
-### "Sun Warrior" — Maximum Outdoor Protection
+| Product | Price |
+|---------|-------|
+| [ULTRA SHIELD SUN CREAM SPF 50+](https://genosys.ae/products/39) | 250 AED |
+| [MULTI SUN CREAM SPF 40](https://genosys.ae/products/40) | 210 AED |
+| [REVITA GLOW BLEMISH BALM CREAM SPF 38](https://genosys.ae/products/63) | 250 AED |
+| **Set Total** | **710 AED** |
 
-For those who spend significant time outdoors — beach, sports, pool, outdoor events.
+### Professional — "Maximum Protection" Set
+*Complete sun defence with all SPF products for every occasion*
 
-| # | Step | Product | Price |
-|---|------|---------|-------|
-| 1 | Cleanse | [SNOW O₂ CLEANSER](https://genosys.ae/products/10) | 330 AED |
-| 2 | Tone | [SNOW BOOSTER](https://genosys.ae/products/16) | 260 AED |
-| 3 | Serum | [ALL FOR SENSITIVE SERUM](https://genosys.ae/products/19) | 330 AED |
-| 4 | Sun Cream | [ULTRA SHIELD SUN CREAM SPF 50+](https://genosys.ae/products/39) | 250 AED |
-| 5 | Touch-Up | [SKIN CARING BB CUSHION SPF 50+](https://genosys.ae/products/41) | 300 AED |
-| 6 | Refresh | [MICROBIOME ENERGY INFUSING MIST](https://genosys.ae/products/14) | 160 AED |
-| | **Total** | | **1,630 AED** |
-
-### "Glow & Protect" — Sun Protection with Flawless Coverage
-
-For those who want UV defence combined with a beautiful, radiant finish.
-
-| # | Step | Product | Price |
-|---|------|---------|-------|
-| 1 | Cleanse | [SNOW O₂ CLEANSER](https://genosys.ae/products/10) | 330 AED |
-| 2 | Tone | [SNOW BOOSTER](https://genosys.ae/products/16) | 260 AED |
-| 3 | Serum | [MULTI VITA RADIANCE SERUM](https://genosys.ae/products/21) | 330 AED |
-| 4 | BB Cream | [REVITA GLOW BB CREAM SPF 38](https://genosys.ae/products/63) | 250 AED |
-| 5 | Refresh | [MICROBIOME ENERGY INFUSING MIST](https://genosys.ae/products/14) | 160 AED |
-| | **Total** | | **1,330 AED** |
-
-### "Anti-Aging Shield" — Prevent Photoaging
-
-For those focused on preventing and reversing UV-induced aging signs.
-
-| # | Step | Product | Price |
-|---|------|---------|-------|
-| 1 | Cleanse | [SNOW O₂ CLEANSER](https://genosys.ae/products/10) | 330 AED |
-| 2 | Tone | [SNOW BOOSTER](https://genosys.ae/products/16) | 260 AED |
-| 3 | Serum | [MULTI FUNCTIONAL ANTI-WRINKLE SERUM](https://genosys.ae/products/22) | 330 AED |
-| 4 | Sun Cream | [ULTRA SHIELD SUN CREAM SPF 50+](https://genosys.ae/products/39) | 250 AED |
-| 5 | BB Top-Up | [INTENSIVE BLEMISH BALM CREAM SPF 30](https://genosys.ae/products/42) | 250 AED |
-| 6 | Refresh | [MICROBIOME ENERGY INFUSING MIST](https://genosys.ae/products/14) | 160 AED |
-| | **Total** | | **1,580 AED** |
+| Product | Price |
+|---------|-------|
+| [ULTRA SHIELD SUN CREAM SPF 50+](https://genosys.ae/products/39) | 250 AED |
+| [MULTI SUN CREAM SPF 40](https://genosys.ae/products/40) | 210 AED |
+| [REVITA GLOW BLEMISH BALM CREAM SPF 38](https://genosys.ae/products/63) | 250 AED |
+| [SKIN CARING BLEMISH BALM CUSHION SPF 50+](https://genosys.ae/products/41) | 300 AED |
+| [INTENSIVE BLEMISH BALM CREAM SPF 30](https://genosys.ae/products/42) | 250 AED |
+| **Set Total** | **1,260 AED** |
 
 ---
 

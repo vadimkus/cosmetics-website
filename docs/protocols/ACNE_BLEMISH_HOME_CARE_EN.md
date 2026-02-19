@@ -133,44 +133,43 @@ Spray 2–3 times from 20 cm throughout the day. Contains pre/probiotics that su
 
 ---
 
-## Recommended Sets by Severity
+## Recommended Product Sets
 
-### Mild Acne — "Clear Start" Set
+### Essential — "Clear Start" Set
 *Occasional breakouts, oily T-zone, visible pores*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
 | INTENSIVE PROBLEM CONTROL TONER | 260 AED |
 | INTENSIVE PROBLEM CONTROL CREAM | 290 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **1,130 AED** |
+| PROBLEM CONTROL SERUM | 330 AED |
+| **Set Total** | **880 AED** |
 
-### Moderate Acne — "Full Control" Set
+### Complete — "Full Control" Set
 *Regular breakouts, oily skin, some scarring*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
 | INTENSIVE PROBLEM CONTROL TONER | 260 AED |
 | PROBLEM CONTROL SERUM | 330 AED |
 | INTENSIVE PROBLEM CONTROL CREAM | 290 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **1,460 AED** |
+| EPI TURNOVER BOOSTING PEELING GEL | 250 AED |
+| POWER SOLUTION PCS | 580 AED |
+| **Set Total** | **1,710 AED** |
 
-### Severe / Persistent Acne — "Deep Reset" Set
+### Professional — "Deep Reset" Set
 *Frequent breakouts, cystic acne, post-acne marks*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SKIN DEFENDER MAKEUP REMOVER | 290 AED |
 | INTENSIVE PROBLEM CONTROL TONER | 260 AED |
 | PROBLEM CONTROL SERUM | 330 AED |
 | INTENSIVE PROBLEM CONTROL CREAM | 290 AED |
-| EPI TURNOVER PEELING GEL | 250 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **2,000 AED** |
+| EPI TURNOVER BOOSTING PEELING GEL | 250 AED |
+| POWER SOLUTION PCS | 580 AED |
+| Microneedle Roller | 230 AED |
+| GENO-LED IR II | 5,500 AED |
+| **Set Total** | **7,440 AED** |
 
 > 💡 **Tip:** Orders over 1,000 AED qualify for free shipping on genosys.ae
 

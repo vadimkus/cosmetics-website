@@ -263,6 +263,46 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
+      {/* Complete Your Routine — universal essentials */}
+      {slug !== 'hair-loss' && (
+        <section className="py-8 sm:py-10 px-4 bg-gradient-to-b from-gray-50 to-white">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 text-center">
+              Complete Your Routine
+            </h2>
+            <p className="text-sm text-gray-500 mb-6 text-center">
+              Every effective skincare routine starts with a clean base and ends with sun protection
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Link href="/products/10" className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-200 hover:shadow-sm transition-all">
+                <span className="text-2xl flex-shrink-0">🫧</span>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900">SNOW O₂ CLEANSER</h3>
+                  <p className="text-xs text-gray-500 mt-0.5">Oxygen bubble cleanser — gentle yet thorough. Use morning &amp; evening.</p>
+                  <span className="text-xs text-primary-600 font-medium mt-1 inline-block">330 AED →</span>
+                </div>
+              </Link>
+              <Link href="/products/16" className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-200 hover:shadow-sm transition-all">
+                <span className="text-2xl flex-shrink-0">💦</span>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900">SNOW BOOSTER</h3>
+                  <p className="text-xs text-gray-500 mt-0.5">Hydrating toner that preps skin for serums &amp; actives.</p>
+                  <span className="text-xs text-primary-600 font-medium mt-1 inline-block">260 AED →</span>
+                </div>
+              </Link>
+              <Link href="/products/39" className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-200 hover:shadow-sm transition-all">
+                <span className="text-2xl flex-shrink-0">☀️</span>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900">ULTRA SHIELD SPF 50+</h3>
+                  <p className="text-xs text-gray-500 mt-0.5">Broad-spectrum SPF 50+ — essential in the UAE sun. Apply every morning.</p>
+                  <span className="text-xs text-primary-600 font-medium mt-1 inline-block">250 AED →</span>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Full Intro (below products for SEO — detailed content for crawlers and interested readers) */}
       <section className="px-4 pb-8">
         <div className="max-w-3xl mx-auto">

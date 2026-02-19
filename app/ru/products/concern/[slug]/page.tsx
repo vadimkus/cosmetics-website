@@ -226,6 +226,46 @@ export default async function RussianConcernPage({ params }: { params: Promise<{
         </div>
       </section>
 
+      {/* Complete Your Routine — universal essentials */}
+      {slug !== 'hair-loss' && (
+        <section className="py-8 sm:py-10 px-4 bg-gradient-to-b from-gray-50 to-white">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 text-center">
+              Дополните свой уход
+            </h2>
+            <p className="text-sm text-gray-500 mb-6 text-center">
+              Каждый эффективный уход начинается с чистой кожи и заканчивается защитой от солнца
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <Link href="/ru/products/10" className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-200 hover:shadow-sm transition-all">
+                <span className="text-2xl flex-shrink-0">🫧</span>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900">SNOW O₂ CLEANSER</h3>
+                  <p className="text-xs text-gray-500 mt-0.5">Кислородная пенка — мягкое и тщательное очищение. Утром и вечером.</p>
+                  <span className="text-xs text-primary-600 font-medium mt-1 inline-block">330 AED →</span>
+                </div>
+              </Link>
+              <Link href="/ru/products/16" className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-200 hover:shadow-sm transition-all">
+                <span className="text-2xl flex-shrink-0">💦</span>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900">SNOW BOOSTER</h3>
+                  <p className="text-xs text-gray-500 mt-0.5">Увлажняющий тонер — готовит кожу к сывороткам и активным компонентам.</p>
+                  <span className="text-xs text-primary-600 font-medium mt-1 inline-block">260 AED →</span>
+                </div>
+              </Link>
+              <Link href="/ru/products/39" className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-200 hover:shadow-sm transition-all">
+                <span className="text-2xl flex-shrink-0">☀️</span>
+                <div>
+                  <h3 className="text-sm font-semibold text-gray-900">ULTRA SHIELD SPF 50+</h3>
+                  <p className="text-xs text-gray-500 mt-0.5">Широкий спектр SPF 50+ — обязателен под солнцем ОАЭ. Наносите каждое утро.</p>
+                  <span className="text-xs text-primary-600 font-medium mt-1 inline-block">250 AED →</span>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* SEO Intro */}
       <section className="px-4 pb-8">
         <div className="max-w-3xl mx-auto">

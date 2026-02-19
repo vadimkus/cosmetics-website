@@ -148,48 +148,40 @@ Spray 2–3 times from 20 cm throughout the day. A healthy skin microbiome suppo
 
 ---
 
-## Recommended Sets by Severity
+## Recommended Product Sets
 
-### Mild Pigmentation — "Bright Start" Set
+### Essential — "Bright Start" Set
 *Few dark spots, slight uneven tone, early sun damage*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SNOW BOOSTER | 260 AED |
 | MULTI VITA RADIANCE SERUM | 330 AED |
 | MULTI VITA RADIANCE CREAM | 290 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **1,460 AED** |
+| EPI TURNOVER BOOSTING PEELING GEL | 250 AED |
+| **Set Total** | **870 AED** |
 
-### Moderate Pigmentation — "Full Brightening" Set
+### Complete — "Full Brightening" Set
 *Multiple dark spots, melasma patches, noticeable uneven tone*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SKIN DEFENDER MAKEUP REMOVER | 290 AED |
-| SNOW BOOSTER | 260 AED |
 | MULTI VITA RADIANCE SERUM | 330 AED |
 | MULTI VITA RADIANCE CREAM | 290 AED |
-| EPI TURNOVER PEELING GEL | 250 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **2,000 AED** |
+| EPI TURNOVER BOOSTING PEELING GEL | 250 AED |
+| POWER SOLUTION SWS | 580 AED |
+| **Set Total** | **1,450 AED** |
 
-### Severe Pigmentation — "Intensive Reset" Set
-*Extensive melasma, deep dark spots, post-inflammatory hyperpigmentation, significant sun damage*
+### Professional — "Intensive Reset" Set
+*Extensive melasma, deep dark spots, post-inflammatory hyperpigmentation*
 
 | Product | Price |
 |---------|-------|
-| SNOW O₂ CLEANSER | 330 AED |
-| SKIN DEFENDER MAKEUP REMOVER | 290 AED |
-| SNOW BOOSTER | 260 AED |
 | MULTI VITA RADIANCE SERUM | 330 AED |
 | MULTI VITA RADIANCE CREAM | 290 AED |
-| EPI TURNOVER PEELING GEL | 250 AED |
-| BARRIER REPAIR CREAM | 450 AED |
-| ULTRA SHIELD SUN CREAM SPF 50+ | 250 AED |
-| **Set Total** | **2,450 AED** |
+| EPI TURNOVER BOOSTING PEELING GEL | 250 AED |
+| POWER SOLUTION SWS | 580 AED |
+| EZ CO₂ MASK KIT | 460 AED |
+| **Set Total** | **1,910 AED** |
 
 > 💡 **Tip:** Orders over 1,000 AED qualify for free shipping on genosys.ae
 

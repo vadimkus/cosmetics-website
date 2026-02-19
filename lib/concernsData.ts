@@ -62,6 +62,7 @@ export interface RoutineSection {
 
 export interface ConcernPage {
   slug: string
+  icon?: string              // Emoji icon for card display
   concernKeys: string[]      // Maps to targetConcerns / GENOSYS_PRODUCT_CONCERNS values
   categoryFallbacks: string[] // Fallback product categories
   relatedConcerns: string[]  // Slugs of related concerns for cross-linking
@@ -84,6 +85,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── SUN PROTECTION ──────────────────────────────────────────
   {
     slug: 'sun-protection',
+    icon: '☀️',
     concernKeys: ['sun-protection'],
     categoryFallbacks: ['sun', 'cushion bb'],
     relatedConcerns: ['pigmentation', 'sensitivity', 'anti-aging'],
@@ -444,7 +446,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── ACNE TREATMENT ──────────────────────────────────────────
   {
     slug: 'acne-treatment',
-    concernKeys: ['acne-blemishes'],
+    icon: '🔬',
+    concernKeys: ['page-acne'],
     categoryFallbacks: [],
     relatedConcerns: ['scars-treatment', 'pigmentation', 'sensitivity'],
     protocolPdf: {
@@ -785,7 +788,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── PIGMENTATION ──────────────────────────────────────────
   {
     slug: 'pigmentation',
-    concernKeys: ['brightening'],
+    icon: '✨',
+    concernKeys: ['page-pigmentation'],
     categoryFallbacks: [],
     relatedConcerns: ['sun-protection', 'anti-aging', 'acne-treatment'],
     why: {
@@ -1115,8 +1119,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── SCARS TREATMENT ──────────────────────────────────────────
   {
     slug: 'scars-treatment',
-    concernKeys: ['acne-blemishes', 'anti-aging'],
-    categoryFallbacks: ['microneedling', 'device'],
+    icon: '🩹',
+    concernKeys: ['scar-repair'],
+    categoryFallbacks: [],
     relatedConcerns: ['acne-treatment', 'pigmentation', 'anti-aging'],
     why: {
       en: {
@@ -1415,8 +1420,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── HAIR LOSS ──────────────────────────────────────────
   {
     slug: 'hair-loss',
-    concernKeys: ['hair'],
-    categoryFallbacks: ['scalp-hair'],
+    icon: '💇',
+    concernKeys: ['hair', 'hair-loss'],
+    categoryFallbacks: [],
     relatedConcerns: ['sensitivity', 'anti-aging'],
     why: {
       en: {
@@ -1697,7 +1703,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── ANTI-AGING ──────────────────────────────────────────
   {
     slug: 'anti-aging',
-    concernKeys: ['anti-aging'],
+    icon: '⏳',
+    concernKeys: ['page-anti-aging'],
     categoryFallbacks: [],
     relatedConcerns: ['hydration', 'pigmentation', 'sun-protection'],
     why: {
@@ -2033,7 +2040,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── HYDRATION ──────────────────────────────────────────
   {
     slug: 'hydration',
-    concernKeys: ['hydration'],
+    icon: '💧',
+    concernKeys: ['page-hydration'],
     categoryFallbacks: [],
     relatedConcerns: ['sensitivity', 'anti-aging', 'sun-protection'],
     seo: {
@@ -2342,7 +2350,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── SENSITIVITY ──────────────────────────────────────────
   {
     slug: 'sensitivity',
-    concernKeys: ['sensitivity'],
+    icon: '🌿',
+    concernKeys: ['page-sensitivity'],
     categoryFallbacks: [],
     relatedConcerns: ['hydration', 'sun-protection', 'acne-treatment'],
     why: {

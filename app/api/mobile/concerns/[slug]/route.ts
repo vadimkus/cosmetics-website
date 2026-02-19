@@ -92,8 +92,6 @@ export async function GET(
       if (p.productNumber) existingKeys.add(String(p.productNumber))
     }
     const missingNumbers = Array.from(routineProductNumbers).filter(n => !existingKeys.has(n))
-    debugLog(`[CONCERNS_API] Routine products: referenced=${Array.from(routineProductNumbers).join(',')}, existing=${Array.from(existingKeys).join(',')}, missing=${missingNumbers.join(',')}`)
-
     const routineDbProducts = missingNumbers.length > 0
       ? await prisma.product.findMany({
           where: {
@@ -107,7 +105,6 @@ export async function GET(
         })
       : []
 
-    debugLog(`[CONCERNS_API] routineDbProducts found: ${routineDbProducts.length} (IDs: ${routineDbProducts.map(p => p.id).join(',')})`)
     const allDbProducts = [...dbProducts, ...routineDbProducts]
     const enhanced = generateBatchEnhancedProductData(allDbProducts, null)
     const wantAr = validLocale === 'ar'

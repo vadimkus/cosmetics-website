@@ -1796,6 +1796,28 @@ export default function SkinRecommendationClient() {
                 </section>
               ))}
             </div>
+
+            {/* Browse by Skin Concern CTA */}
+            <div className="mt-12 rounded-2xl border border-gray-100 bg-gradient-to-br from-rose-50/60 to-white p-6 sm:p-8 text-center">
+              <span className="text-3xl mb-3 block">🌿</span>
+              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+                {locale === 'ar' ? 'استكشفي حسب مشكلة البشرة' : locale === 'ru' ? 'Подберите по проблеме кожи' : 'Browse by Skin Concern'}
+              </h3>
+              <p className="text-sm text-gray-500 mb-5 max-w-md mx-auto">
+                {locale === 'ar'
+                  ? 'صفحات مخصصة لكل مشكلة جلدية مع منتجات مختارة وروتين يومي كامل'
+                  : locale === 'ru'
+                  ? 'Специальные страницы для каждой проблемы кожи с подобранными продуктами и полным ежедневным уходом'
+                  : 'Dedicated pages for each skin concern with curated products & complete daily routines'}
+              </p>
+              <Link
+                href={getLocalizedPath('/products?categories=skin-concern', locale)}
+                className={`inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-full transition-all duration-200 shadow-sm hover:shadow-md ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              >
+                {locale === 'ar' ? 'اكتشفي المشاكل' : locale === 'ru' ? 'Смотреть проблемы' : 'Explore Concerns'}
+                {dir === 'rtl' ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
+              </Link>
+            </div>
           ) : (
             <div className="text-center py-20">
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">

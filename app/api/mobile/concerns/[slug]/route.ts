@@ -85,11 +85,24 @@ export async function GET(
       : []
 
     // Fetch routine-referenced products that weren't already included
-    const existingNumbers = new Set(dbProducts.map(p => String(p.productNumber || '')))
-    const missingNumbers = Array.from(routineProductNumbers).filter(n => !existingNumbers.has(n))
+    // Legacy products may have id === productNumber with productNumber field null
+    const existingKeys = new Set<string>()
+    for (const p of dbProducts) {
+      existingKeys.add(String(p.id))
+      if (p.productNumber) existingKeys.add(String(p.productNumber))
+    }
+    const missingNumbers = Array.from(routineProductNumbers).filter(n => !existingKeys.has(n))
 
     const routineDbProducts = missingNumbers.length > 0
-      ? await prisma.product.findMany({ where: { productNumber: { in: missingNumbers }, isHidden: false }, select: productSelect })
+      ? await prisma.product.findMany({
+          where: {
+            OR: [
+              { productNumber: { in: missingNumbers }, isHidden: false },
+              { id: { in: missingNumbers }, isHidden: false },
+            ],
+          },
+          select: productSelect,
+        })
       : []
 
     const allDbProducts = [...dbProducts, ...routineDbProducts]
@@ -105,6 +118,7 @@ export async function GET(
       const localizedDescription = fileTr?.description || (wantAr ? db?.descriptionAr : wantRu ? db?.descriptionRu : null) || p.description || ''
       return {
         ...p,
+        productNumber: pNum,
         localizedName,
         localizedDescription,
         videoUrl: db?.videoUrl || null,

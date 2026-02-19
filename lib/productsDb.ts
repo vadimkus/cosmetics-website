@@ -551,7 +551,10 @@ export async function getProductsByNumbers(productNumbers: string[]): Promise<Pr
   if (productNumbers.length === 0) return []
   try {
     const allProducts = await getAllProducts()
-    return allProducts.filter(p => p.productNumber && productNumbers.includes(String(p.productNumber)))
+    return allProducts.filter(p =>
+      (p.productNumber && productNumbers.includes(String(p.productNumber))) ||
+      productNumbers.includes(String(p.id))
+    )
   } catch (error) {
     errorLog('Error fetching products by numbers:', error)
     return []

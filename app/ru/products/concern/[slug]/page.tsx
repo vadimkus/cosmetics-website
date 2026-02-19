@@ -93,7 +93,7 @@ export default async function RussianConcernPage({ params }: { params: Promise<{
       }
     }
   }
-  const existingNums = new Set(products.map(p => String(p.productNumber || '')))
+  const existingNums = new Set(products.flatMap(p => [String(p.id), String(p.productNumber || '')]))
   const missingNums = Array.from(routineNums).filter(n => !existingNums.has(n))
   const routineProducts = missingNums.length > 0 ? await getProductsByNumbers(missingNums) : []
   const allProducts = [...products, ...routineProducts]

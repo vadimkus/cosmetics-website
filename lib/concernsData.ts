@@ -792,6 +792,20 @@ export const CONCERN_PAGES: ConcernPage[] = [
     concernKeys: ['page-pigmentation'],
     categoryFallbacks: [],
     relatedConcerns: ['sun-protection', 'anti-aging', 'acne-treatment'],
+    protocolPdf: {
+      url: '/documents/PPT/Protocol_Pigmentation.pdf',
+      title: {
+        en: 'Pigmentation & Brightening Home Care Protocol',
+        ar: 'بروتوكول العناية المنزلية بالتصبغات وتفتيح البشرة',
+        ru: 'Протокол домашнего ухода при пигментации и осветлении',
+      },
+      description: {
+        en: 'Complete morning & evening routine for pigmentation — Radiance brightening system, tyrosinase inhibition steps, product sets by pigmentation type, and UAE sun-exposure tips.',
+        ar: 'روتين صباحي ومسائي كامل للتصبغات — نظام Radiance للتفتيح، خطوات تثبيط التيروزيناز، مجموعات منتجات حسب نوع التصبغ، ونصائح للتعرض للشمس في الإمارات.',
+        ru: 'Полный утренний и вечерний уход при пигментации — система Radiance, подавление тирозиназы, наборы по типу пигментации и советы по защите от солнца в ОАЭ.',
+      },
+      fileSize: '167 KB',
+    },
     why: {
       en: {
         title: 'Why Pigmentation Needs a Targeted Approach in the UAE',

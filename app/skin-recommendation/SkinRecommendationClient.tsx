@@ -1660,6 +1660,7 @@ export default function SkinRecommendationClient() {
 
           {/* Results by Category - Apple-like Clean Design */}
           {recommendations.length > 0 ? (
+            <>
             <div className="space-y-12 md:space-y-20">
               {Object.entries(groupedProducts).map(([category, products]) => (
                 <section key={category}>
@@ -1818,6 +1819,7 @@ export default function SkinRecommendationClient() {
                 {dir === 'rtl' ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
               </Link>
             </div>
+            </>
           ) : (
             <div className="text-center py-20">
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">

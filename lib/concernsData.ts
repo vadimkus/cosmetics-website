@@ -2072,6 +2072,20 @@ export const CONCERN_PAGES: ConcernPage[] = [
     concernKeys: ['page-hydration'],
     categoryFallbacks: [],
     relatedConcerns: ['sensitivity', 'anti-aging', 'sun-protection'],
+    protocolPdf: {
+      url: '/documents/PPT/Protocol_Hydration_Treatment.pdf',
+      title: {
+        en: 'Hydration & Moisture Barrier Home Care Protocol',
+        ar: 'بروتوكول العناية المنزلية بالترطيب وحاجز الرطوبة',
+        ru: 'Протокол домашнего ухода: увлажнение и восстановление барьера',
+      },
+      description: {
+        en: 'Complete morning & evening hydration routine — hyaluronic acid layering, moisture barrier repair, product sets by dehydration level, and UAE climate tips.',
+        ar: 'روتين ترطيب صباحي ومسائي كامل — طبقات حمض الهيالورونيك، إصلاح حاجز الرطوبة، مجموعات منتجات حسب مستوى الجفاف، ونصائح لمناخ الإمارات.',
+        ru: 'Полный утренний и вечерний уход для увлажнения — послойное нанесение гиалуроновой кислоты, восстановление барьера, наборы по степени обезвоженности и советы для климата ОАЭ.',
+      },
+      fileSize: '164 KB',
+    },
     seo: {
       en: {
         title: 'Hydrating Skincare UAE | Moisturizer & Hyaluronic Acid Dubai | GENOSYS',

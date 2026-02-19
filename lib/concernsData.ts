@@ -1707,6 +1707,19 @@ export const CONCERN_PAGES: ConcernPage[] = [
     concernKeys: ['page-anti-aging'],
     categoryFallbacks: [],
     relatedConcerns: ['hydration', 'pigmentation', 'sun-protection'],
+    protocolPdf: {
+      url: '/documents/PPT/Protocol_Anti-Aging.pdf',
+      title: {
+        en: 'Anti-Aging & Wrinkle Home Care Protocol',
+        ar: 'بروتوكول العناية المنزلية لمكافحة الشيخوخة والتجاعيد',
+        ru: 'Протокол домашнего антивозрастного ухода',
+      },
+      description: {
+        en: 'Complete morning & evening routine for anti-aging — EGF + peptide system, collagen-rebuilding steps, product sets by age group, and UAE climate tips.',
+        ar: 'روتين صباحي ومسائي كامل لمكافحة الشيخوخة — نظام EGF + الببتيدات، خطوات إعادة بناء الكولاجين، مجموعات المنتجات حسب الفئة العمرية، ونصائح لمناخ الإمارات.',
+        ru: 'Полный утренний и вечерний уход для антивозрастной программы — система EGF + пептиды, восстановление коллагена, наборы по возрастным группам и советы для климата ОАЭ.',
+      },
+    },
     why: {
       en: {
         title: 'Why Anti-Aging Needs a Professional Approach in the UAE',

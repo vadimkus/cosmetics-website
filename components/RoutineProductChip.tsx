@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
-import { Check, ShoppingCart } from 'lucide-react'
+import { Check } from 'lucide-react'
 import { useCart } from '@/components/cart/CartProvider'
 import type { Product } from '@/types'
 
@@ -22,7 +22,7 @@ export default function RoutineProductChip({
   url,
 }: RoutineProductChipProps) {
   const router = useRouter()
-  const { addItem, items } = useCart()
+  const { addItem, removeItem, items } = useCart()
   const [justAdded, setJustAdded] = useState(false)
   const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const clickCount = useRef(0)
@@ -49,9 +49,13 @@ export default function RoutineProductChip({
         clickCount.current = 0
 
         if (product && !product.isPriceOnRequest && product.inStock !== false) {
-          addItem(product, 1, '', '')
-          setJustAdded(true)
-          setTimeout(() => setJustAdded(false), 1200)
+          if (inCart) {
+            removeItem(String(product.id), '', '')
+          } else {
+            addItem(product, 1, '', '')
+            setJustAdded(true)
+            setTimeout(() => setJustAdded(false), 1200)
+          }
         } else {
           router.push(url)
         }

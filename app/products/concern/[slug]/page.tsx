@@ -107,6 +107,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         items={[
           { name: 'Home', url: '/' },
           { name: 'Products', url: '/products' },
+          { name: 'Skin Concerns', url: '/products?categories=skin-concern' },
           { name: seo.h1, url: `/products/concern/${slug}` },
         ]}
       />
@@ -128,6 +129,8 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
             <span className="mx-2">/</span>
             <Link href="/products" className="hover:text-gray-700">Products</Link>
             <span className="mx-2">/</span>
+            <Link href="/products?categories=skin-concern" className="hover:text-gray-700">Skin Concerns</Link>
+            <span className="mx-2">/</span>
             <span className="text-gray-900">{seo.h1}</span>
           </nav>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
@@ -136,6 +139,15 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             {seo.heroShort || seo.intro}
           </p>
+          <Link
+            href="/products?categories=skin-concern"
+            className="inline-flex items-center gap-1.5 mt-4 text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            View All Skin Concerns
+          </Link>
         </div>
       </section>
 

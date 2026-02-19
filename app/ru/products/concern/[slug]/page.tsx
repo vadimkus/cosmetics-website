@@ -91,6 +91,7 @@ export default async function RussianConcernPage({ params }: { params: Promise<{
         items={[
           { name: 'Главная', url: '/ru' },
           { name: 'Продукция', url: '/ru/products' },
+          { name: 'Проблемы кожи', url: '/ru/products?categories=skin-concern' },
           { name: seo.h1, url: `/ru/products/concern/${slug}` },
         ]}
       />
@@ -112,6 +113,8 @@ export default async function RussianConcernPage({ params }: { params: Promise<{
             <span className="mx-2">/</span>
             <Link href="/ru/products" className="hover:text-gray-700">Продукция</Link>
             <span className="mx-2">/</span>
+            <Link href="/ru/products?categories=skin-concern" className="hover:text-gray-700">Проблемы кожи</Link>
+            <span className="mx-2">/</span>
             <span className="text-gray-900">{seo.h1}</span>
           </nav>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
@@ -120,6 +123,15 @@ export default async function RussianConcernPage({ params }: { params: Promise<{
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             {seo.heroShort || seo.intro}
           </p>
+          <Link
+            href="/ru/products?categories=skin-concern"
+            className="inline-flex items-center gap-1.5 mt-4 text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            Все проблемы кожи
+          </Link>
         </div>
       </section>
 

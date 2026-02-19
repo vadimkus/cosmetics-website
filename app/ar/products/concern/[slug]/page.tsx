@@ -91,6 +91,7 @@ export default async function ArabicConcernPage({ params }: { params: Promise<{ 
         items={[
           { name: 'الرئيسية', url: '/ar' },
           { name: 'المنتجات', url: '/ar/products' },
+          { name: 'مشاكل البشرة', url: '/ar/products?categories=skin-concern' },
           { name: seo.h1, url: `/ar/products/concern/${slug}` },
         ]}
       />
@@ -112,6 +113,8 @@ export default async function ArabicConcernPage({ params }: { params: Promise<{ 
             <span className="mx-2">/</span>
             <Link href="/ar/products" className="hover:text-gray-700">المنتجات</Link>
             <span className="mx-2">/</span>
+            <Link href="/ar/products?categories=skin-concern" className="hover:text-gray-700">مشاكل البشرة</Link>
+            <span className="mx-2">/</span>
             <span className="text-gray-900">{seo.h1}</span>
           </nav>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
@@ -120,6 +123,15 @@ export default async function ArabicConcernPage({ params }: { params: Promise<{ 
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             {seo.heroShort || seo.intro}
           </p>
+          <Link
+            href="/ar/products?categories=skin-concern"
+            className="inline-flex items-center gap-1.5 mt-4 text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors flex-row-reverse"
+          >
+            <svg className="w-4 h-4 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            عرض جميع مشاكل البشرة
+          </Link>
         </div>
       </section>
 

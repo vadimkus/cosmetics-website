@@ -228,7 +228,7 @@ const GENOSYS_PRODUCT_CONCERNS: Record<string, string[]> = {
   // PRO Solutions
   'POWER SOLUTION HES': ['hydration', 'anti-aging', 'page-hydration'],
   'POWER SOLUTION CVS': ['hydration', 'sensitivity', 'page-sensitivity'],
-  'POWER SOLUTION CTS': ['anti-aging'],
+  'POWER SOLUTION CTS': ['anti-aging', 'scar-repair'],
   'POWER SOLUTION PCS': ['acne-blemishes', 'pore-care', 'page-acne'],
   'POWER SOLUTION SWS': ['brightening', 'page-pigmentation'],
   'POWER SOLUTION AWS': ['anti-aging', 'page-anti-aging'],

@@ -96,9 +96,10 @@ export async function GET(
     const routineDbProducts = missingNumbers.length > 0
       ? await prisma.product.findMany({
           where: {
+            isHidden: false,
             OR: [
-              { productNumber: { in: missingNumbers }, isHidden: false },
-              { id: { in: missingNumbers }, isHidden: false },
+              { productNumber: { in: missingNumbers } },
+              { id: { in: missingNumbers } },
             ],
           },
           select: productSelect,

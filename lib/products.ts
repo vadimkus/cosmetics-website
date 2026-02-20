@@ -79,7 +79,7 @@ export const products: Product[] = [
     price: 580,
     description: '2ml x 10ea. Anti-pigment ampoule for microneedling treatment. Dermatologically tested. Efficacy test on improving hyperpigmentation. Features: It is an anti-pigment ampoule specially formulated for microneedling treatment that helps improve pigmentation, even skin tone and brighten the skin surface with sh-polypeptide-7 (human growth hormone-like peptide), arbutin and kojic acid. Skin-Friendly Formulation: Not containing harmful additives considering the increased skin permeability by microneedling (no-paraben, ethanol, artificial fragrance, artificial pigment, sulfate). Key Ingredients: sh-Polypeptide-7, Arbutin, Glycyrrhiza Uralensis (Licorice) Root Extract, Kojic Acid, Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Palmitoyl Tripeptide-1, Aspergillus/Saccharomyces/Glycyrrhiza Uralensis Root Extract Ferment Filtrate. Manufactured in South Korea.',
     image: '/images/SWS.jpg',
-    images: null,
+    images: JSON.stringify(['/images/SWS.jpg', '/images/Second/sws_big1.jpg', '/images/Second/sws_big2.jpg']),
     category: 'PRO Solution',
     inStock: true,
   },

@@ -40,14 +40,21 @@ export default function RoutineProductChip({
       }
 
       if (inCart) {
-        removeItem(String(product.id), '', '')
+        const cartEntry = items.find(
+          (i) => String(i.product?.id) === String(product.id)
+        )
+        removeItem(
+          String(product.id),
+          cartEntry?.selectedColor ?? '',
+          cartEntry?.selectedSize ?? ''
+        )
       } else {
         addItem(product, 1, '', '')
         setJustAdded(true)
         setTimeout(() => setJustAdded(false), 1200)
       }
     },
-    [addItem, removeItem, inCart, product, router, url]
+    [addItem, removeItem, inCart, items, product, router, url]
   )
 
   const handleContextMenu = useCallback(

@@ -14,7 +14,7 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
-| 🟡 **Important** | [SESSION_CHANGES_2026-02-20.md](./SESSION_CHANGES_2026-02-20.md) | Fix routine chip remove for products with size variants (web) |
+| 🟡 **Important** | [SESSION_CHANGES_2026-02-20.md](./SESSION_CHANGES_2026-02-20.md) | Routine chip remove fix (web), MoySklad cushion color variant mapping |
 | 🟡 **Important** | [SESSION_CHANGES_2026-02-19_part2.md](./SESSION_CHANGES_2026-02-19_part2.md) | Routine add-to-cart, native screens, ID fix, TestFlight 64 |
 | 🟢 **Feature** | [CHATBOT_SETUP.md](./CHATBOT_SETUP.md) | AI Chatbot setup and configuration |
 | 🟢 **Feature** | [AI_EXPERT_ANALYSIS.md](./AI_EXPERT_ANALYSIS.md) | AI Expert Skin Analysis with GPT-4o vision |

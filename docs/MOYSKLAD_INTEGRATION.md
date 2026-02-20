@@ -103,17 +103,59 @@ Products are mapped by name from the webapp to MoySklad product UUIDs. The full 
 | HR³ MATRIX HAIR SOLUTION α | Genosys HR³ Matrix Hair Solution Box (8pcs) | `145d21d6-...` |
 | ... (55+ products mapped) | | |
 
+### Color Variant Mapping (Products with Multiple Colors)
+
+Some products (e.g. BB cushions) have multiple color variants in MoySklad as separate products. The webapp stores `color` on each `OrderItem` (e.g. `"ivory"`, `"beige"`, `"camel"`). When pushing to MoySklad, the integration checks `COLOR_VARIANT_MAP` first before falling back to `PRODUCT_MAP`.
+
+**Key format:** `"PRODUCT NAME | color"` (color is lowercased for matching)
+
+**SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] color variants:**
+
+| Webapp Color | MoySklad Product | MoySklad UUID |
+|--------------|------------------|---------------|
+| ivory | #1 Ivory | `8e55b3ff-d092-11ec-0a80-022900a6db36` |
+| beige | #2 Beige | `aca38da4-d092-11ec-0a80-013600a5ed6b` |
+| camel | #3 Camel | `374eb073-a7cd-11ef-0a80-07b3001b04d5` |
+
+**Lookup order:**
+1. If `OrderItem.color` is present → try `COLOR_VARIANT_MAP["PRODUCT NAME | color"]`
+2. If no color match → fall back to `PRODUCT_MAP["PRODUCT NAME"]` (Ivory/default for cushion)
+
+**Adding a new color variant:**
+1. Create the product in MoySklad
+2. Copy the product UUID from the URL when editing: `https://online.moysklad.ru/app/#good/edit?id=XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX`
+3. Add to `COLOR_VARIANT_MAP` in `lib/moysklad.ts`:
+   ```ts
+   'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | newcolor': 'uuid-here',
+   ```
+
+### Delivery Service Mapping
+
+Shipping is added as a **service line item** (not product) in MoySklad orders. Emirates map to delivery service UUIDs:
+
+| Emirate | Shipping (AED) | MoySklad Service UUID |
+|---------|---------------|----------------------|
+| Dubai | 45 | `a97cfeeb-814e-11ea-0a80-004a001516bd` |
+| Sharjah | 70 | `52864050-59a7-11eb-0a80-022e00579624` |
+| Abu Dhabi | 70 | `212036af-814f-11ea-0a80-011700157c7d` |
+| Al Ain | 80 | `41b80390-814f-11ea-0a80-03ae0014ec85` |
+| Fujairah | 80 | `557d2277-814f-11ea-0a80-03ae0014ed65` |
+| RAK / Ras Al Khaimah | 80 | `a9d199bf-b909-11ea-0a80-03ec0015b2d7` |
+
+Uses fuzzy matching (`.includes()`) for emirate name variations. If no mapping is found, shipping is noted in the order description only.
+
 ### Unmapped Products
 
 Some webapp products like **beauty boxes** (ANTI-AGING BEAUTY BOX, CHARMING LOOK BEAUTY BOX, etc.) are custom bundles that don't have a 1:1 MoySklad product. These are noted in the order description in MoySklad but won't have line items.
 
 ### Adding New Products
 
-When a new product is added to the webapp:
-
-1. Find the product's MoySklad UUID via MoySklad API or web UI
+**Single-variant products:**
+1. Find the product's MoySklad UUID via MoySklad API or web UI (URL: `.../good/edit?id=UUID`)
 2. Add the mapping to `PRODUCT_MAP` in `lib/moysklad.ts`
 3. Deploy the change
+
+**Color-variant products:** Add to `COLOR_VARIANT_MAP` instead (see Color Variant Mapping above).
 
 ## Environment Variables
 
@@ -137,8 +179,8 @@ MOYSKLAD_PASSWORD=your-password-here
 
 | File | Purpose |
 |------|---------|
-| `lib/moysklad.ts` | Main integration module — API client, product mapping, order creation |
-| `app/api/admin/orders/[id]/push-moysklad/route.ts` | Admin API endpoint to push an order to MoySklad |
+| `lib/moysklad.ts` | Main integration module — API client, `PRODUCT_MAP`, `COLOR_VARIANT_MAP`, `DELIVERY_SERVICE_MAP`, order creation |
+| `app/api/admin/orders/[id]/push-moysklad/route.ts` | Admin API endpoint — maps `OrderItem` (productName, quantity, price, color) to MoySklad |
 | `components/admin/OrderDetails.tsx` | Admin order detail view with "Push to MoySklad" button |
 | `prisma/schema.prisma` | `moySkladOrderId` and `moySkladSyncedAt` fields on Order model |
 | `.env.example` | Template showing `MOYSKLAD_LOGIN` and `MOYSKLAD_PASSWORD` |
@@ -204,7 +246,11 @@ Each order created in MoySklad includes:
 
 ### "Unmapped items" in order description
 
-This means the webapp product name wasn't found in `PRODUCT_MAP`. The order is still created, but without those line items. Add the mapping as described above.
+This means the webapp product name (and color, if applicable) wasn't found in `PRODUCT_MAP` or `COLOR_VARIANT_MAP`. The order is still created, but without those line items. Add the mapping as described above.
+
+### Wrong product variant (e.g. Ivory showing instead of Beige)
+
+For products with color variants, ensure `OrderItem.color` is set in the database and that the color is in `COLOR_VARIANT_MAP` in `lib/moysklad.ts`. The push route passes `item.color` to the mapper.
 
 ### Button shows "Synced to MoySklad" but order not in MoySklad
 
@@ -234,8 +280,10 @@ MoySklad JSON API 1.2: https://dev.moysklad.ru/doc/api/remap/1.2/
 
 - **Feb 14, 2026**: Integration created with automatic sync from checkout routes
 - **Feb 15, 2026**: Refactored to manual admin push (automatic sync was unreliable on Vercel serverless)
+- **Feb 20, 2026**: Added color variant mapping for BB cushion (Ivory/Beige/Camel) — items with different colors now sync to correct MoySklad products
 
 ---
 
 *Integration created: February 14, 2026*
 *Refactored to manual push: February 15, 2026*
+*Color variant mapping: February 20, 2026*

@@ -197,7 +197,7 @@ const PRODUCT_MAP: Record<string, string> = {
   'ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]': '8f9e1d0b-8d10-11ee-0a80-00e10079b204', // 50g
 
   // === BB/Cushion ===
-  'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]': '8e55b3ff-d092-11ec-0a80-022900a6db36', // #1 Ivory (default)
+  'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]': '8e55b3ff-d092-11ec-0a80-022900a6db36', // #1 Ivory (default, used when no color variant matches)
   'REVITA GLOW BLEMISH BALM CREAM [SPF 38 PA+++]': '1d0adef0-07c9-11f1-0a80-1981000318de',   // #02 Natural
 
   // === Hair Care ===
@@ -229,22 +229,45 @@ const PRODUCT_MAP: Record<string, string> = {
 }
 
 /**
- * Resolve MoySklad product ID from webapp product name.
- * Falls back to null if no mapping exists (beauty boxes, bundles, etc.)
+ * Maps product name + color → MoySklad product UUID for products with color variants.
+ * Key format: "PRODUCT NAME | color" (color is lowercased for matching).
+ * When a color variant exists here, it takes priority over the default in PRODUCT_MAP.
  */
-function getMoySkladProductId(productName: string): string | null {
-  // Direct match
-  if (PRODUCT_MAP[productName]) {
-    return PRODUCT_MAP[productName]
-  }
-  
-  // Normalize and try again (trim, uppercase)
+const COLOR_VARIANT_MAP: Record<string, string> = {
+  'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | ivory': '8e55b3ff-d092-11ec-0a80-022900a6db36',  // #1 Ivory
+  'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | beige': 'aca38da4-d092-11ec-0a80-013600a5ed6b',  // #2 Beige
+  'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | camel': '374eb073-a7cd-11ef-0a80-07b3001b04d5',  // #3 Camel
+}
+
+/**
+ * Resolve MoySklad product ID from webapp product name and optional color.
+ * Checks color-specific variant first, then falls back to the base product name.
+ * Returns null if no mapping exists (beauty boxes, bundles, etc.)
+ */
+function getMoySkladProductId(productName: string, color?: string | null): string | null {
   const normalized = productName.trim()
+
+  // Try color-specific match first
+  if (color) {
+    const colorKey = `${normalized} | ${color.trim().toLowerCase()}`
+    if (COLOR_VARIANT_MAP[colorKey]) {
+      return COLOR_VARIANT_MAP[colorKey]
+    }
+    // Case-insensitive fallback for color variant keys
+    const colorKeyLower = colorKey.toLowerCase()
+    for (const [key, value] of Object.entries(COLOR_VARIANT_MAP)) {
+      if (key.toLowerCase() === colorKeyLower) {
+        return value
+      }
+    }
+  }
+
+  // Direct match on base product name
   if (PRODUCT_MAP[normalized]) {
     return PRODUCT_MAP[normalized]
   }
 
-  // Case-insensitive search
+  // Case-insensitive search on base product name
   const lower = normalized.toLowerCase()
   for (const [key, value] of Object.entries(PRODUCT_MAP)) {
     if (key.toLowerCase() === lower) {
@@ -349,6 +372,7 @@ export interface MoySkladOrderItem {
   productName: string
   quantity: number
   price: number // Price in AED (e.g., 580)
+  color?: string | null
 }
 
 export interface MoySkladOrderData {
@@ -415,11 +439,12 @@ export async function createMoySkladOrder(
     let unmappedItems: string[] = []
 
     for (const item of orderData.items) {
-      const moySkladProductId = getMoySkladProductId(item.productName)
+      const moySkladProductId = getMoySkladProductId(item.productName, item.color)
       
       if (!moySkladProductId) {
-        warnLog(`⚠️ MoySklad: No product mapping for "${item.productName}"`)
-        unmappedItems.push(item.productName)
+        const label = item.color ? `${item.productName} (${item.color})` : item.productName
+        warnLog(`⚠️ MoySklad: No product mapping for "${label}"`)
+        unmappedItems.push(label)
         continue
       }
 

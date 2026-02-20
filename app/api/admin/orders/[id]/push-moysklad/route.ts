@@ -67,6 +67,7 @@ export async function POST(
         productName: item.productName,
         quantity: item.quantity,
         price: item.price,
+        color: item.color,
       })),
       total: order.total,
       shipping: order.shipping || 0,

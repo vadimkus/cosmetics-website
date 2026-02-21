@@ -14,7 +14,7 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
-| 🟡 **Important** | [SESSION_CHANGES_2026-02-20.md](./SESSION_CHANGES_2026-02-20.md) | Routine chip remove fix (web), MoySklad cushion color variant mapping |
+| 🟡 **Important** | [SESSION_CHANGES_2026-02-20.md](./SESSION_CHANGES_2026-02-20.md) | Routine chip remove fix (web), MoySklad cushion color, **protocol PDF download fix** (HTML→PDF) |
 | 🟡 **Important** | [SESSION_CHANGES_2026-02-19_part2.md](./SESSION_CHANGES_2026-02-19_part2.md) | Routine add-to-cart, native screens, ID fix, TestFlight 64 |
 | 🟢 **Feature** | [CHATBOT_SETUP.md](./CHATBOT_SETUP.md) | AI Chatbot setup and configuration |
 | 🟢 **Feature** | [AI_EXPERT_ANALYSIS.md](./AI_EXPERT_ANALYSIS.md) | AI Expert Skin Analysis with GPT-4o vision |
@@ -183,6 +183,8 @@ All 8 skin concern pages have interactive routine product chips:
 **Technical:** Products are matched by `productNumber` (from URL `/products/10`) to full product objects. The API and web pages both fetch routine-referenced products that may not be in the concern-matched set.
 
 **Key files:** `components/RoutineProductChip.tsx` (web), `app/concern-detail.js` (native), `app/api/mobile/concerns/[slug]/route.ts` (API)
+
+**Protocol PDF downloads:** [PROTOCOL_PDF_DOWNLOAD.md](./PROTOCOL_PDF_DOWNLOAD.md) — Technical doc: web vs native, fix for HTML-vs-PDF bug (Feb 2026)
 
 ---
 

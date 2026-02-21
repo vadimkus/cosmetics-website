@@ -51,7 +51,38 @@ When syncing an order with multiple SKIN CARING BLEMISH BALM CUSHION items in di
 
 ---
 
+---
+
+## Fix: Protocol PDF Downloads Saving as HTML Instead of PDF (Web)
+
+### Problem
+
+On all 8 skin concern pages (e.g. `/products/concern/hair-loss`), clicking "Download" for the protocol PDF offered to save `Protocol_Hair_Loss.html` instead of the actual PDF. The file saved was the Next.js SPA HTML shell, not the PDF binary.
+
+### Root Cause
+
+The download link used the `download` attribute on an `<a>` tag. Next.js client-side router intercepted the click and served the SPA shell instead of performing a direct fetch of the static PDF file from `/documents/PPT/Protocol_*.pdf`.
+
+### Fix
+
+**Files:** `app/products/concern/[slug]/page.tsx`, `app/ar/products/concern/[slug]/page.tsx`, `app/ru/products/concern/[slug]/page.tsx`
+
+Replaced `download` with `target="_blank" rel="noopener noreferrer"`. The link now opens in a new tab, bypassing Next.js routing. The browser fetches the PDF directly from the server.
+
+### Affected Pages (all 8 concern pages, 3 locales each)
+
+- sun-protection, acne-treatment, pigmentation, scars-treatment, hair-loss, anti-aging, hydration, sensitivity
+
+### Native App — No Change Needed
+
+The native app uses `Linking.openURL()` to open the full URL in the device browser. There is no Next.js router involved; the PDF is fetched directly. See `docs/PROTOCOL_PDF_DOWNLOAD.md` for full technical documentation.
+
+---
+
 *Files changed:*
 - `components/RoutineProductChip.tsx` — pass actual cart entry's size/color to removeItem
 - `lib/moysklad.ts` — COLOR_VARIANT_MAP, getMoySkladProductId(color), MoySkladOrderItem.color
 - `app/api/admin/orders/[id]/push-moysklad/route.ts` — pass item.color to createMoySkladOrder
+- `app/products/concern/[slug]/page.tsx` — protocol PDF link: download → target="_blank"
+- `app/ar/products/concern/[slug]/page.tsx` — same
+- `app/ru/products/concern/[slug]/page.tsx` — same

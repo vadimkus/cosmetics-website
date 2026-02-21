@@ -225,7 +225,7 @@ export const products: Product[] = [
     price: 330,
     description: '30ml. Anti-aging serum with bakuchiol, a natural alternative to retinol and anti-wrinkle peptide complex. It is an anti-aging serum that helps visibly smooth the signs of wrinkles and reinforces skin firmness with a nourishing ingredient – bakuchiol, a natural alternative to retinol and anti-wrinkle peptide complex. Clinical study on improvement of skin age index, P&K Skin Research Center, Feb. 22 to May 13, 2024, 24 adult women aged 30~59 years. Key ingredients: Bakuchiol, Anti-aging Peptide 6, Lipid Barrier Liposome (Ceramide NP, Cholesterol, Phytosphingosine), Collagen, Elastin, Propolis Extract, Adenosine, Niacinamide. Dermatologically tested. Efficacy test on improving wrinkles and skin tone balance.',
     image: '/images/MSSS.jpg',
-    images: null,
+    images: JSON.stringify(['/images/MSSS.jpg', '/images/Second/multiserum1.jpg']),
     category: 'Serum',
     inStock: true,
   },

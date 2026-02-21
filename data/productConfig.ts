@@ -204,6 +204,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '18': {
     id: '18',
+    images: ['/images/HRS.jpg', '/images/Second/hyalserum1.jpg'],
     pricing: {
       basePrice: 450
     },

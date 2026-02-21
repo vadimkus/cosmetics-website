@@ -183,7 +183,7 @@ export const products: Product[] = [
     price: 330,
     description: '30ml. Coconut water-based hydrating serum with hyaluronic complex and various mushrooms. It is a coconut water-based serum that quickly replenishes moisture from the deep inside and infuses skin with multi depth hydration with hyaluronic acid complex and various mushrooms. 4 STEP Skin Hydration: 1) Electrolytes in coconut water lead moisture into the skin and balance the water content. 2) By stimulating the formation of aqua-porin, it opens water-transport channel, and attracts moisture to the skin with moisture magnet ingredient. 3) Low/middle molecular weight hyaluronic acids replenish moisture layer by layer from the inside of the skin. 4) High molecular weight hyaluronic acid prevents moisture evaporation by forming moisture barrier on the skin surface. Mushrooms nourish and protect skin with powerful anti-inflammatory and antioxidant properties. Key ingredients: Cocos Nucifera (Coconut) Water Complex (78%), Hyaluronan 11 Multi-Complex, Glyceryl Glucoside (aquaporin), PENTAVITIN™ (moisture magnet), Tremella Fuciformis, Mushroom Complex, Solanum Melongena (Eggplant) Fruit Extract. Dermatologically tested. Efficacy test on inner hydration.',
     image: '/images/HRS.jpg',
-    images: null,
+    images: JSON.stringify(['/images/HRS.jpg', '/images/Second/hyalserum1.jpg']),
     category: 'Serum',
     inStock: true,
   },

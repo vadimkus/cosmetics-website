@@ -56,6 +56,30 @@ export default function RussianNotFound() {
           </div>
         </div>
 
+        {/* App Store QR Code */}
+        <div className="border-t border-gray-200 dark:border-gray-700 pt-8 mt-2">
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+            Заблудились? Отсканируйте QR-код, чтобы найти всё в приложении Genosys UAE.
+          </p>
+          <a
+            href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block"
+          >
+            <img
+              src="/images/qr-appstore.svg"
+              alt="QR-код — Genosys UAE в App Store"
+              width={140}
+              height={140}
+              className="mx-auto rounded-lg"
+            />
+          </a>
+          <p className="text-xs text-gray-400 dark:text-gray-500 mt-2">
+            Доступно в App Store
+          </p>
+        </div>
+
         <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
             Ищете другой язык?

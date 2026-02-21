@@ -201,7 +201,8 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
           <div className="max-w-4xl mx-auto">
             <a
               href={concern.protocolPdf.url}
-              download
+              target="_blank"
+              rel="noopener noreferrer"
               className="group block rounded-2xl border border-gray-200 bg-gradient-to-br from-amber-50/40 to-white p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-amber-200 transition-all duration-200"
             >
               <div className="flex items-center gap-4 sm:gap-5">

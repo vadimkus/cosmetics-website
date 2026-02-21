@@ -180,7 +180,7 @@ export default async function RussianConcernPage({ params }: { params: Promise<{
       {concern.protocolPdf && (
         <section className="px-4 pb-8 sm:pb-10">
           <div className="max-w-4xl mx-auto">
-            <a href={concern.protocolPdf.url} download
+            <a href={concern.protocolPdf.url} target="_blank" rel="noopener noreferrer"
               className="group block rounded-2xl border border-gray-200 bg-gradient-to-br from-amber-50/40 to-white p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-amber-200 transition-all duration-200">
               <div className="flex items-center gap-4 sm:gap-5">
                 <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-100 flex items-center justify-center group-hover:bg-amber-200 transition-colors">

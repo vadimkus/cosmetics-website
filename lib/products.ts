@@ -350,7 +350,7 @@ export const products: Product[] = [
     price: 340,
     description: '100g. Revitalizing overnight mask that provides intensive care to the fatigued skin. It revitalizes skin and provides intensive care to the fatigued skin with oxygen capsules and a unique skin protecting complex - pink ceramide. Dual Formula: Oxygen capsule in Pink ceramide cream - It has dual formula where oxygen capsule (which contains Italian oxygenated water) bursts smoothly when touching the skin and melts together with pink ceramide cream. Key ingredients: Pink Ceramide Complex, Oxygen, Growth Factor Complex (EGF, aFGF, bFGF, PIGF, IGF), Swelling Controller, Cucurbita Pepo (Pumpkin) Fruit Extract, Phytosphingosine. Dermatologically tested. With efficacy test on improving erythema and transepidermal water loss.',
     image: '/images/SKIN.jpg',
-    images: null,
+    images: JSON.stringify(['/images/SKIN.jpg', '/images/Second/overnight1.jpg']),
     category: 'Mask',
     inStock: true,
     size: '100g',

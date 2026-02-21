@@ -235,7 +235,7 @@ export const products: Product[] = [
     price: 370,
     description: '50g. Anti-aging cream for neck and decollete area. It targets the special needs of the delicate skin around the neck and decollete area. It lifts and firms skin and refine the skin texture. It also has an excellent effect of depigmentation. Key ingredients: Copper Tripeptide-1, sh-polypeptide 7, Acetyl Hexapeptide-8, Palmitoyl Hexapeptide-12, Palmitoyl Tripeptide-1, Vitamin Complex (vitamin A, B5, C, E) Hyaluronic Acid, Ceramide, Squalane. Dermatologically tested. Efficacy test on improving wrinkles.',
     image: '/images/ND.jpg',
-    images: null,
+    images: JSON.stringify(['/images/ND.jpg', '/images/Second/nd_big1.jpg']),
     category: 'Cream',
     inStock: true,
     size: '50g',

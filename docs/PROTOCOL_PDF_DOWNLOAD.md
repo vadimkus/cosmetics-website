@@ -8,16 +8,16 @@ Each of the 8 skin concern pages offers a downloadable protocol PDF. This docume
 
 | Slug | PDF File | Location |
 |------|----------|----------|
-| sun-protection | Protocol_sun.pdf | `/documents/PPT/Protocol_sun.pdf` |
-| acne-treatment | Protocol_acne.pdf | `/documents/PPT/Protocol_acne.pdf` |
-| pigmentation | Protocol_Pigmentation.pdf | `/documents/PPT/Protocol_Pigmentation.pdf` |
-| scars-treatment | Protocol_scar.pdf | `/documents/PPT/Protocol_scar.pdf` |
-| hair-loss | Protocol_Hair_Loss.pdf | `/documents/PPT/Protocol_Hair_Loss.pdf` |
-| anti-aging | Protocol_Anti-Aging.pdf | `/documents/PPT/Protocol_Anti-Aging.pdf` |
-| hydration | Protocol_Hydration_Treatment.pdf | `/documents/PPT/Protocol_Hydration_Treatment.pdf` |
-| sensitivity | Protocol_Sensitive.pdf | `/documents/PPT/Protocol_Sensitive.pdf` |
+| sun-protection | Protocol_sun.pdf | `/documents/ppt/Protocol_sun.pdf` |
+| acne-treatment | Protocol_acne.pdf | `/documents/ppt/Protocol_acne.pdf` |
+| pigmentation | Protocol_Pigmentation.pdf | `/documents/ppt/Protocol_Pigmentation.pdf` |
+| scars-treatment | Protocol_scar.pdf | `/documents/ppt/Protocol_scar.pdf` |
+| hair-loss | Protocol_Hair_Loss.pdf | `/documents/ppt/Protocol_Hair_Loss.pdf` |
+| anti-aging | Protocol_Anti-Aging.pdf | `/documents/ppt/Protocol_Anti-Aging.pdf` |
+| hydration | Protocol_Hydration_Treatment.pdf | `/documents/ppt/Protocol_Hydration_Treatment.pdf` |
+| sensitivity | Protocol_Sensitive.pdf | `/documents/ppt/Protocol_Sensitive.pdf` |
 
-All PDFs are static files in `public/documents/PPT/`. Data is defined in `lib/concernsData.ts` under each concern's `protocolPdf` field.
+All PDFs are static files in `public/documents/ppt/`. Data is defined in `lib/concernsData.ts` under each concern's `protocolPdf` field.
 
 ---
 
@@ -79,7 +79,7 @@ const handleProtocolDownload = () => {
 
 The mobile API (`GET /api/mobile/concerns/[slug]`) returns `protocolPdf` with:
 
-- `url` — Path, e.g. `/documents/PPT/Protocol_Hair_Loss.pdf`
+- `url` — Path, e.g. `/documents/ppt/Protocol_Hair_Loss.pdf`
 - `title` — Localized title
 - `description` — Localized description
 - `fileSize` — e.g. `"163 KB"`

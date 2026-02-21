@@ -61,7 +61,7 @@ On all 8 skin concern pages (e.g. `/products/concern/hair-loss`), clicking "Down
 
 ### Root Cause
 
-The download link used the `download` attribute on an `<a>` tag. Next.js client-side router intercepted the click and served the SPA shell instead of performing a direct fetch of the static PDF file from `/documents/PPT/Protocol_*.pdf`.
+The download link used the `download` attribute on an `<a>` tag. Next.js client-side router intercepted the click and served the SPA shell instead of performing a direct fetch of the static PDF file from `/documents/ppt/Protocol_*.pdf`.
 
 ### Fix
 

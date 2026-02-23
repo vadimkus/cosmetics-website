@@ -6,6 +6,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   // Production optimizations
   productionBrowserSourceMaps: false,
+  trailingSlash: false,
   
   // React Compiler for automatic optimization (Next.js 16+)
   reactCompiler: true,

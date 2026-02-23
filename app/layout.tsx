@@ -127,15 +127,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  alternates: {
-    canonical: 'https://genosys.ae',
-    languages: {
-      'en': 'https://genosys.ae',
-      'ar': 'https://genosys.ae/ar',
-      'ru': 'https://genosys.ae/ru',
-      'x-default': 'https://genosys.ae',
-    },
-  },
   icons: {
     icon: [
       { url: '/favicon/favicon.svg', type: 'image/svg+xml' },

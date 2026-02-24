@@ -101,6 +101,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '1': {
     id: '1',
+    images: ['/images/genosys-microneedling-devices.jpg', '/images/Second/roller1.jpg', '/images/Second/roller_stamp2.jpg'],
     pricing: {
       basePrice: 230,
       sizeVariants: {

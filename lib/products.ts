@@ -7,7 +7,7 @@ export const products: Product[] = [
     price: 230,
     description: 'Professional-grade microneedling device with patented Diskneedle Therapy System (DTS) for enhanced skin rejuvenation. Features 450 ultra-thin needles (25% thinner than competitors) for superior product absorption and minimal skin trauma. Stimulates natural collagen production and improves skin texture. Manufactured in South Korea.',
     image: '/images/genosys-microneedling-devices.jpg',
-    images: null,
+    images: JSON.stringify(['/images/genosys-microneedling-devices.jpg', '/images/Second/roller1.jpg', '/images/Second/roller_stamp2.jpg']),
     category: 'Microneedling',
     inStock: true,
     size: '0.25mm',

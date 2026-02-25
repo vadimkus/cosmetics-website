@@ -1432,6 +1432,7 @@
     "privacyConsentRequired": "Вы должны принять политику конфиденциальности, чтобы создать аккаунт",
     "signInWithGoogle": "Войти через Google",
     "signInWithApple": "Войти через Apple",
+    "downloadApp": "Скачать приложение Genosys UAE",
     "signInWithPasskey": "Войти через Face ID / Touch ID",
     "addPasskey": "Добавить Face ID / Touch ID",
     "passkeyAdded": "Ключ доступа добавлен",

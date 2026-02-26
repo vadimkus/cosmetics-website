@@ -89,6 +89,26 @@ export default function SkinRecommendationClient() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [aiProductDetails, setAiProductDetails] = useState<Map<string, any>>(new Map())
 
+  const AI_PRODUCT_NAME_TO_ID: Record<string, string> = useMemo(() => ({
+    'MOISTURE REPLENISHING HYALURON SERUM': '18',
+    'MOISTURE REPLENISHING HYALURON CREAM': '29',
+    'INTENSIVE PROBLEM CONTROL TONER': '15',
+    'PROBLEM CONTROL SERUM': '20',
+    'INTENSIVE PROBLEM CONTROL CREAM': '30',
+    'ALL FOR SENSITIVE SERUM': '19',
+    'SKIN BARRIER PROTECTING CREAM': '27',
+    'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': '22',
+    'MULTI FUNCTIONAL ANTI-WRINKLE CREAM': '32',
+    'ND CELL ANTI-WRINKLE CREAM': '23',
+    'MULTI VITA RADIANCE SERUM': '21',
+    'MULTI VITA RADIANCE CREAM': '31',
+    'SNOW O₂ CLEANSER': '10',
+    'SNOW BOOSTER': '16',
+    'ULTRA SHIELD SUN CREAM SPF 50+': '39',
+    'EYECELL EYE CONTOUR SERUM': '17',
+    'EYECELL EYE CONTOUR CREAM': '24',
+  }), [])
+
   // Load analysis data from URL params and sessionStorage
   useEffect(() => {
     const fromAnalysis = searchParams.get('fromAnalysis')
@@ -213,8 +233,22 @@ export default function SkinRecommendationClient() {
         await Promise.all(
           data.recommendations.map(async (rec: { product: string; reason: string }) => {
             const linkMatch = rec.product.match(/\[([^\]]+)\]\(([^)]+)\)\{\{id:(\d+)\}\}/)
-            if (linkMatch && linkMatch[3]) {
-              const productId: string = linkMatch[3]
+            let productId: string | null = linkMatch?.[3] ?? null
+
+            if (!productId) {
+              const nameRaw = (linkMatch?.[1] ?? rec.product).toUpperCase().trim()
+              productId = AI_PRODUCT_NAME_TO_ID[nameRaw] ?? null
+              if (!productId) {
+                for (const [name, id] of Object.entries(AI_PRODUCT_NAME_TO_ID)) {
+                  if (nameRaw.includes(name) || name.includes(nameRaw)) {
+                    productId = id
+                    break
+                  }
+                }
+              }
+            }
+
+            if (productId) {
               try {
                 const productResponse = await fetch(`/api/products/${productId}`)
                 if (productResponse.ok) {
@@ -1080,11 +1114,19 @@ export default function SkinRecommendationClient() {
                     </h4>
                     <div className="space-y-4">
                       {aiAnalysisResult.recommendations.map((rec, idx) => {
-                        // Parse product link [Name](url){{id:XX}}
                         const linkMatch = rec.product.match(/\[([^\]]+)\]\(([^)]+)\)\{\{id:(\d+)\}\}/)
-                        const productName = linkMatch ? linkMatch[1] : rec.product
-                        const productUrl = linkMatch ? linkMatch[2] : null
-                        const productId = linkMatch ? linkMatch[3] : null
+                        const productName = linkMatch?.[1] ?? rec.product
+                        let productId: string | null = linkMatch?.[3] ?? null
+                        if (!productId) {
+                          const nameUpper = productName.toUpperCase().trim()
+                          productId = AI_PRODUCT_NAME_TO_ID[nameUpper] ?? null
+                          if (!productId) {
+                            for (const [name, id] of Object.entries(AI_PRODUCT_NAME_TO_ID)) {
+                              if (nameUpper.includes(name) || name.includes(nameUpper)) { productId = id; break }
+                            }
+                          }
+                        }
+                        const productUrl = linkMatch ? linkMatch[2] : (productId ? `/products/${productId}` : null)
                         const productDetails = productId ? aiProductDetails.get(productId) : null
                         
                         return (
@@ -1132,11 +1174,23 @@ export default function SkinRecommendationClient() {
                                 )}
                                 
                                 {/* Price */}
-                                {productDetails?.price && (
-                                  <p className="text-primary-600 font-bold text-base sm:text-lg mt-1">
-                                    AED {Number(productDetails.price).toFixed(0)}
-                                  </p>
-                                )}
+                                {productDetails?.price && canUserSeePrices(user) && (() => {
+                                  const pricing = calculateDiscountedPrice(productDetails as Product, user)
+                                  return pricing.hasDiscount ? (
+                                    <div className="flex items-baseline gap-1.5 mt-1">
+                                      <span className="text-primary-600 font-bold text-base sm:text-lg">
+                                        AED {pricing.discountedPrice.toFixed(0)}
+                                      </span>
+                                      <span className="text-gray-400 line-through text-xs">
+                                        {pricing.originalPrice.toFixed(0)}
+                                      </span>
+                                    </div>
+                                  ) : (
+                                    <p className="text-primary-600 font-bold text-base sm:text-lg mt-1">
+                                      AED {pricing.originalPrice.toFixed(0)}
+                                    </p>
+                                  )
+                                })()}
                                 
                                 {/* Reason */}
                                 <p className="text-xs sm:text-sm text-gray-600 mt-1 line-clamp-2">{rec.reason}</p>
@@ -1254,58 +1308,6 @@ export default function SkinRecommendationClient() {
             </div>
           )}
 
-          {/* Get Recommendations Button */}
-          <div className="text-center">
-            <button
-              onClick={async () => {
-                setIsLoading(true)
-                try {
-                  const params = new URLSearchParams()
-                  if (selectedSkinType) params.append('skinType', selectedSkinType)
-                  if (selectedAgeGroup) params.append('ageGroup', selectedAgeGroup)
-                  if (selectedTargetConcerns.length > 0) {
-                    params.append('targetConcerns', selectedTargetConcerns.join(','))
-                  }
-                  // Pass analysis metrics for smarter recommendations
-                  if (cameraResult) {
-                    params.append('oilinessLevel', cameraResult.oilinessLevel.toString())
-                    params.append('hydrationLevel', cameraResult.hydrationLevel.toString())
-                    params.append('rednessLevel', cameraResult.rednessLevel.toString())
-                  }
-                  
-                  const response = await fetch(`/api/skin-recommendations?${params.toString()}`)
-                  if (!response.ok) throw new Error('Failed to fetch')
-                  const products = await response.json()
-                  
-                  setRecommendations(products)
-                  setShowResults(true)
-                  setShowAnalysisReport(false)
-                  window.scrollTo({ top: 0, behavior: 'smooth' })
-                } catch (error) {
-                  errorLog('Error fetching recommendations:', error)
-                  alert(t('skinRecommendation.failedToLoadRecommendations'))
-                } finally {
-                  setIsLoading(false)
-                }
-              }}
-              disabled={isLoading}
-              className={`inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold px-8 py-4 rounded-xl transition-all shadow-lg shadow-primary-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-wait ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-            >
-              {isLoading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <Sparkles className="w-5 h-5" />
-              )}
-              {isLoading 
-                ? (locale === 'ar' ? 'جاري التحميل...' : locale === 'ru' ? 'Загрузка...' : 'Loading...')
-                : (locale === 'ar' ? 'عرض المنتجات الموصى بها' : locale === 'ru' ? 'Показать рекомендации' : 'View Recommended Products')
-              }
-              {!isLoading && <ArrowRight className={`w-5 h-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />}
-            </button>
-            <p className="text-gray-500 text-sm mt-3">
-              {locale === 'ar' ? 'منتجات GENOSYS المناسبة لنوع بشرتك' : locale === 'ru' ? 'Продукты GENOSYS для вашего типа кожи' : 'GENOSYS products tailored for your skin type'}
-            </p>
-          </div>
         </div>
       ) : !showResults ? (
         <>

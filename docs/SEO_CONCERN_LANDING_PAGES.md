@@ -2,7 +2,7 @@
 
 > **Purpose**: Condition-based landing pages for Google rankings, AI search citation (GEO), and internal link equity. Optimized for keywords like "sun protection UAE", "acne treatment Dubai", "pigmentation skincare", etc.
 
-**Last updated**: February 19, 2026
+**Last updated**: February 26, 2026
 
 ---
 
@@ -42,12 +42,16 @@ Both have localized variants: `/ar/...` and `/ru/...`.
 Each concern page includes:
 - SEO metadata (title, description, H1, intro, keywords) in EN/AR/RU
 - FAQ section with `FAQPage` schema for AI citation (GEO)
-- Product grid filtered by concern (curated via page-specific concern keys, 4-8 products each)
-- "Complete Your Routine" essentials section (cleanser, booster, SPF — except hair-loss)
-- Embedded AM/PM skincare routine
-- Related concerns cross-links
+- Product grid filtered by concern (collapsible, curated via page-specific concern keys, 4-8 products each)
+- "Why" section — collapsible on all screen sizes (desktop, mobile web, PWA) with chevron toggle
+- Embedded AM/PM skincare routine with interactive product chips (tap to add to cart)
+- **"Start Your Routine Today" CTA** — View Bag button (cart-aware, shows item count) + AI Skin Analysis link (`ConcernCTA.tsx`)
+- Protocol PDF download card (collapsible "Documentation" section, header matches "Why" section size)
+- Related concerns cross-links (horizontal scroll on mobile, grid on desktop)
 - Breadcrumb schema
-- Protocol PDF download card
+- Sticky cart bar on mobile (replaces mobile footer navigation on concern pages)
+
+> **Removed (Feb 26, 2026):** "Complete Your Routine" essentials section (cleanser, booster, SPF cards). Replaced by the CTA block above. `ConcernEssentialPrice.tsx` is now unused.
 
 ### Product Curation Strategy (Feb 19, 2026)
 

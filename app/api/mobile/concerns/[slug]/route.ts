@@ -6,6 +6,7 @@ import { getConcernBySlug, CONCERN_PAGES, type ConcernPage } from '@/lib/concern
 import { getProductsByConcern } from '@/lib/productsDb'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+import { ApiUser } from '@/types/user'
 
 const ROUTINE_ESSENTIALS = [
   { productId: '10', name: 'SNOW O₂ CLEANSER', icon: '🫧', description: { en: 'Oxygen bubble cleanser — gentle yet thorough. Use morning & evening.', ar: 'غسول فقاعات الأكسجين — لطيف وعميق. للاستخدام صباحاً ومساءً.', ru: 'Кислородная пенка — мягкое и тщательное очищение. Утром и вечером.' }, price: '330 AED' },
@@ -106,7 +107,22 @@ export async function GET(
       : []
 
     const allDbProducts = [...dbProducts, ...routineDbProducts]
-    const enhanced = generateBatchEnhancedProductData(allDbProducts, null)
+
+    const userId = request.headers.get('x-user-id')
+    let user: ApiUser | null = null
+    if (userId) {
+      try {
+        user = await prisma.user.findUnique({
+          where: { id: userId },
+          select: { id: true, email: true, name: true, discountType: true, discountPercentage: true, canSeePrices: true },
+        })
+        debugLog(`[CONCERNS_API] User context loaded: ${user?.email || 'not found'}`)
+      } catch {
+        debugLog('[CONCERNS_API] Failed to load user context')
+      }
+    }
+
+    const enhanced = generateBatchEnhancedProductData(allDbProducts, user)
     const wantAr = validLocale === 'ar'
     const wantRu = validLocale === 'ru'
 

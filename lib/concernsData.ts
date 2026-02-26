@@ -446,7 +446,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── ACNE TREATMENT ──────────────────────────────────────────
   {
     slug: 'acne-treatment',
-    icon: '🔬',
+    icon: '💆',
     concernKeys: ['page-acne'],
     categoryFallbacks: [],
     relatedConcerns: ['scars-treatment', 'pigmentation', 'sensitivity'],
@@ -1133,7 +1133,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
   // ─── SCARS TREATMENT ──────────────────────────────────────────
   {
     slug: 'scars-treatment',
-    icon: '🩹',
+    icon: '🧬',
     concernKeys: ['scar-repair'],
     categoryFallbacks: [],
     relatedConcerns: ['acne-treatment', 'pigmentation', 'anti-aging'],

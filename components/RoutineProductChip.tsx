@@ -1,9 +1,11 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { Check } from 'lucide-react'
 import { useCart } from '@/components/cart/CartProvider'
+import { useAuth } from '@/components/auth/AuthProvider'
+import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import type { Product } from '@/types'
 
 interface RoutineProductChipProps {
@@ -21,6 +23,7 @@ export default function RoutineProductChip({
 }: RoutineProductChipProps) {
   const router = useRouter()
   const { addItem, removeItem, items } = useCart()
+  const { user } = useAuth()
   const [justAdded, setJustAdded] = useState(false)
 
   const inCart =
@@ -28,6 +31,12 @@ export default function RoutineProductChip({
     items.some(
       (i) => String(i.product?.id) === String(product.id)
     )
+
+  const pricing = useMemo(() => {
+    if (!product || product.isPriceOnRequest) return null
+    if (!canUserSeePrices(user)) return null
+    return calculateDiscountedPrice(product, user)
+  }, [product, user])
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
@@ -67,6 +76,37 @@ export default function RoutineProductChip({
 
   const showCheck = justAdded || inCart
 
+  const renderPrice = () => {
+    if (!canUserSeePrices(user)) return null
+
+    if (pricing?.hasDiscount) {
+      return (
+        <>
+          <span className={showCheck ? 'text-green-600 font-semibold' : 'text-primary-600 font-semibold'}>
+            AED {pricing.discountedPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+          </span>
+          <span className="text-gray-400 line-through text-[10px]">
+            {pricing.originalPrice.toLocaleString()}
+          </span>
+        </>
+      )
+    }
+
+    if (pricing) {
+      return (
+        <span className={showCheck ? 'text-green-600' : 'text-gray-500'}>
+          AED {pricing.originalPrice.toLocaleString()}
+        </span>
+      )
+    }
+
+    return (
+      <span className={showCheck ? 'text-green-600' : 'text-gray-500'}>
+        {price}
+      </span>
+    )
+  }
+
   return (
     <button
       type="button"
@@ -88,9 +128,7 @@ export default function RoutineProductChip({
         {name}
       </span>
       <span className={showCheck ? 'text-green-400' : 'text-gray-400'}>·</span>
-      <span className={showCheck ? 'text-green-600' : 'text-gray-500'}>
-        {price}
-      </span>
+      {renderPrice()}
     </button>
   )
 }

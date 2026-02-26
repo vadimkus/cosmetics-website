@@ -112,3 +112,63 @@ Removed the **"Generate Link for Payment"** (support-link) payment method from t
 ```
 feat: remove "Generate Link for Payment" option, rename "Stripe Checkout" to "Card Payment"
 ```
+
+---
+
+## 3. Fix: Concern-Detail Pricing — Double-Inflated Prices for Discount Users
+
+**Date**: 2026-02-26 (Session 2)
+
+### Problem
+
+Users with a personal discount (e.g. 50%) saw **doubled prices** in the sticky bar and bag page when adding products from the Skin Concern pages. For example, SNOW O₂ CLEANSER (retail 330 AED) showed:
+
+- ~~660 AED~~ 330 AED (should be ~~330~~ 165)
+- Retail Price: 660 AED (should be 330)
+
+### Root Cause
+
+Two issues working together:
+
+1. **Server**: The concern-detail API (`/api/mobile/concerns/[slug]`) called `generateBatchEnhancedProductData(products, null)` — passing `null` instead of the authenticated user. Products were returned with guest pricing: `displayPrice = retail`, `originalPrice = undefined`.
+
+2. **Client**: `CartContext.addItem()` auto-picks the default size variant via `normalizeSizeKey()`. Then `inferOriginalFromUserDiscount()` assumed the variant price (330) was already discounted and reverse-calculated `330 / (1 - 0.50) = 660` as the "original" price. This 660 was stored as `originalPrice`, causing the sticky bar and bag to show doubled values.
+
+### What Changed
+
+| File | Change |
+|------|--------|
+| `cosmetics-website/app/api/mobile/concerns/[slug]/route.ts` | Added `x-user-id` header support, user lookup via Prisma, pass user to pricing engine |
+| `genosys-mobile-app/services/api.js` | `fetchConcernDetail` now accepts `user` in options and sends `x-user-id` header |
+| `genosys-mobile-app/app/concern-detail.js` | Pass `user` to `fetchConcernDetail`; added `user?.id` to dependency arrays |
+| `genosys-mobile-app/contexts/CartContext.js` | `inferOriginalFromUserDiscount` now only runs when server confirmed a discount (`originalPrice` exists) — fixed in both `addItem` and `loadCartFromStorage` |
+| `genosys-mobile-app/app/(tabs)/bag.js` | Removed `base / (1 - pct)` reverse-calculation heuristic; uses server-provided `originalPrice` or `product.price` only |
+| `genosys-mobile-app/utils/cartUtils.js` | Added `product.price` (retail base) fallback for discount calculation when `originalPrice` is missing |
+
+### Before → After
+
+| Scenario | Before | After |
+|----------|--------|-------|
+| Cleanser (330 AED retail, 50% user) from concern page | ~~660~~ 330, Retail: 660 | ~~330~~ 165, Retail: 330 |
+| Toner (260 AED retail, 50% user) from concern page | ~~520~~ 260, Retail: 520 | ~~260~~ 130, Retail: 260 |
+| Products from products list (already had user context) | Correct (no change) | Correct (no change) |
+
+---
+
+## 4. UX: Sticky Bar — Green Discount Color + Item Removal
+
+**Date**: 2026-02-26 (Session 2)
+
+### Changes
+
+| Feature | Detail |
+|---------|--------|
+| **Discount color** | Changed the discount row in the concern-detail sticky bar from red (`#dc2626`) to green (`#16a34a`) — both label and amount |
+| **Per-item remove** | Each item row in the expanded sticky bar has a subtle gray `×` circle icon on the left. Tap to remove with haptic feedback + toast |
+| **Clear all** | When 2+ items are in the bag, a "Clear all" link with trash icon appears below the product list. Clears entire bag with haptic + toast |
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `genosys-mobile-app/app/concern-detail.js` | Discount row green color; added remove button per item row; added "Clear all" link below items; new styles (`stickyClearAll`, `stickyClearAllText`, `stickyRemoveBtn`); destructured `clearCart` from `useCart()` |

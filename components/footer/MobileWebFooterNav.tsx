@@ -134,6 +134,8 @@ export default function MobileWebFooterNav() {
       return cartCount > 0 // Hide footer only when cart has items
     }
     
+    const isConcernPage = pathname.includes('/products/concern/')
+
     return /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) || 
            pathname.includes('/pdf-viewer') || 
            pathname.includes('/pwa-login') ||
@@ -143,7 +145,8 @@ export default function MobileWebFooterNav() {
            isAuthPage ||
            isCheckoutPage ||
            isSuccessPage ||
-           isBundleBuilder
+           isBundleBuilder ||
+           isConcernPage
   }, [pathname, cartCount])
 
   const activeTab = useMemo(() => {

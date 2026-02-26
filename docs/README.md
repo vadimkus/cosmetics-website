@@ -14,6 +14,7 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
+| 🟡 **Important** | [SESSION_CHANGES_2026-02-26_part2.md](./SESSION_CHANGES_2026-02-26_part2.md) | Skin concern pages: CTA, collapsible Why/Docs, AI pricing fix |
 | 🟡 **Important** | [SESSION_CHANGES_2026-02-26.md](./SESSION_CHANGES_2026-02-26.md) | "Download Genosys UAE App" button on login page with EN/RU/AR translations |
 | 🟡 **Important** | [SESSION_CHANGES_2026-02-20.md](./SESSION_CHANGES_2026-02-20.md) | Routine chip remove fix (web), MoySklad cushion color, **protocol PDF download fix** (HTML→PDF) |
 | 🟢 **Feature** | [CHATBOT_SETUP.md](./CHATBOT_SETUP.md) | AI Chatbot setup and configuration |
@@ -181,9 +182,25 @@ All 8 skin concern pages have interactive routine product chips:
 
 **Visual feedback:** Green background + checkmark icon when product is in cart.
 
+**Collapsible sections (all platforms):**
+- **"Why" section** — Collapsed by default, tap to expand (`ConcernWhySection.tsx`)
+- **"Documentation"** — Protocol PDF download, collapsed by default
+- **"Recommended Products"** — Collapsible product grid, open by default
+
+**"Start Your Routine Today" CTA** (`ConcernCTA.tsx`):
+- View Bag button (disabled when cart empty, shows item count)
+- AI Skin Analysis button (links to `/skin-recommendation`)
+- Replaces the old "Complete Your Routine" essentials block (removed Feb 26, 2026)
+
+**Sticky cart bar** (`ConcernStickyBar.tsx`):
+- Replaces mobile footer nav on concern pages
+- Shows cart total, savings, expand to see items
+
+**Pricing:** Guests see no prices. Logged-in users see discounted prices on routine chips (`RoutineProductChip.tsx`) via `calculateDiscountedPrice()`.
+
 **Technical:** Products are matched by `productNumber` (from URL `/products/10`) to full product objects. The API and web pages both fetch routine-referenced products that may not be in the concern-matched set.
 
-**Key files:** `components/RoutineProductChip.tsx` (web), `app/concern-detail.js` (native), `app/api/mobile/concerns/[slug]/route.ts` (API)
+**Key files:** `components/RoutineProductChip.tsx`, `components/ConcernCTA.tsx`, `components/ConcernWhySection.tsx`, `components/ConcernStickyBar.tsx` (web), `app/concern-detail.js` (native), `app/api/mobile/concerns/[slug]/route.ts` (API)
 
 **Protocol PDF downloads:** [PROTOCOL_PDF_DOWNLOAD.md](./PROTOCOL_PDF_DOWNLOAD.md) — Technical doc: web vs native, fix for HTML-vs-PDF bug (Feb 2026)
 
@@ -401,7 +418,8 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-02-26.md](./SESSION_CHANGES_2026-02-26.md) | **NEW** "Download Genosys UAE App" button on login page (desktop, mobile web, modal) with EN/RU/AR translations |
+| [SESSION_CHANGES_2026-02-26_part2.md](./SESSION_CHANGES_2026-02-26_part2.md) | **NEW** Skin concern pages: Replace "Complete Your Routine" with CTA, collapsible Why section on all screens, Documentation header sizing, AI Expert Analysis discount pricing fix, remove "View Recommended Products" button |
+| [SESSION_CHANGES_2026-02-26.md](./SESSION_CHANGES_2026-02-26.md) | "Download Genosys UAE App" button on login page (desktop, mobile web, modal) with EN/RU/AR translations |
 | [SESSION_CHANGES_2026-02-20.md](./SESSION_CHANGES_2026-02-20.md) | Fix routine chip remove for products with size variants (web) |
 | [SESSION_CHANGES_2026-02-19_part2.md](./SESSION_CHANGES_2026-02-19_part2.md) | Concern detail API, native concern-detail screen, native training screen, routine add-to-cart (tap toggle + long-press navigate), product ID mismatch fix (CUID vs productNumber), breadcrumb hiding, toast messages, TestFlight build 64 |
 | [SESSION_CHANGES_2026-02-19.md](./SESSION_CHANGES_2026-02-19.md) | Concern page product refinement (page-specific keys), scoring algo overhaul (MAX=4, threshold=30), routine essentials, 8 protocol rework, Skin Concern category (web+native), native concerns screen, Genie chatbot training, Browse by Concern CTAs, PDRN mask video |

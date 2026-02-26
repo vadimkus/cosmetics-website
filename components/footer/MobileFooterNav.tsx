@@ -217,8 +217,12 @@ export default function MobileFooterNav() {
   // cartCount is now managed by useState with subscription above
   const hasItemsInCart = cartCount > 0
   
-  // Only render in PWA mode on mobile, hide on product detail pages, login page, PDF viewer, and fullscreen modals
-  if (!isClient || !isPWA || isProductDetailPage || isLoginPage || isPDFViewerPage || isFullscreenModalOpen) {
+  const isConcernPage = useMemo(() => {
+    if (!pathname) return false
+    return pathname.includes('/products/concern/')
+  }, [pathname])
+
+  if (!isClient || !isPWA || isProductDetailPage || isLoginPage || isPDFViewerPage || isFullscreenModalOpen || isConcernPage) {
     return null
   }
   

@@ -9,6 +9,9 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import CollectionPageSchema from '@/components/schema/CollectionPageSchema'
 import GeoFaqSchema from '@/components/schema/GeoFaqSchema'
 import RoutineProductChip from '@/components/RoutineProductChip'
+import ConcernWhySection from '@/components/ConcernWhySection'
+import ConcernStickyBar from '@/components/ConcernStickyBar'
+import ConcernCTA from '@/components/ConcernCTA'
 import type { Product } from '@/types'
 
 export const revalidate = 3600 // Revalidate every hour
@@ -113,10 +116,8 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
   const routineProducts = missingNums.length > 0 ? await getProductsByNumbers(missingNums) : []
   const allProducts = [...products, ...routineProducts]
 
-  // Get related concerns for cross-linking
-  const relatedConcerns = concern.relatedConcerns
-    .map(s => CONCERN_PAGES.find(c => c.slug === s))
-    .filter(Boolean)
+  // All concerns excluding current for cross-linking
+  const allRelatedConcerns = CONCERN_PAGES.filter(c => c.slug !== slug)
 
   const productById = new Map<string, Product>()
   for (const p of allProducts) {
@@ -175,64 +176,57 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* Why Section — Scannable highlights */}
-      {why && (
-        <section className="px-4 pb-8 sm:pb-10">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 text-center">
-              {why.title}
-            </h2>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-              {why.items.map((item, i) => (
-                <div key={i} className="rounded-xl bg-gray-50 border border-gray-100 p-4 text-center">
-                  <span className="text-2xl mb-2 block">{item.icon}</span>
-                  <p className="font-semibold text-gray-900 text-sm mb-1">{item.label}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{item.detail}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Why Section — Collapsible on mobile */}
+      {why && <ConcernWhySection title={why.title} items={why.items} />}
 
-      {/* Protocol PDF Download */}
+      {/* Protocol PDF Download — collapsible */}
       {concern.protocolPdf && (
         <section className="px-4 pb-8 sm:pb-10">
           <div className="max-w-4xl mx-auto">
-            <a
-              href={concern.protocolPdf.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block rounded-2xl border border-gray-200 bg-gradient-to-br from-amber-50/40 to-white p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-amber-200 transition-all duration-200"
-            >
-              <div className="flex items-center gap-4 sm:gap-5">
-                <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-100 flex items-center justify-center group-hover:bg-amber-200 transition-colors">
-                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                  </svg>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <h3 className="text-sm sm:text-base font-semibold text-gray-900 group-hover:text-amber-800 transition-colors">
-                      {concern.protocolPdf.title.en}
-                    </h3>
-                    <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 text-amber-700">
-                      PDF
-                    </span>
+            <details className="group">
+              <summary className="cursor-pointer list-none flex items-center justify-between py-2 text-lg font-bold text-gray-900 transition-colors">
+                Documentation
+                <svg className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </summary>
+              <div className="mt-2">
+                <a
+                  href={concern.protocolPdf.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/link block rounded-2xl border border-gray-200 bg-gradient-to-br from-amber-50/40 to-white p-5 sm:p-6 shadow-sm hover:shadow-md hover:border-amber-200 transition-all duration-200"
+                >
+                  <div className="flex items-center gap-4 sm:gap-5">
+                    <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-amber-100 flex items-center justify-center group-hover/link:bg-amber-200 transition-colors">
+                      <svg className="w-5 h-5 sm:w-6 sm:h-6 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m.75 12l3 3m0 0l3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                      </svg>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <h3 className="text-sm sm:text-base font-semibold text-gray-900 group-hover/link:text-amber-800 transition-colors">
+                          {concern.protocolPdf.title.en}
+                        </h3>
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-amber-100 text-amber-700">
+                          PDF
+                        </span>
+                      </div>
+                      <p className="text-gray-500 text-xs sm:text-sm leading-relaxed line-clamp-1 sm:line-clamp-none">
+                        {concern.protocolPdf.description.en}
+                      </p>
+                    </div>
+                    <div className="flex-shrink-0 hidden sm:flex items-center gap-1.5 text-sm text-amber-700 font-medium group-hover/link:gap-2 transition-all">
+                      Download
+                      <span className="text-gray-400 font-normal text-xs">({concern.protocolPdf.fileSize})</span>
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                    </div>
                   </div>
-                  <p className="text-gray-500 text-xs sm:text-sm leading-relaxed line-clamp-1 sm:line-clamp-none">
-                    {concern.protocolPdf.description.en}
-                  </p>
-                </div>
-                <div className="flex-shrink-0 hidden sm:flex items-center gap-1.5 text-sm text-amber-700 font-medium group-hover:gap-2 transition-all">
-                  Download
-                  <span className="text-gray-400 font-normal text-xs">({concern.protocolPdf.fileSize})</span>
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                  </svg>
-                </div>
+                </a>
               </div>
-            </a>
+            </details>
           </div>
         </section>
       )}
@@ -291,55 +285,25 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* Products Grid */}
+      {/* Products Grid — collapsible */}
       <section className="py-8 sm:py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6">
-            Recommended Products ({products.length})
-          </h2>
-          <ConcernProductGrid products={products} locale="en" />
+          <details className="group" open>
+            <summary className="cursor-pointer list-none flex items-center justify-between mb-6">
+              <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">
+                Recommended Products ({products.length})
+              </h2>
+              <svg className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <ConcernProductGrid products={products} locale="en" />
+          </details>
         </div>
       </section>
 
-      {/* Complete Your Routine — universal essentials */}
-      {slug !== 'hair-loss' && (
-        <section className="py-8 sm:py-10 px-4 bg-gradient-to-b from-gray-50 to-white">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 text-center">
-              Complete Your Routine
-            </h2>
-            <p className="text-sm text-gray-500 mb-6 text-center">
-              Every effective skincare routine starts with a clean base and ends with sun protection
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <Link href="/products/10" className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-200 hover:shadow-sm transition-all">
-                <span className="text-2xl flex-shrink-0">🫧</span>
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-900">SNOW O₂ CLEANSER</h3>
-                  <p className="text-xs text-gray-500 mt-0.5">Oxygen bubble cleanser — gentle yet thorough. Use morning &amp; evening.</p>
-                  <span className="text-xs text-primary-600 font-medium mt-1 inline-block">330 AED →</span>
-                </div>
-              </Link>
-              <Link href="/products/16" className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-200 hover:shadow-sm transition-all">
-                <span className="text-2xl flex-shrink-0">💦</span>
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-900">SNOW BOOSTER</h3>
-                  <p className="text-xs text-gray-500 mt-0.5">Hydrating toner that preps skin for serums &amp; actives.</p>
-                  <span className="text-xs text-primary-600 font-medium mt-1 inline-block">260 AED →</span>
-                </div>
-              </Link>
-              <Link href="/products/39" className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 hover:border-primary-200 hover:shadow-sm transition-all">
-                <span className="text-2xl flex-shrink-0">☀️</span>
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-900">ULTRA SHIELD SPF 50+</h3>
-                  <p className="text-xs text-gray-500 mt-0.5">Broad-spectrum SPF 50+ — essential in the UAE sun. Apply every morning.</p>
-                  <span className="text-xs text-primary-600 font-medium mt-1 inline-block">250 AED →</span>
-                </div>
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
+      {/* Start Your Routine CTA */}
+      <ConcernCTA locale="en" />
 
       {/* Full Intro (below products for SEO — detailed content for crawlers and interested readers) */}
       <section className="px-4 pb-8">
@@ -376,21 +340,24 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* Related Concerns (Cross-linking for SEO) */}
-      {relatedConcerns.length > 0 && (
+      {/* Related Concerns — all except current */}
+      {allRelatedConcerns.length > 0 && (
         <section className="py-8 sm:py-12 px-4">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6">
               Related Skin Concerns
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {relatedConcerns.map(related => related && (
+            <div className="flex gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 lg:grid-cols-4 sm:overflow-visible sm:pb-0 snap-x snap-mandatory scrollbar-hide">
+              {allRelatedConcerns.map(related => (
                 <Link
                   key={related.slug}
                   href={`/products/concern/${related.slug}`}
-                  className="block p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors border border-gray-100"
+                  className="block min-w-[200px] sm:min-w-0 p-5 sm:p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors border border-gray-100 snap-start flex-shrink-0 sm:flex-shrink"
                 >
-                  <h3 className="font-semibold text-gray-900 mb-1">{related.seo.en.h1}</h3>
+                  <div className="flex items-center gap-2 mb-1">
+                    {related.icon && <span className="text-lg">{related.icon}</span>}
+                    <h3 className="font-semibold text-gray-900">{related.seo.en.h1}</h3>
+                  </div>
                   <p className="text-sm text-gray-500 line-clamp-2">{related.seo.en.description}</p>
                 </Link>
               ))}
@@ -398,6 +365,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
       )}
+      <ConcernStickyBar locale="en" />
     </div>
   )
 }

@@ -24,7 +24,7 @@ const VERSION_CONFIG = {
   minimumVersion: '1.5.0',
 
   // Informational — the latest version available on the store
-  latestVersion: '1.5.0',
+  latestVersion: '1.6.0',
 
   // true = blocking screen, false = passthrough (no update enforced)
   forceUpdate: true,

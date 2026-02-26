@@ -115,7 +115,71 @@ feat: remove "Generate Link for Payment" option, rename "Stripe Checkout" to "Ca
 
 ---
 
-## 3. Fix: Concern-Detail Pricing — Double-Inflated Prices for Discount Users
+## 3. Force Update Version Gating API
+
+### Summary
+
+Created a server-controlled API endpoint that the native app queries on every cold start to decide whether to show a blocking "Update Required" screen.
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `app/api/mobile/app-version/route.ts` | **NEW** — Returns `minimumVersion`, `latestVersion`, `forceUpdate` flag, `updateUrl`, and localized `message` (EN/AR/RU). Cache-Control: 5 min. |
+
+### Configuration
+
+| Field | Value |
+|-------|-------|
+| `minimumVersion` | `1.5.0` |
+| `latestVersion` | `1.6.0` |
+| `forceUpdate` | `true` |
+| `updateUrl` | `https://apps.apple.com/ae/app/genosys-uae/id6756648064` |
+
+### How It Works
+
+1. App calls `GET /api/mobile/app-version` on cold start
+2. Compares `currentVersion` (from `app.json`) against `minimumVersion`
+3. If `currentVersion < minimumVersion` and `forceUpdate` is `true`, app shows a blocking screen
+4. User taps "Update on App Store" → opens App Store link
+
+To force users to update after a new release: bump `minimumVersion` in the endpoint.
+
+---
+
+## 4. Ramadan Video Splash Screen API
+
+### Summary
+
+Created a server-controlled API endpoint that configures a dynamic video splash screen for the native app. Video can be swapped remotely without rebuilding the app.
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `app/api/mobile/splash-config/route.ts` | **NEW** — Returns `enabled`, `type` (video/image), `videoUrl`, `posterUrl`, `duration`, `cacheTTL`. Cache-Control: 5 min. |
+| `public/videos/ramadan2.mp4` | **NEW** — Hosted Ramadan splash video (5.8MB) for remote delivery to existing app versions |
+
+### Configuration
+
+| Field | Value |
+|-------|-------|
+| `enabled` | `true` |
+| `type` | `video` |
+| `videoUrl` | `https://genosys.ae/videos/ramadan2.mp4` |
+| `duration` | `5000` (ms) |
+| `cacheTTL` | `86400` (24h) |
+
+### How It Works
+
+1. App calls `GET /api/mobile/splash-config` on cold start
+2. If `enabled` and `type === 'video'`, downloads and caches the video locally
+3. Video plays full-screen on launch (tap to skip, auto-fade-out)
+4. To swap the video: replace the file in `public/videos/` and update `videoUrl`
+
+---
+
+## 5. Fix: Concern-Detail API — User Context for Personalized Pricing
 
 **Date**: 2026-02-26 (Session 2)
 
@@ -155,7 +219,7 @@ Two issues working together:
 
 ---
 
-## 4. UX: Sticky Bar — Green Discount Color + Item Removal
+## 6. UX: Sticky Bar — Green Discount Color + Item Removal (Mobile App)
 
 **Date**: 2026-02-26 (Session 2)
 
@@ -172,3 +236,62 @@ Two issues working together:
 | File | Change |
 |------|--------|
 | `genosys-mobile-app/app/concern-detail.js` | Discount row green color; added remove button per item row; added "Clear all" link below items; new styles (`stickyClearAll`, `stickyClearAllText`, `stickyRemoveBtn`); destructured `clearCart` from `useCart()` |
+
+---
+
+## 7. Fix: Bag Back Chevron Navigation (Mobile App)
+
+**Date**: 2026-02-26 (Session 3)
+
+### Problem
+
+Tapping the back chevron in the bag screen did nothing or navigated to the wrong page. The bag is a tab screen that stays mounted, so the navigation source was lost after the first visit.
+
+### Root Cause
+
+1. `useEffect([])` only ran once on first mount — subsequent visits never re-read `navSource`
+2. `navSource` was stored as a plain URL string but expo-router needs `{ pathname, params }` object form
+3. `router.canGoBack()` checked first but unreliable for tab screens
+
+### Files Changed
+
+| File | Change |
+|------|--------|
+| `genosys-mobile-app/app/(tabs)/bag.js` | `useEffect` → `useFocusEffect`; JSON.parse navSource; navSource checked before `router.canGoBack()` |
+| `genosys-mobile-app/app/concern-detail.js` | navSource as JSON `{ pathname, params }` |
+| `genosys-mobile-app/app/product/[id].js` | navSource as JSON `{ pathname, params }` |
+| `genosys-mobile-app/app/bundle-builder.js` | navSource as JSON `{ pathname }` |
+| `genosys-mobile-app/app/profile/orders/[id].js` | navSource as JSON `{ pathname, params }` |
+| `genosys-mobile-app/app/profile.js` | navSource as JSON `{ pathname }` |
+
+---
+
+## 8. Mobile App Version 1.6.0 — Build & Submit
+
+### Version Bump
+
+| Field | Before | After |
+|-------|--------|-------|
+| `version` | 1.5.0 | 1.6.0 |
+| iOS `buildNumber` | 65 | 68 |
+| Android `versionCode` | 63 | 64 |
+
+### EAS Build & Submit
+
+| Detail | Value |
+|--------|-------|
+| Build ID | `c893776b-9035-46a7-80ce-39d705b54fb6` |
+| App Version | 1.6.0 |
+| Build Number | 68 |
+| Status | Submitted to App Store Connect |
+| TestFlight | https://appstoreconnect.apple.com/apps/6756648064/testflight/ios |
+
+### All Features in v1.6.0
+
+1. Ramadan video splash screen (bundled + remote API)
+2. Force update version gating (server-controlled)
+3. Payment simplification (removed "Generate Link", renamed to "Card Payment")
+4. Concern page VIP pricing fix (server + client)
+5. Cart price doubling fix
+6. Sticky bar UX: per-item remove, clear all, green discount
+7. Bag back chevron navigation fix

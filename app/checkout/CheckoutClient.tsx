@@ -272,8 +272,8 @@ export default function CheckoutClient() {
       const customerEmail = (formData.get('email') as string) || user?.email || ''
       const customerPhone = (formData.get('phone') as string) || user?.phone || ''
 
-      // Allow COD, Stripe, and Support Link
-      if (!['cod', 'stripe', 'support-link'].includes(paymentMethod)) {
+      // Allow COD and Stripe (support-link removed)
+      if (!['cod', 'stripe'].includes(paymentMethod)) {
         isSubmittingRef.current = false
         setIsProcessing(false)
         return
@@ -282,145 +282,28 @@ export default function CheckoutClient() {
       // Get free masks based on subtotal
       const freeMasks = await getFreeMasks(subtotal)
 
-      // Handle different payment methods
-      if (paymentMethod === 'support-link') {
-        // Generate fallback order number for support link request
-        const now = new Date()
-        const year = now.getFullYear().toString().slice(-2)
-        const month = (now.getMonth() + 1).toString().padStart(2, '0')
-        const day = now.getDate().toString().padStart(2, '0')
-        const sequence = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
-        const supportOrderNumber = `SUP${year}${month}${day}${sequence}`
-        
-        // Will be replaced by server-generated canonical order number
-        let serverOrderNumber = supportOrderNumber
-        
-        // Send support link order request email
-        try {
-          // Combine regular items with free masks
-          const allItems = [
-            ...items.map(item => {
-              // Use selectedSize if available, otherwise fallback to product.size
-              const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
-              const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
-              
-              const isBundleItem = item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0
-              
-              // Bundle items: only bundle discount on retail price (no VIP)
-              if (isBundleItem) {
-                const retailPrice = item.product.price
-                const finalPrice = Math.round(retailPrice * (1 - item.bundleDiscountPercent! / 100) * 100) / 100
-                return {
-                  id: item.product.id,
-                  name: item.product.name,
-                  price: finalPrice,
-                  quantity: item.quantity,
-                  total: finalPrice * item.quantity,
-                  image: item.product.image,
-                  color: itemColor,
-                  size: itemSize,
-                  bundleDiscount: item.bundleDiscountPercent
-                }
-              }
-              
-              // Non-bundle items: apply user discount
-              const pricing = calculateDiscountedPrice(item.product, user)
-              return {
-                id: item.product.id,
-                name: item.product.name,
-                price: pricing.discountedPrice,
-                quantity: item.quantity,
-                total: pricing.discountedPrice * item.quantity,
-                image: item.product.image,
-                color: itemColor,
-                size: itemSize
-              }
-            }),
-            ...freeMasks.map(mask => ({
-              id: mask.id,
-              name: mask.name + ' (FREE)',
-              price: 0,
-              quantity: mask.quantity,
-              total: 0,
-              image: mask.image,
-              color: undefined,
-              size: undefined
-            }))
-          ]
-
-        const orderData = {
-          orderNumber: supportOrderNumber,
-          customerName: user?.name || 'Customer',
-          customerEmail: customerEmail,
-          customerPhone: customerPhone,
-          customerAddress: customerAddress,
-          emirate: selectedEmirate,
-          items: allItems,
-          subtotal,
-          shippingCost,
-          vatAmount,
-          total,
-          locale,
-          // Bundle discount data for proper waterfall display
-          ...(bundleDiscountPct > 0 ? { bundleDiscountPercentage: bundleDiscountPct } : {}),
-          ...(bundleDiscountTotal > 0 ? { bundleDiscountAmount: bundleDiscountTotal } : {})
-        }
-
-          // Ensure CSRF token is available
-          const csrfToken = await fetchCsrfToken()
-          if (!csrfToken) {
-            alert(t('checkout.securityError'))
-            isSubmittingRef.current = false
-            setIsProcessing(false)
-            return
-          }
-
-          // Add timeout to prevent hanging (increased to 15 seconds for database operations)
-          const controller = new AbortController()
-          const timeoutId = setTimeout(() => controller.abort(), 15000) // 15 second timeout
-
-          try {
-            const response = await fetch('/api/orders/support-link', {
-              method: 'POST',
-              headers: getCsrfHeaders(),
-              body: JSON.stringify(addCsrfToBody(orderData)),
-              signal: controller.signal
-            })
-
-            clearTimeout(timeoutId)
-
-            if (response.ok) {
-              try {
-                const data = await response.json()
-                if (data.orderNumber) {
-                  serverOrderNumber = data.orderNumber
-                }
-              } catch {
-                // JSON parse failed, use fallback
-              }
-            } else {
-              const errorText = await response.text()
-              errorLog('Failed to send support-link order request:', errorText)
-            }
-          } catch (fetchError: unknown) {
-            clearTimeout(timeoutId)
-            if (fetchError instanceof Error && fetchError.name === 'AbortError') {
-              errorLog('Support-link order request timed out after 15 seconds')
-            } else {
-              errorLog('Error sending support-link order request:', fetchError)
-            }
-          }
-        
-        } catch (error) {
-          errorLog('Error in support-link order processing:', error)
-        }
-        
-        // Always redirect to success page using server order number (emails are non-blocking)
-        isSubmittingRef.current = false
-        setIsProcessing(false)
-        router.push(`${getLocalizedPath('/success', locale)}?payment=support-link&order_id=${serverOrderNumber}`)
-        return
-      }
+      // NOTE: support-link payment method removed from UI (Feb 2026).
+      // The API route at /api/orders/support-link still exists but is no longer
+      // reachable from the checkout flow. Code commented out below for reference.
+      //
+      // if (paymentMethod === 'support-link') {
+      //   const now = new Date()
+      //   const year = now.getFullYear().toString().slice(-2)
+      //   const month = (now.getMonth() + 1).toString().padStart(2, '0')
+      //   const day = now.getDate().toString().padStart(2, '0')
+      //   const sequence = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
+      //   const supportOrderNumber = `SUP${year}${month}${day}${sequence}`
+      //   let serverOrderNumber = supportOrderNumber
+      //   try {
+      //     const allItems = [ ...items.map(...), ...freeMasks.map(...) ]
+      //     const orderData = { orderNumber: supportOrderNumber, ... }
+      //     const csrfToken = await fetchCsrfToken()
+      //     const response = await fetch('/api/orders/support-link', { ... })
+      //     if (response.ok) { serverOrderNumber = data.orderNumber }
+      //   } catch (error) { errorLog('Error in support-link order processing:', error) }
+      //   router.push(`${getLocalizedPath('/success', locale)}?payment=support-link&order_id=${serverOrderNumber}`)
+      //   return
+      // }
 
       // Handle Stripe payment - open embedded payment sheet
       if (paymentMethod === 'stripe') {

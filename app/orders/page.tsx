@@ -879,9 +879,7 @@ export default function OrdersPage() {
                           <span className="text-gray-900 font-medium">
                             {order.paymentMethod === 'cod' 
                               ? (locale === 'ar' ? '💵 الدفع عند الاستلام' : locale === 'ru' ? '💵 При получении' : '💵 Cash on Delivery')
-                              : order.paymentMethod === 'stripe'
-                              ? (locale === 'ar' ? '💳 بطاقة/Apple Pay' : locale === 'ru' ? '💳 Карта/Apple Pay' : '💳 Card/Apple Pay')
-                              : (locale === 'ar' ? '🔗 رابط الدفع' : locale === 'ru' ? '🔗 Ссылка на оплату' : '🔗 Payment Link')
+                              : (locale === 'ar' ? '💳 بطاقة/Apple Pay' : locale === 'ru' ? '💳 Карта/Apple Pay' : '💳 Card/Apple Pay')
                             }
                           </span>
                         </div>

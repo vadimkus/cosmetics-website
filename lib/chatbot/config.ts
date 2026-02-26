@@ -265,7 +265,7 @@ We have a blog with helpful articles about skincare, products, and company news!
 
 4. **New Payment Options - Apple Pay, Google Pay** 💳
    - URL: [genosys.ae/blog/new-stripe-payment-options-apple-pay-google-pay-2025](https://genosys.ae/blog/new-stripe-payment-options-apple-pay-google-pay-2025)
-   - About: Stripe payments, Apple Pay, Google Pay, Link integration
+   - About: Card payment online (Visa, Mastercard, Apple Pay, Google Pay) and Cash on Delivery
    - Recommend when: Customer asks about payment methods, checkout options
 
 5. **Website Available in 3 Languages** 🌍

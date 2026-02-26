@@ -1,6 +1,6 @@
 'use client'
 
-import { CreditCard, Lock, Building } from 'lucide-react'
+import { CreditCard, Lock } from 'lucide-react'
 
 interface PaymentMethodSelectorProps {
   isPWA: boolean
@@ -27,7 +27,7 @@ export default function PaymentMethodSelector({
           {t('checkout.paymentInformation') || 'Payment Method'}
         </h2>
         
-        {/* Payment Toggle Buttons - 3 Horizontal Buttons */}
+        {/* Payment Toggle Buttons - 2 Horizontal Buttons */}
         <div className="bg-gray-100 p-1.5 rounded-2xl">
           <div className={`flex gap-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             {/* Cash on Delivery */}
@@ -49,7 +49,7 @@ export default function PaymentMethodSelector({
             </button>
             <input type="hidden" name="payment" value={selectedPaymentMethod} />
 
-            {/* Online Payment */}
+            {/* Card Payment */}
             <button
               type="button"
               onClick={() => setSelectedPaymentMethod('stripe')}
@@ -61,25 +61,7 @@ export default function PaymentMethodSelector({
             >
               <div className="flex flex-col items-center gap-1.5">
                 <CreditCard className="w-6 h-6" />
-                <span>{locale === 'ar' ? 'أونلاين' : locale === 'ru' ? 'Онлайн' : 'Online'}</span>
-              </div>
-            </button>
-
-            {/* Payment Link */}
-            <button
-              type="button"
-              onClick={() => setSelectedPaymentMethod('support-link')}
-              className={`flex-1 py-3.5 px-2 rounded-xl font-semibold text-xs transition-all touch-manipulation ${
-                selectedPaymentMethod === 'support-link'
-                  ? 'bg-red-600 text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
-              }`}
-            >
-              <div className="flex flex-col items-center gap-1.5">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                </svg>
-                <span>{locale === 'ar' ? 'رابط دفع' : locale === 'ru' ? 'Ссылка' : 'Link'}</span>
+                <span>{locale === 'ar' ? 'بطاقة' : locale === 'ru' ? 'Картой' : 'Card'}</span>
               </div>
             </button>
           </div>
@@ -93,13 +75,10 @@ export default function PaymentMethodSelector({
           {selectedPaymentMethod === 'stripe' && (
             <span>Visa, Mastercard, Apple Pay, Google Pay</span>
           )}
-          {selectedPaymentMethod === 'support-link' && (
-            <span>{locale === 'ar' ? 'سنرسل لك رابط دفع آمن' : locale === 'ru' ? 'Мы отправим вам ссылку для оплаты' : 'We\'ll send you a secure payment link'}</span>
-          )}
         </div>
 
-        {/* Security Note - Only show for online/link payments, not cash */}
-        {selectedPaymentMethod !== 'cod' && (
+        {/* Security Note - Only show for card payments, not cash */}
+        {selectedPaymentMethod === 'stripe' && (
           <div className={`flex items-center justify-center gap-2 text-xs text-gray-400 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <Lock className="w-3.5 h-3.5" />
             <span>{locale === 'ar' ? 'دفع آمن ومشفر' : locale === 'ru' ? 'Безопасная оплата' : 'Secure & encrypted'}</span>
@@ -117,16 +96,6 @@ export default function PaymentMethodSelector({
         {t('checkout.paymentInformation')}
       </h2>
       
-      <div className="p-3 md:p-4 bg-blue-50 border border-blue-200 rounded-lg">
-        <div className={`flex items-center gap-2 text-blue-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <Building className="h-4 w-4 md:h-5 md:w-5" />
-          <span className="font-semibold text-sm md:text-base">{t('checkout.payment')}</span>
-        </div>
-        <p className={`text-xs md:text-sm text-blue-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
-          {t('checkout.paymentDescription')}
-        </p>
-      </div>
-      
       <div className="space-y-2 md:space-y-3">
         <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'stripe' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <input
@@ -140,7 +109,7 @@ export default function PaymentMethodSelector({
           <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
             <div className="font-medium text-gray-900 text-[10px] md:text-base flex items-center">
               <CreditCard className="w-3 h-3 md:w-4 md:h-4 mr-1.5 text-primary-600" />
-              {t('checkout.stripeCheckout')}
+              {t('checkout.cardPayment')}
             </div>
             <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.secureCardPayment')}</div>
             <div className="text-[8px] md:text-xs text-gray-500 mt-1">
@@ -161,21 +130,6 @@ export default function PaymentMethodSelector({
           <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
             <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.cod')}</div>
             <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
-          </div>
-        </label>
-
-        <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'support-link' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <input
-            type="radio"
-            name="payment"
-            value="support-link"
-            checked={selectedPaymentMethod === 'support-link'}
-            onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-            className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
-          />
-          <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-            <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.generateLinkForPayment')}</div>
-            <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.supportTeamWillShareLink')}</div>
           </div>
         </label>
       </div>

@@ -26,8 +26,8 @@ const VERSION_CONFIG = {
   // Informational — the latest version available on the store
   latestVersion: '1.5.0',
 
-  // true = blocking screen, false = dismissible suggestion (future use)
-  forceUpdate: false,
+  // true = blocking screen, false = passthrough (no update enforced)
+  forceUpdate: true,
 
   // Where to send the user to update
   updateUrl: APP_STORE_URL,

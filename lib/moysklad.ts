@@ -245,7 +245,8 @@ const COLOR_VARIANT_MAP: Record<string, string> = {
  * Returns null if no mapping exists (beauty boxes, bundles, etc.)
  */
 function getMoySkladProductId(productName: string, color?: string | null): string | null {
-  const normalized = productName.trim()
+  // Strip suffixes like "(FREE)", "(GIFT)", "(BONUS)" that the checkout may append
+  const normalized = productName.trim().replace(/\s*\((?:FREE|GIFT|BONUS|SAMPLE)\)\s*$/i, '').trim()
 
   // Try color-specific match first
   if (color) {

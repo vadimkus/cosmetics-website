@@ -41,8 +41,8 @@ When syncing an order with multiple SKIN CARING BLEMISH BALM CUSHION items in di
 | Color | MoySklad UUID |
 |-------|---------------|
 | Ivory (#1) | `8e55b3ff-d092-11ec-0a80-022900a6db36` |
-| Beige (#2) | `aca38da4-d092-11ec-0a80-013600a5ed6b` |
-| Camel (#3) | `374eb073-a7cd-11ef-0a80-07b3001b04d5` |
+| Beige (#2) | `aca39b2a-d092-11ec-0a80-013600a5ed6d` |
+| Camel (#3) | `374ebc0b-a7cd-11ef-0a80-07b3001b04d7` |
 
 ### Backward Compatibility
 

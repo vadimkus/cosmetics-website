@@ -235,8 +235,8 @@ const PRODUCT_MAP: Record<string, string> = {
  */
 const COLOR_VARIANT_MAP: Record<string, string> = {
   'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | ivory': '8e55b3ff-d092-11ec-0a80-022900a6db36',  // #1 Ivory
-  'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | beige': 'aca38da4-d092-11ec-0a80-013600a5ed6b',  // #2 Beige
-  'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | camel': '374eb073-a7cd-11ef-0a80-07b3001b04d5',  // #3 Camel
+  'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | beige': 'aca39b2a-d092-11ec-0a80-013600a5ed6d',  // #2 Beige
+  'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++] | camel': '374ebc0b-a7cd-11ef-0a80-07b3001b04d7',  // #3 Camel
 }
 
 /**

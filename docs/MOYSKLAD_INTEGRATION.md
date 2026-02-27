@@ -114,8 +114,8 @@ Some products (e.g. BB cushions) have multiple color variants in MoySklad as sep
 | Webapp Color | MoySklad Product | MoySklad UUID |
 |--------------|------------------|---------------|
 | ivory | #1 Ivory | `8e55b3ff-d092-11ec-0a80-022900a6db36` |
-| beige | #2 Beige | `aca38da4-d092-11ec-0a80-013600a5ed6b` |
-| camel | #3 Camel | `374eb073-a7cd-11ef-0a80-07b3001b04d5` |
+| beige | #2 Beige | `aca39b2a-d092-11ec-0a80-013600a5ed6d` |
+| camel | #3 Camel | `374ebc0b-a7cd-11ef-0a80-07b3001b04d7` |
 
 **Lookup order:**
 1. If `OrderItem.color` is present → try `COLOR_VARIANT_MAP["PRODUCT NAME | color"]`

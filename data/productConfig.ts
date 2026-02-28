@@ -649,7 +649,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '16': {
     id: '16',
-    images: ['/images/BOOS.jpg', '/images/Second/booster_both.jpg'],
+    images: ['/images/Second/main_booster.jpg', '/images/Second/main_booster2.png'],
     pricing: {
       basePrice: 260,
       sizeVariants: {

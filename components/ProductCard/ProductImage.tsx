@@ -44,6 +44,7 @@ const ProductImage = memo(function ProductImage({
     || product.category?.toLowerCase().includes('beauty box')
     || product.name.toLowerCase().includes('beauty box')
     || productNum === '63'
+    || productNum === '16' || product.name === 'SNOW BOOSTER'
   const isRevitaGlow = productNum === '63'
   const imageClass = useContain
     ? `w-full h-24 sm:h-32 md:h-40 lg:h-48 object-contain ${isRevitaGlow ? 'bg-white p-1 scale-110' : 'bg-white p-2'}`

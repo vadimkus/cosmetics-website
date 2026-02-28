@@ -162,7 +162,7 @@ export const products: Product[] = [
     price: 260,
     description: '200ml (Homecare) / 1000ml (Professional). Daily moisturizing and skin refining toner for all skin types. It is a daily toner used for all skin types that contains various botanical extracts to moisturize and soothe skin. It helps refining the skin with balancing pH level after cleansing. Key ingredients: Phytolex SC, Nelumbo Nucifera Flower Extract, Lactobacillus/Pumpkin Ferment Extract, Betaine. Dermatologically tested. Efficacy test on skin hydration.',
     image: '/images/Second/main_booster.jpg',
-    images: JSON.stringify(['/images/Second/main_booster.jpg', '/images/Second/main_booster2.png', '/images/Second/booster_both.jpg']),
+    images: JSON.stringify(['/images/Second/main_booster.jpg', '/images/Second/main_booster2.png']),
     category: 'Toner/Mist',
     inStock: true,
     size: '200ml',

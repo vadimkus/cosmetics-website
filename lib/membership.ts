@@ -44,7 +44,7 @@ export async function generateMemberNumber(): Promise<string> {
   let seq = 1
   if (lastUser?.memberNumber) {
     const match = lastUser.memberNumber.match(/GNS-(\d+)-/)
-    if (match) seq = parseInt(match[1], 10) + 1
+    if (match?.[1]) seq = parseInt(match[1], 10) + 1
   }
 
   return `GNS-${String(seq).padStart(5, '0')}-AE`

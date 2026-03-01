@@ -105,7 +105,12 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       valid: true,
-      user: userWithoutPassword,
+      user: {
+        ...userWithoutPassword,
+        memberNumber: (user as any).memberNumber || null,
+        memberTier: (user as any).memberTier || 'MEMBER',
+        memberSince: (user as any).memberSince || null,
+      },
       tokenInfo: {
         userId: tokenPayload.userId,
         email: tokenPayload.email,

@@ -83,6 +83,9 @@ export const addUser = async (userData: UserData): Promise<User> => {
       expoPushToken: userData.expoPushToken || null,
       lastLoginSource: userData.lastLoginSource || null,
       lastLoginAt: userData.lastLoginAt ? new Date(userData.lastLoginAt) : null,
+      ...((userData as any).memberNumber && { memberNumber: (userData as any).memberNumber }),
+      ...((userData as any).memberSince && { memberSince: new Date((userData as any).memberSince) }),
+      ...((userData as any).memberTier && { memberTier: (userData as any).memberTier }),
     }
     
     const createData = {

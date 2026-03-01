@@ -33,6 +33,14 @@ model User {
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
+  // Membership / loyalty
+  memberNumber       String?   @unique
+  memberTier         String    @default("MEMBER") // MEMBER, SILVER, GOLD, PLATINUM
+  memberSince        DateTime?
+  totalSpent         Float     @default(0)
+  totalOrders        Int       @default(0)
+  loyaltyPoints      Int       @default(0)
+
   orders              Order[]
   passwordResetTokens PasswordResetToken[]
   reviews             ProductReview[]

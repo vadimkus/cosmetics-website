@@ -6,6 +6,7 @@ import { generateMobileToken } from '@/lib/jwt'
 import { verifyAppleIdentityToken } from '@/lib/appleIdentityToken'
 import { sendAdminNewUserNotification } from '@/lib/email'
 import { trackUserActivityNow } from '@/lib/activityTracker'
+import { generateMemberNumber } from '@/lib/membership'
 
 export const maxDuration = 30
 
@@ -72,6 +73,7 @@ export async function POST(request: NextRequest) {
 
     if (!user) {
       const nameFromEmail = email.split('@')[0] || 'User'
+      const memberNumber = await generateMemberNumber()
       const created = await addUser({
         name: fullName || nameFromEmail,
         email,
@@ -86,7 +88,10 @@ export async function POST(request: NextRequest) {
         birthday: null,
         lastLoginAt: nowIso,
         lastLoginSource: 'mobile_app',
-      })
+        memberNumber,
+        memberSince: nowIso,
+        memberTier: 'MEMBER',
+      } as any)
       user = created
       // Update lastActiveAt immediately for online status tracking
       await trackUserActivityNow(created.id)

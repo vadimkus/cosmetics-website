@@ -7,6 +7,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendAdminNewUserNotification } from '@/lib/email'
 import { trackUserActivityNow } from '@/lib/activityTracker'
+import { generateMemberNumber } from '@/lib/membership'
 
 export const maxDuration = 30
 
@@ -126,10 +127,11 @@ export async function POST(request: NextRequest) {
       isNewUser = true
       
       try {
+        const memberNumber = await generateMemberNumber()
         user = await addUser({
           name: normalizedName,
           email: normalizedEmail,
-          password: null, // No password for Google-authenticated users
+          password: null,
           profilePicture: googleUser.picture || null,
           phone: null,
           address: null,
@@ -140,7 +142,10 @@ export async function POST(request: NextRequest) {
           birthday: null,
           lastLoginAt: new Date().toISOString(),
           lastLoginSource: 'mobile_app',
-        })
+          memberNumber,
+          memberSince: new Date().toISOString(),
+          memberTier: 'MEMBER',
+        } as any)
         
         debugLog('[MOBILE_AUTH] New user created:', { id: user.id, email: user.email })
 

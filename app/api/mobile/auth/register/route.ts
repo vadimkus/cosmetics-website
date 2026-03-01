@@ -12,6 +12,7 @@ import { validateLength, INPUT_LIMITS } from '@/lib/validation'
 import bcrypt from 'bcryptjs'
 import { parseUserAgent } from '@/lib/deviceDetection'
 import { getGeolocationData } from '@/lib/geolocation'
+import { generateMemberNumber } from '@/lib/membership'
 
 // Rate limiting for mobile registration
 const mobileRegisterLimiter = rateLimitSimple({
@@ -223,6 +224,7 @@ export async function POST(request: NextRequest) {
         }
       }
 
+      const memberNumber = await generateMemberNumber()
       const userData: Prisma.UserCreateInput = {
         name,
         email,
@@ -237,6 +239,9 @@ export async function POST(request: NextRequest) {
         birthday: birthday || null,
         lastLoginAt: now,
         lastLoginSource: 'mobile_app',
+        memberNumber,
+        memberSince: now,
+        memberTier: 'MEMBER',
       }
       return await tx.user.create({ data: userData })
     })

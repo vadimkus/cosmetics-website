@@ -39,23 +39,22 @@ async function main() {
   let seq = 1
 
   for (const user of users) {
-    if (user.memberNumber) {
-      const match = user.memberNumber.match(/GNS-(\d+)-/)
+    let memberNumber = user.memberNumber
+    if (memberNumber) {
+      const match = memberNumber.match(/GNS-(\d+)-/)
       if (match) {
         const n = parseInt(match[1], 10)
         if (n >= seq) seq = n + 1
       }
-      console.log(`  SKIP ${user.email} — already ${user.memberNumber}`)
-      continue
+    } else {
+      memberNumber = `GNS-${String(seq).padStart(5, '0')}-AE`
+      seq++
     }
-
-    const memberNumber = `GNS-${String(seq).padStart(5, '0')}-AE`
-    seq++
 
     const agg = await prisma.order.aggregate({
       where: {
         customerEmail: user.email,
-        status: { notIn: ['CANCELLED', 'REFUNDED'] },
+        status: 'DELIVERED',
       },
       _sum: { total: true },
       _count: true,

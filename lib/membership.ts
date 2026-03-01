@@ -22,7 +22,7 @@ export function nextTierInfo(tier: MemberTier, totalSpent: number) {
   if (idx >= order.length - 1) {
     return { nextTier: null, nextTierAt: 0, progressPercent: 100 }
   }
-  const next = order[idx + 1]
+  const next = order[idx + 1] as MemberTier
   const threshold = TIER_THRESHOLDS[next].spent
   const currentThreshold = TIER_THRESHOLDS[tier].spent
   const range = threshold - currentThreshold
@@ -54,7 +54,7 @@ export async function recalcUserStats(userId: string) {
   const agg = await prisma.order.aggregate({
     where: {
       customer: { id: userId },
-      status: { notIn: ['CANCELLED', 'REFUNDED'] },
+      status: 'DELIVERED',
     },
     _sum: { total: true },
     _count: true,

@@ -43,7 +43,7 @@ export async function GET(request: NextRequest) {
     const orderAgg = await prisma.order.aggregate({
       where: {
         customerEmail: user.email,
-        status: { notIn: ['CANCELLED', 'REFUNDED'] },
+        status: 'DELIVERED',
       },
       _sum: { total: true },
       _count: true,

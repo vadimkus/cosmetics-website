@@ -65,6 +65,9 @@ Disallow: /pwa/
 Disallow: /pwa-login/
 Disallow: /test-analytics/
 Disallow: /pdf-viewer/
+Disallow: /track/
+Disallow: /share/
+Disallow: /certificate/
 
 # ============================================================
 # SEARCH ENGINES

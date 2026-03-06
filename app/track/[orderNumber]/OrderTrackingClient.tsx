@@ -286,7 +286,16 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
     )
   }
 
-  if (!trackingData) return null
+  if (!trackingData) {
+    return (
+      <div className={`min-h-[100dvh] bg-gray-50 flex items-center justify-center`} dir={dir}>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">{t('common.loading') || 'Loading tracking information...'}</p>
+        </div>
+      </div>
+    )
+  }
 
   const statusDisplay = getStatusDisplay(trackingData.status)
 

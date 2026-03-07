@@ -167,6 +167,11 @@ self.addEventListener('fetch', (event) => {
     return
   }
 
+  // Skip CSRF token endpoint — browser must process Set-Cookie directly
+  if (url.pathname === '/api/csrf-token') {
+    return
+  }
+
   // Handle different types of requests
   if (isImageRequest(request)) {
     event.respondWith(handleImageRequest(request))

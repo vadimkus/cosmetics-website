@@ -27,6 +27,15 @@ export async function fetchCsrfToken(): Promise<string | null> {
 
     const data = await response.json()
     csrfToken = data.token
+
+    // Set cookie client-side as fallback: service workers strip Set-Cookie
+    // from responses passed through event.respondWith(), so the server's
+    // Set-Cookie may never reach the browser cookie jar.
+    if (typeof document !== 'undefined' && csrfToken) {
+      const secure = location.protocol === 'https:' ? '; Secure' : ''
+      document.cookie = `csrf-token=${encodeURIComponent(csrfToken)}; path=/; max-age=86400; SameSite=Lax${secure}`
+    }
+
     return csrfToken
   } catch (error) {
     errorLog('Error fetching CSRF token:', error)

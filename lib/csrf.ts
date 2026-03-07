@@ -125,7 +125,7 @@ export function setCsrfTokenCookie(response: NextResponse, token: string): NextR
   response.cookies.set(CSRF_TOKEN_COOKIE_NAME, token, {
     httpOnly: false, // Must be accessible to JavaScript for Double Submit Cookie pattern
     secure: process.env.NODE_ENV === 'production', // HTTPS only in production
-    sameSite: 'strict', // CSRF protection
+    sameSite: 'lax',
     path: '/',
     maxAge: 60 * 60 * 24 // 24 hours
   })

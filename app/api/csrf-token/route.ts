@@ -11,8 +11,8 @@ export async function GET(request: NextRequest) {
   const existingToken = request.cookies.get('csrf-token')?.value
   
   if (existingToken) {
-    // Return existing token
-    return NextResponse.json({ token: existingToken })
+    const response = NextResponse.json({ token: existingToken })
+    return setCsrfTokenCookie(response, existingToken)
   }
 
   // Generate new token

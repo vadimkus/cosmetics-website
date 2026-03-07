@@ -20,7 +20,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '4': {
     id: '4',
     pricing: {
-      basePrice: 550
+      basePrice: 580
     },
     documentation: [
       {
@@ -33,7 +33,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '5': {
     id: '5',
     pricing: {
-      basePrice: 550
+      basePrice: 580
     },
     documentation: [
       {
@@ -47,7 +47,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '6',
     images: ['/images/CTS.jpg', '/images/Second/cts_big.jpg', '/images/Second/cts_big2.jpg'],
     pricing: {
-      basePrice: 550
+      basePrice: 580
     },
     documentation: [
       {
@@ -61,7 +61,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '7',
     images: ['/images/PCS.jpg', '/images/Second/pcs_big1.jpg', '/images/Second/pcs_big2.jpg'],
     pricing: {
-      basePrice: 550
+      basePrice: 580
     },
     documentation: [
       {
@@ -75,7 +75,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '8',
     images: ['/images/SWS.jpg', '/images/Second/sws_big1.jpg', '/images/Second/sws_big2.jpg'],
     pricing: {
-      basePrice: 550
+      basePrice: 580
     },
     documentation: [
       {
@@ -88,7 +88,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '9': {
     id: '9',
     pricing: {
-      basePrice: 550
+      basePrice: 580
     },
     images: ['/images/AWS.jpg', '/images/Second/aws1.jpg', '/images/Second/aws2.jpg'],
     documentation: [
@@ -130,13 +130,13 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '2': {
     id: '2',
     pricing: {
-      basePrice: 360
+      basePrice: 1450
     }
   },
   '3': {
     id: '3',
     pricing: {
-      basePrice: 1200
+      basePrice: 1800
     },
     videoUrl: 'https://www.youtube.com/embed/7VTkWKkYKwA'
   },
@@ -159,7 +159,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '12',
     images: ['/images/EPI.jpg', '/images/Second/eppi_big.jpg'],
     pricing: {
-      basePrice: 220
+      basePrice: 250
     },
     documentation: [
       {
@@ -172,7 +172,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '13': {
     id: '13',
     pricing: {
-      basePrice: 730
+      basePrice: 810
     },
     images: ['/images/SRS.jpg', '/images/Second/sss1.jpg', '/images/Second/sss2.jpg'],
     documentation: [
@@ -186,7 +186,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '14': {
     id: '14',
     pricing: {
-      basePrice: 320
+      basePrice: 160
     },
     images: ['/images/mist.jpg', '/images/Second/mist2.jpg'],
     documentation: [
@@ -200,14 +200,14 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '17': {
     id: '17',
     pricing: {
-      basePrice: 470
+      basePrice: 370
     }
   },
   '18': {
     id: '18',
     images: ['/images/HRS.jpg', '/images/Second/hyalserum1.jpg'],
     pricing: {
-      basePrice: 450
+      basePrice: 330
     },
     documentation: [
       {
@@ -220,21 +220,21 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '19': {
     id: '19',
     pricing: {
-      basePrice: 450
+      basePrice: 330
     },
     images: ['/images/ASE.jpg', '/images/Second/allserum_big.jpg']
   },
   '20': {
     id: '20',
     pricing: {
-      basePrice: 420
+      basePrice: 330
     }
   },
   '21': {
     id: '21',
     images: ['/images/RADS.jpg', '/images/Second/rd_big.jpg'],
     pricing: {
-      basePrice: 490
+      basePrice: 330
     },
     documentation: [
       {
@@ -248,20 +248,20 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '22',
     images: ['/images/MSSS.jpg', '/images/Second/multiserum1.jpg'],
     pricing: {
-      basePrice: 520
+      basePrice: 330
     }
   },
   '23': {
     id: '23',
     images: ['/images/ND.jpg', '/images/Second/nd_big1.jpg'],
     pricing: {
-      basePrice: 550
+      basePrice: 370
     }
   },
   '24': {
     id: '24',
     pricing: {
-      basePrice: 530
+      basePrice: 370
     }
   },
   '25': {
@@ -282,14 +282,14 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '26': {
     id: '26',
     pricing: {
-      basePrice: 450
+      basePrice: 290
     },
     images: ['/images/EGF.jpg', '/images/Second/egf_big.jpg']
   },
   '27': {
     id: '27',
     pricing: {
-      basePrice: 430
+      basePrice: 450
     },
     images: ['/images/BRR.jpg', '/images/Second/bar_big.jpg'],
     videoUrl: '/videos/barrier.mp4'
@@ -387,7 +387,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '33': {
     id: '33',
     pricing: {
-      basePrice: 530
+      basePrice: 380
     },
     documentation: [
       {
@@ -401,32 +401,32 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '34',
     images: ['/images/SKIN.jpg', '/images/Second/overnight1.jpg'],
     pricing: {
-      basePrice: 650
+      basePrice: 340
     }
   },
   '35': {
     id: '35',
     pricing: {
-      basePrice: 680
+      basePrice: 300
     },
     images: ['/images/HYDR.jpg', '/images/Second/hmask_big.jpg']
   },
   '36': {
     id: '36',
     pricing: {
-      basePrice: 45
+      basePrice: 36
     }
   },
   '37': {
     id: '37',
     pricing: {
-      basePrice: 620
+      basePrice: 380
     }
   },
   '38': {
     id: '38',
     pricing: {
-      basePrice: 850
+      basePrice: 460
     },
     images: ['/images/EZE.jpg', '/images/Second/ez.jpg', '/images/Second/ez1.jpg'],
     documentation: [
@@ -442,7 +442,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     images: ['/images/SPF50.jpg', '/images/Second/50big.jpg'],
     videoUrl: '/videos/spf50.mp4',
     pricing: {
-      basePrice: 260
+      basePrice: 250
     },
     documentation: [
       {
@@ -457,13 +457,13 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     images: ['/images/SSUN.jpg', '/images/Second/40big.jpg'],
     videoUrl: '/videos/sun.mp4',
     pricing: {
-      basePrice: 230
+      basePrice: 210
     }
   },
   '41': {
     id: '41',
     pricing: {
-      basePrice: 270
+      basePrice: 300
     },
     colors: [
       { value: 'Beige', label: 'Beige', available: true },
@@ -482,13 +482,13 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '42',
     images: ['/images/BLEM.jpg', '/images/Second/bbbig.jpg'],
     pricing: {
-      basePrice: 350
+      basePrice: 250
     }
   },
   '43': {
     id: '43',
     pricing: {
-      basePrice: 350
+      basePrice: 290
     },
     documentation: [
       {
@@ -501,13 +501,20 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '44': {
     id: '44',
     pricing: {
-      basePrice: 380
-    }
+      basePrice: 340
+    },
+    documentation: [
+      {
+        title: 'HR³ MATRIX SCALP SHAMPOO α Guide',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf',
+        type: 'pdf'
+      }
+    ]
   },
   '45': {
     id: '45',
     pricing: {
-      basePrice: 550
+      basePrice: 740
     },
     images: ['/images/HHR.jpg', '/images/Second/hair_alpha.jpg'],
     documentation: [
@@ -521,7 +528,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '46': {
     id: '46',
     pricing: {
-      basePrice: 280
+      basePrice: 290
     },
     documentation: [
       {
@@ -534,13 +541,13 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '47': {
     id: '47',
     pricing: {
-      basePrice: 1950
+      basePrice: 1100
     }
   },
   '48': {
     id: '48',
     pricing: {
-      basePrice: 2500
+      basePrice: 3300
     },
     documentation: [
       {
@@ -553,7 +560,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '49': {
     id: '49',
     pricing: {
-      basePrice: 850
+      basePrice: 5500
     },
     documentation: [
       {
@@ -567,7 +574,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '50',
     images: ['/images/EYEZ.jpg', '/images/Second/ekit_big.jpg'],
     pricing: {
-      basePrice: 1450
+      basePrice: 980
     },
     documentation: [
       {
@@ -580,7 +587,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '51': {
     id: '51',
     pricing: {
-      basePrice: 880
+      basePrice: 250
     },
     images: ['/images/BFAD.png', '/images/Second/ferment_big.jpg'],
     documentation: [
@@ -594,7 +601,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '52': {
     id: '52',
     pricing: {
-      basePrice: 450
+      basePrice: 400
     },
     images: ['/images/PDRN.png', '/images/Second/pdrnnn.jpg', '/images/Second/pdrn_big2.jpg', '/images/Second/pdrn22.jpg'],
     documentation: [
@@ -615,7 +622,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '11',
     images: ['/images/DEF.jpg', '/images/Second/def_big.jpg'],
     pricing: {
-      basePrice: 190
+      basePrice: 290
     },
     documentation: [
       {
@@ -748,6 +755,7 @@ const documentationTitleTranslations: Record<string, string> = {
   'ULTRA SHIELD SUN CREAM Guide': 'Руководство по ULTRA SHIELD SUN CREAM',
   'SKIN CARING BLEMISH BALM CUSHION Guide': 'Руководство по SKIN CARING BLEMISH BALM CUSHION',
   'HR³ MATRIX HAIR TONIC α Guide': 'Руководство по HR³ MATRIX HAIR TONIC α',
+  'HR³ MATRIX SCALP SHAMPOO α Guide': 'Руководство по HR³ MATRIX SCALP SHAMPOO α',
   'HR³ MATRIX HAIR SOLUTION α Guide': 'Руководство по HR³ MATRIX HAIR SOLUTION α',
   'HR³ MATRIX SCALP PEELING α Guide': 'Руководство по HR³ MATRIX SCALP PEELING α',
   'Hair-GENTRON Guide': 'Руководство по Hair-GENTRON',

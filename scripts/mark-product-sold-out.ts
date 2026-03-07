@@ -31,7 +31,7 @@ async function markProductSoldOut(productIdentifier: string) {
     console.log(`   Name: ${updatedProduct.name}`)
     console.log(`   In Stock: ${updatedProduct.inStock}`)
     return updatedProduct
-  } catch {
+  } catch (error) {
     console.error(`❌ Failed to update product ${productIdentifier}:`, error)
     throw error
   }

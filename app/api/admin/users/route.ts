@@ -144,6 +144,7 @@ export async function GET(request: NextRequest) {
       FROM "orders"
       WHERE "customerEmail" = ANY(${userEmails})
         AND status != 'CANCELLED'
+        AND status != 'DELETED'
       GROUP BY "customerEmail"
     ` : []
     

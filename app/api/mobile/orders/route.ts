@@ -568,7 +568,7 @@ export async function POST(request: NextRequest) {
               quantity: item.quantity,
               price: item.price,
               image: item.image || '',
-              bundleDiscount: item.bundleDiscount ?? undefined,
+              bundleDiscount: item.bundleDiscount ?? null,
             }
             if (item.size) {
               emailItem.size = item.size

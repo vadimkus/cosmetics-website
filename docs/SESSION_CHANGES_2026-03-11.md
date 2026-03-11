@@ -5,6 +5,7 @@
 1. **Fixed bundle item price display** — per-item `bundleDiscount` column added to prevent wrong original price on mixed bundle orders
 2. **Fixed `exactOptionalPropertyTypes` type error** — Vercel build failure in admin email mapping
 3. **Removed discontinued support-link payment method** — 1,100+ lines of dead code cleaned out across 15 files
+4. **Fixed COD admin notification email not sending** — replaced fire-and-forget with `after()` to prevent Vercel serverless termination
 
 ---
 
@@ -183,9 +184,49 @@ Before the above changes, a complete methodical audit was performed reading the 
 
 ---
 
+## Fix: COD Admin Notification Email Not Sending
+
+### Symptom
+
+Customer placed COD order `CODW2603110655` — received the customer confirmation email but **not** the admin notification email.
+
+### Root Cause
+
+The COD confirmation route (`app/api/orders/cod-confirmation/route.ts`) was the **only** checkout route using fire-and-forget (`.then()/.catch()`) for email notifications. All other routes used `after()` from `next/server`:
+
+| Route | Pattern | Admin Email Reliable? |
+|-------|---------|----------------------|
+| `app/api/checkout/route.ts` (website COD) | `after()` + `await` | ✅ |
+| `app/api/mobile/orders/route.ts` (mobile COD) | `after()` + `await` | ✅ |
+| `app/api/webhooks/stripe/route.ts` (Stripe webhook) | `await` (no `after` needed — webhook must finish) | ✅ |
+| **`app/api/orders/cod-confirmation/route.ts`** | **fire-and-forget** | ❌ |
+
+Vercel serverless functions terminate after sending the HTTP response. The customer email (single direct SMTP call) completed in time. The admin notification (DB lookup → template generation → SMTP send = 3 sequential async operations) was killed before completing.
+
+### Fix
+
+- Imported `after` from `next/server`
+- Wrapped both customer email and admin notification in `after(async () => { ... })` with proper `await`
+- Also added missing `bundleDiscount` pass-through to admin email items (was previously omitted from COD admin notifications)
+
+### File Changed
+
+- `app/api/orders/cod-confirmation/route.ts` — Refactored from fire-and-forget to `after()` pattern (89 insertions, 114 deletions — net reduction due to removed verbose debug logging)
+
+### Why `after()` matters on Vercel
+
+Next.js `after()` tells the Vercel runtime to keep the serverless function alive after the response is sent, until the `after()` callback completes. Without it, fire-and-forget promises are not guaranteed to finish — they may be terminated when the function is reaped.
+
+### Commit
+
+`8f824019` — `fix: use after() for COD email notifications to prevent serverless termination`
+
+---
+
 ## Commits (this session)
 
 | Commit | Description |
 |--------|-------------|
 | `9dbfc402` | Fix `exactOptionalPropertyTypes` type error in admin email bundleDiscount |
 | `1e0e357d` | Remove discontinued support-link payment method (15 files, ~1,100 lines) |
+| `8f824019` | Fix COD admin notification email — use `after()` instead of fire-and-forget |

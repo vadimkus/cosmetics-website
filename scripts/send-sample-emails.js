@@ -61,24 +61,7 @@ async function sendSampleEmails() {
       throw new Error('COD email failed')
     }
 
-    await new Promise(resolve => setTimeout(resolve, 1000))
-
-    console.log('📧 Sending SUP template email to', targetEmail + '...')
-    
-    const supResult = await makeRequest('/api/send-sample-support-link', {
-      email: targetEmail
-    })
-    
-    if (supResult.status === 200 && supResult.data.success) {
-      console.log('✅ SUP email sent successfully!')
-      console.log('✅ Message:', supResult.data.message)
-      console.log('✅ Message ID:', supResult.data.messageId)
-    } else {
-      console.error('❌ Failed to send SUP email:', supResult.data)
-      throw new Error('SUP email failed')
-    }
-
-    console.log('\n✅ Both sample emails sent successfully to:', targetEmail)
+    console.log('\n✅ Sample email sent successfully to:', targetEmail)
   } catch (error) {
     console.error('❌ Error sending emails:', error.message)
     console.log('\n💡 Make sure the development server is running on port 3000')

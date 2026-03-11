@@ -272,7 +272,6 @@ export default function CheckoutClient() {
       const customerEmail = (formData.get('email') as string) || user?.email || ''
       const customerPhone = (formData.get('phone') as string) || user?.phone || ''
 
-      // Allow COD and Stripe (support-link removed)
       if (!['cod', 'stripe'].includes(paymentMethod)) {
         isSubmittingRef.current = false
         setIsProcessing(false)
@@ -281,29 +280,6 @@ export default function CheckoutClient() {
 
       // Get free masks based on subtotal
       const freeMasks = await getFreeMasks(subtotal)
-
-      // NOTE: support-link payment method removed from UI (Feb 2026).
-      // The API route at /api/orders/support-link still exists but is no longer
-      // reachable from the checkout flow. Code commented out below for reference.
-      //
-      // if (paymentMethod === 'support-link') {
-      //   const now = new Date()
-      //   const year = now.getFullYear().toString().slice(-2)
-      //   const month = (now.getMonth() + 1).toString().padStart(2, '0')
-      //   const day = now.getDate().toString().padStart(2, '0')
-      //   const sequence = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
-      //   const supportOrderNumber = `SUP${year}${month}${day}${sequence}`
-      //   let serverOrderNumber = supportOrderNumber
-      //   try {
-      //     const allItems = [ ...items.map(...), ...freeMasks.map(...) ]
-      //     const orderData = { orderNumber: supportOrderNumber, ... }
-      //     const csrfToken = await fetchCsrfToken()
-      //     const response = await fetch('/api/orders/support-link', { ... })
-      //     if (response.ok) { serverOrderNumber = data.orderNumber }
-      //   } catch (error) { errorLog('Error in support-link order processing:', error) }
-      //   router.push(`${getLocalizedPath('/success', locale)}?payment=support-link&order_id=${serverOrderNumber}`)
-      //   return
-      // }
 
       // Handle Stripe payment - open embedded payment sheet
       if (paymentMethod === 'stripe') {

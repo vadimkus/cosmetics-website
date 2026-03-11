@@ -9,7 +9,7 @@
  * - transporter.ts: SMTP configuration and core sendEmail function
  * - templates.ts: Email template definitions (HTML generation)
  * - senders.ts: Wrapper functions for sending specific email types
- * - htmlGenerators.ts: Order HTML generators (COD, Support Link, Stripe)
+ * - htmlGenerators.ts: Order HTML generators (COD, Stripe)
  * - statusUpdate.ts: Order status update email sender
  *
  * All exports are re-exported here for backward compatibility.

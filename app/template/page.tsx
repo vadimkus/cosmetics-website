@@ -5,7 +5,7 @@ import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
 
-type TemplateType = 'welcome' | 'order-shipped' | 'order-confirmed' | 'order-delivered' | 'discount-assigned' | 'cod' | 'support-link' | 'stripe-payment-confirmation'
+type TemplateType = 'welcome' | 'order-shipped' | 'order-confirmed' | 'order-delivered' | 'discount-assigned' | 'cod' | 'stripe-payment-confirmation'
 type Locale = 'en' | 'ru' | 'ar'
 type DesignVariant = 'current' | 'v2-minimal'
 
@@ -242,7 +242,7 @@ export default function EmailTemplatePage() {
           // noUncheckedIndexedAccess: split()[0] can be undefined, so provide a safe fallback
           heading: (tf('orderEmail.orderDelivered.subject', `Order Delivered #${orderNumber}`, { orderNumber }).split(' > ')[0]
             ?? tf('orderEmail.orderDelivered.subject', `Order Delivered #${orderNumber}`, { orderNumber })),
-          greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
+          greetingLine: tf('orderEmail.statusUpdate.dear', `Dear ${userName},`, { customerName: userName }),
           bodyLine: tf('orderEmail.orderDelivered.delivered', 'Your order has been delivered.'),
           detailsRows: orderRows,
           primaryCta: { label: tf('orderEmail.orderConfirmation.trackOrder', 'View your order'), href: `${baseUrl}/${prefix}profile` },
@@ -268,7 +268,7 @@ export default function EmailTemplatePage() {
               ? `تم شحن الطلب #${orderNumber} > Genosys Middle East FZ-LLC`
               : `Order Shipped #${orderNumber} > Genosys Middle East FZ-LLC`}`,
           heading: locale === 'ru' ? 'Заказ отправлен' : locale === 'ar' ? 'تم شحن الطلب' : 'Order shipped',
-          greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
+          greetingLine: tf('orderEmail.statusUpdate.dear', `Dear ${userName},`, { customerName: userName }),
           bodyLine: tf('orderEmail.statusUpdate.statusMessages.SHIPPED', 'Your order has been shipped.'),
           detailsRows: orderRows,
           primaryCta: { label: tf('orderEmail.orderConfirmation.trackOrder', 'Track your order'), href: `${baseUrl}/${prefix}profile` },
@@ -316,7 +316,7 @@ export default function EmailTemplatePage() {
         return buildV2Shell({
           subject: tf('orderEmail.discountAssigned.subject', 'Special Discount Assigned > Genosys Middle East FZ-LLC'),
           heading: locale === 'ru' ? 'Скидка' : locale === 'ar' ? 'خصم' : 'Discount',
-          greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
+          greetingLine: tf('orderEmail.statusUpdate.dear', `Dear ${userName},`, { customerName: userName }),
           bodyLine: tf('orderEmail.discountAssigned.greeting', 'A special discount has been assigned to your account.'),
           detailsRows: [
             { label: tf('orderEmail.discountAssigned.type', 'Type:'), value: discountType },
@@ -338,30 +338,15 @@ export default function EmailTemplatePage() {
             ...(orderTotal ? [{ label: tf('orderEmail.cod.totalLabel', 'Total:'), value: formatAed(orderTotal) }] : []),
             { label: tf('orderEmail.cod.emirate', 'Emirate:'), value: deliveryEmirate || '' }
           ].filter(r => r.value),
-          primaryCta: { label: tf('orderEmail.supportLink.continueShopping', 'Continue Shopping'), href: `${baseUrl}/${prefix}products` },
+          primaryCta: { label: tf('orderEmail.stripePaymentConfirmation.continueShopping', 'Continue Shopping'), href: `${baseUrl}/${prefix}products` },
           secondaryCta: { label: tf('orderEmail.cod.contactSupport', 'Contact Support via WhatsApp'), href: supportHref }
-        })
-
-      case 'support-link':
-        return buildV2Shell({
-          subject: tf('orderEmail.supportLink.subject', `Order Request Submitted #${orderNumber} > Genosys Middle East FZ-LLC`, { orderNumber }),
-          heading: locale === 'ru' ? 'Заявка принята' : locale === 'ar' ? 'تم استلام الطلب' : 'Request received',
-          greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
-          bodyLine: tf('orderEmail.supportLink.orderSubmitted', 'Your order request has been submitted. Our support team will share a secure payment link shortly.'),
-          detailsRows: [
-            { label: tf('orderEmail.supportLink.orderRequest', 'Order Request'), value: `#${orderNumber}` },
-            ...(orderTotal ? [{ label: tf('orderEmail.orderDelivered.total', 'Total:'), value: formatAed(orderTotal) }] : []),
-            { label: tf('orderEmail.supportLink.emirate', 'Emirate:'), value: deliveryEmirate || '' }
-          ].filter(r => r.value),
-          primaryCta: { label: tf('orderEmail.supportLink.continueShopping', 'Continue Shopping'), href: `${baseUrl}/${prefix}products` },
-          secondaryCta: { label: tf('orderEmail.supportLink.contactSupport', 'Contact Support via WhatsApp'), href: supportHref }
         })
 
       case 'stripe-payment-confirmation':
         return buildV2Shell({
           subject: tf('orderEmail.stripePaymentConfirmation.orderConfirmed', `Order Confirmed #${orderNumber} > Genosys Middle East FZ-LLC`, { orderNumber }),
           heading: locale === 'ru' ? 'Оплата получена' : locale === 'ar' ? 'تم تأكيد الدفع' : 'Payment confirmed',
-          greetingLine: tf('orderEmail.supportLink.dear', `Dear ${userName},`, { customerName: userName }),
+          greetingLine: tf('orderEmail.statusUpdate.dear', `Dear ${userName},`, { customerName: userName }),
           bodyLine: locale === 'ru'
             ? `Мы получили оплату по заказу #${orderNumber}. Спасибо!`
             : locale === 'ar'
@@ -790,85 +775,6 @@ export default function EmailTemplatePage() {
     }
   }
 
-  // Generate Support Link order email template
-  const generateSupportLinkEmail = (name: string, email: string, phone: string, orderNum: string, _subtotal: string, _shipping: string, _vat: string, _total: string, address: string, emirate: string) => {
-    const isRTL = locale === 'ar'
-    const textAlign = isRTL ? 'right' : 'left'
-    const dir = isRTL ? 'rtl' : 'ltr'
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
-    
-    const productsUrl = locale === 'ar' ? `${siteUrl}/ar/products` : locale === 'ru' ? `${siteUrl}/ru/products` : `${siteUrl}/products`
-    const contactUrl = locale === 'ar' ? `${siteUrl}/ar/contact` : locale === 'ru' ? `${siteUrl}/ru/contact` : `${siteUrl}/contact`
-    
-    return {
-      subject: t('orderEmail.supportLink.subject', { orderNumber: orderNum }).replace('#{orderNumber}', orderNum).replace('{orderNumber}', orderNum),
-      html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: white; font-size: 14px; direction: ${dir};">
-        <div style="text-align: center; margin-bottom: 30px;">
-          <h1 style="color: #dc2626; margin: 0; font-size: 14px;">${t('orderEmail.supportLink.companyName')}</h1>
-          <p style="color: #666; margin: 5px 0; font-size: 14px;">United Arab Emirates <span style="font-size: 0.8em;">❤️</span></p>
-        </div>
-        
-        <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-            ${t('orderEmail.supportLink.dear', { customerName: name.split(' ')[0] || name })}
-          </p>
-          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0 0 10px 0; text-align: ${textAlign};">
-            ${t('orderEmail.supportLink.orderSubmitted')}
-          </p>
-          <p style="color: #374151; font-size: 14px; line-height: 1.6; margin: 0; text-align: ${textAlign};">
-            ${t('orderEmail.supportLink.orderRequest', { orderNumber: orderNum })}
-          </p>
-        </div>
-        
-        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-          <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t('orderEmail.supportLink.customerInformation')}</h3>
-          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t('orderEmail.supportLink.name')}</strong> ${name}</p>
-          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t('orderEmail.supportLink.email')}</strong> ${email}</p>
-          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t('orderEmail.supportLink.phone')}</strong> ${phone}</p>
-          <p style="margin: 0 0 8px 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t('orderEmail.supportLink.address')}</strong> ${address}</p>
-          <p style="margin: 0; color: #374151; font-size: 14px; text-align: ${textAlign};"><strong>${t('orderEmail.supportLink.emirate')}</strong> ${emirate}</p>
-        </div>
-        
-        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #e5e5e5;">
-          <h3 style="color: #dc2626; margin: 0 0 15px 0; font-size: 14px; text-align: ${textAlign};">${t('orderEmail.supportLink.orderItems')}</h3>
-          <p style="color: #374151; margin: 0; text-align: ${textAlign};">${orderItems}</p>
-        </div>
-        
-        <div style="text-align: center; margin: 30px 0;">
-          <a href="${productsUrl}" 
-             style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); 
-                    color: white; 
-                    padding: 12px 30px; 
-                    text-decoration: none; 
-                    border-radius: 6px; 
-                    font-weight: bold; 
-                    display: inline-block; 
-                    margin-${isRTL ? 'left' : 'right'}: 10px;">
-            ${t('orderEmail.supportLink.continueShopping')}
-          </a>
-          <a href="${contactUrl}" 
-             style="background: transparent; 
-                    color: #16a34a; 
-                    padding: 12px 30px; 
-                    text-decoration: none; 
-                    border: 2px solid #16a34a; 
-                    border-radius: 6px; 
-                    font-weight: bold; 
-                    display: inline-block;">
-            ${t('orderEmail.supportLink.contactSupport')}
-          </a>
-        </div>
-        
-        <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #e5e5e5; color: #000000; font-size: 14px;">
-          <p style="color: #000000; margin: 0;">${t('orderEmail.supportLink.officialDistributorFooter') || t('orderEmail.supportLink.officialDistributor')}</p>
-          <p style="color: #000000; margin: 0;">© 2026 Genosys Middle East FZ-LLC. All rights reserved.</p>
-        </div>
-      </div>
-    `
-    }
-  }
-
   // Generate Stripe Payment Confirmation email template
   const generateStripePaymentConfirmationEmail = (name: string, email: string, phone: string, orderNum: string, _subtotal: string, _shipping: string, _vat: string, total: string, address: string, emirate: string) => {
     const isRTL = locale === 'ar'
@@ -1062,8 +968,6 @@ export default function EmailTemplatePage() {
         return generateDiscountAssignedEmail(userName, discountType, discountPercentage)
       case 'cod':
         return generateCODEmail(userName, userEmail, userPhone, orderNumber, orderSubtotal, orderShipping, orderVat, orderTotal, deliveryAddress, deliveryEmirate)
-      case 'support-link':
-        return generateSupportLinkEmail(userName, userEmail, userPhone, orderNumber, orderSubtotal, orderShipping, orderVat, orderTotal, deliveryAddress, deliveryEmirate)
       case 'stripe-payment-confirmation':
         return generateStripePaymentConfirmationEmail(userName, userEmail, userPhone, orderNumber, orderSubtotal, orderShipping, orderVat, orderTotal, deliveryAddress, deliveryEmirate)
       default:
@@ -1087,8 +991,6 @@ export default function EmailTemplatePage() {
         return 'Discount Assignment Email'
       case 'cod':
         return 'COD Order Confirmation Email'
-      case 'support-link':
-        return 'Support Link Order Request Email'
       case 'stripe-payment-confirmation':
         return 'Stripe Payment Confirmation Email'
       default:
@@ -1244,16 +1146,6 @@ export default function EmailTemplatePage() {
                 COD Order
               </button>
               <button
-                onClick={() => setTemplateType('support-link')}
-                className={`px-4 py-2 rounded-md font-medium transition-colors ${
-                  templateType === 'support-link'
-                    ? 'bg-red-600 text-white'
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                Support Link
-              </button>
-              <button
                 onClick={() => setTemplateType('stripe-payment-confirmation')}
                 className={`px-4 py-2 rounded-md font-medium transition-colors ${
                   templateType === 'stripe-payment-confirmation'
@@ -1309,7 +1201,7 @@ export default function EmailTemplatePage() {
               </div>
             )}
             
-            {(templateType === 'order-shipped' || templateType === 'order-confirmed' || templateType === 'order-delivered' || templateType === 'cod' || templateType === 'support-link') && (
+            {(templateType === 'order-shipped' || templateType === 'order-confirmed' || templateType === 'order-delivered' || templateType === 'cod') && (
               <>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -1337,7 +1229,7 @@ export default function EmailTemplatePage() {
                   />
                 </div>
                 
-                {(templateType === 'cod' || templateType === 'support-link') && (
+                {templateType === 'cod' && (
                   <>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">

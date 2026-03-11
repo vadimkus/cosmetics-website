@@ -87,13 +87,6 @@ export async function submitCODOrder(orderData: Record<string, unknown>) {
 }
 
 /**
- * Submit a support-link order.
- */
-export async function submitSupportLinkOrder(orderData: Record<string, unknown>) {
-  return api.post<{ success: boolean; orderId: string }>('/api/orders/support-link', orderData)
-}
-
-/**
  * Generate an invoice for an order.
  */
 export async function generateInvoice(orderData: Record<string, unknown>) {

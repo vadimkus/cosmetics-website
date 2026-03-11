@@ -6,7 +6,6 @@
 // Email translation sections
 export type EmailTranslationSection =
   | 'cod'
-  | 'supportLink'
   | 'stripePaymentConfirmation'
   | 'statusUpdate'
   | 'welcome'

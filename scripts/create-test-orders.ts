@@ -43,7 +43,7 @@ async function getCsrfToken(): Promise<{ token: string; cookie: string } | null>
 
 // Create a test order
 async function createTestOrder(
-  type: 'SUP' | 'COD',
+  type: 'COD',
   csrfToken: string,
   csrfCookie: string
 ): Promise<void> {
@@ -84,9 +84,7 @@ async function createTestOrder(
     locale: 'en'
   }
 
-  const endpoint = type === 'SUP' 
-    ? '/api/orders/support-link'
-    : '/api/orders/cod-confirmation'
+  const endpoint = '/api/orders/cod-confirmation'
 
   console.log(`\n📦 Creating ${type} test order: ${orderNumber}`)
   console.log(`   Endpoint: ${endpoint}`)
@@ -144,20 +142,7 @@ async function main() {
 
   console.log(`✅ CSRF Token received: ${csrfData.token.substring(0, 16)}...`)
 
-  // Create SUP order
-  await createTestOrder('SUP', csrfData.token, csrfData.cookie)
-
-  // Wait a bit between orders
-  await new Promise(resolve => setTimeout(resolve, 2000))
-
-  // Get a fresh CSRF token for the second order (some servers require this)
-  const csrfData2 = await getCsrfToken()
-  if (csrfData2) {
-    await createTestOrder('COD', csrfData2.token, csrfData2.cookie)
-  } else {
-    // Fallback to using the same token
-    await createTestOrder('COD', csrfData.token, csrfData.cookie)
-  }
+  await createTestOrder('COD', csrfData.token, csrfData.cookie)
 
   console.log('\n✅ Test orders creation completed!')
   console.log('📧 Check your email for admin notifications')

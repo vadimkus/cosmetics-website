@@ -119,7 +119,7 @@ function SuccessContent() {
   useEffect(() => {
     let timer: NodeJS.Timeout | undefined
     
-    if (paymentMethod === 'cod' || paymentMethod === 'support-link' || paymentMethod === 'card' || sessionId) {
+    if (paymentMethod === 'cod' || paymentMethod === 'card' || sessionId) {
       setShowConfetti(true)
       timer = setTimeout(() => {
         setShowConfetti(false)
@@ -136,10 +136,6 @@ function SuccessContent() {
 
     if (paymentMethod === 'cod' || paymentMethod === 'card') {
       clearCart()
-    } else if (paymentMethod === 'support-link') {
-      timeout = setTimeout(() => {
-        clearCart()
-      }, 2000)
     } else if (sessionId) {
       clearCart()
     }
@@ -217,13 +213,11 @@ function SuccessContent() {
               <CheckCircle2 className="w-8 h-8 md:w-10 md:h-10 text-green-600" />
             </div>
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600 mb-2">
-              {paymentMethod === 'support-link' 
-                ? (t('success.orderRequestSubmitted') || 'Order Request Submitted!')
-                : paymentMethod === 'card'
-                  ? (t('success.paymentSuccessful') || 'Payment Successful!')
-                  : paymentMethod === 'cod'
-                    ? (t('success.orderSuccess') || 'Order Confirmed!')
-                    : (t('success.paymentSuccessful') || 'Payment Successful!')}
+              {paymentMethod === 'card'
+                ? (t('success.paymentSuccessful') || 'Payment Successful!')
+                : paymentMethod === 'cod'
+                  ? (t('success.orderSuccess') || 'Order Confirmed!')
+                  : (t('success.paymentSuccessful') || 'Payment Successful!')}
             </h1>
             <p className="text-sm md:text-base text-gray-600">
               {t('success.orderBeingProcessed') || 'Your order has been confirmed and is being processed.'}
@@ -517,37 +511,20 @@ function SuccessContent() {
               {t('success.whatsNext') || "What happens next?"}
             </h2>
             <div className={`space-y-3 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-              {paymentMethod === 'support-link' ? (
-                <>
-                  <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
-                    <span className="text-sm text-blue-800">{t('success.step1SupportLink') || 'Our support team will contact you via phone/WhatsApp'}</span>
-                  </div>
-                  <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
-                    <span className="text-sm text-blue-800">{t('success.step2SupportLink') || "You'll receive a secure Stripe payment link"}</span>
-                  </div>
-                  <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
-                    <span className="text-sm text-blue-800">{t('success.step3SupportLink') || 'Complete payment and your order will be processed'}</span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
-                    <span className="text-sm text-blue-800">{t('success.emailConfirmationSent') || 'Order confirmation email sent'}</span>
-                  </div>
-                  <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
-                    <span className="text-sm text-blue-800">{t('success.orderBeingPrepared') || 'Your order is being prepared for delivery'}</span>
-                  </div>
-                  <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
-                    <span className="text-sm text-blue-800">{t('success.trackingInfoSoon') || 'Tracking information will be sent shortly via email/WhatsApp'}</span>
-                  </div>
-                </>
-              )}
+              <>
+                <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
+                  <span className="text-sm text-blue-800">{t('success.emailConfirmationSent') || 'Order confirmation email sent'}</span>
+                </div>
+                <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
+                  <span className="text-sm text-blue-800">{t('success.orderBeingPrepared') || 'Your order is being prepared for delivery'}</span>
+                </div>
+                <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">✓</div>
+                  <span className="text-sm text-blue-800">{t('success.trackingInfoSoon') || 'Tracking information will be sent shortly via email/WhatsApp'}</span>
+                </div>
+              </>
             </div>
             
             {/* Delivery Estimate */}

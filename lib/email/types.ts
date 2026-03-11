@@ -36,6 +36,7 @@ export interface OrderConfirmationEmailData {
     size?: string
     color?: string
     discountLabel?: string | undefined // e.g., "50% OFF" or "15% OFF - Bundle Discount"
+    bundleDiscount?: number | null | undefined // Per-item bundle discount %
   }>
   subtotal: number
   shipping: number
@@ -68,6 +69,7 @@ export interface AdminNewOrderEmailData {
     size?: string
     color?: string
     discountLabel?: string | undefined
+    bundleDiscount?: number | null | undefined // Per-item bundle discount %
   }> | undefined
   subtotal?: number | undefined
   shipping?: number | undefined
@@ -102,6 +104,7 @@ export interface OrderHTMLItem {
   size?: string | undefined
   color?: string | undefined
   discountLabel?: string | undefined // e.g., "50% OFF" or "15% OFF - Bundle Discount"
+  bundleDiscount?: number | null | undefined // Per-item bundle discount % (null = not a bundle item)
 }
 
 // Order HTML data for HTML generation

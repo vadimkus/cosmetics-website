@@ -166,7 +166,8 @@ export async function GET(request: NextRequest) {
           quantity: item.quantity,
           image: item.image,
           color: item.color,
-          size: item.size
+          size: item.size,
+          bundleDiscount: item.bundleDiscount ?? null,
         }))
       }
 
@@ -238,7 +239,8 @@ export async function GET(request: NextRequest) {
         quantity: item.quantity,
         image: item.image,
         color: item.color,
-        size: item.size
+        size: item.size,
+        bundleDiscount: item.bundleDiscount ?? null,
       }))
     }))
 
@@ -522,7 +524,8 @@ export async function POST(request: NextRequest) {
             price: item.price,
             image: item.image || '',
             ...(item.size ? { size: item.size } : {}),
-            ...(item.color ? { color: item.color } : {})
+            ...(item.color ? { color: item.color } : {}),
+            bundleDiscount: item.bundleDiscount ?? undefined,
           })),
           subtotal: order.subtotal,
           shipping: order.shipping,
@@ -559,11 +562,13 @@ export async function POST(request: NextRequest) {
               image: string
               size?: string
               color?: string
+              bundleDiscount?: number | null
             } = {
               productName: item.productName,
               quantity: item.quantity,
               price: item.price,
-              image: item.image || ''
+              image: item.image || '',
+              bundleDiscount: item.bundleDiscount ?? undefined,
             }
             if (item.size) {
               emailItem.size = item.size
@@ -623,7 +628,8 @@ export async function POST(request: NextRequest) {
         quantity: item.quantity,
         image: item.image,
         color: item.color,
-        size: item.size
+        size: item.size,
+        bundleDiscount: item.bundleDiscount ?? null,
       }))
     }
 

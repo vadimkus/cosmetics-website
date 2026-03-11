@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
     }))
 
     // Save order to database
-    const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string; color?: string; size?: string }) => {
+    const orderItems: OrderItemData[] = items.map((item: { id?: string; name: string; price: number; quantity: number; image?: string; color?: string; size?: string; bundleDiscount?: number }) => {
       // Enhance with default size if missing
       const itemName = item.name || 'Product'
       const enhanced = enhanceOrderItemWithDefaultSize({
@@ -135,7 +135,8 @@ export async function POST(request: NextRequest) {
         quantity: item.quantity,
         image: item.image || '/images/placeholder.jpg',
         color: enhanced.color || undefined,
-        size: enhanced.size || undefined
+        size: enhanced.size || undefined,
+        ...(item.bundleDiscount && item.bundleDiscount > 0 ? { bundleDiscount: item.bundleDiscount } : {})
       }
     })
 
@@ -230,7 +231,7 @@ export async function POST(request: NextRequest) {
       discountAmount: discountAmount > 0 ? discountAmount : undefined,
       bundleDiscountPercentage: bundleDiscountPercentCalc ?? undefined,
       bundleDiscountAmount: bundleDiscountAmountCalc > 0 ? bundleDiscountAmountCalc : undefined,
-      items: items.map((item: { id?: string; name: string; quantity: number; price: number; total?: number; image?: string; size?: string; color?: string }): OrderHTMLItem => {
+      items: items.map((item: { id?: string; name: string; quantity: number; price: number; total?: number; image?: string; size?: string; color?: string; bundleDiscount?: number }): OrderHTMLItem => {
         const itemName = item.name || 'Product'
         
         // Check item type for discount labeling
@@ -263,7 +264,8 @@ export async function POST(request: NextRequest) {
           price: item.price,
           originalPrice,
           discountLabel,
-          total: item.total || (item.price * item.quantity)
+          total: item.total || (item.price * item.quantity),
+          bundleDiscount: (item.bundleDiscount && item.bundleDiscount > 0) ? item.bundleDiscount : undefined,
         }
         if (item.image) {
           orderItem.image = item.image

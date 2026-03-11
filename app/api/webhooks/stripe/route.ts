@@ -303,6 +303,7 @@ interface OrderItem {
   image?: string | null
   size?: string | null
   color?: string | null
+  bundleDiscount?: number | null
 }
 
 interface OrderWithItems {
@@ -353,13 +354,11 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       items: order.items.map((item) => {
         const itemName = item.productName || 'Product'
         
-        // Check item type for discount labeling
         const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
         const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
         const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
         const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
         
-        // Determine discount label
         let discountLabel: string | undefined = undefined
         if (isFreeItem) {
           discountLabel = undefined
@@ -376,7 +375,8 @@ async function sendConfirmationEmails(order: OrderWithItems) {
           image: item.image || '',
           ...(item.size ? { size: item.size } : {}),
           ...(item.color ? { color: item.color } : {}),
-          ...(discountLabel ? { discountLabel } : {})
+          ...(discountLabel ? { discountLabel } : {}),
+          bundleDiscount: item.bundleDiscount ?? undefined,
         }
       }),
       subtotal: order.subtotal || 0,
@@ -405,13 +405,11 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       items: order.items.map((item) => {
         const itemName = item.productName || 'Product'
         
-        // Check item type for discount labeling (same logic as customer email)
         const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
         const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
         const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
         const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
         
-        // Determine discount label and original price
         let discountLabel: string | undefined = undefined
         let originalPrice: number | undefined = undefined
         
@@ -434,7 +432,8 @@ async function sendConfirmationEmails(order: OrderWithItems) {
           image: item.image || '',
           ...(item.size ? { size: item.size } : {}),
           ...(item.color ? { color: item.color } : {}),
-          ...(discountLabel ? { discountLabel } : {})
+          ...(discountLabel ? { discountLabel } : {}),
+          bundleDiscount: item.bundleDiscount ?? undefined,
         }
       }),
       subtotal: order.subtotal ?? undefined,

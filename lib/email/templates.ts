@@ -533,13 +533,11 @@ export const emailTemplates = {
     const paidItemCount = paidItems.reduce((sum, item) => sum + item.quantity, 0)
     const freeItemCount = freeItems.reduce((sum, item) => sum + item.quantity, 0)
 
-    // Calculate discount percentages for per-line display
     const userDiscountPct = orderData.discountPercentage || 0
-    const bundleDiscountPct = orderData.bundleDiscountPercentage || 0
+    const orderBundleDiscountPct = orderData.bundleDiscountPercentage || 0
     const hasUserDiscount = userDiscountPct > 0
-    const hasBundleDiscount = bundleDiscountPct > 0
+    const hasOrderBundleDiscount = orderBundleDiscountPct > 0
 
-    // Helpers for beauty box and fixed-price item detection
     const BEAUTY_BOX_PRICES: Record<string, number> = {
       'problem skin care beauty box': 1318, 'skin brightening beauty box': 1496,
       'charming look beauty box': 1520, 'anti-aging beauty box': 1390,
@@ -558,29 +556,39 @@ export const emailTemplates = {
       return false
     }
 
-    // Generate items HTML - show discounted prices with per-line discount info
     const itemsHTML = orderData.items.map(item => {
       const isFreeItem = item.price === 0 || item.productName.toLowerCase().includes('(free)')
       const bbOriginal = getBBOriginal(item.productName)
       const isBeautyBox = bbOriginal !== null
       const isFixed = isFixedPrice(item.productName)
+
+      // Per-item bundle discount takes priority over order-level inference
+      const itemBundlePct = item.bundleDiscount ?? null
+      const isItemBundle = itemBundlePct !== null && itemBundlePct > 0
       
       let originalPrice = item.price
       let totalDiscountPct = 0
       let showDiscount = false
+      let discountType: 'beauty_box' | 'bundle' | 'vip' | null = null
 
       if (isBeautyBox && bbOriginal) {
         originalPrice = bbOriginal
         totalDiscountPct = BEAUTY_BOX_DISC
         showDiscount = true
+        discountType = 'beauty_box'
       } else if (!isFixed && !isFreeItem) {
-        // Bundle and VIP discounts are mutually exclusive per item
-        if (hasBundleDiscount) {
-          originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+        if (isItemBundle) {
+          originalPrice = originalPrice / (1 - itemBundlePct / 100)
           showDiscount = true
+          discountType = 'bundle'
+        } else if (hasOrderBundleDiscount && !isItemBundle && itemBundlePct === null) {
+          originalPrice = originalPrice / (1 - orderBundleDiscountPct / 100)
+          showDiscount = true
+          discountType = 'bundle'
         } else if (hasUserDiscount) {
           originalPrice = originalPrice / (1 - userDiscountPct / 100)
           showDiscount = true
+          discountType = 'vip'
         }
         totalDiscountPct = showDiscount ? Math.round((1 - item.price / originalPrice) * 100) : 0
       }
@@ -589,15 +597,13 @@ export const emailTemplates = {
       const itemTotal = item.price * item.quantity
       const originalTotal = originalPrice * item.quantity
       
-      // Build discount badges
       const discountBadges = []
-      if (isBeautyBox) {
+      if (discountType === 'beauty_box') {
         discountBadges.push(`<span style="display: inline-block; background: #fff7ed; color: #c2410c; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${BEAUTY_BOX_DISC}% Box</span>`)
       } else if (!isFixed && !isFreeItem) {
-        // Show only one badge: bundle OR VIP (mutually exclusive)
-        if (hasBundleDiscount) {
-          discountBadges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
-        } else if (hasUserDiscount) {
+        if (discountType === 'bundle') {
+          discountBadges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px;">-${totalDiscountPct}% Bundle</span>`)
+        } else if (discountType === 'vip') {
           discountBadges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${userDiscountPct}% VIP</span>`)
         }
       }

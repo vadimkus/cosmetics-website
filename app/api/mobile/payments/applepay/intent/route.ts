@@ -216,6 +216,7 @@ export async function POST(request: NextRequest) {
         // Preserve a stable promo marker so mobile UI can reliably show "FREE"
         size: isPromo ? '__PROMO__' : item.size,
         color: item.color,
+        bundleDiscount: hasBundleDiscountForItem ? itemBundlePct : undefined,
       })
     }
 
@@ -299,6 +300,7 @@ export async function POST(request: NextRequest) {
           image: item.image,
           size: item.size || null,
           color: item.color || null,
+          bundleDiscount: item.bundleDiscount ?? null,
         },
       })
     }

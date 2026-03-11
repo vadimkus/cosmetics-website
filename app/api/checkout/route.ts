@@ -186,7 +186,8 @@ export async function POST(request: NextRequest) {
         quantity: item.quantity,
         image: item.product.image,
         color: enhanced.color || undefined,
-        size: enhanced.size || undefined
+        size: enhanced.size || undefined,
+        ...(item.fromBundle && item.bundleDiscountPercent ? { bundleDiscount: item.bundleDiscountPercent } : {})
       }
     })
 

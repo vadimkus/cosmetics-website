@@ -11,6 +11,7 @@ export interface OrderItemData {
   image: string
   color?: string // Product color variant (e.g., "beige", "ivory", "camel")
   size?: string // Product size variant (e.g., "50g", "100g")
+  bundleDiscount?: number // Bundle discount % applied to this item (null/undefined = not a bundle item)
 }
 
 export interface OrderData {
@@ -155,6 +156,7 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
             image: item.image,
             color: item.color || null,
             size: item.size || null,
+            bundleDiscount: item.bundleDiscount ?? null,
           }))
         }
       },

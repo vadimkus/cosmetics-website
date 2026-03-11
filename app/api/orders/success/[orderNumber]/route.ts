@@ -37,7 +37,8 @@ export async function GET(
             price: true,
             image: true,
             color: true,
-            size: true
+            size: true,
+            bundleDiscount: true
           }
         }
       }
@@ -91,7 +92,8 @@ export async function GET(
         price: item.price,
         image: item.image,
         color: item.color,
-        size: item.size
+        size: item.size,
+        bundleDiscount: item.bundleDiscount
       })),
       // Delivery estimate
       deliveryEstimate,

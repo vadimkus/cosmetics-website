@@ -23,6 +23,7 @@ interface OrderItem {
   image: string
   color: string | null
   size: string | null
+  bundleDiscount: number | null
 }
 
 interface OrderData {
@@ -272,10 +273,9 @@ function SuccessContent() {
                 </h3>
                 {(() => {
                   const userDiscountPct = orderData.discountPercentage || 0
-                  const bundleDiscountPct = orderData.bundleDiscountPercentage || 0
+                  const orderBundleDiscountPct = orderData.bundleDiscountPercentage || 0
                   const hasUserDiscount = userDiscountPct > 0
-                  const hasBundleDiscount = bundleDiscountPct > 0
-                  // Products excluded from user VIP discount but with their own built-in discount
+                  const hasOrderBundleDiscount = orderBundleDiscountPct > 0
                   const isExcludedFromUserDiscount = (name: string): boolean => {
                     const n = (name || '').trim().toLowerCase()
                     if (!n) return false
@@ -285,7 +285,6 @@ function SuccessContent() {
                     return false
                   }
 
-                  // Beauty boxes have a built-in 15% bundle discount with known original prices
                   const BEAUTY_BOX_ORIGINAL_PRICES: Record<string, number> = {
                     'problem skin care beauty box': 1318,
                     'skin brightening beauty box': 1496,
@@ -311,43 +310,40 @@ function SuccessContent() {
                           const isFreeItem = item.price === 0 || item.productName.toLowerCase().includes('(free)')
                           const excludedFromUserDiscount = isExcludedFromUserDiscount(item.productName)
                           
-                          // Check if this is a beauty box with its own built-in discount
                           const beautyBoxOriginal = getBeautyBoxOriginalPrice(item.productName)
                           const isBeautyBox = beautyBoxOriginal !== null
 
-                          // Reverse-calculate original price from stored discounted price
-                          // ONLY for items that actually had the user/bundle discount applied
+                          // Per-item bundle discount (new field) takes priority over order-level inference
+                          const itemBundlePct = item.bundleDiscount ?? null
+                          const isItemBundle = itemBundlePct !== null && itemBundlePct > 0
+
                           let originalPrice = item.price
                           let itemDiscountPct = 0
                           let showDiscount = false
+                          let discountType: 'beauty_box' | 'bundle' | 'vip' | null = null
 
                           if (isBeautyBox && beautyBoxOriginal) {
-                            // Beauty box: show the built-in 15% bundle discount
                             originalPrice = beautyBoxOriginal
                             itemDiscountPct = BEAUTY_BOX_DISCOUNT_PCT
                             showDiscount = true
+                            discountType = 'beauty_box'
                           } else if (!excludedFromUserDiscount && !isFreeItem) {
-                            // Bundle and VIP discounts are mutually exclusive per item:
-                            // - Bundle items get ONLY bundle discount on retail price
-                            // - Regular items get ONLY VIP discount on retail price
-                            // When order has both discounts (mixed cart), we apply the
-                            // appropriate one per item. Since we can't distinguish per-item,
-                            // prefer bundle discount when present (bundle items are the
-                            // discounted items in a bundle order).
-                            if (hasBundleDiscount && hasUserDiscount) {
-                              // Mixed cart: show only the bundle discount for bundle items
-                              // (VIP discount total is shown separately in the summary)
-                              originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+                            if (isItemBundle) {
+                              originalPrice = originalPrice / (1 - itemBundlePct / 100)
                               showDiscount = true
-                              itemDiscountPct = bundleDiscountPct
-                            } else if (hasBundleDiscount) {
-                              originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+                              itemDiscountPct = itemBundlePct
+                              discountType = 'bundle'
+                            } else if (hasOrderBundleDiscount && !isItemBundle && itemBundlePct === null) {
+                              // Legacy order (no per-item bundleDiscount stored): fall back to order-level
+                              originalPrice = originalPrice / (1 - orderBundleDiscountPct / 100)
                               showDiscount = true
-                              itemDiscountPct = bundleDiscountPct
+                              itemDiscountPct = orderBundleDiscountPct
+                              discountType = 'bundle'
                             } else if (hasUserDiscount) {
                               originalPrice = originalPrice / (1 - userDiscountPct / 100)
                               showDiscount = true
                               itemDiscountPct = userDiscountPct
+                              discountType = 'vip'
                             }
                           }
 
@@ -370,7 +366,6 @@ function SuccessContent() {
                               <div className="flex-1 min-w-0">
                                 <div className={`flex justify-between gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                   <p className="text-sm font-semibold text-gray-900 uppercase tracking-wide leading-tight flex-1">{item.productName}</p>
-                                  {/* Price */}
                                   <div className={`whitespace-nowrap ${dir === 'rtl' ? 'text-left' : 'text-right'}`}>
                                     {isFreeItem ? (
                                       <span className="text-sm font-bold text-green-600">{t('cart.free') || 'FREE'}</span>
@@ -389,22 +384,20 @@ function SuccessContent() {
                                   {item.size && <span>• {item.size}</span>}
                                   {item.color && <span>• {item.color}</span>}
                                 </div>
-                                {/* Discount info */}
                                 {itemDiscountPct > 0 && (
                                   <p className="text-xs font-semibold text-green-600 mt-0.5">({itemDiscountPct}% OFF)</p>
                                 )}
-                                {/* Discount badges */}
                                 {showDiscount && !isFreeItem && (
                                   <div className={`flex flex-wrap gap-1 mt-1 ${dir === 'rtl' ? 'justify-end' : ''}`}>
-                                    {isBeautyBox ? (
+                                    {discountType === 'beauty_box' ? (
                                       <span className="inline-block bg-orange-100 text-orange-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
                                         -{BEAUTY_BOX_DISCOUNT_PCT}% Box
                                       </span>
-                                    ) : hasBundleDiscount ? (
+                                    ) : discountType === 'bundle' ? (
                                       <span className="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
-                                        -{bundleDiscountPct}% Bundle
+                                        -{itemDiscountPct}% Bundle
                                       </span>
-                                    ) : hasUserDiscount ? (
+                                    ) : discountType === 'vip' ? (
                                       <span className="inline-block bg-purple-100 text-purple-700 text-[10px] font-bold px-1.5 py-0.5 rounded">
                                         -{userDiscountPct}% VIP
                                       </span>

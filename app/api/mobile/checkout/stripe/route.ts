@@ -439,6 +439,7 @@ export async function POST(request: NextRequest) {
         size: isPromo ? '__PROMO__' : item.size,
         color: item.color,
         discountDesc,
+        bundleDiscount: hasBundleDiscountForItem ? itemBundlePct : undefined,
       })
     }
 
@@ -537,7 +538,8 @@ export async function POST(request: NextRequest) {
           quantity: item.quantity,
           image: item.image,
           size: item.size || null,
-          color: item.color || null
+          color: item.color || null,
+          bundleDiscount: item.bundleDiscount ?? null,
         }
       })
     }

@@ -53,41 +53,47 @@ function renderEnhancedItemRows(
   const qtyLabel = opts.qtyLabel || (locale === 'ru' ? 'Количество' : locale === 'ar' ? 'الكمية' : 'Quantity')
   const freeLabel = opts.freeLabel || (locale === 'ru' ? 'БЕСПЛАТНО' : locale === 'ar' ? 'مجاني' : 'FREE')
   
-  // Extract discount percentages from order-level data
   const userDiscountPct = order.discountPercentage || 0
-  const bundleDiscountPct = order.bundleDiscountPercentage || 0
+  const orderBundleDiscountPct = order.bundleDiscountPercentage || 0
   const hasUserDiscount = userDiscountPct > 0
-  const hasBundleDiscount = bundleDiscountPct > 0
+  const hasOrderBundleDiscount = orderBundleDiscountPct > 0
   
   return order.items.map(item => {
     const isFreeItem = item.price === 0 || item.name.toLowerCase().includes('(free)')
     const imageUrl = item.image ? (item.image.startsWith('http') ? item.image : `${SITE_URL}${item.image}`) : ''
     
-    // Check if this is a beauty box (has its own built-in 15% discount)
     const beautyBoxOriginal = getBeautyBoxOriginalPrice(item.name)
     const isBeautyBox = beautyBoxOriginal !== null
-    // Devices and Hydro Cool Mask — fixed price, no discount display
     const isFixedPrice = isFixedPriceItem(item.name)
+
+    // Per-item bundle discount takes priority over order-level inference
+    const itemBundlePct = item.bundleDiscount ?? null
+    const isItemBundle = itemBundlePct !== null && itemBundlePct > 0
     
-    // Calculate original price and discount percentage per item
     let originalPrice = item.price
     let totalDiscountPct = 0
     let showDiscount = false
+    let discountType: 'beauty_box' | 'bundle' | 'vip' | null = null
     
     if (isBeautyBox && beautyBoxOriginal) {
-      // Beauty box: show the built-in 15% bundle discount
       originalPrice = beautyBoxOriginal
       totalDiscountPct = BEAUTY_BOX_DISCOUNT_PCT
       showDiscount = true
+      discountType = 'beauty_box'
     } else if (!isFixedPrice && !isFreeItem) {
-      // Bundle and VIP discounts are mutually exclusive per item.
-      // Prefer bundle discount when present (bundle items don't get VIP).
-      if (hasBundleDiscount) {
-        originalPrice = originalPrice / (1 - bundleDiscountPct / 100)
+      if (isItemBundle) {
+        originalPrice = originalPrice / (1 - itemBundlePct / 100)
         showDiscount = true
+        discountType = 'bundle'
+      } else if (hasOrderBundleDiscount && !isItemBundle && itemBundlePct === null) {
+        // Legacy order without per-item bundleDiscount: fall back to order-level
+        originalPrice = originalPrice / (1 - orderBundleDiscountPct / 100)
+        showDiscount = true
+        discountType = 'bundle'
       } else if (hasUserDiscount) {
         originalPrice = originalPrice / (1 - userDiscountPct / 100)
         showDiscount = true
+        discountType = 'vip'
       }
       totalDiscountPct = showDiscount
         ? Math.round((1 - item.price / originalPrice) * 100)
@@ -98,15 +104,13 @@ function renderEnhancedItemRows(
     const itemTotal = item.price * item.quantity
     const originalTotal = originalPrice * item.quantity
     
-    // Build discount badges
     const badges: string[] = []
-    if (isBeautyBox) {
+    if (discountType === 'beauty_box') {
       badges.push(`<span style="display: inline-block; background: #fff7ed; color: #c2410c; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${BEAUTY_BOX_DISCOUNT_PCT}% Box</span>`)
     } else if (!isFixedPrice && !isFreeItem) {
-      // Show only one badge: bundle OR VIP (mutually exclusive)
-      if (hasBundleDiscount) {
-        badges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">-${bundleDiscountPct}% Bundle</span>`)
-      } else if (hasUserDiscount) {
+      if (discountType === 'bundle') {
+        badges.push(`<span style="display: inline-block; background: #dcfce7; color: #16a34a; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px;">-${totalDiscountPct}% Bundle</span>`)
+      } else if (discountType === 'vip') {
         badges.push(`<span style="display: inline-block; background: #f3e8ff; color: #9333ea; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; margin-${isRTL ? 'left' : 'right'}: 4px;">-${userDiscountPct}% VIP</span>`)
       }
     }

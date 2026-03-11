@@ -442,8 +442,8 @@ export async function POST(request: NextRequest) {
         quantity,
         image: item.image || product.image,
         color: item.color || null,
-        // Preserve a stable promo marker so mobile UI can reliably show "FREE"
-        size: isPromo ? '__PROMO__' : (item.size || null)
+        size: isPromo ? '__PROMO__' : (item.size || null),
+        bundleDiscount: hasBundleDiscountForItem ? itemBundlePct : null,
       })
     }
 

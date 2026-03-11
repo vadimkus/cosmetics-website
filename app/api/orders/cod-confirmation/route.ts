@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { sendEmail, sendAdminNewOrderNotification, generateCODOrderHTML, OrderHTMLData, OrderHTMLItem } from '@/lib/email'
 import { debugLog, errorLog } from '@/lib/logger'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
@@ -337,127 +337,102 @@ export async function POST(request: NextRequest) {
       isAppleRelay: customerEmail.includes('@privaterelay.appleid.com') || customerEmail.includes('@genosys.local')
     })
 
-    // Send email to customer (non-blocking - fire and forget)
     const emailSubject = (translations?.subject || `Order Confirmation #${orderNumber} - GENOSYS Professional`).replace('#{orderNumber}', orderNumber).replace('{orderNumber}', orderNumber)
-    
-    debugLog('📧 Attempting to send COD confirmation email to customer:', emailToUse)
-    debugLog('📧 Email subject:', emailSubject)
-    
-    sendEmail(
-      emailToUse.trim(),
-      emailSubject,
-      orderHTML
-    ).then((result) => {
-      if (result.success) {
-        debugLog('✅ COD order confirmation email sent successfully to:', emailToUse)
-        debugLog('✅ Message ID:', result.messageId || 'N/A')
-      } else {
-        errorLog('❌ FAILED to send COD order confirmation email to:', emailToUse)
-        errorLog('❌ Error:', result.error)
+
+    // Schedule all background tasks with after() so Vercel keeps the function alive.
+    // Without after(), fire-and-forget promises get killed when the serverless function
+    // terminates after sending the response — causing missed admin notifications.
+    after(async () => {
+      // 1. Send order confirmation email to customer (HIGHEST PRIORITY)
+      try {
+        debugLog('📧 Attempting to send COD confirmation email to customer:', emailToUse)
+        const result = await sendEmail(emailToUse.trim(), emailSubject, orderHTML)
+        if (result.success) {
+          debugLog('✅ COD order confirmation email sent successfully to:', emailToUse)
+          debugLog('✅ Message ID:', result.messageId || 'N/A')
+        } else {
+          errorLog('❌ FAILED to send COD order confirmation email to:', emailToUse)
+          errorLog('❌ Error:', result.error)
+          errorLog('❌ Order number:', orderNumber)
+        }
+      } catch (emailError) {
+        errorLog('❌ EXCEPTION sending COD order confirmation email to:', emailToUse)
+        errorLog('❌ Exception:', emailError)
         errorLog('❌ Order number:', orderNumber)
+        errorLog('❌ Stack:', emailError instanceof Error ? emailError.stack : 'No stack')
       }
-    }).catch((emailError) => {
-      errorLog('❌ EXCEPTION sending COD order confirmation email to:', emailToUse)
-      errorLog('❌ Exception:', emailError)
-      errorLog('❌ Order number:', orderNumber)
-      errorLog('❌ Stack:', emailError instanceof Error ? emailError.stack : 'No stack')
-      // Don't fail order creation if email fails
+
+      // 2. Send admin notification for COD order
+      try {
+        debugLog('📧 Sending admin notification for COD order:', orderNumber)
+        const adminResult = await sendAdminNewOrderNotification({
+          orderNumber,
+          customerName,
+          customerEmail: emailToUse,
+          customerPhone,
+          total,
+          itemCount: orderItems.length,
+          items: orderItems.map((item: OrderItemData) => {
+            const itemName = item.productName || 'Product'
+            
+            const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
+            const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
+            const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
+            const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
+            
+            let discountLabel: string | undefined = undefined
+            let originalPrice: number | undefined = undefined
+            
+            if (isFreeItem) {
+              discountLabel = undefined
+              originalPrice = undefined
+            } else if (isBundle) {
+              discountLabel = '15% OFF - Bundle'
+              originalPrice = item.price / (1 - 0.15)
+            } else if (hasUserDiscountApplied) {
+              discountLabel = `${userDiscountPct}% OFF`
+              originalPrice = item.price / (1 - userDiscountPct / 100)
+            }
+            
+            return {
+              productName: itemName,
+              quantity: item.quantity,
+              price: item.price,
+              originalPrice,
+              image: item.image || '/images/default-product.jpg',
+              ...(item.size ? { size: item.size } : {}),
+              ...(item.color ? { color: item.color } : {}),
+              ...(discountLabel ? { discountLabel } : {}),
+              bundleDiscount: item.bundleDiscount ?? undefined
+            }
+          }),
+          subtotal,
+          shipping: shippingCost,
+          vat: vatAmount,
+          address: (customerAddress && customerAddress.trim()) || undefined,
+          emirate: (emirate && emirate.trim()) || undefined,
+          deviceType,
+          paymentStatus: 'COD',
+          paymentMethod: 'Cash on Delivery',
+          discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
+          discountAmount: discountAmount > 0 ? discountAmount : undefined,
+          bundleDiscountPercentage: bundleDiscountPercentCalc ?? undefined,
+          bundleDiscountAmount: bundleDiscountAmountCalc > 0 ? bundleDiscountAmountCalc : undefined
+        })
+        if (adminResult.success) {
+          debugLog('✅ Admin notification sent successfully for COD order:', orderNumber)
+        } else {
+          errorLog('❌ FAILED to send admin notification for COD order:', orderNumber)
+          errorLog('❌ Admin notification error:', adminResult.error)
+        }
+      } catch (emailError) {
+        errorLog('❌ EXCEPTION sending admin notification for COD order:', orderNumber)
+        errorLog('❌ Exception details:', emailError)
+        errorLog('❌ Exception stack:', emailError instanceof Error ? emailError.stack : 'No stack')
+      }
     })
 
-    // Send admin notification for COD order (non-blocking - fire and forget)
-    debugLog('📧 Sending admin notification for COD order:', orderNumber)
-    debugLog('📧 Order data:', JSON.stringify({
-      orderNumber,
-      customerName,
-      customerEmail: emailToUse,
-      customerPhone,
-      total,
-      itemCount: orderItems.length,
-      subtotal,
-      shippingCost,
-      vatAmount
-    }, null, 2))
-    
-    debugLog('📧 Calling sendAdminNewOrderNotification for COD order:', orderNumber)
-    debugLog('🎟️ ADMIN NOTIFICATION DISCOUNT DATA:', JSON.stringify({
-      discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
-      discountAmount: discountAmount > 0 ? discountAmount : undefined
-    }))
-    
-    const adminNotificationPromise = sendAdminNewOrderNotification({
-      orderNumber,
-      customerName,
-      customerEmail: emailToUse,
-      customerPhone,
-      total,
-      itemCount: orderItems.length,
-      items: orderItems.map((item: OrderItemData) => {
-        const itemName = item.productName || 'Product'
-        
-        // Check item type for discount labeling (same logic as customer email)
-        const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
-        const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
-        const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
-        const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
-        
-        // Determine discount label and original price
-        let discountLabel: string | undefined = undefined
-        let originalPrice: number | undefined = undefined
-        
-        if (isFreeItem) {
-          discountLabel = undefined
-          originalPrice = undefined
-        } else if (isBundle) {
-          discountLabel = '15% OFF - Bundle'
-          originalPrice = item.price / (1 - 0.15)
-        } else if (hasUserDiscountApplied) {
-          discountLabel = `${userDiscountPct}% OFF`
-          originalPrice = item.price / (1 - userDiscountPct / 100)
-        }
-        
-        return {
-          productName: itemName,
-          quantity: item.quantity,
-          price: item.price,
-          originalPrice,
-          image: item.image || '/images/default-product.jpg',
-          ...(item.size ? { size: item.size } : {}),
-          ...(item.color ? { color: item.color } : {}),
-          ...(discountLabel ? { discountLabel } : {})
-        }
-      }),
-      subtotal,
-      shipping: shippingCost,
-      vat: vatAmount,
-      address: (customerAddress && customerAddress.trim()) || undefined,
-      emirate: (emirate && emirate.trim()) || undefined,
-      deviceType,
-      paymentStatus: 'COD',
-      paymentMethod: 'Cash on Delivery',
-      discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
-      discountAmount: discountAmount > 0 ? discountAmount : undefined,
-      bundleDiscountPercentage: bundleDiscountPercentCalc ?? undefined,
-      bundleDiscountAmount: bundleDiscountAmountCalc > 0 ? bundleDiscountAmountCalc : undefined
-    })
-    
-    adminNotificationPromise.then((adminResult) => {
-      if (adminResult.success) {
-        debugLog('✅ Admin notification sent successfully for COD order:', orderNumber)
-        debugLog('✅ Admin notification result:', JSON.stringify(adminResult, null, 2))
-      } else {
-        errorLog('❌ FAILED to send admin notification for COD order:', orderNumber)
-        errorLog('❌ Admin notification error:', adminResult.error)
-        errorLog('❌ Admin notification error details:', JSON.stringify(adminResult, null, 2))
-      }
-    }).catch((emailError) => {
-      errorLog('❌ EXCEPTION sending admin notification for COD order:', orderNumber)
-      errorLog('❌ Exception details:', emailError)
-      errorLog('❌ Exception stack:', emailError instanceof Error ? emailError.stack : 'No stack')
-      // Don't fail order creation if email fails
-    })
-
-    // Return success response immediately (emails are sent asynchronously)
-    // Don't wait for database save if it's slow - order processing continues async
+    // Return success response immediately — after() keeps the function alive for emails
     return NextResponse.json({ 
       success: true, 
       message: 'COD order confirmation sent successfully',

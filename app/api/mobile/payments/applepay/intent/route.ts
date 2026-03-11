@@ -40,6 +40,8 @@ interface CheckoutItem {
   fromBundle?: boolean | undefined
   bundleDiscountPercent?: number | undefined
   originalPrice?: number | undefined
+  // Server-computed
+  bundleDiscount?: number | undefined
 }
 
 interface ApplePayIntentRequest {

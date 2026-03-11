@@ -42,8 +42,9 @@ interface CheckoutItem {
   fromBundle?: boolean | undefined
   bundleDiscountPercent?: number | undefined
   originalPrice?: number | undefined
-  // Server-computed discount description for Stripe line items
+  // Server-computed fields
   discountDesc?: string | undefined
+  bundleDiscount?: number | undefined
 }
 
 interface CheckoutRequest {

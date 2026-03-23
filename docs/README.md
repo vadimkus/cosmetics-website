@@ -10,6 +10,7 @@
 |----------|----------|-------------|
 | 🔴 **CRITICAL** | [PROJECT_GUIDE.md](./PROJECT_GUIDE.md) | **Start here!** Tech stack, project structure, patterns |
 | 🔴 **CRITICAL** | [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) | Colors, typography, components |
+| 🟡 **Important** | [API_SECURITY_AUDIT_2026-03-23.md](./API_SECURITY_AUDIT_2026-03-23.md) | API security & code quality audit (6 fixes, 5 deferred) |
 | 🟡 **Important** | [PRICING_DISCOUNT_AUDIT.md](./PRICING_DISCOUNT_AUDIT.md) | Pricing logic, discount rules, calculation reference |
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
@@ -316,6 +317,7 @@ All 8 skin concern pages have interactive routine product chips:
 
 | File | Description |
 |------|-------------|
+| [API_SECURITY_AUDIT_2026-03-23.md](./API_SECURITY_AUDIT_2026-03-23.md) | **NEW** Full API audit: unauthenticated delete fix, revalidation secret, checkout validation, test-email body parse, 6 fixes + 5 deferred |
 | [SECURITY_FIXES.md](./SECURITY_FIXES.md) | Security improvements |
 | [SECURITY_FEATURES_TEST_RESULTS.md](./SECURITY_FEATURES_TEST_RESULTS.md) | Security test results |
 | [APPLE_SIGNIN_SETUP.md](./APPLE_SIGNIN_SETUP.md) | Apple Sign-In setup |
@@ -418,6 +420,7 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
+| [API_SECURITY_AUDIT_2026-03-23.md](./API_SECURITY_AUDIT_2026-03-23.md) | **NEW** Full API audit: close unauthenticated DELETE, require revalidation secret, validate checkout inputs, fix test-email body parse, fix `exactOptionalPropertyTypes` violation (6 fixes, 5 deferred) |
 | [SESSION_CHANGES_2026-03-11.md](./SESSION_CHANGES_2026-03-11.md) | Per-item `bundleDiscount` fix, `exactOptionalPropertyTypes` build fix, **support-link payment removal** (~1,100 lines), **COD admin email fix** (`after()` vs fire-and-forget) |
 | [SESSION_CHANGES_2026-03-07.md](./SESSION_CHANGES_2026-03-07.md) | GSC Soft 404 fix (server-side order validation + robots.txt), CSRF cookie missing fix (SW Set-Cookie stripping + client fallback) |
 | [SESSION_CHANGES_2026-02-26_part2.md](./SESSION_CHANGES_2026-02-26_part2.md) | Skin concern pages: Replace "Complete Your Routine" with CTA, collapsible Why section on all screens, Documentation header sizing, AI Expert Analysis discount pricing fix, remove "View Recommended Products" button |

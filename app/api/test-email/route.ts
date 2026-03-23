@@ -22,7 +22,8 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { type, testEmail } = await request.json()
+    const body = await request.json()
+    const { type, testEmail, userName, password, discountType, discountPercentage, customerName } = body
 
     if (!testEmail) {
       return NextResponse.json(
@@ -35,7 +36,6 @@ export async function POST(request: NextRequest) {
 
     switch (type) {
       case 'welcome':
-        const { userName, password } = await request.json()
         result = await sendWelcomeEmail(userName || 'Test User', testEmail, password)
         break
       
@@ -162,7 +162,6 @@ export async function POST(request: NextRequest) {
         break
       
       case 'discount-assigned':
-        const { discountType, discountPercentage, customerName } = await request.json()
         result = await sendDiscountAssignmentEmail({
           customerName: customerName || 'Test Customer',
           customerEmail: testEmail,

@@ -56,13 +56,6 @@ export async function POST(request: NextRequest) {
       locale 
     } = await request.json()
 
-    debugLog('🔄 Creating Stripe checkout session:', {
-      customerEmail,
-      customerName,
-      itemCount: items.length,
-      emirate: customerEmirate
-    })
-
     // Validate required fields
     if (!items || !Array.isArray(items) || items.length === 0) {
       return NextResponse.json(
@@ -77,6 +70,13 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       )
     }
+
+    debugLog('🔄 Creating Stripe checkout session:', {
+      customerEmail,
+      customerName,
+      itemCount: items.length,
+      emirate: customerEmirate
+    })
 
     // Fetch user to check for contactEmail (for Apple Private Relay users)
     const user = await findUserByEmail(customerEmail)

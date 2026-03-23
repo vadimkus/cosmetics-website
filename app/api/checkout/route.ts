@@ -49,23 +49,29 @@ export async function POST(request: NextRequest) {
       paymentMethod = 'cod' // Default to COD for backward compatibility
     } = await request.json()
 
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      return NextResponse.json(
+        { error: 'Cart items are required' },
+        { status: 400 }
+      )
+    }
+
     debugLog('🔄 Processing checkout request:', {
       paymentMethod,
       customerEmail,
       itemCount: items.length
     })
 
-    // Stripe payments are handled directly by the client via /api/stripe/create-checkout-session
-    // This route only handles COD payments for backward compatibility
+    // Stripe payments are handled via /api/stripe/create-payment-intent
     if (paymentMethod === 'stripe') {
-      debugLog('⚠️ Stripe payment received at checkout route - should go directly to /api/stripe/create-checkout-session')
+      debugLog('⚠️ Stripe payment received at checkout route - should go to /api/stripe/create-payment-intent')
       return NextResponse.json(
-        { error: 'Stripe payments should be processed via /api/stripe/create-checkout-session endpoint' },
+        { error: 'Stripe payments should be processed via /api/stripe/create-payment-intent endpoint' },
         { status: 400 }
       )
     }
 
-    // Continue with COD processing for backward compatibility
+    // Continue with COD processing
 
     // Fetch user to check for contactEmail (for Apple Private Relay users)
     const user = await findUserByEmail(customerEmail)
@@ -185,8 +191,8 @@ export async function POST(request: NextRequest) {
         price: item.product.price,
         quantity: item.quantity,
         image: item.product.image,
-        color: enhanced.color || undefined,
-        size: enhanced.size || undefined,
+        ...(enhanced.color ? { color: enhanced.color } : {}),
+        ...(enhanced.size ? { size: enhanced.size } : {}),
         ...(item.fromBundle && item.bundleDiscountPercent ? { bundleDiscount: item.bundleDiscountPercent } : {})
       }
     })

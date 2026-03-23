@@ -5,9 +5,8 @@ export async function POST(request: NextRequest) {
   try {
     const { path, tag, secret } = await request.json()
 
-    // Optional: Add a secret to protect this endpoint
     const revalidateSecret = process.env.REVALIDATE_SECRET
-    if (revalidateSecret && secret !== revalidateSecret) {
+    if (!revalidateSecret || secret !== revalidateSecret) {
       return NextResponse.json(
         { error: 'Invalid secret' },
         { status: 401 }
@@ -57,9 +56,8 @@ export async function GET(request: NextRequest) {
   const secret = searchParams.get('secret')
 
   try {
-    // Optional: Add a secret to protect this endpoint
     const revalidateSecret = process.env.REVALIDATE_SECRET
-    if (revalidateSecret && secret !== revalidateSecret) {
+    if (!revalidateSecret || secret !== revalidateSecret) {
       return NextResponse.json(
         { error: 'Invalid secret' },
         { status: 401 }

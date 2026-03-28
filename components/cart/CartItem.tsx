@@ -65,7 +65,7 @@ function CartItemComponent({ item }: CartItemProps) {
   // Use selectedSize/selectedColor if available, otherwise fallback to product size
   const displaySize = (selectedSize && selectedSize.trim()) || (product.size && product.size.trim()) || null
   const displayColor = (selectedColor && selectedColor.trim()) || null
-  const currentColor = displayColor || (variantColors.length > 0 ? variantColors[0].value : null)
+  const currentColor = displayColor || (variantColors.length > 0 ? variantColors[0]?.value ?? null : null)
   
   // Swipe gesture handlers
   const handleDragStart = useCallback(() => {

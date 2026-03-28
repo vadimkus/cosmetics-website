@@ -1,6 +1,7 @@
 # Variant Validation at Checkout — Color & Size Selection
 
 **Date**: March 28, 2026
+**Last Updated**: March 28, 2026 (v3 — config fallback + price update)
 **Scope**: Website (cosmetics-website) + Mobile App (genosys-mobile-app)
 **Trigger**: Order #0u8i5fdt submitted with BB Cushion and no color selected
 
@@ -19,10 +20,11 @@ The root cause was that "quick add to bag" flows (shop grid, favorites, concern 
 
 ## Fix Summary
 
-### Two layers of defense:
+### Three layers of defense:
 
 1. **Bag/Cart**: Color and size selectors now appear directly in the bag for any product that has multiple variants — customers can pick or change before checkout
 2. **Checkout gate**: `handleSubmit` blocks order submission if any paid item is missing a required color or size, with a localized alert directing the user back to the bag
+3. **Config fallback**: Selectors work even for cart items stored in localStorage before the Prisma `include: { variants: true }` fix — hardcoded config data (`productConfig.ts`) is used as the primary source
 
 ---
 
@@ -34,22 +36,37 @@ The root cause was that "quick add to bag" flows (shop grid, favorites, concern 
 ### 2. `lib/cartStore.ts`
 - Added `updateSize(productId, newSize, oldSize?, selectedColor?)` function
 - Mirrors `updateColor` logic: finds item by composite key, merges duplicates if switching to an existing variant, otherwise updates in-place
+- **Price update on size change**: calls `getPriceForSize(product, newSize)` to update `product.price` when the size changes (e.g., 50g = 290 AED → 250g = 420 AED). Without this, the subtotal and total would show the old size's price.
 
 ### 3. `components/cart/CartItem.tsx`
-- **Color selector**: Now dynamic — uses `product.variants` to detect color options instead of hardcoded product IDs. Falls back to `getProductColorOptions()` for backward compatibility with products 41, 57, 63
-- **Size selector**: New — shows chip-style buttons for any product with 2+ size variants (e.g., 50g / 250g)
+- **Color selector**: Now dynamic — uses `getProductColorOptions()` as primary source, falls back to `product.variants` for any product not in the hardcoded config
+- **Size selector**: Uses `getProductSizes()` from `data/productConfig.ts` as primary source, falls back to `product.variants`. This dual-source approach ensures selectors render even when cart items in localStorage predate the Prisma `include: { variants: true }` fix.
 - Both selectors are RTL-aware and responsive (smaller on mobile, larger on desktop)
 - `handleColorChange` and `handleSizeChange` wired to store
 
-### 4. `app/checkout/CheckoutClient.tsx`
+### 4. `lib/productsDb.ts`
+- Added `include: { variants: true }` to all 7 Prisma product query functions (`getAllProducts`, `getProductById` ×2, `getProductsByCategory`, `searchProducts`, `getSkinRecommendations` ×2)
+- Ensures `product.variants` is populated on all product objects fetched from the database, so new cart items will always have variant data
+
+### 5. `app/checkout/CheckoutClient.tsx`
 - Validation gate in `handleSubmit` (after payment method check, before order assembly):
   - Checks all cart items for missing color (product has 2+ unique colors in variants)
   - Checks all cart items for missing size (product has 2+ unique sizes in variants)
   - Shows `alert()` with product names and directs user back to cart
   - Resets submission state so user can retry
 
-### 5. Translation strings (`messages/en.json`, `ru.json`, `ar.json`)
+### 6. Translation strings (`messages/en.json`, `ru.json`, `ar.json`)
 - `checkout.variantRequiredMessage`: "Please select color/size for: {products}. Go back to your cart to choose."
+
+### Data Flow: Why Two Sources Are Needed
+
+```
+New items:  Product Page → addItem(product) → product.variants ✅ (Prisma fix)
+Old items:  localStorage → product.variants ❌ (missing, added before fix)
+Fallback:   getProductSizes(id) / getProductColorOptions(id) → hardcoded config ✅ (always works)
+```
+
+The hardcoded config in `data/productConfig.ts` serves as a reliable fallback that doesn't depend on when the item was added to the cart. Over time, as users refresh their carts, all items will have `product.variants` from the Prisma fix, but the config fallback ensures zero downtime.
 
 ---
 

@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { CartState, Product } from '@/types'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { getPriceForSize } from '@/utils/productPricing'
 import { User } from '@/types/user'
 
 // App badge functionality (direct API call, no hook needed in a store)
@@ -198,9 +199,14 @@ export const useCartStore = create<CartState>()(
             set({ items: updatedItems })
             updateCartBadge(updatedItems)
           } else {
+            const newPrice = getPriceForSize(itemToUpdate.product, newSize)
             const updatedItems = items.map(item =>
               item === itemToUpdate
-                ? { ...item, selectedSize: normalizedNewSize }
+                ? { 
+                    ...item, 
+                    selectedSize: normalizedNewSize,
+                    product: { ...item.product, price: newPrice }
+                  }
                 : item
             )
             set({ items: updatedItems })

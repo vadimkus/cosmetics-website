@@ -11,7 +11,8 @@ import { motion, useMotionValue, useTransform, PanInfo, AnimatePresence } from '
 import { useAnimationStore } from '@/lib/animationStore'
 import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import { useTranslation } from '@/hooks/useTranslation'
-import { getProductColorOptions } from '@/utils/productPricing'
+import { getProductColorOptions, getPriceForSize } from '@/utils/productPricing'
+import { getProductSizes } from '@/data/productConfig'
 import { translateCategory } from '@/utils/categoryTranslations'
 import { translateSize } from '@/utils/sizeTranslations'
 import { 
@@ -53,13 +54,16 @@ function CartItemComponent({ item }: CartItemProps) {
         }, [] as Array<{ value: string; label: string; hex?: string }>)
   const showColorSelector = variantColors.length > 1 || (variantColors.length === 1 && !selectedColor)
   
-  // Dynamic size options: products with multiple size variants
-  const sizeVariants = (product.variants || [])
-    .filter(v => v.size && v.size !== 'default' && v.available !== false)
-    .reduce((acc, v) => {
-      if (!acc.find(s => s.value === v.size)) acc.push({ value: v.size!, label: v.size!, price: v.price })
-      return acc
-    }, [] as Array<{ value: string; label: string; price: number }>)
+  // Dynamic size options: use hardcoded config OR product.variants with size
+  const hardcodedSizes = getProductSizes(product.id)
+  const sizeVariants = hardcodedSizes.length > 0
+    ? hardcodedSizes.map(s => ({ value: s.value, label: s.label, price: getPriceForSize(product, s.value) }))
+    : (product.variants || [])
+        .filter(v => v.size && v.size !== 'default' && v.available !== false)
+        .reduce((acc, v) => {
+          if (!acc.find(s => s.value === v.size)) acc.push({ value: v.size!, label: v.size!, price: v.price })
+          return acc
+        }, [] as Array<{ value: string; label: string; price: number }>)
   const showSizeSelector = sizeVariants.length > 1
   
   // Use selectedSize/selectedColor if available, otherwise fallback to product size

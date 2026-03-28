@@ -20,8 +20,9 @@ export async function getAllProducts(): Promise<Product[]> {
   try {
     const products = await prisma.product.findMany({
       where: {
-        isHidden: false // Filter at database level for better performance
+        isHidden: false
       },
+      include: { variants: true },
       orderBy: {
         name: 'asc'
       }
@@ -38,15 +39,15 @@ export async function getAllProducts(): Promise<Product[]> {
 
 export async function getProductById(id: string): Promise<Product | null> {
   try {
-    // First try to find by UUID (primary key)
     let product = await prisma.product.findUnique({
-      where: { id }
+      where: { id },
+      include: { variants: true }
     })
     
-    // If not found by UUID, try to find by productNumber
     if (!product) {
       product = await prisma.product.findUnique({
-        where: { productNumber: id }
+        where: { productNumber: id },
+        include: { variants: true }
       })
     }
     
@@ -79,8 +80,9 @@ export async function getProductsByCategory(category: string): Promise<Product[]
         category: {
           contains: category
         },
-        isHidden: false // Filter at database level
+        isHidden: false
       },
+      include: { variants: true },
       orderBy: {
         name: 'asc'
       }
@@ -139,13 +141,14 @@ export async function searchProducts(query: string): Promise<Product[]> {
   try {
     const products = await prisma.product.findMany({
       where: {
-        isHidden: false, // Filter at database level
+        isHidden: false,
         OR: [
           { name: { contains: query } },
           { description: { contains: query } },
           { category: { contains: query } }
         ]
       },
+      include: { variants: true },
       orderBy: {
         name: 'asc'
       }
@@ -317,6 +320,7 @@ export async function getSkinRecommendations(filters: {
           isHidden: false,
           targetConcerns: { contains: 'hair' }
         },
+        include: { variants: true },
         orderBy: { rating: 'desc' },
         take: MAX_RECOMMENDATIONS
       })
@@ -335,21 +339,21 @@ export async function getSkinRecommendations(filters: {
           { skinType: { not: null } },
           { targetConcerns: { not: null } }
         ],
-        // Exclude hair/scalp care products - these are for face skin analysis only
         AND: [
           { NOT: { targetConcerns: { contains: 'hair' } } },
           { NOT: { category: { contains: 'Hair' } } },
           { NOT: { category: { contains: 'hair' } } },
           { NOT: { category: { contains: 'Scalp' } } },
           { NOT: { category: { contains: 'scalp' } } },
-          { NOT: { name: { contains: 'Hair ' } } },       // "Hair " with space to avoid matching "Chair" etc
-          { NOT: { name: { contains: ' Hair' } } },       // " Hair" with space
+          { NOT: { name: { contains: 'Hair ' } } },
+          { NOT: { name: { contains: ' Hair' } } },
           { NOT: { name: { contains: 'Scalp' } } },
           { NOT: { name: { contains: 'Shampoo' } } },
           { NOT: { name: { contains: 'Hair Tonic' } } },
           { NOT: { name: { contains: 'Scalp Peeling' } } },
         ]
-      }
+      },
+      include: { variants: true }
     })
     
     debugLog(`📦 Found ${allProducts.length} products to score`)

@@ -25,7 +25,7 @@ const STORE_URLS = {
 
 const VERSION_CONFIG = {
   minimumVersion: '1.5.0',
-  latestVersion: '1.7.0',
+  latestVersion: '1.8.0',
   forceUpdate: true,
   message: {
     en: 'A new version of Genosys UAE is available with important improvements. Please update to continue.',

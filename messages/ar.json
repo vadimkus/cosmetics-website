@@ -393,7 +393,8 @@
     "contactSupportForHelp": "اتصل بالدعم للمساعدة في الدفع",
     "reviewCart": "مراجعة السلة",
     "tryAgainCheckout": "حاول الدفع مرة أخرى",
-    "color": "اللون"
+    "color": "اللون",
+    "variantRequiredMessage": "يرجى اختيار اللون/الحجم لـ: {products}. ارجع إلى السلة للاختيار."
   },
   "invoice": {
     "title": "فاتورة ضريبية",

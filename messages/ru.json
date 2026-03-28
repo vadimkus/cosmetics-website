@@ -393,7 +393,8 @@
     "contactSupportForHelp": "Свяжитесь с поддержкой для помощи с оплатой",
     "reviewCart": "Проверить корзину",
     "tryAgainCheckout": "Попробовать снова",
-    "color": "Цвет"
+    "color": "Цвет",
+    "variantRequiredMessage": "Пожалуйста, выберите цвет/размер для: {products}. Вернитесь в корзину для выбора."
   },
   "invoice": {
     "title": "НАЛОГОВЫЙ СЧЕТ",

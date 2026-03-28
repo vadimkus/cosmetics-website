@@ -10,6 +10,7 @@
 |----------|----------|-------------|
 | 🔴 **CRITICAL** | [PROJECT_GUIDE.md](./PROJECT_GUIDE.md) | **Start here!** Tech stack, project structure, patterns |
 | 🔴 **CRITICAL** | [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) | Colors, typography, components |
+| 🟡 **Important** | [VARIANT_VALIDATION_CHECKOUT.md](./VARIANT_VALIDATION_CHECKOUT.md) | Color & size validation at checkout + bag selectors |
 | 🟡 **Important** | [API_SECURITY_AUDIT_2026-03-23.md](./API_SECURITY_AUDIT_2026-03-23.md) | API security & code quality audit (6 fixes, 5 deferred) |
 | 🟡 **Important** | [PRICING_DISCOUNT_AUDIT.md](./PRICING_DISCOUNT_AUDIT.md) | Pricing logic, discount rules, calculation reference |
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
@@ -51,7 +52,8 @@
 
 | File | Description |
 |------|-------------|
-| [PRICING_DISCOUNT_AUDIT.md](./PRICING_DISCOUNT_AUDIT.md) | **NEW** Full pricing/discount audit across all channels (web + mobile) |
+| [VARIANT_VALIDATION_CHECKOUT.md](./VARIANT_VALIDATION_CHECKOUT.md) | **NEW** Color & size validation at checkout + bag selectors |
+| [PRICING_DISCOUNT_AUDIT.md](./PRICING_DISCOUNT_AUDIT.md) | Full pricing/discount audit across all channels (web + mobile) |
 | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
 | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Customer orders page display format |
 | [ADMIN_ORDERS_BUGS_FIXED.md](./ADMIN_ORDERS_BUGS_FIXED.md) | Admin orders panel fixes |

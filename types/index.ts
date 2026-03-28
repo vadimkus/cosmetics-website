@@ -138,6 +138,7 @@ export interface CartState {
   removeItem: (productId: string, selectedColor?: string, selectedSize?: string) => void
   updateQuantity: (productId: string, quantity: number, selectedColor?: string, selectedSize?: string) => void
   updateColor: (productId: string, newColor: string, oldColor?: string, selectedSize?: string) => void
+  updateSize: (productId: string, newSize: string, oldSize?: string, selectedColor?: string) => void
   clearCart: () => void
   getTotalPrice: (user?: User | null) => number
   getTotalItems: () => number

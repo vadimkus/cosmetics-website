@@ -393,7 +393,8 @@
     "contactSupportForHelp": "Contact support for payment assistance",
     "reviewCart": "Review Cart",
     "tryAgainCheckout": "Try Checkout Again",
-    "color": "Color"
+    "color": "Color",
+    "variantRequiredMessage": "Please select color/size for: {products}. Go back to your cart to choose."
   },
   "invoice": {
     "title": "TAX INVOICE",

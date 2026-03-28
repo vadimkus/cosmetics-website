@@ -24,7 +24,7 @@ interface CartItemProps {
 }
 
 function CartItemComponent({ item }: CartItemProps) {
-  const { updateQuantity, removeItem, updateColor } = useCart()
+  const { updateQuantity, removeItem, updateColor, updateSize } = useCart()
   const { user } = useAuth()
   const { t, dir, locale } = useTranslation()
   const { product, quantity, selectedColor, selectedSize, fromBundle, bundleDiscountPercent } = item
@@ -41,24 +41,31 @@ function CartItemComponent({ item }: CartItemProps) {
   const deleteScale = useTransform(x, [-150, -50, 0], [1, 0.8, 0.5])
   const deleteIconRotate = useTransform(x, [-150, 0], [0, 45])
   
-  // Check if this is CHARMING LOOK BEAUTY BOX (productNumber '57')
-  const isCharmingLookBeautyBox = product.productNumber === '57' || product.id === '57'
+  // Dynamic color options: use hardcoded config OR product.variants with color
+  const hardcodedColors = getProductColorOptions(product.id)
+  const variantColors = hardcodedColors.length > 0
+    ? hardcodedColors
+    : (product.variants || [])
+        .filter(v => v.color && v.available !== false)
+        .reduce((acc, v) => {
+          if (!acc.find(c => c.value === v.color)) acc.push({ value: v.color!, label: v.color! })
+          return acc
+        }, [] as Array<{ value: string; label: string; hex?: string }>)
+  const showColorSelector = variantColors.length > 1 || (variantColors.length === 1 && !selectedColor)
   
-  // Check if this is a product with color variants (ID 41 or 63)
-  const isCushionProduct = product.id === '41' || product.productNumber === '41'
-  const isRevitaGlowBB = product.id === '63' || product.productNumber === '63'
-  const hasColorVariant = isCharmingLookBeautyBox || isCushionProduct || isRevitaGlowBB
-  
-  // Get color options for the specific product
-  const cushionColorOptions = hasColorVariant ? getProductColorOptions(isCushionProduct ? '41' : isRevitaGlowBB ? '63' : '41') : []
+  // Dynamic size options: products with multiple size variants
+  const sizeVariants = (product.variants || [])
+    .filter(v => v.size && v.size !== 'default' && v.available !== false)
+    .reduce((acc, v) => {
+      if (!acc.find(s => s.value === v.size)) acc.push({ value: v.size!, label: v.size!, price: v.price })
+      return acc
+    }, [] as Array<{ value: string; label: string; price: number }>)
+  const showSizeSelector = sizeVariants.length > 1
   
   // Use selectedSize/selectedColor if available, otherwise fallback to product size
   const displaySize = (selectedSize && selectedSize.trim()) || (product.size && product.size.trim()) || null
   const displayColor = (selectedColor && selectedColor.trim()) || null
-  const currentCushionColor = displayColor || (cushionColorOptions.length > 0 && cushionColorOptions[0] ? cushionColorOptions[0].value : null)
-  
-  // Show color selector if: beauty box OR product with color variants (always show for all)
-  const showColorSelector = hasColorVariant && cushionColorOptions.length > 0
+  const currentColor = displayColor || (variantColors.length > 0 ? variantColors[0].value : null)
   
   // Swipe gesture handlers
   const handleDragStart = useCallback(() => {
@@ -99,8 +106,12 @@ function CartItemComponent({ item }: CartItemProps) {
     }, 300)
   }
   
-  const handleCushionColorChange = (newColor: string) => {
+  const handleColorChange = (newColor: string) => {
     updateColor(product.id, newColor, selectedColor, selectedSize)
+  }
+  
+  const handleSizeChange = (newSize: string) => {
+    updateSize(product.id, newSize, selectedSize, selectedColor)
   }
   
   // Get drag constraints based on RTL
@@ -203,19 +214,19 @@ function CartItemComponent({ item }: CartItemProps) {
           </Link>
           <p className="text-xs md:text-sm text-red-600 mb-2">{translateCategory(product.category, locale)}</p>
           
-          {/* Cushion Color Selector for CHARMING LOOK BEAUTY BOX or Cushion Product */}
+          {/* Color Selector */}
           {showColorSelector && (
             <div className="mb-3 md:mb-4">
               <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 whitespace-nowrap ${dir === 'rtl' ? 'text-right' : ''}`}>
-                {isCharmingLookBeautyBox ? t('cart.selectCushionColor') : `${t('product.color')}:`}
+                {t('product.color')}:
               </label>
               <div className={`flex flex-nowrap gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                {cushionColorOptions.map((color) => {
-                  const isSelected = (currentCushionColor || '') === color.value
+                {variantColors.map((color) => {
+                  const isSelected = (currentColor || '') === color.value
                   return (
                     <button
                       key={color.value}
-                      onClick={() => handleCushionColorChange(color.value)}
+                      onClick={() => handleColorChange(color.value)}
                       className={`px-2 md:px-4 py-1 md:py-2 rounded border transition-all touch-manipulation min-h-[32px] md:min-h-[44px] text-[10px] md:text-sm font-medium flex-shrink-0 ${
                         isSelected
                           ? 'border-primary-600 bg-primary-50 text-primary-700 shadow-sm'
@@ -232,12 +243,41 @@ function CartItemComponent({ item }: CartItemProps) {
             </div>
           )}
           
-          {/* Color badge for other products (not beauty box or cushion) - Size is shown below image */}
-          {!isCharmingLookBeautyBox && !isCushionProduct && displayColor && (
+          {/* Color badge (read-only, for products without selectable variants) */}
+          {!showColorSelector && displayColor && (
             <div className="flex items-center gap-1.5 md:gap-2 mb-2 flex-nowrap overflow-x-auto">
               <span className="inline-flex items-center px-1.5 md:px-2 py-0.5 md:py-1 rounded-md text-[10px] md:text-xs lg:text-sm font-medium bg-purple-50 text-purple-700 border border-purple-200 whitespace-nowrap flex-shrink-0">
                 {t('product.color')}: {displayColor}
               </span>
+            </div>
+          )}
+          
+          {/* Size Selector */}
+          {showSizeSelector && (
+            <div className="mb-3 md:mb-4">
+              <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 whitespace-nowrap ${dir === 'rtl' ? 'text-right' : ''}`}>
+                {t('product.size')}:
+              </label>
+              <div className={`flex flex-nowrap gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                {sizeVariants.map((size) => {
+                  const isSelected = (displaySize || '') === size.value
+                  return (
+                    <button
+                      key={size.value}
+                      onClick={() => handleSizeChange(size.value)}
+                      className={`px-2 md:px-4 py-1 md:py-2 rounded border transition-all touch-manipulation min-h-[32px] md:min-h-[44px] text-[10px] md:text-sm font-medium flex-shrink-0 ${
+                        isSelected
+                          ? 'border-blue-600 bg-blue-50 text-blue-700 shadow-sm'
+                          : 'border-gray-300 hover:border-gray-400 bg-white text-gray-700 hover:bg-gray-50'
+                      }`}
+                      aria-label={`${t('product.size')}: ${size.label}`}
+                      aria-pressed={isSelected}
+                    >
+                      {translateSize(size.label, locale, product.category)}
+                    </button>
+                  )
+                })}
+              </div>
             </div>
           )}
           

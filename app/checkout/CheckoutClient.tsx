@@ -278,6 +278,29 @@ export default function CheckoutClient() {
         return
       }
 
+      // Validate variant selection for all cart items
+      const itemsMissingColor = items.filter(item => {
+        const colorVariants = (item.product.variants || []).filter(v => v.color && v.available !== false)
+        const uniqueColors = new Set(colorVariants.map(v => v.color))
+        return uniqueColors.size > 1 && !item.selectedColor?.trim()
+      })
+      const itemsMissingSize = items.filter(item => {
+        const sizeVariants = (item.product.variants || []).filter(v => v.size && v.size !== 'default' && v.available !== false)
+        const uniqueSizes = new Set(sizeVariants.map(v => v.size))
+        return uniqueSizes.size > 1 && !item.selectedSize?.trim()
+      })
+      if (itemsMissingColor.length > 0 || itemsMissingSize.length > 0) {
+        const names = [...itemsMissingColor, ...itemsMissingSize]
+          .reduce((acc, item) => {
+            if (!acc.includes(item.product.name)) acc.push(item.product.name)
+            return acc
+          }, [] as string[])
+        alert(t('checkout.variantRequiredMessage').replace('{products}', names.join(', ')) || `Please select color/size for: ${names.join(', ')}. Go back to your cart to choose.`)
+        isSubmittingRef.current = false
+        setIsProcessing(false)
+        return
+      }
+
       // Get free masks based on subtotal
       const freeMasks = await getFreeMasks(subtotal)
 

@@ -163,6 +163,52 @@ export const useCartStore = create<CartState>()(
         }
       },
       
+      updateSize: (productId: string, newSize: string, oldSize?: string, selectedColor?: string) => {
+        const normalizedOldSize = oldSize || ''
+        const normalizedColor = selectedColor || ''
+        const normalizedNewSize = newSize || ''
+        
+        const items = get().items
+        const itemToUpdate = items.find(item =>
+          item.product.id === productId && 
+          (item.selectedSize || '') === normalizedOldSize && 
+          (item.selectedColor || '') === normalizedColor
+        )
+        
+        if (itemToUpdate) {
+          const existingItemWithNewSize = items.find(item =>
+            item.product.id === productId && 
+            (item.selectedSize || '') === normalizedNewSize && 
+            (item.selectedColor || '') === normalizedColor &&
+            item !== itemToUpdate
+          )
+          
+          if (existingItemWithNewSize) {
+            const updatedItems = items
+              .map(item =>
+                item.product.id === productId && 
+                (item.selectedSize || '') === normalizedNewSize && 
+                (item.selectedColor || '') === normalizedColor &&
+                item !== itemToUpdate
+                  ? { ...item, quantity: item.quantity + itemToUpdate.quantity }
+                  : item
+              )
+              .filter(item => item !== itemToUpdate)
+            
+            set({ items: updatedItems })
+            updateCartBadge(updatedItems)
+          } else {
+            const updatedItems = items.map(item =>
+              item === itemToUpdate
+                ? { ...item, selectedSize: normalizedNewSize }
+                : item
+            )
+            set({ items: updatedItems })
+            updateCartBadge(updatedItems)
+          }
+        }
+      },
+
       clearCart: () => {
         set({ items: [] })
         updateCartBadge([])

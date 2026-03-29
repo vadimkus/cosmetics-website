@@ -420,26 +420,87 @@
     color: var(--warm-gray);
   }
 
-  /* FOOTER CTA */
-  .footer-cta {
-    background: var(--red);
+  /* REPRESENTATIVE SECTION */
+  .representative {
+    background: linear-gradient(135deg, #1a1a1a, #2d2320);
     color: #fff;
     padding: 40px 50px;
     text-align: center;
   }
 
-  .footer-cta h3 {
+  .rep-badge {
+    display: inline-block;
+    font-size: 8px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 5px 18px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+
+  .rep-name {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
+    font-size: 30px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  .rep-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  .rep-contacts {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+
+  .rep-contact-item {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .rep-contact-item span {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+
+  .rep-location {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
     font-weight: 300;
-    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    background: var(--red);
+    color: #fff;
+    padding: 30px 50px;
+    text-align: center;
   }
 
   .footer-cta p {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 300;
-    opacity: 0.85;
-    margin-bottom: 20px;
+    opacity: 0.7;
+    margin-bottom: 12px;
     line-height: 1.6;
   }
 
@@ -451,17 +512,18 @@
   }
 
   .contact-item {
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 500;
     letter-spacing: 1px;
+    opacity: 0.8;
   }
 
   .contact-item span {
     display: block;
-    font-size: 9px;
+    font-size: 8px;
     letter-spacing: 3px;
     text-transform: uppercase;
-    opacity: 0.6;
+    opacity: 0.5;
     margin-bottom: 4px;
     font-weight: 400;
   }
@@ -791,21 +853,38 @@
     </div>
     <div class="callout">
       <div class="callout-icon">🚚</div>
-      <p><strong>Free delivery</strong> on all orders over 1,000 AED across the UAE. Order online at <strong>genosys.ae</strong> or contact your GENOSYS consultant.</p>
+      <p><strong>Free delivery</strong> on all orders over 1,000 AED across the UAE. Order online at <strong>genosys.ae</strong> or message Abeer directly on WhatsApp.</p>
     </div>
   </section>
 
-  <!-- FOOTER CTA -->
+  <!-- OFFICIAL REPRESENTATIVE -->
+  <section class="representative">
+    <div class="rep-badge">Official GENOSYS Representative</div>
+    <div class="rep-name">Abeer Mekki</div>
+    <div class="rep-title">Certified Partner — Al Ain &amp; Abu Dhabi</div>
+    <div class="rep-contacts">
+      <div class="rep-contact-item">
+        <span>WhatsApp</span>
+        +971 55 671 75 64
+      </div>
+      <div class="rep-contact-item">
+        <span>Instagram</span>
+        @abeer.mekki.genosys
+      </div>
+      <div class="rep-contact-item">
+        <span>Location</span>
+        Al Ain, UAE
+      </div>
+    </div>
+    <div class="rep-location">ABEER MEKKI BEAUTY LADIES CENTER &middot; Exclusive GENOSYS Distributor</div>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="footer-cta">
-    <h3>Ready to Reveal Your Radiance?</h3>
-    <p>Book a consultation with your GENOSYS skincare specialist<br>for a personalised brightening plan tailored to your skin.</p>
+    <p>Shop the full GENOSYS collection online</p>
     <div class="contact-row">
       <div class="contact-item">
-        <span>WhatsApp</span>
-        +971 58 548 76 65
-      </div>
-      <div class="contact-item">
-        <span>Shop Online</span>
+        <span>Website</span>
         genosys.ae
       </div>
       <div class="contact-item">

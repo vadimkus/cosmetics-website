@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GENOSYS — Complete Glass Skin Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c41e2a;
+    --red-deep: #8b1520;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a0;
+    --cream: #faf8f5;
+    --charcoal: #1a1a1a;
+    --warm-gray: #6b6560;
+    --light-gray: #e8e4df;
+    --teal: #1a4a4a;
+    --teal-light: #2a6b6b;
+    --aqua: #4db8b8;
+    --aqua-soft: #d5efef;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--charcoal);
+    background: var(--cream);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(145deg, var(--teal) 0%, var(--teal-light) 40%, #357878 100%);
+    color: #fff;
+    padding: 60px 50px 50px;
+    position: relative;
+    min-height: 340px;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #fff;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+
+  .brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  .brand-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    font-style: italic;
+    letter-spacing: 2px;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  .korea-badge {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 4px 12px;
+    border-radius: 2px;
+  }
+
+  .protocol-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--aqua-soft);
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 50px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0.85;
+    max-width: 440px;
+    line-height: 1.6;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 6px 16px;
+    border-radius: 2px;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 16px;
+    font-weight: 500;
+  }
+
+  /* SECTION COMMON */
+  section {
+    padding: 45px 50px;
+  }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 25px;
+    line-height: 1.2;
+  }
+
+  .divider {
+    width: 50px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 25px;
+  }
+
+  /* GLASS SKIN INTRO */
+  .glass-intro {
+    background: linear-gradient(135deg, var(--aqua-soft), #e8f4f4);
+    padding: 40px 50px;
+    text-align: center;
+  }
+
+  .glass-intro h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 400;
+    color: var(--teal);
+    margin-bottom: 12px;
+  }
+
+  .glass-intro p {
+    font-size: 13px;
+    color: var(--warm-gray);
+    line-height: 1.8;
+    max-width: 580px;
+    margin: 0 auto;
+    font-weight: 300;
+  }
+
+  .glass-layers {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+  }
+
+  .glass-layer {
+    text-align: center;
+  }
+
+  .glass-layer-num {
+    width: 40px;
+    height: 40px;
+    background: var(--teal);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 auto 8px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .glass-layer-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 2px;
+  }
+
+  .glass-layer-desc {
+    font-size: 10px;
+    color: var(--warm-gray);
+    font-weight: 300;
+  }
+
+  /* BENEFITS GRID */
+  .benefits-section {
+    background: #fff;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .benefit-card {
+    background: var(--cream);
+    padding: 24px;
+    border-radius: 4px;
+    border-left: 3px solid var(--aqua);
+  }
+
+  .benefit-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: var(--teal);
+  }
+
+  .benefit-card p {
+    font-size: 12px;
+    color: var(--warm-gray);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ROUTINE */
+  .routine-section {
+    background: var(--cream);
+  }
+
+  .routine-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .routine-column h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 6px;
+    color: var(--charcoal);
+  }
+
+  .routine-time {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .step {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    background: var(--teal);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .step-content h4 {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: var(--charcoal);
+  }
+
+  .step-product {
+    font-size: 11px;
+    color: var(--teal);
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+
+  .step-desc {
+    font-size: 11px;
+    color: var(--warm-gray);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* KEY INGREDIENTS */
+  .ingredients-section {
+    background: var(--teal);
+    color: #fff;
+  }
+
+  .ingredients-section .section-label {
+    color: var(--aqua-soft);
+  }
+
+  .ingredients-section .section-title {
+    color: #fff;
+  }
+
+  .ingredient-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .ingredient-item {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 16px;
+  }
+
+  .ingredient-item h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--aqua-soft);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .ingredient-item p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* RESULTS TIMELINE */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--light-gray);
+    align-items: flex-start;
+  }
+
+  .timeline-item:last-child {
+    border-bottom: none;
+  }
+
+  .timeline-week {
+    min-width: 80px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--teal);
+    padding-top: 2px;
+  }
+
+  .timeline-desc {
+    font-size: 12px;
+    color: var(--warm-gray);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* PRODUCT SET */
+  .products-section {
+    background: linear-gradient(170deg, #faf8f5 0%, #f5f0ea 100%);
+  }
+
+  .product-tiers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .tier {
+    background: #fff;
+    padding: 28px 22px;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    border: 1px solid var(--light-gray);
+  }
+
+  .tier.featured {
+    border-color: var(--gold);
+    box-shadow: 0 4px 20px rgba(201,168,76,0.15);
+  }
+
+  .tier.featured::before {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #fff;
+    font-size: 8px;
+    letter-spacing: 2px;
+    padding: 3px 14px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .tier-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--charcoal);
+  }
+
+  .tier-desc {
+    font-size: 10px;
+    color: var(--warm-gray);
+    font-weight: 300;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .tier-products {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .tier-products li {
+    font-size: 10px;
+    color: var(--charcoal);
+    padding: 6px 0;
+    border-bottom: 1px solid #f5f0ea;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .tier-products li:last-child {
+    border-bottom: none;
+  }
+
+  .tier-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--teal);
+  }
+
+  .tier-price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--warm-gray);
+  }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    background: var(--teal);
+    color: #fff;
+    padding: 40px 50px;
+    text-align: center;
+  }
+
+  .footer-cta h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    margin-bottom: 8px;
+  }
+
+  .footer-cta p {
+    font-size: 12px;
+    font-weight: 300;
+    opacity: 0.85;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .contact-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .contact-item span {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .footer-brand {
+    font-size: 10px;
+    letter-spacing: 4px;
+    font-weight: 600;
+  }
+
+  .footer-tagline {
+    font-size: 10px;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    opacity: 0.7;
+    letter-spacing: 1px;
+  }
+
+  .footer-note {
+    font-size: 9px;
+    opacity: 0.5;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: linear-gradient(135deg, #f0f9f9, #e5f3f3);
+    border: 1px solid var(--aqua-soft);
+    padding: 18px 24px;
+    border-radius: 4px;
+    margin-top: 25px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .callout-icon {
+    font-size: 18px;
+    min-width: 24px;
+    text-align: center;
+  }
+
+  .callout p {
+    font-size: 11px;
+    color: var(--warm-gray);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .callout strong {
+    color: var(--charcoal);
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; }
+    .page { max-width: none; box-shadow: none; }
+    section { break-inside: avoid; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .hero { padding: 40px 28px 40px; }
+    .hero h1 { font-size: 36px; }
+    section { padding: 35px 28px; }
+    .glass-intro { padding: 30px 28px; }
+    .glass-layers { gap: 16px; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .routine-grid { grid-template-columns: 1fr; gap: 30px; }
+    .ingredient-list { grid-template-columns: 1fr; }
+    .product-tiers { grid-template-columns: 1fr; }
+    .contact-row { flex-direction: column; align-items: center; gap: 16px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="brand-name">GENOSYS</div>
+        <div class="brand-tag">Professional Dermacosmetics</div>
+      </div>
+      <div class="korea-badge">Made in Korea</div>
+    </div>
+    <div class="protocol-label">Professional Treatment Protocol</div>
+    <h1>Complete <em>Glass Skin</em></h1>
+    <p class="hero-subtitle">The Korean multi-layer hydration system for translucent, dewy, poreless skin — the coveted "glass skin" look achieved through science, not filters</p>
+    <div class="hero-badge">Korean Glass Skin Method</div>
+  </header>
+
+  <!-- GLASS SKIN INTRO -->
+  <div class="glass-intro">
+    <h2>What is Glass Skin?</h2>
+    <p>Glass skin is the Korean beauty ideal — skin so hydrated, smooth, and luminous that it appears translucent like glass. It's not about covering imperfections. It's about building skin so healthy from within that it reflects light like a mirror. The secret? Layers.</p>
+    <div class="glass-layers">
+      <div class="glass-layer">
+        <div class="glass-layer-num">1</div>
+        <div class="glass-layer-title">Cleanse</div>
+        <div class="glass-layer-desc">Pure canvas</div>
+      </div>
+      <div class="glass-layer">
+        <div class="glass-layer-num">2</div>
+        <div class="glass-layer-title">Tone</div>
+        <div class="glass-layer-desc">pH balance</div>
+      </div>
+      <div class="glass-layer">
+        <div class="glass-layer-num">3</div>
+        <div class="glass-layer-title">Layer</div>
+        <div class="glass-layer-desc">Deep hydration</div>
+      </div>
+      <div class="glass-layer">
+        <div class="glass-layer-num">4</div>
+        <div class="glass-layer-title">Seal</div>
+        <div class="glass-layer-desc">Lock moisture</div>
+      </div>
+      <div class="glass-layer">
+        <div class="glass-layer-num">5</div>
+        <div class="glass-layer-title">Protect</div>
+        <div class="glass-layer-desc">Shield &amp; glow</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BENEFITS -->
+  <section class="benefits-section">
+    <div class="section-label">Why This Protocol</div>
+    <h2 class="section-title">Achieve the Glass Skin Glow</h2>
+    <div class="divider"></div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h4>Deep Multi-Layer Hydration</h4>
+        <p>Triple-weight hyaluronic acid penetrates at three depths — deep, mid-layer, and surface — creating hydration that lasts all day, even in UAE's harsh desert climate.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Barrier Repair &amp; Protection</h4>
+        <p>Ceramides, cholesterol, and fatty acids rebuild your skin's protective barrier, stopping moisture loss caused by constant AC cycling and extreme heat.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Translucent, Dewy Finish</h4>
+        <p>When every layer of your skin is optimally hydrated, light refracts evenly — creating that coveted glass-like luminosity that no highlighter can replicate.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Plumped, Poreless Appearance</h4>
+        <p>Well-hydrated skin naturally appears smoother. Fine dehydration lines vanish, pores appear minimised, and texture becomes refined and even.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTINE -->
+  <section class="routine-section">
+    <div class="section-label">Daily Routine</div>
+    <h2 class="section-title">Your Glass Skin Protocol</h2>
+    <div class="divider"></div>
+    <div class="routine-grid">
+      <div class="routine-column">
+        <h3>Morning</h3>
+        <div class="routine-time">5 minutes &middot; hydrate &amp; glow</div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Gentle Cleanse</h4>
+            <div class="step-product">SNOW O₂ CLEANSER</div>
+            <div class="step-desc">Oxygen bubbles cleanse without stripping — preserving your barrier</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Hydrating Toner</h4>
+            <div class="step-product">SNOW BOOSTER</div>
+            <div class="step-desc">First hydration layer — pat 2–3 layers for maximum absorption</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Hyaluron Serum</h4>
+            <div class="step-product">MOISTURE REPLENISHING HYALURON SERUM</div>
+            <div class="step-desc">Triple-weight HA on damp skin — deep, mid, and surface hydration</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Hydrating Cream</h4>
+            <div class="step-product">MOISTURE REPLENISHING HYALURON CREAM</div>
+            <div class="step-desc">Seals in serum layers — ceramides lock moisture all day</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>SPF + Glow</h4>
+            <div class="step-product">REVITA GLOW BB CREAM SPF 38</div>
+            <div class="step-desc">Hydrating BB with SPF — the glass skin finishing touch</div>
+          </div>
+        </div>
+      </div>
+      <div class="routine-column">
+        <h3>Evening</h3>
+        <div class="routine-time">7 minutes &middot; repair &amp; replenish</div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Double Cleanse</h4>
+            <div class="step-product">SKIN DEFENDER + SNOW O₂ CLEANSER</div>
+            <div class="step-desc">Remove SPF and pollution for a clean canvas</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Mist</h4>
+            <div class="step-product">MICROBIOME ENERGY INFUSING MIST</div>
+            <div class="step-desc">Supports microbiome for better barrier function overnight</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Hyaluron Serum</h4>
+            <div class="step-product">MOISTURE REPLENISHING HYALURON SERUM</div>
+            <div class="step-desc">3–4 drops — extra on dry areas, while skin is still damp from mist</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Barrier Repair</h4>
+            <div class="step-product">SKIN BARRIER PROTECTING CREAM</div>
+            <div class="step-desc">Ceramide-rich seal — rebuilds barrier while you sleep</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Weekly Mask (1× / week)</h4>
+            <div class="step-product">SKIN RESCUE OVERNIGHT CREAM MASK</div>
+            <div class="step-desc">Intensive overnight hydration — wake up with glass-like glow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-icon">💧</div>
+      <p><strong>Glass Skin Secret:</strong> Always apply serum to <strong>damp</strong> skin — hyaluronic acid draws moisture from its surroundings. Apply within 30 seconds of toner while skin is still dewy. In the UAE, keep the Microbiome Mist in your bag for hydration top-ups throughout the day.</p>
+    </div>
+  </section>
+
+  <!-- KEY INGREDIENTS -->
+  <section class="ingredients-section">
+    <div class="section-label">The Science of Glass Skin</div>
+    <h2 class="section-title">Key Active Ingredients</h2>
+    <div class="divider" style="background: var(--aqua);"></div>
+    <div class="ingredient-list">
+      <div class="ingredient-item">
+        <h4>Triple-Weight Hyaluronic Acid</h4>
+        <p>Low, medium, and high molecular weights hydrate at three skin depths — holds 1000× its weight in water for full-spectrum plumping</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Ceramides</h4>
+        <p>Make up 50% of the skin barrier — restore the lipid structure that prevents transepidermal water loss in AC and desert climate</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Panthenol (Vitamin B5)</h4>
+        <p>Attracts moisture, soothes irritation, and accelerates barrier repair — the glass skin multitasker</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Pre/Probiotics</h4>
+        <p>Support a healthy skin microbiome — balanced flora equals stronger barrier function and better moisture retention</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Glycerin</h4>
+        <p>Powerful humectant that draws moisture from the environment into the skin — present in every hydration layer</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Allantoin</h4>
+        <p>Soothes and repairs — calms micro-irritation while supporting the skin's natural healing for a smooth, even canvas</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPECTED RESULTS -->
+  <section>
+    <div class="section-label">Your Journey</div>
+    <h2 class="section-title">Expected Results</h2>
+    <div class="divider"></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-week">Day 1–3</div>
+        <div class="timeline-desc">Immediate relief from tightness. Skin feels more comfortable and supple. The first layer of hydration is already visible — skin looks dewy after routine.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 1–2</div>
+        <div class="timeline-desc">Improved skin texture, reduced flakiness. Products absorb better as barrier begins to recover. Skin starts to hold moisture longer between routines.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 2–4</div>
+        <div class="timeline-desc">Visible plumping effect. Fine dehydration lines fade. Skin appears smoother and begins to reflect light more evenly — the glass skin effect emerges.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 4–6</div>
+        <div class="timeline-desc">Barrier function noticeably improved. Skin retains moisture better, less frequent misting needed. Pores appear minimised. The glow is unmistakable.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 6–8</div>
+        <div class="timeline-desc">Full glass skin achieved. Skin is supple, resilient, and luminous. Barrier fully repaired — optimal hydration is now your baseline. Maintenance mode begins.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT SETS -->
+  <section class="products-section">
+    <div class="section-label">Choose Your Level</div>
+    <h2 class="section-title">Recommended Sets</h2>
+    <div class="divider"></div>
+    <div class="product-tiers">
+      <div class="tier">
+        <div class="tier-name">Daily Moisture</div>
+        <div class="tier-desc">Mild dehydration, occasional tightness</div>
+        <ul class="tier-products">
+          <li>Hyaluron Serum</li>
+          <li>Hyaluron Cream</li>
+          <li>Microbiome Mist</li>
+          <li>Snow Booster</li>
+        </ul>
+        <div class="tier-price">1,040 <span>AED</span></div>
+      </div>
+      <div class="tier featured">
+        <div class="tier-name">Intensive Hydration</div>
+        <div class="tier-desc">Barrier damage, persistent dryness</div>
+        <ul class="tier-products">
+          <li>Hyaluron Serum</li>
+          <li>Hyaluron Cream</li>
+          <li>Intensive Hydro Cream</li>
+          <li>Microbiome Mist</li>
+          <li>Overnight Cream Mask</li>
+          <li>Snow Booster</li>
+        </ul>
+        <div class="tier-price">1,670 <span>AED</span></div>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Total Recovery</div>
+        <div class="tier-desc">Severe dehydration, compromised barrier</div>
+        <ul class="tier-products">
+          <li>Hyaluron Serum</li>
+          <li>Hyaluron Cream</li>
+          <li>Intensive Hydro Cream</li>
+          <li>Microbiome Mist</li>
+          <li>Overnight Cream Mask</li>
+          <li>Snow Booster</li>
+          <li>Power Solution HES</li>
+          <li>Hydro Cool Modeling Mask</li>
+        </ul>
+        <div class="tier-price">2,550 <span>AED</span></div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-icon">🚚</div>
+      <p><strong>Free delivery</strong> on all orders over 1,000 AED across the UAE. Order online at <strong>genosys.ae</strong> or contact your GENOSYS consultant.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <footer class="footer-cta">
+    <h3>Your Glass Skin Journey Starts Here</h3>
+    <p>Book a consultation with your GENOSYS skincare specialist<br>for a personalised hydration plan tailored to your skin and lifestyle.</p>
+    <div class="contact-row">
+      <div class="contact-item">
+        <span>WhatsApp</span>
+        +971 58 548 76 65
+      </div>
+      <div class="contact-item">
+        <span>Shop Online</span>
+        genosys.ae
+      </div>
+      <div class="contact-item">
+        <span>Instagram</span>
+        @genosys.uae
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-brand">GENOSYS</div>
+      <div class="footer-tagline">Glow with Korean Tradition</div>
+      <div class="footer-note">World's First Microneedling Skincare Brand &middot; Since 2006</div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GENOSYS — Glow & Brighten Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c41e2a;
+    --red-deep: #8b1520;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a0;
+    --cream: #faf8f5;
+    --charcoal: #1a1a1a;
+    --warm-gray: #6b6560;
+    --light-gray: #e8e4df;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--charcoal);
+    background: var(--cream);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(145deg, var(--red-deep) 0%, var(--red) 40%, #d4343f 100%);
+    color: #fff;
+    padding: 60px 50px 50px;
+    position: relative;
+    min-height: 320px;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #fff;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+
+  .brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  .brand-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    font-style: italic;
+    letter-spacing: 2px;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  .korea-badge {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 4px 12px;
+    border-radius: 2px;
+  }
+
+  .protocol-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 52px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0.85;
+    max-width: 400px;
+    line-height: 1.6;
+  }
+
+  /* SECTION COMMON */
+  section {
+    padding: 45px 50px;
+  }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 25px;
+    line-height: 1.2;
+  }
+
+  .divider {
+    width: 50px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 25px;
+  }
+
+  /* BENEFITS GRID */
+  .benefits-section {
+    background: var(--cream);
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .benefit-card {
+    background: #fff;
+    padding: 24px;
+    border-radius: 4px;
+    border-left: 3px solid var(--gold);
+  }
+
+  .benefit-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: var(--red-deep);
+  }
+
+  .benefit-card p {
+    font-size: 12px;
+    color: var(--warm-gray);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ROUTINE */
+  .routine-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .routine-column h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 6px;
+    color: var(--charcoal);
+  }
+
+  .routine-time {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .step {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    background: var(--red);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .step-content h4 {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: var(--charcoal);
+  }
+
+  .step-product {
+    font-size: 11px;
+    color: var(--red);
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+
+  .step-desc {
+    font-size: 11px;
+    color: var(--warm-gray);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* KEY INGREDIENTS */
+  .ingredients-section {
+    background: var(--charcoal);
+    color: #fff;
+  }
+
+  .ingredients-section .section-label {
+    color: var(--gold);
+  }
+
+  .ingredients-section .section-title {
+    color: #fff;
+  }
+
+  .ingredient-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .ingredient-item {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 16px;
+  }
+
+  .ingredient-item h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .ingredient-item p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* RESULTS TIMELINE */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--light-gray);
+    align-items: flex-start;
+  }
+
+  .timeline-item:last-child {
+    border-bottom: none;
+  }
+
+  .timeline-week {
+    min-width: 80px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--red);
+    padding-top: 2px;
+  }
+
+  .timeline-desc {
+    font-size: 12px;
+    color: var(--warm-gray);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* PRODUCT SET */
+  .products-section {
+    background: linear-gradient(170deg, #faf8f5 0%, #f5f0ea 100%);
+  }
+
+  .product-tiers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .tier {
+    background: #fff;
+    padding: 28px 22px;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    border: 1px solid var(--light-gray);
+  }
+
+  .tier.featured {
+    border-color: var(--gold);
+    box-shadow: 0 4px 20px rgba(201,168,76,0.15);
+  }
+
+  .tier.featured::before {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #fff;
+    font-size: 8px;
+    letter-spacing: 2px;
+    padding: 3px 14px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .tier-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--charcoal);
+  }
+
+  .tier-desc {
+    font-size: 10px;
+    color: var(--warm-gray);
+    font-weight: 300;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .tier-products {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .tier-products li {
+    font-size: 10px;
+    color: var(--charcoal);
+    padding: 6px 0;
+    border-bottom: 1px solid #f5f0ea;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .tier-products li:last-child {
+    border-bottom: none;
+  }
+
+  .tier-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--red);
+  }
+
+  .tier-price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--warm-gray);
+  }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    background: var(--red);
+    color: #fff;
+    padding: 40px 50px;
+    text-align: center;
+  }
+
+  .footer-cta h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    margin-bottom: 8px;
+  }
+
+  .footer-cta p {
+    font-size: 12px;
+    font-weight: 300;
+    opacity: 0.85;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .contact-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .contact-item span {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .footer-brand {
+    font-size: 10px;
+    letter-spacing: 4px;
+    font-weight: 600;
+  }
+
+  .footer-tagline {
+    font-size: 10px;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    opacity: 0.7;
+    letter-spacing: 1px;
+  }
+
+  .footer-note {
+    font-size: 9px;
+    opacity: 0.5;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: linear-gradient(135deg, #fefcf3, #fdf6e3);
+    border: 1px solid var(--gold-light);
+    padding: 18px 24px;
+    border-radius: 4px;
+    margin-top: 25px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .callout-icon {
+    font-size: 18px;
+    min-width: 24px;
+    text-align: center;
+  }
+
+  .callout p {
+    font-size: 11px;
+    color: var(--warm-gray);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .callout strong {
+    color: var(--charcoal);
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; }
+    .page { max-width: none; box-shadow: none; }
+    section { break-inside: avoid; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .hero { padding: 40px 28px 40px; }
+    .hero h1 { font-size: 36px; }
+    section { padding: 35px 28px; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .routine-grid { grid-template-columns: 1fr; gap: 30px; }
+    .ingredient-list { grid-template-columns: 1fr; }
+    .product-tiers { grid-template-columns: 1fr; }
+    .contact-row { flex-direction: column; align-items: center; gap: 16px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="brand-name">GENOSYS</div>
+        <div class="brand-tag">Professional Dermacosmetics</div>
+      </div>
+      <div class="korea-badge">Made in Korea</div>
+    </div>
+    <div class="protocol-label">Professional Treatment Protocol</div>
+    <h1>Glow &amp; <em>Brighten</em></h1>
+    <p class="hero-subtitle">Advanced brightening system to fade pigmentation, even skin tone, and reveal luminous, radiant skin</p>
+  </header>
+
+  <!-- BENEFITS -->
+  <section class="benefits-section">
+    <div class="section-label">Why This Protocol</div>
+    <h2 class="section-title">Transform Your Skin's Radiance</h2>
+    <div class="divider"></div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h4>Fade Dark Spots</h4>
+        <p>Vitamin C and Arbutin work together to inhibit melanin production and visibly lighten existing pigmentation, age spots, and post-acne marks.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Even Skin Tone</h4>
+        <p>Niacinamide blocks melanosome transfer to the skin surface, reducing uneven patches and creating a uniform, luminous complexion.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Prevent New Pigmentation</h4>
+        <p>SPF 50+ broad-spectrum protection combined with daily antioxidants stops UV-triggered melanin overproduction before it starts.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Accelerate Cell Renewal</h4>
+        <p>Gentle exfoliation removes pigmented dead cells faster, bringing brighter new cells to the surface for visible improvement week by week.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTINE -->
+  <section>
+    <div class="section-label">Daily Routine</div>
+    <h2 class="section-title">Your Brightening Protocol</h2>
+    <div class="divider"></div>
+    <div class="routine-grid">
+      <div class="routine-column">
+        <h3>Morning</h3>
+        <div class="routine-time">5 minutes &middot; protect &amp; brighten</div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Cleanse</h4>
+            <div class="step-product">SNOW O₂ CLEANSER</div>
+            <div class="step-desc">Oxygen bubbles lift impurities without stripping the barrier</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Tone &amp; Prep</h4>
+            <div class="step-product">SNOW BOOSTER</div>
+            <div class="step-desc">Niacinamide + Arbutin toner for instant brightening prep</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Brighten</h4>
+            <div class="step-product">MULTI VITA RADIANCE SERUM</div>
+            <div class="step-desc">Concentrated Vitamin C serum — the core brightening active</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Moisturise</h4>
+            <div class="step-product">MULTI VITA RADIANCE CREAM</div>
+            <div class="step-desc">Sustained brightening + barrier protection all day</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Protect</h4>
+            <div class="step-product">ULTRA SHIELD SPF 50+ PA++++</div>
+            <div class="step-desc">Non-negotiable — SPF is your #1 brightening treatment</div>
+          </div>
+        </div>
+      </div>
+      <div class="routine-column">
+        <h3>Evening</h3>
+        <div class="routine-time">7 minutes &middot; repair &amp; renew</div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Double Cleanse</h4>
+            <div class="step-product">SKIN DEFENDER + SNOW O₂ CLEANSER</div>
+            <div class="step-desc">Remove SPF and pollution — leftover residue triggers pigmentation</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Exfoliate (2–3× / week)</h4>
+            <div class="step-product">EPI TURNOVER PEELING GEL</div>
+            <div class="step-desc">Removes pigmented dead cells, accelerates skin renewal</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Tone</h4>
+            <div class="step-product">SNOW BOOSTER</div>
+            <div class="step-desc">Brightening actives work optimally during skin's overnight repair cycle</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Treat</h4>
+            <div class="step-product">MULTI VITA RADIANCE SERUM</div>
+            <div class="step-desc">3–4 drops — extra on stubborn dark spots as a spot treatment</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Night Care</h4>
+            <div class="step-product">MULTI VITA RADIANCE CREAM</div>
+            <div class="step-desc">Seals in treatment actives for overnight brightening repair</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-icon">☀️</div>
+      <p><strong>UAE Climate Tip:</strong> UV index 11+ year-round means SPF is your most important brightening product. Reapply every 2–3 hours outdoors. Even indoors — UVA penetrates windows.</p>
+    </div>
+  </section>
+
+  <!-- KEY INGREDIENTS -->
+  <section class="ingredients-section">
+    <div class="section-label">Science Behind the Glow</div>
+    <h2 class="section-title">Key Active Ingredients</h2>
+    <div class="divider" style="background: var(--gold);"></div>
+    <div class="ingredient-list">
+      <div class="ingredient-item">
+        <h4>Vitamin C (L-Ascorbic Acid)</h4>
+        <p>Powerful antioxidant that prevents UV-induced pigmentation and brightens existing dark spots at the cellular level</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Niacinamide (Vitamin B3)</h4>
+        <p>Inhibits melanosome transfer to skin surface — reduces dark spots, controls sebum, and strengthens barrier</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Arbutin</h4>
+        <p>Natural brightening agent that blocks tyrosinase enzyme — gentle yet effective, safe for daily use</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>AHA / BHA Complex</h4>
+        <p>Accelerates cell turnover, removes melanin-rich dead cells, and improves penetration of brightening serums</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Hyaluronic Acid</h4>
+        <p>Holds 1000× its weight in water — deeply hydrates without oil, supporting barrier function for healthier skin</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Broad-Spectrum SPF 50+</h4>
+        <p>PA++++ protection blocks both UVA and UVB — prevents new pigmentation from forming in UAE sun</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPECTED RESULTS -->
+  <section>
+    <div class="section-label">Your Journey</div>
+    <h2 class="section-title">Expected Results</h2>
+    <div class="divider"></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-week">Week 1–2</div>
+        <div class="timeline-desc">Skin feels smoother and looks fresher. Slight brightening visible. Possible mild tingling from Vitamin C — this is normal and indicates the active is working.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 2–4</div>
+        <div class="timeline-desc">Initial fading of newer dark spots. Skin tone appears more even. Improved texture from regular exfoliation.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 4–6</div>
+        <div class="timeline-desc">Noticeable lightening of moderate pigmentation. Melasma patches begin to fade. Friends start asking what you've been using.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 6–8</div>
+        <div class="timeline-desc">Significant improvement in overall brightness. Deeper spots start to lighten. Skin tone looks visibly more uniform.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 8–12</div>
+        <div class="timeline-desc">Major fading of pigmentation achieved. Even, radiant skin tone. Transition to maintenance phase with continued daily SPF.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT SETS -->
+  <section class="products-section">
+    <div class="section-label">Choose Your Level</div>
+    <h2 class="section-title">Recommended Sets</h2>
+    <div class="divider"></div>
+    <div class="product-tiers">
+      <div class="tier">
+        <div class="tier-name">Bright Start</div>
+        <div class="tier-desc">Few dark spots, slight uneven tone</div>
+        <ul class="tier-products">
+          <li>Multi Vita Radiance Serum</li>
+          <li>Multi Vita Radiance Cream</li>
+          <li>EPI Turnover Peeling Gel</li>
+        </ul>
+        <div class="tier-price">870 <span>AED</span></div>
+      </div>
+      <div class="tier featured">
+        <div class="tier-name">Full Brightening</div>
+        <div class="tier-desc">Multiple spots, melasma, uneven tone</div>
+        <ul class="tier-products">
+          <li>Multi Vita Radiance Serum</li>
+          <li>Multi Vita Radiance Cream</li>
+          <li>EPI Turnover Peeling Gel</li>
+          <li>Power Solution SWS</li>
+        </ul>
+        <div class="tier-price">1,450 <span>AED</span></div>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Intensive Reset</div>
+        <div class="tier-desc">Deep spots, extensive melasma, PIH</div>
+        <ul class="tier-products">
+          <li>Multi Vita Radiance Serum</li>
+          <li>Multi Vita Radiance Cream</li>
+          <li>EPI Turnover Peeling Gel</li>
+          <li>Power Solution SWS</li>
+          <li>EZ CO₂ Mask Kit</li>
+        </ul>
+        <div class="tier-price">1,910 <span>AED</span></div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-icon">🚚</div>
+      <p><strong>Free delivery</strong> on all orders over 1,000 AED across the UAE. Order online at <strong>genosys.ae</strong> or contact your GENOSYS consultant.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <footer class="footer-cta">
+    <h3>Ready to Reveal Your Radiance?</h3>
+    <p>Book a consultation with your GENOSYS skincare specialist<br>for a personalised brightening plan tailored to your skin.</p>
+    <div class="contact-row">
+      <div class="contact-item">
+        <span>WhatsApp</span>
+        +971 58 548 76 65
+      </div>
+      <div class="contact-item">
+        <span>Shop Online</span>
+        genosys.ae
+      </div>
+      <div class="contact-item">
+        <span>Instagram</span>
+        @genosys.uae
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-brand">GENOSYS</div>
+      <div class="footer-tagline">Glow with Korean Tradition</div>
+      <div class="footer-note">World's First Microneedling Skincare Brand &middot; Since 2006</div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

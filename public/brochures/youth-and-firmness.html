@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GENOSYS — Youth & Firmness Protocol</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c41e2a;
+    --red-deep: #8b1520;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a0;
+    --cream: #faf8f5;
+    --charcoal: #1a1a1a;
+    --warm-gray: #6b6560;
+    --light-gray: #e8e4df;
+    --plum: #3d1c2e;
+    --plum-light: #5c2d45;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--charcoal);
+    background: var(--cream);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(145deg, var(--plum) 0%, var(--plum-light) 40%, #6e3854 100%);
+    color: #fff;
+    padding: 60px 50px 50px;
+    position: relative;
+    min-height: 320px;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #fff;
+    clip-path: ellipse(55% 100% at 50% 100%);
+  }
+
+  .hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+  }
+
+  .brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    opacity: 0.9;
+  }
+
+  .brand-tag {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    font-style: italic;
+    letter-spacing: 2px;
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+
+  .korea-badge {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 4px 12px;
+    border-radius: 2px;
+  }
+
+  .protocol-label {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 52px;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 1px;
+    opacity: 0.85;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+
+  /* SECTION COMMON */
+  section {
+    padding: 45px 50px;
+  }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--charcoal);
+    margin-bottom: 25px;
+    line-height: 1.2;
+  }
+
+  .divider {
+    width: 50px;
+    height: 1px;
+    background: var(--gold);
+    margin-bottom: 25px;
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: var(--cream);
+    padding: 30px 50px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+
+  .stat {
+    border-right: 1px solid var(--light-gray);
+  }
+
+  .stat:last-child {
+    border-right: none;
+  }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--plum);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--warm-gray);
+    font-weight: 500;
+  }
+
+  /* BENEFITS GRID */
+  .benefits-section {
+    background: #fff;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .benefit-card {
+    background: var(--cream);
+    padding: 24px;
+    border-radius: 4px;
+    border-left: 3px solid var(--gold);
+  }
+
+  .benefit-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    color: var(--plum);
+  }
+
+  .benefit-card p {
+    font-size: 12px;
+    color: var(--warm-gray);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ROUTINE */
+  .routine-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .routine-column h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 6px;
+    color: var(--charcoal);
+  }
+
+  .routine-time {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .step {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    background: var(--plum);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .step-content h4 {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: var(--charcoal);
+  }
+
+  .step-product {
+    font-size: 11px;
+    color: var(--plum);
+    font-weight: 500;
+    margin-bottom: 3px;
+  }
+
+  .step-desc {
+    font-size: 11px;
+    color: var(--warm-gray);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* KEY INGREDIENTS */
+  .ingredients-section {
+    background: var(--plum);
+    color: #fff;
+  }
+
+  .ingredients-section .section-label {
+    color: var(--gold);
+  }
+
+  .ingredients-section .section-title {
+    color: #fff;
+  }
+
+  .ingredient-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .ingredient-item {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 16px;
+  }
+
+  .ingredient-item h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .ingredient-item p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* RESULTS TIMELINE */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: flex;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--light-gray);
+    align-items: flex-start;
+  }
+
+  .timeline-item:last-child {
+    border-bottom: none;
+  }
+
+  .timeline-week {
+    min-width: 80px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--plum);
+    padding-top: 2px;
+  }
+
+  .timeline-desc {
+    font-size: 12px;
+    color: var(--warm-gray);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* PRODUCT SET */
+  .products-section {
+    background: linear-gradient(170deg, #faf8f5 0%, #f5f0ea 100%);
+  }
+
+  .product-tiers {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+
+  .tier {
+    background: #fff;
+    padding: 28px 22px;
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    border: 1px solid var(--light-gray);
+  }
+
+  .tier.featured {
+    border-color: var(--gold);
+    box-shadow: 0 4px 20px rgba(201,168,76,0.15);
+  }
+
+  .tier.featured::before {
+    content: 'MOST POPULAR';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: #fff;
+    font-size: 8px;
+    letter-spacing: 2px;
+    padding: 3px 14px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .tier-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--charcoal);
+  }
+
+  .tier-desc {
+    font-size: 10px;
+    color: var(--warm-gray);
+    font-weight: 300;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  .tier-products {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .tier-products li {
+    font-size: 10px;
+    color: var(--charcoal);
+    padding: 6px 0;
+    border-bottom: 1px solid #f5f0ea;
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  .tier-products li:last-child {
+    border-bottom: none;
+  }
+
+  .tier-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--plum);
+  }
+
+  .tier-price span {
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--warm-gray);
+  }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    background: var(--plum);
+    color: #fff;
+    padding: 40px 50px;
+    text-align: center;
+  }
+
+  .footer-cta h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    margin-bottom: 8px;
+  }
+
+  .footer-cta p {
+    font-size: 12px;
+    font-weight: 300;
+    opacity: 0.85;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .contact-row {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .contact-item {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .contact-item span {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-bottom: 4px;
+    font-weight: 400;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .footer-brand {
+    font-size: 10px;
+    letter-spacing: 4px;
+    font-weight: 600;
+  }
+
+  .footer-tagline {
+    font-size: 10px;
+    font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    opacity: 0.7;
+    letter-spacing: 1px;
+  }
+
+  .footer-note {
+    font-size: 9px;
+    opacity: 0.5;
+  }
+
+  /* CALLOUT */
+  .callout {
+    background: linear-gradient(135deg, #fefcf3, #fdf6e3);
+    border: 1px solid var(--gold-light);
+    padding: 18px 24px;
+    border-radius: 4px;
+    margin-top: 25px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+
+  .callout-icon {
+    font-size: 18px;
+    min-width: 24px;
+    text-align: center;
+  }
+
+  .callout p {
+    font-size: 11px;
+    color: var(--warm-gray);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .callout strong {
+    color: var(--charcoal);
+  }
+
+  /* PRINT */
+  @media print {
+    body { background: #fff; }
+    .page { max-width: none; box-shadow: none; }
+    section { break-inside: avoid; }
+  }
+
+  /* MOBILE */
+  @media (max-width: 600px) {
+    .hero { padding: 40px 28px 40px; }
+    .hero h1 { font-size: 36px; }
+    section { padding: 35px 28px; }
+    .stats-bar { grid-template-columns: 1fr 1fr; padding: 25px 28px; }
+    .stat { border-right: none; }
+    .benefits-grid { grid-template-columns: 1fr; }
+    .routine-grid { grid-template-columns: 1fr; gap: 30px; }
+    .ingredient-list { grid-template-columns: 1fr; }
+    .product-tiers { grid-template-columns: 1fr; }
+    .contact-row { flex-direction: column; align-items: center; gap: 16px; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="brand-name">GENOSYS</div>
+        <div class="brand-tag">Professional Dermacosmetics</div>
+      </div>
+      <div class="korea-badge">Made in Korea</div>
+    </div>
+    <div class="protocol-label">Professional Treatment Protocol</div>
+    <h1>Youth &amp; <em>Firmness</em></h1>
+    <p class="hero-subtitle">Advanced anti-aging system with peptides, EGF, and stem cell technology to rebuild collagen, restore elasticity, and turn back the clock</p>
+  </header>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-number">80%</div>
+      <div class="stat-label">of visible aging<br>is from UV</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">1%</div>
+      <div class="stat-label">collagen lost<br>per year after 30</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">6–8</div>
+      <div class="stat-label">weeks for<br>visible results</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">30×</div>
+      <div class="stat-label">cell division<br>peaks at night</div>
+    </div>
+  </div>
+
+  <!-- BENEFITS -->
+  <section class="benefits-section">
+    <div class="section-label">Why This Protocol</div>
+    <h2 class="section-title">Reclaim Your Skin's Youth</h2>
+    <div class="divider"></div>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <h4>Rebuild Collagen</h4>
+        <p>EGF (Epidermal Growth Factor) and advanced peptides signal fibroblasts to produce new collagen, restoring the structural foundation of youthful skin.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Restore Elasticity</h4>
+        <p>Adenosine relaxes expression lines while peptide complexes rebuild elastin fibres, bringing back the bounce and resilience your skin had in your twenties.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Lift &amp; Firm</h4>
+        <p>ND Cell stem cell technology provides intensive cellular repair, visibly lifting sagging contours and firming the jawline, cheeks, and neck.</p>
+      </div>
+      <div class="benefit-card">
+        <h4>Prevent Future Aging</h4>
+        <p>SPF 50+ blocks 80% of visible aging caused by UV. Combined with daily antioxidants, your skin is shielded from the UAE's relentless sun damage.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROUTINE -->
+  <section style="background: var(--cream);">
+    <div class="section-label">Daily Routine</div>
+    <h2 class="section-title">Your Anti-Aging Protocol</h2>
+    <div class="divider"></div>
+    <div class="routine-grid">
+      <div class="routine-column">
+        <h3>Morning</h3>
+        <div class="routine-time">5 minutes &middot; protect &amp; prevent</div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Cleanse</h4>
+            <div class="step-product">SNOW O₂ CLEANSER</div>
+            <div class="step-desc">Oxygen bubbles cleanse without stripping — preserving collagen</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Tone &amp; Hydrate</h4>
+            <div class="step-product">SNOW BOOSTER</div>
+            <div class="step-desc">Hyaluronic acid plumps skin instantly, reducing fine line appearance</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Anti-Wrinkle Serum</h4>
+            <div class="step-product">MULTI FUNCTIONAL ANTI-WRINKLE SERUM</div>
+            <div class="step-desc">Peptides + Adenosine target forehead, eye area, and nasolabial folds</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Eye Care</h4>
+            <div class="step-product">EyeCell EYE CONTOUR CREAM</div>
+            <div class="step-desc">Specialised formula for the delicate eye area — 10× thinner than face</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Moisturise</h4>
+            <div class="step-product">MULTI FUNCTIONAL ANTI-WRINKLE CREAM</div>
+            <div class="step-desc">Seals in serum actives and provides all-day peptide delivery</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <h4>Protect</h4>
+            <div class="step-product">ULTRA SHIELD SPF 50+ PA++++</div>
+            <div class="step-desc">Non-negotiable — UV causes 80% of all visible aging</div>
+          </div>
+        </div>
+      </div>
+      <div class="routine-column">
+        <h3>Evening</h3>
+        <div class="routine-time">7–10 minutes &middot; repair &amp; rebuild</div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>Double Cleanse</h4>
+            <div class="step-product">SKIN DEFENDER + SNOW O₂ CLEANSER</div>
+            <div class="step-desc">Remove SPF and pollution — clean skin absorbs repair actives better</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>Exfoliate (2–3× / week)</h4>
+            <div class="step-product">EPI TURNOVER PEELING GEL</div>
+            <div class="step-desc">Stimulates cell turnover — slows with age, this keeps it active</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>Anti-Wrinkle Serum</h4>
+            <div class="step-product">MULTI FUNCTIONAL ANTI-WRINKLE SERUM</div>
+            <div class="step-desc">3–4 drops at night — collagen synthesis peaks during sleep</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>Eye Care</h4>
+            <div class="step-product">EyeCell EYE CONTOUR CREAM</div>
+            <div class="step-desc">Pat gently with ring finger around orbital bone — never rub</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <h4>Intensive Night Repair</h4>
+            <div class="step-product">ND Cell ANTI-WRINKLE CREAM</div>
+            <div class="step-desc">Advanced stem cell technology for deep overnight regeneration</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <h4>Weekly Mask (1× / week)</h4>
+            <div class="step-product">PEPTIDE GEL MASK</div>
+            <div class="step-desc">15–20 min intensive peptide infusion — visible plumping overnight</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-icon">🌙</div>
+      <p><strong>Night is when skin rebuilds.</strong> Cell division increases 30× between 11 PM and 4 AM. Your evening routine is the most impactful — never skip it, and apply products before 11 PM for maximum benefit.</p>
+    </div>
+  </section>
+
+  <!-- KEY INGREDIENTS -->
+  <section class="ingredients-section">
+    <div class="section-label">The Science of Youth</div>
+    <h2 class="section-title">Key Active Ingredients</h2>
+    <div class="divider" style="background: var(--gold);"></div>
+    <div class="ingredient-list">
+      <div class="ingredient-item">
+        <h4>EGF (Epidermal Growth Factor)</h4>
+        <p>Gold standard for skin repair — accelerates cell regeneration, repairs damaged structures, and restores youthful texture</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Peptide Complex</h4>
+        <p>Signal peptides tell fibroblasts to produce collagen. Carrier peptides deliver copper for elastin. The building blocks of firm skin.</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Adenosine</h4>
+        <p>Relaxes facial muscles and expression lines — clinically proven anti-wrinkle active, extremely gentle on all skin types</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Stem Cell Technology</h4>
+        <p>ND Cell's advanced botanical stem cells activate the skin's own regeneration pathway for intensive overnight repair</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Ceramides</h4>
+        <p>Make up 50% of the skin barrier — restore barrier structure, prevent moisture loss, and protect against AC-driven dehydration</p>
+      </div>
+      <div class="ingredient-item">
+        <h4>Hyaluronic Acid</h4>
+        <p>Holds 1000× its weight in water — instantly plumps fine lines and provides the hydration foundation aging skin needs</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPECTED RESULTS -->
+  <section>
+    <div class="section-label">Your Journey</div>
+    <h2 class="section-title">Expected Results</h2>
+    <div class="divider"></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-week">Week 1–2</div>
+        <div class="timeline-desc">Improved hydration and comfort. Skin feels smoother to the touch. Fine lines appear less visible as hyaluronic acid plumps the surface.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 2–4</div>
+        <div class="timeline-desc">Increased skin elasticity. Deeper wrinkles begin to soften. Skin texture improves noticeably. The peptides are signalling new collagen production.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 4–6</div>
+        <div class="timeline-desc">Visible reduction in fine lines. Improved firmness in jawline and cheeks. Friends may notice you look "refreshed" or "well-rested."</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 6–8</div>
+        <div class="timeline-desc">Significant improvement in wrinkle depth. Skin appears visibly firmer and more lifted. The rebuilding phase is producing real structural change.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-week">Week 8–12</div>
+        <div class="timeline-desc">Maximum visible results. Firmer, more elastic skin with visibly reduced wrinkles. Continue the protocol for ongoing maintenance and prevention.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT SETS -->
+  <section class="products-section">
+    <div class="section-label">Choose Your Level</div>
+    <h2 class="section-title">Recommended Sets</h2>
+    <div class="divider"></div>
+    <div class="product-tiers">
+      <div class="tier">
+        <div class="tier-name">Early Defense</div>
+        <div class="tier-desc">Prevent aging, maintain youthful skin (28+)</div>
+        <ul class="tier-products">
+          <li>Anti-Wrinkle Serum</li>
+          <li>Anti-Wrinkle Cream</li>
+          <li>EyeCell Eye Contour Cream</li>
+          <li>Power Solution AWS</li>
+        </ul>
+        <div class="tier-price">1,570 <span>AED</span></div>
+      </div>
+      <div class="tier featured">
+        <div class="tier-name">Age Control</div>
+        <div class="tier-desc">Fine lines, early wrinkles, loss of elasticity</div>
+        <ul class="tier-products">
+          <li>Anti-Wrinkle Serum</li>
+          <li>Anti-Wrinkle Cream</li>
+          <li>ND Cell Anti-Wrinkle Cream</li>
+          <li>EyeCell Eye Contour Cream</li>
+          <li>Peptide Gel Mask</li>
+          <li>Power Solution AWS</li>
+        </ul>
+        <div class="tier-price">2,320 <span>AED</span></div>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Deep Repair</div>
+        <div class="tier-desc">Deep wrinkles, sagging, advanced aging</div>
+        <ul class="tier-products">
+          <li>Anti-Wrinkle Serum</li>
+          <li>Anti-Wrinkle Cream</li>
+          <li>ND Cell Anti-Wrinkle Cream</li>
+          <li>EyeCell Eye Contour Cream</li>
+          <li>Peptide Gel Mask</li>
+          <li>Power Solution AWS</li>
+          <li>Bio-Ferment Powder Mask</li>
+          <li>PDRN Mask Pack</li>
+        </ul>
+        <div class="tier-price">3,370+ <span>AED</span></div>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-icon">🚚</div>
+      <p><strong>Free delivery</strong> on all orders over 1,000 AED across the UAE. Order online at <strong>genosys.ae</strong> or contact your GENOSYS consultant.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER CTA -->
+  <footer class="footer-cta">
+    <h3>Turn Back the Clock — Starting Today</h3>
+    <p>Book a consultation with your GENOSYS skincare specialist<br>for a personalised anti-aging plan tailored to your skin.</p>
+    <div class="contact-row">
+      <div class="contact-item">
+        <span>WhatsApp</span>
+        +971 58 548 76 65
+      </div>
+      <div class="contact-item">
+        <span>Shop Online</span>
+        genosys.ae
+      </div>
+      <div class="contact-item">
+        <span>Instagram</span>
+        @genosys.uae
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-brand">GENOSYS</div>
+      <div class="footer-tagline">Glow with Korean Tradition</div>
+      <div class="footer-note">World's First Microneedling Skincare Brand &middot; Since 2006</div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

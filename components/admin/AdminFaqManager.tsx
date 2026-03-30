@@ -8,6 +8,7 @@ type FaqItem = {
   id: string
   sortOrder: number
   isActive: boolean
+  category: string | null
   questionEn: string
   answerEn: string
   questionAr: string | null
@@ -25,8 +26,19 @@ type FormState = {
   answerAr: string
   questionRu: string
   answerRu: string
+  category: string
   isActive: boolean
 }
+
+const FAQ_CATEGORIES = [
+  { value: '', label: 'No category' },
+  { value: 'general', label: 'About GENOSYS' },
+  { value: 'products', label: 'Products & Skincare' },
+  { value: 'orders', label: 'Orders & Payment' },
+  { value: 'shipping', label: 'Shipping & Delivery' },
+  { value: 'app', label: 'Mobile App' },
+  { value: 'account', label: 'Account & Support' },
+]
 
 const emptyForm: FormState = {
   questionEn: '',
@@ -35,6 +47,7 @@ const emptyForm: FormState = {
   answerAr: '',
   questionRu: '',
   answerRu: '',
+  category: '',
   isActive: true,
 }
 
@@ -83,6 +96,7 @@ export default function AdminFaqManager({
       answerAr: item.answerAr || '',
       questionRu: item.questionRu || '',
       answerRu: item.answerRu || '',
+      category: item.category || '',
       isActive: item.isActive,
     })
   }
@@ -110,6 +124,7 @@ export default function AdminFaqManager({
         answerAr: form.answerAr.trim() || null,
         questionRu: form.questionRu.trim() || null,
         answerRu: form.answerRu.trim() || null,
+        category: form.category || null,
         isActive: form.isActive,
       })
       const res = await fetch(`/api/admin/faq-items/${editingId}`, {
@@ -150,6 +165,7 @@ export default function AdminFaqManager({
         answerAr: form.answerAr.trim() || null,
         questionRu: form.questionRu.trim() || null,
         answerRu: form.answerRu.trim() || null,
+        category: form.category || null,
         isActive: form.isActive,
       })
       const res = await fetch('/api/admin/faq-items', {
@@ -262,6 +278,17 @@ export default function AdminFaqManager({
   const renderForm = (isNew: boolean) => (
     <div className="bg-gray-50 border rounded-xl p-4 sm:p-6 space-y-4">
       <h3 className="font-semibold text-gray-900">{isNew ? 'New FAQ Item' : 'Edit FAQ Item'}</h3>
+
+      {/* Category */}
+      <div>
+        <label className="block text-sm font-medium text-gray-800 mb-1">Category</label>
+        <select value={form.category} onChange={e => setForm(p => ({ ...p, category: e.target.value }))}
+          className="w-full rounded-lg border px-3 py-2 bg-white text-sm">
+          {FAQ_CATEGORIES.map(c => (
+            <option key={c.value} value={c.value}>{c.label}</option>
+          ))}
+        </select>
+      </div>
 
       {/* EN */}
       <div>
@@ -377,11 +404,18 @@ export default function AdminFaqManager({
                 {index + 1}
               </span>
 
-              {/* Question text */}
-              <button onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
-                className="flex-1 text-left text-sm font-medium text-gray-900 truncate hover:text-primary-600">
-                {item.questionEn}
-              </button>
+              {/* Category badge + Question text */}
+              <div className="flex-1 min-w-0 flex items-center gap-2">
+                {item.category && (
+                  <span className="flex-shrink-0 text-[10px] font-medium px-1.5 py-0.5 rounded bg-primary-50 text-primary-700 border border-primary-100">
+                    {FAQ_CATEGORIES.find(c => c.value === item.category)?.label || item.category}
+                  </span>
+                )}
+                <button onClick={() => setExpandedId(expandedId === item.id ? null : item.id)}
+                  className="flex-1 text-left text-sm font-medium text-gray-900 truncate hover:text-primary-600">
+                  {item.questionEn}
+                </button>
+              </div>
 
               {/* Action buttons */}
               <div className="flex items-center gap-1 flex-shrink-0">

@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
       data: {
         sortOrder: body?.sortOrder ?? nextSort,
         isActive: body?.isActive !== false,
+        category: body?.category?.trim() || null,
         questionEn,
         answerEn,
         questionAr: body?.questionAr?.trim() || null,

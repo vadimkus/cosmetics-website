@@ -66,6 +66,7 @@ export default async function ArabicFAQPage() {
     orderBy: { sortOrder: 'asc' },
     select: {
       id: true,
+      category: true,
       questionEn: true,
       answerEn: true,
       questionAr: true,

@@ -606,6 +606,7 @@ model FaqItem {
   id          String   @id @default(cuid())
   sortOrder   Int      @default(0)
   isActive    Boolean  @default(true)
+  category    String?
 
   // English (required)
   questionEn  String
@@ -623,5 +624,6 @@ model FaqItem {
   updatedAt   DateTime @updatedAt
 
   @@index([isActive, sortOrder])
+  @@index([category])
   @@map("faq_items")
 }

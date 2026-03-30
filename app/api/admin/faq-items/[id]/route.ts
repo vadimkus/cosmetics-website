@@ -25,6 +25,7 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
     if (body?.answerAr !== undefined) data.answerAr = body.answerAr ? String(body.answerAr).trim() : null
     if (body?.questionRu !== undefined) data.questionRu = body.questionRu ? String(body.questionRu).trim() : null
     if (body?.answerRu !== undefined) data.answerRu = body.answerRu ? String(body.answerRu).trim() : null
+    if (body?.category !== undefined) data.category = body.category ? String(body.category).trim() : null
     if (body?.sortOrder !== undefined) data.sortOrder = Number(body.sortOrder)
     if (body?.isActive !== undefined) data.isActive = !!body.isActive
 

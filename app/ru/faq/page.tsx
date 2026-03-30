@@ -66,6 +66,7 @@ export default async function RussianFAQPage() {
     orderBy: { sortOrder: 'asc' },
     select: {
       id: true,
+      category: true,
       questionEn: true,
       answerEn: true,
       questionAr: true,

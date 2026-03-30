@@ -5,14 +5,18 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions | GENOSYS Middle East FZ-LLC',
-  description: 'Frequently asked questions about GENOSYS Korean dermacosmetics, shipping, orders, products, and professional training in UAE. Get answers about our skincare products, delivery, and services.',
+  description: 'Frequently asked questions about GENOSYS Korean dermacosmetics, shipping, orders, products, mobile app, and professional training in UAE. Get answers about our skincare products, delivery, iOS & Android app, and services.',
   keywords: [
     'GENOSYS FAQ',
     'Korean dermacosmetics questions',
     'UAE shipping',
     'professional skincare FAQ',
     'GENOSYS support',
-    'skincare questions UAE'
+    'skincare questions UAE',
+    'GENOSYS app',
+    'GENOSYS mobile app',
+    'GENOSYS iOS app',
+    'GENOSYS Android app',
   ],
   openGraph: {
     title: 'FAQ - Frequently Asked Questions | GENOSYS Middle East FZ-LLC',
@@ -65,6 +69,7 @@ export default async function FAQPage() {
     orderBy: { sortOrder: 'asc' },
     select: {
       id: true,
+      category: true,
       questionEn: true,
       answerEn: true,
       questionAr: true,

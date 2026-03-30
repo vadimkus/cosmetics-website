@@ -39,6 +39,7 @@ export async function GET(request: NextRequest) {
 
       return {
         id: index + 1,
+        category: item.category || 'general',
         question,
         answer,
       }

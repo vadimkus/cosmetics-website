@@ -55,3 +55,47 @@ This is the **second** time this limit has caused a production issue:
 
 - [ADMIN_USER_MANAGEMENT.md](./ADMIN_USER_MANAGEMENT.md) — Updated with 5MB fix section, new GET endpoint, changelog
 - [ADMIN_ANALYTICS_DASHBOARD.md](./ADMIN_ANALYTICS_DASHBOARD.md) — Same pattern (Feb 2026)
+
+---
+
+## Google Play Download Badge on Homepage
+
+### What Changed
+
+Added a **"GET IT ON Google Play"** badge next to the existing App Store badge on the homepage hero section.
+
+**Commit**: `abb4cf10` — `feat: add Google Play download badge to homepage hero`
+
+### File Changed
+
+| File | Change |
+|------|--------|
+| `components/Hero.tsx` | Added Google Play badge with Play Store SVG icon, localized text (EN/AR/RU), side-by-side layout with App Store badge |
+
+### Details
+
+- **Link**: `https://play.google.com/store/apps/details?id=ae.genosys.app`
+- **Both mobile and desktop** layouts updated
+- **Localized** for all 3 languages:
+  - EN: "GET IT ON / Google Play"
+  - AR: "متوفر على / Google Play"
+  - RU: "Доступно в / Google Play"
+- **Layout**: Flex row with `gap-2` (mobile) / `gap-3` (desktop) — badges sit side by side
+- **Style**: Matches App Store badge — black background, white text, rounded corners, hover state
+
+### Where Badges Appear
+
+| Location | App Store | Google Play |
+|----------|-----------|-------------|
+| Homepage Hero (mobile) | Yes | **Yes (new)** |
+| Homepage Hero (desktop) | Yes | **Yes (new)** |
+| Login page | Yes | Not yet |
+| Login modal | Yes | Not yet |
+| Mobile nav drawer | Yes | Not yet |
+| 404 pages | Yes | Not yet |
+
+### Deployment
+
+- Pushed to `main` at `abb4cf10`
+- Vercel auto-deployed to production
+- Live at [genosys.ae](https://genosys.ae)

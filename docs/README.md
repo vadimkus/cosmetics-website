@@ -144,21 +144,21 @@
 
 ---
 
-### 📲 iOS Native App
+### 📲 Native Apps (iOS & Android)
 
 **App Store:** [Genosys UAE](https://apps.apple.com/app/id6756648064)
+**Google Play:** [Genosys UAE](https://play.google.com/store/apps/details?id=ae.genosys.app)
 
-| Detail | Value |
-|--------|-------|
-| App Name | Genosys UAE |
-| Version | 1.5.0 (Build 64) |
-| Apple ID | 6756648064 |
-| SKU | GENOSYSUAE001 |
-| Status | **Live on App Store** · TestFlight Build 64 (Feb 19, 2026) |
+| Detail | iOS | Android |
+|--------|-----|---------|
+| App Name | Genosys UAE | Genosys UAE |
+| Package | id6756648064 | ae.genosys.app |
+| Version | 1.5.0 (Build 64) | 1.7.0 (vc75) |
+| Status | **Live on App Store** | **Internal Testing** |
 
 **Website Integration:**
-- App Store badge on homepage (Hero component)
-- Download link in mobile hamburger menu
+- **App Store + Google Play badges** on homepage Hero (side-by-side, EN/AR/RU)
+- App Store download link in mobile hamburger menu
 - **"Download Genosys UAE App" button on login page** (desktop, mobile web, modal) — below Sign in with Apple
 - Localized for EN, AR, RU
 
@@ -422,7 +422,7 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-03-30.md](./SESSION_CHANGES_2026-03-30.md) | **NEW** Admin Users 5MB fix — `profilePicture` excluded from list query, new GET `/api/admin/users/[id]`, lazy-load on profile open |
+| [SESSION_CHANGES_2026-03-30.md](./SESSION_CHANGES_2026-03-30.md) | **NEW** Admin Users 5MB fix — `profilePicture` excluded from list query, new GET `/api/admin/users/[id]`, lazy-load on profile open. **Google Play badge** added to homepage Hero (side-by-side with App Store, EN/AR/RU) |
 | [API_SECURITY_AUDIT_2026-03-23.md](./API_SECURITY_AUDIT_2026-03-23.md) | Full API audit: close unauthenticated DELETE, require revalidation secret, validate checkout inputs, fix test-email body parse, fix `exactOptionalPropertyTypes` violation (6 fixes, 5 deferred) |
 | [SESSION_CHANGES_2026-03-11.md](./SESSION_CHANGES_2026-03-11.md) | Per-item `bundleDiscount` fix, `exactOptionalPropertyTypes` build fix, **support-link payment removal** (~1,100 lines), **COD admin email fix** (`after()` vs fire-and-forget) |
 | [SESSION_CHANGES_2026-03-07.md](./SESSION_CHANGES_2026-03-07.md) | GSC Soft 404 fix (server-side order validation + robots.txt), CSRF cookie missing fix (SW Set-Cookie stripping + client fallback) |

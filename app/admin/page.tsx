@@ -367,9 +367,21 @@ export default function AdminPage() {
     setProductsRefreshing(false)
   }
 
-  // Handler for selecting a customer from users manager
-  const handleSelectCustomer = (user: User) => {
+  const handleSelectCustomer = async (user: User) => {
     setSelectedCustomer(user)
+    try {
+      const response = await fetch(`/api/admin/users/${user.id}`, {
+        headers: getAdminHeaders()
+      })
+      if (response.ok) {
+        const data = await response.json()
+        if (data.success && data.user) {
+          setSelectedCustomer({ ...user, profilePicture: data.user.profilePicture })
+        }
+      }
+    } catch {
+      debugLog('Failed to fetch profile picture for user:', user.id)
+    }
   }
 
   // Handler for selecting an order from orders manager
@@ -768,7 +780,7 @@ export default function AdminPage() {
               onUserClick={async (userEmail) => {
                 const customer = users.find(user => user.email === userEmail)
                 if (customer) {
-                  setSelectedCustomer(customer)
+                  await handleSelectCustomer(customer)
                   setActiveTab('users')
                 }
               }}

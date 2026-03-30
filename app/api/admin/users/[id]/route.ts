@@ -9,6 +9,50 @@ import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestS
 import { sendDiscountAssignmentEmail } from '@/lib/email'
 import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
+  try {
+    const { id } = await params
+    const user = await prisma.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        phone: true,
+        address: true,
+        profilePicture: true,
+        isAdmin: true,
+        canSeePrices: true,
+        discountType: true,
+        discountPercentage: true,
+        birthday: true,
+        lastLoginAt: true,
+        lastLoginSource: true,
+        lastActiveAt: true,
+        createdAt: true,
+        updatedAt: true
+      }
+    })
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
+
+    return NextResponse.json({ success: true, user })
+  } catch (error) {
+    errorLog('Error fetching user:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }

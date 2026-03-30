@@ -44,22 +44,23 @@ export async function GET(request: NextRequest) {
     
     debugLog('📊 Where clause:', JSON.stringify(whereClause))
     
-    // Build query options - include profilePicture for customer profiles
+    // Exclude profilePicture from list query — base64 images cause the response
+    // to exceed Prisma Accelerate's 5MB limit at scale (515+ users).
+    // profilePicture is fetched separately in the single-user [id] route.
     const selectFields = {
       id: true,
       email: true,
       name: true,
       phone: true,
       address: true,
-      profilePicture: true, // Include for customer profile display
       isAdmin: true,
       canSeePrices: true,
       discountType: true,
       discountPercentage: true,
       birthday: true,
       lastLoginAt: true,
-      lastLoginSource: true, // For showing login source icon (desktop_web, mobile_web, mobile_app)
-      lastActiveAt: true, // For online status in admin dashboard
+      lastLoginSource: true,
+      lastActiveAt: true,
       createdAt: true,
       updatedAt: true
     }

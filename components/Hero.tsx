@@ -273,12 +273,12 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
               </Link>
             </motion.div>
             
-            {/* App Store Download Badge */}
+            {/* App Download Badges */}
             <motion.div
               initial={animationsEnabled ? { opacity: 0, y: 10 } : {}}
               animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
               transition={animationsEnabled ? { duration: 0.5, delay: 0.4 } : {}}
-              className="mt-4"
+              className="mt-4 flex flex-wrap justify-center gap-2"
             >
               <a 
                 href="https://apps.apple.com/app/id6756648064"
@@ -294,6 +294,22 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                     {locale === 'ar' ? 'حمّل من' : locale === 'ru' ? 'Загрузите в' : 'Download on the'}
                   </span>
                   <span className="text-base font-semibold -mt-0.5">App Store</span>
+                </div>
+              </a>
+              <a 
+                href="https://play.google.com/store/apps/details?id=ae.genosys.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+              >
+                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.808 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>
+                </svg>
+                <div className="flex flex-col leading-tight">
+                  <span className="text-[10px] font-normal">
+                    {locale === 'ar' ? 'متوفر على' : locale === 'ru' ? 'Доступно в' : 'GET IT ON'}
+                  </span>
+                  <span className="text-base font-semibold -mt-0.5">Google Play</span>
                 </div>
               </a>
             </motion.div>
@@ -390,8 +406,8 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             </Link>
           </div>
           
-          {/* App Store Download Badge */}
-          <div className="mt-5">
+          {/* App Download Badges */}
+          <div className="mt-5 flex justify-center gap-3">
             <a 
               href="https://apps.apple.com/app/id6756648064"
               target="_blank"
@@ -406,6 +422,22 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                   {locale === 'ar' ? 'حمّل من' : locale === 'ru' ? 'Загрузите в' : 'Download on the'}
                 </span>
                 <span className="text-xl font-semibold -mt-0.5">App Store</span>
+              </div>
+            </a>
+            <a 
+              href="https://play.google.com/store/apps/details?id=ae.genosys.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 bg-black text-white px-5 py-2.5 rounded-xl hover:bg-gray-800 transition-colors"
+            >
+              <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.808 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>
+              </svg>
+              <div className="flex flex-col leading-tight">
+                <span className="text-xs font-normal">
+                  {locale === 'ar' ? 'متوفر على' : locale === 'ru' ? 'Доступно в' : 'GET IT ON'}
+                </span>
+                <span className="text-xl font-semibold -mt-0.5">Google Play</span>
               </div>
             </a>
           </div>

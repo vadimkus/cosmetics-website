@@ -1,7 +1,7 @@
 # Admin User Management
 
-> **Last updated**: February 14, 2026  
-> **Related**: [ADMIN_ONLINE_USERS_FEATURE.md](./ADMIN_ONLINE_USERS_FEATURE.md), [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md)
+> **Last updated**: March 30, 2026  
+> **Related**: [ADMIN_ONLINE_USERS_FEATURE.md](./ADMIN_ONLINE_USERS_FEATURE.md), [SESSION_CHANGES_2026-02-14.md](./SESSION_CHANGES_2026-02-14.md), [ADMIN_ANALYTICS_DASHBOARD.md](./ADMIN_ANALYTICS_DASHBOARD.md) (same 5MB pattern)
 
 ## Overview
 
@@ -175,11 +175,11 @@ This only affects users who registered before login source tracking was added.
 **Auth**: Admin required
 
 **Query params**:
-- `search` — Filter by name, email, phone
+- `search` — Filter by name, email, phone (case-insensitive)
 - `limit` — Max users (default 1000)
 - `offset` — Pagination offset
 
-**Response**:
+**Response** (~0.2MB for 515 users):
 ```json
 {
   "success": true,
@@ -190,7 +190,6 @@ This only affects users who registered before login source tracking was added.
       "name": "John Doe",
       "phone": "585507717",
       "address": "Jlt, Dubai",
-      "profilePicture": "...",
       "isAdmin": false,
       "canSeePrices": true,
       "discountType": "CLINIC",
@@ -205,22 +204,83 @@ This only affects users who registered before login source tracking was added.
       "lastOrderDate": "2026-02-10T12:00:00.000Z"
     }
   ],
-  "total": 378,
+  "total": 515,
   "limit": 1000,
   "offset": 0,
   "hasMore": false
 }
 ```
 
-### PUT /api/admin/users/[id]
+> **Note**: `profilePicture` is excluded from the list response to stay under Prisma Accelerate's 5MB limit. Use the single-user GET endpoint below to fetch it.
+
+### GET /api/admin/users/[id]
 
 **Auth**: Admin required
 
-**Body**: `{ canSeePrices?, discountType?, discountPercentage?, ... }`
+Fetches a single user including `profilePicture`. Called on demand when opening a customer profile from the user list.
+
+**Response**:
+```json
+{
+  "success": true,
+  "user": {
+    "id": "...",
+    "email": "user@example.com",
+    "name": "John Doe",
+    "profilePicture": "data:image/jpeg;base64,...",
+    "..."
+  }
+}
+```
+
+### PUT /api/admin/users/[id]
+
+**Auth**: Admin + CSRF required
+
+**Body**: `{ canSeePrices?, discountType?, discountPercentage?, name?, email?, phone?, address?, birthday?, profilePicture? }`
+
+Sends discount assignment email when discount is newly assigned or changed.
 
 ### DELETE /api/admin/users/[id]
 
-**Auth**: Admin required
+**Auth**: Admin + CSRF required
+
+Deletes user and cleans up related `user_actions` analytics records.
+
+---
+
+## 5MB Response Limit Fix (Mar 30, 2026)
+
+### Problem
+
+Admin Users tab showed **"No users found"** despite 515 registered users. The API was returning **500** silently:
+
+```
+P6009: The response size of the query exceeded the maximum of 5MB with 5MB.
+```
+
+**Root cause**: `profilePicture` (base64-encoded `@db.Text`) was included in the `findMany` query for all 515 users. With profile pictures averaging ~10KB each, the total response exceeded Prisma Accelerate's 5MB response cap.
+
+This is the same pattern as the [Analytics Dashboard 5MB fix](./ADMIN_ANALYTICS_DASHBOARD.md) from February 2026.
+
+### Solution
+
+| Change | Before | After |
+|--------|--------|-------|
+| List query `select` | Included `profilePicture` | Excluded — 5MB+ → 0.2MB |
+| Individual user fetch | No GET endpoint | New `GET /api/admin/users/[id]` returns full user with `profilePicture` |
+| Customer profile open | Used list data directly | Lazy-loads `profilePicture` via GET on click |
+
+### Why It Happened
+
+The query grew past 5MB as user count increased from ~378 (Feb 2026) to 515 (Mar 2026). Users uploading profile pictures via the mobile app tipped the response over the limit.
+
+### Lesson: Prisma Accelerate 5MB Limit
+
+Prisma Accelerate enforces a **5MB response limit** per query. Any `findMany` that returns `@db.Text` or binary-like fields at scale will hit this. Always:
+- Exclude large text fields from list queries
+- Fetch them per-record on demand
+- Monitor response size as user count grows
 
 ---
 
@@ -228,10 +288,10 @@ This only affects users who registered before login source tracking was added.
 
 | File | Purpose |
 |------|---------|
-| `app/admin/page.tsx` | Admin dashboard, fetches users |
+| `app/admin/page.tsx` | Admin dashboard, fetches users, lazy-loads profilePicture |
 | `components/admin/AdminUsersManager.tsx` | User table, filters, badges, timestamps |
-| `app/api/admin/users/route.ts` | GET users API — order stats, backfill, sorting |
-| `app/api/admin/users/[id]/route.ts` | PUT/DELETE user |
+| `app/api/admin/users/route.ts` | GET users list — order stats, backfill, sorting (no profilePicture) |
+| `app/api/admin/users/[id]/route.ts` | GET single user (with profilePicture), PUT, DELETE |
 | `lib/activityTracker.ts` | Activity tracking — `lastActiveAt` updates |
 | `lib/userStorageDb.ts` | `addUser()`, `updateUser()`, `findUserByEmail()` |
 
@@ -245,3 +305,4 @@ This only affects users who registered before login source tracking was added.
 | Feb 11, 2026 | Fixed updateUser() not saving lastLoginSource |
 | Feb 14, 2026 (AM) | Fixed addUser() dropping lastLoginSource; added Google OAuth + mobile register coverage |
 | Feb 14, 2026 (PM) | Added `trackUserActivityNow()` to ALL auth routes. Added session heartbeat for web users. Fixed passkey + mobile Apple missing fields. Improved admin UI with login timestamps, registration dates, and relative time formatting. Simplified backfill logic. |
+| **Mar 30, 2026** | **5MB fix**: Remove `profilePicture` from list query (P6009). Add `GET /api/admin/users/[id]`. Lazy-load profile picture in CustomerProfile. Response: 5MB+ → 0.2MB. |

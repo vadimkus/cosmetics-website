@@ -16,6 +16,7 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
+| 🟡 **Important** | [SESSION_CHANGES_2026-03-30_part3.md](./SESSION_CHANGES_2026-03-30_part3.md) | **FAQ overhaul** — categories, search, expand/collapse, 4 app FAQs, admin category picker, native app API sync |
 | 🟡 **Important** | [SESSION_CHANGES_2026-02-26_part2.md](./SESSION_CHANGES_2026-02-26_part2.md) | Skin concern pages: CTA, collapsible Why/Docs, AI pricing fix |
 | 🟡 **Important** | [SESSION_CHANGES_2026-02-26.md](./SESSION_CHANGES_2026-02-26.md) | "Download Genosys UAE App" button on login page with EN/RU/AR translations |
 | 🟡 **Important** | [SESSION_CHANGES_2026-02-20.md](./SESSION_CHANGES_2026-02-20.md) | Routine chip remove fix (web), MoySklad cushion color, **protocol PDF download fix** (HTML→PDF) |
@@ -409,12 +410,38 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 | Mobile API | `GET /api/mobile/faq` |
 | Admin API | `GET/POST /api/admin/faq-items`, `PUT/DELETE /api/admin/faq-items/[id]` |
 | Languages | English (required), Arabic, Russian (optional) |
-| Current Items | 18 FAQ items |
+| Current Items | 22 FAQ items |
+| Categories | `general`, `products`, `orders`, `shipping`, `app`, `account` |
+| Full Docs | [SESSION_CHANGES_2026-03-30_part3.md](./SESSION_CHANGES_2026-03-30_part3.md) |
+
+**Categories** (added Mar 30, 2026):
+- About GENOSYS (`general`) — 4 items
+- Products (`products`) — 4 items
+- Orders & Payment (`orders`) — 4 items
+- Shipping (`shipping`) — 2 items
+- Mobile App (`app`) — 4 items
+- Account & Support (`account`) — 4 items
+
+**Website features** (`app/faq/FAQClient.tsx`):
+- Search bar with real-time filtering
+- Category tab pills (horizontal scroll)
+- Section headers with icons when viewing "All"
+- Expand All / Collapse All toggle
+- Multi-open accordion
+- App download banner with Store badges
+- Full EN/AR/RU localization
+
+**Native app features** (`genosys-mobile-app/app/faq.js`):
+- Category grouping with section headers + icons
+- Search bar with real-time filtering
+- Multi-open accordion
+- HTML tag stripping for clean display
 
 **How to manage:**
 1. Go to Admin Dashboard → FAQ tab
 2. Add, edit, reorder, toggle, or delete FAQ items
-3. Changes appear on website and mobile app automatically
+3. Select a category from the dropdown when creating/editing
+4. Changes appear on website and mobile app automatically (mobile fetches via API)
 
 ---
 
@@ -422,7 +449,9 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
-| [SESSION_CHANGES_2026-03-30.md](./SESSION_CHANGES_2026-03-30.md) | **NEW** Admin Users 5MB fix — `profilePicture` excluded from list query, new GET `/api/admin/users/[id]`, lazy-load on profile open. **Google Play badge** added to homepage Hero (side-by-side with App Store, EN/AR/RU) |
+| [SESSION_CHANGES_2026-03-30_part3.md](./SESSION_CHANGES_2026-03-30_part3.md) | **NEW** FAQ overhaul — categories (6), search, expand/collapse, 4 new app FAQs (EN/AR/RU), admin category picker, GeoFaqSchema SEO, native app category grouping + API-driven FAQ. OTA deployed. |
+| [SESSION_CHANGES_2026-03-30_part2.md](./SESSION_CHANGES_2026-03-30_part2.md) | Android app blog post published (12 posts, all translated). **Privacy policy** expanded 4→14 sections (mobile apps, AI, UAE PDPL). **Privacy policy API** (`GET /api/mobile/privacy-policy`) for mobile sync — apps fetch from server instead of hardcoded JSON. OTA deployed. |
+| [SESSION_CHANGES_2026-03-30.md](./SESSION_CHANGES_2026-03-30.md) | Admin Users 5MB fix — `profilePicture` excluded from list query, new GET `/api/admin/users/[id]`, lazy-load on profile open. **Google Play badge** added to homepage Hero (side-by-side with App Store, EN/AR/RU) |
 | [API_SECURITY_AUDIT_2026-03-23.md](./API_SECURITY_AUDIT_2026-03-23.md) | Full API audit: close unauthenticated DELETE, require revalidation secret, validate checkout inputs, fix test-email body parse, fix `exactOptionalPropertyTypes` violation (6 fixes, 5 deferred) |
 | [SESSION_CHANGES_2026-03-11.md](./SESSION_CHANGES_2026-03-11.md) | Per-item `bundleDiscount` fix, `exactOptionalPropertyTypes` build fix, **support-link payment removal** (~1,100 lines), **COD admin email fix** (`after()` vs fire-and-forget) |
 | [SESSION_CHANGES_2026-03-07.md](./SESSION_CHANGES_2026-03-07.md) | GSC Soft 404 fix (server-side order validation + robots.txt), CSRF cookie missing fix (SW Set-Cookie stripping + client fallback) |

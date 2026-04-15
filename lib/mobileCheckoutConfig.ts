@@ -47,12 +47,15 @@ export function calculateMobileShipping(subtotal: number, emirate: string): numb
 /**
  * VAT is treated as INCLUDED in the displayed subtotal/shipping/total in the mobile UI.
  * We store VAT as the included portion for transparency.
+ *
+ * Returns the VAT portion rounded to 2 decimal places (AED fils precision).
+ * FTA requires exact AED amounts on invoices — no fractional fils.
  */
 export function calculateVatIncluded(total: number): number {
   const t = Number(total) || 0;
   const r = Number(MOBILE_CHECKOUT_CONFIG.vatRate) || 0;
   if (t <= 0 || r <= 0) return 0;
-  return (t * r) / (1 + r);
+  return Math.round(((t * r) / (1 + r)) * 100) / 100;
 }
 
 

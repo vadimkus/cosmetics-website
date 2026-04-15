@@ -7,6 +7,7 @@ import { SITE_URL } from '@/lib/siteConfig'
 import { loadEmailTranslations, LOGO_URL } from './utils'
 import { sendEmail } from './transporter'
 import { emailTemplates } from './templates'
+import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import enFallbackMessages from '@/messages/en.json'
 
 export const sendOrderStatusUpdate = async (order: { orderNumber: string; customerName: string; customerEmail: string; id?: string; items?: Array<{ productName: string; quantity: number; price: number; image?: string; color?: string; size?: string }>; total?: number; customerAddress?: string; customerEmirate?: string; locale?: string }, newStatus: string): Promise<{ success: boolean; error?: string; messageId?: string }> => {
@@ -231,7 +232,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
       }).join('')
       
       const subtotal = order.items.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-      const vat = subtotal * (5 / 105)
+      const vat = calculateVatIncluded(order.total || subtotal)
       
       appleItemsHTML = `
         <!-- Items Section -->

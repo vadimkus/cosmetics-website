@@ -15,6 +15,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter, useSearchParams } from 'next/navigation'
 
@@ -827,7 +828,7 @@ export default function CartClient() {
                   
                   <div className={`flex justify-between text-xs md:text-base text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span>{t('cart.vat')}</span>
-                    <span>{user ? `AED ${((subtotal + shippingCost) / 1.05 * 0.05).toFixed(2)}` : t('cart.loginToSeePrice')}</span>
+                    <span>{user ? `AED ${calculateVatIncluded(subtotal + shippingCost).toFixed(2)}` : t('cart.loginToSeePrice')}</span>
                   </div>
                   
                   <div className={`text-[10px] md:text-xs text-red-600 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>

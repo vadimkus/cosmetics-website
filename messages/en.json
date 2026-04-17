@@ -1384,6 +1384,7 @@
     "signInWithGoogle": "Sign in with Google",
     "signInWithApple": "Sign in with Apple",
     "downloadApp": "Download Genosys UAE App",
+    "downloadAppGoogle": "Download on Google Play",
     "signInWithPasskey": "Sign in with Face ID / Touch ID",
     "addPasskey": "Add Face ID / Touch ID",
     "passkeyAdded": "Passkey added successfully",

@@ -241,12 +241,25 @@ export default function LoginClient() {
             href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
             target="_blank"
             rel="noopener noreferrer"
-            className={`w-full flex items-center justify-center gap-2 py-3 px-4 mb-4 bg-black text-white rounded-xl hover:bg-black/90 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+            className={`w-full flex items-center justify-center gap-2 py-3 px-4 mb-3 bg-black text-white rounded-xl hover:bg-black/90 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
             </svg>
             <span className="font-medium text-sm">{t('login.downloadApp')}</span>
+          </a>
+
+          {/* Download Google Play Button */}
+          <a
+            href="https://play.google.com/store/apps/details?id=ae.genosys.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`w-full flex items-center justify-center gap-2 py-3 px-4 mb-4 bg-black text-white rounded-xl hover:bg-black/90 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.808 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>
+            </svg>
+            <span className="font-medium text-sm">{t('login.downloadAppGoogle')}</span>
           </a>
 
           {/* Divider */}
@@ -580,6 +593,19 @@ export default function LoginClient() {
                 <path fill="currentColor" d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76.5 0-103.7 40.8-165.9 40.8s-105.6-57-155.5-127C46.7 790.7 0 663 0 541.8c0-194.4 126.4-297.5 250.8-297.5 66.1 0 121.2 43.4 162.7 43.4 39.5 0 101.1-46 176.3-46 28.5 0 130.9 2.6 198.3 99.2zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z" />
               </svg>
               <span className="text-xs md:text-sm">{t('login.downloadApp')}</span>
+            </a>
+
+            {/* Download Google Play Button */}
+            <a
+              href="https://play.google.com/store/apps/details?id=ae.genosys.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-black text-white py-2 rounded-lg font-semibold hover:bg-black/90 transition-colors shadow-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            >
+              <svg className="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.808 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>
+              </svg>
+              <span className="text-xs md:text-sm">{t('login.downloadAppGoogle')}</span>
             </a>
 
             {/* Divider */}

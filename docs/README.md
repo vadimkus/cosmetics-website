@@ -16,6 +16,7 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
+| 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part2.md](./SESSION_CHANGES_2026-04-17_part2.md) | **Google Play button on `/login`** — added below App Store button on mobile + desktop layouts, EN/RU/AR translations |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-17.md](./SESSION_CHANGES_2026-04-17.md) | **MoySklad push fixes** — 5% VAT on delivery (FTA compliance), structured `shipmentAddressFull` so delivery address no longer blank in UI |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-06.md](./SESSION_CHANGES_2026-04-06.md) | **MoySklad API deep-dive** — 2025 financials, Q1 2026 invoices, stock alerts, Montaji PDF update |
 | 🟡 **Important** | [SESSION_CHANGES_2026-03-30_part3.md](./SESSION_CHANGES_2026-03-30_part3.md) | **FAQ overhaul** — categories, search, expand/collapse, 4 app FAQs, admin category picker, native app API sync |
@@ -453,6 +454,7 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
+| [SESSION_CHANGES_2026-04-17_part2.md](./SESSION_CHANGES_2026-04-17_part2.md) | **NEW** Google Play "Download on Google Play" button added to `/login` page (EN/RU/AR), mirrors the existing App Store button on both mobile compact card and desktop card. Android users now have a direct Play Store link at login. Icon + label + RTL handling all wired through `messages/*.json` via new `login.downloadAppGoogle` key. Scoped to `/login` only — `/pwa-login` and `LoginModal` intentionally untouched. |
 | [SESSION_CHANGES_2026-04-17.md](./SESSION_CHANGES_2026-04-17.md) | **NEW** MoySklad push-integration fixes: (1) delivery service line now booked at 5% VAT instead of 0% — fixes FTA output-VAT under-declaration; (2) delivery address now sent as structured `shipmentAddressFull` (country/city/street) instead of plain-string `shipmentAddress` — fixes blank delivery-address field in MoySklad UI |
 | [SESSION_CHANGES_2026-04-06.md](./SESSION_CHANGES_2026-04-06.md) | **NEW** MoySklad API deep-dive — full financial data extraction (2025 P&L/BS, Q1 2026 invoices, stock alerts, expense categorization), Montaji registration review (EPI Peeling EXPIRED), PDF update + Vercel deploy. Scripts: `moysklad-q1-report.js`, `moysklad-invoices-export.js`, `moysklad-2025-financials.js`, `moysklad-2025-expenses.js` |
 | [SESSION_CHANGES_2026-03-30_part3.md](./SESSION_CHANGES_2026-03-30_part3.md) | **NEW** FAQ overhaul — categories (6), search, expand/collapse, 4 new app FAQs (EN/AR/RU), admin category picker, GeoFaqSchema SEO, native app category grouping + API-driven FAQ. OTA deployed. |

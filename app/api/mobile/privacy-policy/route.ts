@@ -113,7 +113,7 @@ function getContent(locale: string) {
         { label: 'Camera (Optional):', text: 'Used only for AI Skin Analysis. Photos are not stored after analysis.' },
       ],
       links: [
-        { label: 'App Store (iOS)', url: 'https://apps.apple.com/app/id6756648064' },
+        { label: 'App Store (iOS)', url: 'https://apps.apple.com/ae/app/genosys-uae/id6756648064' },
         { label: 'Google Play (Android)', url: 'https://play.google.com/store/apps/details?id=ae.genosys.app' },
       ],
     },

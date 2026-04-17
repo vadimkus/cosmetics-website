@@ -48,7 +48,7 @@ const content = `<div class="blog-content">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 tracking-tight">GENOSYS UAE</h2>
     <p class="text-lg md:text-xl text-gray-600 mb-6">Premium Skincare & Beauty — Now in Your Pocket</p>
     <a 
-      href="https://apps.apple.com/app/id6756648064" 
+      href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" 
       target="_blank" 
       rel="noopener noreferrer"
       class="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-800 transition-colors shadow-lg"
@@ -61,7 +61,7 @@ const content = `<div class="blog-content">
 
   <!-- App Store Banner -->
   <div class="mb-10">
-    <a href="https://apps.apple.com/app/id6756648064" target="_blank" rel="noopener noreferrer" class="block">
+    <a href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" target="_blank" rel="noopener noreferrer" class="block">
       <img 
         src="/blog/post_app/app2.png" 
         alt="Genosys UAE on the App Store — Korean Skincare & Beauty UAE — Free" 
@@ -319,7 +319,7 @@ const content = `<div class="blog-content">
     <h3 class="text-2xl md:text-3xl font-bold mb-3">Download GENOSYS UAE — It's Free</h3>
     <p class="text-lg text-gray-300 mb-6 max-w-xl mx-auto">Join thousands of customers across the UAE who've upgraded their skincare shopping experience. Available on iPhone and iPad.</p>
     <a 
-      href="https://apps.apple.com/app/id6756648064" 
+      href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" 
       target="_blank" 
       rel="noopener noreferrer"
       class="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-xl text-lg font-bold hover:bg-gray-100 transition-colors shadow-lg"
@@ -374,7 +374,7 @@ const contentAr = `<div class="blog-content" dir="rtl">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 tracking-tight">GENOSYS UAE</h2>
     <p class="text-lg md:text-xl text-gray-600 mb-6">العناية بالبشرة الفاخرة — الآن في جيبك</p>
     <a 
-      href="https://apps.apple.com/app/id6756648064" 
+      href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" 
       target="_blank" 
       rel="noopener noreferrer"
       class="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-800 transition-colors shadow-lg"
@@ -386,7 +386,7 @@ const contentAr = `<div class="blog-content" dir="rtl">
 
   <!-- App Store Banner -->
   <div class="mb-10">
-    <a href="https://apps.apple.com/app/id6756648064" target="_blank" rel="noopener noreferrer" class="block">
+    <a href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" target="_blank" rel="noopener noreferrer" class="block">
       <img 
         src="/blog/post_app/app2.png" 
         alt="Genosys UAE في متجر التطبيقات — مجاني" 
@@ -516,7 +516,7 @@ const contentAr = `<div class="blog-content" dir="rtl">
     <h3 class="text-2xl md:text-3xl font-bold mb-3">حمّل GENOSYS UAE — مجاناً</h3>
     <p class="text-lg text-gray-300 mb-6">انضم إلى آلاف العملاء في الإمارات. متوفر على iPhone و iPad.</p>
     <a 
-      href="https://apps.apple.com/app/id6756648064" 
+      href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" 
       target="_blank" 
       rel="noopener noreferrer"
       class="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-xl text-lg font-bold hover:bg-gray-100 transition-colors shadow-lg"
@@ -570,7 +570,7 @@ const contentRu = `<div class="blog-content">
     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-3 tracking-tight">GENOSYS UAE</h2>
     <p class="text-lg md:text-xl text-gray-600 mb-6">Премиум-косметика — теперь у вас в кармане</p>
     <a 
-      href="https://apps.apple.com/app/id6756648064" 
+      href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" 
       target="_blank" 
       rel="noopener noreferrer"
       class="inline-flex items-center gap-3 bg-black text-white px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gray-800 transition-colors shadow-lg"
@@ -582,7 +582,7 @@ const contentRu = `<div class="blog-content">
 
   <!-- App Store Banner -->
   <div class="mb-10">
-    <a href="https://apps.apple.com/app/id6756648064" target="_blank" rel="noopener noreferrer" class="block">
+    <a href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" target="_blank" rel="noopener noreferrer" class="block">
       <img 
         src="/blog/post_app/app2.png" 
         alt="Genosys UAE в App Store — бесплатно" 
@@ -735,7 +735,7 @@ const contentRu = `<div class="blog-content">
     <h3 class="text-2xl md:text-3xl font-bold mb-3">Скачайте GENOSYS UAE — бесплатно</h3>
     <p class="text-lg text-gray-300 mb-6">Присоединяйтесь к тысячам клиентов в ОАЭ. Доступно на iPhone и iPad.</p>
     <a 
-      href="https://apps.apple.com/app/id6756648064" 
+      href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" 
       target="_blank" 
       rel="noopener noreferrer"
       class="inline-flex items-center gap-3 bg-white text-gray-900 px-8 py-4 rounded-xl text-lg font-bold hover:bg-gray-100 transition-colors shadow-lg"
@@ -888,7 +888,7 @@ async function updateBlogPost() {
     console.log(`   AR: https://genosys.ae/ar/blog/${newSlug}`)
     console.log(`   RU: https://genosys.ae/ru/blog/${newSlug}`)
     console.log('')
-    console.log('📱 App Store: https://apps.apple.com/app/id6756648064')
+    console.log('📱 App Store: https://apps.apple.com/ae/app/genosys-uae/id6756648064')
     
     await prisma.$disconnect()
     process.exit(0)

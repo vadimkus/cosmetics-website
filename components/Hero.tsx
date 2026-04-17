@@ -281,7 +281,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
               className="mt-4 flex flex-wrap justify-center gap-2"
             >
               <a 
-                href="https://apps.apple.com/app/id6756648064"
+                href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
@@ -409,7 +409,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
           {/* App Download Badges */}
           <div className="mt-5 flex justify-center gap-3">
             <a 
-              href="https://apps.apple.com/app/id6756648064"
+              href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2.5 bg-black text-white px-5 py-2.5 rounded-xl hover:bg-gray-800 transition-colors"

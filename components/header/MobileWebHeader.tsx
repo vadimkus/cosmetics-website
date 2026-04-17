@@ -550,7 +550,7 @@ export default function MobileWebHeader() {
                 {/* App Store Download */}
                 <div className="col-span-2 flex justify-center my-2">
                   <a
-                    href="https://apps.apple.com/app/id6756648064"
+                    href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`inline-flex items-center gap-2 py-1.5 px-4 bg-black text-white rounded-lg border border-gray-600 transition-colors active:bg-gray-800 ${isRTL ? 'flex-row-reverse' : ''}`}

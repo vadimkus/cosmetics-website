@@ -274,7 +274,7 @@ const translations = {
 
   <div class="text-center">
     <p class="text-gray-600">تفضل التطبيقات الأصلية؟ تطبيق iOS متوفر أيضاً!</p>
-    <a href="https://apps.apple.com/app/id6756648064" class="text-primary-600 font-semibold hover:underline">📱 حمّل من App Store ←</a>
+    <a href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" class="text-primary-600 font-semibold hover:underline">📱 حمّل من App Store ←</a>
   </div>
 </div>`,
     contentRu: `<div class="blog-content">
@@ -342,7 +342,7 @@ const translations = {
 
   <div class="text-center">
     <p class="text-gray-600">Предпочитаете нативные приложения? Наше iOS-приложение тоже доступно!</p>
-    <a href="https://apps.apple.com/app/id6756648064" class="text-primary-600 font-semibold hover:underline">📱 Скачать из App Store →</a>
+    <a href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" class="text-primary-600 font-semibold hover:underline">📱 Скачать из App Store →</a>
   </div>
 </div>`
   },

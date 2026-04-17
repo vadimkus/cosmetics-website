@@ -16,6 +16,7 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
+| 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part5.md](./SESSION_CHANGES_2026-04-17_part5.md) | **Post-audit hygiene pass** — Apple App Store URLs unified to `/ae/app/genosys-uae/` form across all live code, admin page backups deleted, untracked files triaged (PII moved out of repo), `.gitignore` hardened, mobile-app iOS OTA dual-config documented |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part4.md](./SESSION_CHANGES_2026-04-17_part4.md) | **Apple button → Apple's official "Download on the App Store"** (EN/RU/AR) + Google Play button added to `LoginModal.tsx` for full symmetry |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part3.md](./SESSION_CHANGES_2026-04-17_part3.md) | **Apple button text → "Download on Apple Store"** — renamed `login.downloadApp` → `login.downloadAppApple` for symmetry with Google button (EN/RU/AR) |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part2.md](./SESSION_CHANGES_2026-04-17_part2.md) | **Google Play button on `/login`** — added below App Store button on mobile + desktop layouts, EN/RU/AR translations |
@@ -154,7 +155,7 @@
 
 ### 📲 Native Apps (iOS & Android)
 
-**App Store:** [Genosys UAE](https://apps.apple.com/app/id6756648064)
+**App Store:** [Genosys UAE](https://apps.apple.com/ae/app/genosys-uae/id6756648064)
 **Google Play:** [Genosys UAE](https://play.google.com/store/apps/details?id=ae.genosys.app)
 
 | Detail | iOS | Android |
@@ -456,6 +457,7 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
+| [SESSION_CHANGES_2026-04-17_part5.md](./SESSION_CHANGES_2026-04-17_part5.md) | **NEW** Post-audit hygiene pass. Apple App Store URLs unified to UAE locale form (`https://apps.apple.com/ae/app/genosys-uae/id6756648064`) across all live code, API routes, not-found pages, and `docs/README.md` — replaces the short `/app/id...` form that was inconsistent between header/Hero and LoginClient. Admin page backups (`page.tsx.backup`, `.bak`) deleted. Untracked files triaged: PII-bearing customer protocols moved to `~/Documents/genosys-customer-protocols/`, orphan assets (6 images, 11MB Splash2.mp4) deleted, one-off Stuart/BB-cream scripts deleted, `list-blog-posts.js` + `vat-q1-2026-validation.js` kept. `.gitignore` adds `/docs/customers/` safety net. Mobile-app: new `docs/OTA_UPDATES.md` explaining why `Expo.plist` and `app.json.updates` both carry OTA config (iOS production doesn't prebuild). |
 | [SESSION_CHANGES_2026-04-17_part4.md](./SESSION_CHANGES_2026-04-17_part4.md) | **NEW** (1) Apple button label corrected to Apple's official brand wording: `"Download on the App Store"` (EN), `"Загрузите в App Store"` (RU), `"حمّل من App Store"` (AR). (2) Google Play button added to `LoginModal.tsx` so the inline login popover now has the same App Store + Google Play stack as `/login`. |
 | [SESSION_CHANGES_2026-04-17_part3.md](./SESSION_CHANGES_2026-04-17_part3.md) | **NEW** Apple button label follow-up: renamed `login.downloadApp` → `login.downloadAppApple` (symmetric with `login.downloadAppGoogle`), new value `"Download on Apple Store"` / `"Загрузите в Apple Store"` / `"احصل عليه من Apple Store"`. Updated 3 call-sites: `LoginClient.tsx` (mobile + desktop) and `LoginModal.tsx`. Modal also gets the new text. |
 | [SESSION_CHANGES_2026-04-17_part2.md](./SESSION_CHANGES_2026-04-17_part2.md) | **NEW** Google Play "Download on Google Play" button added to `/login` page (EN/RU/AR), mirrors the existing App Store button on both mobile compact card and desktop card. Android users now have a direct Play Store link at login. Icon + label + RTL handling all wired through `messages/*.json` via new `login.downloadAppGoogle` key. Scoped to `/login` only — `/pwa-login` and `LoginModal` intentionally untouched. |

@@ -51,6 +51,9 @@ next-env.d.ts
 !/data/productTranslationsRu.ts
 !/data/productConfig.ts
 
+# Customer-specific protocols / PII (keep in ~/Documents/genosys-customer-protocols/)
+/docs/customers/
+
 # Database files
 *.db
 *.sqlite

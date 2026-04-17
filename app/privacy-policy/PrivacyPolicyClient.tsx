@@ -314,7 +314,7 @@ export default function PrivacyPolicyClient() {
             <div><span className="font-semibold text-gray-900">{t.s3CameraLabel}</span> {t.s3CameraText}</div>
           </div>
           <div className={`mt-3 flex flex-wrap gap-3 ${rtl}`}>
-            <a href="https://apps.apple.com/app/id6756648064" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary-600 hover:underline">
+            <a href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary-600 hover:underline">
               <ExternalLink className="w-4 h-4" /> App Store (iOS)
             </a>
             <a href="https://play.google.com/store/apps/details?id=ae.genosys.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary-600 hover:underline">

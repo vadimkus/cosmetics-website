@@ -173,7 +173,9 @@ const content = `<div class="blog-content">
       </div>
       <div class="grid md:grid-cols-3 gap-5 items-center">
         <div class="md:col-span-1">
-          <img src="/blog/summer-cleanser.jpg" alt="Gentle summer cleanser" class="rounded-xl shadow-sm w-full" />
+          <a href="https://genosys.ae/products/10">
+            <img src="/images/SNOW.jpg" alt="GENOSYS Snow O₂ Cleanser — foaming oxygen cleanser" class="rounded-xl shadow-sm w-full bg-gray-50" />
+          </a>
         </div>
         <div class="md:col-span-2">
           <p class="text-gray-700 leading-relaxed mb-3">Summer skin needs <strong>more</strong> cleansing (sweat, SPF, pollution) but also <strong>gentler</strong> cleansing (hard water already depletes the barrier). The answer is an oxygenating foam, not a harsh sulfate wash.</p>
@@ -205,7 +207,9 @@ const content = `<div class="blog-content">
       </div>
       <div class="grid md:grid-cols-3 gap-5 items-center">
         <div class="md:col-span-1">
-          <img src="/blog/summer-serums.jpg" alt="Hyaluronic acid serums" class="rounded-xl shadow-sm w-full" />
+          <a href="https://genosys.ae/products/18">
+            <img src="/images/HRS.jpg" alt="GENOSYS Moisture Replenishing Hyaluron Serum" class="rounded-xl shadow-sm w-full bg-gray-50" />
+          </a>
         </div>
         <div class="md:col-span-2">
           <p class="text-gray-700 leading-relaxed mb-3">Most UAE residents are chronically dehydrated — not dry, <em>dehydrated</em>. The difference matters: oily/combination skin can still be dehydrated, which is why so many people over-moisturize and still feel tight.</p>
@@ -242,43 +246,39 @@ const content = `<div class="blog-content">
         <span class="w-10 h-10 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold">5</span>
         <h4 class="text-xl md:text-2xl font-bold text-gray-900">SPF — the only non-negotiable</h4>
       </div>
-      <div class="grid md:grid-cols-3 gap-5 items-start">
-        <div class="md:col-span-1">
-          <img src="/blog/summer-sunscreen1.jpg" alt="Sunscreen application UAE summer" class="rounded-xl shadow-sm w-full" />
-        </div>
-        <div class="md:col-span-2">
-          <p class="text-gray-700 leading-relaxed mb-3">If you only do one thing from this guide, do this step. Between May and October the UAE UV index is extreme for 8+ hours a day. SPF 30 is not enough. Even SPF 50 used <em>once</em> in the morning is not enough if you are outdoors.</p>
-          <p class="text-gray-700 leading-relaxed mb-3"><strong>The rule:</strong> SPF 50+ PA++++ every morning. Reapply every 2 hours if you are outside, or at 12pm and 3pm if you are mostly indoors.</p>
-        </div>
+      <div class="mb-6">
+        <p class="text-gray-700 leading-relaxed mb-3">If you only do one thing from this guide, do this step. Between May and October the UAE UV index is extreme for 8+ hours a day. SPF 30 is not enough. Even SPF 50 used <em>once</em> in the morning is not enough if you are outdoors.</p>
+        <p class="text-gray-700 leading-relaxed"><strong>The rule:</strong> SPF 50+ PA++++ every morning. Reapply every 2 hours if you are outside, or at 12pm and 3pm if you are mostly indoors.</p>
       </div>
 
-      <!-- Two Sunscreens Compared -->
-      <div class="mt-6">
-        <div class="mb-5">
-          <img src="/blog/summer-sunscreen2.jpg" alt="Comparing two sunscreens" class="rounded-xl shadow-sm mx-auto max-w-md w-full" />
-        </div>
-        <div class="grid md:grid-cols-2 gap-4">
-          <div class="bg-white rounded-xl p-5 border-2 border-amber-300 shadow-sm">
-            <div class="flex items-baseline justify-between mb-2">
-              <h5 class="font-bold text-gray-900 text-lg">Ultra Shield</h5>
-              <span class="text-sm font-semibold text-amber-700">SPF 50+ PA++++</span>
-            </div>
-            <p class="text-gray-600 text-sm leading-relaxed mb-3">Our summer workhorse. Outdoor use, beach days, golf, school runs. Water-resistant, broad-spectrum, sits beautifully under makeup.</p>
-            <p class="font-bold text-gray-900 mb-3">250 AED</p>
-            <a href="https://genosys.ae/products/39" class="inline-flex items-center gap-2 bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors">Ultra Shield SPF 50+ →</a>
+      <!-- Two Sunscreens Compared — with actual product images -->
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="bg-white rounded-xl p-5 border-2 border-amber-300 shadow-sm flex flex-col">
+          <a href="https://genosys.ae/products/39" class="block mb-4">
+            <img src="/images/SPF50.jpg" alt="GENOSYS Ultra Shield Sun Cream SPF 50+ PA++++" class="rounded-lg w-full bg-gray-50" />
+          </a>
+          <div class="flex items-baseline justify-between mb-2">
+            <h5 class="font-bold text-gray-900 text-lg">Ultra Shield</h5>
+            <span class="text-sm font-semibold text-amber-700">SPF 50+ PA++++</span>
           </div>
-          <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
-            <div class="flex items-baseline justify-between mb-2">
-              <h5 class="font-bold text-gray-900 text-lg">Multi Sun</h5>
-              <span class="text-sm font-semibold text-gray-600">SPF 40 PA++</span>
-            </div>
-            <p class="text-gray-600 text-sm leading-relaxed mb-3">Lighter daily option for short outdoor exposure and mostly-indoor days. Near-invisible finish, good for makeup wearers.</p>
-            <p class="font-bold text-gray-900 mb-3">210 AED</p>
-            <a href="https://genosys.ae/products/40" class="inline-flex items-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors">Multi Sun SPF 40 →</a>
-          </div>
+          <p class="text-gray-600 text-sm leading-relaxed mb-3">Our summer workhorse. Outdoor use, beach days, golf, school runs. Water-resistant, broad-spectrum, sits beautifully under makeup.</p>
+          <p class="font-bold text-gray-900 mb-3 mt-auto">250 AED</p>
+          <a href="https://genosys.ae/products/39" class="inline-flex items-center justify-center gap-2 bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-amber-700 transition-colors">Ultra Shield SPF 50+ →</a>
         </div>
-        <p class="text-amber-900 text-sm mt-4 bg-amber-100/60 rounded-lg p-3 border border-amber-200"><strong>UAE summer verdict:</strong> Ultra Shield from May to October. Multi Sun from November to April. No compromise in peak months.</p>
+        <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm flex flex-col">
+          <a href="https://genosys.ae/products/40" class="block mb-4">
+            <img src="/images/SSUN.jpg" alt="GENOSYS Multi Sun Cream SPF 40 PA++" class="rounded-lg w-full bg-gray-50" />
+          </a>
+          <div class="flex items-baseline justify-between mb-2">
+            <h5 class="font-bold text-gray-900 text-lg">Multi Sun</h5>
+            <span class="text-sm font-semibold text-gray-600">SPF 40 PA++</span>
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed mb-3">Lighter daily option for short outdoor exposure and mostly-indoor days. Near-invisible finish, good for makeup wearers.</p>
+          <p class="font-bold text-gray-900 mb-3 mt-auto">210 AED</p>
+          <a href="https://genosys.ae/products/40" class="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-gray-800 transition-colors">Multi Sun SPF 40 →</a>
+        </div>
       </div>
+      <p class="text-amber-900 text-sm mt-4 bg-amber-100/60 rounded-lg p-3 border border-amber-200"><strong>UAE summer verdict:</strong> Ultra Shield from May to October. Multi Sun from November to April. No compromise in peak months.</p>
     </div>
 
     <!-- Step 6 REFRESH -->
@@ -467,9 +467,14 @@ const contentAr = `<div class="blog-content" dir="rtl">
 
     <div class="space-y-4">
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-        <div class="flex items-center gap-3 mb-2"><span class="w-9 h-9 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold">1</span><h4 class="text-lg font-bold text-gray-900">التنظيف — دون تجريد</h4></div>
-        <p class="text-gray-700 leading-relaxed mb-3">نوصي بـ<a href="https://genosys.ae/products/10" class="text-sky-700 font-semibold hover:underline">SNOW O₂ CLEANSER</a> — رغوة مؤكسجة ترفع العرق والواقي الشمسي دون إتلاف حاجز البشرة.</p>
-        <a href="https://genosys.ae/products/10" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">منظف Snow O₂ — 330 درهم ←</a>
+        <div class="flex items-center gap-3 mb-3"><span class="w-9 h-9 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold">1</span><h4 class="text-lg font-bold text-gray-900">التنظيف — دون تجريد</h4></div>
+        <div class="grid grid-cols-3 gap-4 items-center">
+          <a href="https://genosys.ae/products/10" class="col-span-1"><img src="/images/SNOW.jpg" alt="Snow O₂ Cleanser" class="rounded-lg w-full bg-gray-50" /></a>
+          <div class="col-span-2">
+            <p class="text-gray-700 leading-relaxed mb-3">نوصي بـ<a href="https://genosys.ae/products/10" class="text-sky-700 font-semibold hover:underline">SNOW O₂ CLEANSER</a> — رغوة مؤكسجة ترفع العرق والواقي الشمسي دون إتلاف حاجز البشرة.</p>
+            <a href="https://genosys.ae/products/10" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">منظف Snow O₂ — 330 درهم ←</a>
+          </div>
+        </div>
       </div>
 
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
@@ -479,9 +484,14 @@ const contentAr = `<div class="blog-content" dir="rtl">
       </div>
 
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-        <div class="flex items-center gap-3 mb-2"><span class="w-9 h-9 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold">3</span><h4 class="text-lg font-bold text-gray-900">السيروم — استعيدي الرطوبة</h4></div>
-        <p class="text-gray-700 leading-relaxed mb-3">السيروم بـ 5 أوزان جزيئية من حمض الهيالورونيك يرطب على كل الأعماق. <a href="https://genosys.ae/products/18" class="text-sky-700 font-semibold hover:underline">MOISTURE REPLENISHING HYALURON SERUM</a>.</p>
-        <a href="https://genosys.ae/products/18" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">سيروم الهيالورون — 330 درهم ←</a>
+        <div class="flex items-center gap-3 mb-3"><span class="w-9 h-9 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold">3</span><h4 class="text-lg font-bold text-gray-900">السيروم — استعيدي الرطوبة</h4></div>
+        <div class="grid grid-cols-3 gap-4 items-center">
+          <a href="https://genosys.ae/products/18" class="col-span-1"><img src="/images/HRS.jpg" alt="Moisture Replenishing Hyaluron Serum" class="rounded-lg w-full bg-gray-50" /></a>
+          <div class="col-span-2">
+            <p class="text-gray-700 leading-relaxed mb-3">السيروم بـ 5 أوزان جزيئية من حمض الهيالورونيك يرطب على كل الأعماق. <a href="https://genosys.ae/products/18" class="text-sky-700 font-semibold hover:underline">MOISTURE REPLENISHING HYALURON SERUM</a>.</p>
+            <a href="https://genosys.ae/products/18" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">سيروم الهيالورون — 330 درهم ←</a>
+          </div>
+        </div>
       </div>
 
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
@@ -491,11 +501,20 @@ const contentAr = `<div class="blog-content" dir="rtl">
 
       <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 shadow-sm border border-amber-200">
         <div class="flex items-center gap-3 mb-2"><span class="w-9 h-9 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold">5</span><h4 class="text-lg font-bold text-gray-900">الواقي الشمسي — الخطوة غير القابلة للتفاوض</h4></div>
-        <div class="my-4"><img src="/blog/summer-sunscreen2.jpg" alt="مقارنة بين الواقيات الشمسية" class="rounded-xl shadow-sm mx-auto max-w-sm w-full" /></div>
-        <p class="text-gray-700 leading-relaxed mb-3">بين مايو وأكتوبر: SPF 50+ PA++++ كل صباح مع إعادة التطبيق كل ساعتين.</p>
+        <p class="text-gray-700 leading-relaxed mb-4">بين مايو وأكتوبر: SPF 50+ PA++++ كل صباح مع إعادة التطبيق كل ساعتين.</p>
         <div class="grid md:grid-cols-2 gap-3">
-          <a href="https://genosys.ae/products/39" class="bg-amber-600 text-white px-4 py-3 rounded-lg text-sm font-semibold text-center">Ultra Shield SPF 50+ — 250 درهم</a>
-          <a href="https://genosys.ae/products/40" class="bg-gray-900 text-white px-4 py-3 rounded-lg text-sm font-semibold text-center">Multi Sun SPF 40 — 210 درهم</a>
+          <div class="bg-white rounded-xl p-4 border-2 border-amber-300 text-center">
+            <a href="https://genosys.ae/products/39" class="block mb-3"><img src="/images/SPF50.jpg" alt="Ultra Shield SPF 50+" class="rounded-lg w-full bg-gray-50" /></a>
+            <h5 class="font-bold text-gray-900 mb-1">Ultra Shield SPF 50+ PA++++</h5>
+            <p class="font-bold text-gray-900 mb-2">250 درهم</p>
+            <a href="https://genosys.ae/products/39" class="inline-flex bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">تسوقي الآن ←</a>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-gray-200 text-center">
+            <a href="https://genosys.ae/products/40" class="block mb-3"><img src="/images/SSUN.jpg" alt="Multi Sun SPF 40" class="rounded-lg w-full bg-gray-50" /></a>
+            <h5 class="font-bold text-gray-900 mb-1">Multi Sun SPF 40 PA++</h5>
+            <p class="font-bold text-gray-900 mb-2">210 درهم</p>
+            <a href="https://genosys.ae/products/40" class="inline-flex bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-semibold">تسوقي الآن ←</a>
+          </div>
         </div>
       </div>
 
@@ -613,9 +632,14 @@ const contentRu = `<div class="blog-content">
     <div class="space-y-4">
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
         <div class="flex items-center gap-3 mb-3"><span class="w-9 h-9 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold">1</span><h4 class="text-lg font-bold text-gray-900">Очищение — без травмирования</h4></div>
-        <p class="text-gray-700 leading-relaxed mb-3">Летом коже нужно <strong>больше</strong> очищения (пот, SPF, пыль), но <strong>мягче</strong> (жёсткая вода уже истощает барьер). Ответ — кислородная пенка, а не сульфатная чистка.</p>
-        <p class="text-gray-700 leading-relaxed mb-3">Наш выбор — <a href="https://genosys.ae/products/10" class="text-sky-700 font-semibold hover:underline">SNOW O₂ CLEANSER</a>. Вспенивается при контакте с водой, снимает себум и SPF, не стягивает.</p>
-        <a href="https://genosys.ae/products/10" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Snow O₂ Cleanser — 330 AED →</a>
+        <div class="grid grid-cols-3 gap-4 items-center">
+          <a href="https://genosys.ae/products/10" class="col-span-1"><img src="/images/SNOW.jpg" alt="GENOSYS Snow O₂ Cleanser" class="rounded-lg w-full bg-gray-50" /></a>
+          <div class="col-span-2">
+            <p class="text-gray-700 leading-relaxed mb-2">Летом коже нужно <strong>больше</strong> очищения (пот, SPF, пыль), но <strong>мягче</strong>. Ответ — кислородная пенка.</p>
+            <p class="text-gray-700 leading-relaxed mb-3">Наш выбор — <a href="https://genosys.ae/products/10" class="text-sky-700 font-semibold hover:underline">SNOW O₂ CLEANSER</a>. Снимает себум и SPF, не стягивает.</p>
+            <a href="https://genosys.ae/products/10" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Snow O₂ Cleanser — 330 AED →</a>
+          </div>
+        </div>
       </div>
 
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
@@ -626,8 +650,13 @@ const contentRu = `<div class="blog-content">
 
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
         <div class="flex items-center gap-3 mb-3"><span class="w-9 h-9 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold">3</span><h4 class="text-lg font-bold text-gray-900">Сыворотка — верните то, что забрал кондиционер</h4></div>
-        <p class="text-gray-700 leading-relaxed mb-3">Большинство жителей ОАЭ хронически <em>обезвожены</em>, не сухие. Это важная разница: жирная кожа тоже может быть обезвоженной. <a href="https://genosys.ae/products/18" class="text-sky-700 font-semibold hover:underline">MOISTURE REPLENISHING HYALURON SERUM</a> содержит 5 молекулярных весов гиалуроновой кислоты — увлажнение на всех глубинах.</p>
-        <a href="https://genosys.ae/products/18" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Hyaluron Serum — 330 AED →</a>
+        <div class="grid grid-cols-3 gap-4 items-center">
+          <a href="https://genosys.ae/products/18" class="col-span-1"><img src="/images/HRS.jpg" alt="GENOSYS Moisture Replenishing Hyaluron Serum" class="rounded-lg w-full bg-gray-50" /></a>
+          <div class="col-span-2">
+            <p class="text-gray-700 leading-relaxed mb-3">Большинство жителей ОАЭ хронически <em>обезвожены</em>, не сухие. <a href="https://genosys.ae/products/18" class="text-sky-700 font-semibold hover:underline">MOISTURE REPLENISHING HYALURON SERUM</a> содержит 5 молекулярных весов гиалуроновой кислоты — увлажнение на всех глубинах.</p>
+            <a href="https://genosys.ae/products/18" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Hyaluron Serum — 330 AED →</a>
+          </div>
+        </div>
       </div>
 
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
@@ -641,18 +670,19 @@ const contentRu = `<div class="blog-content">
 
       <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-5 shadow-sm border border-amber-200">
         <div class="flex items-center gap-3 mb-3"><span class="w-9 h-9 bg-amber-600 text-white rounded-full flex items-center justify-center font-bold">5</span><h4 class="text-lg font-bold text-gray-900">SPF — единственный шаг без компромиссов</h4></div>
-        <div class="my-4"><img src="/blog/summer-sunscreen2.jpg" alt="Сравнение SPF" class="rounded-xl shadow-sm mx-auto max-w-sm w-full" /></div>
-        <p class="text-gray-700 leading-relaxed mb-3">С мая по октябрь — SPF 50+ PA++++ каждое утро. Обновлять каждые 2 часа на улице или в 12:00 и 15:00 в помещении.</p>
+        <p class="text-gray-700 leading-relaxed mb-4">С мая по октябрь — SPF 50+ PA++++ каждое утро. Обновлять каждые 2 часа на улице или в 12:00 и 15:00 в помещении.</p>
         <div class="grid md:grid-cols-2 gap-3">
-          <div class="bg-white rounded-xl p-4 border-2 border-amber-300">
+          <div class="bg-white rounded-xl p-4 border-2 border-amber-300 flex flex-col">
+            <a href="https://genosys.ae/products/39" class="block mb-3"><img src="/images/SPF50.jpg" alt="Ultra Shield SPF 50+" class="rounded-lg w-full bg-gray-50" /></a>
             <h5 class="font-bold text-gray-900 mb-1">Ultra Shield SPF 50+ PA++++</h5>
-            <p class="text-gray-600 text-xs mb-2">Рабочая лошадка лета. Пляж, гольф, школа.</p>
-            <a href="https://genosys.ae/products/39" class="inline-flex items-center gap-2 bg-amber-600 text-white px-3 py-1.5 rounded-lg text-sm font-semibold">250 AED →</a>
+            <p class="text-gray-600 text-xs mb-3">Рабочая лошадка лета. Пляж, гольф, школа.</p>
+            <a href="https://genosys.ae/products/39" class="inline-flex items-center justify-center gap-2 bg-amber-600 text-white px-3 py-2 rounded-lg text-sm font-semibold mt-auto">250 AED →</a>
           </div>
-          <div class="bg-white rounded-xl p-4 border border-gray-200">
+          <div class="bg-white rounded-xl p-4 border border-gray-200 flex flex-col">
+            <a href="https://genosys.ae/products/40" class="block mb-3"><img src="/images/SSUN.jpg" alt="Multi Sun SPF 40" class="rounded-lg w-full bg-gray-50" /></a>
             <h5 class="font-bold text-gray-900 mb-1">Multi Sun SPF 40 PA++</h5>
-            <p class="text-gray-600 text-xs mb-2">Лёгкий вариант для «в основном внутри» дней.</p>
-            <a href="https://genosys.ae/products/40" class="inline-flex items-center gap-2 bg-gray-900 text-white px-3 py-1.5 rounded-lg text-sm font-semibold">210 AED →</a>
+            <p class="text-gray-600 text-xs mb-3">Лёгкий вариант для «в основном внутри» дней.</p>
+            <a href="https://genosys.ae/products/40" class="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-semibold mt-auto">210 AED →</a>
           </div>
         </div>
         <p class="text-amber-900 text-sm mt-4 bg-amber-100/60 rounded-lg p-3"><strong>Вердикт для лета в ОАЭ:</strong> Ultra Shield с мая по октябрь. Multi Sun с ноября по апрель. Никаких компромиссов в пиковые месяцы.</p>

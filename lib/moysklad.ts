@@ -24,6 +24,7 @@ const MOYSKLAD_ORG_ID = 'e18525a4-33c5-11ea-0a80-043f000b2738' // Genosys Middle
 const MOYSKLAD_STORE_ID = 'e186d449-33c5-11ea-0a80-043f000b273a' // Genosys Warehouse
 const MOYSKLAD_CURRENCY_ID = 'e1870630-33c5-11ea-0a80-043f000b273f' // AED (default)
 const MOYSKLAD_STATE_NEW_ID = 'e1a0abf2-33c5-11ea-0a80-043f000b275a' // "Новый" (New)
+const MOYSKLAD_COUNTRY_UAE_ID = '8afef359-33c6-11ea-0a80-0043000aceae' // "UAE" (account's custom country entry)
 
 // ============================================================================
 // Auth
@@ -459,6 +460,8 @@ export async function createMoySkladOrder(
     }
 
     // Step 2b: Add shipping as a service line item (if applicable)
+    // UAE delivery is taxable at 5% VAT (inclusive in the charge) — matches the
+    // website's checkout VAT calc which treats shipping as VAT-inclusive.
     if (orderData.shipping > 0) {
       const deliveryServiceId = getMoySkladDeliveryServiceId(orderData.customerEmirate)
       if (deliveryServiceId) {
@@ -466,10 +469,10 @@ export async function createMoySkladOrder(
           quantity: 1,
           price: Math.round(orderData.shipping * 100),
           assortment: entityMeta('service', deliveryServiceId),
-          vat: 0,
-          vatEnabled: false,
+          vat: 5,
+          vatEnabled: true,
         })
-        debugLog(`📦 MoySklad: Added delivery service for ${orderData.customerEmirate} (${orderData.shipping} AED)`)
+        debugLog(`📦 MoySklad: Added delivery service for ${orderData.customerEmirate} (${orderData.shipping} AED, 5% VAT)`)
       } else {
         warnLog(`⚠️ MoySklad: No delivery service mapping for emirate "${orderData.customerEmirate}"`)
       }
@@ -514,11 +517,16 @@ export async function createMoySkladOrder(
       rate: {
         currency: entityMeta('currency', MOYSKLAD_CURRENCY_ID)
       },
-      shipmentAddress: [
-        orderData.customerAddress,
-        orderData.customerEmirate,
-        'UAE'
-      ].filter(Boolean).join(', '),
+      // Use shipmentAddressFull (structured) instead of shipmentAddress (plain
+      // string). MoySklad's UI reads the delivery-address fields from the
+      // structured object; a plain-string shipmentAddress gets silently dumped
+      // into addInfo only, which is why the main address was showing blank.
+      // The two fields are mutually exclusive — MoySklad rejects both at once.
+      shipmentAddressFull: {
+        country: entityMeta('country', MOYSKLAD_COUNTRY_UAE_ID),
+        city: orderData.customerEmirate || '',
+        street: (orderData.customerAddress || '').replace(/\s+/g, ' ').trim(),
+      },
       ...(positions.length > 0 ? { positions } : {}),
     }
 

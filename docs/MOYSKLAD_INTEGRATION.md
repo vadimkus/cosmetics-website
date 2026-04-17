@@ -144,6 +144,8 @@ Shipping is added as a **service line item** (not product) in MoySklad orders. E
 
 Uses fuzzy matching (`.includes()`) for emirate name variations. If no mapping is found, shipping is noted in the order description only.
 
+**VAT on delivery (important):** Delivery in the UAE is a taxable service at 5% VAT. The shipping line item is pushed to MoySklad with `vat: 5, vatEnabled: true` and the price is treated as VAT-inclusive (matches the order's `vatIncluded: true` flag and the website's checkout VAT calc at `app/api/checkout/route.ts` which computes VAT on `subtotal + shipping`). Do **not** change this to `vat: 0` — it would under-declare output VAT for FTA reporting.
+
 ### Unmapped Products
 
 Some webapp products like **beauty boxes** (ANTI-AGING BEAUTY BOX, CHARMING LOOK BEAUTY BOX, etc.) are custom bundles that don't have a 1:1 MoySklad product. These are noted in the order description in MoySklad but won't have line items.
@@ -229,10 +231,20 @@ Each order created in MoySklad includes:
 - **Store**: Genosys Warehouse
 - **State**: Новый (New)
 - **Currency**: AED
-- **VAT**: 5% (included in prices)
+- **VAT**: 5% (included in prices, applied to both products and delivery)
 - **Description**: Payment method, shipping cost, any unmapped items
-- **Shipping Address**: Customer address + emirate + UAE
+- **Shipping Address**: Structured `shipmentAddressFull` with `country` (UAE), `city` (emirate), `street` (customer's free-form address)
 - **Positions**: Line items with quantities and prices
+
+### Delivery Address — Important
+
+The integration sends the delivery address as a **structured object** (`shipmentAddressFull`) rather than a plain string (`shipmentAddress`). This is mandatory for the MoySklad UI's "Адрес доставки" field to populate.
+
+If you send `shipmentAddress` as a plain string, MoySklad dumps the whole thing into `shipmentAddressFull.addInfo` (additional info / comment field) and leaves `street`, `city`, `country` blank — which means the UI shows a blank delivery address even though the data was technically accepted.
+
+The two fields are mutually exclusive; sending both at once causes the API to reject the request.
+
+**UAE country reference**: `8afef359-33c6-11ea-0a80-0043000aceae` (the account's custom "UAE" country entry). Do not use the generic "Объединенные Арабские Эмираты" ISO entry — the account uses the English-named one.
 
 ## Troubleshooting
 
@@ -276,14 +288,68 @@ MoySklad JSON API 1.2: https://dev.moysklad.ru/doc/api/remap/1.2/
 | POST | `/entity/counterparty` | Create new customer |
 | POST | `/entity/customerorder` | Create customer order |
 
+## Full API Access (Read-Only)
+
+Beyond the order-push integration, the same credentials provide full read access to all MoySklad data. This is used for financial reporting and stock analysis.
+
+### Reporting Scripts
+
+| Script | Purpose |
+|:---|:---|
+| `scripts/moysklad-q1-report.js` | Full Q1 2026 financial report (all document types) |
+| `scripts/moysklad-invoices-export.js` | Customer invoices export to CSV + Markdown |
+| `scripts/moysklad-2025-financials.js` | 2025 revenue, COGS, payments, losses |
+| `scripts/moysklad-2025-expenses.js` | 2025 expense categorization by counterparty |
+
+**Usage:**
+```bash
+MOYSKLAD_LOGIN="email" MOYSKLAD_PASSWORD="pass" node scripts/moysklad-invoices-export.js
+```
+
+### Available Read Endpoints
+
+| Endpoint | Description | Date Filter |
+|:---|:---|:---|
+| `GET /entity/invoiceout` | Customer invoices | `filter=moment>=...;moment<=...` |
+| `GET /entity/invoicein` | Supplier invoices | Same |
+| `GET /entity/customerorder` | Customer orders | Same |
+| `GET /entity/demand` | Shipments | Same |
+| `GET /entity/paymentin` | Incoming payments | Same |
+| `GET /entity/paymentout` | Outgoing payments | Same |
+| `GET /entity/cashin` | Cash receipts | Same |
+| `GET /entity/cashout` | Cash disbursements | Same |
+| `GET /entity/supply` | Goods receipts | Same |
+| `GET /entity/loss` | Inventory write-offs | Same |
+| `GET /report/profit/byproduct` | Profit by product | `momentFrom=...&momentTo=...` |
+| `GET /report/stock/all` | Current stock snapshot | None |
+| `GET /report/money/byaccount` | Account balances | None |
+
+**Date filter syntax for entities:**
+```
+GET /entity/invoiceout?filter=moment>=2026-01-01 00:00:00;moment<=2026-03-31 23:59:59
+```
+
+**Date filter syntax for reports:**
+```
+GET /report/profit/byproduct?momentFrom=2026-01-01 00:00:00&momentTo=2026-03-31 23:59:59
+```
+
+For full details, see [SESSION_CHANGES_2026-04-06.md](./SESSION_CHANGES_2026-04-06.md).
+
 ## History
 
 - **Feb 14, 2026**: Integration created with automatic sync from checkout routes
 - **Feb 15, 2026**: Refactored to manual admin push (automatic sync was unreliable on Vercel serverless)
 - **Feb 20, 2026**: Added color variant mapping for BB cushion (Ivory/Beige/Camel) — items with different colors now sync to correct MoySklad products
+- **Apr 6, 2026**: Discovered full API read access. Created reporting scripts for financial statements, invoice exports, stock analysis, and expense categorization
+- **Apr 17, 2026**: Two push-integration bug fixes (FTA compliance + UI usability):
+  - Delivery service line now sent with `vat: 5, vatEnabled: true` (was `vat: 0`) — fixes under-declaration of output VAT on shipping revenue
+  - Delivery address now sent as structured `shipmentAddressFull` (country + city + street) instead of plain-string `shipmentAddress` — fixes the blank "Адрес доставки" field in MoySklad UI. Added `MOYSKLAD_COUNTRY_UAE_ID` constant
 
 ---
 
 *Integration created: February 14, 2026*
 *Refactored to manual push: February 15, 2026*
 *Color variant mapping: February 20, 2026*
+*Full API reporting: April 6, 2026*
+*VAT + address fixes: April 17, 2026*

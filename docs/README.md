@@ -16,6 +16,8 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
+| 🟡 **Important** | [SESSION_CHANGES_2026-04-17.md](./SESSION_CHANGES_2026-04-17.md) | **MoySklad push fixes** — 5% VAT on delivery (FTA compliance), structured `shipmentAddressFull` so delivery address no longer blank in UI |
+| 🟡 **Important** | [SESSION_CHANGES_2026-04-06.md](./SESSION_CHANGES_2026-04-06.md) | **MoySklad API deep-dive** — 2025 financials, Q1 2026 invoices, stock alerts, Montaji PDF update |
 | 🟡 **Important** | [SESSION_CHANGES_2026-03-30_part3.md](./SESSION_CHANGES_2026-03-30_part3.md) | **FAQ overhaul** — categories, search, expand/collapse, 4 app FAQs, admin category picker, native app API sync |
 | 🟡 **Important** | [SESSION_CHANGES_2026-02-26_part2.md](./SESSION_CHANGES_2026-02-26_part2.md) | Skin concern pages: CTA, collapsible Why/Docs, AI pricing fix |
 | 🟡 **Important** | [SESSION_CHANGES_2026-02-26.md](./SESSION_CHANGES_2026-02-26.md) | "Download Genosys UAE App" button on login page with EN/RU/AR translations |
@@ -62,6 +64,8 @@
 | [CONTACT_EMAIL_FEATURE_DOCUMENTATION.md](./CONTACT_EMAIL_FEATURE_DOCUMENTATION.md) | Checkout contact email feature |
 | [WEB_CHECKOUT_CONTACTEMAIL_COMPLETE.md](./WEB_CHECKOUT_CONTACTEMAIL_COMPLETE.md) | Contact email implementation |
 | [MOYSKLAD_INTEGRATION.md](./MOYSKLAD_INTEGRATION.md) | MoySklad (МойСклад) accounting integration — manual admin push to sync orders |
+| [SESSION_CHANGES_2026-04-17.md](./SESSION_CHANGES_2026-04-17.md) | **MoySklad push fixes** — 5% VAT on delivery + structured `shipmentAddressFull` so delivery address populates in MoySklad UI |
+| [SESSION_CHANGES_2026-04-06.md](./SESSION_CHANGES_2026-04-06.md) | **MoySklad full API** — financial reports, stock analysis, 2025 P&L/BS generation, Montaji PDF update |
 
 ---
 
@@ -449,6 +453,8 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
+| [SESSION_CHANGES_2026-04-17.md](./SESSION_CHANGES_2026-04-17.md) | **NEW** MoySklad push-integration fixes: (1) delivery service line now booked at 5% VAT instead of 0% — fixes FTA output-VAT under-declaration; (2) delivery address now sent as structured `shipmentAddressFull` (country/city/street) instead of plain-string `shipmentAddress` — fixes blank delivery-address field in MoySklad UI |
+| [SESSION_CHANGES_2026-04-06.md](./SESSION_CHANGES_2026-04-06.md) | **NEW** MoySklad API deep-dive — full financial data extraction (2025 P&L/BS, Q1 2026 invoices, stock alerts, expense categorization), Montaji registration review (EPI Peeling EXPIRED), PDF update + Vercel deploy. Scripts: `moysklad-q1-report.js`, `moysklad-invoices-export.js`, `moysklad-2025-financials.js`, `moysklad-2025-expenses.js` |
 | [SESSION_CHANGES_2026-03-30_part3.md](./SESSION_CHANGES_2026-03-30_part3.md) | **NEW** FAQ overhaul — categories (6), search, expand/collapse, 4 new app FAQs (EN/AR/RU), admin category picker, GeoFaqSchema SEO, native app category grouping + API-driven FAQ. OTA deployed. |
 | [SESSION_CHANGES_2026-03-30_part2.md](./SESSION_CHANGES_2026-03-30_part2.md) | Android app blog post published (12 posts, all translated). **Privacy policy** expanded 4→14 sections (mobile apps, AI, UAE PDPL). **Privacy policy API** (`GET /api/mobile/privacy-policy`) for mobile sync — apps fetch from server instead of hardcoded JSON. OTA deployed. |
 | [SESSION_CHANGES_2026-03-30.md](./SESSION_CHANGES_2026-03-30.md) | Admin Users 5MB fix — `profilePicture` excluded from list query, new GET `/api/admin/users/[id]`, lazy-load on profile open. **Google Play badge** added to homepage Hero (side-by-side with App Store, EN/AR/RU) |
@@ -545,4 +551,4 @@ cosmetics-website/
 
 ---
 
-*Last updated: March 30, 2026*
+*Last updated: April 17, 2026*

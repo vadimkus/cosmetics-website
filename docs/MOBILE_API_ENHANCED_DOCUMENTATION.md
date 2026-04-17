@@ -339,6 +339,59 @@ Badges are generated automatically based on product data and performance metrics
 
 ---
 
+## 📋 Content API Endpoints
+
+### FAQ
+```
+GET /api/mobile/faq
+Headers:
+  x-api-key: YOUR_MOBILE_APP_KEY
+  x-locale: en | ar | ru
+```
+Returns structured FAQ items from the database. Managed via admin panel.
+
+### Privacy Policy (Added Mar 30, 2026)
+```
+GET /api/mobile/privacy-policy
+Headers:
+  x-api-key: YOUR_MOBILE_APP_KEY
+  x-locale: en | ar | ru
+```
+Returns the full privacy policy as structured JSON (14 sections). The mobile app renders this dynamically instead of using hardcoded translations.
+
+**Response format:**
+```json
+{
+  "title": "Privacy Policy",
+  "subtitle": "Your Data, Your Rights",
+  "lastUpdated": "March 30, 2026",
+  "lastUpdatedISO": "2026-03-30",
+  "sections": [
+    {
+      "id": "privacy-rights",
+      "title": "Your Privacy Rights",
+      "type": "highlight",
+      "content": "..."
+    },
+    {
+      "id": "personal-info",
+      "title": "1. Personal Information We Collect",
+      "type": "list",
+      "items": [
+        { "label": "Account Information", "text": "..." },
+        { "label": "Order Information", "text": "..." }
+      ]
+    }
+  ],
+  "locale": "en",
+  "fullPolicyUrl": "https://genosys.ae/privacy-policy"
+}
+```
+
+**Section types**: `highlight`, `list`, `bullets`, `text`, `contact`
+
+---
+
 ## 🎉 CONGRATULATIONS!
 
 Your mobile app refactor to database-driven architecture is **COMPLETE**! 

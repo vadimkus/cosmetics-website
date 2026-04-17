@@ -1,0 +1,1583 @@
+╔══════════════════════════════════════════════════════════════════════════════════════════════════╗
+║                     MOYSKLAD REPORT: Q1 2026 (01.01.2026 — 31.03.2026)                        ║
+║                     Genosys Middle East FZ-LLC                                                 ║
+║                     Generated: 06/04/2026, 14:49:58                                        ║
+╚══════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+Fetching data from MoySklad API...
+  [Invoices In (Счета поставщикам)] Fetched 5/5 rows...
+  [Customer Orders (Заказы покупателей)] Fetched 325/325 rows...
+  [Incoming Payments (Входящие платежи)] Fetched 406/406 rows...
+  [Invoices Out (Счета покупателям)] Fetched 326/326 rows...
+  [Shipments (Отгрузки)] Fetched 447/447 rows...
+
+Resolving counterparty names and statuses...
+Resolved 204 unique counterparties, 6 unique states
+
+====================================================================================================
+  INVOICES OUT — Счета покупателям (Invoices to Customers)  (326 documents)
+====================================================================================================
+#    | Date         | Number             | Counterparty                        | Status           |      Sum (AED)
+----------------------------------------------------------------------------------------------------
+1    | 01/01/2026   | 04000              | Dmitrii Grishin                     | Выписан          |         345.00
+2    | 04/01/2026   | 04001              | Miss Laura Abizova                  | Выписан          |        1330.00
+3    | 04/01/2026   | 04002              | Miss Anastasiya Todosiichuk         | Выписан          |        1320.00
+4    | 04/01/2026   | 04003              | Miss Saba Yussouf                   | Выписан          |         495.00
+5    | 05/01/2026   | 04004              | Miss Valeriia Synenko               | Выписан          |         741.00
+6    | 05/01/2026   | 04005              | BIANCO LAYAN BEAUTY SALON L.L.C     | Выписан          |        2745.00
+7    | 05/01/2026   | 04006              | BIANCO JGE GENTS SALON L.L.C        | Выписан          |         360.00
+8    | 05/01/2026   | 04007              | The Hideaway For Women Salon        | Выписан          |        1625.00
+9    | 06/01/2026   | 04008              | Miss Valeriya                       | Выписан          |         330.00
+10   | 06/01/2026   | 04009              | Miss Madina Movsumova               | Выписан          |        1520.00
+11   | 07/01/2026   | 04010              | Miss Ella Sosnina                   | Выписан          |         702.00
+12   | 07/01/2026   | 04011              | Miss Irina Solodkaya                | Выписан          |         650.00
+13   | 07/01/2026   | 04012              | Evolution Aesthetics Clinic         | Выписан          |        3520.00
+14   | 07/01/2026   | 04013              | Alexandra Nikonova                  | Выписан          |         650.00
+15   | 07/01/2026   | 04014              | Brau Ladies Salon LLC               | Выписан          |         380.00
+16   | 07/01/2026   | 04015              | Brau Ladies Salon LLC               | Выписан          |         380.00
+17   | 07/01/2026   | 04016              | Miss Olha Kravchuk                  | Выписан          |         345.00
+18   | 08/01/2026   | 04017              | Miss Ekaterina                      | Выписан          |         345.00
+19   | 08/01/2026   | 04018              | Milena AESTHETIC CLINIC LLC         | Выписан          |        2510.00
+20   | 08/01/2026   | 04019              | Miss Khachaturova Yana              | Выписан          |         200.00
+21   | 08/01/2026   | 04020              | Al Mukhtar Medical Center           | Выписан          |        3830.00
+22   | 08/01/2026   | 04021              | Miss Anastasiya                     | Выписан          |        1980.00
+23   | 08/01/2026   | 04022              | mr. Dimitri Parliaras               | Выписан          |        1310.00
+24   | 09/01/2026   | 04023              | Alexandra Nikonova                  | Выписан          |         407.00
+25   | 09/01/2026   | 04024              | Miss Uliana                         | Выписан          |         340.00
+26   | 09/01/2026   | 04025              | BIANCO JGE Ladies Salon L.L.C       | Выписан          |        4280.00
+27   | 10/01/2026   | 04026              | GOCOSMO BEAUTY SALON                | Выписан          |        1420.00
+28   | 10/01/2026   | 04027              | Dimitri Parliaras                   | Выписан          |        4083.10
+29   | 11/01/2026   | 04028              | GOCOSMO BEAUTY SALON                | Выписан          |         530.00
+30   | 11/01/2026   | 04029              | Miss Olga Pershay                   | Выписан          |         780.00
+31   | 11/01/2026   | 04030              | Miss Elvira                         | Выписан          |         645.00
+32   | 12/01/2026   | 04031              | Marapo Beauty Salon, The Face Only  | Выписан          |        1038.00
+33   | 12/01/2026   | 04032              | Miss Marina                         | Выписан          |         330.00
+34   | 13/01/2026   | 04033              | Dr. Valeria Borscheva               | Выписан          |         655.00
+35   | 13/01/2026   | 04034              | Marapo Beauty Salon, The Face Only  | Выписан          |         165.00
+36   | 13/01/2026   | 04035              | Miss Tatyana (Alena)                | Выписан          |         195.00
+37   | 14/01/2026   | 04036              | Miss Liza                           | Выписан          |         971.75
+38   | 14/01/2026   | 04037              | ELEGANCE POLY CLINIC L.L.C.         | Выписан          |        1615.00
+39   | 14/01/2026   | 04038              | Miss Leyla Gulyaeva                 | Выписан          |         450.00
+40   | 15/01/2026   | 04039              | miss Christina Baikovich            | Выписан          |         345.00
+41   | 15/01/2026   | 04040              | Miss Victoria Lukianchuk            | Выписан          |         290.00
+42   | 15/01/2026   | 04041              | FACE ROOM BEAUTY SALON CO           | Выписан          |        4990.00
+43   | 15/01/2026   | 04042              | Home Client                         | Выписан          |         255.00
+44   | 16/01/2026   | 04043              | Sofiia Boiko                        | Выписан          |        1070.00
+45   | 16/01/2026   | 04044              | Marapo Beauty Salon, The Face Only  | Выписан          |         990.00
+46   | 16/01/2026   | 04045              | Marapo Beauty Salon, The Face Only  | Выписан          |         105.00
+47   | 17/01/2026   | 04046              | ELITE SHAKIROVNA LADIES SALON L.L.C | Выписан          |        1645.00
+48   | 19/01/2026   | 04047              | Miss Heike Lutz                     | Выписан          |         694.00
+49   | 19/01/2026   | 04048              | Vlada (Alenas customer)             | Выписан          |         150.00
+50   | 19/01/2026   | 04049              | Home Client                         | Выписан          |         178.50
+51   | 19/01/2026   | 04050              | Milena AESTHETIC CLINIC LLC         | Выписан          |        1700.00
+52   | 20/01/2026   | 04051              | First Person Ladies Salon (Marina)  | Выписан          |         210.00
+53   | 21/01/2026   | 04053              | Miss Ayjahan Atagarryyeva           | Выписан          |        1260.00
+54   | 21/01/2026   | 04054              | Bianco Beauty Salon SPA (Dubai Hill | Выписан          |        3410.00
+55   | 22/01/2026   | 04055              | Admin Marapo Beauty Salon, The Face | Выписан          |         810.05
+56   | 22/01/2026   | 04056              | Home Client                         | Выписан          |         360.00
+57   | 23/01/2026   | 04057              | X BEAUTY CONSULTING - F.Z.C         | Выписан          |         300.00
+58   | 23/01/2026   | 04058              | Miss Valeriia Kravchenko            | Выписан          |        1040.00
+59   | 23/01/2026   | 04059              | Amna Alzaabi                        | Выписан          |         370.00
+60   | 23/01/2026   | 04060              | Brau Ladies Salon LLC               | Выписан          |         380.00
+61   | 23/01/2026   | 04061              | Brau Ladies Salon LLC               | Выписан          |         380.00
+62   | 23/01/2026   | 04062              | Brau Ladies Salon LLC               | Выписан          |         570.00
+63   | 23/01/2026   | 04063              | Miss Svetlana                       | Выписан          |        1180.00
+64   | 23/01/2026   | 04064              | Marapo Beauty Salon, The Face Only  | Выписан          |         645.00
+65   | 23/01/2026   | 04065              | Miss Vasilisa Kozhemiako            | Выписан          |         495.00
+66   | 23/01/2026   | 04066              | My Skin Story Perfumes and Cosmetic | Выписан          |         230.00
+67   | 24/01/2026   | 04067              | Admin Marapo Beauty Salon, The Face | Выписан          |         145.00
+68   | 24/01/2026   | 04068              | Marapo Beauty Salon, The Face Only  | Выписан          |         105.00
+69   | 24/01/2026   | 04069              | Miss Aidana Yerkegaliyeva           | Выписан          |         645.00
+70   | 24/01/2026   | 04070              | Miss Tetiana Yarova                 | Выписан          |         330.00
+71   | 25/01/2026   | 04071              | Miss Zarnosh Nawaz                  | Выписан          |         625.00
+72   | 25/01/2026   | 04072              | Miss Nataliya Anokhina              | Выписан          |        1240.00
+73   | 25/01/2026   | 04073              | Miss Ekaterina Pronushkina          | Выписан          |        1160.00
+74   | 27/01/2026   | 04074              | My Skin Story Perfumes and Cosmetic | Выписан          |         250.00
+75   | 27/01/2026   | 04075              | Marc El Asmar                       | Выписан          |         480.00
+76   | 27/01/2026   | 04076              | Home Client                         | Выписан          |         714.00
+77   | 27/01/2026   | 04077              | Miss Ksenia Perekhryst              | Выписан          |         570.00
+78   | 28/01/2026   | 04078              | Miss Galinur Duisekenova            | Выписан          |        1271.60
+79   | 28/01/2026   | 04079              | Johan Bahia                         | Выписан          |        1230.00
+80   | 28/01/2026   | 04080              | The Hideaway For Women Salon        | Выписан          |        1567.00
+81   | 28/01/2026   | 04081              | Miss Tatiana Kravchenko             | Выписан          |         937.00
+82   | 29/01/2026   | 04082              | Egle Vitkauskiene                   | Выписан          |         595.00
+83   | 29/01/2026   | 04083              | FAMILY CLASS POLY CLINIC L.L.C      | Выписан          |        1795.00
+84   | 29/01/2026   | 04084              | Brau Ladies Salon LLC               | Выписан          |         570.00
+85   | 29/01/2026   | 04085              | Miss Yana Yakovleva                 | Выписан          |         345.00
+86   | 30/01/2026   | 04086              | Miss Valeriya                       | Выписан          |         600.00
+87   | 30/01/2026   | 04087              | IULIA BEAUTY SALON LLC              | Выписан          |        1670.00
+88   | 01/02/2026   | 04088              | X BEAUTY CONSULTING - F.Z.C         | Выписан          |         370.00
+89   | 01/02/2026   | 04089              | Miss Olga Gil                       | Выписан          |         315.00
+90   | 01/02/2026   | 04090              | Miss Alexandra Aghraige             | Выписан          |         330.00
+91   | 01/02/2026   | 04091              | miss Milya                          | Выписан          |         335.00
+92   | 02/02/2026   | 04092              | Mediclinic Clinics Investment LLC   | Выписан          |         760.00
+93   | 02/02/2026   | 04093              | BIANCO JGE GENTS SALON L.L.C        | Выписан          |         300.00
+94   | 02/02/2026   | 04094              | FACEPRO WOMEN SALON L.L.C           | Выписан          |        1687.00
+95   | 02/02/2026   | 04095              | FACE ROOM BEAUTY SALON CO           | Выписан          |        2255.00
+96   | 02/02/2026   | 04096              | Le Bleu Ciel Ladies Beauty Salon    | Выписан          |        1127.50
+97   | 02/02/2026   | 04097              | Mr. Amr Najar Ali                   | Выписан          |         690.00
+98   | 03/02/2026   | 04098              | Allure Personal Care Center LLC     | Выписан          |        1545.00
+99   | 03/02/2026   | 04099              | First Person Ladies Salon (Marina)  | Выписан          |         400.00
+100  | 03/02/2026   | 04100              | Miss Hanna Bryshtsen                | Выписан          |         770.00
+101  | 03/02/2026   | 04101              | Miss Yanka Slanchenko               | Выписан          |         445.00
+102  | 03/02/2026   | 04102              | Home Client                         | Выписан          |         595.00
+103  | 03/02/2026   | 04103              | Marapo Beauty Salon, The Face Only  | Выписан          |         883.00
+104  | 04/02/2026   | 04104              | Home Client                         | Выписан          |         498.00
+105  | 04/02/2026   | 04105              | Miss Victoria                       | Выписан          |        1160.00
+106  | 04/02/2026   | 04106              | First Person Ladies Salon (Marina)  | Выписан          |         245.00
+107  | 04/02/2026   | 04107              | Miss Julia                          | Выписан          |        1110.00
+108  | 04/02/2026   | 04108              | Hollie Skin                         | Выписан          |        1430.00
+109  | 05/02/2026   | 04109              | Miss Rima                           | Выписан          |         371.00
+110  | 05/02/2026   | 04110              | Adara Spa Retreat                   | Выписан          |        3175.00
+111  | 05/02/2026   | 04111              | Miss Saule                          | Выписан          |         425.00
+112  | 05/02/2026   | 04112              | Home Client                         | Выписан          |         255.00
+113  | 05/02/2026   | 04113              | Miss Elena                          | Выписан          |         345.00
+114  | 05/02/2026   | 04114              | Miss Assiya Abanina                 | Выписан          |        1040.00
+115  | 05/02/2026   | 04115              | Miss Lamy Maalouf                   | Выписан          |        1690.00
+116  | 05/02/2026   | 04116              | ELEGANCE POLY CLINIC L.L.C.         | Выписан          |        1030.00
+117  | 05/02/2026   | 04117              | Inna Ageyeva                        | Выписан          |         290.00
+118  | 06/02/2026   | 04118              | Home Client                         | Выписан          |         820.25
+119  | 06/02/2026   | 04119              | Miss Olga                           | Выписан          |        1170.00
+120  | 06/02/2026   | 04120              | Guapa Ladies Salon L.L.C            | Выписан          |         664.00
+121  | 06/02/2026   | 04121              | Miss Alesya                         | Выписан          |         935.00
+122  | 06/02/2026   | 04122              | Miss Anastasiya                     | Выписан          |         295.00
+123  | 07/02/2026   | 04123              | Admin Shakirovna Salon              | Выписан          |         150.00
+124  | 07/02/2026   | 04124              | First Person Ladies Salon LLC (Palm | Выписан          |         230.00
+125  | 07/02/2026   | 04125              | Marapo Beauty Salon, The Face Only  | Выписан          |         445.00
+126  | 07/02/2026   | 04126              | Miss Elena Gadinich                 | Выписан          |        3751.50
+127  | 08/02/2026   | 04127              | Miss Laura Abizova                  | Выписан          |        2458.00
+128  | 08/02/2026   | 04128              | Miss Olha Vialykh                   | Выписан          |         500.00
+129  | 08/02/2026   | 04129              | Miss Sydia Solano                   | Выписан          |         615.00
+130  | 09/02/2026   | 04130              | Brau Ladies Salon LLC               | Выписан          |         380.00
+131  | 09/02/2026   | 04131              | Brau Ladies Salon LLC               | Выписан          |         380.00
+132  | 09/02/2026   | 04132              | Brau Ladies Salon LLC               | Выписан          |         570.00
+133  | 09/02/2026   | 04133              | Sugar & Wax Beauty Salon            | Выписан          |         675.00
+134  | 09/02/2026   | 04134              | Retail customer                     | Выписан          |         337.00
+135  | 10/02/2026   | 04135              | Miss Assel Atau                     | Выписан          |         417.00
+136  | 10/02/2026   | 04136              | Home Client                         | Выписан          |         352.00
+137  | 10/02/2026   | 04137              | Dr. Valeria Borscheva               | Выписан          |         730.00
+138  | 10/02/2026   | 04138              | Miss Elvina Daminova                | Выписан          |         430.00
+139  | 10/02/2026   | 04139              | Miss Ksenia Perekhryst              | Выписан          |         430.00
+140  | 11/02/2026   | 04140              | Miss Elvina Daminova                | Выписан          |         230.00
+141  | 11/02/2026   | 04141              | X BEAUTY CONSULTING - F.Z.C         | Выписан          |         300.00
+142  | 11/02/2026   | 04142              | AST Advance Cosmetics Trading L.L.C | Выписан          |         850.00
+143  | 11/02/2026   | 04143              | IULIA BEAUTY SALON LLC              | Выписан          |        3425.00
+144  | 11/02/2026   | 04144              | Evolution Aesthetics Clinic         | Выписан          |         870.00
+145  | 11/02/2026   | 04145              | Miss Anna Gulik                     | Выписан          |         437.00
+146  | 12/02/2026   | 04146              | Miss Khachaturova Yana              | Выписан          |         515.00
+147  | 12/02/2026   | 04147              | Evolution Aesthetics Clinic         | Выписан          |         500.00
+148  | 12/02/2026   | 04148              | HORTMAN CLINICS 2 L.L.C             | Выписан          |        6300.00
+149  | 12/02/2026   | 04149              | Miss Diana Volk                     | Выписан          |         665.00
+150  | 13/02/2026   | 04150              | Home Client                         | Выписан          |         731.00
+151  | 13/02/2026   | 04151              | Evolution Aesthetics Clinic         | Выписан          |         765.00
+152  | 13/02/2026   | 04152              | Miss Ainura Katauova                | Выписан          |         585.00
+153  | 13/02/2026   | 04153              | FAMILY CLASS POLY CLINIC L.L.C      | Выписан          |         570.00
+154  | 14/02/2026   | 04154              | Miss Polina Bakhanova               | Выписан          |         745.00
+155  | 14/02/2026   | 04155              | Home Client                         | Выписан          |         784.00
+156  | 14/02/2026   | 04156              | Le Bleu Ciel Ladies Beauty Salon    | Выписан          |         450.00
+157  | 14/02/2026   | 04157              | Miss Ella Sosnina                   | Выписан          |         459.00
+158  | 14/02/2026   | 04158              | Inna Ageyeva                        | Выписан          |         664.00
+159  | 15/02/2026   | 04159              | Miss Asli Altinok                   | Выписан          |         345.00
+160  | 15/02/2026   | 04160              | Clinic customer                     | Выписан          |         185.00
+161  | 15/02/2026   | 04161              | Miss Vladislava                     | Выписан          |        2030.00
+162  | 16/02/2026   | 04162              | Milena AESTHETIC CLINIC LLC         | Выписан          |         900.00
+163  | 16/02/2026   | 04163              | Miss Vladislava                     | Выписан          |         635.00
+164  | 16/02/2026   | 04164              | FaceFIT SALON L.L.C                 | Выписан          |        1120.00
+165  | 16/02/2026   | 04165              | Miss Marina Gruzdeva                | Выписан          |         807.00
+166  | 16/02/2026   | 04166              | Miss Iryna                          | Выписан          |         331.00
+167  | 16/02/2026   | 04167              | Missis Marina Biryukova             | Выписан          |         175.00
+168  | 16/02/2026   | 04168              | Miss Alisa Petrova                  | Выписан          |         870.00
+169  | 16/02/2026   | 04169              | Marapo Beauty Salon, The Face Only  | Выписан          |         930.00
+170  | 17/02/2026   | 04170              | Miss Alina Melnik                   | Выписан          |        1030.00
+171  | 17/02/2026   | 04171              | Miss Abir Manai                     | Выписан          |        1000.00
+172  | 17/02/2026   | 04172              | ELEGANCE POLY CLINIC L.L.C.         | Выписан          |         888.00
+173  | 17/02/2026   | 04173              | Lips for Kiss Clinic                | Выписан          |        3630.00
+174  | 18/02/2026   | 04174              | Milena AESTHETIC CLINIC LLC         | Выписан          |         360.00
+175  | 18/02/2026   | 04175              | Miss Vlada                          | Выписан          |          95.00
+176  | 19/02/2026   | 04176              | Miss Sema Tare                      | Выписан          |         415.00
+177  | 20/02/2026   | 04177              | Miss Vladislava                     | Выписан          |         725.00
+178  | 20/02/2026   | 04178              | Valeriia Babakova                   | Выписан          |        1232.00
+179  | 20/02/2026   | 04179              | IULIA BEAUTY SALON LLC              | Выписан          |        1105.00
+180  | 20/02/2026   | 04180              | Ulbossyn Saparbayeva                | Выписан          |         210.00
+181  | 20/02/2026   | 04181              | Ella Sokolova                       | Выписан          |         335.00
+182  | 20/02/2026   | 04182              | My Skin Story Perfumes and Cosmetic | Выписан          |         380.00
+183  | 20/02/2026   | 04183              | Mariia Barysheva                    | Выписан          |         645.00
+184  | 20/02/2026   | 04184              | miss Ekaterina Petukhova            | Выписан          |         815.00
+185  | 20/02/2026   | 04185              | Esra Akyol Bilgin                   | Выписан          |         425.00
+186  | 21/02/2026   | 04186              | Miss Ekaterina Pronushkina          | Выписан          |        1200.00
+187  | 22/02/2026   | 04187              | Marapo Beauty Salon, The Face Only  | Выписан          |         802.00
+188  | 22/02/2026   | 04188              | Admin Marapo Beauty Salon, The Face | Выписан          |         145.00
+189  | 22/02/2026   | 04189              | Katerina Tatsiuk                    | Выписан          |         335.00
+190  | 22/02/2026   | 04190              | Kamila Rakhimova                    | Выписан          |         375.00
+191  | 23/02/2026   | 04191              | Milena AESTHETIC CLINIC LLC         | Выписан          |        1050.00
+192  | 23/02/2026   | 04192              | Lavana SPA                          | Выписан          |        1190.00
+193  | 23/02/2026   | 04193              | Dr. Valeria Borscheva               | Выписан          |         585.00
+194  | 23/02/2026   | 04194              | NAZEED OSMAN                        | Выписан          |         665.00
+195  | 23/02/2026   | 04195              | Miss Anastasiya Bukoros             | Выписан          |         345.00
+196  | 24/02/2026   | 04196              | Hayley Hall                         | Выписан          |         375.00
+197  | 24/02/2026   | 04197              | Milena AESTHETIC CLINIC LLC (JBR Br | Выписан          |         600.00
+198  | 24/02/2026   | 04198              | Marapo Beauty Salon, The Face Only  | Выписан          |         435.00
+199  | 24/02/2026   | 04199              | Miss Uliana                         | Выписан          |         340.00
+200  | 25/02/2026   | 04200              | Miss Zulya Ammaeva                  | Выписан          |        1016.00
+201  | 26/02/2026   | 04201              | FAMILY CLASS POLY CLINIC L.L.C      | Выписан          |         845.00
+202  | 27/02/2026   | 04202              | Alena Solodovichenko                | Выписан          |         345.00
+203  | 27/02/2026   | 04203              | Natalja Zaharova                    | Выписан          |        1060.00
+204  | 27/02/2026   | 04204              | Evolution Aesthetics Clinic         | Выписан          |        1030.00
+205  | 27/02/2026   | 04205              | Elizabeth Nabiieva                  | Выписан          |         450.00
+206  | 27/02/2026   | 04206              | Miss Estefa Pastor                  | Выписан          |         390.00
+207  | 27/02/2026   | 04207              | miss Ekaterina Petukhova            | Выписан          |         520.00
+208  | 28/02/2026   | 04208              | Valeriia Synenko                    | Выписан          |         635.00
+209  | 28/02/2026   | 04209              | Dr Malika Khodzhaeva                | Выписан          |         705.00
+210  | 28/02/2026   | 04210              | miss Ekaterina Petukhova            | Выписан          |         490.00
+211  | 02/03/2026   | 04211              | Mediclinic Clinics Investment LLC   | Выписан          |         760.00
+212  | 02/03/2026   | 04212              | Miss Margo Faizulina                | Выписан          |         465.00
+213  | 02/03/2026   | 04213              | X BEAUTY CONSULTING - F.Z.C         | Выписан          |         185.00
+214  | 02/03/2026   | 04214              | My Skin Story Perfumes and Cosmetic | Выписан          |         250.00
+215  | 03/03/2026   | 04215              | Milena AESTHETIC CLINIC LLC         | Выписан          |         150.00
+216  | 03/03/2026   | 04216              | FAMILY CLASS POLY CLINIC L.L.C      | Выписан          |         740.00
+217  | 03/03/2026   | 04217              | HIDE MEDICAL CENTER L.L.C           | Выписан          |         306.00
+218  | 03/03/2026   | 04218              | Chahit Joshi                        | Выписан          |         330.00
+219  | 04/03/2026   | 04219              | AMERICAN MEDICAL CENTER DMCC        | Выписан          |         580.00
+220  | 04/03/2026   | 04220              | First Person Ladies Salon LLC (Palm | Выписан          |         300.00
+221  | 04/03/2026   | 04221              | Bianco Beauty Salon SPA (Dubai Hill | Выписан          |        2477.00
+222  | 05/03/2026   | 04222              | Miss Sarayounesskin Sara            | Выписан          |         315.00
+223  | 05/03/2026   | 04223              | Miss Aidana Yerkegaliyeva           | Выписан          |         640.00
+224  | 05/03/2026   | 04224              | AMERICAN MEDICAL CENTER DMCC        | Выписан          |         225.00
+225  | 05/03/2026   | 04225              | IULIA BEAUTY SALON LLC              | Выписан          |         510.00
+226  | 05/03/2026   | 04226              | Le Bleu Ciel Ladies Beauty Salon    | Выписан          |         670.00
+227  | 05/03/2026   | 04227              | The Hideaway For Women Salon        | Выписан          |        3040.00
+228  | 05/03/2026   | 04228              | Brau Ladies Salon LLC               | Выписан          |         380.00
+229  | 05/03/2026   | 04229              | Brau Ladies Salon LLC               | Выписан          |         380.00
+230  | 05/03/2026   | 04230              | Miss Sarra Uanassi                  | Выписан          |         345.00
+231  | 05/03/2026   | 04231              | Marapo Beauty Salon, The Face Only  | Выписан          |         165.00
+232  | 05/03/2026   | 04232              | Fayy Health FZCO                    | Выписан          |        3800.00
+233  | 05/03/2026   | 04233              | Miss Khachaturova Yana              | Выписан          |        1050.00
+234  | 06/03/2026   | 04234              | Brau Ladies Salon LLC               | Выписан          |         380.00
+235  | 06/03/2026   | 04235              | Milena AESTHETIC CLINIC LLC (JBR Br | Выписан          |         450.00
+236  | 06/03/2026   | 04236              | FACE ROOM BEAUTY SALON CO           | Выписан          |        2735.00
+237  | 06/03/2026   | 04237              | Milena AESTHETIC CLINIC LLC (JBR Br | Выписан          |         450.00
+238  | 06/03/2026   | 04238              | Miss Dr. Viki                       | Выписан          |         780.00
+239  | 07/03/2026   | 04239              | X BEAUTY CONSULTING - F.Z.C         | Выписан          |         300.00
+240  | 07/03/2026   | 04240              | Miss Khachaturova Yana              | Выписан          |         435.00
+241  | 07/03/2026   | 04241              | Polina Emelianenko                  | Выписан          |         255.00
+242  | 07/03/2026   | 04242              | Miss Sarayounesskin Sara            | Выписан          |         740.00
+243  | 08/03/2026   | 04243              | Miss Julia                          | Выписан          |         425.00
+244  | 08/03/2026   | 04244              | Miss Julia                          | Выписан          |        1296.00
+245  | 08/03/2026   | 04245              | Admin Marapo Beauty Salon, The Face | Выписан          |         930.00
+246  | 08/03/2026   | 04246              | Bianco Spa FZCO (Cedre Center)      | Выписан          |        3000.00
+247  | 09/03/2026   | 04247              | Miss Ksenia Perekhryst              | Выписан          |         290.00
+248  | 10/03/2026   | 04248              | Malika Sher                         | Выписан          |         295.00
+249  | 10/03/2026   | 04249              | Clinic customer                     | Выписан          |         738.00
+250  | 11/03/2026   | 04250              | Miss Valeriia Kravchenko            | Выписан          |        1204.70
+251  | 11/03/2026   | 04251              | Miss Saba Yussouf                   | Выписан          |         555.00
+252  | 11/03/2026   | 04252              | Marapo Beauty Salon, The Face Only  | Выписан          |         365.00
+253  | 11/03/2026   | 04253              | Miss Sarayounesskin Sara            | Выписан          |         355.00
+254  | 11/03/2026   | 04254              | Miss Sarayounesskin Sara            | Выписан          |         355.00
+255  | 11/03/2026   | 04255              | Svetlana Elina                      | Выписан          |         415.00
+256  | 11/03/2026   | 04256              | Miss Olga Pershay                   | Выписан          |        1540.00
+257  | 12/03/2026   | 04257              | Polina Emelianenko                  | Выписан          |          90.00
+258  | 12/03/2026   | 04258              | Brau Ladies Salon LLC               | Выписан          |         380.00
+259  | 12/03/2026   | 04259              | Анна Гулик                          | Выписан          |        1228.00
+260  | 13/03/2026   | 04260              | Miss Lamy Maalouf                   | Выписан          |        1340.00
+261  | 13/03/2026   | 04261              | Miss Estefa Pastor                  | Выписан          |         375.00
+262  | 13/03/2026   | 04262              | You by Anna Bezdushnaya Salon       | Выписан          |         255.00
+263  | 13/03/2026   | 04263              | BIANCO LAYAN BEAUTY SALON L.L.C     | Выписан          |         687.00
+264  | 14/03/2026   | 04264              | Ilmira Hairulina                    | Выписан          |         550.00
+265  | 15/03/2026   | 04265              | Miss Guzel                          | Выписан          |         650.00
+266  | 15/03/2026   | 04266              | Miss Nina                           | Выписан          |         910.00
+267  | 15/03/2026   | 04267              | Katerina Tatsiuk                    | Выписан          |         375.00
+268  | 16/03/2026   | 04268              | DIFFERENT AESTHETIC MEDICAL CENTER  | Выписан          |        3225.00
+269  | 16/03/2026   | 04269              | Miss Sirma Osman                    | Выписан          |         790.00
+270  | 16/03/2026   | 04270              | Stuart Anson                        | Выписан          |        1099.90
+271  | 16/03/2026   | 04271              | Brau Ladies Salon LLC               | Выписан          |         570.00
+272  | 16/03/2026   | 04272              | Marapo Beauty Salon, The Face Only  | Выписан          |         775.00
+273  | 16/03/2026   | 04273              | Daniela Weerasinghe                 | Выписан          |         366.00
+274  | 16/03/2026   | 04274              | Bagtyyar Rejepbayev                 | Выписан          |         345.00
+275  | 16/03/2026   | 04275              | Alla Petrikova                      | Выписан          |        1035.00
+276  | 17/03/2026   | 04276              | FAMILY CLASS POLY CLINIC L.L.C      | Выписан          |         295.00
+277  | 17/03/2026   | 04277              | HORTMAN CLINICS 2 L.L.C             | Выписан          |        6300.00
+278  | 17/03/2026   | 04278              | Brau Ladies Salon LLC               | Выписан          |         380.00
+279  | 17/03/2026   | 04279              | Evolution Aesthetics Clinic         | Выписан          |        1485.00
+280  | 18/03/2026   | 04280              | Mariia Ryseva                       | Выписан          |         571.00
+281  | 18/03/2026   | 04281              | SOLAR MEDICAL CLINIC L.L.C          | Выписан          |        1144.00
+282  | 18/03/2026   | 04282              | Milena AESTHETIC CLINIC LLC         | Выписан          |         725.00
+283  | 18/03/2026   | 04283              | ABEER MEKKI BEAUTY LADIES CENTER -  | Выписан          |        1332.00
+284  | 19/03/2026   | 04284              | Shakirovna Ladies Beauty Saloon     | Выписан          |         230.00
+285  | 19/03/2026   | 04285              | Miss Sarayounesskin Sara            | Выписан          |        1030.00
+286  | 19/03/2026   | 04286              | Retail customer                     | Выписан          |         345.00
+287  | 19/03/2026   | 04287              | Miss Solomia Kalytovska             | Выписан          |        1120.30
+288  | 20/03/2026   | 04288              | Miss Ella Sosnina                   | Выписан          |         655.00
+289  | 20/03/2026   | 04289              | Miss Ella Sosnina                   | Выписан          |         180.00
+290  | 22/03/2026   | 04290              | Miss Hanna Bryshtsen                | Выписан          |         470.00
+291  | 22/03/2026   | 04291              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | Выписан          |         290.00
+292  | 22/03/2026   | 04292              | Miss Madinaxon Omonullayeva         | Выписан          |         710.60
+293  | 22/03/2026   | 04293              | Miss Anastasiya                     | Выписан          |         375.00
+294  | 24/03/2026   | 04294              | My Skin Story Perfumes and Cosmetic | Выписан          |        1600.00
+295  | 24/03/2026   | 04295              | Brau Ladies Salon LLC               | Выписан          |         760.00
+296  | 24/03/2026   | 04296              | Brau Ladies Salon LLC               | Выписан          |         380.00
+297  | 24/03/2026   | 04297              | Missis Marina Biryukova             | Выписан          |         560.00
+298  | 25/03/2026   | 04298              | Dr. Valeria Borscheva               | Выписан          |         500.00
+299  | 25/03/2026   | 04299              | HIDE MEDICAL CENTER L.L.C           | Выписан          |         540.00
+300  | 26/03/2026   | 04300              | Nour Alkhatib                       | Выписан          |         315.00
+301  | 26/03/2026   | 04301              | Miss Inga Policiuc                  | Выписан          |         345.00
+302  | 26/03/2026   | 04302              | Miss Ksenia Perekhryst              | Выписан          |         600.00
+303  | 26/03/2026   | 04303              | Miss Irina Solodkaya                | Выписан          |         760.00
+304  | 26/03/2026   | 04304              | Miss Alexandra Aghraige             | Выписан          |         330.00
+305  | 26/03/2026   | 04305              | Regina Galkina                      | Выписан          |         345.00
+306  | 26/03/2026   | 04306              | Valeriya Evtekhova                  | Выписан          |         370.00
+307  | 27/03/2026   | 04307              | Elizabeth Nabiieva                  | Выписан          |         300.00
+308  | 27/03/2026   | 04308              | Face Care Pro Spa LTD               | Выписан          |        3455.00
+309  | 27/03/2026   | 04309              | FACE ROOM BEAUTY SALON CO           | Выписан          |        2217.00
+310  | 27/03/2026   | 04310              | Admin Shakirovna Salon              | Выписан          |         989.00
+311  | 27/03/2026   | 04311              | Kseniia Kadenskaia                  | Выписан          |         505.00
+312  | 28/03/2026   | 04312              | Kseniya Bialova                     | Выписан          |         345.00
+313  | 28/03/2026   | 04313              | Miss Svetlana                       | Выписан          |        1390.00
+314  | 28/03/2026   | 04314              | Miss Anastasiya                     | Выписан          |         455.00
+315  | 28/03/2026   | 04315              | Miss Anastasiya                     | Выписан          |         188.71
+316  | 28/03/2026   | 04316              | Miss Alesya                         | Выписан          |         219.00
+317  | 28/03/2026   | 04317              | Miss Heike Lutz                     | Выписан          |         715.00
+318  | 28/03/2026   | 04318              | Kseniia Kadenskaia                  | Выписан          |         595.00
+319  | 29/03/2026   | 04319              | Miss Galina                         | Выписан          |         345.00
+320  | 30/03/2026   | 04320              | Miss Khachaturova Yana              | Выписан          |         340.00
+321  | 30/03/2026   | 04321              | Miss Irina                          | Выписан          |        1050.00
+322  | 30/03/2026   | 04322              | Miss Olha Kravchuk                  | Выписан          |         168.50
+323  | 30/03/2026   | 04323              | Natalia Anokhina                    | Выписан          |        1251.00
+324  | 31/03/2026   | 04324              | Marapo Beauty Salon, The Face Only  | Выписан          |         145.00
+325  | 31/03/2026   | 04325              | Milena AESTHETIC CLINIC LLC (JBR Br | Выписан          |         450.00
+326  | 31/03/2026   | 04326              | Milena AESTHETIC CLINIC LLC (JBR Br | Выписан          |         440.00
+----------------------------------------------------------------------------------------------------
+TOTAL |              |                    |                                     |                  |      278415.96
+
+====================================================================================================
+  INVOICES IN — Счета поставщикам (Invoices from Suppliers)  (5 documents)
+====================================================================================================
+#    | Date         | Number             | Counterparty                        | Status           |      Sum (AED)
+----------------------------------------------------------------------------------------------------
+1    | 06/01/2026   | 00162              | DTSMG Genosys                       | PO               |      141927.99
+2    | 06/01/2026   | 00163              | DTSMG Genosys                       | PO               |         245.84
+3    | 20/01/2026   | 00164              | DTSMG Genosys                       | PO               |       16452.00
+4    | 12/02/2026   | 00165              | DTSMG Genosys                       | PO               |       23111.00
+5    | 14/03/2026   | 00166              | DTSMG Genosys                       | PO               |        1230.00
+----------------------------------------------------------------------------------------------------
+TOTAL |              |                    |                                     |                  |      182966.83
+
+====================================================================================================
+  CUSTOMER ORDERS — Заказы покупателей  (325 documents)
+====================================================================================================
+#    | Date         | Number             | Counterparty                        | Status           |      Sum (AED)
+----------------------------------------------------------------------------------------------------
+1    | 01/01/2026   | 03778              | Dmitrii Grishin                     | Доставлен        |         345.00
+2    | 02/01/2026   | 03779              | Miss Anastasiya Todosiichuk         | Доставлен        |        1320.00
+3    | 04/01/2026   | 03780              | Miss Laura Abizova                  | Доставлен        |        1330.00
+4    | 04/01/2026   | 03781              | Miss Saba Yussouf                   | Доставлен        |         495.00
+5    | 05/01/2026   | 03782              | Miss Valeriia Synenko               | Доставлен        |         741.00
+6    | 05/01/2026   | 03783              | BIANCO LAYAN BEAUTY SALON L.L.C     | Доставлен        |        2745.00
+7    | 05/01/2026   | 03784              | BIANCO JGE GENTS SALON L.L.C        | Доставлен        |         360.00
+8    | 05/01/2026   | 03785              | The Hideaway For Women Salon        | Доставлен        |        1625.00
+9    | 06/01/2026   | 03786              | Miss Valeriya                       | Доставлен        |         330.00
+10   | 06/01/2026   | 03787              | Miss Madina Movsumova               | Доставлен        |        1520.00
+11   | 07/01/2026   | 03788              | Miss Ella Sosnina                   | Доставлен        |         702.00
+12   | 07/01/2026   | 03789              | Miss Irina Solodkaya                | Доставлен        |         650.00
+13   | 07/01/2026   | 03790              | Evolution Aesthetics Clinic         | Доставлен        |        3520.00
+14   | 07/01/2026   | 03791              | Alexandra Nikonova                  | Доставлен        |         650.00
+15   | 07/01/2026   | 03792              | Brau Ladies Salon LLC               | Доставлен        |         380.00
+16   | 07/01/2026   | 03793              | Brau Ladies Salon LLC               | Доставлен        |         380.00
+17   | 07/01/2026   | 03794              | Miss Olha Kravchuk                  | Доставлен        |         345.00
+18   | 08/01/2026   | 03795              | Miss Ekaterina                      | Доставлен        |         345.00
+19   | 08/01/2026   | 03796              | Milena AESTHETIC CLINIC LLC         | Доставлен        |        2510.00
+20   | 08/01/2026   | 03797              | Miss Khachaturova Yana              | Доставлен        |         200.00
+21   | 08/01/2026   | 03798              | Miss Anastasiya                     | Доставлен        |        1980.00
+22   | 08/01/2026   | 03799              | mr. Dimitri Parliaras               | Доставлен        |         820.00
+23   | 09/01/2026   | 03800              | Alexandra Nikonova                  | Доставлен        |         407.00
+24   | 09/01/2026   | 03801              | Miss Uliana                         | Доставлен        |         340.00
+25   | 09/01/2026   | 03802              | BIANCO JGE Ladies Salon L.L.C       | Доставлен        |        4280.00
+26   | 10/01/2026   | 03803              | GOCOSMO BEAUTY SALON                | Доставлен        |        1420.00
+27   | 10/01/2026   | 03804              | Dimitri Parliaras                   | Доставлен        |        4083.10
+28   | 11/01/2026   | 03805              | GOCOSMO BEAUTY SALON                | Доставлен        |         530.00
+29   | 11/01/2026   | 03806              | Miss Olga Pershay                   | Доставлен        |         780.00
+30   | 11/01/2026   | 03807              | Miss Elvira                         | Доставлен        |         645.00
+31   | 12/01/2026   | 03808              | Marapo Beauty Salon, The Face Only  | Доставлен        |        1038.00
+32   | 12/01/2026   | 03809              | Miss Marina                         | Доставлен        |         330.00
+33   | 13/01/2026   | 03810              | Dr. Valeria Borscheva               | Доставлен        |         655.00
+34   | 13/01/2026   | 03811              | Marapo Beauty Salon, The Face Only  | Доставлен        |         165.00
+35   | 13/01/2026   | 03812              | Miss Tatyana (Alena)                | Доставлен        |         195.00
+36   | 14/01/2026   | 03813              | Miss Liza                           | Доставлен        |         971.75
+37   | 14/01/2026   | 03814              | ELEGANCE POLY CLINIC L.L.C.         | Доставлен        |        1615.00
+38   | 14/01/2026   | 03815              | Miss Leyla Gulyaeva                 | Доставлен        |         450.00
+39   | 15/01/2026   | 03816              | miss Christina Baikovich            | Доставлен        |         345.00
+40   | 15/01/2026   | 03817              | Miss Victoria Lukianchuk            | Доставлен        |         290.00
+41   | 15/01/2026   | 03818              | FACE ROOM BEAUTY SALON CO           | Доставлен        |        4990.00
+42   | 15/01/2026   | 03819              | ELITE SHAKIROVNA LADIES SALON L.L.C | Доставлен        |        1645.00
+43   | 15/01/2026   | 03820              | Home Client                         | Доставлен        |         255.00
+44   | 16/01/2026   | 03821              | Sofiia Boiko                        | Доставлен        |        1070.00
+45   | 16/01/2026   | 03822              | Marapo Beauty Salon, The Face Only  | Доставлен        |         990.00
+46   | 16/01/2026   | 03823              | Marapo Beauty Salon, The Face Only  | Доставлен        |         105.00
+47   | 19/01/2026   | 03824              | Miss Heike Lutz                     | Доставлен        |         694.00
+48   | 19/01/2026   | 03825              | Vlada (Alenas customer)             | Доставлен        |         150.00
+49   | 19/01/2026   | 03826              | Home Client                         | Доставлен        |         178.50
+50   | 19/01/2026   | 03827              | Milena AESTHETIC CLINIC LLC         | Доставлен        |        1700.00
+51   | 19/01/2026   | 03828              | Adara Spa Retreat                   | Доставлен        |        3175.00
+52   | 20/01/2026   | 03829              | First Person Ladies Salon (Marina)  | Доставлен        |         210.00
+53   | 21/01/2026   | 03830              | Miss Ayjahan Atagarryyeva           | Доставлен        |        1260.00
+54   | 21/01/2026   | 03832              | Bianco Beauty Salon SPA (Dubai Hill | Доставлен        |        3410.00
+55   | 22/01/2026   | 03833              | Admin Marapo Beauty Salon, The Face | Доставлен        |         810.05
+56   | 22/01/2026   | 03834              | Home Client                         | Доставлен        |         360.00
+57   | 23/01/2026   | 03835              | X BEAUTY CONSULTING - F.Z.C         | Доставлен        |         300.00
+58   | 23/01/2026   | 03836              | Miss Valeriia Kravchenko            | Доставлен        |        1040.00
+59   | 23/01/2026   | 03837              | Amna Alzaabi                        | Доставлен        |         370.00
+60   | 23/01/2026   | 03838              | Brau Ladies Salon LLC               | Доставлен        |         380.00
+61   | 23/01/2026   | 03839              | Brau Ladies Salon LLC               | Доставлен        |         380.00
+62   | 23/01/2026   | 03840              | Brau Ladies Salon LLC               | Доставлен        |         570.00
+63   | 23/01/2026   | 03842              | Miss Svetlana                       | Доставлен        |        1180.00
+64   | 23/01/2026   | 03843              | Marapo Beauty Salon, The Face Only  | Доставлен        |         645.00
+65   | 23/01/2026   | 03844              | Miss Vasilisa Kozhemiako            | Доставлен        |         495.00
+66   | 23/01/2026   | 03845              | My Skin Story Perfumes and Cosmetic | Доставлен        |         230.00
+67   | 24/01/2026   | 03846              | Admin Marapo Beauty Salon, The Face | Доставлен        |         145.00
+68   | 24/01/2026   | 03847              | Marapo Beauty Salon, The Face Only  | Доставлен        |         105.00
+69   | 24/01/2026   | 03848              | Miss Aidana Yerkegaliyeva           | Доставлен        |         645.00
+70   | 24/01/2026   | 03849              | Miss Tetiana Yarova                 | Доставлен        |         330.00
+71   | 25/01/2026   | 03850              | Miss Zarnosh Nawaz                  | Доставлен        |         625.00
+72   | 25/01/2026   | 03851              | Miss Nataliya Anokhina              | Доставлен        |        1240.00
+73   | 25/01/2026   | 03852              | Miss Ekaterina Pronushkina          | Доставлен        |        1160.00
+74   | 27/01/2026   | 03853              | My Skin Story Perfumes and Cosmetic | Доставлен        |         250.00
+75   | 27/01/2026   | 03854              | Marc El Asmar                       | Доставлен        |         480.00
+76   | 27/01/2026   | 03855              | Home Client                         | Доставлен        |         714.00
+77   | 27/01/2026   | 03856              | Miss Ksenia Perekhryst              | Доставлен        |         570.00
+78   | 28/01/2026   | 03857              | Miss Galinur Duisekenova            | Доставлен        |        1271.60
+79   | 28/01/2026   | 03858              | Johan Bahia                         | Доставлен        |        1230.00
+80   | 28/01/2026   | 03859              | The Hideaway For Women Salon        | Доставлен        |        1567.00
+81   | 28/01/2026   | 03860              | Miss Tatiana Kravchenko             | Доставлен        |         937.00
+82   | 29/01/2026   | 03861              | Egle Vitkauskiene                   | Доставлен        |         595.00
+83   | 29/01/2026   | 03862              | FAMILY CLASS POLY CLINIC L.L.C      | Доставлен        |        1795.00
+84   | 29/01/2026   | 03863              | Brau Ladies Salon LLC               | Доставлен        |         570.00
+85   | 29/01/2026   | 03864              | Miss Yana Yakovleva                 | Доставлен        |         345.00
+86   | 30/01/2026   | 03865              | Miss Valeriya                       | Доставлен        |         600.00
+87   | 30/01/2026   | 03866              | IULIA BEAUTY SALON LLC              | Доставлен        |        1670.00
+88   | 01/02/2026   | 03867              | X BEAUTY CONSULTING - F.Z.C         | Доставлен        |         370.00
+89   | 01/02/2026   | 03868              | Miss Olga Gil                       | Доставлен        |         315.00
+90   | 01/02/2026   | 03869              | Miss Alexandra Aghraige             | Доставлен        |         330.00
+91   | 01/02/2026   | 03870              | miss Milya                          | Доставлен        |         335.00
+92   | 02/02/2026   | 03871              | Mediclinic Clinics Investment LLC   | Доставлен - Ждем |         760.00
+93   | 02/02/2026   | 03872              | Le Bleu Ciel Ladies Beauty Salon    | Доставлен        |        1127.50
+94   | 02/02/2026   | 03873              | BIANCO JGE GENTS SALON L.L.C        | Доставлен - Ждем |         300.00
+95   | 02/02/2026   | 03874              | FACEPRO WOMEN SALON L.L.C           | Доставлен        |        1687.00
+96   | 02/02/2026   | 03875              | FACE ROOM BEAUTY SALON CO           | Доставлен        |        2255.00
+97   | 02/02/2026   | 03876              | Mr. Amr Najar Ali                   | Доставлен        |         690.00
+98   | 03/02/2026   | 03877              | Allure Personal Care Center LLC     | Доставлен        |        1545.00
+99   | 03/02/2026   | 03878              | First Person Ladies Salon (Marina)  | Доставлен        |         400.00
+100  | 03/02/2026   | 03879              | Miss Hanna Bryshtsen                | Доставлен        |         770.00
+101  | 03/02/2026   | 03880              | Miss Yanka Slanchenko               | Доставлен        |         445.00
+102  | 03/02/2026   | 03881              | Home Client                         | Доставлен        |         595.00
+103  | 03/02/2026   | 03882              | Marapo Beauty Salon, The Face Only  | Доставлен - Ждем |         883.00
+104  | 04/02/2026   | 03883              | Home Client                         | Доставлен        |         498.00
+105  | 04/02/2026   | 03884              | Miss Victoria                       | Доставлен        |        1160.00
+106  | 04/02/2026   | 03885              | First Person Ladies Salon (Marina)  | Доставлен        |         245.00
+107  | 04/02/2026   | 03886              | Miss Julia                          | Доставлен        |        1110.00
+108  | 04/02/2026   | 03887              | Hollie Skin                         | Доставлен        |        1430.00
+109  | 05/02/2026   | 03888              | Miss Rima                           | Доставлен        |         371.00
+110  | 05/02/2026   | 03889              | Miss Saule                          | Доставлен        |         425.00
+111  | 05/02/2026   | 03890              | Home Client                         | Доставлен        |         255.00
+112  | 05/02/2026   | 03891              | Miss Elena                          | Доставлен        |         345.00
+113  | 05/02/2026   | 03892              | Miss Assiya Abanina                 | Доставлен        |        1040.00
+114  | 05/02/2026   | 03893              | Miss Lamy Maalouf                   | Доставлен        |        1690.00
+115  | 05/02/2026   | 03894              | ELEGANCE POLY CLINIC L.L.C.         | Доставлен        |        1030.00
+116  | 05/02/2026   | 03895              | Inna Ageyeva                        | Доставлен        |         290.00
+117  | 06/02/2026   | 03896              | Home Client                         | Доставлен        |         820.25
+118  | 06/02/2026   | 03897              | Miss Olga                           | Доставлен        |        1170.00
+119  | 06/02/2026   | 03898              | Guapa Ladies Salon L.L.C            | Доставлен        |         664.00
+120  | 06/02/2026   | 03899              | Miss Alesya                         | Доставлен        |         935.00
+121  | 06/02/2026   | 03900              | Miss Anastasiya                     | Доставлен        |         295.00
+122  | 07/02/2026   | 03901              | Admin Shakirovna Salon              | Доставлен        |         150.00
+123  | 07/02/2026   | 03902              | First Person Ladies Salon LLC (Palm | Доставлен        |         230.00
+124  | 07/02/2026   | 03903              | Marapo Beauty Salon, The Face Only  | Доставлен - Ждем |         445.00
+125  | 07/02/2026   | 03904              | Miss Elena Gadinich                 | Доставлен        |        3751.50
+126  | 08/02/2026   | 03905              | Miss Laura Abizova                  | Доставлен        |        2458.00
+127  | 08/02/2026   | 03906              | Miss Olha Vialykh                   | Доставлен        |         500.00
+128  | 08/02/2026   | 03907              | Miss Sydia Solano                   | Доставлен        |         615.00
+129  | 09/02/2026   | 03908              | Brau Ladies Salon LLC               | Доставлен        |         380.00
+130  | 09/02/2026   | 03909              | Brau Ladies Salon LLC               | Доставлен        |         380.00
+131  | 09/02/2026   | 03910              | Brau Ladies Salon LLC               | Доставлен        |         570.00
+132  | 09/02/2026   | 03911              | Sugar & Wax Beauty Salon            | Доставлен        |         675.00
+133  | 09/02/2026   | 03912              | Retail customer                     | Доставлен        |         337.00
+134  | 10/02/2026   | 03913              | Miss Assel Atau                     | Доставлен        |         417.00
+135  | 10/02/2026   | 03914              | Home Client                         | Доставлен        |         352.00
+136  | 10/02/2026   | 03915              | Dr. Valeria Borscheva               | Доставлен        |         730.00
+137  | 10/02/2026   | 03916              | Miss Elvina Daminova                | Доставлен        |         430.00
+138  | 10/02/2026   | 03917              | Miss Ksenia Perekhryst              | Доставлен        |         430.00
+139  | 11/02/2026   | 03918              | Miss Elvina Daminova                | Доставлен        |         230.00
+140  | 11/02/2026   | 03919              | X BEAUTY CONSULTING - F.Z.C         | Доставлен        |         300.00
+141  | 11/02/2026   | 03920              | AST Advance Cosmetics Trading L.L.C | Доставлен        |         850.00
+142  | 11/02/2026   | 03921              | IULIA BEAUTY SALON LLC              | Доставлен        |        3425.00
+143  | 11/02/2026   | 03922              | Evolution Aesthetics Clinic         | Доставлен        |         870.00
+144  | 11/02/2026   | 03923              | Miss Anna Gulik                     | Доставлен        |         437.00
+145  | 12/02/2026   | 03924              | Miss Khachaturova Yana              | Доставлен        |         515.00
+146  | 12/02/2026   | 03925              | Evolution Aesthetics Clinic         | Доставлен        |         500.00
+147  | 12/02/2026   | 03926              | HORTMAN CLINICS 2 L.L.C             | Доставлен - Ждем |        6300.00
+148  | 12/02/2026   | 03927              | Miss Diana Volk                     | Доставлен        |         665.00
+149  | 13/02/2026   | 03928              | Home Client                         | Доставлен        |         731.00
+150  | 13/02/2026   | 03929              | Evolution Aesthetics Clinic         | Доставлен        |         765.00
+151  | 13/02/2026   | 03930              | Miss Ainura Katauova                | Доставлен        |         585.00
+152  | 13/02/2026   | 03931              | FAMILY CLASS POLY CLINIC L.L.C      | Доставлен        |         570.00
+153  | 14/02/2026   | 03932              | Miss Polina Bakhanova               | Доставлен        |         745.00
+154  | 14/02/2026   | 03933              | Home Client                         | Доставлен        |         784.00
+155  | 14/02/2026   | 03934              | Le Bleu Ciel Ladies Beauty Salon    | Доставлен        |         450.00
+156  | 14/02/2026   | 03935              | Miss Ella Sosnina                   | Доставлен        |         459.00
+157  | 14/02/2026   | 03936              | Inna Ageyeva                        | Доставлен        |         664.00
+158  | 15/02/2026   | 03937              | Miss Asli Altinok                   | Доставлен        |         345.00
+159  | 15/02/2026   | 03938              | Clinic customer                     | Доставлен        |         185.00
+160  | 15/02/2026   | GENCardW2602156087 | Miss Vladislava                     | Доставлен        |        2030.00
+161  | 16/02/2026   | GENCardW2602156088 | Milena AESTHETIC CLINIC LLC         | Доставлен        |         900.00
+162  | 16/02/2026   | GENCardW2602156089 | Miss Vladislava                     | Доставлен        |         635.00
+163  | 16/02/2026   | GENCardW2602156090 | FaceFIT SALON L.L.C                 | Доставлен        |        1120.00
+164  | 16/02/2026   | GENCardW2602156091 | Miss Marina Gruzdeva                | Доставлен        |         807.00
+165  | 16/02/2026   | GENCardW2602156092 | Miss Iryna                          | Доставлен        |         331.00
+166  | 16/02/2026   | GENCardM2602161581 | Missis Marina Biryukova             | Доставлен        |         175.00
+167  | 16/02/2026   | GENCardM2602161582 | Miss Alisa Petrova                  | Доставлен        |         870.00
+168  | 16/02/2026   | GENCardM2602161583 | Marapo Beauty Salon, The Face Only  | Доставлен - Ждем |         930.00
+169  | 17/02/2026   | GENCardW2602173991 | Miss Alina Melnik                   | Доставлен        |        1030.00
+170  | 17/02/2026   | GENCardW2602175448 | Miss Abir Manai                     | Доставлен        |        1000.00
+171  | 17/02/2026   | GENCardW2602175449 | ELEGANCE POLY CLINIC L.L.C.         | Доставлен        |         888.00
+172  | 17/02/2026   | GENCardW2602175450 | Lips for Kiss Clinic                | Доставлен        |        3630.00
+173  | 18/02/2026   | GENCardW2602175451 | Milena AESTHETIC CLINIC LLC         | Доставлен        |         360.00
+174  | 18/02/2026   | GENCardW2602175452 | Miss Vlada                          | Доставлен        |          95.00
+175  | 19/02/2026   | GENCardM2602196697 | Miss Sema Tare                      | Доставлен        |         415.00
+176  | 20/02/2026   | GENCardM2602208627 | Valeriia Babakova                   | Доставлен        |        1232.00
+177  | 20/02/2026   | GENCardW2602200945 | Miss Vladislava                     | Доставлен        |         725.00
+178  | 20/02/2026   | GENCardM2602208628 | IULIA BEAUTY SALON LLC              | Доставлен        |        1105.00
+179  | 20/02/2026   | GENCardM2602208629 | Ulbossyn Saparbayeva                | Доставлен        |         210.00
+180  | 20/02/2026   | GENCardW2602209796 | Ella Sokolova                       | Доставлен        |         335.00
+181  | 20/02/2026   | GENCardW2602209797 | My Skin Story Perfumes and Cosmetic | Доставлен        |         380.00
+182  | 20/02/2026   | CODW2602200667     | Mariia Barysheva                    | Доставлен        |         645.00
+183  | 20/02/2026   | CODW2602200668     | miss Ekaterina Petukhova            | Доставлен        |         815.00
+184  | 20/02/2026   | GENCardM2602208079 | Esra Akyol Bilgin                   | Доставлен        |         425.00
+185  | 21/02/2026   | GENCardW2602211320 | Miss Ekaterina Pronushkina          | Доставлен        |        1200.00
+186  | 22/02/2026   | GENCardW2602211321 | Marapo Beauty Salon, The Face Only  | Доставлен - Ждем |         802.00
+187  | 22/02/2026   | GENCardW2602211322 | Admin Marapo Beauty Salon, The Face | Доставлен        |         145.00
+188  | 22/02/2026   | GENCardW2602211323 | Katerina Tatsiuk                    | Доставлен        |         335.00
+189  | 22/02/2026   | GENCardW2602221508 | Kamila Rakhimova                    | Доставлен        |         375.00
+190  | 23/02/2026   | GENCardW2602221509 | Milena AESTHETIC CLINIC LLC         | Доставлен        |        1050.00
+191  | 23/02/2026   | GENCardW2602221510 | Lavana SPA                          | Доставлен        |        1190.00
+192  | 23/02/2026   | GENCardW2602221511 | Dr. Valeria Borscheva               | Доставлен        |         585.00
+193  | 23/02/2026   | GENCardW2602238765 | NAZEED OSMAN                        | Доставлен        |         665.00
+194  | 23/02/2026   | GENCardW2602238766 | Miss Anastasiya Bukoros             | Доставлен        |         345.00
+195  | 24/02/2026   | GENCardM2602244583 | Hayley Hall                         | Доставлен        |         375.00
+196  | 24/02/2026   | GENCardM2602244584 | Milena AESTHETIC CLINIC LLC (JBR Br | Доставлен        |         600.00
+197  | 24/02/2026   | GENCardM2602244585 | Marapo Beauty Salon, The Face Only  | Доставлен - Ждем |         435.00
+198  | 24/02/2026   | GENCardM2602244586 | Miss Uliana                         | Доставлен        |         340.00
+199  | 25/02/2026   | GENCardW2602252914 | Miss Zulya Ammaeva                  | Доставлен        |        1016.00
+200  | 26/02/2026   | GENCardW2602252915 | FAMILY CLASS POLY CLINIC L.L.C      | Доставлен        |         845.00
+201  | 27/02/2026   | GENCardW2602252916 | Alena Solodovichenko                | Доставлен        |         345.00
+202  | 27/02/2026   | GENCardW2602270726 | Natalja Zaharova                    | Доставлен        |        1060.00
+203  | 27/02/2026   | GENCardW2602270727 | Evolution Aesthetics Clinic         | Доставлен        |        1030.00
+204  | 27/02/2026   | GENCardW2602270728 | Elizabeth Nabiieva                  | Доставлен        |         450.00
+205  | 27/02/2026   | GENCardM2602273260 | Miss Estefa Pastor                  | Доставлен        |         390.00
+206  | 27/02/2026   | GENCardM2602273261 | miss Ekaterina Petukhova            | Доставлен        |         520.00
+207  | 28/02/2026   | GENCardW2602283404 | Valeriia Synenko                    | Доставлен        |         635.00
+208  | 28/02/2026   | GENCardW2602283405 | Dr Malika Khodzhaeva                | Доставлен        |         705.00
+209  | 28/02/2026   | GENCardW2602283406 | miss Ekaterina Petukhova            | Доставлен        |         490.00
+210  | 02/03/2026   | GENCardW2602283407 | Mediclinic Clinics Investment LLC   | Доставлен - Ждем |         760.00
+211  | 02/03/2026   | GENCardM2603026207 | Miss Margo Faizulina                | Доставлен        |         465.00
+212  | 02/03/2026   | GENCardM2603026208 | X BEAUTY CONSULTING - F.Z.C         | Доставлен        |         185.00
+213  | 02/03/2026   | GENCardM2603026209 | My Skin Story Perfumes and Cosmetic | Доставлен        |         250.00
+214  | 03/03/2026   | GENCardM2603026210 | Milena AESTHETIC CLINIC LLC         | Доставлен        |         150.00
+215  | 03/03/2026   | GENCardM2603026211 | FAMILY CLASS POLY CLINIC L.L.C      | Доставлен        |         740.00
+216  | 03/03/2026   | GENCardM2603026212 | HIDE MEDICAL CENTER L.L.C           | Доставлен        |         306.00
+217  | 03/03/2026   | GENCardM2603026213 | Chahit Joshi                        | Доставлен        |         330.00
+218  | 04/03/2026   | GENCardM2603026214 | AMERICAN MEDICAL CENTER DMCC        | Доставлен - Ждем |         580.00
+219  | 04/03/2026   | GENCardM2603026215 | First Person Ladies Salon LLC (Palm | Доставлен        |         300.00
+220  | 04/03/2026   | GENCardM2603026216 | Bianco Beauty Salon SPA (Dubai Hill | Доставлен - Ждем |        2477.00
+221  | 05/03/2026   | CODM2603045496     | Miss Sarayounesskin Sara            | Доставлен        |         315.00
+222  | 05/03/2026   | CODM2603045497     | Miss Aidana Yerkegaliyeva           | Доставлен        |         640.00
+223  | 05/03/2026   | CODM2603045498     | AMERICAN MEDICAL CENTER DMCC        | Доставлен - Ждем |         225.00
+224  | 05/03/2026   | CODM2603045499     | IULIA BEAUTY SALON LLC              | Доставлен        |         510.00
+225  | 05/03/2026   | CODM2603045500     | Le Bleu Ciel Ladies Beauty Salon    | Доставлен        |         670.00
+226  | 05/03/2026   | CODM2603045501     | The Hideaway For Women Salon        | Доставлен        |        3040.00
+227  | 05/03/2026   | CODM2603045502     | Brau Ladies Salon LLC               | Доставлен        |         380.00
+228  | 05/03/2026   | CODM2603045503     | Brau Ladies Salon LLC               | Доставлен        |         380.00
+229  | 05/03/2026   | CODM2603045504     | Miss Sarra Uanassi                  | Доставлен        |         345.00
+230  | 05/03/2026   | CODM2603045505     | Marapo Beauty Salon, The Face Only  | Доставлен - Ждем |         165.00
+231  | 05/03/2026   | CODM2603045506     | Fayy Health FZCO                    | Доставлен - Ждем |        3800.00
+232  | 05/03/2026   | CODM2603045507     | Miss Khachaturova Yana              | Доставлен        |        1050.00
+233  | 06/03/2026   | CODM2603045508     | Brau Ladies Salon LLC               | Доставлен        |         380.00
+234  | 06/03/2026   | CODM2603045509     | Milena AESTHETIC CLINIC LLC (JBR Br | Доставлен        |         450.00
+235  | 06/03/2026   | CODM2603045510     | FACE ROOM BEAUTY SALON CO           | Доставлен        |        2735.00
+236  | 06/03/2026   | CODM2603045511     | Milena AESTHETIC CLINIC LLC (JBR Br | Доставлен        |         450.00
+237  | 06/03/2026   | CODM2603045512     | Miss Dr. Viki                       | Доставлен        |         780.00
+238  | 07/03/2026   | CODM2603045513     | X BEAUTY CONSULTING - F.Z.C         | Доставлен        |         300.00
+239  | 07/03/2026   | CODM2603045514     | Miss Khachaturova Yana              | Доставлен        |         435.00
+240  | 07/03/2026   | CODM2603045515     | Polina Emelianenko                  | Доставлен        |         255.00
+241  | 07/03/2026   | GENCardM2603076491 | Miss Sarayounesskin Sara            | Доставлен        |         740.00
+242  | 08/03/2026   | GENCardW2603074656 | Miss Julia                          | Доставлен        |         425.00
+243  | 08/03/2026   | GENCardW2603081467 | Miss Julia                          | Доставлен        |        1296.00
+244  | 08/03/2026   | GENCardW2603081468 | Bianco Spa FZCO (Cedre Center)      | Доставлен - Ждем |        3000.00
+245  | 08/03/2026   | GENCardW2603081469 | Admin Marapo Beauty Salon, The Face | Доставлен        |         930.00
+246  | 09/03/2026   | GENCardW2603081470 | Miss Ksenia Perekhryst              | Доставлен        |         290.00
+247  | 10/03/2026   | CODM2603092902     | Malika Sher                         | Доставлен        |         295.00
+248  | 10/03/2026   | CODM2603092903     | Clinic customer                     | Доставлен        |         738.00
+249  | 11/03/2026   | GENCardW2603113806 | Miss Valeriia Kravchenko            | Доставлен        |        1204.70
+250  | 11/03/2026   | GENCardW2603113807 | Miss Saba Yussouf                   | Доставлен        |         555.00
+251  | 11/03/2026   | GENCardW2603113808 | Marapo Beauty Salon, The Face Only  | Доставлен - Ждем |         365.00
+252  | 11/03/2026   | GENCardM2603118338 | Miss Sarayounesskin Sara            | Доставлен        |         355.00
+253  | 11/03/2026   | GENCardM2603112690 | Miss Sarayounesskin Sara            | Доставлен        |         355.00
+254  | 11/03/2026   | GENCardW2603116365 | Svetlana Elina                      | Доставлен        |         415.00
+255  | 11/03/2026   | GENCardW2603116366 | Miss Olga Pershay                   | Доставлен        |        1540.00
+256  | 12/03/2026   | GENCardW2603116367 | Polina Emelianenko                  | Доставлен        |          90.00
+257  | 12/03/2026   | GENCardW2603116368 | Brau Ladies Salon LLC               | Доставлен        |         380.00
+258  | 12/03/2026   | GENCardW2603127498 | Анна Гулик                          | Доставлен        |        1228.00
+259  | 13/03/2026   | CODW2603136947     | Miss Lamy Maalouf                   | Доставлен        |        1340.00
+260  | 13/03/2026   | GENCardM2603138570 | Miss Estefa Pastor                  | Доставлен        |         375.00
+261  | 13/03/2026   | GENCardM2603138571 | You by Anna Bezdushnaya Salon       | Доставлен        |         255.00
+262  | 13/03/2026   | GENCardM2603138572 | BIANCO LAYAN BEAUTY SALON L.L.C     | Доставлен - Ждем |         687.00
+263  | 14/03/2026   | GENCardM2603138573 | Ilmira Hairulina                    | Доставлен        |         550.00
+264  | 14/03/2026   | GENCardM2603138574 | Miss Sirma Osman                    | Доставлен        |         790.00
+265  | 15/03/2026   | GENCardM2603138575 | Miss Guzel                          | Доставлен        |         650.00
+266  | 15/03/2026   | GENCardM2603138576 | Miss Nina                           | Доставлен        |         910.00
+267  | 15/03/2026   | GENCardM2603138577 | Katerina Tatsiuk                    | Доставлен        |         375.00
+268  | 16/03/2026   | GENCardM2603138578 | DIFFERENT AESTHETIC MEDICAL CENTER  | Доставлен        |        3225.00
+269  | 16/03/2026   | CODM2603165176     | Stuart Anson                        | Доставлен        |        1099.90
+270  | 16/03/2026   | CODM2603165177     | Brau Ladies Salon LLC               | Доставлен        |         570.00
+271  | 16/03/2026   | CODM2603165178     | Marapo Beauty Salon, The Face Only  | Доставлен - Ждем |         775.00
+272  | 16/03/2026   | GENCardM2603169142 | Daniela Weerasinghe                 | Доставлен        |         366.00
+273  | 16/03/2026   | GENCardM2603161992 | Bagtyyar Rejepbayev                 | Доставлен        |         345.00
+274  | 16/03/2026   | GENCardM2603168718 | Alla Petrikova                      | Доставлен        |        1035.00
+275  | 17/03/2026   | GENCardM2603168719 | FAMILY CLASS POLY CLINIC L.L.C      | Доставлен        |         295.00
+276  | 17/03/2026   | GENCardM2603168720 | HORTMAN CLINICS 2 L.L.C             | Доставлен - Ждем |        6300.00
+277  | 17/03/2026   | GENCardM2603168721 | Brau Ladies Salon LLC               | Доставлен        |         380.00
+278  | 17/03/2026   | GENCardM2603168722 | Evolution Aesthetics Clinic         | Доставлен        |        1485.00
+279  | 17/03/2026   | CODW2603176485     | Mariia Ryseva                       | Доставлен        |         571.00
+280  | 18/03/2026   | CODW2603176486     | SOLAR MEDICAL CLINIC L.L.C          | Доставлен        |        1144.00
+281  | 18/03/2026   | CODW2603176487     | Milena AESTHETIC CLINIC LLC         | Доставлен        |         725.00
+282  | 18/03/2026   | CODW2603176488     | ABEER MEKKI BEAUTY LADIES CENTER -  | Доставлен - Ждем |        1332.00
+283  | 19/03/2026   | CODW2603176489     | Shakirovna Ladies Beauty Saloon     | Доставлен        |         230.00
+284  | 19/03/2026   | GENCardM2603193202 | Miss Sarayounesskin Sara            | Доставлен        |        1030.00
+285  | 19/03/2026   | GENCardM2603193203 | Retail customer                     | Доставлен        |         345.00
+286  | 19/03/2026   | GENCardM2603193204 | Miss Solomia Kalytovska             | Доставлен        |        1120.30
+287  | 20/03/2026   | GENCardM2603193205 | Miss Ella Sosnina                   | Доставлен        |         655.00
+288  | 20/03/2026   | GENCardM2603193206 | Miss Ella Sosnina                   | Доставлен        |         180.00
+289  | 22/03/2026   | GENCardM2603193207 | Miss Hanna Bryshtsen                | Доставлен        |         470.00
+290  | 22/03/2026   | GENCardM2603193208 | SHAKIROVNA ESTHETIC CLINIC L.L.C    | Доставлен        |         290.00
+291  | 22/03/2026   | GENCardW2603226488 | Miss Madinaxon Omonullayeva         | Доставлен        |         710.60
+292  | 22/03/2026   | GENCardW2603226489 | Miss Anastasiya                     | Доставлен        |         375.00
+293  | 24/03/2026   | GENCardW2603226490 | My Skin Story Perfumes and Cosmetic | Доставлен        |        1600.00
+294  | 24/03/2026   | GENCardW2603226491 | Admin Shakirovna Salon              | Доставлен        |         989.00
+295  | 24/03/2026   | GENCardW2603226493 | Brau Ladies Salon LLC               | Доставлен        |         760.00
+296  | 24/03/2026   | GENCardW2603226494 | Brau Ladies Salon LLC               | Доставлен        |         380.00
+297  | 24/03/2026   | GENCardM2603243556 | Missis Marina Biryukova             | Доставлен        |         560.00
+298  | 25/03/2026   | GENCardM2603243557 | Dr. Valeria Borscheva               | Доставлен        |         500.00
+299  | 25/03/2026   | GENCardM2603243558 | HIDE MEDICAL CENTER L.L.C           | Доставлен - Ждем |         540.00
+300  | 26/03/2026   | GENCardM2603253575 | Nour Alkhatib                       | Доставлен        |         315.00
+301  | 26/03/2026   | CODW2603269835     | Miss Inga Policiuc                  | Доставлен        |         345.00
+302  | 26/03/2026   | CODW2603269836     | Miss Ksenia Perekhryst              | Доставлен        |         600.00
+303  | 26/03/2026   | CODW2603269837     | Miss Irina Solodkaya                | Доставлен        |         760.00
+304  | 26/03/2026   | CODW2603269838     | Miss Alexandra Aghraige             | Доставлен        |         330.00
+305  | 26/03/2026   | GENCardM2603264091 | Regina Galkina                      | Доставлен        |         345.00
+306  | 26/03/2026   | GENCardM2603261202 | Valeriya Evtekhova                  | Доставлен        |         370.00
+307  | 27/03/2026   | GENCardM2603261203 | Elizabeth Nabiieva                  | Доставлен        |         300.00
+308  | 27/03/2026   | GENCardM2603261204 | Face Care Pro Spa LTD               | Доставлен        |        3455.00
+309  | 27/03/2026   | GENCardM2603261205 | FACE ROOM BEAUTY SALON CO           | Доставлен        |        2217.00
+310  | 27/03/2026   | GENCardM2603261206 | Miss Anastasiya                     | Доставлен        |         455.00
+311  | 27/03/2026   | CODW2603279391     | Kseniia Kadenskaia                  | Доставлен        |         505.00
+312  | 28/03/2026   | GENCardM2603284938 | Kseniya Bialova                     | Доставлен        |         345.00
+313  | 28/03/2026   | GENCardW2603279209 | Miss Svetlana                       | Доставлен        |        1390.00
+314  | 28/03/2026   | GENCardW2603279210 | Miss Anastasiya                     | Доставлен        |         188.71
+315  | 28/03/2026   | GENCardW2603279211 | Miss Alesya                         | Доставлен        |         219.00
+316  | 28/03/2026   | GENCardW2603279212 | Miss Heike Lutz                     | Доставлен        |         715.00
+317  | 28/03/2026   | CODW2603286526     | Kseniia Kadenskaia                  | Доставлен        |         595.00
+318  | 29/03/2026   | CODW2603286527     | Miss Galina                         | Доставлен        |         345.00
+319  | 30/03/2026   | CODW2603286528     | Miss Khachaturova Yana              | Доставлен        |         340.00
+320  | 30/03/2026   | CODW2603309659     | Miss Irina                          | Доставлен        |        1050.00
+321  | 30/03/2026   | CODW2603309660     | Miss Olha Kravchuk                  | Доставлен        |         168.50
+322  | 30/03/2026   | GENCardM2603309034 | Natalia Anokhina                    | Доставлен        |        1251.00
+323  | 31/03/2026   | GENCardM2603309035 | Marapo Beauty Salon, The Face Only  | Доставлен        |         145.00
+324  | 31/03/2026   | GENCardM2603309036 | Milena AESTHETIC CLINIC LLC (JBR Br | Доставлен - Ждем |         450.00
+325  | 31/03/2026   | GENCardM2603309037 | Milena AESTHETIC CLINIC LLC (JBR Br | Доставлен - Ждем |         440.00
+----------------------------------------------------------------------------------------------------
+TOTAL |              |                    |                                     |                  |      274095.96
+
+====================================================================================================
+  SHIPMENTS — Отгрузки (Fulfilled/Shipped)  (447 documents)
+====================================================================================================
+#    | Date         | Number             | Counterparty                        | Status           |      Sum (AED)
+----------------------------------------------------------------------------------------------------
+1    | 01/01/2026   | 05454              | Dmitrii Grishin                     | отгружен         |         345.00
+2    | 04/01/2026   | 05455              | Miss Laura Abizova                  | отгружен         |        1330.00
+3    | 04/01/2026   | 05456              | Tatiana Aniskina Nail Master        | отгружен         |         160.00
+4    | 04/01/2026   | 05457              | Miss Anastasiya Todosiichuk         | отгружен         |        1320.00
+5    | 04/01/2026   | 05458              | Miss Saba Yussouf                   | отгружен         |         495.00
+6    | 05/01/2026   | 05459              | Miss Valeriia Synenko               | отгружен         |         741.00
+7    | 05/01/2026   | 05460              | BIANCO LAYAN BEAUTY SALON L.L.C     | отгружен         |        2745.00
+8    | 05/01/2026   | 05461              | BIANCO JGE GENTS SALON L.L.C        | отгружен         |         360.00
+9    | 05/01/2026   | 05462              | The Hideaway For Women Salon        | отгружен         |        1625.00
+10   | 05/01/2026   | 05463              | First Person Ladies Salon (Marina)  | отгружен         |        2100.00
+11   | 05/01/2026   | 05464              | First Person Ladies Salon (Downtown | отгружен         |         615.00
+12   | 05/01/2026   | 05465              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | отгружен         |         165.00
+13   | 05/01/2026   | 05466              | ELITE SHAKIROVNA LADIES SALON L.L.C | отгружен         |         640.00
+14   | 06/01/2026   | 05467              | Miss Valeriya                       | отгружен         |         330.00
+15   | 06/01/2026   | 05468              | Miss Madina Movsumova               | отгружен         |        1520.00
+16   | 06/01/2026   | 05469              | ECLATANT&CO TRADING CO L.L.C        | отгружен         |        3300.00
+17   | 06/01/2026   | 05470              | Allure                              | отгружен         |        1170.00
+18   | 06/01/2026   | 05471              | ARFI NAILS BEAUTY SALON             | отгружен         |        6463.00
+19   | 06/01/2026   | 05472              | Shakirovna Ladies Beauty Saloon     | отгружен         |        5095.00
+20   | 06/01/2026   | 05473              | Anishyna Nataliia                   | отгружен         |         810.00
+21   | 07/01/2026   | 05474              | Miss Irina Solodkaya                | отгружен         |         650.00
+22   | 07/01/2026   | 05475              | Miss Ella Sosnina                   | отгружен         |         702.00
+23   | 07/01/2026   | 05476              | Evolution Aesthetics Clinic         | отгружен         |        3520.00
+24   | 07/01/2026   | 05477              | Alexandra Nikonova                  | отгружен         |         650.00
+25   | 07/01/2026   | 05478              | Brau Ladies Salon LLC               | отгружен         |         380.00
+26   | 07/01/2026   | 05479              | Brau Ladies Salon LLC               | отгружен         |         380.00
+27   | 07/01/2026   | 05480              | Miss Olha Kravchuk                  | отгружен         |         345.00
+28   | 08/01/2026   | 05481              | Miss Ekaterina                      | отгружен         |         345.00
+29   | 08/01/2026   | 05482              | Milena AESTHETIC CLINIC LLC         | отгружен         |        2510.00
+30   | 08/01/2026   | 05483              | Miss Khachaturova Yana              | отгружен         |         200.00
+31   | 08/01/2026   | 05484              | First Person Ladies Salon LLC (Palm | отгружен         |        9680.00
+32   | 08/01/2026   | 05485              | HIDE MEDICAL CENTER L.L.C           | отгружен         |        2130.00
+33   | 08/01/2026   | 05486              | Miss Anastasiya                     | отгружен         |        1980.00
+34   | 08/01/2026   | 05487              | REFRESH BIOHACKING CLINIC L.L.C     | отгружен         |        2401.00
+35   | 08/01/2026   | 05488              | mr. Dimitri Parliaras               | отгружен         |        1310.00
+36   | 09/01/2026   | 05489              | Alexandra Nikonova                  | отгружен         |         407.00
+37   | 09/01/2026   | 05490              | First Person Ladies Salon LLC (Palm | отгружен         |          50.00
+38   | 09/01/2026   | 05491              | Miss Uliana                         | отгружен         |         340.00
+39   | 09/01/2026   | 05492              | LOVE MY BODY LADIES SPA CLUB L.L.C  | отгружен         |        4492.00
+40   | 09/01/2026   | 05493              | BIANCO JGE Ladies Salon L.L.C       | отгружен         |        4280.00
+41   | 10/01/2026   | 05494              | GOCOSMO BEAUTY SALON                | отгружен         |        1420.00
+42   | 10/01/2026   | 05495              | GOCOSMO BEAUTY SALON                | отгружен         |       10135.00
+43   | 11/01/2026   | 05496              | Dimitri Parliaras                   | отгружен         |        4083.10
+44   | 11/01/2026   | 05497              | Tatiana Aniskina Nail Master        | отгружен         |         444.00
+45   | 11/01/2026   | 05498              | GOCOSMO BEAUTY SALON                | отгружен         |         530.00
+46   | 11/01/2026   | 05499              | GOCOSMO BEAUTY SALON                | отгружен         |        3730.00
+47   | 11/01/2026   | 05500              | Miss Olga Pershay                   | отгружен         |         780.00
+48   | 11/01/2026   | 05501              | Miss Elvira                         | отгружен         |         645.00
+49   | 12/01/2026   | 05502              | GOCOSMO BEAUTY SALON                | отгружен         |         800.00
+50   | 12/01/2026   | 05503              | Volna Beauty Salon L.L.C            | отгружен         |        3655.00
+51   | 12/01/2026   | 05504              | Marapo Beauty Salon, The Face Only  | отгружен         |        1038.00
+52   | 12/01/2026   | 05505              | Miss Marina                         | отгружен         |         330.00
+53   | 13/01/2026   | 05506              | Dr. Valeria Borscheva               | отгружен         |         655.00
+54   | 13/01/2026   | 05507              | ARFI NAILS BEAUTY SALON 2           | отгружен         |        9830.00
+55   | 13/01/2026   | 05508              | Marapo Beauty Salon, The Face Only  | отгружен         |         165.00
+56   | 13/01/2026   | 05509              | Miss Tatyana (Alena)                | отгружен         |         195.00
+57   | 14/01/2026   | 05510              | Shakirovna Ladies Beauty Saloon     | отгружен         |        2298.00
+58   | 14/01/2026   | 05511              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | отгружен         |         490.00
+59   | 14/01/2026   | 05512              | ELITE SHAKIROVNA LADIES SALON L.L.C | отгружен         |         431.00
+60   | 14/01/2026   | 05513              | First Person Ladies Salon (Marina)  | отгружен         |        1000.00
+61   | 14/01/2026   | 05514              | Miss Liza                           | отгружен         |         971.75
+62   | 14/01/2026   | 05515              | Miss Leyla Gulyaeva                 | отгружен         |         450.00
+63   | 14/01/2026   | 05516              | ELEGANCE POLY CLINIC L.L.C.         | отгружен         |        1615.00
+64   | 15/01/2026   | 05517              | miss Christina Baikovich            | отгружен         |         345.00
+65   | 15/01/2026   | 05518              | Miss Victoria Lukianchuk            | отгружен         |         290.00
+66   | 15/01/2026   | 05519              | FACE ROOM BEAUTY SALON CO           | отгружен         |        4990.00
+67   | 15/01/2026   | 05520              | Home Client                         | отгружен         |         255.00
+68   | 16/01/2026   | 05521              | IULIA BEAUTY SALON LLC              | отгружен         |        2390.00
+69   | 16/01/2026   | 05522              | Sofiia Boiko                        | отгружен         |        1070.00
+70   | 16/01/2026   | 05523              | Marapo Beauty Salon, The Face Only  | отгружен         |        1020.00
+71   | 16/01/2026   | 05524              | Marapo Beauty Salon, The Face Only  | отгружен         |         105.00
+72   | 17/01/2026   | 05525              | ELITE SHAKIROVNA LADIES SALON L.L.C | отгружен         |        1645.00
+73   | 19/01/2026   | 05526              | Miss Heike Lutz                     | отгружен         |         694.00
+74   | 19/01/2026   | 05527              | Home Client                         | отгружен         |         178.50
+75   | 19/01/2026   | 05528              | Vlada (Alenas customer)             | отгружен         |         150.00
+76   | 19/01/2026   | 05529              | Milena AESTHETIC CLINIC LLC         | отгружен         |        1700.00
+77   | 20/01/2026   | 05530              | ABEER MEKKI BEAUTY LADIES CENTER -  | отгружен         |       32451.30
+78   | 20/01/2026   | 05532              | Shakirovna Ladies Beauty Saloon     | отгружен         |        1953.00
+79   | 20/01/2026   | 05533              | First Person Ladies Salon (Marina)  | отгружен         |         210.00
+80   | 21/01/2026   | 05534              | ECLATANT&CO TRADING CO L.L.C        | отгружен         |         870.00
+81   | 21/01/2026   | 05535              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |        1845.00
+82   | 21/01/2026   | 05536              | Miss Ayjahan Atagarryyeva           | отгружен         |        1260.00
+83   | 21/01/2026   | 05537              | Bianco Beauty Salon SPA (Dubai Hill | отгружен         |        3410.00
+84   | 22/01/2026   | 05538              | First Person Ladies Salon (Marina)  | отгружен         |         910.00
+85   | 22/01/2026   | 05539              | Admin Marapo Beauty Salon, The Face | отгружен         |         810.05
+86   | 22/01/2026   | 05540              | HIDE MEDICAL CENTER L.L.C           | отгружен         |         490.00
+87   | 22/01/2026   | 05542              | Al Mukhtar Medical Center           | отгружен         |        3830.00
+88   | 22/01/2026   | 05543              | Home Client                         | отгружен         |         360.00
+89   | 23/01/2026   | 05544              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |         300.00
+90   | 23/01/2026   | 05545              | Melanta Poly Clinic L.L.C           | отгружен         |         540.00
+91   | 23/01/2026   | 05546              | Miss Valeriia Kravchenko            | отгружен         |        1040.00
+92   | 23/01/2026   | 05547              | Amna Alzaabi                        | отгружен         |         370.00
+93   | 23/01/2026   | 05548              | Brau Ladies Salon LLC               | отгружен         |         380.00
+94   | 23/01/2026   | 05549              | Brau Ladies Salon LLC               | отгружен         |         380.00
+95   | 23/01/2026   | 05550              | Brau Ladies Salon LLC               | отгружен         |         570.00
+96   | 23/01/2026   | 05551              | Miss Svetlana                       | отгружен         |        1180.00
+97   | 23/01/2026   | 05552              | Marapo Beauty Salon, The Face Only  | отгружен         |         645.00
+98   | 23/01/2026   | 05553              | Miss Vasilisa Kozhemiako            | отгружен         |         495.00
+99   | 23/01/2026   | 05554              | My Skin Story Perfumes and Cosmetic | отгружен         |         230.00
+100  | 23/01/2026   | 05555              | My Skin Story Perfumes and Cosmetic | отгружен         |        1470.00
+101  | 24/01/2026   | 05556              | Admin Marapo Beauty Salon, The Face | отгружен         |         145.00
+102  | 24/01/2026   | 05557              | Marapo Beauty Salon, The Face Only  | отгружен         |         105.00
+103  | 24/01/2026   | 05558              | Miss Aidana Yerkegaliyeva           | отгружен         |         645.00
+104  | 24/01/2026   | 05559              | LOVE MY BODY LADIES SPA CLUB L.L.C  | отгружен         |         570.00
+105  | 24/01/2026   | 05560              | Miss Tetiana Yarova                 | отгружен         |         330.00
+106  | 25/01/2026   | 05561              | Shakirovna Ladies Beauty Saloon     | отгружен         |         680.00
+107  | 25/01/2026   | 05562              | Miss Zarnosh Nawaz                  | отгружен         |         625.00
+108  | 25/01/2026   | 05563              | Miss Nataliya Anokhina              | отгружен         |        1240.00
+109  | 25/01/2026   | 05564              | Miss Ekaterina Pronushkina          | отгружен         |        1160.00
+110  | 27/01/2026   | 05565              | Marc El Asmar                       | отгружен         |         480.00
+111  | 27/01/2026   | 05566              | My Skin Story Perfumes and Cosmetic | отгружен         |         250.00
+112  | 27/01/2026   | 05567              | Home Client                         | отгружен         |         714.00
+113  | 27/01/2026   | 05568              | Miss Ksenia Perekhryst              | отгружен         |         570.00
+114  | 28/01/2026   | 05569              | Miss Galinur Duisekenova            | отгружен         |        1271.60
+115  | 28/01/2026   | 05570              | Johan Bahia                         | отгружен         |        1230.00
+116  | 28/01/2026   | 05571              | The Hideaway For Women Salon        | отгружен         |        1567.00
+117  | 28/01/2026   | 05572              | Miss Tatiana Kravchenko             | отгружен         |         937.00
+118  | 28/01/2026   | 05573              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |        1575.00
+119  | 28/01/2026   | 05574              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |         450.00
+120  | 29/01/2026   | 05575              | Egle Vitkauskiene                   | отгружен         |         595.00
+121  | 29/01/2026   | 05576              | FAMILY CLASS POLY CLINIC L.L.C      | отгружен         |        1795.00
+122  | 29/01/2026   | 05577              | Melanta Poly Clinic L.L.C           | отгружен         |         447.00
+123  | 29/01/2026   | 05578              | Brau Ladies Salon LLC               | отгружен         |         570.00
+124  | 29/01/2026   | 05579              | Miss Yana Yakovleva                 | отгружен         |         345.00
+125  | 29/01/2026   | 05580              | Melanta Poly Clinic L.L.C           | отгружен         |         445.00
+126  | 30/01/2026   | 05581              | Miss Valeriya                       | отгружен         |         600.00
+127  | 30/01/2026   | 05582              | IULIA BEAUTY SALON LLC              | отгружен         |        1670.00
+128  | 31/01/2026   | 05583              | ABEER MEKKI BEAUTY LADIES CENTER -  | отгружен         |        2025.00
+129  | 01/02/2026   | 05584              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |         370.00
+130  | 01/02/2026   | 05585              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |         778.00
+131  | 01/02/2026   | 05586              | Miss Olga Gil                       | отгружен         |         315.00
+132  | 01/02/2026   | 05587              | Miss Alexandra Aghraige             | отгружен         |         330.00
+133  | 01/02/2026   | 05588              | miss Milya                          | отгружен         |         335.00
+134  | 02/02/2026   | 05589              | ECLATANT&CO TRADING CO L.L.C        | отгружен         |        2060.00
+135  | 02/02/2026   | 05590              | Mediclinic Clinics Investment LLC   | отгружен         |         760.00
+136  | 02/02/2026   | 05591              | BIANCO JGE GENTS SALON L.L.C        | отгружен         |         300.00
+137  | 02/02/2026   | 05592              | First Person Ladies Salon (Downtown | отгружен         |        1095.00
+138  | 02/02/2026   | 05593              | REFRESH BIOHACKING CLINIC L.L.C     | отгружен         |        2130.00
+139  | 02/02/2026   | 05594              | FACEPRO WOMEN SALON L.L.C           | отгружен         |        1687.00
+140  | 02/02/2026   | 05595              | FACE ROOM BEAUTY SALON CO           | отгружен         |        2255.00
+141  | 02/02/2026   | 05596              | Le Bleu Ciel Ladies Beauty Salon    | отгружен         |        1127.50
+142  | 02/02/2026   | 05597              | Mr. Amr Najar Ali                   | отгружен         |         690.00
+143  | 03/02/2026   | 05598              | LOVE MY BODY LADIES SPA CLUB L.L.C  | отгружен         |        2127.00
+144  | 03/02/2026   | 05599              | Allure Personal Care Center LLC     | отгружен         |        1545.00
+145  | 03/02/2026   | 05600              | First Person Ladies Salon (Marina)  | отгружен         |        1680.00
+146  | 03/02/2026   | 05601              | First Person Ladies Salon (Marina)  | отгружен         |         400.00
+147  | 03/02/2026   | 05602              | Miss Hanna Bryshtsen                | отгружен         |         770.00
+148  | 03/02/2026   | 05604              | Miss Yanka Slanchenko               | отгружен         |         445.00
+149  | 03/02/2026   | 05605              | Dr. Fatima Kham                     | отгружен         |        1412.00
+150  | 03/02/2026   | 05606              | Home Client                         | отгружен         |         595.00
+151  | 03/02/2026   | 05607              | Marapo Beauty Salon, The Face Only  | отгружен         |         883.00
+152  | 04/02/2026   | 05608              | Shakirovna Ladies Beauty Saloon     | отгружен         |        1810.00
+153  | 04/02/2026   | 05609              | Home Client                         | отгружен         |         498.00
+154  | 04/02/2026   | 05610              | Miss Victoria                       | отгружен         |        1160.00
+155  | 04/02/2026   | 05611              | First Person Ladies Salon (Marina)  | отгружен         |         245.00
+156  | 04/02/2026   | 05612              | Miss Julia                          | отгружен         |        1110.00
+157  | 04/02/2026   | 05613              | Ilmira Hairulina                    | отгружен         |        1740.00
+158  | 04/02/2026   | 05614              | Hollie Skin                         | отгружен         |        1430.00
+159  | 05/02/2026   | 05615              | Miss Rima                           | отгружен         |         371.00
+160  | 05/02/2026   | 05616              | Adara Spa Retreat                   | отгружен         |        3175.00
+161  | 05/02/2026   | 05617              | Miss Saule                          | отгружен         |         425.00
+162  | 05/02/2026   | 05618              | Home Client                         | отгружен         |         255.00
+163  | 05/02/2026   | 05619              | Miss Elena                          | отгружен         |         345.00
+164  | 05/02/2026   | 05620              | Miss Assiya Abanina                 | отгружен         |        1040.00
+165  | 05/02/2026   | 05621              | Miss Lamy Maalouf                   | отгружен         |        1690.00
+166  | 05/02/2026   | 05622              | ELEGANCE POLY CLINIC L.L.C.         | отгружен         |        1030.00
+167  | 05/02/2026   | 05623              | Inna Ageyeva                        | отгружен         |         290.00
+168  | 05/02/2026   | 05624              | ELITE SHAKIROVNA LADIES SALON L.L.C | отгружен         |        1865.00
+169  | 05/02/2026   | 05625              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | отгружен         |         330.00
+170  | 06/02/2026   | 05626              | Home Client                         | отгружен         |         820.25
+171  | 06/02/2026   | 05627              | Miss Olga                           | отгружен         |        1170.00
+172  | 06/02/2026   | 05628              | Shakirovna Ladies Beauty Saloon     | отгружен         |        5913.00
+173  | 06/02/2026   | 05629              | Guapa Ladies Salon L.L.C            | отгружен         |         664.00
+174  | 06/02/2026   | 05630              | IULIA BEAUTY SALON LLC              | отгружен         |        1238.00
+175  | 06/02/2026   | 05631              | First Person Ladies Salon LLC (Palm | отгружен         |        5925.00
+176  | 06/02/2026   | 05632              | Miss Alesya                         | отгружен         |         935.00
+177  | 06/02/2026   | 05633              | Miss Anastasiya                     | отгружен         |         295.00
+178  | 07/02/2026   | 05634              | KIND CARE MEDICAL CENTER L.L.C      | отгружен         |         772.00
+179  | 07/02/2026   | 05635              | Admin Shakirovna Salon              | отгружен         |         150.00
+180  | 07/02/2026   | 05636              | First Person Ladies Salon LLC (Palm | отгружен         |         230.00
+181  | 07/02/2026   | 05637              | Miss Elena Gadinich                 | отгружен         |        3751.50
+182  | 08/02/2026   | 05638              | Marapo Beauty Salon, The Face Only  | отгружен         |         445.00
+183  | 08/02/2026   | 05639              | Miss Laura Abizova                  | отгружен         |        2458.00
+184  | 08/02/2026   | 05640              | OGUZ MED PARA PHARMACEUTICAL PRODUC | отгружен         |        2310.00
+185  | 08/02/2026   | 05641              | Miss Olha Vialykh                   | отгружен         |         500.00
+186  | 08/02/2026   | 05642              | Miss Sydia Solano                   | отгружен         |         615.00
+187  | 09/02/2026   | 05643              | Brau Ladies Salon LLC               | отгружен         |         380.00
+188  | 09/02/2026   | 05644              | Brau Ladies Salon LLC               | отгружен         |         380.00
+189  | 09/02/2026   | 05645              | Brau Ladies Salon LLC               | отгружен         |         570.00
+190  | 09/02/2026   | 05646              | Sugar & Wax Beauty Salon            | отгружен         |         675.00
+191  | 09/02/2026   | 05647              | Retail customer                     | отгружен         |         337.00
+192  | 10/02/2026   | 05648              | Miss Assel Atau                     | отгружен         |         417.00
+193  | 10/02/2026   | 05649              | Allure                              | отгружен         |        2810.00
+194  | 10/02/2026   | 05650              | Home Client                         | отгружен         |         352.00
+195  | 10/02/2026   | 05651              | Miss Elvina Daminova                | отгружен         |         430.00
+196  | 10/02/2026   | 05652              | Miss Ksenia Perekhryst              | отгружен         |         430.00
+197  | 11/02/2026   | 05653              | Dr. Valeria Borscheva               | отгружен         |         730.00
+198  | 11/02/2026   | 05654              | Miss Elvina Daminova                | отгружен         |         230.00
+199  | 11/02/2026   | 05655              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |         300.00
+200  | 11/02/2026   | 05656              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |        2054.00
+201  | 11/02/2026   | 05657              | AST Advance Cosmetics Trading L.L.C | отгружен         |         850.00
+202  | 11/02/2026   | 05658              | IULIA BEAUTY SALON LLC              | отгружен         |        3425.00
+203  | 11/02/2026   | 05659              | Melanta Poly Clinic L.L.C           | отгружен         |        1542.00
+204  | 11/02/2026   | 05660              | First Person Ladies Salon LLC (Palm | отгружен         |        2230.00
+205  | 11/02/2026   | 05661              | Evolution Aesthetics Clinic         | отгружен         |         870.00
+206  | 11/02/2026   | 05662              | Miss Anna Gulik                     | отгружен         |         437.00
+207  | 12/02/2026   | 05663              | First Person Ladies Salon (Marina)  | отгружен         |        1150.00
+208  | 12/02/2026   | 05664              | First Person Ladies Salon (Marina)  | отгружен         |         750.00
+209  | 12/02/2026   | 05665              | Miss Khachaturova Yana              | отгружен         |         515.00
+210  | 12/02/2026   | 05666              | First Person Ladies Salon LLC (Palm | отгружен         |        1250.00
+211  | 12/02/2026   | 05667              | ECLATANT&CO TRADING CO L.L.C        | отгружен         |        1250.00
+212  | 12/02/2026   | 05668              | ARFI NAILS BEAUTY SALON             | отгружен         |         500.00
+213  | 12/02/2026   | 05669              | Evolution Aesthetics Clinic         | отгружен         |         500.00
+214  | 12/02/2026   | 05670              | Shakirovna Ladies Beauty Saloon     | отгружен         |        1000.00
+215  | 12/02/2026   | 05671              | HORTMAN CLINICS 2 L.L.C             | отгружен         |        6300.00
+216  | 12/02/2026   | 05672              | Miss Diana Volk                     | отгружен         |         665.00
+217  | 13/02/2026   | 05673              | Melanta Poly Clinic L.L.C           | отгружен         |        1050.00
+218  | 13/02/2026   | 05674              | Shakirovna Ladies Beauty Saloon     | отгружен         |         900.00
+219  | 13/02/2026   | 05675              | Home Client                         | отгружен         |         731.00
+220  | 13/02/2026   | 05676              | Evolution Aesthetics Clinic         | отгружен         |         765.00
+221  | 13/02/2026   | 05677              | Miss Ainura Katauova                | отгружен         |         585.00
+222  | 13/02/2026   | 05678              | FAMILY CLASS POLY CLINIC L.L.C      | отгружен         |         570.00
+223  | 14/02/2026   | 05679              | Miss Polina Bakhanova               | отгружен         |         745.00
+224  | 14/02/2026   | 05681              | Le Bleu Ciel Ladies Beauty Salon    | отгружен         |         450.00
+225  | 14/02/2026   | 05682              | Home Client                         | отгружен         |         784.00
+226  | 14/02/2026   | 05683              | Miss Ella Sosnina                   | отгружен         |         459.00
+227  | 14/02/2026   | 05684              | Inna Ageyeva                        | отгружен         |         664.00
+228  | 14/02/2026   | 05685              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |        2080.00
+229  | 14/02/2026   | 05686              | LOVE MY BODY LADIES SPA CLUB L.L.C  | отгружен         |         500.00
+230  | 14/02/2026   | 05687              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |         400.00
+231  | 15/02/2026   | 05688              | Miss Asli Altinok                   | отгружен         |         345.00
+232  | 15/02/2026   | 05689              | Clinic customer                     | отгружен         |         185.00
+233  | 15/02/2026   | 05690              | Miss Vladislava                     | отгружен         |        2030.00
+234  | 16/02/2026   | 05691              | Milena AESTHETIC CLINIC LLC         | отгружен         |         900.00
+235  | 16/02/2026   | 05692              | Miss Vladislava                     | отгружен         |         635.00
+236  | 16/02/2026   | 05693              | FaceFIT SALON L.L.C                 | отгружен         |        1120.00
+237  | 16/02/2026   | 05694              | Miss Marina Gruzdeva                | отгружен         |         807.00
+238  | 16/02/2026   | 05695              | Miss Iryna                          | отгружен         |         331.00
+239  | 16/02/2026   | 05696              | Missis Marina Biryukova             | отгружен         |         175.00
+240  | 16/02/2026   | 05697              | Miss Alisa Petrova                  | отгружен         |         870.00
+241  | 16/02/2026   | 05698              | Marapo Beauty Salon, The Face Only  | отгружен         |         930.00
+242  | 17/02/2026   | 05699              | Miss Alina Melnik                   | отгружен         |        1030.00
+243  | 17/02/2026   | 05700              | Volna Beauty Salon L.L.C            | отгружен         |         950.00
+244  | 17/02/2026   | 05701              | Miss Abir Manai                     | отгружен         |        1000.00
+245  | 17/02/2026   | 05702              | ELEGANCE POLY CLINIC L.L.C.         | отгружен         |         888.00
+246  | 17/02/2026   | 05703              | Lips for Kiss Clinic                | отгружен         |        3630.00
+247  | 17/02/2026   | 05704              | Volna Beauty Salon L.L.C            | отгружен         |         500.00
+248  | 18/02/2026   | 05705              | Milena AESTHETIC CLINIC LLC         | отгружен         |         360.00
+249  | 18/02/2026   | 05706              | Miss Vlada                          | отгружен         |          95.00
+250  | 19/02/2026   | 05707              | Miss Sema Tare                      | отгружен         |         415.00
+251  | 19/02/2026   | 05708              | Shakirovna Ladies Beauty Saloon     | отгружен         |        2905.00
+252  | 20/02/2026   | 05709              | Miss Vladislava                     | отгружен         |         725.00
+253  | 20/02/2026   | 05710              | Valeriia Babakova                   | отгружен         |        1232.00
+254  | 20/02/2026   | 05711              | IULIA BEAUTY SALON LLC              | отгружен         |        1105.00
+255  | 20/02/2026   | 05712              | Ulbossyn Saparbayeva                | отгружен         |         210.00
+256  | 20/02/2026   | 05713              | Ulbossyn Saparbayeva                | отгружен         |        2705.00
+257  | 20/02/2026   | 05714              | Ella Sokolova                       | отгружен         |         335.00
+258  | 20/02/2026   | 05715              | My Skin Story Perfumes and Cosmetic | отгружен         |         380.00
+259  | 20/02/2026   | 05716              | Mariia Barysheva                    | отгружен         |         645.00
+260  | 20/02/2026   | 05717              | miss Ekaterina Petukhova            | отгружен         |         815.00
+261  | 20/02/2026   | 05718              | Esra Akyol Bilgin                   | отгружен         |         425.00
+262  | 21/02/2026   | 05719              | ABEER MEKKI BEAUTY LADIES CENTER -  | отгружен         |        7755.30
+263  | 21/02/2026   | 05720              | Miss Ekaterina Pronushkina          | отгружен         |        1200.00
+264  | 22/02/2026   | 05721              | Marapo Beauty Salon, The Face Only  | отгружен         |         802.00
+265  | 22/02/2026   | 05722              | Admin Marapo Beauty Salon, The Face | отгружен         |         145.00
+266  | 22/02/2026   | 05723              | Katerina Tatsiuk                    | отгружен         |         335.00
+267  | 22/02/2026   | 05724              | Kamila Rakhimova                    | отгружен         |         375.00
+268  | 23/02/2026   | 05725              | Milena AESTHETIC CLINIC LLC         | отгружен         |        1050.00
+269  | 23/02/2026   | 05726              | Viktoriia Klymenko                  | отгружен         |        6054.00
+270  | 23/02/2026   | 05727              | Dr. Valeria Borscheva               | отгружен         |         585.00
+271  | 23/02/2026   | 05728              | Lavana SPA                          | отгружен         |        1190.00
+272  | 23/02/2026   | 05729              | NAZEED OSMAN                        | отгружен         |         665.00
+273  | 23/02/2026   | 05730              | Miss Anastasiya Bukoros             | отгружен         |         345.00
+274  | 23/02/2026   | 05731              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |        2045.00
+275  | 24/02/2026   | 05732              | Hayley Hall                         | отгружен         |         375.00
+276  | 24/02/2026   | 05733              | Milena AESTHETIC CLINIC LLC (JBR Br | отгружен         |         600.00
+277  | 24/02/2026   | 05734              | Marapo Beauty Salon, The Face Only  | отгружен         |         435.00
+278  | 24/02/2026   | 05735              | ELITE SHAKIROVNA LADIES SALON L.L.C | отгружен         |        1920.00
+279  | 24/02/2026   | 05736              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | отгружен         |         715.00
+280  | 24/02/2026   | 05737              | Shakirovna Ladies Beauty Saloon     | отгружен         |        1022.00
+281  | 24/02/2026   | 05738              | Miss Uliana                         | отгружен         |         340.00
+282  | 25/02/2026   | 05739              | First Person Ladies Salon (Marina)  | отгружен         |        1005.00
+283  | 25/02/2026   | 05740              | Allure                              | отгружен         |        1015.00
+284  | 25/02/2026   | 05741              | Melanta Poly Clinic L.L.C           | отгружен         |         800.00
+285  | 25/02/2026   | 05742              | Miss Zulya Ammaeva                  | отгружен         |        1016.00
+286  | 26/02/2026   | 05743              | FAMILY CLASS POLY CLINIC L.L.C      | отгружен         |         845.00
+287  | 27/02/2026   | 05744              | Alena Solodovichenko                | отгружен         |         345.00
+288  | 27/02/2026   | 05745              | Natalja Zaharova                    | отгружен         |        1060.00
+289  | 27/02/2026   | 05746              | Evolution Aesthetics Clinic         | отгружен         |        1030.00
+290  | 27/02/2026   | 05747              | Elizabeth Nabiieva                  | отгружен         |         450.00
+291  | 27/02/2026   | 05748              | Miss Estefa Pastor                  | отгружен         |         390.00
+292  | 27/02/2026   | 05749              | miss Ekaterina Petukhova            | отгружен         |         520.00
+293  | 28/02/2026   | 05750              | Valeriia Synenko                    | отгружен         |         635.00
+294  | 28/02/2026   | 05751              | Dr Malika Khodzhaeva                | отгружен         |         705.00
+295  | 28/02/2026   | 05752              | miss Ekaterina Petukhova            | отгружен         |         490.00
+296  | 02/03/2026   | 05753              | Mediclinic Clinics Investment LLC   | отгружен         |         760.00
+297  | 02/03/2026   | 05754              | Miss Margo Faizulina                | отгружен         |         465.00
+298  | 02/03/2026   | 05755              | First Person Ladies Salon (Marina)  | отгружен         |        1335.00
+299  | 02/03/2026   | 05756              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |        1734.00
+300  | 02/03/2026   | 05757              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |         185.00
+301  | 02/03/2026   | 05758              | My Skin Story Perfumes and Cosmetic | отгружен         |         250.00
+302  | 03/03/2026   | 05759              | ECLATANT&CO TRADING CO L.L.C        | отгружен         |        1770.00
+303  | 03/03/2026   | 05761              | First Person Ladies Salon LLC (Palm | отгружен         |        7360.00
+304  | 03/03/2026   | 05760              | First Person Ladies Salon (Marina)  | отгружен         |        1000.00
+305  | 03/03/2026   | 05762              | First Person Ladies Salon (Downtown | отгружен         |        1810.00
+306  | 03/03/2026   | 05763              | LOVE MY BODY LADIES SPA CLUB L.L.C  | отгружен         |        1170.00
+307  | 03/03/2026   | 05764              | Marapo Beauty Salon, The Face Only  | отгружен         |         450.00
+308  | 03/03/2026   | 05765              | Yula Beauty Salon LLC               | отгружен         |         290.00
+309  | 03/03/2026   | 05766              | Melanta Poly Clinic L.L.C           | отгружен         |        1379.00
+310  | 03/03/2026   | 05767              | Milena AESTHETIC CLINIC LLC         | отгружен         |         150.00
+311  | 03/03/2026   | 05768              | FAMILY CLASS POLY CLINIC L.L.C      | отгружен         |         740.00
+312  | 03/03/2026   | 05770              | ARFI NAILS BEAUTY SALON             | отгружен         |        1695.00
+313  | 03/03/2026   | 05771              | HIDE MEDICAL CENTER L.L.C           | отгружен         |         306.00
+314  | 03/03/2026   | 05772              | First Person Ladies Salon (Downtown | отгружен         |         190.00
+315  | 03/03/2026   | 05773              | Chahit Joshi                        | отгружен         |         330.00
+316  | 03/03/2026   | 05774              | ARFI NAILS BEAUTY SALON 2           | отгружен         |        1205.00
+317  | 04/03/2026   | 05775              | AMERICAN MEDICAL CENTER DMCC        | отгружен         |         580.00
+318  | 04/03/2026   | 05776              | First Person Ladies Salon LLC (Palm | отгружен         |         300.00
+319  | 04/03/2026   | 05777              | Bianco Beauty Salon SPA (Dubai Hill | отгружен         |        2477.00
+320  | 05/03/2026   | 05778              | Miss Sarayounesskin Sara            | отгружен         |         315.00
+321  | 05/03/2026   | 05779              | Miss Aidana Yerkegaliyeva           | отгружен         |         640.00
+322  | 05/03/2026   | 05780              | IULIA BEAUTY SALON LLC              | отгружен         |        6505.00
+323  | 05/03/2026   | 05781              | Viktoriia Klymenko                  | отгружен         |         188.00
+324  | 05/03/2026   | 05782              | AMERICAN MEDICAL CENTER DMCC        | отгружен         |         225.00
+325  | 05/03/2026   | 05783              | IULIA BEAUTY SALON LLC              | отгружен         |         510.00
+326  | 05/03/2026   | 05784              | Le Bleu Ciel Ladies Beauty Salon    | отгружен         |         670.00
+327  | 05/03/2026   | 05785              | The Hideaway For Women Salon        | отгружен         |        3040.00
+328  | 05/03/2026   | 05786              | Brau Ladies Salon LLC               | отгружен         |         380.00
+329  | 05/03/2026   | 05787              | Brau Ladies Salon LLC               | отгружен         |         380.00
+330  | 05/03/2026   | 05788              | LOVE MY BODY LADIES SPA CLUB L.L.C  | отгружен         |         570.00
+331  | 05/03/2026   | 05789              | Miss Sarra Uanassi                  | отгружен         |         345.00
+332  | 05/03/2026   | 05790              | Fayy Health FZCO                    | отгружен         |        3800.00
+333  | 05/03/2026   | 05791              | Miss Khachaturova Yana              | отгружен         |        1050.00
+334  | 05/03/2026   | 05792              | Marapo Beauty Salon, The Face Only  | отгружен         |         165.00
+335  | 06/03/2026   | 05793              | Brau Ladies Salon LLC               | отгружен         |         380.00
+336  | 06/03/2026   | 05794              | Milena AESTHETIC CLINIC LLC (JBR Br | отгружен         |         450.00
+337  | 06/03/2026   | 05795              | Volna Beauty Salon L.L.C            | отгружен         |        1081.00
+338  | 06/03/2026   | 05796              | REFRESH BIOHACKING CLINIC L.L.C     | отгружен         |        2680.00
+339  | 06/03/2026   | 05797              | FACE ROOM BEAUTY SALON CO           | отгружен         |        2735.00
+340  | 06/03/2026   | 05798              | Milena AESTHETIC CLINIC LLC (JBR Br | отгружен         |         450.00
+341  | 06/03/2026   | 05799              | Miss Dr. Viki                       | отгружен         |         780.00
+342  | 07/03/2026   | 05800              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |         300.00
+343  | 07/03/2026   | 05801              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |         850.00
+344  | 07/03/2026   | 05802              | Miss Khachaturova Yana              | отгружен         |         435.00
+345  | 07/03/2026   | 05803              | REFRESH BIOHACKING CLINIC L.L.C     | отгружен         |        1090.00
+346  | 07/03/2026   | 05804              | Polina Emelianenko                  | отгружен         |         255.00
+347  | 07/03/2026   | 05805              | Miss Sarayounesskin Sara            | отгружен         |         740.00
+348  | 08/03/2026   | 05806              | Miss Julia                          | отгружен         |         425.00
+349  | 08/03/2026   | 05807              | Miss Julia                          | отгружен         |        1296.00
+350  | 08/03/2026   | 05808              | Admin Marapo Beauty Salon, The Face | отгружен         |         930.00
+351  | 08/03/2026   | 05809              | Bianco Spa FZCO (Cedre Center)      | отгружен         |        3000.00
+352  | 09/03/2026   | 05810              | Miss Ksenia Perekhryst              | отгружен         |         290.00
+353  | 09/03/2026   | 05812              | LOVE MY BODY LADIES SPA CLUB L.L.C  | отгружен         |        1220.00
+354  | 10/03/2026   | 05813              | Malika Sher                         | отгружен         |         295.00
+355  | 10/03/2026   | 05814              | Clinic customer                     | отгружен         |         738.00
+356  | 11/03/2026   | 05815              | Miss Valeriia Kravchenko            | отгружен         |        1204.70
+357  | 11/03/2026   | 05816              | Miss Saba Yussouf                   | отгружен         |         555.00
+358  | 11/03/2026   | 05817              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |        1711.00
+359  | 11/03/2026   | 05818              | Marapo Beauty Salon, The Face Only  | отгружен         |         365.00
+360  | 11/03/2026   | 05819              | Miss Sarayounesskin Sara            | отгружен         |         355.00
+361  | 11/03/2026   | 05820              | Dr. Fatima Kham                     | отгружен         |        1265.00
+362  | 11/03/2026   | 05821              | Miss Sarayounesskin Sara            | отгружен         |         355.00
+363  | 11/03/2026   | 05822              | Svetlana Elina                      | отгружен         |         415.00
+364  | 11/03/2026   | 05823              | Miss Olga Pershay                   | отгружен         |        1540.00
+365  | 12/03/2026   | 05824              | Polina Emelianenko                  | отгружен         |          90.00
+366  | 12/03/2026   | 05825              | Brau Ladies Salon LLC               | отгружен         |         380.00
+367  | 12/03/2026   | 05826              | Анна Гулик                          | отгружен         |        1228.00
+368  | 13/03/2026   | 05827              | Miss Lamy Maalouf                   | отгружен         |        1340.00
+369  | 13/03/2026   | 05828              | Miss Estefa Pastor                  | отгружен         |         375.00
+370  | 13/03/2026   | 05829              | Ilmira Hairulina                    | отгружен         |         541.00
+371  | 13/03/2026   | 05830              | You by Anna Bezdushnaya Salon       | отгружен         |         255.00
+372  | 13/03/2026   | 05831              | BIANCO LAYAN BEAUTY SALON L.L.C     | отгружен         |         687.00
+373  | 14/03/2026   | 05832              | First Person Ladies Salon (Marina)  | отгружен         |        1310.00
+374  | 14/03/2026   | 05833              | Ilmira Hairulina                    | отгружен         |         550.00
+375  | 15/03/2026   | 05834              | Miss Guzel                          | отгружен         |         650.00
+376  | 15/03/2026   | 05835              | Miss Nina                           | отгружен         |         910.00
+377  | 15/03/2026   | 05836              | Katerina Tatsiuk                    | отгружен         |         375.00
+378  | 16/03/2026   | 05837              | DIFFERENT AESTHETIC MEDICAL CENTER  | отгружен         |        3225.00
+379  | 16/03/2026   | 05838              | Miss Sirma Osman                    | отгружен         |         790.00
+380  | 16/03/2026   | 05839              | Stuart Anson                        | отгружен         |        1099.90
+381  | 16/03/2026   | 05840              | Marapo Beauty Salon, The Face Only  | отгружен         |         775.00
+382  | 16/03/2026   | 05841              | Daniela Weerasinghe                 | отгружен         |         366.00
+383  | 16/03/2026   | 05842              | Bagtyyar Rejepbayev                 | отгружен         |         345.00
+384  | 16/03/2026   | 05843              | Alla Petrikova                      | отгружен         |        1035.00
+385  | 17/03/2026   | 05844              | FAMILY CLASS POLY CLINIC L.L.C      | отгружен         |         295.00
+386  | 17/03/2026   | 05845              | HORTMAN CLINICS 2 L.L.C             | отгружен         |        6300.00
+387  | 17/03/2026   | 05846              | Evolution Aesthetics Clinic         | отгружен         |        1485.00
+388  | 17/03/2026   | 05847              | Brau Ladies Salon LLC               | отгружен         |         380.00
+389  | 17/03/2026   | 05848              | Shakirovna Ladies Beauty Saloon     | отгружен         |        3431.00
+390  | 18/03/2026   | 05849              | Mariia Ryseva                       | отгружен         |         571.00
+391  | 18/03/2026   | 05850              | SOLAR MEDICAL CLINIC L.L.C          | отгружен         |        1144.00
+392  | 18/03/2026   | 05851              | Milena AESTHETIC CLINIC LLC         | отгружен         |         725.00
+393  | 18/03/2026   | 05852              | Anishyna Nataliia                   | отгружен         |         415.00
+394  | 18/03/2026   | 05853              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |        1100.00
+395  | 18/03/2026   | 05854              | ABEER MEKKI BEAUTY LADIES CENTER -  | отгружен         |        1332.00
+396  | 19/03/2026   | 05855              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | отгружен         |        1915.00
+397  | 19/03/2026   | 05856              | ELITE SHAKIROVNA LADIES SALON L.L.C | отгружен         |         872.00
+398  | 19/03/2026   | 05857              | Shakirovna Ladies Beauty Saloon     | отгружен         |         230.00
+399  | 19/03/2026   | 05858              | Miss Sarayounesskin Sara            | отгружен         |        1030.00
+400  | 19/03/2026   | 05859              | Retail customer                     | отгружен         |         345.00
+401  | 19/03/2026   | 05860              | Miss Solomia Kalytovska             | отгружен         |        1120.30
+402  | 20/03/2026   | 05861              | Miss Ella Sosnina                   | отгружен         |         180.00
+403  | 20/03/2026   | 05862              | Miss Ella Sosnina                   | отгружен         |         655.00
+404  | 22/03/2026   | 05863              | Miss Hanna Bryshtsen                | отгружен         |         470.00
+405  | 22/03/2026   | 05864              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | отгружен         |         290.00
+406  | 22/03/2026   | 05865              | Miss Madinaxon Omonullayeva         | отгружен         |         710.60
+407  | 22/03/2026   | 05866              | Miss Anastasiya                     | отгружен         |         375.00
+408  | 23/03/2026   | 05867              | ABEER MEKKI BEAUTY LADIES CENTER -  | отгружен         |        6052.50
+409  | 23/03/2026   | 05868              | LOVE MY BODY LADIES SPA CLUB L.L.C  | отгружен         |        1340.00
+410  | 24/03/2026   | 05869              | My Skin Story Perfumes and Cosmetic | отгружен         |        1600.00
+411  | 24/03/2026   | 05870              | Brau Ladies Salon LLC               | отгружен         |         760.00
+412  | 24/03/2026   | 05871              | Brau Ladies Salon LLC               | отгружен         |         380.00
+413  | 24/03/2026   | 05872              | Missis Marina Biryukova             | отгружен         |         560.00
+414  | 25/03/2026   | 05873              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |        1513.00
+415  | 25/03/2026   | 05874              | Dr. Valeria Borscheva               | отгружен         |         500.00
+416  | 25/03/2026   | 05875              | X BEAUTY CONSULTING - F.Z.C         | отгружен         |         555.00
+417  | 26/03/2026   | 05876              | Nour Alkhatib                       | отгружен         |         315.00
+418  | 26/03/2026   | 05877              | HIDE MEDICAL CENTER L.L.C           | отгружен         |         540.00
+419  | 26/03/2026   | 05878              | Miss Inga Policiuc                  | отгружен         |         345.00
+420  | 26/03/2026   | 05879              | Miss Ksenia Perekhryst              | отгружен         |         600.00
+421  | 26/03/2026   | 05880              | Miss Irina Solodkaya                | отгружен         |         760.00
+422  | 26/03/2026   | 05881              | Miss Alexandra Aghraige             | отгружен         |         330.00
+423  | 26/03/2026   | 05882              | Regina Galkina                      | отгружен         |         345.00
+424  | 26/03/2026   | 05883              | Valeriya Evtekhova                  | отгружен         |         370.00
+425  | 27/03/2026   | 05884              | Elizabeth Nabiieva                  | отгружен         |         300.00
+426  | 27/03/2026   | 05885              | Face Care Pro Spa LTD               | отгружен         |        3455.00
+427  | 27/03/2026   | 05886              | FACE ROOM BEAUTY SALON CO           | отгружен         |        2217.00
+428  | 27/03/2026   | 05887              | Brau Ladies Salon LLC               | отгружен         |         570.00
+429  | 27/03/2026   | 05888              | Admin Shakirovna Salon              | отгружен         |         989.00
+430  | 27/03/2026   | 05889              | Kseniia Kadenskaia                  | отгружен         |         505.00
+431  | 28/03/2026   | 05890              | Kseniya Bialova                     | отгружен         |         345.00
+432  | 28/03/2026   | 05891              | Miss Svetlana                       | отгружен         |        1390.00
+433  | 28/03/2026   | 05892              | Miss Anastasiya                     | отгружен         |         455.00
+434  | 28/03/2026   | 05893              | Miss Anastasiya                     | отгружен         |         188.71
+435  | 28/03/2026   | 05894              | Miss Alesya                         | отгружен         |         219.00
+436  | 28/03/2026   | 05895              | Miss Heike Lutz                     | отгружен         |         715.00
+437  | 28/03/2026   | 05896              | Kseniia Kadenskaia                  | отгружен         |         595.00
+438  | 29/03/2026   | 05897              | Miss Galina                         | отгружен         |         345.00
+439  | 30/03/2026   | 05898              | Miss Khachaturova Yana              | отгружен         |         340.00
+440  | 30/03/2026   | 05899              | Viktoriia Klymenko                  | отгружен         |        2842.00
+441  | 30/03/2026   | 05900              | Miss Irina                          | отгружен         |        1050.00
+442  | 30/03/2026   | 05901              | Miss Olha Kravchuk                  | отгружен         |         168.50
+443  | 30/03/2026   | 05902              | Natalia Anokhina                    | отгружен         |        1251.00
+444  | 31/03/2026   | 05903              | OGUZ MED PARA PHARMACEUTICAL PRODUC | отгружен         |        1100.00
+445  | 31/03/2026   | 05904              | Marapo Beauty Salon, The Face Only  | отгружен         |         145.00
+446  | 31/03/2026   | 05905              | Milena AESTHETIC CLINIC LLC (JBR Br | отгружен         |         450.00
+447  | 31/03/2026   | 05906              | Milena AESTHETIC CLINIC LLC (JBR Br | отгружен         |         440.00
+----------------------------------------------------------------------------------------------------
+TOTAL |              |                    |                                     |                  |      543218.06
+
+====================================================================================================
+  INCOMING PAYMENTS — Входящие платежи  (406 documents)
+====================================================================================================
+#    | Date         | Number             | Counterparty                        | Status           |      Sum (AED)
+----------------------------------------------------------------------------------------------------
+1    | 01/01/2026   | 04934              | Dmitrii Grishin                     | Оплачено         |         345.00
+2    | 02/01/2026   | 04935              | Brau Ladies Salon LLC               | Оплачено         |         380.00
+3    | 02/01/2026   | 04936              | Brau Ladies Salon LLC               | Оплачено         |         570.00
+4    | 02/01/2026   | 04937              | Brau Ladies Salon LLC               | Оплачено         |         410.00
+5    | 02/01/2026   | 04938              | Brau Ladies Salon LLC               | Оплачено         |         190.00
+6    | 02/01/2026   | 04939              | Brau Ladies Salon LLC               | Оплачено         |         190.00
+7    | 04/01/2026   | 04940              | Miss Laura Abizova                  | Оплачено         |        1330.00
+8    | 04/01/2026   | 04941              | Miss Anastasiya Todosiichuk         | Оплачено         |        1320.00
+9    | 04/01/2026   | 04942              | Miss Saba Yussouf                   | Оплачено         |         495.00
+10   | 05/01/2026   | 04943              | Miss Valeriia Synenko               | Оплачено         |         741.00
+11   | 05/01/2026   | 04944              | Tatiana Aniskina Nail Master        | Оплачено         |         160.00
+12   | 05/01/2026   | 04945              | COSMIDEN MEDICAL CENTER L.L.C       | Оплачено         |        1471.00
+13   | 06/01/2026   | 04947              | Miss Valeriya                       | Оплачено         |         330.00
+14   | 06/01/2026   | 04948              | Miss Madina Movsumova               | Оплачено         |        1520.00
+15   | 06/01/2026   | 04949              | Allure                              | Оплачено         |         850.00
+16   | 06/01/2026   | 04950              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | Оплачено         |         165.00
+17   | 06/01/2026   | 04951              | Anishyna Nataliia                   | Оплачено         |         460.00
+18   | 06/01/2026   | 04952              | First Person Ladies Salon (Downtown | Оплачено         |         520.00
+19   | 06/01/2026   | 04953              | Hortman Clinics LLC                 | Оплачено         |        1995.00
+20   | 07/01/2026   | 04954              | Miss Ella Sosnina                   | Оплачено         |         702.00
+21   | 07/01/2026   | 04955              | The Hideaway For Women Salon        | Оплачено         |        1625.00
+22   | 07/01/2026   | 04956              | Miss Irina Solodkaya                | Оплачено         |         650.00
+23   | 07/01/2026   | 04957              | Alexandra Nikonova                  | Оплачено         |         650.00
+24   | 07/01/2026   | 04958              | Miss Olha Kravchuk                  | Оплачено         |         345.00
+25   | 08/01/2026   | 04959              | Miss Ekaterina                      | Оплачено         |         345.00
+26   | 08/01/2026   | 04960              | Miss Khachaturova Yana              | Оплачено         |         200.00
+27   | 08/01/2026   | 04961              | ECLATANT&CO TRADING CO L.L.C        | Оплачено         |        2765.00
+28   | 08/01/2026   | 04962              | REFRESH BIOHACKING CLINIC L.L.C     | Оплачено         |        2001.00
+29   | 08/01/2026   | 04963              | HORTMAN CLINICS 2 L.L.C             | Оплачено         |       10290.00
+30   | 08/01/2026   | 04964              | Miss Anastasiya                     | Оплачено         |        1980.00
+31   | 08/01/2026   | 04965              | mr. Dimitri Parliaras               | Оплачено         |        1310.00
+32   | 08/01/2026   | 04966              | ARFI NAILS BEAUTY SALON             | Оплачено         |        3651.00
+33   | 09/01/2026   | 04967              | Alexandra Nikonova                  | Оплачено         |         407.00
+34   | 09/01/2026   | 04968              | First Person Ladies Salon LLC (Palm | Оплачено         |       10538.00
+35   | 09/01/2026   | 04969              | First Person Ladies Salon (Marina)  | Оплачено         |        7624.00
+36   | 09/01/2026   | 04970              | Miss Uliana                         | Оплачено         |         340.00
+37   | 09/01/2026   | 04971              | Milena AESTHETIC CLINIC LLC         | Оплачено         |        2510.00
+38   | 10/01/2026   | 04972              | GOCOSMO BEAUTY SALON                | Оплачено         |        1420.00
+39   | 10/01/2026   | 04973              | GOCOSMO BEAUTY SALON                | Оплачено         |        9247.00
+40   | 10/01/2026   | 04974              | Bianco Spa FZCO (Cedre Center)      | Оплачено         |        4935.00
+41   | 11/01/2026   | 04975              | Dimitri Parliaras                   | Оплачено         |        4083.10
+42   | 11/01/2026   | 04976              | Tatiana Aniskina Nail Master        | Оплачено         |         294.00
+43   | 11/01/2026   | 04977              | Miss Olga Pershay                   | Оплачено         |         780.00
+44   | 11/01/2026   | 04978              | Miss Elvira                         | Оплачено         |         645.00
+45   | 12/01/2026   | 04979              | GOCOSMO BEAUTY SALON                | Оплачено         |         530.00
+46   | 12/01/2026   | 04980              | Miss Marina                         | Оплачено         |         330.00
+47   | 13/01/2026   | 04981              | LOVE MY BODY LADIES SPA CLUB L.L.C  | Оплачено         |        4492.00
+48   | 13/01/2026   | 04982              | Dr. Valeria Borscheva               | Оплачено         |         655.00
+49   | 13/01/2026   | 04983              | Volna Beauty Salon L.L.C            | Оплачено         |        1298.00
+50   | 13/01/2026   | 04984              | Miss Tatyana (Alena)                | Оплачено         |         195.00
+51   | 13/01/2026   | 04985              | Nataliia Panchyshko (Hide Clinic)   | Оплачено         |        1500.00
+52   | 14/01/2026   | 04986              | Miss Liza                           | Оплачено         |         971.75
+53   | 14/01/2026   | 04987              | Miss Leyla Gulyaeva                 | Оплачено         |         450.00
+54   | 14/01/2026   | 04988              | Shakirovna Ladies Beauty Saloon     | Оплачено         |        2298.00
+55   | 14/01/2026   | 04989              | ELITE SHAKIROVNA LADIES SALON L.L.C | Оплачено         |         431.00
+56   | 14/01/2026   | 04990              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | Оплачено         |         490.00
+57   | 15/01/2026   | 04991              | miss Christina Baikovich            | Оплачено         |         345.00
+58   | 15/01/2026   | 04992              | ELEGANCE POLY CLINIC L.L.C.         | Оплачено         |        1615.00
+59   | 15/01/2026   | 04993              | FACE ROOM BEAUTY SALON CO           | Оплачено         |        4990.00
+60   | 15/01/2026   | 04994              | Home Client                         | Оплачено         |         255.00
+61   | 15/01/2026   | 04995              | Miss Victoria Lukianchuk            | Оплачено         |         290.00
+62   | 16/01/2026   | 04996              | Sofiia Boiko                        | Оплачено         |        1070.00
+63   | 16/01/2026   | 04997              | Marapo Beauty Salon, The Face Only  | Оплачено         |         210.00
+64   | 16/01/2026   | 04998              | Marapo Beauty Salon, The Face Only  | Оплачено         |        1345.00
+65   | 16/01/2026   | 04999              | Marapo Beauty Salon, The Face Only  | Оплачено         |         150.00
+66   | 16/01/2026   | 05000              | Marapo Beauty Salon, The Face Only  | Оплачено         |         165.00
+67   | 16/01/2026   | 05001              | Marapo Beauty Salon, The Face Only  | Оплачено         |        1292.00
+68   | 17/01/2026   | 05002              | ELITE SHAKIROVNA LADIES SALON L.L.C | Оплачено         |        1645.00
+69   | 19/01/2026   | 05003              | Home Client                         | Оплачено         |         178.50
+70   | 19/01/2026   | 05004              | Miss Heike Lutz                     | Оплачено         |         694.00
+71   | 19/01/2026   | 05005              | IULIA BEAUTY SALON LLC              | Оплачено         |        2390.00
+72   | 19/01/2026   | 05006              | Vlada (Alenas customer)             | Оплачено         |         150.00
+73   | 20/01/2026   | 05007              | First Person Ladies Salon (Marina)  | Оплачено         |         210.00
+74   | 21/01/2026   | 05008              | Miss Ayjahan Atagarryyeva           | Оплачено         |        1260.00
+75   | 22/01/2026   | 05009              | Admin Marapo Beauty Salon, The Face | Оплачено         |         810.05
+76   | 22/01/2026   | 05010              | HIDE MEDICAL CENTER L.L.C           | Оплачено         |         490.00
+77   | 22/01/2026   | 05011              | Al Mukhtar Medical Center           | Оплачено         |        1300.00
+78   | 22/01/2026   | 05012              | Home Client                         | Оплачено         |         360.00
+79   | 23/01/2026   | 05013              | Miss Valeriia Kravchenko            | Оплачено         |        1040.00
+80   | 23/01/2026   | 05014              | Amna Alzaabi                        | Оплачено         |         370.00
+81   | 23/01/2026   | 05015              | Milena AESTHETIC CLINIC LLC         | Оплачено         |        1700.00
+82   | 23/01/2026   | 05016              | Miss Svetlana                       | Оплачено         |        1180.00
+83   | 23/01/2026   | 05017              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |         300.00
+84   | 23/01/2026   | 05018              | Miss Vasilisa Kozhemiako            | Оплачено         |         495.00
+85   | 23/01/2026   | 05019              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |        3616.00
+86   | 23/01/2026   | 05020              | My Skin Story Perfumes and Cosmetic | Оплачено         |         840.00
+87   | 23/01/2026   | 05021              | My Skin Story Perfumes and Cosmetic | Оплачено         |         840.00
+88   | 23/01/2026   | 05022              | My Skin Story Perfumes and Cosmetic | Оплачено         |         230.00
+89   | 24/01/2026   | 05023              | Admin Marapo Beauty Salon, The Face | Оплачено         |         145.00
+90   | 24/01/2026   | 05024              | Miss Aidana Yerkegaliyeva           | Оплачено         |         645.00
+91   | 24/01/2026   | 05025              | Miss Tetiana Yarova                 | Оплачено         |         330.00
+92   | 24/01/2026   | 05026              | Tatiana Aniskina Nail Master        | Оплачено         |         145.00
+93   | 25/01/2026   | 05027              | Miss Zarnosh Nawaz                  | Оплачено         |         625.00
+94   | 25/01/2026   | 05028              | Miss Nataliya Anokhina              | Оплачено         |        1240.00
+95   | 25/01/2026   | 05029              | Miss Ekaterina Pronushkina          | Оплачено         |        1160.00
+96   | 26/01/2026   | 05030              | Hortman Pharmacy L.L.C.             | Оплачено         |         145.00
+97   | 27/01/2026   | 05031              | Marc El Asmar                       | Оплачено         |         480.00
+98   | 27/01/2026   | 05032              | My Skin Story Perfumes and Cosmetic | Оплачено         |         250.00
+99   | 27/01/2026   | 05033              | Miss Ksenia Perekhryst              | Оплачено         |         570.00
+100  | 27/01/2026   | 05034              | Home Client                         | Оплачено         |         714.00
+101  | 28/01/2026   | 05035              | Miss Galinur Duisekenova            | Оплачено         |        1271.60
+102  | 28/01/2026   | 05036              | Johan Bahia                         | Оплачено         |        1230.00
+103  | 28/01/2026   | 05037              | Miss Tatiana Kravchenko             | Оплачено         |         937.00
+104  | 28/01/2026   | 05038              | The Hideaway For Women Salon        | Оплачено         |        1567.00
+105  | 28/01/2026   | 05039              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |        1210.00
+106  | 29/01/2026   | 05040              | Egle Vitkauskiene                   | Оплачено         |         595.00
+107  | 29/01/2026   | 05041              | Miss Yana Yakovleva                 | Оплачено         |         345.00
+108  | 30/01/2026   | 05042              | Miss Valeriya                       | Оплачено         |         600.00
+109  | 30/01/2026   | 05043              | FAMILY CLASS POLY CLINIC L.L.C      | Оплачено         |        1795.00
+110  | 31/01/2026   | 05044              | Mediclinic Clinics Investment LLC   | Оплачено         |        1900.00
+111  | 01/02/2026   | 05045              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |        2038.00
+112  | 01/02/2026   | 05046              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |         370.00
+113  | 01/02/2026   | 05047              | Miss Olga Gil                       | Оплачено         |         315.00
+114  | 01/02/2026   | 05048              | Miss Alexandra Aghraige             | Оплачено         |         330.00
+115  | 01/02/2026   | 05049              | miss Milya                          | Оплачено         |         335.00
+116  | 02/02/2026   | 05050              | KIND CARE MEDICAL CENTER L.L.C      | Оплачено         |        1452.00
+117  | 02/02/2026   | 05051              | First Person Ladies Salon (Downtown | Оплачено         |        1100.00
+118  | 02/02/2026   | 05052              | First Person Ladies Salon LLC (Palm | Оплачено         |        9173.00
+119  | 02/02/2026   | 05054              | FACEPRO WOMEN SALON L.L.C           | Оплачено         |        1687.00
+120  | 02/02/2026   | 05055              | REFRESH BIOHACKING CLINIC L.L.C     | Оплачено         |        1845.00
+121  | 02/02/2026   | 05056              | Le Bleu Ciel Ladies Beauty Salon    | Оплачено         |        1127.50
+122  | 02/02/2026   | 05057              | Brau Ladies Salon LLC               | Оплачено         |         380.00
+123  | 02/02/2026   | 05059              | Brau Ladies Salon LLC               | Оплачено         |         380.00
+124  | 02/02/2026   | 05058              | Brau Ladies Salon LLC               | Оплачено         |         380.00
+125  | 02/02/2026   | 05060              | Brau Ladies Salon LLC               | Оплачено         |         380.00
+126  | 02/02/2026   | 05061              | Brau Ladies Salon LLC               | Оплачено         |         570.00
+127  | 03/02/2026   | 05062              | Mr. Amr Najar Ali                   | Оплачено         |         690.00
+128  | 03/02/2026   | 05063              | Allure                              | Оплачено         |         780.00
+129  | 03/02/2026   | 05064              | FACE ROOM BEAUTY SALON CO           | Оплачено         |        2255.00
+130  | 03/02/2026   | 05065              | Miss Hanna Bryshtsen                | Оплачено         |         770.00
+131  | 03/02/2026   | 05066              | First Person Ladies Salon (Marina)  | Оплачено         |         400.00
+132  | 03/02/2026   | 05067              | Miss Yanka Slanchenko               | Оплачено         |         445.00
+133  | 03/02/2026   | 05068              | Home Client                         | Оплачено         |         595.00
+134  | 03/02/2026   | 05069              | IULIA BEAUTY SALON LLC              | Оплачено         |        1670.00
+135  | 03/02/2026   | 05070              | Allure Personal Care Center LLC     | Оплачено         |        1545.00
+136  | 04/02/2026   | 05071              | Dr. Fatima Kham                     | Оплачено         |        1187.00
+137  | 04/02/2026   | 05072              | COSMIDEN MEDICAL CENTER L.L.C       | Оплачено         |        1404.00
+138  | 04/02/2026   | 05073              | Home Client                         | Оплачено         |         498.00
+139  | 04/02/2026   | 05074              | Miss Victoria                       | Оплачено         |        1160.00
+140  | 04/02/2026   | 05075              | Ilmira Hairulina                    | Оплачено         |         145.00
+141  | 04/02/2026   | 05076              | First Person Ladies Salon (Marina)  | Оплачено         |        4933.00
+142  | 04/02/2026   | 05077              | Miss Julia                          | Оплачено         |        1110.00
+143  | 04/02/2026   | 05078              | Hollie Skin                         | Оплачено         |        1430.00
+144  | 04/02/2026   | 05079              | LOVE MY BODY LADIES SPA CLUB L.L.C  | Оплачено         |        2601.00
+145  | 05/02/2026   | 05080              | Miss Rima                           | Оплачено         |         371.00
+146  | 05/02/2026   | 05081              | ARFI NAILS BEAUTY SALON 2           | Оплачено         |         300.00
+147  | 05/02/2026   | 05082              | ARFI NAILS BEAUTY SALON             | Оплачено         |        1595.00
+148  | 05/02/2026   | 05083              | Miss Saule                          | Оплачено         |         425.00
+149  | 05/02/2026   | 05084              | Home Client                         | Оплачено         |         255.00
+150  | 05/02/2026   | 05085              | Miss Elena                          | Оплачено         |         345.00
+151  | 05/02/2026   | 05086              | ELEGANCE POLY CLINIC L.L.C.         | Оплачено         |        1030.00
+152  | 05/02/2026   | 05087              | First Person Ladies Salon (Marina)  | Оплачено         |         245.00
+153  | 05/02/2026   | 05088              | Miss Assiya Abanina                 | Оплачено         |        1040.00
+154  | 05/02/2026   | 05089              | Inna Ageyeva                        | Оплачено         |         290.00
+155  | 05/02/2026   | 05090              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | Оплачено         |         330.00
+156  | 05/02/2026   | 05091              | ELITE SHAKIROVNA LADIES SALON L.L.C | Оплачено         |        1865.00
+157  | 05/02/2026   | 05092              | Evolution Aesthetics Clinic         | Оплачено         |        3520.00
+158  | 05/02/2026   | 05093              | Marapo Beauty Salon, The Face Only  | Оплачено         |        1038.00
+159  | 05/02/2026   | 05094              | Marapo Beauty Salon, The Face Only  | Оплачено         |         165.00
+160  | 05/02/2026   | 05095              | Marapo Beauty Salon, The Face Only  | Оплачено         |        1020.00
+161  | 05/02/2026   | 05096              | Marapo Beauty Salon, The Face Only  | Оплачено         |         105.00
+162  | 05/02/2026   | 05097              | Marapo Beauty Salon, The Face Only  | Оплачено         |         645.00
+163  | 05/02/2026   | 05098              | Marapo Beauty Salon, The Face Only  | Оплачено         |         105.00
+164  | 06/02/2026   | 05099              | Miss Olga                           | Оплачено         |        1170.00
+165  | 06/02/2026   | 05100              | Miss Lamy Maalouf                   | Оплачено         |        1690.00
+166  | 06/02/2026   | 05101              | Guapa Ladies Salon L.L.C            | Оплачено         |         664.00
+167  | 06/02/2026   | 05102              | Shakirovna Ladies Beauty Saloon     | Оплачено         |        5913.00
+168  | 06/02/2026   | 05103              | Home Client                         | Оплачено         |         820.25
+169  | 06/02/2026   | 05104              | Miss Alesya                         | Оплачено         |         935.00
+170  | 06/02/2026   | 05105              | Miss Anastasiya                     | Оплачено         |         295.00
+171  | 07/02/2026   | 05106              | Admin Shakirovna Salon              | Оплачено         |         150.00
+172  | 07/02/2026   | 05107              | First Person Ladies Salon LLC (Palm | Оплачено         |         230.00
+173  | 07/02/2026   | 05108              | Miss Elena Gadinich                 | Оплачено         |        3751.50
+174  | 08/02/2026   | 05109              | Miss Laura Abizova                  | Оплачено         |        2458.00
+175  | 08/02/2026   | 05110              | Miss Olha Vialykh                   | Оплачено         |         500.00
+176  | 08/02/2026   | 05111              | Miss Sydia Solano                   | Оплачено         |         615.00
+177  | 09/02/2026   | 05112              | Retail customer                     | Оплачено         |         337.00
+178  | 09/02/2026   | 05113              | ABEER MEKKI BEAUTY LADIES CENTER -  | Оплачено         |        4470.90
+179  | 09/02/2026   | 05114              | Sugar & Wax Beauty Salon            | Оплачено         |         675.00
+180  | 09/02/2026   | 05115              | IULIA BEAUTY SALON LLC              | Оплачено         |        1238.00
+181  | 10/02/2026   | 05116              | Miss Assel Atau                     | Оплачено         |         417.00
+182  | 10/02/2026   | 05117              | Adara Spa Retreat                   | Оплачено         |        3175.00
+183  | 10/02/2026   | 05118              | ECLATANT&CO TRADING CO L.L.C        | Оплачено         |        4080.00
+184  | 10/02/2026   | 05119              | Home Client                         | Оплачено         |         352.00
+185  | 10/02/2026   | 05120              | Al Mukhtar Medical Center           | Оплачено         |        1300.00
+186  | 10/02/2026   | 05121              | Miss Elvina Daminova                | Оплачено         |         430.00
+187  | 10/02/2026   | 05122              | Miss Ksenia Perekhryst              | Оплачено         |         430.00
+188  | 11/02/2026   | 05123              | Dr. Valeria Borscheva               | Оплачено         |         730.00
+189  | 11/02/2026   | 05124              | Miss Elvina Daminova                | Оплачено         |         230.00
+190  | 11/02/2026   | 05125              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |         300.00
+191  | 11/02/2026   | 05126              | AST Advance Cosmetics Trading L.L.C | Оплачено         |         850.00
+192  | 11/02/2026   | 05127              | IULIA BEAUTY SALON LLC              | Оплачено         |        3425.00
+193  | 11/02/2026   | 05128              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |        1774.00
+194  | 11/02/2026   | 05129              | Allure                              | Оплачено         |         990.00
+195  | 11/02/2026   | 05130              | Miss Anna Gulik                     | Оплачено         |         437.00
+196  | 11/02/2026   | 05131              | First Person Ladies Salon LLC (Palm | Оплачено         |         455.00
+197  | 11/02/2026   | 05132              | Melanta Poly Clinic L.L.C           | Оплачено         |        2265.00
+198  | 12/02/2026   | 05133              | Miss Khachaturova Yana              | Оплачено         |         515.00
+199  | 12/02/2026   | 05134              | Miss Diana Volk                     | Оплачено         |         665.00
+200  | 13/02/2026   | 05135              | BIANCO LAYAN BEAUTY SALON L.L.C     | Оплачено         |        2745.00
+201  | 13/02/2026   | 05136              | HORTMAN CLINICS 2 L.L.C             | Оплачено         |        6300.00
+202  | 13/02/2026   | 05137              | Miss Ainura Katauova                | Оплачено         |         585.00
+203  | 13/02/2026   | 05138              | Bianco Beauty Salon SPA (Dubai Hill | Оплачено         |        3410.00
+204  | 13/02/2026   | 05139              | Home Client                         | Оплачено         |         731.00
+205  | 14/02/2026   | 05140              | Miss Polina Bakhanova               | Оплачено         |         745.00
+206  | 14/02/2026   | 05141              | Home Client                         | Оплачено         |         784.00
+207  | 14/02/2026   | 05142              | Miss Ella Sosnina                   | Оплачено         |         459.00
+208  | 14/02/2026   | 05143              | Inna Ageyeva                        | Оплачено         |         664.00
+209  | 14/02/2026   | 05144              | Le Bleu Ciel Ladies Beauty Salon    | Оплачено         |         450.00
+210  | 15/02/2026   | 05145              | Miss Asli Altinok                   | Оплачено         |         345.00
+211  | 15/02/2026   | 05146              | Clinic customer                     | Оплачено         |         185.00
+212  | 15/02/2026   | 05147              | Miss Vladislava                     | Оплачено         |        2030.00
+213  | 15/02/2026   | 05148              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |        1590.00
+214  | 15/02/2026   | 05149              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |         200.00
+215  | 16/02/2026   | 05150              | Miss Vladislava                     | Оплачено         |         635.00
+216  | 16/02/2026   | 05151              | Miss Marina Gruzdeva                | Оплачено         |         807.00
+217  | 16/02/2026   | 05152              | Miss Iryna                          | Оплачено         |         331.00
+218  | 16/02/2026   | 05153              | Missis Marina Biryukova             | Оплачено         |         175.00
+219  | 16/02/2026   | 05154              | BIANCO JGE Ladies Salon L.L.C       | Оплачено         |        4280.00
+220  | 16/02/2026   | 05155              | BIANCO JGE GENTS SALON L.L.C        | Оплачено         |         360.00
+221  | 17/02/2026   | 05156              | Miss Alina Melnik                   | Оплачено         |        1030.00
+222  | 17/02/2026   | 05157              | Hortman Clinics LLC                 | Оплачено         |        1995.00
+223  | 17/02/2026   | 05158              | Hortman Pharmacy L.L.C.             | Оплачено         |          76.00
+224  | 17/02/2026   | 05159              | Miss Abir Manai                     | Оплачено         |        1000.00
+225  | 17/02/2026   | 05160              | Lips for Kiss Clinic                | Оплачено         |        3630.00
+226  | 17/02/2026   | 05161              | ELEGANCE POLY CLINIC L.L.C.         | Оплачено         |         888.00
+227  | 18/02/2026   | 05162              | Miss Vlada                          | Оплачено         |          95.00
+228  | 18/02/2026   | 05163              | FAMILY CLASS POLY CLINIC L.L.C      | Оплачено         |         570.00
+229  | 19/02/2026   | 05164              | Miss Sema Tare                      | Оплачено         |         415.00
+230  | 19/02/2026   | 05165              | Nataliia Panchyshko (Hide Clinic)   | Оплачено         |        1530.00
+231  | 19/02/2026   | 05166              | Shakirovna Ladies Beauty Saloon     | Оплачено         |        3230.00
+232  | 20/02/2026   | 05167              | Miss Vladislava                     | Оплачено         |         725.00
+233  | 20/02/2026   | 05168              | Valeriia Babakova                   | Оплачено         |        1232.00
+234  | 20/02/2026   | 05169              | Milena AESTHETIC CLINIC LLC         | Оплачено         |         900.00
+235  | 20/02/2026   | 05170              | Miss Alisa Petrova                  | Оплачено         |         870.00
+236  | 20/02/2026   | 05171              | FaceFIT SALON L.L.C                 | Оплачено         |        1120.00
+237  | 20/02/2026   | 05173              | Ulbossyn Saparbayeva                | Оплачено         |         210.00
+238  | 20/02/2026   | 05174              | Ella Sokolova                       | Оплачено         |         335.00
+239  | 20/02/2026   | 05175              | Ulbossyn Saparbayeva                | Оплачено         |        2705.00
+240  | 20/02/2026   | 05176              | Volna Beauty Salon L.L.C            | Оплачено         |         772.00
+241  | 20/02/2026   | 05177              | My Skin Story Perfumes and Cosmetic | Оплачено         |         380.00
+242  | 20/02/2026   | 05178              | miss Ekaterina Petukhova            | Оплачено         |         815.00
+243  | 20/02/2026   | 05179              | Esra Akyol Bilgin                   | Оплачено         |         425.00
+244  | 21/02/2026   | 05180              | Mariia Barysheva                    | Оплачено         |         645.00
+245  | 21/02/2026   | 05181              | Miss Ekaterina Pronushkina          | Оплачено         |        1200.00
+246  | 22/02/2026   | 05182              | Admin Marapo Beauty Salon, The Face | Оплачено         |         145.00
+247  | 22/02/2026   | 05183              | Katerina Tatsiuk                    | Оплачено         |         335.00
+248  | 22/02/2026   | 05184              | Kamila Rakhimova                    | Оплачено         |         375.00
+249  | 23/02/2026   | 05185              | NAZEED OSMAN                        | Оплачено         |         665.00
+250  | 23/02/2026   | 05186              | Dr. Valeria Borscheva               | Оплачено         |         585.00
+251  | 23/02/2026   | 05187              | Lavana SPA                          | Оплачено         |        1190.00
+252  | 23/02/2026   | 05188              | Miss Anastasiya Bukoros             | Оплачено         |         345.00
+253  | 23/02/2026   | 05189              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |        2045.00
+254  | 24/02/2026   | 05190              | Hayley Hall                         | Оплачено         |         375.00
+255  | 24/02/2026   | 05191              | IULIA BEAUTY SALON LLC              | Оплачено         |        1105.00
+256  | 24/02/2026   | 05192              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | Оплачено         |         715.00
+257  | 24/02/2026   | 05193              | ELITE SHAKIROVNA LADIES SALON L.L.C | Оплачено         |        1170.00
+258  | 24/02/2026   | 05194              | Shakirovna Ladies Beauty Saloon     | Оплачено         |        1022.00
+259  | 24/02/2026   | 05195              | Miss Uliana                         | Оплачено         |         340.00
+260  | 25/02/2026   | 05196              | Allure                              | Оплачено         |        1015.00
+261  | 25/02/2026   | 05197              | Miss Zulya Ammaeva                  | Оплачено         |        1016.00
+262  | 27/02/2026   | 05198              | Al Mukhtar Medical Center           | Оплачено         |        1230.00
+263  | 27/02/2026   | 05199              | Milena AESTHETIC CLINIC LLC         | Оплачено         |         360.00
+264  | 27/02/2026   | 05200              | Natalja Zaharova                    | Оплачено         |        1060.00
+265  | 27/02/2026   | 05201              | Alena Solodovichenko                | Оплачено         |         345.00
+266  | 27/02/2026   | 05202              | Miss Estefa Pastor                  | Оплачено         |         390.00
+267  | 27/02/2026   | 05203              | miss Ekaterina Petukhova            | Оплачено         |         520.00
+268  | 27/02/2026   | 05204              | Elizabeth Nabiieva                  | Оплачено         |         450.00
+269  | 28/02/2026   | 05205              | Valeriia Synenko                    | Оплачено         |         635.00
+270  | 28/02/2026   | 05206              | Dr Malika Khodzhaeva                | Оплачено         |         705.00
+271  | 28/02/2026   | 05207              | miss Ekaterina Petukhova            | Оплачено         |         490.00
+272  | 28/02/2026   | 05208              | ABEER MEKKI BEAUTY LADIES CENTER -  | Оплачено         |        2544.32
+273  | 02/03/2026   | 05209              | Miss Margo Faizulina                | Оплачено         |         465.00
+274  | 02/03/2026   | 05210              | Milena AESTHETIC CLINIC LLC         | Оплачено         |        1050.00
+275  | 02/03/2026   | 05211              | My Skin Story Perfumes and Cosmetic | Оплачено         |         250.00
+276  | 02/03/2026   | 05212              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |         185.00
+277  | 02/03/2026   | 05213              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |        1549.00
+278  | 03/03/2026   | 05214              | COSMIDEN MEDICAL CENTER L.L.C       | Оплачено         |         784.00
+279  | 03/03/2026   | 05215              | Milena AESTHETIC CLINIC LLC         | Оплачено         |         150.00
+280  | 03/03/2026   | 05216              | Milena AESTHETIC CLINIC LLC (JBR Br | Оплачено         |         600.00
+281  | 03/03/2026   | 05217              | Yula Beauty Salon LLC               | Оплачено         |         935.00
+282  | 03/03/2026   | 05218              | Chahit Joshi                        | Оплачено         |         330.00
+283  | 03/03/2026   | 05219              | Brau Ladies Salon LLC               | Оплачено         |         570.00
+284  | 03/03/2026   | 05220              | Brau Ladies Salon LLC               | Оплачено         |         380.00
+285  | 03/03/2026   | 05221              | Brau Ladies Salon LLC               | Оплачено         |         380.00
+286  | 03/03/2026   | 05222              | Brau Ladies Salon LLC               | Оплачено         |         570.00
+287  | 04/03/2026   | 05223              | First Person Ladies Salon (Downtown | Оплачено         |         776.00
+288  | 04/03/2026   | 05224              | First Person Ladies Salon (Marina)  | Оплачено         |        3174.00
+289  | 04/03/2026   | 05225              | First Person Ladies Salon LLC (Palm | Оплачено         |         300.00
+290  | 04/03/2026   | 05226              | HIDE MEDICAL CENTER L.L.C           | Оплачено         |         306.00
+291  | 04/03/2026   | 05227              | Melanta Poly Clinic L.L.C           | Оплачено         |        1379.00
+292  | 05/03/2026   | 05228              | Miss Aidana Yerkegaliyeva           | Оплачено         |         640.00
+293  | 05/03/2026   | 05229              | Miss Sarra Uanassi                  | Оплачено         |         345.00
+294  | 05/03/2026   | 05230              | The Hideaway For Women Salon        | Оплачено         |        3040.00
+295  | 05/03/2026   | 05231              | Le Bleu Ciel Ladies Beauty Salon    | Оплачено         |         670.00
+296  | 05/03/2026   | 05232              | Miss Sarayounesskin Sara            | Оплачено         |         315.00
+297  | 05/03/2026   | 05233              | Viktoriia Klymenko                  | Оплачено         |         188.00
+298  | 05/03/2026   | 05234              | FAMILY CLASS POLY CLINIC L.L.C      | Оплачено         |         740.00
+299  | 05/03/2026   | 05235              | FAMILY CLASS POLY CLINIC L.L.C      | Оплачено         |         845.00
+300  | 06/03/2026   | 05236              | IULIA BEAUTY SALON LLC              | Оплачено         |         510.00
+301  | 06/03/2026   | 05237              | IULIA BEAUTY SALON LLC              | Оплачено         |        5775.00
+302  | 06/03/2026   | 05238              | FACE ROOM BEAUTY SALON CO           | Оплачено         |        2735.00
+303  | 06/03/2026   | 05239              | Miss Khachaturova Yana              | Оплачено         |        1050.00
+304  | 06/03/2026   | 05240              | Fayy Health FZCO                    | Оплачено         |        3800.00
+305  | 06/03/2026   | 05241              | Miss Dr. Viki                       | Оплачено         |         780.00
+306  | 06/03/2026   | 05242              | Volna Beauty Salon L.L.C            | Оплачено         |        1081.00
+307  | 06/03/2026   | 05243              | First Person Ladies Salon LLC (Palm | Оплачено         |        7700.00
+308  | 06/03/2026   | 05244              | LOVE MY BODY LADIES SPA CLUB L.L.C  | Оплачено         |        1708.00
+309  | 07/03/2026   | 05245              | Miss Khachaturova Yana              | Оплачено         |         435.00
+310  | 07/03/2026   | 05246              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |         300.00
+311  | 07/03/2026   | 05247              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |         850.00
+312  | 07/03/2026   | 05248              | Polina Emelianenko                  | Оплачено         |         255.00
+313  | 07/03/2026   | 05249              | Miss Sarayounesskin Sara            | Оплачено         |         740.00
+314  | 08/03/2026   | 05250              | Miss Julia                          | Оплачено         |         425.00
+315  | 08/03/2026   | 05251              | Miss Julia                          | Оплачено         |        1296.00
+316  | 08/03/2026   | 05252              | Admin Marapo Beauty Salon, The Face | Оплачено         |         930.00
+317  | 09/03/2026   | 05253              | Miss Ksenia Perekhryst              | Оплачено         |         290.00
+318  | 09/03/2026   | 05254              | ECLATANT&CO TRADING CO L.L.C        | Оплачено         |        3599.00
+319  | 10/03/2026   | 05255              | Clinic customer                     | Оплачено         |         738.00
+320  | 10/03/2026   | 05256              | Malika Sher                         | Оплачено         |         295.00
+321  | 11/03/2026   | 05257              | Miss Valeriia Kravchenko            | Оплачено         |        1204.70
+322  | 11/03/2026   | 05258              | Miss Saba Yussouf                   | Оплачено         |         555.00
+323  | 11/03/2026   | 05259              | Dr. Fatima Kham                     | Оплачено         |        1265.00
+324  | 11/03/2026   | 05260              | Miss Sarayounesskin Sara            | Оплачено         |         355.00
+325  | 11/03/2026   | 05261              | Miss Sarayounesskin Sara            | Оплачено         |         355.00
+326  | 11/03/2026   | 05262              | Svetlana Elina                      | Оплачено         |         415.00
+327  | 11/03/2026   | 05263              | Miss Olga Pershay                   | Оплачено         |        1540.00
+328  | 11/03/2026   | 05264              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |        1411.00
+329  | 12/03/2026   | 05265              | Polina Emelianenko                  | Оплачено         |          90.00
+330  | 12/03/2026   | 05266              | Анна Гулик                          | Оплачено         |        1228.00
+331  | 13/03/2026   | 05267              | Miss Estefa Pastor                  | Оплачено         |         375.00
+332  | 13/03/2026   | 05268              | Evolution Aesthetics Clinic         | Оплачено         |         870.00
+333  | 13/03/2026   | 05269              | Evolution Aesthetics Clinic         | Оплачено         |         500.00
+334  | 13/03/2026   | 05270              | Evolution Aesthetics Clinic         | Оплачено         |         765.00
+335  | 13/03/2026   | 05271              | Evolution Aesthetics Clinic         | Оплачено         |        1030.00
+336  | 13/03/2026   | 05272              | Ilmira Hairulina                    | Оплачено         |         541.00
+337  | 13/03/2026   | 05273              | REFRESH BIOHACKING CLINIC L.L.C     | Оплачено         |        2680.00
+338  | 14/03/2026   | 05274              | You by Anna Bezdushnaya Salon       | Оплачено         |         255.00
+339  | 14/03/2026   | 05275              | Miss Lamy Maalouf                   | Оплачено         |        1340.00
+340  | 15/03/2026   | 05276              | Miss Guzel                          | Оплачено         |         650.00
+341  | 15/03/2026   | 05277              | Miss Nina                           | Оплачено         |         910.00
+342  | 15/03/2026   | 05278              | Katerina Tatsiuk                    | Оплачено         |         375.00
+343  | 16/03/2026   | 05279              | DIFFERENT AESTHETIC MEDICAL CENTER  | Оплачено         |        3225.00
+344  | 16/03/2026   | 05280              | Miss Sirma Osman                    | Оплачено         |         790.00
+345  | 16/03/2026   | 05281              | Stuart Anson                        | Оплачено         |        1099.90
+346  | 16/03/2026   | 05282              | Daniela Weerasinghe                 | Оплачено         |         366.00
+347  | 16/03/2026   | 05283              | ARFI NAILS BEAUTY SALON             | Оплачено         |        1695.00
+348  | 16/03/2026   | 05284              | ARFI NAILS BEAUTY SALON 2           | Оплачено         |         895.00
+349  | 16/03/2026   | 05285              | Bagtyyar Rejepbayev                 | Оплачено         |         345.00
+350  | 16/03/2026   | 05286              | Alla Petrikova                      | Оплачено         |        1035.00
+351  | 17/03/2026   | 05287              | FAMILY CLASS POLY CLINIC L.L.C      | Оплачено         |         295.00
+352  | 17/03/2026   | 05288              | Milena AESTHETIC CLINIC LLC (JBR Br | Оплачено         |         450.00
+353  | 17/03/2026   | 05289              | Milena AESTHETIC CLINIC LLC (JBR Br | Оплачено         |         450.00
+354  | 17/03/2026   | 05290              | Shakirovna Ladies Beauty Saloon     | Оплачено         |        3738.00
+355  | 18/03/2026   | 05291              | Mariia Ryseva                       | Оплачено         |         571.00
+356  | 18/03/2026   | 05292              | Anishyna Nataliia                   | Оплачено         |         415.00
+357  | 19/03/2026   | 05293              | Shakirovna Ladies Beauty Saloon     | Оплачено         |         230.00
+358  | 19/03/2026   | 05294              | Miss Sarayounesskin Sara            | Оплачено         |        1030.00
+359  | 19/03/2026   | 05295              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |         950.00
+360  | 19/03/2026   | 05296              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | Оплачено         |        2240.00
+361  | 19/03/2026   | 05297              | ELITE SHAKIROVNA LADIES SALON L.L.C | Оплачено         |         872.00
+362  | 19/03/2026   | 05298              | Miss Solomia Kalytovska             | Оплачено         |        1120.30
+363  | 19/03/2026   | 05299              | Retail customer                     | Оплачено         |         345.00
+364  | 20/03/2026   | 05300              | Miss Ella Sosnina                   | Оплачено         |         655.00
+365  | 20/03/2026   | 05301              | Ilmira Hairulina                    | Оплачено         |         550.00
+366  | 20/03/2026   | 05302              | Ilmira Hairulina                    | Оплачено         |         145.00
+367  | 20/03/2026   | 05303              | ABEER MEKKI BEAUTY LADIES CENTER -  | Оплачено         |        7942.50
+368  | 21/03/2026   | 05304              | Miss Ella Sosnina                   | Оплачено         |         180.00
+369  | 21/03/2026   | 05305              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |         480.00
+370  | 22/03/2026   | 05306              | Miss Hanna Bryshtsen                | Оплачено         |         470.00
+371  | 22/03/2026   | 05307              | Miss Madinaxon Omonullayeva         | Оплачено         |         710.60
+372  | 22/03/2026   | 05308              | Miss Anastasiya                     | Оплачено         |         375.00
+373  | 23/03/2026   | 05309              | SOLAR MEDICAL CLINIC L.L.C          | Оплачено         |        1144.00
+374  | 24/03/2026   | 05310              | My Skin Story Perfumes and Cosmetic | Оплачено         |        1600.00
+375  | 24/03/2026   | 05311              | Missis Marina Biryukova             | Оплачено         |         560.00
+376  | 25/03/2026   | 05312              | Dr. Valeria Borscheva               | Оплачено         |         500.00
+377  | 25/03/2026   | 05313              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |        1673.00
+378  | 26/03/2026   | 05314              | Nour Alkhatib                       | Оплачено         |         315.00
+379  | 26/03/2026   | 05315              | SHAKIROVNA ESTHETIC CLINIC L.L.C    | Оплачено         |         290.00
+380  | 26/03/2026   | 05316              | Miss Inga Policiuc                  | Оплачено         |         345.00
+381  | 26/03/2026   | 05317              | Miss Ksenia Perekhryst              | Оплачено         |         600.00
+382  | 26/03/2026   | 05318              | Miss Alexandra Aghraige             | Оплачено         |         330.00
+383  | 26/03/2026   | 05319              | Miss Irina Solodkaya                | Оплачено         |         760.00
+384  | 26/03/2026   | 05320              | Regina Galkina                      | Оплачено         |         345.00
+385  | 26/03/2026   | 05321              | Valeriya Evtekhova                  | Оплачено         |         370.00
+386  | 27/03/2026   | 05322              | Elizabeth Nabiieva                  | Оплачено         |         300.00
+387  | 27/03/2026   | 05323              | Admin Shakirovna Salon              | Оплачено         |         989.00
+388  | 28/03/2026   | 05324              | Kseniya Bialova                     | Оплачено         |         345.00
+389  | 28/03/2026   | 05325              | Miss Svetlana                       | Оплачено         |        1390.00
+390  | 28/03/2026   | 05326              | Miss Anastasiya                     | Оплачено         |         188.71
+391  | 28/03/2026   | 05327              | Miss Alesya                         | Оплачено         |         219.00
+392  | 28/03/2026   | 05328              | Kseniia Kadenskaia                  | Оплачено         |         505.00
+393  | 28/03/2026   | 05329              | FACE ROOM BEAUTY SALON CO           | Оплачено         |        2217.00
+394  | 28/03/2026   | 05330              | Miss Anastasiya                     | Оплачено         |         455.00
+395  | 28/03/2026   | 05331              | X BEAUTY CONSULTING - F.Z.C         | Оплачено         |        1850.00
+396  | 28/03/2026   | 05332              | Miss Heike Lutz                     | Оплачено         |         715.00
+397  | 29/03/2026   | 05333              | Miss Galina                         | Оплачено         |         345.00
+398  | 29/03/2026   | 05334              | Kseniia Kadenskaia                  | Оплачено         |         595.00
+399  | 30/03/2026   | 05335              | Miss Khachaturova Yana              | Оплачено         |         340.00
+400  | 30/03/2026   | 05336              | Miss Irina                          | Оплачено         |        1050.00
+401  | 30/03/2026   | 05337              | Miss Olha Kravchuk                  | Оплачено         |         168.50
+402  | 30/03/2026   | 05338              | Viktoriia Klymenko                  | Оплачено         |        1380.00
+403  | 31/03/2026   | 05339              | Milena AESTHETIC CLINIC LLC         | Оплачено         |         725.00
+404  | 31/03/2026   | 05340              | Natalia Anokhina                    | Оплачено         |        1251.00
+405  | 31/03/2026   | 05341              | Marapo Beauty Salon, The Face Only  | Оплачено         |         145.00
+406  | 31/03/2026   | 05342              | Mediclinic Clinics Investment LLC   | Оплачено         |         760.00
+----------------------------------------------------------------------------------------------------
+TOTAL |              |                    |                                     |                  |      464171.68
+
+====================================================================================================
+  SUMMARY — Q1 2026
+====================================================================================================
+  Invoices Out (to customers):   326 docs   |   278415.96 AED
+  Invoices In (from suppliers):   5 docs   |   182966.83 AED
+  Customer Orders:                325 docs   |   274095.96 AED
+  Shipments (Demands):            447 docs   |   543218.06 AED
+  Incoming Payments:              406 docs   |   464171.68 AED
+====================================================================================================
+
+  MONTHLY BREAKDOWN
+------------------------------------------------------------
+  January      | Orders:  87 (    85270.00 AED) | Shipped: 128 (   207640.30 AED)
+  February     | Orders: 122 (    96822.25 AED) | Shipped: 167 (   182039.55 AED)
+  March        | Orders: 116 (    92003.71 AED) | Shipped: 152 (   153538.21 AED)
+------------------------------------------------------------
+
+Report complete.

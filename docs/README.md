@@ -16,6 +16,7 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
+| 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part4.md](./SESSION_CHANGES_2026-04-17_part4.md) | **Apple button → Apple's official "Download on the App Store"** (EN/RU/AR) + Google Play button added to `LoginModal.tsx` for full symmetry |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part3.md](./SESSION_CHANGES_2026-04-17_part3.md) | **Apple button text → "Download on Apple Store"** — renamed `login.downloadApp` → `login.downloadAppApple` for symmetry with Google button (EN/RU/AR) |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part2.md](./SESSION_CHANGES_2026-04-17_part2.md) | **Google Play button on `/login`** — added below App Store button on mobile + desktop layouts, EN/RU/AR translations |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-17.md](./SESSION_CHANGES_2026-04-17.md) | **MoySklad push fixes** — 5% VAT on delivery (FTA compliance), structured `shipmentAddressFull` so delivery address no longer blank in UI |
@@ -455,6 +456,7 @@ FAQ content is stored in the `faq_items` database table and managed through the 
 
 | File | Description |
 |------|-------------|
+| [SESSION_CHANGES_2026-04-17_part4.md](./SESSION_CHANGES_2026-04-17_part4.md) | **NEW** (1) Apple button label corrected to Apple's official brand wording: `"Download on the App Store"` (EN), `"Загрузите в App Store"` (RU), `"حمّل من App Store"` (AR). (2) Google Play button added to `LoginModal.tsx` so the inline login popover now has the same App Store + Google Play stack as `/login`. |
 | [SESSION_CHANGES_2026-04-17_part3.md](./SESSION_CHANGES_2026-04-17_part3.md) | **NEW** Apple button label follow-up: renamed `login.downloadApp` → `login.downloadAppApple` (symmetric with `login.downloadAppGoogle`), new value `"Download on Apple Store"` / `"Загрузите в Apple Store"` / `"احصل عليه من Apple Store"`. Updated 3 call-sites: `LoginClient.tsx` (mobile + desktop) and `LoginModal.tsx`. Modal also gets the new text. |
 | [SESSION_CHANGES_2026-04-17_part2.md](./SESSION_CHANGES_2026-04-17_part2.md) | **NEW** Google Play "Download on Google Play" button added to `/login` page (EN/RU/AR), mirrors the existing App Store button on both mobile compact card and desktop card. Android users now have a direct Play Store link at login. Icon + label + RTL handling all wired through `messages/*.json` via new `login.downloadAppGoogle` key. Scoped to `/login` only — `/pwa-login` and `LoginModal` intentionally untouched. |
 | [SESSION_CHANGES_2026-04-17.md](./SESSION_CHANGES_2026-04-17.md) | **NEW** MoySklad push-integration fixes: (1) delivery service line now booked at 5% VAT instead of 0% — fixes FTA output-VAT under-declaration; (2) delivery address now sent as structured `shipmentAddressFull` (country/city/street) instead of plain-string `shipmentAddress` — fixes blank delivery-address field in MoySklad UI |

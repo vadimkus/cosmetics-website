@@ -16,6 +16,8 @@
 | 🟡 **Important** | [EMAIL_TEMPLATES.md](./EMAIL_TEMPLATES.md) | Order email format specification |
 | 🟡 **Important** | [ORDERS_PAGE.md](./ORDERS_PAGE.md) | Orders page display format |
 | 🟡 **Important** | [SUCCESS_PAGE.md](./SUCCESS_PAGE.md) | Order success page - design, API, translations |
+| 🟡 **Important** | [SESSION_CHANGES_2026-04-18.md](./SESSION_CHANGES_2026-04-18.md) | **Observability — Sentry in, LogRocket out** — real prod error tracking via `@sentry/nextjs` (Next 16 instrumentation), LogRocket removed, `lib/monitoring.ts` simplified, ~150 KB client bundle savings. See [SENTRY_SETUP.md](./SENTRY_SETUP.md) for DSN configuration. |
+| 🟡 **Important** | [SENTRY_SETUP.md](./SENTRY_SETUP.md) | **Sentry configuration guide** — env vars, first-time setup, verification, PII scrubbing rationale |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part5.md](./SESSION_CHANGES_2026-04-17_part5.md) | **Post-audit hygiene pass** — Apple App Store URLs unified to `/ae/app/genosys-uae/` form across all live code, admin page backups deleted, untracked files triaged (PII moved out of repo), `.gitignore` hardened, mobile-app iOS OTA dual-config documented |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part4.md](./SESSION_CHANGES_2026-04-17_part4.md) | **Apple button → Apple's official "Download on the App Store"** (EN/RU/AR) + Google Play button added to `LoginModal.tsx` for full symmetry |
 | 🟡 **Important** | [SESSION_CHANGES_2026-04-17_part3.md](./SESSION_CHANGES_2026-04-17_part3.md) | **Apple button text → "Download on Apple Store"** — renamed `login.downloadApp` → `login.downloadAppApple` for symmetry with Google button (EN/RU/AR) |

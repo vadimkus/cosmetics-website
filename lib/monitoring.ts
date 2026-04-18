@@ -1,7 +1,19 @@
-import { debugLog, errorLog, warnLog } from '@/lib/logger'
+import * as Sentry from '@sentry/nextjs'
+import { debugLog, errorLog } from '@/lib/logger'
+
 /**
- * External monitoring and error tracking utilities
- * Supports multiple monitoring services for production error tracking
+ * External monitoring and error tracking utilities.
+ *
+ * Sentry is initialized once per runtime via the Next.js instrumentation
+ * hooks (see `instrumentation.ts`, `instrumentation-client.ts`, and
+ * `sentry.*.config.ts`). This module provides a thin, environment-aware
+ * wrapper so the rest of the codebase can emit structured events without
+ * knowing whether Sentry is configured (it silently no-ops when no DSN is
+ * present).
+ *
+ * LogRocket was dropped in April 2026 — bundle cost outweighed the value of
+ * session replay for a small e-commerce surface. Reintroduce Sentry's
+ * `replayIntegration()` if that need returns.
  */
 
 export interface ErrorContext {
@@ -24,448 +36,211 @@ export interface PerformanceMetrics {
   timestamp?: Date
 }
 
-// Type definitions for external monitoring SDKs
-interface SentryCaptureOptions {
-  tags?: Record<string, string>
-  user?: { id: string; email?: string }
-  extra?: Record<string, unknown>
-  level?: string
+type Level = 'info' | 'warning' | 'error'
+
+// Sentry.init() is a no-op without a DSN, but we also guard here so the
+// debug log channel only fires when monitoring is actually wired up.
+const isEnabled = (): boolean => {
+  const dsn =
+    typeof window === 'undefined'
+      ? process.env.SENTRY_DSN || process.env.NEXT_PUBLIC_SENTRY_DSN
+      : process.env.NEXT_PUBLIC_SENTRY_DSN
+  return Boolean(dsn)
 }
 
-interface SentryBreadcrumb {
-  message: string
-  category?: string
-  level?: string
-  data?: Record<string, unknown>
+const severityToLevel = (severity?: ErrorContext['severity']): Level => {
+  if (severity === 'critical' || severity === 'high') return 'error'
+  if (severity === 'medium') return 'warning'
+  return 'info'
 }
 
-interface SentrySDK {
-  captureException: (error: Error, options?: SentryCaptureOptions) => void
-  captureMessage: (message: string, level: string, options?: SentryCaptureOptions) => void
-  addBreadcrumb: (breadcrumb: SentryBreadcrumb) => void
-  setUser: (user: { id: string; email?: string } & Record<string, unknown>) => void
-}
-
-interface LogRocketSDK {
-  captureException: (error: Error) => void
-  log: (message: string, data?: Record<string, unknown>) => void
-  identify: (userId: string, userData?: Record<string, unknown>) => void
-}
-
-/**
- * Base monitoring service interface
- */
-abstract class MonitoringService {
-  abstract init(): Promise<void>
-  abstract captureError(error: Error, context?: ErrorContext): Promise<void>
-  abstract captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void>
-  abstract capturePerformance(metrics: PerformanceMetrics): Promise<void>
-  abstract setUser(userId: string, userEmail?: string, extra?: Record<string, unknown>): Promise<void>
-  abstract addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void>
-}
-
-/**
- * Console monitoring service (development)
- */
-class ConsoleMonitoringService extends MonitoringService {
-  async init(): Promise<void> {
-    debugLog('🔍 Console monitoring initialized')
+const applyContext = (
+  scope: Sentry.Scope,
+  context?: ErrorContext,
+  fallbackLevel?: Level
+): void => {
+  if (!context) {
+    if (fallbackLevel) scope.setLevel(fallbackLevel)
+    return
   }
-
-  async captureError(error: Error, context?: ErrorContext): Promise<void> {
-    console.group('🚨 Error Captured')
-    errorLog('Error:', error.message)
-    errorLog('Stack:', error.stack)
-    if (context) {
-      debugLog('Context:', context)
-    }
-    console.groupEnd()
-  }
-
-  async captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void> {
-    const emoji = level === 'error' ? '🚨' : level === 'warning' ? '⚠️' : 'ℹ️'
-    debugLog(`${emoji} ${message}`, context || '')
-  }
-
-  async capturePerformance(metrics: PerformanceMetrics): Promise<void> {
-    debugLog(`📊 Performance: ${metrics.name} = ${metrics.value}${metrics.unit}`, metrics.tags || '')
-  }
-
-  async setUser(userId: string, userEmail?: string, extra?: Record<string, unknown>): Promise<void> {
-    debugLog(`👤 User set: ${userId} (${userEmail})`, extra || '')
-  }
-
-  async addBreadcrumb(message: string, category?: string, _level?: 'info' | 'warning' | 'error'): Promise<void> {
-    debugLog(`🍞 Breadcrumb [${category || 'default'}]: ${message}`)
-  }
-}
-
-/**
- * Sentry monitoring service (production)
- */
-class SentryMonitoringService extends MonitoringService {
-  private sentry: unknown = null
-
-  async init(): Promise<void> {
-    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
-      try {
-        // Dynamic import to avoid bundling in development
-        const Sentry = await import('@sentry/nextjs')
-        this.sentry = Sentry
-        debugLog('🔍 Sentry monitoring initialized')
-      } catch (error) {
-        warnLog('Sentry not available:', error)
-      }
-    }
-  }
-
-  async captureError(error: Error, context?: ErrorContext): Promise<void> {
-    if (!this.sentry) return
-
-    const sentry = this.sentry as SentrySDK
-    const options: SentryCaptureOptions = {
-      level: context?.severity === 'critical' ? 'fatal' : context?.severity || 'error'
-    }
-    
-    if (context?.tags) {
-      options.tags = context.tags
-    }
-    
-    if (context?.userId) {
-      options.user = {
-        id: context.userId,
-        ...(context.userEmail && { email: context.userEmail })
-      }
-    }
-    
-    if (context?.extra) {
-      options.extra = context.extra
-    }
-    
-    sentry.captureException(error, options)
-  }
-
-  async captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void> {
-    if (!this.sentry) return
-
-    const sentry = this.sentry as SentrySDK
-    const options: SentryCaptureOptions = {}
-    
-    if (context?.tags) {
-      options.tags = context.tags
-    }
-    
-    if (context?.userId) {
-      options.user = {
-        id: context.userId,
-        ...(context.userEmail && { email: context.userEmail })
-      }
-    }
-    
-    if (context?.extra) {
-      options.extra = context.extra
-    }
-    
-    sentry.captureMessage(message, level, options)
-  }
-
-  async capturePerformance(metrics: PerformanceMetrics): Promise<void> {
-    if (!this.sentry) return
-
-    const sentry = this.sentry as SentrySDK
-    const breadcrumbData: Record<string, unknown> = {
-      value: metrics.value,
-      unit: metrics.unit
-    }
-    
-    if (metrics.tags) {
-      breadcrumbData.tags = metrics.tags
-    }
-    
-    sentry.addBreadcrumb({
-      message: `Performance: ${metrics.name}`,
-      category: 'performance',
-      data: breadcrumbData
+  if (context.userId) {
+    scope.setUser({
+      id: context.userId,
+      ...(context.userEmail ? { email: context.userEmail } : {}),
     })
   }
-
-  async setUser(userId: string, userEmail?: string, extra?: Record<string, unknown>): Promise<void> {
-    if (!this.sentry) return
-
-    const sentry = this.sentry as SentrySDK
-    const userData: { id: string; email?: string } & Record<string, unknown> = {
-      id: userId
-    }
-    
-    if (userEmail) {
-      userData.email = userEmail
-    }
-    
-    if (extra) {
-      Object.assign(userData, extra)
-    }
-    
-    sentry.setUser(userData)
-  }
-
-  async addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void> {
-    if (!this.sentry) return
-
-    const sentry = this.sentry as SentrySDK
-    sentry.addBreadcrumb({
-      message,
-      category: category || 'default',
-      level: level || 'info'
+  if (context.tags) {
+    Object.entries(context.tags).forEach(([key, value]) => {
+      scope.setTag(key, value)
     })
   }
-}
-
-/**
- * LogRocket monitoring service (production)
- */
-class LogRocketMonitoringService extends MonitoringService {
-  private logRocket: unknown = null
-
-  async init(): Promise<void> {
-    if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
-      try {
-        // Dynamic import to avoid bundling in development
-        const LogRocket = await import('logrocket')
-        this.logRocket = LogRocket.default
-        debugLog('🔍 LogRocket monitoring initialized')
-      } catch (error) {
-        warnLog('LogRocket not available:', error)
-      }
-    }
-  }
-
-  async captureError(error: Error, _context?: ErrorContext): Promise<void> {
-    if (!this.logRocket) return
-
-    const logRocket = this.logRocket as LogRocketSDK
-    logRocket.captureException(error)
-  }
-
-  async captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void> {
-    if (!this.logRocket) return
-
-    const logRocket = this.logRocket as LogRocketSDK
-    logRocket.log(message, {
-      level,
-      context
+  if (context.extra) {
+    Object.entries(context.extra).forEach(([key, value]) => {
+      scope.setExtra(key, value)
     })
   }
-
-  async capturePerformance(metrics: PerformanceMetrics): Promise<void> {
-    if (!this.logRocket) return
-
-    const logRocket = this.logRocket as LogRocketSDK
-    const logData: Record<string, unknown> = {
-      value: metrics.value,
-      unit: metrics.unit
-    }
-    
-    if (metrics.tags) {
-      logData.tags = metrics.tags
-    }
-    
-    logRocket.log(`Performance: ${metrics.name}`, logData)
-  }
-
-  async setUser(userId: string, userEmail?: string, extra?: Record<string, unknown>): Promise<void> {
-    if (!this.logRocket) return
-
-    const logRocket = this.logRocket as LogRocketSDK
-    const userData: Record<string, unknown> = {}
-    
-    if (userEmail) {
-      userData.email = userEmail
-    }
-    
-    if (extra) {
-      Object.assign(userData, extra)
-    }
-    
-    logRocket.identify(userId, userData)
-  }
-
-  async addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void> {
-    if (!this.logRocket) return
-
-    const logRocket = this.logRocket as LogRocketSDK
-    logRocket.log(`Breadcrumb: ${message}`, {
-      category,
-      level
-    })
-  }
+  const level = severityToLevel(context.severity) || fallbackLevel
+  if (level) scope.setLevel(level)
 }
 
 /**
- * Monitoring manager that coordinates multiple services
+ * Capture an unexpected error with optional context.
+ * Falls back to `errorLog` when Sentry isn't configured so developers still
+ * see the stack trace locally.
  */
-class MonitoringManager {
-  private services: MonitoringService[] = []
-  private initialized = false
-
-  constructor() {
-    // Add services based on environment
-    if (process.env.NODE_ENV === 'production') {
-      this.services.push(new SentryMonitoringService())
-      this.services.push(new LogRocketMonitoringService())
-    } else {
-      this.services.push(new ConsoleMonitoringService())
-    }
-  }
-
-  async init(): Promise<void> {
-    if (this.initialized) return
-
-    await Promise.all(this.services.map(service => service.init()))
-    this.initialized = true
-    debugLog('🔍 Monitoring manager initialized with', this.services.length, 'services')
-  }
-
-  async captureError(error: Error, context?: ErrorContext): Promise<void> {
-    await this.init()
-    await Promise.all(this.services.map(service => 
-      service.captureError(error, context).catch(warnLog)
-    ))
-  }
-
-  async captureMessage(message: string, level: 'info' | 'warning' | 'error', context?: ErrorContext): Promise<void> {
-    await this.init()
-    await Promise.all(this.services.map(service => 
-      service.captureMessage(message, level, context).catch(warnLog)
-    ))
-  }
-
-  async capturePerformance(metrics: PerformanceMetrics): Promise<void> {
-    await this.init()
-    await Promise.all(this.services.map(service => 
-      service.capturePerformance(metrics).catch(warnLog)
-    ))
-  }
-
-  async setUser(userId: string, userEmail?: string, extra?: Record<string, unknown>): Promise<void> {
-    await this.init()
-    await Promise.all(this.services.map(service => 
-      service.setUser(userId, userEmail, extra).catch(warnLog)
-    ))
-  }
-
-  async addBreadcrumb(message: string, category?: string, level?: 'info' | 'warning' | 'error'): Promise<void> {
-    await this.init()
-    await Promise.all(this.services.map(service => 
-      service.addBreadcrumb(message, category, level).catch(warnLog)
-    ))
-  }
-}
-
-// Global monitoring instance
-const monitoring = new MonitoringManager()
-
-/**
- * Enhanced error tracking with context
- */
-export const trackError = async (error: Error, context?: ErrorContext): Promise<void> => {
-  await monitoring.captureError(error, {
-    ...context,
-    timestamp: new Date(),
-    url: typeof window !== 'undefined' ? window.location.href : '',
-    userAgent: typeof window !== 'undefined' ? window.navigator.userAgent : ''
-  })
-}
-
-/**
- * Track custom messages
- */
-export const trackMessage = async (
-  message: string, 
-  level: 'info' | 'warning' | 'error' = 'info',
+export const trackError = async (
+  error: Error,
   context?: ErrorContext
 ): Promise<void> => {
-  await monitoring.captureMessage(message, level, {
-    ...context,
-    timestamp: new Date()
+  if (!isEnabled()) {
+    errorLog('[monitoring:trackError]', error.message, context || '')
+    return
+  }
+  Sentry.withScope((scope) => {
+    applyContext(scope, context, 'error')
+    Sentry.captureException(error)
   })
 }
 
 /**
- * Track performance metrics
+ * Capture a non-error message (audit trail, user journey, warnings).
  */
-export const trackPerformance = async (metrics: PerformanceMetrics): Promise<void> => {
-  await monitoring.capturePerformance({
-    ...metrics,
-    timestamp: new Date()
+export const trackMessage = async (
+  message: string,
+  level: Level = 'info',
+  context?: ErrorContext
+): Promise<void> => {
+  if (!isEnabled()) {
+    debugLog(`[monitoring:trackMessage:${level}]`, message, context || '')
+    return
+  }
+  Sentry.withScope((scope) => {
+    applyContext(scope, context, level)
+    Sentry.captureMessage(message, level)
   })
 }
 
 /**
- * Set user context for all monitoring services
+ * Record a performance metric as a breadcrumb.
+ * Avoid hot-path usage; for true metrics use Sentry spans or Web Vitals.
+ */
+export const trackPerformance = async (
+  metrics: PerformanceMetrics
+): Promise<void> => {
+  if (!isEnabled()) {
+    debugLog(
+      `[monitoring:trackPerformance] ${metrics.name}=${metrics.value}${metrics.unit}`,
+      metrics.tags || ''
+    )
+    return
+  }
+  Sentry.addBreadcrumb({
+    category: 'performance',
+    message: `Performance: ${metrics.name}`,
+    level: 'info',
+    data: {
+      value: metrics.value,
+      unit: metrics.unit,
+      ...(metrics.tags ? { tags: metrics.tags } : {}),
+    },
+  })
+}
+
+/**
+ * Associate all subsequent events with a user.
+ * Prefer passing a stable opaque ID; emails are scrubbed client-side in
+ * `instrumentation-client.ts` to avoid shipping PII to Sentry.
  */
 export const setUserContext = async (
-  userId: string, 
-  userEmail?: string, 
+  userId: string,
+  userEmail?: string,
   extra?: Record<string, unknown>
 ): Promise<void> => {
-  await monitoring.setUser(userId, userEmail, extra)
+  if (!isEnabled()) {
+    debugLog('[monitoring:setUser]', userId, userEmail || '', extra || '')
+    return
+  }
+  Sentry.setUser({
+    id: userId,
+    ...(userEmail ? { email: userEmail } : {}),
+    ...(extra || {}),
+  })
 }
 
 /**
- * Add breadcrumb for user journey tracking
+ * Add a breadcrumb for journey tracking. Breadcrumbs ship only when an event
+ * is captured, so they're cheap to emit liberally.
  */
 export const addBreadcrumb = async (
-  message: string, 
-  category?: string, 
-  level?: 'info' | 'warning' | 'error'
+  message: string,
+  category?: string,
+  level?: Level
 ): Promise<void> => {
-  await monitoring.addBreadcrumb(message, category, level)
+  if (!isEnabled()) {
+    debugLog(`[monitoring:breadcrumb:${category || 'default'}]`, message)
+    return
+  }
+  Sentry.addBreadcrumb({
+    message,
+    category: category || 'default',
+    level: level || 'info',
+  })
 }
 
 /**
- * Initialize monitoring services
+ * No-op kept for backward compatibility with existing call sites that use
+ * `initMonitoring()` in Provider mount effects. Real initialization happens
+ * in the Sentry instrumentation files.
  */
 export const initMonitoring = async (): Promise<void> => {
-  await monitoring.init()
+  if (isEnabled()) {
+    debugLog('Monitoring active (Sentry)')
+  }
 }
 
-/**
- * Track page views
- */
-export const trackPageView = async (page: string, context?: ErrorContext): Promise<void> => {
+export const trackPageView = async (
+  page: string,
+  context?: ErrorContext
+): Promise<void> => {
   await trackMessage(`Page view: ${page}`, 'info', context)
   await addBreadcrumb(`Viewed ${page}`, 'navigation', 'info')
 }
 
-/**
- * Track user actions
- */
-export const trackUserAction = async (action: string, context?: ErrorContext): Promise<void> => {
+export const trackUserAction = async (
+  action: string,
+  context?: ErrorContext
+): Promise<void> => {
   await trackMessage(`User action: ${action}`, 'info', context)
   await addBreadcrumb(`Action: ${action}`, 'user-action', 'info')
 }
 
-/**
- * Track API calls
- */
 export const trackApiCall = async (
-  endpoint: string, 
-  method: string, 
-  status: number, 
+  endpoint: string,
+  method: string,
+  status: number,
   duration?: number,
   context?: ErrorContext
 ): Promise<void> => {
-  const level = status >= 400 ? 'error' : 'info'
+  const level: Level = status >= 400 ? 'error' : 'info'
   await trackMessage(`API ${method} ${endpoint} - ${status}`, level, context)
-  
   if (duration) {
     await trackPerformance({
       name: 'api_call_duration',
       value: duration,
       unit: 'ms',
-      tags: { endpoint, method, status: status.toString() }
+      tags: { endpoint, method, status: status.toString() },
     })
   }
 }
 
-export default monitoring
+export default {
+  trackError,
+  trackMessage,
+  trackPerformance,
+  setUserContext,
+  addBreadcrumb,
+  initMonitoring,
+  trackPageView,
+  trackUserAction,
+  trackApiCall,
+}

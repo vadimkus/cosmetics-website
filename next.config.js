@@ -2,6 +2,7 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 })
+const { withSentryConfig } = require('@sentry/nextjs')
 
 const nextConfig = {
   // Production optimizations
@@ -128,4 +129,30 @@ const nextConfig = {
   turbopack: {},
 }
 
-module.exports = withBundleAnalyzer(nextConfig)
+// Sentry wraps nextConfig first so its Turbopack/Webpack plugin and
+// source-map upload hooks see the unmodified config. Bundle analyzer then
+// wraps the result so `ANALYZE=true` still works end-to-end.
+const sentryConfig = {
+  // Org/project slugs are only needed for source-map upload. When they're
+  // omitted (e.g. local builds, forks) Sentry still captures errors — it just
+  // reports minified stack traces.
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+
+  // Only log source-map upload noise in CI.
+  silent: !process.env.CI,
+
+  // Upload wider set of maps so React Server Component traces resolve.
+  widenClientFileUpload: true,
+
+  // Sentry v10 moved these options into the webpack block. Tree-shake
+  // debug logging for a smaller prod bundle, and skip Vercel Cron monitor
+  // auto-registration (we're not using it yet).
+  webpack: {
+    treeshake: { removeDebugLogging: true },
+    automaticVercelMonitors: false,
+  },
+}
+
+module.exports = withBundleAnalyzer(withSentryConfig(nextConfig, sentryConfig))

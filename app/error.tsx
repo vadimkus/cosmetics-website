@@ -1,6 +1,7 @@
 'use client'
 import { errorLog } from '@/lib/logger'
 
+import * as Sentry from '@sentry/nextjs'
 import ErrorPage from '@/components/ErrorPage'
 import { useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -13,10 +14,10 @@ export default function Error({
   reset: () => void
 }) {
   const { t } = useTranslation()
-  
+
   useEffect(() => {
-    // Log the error to an error reporting service
     errorLog('Application error:', error)
+    Sentry.captureException(error)
   }, [error])
 
   return (

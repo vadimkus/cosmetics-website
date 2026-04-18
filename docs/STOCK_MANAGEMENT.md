@@ -14,23 +14,37 @@ For **whole-product** sold-out states, use
 `scripts/mark-product-sold-out.ts` instead — it flips `Product.inStock`
 which is a simpler code path.
 
-## The two-layer architecture (read this first)
+## The three-layer architecture (read this first)
 
-Variant availability is enforced at **two places** for historical
-reasons. You need to touch both for a block to actually work end-to-end.
+Variant availability is enforced at **three places** for historical
+reasons. You need to touch all three for a block to actually work
+end-to-end.
 
 | Source of truth | Used by | Enforcement |
 |---|---|---|
 | `ProductVariant.available` (DB) | Mobile app API, bundle builder, cart / checkout availability filters | `lib/pricingEngine.ts` → `generateProductVariants()`; `CheckoutClient.tsx`; `CartItem.tsx` |
-| Hardcoded lists in `utils/productPricing.ts` | Website product detail page size picker | `ProductPageClientRefactored` → `ProductVariantSelector` |
+| `Product.size` + `Product.price` (DB, parent row) | Product listing **card** (grid page + all category/concern pages) — displays "Size: X" label and base price, and the card's quick "Add to Cart" passes `product.price` with an empty size to the cart | `components/ProductCard/ProductInfo.tsx`, `ProductCard/ProductPrice.tsx`, `ProductCard/hooks/useProductCard.ts` |
+| Hardcoded lists in `utils/productPricing.ts` | Website product **detail page** size picker | `ProductPageClientRefactored` → `ProductVariantSelector` |
 
-**A DB-only change is invisible to the website size picker.**
+**A DB-variant-only change is invisible to the listing card.**
+**A listing-card-only change is invisible to the detail page.**
 **A code-only change is invisible to the mobile API.**
-**Both must change.**
+**All three must be aligned.**
+
+The listing-card gotcha is the subtle one: when a customer clicks
+"Add to Cart" directly from the grid, the card calls
+`addItem(product, 1, '', '')` — empty size. The cart stores the item
+at `product.price` with no size. If `Product.price` still equals the
+*blocked* variant's price (e.g., 290 AED for 50g), the customer pays
+the wrong amount for a product we can't ship.
+
+Fix: whenever you block a variant, also update the parent `Product`
+row's `size` and `price` to match the **new default variant**.
 
 (Migration note: new products should prefer DB variants as the single
-source of truth. The hardcoded-list path is legacy and should be
-retired when someone has time.)
+source of truth, with `Product.price` / `Product.size` derived from
+the default variant at write-time. The hardcoded-list path is legacy
+and should be retired when someone has time.)
 
 ## Procedure
 
@@ -60,7 +74,8 @@ You're looking for:
 ### 2. Update the DB
 
 Write a script following the pattern of
-`scripts/set-hyaluron-cream-availability.ts`. The essential operation:
+`scripts/set-hyaluron-cream-availability.ts`. The essential operation
+touches **three** rows: two variants + the parent product:
 
 ```ts
 await prisma.$transaction([
@@ -72,12 +87,27 @@ await prisma.$transaction([
     where: { id: keptVariantId },
     data: { available: true, isDefault: true }, // promote to default
   }),
+  // Also update parent Product row so the listing card shows the
+  // new default variant's size + price. Without this the grid card
+  // will still display the blocked variant and its quick Add-to-Cart
+  // will add the blocked item at the blocked price.
+  prisma.product.update({
+    where: { id: productId },
+    data: {
+      size: '<kept variant size>',   // e.g., '250g'
+      price: <kept variant price>,   // e.g., 420
+    },
+  }),
 ])
 ```
 
-Key invariant: **exactly one variant should be `isDefault: true`** at
-any time. If you block the current default, pick the most-sensible
-remaining variant to become the new default.
+Key invariants:
+- **Exactly one variant should be `isDefault: true`** at any time. If
+  you block the current default, pick the most-sensible remaining
+  variant to become the new default.
+- **`Product.size` + `Product.price` must match the new default
+  variant**. These are what the listing card displays (and what the
+  card's quick Add-to-Cart uses).
 
 Run it:
 

@@ -32,6 +32,12 @@ async function block50g() {
     )
   }
 
+  // Also update the parent Product row. Product.size and Product.price are
+  // read DIRECTLY by the product-listing card (ProductCard/ProductInfo +
+  // ProductCard/ProductPrice) and by the quick Add-to-Cart action — which
+  // bypasses the detail page's variant picker. Without this, the listing
+  // card would still display "Size: 50g" and the 50g price (290 AED) while
+  // the detail page correctly shows 250g only.
   await prisma.$transaction([
     prisma.productVariant.update({
       where: { id: v50.id },
@@ -41,6 +47,10 @@ async function block50g() {
       where: { id: v250.id },
       data: { available: true, isDefault: true },
     }),
+    prisma.product.update({
+      where: { id: PRODUCT_ID },
+      data: { size: '250g', price: 420 },
+    }),
   ])
 
   const after = await prisma.product.findUnique({
@@ -48,6 +58,7 @@ async function block50g() {
     include: { variants: { orderBy: { size: 'asc' } } },
   })
   console.log(`✅ Blocked ${product.name}:`)
+  console.log(`   Product.size=${after!.size}  Product.price=${after!.price}`)
   for (const v of after!.variants) {
     console.log(
       `   ${v.size}  available=${v.available}  default=${v.isDefault}  price=${v.price}`,
@@ -75,6 +86,11 @@ async function restore50g() {
       where: { id: v250.id },
       data: { available: true, isDefault: false },
     }),
+    // Restore the parent Product row to 50g-as-default (pre-block state).
+    prisma.product.update({
+      where: { id: PRODUCT_ID },
+      data: { size: '50g', price: 290 },
+    }),
   ])
 
   const after = await prisma.product.findUnique({
@@ -82,6 +98,7 @@ async function restore50g() {
     include: { variants: { orderBy: { size: 'asc' } } },
   })
   console.log(`✅ Restored ${product.name}:`)
+  console.log(`   Product.size=${after!.size}  Product.price=${after!.price}`)
   for (const v of after!.variants) {
     console.log(
       `   ${v.size}  available=${v.available}  default=${v.isDefault}  price=${v.price}`,

@@ -844,3 +844,70 @@ history.
 ### Commits
 
 - `58eeb5ca` — `feat(stock): temporarily block 50g hyaluron cream, 250g still available`
+
+### Follow-up: the listing card is a third layer
+
+**What surfaced**
+
+User opened the grid/listing page and reported: "I can still add
+Hyaluron Cream 50g from this page to the cart directly." The card
+showed "Size: 50g" and 145 AED (50% off 290 AED — the 50g wholesale
+price). Clicking Add-to-Cart worked.
+
+**Root cause**
+
+The two-layer architecture documented earlier was incomplete — there's
+a third layer:
+
+- `components/ProductCard/ProductInfo.tsx` reads `product.size`
+  directly → displayed "Size: 50g"
+- `components/ProductCard/ProductPrice.tsx` reads `product.price`
+  directly → displayed 290 AED (discounted to 145)
+- `components/ProductCard/hooks/useProductCard.ts` calls
+  `addItem(product, 1, '', '')` with empty size → cart stores item
+  at `product.price` with no selectedSize
+
+Our original script only updated `ProductVariant.available` on the
+variants. The parent `Product` row still had
+`size='50g'`, `price=290`. Card rendered exactly those values.
+
+**Fix**
+
+Extended `scripts/set-hyaluron-cream-availability.ts` to also update
+the parent Product row inside the same transaction:
+
+```ts
+prisma.product.update({
+  where: { id: PRODUCT_ID },
+  data: { size: '250g', price: 420 },
+}),
+```
+
+Post-fix DB state:
+
+```
+Product.size=250g  Product.price=420
+  250g  available=true   default=true   price=420
+  50g   available=false  default=false  price=290
+```
+
+Restore path updated symmetrically — `restore-50g` sets the parent
+row back to `size='50g'`, `price=290`.
+
+**Docs updated**
+
+- `docs/STOCK_MANAGEMENT.md` — the "two-layer architecture" section
+  rewritten as "three-layer architecture" with the listing-card
+  gotcha called out explicitly. Step 2 (DB update) now includes the
+  parent-Product update in the example transaction.
+
+**Cache note**
+
+The listing-card change only becomes visible after the ISR cache
+(tag `products`, 5-min revalidate) expires OR a redeploy flushes the
+bundle. Pushing the script commit triggers a redeploy, so the fix
+propagates immediately rather than waiting 5 minutes.
+
+### Commit (follow-up)
+
+- `<next>` — `fix(stock): also flip Product.size/price so listing card matches variant block`

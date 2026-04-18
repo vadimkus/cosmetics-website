@@ -1,10 +1,11 @@
 # Session Changes — 2026-04-18
 
-Three separate work items committed the same day:
+Four separate work items committed the same day:
 
 1. **Observability** — Sentry in, LogRocket out.
 2. **Page caching strategy** — FAQ + product pages + blog/slug unified around ISR + tag revalidation. [Jump ↓](#page-caching-strategy-isr--tag-invalidation)
 3. **CLI observability tooling** — Sentry + Vercel CLIs installed, `npm run sentry:errors` helper script, DSN wired in Vercel, end-to-end verification. [Jump ↓](#cli-observability-tooling)
+4. **Production log cleanup** — three noisy / genuinely-broken signals surfaced via `npm run vercel:logs:errors` fixed at the root. [Jump ↓](#production-log-cleanup)
 
 ---
 
@@ -399,3 +400,216 @@ auth tokens every time, shipped a small wrapper.
 
 - `fa598074` — `chore: redeploy to pick up NEXT_PUBLIC_SENTRY_DSN`
 - `4176a5e8` — `feat(tooling): add `npm run sentry:errors` + Vercel log shortcuts`
+
+---
+
+## Production log cleanup
+
+### Context
+
+The new CLI tooling from item 3 (`npm run vercel:logs:errors`) immediately
+surfaced three pre-existing production signals that were worth fixing:
+
+```
+λ GET /products/26  error  TypeError: fetch failed [cause: ETIMEDOUT]
+λ GET /products     error  (node:4) [DEP0169] DeprecationWarning: url.parse()
+λ GET /api/admin/*  warn   ADMIN_EMAIL and ADMIN_PASSWORD not set
+```
+
+None were recent regressions — they'd been silently accumulating in
+production logs. With observability finally live, the cheapest next
+step was to stop them at the source.
+
+### 1. Prisma Accelerate ETIMEDOUT on product pages (real bug)
+
+**Symptom**
+
+```
+prisma:error fetch failed
+Error fetching product by ID: TypeError: fetch failed
+  [cause]: Error: write ETIMEDOUT  errno: -110  syscall: 'write'
+  clientVersion: '7.3.0'
+revalidating cache with key: product-by-id-["26"]
+Error: Failed to fetch product
+```
+
+**Diagnosis**
+
+- `DATABASE_URL` is a `prisma+postgres://` URL → Prisma Accelerate
+  (HTTP proxy), not direct Postgres. Confirmed by the `fetch failed`
+  error shape and `write ETIMEDOUT` at the socket layer.
+- The error fires during `unstable_cache` background revalidation
+  (tag `products`, 5-minute ISR), so a single network blip invalidates
+  the cache entry and every subsequent request hits the error boundary
+  until the next revalidation attempt succeeds.
+- No retry logic anywhere. First transient blip → hard failure.
+- Original error was also being masked by
+  `throw new Error('Failed to fetch product')`, which dropped the
+  `cause` chain and made Sentry stack traces useless.
+
+**Fix**
+
+- New helper `lib/prismaRetry.ts` with `withPrismaRetry(fn, { label })`:
+  - Detects transient errors (`ETIMEDOUT`, `ECONNRESET`, `ECONNREFUSED`,
+    `EPIPE`, `EAI_AGAIN`, `UND_ERR_SOCKET`, or message patterns like
+    `fetch failed` / `socket hang up` / `connection terminated
+    unexpectedly` — covers both the pg driver and the Accelerate
+    HTTP transport).
+  - Retries up to 2 times with 100 ms → 500 ms → 1500 ms backoff.
+  - On final failure, calls `Sentry.captureException` with
+    `{ tags: { area: 'prisma-retry', op: label } }` so each retry
+    exhaustion surfaces as a real Sentry issue instead of only a
+    stdout error.
+- Applied to the three hottest read paths:
+  - `getProductById` — used by `/products/[id]` SSG pages
+  - `getAllProducts` — used by concern landing pages + product numbers lookup
+  - `getActiveFaqItems` — used by EN/AR/RU FAQ pages (same ISR + tag pattern)
+- Removed the `try { ... throw new Error('Failed to fetch product') }`
+  wrapper in `getProductById` and `getAllProducts` — the retry helper
+  preserves the original error (including `.cause` chain) so stack
+  traces stay useful.
+
+**Why retries are safe here**
+
+All three wrapped functions are pure reads (`prisma.product.findUnique`,
+`prisma.product.findMany`, `prisma.faqItem.findMany`). No side effects,
+so retrying is idempotent by definition. Writes and multi-step
+transactions are NOT wrapped — those need per-call review before retry
+is safe.
+
+### 2. `DEP0169` url.parse() deprecation on every request
+
+**Symptom**
+
+```
+(node:4) [DEP0169] DeprecationWarning: `url.parse()` behavior is not
+standardized and prone to errors that have security implications.
+Use the WHATWG URL API instead.
+```
+
+One warning per cold start, on every route. Vercel's log ingestion
+classifies stderr as `error` level, so it polluted the error stream
+as a false positive.
+
+**Diagnosis**
+
+`npm ls` traced the call site:
+
+```
+@sentry/nextjs@10.32.1
+  └── @sentry/node@10.32.1
+      └── @opentelemetry/instrumentation-http@0.208.0  ← url.parse() lives here
+```
+
+Line 49 of that package's `utils.js` had a literal `url.parse(path)`
+call during HTTP request instrumentation. Fixed upstream in
+`@opentelemetry/instrumentation-http@0.215.0`, which ships with
+`@sentry/nextjs@10.49.0` and transitively pulls in `0.214.0`.
+
+**Fix**
+
+Upgraded `@sentry/nextjs`: `10.32.1 → 10.49.0`. Verified by:
+
+```bash
+npm ls @opentelemetry/instrumentation-http
+# @opentelemetry/instrumentation-http@0.214.0
+
+grep 'url\.parse(' node_modules/@opentelemetry/instrumentation-http/build/src/utils.js
+# 209:            // for backward compatibility with how url.parse() behaved.
+# (only a comment remains — the actual call is gone)
+```
+
+No code changes required — the upgrade is drop-in. Build + typecheck
+both passed.
+
+### 3. `ADMIN_EMAIL and ADMIN_PASSWORD not set` warning spam
+
+**Symptom**
+
+Every request to `/api/admin/*` emitted two warnings:
+
+```
+⚠️  WARNING: ADMIN_EMAIL and ADMIN_PASSWORD not set in production.
+    Admin user will be created with default credentials.
+⚠️  WARNING: NEXT_PUBLIC_SITE_URL not set in production.
+    Falling back to https://genosys.ae.
+```
+
+The admin dashboard polls `/api/admin/users` and `/api/admin/products`
+every minute → 2 warnings × 2 endpoints × 60 invocations/hour = ~240
+warn-level log entries per hour with zero signal value.
+
+**Diagnosis**
+
+Both warnings in `lib/envValidation.ts` fired on every container cold
+start. Worse, the first warning message was **wrong**:
+
+- `ADMIN_EMAIL` and `ADMIN_PASSWORD` are only read by
+  `scripts/create-admin-user.js`, a one-off seed script. Not used at
+  runtime for any auth path.
+- The actual runtime use of `ADMIN_EMAIL` is as a fallback destination
+  for admin notification emails (order confirmations, new-user signups),
+  with `GMAIL_USER` and `EMAIL_USER` also acceptable fallbacks.
+- So the warning "Admin user will be created with default credentials"
+  was pure misinformation — no admin user is created at runtime.
+
+`NEXT_PUBLIC_SITE_URL` was the same story: the fallback to
+`https://genosys.ae` is stable, correct, and used everywhere. The
+warning added noise with no action surface.
+
+**Fix**
+
+Rewrote the warning block in `lib/envValidation.ts`:
+
+- Removed the misleading `ADMIN_EMAIL && ADMIN_PASSWORD not set`
+  warning. Replaced with an accurate
+  `No admin notification email configured` check that fires only
+  when ALL of `ADMIN_EMAIL`, `GMAIL_USER`, `EMAIL_USER` are missing —
+  the actual breakage condition.
+- Removed the `NEXT_PUBLIC_SITE_URL not set` warning entirely
+  (fallback is stable, nothing to fix).
+- Added a module-level `hasEmittedWarnings` dedup flag so the
+  remaining warnings (MOBILE_APP_KEY, JWT_SECRET, Stripe, Google
+  OAuth, Apple OAuth) fire **once per container** instead of once
+  per request.
+
+### Verification
+
+```bash
+npm run build              # exit 0, clean
+npx tsc --noEmit           # no errors in lib/prismaRetry.ts, productsDb.ts, faqDb.ts, envValidation.ts
+                           # (pre-existing test-file errors unchanged)
+npm ls @opentelemetry/instrumentation-http
+# @opentelemetry/instrumentation-http@0.214.0 ✓ (was 0.208.0)
+```
+
+After the next deploy, re-run:
+
+```bash
+npm run vercel:logs:errors
+# expect: zero DEP0169 warnings (Sentry upgrade takes effect)
+# expect: fewer Prisma fetch errors (retry helper absorbs blips)
+# expect: no more per-request ADMIN_EMAIL warnings on /api/admin/*
+```
+
+Any retry exhaustion on the Prisma side will now appear as a Sentry
+issue tagged `area:prisma-retry, op:getProductById` (or
+`getAllProducts` / `getActiveFaqItems`) — making recurring DB
+instability actionable instead of invisible.
+
+### Files changed
+
+- `package.json` + `package-lock.json` — `@sentry/nextjs 10.32.1 → 10.49.0`
+- `lib/prismaRetry.ts` — NEW, retry helper with Sentry reporting
+- `lib/productsDb.ts` — `getProductById` + `getAllProducts` use retry
+- `lib/faqDb.ts` — `getActiveFaqItems` uses retry
+- `lib/envValidation.ts` — misleading warnings removed, dedup added
+
+### Not addressed (out of scope)
+
+- **`(node:4) [DEP0170]`** from `react/server-dom-webpack` (if it
+  reappears) — this is a React 19 internal using `punycode` deprecation.
+  Will be fixed in a future React patch release.
+- **`@sentry/nextjs` upgrade side effects** — none observed, but worth
+  watching the first deploy for any new Sentry config warnings. The
+  minor version jump (10.32 → 10.49) was within a stable release line.

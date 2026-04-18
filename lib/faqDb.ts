@@ -1,6 +1,7 @@
 import { cache } from 'react'
 import { unstable_cache } from 'next/cache'
 import { prisma } from './prisma'
+import { withPrismaRetry } from './prismaRetry'
 
 /**
  * Shape returned to FAQClient — matches all three locale pages' `select`.
@@ -35,11 +36,15 @@ const FAQ_SELECT = {
  */
 const getActiveFaqItemsFromDb = unstable_cache(
   async (): Promise<FaqItem[]> => {
-    return prisma.faqItem.findMany({
-      where: { isActive: true },
-      orderBy: { sortOrder: 'asc' },
-      select: FAQ_SELECT,
-    })
+    return withPrismaRetry(
+      () =>
+        prisma.faqItem.findMany({
+          where: { isActive: true },
+          orderBy: { sortOrder: 'asc' },
+          select: FAQ_SELECT,
+        }),
+      { label: 'getActiveFaqItems' }
+    )
   },
   ['active-faq-items'],
   { revalidate: 300, tags: ['faq'] }

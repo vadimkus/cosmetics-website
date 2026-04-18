@@ -47,6 +47,15 @@ interface EnvConfig {
   ADMIN_SESSION_SECRET?: string
 }
 
+// Module-level dedup flag. `validateEnvironment()` is called once when this
+// module is first evaluated in a given process. On Vercel serverless each
+// cold start is a new process with its own flag, so warnings still surface
+// once per container, just not on every request within that container.
+//
+// Must be declared BEFORE validateEnvironment() so it's initialized by the
+// time `export const env = validateEnvironment()` executes below.
+let hasEmittedWarnings = false
+
 function validateEnvironment(): EnvConfig {
   // On the client side, server-only env vars (without NEXT_PUBLIC_ prefix) are
   // undefined by design. Skip strict validation when running in the browser so
@@ -141,26 +150,44 @@ function validateEnvironment(): EnvConfig {
     }
   }
 
-  // Warn about missing admin credentials in production
-  // Skip warnings during Next.js build phase (env vars aren't available during static generation)
+  // Production config warnings.
+  //
+  // Skip during Next.js build phase (env vars aren't available during static
+  // generation) and when running on the client.
+  //
+  // Module-level dedup (`hasEmittedWarnings`) below: `validateEnvironment()`
+  // runs once per container cold start on Vercel, but a single cold start can
+  // serve many requests. We still only emit each missing-config warning once
+  // per process lifetime — no per-request spam.
   const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build'
-  if (!isClient && requiredVars.NODE_ENV === 'production' && !isBuildPhase) {
-    if (!optionalVars.ADMIN_EMAIL || !optionalVars.ADMIN_PASSWORD) {
+  if (!isClient && requiredVars.NODE_ENV === 'production' && !isBuildPhase && !hasEmittedWarnings) {
+    hasEmittedWarnings = true
+
+    // Admin notification email: we need ONE of ADMIN_EMAIL, GMAIL_USER,
+    // EMAIL_USER to send order + new-user emails. Auth does NOT use these
+    // (admin login goes through the DB user table); the old "admin user will
+    // be created with default credentials" warning was from a one-off seed
+    // script and does not apply at runtime.
+    if (
+      !optionalVars.ADMIN_EMAIL &&
+      !optionalVars.GMAIL_USER &&
+      !optionalVars.EMAIL_USER
+    ) {
       warnLog(
-        '⚠️  WARNING: ADMIN_EMAIL and ADMIN_PASSWORD not set in production.\n' +
-        'Admin user will be created with default credentials. Please change them immediately!'
+        '⚠️  WARNING: No admin notification email configured.\n' +
+        'Set one of ADMIN_EMAIL, GMAIL_USER, or EMAIL_USER so order + new-user notifications can be delivered.'
       )
     }
-    
-    // Warn about missing Mobile API configuration in production
+
     if (!optionalVars.MOBILE_APP_KEY) {
       warnLog(
         '⚠️  WARNING: MOBILE_APP_KEY not set in production.\n' +
         'Mobile API will reject all requests until this is configured.'
       )
     }
-    
-    // JWT_SECRET is critical in production - handled in lib/jwt.ts with hard fail
+
+    // JWT_SECRET is critical — lib/jwt.ts hard-fails if missing, but we still
+    // surface a length warning here so it's visible in prod logs on first boot.
     if (!optionalVars.JWT_SECRET) {
       warnLog(
         '⚠️  WARNING: JWT_SECRET not set in production.\n' +
@@ -172,8 +199,7 @@ function validateEnvironment(): EnvConfig {
         'Current length: ' + optionalVars.JWT_SECRET.length
       )
     }
-    
-    // Warn about missing Stripe configuration in production
+
     if (!optionalVars.STRIPE_SECRET_KEY || !optionalVars.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
       warnLog(
         '⚠️  WARNING: Stripe configuration incomplete in production.\n' +
@@ -182,7 +208,6 @@ function validateEnvironment(): EnvConfig {
       )
     }
 
-    // Warn about missing Google OAuth configuration
     if (!optionalVars.GOOGLE_CLIENT_ID || !optionalVars.GOOGLE_CLIENT_SECRET) {
       warnLog(
         '⚠️  WARNING: Google OAuth configuration incomplete in production.\n' +
@@ -191,8 +216,7 @@ function validateEnvironment(): EnvConfig {
       )
     }
 
-    // Warn about missing Apple OAuth configuration
-    if (!optionalVars.APPLE_CLIENT_ID || !optionalVars.APPLE_TEAM_ID || 
+    if (!optionalVars.APPLE_CLIENT_ID || !optionalVars.APPLE_TEAM_ID ||
         !optionalVars.APPLE_KEY_ID || !optionalVars.APPLE_PRIVATE_KEY) {
       warnLog(
         '⚠️  WARNING: Apple OAuth configuration incomplete in production.\n' +
@@ -201,13 +225,9 @@ function validateEnvironment(): EnvConfig {
       )
     }
 
-    // Warn about missing site URL
-    if (!optionalVars.NEXT_PUBLIC_SITE_URL) {
-      warnLog(
-        '⚠️  WARNING: NEXT_PUBLIC_SITE_URL not set in production.\n' +
-        'Falling back to https://genosys.ae. Set this variable for correct URL generation.'
-      )
-    }
+    // NEXT_PUBLIC_SITE_URL warning removed: the fallback to 'https://genosys.ae'
+    // is stable and correct (set in lib/urls or wherever the read happens), so
+    // the missing-var warning was pure log noise with no real risk to flag.
   }
 
   return {

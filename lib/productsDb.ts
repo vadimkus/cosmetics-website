@@ -2,6 +2,7 @@ import { cache } from 'react'
 import { unstable_cache } from 'next/cache'
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './prisma'
+import { withPrismaRetry } from './prismaRetry'
 import type { Product } from '@/types'
 
 // Re-export Product type from types/index.ts for convenience
@@ -18,50 +19,37 @@ function shouldHideProduct(product: Product): boolean {
 }
 
 export async function getAllProducts(): Promise<Product[]> {
-  try {
-    const products = await prisma.product.findMany({
-      where: {
-        isHidden: false
-      },
-      include: { variants: true },
-      orderBy: {
-        name: 'asc'
-      }
-    })
-    return products // No need to filter again since we filtered at DB level
-  } catch (error) {
-    errorLog('Error fetching products from database:', error)
-    const errorMessage = error instanceof Error ? error.message : String(error)
-    const errorStack = error instanceof Error ? error.stack : undefined
-    errorLog('Error details:', { message: errorMessage, stack: errorStack })
-    throw new Error(`Failed to fetch products: ${errorMessage}`)
-  }
+  return withPrismaRetry(
+    () =>
+      prisma.product.findMany({
+        where: { isHidden: false },
+        include: { variants: true },
+        orderBy: { name: 'asc' },
+      }),
+    { label: 'getAllProducts' }
+  )
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
-  try {
+  return withPrismaRetry(async () => {
     let product = await prisma.product.findUnique({
       where: { id },
       include: { variants: true }
     })
-    
+
     if (!product) {
       product = await prisma.product.findUnique({
         where: { productNumber: id },
         include: { variants: true }
       })
     }
-    
-    // Hide product if isHidden flag is set
+
     if (product && shouldHideProduct(product)) {
       return null
     }
-    
+
     return product
-  } catch (error) {
-    errorLog('Error fetching product by ID:', error)
-    throw new Error('Failed to fetch product')
-  }
+  }, { label: 'getProductById' })
 }
 
 /**

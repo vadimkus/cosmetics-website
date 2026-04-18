@@ -1,4 +1,13 @@
-# Session Changes — 2026-04-18 — Observability (Sentry in, LogRocket out)
+# Session Changes — 2026-04-18
+
+Two separate work items committed the same day:
+
+1. **Observability** — Sentry in, LogRocket out.
+2. **Page caching strategy** — FAQ + product pages + blog/slug unified around ISR + tag revalidation. [Jump ↓](#page-caching-strategy-isr--tag-invalidation)
+
+---
+
+## 1. Observability (Sentry in, LogRocket out)
 
 ## Summary
 
@@ -112,3 +121,114 @@ After:
 
 - Sentry Next.js manual setup: <https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/>
 - Next.js instrumentation: <https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation>
+
+---
+
+## Page caching strategy (ISR + tag invalidation)
+
+### Why this needed fixing
+
+- `/products/[id]` was declared `force-dynamic` with `revalidate = 0`.
+  Every visit ran two Prisma queries (primary by `id`, fallback by
+  `productNumber`). On Vercel that's a per-request DB round trip —
+  slow first-byte, noisy DB, zero LCP benefit for repeat visits.
+- `/faq` (× 3 locales) fired an uncached `prisma.faqItem.findMany` on
+  every render. The data is identical across locales and changes
+  roughly once a month.
+- `/ar/blog/[slug]` and `/ru/blog/[slug]` had no `revalidate` set,
+  so they defaulted to dynamic even though `/blog/[slug]` already
+  used `revalidate = 60`.
+- Admin mutations had no cache-invalidation hooks — they wouldn't
+  have propagated even if the pages were cached.
+
+### What Next.js 16 actually supports
+
+Next.js 16 **removed** `experimental.ppr` and
+`export const experimental_ppr`. The replacement,
+`cacheComponents: true`, is a global flag that makes every uncached
+async data access a build-time error unless it's wrapped in
+`"use cache"` or `<Suspense>`. That's a multi-day migration for this
+codebase (~30+ pages), so we didn't enable it.
+
+Instead we delivered the "LCP on repeat visits" ROI via classic ISR
+with tag invalidation — the pattern `app/products/page.tsx` and
+`app/products/category/[slug]/page.tsx` were already using.
+
+### Target routes (before → after)
+
+| Route | Before | After | Notes |
+|---|---|---|---|
+| `/` `/ar` `/ru` | Static | Static (unchanged) | No server data; already optimal |
+| `/faq` `/ar/faq` `/ru/faq` | Dynamic (uncached Prisma) | **Static + `5m` ISR** | `tags: ['faq']` |
+| `/blog/[slug]` | SSG + `1m` | SSG + `1m` (unchanged) | |
+| `/ar/blog/[slug]` `/ru/blog/[slug]` | Dynamic | **SSG + `1m` ISR** | Now matches EN |
+| `/products/[id]` | Dynamic (`force-dynamic`) | On-demand ISR + **`5m`** + `tags: ['products']` | First hit warms cache |
+| `/ar/products/[id]` `/ru/products/[id]` | Dynamic | On-demand ISR + **`5m`** + `tags: ['products']` | Now uses same cached fetcher as EN |
+
+Build indicator for `/products/[id]` is still `ƒ` because there's
+no `generateStaticParams` (product catalogue is open-ended, no
+natural candidate for build-time prerendering). Runtime ISR is
+active via `unstable_cache` around the DB fetcher.
+
+### New files
+
+| File | Purpose |
+|---|---|
+| `lib/faqDb.ts` | `getActiveFaqItems()` — shared across EN/AR/RU FAQ pages. `unstable_cache` with tag `faq`, plus `react.cache()` for intra-request dedup. |
+
+### Modified files
+
+| File | Change |
+|---|---|
+| `lib/productsDb.ts` | `getProductByIdCached` now composes `unstable_cache` (tag `products`, 5 min) with `react.cache()`. First call per request warms both layers. |
+| `app/products/[id]/page.tsx` | Dropped `force-dynamic` + `revalidate = 0`; added `revalidate = 300`. |
+| `app/ar/products/[id]/page.tsx` | Switched from raw `getProductById` to `getProductByIdCached`; added `revalidate = 300`. |
+| `app/ru/products/[id]/page.tsx` | Same as `/ar`. |
+| `app/faq/page.tsx` `app/ar/faq/page.tsx` `app/ru/faq/page.tsx` | Replaced inline Prisma call with `getActiveFaqItems()`; added `revalidate = 300`. |
+| `app/ar/blog/[slug]/page.tsx` `app/ru/blog/[slug]/page.tsx` | Added `export const revalidate = 60` to match EN. |
+| `app/api/admin/products/route.ts` | `POST` now calls `revalidateTag('products', 'max')`. |
+| `app/api/admin/products/[id]/route.ts` | `PUT` + `DELETE` call `revalidateTag('products', 'max')`. |
+| `app/api/admin/faq-items/route.ts` | `POST` calls `revalidateTag('faq', 'max')`. |
+| `app/api/admin/faq-items/[id]/route.ts` | `PUT` + `DELETE` call `revalidateTag('faq', 'max')`. |
+
+### Why `'max'` as the second argument
+
+Next.js 16 made `revalidateTag(tag)` (single-arg) a deprecated form.
+The new signature `revalidateTag(tag, profile)` asks for a
+`cacheLife` profile. `'max'` gives stale-while-revalidate behavior —
+admins see their change immediately on the admin UI (the admin
+endpoints read directly from Prisma, bypassing the cache), while
+public-side readers get a background refresh. We don't need the
+stricter `updateTag()` semantics here because the admin flow reloads
+the admin page, not the public one.
+
+### Testing
+
+- `npm run build` → passed; route indicators:
+  - `○ /faq`, `○ /ar/faq`, `○ /ru/faq` — each with `5m` revalidate
+  - `● /blog/[slug]`, `● /ar/blog/[slug]`, `● /ru/blog/[slug]` — each with `1m`
+  - `ƒ /products/[id]`, `ƒ /ar/products/[id]`, `ƒ /ru/products/[id]`
+    (runtime ISR, no build-time prerendering)
+- `ReadLints` on all 14 touched files → 0 new errors. Two existing
+  errors in blog `generateStaticParams` catch-block signatures are
+  pre-existing (unrelated to this work).
+
+### ROI
+
+- Repeat-visit LCP for any `/products/[id]` URL within 5 minutes is
+  served from cached HTML with zero DB cost. Admin edits propagate
+  in whatever time it takes Vercel to process the tag invalidation
+  (near-instant in practice).
+- FAQ page generation cost dropped from 1 Prisma call per render to
+  1 Prisma call per 5 minutes (per tag invalidation).
+- Blog locale pages are now consistent — prevents future "it works
+  on EN but not RU" regressions.
+
+### Follow-ups (not done, not urgent)
+
+- [ ] Consider `generateStaticParams` for the top 10–20 products
+      by traffic so their HTML is prerendered at build time. Only
+      worthwhile if build times stay reasonable.
+- [ ] The blog admin routes (`/api/admin/blog-posts`) could also
+      wire up `revalidateTag('blog-posts', 'max')` if we want admin
+      blog edits to propagate faster than 60s.

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
@@ -107,6 +108,8 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
       },
     })
 
+    revalidateTag('products', 'max')
+
     return NextResponse.json({ success: true, product: updatedProduct })
   } catch (error: unknown) {
     errorLog('Error updating product:', error)
@@ -145,6 +148,8 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     await prisma.product.delete({
       where: { id },
     })
+
+    revalidateTag('products', 'max')
 
     return NextResponse.json({ success: true, message: 'Product deleted successfully' })
   } catch (error: unknown) {

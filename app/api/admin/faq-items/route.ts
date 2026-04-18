@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
@@ -56,6 +57,9 @@ export async function POST(request: NextRequest) {
         answerRu: body?.answerRu?.trim() || null,
       },
     })
+
+    // Expire ISR cache for all three FAQ locale pages.
+    revalidateTag('faq', 'max')
 
     return NextResponse.json({ success: true, item: created }, { status: 201 })
   } catch (error: unknown) {

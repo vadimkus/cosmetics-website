@@ -6,6 +6,9 @@ import { notFound } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
 import RussianBlogPostClient from './RussianBlogPostClient'
 
+// Match the EN blog slug page — ISR every 60 seconds so edits propagate quickly.
+export const revalidate = 60
+
 type BlogPostWithComments = {
   id: string
   title: string

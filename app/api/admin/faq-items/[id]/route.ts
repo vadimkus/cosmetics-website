@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
@@ -38,6 +39,8 @@ export async function PUT(request: NextRequest, context: { params: Promise<{ id:
       data,
     })
 
+    revalidateTag('faq', 'max')
+
     return NextResponse.json({ success: true, item: updated })
   } catch (error: unknown) {
     errorLog('[ADMIN_FAQ] PUT error:', error)
@@ -56,6 +59,7 @@ export async function DELETE(request: NextRequest, context: { params: Promise<{ 
   try {
     const { id } = await context.params
     await prisma.faqItem.delete({ where: { id } })
+    revalidateTag('faq', 'max')
     return NextResponse.json({ success: true })
   } catch (error: unknown) {
     errorLog('[ADMIN_FAQ] DELETE error:', error)

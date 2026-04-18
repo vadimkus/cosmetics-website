@@ -1,4 +1,5 @@
 import { cache } from 'react'
+import { unstable_cache } from 'next/cache'
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './prisma'
 import type { Product } from '@/types'
@@ -64,14 +65,25 @@ export async function getProductById(id: string): Promise<Product | null> {
 }
 
 /**
- * React cache()-wrapped version of getProductById.
- * Deduplicates DB calls within a single server request lifecycle.
- * Use this in page.tsx, generateMetadata, opengraph-image, twitter-image
- * so all four share one DB call instead of four separate ones.
+ * ISR cache layer: shared across requests with tag-based invalidation.
+ * Admin product mutations must call `revalidateTag('products', 'max')` to
+ * expire entries immediately; otherwise entries age out after 5 minutes.
  */
-export const getProductByIdCached = cache(async (id: string): Promise<Product | null> => {
-  return getProductById(id)
-})
+const getProductByIdFromDb = unstable_cache(
+  async (id: string): Promise<Product | null> => getProductById(id),
+  ['product-by-id'],
+  { revalidate: 300, tags: ['products'] }
+)
+
+/**
+ * Preferred product fetch for page.tsx + generateMetadata + opengraph-image +
+ * twitter-image. Composes two cache layers:
+ *   1. `unstable_cache` — cross-request ISR with tag revalidation
+ *   2. `react.cache()` — intra-request dedup so all four callers share one DB hit
+ */
+export const getProductByIdCached = cache(
+  async (id: string): Promise<Product | null> => getProductByIdFromDb(id)
+)
 
 export async function getProductsByCategory(category: string): Promise<Product[]> {
   try {

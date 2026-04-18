@@ -3,16 +3,17 @@ import { Product } from '@/types'
 import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from '@/app/products/[id]/ProductPageClientRefactored'
 import type { Metadata } from 'next'
-import { getProductById } from '@/lib/productsDb'
+import { getProductByIdCached } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import { safeJsonParse } from '@/lib/utils'
 
+// ISR: cache for 5 min; admin routes must revalidateTag('products', 'max').
+export const revalidate = 300
+
 async function getProduct(id: string): Promise<Product | null> {
   try {
-    // Use direct database access for better reliability
-    const product = await getProductById(id)
+    const product = await getProductByIdCached(id)
     if (product) {
-      // Ensure noDiscount is explicitly set to prevent serialization issues
       if (product.noDiscount === undefined) {
         product.noDiscount = false
       }

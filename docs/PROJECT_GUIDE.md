@@ -139,6 +139,57 @@ const { user } = useAuth()
 - Green dot ONLY when logged in
 - Default initial is "G" (for GENOSYS) when logged out
 
+### 4. Page Caching / ISR
+
+Public pages use **Incremental Static Regeneration (ISR)** plus
+tag-based invalidation. When you touch data-fetching or admin write
+paths, keep both sides in sync:
+
+**Public pages** — declare how often to refetch:
+
+```tsx
+// Every product page, EN/AR/RU
+export const revalidate = 300 // 5 min
+```
+
+**Data fetchers** — wrap Prisma in `unstable_cache` with a tag:
+
+```tsx
+// lib/productsDb.ts / lib/faqDb.ts
+const getFromDb = unstable_cache(
+  async (id: string) => prisma.product.findUnique({ where: { id } }),
+  ['product-by-id'],
+  { revalidate: 300, tags: ['products'] }
+)
+export const getProductByIdCached = cache(getFromDb) // react.cache dedups per request
+```
+
+**Admin API routes** — burst the cache on mutation:
+
+```tsx
+import { revalidateTag } from 'next/cache'
+// After create / update / delete
+revalidateTag('products', 'max')
+```
+
+Current tags in use:
+- `products` — `/products`, `/products/[id]`, `/products/category/[slug]`
+  (all three locales). Bursted by `app/api/admin/products/**`.
+- `faq` — `/faq` (all three locales). Bursted by
+  `app/api/admin/faq-items/**`.
+
+Notes:
+- The second argument to `revalidateTag` is a `cacheLife` profile.
+  Next.js 16 deprecated the single-arg form; use `'max'` for
+  stale-while-revalidate semantics on public pages.
+- Homepage routes (`/`, `/ar`, `/ru`) are fully static — they
+  fetch nothing server-side. Keep it that way.
+- Blog slug pages use `revalidate = 60` (shorter because blog
+  edits are more time-sensitive than product edits). Keep EN/AR/RU
+  in sync.
+
+See `docs/SESSION_CHANGES_2026-04-18.md` for the rollout notes.
+
 ---
 
 ## Mobile-Specific Patterns

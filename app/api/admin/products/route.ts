@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
@@ -82,6 +83,10 @@ export async function POST(request: NextRequest) {
         productNumber: productNumber || null,
       },
     })
+
+    // Expire ISR cache for all product pages (lists + detail). Uses the
+    // Next 16 SWR form so readers see fresh data immediately.
+    revalidateTag('products', 'max')
 
     return NextResponse.json({ success: true, product: newProduct }, { status: 201 })
   } catch (error: unknown) {

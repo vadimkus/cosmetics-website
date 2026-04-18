@@ -1,7 +1,10 @@
 import FAQClient from './FAQClient'
-import { prisma } from '@/lib/prisma'
+import { getActiveFaqItems } from '@/lib/faqDb'
 import GeoFaqSchema, { GENOSYS_FAQ_EN } from '@/components/schema/GeoFaqSchema'
 import type { Metadata } from 'next'
+
+// ISR: cache for 5 min; admin routes revalidateTag('faq', 'max') on mutation.
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'FAQ - Frequently Asked Questions | GENOSYS Middle East FZ-LLC',
@@ -64,20 +67,7 @@ export const metadata: Metadata = {
 }
 
 export default async function FAQPage() {
-  const faqItems = await prisma.faqItem.findMany({
-    where: { isActive: true },
-    orderBy: { sortOrder: 'asc' },
-    select: {
-      id: true,
-      category: true,
-      questionEn: true,
-      answerEn: true,
-      questionAr: true,
-      answerAr: true,
-      questionRu: true,
-      answerRu: true,
-    },
-  })
+  const faqItems = await getActiveFaqItems()
 
   return (
     <>

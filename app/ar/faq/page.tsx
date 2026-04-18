@@ -1,8 +1,10 @@
 import FAQClient from '../../faq/FAQClient'
-import { prisma } from '@/lib/prisma'
+import { getActiveFaqItems } from '@/lib/faqDb'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import GeoFaqSchema, { GENOSYS_FAQ_AR } from '@/components/schema/GeoFaqSchema'
 import type { Metadata } from 'next'
+
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'الأسئلة الشائعة - الأسئلة المتكررة | GENOSYS Middle East FZ-LLC',
@@ -61,20 +63,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ArabicFAQPage() {
-  const faqItems = await prisma.faqItem.findMany({
-    where: { isActive: true },
-    orderBy: { sortOrder: 'asc' },
-    select: {
-      id: true,
-      category: true,
-      questionEn: true,
-      answerEn: true,
-      questionAr: true,
-      answerAr: true,
-      questionRu: true,
-      answerRu: true,
-    },
-  })
+  const faqItems = await getActiveFaqItems()
 
   return (
     <>

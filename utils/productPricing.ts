@@ -17,8 +17,13 @@ export function getPriceForSize(product: Product, size: string): number {
     return size === '180ml' ? 330 : 510
   }
   
-  // Products 30, 29, 32, 28, 31 - Two size options
-  if (pid === '30' || pid === '29' || pid === '32' || pid === '28' || pid === '31') {
+  // Product 29: 50g temporarily out of stock → always return 250g price
+  if (pid === '29') {
+    return 420
+  }
+
+  // Products 30, 32, 28, 31 - Two size options
+  if (pid === '30' || pid === '32' || pid === '28' || pid === '31') {
     return size === '50g' ? 290 : 420
   }
   
@@ -83,7 +88,17 @@ export function getProductSizeOptions(productId: string): Array<{ value: string;
     ]
   }
   
-  if (['30', '29', '32', '28'].includes(productId)) {
+  // Product 29 (MOISTURE REPLENISHING HYALURON CREAM): 50g temporarily out of stock.
+  // Companion DB flag: ProductVariant.available=false on 50g.
+  // To restore, run: `npx tsx scripts/set-hyaluron-cream-availability.ts restore-50g`
+  // and put 50g back into this list.
+  if (productId === '29') {
+    return [
+      { value: '250g', label: '250g' }
+    ]
+  }
+
+  if (['30', '32', '28'].includes(productId)) {
     return [
       { value: '50g', label: '50g' },
       { value: '250g', label: '250g' }

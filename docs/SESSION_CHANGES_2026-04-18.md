@@ -1,11 +1,13 @@
 # Session Changes — 2026-04-18
 
-Four separate work items committed the same day:
+Six separate work items committed the same day:
 
 1. **Observability** — Sentry in, LogRocket out.
 2. **Page caching strategy** — FAQ + product pages + blog/slug unified around ISR + tag revalidation. [Jump ↓](#page-caching-strategy-isr--tag-invalidation)
 3. **CLI observability tooling** — Sentry + Vercel CLIs installed, `npm run sentry:errors` helper script, DSN wired in Vercel, end-to-end verification. [Jump ↓](#cli-observability-tooling)
 4. **Production log cleanup** — three noisy / genuinely-broken signals surfaced via `npm run vercel:logs:errors` fixed at the root. [Jump ↓](#production-log-cleanup)
+5. **Sentry CLI issue management** — `--resolve` / `--ignore` flags added to the helper so issues can be closed from the terminal. [Jump ↓](#sentry-cli-issue-management)
+6. **Stock management: hyaluron cream 50g out of stock** — first real-world use of the DB-variant availability flow; surfaced the two-layer (DB + hardcoded UI) architecture that was previously undocumented. [Jump ↓](#stock-management-hyaluron-cream-50g)
 
 ---
 
@@ -678,3 +680,167 @@ Sentry. Persistent engine panics (rare) will still surface, tagged
 `transient:true, retriesPerformed:2` — making "we retried and it still
 failed" visually distinct from "we didn't retry because we didn't
 recognize the error".
+
+---
+
+## Sentry CLI issue management
+
+### Context
+
+Previous commit (`6656a4d5`) added the Prisma retry broadening; the
+error tagged `JAVASCRIPT-NEXTJS-4` needed to be marked resolved so any
+new event after the fix would **auto-reopen** the issue instead of
+accumulating silently in an already-open bucket.
+
+The existing `npm run sentry:errors` helper only supported list +
+detail. Resolving had to be done via the Sentry web UI — which breaks
+the "see it, fix it, close it" terminal loop alongside `vercel:logs`.
+
+### Changes
+
+`scripts/sentry-errors.js`:
+- `api()` helper generalized to support non-GET methods + JSON bodies
+- `--resolve <id>` flag → `PUT { status: "resolved" }`
+- `--ignore <id>` flag → `PUT { status: "ignored" }` (for known-noise
+  issues we'd rather silence than close)
+- Short-ID resolution (e.g. `JAVASCRIPT-NEXTJS-4`) scans the recent 100
+  issues with an empty query so already-resolved issues are still
+  findable by short ID
+- Numeric IDs bypass the scan and hit the endpoint directly
+
+### Command surface additions
+
+| Command | Result |
+|---|---|
+| `npm run sentry:errors -- --resolve JAVASCRIPT-NEXTJS-4` | Issue marked resolved; auto-reopens on next event |
+| `npm run sentry:errors -- --ignore JAVASCRIPT-NEXTJS-5` | Issue silenced; no alerts until un-ignored |
+| `npm run sentry:errors -- --resolve 12345678` | Same, by numeric ID |
+
+### Token scope note
+
+Issue status mutations require `event:admin` OR `project:write` on the
+Sentry auth token. The existing token in `.env.local` had this already
+(it had been created with default "all scopes" during initial setup).
+Tokens with only `project:read + event:read` will 403 on these flags —
+the docs in `docs/SENTRY_SETUP.md` note this.
+
+### Used for
+
+Closed `JAVASCRIPT-NEXTJS-4` after shipping the retry-helper fix. If
+the fix works, the issue stays closed. If it doesn't, Sentry reopens it
+automatically on the next event — a cleaner signal than polling the
+unresolved list.
+
+### Commits
+
+- `91010ea4` — `feat(tooling): sentry:errors --resolve / --ignore`
+
+---
+
+## Stock management: hyaluron cream 50g
+
+### Context
+
+First time we've done a real-world stock-out on a variant-level product
+since the DB schema moved to `ProductVariant` rows last year. Surfaced
+an undocumented two-layer architecture that needs both sides updated
+for a stock block to actually work.
+
+User request: block ordering on `MOISTURE REPLENISHING HYALURON CREAM`
+50g (out of stock), keep 250g buyable (in stock, and should become the
+default presentation).
+
+### The two-layer architecture (why both sides need to change)
+
+Variant availability is stored in **two places**, for historical
+reasons:
+
+| Source of truth | Used by | Enforced via |
+|---|---|---|
+| `ProductVariant.available` (DB) | Mobile app, bundle builder API, cart / checkout availability filters | `lib/pricingEngine.ts` → `generateProductVariants()`; `CheckoutClient.tsx`; `CartItem.tsx` |
+| Hardcoded lists in `utils/productPricing.ts` | Website product detail page size picker | `ProductPageClientRefactored` → `ProductVariantSelector` |
+
+A DB-only change is **invisible to the website size picker**. A
+code-only change is invisible to the mobile API. Both must change.
+
+(This split is legacy — new products should prefer DB variants as the
+single source of truth. Worth a follow-up migration at some point, but
+not today.)
+
+### What changed
+
+**DB** (applied via new script
+`scripts/set-hyaluron-cream-availability.ts block-50g`):
+
+```
+ProductVariant 50g:  available=false, isDefault=false
+ProductVariant 250g: available=true,  isDefault=true
+```
+
+**Website UI**:
+
+1. `utils/productPricing.ts`:
+   - Product 29 split out of the shared `[30, 29, 32, 28, 31]` group
+   - `getProductSizeOptions('29')` → only `[{ value: '250g' }]`
+   - `getPriceForSize('29', ...)` → always 420 AED regardless of
+     incoming size (defense against stale cart state)
+
+2. `components/product/ProductInfo.tsx` (legacy, not active render
+   path — kept as defense-in-depth):
+   - Same size-option narrowing
+   - Size-label badge switched from `'50g/250g'` to `'250g'`
+
+### Restore procedure
+
+When stock is replenished:
+
+```bash
+# 1. Flip DB flags back
+set -a && source .env.local && set +a
+npx tsx scripts/set-hyaluron-cream-availability.ts restore-50g
+
+# 2. Revert the code-side change (removes the product-29 temp branches,
+#    puts it back in the shared group)
+git revert 58eeb5ca
+git push
+```
+
+Restore script sets 50g back to `available=true, isDefault=true` and
+250g to `available=true, isDefault=false` (returning to pre-block
+defaults). The git revert handles the UI side.
+
+### Caveats surfaced
+
+1. **~5-min cache lag for mobile API**. `getAllProducts` is cached via
+   `unstable_cache` tag `products` with 5-min revalidate. Website UI
+   is instant on deploy. Mobile clients pick up DB changes within 5
+   minutes, or immediately if an admin endpoint calls
+   `revalidateTag('products')` as a side effect.
+
+2. **Stale cart items can still check out**. `CheckoutClient.tsx`
+   filters the *variants array shown to the user for selection*, but
+   does NOT validate the already-selected variant against current
+   availability. A customer who had 50g in their cart at 2pm can still
+   complete checkout at 3pm after the block went live. In practice
+   this is rare (cart contents churn fast) — flagged for manual
+   handling (refund or ship 250g with apology). A server-side guard on
+   order creation would close this gap but wasn't in scope for a
+   stock-out patch.
+
+3. **Product description copy still mentions 50g**. `lib/products.ts`
+   has marketing blurbs like `'50g (Homecare) / 250g (Professional)'`.
+   Didn't touch — it's ad copy, not ordering surface. Customer won't
+   be confused because the size picker simply won't offer 50g.
+
+### Runbook
+
+Promoted the procedure to a dedicated doc:
+`docs/STOCK_MANAGEMENT.md` — covers the two-layer architecture, the
+script-based DB flip, the code-side changes needed, verification steps,
+restore procedure, and caveats. Future stock-outs on variant products
+should follow that runbook instead of rediscovering this from commit
+history.
+
+### Commits
+
+- `58eeb5ca` — `feat(stock): temporarily block 50g hyaluron cream, 250g still available`

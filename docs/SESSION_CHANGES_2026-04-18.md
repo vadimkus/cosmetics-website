@@ -910,4 +910,4 @@ propagates immediately rather than waiting 5 minutes.
 
 ### Commit (follow-up)
 
-- `<next>` — `fix(stock): also flip Product.size/price so listing card matches variant block`
+- `e5fd4c87` — `fix(stock): also flip Product.size/price so listing card matches variant block`

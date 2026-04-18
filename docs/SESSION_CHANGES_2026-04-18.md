@@ -613,3 +613,68 @@ instability actionable instead of invisible.
 - **`@sentry/nextjs` upgrade side effects** — none observed, but worth
   watching the first deploy for any new Sentry config warnings. The
   minor version jump (10.32 → 10.49) was within a stable release line.
+
+### Follow-up: broaden `isTransient()` for Prisma engine panics
+
+**What prompted this**
+
+Sentry surfaced `JAVASCRIPT-NEXTJS-4` a few hours after deploy:
+
+```
+PrismaClientUnknownRequestError:
+Invalid `prisma.product.findUnique()` invocation:
+
+null pointer passed to rust
+  at getProductById (lib/productsDb.ts:35)
+```
+
+Three events over ~4 hours, all anonymous (Vercel SSG revalidator
+traffic from Ashburn, not real users). The retry helper's reporting
+path worked as designed — that's how the error surfaced — but
+`isTransient()` returned `false` because the message didn't match any
+of the socket-level patterns.
+
+**Root cause class**
+
+"null pointer passed to rust" is a Prisma query engine panic — the
+Rust binary underneath the JS client crashes due to state corruption.
+Well-documented pattern that occurs on serverless cold starts (request
+lands before `$connect()` warms the engine) or when the pooled
+connection is recycled mid-query. The query itself is safe to retry —
+next attempt almost always succeeds with a fresh engine.
+
+**Fix**
+
+Extended `TRANSIENT_MESSAGE_PATTERNS` in `lib/prismaRetry.ts` with:
+
+| Group | Pattern | Covers |
+|---|---|---|
+| Rust engine panic | `null pointer passed to rust` | The error we just saw |
+| Rust engine panic | `Rust panic` | Broader class of engine crashes |
+| Prisma code P1001 | `Can't reach database server` | DB unreachable |
+| Prisma code P1017 | `Server has closed the connection` | Connection drop |
+| Prisma code P1008 | `Operations timed out` | Query-level timeout |
+
+Also tightened the Sentry report payload:
+- `tags.transient` — now a string ("true" / "false") so it's filterable
+  in the Sentry UI dashboard
+- `extra.retriesPerformed` — actual retry count, not the configured max
+  (previously misleading for non-transient errors that broke out on
+  attempt 0)
+
+**Why these patterns are safe to retry**
+
+All wrapped operations (`getProductById`, `getAllProducts`,
+`getActiveFaqItems`) are pure reads. The error classes above all
+occur before Postgres commits any state — either the engine panicked,
+the connection dropped before the query landed, or the DB was
+unreachable. Retry is idempotent.
+
+**What to expect**
+
+After the next deploy, the 3-events-per-4-hours of
+`PrismaClientUnknownRequestError` should collapse toward zero in
+Sentry. Persistent engine panics (rare) will still surface, tagged
+`transient:true, retriesPerformed:2` — making "we retried and it still
+failed" visually distinct from "we didn't retry because we didn't
+recognize the error".

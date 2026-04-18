@@ -18,16 +18,38 @@ const TRANSIENT_ERROR_CODES = new Set([
 
 /**
  * Patterns that appear in the `.message` of Prisma / undici errors when the
- * underlying cause is network-level and retry-safe. Used as a fallback when
- * `.code` is missing or buried inside a PrismaClientKnownRequestError.
+ * underlying cause is network-level OR a Prisma engine panic that is safe to
+ * retry on an idempotent read. Used when `.code` is missing or buried inside
+ * a PrismaClientKnownRequestError / PrismaClientUnknownRequestError.
+ *
+ * Two groups:
+ * 1. Socket / transport (undici, pg driver, Prisma Accelerate HTTP transport)
+ * 2. Prisma query engine panics (Rust binary state corruption on serverless
+ *    cold starts or connection reuse — next attempt with a fresh engine
+ *    almost always succeeds)
  */
 const TRANSIENT_MESSAGE_PATTERNS = [
+  // 1. Socket / transport layer
   /fetch failed/i,
   /ETIMEDOUT/,
   /ECONNRESET/,
   /socket hang up/i,
   /connection terminated unexpectedly/i,
   /client has encountered a connection error/i,
+
+  // 2. Prisma query engine panics — observed in prod via Sentry
+  //    (JAVASCRIPT-NEXTJS-4, 2026-04-18, `getProductById`)
+  /null pointer passed to rust/i,
+  /Rust panic/i,
+
+  // 3. Prisma known error codes that map to transient conditions
+  //    P1001 = Can't reach database server
+  //    P1002 = Database server timeout
+  //    P1008 = Operations timed out after Nms
+  //    P1017 = Server has closed the connection
+  /Can't reach database server/i,
+  /Server has closed the connection/i,
+  /Operations timed out/i,
 ]
 
 function isTransient(error: unknown): boolean {
@@ -78,12 +100,14 @@ export async function withPrismaRetry<T>(
   const delays = [100, 500, 1500] as const
 
   let lastError: unknown
+  let retriesPerformed = 0
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
       return await fn()
     } catch (error) {
       lastError = error
       if (!isTransient(error) || attempt === retries) break
+      retriesPerformed++
       const delay = delays[attempt] ?? 2000
       debugLog(
         `[prismaRetry:${opts.label}] transient error, retrying in ${delay}ms`,
@@ -93,10 +117,19 @@ export async function withPrismaRetry<T>(
     }
   }
 
+  const wasTransient = isTransient(lastError)
   Sentry.captureException(lastError, {
-    tags: { area: 'prisma-retry', op: opts.label },
-    extra: { retriesAttempted: retries, transient: isTransient(lastError) },
+    tags: {
+      area: 'prisma-retry',
+      op: opts.label,
+      transient: String(wasTransient),
+    },
+    extra: { retriesPerformed, maxRetries: retries },
   })
-  errorLog(`[prismaRetry:${opts.label}] failed after ${retries} retries:`, lastError)
+  errorLog(
+    `[prismaRetry:${opts.label}] failed after ${retriesPerformed} retr${retriesPerformed === 1 ? 'y' : 'ies'}`,
+    `(transient=${wasTransient}):`,
+    lastError
+  )
   throw lastError
 }

@@ -321,8 +321,9 @@ auth tokens every time, shipped a small wrapper.
 | `npm run sentry:errors -- --since 24h` | Time window filter |
 | `npm run sentry:errors -- --query "is:unresolved level:error"` | Custom Sentry search syntax |
 | `npm run sentry:errors -- --detail JAVASCRIPT-NEXTJS-2` | Full exception payload with stack, tags, release, user |
-| `npm run vercel:logs` | Function logs, last hour from prod |
-| `npm run vercel:logs:follow` | Live-tail |
+| `npm run vercel:logs` | Function logs (prod), last hour, 100 entries |
+| `npm run vercel:logs:errors` | Error-level only, last 24h — fast triage view |
+| `npm run vercel:logs:follow` | Live-tail prod function logs |
 
 ### Secrets handling
 
@@ -359,9 +360,26 @@ auth tokens every time, shipped a small wrapper.
       `~/.cursor/projects/Users-vadimkus-VisionDrive/agent-transcripts/`).
       Create a new token in Sentry → delete the old one → update
       `.env.local`. Takes 30 seconds.
-- [ ] **`vercel login`** — interactive browser auth required the
-      first time. After that, `npm run vercel:logs` works without
-      further setup.
+
+### Done this session
+
+- Vercel CLI syntax corrected in `package.json` scripts. The original
+  `vercel logs https://genosys.ae --since=1h` form conflicts with
+  Vercel's current CLI (URL argument implies `--follow`, which rejects
+  `--since`). Scripts now use `.vercel/project.json` linking instead —
+  no URL needed, all filters work.
+- Confirmed `vercel whoami` = `vadimkus` — already logged in, no
+  `vercel login` needed.
+- Smoke-tested all three logs scripts end-to-end. Surfaced real
+  production signals:
+  - `λ GET /products/26` and `/products/59` → intermittent
+    `Error fetching…` at warning level
+  - Multiple `(node:4) [DEP0170]` deprecation warnings on product
+    routes
+  - Warning about missing `ADMIN_EMAIL` env var on admin endpoints
+  - None of these reached Sentry yet, suggesting they're caught
+    internally and logged but not re-thrown. Worth reviewing if
+    product-page errors start hitting real users.
 
 ### Follow-ups (optional)
 

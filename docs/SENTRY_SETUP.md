@@ -116,8 +116,17 @@ Append to `.env.local` (gitignored) as `SENTRY_AUTH_TOKEN=sntryu_...`.
 | `npm run sentry:errors -- --query "is:unresolved level:error"` | Full Sentry search syntax |
 | `npm run sentry:errors -- --detail JAVASCRIPT-NEXTJS-2` | Full stack, tags, release, user for one issue |
 | `npm run sentry:errors -- --detail 12345678` | Same, by numeric issue ID |
-| `npm run vercel:logs` | Function logs (prod), last 1 hour |
-| `npm run vercel:logs:follow` | Live-tail Vercel function logs |
+| `npm run vercel:logs` | Function logs (prod), last 1 hour, 100 entries |
+| `npm run vercel:logs:errors` | Error-level only, last 24 hours — fast triage view |
+| `npm run vercel:logs:follow` | Live-tail prod Vercel function logs |
+
+The `vercel:logs` scripts target the linked project via `.vercel/project.json`
+(`cosmetics-website2` on Vadim's machine) — so there's no need to pass a
+URL. Vercel CLI prints a cosmetic `WARNING! Did you mean to deploy the
+subdirectory "logs"?` line every run; it's safe to ignore, just noise.
+
+One-time requirement: `vercel login` (interactive browser flow). Check
+status with `vercel whoami`.
 
 The script lives at `scripts/sentry-errors.js` — zero production deps, uses
 only `dotenv` (already a project dependency) to read `.env.local`.

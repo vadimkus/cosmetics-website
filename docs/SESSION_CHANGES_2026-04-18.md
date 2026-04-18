@@ -1,9 +1,10 @@
 # Session Changes — 2026-04-18
 
-Two separate work items committed the same day:
+Three separate work items committed the same day:
 
 1. **Observability** — Sentry in, LogRocket out.
 2. **Page caching strategy** — FAQ + product pages + blog/slug unified around ISR + tag revalidation. [Jump ↓](#page-caching-strategy-isr--tag-invalidation)
+3. **CLI observability tooling** — Sentry + Vercel CLIs installed, `npm run sentry:errors` helper script, DSN wired in Vercel, end-to-end verification. [Jump ↓](#cli-observability-tooling)
 
 ---
 
@@ -232,3 +233,151 @@ the admin page, not the public one.
 - [ ] The blog admin routes (`/api/admin/blog-posts`) could also
       wire up `revalidateTag('blog-posts', 'max')` if we want admin
       blog edits to propagate faster than 60s.
+
+---
+
+## CLI observability tooling
+
+### Context
+
+Item 1 (Sentry) shipped the SDK wiring but left two operational gaps:
+
+1. Sentry only captures errors if a DSN is configured at the hosting
+   provider. The DSN had not yet been added to Vercel.
+2. There was no way to pull issues or logs from the terminal —
+   the only way to see what was broken was to open the Sentry UI
+   and the Vercel dashboard in a browser.
+
+This item closes both gaps.
+
+### What the Sentry project looked like
+
+Created in Sentry with the auto-generated slugs (kept as-is —
+renaming later is trivial and nothing upstream depends on them):
+
+- Org:      `genosys-middle-east-fz-llc`
+- Project:  `javascript-nextjs` (Sentry default naming for Next.js)
+- Plan:     Developer (free) — 5k errors/mo, 10k spans/mo, 30-day retention
+
+### Vercel wiring (one-time)
+
+- `NEXT_PUBLIC_SENTRY_DSN` added to Vercel project
+  `cosmetics-website2` → Environment Variables → All Environments
+  (scope includes Production, Preview, Development; DSN is
+  non-secret so this is safe).
+- Empty commit pushed to trigger redeploy so the env var actually
+  bakes into the client bundle:
+  `chore: redeploy to pick up NEXT_PUBLIC_SENTRY_DSN` (fa598074).
+- Verified on genosys.ae: 7 envelope POSTs to
+  `*.ingest.sentry.io` per page load, all HTTP 200. SDK is live.
+
+Note: console `throw` statements from DevTools REPL often don't
+propagate to `window.onerror` in Chrome, so they do **not** appear
+in Sentry. Real UI-triggered errors do. The realistic test:
+
+```js
+setTimeout(() => { throw new Error('real async error') }, 0)
+```
+
+The `setTimeout` wrapper escapes the REPL context.
+
+### CLIs installed (global, via npm)
+
+```bash
+npm install -g vercel @sentry/cli
+```
+
+- `vercel@51.7.0` — deployment + log management.
+- `@sentry/cli@3.3.5` — release + source-map tooling; also
+  `send-event` for smoke tests.
+
+### Why a custom script (and not just `sentry-cli`)
+
+`@sentry/cli` does not expose a "list recent issues" command —
+it's focused on release/source-map workflows. Pulling events
+requires the REST API. Rather than make Vadim curl endpoints with
+auth tokens every time, shipped a small wrapper.
+
+### New files
+
+| File | Purpose |
+|---|---|
+| `scripts/sentry-errors.js` | Zero-dep Node helper over `/api/0/` endpoints. Supports list-by-env, custom queries, time windows, and drill-down by short ID or numeric ID |
+
+### Modified files
+
+| File | Change |
+|---|---|
+| `package.json` | Added three scripts: `sentry:errors`, `vercel:logs`, `vercel:logs:follow` |
+| `.env.example` | Added setup pointer for `SENTRY_AUTH_TOKEN` (Personal Auth Token, scopes `project:read` + `event:read`) and corrected default org/project slugs to the real ones |
+
+### Command surface
+
+| Command | Purpose |
+|---|---|
+| `npm run sentry:errors` | List 10 unresolved issues from production |
+| `npm run sentry:errors -- --limit 25` | Larger window |
+| `npm run sentry:errors -- --all-envs` | Drop the env filter (useful when nothing matches and you want to sanity-check) |
+| `npm run sentry:errors -- --since 24h` | Time window filter |
+| `npm run sentry:errors -- --query "is:unresolved level:error"` | Custom Sentry search syntax |
+| `npm run sentry:errors -- --detail JAVASCRIPT-NEXTJS-2` | Full exception payload with stack, tags, release, user |
+| `npm run vercel:logs` | Function logs, last hour from prod |
+| `npm run vercel:logs:follow` | Live-tail |
+
+### Secrets handling
+
+- `SENTRY_AUTH_TOKEN` lives in `.env.local` only (gitignored via
+  pattern `.env*.local` in `.gitignore`). The script reads it via
+  `dotenv`, which is already a project dep.
+- The token uses Sentry's newer `sntryu_` Personal Auth Token
+  format. Scopes: `project:read` + `event:read` — read-only, no
+  write access to issues or releases.
+- No secrets committed. Verified with
+  `git diff --staged | grep -iE '(token|password|api[_-]?key)'`
+  before pushing.
+
+### End-to-end verification
+
+1. `npm run sentry:errors` (before token) — exits 1 with clear
+   instructions. Correct fail-closed behavior.
+2. Token added to `.env.local`, `npm run sentry:errors` — shows
+   Sentry's auto-demo issue (`JAVASCRIPT-NEXTJS-1`, hardcoded
+   `TypeError: Object [object Object] has no method 'updateFrom'`).
+   Confirms API connectivity + auth.
+3. `sentry-cli send-event --message "CLI smoke test ..."` —
+   dispatched event `9395a7db-c750-4848-8aee-8aa5a1e5584f`. Appeared
+   in Sentry within 8 seconds.
+4. `npm run sentry:errors -- --detail JAVASCRIPT-NEXTJS-2` — full
+   detail output including the correct release SHA
+   (`fa598074cd4d1174200688d1f8df3e6d69c2f142`, matching the empty
+   redeploy commit). Confirms the release tag wiring is live.
+
+### Outstanding (user actions)
+
+- [ ] **Rotate the auth token.** The token was pasted into chat
+      during setup (transcript at
+      `~/.cursor/projects/Users-vadimkus-VisionDrive/agent-transcripts/`).
+      Create a new token in Sentry → delete the old one → update
+      `.env.local`. Takes 30 seconds.
+- [ ] **`vercel login`** — interactive browser auth required the
+      first time. After that, `npm run vercel:logs` works without
+      further setup.
+
+### Follow-ups (optional)
+
+- [ ] Rename Sentry project slug from `javascript-nextjs` to
+      `genosys-website` for clarity. Requires updating
+      `.env.example` default and any Vercel env vars for source-map
+      upload (`SENTRY_PROJECT`).
+- [ ] Add `SENTRY_ORG` + `SENTRY_PROJECT` + `SENTRY_AUTH_TOKEN`
+      to Vercel build-time env vars so source-maps upload
+      automatically on each deploy. Without them, Sentry stack
+      traces show minified chunks (still usable, just less pretty).
+- [ ] Add `npm run sentry:errors` invocation to the developer
+      workflow doc (or a pre-release checklist) once there are
+      enough real issues to justify it.
+
+### Commits
+
+- `fa598074` — `chore: redeploy to pick up NEXT_PUBLIC_SENTRY_DSN`
+- `4176a5e8` — `feat(tooling): add `npm run sentry:errors` + Vercel log shortcuts`

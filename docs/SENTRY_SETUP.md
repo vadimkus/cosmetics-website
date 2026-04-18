@@ -39,13 +39,20 @@ All Sentry env vars are **optional**. Set them in Vercel → Settings → Enviro
 ## First-time setup
 
 1. Create a Sentry project at [sentry.io](https://sentry.io/) (pick platform: **Next.js**).
-2. Copy the DSN from *Settings → Projects → [project] → Client Keys (DSN)*.
-3. In Vercel, add `NEXT_PUBLIC_SENTRY_DSN` with the DSN value to Production + Preview.
-4. (Optional) For source-map upload, create an auth token with `project:releases` scope and add:
-   - `SENTRY_ORG` (e.g. `genosys`)
-   - `SENTRY_PROJECT` (e.g. `genosys-website`)
-   - `SENTRY_AUTH_TOKEN` (mark sensitive)
-5. Redeploy. Errors should start appearing in Sentry within ~30 seconds of the first occurrence.
+2. **Do NOT run** the `npx @sentry/wizard` command Sentry's UI suggests — it
+   will overwrite our manual instrumentation files. Skip the wizard, go
+   straight to *Settings → Projects → [project] → Client Keys (DSN)*.
+3. Copy the DSN, add `NEXT_PUBLIC_SENTRY_DSN` to Vercel → Settings →
+   Environment Variables (All Environments). DSNs are non-secret.
+4. Push an empty commit (or redeploy) so the env var bakes into the client
+   bundle. Errors start appearing within ~30 seconds of the first occurrence.
+5. (Optional, for readable stack traces) Create a build-time auth token
+   with `project:releases` scope and add to Vercel:
+   - `SENTRY_ORG` (currently `genosys-middle-east-fz-llc`)
+   - `SENTRY_PROJECT` (currently `javascript-nextjs`)
+   - `SENTRY_AUTH_TOKEN` (mark as **sensitive**)
+
+Existing values are in `.env.example` — update there if the slugs change.
 
 ## Verifying it works
 
@@ -63,6 +70,85 @@ nothing appears, walk through:
 - DSN set in Vercel + redeployed since? (`Settings → Deployments` should show env var change)
 - Ad blocker? Sentry's `ingest.sentry.io` is commonly blocked; disable the blocker and retry.
 - Browser console: the SDK logs warnings at boot if the DSN is malformed.
+- Service worker cache? The PWA service worker caches old JS. Hard-reload
+  + `Application → Service Workers → Unregister` in DevTools if the
+  current page's JS predates your env var change.
+
+Note on browser DevTools REPL: running `throw new Error(...)` directly in
+the console often **does not** propagate to `window.onerror` in Chrome,
+so it will not reach Sentry. Use `setTimeout(() => { throw ... }, 0)`
+instead — the timer escapes the REPL context and the error surfaces normally.
+
+If you want to prove ingestion without touching UI code, use the CLI smoke
+test below.
+
+## CLI workflow
+
+Two CLIs + one helper script are wired for terminal-based ops.
+
+### One-time install
+
+```bash
+npm install -g vercel @sentry/cli
+vercel login                       # authenticate against Vercel
+# Sentry auth = Personal Auth Token, added to .env.local (see below)
+```
+
+### Personal Auth Token (Sentry REST API)
+
+Create at *Sentry → User Settings → Auth Tokens → Create New Token*.
+
+| Scope | Why |
+|---|---|
+| `project:read` | List issues, view project metadata |
+| `event:read` | Fetch individual events, stack traces, tags |
+
+Append to `.env.local` (gitignored) as `SENTRY_AUTH_TOKEN=sntryu_...`.
+
+### npm scripts
+
+| Command | What it does |
+|---|---|
+| `npm run sentry:errors` | List 10 unresolved prod issues |
+| `npm run sentry:errors -- --limit 25` | Larger window |
+| `npm run sentry:errors -- --all-envs` | Drop env filter when nothing matches |
+| `npm run sentry:errors -- --since 24h` | Time window (also accepts `7d`, `90d`, etc.) |
+| `npm run sentry:errors -- --query "is:unresolved level:error"` | Full Sentry search syntax |
+| `npm run sentry:errors -- --detail JAVASCRIPT-NEXTJS-2` | Full stack, tags, release, user for one issue |
+| `npm run sentry:errors -- --detail 12345678` | Same, by numeric issue ID |
+| `npm run vercel:logs` | Function logs (prod), last 1 hour |
+| `npm run vercel:logs:follow` | Live-tail Vercel function logs |
+
+The script lives at `scripts/sentry-errors.js` — zero production deps, uses
+only `dotenv` (already a project dependency) to read `.env.local`.
+
+### CLI smoke test (confirms ingestion end-to-end)
+
+```bash
+# Fetch the DSN from Sentry via REST API and feed it to sentry-cli:
+DSN=$(curl -s -H "Authorization: Bearer $SENTRY_AUTH_TOKEN" \
+  "https://sentry.io/api/0/projects/genosys-middle-east-fz-llc/javascript-nextjs/keys/" \
+  | node -e "console.log(JSON.parse(require('fs').readFileSync(0)).find(k => k.isActive).dsn.public)")
+
+SENTRY_DSN="$DSN" sentry-cli send-event \
+  --message "CLI smoke test $(date +%s)" \
+  --level warning
+```
+
+The event appears in Sentry within ~8 seconds. Follow up with
+`npm run sentry:errors -- --detail <SHORT-ID>` to confirm the release,
+environment, and tags came through correctly.
+
+### Security hygiene
+
+- `SENTRY_AUTH_TOKEN` in `.env.local` **only**. The file matches the
+  `.env*.local` pattern in `.gitignore`.
+- Token scopes are read-only (`project:read` + `event:read`). Compromise
+  would leak issue contents but not let an attacker modify or delete
+  data in Sentry.
+- If a token ever gets pasted into chat, a screenshot, a PR description,
+  etc. — rotate it immediately at *Sentry → User Settings → Auth Tokens*
+  (delete old, create new, update `.env.local`).
 
 ## Why no Session Replay, no Feedback widget?
 

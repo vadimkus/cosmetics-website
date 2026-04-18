@@ -290,14 +290,45 @@ interface CounterpartyResult {
 }
 
 /**
+ * Build a structured actualAddressFull for a counterparty, matching the
+ * order-level shipmentAddressFull shape. Emirate → city, free-form address
+ * → street, country → UAE reference. MoySklad's UI / printed docs read
+ * from the structured object; the plain-string `actualAddress` field is
+ * truncated and silently dumped into addInfo only.
+ */
+function buildCounterpartyAddressFull(
+  customerAddress: string | undefined,
+  customerEmirate: string | undefined
+): { actualAddressFull: Record<string, unknown> } | Record<string, never> {
+  const street = (customerAddress || '').replace(/\s+/g, ' ').trim()
+  const city = (customerEmirate || '').trim()
+  if (!street && !city) return {}
+  return {
+    actualAddressFull: {
+      country: entityMeta('country', MOYSKLAD_COUNTRY_UAE_ID),
+      ...(city ? { city } : {}),
+      ...(street ? { street } : {}),
+    },
+  }
+}
+
+/**
  * Find or create a counterparty (customer) in MoySklad.
  * Searches by phone first, then by email. Creates if not found.
- * NEVER modifies existing counterparties.
+ *
+ * When CREATING a new counterparty we also set actualAddressFull so the
+ * customer card, delivery slips, and printed invoices populate correctly —
+ * otherwise admin has to type the address manually in MoySklad's UI.
+ *
+ * NEVER modifies existing counterparties — if admin curated the address on
+ * a returning customer, we preserve it.
  */
 async function findOrCreateCounterparty(
   name: string,
   email: string,
-  phone: string
+  phone: string,
+  customerAddress?: string,
+  customerEmirate?: string
 ): Promise<CounterpartyResult | null> {
   // Search by phone (most reliable for UAE customers)
   if (phone) {
@@ -343,7 +374,8 @@ async function findOrCreateCounterparty(
     }
   }
 
-  // Create new counterparty
+  // Create new counterparty — include structured address so MoySklad UI,
+  // delivery slips and invoices don't have a blank address field.
   debugLog('🆕 MoySklad: Creating new counterparty:', name)
   const createResult = await moySkladFetch('/entity/counterparty', {
     method: 'POST',
@@ -352,7 +384,8 @@ async function findOrCreateCounterparty(
       ...(email ? { email } : {}),
       ...(phone ? { phone: phone.replace(/\s/g, '') } : {}),
       companyType: 'individual',
-      description: `Created from genosys.ae order`
+      description: `Created from genosys.ae order`,
+      ...buildCounterpartyAddressFull(customerAddress, customerEmirate),
     }
   })
 
@@ -418,11 +451,15 @@ export async function createMoySkladOrder(
 
     debugLog('🔄 MoySklad: Creating order', orderData.orderNumber)
 
-    // Step 1: Find or create counterparty
+    // Step 1: Find or create counterparty (pass address so new counterparties
+    // get a populated address card in MoySklad — existing counterparties are
+    // left untouched to preserve admin-curated addresses).
     const counterparty = await findOrCreateCounterparty(
       orderData.customerName,
       orderData.customerEmail,
-      orderData.customerPhone
+      orderData.customerPhone,
+      orderData.customerAddress,
+      orderData.customerEmirate
     )
 
     if (!counterparty) {

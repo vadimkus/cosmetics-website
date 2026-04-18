@@ -4,7 +4,9 @@
  *
  * Setup (one-time):
  *   1. Create a Personal Auth Token at https://sentry.io/settings/account/api/auth-tokens/
- *      Required scopes: project:read, event:read
+ *      Required scopes:
+ *        - project:read, event:read            (list + detail)
+ *        - event:admin OR project:write        (resolve / ignore)
  *   2. Add to .env.local:
  *      SENTRY_AUTH_TOKEN=sntrys_...
  *      SENTRY_ORG=genosys-middle-east-fz-llc   # optional, defaults to this
@@ -15,6 +17,8 @@
  *   npm run sentry:errors -- --limit 25             # last 25
  *   npm run sentry:errors -- --query "is:unresolved level:error"
  *   npm run sentry:errors -- --detail <issue-id>    # full event payload for one issue
+ *   npm run sentry:errors -- --resolve <issue-id>   # mark issue as resolved
+ *   npm run sentry:errors -- --ignore <issue-id>    # mark issue as ignored (silences alerts)
  *   npm run sentry:errors -- --env production
  *   npm run sentry:errors -- --since 24h
  */
@@ -46,15 +50,20 @@ const query = flag('query', 'is:unresolved')
 const env = flag('env', 'production')
 const since = flag('since', null)
 const detailId = flag('detail', null)
+const resolveId = flag('resolve', null)
+const ignoreId = flag('ignore', null)
 const allEnvs = args.includes('--all-envs')
 
-async function api(path) {
-  const res = await fetch(`${BASE}${path}`, {
-    headers: { Authorization: `Bearer ${TOKEN}` },
-  })
+async function api(path, { method = 'GET', body } = {}) {
+  const init = { method, headers: { Authorization: `Bearer ${TOKEN}` } }
+  if (body !== undefined) {
+    init.headers['Content-Type'] = 'application/json'
+    init.body = JSON.stringify(body)
+  }
+  const res = await fetch(`${BASE}${path}`, init)
   if (!res.ok) {
-    const body = await res.text()
-    throw new Error(`Sentry API ${res.status}: ${body}`)
+    const text = await res.text()
+    throw new Error(`Sentry API ${res.status}: ${text}`)
   }
   return res.json()
 }
@@ -153,8 +162,41 @@ async function detail(idOrShortId) {
   }
 }
 
+/**
+ * Resolve the short ID (e.g. "JAVASCRIPT-NEXTJS-4") to the numeric Sentry
+ * issue ID by scanning recent issues. Numeric IDs pass through unchanged.
+ */
+async function resolveShortId(idOrShortId) {
+  if (/^\d+$/.test(idOrShortId)) return idOrShortId
+  // Broad scan — caller may be resolving an already-resolved issue.
+  const list = await api(
+    `/projects/${ORG}/${PROJECT}/issues/?limit=100&sort=new&query=`,
+  )
+  const match = list.find((i) => i.shortId === idOrShortId)
+  if (!match) {
+    throw new Error(
+      `Issue ${idOrShortId} not found in the last 100 issues. Pass the numeric ID instead.`,
+    )
+  }
+  return match.id
+}
+
+async function updateStatus(idOrShortId, status) {
+  const id = await resolveShortId(idOrShortId)
+  const updated = await api(`/organizations/${ORG}/issues/${id}/`, {
+    method: 'PUT',
+    body: { status },
+  })
+  const verb = status === 'resolved' ? 'Resolved' : 'Ignored'
+  console.log(`${verb} ${updated.shortId}: ${updated.title}`)
+  console.log(`  status=${updated.status}  events=${updated.count}  users=${updated.userCount}`)
+  console.log(`  link: ${updated.permalink}`)
+}
+
 async function main() {
-  if (detailId) await detail(detailId)
+  if (resolveId) await updateStatus(resolveId, 'resolved')
+  else if (ignoreId) await updateStatus(ignoreId, 'ignored')
+  else if (detailId) await detail(detailId)
   else await listIssues()
 }
 

@@ -102,8 +102,12 @@ Create at *Sentry → User Settings → Auth Tokens → Create New Token*.
 |---|---|
 | `project:read` | List issues, view project metadata |
 | `event:read` | Fetch individual events, stack traces, tags |
+| `event:admin` *(optional)* | Resolve / ignore issues via `--resolve` and `--ignore` |
 
 Append to `.env.local` (gitignored) as `SENTRY_AUTH_TOKEN=sntryu_...`.
+
+If you don't add `event:admin`, the read-only token still works for the
+list and detail commands — `--resolve` / `--ignore` will 403.
 
 ### npm scripts
 
@@ -116,6 +120,8 @@ Append to `.env.local` (gitignored) as `SENTRY_AUTH_TOKEN=sntryu_...`.
 | `npm run sentry:errors -- --query "is:unresolved level:error"` | Full Sentry search syntax |
 | `npm run sentry:errors -- --detail JAVASCRIPT-NEXTJS-2` | Full stack, tags, release, user for one issue |
 | `npm run sentry:errors -- --detail 12345678` | Same, by numeric issue ID |
+| `npm run sentry:errors -- --resolve JAVASCRIPT-NEXTJS-4` | Mark issue as resolved (auto-reopens if new events arrive) |
+| `npm run sentry:errors -- --ignore JAVASCRIPT-NEXTJS-5` | Mark as ignored (silences alerts; use for known-noise issues) |
 | `npm run vercel:logs` | Function logs (prod), last 1 hour, 100 entries |
 | `npm run vercel:logs:errors` | Error-level only, last 24 hours — fast triage view |
 | `npm run vercel:logs:follow` | Live-tail prod Vercel function logs |
@@ -152,9 +158,10 @@ environment, and tags came through correctly.
 
 - `SENTRY_AUTH_TOKEN` in `.env.local` **only**. The file matches the
   `.env*.local` pattern in `.gitignore`.
-- Token scopes are read-only (`project:read` + `event:read`). Compromise
-  would leak issue contents but not let an attacker modify or delete
-  data in Sentry.
+- Minimum token scopes (`project:read` + `event:read`) are read-only —
+  compromise would leak issue contents but not let an attacker modify
+  or delete data in Sentry. Optional `event:admin` grants issue
+  resolve/ignore — if used, rotate promptly on any exposure.
 - If a token ever gets pasted into chat, a screenshot, a PR description,
   etc. — rotate it immediately at *Sentry → User Settings → Auth Tokens*
   (delete old, create new, update `.env.local`).

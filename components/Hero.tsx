@@ -110,16 +110,16 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
   
   // Memoize localized paths to ensure stable href values (prevents hydration mismatch)
   const productsPath = useMemo(() => getLocalizedPath('/products', locale), [locale])
-  const aboutPath = useMemo(() => getLocalizedPath('/about', locale), [locale])
   const skinAnalysisPath = useMemo(() => getLocalizedPath('/skin-recommendation', locale), [locale])
   
   // Memoize translation strings to ensure stable content
-  const orderNowText = useMemo(() => t('hero.orderNow'), [t])
-  const loginText = useMemo(() => t('hero.login'), [t])
-  const learnMoreText = useMemo(() => t('hero.learnMore'), [t])
   const titleText = useMemo(() => t('hero.title'), [t])
   const titleHighlightText = useMemo(() => t('hero.titleHighlight'), [t])
   const subtitleText = useMemo(() => t('hero.subtitle'), [t])
+  const startAnalysisText = useMemo(() => t('hero.startAnalysis'), [t])
+  const shopProductsText = useMemo(() => t('hero.shopProducts'), [t])
+  const signInToShopText = useMemo(() => t('hero.signInToShop'), [t])
+  const socialProofText = useMemo(() => t('hero.socialProof'), [t])
   
   return (
     <section className="min-h-[calc(100vh-64px)] md:min-h-0 md:pt-12 md:pb-12 flex-1" dir={dir}>
@@ -213,65 +213,61 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
               {subtitleText}
             </p>
             
-            {/* CTA Buttons - min-height ensures 44pt touch target (Apple HIG) */}
-            <div className="flex flex-col gap-2.5 mb-4">
+            {/* CTA Buttons - AI Skin Analysis is primary; min-height ensures 44pt touch target (Apple HIG) */}
+            <div className="flex flex-col gap-2.5 mb-3">
+              {/* PRIMARY: Start Free Skin Analysis */}
+              <motion.div
+                whileHover={animationsEnabled ? { scale: 1.02, y: -2 } : {}}
+                whileTap={animationsEnabled ? { scale: 0.98 } : {}}
+                transition={animationsEnabled ? { duration: 0.2 } : {}}
+              >
+                <Link 
+                  href={skinAnalysisPath}
+                  className="bg-primary-600 text-white px-5 py-3 min-h-[44px] rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-body-sm shadow-lg shadow-primary-600/25 block"
+                >
+                  <Sparkles className={`${dir === 'rtl' ? 'ml-2' : 'mr-2'} h-4 w-4`} />
+                  {startAnalysisText}
+                </Link>
+              </motion.div>
+              
+              {/* SECONDARY: Shop Products (logged in) or Sign in to Shop (logged out) */}
               {user ? (
                 <motion.div
-                  whileHover={animationsEnabled ? { scale: 1.02, y: -2 } : {}}
+                  whileHover={animationsEnabled ? { scale: 1.02, y: -1 } : {}}
                   whileTap={animationsEnabled ? { scale: 0.98 } : {}}
                   transition={animationsEnabled ? { duration: 0.2 } : {}}
                 >
                   <Link 
                     href={productsPath}
-                    className="bg-primary-600 text-white px-5 py-3 min-h-[44px] rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-body-sm shadow-lg shadow-primary-600/25 block"
+                    className="border-2 border-primary-600 text-primary-600 px-5 py-2.5 min-h-[44px] rounded-xl font-semibold hover:bg-primary-50 transition-all flex items-center justify-center text-body-sm block"
                   >
-                    {orderNowText}
+                    {shopProductsText}
                     <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4`} />
                   </Link>
                 </motion.div>
               ) : (
                 <motion.button
                   onClick={handleLoginClick}
-                  whileHover={animationsEnabled ? { scale: 1.02, y: -2 } : {}}
+                  whileHover={animationsEnabled ? { scale: 1.02, y: -1 } : {}}
                   whileTap={animationsEnabled ? { scale: 0.98 } : {}}
                   transition={animationsEnabled ? { duration: 0.2 } : {}}
-                  className="bg-primary-600 text-white px-5 py-3 min-h-[44px] rounded-xl font-semibold hover:bg-primary-700 transition-all flex items-center justify-center text-body-sm shadow-lg shadow-primary-600/25"
+                  className="border-2 border-primary-600 text-primary-600 px-5 py-2.5 min-h-[44px] rounded-xl font-semibold hover:bg-primary-50 transition-all flex items-center justify-center text-body-sm w-full"
                 >
-                  {loginText}
+                  {signInToShopText}
                   <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-4 w-4`} />
                 </motion.button>
               )}
-              <motion.div
-                whileHover={animationsEnabled ? { scale: 1.02, y: -1 } : {}}
-                whileTap={animationsEnabled ? { scale: 0.98 } : {}}
-                transition={animationsEnabled ? { duration: 0.2 } : {}}
-              >
-                <Link 
-                  href={aboutPath}
-                  className="border-2 border-primary-600 text-primary-600 px-5 py-2.5 min-h-[44px] rounded-xl font-semibold hover:bg-primary-50 transition-all flex items-center justify-center text-body-sm block"
-                >
-                  {learnMoreText}
-                </Link>
-              </motion.div>
             </div>
             
-            {/* AI Skin Analysis Link */}
-            <motion.div
-              initial={animationsEnabled ? { opacity: 0, y: 10 } : {}}
-              animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
+            {/* Social proof */}
+            <motion.p
+              initial={animationsEnabled ? { opacity: 0 } : {}}
+              animate={animationsEnabled ? { opacity: 1 } : {}}
               transition={animationsEnabled ? { duration: 0.5, delay: 0.3 } : {}}
-              className="mt-4"
+              className="text-xs text-gray-500 mb-3 leading-relaxed"
             >
-              <Link 
-                href={skinAnalysisPath}
-                className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors group"
-              >
-                <Sparkles className="w-4 h-4 group-hover:scale-110 transition-transform" />
-                <span className="text-sm font-medium underline underline-offset-2 decoration-primary-300 hover:decoration-primary-500">
-                  {locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
-                </span>
-              </Link>
-            </motion.div>
+              {socialProofText}
+            </motion.p>
             
             {/* App Download Badges */}
             <motion.div
@@ -367,44 +363,42 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
           <p className="text-body-lg text-gray-600 mb-6 max-w-2xl mx-auto leading-relaxed">
             {subtitleText}
           </p>
+          
+          {/* CTAs: AI Skin Analysis is primary (big red), Shop Products is secondary (outline) */}
           <div className={`flex gap-4 justify-center items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            {/* PRIMARY: Start Free Skin Analysis */}
+            <Link 
+              href={skinAnalysisPath}
+              className="bg-primary-600 text-white px-8 py-4 min-h-[48px] rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center text-body-lg shadow-lg shadow-primary-600/25"
+            >
+              <Sparkles className={`${dir === 'rtl' ? 'ml-2' : 'mr-2'} h-5 w-5`} />
+              {startAnalysisText}
+            </Link>
+            
+            {/* SECONDARY: Shop Products (logged in) or Sign in to Shop (logged out) */}
             {user ? (
               <Link 
                 href={productsPath}
-                className="bg-primary-600 text-white px-8 py-4 min-h-[48px] rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center text-body-lg"
+                className="border-2 border-primary-600 text-primary-600 px-8 py-4 min-h-[48px] rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center text-body-lg"
               >
-                {orderNowText}
+                {shopProductsText}
                 <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-5 w-5`} />
               </Link>
             ) : (
               <button
                 onClick={handleLoginClick}
-                className="bg-primary-600 text-white px-8 py-4 min-h-[48px] rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center text-body-lg"
+                className="border-2 border-primary-600 text-primary-600 px-8 py-4 min-h-[48px] rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center text-body-lg"
               >
-                {loginText}
+                {signInToShopText}
                 <ArrowRight className={`${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'} h-5 w-5`} />
               </button>
             )}
-            <Link 
-              href={aboutPath}
-              className="border border-primary-600 text-primary-600 px-8 py-4 min-h-[48px] rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center text-body-lg"
-            >
-              {learnMoreText}
-            </Link>
           </div>
           
-          {/* AI Skin Analysis Link */}
-          <div className="mt-6">
-            <Link 
-              href={skinAnalysisPath}
-              className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors group"
-            >
-              <Sparkles className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              <span className="text-base font-medium underline underline-offset-4 decoration-primary-300 hover:decoration-primary-500">
-                {locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
-              </span>
-            </Link>
-          </div>
+          {/* Social proof */}
+          <p className="mt-5 text-sm text-gray-500">
+            {socialProofText}
+          </p>
           
           {/* App Download Badges */}
           <div className="mt-5 flex justify-center gap-3">

@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { validateUserProfileInput } from '@/lib/validation'
-import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
+import { requireBodySizeLimit, REQUEST_SIZE_LIMITS } from '@/lib/requestSizeLimit'
 import { sendDiscountAssignmentEmail } from '@/lib/email'
 import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 
@@ -68,9 +68,11 @@ export async function PUT(
     return csrfCheck.response!
   }
 
-  // Request body size limit check (DoS prevention)
-  const sizeLimit = getSizeLimitForContentType(request)
-  const sizeCheck = requireBodySizeLimit(request, sizeLimit)
+  // Request body size limit check (DoS prevention).
+  // Admin may upload a base64-encoded profile picture in the JSON body —
+  // default 1 MB JSON limit was rejecting real-world phone photos with 413.
+  // Mirrors app/api/profile/update/route.ts (customer-facing self-edit).
+  const sizeCheck = requireBodySizeLimit(request, REQUEST_SIZE_LIMITS.FORM_DATA)
   if (!sizeCheck.valid) {
     return sizeCheck.response!
   }

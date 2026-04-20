@@ -14,6 +14,30 @@ const TRANSIENT_ERROR_CODES = new Set([
   'EPIPE',       // broken pipe
   'EAI_AGAIN',   // DNS temporary failure
   'UND_ERR_SOCKET', // undici socket error
+
+  // Prisma error codes (PrismaClientKnownRequestError.code) that indicate a
+  // transient transport/engine problem, not a data problem. Safe to retry on
+  // idempotent reads.
+  //   P1001 — Can't reach database server
+  //   P1002 — Database server timed out
+  //   P1008 — Operations timed out after Nms
+  //   P1017 — Server has closed the connection
+  'P1001',
+  'P1002',
+  'P1008',
+  'P1017',
+  //   P5000 — Generic server error from Accelerate
+  //   P5008 — Accelerate healthcheck failed / unhealthy server
+  //   P5009 — Accelerate request timeout
+  //   P5011 — Request timed out (Accelerate proxy → engine)
+  //   P6004 — Accelerate query timeout
+  //   P6008 — Connection / engine start error in Accelerate
+  'P5000',
+  'P5008',
+  'P5009',
+  'P5011',
+  'P6004',
+  'P6008',
 ])
 
 /**
@@ -42,7 +66,17 @@ const TRANSIENT_MESSAGE_PATTERNS = [
   /null pointer passed to rust/i,
   /Rust panic/i,
 
-  // 3. Prisma known error codes that map to transient conditions
+  // 3. Prisma Accelerate proxy ↔ query engine transport failures —
+  //    observed in prod via Sentry (2026-04-20, `getProductById`).
+  //    Accelerate's HTTP proxy could not reach the remote Rust engine for
+  //    this request; the DB itself was never touched, so retrying an
+  //    idempotent read is safe.
+  /Accelerate experienced an error communicating with your Query Engine/i,
+  /Error in Prisma Client request/i,
+  /Engine is not yet connected/i,
+  /Response from the Engine was empty/i,
+
+  // 4. Prisma known error codes that map to transient conditions
   //    P1001 = Can't reach database server
   //    P1002 = Database server timeout
   //    P1008 = Operations timed out after Nms

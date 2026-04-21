@@ -6,12 +6,12 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
-import { ArrowLeft, Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle, Share2 } from 'lucide-react'
-import Link from 'next/link'
+import { Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle, Share2 } from 'lucide-react'
 import { useState, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
 import ProductSchema from '@/components/schema/ProductSchema'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import ProductBreadcrumb from '@/app/products/[id]/components/ProductBreadcrumb'
 import ProductImageGallery from '@/components/product/ProductImageGallery'
 import ProductDetails from '@/components/product/ProductDetails'
 import ProductPriceDisplay from '@/components/product/ProductPriceDisplay'
@@ -76,6 +76,28 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   
   // Share state
   const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle')
+
+  // Live review aggregate — source of truth for stars (seeded product.rating is not trusted)
+  const [reviewAggregate, setReviewAggregate] = useState<{ averageRating: number | null; reviewCount: number } | null>(null)
+
+  useEffect(() => {
+    let cancelled = false
+    fetch(`/api/products/${product.id}/reviews`)
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (!cancelled && data) {
+          setReviewAggregate({
+            averageRating: data.averageRating ?? null,
+            reviewCount: data.reviewCount ?? 0,
+          })
+        }
+      })
+      .catch(() => { /* silent — rating just won't show */ })
+    return () => { cancelled = true }
+  }, [product.id])
+
+  const displayRating = reviewAggregate && reviewAggregate.reviewCount > 0 ? reviewAggregate.averageRating : null
+  const displayReviewCount = reviewAggregate?.reviewCount ?? 0
   
   // Share handler
   const handleShare = useCallback(async () => {
@@ -206,10 +228,24 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               {t('navigation.products') || 'Products'}
             </span>
           </button>
-          {/* Profile Icon - green dot only when logged in */}
-          <button 
-            onClick={() => router.push(getLocalizedPath('/profile', locale))}
-          >
+
+          <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            {/* Share Button */}
+            <button
+              onClick={handleShare}
+              className="w-9 h-9 rounded-full flex items-center justify-center text-gray-700 hover:bg-gray-100 active:bg-gray-200 transition-colors"
+              aria-label={t('product.shareProduct') || 'Share'}
+            >
+              {shareStatus === 'copied' ? (
+                <Check className="h-5 w-5 text-green-600" />
+              ) : (
+                <Share2 className="h-5 w-5" />
+              )}
+            </button>
+            {/* Profile Icon - green dot only when logged in */}
+            <button 
+              onClick={() => router.push(getLocalizedPath('/profile', locale))}
+            >
             <div className="relative">
               <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
                 <span className="text-sm font-semibold text-white">
@@ -221,64 +257,82 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
               )}
             </div>
-          </button>
+            </button>
+          </div>
         </div>
       )}
 
       <div className="container mx-auto px-3 md:px-4 py-1 lg:py-8 lg:py-16">
-        {/* Mobile Header - Product Name & Back Button (hide in PWA and mobile web mode) */}
+        {/* Breadcrumb + Share - hidden in app-like mode (PWA/mobile web) which has its own header */}
         {!isAppLikeMode && (
-          <div className="lg:hidden mb-1.5">
-            {/* Back Link */}
-            <Link 
-              href={getLocalizedPath('/products', locale)}
-              className={`inline-flex items-center text-gray-500 hover:text-primary-600 active:text-primary-700 transition-colors text-[10px] mb-6 font-medium touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          <div className={`flex items-center justify-between gap-3 pt-2 lg:pt-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <ProductBreadcrumb product={product} className="mb-0 flex-1 min-w-0" />
+            <button
+              onClick={handleShare}
+              className={`p-2 rounded-full flex-shrink-0 transition-colors ${
+                shareStatus === 'copied'
+                  ? 'text-green-600 bg-green-50'
+                  : 'text-gray-500 hover:text-primary-600 hover:bg-gray-50'
+              }`}
+              aria-label={t('product.shareProduct') || 'Share'}
+              title={shareStatus === 'copied' ? (t('product.linkCopied') || 'Link copied!') : (t('product.shareProduct') || 'Share')}
             >
-              <ArrowLeft className={`h-3 w-3 flex-shrink-0 ${dir === 'rtl' ? 'ml-1 rotate-180' : 'mr-1'}`} />
-              <span>{t('product.backToProducts')}</span>
-            </Link>
-          
-          {/* Product Name - Centered */}
-          <h1 className="text-sm lg:text-base md:text-lg font-bold text-gray-900 leading-tight text-center mb-0.5">
-            {product.name}
-          </h1>
-          
-          {/* Category & Size Badges - Centered (Stock badge is on image) */}
-          <div className="flex items-center justify-center gap-1 mt-1">
-            <span className="inline-block bg-primary-50 text-primary-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
-              {product.category.split(',').map(cat => translateCategory(cat.trim(), locale)).join(' · ')}
-            </span>
-            {product.size && (
-              <span className="inline-block bg-gray-100 text-gray-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
-                {t('product.size')}: {product.size}
-              </span>
-            )}
-          </div>
-          
-          {/* Rating - Centered */}
-          <div className={`flex items-center justify-center gap-1 mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            <div className={`flex ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-3 w-3 lg:h-3.5 lg:w-3.5 fill-amber-400 text-amber-400" />
-              ))}
-            </div>
-            <span className="text-[10px] lg:text-xs text-gray-600 font-medium">
-              {(product.rating || 5.0).toFixed(1)}
-            </span>
-          </div>
+              {shareStatus === 'copied' ? (
+                <Check className="h-4 w-4 md:h-5 md:w-5" />
+              ) : (
+                <Share2 className="h-4 w-4 md:h-5 md:w-5" />
+              )}
+            </button>
           </div>
         )}
 
-        {/* Desktop Back Button */}
-        <div className={`hidden lg:flex items-center mb-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <Link 
-            href={getLocalizedPath('/products', locale)}
-            className={`inline-flex items-center text-gray-500 hover:text-primary-600 transition-colors text-sm font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-          >
-            <ArrowLeft className={`h-4 w-4 ${dir === 'rtl' ? 'ml-1.5 rotate-180' : 'mr-1.5'}`} />
-            {t('product.backToProducts')}
-          </Link>
-        </div>
+        {/* Mobile Header - Product Name & metadata (hide in PWA and mobile web mode) */}
+        {!isAppLikeMode && (
+          <div className="lg:hidden mb-1.5">
+            {/* Product Name - Centered */}
+            <h1 className="text-sm lg:text-base md:text-lg font-bold text-gray-900 leading-tight text-center mb-0.5">
+              {product.name}
+            </h1>
+
+            {/* Category & Size Badges - Centered (Stock badge is on image) */}
+            <div className="flex items-center justify-center gap-1 mt-1">
+              <span className="inline-block bg-primary-50 text-primary-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
+                {product.category.split(',').map(cat => translateCategory(cat.trim(), locale)).join(' · ')}
+              </span>
+              {product.size && (
+                <span className="inline-block bg-gray-100 text-gray-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
+                  {t('product.size')}: {product.size}
+                </span>
+              )}
+            </div>
+
+            {/* Rating - Centered (honest: driven by real review count, not seeded product.rating) */}
+            <div className={`flex items-center justify-center gap-1 mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              {displayRating && displayRating > 0 ? (
+                <>
+                  <div className={`flex ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`h-3 w-3 lg:h-3.5 lg:w-3.5 ${i < Math.round(displayRating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`}
+                      />
+                    ))}
+                  </div>
+                  <a href="#reviews" className="text-[10px] lg:text-xs text-gray-600 font-medium hover:text-primary-600 transition-colors">
+                    {displayRating.toFixed(1)} ({displayReviewCount})
+                  </a>
+                </>
+              ) : (
+                <a
+                  href="#reviews"
+                  className="text-[11px] lg:text-xs text-gray-500 hover:text-primary-600 font-medium transition-colors"
+                >
+                  {t('product.beTheFirstToReview')}
+                </a>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* ============ UNIFIED RESPONSIVE LAYOUT ============ */}
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-12 ${dir === 'rtl' ? 'lg:grid-flow-row-dense' : ''}`}>
@@ -299,18 +353,30 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 {product.name}
               </h1>
               
-              {/* Rating & Size */}
+              {/* Rating & Size (honest: driven by real review count) */}
               <div className={`flex items-center justify-center flex-wrap gap-3 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                <div className={`flex items-center gap-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-                  <span className="text-gray-700 font-medium">
-                    {(product.rating || 5.0).toFixed(1)}
-                  </span>
-                </div>
+                {displayRating && displayRating > 0 ? (
+                  <a href="#reviews" className={`flex items-center gap-1.5 hover:text-primary-600 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-4 w-4 ${i < Math.round(displayRating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`}
+                        />
+                      ))}
+                    </div>
+                    <span className="text-gray-700 font-medium">
+                      {displayRating.toFixed(1)} <span className="text-gray-500 font-normal">({displayReviewCount})</span>
+                    </span>
+                  </a>
+                ) : (
+                  <a
+                    href="#reviews"
+                    className="text-gray-500 hover:text-primary-600 font-medium transition-colors"
+                  >
+                    {t('product.beTheFirstToReview')}
+                  </a>
+                )}
                 {product.size && (
                   <>
                     <span className="text-gray-300">|</span>
@@ -391,9 +457,11 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               />
             </div>
 
-            {/* Trust Badges - Below Cart (Desktop only, mobile shows after recommendations) */}
+            {/* Trust Badges - Below Cart (Desktop only, mobile shows after recommendations).
+                Stacked vertically because the left column is too narrow (~590px) to fit
+                all three whitespace-nowrap badges on one line. */}
             <div className="hidden lg:block mt-4">
-              <TrustBadges />
+              <TrustBadges layout="stacked" />
             </div>
 
             {/* Product Recommendation Section - Only for product 22 - Desktop only */}
@@ -1277,8 +1345,10 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
-            {/* Product Reviews */}
-            <ProductReviews productId={product.id} />
+            {/* Product Reviews (anchor target for rating links) */}
+            <div id="reviews" className="scroll-mt-20">
+              <ProductReviews productId={product.id} />
+            </div>
           </div>
         </div>
       </div>
@@ -1354,7 +1424,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </button>
             )}
 
-            {/* Favorite Button */}
+            {/* Favorite Button (Share moved to header to widen CTA) */}
             <button
               onClick={handleToggleFavorite}
               disabled={!user}
@@ -1366,24 +1436,6 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
             >
               <Heart className={`h-5 w-5 ${isFavorite(product.id) ? 'fill-current' : ''}`} />
-            </button>
-            
-            {/* Share Button */}
-            <button
-              onClick={handleShare}
-              className={`p-3 rounded-lg transition-colors border-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center ${
-                shareStatus === 'copied'
-                  ? 'border-green-500 bg-green-50 text-green-600'
-                  : 'border-gray-300 text-gray-600 hover:border-gray-400 active:bg-gray-50'
-              }`}
-              aria-label={t('product.shareProduct') || 'Share'}
-              title={shareStatus === 'copied' ? (t('product.linkCopied') || 'Link copied!') : (t('product.shareProduct') || 'Share')}
-            >
-              {shareStatus === 'copied' ? (
-                <Check className="h-5 w-5" />
-              ) : (
-                <Share2 className="h-5 w-5" />
-              )}
             </button>
           </div>
         </div>

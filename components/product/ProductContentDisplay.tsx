@@ -9,6 +9,7 @@ import { Sparkles } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+import ProductInfoAccordion from '@/components/product/ProductInfoAccordion'
 
 interface ProductContentDisplayProps {
   product: Product
@@ -743,88 +744,88 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
         </div>
       )}
 
-      {/* Benefits - ALWAYS a separate section */}
-      {benefits && Array.isArray(benefits) && benefits.length > 0 && (
-        <div className="lg:bg-transparent lg:border-0 lg:p-0 bg-purple-50 border border-purple-200 rounded-lg p-2 lg:p-0 lg:mb-0 mb-2 lg:mb-4">
-          <h2 className="font-semibold text-purple-800 lg:text-gray-800 mb-1.5 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.benefits')}</h2>
-          <ul className="list-disc list-inside text-purple-700 lg:text-gray-600 mb-0 lg:mb-0 space-y-0.5 lg:space-y-1 text-xs lg:text-sm">
-            {(benefits as string[]).map((benefit, index) => (
-              <li key={index}>{benefit}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+      {/* Collapsible info sections - cleaner vertical hierarchy vs stacked colored boxes */}
+      {(
+        (benefits && Array.isArray(benefits) && benefits.length > 0) ||
+        (howToUse && typeof howToUse === 'string') ||
+        (howToUse && Array.isArray(howToUse)) ||
+        (ingredients && Array.isArray(ingredients) && ingredients.length > 0) ||
+        directionsStr
+      ) && (
+        <div className="mt-2 lg:mt-4">
+          {/* Benefits */}
+          {benefits && Array.isArray(benefits) && benefits.length > 0 && (
+            <ProductInfoAccordion title={t('product.benefits')} defaultOpen>
+              <ul className="list-disc list-inside space-y-1 text-gray-700">
+                {(benefits as string[]).map((benefit, index) => (
+                  <li key={index}>{benefit}</li>
+                ))}
+              </ul>
+            </ProductInfoAccordion>
+          )}
 
-      {/* Directions - When howToUse is a string (not array) */}
-      {howToUse && typeof howToUse === 'string' && (
-        <div className="lg:bg-transparent lg:border-0 lg:p-0 bg-blue-50 border border-blue-200 rounded-lg p-2 lg:p-0 lg:mb-0 mb-2 lg:mb-4">
-          <h4 className="font-semibold text-blue-800 lg:text-gray-800 mb-1.5 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.directions')}</h4>
-          <p className="text-blue-700 lg:text-gray-600 mb-0 lg:mb-0 text-xs lg:text-sm whitespace-pre-line">
-            {howToUse}
-          </p>
-        </div>
-      )}
+          {/* Directions - when howToUse is a string */}
+          {howToUse && typeof howToUse === 'string' && (
+            <ProductInfoAccordion title={t('product.directions')}>
+              <p className="whitespace-pre-line text-gray-700">{howToUse}</p>
+            </ProductInfoAccordion>
+          )}
 
-      {/* How to Use - When howToUse is an array with steps */}
-      {howToUse && Array.isArray(howToUse) && (
-        <div>
-          <h2 className="font-semibold text-gray-800 mb-1.5 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.howToUse')}</h2>
-          <div className="bg-gray-50 border border-gray-200 rounded-lg p-2 lg:p-4 mb-2 lg:mb-4">
-            <ol className="list-decimal list-inside text-gray-600 space-y-1 lg:space-y-2 text-xs lg:text-sm">
-              {howToUse.map((step, index) => (
-                <li key={index}>
-                  <strong>{step.step}:</strong> {step.instruction}
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-      )}
+          {/* How to Use - when howToUse is an array of steps */}
+          {howToUse && Array.isArray(howToUse) && (
+            <ProductInfoAccordion title={t('product.howToUse')}>
+              <ol className="list-decimal list-inside space-y-1.5 text-gray-700">
+                {howToUse.map((step, index) => (
+                  <li key={index}>
+                    <strong className="text-gray-900">{step.step}:</strong> {step.instruction}
+                  </li>
+                ))}
+              </ol>
+            </ProductInfoAccordion>
+          )}
 
-      {/* Key Ingredients */}
+      {/* Key Ingredients (inside accordion) */}
       {ingredients && Array.isArray(ingredients) && ingredients.length > 0 && (
-        <div className="lg:bg-transparent lg:border-0 lg:p-0 bg-amber-50 border border-amber-200 rounded-lg p-2 lg:p-0 lg:mb-0 mb-2 lg:mb-4">
-          <h2 className="font-semibold text-amber-800 lg:text-gray-800 mb-1.5 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.keyIngredients')}</h2>
-          <div className="space-y-2 lg:space-y-4 mb-0 lg:mb-0">
-            {ingredients.map((ingredient, index) => (
-              <div key={index}>
-                <h5 className="font-semibold text-amber-900 lg:text-gray-800 mb-1 lg:mb-2 text-xs lg:text-sm">{ingredient.name}</h5>
-                {/* Handle special formatting for Repairing Pep9 Complex */}
-                {ingredient.name === 'Repairing Pep9 Complex' && ingredient.subList ? (
-                  <div className="text-xs lg:text-sm space-y-1.5 lg:space-y-2 mb-2 lg:mb-4 text-amber-800 lg:text-gray-600">
-                    <div>
-                      <strong>{t('product.collagenInduction')}</strong>
-                      <ul className="list-disc list-inside ml-2 lg:ml-4 mt-0.5 lg:mt-1 space-y-0.5 lg:space-y-1">
-                        {ingredient.subList.map((item: string, i: number) => (
-                          <li key={i}>{item}</li>
-                        ))}
-                      </ul>
-                    </div>
-                    <div>
-                      <strong>{t('product.firming')}</strong> Acetyl Hexapeptide-8
-                    </div>
-                    <div>
-                      <strong>{t('product.skinBrightening')}</strong> Nonapeptide-1
-                    </div>
+            <ProductInfoAccordion title={t('product.keyIngredients')}>
+              <div className="space-y-3">
+                {ingredients.map((ingredient, index) => (
+                  <div key={index}>
+                    <h5 className="font-semibold text-gray-900 mb-1 text-sm">{ingredient.name}</h5>
+                    {/* Handle special formatting for Repairing Pep9 Complex */}
+                    {ingredient.name === 'Repairing Pep9 Complex' && ingredient.subList ? (
+                      <div className="text-sm space-y-2 text-gray-700">
+                        <div>
+                          <strong>{t('product.collagenInduction')}</strong>
+                          <ul className="list-disc list-inside ml-4 mt-1 space-y-1">
+                            {ingredient.subList.map((item: string, i: number) => (
+                              <li key={i}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <strong>{t('product.firming')}</strong> Acetyl Hexapeptide-8
+                        </div>
+                        <div>
+                          <strong>{t('product.skinBrightening')}</strong> Nonapeptide-1
+                        </div>
+                      </div>
+                    ) : (
+                      <p className="text-sm text-gray-700">
+                        {ingredient.description}
+                      </p>
+                    )}
                   </div>
-                ) : (
-                  <p className="text-xs lg:text-sm mb-2 lg:mb-4 text-amber-800 lg:text-gray-600">
-                    {ingredient.description}
-                  </p>
-                )}
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-      )}
+            </ProductInfoAccordion>
+          )}
 
-      {/* Directions / Note */}
-      {directionsStr && (
-        <div className="bg-green-50 border border-green-200 rounded-lg p-2 lg:p-4">
-          <div className="text-green-800 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
-            <strong>{t('product.note')}</strong>
-            <div className="mt-2 whitespace-pre-line">{directionsStr}</div>
-          </div>
+          {/* Note / Directions supplementary text */}
+          {directionsStr && (
+            <ProductInfoAccordion title={t('product.note').replace(/:$/, '')}>
+              <div className="whitespace-pre-line text-gray-700">{directionsStr}</div>
+            </ProductInfoAccordion>
+          )}
         </div>
       )}
 

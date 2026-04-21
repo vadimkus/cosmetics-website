@@ -1,0 +1,53 @@
+'use client'
+
+import { ReactNode, useState } from 'react'
+import { ChevronDown } from 'lucide-react'
+import { useTranslation } from '@/hooks/useTranslation'
+
+interface AccordionItemProps {
+  title: string
+  icon?: ReactNode
+  defaultOpen?: boolean
+  children: ReactNode
+}
+
+/**
+ * Lightweight accordion item for product info sections.
+ * Clean white/gray design — no colored boxes. Uses native <details>
+ * behavior under the hood so sections remain accessible when JS disabled.
+ */
+export default function ProductInfoAccordion({
+  title,
+  icon,
+  defaultOpen = false,
+  children,
+}: AccordionItemProps) {
+  const { dir } = useTranslation()
+  const isRtl = dir === 'rtl'
+  const [isOpen, setIsOpen] = useState(defaultOpen)
+
+  return (
+    <div className="border-b border-gray-200 first:border-t">
+      <button
+        type="button"
+        onClick={() => setIsOpen(prev => !prev)}
+        aria-expanded={isOpen}
+        className={`w-full flex items-center ${isRtl ? 'flex-row-reverse' : ''} justify-between gap-3 py-3.5 lg:py-4 text-left group min-h-[44px]`}
+      >
+        <span className={`flex items-center gap-2 ${isRtl ? 'flex-row-reverse' : ''} text-sm lg:text-base font-semibold text-gray-900 group-hover:text-primary-700 transition-colors`}>
+          {icon}
+          {title}
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 lg:h-5 lg:w-5 text-gray-500 group-hover:text-primary-600 transition-transform duration-200 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+          aria-hidden="true"
+        />
+      </button>
+      {isOpen && (
+        <div className="pb-4 lg:pb-5 text-sm lg:text-[15px] text-gray-700 leading-relaxed">
+          {children}
+        </div>
+      )}
+    </div>
+  )
+}

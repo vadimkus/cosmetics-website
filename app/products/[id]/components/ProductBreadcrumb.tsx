@@ -1,30 +1,42 @@
 'use client'
 
 import Link from 'next/link'
+import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { Product } from '@/types'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 interface ProductBreadcrumbProps {
   product: Product
+  className?: string
 }
 
-export default function ProductBreadcrumb({ product }: ProductBreadcrumbProps) {
+export default function ProductBreadcrumb({ product, className = '' }: ProductBreadcrumbProps) {
+  const { t, locale, dir } = useTranslation()
+  const isRtl = dir === 'rtl'
+  const Sep = isRtl ? ChevronLeft : ChevronRight
+
   return (
-    <nav className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-gray-600 mb-3 md:mb-4 lg:mb-6 py-1 min-h-[28px] md:min-h-[32px]" aria-label="Breadcrumb">
-      <Link 
-        href="/"
-        className="hover:text-primary-600 transition-colors flex items-center"
+    <nav
+      className={`flex items-center gap-1 md:gap-1.5 text-xs md:text-sm text-gray-500 mb-3 md:mb-4 lg:mb-5 ${className}`}
+      aria-label="Breadcrumb"
+      dir={dir}
+    >
+      <Link
+        href={getLocalizedPath('/', locale)}
+        className="hover:text-primary-600 transition-colors"
       >
-        Home
+        {t('common.home')}
       </Link>
-      <span className="flex items-center text-gray-400">/</span>
-      <Link 
-        href="/products"
-        className="hover:text-primary-600 transition-colors flex items-center"
+      <Sep className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" aria-hidden="true" />
+      <Link
+        href={getLocalizedPath('/products', locale)}
+        className="hover:text-primary-600 transition-colors"
       >
-        Products
+        {t('common.products')}
       </Link>
-      <span className="flex items-center text-gray-400">/</span>
-      <span className="text-gray-900 font-medium truncate max-w-[200px] md:max-w-xs lg:max-w-md flex items-center">
+      <Sep className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" aria-hidden="true" />
+      <span className="text-gray-900 font-medium truncate max-w-[160px] md:max-w-xs lg:max-w-md">
         {product.name}
       </span>
     </nav>

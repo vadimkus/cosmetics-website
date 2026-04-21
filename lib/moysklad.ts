@@ -241,15 +241,103 @@ const COLOR_VARIANT_MAP: Record<string, string> = {
 }
 
 /**
- * Resolve MoySklad product ID from webapp product name and optional color.
- * Checks color-specific variant first, then falls back to the base product name.
+ * Maps product name + size → MoySklad product UUID for products with multiple sizes.
+ * Key format: "PRODUCT NAME | size" (size is lowercased and whitespace-stripped for matching).
+ *
+ * CRITICAL: Products listed in PRODUCT_MAP above default to ONE specific size. If a customer
+ * orders a different size and we don't map it here, MoySklad will receive the wrong variant.
+ *
+ * Always include BOTH sizes for multi-size products so the default doesn't silently win.
+ *
+ * Example of bug this fixes: ordering "Intensive Problem Control Cream 250g" on the site
+ * would previously send the 50g MoySklad product (because PRODUCT_MAP only had 50g) —
+ * mismatching price, stock, and fulfillment.
+ */
+const SIZE_VARIANT_MAP: Record<string, string> = {
+  // === Snow O₂ Cleanser (product 10) ===
+  'SNOW O₂ CLEANSER | 180ml': '429cb35d-3449-11ea-0a80-00e60001afc8',   // code 00021
+  'SNOW O₂ CLEANSER | 500ml': '0a27b901-344a-11ea-0a80-021700017918',   // code 00024
+
+  // === Intensive Problem Control Toner (product 15) ===
+  'INTENSIVE PROBLEM CONTROL TONER | 200ml': '86d64dba-29c8-11ed-0a80-07740006f514', // code 00145
+  'INTENSIVE PROBLEM CONTROL TONER | 500ml': '15867f00-43d2-11ed-0a80-0f42000e9bcc', // code 00183
+
+  // === Snow Booster (product 16) ===
+  'SNOW BOOSTER | 200ml':  '70f536c1-3449-11ea-0a80-05dc0001878d',      // code 00022
+  'SNOW BOOSTER | 1000ml': '48952d7e-344a-11ea-0a80-00e50001bb46',      // code 00025
+
+  // === Soothing Repair Postcream (product 25) ===
+  'SOOTHING REPAIR POSTCREAM | 20g':  'bc185527-42b8-11ea-0a80-0095000bf07a', // code 00038
+  'SOOTHING REPAIR POSTCREAM | 100g': 'c7a5e201-d28a-11ef-0a80-11b100116a32', // code 54465
+
+  // === Intensive Hydro Soothing Cream (product 28) ===
+  'INTENSIVE HYDRO SOOTHING CREAM | 50g':  '1ebfde72-42b6-11ea-0a80-05c1000c3129', // code 00031
+  'INTENSIVE HYDRO SOOTHING CREAM | 250g': '9b6aadc6-42b6-11ea-0a80-01e3000b946c', // code 00032
+
+  // === Moisture Replenishing Hyaluron Cream (product 29) ===
+  'MOISTURE REPLENISHING HYALURON CREAM | 50g':  'be705c7d-9808-11ee-0a80-02460037622e', // code 54458
+  'MOISTURE REPLENISHING HYALURON CREAM | 250g': '10963a8c-b541-11ee-0a80-15c60014ba73', // code 54460
+
+  // === Intensive Problem Control Cream (product 30) ===
+  'INTENSIVE PROBLEM CONTROL CREAM | 50g':  '456e3fbd-42b7-11ea-0a80-0095000be27d', // code 00035
+  'INTENSIVE PROBLEM CONTROL CREAM | 250g': '7f4736b3-42b7-11ea-0a80-0693000b9cb9', // code 00036
+
+  // === Multi Vita Radiance Cream (product 31) ===
+  'MULTI VITA RADIANCE CREAM | 50g':  'd0fc1a8f-a96f-11ea-0a80-00d100134b49', // code 00122
+  'MULTI VITA RADIANCE CREAM | 230g': '727d6fd4-b0be-11ea-0a80-06d7001d9fa0', // code 00123
+
+  // === Multi Functional Anti-Wrinkle Cream (product 32) ===
+  'MULTI FUNCTIONAL ANTI-WRINKLE CREAM | 50g':  '6b2a342c-bf06-11ed-0a80-02f30003ffc8', // code 00190
+  'MULTI FUNCTIONAL ANTI-WRINKLE CREAM | 250g': '0cf0e298-42b7-11ea-0a80-0475000b95ca', // code 00034
+
+  // === Microneedle Roller (product 1) — needle-length variants ===
+  'MICRONEEDLE ROLLER | 0.25mm': 'e6bfaf3b-33ce-11ea-0a80-020c000b009b', // code 00001
+  'MICRONEEDLE ROLLER | 0.5mm':  'b4acb301-343a-11ea-0a80-06a300010999', // code 00002
+  'MICRONEEDLE ROLLER | 1.0mm':  'fca27ce5-343a-11ea-0a80-01b500011297', // code 00003
+  'MICRONEEDLE ROLLER | 1.5mm':  'c83c9cf9-343b-11ea-0a80-05dc0000f00e', // code 00004
+  'MICRONEEDLE ROLLER | 2.0mm':  'f4fb8b3a-343b-11ea-0a80-06a400010a65', // code 00005
+}
+
+/**
+ * Normalize a size string for map lookup: strip whitespace, lowercase.
+ * Handles variations like "250g " / "250G" / "250 g" → "250g".
+ */
+function normalizeSize(size: string): string {
+  return size.replace(/\s+/g, '').toLowerCase()
+}
+
+/**
+ * Resolve MoySklad product ID from webapp product name, optional color, and optional size.
+ *
+ * Lookup precedence:
+ *   1. SIZE_VARIANT_MAP    (name + size)   — highest priority for multi-size products
+ *   2. COLOR_VARIANT_MAP   (name + color)
+ *   3. PRODUCT_MAP         (name only)     — fallback default
+ *
  * Returns null if no mapping exists (beauty boxes, bundles, etc.)
  */
-function getMoySkladProductId(productName: string, color?: string | null): string | null {
+function getMoySkladProductId(productName: string, color?: string | null, size?: string | null): string | null {
   // Strip suffixes like "(FREE)", "(GIFT)", "(BONUS)" that the checkout may append
   const normalized = productName.trim().replace(/\s*\((?:FREE|GIFT|BONUS|SAMPLE)\)\s*$/i, '').trim()
 
-  // Try color-specific match first
+  // 1) Size-specific match — highest priority for multi-size products.
+  //    Ignore the special "__PROMO__" size sentinel used by promotional/free items.
+  if (size && size !== '__PROMO__') {
+    const normalizedSize = normalizeSize(size)
+    const sizeKey = `${normalized} | ${normalizedSize}`
+    if (SIZE_VARIANT_MAP[sizeKey]) {
+      return SIZE_VARIANT_MAP[sizeKey]
+    }
+    // Case-insensitive fallback for size variant keys
+    const sizeKeyLower = sizeKey.toLowerCase()
+    for (const [key, value] of Object.entries(SIZE_VARIANT_MAP)) {
+      if (key.toLowerCase() === sizeKeyLower) {
+        return value
+      }
+    }
+  }
+
+  // 2) Color-specific match
   if (color) {
     const colorKey = `${normalized} | ${color.trim().toLowerCase()}`
     if (COLOR_VARIANT_MAP[colorKey]) {
@@ -264,7 +352,7 @@ function getMoySkladProductId(productName: string, color?: string | null): strin
     }
   }
 
-  // Direct match on base product name
+  // 3) Direct match on base product name
   if (PRODUCT_MAP[normalized]) {
     return PRODUCT_MAP[normalized]
   }
@@ -408,6 +496,7 @@ export interface MoySkladOrderItem {
   quantity: number
   price: number // Price in AED (e.g., 580)
   color?: string | null
+  size?: string | null // e.g., "50g", "250g", "180ml", "500ml"
 }
 
 export interface MoySkladOrderData {
@@ -478,10 +567,13 @@ export async function createMoySkladOrder(
     let unmappedItems: string[] = []
 
     for (const item of orderData.items) {
-      const moySkladProductId = getMoySkladProductId(item.productName, item.color)
-      
+      const moySkladProductId = getMoySkladProductId(item.productName, item.color, item.size)
+
       if (!moySkladProductId) {
-        const label = item.color ? `${item.productName} (${item.color})` : item.productName
+        const labelParts = [item.productName]
+        if (item.size && item.size !== '__PROMO__') labelParts.push(item.size)
+        if (item.color) labelParts.push(item.color)
+        const label = labelParts.length > 1 ? `${labelParts[0]} (${labelParts.slice(1).join(', ')})` : labelParts[0]
         warnLog(`⚠️ MoySklad: No product mapping for "${label}"`)
         unmappedItems.push(label)
         continue

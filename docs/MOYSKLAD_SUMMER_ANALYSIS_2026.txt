@@ -1,0 +1,74 @@
+Fetching turnover for 3 periods...
+  [Summer 2024] 73 SKUs with activity
+  [Summer 2025] 68 SKUs with activity
+  [Recent 90d   (Jan-Apr 2026)] 71 SKUs with activity
+
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  PROPOSED PO vs HISTORICAL SUMMER DEMAND
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+Tier      │ Code   │ Product                                      │  S24/120d │  S25/120d │  Curr 90d │   YoY % │  Now Stk │  Ordering │   Coverage
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+PLAN      │ 54461  │ Skin Defender Lip & Eye Makeup Remover 200ml │         7 │        33 │        40 │     371 │       25 │        19 │        83%
+PLAN      │ 54464  │ BB Cushion #3 Camel                          │         0 │        36 │        72 │       — │       41 │        21 │        65%
+STOCKOUT  │ 54465  │ Soothing Repair Post Cream 100g              │         0 │        12 │        11 │       — │        0 │         8 │        55%
+URGENT    │ 54471  │ HR3 Matrix Scalp Brush                       │         0 │         0 │         5 │       — │        6 │        10 │       240%
+PLAN      │ 54472  │ Revita Glow BB Cream #01 Bright 50g          │         0 │         0 │        46 │       — │       24 │        19 │        70%
+URGENT    │ 54473  │ Revita Glow BB Cream #02 Natural 50g         │         0 │         0 │        53 │       — │       18 │        32 │        71%
+CRITICAL  │ 00191  │ Multi Functional Anti-Wrinkle Serum 30ml     │        18 │        40 │        45 │     122 │       15 │        49 │       107%
+URGENT    │ 00190  │ Multi Functional Anti-Wrinkle Cream 50g      │        52 │        39 │        66 │     -25 │       31 │        69 │       114%
+URGENT    │ 00037  │ Skin Barrier Protecting Cream 100g           │        25 │        25 │        60 │       0 │       32 │        64 │       120%
+URGENT    │ 00051  │ HR³ Matrix Hair Tonic 70ml                   │        27 │        29 │        53 │       7 │       33 │        43 │       108%
+URGENT    │ 00129  │ EPI Turnover Boosting Peeling Gel 100g       │        48 │        60 │        64 │      25 │       44 │        56 │       117%
+URGENT    │ 00036  │ Intensive Problem Control Cream 250g         │         6 │         7 │        12 │      17 │        5 │         6 │        69%
+PLAN      │ 00194  │ Multi Vita Radiance Serum 30ml               │        20 │        40 │        51 │     100 │       24 │        20 │        65%
+PLAN      │ 00041  │ Multi Sun Cream SPF40/PA++ 40g               │        93 │        88 │       121 │      -5 │       92 │        72 │       102%
+PLAN      │ 00024  │ Snow O₂ Cleanser 500ml (post-DTS +20)        │        36 │        31 │        34 │     -14 │       26 │        14 │        88%
+PLAN      │ 00030  │ All For Sensitive Serum 30ml                 │        15 │        16 │        30 │       7 │       44 │        20 │       160%
+PLAN      │ 00040  │ Intensive Blemish Balm Cream 50g             │        49 │        63 │        61 │      29 │       38 │        14 │        64%
+
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  MASK INVENTORY — Hydrocool, Modelling, Peptide (and related)
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+Code   │ Product                                            │    S24 │    S25 │   R90d │    YoY │  Stock │ 4mo fcst │       Status
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+00012  │ Genosys Peptide Gel Mask 39g                       │   1054 │   1062 │    860 │     1% │   1349 │     1147 │           OK
+00053  │ Genosys EyeCell Eye Peptide Gel Patch (box)        │     93 │     88 │     78 │    -5% │     88 │      104 │        Tight
+00063  │ Genosys Intensive Repair Collagen Mask 23g         │    573 │    711 │    959 │    24% │   1255 │     1279 │        Tight
+00013  │ Genosys Hydro Cool Modeling Mask 1kg               │    106 │     98 │     71 │    -8% │    108 │       98 │           OK
+00140  │ Genosys Soothing Bomb Sea Algae Mask 23g           │    480 │    599 │    924 │    25% │   1040 │     1232 │        Tight
+00016  │ Genosys Peptide Gel Mask Box (5pcs)                │      0 │      0 │      0 │      — │      0 │        0 │           OK
+54467  │ Genosys Skin Reboot PDRN mask Pack (30 sheets) 350 │      0 │      5 │    126 │      — │    158 │      168 │        Tight
+00189  │ Genosys Skin Rescue Overnight Cream Mask 100g      │     76 │     52 │     72 │   -32% │     56 │       96 │      ⚠ Watch
+00042  │ Genosys EGF Repair Oxymask Cream 50ml              │     31 │     39 │     30 │    26% │     31 │       40 │        Tight
+54466  │ Genosys Bio-Ferment Age Defying Powder Mask 300g   │      0 │      1 │     20 │      — │     41 │       27 │           OK
+00011  │ Genosys EZ CO₂ MASK - Professional Box (5 treatmen │     40 │     42 │     45 │     5% │     59 │       60 │        Tight
+
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  SUMMER 2025 TOP-SELLERS NOT ON CURRENT PO
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  (items that sold heavily last summer but aren't in tomorrow's DTS shipment or proposed 2nd PO)
+
+Code   │ Product                                            │    S24 │    S25 │   R90d │  Stock │       Status
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+00063  │ Genosys Intensive Repair Collagen Mask 23g         │    573 │    711 │    959 │   1255 │        Tight
+00140  │ Genosys Soothing Bomb Sea Algae Mask 23g           │    480 │    599 │    924 │   1040 │        Tight
+00015  │ Genosys Skin Renewal Peeling System (SRS) 1 Vial 2 │    142 │    200 │    105 │    571 │           OK
+00188  │ Genosys Microbiome Energy Infusing Mist 80ml       │    101 │    139 │    116 │    150 │        Tight
+00013  │ Genosys Hydro Cool Modeling Mask 1kg               │    106 │     98 │     71 │    108 │           OK
+00021  │ Genosys Snow O₂ Cleanser 180ml                     │    124 │     97 │    153 │    136 │        Tight
+00069  │ Genosys Power Solution CTS 1 Vial 2ml              │     50 │     85 │     65 │     99 │           OK
+00065  │ Genosys Power Solution PCS 1 Vial 2ml              │     60 │     70 │     45 │    174 │           OK
+00067  │ Genosys Power Solution CVS 1 Vial 2 ml             │     55 │     70 │     45 │    240 │           OK
+00018  │ Genosys Power Solution AWS 1 Vial 2ml              │     90 │     63 │     45 │    168 │           OK
+00071  │ Genosys Power Solution HES 1 Vial 2ml              │     70 │     62 │     41 │    257 │           OK
+00022  │ Genosys Snow Booster Toner 200ml                   │     52 │     59 │     78 │     95 │        Tight
+00189  │ Genosys Skin Rescue Overnight Cream Mask 100g      │     76 │     52 │     72 │     56 │      ⚠ Watch
+00011  │ Genosys EZ CO₂ MASK - Professional Box (5 treatmen │     40 │     42 │     45 │     59 │        Tight
+00122  │ Genosys Multi-Vita Radiance Cream 50g              │     58 │     40 │     72 │     62 │        Tight
+00042  │ Genosys EGF Repair Oxymask Cream 50ml              │     31 │     39 │     30 │     31 │        Tight
+00145  │ Genosys Problem Control Toner 200ml                │     33 │     38 │     39 │     26 │      ⚠ Watch
+00031  │ Genosys Intensive Hydro Soothing Cream 50g         │     30 │     37 │     43 │     40 │        Tight
+00143  │ Genosys Skin Caring Blemish Balm Cushion #1 Ivory  │     47 │     33 │     48 │     55 │        Tight
+00029  │ Genosys Problem Control Serum 30ml                 │     26 │     32 │     36 │     49 │           OK

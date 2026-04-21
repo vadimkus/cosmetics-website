@@ -63,14 +63,16 @@ const ProductActions = memo(function ProductActions({
     )
   }
   
-  // Unauthenticated user - Login button
+  // Unauthenticated user - Login button.
+  // Outlined/ghost style: still a clear CTA, but doesn't flood every card with
+  // aggressive red. The real solid-red CTA is reserved for Add to Cart (below).
   if (!user) {
     return (
       <div className="mt-2">
         <button
           type="button"
           onClick={onLoginClick}
-          className={`${baseButtonStyles} bg-primary-600 text-white hover:bg-primary-700`}
+          className={`${baseButtonStyles} bg-white text-primary-700 border border-primary-600 hover:bg-primary-50`}
           aria-label={t('product.loginToSeePrice')}
           style={touchStyles}
         >

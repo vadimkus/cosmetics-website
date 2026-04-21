@@ -3,7 +3,6 @@ import { debugLog, errorLog } from '@/lib/logger'
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import ProductCard from '@/components/ProductCard'
@@ -24,16 +23,20 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 
+// Order: All → NEW categories first (skin-concern, cream, beauty-boxes) → then the rest
 const getCategories = (t: (key: string) => string): Array<{ id: string; name: string }> => [
   { id: 'all', name: t('products.allProducts') },
+  // NEW — grouped together right after "All Products"
   { id: 'skin-concern', name: t('products.skinConcern') },
+  { id: 'cream', name: t('products.cream') },
+  { id: 'beauty-boxes', name: t('products.beautyBoxes') },
+  // Rest of the categories
   { id: 'microneedling', name: t('products.microneedling') },
   { id: 'pro-solution', name: t('products.proSolution') },
   { id: 'cleanser', name: t('products.cleanser') },
   { id: 'peeling', name: t('products.peeling') },
   { id: 'toner-mist', name: t('products.tonerMist') },
   { id: 'serum', name: t('products.serum') },
-  { id: 'cream', name: t('products.cream') },
   { id: 'mask', name: t('products.mask') },
   { id: 'sun', name: t('products.sun') },
   { id: 'cushion-bb', name: t('products.cushionBb') },
@@ -41,8 +44,7 @@ const getCategories = (t: (key: string) => string): Array<{ id: string; name: st
   { id: 'eye-care', name: t('products.eyeCare') },
   { id: 'device', name: t('products.device') },
   { id: 'bio-meso', name: t('products.bioMeso') },
-  { id: 'kits', name: t('products.holidayKits') },
-  { id: 'beauty-boxes', name: t('products.beautyBoxes') }
+  { id: 'kits', name: t('products.holidayKits') }
 ]
 
 interface FilterState {
@@ -70,7 +72,8 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
   
   // Initialize state from URL params
   const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '')
-  const [sortBy, setSortBy] = useState<SortOption>((searchParams.get('sort') as SortOption) || 'name-asc')
+  // Default sort: newest first (brings fresh launches + featured SKUs to the top)
+  const [sortBy, setSortBy] = useState<SortOption>((searchParams.get('sort') as SortOption) || 'newest')
   
   // Initialize filters - will be updated after products load
   const [filters, setFilters] = useState<FilterState>({
@@ -176,7 +179,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
       const params = new URLSearchParams()
       
       if (searchQuery) params.set('search', searchQuery)
-      if (sortBy !== 'name-asc') params.set('sort', sortBy)
+      if (sortBy !== 'newest') params.set('sort', sortBy)
       if (filters.categories.length > 0) params.set('categories', filters.categories.join(','))
       if (products.length > 0 && (filters.priceRange[0] !== Math.min(...products.map(p => p.price)) || filters.priceRange[1] !== Math.max(...products.map(p => p.price)))) {
         params.set('priceMin', filters.priceRange[0].toString())
@@ -360,16 +363,8 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
           </nav>
         )}
         
-        {/* Back to Home - Desktop only, hide in PWA */}
-        {!isPWA && (
-          <Link 
-            href={getLocalizedPath('/', locale)}
-            className="hidden md:inline-flex items-center gap-1 text-sm text-primary-600 hover:text-primary-700 mb-8"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <span>{t('navigation.backToHome')}</span>
-          </Link>
-        )}
+        {/* "Back to Home" removed on desktop — breadcrumb above already provides the nav path.
+           Kept breadcrumb as the single source of truth for going back. */}
 
         {/* Header - Show logo on desktop only, hide company text on mobile web */}
         <div className={`text-center ${isMobile ? 'mb-2' : 'mb-4 md:mb-8'}`}>
@@ -404,9 +399,26 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
           searchQuery={searchQuery}
         />
 
-        {/* Mobile Categories - Below Search */}
-        <div className="md:hidden mb-4">
-          <div className="flex flex-wrap gap-2">
+        {/* Trust strip — brand promise line under search */}
+        <div className="mb-4 flex items-center justify-center gap-5 md:gap-10 text-xs md:text-sm font-medium text-gray-800 border-y border-gray-200 bg-gray-50 py-3 overflow-x-auto scrollbar-hide">
+          <span className="flex items-center gap-2 whitespace-nowrap">
+            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 7h13l4 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z" /></svg>
+            {t('products.trustShipping')}
+          </span>
+          <span className="flex items-center gap-2 whitespace-nowrap">
+            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            {t('products.trustAuthentic')}
+          </span>
+          <span className="flex items-center gap-2 whitespace-nowrap">
+            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h4m-6 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            {t('products.trustVat')}
+          </span>
+        </div>
+
+        {/* Mobile Categories - Below Search. Horizontal scroll keeps it to ONE row. */}
+        {/* pt-3 gives the floating "New" badge ( -top-2 ) room so it doesn't clip the trust strip above */}
+        <div className="md:hidden mb-4 -mx-4 px-4">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pt-3 pb-1 snap-x snap-mandatory">
             {getCategories(t).map((category) => {
               const isActive = filters.categories.includes(category.id) || (category.id === 'all' && filters.categories.length === 0)
               return (
@@ -437,7 +449,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                       })
                     }
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap min-h-[44px] min-w-[48px] flex items-center justify-center select-none transition-all duration-150 active:scale-95 relative ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap min-h-[40px] min-w-[48px] flex items-center justify-center select-none transition-all duration-150 active:scale-95 relative flex-shrink-0 snap-start ${
                     isActive
                       ? 'bg-primary-600 text-white shadow-sm'
                       : 'bg-gray-100 text-gray-700 active:bg-gray-300'
@@ -546,7 +558,8 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                       </span>
                     )}
                   </div>
-                  <div className="hidden md:block">
+                  {/* Sort — now visible on mobile too (was hidden md:block) */}
+                  <div className="w-full sm:w-auto">
                     <ProductSort sortBy={sortBy} onSortChange={handleSortChange} />
                   </div>
                 </div>

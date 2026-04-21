@@ -129,20 +129,31 @@ const ProductFilters = memo(function ProductFilters({
                   </button>
                   {expandedSections.category && (
                     <div className="space-y-2">
-                      {categories.filter(c => c.id !== 'all').map((category) => (
-                        <label
-                          key={category.id}
-                          className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer hover:text-primary-600"
-                        >
-                          <input
-                            type="checkbox"
-                            checked={activeFilters.categories.includes(category.id)}
-                            onChange={() => handleCategoryToggle(category.id)}
-                            className="w-4 h-4 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 accent-primary-600 cursor-pointer"
-                          />
-                          <span className="text-gray-900">{category.name}</span>
-                        </label>
-                      ))}
+                      {categories.filter(c => c.id !== 'all').map((category) => {
+                        // Mark these as NEW — matches the mobile pill badges for consistency
+                        const isNew = category.id === 'skin-concern' || category.id === 'cream' || category.id === 'beauty-boxes'
+                        return (
+                          <label
+                            key={category.id}
+                            className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer hover:text-primary-600"
+                          >
+                            <input
+                              type="checkbox"
+                              checked={activeFilters.categories.includes(category.id)}
+                              onChange={() => handleCategoryToggle(category.id)}
+                              className="w-4 h-4 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 accent-primary-600 cursor-pointer"
+                            />
+                            <span className="text-gray-900 flex items-center gap-1.5">
+                              {category.name}
+                              {isNew && (
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wide uppercase bg-green-500 text-white leading-none">
+                                  {t('common.new')}
+                                </span>
+                              )}
+                            </span>
+                          </label>
+                        )
+                      })}
                     </div>
                   )}
                 </div>

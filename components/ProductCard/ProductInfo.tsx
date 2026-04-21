@@ -114,10 +114,10 @@ const ProductInfo = memo(function ProductInfo({
         </span>
       </div>
       
-      {/* Description */}
+      {/* Description — clamped to 2 lines on all breakpoints (was 4 on mobile, too noisy) */}
       <p 
         id={descriptionId}
-        className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-4 md:line-clamp-2"
+        className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2"
       >
         {cleanDescription}
       </p>

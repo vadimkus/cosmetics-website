@@ -570,10 +570,12 @@ export async function createMoySkladOrder(
       const moySkladProductId = getMoySkladProductId(item.productName, item.color, item.size)
 
       if (!moySkladProductId) {
-        const labelParts = [item.productName]
-        if (item.size && item.size !== '__PROMO__') labelParts.push(item.size)
-        if (item.color) labelParts.push(item.color)
-        const label = labelParts.length > 1 ? `${labelParts[0]} (${labelParts.slice(1).join(', ')})` : labelParts[0]
+        const extras: string[] = []
+        if (item.size && item.size !== '__PROMO__') extras.push(item.size)
+        if (item.color) extras.push(item.color)
+        const label = extras.length > 0
+          ? `${item.productName} (${extras.join(', ')})`
+          : item.productName
         warnLog(`⚠️ MoySklad: No product mapping for "${label}"`)
         unmappedItems.push(label)
         continue

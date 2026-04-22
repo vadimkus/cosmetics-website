@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, Sparkles, Target, Building2, Phone as PhoneIcon, ShieldCheck } from 'lucide-react'
 import Logo from '@/components/Logo'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
@@ -191,7 +191,7 @@ export default function AboutPageClient() {
       ) : (
         /* ── Desktop: original layout preserved ──────────────────────────── */
         <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl lg:max-w-6xl mx-auto">
           <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
             <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
             <span> / </span>
@@ -202,77 +202,113 @@ export default function AboutPageClient() {
             <span>{t('common.backToHome')}</span>
           </Link>
 
-          <div className="text-center mb-6 md:mb-12">
-            <h1 className="text-xl md:text-5xl font-bold text-gray-800 mb-3 md:mb-6">
-              Genosys Middle East FZ-LLC
-            </h1>
-            <div className="flex justify-center mb-3 md:mb-6">
+          <div className="text-center mb-6 md:mb-14">
+            <div className="flex justify-center mb-3 md:mb-5">
               <Logo size="lg" className="justify-center scale-50 md:scale-100" />
             </div>
+            <p className="hidden md:block text-xs font-semibold tracking-[0.2em] text-primary-600 uppercase mb-3">
+              {locale === 'ar' ? 'من نحن' : locale === 'ru' ? 'О нас' : 'About us'}
+            </p>
+            <h1 className="text-xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 md:mb-4 tracking-tight">
+              Genosys Middle East FZ-LLC
+            </h1>
+            <p className="hidden md:block text-lg text-gray-600 max-w-2xl mx-auto">
+              {locale === 'ar' ? 'موزع رسمي لمستحضرات التجميل العلاجية الكورية GENOSYS في الإمارات منذ 2019.' : locale === 'ru' ? 'Официальный дистрибьютор корейской дермакосметики GENOSYS в ОАЭ с 2019 года.' : 'Official UAE distributor of GENOSYS Korean dermacosmetics — since 2019.'}
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-8 mb-6 md:mb-12">
-            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
-              <h2 className="text-base md:text-2xl font-semibold text-gray-800 mb-2 md:mb-4 text-center">{t('about.aboutUs')}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 mb-6 md:mb-14">
+            <div className="bg-white rounded-lg md:rounded-2xl shadow-sm md:shadow-md border border-gray-100 p-3 md:p-8">
+              <div className={`flex items-center gap-3 md:gap-4 mb-3 md:mb-5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className="hidden md:flex h-11 w-11 rounded-xl bg-primary-50 items-center justify-center flex-shrink-0">
+                  <Sparkles className="h-5 w-5 text-primary-600" aria-hidden="true" />
+                </div>
+                <h2 className="text-base md:text-xl font-semibold text-gray-900">{t('about.aboutUs')}</h2>
+              </div>
               <p className="text-xs md:text-base text-gray-600 leading-relaxed mb-2 md:mb-4">{t('about.aboutUsDescription')}</p>
               <p className="text-xs md:text-base text-gray-600 leading-relaxed">
                 {t('about.productsCertifiedDescription')}
-                <a href="https://www.dm.gov.ae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 underline ml-1">
+                <a href="https://www.dm.gov.ae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 underline underline-offset-2 ml-1">
                   {t('about.dubaiMunicipality')}
                 </a>.
               </p>
             </div>
-            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
-              <h2 className="text-base md:text-2xl font-semibold text-gray-800 mb-2 md:mb-4 text-center">{t('about.ourMission')}</h2>
+            <div className="bg-white rounded-lg md:rounded-2xl shadow-sm md:shadow-md border border-gray-100 p-3 md:p-8">
+              <div className={`flex items-center gap-3 md:gap-4 mb-3 md:mb-5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className="hidden md:flex h-11 w-11 rounded-xl bg-primary-50 items-center justify-center flex-shrink-0">
+                  <Target className="h-5 w-5 text-primary-600" aria-hidden="true" />
+                </div>
+                <h2 className="text-base md:text-xl font-semibold text-gray-900">{t('about.ourMission')}</h2>
+              </div>
               <p className="text-xs md:text-base text-gray-600 leading-relaxed">{t('about.missionDescription')}</p>
             </div>
           </div>
 
-          <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-3 md:mb-6 text-center">{t('about.legalInformationContact')}</h2>
+          <div className="text-center mb-3 md:mb-8">
+            <p className="hidden md:block text-xs font-semibold tracking-[0.2em] text-gray-500 uppercase mb-2">
+              {locale === 'ar' ? 'الشركة' : locale === 'ru' ? 'Компания' : 'Company'}
+            </p>
+            <h2 className="text-lg md:text-3xl font-bold text-gray-900 tracking-tight">{t('about.legalInformationContact')}</h2>
+          </div>
 
-          <div className="space-y-3 md:space-y-0 md:grid md:grid-cols-3 md:gap-8 mb-4 md:mb-8">
-            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
-              <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-4 pb-1 md:pb-2 border-b border-gray-200">{t('about.companyDetails')}</h3>
-              <div className="space-y-0.5 md:space-y-2 text-gray-600 text-xs md:text-base">
-                <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Компания:' : locale === 'ar' ? 'الشركة:' : 'Company:'}</span> {t('about.companyNameValue')}</div>
-                <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Год:' : locale === 'ar' ? 'السنة:' : 'Year:'}</span> 2019</div>
-                <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Лицензия:' : locale === 'ar' ? 'الترخيص:' : 'License:'}</span> <PDFLinkButton href="/documents/commercial-license.pdf" filename="Genosys-Commercial-License-5023192.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-primary-600 hover:text-primary-700 underline">5023192</PDFLinkButton></div>
-                <div><span className="font-semibold text-gray-800">TRN:</span> <PDFLinkButton href="/documents/genosys-trn-104229886700003.pdf" filename="GENOSYS-TRN-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-primary-600 hover:text-primary-700 underline">104229886700003</PDFLinkButton></div>
-                <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Главный офис:' : locale === 'ar' ? 'المكتب الرئيسي:' : 'Main Office:'}</span> Compass Building, GF, RAK, UAE</div>
-                <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Офис в Дубае:' : locale === 'ar' ? 'مكتب دبي:' : 'Dubai Office:'}</span> Cordoba Residence, E02, Knowledge Village</div>
+          <div className="space-y-3 md:space-y-0 md:grid md:grid-cols-3 md:gap-6 mb-4 md:mb-14">
+            <div className="bg-white rounded-lg md:rounded-2xl shadow-sm md:shadow-md border border-gray-100 p-3 md:p-7">
+              <div className="flex items-center gap-3 mb-3 md:mb-5">
+                <div className="hidden md:flex h-10 w-10 rounded-xl bg-primary-50 items-center justify-center flex-shrink-0">
+                  <Building2 className="h-5 w-5 text-primary-600" aria-hidden="true" />
+                </div>
+                <h3 className="text-sm md:text-base font-semibold text-gray-900 pb-1 md:pb-0 md:border-0 border-b border-gray-200 flex-1">{t('about.companyDetails')}</h3>
               </div>
+              <dl className="md:divide-y md:divide-gray-100 space-y-0.5 md:space-y-0 text-gray-600 text-xs md:text-sm">
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{locale === 'ru' ? 'Компания:' : locale === 'ar' ? 'الشركة:' : 'Company'}</dt> <dd className="md:text-right md:text-gray-900 md:font-medium inline md:block">{t('about.companyNameValue')}</dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{locale === 'ru' ? 'Год:' : locale === 'ar' ? 'السنة:' : 'Year'}</dt> <dd className="md:text-right md:text-gray-900 md:font-medium inline md:block">2019</dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{locale === 'ru' ? 'Лицензия:' : locale === 'ar' ? 'الترخيص:' : 'License'}</dt> <dd className="md:text-right inline md:block"><PDFLinkButton href="/documents/commercial-license.pdf" filename="Genosys-Commercial-License-5023192.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-primary-600 hover:text-primary-700 underline underline-offset-2 font-medium">5023192</PDFLinkButton></dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">TRN</dt> <dd className="md:text-right inline md:block"><PDFLinkButton href="/documents/genosys-trn-104229886700003.pdf" filename="GENOSYS-TRN-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-primary-600 hover:text-primary-700 underline underline-offset-2 font-medium">104229886700003</PDFLinkButton></dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{locale === 'ru' ? 'Главный офис:' : locale === 'ar' ? 'المكتب الرئيسي:' : 'Main office'}</dt> <dd className="md:text-right md:text-gray-900 md:font-medium inline md:block">Compass Building, GF, RAK</dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{locale === 'ru' ? 'Офис в Дубае:' : locale === 'ar' ? 'مكتب دبي:' : 'Dubai office'}</dt> <dd className="md:text-right md:text-gray-900 md:font-medium inline md:block">Cordoba Residence, E02</dd></div>
+              </dl>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
-              <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-4 pb-1 md:pb-2 border-b border-gray-200">{t('about.contactInformation')}</h3>
-              <div className="space-y-0.5 md:space-y-2 text-xs md:text-base">
-                <div><span className="font-semibold text-gray-800">{t('contact.phoneWhatsapp')}:</span> <a href="tel:+971585487665" className="text-primary-600 hover:text-primary-700">+971 58 548 76 65</a></div>
-                <div><span className="font-semibold text-gray-800">{t('about.email')}:</span> <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:text-primary-700">sales@genosys.ae</a></div>
-                <div><span className="font-semibold text-gray-800">{t('about.website')}:</span> <a href="https://genosys.ae" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">genosys.ae</a></div>
-                <div><span className="font-semibold text-gray-800">{t('about.instagram')}:</span> <a href="https://www.instagram.com/genosys.uae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700">@genosys.uae</a></div>
+            <div className="bg-white rounded-lg md:rounded-2xl shadow-sm md:shadow-md border border-gray-100 p-3 md:p-7">
+              <div className="flex items-center gap-3 mb-3 md:mb-5">
+                <div className="hidden md:flex h-10 w-10 rounded-xl bg-primary-50 items-center justify-center flex-shrink-0">
+                  <PhoneIcon className="h-5 w-5 text-primary-600" aria-hidden="true" />
+                </div>
+                <h3 className="text-sm md:text-base font-semibold text-gray-900 pb-1 md:pb-0 md:border-0 border-b border-gray-200 flex-1">{t('about.contactInformation')}</h3>
               </div>
+              <dl className="md:divide-y md:divide-gray-100 space-y-0.5 md:space-y-0 text-xs md:text-sm">
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{t('contact.phoneWhatsapp')}</dt> <dd className="md:text-right inline md:block"><a href="tel:+971585487665" className="text-primary-600 hover:text-primary-700 font-medium" dir="ltr">+971 58 548 76 65</a></dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{t('about.email')}</dt> <dd className="md:text-right inline md:block"><a href="mailto:sales@genosys.ae" className="text-primary-600 hover:text-primary-700 font-medium" dir="ltr">sales@genosys.ae</a></dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{t('about.website')}</dt> <dd className="md:text-right inline md:block"><a href="https://genosys.ae" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 font-medium" dir="ltr">genosys.ae</a></dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{t('about.instagram')}</dt> <dd className="md:text-right inline md:block"><a href="https://www.instagram.com/genosys.uae/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:text-primary-700 font-medium" dir="ltr">@genosys.uae</a></dd></div>
+              </dl>
             </div>
 
-            <div className="bg-white rounded-lg shadow-sm border p-3 md:p-6">
-              <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-4 pb-1 md:pb-2 border-b border-gray-200">{t('about.businessInformation')}</h3>
-              <div className="space-y-0.5 md:space-y-2 text-gray-600 text-xs md:text-base">
-                <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Дистрибьютор:' : locale === 'ar' ? 'الموزع:' : 'Distributor:'}</span> DTSMG Co., Ltd, Korea</div>
-                <div><span className="font-semibold text-gray-800">{t('about.certification')}:</span> {t('about.dubaiMunicipality')} (<PDFLinkButton href="/documents/Genosys_UAE_Montaji_Registration.pdf" filename="Genosys_UAE_Montaji_Registration.pdf" download="Genosys_UAE_Montaji_Registration.pdf" className="text-primary-600 hover:text-primary-700 underline">Montaji</PDFLinkButton>)</div>
-                <div><span className="font-semibold text-gray-800">{t('about.certification')}:</span> <PDFLinkButton href="/documents/TDRA_NOC.pdf" filename="GENOSYS-TDRA-NOC.pdf" download="GENOSYS-TDRA-NOC.pdf" className="text-primary-600 hover:text-primary-700 underline">TDRA</PDFLinkButton></div>
-                <div><span className="font-semibold text-gray-800">{t('about.products')}:</span> {t('about.premiumKoreanDermacosmetics')}</div>
-                <div><span className="font-semibold text-gray-800">{locale === 'ru' ? 'Регион:' : locale === 'ar' ? 'المنطقة:' : 'Area:'}</span> {t('about.unitedArabEmirates')}</div>
+            <div className="bg-white rounded-lg md:rounded-2xl shadow-sm md:shadow-md border border-gray-100 p-3 md:p-7">
+              <div className="flex items-center gap-3 mb-3 md:mb-5">
+                <div className="hidden md:flex h-10 w-10 rounded-xl bg-primary-50 items-center justify-center flex-shrink-0">
+                  <ShieldCheck className="h-5 w-5 text-primary-600" aria-hidden="true" />
+                </div>
+                <h3 className="text-sm md:text-base font-semibold text-gray-900 pb-1 md:pb-0 md:border-0 border-b border-gray-200 flex-1">{t('about.businessInformation')}</h3>
               </div>
+              <dl className="md:divide-y md:divide-gray-100 space-y-0.5 md:space-y-0 text-gray-600 text-xs md:text-sm">
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{locale === 'ru' ? 'Дистрибьютор:' : locale === 'ar' ? 'الموزع:' : 'Distributor'}</dt> <dd className="md:text-right md:text-gray-900 md:font-medium inline md:block">DTSMG Co., Ltd, Korea</dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{t('about.certification')}</dt> <dd className="md:text-right inline md:block">{t('about.dubaiMunicipality')} (<PDFLinkButton href="/documents/Genosys_UAE_Montaji_Registration.pdf" filename="Genosys_UAE_Montaji_Registration.pdf" download="Genosys_UAE_Montaji_Registration.pdf" className="text-primary-600 hover:text-primary-700 underline underline-offset-2 font-medium">Montaji</PDFLinkButton>)</dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{t('about.certification')}</dt> <dd className="md:text-right inline md:block"><PDFLinkButton href="/documents/TDRA_NOC.pdf" filename="GENOSYS-TDRA-NOC.pdf" download="GENOSYS-TDRA-NOC.pdf" className="text-primary-600 hover:text-primary-700 underline underline-offset-2 font-medium">TDRA</PDFLinkButton></dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{t('about.products')}</dt> <dd className="md:text-right md:text-gray-900 md:font-medium inline md:block">{t('about.premiumKoreanDermacosmetics')}</dd></div>
+                <div className="md:flex md:items-baseline md:justify-between md:gap-3 md:py-2"><dt className="font-semibold text-gray-800 md:font-medium md:text-gray-500 inline md:block">{locale === 'ru' ? 'Регион:' : locale === 'ar' ? 'المنطقة:' : 'Area'}</dt> <dd className="md:text-right md:text-gray-900 md:font-medium inline md:block">{t('about.unitedArabEmirates')}</dd></div>
+              </dl>
             </div>
           </div>
 
-          <div className="bg-white rounded-lg p-4 md:p-8 text-center border">
-            <h2 className="text-lg md:text-3xl font-bold text-gray-800 mb-2 md:mb-4">{t('about.getInTouch')}</h2>
-            <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6">{t('about.getInTouchDescription')}</p>
-            <div className={`flex flex-row gap-2 md:gap-4 justify-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <Link href={getLocalizedPath('/products', locale)} className="bg-primary-600 text-white px-3 md:px-8 py-1.5 md:py-3 rounded-lg text-[10px] md:text-base font-semibold hover:bg-primary-700 transition-colors">
+          <div className="bg-white md:bg-gray-50 rounded-lg md:rounded-2xl p-4 md:p-10 text-center border border-gray-100">
+            <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 md:mb-3 tracking-tight">{t('about.getInTouch')}</h2>
+            <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-7 max-w-xl mx-auto">{t('about.getInTouchDescription')}</p>
+            <div className={`flex flex-row gap-2 md:gap-3 justify-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <Link href={getLocalizedPath('/products', locale)} className="bg-primary-600 text-white px-3 md:px-7 py-1.5 md:py-3 rounded-lg md:rounded-xl text-[10px] md:text-base font-semibold hover:bg-primary-700 transition-colors shadow-sm">
                 {t('common.products')}
               </Link>
-              <Link href={getLocalizedPath('/contact', locale)} className="border border-primary-600 text-primary-600 px-3 md:px-8 py-1.5 md:py-3 rounded-lg text-[10px] md:text-base font-semibold hover:bg-primary-50 transition-colors">
+              <Link href={getLocalizedPath('/contact', locale)} className="border border-primary-600 text-primary-600 px-3 md:px-7 py-1.5 md:py-3 rounded-lg md:rounded-xl text-[10px] md:text-base font-semibold hover:bg-primary-50 transition-colors">
                 {t('common.contact')}
               </Link>
             </div>

@@ -8,6 +8,23 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ## Shipped
 
+### #D3 — `/about` desktop: premium refresh
+**Date:** 2026-04-17  ·  **File:** `app/about/AboutPageClient.tsx`
+**Change:** Third of the four-page marketing polish sweep. Edits are scoped strictly to the desktop branch of the `isAppLikeMode ? (app-like) : (desktop)` ternary; the app-like mobile/PWA branch is byte-identical.
+
+- Container widened inside the desktop branch: `max-w-4xl` → `max-w-4xl lg:max-w-6xl`.
+- Hero re-ordered and re-weighted: logo now sits at the top, under it an `ABOUT US` eyebrow in primary-red small-caps, then the company name as h1, then a descriptive desktop-only subhead ("Official UAE distributor of GENOSYS Korean dermacosmetics — since 2019."). Replaces the previous bare h1+logo block that read as a disconnected heading stack.
+- About Us + Mission cards: added tinted icon badges at `md+` (`Sparkles` for About Us, `Target` for Mission, both in `h-11 w-11 rounded-xl bg-primary-50`). Headings shifted from centered `text-2xl` to left-aligned `text-xl` paired with the badge — tighter and more confident.
+- Legal Info 3-col: each card now leads with an icon badge (`Building2` / `PhoneIcon` / `ShieldCheck`). At `md+` the inner content renders as a proper `<dl>` with `divide-y + divide-gray-100`, muted labels on the left, bold values/links on the right. Below `md` the original inline "Label: value" format is preserved.
+- "Get in Touch" CTA panel: bumped to `bg-gray-50 rounded-2xl p-10` at `md+`, heading tightened to `tracking-tight`, CTAs rounded to `rounded-xl` with `shadow-sm` on the primary button. No colour changes — both CTAs stay on `bg-primary-600` / outlined primary.
+- Section divider: added `COMPANY` eyebrow above the "Legal Information & Contact" heading to link the section to the rest of the narrative, matching the eyebrow style from `#D1` and `#D2`.
+
+**Why:** The desktop branch was an ~880px column with bare cards, centered everything, and no iconography or visual anchor for the three legal cards. It read as a compliance dump rather than the "official distributor since 2019" narrative the page actually tells. The new layout is wider (6xl at `lg+`), uses icon badges to separate concerns, and has a consistent eyebrow pattern tying it to `/delivery` and `/contact`.
+
+**Risk:** changes land only inside the `isAppLikeMode ? (A) : (B)` desktop branch. Below `md` the definition-list styles (`md:flex`, `md:divide-y`) inactive — the inline "Label: value" spans render as before. The app-like mobile branch is unchanged.
+
+---
+
 ### #D2 — `/contact` desktop: premium refresh
 **Date:** 2026-04-17  ·  **File:** `app/contact/ContactClient.tsx`
 **Change:** Second of the four-page marketing polish sweep. Desktop-only — all edits sit behind `md:` / `lg:` utilities; the PWA / mobile-web paths are untouched.

@@ -7,16 +7,15 @@ import { usePathname } from 'next/navigation'
 const ChatWidget = dynamic(() => import('@/components/ChatWidget'), { ssr: false })
 
 // Pages where chatbot should be hidden
-// Note: `/profile/` (with trailing slash) hides chat on all profile sub-pages
-// (edit, addresses, billing, passkeys, language, promo, etc.) and their
-// locale-prefixed variants, while keeping chat available on the main /profile
-// landing page.
+// `/profile` covers the main profile landing page, all profile sub-pages
+// (edit, addresses, billing, passkeys, language, promo, etc.) and locale-
+// prefixed variants (/ar/profile, /ru/profile/edit, etc.).
 const HIDDEN_PAGES = [
   '/success',
   '/checkout/success',
   '/skin-recommendation',
   '/skin-analysis',
-  '/profile/',
+  '/profile',
 ]
 
 export default function ChatWidgetLazy() {

@@ -114,10 +114,10 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   }, [selectedImage])
 
   return (
-    <div className="space-y-2 md:space-y-3">
+    <div className="space-y-2 md:space-y-3 lg:space-y-0 lg:flex lg:gap-4 lg:items-start">
       {/* Main Image or Video */}
       <div 
-        className="w-full max-w-[280px] md:max-w-[360px] lg:max-w-[400px] mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative cursor-zoom-in group"
+        className="w-full max-w-[280px] md:max-w-[360px] lg:max-w-[420px] xl:max-w-[480px] 2xl:max-w-[560px] mx-auto lg:mx-0 lg:order-2 lg:flex-1 aspect-square bg-gray-100 rounded-lg overflow-hidden relative cursor-zoom-in group"
         onClick={() => !(product.id === '3' && selectedImage === 2 && videoUrl) && openLightbox(selectedImage)}
       >
         {/* Stock Badge */}
@@ -178,7 +178,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
                   quality={90}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 600px"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 420px, (max-width: 1536px) 480px, 560px"
                   onError={() => {
                     setImageError(true)
                   }}
@@ -246,14 +246,16 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
         )}
       </div>
 
-      {/* Thumbnail Navigation */}
+      {/* Thumbnail Navigation (horizontal row on mobile/md, vertical rail at lg+) */}
       {productImages.length > 1 && (
-        <div className="flex gap-1.5 md:gap-2 justify-center flex-wrap max-w-[280px] md:max-w-[360px] lg:max-w-[400px] mx-auto">
+        <div className="flex gap-1.5 md:gap-2 justify-center flex-wrap max-w-[280px] md:max-w-[360px] mx-auto lg:mx-0 lg:flex-col lg:flex-nowrap lg:max-w-none lg:w-16 lg:gap-2 lg:order-1 lg:flex-shrink-0 lg:justify-start">
           {productImages.map((img, index) => (
             <button
               key={index}
               onClick={() => setSelectedImage(index)}
-              className={`w-11 h-11 md:w-14 md:h-14 rounded-md md:rounded-lg overflow-hidden border-2 transition-colors flex-shrink-0 ${
+              aria-label={`Show image ${index + 1} of ${productImages.length}`}
+              aria-pressed={selectedImage === index}
+              className={`w-11 h-11 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-md md:rounded-lg overflow-hidden border-2 transition-colors flex-shrink-0 ${
                 selectedImage === index
                   ? 'border-primary-600'
                   : 'border-gray-200 hover:border-gray-300'

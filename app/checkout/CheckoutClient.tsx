@@ -629,8 +629,10 @@ export default function CheckoutClient() {
     )
   }
 
+  const isAppLikeMode = (isPWAClient && isPWA) || isMobileWeb
+
   return (
-    <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
+    <div className={`container mx-auto px-4 py-2 md:py-8 lg:py-16 ${isAppLikeMode ? 'pb-[calc(96px+env(safe-area-inset-bottom))]' : ''}`} dir={dir}>
       <CheckoutHeader
         isPWA={isPWA}
         isPWAClient={isPWAClient}
@@ -846,7 +848,7 @@ export default function CheckoutClient() {
                 </h1>
               </div>
               
-              <form onSubmit={handleSubmit} className="p-3 md:p-6 space-y-4 md:space-y-6">
+              <form id="checkout-form" onSubmit={handleSubmit} className="p-3 md:p-6 space-y-4 md:space-y-6">
 
                 {/* Shipping Information */}
                 <div className="space-y-3 md:space-y-4">
@@ -998,24 +1000,26 @@ export default function CheckoutClient() {
                   />
                 </div>
 
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isProcessing}
-                  className={`w-full bg-primary-600 text-white py-3 md:py-4 rounded-lg text-sm md:text-base font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-                >
-                  {isProcessing ? (
-                    <>
-                      <div className="animate-spin rounded-full h-4 w-4 md:h-5 md:w-5 border-b-2 border-white"></div>
-                      <span className="text-sm md:text-base">{t('checkout.processingOrder')}</span>
-                    </>
-                  ) : (
-                    <>
-                      <CreditCard className="h-4 w-4 md:h-5 md:w-5" />
-                      <span>{t('checkout.completeOrder')} - AED {total.toFixed(2)}</span>
-                    </>
-                  )}
-                </button>
+                {/* Submit Button — hidden on mobile/PWA (replaced by sticky bottom CTA below) */}
+                {!isAppLikeMode && (
+                  <button
+                    type="submit"
+                    disabled={isProcessing}
+                    className={`w-full bg-primary-600 text-white py-3 md:py-4 rounded-lg text-sm md:text-base font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                  >
+                    {isProcessing ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 md:h-5 md:w-5 border-b-2 border-white"></div>
+                        <span className="text-sm md:text-base">{t('checkout.processingOrder')}</span>
+                      </>
+                    ) : (
+                      <>
+                        <CreditCard className="h-4 w-4 md:h-5 md:w-5" />
+                        <span>{t('checkout.completeOrder')} - AED {total.toFixed(2)}</span>
+                      </>
+                    )}
+                  </button>
+                )}
 
                 {/* PWA Delivery Info - Below Complete Order button */}
                 {isPWAClient && isPWA && (
@@ -1323,6 +1327,40 @@ export default function CheckoutClient() {
           </div>
         </div>
       </div>
+
+      {/* Sticky Bottom CTA — mobile + PWA */}
+      {isAppLikeMode && !isPaymentSheetOpen && (
+        <div
+          className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur border-t border-gray-200"
+          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
+        >
+          <div className="px-4 py-3">
+            <button
+              type="submit"
+              form="checkout-form"
+              disabled={isProcessing}
+              className={`w-full bg-primary-600 text-white py-3.5 rounded-xl text-base font-semibold hover:bg-primary-700 active:bg-primary-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg touch-manipulation min-h-[48px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              aria-label={`${t('checkout.completeOrder')} - AED ${total.toFixed(2)}`}
+            >
+              {isProcessing ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white" aria-hidden="true" />
+                  <span>{t('checkout.processingOrder')}</span>
+                </>
+              ) : (
+                <>
+                  {selectedPaymentMethod === 'stripe' ? (
+                    <Lock className="h-4 w-4" aria-hidden="true" />
+                  ) : (
+                    <CreditCard className="h-4 w-4" aria-hidden="true" />
+                  )}
+                  <span>{t('checkout.completeOrder')} · AED {total.toFixed(2)}</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Payment Bottom Sheet */}
       <BottomSheet

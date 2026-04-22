@@ -289,11 +289,16 @@ export default function PrivacyPolicyClient() {
 
     return (
       <>
-        {/* Last Updated — pill badge */}
+        {/* Last Updated — pill badge. Clock icon already conveys
+            "last updated" so we show just the date, keeping the pill tight */}
         <div className={`flex ${isRTL ? 'justify-end' : 'justify-start'} mb-4`}>
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium">
-            <Clock className="w-3.5 h-3.5" />
-            {t.lastUpdatedLabel} {lastUpdated}
+          <span
+            className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium"
+            title={`${t.lastUpdatedLabel} ${lastUpdated}`}
+          >
+            <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+            <span className="sr-only">{t.lastUpdatedLabel} </span>
+            {lastUpdated}
           </span>
         </div>
 

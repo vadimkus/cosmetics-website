@@ -339,22 +339,25 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
           {/* Left Column - Product Images and Purchase Controls */}
           <div className={`flex flex-col ${dir === 'rtl' ? 'md:col-start-2' : ''}`}>
             
-            {/* Desktop Product Header - Hidden on mobile */}
+            {/* Desktop Product Header - Hidden on mobile.
+                Left-aligned on lg+ for scannability; the category badge + title +
+                rating row all share the same x-edge so the eye reads top-down
+                instead of chasing a centered midline. */}
             <div className="hidden lg:block mb-4">
               {/* Category Badge */}
-              <div className={`flex items-center justify-center flex-wrap gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex items-center flex-wrap gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse justify-end' : 'justify-start'}`}>
                 <span className="inline-block bg-gradient-to-r from-primary-100 to-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                   {product.category.split(',').map(cat => translateCategory(cat.trim(), locale)).join(' · ')}
                 </span>
               </div>
-              
-              {/* Product Name */}
-              <h1 className="text-2xl font-bold text-gray-900 leading-tight mb-2 text-center">
+
+              {/* Product Name — larger at lg+, tracking-tight for tighter line economy */}
+              <h1 className={`text-3xl xl:text-4xl font-bold text-gray-900 leading-tight tracking-tight mb-3 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                 {product.name}
               </h1>
-              
+
               {/* Rating & Size (honest: driven by real review count) */}
-              <div className={`flex items-center justify-center flex-wrap gap-3 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex items-center flex-wrap gap-3 text-sm ${dir === 'rtl' ? 'flex-row-reverse justify-end' : 'justify-start'}`}>
                 {displayRating && displayRating > 0 ? (
                   <a href="#reviews" className={`flex items-center gap-1.5 hover:text-primary-600 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className="flex">

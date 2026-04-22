@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect, useRef, useCallback, TouchEvent as ReactTouchEvent } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
-import { Menu, Heart, ChevronDown, X } from 'lucide-react'
+import { Menu, Heart, ChevronDown, X, LogOut, LogIn, Sparkles } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -415,180 +415,221 @@ export default function MobileWebHeader() {
               <div className="w-10 h-1 bg-gray-300 rounded-full" />
             </div>
             
-            {/* 2-Column Navigation Grid */}
-            <nav className="p-4 pt-2">
-              <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                {/* Column 1 */}
-                <Link 
-                  href={getLocalizedPath('/products', locale)} 
-                  className={`py-2.5 text-gray-800 hover:text-red-600 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
+            {/* Sectioned Navigation */}
+            <nav className="px-4 pt-1 pb-3">
+              {/* Section: Account / primary destinations */}
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                <Link
+                  href={getLocalizedPath('/products', locale)}
+                  className={`py-2.5 text-gray-900 hover:text-red-600 transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.products')}
                 </Link>
-                
-                <Link 
-                  href={getLocalizedPath('/bundle-builder', locale)} 
-                  className={`py-2.5 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
+
+                <Link
+                  href={getLocalizedPath('/bundle-builder', locale)}
+                  className={`py-2.5 text-red-600 hover:text-red-700 transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   🎁 {t('bundleBuilder.title')}
                 </Link>
-                
-                <Link 
-                  href={getLocalizedPath('/orders', locale)} 
-                  className={`py-2.5 text-gray-800 hover:text-red-600 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
+
+                <Link
+                  href={getLocalizedPath('/orders', locale)}
+                  className={`py-2.5 text-gray-900 hover:text-red-600 transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.orders') || 'Orders'}
                 </Link>
 
-                <Link 
-                  href={getLocalizedPath('/favorites', locale)} 
-                  className={`py-2.5 text-gray-800 hover:text-red-600 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
+                <Link
+                  href={getLocalizedPath('/favorites', locale)}
+                  className={`py-2.5 text-gray-900 hover:text-red-600 transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.favorites') || 'Favorites'}
                   {favoritesCount > 0 && (
-                    <span className={`${isRTL ? 'mr-1' : 'ml-1'} bg-red-500 text-white text-xs px-1.5 py-0.5 rounded-full`}>{favoritesCount}</span>
+                    <span className={`${isRTL ? 'mr-1.5' : 'ml-1.5'} bg-red-500 text-white text-[11px] font-bold px-1.5 py-0.5 rounded-full`}>{favoritesCount}</span>
                   )}
                 </Link>
 
-                <Link 
-                  href={getLocalizedPath('/profile', locale)} 
-                  className={`py-2.5 text-gray-800 hover:text-red-600 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
+                <Link
+                  href={getLocalizedPath('/profile', locale)}
+                  className={`py-2.5 text-gray-900 hover:text-red-600 transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('common.profile')}
                 </Link>
+              </div>
 
-                {/* Divider spanning full width */}
-                <div className="col-span-2 h-px bg-gray-200 my-2" />
+              {/* AI Skin Analysis — highlighted CTA */}
+              <Link
+                href={getLocalizedPath('/skin-recommendation', locale)}
+                onClick={() => setShowMobileMenu(false)}
+                className={`mt-3 flex items-center gap-2.5 w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-red-50 to-pink-50 border border-red-100 text-red-600 hover:from-red-100 hover:to-pink-100 transition-colors ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+              >
+                <Sparkles className="w-4 h-4 flex-shrink-0" />
+                <span className="text-sm font-semibold">
+                  {t('navigation.aiSkinAnalysis') || 'AI Skin Analysis'}
+                </span>
+              </Link>
 
-                <Link 
-                  href={getLocalizedPath('/', locale)} 
-                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+              {/* Section: Explore */}
+              <div className="mt-4 mb-1.5 flex items-center gap-2 px-1">
+                <span className={`text-[10px] uppercase tracking-widest font-semibold text-gray-400 ${isRTL ? 'order-2' : ''}`}>
+                  {locale === 'ar' ? 'استكشف' : locale === 'ru' ? 'Разделы' : 'Explore'}
+                </span>
+                <div className="flex-1 h-px bg-gray-200" />
+              </div>
+
+              <div className="grid grid-cols-2 gap-x-4 gap-y-0.5">
+                <Link
+                  href={getLocalizedPath('/', locale)}
+                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.home')}
                 </Link>
 
-                <Link 
-                  href={getLocalizedPath('/about', locale)} 
-                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                <Link
+                  href={getLocalizedPath('/about', locale)}
+                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.about')}
                 </Link>
 
-                <Link 
-                  href={getLocalizedPath('/brand', locale)} 
-                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                <Link
+                  href={getLocalizedPath('/brand', locale)}
+                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.brand')}
                 </Link>
 
-                <Link 
-                  href={getLocalizedPath('/delivery', locale)} 
-                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                <Link
+                  href={getLocalizedPath('/delivery', locale)}
+                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.delivery')}
                 </Link>
 
-                <Link 
-                  href={getLocalizedPath('/contact', locale)} 
-                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                <Link
+                  href={getLocalizedPath('/contact', locale)}
+                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.contact')}
                 </Link>
 
-                <Link 
-                  href={getLocalizedPath('/faq', locale)} 
-                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                <Link
+                  href={getLocalizedPath('/faq', locale)}
+                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.faq')}
                 </Link>
 
-                <Link 
-                  href={getLocalizedPath('/locations', locale)} 
-                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                <Link
+                  href={getLocalizedPath('/locations', locale)}
+                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('common.locations')}
                 </Link>
-                
-                <Link 
-                  href={getLocalizedPath('/blog', locale)} 
-                  className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+
+                <Link
+                  href={getLocalizedPath('/blog', locale)}
+                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Blog'}
                 </Link>
-                
-                <Link 
-                  href={getLocalizedPath('/skin-recommendation', locale)} 
-                  className={`py-2 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  {t('navigation.aiSkinAnalysis') || 'AI Skin Analysis'}
-                </Link>
 
                 {user && (
-                  <Link 
-                    href={getLocalizedPath('/training', locale)} 
-                    className={`py-2 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  <Link
+                    href={getLocalizedPath('/training', locale)}
+                    className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                     onClick={() => setShowMobileMenu(false)}
                   >
                     {t('navigation.training')}
                   </Link>
                 )}
+              </div>
 
-                {/* App Store Download */}
-                <div className="col-span-2 flex justify-center my-2">
-                  <a
-                    href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`inline-flex items-center gap-2 py-1.5 px-4 bg-black text-white rounded-lg border border-gray-600 transition-colors active:bg-gray-800 ${isRTL ? 'flex-row-reverse' : ''}`}
-                    onClick={() => setShowMobileMenu(false)}
-                  >
-                    <svg className="w-6 h-6 flex-shrink-0 self-center" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                    </svg>
-                    <div className="flex flex-col leading-tight text-left">
-                      <span className="text-[9px] font-normal opacity-90">
-                        {locale === 'ar' ? 'حمّل من' : locale === 'ru' ? 'Загрузите в' : 'Download on the'}
-                      </span>
-                      <span className="text-sm font-semibold -mt-0.5">App Store</span>
-                    </div>
-                  </a>
-                </div>
+              {/* Section: Get the app */}
+              <div className="mt-4 mb-2 flex items-center gap-2 px-1">
+                <span className={`text-[10px] uppercase tracking-widest font-semibold text-gray-400 ${isRTL ? 'order-2' : ''}`}>
+                  {locale === 'ar' ? 'حمّل التطبيق' : locale === 'ru' ? 'Скачать приложение' : 'Get the app'}
+                </span>
+                <div className="flex-1 h-px bg-gray-200" />
+              </div>
 
-                {/* Divider spanning full width */}
-                <div className="col-span-2 h-px bg-gray-200 my-2" />
+              <div className="grid grid-cols-2 gap-2">
+                {/* App Store */}
+                <a
+                  href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center justify-center gap-2 py-2 px-3 bg-black text-white rounded-lg transition-colors active:bg-gray-800 ${isRTL ? 'flex-row-reverse' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                  aria-label={locale === 'ar' ? 'حمّل من App Store' : locale === 'ru' ? 'Загрузите в App Store' : 'Download on the App Store'}
+                >
+                  <svg className="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                  </svg>
+                  <div className={`flex flex-col leading-tight ${isRTL ? 'text-right' : 'text-left'}`}>
+                    <span className="text-[9px] font-normal opacity-90">
+                      {locale === 'ar' ? 'حمّل من' : locale === 'ru' ? 'Загрузите в' : 'Download on the'}
+                    </span>
+                    <span className="text-sm font-semibold -mt-0.5">App Store</span>
+                  </div>
+                </a>
 
-                {/* Account Actions */}
+                {/* Google Play */}
+                <a
+                  href="https://play.google.com/store/apps/details?id=ae.genosys.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`flex items-center justify-center gap-2 py-2 px-3 bg-black text-white rounded-lg transition-colors active:bg-gray-800 ${isRTL ? 'flex-row-reverse' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                  aria-label={locale === 'ar' ? 'احصل عليه من Google Play' : locale === 'ru' ? 'Доступно в Google Play' : 'Get it on Google Play'}
+                >
+                  <svg className="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.808 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>
+                  </svg>
+                  <div className={`flex flex-col leading-tight ${isRTL ? 'text-right' : 'text-left'}`}>
+                    <span className="text-[9px] font-normal opacity-90">
+                      {locale === 'ar' ? 'متوفر على' : locale === 'ru' ? 'Доступно в' : 'GET IT ON'}
+                    </span>
+                    <span className="text-sm font-semibold -mt-0.5">Google Play</span>
+                  </div>
+                </a>
+              </div>
+
+              {/* Account Actions */}
+              <div className="mt-4 pt-3 border-t border-gray-200">
                 {user ? (
                   <button
                     onClick={() => {
                       logout()
                       setShowMobileMenu(false)
                     }}
-                    className={`col-span-2 py-2.5 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : 'text-left'}`}
+                    className={`w-full flex items-center gap-2 py-2.5 px-3 rounded-lg text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors text-sm font-semibold ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
                   >
-                    {t('common.logout')}
+                    <LogOut className="w-4 h-4 flex-shrink-0" />
+                    <span>{t('common.logout')}</span>
                   </button>
                 ) : (
-                  <Link 
-                    href={getLocalizedPath('/login', locale)} 
-                    className={`col-span-2 py-2.5 text-red-600 hover:text-red-700 transition-colors text-sm font-medium ${isRTL ? 'text-right' : ''}`}
+                  <Link
+                    href={getLocalizedPath('/login', locale)}
                     onClick={() => setShowMobileMenu(false)}
+                    className={`w-full flex items-center gap-2 py-2.5 px-3 rounded-lg text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors text-sm font-semibold ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
                   >
-                    {t('common.login')}
+                    <LogIn className="w-4 h-4 flex-shrink-0" />
+                    <span>{t('common.login')}</span>
                   </Link>
                 )}
               </div>

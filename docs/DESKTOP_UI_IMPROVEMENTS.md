@@ -76,6 +76,22 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ---
 
+### #P1.4 — `/profile`: Editing-mode banner inside Personal Information
+**Date:** 2026-04-23  ·  **Files:** `components/profile/ProfileForm.tsx`, `messages/{en,ar,ru}.json`
+**Change:** When `isEditing` is true, the Personal Information card now renders an amber banner immediately under the card header:
+
+> **Editing mode.** Make your changes, then press Save. Your sign-in email cannot be edited here.
+
+- Icon: `Edit3` (lucide).
+- Semantics: `role="status"` + `aria-live="polite"` so screen readers announce the state change when the Edit button is pressed.
+- i18n: added `profile.editingMode` and `profile.editingHint` to `messages/{en,ar,ru}.json`.
+
+**Why:** Previously the only visual signal that edit-mode was active was the inputs in the form turning editable (plus a small red "Cancel" pill in the tab action row far above). First-time users frequently didn't notice the mode change — especially on desktop where the card is wider and the input ↔ static-value visual diff is subtle. The banner makes the state unmistakable, explains which fields are off-limits, and guides the user to the Save button.
+
+**Risk:** minimal — additive conditional block, banner only renders in edit mode. No change to form behaviour or submitted payload.
+
+---
+
 ### #P1.3 — `/profile` desktop: Support + Skin Recommendation side-by-side
 **Date:** 2026-04-23  ·  **File:** `components/profile/ProfileForm.tsx`
 **Change:** The two bottom cards on the Profile tab — "Need Help?" (WhatsApp support) and "Skin Recommendation" — were two full-width cards stacking vertically on desktop. Wrapped them in a `grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 lg:gap-8` container so they sit side-by-side at `md+`. On mobile they still stack (single column grid).

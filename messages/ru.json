@@ -659,6 +659,8 @@
   "profile": {
     "title": "Профиль",
     "personalInformation": "Личная информация",
+    "editingMode": "Режим редактирования",
+    "editingHint": "Внесите изменения и нажмите «Сохранить». Email для входа здесь изменить нельзя.",
     "accountStatus": "Статус аккаунта",
     "needHelp": "Нужна помощь?",
     "getInstantSupport": "Напишите нам в WhatsApp",

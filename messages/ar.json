@@ -699,6 +699,8 @@
   "profile": {
     "title": "الملف الشخصي",
     "personalInformation": "المعلومات الشخصية",
+    "editingMode": "وضع التحرير",
+    "editingHint": "قم بإجراء التغييرات، ثم اضغط على حفظ. لا يمكن تعديل بريد تسجيل الدخول هنا.",
     "accountStatus": "حالة الحساب",
     "needHelp": "تحتاج مساعدة؟",
     "getInstantSupport": "احصل على دعم فوري عبر واتساب",

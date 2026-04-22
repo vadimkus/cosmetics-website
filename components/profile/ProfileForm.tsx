@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { User, Shield, Eye, Lock, CheckCircle, X, MessageCircle, Zap, Clock, Gift, Sparkles, Heart, Mail, AlertCircle } from 'lucide-react'
+import { User, Shield, Eye, Lock, CheckCircle, X, MessageCircle, Zap, Clock, Gift, Sparkles, Heart, Mail, AlertCircle, Edit3 } from 'lucide-react'
 import { User as UserType } from '@/types/user'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -53,6 +53,20 @@ export default function ProfileForm({
           </div>
           <h2 className="text-sm md:text-2xl font-bold text-gray-800">{t('profile.personalInformation')}</h2>
         </div>
+
+        {isEditing && (
+          <div
+            role="status"
+            aria-live="polite"
+            className="mb-3 md:mb-6 flex items-start gap-2 md:gap-3 p-3 md:p-4 rounded-lg md:rounded-xl bg-amber-50 border border-amber-200"
+          >
+            <Edit3 className="h-4 w-4 md:h-5 md:w-5 text-amber-700 flex-shrink-0 mt-0.5" aria-hidden="true" />
+            <div className="text-xs md:text-sm text-amber-900">
+              <span className="font-semibold">{t('profile.editingMode') || 'Editing mode'}.</span>{' '}
+              {t('profile.editingHint') || 'Make your changes, then press Save. Your sign-in email cannot be edited here.'}
+            </div>
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
           

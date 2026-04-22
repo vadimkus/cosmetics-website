@@ -34,6 +34,12 @@ export default function HeaderDesktopIcons({
   // Badge position for RTL
   const badgePosition = isRTL ? "-top-1 -left-1" : "-top-1 -right-1"
 
+  // Shared icon button shell — gives every header icon a consistent circular
+  // hover surface, a keyboard `focus-visible` ring, and the 44x44 touch target
+  // that was previously duplicated across some (but not all) links/buttons.
+  const iconShell =
+    'relative inline-flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-gray-100 hover:text-primary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white touch-manipulation min-h-[44px] min-w-[44px]'
+
   const contactInfo = (
     <div className={`flex flex-col ${isRTL ? 'items-start text-left' : 'items-end text-right'} header-contact`}>
       <div className="text-sm text-gray-600">
@@ -60,9 +66,9 @@ export default function HeaderDesktopIcons({
     <div className={`flex items-center ${isRTL ? 'space-x-reverse space-x-4' : 'space-x-4'} header-icons`}>
       {/* Cart - first in RTL */}
       {isRTL && (
-        <Link 
-          href={getLocalizedPath('/cart', locale)} 
-          className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+        <Link
+          href={getLocalizedPath('/cart', locale)}
+          className={iconShell}
           aria-label={`${t('common.cart')} with ${isClient ? cartCount : 0} items`}
         >
           <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && cartCount > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
@@ -75,9 +81,9 @@ export default function HeaderDesktopIcons({
       )}
 
       {/* Favorites */}
-      <Link 
-        href={getLocalizedPath('/favorites', locale)} 
-        className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+      <Link
+        href={getLocalizedPath('/favorites', locale)}
+        className={iconShell}
         aria-label={`${t('common.favorites')} with ${isClient ? favorites.length : 0} items`}
       >
         <Heart className={`h-6 w-6 transition-colors ${isClient && favorites.length > 0 ? 'text-red-500' : ''}`} aria-hidden="true" />
@@ -92,16 +98,17 @@ export default function HeaderDesktopIcons({
       {isClient && user ? (
         <>
           <LanguageSwitcher />
-          <Link 
-            href={getLocalizedPath('/profile', locale)} 
-            className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
+          <Link
+            href={getLocalizedPath('/profile', locale)}
+            className={iconShell}
             aria-label={t('common.profile')}
           >
             <User className="h-6 w-6 text-green-600" aria-hidden="true" />
           </Link>
-          <button 
+          <button
+            type="button"
             onClick={() => logout()}
-            className="p-2 text-gray-700 hover:text-primary-600 transition-colors"
+            className={iconShell}
             aria-label={t('common.logout')}
           >
             <LogOut className="h-6 w-6" aria-hidden="true" />
@@ -110,9 +117,10 @@ export default function HeaderDesktopIcons({
       ) : (
         <>
           <LanguageSwitcher />
-          <button 
+          <button
+            type="button"
             onClick={handleLoginClick}
-            className="p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation"
+            className={iconShell}
             aria-label={t('common.login')}
           >
             <User className="h-5 w-5" aria-hidden="true" />
@@ -122,9 +130,9 @@ export default function HeaderDesktopIcons({
 
       {/* Cart - last in LTR */}
       {!isRTL && (
-        <Link 
-          href={getLocalizedPath('/cart', locale)} 
-          className="relative p-2 text-gray-700 hover:text-primary-600 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+        <Link
+          href={getLocalizedPath('/cart', locale)}
+          className={iconShell}
           aria-label={`${t('common.cart')} with ${isClient ? cartCount : 0} items`}
         >
           <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && cartCount > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />

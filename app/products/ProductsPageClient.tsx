@@ -399,18 +399,22 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
           searchQuery={searchQuery}
         />
 
-        {/* Trust strip — brand promise line under search */}
-        <div className="mb-4 flex items-center justify-center gap-5 md:gap-10 text-xs md:text-sm font-medium text-gray-800 border-y border-gray-200 bg-gray-50 py-3 overflow-x-auto scrollbar-hide">
+        {/* Trust strip — brand promise line under search. Below md the items scroll
+            horizontally (3 pills on one line with no wrap); at md+ we switch to
+            flex-wrap so long localisations (e.g. Russian "Оригинальная корейская
+            космецевтика") wrap cleanly to a second line on 1024–1280px laptops
+            instead of overflowing the container and hiding content. */}
+        <div className="mb-4 flex items-center justify-center gap-5 md:gap-10 md:flex-wrap gap-y-2 text-xs md:text-sm font-medium text-gray-800 border-y border-gray-200 bg-gray-50 py-3 overflow-x-auto md:overflow-visible scrollbar-hide">
           <span className="flex items-center gap-2 whitespace-nowrap">
-            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 7h13l4 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z" /></svg>
+            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M3 7h13l4 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z" /></svg>
             {t('products.trustShipping')}
           </span>
           <span className="flex items-center gap-2 whitespace-nowrap">
-            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             {t('products.trustAuthentic')}
           </span>
           <span className="flex items-center gap-2 whitespace-nowrap">
-            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h4m-6 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h4m-6 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
             {t('products.trustVat')}
           </span>
         </div>
@@ -573,51 +577,77 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
 
                 {/* Products Grid */}
                 {filteredAndSortedProducts.length > 0 ? (
-                  isPWA ? (
-                    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6">
-                      {filteredAndSortedProducts.map((product) => (
-                        <div key={product.id}>
-                          <ProductCard product={product} />
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <motion.div 
-                      className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-2 sm:gap-4 md:gap-6"
-                      initial={animationsEnabled ? "hidden" : {}}
-                      animate={animationsEnabled ? "show" : {}}
-                      variants={animationsEnabled ? {
-                        hidden: { opacity: 0 },
-                        show: {
-                          opacity: 1,
-                          transition: {
-                            staggerChildren: 0.08,
-                            delayChildren: 0.1
-                          }
-                        }
-                      } : {}}
-                    >
-                      {filteredAndSortedProducts.map((product) => (
-                        <motion.div
-                          key={product.id}
-                          variants={animationsEnabled ? {
-                            hidden: { opacity: 0, y: 30, scale: 0.9 },
-                            show: { 
-                              opacity: 1, 
-                              y: 0, 
-                              scale: 1,
-                              transition: { 
-                                duration: 0.4,
-                                ease: "easeOut"
-                              }
+                  <>
+                    {isPWA ? (
+                      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 sm:gap-4 md:gap-6">
+                        {filteredAndSortedProducts.map((product) => (
+                          <div key={product.id}>
+                            <ProductCard product={product} />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <motion.div
+                        className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-2 sm:gap-4 md:gap-6"
+                        initial={animationsEnabled ? "hidden" : {}}
+                        animate={animationsEnabled ? "show" : {}}
+                        variants={animationsEnabled ? {
+                          hidden: { opacity: 0 },
+                          show: {
+                            opacity: 1,
+                            transition: {
+                              staggerChildren: 0.08,
+                              delayChildren: 0.1
                             }
-                          } : {}}
-                        >
-                          <ProductCard product={product} />
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                  )
+                          }
+                        } : {}}
+                      >
+                        {filteredAndSortedProducts.map((product) => (
+                          <motion.div
+                            key={product.id}
+                            variants={animationsEnabled ? {
+                              hidden: { opacity: 0, y: 30, scale: 0.9 },
+                              show: {
+                                opacity: 1,
+                                y: 0,
+                                scale: 1,
+                                transition: {
+                                  duration: 0.4,
+                                  ease: "easeOut"
+                                }
+                              }
+                            } : {}}
+                          >
+                            <ProductCard product={product} />
+                          </motion.div>
+                        ))}
+                      </motion.div>
+                    )}
+
+                    {/* End-of-grid footer — desktop only. Gives long lists (50+ items)
+                        a clear terminus + a quick way back to the filters. Hidden on
+                        mobile web / PWA because those already have a scroll-to-top
+                        gesture (and the mobile bottom nav). */}
+                    <div className="hidden md:flex items-center justify-between gap-4 mt-10 pt-6 border-t border-gray-100 text-sm text-gray-500">
+                      <span>
+                        {t('products.showing', { filtered: filteredAndSortedProducts.length, total: products.length })}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (typeof window !== 'undefined') {
+                            window.scrollTo({ top: 0, behavior: 'smooth' })
+                          }
+                        }}
+                        className="inline-flex items-center gap-1.5 text-gray-600 hover:text-primary-600 font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded px-1"
+                      >
+                        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
+                        </svg>
+                        {locale === 'ar' ? 'العودة إلى الأعلى' : locale === 'ru' ? 'Наверх' : 'Back to top'}
+                      </button>
+                    </div>
+                  </>
                 ) : (
                   <div className="text-center py-12">
                     <p className="text-gray-600 text-lg mb-2">{t('products.noProductsFound')}</p>

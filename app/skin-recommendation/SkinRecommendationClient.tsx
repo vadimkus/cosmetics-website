@@ -647,27 +647,29 @@ export default function SkinRecommendationClient() {
         ]}
       />
 
-      {/* PWA/Mobile Web Simple Navigation Header */}
+      {/* Unified sticky nav header — matches /profile stack + Privacy/Terms/About:
+          sticky top-0 z-20, bg-white/95 + backdrop-blur, border-b border-gray-200.
+          Stays visible so user can always back out or jump to profile. */}
       {isAppLikeMode && (
-        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          <button 
+        <div className={`sticky top-0 z-20 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button
             onClick={() => router.push(getLocalizedPath('/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+            aria-label={t('common.home') || 'Home'}
           >
-            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
+            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
             <span className="text-base text-red-600">
               {t('common.home') || 'Home'}
             </span>
           </button>
-          <span className="text-base font-semibold text-gray-900">
+          <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
             {locale === 'ar' ? 'تحليل البشرة' : locale === 'ru' ? 'Анализ кожи' : 'Skin Analysis'}
-          </span>
-          {/* Profile Icon - green dot only when logged in */}
-          <button 
+          </h1>
+          {/* Profile avatar — green dot only when logged in */}
+          <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
+            aria-label="Profile"
           >
             <div className="relative">
               <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
@@ -675,7 +677,6 @@ export default function SkinRecommendationClient() {
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
               </div>
-              {/* Green online dot - only when logged in */}
               {user && (
                 <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
               )}
@@ -1311,64 +1312,69 @@ export default function SkinRecommendationClient() {
         </div>
       ) : !showResults ? (
         <>
-          {/* Header */}
-          <div className="text-center mb-6 md:mb-12">
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 md:mb-4">
+          {/* Page hero — on mobile/PWA the sticky header already shows the page
+              title ("Skin Analysis"), so the body lead is smaller and the
+              description is clamped to 2 lines to preserve above-the-fold
+              real estate. Desktop keeps the original large hero. */}
+          <div className={`text-center ${isAppLikeMode ? 'mb-4' : 'mb-6 md:mb-12'}`}>
+            <h2 className={`font-bold text-gray-900 ${isAppLikeMode ? 'text-lg mb-1' : 'text-2xl md:text-4xl lg:text-5xl mb-2 md:mb-4'}`}>
               {t('skinRecommendation.title')}
-            </h1>
-            <p className="text-sm md:text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto">
+            </h2>
+            <p className={`text-gray-600 ${isAppLikeMode ? 'text-xs line-clamp-2 leading-relaxed' : 'text-sm md:text-lg lg:text-xl max-w-2xl mx-auto'}`}>
               {t('skinRecommendation.subtitle')}
             </p>
           </div>
 
-          {/* Camera Analysis Option - Available on all platforms */}
-          <div className="mb-6 md:mb-10">
-              <div className="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl p-5 md:p-6 border border-primary-200">
-                <div className={`flex items-center gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <div className="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-primary-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary-200">
-                    <Scan className="w-7 h-7 md:w-8 md:h-8 text-white" />
+          {/* Camera Analysis Option — tighter on mobile (smaller icon, thinner
+              padding, single-line captions) so it takes less above-the-fold
+              space before the form questions. */}
+          <div className={isAppLikeMode ? 'mb-4' : 'mb-6 md:mb-10'}>
+              <div className={`bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl border border-primary-200 ${isAppLikeMode ? 'p-4' : 'p-5 md:p-6'}`}>
+                <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`rounded-2xl bg-primary-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary-200 ${isAppLikeMode ? 'w-11 h-11' : 'w-14 h-14 md:w-16 md:h-16'}`}>
+                    <Scan className={`text-white ${isAppLikeMode ? 'w-5 h-5' : 'w-7 h-7 md:w-8 md:h-8'}`} />
                   </div>
-                  <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1">
+                  <div className={`flex-1 min-w-0 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <h3 className={`font-bold text-gray-900 ${isAppLikeMode ? 'text-base leading-tight' : 'text-lg md:text-xl mb-1'}`}>
                       {locale === 'ar' ? 'تحليل البشرة بالكاميرا' : locale === 'ru' ? 'Анализ кожи камерой' : 'AI Skin Analysis'}
                     </h3>
-                    <p className="text-sm text-gray-600">
+                    <p className={`text-gray-600 ${isAppLikeMode ? 'text-xs mt-0.5 line-clamp-1' : 'text-sm'}`}>
                       {locale === 'ar' ? 'التقط صورة سيلفي وسنحلل بشرتك' : locale === 'ru' ? 'Сделайте селфи, и мы проанализируем вашу кожу' : 'Take a selfie and we\'ll analyze your skin'}
                     </p>
                   </div>
                 </div>
 
-                {/* Two Action Buttons - Power Animal & Live AR */}
-                <div className="mt-4 mb-4">
-                  <div className="flex gap-4">
-                    {/* Power Animal Button */}
-                    <div className="flex-1">
+                {/* Two Action Buttons — Power Animal + Live AR. On mobile the
+                    buttons use tighter vertical padding and the captions are
+                    clipped to one line so the pair fits on one screen. */}
+                <div className={isAppLikeMode ? 'mt-3' : 'mt-4 mb-4'}>
+                  <div className={`flex ${isAppLikeMode ? 'gap-2.5' : 'gap-4'}`}>
+                    <div className="flex-1 min-w-0">
                       <button
                         onClick={() => setShowPowerAnimal(true)}
-                        className={`w-full flex items-center justify-center gap-2 py-4 px-4 rounded-xl text-base font-semibold transition-all border-2 border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 text-amber-700 hover:border-amber-400 hover:shadow-lg active:scale-[0.98] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`w-full flex items-center justify-center gap-2 rounded-xl font-semibold transition-all border-2 border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 text-amber-700 hover:border-amber-400 hover:shadow-lg active:scale-[0.98] ${isAppLikeMode ? 'py-2.5 px-2 text-sm' : 'py-4 px-4 text-base'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
-                        <span className="text-xl">🦁</span>
+                        <span className={isAppLikeMode ? 'text-base' : 'text-xl'}>🦁</span>
                         {locale === 'ar' ? 'حيوان القوة' : locale === 'ru' ? 'Тотем' : 'Power Animal'}
                       </button>
-                      <p className={`mt-2 text-xs text-gray-500 text-center leading-relaxed`}>
-                        {locale === 'ar' 
+                      <p className={`text-gray-500 text-center ${isAppLikeMode ? 'mt-1.5 text-[10px] leading-tight line-clamp-2' : 'mt-2 text-xs leading-relaxed'}`}>
+                        {locale === 'ar'
                           ? 'اكتشف حيوانك الروحي مع روتين العناية المضحك!'
                           : locale === 'ru'
                             ? 'Узнайте своё тотемное животное с забавным уходом!'
                             : 'Discover your spirit animal with a funny skincare routine!'}
                       </p>
                     </div>
-                    
-                    {/* Live AR Button */}
-                    <div className="flex-1">
+
+                    <div className="flex-1 min-w-0">
                       <button
                         onClick={() => setShowARCamera(true)}
-                        className={`w-full flex items-center justify-center gap-2 py-4 px-4 rounded-xl text-base font-semibold transition-all border-2 border-primary-200 bg-gradient-to-r from-primary-50 to-red-50 text-primary-700 hover:border-primary-400 hover:shadow-lg active:scale-[0.98] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`w-full flex items-center justify-center gap-2 rounded-xl font-semibold transition-all border-2 border-primary-200 bg-gradient-to-r from-primary-50 to-red-50 text-primary-700 hover:border-primary-400 hover:shadow-lg active:scale-[0.98] ${isAppLikeMode ? 'py-2.5 px-2 text-sm' : 'py-4 px-4 text-base'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
-                        <Zap className="w-5 h-5" />
+                        <Zap className={isAppLikeMode ? 'w-4 h-4' : 'w-5 h-5'} />
                         {locale === 'ar' ? 'تحليل AR' : locale === 'ru' ? 'AR Анализ' : 'Live AR'}
                       </button>
-                      <p className={`mt-2 text-xs text-gray-500 text-center leading-relaxed`}>
+                      <p className={`text-gray-500 text-center ${isAppLikeMode ? 'mt-1.5 text-[10px] leading-tight line-clamp-2' : 'mt-2 text-xs leading-relaxed'}`}>
                         {locale === 'ar'
                           ? 'تحليل فوري للبشرة بالذكاء الاصطناعي في الوقت الفعلي'
                           : locale === 'ru'
@@ -1411,14 +1417,17 @@ export default function SkinRecommendationClient() {
               </div>
             </div>
 
-          {/* Progress Indicator */}
-          <div className="mb-4 md:mb-8">
-            <div className={`flex items-center justify-between mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          {/* Progress Indicator — on mobile/PWA we pin this just below the
+              sticky nav header (top-[60px] matches the ~60px header height)
+              so the user always sees which step they're on while scrolling
+              long option lists. Desktop keeps the original non-sticky layout. */}
+          <div className={`mb-4 md:mb-8 ${isAppLikeMode ? 'sticky top-[60px] z-10 -mx-3 px-3 py-2 bg-gray-50/95 backdrop-blur border-b border-gray-100' : ''}`}>
+            <div className={`flex items-center justify-between mb-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <span className="text-xs md:text-sm font-medium text-gray-700">{t('skinRecommendation.step')} {currentStep} {t('skinRecommendation.of')} 4</span>
               <span className="text-xs md:text-sm text-gray-500">{Math.round((currentStep / 4) * 100)}% {t('skinRecommendation.complete')}</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-1.5 md:h-2">
-              <div 
+              <div
                 className="bg-primary-600 h-1.5 md:h-2 rounded-full transition-all duration-300"
                 style={{ width: `${(currentStep / 4) * 100}%` }}
               />

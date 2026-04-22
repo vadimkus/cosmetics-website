@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 
 export default function RussianCartPage() {
   return (
-    <div className="bg-gray-50 md:bg-white min-h-[100dvh] cart-page">
+    <div className="bg-white min-h-[100dvh] cart-page">
       <BreadcrumbSchema
         items={[
           { name: 'Главная', url: '/ru' },

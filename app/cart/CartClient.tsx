@@ -201,7 +201,7 @@ export default function CartClient() {
   // Show loading state while cart is hydrating from localStorage
   if (!_hasHydrated) {
     return (
-      <div className={isAppLikeMode ? 'min-h-[100dvh] bg-gray-50 pb-8' : ''}>
+      <div className={isAppLikeMode ? 'min-h-[100dvh] bg-white pb-8' : ''}>
         {/* PWA / Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
           <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -228,7 +228,7 @@ export default function CartClient() {
   if (items.length === 0) {
     const emptyBackLabel = fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')
     return (
-      <div className={isAppLikeMode ? 'min-h-[100dvh] bg-gray-50 pb-8' : ''}>
+      <div className={isAppLikeMode ? 'min-h-[100dvh] bg-white pb-8' : ''}>
         {/* PWA / Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
           <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -382,7 +382,7 @@ export default function CartClient() {
   const backLabel = fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')
 
   return (
-    <div className={isAppLikeMode ? 'min-h-[100dvh] bg-gray-50 pb-8' : ''}>
+    <div className={isAppLikeMode ? 'min-h-[100dvh] bg-white pb-8' : ''}>
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
         <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>

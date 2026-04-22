@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 
 export default function ArabicCheckoutPage() {
   return (
-    <div className="bg-white min-h-screen checkout-page">
+    <div className="bg-gray-50 md:bg-white min-h-[100dvh] checkout-page">
       <BreadcrumbSchema
         items={[
           { name: 'الرئيسية', url: '/ar' },

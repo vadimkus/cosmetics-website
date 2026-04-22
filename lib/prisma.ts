@@ -120,10 +120,25 @@ try {
   }
 }
 
-// Test the connection (lazy - don't block initialization)
-prisma.$connect().catch((error: unknown) => {
-  errorLog('Failed to connect to database:', error)
-})
+// NOTE: we deliberately do NOT call `prisma.$connect()` here.
+//
+// Why:
+// 1. On Prisma Accelerate (prisma+postgres://, HTTP transport) there is no
+//    persistent connection to pre-warm — every query is its own HTTP round
+//    trip. `$connect()` is a no-op in practical terms.
+// 2. When the Accelerate endpoint's initial fetch hiccups (cold start, DNS
+//    blip, upstream 5xx), the reject splits into two: one through the normal
+//    promise chain (handled), and one leaked out of undici's internal stream
+//    pipeline that Node then emits as `unhandledRejection`. Sentry captured
+//    that secondary rejection as JAVASCRIPT-NEXTJS-7 on 2026-04-22 —
+//    a boot-time fetch that had zero functional value and cannot be caught
+//    by our own `.catch()` handler.
+// 3. On the pg adapter path, the pool lazy-connects on first query anyway.
+//
+// `lib/prismaRetry.ts` already retries `fetch failed` at the query site, which
+// is where a transient failure actually matters. Dropping this boot-time ping
+// removes a class of unhandled rejections on cold start without changing
+// runtime behaviour.
 
 // Set max listeners to prevent memory leak warning
 process.setMaxListeners(15)

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { User, Camera, Mail, Calendar, ChevronDown, ArrowLeft, X, AlertTriangle, Trash2, CheckCircle, AlertCircle } from 'lucide-react'
+import { User, Camera, Mail, Lock, Calendar, ChevronDown, ArrowLeft, X, AlertTriangle, Trash2, CheckCircle, AlertCircle } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -318,21 +318,24 @@ export default function EditProfilePage() {
     back: locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account',
     save: locale === 'ar' ? 'حفظ' : locale === 'ru' ? 'Сохранить' : 'Save',
     saving: locale === 'ar' ? 'جارٍ الحفظ...' : locale === 'ru' ? 'Сохранение...' : 'Saving...',
-    profilePicture: locale === 'ar' ? 'صورة الملف الشخصي' : locale === 'ru' ? 'Фото профиля' : 'Profile Picture',
+    profilePicture: locale === 'ar' ? 'الصورة' : locale === 'ru' ? 'Фото' : 'Photo',
     tapToChange: locale === 'ar' ? 'اضغط لتغيير الصورة' : locale === 'ru' ? 'Нажмите для изменения' : 'Tap to change photo',
-    personalInfo: locale === 'ar' ? 'المعلومات الشخصية' : locale === 'ru' ? 'Личные данные' : 'Personal Information',
+    // Section heading below h1 — renamed from "Personal Information" to
+    // avoid duplicating the page title (a11y: two identical headings).
+    personalInfo: locale === 'ar' ? 'الاسم والتواصل' : locale === 'ru' ? 'Имя и контакты' : 'Name & Contact',
     firstName: locale === 'ar' ? 'الاسم الأول' : locale === 'ru' ? 'Имя' : 'First Name',
     lastName: locale === 'ar' ? 'اسم العائلة' : locale === 'ru' ? 'Фамилия' : 'Last Name',
     email: locale === 'ar' ? 'البريد الإلكتروني' : locale === 'ru' ? 'Email' : 'Email Address',
+    emailHint: locale === 'ar' ? 'يستخدم لتسجيل الدخول إلى حسابك' : locale === 'ru' ? 'Используется для входа в аккаунт' : 'Used to sign in to your account',
     contactEmail: locale === 'ar' ? 'بريد التواصل' : locale === 'ru' ? 'Контактный email' : 'Contact Email',
     contactEmailHint: locale === 'ar' ? 'يستخدم للإشعارات وتحديثات الطلبات' : locale === 'ru' ? 'Для уведомлений и обновлений заказов' : 'Used for notifications and order updates',
     phone: locale === 'ar' ? 'رقم الهاتف' : locale === 'ru' ? 'Телефон' : 'Phone Number',
-    additionalInfo: locale === 'ar' ? 'معلومات إضافية' : locale === 'ru' ? 'Дополнительная информация' : 'Additional Information',
+    additionalInfo: locale === 'ar' ? 'معلوماتك' : locale === 'ru' ? 'О вас' : 'About You',
     dateOfBirth: locale === 'ar' ? 'تاريخ الميلاد' : locale === 'ru' ? 'Дата рождения' : 'Date of Birth',
     selectDate: locale === 'ar' ? 'اختر التاريخ' : locale === 'ru' ? 'Выберите дату' : 'Select date',
     gender: locale === 'ar' ? 'الجنس' : locale === 'ru' ? 'Пол' : 'Gender',
     selectGender: locale === 'ar' ? 'اختر الجنس' : locale === 'ru' ? 'Выберите пол' : 'Select gender',
-    required: '*',
+    optional: locale === 'ar' ? '(اختياري)' : locale === 'ru' ? '(необязательно)' : '(optional)',
     hidden: locale === 'ar' ? 'مخفي' : locale === 'ru' ? 'Скрыто' : 'Hidden',
     privacyNote: locale === 'ar' ? 'معلوماتك محمية ولن تتم مشاركتها' : locale === 'ru' ? 'Ваша информация защищена и не будет передана' : 'Your information is protected and will not be shared',
     // Delete account translations
@@ -419,11 +422,12 @@ export default function EditProfilePage() {
           onClick={handleBack}
           className={`flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse' : ''}`}
         >
-          <ArrowLeft className={`w-6 h-6 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+          <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
           <span className="text-sm font-semibold text-red-600">{translations.back}</span>
         </button>
         <h1 className="text-lg font-semibold text-gray-900">{translations.title}</h1>
-        <button 
+        <button
+          type="button"
           onClick={handleSave}
           disabled={isSaving || !isDirty()}
           className={`text-sm font-semibold min-w-[60px] text-right ${isSaving || !isDirty() ? 'text-gray-400' : 'text-red-600 active:opacity-70'}`}
@@ -432,8 +436,9 @@ export default function EditProfilePage() {
         </button>
       </div>
 
-      {/* Content - Remove overflow-y-auto to allow native scrolling on iOS */}
-      <div>
+      {/* Content - max-w-xl constrains the form on desktop/tablet so inputs
+           don't stretch to an uncomfortable line length. */}
+      <div className="max-w-xl mx-auto">
         {/* Profile Picture Section */}
         <div className="py-6 border-b border-gray-100">
           <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -451,6 +456,7 @@ export default function EditProfilePage() {
             className="hidden"
           />
           <button
+            type="button"
             onClick={handlePhotoClick}
             disabled={isUploadingPhoto}
             className="w-full flex flex-col items-center py-4 mx-5 bg-gray-50 rounded-xl active:bg-gray-100 transition-colors disabled:opacity-50"
@@ -484,127 +490,167 @@ export default function EditProfilePage() {
           </button>
         </div>
 
-        {/* Personal Information Section */}
-        <div className="py-6 border-b border-gray-100">
-          <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
-              <User className="w-4 h-4 text-red-600" />
+        {/* Real <form> enables Enter-to-submit on mobile keyboards and gives
+             the browser a chance to offer autofill. The header Save button
+             still calls handleSave directly; onSubmit here covers Enter-key. */}
+        <form
+          id="profileForm"
+          onSubmit={(e) => {
+            e.preventDefault()
+            if (!isSaving && isDirty()) handleSave()
+          }}
+          noValidate
+        >
+          {/* Name & Contact Section */}
+          <div className="py-6 border-b border-gray-100">
+            <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
+                <User className="w-4 h-4 text-red-600" />
+              </div>
+              <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.personalInfo}</h2>
             </div>
-            <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.personalInfo}</h2>
-          </div>
-          <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
-            {/* First Name */}
-            <div className="px-4 py-3 border-b border-gray-200">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
-                {translations.firstName}<span className="text-red-600"> {translations.required}</span>
-              </label>
-              <input
-                type="text"
-                value={formData.firstName}
-                onChange={(e) => updateField('firstName', e.target.value)}
-                className={`w-full text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
-                placeholder={translations.firstName}
-              />
-            </div>
-            {/* Last Name */}
-            <div className="px-4 py-3 border-b border-gray-200">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
-                {translations.lastName}<span className="text-red-600"> {translations.required}</span>
-              </label>
-              <input
-                type="text"
-                value={formData.lastName}
-                onChange={(e) => updateField('lastName', e.target.value)}
-                className={`w-full text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
-                placeholder={translations.lastName}
-              />
-            </div>
-            {/* Email (read-only) */}
-            <div className="px-4 py-3 border-b border-gray-200 opacity-75">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
-                {translations.email}<span className="text-red-600"> {translations.required}</span>
-              </label>
-              <input
-                type="text"
-                value={isApplePrivateRelayEmail(formData.email) ? translations.hidden : formData.email}
-                readOnly
-                className="w-full text-base text-gray-500 bg-transparent outline-none"
-                dir="ltr"
-              />
-            </div>
-            {/* Contact Email */}
-            <div className="px-4 py-3 border-b border-gray-200">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
-                {translations.contactEmail}<span className="text-red-600"> {translations.required}</span>
-              </label>
-              <input
-                type="email"
-                value={formData.contactEmail}
-                onChange={(e) => updateField('contactEmail', e.target.value)}
-                className="w-full text-base text-gray-900 bg-transparent outline-none"
-                placeholder={translations.contactEmail}
-                dir="ltr"
-              />
-              <p className={`text-xs text-amber-700 mt-2 bg-amber-50 px-3 py-2 rounded-lg ${isRTL ? 'text-right' : ''}`}>
-                <Mail className="w-3 h-3 inline mr-1" />
-                {translations.contactEmailHint}
-              </p>
-            </div>
-            {/* Phone */}
-            <div className="px-4 py-3">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
-                {translations.phone}<span className="text-red-600"> {translations.required}</span>
-              </label>
-              <input
-                type="tel"
-                value={formData.phone}
-                onChange={(e) => updateField('phone', e.target.value)}
-                className="w-full text-base text-gray-900 bg-transparent outline-none"
-                placeholder="+971 XX XXX XXXX"
-                dir="ltr"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Additional Information Section */}
-        <div className="py-6 border-b border-gray-100">
-          <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
-              <Calendar className="w-4 h-4 text-red-600" />
-            </div>
-            <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.additionalInfo}</h2>
-          </div>
-          <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
-            {/* Date of Birth */}
-            <div className="px-4 py-3 border-b border-gray-200">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
-                {translations.dateOfBirth}
-              </label>
-              <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
+              {/* First Name */}
+              <div className="px-4 py-3 border-b border-gray-200 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
+                <label htmlFor="firstName" className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                  {translations.firstName}
+                </label>
                 <input
-                  type="date"
-                  value={formData.birthday}
-                  onChange={(e) => updateField('birthday', e.target.value)}
-                  className={`flex-1 text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
+                  id="firstName"
+                  name="given-name"
+                  type="text"
+                  autoComplete="given-name"
+                  value={formData.firstName}
+                  onChange={(e) => updateField('firstName', e.target.value)}
+                  className={`w-full text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
+                  placeholder={translations.firstName}
+                />
+              </div>
+              {/* Last Name */}
+              <div className="px-4 py-3 border-b border-gray-200 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
+                <label htmlFor="lastName" className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                  {translations.lastName}
+                </label>
+                <input
+                  id="lastName"
+                  name="family-name"
+                  type="text"
+                  autoComplete="family-name"
+                  value={formData.lastName}
+                  onChange={(e) => updateField('lastName', e.target.value)}
+                  className={`w-full text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
+                  placeholder={translations.lastName}
+                />
+              </div>
+              {/* Email (read-only) — lock icon + hint tells users why it's
+                   shown but not editable, clarifying the two-email UX. */}
+              <div className="px-4 py-3 border-b border-gray-200">
+                <label htmlFor="email" className={`text-sm font-medium text-gray-600 mb-1 flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                  <Lock className="w-3 h-3" aria-hidden="true" />
+                  {translations.email}
+                </label>
+                <input
+                  id="email"
+                  type="text"
+                  value={isApplePrivateRelayEmail(formData.email) ? translations.hidden : formData.email}
+                  readOnly
+                  aria-readonly="true"
+                  tabIndex={-1}
+                  className="w-full text-base text-gray-500 bg-transparent outline-none cursor-default"
+                  dir="ltr"
+                />
+                <p className={`text-xs text-gray-500 mt-1 ${isRTL ? 'text-right' : ''}`}>
+                  {translations.emailHint}
+                </p>
+              </div>
+              {/* Contact Email */}
+              <div className="px-4 py-3 border-b border-gray-200 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
+                <label htmlFor="contactEmail" className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                  {translations.contactEmail}
+                </label>
+                <input
+                  id="contactEmail"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  value={formData.contactEmail}
+                  onChange={(e) => updateField('contactEmail', e.target.value)}
+                  className="w-full text-base text-gray-900 bg-transparent outline-none"
+                  placeholder={translations.contactEmail}
+                  dir="ltr"
+                />
+                {/* Neutral gray hint — previous amber pill read as a warning
+                     when it's just informational. */}
+                <p className={`text-xs text-gray-500 mt-1 flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                  <Mail className="w-3 h-3" aria-hidden="true" />
+                  {translations.contactEmailHint}
+                </p>
+              </div>
+              {/* Phone */}
+              <div className="px-4 py-3 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
+                <label htmlFor="phone" className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                  {translations.phone}
+                </label>
+                <input
+                  id="phone"
+                  name="tel"
+                  type="tel"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  value={formData.phone}
+                  onChange={(e) => updateField('phone', e.target.value)}
+                  className="w-full text-base text-gray-900 bg-transparent outline-none"
+                  placeholder="+971 XX XXX XXXX"
+                  dir="ltr"
                 />
               </div>
             </div>
-            {/* Gender */}
-            <div className="px-4 py-3">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
-                {translations.gender}
-              </label>
-              <button
-                onClick={() => setShowGenderModal(true)}
-                className={`w-full flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}
-              >
-                <span className="text-base text-gray-900">{getGenderLabel(formData.gender)}</span>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
-              </button>
+          </div>
+
+          {/* About You Section */}
+          <div className="py-6 border-b border-gray-100">
+            <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
+                <Calendar className="w-4 h-4 text-red-600" />
+              </div>
+              <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.additionalInfo}</h2>
+            </div>
+            <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
+              {/* Date of Birth */}
+              <div className="px-4 py-3 border-b border-gray-200 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
+                <label htmlFor="birthday" className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                  {translations.dateOfBirth} <span className="text-gray-400 font-normal">{translations.optional}</span>
+                </label>
+                <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <input
+                    id="birthday"
+                    name="bday"
+                    type="date"
+                    autoComplete="bday"
+                    value={formData.birthday}
+                    onChange={(e) => updateField('birthday', e.target.value)}
+                    className={`flex-1 text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
+                  />
+                </div>
+              </div>
+              {/* Gender */}
+              <div className="px-4 py-3">
+                <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                  {translations.gender} <span className="text-gray-400 font-normal">{translations.optional}</span>
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setShowGenderModal(true)}
+                  className={`w-full flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}
+                >
+                  <span className="text-base text-gray-900">{getGenderLabel(formData.gender)}</span>
+                  <ChevronDown className="w-5 h-5 text-gray-400" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
 
         {/* Privacy Note */}
         <div className="px-5 py-6">
@@ -619,6 +665,7 @@ export default function EditProfilePage() {
         {/* Delete Account Section */}
         <div className="px-5 pb-8">
           <button
+            type="button"
             onClick={() => setShowDeleteModal(true)}
             className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl border-2 border-red-200 bg-red-50 text-red-600 font-semibold ${isRTL ? 'flex-row-reverse' : ''}`}
           >

@@ -44,7 +44,7 @@ export default function CheckoutClient() {
     return () => window.removeEventListener('resize', checkMobileWeb)
   }, [isPWA])
   const [freeMasks, setFreeMasks] = useState<Array<{ id: string; name: string; price: number; quantity: number; image: string }>>([])
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('cod')
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('stripe')
   const [orderSummaryExpanded, setOrderSummaryExpanded] = useState(false) // Collapsed by default for PWA
   
   // Payment sheet state for embedded Stripe checkout

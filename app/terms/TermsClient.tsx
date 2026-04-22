@@ -332,7 +332,7 @@ export default function TermsClient() {
           </div>
 
           <div className="text-center mt-4 text-xs text-gray-400">
-            <p>&copy; 2025 GENOSYS Middle East FZ-LLC</p>
+            <p>&copy; 2026 GENOSYS Middle East FZ-LLC</p>
           </div>
         </div>
 
@@ -533,7 +533,7 @@ export default function TermsClient() {
 
         {/* Footer */}
         <div className={`mt-8 text-center text-sm text-gray-500 ${isRTL ? 'text-center' : ''}`}>
-          <p>© 2025 GENOSYS Middle East FZ-LLC</p>
+          <p>© 2026 GENOSYS Middle East FZ-LLC</p>
         </div>
       </div>
     </div>

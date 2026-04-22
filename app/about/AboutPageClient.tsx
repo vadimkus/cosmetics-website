@@ -185,7 +185,7 @@ export default function AboutPageClient() {
           </div>
 
           <div className="text-center mt-4 text-[11px] text-gray-400">
-            <p>&copy; 2025 GENOSYS Middle East FZ-LLC</p>
+            <p>&copy; 2026 GENOSYS Middle East FZ-LLC</p>
           </div>
         </div>
       ) : (

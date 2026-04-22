@@ -223,7 +223,7 @@ export default function PrivacySettings() {
 
       {/* Footer Note */}
       <p className="mt-3 md:mt-4 text-[10px] md:text-xs text-gray-400 text-center">
-        {t('profile.lastUpdated')} November 2025 • GENOSYS MIDDLE EAST FZ-LLC
+        {t('profile.lastUpdated')} March 2026 • GENOSYS MIDDLE EAST FZ-LLC
       </p>
     </div>
   )

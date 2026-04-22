@@ -8,7 +8,6 @@ import { useCartStore } from '@/lib/cartStore'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { ChevronRight, ChevronLeft } from 'lucide-react'
-import { ThemeToggleItem } from '@/components/ThemeToggle'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 import { ARSkinAnalysisCamera } from '@/components/ar'
 import { debugLog } from '@/lib/logger'
@@ -688,8 +687,12 @@ export default function PWAProfilePage() {
               subtitle={languageDisplay}
               onClick={() => router.push(getLocalizedPath('/profile/language', locale) + '?from=profile')}
               isRTL={isRTL}
+              isLast
             />
-            <ThemeToggleItem isRTL={isRTL} isLast />
+            {/* Appearance/theme toggle removed: dark-mode CSS variables exist but
+                components use hard-coded Tailwind classes, so the buttons had no
+                visible effect. Re-enable once the site is migrated to theme-aware
+                semantic classes (bg-surface, text-primary, etc.). */}
           </div>
         </div>
 

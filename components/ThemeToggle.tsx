@@ -159,17 +159,6 @@ export function ThemeToggleItem({ isLast = false, isRTL = false }: ThemeToggleIt
   const { theme, resolvedTheme, setTheme, isClient } = useTheme()
   const { t } = useTranslation()
 
-  const themeLabels = {
-    light: t('theme.light') || 'Light',
-    dark: t('theme.dark') || 'Dark',
-    system: t('theme.system') || 'System',
-  }
-
-  const currentLabel = themeLabels[theme]
-  const resolvedLabel = theme === 'system' 
-    ? `${themeLabels.system} (${resolvedTheme === 'dark' ? themeLabels.dark : themeLabels.light})`
-    : currentLabel
-
   if (!isClient) {
     return (
       <div className={`flex items-center justify-between py-3 px-4 min-h-[56px] ${!isLast ? 'border-b border-gray-200' : ''}`}>
@@ -197,7 +186,6 @@ export function ThemeToggleItem({ isLast = false, isRTL = false }: ThemeToggleIt
         </div>
         <div className={`flex-1 ${isRTL ? 'text-right' : ''}`}>
           <p className="text-[17px] text-gray-900">{t('theme.appearance') || 'Appearance'}</p>
-          <p className="text-[15px] text-gray-500">{resolvedLabel}</p>
         </div>
       </div>
       

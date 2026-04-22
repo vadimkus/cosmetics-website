@@ -153,6 +153,8 @@ export const metadata: Metadata = {
   },
   formatDetection: {
     telephone: false,
+    email: false,
+    address: false,
   },
   // Geo-targeting meta tags for UAE/Dubai market
   // Search console verification placeholders (replace with actual values)

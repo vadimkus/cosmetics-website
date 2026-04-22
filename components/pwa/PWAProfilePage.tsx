@@ -13,6 +13,7 @@ import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysi
 import { ARSkinAnalysisCamera } from '@/components/ar'
 import { debugLog } from '@/lib/logger'
 import { VAPID_PUBLIC_KEY, APP_VERSION } from '@/lib/siteConfig'
+import { plural } from '@/lib/plurals'
 
 /**
  * PWA Profile Page - Matches mobile app design exactly
@@ -509,39 +510,47 @@ export default function PWAProfilePage() {
             </div>
 
             {/* User Info */}
-            <div className={`flex-1 ${isRTL ? 'text-right' : ''}`}>
-              <h2 className="text-[22px] font-bold text-gray-900 tracking-tight">
+            <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
+              <h2 className="text-[22px] font-bold text-gray-900 tracking-tight truncate">
                 {user?.name || 'Loading...'}
               </h2>
-              <p className="text-base text-gray-500 mt-0.5">{displayEmail}</p>
+              {/* Email — rendered as plain text (no auto-linkification on iOS
+                  Safari thanks to site-wide `formatDetection: { email: false }`
+                  in app/layout.tsx). `dir="ltr"` keeps the domain left-to-right
+                  even inside the RTL Arabic layout. */}
+              <p className="text-base text-gray-500 mt-0.5 truncate" dir="ltr">
+                {displayEmail}
+              </p>
               {user?.phone && (
-                <p className="text-sm text-gray-400 mt-1">{user.phone}</p>
+                <p className="text-sm text-gray-400 mt-1 truncate">{user.phone}</p>
               )}
-              <button 
+              <button
                 onClick={() => router.push(getLocalizedPath('/profile/edit', locale) + '?from=profile')}
-                className="mt-3 text-[17px] text-blue-500"
+                className={`mt-3 inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-red-50 border border-red-100 text-red-600 text-[13px] font-semibold active:bg-red-100 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
               >
-                {t('pwaProfile.viewAndEdit')}
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.536L16.732 3.732z" />
+                </svg>
+                <span>{t('pwaProfile.edit') || t('pwaProfile.viewAndEdit')}</span>
               </button>
             </div>
 
-            {/* Notification/Promo Icon - Bottom right corner of card */}
-            <button 
-              onClick={() => router.push(getLocalizedPath('/profile/promo', locale) + '?from=profile')}
-              className={`absolute ${isRTL ? 'left-3' : 'right-3'} bottom-3 w-9 h-9 rounded-full bg-red-50 border border-red-200 flex items-center justify-center active:bg-red-100 transition-colors`}
-              aria-label={t('pwaProfile.notifications') || 'Notifications'}
-            >
-              {/* Megaphone/Notification icon */}
-              <svg className="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-              </svg>
-              {/* Unread count badge */}
-              {unreadNotifications > 0 && (
+            {/* Notification badge — only render when there is something to show.
+                Prevents visual clutter on a card that's already busy. */}
+            {unreadNotifications > 0 && (
+              <button
+                onClick={() => router.push(getLocalizedPath('/profile/promo', locale) + '?from=profile')}
+                className={`absolute ${isRTL ? 'left-3' : 'right-3'} top-3 w-9 h-9 rounded-full bg-red-50 border border-red-200 flex items-center justify-center active:bg-red-100 transition-colors`}
+                aria-label={t('pwaProfile.notifications') || 'Notifications'}
+              >
+                <svg className="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                </svg>
                 <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] bg-red-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white px-1">
                   {unreadNotifications > 99 ? '99+' : unreadNotifications}
                 </span>
-              )}
-            </button>
+              </button>
+            )}
           </div>
         </div>
 
@@ -562,7 +571,9 @@ export default function PWAProfilePage() {
                 {t('pwaProfile.orders')}
               </p>
               <p className="text-[15px] text-gray-500">
-                {ordersCount} {ordersCount === 1 ? t('pwaProfile.purchase') : t('pwaProfile.purchases')}
+                {ordersCount} {plural(ordersCount, locale, (cat) =>
+                  t(`pwaProfile.purchase${cat.charAt(0).toUpperCase()}${cat.slice(1)}`)
+                )}
               </p>
             </button>
 
@@ -580,8 +591,10 @@ export default function PWAProfilePage() {
                 {t('pwaProfile.bag')}
               </p>
               <p className="text-[15px] text-gray-500">
-                {cartCount > 0 
-                  ? `${cartCount} ${cartCount === 1 ? t('pwaProfile.item') : t('pwaProfile.items')}`
+                {cartCount > 0
+                  ? `${cartCount} ${plural(cartCount, locale, (cat) =>
+                      t(`pwaProfile.item${cat.charAt(0).toUpperCase()}${cat.slice(1)}`)
+                    )}`
                   : t('pwaProfile.empty')
                 }
               </p>
@@ -589,7 +602,16 @@ export default function PWAProfilePage() {
           </div>
         </div>
 
-        {/* Account Section */}
+        {/* ─────────────────────────────────────────────────────────────────
+            Sections are ordered iOS-Settings-style:
+              1. Account (who you are)
+              2. Beauty Tools (what makes this app unique — promoted)
+              3. Preferences (how the app behaves)
+              4. Privacy & Security (trust)
+              5. Support (help)
+            ───────────────────────────────────────────────────────────────── */}
+
+        {/* 1. Account Section */}
         <div className="py-4">
           <h3 className={`text-[22px] font-bold text-gray-900 mb-2 px-5 ${isRTL ? 'text-right' : ''}`}>
             {t('pwaProfile.accountSection')}
@@ -617,7 +639,61 @@ export default function PWAProfilePage() {
           </div>
         </div>
 
-        {/* Privacy & Security Section */}
+        {/* 2. Beauty Tools — promoted to their own section so the hero features
+               are not buried under "General". */}
+        <div className="py-4">
+          <h3 className={`text-[22px] font-bold text-gray-900 mb-2 px-5 ${isRTL ? 'text-right' : ''}`}>
+            {t('pwaProfile.beautyTools')}
+          </h3>
+          <div className="mx-5 bg-white rounded-xl overflow-hidden">
+            <ProfileItem
+              icon={
+                <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                </svg>
+              }
+              title={t('pwaProfile.aiSkinTitle')}
+              subtitle={
+                lastSkinType
+                  ? t('pwaProfile.lastSkinType', { skinType: lastSkinType })
+                  : t('pwaProfile.discoverSkinType')
+              }
+              onClick={() => setShowSkinAnalysis(true)}
+              isRTL={isRTL}
+            />
+            <ProfileItem
+              icon={
+                <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+              }
+              title={t('pwaProfile.liveARTitle')}
+              subtitle={t('pwaProfile.liveARSubtitle')}
+              onClick={() => setShowARSkinAnalysis(true)}
+              isLast
+              isRTL={isRTL}
+            />
+          </div>
+        </div>
+
+        {/* 3. Preferences — language + appearance. */}
+        <div className="py-4">
+          <h3 className={`text-[22px] font-bold text-gray-900 mb-2 px-5 ${isRTL ? 'text-right' : ''}`}>
+            {t('pwaProfile.preferences')}
+          </h3>
+          <div className="mx-5 bg-white rounded-xl overflow-hidden">
+            <ProfileItem
+              icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>}
+              title={t('pwaProfile.language')}
+              subtitle={languageDisplay}
+              onClick={() => router.push(getLocalizedPath('/profile/language', locale) + '?from=profile')}
+              isRTL={isRTL}
+            />
+            <ThemeToggleItem isRTL={isRTL} isLast />
+          </div>
+        </div>
+
+        {/* 4. Privacy & Security Section */}
         <div className="py-4">
           <h3 className={`text-[22px] font-bold text-gray-900 mb-2 px-5 ${isRTL ? 'text-right' : ''}`}>
             {t('pwaProfile.privacyAndSecurity')}
@@ -631,20 +707,37 @@ export default function PWAProfilePage() {
               onChange={setEmailNotifications}
               isRTL={isRTL}
             />
-            <SwitchItem
-              icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>}
-              title={t('pwaProfile.pushNotifications')}
-              subtitle={!pushSupported ? (t('pwaProfile.pushNotSupported') || 'Not supported') : (pushNotifications ? (t('pwaProfile.pushEnabled') || 'Enabled') : (t('pwaProfile.pushDisabled') || 'Tap to enable'))}
-              value={pushNotifications}
-              onChange={handlePushToggle}
-              disabled={!pushSupported}
-              isRTL={isRTL}
-            />
-            {/* Passkeys / Face ID / Touch ID */}
+            {/* Push row: show a proper toggle only when the browser actually supports
+                it. When unsupported (most desktop browsers, some Androids), swap in
+                a row that sends the user to the native app, where push always works. */}
+            {pushSupported ? (
+              <SwitchItem
+                icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>}
+                title={t('pwaProfile.pushNotifications')}
+                subtitle={pushNotifications ? (t('pwaProfile.pushEnabled') || 'Enabled') : (t('pwaProfile.pushDisabled') || 'Tap to enable')}
+                value={pushNotifications}
+                onChange={handlePushToggle}
+                isRTL={isRTL}
+              />
+            ) : (
+              <ProfileItem
+                icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>}
+                title={t('pwaProfile.pushUseAppTitle')}
+                subtitle={t('pwaProfile.pushUseAppSubtitle')}
+                onClick={() => {
+                  const isiOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
+                  const url = isiOS
+                    ? 'https://apps.apple.com/ae/app/genosys-uae/id6756648064'
+                    : 'https://play.google.com/store/apps/details?id=ae.genosys.app'
+                  window.open(url, '_blank', 'noopener,noreferrer')
+                }}
+                isRTL={isRTL}
+              />
+            )}
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" /></svg>}
-              title={locale === 'ar' ? 'Face ID / Touch ID' : locale === 'ru' ? 'Face ID / Touch ID' : 'Face ID / Touch ID'}
-              subtitle={locale === 'ar' ? 'تسجيل الدخول بدون كلمة مرور' : locale === 'ru' ? 'Вход без пароля' : 'Sign in without password'}
+              title={t('pwaProfile.faceIdTitleShort')}
+              subtitle={t('pwaProfile.faceIdSubtitleShort')}
               onClick={() => router.push(getLocalizedPath('/profile/passkeys', locale) + '?from=profile')}
               isRTL={isRTL}
             />
@@ -664,49 +757,12 @@ export default function PWAProfilePage() {
           </div>
         </div>
 
-        {/* General Section */}
+        {/* 5. Support Section */}
         <div className="py-4">
           <h3 className={`text-[22px] font-bold text-gray-900 mb-2 px-5 ${isRTL ? 'text-right' : ''}`}>
-            {t('pwaProfile.general')}
+            {t('pwaProfile.support')}
           </h3>
           <div className="mx-5 bg-white rounded-xl overflow-hidden">
-            {/* AI Skin Analysis - Premium Feature */}
-            <ProfileItem
-              icon={
-                <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                </svg>
-              }
-              title={locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
-              subtitle={
-                lastSkinType 
-                  ? (locale === 'ar' ? `آخر نتيجة: ${lastSkinType}` : locale === 'ru' ? `Последний: ${lastSkinType}` : `Last: ${lastSkinType} skin`)
-                  : (locale === 'ar' ? 'اكتشف نوع بشرتك' : locale === 'ru' ? 'Узнайте тип кожи' : 'Discover your skin type')
-              }
-              onClick={() => setShowSkinAnalysis(true)}
-              isRTL={isRTL}
-            />
-            {/* AR Skin Analysis - Live Real-time Analysis */}
-            <ProfileItem
-              icon={
-                <svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-              }
-              title={locale === 'ar' ? 'تحليل AR المباشر' : locale === 'ru' ? 'AR Анализ в реальном времени' : 'Live AR Analysis'}
-              subtitle={locale === 'ar' ? 'تحليل فوري بالواقع المعزز' : locale === 'ru' ? 'Мгновенный анализ с AR' : 'Real-time augmented reality'}
-              onClick={() => setShowARSkinAnalysis(true)}
-              isRTL={isRTL}
-            />
-            <ProfileItem
-              icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" /></svg>}
-              title={t('pwaProfile.language')}
-              subtitle={languageDisplay}
-              onClick={() => router.push(getLocalizedPath('/profile/language', locale) + '?from=profile')}
-              isRTL={isRTL}
-            />
-            {/* Theme/Appearance Toggle */}
-            <ThemeToggleItem isRTL={isRTL} />
             <ProfileItem
               icon={<svg className="w-5 h-5 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
               title={t('pwaProfile.helpAndSupport')}

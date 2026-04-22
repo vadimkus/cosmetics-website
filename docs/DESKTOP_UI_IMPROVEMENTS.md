@@ -8,6 +8,86 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ## Shipped
 
+### #D9 — Header icon hit areas: shared shell with hover surface + focus ring
+**Date:** 2026-04-17  ·  **File:** `components/header/HeaderDesktopIcons.tsx`
+**Change:** Every icon link/button in the desktop header now routes through a single shared `iconShell` className string instead of the five slightly-different copies that existed before.
+
+- Shell: `h-10 w-10 rounded-full hover:bg-gray-100 hover:text-primary-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white min-h-[44px] min-w-[44px] touch-manipulation`.
+- Adds a **visible hover surface** (circular gray background) — previously the icons only changed colour on hover which read as dead space on a busy header.
+- Adds a proper **`focus-visible` ring** — previously keyboard focus was barely perceptible, which was WCAG 2.4.7 borderline.
+- **Fixes inconsistency**: profile and logout icon-buttons were missing `min-h-[44px] min-w-[44px]` / `touch-manipulation` entirely. Now every header target has the same 44×44 hit box.
+- `LanguageSwitcher` button is deliberately NOT wrapped in the shell — it's a text pill (EN / AR / RU) and should stay visually distinct from icon targets. Its existing `hover:bg-gray-100` is kept.
+- No layout shift: the circular hover bg renders inside the existing padding box.
+
+**Why:** Closes audit item #14 ("Icon hit areas have no hover surface"). On a wide header with five interactive icons and nothing between them, the lack of hover/focus feedback made the header feel unfinished. Consolidating five slightly-different className strings into one also removes a future maintenance trap.
+
+**Risk:** desktop-only component. Mobile header (separate file) untouched. Badge positioning / cart + favorites counters unchanged — they still render as absolute children inside each icon shell.
+
+---
+
+### #D8 — `/products` desktop: trust-strip wrap + end-of-grid footer
+**Date:** 2026-04-17  ·  **File:** `app/products/ProductsPageClient.tsx`
+**Change:** Two separate desktop fixes shipped in one commit against the products listing page.
+
+- **#15 — Trust strip wrap:** The brand-promise strip under the search bar (`Free shipping over AED 1,000` · `Authentic Korean dermacosmetics` · `All prices VAT inclusive`) used `overflow-x-auto` with `whitespace-nowrap` on each of three pills and `gap-5 md:gap-10`. On 1024–1280px laptops running the Russian locale, the three items exceeded container width and got clipped to an invisible horizontal scroll (no scrollbar visible because `scrollbar-hide`). Added `md:flex-wrap gap-y-2 md:overflow-visible`; below `md` the strip keeps its original horizontal scroll (3 pills on one row is the designed mobile look), at `md+` long translations now wrap to a second line cleanly.
+- **#11 — End-of-grid footer:** The products grid renders all ~50 products in a single pass (correct for SEO — all product nodes live in the initial HTML). Long lists previously just ended abruptly with no summary or way to scroll back up. Added a desktop-only (`hidden md:flex`) footer below the grid: `Showing X of Y products` on the left, arrow-up `Back to top` button on the right. Localised for `ar` / `ru`. Proper `focus-visible` ring. Click does `window.scrollTo({ top: 0, behavior: 'smooth' })`. No new state, no new deps.
+- Decorative SVGs inside the trust pills now get `aria-hidden="true"`.
+
+**Why:** The audit flagged "no pagination or Load more" on `/products`. Artificial pagination would harm SEO (crawlers see fewer products) and would also require a new state-management layer. The lighter fix is better: keep all products in the initial HTML, but give long lists a clear terminus and a one-click return-to-top. The trust-strip overflow fix is more urgent — it was actively hiding content from Russian users on common 1280px laptop widths.
+
+**Risk:** desktop-only. Mobile and PWA grids unchanged. Wrapped the existing `isPWA ? (...) : (...)` grid ternary in a `<>` fragment so the new footer renders for both paths when there are results.
+
+---
+
+### #D7 — PDP desktop: premium trust card + left-aligned h1
+**Date:** 2026-04-17  ·  **Files:** `components/product/TrustBadges.tsx`, `app/products/[id]/ProductPageClientRefactored.tsx`
+**Change:** Two desktop PDP items shipped together because they rebalance the same left column.
+
+- **#10 — Trust badges: stacked strip → premium trust card:** The `layout="stacked"` variant of `TrustBadges` (used under the desktop Add to Cart button) was a plain gray-50 strip with three gray rows. It read as filler. Rewritten as a bordered white card with `shadow-sm`, `rounded-2xl` corners, and one icon-well per row:
+  - shipping → `bg-primary-50` well + `text-primary-600` truck icon
+  - authentic → `bg-emerald-50` well + `text-emerald-600` check-shield icon
+  - VAT → `bg-blue-50` well + `text-blue-600` receipt icon
+  - Copy unchanged (same `TRUST_COPY` en/ar/ru map). Horizontal layout untouched. Decorative SVGs all get `aria-hidden="true"`. Verified via grep that the stacked variant is only used once in the codebase (PDP).
+- **#12 — Product title: centered `text-2xl` → left-aligned `text-3xl xl:text-4xl`:** Desktop header was center-aligned with a 24px h1 — it read small on laptop widths and the centered midline made the whole column zig-zag between image thumbnails, title, price, and cart button. Category pill + h1 + rating row now all left-align on `lg+` (with proper RTL mirroring to `text-right` / `justify-end` in Arabic). H1 bumped to `text-3xl xl:text-4xl` with `tracking-tight` — the product name becomes the clear hierarchy anchor.
+
+**Why:** The PDP left column on desktop was visually unsettled: a centered-midline title, a small 24px h1, and a drab gray trust strip that did nothing for conversion. Anchoring the title to the left edge (matching every other block in the column) and upgrading the trust block to a proper card gives the column a single reading axis and a conversion-anchor reassurance block next to the CTA.
+
+**Risk:** desktop-only for both items. Mobile PDP, mobile sticky footer, PWA PDP header all unchanged. No other `TrustBadges` call-sites exist in the codebase (grep-verified).
+
+---
+
+### #D6 — Homepage hero: eyebrow, tighter h1, proof strip, muted app badges
+**Date:** 2026-04-17  ·  **File:** `components/Hero.tsx`
+**Change:** Two desktop hero audit items shipped together — both edit the `hidden md:block` desktop branch, mobile hero branch is byte-identical.
+
+- **#8 — Build credibility + pace before the h1:**
+  - Added eyebrow `TRUSTED KOREAN DERMACOSMETICS · SINCE 2019` (localised for `ar` / `ru`) in primary-red, small-caps, `tracking-[0.18em]`.
+  - H1 at `lg+` bumps from `text-display-md` to `lg:text-[56px] lg:leading-[1.05]` with `tracking-tight` for better line economy on 1280–1536px screens.
+  - Below the CTA + social-proof line, a 3-up proof strip renders in a rounded panel with `divide-x` separators: `30+ UAE clinics` · `Pro dermacosmetics · Korea` · `Official distributor · Since 2019`. Gives the hero a scannable credibility beat before it hands off to the featured products section.
+- **#9 — App-store badges: demote from third CTA to soft cross-promo:**
+  - Badges were `text-xl App Store / Google Play` with 28px icons — visually as heavy as the primary CTA and competed for attention.
+  - Now framed with a muted eyebrow `PREFER THE APP?` above the row; badges downsized to `text-base` + `w-6 h-6` icons (matching mobile) so they read as a secondary channel, not a conversion target.
+  - Added proper `aria-label` per badge and `aria-hidden="true"` on decorative SVGs.
+
+**Why:** Desktop hero previously had three competing CTAs (Start Analysis, Shop Products, App Store, Google Play) and no credential signal before the h1 — a brand-new visitor saw the product name, a video, and four buttons with no reason to trust the brand. The eyebrow + proof strip front-load legitimacy; demoting the app badges restores the hero's CTA hierarchy (Analysis = primary, Shop = secondary, app download = tertiary).
+
+**Risk:** desktop-only. Mobile hero unchanged. No translation-file changes — all new strings inline so no i18n plumbing required.
+
+---
+
+### #D5 — `/contact`: TDRA document added to Official Documents
+**Date:** 2026-04-17  ·  **File:** `app/contact/ContactClient.tsx`
+**Change:** Added a fourth credential pill to the Official Documents row on `/contact`. The row now reads `License · TRN · TDRA · D-U-N-S®`.
+
+- Uses the existing `public/documents/TDRA_NOC.pdf` (562 KB) — the same file `/about` already links to — via the shared `PDFLinkButton` so the PDF opens inline on desktop and downloads as `GENOSYS-TDRA-NOC.pdf` elsewhere.
+- Pill inherits the identical bordered gray-50 chip styling as TRN — no new CSS, no layout shift on any breakpoint.
+
+**Why:** `/about` already surfaced the TDRA NOC, but `/contact` (the page most likely to be checked by partners vetting us against UAE regulators) did not. Adding TDRA completes the credential row and gives prospective clinic/partner visitors all four key documents in one place.
+
+**Risk:** zero — purely additive. No other breakpoints or components touched.
+
+---
+
 ### #D4 — `/training` desktop: premium refresh
 **Date:** 2026-04-17  ·  **File:** `app/training/TrainingClient.tsx`
 **Change:** Fourth and final of the four-page marketing polish sweep. Desktop-only — every change is behind `md:` / `lg:` utilities; the PWA / mobile-web header + list layout are byte-identical.

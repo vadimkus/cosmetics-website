@@ -201,14 +201,14 @@ export default function CartClient() {
   // Show loading state while cart is hydrating from localStorage
   if (!_hasHydrated) {
     return (
-      <div className={isAppLikeMode ? 'min-h-screen bg-white pb-32' : ''}>
+      <div className={isAppLikeMode ? 'min-h-screen bg-gray-50 pb-32' : ''}>
         {/* PWA / Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
-          <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className="min-w-[80px]" />
-            <span className="text-base font-semibold text-gray-900">
+            <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
               {t('pwaProfile.bag') || 'Bag'}
-            </span>
+            </h1>
             <div className="min-w-[80px]" />
           </div>
         )}
@@ -226,29 +226,28 @@ export default function CartClient() {
   }
 
   if (items.length === 0) {
+    const emptyBackLabel = fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')
     return (
-      <div className={isAppLikeMode ? 'min-h-screen bg-white pb-32' : ''}>
+      <div className={isAppLikeMode ? 'min-h-screen bg-gray-50 pb-32' : ''}>
         {/* PWA / Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
-          <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <button 
+          <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <button
               onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
               className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+              aria-label={emptyBackLabel}
             >
-              <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              <span className="text-base text-red-600">
-                {fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')}
-              </span>
+              <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+              <span className="text-base text-red-600">{emptyBackLabel}</span>
             </button>
-            <span className="text-base font-semibold text-gray-900">
+            <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
               {t('pwaProfile.bag') || 'Bag'}
-            </span>
+            </h1>
             {/* Profile Icon - green dot only when logged in */}
-            <button 
+            <button
               onClick={() => router.push(getLocalizedPath('/profile', locale))}
               className="min-w-[80px] flex justify-end"
+              aria-label="Profile"
             >
               <div className="relative">
                 <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
@@ -380,39 +379,39 @@ export default function CartClient() {
     )
   }
 
+  const backLabel = fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')
+
   return (
-    <div className={isAppLikeMode ? 'min-h-screen bg-white pb-32' : ''}>
+    <div className={isAppLikeMode ? 'min-h-screen bg-gray-50 pb-32' : ''}>
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
-        <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
-          <button 
+        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+            aria-label={backLabel}
           >
-            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            <span className="text-base text-red-600">
-              {fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')}
-            </span>
+            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-red-600">{backLabel}</span>
           </button>
-          <span className="text-base font-semibold text-gray-900">
+          <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
             {t('pwaProfile.bag') || 'Bag'}
-          </span>
+          </h1>
           {/* Profile Icon - green dot only when logged in */}
-          <button 
+          <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
+            aria-label="Profile"
           >
             <div className="relative">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
               </div>
               {/* Green online dot - only when logged in */}
               {user && (
-                <div className="absolute bottom-0 right-0 w-2 h-2 bg-green-500 rounded-full border-[1.5px] border-white" />
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
               )}
             </div>
           </button>
@@ -506,17 +505,28 @@ export default function CartClient() {
           {/* Cart Items */}
           <div className="lg:w-2/3">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden cart-container momentum-scroll" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-              <div className="p-3 md:p-6 border-b border-gray-200">
-                <motion.h1 
-                  initial={animationsEnabled ? { opacity: 0, y: -10 } : {}}
-                  animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
-                  transition={animationsEnabled ? springPresets.default : {}}
-                  className={`text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}
-                >
-                  <ShoppingBag className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
-                  <span className="text-sm md:text-base lg:text-lg">{isAppLikeMode ? (t('cart.shoppingBag') || 'Shopping Bag:') : t('cart.shoppingCart')}</span> <span className="text-sm md:text-base lg:text-lg">{totalItemCount} {totalItemCount === 1 ? t('cart.item') : t('cart.items')}</span>
-                </motion.h1>
-              </div>
+              {isAppLikeMode ? (
+                // Compact inline counter on mobile/PWA — page title is already in the sticky header
+                <div className={`px-3 py-2.5 border-b border-gray-100 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <ShoppingBag className="h-4 w-4 text-green-600" aria-hidden="true" />
+                  <span className="text-sm font-medium text-gray-700">
+                    {totalItemCount} {totalItemCount === 1 ? t('cart.item') : t('cart.items')}
+                  </span>
+                </div>
+              ) : (
+                <div className="p-3 md:p-6 border-b border-gray-200">
+                  <motion.h1
+                    initial={animationsEnabled ? { opacity: 0, y: -10 } : {}}
+                    animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
+                    transition={animationsEnabled ? springPresets.default : {}}
+                    className={`text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}
+                  >
+                    <ShoppingBag className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
+                    <span className="text-sm md:text-base lg:text-lg">{t('cart.shoppingCart')}</span>{' '}
+                    <span className="text-sm md:text-base lg:text-lg">{totalItemCount} {totalItemCount === 1 ? t('cart.item') : t('cart.items')}</span>
+                  </motion.h1>
+                </div>
+              )}
               
               <motion.div 
                 className="space-y-4 p-3 md:p-0" 

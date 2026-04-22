@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { Gift } from 'lucide-react'
+import { Gift, Clock } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -36,9 +36,12 @@ export default function FreeMaskPromotion({ subtotal }: FreeMaskPromotionProps) 
             {t('cart.freeMaskPromotion')}
           </h3>
         </div>
-        <p className={`text-xs font-bold mt-1 ${qualifiesFor500 || qualifiesFor700 ? 'text-green-600' : 'text-red-600'} ${dir === 'rtl' ? 'text-right' : ''}`}>
-          {t('cart.validUntil')}
-        </p>
+        <div className={`mt-1.5 ${dir === 'rtl' ? 'text-right' : ''}`}>
+          <span className={`inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+            {t('cart.validUntil')}
+          </span>
+        </div>
       </div>
 
       <div className="space-y-4">

@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Heart } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Heart, LogIn } from 'lucide-react'
 import { useFavorites } from '@/components/FavoritesProvider'
 import ProductCard from '@/components/ProductCard'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -10,9 +10,20 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
+import useReducedMotion from '@/hooks/useReducedMotion'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
+import type { Product } from '@/types'
+
+interface FavoritesClientProps {
+  /**
+   * Top-rated products injected by the server page — shown in the
+   * empty state under the CTA. Filling this dead space is the whole
+   * point of the "Popular right now" shelf.
+   */
+  recommendedProducts?: Product[]
+}
 
 // Mobile device detection
 function isMobileDevice(): boolean {
@@ -21,10 +32,11 @@ function isMobileDevice(): boolean {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || window.innerWidth < 768
 }
 
-export default function FavoritesClient() {
+export default function FavoritesClient({ recommendedProducts = [] }: FavoritesClientProps) {
   const { t, locale, dir } = useTranslation()
   const { favorites } = useFavorites()
   const { enabled: animationsEnabled } = useAnimationStore()
+  const { prefersReducedMotion } = useReducedMotion()
   const { isPWA, isClient } = usePWAMode()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -47,23 +59,23 @@ export default function FavoritesClient() {
   // App-like mode: PWA or mobile web
   const isAppLikeMode = isPWA || (isClient && isMobile && !isPWA)
 
-  // Disable animations in PWA mode
-  const shouldAnimate = animationsEnabled && !(isClient && isPWA)
+  // Disable animations in PWA mode, or when the user has opted out system-wide.
+  const shouldAnimate = animationsEnabled && !prefersReducedMotion && !(isClient && isPWA)
 
   useEffect(() => {
-    // Don't pulse in PWA mode
+    // Don't pulse in PWA mode, or when user prefers reduced motion
     if (isClient && isPWA) return
-    
-    // Pulse every 5 seconds
+    if (prefersReducedMotion) return
+
     const pulseInterval = setInterval(() => {
       setIsPulsing(true)
-      setTimeout(() => setIsPulsing(false), 500) // Pulse duration
+      setTimeout(() => setIsPulsing(false), 500)
     }, 5000)
 
     return () => {
       clearInterval(pulseInterval)
     }
-  }, [isClient, isPWA])
+  }, [isClient, isPWA, prefersReducedMotion])
 
   if (favorites.length === 0) {
     return (
@@ -122,91 +134,108 @@ export default function FavoritesClient() {
             </Link>
           )}
 
-          <div className="max-w-md mx-auto text-center py-6 md:py-16">
-          <div className="bg-white rounded-xl p-4 md:p-8">
-            {/* Mobile: Custom image, Desktop: Custom image */}
-            <div className="mb-2 md:mb-4 relative">
-              <motion.div
-                animate={shouldAnimate ? {
-                  y: [0, -8, 0],
-                  scale: [1, 1.02, 1],
-                  rotate: [0, 1, -1, 0]
-                } : {}}
-                transition={shouldAnimate ? {
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  times: [0, 0.5, 1]
-                } : {}}
-                className="mx-auto"
-              >
-                <Image
-                  src="/images/avatar/uni.png"
-                  alt="No favorites"
-                  width={210}
-                  height={210}
+          <div className="max-w-md mx-auto text-center pt-4 pb-6 md:py-12">
+            <div className="bg-white rounded-xl px-4 pt-2 pb-6 md:p-8">
+              {/* Uni — gently floating. Animations respect animation store,
+                  PWA mode, AND prefers-reduced-motion. */}
+              <div className="mb-3 md:mb-5 relative">
+                <motion.div
+                  animate={shouldAnimate ? {
+                    y: [0, -8, 0],
+                    scale: [1, 1.02, 1],
+                    rotate: [0, 1, -1, 0]
+                  } : {}}
+                  transition={shouldAnimate ? {
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    times: [0, 0.5, 1]
+                  } : {}}
                   className="mx-auto"
-                />
-              </motion.div>
-              
-              {/* Floating particles around Uni - same as cart */}
-              {shouldAnimate && (
-                <>
-                  <motion.div
-                    className="absolute top-4 right-4 w-2 h-2 bg-red-400 rounded-full opacity-60"
-                    animate={{
-                      y: [0, -20, 0],
-                      x: [0, 10, 0],
-                      opacity: [0.6, 1, 0.6]
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      delay: 0.5,
-                      ease: "easeInOut"
-                    }}
+                >
+                  <Image
+                    src="/images/avatar/uni.png"
+                    alt=""
+                    aria-hidden="true"
+                    width={180}
+                    height={180}
+                    className="mx-auto"
                   />
-                  <motion.div
-                    className="absolute top-8 left-6 w-1.5 h-1.5 bg-red-300 rounded-full opacity-50"
-                    animate={{
-                      y: [0, -15, 0],
-                      x: [0, -8, 0],
-                      opacity: [0.5, 0.8, 0.5]
-                    }}
-                    transition={{
-                      duration: 2.5,
-                      repeat: Infinity,
-                      delay: 1,
-                      ease: "easeInOut"
-                    }}
-                  />
-                  <motion.div
-                    className="absolute bottom-6 right-8 w-1 h-1 bg-red-500 rounded-full opacity-70"
-                    animate={{
-                      y: [0, -12, 0],
-                      x: [0, 6, 0],
-                      opacity: [0.7, 1, 0.7]
-                    }}
-                    transition={{
-                      duration: 2.8,
-                      repeat: Infinity,
-                      delay: 1.5,
-                      ease: "easeInOut"
-                    }}
-                  />
-                </>
+                </motion.div>
+
+                {shouldAnimate && (
+                  <>
+                    <motion.div
+                      className="absolute top-4 right-4 w-2 h-2 bg-red-400 rounded-full opacity-60"
+                      animate={{ y: [0, -20, 0], x: [0, 10, 0], opacity: [0.6, 1, 0.6] }}
+                      transition={{ duration: 3, repeat: Infinity, delay: 0.5, ease: "easeInOut" }}
+                    />
+                    <motion.div
+                      className="absolute top-8 left-6 w-1.5 h-1.5 bg-red-300 rounded-full opacity-50"
+                      animate={{ y: [0, -15, 0], x: [0, -8, 0], opacity: [0.5, 0.8, 0.5] }}
+                      transition={{ duration: 2.5, repeat: Infinity, delay: 1, ease: "easeInOut" }}
+                    />
+                    <motion.div
+                      className="absolute bottom-6 right-8 w-1 h-1 bg-red-500 rounded-full opacity-70"
+                      animate={{ y: [0, -12, 0], x: [0, 6, 0], opacity: [0.7, 1, 0.7] }}
+                      transition={{ duration: 2.8, repeat: Infinity, delay: 1.5, ease: "easeInOut" }}
+                    />
+                  </>
+                )}
+              </div>
+
+              <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-1.5 md:mb-2">
+                {t('favorites.heroTitle') || 'Save What You Love'}
+              </h1>
+              <p className="text-sm md:text-base text-gray-600 mb-5 md:mb-6 leading-relaxed px-2">
+                {t('favorites.heroSubtitle') || 'Tap the heart on any product to keep it close.'}
+              </p>
+
+              <Link
+                href={getLocalizedPath('/products', locale)}
+                className={`inline-flex items-center gap-2 bg-primary-600 text-white px-6 py-3 md:px-7 md:py-3 rounded-xl text-sm md:text-base font-semibold shadow-sm hover:bg-primary-700 active:scale-[0.98] transition-all ${isRTL ? 'flex-row-reverse' : ''}`}
+              >
+                <span>{t('favorites.browseProducts') || 'Browse Products'}</span>
+                <ArrowRight className={`h-4 w-4 md:h-5 md:w-5 ${isRTL ? 'rotate-180' : ''}`} />
+              </Link>
+
+              {/* Login nudge — only when logged out. Favorites live locally
+                  for guests; signing in syncs them across devices. */}
+              {!user && (
+                <div className={`mt-5 md:mt-6 flex items-center justify-center gap-2 text-xs md:text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <span className="text-gray-500">{t('favorites.signInToSync')}</span>
+                  <Link
+                    href={`${getLocalizedPath('/login', locale)}?redirect=${encodeURIComponent(getLocalizedPath('/favorites', locale))}`}
+                    className={`inline-flex items-center gap-1 text-red-600 font-semibold hover:text-red-700 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  >
+                    <LogIn className="h-3.5 w-3.5" />
+                    <span>{t('favorites.signIn')}</span>
+                  </Link>
+                </div>
               )}
             </div>
-            <h1 className="text-base md:text-2xl font-bold text-gray-900 mb-3 md:mb-6">{t('favorites.empty') || 'No Favorites Yet'}</h1>
-            <Link
-              href={getLocalizedPath('/products', locale)}
-              className={`inline-flex items-center gap-1 bg-primary-600 text-white px-3 md:px-6 py-1.5 md:py-2.5 rounded-lg text-xs md:text-sm font-medium hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-            >
-              <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              {t('favorites.browseProducts') || 'Browse Products'}
-            </Link>
           </div>
-        </div>
+
+          {/* Popular right now — fills the dead space below the empty-state
+              card with genuine merchandising. Only renders when the server
+              fed us products. */}
+          {recommendedProducts.length > 0 && (
+            <section className="max-w-6xl mx-auto mt-2 md:mt-6" aria-label={t('favorites.popularNow') || 'Popular right now'}>
+              <div className={`flex items-center gap-2 mb-3 md:mb-4 px-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-red-50 rounded-xl flex items-center justify-center">
+                  <Heart className="h-4 w-4 md:h-5 md:w-5 text-red-600" />
+                </div>
+                <h2 className="text-base md:text-xl font-bold text-gray-900">
+                  {t('favorites.popularNow') || 'Popular right now'}
+                </h2>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-6">
+                {recommendedProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </div>
     )
@@ -358,10 +387,10 @@ export default function FavoritesClient() {
               </p>
               <Link
                 href={getLocalizedPath('/products', locale)}
-                className={`inline-flex items-center gap-1 bg-primary-600 text-white px-3 md:px-6 py-1.5 md:py-2.5 rounded-lg text-xs md:text-sm font-medium hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                className={`inline-flex items-center gap-2 bg-primary-600 text-white px-5 md:px-6 py-2.5 md:py-3 rounded-xl text-sm md:text-base font-semibold shadow-sm hover:bg-primary-700 active:scale-[0.98] transition-all ${isRTL ? 'flex-row-reverse' : ''}`}
               >
-                <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-                {t('favorites.browseProducts') || 'Browse Products'}
+                <span>{t('favorites.browseProducts') || 'Browse Products'}</span>
+                <ArrowRight className={`h-4 w-4 md:h-5 md:w-5 ${isRTL ? 'rotate-180' : ''}`} />
               </Link>
             </div>
           </div>

@@ -554,7 +554,12 @@
   },
   "favorites": {
     "empty": "No Favorites Yet",
+    "heroTitle": "Save What You Love",
+    "heroSubtitle": "Tap the heart on any product to keep it close.",
     "browseProducts": "Browse Products",
+    "popularNow": "Popular right now",
+    "signInToSync": "Sign in to sync your favorites across devices",
+    "signIn": "Sign in",
     "myFavorites": "Favorites",
     "savedProductsDescription": "Your saved GENOSYS products",
     "noProductsFound": "No Products Found",

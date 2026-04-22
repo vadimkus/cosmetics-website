@@ -554,7 +554,12 @@
   },
   "favorites": {
     "empty": "لا توجد مفضلات بعد",
+    "heroTitle": "احفظ ما تحبّه",
+    "heroSubtitle": "اضغط على القلب على أي منتج ليظهر هنا.",
     "browseProducts": "تصفح المنتجات",
+    "popularNow": "الأكثر رواجاً الآن",
+    "signInToSync": "سجّل الدخول لمزامنة مفضلاتك عبر أجهزتك",
+    "signIn": "تسجيل الدخول",
     "myFavorites": "المفضلات",
     "savedProductsDescription": "منتجاتك المحفوظة من GENOSYS",
     "noProductsFound": "لم يتم العثور على منتجات",

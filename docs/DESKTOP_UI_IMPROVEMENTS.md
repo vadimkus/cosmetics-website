@@ -206,7 +206,7 @@ Additional tightening:
 - #10 — PDP trust badges stacked
 - #11 — Products — no pagination or "Load more"
 - #12 — PDP title centered + `text-2xl`
-- #13 — Profile layout is a horizontal tab scroller
+- ~~#13 — Profile layout is a horizontal tab scroller~~ **done** — see #P1.1 (tab bar wrap) and the full #P1.1–P1.5 series which re-ground the desktop `/profile` layout
 - #14 — Icon hit areas have no hover surface
 - #15 — Trust strip on `/products` scrolls horizontally on small laptops
 

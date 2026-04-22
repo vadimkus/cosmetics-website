@@ -76,6 +76,24 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ---
 
+### #P1.2 — `/profile` desktop: left-aligned hero, smaller title, no gradient clip
+**Date:** 2026-04-23  ·  **File:** `components/profile/ProfileHeader.tsx`
+**Change:** Reworked the desktop profile header card:
+- Layout: `md:flex flex-col lg:flex-row items-center` → `md:flex md:flex-row md:items-center`. The avatar and info block are side-by-side from `md+` instead of stacking+centering until `lg+`.
+- Info block: `text-center lg:text-left` → `text-left` at all desktop widths.
+- Title: `text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent` → `text-2xl lg:text-3xl font-bold text-gray-900 truncate`. The gradient-clip trick was harming readability (lower contrast + fractional anti-aliasing) with no brand payoff. Plain `text-gray-900` renders sharper and passes WCAG AA cleanly.
+- Email paragraph font dropped from `text-base lg:text-lg` → `text-sm lg:text-base` — matches the calmer hero density.
+- Avatar: `w-28 h-28 lg:w-32 lg:h-32 shadow-2xl` → `w-24 h-24 lg:w-28 lg:h-28 shadow-xl`. Proportional with the smaller title; `next/image` width/height synced to 112.
+- "Family Member #N" pill: red gradient + `shadow-lg` → solid `bg-primary-600 + shadow-sm`, matching the tab foundation from #P1.1.
+- Edit-mode upload/remove buttons: red gradient pills → solid `bg-primary-600` for upload, bordered neutral pill (`bg-white + border-gray-200`) for remove. Smaller icons (`h-3.5 w-3.5`) to fit the new avatar scale.
+- Badges (price access / discount / member since) trimmed from `text-sm` → `text-xs lg:text-sm` and icon size to `h-3.5`.
+
+**Why:** The old hero rendered as a 4xl centered title with a gradient-clipped heading and a giant avatar — it was a mobile blow-up on desktop. Left-aligned with a right-sized title gives the same information in ≈40% of the vertical space and lines up with the left-edge of the tab bar below.
+
+**Risk:** desktop-only (`hidden md:flex` block). Mobile hero untouched.
+
+---
+
 ### #P1.1 — `/profile` desktop: calmer tab bar + wrap behaviour
 **Date:** 2026-04-23  ·  **File:** `app/profile/page.tsx`
 **Change:**

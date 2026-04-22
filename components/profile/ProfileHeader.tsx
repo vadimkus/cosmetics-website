@@ -98,26 +98,26 @@ export default function ProfileHeader({
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:flex flex-col lg:flex-row items-center gap-6 lg:gap-8">
+      <div className="hidden md:flex md:flex-row md:items-center md:gap-6 lg:gap-8">
         {/* Profile Picture */}
-        <div className="relative">
-          <div className="w-28 h-28 lg:w-32 lg:h-32 rounded-full overflow-hidden bg-gradient-to-br from-green-100 to-emerald-200 border-4 border-white shadow-2xl flex items-center justify-center">
+        <div className="relative flex-shrink-0">
+          <div className="w-24 h-24 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden bg-gradient-to-br from-green-100 to-emerald-200 border-4 border-white shadow-xl flex items-center justify-center">
             {previewImage ? (
-              <Image src={previewImage} alt="Profile" width={128} height={128} className="w-full h-full object-cover" />
+              <Image src={previewImage} alt="Profile" width={112} height={112} className="w-full h-full object-cover" />
             ) : user.profilePicture ? (
-              <Image src={user.profilePicture} alt="Profile" width={128} height={128} className="w-full h-full object-cover" />
+              <Image src={user.profilePicture} alt="Profile" width={112} height={112} className="w-full h-full object-cover" />
             ) : (
-              <Image src="/images/avatar/avatar.png" alt="Profile" width={128} height={128} className="w-full h-full object-cover" />
+              <Image src="/images/avatar/avatar.png" alt="Profile" width={112} height={112} className="w-full h-full object-cover" />
             )}
           </div>
           {isEditing && (
-            <div className="absolute -bottom-2 -right-2 flex gap-2">
-              <button onClick={() => fileInputRef.current?.click()} className="bg-gradient-to-r from-red-600 to-red-700 text-white p-3 rounded-full hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-lg" title={t('profile.uploadPhoto')}>
-                <Camera className="h-4 w-4" />
+            <div className="absolute -bottom-1 -right-1 flex gap-1.5">
+              <button onClick={() => fileInputRef.current?.click()} className="bg-primary-600 text-white p-2.5 rounded-full hover:bg-primary-700 transition-colors shadow-md" title={t('profile.uploadPhoto')}>
+                <Camera className="h-3.5 w-3.5" />
               </button>
               {previewImage && (
-                <button onClick={onRemoveImage} className="bg-gradient-to-r from-red-500 to-red-600 text-white p-3 rounded-full hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-lg" title={t('profile.removePhoto')}>
-                  <X className="h-4 w-4" />
+                <button onClick={onRemoveImage} className="bg-white text-gray-600 border border-gray-200 p-2.5 rounded-full hover:text-red-600 hover:border-red-200 hover:bg-red-50 transition-colors shadow-md" title={t('profile.removePhoto')}>
+                  <X className="h-3.5 w-3.5" />
                 </button>
               )}
             </div>
@@ -125,34 +125,34 @@ export default function ProfileHeader({
         </div>
 
         {/* Profile Info */}
-        <div className="flex-1 text-center lg:text-left">
-          <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">{user.name}</h1>
-          <p className="text-gray-600 text-base lg:text-lg break-words">{displayEmail}</p>
+        <div className="flex-1 min-w-0 text-left">
+          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-1 truncate">{user.name}</h1>
+          <p className="text-gray-600 text-sm lg:text-base break-all">{displayEmail}</p>
           {customerNumber > 0 && (
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full shadow-lg mt-2">
-              <Sparkles className="h-4 w-4" />
-              <span className="text-sm font-semibold">{t('profile.familyMember')} #{customerNumber}</span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary-600 text-white rounded-full shadow-sm mt-3">
+              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
+              <span className="text-xs lg:text-sm font-semibold">{t('profile.familyMember')} #{customerNumber}</span>
             </div>
           )}
-          
+
           {/* User Type Badges */}
-          <div className="flex flex-wrap gap-3 justify-center lg:justify-start mt-4">
+          <div className="flex flex-wrap gap-2 justify-start mt-3">
             {user.canSeePrices && (
-              <div className="flex items-center gap-2 px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-sm font-medium">
-                <Eye className="h-4 w-4" />
+              <div className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs lg:text-sm font-medium">
+                <Eye className="h-3.5 w-3.5" aria-hidden="true" />
                 {t('profile.priceAccess')}
               </div>
             )}
             {user.discountType && (
-              <div className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium ${
+              <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs lg:text-sm font-medium ${
                 user.discountType === 'CLINIC' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
               }`}>
-                {user.discountType === 'CLINIC' ? <Building className="h-4 w-4" /> : <Crown className="h-4 w-4" />}
+                {user.discountType === 'CLINIC' ? <Building className="h-3.5 w-3.5" aria-hidden="true" /> : <Crown className="h-3.5 w-3.5" aria-hidden="true" />}
                 {user.discountType === 'CLINIC' ? `${t('profile.clinicPartner')}:` : t('profile.standard')} {user.discountPercentage}% {t('product.off')}
               </div>
             )}
-            <div className="flex items-center gap-2 px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm font-medium">
-              <Calendar className="h-4 w-4" />
+            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full text-xs lg:text-sm font-medium">
+              <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
               {t('profile.memberSince')} {new Date(user.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', { year: 'numeric' })}
             </div>
           </div>

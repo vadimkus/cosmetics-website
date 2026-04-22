@@ -8,6 +8,24 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ## Shipped
 
+### #D1 — `/delivery` desktop: premium refresh
+**Date:** 2026-04-17  ·  **File:** `app/delivery/DeliveryPageClient.tsx`
+**Change:** First of a four-page marketing / support page polish sweep (`/delivery`, `/contact`, `/about`, `/training`). Desktop-only — every change sits behind `md:` / `lg:` utilities, the mobile-web and PWA branches are untouched.
+
+- Container widened: `max-w-4xl` → `max-w-4xl lg:max-w-6xl`. On 1400–2000px monitors the page was pinned at 896px with huge side gutters.
+- New hero eyebrow: `SHIPPING & RETURNS` (localised) tracked tight, above the h1, in primary-red small-caps. Establishes section context that was missing.
+- New desktop-only stats strip under the hero — a 4-up dl (`Dubai 1 hour` / `UAE-wide 24–36 hr` / `Free shipping 1,000 AED+` / `Returns 10 days`) rendered as a single rounded container with 1px grid dividers. Hidden below `md`.
+- Delivery Time + Partner cards: added tinted icon badges (`h-11 w-11 rounded-xl bg-primary-50`) at `md+`, bumped to `rounded-2xl + shadow-md`, indented the body text to align under the badge. Titles dropped from `text-2xl` → `text-lg` to fit the new density.
+- Delivery Details: the inline 2-col stat list became a 4-up stat grid on `md+`, with each cell wrapped in its own white rounded card for clearer legibility against the `primary-50` tinted section.
+- Free Shipping + Return Policy: the two promo sections now sit side-by-side from `lg+` (`grid-cols-1 lg:grid-cols-2`) instead of stacking vertically. Gradients softened to `bg-gradient-to-br from-emerald-50 to-emerald-100/70` / `blue-50 → blue-100/70` + 1px colour-matched borders. Inner "proof" cards now `shadow-sm`.
+- Help section: added a desktop-only descriptive subhead ("We're ready to answer any question about your order or delivery."), buttons kept at primary-red / WhatsApp green, rounded corners nudged to `rounded-xl` at `md+`.
+
+**Why:** The page read like a mobile page blown up — narrow column, hero without eyebrow, two small promo blocks stacked awkwardly on wide screens. Above changes give the page the same density and hierarchy as `/products` and the refreshed `/profile`.
+
+**Risk:** desktop-only; all edits are under `md:` / `lg:` utilities or mobile-preserving overrides. Mobile layout is byte-identical below 768px.
+
+---
+
 ### #1 — Products grid: 4 columns at 2xl (≥1536px)
 **Date:** 2026-04-17  ·  **Commit:** `586ceebc`
 **File:** `app/products/ProductsPageClient.tsx`

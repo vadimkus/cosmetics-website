@@ -1,0 +1,207 @@
+{
+  "invoice": {
+    "id": "4f044d48-3a7c-11f1-0a80-093300127c20",
+    "number": "04391",
+    "moment": "2026-04-17 19:41:00.000",
+    "totalAed": 4424,
+    "vatSumAed": 210.66,
+    "vatEnabled": true,
+    "vatIncluded": true,
+    "description": "",
+    "paymentPlannedMoment": null,
+    "shipmentAddress": ""
+  },
+  "counterparty": {
+    "id": "51c7851a-37da-11f1-0a80-148900411927",
+    "name": "SHINE MEDICAL CENTER LLC OPC",
+    "phone": "050 374 5371",
+    "email": "09722",
+    "actualAddress": "Al Rifaa, Dibba Al Fujairah near Dibba Hospital1111,",
+    "legalAddress": ""
+  },
+  "organization": {
+    "name": "Genosys Middle East FZ-LLC",
+    "actualAddress": "Cordoba Residence, Villa E02",
+    "legalAddress": ""
+  },
+  "items": [
+    {
+      "name": "Genosys EZ CO₂ MASK - Professional Box (5 treatments)",
+      "quantity": 2,
+      "unitPrice": 230,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 460,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/f34ed25a-343f-11ea-0a80-05dc0001110e"
+    },
+    {
+      "name": "Genosys Intensive Repair Collagen Mask 23g",
+      "quantity": 5,
+      "unitPrice": 18,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 90,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/51e74608-45cb-11ea-0a80-01f80015bea2"
+    },
+    {
+      "name": "Genosys Soothing Bomb Sea Algae Mask 23g",
+      "quantity": 5,
+      "unitPrice": 18,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 90,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/9d634465-2690-11ec-0a80-0767000c229e"
+    },
+    {
+      "name": "Genosys Skin Reboot PDRN mask Pack (30 sheets) 350g",
+      "quantity": 1,
+      "unitPrice": 200,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 200,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/b6766232-571e-11f0-0a80-04380007c924"
+    },
+    {
+      "name": "Genosys Hydro Cool Modeling Mask 1kg",
+      "quantity": 1,
+      "unitPrice": 300,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 300,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/806e9e52-3444-11ea-0a80-05dc00014e2d"
+    },
+    {
+      "name": "Genosys Power Solution PCS 1 Vial 2ml",
+      "quantity": 10,
+      "unitPrice": 29,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 290,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/8a43a8e9-45d4-11ea-0a80-048a00166b96"
+    },
+    {
+      "name": "Genosys Power Solution SWS 1 Vial 2ml",
+      "quantity": 10,
+      "unitPrice": 29,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 290,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/e0ff2439-3448-11ea-0a80-044a00018f60"
+    },
+    {
+      "name": "Genosys Snow O₂ Cleanser 500ml",
+      "quantity": 1,
+      "unitPrice": 255,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 255,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/0a27b901-344a-11ea-0a80-021700017918"
+    },
+    {
+      "name": "Genosys Snow Booster Toner 1000ml",
+      "quantity": 1,
+      "unitPrice": 245,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 245,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/48952d7e-344a-11ea-0a80-00e50001bb46"
+    },
+    {
+      "name": "Genosys Problem Control Toner 500 ml",
+      "quantity": 1,
+      "unitPrice": 245,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 245,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/15867f00-43d2-11ed-0a80-0f42000e9bcc"
+    },
+    {
+      "name": "Genosys Skin Defender Lip & Eye Makeup Remover 200ml",
+      "quantity": 1,
+      "unitPrice": 145,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 145,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/bcf432e7-ec44-11ee-0a80-077500174711"
+    },
+    {
+      "name": "Genosys Moisture Replenishing Hyaluron Cream 250g",
+      "quantity": 1,
+      "unitPrice": 210,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 210,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/10963a8c-b541-11ee-0a80-15c60014ba73"
+    },
+    {
+      "name": "Genosys Multi Functional Anti Wrinkle Cream 250g",
+      "quantity": 1,
+      "unitPrice": 210,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 210,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/0cf0e298-42b7-11ea-0a80-0475000b95ca"
+    },
+    {
+      "name": "Genosys Intensive Problem Control Cream 250g",
+      "quantity": 1,
+      "unitPrice": 210,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 210,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/7f4736b3-42b7-11ea-0a80-0693000b9cb9"
+    },
+    {
+      "name": "Genosys Multi Vita Radiance Cream 230g",
+      "quantity": 1,
+      "unitPrice": 210,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 210,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/727d6fd4-b0be-11ea-0a80-06d7001d9fa0"
+    },
+    {
+      "name": "Genosys Skin Barrier Protecting Cream 100g",
+      "quantity": 1,
+      "unitPrice": 225,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 225,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/3805fbad-42b8-11ea-0a80-03cf000bfaef"
+    },
+    {
+      "name": "Genosys Soothing Repair Post Cream 20g",
+      "quantity": 2,
+      "unitPrice": 102,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 204,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/bc185527-42b8-11ea-0a80-0095000bf07a"
+    },
+    {
+      "name": "Genosys Multi Sun Cream SPF40/PA++ 40g",
+      "quantity": 4,
+      "unitPrice": 105,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 420,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/60c64e56-42b9-11ea-0a80-01e3000bb41e"
+    },
+    {
+      "name": "Genosys EPI Turnover Boosting Peeling Gel 100g",
+      "quantity": 1,
+      "unitPrice": 125,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 125,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/cd901a4e-e88b-11ea-0a80-05ae00007806"
+    }
+  ],
+  "totals": {
+    "itemCount": 19,
+    "totalQuantity": 50,
+    "linesSum": 4424,
+    "invoiceTotal": 4424,
+    "vatSum": 210.66
+  }
+}

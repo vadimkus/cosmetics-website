@@ -2,7 +2,8 @@
 
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { ArrowLeft, FileText, Mail, Phone, MapPin } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { ArrowLeft, FileText, Mail, Phone, MapPin, Clock, ArrowUp } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -33,7 +34,29 @@ export default function TermsClient() {
   const isRTL = dir === 'rtl'
   const fromProfile = searchParams?.get('from') === 'profile'
   const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
-  
+  const [isMobileWeb, setIsMobileWeb] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
+
+  // Detect mobile web (non-PWA mobile). Mirrors Privacy Policy / FAQ detection.
+  useEffect(() => {
+    const checkMobileWeb = () => {
+      const isMobile = window.innerWidth < 768
+      setIsMobileWeb(isMobile && !isPWA)
+    }
+    checkMobileWeb()
+    window.addEventListener('resize', checkMobileWeb)
+    return () => window.removeEventListener('resize', checkMobileWeb)
+  }, [isPWA])
+
+  // Back-to-top visibility on long scroll — same threshold as Privacy Policy.
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 600)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const isAppLikeMode = (isClient && isPWA) || isMobileWeb
+
   // Date translations
   const lastUpdated = locale === 'ar' ? '11 ديسمبر 2025' : locale === 'ru' ? '11 декабря 2025' : 'December 11, 2025'
   
@@ -164,129 +187,166 @@ export default function TermsClient() {
     }
   }
 
-  // PWA Mode - Light header only
-  if (isClient && isPWA) {
+  // ── Section renderer (shared by bullet + paragraph sections) ────────────
+  // Each section is a labelled block inside a single wrapping card, with a
+  // hairline divider at the bottom (except the last). Mirrors the divided
+  // layout shipped on Privacy Policy.
+  const AppSection = ({
+    title,
+    text,
+    bullets,
+    isLast = false,
+  }: { title: string; text?: string; bullets?: string[]; isLast?: boolean }) => (
+    <div className={`py-5 ${isLast ? '' : 'border-b border-gray-100'}`}>
+      <h2 className={`text-base font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{title}</h2>
+      {text && (
+        <p className={`text-sm text-gray-700 leading-relaxed ${bullets ? 'mb-2' : ''} ${isRTL ? 'text-right' : ''}`}>
+          {text}
+        </p>
+      )}
+      {bullets && (
+        <ul className={`space-y-1.5 ${isRTL ? 'text-right' : ''}`}>
+          {bullets.map((b, i) => (
+            <li key={i} className={`text-sm text-gray-700 flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <span className="text-red-600 font-bold leading-tight mt-0.5">•</span>
+              <span className="flex-1">{b}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+
+  // Mobile Web + PWA — unified app-like layout
+  if (isAppLikeMode) {
     return (
       <div className="min-h-screen bg-gray-50 pb-32" dir={dir}>
-        {/* PWA Light Header */}
-        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          <button 
+        {/* Unified nav header — matches /profile and Privacy Policy exactly:
+            sticky, z-10, bg-white/95 + backdrop-blur, border-b border-gray-200. */}
+        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button
             onClick={handleBack}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">
-              {translations.back}
-            </span>
+            <span className="text-base text-red-600">{translations.back}</span>
           </button>
-          <span className="text-base font-semibold text-gray-900">
-            {translations.title}
-          </span>
-          {/* Profile Icon with green dot */}
-          <button 
+          <h1 className="text-base font-semibold text-gray-900">{translations.title}</h1>
+          <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
+            aria-label="Profile"
           >
             <div className="relative">
               <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
-                <span className="text-sm font-semibold text-white">
-                  {userInitial.toUpperCase()}
-                </span>
+                <span className="text-sm font-semibold text-white">{userInitial.toUpperCase()}</span>
               </div>
               <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
             </div>
           </button>
         </div>
 
-        {/* Content */}
-        <div className="px-5 py-6">
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
-            {/* Last Updated */}
-            <p className={`text-sm text-gray-500 mb-4 ${isRTL ? 'text-right' : ''}`}>
-              {translations.lastUpdatedLabel} {lastUpdated}
-            </p>
-            
-            {/* Agreement Section */}
-            <div className="mb-4">
-              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.agreementTitle}</h2>
-              <p className={`text-sm text-gray-700 leading-relaxed ${isRTL ? 'text-right' : ''}`}>{translations.agreementText}</p>
+        <div className="px-4 py-4">
+          <div className="bg-white rounded-2xl px-5 shadow-sm border border-gray-100">
+            {/* Last Updated — tight pill badge (same treatment as Privacy Policy). */}
+            <div className={`flex pt-4 ${isRTL ? 'justify-end' : 'justify-start'}`}>
+              <span
+                className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium"
+                title={`${translations.lastUpdatedLabel} ${lastUpdated}`}
+              >
+                <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+                <span className="sr-only">{translations.lastUpdatedLabel} </span>
+                {lastUpdated}
+              </span>
             </div>
 
-            {/* Use License Section */}
-            <div className="mb-4">
-              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.useLicenseTitle}</h2>
-              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.useLicenseText}</p>
-              <ul className={`list-disc list-inside text-sm text-gray-700 space-y-1 ${isRTL ? 'text-right' : ''}`}>
-                <li>{translations.useLicenseB1}</li>
-                <li>{translations.useLicenseB2}</li>
-                <li>{translations.useLicenseB3}</li>
-                <li>{translations.useLicenseB4}</li>
-              </ul>
+            {/* All 10 sections. Previously the PWA branch silently dropped
+                Shipping, Returns and Disclaimers — now at parity with desktop. */}
+            <AppSection
+              title={translations.agreementTitle}
+              text={translations.agreementText}
+            />
+            <AppSection
+              title={translations.useLicenseTitle}
+              text={translations.useLicenseText}
+              bullets={[translations.useLicenseB1, translations.useLicenseB2, translations.useLicenseB3, translations.useLicenseB4]}
+            />
+            <AppSection
+              title={translations.accountTitle}
+              text={translations.accountText}
+              bullets={[translations.accountB1, translations.accountB2, translations.accountB3, translations.accountB4]}
+            />
+            <AppSection
+              title={translations.productsTitle}
+              text={translations.productsText}
+              bullets={[translations.productsB1, translations.productsB2, translations.productsB3, translations.productsB4]}
+            />
+            <AppSection
+              title={translations.ordersTitle}
+              text={translations.ordersText}
+              bullets={[translations.ordersB1, translations.ordersB2, translations.ordersB3, translations.ordersB4, translations.ordersB5]}
+            />
+            <AppSection
+              title={translations.shippingTitle}
+              text={translations.shippingText}
+              bullets={[translations.shippingB1, translations.shippingB2, translations.shippingB3, translations.shippingB4]}
+            />
+            <AppSection
+              title={translations.returnsTitle}
+              text={translations.returnsText}
+            />
+            {/* Disclaimers — first paragraph then amber callout for the
+                health/skin safety note (same highlight treatment as desktop). */}
+            <div className="py-5 border-b border-gray-100">
+              <h2 className={`text-base font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.disclaimersTitle}</h2>
+              <p className={`text-sm text-gray-700 leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>{translations.disclaimersP1}</p>
+              <div className={`bg-amber-50 border border-amber-200 rounded-lg p-3 ${isRTL ? 'text-right' : ''}`}>
+                <p className="text-xs text-amber-800 leading-relaxed">{translations.disclaimersP2}</p>
+              </div>
             </div>
+            <AppSection
+              title={translations.governingLawTitle}
+              text={translations.governingLawText}
+            />
 
-            {/* Account Terms Section */}
-            <div className="mb-4">
-              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.accountTitle}</h2>
-              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.accountText}</p>
-              <ul className={`list-disc list-inside text-sm text-gray-700 space-y-1 ${isRTL ? 'text-right' : ''}`}>
-                <li>{translations.accountB1}</li>
-                <li>{translations.accountB2}</li>
-                <li>{translations.accountB3}</li>
-                <li>{translations.accountB4}</li>
-              </ul>
-            </div>
-
-            {/* Products Section */}
-            <div className="mb-4">
-              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.productsTitle}</h2>
-              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.productsText}</p>
-              <ul className={`list-disc list-inside text-sm text-gray-700 space-y-1 ${isRTL ? 'text-right' : ''}`}>
-                <li>{translations.productsB1}</li>
-                <li>{translations.productsB2}</li>
-                <li>{translations.productsB3}</li>
-                <li>{translations.productsB4}</li>
-              </ul>
-            </div>
-
-            {/* Orders Section */}
-            <div className="mb-4">
-              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.ordersTitle}</h2>
-              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.ordersText}</p>
-              <ul className={`list-disc list-inside text-sm text-gray-700 space-y-1 ${isRTL ? 'text-right' : ''}`}>
-                <li>{translations.ordersB1}</li>
-                <li>{translations.ordersB2}</li>
-                <li>{translations.ordersB3}</li>
-                <li>{translations.ordersB4}</li>
-                <li>{translations.ordersB5}</li>
-              </ul>
-            </div>
-
-            {/* Governing Law Section */}
-            <div className="mb-4">
-              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.governingLawTitle}</h2>
-              <p className={`text-sm text-gray-700 leading-relaxed ${isRTL ? 'text-right' : ''}`}>{translations.governingLawText}</p>
-            </div>
-
-            {/* Contact Section */}
-            <div>
-              <h2 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.contactTitle}</h2>
-              <p className={`text-sm text-gray-700 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.contactText}</p>
-              <div className={`flex flex-col gap-2 text-sm ${isRTL ? 'items-end' : ''}`}>
-                <a href="mailto:info@genosys.ae" className="text-red-600 flex items-center gap-2">
-                  <Mail className="w-4 h-4" /> info@genosys.ae
+            {/* Contact — with mail, phone, address in a grouped gray box
+                (parity with desktop and Privacy Policy). */}
+            <div className="py-5">
+              <h2 className={`text-base font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.contactTitle}</h2>
+              <p className={`text-sm text-gray-700 mb-3 ${isRTL ? 'text-right' : ''}`}>{translations.contactText}</p>
+              <div className="bg-gray-50 rounded-xl p-3 space-y-2.5">
+                <a href="mailto:sales@genosys.ae" className={`flex items-center gap-2.5 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <Mail className="w-4 h-4 text-red-600 flex-shrink-0" />
+                  <span className="text-red-600 font-medium" dir="ltr">sales@genosys.ae</span>
                 </a>
-                <a href="tel:+971585487665" className="text-red-600 flex items-center gap-2">
-                  <Phone className="w-4 h-4" /> +971 58 548 7665
+                <a href="tel:+971585487665" className={`flex items-center gap-2.5 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <Phone className="w-4 h-4 text-red-600 flex-shrink-0" />
+                  <span className="text-red-600 font-medium" dir="ltr">+971 58 548 76 65</span>
                 </a>
+                <div className={`flex items-center gap-2.5 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <MapPin className="w-4 h-4 text-red-600 flex-shrink-0" />
+                  <span className="text-gray-700">{translations.addressValue}</span>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Footer */}
-          <div className="text-center mt-4 text-sm text-gray-400">
-            <p>© 2025 GENOSYS Middle East FZ-LLC</p>
+          <div className="text-center mt-4 text-xs text-gray-400">
+            <p>&copy; 2025 GENOSYS Middle East FZ-LLC</p>
           </div>
         </div>
+
+        {/* Floating back-to-top — only after the user has scrolled through the
+            long document (>600px). Sits above the footer nav (bottom-24). */}
+        {showBackToTop && (
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label={locale === 'ar' ? 'العودة إلى الأعلى' : locale === 'ru' ? 'Наверх' : 'Back to top'}
+            className={`fixed bottom-24 ${isRTL ? 'left-4' : 'right-4'} z-40 w-11 h-11 rounded-full bg-gray-900/90 text-white shadow-lg backdrop-blur flex items-center justify-center active:scale-95 transition-transform`}
+          >
+            <ArrowUp className="w-5 h-5" />
+          </button>
+        )}
       </div>
     )
   }

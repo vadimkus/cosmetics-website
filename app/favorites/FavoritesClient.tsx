@@ -14,16 +14,6 @@ import useReducedMotion from '@/hooks/useReducedMotion'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
-import type { Product } from '@/types'
-
-interface FavoritesClientProps {
-  /**
-   * Top-rated products injected by the server page — shown in the
-   * empty state under the CTA. Filling this dead space is the whole
-   * point of the "Popular right now" shelf.
-   */
-  recommendedProducts?: Product[]
-}
 
 // Mobile device detection
 function isMobileDevice(): boolean {
@@ -32,7 +22,7 @@ function isMobileDevice(): boolean {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || window.innerWidth < 768
 }
 
-export default function FavoritesClient({ recommendedProducts = [] }: FavoritesClientProps) {
+export default function FavoritesClient() {
   const { t, locale, dir } = useTranslation()
   const { favorites } = useFavorites()
   const { enabled: animationsEnabled } = useAnimationStore()
@@ -216,26 +206,6 @@ export default function FavoritesClient({ recommendedProducts = [] }: FavoritesC
             </div>
           </div>
 
-          {/* Popular right now — fills the dead space below the empty-state
-              card with genuine merchandising. Only renders when the server
-              fed us products. */}
-          {recommendedProducts.length > 0 && (
-            <section className="max-w-6xl mx-auto mt-2 md:mt-6" aria-label={t('favorites.popularNow') || 'Popular right now'}>
-              <div className={`flex items-center gap-2 mb-3 md:mb-4 px-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <div className="w-8 h-8 md:w-10 md:h-10 bg-red-50 rounded-xl flex items-center justify-center">
-                  <Heart className="h-4 w-4 md:h-5 md:w-5 text-red-600" />
-                </div>
-                <h2 className="text-base md:text-xl font-bold text-gray-900">
-                  {t('favorites.popularNow') || 'Popular right now'}
-                </h2>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-2 md:gap-6">
-                {recommendedProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </section>
-          )}
         </div>
       </div>
     )

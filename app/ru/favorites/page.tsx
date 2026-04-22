@@ -1,6 +1,5 @@
 import FavoritesClient from '../../favorites/FavoritesClient'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
-import { getRecommendedForEmptyFavorites } from '../../favorites/recommended'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -49,9 +48,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function RussianFavoritesPage() {
-  const recommendedProducts = await getRecommendedForEmptyFavorites()
-
+export default function RussianFavoritesPage() {
   return (
     <div className="bg-white min-h-screen" dir="ltr">
       <BreadcrumbSchema
@@ -60,7 +57,7 @@ export default async function RussianFavoritesPage() {
           { name: 'Избранное', url: '/ru/favorites' }
         ]}
       />
-      <FavoritesClient recommendedProducts={recommendedProducts} />
+      <FavoritesClient />
     </div>
   )
 }

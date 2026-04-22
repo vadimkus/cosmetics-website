@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { Instagram, Facebook } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
 import { useMemo, useState, useEffect } from 'react'
@@ -161,6 +162,51 @@ export default function Footer() {
             <p className="text-[10px] md:text-sm mt-1 md:mt-2 w-full text-center text-gray-400 footer-copyright" suppressHydrationWarning>
               {t('footer.copyright')}
             </p>
+          </div>
+
+          {/* Social + Payments (desktop-only; Footer already returns null on mobile/PWA) */}
+          <div className="hidden md:flex md:flex-col md:items-center md:gap-4 md:pt-6 md:mt-2 md:border-t md:border-gray-100 md:w-full">
+            {/* Social row */}
+            <div className="flex items-center gap-3" aria-label="Social media">
+              <a
+                href="https://www.instagram.com/genosys.uae/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-10 w-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:text-pink-600 hover:border-pink-300 transition-colors"
+                aria-label="Follow GENOSYS on Instagram"
+              >
+                <Instagram className="h-5 w-5" aria-hidden="true" />
+              </a>
+              <a
+                href="https://www.facebook.com/genosys.ae"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-10 w-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors"
+                aria-label="Follow GENOSYS on Facebook"
+              >
+                <Facebook className="h-5 w-5" aria-hidden="true" />
+              </a>
+            </div>
+
+            {/* Payment methods row */}
+            <div className="flex flex-col items-center gap-2">
+              <span className="text-[11px] uppercase tracking-wider text-gray-400 font-medium">
+                {t('footer.weAccept')}
+              </span>
+              <ul
+                className="flex flex-wrap items-center justify-center gap-1.5"
+                aria-label="Accepted payment methods"
+              >
+                {['Visa', 'Mastercard', 'Amex', 'Apple Pay', 'Google Pay', 'Tabby', 'Tamara'].map((method) => (
+                  <li
+                    key={method}
+                    className="text-[11px] font-semibold text-gray-600 bg-gray-50 border border-gray-200 rounded-md px-2 py-1 tracking-wide"
+                  >
+                    {method}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>

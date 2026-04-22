@@ -109,6 +109,19 @@
   --color-primary-700: #b91c1c;
   --color-primary-800: #991b1b;
   --color-primary-900: #7f1d1d;
+
+  /* ========================================================================
+     BRAND RED - Semantic tokens (single source of truth for GENOSYS red)
+     ========================================================================
+     Use these in new code instead of raw #dc2626 / bg-red-600 / bg-primary-600
+     so future palette adjustments only need to change this block. Tailwind's
+     bg-primary-600 still works for existing code; the two stay in sync. */
+  --brand-red: #dc2626;           /* default solid CTA */
+  --brand-red-hover: #b91c1c;     /* hover state */
+  --brand-red-active: #991b1b;    /* pressed state */
+  --brand-red-soft: #fee2e2;      /* tinted backgrounds / badges */
+  --brand-red-ink: #7f1d1d;       /* text on soft */
+  --brand-red-ring: rgba(220, 38, 38, 0.2); /* focus ring tint */
   
   /* Rose color palette */
   --color-rose-50: #fff1f2;

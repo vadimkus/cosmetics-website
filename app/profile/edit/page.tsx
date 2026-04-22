@@ -416,8 +416,15 @@ export default function EditProfilePage() {
         ))}
       </div>
 
-      {/* Unified nav header (matches Account) */}
-      <div className={`sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 flex items-center justify-between px-5 py-4 safe-area-top ${isRTL ? 'flex-row-reverse' : ''}`}>
+      {/*
+       * Unified nav header — matches addresses/language/billing/passkeys/promo
+       * exactly: z-10 (not z-50), no `safe-area-top` padding. The previous
+       * `safe-area-top` double-padded the header on notched devices, making
+       * it visibly taller than every other profile-stack page. The toast
+       * container below still has safe-area-top (it's `fixed`, so it needs
+       * to clear the status bar independently).
+       */}
+      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-gray-200 flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button
           onClick={handleBack}
           className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}

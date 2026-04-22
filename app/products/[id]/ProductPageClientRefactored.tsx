@@ -335,9 +335,9 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         )}
 
         {/* ============ UNIFIED RESPONSIVE LAYOUT ============ */}
-        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-12 ${dir === 'rtl' ? 'lg:grid-flow-row-dense' : ''}`}>
+        <div className={`grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-8 lg:gap-12 ${dir === 'rtl' ? 'md:grid-flow-row-dense' : ''}`}>
           {/* Left Column - Product Images and Purchase Controls */}
-          <div className={`flex flex-col ${dir === 'rtl' ? 'lg:col-start-2' : ''}`}>
+          <div className={`flex flex-col ${dir === 'rtl' ? 'md:col-start-2' : ''}`}>
             
             {/* Desktop Product Header - Hidden on mobile */}
             <div className="hidden lg:block mb-4">
@@ -1089,7 +1089,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
           </div>
 
           {/* Right Column - Product Details and Content */}
-          <div className={`space-y-6 ${dir === 'rtl' ? 'lg:col-start-1 lg:row-start-1' : ''}`}>
+          <div className={`space-y-6 ${dir === 'rtl' ? 'md:col-start-1 md:row-start-1' : ''}`}>
             {/* Product Details - Hidden on desktop (info shown in desktop header above image in left column) */}
             {/* Hidden on mobile (info shown in mobile header above image) */}
             <div className="hidden">

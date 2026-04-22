@@ -8,6 +8,22 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ## Shipped
 
+### #D2 — `/contact` desktop: premium refresh
+**Date:** 2026-04-17  ·  **File:** `app/contact/ContactClient.tsx`
+**Change:** Second of the four-page marketing polish sweep. Desktop-only — all edits sit behind `md:` / `lg:` utilities; the PWA / mobile-web paths are untouched.
+
+- Container widened: `max-w-4xl` → `max-w-4xl lg:max-w-6xl`.
+- Hero: added `GET IN TOUCH` eyebrow (localised, tracked small-caps primary-red) + a desktop-only descriptive subhead ("We're here for questions about products, orders, and personalised skin advice.").
+- Contact tiles (6): upgraded from flat grey squares to bordered white cards on `md+`. Each tile now has a circular colour-tinted icon well (`h-14 w-14 rounded-full bg-{channel}-50`) sitting above the title, a channel-specific hover border + shadow, and an explicit CTA line (e.g. "Message us →", "Send email →", "Follow →", "Open in Maps →"). Entire tile is a single `<a>` so the whole card is clickable on desktop — previously only the icon was.
+- Official Distributor section: restructured as a two-column panel on `md+`. Left column is a tinted `ShieldCheck` badge + the "Official distributor" heading + legitimacy copy; right column is a divider-separated "OFFICIAL DOCUMENTS" eyebrow + the three credential pills (License / TRN / D-U-N-S®). Background flipped from `primary-50` to white with border + `shadow-sm` to feel less promotional and more institutional. On mobile the section keeps the original single-column primary-50 treatment.
+- Pills themselves got a size bump on `md+` (`px-3 py-2 rounded-lg` with a neutral `bg-gray-50 + border`) so they read as chip links, not shouty buttons.
+
+**Why:** The previous desktop version was a mobile layout scaled up — narrow column, tiny icons, inert text under them. Clicking anywhere except the icon did nothing. The new tiles behave like proper premium contact cards: scannable, each channel gets a clear "what happens if I click this" affordance, and the credentials row no longer competes visually with the primary contact channels.
+
+**Risk:** desktop-only; every `md:` utility is additive. Below 768px the page is byte-identical (flat tiles, primary-50 distributor block).
+
+---
+
 ### #D1 — `/delivery` desktop: premium refresh
 **Date:** 2026-04-17  ·  **File:** `app/delivery/DeliveryPageClient.tsx`
 **Change:** First of a four-page marketing / support page polish sweep (`/delivery`, `/contact`, `/about`, `/training`). Desktop-only — every change sits behind `md:` / `lg:` utilities, the mobile-web and PWA branches are untouched.

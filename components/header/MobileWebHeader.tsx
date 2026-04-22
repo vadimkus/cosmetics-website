@@ -415,9 +415,14 @@ export default function MobileWebHeader() {
               <div className="w-10 h-1 bg-gray-300 rounded-full" />
             </div>
             
-            {/* Sectioned Navigation */}
+            {/* Sectioned Navigation.
+                Note: Orders / Favorites / Profile / Home are intentionally NOT
+                duplicated here — they already live in first-class spots of the
+                mobile chrome (Orders + Home in the bottom tab bar; Favorites
+                as the heart in the top header; Profile as the avatar in the
+                top-right). Duplicating them just made the menu noisier. */}
             <nav className="px-4 pt-1 pb-3">
-              {/* Section: Account / primary destinations */}
+              {/* Section: primary destinations (shop-focused only) */}
               <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                 <Link
                   href={getLocalizedPath('/products', locale)}
@@ -433,33 +438,6 @@ export default function MobileWebHeader() {
                   onClick={() => setShowMobileMenu(false)}
                 >
                   🎁 {t('bundleBuilder.title')}
-                </Link>
-
-                <Link
-                  href={getLocalizedPath('/orders', locale)}
-                  className={`py-2.5 text-gray-900 hover:text-red-600 transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  {t('navigation.orders') || 'Orders'}
-                </Link>
-
-                <Link
-                  href={getLocalizedPath('/favorites', locale)}
-                  className={`py-2.5 text-gray-900 hover:text-red-600 transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  {t('navigation.favorites') || 'Favorites'}
-                  {favoritesCount > 0 && (
-                    <span className={`${isRTL ? 'mr-1.5' : 'ml-1.5'} bg-red-500 text-white text-[11px] font-bold px-1.5 py-0.5 rounded-full`}>{favoritesCount}</span>
-                  )}
-                </Link>
-
-                <Link
-                  href={getLocalizedPath('/profile', locale)}
-                  className={`py-2.5 text-gray-900 hover:text-red-600 transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  {t('common.profile')}
                 </Link>
               </div>
 
@@ -484,14 +462,6 @@ export default function MobileWebHeader() {
               </div>
 
               <div className="grid grid-cols-2 gap-x-4 gap-y-0.5">
-                <Link
-                  href={getLocalizedPath('/', locale)}
-                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
-                  onClick={() => setShowMobileMenu(false)}
-                >
-                  {t('navigation.home')}
-                </Link>
-
                 <Link
                   href={getLocalizedPath('/about', locale)}
                   className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}

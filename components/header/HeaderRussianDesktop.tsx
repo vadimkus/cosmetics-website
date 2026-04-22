@@ -6,6 +6,7 @@ import { useCartStore } from '@/lib/cartStore'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
+import HeaderDesktopSearch from './HeaderDesktopSearch'
 import LoginModal from '@/components/LoginModal'
 import { useState, useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -125,6 +126,9 @@ export default function HeaderRussianDesktop() {
         </div>
         
         <div className="flex items-center space-x-2 header-icons">
+          {/* Site-wide search (md+) */}
+          <HeaderDesktopSearch isRTL={false} />
+
           {isClient && user ? (
             <>
               <LanguageSwitcher />

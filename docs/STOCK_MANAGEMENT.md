@@ -268,7 +268,13 @@ suggest that's correct going forward).
 ## Reference implementation
 
 - **Script**: `scripts/set-hyaluron-cream-availability.ts`
-- **Commit**: `58eeb5ca` (block 50g) — see
+- **Block commit**: `58eeb5ca` (block 50g) — see
   `docs/SESSION_CHANGES_2026-04-18.md` § Stock management: hyaluron
   cream 50g
+- **Restore commit**: `2026-04-22` — 50g back in stock. Reverted the
+  three UI guards (productPricing.ts × 2, ProductInfo.tsx × 3) so
+  product 29 rejoins the shared 30/29/32/28 / 30/29/32/28/31 groups,
+  and ran `restore-50g` against prod DB to flip the variant flags back
+  (50g available=true/default=true, 250g available=true/default=false,
+  parent Product.size='50g', Product.price=290).
 - **DB schema**: `prisma/schema.prisma` → `ProductVariant` model

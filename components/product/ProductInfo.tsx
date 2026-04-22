@@ -60,11 +60,7 @@ export default function ProductInfo({
     if (product.id === '10') {
       return size === '180ml' ? 330 : 510
     }
-    // product 29: 50g temporarily out of stock → always return 250g price
-    if (product.id === '29') {
-      return 420
-    }
-    if (product.id === '30' || product.id === '32' || product.id === '28' || product.id === '31') {
+    if (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') {
       return size === '50g' ? 290 : 420
     }
     if (product.id === '15') {
@@ -163,8 +159,7 @@ export default function ProductInfo({
       <div className="flex items-center gap-4 mt-12 pt-4">
         {(product.size || product.id === '1' || product.id === '41' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24' || product.id === '16' || product.id === '25' || product.id === '37') && (
           <div className="text-sm font-medium text-gray-700">
-            {/* product 29: 50g temporarily out of stock → shows only 250g here too */}
-            {t('product.size')}: {product.id === '1' ? '0.25mm/0.5mm/0.1mm/0.15mm/0.2mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : product.id === '29' ? '250g' : (product.id === '30' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : translateSize(product.size, locale, product.category)}
+            {t('product.size')}: {product.id === '1' ? '0.25mm/0.5mm/0.1mm/0.15mm/0.2mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : translateSize(product.size, locale, product.category)}
           </div>
         )}
         {canUserSeePrices(user) ? (
@@ -273,34 +268,7 @@ export default function ProductInfo({
                 ))}
               </>
             )}
-            {/* Product 29: 50g temporarily out of stock — only 250g listed.
-                Restore by adding back to this list and running
-                `scripts/set-hyaluron-cream-availability.ts restore-50g`. */}
-            {product.id === '29' && (
-              <>
-                {[{ size: '250g', price: 420 }].map((option) => (
-                  <button
-                    key={option.size}
-                    className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
-                      selectedSize === option.size
-                        ? 'border-primary-600 bg-primary-50 text-primary-800'
-                        : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
-                    }`}
-                    onClick={() => setSelectedSize(option.size)}
-                  >
-                    <div className="text-center">
-                      <div className="font-medium">{option.size}</div>
-                      {user ? (
-                        <div className="text-sm text-gray-500">{option.price} AED</div>
-                      ) : (
-                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
-                      )}
-                    </div>
-                  </button>
-                ))}
-              </>
-            )}
-            {(product.id === '30' || product.id === '32' || product.id === '28' || product.id === '31') && (
+            {(product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31') && (
               <>
                 {[{ size: '50g', price: 290 }, { size: '250g', price: 420 }].map((option) => (
                   <button

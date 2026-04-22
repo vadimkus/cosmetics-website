@@ -199,18 +199,24 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
             </Link>
           )}
 
-          {/* Page Header — compact on mobile/PWA, full hero on desktop */}
-          <div className={`text-center ${isAppLikeMode ? 'mb-4' : 'mb-6 md:mb-10'}`}>
-            <h1 className={`font-bold text-gray-800 ${isAppLikeMode ? 'text-xl mb-1' : 'text-2xl md:text-5xl mb-2 md:mb-4'}`}>
+          {/* Page Header.
+           *  Mobile/PWA: tight single-row h1 + subtitle cut to one line — header
+           *  already announces "Help & Support", so we avoid a 4-line hero above
+           *  the fold and show the FAQ list sooner.
+           *  Desktop: full hero (h1 + description). */}
+          <div className={`${isAppLikeMode ? 'mb-3' : 'text-center mb-6 md:mb-10'}`}>
+            <h1 className={`font-bold text-gray-900 ${isAppLikeMode ? 'text-lg mb-0.5' : 'text-2xl md:text-5xl mb-2 md:mb-4'}`}>
               {t('faq.subtitle')}
             </h1>
-            <p className={`text-gray-600 max-w-2xl mx-auto ${isAppLikeMode ? 'text-xs' : 'text-sm md:text-lg'}`}>
+            <p className={`text-gray-500 ${isAppLikeMode ? 'text-xs line-clamp-1' : 'text-sm md:text-lg text-gray-600 max-w-2xl mx-auto'}`}>
               {t('faq.description')}
             </p>
           </div>
 
-          {/* Sticky filter bar (mobile web/PWA): search + tabs stay in view while scrolling */}
-          <div className={isAppLikeMode ? 'sticky top-0 z-20 bg-gradient-to-b from-gray-50 via-gray-50 to-transparent pt-1 pb-2 -mx-3 px-3' : ''}>
+          {/* Sticky filter bar (mobile web/PWA): search + tabs stay in view while
+              scrolling. Background is solid (not fading to transparent) so
+              content doesn't show through the pinned bar. */}
+          <div className={isAppLikeMode ? 'sticky top-0 z-20 bg-gray-50/95 backdrop-blur-md pt-2 pb-2 -mx-3 px-3 border-b border-gray-100' : ''}>
             {/* Search Bar */}
             <div className="relative mb-3 md:mb-6">
               <div className={`absolute inset-y-0 ${dir === 'rtl' ? 'right-0 pr-3' : 'left-0 pl-3'} flex items-center pointer-events-none`}>
@@ -310,66 +316,119 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
             )}
           </div>
 
-          {/* FAQ Sections */}
-          <div className="space-y-6 md:space-y-8 mb-6 md:mb-12">
+          {/* FAQ Sections.
+           *  Mobile/PWA: one card per category with hairline dividers between
+           *  questions (iOS-native list style) — much denser than separate
+           *  shadowed cards per question.
+           *  Desktop: preserves the existing per-question card with shadow. */}
+          <div className={`${isAppLikeMode ? 'space-y-5' : 'space-y-6 md:space-y-8'} mb-6 md:mb-12`}>
             {groupedFaqs.map(({ category: groupCat, items }) => (
               <div key={groupCat || 'search-results'}>
                 {groupCat && activeCategory === 'all' && !searchQuery.trim() && (
-                  <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex items-center gap-2 ${isAppLikeMode ? 'mb-2 px-1' : 'mb-3 md:mb-4'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     {(() => {
                       const Icon = CATEGORIES[groupCat]?.icon || Store
                       return <Icon className="h-4 w-4 md:h-5 md:w-5 text-primary-600" />
                     })()}
-                    <h2 className="text-base md:text-lg font-bold text-gray-800">
+                    <h2 className={`font-bold text-gray-900 ${isAppLikeMode ? 'text-sm uppercase tracking-wide' : 'text-base md:text-lg'}`}>
                       {getCategoryLabel(groupCat)}
                     </h2>
-                    <div className="flex-1 h-px bg-gray-200" />
+                    {!isAppLikeMode && <div className="flex-1 h-px bg-gray-200" />}
                   </div>
                 )}
 
-                <div className="space-y-2 md:space-y-3">
-                  {items.map((faq) => {
-                    const isOpen = expandAll || openIds.has(faq.id)
-                    const sanitizedAnswer = sanitizeHtml(faq.answer)
-                    return (
-                      <div 
-                        key={faq.id} 
-                        className="bg-white border border-gray-200 rounded-lg md:rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden"
-                      >
-                        <button
-                          onClick={() => toggleFAQ(faq.id)}
-                          className="w-full px-3 md:px-6 py-3 md:py-5 text-left flex items-center justify-between hover:bg-gray-50 transition-colors group"
-                          aria-expanded={isOpen}
+                {isAppLikeMode ? (
+                  // Grouped card: one container, hairline dividers between rows
+                  <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                    {items.map((faq, idx) => {
+                      const isOpen = expandAll || openIds.has(faq.id)
+                      const sanitizedAnswer = sanitizeHtml(faq.answer)
+                      return (
+                        <div
+                          key={faq.id}
+                          className={idx > 0 ? 'border-t border-gray-100' : ''}
                         >
-                          <h3 className={`text-sm md:text-lg font-semibold text-gray-800 ${dir === 'rtl' ? 'pl-2 text-right' : 'pr-2'} flex-1`}>
-                            {faq.question}
-                          </h3>
-                          <div className="flex-shrink-0">
-                            {isOpen ? (
-                              <ChevronUp className="h-4 w-4 md:h-5 md:w-5 text-primary-600 transition-transform" />
-                            ) : (
-                              <ChevronDown className="h-4 w-4 md:h-5 md:w-5 text-gray-400 group-hover:text-primary-600 transition-colors" />
-                            )}
-                          </div>
-                        </button>
-                        <div 
-                          className={`overflow-hidden transition-all duration-300 ease-in-out ${
-                            isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
-                          }`}
-                        >
-                          <div className={`px-3 md:px-6 pb-3 md:pb-6`}>
-                            <div className={`border-${dir === 'rtl' ? 'r' : 'l'}-2 border-primary-200 ${dir === 'rtl' ? 'pr-3 md:pr-6' : 'pl-3 md:pl-6'}`}>
-                              <div 
-                                className="text-xs md:text-base text-gray-600 leading-relaxed prose prose-sm max-w-none"
-                                dangerouslySetInnerHTML={{ __html: sanitizedAnswer }}
-                              />
+                          <button
+                            onClick={() => toggleFAQ(faq.id)}
+                            className="w-full px-4 py-3.5 text-left flex items-center justify-between active:bg-gray-50 transition-colors"
+                            aria-expanded={isOpen}
+                          >
+                            <h3 className={`text-sm font-semibold text-gray-900 ${dir === 'rtl' ? 'pl-2 text-right' : 'pr-2'} flex-1`}>
+                              {faq.question}
+                            </h3>
+                            <div className="flex-shrink-0">
+                              {isOpen ? (
+                                <ChevronUp className="h-4 w-4 text-primary-600 transition-transform" />
+                              ) : (
+                                <ChevronDown className="h-4 w-4 text-gray-400 transition-colors" />
+                              )}
+                            </div>
+                          </button>
+                          <div
+                            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                              isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+                            }`}
+                          >
+                            <div className="px-4 pb-4">
+                              {/* Explicit classes (no template literals) so Tailwind JIT emits them. */}
+                              <div className={dir === 'rtl' ? 'border-r-2 border-primary-200 pr-3' : 'border-l-2 border-primary-200 pl-3'}>
+                                <div
+                                  className="text-xs text-gray-600 leading-relaxed prose prose-sm max-w-none"
+                                  dangerouslySetInnerHTML={{ __html: sanitizedAnswer }}
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    )
-                  })}
-                </div>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  // Desktop: existing per-question shadowed cards
+                  <div className="space-y-2 md:space-y-3">
+                    {items.map((faq) => {
+                      const isOpen = expandAll || openIds.has(faq.id)
+                      const sanitizedAnswer = sanitizeHtml(faq.answer)
+                      return (
+                        <div
+                          key={faq.id}
+                          className="bg-white border border-gray-200 rounded-lg md:rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden"
+                        >
+                          <button
+                            onClick={() => toggleFAQ(faq.id)}
+                            className="w-full px-3 md:px-6 py-3 md:py-5 text-left flex items-center justify-between hover:bg-gray-50 transition-colors group"
+                            aria-expanded={isOpen}
+                          >
+                            <h3 className={`text-sm md:text-lg font-semibold text-gray-800 ${dir === 'rtl' ? 'pl-2 text-right' : 'pr-2'} flex-1`}>
+                              {faq.question}
+                            </h3>
+                            <div className="flex-shrink-0">
+                              {isOpen ? (
+                                <ChevronUp className="h-4 w-4 md:h-5 md:w-5 text-primary-600 transition-transform" />
+                              ) : (
+                                <ChevronDown className="h-4 w-4 md:h-5 md:w-5 text-gray-400 group-hover:text-primary-600 transition-colors" />
+                              )}
+                            </div>
+                          </button>
+                          <div
+                            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                              isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
+                            }`}
+                          >
+                            <div className={`px-3 md:px-6 pb-3 md:pb-6`}>
+                              <div className={`border-${dir === 'rtl' ? 'r' : 'l'}-2 border-primary-200 ${dir === 'rtl' ? 'pr-3 md:pr-6' : 'pl-3 md:pl-6'}`}>
+                                <div
+                                  className="text-xs md:text-base text-gray-600 leading-relaxed prose prose-sm max-w-none"
+                                  dangerouslySetInnerHTML={{ __html: sanitizedAnswer }}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
               </div>
             ))}
 

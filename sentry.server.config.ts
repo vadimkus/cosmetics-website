@@ -30,7 +30,9 @@ const enabled =
 function isUnactionablePrismaFetchReject(event: Sentry.ErrorEvent): boolean {
   const values = event.exception?.values
   if (!values || values.length !== 1) return false
+  // TS can't narrow indexed access under `noUncheckedIndexedAccess` — guard exc.
   const exc = values[0]
+  if (!exc) return false
   if (exc.type !== 'TypeError' || exc.value !== 'fetch failed') return false
   if (exc.mechanism?.type !== 'auto.node.onunhandledrejection') return false
   if (exc.stacktrace?.frames?.length) return false

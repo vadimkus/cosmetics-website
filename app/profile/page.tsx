@@ -564,7 +564,7 @@ export default function ProfilePageRefactored() {
             </div>
             
             {/* Desktop: Full tabs with labels */}
-            <div className="hidden md:flex gap-2 overflow-x-auto scrollbar-hide">
+            <div className="hidden md:flex md:flex-wrap md:items-center gap-2">
               {[
                 { id: 'profile', label: 'Profile', icon: User },
                 { id: 'orders', label: 'Orders', icon: Package },
@@ -575,34 +575,39 @@ export default function ProfilePageRefactored() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as ActiveTab)}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                  aria-pressed={activeTab === tab.id}
+                  className={`flex items-center gap-2 px-4 lg:px-5 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                      ? 'bg-primary-600 text-white shadow-sm'
+                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
-                  <tab.icon className="h-5 w-5" />
+                  <tab.icon className="h-4 w-4" />
                   <span>{tab.label}</span>
                 </button>
               ))}
-              
-              {/* Action Buttons */}
-              <div className="flex items-center gap-2 ml-auto">
+
+              {/* Action Buttons — pinned right on md+, flow to new row when tabs overflow */}
+              <div className="flex items-center gap-2 md:ml-auto">
                 <button
                   onClick={handleRefresh}
                   disabled={isRefreshing}
-                  className="flex items-center gap-2 px-4 py-3 bg-white/50 text-gray-600 rounded-xl font-medium hover:bg-white/70 transition-all disabled:opacity-50"
+                  className="flex items-center gap-2 px-3 lg:px-4 py-2.5 bg-white text-gray-600 border border-gray-200 rounded-lg font-medium text-sm hover:text-gray-900 hover:bg-gray-50 transition-colors disabled:opacity-50"
+                  aria-label={t('profileActions.refresh')}
                 >
-                  <RefreshCw className={`h-5 w-5 ${isRefreshing ? 'animate-spin' : ''}`} />
+                  <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} aria-hidden="true" />
                   <span>{t('profileActions.refresh')}</span>
                 </button>
                 <button
                   onClick={() => setIsEditing(!isEditing)}
-                  className={`flex items-center gap-2 px-4 py-3 rounded-xl font-medium transition-all ${
-                    isEditing ? 'bg-red-100 text-red-700 hover:bg-red-200' : 'text-gray-600 hover:text-gray-900 hover:bg-white/50'
+                  aria-pressed={isEditing}
+                  className={`flex items-center gap-2 px-3 lg:px-4 py-2.5 rounded-lg font-medium text-sm transition-colors ${
+                    isEditing
+                      ? 'bg-red-50 text-red-700 border border-red-200 hover:bg-red-100'
+                      : 'bg-white text-gray-600 border border-gray-200 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
-                  <Edit3 className="h-5 w-5" />
+                  <Edit3 className="h-4 w-4" aria-hidden="true" />
                   <span>{isEditing ? t('profileActions.cancel') : t('profileActions.edit')}</span>
                 </button>
               </div>

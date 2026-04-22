@@ -76,6 +76,20 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ---
 
+### #P1.1 — `/profile` desktop: calmer tab bar + wrap behaviour
+**Date:** 2026-04-23  ·  **File:** `app/profile/page.tsx`
+**Change:**
+- Active tab chip: `bg-gradient-to-r from-red-600 to-red-700 + shadow-lg + px-6 py-3 rounded-xl` → `bg-primary-600 + shadow-sm + px-4 lg:px-5 py-2.5 rounded-lg + text-sm`
+- Container: `flex gap-2 overflow-x-auto scrollbar-hide` → `flex md:flex-wrap md:items-center gap-2`. The Refresh/Edit action group now uses `md:ml-auto` so it still pins right at comfortable widths but drops to its own row when tabs wrap — no more horizontal scroll at narrow desktop widths (≈1024–1100px).
+- Refresh / Edit buttons rewritten as bordered neutral pills (`bg-white border border-gray-200`) with a bordered red variant for the active "Cancel" state. Softer than the prior `bg-white/50` floating pills.
+- Added `aria-pressed` to both the tab buttons and the Edit toggle.
+
+**Why:** Backlog #13. The original bar was loud and forced horizontal scroll any time the viewport wasn't wide enough for all five tabs plus the right-aligned action group. Calmer styling also aligns the tab chip with the `--color-primary-600` foundation shipped in #7.
+
+**Risk:** desktop-only (`hidden md:flex` block). Mobile icon tabs untouched.
+
+---
+
 ### #2 — Site-wide search in desktop header (reverted)
 **Date:** 2026-04-17  ·  **Commits:** `475a6520` (ship), `<revert>` (revert)
 **Files:** `components/header/HeaderDesktopSearch.tsx` (deleted), `components/header/HeaderDesktopIcons.tsx`, `components/header/HeaderRussianDesktop.tsx`

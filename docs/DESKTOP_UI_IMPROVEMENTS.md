@@ -76,6 +76,22 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ---
 
+### #P1.3 — `/profile` desktop: Support + Skin Recommendation side-by-side
+**Date:** 2026-04-23  ·  **File:** `components/profile/ProfileForm.tsx`
+**Change:** The two bottom cards on the Profile tab — "Need Help?" (WhatsApp support) and "Skin Recommendation" — were two full-width cards stacking vertically on desktop. Wrapped them in a `grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 lg:gap-8` container so they sit side-by-side at `md+`. On mobile they still stack (single column grid).
+
+Additional tightening:
+- Bullet lists inside each card changed from `grid-cols-3` (horizontal, often clipping at half-column widths) to `flex flex-col gap-2` — readable regardless of card width.
+- Card headings stepped down from `text-2xl` to `text-xl` to match the now-narrower column width.
+- Subheading descriptions now `text-sm` at `md+` instead of `text-base`.
+- `transition-all` → `transition-colors` on the CTA buttons (smaller GPU work, no layout animation was actually happening).
+
+**Why:** Two near-identical full-width CTA cards stacking below the personal info form wasted most of the desktop width and pushed the footer content too far down.
+
+**Risk:** desktop-only layout change (below `md` the grid collapses to single column). CTAs, destinations, and copy unchanged.
+
+---
+
 ### #P1.2 — `/profile` desktop: left-aligned hero, smaller title, no gradient clip
 **Date:** 2026-04-23  ·  **File:** `components/profile/ProfileHeader.tsx`
 **Change:** Reworked the desktop profile header card:

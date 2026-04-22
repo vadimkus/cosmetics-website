@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { ArrowLeft, Check, Globe } from 'lucide-react'
+import { ArrowLeft, Check, Globe, Loader2 } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -34,13 +34,19 @@ export default function LanguagePage() {
 
   const fromPage = searchParams?.get('from')
 
-  const [saving, setSaving] = useState(false)
+  // Track which specific option the user tapped so we can spin only that
+  // card while the locale switch is in flight — previously every card
+  // faded to 50% opacity during the transition, which looked like the
+  // whole list had been disabled.
+  const [switchingTo, setSwitchingTo] = useState<string | null>(null)
 
-  // Language options with native names
+  // Native names are self-identifying — Apple's iOS Settings pattern.
+  // We dropped the second "Russian" / "Arabic" label line so all three
+  // cards render at identical heights.
   const options = [
-    { code: 'en', label: 'English', nativeLabel: 'English' },
-    { code: 'ru', label: 'Russian', nativeLabel: 'Русский' },
-    { code: 'ar', label: 'Arabic', nativeLabel: 'العربية' },
+    { code: 'en', nativeLabel: 'English' },
+    { code: 'ru', nativeLabel: 'Русский' },
+    { code: 'ar', nativeLabel: 'العربية' },
   ]
 
   const translations = {
@@ -63,9 +69,9 @@ export default function LanguagePage() {
   }
 
   const handleLanguageChange = async (newLocale: string) => {
-    if (newLocale === locale || saving) return
+    if (newLocale === locale || switchingTo) return
 
-    setSaving(true)
+    setSwitchingTo(newLocale)
     try {
       // Navigate to the same page but with new locale
       // Use getLocalizedPath to handle EN (no prefix) vs AR/RU (with prefix)
@@ -74,7 +80,10 @@ export default function LanguagePage() {
       // Use replace instead of push to avoid history issues when switching languages
       router.replace(newPath)
     } finally {
-      setSaving(false)
+      // Locale change triggers a navigation/remount so setSwitchingTo
+      // cleanup is mostly cosmetic, but keeps the reset in case the
+      // replace() is intercepted.
+      setSwitchingTo(null)
     }
   }
 
@@ -127,31 +136,38 @@ export default function LanguagePage() {
           <div className="space-y-2">
             {options.map((option) => {
               const isActive = option.code === locale
+              const isSwitchingThis = switchingTo === option.code
+              const isBusy = Boolean(switchingTo)
               return (
                 <button
                   key={option.code}
                   onClick={() => handleLanguageChange(option.code)}
-                  disabled={saving}
-                  className={`w-full flex items-center justify-between px-4 py-3.5 rounded-xl transition-all ${
-                    isActive 
-                      ? 'bg-red-50 border-2 border-red-500' 
+                  disabled={isBusy}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`w-full flex items-center justify-between px-4 py-4 rounded-xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 active:scale-[0.99] ${
+                    isActive
+                      ? 'bg-red-50 border-2 border-red-500'
                       : 'bg-gray-50 border-2 border-transparent hover:bg-gray-100'
-                  } ${saving ? 'opacity-50' : ''} ${isRTL ? 'flex-row-reverse' : ''}`}
+                  } ${isBusy && !isSwitchingThis ? 'opacity-60' : ''} ${isRTL ? 'flex-row-reverse' : ''}`}
                 >
-                  <div className={`flex flex-col ${isRTL ? 'items-end' : 'items-start'}`}>
-                    <span className={`text-base font-medium ${isActive ? 'text-red-600' : 'text-gray-900'}`}>
-                      {option.nativeLabel}
-                    </span>
-                    {option.code !== 'en' && (
-                      <span className="text-sm text-gray-500">
-                        {option.label}
-                      </span>
-                    )}
-                  </div>
-                  {isActive && (
-                    <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                  <span
+                    className={`text-base font-medium ${isActive ? 'text-red-600' : 'text-gray-900'}`}
+                    // Each label is rendered in its own script's natural
+                    // direction so the Arabic glyphs read RTL even inside
+                    // an LTR container, and vice-versa.
+                    dir={option.code === 'ar' ? 'rtl' : 'ltr'}
+                  >
+                    {option.nativeLabel}
+                  </span>
+                  {isSwitchingThis ? (
+                    <Loader2 className="w-6 h-6 text-red-600 animate-spin" aria-hidden="true" />
+                  ) : isActive ? (
+                    <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center" aria-hidden="true">
                       <Check className="w-4 h-4 text-white" />
                     </div>
+                  ) : (
+                    // Placeholder keeps row heights identical across states
+                    <div className="w-6 h-6" aria-hidden="true" />
                   )}
                 </button>
               )

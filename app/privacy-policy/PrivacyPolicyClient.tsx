@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { ArrowLeft, Shield, Mail, Phone, ExternalLink } from 'lucide-react'
+import { ArrowLeft, Shield, Mail, Phone, ExternalLink, Clock, ArrowUp } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -20,6 +20,7 @@ export default function PrivacyPolicyClient() {
   const fromProfile = searchParams?.get('from') === 'profile'
   const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
   const [isMobileWeb, setIsMobileWeb] = useState(false)
+  const [showBackToTop, setShowBackToTop] = useState(false)
 
   useEffect(() => {
     const checkMobileWeb = () => {
@@ -30,6 +31,12 @@ export default function PrivacyPolicyClient() {
     window.addEventListener('resize', checkMobileWeb)
     return () => window.removeEventListener('resize', checkMobileWeb)
   }, [isPWA])
+
+  useEffect(() => {
+    const onScroll = () => setShowBackToTop(window.scrollY > 600)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const isAppLikeMode = (isClient && isPWA) || isMobileWeb
 
@@ -264,34 +271,51 @@ export default function PrivacyPolicyClient() {
   }
 
   const renderContent = (compact: boolean) => {
-    const headingClass = compact ? 'text-lg font-bold text-gray-900 mb-2' : 'text-2xl font-bold text-gray-900 mb-4'
+    const headingClass = compact ? 'text-lg font-bold text-gray-900 mb-3' : 'text-2xl font-bold text-gray-900 mb-4'
     const textClass = compact ? 'text-sm text-gray-700 leading-relaxed' : 'text-gray-700 leading-relaxed'
-    const sectionClass = compact ? 'mb-4' : 'border-t border-gray-200 pt-8'
-    const listClass = compact ? 'space-y-1 text-sm text-gray-700' : 'space-y-2 text-gray-700'
+    const sectionClass = compact ? 'mb-5' : 'border-t border-gray-200 pt-8'
+    const listClass = compact ? 'text-sm text-gray-700' : 'text-gray-700'
     const rtl = isRTL ? 'text-right' : ''
+    const calloutPad = compact ? 'p-4' : 'p-6'
+    const calloutMb = compact ? 'mb-5' : 'mb-6'
+
+    // Renders a label/description pair as a clearly separated row (divided list)
+    const LabelRow = ({ label, text, divider }: { label: string; text: string; divider: boolean }) => (
+      <div className={`${divider ? (isRTL ? 'border-t border-gray-200 pt-3 mt-3' : 'border-t border-gray-200 pt-3 mt-3') : ''} ${rtl}`}>
+        <div className="font-semibold text-gray-900 mb-0.5">{label}</div>
+        <div className={textClass}>{text}</div>
+      </div>
+    )
 
     return (
       <>
-        {/* Last Updated */}
-        <p className={`text-sm text-gray-500 mb-4 ${rtl}`}>
-          {t.lastUpdatedLabel} {lastUpdated}
-        </p>
-
-        {/* Rights Highlight */}
-        <div className={`bg-red-50 p-${compact ? '4' : '6'} rounded-xl border-l-4 border-red-600 mb-${compact ? '4' : '6'} ${isRTL ? 'border-l-0 border-r-4' : ''}`}>
-          <h2 className={`${compact ? 'text-lg' : 'text-xl'} font-bold text-red-700 mb-2 ${rtl}`}>{t.rightsTitle}</h2>
-          <p className={`${textClass} ${rtl}`}>{t.rightsText}</p>
+        {/* Last Updated — pill badge */}
+        <div className={`flex ${isRTL ? 'justify-end' : 'justify-start'} mb-4`}>
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium">
+            <Clock className="w-3.5 h-3.5" />
+            {t.lastUpdatedLabel} {lastUpdated}
+          </span>
         </div>
 
-        {/* 1. Personal Information */}
+        {/* Rights Highlight — uses side-specific full classes (avoid template-literal JIT pitfall) */}
+        <div
+          className={`bg-red-50 ${calloutPad} rounded-xl ${calloutMb} ${rtl} ${
+            isRTL ? 'border-r-4 border-red-600' : 'border-l-4 border-red-600'
+          }`}
+        >
+          <h2 className={`${compact ? 'text-lg' : 'text-xl'} font-bold text-red-700 mb-2`}>{t.rightsTitle}</h2>
+          <p className={textClass}>{t.rightsText}</p>
+        </div>
+
+        {/* 1. Personal Information — divided rows for scannability */}
         <div className={sectionClass}>
           <h2 className={`${headingClass} ${rtl}`}>{t.s1Title}</h2>
-          <div className={`bg-gray-50 rounded-lg p-4 ${listClass} ${rtl}`}>
-            <div><span className="font-semibold text-gray-900">{t.accountLabel}</span> {t.accountText}</div>
-            <div><span className="font-semibold text-gray-900">{t.profileLabel}</span> {t.profileText}</div>
-            <div><span className="font-semibold text-gray-900">{t.orderLabel}</span> {t.orderText}</div>
-            <div><span className="font-semibold text-gray-900">{t.deliveryLabel}</span> {t.deliveryText}</div>
-            <div><span className="font-semibold text-gray-900">{t.usageLabel}</span> {t.usageText}</div>
+          <div className={`bg-gray-50 rounded-lg p-4 ${listClass}`}>
+            <LabelRow label={t.accountLabel} text={t.accountText} divider={false} />
+            <LabelRow label={t.profileLabel} text={t.profileText} divider={true} />
+            <LabelRow label={t.orderLabel} text={t.orderText} divider={true} />
+            <LabelRow label={t.deliveryLabel} text={t.deliveryText} divider={true} />
+            <LabelRow label={t.usageLabel} text={t.usageText} divider={true} />
           </div>
         </div>
 
@@ -307,11 +331,11 @@ export default function PrivacyPolicyClient() {
         <div className={sectionClass}>
           <h2 className={`${headingClass} ${rtl}`}>{t.s3Title}</h2>
           <p className={`${textClass} mb-3 ${rtl}`}>{t.s3Intro}</p>
-          <div className={`bg-green-50 border border-green-200 rounded-lg p-4 ${listClass} ${rtl}`}>
-            <div><span className="font-semibold text-gray-900">{t.s3DeviceLabel}</span> {t.s3DeviceText}</div>
-            <div><span className="font-semibold text-gray-900">{t.s3PushLabel}</span> {t.s3PushText}</div>
-            <div><span className="font-semibold text-gray-900">{t.s3BiometricLabel}</span> {t.s3BiometricText}</div>
-            <div><span className="font-semibold text-gray-900">{t.s3CameraLabel}</span> {t.s3CameraText}</div>
+          <div className={`bg-green-50 border border-green-200 rounded-lg p-4 ${listClass}`}>
+            <LabelRow label={t.s3DeviceLabel} text={t.s3DeviceText} divider={false} />
+            <LabelRow label={t.s3PushLabel} text={t.s3PushText} divider={true} />
+            <LabelRow label={t.s3BiometricLabel} text={t.s3BiometricText} divider={true} />
+            <LabelRow label={t.s3CameraLabel} text={t.s3CameraText} divider={true} />
           </div>
           <div className={`mt-3 flex flex-wrap gap-3 ${rtl}`}>
             <a href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary-600 hover:underline">
@@ -327,19 +351,19 @@ export default function PrivacyPolicyClient() {
         <div className={sectionClass}>
           <h2 className={`${headingClass} ${rtl}`}>{t.s4Title}</h2>
           <p className={`${textClass} mb-3 ${rtl}`}>{t.s4Text}</p>
-          <div className={`bg-violet-50 border border-violet-200 rounded-lg p-4 space-y-3 ${rtl}`}>
-            <div className={textClass}><span className="font-semibold text-gray-900">{t.s4SkinLabel}</span> {t.s4SkinText}</div>
-            <div className={textClass}><span className="font-semibold text-gray-900">{t.s4ChatLabel}</span> {t.s4ChatText}</div>
+          <div className={`bg-violet-50 border border-violet-200 rounded-lg p-4 ${listClass}`}>
+            <LabelRow label={t.s4SkinLabel} text={t.s4SkinText} divider={false} />
+            <LabelRow label={t.s4ChatLabel} text={t.s4ChatText} divider={true} />
           </div>
         </div>
 
         {/* 5. Google Auth */}
         <div className={sectionClass}>
           <h2 className={`${headingClass} ${rtl}`}>{t.s5Title}</h2>
-          <div className={`bg-purple-50 border border-purple-200 rounded-lg p-4 space-y-3 ${rtl}`}>
-            <div className={textClass}><span className="font-semibold text-gray-900">{t.googleSignInLabel}</span> {t.googleSignInText}</div>
-            <div className={textClass}><span className="font-semibold text-gray-900">{t.googleDataLabel}</span> {t.googleDataText}</div>
-            <div className={`flex items-center gap-2 text-sm ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
+          <div className={`bg-purple-50 border border-purple-200 rounded-lg p-4 ${listClass}`}>
+            <LabelRow label={t.googleSignInLabel} text={t.googleSignInText} divider={false} />
+            <LabelRow label={t.googleDataLabel} text={t.googleDataText} divider={true} />
+            <div className={`mt-3 pt-3 border-t border-purple-200 flex items-center gap-2 text-sm ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
               <ExternalLink className="w-4 h-4 text-primary-600" />
               <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Google Privacy Policy</a>
             </div>
@@ -349,9 +373,9 @@ export default function PrivacyPolicyClient() {
         {/* 6. Apple Auth */}
         <div className={sectionClass}>
           <h2 className={`${headingClass} ${rtl}`}>{t.s6Title}</h2>
-          <div className={`bg-gray-50 border border-gray-200 rounded-lg p-4 space-y-3 ${rtl}`}>
-            <div className={textClass}><span className="font-semibold text-gray-900">{t.appleSignInLabel}</span> {t.appleSignInText}</div>
-            <div className={`flex items-center gap-2 text-sm ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
+          <div className={`bg-gray-50 border border-gray-200 rounded-lg p-4 ${listClass}`}>
+            <LabelRow label={t.appleSignInLabel} text={t.appleSignInText} divider={false} />
+            <div className={`mt-3 pt-3 border-t border-gray-200 flex items-center gap-2 text-sm ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
               <ExternalLink className="w-4 h-4 text-primary-600" />
               <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Apple Privacy Policy</a>
             </div>
@@ -455,6 +479,17 @@ export default function PrivacyPolicyClient() {
             <p>&copy; 2026 GENOSYS Middle East FZ-LLC</p>
           </div>
         </div>
+
+        {/* Floating back-to-top — only shown after user has scrolled (long policy) */}
+        {showBackToTop && (
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label={locale === 'ar' ? 'العودة إلى الأعلى' : locale === 'ru' ? 'Наверх' : 'Back to top'}
+            className={`fixed bottom-24 ${isRTL ? 'left-4' : 'right-4'} z-40 w-11 h-11 rounded-full bg-gray-900/90 text-white shadow-lg backdrop-blur flex items-center justify-center active:scale-95 transition-transform`}
+          >
+            <ArrowUp className="w-5 h-5" />
+          </button>
+        )}
       </div>
     )
   }

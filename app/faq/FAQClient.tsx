@@ -199,64 +199,77 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
             </Link>
           )}
 
-          {/* Page Header */}
-          <div className="text-center mb-6 md:mb-10">
-            <h1 className="text-2xl md:text-5xl font-bold text-gray-800 mb-2 md:mb-4">
+          {/* Page Header — compact on mobile/PWA, full hero on desktop */}
+          <div className={`text-center ${isAppLikeMode ? 'mb-4' : 'mb-6 md:mb-10'}`}>
+            <h1 className={`font-bold text-gray-800 ${isAppLikeMode ? 'text-xl mb-1' : 'text-2xl md:text-5xl mb-2 md:mb-4'}`}>
               {t('faq.subtitle')}
             </h1>
-            <p className="text-sm md:text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className={`text-gray-600 max-w-2xl mx-auto ${isAppLikeMode ? 'text-xs' : 'text-sm md:text-lg'}`}>
               {t('faq.description')}
             </p>
           </div>
 
-          {/* Search Bar */}
-          <div className="relative mb-4 md:mb-6">
-            <div className={`absolute inset-y-0 ${dir === 'rtl' ? 'right-0 pr-3' : 'left-0 pl-3'} flex items-center pointer-events-none`}>
-              <Search className="h-4 w-4 md:h-5 md:w-5 text-gray-400" />
+          {/* Sticky filter bar (mobile web/PWA): search + tabs stay in view while scrolling */}
+          <div className={isAppLikeMode ? 'sticky top-0 z-20 bg-gradient-to-b from-gray-50 via-gray-50 to-transparent pt-1 pb-2 -mx-3 px-3' : ''}>
+            {/* Search Bar */}
+            <div className="relative mb-3 md:mb-6">
+              <div className={`absolute inset-y-0 ${dir === 'rtl' ? 'right-0 pr-3' : 'left-0 pl-3'} flex items-center pointer-events-none`}>
+                <Search className="h-4 w-4 md:h-5 md:w-5 text-gray-400" />
+              </div>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value)
+                  setActiveCategory('all')
+                }}
+                placeholder={locale === 'ar' ? 'ابحث في الأسئلة الشائعة...' : locale === 'ru' ? 'Поиск по вопросам...' : 'Search FAQ...'}
+                className={`w-full bg-white border border-gray-200 rounded-xl py-2.5 md:py-3 text-sm md:text-base text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm ${dir === 'rtl' ? 'pr-10 pl-10' : 'pl-10 pr-10'}`}
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className={`absolute inset-y-0 ${dir === 'rtl' ? 'left-0 pl-3' : 'right-0 pr-3'} flex items-center`}
+                  aria-label={locale === 'ar' ? 'مسح البحث' : locale === 'ru' ? 'Очистить поиск' : 'Clear search'}
+                >
+                  <X className="h-4 w-4 text-gray-400 hover:text-gray-600" />
+                </button>
+              )}
             </div>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value)
-                setActiveCategory('all')
-              }}
-              placeholder={locale === 'ar' ? 'ابحث في الأسئلة الشائعة...' : locale === 'ru' ? 'Поиск по вопросам...' : 'Search FAQ...'}
-              className={`w-full bg-white border border-gray-200 rounded-xl py-2.5 md:py-3 text-sm md:text-base text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm ${dir === 'rtl' ? 'pr-10 pl-10' : 'pl-10 pr-10'}`}
-            />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery('')}
-                className={`absolute inset-y-0 ${dir === 'rtl' ? 'left-0 pl-3' : 'right-0 pr-3'} flex items-center`}
-              >
-                <X className="h-4 w-4 text-gray-400 hover:text-gray-600" />
-              </button>
-            )}
-          </div>
 
-          {/* Category Tabs */}
-          <div className="mb-4 md:mb-8 overflow-x-auto scrollbar-hide -mx-3 px-3 md:mx-0 md:px-0">
-            <div className={`flex gap-2 pb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} role="tablist">
-              {availableCategories.map((cat) => {
-                const Icon = CATEGORIES[cat].icon
-                const isActive = activeCategory === cat
-                return (
-                  <button
-                    key={cat}
-                    role="tab"
-                    aria-selected={isActive}
-                    onClick={() => handleCategoryChange(cat)}
-                    className={`flex items-center gap-1.5 whitespace-nowrap px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ${
-                      isActive
-                        ? 'bg-primary-600 text-white shadow-md'
-                        : 'bg-white text-gray-600 border border-gray-200 hover:border-primary-300 hover:text-primary-600'
-                    }`}
-                  >
-                    <Icon className="h-3.5 w-3.5 md:h-4 md:w-4" />
-                    {getCategoryLabel(cat)}
-                  </button>
-                )
-              })}
+            {/* Category Tabs — with edge-fade signalling horizontal scroll */}
+            <div className="relative mb-3 md:mb-8">
+              <div className="overflow-x-auto scrollbar-hide -mx-3 px-3 md:mx-0 md:px-0">
+                <div className={`flex gap-2 pb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} role="tablist">
+                  {availableCategories.map((cat) => {
+                    const Icon = CATEGORIES[cat].icon
+                    const isActive = activeCategory === cat
+                    return (
+                      <button
+                        key={cat}
+                        role="tab"
+                        aria-selected={isActive}
+                        onClick={() => handleCategoryChange(cat)}
+                        className={`flex items-center gap-1.5 whitespace-nowrap px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-200 ${
+                          isActive
+                            ? 'bg-primary-600 text-white shadow-md'
+                            : 'bg-white text-gray-600 border border-gray-200 hover:border-primary-300 hover:text-primary-600'
+                        }`}
+                      >
+                        <Icon className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                        {getCategoryLabel(cat)}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+              {/* Edge fade: signals more pills exist off-screen (mobile only). */}
+              {isAppLikeMode && (
+                <div
+                  className={`pointer-events-none absolute inset-y-0 w-8 ${dir === 'rtl' ? 'left-0 bg-gradient-to-r from-gray-50 to-transparent' : 'right-0 bg-gradient-to-l from-gray-50 to-transparent'}`}
+                  aria-hidden="true"
+                />
+              )}
             </div>
           </div>
 

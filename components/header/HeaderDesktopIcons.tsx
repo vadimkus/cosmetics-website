@@ -6,7 +6,6 @@ import { useCartStore } from '@/lib/cartStore'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import LanguageSwitcher from '@/components/LanguageSwitcher'
-import HeaderDesktopSearch from './HeaderDesktopSearch'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -59,9 +58,6 @@ export default function HeaderDesktopIcons({
 
   const icons = (
     <div className={`flex items-center ${isRTL ? 'space-x-reverse space-x-4' : 'space-x-4'} header-icons`}>
-      {/* Site-wide search (md+) */}
-      <HeaderDesktopSearch isRTL={isRTL} />
-
       {/* Cart - first in RTL */}
       {isRTL && (
         <Link 

@@ -65,40 +65,25 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ---
 
-### #6 — Footer: social + payment trust row at `md+`
-**Date:** 2026-04-17  ·  **Commit:** `d1dec7db`
+### #6 — Footer: social + payment trust row at `md+` (partially reverted)
+**Date:** 2026-04-17  ·  **Commits:** `d1dec7db` (ship), `<revert>` (partial revert)
 **Files:** `components/footer/Footer.tsx`, `messages/{en,ar,ru}.json`
-**Change:** Added two elements above the existing copyright block (desktop-only since Footer returns null on mobile/PWA):
+**Original change:** Added social row (Instagram + Facebook) AND a "WE ACCEPT" payment-methods pill list to the desktop footer.
 
-- **Social:** Instagram + Facebook circular icon buttons linking to the canonical handles (`@genosys.uae`, `/genosys.ae`). Hover tints to respective brand colours. `aria-label` on each.
-- **Payments:** "WE ACCEPT" eyebrow + pill list (Visa, Mastercard, Amex, Apple Pay, Google Pay, Tabby, Tamara) matching checkout options. `<ul>` with `aria-label` for SR users.
+**Revert (2026-04-23):** The "WE ACCEPT" payments row was removed at user request — visual noise outweighed the trust-signal benefit on desktop. The `footer.weAccept` translation keys were removed from en/ar/ru. The social row (Instagram + Facebook) is retained.
 
-Translation key: `footer.weAccept` added to en/ar/ru.
-
-**Why:** Desktop footer had only nav + logo + copyright — zero social proof or payment trust signals, which premium e-commerce sites always surface.
-
-**Deliberate non-choices:** no newsletter signup (mailing system isn't wired up); text pills instead of logo images (no vector assets in `/public`; keeps footer dependency-free and fully translatable).
-
-**Risk:** additive, desktop-only, no new deps.
+**Risk:** none — pure removal.
 
 ---
 
-### #2 — Site-wide search in desktop header
-**Date:** 2026-04-17  ·  **Commit:** `475a6520`
-**Files:** `components/header/HeaderDesktopSearch.tsx` (new), `components/header/HeaderDesktopIcons.tsx`, `components/header/HeaderRussianDesktop.tsx`
-**Change:** New `HeaderDesktopSearch` component:
-- Rounded pill input with Search icon + Clear (X) affordance
-- Responsive widths: `w-44` → `lg:w-56` → `xl:w-72`
-- RTL-aware (icon position, padding, text-align all mirror)
-- Keyboard shortcut `/` focuses the input when not already typing
-- `role="search"` + `aria-label` + explicit `<label>` wiring for SR users
-- Submits to `/products?search=QUERY` via `getLocalizedPath('/products', locale)` — re-uses the existing `ProductsPageClient` search param logic, no backend change
+### #2 — Site-wide search in desktop header (reverted)
+**Date:** 2026-04-17  ·  **Commits:** `475a6520` (ship), `<revert>` (revert)
+**Files:** `components/header/HeaderDesktopSearch.tsx` (deleted), `components/header/HeaderDesktopIcons.tsx`, `components/header/HeaderRussianDesktop.tsx`
+**Original change:** New `HeaderDesktopSearch` component providing a pill search input in the desktop header, wired into both LTR (EN/AR) and Russian desktop header variants.
 
-Wired into both `HeaderDesktopIcons` (EN/AR) and `HeaderRussianDesktop` so all three languages get parity. Reuses existing `common.search` / `common.searchPlaceholder` translations.
+**Revert (2026-04-23):** Removed at user request. The component file was deleted and its import + render removed from both header variants. The shared `common.search` / `common.searchPlaceholder` translations were retained (they're consumed by `ProductFilters` on `/products`).
 
-**Why:** No way to search the catalog from any page other than `/products`. Basic e-commerce affordance.
-
-**Risk:** low — new component; no existing code paths changed except the import list inside each header variant.
+**Risk:** none — pure removal. Search on `/products` is unaffected.
 
 ---
 

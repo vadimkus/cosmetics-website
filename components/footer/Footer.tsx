@@ -188,25 +188,6 @@ export default function Footer() {
               </a>
             </div>
 
-            {/* Payment methods row */}
-            <div className="flex flex-col items-center gap-2">
-              <span className="text-[11px] uppercase tracking-wider text-gray-400 font-medium">
-                {t('footer.weAccept')}
-              </span>
-              <ul
-                className="flex flex-wrap items-center justify-center gap-1.5"
-                aria-label="Accepted payment methods"
-              >
-                {['Visa', 'Mastercard', 'Amex', 'Apple Pay', 'Google Pay', 'Tabby', 'Tamara'].map((method) => (
-                  <li
-                    key={method}
-                    className="text-[11px] font-semibold text-gray-600 bg-gray-50 border border-gray-200 rounded-md px-2 py-1 tracking-wide"
-                  >
-                    {method}
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
       </div>

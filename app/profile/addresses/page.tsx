@@ -1,13 +1,28 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { MapPin, Plus, Home, Briefcase, MoreHorizontal, Trash2, Edit, Check, ArrowLeft, Loader2 } from 'lucide-react'
+import { MapPin, Plus, Home, Briefcase, MoreHorizontal, Trash2, Edit, Check, ArrowLeft, Loader2, X, AlertTriangle } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
+
+// UAE phone display formatter. Accepts raw user input (with or without
+// country code, with or without spaces) and outputs canonical "+971 XX XXX XXXX".
+// If input doesn't parse as a UAE number, returns it unchanged so we never mangle
+// international numbers a user might have entered.
+function formatUAEPhoneForDisplay(raw: string): string {
+  if (!raw) return ''
+  const digits = raw.replace(/[^\d]/g, '')
+  let local = digits
+  if (local.startsWith('00971')) local = local.slice(5)
+  else if (local.startsWith('971')) local = local.slice(3)
+  else if (local.startsWith('0')) local = local.slice(1)
+  if (local.length !== 9) return raw
+  return `+971 ${local.slice(0, 2)} ${local.slice(2, 5)} ${local.slice(5)}`
+}
 
 interface Address {
   id: string
@@ -51,8 +66,38 @@ export default function AddressesPage() {
   const [addresses, setAddresses] = useState<Address[]>([])
   const [loading, setLoading] = useState(true)
   const [showOptionsFor, setShowOptionsFor] = useState<string | null>(null)
+  const [confirmingDeleteFor, setConfirmingDeleteFor] = useState<string | null>(null)
   const [deletingId, setDeletingId] = useState<string | null>(null)
   const [settingDefaultId, setSettingDefaultId] = useState<string | null>(null)
+
+  // Dismiss the inline action menu when the user taps anywhere outside a
+  // card, or presses Escape — prevents the "trapped open" state where the
+  // only way to close it is re-tapping the ••• icon.
+  const listRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!showOptionsFor && !confirmingDeleteFor) return
+    const handlePointer = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as HTMLElement | null
+      if (!target) return
+      if (target.closest('[data-address-card]')) return
+      setShowOptionsFor(null)
+      setConfirmingDeleteFor(null)
+    }
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setShowOptionsFor(null)
+        setConfirmingDeleteFor(null)
+      }
+    }
+    document.addEventListener('mousedown', handlePointer)
+    document.addEventListener('touchstart', handlePointer, { passive: true })
+    document.addEventListener('keydown', handleKey)
+    return () => {
+      document.removeEventListener('mousedown', handlePointer)
+      document.removeEventListener('touchstart', handlePointer)
+      document.removeEventListener('keydown', handleKey)
+    }
+  }, [showOptionsFor, confirmingDeleteFor])
 
   // Fetch addresses from API
   const fetchAddresses = useCallback(async () => {
@@ -93,9 +138,12 @@ export default function AddressesPage() {
     router.push(getLocalizedPath('/profile/addresses/add', locale) + `?edit=${addressId}&from=profile`)
   }
 
-  const handleDeleteAddress = async (addressId: string) => {
-    if (!confirm(t.deleteConfirm)) return
-    
+  const handleRequestDelete = (addressId: string) => {
+    setConfirmingDeleteFor(addressId)
+    setShowOptionsFor(null)
+  }
+
+  const handleConfirmDelete = async (addressId: string) => {
     setDeletingId(addressId)
     try {
       const response = await fetch(`/api/addresses/${addressId}`, {
@@ -104,7 +152,7 @@ export default function AddressesPage() {
       const data = await response.json()
       if (data.success) {
         setAddresses(prev => prev.filter(a => a.id !== addressId))
-        setShowOptionsFor(null)
+        setConfirmingDeleteFor(null)
       }
     } catch (error) {
       errorLog('Failed to delete address:', error)
@@ -141,6 +189,8 @@ export default function AddressesPage() {
       case 'work':
       case 'office':
         return <Briefcase className="w-5 h-5 text-red-600" />
+      case 'other':
+        return <MapPin className="w-5 h-5 text-red-600" />
       default:
         return <Home className="w-5 h-5 text-red-600" />
     }
@@ -178,7 +228,6 @@ export default function AddressesPage() {
   const t = {
     title: locale === 'ar' ? 'العناوين' : locale === 'ru' ? 'Адреса' : 'Addresses',
     back: locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account',
-    manageHint: locale === 'ar' ? 'إدارة عناوين التسليم الخاصة بك' : locale === 'ru' ? 'Управляйте адресами доставки' : 'Manage your delivery addresses',
     addNew: locale === 'ar' ? 'إضافة عنوان جديد' : locale === 'ru' ? 'Добавить новый адрес' : 'Add New Address',
     default: locale === 'ar' ? 'افتراضي' : locale === 'ru' ? 'По умолчанию' : 'Default',
     edit: locale === 'ar' ? 'تعديل' : locale === 'ru' ? 'Редактировать' : 'Edit',
@@ -192,9 +241,12 @@ export default function AddressesPage() {
     tipApt: locale === 'ar' ? 'تضمين رقم الشقة/الطابق للتسليم الدقيق' : locale === 'ru' ? 'Укажите номер квартиры/этажа для точной доставки' : 'Include apartment/floor number for accurate delivery',
     tipPhone: locale === 'ar' ? 'أضف رقم هاتف صالح للتواصل بشأن التسليم' : locale === 'ru' ? 'Укажите действительный телефон для связи по доставке' : 'Add a valid phone number for delivery contact',
     country: locale === 'ar' ? 'الإمارات العربية المتحدة' : locale === 'ru' ? 'ОАЭ' : 'United Arab Emirates',
-    deleteConfirm: locale === 'ar' ? 'هل أنت متأكد من حذف هذا العنوان؟' : locale === 'ru' ? 'Удалить этот адрес?' : 'Are you sure you want to delete this address?',
     deleting: locale === 'ar' ? 'جارٍ الحذف...' : locale === 'ru' ? 'Удаление...' : 'Deleting...',
     setting: locale === 'ar' ? 'جارٍ التعيين...' : locale === 'ru' ? 'Настройка...' : 'Setting...',
+    removeThisAddress: locale === 'ar' ? 'حذف هذا العنوان؟' : locale === 'ru' ? 'Удалить этот адрес?' : 'Remove this address?',
+    keep: locale === 'ar' ? 'إلغاء' : locale === 'ru' ? 'Отмена' : 'Cancel',
+    removeOptions: locale === 'ar' ? 'الخيارات' : locale === 'ru' ? 'Параметры' : 'Options',
+    closeMenu: locale === 'ar' ? 'إغلاق القائمة' : locale === 'ru' ? 'Закрыть меню' : 'Close menu',
   }
 
   if (!user) {
@@ -222,26 +274,27 @@ export default function AddressesPage() {
         </button>
       </div>
 
-      {/* Info Section */}
-      <div className="px-5 py-4 bg-gray-50 border-b border-gray-100">
-        <p className={`text-sm text-gray-500 text-center ${isRTL ? 'text-right' : ''}`}>
-          {t.manageHint}
-        </p>
-      </div>
-
       {/* Content */}
-      <div className="overflow-y-auto">
+      <div className="overflow-y-auto" ref={listRef}>
         {loading ? (
           <div className="flex flex-col items-center justify-center py-16">
             <Loader2 className="w-8 h-8 text-red-600 animate-spin" />
             <p className="text-gray-500 mt-3">{t.loading}</p>
           </div>
         ) : addresses.length > 0 ? (
-          <div className="px-5 py-5 space-y-4">
-            {addresses.map((address) => (
-              <div key={address.id} className="bg-gray-50 rounded-xl p-4">
+          <div className="px-5 pt-5 pb-2 space-y-4">
+            {addresses.map((address) => {
+              const isMenuOpen = showOptionsFor === address.id
+              const isConfirmingDelete = confirmingDeleteFor === address.id
+              const isDeleting = deletingId === address.id
+              return (
+              <div
+                key={address.id}
+                data-address-card
+                className="bg-gray-50 rounded-xl p-4 transition-colors active:bg-gray-100"
+              >
                 <div className={`flex items-center justify-between mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex items-center gap-2 min-w-0 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     {getTypeIcon(address.type)}
                     <span className="text-base font-semibold text-gray-900">{getTypeLabel(address.type)}</span>
                     {address.isDefault && (
@@ -250,11 +303,24 @@ export default function AddressesPage() {
                       </span>
                     )}
                   </div>
-                  <button 
-                    onClick={() => setShowOptionsFor(showOptionsFor === address.id ? null : address.id)}
-                    className="p-1"
+                  {/* 40×40 tap target — previously 28×28 which sat below the
+                      44px iOS HIG minimum. -mr-2 keeps the icon optically
+                      aligned to the card edge. */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setConfirmingDeleteFor(null)
+                      setShowOptionsFor(isMenuOpen ? null : address.id)
+                    }}
+                    className={`flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 active:bg-gray-200 transition-colors ${isRTL ? '-ml-2' : '-mr-2'}`}
+                    aria-label={isMenuOpen ? t.closeMenu : t.removeOptions}
+                    aria-expanded={isMenuOpen}
                   >
-                    <MoreHorizontal className="w-5 h-5 text-gray-400" />
+                    {isMenuOpen ? (
+                      <X className="w-5 h-5 text-gray-500" />
+                    ) : (
+                      <MoreHorizontal className="w-5 h-5 text-gray-400" />
+                    )}
                   </button>
                 </div>
                 <div className={`space-y-1 ${isRTL ? 'text-right pr-7' : 'pl-7'}`}>
@@ -265,49 +331,94 @@ export default function AddressesPage() {
                   )}
                   <p className="text-sm text-gray-500">{address.city}, {formatEmirate(address.emirate)}</p>
                   <p className="text-sm text-gray-500">{t.country}</p>
-                  <p className="text-sm text-gray-500 mt-1" dir="ltr">{address.phone}</p>
+                  <p className="text-sm text-gray-500 mt-1" dir="ltr">{formatUAEPhoneForDisplay(address.phone)}</p>
                 </div>
 
-                {/* Options Dropdown */}
-                {showOptionsFor === address.id && (
-                  <div className={`mt-3 pt-3 border-t border-gray-200 flex gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                    <button 
+                {/* Inline delete confirmation — replaces native confirm()
+                    dialog which looked like a Safari error popup on mobile. */}
+                {isConfirmingDelete && (
+                  <div className="mt-4 pt-4 border-t border-gray-200">
+                    <div className={`flex items-start gap-2 mb-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                      <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      <p className="text-sm font-medium text-gray-900">{t.removeThisAddress}</p>
+                    </div>
+                    <div className={`flex gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <button
+                        type="button"
+                        onClick={() => setConfirmingDeleteFor(null)}
+                        disabled={isDeleting}
+                        className="flex-1 py-2.5 bg-white rounded-lg text-sm font-medium text-gray-700 border border-gray-200 active:bg-gray-100"
+                      >
+                        {t.keep}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleConfirmDelete(address.id)}
+                        disabled={isDeleting}
+                        className={`flex-1 py-2.5 bg-red-600 rounded-lg text-sm font-semibold text-white active:bg-red-700 inline-flex items-center justify-center gap-1.5 ${isDeleting ? 'opacity-60' : ''}`}
+                      >
+                        {isDeleting ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            {t.deleting}
+                          </>
+                        ) : (
+                          <>
+                            <Trash2 className="w-4 h-4" />
+                            {t.delete}
+                          </>
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Action menu — inline iOS-style action list. Previously
+                    a cramped 3-button horizontal row that wrapped on small
+                    screens; now each action is full-width with a 44px tap
+                    target and dividers between them. */}
+                {isMenuOpen && !isConfirmingDelete && (
+                  <div className="mt-4 pt-2 border-t border-gray-200 bg-white rounded-lg overflow-hidden -mx-1">
+                    <button
+                      type="button"
                       onClick={() => handleEditAddress(address.id)}
-                      className={`flex items-center gap-1 px-3 py-2 bg-white rounded-lg text-sm font-medium text-gray-700 border border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}
+                      className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-900 active:bg-gray-100 ${isRTL ? 'flex-row-reverse text-right' : ''}`}
                     >
-                      <Edit className="w-4 h-4" />
-                      {t.edit}
+                      <Edit className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                      <span className="flex-1 text-start">{t.edit}</span>
                     </button>
                     {!address.isDefault && (
-                      <button 
-                        onClick={() => handleSetDefault(address.id)}
-                        disabled={settingDefaultId === address.id}
-                        className={`flex items-center gap-1 px-3 py-2 bg-white rounded-lg text-sm font-medium text-gray-700 border border-gray-200 ${isRTL ? 'flex-row-reverse' : ''} ${settingDefaultId === address.id ? 'opacity-50' : ''}`}
-                      >
-                        {settingDefaultId === address.id ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : (
-                          <Check className="w-4 h-4" />
-                        )}
-                        {settingDefaultId === address.id ? t.setting : t.setAsDefault}
-                      </button>
+                      <>
+                        <div className={`border-t border-gray-100 ${isRTL ? 'mr-11' : 'ml-11'}`} />
+                        <button
+                          type="button"
+                          onClick={() => handleSetDefault(address.id)}
+                          disabled={settingDefaultId === address.id}
+                          className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-900 active:bg-gray-100 ${isRTL ? 'flex-row-reverse text-right' : ''} ${settingDefaultId === address.id ? 'opacity-60' : ''}`}
+                        >
+                          {settingDefaultId === address.id ? (
+                            <Loader2 className="w-4 h-4 text-gray-500 animate-spin flex-shrink-0" />
+                          ) : (
+                            <Check className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                          )}
+                          <span className="flex-1 text-start">{settingDefaultId === address.id ? t.setting : t.setAsDefault}</span>
+                        </button>
+                      </>
                     )}
-                    <button 
-                      onClick={() => handleDeleteAddress(address.id)}
-                      disabled={deletingId === address.id}
-                      className={`flex items-center gap-1 px-3 py-2 bg-red-50 rounded-lg text-sm font-medium text-red-600 border border-red-200 ${isRTL ? 'flex-row-reverse' : ''} ${deletingId === address.id ? 'opacity-50' : ''}`}
+                    <div className={`border-t border-gray-100 ${isRTL ? 'mr-11' : 'ml-11'}`} />
+                    <button
+                      type="button"
+                      onClick={() => handleRequestDelete(address.id)}
+                      className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 active:bg-red-50 ${isRTL ? 'flex-row-reverse text-right' : ''}`}
                     >
-                      {deletingId === address.id ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                      ) : (
-                        <Trash2 className="w-4 h-4" />
-                      )}
-                      {deletingId === address.id ? t.deleting : t.delete}
+                      <Trash2 className="w-4 h-4 flex-shrink-0" />
+                      <span className="flex-1 text-start">{t.delete}</span>
                     </button>
                   </div>
                 )}
               </div>
-            ))}
+              )
+            })}
           </div>
         ) : (
           <div className="px-5 py-8">

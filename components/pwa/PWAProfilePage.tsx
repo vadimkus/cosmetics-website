@@ -12,7 +12,7 @@ import { ThemeToggleItem } from '@/components/ThemeToggle'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 import { ARSkinAnalysisCamera } from '@/components/ar'
 import { debugLog } from '@/lib/logger'
-import { VAPID_PUBLIC_KEY } from '@/lib/siteConfig'
+import { VAPID_PUBLIC_KEY, APP_VERSION } from '@/lib/siteConfig'
 
 /**
  * PWA Profile Page - Matches mobile app design exactly
@@ -562,7 +562,7 @@ export default function PWAProfilePage() {
                 {t('pwaProfile.orders')}
               </p>
               <p className="text-[15px] text-gray-500">
-                {ordersCount} {t('pwaProfile.purchases')}
+                {ordersCount} {ordersCount === 1 ? t('pwaProfile.purchase') : t('pwaProfile.purchases')}
               </p>
             </button>
 
@@ -581,7 +581,7 @@ export default function PWAProfilePage() {
               </p>
               <p className="text-[15px] text-gray-500">
                 {cartCount > 0 
-                  ? `${cartCount} ${t('pwaProfile.items')}`
+                  ? `${cartCount} ${cartCount === 1 ? t('pwaProfile.item') : t('pwaProfile.items')}`
                   : t('pwaProfile.empty')
                 }
               </p>
@@ -744,7 +744,7 @@ export default function PWAProfilePage() {
         <div className="text-center py-2">
           <p className="text-[15px] text-gray-500">{t('pwaProfile.genosysMobile')}</p>
           <p className="text-[13px] text-gray-300 mt-0.5">
-            {t('pwaProfile.version')} 1.0.0
+            {t('pwaProfile.version')} {APP_VERSION}
           </p>
         </div>
       </div>

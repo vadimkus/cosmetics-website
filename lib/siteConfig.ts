@@ -38,3 +38,8 @@ export const SOCIAL_LINKS = {
 
 // Push notifications VAPID key
 export const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || ''
+
+// App / PWA version — single source of truth for the Profile footer and any
+// other user-visible "version" string. Keep in sync with `public/manifest.json`.
+// Bump this + manifest.json whenever you ship a release.
+export const APP_VERSION = '3.3.0'

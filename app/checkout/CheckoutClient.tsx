@@ -661,10 +661,10 @@ export default function CheckoutClient() {
                     <ShoppingBag className="h-5 w-5" />
                   </span>
                   <div className={`min-w-0 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className="text-[11px] text-gray-500 font-medium uppercase tracking-wide truncate">
+                    <div className="text-[11px] md:text-xs text-gray-500 font-medium uppercase tracking-wide truncate">
                       {t('checkout.orderNumber') || 'Order #'} {orderNumber}
                     </div>
-                    <div className="text-base font-bold text-gray-900">
+                    <div className="text-base md:text-lg font-bold text-gray-900">
                       AED {total.toFixed(2)}
                     </div>
                   </div>

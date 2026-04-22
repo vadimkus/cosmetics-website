@@ -438,7 +438,11 @@ export default function PWAProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    // No pb-* here: MobileFooterNav (PWA) renders its own h-[117px] spacer and
+    // MobileWebFooterNav is 80px sticky — both already reserve space below main.
+    // Adding pb-20 here created ~80px of visible empty gray at the bottom of
+    // the page (the "white space" reported on mobile web).
+    <div className="min-h-screen bg-gray-50">
       {/* Simple Navigation Header */}
       <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button 

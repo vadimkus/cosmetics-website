@@ -76,6 +76,25 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ---
 
+### #P1.5 — `/profile`: Account Status fallback tile
+**Date:** 2026-04-23  ·  **Files:** `components/profile/ProfileForm.tsx`, `messages/{en,ar,ru}.json`
+**Change:** The Account Status section uses a `md:grid-cols-2` grid: Price Access (always rendered) + Discount Level (only if `user.discountType` is set). For the large majority of accounts without a discount type, the right column was empty — the section rendered as a lopsided half-grid on desktop.
+
+Added a neutral fallback tile that renders when `user.discountType` is null:
+
+> **Account type: Standard**
+> Contact us to apply for clinic-partner pricing.
+
+- Uses `Shield` (lucide) + gray colour palette to read as informational, not promotional.
+- Hint paragraph is `hidden md:block` so the fallback stays compact on mobile (where the Account Status grid already collapses to 1-col).
+- i18n: added `profile.accountType`, `profile.standardAccount`, `profile.standardAccountHint` to en/ar/ru.
+
+**Why:** A half-empty 2-col grid reads as a broken component, not an intentional layout. Giving the empty slot meaningful content (and a call to upgrade to clinic-partner pricing) turns it into a gentle upsell path without being pushy.
+
+**Risk:** minimal — only changes what shows when `discountType` is null. Users with a discount type see the exact same Discount Level tile as before.
+
+---
+
 ### #P1.4 — `/profile`: Editing-mode banner inside Personal Information
 **Date:** 2026-04-23  ·  **Files:** `components/profile/ProfileForm.tsx`, `messages/{en,ar,ru}.json`
 **Change:** When `isEditing` is true, the Personal Information card now renders an amber banner immediately under the card header:

@@ -301,13 +301,13 @@ export default function ProfileForm({
           </div>
 
           {/* Discount Level */}
-          {user.discountType && (
+          {user.discountType ? (
             <div className={`p-3 md:p-6 rounded-lg md:rounded-xl border ${
               user.discountType === 'CLINIC' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'
             }`}>
               <div className="flex items-center justify-between md:justify-start md:gap-3">
                 <div className="flex items-center gap-2">
-                  <CheckCircle className={`h-4 w-4 md:h-5 md:w-5 ${user.discountType === 'CLINIC' ? 'text-green-600' : 'text-red-600'}`} />
+                  <CheckCircle className={`h-4 w-4 md:h-5 md:w-5 ${user.discountType === 'CLINIC' ? 'text-green-600' : 'text-red-600'}`} aria-hidden="true" />
                   <h3 className="text-xs md:text-base font-semibold text-gray-800">{t('profile.discountLevel')}</h3>
                 </div>
                 <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] md:text-sm font-medium ${
@@ -316,6 +316,21 @@ export default function ProfileForm({
                   {user.discountPercentage}% {t('product.off')}
                 </span>
               </div>
+            </div>
+          ) : (
+            <div className="p-3 md:p-6 rounded-lg md:rounded-xl border bg-gray-50 border-gray-100">
+              <div className="flex items-center justify-between md:justify-start md:gap-3">
+                <div className="flex items-center gap-2">
+                  <Shield className="h-4 w-4 md:h-5 md:w-5 text-gray-500" aria-hidden="true" />
+                  <h3 className="text-xs md:text-base font-semibold text-gray-800">{t('profile.accountType') || 'Account type'}</h3>
+                </div>
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] md:text-sm font-medium bg-gray-200 text-gray-700">
+                  {t('profile.standardAccount') || 'Standard'}
+                </span>
+              </div>
+              <p className="hidden md:block text-xs md:text-sm text-gray-500 mt-2">
+                {t('profile.standardAccountHint') || 'Contact us to apply for clinic-partner pricing.'}
+              </p>
             </div>
           )}
         </div>

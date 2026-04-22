@@ -75,11 +75,15 @@ export default function PWAPageWrapper({
   
   return (
     <div className="min-h-screen bg-white pb-32">
-      {/* PWA Simple Navigation Header */}
-      <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      {/* Unified sticky nav header — matches the profile stack
+          (addresses, language, billing, privacy-policy, terms). Sticky
+          so the title + back button stay visible while scrolling long
+          content (About, FAQ, Contact). */}
+      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button 
           onClick={handleBack}
           className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+          aria-label={backLabel}
         >
           {isRTL ? (
             <ArrowRight className="w-5 h-5 text-red-600" />
@@ -91,16 +95,15 @@ export default function PWAPageWrapper({
           </span>
         </button>
         
-        <div className={`flex-1 flex items-center justify-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          <span className="text-base font-semibold text-gray-900 text-center">
-            {title}
-          </span>
-        </div>
+        <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
+          {title}
+        </h1>
         
         {/* Profile Icon with green dot */}
         <button 
           onClick={handleProfileClick}
           className="min-w-[80px] flex justify-end"
+          aria-label="Profile"
         >
           <div className="relative">
             <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">

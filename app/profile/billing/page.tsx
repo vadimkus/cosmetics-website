@@ -152,17 +152,18 @@ export default function BillingPage() {
 
   return (
     <div className={`min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+      {/* Unified nav header */}
       <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button
           type="button"
           onClick={handleBack}
-          className={`flex items-center gap-1.5 -ml-1 px-1 py-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 ${isRTL ? 'flex-row-reverse -mr-1 -ml-0' : ''}`}
+          className={`flex items-center gap-1 min-w-[80px] px-1 py-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 ${isRTL ? 'flex-row-reverse' : ''}`}
         >
           <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-          <span className="text-sm font-semibold text-red-600">{translations.back}</span>
+          <span className="text-base text-red-600">{translations.back}</span>
         </button>
-        <h1 className="text-lg font-semibold text-gray-900">{translations.title}</h1>
-        <div className="w-16" />
+        <h1 className="text-base font-semibold text-gray-900">{translations.title}</h1>
+        <div className="min-w-[80px]" />
       </div>
 
       {loading ? (

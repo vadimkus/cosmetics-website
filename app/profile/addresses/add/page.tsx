@@ -217,19 +217,23 @@ export default function AddAddressPage() {
 
   return (
     <div className={`min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
-      {/* Header */}
-      <div className={`flex items-center justify-between px-5 py-4 border-b border-gray-200 sticky top-0 bg-white z-10 ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <button onClick={handleCancel} className="text-base text-red-600 font-medium">
-          {t.cancel}
-        </button>
-        <h1 className="text-lg font-semibold text-gray-900">{t.title}</h1>
-        <button 
-          onClick={handleSave} 
-          disabled={isSaving}
-          className={`text-base font-semibold ${isSaving ? 'text-gray-400' : 'text-red-600'}`}
-        >
-          {isSaving ? t.saving : t.save}
-        </button>
+      {/* Unified nav header */}
+      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className="min-w-[80px]">
+          <button onClick={handleCancel} className="text-base text-red-600">
+            {t.cancel}
+          </button>
+        </div>
+        <h1 className="text-base font-semibold text-gray-900">{t.title}</h1>
+        <div className="min-w-[80px] flex justify-end">
+          <button
+            onClick={handleSave}
+            disabled={isSaving}
+            className={`text-base font-semibold ${isSaving ? 'text-gray-400' : 'text-red-600'}`}
+          >
+            {isSaving ? t.saving : t.save}
+          </button>
+        </div>
       </div>
 
       {/* Error Message */}

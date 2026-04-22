@@ -31,31 +31,28 @@ export default function PasskeysPage() {
 
   return (
     <div className="min-h-screen bg-gray-50" dir={dir}>
-      {/* Header */}
-      <div 
-        className="bg-white border-b border-gray-200 sticky top-0 z-10"
+      {/* Unified nav header */}
+      <div
+        className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-gray-200"
         style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
       >
-        <div className={`flex items-center justify-between px-4 h-14 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          {/* Back Button */}
-          <button 
+        <div className={`flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button
             onClick={() => router.back()}
-            className={`flex items-center gap-1 text-blue-600 font-medium min-w-[80px] ${isRTL ? 'flex-row-reverse justify-end' : ''}`}
+            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             {isRTL ? (
-              <ArrowRight className="w-5 h-5" />
+              <ArrowRight className="w-5 h-5 text-red-600" />
             ) : (
-              <ArrowLeft className="w-5 h-5" />
+              <ArrowLeft className="w-5 h-5 text-red-600" />
             )}
-            <span className="text-[17px]">{t('common.back') || 'Back'}</span>
+            <span className="text-base text-red-600">{t('common.back') || 'Back'}</span>
           </button>
-          
-          {/* Title */}
-          <span className="text-[17px] font-semibold text-gray-900">
+
+          <h1 className="text-base font-semibold text-gray-900">
             {t('login.managePasskeys') || 'Passkeys'}
-          </span>
-          
-          {/* Profile Icon */}
+          </h1>
+
           <div className="min-w-[80px] flex justify-end">
             <div className="relative">
               <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
@@ -63,7 +60,6 @@ export default function PasskeysPage() {
                   {userInitial.toUpperCase()}
                 </span>
               </div>
-              {/* Green online dot */}
               <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
             </div>
           </div>

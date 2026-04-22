@@ -259,19 +259,21 @@ export default function AddressesPage() {
 
   return (
     <div className={`min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
-      {/* Header */}
-      <div className={`flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <button 
+      {/* Unified nav header */}
+      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <button
           onClick={handleBack}
-          className={`flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
         >
-          <ArrowLeft className={`w-6 h-6 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-          <span className="text-sm font-semibold text-red-600">{t.back}</span>
+          <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+          <span className="text-base text-red-600">{t.back}</span>
         </button>
-        <h1 className="text-lg font-semibold text-gray-900">{t.title}</h1>
-        <button onClick={handleAddAddress} className="p-1">
-          <Plus className="w-6 h-6 text-red-600" />
-        </button>
+        <h1 className="text-base font-semibold text-gray-900">{t.title}</h1>
+        <div className="min-w-[80px] flex justify-end">
+          <button onClick={handleAddAddress} className="p-1" aria-label="Add address">
+            <Plus className="w-6 h-6 text-red-600" />
+          </button>
+        </div>
       </div>
 
       {/* Content */}

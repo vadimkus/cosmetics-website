@@ -91,9 +91,9 @@ export default function LanguagePage() {
 
   return (
     <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
-      {/* Header */}
-      <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <button 
+      {/* Unified nav header */}
+      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <button
           onClick={handleBack}
           className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
         >
@@ -102,9 +102,9 @@ export default function LanguagePage() {
             {translations.back}
           </span>
         </button>
-        <span className="text-base font-semibold text-gray-900">
+        <h1 className="text-base font-semibold text-gray-900">
           {translations.title}
-        </span>
+        </h1>
         {/* Profile Icon with green dot */}
         <div className="min-w-[80px] flex justify-end">
           <div className="relative">

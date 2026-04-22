@@ -456,13 +456,14 @@ export default function PrivacyPolicyClient() {
   if (isAppLikeMode) {
     return (
       <div className="min-h-screen bg-gray-50 pb-32" dir={dir}>
-        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        {/* Unified nav header */}
+        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button onClick={handleBack} className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}>
             <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
             <span className="text-base text-red-600">{t.back}</span>
           </button>
-          <span className="text-base font-semibold text-gray-900">{t.title}</span>
-          <button onClick={() => router.push(getLocalizedPath('/profile', locale))} className="min-w-[80px] flex justify-end">
+          <h1 className="text-base font-semibold text-gray-900">{t.title}</h1>
+          <button onClick={() => router.push(getLocalizedPath('/profile', locale))} className="min-w-[80px] flex justify-end" aria-label="Profile">
             <div className="relative">
               <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
                 <span className="text-sm font-semibold text-white">{userInitial.toUpperCase()}</span>

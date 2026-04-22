@@ -443,8 +443,9 @@ export default function PWAProfilePage() {
     // Adding pb-20 here created ~80px of visible empty gray at the bottom of
     // the page (the "white space" reported on mobile web).
     <div className="min-h-screen bg-gray-50">
-      {/* Simple Navigation Header */}
-      <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
+      {/* Unified nav header (matches all profile sub-pages):
+          sticky + border-b, px-5 py-4, text-base title, red back without bold */}
+      <div className={`sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-gray-200 flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button 
           onClick={() => router.push(getLocalizedPath('/products', locale))}
           className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
@@ -456,9 +457,9 @@ export default function PWAProfilePage() {
             {t('pwaProfile.home')}
           </span>
         </button>
-        <span className="text-base font-semibold text-gray-900">
+        <h1 className="text-base font-semibold text-gray-900">
           {t('pwaProfile.account')}
-        </span>
+        </h1>
         {/* Profile Icon with green dot */}
         <div className="min-w-[80px] flex justify-end">
           <div className="relative">

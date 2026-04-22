@@ -175,27 +175,30 @@ export default function PromoPage() {
 
   return (
     <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-32' : ''}`}>
-      {/* Simple Header */}
-      <div 
-        className="bg-white border-b border-gray-200 sticky top-0 z-10"
+      {/* Unified nav header */}
+      <div
+        className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-gray-200"
         style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
       >
-        <div className={`flex items-center justify-between h-14 px-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          <button 
+        <div className={`flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button
             onClick={handleBack}
-            className={`flex items-center gap-1 text-red-600 font-medium ${isRTL ? 'flex-row-reverse' : ''}`}
+            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`h-5 w-5 ${isRTL ? 'rotate-180' : ''}`} />
-            <span>{t.back}</span>
+            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-red-600">{t.back}</span>
           </button>
-          <h1 className="text-lg font-semibold text-gray-900">{t.title}</h1>
-          <button 
-            onClick={handleRefresh}
-            disabled={refreshing}
-            className="p-2 text-gray-600 hover:text-gray-900"
-          >
-            <RefreshCw className={`h-5 w-5 ${refreshing ? 'animate-spin' : ''}`} />
-          </button>
+          <h1 className="text-base font-semibold text-gray-900">{t.title}</h1>
+          <div className="min-w-[80px] flex justify-end">
+            <button
+              onClick={handleRefresh}
+              disabled={refreshing}
+              className="p-2 text-gray-600 hover:text-gray-900"
+              aria-label="Refresh"
+            >
+              <RefreshCw className={`h-5 w-5 ${refreshing ? 'animate-spin' : ''}`} />
+            </button>
+          </div>
         </div>
       </div>
 

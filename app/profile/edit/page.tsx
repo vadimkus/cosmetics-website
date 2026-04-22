@@ -416,24 +416,26 @@ export default function EditProfilePage() {
         ))}
       </div>
 
-      {/* Header */}
-      <div className={`sticky top-0 z-50 bg-white flex items-center justify-between px-5 py-4 border-b border-gray-200 safe-area-top ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <button 
+      {/* Unified nav header (matches Account) */}
+      <div className={`sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-gray-200 flex items-center justify-between px-5 py-4 safe-area-top ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <button
           onClick={handleBack}
-          className={`flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
         >
           <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-          <span className="text-sm font-semibold text-red-600">{translations.back}</span>
+          <span className="text-base text-red-600">{translations.back}</span>
         </button>
-        <h1 className="text-lg font-semibold text-gray-900">{translations.title}</h1>
-        <button
-          type="button"
-          onClick={handleSave}
-          disabled={isSaving || !isDirty()}
-          className={`text-sm font-semibold min-w-[60px] text-right ${isSaving || !isDirty() ? 'text-gray-400' : 'text-red-600 active:opacity-70'}`}
-        >
-          {isSaving ? translations.saving : translations.save}
-        </button>
+        <h1 className="text-base font-semibold text-gray-900">{translations.title}</h1>
+        <div className="min-w-[80px] flex justify-end">
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={isSaving || !isDirty()}
+            className={`text-base font-semibold ${isSaving || !isDirty() ? 'text-gray-400' : 'text-red-600 active:opacity-70'}`}
+          >
+            {isSaving ? translations.saving : translations.save}
+          </button>
+        </div>
       </div>
 
       {/* Content - max-w-xl constrains the form on desktop/tablet so inputs

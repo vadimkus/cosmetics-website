@@ -211,7 +211,7 @@ export default function TrainingClient() {
       )}
 
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl lg:max-w-6xl mx-auto">
           {/* Non-PWA/Mobile Navigation */}
           {!isAppLikeMode && (
             <>
@@ -220,45 +220,74 @@ export default function TrainingClient() {
                 <span> / </span>
                 <span className="text-gray-900 font-medium">{t('training.trainingDocuments')}</span>
               </nav>
-              
+
               <Link href="/" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
                 <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
                 <span>{t('training.backToHome')}</span>
               </Link>
 
-              {/* Logo - hidden on mobile */}
-              <div className="hidden md:block text-center mb-6">
-                <Image 
-                  src="/images/genosys-logo.png" 
-                  alt="Genosys Professional Training" 
-                  width={400} 
-                  height={200} 
-                  className="object-contain w-64 mx-auto"
+              {/* Desktop hero */}
+              <div className="hidden md:block text-center mb-10 lg:mb-14">
+                <Image
+                  src="/images/genosys-logo.png"
+                  alt="Genosys Professional Training"
+                  width={400}
+                  height={200}
+                  className="object-contain w-52 lg:w-60 mx-auto mb-5"
                   priority
                 />
+                <p className="text-xs font-semibold tracking-[0.2em] text-primary-600 uppercase mb-3">
+                  {t('training.professionalTraining') || 'Training Library'}
+                </p>
+                <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-3 tracking-tight">
+                  {t('training.documents') || 'Training Documents'}
+                </h1>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  Protocols, product sheets, and video lessons for GENOSYS partners.
+                </p>
+
+                <dl className="grid grid-cols-3 gap-px mt-10 bg-gray-200 border border-gray-200 rounded-2xl overflow-hidden max-w-3xl mx-auto">
+                  <div className="bg-white px-5 py-5 text-center">
+                    <dt className="text-[11px] font-semibold tracking-wider text-gray-500 uppercase">Guides</dt>
+                    <dd className="mt-1 text-xl lg:text-2xl font-bold text-gray-900">{trainingDocuments.length}</dd>
+                  </div>
+                  <div className="bg-white px-5 py-5 text-center">
+                    <dt className="text-[11px] font-semibold tracking-wider text-gray-500 uppercase">Product sheets</dt>
+                    <dd className="mt-1 text-xl lg:text-2xl font-bold text-gray-900">{productDocuments.length}</dd>
+                  </div>
+                  <div className="bg-white px-5 py-5 text-center">
+                    <dt className="text-[11px] font-semibold tracking-wider text-gray-500 uppercase">Videos</dt>
+                    <dd className="mt-1 text-xl lg:text-2xl font-bold text-gray-900">{trainingVideos.length}</dd>
+                  </div>
+                </dl>
               </div>
             </>
           )}
 
           {/* Training Documents Section */}
-          <div className="bg-white border border-gray-200 rounded-lg md:rounded-xl shadow-sm mb-6 md:mb-12">
+          <div className="bg-white border border-gray-200 rounded-lg md:rounded-2xl shadow-sm md:shadow-md mb-6 md:mb-10">
             <div className="p-3 md:p-8">
-              <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-3 md:mb-6 flex items-center justify-center gap-1.5 md:gap-2">
-                <div className="w-6 h-6 md:w-8 md:h-8 bg-green-100 rounded-md md:rounded-lg flex items-center justify-center">
-                  <FileText className="w-3 h-3 md:w-4 md:h-4 text-green-600" />
+              <div className="mb-3 md:mb-6 flex items-center justify-center md:justify-start gap-1.5 md:gap-3">
+                <div className="w-6 h-6 md:w-10 md:h-10 bg-emerald-50 rounded-md md:rounded-xl flex items-center justify-center flex-shrink-0">
+                  <FileText className="w-3 h-3 md:w-5 md:h-5 text-emerald-600" aria-hidden="true" />
                 </div>
-                {t('training.documents') || 'Training Documents'}
-              </h3>
-              
-              <div className="space-y-1.5 md:space-y-2">
+                <h3 className="text-sm md:text-xl font-semibold text-gray-900">
+                  {t('training.documents') || 'Training Documents'}
+                </h3>
+                <span className="hidden md:inline-flex text-xs font-medium text-gray-500 bg-gray-100 rounded-full px-2.5 py-1 ml-1">
+                  {trainingDocuments.length}
+                </span>
+              </div>
+
+              <div className="space-y-1.5 md:space-y-0 md:grid md:grid-cols-2 md:gap-3">
                 {trainingDocuments.map((doc) => (
-                  <div 
+                  <div
                     key={doc.id}
-                    className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200"
+                    className="group border border-gray-200 rounded-md md:rounded-xl p-2 md:p-4 hover:border-emerald-300 hover:shadow-md transition-all duration-200 bg-white"
                   >
                     <div className="flex items-center gap-2 md:gap-3">
-                      <div className="hidden md:flex w-10 h-10 bg-green-50 rounded-lg items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
-                        <Download className="h-5 w-5 text-green-600" />
+                      <div className="hidden md:flex w-11 h-11 bg-emerald-50 rounded-lg items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-emerald-100 transition-colors">
+                        <FileText className="h-5 w-5 text-emerald-600" aria-hidden="true" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">{doc.title}</h4>
@@ -268,40 +297,45 @@ export default function TrainingClient() {
                         href={doc.href}
                         filename={doc.title}
                         external={true}
-                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-2 bg-emerald-600 text-white rounded-md md:rounded-lg hover:bg-emerald-700 transition-colors text-[10px] md:text-xs font-semibold flex-shrink-0"
                       >
-                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        <Download className="h-2.5 w-2.5 md:h-3.5 md:w-3.5 mr-0.5 md:mr-1.5" aria-hidden="true" />
                         {isPWA ? t('common.view') || 'View' : 'PDF'}
                       </PDFDownloadButton>
                     </div>
                   </div>
                 ))}
               </div>
-              
+
               {/* Product Documentation Section */}
-              <div className="mt-6 md:mt-8">
-                <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-3 md:mb-6 flex items-center justify-center gap-1.5 md:gap-2">
-                  <div className="w-6 h-6 md:w-8 md:h-8 bg-red-100 rounded-md md:rounded-lg flex items-center justify-center">
-                    <svg className="w-3 h-3 md:w-4 md:h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="mt-6 md:mt-10">
+                <div className="mb-3 md:mb-6 flex items-center justify-center md:justify-start gap-1.5 md:gap-3">
+                  <div className="w-6 h-6 md:w-10 md:h-10 bg-red-50 rounded-md md:rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 md:w-5 md:h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                     </svg>
                   </div>
-                  {t('training.productDocumentation') || 'Product Documentation'}
-                </h3>
-                <div className="space-y-1.5 md:space-y-2">
+                  <h3 className="text-sm md:text-xl font-semibold text-gray-900">
+                    {t('training.productDocumentation') || 'Product Documentation'}
+                  </h3>
+                  <span className="hidden md:inline-flex text-xs font-medium text-gray-500 bg-gray-100 rounded-full px-2.5 py-1 ml-1">
+                    {productDocuments.length}
+                  </span>
+                </div>
+                <div className="space-y-1.5 md:space-y-0 md:grid md:grid-cols-2 md:gap-3">
                   {productDocuments.map((doc) => (
-                    <div 
+                    <div
                       key={doc.id}
-                      className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200"
+                      className="group border border-gray-200 rounded-md md:rounded-xl p-2 md:p-4 hover:border-red-300 hover:shadow-md transition-all duration-200 bg-white"
                     >
                       <div className="flex items-center gap-2 md:gap-3">
-                        <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
-                          <Link href={`/products/${doc.productId}`}>
+                        <div className="w-8 h-8 md:w-12 md:h-12 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                          <Link href={`/products/${doc.productId}`} aria-label={doc.title}>
                             <Image
                               src={doc.image}
                               alt={doc.title}
-                              width={40}
-                              height={40}
+                              width={48}
+                              height={48}
                               className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
                             />
                           </Link>
@@ -310,13 +344,13 @@ export default function TrainingClient() {
                           <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">{doc.title}</h4>
                           <p className="text-[10px] md:text-xs text-gray-400">{doc.size}</p>
                         </div>
-                        <PDFDownloadButton 
+                        <PDFDownloadButton
                           href={doc.href}
                           filename={doc.title}
                           external={true}
-                          className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                          className="inline-flex items-center px-2 md:px-3 py-1 md:py-2 bg-primary-600 text-white rounded-md md:rounded-lg hover:bg-primary-700 transition-colors text-[10px] md:text-xs font-semibold flex-shrink-0"
                         >
-                          <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                          <Download className="h-2.5 w-2.5 md:h-3.5 md:w-3.5 mr-0.5 md:mr-1.5" aria-hidden="true" />
                           {isPWA ? t('common.view') || 'View' : 'PDF'}
                         </PDFDownloadButton>
                       </div>
@@ -329,24 +363,29 @@ export default function TrainingClient() {
 
           {/* Training Videos Section */}
           <div className="mt-6 md:mt-16">
-            <h3 className="text-sm md:text-xl font-semibold text-gray-800 mb-3 md:mb-6 flex items-center justify-center gap-1.5 md:gap-2">
-              <div className="w-6 h-6 md:w-8 md:h-8 bg-red-100 rounded-md md:rounded-lg flex items-center justify-center">
-                <Play className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
+            <div className="mb-3 md:mb-8 flex items-center justify-center md:justify-start gap-1.5 md:gap-3">
+              <div className="w-6 h-6 md:w-10 md:h-10 bg-red-50 rounded-md md:rounded-xl flex items-center justify-center flex-shrink-0">
+                <Play className="w-3 h-3 md:w-5 md:h-5 text-red-600" aria-hidden="true" />
               </div>
-              {t('training.videos') || 'Training Videos'}
-            </h3>
-            
-            <div className="grid gap-4 md:gap-8">
+              <h3 className="text-sm md:text-xl font-semibold text-gray-900">
+                {t('training.videos') || 'Training Videos'}
+              </h3>
+              <span className="hidden md:inline-flex text-xs font-medium text-gray-500 bg-gray-100 rounded-full px-2.5 py-1 ml-1">
+                {trainingVideos.length}
+              </span>
+            </div>
+
+            <div className="grid gap-4 md:gap-8 md:grid-cols-2">
               {trainingVideos.map((video) => (
-                <div 
+                <div
                   key={video.id}
-                  className="bg-white rounded-lg shadow-md md:shadow-lg overflow-hidden"
+                  className="bg-white rounded-lg md:rounded-2xl shadow-md md:shadow-lg overflow-hidden border border-gray-100"
                 >
-                  <div className="p-3 md:p-6">
-                    <h3 className="text-sm md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
+                  <div className="p-3 md:p-5">
+                    <h3 className="text-sm md:text-base lg:text-lg font-semibold text-gray-900 mb-2 md:mb-3">
                       {video.title}
                     </h3>
-                    
+
                     {/* Video Container */}
                     <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                       <iframe
@@ -358,22 +397,26 @@ export default function TrainingClient() {
                         allowFullScreen
                       />
                     </div>
-                    
-                    {/* Video details - hidden on mobile */}
-                    <div className="hidden md:flex mt-4 justify-center gap-6 text-sm text-gray-500">
-                      <span>Duration: {video.duration}</span>
-                      <span>Level: {video.level}</span>
+
+                    {/* Video meta — visible on desktop as pills */}
+                    <div className="hidden md:flex mt-4 items-center gap-2 text-xs">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-100 text-gray-700 rounded-full font-medium">
+                        {video.duration}
+                      </span>
+                      <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-red-50 text-red-700 rounded-full font-medium">
+                        {video.level}
+                      </span>
                     </div>
                   </div>
                 </div>
               ))}
-              
+
               {/* Coming Soon placeholder - hidden on mobile */}
-              <div className="hidden md:block bg-gray-50 rounded-lg p-8 text-center">
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">
-                  More Training Lessons Coming Soon
+              <div className="hidden md:block bg-gray-50 rounded-2xl p-8 text-center border border-dashed border-gray-300 flex flex-col justify-center">
+                <h3 className="text-lg font-semibold text-gray-700 mb-2">
+                  More lessons coming soon
                 </h3>
-                <p className="text-base text-gray-500">
+                <p className="text-sm text-gray-500">
                   We&apos;re continuously adding new training content. Check back regularly for updates.
                 </p>
               </div>

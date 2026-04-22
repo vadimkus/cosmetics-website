@@ -8,6 +8,24 @@ The original audit (P0 → P2 backlog) is captured in chat history; this file lo
 
 ## Shipped
 
+### #D4 — `/training` desktop: premium refresh
+**Date:** 2026-04-17  ·  **File:** `app/training/TrainingClient.tsx`
+**Change:** Fourth and final of the four-page marketing polish sweep. Desktop-only — every change is behind `md:` / `lg:` utilities; the PWA / mobile-web header + list layout are byte-identical.
+
+- Container widened: `max-w-4xl` → `max-w-4xl lg:max-w-6xl`. Gains back ~280px of width at `lg+` for the document lists.
+- Desktop hero rebuilt (hidden on `isAppLikeMode`): logo (52–60px wide) + `TRAINING LIBRARY` eyebrow + `text-4xl lg:text-5xl` h1 + descriptive subhead. Below the hero, a desktop-only 3-up stats strip renders live counts of Guides / Product sheets / Videos (`{trainingDocuments.length}`, `{productDocuments.length}`, `{trainingVideos.length}`). Same rounded-container + 1px dividers treatment used in `/delivery` `#D1`.
+- Section headers (Training Documents / Product Documentation / Training Videos): centered small icon row replaced with left-aligned at `md+` — larger icon badge (`h-10 w-10 rounded-xl bg-{tint}-50`), heading, and a neutral count pill (`{n}` in a gray rounded-full chip). Icons upgraded from `h-4` to `h-5` and badge tints normalised to `emerald-50` for training + `red-50` for product/video.
+- Training Documents list: collapses from a 1-column stack to a `md:grid-cols-2` grid at `md+`. Items gain bordered white cards with an emerald-tinted `FileText` badge on the left.
+- Product Documentation list (24 items): same `md:grid-cols-2` treatment. Product thumbnail bumped from `md:w-10` → `md:w-12`. Items use the page's primary-red accent (`hover:border-red-300`).
+- Download buttons: dropped both red→red and green→green gradients in favour of solid `bg-emerald-600` / `bg-primary-600` (consistent with `#P1.1` / `#7` brand foundation). Icon size bumped to `h-3.5 w-3.5`, padding up to `py-2`, weight raised from `font-medium` → `font-semibold`, rounded to `rounded-lg`.
+- Training Videos: card grid changed from 1-col to `md:grid-cols-2`. Each card gets a white background, border, and rounded-2xl at `md+`. Video title is now left-aligned `text-lg` inside the card instead of centered `text-2xl`. The "Duration" / "Level" text rows became proper pills (gray chip + red chip). Coming-soon placeholder restyled as a dashed-border card that fills the grid gap cleanly.
+
+**Why:** Previous desktop version was a single narrow column with 32+ documents stacked vertically — scroll length was the primary UX issue. A 2-col grid for both document lists cuts that scroll in half; the stats hero gives new visitors an immediate read on what's available without reading down the page; gradient buttons are replaced with the single brand-red / emerald-green solids that now run across the rest of the site.
+
+**Risk:** desktop-only. All grid and hero additions are behind `md:` utilities; `isAppLikeMode` still renders its own compact sticky-header layout unchanged. Mobile document lists keep their original `space-y-1.5` single-column layout.
+
+---
+
 ### #D3 — `/about` desktop: premium refresh
 **Date:** 2026-04-17  ·  **File:** `app/about/AboutPageClient.tsx`
 **Change:** Third of the four-page marketing polish sweep. Edits are scoped strictly to the desktop branch of the `isAppLikeMode ? (app-like) : (desktop)` ternary; the app-like mobile/PWA branch is byte-identical.

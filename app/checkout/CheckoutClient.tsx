@@ -4,7 +4,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, ChevronDown } from 'lucide-react'
+import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, ChevronDown, ShoppingBag, Pencil } from 'lucide-react'
 import Link from 'next/link'
 import CheckoutHeader from '@/components/checkout/CheckoutHeader'
 import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
@@ -649,26 +649,34 @@ export default function CheckoutClient() {
             <button
               type="button"
               onClick={() => setOrderSummaryExpanded(!orderSummaryExpanded)}
-              className={`w-full bg-gradient-to-r from-primary-600 to-primary-700 px-4 py-3 cursor-pointer shadow-md ${orderSummaryExpanded ? 'rounded-t-xl' : 'rounded-xl'}`}
+              className={`w-full bg-white border border-gray-200 px-4 py-3 cursor-pointer shadow-sm text-left transition-colors hover:bg-gray-50 active:bg-gray-100 ${orderSummaryExpanded ? 'rounded-t-xl border-b-0' : 'rounded-xl'}`}
+              aria-expanded={orderSummaryExpanded}
+              aria-controls="checkout-order-summary"
             >
-              <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                <div className="flex items-center gap-3">
-                  <div className="text-sm font-mono font-bold text-white">
-                    {t('checkout.orderNumber') || 'Order #'} {orderNumber}
-                  </div>
-                  <div className="text-sm font-bold text-white/90">
-                    • AED {total.toFixed(2)}
+              <div className={`flex justify-between items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex items-center gap-3 min-w-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <span className="h-9 w-9 rounded-full bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                    <ShoppingBag className="h-5 w-5" />
+                  </span>
+                  <div className={`min-w-0 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className="text-[11px] text-gray-500 font-medium uppercase tracking-wide truncate">
+                      {t('checkout.orderNumber') || 'Order #'} {orderNumber}
+                    </div>
+                    <div className="text-base font-bold text-gray-900">
+                      AED {total.toFixed(2)}
+                    </div>
                   </div>
                 </div>
-                <ChevronDown 
-                  className={`w-5 h-5 text-white transition-transform duration-200 ${orderSummaryExpanded ? 'rotate-180' : ''}`} 
+                <ChevronDown
+                  className={`w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0 ${orderSummaryExpanded ? 'rotate-180' : ''}`}
+                  aria-hidden="true"
                 />
               </div>
             </button>
             
             {/* Expandable Order Summary Content - Full Details */}
             {orderSummaryExpanded && (
-              <div className="bg-white border border-t-0 border-gray-200 rounded-b-xl p-4 shadow-md">
+              <div id="checkout-order-summary" className="bg-white border border-t-0 border-gray-200 rounded-b-xl p-4 shadow-sm">
                 {/* Items with discount info */}
                 <div className="space-y-3 mb-4">
                   <h4 className={`text-xs font-semibold text-gray-500 uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>
@@ -846,104 +854,120 @@ export default function CheckoutClient() {
                     <MapPin className="h-4 w-4 md:h-5 md:w-5 text-red-600" />
                     {t('checkout.shippingInfo')}
                   </h2>
-                  
-                  <div className="grid grid-cols-2 gap-2 md:gap-4">
+
+                  <div className="grid grid-cols-2 gap-3 md:gap-4">
                     <div>
-                      <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label htmlFor="checkout-firstname" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.firstName')} *
                       </label>
                       <input
+                        id="checkout-firstname"
+                        name="firstName"
                         type="text"
                         required
+                        autoComplete="given-name"
                         defaultValue={firstName}
-                        className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterFirstName')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
-                    
+
                     <div>
-                      <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label htmlFor="checkout-lastname" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.lastName')} *
                       </label>
                       <input
+                        id="checkout-lastname"
+                        name="lastName"
                         type="text"
                         required
+                        autoComplete="family-name"
                         defaultValue={lastName}
-                        className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterLastName')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                   </div>
-                  
-                  <div className="space-y-2 md:space-y-4">
+
+                  <div className="space-y-3 md:space-y-4">
                     <div>
-                      <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label htmlFor="checkout-email" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.emailAddress')} *
                       </label>
                       <input
+                        id="checkout-email"
                         name="email"
                         type="email"
                         required
+                        autoComplete="email"
+                        inputMode="email"
                         defaultValue={checkoutEmail}
-                        className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterEmailAddress')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
-                    
+
                     <div>
-                      <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label htmlFor="checkout-phone" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.phoneNumber')} *
                       </label>
                       <input
+                        id="checkout-phone"
                         name="phone"
                         type="tel"
                         required
+                        autoComplete="tel"
+                        inputMode="tel"
                         defaultValue={user?.phone || ''}
-                        className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterPhoneNumber')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
                   </div>
-                  
+
                   <div>
-                    <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <label htmlFor="checkout-address" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.deliveryAddress')} *
                     </label>
                     <textarea
+                      id="checkout-address"
                       name="address"
                       required
                       rows={2}
+                      autoComplete="street-address"
                       defaultValue={user?.address || ''}
-                      className={`w-full px-2 py-1.5 md:p-3 text-xs md:text-base border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                      className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                       placeholder={t('checkout.enterDeliveryAddress')}
                       style={{ color: '#111827', backgroundColor: '#ffffff' }}
                     />
                   </div>
-                  
+
                   {/* Delivery Location - Display only (change on cart/bag page) */}
                   <div>
-                    <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <label className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.deliveryLocation')} *
                     </label>
-                    <div className={`flex items-center justify-between w-full px-2 py-1.5 md:px-3 md:py-2.5 text-xs md:text-base border border-gray-200 rounded-md md:rounded-lg bg-gray-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <MapPin className="h-3.5 w-3.5 md:h-4 md:w-4 text-red-600" />
-                        <span className="font-medium text-gray-900">
+                    <button
+                      type="button"
+                      onClick={() => router.push(getLocalizedPath('/cart', locale))}
+                      className={`w-full flex items-center justify-between px-3 py-2.5 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg bg-white text-gray-900 min-h-[44px] hover:bg-gray-50 active:bg-gray-100 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      aria-label={`${t('checkout.deliveryLocation')}: ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : 'Dubai'} — ${t('common.change') || 'Change'}`}
+                    >
+                      <span className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <MapPin className="h-4 w-4 text-red-600 flex-shrink-0" aria-hidden="true" />
+                        <span className="font-medium">
                           {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : 'Dubai'}
                         </span>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => router.push(getLocalizedPath('/cart', locale))}
-                        className="text-[10px] md:text-xs text-red-600 hover:text-red-700 font-medium underline"
-                      >
+                      </span>
+                      <span className={`flex items-center gap-1 text-xs text-red-600 font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
                         {t('common.change') || 'Change'}
-                      </button>
-                    </div>
+                      </span>
+                    </button>
                   </div>
                 </div>
 
@@ -960,12 +984,15 @@ export default function CheckoutClient() {
 
                 {/* Order Notes */}
                 <div>
-                  <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-0.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <label htmlFor="checkout-notes" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('checkout.orderNotes')}
                   </label>
                   <textarea
+                    id="checkout-notes"
+                    name="notes"
                     rows={2}
-                    className={`w-full px-2 py-1.5 md:p-3 text-[0.675rem] md:text-[0.9rem] border border-gray-300 rounded-md md:rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                    maxLength={500}
+                    className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                     placeholder={t('checkout.orderNotesPlaceholder')}
                     style={{ color: '#111827', backgroundColor: '#ffffff' }}
                   />

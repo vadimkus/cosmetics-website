@@ -22,25 +22,27 @@ export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale
     <>
       {/* PWA / Mobile Web Light Header */}
       {(isPWAClient && isPWA) || isMobileWeb ? (
-        <div className={`flex items-center justify-between px-1 py-4 mb-4 border-b border-gray-100 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <div className={`sticky top-0 z-10 -mx-4 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 mb-4 border-b border-gray-200 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           {/* Back to Bag */}
-          <Link 
+          <Link
             href={getLocalizedPath('/cart', locale)}
-            className={`flex items-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`flex items-center gap-1 min-w-[80px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            aria-label={t('common.bag') || 'Bag'}
           >
             <ArrowLeft className={`w-5 h-5 text-red-600 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
             <span className="text-base text-red-600">{t('common.bag') || 'Bag'}</span>
           </Link>
-          
+
           {/* Page Title */}
-          <h1 className="text-lg font-semibold text-gray-900">
+          <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
             {t('checkout.checkout')}
           </h1>
-          
+
           {/* Profile Icon - green dot only when logged in */}
-          <button 
+          <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
-            className="min-w-[44px] flex justify-end"
+            className="min-w-[80px] flex justify-end"
+            aria-label="Profile"
           >
             <div className="relative">
               <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>

@@ -3,44 +3,44 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { trackPageView } from '@/lib/analytics'
-import { errorLog } from '@/lib/logger'
 
 export default function PageViewTracker() {
   const pathname = usePathname()
 
   useEffect(() => {
-    // Only track on client side
     if (typeof window === 'undefined' || !pathname) return
 
-    // Track page view when pathname changes
-    const trackPageViewData = async (page: string) => {
-      try {
-        // Track in Google Analytics
-        trackPageView(page)
-        
-        // Track in database
-        await fetch('/api/analytics/track', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            type: 'pageview',
-            page,
-            userAgent: navigator.userAgent,
-            referrer: document.referrer,
-            screenWidth: window.screen.width,
-            screenHeight: window.screen.height
-          })
-        })
-        // debugLog('✅ Page view tracked in both Google Analytics and database:', page)
-      } catch (error) {
-        errorLog('Error tracking page view:', error)
-      }
-    }
+    trackPageView(pathname)
 
-    trackPageViewData(pathname)
+    // Best-effort POST to our own analytics pipe.
+    //
+    // `keepalive: true` lets the request complete even if the user taps a link
+    // and the page navigates away mid-flight. Without it, Safari aborts the
+    // fetch and surfaces `TypeError: Load failed` on `window.onerror` — that's
+    // exactly the noise filtered in `instrumentation-client.ts` and first seen
+    // in Sentry event 350fb357… (2026-04-23). Fixing the source here means
+    // fewer dropped page views + one less class of non-bug errors reaching
+    // the error pipeline at all.
+    //
+    // Errors are swallowed deliberately: analytics is fire-and-forget, a
+    // dropped page-view is not a user-visible bug, and surfacing these to
+    // Sentry/console only adds noise.
+    const body = JSON.stringify({
+      type: 'pageview',
+      page: pathname,
+      userAgent: navigator.userAgent,
+      referrer: document.referrer,
+      screenWidth: window.screen.width,
+      screenHeight: window.screen.height,
+    })
+
+    fetch('/api/analytics/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body,
+      keepalive: true,
+    }).catch(() => {})
   }, [pathname])
 
-  return null // This component doesn't render anything
+  return null
 }

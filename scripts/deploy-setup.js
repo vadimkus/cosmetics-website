@@ -137,26 +137,56 @@ try {
     }
   }
 
-  // Attempt database push to ensure schema is synced
-  // Only attempt if DATABASE_URL is available
-  if (process.env.DATABASE_URL) {
-    console.log('📋 Attempting to sync database schema...');
+  // Apply pending database migrations.
+  //
+  // Previously this step ran `prisma db push --accept-data-loss`, which:
+  //   1. bypasses the migration history (no row written to `_prisma_migrations`)
+  //   2. can DROP columns/tables on schema drift (the `--accept-data-loss` part)
+  //   3. failed silently (stdio: 'pipe' + empty catch) so broken deploys shipped
+  //
+  // `prisma migrate deploy` is the canonical production path:
+  //   - applies only NEW migrations recorded in `prisma/migrations/`
+  //   - is idempotent (safe to re-run; no-op if nothing pending)
+  //   - fails loudly and blocks the build if a migration breaks — that's what we want
+  //
+  // Escape hatch: set SKIP_DB_MIGRATIONS=true in Vercel env to bypass this step
+  // in an emergency (e.g. you need to ship a hotfix while a migration is broken).
+  // Use sparingly — the schema will drift from the checked-in migrations.
+  if (process.env.SKIP_DB_MIGRATIONS === 'true') {
+    console.log('⏭️  SKIP_DB_MIGRATIONS=true — bypassing prisma migrate deploy');
+    console.log('   Remember to re-run migrations manually: npm run db:migrate:deploy');
+  } else if (directVerifyUrl) {
+    console.log('📋 Applying pending database migrations (prisma migrate deploy)...');
     try {
-      execSync('npx prisma db push --skip-generate --accept-data-loss', { 
-        stdio: 'pipe',
-        timeout: 30000 // 30 second timeout
+      execSync('npx prisma migrate deploy', {
+        stdio: 'inherit',
+        timeout: 120000, // 2 min — migrations can be slow on cold Postgres
+        env: {
+          ...process.env,
+          // prisma.config.ts is loaded automatically from cwd, but be explicit
+          // in case the build runs from an unexpected directory.
+          PRISMA_CONFIG_PATH: './prisma.config.ts',
+        },
       });
-      console.log('✅ Database schema synced successfully');
-    } catch (dbPushError) {
-      // In serverless environments, db push might not work
-      // This is expected and OK - migration can be run manually
-      console.log('⏭️  Database push skipped (serverless environment or manual migration required)');
-      console.log('   To sync database manually, run: npx prisma db push');
-      console.log('   Or use the migration script: node scripts/migrate-password-reset-table.js');
+      console.log('✅ Migrations applied successfully');
+    } catch (migrateError) {
+      console.error('❌ prisma migrate deploy FAILED — aborting build.');
+      console.error('   To recover: inspect the SQL above, fix the offending migration,');
+      console.error('   or set SKIP_DB_MIGRATIONS=true in Vercel env as a temporary bypass.');
+      throw migrateError;
     }
   } else {
-    console.log('⏭️  Skipping database schema sync (DATABASE_URL not available)');
-    console.log('   To sync database manually, run: npx prisma db push');
+    // No direct postgres URL available. Could be: local dev without env,
+    // postinstall phase on Vercel (env not yet hydrated), or DATABASE_URL
+    // is an Accelerate URL (not valid for migrate deploy — see prisma.config.ts).
+    if (isVercel && !isPostInstall) {
+      console.error('❌ Cannot run migrations: no direct postgres URL available');
+      console.error('   Set DATABASE_URL or POSTGRES_URL to a postgres://... string');
+      console.error('   (PRISMA_DATABASE_URL with prisma+postgres:// is runtime-only)');
+      process.exit(1);
+    }
+    console.log('⏭️  Skipping migrations (no direct DATABASE_URL/POSTGRES_URL available)');
+    console.log('   To run manually: npm run db:migrate:deploy');
   }
 
   console.log('✅ Deployment setup completed successfully!');

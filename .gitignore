@@ -61,7 +61,8 @@ next-env.d.ts
 
 # Prisma
 /lib/generated/prisma
-/prisma/migrations/
+# prisma/migrations/ is now tracked — it's the source of truth for `prisma migrate deploy`
+# in the Vercel build. See docs/DEPLOY_MIGRATIONS.md for the full flow.
 
 # Backup files
 /backups/

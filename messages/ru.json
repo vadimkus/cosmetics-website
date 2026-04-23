@@ -946,6 +946,8 @@
     "addedToBag": "Добавлено!",
     "addToCart": "В корзину",
     "addToBag": "В корзину",
+    "inBag": "В корзине",
+    "inCart": "В корзине",
     "color": "Цвет",
     "vatIncluded": "НДС включен",
     "off": "СКИДКА",

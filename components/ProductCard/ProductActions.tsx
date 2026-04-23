@@ -1,7 +1,7 @@
 'use client'
 
 import { memo } from 'react'
-import { ShoppingCart, User, MessageCircle } from 'lucide-react'
+import { ShoppingCart, User, MessageCircle, Check } from 'lucide-react'
 import type { ProductActionsProps } from './types'
 
 /**
@@ -33,6 +33,7 @@ const ProductActions = memo(function ProductActions({
   user,
   isAdding,
   useBagText,
+  inCartQty,
   onAddToCart,
   onLoginClick,
   t,
@@ -86,19 +87,36 @@ const ProductActions = memo(function ProductActions({
     )
   }
   
-  // Authenticated user - Add to Cart/Bag button
-  const buttonText = isAdding 
-    ? t('product.adding') 
-    : (useBagText ? t('product.addToBag') : t('product.addToCart'))
-  
+  // Authenticated user — "Add to Bag/Cart" or "In Bag/Cart (N)" button.
+  // When the product is already in the cart, flip the button to a green
+  // confirmation state that shows the current quantity. Tapping the button
+  // again adds one more unit, giving the user an in-place way to stack
+  // units without leaving the grid.
+  const isInCart = inCartQty > 0
+  const inStateLabel = useBagText ? t('product.inBag') : t('product.inCart')
+  const addStateLabel = useBagText ? t('product.addToBag') : t('product.addToCart')
+
+  const buttonText = isAdding
+    ? t('product.adding')
+    : isInCart
+      ? `${inStateLabel} (${inCartQty})`
+      : addStateLabel
+
   const isDisabled = !product.inStock || isAdding
-  
-  const buttonClasses = `${baseButtonStyles} ${
-    product.inStock && !isAdding
-      ? 'bg-primary-600 text-white hover:bg-primary-700'
-      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-  }`
-  
+
+  let buttonColorClasses: string
+  if (!product.inStock) {
+    buttonColorClasses = 'bg-gray-300 text-gray-500 cursor-not-allowed'
+  } else if (isAdding) {
+    buttonColorClasses = 'bg-primary-600 text-white cursor-wait opacity-90'
+  } else if (isInCart) {
+    buttonColorClasses = 'bg-green-600 text-white hover:bg-green-700'
+  } else {
+    buttonColorClasses = 'bg-primary-600 text-white hover:bg-primary-700'
+  }
+
+  const buttonClasses = `${baseButtonStyles} ${buttonColorClasses}`
+
   return (
     <div className="mt-2">
       <button
@@ -106,13 +124,15 @@ const ProductActions = memo(function ProductActions({
         onClick={onAddToCart}
         disabled={isDisabled}
         aria-label={buttonText}
+        aria-live="polite"
         className={buttonClasses}
         style={touchStyles}
       >
-        <ShoppingCart 
-          className="h-3 w-3 md:h-3.5 md:w-3.5" 
-          aria-hidden="true" 
-        />
+        {isInCart && !isAdding ? (
+          <Check className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
+        ) : (
+          <ShoppingCart className="h-3 w-3 md:h-3.5 md:w-3.5" aria-hidden="true" />
+        )}
         <span>{buttonText}</span>
       </button>
     </div>

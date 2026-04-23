@@ -31,7 +31,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
   const router = useRouter()
   
   // Context hooks
-  const { addItem } = useCart()
+  const { addItem, items: cartItems } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
   const { t, locale, messages } = useTranslation()
@@ -78,6 +78,15 @@ export function useProductCard(product: Product): UseProductCardReturn {
   
   // Use "Add to Bag" for PWA and mobile web
   const useBagText = isPWA || isMobile
+
+  // Sum the quantity of every matching cart row for this product (regardless
+  // of selected color/size/bundle) so the "In Bag (N)" button on the product
+  // grid reflects the user's real cart state. Tapping the button again adds
+  // one more unit — same behaviour as before, but with clear feedback.
+  const inCartQty = cartItems.reduce(
+    (total, item) => (item?.product?.id === product.id ? total + (item.quantity || 0) : total),
+    0,
+  )
   
   // Disable framer-motion animations in PWA mode
   const useAnimations = animationsEnabled && !isPWA
@@ -144,6 +153,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
     isLoginMode,
     isMobile,
     addedToCartMessage,
+    inCartQty,
     
     // Derived values
     productId,

@@ -40,6 +40,21 @@ export default function CartClient() {
   
   // Compute total items directly from items array for reactivity
   const totalItemCount = items.reduce((total, item) => total + item.quantity, 0)
+
+  // Rule: free / promotion items must always render at the END of the cart,
+  // even if the user adds more bundles/products after them. The native app
+  // enforces this in CartContext; here we apply a display-time stable sort
+  // so the website matches the same UX. An item is considered "free" when
+  // its effective unit price is zero (promo, 100% bundle discount, etc.)
+  // or when explicitly flagged as a promotion item in the future.
+  const isFreeCartItem = (item: typeof items[number]) => {
+    const price = Number(item?.product?.price)
+    if (Number.isFinite(price) && price <= 0) return true
+    const bundlePct = Number((item as { bundleDiscountPercent?: number })?.bundleDiscountPercent)
+    if ((item as { fromBundle?: boolean })?.fromBundle && Number.isFinite(bundlePct) && bundlePct >= 100) return true
+    return Boolean((item as { isPromotionItem?: boolean })?.isPromotionItem)
+  }
+  const displayItems = [...items].sort((a, b) => (isFreeCartItem(a) ? 1 : 0) - (isFreeCartItem(b) ? 1 : 0))
   
   // Start video after 3 seconds on mobile (for cart with items)
   useEffect(() => {
@@ -526,7 +541,7 @@ export default function CartClient() {
                 transition={animationsEnabled ? { delay: 0.1, ...springPresets.default } : {}}
               >
                 <AnimatePresence mode="popLayout" initial={false}>
-                  {items.map((item, index) => (
+                  {displayItems.map((item, index) => (
                     <motion.div
                       key={`${item.product.id}-${item.selectedColor || 'default'}-${item.selectedSize || 'default'}`}
                       initial={animationsEnabled ? { opacity: 0, y: 20 } : {}}

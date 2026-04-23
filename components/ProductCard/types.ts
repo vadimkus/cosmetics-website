@@ -59,6 +59,7 @@ export interface ProductActionsProps {
   user: User | null
   isAdding: boolean
   useBagText: boolean
+  inCartQty: number
   onAddToCart: () => void
   onLoginClick: (e: React.MouseEvent) => void
   t: (key: string) => string
@@ -76,6 +77,7 @@ export interface UseProductCardReturn {
   isLoginMode: boolean
   isMobile: boolean
   addedToCartMessage: string
+  inCartQty: number
   
   // Derived values
   productId: string

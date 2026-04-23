@@ -36,6 +36,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     showLoginModal,
     isLoginMode,
     addedToCartMessage,
+    inCartQty,
     
     // Derived values
     productPath,
@@ -146,6 +147,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           user={user}
           isAdding={isAdding}
           useBagText={useBagText}
+          inCartQty={inCartQty}
           onAddToCart={handleAddToCart}
           onLoginClick={handleLoginClick}
           t={t}

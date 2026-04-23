@@ -900,6 +900,8 @@
     "addedToBag": "Added to Bag!",
     "addToCart": "Add to Cart",
     "addToBag": "Add to Bag",
+    "inBag": "In Bag",
+    "inCart": "In Cart",
     "color": "Color",
     "vatIncluded": "VAT included",
     "off": "OFF",

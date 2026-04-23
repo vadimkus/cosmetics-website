@@ -414,8 +414,9 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
 
         {/* Mobile Categories - Below Search. Horizontal scroll keeps it to ONE row. */}
         {/* pt-3 gives the floating "New" badge ( -top-2 ) room so it doesn't clip the trust strip above */}
+        {/* gap-3 leaves enough room for the floating "Новинка" badge (longer in RU/AR) to overflow the pill horizontally without overlapping the next pill. */}
         <div className="md:hidden mb-4 -mx-4 px-4">
-          <div className="flex gap-2 overflow-x-auto scrollbar-hide pt-3 pb-1 snap-x snap-mandatory">
+          <div className="flex gap-3 overflow-x-auto scrollbar-hide pt-3 pb-1 snap-x snap-mandatory">
             {getCategories(t).map((category) => {
               const isActive = filters.categories.includes(category.id) || (category.id === 'all' && filters.categories.length === 0)
               return (
@@ -457,11 +458,13 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                   }}
                 >
                   {(category.id === 'beauty-boxes' || category.id === 'cream' || category.id === 'skin-concern') && (
-                    <span className={`absolute -top-2 left-1/2 -translate-x-1/2 text-[8px] font-bold px-1.5 py-0.5 rounded-full ${
-                      isActive 
-                        ? 'bg-white text-primary-600' 
-                        : 'bg-green-500 text-white'
-                    }`}>
+                    <span
+                      className={`pointer-events-none absolute -top-2 left-1/2 -translate-x-1/2 text-[8px] font-bold leading-none px-1.5 py-0.5 rounded-full whitespace-nowrap uppercase tracking-wide shadow-sm ${
+                        isActive
+                          ? 'bg-white text-primary-600'
+                          : 'bg-green-500 text-white'
+                      }`}
+                    >
                       {t('common.new')}
                     </span>
                   )}

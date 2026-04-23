@@ -107,11 +107,16 @@ export default function HomeDesktopSections({
     const map: Record<string, string> = { ...(categoryImages ?? {}) }
     featuredCategories.forEach(cat => {
       if (map[cat.slug]) return
-      const match = featuredProducts.find(
-        p =>
-          p.category?.toLowerCase().replace(/\s+/g, '-') === cat.slug ||
-          p.category?.toLowerCase() === cat.categoryKey
-      )
+      const match = featuredProducts.find(p => {
+        const productCat = p.category?.toLowerCase() ?? ''
+        const categoryKey = cat.categoryKey.toLowerCase()
+        return (
+          productCat === cat.slug ||
+          productCat === categoryKey ||
+          // multi-category products like "Cushion BB, Sun, Cream" — substring
+          productCat.includes(categoryKey)
+        )
+      })
       if (match) map[cat.slug] = pickFirstImage(match)
     })
     return map

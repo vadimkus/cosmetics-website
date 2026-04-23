@@ -2758,7 +2758,7 @@ export interface CategoryPage {
 export const CATEGORY_PAGES: CategoryPage[] = [
   {
     slug: 'microneedling',
-    categoryKey: 'microneedling',
+    categoryKey: 'Microneedling',
     seo: {
       en: { title: 'Microneedling Devices UAE | Professional Derma Pen Dubai | GENOSYS', description: 'Professional microneedling devices from GENOSYS. Needle Pen-K, Microneedle Rollers & LED devices for clinics and home use in UAE. Free shipping over 1000 AED.', h1: 'Professional Microneedling Devices' },
       ar: { title: 'أجهزة الوخز بالإبر الدقيقة الإمارات | قلم ديرما احترافي دبي | GENOSYS', description: 'أجهزة وخز بالإبر الدقيقة احترافية من GENOSYS. توصيل مجاني فوق 1000 درهم.', h1: 'أجهزة الوخز بالإبر الدقيقة الاحترافية' },
@@ -2767,7 +2767,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'pro-solution',
-    categoryKey: 'pro-solution',
+    categoryKey: 'PRO Solution',
     seo: {
       en: { title: 'PRO Solution Serums UAE | Professional Microneedling Serums Dubai | GENOSYS', description: 'GENOSYS PRO Solution power serums for professional microneedling treatments. HES, CVS, CTS, PCS, SWS & AWS formulas. Used by UAE dermatologists.', h1: 'PRO Solution Power Serums' },
       ar: { title: 'سيرومات PRO Solution الإمارات | سيرومات الوخز الاحترافية دبي | GENOSYS', description: 'سيرومات GENOSYS PRO Solution للعلاجات الاحترافية بالوخز بالإبر الدقيقة.', h1: 'سيرومات PRO Solution القوية' },
@@ -2776,7 +2776,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'cleanser',
-    categoryKey: 'cleanser',
+    categoryKey: 'Cleanser',
     seo: {
       en: { title: 'Face Cleansers UAE | Korean Cleanser Dubai | GENOSYS', description: 'GENOSYS professional Korean face cleansers for UAE. Gentle yet effective formulas for all skin types. Free shipping over 1000 AED.', h1: 'Face Cleansers' },
       ar: { title: 'غسول الوجه الإمارات | غسول كوري دبي | GENOSYS', description: 'غسول الوجه الاحترافي الكوري من GENOSYS. تركيبات لطيفة وفعالة لجميع أنواع البشرة.', h1: 'غسول الوجه' },
@@ -2785,7 +2785,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'peeling',
-    categoryKey: 'peeling',
+    categoryKey: 'Peeling',
     seo: {
       en: { title: 'Face Peeling Products UAE | Exfoliating Gel Dubai | GENOSYS', description: 'GENOSYS professional peeling products for UAE. Gentle exfoliating gels and renewal systems for brighter, smoother skin. Free shipping over 1000 AED.', h1: 'Peeling & Exfoliation' },
       ar: { title: 'منتجات تقشير الوجه الإمارات | جل تقشير دبي | GENOSYS', description: 'منتجات التقشير الاحترافية من GENOSYS لبشرة أكثر إشراقاً ونعومة.', h1: 'التقشير والتجديد' },
@@ -2794,7 +2794,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'toner-mist',
-    categoryKey: 'toner-mist',
+    categoryKey: 'Toner/Mist',
     seo: {
       en: { title: 'Face Toners & Mists UAE | Korean Toner Dubai | GENOSYS', description: 'GENOSYS professional toners and facial mists for UAE. Hydrating, balancing and refreshing formulas. Free shipping over 1000 AED.', h1: 'Toners & Facial Mists' },
       ar: { title: 'تونر ورذاذ الوجه الإمارات | تونر كوري دبي | GENOSYS', description: 'تونر ورذاذ الوجه الاحترافي من GENOSYS. تركيبات مرطبة ومتوازنة.', h1: 'التونر ورذاذ الوجه' },
@@ -2803,7 +2803,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'serum',
-    categoryKey: 'serum',
+    categoryKey: 'Serum',
     seo: {
       en: { title: 'Face Serums UAE | Korean Serum Dubai | GENOSYS', description: 'GENOSYS professional Korean face serums for UAE. Anti-aging, brightening, hydrating & problem control formulas. Free shipping over 1000 AED.', h1: 'Professional Face Serums' },
       ar: { title: 'سيروم الوجه الإمارات | سيروم كوري دبي | GENOSYS', description: 'سيرومات الوجه الاحترافية الكورية من GENOSYS. مكافحة الشيخوخة والتفتيح والترطيب.', h1: 'سيرومات الوجه الاحترافية' },
@@ -2812,7 +2812,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'cream',
-    categoryKey: 'cream',
+    categoryKey: 'Cream',
     seo: {
       en: { title: 'Face Creams UAE | Korean Moisturizer Dubai | GENOSYS', description: 'GENOSYS professional Korean face creams for UAE. Anti-wrinkle, soothing, hydrating & problem control creams. Free shipping over 1000 AED.', h1: 'Professional Face Creams' },
       ar: { title: 'كريم الوجه الإمارات | مرطب كوري دبي | GENOSYS', description: 'كريمات الوجه الاحترافية الكورية من GENOSYS. مضادة للتجاعيد ومهدئة ومرطبة.', h1: 'كريمات الوجه الاحترافية' },
@@ -2821,7 +2821,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'mask',
-    categoryKey: 'mask',
+    categoryKey: 'Mask',
     seo: {
       en: { title: 'Face Masks UAE | Korean Sheet Mask Dubai | GENOSYS', description: 'GENOSYS professional Korean face masks for UAE. Hydrating, soothing, anti-aging & modeling masks. Free shipping over 1000 AED.', h1: 'Professional Face Masks' },
       ar: { title: 'أقنعة الوجه الإمارات | ماسك كوري دبي | GENOSYS', description: 'أقنعة الوجه الاحترافية الكورية من GENOSYS. أقنعة مرطبة ومهدئة ومضادة للشيخوخة.', h1: 'أقنعة الوجه الاحترافية' },
@@ -2830,7 +2830,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'sun',
-    categoryKey: 'sun',
+    categoryKey: 'Sun',
     seo: {
       en: { title: 'Sun Protection Cream UAE | SPF Sunscreen Dubai | GENOSYS', description: 'GENOSYS professional SPF sun creams for UAE intense climate. Broad-spectrum UV protection. Free shipping over 1000 AED.', h1: 'Sun Protection Creams' },
       ar: { title: 'كريم الحماية من الشمس الإمارات | واقي شمس SPF دبي | GENOSYS', description: 'كريمات الحماية من الشمس SPF الاحترافية من GENOSYS لمناخ الإمارات.', h1: 'كريمات الحماية من الشمس' },
@@ -2839,7 +2839,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'cushion-bb',
-    categoryKey: 'cushion-bb',
+    categoryKey: 'Cushion BB',
     seo: {
       en: { title: 'BB Cushion UAE | Korean BB Cream Dubai | GENOSYS', description: 'GENOSYS BB Cushion and Blemish Balm for flawless coverage with skincare benefits. Korean formula. Free shipping over 1000 AED.', h1: 'BB Cushion & Blemish Balm' },
       ar: { title: 'كوشن BB الإمارات | كريم BB كوري دبي | GENOSYS', description: 'كوشن BB وبلسم العيوب من GENOSYS لتغطية مثالية مع فوائد العناية بالبشرة.', h1: 'كوشن BB وبلسم العيوب' },
@@ -2848,7 +2848,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'scalp-hair',
-    categoryKey: 'scalp-hair',
+    categoryKey: 'Scalp/Hair',
     seo: {
       en: { title: 'Scalp & Hair Care UAE | Hair Treatment Dubai | GENOSYS', description: 'GENOSYS professional scalp and hair care products for UAE. Combat hair loss and improve scalp health. Free shipping over 1000 AED.', h1: 'Scalp & Hair Care' },
       ar: { title: 'العناية بفروة الرأس والشعر الإمارات | علاج الشعر دبي | GENOSYS', description: 'منتجات العناية بفروة الرأس والشعر الاحترافية من GENOSYS.', h1: 'العناية بفروة الرأس والشعر' },
@@ -2857,7 +2857,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'eye-care',
-    categoryKey: 'eye-care',
+    categoryKey: 'Eye care',
     seo: {
       en: { title: 'Eye Care Products UAE | Eye Cream & Serum Dubai | GENOSYS', description: 'GENOSYS professional eye care products for UAE. Eye contour serums, creams and gel patches for dark circles and wrinkles. Free shipping over 1000 AED.', h1: 'Professional Eye Care' },
       ar: { title: 'منتجات العناية بالعين الإمارات | كريم العين دبي | GENOSYS', description: 'منتجات العناية بالعين الاحترافية من GENOSYS. سيرومات وكريمات لمحيط العين.', h1: 'العناية الاحترافية بالعين' },
@@ -2866,7 +2866,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'device',
-    categoryKey: 'device',
+    categoryKey: 'Device',
     seo: {
       en: { title: 'Skincare Devices UAE | LED & Microneedling Devices Dubai | GENOSYS', description: 'GENOSYS professional skincare devices for UAE. LED therapy, microneedling pens and rollers for clinic and home use. Free shipping over 1000 AED.', h1: 'Professional Skincare Devices' },
       ar: { title: 'أجهزة العناية بالبشرة الإمارات | أجهزة LED والوخز دبي | GENOSYS', description: 'أجهزة العناية بالبشرة الاحترافية من GENOSYS. علاج LED وأقلام الوخز.', h1: 'أجهزة العناية بالبشرة الاحترافية' },
@@ -2875,7 +2875,7 @@ export const CATEGORY_PAGES: CategoryPage[] = [
   },
   {
     slug: 'bio-meso',
-    categoryKey: 'bio-meso',
+    categoryKey: 'Bio Meso',
     seo: {
       en: { title: 'Bio Meso Products UAE | Mesotherapy Solutions Dubai | GENOSYS', description: 'GENOSYS Bio Meso professional solutions for mesotherapy treatments in UAE. Free shipping over 1000 AED.', h1: 'Bio Meso Solutions' },
       ar: { title: 'منتجات Bio Meso الإمارات | حلول الميزوثيرابي دبي | GENOSYS', description: 'حلول GENOSYS Bio Meso الاحترافية لعلاجات الميزوثيرابي.', h1: 'حلول Bio Meso' },

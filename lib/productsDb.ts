@@ -75,19 +75,24 @@ export const getProductByIdCached = cache(
 
 export async function getProductsByCategory(category: string): Promise<Product[]> {
   try {
+    // Case-insensitive substring match on the comma-separated `category` field
+    // in the DB. Products can belong to multiple categories, e.g. a product
+    // with category = "Cushion BB, Sun, Cream" must appear on the Sun,
+    // Cushion BB and Cream landing pages.
     const products = await prisma.product.findMany({
-      where: { 
+      where: {
         category: {
-          contains: category
+          contains: category,
+          mode: 'insensitive',
         },
-        isHidden: false
+        isHidden: false,
       },
       include: { variants: true },
       orderBy: {
-        name: 'asc'
-      }
+        name: 'asc',
+      },
     })
-    return products // No need to filter again since we filtered at DB level
+    return products
   } catch (error) {
     errorLog('Error fetching products by category:', error)
     throw new Error('Failed to fetch products by category')

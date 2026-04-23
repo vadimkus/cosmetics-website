@@ -1,9 +1,17 @@
 import Hero from '@/components/Hero'
+import HomeDesktopSections from '@/components/home/HomeDesktopSections'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import SpeakableSchema from '@/components/schema/SpeakableSchema'
+import ArticleDateSchema from '@/components/schema/ArticleDateSchema'
 import GeoFaqSchema, { GENOSYS_FAQ_AR } from '@/components/schema/GeoFaqSchema'
+import HomeItemListSchema from '@/components/schema/HomeItemListSchema'
 import MobileRedirect from '@/components/MobileRedirect'
+import { getHomeData, HOME_CATEGORY_SLUGS } from '@/lib/homeData'
 import type { Metadata } from 'next'
+
+// Revalidate every 5 minutes — matches `/` so all three locale homepages
+// hit the same cached product data.
+export const revalidate = 300
 
 export const metadata: Metadata = {
   title: 'GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية في الإمارات',
@@ -67,18 +75,40 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ArabicHome() {
+export default async function ArabicHome() {
+  // Same cached payload as `/` — featured products + category tile imagery.
+  // Previously this page rendered only <Hero />, which meant AR desktop users
+  // (and Google / AI crawlers in Arabic) saw ~70% less indexable content than
+  // English. Adding <HomeDesktopSections /> brings all three locales to parity.
+  const { featured, categoryImages } = await getHomeData()
+
   return (
     <MobileRedirect to="/ar/products">
-      <div className="bg-white" dir="rtl">
-        <BreadcrumbSchema 
+      <div className="bg-gradient-to-b from-white to-gray-50 flex-1 flex flex-col" dir="rtl">
+        <BreadcrumbSchema
           items={[
             { name: 'الرئيسية', url: '/ar' }
           ]}
         />
         <SpeakableSchema url="/ar" />
+        <ArticleDateSchema
+          datePublished="2024-01-01T00:00:00.000Z"
+          dateModified={new Date().toISOString()}
+          url="https://genosys.ae/ar"
+        />
         <GeoFaqSchema items={GENOSYS_FAQ_AR} pageUrl="/ar" language="ar" />
+        <HomeItemListSchema
+          locale="ar"
+          featuredCategorySlugs={HOME_CATEGORY_SLUGS}
+          featuredProducts={featured}
+        />
         <Hero initialLocale="ar" initialDir="rtl" />
+        <HomeDesktopSections
+          locale="ar"
+          dir="rtl"
+          featuredProducts={featured}
+          categoryImages={categoryImages}
+        />
       </div>
     </MobileRedirect>
   )

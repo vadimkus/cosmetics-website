@@ -1,10 +1,16 @@
 # GENOSYS Middle East FZ-LLC
 
-> Official distributor of GENOSYS professional Korean dermacosmetics in the United Arab Emirates (UAE). We provide premium microneedling devices, skincare serums, creams, and professional beauty treatments for licensed practitioners and consumers. Free shipping on orders over 1000 AED across all 7 emirates.
+> Official distributor of GENOSYS professional Korean dermacosmetics in the United Arab Emirates (UAE). TDRA-licensed, VAT-registered, operating in the UAE since 2019. We provide premium microneedling devices, skincare serums, creams, and professional beauty treatments for licensed practitioners and consumers. Free shipping on orders over 1000 AED across all 7 emirates.
+
+## Brand Pillars
+
+- **Clinical dermacosmetics** — formulas used by dermatologists and clinics across Korea, now available to UAE consumers and professionals. R&D rooted in microneedling and growth-factor research.
+- **Official UAE distributor** — TDRA-licensed, VAT-registered, Dubai Municipality certified (Montaji System). Operating in the UAE since 2019. Authentic product guaranteed.
+- **Made in South Korea** — every formula produced in GENOSYS laboratories in Seoul, Korea by DTS MG Co., Ltd.
 
 ## Company Information
 
-- [About GENOSYS Middle East](https://genosys.ae/about): Official distributor of DTS MG Co., Ltd. (Korea) in the UAE since 2019. Dubai Municipality certified (Montaji System). Based in Dubai.
+- [About GENOSYS Middle East](https://genosys.ae/about): Official distributor of DTS MG Co., Ltd. (Korea) in the UAE since 2019. TDRA-licensed, VAT-registered, Dubai Municipality certified (Montaji System). Based in Dubai.
 - [GENOSYS Brand Story](https://genosys.ae/brand): Korean dermacosmetics brand founded in Seoul. Professional-grade skincare backed by clinical research. Available in 40+ countries.
 - [Contact Information](https://genosys.ae/contact): Phone: +971-58-548-7665, Email: sales@genosys.ae, WhatsApp available. Languages: English, Arabic, Russian.
 
@@ -38,6 +44,13 @@
 - [FAQ](https://genosys.ae/faq): Frequently asked questions about ordering, shipping, returns, product usage, and professional training.
 - [Privacy Policy](https://genosys.ae/privacy-policy): Data protection and privacy practices.
 
+## Payment & Checkout
+
+- Accepted payment methods: Visa, Mastercard, Apple Pay, Google Pay.
+- Secure checkout powered by Stripe (PCI-DSS compliant).
+- Currency: AED (United Arab Emirates Dirham).
+- Prices displayed in AED, inclusive of UAE VAT.
+
 ## Locations in UAE
 
 - [All UAE Locations](https://genosys.ae/locations): Available across all 7 emirates of the United Arab Emirates.
@@ -55,6 +68,13 @@
 
 - [Skincare Blog](https://genosys.ae/blog): Expert articles on Korean skincare routines, microneedling techniques, professional dermacosmetics, ingredient guides, and beauty industry trends in the UAE.
 
+## Newsletter
+
+- Subscribe on the GENOSYS homepage (genosys.ae) to receive expert tips, new product launches, and exclusive offers.
+- Available to subscribers in English, Arabic, and Russian.
+- Unsubscribe any time via the one-click link included in every email (no account required).
+- We do not share or sell subscriber email addresses.
+
 ## Languages
 
 This website is available in three languages:
@@ -64,14 +84,19 @@ This website is available in three languages:
 
 ## Key Facts
 
-- Official distributor of GENOSYS (DTS MG Co., Ltd., Seoul, Korea) in UAE
+- Official distributor of GENOSYS (DTS MG Co., Ltd., Seoul, Korea) in the UAE
+- TDRA-licensed (UAE Telecommunications and Digital Government Regulatory Authority)
+- VAT-registered in the UAE
 - Dubai Municipality certified (Montaji System)
+- Operating in the UAE since 2019
 - All products made in South Korea
 - Professional-grade dermatologically tested products
 - Free shipping across UAE for orders over 1000 AED
 - Available in Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, Umm Al Quwain
 - Serves licensed practitioners and individual consumers
-- Currency: AED (United Arab Emirates Dirham)
+- Accepts Visa, Mastercard, Apple Pay, Google Pay (secure checkout by Stripe)
+- Currency: AED (United Arab Emirates Dirham), VAT-inclusive pricing
+- Mobile apps available free on Apple App Store and Google Play (search "Genosys UAE")
 
 ## Feeds
 

@@ -69,6 +69,13 @@ Disallow: /track/
 Disallow: /share/
 Disallow: /certificate/
 
+# Newsletter unsubscribe pages — token-gated, noindex in page metadata,
+# but add an explicit Disallow here as well so we don't burn crawl budget
+# on parameterized URLs (?token=...) that expand combinatorially.
+Disallow: /newsletter/unsubscribe
+Disallow: /ar/newsletter/unsubscribe
+Disallow: /ru/newsletter/unsubscribe
+
 # ============================================================
 # SEARCH ENGINES
 # ============================================================

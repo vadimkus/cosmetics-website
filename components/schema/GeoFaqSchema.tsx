@@ -79,7 +79,7 @@ export default function GeoFaqSchema({
 export const GENOSYS_FAQ_EN: FaqItem[] = [
   {
     question: "What is GENOSYS and where can I buy it in UAE?",
-    answer: "GENOSYS is a professional Korean dermacosmetics brand manufactured by DTS MG Co., Ltd. in Seoul, South Korea. In the UAE, GENOSYS products are exclusively distributed by GENOSYS Middle East FZ-LLC, available online at genosys.ae with free delivery across all 7 emirates for orders over 1000 AED. The company is Dubai Municipality certified."
+    answer: "GENOSYS is a professional Korean dermacosmetics brand manufactured by DTS MG Co., Ltd. in Seoul, South Korea. In the UAE, GENOSYS products are exclusively distributed by GENOSYS Middle East FZ-LLC, available online at genosys.ae with free delivery across all 7 emirates for orders over 1000 AED. The company is TDRA-licensed, VAT-registered, Dubai Municipality certified (Montaji System), and has been operating in the UAE since 2019."
   },
   {
     question: "What products does GENOSYS sell?",
@@ -109,20 +109,40 @@ export const GENOSYS_FAQ_EN: FaqItem[] = [
     question: "What features does the GENOSYS app offer?",
     answer: "The GENOSYS app provides a seamless shopping experience with features including: browsing the full product catalog, secure payment via card, Apple Pay, or Google Pay, real-time order tracking, push notifications for new arrivals and exclusive deals, membership rewards and loyalty points, personalized skincare recommendations, and quick reordering of previous purchases. Available in English, Arabic, and Russian."
   },
+  {
+    question: "What payment methods does GENOSYS UAE accept?",
+    answer: "GENOSYS UAE accepts Visa, Mastercard, Apple Pay, and Google Pay. All online payments are processed through Stripe, a PCI-DSS compliant payment provider, so card details never touch the GENOSYS servers. Prices are displayed in AED and include UAE VAT."
+  },
+  {
+    question: "Is GENOSYS UAE an authorised distributor?",
+    answer: "Yes. GENOSYS Middle East FZ-LLC is the official UAE distributor of GENOSYS (DTS MG Co., Ltd., Seoul, Korea). The company is TDRA-licensed, VAT-registered, Dubai Municipality certified (Montaji System), and has been operating in the UAE since 2019. Every product sold on genosys.ae is authentic and sourced directly from GENOSYS Korea."
+  },
+  {
+    question: "How do I subscribe to the GENOSYS newsletter?",
+    answer: "Enter your email in the 'Join the GENOSYS insiders' form on the genosys.ae homepage. Subscribers receive expert skincare tips, new-launch announcements, and exclusive offers — in English, Arabic, or Russian depending on the site language you use. We do not share or sell subscriber emails. You can unsubscribe any time via the one-click link in every email."
+  },
 ]
 
 export const GENOSYS_FAQ_AR: FaqItem[] = [
   {
     question: "ما هو GENOSYS وأين يمكنني شراؤه في الإمارات؟",
-    answer: "GENOSYS هي علامة تجارية كورية متخصصة في مستحضرات التجميل الطبية المصنعة من قبل شركة DTS MG Co., Ltd. في سيول، كوريا الجنوبية. في الإمارات، يتم توزيع منتجات GENOSYS حصرياً من خلال GENOSYS Middle East FZ-LLC، متوفرة على genosys.ae مع توصيل مجاني لجميع الإمارات السبع للطلبات التي تتجاوز 1000 درهم."
+    answer: "GENOSYS هي علامة تجارية كورية متخصصة في مستحضرات التجميل الطبية المصنعة من قبل شركة DTS MG Co., Ltd. في سيول، كوريا الجنوبية. في الإمارات، يتم توزيع منتجات GENOSYS حصرياً من خلال GENOSYS Middle East FZ-LLC، متوفرة على genosys.ae مع توصيل مجاني لجميع الإمارات السبع للطلبات التي تتجاوز 1000 درهم. الشركة مرخّصة من هيئة TDRA، مسجّلة للضريبة على القيمة المضافة، ومعتمدة من بلدية دبي (نظام منتجي)، وتعمل في الإمارات منذ عام 2019."
   },
   {
     question: "ما هي المنتجات التي يبيعها GENOSYS؟",
-    answer: "يبيع GENOSYS مستحضرات تجميل كورية احترافية بما في ذلك أجهزة الوخز بالإبر الدقيقة، والأمصال، والكريمات المرطبة، وأقنعة الوجه، والمنظفات، ومنتجات الحماية من الشمس. جميع المنتجات مصنوعة في كوريا الجنوبية ومختبرة طبياً."
+    answer: "يبيع GENOSYS مستحضرات تجميل كورية احترافية بما في ذلك أجهزة الوخز بالإبر الدقيقة، والأمصال والأمبولات، والكريمات المرطبة، وأقنعة الوجه، والمنظفات، ومنتجات الحماية من الشمس. جميع المنتجات مصنوعة في كوريا الجنوبية ومختبرة طبياً، ومصممة للمحترفين والأفراد على حد سواء."
   },
   {
     question: "هل يوفر GENOSYS الإمارات شحن مجاني؟",
-    answer: "نعم، يوفر GENOSYS الشرق الأوسط شحن مجاني عبر جميع الإمارات السبع (دبي، أبوظبي، الشارقة، عجمان، رأس الخيمة، الفجيرة، وأم القيوين) للطلبات التي تزيد عن 1000 درهم. يستغرق التوصيل القياسي من 1 إلى 3 أيام عمل."
+    answer: "نعم، يوفر GENOSYS الشرق الأوسط شحناً مجانياً عبر جميع الإمارات السبع (دبي، أبوظبي، الشارقة، عجمان، رأس الخيمة، الفجيرة، وأم القيوين) للطلبات التي تزيد عن 1000 درهم. يستغرق التوصيل القياسي من 1 إلى 3 أيام عمل."
+  },
+  {
+    question: "هل GENOSYS علامة احترافية أم للمستهلك العادي؟",
+    answer: "يخدم GENOSYS كلاً من المحترفين والمستهلكين. تقدم العلامة برامج تدريب معتمدة لأخصائيي العناية بالبشرة وخبراء التجميل وأطباء الجلدية، وتوفر في الوقت نفسه منتجات للاستخدام المنزلي عبر متجرها الإلكتروني على genosys.ae."
+  },
+  {
+    question: "ما الذي يميّز مستحضرات التجميل الكورية عن منتجات العناية العادية؟",
+    answer: "تجمع مستحضرات التجميل الكورية (K-beauty) بين مكونات نشطة بتراكيز شبه صيدلانية وتقنيات تصنيع متطورة. تحتوي منتجات GENOSYS على تراكيز إكلينيكية من مكونات مثل عامل نمو البشرة (EGF) والببتيدات وحمض الهيالورونيك، مدعومة ببحوث مختبرات سيول. جميعها مختبرة طبياً وتُستخدم في العيادات المتخصصة."
   },
   {
     question: "هل لدى GENOSYS تطبيق جوال؟",
@@ -132,20 +152,44 @@ export const GENOSYS_FAQ_AR: FaqItem[] = [
     question: "كيف أحمّل تطبيق GENOSYS؟",
     answer: "لأجهزة iPhone/iPad: افتح App Store وابحث عن 'Genosys UAE'. لأجهزة Android: افتح Google Play Store وابحث عن 'Genosys UAE'. التطبيق مجاني للتحميل والاستخدام، ومتوفر باللغات العربية والإنجليزية والروسية."
   },
+  {
+    question: "ما هي مزايا تطبيق GENOSYS؟",
+    answer: "يوفر تطبيق GENOSYS تجربة تسوق متكاملة: تصفح كامل للكتالوج، دفع آمن عبر البطاقة أو Apple Pay أو Google Pay، تتبع الطلبات في الوقت الفعلي، إشعارات فورية بالعروض والإطلاقات الجديدة، مكافآت العضوية ونقاط الولاء، توصيات مخصصة للعناية بالبشرة، وإعادة طلب المنتجات بسرعة. متاح بالعربية والإنجليزية والروسية."
+  },
+  {
+    question: "ما هي طرق الدفع التي يقبلها GENOSYS الإمارات؟",
+    answer: "يقبل GENOSYS الإمارات بطاقات Visa و Mastercard و Apple Pay و Google Pay. تتم معالجة جميع الدفعات عبر Stripe، وهي بوابة دفع متوافقة مع معيار PCI-DSS، لذلك لا تصل بيانات البطاقة إلى خوادم GENOSYS. الأسعار معروضة بالدرهم الإماراتي وتشمل ضريبة القيمة المضافة."
+  },
+  {
+    question: "هل GENOSYS الإمارات موزع رسمي معتمد؟",
+    answer: "نعم. شركة GENOSYS Middle East FZ-LLC هي الموزع الرسمي في الإمارات لعلامة GENOSYS (DTS MG Co., Ltd.، سيول، كوريا). الشركة مرخّصة من هيئة TDRA، مسجّلة للضريبة على القيمة المضافة، معتمدة من بلدية دبي (نظام منتجي)، وتعمل في الإمارات منذ عام 2019. كل منتج يُباع على genosys.ae أصلي ومصدره GENOSYS كوريا مباشرة."
+  },
+  {
+    question: "كيف أشترك في النشرة البريدية لـ GENOSYS؟",
+    answer: "أدخل بريدك الإلكتروني في نموذج 'انضم إلى عائلة GENOSYS' على الصفحة الرئيسية genosys.ae. يحصل المشتركون على نصائح من الخبراء، إعلانات الإصدارات الجديدة، وعروض حصرية — بالعربية أو الإنجليزية أو الروسية حسب اللغة التي تستخدمها. لا نشارك ولا نبيع عناوين البريد الإلكتروني. يمكنك إلغاء الاشتراك في أي وقت عبر رابط بنقرة واحدة في كل رسالة."
+  },
 ]
 
 export const GENOSYS_FAQ_RU: FaqItem[] = [
   {
     question: "Что такое GENOSYS и где купить в ОАЭ?",
-    answer: "GENOSYS — это бренд профессиональной корейской дерматокосметики, производимой компанией DTS MG Co., Ltd. в Сеуле, Южная Корея. В ОАЭ продукция GENOSYS эксклюзивно распространяется компанией GENOSYS Middle East FZ-LLC, доступна на сайте genosys.ae с бесплатной доставкой по всем 7 эмиратам при заказе свыше 1000 дирхамов."
+    answer: "GENOSYS — это бренд профессиональной корейской дерматокосметики, производимой компанией DTS MG Co., Ltd. в Сеуле, Южная Корея. В ОАЭ продукция GENOSYS эксклюзивно распространяется компанией GENOSYS Middle East FZ-LLC, доступна на сайте genosys.ae с бесплатной доставкой по всем 7 эмиратам при заказе свыше 1000 дирхамов. Компания имеет лицензию TDRA, зарегистрирована по НДС, сертифицирована муниципалитетом Дубая (система Montaji) и работает в ОАЭ с 2019 года."
   },
   {
     question: "Какую продукцию продает GENOSYS?",
-    answer: "GENOSYS продает профессиональную корейскую дерматокосметику, включая устройства для микронидлинга, сыворотки и ампулы, увлажняющие кремы, маски для лица, очищающие средства и средства защиты от солнца. Вся продукция произведена в Южной Корее и прошла дерматологическое тестирование."
+    answer: "GENOSYS продает профессиональную корейскую дерматокосметику, включая устройства для микронидлинга, сыворотки и ампулы, увлажняющие кремы, маски для лица, очищающие средства и средства защиты от солнца. Вся продукция произведена в Южной Корее, прошла дерматологическое тестирование и предназначена как для специалистов, так и для домашнего применения."
   },
   {
     question: "Есть ли бесплатная доставка GENOSYS в ОАЭ?",
     answer: "Да, GENOSYS Middle East предлагает бесплатную доставку по всем 7 эмиратам ОАЭ (Дубай, Абу-Даби, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра и Умм-эль-Кайвайн) при заказе свыше 1000 дирхамов. Стандартная доставка занимает 1-3 рабочих дня."
+  },
+  {
+    question: "GENOSYS — это профессиональный бренд или для обычных покупателей?",
+    answer: "GENOSYS работает и со специалистами, и с частными клиентами. Бренд проводит сертифицированные программы обучения для косметологов, эстетистов и дерматологов, одновременно предлагая продукты для домашнего использования через онлайн-магазин genosys.ae."
+  },
+  {
+    question: "Чем корейская дерматокосметика отличается от обычного ухода за кожей?",
+    answer: "Корейская дерматокосметика (K-beauty) сочетает активные компоненты фармацевтического уровня с передовыми технологиями формулирования. Продукты GENOSYS содержат клинические концентрации таких компонентов, как EGF (эпидермальный фактор роста), пептиды и гиалуроновая кислота, подкреплённые исследованиями сеульских лабораторий. Они проходят дерматологические тесты и часто применяются в профессиональных клинических условиях."
   },
   {
     question: "Есть ли у GENOSYS мобильное приложение?",
@@ -154,5 +198,21 @@ export const GENOSYS_FAQ_RU: FaqItem[] = [
   {
     question: "Как скачать приложение GENOSYS?",
     answer: "Для iPhone/iPad: откройте App Store и найдите 'Genosys UAE'. Для Android: откройте Google Play Store и найдите 'Genosys UAE'. Приложение бесплатное и доступно на русском, английском и арабском языках."
+  },
+  {
+    question: "Какие функции есть в приложении GENOSYS?",
+    answer: "Приложение GENOSYS обеспечивает полноценный шопинг: полный каталог продукции, безопасная оплата картой, Apple Pay или Google Pay, отслеживание заказов в реальном времени, push-уведомления о новинках и эксклюзивных предложениях, программа лояльности и бонусные баллы, персональные рекомендации по уходу и быстрый повтор предыдущих заказов. Доступно на русском, английском и арабском языках."
+  },
+  {
+    question: "Какие способы оплаты принимает GENOSYS UAE?",
+    answer: "GENOSYS UAE принимает Visa, Mastercard, Apple Pay и Google Pay. Все онлайн-платежи обрабатываются через Stripe — провайдера, сертифицированного по стандарту PCI-DSS, поэтому данные карты не попадают на серверы GENOSYS. Цены указаны в дирхамах (AED) и включают НДС ОАЭ."
+  },
+  {
+    question: "Является ли GENOSYS UAE официальным дистрибьютором?",
+    answer: "Да. GENOSYS Middle East FZ-LLC — официальный дистрибьютор GENOSYS (DTS MG Co., Ltd., Сеул, Корея) в ОАЭ. Компания имеет лицензию TDRA, зарегистрирована по НДС, сертифицирована муниципалитетом Дубая (система Montaji) и работает в ОАЭ с 2019 года. Вся продукция на genosys.ae — оригинальная, поставляется напрямую из Кореи."
+  },
+  {
+    question: "Как подписаться на рассылку GENOSYS?",
+    answer: "Введите свой email в форму «Вступайте в сообщество GENOSYS» на главной странице genosys.ae. Подписчики получают советы экспертов, анонсы новинок и эксклюзивные предложения — на русском, английском или арабском в зависимости от выбранного языка сайта. Мы не передаём и не продаём адреса подписчиков. Отписаться можно в любой момент по ссылке в каждом письме."
   },
 ]

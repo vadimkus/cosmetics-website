@@ -133,14 +133,22 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
             transition={animationsEnabled ? { duration: 0.6, ease: "easeOut" } : {}}
           >
-            <motion.h1 
+            {/*
+              Mobile Hero heading — intentionally an H2 (not H1) so the page
+              has a single authoritative H1, which lives in the desktop block
+              below. Mobile visitors are redirected to /products by
+              MobileRedirect before this matters; keeping H2 here avoids a
+              duplicate-H1 signal for crawlers that don't execute the JS
+              redirect (mostly AI / LLM crawlers like GPTBot / ClaudeBot).
+            */}
+            <motion.h2
               className="text-heading-2 font-bold text-gray-800 leading-tight font-display"
               initial={animationsEnabled ? { opacity: 0, y: 20 } : {}}
               animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
               transition={animationsEnabled ? { duration: 0.6, delay: 0.2, ease: "easeOut" } : {}}
             >
               {titleText}
-              <motion.span 
+              <motion.span
                 className="text-primary-600"
                 initial={animationsEnabled ? { opacity: 0, scale: 0.8 } : {}}
                 animate={animationsEnabled ? { opacity: 1, scale: 1 } : {}}
@@ -148,7 +156,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
               >
                 {" "}{titleHighlightText}
               </motion.span>
-            </motion.h1>
+            </motion.h2>
           </motion.div>
           
           {/* Video - Full width on mobile, hero style */}

@@ -1,12 +1,11 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useState, Suspense, startTransition } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { useState, Suspense } from 'react'
 import { getLocaleFromPath, getLocalizedPath, type Locale } from '@/lib/i18n'
 
 function LanguageSwitcherContent() {
   const pathname = usePathname()
-  const router = useRouter()
   const searchParams = useSearchParams()
   const currentLocale = getLocaleFromPath(pathname)
   const isRTL = currentLocale === 'ar'
@@ -16,26 +15,27 @@ function LanguageSwitcherContent() {
   const switchLanguage = (locale: Locale) => {
     setIsOpen(false)
     setIsSwitching(true)
-    
+
     const newPath = getLocalizedPath(pathname, locale)
     // Preserve query parameters (like ?full=true)
     const queryString = searchParams.toString()
     const fullPath = queryString ? `${newPath}?${queryString}` : newPath
-    
+
     // Store language preference in cookie to override Accept-Language header
     document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; SameSite=Lax`
-    
-    // Use startTransition to make navigation smoother and prevent blocking
-    startTransition(() => {
-      // Use replace instead of push to avoid adding to history
-      // This ensures the language switch feels more natural
-      router.replace(fullPath)
-      
-      // Reset switching state after a short delay to allow navigation to complete
-      setTimeout(() => {
-        setIsSwitching(false)
-      }, 100)
-    })
+
+    // Full-page navigation (not router.replace).
+    //
+    // Mobile installed PWAs on iOS Safari were swallowing the transition:
+    // router.replace() inside startTransition would set the cookie but the
+    // client-side route change would not complete reliably, leaving the user
+    // on the previous locale. A hard navigation guarantees:
+    //   - the new cookie is sent on the very next request,
+    //   - the service worker passes through (network-first for navigation),
+    //   - the document re-renders with the correct locale + dir.
+    if (typeof window !== 'undefined') {
+      window.location.assign(fullPath)
+    }
   }
 
   return (

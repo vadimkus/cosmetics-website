@@ -94,6 +94,34 @@ export const useCartStore = create<CartState>()(
         set({ items: newItems })
         updateCartBadge(newItems)
       },
+
+      // Decrement a single unit from the cart for a product, regardless of
+      // which size/colour variant was added. Used by the "-" button in the
+      // products grid stepper so users can roll back a tap without having
+      // to open the bag. Picks the *last* non-bundle line for the product
+      // (most recent add) and reduces its quantity by 1; removes the line
+      // entirely when quantity drops to zero.
+      decrementProductById: (productId: string) => {
+        const items = get().items
+        let targetIdx = -1
+        for (let i = items.length - 1; i >= 0; i -= 1) {
+          const it = items[i]
+          if (it?.product?.id === productId && !it.fromBundle) {
+            targetIdx = i
+            break
+          }
+        }
+        if (targetIdx < 0) return
+        const target = items[targetIdx]
+        if (!target) return
+        const nextQty = (target.quantity || 0) - 1
+        const newItems =
+          nextQty <= 0
+            ? items.filter((_, i) => i !== targetIdx)
+            : items.map((it, i) => (i === targetIdx ? { ...it, quantity: nextQty } : it))
+        set({ items: newItems })
+        updateCartBadge(newItems)
+      },
       
       updateQuantity: (productId: string, quantity: number, selectedColor?: string, selectedSize?: string) => {
         if (quantity <= 0) {

@@ -31,7 +31,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
   const router = useRouter()
   
   // Context hooks
-  const { addItem, items: cartItems } = useCart()
+  const { addItem, decrementProductById, items: cartItems } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
   const { t, locale, messages } = useTranslation()
@@ -120,6 +120,15 @@ export function useProductCard(product: Product): UseProductCardReturn {
       messageTimerRef.current = setTimeout(() => setAddedToCartMessage(''), 1000)
     }, 500)
   }, [addItem, product, haptic, t])
+
+  // Decrement one unit of this product in the bag from the grid stepper.
+  // Fires a lighter haptic than the add-to-cart tap because it's a correction,
+  // not a commit.
+  const handleDecrementFromCart = useCallback(() => {
+    if (inCartQty <= 0) return
+    haptic.light()
+    decrementProductById(product.id)
+  }, [decrementProductById, inCartQty, product.id, haptic])
   
   const handleFavorite = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
     e?.preventDefault()
@@ -171,6 +180,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
     
     // Handlers
     handleAddToCart,
+    handleDecrementFromCart,
     handleFavorite,
     handleLoginClick,
     handleNavigate,

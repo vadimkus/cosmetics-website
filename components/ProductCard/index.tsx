@@ -53,6 +53,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     
     // Handlers
     handleAddToCart,
+    handleDecrementFromCart,
     handleFavorite,
     handleLoginClick,
     handleNavigate,
@@ -149,6 +150,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           useBagText={useBagText}
           inCartQty={inCartQty}
           onAddToCart={handleAddToCart}
+          onDecrementFromCart={handleDecrementFromCart}
           onLoginClick={handleLoginClick}
           t={t}
         />

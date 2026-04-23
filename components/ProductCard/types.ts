@@ -61,6 +61,7 @@ export interface ProductActionsProps {
   useBagText: boolean
   inCartQty: number
   onAddToCart: () => void
+  onDecrementFromCart: () => void
   onLoginClick: (e: React.MouseEvent) => void
   t: (key: string) => string
 }
@@ -95,6 +96,7 @@ export interface UseProductCardReturn {
   
   // Handlers
   handleAddToCart: () => void
+  handleDecrementFromCart: () => void
   handleFavorite: (e?: React.MouseEvent | React.TouchEvent) => void
   handleLoginClick: (e: React.MouseEvent) => void
   handleNavigate: () => void

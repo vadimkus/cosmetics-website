@@ -627,3 +627,54 @@ model FaqItem {
   @@index([category])
   @@map("faq_items")
 }
+
+// Newsletter subscribers — captured from homepage/footer forms.
+// Separate from User so guests can subscribe; token drives one-click unsubscribe.
+model NewsletterSubscriber {
+  id               String    @id @default(cuid())
+  email            String    @unique
+  locale           String    @default("en") // en | ar | ru — for localized campaigns
+  source           String    @default("homepage") // homepage | footer | checkout | admin | import
+  isActive         Boolean   @default(true)
+  unsubscribeToken String    @unique
+  userId           String? // Optional link to a registered User (same email)
+  subscribedAt     DateTime  @default(now())
+  unsubscribedAt   DateTime?
+  lastSentAt       DateTime?
+  ipAddress        String?
+  userAgent        String?   @db.Text
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([isActive])
+  @@index([locale, isActive])
+  @@index([email])
+  @@map("newsletter_subscribers")
+}
+
+// Newsletter campaigns — audit log for every send (test and production).
+// Status transitions: draft → sending → sent | failed
+model NewsletterCampaign {
+  id              String    @id @default(cuid())
+  subject         String
+  bodyMarkdown    String    @db.Text // raw markdown from composer
+  bodyHtml        String    @db.Text // rendered HTML snippet (inside branded wrapper)
+  localeFilter    String? // null = all locales, else en|ar|ru
+  sourceFilter    String? // optional subscriber.source filter
+  isTest          Boolean   @default(false)
+  testEmail       String? // recipient for a test send
+  totalRecipients Int       @default(0)
+  sentCount       Int       @default(0)
+  failedCount     Int       @default(0)
+  status          String    @default("draft") // draft | sending | sent | failed | cancelled
+  sentByEmail     String // admin who triggered the send
+  startedAt       DateTime?
+  completedAt     DateTime?
+  errors          String?   @db.Text // JSON array of { email, error }
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("newsletter_campaigns")
+}

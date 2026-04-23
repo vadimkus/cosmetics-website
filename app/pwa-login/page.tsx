@@ -9,6 +9,7 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { getLocalizedPath } from '@/lib/i18n'
+import { EMIRATES } from '@/lib/emirates'
 
 export default function PWALoginPage() {
   const router = useRouter()
@@ -328,13 +329,11 @@ export default function PWALoginPage() {
                   required
                 >
                   <option value="">{t('login.selectEmirate')}</option>
-                  <option value="Dubai">Dubai</option>
-                  <option value="Abu Dhabi">Abu Dhabi</option>
-                  <option value="Sharjah">Sharjah</option>
-                  <option value="Ajman">Ajman</option>
-                  <option value="Ras Al Khaimah">Ras Al Khaimah</option>
-                  <option value="Fujairah">Fujairah</option>
-                  <option value="Umm Al Quwain">Umm Al Quwain</option>
+                  {EMIRATES.map(e => (
+                    <option key={e.value} value={e.value}>
+                      {e.label[locale] ?? e.label.en}
+                    </option>
+                  ))}
                 </select>
               </div>
             </>

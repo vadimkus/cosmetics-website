@@ -1660,4 +1660,190 @@ export const emailTemplates = {
       `,
     }
   },
+
+  // Newsletter campaign email — wraps admin-composed markdown body in branded shell.
+  // Subject + bodyHtml are inserted verbatim (bodyHtml is already sanitized via renderNewsletterMarkdown).
+  newsletterCampaign: (params: { subject: string; bodyHtml: string; unsubscribeUrl: string; locale?: string }) => {
+    const locale = params.locale === 'ar' ? 'ar' : params.locale === 'ru' ? 'ru' : 'en'
+    const { dir, textAlign } = getLocaleSettings(locale)
+
+    const copy = {
+      en: {
+        footerNote: 'You\u2019re receiving this because you subscribed at genosys.ae.',
+        unsubscribe: 'Unsubscribe',
+        officialDistributor: 'Official Distributor in the UAE',
+        copyright: '\u00A9 2026 All rights reserved.',
+      },
+      ar: {
+        footerNote: 'تتلقى هذه الرسالة لأنك اشتركت عبر genosys.ae.',
+        unsubscribe: 'إلغاء الاشتراك',
+        officialDistributor: 'الموزّع الرسمي في الإمارات',
+        copyright: '\u00A9 2026 جميع الحقوق محفوظة.',
+      },
+      ru: {
+        footerNote: 'Вы получили это письмо, потому что подписались на genosys.ae.',
+        unsubscribe: 'Отписаться',
+        officialDistributor: 'Официальный дистрибьютор в ОАЭ',
+        copyright: '\u00A9 2026 Все права защищены.',
+      },
+    } as const
+    const c = copy[locale as keyof typeof copy]
+
+    return {
+      subject: params.subject,
+      html: `
+      <!DOCTYPE html>
+      <html lang="${locale}" dir="${dir}">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${params.subject.replace(/</g, '&lt;')}</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+                <tr>
+                  <td style="text-align: center; padding-bottom: 32px;">
+                    <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: ${textAlign}; padding-bottom: 16px;">
+                    ${params.bodyHtml}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                      ${c.footerNote}<br>
+                      <a href="${params.unsubscribeUrl}" style="color: #86868b; text-decoration: underline;">${c.unsubscribe}</a><br><br>
+                      Genosys Middle East FZ-LLC<br>
+                      ${c.officialDistributor}<br><br>
+                      ${c.copyright}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+      `,
+    }
+  },
+
+  // Newsletter confirmation email — sent when someone subscribes via homepage/footer form.
+  // Clean Apple-style wrapper to match the rest of the email system.
+  newsletterWelcome: (params: { email: string; locale?: string; unsubscribeUrl: string }) => {
+    const locale = params.locale === 'ar' ? 'ar' : params.locale === 'ru' ? 'ru' : 'en'
+    const { dir, textAlign } = getLocaleSettings(locale)
+    const siteUrl = SITE_URL
+    const shopUrl = locale === 'en' ? `${siteUrl}/products` : `${siteUrl}/${locale}/products`
+
+    const copy = {
+      en: {
+        subject: 'You\u2019re on the list — GENOSYS insiders',
+        heading: 'You\u2019re in.',
+        subheading: 'Welcome to the GENOSYS insiders.',
+        body: 'Expect expert skin tips, new launches, and pro-only offers — straight to your inbox. No spam. Never shared.',
+        cta: 'Shop the catalog',
+        footerNote: 'You\u2019re receiving this because you subscribed at genosys.ae.',
+        unsubscribe: 'Unsubscribe',
+        officialDistributor: 'Official Distributor in the UAE',
+        copyright: '\u00A9 2026 All rights reserved.',
+      },
+      ar: {
+        subject: 'تم تسجيلك \u2014 مشتركو GENOSYS',
+        heading: 'تم تسجيلك.',
+        subheading: 'مرحباً بك في مشتركي GENOSYS.',
+        body: 'توقّع نصائح من الخبراء، إطلاقات جديدة، وعروضاً حصرية للمحترفين \u2014 مباشرةً إلى بريدك. لا بريد مزعج، ولا مشاركة للبيانات.',
+        cta: 'تصفّح المنتجات',
+        footerNote: 'تتلقى هذه الرسالة لأنك اشتركت عبر genosys.ae.',
+        unsubscribe: 'إلغاء الاشتراك',
+        officialDistributor: 'الموزّع الرسمي في الإمارات',
+        copyright: '\u00A9 2026 جميع الحقوق محفوظة.',
+      },
+      ru: {
+        subject: 'Вы в списке — GENOSYS insiders',
+        heading: 'Вы подписаны.',
+        subheading: 'Добро пожаловать в сообщество GENOSYS.',
+        body: 'Советы экспертов, новинки и закрытые предложения для профи \u2014 прямо на вашу почту. Без спама. Не передаём третьим лицам.',
+        cta: 'Открыть каталог',
+        footerNote: 'Вы получили это письмо, потому что подписались на genosys.ae.',
+        unsubscribe: 'Отписаться',
+        officialDistributor: 'Официальный дистрибьютор в ОАЭ',
+        copyright: '\u00A9 2026 Все права защищены.',
+      },
+    } as const
+    const c = copy[locale as keyof typeof copy]
+
+    return {
+      subject: c.subject,
+      html: `
+      <!DOCTYPE html>
+      <html lang="${locale}" dir="${dir}">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${c.subject}</title>
+      </head>
+      <body style="margin: 0; padding: 0; background-color: #ffffff; -webkit-font-smoothing: antialiased;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #ffffff;">
+          <tr>
+            <td align="center" style="padding: 40px 20px;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; padding-bottom: 12px;">
+                    <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif; font-size: 32px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+                      ${c.heading}
+                    </h1>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; padding-bottom: 32px;">
+                    <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; color: #86868b; letter-spacing: -0.01em;">
+                      ${c.subheading}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; line-height: 1.6; color: #1d1d1f; text-align: ${textAlign}; padding-bottom: 40px;">
+                    ${c.body}
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; padding-bottom: 48px;">
+                    <a href="${shopUrl}" style="display: inline-block; background-color: #0071e3; color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 17px; font-weight: 500; text-decoration: none; padding: 12px 24px; border-radius: 980px; letter-spacing: -0.01em;">
+                      ${c.cta}
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
+                      ${c.footerNote}<br>
+                      <a href="${params.unsubscribeUrl}" style="color: #86868b; text-decoration: underline;">${c.unsubscribe}</a><br><br>
+                      Genosys Middle East FZ-LLC<br>
+                      ${c.officialDistributor}<br><br>
+                      ${c.copyright}
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+      `,
+    }
+  },
 }

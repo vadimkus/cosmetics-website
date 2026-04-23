@@ -36,6 +36,25 @@ export const sendDiscountAssignmentEmail = async (discountData: { customerName: 
   return await sendEmail(discountData.customerEmail, template.subject, template.html)
 }
 
+export const sendNewsletterWelcomeEmail = async (params: { email: string; locale?: string; unsubscribeUrl: string }) => {
+  const template = emailTemplates.newsletterWelcome(params)
+  return await sendEmail(params.email, template.subject, template.html)
+}
+
+export const sendNewsletterCampaignEmail = async (params: { to: string; subject: string; bodyHtml: string; unsubscribeUrl: string; locale?: string }) => {
+  // Build the template args with `locale` only if it's a defined string — TS
+  // `exactOptionalPropertyTypes` treats `locale: undefined` as an explicit undefined,
+  // which isn't the same as an omitted optional property.
+  const templateArgs: { subject: string; bodyHtml: string; unsubscribeUrl: string; locale?: string } = {
+    subject: params.subject,
+    bodyHtml: params.bodyHtml,
+    unsubscribeUrl: params.unsubscribeUrl,
+  }
+  if (params.locale) templateArgs.locale = params.locale
+  const template = emailTemplates.newsletterCampaign(templateArgs)
+  return await sendEmail(params.to, template.subject, template.html)
+}
+
 export const sendOrderConfirmationEmail = async (orderData: OrderConfirmationEmailData) => {
   try {
     // PRODUCTION DEBUG - using debugLog to ensure visibility in Vercel logs

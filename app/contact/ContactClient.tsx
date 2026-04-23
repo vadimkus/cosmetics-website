@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Phone, Mail, MapPin, FileText, Globe, Instagram, Facebook, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, Phone, Mail, MapPin, FileText, Globe, Instagram, Facebook } from 'lucide-react'
+import { IconOfficialDistributor } from '@/components/icons/BrandIcons'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
 import PWAPageWrapper from '@/components/pwa/PWAPageWrapper'
@@ -177,7 +178,7 @@ export default function ContactClient() {
                   {/* Icon + heading */}
                   <div className="md:flex md:items-center md:gap-4 md:flex-shrink-0 md:max-w-xs text-center md:text-left">
                     <div className="hidden md:flex h-12 w-12 rounded-xl bg-primary-50 items-center justify-center flex-shrink-0">
-                      <ShieldCheck className="h-6 w-6 text-primary-600" aria-hidden="true" />
+                      <IconOfficialDistributor className="h-6 w-6 text-primary-600" />
                     </div>
                     <div>
                       <h2 className="text-base md:text-xl font-semibold text-gray-900 mb-1 md:mb-1.5">

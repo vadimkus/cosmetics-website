@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Sparkles, Target, Building2, Phone as PhoneIcon, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, Sparkles, Target, Building2, Phone as PhoneIcon } from 'lucide-react'
+import { IconOfficialDistributor } from '@/components/icons/BrandIcons'
 import Logo from '@/components/Logo'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
@@ -287,7 +288,7 @@ export default function AboutPageClient() {
             <div className="bg-white rounded-lg md:rounded-2xl shadow-sm md:shadow-md border border-gray-100 p-3 md:p-7">
               <div className="flex items-center gap-3 mb-3 md:mb-5">
                 <div className="hidden md:flex h-10 w-10 rounded-xl bg-primary-50 items-center justify-center flex-shrink-0">
-                  <ShieldCheck className="h-5 w-5 text-primary-600" aria-hidden="true" />
+                  <IconOfficialDistributor className="h-5 w-5 text-primary-600" />
                 </div>
                 <h3 className="text-sm md:text-base font-semibold text-gray-900 pb-1 md:pb-0 md:border-0 border-b border-gray-200 flex-1">{t('about.businessInformation')}</h3>
               </div>

@@ -21,6 +21,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 
 // Order: All → NEW categories first (skin-concern, cream, beauty-boxes) → then the rest
@@ -83,19 +84,11 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
     inStockOnly: false
   })
   
-  const [isMobile, setIsMobile] = useState(true) // Default to mobile for SSR, will update on client
-  
-  // Check if mobile on mount and window resize
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+  // Default to `true` before hydration for mobile-first SSR rendering;
+  // `useIsMobile` returns false pre-hydration, so we OR with `!isClient`
+  // to keep the same "mobile until proven otherwise" behavior.
+  const { isMobile: isMobileClient, isClient: isMobileClientReady } = useIsMobile()
+  const isMobile = !isMobileClientReady || isMobileClient
 
   // Initialize filters from URL params when products are available (server or client)
   useEffect(() => {

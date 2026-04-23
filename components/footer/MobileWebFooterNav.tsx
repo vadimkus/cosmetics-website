@@ -1,117 +1,51 @@
 'use client'
 
 import { usePathname, useRouter } from 'next/navigation'
-import { useCartStore } from '@/lib/cartStore'
 import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import { useMemo, useState, useEffect, useRef, useCallback } from 'react'
+import {
+  HomeIcon,
+  ListIcon,
+  BagIcon,
+  MOBILE_BOTTOM_NAV_COLORS,
+  useCartCount,
+  useHideBottomNav,
+  getActiveTab,
+} from './mobileBottomNavShared'
 
 /**
  * Mobile Web Footer Navigation
- * Uses position: sticky for Chrome iOS compatibility
+ *
+ * Renders only on mobile web (not PWA, not desktop). Icons, cart
+ * subscription, hide logic, and colors are shared with the PWA variant
+ * via ./mobileBottomNavShared.tsx.
+ *
+ * Uses position: sticky via .mobile-web-footer-nav class in globals.css
+ * for Chrome iOS compatibility.
  */
-
-const HomeIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"
-    fill={filled ? color : 'none'} stroke={color} 
-    strokeWidth={filled ? 0 : 1.5} strokeLinecap="round" strokeLinejoin="round">
-    {filled ? (
-      <path d="M3 9.5L12 2l9 7.5V20a2 2 0 01-2 2H5a2 2 0 01-2-2V9.5z"/>
-    ) : (
-      <><path d="M3 9.5L12 2l9 7.5V20a2 2 0 01-2 2H5a2 2 0 01-2-2V9.5z"/><path d="M9 22V12h6v10"/></>
-    )}
-  </svg>
-)
-
-const ListIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"
-    fill="none" stroke={color} strokeWidth={filled ? 2.5 : 1.5} 
-    strokeLinecap="round" strokeLinejoin="round">
-    <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
-    <line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/>
-    <line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>
-  </svg>
-)
-
-const BagIcon = ({ filled, color }: { filled?: boolean; color: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28"
-    fill={filled ? color : 'none'} stroke={color} 
-    strokeWidth={filled ? 0 : 1.5} strokeLinecap="round" strokeLinejoin="round">
-    {filled ? (
-      <>
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/>
-        <path d="M3 6h18" stroke="#fff" strokeWidth="1.5"/>
-        <path d="M16 10a4 4 0 01-8 0" stroke="#fff" strokeWidth="1.5" fill="none"/>
-      </>
-    ) : (
-      <>
-        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6z"/>
-        <line x1="3" y1="6" x2="21" y2="6"/>
-        <path d="M16 10a4 4 0 01-8 0"/>
-      </>
-    )}
-  </svg>
-)
-
-function isMobileDevice(): boolean {
-  if (typeof window === 'undefined') return false
-  const ua = navigator.userAgent || ''
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || window.innerWidth <= 768
-}
-
 export default function MobileWebFooterNav() {
   const pathname = usePathname()
   const router = useRouter()
-  // Using useCartStore.getState() directly for cart count subscription
   const { t, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
+  const { isMobile } = useIsMobile()
   const [isReady, setIsReady] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-  const [cartCount, setCartCount] = useState(0) // Track cart count with state for reactivity
+  const cartCount = useCartCount()
   const lastClickTime = useRef(0)
-  
-  useEffect(() => {
-    setIsMobile(isMobileDevice())
-    const handleResize = () => setIsMobile(isMobileDevice())
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-  
-  // Subscribe to cart store changes to update badge count reactively
-  useEffect(() => {
-    // Function to update cart count
-    const updateCount = () => {
-      const state = useCartStore.getState()
-      const newCount = state.items.reduce((total, item) => total + item.quantity, 0)
-      setCartCount(newCount)
-    }
-    
-    // Initial count (may be 0 if not hydrated yet)
-    updateCount()
-    
-    // Subscribe to store changes (handles both hydration and updates)
-    const unsubscribe = useCartStore.subscribe(updateCount)
-    
-    // Also check after a short delay for hydration
-    const timer = setTimeout(updateCount, 100)
-    
-    return () => {
-      unsubscribe()
-      clearTimeout(timer)
-    }
-  }, [])
-  
+
   useEffect(() => {
     const timer = setTimeout(() => setIsReady(true), 100)
     return () => clearTimeout(timer)
   }, [])
-  
+
   useEffect(() => { setIsNavigating(false) }, [pathname])
-  
+
   const locale = useMemo(() => getLocaleFromPath(pathname || '/'), [pathname])
-  
+
   const handleNavigation = useCallback((path: string) => {
     const now = Date.now()
     if (now - lastClickTime.current < 300 || isNavigating || !isReady) return
@@ -119,53 +53,17 @@ export default function MobileWebFooterNav() {
     setIsNavigating(true)
     router.push(path)
   }, [router, isNavigating, isReady])
-  
-  const shouldHide = useMemo(() => {
-    if (!pathname) return false
-    const isLoginPage = pathname === '/login' || pathname === '/ru/login' || pathname === '/ar/login' || pathname.endsWith('/login')
-    const isAuthPage = pathname.includes('/signup') || pathname.includes('/forgot-password') || pathname.includes('/reset-password')
-    const isCartPage = pathname.includes('/cart')
-    const isCheckoutPage = pathname.includes('/checkout')
-    const isSuccessPage = pathname.includes('/success')
-    const isBundleBuilder = pathname.includes('/bundle-builder')
-    
-    // On cart page: show footer when empty, hide when has items
-    if (isCartPage) {
-      return cartCount > 0 // Hide footer only when cart has items
-    }
-    
-    const isConcernPage = pathname.includes('/products/concern/')
 
-    return /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) || 
-           pathname.includes('/pdf-viewer') || 
-           pathname.includes('/pwa-login') ||
-           pathname.includes('/skin-recommendation') ||
-           pathname.includes('/blog') ||
-           isLoginPage ||
-           isAuthPage ||
-           isCheckoutPage ||
-           isSuccessPage ||
-           isBundleBuilder ||
-           isConcernPage
-  }, [pathname, cartCount])
-
-  const activeTab = useMemo(() => {
-    if (!pathname) return 'home'
-    const p = pathname.toLowerCase()
-    if (p.includes('/cart') || p.includes('/checkout')) return 'bag'
-    if (p.includes('/orders')) return 'orders'
-    return 'home'
-  }, [pathname])
-  
-  // cartCount is now managed by useState with subscription above
+  const shouldHide = useHideBottomNav(pathname, { variant: 'web', cartCount })
+  const activeTab = getActiveTab(pathname)
   const hasItems = cartCount > 0
-  
+
   if (!isClient || isPWA || !isMobile || shouldHide) return null
-  
-  const RED = '#dc2626'
-  const GRAY = '#8E8E93'
-  const GREEN = '#10b981'
-  
+
+  const RED = MOBILE_BOTTOM_NAV_COLORS.active
+  const GRAY = MOBILE_BOTTOM_NAV_COLORS.inactive
+  const GREEN = MOBILE_BOTTOM_NAV_COLORS.withItems
+
   const getColor = (tab: string) => {
     if (tab === 'bag' && hasItems) return GREEN
     if (activeTab === tab) return RED

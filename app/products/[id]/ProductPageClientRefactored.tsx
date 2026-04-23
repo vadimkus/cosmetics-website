@@ -24,6 +24,7 @@ import ProductRecommendation from '@/components/product/ProductRecommendation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { translateSize } from '@/utils/sizeTranslations'
 import { translateCategory } from '@/utils/categoryTranslations'
 import { 
@@ -43,22 +44,11 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
-  const { t, locale, dir } = useTranslation()
+  const { t, locale, dir, messages } = useTranslation()
   const { isPWA } = usePWAMode()
   const isRTL = dir === 'rtl'
-  const [isMobileWeb, setIsMobileWeb] = useState(false)
-  
-  // Detect mobile web (non-PWA mobile)
-  useEffect(() => {
-    const checkMobileWeb = () => {
-      const isMobile = window.innerWidth < 768
-      setIsMobileWeb(isMobile && !isPWA)
-    }
-    checkMobileWeb()
-    window.addEventListener('resize', checkMobileWeb)
-    return () => window.removeEventListener('resize', checkMobileWeb)
-  }, [isPWA])
-  
+  const { isMobileWeb } = useIsMobileWeb()
+
   // Combined flag for PWA or mobile web
   const isAppLikeMode = isPWA || isMobileWeb
   
@@ -297,7 +287,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             {/* Category & Size Badges - Centered (Stock badge is on image) */}
             <div className="flex items-center justify-center gap-1 mt-1">
               <span className="inline-block bg-primary-50 text-primary-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
-                {product.category.split(',').map(cat => translateCategory(cat.trim(), locale)).join(' · ')}
+                {product.category.split(',').map(cat => translateCategory(cat.trim(), messages)).join(' · ')}
               </span>
               {product.size && (
                 <span className="inline-block bg-gray-100 text-gray-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
@@ -347,7 +337,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               {/* Category Badge */}
               <div className={`flex items-center flex-wrap gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse justify-end' : 'justify-start'}`}>
                 <span className="inline-block bg-gradient-to-r from-primary-100 to-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
-                  {product.category.split(',').map(cat => translateCategory(cat.trim(), locale)).join(' · ')}
+                  {product.category.split(',').map(cat => translateCategory(cat.trim(), messages)).join(' · ')}
                 </span>
               </div>
 

@@ -27,7 +27,7 @@ interface CartItemProps {
 function CartItemComponent({ item }: CartItemProps) {
   const { updateQuantity, removeItem, updateColor, updateSize } = useCart()
   const { user } = useAuth()
-  const { t, dir, locale } = useTranslation()
+  const { t, dir, locale, messages } = useTranslation()
   const { product, quantity, selectedColor, selectedSize, fromBundle, bundleDiscountPercent } = item
   const { enabled: animationsEnabled } = useAnimationStore()
   
@@ -216,7 +216,7 @@ function CartItemComponent({ item }: CartItemProps) {
           <Link href={`/products/${product.id}`}>
             <h3 className="text-xs md:text-base font-bold text-gray-900 break-words hover:text-primary-600 transition-colors cursor-pointer leading-tight mb-1">{product.name}</h3>
           </Link>
-          <p className="text-xs md:text-sm text-red-600 mb-2">{translateCategory(product.category, locale)}</p>
+          <p className="text-xs md:text-sm text-red-600 mb-2">{translateCategory(product.category, messages)}</p>
           
           {/* Color Selector */}
           {showColorSelector && (

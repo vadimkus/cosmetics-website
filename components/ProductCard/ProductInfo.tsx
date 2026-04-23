@@ -4,6 +4,7 @@ import { memo } from 'react'
 import Link from 'next/link'
 import { translateCategory } from '@/utils/categoryTranslations'
 import { translateSize } from '@/utils/sizeTranslations'
+import { useTranslation } from '@/hooks/useTranslation'
 import type { ProductInfoProps } from './types'
 
 /**
@@ -31,7 +32,8 @@ const ProductInfo = memo(function ProductInfo({
   t,
   prefetchProps,
 }: ProductInfoProps) {
-  
+  const { messages } = useTranslation()
+
   // PWA-specific touch handling styles
   const pwaStyles = {
     touchAction: 'manipulation' as const,
@@ -65,7 +67,7 @@ const ProductInfo = memo(function ProductInfo({
       {/* Category */}
       <div className="mb-2">
         <span className="text-xs md:text-sm text-primary-600 font-medium">
-          {translateCategory(product.category, locale)}
+          {translateCategory(product.category, messages)}
         </span>
       </div>
       

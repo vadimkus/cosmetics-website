@@ -23,6 +23,16 @@ function withSecurityHeaders(response: NextResponse, requestId: string): NextRes
   return response
 }
 
+// Build a NextResponse.next() that also forwards an `x-pathname`
+// request header to downstream server components. This is the only
+// reliable way to read the current URL inside the root Server
+// Layout in Next.js App Router (it's not available via props).
+function nextWithPathname(request: NextRequest): NextResponse {
+  const requestHeaders = new Headers(request.headers)
+  requestHeaders.set('x-pathname', request.nextUrl.pathname)
+  return NextResponse.next({ request: { headers: requestHeaders } })
+}
+
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const requestId = generateRequestId()
@@ -40,7 +50,7 @@ export function proxy(request: NextRequest) {
   if (pathname === '/') {
     const localeCookie = request.cookies.get('NEXT_LOCALE')?.value
     if (localeCookie !== 'en') {
-      const response = NextResponse.next()
+      const response = nextWithPathname(request)
       response.cookies.set('NEXT_LOCALE', 'en', { path: '/', maxAge: 31536000, sameSite: 'lax' })
       return withSecurityHeaders(response, requestId)
     }
@@ -99,12 +109,12 @@ export function proxy(request: NextRequest) {
     // This prevents redirecting when clicking links from the English homepage
     if (isFromEnglishPage && pathname !== '/') {
       // User is on English page, let them stay in English
-      return withSecurityHeaders(NextResponse.next(), requestId)
+      return withSecurityHeaders(nextWithPathname(request), requestId)
     }
     
     // If cookie is set to 'en', don't redirect - let English pages through
     if (localeCookie === 'en') {
-      return withSecurityHeaders(NextResponse.next(), requestId)
+      return withSecurityHeaders(nextWithPathname(request), requestId)
     }
     
     // If cookie exists and is valid, use it
@@ -133,7 +143,7 @@ export function proxy(request: NextRequest) {
     // For English, just let it through without prefix
   }
 
-  return withSecurityHeaders(NextResponse.next(), requestId)
+  return withSecurityHeaders(nextWithPathname(request), requestId)
 }
 
 export const config = {

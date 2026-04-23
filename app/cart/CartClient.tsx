@@ -17,6 +17,7 @@ import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 
@@ -32,19 +33,8 @@ export default function CartClient() {
   const { enabled: animationsEnabled } = useAnimationStore()
   const [showUniVideo, setShowUniVideo] = useState(false)
   const uniVideoRef = useRef<HTMLVideoElement>(null)
-  const [isMobileWeb, setIsMobileWeb] = useState(false)
-  
-  // Detect mobile web (non-PWA mobile)
-  useEffect(() => {
-    const checkMobileWeb = () => {
-      const isMobile = window.innerWidth < 768
-      setIsMobileWeb(isMobile && !isPWA)
-    }
-    checkMobileWeb()
-    window.addEventListener('resize', checkMobileWeb)
-    return () => window.removeEventListener('resize', checkMobileWeb)
-  }, [isPWA])
-  
+  const { isMobileWeb } = useIsMobileWeb()
+
   // Combined flag for PWA or mobile web
   const isAppLikeMode = isPWA || isMobileWeb
   

@@ -17,82 +17,19 @@ import {
   IconCertified,
 } from '@/components/icons/BrandIcons'
 import { usePathname } from 'next/navigation'
-import { getLocalizedPath, getLocaleFromPath } from '@/lib/i18n'
-import { useMemo, useState, useEffect } from 'react'
-import { warnLog } from '@/lib/logger'
+import { getLocalizedPath } from '@/lib/i18n'
+import { useMemo } from 'react'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import enMessages from '@/messages/en.json'
-import arMessages from '@/messages/ar.json'
-import ruMessages from '@/messages/ru.json'
-
-// Detect mobile device
-function isMobileDevice(): boolean {
-  if (typeof window === 'undefined') return false
-  const userAgent = navigator.userAgent || ''
-  const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-  return mobileRegex.test(userAgent) || window.innerWidth <= 768
-}
+import { useIsMobile } from '@/hooks/useIsMobile'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export default function Footer() {
   const pathname = usePathname()
-  const { isPWA, isClient } = usePWAMode()
-  const [isMobile, setIsMobile] = useState(false)
-  
-  // Check if mobile device
-  useEffect(() => {
-    setIsMobile(isMobileDevice())
-    
-    const handleResize = () => {
-      setIsMobile(isMobileDevice())
-    }
-    
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-  
-  // Get locale from pathname - handle null consistently
-  // During SSR, pathname might be null, so we default to '/' which gives 'en'
-  // On client, pathname will be available, so we use it
-  // This ensures consistent initial render between server and client
-  const effectivePath = pathname ?? '/'
-  const locale = useMemo(() => {
-    // If pathname is null, try to get from window.location on client
-    if (!pathname && typeof window !== 'undefined' && window.location) {
-      return getLocaleFromPath(window.location.pathname)
-    }
-    return getLocaleFromPath(effectivePath)
-  }, [pathname, effectivePath])
-  
-  // Load messages based on locale
-  const messages = useMemo(() => {
-    if (locale === 'ar') return arMessages
-    if (locale === 'ru') return ruMessages
-    return enMessages
-  }, [locale])
-  
-  // Create translation function
-  const t = useMemo(() => {
-    return (key: string): string => {
-      const keys = key.split('.')
-      let value: unknown = messages
-      
-      for (const k of keys) {
-        if (value && typeof value === 'object' && k in value) {
-          value = (value as Record<string, unknown>)[k]
-        } else {
-          value = undefined
-          break
-        }
-      }
-      
-      if (typeof value !== 'string') {
-        warnLog(`Translation key not found: ${key}`)
-        return key
-      }
-      
-      return value
-    }
-  }, [messages])
+  const { isPWA, isClient: isPWAClient } = usePWAMode()
+  const { isMobile, isClient: isMobileClient } = useIsMobile()
+  const isClient = isPWAClient && isMobileClient
+
+  const { t, locale } = useTranslation()
 
   // Check if we're on the contact page - check synchronously to avoid hydration mismatch
   // If pathname is null (SSR), default to false so server and client match initially

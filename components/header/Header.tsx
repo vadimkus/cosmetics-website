@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, memo } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { usePathname, useRouter } from 'next/navigation'
+import { isSimpleHeaderPage } from '@/lib/simpleHeaderPages'
 import LoginModal from '@/components/LoginModal'
 import HeaderRussianMobile, { HeaderRussianMobileMenu } from './HeaderRussianMobile'
 import HeaderRussianDesktop from './HeaderRussianDesktop'
@@ -46,25 +47,10 @@ const Header = memo(function Header() {
     }
   }
   
-  // Check if we're on pages that have their own simple/light header in PWA mode or Mobile Web mode
-  const isProductDetailPage = pathname ? /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) : false
-  const isOnSimpleHeaderPage = pathname?.includes('/profile') || 
-                                  pathname?.includes('/cart') || 
-                                  pathname?.includes('/checkout') ||
-                                  pathname?.includes('/orders') ||
-                                  pathname?.includes('/privacy-policy') ||
-                                  pathname?.includes('/terms') ||
-                                  pathname?.includes('/faq') ||
-                                  pathname?.includes('/contact') ||
-                                  pathname?.includes('/about') ||
-                                  pathname?.includes('/pwa-login') ||
-                                  pathname?.includes('/success') ||
-                                  pathname?.includes('/delivery') ||
-                                  pathname?.includes('/brand') ||
-                                  pathname?.includes('/favorites') ||
-                                  pathname?.includes('/locations') ||
-                                  pathname?.includes('/skin-recommendation') ||
-                                  isProductDetailPage
+  // Shared "simple header page" helper — see lib/simpleHeaderPages.ts.
+  // Previously this component, MobileWebHeader, and PWAHeader each had
+  // their own hardcoded list that had drifted out of sync.
+  const isOnSimpleHeaderPage = isSimpleHeaderPage(pathname)
   
   // In PWA mode, hide header completely on pages with their own light header
   const showPWAMobileHeader = isPWAClient && isPWA

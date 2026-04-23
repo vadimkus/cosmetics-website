@@ -10,11 +10,9 @@ import LoginModal from './LoginModal'
 import { useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import { getLocalizedPath } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n'
-import enMessages from '@/messages/en.json'
-import arMessages from '@/messages/ar.json'
-import ruMessages from '@/messages/ru.json'
 import { debugLog, warnLog } from '@/lib/logger'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useTranslation } from '@/hooks/useTranslation'
 import { useRouter } from 'next/navigation'
 
 interface HeroProps {
@@ -30,7 +28,6 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [videoError, setVideoError] = useState(false)
-  const mobileVideoRef = useRef<HTMLVideoElement>(null)
   const desktopVideoRef = useRef<HTMLVideoElement>(null)
 
   // Handle login click - redirect to PWA login page if in PWA mode
@@ -43,70 +40,26 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
     }
   }, [isPWA, initialLocale, router])
   
-  // Try to play video programmatically after load
+  // Try to play the desktop hero video programmatically after load.
+  // The mobile hero is a static image (see below) so we no longer
+  // need a mobile ref or autoplay retry.
   useEffect(() => {
-    const tryPlayVideo = async (video: HTMLVideoElement | null) => {
-      if (!video || videoError) return
-      
-      try {
-        await video.play()
-      } catch (error) {
-        // Autoplay was prevented - this is normal, user interaction will be needed
-        debugLog('Video autoplay prevented (normal browser behavior)')
-      }
-    }
-    
-    if (mobileVideoRef.current && !videoError) {
-      tryPlayVideo(mobileVideoRef.current)
-    }
-    if (desktopVideoRef.current && !videoError) {
-      tryPlayVideo(desktopVideoRef.current)
-    }
+    const video = desktopVideoRef.current
+    if (!video || videoError) return
+
+    video.play().catch(() => {
+      // Autoplay was prevented - this is normal, user interaction will be needed
+      debugLog('Video autoplay prevented (normal browser behavior)')
+    })
   }, [videoError])
   
-  // Use initialLocale prop directly - this ensures server and client render the same
-  const locale = useMemo(() => initialLocale, [initialLocale])
-  const dir = useMemo(() => initialDir, [initialDir])
-  
-  // Load messages based on initialLocale prop (not from hook)
-  const messages = useMemo(() => {
-    if (locale === 'ar') return arMessages
-    if (locale === 'ru') return ruMessages
-    return enMessages
-  }, [locale])
-  
-  // Create translation function that uses the correct messages
-  const t = useMemo(() => {
-    return (key: string, params?: Record<string, string | number>): string => {
-      const keys = key.split('.')
-      let value: unknown = messages
-      
-      for (const k of keys) {
-        if (value && typeof value === 'object' && k in value) {
-          value = (value as Record<string, unknown>)[k]
-        } else {
-          value = undefined
-          break
-        }
-      }
-      
-      if (typeof value !== 'string') {
-        warnLog(`Translation key not found: ${key}`)
-        return key
-      }
-      
-      // Simple parameter replacement
-      if (params) {
-        return Object.entries(params).reduce(
-          (str, [paramKey, paramValue]) => 
-            str.replace(new RegExp(`\\{${paramKey}\\}`, 'g'), String(paramValue)),
-          value
-        )
-      }
-      
-      return value
-    }
-  }, [messages])
+  // Messages come from MessagesProvider (populated server-side from the
+  // x-pathname header). The `initialLocale` / `initialDir` props are kept
+  // for backward compatibility and as a fallback when the provider is out
+  // of scope (e.g. template previews, tests).
+  const { t, locale: hookLocale, dir: hookDir } = useTranslation()
+  const locale = hookLocale ?? initialLocale
+  const dir = hookDir ?? initialDir
   
   // Memoize localized paths to ensure stable href values (prevents hydration mismatch)
   const productsPath = useMemo(() => getLocalizedPath('/products', locale), [locale])
@@ -159,44 +112,24 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             </motion.h2>
           </motion.div>
           
-          {/* Video - Full width on mobile, hero style */}
+          {/* Hero visual — mobile.
+              Intentionally a static image (not a <video>) to keep
+              mobile LCP fast on 4G. The desktop layout below still
+              renders the 12 MB loop video; mobile users generally
+              get redirected to /products by <MobileRedirect> anyway,
+              so the loop video is unnecessary here and was the
+              single biggest mobile payload on this route. */}
           <div className="relative -mx-3 mb-4">
-            <div className="aspect-[16/10] w-full overflow-hidden bg-gray-100">
-              {!videoError ? (
-                <video 
-                  ref={mobileVideoRef}
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  poster="/images/genosys-video-poster.jpg"
-                  onError={() => {
-                    warnLog('Video failed to load, showing fallback')
-                    setVideoError(true)
-                  }}
-                  onLoadedData={() => {
-                    // Video loaded successfully
-                    setVideoError(false)
-                  }}
-                >
-                  <source src="/videos/start-video.mp4" type="video/mp4" />
-                </video>
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100">
-                  <div className="text-center p-8">
-                    <Image 
-                      src="/images/genosys-logo.png" 
-                      alt="GENOSYS" 
-                      width={200}
-                      height={200}
-                      className="mx-auto mb-4 opacity-80"
-                      priority
-                    />
-                  </div>
-                </div>
-              )}
+            <div className="relative aspect-[16/10] w-full overflow-hidden bg-gray-100">
+              <Image
+                src="/images/genosys-video-poster.jpg"
+                alt="GENOSYS Korean dermacosmetics hero"
+                fill
+                priority
+                fetchPriority="high"
+                sizes="100vw"
+                className="object-cover"
+              />
               {/* Gradient overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent pointer-events-none" />
             </div>

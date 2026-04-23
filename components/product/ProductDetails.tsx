@@ -11,7 +11,7 @@ interface ProductDetailsProps {
 }
 
 export default function ProductDetails({ product }: ProductDetailsProps) {
-  const { t, dir, locale } = useTranslation()
+  const { t, dir, locale, messages } = useTranslation()
   
   return (
     <div className="space-y-6" dir={dir}>
@@ -42,7 +42,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
       {/* Category Badge */}
       <div className="flex items-center gap-2">
         <span className="inline-block bg-primary-100 text-primary-800 px-3 py-1 rounded-full text-xs font-medium">
-          {product.category.split(',').map(cat => translateCategory(cat.trim(), locale)).join(', ')}
+          {product.category.split(',').map(cat => translateCategory(cat.trim(), messages)).join(', ')}
         </span>
         <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
           product.inStock 

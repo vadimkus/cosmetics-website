@@ -34,7 +34,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
-  const { t, locale } = useTranslation()
+  const { t, locale, messages } = useTranslation()
   const { isPWA } = usePWAMode()
   const haptic = useHapticFeedback()
   const { getProductPrefetchProps } = usePrefetchProduct()
@@ -92,7 +92,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
   // Build comprehensive aria-label for accessibility
   const productAriaLabel = [
     product.name,
-    translateCategory(product.category, locale),
+    translateCategory(product.category, messages),
     product.inStock ? t('product.inStock') : t('product.soldOut'),
     canUserSeePrices(user) && !product.isPriceOnRequest 
       ? `${calculateDiscountedPrice(product, user).discountedPrice.toFixed(2)} AED`

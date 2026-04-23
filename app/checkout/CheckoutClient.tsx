@@ -15,6 +15,7 @@ import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import dynamic from 'next/dynamic'
 
 // Lazy load heavy checkout components (Stripe SDK + BottomSheet only needed conditionally)
@@ -31,18 +32,7 @@ export default function CheckoutClient() {
   const [isProcessing, setIsProcessing] = useState(false)
   // Use ref for synchronous double-submission prevention (state updates are async)
   const isSubmittingRef = useRef(false)
-  const [isMobileWeb, setIsMobileWeb] = useState(false)
-  
-  // Detect mobile web (non-PWA mobile)
-  useEffect(() => {
-    const checkMobileWeb = () => {
-      const isMobile = window.innerWidth < 768
-      setIsMobileWeb(isMobile && !isPWA)
-    }
-    checkMobileWeb()
-    window.addEventListener('resize', checkMobileWeb)
-    return () => window.removeEventListener('resize', checkMobileWeb)
-  }, [isPWA])
+  const { isMobileWeb } = useIsMobileWeb()
   const [freeMasks, setFreeMasks] = useState<Array<{ id: string; name: string; price: number; quantity: number; image: string }>>([])
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>('stripe')
   const [orderSummaryExpanded, setOrderSummaryExpanded] = useState(false) // Collapsed by default for PWA

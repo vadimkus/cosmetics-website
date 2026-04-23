@@ -1,7 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter, Noto_Sans_Arabic } from 'next/font/google'
 import Script from 'next/script'
+import { headers } from 'next/headers'
 import './globals.css'
+import { getLocaleFromPath } from '@/lib/i18n'
+import { loadMessages } from '@/lib/messagesServer'
+import { MessagesProvider } from '@/components/i18n/MessagesProvider'
 
 /**
  * Typography System - Font Loading Strategy
@@ -220,14 +224,23 @@ export const viewport = {
   colorScheme: 'light dark',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  // Default to English, will be updated by client-side locale detection
+  // Detect locale on the server from the x-pathname header set by proxy.ts.
+  // This lets us load only ONE locale's messages into the client payload
+  // instead of shipping all three. Falls back to English when the header is
+  // missing (static generation or first request before middleware runs).
+  const headersList = await headers()
+  const pathname = headersList.get('x-pathname') ?? '/'
+  const locale = getLocaleFromPath(pathname)
+  const dir = locale === 'ar' ? 'rtl' : 'ltr'
+  const messages = loadMessages(locale)
+
   return (
-    <html lang="en" dir="ltr" suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang={locale} dir={dir} suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         {/* Preconnect to external domains for faster resource loading */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -273,44 +286,46 @@ export default function RootLayout({
         <WebSiteSchema />
         <OrganizationSchema />
         <LocalBusinessSchema />
-        <ToastProvider>
-          <AuthProvider>
-            <PWASplashScreen>
-              <FavoritesProvider>
-                <CartProvider>
-                  <ServiceWorkerProvider>
-                    <PerformanceMonitor />
-                    <UserRefreshWrapper />
-                    <PageViewTracker />
-                    <LocaleWrapper>
-                      <PWAHeader />
-                      <MobileWebHeader />
-                      <Header />
-                      <main id="main-content" className="flex-1" role="main" tabIndex={-1}>
-                        <ErrorBoundary>
-                          <PullToRefresh>
-                            <PageTransition>
-                              {children}
-                            </PageTransition>
-                          </PullToRefresh>
-                        </ErrorBoundary>
-                      </main>
-                    </LocaleWrapper>
-                    <Footer />
-                    <MobileFooterNav />
-                    <MobileWebFooterNav />
-                    <PWAInstallPrompt variant="banner" showDelay={60} />
-                    <ServiceWorkerUpdateNotification />
-                    <StorageQuotaMonitor />
-                    <SyncStatusIndicator />
-                    <NetworkStatus />
-                    <ChatWidgetLazy />
-                  </ServiceWorkerProvider>
-                </CartProvider>
-              </FavoritesProvider>
-            </PWASplashScreen>
-          </AuthProvider>
-        </ToastProvider>
+        <MessagesProvider messages={messages} locale={locale}>
+          <ToastProvider>
+            <AuthProvider>
+              <PWASplashScreen>
+                <FavoritesProvider>
+                  <CartProvider>
+                    <ServiceWorkerProvider>
+                      <PerformanceMonitor />
+                      <UserRefreshWrapper />
+                      <PageViewTracker />
+                      <LocaleWrapper>
+                        <PWAHeader />
+                        <MobileWebHeader />
+                        <Header />
+                        <main id="main-content" className="flex-1" role="main" tabIndex={-1}>
+                          <ErrorBoundary>
+                            <PullToRefresh>
+                              <PageTransition>
+                                {children}
+                              </PageTransition>
+                            </PullToRefresh>
+                          </ErrorBoundary>
+                        </main>
+                      </LocaleWrapper>
+                      <Footer />
+                      <MobileFooterNav />
+                      <MobileWebFooterNav />
+                      <PWAInstallPrompt variant="banner" showDelay={60} />
+                      <ServiceWorkerUpdateNotification />
+                      <StorageQuotaMonitor />
+                      <SyncStatusIndicator />
+                      <NetworkStatus />
+                      <ChatWidgetLazy />
+                    </ServiceWorkerProvider>
+                  </CartProvider>
+                </FavoritesProvider>
+              </PWASplashScreen>
+            </AuthProvider>
+          </ToastProvider>
+        </MessagesProvider>
       </body>
     </html>
   )

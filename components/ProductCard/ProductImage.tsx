@@ -88,7 +88,7 @@ const ProductImage = memo(function ProductImage({
               blurDataURL={BLUR_DATA_URL}
               priority={false}
               quality={85}
-              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               onError={() => errorLog('Image failed to load:', product.image)}
             />
           </div>
@@ -110,7 +110,7 @@ const ProductImage = memo(function ProductImage({
               blurDataURL={BLUR_DATA_URL}
               priority={false}
               quality={85}
-              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
               onError={() => errorLog('Image failed to load:', product.image)}
             />
           </motion.div>

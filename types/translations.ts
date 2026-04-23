@@ -23,6 +23,12 @@ export interface UseTranslationReturn {
   t: TranslationFunction
   locale: Locale
   dir: 'ltr' | 'rtl'
+  /**
+   * Raw message bundle for the current locale. Exposed so utility helpers
+   * (e.g. `translateCategory`) can do their own lookups without
+   * re-importing the JSON bundles.
+   */
+  messages: Messages
 }
 
 // Helper type to extract nested keys from an object type

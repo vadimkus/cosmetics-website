@@ -9,7 +9,9 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import { getLocalizedPath } from '@/lib/i18n'
+import { isSimpleHeaderPage } from '@/lib/simpleHeaderPages'
 
 /**
  * Mobile Web Header - PWA-like design for mobile web (non-PWA)
@@ -31,7 +33,7 @@ export default function MobileWebHeader() {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isNavigating, setIsNavigating] = useState(false)
   const [isReady, setIsReady] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const { isMobile } = useIsMobile()
   const lastClickTime = useRef(0)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const menuPanelRef = useRef<HTMLDivElement>(null)
@@ -43,48 +45,13 @@ export default function MobileWebHeader() {
   const touchStartTime = useRef(0)
   const isScrolledToTop = useRef(true)
   
-  // Check if mobile device
-  useEffect(() => {
-    const checkMobile = () => {
-      const mobile = window.innerWidth < 768
-      setIsMobile(mobile)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
   // Check if we're on profile page
   const isOnProfilePage = pathname?.includes('/profile')
-  
-  // Check if we're on pages that have their own simple header or clean design
-  const isProductDetailPage = pathname ? /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) : false
-  const isLoginPage = pathname === '/login' || pathname === '/ru/login' || pathname === '/ar/login' || pathname?.endsWith('/login')
-  const isOnSimpleHeaderPage = pathname?.includes('/profile') || 
-                                pathname?.includes('/cart') || 
-                                pathname?.includes('/checkout') ||
-                                pathname?.includes('/orders') ||
-                                pathname?.includes('/privacy-policy') ||
-                                pathname?.includes('/terms') ||
-                                pathname?.includes('/faq') ||
-                                pathname?.includes('/contact') ||
-                                pathname?.includes('/about') ||
-                                pathname?.includes('/pwa-login') ||
-                                pathname?.includes('/success') ||
-                                pathname?.includes('/training') ||
-                                pathname?.includes('/pdf-viewer') ||
-                                pathname?.includes('/delivery') ||
-                                pathname?.includes('/brand') ||
-                                pathname?.includes('/favorites') ||
-                                pathname?.includes('/locations') ||
-                                pathname?.includes('/skin-recommendation') ||
-                                pathname?.includes('/blog') ||
-                                pathname?.includes('/signup') ||
-                                pathname?.includes('/forgot-password') ||
-                                pathname?.includes('/reset-password') ||
-                                pathname?.includes('/track') ||
-                                isLoginPage ||
-                                isProductDetailPage
+
+  // Shared "simple header page" helper ensures all three headers
+  // (MobileWebHeader, PWAHeader, Header) agree on which routes own
+  // their header. See lib/simpleHeaderPages.ts for the canonical list.
+  const isOnSimpleHeaderPage = isSimpleHeaderPage(pathname)
   
   // Handle profile button click - with debounce to prevent rapid clicks
   const handleProfileClick = useCallback(() => {

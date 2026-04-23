@@ -10,6 +10,7 @@ import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { getLocalizedPath } from '@/lib/i18n'
+import { isSimpleHeaderPage } from '@/lib/simpleHeaderPages'
 
 /**
  * PWA Header - Matches mobile app design
@@ -37,27 +38,10 @@ export default function PWAHeader() {
   // Check if we're on profile page
   const isOnProfilePage = pathname?.includes('/profile')
   
-  // Check if we're on pages that have their own simple header
-  // Include product detail pages (has /products/ followed by an ID)
-  const isProductDetailPage = pathname ? /\/products\/[a-zA-Z0-9_-]+$/.test(pathname) : false
-  const isOnSimpleHeaderPage = pathname?.includes('/profile') || 
-                                pathname?.includes('/cart') || 
-                                pathname?.includes('/checkout') ||
-                                pathname?.includes('/orders') ||
-                                pathname?.includes('/privacy-policy') ||
-                                pathname?.includes('/terms') ||
-                                pathname?.includes('/faq') ||
-                                pathname?.includes('/contact') ||
-                                pathname?.includes('/about') ||
-                                pathname?.includes('/pwa-login') ||
-                                pathname?.includes('/success') ||
-                                pathname?.includes('/training') ||
-                                pathname?.includes('/pdf-viewer') ||
-                                pathname?.includes('/delivery') ||
-                                pathname?.includes('/brand') ||
-                                pathname?.includes('/favorites') ||
-                                pathname?.includes('/locations') ||
-                                isProductDetailPage
+  // Shared "simple header page" helper — see lib/simpleHeaderPages.ts.
+  // Previously this header had its own hardcoded list that had drifted
+  // out of sync with MobileWebHeader and Header.
+  const isOnSimpleHeaderPage = isSimpleHeaderPage(pathname)
   
   // Handle profile button click - with debounce to prevent rapid clicks
   const handleProfileClick = useCallback(() => {

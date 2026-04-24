@@ -24,7 +24,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { CATEGORY_PAGES, CONCERN_PAGES } from '@/lib/concernsData'
 import type { Product } from '@/types'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { canUserSeePrices } from '@/lib/discountUtils'
+import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
 import {
   IconClinical,
   IconOfficialDistributor,
@@ -340,9 +340,34 @@ export default function HomeDesktopSections({
                               : 'Price on request'}
                           </p>
                         ) : userCanSeePrices ? (
-                          <p className="text-sm font-semibold text-gray-900">
-                            AED {product.price}
-                          </p>
+                          (() => {
+                            // Applies user-specific discount (Black Friday, tier-based,
+                            // Beauty Box bundle) exactly like ProductCard/ProductPrice.
+                            const pricing = calculateDiscountedPrice(product, user)
+                            if (pricing.hasDiscount) {
+                              return (
+                                <div>
+                                  <div className={`flex items-center gap-2 flex-wrap ${isRtl ? 'flex-row-reverse' : ''}`}>
+                                    <span className="text-sm font-bold text-primary-600">
+                                      AED {pricing.discountedPrice.toFixed(2)}
+                                    </span>
+                                    <span className="text-xs text-gray-500 line-through">
+                                      AED {pricing.originalPrice.toFixed(2)}
+                                    </span>
+                                  </div>
+                                  <span className="mt-0.5 inline-block text-[10px] font-semibold text-green-600">
+                                    {pricing.discountPercentage}%{' '}
+                                    {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'off'}
+                                  </span>
+                                </div>
+                              )
+                            }
+                            return (
+                              <p className="text-sm font-semibold text-gray-900">
+                                AED {pricing.originalPrice.toFixed(2)}
+                              </p>
+                            )
+                          })()
                         ) : user ? (
                           <p className="inline-flex items-center gap-1 text-sm font-semibold text-gray-500">
                             <Lock className="h-3.5 w-3.5" aria-hidden="true" />

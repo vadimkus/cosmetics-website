@@ -16,15 +16,12 @@ import {
   IconSecureCheckout,
   IconCertified,
 } from '@/components/icons/BrandIcons'
-import { usePathname } from 'next/navigation'
 import { getLocalizedPath } from '@/lib/i18n'
-import { useMemo } from 'react'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useTranslation } from '@/hooks/useTranslation'
 
 export default function Footer() {
-  const pathname = usePathname()
   const { isPWA, isClient: isPWAClient } = usePWAMode()
   const { isMobile, isClient: isMobileClient } = useIsMobile()
   const isClient = isPWAClient && isMobileClient
@@ -32,13 +29,6 @@ export default function Footer() {
   const { t, locale } = useTranslation()
 
   // Check if we're on the contact page - check synchronously to avoid hydration mismatch
-  // If pathname is null (SSR), default to false so server and client match initially
-  const isContactPage = useMemo(() => {
-    if (!pathname) return false
-    const path = pathname.toLowerCase()
-    return path === '/contact' || path === '/ar/contact' || path.startsWith('/contact')
-  }, [pathname])
-
   // Hide footer on mobile (sticky footer nav handles it) and in PWA mode
   if (isClient && (isPWA || isMobile)) {
     return null
@@ -56,7 +46,7 @@ export default function Footer() {
   const legalHeading = locale === 'ar' ? 'الوثائق' : locale === 'ru' ? 'Документы' : 'Legal'
 
   return (
-    <footer role="contentinfo" className={`bg-white border-t border-gray-200 ${isContactPage ? 'pt-0' : 'pt-10'}`} suppressHydrationWarning>
+    <footer role="contentinfo" className="bg-white border-t border-gray-200 pt-10" suppressHydrationWarning>
       <div className="container mx-auto px-4">
         {/* ── Trust badges strip ───────────────────────────────────────
             Custom GENOSYS pictograms — see components/icons/BrandIcons. */}

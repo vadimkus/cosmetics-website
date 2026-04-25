@@ -3,8 +3,8 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Order Success - GENOSYS Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC',
-  description: 'Your GENOSYS professional Korean dermacosmetics order has been successfully placed. Thank you for choosing GENOSYS Middle East FZ-LLC.',
+  title: 'Order Success - GENOSYS Professional Korean Dermacosmetics | Genosys',
+  description: 'Your GENOSYS professional Korean dermacosmetics order has been successfully placed. Thank you for choosing GENOSYS.',
   keywords: 'GENOSYS order success, Korean dermacosmetics order confirmed, professional skincare order, UAE cosmetics purchase success',
   openGraph: {
     title: 'Order Success - GENOSYS Professional Korean Dermacosmetics',

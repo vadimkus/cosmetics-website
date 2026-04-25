@@ -3,15 +3,15 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Заказ успешно оформлен - GENOSYS Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC',
-  description: 'Ваш заказ профессиональной корейской дерматокосметики GENOSYS успешно оформлен. Спасибо за выбор GENOSYS Middle East FZ-LLC.',
+  title: 'Заказ успешно оформлен - GENOSYS Professional Korean Dermacosmetics | Genosys',
+  description: 'Ваш заказ профессиональной корейской дерматокосметики GENOSYS успешно оформлен. Спасибо за выбор GENOSYS.',
   keywords: 'GENOSYS заказ успешно, корейская дерматокосметика заказ подтвержден, профессиональный уход за кожей заказ, успешная покупка косметики ОАЭ',
   openGraph: {
     title: 'Заказ успешно оформлен - GENOSYS Professional Korean Dermacosmetics',
     description: 'Ваш заказ профессиональной корейской дерматокосметики GENOSYS успешно оформлен.',
     type: 'website',
     url: 'https://genosys.ae/ru/success',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ru_AE',
     images: [
       {

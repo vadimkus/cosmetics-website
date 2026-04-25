@@ -38,7 +38,7 @@ export async function generateMetadata(
       description: seo.description,
       type: 'website',
       url: `${baseUrl}/ru/products/category/${slug}`,
-      siteName: 'GENOSYS Middle East FZ-LLC',
+      siteName: 'GENOSYS',
       locale: 'ru_AE',
       images: [{ url: `${baseUrl}/images/genosys-products.jpg`, width: 1200, height: 630, alt: seo.h1 }],
     },

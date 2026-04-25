@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ArabicLocationsPageClient from './ArabicLocationsPageClient'
 
 export const metadata: Metadata = {
-  title: 'مواقع GENOSYS - خدمة جميع إمارات الإمارات | Genosys Middle East FZ-LLC',
+  title: 'مواقع GENOSYS - خدمة جميع إمارات الإمارات | Genosys',
   description: 'GENOSYS الشرق الأوسط FZ-LLC يقدم مستحضرات التجميل الكورية المهنية إلى جميع إمارات الإمارات: دبي، أبوظبي، الشارقة، عجمان، رأس الخيمة، الفجيرة، وأم القيوين.',
   keywords: [
     'مواقع GENOSYS الإمارات',

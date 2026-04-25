@@ -22,7 +22,7 @@ type BlogPostListItem = {
 }
 
 export const metadata: Metadata = {
-  title: 'Блог GENOSYS - Советы по корейскому уходу за кожей и профессиональные идеи красоты | Genosys Middle East FZ-LLC',
+  title: 'Блог GENOSYS - Советы по корейскому уходу за кожей и профессиональные идеи красоты | Genosys',
   description: 'Экспертные статьи о корейском уходе за кожей, профессиональной косметике, техниках микронидлинга и трендах индустрии красоты в ОАЭ. Узнайте от профессионалов GENOSYS.',
   keywords: 'Блог корейского ухода за кожей, советы по дерматокосметике, руководство по микронидлингу, профессиональный уход за кожей ОАЭ, блог K-beauty, советы по уходу за кожей',
   robots: {
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
       },
     ],
     url: 'https://genosys.ae/ru/blog',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ru_AE',
   },
   twitter: {
@@ -174,7 +174,7 @@ export default async function RussianBlogPage() {
             "inLanguage": "ru-AE",
             "publisher": {
               "@type": "Organization",
-              "name": "GENOSYS Middle East FZ-LLC",
+              "name": "GENOSYS",
               "url": "https://genosys.ae"
             }
           }, null, 2)

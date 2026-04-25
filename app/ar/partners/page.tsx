@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description: 'ابحث عن شركاء GENOSYS المعتمدين في جميع أنحاء الإمارات. موزعو مستحضرات التجميل الكورية المهنية في دبي وأبوظبي والشارقة وجميع الإمارات.',
     type: 'website',
     url: 'https://genosys.ae/ar/partners',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: 'https://genosys.ae/images/genosys-products.jpg',

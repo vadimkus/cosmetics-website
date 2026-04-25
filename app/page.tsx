@@ -14,7 +14,7 @@ import type { Metadata } from 'next'
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Middle East FZ-LLC | Official Korean Dermacosmetics Distributor UAE',
+  title: 'GENOSYS | Official Korean Dermacosmetics Distributor UAE',
   description: 'Official distributor of GENOSYS professional Korean dermacosmetics in UAE. Premium microneedling devices, skincare products & beauty treatments. Free shipping over 1000 AED. Dubai, Abu Dhabi, Sharjah.',
   keywords: [
     'GENOSYS UAE',
@@ -42,11 +42,11 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'GENOSYS Middle East FZ-LLC | Official Korean Dermacosmetics Distributor UAE',
+    title: 'GENOSYS | Official Korean Dermacosmetics Distributor UAE',
     description: 'Official distributor of GENOSYS professional Korean dermacosmetics in UAE. Premium microneedling devices, skincare products & beauty treatments. Free shipping over 1000 AED.',
     type: 'website',
     url: 'https://genosys.ae',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: 'https://genosys.ae/images/genosys-products.jpg',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'GENOSYS Middle East FZ-LLC | Official Korean Dermacosmetics Distributor UAE',
+    title: 'GENOSYS | Official Korean Dermacosmetics Distributor UAE',
     description: 'Official distributor of GENOSYS professional Korean dermacosmetics in UAE. Premium microneedling devices and skincare products.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },

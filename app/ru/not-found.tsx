@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Страница не найдена - 404 | GENOSYS Middle East FZ-LLC',
+  title: 'Страница не найдена - 404 | GENOSYS',
   description: 'Запрашиваемая страница не найдена. Ознакомьтесь с нашей коллекцией профессиональной корейской дерматокосметики, средств по уходу за кожей и косметических устройств.',
   robots: {
     index: false,

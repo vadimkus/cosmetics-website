@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   
   if (!product) {
     return {
-      title: 'المنتج غير موجود - GENOSYS Middle East FZ-LLC',
+      title: 'المنتج غير موجود - GENOSYS',
       description: 'المنتج المطلوب غير موجود.',
       robots: {
         index: false,
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const displayImages = images.length > 0 ? images : [product.image]
   
   // Enhanced product-specific meta tags in Arabic
-  const productTitle = `${product.name} - مستحضرات التجميل الكورية المهنية الإمارات | GENOSYS Middle East FZ-LLC`
+  const productTitle = `${product.name} - مستحضرات التجميل الكورية المهنية الإمارات | GENOSYS`
   const productDescription = `${product.description.substring(0, 150)}... مستحضرات التجميل الكورية المهنية من GENOSYS. الموزع الرسمي في الإمارات. شحن مجاني لأكثر من 1000 درهم.`
   const productKeywords = [
     product.name,
@@ -63,9 +63,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     title: productTitle,
     description: productDescription,
     keywords: productKeywords,
-    authors: [{ name: 'GENOSYS Middle East FZ-LLC' }],
-    creator: 'GENOSYS Middle East FZ-LLC',
-    publisher: 'GENOSYS Middle East FZ-LLC',
+    authors: [{ name: 'GENOSYS' }],
+    creator: 'GENOSYS',
+    publisher: 'GENOSYS',
     robots: {
       index: true,
       follow: true,
@@ -82,7 +82,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       description: productDescription,
       type: 'website',
       url: `https://genosys.ae/ar/products/${product.id}`,
-      siteName: 'GENOSYS Middle East FZ-LLC',
+      siteName: 'GENOSYS',
       images: displayImages.map((img: string) => ({
         url: `https://genosys.ae${img}`,
         width: 800,

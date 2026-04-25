@@ -4,7 +4,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Информация о доставке - Быстрая доставка ОАЭ | Genosys Middle East FZ-LLC',
+  title: 'Информация о доставке - Быстрая доставка ОАЭ | Genosys',
   description: 'Быстрая и надежная служба доставки по всему ОАЭ. Доставка в течение 1 часа в Дубае, 24-36 часов по всему ОАЭ. Бесплатная доставка при заказе свыше 1,000 дирхамов.',
   keywords: [
     'доставка ОАЭ',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: 'Быстрая и надежная служба доставки по всему ОАЭ. Доставка в течение 1 часа в Дубае, 24-36 часов по всему ОАЭ. Бесплатная доставка при заказе свыше 1,000 дирхамов.',
     type: 'website',
     url: 'https://genosys.ae/ru/delivery',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ru_AE',
     images: [
       {

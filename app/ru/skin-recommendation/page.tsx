@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     title: 'Персональные рекомендации для кожи | GENOSYS Professional',
     description: 'Откройте для себя идеальные продукты GENOSYS, специально разработанные для ваших уникальных потребностей кожи.',
     url: 'https://genosys.ae/ru/skin-recommendation',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ru_AE',
     type: 'website',
     images: [

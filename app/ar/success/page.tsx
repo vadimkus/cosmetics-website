@@ -3,15 +3,15 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'تم تأكيد الطلب - GENOSYS Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC',
-  description: 'تم تأكيد طلبك من منتجات العناية بالبشرة الاحترافية GENOSYS بنجاح. شكراً لاختيارك Genosys Middle East FZ-LLC.',
+  title: 'تم تأكيد الطلب - GENOSYS Professional Korean Dermacosmetics | Genosys',
+  description: 'تم تأكيد طلبك من منتجات العناية بالبشرة الاحترافية GENOSYS بنجاح. شكراً لاختيارك Genosys.',
   keywords: 'GENOSYS طلب ناجح, مستحضرات تجميل كورية طلب مؤكد, عناية بالبشرة احترافية طلب, شراء ناجح مستحضرات الإمارات',
   openGraph: {
     title: 'تم تأكيد الطلب - GENOSYS Professional Korean Dermacosmetics',
     description: 'تم تأكيد طلبك من منتجات العناية بالبشرة الاحترافية GENOSYS بنجاح.',
     type: 'website',
     url: 'https://genosys.ae/ar/success',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ar_AE',
     images: [
       {

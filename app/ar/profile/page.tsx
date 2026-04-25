@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     locale: 'ar_AE',
     type: 'website',
     url: 'https://genosys.ae/ar/profile',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
   },
   twitter: {
     card: 'summary',

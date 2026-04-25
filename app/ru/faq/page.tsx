@@ -7,7 +7,7 @@ import type { Metadata } from 'next'
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: 'FAQ - Часто задаваемые вопросы | GENOSYS Middle East FZ-LLC',
+  title: 'FAQ - Часто задаваемые вопросы | GENOSYS',
   description: 'FAQ о корейской дерматокосметике GENOSYS, доставке, заказах, продуктах и профессиональном обучении в ОАЭ. Получите ответы о продуктах для ухода за кожей, доставке и услугах.',
   keywords: [
     'FAQ GENOSYS',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'FAQ - Часто задаваемые вопросы | GENOSYS Middle East FZ-LLC',
+    title: 'FAQ - Часто задаваемые вопросы | GENOSYS',
     description: 'FAQ о корейской дерматокосметике GENOSYS, доставке, заказах, продуктах и профессиональном обучении в ОАЭ.',
     type: 'website',
     images: [
@@ -41,14 +41,14 @@ export const metadata: Metadata = {
       },
     ],
     url: 'https://genosys.ae/ru/faq',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ru_AE',
   },
   twitter: {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'FAQ - Часто задаваемые вопросы | GENOSYS Middle East FZ-LLC',
+    title: 'FAQ - Часто задаваемые вопросы | GENOSYS',
     description: 'FAQ о корейской дерматокосметике GENOSYS, доставке, заказах и профессиональном обучении в ОАЭ.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },

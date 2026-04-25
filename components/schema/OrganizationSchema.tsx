@@ -17,12 +17,13 @@ export default function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "GENOSYS Middle East FZ-LLC",
+    "name": "GENOSYS",
+    "legalName": "Genosys Middle East FZ-LLC",
     "alternateName": [
-      "GENOSYS",
       "GENOSYS UAE",
-      "جينوسيس الشرق الأوسط",
-      "ГЕНОСИС Ближний Восток"
+      "Genosys Middle East",
+      "جينوسيس",
+      "ГЕНОСИС"
     ],
     "description": "Official distributor of GENOSYS professional Korean dermacosmetics in the United Arab Emirates. Providing high-quality skincare products for professional and home use.",
     "url": baseUrl,

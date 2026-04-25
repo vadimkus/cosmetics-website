@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     description: 'Shop GENOSYS professional Korean dermacosmetics. Complete collection of microneedling devices, serums, creams, masks & skincare solutions.',
     type: 'website',
     url: 'https://genosys.ae/products',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'en_AE',
     images: [
       {

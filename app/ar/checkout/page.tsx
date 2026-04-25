@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'الدفع الآمن - مستحضرات التجميل الكورية المهنية GENOSYS | Genosys Middle East FZ-LLC',
+  title: 'الدفع الآمن - مستحضرات التجميل الكورية المهنية GENOSYS | Genosys',
   description: 'أكمل طلب مستحضرات التجميل الكورية المهنية GENOSYS بأمان. خصومات مهنية، توصيل في الإمارات، ومعالجة دفع آمنة.',
   keywords: 'دفع GENOSYS، دفع مستحضرات التجميل الكورية، طلب العناية بالبشرة المهنية، شراء مستحضرات التجميل الإمارات، دفع آمن',
   openGraph: {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'أكمل طلب مستحضرات التجميل الكورية المهنية GENOSYS بأمان. خصومات مهنية وتوصيل في الإمارات.',
     type: 'website',
     url: 'https://genosys.ae/ar/checkout',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: '/images/genosys-products.jpg',

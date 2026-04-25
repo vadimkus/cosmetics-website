@@ -24,7 +24,7 @@ type BlogPostListItem = {
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Blog - Korean Skincare Tips & Professional Beauty Insights | Genosys Middle East FZ-LLC',
+  title: 'GENOSYS Blog - Korean Skincare Tips & Professional Beauty Insights | Genosys',
   description: 'Expert articles on Korean skincare, professional dermacosmetics, microneedling techniques, and beauty industry trends in UAE. Learn from GENOSYS professionals.',
   keywords: [
     'Korean skincare blog',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     description: 'Expert articles on Korean skincare, professional dermacosmetics, microneedling techniques, and beauty industry trends in UAE.',
     type: 'website',
     url: 'https://genosys.ae/blog',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'en_AE',
     images: [
       {
@@ -159,7 +159,7 @@ export default async function BlogPage() {
             "url": "https://genosys.ae/blog",
             "publisher": {
               "@type": "Organization",
-              "name": "GENOSYS Middle East FZ-LLC",
+              "name": "GENOSYS",
               "url": "https://genosys.ae"
             }
           }, null, 2)

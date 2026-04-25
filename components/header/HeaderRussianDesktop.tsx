@@ -62,10 +62,10 @@ export default function HeaderRussianDesktop() {
     <>
       {/* Desktop Left Side */}
       <div className="hidden md:flex flex-col">
-        <span className="text-lg md:text-2xl font-bold text-primary-600">
-          Genosys Middle East FZ-LLC
+        <span className="text-lg md:text-2xl font-bold text-primary-600 tracking-tight">
+          GENOSYS
         </span>
-        <div className="flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-[4rem] header-margin whitespace-nowrap">
+        <div className="flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-1 header-margin whitespace-nowrap">
           <span className="whitespace-nowrap">{t('common.uae')}</span>
           <Heart className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 flex-shrink-0 ${
             isHeartBeating ? 'animate-pulse' : ''

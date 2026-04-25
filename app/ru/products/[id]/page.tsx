@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   
   if (!product) {
     return {
-      title: 'Продукт не найден - GENOSYS Middle East FZ-LLC',
+      title: 'Продукт не найден - GENOSYS',
       description: 'Запрашиваемый продукт не найден.',
       robots: {
         index: false,
@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const images = product.images ? safeJsonParse<string[]>(product.images, [product.image]) : [product.image]
   const displayImages = images.length > 0 ? images : [product.image]
   
-  const productTitle = `${product.name} - Профессиональная корейская дерматокосметика ОАЭ | GENOSYS Middle East FZ-LLC`
+  const productTitle = `${product.name} - Профессиональная корейская дерматокосметика ОАЭ | GENOSYS`
   const productDescription = `${product.description.substring(0, 150)}... Профессиональная корейская дерматокосметика от GENOSYS. Официальный дистрибьютор в ОАЭ. Бесплатная доставка при заказе свыше 1000 дирхамов.`
   const productKeywords = [
     product.name,
@@ -62,9 +62,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     title: productTitle,
     description: productDescription,
     keywords: productKeywords,
-    authors: [{ name: 'GENOSYS Middle East FZ-LLC' }],
-    creator: 'GENOSYS Middle East FZ-LLC',
-    publisher: 'GENOSYS Middle East FZ-LLC',
+    authors: [{ name: 'GENOSYS' }],
+    creator: 'GENOSYS',
+    publisher: 'GENOSYS',
     robots: {
       index: true,
       follow: true,
@@ -81,7 +81,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       description: productDescription,
       type: 'website',
       url: `https://genosys.ae/ru/products/${product.id}`,
-      siteName: 'GENOSYS Middle East FZ-LLC',
+      siteName: 'GENOSYS',
       images: displayImages.map((img: string) => ({
         url: `https://genosys.ae${img}`,
         width: 800,

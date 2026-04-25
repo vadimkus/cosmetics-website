@@ -30,7 +30,7 @@ const locations: Record<string, {
   dubai: {
     name: 'Dubai',
     title: 'GENOSYS Dubai - Korean Dermacosmetics Distributor in Dubai',
-    description: 'GENOSYS Middle East FZ-LLC serves Dubai with professional Korean dermacosmetics and skincare training. Fast delivery across Dubai with free shipping for orders over 1000 AED.',
+    description: 'GENOSYS serves Dubai with professional Korean dermacosmetics and skincare training. Fast delivery across Dubai with free shipping for orders over 1000 AED.',
     address: 'Cordoba Residence, Villa E02, Dubai, United Arab Emirates',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -44,7 +44,7 @@ const locations: Record<string, {
   'abu-dhabi': {
     name: 'Abu Dhabi & Al Ain',
     title: 'GENOSYS Abu Dhabi & Al Ain - Korean Dermacosmetics Distributor',
-    description: 'GENOSYS Middle East FZ-LLC delivers professional Korean dermacosmetics to Abu Dhabi and Al Ain. Premium skincare products and microneedling devices available through our exclusive authorized reseller.',
+    description: 'GENOSYS delivers professional Korean dermacosmetics to Abu Dhabi and Al Ain. Premium skincare products and microneedling devices available through our exclusive authorized reseller.',
     address: 'Serving all areas of Abu Dhabi and Al Ain',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -66,7 +66,7 @@ const locations: Record<string, {
   sharjah: {
     name: 'Sharjah',
     title: 'GENOSYS Sharjah - Korean Dermacosmetics Distributor in Sharjah',
-    description: 'GENOSYS Middle East FZ-LLC provides professional Korean dermacosmetics to Sharjah. Quality skincare products and professional training available.',
+    description: 'GENOSYS provides professional Korean dermacosmetics to Sharjah. Quality skincare products and professional training available.',
     address: 'Serving all areas of Sharjah',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -78,7 +78,7 @@ const locations: Record<string, {
   'ras-al-khaimah': {
     name: 'Ras Al Khaimah',
     title: 'GENOSYS Ras Al Khaimah - Korean Dermacosmetics Distributor',
-    description: 'GENOSYS Middle East FZ-LLC serves Ras Al Khaimah with professional Korean dermacosmetics. Our office is located in Ras Al Khaimah.',
+    description: 'GENOSYS serves Ras Al Khaimah with professional Korean dermacosmetics. Our office is located in Ras Al Khaimah.',
     address: 'MBAM0014 Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ, Ras Al Khaimah, UAE',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -90,7 +90,7 @@ const locations: Record<string, {
   ajman: {
     name: 'Ajman',
     title: 'GENOSYS Ajman - Korean Dermacosmetics Distributor in Ajman',
-    description: 'GENOSYS Middle East FZ-LLC delivers professional Korean dermacosmetics to Ajman. Premium skincare products available with reliable delivery.',
+    description: 'GENOSYS delivers professional Korean dermacosmetics to Ajman. Premium skincare products available with reliable delivery.',
     address: 'Serving all areas of Ajman',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -101,7 +101,7 @@ const locations: Record<string, {
   fujairah: {
     name: 'Fujairah',
     title: 'GENOSYS Fujairah - Korean Dermacosmetics Distributor in Fujairah',
-    description: 'GENOSYS Middle East FZ-LLC provides professional Korean dermacosmetics to Fujairah. Quality skincare products delivered across the emirate.',
+    description: 'GENOSYS provides professional Korean dermacosmetics to Fujairah. Quality skincare products delivered across the emirate.',
     address: 'Serving all areas of Fujairah',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -112,7 +112,7 @@ const locations: Record<string, {
   'umm-al-quwain': {
     name: 'Umm Al Quwain',
     title: 'GENOSYS Umm Al Quwain - Korean Dermacosmetics Distributor',
-    description: 'GENOSYS Middle East FZ-LLC serves Umm Al Quwain with professional Korean dermacosmetics. Premium skincare products delivered across the emirate.',
+    description: 'GENOSYS serves Umm Al Quwain with professional Korean dermacosmetics. Premium skincare products delivered across the emirate.',
     address: 'Serving all areas of Umm Al Quwain',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -128,12 +128,12 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
   
   if (!location) {
     return {
-      title: 'Location Not Found | GENOSYS Middle East FZ-LLC',
+      title: 'Location Not Found | GENOSYS',
     }
   }
 
   return {
-    title: `${location.title} | GENOSYS Middle East FZ-LLC`,
+    title: `${location.title} | GENOSYS`,
     description: location.description,
     keywords: [
       `GENOSYS ${location.name}`,
@@ -146,7 +146,7 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
       description: location.description,
       type: 'website',
       url: `https://genosys.ae/locations/${city}`,
-      siteName: 'GENOSYS Middle East FZ-LLC',
+      siteName: 'GENOSYS',
       locale: 'en_AE',
       images: [
         {

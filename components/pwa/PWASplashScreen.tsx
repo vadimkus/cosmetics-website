@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useAuth } from '@/components/auth/AuthProvider'
 
-const COMPANY_NAME = 'Genosys Middle East FZ-LLC'
+const COMPANY_NAME = 'GENOSYS'
 const MINIMUM_DISPLAY_MS = 600 // Minimum time to show splash screen
 
 // Auth-related pages that don't require login

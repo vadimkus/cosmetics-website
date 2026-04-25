@@ -32,7 +32,7 @@ const locations: Record<string, {
   dubai: {
     name: 'Дубай',
     title: 'GENOSYS Дубай - Дистрибьютор корейской дерматокосметики в Дубае',
-    description: 'GENOSYS Middle East FZ-LLC обслуживает Дубай профессиональной корейской дерматокосметикой и обучением уходу за кожей. Быстрая доставка по всему Дубаю с бесплатной доставкой для заказов свыше 1000 дирхамов.',
+    description: 'GENOSYS обслуживает Дубай профессиональной корейской дерматокосметикой и обучением уходу за кожей. Быстрая доставка по всему Дубаю с бесплатной доставкой для заказов свыше 1000 дирхамов.',
     address: 'Cordoba Residence, Villa E02, Дубай, Объединенные Арабские Эмираты',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -46,7 +46,7 @@ const locations: Record<string, {
   'abu-dhabi': {
     name: 'Абу-Даби и Аль-Айн',
     title: 'GENOSYS Абу-Даби и Аль-Айн - Дистрибьютор корейской дерматокосметики',
-    description: 'GENOSYS Middle East FZ-LLC доставляет профессиональную корейскую дерматокосметику в Абу-Даби и Аль-Айн. Премиальные продукты для ухода за кожей доступны через нашего эксклюзивного авторизованного реселлера.',
+    description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику в Абу-Даби и Аль-Айн. Премиальные продукты для ухода за кожей доступны через нашего эксклюзивного авторизованного реселлера.',
     address: 'Обслуживание всех районов Абу-Даби и Аль-Айна',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -68,7 +68,7 @@ const locations: Record<string, {
   sharjah: {
     name: 'Шарджа',
     title: 'GENOSYS Шарджа - Дистрибьютор корейской дерматокосметики в Шардже',
-    description: 'GENOSYS Middle East FZ-LLC предоставляет профессиональную корейскую дерматокосметику в Шарджу. Качественные продукты для ухода за кожей и профессиональное обучение доступны.',
+    description: 'GENOSYS предоставляет профессиональную корейскую дерматокосметику в Шарджу. Качественные продукты для ухода за кожей и профессиональное обучение доступны.',
     address: 'Обслуживание всех районов Шарджи',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -82,7 +82,7 @@ const locations: Record<string, {
   'ras-al-khaimah': {
     name: 'Рас-эль-Хайма',
     title: 'GENOSYS Рас-эль-Хайма - Дистрибьютор корейской дерматокосметики',
-    description: 'GENOSYS Middle East FZ-LLC обслуживает Рас-эль-Хайму профессиональной корейской дерматокосметикой. Наш офис находится в Рас-эль-Хайме.',
+    description: 'GENOSYS обслуживает Рас-эль-Хайму профессиональной корейской дерматокосметикой. Наш офис находится в Рас-эль-Хайме.',
     address: 'MBAM0014 Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ, Рас-эль-Хайма, ОАЭ',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -96,7 +96,7 @@ const locations: Record<string, {
   ajman: {
     name: 'Аджман',
     title: 'GENOSYS Аджман - Дистрибьютор корейской дерматокосметики в Аджмане',
-    description: 'GENOSYS Middle East FZ-LLC доставляет профессиональную корейскую дерматокосметику в Аджман. Премиальные продукты для ухода за кожей доступны с надежной доставкой.',
+    description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику в Аджман. Премиальные продукты для ухода за кожей доступны с надежной доставкой.',
     address: 'Обслуживание всех районов Аджмана',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -109,7 +109,7 @@ const locations: Record<string, {
   fujairah: {
     name: 'Фуджейра',
     title: 'GENOSYS Фуджейра - Дистрибьютор корейской дерматокосметики в Фуджейре',
-    description: 'GENOSYS Middle East FZ-LLC предоставляет профессиональную корейскую дерматокосметику в Фуджейру. Качественные продукты для ухода за кожей доставляются по всему эмирату.',
+    description: 'GENOSYS предоставляет профессиональную корейскую дерматокосметику в Фуджейру. Качественные продукты для ухода за кожей доставляются по всему эмирату.',
     address: 'Обслуживание всех районов Фуджейры',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -122,7 +122,7 @@ const locations: Record<string, {
   'umm-al-quwain': {
     name: 'Умм-эль-Кайвайн',
     title: 'GENOSYS Умм-эль-Кайвайн - Дистрибьютор корейской дерматокосметики',
-    description: 'GENOSYS Middle East FZ-LLC обслуживает Умм-эль-Кайвайн профессиональной корейской дерматокосметикой. Премиальные продукты для ухода за кожей доставляются по всему эмирату.',
+    description: 'GENOSYS обслуживает Умм-эль-Кайвайн профессиональной корейской дерматокосметикой. Премиальные продукты для ухода за кожей доставляются по всему эмирату.',
     address: 'Обслуживание всех районов Умм-эль-Кайвайна',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -140,12 +140,12 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
   
   if (!location) {
     return {
-      title: 'Локация не найдена | GENOSYS Middle East FZ-LLC',
+      title: 'Локация не найдена | GENOSYS',
     }
   }
 
   return {
-    title: `${location.title} | GENOSYS Middle East FZ-LLC`,
+    title: `${location.title} | GENOSYS`,
     description: location.description,
     keywords: [
       `GENOSYS ${location.name}`,
@@ -166,7 +166,7 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
         },
       ],
       url: `https://genosys.ae/ru/locations/${city}`,
-      siteName: 'GENOSYS Middle East FZ-LLC',
+      siteName: 'GENOSYS',
       locale: 'ru_AE',
     },
     twitter: {
@@ -219,7 +219,7 @@ export default async function RussianLocationPage({ params }: LocationPageProps)
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "name": `GENOSYS Middle East FZ-LLC - ${location.name}`,
+            "name": `GENOSYS - ${location.name}`,
             "description": location.description,
             "address": {
               "@type": "PostalAddress",
@@ -368,7 +368,7 @@ export default async function RussianLocationPage({ params }: LocationPageProps)
               </div>
               
               <p className="text-sm text-amber-800 mt-4 text-center">
-                Этот реселлер официально уполномочен Genosys Middle East FZ-LLC на эксклюзивное распространение продукции GENOSYS в {location.authorizedReseller.territory}.
+                Этот реселлер официально уполномочен Genosys на эксклюзивное распространение продукции GENOSYS в {location.authorizedReseller.territory}.
               </p>
             </div>
           )}
@@ -379,7 +379,7 @@ export default async function RussianLocationPage({ params }: LocationPageProps)
             <div className="bg-gray-50 rounded-lg p-6">
               <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
                 <MapPin className="h-6 w-6 text-primary-600" />
-                {location.authorizedReseller ? 'Genosys Middle East FZ-LLC (Дистрибьютор)' : 'Контактная информация'}
+                {location.authorizedReseller ? 'Genosys (Дистрибьютор)' : 'Контактная информация'}
               </h2>
               <div className="space-y-4">
                 <div>

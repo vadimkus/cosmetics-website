@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     description: 'Find authorized GENOSYS partners across UAE. Professional Korean dermacosmetics distributors in Dubai, Abu Dhabi, Sharjah, and all Emirates.',
     type: 'website',
     url: 'https://genosys.ae/partners',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: 'https://genosys.ae/images/genosys-products.jpg',

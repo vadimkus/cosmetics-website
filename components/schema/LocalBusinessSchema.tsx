@@ -13,8 +13,9 @@ export default function LocalBusinessSchema() {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `${baseUrl}#business`,
-    "name": "GENOSYS Middle East FZ-LLC",
-    "alternateName": "GENOSYS Dubai",
+    "name": "GENOSYS",
+    "legalName": "Genosys Middle East FZ-LLC",
+    "alternateName": ["GENOSYS Dubai", "Genosys Middle East"],
     "description": "Official distributor of GENOSYS professional Korean dermacosmetics in Dubai, UAE. Professional microneedling devices, skincare products, and beauty treatments.",
     "url": baseUrl,
     "logo": {

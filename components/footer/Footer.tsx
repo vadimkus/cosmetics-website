@@ -118,7 +118,7 @@ export default function Footer() {
             >
               <Image
                 src="/Logo/upLOGO.png"
-                alt="GENOSYS Middle East FZ-LLC"
+                alt="GENOSYS"
                 width={180}
                 height={54}
                 className="w-[160px] h-auto"

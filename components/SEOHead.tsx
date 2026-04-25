@@ -28,7 +28,7 @@ export default function SEOHead({
   noIndex = false,
   noFollow = false
 }: SEOHeadProps) {
-  const fullTitle = title.includes('GENOSYS') ? title : `${title} | GENOSYS Middle East FZ-LLC`
+  const fullTitle = title.includes('GENOSYS') ? title : `${title} | GENOSYS`
   const fullDescription = description.includes('GENOSYS') ? description : `${description} - GENOSYS Professional Korean Dermacosmetics`
   
   const robotsContent = [
@@ -56,7 +56,7 @@ export default function SEOHead({
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={title} />
-      <meta property="og:site_name" content="GENOSYS Middle East FZ-LLC" />
+      <meta property="og:site_name" content="GENOSYS" />
       
       {/* Twitter Card Meta Tags */}
       <meta name="twitter:card" content={twitterCard} />
@@ -67,7 +67,7 @@ export default function SEOHead({
       <meta name="twitter:image" content={ogImage} />
       
       {/* Additional Meta Tags */}
-      <meta name="author" content="GENOSYS Middle East FZ-LLC" />
+      <meta name="author" content="Genosys Middle East FZ-LLC" />
       <meta name="theme-color" content="#dc2626" />
       <meta name="msapplication-TileColor" content="#dc2626" />
     </Head>

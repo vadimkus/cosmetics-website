@@ -328,7 +328,7 @@ export default function CertificateClient({
             {/* Footer - Contact Information */}
             <div className="text-center text-sm text-gray-600 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
               <p className="font-semibold text-gray-800 mb-4 text-base">
-                GENOSYS Middle East FZ-LLC
+                GENOSYS
               </p>
               
               <div className="flex flex-wrap justify-center gap-6 mb-6">

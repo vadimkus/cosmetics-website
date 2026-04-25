@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'سلة التسوق - GENOSYS مستحضرات التجميل الكورية المهنية | Genosys Middle East FZ-LLC',
+  title: 'سلة التسوق - GENOSYS مستحضرات التجميل الكورية المهنية | Genosys',
   description: 'راجع منتجات GENOSYS الكورية المهنية المختارة. دفع آمن مع خصومات مهنية وتوصيل في الإمارات.',
   keywords: 'سلة GENOSYS، سلة مستحضرات التجميل الكورية، سلة العناية بالبشرة المهنية، تسوق مستحضرات التجميل الإمارات، دفع GENOSYS',
   openGraph: {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'راجع منتجات GENOSYS الكورية المهنية المختارة. دفع آمن مع خصومات مهنية.',
     type: 'website',
     url: 'https://genosys.ae/ar/cart',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: '/images/genosys-products.jpg',

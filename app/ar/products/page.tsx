@@ -43,7 +43,7 @@ export const metadata: Metadata = {
       },
     ],
     locale: 'ar_AE',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
   },
   twitter: {
     card: 'summary_large_image',

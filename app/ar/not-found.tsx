@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'الصفحة غير موجودة - 404 | GENOSYS Middle East FZ-LLC',
+  title: 'الصفحة غير موجودة - 404 | GENOSYS',
   description: 'الصفحة التي تبحث عنها غير موجودة. تصفح مجموعتنا من مستحضرات التجميل الكورية المهنية ومنتجات العناية بالبشرة وأجهزة التجميل.',
   robots: {
     index: false,

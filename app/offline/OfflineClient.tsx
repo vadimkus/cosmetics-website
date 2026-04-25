@@ -426,7 +426,7 @@ export default function OfflineClient() {
 
         {/* Footer */}
         <div style={styles.footer}>
-          <p style={styles.footerText}>Genosys Middle East FZ-LLC</p>
+          <p style={styles.footerText}>Genosys</p>
           <p style={styles.footerText}>Premium Korean Dermacosmetics</p>
           <p style={{ ...styles.footerText, marginTop: '0.5rem' }}>
             🇦🇪 UAE • 🇰🇷 Korea

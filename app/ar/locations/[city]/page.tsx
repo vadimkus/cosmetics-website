@@ -368,7 +368,7 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
               </div>
               
               <p className="text-sm text-amber-800 mt-4 text-center">
-                هذا الموزع مخول رسمياً من Genosys Middle East FZ-LLC لتوزيع منتجات GENOSYS حصرياً في {location.authorizedReseller.territory}.
+                هذا الموزع مخول رسمياً من Genosys لتوزيع منتجات GENOSYS حصرياً في {location.authorizedReseller.territory}.
               </p>
             </div>
           )}
@@ -379,7 +379,7 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
             <div className="bg-gray-50 rounded-lg p-6">
               <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
                 <MapPin className="h-6 w-6 text-primary-600" />
-                {location.authorizedReseller ? 'Genosys Middle East FZ-LLC (الموزع)' : 'معلومات الاتصال'}
+                {location.authorizedReseller ? 'Genosys (الموزع)' : 'معلومات الاتصال'}
               </h2>
               <div className="space-y-4">
                 <div>

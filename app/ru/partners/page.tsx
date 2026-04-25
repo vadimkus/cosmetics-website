@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     description: 'Найдите авторизованных партнеров GENOSYS по всему ОАЭ. Дистрибьюторы профессиональной корейской дерматокосметики в Дубае, Абу-Даби, Шардже и всех эмиратах.',
     type: 'website',
     url: 'https://genosys.ae/ru/partners',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: 'https://genosys.ae/images/genosys-products.jpg',

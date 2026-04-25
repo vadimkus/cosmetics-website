@@ -3,7 +3,7 @@ import TrainingClient from './TrainingClient'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Professional Training - GENOSYS Skincare Training | Genosys Middle East FZ-LLC',
+  title: 'Professional Training - GENOSYS Skincare Training | Genosys',
   description: 'Professional training resources for GENOSYS skincare products. Download training documents, watch video lessons, and master professional techniques for Korean dermacosmetics.',
   keywords: [
     'GENOSYS training',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: 'Professional training resources for GENOSYS skincare products. Download training documents, watch video lessons, and master professional techniques.',
     type: 'website',
     url: 'https://genosys.ae/training',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'en_AE',
     images: [
       {

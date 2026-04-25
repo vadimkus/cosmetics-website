@@ -14,7 +14,7 @@ import type { Metadata } from 'next'
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية في الإمارات',
+  title: 'GENOSYS | الموزع الرسمي لمستحضرات التجميل الكورية المهنية في الإمارات',
   description: 'الموزع الرسمي لمستحضرات التجميل الكورية المهنية GENOSYS في الإمارات. أجهزة الوخز بالإبر الدقيقة المميزة ومنتجات العناية بالبشرة وعلاجات التجميل. شحن مجاني لأكثر من 1000 درهم. دبي، أبوظبي، الشارقة.',
   keywords: [
     'GENOSYS الإمارات',
@@ -42,11 +42,11 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية في الإمارات',
+    title: 'GENOSYS | الموزع الرسمي لمستحضرات التجميل الكورية المهنية في الإمارات',
     description: 'الموزع الرسمي لمستحضرات التجميل الكورية المهنية GENOSYS في الإمارات. أجهزة الوخز بالإبر الدقيقة المميزة ومنتجات العناية بالبشرة وعلاجات التجميل. شحن مجاني لأكثر من 1000 درهم.',
     type: 'website',
     url: 'https://genosys.ae/ar',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: 'https://genosys.ae/images/genosys-products.jpg',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية في الإمارات',
+    title: 'GENOSYS | الموزع الرسمي لمستحضرات التجميل الكورية المهنية في الإمارات',
     description: 'اكتشف مستحضرات التجميل الكورية المميزة من GENOSYS. الموزع الرسمي في الإمارات.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },

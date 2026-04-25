@@ -25,7 +25,11 @@ export function buildUrl(path: string): string {
 }
 
 // Site metadata
-export const SITE_NAME = 'GENOSYS Middle East FZ-LLC'
+// SITE_NAME is the brand name used in titles, OG metadata and headers.
+// The full legal entity ("Genosys Middle East FZ-LLC") is reserved for legal,
+// transactional and "about/contact" body content.
+export const SITE_NAME = 'GENOSYS'
+export const SITE_LEGAL_NAME = 'Genosys Middle East FZ-LLC'
 export const SITE_DESCRIPTION = 'Official distributor of GENOSYS Korean dermacosmetics in UAE'
 
 // Social media and contact

@@ -6,7 +6,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Профессиональное обучение - Обучение GENOSYS уходу за кожей | Genosys Middle East FZ-LLC',
+  title: 'Профессиональное обучение - Обучение GENOSYS уходу за кожей | Genosys',
   description: 'Ресурсы профессионального обучения для продуктов GENOSYS для ухода за кожей. Скачайте учебные документы, смотрите видеоуроки и освойте профессиональные техники корейской дерматокосметики.',
   keywords: [
     'Обучение GENOSYS',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
       },
     ],
     url: 'https://genosys.ae/ru/training',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ru_AE',
   },
   robots: {

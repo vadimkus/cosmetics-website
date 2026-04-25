@@ -200,7 +200,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               },
               "publisher": {
                 "@type": "Organization",
-                "name": "GENOSYS Middle East FZ-LLC",
+                "name": "GENOSYS",
                 "logo": {
                   "@type": "ImageObject",
                   "url": "https://genosys.ae/images/genosys-logo.png"

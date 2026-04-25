@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ProfilePageRefactored from '../../profile/page'
 
 export const metadata: Metadata = {
-  title: 'Профиль - Управление аккаунтом GENOSYS | Genosys Middle East FZ-LLC',
+  title: 'Профиль - Управление аккаунтом GENOSYS | Genosys',
   description: 'Управляйте своим профилем GENOSYS, просматривайте историю заказов, обновляйте личную информацию и настройки. Доступ к профессиональным ценам и эксклюзивным продуктам корейской дерматокосметики.',
   keywords: ['Профиль GENOSYS', 'Управление аккаунтом', 'История заказов', 'Настройки профиля', 'Профессиональный аккаунт', 'GENOSYS ОАЭ'],
   robots: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     locale: 'ru_AE',
     type: 'website',
     url: 'https://genosys.ae/ru/profile',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: '/images/genosys-products.jpg',

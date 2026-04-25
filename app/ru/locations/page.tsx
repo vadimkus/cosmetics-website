@@ -4,8 +4,8 @@ import { MapPin, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 
 export const metadata: Metadata = {
-  title: 'Локации GENOSYS - Обслуживание всех эмиратов ОАЭ | Genosys Middle East FZ-LLC',
-  description: 'GENOSYS Middle East FZ-LLC доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ: Дубай, Абу-Даби, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра и Умм-эль-Кайвайн.',
+  title: 'Локации GENOSYS - Обслуживание всех эмиратов ОАЭ | Genosys',
+  description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ: Дубай, Абу-Даби, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра и Умм-эль-Кайвайн.',
   keywords: 'Локации GENOSYS ОАЭ, корейская дерматокосметика Дубай, GENOSYS Абу-Даби, GENOSYS Шарджа, доставка ухода за кожей ОАЭ',
   robots: {
     index: true,
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Локации GENOSYS - Обслуживание всех эмиратов ОАЭ',
-    description: 'GENOSYS Middle East FZ-LLC доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ.',
+    description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ.',
     type: 'website',
     images: [
       {
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
       },
     ],
     url: 'https://genosys.ae/ru/locations',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ru_AE',
   },
   twitter: {
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     site: '@genosys_official',
     creator: '@genosys_official',
     title: 'Локации GENOSYS - Обслуживание всех эмиратов ОАЭ',
-    description: 'GENOSYS Middle East FZ-LLC доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ.',
+    description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {

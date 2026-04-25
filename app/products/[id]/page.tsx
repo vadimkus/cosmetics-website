@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   
   if (!product) {
     return {
-      title: 'Product Not Found - GENOSYS Middle East FZ-LLC',
+      title: 'Product Not Found - GENOSYS',
       description: 'The requested product could not be found.',
       robots: {
         index: false,
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const displayImages = images.length > 0 ? images : [product.image]
   
   // Enhanced product-specific meta tags
-  const productTitle = `${product.name} - Professional Korean Dermacosmetics UAE | GENOSYS Middle East FZ-LLC`
+  const productTitle = `${product.name} - Professional Korean Dermacosmetics UAE | GENOSYS`
   const productDescription = `${product.description.substring(0, 150)}... Professional Korean dermacosmetics by GENOSYS. Official distributor in UAE. Free shipping over 1000 AED.`
   const productKeywords = [
     product.name,
@@ -67,9 +67,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     title: productTitle,
     description: productDescription,
     keywords: productKeywords,
-    authors: [{ name: 'GENOSYS Middle East FZ-LLC' }],
-    creator: 'GENOSYS Middle East FZ-LLC',
-    publisher: 'GENOSYS Middle East FZ-LLC',
+    authors: [{ name: 'GENOSYS' }],
+    creator: 'GENOSYS',
+    publisher: 'GENOSYS',
     robots: {
       index: true,
       follow: true,
@@ -86,7 +86,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       description: productDescription,
       type: 'website',
       url: `https://genosys.ae/products/${product.id}`,
-      siteName: 'GENOSYS Middle East FZ-LLC',
+      siteName: 'GENOSYS',
       images: displayImages.map((img: string) => ({
         url: `https://genosys.ae${img}`,
         width: 800,

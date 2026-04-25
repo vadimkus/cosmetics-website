@@ -4,7 +4,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'معلومات التوصيل - شحن سريع الإمارات | Genosys Middle East FZ-LLC',
+  title: 'معلومات التوصيل - شحن سريع الإمارات | Genosys',
   description: 'خدمة توصيل سريعة وموثوقة في جميع أنحاء الإمارات. توصيل خلال ساعة واحدة في دبي، 24-36 ساعة في جميع أنحاء الإمارات. شحن مجاني على الطلبات التي تزيد عن 1,000 درهم.',
   keywords: [
     'توصيل الإمارات',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     description: 'خدمة توصيل سريعة وموثوقة في جميع أنحاء الإمارات. توصيل خلال ساعة واحدة في دبي، 24-36 ساعة في جميع أنحاء الإمارات. شحن مجاني على الطلبات التي تزيد عن 1,000 درهم.',
     type: 'website',
     url: 'https://genosys.ae/ar/delivery',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ar_AE',
     images: [
       {

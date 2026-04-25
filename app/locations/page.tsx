@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 import LocationsPageClient from './LocationsPageClient'
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Locations - Serving All UAE Emirates | Genosys Middle East FZ-LLC',
-  description: 'GENOSYS Middle East FZ-LLC delivers professional Korean dermacosmetics to all UAE emirates: Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain.',
+  title: 'GENOSYS Locations - Serving All UAE Emirates | Genosys',
+  description: 'GENOSYS delivers professional Korean dermacosmetics to all UAE emirates: Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain.',
   keywords: [
     'GENOSYS locations UAE',
     'Korean dermacosmetics Dubai',
@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'GENOSYS Locations - Serving All UAE Emirates',
-    description: 'GENOSYS Middle East FZ-LLC delivers professional Korean dermacosmetics to all UAE emirates.',
+    description: 'GENOSYS delivers professional Korean dermacosmetics to all UAE emirates.',
     type: 'website',
     url: 'https://genosys.ae/locations',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'en_AE',
     images: [
       {
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     site: '@genosys_official',
     creator: '@genosys_official',
     title: 'GENOSYS Locations - Serving All UAE Emirates',
-    description: 'GENOSYS Middle East FZ-LLC delivers professional Korean dermacosmetics to all UAE emirates.',
+    description: 'GENOSYS delivers professional Korean dermacosmetics to all UAE emirates.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {

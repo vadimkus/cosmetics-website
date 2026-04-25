@@ -15,11 +15,13 @@ import { SITE_URL, SITE_NAME } from '@/lib/siteConfig'
 
 export type SeoLocale = 'en' | 'ar' | 'ru'
 
-// Locale-specific site names
+// Locale-specific site names. We use the brand "GENOSYS" everywhere in
+// titles / OG metadata. The full legal name (Genosys Middle East FZ-LLC) is
+// reserved for /about, /contact, /terms, /privacy-policy bodies and emails.
 const SITE_NAMES: Record<SeoLocale, string> = {
-  en: 'GENOSYS Middle East FZ-LLC',
-  ar: 'GENOSYS Middle East FZ-LLC',
-  ru: 'GENOSYS Middle East FZ-LLC',
+  en: 'GENOSYS',
+  ar: 'GENOSYS',
+  ru: 'GENOSYS',
 }
 
 // OpenGraph locale codes (language_COUNTRY format)

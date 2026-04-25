@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: 'Personalized Skin Recommendation | GENOSYS Professional',
     description: 'Discover your perfect GENOSYS products tailored to your unique skin needs. AI-powered recommendation system for professional Korean skincare.',
     url: 'https://genosys.ae/skin-recommendation',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'en_AE',
     type: 'website',
     images: [

@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description: 'اكتشف GENOSYS، أول علامة تجارية مخصصة للوخز بالإبر الدقيقة في العالم. نظام إعادة ولادة الجينات يجمع بين الوخز بالإبر الدقيقة ومستحضرات التجميل المصممة خصيصاً.',
     type: 'website',
     url: 'https://genosys.ae/ar/brand',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: 'https://genosys.ae/images/genosys-products.jpg',

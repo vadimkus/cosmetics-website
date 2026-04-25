@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ArabicTrainingPageClient from './ArabicTrainingPageClient'
 
 export const metadata: Metadata = {
-  title: 'التدريب المهني - تدريب GENOSYS للعناية بالبشرة | Genosys Middle East FZ-LLC',
+  title: 'التدريب المهني - تدريب GENOSYS للعناية بالبشرة | Genosys',
   description: 'موارد التدريب المهني لمنتجات العناية بالبشرة GENOSYS. قم بتنزيل وثائق التدريب، ومشاهدة دروس الفيديو، وإتقان التقنيات المهنية لمستحضرات التجميل الكورية.',
   keywords: [
     'تدريب GENOSYS',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     description: 'موارد التدريب المهني لمنتجات العناية بالبشرة GENOSYS. قم بتنزيل وثائق التدريب، ومشاهدة دروس الفيديو، وإتقان التقنيات المهنية.',
     type: 'website',
     url: 'https://genosys.ae/ar/training',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: 'https://genosys.ae/images/genosys-logo.png',

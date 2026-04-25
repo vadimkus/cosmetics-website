@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'المفضلة - مستحضرات التجميل الكورية المهنية GENOSYS | Genosys Middle East FZ-LLC',
+  title: 'المفضلة - مستحضرات التجميل الكورية المهنية GENOSYS | Genosys',
   description: 'عرض منتجات مستحضرات التجميل الكورية المهنية GENOSYS المفضلة لديك. احفظ ونظم منتجات العناية بالبشرة المفضلة لديك للوصول السهل.',
   keywords: 'مفضلات GENOSYS، مفضلات مستحضرات التجميل الكورية، مفضلات العناية بالبشرة المهنية، المنتجات المحفوظة، قائمة الأمنيات',
   openGraph: {
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     description: 'عرض منتجات مستحضرات التجميل الكورية المهنية GENOSYS المفضلة لديك. احفظ ونظم منتجات العناية بالبشرة المفضلة لديك.',
     type: 'website',
     url: 'https://genosys.ae/ar/favorites',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: '/images/genosys-products.jpg',

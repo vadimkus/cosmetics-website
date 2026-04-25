@@ -115,7 +115,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       publishedTime: post.publishedAt?.toISOString(),
       authors: post.authorName ? [post.authorName] : [],
       url: `https://genosys.ae/ar/blog/${slug}`,
-      siteName: 'GENOSYS Middle East FZ-LLC',
+      siteName: 'GENOSYS',
       locale: 'ar_AE',
     },
     alternates: {
@@ -203,7 +203,7 @@ export default async function ArabicBlogPostPage({ params }: BlogPostPageProps) 
             },
             "publisher": {
               "@type": "Organization",
-              "name": "GENOSYS Middle East FZ-LLC",
+              "name": "GENOSYS",
               "logo": {
                 "@type": "ImageObject",
                 "url": "https://genosys.ae/images/genosys-logo.png"

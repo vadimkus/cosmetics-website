@@ -71,7 +71,7 @@ export default function LocationPageClient({ city, location }: LocationPageClien
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "name": `GENOSYS Middle East FZ-LLC - ${location.name}`,
+            "name": `GENOSYS - ${location.name}`,
             "description": location.description,
             "address": {
               "@type": "PostalAddress",
@@ -220,7 +220,7 @@ export default function LocationPageClient({ city, location }: LocationPageClien
               </div>
               
               <p className="text-sm text-amber-800 mt-4 text-center">
-                This reseller is officially authorized by Genosys Middle East FZ-LLC to exclusively distribute GENOSYS products in {location.authorizedReseller.territory}.
+                This reseller is officially authorized by Genosys to exclusively distribute GENOSYS products in {location.authorizedReseller.territory}.
               </p>
             </div>
           )}
@@ -231,7 +231,7 @@ export default function LocationPageClient({ city, location }: LocationPageClien
             <div className="bg-gray-50 rounded-lg p-6">
               <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
                 <MapPin className="h-6 w-6 text-primary-600" />
-                {location.authorizedReseller ? 'Genosys Middle East FZ-LLC (Distributor)' : 'Contact Information'}
+                {location.authorizedReseller ? 'Genosys (Distributor)' : 'Contact Information'}
               </h2>
               <div className="space-y-4">
                 <div>

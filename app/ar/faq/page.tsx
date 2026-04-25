@@ -7,7 +7,7 @@ import type { Metadata } from 'next'
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: 'الأسئلة الشائعة - الأسئلة المتكررة | GENOSYS Middle East FZ-LLC',
+  title: 'الأسئلة الشائعة - الأسئلة المتكررة | GENOSYS',
   description: 'الأسئلة المتكررة حول مستحضرات التجميل الكورية GENOSYS، الشحن، الطلبات، المنتجات، والتدريب المهني في الإمارات. احصل على إجابات حول منتجات العناية بالبشرة، التوصيل، والخدمات.',
   keywords: [
     'أسئلة GENOSYS الشائعة',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'الأسئلة الشائعة - الأسئلة المتكررة | GENOSYS Middle East FZ-LLC',
+    title: 'الأسئلة الشائعة - الأسئلة المتكررة | GENOSYS',
     description: 'الأسئلة المتكررة حول مستحضرات التجميل الكورية GENOSYS، الشحن، الطلبات، المنتجات، والتدريب المهني في الإمارات.',
     type: 'website',
     images: [
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'الأسئلة الشائعة - الأسئلة المتكررة | GENOSYS Middle East FZ-LLC',
+    title: 'الأسئلة الشائعة - الأسئلة المتكررة | GENOSYS',
     description: 'الأسئلة المتكررة حول مستحضرات التجميل الكورية GENOSYS، الشحن، الطلبات، والتدريب المهني في الإمارات.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },

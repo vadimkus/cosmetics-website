@@ -14,7 +14,7 @@ import type { Metadata } from 'next'
 export const revalidate = 300
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Middle East FZ-LLC | Официальный дистрибьютор корейской дерматокосметики в ОАЭ',
+  title: 'GENOSYS | Официальный дистрибьютор корейской дерматокосметики в ОАЭ',
   description: 'Официальный дистрибьютор профессиональной корейской дерматокосметики GENOSYS в ОАЭ. Премиальные устройства для микронидлинга, продукты для ухода за кожей и косметические процедуры. Бесплатная доставка при заказе свыше 1000 дирхамов. Дубай, Абу-Даби, Шарджа.',
   keywords: [
     'GENOSYS ОАЭ',
@@ -42,11 +42,11 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'GENOSYS Middle East FZ-LLC | Официальный дистрибьютор корейской дерматокосметики в ОАЭ',
+    title: 'GENOSYS | Официальный дистрибьютор корейской дерматокосметики в ОАЭ',
     description: 'Официальный дистрибьютор профессиональной корейской дерматокосметики GENOSYS в ОАЭ. Премиальные устройства для микронидлинга, продукты для ухода за кожей и косметические процедуры. Бесплатная доставка при заказе свыше 1000 дирхамов.',
     type: 'website',
     url: 'https://genosys.ae/ru',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     images: [
       {
         url: 'https://genosys.ae/images/genosys-products.jpg',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'GENOSYS Middle East FZ-LLC | Официальный дистрибьютор корейской дерматокосметики в ОАЭ',
+    title: 'GENOSYS | Официальный дистрибьютор корейской дерматокосметики в ОАЭ',
     description: 'Откройте для себя премиальную корейскую дерматокосметику от GENOSYS. Официальный дистрибьютор в ОАЭ.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },

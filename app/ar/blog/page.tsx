@@ -22,7 +22,7 @@ type BlogPostListItem = {
 }
 
 export const metadata: Metadata = {
-  title: 'مدونة GENOSYS - نصائح العناية بالبشرة الكورية ورؤى الجمال المهنية | Genosys Middle East FZ-LLC',
+  title: 'مدونة GENOSYS - نصائح العناية بالبشرة الكورية ورؤى الجمال المهنية | Genosys',
   description: 'مقالات الخبراء حول العناية بالبشرة الكورية، منتجات العناية بالبشرة المهنية، تقنيات المايكرونيدلينغ، واتجاهات صناعة الجمال في الإمارات. تعلم من محترفي GENOSYS.',
   keywords: [
     'مدونة العناية بالبشرة الكورية',
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
       },
     ],
     url: 'https://genosys.ae/ar/blog',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ar_AE',
   },
   twitter: {
@@ -157,7 +157,7 @@ export default async function ArabicBlogPage() {
             "inLanguage": "ar-AE",
             "publisher": {
               "@type": "Organization",
-              "name": "GENOSYS Middle East FZ-LLC",
+              "name": "GENOSYS",
               "url": "https://genosys.ae"
             }
           }, null, 2)

@@ -238,7 +238,7 @@ export default async function RussianBlogPostPage({ params }: BlogPostPageProps)
             },
             "publisher": {
               "@type": "Organization",
-              "name": "GENOSYS Middle East FZ-LLC",
+              "name": "GENOSYS",
               "logo": {
                 "@type": "ImageObject",
                 "url": "https://genosys.ae/images/genosys-logo.png"

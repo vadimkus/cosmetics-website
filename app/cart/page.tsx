@@ -4,7 +4,7 @@ import { CartErrorBoundary } from '@/components/error-boundaries'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Shopping Cart - GENOSYS Professional Korean Dermacosmetics | Genosys Middle East FZ-LLC',
+  title: 'Shopping Cart - GENOSYS Professional Korean Dermacosmetics | Genosys',
   description: 'Review your selected GENOSYS professional Korean dermacosmetics products. Secure checkout with professional discounts and UAE delivery.',
   keywords: 'GENOSYS cart, Korean dermacosmetics cart, professional skincare cart, UAE cosmetics shopping, GENOSYS checkout',
   openGraph: {

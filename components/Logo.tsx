@@ -15,7 +15,7 @@ export default function Logo({ className = '', showText: _showText = true, size 
         <div className="flex-shrink-0">
           <Image
             src="/images/genosys-logo.png"
-            alt="GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics Brand Logo"
+            alt="GENOSYS — Professional Korean Dermacosmetics"
             width={size === 'sm' ? 128 : size === 'md' ? 240 : 400}
             height={size === 'sm' ? 128 : size === 'md' ? 240 : 400}
             className="object-contain"

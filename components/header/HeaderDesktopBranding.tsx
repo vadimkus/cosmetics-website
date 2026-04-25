@@ -28,11 +28,11 @@ export default function HeaderDesktopBranding({ isRTL, isHeartBeating }: HeaderD
 
   return (
     <div className={`hidden md:flex flex-col ${isRTL ? 'items-end' : ''}`}>
-      <span className="text-lg md:text-2xl font-bold text-primary-600">
-        Genosys Middle East FZ-LLC
+      <span className="text-lg md:text-2xl font-bold text-primary-600 tracking-tight">
+        GENOSYS
       </span>
       <div className={`flex text-sm text-gray-600 items-center gap-1 ${
-        isRTL ? 'mr-0 md:mr-40' : 'ml-0 md:ml-28'
+        isRTL ? 'mr-0 md:mr-1' : 'ml-0 md:ml-1'
       } header-margin`}>
         {isRTL ? (
           <>

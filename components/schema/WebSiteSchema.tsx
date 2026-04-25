@@ -15,12 +15,12 @@ export default function WebSiteSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "GENOSYS Middle East FZ-LLC",
+    "name": "GENOSYS",
     "alternateName": [
       "GENOSYS UAE",
-      "GENOSYS",
-      "جينوسيس الشرق الأوسط",
-      "ГЕНОСИС Ближний Восток"
+      "Genosys Middle East",
+      "جينوسيس",
+      "ГЕНОСИС"
     ],
     "url": baseUrl,
     "description": "Official distributor of GENOSYS professional Korean dermacosmetics in UAE. Microneedling devices, skincare products, and beauty treatments.",

@@ -151,6 +151,14 @@ Response:
    honeypot are the right-sized defenses (matches the industry newsletter pattern).
 6. **Idempotent** — same email twice is a silent reactivation, not an error.
 
+7. **Welcome email must use `after()` on Vercel** — The handler returns JSON as soon
+   as the DB write succeeds. The actual SMTP send is wrapped in Next.js 16's
+   `after()` from `next/server` (same pattern as `/api/auth/register` post-response
+   work, `/api/checkout`, admin campaign batching, etc.). A plain fire-and-forget
+   `sendNewsletterWelcomeEmail(...).catch(...)` **does not complete** on serverless:
+   the runtime freezes after `NextResponse.json`, so subscribers never get mail.
+   See [SESSION_CHANGES_2026-04-25_NEWSLETTER_WELCOME_EMAIL_FIX.md](./SESSION_CHANGES_2026-04-25_NEWSLETTER_WELCOME_EMAIL_FIX.md).
+
 ### 3.3 Welcome email
 
 Template: `emailTemplates.newsletterWelcome` in `lib/email/templates.ts`.
@@ -159,8 +167,10 @@ Template: `emailTemplates.newsletterWelcome` in `lib/email/templates.ts`.
 - Localized EN / AR / RU (dir + textAlign switch for AR)
 - Footer contains the unsubscribe link built via `buildUnsubscribeUrl`
 
-Send is best-effort — a catch at the call site prevents SMTP hiccups from failing
-the subscribe request.
+Send is **best-effort for the subscriber's UX** (HTTP 200 once the row is saved),
+but the implementation **must** schedule SMTP inside `after()` so delivery actually
+runs on Vercel. Errors are logged (`success` / `messageId` vs `error`); they do not
+fail the HTTP response.
 
 ### 3.4 Unsubscribe page
 

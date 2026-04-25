@@ -1,5 +1,32 @@
 # Email & Orders System Changelog
 
+## Version 3.0.2 - Newsletter welcome email delivery on Vercel (April 25, 2026)
+
+### Summary
+
+Subscribers who completed the homepage newsletter form saw *"Thanks — check your inbox for a welcome email"* but **received no message**. The database row was created; SMTP never ran reliably.
+
+### Root cause
+
+`POST /api/newsletter/subscribe` called `sendNewsletterWelcomeEmail` as a detached promise and immediately returned `NextResponse.json`. On Vercel serverless, the execution context ends when the response is finalized, so the Gmail send was **dropped before completion**.
+
+### Fix
+
+Schedule the welcome send with Next.js 16 **`after()`** from `next/server` (same pattern as registration, checkout, and admin newsletter batch sends). Log `messageId` on success and `error` on failure for Vercel log correlation.
+
+### Files modified
+
+| File | Change |
+|------|--------|
+| `app/api/newsletter/subscribe/route.ts` | `after()` wrapper + structured logging |
+
+### Reference
+
+- [SESSION_CHANGES_2026-04-25_NEWSLETTER_WELCOME_EMAIL_FIX.md](./SESSION_CHANGES_2026-04-25_NEWSLETTER_WELCOME_EMAIL_FIX.md)
+- [NEWSLETTER_SYSTEM.md](./NEWSLETTER_SYSTEM.md) §3.2–3.3
+
+---
+
 ## Version 3.0.1 - Single Discount Display (February 13, 2026)
 
 ### Summary

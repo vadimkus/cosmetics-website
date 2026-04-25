@@ -1,7 +1,5 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import BrandPageClient from '../../brand/BrandPageClient'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -61,100 +59,15 @@ export const metadata: Metadata = {
 
 export default function ArabicBrandPage() {
   return (
-    <div className="bg-white min-h-screen" dir="rtl">
-      <BreadcrumbSchema 
+    <>
+      <BreadcrumbSchema
         items={[
           { name: 'الرئيسية', url: '/ar' },
           { name: 'العلامة التجارية', url: '/ar/brand' }
         ]}
       />
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
-        <div className="max-w-4xl mx-auto">
-          {/* Navigation Breadcrumb */}
-          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4 text-right" aria-label="Breadcrumb">
-            <Link href="/ar" className="hover:text-primary-600 transition-colors">الرئيسية</Link>
-            <span> / </span>
-            <span className="text-gray-900 font-medium">العلامة التجارية</span>
-          </nav>
-          
-          {/* Back to Home */}
-          <Link href="/ar" className="inline-flex items-center flex-row-reverse gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
-            <ArrowLeft className="h-3 w-3 md:h-4 md:w-4 rotate-180" />
-            <span>العودة للرئيسية</span>
-          </Link>
-
-          <div className="text-center mb-6 md:mb-12">
-            <h1 className="text-xl md:text-5xl font-bold text-gray-800 mb-3 md:mb-6">
-              نظام GENOSYS لإعادة ولادة الجينات
-            </h1>
-            <p className="text-xs md:text-xl text-gray-600 max-w-2xl mx-auto mb-4 md:mb-8 leading-relaxed">
-              GENOSYS هي أول علامة تجارية مخصصة للوخز بالإبر الدقيقة في العالم، ولدت من خلال الجمع بين الوخز بالإبر الدقيقة ومستحضرات التجميل المصممة خصيصاً لعلاج الوخز بالإبر الدقيقة لتحسين تأثيرات العناية بالبشرة.
-            </p>
-            
-            {/* Video Section */}
-            <div className="max-w-4xl mx-auto mb-4 md:mb-8">
-              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/4L9xZc7wAjI"
-                  title="نظام GENOSYS لإعادة ولادة الجينات"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </div>
-            
-          </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-8 mb-4 md:mb-8">
-            <p className="text-gray-600 leading-relaxed text-xs md:text-lg text-center mb-4 md:mb-8">
-              مع التركيبات الصديقة للبشرة والمكونات النشطة القوية، لا توفر خطوط GENOSYS للعناية المنزلية/المهنية نتائج مرئية طويلة الأمد فحسب، بل تعزز أيضاً فعالية العلاجات المهنية.
-            </p>
-            
-            {/* Video Section */}
-            <div className="max-w-4xl mx-auto">
-              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-                <iframe
-                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/v-i6CHJfWIg?autoplay=1&loop=1&playlist=v-i6CHJfWIg&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1"
-                  title="علاج GENOSYS المهني"
-                  frameBorder="0"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                ></iframe>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg shadow-sm border p-3 md:p-8">
-            <div className="text-center">
-              <div className="mt-3 md:mt-6">
-                <Image
-                  src="/Logo/Full.png"
-                  alt="GENOSYS نظام إعادة ولادة الجينات - شعار العلامة التجارية لمستحضرات التجميل الكورية المهنية"
-                  width={200}
-                  height={100}
-                  className="mx-auto scale-75 md:scale-100"
-                />
-              </div>
-              <div className="mt-3 md:mt-6">
-                <Image
-                  src="/images/genosys-products.jpg"
-                  alt="مجموعة منتجات العناية بالبشرة المهنية GENOSYS الكورية - أجهزة الوخز بالإبر الدقيقة وحلول العناية بالبشرة"
-                  width={800}
-                  height={600}
-                  className="rounded-lg shadow-md mx-auto"
-                  priority
-                />
-              </div>
-              <p className="text-gray-500 text-[10px] md:text-base mt-2 md:mt-4">
-                خط GENOSYS للعناية بالبشرة المهنية - منتجات مختبرة من قبل أطباء الجلد.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <BrandPageClient />
+    </>
   )
 }
 

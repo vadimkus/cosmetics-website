@@ -743,10 +743,43 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
     : 'Join the GENOSYS insiders'
 
   const description = locale === 'ar'
-    ? 'نصائح من الخبراء، إطلاقات جديدة، وعروض حصرية — مباشرةً إلى بريدك الإلكتروني.'
+    ? 'بريد إلكتروني واحد شهرياً. أدلة العناية بالبشرة من المتخصصين، الإطلاقات الجديدة، وعروض حصرية للمشتركين — من فريقنا في دبي.'
     : locale === 'ru'
-    ? 'Советы экспертов, новинки и эксклюзивные предложения — прямо на вашу почту.'
-    : 'Expert tips, new launches, and exclusive offers — straight to your inbox.'
+    ? 'Одно письмо в месяц. Гайды от специалистов по уходу, новинки и эксклюзивные предложения для подписчиков — от нашей команды в Дубае.'
+    : 'One email a month. Skincare guides written by clinicians, new product launches, and subscriber-only offers — from our Dubai team.'
+
+  const kicker = locale === 'ar'
+    ? 'النشرة البريدية · رسالة واحدة شهرياً'
+    : locale === 'ru'
+    ? 'Рассылка · 1 письмо в месяц'
+    : 'Newsletter · 1 email per month'
+
+  const benefitsTitle = locale === 'ar'
+    ? 'ماذا ستحصل عليه'
+    : locale === 'ru'
+    ? 'Что вы получите'
+    : 'What you\u2019ll get'
+
+  const benefits = locale === 'ar'
+    ? [
+        'إطلاقات المنتجات الجديدة أولاً',
+        'أدلة العناية بالبشرة من المختصين',
+        'عروض حصرية للمشتركين',
+        'وصول مبكر لفعاليات العيادة في دبي',
+      ]
+    : locale === 'ru'
+    ? [
+        'Новинки раньше, чем в магазинах',
+        'Гайды по уходу от специалистов',
+        'Эксклюзивные акции для подписчиков',
+        'Ранний доступ к событиям клиники в Дубае',
+      ]
+    : [
+        'New product launches before anyone else',
+        'Skincare guides from K-beauty clinicians',
+        'Subscriber-only promos & bundles',
+        'Early access to clinic events in Dubai',
+      ]
 
   const successMsg = locale === 'ar'
     ? 'شكراً لك! تحقق من بريدك الإلكتروني للتأكيد.'
@@ -819,89 +852,148 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
   }
 
   return (
-    <section className="bg-gray-900 text-white py-16 lg:py-20">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-white/10 mb-5">
-            <Mail className="h-5 w-5 text-white" aria-hidden="true" />
-          </div>
-          <h2 className="text-3xl lg:text-[36px] lg:leading-[1.1] font-bold font-display tracking-tight">
-            {headline}
-          </h2>
-          <p className="mt-3 text-gray-300 max-w-xl mx-auto text-sm lg:text-base">
-            {description}
-          </p>
+    <section className="relative overflow-hidden bg-gray-950 text-white py-20 lg:py-28">
+      {/* Subtle radial highlight + grain to add depth to the dark band */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            'radial-gradient(ellipse 60% 60% at 50% 0%, rgba(180, 70, 100, 0.22), rgba(2, 6, 23, 0) 70%)',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
+      />
+      <div className="relative container mx-auto px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className={`grid lg:grid-cols-12 gap-10 lg:gap-16 items-start ${isRtl ? 'text-right' : ''}`}>
+            {/* ── LEFT: kicker, headline, copy, form ─────────────────────── */}
+            <div className="lg:col-span-7">
+              <div className={`inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-gray-400 mb-5 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                <span aria-hidden="true" className="h-px w-8 bg-gray-600" />
+                {kicker}
+              </div>
+              <h2 className="text-3xl lg:text-[44px] lg:leading-[1.05] font-bold font-display tracking-tight">
+                {headline}
+              </h2>
+              <p className="mt-4 text-gray-300 text-[15px] lg:text-base leading-relaxed max-w-lg">
+                {description}
+              </p>
 
-          {status === 'success' ? (
-            <div className="mt-8 inline-flex items-center gap-2 rounded-xl bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 px-5 py-3">
-              <Check className="h-4 w-4" aria-hidden="true" />
-              <span className="text-sm font-semibold">{successMsg}</span>
+              {status === 'success' ? (
+                <div className={`mt-8 inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 px-5 py-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                  <Check className="h-4 w-4" aria-hidden="true" />
+                  <span className="text-sm font-semibold">{successMsg}</span>
+                </div>
+              ) : (
+                <form
+                  onSubmit={handleSubmit}
+                  noValidate
+                  className={`mt-8 max-w-lg ${isRtl ? '' : ''}`}
+                >
+                  <label htmlFor="home-newsletter-email" className="sr-only">
+                    {locale === 'ar' ? 'البريد الإلكتروني' : locale === 'ru' ? 'Email' : 'Email address'}
+                  </label>
+                  {/* Unified pill: input flows into the button. White ring on focus, soft border at rest. */}
+                  <div className={`flex items-center gap-1 p-1 rounded-full bg-white/[0.07] border border-white/15 backdrop-blur-sm transition-colors focus-within:bg-white/[0.1] focus-within:border-white/30 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                    <input
+                      id="home-newsletter-email"
+                      type="email"
+                      required
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      placeholder={
+                        locale === 'ar' ? 'أدخل بريدك الإلكتروني' : locale === 'ru' ? 'Введите email' : 'Enter your email'
+                      }
+                      className={`flex-1 min-w-0 bg-transparent border-0 px-5 py-2.5 text-sm text-white placeholder:text-gray-400 focus:outline-none disabled:opacity-60 ${isRtl ? 'text-right' : ''}`}
+                      autoComplete="email"
+                      disabled={status === 'loading'}
+                      aria-invalid={status === 'error'}
+                      aria-describedby={status === 'error' ? 'home-newsletter-error' : undefined}
+                    />
+
+                    {/* Honeypot — hidden from a11y tree; only bots fill it. */}
+                    <input
+                      type="text"
+                      name="website"
+                      value={website}
+                      onChange={e => setWebsite(e.target.value)}
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      className="hidden"
+                    />
+
+                    <button
+                      type="submit"
+                      disabled={status === 'loading'}
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-gray-900 px-6 py-2.5 font-semibold text-sm hover:bg-gray-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
+                    >
+                      {status === 'loading'
+                        ? (locale === 'ar' ? 'جارٍ الإرسال…' : locale === 'ru' ? 'Отправляем…' : 'Subscribing…')
+                        : (locale === 'ar' ? 'اشترك' : locale === 'ru' ? 'Подписаться' : 'Subscribe')}
+                      {status !== 'loading' && (
+                        <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
+                      )}
+                    </button>
+                  </div>
+                </form>
+              )}
+
+              {status === 'error' && (
+                <p id="home-newsletter-error" className="mt-4 text-sm text-red-300" role="alert">
+                  {errorMsg || genericError}
+                </p>
+              )}
+
+              <p className={`mt-4 text-xs text-gray-500 flex items-center gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                <Check className="h-3.5 w-3.5 text-gray-500" aria-hidden="true" />
+                {locale === 'ar'
+                  ? 'إلغاء الاشتراك بنقرة واحدة. نحن نحترم خصوصيتك.'
+                  : locale === 'ru'
+                  ? 'Отписка в один клик. Мы уважаем вашу приватность.'
+                  : 'Unsubscribe in one click. We respect your privacy.'}
+              </p>
             </div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              noValidate
-              className={`mt-8 flex flex-col sm:flex-row gap-3 max-w-lg mx-auto ${isRtl ? 'sm:flex-row-reverse' : ''}`}
-            >
-              <label htmlFor="home-newsletter-email" className="sr-only">
-                {locale === 'ar' ? 'البريد الإلكتروني' : locale === 'ru' ? 'Email' : 'Email address'}
-              </label>
-              <input
-                id="home-newsletter-email"
-                type="email"
-                required
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                placeholder={
-                  locale === 'ar' ? 'أدخل بريدك الإلكتروني' : locale === 'ru' ? 'Введите email' : 'Enter your email'
-                }
-                className={`flex-1 min-w-0 rounded-xl bg-white/10 border border-white/20 px-4 py-3 text-sm text-white placeholder:text-gray-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50 disabled:opacity-60 ${isRtl ? 'text-right' : ''}`}
-                autoComplete="email"
-                disabled={status === 'loading'}
-                aria-invalid={status === 'error'}
-                aria-describedby={status === 'error' ? 'home-newsletter-error' : undefined}
-              />
 
-              {/* Honeypot — off-screen, hidden from a11y tree; only bots fill it. */}
-              <input
-                type="text"
-                name="website"
-                value={website}
-                onChange={e => setWebsite(e.target.value)}
-                tabIndex={-1}
-                autoComplete="off"
-                aria-hidden="true"
-                className="hidden"
-              />
+            {/* ── RIGHT: benefits card ──────────────────────────────────── */}
+            <div className="lg:col-span-5">
+              <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm p-6 lg:p-8">
+                <div className={`flex items-center gap-3 mb-5 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 border border-white/15">
+                    <Mail className="h-4 w-4 text-white" aria-hidden="true" />
+                  </span>
+                  <p className="text-[11px] font-mono tracking-[0.18em] uppercase text-gray-400">
+                    {benefitsTitle}
+                  </p>
+                </div>
+                <ul className="space-y-3">
+                  {benefits.map(benefit => (
+                    <li
+                      key={benefit}
+                      className={`flex items-start gap-3 text-[14px] text-gray-200 leading-relaxed ${isRtl ? 'flex-row-reverse text-right' : ''}`}
+                    >
+                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary-400" aria-hidden="true" />
+                      <span>{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
 
-              <button
-                type="submit"
-                disabled={status === 'loading'}
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-white text-gray-900 px-5 py-3 font-semibold text-sm hover:bg-gray-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {status === 'loading'
-                  ? (locale === 'ar' ? 'جارٍ الإرسال…' : locale === 'ru' ? 'Отправляем…' : 'Subscribing…')
-                  : (locale === 'ar' ? 'اشترك' : locale === 'ru' ? 'Подписаться' : 'Subscribe')}
-                {status !== 'loading' && (
-                  <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
-                )}
-              </button>
-            </form>
-          )}
-
-          {status === 'error' && (
-            <p id="home-newsletter-error" className="mt-4 text-sm text-red-300" role="alert">
-              {errorMsg || genericError}
-            </p>
-          )}
-
-          <p className="mt-4 text-xs text-gray-400">
-            {locale === 'ar'
-              ? 'يمكنك إلغاء الاشتراك في أي وقت. نحن نحترم خصوصيتك.'
-              : locale === 'ru'
-              ? 'Можно отписаться в любой момент. Мы уважаем вашу приватность.'
-              : 'Unsubscribe any time. We respect your privacy.'}
-          </p>
+                {/* Frequency promise — handles the #1 objection */}
+                <div className="mt-6 pt-5 border-t border-white/10">
+                  <p className={`text-[12px] text-gray-400 leading-relaxed ${isRtl ? 'text-right' : ''}`}>
+                    {locale === 'ar'
+                      ? 'نرسل بريداً إلكترونياً واحداً في الشهر فقط — لا رسائل غير مرغوب فيها، ولا مشاركة بياناتك مع أي طرف ثالث.'
+                      : locale === 'ru'
+                      ? 'Только одно письмо в месяц. Без спама. Не передаём ваши данные третьим лицам.'
+                      : 'One email a month. No spam. We never share your data with third parties.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

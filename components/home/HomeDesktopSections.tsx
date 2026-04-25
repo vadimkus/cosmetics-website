@@ -102,129 +102,140 @@ const CATEGORY_DESCRIPTORS: Record<string, { en: string; ar: string; ru: string 
   },
 }
 
-// Concern card meta — short homepage label + 1-line symptom descriptor + a
-// per-concern colour accent for the left edge bar. Replaces the old emoji
-// well, which made every concern look the same. Colour is meaningful: warm
-// tones for sun/acne/aging, cool tones for hydration/sensitivity, etc.
+// Concern card meta — friendly label + benefit-led one-liner (replacing the
+// old symptom list, which read more like a medical chart than skincare copy)
+// + per-concern colour identity used in three places: the colored dot beside
+// the title, the bottom "Explore" CTA text colour, and the very subtle
+// tinted hover background. Colour is meaningful — warm tones for
+// sun/acne/aging, cool tones for hydration/sensitivity, etc.
 const CONCERN_META: Record<
   string,
   {
-    accentBar: string
+    accentDot: string
     accentText: string
+    hoverTint: string
     label: { en: string; ar: string; ru: string }
-    symptoms: { en: string; ar: string; ru: string }
+    benefit: { en: string; ar: string; ru: string }
   }
 > = {
   'sun-protection': {
-    accentBar: 'bg-amber-400',
+    accentDot: 'bg-amber-400',
     accentText: 'text-amber-700',
+    hoverTint: 'bg-amber-50/60',
     label: {
       en: 'Sun Protection',
       ar: 'الحماية من الشمس',
       ru: 'Защита от солнца',
     },
-    symptoms: {
-      en: 'UAE-grade SPF, BB cushion, daily UV defence',
-      ar: 'حماية SPF بمستوى الإمارات، كوشن BB، دفاع يومي',
-      ru: 'SPF для климата ОАЭ, BB-кушоны, дневная защита',
+    benefit: {
+      en: 'Daily UV protection built for UAE sun.',
+      ar: 'حماية يومية من الأشعة الفوقبنفسجية مصممة لشمس الإمارات.',
+      ru: 'Дневная защита от UV для климата ОАЭ.',
     },
   },
   'acne-treatment': {
-    accentBar: 'bg-rose-400',
+    accentDot: 'bg-rose-400',
     accentText: 'text-rose-700',
+    hoverTint: 'bg-rose-50/60',
     label: {
       en: 'Acne & Blemishes',
-      ar: 'حب الشباب والشوائب',
-      ru: 'Акне и воспаления',
+      ar: 'حب الشباب والبثور',
+      ru: 'Акне и высыпания',
     },
-    symptoms: {
-      en: 'Breakouts, oily skin, post-acne marks',
-      ar: 'بثور، بشرة دهنية، آثار حب الشباب',
-      ru: 'Высыпания, жирность, постакне',
+    benefit: {
+      en: 'Calm breakouts and fade post-acne marks.',
+      ar: 'تهدئة البثور وتفتيح آثار حب الشباب.',
+      ru: 'Успокаиваем высыпания и убираем следы постакне.',
     },
   },
   pigmentation: {
-    accentBar: 'bg-violet-400',
+    accentDot: 'bg-violet-400',
     accentText: 'text-violet-700',
+    hoverTint: 'bg-violet-50/60',
     label: {
       en: 'Pigmentation',
       ar: 'التصبغات',
       ru: 'Пигментация',
     },
-    symptoms: {
-      en: 'Dark spots, melasma, uneven tone',
-      ar: 'بقع داكنة، كلف، لون غير موحد',
-      ru: 'Тёмные пятна, мелазма, неровный тон',
+    benefit: {
+      en: 'Fade dark spots and even out skin tone.',
+      ar: 'تفتيح البقع الداكنة وتوحيد لون البشرة.',
+      ru: 'Осветляем пятна и выравниваем тон кожи.',
     },
   },
   'scars-treatment': {
-    accentBar: 'bg-teal-400',
+    accentDot: 'bg-teal-400',
     accentText: 'text-teal-700',
+    hoverTint: 'bg-teal-50/60',
     label: {
       en: 'Scar Treatment',
       ar: 'علاج الندبات',
-      ru: 'Лечение рубцов',
+      ru: 'Рубцы и шрамы',
     },
-    symptoms: {
-      en: 'Acne scars, surgical scars, rough texture',
-      ar: 'ندبات حب الشباب، الجراحة، ملمس خشن',
-      ru: 'Постакне, послеоперационные, рельеф кожи',
+    benefit: {
+      en: 'Smooth scars and refine skin texture.',
+      ar: 'تنعيم الندبات وتحسين ملمس البشرة.',
+      ru: 'Сглаживаем рубцы и улучшаем рельеф кожи.',
     },
   },
   'hair-loss': {
-    accentBar: 'bg-emerald-500',
+    accentDot: 'bg-emerald-500',
     accentText: 'text-emerald-700',
+    hoverTint: 'bg-emerald-50/60',
     label: {
       en: 'Hair Loss',
       ar: 'تساقط الشعر',
       ru: 'Выпадение волос',
     },
-    symptoms: {
-      en: 'Thinning, shedding, scalp & follicle care',
-      ar: 'ترقق، تساقط، العناية بفروة الرأس',
-      ru: 'Редеющие волосы, уход за кожей головы',
+    benefit: {
+      en: 'Stronger roots and a healthier scalp.',
+      ar: 'جذور أقوى وفروة رأس أكثر صحة.',
+      ru: 'Крепкие корни и здоровая кожа головы.',
     },
   },
   'anti-aging': {
-    accentBar: 'bg-indigo-400',
+    accentDot: 'bg-indigo-400',
     accentText: 'text-indigo-700',
+    hoverTint: 'bg-indigo-50/60',
     label: {
       en: 'Anti-Aging',
       ar: 'مكافحة الشيخوخة',
       ru: 'Anti-age',
     },
-    symptoms: {
-      en: 'Wrinkles, loss of firmness, dull tone',
-      ar: 'تجاعيد، فقدان الثبات، بشرة باهتة',
-      ru: 'Морщины, потеря упругости, тусклый цвет',
+    benefit: {
+      en: 'Smooth wrinkles, restore firmness and glow.',
+      ar: 'تنعيم التجاعيد واستعادة المرونة والإشراق.',
+      ru: 'Разглаживаем морщины, возвращаем упругость и сияние.',
     },
   },
   hydration: {
-    accentBar: 'bg-sky-400',
+    accentDot: 'bg-sky-400',
     accentText: 'text-sky-700',
+    hoverTint: 'bg-sky-50/60',
     label: {
       en: 'Hydration',
       ar: 'الترطيب',
       ru: 'Увлажнение',
     },
-    symptoms: {
-      en: 'Dryness, dehydration, barrier repair',
-      ar: 'جفاف، نقص ترطيب، إصلاح حاجز البشرة',
-      ru: 'Сухость, обезвоженность, восстановление барьера',
+    benefit: {
+      en: 'Deep hydration that lasts all day.',
+      ar: 'ترطيب عميق يدوم طوال اليوم.',
+      ru: 'Глубокое увлажнение на весь день.',
     },
   },
   sensitivity: {
-    accentBar: 'bg-lime-500',
+    accentDot: 'bg-lime-500',
     accentText: 'text-lime-700',
+    hoverTint: 'bg-lime-50/60',
     label: {
       en: 'Sensitive Skin',
       ar: 'البشرة الحساسة',
       ru: 'Чувствительная кожа',
     },
-    symptoms: {
-      en: 'Redness, reactivity, soothing & calming',
-      ar: 'احمرار، تفاعلية، تهدئة البشرة',
-      ru: 'Покраснения, реактивность, успокаивающий уход',
+    benefit: {
+      en: 'Soothe redness and calm sensitive skin.',
+      ar: 'تهدئة الاحمرار والعناية بالبشرة الحساسة.',
+      ru: 'Снимаем покраснения, успокаиваем чувствительную кожу.',
     },
   },
 }
@@ -422,40 +433,60 @@ export default function HomeDesktopSections({
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
               {CONCERN_PAGES.map(concern => {
                 const meta = CONCERN_META[concern.slug] ?? {
-                  accentBar: 'bg-gray-300',
+                  accentDot: 'bg-gray-300',
                   accentText: 'text-gray-700',
+                  hoverTint: 'bg-gray-50/60',
                   label: { en: '', ar: '', ru: '' },
-                  symptoms: { en: '', ar: '', ru: '' },
+                  benefit: { en: '', ar: '', ru: '' },
                 }
                 const label =
                   meta.label[locale as 'en' | 'ar' | 'ru'] ||
                   (locale === 'ar' ? concern.seo.ar.h1 : locale === 'ru' ? concern.seo.ru.h1 : concern.seo.en.h1)
-                const symptoms = meta.symptoms[locale as 'en' | 'ar' | 'ru'] || ''
+                const benefit = meta.benefit[locale as 'en' | 'ar' | 'ru'] || ''
+                const exploreLabel =
+                  locale === 'ar' ? 'اكتشف' : locale === 'ru' ? 'Подобрать уход' : 'Explore'
                 return (
                   <Link
                     key={concern.slug}
                     href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
-                    className={`group relative flex flex-col gap-2 overflow-hidden rounded-xl border border-gray-200/80 bg-white p-5 lg:p-6 min-h-[112px] lg:min-h-[128px] transition-all duration-300 hover:border-gray-300 hover:shadow-[0_10px_24px_-12px_rgba(17,24,39,0.18)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2 ${isRtl ? 'text-right' : ''}`}
+                    className={`group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-5 lg:p-6 min-h-[156px] lg:min-h-[172px] transition-all duration-300 hover:border-gray-300 hover:shadow-[0_14px_28px_-14px_rgba(17,24,39,0.18)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2 ${isRtl ? 'text-right' : ''}`}
                   >
-                    {/* Vertical color accent — per-concern, widens slightly on hover */}
+                    {/* Subtle per-concern tinted background on hover */}
                     <span
                       aria-hidden="true"
-                      className={`pointer-events-none absolute top-0 bottom-0 w-1 ${meta.accentBar} transition-all duration-300 group-hover:w-1.5 ${isRtl ? 'right-0' : 'left-0'}`}
+                      className={`pointer-events-none absolute inset-0 ${meta.hoverTint} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
                     />
-                    <div className={`flex items-start justify-between gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                      <h3 className="text-[15px] lg:text-[16px] font-semibold text-gray-900 tracking-tight leading-[1.25]">
+
+                    {/* Title row: colored dot + label */}
+                    <div className={`relative z-10 flex items-center gap-2.5 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                      <span
+                        aria-hidden="true"
+                        className={`h-2 w-2 flex-shrink-0 rounded-full ${meta.accentDot} ring-4 ring-white shadow-sm transition-transform duration-300 group-hover:scale-125`}
+                      />
+                      <h3 className="text-[16px] lg:text-[17px] font-semibold text-gray-900 tracking-tight leading-[1.2]">
                         {label}
                       </h3>
+                    </div>
+
+                    {/* Benefit-led description */}
+                    {benefit && (
+                      <p className="relative z-10 mt-2 text-[13px] lg:text-[14px] text-gray-600 leading-relaxed">
+                        {benefit}
+                      </p>
+                    )}
+
+                    {/* Bottom CTA — pinned, accent-colored, animated arrow */}
+                    <div
+                      className={`relative z-10 mt-auto flex items-center gap-1.5 pt-4 text-[12px] lg:text-[13px] font-semibold ${meta.accentText} ${isRtl ? 'flex-row-reverse justify-end' : 'justify-start'}`}
+                    >
+                      <span className="opacity-80 transition-opacity duration-300 group-hover:opacity-100">
+                        {exploreLabel}
+                      </span>
                       <ArrowRight
-                        className={`h-4 w-4 flex-shrink-0 mt-0.5 text-gray-400 transition-all duration-300 group-hover:text-gray-900 group-hover:translate-x-0.5 ${isRtl ? 'rotate-180 group-hover:-translate-x-0.5' : ''}`}
+                        className={`h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''}`}
                         aria-hidden="true"
                       />
                     </div>
-                    {symptoms && (
-                      <p className="text-[12px] lg:text-[13px] text-gray-500 leading-snug line-clamp-2">
-                        {symptoms}
-                      </p>
-                    )}
                   </Link>
                 )
               })}

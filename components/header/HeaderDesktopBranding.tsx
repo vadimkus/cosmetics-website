@@ -27,13 +27,11 @@ export default function HeaderDesktopBranding({ isRTL, isHeartBeating }: HeaderD
   )
 
   return (
-    <div className={`hidden md:flex flex-col ${isRTL ? 'items-end' : ''}`}>
+    <div className="hidden md:flex flex-col items-center">
       <span className="text-lg md:text-2xl font-bold text-primary-600 tracking-tight whitespace-nowrap">
         GENOSYS MIDDLE EAST
       </span>
-      <div className={`flex text-sm text-gray-600 items-center gap-1 ${
-        isRTL ? 'mr-0 md:mr-1' : 'ml-0 md:ml-1'
-      } header-margin`}>
+      <div className="flex w-full justify-center items-center gap-1 text-sm text-gray-600 header-margin">
         {isRTL ? (
           <>
             {heartIcon}

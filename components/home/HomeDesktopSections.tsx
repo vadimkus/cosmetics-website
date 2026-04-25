@@ -457,78 +457,109 @@ export default function HomeDesktopSections({
       )}
 
       {/* ── 4. Why GENOSYS 3-up ─────────────────────────────────────────── */}
-      <section className="bg-gradient-to-b from-white to-gray-50 py-16 lg:py-20 border-t border-gray-100">
+      <section className="bg-white py-16 lg:py-24 border-t border-gray-100">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="mb-10 text-center">
-              <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-2">
-                {locale === 'ar' ? 'لماذا GENOSYS' : locale === 'ru' ? 'Почему GENOSYS' : 'Why GENOSYS'}
-              </p>
-              <h2 className="text-3xl lg:text-[40px] lg:leading-[1.1] font-bold text-gray-900 font-display tracking-tight">
+            <div className={`mb-12 lg:mb-14 grid lg:grid-cols-12 gap-6 items-end ${isRtl ? 'text-right' : ''}`}>
+              <div className="lg:col-span-7">
+                <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-3">
+                  {locale === 'ar' ? 'لماذا GENOSYS' : locale === 'ru' ? 'Почему GENOSYS' : 'Why GENOSYS'}
+                </p>
+                <h2 className="text-3xl lg:text-[44px] lg:leading-[1.05] font-bold text-gray-900 font-display tracking-tight">
+                  {locale === 'ar'
+                    ? 'علم كوري. معتمد في الإمارات.'
+                    : locale === 'ru'
+                    ? 'Корейская наука. Сертифицировано в ОАЭ.'
+                    : 'Korean science. Certified in the UAE.'}
+                </h2>
+              </div>
+              <p className="lg:col-span-5 text-[15px] text-gray-600 leading-relaxed lg:max-w-md lg:ml-auto">
                 {locale === 'ar'
-                  ? 'علم كوري. معتمد في الإمارات.'
+                  ? 'GENOSYS هي علامة تجميل طبية كورية محترفة، نوزعها رسمياً في الإمارات منذ عام 2019.'
                   : locale === 'ru'
-                  ? 'Корейская наука. Сертифицировано в ОАЭ.'
-                  : 'Korean science. Certified in the UAE.'}
-              </h2>
+                  ? 'GENOSYS — профессиональная корейская дермакосметика. Мы официальный дистрибьютор в ОАЭ с 2019 года.'
+                  : 'GENOSYS is a professional Korean dermacosmetics brand. We have been the official UAE distributor since 2019.'}
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 lg:gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-gray-200 border-y border-gray-200">
               {[
                 {
-                  icon: <IconClinical className="h-6 w-6 text-primary-600" />,
-                  bg: 'bg-primary-50',
+                  icon: <IconClinical className="h-7 w-7" strokeWidth={1.5} />,
+                  kicker: {
+                    en: 'Clinical-grade',
+                    ar: 'بدرجة سريرية',
+                    ru: 'Клинический класс',
+                  },
                   title: {
-                    en: 'Clinical dermacosmetics',
-                    ar: 'مستحضرات تجميل طبية',
-                    ru: 'Клиническая дермакосметика',
+                    en: 'Used by dermatologists across Korea',
+                    ar: 'يستخدمها أطباء الجلدية في كوريا',
+                    ru: 'Применяется дерматологами в Корее',
                   },
                   body: {
-                    en: 'Formulas used by dermatologists and clinics across Korea, now available to UAE consumers and pros.',
-                    ar: 'تركيبات يستخدمها أطباء الجلدية والعيادات في كوريا، والآن متاحة في الإمارات.',
-                    ru: 'Формулы, которые применяют дерматологи и клиники в Корее, теперь доступны в ОАЭ.',
+                    en: 'The same formulas applied in Korean dermatology clinics — now available to UAE consumers and professionals.',
+                    ar: 'نفس التركيبات المستخدمة في عيادات الجلدية الكورية — متاحة الآن للمستهلكين والمختصين في الإمارات.',
+                    ru: 'Те же формулы, что применяются в дерматологических клиниках Кореи — теперь доступны в ОАЭ.',
                   },
                 },
                 {
-                  icon: <IconOfficialDistributor className="h-6 w-6 text-emerald-600" />,
-                  bg: 'bg-emerald-50',
+                  icon: <IconOfficialDistributor className="h-7 w-7" strokeWidth={1.5} />,
+                  kicker: {
+                    en: 'In the UAE since 2019',
+                    ar: 'في الإمارات منذ 2019',
+                    ru: 'В ОАЭ с 2019',
+                  },
                   title: {
                     en: 'Official UAE distributor',
                     ar: 'الموزع الرسمي في الإمارات',
                     ru: 'Официальный дистрибьютор в ОАЭ',
                   },
                   body: {
-                    en: 'TDRA-licensed, VAT-registered, operating in the UAE since 2019. Authentic product guaranteed.',
-                    ar: 'مرخّص من هيئة تنظيم الاتصالات، مسجّل للضريبة على القيمة المضافة، نعمل في الإمارات منذ 2019.',
-                    ru: 'Лицензия TDRA, регистрация НДС, работаем в ОАЭ с 2019 года. Гарантия оригинальности.',
+                    en: 'TDRA-licensed and VAT-registered. Every product is sourced directly from GENOSYS Korea — never gray-market.',
+                    ar: 'مرخّص من TDRA ومسجّل للضريبة على القيمة المضافة. كل منتج موَرَّد مباشرة من GENOSYS كوريا — وليس من السوق الموازية.',
+                    ru: 'Лицензия TDRA, регистрация НДС. Каждый продукт поставляется напрямую от GENOSYS Korea — никакого серого импорта.',
                   },
                 },
                 {
-                  icon: <IconMadeInKorea className="h-6 w-6 text-blue-600" />,
-                  bg: 'bg-blue-50',
+                  icon: <IconMadeInKorea className="h-7 w-7" strokeWidth={1.5} />,
+                  kicker: {
+                    en: 'Seoul, Korea',
+                    ar: 'سيول، كوريا',
+                    ru: 'Сеул, Корея',
+                  },
                   title: {
-                    en: 'Made in South Korea',
-                    ar: 'صُنع في كوريا الجنوبية',
-                    ru: 'Сделано в Южной Корее',
+                    en: 'Formulated and produced in GENOSYS labs',
+                    ar: 'تركيب وإنتاج في مختبرات GENOSYS',
+                    ru: 'Разработано и произведено в лабораториях GENOSYS',
                   },
                   body: {
-                    en: 'Every formula produced in GENOSYS labs, Seoul — with R&D rooted in microneedling and growth-factor research.',
-                    ar: 'كل التركيبات تُنتج في مختبرات GENOSYS بسيول — مع بحث وتطوير متخصص في الوخز الدقيق وعوامل النمو.',
-                    ru: 'Все формулы производятся в лабораториях GENOSYS в Сеуле — исследования в области микронидлинга и факторов роста.',
+                    en: 'Every product is made in our own Seoul facility, with R&D rooted in microneedling and growth-factor research.',
+                    ar: 'كل منتج مصنوع في مصنعنا الخاص بسيول، مع بحث وتطوير متخصص في الوخز الدقيق وعوامل النمو.',
+                    ru: 'Каждый продукт производится на собственной фабрике в Сеуле — исследования в области микронидлинга и факторов роста.',
                   },
                 },
               ].map((item, i) => (
                 <div
                   key={i}
-                  className="rounded-2xl border border-gray-200 bg-white p-6 lg:p-7 shadow-sm"
+                  className={`group relative px-6 py-8 lg:px-8 lg:py-10 ${isRtl ? 'text-right' : ''}`}
                 >
-                  <div className={`flex items-center justify-center h-11 w-11 rounded-xl ${item.bg} mb-4`}>
+                  {/* Top accent rule that draws on hover */}
+                  <span
+                    aria-hidden="true"
+                    className={`pointer-events-none absolute top-0 h-px w-12 bg-primary-600 scale-x-100 transition-transform duration-500 group-hover:scale-x-[5] ${
+                      isRtl ? 'right-0 origin-right' : 'left-0 origin-left'
+                    }`}
+                  />
+                  <div className="text-gray-900">
                     {item.icon}
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-900 tracking-tight mb-2">
+                  <p className="mt-5 text-[11px] tracking-[0.18em] font-mono uppercase text-primary-600">
+                    {item.kicker[locale] ?? item.kicker.en}
+                  </p>
+                  <h3 className="mt-2 text-[20px] lg:text-[22px] font-semibold text-gray-900 tracking-tight font-display leading-[1.2]">
                     {item.title[locale] ?? item.title.en}
                   </h3>
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="mt-3 text-[14px] text-gray-600 leading-relaxed max-w-sm">
                     {item.body[locale] ?? item.body.en}
                   </p>
                 </div>

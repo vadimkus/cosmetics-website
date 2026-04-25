@@ -40,25 +40,25 @@ export default function RussianBlogPostClient({ post }: RussianBlogPostClientPro
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
           {/* Navigation Breadcrumb */}
-          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
+          <nav className="text-xs md:text-sm text-gray-500 mb-3 md:mb-5" aria-label="Breadcrumb">
             <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
               {t('navigation.home')}
             </Link>
-            <span> / </span>
+            <span className="mx-1.5">/</span>
             <Link href={getLocalizedPath('/blog', locale)} className="hover:text-primary-600 transition-colors">
               {t('navigation.blog')}
             </Link>
-            <span> / </span>
-            <span className="text-gray-900 font-medium">{post.title}</span>
+            <span className="mx-1.5">/</span>
+            <span className="text-gray-700 font-medium">{post.title}</span>
           </nav>
-          
-          {/* Back to Home - Mobile only */}
-          <Link 
-            href={getLocalizedPath('/', locale)} 
-            className="md:hidden inline-flex items-center gap-1 text-xs text-primary-600 hover:text-primary-700 mb-4"
+
+          {/* Prominent back-to-articles link — visible on all viewports */}
+          <Link
+            href={getLocalizedPath('/blog', locale)}
+            className="group inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 mb-6 md:mb-8 transition-colors"
           >
-            <ArrowLeft className="h-3 w-3" />
-            <span>{t('common.backToHome')}</span>
+            <ArrowLeft className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-1" />
+            <span>Все статьи</span>
           </Link>
 
           {/* Article Header */}
@@ -117,9 +117,30 @@ export default function RussianBlogPostClient({ post }: RussianBlogPostClientPro
 
           {/* Article Content */}
           <div 
-            className="blog-content prose prose-lg prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base md:prose-p:text-lg prose-strong:text-gray-900 prose-strong:font-semibold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-ul:text-gray-700 prose-li:text-gray-700 prose-li:leading-relaxed prose-li:mb-2 max-w-none mb-16 break-words"
+            className="blog-content prose prose-lg prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base md:prose-p:text-lg prose-strong:text-gray-900 prose-strong:font-semibold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-ul:text-gray-700 prose-li:text-gray-700 prose-li:leading-relaxed prose-li:mb-2 max-w-none mb-12 break-words"
             dangerouslySetInnerHTML={{ __html: useMemo(() => sanitizeHtml(post.content), [post.content]) }}
           />
+
+          {/* End-of-article: back to articles + meta */}
+          <div className="border-t border-gray-200 pt-8 mb-16 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <Link
+              href={getLocalizedPath('/blog', locale)}
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-1" />
+              <span>Назад ко всем статьям</span>
+            </Link>
+            <p className="text-xs text-gray-500">
+              {post.publishedAt
+                ? `Опубликовано ${new Date(post.publishedAt).toLocaleDateString('ru-RU', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}`
+                : ''}
+              {post.authorName ? ` · ${post.authorName}` : ''}
+            </p>
+          </div>
 
           {/* Comments Section */}
           <div className="border-t border-gray-200 pt-12 mt-16">

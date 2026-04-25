@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
-import ArabicAboutPageClient from './ArabicAboutPageClient'
+import AboutPageClient from '../../about/AboutPageClient'
 
 export const metadata: Metadata = {
   title: 'من نحن - GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية',
@@ -66,7 +66,7 @@ export default function ArabicAboutPage() {
           { name: 'من نحن', url: '/ar/about' },
         ]}
       />
-      <ArabicAboutPageClient />
+      <AboutPageClient />
     </>
   )
 }

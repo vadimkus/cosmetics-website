@@ -14,14 +14,25 @@ export default function ArabicNotFound() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4 py-16" dir="rtl">
       <div className="max-w-2xl w-full text-center">
-        <h1 className="text-8xl font-extrabold text-gray-200 dark:text-gray-700 mb-4">
-          404
+        {/* "نهاية الطريق" — رمز ماتريكس للاختيار بين زرّي الإجراء بالأسفل */}
+        <p className="text-xs font-mono uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-3">
+          خطأ · 404
+        </p>
+        <div className="mb-8">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/Wrong/roadend.png"
+            alt="نهاية الطريق — هنا ينتهي المسار"
+            width={1698}
+            height={838}
+            className="mx-auto w-full max-w-2xl rounded-xl"
+          />
+        </div>
+        <h1 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-snug tracking-tight">
+          هذه نهاية الطريق، عليك الآن أن تختار&hellip;
         </h1>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-          الصفحة غير موجودة
-        </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">
-          الصفحة التي تبحث عنها غير موجودة أو تم نقلها. دعنا نساعدك في العثور على ما تحتاجه.
+        <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-10">
+          &hellip;ماذا ستفعل بعد ذلك.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

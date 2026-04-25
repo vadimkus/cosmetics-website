@@ -22,16 +22,28 @@ export default function NotFound() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
       <div className="max-w-2xl w-full text-center">
-        {/* 404 Header */}
-        <h1 className="text-8xl font-extrabold text-gray-200 dark:text-gray-700 mb-4">
-          404
+        {/* Matrix-style "Road End" — the user is at the fork; the two CTAs
+            below are the choice (homepage = the way back, products = the
+            rabbit hole). The "ERROR · 404" kicker preserves the SEO/a11y
+            signal that this is a 404 page without competing with the image. */}
+        <p className="text-xs font-mono uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-3">
+          Error · 404
+        </p>
+        <div className="mb-8">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/Wrong/roadend.png"
+            alt="Road End — the path stops here"
+            width={1698}
+            height={838}
+            className="mx-auto w-full max-w-2xl rounded-xl"
+          />
+        </div>
+        <h1 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-snug tracking-tight">
+          This is Road End, now you have to make a choice&hellip;
         </h1>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-          Page Not Found
-        </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">
-          The page you&apos;re looking for doesn&apos;t exist or has been moved.
-          Let&apos;s help you find what you need.
+        <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-10">
+          &hellip;what to do next.
         </p>
 
         {/* Primary CTAs */}

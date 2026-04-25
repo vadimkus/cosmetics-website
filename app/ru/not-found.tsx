@@ -14,14 +14,26 @@ export default function RussianNotFound() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
       <div className="max-w-2xl w-full text-center">
-        <h1 className="text-8xl font-extrabold text-gray-200 dark:text-gray-700 mb-4">
-          404
+        {/* «Конец дороги» — отсылка к Матрице: две кнопки ниже образуют
+            выбор (главная = вернуться, каталог = пойти дальше). */}
+        <p className="text-xs font-mono uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-3">
+          Ошибка · 404
+        </p>
+        <div className="mb-8">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/Wrong/roadend.png"
+            alt="Конец дороги — путь обрывается"
+            width={1698}
+            height={838}
+            className="mx-auto w-full max-w-2xl rounded-xl"
+          />
+        </div>
+        <h1 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-snug tracking-tight">
+          Это конец дороги — теперь нужно сделать выбор&hellip;
         </h1>
-        <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-          Страница не найдена
-        </h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8 text-lg">
-          Запрашиваемая страница не существует или была перемещена. Давайте поможем вам найти то, что нужно.
+        <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-10">
+          &hellip;что делать дальше.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">

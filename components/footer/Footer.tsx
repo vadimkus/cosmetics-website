@@ -130,10 +130,10 @@ export default function Footer() {
             </Link>
             <p className="text-sm text-gray-600 leading-relaxed mb-5 max-w-xs">
               {locale === 'ar'
-                ? 'الموزع الرسمي لـ GENOSYS في الإمارات — منذ 2019.'
+                ? 'الموزع الرسمي لمستحضرات GENOSYS الكورية الاحترافية في الإمارات منذ 2019.'
                 : locale === 'ru'
-                ? 'Официальный дистрибьютор GENOSYS в ОАЭ — с 2019 года.'
-                : 'Official UAE distributor of GENOSYS — since 2019.'}
+                ? 'Официальный дистрибьютор профессиональной корейской дерматокосметики GENOSYS в ОАЭ с 2019 года.'
+                : 'Official UAE distributor of GENOSYS professional Korean dermacosmetics — since 2019.'}
             </p>
 
             {/* Contact block */}

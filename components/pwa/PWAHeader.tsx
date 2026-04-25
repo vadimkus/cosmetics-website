@@ -9,7 +9,7 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { getLocalizedPath } from '@/lib/i18n'
+import { getLocalizedPath, switchLocaleHardNav, type Locale } from '@/lib/i18n'
 import { isSimpleHeaderPage } from '@/lib/simpleHeaderPages'
 
 /**
@@ -167,6 +167,12 @@ export default function PWAHeader() {
               </button>
               
               {/* Language Dropdown */}
+              {/* NB: items are <button> (not <Link>) so we can set the
+                  NEXT_LOCALE cookie + hard-navigate. iOS Safari PWA was
+                  swallowing client-side <Link> navigations for locale
+                  switches, leaving users on the previous locale.
+                  PWA always lands on the home of the chosen locale (matches
+                  the previous behaviour where the Link href was '/'). */}
               {showLangMenu && (
                 <>
                   <div 
@@ -174,27 +180,28 @@ export default function PWAHeader() {
                     onClick={() => setShowLangMenu(false)}
                   />
                   <div className={`absolute top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50 min-w-[100px] ${isRTL ? 'right-0' : 'left-0'}`}>
-                    <Link
-                      href={getLocalizedPath('/', 'en')}
-                      className={`block px-4 py-2.5 text-sm hover:bg-gray-50 ${locale === 'en' ? 'text-green-600 font-semibold bg-green-50' : 'text-gray-700'}`}
-                      onClick={() => setShowLangMenu(false)}
-                    >
-                      English
-                    </Link>
-                    <Link
-                      href={getLocalizedPath('/', 'ru')}
-                      className={`block px-4 py-2.5 text-sm hover:bg-gray-50 ${locale === 'ru' ? 'text-green-600 font-semibold bg-green-50' : 'text-gray-700'}`}
-                      onClick={() => setShowLangMenu(false)}
-                    >
-                      Русский
-                    </Link>
-                    <Link
-                      href={getLocalizedPath('/', 'ar')}
-                      className={`block px-4 py-2.5 text-sm hover:bg-gray-50 ${locale === 'ar' ? 'text-green-600 font-semibold bg-green-50' : 'text-gray-700'}`}
-                      onClick={() => setShowLangMenu(false)}
-                    >
-                      العربية
-                    </Link>
+                    {(['en', 'ru', 'ar'] as Locale[]).map((l) => {
+                      const label = l === 'en' ? 'English' : l === 'ru' ? 'Русский' : 'العربية'
+                      const handleSelect = () => {
+                        setShowLangMenu(false)
+                        switchLocaleHardNav(l, '/')
+                      }
+                      return (
+                        <button
+                          key={l}
+                          type="button"
+                          onClick={handleSelect}
+                          onTouchEnd={(e) => {
+                            e.preventDefault()
+                            handleSelect()
+                          }}
+                          className={`block w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 active:bg-gray-100 touch-manipulation ${locale === l ? 'text-green-600 font-semibold bg-green-50' : 'text-gray-700'}`}
+                          style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
+                        >
+                          {label}
+                        </button>
+                      )
+                    })}
                   </div>
                 </>
               )}

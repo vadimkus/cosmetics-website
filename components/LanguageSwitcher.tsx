@@ -2,7 +2,7 @@
 
 import { usePathname, useSearchParams } from 'next/navigation'
 import { useState, Suspense } from 'react'
-import { getLocaleFromPath, getLocalizedPath, type Locale } from '@/lib/i18n'
+import { getLocaleFromPath, switchLocaleHardNav, type Locale } from '@/lib/i18n'
 
 function LanguageSwitcherContent() {
   const pathname = usePathname()
@@ -15,27 +15,7 @@ function LanguageSwitcherContent() {
   const switchLanguage = (locale: Locale) => {
     setIsOpen(false)
     setIsSwitching(true)
-
-    const newPath = getLocalizedPath(pathname, locale)
-    // Preserve query parameters (like ?full=true)
-    const queryString = searchParams.toString()
-    const fullPath = queryString ? `${newPath}?${queryString}` : newPath
-
-    // Store language preference in cookie to override Accept-Language header
-    document.cookie = `NEXT_LOCALE=${locale}; path=/; max-age=31536000; SameSite=Lax`
-
-    // Full-page navigation (not router.replace).
-    //
-    // Mobile installed PWAs on iOS Safari were swallowing the transition:
-    // router.replace() inside startTransition would set the cookie but the
-    // client-side route change would not complete reliably, leaving the user
-    // on the previous locale. A hard navigation guarantees:
-    //   - the new cookie is sent on the very next request,
-    //   - the service worker passes through (network-first for navigation),
-    //   - the document re-renders with the correct locale + dir.
-    if (typeof window !== 'undefined') {
-      window.location.assign(fullPath)
-    }
+    switchLocaleHardNav(locale, pathname, searchParams.toString())
   }
 
   return (

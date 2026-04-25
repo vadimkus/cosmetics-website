@@ -134,6 +134,13 @@ const trainingVideos = [
     youtubeId: 'hMtodh45sME',
     duration: '25-30 min',
     level: 'Professional'
+  },
+  {
+    id: 'ez-co2-mask',
+    title: 'How to Use GENOSYS EZ CO₂ Mask Kit',
+    youtubeId: 'ZOYtKGNrWJM',
+    duration: '1-2 min',
+    level: 'Professional'
   }
 ]
 

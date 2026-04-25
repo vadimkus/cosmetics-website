@@ -701,9 +701,9 @@ export default function HomeDesktopSections({
                     ru: 'Официальный дистрибьютор в ОАЭ',
                   },
                   body: {
-                    en: 'TDRA-licensed and VAT-registered. Every product is sourced directly from GENOSYS Korea — never gray-market.',
-                    ar: 'مرخّص من TDRA ومسجّل للضريبة على القيمة المضافة. كل منتج موَرَّد مباشرة من GENOSYS كوريا — وليس من السوق الموازية.',
-                    ru: 'Лицензия TDRA, регистрация НДС. Каждый продукт поставляется напрямую от GENOSYS Korea — никакого серого импорта.',
+                    en: 'Certified by Dubai Municipality and VAT-registered. Every product is sourced directly from GENOSYS Korea — never gray-market.',
+                    ar: 'معتمد من بلدية دبي ومسجّل للضريبة على القيمة المضافة. كل منتج موَرَّد مباشرة من GENOSYS كوريا — وليس من السوق الموازية.',
+                    ru: 'Сертифицировано муниципалитетом Дубая, регистрация НДС. Каждый продукт поставляется напрямую от GENOSYS Korea — никакого серого импорта.',
                   },
                 },
                 {

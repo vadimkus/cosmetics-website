@@ -2,13 +2,14 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Handshake } from 'lucide-react'
+import { ArrowLeft, ArrowRight, MapPin, ShieldCheck, Sparkles } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
 import PartnersList from '@/components/partners/PartnersList'
+import { partnersData } from '@/lib/partners'
 
 export default function PartnersPageClient() {
   const { t, locale, dir } = useTranslation()
@@ -17,13 +18,13 @@ export default function PartnersPageClient() {
   const searchParams = useSearchParams()
   const { user } = useAuth()
   const [isMobileWeb, setIsMobileWeb] = useState(false)
-  
-  // Detect mobile web (non-PWA mobile)
+
   useEffect(() => {
     const checkMobile = () => {
       const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && window.innerWidth < 768
-      const isPWAMode = window.matchMedia('(display-mode: standalone)').matches || 
-                        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
+      const isPWAMode =
+        window.matchMedia('(display-mode: standalone)').matches ||
+        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
       setIsMobileWeb(isMobile && !isPWAMode)
     }
     checkMobile()
@@ -35,12 +36,64 @@ export default function PartnersPageClient() {
   const fromProfile = searchParams?.get('from') === 'profile'
   const isAppLikeMode = isPWA || isMobileWeb
 
+  const partnerCount = partnersData.length
+  const certifiedCount = partnersData.filter((p) => p.certificateUrl).length
+
+  const labels = {
+    kicker: locale === 'ar' ? 'شبكتنا · الإمارات' : locale === 'ru' ? 'НАША СЕТЬ · ОАЭ' : 'OUR NETWORK · UAE',
+    headline:
+      locale === 'ar'
+        ? 'شركاء GENOSYS الموثوقون'
+        : locale === 'ru'
+          ? 'Доверенные партнёры GENOSYS'
+          : 'The GENOSYS partner network',
+    subhead:
+      locale === 'ar'
+        ? 'صالونات وعيادات وسبا منتقاة بعناية تقدم بروتوكولات GENOSYS الكورية الاحترافية في جميع أنحاء الإمارات منذ عام 2019.'
+        : locale === 'ru'
+          ? 'Тщательно отобранные салоны, клиники и спа, которые проводят профессиональные корейские протоколы GENOSYS по всем ОАЭ с 2019 года.'
+          : 'Hand-picked salons, clinics and spas delivering GENOSYS professional Korean protocols across the Emirates since 2019.',
+    statPartners:
+      locale === 'ar'
+        ? 'شريك ومنشأة'
+        : locale === 'ru'
+          ? 'партнёров и точек'
+          : 'partners & venues',
+    statEmirates:
+      locale === 'ar'
+        ? 'إمارات يخدمها فريقنا'
+        : locale === 'ru'
+          ? 'эмиратов в зоне обслуживания'
+          : 'emirates served by our team',
+    statCertified:
+      locale === 'ar'
+        ? 'موزعون معتمدون رسميًا'
+        : locale === 'ru'
+          ? 'официально сертифицированные реселлеры'
+          : 'officially certified resellers',
+    statSince: locale === 'ar' ? 'منذ' : locale === 'ru' ? 'с' : 'Since',
+    ctaTitle:
+      locale === 'ar'
+        ? 'هل تريد أن تصبح شريكًا لـ GENOSYS؟'
+        : locale === 'ru'
+          ? 'Хотите стать партнёром GENOSYS?'
+          : 'Become a GENOSYS partner.',
+    ctaBody:
+      locale === 'ar'
+        ? 'نتعاون مع صالونات وعيادات وسبا تعطي الأولوية لصحة البشرة والنتائج المثبتة. تواصلوا معنا لمناقشة منتجات الفئة الاحترافية والتدريب والدعم التسويقي.'
+        : locale === 'ru'
+          ? 'Мы сотрудничаем с салонами, клиниками и спа, которые ставят на первое место здоровье кожи и подтверждённые результаты. Расскажем о профессиональной линейке, обучении и маркетинговой поддержке.'
+          : 'We work with salons, clinics and spas that put skin health and proven results first. Talk to us about professional-grade products, training and marketing support.',
+    ctaPrimary: t('common.contact') || 'Contact our team',
+    ctaSecondary: t('common.products') || 'Explore products',
+  }
+
   return (
     <div className={`bg-white min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`}>
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          <button 
+          <button
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
@@ -48,14 +101,23 @@ export default function PartnersPageClient() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
             <span className="text-base text-red-600">
-              {fromProfile ? (locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account') : (locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Продукты' : 'Products')}
+              {fromProfile
+                ? locale === 'ar'
+                  ? 'الحساب'
+                  : locale === 'ru'
+                    ? 'Аккаунт'
+                    : 'Account'
+                : locale === 'ar'
+                  ? 'المنتجات'
+                  : locale === 'ru'
+                    ? 'Продукты'
+                    : 'Products'}
             </span>
           </button>
           <span className="text-base font-semibold text-gray-900">
             {locale === 'ar' ? 'الشركاء' : locale === 'ru' ? 'Партнёры' : 'Partners'}
           </span>
-          {/* Profile Icon with green dot */}
-          <button 
+          <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
           >
@@ -73,84 +135,140 @@ export default function PartnersPageClient() {
         </div>
       )}
 
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-4 md:py-12">
         <div className="max-w-6xl mx-auto">
-          {/* Navigation Breadcrumb - Hide in PWA and mobile web */}
+          {/* Breadcrumb */}
           {!isAppLikeMode && (
-            <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
+            <nav className="text-xs md:text-sm text-gray-500 mb-2 md:mb-4" aria-label="Breadcrumb">
+              <Link href={getLocalizedPath('/', locale)} className="hover:text-gray-900 transition-colors">
                 {t('common.home') || 'Home'}
               </Link>
-              <span> / </span>
-              <span className="text-gray-900 font-medium">
+              <span className="mx-1.5">/</span>
+              <span className="text-gray-900">
                 {locale === 'ar' ? 'الشركاء' : locale === 'ru' ? 'Партнёры' : 'Partners'}
               </span>
             </nav>
           )}
-          
-          {/* Back to Home - Hide in PWA and mobile web */}
+
           {!isAppLikeMode && (
-            <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <Link
+              href={getLocalizedPath('/', locale)}
+              className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10 ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${isRTL ? 'rotate-180' : ''}`} />
-              <span>{t('common.backToHome') || 'Back to Home'}</span>
+              <span>{t('common.backToHome') || 'Back to home'}</span>
             </Link>
           )}
 
-          {/* Header */}
-          <div className="text-center mb-4 md:mb-8">
-            <div className={`inline-flex items-center justify-center gap-2 mb-2 md:mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className="p-2 md:p-3 bg-gradient-to-r from-red-100 to-pink-100 rounded-lg md:rounded-xl">
-                <Handshake className="h-4 w-4 md:h-6 md:w-6 text-red-600" />
-              </div>
-              <h1 className="text-xl md:text-3xl font-bold text-gray-800">
-                {locale === 'ar' ? 'شركاؤنا' : locale === 'ru' ? 'Наши партнёры' : 'Our Partners'}
-              </h1>
-            </div>
-            <p className="text-xs md:text-base text-gray-600 px-2">
-              {locale === 'ar' 
-                ? 'بناء شراكات قوية مع Genosys في جميع أنحاء الإمارات'
-                : locale === 'ru'
-                  ? 'Развиваем партнёрство Genosys по всем ОАЭ'
-                  : 'Building strong Genosys partnerships across United Arab Emirates'}
+          {/* Editorial hero */}
+          <header className="mb-8 md:mb-14">
+            <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-gray-500">
+              {labels.kicker}
             </p>
-          </div>
-          
-          {/* Partners List */}
+            <h1 className="mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.05] tracking-tight text-gray-900">
+              {labels.headline}
+            </h1>
+            <p className="mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-gray-600">
+              {labels.subhead}
+            </p>
+
+            {/* Stats strip — desktop */}
+            <dl className="mt-8 hidden md:grid md:grid-cols-3 gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200">
+              <div className="bg-white px-6 py-5">
+                <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                  <Sparkles className="h-3.5 w-3.5 text-red-600" />
+                  {labels.statPartners}
+                </dt>
+                <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
+                  {partnerCount}+
+                </dd>
+              </div>
+              <div className="bg-white px-6 py-5">
+                <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                  <MapPin className="h-3.5 w-3.5 text-red-600" />
+                  {labels.statEmirates}
+                </dt>
+                <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
+                  2
+                  <span className="ml-2 align-middle text-sm font-medium text-gray-500">
+                    Dubai · Abu Dhabi
+                  </span>
+                </dd>
+              </div>
+              <div className="bg-white px-6 py-5">
+                <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                  <ShieldCheck className="h-3.5 w-3.5 text-red-600" />
+                  {labels.statCertified}
+                </dt>
+                <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
+                  {certifiedCount}
+                  <span className="ml-2 align-middle text-sm font-medium text-gray-500">
+                    {labels.statSince} 2019
+                  </span>
+                </dd>
+              </div>
+            </dl>
+
+            {/* Mobile stats — compact pill row */}
+            <div className="mt-6 flex flex-wrap gap-2 md:hidden">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 px-3 py-1 text-[11px] font-semibold text-white">
+                <Sparkles className="h-3 w-3" />
+                {partnerCount}+ {labels.statPartners}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1 text-[11px] font-semibold text-gray-700">
+                <MapPin className="h-3 w-3" /> Dubai · Abu Dhabi
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-[11px] font-semibold text-amber-700 ring-1 ring-inset ring-amber-200">
+                <ShieldCheck className="h-3 w-3" />
+                {labels.statSince} 2019
+              </span>
+            </div>
+          </header>
+
+          {/* Partners grid + filters */}
           <PartnersList />
 
-          {/* Call to Action */}
-          <div className="mt-6 md:mt-12">
-            <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-lg md:rounded-xl p-4 md:p-8 border border-red-100">
-              <h2 className="text-base md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
-                {locale === 'ar' 
-                  ? 'هل تريد أن تصبح شريكًا؟'
-                  : locale === 'ru'
-                    ? 'Хотите стать партнёром?'
-                    : 'Interested in Becoming a Partner?'}
-              </h2>
-              <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6 text-center px-2">
-                {locale === 'ar'
-                  ? 'انضم إلى شبكة شركائنا الموثوقين وساعدنا في تقديم منتجات GENOSYS لمزيد من العملاء'
-                  : locale === 'ru'
-                    ? 'Присоединяйтесь к нашей сети партнёров и помогите нам доставить продукты GENOSYS большему числу клиентов'
-                    : 'Join our network of trusted partners and help us bring GENOSYS products to more customers'}
-              </p>
-              <div className={`flex flex-col sm:flex-row gap-2 md:gap-4 justify-center ${isRTL ? 'sm:flex-row-reverse' : ''}`}>
-                <Link 
+          {/* Become a partner CTA — editorial */}
+          <section className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-gray-900 bg-gray-900 text-white">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-red-500/30 blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-red-600/20 blur-3xl"
+            />
+            <div className="relative grid gap-6 px-6 py-8 md:grid-cols-[1.4fr_1fr] md:items-center md:gap-10 md:px-12 md:py-14">
+              <div>
+                <p className="text-[11px] font-mono uppercase tracking-[0.32em] text-red-300">
+                  {locale === 'ar' ? 'دعوة للتعاون' : locale === 'ru' ? 'СОТРУДНИЧЕСТВО' : 'PARTNERSHIP'}
+                </p>
+                <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight tracking-tight">
+                  {labels.ctaTitle}
+                </h2>
+                <p className="mt-4 max-w-xl text-sm md:text-base leading-relaxed text-gray-300">
+                  {labels.ctaBody}
+                </p>
+              </div>
+              <div className={`flex flex-col gap-3 ${isRTL ? 'md:items-end' : 'md:items-start'}`}>
+                <Link
                   href={getLocalizedPath('/contact', locale)}
-                  className="inline-flex items-center justify-center bg-primary-600 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors min-h-[44px] touch-manipulation"
+                  className={`group inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 transition-all hover:bg-red-50 hover:text-red-700 ${isRTL ? 'flex-row-reverse' : ''}`}
                 >
-                  {t('common.contact') || 'Contact Us'}
+                  <span>{labels.ctaPrimary}</span>
+                  <ArrowRight
+                    className={`h-4 w-4 transition-transform group-hover:translate-x-0.5 ${isRTL ? 'rotate-180 group-hover:-translate-x-0.5 group-hover:translate-x-0' : ''}`}
+                  />
                 </Link>
-                <Link 
+                <Link
                   href={getLocalizedPath('/products', locale)}
-                  className="inline-flex items-center justify-center border-2 border-primary-600 text-primary-600 px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-50 transition-colors min-h-[44px] touch-manipulation"
+                  className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-white/60"
                 >
-                  {t('common.products') || 'View Products'}
+                  {labels.ctaSecondary}
                 </Link>
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>

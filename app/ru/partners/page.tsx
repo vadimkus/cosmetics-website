@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowLeft, Handshake } from 'lucide-react'
+import { ArrowLeft, ArrowRight, MapPin, ShieldCheck, Sparkles } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PartnersList from '@/components/partners/PartnersList'
 import PartnersSchema from '@/components/schema/PartnersSchema'
+import { partnersData } from '@/lib/partners'
 
 export const metadata: Metadata = {
   title: 'Партнеры GENOSYS в ОАЭ - Надежные дистрибьюторы корейской дерматокосметики | Genosys Middle East',
@@ -66,9 +67,12 @@ export const metadata: Metadata = {
 }
 
 export default function RussianPartnersPage() {
+  const partnerCount = partnersData.length
+  const certifiedCount = partnersData.filter((p) => p.certificateUrl).length
+
   return (
     <>
-      <BreadcrumbSchema 
+      <BreadcrumbSchema
         items={[
           { name: 'Главная', url: '/ru' },
           { name: 'Партнеры', url: '/ru/partners' }
@@ -76,70 +80,121 @@ export default function RussianPartnersPage() {
       />
       <PartnersSchema />
       <div className="bg-white min-h-screen">
-        <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
+        <div className="container mx-auto px-3 md:px-4 py-4 md:py-12">
           <div className="max-w-6xl mx-auto">
-            {/* Navigation Breadcrumb */}
-            <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-              <Link href="/ru" className="hover:text-primary-600 transition-colors">Главная</Link>
-              <span> / </span>
-              <span className="text-gray-900 font-medium">Партнеры</span>
+            {/* Breadcrumb */}
+            <nav className="text-xs md:text-sm text-gray-500 mb-2 md:mb-4" aria-label="Breadcrumb">
+              <Link href="/ru" className="hover:text-gray-900 transition-colors">Главная</Link>
+              <span className="mx-1.5">/</span>
+              <span className="text-gray-900">Партнёры</span>
             </nav>
-            
-            {/* Back to Home */}
-            <Link href="/ru" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+
+            <Link href="/ru" className="inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10">
               <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
               <span>На главную</span>
             </Link>
 
-            {/* Header */}
-            <div className="text-center mb-4 md:mb-8">
-              <div className="inline-flex items-center justify-center gap-2 mb-2 md:mb-3">
-                <div className="p-2 md:p-3 bg-gradient-to-r from-red-100 to-pink-100 rounded-lg md:rounded-xl">
-                  <Handshake className="h-4 w-4 md:h-6 md:w-6 text-red-600" />
-                </div>
-                <h1 className="text-xl md:text-3xl font-bold text-gray-800">
-                  Наши партнеры
-                </h1>
-              </div>
-              <p className="text-xs md:text-base text-gray-600 px-2">
-                Строим прочные партнерства GENOSYS по всему ОАЭ
+            {/* Editorial hero */}
+            <header className="mb-8 md:mb-14">
+              <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-gray-500">
+                НАША СЕТЬ · ОАЭ
               </p>
-            </div>
-            
-            {/* Partners List */}
+              <h1 className="mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.05] tracking-tight text-gray-900">
+                Доверенные партнёры GENOSYS
+              </h1>
+              <p className="mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-gray-600">
+                Тщательно отобранные салоны, клиники и спа, которые проводят профессиональные корейские протоколы GENOSYS по всем ОАЭ с 2019 года.
+              </p>
+
+              <dl className="mt-8 hidden md:grid md:grid-cols-3 gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200">
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <Sparkles className="h-3.5 w-3.5 text-red-600" />
+                    партнёров и точек
+                  </dt>
+                  <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    {partnerCount}+
+                  </dd>
+                </div>
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <MapPin className="h-3.5 w-3.5 text-red-600" />
+                    эмиратов
+                  </dt>
+                  <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    2
+                    <span className="ml-2 align-middle text-sm font-medium text-gray-500">
+                      Дубай · Абу-Даби
+                    </span>
+                  </dd>
+                </div>
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <ShieldCheck className="h-3.5 w-3.5 text-red-600" />
+                    сертифицированные реселлеры
+                  </dt>
+                  <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    {certifiedCount}
+                    <span className="ml-2 align-middle text-sm font-medium text-gray-500">
+                      с 2019
+                    </span>
+                  </dd>
+                </div>
+              </dl>
+
+              <div className="mt-6 flex flex-wrap gap-2 md:hidden">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 px-3 py-1 text-[11px] font-semibold text-white">
+                  <Sparkles className="h-3 w-3" />
+                  {partnerCount}+ партнёров
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1 text-[11px] font-semibold text-gray-700">
+                  <MapPin className="h-3 w-3" /> Дубай · Абу-Даби
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-[11px] font-semibold text-amber-700 ring-1 ring-inset ring-amber-200">
+                  <ShieldCheck className="h-3 w-3" />
+                  с 2019
+                </span>
+              </div>
+            </header>
+
             <PartnersList />
 
-            {/* Call to Action */}
-            <div className="mt-6 md:mt-12">
-              <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-lg md:rounded-xl p-4 md:p-8 border border-red-100">
-                <h2 className="text-base md:text-2xl font-bold text-gray-800 mb-2 md:mb-4 text-center">
-                  Заинтересованы стать партнером?
-                </h2>
-                <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6 text-center px-2">
-                  Присоединяйтесь к нашей сети надежных партнеров GENOSYS.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-2 md:gap-4 justify-center">
-                  <Link 
+            {/* Become a partner CTA */}
+            <section className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-gray-900 bg-gray-900 text-white">
+              <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-red-500/30 blur-3xl" />
+              <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-red-600/20 blur-3xl" />
+              <div className="relative grid gap-6 px-6 py-8 md:grid-cols-[1.4fr_1fr] md:items-center md:gap-10 md:px-12 md:py-14">
+                <div>
+                  <p className="text-[11px] font-mono uppercase tracking-[0.32em] text-red-300">
+                    СОТРУДНИЧЕСТВО
+                  </p>
+                  <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight tracking-tight">
+                    Хотите стать партнёром GENOSYS?
+                  </h2>
+                  <p className="mt-4 max-w-xl text-sm md:text-base leading-relaxed text-gray-300">
+                    Мы сотрудничаем с салонами, клиниками и спа, которые ставят на первое место здоровье кожи и подтверждённые результаты. Расскажем о профессиональной линейке, обучении и маркетинговой поддержке.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-3 md:items-start">
+                  <Link
                     href="/ru/contact"
-                    className="inline-flex items-center justify-center bg-primary-600 text-white px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors min-h-[44px] touch-manipulation"
+                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 transition-all hover:bg-red-50 hover:text-red-700"
                   >
-                    Связаться с нами
+                    <span>Связаться с нами</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </Link>
-                  <Link 
+                  <Link
                     href="/ru/products"
-                    className="inline-flex items-center justify-center border-2 border-primary-600 text-primary-600 px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-50 transition-colors min-h-[44px] touch-manipulation"
+                    className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-white/60"
                   >
                     Посмотреть продукцию
                   </Link>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
         </div>
       </div>
     </>
   )
 }
-
-
-

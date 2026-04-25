@@ -1,107 +1,150 @@
 'use client'
 
 import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ArrowRight, MapPin, ShieldCheck, Sparkles } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PartnersList from '@/components/partners/PartnersList'
 import PartnersSchema from '@/components/schema/PartnersSchema'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { partnersData } from '@/lib/partners'
 
 export default function ArabicPartnersPageClient() {
   const { t, locale, dir } = useTranslation()
-  
+  const isRTL = dir === 'rtl'
+  const partnerCount = partnersData.length
+  const certifiedCount = partnersData.filter((p) => p.certificateUrl).length
+
   return (
     <>
-      <BreadcrumbSchema 
+      <BreadcrumbSchema
         items={[
           { name: t('navigation.home'), url: getLocalizedPath('/', locale) },
-          { name: t('navigation.partners'), url: getLocalizedPath('/partners', locale) }
+          { name: t('navigation.partners'), url: getLocalizedPath('/partners', locale) },
         ]}
       />
       <PartnersSchema />
       <div className="bg-white min-h-screen" dir={dir}>
-        <div className="container mx-auto px-4 py-8 md:py-16">
+        <div className="container mx-auto px-4 py-8 md:py-12">
           <div className="max-w-6xl mx-auto">
-            {/* Navigation Breadcrumb */}
-            <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-              {/* Mobile Breadcrumb */}
-              <div className="md:hidden flex items-center gap-2">
-                <Link 
-                  href={getLocalizedPath('/', locale)}
-                  className="hover:text-primary-600 transition-colors flex items-center"
-                >
-                  {t('navigation.home')}
-                </Link>
-                <span className="flex items-center">/</span>
-                <span className="text-gray-900 font-medium flex items-center">
-                  {t('navigation.partners')}
-                </span>
-              </div>
-              
-              {/* Mobile Back Button */}
-              <Link 
-                href={getLocalizedPath('/', locale)}
-                className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
-              >
-                <ArrowLeft className={`h-4 w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-                <span className="font-medium">{t('common.backToHome')}</span>
+            {/* Breadcrumb */}
+            <nav className="text-xs md:text-sm text-gray-500 mb-2 md:mb-4" aria-label="Breadcrumb">
+              <Link href={getLocalizedPath('/', locale)} className="hover:text-gray-900 transition-colors">
+                {t('navigation.home')}
               </Link>
-              
-              {/* Desktop Breadcrumb */}
-              <div className="hidden md:flex items-center gap-2">
-                <Link 
-                  href={getLocalizedPath('/', locale)}
-                  className="hover:text-primary-600 transition-colors flex items-center"
-                >
-                  {t('navigation.home')}
-                </Link>
-                <span className="flex items-center">/</span>
-                <span className="text-gray-900 font-medium flex items-center">
-                  {t('navigation.partners')}
+              <span className="mx-1.5">/</span>
+              <span className="text-gray-900">{t('navigation.partners')}</span>
+            </nav>
+
+            <Link
+              href={getLocalizedPath('/', locale)}
+              className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10 ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${isRTL ? 'rotate-180' : ''}`} />
+              <span>{t('common.backToHome')}</span>
+            </Link>
+
+            {/* Editorial hero */}
+            <header className="mb-8 md:mb-14">
+              <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-gray-500">
+                شبكتنا · الإمارات
+              </p>
+              <h1 className="mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.05] tracking-tight text-gray-900">
+                شركاء GENOSYS الموثوقون
+              </h1>
+              <p className="mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-gray-600">
+                صالونات وعيادات وسبا منتقاة بعناية تقدم بروتوكولات GENOSYS الكورية الاحترافية في جميع أنحاء الإمارات منذ عام 2019.
+              </p>
+
+              <dl className="mt-8 hidden md:grid md:grid-cols-3 gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200">
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <Sparkles className="h-3.5 w-3.5 text-red-600" />
+                    شريك ومنشأة
+                  </dt>
+                  <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    {partnerCount}+
+                  </dd>
+                </div>
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <MapPin className="h-3.5 w-3.5 text-red-600" />
+                    إمارات يخدمها فريقنا
+                  </dt>
+                  <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    2
+                    <span className="mr-2 align-middle text-sm font-medium text-gray-500">
+                      دبي · أبوظبي
+                    </span>
+                  </dd>
+                </div>
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <ShieldCheck className="h-3.5 w-3.5 text-red-600" />
+                    موزعون معتمدون رسميًا
+                  </dt>
+                  <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    {certifiedCount}
+                    <span className="mr-2 align-middle text-sm font-medium text-gray-500">
+                      منذ 2019
+                    </span>
+                  </dd>
+                </div>
+              </dl>
+
+              <div className="mt-6 flex flex-wrap gap-2 md:hidden">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 px-3 py-1 text-[11px] font-semibold text-white">
+                  <Sparkles className="h-3 w-3" />
+                  {partnerCount}+ شريك
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1 text-[11px] font-semibold text-gray-700">
+                  <MapPin className="h-3 w-3" /> دبي · أبوظبي
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-[11px] font-semibold text-amber-700 ring-1 ring-inset ring-amber-200">
+                  <ShieldCheck className="h-3 w-3" />
+                  منذ 2019
                 </span>
               </div>
-            </nav>
-            <div className="text-center mb-4 sm:mb-6 lg:mb-8">
-              <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-2 px-2">
-                {t('partners.title')}
-              </h1>
-              <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-4 px-2">
-                {t('partners.subtitle')}
-              </p>
-            </div>
-            
+            </header>
+
             <PartnersList />
 
-            {/* Call to Action */}
-            <div className="mt-6 sm:mt-8 lg:mt-12 text-center">
-              <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-xl p-3 sm:p-4 md:p-6 lg:p-8">
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-800 mb-2 sm:mb-3 lg:mb-4">
-                  {t('partners.becomePartner')}
-                </h2>
-                <p className="text-xs sm:text-sm lg:text-base text-gray-600 mb-3 sm:mb-4 lg:mb-6 px-1">
-                  {t('partners.becomePartnerDescription')}
-                </p>
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 lg:gap-4 justify-center">
-                  <Link 
+            {/* Become a partner CTA */}
+            <section className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-gray-900 bg-gray-900 text-white">
+              <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-red-500/30 blur-3xl" />
+              <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-red-600/20 blur-3xl" />
+              <div className="relative grid gap-6 px-6 py-8 md:grid-cols-[1.4fr_1fr] md:items-center md:gap-10 md:px-12 md:py-14">
+                <div>
+                  <p className="text-[11px] font-mono uppercase tracking-[0.32em] text-red-300">
+                    دعوة للتعاون
+                  </p>
+                  <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight tracking-tight">
+                    {t('partners.becomePartner')}
+                  </h2>
+                  <p className="mt-4 max-w-xl text-sm md:text-base leading-relaxed text-gray-300">
+                    {t('partners.becomePartnerDescription')}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-3 md:items-end">
+                  <Link
                     href={getLocalizedPath('/contact', locale)}
-                    className="inline-flex items-center justify-center bg-primary-600 text-white px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-lg text-xs sm:text-sm lg:text-base font-semibold hover:bg-primary-700 transition-colors w-full sm:w-auto"
+                    className="group inline-flex flex-row-reverse items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 transition-all hover:bg-red-50 hover:text-red-700"
                   >
-                    {t('partners.contactUs')}
+                    <span>{t('partners.contactUs')}</span>
+                    <ArrowRight className="h-4 w-4 rotate-180 transition-transform group-hover:-translate-x-0.5" />
                   </Link>
-                  <Link 
+                  <Link
                     href={getLocalizedPath('/products', locale)}
-                    className="inline-flex items-center justify-center border border-primary-600 text-primary-600 px-3 sm:px-4 lg:px-6 py-2 sm:py-2.5 lg:py-3 rounded-lg text-xs sm:text-sm lg:text-base font-semibold hover:bg-primary-50 transition-colors w-full sm:w-auto"
+                    className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-all hover:border-white/60"
                   >
                     {t('partners.viewProducts')}
                   </Link>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
         </div>
       </div>
     </>
   )
 }
-

@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Безопасная оплата - Профессиональная корейская дерматокосметика GENOSYS | Genosys',
+  title: 'Безопасная оплата - Профессиональная корейская дерматокосметика GENOSYS',
   description: 'Завершите заказ профессиональной корейской дерматокосметики GENOSYS безопасно. Профессиональные скидки, доставка в ОАЭ и безопасная обработка платежей.',
   keywords: 'Оплата GENOSYS, оплата корейской косметики, заказ профессионального ухода за кожей, покупка косметики ОАЭ, безопасная оплата',
   openGraph: {

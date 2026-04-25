@@ -36,7 +36,7 @@ export const metadata: Metadata = {
       },
     ],
     url: 'https://genosys.ae/ar/about',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ar_AE',
   },
   twitter: {

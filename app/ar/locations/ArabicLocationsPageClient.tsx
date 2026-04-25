@@ -120,7 +120,7 @@ export default function ArabicLocationsPageClient() {
               مواقعنا
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              GENOSYS الشرق الأوسط FZ-LLC يقدم مستحضرات التجميل الكورية المهنية إلى جميع الإمارات السبع في الإمارات
+              GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية المهنية إلى جميع الإمارات السبع في الإمارات
             </p>
           </div>
 

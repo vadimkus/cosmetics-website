@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description: 'Learn about the terms and conditions governing your use of GENOSYS services and products.',
     type: 'website',
     url: 'https://genosys.ae/terms',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
   },
   alternates: {
     canonical: 'https://genosys.ae/terms',

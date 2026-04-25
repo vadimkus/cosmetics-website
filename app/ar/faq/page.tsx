@@ -41,7 +41,7 @@ export const metadata: Metadata = {
       },
     ],
     url: 'https://genosys.ae/ar/faq',
-    siteName: 'GENOSYS الشرق الأوسط FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ar_AE',
   },
   twitter: {

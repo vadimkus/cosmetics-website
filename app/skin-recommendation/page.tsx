@@ -3,7 +3,7 @@ import SkinRecommendationClient from './SkinRecommendationClient'
 import { SkinRecommendationErrorBoundary } from '@/components/error-boundaries'
 
 export const metadata: Metadata = {
-  title: 'Personalized Skin Recommendation | GENOSYS Professional Korean Dermacosmetics',
+  title: 'Skin Recommendation Quiz | GENOSYS Korean Dermacosmetics',
   description: 'Discover your perfect GENOSYS products tailored to your unique skin needs. Our AI-powered recommendation system analyzes your skin profile to suggest the best professional Korean skincare products.',
   keywords: [
     'skin recommendation',

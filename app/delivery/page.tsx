@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import DeliveryPageClient from './DeliveryPageClient'
 
 export const metadata: Metadata = {
-  title: 'Delivery Information - Fast Shipping UAE | Genosys',
+  title: 'Delivery Information - Fast Shipping UAE',
   description: 'Fast and reliable delivery service across the UAE. 1 hour delivery in Dubai, 24-36 hours across UAE. Free shipping on orders above 1,000 AED.',
   keywords: 'delivery UAE, fast shipping Dubai, Careem delivery, QuipQup delivery, free shipping UAE, Korean cosmetics delivery',
   robots: {

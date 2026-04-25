@@ -7,7 +7,7 @@ import PartnersSchema from '@/components/schema/PartnersSchema'
 import { partnersData } from '@/lib/partners'
 
 export const metadata: Metadata = {
-  title: 'Партнеры GENOSYS в ОАЭ - Надежные дистрибьюторы корейской дерматокосметики | Genosys Middle East',
+  title: 'Партнеры GENOSYS в ОАЭ - Надежные дистрибьюторы корейской дерматокосметики',
   description: 'Откройте для себя сеть надежных партнеров GENOSYS по всему ОАЭ. Дистрибьюторы профессиональной корейской дерматокосметики в Дубае, Абу-Даби, Шардже и других городах. Найдите авторизованных розничных продавцов GENOSYS рядом с вами.',
   keywords: [
     'Партнеры GENOSYS ОАЭ',

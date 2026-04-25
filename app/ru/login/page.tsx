@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Вход - Профессиональная корейская дерматокосметика GENOSYS | Genosys',
+  title: 'Вход - Профессиональная корейская дерматокосметика GENOSYS',
   description: 'Доступ к вашему профессиональному аккаунту GENOSYS. Войдите, чтобы просмотреть цены, управлять заказами и получить доступ к эксклюзивным продуктам профессиональной корейской дерматокосметики.',
   keywords: 'Вход GENOSYS, вход корейской косметики, аккаунт профессионального ухода за кожей, вход косметики ОАЭ, доступ к аккаунту GENOSYS',
   openGraph: {

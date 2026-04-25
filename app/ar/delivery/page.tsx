@@ -4,7 +4,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'معلومات التوصيل - شحن سريع الإمارات | Genosys',
+  title: 'معلومات التوصيل - شحن سريع الإمارات',
   description: 'خدمة توصيل سريعة وموثوقة في جميع أنحاء الإمارات. توصيل خلال ساعة واحدة في دبي، 24-36 ساعة في جميع أنحاء الإمارات. شحن مجاني على الطلبات التي تزيد عن 1,000 درهم.',
   keywords: [
     'توصيل الإمارات',

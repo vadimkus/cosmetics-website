@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'تسجيل الدخول - مستحضرات التجميل الكورية المهنية GENOSYS | Genosys',
+  title: 'تسجيل الدخول - مستحضرات التجميل الكورية المهنية GENOSYS',
   description: 'الوصول إلى حسابك المهني في GENOSYS. سجل الدخول لعرض الأسعار وإدارة الطلبات والوصول إلى منتجات مستحضرات التجميل الكورية المهنية الحصرية.',
   keywords: [
     'تسجيل الدخول GENOSYS',

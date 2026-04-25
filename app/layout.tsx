@@ -153,7 +153,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Genosys',
+    title: 'GENOSYS',
   },
   formatDetection: {
     telephone: false,

@@ -24,7 +24,7 @@ type BlogPostListItem = {
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Blog - Korean Skincare Tips & Professional Beauty Insights | Genosys',
+  title: 'GENOSYS Blog - Korean Skincare Tips & Professional Beauty Insights',
   description: 'Expert articles on Korean skincare, professional dermacosmetics, microneedling techniques, and beauty industry trends in UAE. Learn from GENOSYS professionals.',
   keywords: [
     'Korean skincare blog',

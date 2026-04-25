@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     description: 'Learn how GENOSYS Middle East FZ-LLC protects your personal data and respects your privacy rights.',
     type: 'website',
     url: 'https://genosys.ae/privacy-policy',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
   },
   alternates: {
     canonical: 'https://genosys.ae/privacy-policy',

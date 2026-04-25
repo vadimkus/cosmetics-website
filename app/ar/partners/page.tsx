@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ArabicPartnersPageClient from './ArabicPartnersPageClient'
 
 export const metadata: Metadata = {
-  title: 'شركاء GENOSYS في الإمارات - موزعو مستحضرات التجميل الكورية الموثوقون | Genosys Middle East',
+  title: 'شركاء GENOSYS في الإمارات - موزعو مستحضرات التجميل الكورية الموثوقون',
   description: 'اكتشف شبكة شركاء GENOSYS الموثوقين في جميع أنحاء الإمارات. موزعو مستحضرات التجميل الكورية المهنية في دبي وأبوظبي والشارقة والمزيد. ابحث عن تجار GENOSYS المعتمدين بالقرب منك.',
   keywords: [
     'شركاء GENOSYS الإمارات',

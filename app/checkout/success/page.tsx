@@ -4,7 +4,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Payment Successful - GENOSYS Professional Korean Dermacosmetics | Genosys',
+  title: 'Payment Successful - GENOSYS Professional Korean Dermacosmetics',
   description: 'Your GENOSYS order has been successfully processed. Thank you for your purchase of professional Korean dermacosmetics.',
   keywords: 'GENOSYS payment success, order confirmation, Korean dermacosmetics purchase, successful payment',
   robots: {

@@ -4,7 +4,7 @@ import PartnersSchema from '@/components/schema/PartnersSchema'
 import PartnersPageClient from './PartnersPageClient'
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Partners in UAE - Trusted Korean Dermacosmetics Distributors | Genosys Middle East',
+  title: 'GENOSYS Partners in UAE - Trusted Korean Dermacosmetics Distributors',
   description: 'Discover our network of trusted GENOSYS partners across UAE. Professional Korean dermacosmetics distributors in Dubai, Abu Dhabi, Sharjah, and more. Find authorized GENOSYS retailers near you.',
   keywords: [
     'GENOSYS partners UAE',

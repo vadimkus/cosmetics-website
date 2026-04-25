@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import LocationsPageClient from './LocationsPageClient'
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Locations - Serving All UAE Emirates | Genosys',
+  title: 'GENOSYS Locations - Serving All UAE Emirates',
   description: 'GENOSYS delivers professional Korean dermacosmetics to all UAE emirates: Dubai, Abu Dhabi, Sharjah, Ajman, Ras Al Khaimah, Fujairah, and Umm Al Quwain.',
   keywords: [
     'GENOSYS locations UAE',

@@ -32,7 +32,7 @@ const locations: Record<string, {
   dubai: {
     name: 'دبي',
     title: 'GENOSYS دبي - موزع مستحضرات التجميل الكورية في دبي',
-    description: 'GENOSYS الشرق الأوسط FZ-LLC يخدم دبي بمستحضرات التجميل الكورية المهنية والتدريب على العناية بالبشرة. توصيل سريع في جميع أنحاء دبي مع شحن مجاني للطلبات التي تزيد عن 1000 درهم.',
+    description: 'GENOSYS الشرق الأوسط يخدم دبي بمستحضرات التجميل الكورية المهنية والتدريب على العناية بالبشرة. توصيل سريع في جميع أنحاء دبي مع شحن مجاني للطلبات التي تزيد عن 1000 درهم.',
     address: 'كوردوبا ريزيدنس، فيلا E02، دبي، الإمارات العربية المتحدة',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -46,7 +46,7 @@ const locations: Record<string, {
   'abu-dhabi': {
     name: 'أبوظبي والعين',
     title: 'GENOSYS أبوظبي والعين - موزع مستحضرات التجميل الكورية',
-    description: 'GENOSYS الشرق الأوسط FZ-LLC يوصل مستحضرات التجميل الكورية المهنية إلى أبوظبي والعين. منتجات العناية بالبشرة الفاخرة متاحة من خلال موزعنا المعتمد الحصري.',
+    description: 'GENOSYS الشرق الأوسط يوصل مستحضرات التجميل الكورية المهنية إلى أبوظبي والعين. منتجات العناية بالبشرة الفاخرة متاحة من خلال موزعنا المعتمد الحصري.',
     address: 'خدمة جميع مناطق أبوظبي والعين',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -68,7 +68,7 @@ const locations: Record<string, {
   sharjah: {
     name: 'الشارقة',
     title: 'GENOSYS الشارقة - موزع مستحضرات التجميل الكورية في الشارقة',
-    description: 'GENOSYS الشرق الأوسط FZ-LLC يقدم مستحضرات التجميل الكورية المهنية إلى الشارقة. منتجات العناية بالبشرة عالية الجودة والتدريب المهني متاح.',
+    description: 'GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية المهنية إلى الشارقة. منتجات العناية بالبشرة عالية الجودة والتدريب المهني متاح.',
     address: 'خدمة جميع مناطق الشارقة',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -82,7 +82,7 @@ const locations: Record<string, {
   'ras-al-khaimah': {
     name: 'رأس الخيمة',
     title: 'GENOSYS رأس الخيمة - موزع مستحضرات التجميل الكورية',
-    description: 'GENOSYS الشرق الأوسط FZ-LLC يخدم رأس الخيمة بمستحضرات التجميل الكورية المهنية. مكتبنا يقع في رأس الخيمة.',
+    description: 'GENOSYS الشرق الأوسط يخدم رأس الخيمة بمستحضرات التجميل الكورية المهنية. مكتبنا يقع في رأس الخيمة.',
     address: 'MBAM0014 كومباس بيلدنج، طريق الشهداء، منطقة الحمرا الصناعية-FZ، رأس الخيمة، الإمارات',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -96,7 +96,7 @@ const locations: Record<string, {
   ajman: {
     name: 'عجمان',
     title: 'GENOSYS عجمان - موزع مستحضرات التجميل الكورية في عجمان',
-    description: 'GENOSYS الشرق الأوسط FZ-LLC يوصل مستحضرات التجميل الكورية المهنية إلى عجمان. منتجات العناية بالبشرة الفاخرة متاحة مع توصيل موثوق.',
+    description: 'GENOSYS الشرق الأوسط يوصل مستحضرات التجميل الكورية المهنية إلى عجمان. منتجات العناية بالبشرة الفاخرة متاحة مع توصيل موثوق.',
     address: 'خدمة جميع مناطق عجمان',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -109,7 +109,7 @@ const locations: Record<string, {
   fujairah: {
     name: 'الفجيرة',
     title: 'GENOSYS الفجيرة - موزع مستحضرات التجميل الكورية في الفجيرة',
-    description: 'GENOSYS الشرق الأوسط FZ-LLC يقدم مستحضرات التجميل الكورية المهنية إلى الفجيرة. منتجات العناية بالبشرة عالية الجودة يتم توصيلها في جميع أنحاء الإمارة.',
+    description: 'GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية المهنية إلى الفجيرة. منتجات العناية بالبشرة عالية الجودة يتم توصيلها في جميع أنحاء الإمارة.',
     address: 'خدمة جميع مناطق الفجيرة',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -122,7 +122,7 @@ const locations: Record<string, {
   'umm-al-quwain': {
     name: 'أم القيوين',
     title: 'GENOSYS أم القيوين - موزع مستحضرات التجميل الكورية',
-    description: 'GENOSYS الشرق الأوسط FZ-LLC يخدم أم القيوين بمستحضرات التجميل الكورية المهنية. منتجات العناية بالبشرة الفاخرة يتم توصيلها في جميع أنحاء الإمارة.',
+    description: 'GENOSYS الشرق الأوسط يخدم أم القيوين بمستحضرات التجميل الكورية المهنية. منتجات العناية بالبشرة الفاخرة يتم توصيلها في جميع أنحاء الإمارة.',
     address: 'خدمة جميع مناطق أم القيوين',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
@@ -140,12 +140,12 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
   
   if (!location) {
     return {
-      title: 'الموقع غير موجود | GENOSYS الشرق الأوسط FZ-LLC',
+      title: 'الموقع غير موجود | GENOSYS الشرق الأوسط',
     }
   }
 
   return {
-    title: `${location.title} | GENOSYS الشرق الأوسط FZ-LLC`,
+    title: `${location.title} | GENOSYS الشرق الأوسط`,
     description: location.description,
     keywords: [
       `GENOSYS ${location.name}`,
@@ -166,7 +166,7 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
         },
       ],
       url: `https://genosys.ae/ar/locations/${city}`,
-      siteName: 'GENOSYS الشرق الأوسط FZ-LLC',
+      siteName: 'GENOSYS',
       locale: 'ar_AE',
     },
     twitter: {
@@ -219,7 +219,7 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "LocalBusiness",
-            "name": `GENOSYS الشرق الأوسط FZ-LLC - ${location.name}`,
+            "name": `GENOSYS الشرق الأوسط - ${location.name}`,
             "description": location.description,
             "address": {
               "@type": "PostalAddress",

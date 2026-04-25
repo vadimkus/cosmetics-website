@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description: 'تعرف على كيفية حماية GENOSYS Middle East FZ-LLC لبياناتك الشخصية واحترام حقوق الخصوصية الخاصة بك.',
     type: 'website',
     url: 'https://genosys.ae/ar/privacy-policy',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ar_AE',
   },
   alternates: {

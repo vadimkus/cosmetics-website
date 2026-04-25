@@ -3,19 +3,15 @@ import BrandPageClient from '../../brand/BrandPageClient'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 
 export const metadata: Metadata = {
-  title: 'شركاء GENOSYS في الإمارات - موزعو مستحضرات التجميل الكورية الموثوقون | Genosys Middle East',
-  description: 'اكتشف شبكة شركاء GENOSYS الموثوقين في جميع أنحاء الإمارات. موزعو مستحضرات التجميل الكورية المهنية في دبي وأبوظبي والشارقة والمزيد. ابحث عن تجار GENOSYS المعتمدين بالقرب منك.',
+  title: 'История бренда GENOSYS - Gene Re-Birth System',
+  description: 'Откройте для себя GENOSYS — первый в мире бренд, специализирующийся на микронидлинге. Система Gene Re-Birth объединяет микронидлинг и специально разработанную космецевтику для оптимальных результатов ухода за кожей.',
   keywords: [
-    'شركاء GENOSYS الإمارات',
-    'موزعو مستحضرات التجميل الكورية دبي',
-    'تجار GENOSYS المعتمدون',
-    'شركاء العناية بالبشرة المهنية الإمارات',
-    'موزعو الجمال الكوريون',
-    'شركاء مستحضرات التجميل الطبية دبي',
-    'موزعو GENOSYS الإمارات',
-    'موزعو العناية بالبشرة الكورية',
-    'شركاء صالونات التجميل دبي',
-    'شركاء عيادات التجميل الإمارات'
+    'бренд GENOSYS',
+    'Gene Re-Birth System',
+    'бренд микронидлинга',
+    'корейская дерматокосметика',
+    'профессиональный уход за кожей',
+    'косметика ОАЭ',
   ],
   robots: {
     index: true,
@@ -29,40 +25,40 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'شركاء GENOSYS في الإمارات - موزعو مستحضرات التجميل الكورية الموثوقون',
-    description: 'ابحث عن شركاء GENOSYS المعتمدين في جميع أنحاء الإمارات. موزعو مستحضرات التجميل الكورية المهنية في دبي وأبوظبي والشارقة وجميع الإمارات.',
+    title: 'История бренда GENOSYS - Gene Re-Birth System',
+    description: 'Откройте для себя GENOSYS — первый в мире бренд, специализирующийся на микронидлинге. Система Gene Re-Birth объединяет микронидлинг и специально разработанную космецевтику.',
     type: 'website',
-    url: 'https://genosys.ae/ar/partners',
+    url: 'https://genosys.ae/ru/brand',
     siteName: 'GENOSYS',
     images: [
       {
         url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
-        alt: 'شبكة شركاء GENOSYS في الإمارات',
+        alt: 'История бренда GENOSYS',
       },
     ],
-    locale: 'ar_AE',
+    locale: 'ru_RU',
   },
   twitter: {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'شركاء GENOSYS في الإمارات - موزعو مستحضرات التجميل الكورية الموثوقون',
-    description: 'ابحث عن شركاء GENOSYS المعتمدين في جميع أنحاء الإمارات. موزعو مستحضرات التجميل الكورية المهنية.',
+    title: 'История бренда GENOSYS - Gene Re-Birth System',
+    description: 'Откройте для себя GENOSYS — первый в мире бренд, специализирующийся на микронидлинге.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {
-    canonical: 'https://genosys.ae/ar/partners',
+    canonical: 'https://genosys.ae/ru/brand',
     languages: {
-      'ar': 'https://genosys.ae/ar/partners',
-      'en': 'https://genosys.ae/partners',
-      'ru': 'https://genosys.ae/ru/partners',
+      'en': 'https://genosys.ae/brand',
+      'ar': 'https://genosys.ae/ar/brand',
+      'ru': 'https://genosys.ae/ru/brand',
     },
   },
 }
 
-export default function ArabicPartnersPage() {
+export default function RussianBrandPage() {
   return (
     <>
       <BreadcrumbSchema

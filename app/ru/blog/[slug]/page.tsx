@@ -150,7 +150,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       publishedTime: post.publishedAt?.toISOString(),
       authors: post.authorName ? [post.authorName] : [],
       url: `https://genosys.ae/ru/blog/${slug}`,
-      siteName: 'GENOSYS Professional',
+      siteName: 'GENOSYS',
       locale: 'ru_AE',
     },
     alternates: {

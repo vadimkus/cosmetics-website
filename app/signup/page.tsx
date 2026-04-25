@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Sign Up - GENOSYS Professional Korean Dermacosmetics | Genosys',
+  title: 'Sign Up - GENOSYS Professional Korean Dermacosmetics',
   description: 'Create your GENOSYS professional account. Sign up to access professional Korean dermacosmetics products, pricing, and ordering.',
   robots: {
     index: false,

@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import BrandPageClient from './BrandPageClient'
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Brand Story - Gene Re-Birth System | Genosys',
+  title: 'GENOSYS Brand Story - Gene Re-Birth System',
   description: 'Discover GENOSYS, the world\'s first microneedling-dedicated brand. Gene Re-Birth System combines microneedling with specially formulated cosmeceuticals for optimal skincare results.',
   keywords: 'GENOSYS brand, Gene Re-Birth System, microneedling brand, Korean dermacosmetics, professional skincare, UAE cosmetics',
   openGraph: {

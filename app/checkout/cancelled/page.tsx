@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Checkout Cancelled - GENOSYS Professional Korean Dermacosmetics | Genosys',
+  title: 'Checkout Cancelled - GENOSYS Professional Korean Dermacosmetics',
   description: 'Your GENOSYS checkout was cancelled. You can return to complete your purchase of professional Korean dermacosmetics.',
   robots: {
     index: false, // Don't index cancel pages

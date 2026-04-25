@@ -4,7 +4,7 @@ import { CheckoutErrorBoundary } from '@/components/error-boundaries'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Secure Checkout - GENOSYS Professional Korean Dermacosmetics | Genosys',
+  title: 'Secure Checkout - GENOSYS Professional Korean Dermacosmetics',
   description: 'Complete your GENOSYS professional Korean dermacosmetics order securely. Professional discounts, UAE delivery, and secure payment processing.',
   keywords: 'GENOSYS checkout, Korean dermacosmetics checkout, professional skincare order, UAE cosmetics purchase, secure payment',
   openGraph: {

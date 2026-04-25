@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ProfilePageRefactored from '../../profile/page'
 
 export const metadata: Metadata = {
-  title: 'Профиль - Управление аккаунтом GENOSYS | Genosys',
+  title: 'Профиль - Управление аккаунтом GENOSYS',
   description: 'Управляйте своим профилем GENOSYS, просматривайте историю заказов, обновляйте личную информацию и настройки. Доступ к профессиональным ценам и эксклюзивным продуктам корейской дерматокосметики.',
   keywords: ['Профиль GENOSYS', 'Управление аккаунтом', 'История заказов', 'Настройки профиля', 'Профессиональный аккаунт', 'GENOSYS ОАЭ'],
   robots: {

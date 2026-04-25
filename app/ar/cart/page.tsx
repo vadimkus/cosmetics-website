@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'سلة التسوق - GENOSYS مستحضرات التجميل الكورية المهنية | Genosys',
+  title: 'سلة التسوق - GENOSYS مستحضرات التجميل الكورية المهنية',
   description: 'راجع منتجات GENOSYS الكورية المهنية المختارة. دفع آمن مع خصومات مهنية وتوصيل في الإمارات.',
   keywords: 'سلة GENOSYS، سلة مستحضرات التجميل الكورية، سلة العناية بالبشرة المهنية، تسوق مستحضرات التجميل الإمارات، دفع GENOSYS',
   openGraph: {

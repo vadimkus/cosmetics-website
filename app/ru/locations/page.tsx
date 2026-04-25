@@ -4,7 +4,7 @@ import { MapPin, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 
 export const metadata: Metadata = {
-  title: 'Локации GENOSYS - Обслуживание всех эмиратов ОАЭ | Genosys',
+  title: 'Локации GENOSYS - Обслуживание всех эмиратов ОАЭ',
   description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ: Дубай, Абу-Даби, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра и Умм-эль-Кайвайн.',
   keywords: 'Локации GENOSYS ОАЭ, корейская дерматокосметика Дубай, GENOSYS Абу-Даби, GENOSYS Шарджа, доставка ухода за кожей ОАЭ',
   robots: {

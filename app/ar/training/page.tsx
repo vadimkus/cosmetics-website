@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ArabicTrainingPageClient from './ArabicTrainingPageClient'
 
 export const metadata: Metadata = {
-  title: 'التدريب المهني - تدريب GENOSYS للعناية بالبشرة | Genosys',
+  title: 'التدريب المهني - تدريب GENOSYS للعناية بالبشرة',
   description: 'موارد التدريب المهني لمنتجات العناية بالبشرة GENOSYS. قم بتنزيل وثائق التدريب، ومشاهدة دروس الفيديو، وإتقان التقنيات المهنية لمستحضرات التجميل الكورية.',
   keywords: [
     'تدريب GENOSYS',

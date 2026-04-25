@@ -3,7 +3,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Offline Mode - GENOSYS Professional Korean Dermacosmetics | Genosys',
+  title: 'Offline Mode - GENOSYS Professional Korean Dermacosmetics',
   description: 'You are currently offline. GENOSYS website is available in offline mode. Browse cached content and reconnect when internet is available.',
   keywords: 'GENOSYS offline, Korean dermacosmetics offline, professional skincare offline, offline mode, cached content',
   openGraph: {

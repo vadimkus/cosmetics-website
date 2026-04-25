@@ -19,7 +19,7 @@ export const metadata: Metadata = {
       },
     ],
     url: 'https://genosys.ae/ru/about',
-    siteName: 'GENOSYS Middle East FZ-LLC',
+    siteName: 'GENOSYS',
     locale: 'ru_AE',
   },
   robots: {

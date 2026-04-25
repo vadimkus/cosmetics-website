@@ -54,15 +54,52 @@ const FEATURED_CATEGORY_SLUGS = [
   'sun',
 ] as const
 
-// Small visual helper — each category tile gets a tinted backdrop so the rail
-// reads as a deliberate grid even when product imagery is not available yet.
-const CATEGORY_ACCENTS: Record<string, { bg: string; ring: string }> = {
-  microneedling: { bg: 'from-primary-50 to-white', ring: 'ring-primary-100' },
-  'pro-solution': { bg: 'from-purple-50 to-white', ring: 'ring-purple-100' },
-  serum: { bg: 'from-emerald-50 to-white', ring: 'ring-emerald-100' },
-  cream: { bg: 'from-amber-50 to-white', ring: 'ring-amber-100' },
-  mask: { bg: 'from-sky-50 to-white', ring: 'ring-sky-100' },
-  sun: { bg: 'from-orange-50 to-white', ring: 'ring-orange-100' },
+// Per-category backdrop tint for the product photograph. All tiles share a
+// uniform warm-neutral card body; the tint is confined to a soft circular
+// vignette behind the product so the rail still has a whisper of category
+// colour without the old "pastel-grid" look.
+const CATEGORY_ACCENTS: Record<string, string> = {
+  microneedling: 'from-rose-100/70 to-rose-50/40',
+  'pro-solution': 'from-violet-100/70 to-violet-50/40',
+  serum: 'from-emerald-100/70 to-emerald-50/40',
+  cream: 'from-amber-100/70 to-amber-50/40',
+  mask: 'from-sky-100/70 to-sky-50/40',
+  sun: 'from-orange-100/70 to-orange-50/40',
+}
+
+// One-line descriptors per category, keyed by locale. Short enough to fit
+// beside the title in the 3-col rail without wrapping to 3 lines.
+const CATEGORY_DESCRIPTORS: Record<string, { en: string; ar: string; ru: string }> = {
+  microneedling: {
+    en: 'In-clinic & at-home needling systems',
+    ar: 'أنظمة الوخز بالإبر للعيادة والمنزل',
+    ru: 'Системы микронидлинга — клиника и дом',
+  },
+  'pro-solution': {
+    en: 'Ampoule concentrates used by dermatologists',
+    ar: 'أمبولات مركّزة يستخدمها أطباء الجلدية',
+    ru: 'Концентраты в ампулах для дерматологов',
+  },
+  serum: {
+    en: 'Targeted concentrates for every concern',
+    ar: 'تراكيز موجهة لكل مشكلة بشرة',
+    ru: 'Сыворотки для конкретных задач кожи',
+  },
+  cream: {
+    en: 'Daily moisturisers and barrier creams',
+    ar: 'مرطبات يومية وكريمات حاجز البشرة',
+    ru: 'Ежедневные кремы и барьерный уход',
+  },
+  mask: {
+    en: 'Post-procedure and intensive treatment masks',
+    ar: 'أقنعة ما بعد الإجراءات والعلاج المكثف',
+    ru: 'Маски после процедур и интенсивный уход',
+  },
+  sun: {
+    en: 'Broad-spectrum SPF for UAE climate',
+    ar: 'حماية واسعة الطيف لمناخ الإمارات',
+    ru: 'SPF широкого спектра для климата ОАЭ',
+  },
 }
 
 function pickFirstImage(product: Product): string {
@@ -148,12 +185,9 @@ export default function HomeDesktopSections({
               </p>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-              {featuredCategories.map(cat => {
-                const accent = CATEGORY_ACCENTS[cat.slug] ?? {
-                  bg: 'from-gray-50 to-white',
-                  ring: 'ring-gray-100',
-                }
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+              {featuredCategories.map((cat, idx) => {
+                const accent = CATEGORY_ACCENTS[cat.slug] ?? 'from-gray-100/70 to-gray-50/40'
                 const imageSrc = categoryImageBySlug[cat.slug]
                 const title =
                   locale === 'ar'
@@ -161,35 +195,58 @@ export default function HomeDesktopSections({
                     : locale === 'ru'
                     ? cat.seo.ru.h1
                     : cat.seo.en.h1
+                const descriptor =
+                  CATEGORY_DESCRIPTORS[cat.slug]?.[locale as 'en' | 'ar' | 'ru']
+                const shopLabel =
+                  locale === 'ar' ? 'تسوق' : locale === 'ru' ? 'Смотреть' : 'Shop'
                 return (
                   <Link
                     key={cat.slug}
                     href={getLocalizedPath(`/products/category/${cat.slug}`, locale)}
-                    className={`group relative overflow-hidden rounded-2xl border border-gray-200 ring-1 ${accent.ring} bg-gradient-to-br ${accent.bg} p-5 lg:p-6 min-h-[180px] lg:min-h-[220px] flex flex-col justify-between transition-all hover:border-primary-300 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2`}
+                    className="group relative flex h-[220px] lg:h-[240px] overflow-hidden rounded-2xl bg-white border border-gray-200/80 shadow-[0_1px_2px_rgba(17,24,39,0.04)] transition-all duration-300 hover:border-gray-300 hover:shadow-[0_16px_32px_-12px_rgba(17,24,39,0.15)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2"
                   >
-                    {imageSrc && (
-                      <div className="pointer-events-none absolute -right-6 -bottom-6 w-28 h-28 lg:w-36 lg:h-36 rounded-full overflow-hidden opacity-90 group-hover:scale-105 transition-transform duration-300">
-                        <Image
-                          src={imageSrc}
-                          alt=""
-                          width={144}
-                          height={144}
-                          className="w-full h-full object-cover"
-                          aria-hidden="true"
-                        />
+                    {/* ── LEFT: copy (45%) ──────────────────────────── */}
+                    <div className={`relative z-10 flex w-[45%] flex-col justify-between p-5 lg:p-6 ${isRtl ? 'text-right' : ''}`}>
+                      <div>
+                        <span className="font-mono text-[11px] tracking-[0.14em] text-gray-400">
+                          {String(idx + 1).padStart(2, '0')} / {String(featuredCategories.length).padStart(2, '0')}
+                        </span>
+                        <h3 className="mt-3 text-[17px] lg:text-[19px] font-semibold text-gray-900 leading-[1.15] tracking-tight font-display">
+                          {title}
+                        </h3>
+                        {descriptor && (
+                          <p className="mt-2 text-[12px] lg:text-[13px] text-gray-500 leading-snug line-clamp-2">
+                            {descriptor}
+                          </p>
+                        )}
                       </div>
-                    )}
-                    <div className="relative z-10">
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-white/80 backdrop-blur text-[10px] font-semibold tracking-wider text-gray-600 uppercase border border-gray-200">
-                        {locale === 'ar' ? 'فئة' : locale === 'ru' ? 'Категория' : 'Category'}
-                      </span>
-                      <h3 className={`mt-3 text-lg lg:text-xl font-semibold text-gray-900 tracking-tight ${isRtl ? 'text-right' : ''}`}>
-                        {title}
-                      </h3>
+                      <div className={`flex items-center gap-1.5 text-[13px] font-semibold text-gray-900 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                        <span className="relative pb-0.5 after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-gray-900 after:transition-transform after:duration-300 group-hover:after:scale-x-100">
+                          {shopLabel}
+                        </span>
+                        <ArrowRight className={`h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''}`} aria-hidden="true" />
+                      </div>
                     </div>
-                    <div className={`relative z-10 flex items-center gap-1.5 text-sm font-semibold text-primary-700 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                      <span>{locale === 'ar' ? 'تسوق الآن' : locale === 'ru' ? 'Смотреть' : 'Shop now'}</span>
-                      <ArrowRight className={`h-4 w-4 transition-transform group-hover:translate-x-1 ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''}`} aria-hidden="true" />
+
+                    {/* ── RIGHT: image (55%) with soft tinted vignette ─ */}
+                    <div className="relative w-[55%] overflow-hidden">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${accent}`} aria-hidden="true" />
+                      <div
+                        className="absolute inset-3 rounded-xl bg-white/60 backdrop-blur-[2px]"
+                        aria-hidden="true"
+                      />
+                      {imageSrc && (
+                        <div className="absolute inset-0 flex items-center justify-center p-4 lg:p-5">
+                          <Image
+                            src={imageSrc}
+                            alt=""
+                            width={320}
+                            height={320}
+                            className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+                            aria-hidden="true"
+                          />
+                        </div>
+                      )}
                     </div>
                   </Link>
                 )

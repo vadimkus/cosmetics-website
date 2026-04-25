@@ -61,10 +61,10 @@ export default function PartnersPageClient() {
           : 'partners & venues',
     statEmirates:
       locale === 'ar'
-        ? 'إمارات يخدمها فريقنا'
+        ? 'كل الإمارات السبع'
         : locale === 'ru'
-          ? 'эмиратов в зоне обслуживания'
-          : 'emirates served by our team',
+          ? 'все семь эмиратов'
+          : 'all seven emirates',
     statCertified:
       locale === 'ar'
         ? 'موزعون معتمدون رسميًا'
@@ -188,12 +188,23 @@ export default function PartnersPageClient() {
                   <MapPin className="h-3.5 w-3.5 text-red-600" />
                   {labels.statEmirates}
                 </dt>
-                <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
-                  2
-                  <span className="ml-2 align-middle text-sm font-medium text-gray-500">
-                    Dubai · Abu Dhabi
+                <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-gray-900">
+                  <span>7</span>
+                  <span className="text-sm font-medium text-gray-500">
+                    {locale === 'ar'
+                      ? 'تغطية على مستوى الإمارات'
+                      : locale === 'ru'
+                        ? 'покрытие по всей стране'
+                        : 'UAE-wide coverage'}
                   </span>
                 </dd>
+                <p className="mt-1.5 text-[11px] leading-snug text-gray-500">
+                  {locale === 'ar'
+                    ? 'دبي · أبوظبي · الشارقة · عجمان · رأس الخيمة · الفجيرة · أم القيوين'
+                    : locale === 'ru'
+                      ? 'Дубай · Абу-Даби · Шарджа · Аджман · РАК · Фуджейра · Умм-эль-Кайвайн'
+                      : 'Dubai · Abu Dhabi · Sharjah · Ajman · RAK · Fujairah · UAQ'}
+                </p>
               </div>
               <div className="bg-white px-6 py-5">
                 <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
@@ -216,7 +227,12 @@ export default function PartnersPageClient() {
                 {partnerCount}+ {labels.statPartners}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1 text-[11px] font-semibold text-gray-700">
-                <MapPin className="h-3 w-3" /> Dubai · Abu Dhabi
+                <MapPin className="h-3 w-3" />
+                {locale === 'ar'
+                  ? 'كل الإمارات السبع'
+                  : locale === 'ru'
+                    ? 'Все 7 эмиратов'
+                    : 'All 7 emirates'}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-[11px] font-semibold text-amber-700 ring-1 ring-inset ring-amber-200">
                 <ShieldCheck className="h-3 w-3" />

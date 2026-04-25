@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { prisma } from '@/lib/prisma'
@@ -101,12 +101,26 @@ export async function POST(request: NextRequest) {
         },
       })
 
-      // Best-effort welcome email; never fail the request on SMTP hiccups.
-      sendNewsletterWelcomeEmail({
-        email: updated.email,
-        locale,
-        unsubscribeUrl: buildUnsubscribeUrl(SITE_URL, newToken, locale),
-      }).catch(err => errorLog('[newsletter/subscribe] welcome email failed (resubscribe):', err))
+      // Send the welcome email AFTER the response is returned. We use Next 16's
+      // `after()` so the SMTP call survives the serverless function lifecycle
+      // (a plain fire-and-forget promise gets killed when NextResponse returns
+      // on Vercel — that's why subscribers stopped seeing the email).
+      after(async () => {
+        try {
+          const result = await sendNewsletterWelcomeEmail({
+            email: updated.email,
+            locale,
+            unsubscribeUrl: buildUnsubscribeUrl(SITE_URL, newToken, locale),
+          })
+          if (result?.success) {
+            debugLog('[newsletter/subscribe] welcome email sent (resubscribe):', updated.email, result.messageId)
+          } else {
+            errorLog('[newsletter/subscribe] welcome email failed (resubscribe):', updated.email, result?.error)
+          }
+        } catch (err) {
+          errorLog('[newsletter/subscribe] welcome email threw (resubscribe):', err)
+        }
+      })
 
       return NextResponse.json({ ok: true, alreadySubscribed: false })
     }
@@ -132,11 +146,22 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    sendNewsletterWelcomeEmail({
-      email: created.email,
-      locale,
-      unsubscribeUrl: buildUnsubscribeUrl(SITE_URL, token, locale),
-    }).catch(err => errorLog('[newsletter/subscribe] welcome email failed (new):', err))
+    after(async () => {
+      try {
+        const result = await sendNewsletterWelcomeEmail({
+          email: created.email,
+          locale,
+          unsubscribeUrl: buildUnsubscribeUrl(SITE_URL, token, locale),
+        })
+        if (result?.success) {
+          debugLog('[newsletter/subscribe] welcome email sent (new):', created.email, result.messageId)
+        } else {
+          errorLog('[newsletter/subscribe] welcome email failed (new):', created.email, result?.error)
+        }
+      } catch (err) {
+        errorLog('[newsletter/subscribe] welcome email threw (new):', err)
+      }
+    })
 
     return NextResponse.json({ ok: true, alreadySubscribed: false })
   } catch (err) {

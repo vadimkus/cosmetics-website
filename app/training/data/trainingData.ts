@@ -508,6 +508,29 @@ export const trainingVideos: TrainingVideo[] = [
       category: 'Hair Loss Treatments',
       certification: 'Available upon completion'
     }
+  },
+  {
+    id: '12',
+    title: 'How to Use GENOSYS EZ CO₂ Mask Kit',
+    description: 'A short, practical walkthrough of the EZ CO₂ Mask Kit — a needle-free carboxy treatment that delivers oxygen to the skin to support pore contraction, even tone, elasticity, brightening, and anti-inflammatory action. Best used on event days or when calming problem skin.',
+    duration: '1-2 minutes',
+    level: 'Professional',
+    category: 'Product Usage',
+    thumbnail: '/images/genosys-logo.png',
+    videoUrl: 'https://www.youtube.com/watch?v=ZOYtKGNrWJM',
+    whatYoullLearn: [
+      'Correct mixing ratio and application of the EZ CO₂ Mask',
+      'How needle-free carboxy therapy delivers oxygen to the skin',
+      'When to recommend it (event prep vs. routine maintenance)',
+      'Expected effects on pore size, tone, and elasticity',
+      'Removal and post-mask care best practices'
+    ],
+    lessonDetails: {
+      duration: '1-2 minutes',
+      level: 'Professional',
+      category: 'Product Usage',
+      certification: 'Available upon completion'
+    }
   }
 ]
 

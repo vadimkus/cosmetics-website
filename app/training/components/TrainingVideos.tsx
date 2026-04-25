@@ -24,7 +24,17 @@ export default function TrainingVideos({ videos }: TrainingVideosProps) {
       </div>
 
       <div className="space-y-8">
-        {videos.map((video) => (
+        {videos.map((video) => {
+          // The original dataset uses example.com placeholder URLs that
+          // don't resolve. Only treat the entry as playable when it
+          // points at a real host (e.g. youtube.com). Keeps existing cards
+          // visually unchanged while the real videos become clickable.
+          const isPlayable =
+            !!video.videoUrl &&
+            /^https?:\/\//.test(video.videoUrl) &&
+            !video.videoUrl.includes('example.com')
+
+          return (
           <div 
             key={video.id}
             className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300"
@@ -39,11 +49,25 @@ export default function TrainingVideos({ videos }: TrainingVideosProps) {
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                    <div className="bg-white bg-opacity-90 rounded-full p-4 hover:bg-opacity-100 transition-all cursor-pointer">
-                      <Play className="h-8 w-8 text-primary-600 ml-1" />
+                  {isPlayable ? (
+                    <a
+                      href={video.videoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Watch: ${video.title}`}
+                      className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center group/thumb focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+                    >
+                      <div className="bg-white bg-opacity-90 rounded-full p-4 group-hover/thumb:bg-opacity-100 group-hover/thumb:scale-110 transition-all">
+                        <Play className="h-8 w-8 text-primary-600 ml-1" />
+                      </div>
+                    </a>
+                  ) : (
+                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                      <div className="bg-white bg-opacity-90 rounded-full p-4 hover:bg-opacity-100 transition-all cursor-pointer">
+                        <Play className="h-8 w-8 text-primary-600 ml-1" />
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
 
@@ -105,16 +129,29 @@ export default function TrainingVideos({ videos }: TrainingVideosProps) {
                     </ul>
                   </div>
                   <div className="flex items-end">
-                    <button className="w-full bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2">
-                      <Play className="h-4 w-4" />
-                      Watch Lesson
-                    </button>
+                    {isPlayable ? (
+                      <a
+                        href={video.videoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                      >
+                        <Play className="h-4 w-4" />
+                        Watch Lesson
+                      </a>
+                    ) : (
+                      <button className="w-full bg-primary-600 text-white py-2 px-4 rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2">
+                        <Play className="h-4 w-4" />
+                        Watch Lesson
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        ))}
+          )
+        })}
 
         {/* Placeholder for future lessons */}
         <div className="bg-gray-50 rounded-lg p-8 text-center">

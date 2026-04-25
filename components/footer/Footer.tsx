@@ -107,7 +107,7 @@ export default function Footer() {
               </span>
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-gray-900 leading-tight">
-                  {locale === 'ar' ? 'معتمد TDRA' : locale === 'ru' ? 'TDRA сертифицирован' : 'TDRA certified'}
+                  {locale === 'ar' ? 'معتمد من بلدية دبي' : locale === 'ru' ? 'Сертифицировано Муниципалитетом Дубая' : 'Dubai Municipality Certified'}
                 </p>
                 <p className="text-xs text-gray-500 leading-snug mt-1">
                   {locale === 'ar' ? 'ضمان ضريبة القيمة المضافة 5%' : locale === 'ru' ? 'Включая 5% НДС' : '5% VAT included'}
@@ -304,12 +304,12 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="/documents/TDRA_NOC.pdf"
+                  href="/documents/Genosys_UAE_Montaji_Registration.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={colLinkClass}
                 >
-                  {locale === 'ar' ? 'شهادة TDRA' : locale === 'ru' ? 'Сертификат TDRA' : 'TDRA certificate'}
+                  {locale === 'ar' ? 'شهادة منتجي' : locale === 'ru' ? 'Сертификат Montaji' : 'Montaji Certificate'}
                 </a>
               </li>
             </ul>

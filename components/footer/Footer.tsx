@@ -61,55 +61,55 @@ export default function Footer() {
         {/* ── Trust badges strip ───────────────────────────────────────
             Custom GENOSYS pictograms — see components/icons/BrandIcons. */}
         <div className="hidden md:block border-b border-gray-100 pb-8 mb-10">
-          <div className="grid grid-cols-4 gap-6 max-w-5xl mx-auto">
-            <div className="flex items-start gap-3">
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50">
-                <IconAuthentic className="h-6 w-6 text-emerald-600" />
+          <div className="grid grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-6 max-w-6xl mx-auto">
+            <div className="flex items-start gap-3 min-w-0">
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50">
+                <IconAuthentic className="h-5 w-5 text-emerald-600" />
               </span>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-sm font-semibold text-gray-900 leading-tight">
                   {locale === 'ar' ? 'منتجات أصلية' : locale === 'ru' ? 'Оригинал' : 'Authentic'}
                 </p>
-                <p className="text-xs text-gray-500 leading-tight mt-0.5">
+                <p className="text-xs text-gray-500 leading-snug mt-1">
                   {locale === 'ar' ? 'موزع رسمي GENOSYS' : locale === 'ru' ? 'Официальный дистрибьютор' : 'Official GENOSYS distributor'}
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50">
-                <IconShipping className="h-6 w-6 text-primary-600" />
+            <div className="flex items-start gap-3 min-w-0">
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50">
+                <IconShipping className="h-5 w-5 text-primary-600" />
               </span>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-sm font-semibold text-gray-900 leading-tight">
                   {locale === 'ar' ? 'شحن مجاني' : locale === 'ru' ? 'Бесплатная доставка' : 'Free shipping'}
                 </p>
-                <p className="text-xs text-gray-500 leading-tight mt-0.5">
+                <p className="text-xs text-gray-500 leading-snug mt-1">
                   {locale === 'ar' ? 'للطلبات فوق 1000 درهم' : locale === 'ru' ? 'При заказе от 1000 AED' : 'On orders over 1000 AED'}
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50">
-                <IconSecureCheckout className="h-6 w-6 text-blue-600" />
+            <div className="flex items-start gap-3 min-w-0">
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50">
+                <IconSecureCheckout className="h-5 w-5 text-blue-600" />
               </span>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-sm font-semibold text-gray-900 leading-tight">
                   {locale === 'ar' ? 'دفع آمن' : locale === 'ru' ? 'Безопасная оплата' : 'Secure checkout'}
                 </p>
-                <p className="text-xs text-gray-500 leading-tight mt-0.5">
+                <p className="text-xs text-gray-500 leading-snug mt-1">
                   {locale === 'ar' ? 'Stripe · جميع البطاقات الرئيسية' : locale === 'ru' ? 'Stripe · все основные карты' : 'Stripe · all major cards'}
                 </p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-amber-50">
-                <IconCertified className="h-6 w-6 text-amber-600" />
+            <div className="flex items-start gap-3 min-w-0">
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-amber-50">
+                <IconCertified className="h-5 w-5 text-amber-600" />
               </span>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-sm font-semibold text-gray-900 leading-tight">
                   {locale === 'ar' ? 'معتمد TDRA' : locale === 'ru' ? 'TDRA сертифицирован' : 'TDRA certified'}
                 </p>
-                <p className="text-xs text-gray-500 leading-tight mt-0.5">
+                <p className="text-xs text-gray-500 leading-snug mt-1">
                   {locale === 'ar' ? 'ضمان ضريبة القيمة المضافة 5%' : locale === 'ru' ? 'Включая 5% НДС' : '5% VAT included'}
                 </p>
               </div>

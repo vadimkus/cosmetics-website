@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Calendar, User, ArrowRight, ArrowLeft, Eye } from 'lucide-react'
+import { Calendar, ArrowRight, ArrowLeft, Eye } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -112,96 +112,199 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
             </Link>
           )}
 
-          {/* Page Header */}
-          <div className="text-center mb-6 md:mb-12">
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-2 md:mb-4">
-              {locale === 'ar' ? 'مدونة GENOSYS' : locale === 'ru' ? 'Блог GENOSYS' : 'GENOSYS Blog'}
-            </h1>
-            <p className="text-sm md:text-lg text-gray-600 max-w-2xl mx-auto">
-              {locale === 'ar' 
-                ? 'مقالات متخصصة حول العناية بالبشرة الكورية وأحدث اتجاهات صناعة التجميل'
-                : locale === 'ru'
-                  ? 'Экспертные статьи о корейском уходе за кожей и последних трендах индустрии красоты'
-                  : 'Expert insights on Korean skincare, professional dermacosmetics, and beauty industry trends'}
-            </p>
+          {/* Page Header — editorial asymmetric on desktop, compact on mobile */}
+          <div className="mb-8 md:mb-16">
+            {/* Mobile-only compact header */}
+            <div className="md:hidden text-center">
+              <h1 className="text-2xl font-bold text-gray-900 mb-2 font-display tracking-tight">
+                {locale === 'ar' ? 'مدونة GENOSYS' : locale === 'ru' ? 'Блог GENOSYS' : 'GENOSYS Journal'}
+              </h1>
+              <p className="text-sm text-gray-600 max-w-md mx-auto">
+                {locale === 'ar'
+                  ? 'مقالات متخصصة حول العناية بالبشرة الكورية وأحدث اتجاهات صناعة التجميل'
+                  : locale === 'ru'
+                    ? 'Экспертные статьи о корейском уходе за кожей и последних трендах индустрии красоты'
+                    : 'Expert insights on Korean skincare, dermacosmetics, and the GENOSYS lab.'}
+              </p>
+            </div>
+
+            {/* Desktop editorial header — asymmetric grid */}
+            <div className={`hidden md:grid lg:grid-cols-12 gap-8 lg:gap-16 items-end ${isRTL ? 'text-right' : ''}`}>
+              <div className="lg:col-span-7">
+                <div className={`inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.22em] uppercase text-primary-600 mb-5 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <span aria-hidden="true" className="h-px w-8 bg-primary-600" />
+                  {locale === 'ar' ? 'المجلة' : locale === 'ru' ? 'Журнал' : 'Journal'}
+                </div>
+                <h1 className="text-4xl lg:text-[56px] lg:leading-[1.02] font-bold text-gray-900 font-display tracking-tight">
+                  {locale === 'ar' ? 'مدونة GENOSYS' : locale === 'ru' ? 'Журнал GENOSYS' : 'Notes from the lab.'}
+                </h1>
+              </div>
+              <div className="lg:col-span-5">
+                <p className="text-[15px] lg:text-base text-gray-600 leading-relaxed lg:max-w-md lg:ml-auto">
+                  {locale === 'ar'
+                    ? 'مقالات متخصصة حول العناية بالبشرة الكورية، الميزوثيرابي بالإبر الدقيقة، ومنتجات GENOSYS — كتبها فريقنا في دبي.'
+                    : locale === 'ru'
+                    ? 'Экспертные материалы о корейском уходе, микронидлинге и продуктах GENOSYS — пишет наша команда в Дубае.'
+                    : 'Expert insights on Korean skincare, microneedling, and GENOSYS formulations — written by our Dubai team and the lab in Seoul.'}
+                </p>
+                {posts.length > 0 && (
+                  <p className={`mt-4 text-[12px] font-mono uppercase tracking-[0.18em] text-gray-400 lg:text-right ${isRTL ? 'lg:text-left' : ''}`}>
+                    {posts.length}{' '}
+                    {locale === 'ar'
+                      ? 'مقالة · يتم التحديث أسبوعياً'
+                      : locale === 'ru'
+                      ? 'статей · обновления еженедельно'
+                      : (posts.length === 1 ? 'article' : 'articles')}{' '}
+                    {locale === 'en' && '· updated weekly'}
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
 
-          {/* Blog Posts Grid */}
+          {/* Blog Posts */}
           {posts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-              {posts.map((post) => (
+            <>
+              {/* ── Featured (latest) post — desktop only, asymmetric hero ─── */}
+              {posts[0] && (
                 <Link
-                  key={post.id}
-                  href={getLocalizedPath(`/blog/${post.slug}`, locale)}
-                  className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+                  key={`featured-${posts[0].id}`}
+                  href={getLocalizedPath(`/blog/${posts[0].slug}`, locale)}
+                  className={`group hidden md:grid lg:grid-cols-12 gap-8 lg:gap-12 mb-14 lg:mb-20 ${isRTL ? 'text-right' : ''}`}
                 >
-                  {post.featuredImage && (
-                    <div className="relative h-32 md:h-48 w-full">
+                  {posts[0].featuredImage && (
+                    <div className={`lg:col-span-7 relative aspect-[16/10] overflow-hidden rounded-2xl bg-gray-100 ${isRTL ? 'lg:order-2' : ''}`}>
                       <Image
-                        src={post.featuredImage}
-                        alt={`${post.title} - GENOSYS Korean Skincare Blog Article`}
+                        src={posts[0].featuredImage}
+                        alt={`${posts[0].title} - GENOSYS Featured Article`}
                         fill
-                        className="object-cover"
+                        sizes="(min-width: 1024px) 60vw, 100vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        priority
                       />
                     </div>
                   )}
-                  <div className="p-3 md:p-6">
-                    <h2 className="text-sm md:text-xl font-semibold text-gray-800 mb-2 md:mb-3 line-clamp-2">
-                      {post.title}
+                  <div className={`lg:col-span-5 flex flex-col justify-center ${posts[0].featuredImage ? '' : 'lg:col-span-12'}`}>
+                    <div className={`inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.22em] uppercase text-primary-600 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary-600 animate-pulse" aria-hidden="true" />
+                      {locale === 'ar' ? 'المقالة الأحدث' : locale === 'ru' ? 'Свежее' : 'Latest article'}
+                    </div>
+                    <h2 className="text-2xl lg:text-[34px] lg:leading-[1.15] font-bold text-gray-900 font-display tracking-tight transition-colors group-hover:text-primary-700">
+                      {posts[0].title}
                     </h2>
-                    {post.excerpt && (
-                      <p className="text-xs md:text-base text-gray-600 mb-3 md:mb-4 line-clamp-2 md:line-clamp-3">
-                        {post.excerpt}
+                    {posts[0].excerpt && (
+                      <p className="mt-4 text-[15px] lg:text-base text-gray-600 leading-relaxed line-clamp-3">
+                        {posts[0].excerpt}
                       </p>
                     )}
-                    <div className="flex items-center gap-2 md:gap-4 text-xs md:text-sm text-gray-500 flex-wrap">
-                      {post.authorName && (
-                        <div className="flex items-center gap-1">
-                          <User className="h-3 w-3 md:h-4 md:w-4 text-green-600" />
-                          <span>{post.authorName}</span>
-                        </div>
+                    <div className={`mt-6 flex items-center gap-4 text-[12px] text-gray-500 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      {posts[0].publishedAt && (
+                        <span className="inline-flex items-center gap-1.5">
+                          <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
+                          {new Date(posts[0].publishedAt).toLocaleDateString(
+                            locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-AE',
+                            { year: 'numeric', month: 'short', day: 'numeric' }
+                          )}
+                        </span>
                       )}
-                      {post.publishedAt && (
-                        <div className="flex items-center gap-1">
-                          <Calendar className="h-3 w-3 md:h-4 md:w-4" />
-                          <span>
-                            {new Date(post.publishedAt).toLocaleDateString(
-                              locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-AE', 
-                              { year: 'numeric', month: 'short', day: 'numeric' }
-                            )}
-                          </span>
-                        </div>
-                      )}
-                      {post.views > 0 && (
-                        <div className="flex items-center gap-1">
-                          <Eye className="h-3 w-3 md:h-4 md:w-4" />
-                          <span>{post.views}</span>
-                        </div>
+                      {posts[0].views > 0 && (
+                        <span className="inline-flex items-center gap-1.5">
+                          <Eye className="h-3.5 w-3.5" aria-hidden="true" />
+                          {posts[0].views.toLocaleString()}{' '}
+                          {locale === 'ar' ? 'مشاهدة' : locale === 'ru' ? 'просмотров' : 'views'}
+                        </span>
                       )}
                     </div>
-                    <div className={`mt-3 md:mt-4 flex items-center text-primary-600 font-semibold text-xs md:text-base ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      {locale === 'ar' ? 'اقرأ المزيد' : locale === 'ru' ? 'Читать далее' : 'Read More'}
-                      <ArrowRight className={`h-3 w-3 md:h-4 md:w-4 ${isRTL ? 'mr-2 rotate-180' : 'ml-2'}`} />
-                    </div>
+                    <span className={`mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-600 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      {locale === 'ar' ? 'اقرأ المقالة' : locale === 'ru' ? 'Читать статью' : 'Read the article'}
+                      <ArrowRight className={`h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 ${isRTL ? 'rotate-180 group-hover:-translate-x-1' : ''}`} aria-hidden="true" />
+                    </span>
                   </div>
                 </Link>
-              ))}
-            </div>
+              )}
+
+              {/* ── Mobile: featured post is first card in the grid (no special layout) ── */}
+              {/* ── Desktop: divider before remaining posts ─────────────────── */}
+              {posts.length > 1 && (
+                <div className="hidden md:flex items-center gap-4 mb-10">
+                  <p className="text-[11px] font-mono tracking-[0.22em] uppercase text-gray-500">
+                    {locale === 'ar' ? 'المزيد من المقالات' : locale === 'ru' ? 'Больше статей' : 'More articles'}
+                  </p>
+                  <div className="flex-1 h-px bg-gray-200" />
+                </div>
+              )}
+
+              {/* Posts grid — mobile: all posts, desktop: posts after the featured one */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-12">
+                {posts.map((post, idx) => {
+                  // On desktop, skip the first post (it's the featured hero above).
+                  // On mobile, show every post in the grid for a simpler experience.
+                  const desktopHidden = idx === 0
+                  return (
+                    <Link
+                      key={post.id}
+                      href={getLocalizedPath(`/blog/${post.slug}`, locale)}
+                      className={`group flex flex-col ${desktopHidden ? 'md:hidden' : ''}`}
+                    >
+                      {post.featuredImage && (
+                        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gray-100">
+                          <Image
+                            src={post.featuredImage}
+                            alt={`${post.title} - GENOSYS Korean Skincare Blog Article`}
+                            fill
+                            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                          />
+                        </div>
+                      )}
+                      <div className="mt-4 md:mt-5 flex flex-col flex-1">
+                        {post.publishedAt && (
+                          <p className="text-[11px] font-mono tracking-[0.18em] uppercase text-gray-400 mb-2">
+                            {new Date(post.publishedAt).toLocaleDateString(
+                              locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-AE',
+                              { year: 'numeric', month: 'short', day: 'numeric' }
+                            )}
+                          </p>
+                        )}
+                        <h2 className="text-base md:text-[19px] lg:text-[20px] font-bold text-gray-900 font-display leading-[1.25] tracking-tight transition-colors group-hover:text-primary-700 line-clamp-2">
+                          {post.title}
+                        </h2>
+                        {post.excerpt && (
+                          <p className="mt-2 text-sm md:text-[14px] text-gray-600 leading-relaxed line-clamp-2 md:line-clamp-3">
+                            {post.excerpt}
+                          </p>
+                        )}
+                        {post.views > 0 && (
+                          <p className={`mt-3 text-[12px] text-gray-400 inline-flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                            <Eye className="h-3.5 w-3.5" aria-hidden="true" />
+                            {post.views.toLocaleString()}{' '}
+                            {locale === 'ar' ? 'مشاهدة' : locale === 'ru' ? 'просмотров' : 'views'}
+                          </p>
+                        )}
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            </>
           ) : (
-            <div className="text-center py-12 md:py-16">
-              <p className="text-gray-600 text-base md:text-lg mb-3 md:mb-4">
-                {locale === 'ar' 
+            <div className="text-center py-16 md:py-24 max-w-md mx-auto">
+              <div className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-gray-100 mb-5">
+                <Calendar className="h-6 w-6 text-gray-400" aria-hidden="true" />
+              </div>
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 font-display tracking-tight">
+                {locale === 'ar'
                   ? 'لا توجد مقالات متاحة بعد.'
                   : locale === 'ru'
                     ? 'Статьи пока недоступны.'
-                    : 'No blog posts available yet.'}
-              </p>
-              <p className="text-gray-500 text-sm md:text-base">
+                    : 'The journal is just getting started.'}
+              </h2>
+              <p className="text-sm md:text-base text-gray-600">
                 {locale === 'ar'
                   ? 'تحقق قريبًا للحصول على نصائح متخصصة للعناية بالبشرة!'
                   : locale === 'ru'
                     ? 'Загляните позже за советами по уходу за кожей!'
-                    : 'Check back soon for expert skincare tips and insights!'}
+                    : 'Check back soon for expert skincare guides and lab notes from our team.'}
               </p>
             </div>
           )}

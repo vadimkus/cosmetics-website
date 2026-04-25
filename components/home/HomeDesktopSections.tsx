@@ -102,6 +102,133 @@ const CATEGORY_DESCRIPTORS: Record<string, { en: string; ar: string; ru: string 
   },
 }
 
+// Concern card meta — short homepage label + 1-line symptom descriptor + a
+// per-concern colour accent for the left edge bar. Replaces the old emoji
+// well, which made every concern look the same. Colour is meaningful: warm
+// tones for sun/acne/aging, cool tones for hydration/sensitivity, etc.
+const CONCERN_META: Record<
+  string,
+  {
+    accentBar: string
+    accentText: string
+    label: { en: string; ar: string; ru: string }
+    symptoms: { en: string; ar: string; ru: string }
+  }
+> = {
+  'sun-protection': {
+    accentBar: 'bg-amber-400',
+    accentText: 'text-amber-700',
+    label: {
+      en: 'Sun Protection',
+      ar: 'الحماية من الشمس',
+      ru: 'Защита от солнца',
+    },
+    symptoms: {
+      en: 'UAE-grade SPF, BB cushion, daily UV defence',
+      ar: 'حماية SPF بمستوى الإمارات، كوشن BB، دفاع يومي',
+      ru: 'SPF для климата ОАЭ, BB-кушоны, дневная защита',
+    },
+  },
+  'acne-treatment': {
+    accentBar: 'bg-rose-400',
+    accentText: 'text-rose-700',
+    label: {
+      en: 'Acne & Blemishes',
+      ar: 'حب الشباب والشوائب',
+      ru: 'Акне и воспаления',
+    },
+    symptoms: {
+      en: 'Breakouts, oily skin, post-acne marks',
+      ar: 'بثور، بشرة دهنية، آثار حب الشباب',
+      ru: 'Высыпания, жирность, постакне',
+    },
+  },
+  pigmentation: {
+    accentBar: 'bg-violet-400',
+    accentText: 'text-violet-700',
+    label: {
+      en: 'Pigmentation',
+      ar: 'التصبغات',
+      ru: 'Пигментация',
+    },
+    symptoms: {
+      en: 'Dark spots, melasma, uneven tone',
+      ar: 'بقع داكنة، كلف، لون غير موحد',
+      ru: 'Тёмные пятна, мелазма, неровный тон',
+    },
+  },
+  'scars-treatment': {
+    accentBar: 'bg-teal-400',
+    accentText: 'text-teal-700',
+    label: {
+      en: 'Scar Treatment',
+      ar: 'علاج الندبات',
+      ru: 'Лечение рубцов',
+    },
+    symptoms: {
+      en: 'Acne scars, surgical scars, rough texture',
+      ar: 'ندبات حب الشباب، الجراحة، ملمس خشن',
+      ru: 'Постакне, послеоперационные, рельеф кожи',
+    },
+  },
+  'hair-loss': {
+    accentBar: 'bg-emerald-500',
+    accentText: 'text-emerald-700',
+    label: {
+      en: 'Hair Loss',
+      ar: 'تساقط الشعر',
+      ru: 'Выпадение волос',
+    },
+    symptoms: {
+      en: 'Thinning, shedding, scalp & follicle care',
+      ar: 'ترقق، تساقط، العناية بفروة الرأس',
+      ru: 'Редеющие волосы, уход за кожей головы',
+    },
+  },
+  'anti-aging': {
+    accentBar: 'bg-indigo-400',
+    accentText: 'text-indigo-700',
+    label: {
+      en: 'Anti-Aging',
+      ar: 'مكافحة الشيخوخة',
+      ru: 'Anti-age',
+    },
+    symptoms: {
+      en: 'Wrinkles, loss of firmness, dull tone',
+      ar: 'تجاعيد، فقدان الثبات، بشرة باهتة',
+      ru: 'Морщины, потеря упругости, тусклый цвет',
+    },
+  },
+  hydration: {
+    accentBar: 'bg-sky-400',
+    accentText: 'text-sky-700',
+    label: {
+      en: 'Hydration',
+      ar: 'الترطيب',
+      ru: 'Увлажнение',
+    },
+    symptoms: {
+      en: 'Dryness, dehydration, barrier repair',
+      ar: 'جفاف، نقص ترطيب، إصلاح حاجز البشرة',
+      ru: 'Сухость, обезвоженность, восстановление барьера',
+    },
+  },
+  sensitivity: {
+    accentBar: 'bg-lime-500',
+    accentText: 'text-lime-700',
+    label: {
+      en: 'Sensitive Skin',
+      ar: 'البشرة الحساسة',
+      ru: 'Чувствительная кожа',
+    },
+    symptoms: {
+      en: 'Redness, reactivity, soothing & calming',
+      ar: 'احمرار، تفاعلية، تهدئة البشرة',
+      ru: 'Покраснения, реактивность, успокаивающий уход',
+    },
+  },
+}
+
 function pickFirstImage(product: Product): string {
   if (product.images) {
     try {
@@ -267,60 +394,88 @@ export default function HomeDesktopSections({
       </section>
 
       {/* ── 2. Shop by concern ──────────────────────────────────────────── */}
-      <section className="bg-gradient-to-b from-gray-50 to-white py-16 lg:py-20">
+      <section className="bg-gray-50 py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="mb-10 text-center">
-              <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-2">
-                {locale === 'ar' ? 'الحلول' : locale === 'ru' ? 'Решения' : 'Targeted solutions'}
-              </p>
-              <h2 className="text-3xl lg:text-[40px] lg:leading-[1.1] font-bold text-gray-900 font-display tracking-tight">
-                {locale === 'ar' ? 'تسوق حسب مشكلة البشرة' : locale === 'ru' ? 'Подбор по задаче кожи' : 'Shop by skin concern'}
-              </h2>
-              <p className="mt-3 text-gray-600 max-w-xl mx-auto">
+            <div className={`mb-12 lg:mb-14 grid lg:grid-cols-12 gap-6 items-end ${isRtl ? 'text-right' : ''}`}>
+              <div className="lg:col-span-7">
+                <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-3">
+                  {locale === 'ar' ? 'الحلول الموجهة' : locale === 'ru' ? 'Точечные решения' : 'Targeted solutions'}
+                </p>
+                <h2 className="text-3xl lg:text-[44px] lg:leading-[1.05] font-bold text-gray-900 font-display tracking-tight">
+                  {locale === 'ar'
+                    ? 'تسوق حسب مشكلة البشرة'
+                    : locale === 'ru'
+                    ? 'Подбор по задаче кожи'
+                    : 'Shop by skin concern'}
+                </h2>
+              </div>
+              <p className="lg:col-span-5 text-[15px] text-gray-600 leading-relaxed lg:max-w-md lg:ml-auto">
                 {locale === 'ar'
-                  ? 'اختر مخاوفك — سنرشدك إلى الروتين الصحيح'
+                  ? 'اختر مخاوفك وسنوصلك إلى المنتجات والروتين المناسب لها — مدعوم بأبحاث GENOSYS العلمية.'
                   : locale === 'ru'
-                  ? 'Выберите задачу — мы подскажем точный уход'
-                  : 'Pick your concern — we\u2019ll guide you to the right routine.'}
+                  ? 'Выберите задачу — подберём продукты и пошаговый уход. Опираемся на клинические исследования GENOSYS.'
+                  : 'Pick a concern and we\u2019ll route you to the right products and step-by-step routine — backed by GENOSYS clinical research.'}
               </p>
             </div>
 
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
               {CONCERN_PAGES.map(concern => {
-                const title =
-                  locale === 'ar'
-                    ? concern.seo.ar.h1
-                    : locale === 'ru'
-                    ? concern.seo.ru.h1
-                    : concern.seo.en.h1
+                const meta = CONCERN_META[concern.slug] ?? {
+                  accentBar: 'bg-gray-300',
+                  accentText: 'text-gray-700',
+                  label: { en: '', ar: '', ru: '' },
+                  symptoms: { en: '', ar: '', ru: '' },
+                }
+                const label =
+                  meta.label[locale as 'en' | 'ar' | 'ru'] ||
+                  (locale === 'ar' ? concern.seo.ar.h1 : locale === 'ru' ? concern.seo.ru.h1 : concern.seo.en.h1)
+                const symptoms = meta.symptoms[locale as 'en' | 'ar' | 'ru'] || ''
                 return (
                   <Link
                     key={concern.slug}
                     href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
-                    className="group flex items-center gap-3 p-4 lg:p-5 rounded-xl border border-gray-200 bg-white hover:border-primary-300 hover:shadow-md transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                    className={`group relative flex flex-col gap-2 overflow-hidden rounded-xl border border-gray-200/80 bg-white p-5 lg:p-6 min-h-[112px] lg:min-h-[128px] transition-all duration-300 hover:border-gray-300 hover:shadow-[0_10px_24px_-12px_rgba(17,24,39,0.18)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2 ${isRtl ? 'text-right' : ''}`}
                   >
-                    <span className="flex h-11 w-11 lg:h-12 lg:w-12 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50 text-2xl lg:text-[26px]" aria-hidden="true">
-                      {concern.icon}
-                    </span>
-                    <div className={`flex-1 min-w-0 ${isRtl ? 'text-right' : ''}`}>
-                      <h3 className="text-sm lg:text-base font-semibold text-gray-900 leading-tight group-hover:text-primary-700 transition-colors line-clamp-2">
-                        {title}
+                    {/* Vertical color accent — per-concern, widens slightly on hover */}
+                    <span
+                      aria-hidden="true"
+                      className={`pointer-events-none absolute top-0 bottom-0 w-1 ${meta.accentBar} transition-all duration-300 group-hover:w-1.5 ${isRtl ? 'right-0' : 'left-0'}`}
+                    />
+                    <div className={`flex items-start justify-between gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                      <h3 className="text-[15px] lg:text-[16px] font-semibold text-gray-900 tracking-tight leading-[1.25]">
+                        {label}
                       </h3>
+                      <ArrowRight
+                        className={`h-4 w-4 flex-shrink-0 mt-0.5 text-gray-400 transition-all duration-300 group-hover:text-gray-900 group-hover:translate-x-0.5 ${isRtl ? 'rotate-180 group-hover:-translate-x-0.5' : ''}`}
+                        aria-hidden="true"
+                      />
                     </div>
+                    {symptoms && (
+                      <p className="text-[12px] lg:text-[13px] text-gray-500 leading-snug line-clamp-2">
+                        {symptoms}
+                      </p>
+                    )}
                   </Link>
                 )
               })}
             </div>
 
-            <div className="mt-8 text-center">
+            <div className="mt-10 text-center">
               <Link
                 href={getLocalizedPath('/skin-recommendation', locale)}
-                className="inline-flex items-center gap-2 bg-gray-900 text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-gray-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-gray-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
               >
                 <Sparkles className="h-4 w-4" aria-hidden="true" />
                 {locale === 'ar' ? 'ابدأ تحليل البشرة المجاني' : locale === 'ru' ? 'Бесплатный анализ кожи' : 'Start free skin analysis'}
               </Link>
+              <p className="mt-3 text-[12px] text-gray-500">
+                {locale === 'ar'
+                  ? 'استبيان قصير من 4 أسئلة — يوصي بالمنتجات في 60 ثانية'
+                  : locale === 'ru'
+                  ? 'Короткая анкета из 4 вопросов — подбор за 60 секунд'
+                  : '4 short questions · personalised routine in under a minute'}
+              </p>
             </div>
           </div>
         </div>

@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "Genosys Middle East FZ-LLC - Premium Beauty Products",
-  "short_name": "Genosys UAE",
-  "description": "Discover our premium collection of cosmetics and beauty products from Genosys Middle East FZ-LLC",
+  "name": "GENOSYS - Premium Korean Dermacosmetics",
+  "short_name": "GENOSYS",
+  "description": "Discover the premium collection of professional Korean dermacosmetics and microneedling devices from GENOSYS, the official UAE distributor.",
   "start_url": "./",
   "version": "3.3.0",
   "display": "standalone",

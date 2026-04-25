@@ -1,5 +1,5 @@
-# GENOSYS Middle East FZ-LLC - Professional Korean Dermacosmetics
-# Official Distributor in the UAE - Microneedling Devices & Skincare Products
+# GENOSYS - Professional Korean Dermacosmetics
+# Official UAE Distributor (Genosys Middle East FZ-LLC) - Microneedling Devices & Skincare Products
 # AI-friendly: llms.txt available at https://genosys.ae/llms.txt
 
 # Allow all search engines to crawl the site

@@ -62,8 +62,8 @@ export default function HeaderRussianDesktop() {
     <>
       {/* Desktop Left Side */}
       <div className="hidden md:flex flex-col">
-        <span className="text-lg md:text-2xl font-bold text-primary-600 tracking-tight">
-          GENOSYS
+        <span className="text-lg md:text-2xl font-bold text-primary-600 tracking-tight whitespace-nowrap">
+          GENOSYS MIDDLE EAST
         </span>
         <div className="flex text-sm text-gray-600 items-center gap-1 ml-0 md:ml-1 header-margin whitespace-nowrap">
           <span className="whitespace-nowrap">{t('common.uae')}</span>

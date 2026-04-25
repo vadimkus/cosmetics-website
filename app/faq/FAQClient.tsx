@@ -3,9 +3,9 @@
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import {
-  ArrowLeft, ChevronDown, ChevronUp, Search, X,
+  ArrowLeft, ArrowRight, ChevronDown, ChevronUp, Search, X,
   Store, Sparkles, CreditCard, Truck, Smartphone, UserCircle, LayoutGrid,
-  ChevronsDown, ChevronsUp,
+  ChevronsDown, ChevronsUp, MessageCircle, Clock, BookOpen, Globe2,
 } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PWAPageWrapper from '@/components/pwa/PWAPageWrapper'
@@ -156,7 +156,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
       title={locale === 'ar' ? 'الأسئلة الشائعة' : locale === 'ru' ? 'Помощь' : 'Help & Support'}
       defaultBackPath="/products"
     >
-    <div className={`bg-gradient-to-b from-gray-50 to-white min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`min-h-[100dvh] ${isAppLikeMode ? 'bg-gradient-to-b from-gray-50 to-white pb-32' : 'bg-white'}`} dir={dir}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -182,18 +182,18 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
         }}
       />
       
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
-        <div className="max-w-4xl mx-auto">
+      <div className={`container mx-auto px-3 md:px-4 ${isAppLikeMode ? 'py-4' : 'py-4 md:py-12'}`}>
+        <div className={`mx-auto ${isAppLikeMode ? 'max-w-4xl' : 'max-w-5xl'}`}>
           {!isAppLikeMode && (
-            <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-              <span> / </span>
-              <span className="text-gray-900 font-medium">{t('faq.title')}</span>
+            <nav className="text-xs md:text-sm text-gray-500 mb-2 md:mb-4" aria-label="Breadcrumb">
+              <Link href={getLocalizedPath('/', locale)} className="hover:text-gray-900 transition-colors">{t('common.home')}</Link>
+              <span className="mx-1.5">/</span>
+              <span className="text-gray-900">{t('faq.title')}</span>
             </nav>
           )}
-          
+
           {!isAppLikeMode && (
-            <Link href={getLocalizedPath('/', locale)} className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+            <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               <span>{t('common.backToHome')}</span>
             </Link>
@@ -203,15 +203,75 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
            *  Mobile/PWA: tight single-row h1 + subtitle cut to one line — header
            *  already announces "Help & Support", so we avoid a 4-line hero above
            *  the fold and show the FAQ list sooner.
-           *  Desktop: full hero (h1 + description). */}
-          <div className={`${isAppLikeMode ? 'mb-3' : 'text-center mb-6 md:mb-10'}`}>
-            <h1 className={`font-bold text-gray-900 ${isAppLikeMode ? 'text-lg mb-0.5' : 'text-2xl md:text-5xl mb-2 md:mb-4'}`}>
-              {t('faq.subtitle')}
-            </h1>
-            <p className={`text-gray-500 ${isAppLikeMode ? 'text-xs line-clamp-1' : 'text-sm md:text-lg text-gray-600 max-w-2xl mx-auto'}`}>
-              {t('faq.description')}
-            </p>
-          </div>
+           *  Desktop: editorial hero (kicker → big headline → subhead → stats). */}
+          {isAppLikeMode ? (
+            <div className="mb-3">
+              <h1 className="text-lg font-bold text-gray-900 mb-0.5">
+                {t('faq.subtitle')}
+              </h1>
+              <p className="text-xs text-gray-500 line-clamp-1">
+                {t('faq.description')}
+              </p>
+            </div>
+          ) : (
+            <header className="mb-8 md:mb-12">
+              <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-gray-500">
+                {locale === 'ar'
+                  ? 'مركز المساعدة · GENOSYS الإمارات'
+                  : locale === 'ru'
+                    ? 'ЦЕНТР ПОМОЩИ · GENOSYS ОАЭ'
+                    : 'HELP CENTER · GENOSYS UAE'}
+              </p>
+              <h1 className="mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.05] tracking-tight text-gray-900">
+                {t('faq.subtitle')}
+              </h1>
+              <p className="mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-gray-600">
+                {t('faq.description')}
+              </p>
+
+              {/* Stats strip */}
+              <dl className="mt-8 hidden md:grid md:grid-cols-3 gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200">
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <BookOpen className="h-3.5 w-3.5 text-red-600" />
+                    {locale === 'ar' ? 'سؤال موثق' : locale === 'ru' ? 'опубликованных вопросов' : 'curated questions'}
+                  </dt>
+                  <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    {faqs.length}+
+                  </dd>
+                </div>
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <LayoutGrid className="h-3.5 w-3.5 text-red-600" />
+                    {locale === 'ar' ? 'فئات' : locale === 'ru' ? 'категорий' : 'topics covered'}
+                  </dt>
+                  <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    <span>{availableCategories.filter(c => c !== 'all').length}</span>
+                    <span className="text-sm font-medium text-gray-500">
+                      {locale === 'ar'
+                        ? 'منتجات · طلبات · تطبيق · حساب'
+                        : locale === 'ru'
+                          ? 'продукты · заказы · приложение · аккаунт'
+                          : 'products · orders · app · account'}
+                    </span>
+                  </dd>
+                </div>
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <Clock className="h-3.5 w-3.5 text-red-600" />
+                    {locale === 'ar' ? 'متوسط الرد' : locale === 'ru' ? 'средний ответ' : 'avg. human reply'}
+                  </dt>
+                  <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    <span>&lt; 4h</span>
+                    <span className="text-sm font-medium text-gray-500 inline-flex items-center gap-1">
+                      <Globe2 className="h-3.5 w-3.5" />
+                      EN · AR · RU
+                    </span>
+                  </dd>
+                </div>
+              </dl>
+            </header>
+          )}
 
           {/* Sticky filter bar (mobile web/PWA): search + tabs stay in view while
               scrolling. Background is solid (not fading to transparent) so
@@ -325,16 +385,35 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
             {groupedFaqs.map(({ category: groupCat, items }) => (
               <div key={groupCat || 'search-results'}>
                 {groupCat && activeCategory === 'all' && !searchQuery.trim() && (
-                  <div className={`flex items-center gap-2 ${isAppLikeMode ? 'mb-2 px-1' : 'mb-3 md:mb-4'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    {(() => {
-                      const Icon = CATEGORIES[groupCat]?.icon || Store
-                      return <Icon className="h-4 w-4 md:h-5 md:w-5 text-primary-600" />
-                    })()}
-                    <h2 className={`font-bold text-gray-900 ${isAppLikeMode ? 'text-sm uppercase tracking-wide' : 'text-base md:text-lg'}`}>
-                      {getCategoryLabel(groupCat)}
-                    </h2>
-                    {!isAppLikeMode && <div className="flex-1 h-px bg-gray-200" />}
-                  </div>
+                  isAppLikeMode ? (
+                    <div className={`flex items-center gap-2 mb-2 px-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      {(() => {
+                        const Icon = CATEGORIES[groupCat]?.icon || Store
+                        return <Icon className="h-4 w-4 text-primary-600" />
+                      })()}
+                      <h2 className="text-sm font-bold uppercase tracking-wide text-gray-900">
+                        {getCategoryLabel(groupCat)}
+                      </h2>
+                    </div>
+                  ) : (
+                    <div className={`mb-4 flex items-end justify-between gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className={dir === 'rtl' ? 'text-right' : ''}>
+                        <p className="text-[11px] font-mono uppercase tracking-[0.28em] text-gray-500">
+                          {String((CATEGORY_ORDER.filter(c => c !== 'all') as CategoryKey[]).indexOf(groupCat) + 1).padStart(2, '0')}
+                        </p>
+                        <h2 className={`mt-1.5 flex items-center gap-2 text-xl md:text-2xl font-semibold tracking-tight text-gray-900 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                          {(() => {
+                            const Icon = CATEGORIES[groupCat]?.icon || Store
+                            return <Icon className="h-5 w-5 text-red-600" />
+                          })()}
+                          {getCategoryLabel(groupCat)}
+                        </h2>
+                      </div>
+                      <span className="text-xs font-mono uppercase tracking-[0.2em] text-gray-400">
+                        {items.length} {locale === 'ar' ? 'سؤال' : locale === 'ru' ? 'вопр.' : items.length === 1 ? 'question' : 'questions'}
+                      </span>
+                    </div>
+                  )
                 )}
 
                 {isAppLikeMode ? (
@@ -384,30 +463,42 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                     })}
                   </div>
                 ) : (
-                  // Desktop: existing per-question shadowed cards
-                  <div className="space-y-2 md:space-y-3">
-                    {items.map((faq) => {
+                  // Desktop: single editorial container per group with hairline
+                  // dividers between rows — denser and less "shadow soup" than
+                  // per-question cards.
+                  <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+                    {items.map((faq, idx) => {
                       const isOpen = expandAll || openIds.has(faq.id)
                       const sanitizedAnswer = sanitizeHtml(faq.answer)
                       return (
                         <div
                           key={faq.id}
-                          className="bg-white border border-gray-200 rounded-lg md:rounded-xl shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden"
+                          className={`group ${idx > 0 ? 'border-t border-gray-100' : ''}`}
                         >
                           <button
                             onClick={() => toggleFAQ(faq.id)}
-                            className="w-full px-3 md:px-6 py-3 md:py-5 text-left flex items-center justify-between hover:bg-gray-50 transition-colors group"
+                            className={`relative w-full px-5 md:px-7 py-4 md:py-5 text-left flex items-start gap-4 transition-colors hover:bg-gray-50/70 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}
                             aria-expanded={isOpen}
                           >
-                            <h3 className={`text-sm md:text-lg font-semibold text-gray-800 ${dir === 'rtl' ? 'pl-2 text-right' : 'pr-2'} flex-1`}>
+                            {/* Number marker — editorial detail */}
+                            <span className="hidden md:inline-flex h-6 min-w-[2.25rem] items-center justify-center rounded-full bg-gray-100 px-2 text-[10px] font-mono uppercase tracking-[0.18em] text-gray-500 mt-0.5 flex-shrink-0">
+                              {String(idx + 1).padStart(2, '0')}
+                            </span>
+                            <h3 className="flex-1 text-base md:text-lg font-medium text-gray-900 leading-snug pr-2">
                               {faq.question}
                             </h3>
-                            <div className="flex-shrink-0">
-                              {isOpen ? (
-                                <ChevronUp className="h-4 w-4 md:h-5 md:w-5 text-primary-600 transition-transform" />
-                              ) : (
-                                <ChevronDown className="h-4 w-4 md:h-5 md:w-5 text-gray-400 group-hover:text-primary-600 transition-colors" />
-                              )}
+                            <div className="flex-shrink-0 mt-0.5">
+                              <span className={`inline-flex h-7 w-7 items-center justify-center rounded-full border transition-all duration-200 ${
+                                isOpen
+                                  ? 'border-red-500 bg-red-500 text-white'
+                                  : 'border-gray-200 bg-white text-gray-500 group-hover:border-gray-400 group-hover:text-gray-900'
+                              }`}>
+                                {isOpen ? (
+                                  <ChevronUp className="h-4 w-4" />
+                                ) : (
+                                  <ChevronDown className="h-4 w-4" />
+                                )}
+                              </span>
                             </div>
                           </button>
                           <div
@@ -415,13 +506,11 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                               isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
                             }`}
                           >
-                            <div className={`px-3 md:px-6 pb-3 md:pb-6`}>
-                              <div className={`border-${dir === 'rtl' ? 'r' : 'l'}-2 border-primary-200 ${dir === 'rtl' ? 'pr-3 md:pr-6' : 'pl-3 md:pl-6'}`}>
-                                <div
-                                  className="text-xs md:text-base text-gray-600 leading-relaxed prose prose-sm max-w-none"
-                                  dangerouslySetInnerHTML={{ __html: sanitizedAnswer }}
-                                />
-                              </div>
+                            <div className={`px-5 md:px-7 pb-5 md:pb-7 ${dir === 'rtl' ? 'md:pr-[4.5rem] md:pl-7' : 'md:pl-[4.5rem] md:pr-7'}`}>
+                              <div
+                                className="text-sm md:text-[15px] text-gray-600 leading-relaxed prose prose-sm max-w-none prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline"
+                                dangerouslySetInnerHTML={{ __html: sanitizedAnswer }}
+                              />
                             </div>
                           </div>
                         </div>
@@ -454,93 +543,134 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
             )}
           </div>
 
-          {/* App Download Banner */}
-          <div className="mb-6 md:mb-10 p-4 md:p-8 bg-gradient-to-r from-gray-900 to-gray-800 rounded-xl md:rounded-2xl shadow-lg overflow-hidden relative">
-            <div className="absolute inset-0 opacity-5">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
-            </div>
-            <div className="relative text-center">
-              <div className="flex justify-center mb-3 md:mb-4">
-                <Smartphone className="h-8 w-8 md:h-10 md:w-10 text-white" />
-              </div>
-              <h3 className="text-lg md:text-2xl font-bold text-white mb-2">
-                {locale === 'ar' ? 'حمّل تطبيق GENOSYS' : locale === 'ru' ? 'Скачайте приложение GENOSYS' : 'Get the GENOSYS App'}
-              </h3>
-              <p className="text-xs md:text-base text-gray-300 mb-4 md:mb-6 max-w-lg mx-auto">
-                {locale === 'ar'
-                  ? 'تسوق، تتبع طلباتك، واحصل على عروض حصرية — كل شيء في تطبيق واحد.'
-                  : locale === 'ru'
-                  ? 'Покупайте, отслеживайте заказы и получайте эксклюзивные предложения — всё в одном приложении.'
-                  : 'Shop, track orders, and get exclusive offers — all in one app.'}
-              </p>
-              <div className="flex flex-row gap-3 justify-center items-center">
-                <a
-                  href={APP_STORE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2.5 rounded-xl hover:bg-white/20 transition-all border border-white/20"
-                >
-                  <svg className="w-6 h-6 md:w-7 md:h-7" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                  </svg>
-                  <div className="flex flex-col leading-tight">
-                    <span className="text-[9px] md:text-[10px] font-normal opacity-80">
-                      {locale === 'ar' ? 'حمّل من' : locale === 'ru' ? 'Загрузите в' : 'Download on the'}
-                    </span>
-                    <span className="text-sm md:text-base font-semibold -mt-0.5">App Store</span>
-                  </div>
-                </a>
-                <a
-                  href={PLAY_STORE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white px-4 py-2.5 rounded-xl hover:bg-white/20 transition-all border border-white/20"
-                >
-                  <svg className="w-6 h-6 md:w-7 md:h-7" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.808 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>
-                  </svg>
-                  <div className="flex flex-col leading-tight">
-                    <span className="text-[9px] md:text-[10px] font-normal opacity-80">
-                      {locale === 'ar' ? 'متوفر على' : locale === 'ru' ? 'Доступно в' : 'GET IT ON'}
-                    </span>
-                    <span className="text-sm md:text-base font-semibold -mt-0.5">Google Play</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
+          {/* App Download Banner — editorial dark panel with red accent blurs.
+              Mobile keeps the centered layout; desktop uses an asymmetric
+              two-column composition (kicker → headline → CTAs left,
+              decorative phone glyph right) to feel less like a generic banner. */}
+          <section className="relative mb-6 md:mb-10 overflow-hidden rounded-xl md:rounded-3xl bg-gray-950 text-white">
+            {/* Brand accent blurs */}
+            <span aria-hidden className="pointer-events-none absolute -top-32 -left-32 h-72 w-72 rounded-full bg-red-600/30 blur-3xl" />
+            <span aria-hidden className="pointer-events-none absolute -bottom-40 -right-32 h-80 w-80 rounded-full bg-red-500/20 blur-3xl" />
+            <span aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_25%_30%,rgba(255,255,255,0.04),transparent_60%)]" />
 
-          {/* Contact CTA */}
-          <div className="p-4 md:p-8 bg-gradient-to-r from-primary-50 to-red-50 rounded-lg md:rounded-xl border border-primary-100 shadow-sm">
-            <div className="text-center">
-              <h3 className="text-lg md:text-2xl font-bold text-gray-800 mb-2 md:mb-3">
-                {locale === 'ar' ? 'لا تزال لديك أسئلة؟' : locale === 'ru' ? 'Остались вопросы?' : 'Still have questions?'}
-              </h3>
-              <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6 max-w-xl mx-auto">
-                {locale === 'ar'
-                  ? 'لا تجد الإجابة التي تبحث عنها؟ فريق الدعم لدينا هنا لمساعدتك.'
-                  : locale === 'ru'
-                  ? 'Не нашли ответ на свой вопрос? Наша служба поддержки готова помочь.'
-                  : 'Can\'t find the answer you\'re looking for? Our support team is here to help.'}
-              </p>
-              <div className="flex flex-row gap-3 justify-center">
+            <div className="relative grid gap-8 p-5 md:grid-cols-[1.5fr_1fr] md:items-center md:gap-10 md:p-10">
+              <div className={dir === 'rtl' ? 'text-right' : ''}>
+                <p className="text-[11px] font-mono uppercase tracking-[0.32em] text-red-300/90">
+                  {locale === 'ar' ? 'تطبيقات الجوال' : locale === 'ru' ? 'МОБИЛЬНЫЕ ПРИЛОЖЕНИЯ' : 'MOBILE APPS · iOS & ANDROID'}
+                </p>
+                <h3 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight leading-[1.1]">
+                  {locale === 'ar'
+                    ? 'احصل على إجاباتك أسرع في تطبيق GENOSYS.'
+                    : locale === 'ru'
+                      ? 'Получайте ответы быстрее в приложении GENOSYS.'
+                      : 'Get answers faster in the GENOSYS app.'}
+                </h3>
+                <p className="mt-3 max-w-md text-sm md:text-base leading-relaxed text-gray-300">
+                  {locale === 'ar'
+                    ? 'تسوّق، تتبّع طلباتك، وادردش مع فريق الدعم — كل شيء في تطبيق واحد.'
+                    : locale === 'ru'
+                      ? 'Покупайте, отслеживайте заказы и общайтесь с поддержкой — всё в одном приложении.'
+                      : 'Shop, track orders, and chat with support — all in one place.'}
+                </p>
+
+                <div className={`mt-6 flex flex-row flex-wrap gap-3 ${dir === 'rtl' ? 'justify-end' : ''}`}>
+                  <a
+                    href={APP_STORE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-white backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/10"
+                  >
+                    <svg className="h-6 w-6 md:h-7 md:w-7" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                    <div className="flex flex-col leading-tight">
+                      <span className="text-[9px] md:text-[10px] font-normal opacity-70">
+                        {locale === 'ar' ? 'حمّل من' : locale === 'ru' ? 'Загрузите в' : 'Download on the'}
+                      </span>
+                      <span className="text-sm md:text-base font-semibold -mt-0.5">App Store</span>
+                    </div>
+                  </a>
+                  <a
+                    href={PLAY_STORE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-white backdrop-blur-sm transition-all hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/10"
+                  >
+                    <svg className="h-6 w-6 md:h-7 md:w-7" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.808 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>
+                    </svg>
+                    <div className="flex flex-col leading-tight">
+                      <span className="text-[9px] md:text-[10px] font-normal opacity-70">
+                        {locale === 'ar' ? 'متوفر على' : locale === 'ru' ? 'Доступно в' : 'GET IT ON'}
+                      </span>
+                      <span className="text-sm md:text-base font-semibold -mt-0.5">Google Play</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+              {/* Decorative side panel — desktop only */}
+              <div className="hidden md:flex justify-center">
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-red-500/30 via-red-500/10 to-transparent blur-2xl" />
+                  <div className="relative flex h-32 w-32 items-center justify-center rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-sm">
+                    <Smartphone className="h-14 w-14 text-white/90" strokeWidth={1.5} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Contact CTA — editorial dark panel matching /partners "Become a
+              partner" style. Replaces the previous pink-gradient block. */}
+          <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-gray-950 text-white">
+            <span aria-hidden className="pointer-events-none absolute -top-32 right-0 h-72 w-72 rounded-full bg-red-600/25 blur-3xl" />
+            <span aria-hidden className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-red-500/15 blur-3xl" />
+
+            <div className="relative grid gap-8 p-5 md:grid-cols-[1.4fr_1fr] md:items-end md:gap-12 md:p-10">
+              <div className={dir === 'rtl' ? 'text-right' : ''}>
+                <p className="text-[11px] font-mono uppercase tracking-[0.32em] text-red-300/90">
+                  {locale === 'ar' ? 'هل ما زلت بحاجة إلى مساعدة؟' : locale === 'ru' ? 'НУЖНА ПОМОЩЬ?' : 'STILL NEED HELP?'}
+                </p>
+                <h3 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight leading-[1.1]">
+                  {locale === 'ar'
+                    ? 'تحدّث مع شخص حقيقي.'
+                    : locale === 'ru'
+                      ? 'Поговорите с живым человеком.'
+                      : 'Talk to a real human.'}
+                </h3>
+                <p className="mt-3 max-w-md text-sm md:text-base leading-relaxed text-gray-300">
+                  {locale === 'ar'
+                    ? 'فريق الدعم في دبي يجيب باللغات الإنجليزية والعربية والروسية — عادة في أقل من 4 ساعات.'
+                    : locale === 'ru'
+                      ? 'Команда поддержки в Дубае отвечает на английском, арабском и русском — обычно менее чем за 4 часа.'
+                      : 'Our Dubai support desk replies in English, Arabic & Russian — typically under 4 hours.'}
+                </p>
+              </div>
+
+              <div className={`flex flex-col gap-3 sm:flex-row md:flex-col ${dir === 'rtl' ? 'md:items-end' : 'md:items-stretch'}`}>
                 <Link
                   href={getLocalizedPath('/contact', locale)}
-                  className="bg-primary-600 text-white px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors shadow-md flex items-center justify-center"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 transition-all hover:bg-red-500 hover:text-white"
                 >
+                  <MessageCircle className="h-4 w-4" />
                   {t('common.contact')}
+                  <ArrowRight className={`h-4 w-4 transition-transform group-hover:translate-x-0.5 ${dir === 'rtl' ? 'rotate-180 group-hover:-translate-x-0.5 group-hover:translate-x-0' : ''}`} />
                 </Link>
                 <a
-                  href={`https://wa.me/971585487665?text=${locale === 'ar' ? 'مرحباً، لدي سؤال حول منتجات GENOSYS.' : locale === 'ru' ? 'Здравствуйте, у меня вопрос о продукции GENOSYS.' : 'Hi, I have a question about GENOSYS products.'}`}
+                  href={`https://wa.me/971585487665?text=${encodeURIComponent(locale === 'ar' ? 'مرحباً، لدي سؤال حول منتجات GENOSYS.' : locale === 'ru' ? 'Здравствуйте, у меня вопрос о продукции GENOSYS.' : 'Hi, I have a question about GENOSYS products.')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-green-600 text-white px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-green-700 transition-colors shadow-md flex items-center justify-center"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10"
                 >
-                  {locale === 'ar' ? 'واتساب' : 'WhatsApp'}
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.71.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+                  </svg>
+                  WhatsApp
                 </a>
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>

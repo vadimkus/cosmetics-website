@@ -17,6 +17,7 @@ This is the next slow step after the pricing contract display cleanup. The goal 
 - Follow-up checkout discount-summary slice: added `getCartDiscountSummary()` and routed the checkout waterfall display / COD bundle-discount metadata source through the contract-backed cart pricing helper.
 - Follow-up Stripe backend recomputation slice: `/api/stripe/create-payment-intent` now fetches current server products and recomputes item unit prices, subtotal, Stripe amount, and stored order item prices server-side. Client-submitted item prices are ignored, except explicit checkout-generated free-gift markers.
 - Follow-up COD backend recomputation slice: `/api/orders/cod-confirmation` now fetches current server products and recomputes item unit prices, subtotal, shipping, VAT, total, discount amounts, and stored/email item prices server-side. Client-submitted item prices/totals are ignored, except explicit checkout-generated free-gift markers.
+- Follow-up mobile Stripe helper slice: `/api/mobile/checkout/stripe` now routes new-checkout item unit pricing and discount amounts through `getCartLinePricing()`, while preserving its authenticated mobile payload, order persistence, Stripe Checkout Session flow, and resume-payment path.
 
 ## Scope Boundary
 
@@ -30,6 +31,7 @@ Changed:
 - Website checkout waterfall values: retail total, user discount, bundle discount, intermediate subtotal, and total saved.
 - Website Stripe backend item pricing and subtotal recomputation.
 - Website COD backend item pricing, subtotal, shipping, VAT, and total recomputation.
+- Mobile app Stripe new-checkout item pricing through the shared cart helper.
 
 Deliberately unchanged:
 
@@ -38,6 +40,7 @@ Deliberately unchanged:
 - Stripe payment intent creation API call, duplicate-order check, and webhook flow.
 - Frontend checkout subtotal, shipping, VAT, and payment total calculation.
 - COD email delivery mechanics and admin notification sender.
+- Mobile Stripe resume-payment path and native app client cart math.
 
 ## Covered Scenarios
 
@@ -56,10 +59,12 @@ Deliberately unchanged:
 - Beauty Box-only carts stay out of the cart-level waterfall while preserving line-level Beauty Box savings.
 - Route-level Stripe backend guard proving a tampered client item price is ignored and the server product price + user discount determine payment/order totals.
 - Route-level COD backend guard proving a tampered client item price/total is ignored and the server product price + user discount determine stored order totals.
+- Route-level mobile Stripe guard proving a tampered client item price is ignored and the server product price + user discount determine stored order totals.
 
 ## Verification
 
 - `npx jest __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
+- `npx jest __tests__/api/mobile-stripe-checkout-pricing.test.ts __tests__/api/cod-confirmation-pricing.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
 - `npm run smoke:pricing-contract`
 - `npm run build`
 
@@ -80,3 +85,5 @@ The checkout discount-summary slice is isolated to `getCartDiscountSummary()`, i
 The Stripe backend recomputation slice is isolated to `/api/stripe/create-payment-intent` and `__tests__/api/stripe-create-payment-intent-pricing.test.ts`. Reverting it restores the previous behavior where the web Stripe route trusted submitted final item prices.
 
 The COD backend recomputation slice is isolated to `/api/orders/cod-confirmation` and `__tests__/api/cod-confirmation-pricing.test.ts`. Reverting it restores the previous behavior where the web COD route trusted submitted final item prices/totals.
+
+The mobile Stripe helper slice is isolated to the new-checkout pricing block in `/api/mobile/checkout/stripe` and `__tests__/api/mobile-stripe-checkout-pricing.test.ts`. Reverting it restores the previous manual mobile Stripe pricing calculation while leaving web checkout and mobile resume-payment behavior unchanged.

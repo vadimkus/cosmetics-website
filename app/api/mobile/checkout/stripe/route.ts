@@ -7,7 +7,9 @@ import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
-import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
+import { getProductById } from '@/lib/productsDb'
+import { getCartLinePricing } from '@/lib/cartPricing'
+import { CartItem } from '@/types'
 
 /**
  * MOBILE STRIPE CHECKOUT ENDPOINT
@@ -338,7 +340,7 @@ export async function POST(request: NextRequest) {
       emirate
     })
 
-    // SERVER-SIDE CALCULATION: Recompute totals (authoritative, MUST match mobile UI)
+    // SERVER-SIDE CALCULATION: Recompute totals through the shared cart pricing helper.
     let serverSubtotal = 0
     let discountAmount = 0
     let bundleDiscountAmount = 0
@@ -351,15 +353,7 @@ export async function POST(request: NextRequest) {
 
     for (const item of items) {
       // Verify product exists and get current price
-      const product = await prisma.product.findFirst({
-        where: {
-          OR: [
-            { id: item.id },
-            { productNumber: item.id }
-          ],
-          isHidden: false
-        }
-      })
+      const product = await getProductById(item.id)
 
       if (!product) {
         errorLog(`[MOBILE_STRIPE] Product not found: ${item.id}`)
@@ -369,78 +363,74 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      // Variant price support (size/color). Use product price if no matching variant.
-      const wantedSize = item.size ? String(item.size).trim() : null
-      const wantedColor = item.color ? String(item.color).trim() : null
-      const variant = (wantedSize || wantedColor)
-        ? await prisma.productVariant.findFirst({
-            where: {
-              productId: product.id,
-              ...(wantedSize ? { size: wantedSize } : {}),
-              ...(wantedColor ? { color: wantedColor } : {}),
-              available: true,
-            },
-          })
-        : null
-
+      const selectedSize = String(item.size || item.selectedSize || '').trim()
+      const selectedColor = String(item.color || item.selectedColor || '').trim()
       const isPromo =
         item.isPromotionItem === true ||
-        String(item.selectedSize || '').trim() === '__PROMO__' ||
-        String(item.size || '').trim() === '__PROMO__' ||
+        selectedSize === '__PROMO__' ||
         // Client can send promo items with price 0 but without the flag; treat as promo.
         Number(item.price) === 0
-
-      const baseUnit = isPromo ? 0 : Number(variant?.price ?? product.price)
       const qty = Number(item.quantity) || 0
-
-      // Apply user discount unless product is excluded
-      const excluded = isPromo ? true : isUserDiscountExcludedProduct(product)
-
-      // "Build Your Set" bundle items: bundle discount ONLY — no VIP/user discount stacking.
-      const isBundleItem = item?.fromBundle === true
-      const itemBundlePct = Number(item?.bundleDiscountPercent) || 0
-      const hasBundleDiscountForItem = isBundleItem && itemBundlePct > 0 && itemBundlePct < 100
-
-      let unitPrice: number
-      if (isPromo) {
-        unitPrice = 0
-      } else if (hasBundleDiscountForItem) {
-        // Bundle items: apply ONLY bundle discount on retail price (no VIP)
-        const afterVip = baseUnit  // no VIP applied
-        unitPrice = Math.round(afterVip * (1 - itemBundlePct / 100) * 100) / 100
-        bundleDiscountAmount += (afterVip - unitPrice) * qty
-        bundleDiscountPct = itemBundlePct
-      } else if (!excluded && hasUserDiscount) {
-        unitPrice = baseUnit * (1 - pct / 100)
-        discountAmount += (baseUnit - unitPrice) * qty
-      } else {
-        unitPrice = baseUnit
+      if (qty <= 0) {
+        return NextResponse.json(
+          { success: false, error: `Invalid quantity for ${product.name}` },
+          { status: 400 }
+        )
       }
 
-      const itemSubtotal = unitPrice * qty
-      serverSubtotal += itemSubtotal
+      if (isPromo) {
+        validatedItems.push({
+          id: product.id,
+          name: String(item.name || `${product.name} (FREE)`),
+          price: 0,
+          quantity: qty,
+          image: item.image || product.image,
+          size: '__PROMO__',
+          color: selectedColor || undefined,
+        })
+        continue
+      }
 
-      // Build discount description for Stripe line item
+      const cartItem: CartItem = {
+        product,
+        quantity: qty,
+        ...(selectedSize ? { selectedSize } : {}),
+        ...(selectedColor ? { selectedColor } : {}),
+        ...(item.fromBundle ? { fromBundle: true } : {}),
+        ...(item.bundleDiscountPercent ? { bundleDiscountPercent: item.bundleDiscountPercent } : {}),
+      }
+      const pricing = getCartLinePricing(cartItem, user)
+      serverSubtotal += pricing.lineTotal
+
+      if (pricing.discountType === 'bundle') {
+        bundleDiscountAmount += pricing.discountAmount
+        if (pricing.discountPercentage > 0) bundleDiscountPct = pricing.discountPercentage
+      } else if (pricing.discountType === 'user' || pricing.discountType === 'black_friday') {
+        discountAmount += pricing.discountAmount
+      }
+
       let discountDesc = ''
-      if (!isPromo && unitPrice < baseUnit) {
-        if (hasBundleDiscountForItem) {
-          discountDesc = `${Math.round(itemBundlePct)}% Bundle discount applied (was AED ${baseUnit.toFixed(2)})`
-        } else if (!excluded && hasUserDiscount) {
-          discountDesc = `${Math.round(pct)}% discount applied (was AED ${baseUnit.toFixed(2)})`
+      if (pricing.discountAmount > 0) {
+        if (pricing.discountType === 'bundle') {
+          discountDesc = `${Math.round(pricing.discountPercentage)}% Bundle discount applied (was AED ${pricing.retailUnitPrice.toFixed(2)})`
+        } else if (pricing.discountType === 'user' || pricing.discountType === 'black_friday') {
+          discountDesc = `${Math.round(pricing.discountPercentage)}% discount applied (was AED ${pricing.retailUnitPrice.toFixed(2)})`
+        } else if (pricing.discountType === 'beauty_box') {
+          discountDesc = `${Math.round(pricing.discountPercentage)}% Beauty Box discount applied (was AED ${pricing.retailUnitPrice.toFixed(2)})`
         }
       }
 
       validatedItems.push({
         id: product.id,
         name: product.name,
-        price: unitPrice,
+        price: pricing.unitPrice,
         quantity: qty,
         image: item.image || product.image,
         // Preserve a stable promo marker so mobile UI can reliably show "FREE"
-        size: isPromo ? '__PROMO__' : item.size,
-        color: item.color,
+        size: selectedSize || undefined,
+        color: selectedColor || undefined,
         discountDesc,
-        bundleDiscount: hasBundleDiscountForItem ? itemBundlePct : undefined,
+        bundleDiscount: pricing.discountType === 'bundle' ? pricing.discountPercentage : undefined,
       })
     }
 

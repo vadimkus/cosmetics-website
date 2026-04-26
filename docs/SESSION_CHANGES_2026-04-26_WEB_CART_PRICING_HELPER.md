@@ -16,6 +16,7 @@ This is the next slow step after the pricing contract display cleanup. The goal 
 - Follow-up Stripe payload slice: routed the website Stripe payment-intent item `product.price` and bundle metadata through `getCartLinePayloadPricing()`, while leaving `/api/stripe/create-payment-intent` total/order reconstruction untouched.
 - Follow-up checkout discount-summary slice: added `getCartDiscountSummary()` and routed the checkout waterfall display / COD bundle-discount metadata source through the contract-backed cart pricing helper.
 - Follow-up Stripe backend recomputation slice: `/api/stripe/create-payment-intent` now fetches current server products and recomputes item unit prices, subtotal, Stripe amount, and stored order item prices server-side. Client-submitted item prices are ignored, except explicit checkout-generated free-gift markers.
+- Follow-up COD backend recomputation slice: `/api/orders/cod-confirmation` now fetches current server products and recomputes item unit prices, subtotal, shipping, VAT, total, discount amounts, and stored/email item prices server-side. Client-submitted item prices/totals are ignored, except explicit checkout-generated free-gift markers.
 
 ## Scope Boundary
 
@@ -28,15 +29,15 @@ Changed:
 - Website Stripe item payload pricing for `/api/stripe/create-payment-intent`.
 - Website checkout waterfall values: retail total, user discount, bundle discount, intermediate subtotal, and total saved.
 - Website Stripe backend item pricing and subtotal recomputation.
+- Website COD backend item pricing, subtotal, shipping, VAT, and total recomputation.
 
 Deliberately unchanged:
 
 - Order emails and admin order reconstruction.
 - Native app cart/order logic.
-- COD backend discount reconstruction, order persistence, emails, and admin notification logic.
 - Stripe payment intent creation API call, duplicate-order check, and webhook flow.
 - Frontend checkout subtotal, shipping, VAT, and payment total calculation.
-- COD backend recomputation.
+- COD email delivery mechanics and admin notification sender.
 
 ## Covered Scenarios
 
@@ -54,6 +55,7 @@ Deliberately unchanged:
 - Checkout discount summary with mixed user + bundle discounts.
 - Beauty Box-only carts stay out of the cart-level waterfall while preserving line-level Beauty Box savings.
 - Route-level Stripe backend guard proving a tampered client item price is ignored and the server product price + user discount determine payment/order totals.
+- Route-level COD backend guard proving a tampered client item price/total is ignored and the server product price + user discount determine stored order totals.
 
 ## Verification
 
@@ -76,3 +78,5 @@ The Stripe payload slice is isolated to the Stripe item mapper in `app/checkout/
 The checkout discount-summary slice is isolated to `getCartDiscountSummary()`, its focused tests, and the summary destructuring in `app/checkout/CheckoutClient.tsx`. Reverting it restores the previous inline waterfall calculation without changing payment totals.
 
 The Stripe backend recomputation slice is isolated to `/api/stripe/create-payment-intent` and `__tests__/api/stripe-create-payment-intent-pricing.test.ts`. Reverting it restores the previous behavior where the web Stripe route trusted submitted final item prices.
+
+The COD backend recomputation slice is isolated to `/api/orders/cod-confirmation` and `__tests__/api/cod-confirmation-pricing.test.ts`. Reverting it restores the previous behavior where the web COD route trusted submitted final item prices/totals.

@@ -8,10 +8,6 @@ import { errorLog } from '@/lib/logger'
 export default function ManualNotificationPage() {
   const [formData, setFormData] = useState({
     orderNumber: '',
-    customerName: '',
-    customerEmail: '',
-    total: '',
-    itemCount: '1'
   })
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState<{ success: boolean; message: string } | null>(null)
@@ -78,10 +74,6 @@ export default function ManualNotificationPage() {
         // Reset form
         setFormData({
           orderNumber: '',
-          customerName: '',
-          customerEmail: '',
-          total: '',
-          itemCount: '1'
         })
       } else {
         setResult({ success: false, message: data.error })
@@ -106,78 +98,22 @@ export default function ManualNotificationPage() {
             Manual Order Notification
           </h1>
           <p className="text-sm text-gray-600 mt-2">
-            Send admin notification for orders that were created before the email system was fixed.
+            Send admin notification for an existing order. Totals and line items are loaded from the stored order record.
           </p>
         </div>
         <div className="p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="orderNumber" className="block text-sm font-medium text-gray-700 mb-1">Order Number *</label>
-                <input
-                  id="orderNumber"
-                  type="text"
-                  value={formData.orderNumber}
-                  onChange={(e) => handleInputChange('orderNumber', e.target.value)}
-                  placeholder="e.g., 123456789"
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="customerName" className="block text-sm font-medium text-gray-700 mb-1">Customer Name *</label>
-                <input
-                  id="customerName"
-                  type="text"
-                  value={formData.customerName}
-                  onChange={(e) => handleInputChange('customerName', e.target.value)}
-                  placeholder="e.g., John Doe"
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-            </div>
-
             <div>
-              <label htmlFor="customerEmail" className="block text-sm font-medium text-gray-700 mb-1">Customer Email *</label>
+              <label htmlFor="orderNumber" className="block text-sm font-medium text-gray-700 mb-1">Order Number *</label>
               <input
-                id="customerEmail"
-                type="email"
-                value={formData.customerEmail}
-                onChange={(e) => handleInputChange('customerEmail', e.target.value)}
-                placeholder="e.g., customer@example.com"
+                id="orderNumber"
+                type="text"
+                value={formData.orderNumber}
+                onChange={(e) => handleInputChange('orderNumber', e.target.value)}
+                placeholder="e.g., GEN2604260001"
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="total" className="block text-sm font-medium text-gray-700 mb-1">Total Amount (AED) *</label>
-                <input
-                  id="total"
-                  type="number"
-                  step="0.01"
-                  value={formData.total}
-                  onChange={(e) => handleInputChange('total', e.target.value)}
-                  placeholder="e.g., 150.00"
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="itemCount" className="block text-sm font-medium text-gray-700 mb-1">Number of Items</label>
-                <input
-                  id="itemCount"
-                  type="number"
-                  value={formData.itemCount}
-                  onChange={(e) => handleInputChange('itemCount', e.target.value)}
-                  placeholder="e.g., 2"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
             </div>
 
             <button 

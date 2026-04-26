@@ -6,6 +6,7 @@ import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { SITE_URL } from '@/lib/siteConfig'
 import { LOGO_URL } from '@/lib/email/utils'
+import { getOrderByNumber, OrderWithItems } from '@/lib/orderStorageDb'
 
 interface InvoiceItem {
   id?: string
@@ -160,16 +161,33 @@ export async function POST(request: NextRequest) {
       return csrfCheck.response!
     }
 
-    const invoiceData: InvoiceData = await request.json()
+    const submittedInvoiceData: InvoiceData = await request.json()
     
     const {
       orderNumber,
-      customerEmail,
       locale = 'en'
-    } = invoiceData
+    } = submittedInvoiceData
+
+    if (!orderNumber) {
+      return NextResponse.json(
+        { success: false, message: 'orderNumber is required' },
+        { status: 400 }
+      )
+    }
+
+    const order = await getOrderByNumber(orderNumber)
+    if (!order) {
+      return NextResponse.json(
+        { success: false, message: 'Order not found' },
+        { status: 404 }
+      )
+    }
+
+    const invoiceData = buildInvoiceDataFromOrder(order, locale)
+    const customerEmail = order.customerEmail
 
     // Load translations
-    const t = loadInvoiceTranslations(locale)
+    const t = loadInvoiceTranslations(invoiceData.locale || locale)
 
     // Generate HTML invoice
     const invoiceHtml = generateInvoiceHTML(invoiceData, t)
@@ -211,6 +229,36 @@ export async function POST(request: NextRequest) {
       { success: false, message: 'Failed to generate invoice' },
       { status: 500 }
     )
+  }
+}
+
+function buildInvoiceDataFromOrder(order: OrderWithItems, requestedLocale?: string): InvoiceData {
+  return {
+    orderNumber: order.orderNumber,
+    customerName: order.customerName,
+    customerEmail: order.customerEmail,
+    customerPhone: order.customerPhone,
+    customerAddress: order.customerAddress,
+    emirate: order.customerEmirate,
+    items: order.items.map(item => ({
+      id: item.productId,
+      name: item.productName,
+      image: item.image || undefined,
+      quantity: item.quantity,
+      price: item.price,
+      total: Math.round(item.price * item.quantity * 100) / 100,
+      ...(item.size ? { size: item.size } : {}),
+      ...(item.color ? { color: item.color } : {}),
+    })),
+    subtotal: order.subtotal,
+    shippingCost: order.shipping || 0,
+    vatAmount: order.vat,
+    total: order.total,
+    locale: requestedLocale || order.locale || 'en',
+    ...(order.discountPercentage ? { discountPercentage: order.discountPercentage } : {}),
+    ...(order.discountAmount ? { discountAmount: order.discountAmount } : {}),
+    ...(order.bundleDiscountPercentage ? { bundleDiscountPercentage: order.bundleDiscountPercentage } : {}),
+    ...(order.bundleDiscountAmount ? { bundleDiscountAmount: order.bundleDiscountAmount } : {}),
   }
 }
 

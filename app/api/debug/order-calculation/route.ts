@@ -3,9 +3,28 @@ import { requireAdminAuth } from '@/lib/adminAuth'
 import { debugLog, errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 import { requireDevelopment } from '@/lib/apiErrorHandler'
-import { Product } from '@/types/index'
+import { CartItem, Product } from '@/types/index'
+import { getProductById } from '@/lib/productsDb'
+import { findUserByEmail } from '@/lib/userStorageDb'
+import { getCartDiscountSummary, getCartLinePricing } from '@/lib/cartPricing'
+import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
+import {
+  getValidatedBundleDiscountPercent,
+  isSubmittedBundleLine,
+} from '@/lib/checkoutPricingGuards'
 
 interface DebugCheckoutItem {
+  product?: Partial<Product>
+  productId?: string
+  quantity?: number
+  selectedColor?: string
+  selectedSize?: string
+  fromBundle?: boolean
+  bundleDiscountPercent?: number
+}
+
+interface DebugProductRecord {
+  item: DebugCheckoutItem
   product: Product
   quantity: number
 }
@@ -27,7 +46,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { items, customerEmirate } = await request.json()
+    const { items, customerEmirate, customerEmail } = await request.json()
 
     if (!items || !Array.isArray(items)) {
       return NextResponse.json(
@@ -36,42 +55,85 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Calculate order totals with detailed logging
+    const user = customerEmail ? await findUserByEmail(customerEmail) : null
+    const productRecords: DebugProductRecord[] = []
+
+    for (const item of items as DebugCheckoutItem[]) {
+      const productId = String(item.productId || item.product?.id || item.product?.productNumber || '').trim()
+      if (!productId) {
+        return NextResponse.json(
+          { error: 'Each item must include productId or product.id' },
+          { status: 400 }
+        )
+      }
+
+      const product = await getProductById(productId)
+      if (!product) {
+        return NextResponse.json(
+          { error: `Product not found: ${productId}` },
+          { status: 404 }
+        )
+      }
+
+      const quantity = Number(item.quantity || 1)
+      if (!Number.isFinite(quantity) || quantity <= 0) {
+        return NextResponse.json(
+          { error: `Invalid quantity for ${product.name}` },
+          { status: 400 }
+        )
+      }
+
+      productRecords.push({ item, product, quantity })
+    }
+
+    const bundleLineCount = productRecords.filter(({ item, product }) =>
+      isSubmittedBundleLine(item.bundleDiscountPercent, product)
+    ).length
+
+    const cartItems: CartItem[] = productRecords.map(({ item, product, quantity }) => {
+      const bundlePct = getValidatedBundleDiscountPercent(
+        item.bundleDiscountPercent,
+        product,
+        bundleLineCount
+      )
+
+      return {
+        product,
+        quantity,
+        ...(item.selectedColor ? { selectedColor: item.selectedColor } : {}),
+        ...(item.selectedSize ? { selectedSize: item.selectedSize } : {}),
+        ...(bundlePct !== null ? { fromBundle: true, bundleDiscountPercent: bundlePct } : {}),
+      }
+    })
+
+    // Calculate order totals with the same contract-backed line pricing used by checkout.
     debugLog('🔍 Debugging order calculation...')
     debugLog('Items received:', JSON.stringify(items, null, 2))
     
-    const subtotal = items.reduce((total: number, item: DebugCheckoutItem) => {
-      const itemTotal = item.product.price * item.quantity
-      debugLog(`Item: ${item.product.name} - Price: ${item.product.price} x Qty: ${item.quantity} = ${itemTotal}`)
-      return total + itemTotal
-    }, 0)
+    const pricedItems = cartItems.map((item) => {
+      const pricing = getCartLinePricing(item, user)
+      debugLog(`Item: ${item.product.name} - Price: ${pricing.unitPrice} x Qty: ${pricing.quantity} = ${pricing.lineTotal}`)
+      return {
+        item,
+        pricing,
+      }
+    })
+
+    const subtotal = Math.round(pricedItems.reduce((total, { pricing }) => total + pricing.lineTotal, 0) * 100) / 100
     
     debugLog('Subtotal calculated:', subtotal)
     
-    // Calculate shipping (free for orders above 1000 AED)
-    const emirates = [
-      { name: 'Dubai', shippingCost: 45 },
-      { name: 'Abu Dhabi', shippingCost: 70 },
-      { name: 'Sharjah', shippingCost: 70 },
-      { name: 'Ajman', shippingCost: 70 },
-      { name: 'Ras Al Khaimah', shippingCost: 70 },
-      { name: 'Fujairah', shippingCost: 70 },
-      { name: 'Umm Al Quwain', shippingCost: 70 }
-    ]
-    
-    const selectedEmirateData = emirates.find(e => e.name === customerEmirate)
-    const baseShippingCost = selectedEmirateData?.shippingCost || 45
-    const shipping = subtotal >= 1000 ? 0 : baseShippingCost
+    const baseShippingCost = calculateMobileShipping(0, customerEmirate)
+    const shipping = calculateMobileShipping(subtotal, customerEmirate)
     
     debugLog('Emirate:', customerEmirate)
     debugLog('Base shipping cost:', baseShippingCost)
     debugLog('Final shipping:', shipping)
     
-    const discountAmount = 0 // You can add discount logic here if needed
-    const total = subtotal - discountAmount + shipping
-    // Calculate VAT amount from VAT-inclusive prices
-    // VAT = (VAT-inclusive amount / 1.05) * 0.05
-    const vat = Math.round(((subtotal + shipping) / 1.05) * 0.05 * 100) / 100
+    const discountSummary = getCartDiscountSummary(cartItems, user)
+    const discountAmount = discountSummary.totalSaved
+    const total = subtotal + shipping
+    const vat = calculateVatIncluded(total)
 
     debugLog('Discount amount:', discountAmount)
     debugLog('Subtotal (VAT included):', subtotal)
@@ -80,13 +142,18 @@ export async function POST(request: NextRequest) {
     debugLog('Final total:', total)
 
     const calculation = {
-      items: items.map((item: DebugCheckoutItem) => ({
+      items: pricedItems.map(({ item, pricing }) => ({
         name: item.product.name,
-        price: item.product.price,
-        quantity: item.quantity,
-        itemTotal: item.product.price * item.quantity
+        price: pricing.unitPrice,
+        retailPrice: pricing.retailUnitPrice,
+        quantity: pricing.quantity,
+        itemTotal: pricing.lineTotal,
+        discountAmount: pricing.discountAmount,
+        discountPercentage: pricing.discountPercentage,
+        discountType: pricing.discountType,
       })),
       subtotal,
+      discountSummary,
       emirate: customerEmirate,
       baseShippingCost,
       shipping,
@@ -94,9 +161,10 @@ export async function POST(request: NextRequest) {
       vat,
       total,
       breakdown: {
-        'Items Subtotal (VAT included)': subtotal,
-        'Shipping (VAT included)': shipping,
+        'Retail Subtotal (VAT included)': discountSummary.retailTotal,
         'Discount': -discountAmount,
+        'Discounted Subtotal (VAT included)': subtotal,
+        'Shipping (VAT included)': shipping,
         'VAT (5% of inclusive amount)': vat,
         'Final Total': total
       }

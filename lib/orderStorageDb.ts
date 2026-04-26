@@ -1,6 +1,6 @@
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './database'
-import { Order } from '@prisma/client'
+import { Order, OrderItem } from '@prisma/client'
 import crypto from 'crypto'
 
 export interface OrderItemData {
@@ -47,6 +47,10 @@ export interface OrderData {
   refundedAt?: Date // When refund was processed
   refundAmount?: number // Amount refunded (can be partial)
   paymentMetadata?: string // JSON metadata from payment provider
+}
+
+export type OrderWithItems = Order & {
+  items: OrderItem[]
 }
 
 // Read all orders
@@ -200,6 +204,25 @@ export const getOrderById = async (orderId: string): Promise<Order | null> => {
     })
   } catch (error) {
     errorLog('Error finding order by ID:', error)
+    return null
+  }
+}
+
+// Get order by canonical order number
+export const getOrderByNumber = async (orderNumber: string): Promise<OrderWithItems | null> => {
+  try {
+    const normalizedOrderNumber = String(orderNumber || '').trim()
+    if (!normalizedOrderNumber) return null
+
+    return await prisma.order.findUnique({
+      where: { orderNumber: normalizedOrderNumber },
+      include: {
+        items: true,
+        customer: true,
+      },
+    }) as OrderWithItems | null
+  } catch (error) {
+    errorLog('Error finding order by number:', error)
     return null
   }
 }

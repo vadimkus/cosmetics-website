@@ -22,6 +22,7 @@ This is the next slow step after the pricing contract display cleanup. The goal 
 - Follow-up mobile COD backend helper slice: `POST /api/mobile/orders` now routes item unit pricing and discount amounts through `getCartLinePricing()`, while preserving order persistence, order response shape, and email/admin notification delivery.
 - Desktop Beauty Box bug fix: guarded Beauty Boxes against stale bundle-builder metadata and against `Size: 1 set` being treated as a variant discount recalculation. `SENSITIVE SKIN BEAUTY BOX` now stays `AED 1696 -> AED 1442` in cart, checkout, and COD persistence instead of double-discounting to `AED 1225.70`.
 - Follow-up `/cart` display consistency slice: cart item rows and the Beauty Box savings banner now use `getCartLinePricing()` for displayed line totals, strikethrough totals, discount percentages, and Beauty Box savings instead of mixing direct display-pricing / legacy discount calls.
+- Follow-up legacy Stripe Checkout Session backend slice: `/api/stripe/create-checkout-session` now fetches current server products and recomputes item unit prices, subtotal, Stripe line-item amounts, and stored order item prices through `getCartLinePricing()`. Client-submitted item prices are ignored, except explicit checkout-generated free-gift markers.
 
 ## Scope Boundary
 
@@ -51,6 +52,7 @@ Deliberately unchanged:
 - Mobile Stripe resume-payment path and native app client cart math.
 - Mobile Apple Pay status endpoint and native app client cart math.
 - Native app checkout payload construction.
+- Legacy Stripe Checkout Session duplicate-session reuse and hosted Checkout Session flow.
 
 ## Covered Scenarios
 
@@ -74,6 +76,7 @@ Deliberately unchanged:
 - Route-level mobile COD guard proving a tampered client item price is ignored and the server product price + user discount determine stored order totals.
 - Beauty Box stale-bundle guard proving `SENSITIVE SKIN BEAUTY BOX` with `Size: 1 set` and submitted `bundleDiscount: 15` remains `AED 1442` server-side and is not discounted again.
 - Website cart display now uses the same line helper for standard item rows, Build Your Set rows, Beauty Box rows, and the Beauty Box savings banner.
+- Route-level legacy Stripe Checkout Session guard proving a tampered client item price is ignored and the server product price + user discount determine Stripe line-item amount and stored order totals.
 
 ## Verification
 
@@ -84,6 +87,7 @@ Deliberately unchanged:
 - `npx jest __tests__/lib/cartPricing.test.ts __tests__/api/cod-confirmation-pricing.test.ts --runInBand --no-cache`
 - `npx jest __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts __tests__/lib/discountUtils.test.ts __tests__/api/cod-confirmation-pricing.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts __tests__/api/mobile-stripe-checkout-pricing.test.ts __tests__/api/mobile-applepay-intent-pricing.test.ts __tests__/api/mobile-orders-pricing.test.ts --runInBand`
 - `npx jest __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
+- `npx jest __tests__/api/stripe-create-checkout-session-pricing.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
 - `npm run smoke:pricing-contract`
 - `npm run build`
 
@@ -114,3 +118,5 @@ The mobile COD backend helper slice is isolated to the pricing block in `POST /a
 The desktop Beauty Box bug fix is isolated to Beauty Box guards in `lib/pricingEngine.ts`, `lib/cartPricing.ts`, desktop cart/checkout rendering, the web COD Beauty Box guard, and focused tests. Reverting it restores the old behavior where stale bundle metadata or `Size: 1 set` could double-discount a Beauty Box.
 
 The `/cart` display consistency slice is isolated to `app/cart/CartClient.tsx` and `components/cart/CartItem.tsx`. Reverting it restores the previous cart-only display calculations while keeping checkout/backend pricing unchanged.
+
+The legacy Stripe Checkout Session backend slice is isolated to `/api/stripe/create-checkout-session` and `__tests__/api/stripe-create-checkout-session-pricing.test.ts`. Reverting it restores the previous behavior where the route trusted already-discounted client item prices.

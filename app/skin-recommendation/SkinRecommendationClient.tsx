@@ -25,7 +25,8 @@ import { useFavorites } from '@/components/FavoritesProvider'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import type { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -1176,19 +1177,21 @@ export default function SkinRecommendationClient() {
                                 
                                 {/* Price */}
                                 {productDetails?.price && canUserSeePrices(user) && (() => {
-                                  const pricing = calculateDiscountedPrice(productDetails as Product, user)
+                                  const pricing = getPricingDisplay(productDetails as Product, user)
                                   return pricing.hasDiscount ? (
                                     <div className="flex items-baseline gap-1.5 mt-1">
                                       <span className="text-primary-600 font-bold text-base sm:text-lg">
-                                        AED {pricing.discountedPrice.toFixed(0)}
+                                        AED {pricing.displayPrice.toFixed(0)}
                                       </span>
-                                      <span className="text-gray-400 line-through text-xs">
-                                        {pricing.originalPrice.toFixed(0)}
-                                      </span>
+                                      {pricing.originalPrice ? (
+                                        <span className="text-gray-400 line-through text-xs">
+                                          {pricing.originalPrice.toFixed(0)}
+                                        </span>
+                                      ) : null}
                                     </div>
                                   ) : (
                                     <p className="text-primary-600 font-bold text-base sm:text-lg mt-1">
-                                      AED {pricing.originalPrice.toFixed(0)}
+                                      AED {pricing.displayPrice.toFixed(0)}
                                     </p>
                                   )
                                 })()}
@@ -1688,7 +1691,7 @@ export default function SkinRecommendationClient() {
                   {/* Product Grid - Clean Apple Cards */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
                     {products.map((product) => {
-                      const discountedPrice = calculateDiscountedPrice(product, user)
+                      const pricing = getPricingDisplay(product, user)
                       const canSeePrice = canUserSeePrices(user)
                       
                       return (
@@ -1737,9 +1740,9 @@ export default function SkinRecommendationClient() {
                               )}
                               
                               {/* Discount Badge */}
-                              {discountedPrice.hasDiscount && (
+                              {pricing.hasDiscount && (
                                 <div className={`absolute top-4 ${dir === 'rtl' ? 'right-4' : 'left-4'} bg-primary-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg`}>
-                                  {Math.round(((product.price - discountedPrice.discountedPrice) / product.price) * 100)}% OFF
+                                  {Math.round(pricing.discountPercentage)}% OFF
                                 </div>
                               )}
                             </div>
@@ -1762,18 +1765,20 @@ export default function SkinRecommendationClient() {
                             <div className={`flex items-end justify-between mb-5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                               {canSeePrice ? (
                                 <div>
-                                  {discountedPrice.hasDiscount ? (
+                                  {pricing.hasDiscount ? (
                                     <div className={`flex items-baseline gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                       <span className="text-2xl font-semibold text-gray-900">
-                                        AED {discountedPrice.discountedPrice.toFixed(0)}
+                                        AED {pricing.displayPrice.toFixed(0)}
                                       </span>
-                                      <span className="text-sm text-gray-400 line-through">
-                                        {product.price.toFixed(0)}
-                                      </span>
+                                      {pricing.originalPrice ? (
+                                        <span className="text-sm text-gray-400 line-through">
+                                          {pricing.originalPrice.toFixed(0)}
+                                        </span>
+                                      ) : null}
                                     </div>
                                   ) : (
                                     <span className="text-2xl font-semibold text-gray-900">
-                                      AED {product.price.toFixed(0)}
+                                      AED {pricing.displayPrice.toFixed(0)}
                                     </span>
                                   )}
                                 </div>

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
 import { generateBatchEnhancedProductData } from '@/lib/pricingEngine'
+import { buildPricingContract } from '@/lib/pricingContract'
 import { getConcernBySlug, CONCERN_PAGES, type ConcernPage } from '@/lib/concernsData'
 import { getProductsByConcern } from '@/lib/productsDb'
 import { getProductTranslations } from '@/data/productTranslations'
@@ -139,6 +140,7 @@ export async function GET(
         localizedDescription,
         videoUrl: db?.videoUrl || null,
         isPriceOnRequest: db?.isPriceOnRequest ?? false,
+        ...(db ? { pricing: buildPricingContract(db, user) } : {}),
       }
     })
 

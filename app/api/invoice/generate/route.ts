@@ -243,10 +243,10 @@ function buildInvoiceDataFromOrder(order: OrderWithItems, requestedLocale?: stri
     items: order.items.map(item => ({
       id: item.productId,
       name: item.productName,
-      image: item.image || undefined,
       quantity: item.quantity,
       price: item.price,
       total: Math.round(item.price * item.quantity * 100) / 100,
+      ...(item.image ? { image: item.image } : {}),
       ...(item.size ? { size: item.size } : {}),
       ...(item.color ? { color: item.color } : {}),
     })),

@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { CartState, Product } from '@/types'
-import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { getCartTotalPrice } from '@/lib/cartPricing'
 import { getPriceForSize } from '@/utils/productPricing'
 import { User } from '@/types/user'
 
@@ -249,21 +249,7 @@ export const useCartStore = create<CartState>()(
       },
       
       getTotalPrice: (user?: User | null) => {
-        return get().items.reduce((total, item) => {
-          let finalPrice: number
-          
-          if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-            // Bundle items: bundle discount ONLY on retail price — NO VIP/user discount
-            const retailPrice = item.product.price
-            finalPrice = retailPrice * (1 - item.bundleDiscountPercent / 100)
-          } else {
-            // Regular items: apply user discount as usual
-            const pricing = calculateDiscountedPrice(item.product, user || null)
-            finalPrice = pricing.discountedPrice
-          }
-          
-          return total + (finalPrice * item.quantity)
-        }, 0)
+        return getCartTotalPrice(get().items, user || null)
       },
       
       getTotalItems: () => {

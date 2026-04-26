@@ -1,0 +1,153 @@
+import { getCartLinePricing, getCartTotalPrice } from '@/lib/cartPricing'
+import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { CartItem, Product } from '@/types'
+import { ApiUser } from '@/types/user'
+import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
+
+jest.mock('@/lib/logger', () => ({
+  debugLog: jest.fn(),
+}))
+
+jest.mock('@/lib/blackFridayUtils', () => ({
+  isBlackFridaySaleActive: jest.fn(() => false),
+  BLACK_FRIDAY_DISCOUNT_PERCENTAGE: 20,
+}))
+
+const mockIsBlackFridaySaleActive = isBlackFridaySaleActive as jest.MockedFunction<typeof isBlackFridaySaleActive>
+
+const createProduct = (overrides: Partial<Product> = {}): Product => ({
+  id: 'product-1',
+  productNumber: '1',
+  name: 'Test Product',
+  image: '/test.jpg',
+  price: 100,
+  category: 'Serums',
+  description: 'Test description',
+  inStock: true,
+  rating: 5,
+  ...overrides,
+})
+
+const createUser = (overrides: Partial<ApiUser> = {}): ApiUser => ({
+  id: 'user-1',
+  email: 'user@example.com',
+  name: 'Test User',
+  canSeePrices: true,
+  ...overrides,
+})
+
+const createItem = (product: Product, overrides: Partial<CartItem> = {}): CartItem => ({
+  product,
+  quantity: 1,
+  selectedColor: '',
+  selectedSize: '',
+  ...overrides,
+})
+
+describe('cart pricing helper', () => {
+  beforeEach(() => {
+    mockIsBlackFridaySaleActive.mockReturnValue(false)
+  })
+
+  it('matches legacy regular cart subtotal for retail products', () => {
+    const product = createProduct({ price: 125 })
+    const item = createItem(product, { quantity: 2 })
+
+    expect(getCartLinePricing(item, null).lineTotal).toBe(250)
+    expect(getCartTotalPrice([item], null)).toBe(250)
+  })
+
+  it('matches legacy user discount behavior for regular products', () => {
+    const product = createProduct({ price: 200 })
+    const user = createUser({ discountType: 'percentage', discountPercentage: 10 })
+    const item = createItem(product, { quantity: 2 })
+    const legacy = calculateDiscountedPrice(product, user)
+
+    const pricing = getCartLinePricing(item, user)
+
+    expect(pricing.unitPrice).toBe(legacy.discountedPrice)
+    expect(pricing.lineTotal).toBe(360)
+    expect(pricing.discountAmount).toBe(40)
+    expect(getCartTotalPrice([item], user)).toBe(360)
+  })
+
+  it('keeps bundle-builder items on bundle discount only', () => {
+    const product = createProduct({ price: 100 })
+    const user = createUser({ discountType: 'percentage', discountPercentage: 20 })
+    const item = createItem(product, {
+      quantity: 2,
+      fromBundle: true,
+      bundleDiscountPercent: 15,
+    })
+
+    const pricing = getCartLinePricing(item, user)
+
+    expect(pricing.discountType).toBe('bundle')
+    expect(pricing.unitPrice).toBe(85)
+    expect(pricing.lineTotal).toBe(170)
+    expect(pricing.discountAmount).toBe(30)
+  })
+
+  it('preserves Beauty Box built-in bundle pricing', () => {
+    const product = createProduct({
+      productNumber: '55',
+      category: 'Beauty Boxes',
+      price: 1120,
+    })
+    const item = createItem(product)
+
+    const pricing = getCartLinePricing(item, null)
+
+    expect(pricing.discountType).toBe('beauty_box')
+    expect(pricing.unitPrice).toBe(1120)
+    expect(pricing.retailUnitPrice).toBe(1120)
+    expect(pricing.discountAmount).toBe(0)
+  })
+
+  it('uses selected variant pricing when cart carries a selected size', () => {
+    const product = createProduct({
+      price: 100,
+      variants: [
+        {
+          id: 'variant-1',
+          size: '50ml',
+          color: null,
+          price: 150,
+          available: true,
+          isDefault: true,
+          stockQuantity: 10,
+        },
+        {
+          id: 'variant-2',
+          size: '100ml',
+          color: null,
+          price: 250,
+          available: true,
+          isDefault: false,
+          stockQuantity: 5,
+        },
+      ],
+    })
+    const user = createUser({ discountType: 'percentage', discountPercentage: 10 })
+    const item = createItem(product, { selectedSize: '100ml' })
+
+    const pricing = getCartLinePricing(item, user)
+
+    expect(pricing.retailUnitPrice).toBe(250)
+    expect(pricing.unitPrice).toBe(225)
+    expect(pricing.discountAmount).toBe(25)
+  })
+
+  it('keeps Black Friday priority over user discounts', () => {
+    mockIsBlackFridaySaleActive.mockReturnValue(true)
+    const product = createProduct({ price: 100 })
+    const user = createUser({ discountType: 'percentage', discountPercentage: 10 })
+    const item = createItem(product)
+
+    const pricing = getCartLinePricing(item, user)
+
+    expect(pricing.discountType).toBe('black_friday')
+    expect(pricing.unitPrice).toBe(80)
+    expect(pricing.discountPercentage).toBe(20)
+  })
+})

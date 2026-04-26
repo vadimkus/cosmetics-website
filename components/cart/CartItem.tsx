@@ -10,7 +10,6 @@ import Link from 'next/link'
 import { motion, useMotionValue, useTransform, PanInfo, AnimatePresence } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import { canUserSeePrices } from '@/lib/discountUtils'
-import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getProductColorOptions, getPriceForSize } from '@/utils/productPricing'
 import { getProductSizes } from '@/data/productConfig'
@@ -323,26 +322,24 @@ function CartItemComponent({ item }: CartItemProps) {
                   )
                 }
                 
-                // Standard pricing for non-bundle items
-                const pricing = getPricingDisplay(product, user)
-                const totalPrice = pricing.displayPrice * quantity
-                const originalTotalPrice = (pricing.originalPrice || pricing.displayPrice) * quantity
+                // Standard cart rows use the same line helper as totals and checkout payloads.
+                const hasDiscount = linePricing.discountAmount > 0
                 
                 return (
                   <div>
-                    {pricing.hasDiscount ? (
+                    {hasDiscount ? (
                       <div>
                         <div className={`flex items-baseline gap-1.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           <p className="text-sm md:text-lg font-bold text-red-600 md:text-gray-900 whitespace-nowrap">
-                            {totalPrice.toFixed(2)} AED
+                            {linePricing.lineTotal.toFixed(2)} AED
                           </p>
                           <p className="text-xs md:text-sm text-gray-500 line-through whitespace-nowrap">
-                            {originalTotalPrice.toFixed(2)} AED
+                            {linePricing.retailLineTotal.toFixed(2)} AED
                           </p>
                         </div>
                         <div className={`flex items-center mt-0.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           <span className="text-[10px] md:text-xs whitespace-nowrap">
-                            <span className="font-medium text-green-600">{pricing.discountPercentage}% {t('product.off')}</span>
+                            <span className="font-medium text-green-600">{linePricing.discountPercentage}% {t('product.off')}</span>
                             <span className="text-red-600"> {t('product.vatIncluded')}</span>
                           </span>
                         </div>
@@ -350,7 +347,7 @@ function CartItemComponent({ item }: CartItemProps) {
                     ) : (
                       <div>
                         <p className="text-base md:text-lg font-bold text-red-600 md:text-gray-900">
-                          {totalPrice.toFixed(2)} AED
+                          {linePricing.lineTotal.toFixed(2)} AED
                         </p>
                         <p className="text-xs text-red-600 mt-1">{t('product.vatIncluded')}</p>
                       </div>

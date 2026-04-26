@@ -14,8 +14,7 @@ import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag } from 'lucide
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
-import { calculateDiscountedPrice } from '@/lib/discountUtils'
-import { getCartRetailTotal } from '@/lib/cartPricing'
+import { getCartLinePricing, getCartRetailTotal } from '@/lib/cartPricing'
 import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
@@ -117,9 +116,9 @@ export default function CartClient() {
   
   // Check if cart contains beauty boxes and calculate bundle savings
   const beautyBoxSavings = items.reduce((savings, item) => {
-    const pricing = calculateDiscountedPrice(item.product, user)
-    if (pricing.isBeautyBox) {
-      return savings + (pricing.discountAmount * item.quantity)
+    const pricing = getCartLinePricing(item, user)
+    if (pricing.discountType === 'beauty_box') {
+      return savings + pricing.discountAmount
     }
     return savings
   }, 0)

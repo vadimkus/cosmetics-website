@@ -9,6 +9,7 @@ import Link from 'next/link'
 import CheckoutHeader from '@/components/checkout/CheckoutHeader'
 import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { getCartLinePricing } from '@/lib/cartPricing'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { errorLog, debugLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
@@ -676,12 +677,11 @@ export default function CheckoutClient() {
                   </h4>
                   {items.map((item) => {
                     const quantity = item.quantity || 1
+                    const linePricing = getCartLinePricing(item, user)
                     
                     // Handle bundle items - only bundle discount on retail price (no VIP)
                     if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-                      const retailPrice = item.product.price
-                      const finalPrice = Math.round(retailPrice * (1 - item.bundleDiscountPercent / 100) * 100) / 100
-                      const discountText = `${item.bundleDiscountPercent}%`
+                      const discountText = `${linePricing.discountPercentage}%`
                       
                       return (
                         <div key={`${item.product.id}-bundle`} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -695,36 +695,37 @@ export default function CheckoutClient() {
                             </div>
                           </div>
                           <div className="text-right">
-                            <span className="text-sm font-semibold text-purple-700">AED {(finalPrice * quantity).toFixed(2)}</span>
-                            <div className="text-xs text-gray-400 line-through">AED {(retailPrice * quantity).toFixed(2)}</div>
+                            <span className="text-sm font-semibold text-purple-700">AED {linePricing.lineTotal.toFixed(2)}</span>
+                            <div className="text-xs text-gray-400 line-through">AED {linePricing.retailLineTotal.toFixed(2)}</div>
                           </div>
                         </div>
                       )
                     }
                     
                     // Standard pricing for non-bundle items
-                    const pricing = calculateDiscountedPrice(item.product, user)
+                    const hasDiscount = linePricing.discountAmount > 0
+                    const isBeautyBox = linePricing.discountType === 'beauty_box'
                     return (
                       <div key={item.product.id} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <div className="flex-1 min-w-0 pr-2">
                           <div className="text-sm font-medium text-gray-900">{item.product.name}</div>
                           <div className={`flex items-center gap-2 mt-0.5 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                             <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
-                            {pricing.hasDiscount && (
+                            {hasDiscount && (
                               <span className="text-xs text-green-600 font-medium">
-                                ({pricing.discountPercentage}% {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'OFF'}{pricing.isBeautyBox ? ` - ${locale === 'ar' ? 'خصم الطقم' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}` : ''})
+                                ({linePricing.discountPercentage}% {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'OFF'}{isBeautyBox ? ` - ${locale === 'ar' ? 'خصم الطقم' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}` : ''})
                               </span>
                             )}
                           </div>
                         </div>
                         <div className="shrink-0">
-                          {pricing.hasDiscount ? (
+                          {hasDiscount ? (
                             <div className="text-right">
-                              <div className="text-xs text-gray-400 line-through">AED {((pricing.originalPrice ?? pricing.discountedPrice) * quantity).toFixed(2)}</div>
-                              <div className="text-sm font-semibold text-green-600">AED {(pricing.discountedPrice * quantity).toFixed(2)}</div>
+                              <div className="text-xs text-gray-400 line-through">AED {linePricing.retailLineTotal.toFixed(2)}</div>
+                              <div className="text-sm font-semibold text-green-600">AED {linePricing.lineTotal.toFixed(2)}</div>
                             </div>
                           ) : (
-                            <span className="text-sm font-semibold text-gray-900">AED {(pricing.discountedPrice * quantity).toFixed(2)}</span>
+                            <span className="text-sm font-semibold text-gray-900">AED {linePricing.lineTotal.toFixed(2)}</span>
                           )}
                         </div>
                       </div>
@@ -1059,13 +1060,11 @@ export default function CheckoutClient() {
                     <div className="space-y-3 md:space-y-4">
                       {items.map((item) => {
                         const quantity = item.quantity || 1
+                        const linePricing = getCartLinePricing(item, user)
                         
                         // Handle bundle items - only bundle discount on retail price (no VIP)
                         if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
-                          const originalPrice = item.product.price
-                          const finalPrice = Math.round(originalPrice * (1 - item.bundleDiscountPercent / 100) * 100) / 100
-                          const total = finalPrice * quantity
-                          const discountText = `${item.bundleDiscountPercent}%`
+                          const discountText = `${linePricing.discountPercentage}%`
                           
                           return (
                             <div key={`${item.product.id}-bundle`} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -1087,10 +1086,10 @@ export default function CheckoutClient() {
                               </div>
                               <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
                                 <div className="text-xs md:text-sm font-semibold text-purple-700">
-                                  AED {total.toFixed(2)}
+                                  AED {linePricing.lineTotal.toFixed(2)}
                                 </div>
                                 <div className="text-[9px] md:text-xs text-gray-400 line-through">
-                                  AED {(originalPrice * quantity).toFixed(2)}
+                                  AED {linePricing.retailLineTotal.toFixed(2)}
                                 </div>
                               </div>
                             </div>
@@ -1098,8 +1097,8 @@ export default function CheckoutClient() {
                         }
                         
                         // Standard pricing for non-bundle items
-                        const pricing = calculateDiscountedPrice(item.product, user)
-                        const total = pricing.discountedPrice * quantity
+                        const hasDiscount = linePricing.discountAmount > 0
+                        const isBeautyBox = linePricing.discountType === 'beauty_box'
                         return (
                           <div key={item.product.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                             <div className="flex-1 min-w-0">
@@ -1113,26 +1112,26 @@ export default function CheckoutClient() {
                                     {t('product.color')}: {item.selectedColor}
                                   </span>
                                 )}
-                                {pricing.hasDiscount && (
+                                {hasDiscount && (
                                   <span className="text-[10px] md:text-xs text-green-600 font-medium">
-                                    ({pricing.discountPercentage}% {t('product.off')}{pricing.isBeautyBox ? ` - ${t('products.bundleDiscount')}` : ''})
+                                    ({linePricing.discountPercentage}% {t('product.off')}{isBeautyBox ? ` - ${t('products.bundleDiscount')}` : ''})
                                   </span>
                                 )}
                               </div>
                             </div>
                             <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
-                              {pricing.hasDiscount ? (
+                              {hasDiscount ? (
                                 <div>
                                   <div className="text-[10px] md:text-xs text-gray-400 line-through">
-                                    AED {(pricing.originalPrice! * quantity).toFixed(2)}
+                                    AED {linePricing.retailLineTotal.toFixed(2)}
                                   </div>
                                   <div className="text-xs md:text-sm font-semibold text-green-600">
-                                    AED {total.toFixed(2)}
+                                    AED {linePricing.lineTotal.toFixed(2)}
                                   </div>
                                 </div>
                               ) : (
                                 <div className="text-xs md:text-sm font-semibold text-gray-900">
-                                  AED {total.toFixed(2)}
+                                  AED {linePricing.lineTotal.toFixed(2)}
                                 </div>
                               )}
                             </div>

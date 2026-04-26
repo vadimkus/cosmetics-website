@@ -11,6 +11,7 @@ This is the next slow step after the pricing contract display cleanup. The goal 
 - Added focused Jest coverage in `__tests__/lib/cartPricing.test.ts`.
 - Follow-up slow slice: added `getCartRetailTotal()` and routed the `/cart` Black Friday original subtotal / savings display through the helper.
 - Regression fix: Beauty Box `originalPrice` now uses the full regular box price from the legacy discount rules, so cart rows and product cards again show full price + strikethrough + 15% discount instead of only the stored box price.
+- Follow-up checkout display slice: routed the visible checkout item rows through `getCartLinePricing()` so bundle, Beauty Box, variant, and user-discount row displays use the same contract-backed helper as the cart.
 
 ## Scope Boundary
 
@@ -18,6 +19,7 @@ Changed:
 
 - Website cart subtotal helper only.
 - Website `/cart` Black Friday strikethrough/savings display.
+- Website `/checkout` visible item rows in the expandable mobile/PWA summary and desktop order summary.
 
 Deliberately unchanged:
 
@@ -26,7 +28,7 @@ Deliberately unchanged:
 - COD order confirmation item payload.
 - Order emails and admin order reconstruction.
 - Native app cart/order logic.
-- Web checkout page pricing displays and submit payloads.
+- Web checkout submit payloads, Stripe payloads, and COD payloads.
 
 ## Covered Scenarios
 
@@ -38,6 +40,7 @@ Deliberately unchanged:
 - Black Friday priority over user discounts.
 - Retail total for cart strikethrough/savings display.
 - Beauty Box full-price regression guard (`originalPrice > displayPrice`).
+- Checkout item row display totals for contract-backed cart pricing.
 
 ## Verification
 
@@ -50,3 +53,5 @@ Build note: `npm run build` regenerated `lib/swVersion.ts`; it was restored to t
 ## Rollback
 
 Revert the relevant slice commit. The first slice is isolated to the helper, its test, and `cartStore.getTotalPrice()`. The follow-up display slice is isolated to `getCartRetailTotal()`, the cart helper test, and `/cart` original subtotal display.
+
+The checkout display slice is isolated to `app/checkout/CheckoutClient.tsx`; reverting that change restores the previous inline checkout row rendering while leaving cart totals and payment payloads unchanged.

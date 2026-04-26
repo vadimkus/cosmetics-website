@@ -1,8 +1,11 @@
 import { Product } from '@/types'
 import { SITE_URL } from '@/lib/siteConfig'
+import type { Locale } from '@/lib/i18n'
 
 interface ProductSchemaProps {
   product: Product
+  locale?: Locale
+  canonicalUrl?: string
 }
 
 /**
@@ -18,7 +21,7 @@ interface ProductSchemaProps {
  * - Added gtin placeholder for future barcode support
  * - AggregateRating only included when real data exists
  */
-export default function ProductSchema({ product }: ProductSchemaProps) {
+export default function ProductSchema({ product, locale = 'en', canonicalUrl }: ProductSchemaProps) {
   // Skip Product schema entirely for products without a valid price.
   // Google requires "offers", "review", or "aggregateRating" for @type:Product.
   // Products with price = 0 or isPriceOnRequest generate invalid Product snippets.
@@ -36,6 +39,7 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
     parsedImages = [product.image]
   }
   const displayImages = parsedImages.length > 0 ? parsedImages : [product.image]
+  const productUrl = canonicalUrl ?? `${SITE_URL}/products/${product.id}`
 
   // NOTE: aggregateRating is intentionally NOT emitted because we don't have
   // a real review/rating system yet. Google requires reviewCount or ratingCount
@@ -93,7 +97,7 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
           "email": "sales@genosys.ae"
         }
       },
-      "url": `${SITE_URL}/products/${product.id}`,
+      "url": productUrl,
       "hasMerchantReturnPolicy": {
         "@type": "MerchantReturnPolicy",
         "applicableCountry": "AE",
@@ -207,8 +211,8 @@ export default function ProductSchema({ product }: ProductSchemaProps) {
     "mpn": product.productNumber || product.id,
     // Multilingual product names (helps AI serve correct language)
     ...(product.nameAr ? { "alternateName": [product.nameAr, product.nameRu].filter(Boolean) } : {}),
-    "url": `${SITE_URL}/products/${product.id}`,
-    "inLanguage": "en",
+    "url": productUrl,
+    "inLanguage": locale,
   }
 
   // When a real review system is implemented, enable this:

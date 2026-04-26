@@ -5,6 +5,8 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { Product } from '@/types'
+import { getLocalizedPath } from '@/lib/i18n'
+import { useTranslation } from '@/hooks/useTranslation'
 
 export interface UseProductActionsReturn {
   quantity: number
@@ -21,6 +23,7 @@ export const useProductActions = (): UseProductActionsReturn => {
   const { addItem } = useCart()
   const { toggleFavorite } = useFavorites()
   const { user } = useAuth()
+  const { locale } = useTranslation()
   
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
@@ -39,7 +42,7 @@ export const useProductActions = (): UseProductActionsReturn => {
     selectedColor?: string
   ) => {
     if (!user) {
-      router.push('/login')
+      router.push(getLocalizedPath('/login', locale))
       return
     }
 
@@ -59,15 +62,15 @@ export const useProductActions = (): UseProductActionsReturn => {
     } finally {
       setIsAdding(false)
     }
-  }, [user, router, addItem, quantity])
+  }, [user, router, locale, addItem, quantity])
 
   const handleToggleFavorite = useCallback((product: Product) => {
     if (!user) {
-      router.push('/login')
+      router.push(getLocalizedPath('/login', locale))
       return
     }
     toggleFavorite(product)
-  }, [user, router, toggleFavorite])
+  }, [user, router, locale, toggleFavorite])
 
   return {
     quantity,

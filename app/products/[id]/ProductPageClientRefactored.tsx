@@ -27,6 +27,7 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { translateSize } from '@/utils/sizeTranslations'
 import { translateCategory } from '@/utils/categoryTranslations'
+import { SITE_URL } from '@/lib/siteConfig'
 import { 
   getPriceForSize, 
   hasProductSizeVariants, 
@@ -153,7 +154,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
     } catch (error) {
       errorLog('Error adding to cart:', error)
     }
-  }, [user, product, selectedSize, selectedColor, addItem, router, locale])
+  }, [user, product, productNum, selectedSize, selectedColor, addItem, router, locale])
   
   // Handle toggle favorite
   const handleToggleFavorite = useCallback(() => {
@@ -194,8 +195,12 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   const availableColors = colorOptions
 
   return (
-    <div className="bg-white min-h-[100dvh] pb-24 lg:pb-0" dir={dir}>
-      <ProductSchema product={product} />
+    <div className="bg-white min-h-[100dvh] pb-24 md:pb-0" dir={dir}>
+      <ProductSchema
+        product={product}
+        locale={locale}
+        canonicalUrl={`${SITE_URL}${getLocalizedPath(`/products/${product.id}`, locale)}`}
+      />
       <BreadcrumbSchema 
         items={[
           { name: t('navigation.home'), url: getLocalizedPath('/', locale) },
@@ -252,10 +257,10 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         </div>
       )}
 
-      <div className="container mx-auto px-3 md:px-4 py-1 lg:py-8 lg:py-16">
+      <div className="container mx-auto px-3 md:px-4 py-1 md:py-8 lg:py-16">
         {/* Breadcrumb + Share - hidden in app-like mode (PWA/mobile web) which has its own header */}
         {!isAppLikeMode && (
-          <div className={`flex items-center justify-between gap-3 pt-2 lg:pt-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <div className={`flex items-center justify-between gap-3 pt-2 md:pt-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <ProductBreadcrumb product={product} className="mb-0 flex-1 min-w-0" />
             <button
               onClick={handleShare}
@@ -278,7 +283,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
         {/* Mobile Header - Product Name & metadata (hide in PWA and mobile web mode) */}
         {!isAppLikeMode && (
-          <div className="lg:hidden mb-1.5">
+          <div className="md:hidden mb-1.5">
             {/* Product Name - Centered */}
             <h1 className="text-sm lg:text-base md:text-lg font-bold text-gray-900 leading-tight text-center mb-0.5">
               {product.name}
@@ -333,7 +338,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 Left-aligned on lg+ for scannability; the category badge + title +
                 rating row all share the same x-edge so the eye reads top-down
                 instead of chasing a centered midline. */}
-            <div className="hidden lg:block mb-4">
+            <div className="hidden md:block mb-4">
               {/* Category Badge */}
               <div className={`flex items-center flex-wrap gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse justify-end' : 'justify-start'}`}>
                 <span className="inline-block bg-gradient-to-r from-primary-100 to-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
@@ -383,7 +388,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Mobile Product Name - Above Image (PWA and Mobile Web) */}
             {isAppLikeMode && (
-              <div className="lg:hidden mb-2 px-1">
+              <div className="md:hidden mb-2 px-1">
                 <h1 className="text-lg font-bold text-gray-900 leading-tight text-center">
                   {product.name}
                 </h1>
@@ -437,7 +442,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             </div>
 
             {/* Quantity and Cart - Below Variants (Desktop only, mobile uses fixed footer) */}
-            <div className="hidden lg:block mt-4">
+            <div className="hidden md:block mt-4">
               <ProductQuantityCart
                 user={user}
                 onAddToCart={handleAddToCart}
@@ -453,13 +458,13 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             {/* Trust Badges - Below Cart (Desktop only, mobile shows after recommendations).
                 Stacked vertically because the left column is too narrow (~590px) to fit
                 all three whitespace-nowrap badges on one line. */}
-            <div className="hidden lg:block mt-4">
+            <div className="hidden md:block mt-4">
               <TrustBadges layout="stacked" />
             </div>
 
             {/* Product Recommendation Section - Only for product 22 - Desktop only */}
             {(product.id === '22' || product.productNumber === '22') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="32"
                   currentProduct={product}
@@ -469,7 +474,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 32 - Desktop only */}
             {(product.id === '32' || product.productNumber === '32') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="22"
                   currentProduct={product}
@@ -479,7 +484,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 20 - Desktop only */}
             {(product.id === '20' || product.productNumber === '20') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="30"
                   currentProduct={product}
@@ -489,7 +494,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 30 - Desktop only */}
             {(product.id === '30' || product.productNumber === '30') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="20"
                   currentProduct={product}
@@ -499,7 +504,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 21 - Desktop only */}
             {(product.id === '21' || product.productNumber === '21') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="31"
                   currentProduct={product}
@@ -509,7 +514,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 31 - Desktop only */}
             {(product.id === '31' || product.productNumber === '31') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="21"
                   currentProduct={product}
@@ -519,7 +524,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 49 - Desktop only */}
             {(product.id === '49' || product.productNumber === '49') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="37"
                   currentProduct={product}
@@ -529,7 +534,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 37 - Desktop only */}
             {(product.id === '37' || product.productNumber === '37') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="49"
                   currentProduct={product}
@@ -539,7 +544,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - PRO Solution products (4, 5, 6, 7, 8, 9) - Desktop only */}
             {(product.id === '4' || product.productNumber === '4') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -547,7 +552,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '5' || product.productNumber === '5') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -555,7 +560,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '6' || product.productNumber === '6') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -563,7 +568,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '7' || product.productNumber === '7') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -571,7 +576,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '8' || product.productNumber === '8') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -579,7 +584,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '9' || product.productNumber === '9') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -589,7 +594,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 15 - Desktop only */}
             {(product.id === '15' || product.productNumber === '15') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="30"
                   currentProduct={product}
@@ -599,7 +604,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 19 - Desktop only (mobile shows after NOTE block) */}
             {(product.id === '19' || product.productNumber === '19') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="27"
                   currentProduct={product}
@@ -609,7 +614,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 18 - Desktop only */}
             {(product.id === '18' || product.productNumber === '18') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="29"
                   currentProduct={product}
@@ -619,7 +624,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 29 - Desktop only */}
             {(product.id === '29' || product.productNumber === '29') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="18"
                   currentProduct={product}
@@ -629,7 +634,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 10 - Desktop only */}
             {(product.id === '10' || product.productNumber === '10') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="16"
                   currentProduct={product}
@@ -639,7 +644,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 25 - Desktop only */}
             {(product.id === '25' || product.productNumber === '25') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="38"
                   currentProduct={product}
@@ -649,7 +654,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 33 - Desktop only */}
             {(product.id === '33' || product.productNumber === '33') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="17"
                   currentProduct={product}
@@ -659,7 +664,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 17 - Desktop only */}
             {(product.id === '17' || product.productNumber === '17') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="24"
                   currentProduct={product}
@@ -669,7 +674,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 24 - Desktop only */}
             {(product.id === '24' || product.productNumber === '24') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="17"
                   currentProduct={product}
@@ -679,7 +684,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 44 - Desktop only */}
             {(product.id === '44' || product.productNumber === '44') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="43"
                   currentProduct={product}
@@ -689,7 +694,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 43 - Desktop only */}
             {(product.id === '43' || product.productNumber === '43') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="44"
                   currentProduct={product}
@@ -699,7 +704,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 45 - Desktop only */}
             {(product.id === '45' || product.productNumber === '45') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="43"
                   currentProduct={product}
@@ -709,7 +714,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Only for product 46 - Desktop only */}
             {(product.id === '46' || product.productNumber === '46') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="44"
                   currentProduct={product}
@@ -719,7 +724,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Scalp Brush (61) → Hair Tonic (43) - Desktop only */}
             {(product.productNumber === '61') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="43"
                   currentProduct={product}
@@ -729,7 +734,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Bio-Ferment Mask (51) → Anti-Wrinkle Serum (22) - Desktop only */}
             {(product.id === '51') && (
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 <ProductRecommendation 
                   recommendedProductId="22"
                   currentProduct={product}
@@ -739,7 +744,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) - Desktop only */}
             {(product.id === '55' || product.productNumber === '55') && (
-              <div className="hidden lg:block bg-blue-50 border-2 border-blue-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-blue-50 border-2 border-blue-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-blue-600 flex-shrink-0" />
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedProblemSkinRoutine')}</h3>
@@ -786,7 +791,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Skincare Routine Block - Only for Skin Brightening Beauty Box (product 56) - Desktop only */}
             {(product.id === '56' || product.productNumber === '56') && (
-              <div className="hidden lg:block bg-orange-50 border-2 border-orange-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-orange-50 border-2 border-orange-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-orange-600 flex-shrink-0" />
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedSkinBrighteningRoutine')}</h3>
@@ -840,7 +845,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Skincare Routine Block - Only for Charming Look Beauty Box (product 57) - Desktop only */}
             {(product.id === '57' || product.productNumber === '57') && (
-              <div className="hidden lg:block bg-pink-50 border-2 border-pink-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-pink-50 border-2 border-pink-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-pink-600 flex-shrink-0" />
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedSkincareMakeupRoutine')}</h3>
@@ -887,7 +892,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Skincare Routine Block - Only for Anti-Aging Beauty Box (product 58) - Desktop only */}
             {(product.id === '58' || product.productNumber === '58') && (
-              <div className="hidden lg:block bg-red-50 border-2 border-red-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-red-50 border-2 border-red-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-red-600 flex-shrink-0" />
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedAntiAgingRoutine')}</h3>
@@ -934,7 +939,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Skincare Routine Block - Only for Deep Moisturizing Beauty Box (product 59) - Desktop only */}
             {(product.id === '59' || product.productNumber === '59') && (
-              <div className="hidden lg:block bg-cyan-50 border-2 border-cyan-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-cyan-50 border-2 border-cyan-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-cyan-600 flex-shrink-0" />
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedDeepMoisturizingRoutine')}</h3>
@@ -981,7 +986,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Skincare Routine Block - Only for Sensitive Skin Beauty Box (product 62) - Desktop only */}
             {(product.id === '62' || product.productNumber === '62') && (
-              <div className="hidden lg:block bg-pink-50 border-2 border-pink-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-pink-50 border-2 border-pink-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-pink-600 flex-shrink-0" />
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedSensitiveSkinRoutine')}</h3>
@@ -1035,7 +1040,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Skincare Routine Block - Only for Revita Glow BB Cream (product 63) - Desktop only */}
             {(product.id === '63' || product.productNumber === '63') && (
-              <div className="hidden lg:block bg-rose-50 border-2 border-rose-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-rose-50 border-2 border-rose-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-rose-600 flex-shrink-0" />
                   <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedRevitaGlowRoutine')}</h3>
@@ -1094,7 +1099,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendations - Mobile only (shows after content) */}
             {(product.id === '19' || product.productNumber === '19') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="27"
                   currentProduct={product}
@@ -1102,7 +1107,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '22' || product.productNumber === '22') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="32"
                   currentProduct={product}
@@ -1110,7 +1115,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '32' || product.productNumber === '32') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="22"
                   currentProduct={product}
@@ -1118,7 +1123,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '20' || product.productNumber === '20') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="30"
                   currentProduct={product}
@@ -1126,7 +1131,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '30' || product.productNumber === '30') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="20"
                   currentProduct={product}
@@ -1134,7 +1139,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '21' || product.productNumber === '21') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="31"
                   currentProduct={product}
@@ -1142,7 +1147,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '31' || product.productNumber === '31') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="21"
                   currentProduct={product}
@@ -1150,7 +1155,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '49' || product.productNumber === '49') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="37"
                   currentProduct={product}
@@ -1158,7 +1163,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '37' || product.productNumber === '37') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="49"
                   currentProduct={product}
@@ -1167,7 +1172,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
             )}
             {/* Product Recommendation Section - PRO Solution products (4, 5, 6, 7, 8, 9) - Mobile only */}
             {(product.id === '4' || product.productNumber === '4') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -1175,7 +1180,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '5' || product.productNumber === '5') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -1183,7 +1188,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '6' || product.productNumber === '6') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -1191,7 +1196,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '7' || product.productNumber === '7') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -1199,7 +1204,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '8' || product.productNumber === '8') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -1207,7 +1212,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '9' || product.productNumber === '9') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="1"
                   currentProduct={product}
@@ -1215,7 +1220,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '15' || product.productNumber === '15') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="30"
                   currentProduct={product}
@@ -1223,7 +1228,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '18' || product.productNumber === '18') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="29"
                   currentProduct={product}
@@ -1231,7 +1236,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '29' || product.productNumber === '29') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="18"
                   currentProduct={product}
@@ -1239,7 +1244,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '10' || product.productNumber === '10') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="16"
                   currentProduct={product}
@@ -1247,7 +1252,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '25' || product.productNumber === '25') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="38"
                   currentProduct={product}
@@ -1255,7 +1260,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '33' || product.productNumber === '33') && (
-              <div className="lg:hidden mt-2">
+              <div className="md:hidden mt-2">
                 <ProductRecommendation 
                   recommendedProductId="17"
                   currentProduct={product}
@@ -1263,7 +1268,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '17' || product.productNumber === '17') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="24"
                   currentProduct={product}
@@ -1271,7 +1276,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '24' || product.productNumber === '24') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="17"
                   currentProduct={product}
@@ -1279,7 +1284,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '44' || product.productNumber === '44') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="43"
                   currentProduct={product}
@@ -1287,7 +1292,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '43' || product.productNumber === '43') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="44"
                   currentProduct={product}
@@ -1295,7 +1300,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '45' || product.productNumber === '45') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="43"
                   currentProduct={product}
@@ -1303,7 +1308,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
             {(product.id === '46' || product.productNumber === '46') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="44"
                   currentProduct={product}
@@ -1313,7 +1318,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Scalp Brush (61) → Hair Tonic (43) - Mobile only */}
             {(product.productNumber === '61') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="43"
                   currentProduct={product}
@@ -1323,7 +1328,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Product Recommendation Section - Bio-Ferment Mask (51) → Anti-Wrinkle Serum (22) - Mobile only */}
             {(product.id === '51') && (
-              <div className="lg:hidden">
+              <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="22"
                   currentProduct={product}
@@ -1333,7 +1338,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
             {/* Trust Badges - Mobile only, hidden in PWA */}
             {!isPWA && (
-              <div className="lg:hidden mt-3">
+              <div className="md:hidden mt-3">
                 <TrustBadges />
               </div>
             )}
@@ -1348,7 +1353,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
       {/* Sticky Mobile Footer - Add to Cart or Request Quote */}
       <div 
-        className="lg:hidden sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50"
+        className="md:hidden sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50"
         style={{
           paddingBottom: `calc(env(safe-area-inset-bottom, 0px) + 3%)`,
         }}

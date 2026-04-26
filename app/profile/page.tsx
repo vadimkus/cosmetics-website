@@ -172,9 +172,9 @@ export default function ProfilePageRefactored() {
   // Redirect to login page if user is not logged in - wait for auth to finish loading first
   useEffect(() => {
     if (!authLoading && !user) {
-      router.push('/login')
+      router.push(getLocalizedPath('/login', locale))
     }
-  }, [user, authLoading, router])
+  }, [user, authLoading, router, locale])
 
   // Initialize profile picture and customer number when user loads
   useEffect(() => {
@@ -338,7 +338,7 @@ export default function ProfilePageRefactored() {
       let responseData
       try {
         responseData = await response.json()
-      } catch (error) {
+      } catch {
         responseData = {}
       }
 

@@ -12,6 +12,7 @@ import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { getLocalizedPath } from '@/lib/i18n'
 
 interface ProductInfoProps {
   product: Product
@@ -77,7 +78,7 @@ export default function ProductInfo({
 
   const handleAddToCart = useCallback(async () => {
     if (!user) {
-      router.push('/login')
+      router.push(getLocalizedPath('/login', locale))
       return
     }
 
@@ -95,15 +96,15 @@ export default function ProductInfo({
     } finally {
       setIsAdding(false)
     }
-  }, [addItem, product, quantity, selectedSize, user, router, getPriceForSize])
+  }, [addItem, product, quantity, selectedSize, user, router, locale, getPriceForSize])
 
   const handleToggleFavorite = useCallback(() => {
     if (!user) {
-      router.push('/login')
+      router.push(getLocalizedPath('/login', locale))
       return
     }
     toggleFavorite(product)
-  }, [toggleFavorite, product, user, router])
+  }, [toggleFavorite, product, user, router, locale])
 
   const handleShare = useCallback(async () => {
     const shareUrl = typeof window !== 'undefined' ? window.location.href : ''
@@ -207,7 +208,7 @@ export default function ProductInfo({
           </div>
         ) : (
           <button
-            onClick={() => router.push('/login')}
+            onClick={() => router.push(getLocalizedPath('/login', locale))}
             className="bg-primary-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-primary-700 transition-colors"
           >
             {t('product.loginToSeePrice')}

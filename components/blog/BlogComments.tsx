@@ -5,6 +5,8 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { MessageCircle, Send, User, Smile } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
+import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 interface Comment {
   id: string
@@ -20,6 +22,7 @@ interface BlogCommentsProps {
 
 export default function BlogComments({ postId, initialComments }: BlogCommentsProps) {
   const { user } = useAuth()
+  const { locale } = useTranslation()
   const [comments, setComments] = useState<Comment[]>(initialComments)
   const [newComment, setNewComment] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -129,7 +132,7 @@ export default function BlogComments({ postId, initialComments }: BlogCommentsPr
             Please log in to leave a comment
           </p>
           <a
-            href="/login"
+            href={getLocalizedPath('/login', locale)}
             className="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
           >
             Log In

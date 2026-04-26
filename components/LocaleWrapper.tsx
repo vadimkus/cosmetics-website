@@ -13,7 +13,7 @@ export default function LocaleWrapper({ children }: { children: React.ReactNode 
     const effectivePath = pathname ?? '/'
     const currentLocale = getLocaleFromPath(effectivePath)
     const currentDir = currentLocale === 'ar' ? 'rtl' : 'ltr'
-    const currentLang = currentLocale === 'ar' ? 'ar' : 'en'
+    const currentLang = currentLocale
     
     const html = document.documentElement
     if (!html) return

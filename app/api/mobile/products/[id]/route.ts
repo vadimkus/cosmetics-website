@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
 import { generateEnhancedProductData } from '@/lib/pricingEngine'
+import { buildPricingContract } from '@/lib/pricingContract'
 import { ApiUser } from '@/types/user'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
@@ -96,7 +97,7 @@ function extractNoteFromProductDetails(productDetails: unknown): string | null {
     try {
       const parsed = JSON.parse(productDetails)
       return extractNoteFromProductDetails(parsed)
-    } catch (error) {
+    } catch {
       return null
     }
   }
@@ -310,6 +311,7 @@ export async function GET(
       recommendedProductId: getRecommendedProductId(typedProduct.productNumber || typedProduct.id),
       note: extractNoteFromProductDetails(typedProduct.productDetails),
       isPriceOnRequest: typedProduct.isPriceOnRequest ?? false,
+      pricing: buildPricingContract(typedProduct, user),
       documentation: getProductDocumentation(productIdForTranslation, locale),
     }
     const enhancementDuration = Date.now() - enhancementStartTime

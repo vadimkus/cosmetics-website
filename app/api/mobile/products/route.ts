@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
 import { generateBatchEnhancedProductData, EnhancedProductData } from '@/lib/pricingEngine'
+import { buildPricingContract } from '@/lib/pricingContract'
 import { ApiUser } from '@/types/user'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
@@ -98,7 +99,7 @@ function extractNoteFromProductDetails(productDetails: unknown): string | null {
     try {
       const parsed = JSON.parse(productDetails)
       return extractNoteFromProductDetails(parsed)
-    } catch (error) {
+    } catch {
       return null
     }
   }
@@ -272,6 +273,9 @@ export async function GET(request: NextRequest) {
     const typedProducts = products as DbProduct[]
     
     // Attach locale-specific display fields WITHOUT changing the canonical `name` used for business logic.
+    const productsById = new Map<string, DbProduct>(
+      typedProducts.map((product) => [String(product.id), product])
+    )
     const translationById = new Map<string, {
       nameRu: string | null
       nameAr: string | null
@@ -335,7 +339,7 @@ export async function GET(request: NextRequest) {
         ''
       const extras = extrasById.get(productId) || { recommendedProductId: null, note: null }
       // Look up isPriceOnRequest from the original DB row
-      const dbRow = typedProducts.find((dbp) => String(dbp.id) === productId)
+      const dbRow = productsById.get(productId)
       return {
         ...p,
         localizedName,
@@ -350,6 +354,7 @@ export async function GET(request: NextRequest) {
         recommendedProductId: extras.recommendedProductId,
         note: extras.note,
         isPriceOnRequest: dbRow?.isPriceOnRequest ?? false,
+        ...(dbRow ? { pricing: buildPricingContract(dbRow, user) } : {}),
       }
     })
     

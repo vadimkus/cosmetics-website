@@ -9,7 +9,7 @@ import Link from 'next/link'
 import CheckoutHeader from '@/components/checkout/CheckoutHeader'
 import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
-import { getCartLinePricing } from '@/lib/cartPricing'
+import { getCartLinePayloadPricing, getCartLinePricing } from '@/lib/cartPricing'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { errorLog, debugLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
@@ -435,37 +435,18 @@ export default function CheckoutClient() {
             // Use selectedSize if available, otherwise fallback to product.size
             const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
             const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
-            
-            const isBundleItem = item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0
-            
-            // Bundle items: only bundle discount on retail price (no VIP)
-            if (isBundleItem) {
-              const retailPrice = item.product.price
-              const finalPrice = Math.round(retailPrice * (1 - item.bundleDiscountPercent! / 100) * 100) / 100
-              return {
-                id: item.product.id,
-                name: item.product.name,
-                price: finalPrice,
-                quantity: item.quantity,
-                total: finalPrice * item.quantity,
-                image: item.product.image,
-                color: itemColor,
-                size: itemSize,
-                bundleDiscount: item.bundleDiscountPercent
-              }
-            }
-            
-            // Non-bundle items: apply user discount
-            const pricing = calculateDiscountedPrice(item.product, user)
+            const payloadPricing = getCartLinePayloadPricing(item, user)
+
             return {
               id: item.product.id,
               name: item.product.name,
-              price: pricing.discountedPrice,
+              price: payloadPricing.price,
               quantity: item.quantity,
-              total: pricing.discountedPrice * item.quantity,
+              total: payloadPricing.total,
               image: item.product.image,
               color: itemColor,
-              size: itemSize
+              size: itemSize,
+              ...(payloadPricing.bundleDiscount ? { bundleDiscount: payloadPricing.bundleDiscount } : {})
             }
           }),
           ...freeMasks.map(mask => ({

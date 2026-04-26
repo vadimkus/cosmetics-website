@@ -15,6 +15,12 @@ export interface CartLinePricing {
   discountType: CartDiscountType
 }
 
+export interface CartLinePayloadPricing {
+  price: number
+  total: number
+  bundleDiscount?: number
+}
+
 function roundMoney(value: number): number {
   return Math.round((Number(value) || 0) * 100) / 100
 }
@@ -77,4 +83,19 @@ export function getCartTotalPrice(items: CartItem[], user: User | ApiUser | null
 
 export function getCartRetailTotal(items: CartItem[], user: User | ApiUser | null = null): number {
   return roundMoney(items.reduce((total, item) => total + getCartLinePricing(item, user).retailLineTotal, 0))
+}
+
+export function getCartLinePayloadPricing(
+  item: CartItem,
+  user: User | ApiUser | null = null
+): CartLinePayloadPricing {
+  const pricing = getCartLinePricing(item, user)
+
+  return {
+    price: pricing.unitPrice,
+    total: pricing.lineTotal,
+    ...(pricing.discountType === 'bundle' && pricing.discountPercentage > 0
+      ? { bundleDiscount: pricing.discountPercentage }
+      : {}),
+  }
 }

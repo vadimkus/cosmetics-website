@@ -1,4 +1,4 @@
-import { getCartLinePricing, getCartRetailTotal, getCartTotalPrice } from '@/lib/cartPricing'
+import { getCartLinePayloadPricing, getCartLinePricing, getCartRetailTotal, getCartTotalPrice } from '@/lib/cartPricing'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { CartItem, Product } from '@/types'
 import { ApiUser } from '@/types/user'
@@ -162,5 +162,53 @@ describe('cart pricing helper', () => {
 
     expect(getCartTotalPrice([regular, bundle], user)).toBe(445)
     expect(getCartRetailTotal([regular, bundle], user)).toBe(500)
+  })
+
+  it('exposes COD payload price and total from contract-backed cart pricing', () => {
+    const product = createProduct({
+      price: 100,
+      variants: [
+        {
+          id: 'variant-1',
+          size: '50ml',
+          color: null,
+          price: 150,
+          available: true,
+          isDefault: true,
+          stockQuantity: 10,
+        },
+        {
+          id: 'variant-2',
+          size: '100ml',
+          color: null,
+          price: 250,
+          available: true,
+          isDefault: false,
+          stockQuantity: 5,
+        },
+      ],
+    })
+    const user = createUser({ discountType: 'percentage', discountPercentage: 10 })
+    const item = createItem(product, { quantity: 2, selectedSize: '100ml' })
+
+    expect(getCartLinePayloadPricing(item, user)).toEqual({
+      price: 225,
+      total: 450,
+    })
+  })
+
+  it('preserves bundle discount metadata in COD payload pricing', () => {
+    const product = createProduct({ price: 100 })
+    const item = createItem(product, {
+      quantity: 3,
+      fromBundle: true,
+      bundleDiscountPercent: 15,
+    })
+
+    expect(getCartLinePayloadPricing(item, null)).toEqual({
+      price: 85,
+      total: 255,
+      bundleDiscount: 15,
+    })
   })
 })

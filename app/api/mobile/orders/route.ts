@@ -10,6 +10,7 @@ import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheck
 import { trackUserActivity } from '@/lib/activityTracker'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
+import { getCustomerEmailWhere } from '@/lib/mobileOrderOwnership'
 import { CartItem } from '@/types'
 
 const extractPaymentFlow = (order: { paymentMetadata?: string | Record<string, unknown> | null; payment_metadata?: string | Record<string, unknown> | null }): string | null => {
@@ -118,7 +119,7 @@ export async function GET(request: NextRequest) {
       const order = await prisma.order.findFirst({
         where: {
           id: orderId,
-          customerEmail: user.email
+          ...getCustomerEmailWhere(user),
         },
         include: {
           items: true
@@ -185,9 +186,7 @@ export async function GET(request: NextRequest) {
     const skip = (page - 1) * limit
     
     // Build where clause
-    const whereClause: Record<string, unknown> = {
-      customerEmail: user.email
-    }
+    const whereClause = getCustomerEmailWhere(user) as Record<string, unknown>
     
     if (status) {
       whereClause.status = status

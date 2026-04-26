@@ -3,6 +3,7 @@ import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/database'
+import { canAccessCustomerEmail, getCustomerEmailWhere } from '@/lib/mobileOrderOwnership'
 
 /**
  * Mobile Order Delete Endpoint
@@ -102,7 +103,7 @@ export async function DELETE(
     }
 
     // Security: Verify order belongs to authenticated user
-    if (order.customerEmail !== user.email) {
+    if (!canAccessCustomerEmail(user, order.customerEmail)) {
       errorLog('[MOBILE_ORDERS_DELETE] Unauthorized deletion attempt', {
         orderId: id,
         orderEmail: order.customerEmail,
@@ -247,7 +248,7 @@ export async function GET(
     const order = await prisma.order.findFirst({
       where: {
         id,
-        customerEmail: user.email
+        ...getCustomerEmailWhere(user),
       },
       include: {
         items: true

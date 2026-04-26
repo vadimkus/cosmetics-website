@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useAuth } from '@/components/auth/AuthProvider'
+import { useIsMobileWeb } from '@/hooks/useIsMobile'
 
 interface BlogPostClientProps {
   children: React.ReactNode
@@ -14,20 +14,7 @@ export default function BlogPostClient({ children }: BlogPostClientProps) {
   const { locale, dir } = useTranslation()
   const router = useRouter()
   const { user } = useAuth()
-  const [isMobileWeb, setIsMobileWeb] = useState(false)
-  
-  // Detect mobile web (non-PWA mobile)
-  useEffect(() => {
-    const checkMobile = () => {
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && window.innerWidth < 768
-      const isPWAMode = window.matchMedia('(display-mode: standalone)').matches || 
-                        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
-      setIsMobileWeb(isMobile && !isPWAMode)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
+  const { isMobileWeb } = useIsMobileWeb()
 
   const isRTL = dir === 'rtl'
   const isAppLikeMode = isMobileWeb

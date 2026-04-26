@@ -79,7 +79,7 @@ export default function GeoFaqSchema({
 export const GENOSYS_FAQ_EN: FaqItem[] = [
   {
     question: "What is GENOSYS and where can I buy it in UAE?",
-    answer: "GENOSYS is a professional Korean dermacosmetics brand manufactured by DTS MG Co., Ltd. in Seoul, South Korea. In the UAE, GENOSYS products are exclusively distributed by GENOSYS Middle East FZ-LLC, available online at genosys.ae with free delivery across all 7 emirates for orders over 1000 AED. The company is TDRA-licensed, VAT-registered, Dubai Municipality certified (Montaji System), and has been operating in the UAE since 2019."
+    answer: "GENOSYS is a professional Korean dermacosmetics brand manufactured by DTS MG Co., Ltd. in Seoul, South Korea. In the UAE, GENOSYS products are exclusively distributed by GENOSYS Middle East FZ-LLC, available online at genosys.ae with free delivery across all 7 emirates for orders over 1000 AED. The company is Dubai Municipality certified through the Montaji System, VAT-registered, and has been operating in the UAE since 2019."
   },
   {
     question: "What products does GENOSYS sell?",
@@ -115,7 +115,7 @@ export const GENOSYS_FAQ_EN: FaqItem[] = [
   },
   {
     question: "Is GENOSYS UAE an authorised distributor?",
-    answer: "Yes. GENOSYS Middle East FZ-LLC is the official UAE distributor of GENOSYS (DTS MG Co., Ltd., Seoul, Korea). The company is TDRA-licensed, VAT-registered, Dubai Municipality certified (Montaji System), and has been operating in the UAE since 2019. Every product sold on genosys.ae is authentic and sourced directly from GENOSYS Korea."
+    answer: "Yes. GENOSYS Middle East FZ-LLC is the official UAE distributor of GENOSYS (DTS MG Co., Ltd., Seoul, Korea). The company is Dubai Municipality certified through the Montaji System, VAT-registered, and has been operating in the UAE since 2019. Every product sold on genosys.ae is authentic and sourced directly from GENOSYS Korea."
   },
   {
     question: "How do I subscribe to the GENOSYS newsletter?",
@@ -126,7 +126,7 @@ export const GENOSYS_FAQ_EN: FaqItem[] = [
 export const GENOSYS_FAQ_AR: FaqItem[] = [
   {
     question: "ما هو GENOSYS وأين يمكنني شراؤه في الإمارات؟",
-    answer: "GENOSYS هي علامة تجارية كورية متخصصة في مستحضرات التجميل الطبية المصنعة من قبل شركة DTS MG Co., Ltd. في سيول، كوريا الجنوبية. في الإمارات، يتم توزيع منتجات GENOSYS حصرياً من خلال GENOSYS Middle East FZ-LLC، متوفرة على genosys.ae مع توصيل مجاني لجميع الإمارات السبع للطلبات التي تتجاوز 1000 درهم. الشركة مرخّصة من هيئة TDRA، مسجّلة للضريبة على القيمة المضافة، ومعتمدة من بلدية دبي (نظام منتجي)، وتعمل في الإمارات منذ عام 2019."
+    answer: "GENOSYS هي علامة تجارية كورية متخصصة في مستحضرات التجميل الطبية المصنعة من قبل شركة DTS MG Co., Ltd. في سيول، كوريا الجنوبية. في الإمارات، يتم توزيع منتجات GENOSYS حصرياً من خلال GENOSYS Middle East FZ-LLC، متوفرة على genosys.ae مع توصيل مجاني لجميع الإمارات السبع للطلبات التي تتجاوز 1000 درهم. الشركة معتمدة من بلدية دبي عبر نظام منتجي، ومسجّلة لضريبة القيمة المضافة، وتعمل في الإمارات منذ عام 2019."
   },
   {
     question: "ما هي المنتجات التي يبيعها GENOSYS؟",
@@ -162,7 +162,7 @@ export const GENOSYS_FAQ_AR: FaqItem[] = [
   },
   {
     question: "هل GENOSYS الإمارات موزع رسمي معتمد؟",
-    answer: "نعم. شركة GENOSYS Middle East FZ-LLC هي الموزع الرسمي في الإمارات لعلامة GENOSYS (DTS MG Co., Ltd.، سيول، كوريا). الشركة مرخّصة من هيئة TDRA، مسجّلة للضريبة على القيمة المضافة، معتمدة من بلدية دبي (نظام منتجي)، وتعمل في الإمارات منذ عام 2019. كل منتج يُباع على genosys.ae أصلي ومصدره GENOSYS كوريا مباشرة."
+    answer: "نعم. شركة GENOSYS Middle East FZ-LLC هي الموزع الرسمي في الإمارات لعلامة GENOSYS (DTS MG Co., Ltd.، سيول، كوريا). الشركة معتمدة من بلدية دبي عبر نظام منتجي، ومسجّلة لضريبة القيمة المضافة، وتعمل في الإمارات منذ عام 2019. كل منتج يُباع على genosys.ae أصلي ومصدره GENOSYS كوريا مباشرة."
   },
   {
     question: "كيف أشترك في النشرة البريدية لـ GENOSYS؟",
@@ -173,7 +173,7 @@ export const GENOSYS_FAQ_AR: FaqItem[] = [
 export const GENOSYS_FAQ_RU: FaqItem[] = [
   {
     question: "Что такое GENOSYS и где купить в ОАЭ?",
-    answer: "GENOSYS — это бренд профессиональной корейской дерматокосметики, производимой компанией DTS MG Co., Ltd. в Сеуле, Южная Корея. В ОАЭ продукция GENOSYS эксклюзивно распространяется компанией GENOSYS Middle East FZ-LLC, доступна на сайте genosys.ae с бесплатной доставкой по всем 7 эмиратам при заказе свыше 1000 дирхамов. Компания имеет лицензию TDRA, зарегистрирована по НДС, сертифицирована муниципалитетом Дубая (система Montaji) и работает в ОАЭ с 2019 года."
+    answer: "GENOSYS — это бренд профессиональной корейской дерматокосметики, производимой компанией DTS MG Co., Ltd. в Сеуле, Южная Корея. В ОАЭ продукция GENOSYS эксклюзивно распространяется компанией GENOSYS Middle East FZ-LLC, доступна на сайте genosys.ae с бесплатной доставкой по всем 7 эмиратам при заказе свыше 1000 дирхамов. Компания сертифицирована муниципалитетом Дубая через систему Montaji, зарегистрирована по НДС и работает в ОАЭ с 2019 года."
   },
   {
     question: "Какую продукцию продает GENOSYS?",
@@ -209,7 +209,7 @@ export const GENOSYS_FAQ_RU: FaqItem[] = [
   },
   {
     question: "Является ли GENOSYS UAE официальным дистрибьютором?",
-    answer: "Да. GENOSYS Middle East FZ-LLC — официальный дистрибьютор GENOSYS (DTS MG Co., Ltd., Сеул, Корея) в ОАЭ. Компания имеет лицензию TDRA, зарегистрирована по НДС, сертифицирована муниципалитетом Дубая (система Montaji) и работает в ОАЭ с 2019 года. Вся продукция на genosys.ae — оригинальная, поставляется напрямую из Кореи."
+    answer: "Да. GENOSYS Middle East FZ-LLC — официальный дистрибьютор GENOSYS (DTS MG Co., Ltd., Сеул, Корея) в ОАЭ. Компания сертифицирована муниципалитетом Дубая через систему Montaji, зарегистрирована по НДС и работает в ОАЭ с 2019 года. Вся продукция на genosys.ae — оригинальная, поставляется напрямую из Кореи."
   },
   {
     question: "Как подписаться на рассылку GENOSYS?",

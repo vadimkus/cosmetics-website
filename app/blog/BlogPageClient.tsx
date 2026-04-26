@@ -1,12 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Calendar, ArrowRight, ArrowLeft, Eye } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import { usePWAMode } from '@/hooks/usePWAMode'
+import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
 
@@ -28,24 +27,10 @@ interface BlogPageClientProps {
 
 export default function BlogPageClient({ posts }: BlogPageClientProps) {
   const { t, locale, dir } = useTranslation()
-  const { isPWA } = usePWAMode()
+  const { isMobileWeb, isPWA } = useIsMobileWeb()
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user } = useAuth()
-  const [isMobileWeb, setIsMobileWeb] = useState(false)
-  
-  // Detect mobile web (non-PWA mobile)
-  useEffect(() => {
-    const checkMobile = () => {
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) && window.innerWidth < 768
-      const isPWAMode = window.matchMedia('(display-mode: standalone)').matches || 
-                        (window.navigator as Navigator & { standalone?: boolean }).standalone === true
-      setIsMobileWeb(isMobile && !isPWAMode)
-    }
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
 
   const isRTL = dir === 'rtl'
   const fromProfile = searchParams?.get('from') === 'profile'

@@ -21,12 +21,121 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useTranslation } from '@/hooks/useTranslation'
 
+const footerCopy = {
+  en: {
+    headings: { shop: 'Shop', help: 'Customer care', company: 'Company', legal: 'Legal' },
+    trust: {
+      authenticTitle: 'Authentic',
+      authenticBody: 'Official GENOSYS distributor',
+      shippingTitle: 'Free shipping',
+      shippingBody: 'On orders over 1000 AED',
+      checkoutTitle: 'Secure checkout',
+      checkoutBody: 'Stripe · all major cards',
+      certifiedTitle: 'Dubai Municipality Certified',
+      certifiedBody: '5% VAT included',
+    },
+    brandBody: 'Official UAE distributor of GENOSYS professional Korean dermacosmetics — since 2019.',
+    address: 'Dubai, United Arab Emirates',
+    socialLabel: 'Social media',
+    instagramLabel: 'Follow GENOSYS on Instagram',
+    facebookLabel: 'Follow GENOSYS on Facebook',
+    links: {
+      allProducts: 'All products',
+      serums: 'Serums',
+      creams: 'Creams',
+      microneedling: 'Microneedling',
+      skinAnalysis: 'Skin analysis',
+      contact: 'Contact us',
+      delivery: 'Shipping & delivery',
+      orders: 'Track my order',
+      about: 'About GENOSYS',
+      training: 'Pro training',
+      terms: 'Terms of service',
+      montaji: 'Montaji Certificate',
+      app: 'Get the app',
+      payment: 'We accept',
+      stripe: 'Secure checkout by Stripe',
+    },
+  },
+  ar: {
+    headings: { shop: 'تسوق', help: 'المساعدة', company: 'الشركة', legal: 'الوثائق' },
+    trust: {
+      authenticTitle: 'منتجات أصلية',
+      authenticBody: 'موزع رسمي GENOSYS',
+      shippingTitle: 'شحن مجاني',
+      shippingBody: 'للطلبات فوق 1000 درهم',
+      checkoutTitle: 'دفع آمن',
+      checkoutBody: 'Stripe · جميع البطاقات الرئيسية',
+      certifiedTitle: 'معتمد من بلدية دبي',
+      certifiedBody: 'ضمان ضريبة القيمة المضافة 5%',
+    },
+    brandBody: 'الموزع الرسمي لمستحضرات GENOSYS الكورية الاحترافية في الإمارات منذ 2019.',
+    address: 'دبي، الإمارات العربية المتحدة',
+    socialLabel: 'وسائل التواصل الاجتماعي',
+    instagramLabel: 'تابع GENOSYS على إنستغرام',
+    facebookLabel: 'تابع GENOSYS على فيسبوك',
+    links: {
+      allProducts: 'جميع المنتجات',
+      serums: 'السيرومات',
+      creams: 'الكريمات',
+      microneedling: 'الوخز الدقيق',
+      skinAnalysis: 'تحليل البشرة',
+      contact: 'تواصل معنا',
+      delivery: 'الشحن والتوصيل',
+      orders: 'طلباتي',
+      about: 'من نحن',
+      training: 'التدريب',
+      terms: 'الشروط والأحكام',
+      montaji: 'شهادة منتجي',
+      app: 'حمّل التطبيق',
+      payment: 'طرق الدفع',
+      stripe: 'الدفع الآمن بواسطة Stripe',
+    },
+  },
+  ru: {
+    headings: { shop: 'Покупки', help: 'Помощь', company: 'Компания', legal: 'Документы' },
+    trust: {
+      authenticTitle: 'Оригинал',
+      authenticBody: 'Официальный дистрибьютор',
+      shippingTitle: 'Бесплатная доставка',
+      shippingBody: 'При заказе от 1000 AED',
+      checkoutTitle: 'Безопасная оплата',
+      checkoutBody: 'Stripe · все основные карты',
+      certifiedTitle: 'Сертифицировано Муниципалитетом Дубая',
+      certifiedBody: 'Включая 5% НДС',
+    },
+    brandBody: 'Официальный дистрибьютор профессиональной корейской дерматокосметики GENOSYS в ОАЭ с 2019 года.',
+    address: 'Дубай, Объединенные Арабские Эмираты',
+    socialLabel: 'Социальные сети',
+    instagramLabel: 'Подписаться на GENOSYS в Instagram',
+    facebookLabel: 'Подписаться на GENOSYS в Facebook',
+    links: {
+      allProducts: 'Все продукты',
+      serums: 'Сыворотки',
+      creams: 'Кремы',
+      microneedling: 'Микронидлинг',
+      skinAnalysis: 'Анализ кожи',
+      contact: 'Контакты',
+      delivery: 'Доставка',
+      orders: 'Мои заказы',
+      about: 'О нас',
+      training: 'Обучение',
+      terms: 'Условия',
+      montaji: 'Сертификат Montaji',
+      app: 'Приложение',
+      payment: 'Оплата',
+      stripe: 'Безопасная оплата через Stripe',
+    },
+  },
+} as const
+
 export default function Footer() {
   const { isPWA, isClient: isPWAClient } = usePWAMode()
   const { isMobile, isClient: isMobileClient } = useIsMobile()
   const isClient = isPWAClient && isMobileClient
 
   const { t, locale } = useTranslation()
+  const copy = footerCopy[locale]
 
   // Check if we're on the contact page - check synchronously to avoid hydration mismatch
   // Hide footer on mobile (sticky footer nav handles it) and in PWA mode
@@ -37,13 +146,6 @@ export default function Footer() {
   // Reusable class for column link items — consistent hit area and focus ring.
   const colLinkClass =
     'text-sm text-gray-600 hover:text-primary-700 transition-colors py-1 inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded'
-
-  // Copy helpers for micro-strings we want localized without adding new keys
-  // to the messages bundles (keeping this change surgical).
-  const shopHeading = locale === 'ar' ? 'تسوق' : locale === 'ru' ? 'Покупки' : 'Shop'
-  const helpHeading = locale === 'ar' ? 'المساعدة' : locale === 'ru' ? 'Помощь' : 'Customer care'
-  const companyHeading = locale === 'ar' ? 'الشركة' : locale === 'ru' ? 'Компания' : 'Company'
-  const legalHeading = locale === 'ar' ? 'الوثائق' : locale === 'ru' ? 'Документы' : 'Legal'
 
   return (
     <footer role="contentinfo" className="bg-white border-t border-gray-200 pt-10" suppressHydrationWarning>
@@ -58,10 +160,10 @@ export default function Footer() {
               </span>
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-gray-900 leading-tight">
-                  {locale === 'ar' ? 'منتجات أصلية' : locale === 'ru' ? 'Оригинал' : 'Authentic'}
+                  {copy.trust.authenticTitle}
                 </p>
                 <p className="text-xs text-gray-500 leading-snug mt-1">
-                  {locale === 'ar' ? 'موزع رسمي GENOSYS' : locale === 'ru' ? 'Официальный дистрибьютор' : 'Official GENOSYS distributor'}
+                  {copy.trust.authenticBody}
                 </p>
               </div>
             </div>
@@ -71,10 +173,10 @@ export default function Footer() {
               </span>
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-gray-900 leading-tight">
-                  {locale === 'ar' ? 'شحن مجاني' : locale === 'ru' ? 'Бесплатная доставка' : 'Free shipping'}
+                  {copy.trust.shippingTitle}
                 </p>
                 <p className="text-xs text-gray-500 leading-snug mt-1">
-                  {locale === 'ar' ? 'للطلبات فوق 1000 درهم' : locale === 'ru' ? 'При заказе от 1000 AED' : 'On orders over 1000 AED'}
+                  {copy.trust.shippingBody}
                 </p>
               </div>
             </div>
@@ -84,10 +186,10 @@ export default function Footer() {
               </span>
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-gray-900 leading-tight">
-                  {locale === 'ar' ? 'دفع آمن' : locale === 'ru' ? 'Безопасная оплата' : 'Secure checkout'}
+                  {copy.trust.checkoutTitle}
                 </p>
                 <p className="text-xs text-gray-500 leading-snug mt-1">
-                  {locale === 'ar' ? 'Stripe · جميع البطاقات الرئيسية' : locale === 'ru' ? 'Stripe · все основные карты' : 'Stripe · all major cards'}
+                  {copy.trust.checkoutBody}
                 </p>
               </div>
             </div>
@@ -97,10 +199,10 @@ export default function Footer() {
               </span>
               <div className="min-w-0">
                 <p className="text-sm font-semibold text-gray-900 leading-tight">
-                  {locale === 'ar' ? 'معتمد من بلدية دبي' : locale === 'ru' ? 'Сертифицировано Муниципалитетом Дубая' : 'Dubai Municipality Certified'}
+                  {copy.trust.certifiedTitle}
                 </p>
                 <p className="text-xs text-gray-500 leading-snug mt-1">
-                  {locale === 'ar' ? 'ضمان ضريبة القيمة المضافة 5%' : locale === 'ru' ? 'Включая 5% НДС' : '5% VAT included'}
+                  {copy.trust.certifiedBody}
                 </p>
               </div>
             </div>
@@ -129,11 +231,7 @@ export default function Footer() {
               />
             </Link>
             <p className="text-sm text-gray-600 leading-relaxed mb-5 max-w-xs">
-              {locale === 'ar'
-                ? 'الموزع الرسمي لمستحضرات GENOSYS الكورية الاحترافية في الإمارات منذ 2019.'
-                : locale === 'ru'
-                ? 'Официальный дистрибьютор профессиональной корейской дерматокосметики GENOSYS в ОАЭ с 2019 года.'
-                : 'Official UAE distributor of GENOSYS professional Korean dermacosmetics — since 2019.'}
+              {copy.brandBody}
             </p>
 
             {/* Contact block */}
@@ -152,18 +250,18 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-2 text-sm text-gray-600">
                 <MapPin className="h-4 w-4 text-gray-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
-                <span>Dubai, United Arab Emirates</span>
+                <span>{copy.address}</span>
               </li>
             </ul>
 
             {/* Social */}
-            <div className="flex items-center gap-2" aria-label="Social media">
+            <div className="flex items-center gap-2" aria-label={copy.socialLabel}>
               <a
                 href="https://www.instagram.com/genosys.uae/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="h-10 w-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:text-pink-600 hover:border-pink-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
-                aria-label="Follow GENOSYS on Instagram"
+                aria-label={copy.instagramLabel}
               >
                 <Instagram className="h-5 w-5" aria-hidden="true" />
               </a>
@@ -172,7 +270,7 @@ export default function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="h-10 w-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
-                aria-label="Follow GENOSYS on Facebook"
+                aria-label={copy.facebookLabel}
               >
                 <Facebook className="h-5 w-5" aria-hidden="true" />
               </a>
@@ -182,32 +280,32 @@ export default function Footer() {
           {/* Shop column */}
           <div className="md:col-span-2">
             <h3 className="text-xs font-semibold tracking-[0.14em] text-gray-500 uppercase mb-4">
-              {shopHeading}
+              {copy.headings.shop}
             </h3>
             <ul className="space-y-1">
               <li>
                 <Link href={getLocalizedPath('/products', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'جميع المنتجات' : locale === 'ru' ? 'Все продукты' : 'All products'}
+                  {copy.links.allProducts}
                 </Link>
               </li>
               <li>
                 <Link href={getLocalizedPath('/products/category/serum', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'السيرومات' : locale === 'ru' ? 'Сыворотки' : 'Serums'}
+                  {copy.links.serums}
                 </Link>
               </li>
               <li>
                 <Link href={getLocalizedPath('/products/category/cream', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'الكريمات' : locale === 'ru' ? 'Кремы' : 'Creams'}
+                  {copy.links.creams}
                 </Link>
               </li>
               <li>
                 <Link href={getLocalizedPath('/products/category/microneedling', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'الوخز الدقيق' : locale === 'ru' ? 'Микронидлинг' : 'Microneedling'}
+                  {copy.links.microneedling}
                 </Link>
               </li>
               <li>
                 <Link href={getLocalizedPath('/skin-recommendation', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'تحليل البشرة' : locale === 'ru' ? 'Анализ кожи' : 'Skin analysis'}
+                  {copy.links.skinAnalysis}
                 </Link>
               </li>
             </ul>
@@ -216,7 +314,7 @@ export default function Footer() {
           {/* Help column */}
           <div className="md:col-span-2">
             <h3 className="text-xs font-semibold tracking-[0.14em] text-gray-500 uppercase mb-4">
-              {helpHeading}
+              {copy.headings.help}
             </h3>
             <ul className="space-y-1">
               <li>
@@ -226,17 +324,17 @@ export default function Footer() {
               </li>
               <li>
                 <Link href={getLocalizedPath('/contact', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'تواصل معنا' : locale === 'ru' ? 'Контакты' : 'Contact us'}
+                  {copy.links.contact}
                 </Link>
               </li>
               <li>
                 <Link href={getLocalizedPath('/delivery', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'الشحن والتوصيل' : locale === 'ru' ? 'Доставка' : 'Shipping & delivery'}
+                  {copy.links.delivery}
                 </Link>
               </li>
               <li>
                 <Link href={getLocalizedPath('/orders', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'طلباتي' : locale === 'ru' ? 'Мои заказы' : 'Track my order'}
+                  {copy.links.orders}
                 </Link>
               </li>
             </ul>
@@ -245,17 +343,17 @@ export default function Footer() {
           {/* Company column */}
           <div className="md:col-span-2">
             <h3 className="text-xs font-semibold tracking-[0.14em] text-gray-500 uppercase mb-4">
-              {companyHeading}
+              {copy.headings.company}
             </h3>
             <ul className="space-y-1">
               <li>
                 <Link href={getLocalizedPath('/about', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'من نحن' : locale === 'ru' ? 'О нас' : 'About GENOSYS'}
+                  {copy.links.about}
                 </Link>
               </li>
               <li>
                 <Link href={getLocalizedPath('/training', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'التدريب' : locale === 'ru' ? 'Обучение' : 'Pro training'}
+                  {copy.links.training}
                 </Link>
               </li>
               <li>
@@ -279,7 +377,7 @@ export default function Footer() {
           {/* Legal column */}
           <div className="md:col-span-2">
             <h3 className="text-xs font-semibold tracking-[0.14em] text-gray-500 uppercase mb-4">
-              {legalHeading}
+              {copy.headings.legal}
             </h3>
             <ul className="space-y-1">
               <li>
@@ -289,7 +387,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href={getLocalizedPath('/terms', locale)} className={colLinkClass}>
-                  {locale === 'ar' ? 'الشروط والأحكام' : locale === 'ru' ? 'Условия' : 'Terms of service'}
+                  {copy.links.terms}
                 </Link>
               </li>
               <li>
@@ -299,7 +397,7 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className={colLinkClass}
                 >
-                  {locale === 'ar' ? 'شهادة منتجي' : locale === 'ru' ? 'Сертификат Montaji' : 'Montaji Certificate'}
+                  {copy.links.montaji}
                 </a>
               </li>
             </ul>
@@ -307,7 +405,7 @@ export default function Footer() {
             {/* App download pair — condensed */}
             <div className="mt-6">
               <p className="text-[11px] tracking-[0.14em] font-semibold text-gray-500 uppercase mb-2">
-                {locale === 'ar' ? 'حمّل التطبيق' : locale === 'ru' ? 'Приложение' : 'Get the app'}
+                {copy.links.app}
               </p>
               <div className="flex flex-col gap-2">
                 <a
@@ -346,7 +444,7 @@ export default function Footer() {
           <div className={`flex flex-wrap items-center gap-x-3 gap-y-2 ${locale === 'ar' ? 'flex-row-reverse' : ''}`}>
             <div className="flex items-center gap-2" aria-label="Accepted payment methods">
               <span className="text-[11px] text-gray-500 uppercase tracking-wider mr-1">
-                {locale === 'ar' ? 'طرق الدفع' : locale === 'ru' ? 'Оплата' : 'We accept'}
+                {copy.links.payment}
               </span>
               {/* Payment-method chips. Shared base class for symmetry; each
                   chip lifts + shadows on hover (desktop only, the whole
@@ -411,11 +509,7 @@ export default function Footer() {
                 aria-hidden="true"
               />
               <span className="relative">
-                {locale === 'ar'
-                  ? 'الدفع الآمن بواسطة Stripe'
-                  : locale === 'ru'
-                  ? 'Безопасная оплата через Stripe'
-                  : 'Secure checkout by Stripe'}
+                {copy.links.stripe}
                 <span
                   aria-hidden="true"
                   className="absolute -bottom-0.5 left-0 h-px w-0 bg-emerald-500 transition-[width] duration-300 ease-out group-hover/stripe:w-full motion-reduce:transition-none motion-reduce:group-hover/stripe:w-0"

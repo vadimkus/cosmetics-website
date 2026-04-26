@@ -6,13 +6,10 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { usePathname, useRouter } from 'next/navigation'
 import { isSimpleHeaderPage } from '@/lib/simpleHeaderPages'
 import LoginModal from '@/components/LoginModal'
-import HeaderRussianMobile, { HeaderRussianMobileMenu } from './HeaderRussianMobile'
 import HeaderRussianDesktop from './HeaderRussianDesktop'
-import HeaderMobileIcons from './HeaderMobileIcons'
 import HeaderDesktopNav from './HeaderDesktopNav'
 import HeaderDesktopIcons from './HeaderDesktopIcons'
 import HeaderDesktopBranding from './HeaderDesktopBranding'
-import HeaderMobileMenu from './HeaderMobileMenu'
 
 /**
  * Main Header Component
@@ -28,7 +25,6 @@ const Header = memo(function Header() {
   
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
-  const [showMobileMenu, setShowMobileMenu] = useState(false)
   const [isClient, setIsClient] = useState(false)
   const [isHeartBeating, setIsHeartBeating] = useState(false)
   const heartbeatTimerRef = useRef<NodeJS.Timeout | null>(null)
@@ -53,7 +49,6 @@ const Header = memo(function Header() {
   const isOnSimpleHeaderPage = isSimpleHeaderPage(pathname)
   
   // In PWA mode, hide header completely on pages with their own light header
-  const showPWAMobileHeader = isPWAClient && isPWA
   const hidePWAHeader = isPWAClient && isPWA && isOnSimpleHeaderPage
 
   useEffect(() => {
@@ -90,25 +85,6 @@ const Header = memo(function Header() {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-2 md:py-4 header-main-flex">
-          
-          {/* Mobile Header - Russian (separate component) */}
-          {isRussian && !showPWAMobileHeader && (
-            <HeaderRussianMobile 
-              showMobileMenu={showMobileMenu}
-              setShowMobileMenu={setShowMobileMenu}
-            />
-          )}
-          
-          {/* Mobile Header - English & Arabic (shared component) */}
-          {!isRussian && !showPWAMobileHeader && (
-            <HeaderMobileIcons
-              isRTL={isRTL}
-              isClient={isClient}
-              showMobileMenu={showMobileMenu}
-              setShowMobileMenu={setShowMobileMenu}
-            />
-          )}
-          
           {/* Desktop Header - Russian (separate component) */}
           {isRussian && <HeaderRussianDesktop />}
           
@@ -145,23 +121,6 @@ const Header = memo(function Header() {
           )}
         </div>
       </div>
-
-      {/* Mobile Navigation Menu - Russian (separate component) */}
-      {isRussian && (
-        <HeaderRussianMobileMenu 
-          showMobileMenu={showMobileMenu}
-          setShowMobileMenu={setShowMobileMenu}
-        />
-      )}
-
-      {/* Mobile Navigation Menu - English & Arabic */}
-      {!isRussian && (
-        <HeaderMobileMenu
-          showMobileMenu={showMobileMenu}
-          setShowMobileMenu={setShowMobileMenu}
-          isClient={isClient}
-        />
-      )}
 
       {/* Login Modal */}
       {showLoginModal && (

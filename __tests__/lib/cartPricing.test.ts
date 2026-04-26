@@ -1,4 +1,4 @@
-import { getCartLinePricing, getCartTotalPrice } from '@/lib/cartPricing'
+import { getCartLinePricing, getCartRetailTotal, getCartTotalPrice } from '@/lib/cartPricing'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { CartItem, Product } from '@/types'
 import { ApiUser } from '@/types/user'
@@ -149,5 +149,18 @@ describe('cart pricing helper', () => {
     expect(pricing.discountType).toBe('black_friday')
     expect(pricing.unitPrice).toBe(80)
     expect(pricing.discountPercentage).toBe(20)
+  })
+
+  it('exposes retail total for cart strikethrough/savings display', () => {
+    const regular = createItem(createProduct({ id: 'regular', price: 200 }), { quantity: 2 })
+    const bundle = createItem(createProduct({ id: 'bundle', price: 100 }), {
+      quantity: 1,
+      fromBundle: true,
+      bundleDiscountPercent: 15,
+    })
+    const user = createUser({ discountType: 'percentage', discountPercentage: 10 })
+
+    expect(getCartTotalPrice([regular, bundle], user)).toBe(445)
+    expect(getCartRetailTotal([regular, bundle], user)).toBe(500)
   })
 })

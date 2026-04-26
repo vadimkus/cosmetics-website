@@ -74,3 +74,7 @@ export function getCartLinePricing(
 export function getCartTotalPrice(items: CartItem[], user: User | ApiUser | null = null): number {
   return roundMoney(items.reduce((total, item) => total + getCartLinePricing(item, user).lineTotal, 0))
 }
+
+export function getCartRetailTotal(items: CartItem[], user: User | ApiUser | null = null): number {
+  return roundMoney(items.reduce((total, item) => total + getCartLinePricing(item, user).retailLineTotal, 0))
+}

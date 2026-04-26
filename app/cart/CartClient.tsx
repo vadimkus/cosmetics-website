@@ -15,6 +15,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { getCartRetailTotal } from '@/lib/cartPricing'
 import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
@@ -127,10 +128,7 @@ export default function CartClient() {
   
   // Calculate original subtotal (before Black Friday discount) for display
   const originalSubtotal = blackFridayActive && items.length > 0
-    ? items.reduce((sum, item) => {
-        const pricing = calculateDiscountedPrice(item.product, user)
-        return sum + (pricing.originalPrice * item.quantity)
-      }, 0)
+    ? getCartRetailTotal(items, user)
     : subtotal
 
   // Black Friday countdown timer

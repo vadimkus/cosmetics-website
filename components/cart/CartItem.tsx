@@ -16,6 +16,7 @@ import { getProductColorOptions, getPriceForSize } from '@/utils/productPricing'
 import { getProductSizes } from '@/data/productConfig'
 import { translateCategory } from '@/utils/categoryTranslations'
 import { translateSize } from '@/utils/sizeTranslations'
+import { getCartLinePricing } from '@/lib/cartPricing'
 import { 
   springPresets, 
   calculateSwipeAction
@@ -29,7 +30,7 @@ function CartItemComponent({ item }: CartItemProps) {
   const { updateQuantity, removeItem, updateColor, updateSize } = useCart()
   const { user } = useAuth()
   const { t, dir, locale, messages } = useTranslation()
-  const { product, quantity, selectedColor, selectedSize, fromBundle, bundleDiscountPercent } = item
+  const { product, quantity, selectedColor, selectedSize } = item
   const { enabled: animationsEnabled } = useAnimationStore()
   
   // Swipe-to-delete state
@@ -290,14 +291,12 @@ function CartItemComponent({ item }: CartItemProps) {
           {canUserSeePrices(user) ? (
             <div className="mt-2">
               {(() => {
-                // For bundle items: bundle discount ONLY on retail price — no VIP/user discount
-                if (fromBundle && bundleDiscountPercent && bundleDiscountPercent > 0) {
-                  const retailPrice = product.price
-                  const finalPrice = retailPrice * (1 - bundleDiscountPercent / 100)
-                  const totalPrice = finalPrice * quantity
-                  const originalTotalPrice = retailPrice * quantity
-                  
-                  const combinedDiscount = `${bundleDiscountPercent}%`
+                const linePricing = getCartLinePricing(item, user)
+
+                // For Build Your Set items: bundle discount ONLY on retail price — no VIP/user discount.
+                // Beauty Boxes may carry stale bundle metadata from old carts, but the helper rejects it.
+                if (linePricing.discountType === 'bundle') {
+                  const combinedDiscount = `${linePricing.discountPercentage}%`
                   
                   return (
                     <div>
@@ -308,10 +307,10 @@ function CartItemComponent({ item }: CartItemProps) {
                       </div>
                       <div className={`flex items-baseline gap-1.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <p className="text-sm md:text-lg font-bold text-purple-600 md:text-purple-700 whitespace-nowrap">
-                          {totalPrice.toFixed(2)} AED
+                          {linePricing.lineTotal.toFixed(2)} AED
                         </p>
                         <p className="text-xs md:text-sm text-gray-500 line-through whitespace-nowrap">
-                          {originalTotalPrice.toFixed(2)} AED
+                          {linePricing.retailLineTotal.toFixed(2)} AED
                         </p>
                       </div>
                       <div className={`flex items-center mt-0.5 flex-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

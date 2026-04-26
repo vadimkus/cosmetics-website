@@ -11,10 +11,13 @@
 
 /** Minimal product shape needed for discount rule checks */
 interface DiscountCheckProduct {
+  productNumber?: string | null
   category?: string | null
   name?: string | null
   noDiscount?: boolean
 }
+
+const BEAUTY_BOX_PRODUCT_NUMBERS = new Set(['55', '56', '57', '58', '59', '62'])
 
 export const normalizeText = (v: unknown) =>
   String(v ?? '')
@@ -22,10 +25,12 @@ export const normalizeText = (v: unknown) =>
     .toLowerCase();
 
 export const isBeautyBoxProduct = (product: DiscountCheckProduct): boolean => {
+  const productNumber = normalizeText(product?.productNumber);
   const catRaw = normalizeText(product?.category);
   const name = normalizeText(product?.name);
   const catCompact = catRaw.replace(/[^a-z0-9]/g, '');
 
+  if (BEAUTY_BOX_PRODUCT_NUMBERS.has(productNumber)) return true;
   if (catRaw === 'beauty boxes' || catRaw === 'beauty box') return true;
   if (catCompact.includes('beautybox')) return true;
   if (name.includes('beauty box') || name.includes('beautybox')) return true;

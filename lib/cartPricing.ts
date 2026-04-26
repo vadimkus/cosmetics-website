@@ -1,6 +1,7 @@
 import { CartItem, Product } from '@/types'
 import { buildPricingContract } from '@/lib/pricingContract'
 import { ApiUser, User } from '@/types/user'
+import { isBeautyBoxProduct } from '@/lib/mobileDiscountRules'
 
 export type CartDiscountType = 'none' | 'bundle' | 'black_friday' | 'beauty_box' | 'user'
 
@@ -47,7 +48,12 @@ export function getCartLinePricing(
   user: User | ApiUser | null = null
 ): CartLinePricing {
   const quantity = item.quantity || 1
-  const isBundleItem = Boolean(item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0)
+  const isBundleItem = Boolean(
+    !isBeautyBoxProduct(item.product) &&
+    item.fromBundle &&
+    item.bundleDiscountPercent &&
+    item.bundleDiscountPercent > 0
+  )
 
   if (isBundleItem) {
     const retailUnitPrice = getBundleRetailPrice(item.product)

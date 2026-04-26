@@ -222,7 +222,7 @@ export function calculateProductPricing(
   
   // Apply variant pricing to discount calculations if needed
   let finalDiscountedPrice = discountedPrice.discountedPrice
-  if ((selectedSize || selectedColor) && discountedPrice.hasDiscount) {
+  if ((selectedSize || selectedColor) && discountedPrice.hasDiscount && !discountedPrice.isBeautyBox) {
     // Recalculate discount on variant price
     const discountAmount = basePrice * (discountedPrice.discountPercentage / 100)
     finalDiscountedPrice = basePrice - discountAmount
@@ -248,7 +248,7 @@ export function calculateProductPricing(
     basePrice,
     displayPrice: Math.round(finalDiscountedPrice * 100) / 100,
     originalPrice: discountedPrice.hasDiscount
-      ? ((selectedSize || selectedColor) ? basePrice : discountedPrice.originalPrice)
+      ? ((selectedSize || selectedColor) && !discountedPrice.isBeautyBox ? basePrice : discountedPrice.originalPrice)
       : undefined,
     vatAmount: Math.round(vatAmount * 100) / 100,
     priceIncludingVat: Math.round(priceIncludingVat * 100) / 100,

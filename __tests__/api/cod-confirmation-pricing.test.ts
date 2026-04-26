@@ -133,4 +133,55 @@ describe('web COD confirmation pricing', () => {
       ],
     }))
   })
+
+  it('does not double-discount Beauty Boxes when submitted with stale bundle metadata', async () => {
+    ;(getProductById as jest.Mock).mockResolvedValue(createProduct({
+      id: 'product-62',
+      productNumber: '62',
+      name: 'SENSITIVE SKIN BEAUTY BOX',
+      price: 1442,
+      category: 'Beauty Boxes',
+    }))
+
+    const response = await POST(createRequest({
+      orderNumber: 'CODW2604260002',
+      customerName: 'Customer',
+      customerEmail: 'customer@example.com',
+      customerPhone: '+971500000000',
+      customerAddress: 'Dubai Marina',
+      emirate: 'Dubai',
+      items: [
+        {
+          id: 'product-62',
+          name: 'SENSITIVE SKIN BEAUTY BOX',
+          price: 1442,
+          quantity: 1,
+          image: '/beauty-box.jpg',
+          size: '1 set',
+          bundleDiscount: 15,
+        },
+      ],
+      subtotal: 1442,
+      shippingCost: 0,
+      vatAmount: 0,
+      total: 1442,
+      locale: 'en',
+    }))
+
+    expect(response.status).toBe(200)
+    expect(addOrder).toHaveBeenCalledWith(expect.objectContaining({
+      subtotal: 1442,
+      total: 1442,
+      discountAmount: 0,
+      bundleDiscountAmount: 0,
+      items: [
+        expect.objectContaining({
+          productId: 'product-62',
+          productName: 'SENSITIVE SKIN BEAUTY BOX',
+          price: 1442,
+          quantity: 1,
+        }),
+      ],
+    }))
+  })
 })

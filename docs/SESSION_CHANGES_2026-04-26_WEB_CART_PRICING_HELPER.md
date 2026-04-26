@@ -20,6 +20,7 @@ This is the next slow step after the pricing contract display cleanup. The goal 
 - Follow-up mobile Stripe helper slice: `/api/mobile/checkout/stripe` now routes new-checkout item unit pricing and discount amounts through `getCartLinePricing()`, while preserving its authenticated mobile payload, order persistence, Stripe Checkout Session flow, and resume-payment path.
 - Follow-up mobile Apple Pay helper slice: `/api/mobile/payments/applepay/intent` now routes item unit pricing and discount amounts through `getCartLinePricing()`, while preserving its authenticated mobile payload, order persistence, PaymentIntent flow, and status endpoint.
 - Follow-up mobile COD backend helper slice: `POST /api/mobile/orders` now routes item unit pricing and discount amounts through `getCartLinePricing()`, while preserving order persistence, order response shape, and email/admin notification delivery.
+- Desktop Beauty Box bug fix: guarded Beauty Boxes against stale bundle-builder metadata and against `Size: 1 set` being treated as a variant discount recalculation. `SENSITIVE SKIN BEAUTY BOX` now stays `AED 1696 -> AED 1442` in cart, checkout, and COD persistence instead of double-discounting to `AED 1225.70`.
 
 ## Scope Boundary
 
@@ -36,6 +37,7 @@ Changed:
 - Mobile app Stripe new-checkout item pricing through the shared cart helper.
 - Mobile app Apple Pay intent item pricing through the shared cart helper.
 - Mobile app COD order creation item pricing through the shared cart helper.
+- Shared Beauty Box pricing guard in `lib/pricingEngine.ts`, `lib/cartPricing.ts`, desktop cart row rendering, checkout row rendering, and web COD recomputation.
 
 Deliberately unchanged:
 
@@ -68,6 +70,7 @@ Deliberately unchanged:
 - Route-level mobile Stripe guard proving a tampered client item price is ignored and the server product price + user discount determine stored order totals.
 - Route-level mobile Apple Pay guard proving a tampered client item price is ignored and the server product price + user discount determine stored order totals.
 - Route-level mobile COD guard proving a tampered client item price is ignored and the server product price + user discount determine stored order totals.
+- Beauty Box stale-bundle guard proving `SENSITIVE SKIN BEAUTY BOX` with `Size: 1 set` and submitted `bundleDiscount: 15` remains `AED 1442` server-side and is not discounted again.
 
 ## Verification
 
@@ -75,6 +78,8 @@ Deliberately unchanged:
 - `npx jest __tests__/api/mobile-stripe-checkout-pricing.test.ts __tests__/api/cod-confirmation-pricing.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
 - `npx jest __tests__/api/mobile-applepay-intent-pricing.test.ts __tests__/api/mobile-stripe-checkout-pricing.test.ts __tests__/api/cod-confirmation-pricing.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
 - `npx jest __tests__/api/mobile-orders-pricing.test.ts __tests__/api/mobile-applepay-intent-pricing.test.ts __tests__/api/mobile-stripe-checkout-pricing.test.ts __tests__/api/cod-confirmation-pricing.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
+- `npx jest __tests__/lib/cartPricing.test.ts __tests__/api/cod-confirmation-pricing.test.ts --runInBand --no-cache`
+- `npx jest __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts __tests__/lib/discountUtils.test.ts __tests__/api/cod-confirmation-pricing.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts __tests__/api/mobile-stripe-checkout-pricing.test.ts __tests__/api/mobile-applepay-intent-pricing.test.ts __tests__/api/mobile-orders-pricing.test.ts --runInBand`
 - `npm run smoke:pricing-contract`
 - `npm run build`
 
@@ -101,3 +106,5 @@ The mobile Stripe helper slice is isolated to the new-checkout pricing block in 
 The mobile Apple Pay helper slice is isolated to the pricing block in `/api/mobile/payments/applepay/intent` and `__tests__/api/mobile-applepay-intent-pricing.test.ts`. Reverting it restores the previous manual Apple Pay intent pricing calculation while leaving the Apple Pay status endpoint unchanged.
 
 The mobile COD backend helper slice is isolated to the pricing block in `POST /api/mobile/orders` and `__tests__/api/mobile-orders-pricing.test.ts`. Reverting it restores the previous manual mobile COD pricing calculation while leaving order reads and email delivery behavior unchanged.
+
+The desktop Beauty Box bug fix is isolated to Beauty Box guards in `lib/pricingEngine.ts`, `lib/cartPricing.ts`, desktop cart/checkout rendering, the web COD Beauty Box guard, and focused tests. Reverting it restores the old behavior where stale bundle metadata or `Size: 1 set` could double-discount a Beauty Box.

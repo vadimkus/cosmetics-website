@@ -622,8 +622,8 @@ export default function CheckoutClient() {
                     const quantity = item.quantity || 1
                     const linePricing = getCartLinePricing(item, user)
                     
-                    // Handle bundle items - only bundle discount on retail price (no VIP)
-                    if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+                    // Handle Build Your Set items - Beauty Boxes can carry stale bundle flags from older carts.
+                    if (linePricing.discountType === 'bundle') {
                       const discountText = `${linePricing.discountPercentage}%`
                       
                       return (
@@ -656,7 +656,7 @@ export default function CheckoutClient() {
                             <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
                             {hasDiscount && (
                               <span className="text-xs text-green-600 font-medium">
-                                ({linePricing.discountPercentage}% {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'OFF'}{isBeautyBox ? ` - ${locale === 'ar' ? 'خصم الطقم' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}` : ''})
+                                ({linePricing.discountPercentage}% {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'OFF'}{isBeautyBox ? ` - ${locale === 'ar' ? 'خصم الطقم' : locale === 'ru' ? 'Скидка бокса' : 'Box Discount'}` : ''})
                               </span>
                             )}
                           </div>
@@ -1005,8 +1005,8 @@ export default function CheckoutClient() {
                         const quantity = item.quantity || 1
                         const linePricing = getCartLinePricing(item, user)
                         
-                        // Handle bundle items - only bundle discount on retail price (no VIP)
-                        if (item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0) {
+                        // Handle Build Your Set items - Beauty Boxes can carry stale bundle flags from older carts.
+                        if (linePricing.discountType === 'bundle') {
                           const discountText = `${linePricing.discountPercentage}%`
                           
                           return (
@@ -1057,7 +1057,7 @@ export default function CheckoutClient() {
                                 )}
                                 {hasDiscount && (
                                   <span className="text-[10px] md:text-xs text-green-600 font-medium">
-                                    ({linePricing.discountPercentage}% {t('product.off')}{isBeautyBox ? ` - ${t('products.bundleDiscount')}` : ''})
+                                    ({linePricing.discountPercentage}% {t('product.off')}{isBeautyBox ? ` - ${locale === 'ar' ? 'خصم الطقم' : locale === 'ru' ? 'Скидка бокса' : 'Box Discount'}` : ''})
                                   </span>
                                 )}
                               </div>

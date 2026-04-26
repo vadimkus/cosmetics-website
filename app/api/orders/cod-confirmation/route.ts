@@ -6,7 +6,7 @@ import { requireCsrfToken } from '@/lib/csrf'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
-import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
+import { isBeautyBoxProduct, isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
@@ -164,6 +164,7 @@ export async function POST(request: NextRequest) {
       const selectedSize = String(item.size || '').trim()
       const selectedColor = String(item.color || '').trim()
       const isFreeGift = isSubmittedFreeGift(item)
+      const isBeautyBox = isBeautyBoxProduct(product)
 
       if (isFreeGift) {
         serverItems.push({
@@ -184,8 +185,8 @@ export async function POST(request: NextRequest) {
         quantity,
         ...(selectedColor ? { selectedColor } : {}),
         ...(selectedSize ? { selectedSize } : {}),
-        ...(item.bundleDiscount ? { fromBundle: true } : {}),
-        ...(item.bundleDiscount ? { bundleDiscountPercent: item.bundleDiscount } : {}),
+        ...(item.bundleDiscount && !isBeautyBox ? { fromBundle: true } : {}),
+        ...(item.bundleDiscount && !isBeautyBox ? { bundleDiscountPercent: item.bundleDiscount } : {}),
       }
       const pricing = getCartLinePricing(cartItem, user)
       subtotal += pricing.lineTotal

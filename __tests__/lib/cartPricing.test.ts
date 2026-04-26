@@ -226,6 +226,31 @@ describe('cart pricing helper', () => {
     })
   })
 
+  it('ignores stale bundle-builder metadata on Beauty Boxes', () => {
+    const product = createProduct({
+      productNumber: '62',
+      name: 'SENSITIVE SKIN BEAUTY BOX',
+      category: 'Beauty Boxes',
+      price: 1442,
+    })
+    const item = createItem(product, {
+      selectedSize: '1 set',
+      fromBundle: true,
+      bundleDiscountPercent: 15,
+    })
+
+    const pricing = getCartLinePricing(item, null)
+
+    expect(pricing.discountType).toBe('beauty_box')
+    expect(pricing.retailUnitPrice).toBe(1696)
+    expect(pricing.unitPrice).toBe(1442)
+    expect(pricing.lineTotal).toBe(1442)
+    expect(getCartLinePayloadPricing(item, null)).toEqual({
+      price: 1442,
+      total: 1442,
+    })
+  })
+
   it('summarizes checkout waterfall discounts from cart line pricing', () => {
     const userItem = createItem(createProduct({ id: 'user-discount', price: 200 }), { quantity: 2 })
     const bundleItem = createItem(createProduct({ id: 'bundle-item', price: 100 }), {

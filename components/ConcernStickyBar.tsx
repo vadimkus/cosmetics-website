@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import { ShoppingBag, ChevronUp, ChevronDown, X } from 'lucide-react'
 import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { getLocalizedPath } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n'
 
@@ -36,9 +37,9 @@ export default function ConcernStickyBar({ locale = 'en' }: ConcernStickyBarProp
     let retail = 0
     let disc = 0
     for (const item of items) {
-      const pricing = calculateDiscountedPrice(item.product, user)
-      retail += pricing.originalPrice * item.quantity
-      disc += pricing.discountedPrice * item.quantity
+      const pricing = getPricingDisplay(item.product, user)
+      retail += (pricing.originalPrice || pricing.displayPrice) * item.quantity
+      disc += pricing.displayPrice * item.quantity
     }
     return {
       retailTotal: Math.round(retail),
@@ -87,7 +88,7 @@ export default function ConcernStickyBar({ locale = 'en' }: ConcernStickyBarProp
             </div>
             <div className="space-y-2">
               {items.map((item, idx) => {
-                const pricing = canSee ? calculateDiscountedPrice(item.product, user) : null
+                const pricing = canSee ? getPricingDisplay(item.product, user) : null
                 return (
                   <div key={`${item.product.id}-${idx}`} className="flex items-center justify-between text-sm">
                     <span className="text-gray-700 truncate max-w-[60%]">
@@ -98,15 +99,17 @@ export default function ConcernStickyBar({ locale = 'en' }: ConcernStickyBarProp
                         {pricing.hasDiscount ? (
                           <>
                             <span className="font-semibold text-primary-600">
-                              {t.aed} {(pricing.discountedPrice * item.quantity).toLocaleString(undefined, { maximumFractionDigits: 0 })}
+                              {t.aed} {(pricing.displayPrice * item.quantity).toLocaleString(undefined, { maximumFractionDigits: 0 })}
                             </span>
-                            <span className="text-gray-400 line-through text-xs">
-                              {(pricing.originalPrice * item.quantity).toLocaleString()}
-                            </span>
+                            {pricing.originalPrice ? (
+                              <span className="text-gray-400 line-through text-xs">
+                                {(pricing.originalPrice * item.quantity).toLocaleString()}
+                              </span>
+                            ) : null}
                           </>
                         ) : (
                           <span className="font-medium text-gray-900">
-                            {t.aed} {(pricing.originalPrice * item.quantity).toLocaleString()}
+                            {t.aed} {(pricing.displayPrice * item.quantity).toLocaleString()}
                           </span>
                         )}
                       </span>

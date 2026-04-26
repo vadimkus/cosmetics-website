@@ -2,7 +2,8 @@
 
 import { memo } from 'react'
 import { MessageCircle, Lock } from 'lucide-react'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import type { ProductPriceProps } from './types'
 
 /**
@@ -44,7 +45,7 @@ const ProductPrice = memo(function ProductPrice({
   
   // User can see prices
   if (canUserSeePrices(user)) {
-    const pricing = calculateDiscountedPrice(product, user)
+    const pricing = getPricingDisplay(product, user)
     
     return (
       <div className="mb-3" id={priceId}>
@@ -98,10 +99,11 @@ const ProductPrice = memo(function ProductPrice({
 
 interface PricingDisplayProps {
   pricing: {
-    originalPrice: number
-    discountedPrice: number
+    originalPrice: number | null
+    displayPrice: number
     discountPercentage: number
-    isBeautyBox?: boolean
+    discountLabel?: string | null
+    hasDiscount: boolean
   }
   t: (key: string) => string
 }
@@ -114,11 +116,13 @@ function PriceWithDiscount({ pricing, t }: PricingDisplayProps) {
     <div>
       <div className="flex items-center gap-1 md:gap-2 flex-wrap">
         <span className="text-xs md:text-base font-bold text-primary-600">
-          {pricing.discountedPrice.toFixed(2)} AED
+          {pricing.displayPrice.toFixed(2)} AED
         </span>
-        <span className="text-[10px] md:text-sm text-gray-500 line-through">
-          {pricing.originalPrice.toFixed(2)} AED
-        </span>
+        {pricing.originalPrice ? (
+          <span className="text-[10px] md:text-sm text-gray-500 line-through">
+            {pricing.originalPrice.toFixed(2)} AED
+          </span>
+        ) : null}
       </div>
       <div className="flex items-center gap-1 mt-1">
         <span className="text-[10px] md:text-xs text-green-600 font-medium">
@@ -136,14 +140,13 @@ function PriceWithDiscount({ pricing, t }: PricingDisplayProps) {
  * Beauty Box special pricing (always shows discount even without user discount)
  */
 function BeautyBoxPrice({ pricing, t }: PricingDisplayProps) {
-  // Beauty boxes have built-in 15% discount
-  const originalBeforeDiscount = pricing.originalPrice / 0.85
+  const originalBeforeDiscount = pricing.originalPrice || pricing.displayPrice / 0.85
   
   return (
     <div>
       <div className="flex items-center gap-1 md:gap-2 flex-wrap">
         <span className="text-xs md:text-base font-bold text-primary-600">
-          {pricing.originalPrice.toFixed(2)} AED
+          {pricing.displayPrice.toFixed(2)} AED
         </span>
         <span className="text-[10px] md:text-sm text-gray-500 line-through">
           {originalBeforeDiscount.toFixed(2)} AED
@@ -152,7 +155,7 @@ function BeautyBoxPrice({ pricing, t }: PricingDisplayProps) {
       <div className="flex items-center gap-1 mt-1">
         <span className="text-[10px] md:text-xs text-green-600 font-medium">
           {pricing.discountPercentage}% {t('product.off')}
-          {pricing.isBeautyBox && ` (${t('products.bundleDiscount')})`}
+          {pricing.discountLabel && ` (${pricing.discountLabel})`}
         </span>
         <span className="text-[10px] md:text-xs text-gray-500">
           {t('product.vatIncluded')}
@@ -169,7 +172,7 @@ function RegularPrice({ pricing, t }: PricingDisplayProps) {
   return (
     <div>
       <span className="text-xs md:text-base font-bold text-primary-600">
-        {pricing.originalPrice.toFixed(2)} AED
+        {pricing.displayPrice.toFixed(2)} AED
       </span>
       <div className="flex items-center gap-1 mt-1">
         <span className="text-[10px] md:text-xs text-gray-500">

@@ -4,7 +4,8 @@ import { Product } from '@/types'
 import { User } from '@/types/user'
 import { Lock, MessageCircle } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -37,7 +38,7 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
         <>
           {(() => {
             const productWithPrice = { ...product, price: basePrice }
-            const pricing = calculateDiscountedPrice(productWithPrice, user)
+            const pricing = getPricingDisplay(productWithPrice, user)
             
             return (
               <div className="w-full text-center">
@@ -45,16 +46,18 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
                   <div className="w-full">
                     <div className={`w-full flex items-center justify-center gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="text-xl md:text-3xl font-bold text-primary-600">
-                        {pricing.discountedPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
+                        {pricing.displayPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                       </span>
-                      <span className="text-sm md:text-lg text-gray-400 line-through">
-                        {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
-                      </span>
+                      {pricing.originalPrice ? (
+                        <span className="text-sm md:text-lg text-gray-400 line-through">
+                          {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
+                        </span>
+                      ) : null}
                     </div>
                     <div className={`w-full flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="text-xs md:text-sm text-green-600 font-medium">
                         {pricing.discountPercentage}% {t('product.off')}
-                        {pricing.isBeautyBox && ` (${t('products.bundleDiscount')})`}
+                        {pricing.discountLabel && ` (${pricing.discountLabel})`}
                       </span>
                       <span className="text-xs md:text-sm text-gray-500">({t('product.vatIncluded')})</span>
                     </div>
@@ -62,7 +65,7 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
                 ) : (
                   <div className="w-full text-center">
                     <div className="text-xl md:text-3xl font-bold text-primary-600">
-                      {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
+                      {pricing.displayPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                     </div>
                     <div className="text-xs md:text-sm font-normal text-gray-500">({t('product.vatIncluded')})</div>
                   </div>

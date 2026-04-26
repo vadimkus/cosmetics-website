@@ -8,7 +8,8 @@ import { ShoppingCart, Sparkles } from 'lucide-react'
 import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useRouter } from 'next/navigation'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
@@ -97,7 +98,7 @@ export default function ProductRecommendation({
     return null
   }
 
-  const pricing = calculateDiscountedPrice(recommendedProduct, user)
+  const pricing = getPricingDisplay(recommendedProduct, user)
   const canSeePrice = canUserSeePrices(user)
 
   // Generate dynamic description based on product combination
@@ -515,18 +516,20 @@ export default function ProductRecommendation({
                 {pricing.hasDiscount ? (
                   <>
                     <span className="text-xs lg:text-base font-bold text-red-600">
-                      {pricing.discountedPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
+                      {pricing.displayPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                     </span>
-                    <span className="text-[10px] lg:text-xs text-gray-500 line-through">
-                      {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
-                    </span>
+                    {pricing.originalPrice ? (
+                      <span className="text-[10px] lg:text-xs text-gray-500 line-through">
+                        {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
+                      </span>
+                    ) : null}
                     <span className="text-[10px] lg:text-xs px-1 lg:px-1.5 py-0.5 bg-green-100 text-green-700 rounded">
                       {pricing.discountPercentage}% {t('product.off')}
                     </span>
                   </>
                 ) : (
                   <span className="text-xs lg:text-base font-bold text-red-600">
-                    {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
+                    {pricing.displayPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                   </span>
                 )}
               </div>

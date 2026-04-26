@@ -1,7 +1,8 @@
 'use client'
 
 import { useAuth } from '@/components/auth/AuthProvider'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import type { Product } from '@/types'
 
 interface ConcernEssentialPriceProps {
@@ -29,24 +30,26 @@ export default function ConcernEssentialPrice({
     )
   }
 
-  const pricing = calculateDiscountedPrice(product, user)
+  const pricing = getPricingDisplay(product, user)
 
   if (pricing.hasDiscount) {
     return (
       <span className="text-xs font-medium mt-1 inline-flex items-center gap-1.5 flex-wrap">
         <span className="text-primary-600">
-          {currencyLabel} {pricing.discountedPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} {arrow}
+          {currencyLabel} {pricing.displayPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} {arrow}
         </span>
-        <span className="text-gray-400 line-through text-[10px]">
-          {pricing.originalPrice.toLocaleString()}
-        </span>
+        {pricing.originalPrice ? (
+          <span className="text-gray-400 line-through text-[10px]">
+            {pricing.originalPrice.toLocaleString()}
+          </span>
+        ) : null}
       </span>
     )
   }
 
   return (
     <span className="text-xs text-primary-600 font-medium mt-1 inline-block">
-      {currencyLabel} {pricing.originalPrice.toLocaleString()} {arrow}
+      {currencyLabel} {pricing.displayPrice.toLocaleString()} {arrow}
     </span>
   )
 }

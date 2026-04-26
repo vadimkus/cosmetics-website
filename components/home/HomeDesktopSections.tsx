@@ -24,7 +24,8 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { CATEGORY_PAGES, CONCERN_PAGES } from '@/lib/concernsData'
 import type { Product } from '@/types'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import {
   IconClinical,
   IconOfficialDistributor,
@@ -586,17 +587,19 @@ export default function HomeDesktopSections({
                           (() => {
                             // Applies user-specific discount (Black Friday, tier-based,
                             // Beauty Box bundle) exactly like ProductCard/ProductPrice.
-                            const pricing = calculateDiscountedPrice(product, user)
+                            const pricing = getPricingDisplay(product, user)
                             if (pricing.hasDiscount) {
                               return (
                                 <div>
                                   <div className={`flex items-center gap-2 flex-wrap ${isRtl ? 'flex-row-reverse' : ''}`}>
                                     <span className="text-sm font-bold text-primary-600">
-                                      AED {pricing.discountedPrice.toFixed(2)}
+                                      AED {pricing.displayPrice.toFixed(2)}
                                     </span>
-                                    <span className="text-xs text-gray-500 line-through">
-                                      AED {pricing.originalPrice.toFixed(2)}
-                                    </span>
+                                    {pricing.originalPrice ? (
+                                      <span className="text-xs text-gray-500 line-through">
+                                        AED {pricing.originalPrice.toFixed(2)}
+                                      </span>
+                                    ) : null}
                                   </div>
                                   <span className="mt-0.5 inline-block text-[10px] font-semibold text-green-600">
                                     {pricing.discountPercentage}%{' '}
@@ -607,7 +610,7 @@ export default function HomeDesktopSections({
                             }
                             return (
                               <p className="text-sm font-semibold text-gray-900">
-                                AED {pricing.originalPrice.toFixed(2)}
+                                AED {pricing.displayPrice.toFixed(2)}
                               </p>
                             )
                           })()

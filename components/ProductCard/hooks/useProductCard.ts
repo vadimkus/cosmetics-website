@@ -14,7 +14,8 @@ import { usePrefetchProduct } from '@/hooks/usePrefetch'
 import { getLocalizedPath } from '@/lib/i18n'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { translateCategory } from '@/utils/categoryTranslations'
 import type { UseProductCardReturn } from '../types'
 
@@ -104,7 +105,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
     translateCategory(product.category, messages),
     product.inStock ? t('product.inStock') : t('product.soldOut'),
     canUserSeePrices(user) && !product.isPriceOnRequest 
-      ? `${calculateDiscountedPrice(product, user).discountedPrice.toFixed(2)} AED`
+      ? `${getPricingDisplay(product, user).displayPrice.toFixed(2)} AED`
       : '',
   ].filter(Boolean).join(', ')
   

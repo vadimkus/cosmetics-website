@@ -1,7 +1,8 @@
 'use client'
 
 import { useAuth } from '@/components/auth/AuthProvider'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import type { Product } from '@/types'
 
 interface ConcernProductPriceProps {
@@ -41,18 +42,20 @@ export default function ConcernProductPrice({
 
   // Apply user discount if logged in
   if (canUserSeePrices(user)) {
-    const pricing = calculateDiscountedPrice(product, user)
+    const pricing = getPricingDisplay(product, user)
 
     if (pricing.hasDiscount) {
       return (
         <div>
           <div className="flex items-center gap-1.5 flex-wrap">
             <span className="text-sm sm:text-base font-bold text-primary-600">
-              {aedLabel} {pricing.discountedPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
+              {aedLabel} {pricing.displayPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
             </span>
-            <span className="text-xs text-gray-400 line-through">
-              {aedLabel} {pricing.originalPrice.toLocaleString()}
-            </span>
+            {pricing.originalPrice ? (
+              <span className="text-xs text-gray-400 line-through">
+                {aedLabel} {pricing.originalPrice.toLocaleString()}
+              </span>
+            ) : null}
           </div>
           <div className="flex items-center justify-between mt-0.5">
             <span className="text-[10px] text-green-600 font-medium">
@@ -70,7 +73,7 @@ export default function ConcernProductPrice({
     return (
       <div className="flex items-center justify-between">
         <span className="text-sm sm:text-base font-bold text-gray-900">
-          {aedLabel} {pricing.originalPrice.toLocaleString()}
+          {aedLabel} {pricing.displayPrice.toLocaleString()}
         </span>
         {product.inStock && (
           <span className="text-xs text-green-600">{inStockLabel}</span>

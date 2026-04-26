@@ -2,6 +2,7 @@ import { Product } from '@/types'
 import { ApiUser } from '@/types/user'
 import { generateEnhancedProductData } from '@/lib/pricingEngine'
 import { buildPricingContract } from '@/lib/pricingContract'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
 
 jest.mock('@/lib/logger', () => ({
@@ -215,5 +216,32 @@ describe('pricing contract parity', () => {
       size: '100ml',
       price: 250,
     })
+  })
+
+  it('exposes a compact display shape for web UI surfaces', () => {
+    const product = createProduct({ price: 200 })
+    const user = createUser({
+      discountType: 'percentage',
+      discountPercentage: 10,
+    })
+
+    const display = getPricingDisplay(product, user)
+
+    expect(display.displayPrice).toBe(180)
+    expect(display.originalPrice).toBe(200)
+    expect(display.hasDiscount).toBe(true)
+    expect(display.discountPercentage).toBe(10)
+    expect(display.canSeePrice).toBe(true)
+  })
+
+  it('keeps web display visibility false for guests while preserving retail value', () => {
+    const product = createProduct({ price: 125 })
+
+    const display = getPricingDisplay(product, null)
+
+    expect(display.displayPrice).toBe(125)
+    expect(display.originalPrice).toBeNull()
+    expect(display.hasDiscount).toBe(false)
+    expect(display.canSeePrice).toBe(false)
   })
 })

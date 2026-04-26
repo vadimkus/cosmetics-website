@@ -13,6 +13,7 @@ import { useAnimationStore } from '@/lib/animationStore'
 import { useBundleStore, ROUTINE_STEPS, type RoutineStep, type BundlePricing } from '@/lib/bundleStore'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { Product } from '@/types'
 import BottomSheet from '@/components/ui/BottomSheet'
 
@@ -85,6 +86,11 @@ function getLocalizedDescription(product: Product, locale: string): string | und
   if (locale === 'ru' && product.descriptionRu) return product.descriptionRu
   if (locale === 'ar' && product.descriptionAr) return product.descriptionAr
   return product.description
+}
+
+function getBundleRetailPrice(product: Product): number {
+  const pricing = getPricingDisplay(product, null)
+  return pricing.basePrice || product.price || 0
 }
 
 /**
@@ -194,7 +200,7 @@ function BundleProductCard({
               {/* Bundle builder: show retail price only — no VIP discount */}
               {(
                 <span className="text-base font-semibold text-gray-900">
-                  {product.price.toFixed(2)} {t('common.aed')}
+                  {getBundleRetailPrice(product).toFixed(2)} {t('common.aed')}
                 </span>
               )}
               <span className="text-[10px] text-gray-400 mt-0.5">
@@ -262,9 +268,10 @@ function BundleSummary({
       <div className="flex-1 overflow-y-auto space-y-3 pb-4">
         {items.map((item, index) => {
           // Calculate bundle discounted price for display
+          const retailPrice = getBundleRetailPrice(item.product)
           const bundleDiscountedPrice = pricing.discountPercent > 0 
-            ? item.product.price * (1 - pricing.discountPercent / 100)
-            : item.product.price
+            ? retailPrice * (1 - pricing.discountPercent / 100)
+            : retailPrice
           return (
             <motion.div
               key={item.product.id}
@@ -313,7 +320,7 @@ function BundleSummary({
                     </span>
                     {pricing.discountPercent > 0 && (
                       <p className="text-[10px] text-gray-400 line-through">
-                        {t('common.aed')} {item.product.price.toFixed(2)}
+                        {t('common.aed')} {retailPrice.toFixed(2)}
                       </p>
                     )}
                   </div>
@@ -492,7 +499,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     
     // Calculate subtotal using retail prices only (no VIP discount in bundle builder)
     const subtotal = items.reduce((sum, item) => {
-      return sum + (item.product.price || 0)
+      return sum + getBundleRetailPrice(item.product)
     }, 0)
     
     let discountPercent = 0
@@ -895,7 +902,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 </div>
                 {/* Show total savings hint */}
                 {showPrices && (() => {
-                  const originalRetailTotal = items.reduce((sum, item) => sum + item.product.price, 0)
+                  const originalRetailTotal = items.reduce((sum, item) => sum + getBundleRetailPrice(item.product), 0)
                   const totalSavings = originalRetailTotal - pricing.total
                   if (totalSavings > 0.01) {
                     return (

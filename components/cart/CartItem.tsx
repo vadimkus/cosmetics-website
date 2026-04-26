@@ -9,7 +9,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useMotionValue, useTransform, PanInfo, AnimatePresence } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getProductColorOptions, getPriceForSize } from '@/utils/productPricing'
 import { getProductSizes } from '@/data/productConfig'
@@ -324,9 +325,9 @@ function CartItemComponent({ item }: CartItemProps) {
                 }
                 
                 // Standard pricing for non-bundle items
-                const pricing = calculateDiscountedPrice(product, user)
-                const totalPrice = pricing.discountedPrice * quantity
-                const originalTotalPrice = pricing.originalPrice * quantity
+                const pricing = getPricingDisplay(product, user)
+                const totalPrice = pricing.displayPrice * quantity
+                const originalTotalPrice = (pricing.originalPrice || pricing.displayPrice) * quantity
                 
                 return (
                   <div>

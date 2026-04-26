@@ -7,7 +7,8 @@ import { Product } from '@/types'
 import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
@@ -168,7 +169,7 @@ export default function ProductInfo({
             {(() => {
               const basePrice = getPriceForSize((product.id === '1' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') ? selectedSize : 'default')
               const productWithPrice = { ...product, price: basePrice }
-              const pricing = calculateDiscountedPrice(productWithPrice, user)
+              const pricing = getPricingDisplay(productWithPrice, user, { selectedSize })
               
               return (
                 <div>
@@ -176,11 +177,13 @@ export default function ProductInfo({
                     <div>
                       <div className="flex items-center gap-3">
                         <span className="text-2xl md:text-3xl font-bold text-primary-600">
-                          {pricing.discountedPrice.toFixed(2)} AED
+                          {pricing.displayPrice.toFixed(2)} AED
                         </span>
-                        <span className="text-lg text-gray-500 line-through">
-                          {pricing.originalPrice.toFixed(2)} AED
-                        </span>
+                        {pricing.originalPrice ? (
+                          <span className="text-lg text-gray-500 line-through">
+                            {pricing.originalPrice.toFixed(2)} AED
+                          </span>
+                        ) : null}
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-green-600 font-medium">
@@ -192,7 +195,7 @@ export default function ProductInfo({
                   ) : (
                     <div>
                       <div className="text-2xl md:text-3xl font-bold text-primary-600">
-                        {pricing.originalPrice.toFixed(2)} AED
+                        {pricing.displayPrice.toFixed(2)} AED
                       </div>
                       <div className="text-sm font-normal text-gray-600">({t('product.vatIncluded')})</div>
                     </div>

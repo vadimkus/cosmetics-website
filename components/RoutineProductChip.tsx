@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation'
 import { Check } from 'lucide-react'
 import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { calculateDiscountedPrice, canUserSeePrices } from '@/lib/discountUtils'
+import { canUserSeePrices } from '@/lib/discountUtils'
+import { getPricingDisplay } from '@/lib/pricingDisplay'
 import type { Product } from '@/types'
 
 interface RoutineProductChipProps {
@@ -35,7 +36,7 @@ export default function RoutineProductChip({
   const pricing = useMemo(() => {
     if (!product || product.isPriceOnRequest) return null
     if (!canUserSeePrices(user)) return null
-    return calculateDiscountedPrice(product, user)
+    return getPricingDisplay(product, user)
   }, [product, user])
 
   const handleClick = useCallback(
@@ -83,11 +84,13 @@ export default function RoutineProductChip({
       return (
         <>
           <span className={showCheck ? 'text-green-600 font-semibold' : 'text-primary-600 font-semibold'}>
-            AED {pricing.discountedPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+            AED {pricing.displayPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
           </span>
-          <span className="text-gray-400 line-through text-[10px]">
-            {pricing.originalPrice.toLocaleString()}
-          </span>
+          {pricing.originalPrice ? (
+            <span className="text-gray-400 line-through text-[10px]">
+              {pricing.originalPrice.toLocaleString()}
+            </span>
+          ) : null}
         </>
       )
     }
@@ -95,7 +98,7 @@ export default function RoutineProductChip({
     if (pricing) {
       return (
         <span className={showCheck ? 'text-green-600' : 'text-gray-500'}>
-          AED {pricing.originalPrice.toLocaleString()}
+          AED {pricing.displayPrice.toLocaleString()}
         </span>
       )
     }

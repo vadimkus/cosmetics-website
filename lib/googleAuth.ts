@@ -8,15 +8,23 @@ import { errorLog, debugLog } from '@/lib/logger'
 
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+const KNOWN_GOOGLE_CLIENT_IDS = [
+  '998688135686-qmhvfcksth50r9ukk0pefqu1r7cqil73.apps.googleusercontent.com',
+  '998688135686-hguci501u33atkitfurgcitb7qiu0s86.apps.googleusercontent.com',
+  '590508205468-lom9rvmsm4058nkm4ivsk1g0k5j3sm8j.apps.googleusercontent.com',
+  '590508205468-7ek30vjj6o5k2jfpqpg3t6cr4bnu7rt5.apps.googleusercontent.com',
+  '590508205468-vc262gtfqo5a94iifen6gqvlsr5h3to5.apps.googleusercontent.com',
+]
 // Allow multiple audiences for ID token verification (e.g., web + iOS + Android client IDs).
 // Comma-separated list is supported.
 const GOOGLE_ALLOWED_AUDIENCES_RAW =
-  process.env.GOOGLE_ALLOWED_AUDIENCES ||
   [
+    process.env.GOOGLE_ALLOWED_AUDIENCES,
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_WEB_CLIENT_ID,
     process.env.GOOGLE_IOS_CLIENT_ID,
     process.env.GOOGLE_ANDROID_CLIENT_ID,
+    ...KNOWN_GOOGLE_CLIENT_IDS,
   ]
     .filter(Boolean)
     .join(',')

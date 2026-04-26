@@ -384,7 +384,7 @@ export default function CartClient() {
   const backLabel = fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')
 
   return (
-    <div className={isAppLikeMode ? 'min-h-[100dvh] bg-white pb-8' : ''}>
+    <div className={isAppLikeMode ? 'min-h-[100dvh] bg-white pb-32' : ''}>
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
         <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -506,7 +506,7 @@ export default function CartClient() {
         <div className={`flex flex-col lg:flex-row gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`} style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {/* Cart Items */}
           <div className="lg:w-2/3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden cart-container momentum-scroll" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-visible md:overflow-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               {isAppLikeMode ? (
                 // Compact inline counter on mobile/PWA — page title is already in the sticky header
                 <div className={`px-3 py-2.5 border-b border-gray-100 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -752,7 +752,7 @@ export default function CartClient() {
 
           {/* Order Summary */}
           <div className="lg:w-1/3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
+            <div className="bg-white rounded-lg shadow-sm border border-gray-200 lg:sticky lg:top-4 overflow-visible md:overflow-hidden">
               <div className={`p-4 md:p-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
                 <h2 className={`text-lg md:text-xl font-bold text-gray-900 mb-4 md:mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.orderSummary')}</h2>
                 

@@ -108,6 +108,8 @@ describe('pricing contract parity', () => {
     const contract = buildPricingContract(product, null)
     expect(contract.discountType).toBe('beauty_box')
     expect(contract.discountPercentage).toBe(15)
+    expect(contract.originalPrice).toBe(1318)
+    expect(contract.discountAmount).toBe(198)
     expect(contract.exclusions.userDiscount).toBe(true)
   })
 

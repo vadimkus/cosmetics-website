@@ -247,7 +247,9 @@ export function calculateProductPricing(
   const result: CalculatedPrice = {
     basePrice,
     displayPrice: Math.round(finalDiscountedPrice * 100) / 100,
-    originalPrice: discountedPrice.hasDiscount ? basePrice : undefined,
+    originalPrice: discountedPrice.hasDiscount
+      ? ((selectedSize || selectedColor) ? basePrice : discountedPrice.originalPrice)
+      : undefined,
     vatAmount: Math.round(vatAmount * 100) / 100,
     priceIncludingVat: Math.round(priceIncludingVat * 100) / 100,
     discountAmount: discountedPrice.discountAmount,

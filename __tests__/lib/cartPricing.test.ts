@@ -100,8 +100,8 @@ describe('cart pricing helper', () => {
 
     expect(pricing.discountType).toBe('beauty_box')
     expect(pricing.unitPrice).toBe(1120)
-    expect(pricing.retailUnitPrice).toBe(1120)
-    expect(pricing.discountAmount).toBe(0)
+    expect(pricing.retailUnitPrice).toBe(1318)
+    expect(pricing.discountAmount).toBe(198)
   })
 
   it('uses selected variant pricing when cart carries a selected size', () => {

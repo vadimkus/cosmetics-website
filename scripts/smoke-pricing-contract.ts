@@ -93,6 +93,10 @@ for (const scenario of scenarios) {
   assertEqual(scenario.name, 'unitPrice', pricing.unitPrice, enhanced.displayPrice)
   assertEqual(scenario.name, 'originalPrice', pricing.originalPrice, enhanced.originalPrice ?? null)
 
+  if (pricing.discountType === 'beauty_box' && (!pricing.originalPrice || pricing.originalPrice <= pricing.displayPrice)) {
+    throw new Error(`${scenario.name}: expected Beauty Box original price above display price`)
+  }
+
   console.log(
     `[pricing-contract] ${scenario.name}: AED ${pricing.displayPrice} (${pricing.discountType}, canSeePrice=${pricing.canSeePrice})`
   )

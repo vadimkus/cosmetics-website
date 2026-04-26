@@ -10,6 +10,7 @@ This is the next slow step after the pricing contract display cleanup. The goal 
 - `lib/cartStore.ts` now routes `getTotalPrice()` through `getCartTotalPrice()`.
 - Added focused Jest coverage in `__tests__/lib/cartPricing.test.ts`.
 - Follow-up slow slice: added `getCartRetailTotal()` and routed the `/cart` Black Friday original subtotal / savings display through the helper.
+- Regression fix: Beauty Box `originalPrice` now uses the full regular box price from the legacy discount rules, so cart rows and product cards again show full price + strikethrough + 15% discount instead of only the stored box price.
 
 ## Scope Boundary
 
@@ -36,6 +37,7 @@ Deliberately unchanged:
 - Selected variant size pricing.
 - Black Friday priority over user discounts.
 - Retail total for cart strikethrough/savings display.
+- Beauty Box full-price regression guard (`originalPrice > displayPrice`).
 
 ## Verification
 

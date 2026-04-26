@@ -19,6 +19,7 @@ This is the next slow step after the pricing contract display cleanup. The goal 
 - Follow-up COD backend recomputation slice: `/api/orders/cod-confirmation` now fetches current server products and recomputes item unit prices, subtotal, shipping, VAT, total, discount amounts, and stored/email item prices server-side. Client-submitted item prices/totals are ignored, except explicit checkout-generated free-gift markers.
 - Follow-up mobile Stripe helper slice: `/api/mobile/checkout/stripe` now routes new-checkout item unit pricing and discount amounts through `getCartLinePricing()`, while preserving its authenticated mobile payload, order persistence, Stripe Checkout Session flow, and resume-payment path.
 - Follow-up mobile Apple Pay helper slice: `/api/mobile/payments/applepay/intent` now routes item unit pricing and discount amounts through `getCartLinePricing()`, while preserving its authenticated mobile payload, order persistence, PaymentIntent flow, and status endpoint.
+- Follow-up mobile COD backend helper slice: `POST /api/mobile/orders` now routes item unit pricing and discount amounts through `getCartLinePricing()`, while preserving order persistence, order response shape, and email/admin notification delivery.
 
 ## Scope Boundary
 
@@ -34,6 +35,7 @@ Changed:
 - Website COD backend item pricing, subtotal, shipping, VAT, and total recomputation.
 - Mobile app Stripe new-checkout item pricing through the shared cart helper.
 - Mobile app Apple Pay intent item pricing through the shared cart helper.
+- Mobile app COD order creation item pricing through the shared cart helper.
 
 Deliberately unchanged:
 
@@ -44,6 +46,7 @@ Deliberately unchanged:
 - COD email delivery mechanics and admin notification sender.
 - Mobile Stripe resume-payment path and native app client cart math.
 - Mobile Apple Pay status endpoint and native app client cart math.
+- Native app checkout payload construction.
 
 ## Covered Scenarios
 
@@ -64,12 +67,14 @@ Deliberately unchanged:
 - Route-level COD backend guard proving a tampered client item price/total is ignored and the server product price + user discount determine stored order totals.
 - Route-level mobile Stripe guard proving a tampered client item price is ignored and the server product price + user discount determine stored order totals.
 - Route-level mobile Apple Pay guard proving a tampered client item price is ignored and the server product price + user discount determine stored order totals.
+- Route-level mobile COD guard proving a tampered client item price is ignored and the server product price + user discount determine stored order totals.
 
 ## Verification
 
 - `npx jest __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
 - `npx jest __tests__/api/mobile-stripe-checkout-pricing.test.ts __tests__/api/cod-confirmation-pricing.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
 - `npx jest __tests__/api/mobile-applepay-intent-pricing.test.ts __tests__/api/mobile-stripe-checkout-pricing.test.ts __tests__/api/cod-confirmation-pricing.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
+- `npx jest __tests__/api/mobile-orders-pricing.test.ts __tests__/api/mobile-applepay-intent-pricing.test.ts __tests__/api/mobile-stripe-checkout-pricing.test.ts __tests__/api/cod-confirmation-pricing.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts __tests__/lib/cartPricing.test.ts __tests__/lib/pricingContract.test.ts --runInBand`
 - `npm run smoke:pricing-contract`
 - `npm run build`
 
@@ -94,3 +99,5 @@ The COD backend recomputation slice is isolated to `/api/orders/cod-confirmation
 The mobile Stripe helper slice is isolated to the new-checkout pricing block in `/api/mobile/checkout/stripe` and `__tests__/api/mobile-stripe-checkout-pricing.test.ts`. Reverting it restores the previous manual mobile Stripe pricing calculation while leaving web checkout and mobile resume-payment behavior unchanged.
 
 The mobile Apple Pay helper slice is isolated to the pricing block in `/api/mobile/payments/applepay/intent` and `__tests__/api/mobile-applepay-intent-pricing.test.ts`. Reverting it restores the previous manual Apple Pay intent pricing calculation while leaving the Apple Pay status endpoint unchanged.
+
+The mobile COD backend helper slice is isolated to the pricing block in `POST /api/mobile/orders` and `__tests__/api/mobile-orders-pricing.test.ts`. Reverting it restores the previous manual mobile COD pricing calculation while leaving order reads and email delivery behavior unchanged.

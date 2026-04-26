@@ -7,8 +7,10 @@ import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib
 import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
-import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 import { trackUserActivity } from '@/lib/activityTracker'
+import { getProductById } from '@/lib/productsDb'
+import { getCartLinePricing } from '@/lib/cartPricing'
+import { CartItem } from '@/types'
 
 const extractPaymentFlow = (order: { paymentMetadata?: string | Record<string, unknown> | null; payment_metadata?: string | Record<string, unknown> | null }): string | null => {
   const raw = order?.paymentMetadata ?? order?.payment_metadata ?? null
@@ -339,7 +341,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate each item and calculate totals (server-authoritative; MUST match mobile UI)
+    // Validate each item and calculate totals through the shared cart pricing helper.
     let subtotal = 0
     let discountAmount = 0
     let bundleDiscountAmount = 0
@@ -369,10 +371,7 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      // Verify product exists
-      const product = await prisma.product.findUnique({
-        where: { id: productId }
-      })
+      const product = await getProductById(productId)
 
       if (!product) {
         return NextResponse.json(
@@ -384,66 +383,55 @@ export async function POST(request: NextRequest) {
         )
       }
 
-      const wantedSize = item.size ? String(item.size).trim() : null
-      const wantedColor = item.color ? String(item.color).trim() : null
+      const selectedSize = String(item.size || item.selectedSize || '').trim()
+      const selectedColor = String(item.color || item.selectedColor || '').trim()
       const isPromo =
         item?.isPromotionItem === true ||
-        String(item?.selectedSize || '').trim() === '__PROMO__' ||
-        String(item?.size || '').trim() === '__PROMO__' ||
+        selectedSize === '__PROMO__' ||
         // Client may send promo items with price 0 but without the flag; treat as promo.
         Number(item?.price) === 0
 
-      const variant = (!isPromo && (wantedSize || wantedColor))
-        ? await prisma.productVariant.findFirst({
-            where: {
-              productId: product.id,
-              ...(wantedSize ? { size: wantedSize } : {}),
-              ...(wantedColor ? { color: wantedColor } : {}),
-              available: true,
-            },
-          })
-        : null
-
-      const baseUnit = isPromo ? 0 : Number(variant?.price ?? product.price)
-      const pct = Number(user?.discountPercentage)
-      const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
-      const excluded = isUserDiscountExcludedProduct(product)
-
-      // "Build Your Set" bundle items: bundle discount ONLY — no VIP/user discount stacking.
-      const isBundleItem = item?.fromBundle === true
-      const itemBundlePct = Number(item?.bundleDiscountPercent) || 0
-      const hasBundleDiscountForItem = isBundleItem && itemBundlePct > 0 && itemBundlePct < 100
-
-      let unitPrice: number
       if (isPromo) {
-        unitPrice = 0
-      } else if (hasBundleDiscountForItem) {
-        // Bundle items: apply ONLY bundle discount on retail price (no VIP)
-        const afterVip = baseUnit  // no VIP applied
-        // Then apply bundle discount on the VIP-discounted price
-        unitPrice = Math.round(afterVip * (1 - itemBundlePct / 100) * 100) / 100
-        bundleDiscountAmount += (afterVip - unitPrice) * quantity
-        bundleDiscountPct = itemBundlePct // capture the tier %
-      } else if (!excluded && hasUserDiscount) {
-        // Regular items get user VIP discount
-        unitPrice = baseUnit * (1 - pct / 100)
-        discountAmount += (baseUnit - unitPrice) * quantity
-      } else {
-        unitPrice = baseUnit
+        validatedItems.push({
+          productId: product.id,
+          productName: String(item.productName || item.name || `${product.name} (FREE)`),
+          price: 0,
+          quantity,
+          image: item.image || product.image,
+          color: selectedColor || null,
+          size: '__PROMO__',
+          bundleDiscount: null,
+        })
+        continue
       }
 
-      const itemTotal = unitPrice * quantity
-      subtotal += itemTotal
+      const cartItem: CartItem = {
+        product,
+        quantity,
+        ...(selectedSize ? { selectedSize } : {}),
+        ...(selectedColor ? { selectedColor } : {}),
+        ...(item.fromBundle ? { fromBundle: true } : {}),
+        ...(item.bundleDiscountPercent ? { bundleDiscountPercent: item.bundleDiscountPercent } : {}),
+      }
+      const pricing = getCartLinePricing(cartItem, user)
+      subtotal += pricing.lineTotal
+
+      if (pricing.discountType === 'bundle') {
+        bundleDiscountAmount += pricing.discountAmount
+        if (pricing.discountPercentage > 0) bundleDiscountPct = pricing.discountPercentage
+      } else if (pricing.discountType === 'user' || pricing.discountType === 'black_friday') {
+        discountAmount += pricing.discountAmount
+      }
 
       validatedItems.push({
-        productId,
-        productName: item.productName || item.name || product.name,
-        price: unitPrice,
+        productId: product.id,
+        productName: product.name,
+        price: pricing.unitPrice,
         quantity,
         image: item.image || product.image,
-        color: item.color || null,
-        size: isPromo ? '__PROMO__' : (item.size || null),
-        bundleDiscount: hasBundleDiscountForItem ? itemBundlePct : null,
+        color: selectedColor || null,
+        size: selectedSize || null,
+        bundleDiscount: pricing.discountType === 'bundle' ? pricing.discountPercentage : null,
       })
     }
 

@@ -24,6 +24,15 @@ interface CheckoutItem {
 }
 
 export async function POST(request: NextRequest) {
+  if (process.env.ENABLE_LEGACY_CHECKOUT !== 'true') {
+    return NextResponse.json(
+      {
+        error: 'Legacy checkout is disabled. Use /api/orders/cod-confirmation for COD orders.',
+      },
+      { status: 410 }
+    )
+  }
+
   // CSRF protection
   const csrfCheck = await requireCsrfToken(request)
   if (!csrfCheck.valid) {

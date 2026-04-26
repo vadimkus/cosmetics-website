@@ -162,4 +162,51 @@ describe('legacy web Stripe Checkout Session pricing', () => {
     }))
     expect(prisma.order.findFirst).toHaveBeenCalled()
   })
+
+  it('does not let regular products be submitted as free gifts', async () => {
+    const response = await POST(createRequest({
+      items: [
+        {
+          product: {
+            id: 'product-1',
+            name: 'Tampered Serum (FREE)',
+            image: '/client.jpg',
+            price: 0,
+            category: 'free-gift',
+          },
+          quantity: 1,
+          selectedSize: '__PROMO__',
+        },
+      ],
+      customerEmail: 'customer@example.com',
+      customerName: 'Customer',
+      customerPhone: '+971500000000',
+      customerEmirate: 'Dubai',
+      customerAddress: 'Dubai Marina',
+      locale: 'en',
+    }))
+
+    expect(response.status).toBe(200)
+    expect(createCheckoutSession).toHaveBeenCalledWith(expect.objectContaining({
+      lineItems: [
+        expect.objectContaining({
+          price_data: expect.objectContaining({
+            unit_amount: 18000,
+          }),
+          quantity: 1,
+        }),
+      ],
+    }))
+    expect(addOrder).toHaveBeenCalledWith(expect.objectContaining({
+      subtotal: 180,
+      total: 180,
+      items: [
+        expect.objectContaining({
+          productId: 'product-1',
+          productName: 'Server Serum',
+          price: 180,
+        }),
+      ],
+    }))
+  })
 })

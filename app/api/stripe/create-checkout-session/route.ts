@@ -14,6 +14,11 @@ import { prisma } from '@/lib/prisma'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import { CartItem } from '@/types'
+import {
+  getValidatedBundleDiscountPercent,
+  isAllowedFreeGiftProduct,
+  isSubmittedBundleLine,
+} from '@/lib/checkoutPricingGuards'
 
 interface CheckoutItem {
   product: Product
@@ -133,6 +138,7 @@ export async function POST(request: NextRequest) {
     let bundleDiscountAmount = 0
     let bundleDiscountPercent: number | null = null
     const pricedItems: ServerPricedCheckoutItem[] = []
+    const productRecords: Array<{ item: CheckoutItem; product: Product }> = []
     
     for (const item of items as CheckoutItem[]) {
       const productId = getSubmittedProductId(item)
@@ -151,6 +157,14 @@ export async function POST(request: NextRequest) {
         )
       }
 
+      productRecords.push({ item, product })
+    }
+
+    const bundleLineCount = productRecords.filter(({ item, product }) =>
+      isSubmittedBundleLine(item.bundleDiscountPercent, product)
+    ).length
+
+    for (const { item, product } of productRecords) {
       const quantity = Number(item.quantity) || 0
       if (quantity <= 0) {
         return NextResponse.json(
@@ -161,8 +175,10 @@ export async function POST(request: NextRequest) {
 
       const selectedSize = String(item.selectedSize || '').trim()
       const selectedColor = String(item.selectedColor || '').trim()
+      const isFreeGift = isSubmittedFreeGift(item) && isAllowedFreeGiftProduct(product)
+      const bundlePct = getValidatedBundleDiscountPercent(item.bundleDiscountPercent, product, bundleLineCount)
 
-      if (isSubmittedFreeGift(item)) {
+      if (isFreeGift) {
         pricedItems.push({
           product: {
             ...product,
@@ -185,8 +201,7 @@ export async function POST(request: NextRequest) {
         quantity,
         ...(selectedColor ? { selectedColor } : {}),
         ...(selectedSize ? { selectedSize } : {}),
-        ...(item.fromBundle ? { fromBundle: true } : {}),
-        ...(item.bundleDiscountPercent ? { bundleDiscountPercent: item.bundleDiscountPercent } : {}),
+        ...(bundlePct ? { fromBundle: true, bundleDiscountPercent: bundlePct } : {}),
       }
       const pricing = getCartLinePricing(cartItem, user)
       subtotal += pricing.lineTotal
@@ -319,7 +334,7 @@ export async function POST(request: NextRequest) {
             imageUrl = fullUrl
           }
         }
-      } catch (error) {
+      } catch {
         // If image URL is invalid, don't include it (Stripe will show default)
         debugLog('⚠️ Invalid image URL for product, skipping:', item.product.name, item.product.image)
         imageUrl = undefined

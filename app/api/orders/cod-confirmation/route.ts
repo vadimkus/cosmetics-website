@@ -6,11 +6,16 @@ import { requireCsrfToken } from '@/lib/csrf'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
-import { isBeautyBoxProduct, isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
+import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
-import { CartItem } from '@/types'
+import { CartItem, Product } from '@/types'
+import {
+  getValidatedBundleDiscountPercent,
+  isAllowedFreeGiftProduct,
+  isSubmittedBundleLine,
+} from '@/lib/checkoutPricingGuards'
 
 interface SubmittedCODItem {
   id?: string
@@ -135,6 +140,7 @@ export async function POST(request: NextRequest) {
     let bundleDiscountAmountCalc = 0  // Bundle discount (calculated server-side)
     let bundleDiscountPercentCalc: number | null = null
     const serverItems: ServerPricedCODItem[] = []
+    const productRecords: Array<{ item: SubmittedCODItem; product: Product }> = []
 
     for (const item of items as SubmittedCODItem[]) {
       const productId = getSubmittedProductId(item)
@@ -153,18 +159,26 @@ export async function POST(request: NextRequest) {
         )
       }
 
+      productRecords.push({ item, product })
+    }
+
+    const bundleLineCount = productRecords.filter(({ item, product }) =>
+      isSubmittedBundleLine(item.bundleDiscount, product)
+    ).length
+
+    for (const { item, product } of productRecords) {
       const quantity = Number(item.quantity) || 0
+      const selectedSize = String(item.size || '').trim()
+      const selectedColor = String(item.color || '').trim()
+      const isFreeGift = isSubmittedFreeGift(item) && isAllowedFreeGiftProduct(product)
+      const bundlePct = getValidatedBundleDiscountPercent(item.bundleDiscount, product, bundleLineCount)
+
       if (quantity <= 0) {
         return NextResponse.json(
           { error: `Invalid quantity for ${product.name}` },
           { status: 400 }
         )
       }
-
-      const selectedSize = String(item.size || '').trim()
-      const selectedColor = String(item.color || '').trim()
-      const isFreeGift = isSubmittedFreeGift(item)
-      const isBeautyBox = isBeautyBoxProduct(product)
 
       if (isFreeGift) {
         serverItems.push({
@@ -185,8 +199,7 @@ export async function POST(request: NextRequest) {
         quantity,
         ...(selectedColor ? { selectedColor } : {}),
         ...(selectedSize ? { selectedSize } : {}),
-        ...(item.bundleDiscount && !isBeautyBox ? { fromBundle: true } : {}),
-        ...(item.bundleDiscount && !isBeautyBox ? { bundleDiscountPercent: item.bundleDiscount } : {}),
+        ...(bundlePct ? { fromBundle: true, bundleDiscountPercent: bundlePct } : {}),
       }
       const pricing = getCartLinePricing(cartItem, user)
       subtotal += pricing.lineTotal

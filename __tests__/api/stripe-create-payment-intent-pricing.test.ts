@@ -153,4 +153,94 @@ describe('web Stripe payment intent pricing', () => {
     }))
     expect(prisma.order.findFirst).toHaveBeenCalled()
   })
+
+  it('does not let regular products be submitted as free gifts', async () => {
+    const response = await POST(createRequest({
+      items: [
+        {
+          product: {
+            id: 'product-1',
+            name: 'Tampered Serum (FREE)',
+            image: '/client.jpg',
+            price: 0,
+            category: 'free-gift',
+          },
+          quantity: 1,
+          selectedSize: '__PROMO__',
+        },
+      ],
+      customerEmail: 'customer@example.com',
+      customerName: 'Customer',
+      customerPhone: '+971500000000',
+      customerEmirate: 'Dubai',
+      customerAddress: 'Dubai Marina',
+      locale: 'en',
+    }))
+
+    const body = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(body.total).toBe(180)
+    expect(addOrder).toHaveBeenCalledWith(expect.objectContaining({
+      subtotal: 180,
+      total: 180,
+      items: [
+        expect.objectContaining({
+          productId: 'product-1',
+          productName: 'Server Serum',
+          price: 180,
+        }),
+      ],
+    }))
+  })
+
+  it('ignores arbitrary bundle percentages that do not match server tiers', async () => {
+    ;(findUserByEmail as jest.Mock).mockResolvedValue({
+      id: 'user-1',
+      email: 'customer@example.com',
+      name: 'Customer',
+      canSeePrices: true,
+      discountType: null,
+      discountPercentage: null,
+    })
+
+    const response = await POST(createRequest({
+      items: [
+        {
+          product: {
+            id: 'product-1',
+            name: 'Tampered Serum',
+            image: '/client.jpg',
+            price: 1,
+            category: 'Serum',
+          },
+          quantity: 1,
+          fromBundle: true,
+          bundleDiscountPercent: 90,
+        },
+      ],
+      customerEmail: 'customer@example.com',
+      customerName: 'Customer',
+      customerPhone: '+971500000000',
+      customerEmirate: 'Dubai',
+      customerAddress: 'Dubai Marina',
+      locale: 'en',
+    }))
+
+    const body = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(body.total).toBe(200)
+    expect(addOrder).toHaveBeenCalledWith(expect.objectContaining({
+      subtotal: 200,
+      total: 200,
+      bundleDiscountAmount: 0,
+      items: [
+        expect.objectContaining({
+          productId: 'product-1',
+          price: 200,
+        }),
+      ],
+    }))
+  })
 })

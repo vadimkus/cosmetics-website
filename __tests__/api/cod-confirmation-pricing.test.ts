@@ -184,4 +184,91 @@ describe('web COD confirmation pricing', () => {
       ],
     }))
   })
+
+  it('does not let regular products be submitted as free gifts', async () => {
+    const response = await POST(createRequest({
+      orderNumber: 'CODW2604260003',
+      customerName: 'Customer',
+      customerEmail: 'customer@example.com',
+      customerPhone: '+971500000000',
+      customerAddress: 'Dubai Marina',
+      emirate: 'Dubai',
+      items: [
+        {
+          id: 'product-1',
+          name: 'Tampered Serum (FREE)',
+          price: 0,
+          quantity: 1,
+          image: '/client.jpg',
+          size: '__PROMO__',
+        },
+      ],
+      subtotal: 0,
+      shippingCost: 0,
+      vatAmount: 0,
+      total: 0,
+      locale: 'en',
+    }))
+
+    expect(response.status).toBe(200)
+    expect(addOrder).toHaveBeenCalledWith(expect.objectContaining({
+      subtotal: 180,
+      total: 180,
+      items: [
+        expect.objectContaining({
+          productId: 'product-1',
+          productName: 'Server Serum',
+          price: 180,
+        }),
+      ],
+    }))
+  })
+
+  it('ignores arbitrary bundle percentages that do not match server tiers', async () => {
+    ;(findUserByEmail as jest.Mock).mockResolvedValue({
+      id: 'user-1',
+      email: 'customer@example.com',
+      name: 'Customer',
+      canSeePrices: true,
+      discountType: null,
+      discountPercentage: null,
+    })
+
+    const response = await POST(createRequest({
+      orderNumber: 'CODW2604260004',
+      customerName: 'Customer',
+      customerEmail: 'customer@example.com',
+      customerPhone: '+971500000000',
+      customerAddress: 'Dubai Marina',
+      emirate: 'Dubai',
+      items: [
+        {
+          id: 'product-1',
+          name: 'Tampered Serum',
+          price: 1,
+          quantity: 1,
+          image: '/client.jpg',
+          bundleDiscount: 90,
+        },
+      ],
+      subtotal: 1,
+      shippingCost: 0,
+      vatAmount: 0,
+      total: 1,
+      locale: 'en',
+    }))
+
+    expect(response.status).toBe(200)
+    expect(addOrder).toHaveBeenCalledWith(expect.objectContaining({
+      subtotal: 200,
+      total: 200,
+      bundleDiscountAmount: 0,
+      items: [
+        expect.objectContaining({
+          productId: 'product-1',
+          price: 200,
+        }),
+      ],
+    }))
+  })
 })

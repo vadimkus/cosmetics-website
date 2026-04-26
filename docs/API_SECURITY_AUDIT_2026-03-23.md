@@ -72,12 +72,14 @@ Full audit of the Genosys website codebase (genosys.ae). Found 11 issues across 
 
 ## Not Fixed (5) — Deferred
 
-### 7. Client-Trusted Prices (Medium Risk, Architectural Change)
+### 7. Client-Trusted Prices (Mostly Fixed Apr 26, 2026)
 
-**Files:** `app/api/checkout/route.ts`, `app/api/stripe/create-payment-intent/route.ts`, `app/api/stripe/create-checkout-session/route.ts`  
-**Issue:** All checkout routes derive order totals from `item.product.price` sent by the frontend. There is no server-side price lookup from the database to verify amounts.  
-**Why deferred:** This is a design decision documented in the code comments. Fixing it requires adding a DB price lookup + comparison step to the checkout flow, which changes the data contract and needs careful testing across web, PWA, and mobile API. Stripe line items provide a secondary record on the payment side.  
-**Recommendation:** Add server-side price verification in a future sprint. At minimum, log a warning if the client-sent price diverges from the DB price by more than a threshold.
+**Original files:** `app/api/checkout/route.ts`, `app/api/stripe/create-payment-intent/route.ts`, `app/api/stripe/create-checkout-session/route.ts`  
+**Original issue:** Checkout routes derived order totals from `item.product.price` sent by the frontend.
+
+**Current state:** Current web and mobile payment/order routes now recompute line pricing from server product data via the pricing contract/cart pricing helpers. The legacy `/api/checkout` route is disabled by default with `410 Gone`.
+
+**Remaining lower-risk integrity follow-ups:** Invoice generation and manual admin notification still accept submitted monetary payloads for document/email rendering. These do not capture payment, but should be rebuilt from stored order data in a future cleanup.
 
 ### 8. App Version Platform Fallback (Low Risk)
 

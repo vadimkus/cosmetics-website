@@ -11,7 +11,27 @@ import { trackUserActivity } from '@/lib/activityTracker'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import { getCustomerEmailWhere } from '@/lib/mobileOrderOwnership'
-import { CartItem } from '@/types'
+import { CartItem, Product } from '@/types'
+import {
+  getValidatedBundleDiscountPercent,
+  isAllowedFreeGiftProduct,
+  isSubmittedBundleLine,
+} from '@/lib/checkoutPricingGuards'
+
+interface SubmittedMobileOrderItem {
+  productId?: unknown
+  productName?: unknown
+  name?: unknown
+  price?: unknown
+  quantity?: unknown
+  image?: string | null
+  color?: unknown
+  size?: unknown
+  selectedColor?: unknown
+  selectedSize?: unknown
+  isPromotionItem?: boolean
+  bundleDiscountPercent?: unknown
+}
 
 const extractPaymentFlow = (order: { paymentMetadata?: string | Record<string, unknown> | null; payment_metadata?: string | Record<string, unknown> | null }): string | null => {
   const raw = order?.paymentMetadata ?? order?.payment_metadata ?? null
@@ -20,7 +40,7 @@ const extractPaymentFlow = (order: { paymentMetadata?: string | Record<string, u
     const obj = typeof raw === 'string' ? JSON.parse(raw) : raw
     const flow = String(obj?.paymentFlow || obj?.payment_flow || '').trim().toLowerCase()
     return flow || null
-  } catch (error) {
+  } catch {
     return null
   }
 }
@@ -346,8 +366,9 @@ export async function POST(request: NextRequest) {
     let bundleDiscountAmount = 0
     let bundleDiscountPct = 0
     const validatedItems = []
+    const productRecords: Array<{ item: SubmittedMobileOrderItem; product: Product }> = []
 
-    for (const item of orderData.items) {
+    for (const item of orderData.items as SubmittedMobileOrderItem[]) {
       const productId = String(item?.productId || '').trim()
       const quantity = Number(item?.quantity)
 
@@ -382,13 +403,25 @@ export async function POST(request: NextRequest) {
         )
       }
 
+      productRecords.push({ item, product })
+    }
+
+    const bundleLineCount = productRecords.filter(({ item, product }) =>
+      isSubmittedBundleLine(item.bundleDiscountPercent, product)
+    ).length
+
+    for (const { item, product } of productRecords) {
+      const quantity = Number(item?.quantity)
+
       const selectedSize = String(item.size || item.selectedSize || '').trim()
       const selectedColor = String(item.color || item.selectedColor || '').trim()
       const isPromo =
-        item?.isPromotionItem === true ||
-        selectedSize === '__PROMO__' ||
-        // Client may send promo items with price 0 but without the flag; treat as promo.
-        Number(item?.price) === 0
+        (item?.isPromotionItem === true ||
+          selectedSize === '__PROMO__' ||
+          // Client may send promo items with price 0 but without the flag; treat as promo signal only.
+          Number(item?.price) === 0) &&
+        isAllowedFreeGiftProduct(product)
+      const bundlePct = getValidatedBundleDiscountPercent(item.bundleDiscountPercent, product, bundleLineCount)
 
       if (isPromo) {
         validatedItems.push({
@@ -409,8 +442,7 @@ export async function POST(request: NextRequest) {
         quantity,
         ...(selectedSize ? { selectedSize } : {}),
         ...(selectedColor ? { selectedColor } : {}),
-        ...(item.fromBundle ? { fromBundle: true } : {}),
-        ...(item.bundleDiscountPercent ? { bundleDiscountPercent: item.bundleDiscountPercent } : {}),
+        ...(bundlePct ? { fromBundle: true, bundleDiscountPercent: bundlePct } : {}),
       }
       const pricing = getCartLinePricing(cartItem, user)
       subtotal += pricing.lineTotal

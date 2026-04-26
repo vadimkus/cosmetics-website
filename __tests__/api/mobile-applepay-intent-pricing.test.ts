@@ -158,4 +158,47 @@ describe('mobile Apple Pay intent pricing', () => {
       }),
     }))
   })
+
+  it('does not let regular products be submitted as mobile promo items', async () => {
+    const response = await POST(createRequest({
+      orderNumber: 'GENCardM2604260002',
+      customer: {
+        name: 'Customer',
+        email: 'customer@example.com',
+        phone: '+971500000000',
+        address: 'Dubai Marina',
+      },
+      emirate: 'Dubai',
+      items: [
+        {
+          id: 'product-1',
+          name: 'Tampered Serum (FREE)',
+          price: 0,
+          quantity: 1,
+          image: '/client.jpg',
+          selectedSize: '__PROMO__',
+          isPromotionItem: true,
+        },
+      ],
+      locale: 'en',
+    }))
+
+    const body = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(body.meta.validatedTotals.total).toBe(180)
+    expect(prisma.order.create).toHaveBeenCalledWith(expect.objectContaining({
+      data: expect.objectContaining({
+        subtotal: 180,
+        total: 180,
+      }),
+    }))
+    expect(prisma.orderItem.create).toHaveBeenCalledWith(expect.objectContaining({
+      data: expect.objectContaining({
+        productId: 'product-1',
+        productName: 'Server Serum',
+        price: 180,
+      }),
+    }))
+  })
 })

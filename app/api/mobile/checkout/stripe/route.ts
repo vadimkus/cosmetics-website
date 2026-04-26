@@ -9,7 +9,12 @@ import { generateUniqueOrderNumber } from '@/lib/orderNumber'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
-import { CartItem } from '@/types'
+import { CartItem, Product } from '@/types'
+import {
+  getValidatedBundleDiscountPercent,
+  isAllowedFreeGiftProduct,
+  isSubmittedBundleLine,
+} from '@/lib/checkoutPricingGuards'
 
 /**
  * MOBILE STRIPE CHECKOUT ENDPOINT
@@ -204,7 +209,7 @@ export async function POST(request: NextRequest) {
               reused: true,
             })
           }
-        } catch (error) {
+        } catch {
           // ignore and create a new session
           debugLog('[MOBILE_STRIPE_RESUME] Failed to reuse stripe session, will create new', {
             orderId: existing.id,
@@ -346,6 +351,7 @@ export async function POST(request: NextRequest) {
     let bundleDiscountAmount = 0
     let bundleDiscountPct = 0
     const validatedItems: CheckoutItem[] = []
+    const productRecords: Array<{ item: CheckoutItem; product: Product }> = []
 
     // User discount (constant across all items)
     const pct = Number(user.discountPercentage)
@@ -363,13 +369,24 @@ export async function POST(request: NextRequest) {
         )
       }
 
+      productRecords.push({ item, product })
+    }
+
+    const bundleLineCount = productRecords.filter(({ item, product }) =>
+      isSubmittedBundleLine(item.bundleDiscountPercent, product)
+    ).length
+
+    for (const { item, product } of productRecords) {
+
       const selectedSize = String(item.size || item.selectedSize || '').trim()
       const selectedColor = String(item.color || item.selectedColor || '').trim()
       const isPromo =
-        item.isPromotionItem === true ||
-        selectedSize === '__PROMO__' ||
-        // Client can send promo items with price 0 but without the flag; treat as promo.
-        Number(item.price) === 0
+        (item.isPromotionItem === true ||
+          selectedSize === '__PROMO__' ||
+          // Client can send promo items with price 0 but without the flag; treat as promo signal only.
+          Number(item.price) === 0) &&
+        isAllowedFreeGiftProduct(product)
+      const bundlePct = getValidatedBundleDiscountPercent(item.bundleDiscountPercent, product, bundleLineCount)
       const qty = Number(item.quantity) || 0
       if (qty <= 0) {
         return NextResponse.json(
@@ -396,8 +413,7 @@ export async function POST(request: NextRequest) {
         quantity: qty,
         ...(selectedSize ? { selectedSize } : {}),
         ...(selectedColor ? { selectedColor } : {}),
-        ...(item.fromBundle ? { fromBundle: true } : {}),
-        ...(item.bundleDiscountPercent ? { bundleDiscountPercent: item.bundleDiscountPercent } : {}),
+        ...(bundlePct ? { fromBundle: true, bundleDiscountPercent: bundlePct } : {}),
       }
       const pricing = getCartLinePricing(cartItem, user)
       serverSubtotal += pricing.lineTotal

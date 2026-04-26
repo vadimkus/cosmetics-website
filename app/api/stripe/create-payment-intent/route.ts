@@ -13,6 +13,11 @@ import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheck
 import { prisma } from '@/lib/prisma'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
+import {
+  getValidatedBundleDiscountPercent,
+  isAllowedFreeGiftProduct,
+  isSubmittedBundleLine,
+} from '@/lib/checkoutPricingGuards'
 
 interface CheckoutItem {
   product: Product
@@ -127,6 +132,7 @@ export async function POST(request: NextRequest) {
     let bundleDiscountAmount = 0  // Bundle discount
     let bundleDiscountPercent: number | null = null  // Bundle discount percentage (same for all bundle items)
     const pricedItems: ServerPricedCheckoutItem[] = []
+    const productRecords: Array<{ item: CheckoutItem; product: Product }> = []
 
     for (const item of items as CheckoutItem[]) {
       const productId = getSubmittedProductId(item)
@@ -145,17 +151,26 @@ export async function POST(request: NextRequest) {
         )
       }
 
+      productRecords.push({ item, product })
+    }
+
+    const bundleLineCount = productRecords.filter(({ item, product }) =>
+      isSubmittedBundleLine(item.bundleDiscountPercent, product)
+    ).length
+
+    for (const { item, product } of productRecords) {
       const quantity = Number(item.quantity) || 0
+      const selectedSize = String(item.selectedSize || '').trim()
+      const selectedColor = String(item.selectedColor || '').trim()
+      const isFreeGift = isSubmittedFreeGift(item) && isAllowedFreeGiftProduct(product)
+      const bundlePct = getValidatedBundleDiscountPercent(item.bundleDiscountPercent, product, bundleLineCount)
+
       if (quantity <= 0) {
         return NextResponse.json(
           { error: `Invalid quantity for ${product.name}` },
           { status: 400 }
         )
       }
-
-      const selectedSize = String(item.selectedSize || '').trim()
-      const selectedColor = String(item.selectedColor || '').trim()
-      const isFreeGift = isSubmittedFreeGift(item)
 
       if (isFreeGift) {
         pricedItems.push({
@@ -180,8 +195,7 @@ export async function POST(request: NextRequest) {
         quantity,
         ...(selectedColor ? { selectedColor } : {}),
         ...(selectedSize ? { selectedSize } : {}),
-        ...(item.fromBundle ? { fromBundle: true } : {}),
-        ...(item.bundleDiscountPercent ? { bundleDiscountPercent: item.bundleDiscountPercent } : {}),
+        ...(bundlePct ? { fromBundle: true, bundleDiscountPercent: bundlePct } : {}),
       }
       const pricing = getCartLinePricing(cartItem, user)
       subtotal += pricing.lineTotal

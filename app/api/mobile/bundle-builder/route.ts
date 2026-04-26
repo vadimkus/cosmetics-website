@@ -14,6 +14,8 @@ import { prisma } from '@/lib/prisma'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { errorLog } from '@/lib/logger'
+import { buildPricingContract } from '@/lib/pricingContract'
+import { Product } from '@/types'
 
 type ProductTranslation = { name?: string; description?: string } | null
 
@@ -90,6 +92,7 @@ export async function GET(request: NextRequest) {
           select: {
             id: true,
             size: true,
+            color: true,
             price: true,
             available: true,
             isDefault: true,
@@ -122,6 +125,33 @@ export async function GET(request: NextRequest) {
       // Bundle builder: NO user/VIP discount — only bundle tier discount applies.
       // Display price = retail price (bundle discount is applied at checkout based on item count).
       const displayPrice = p.price
+      const variants = p.variants.filter(v => v.available).map(v => ({
+        id: v.id,
+        size: v.size,
+        color: v.color,
+        price: v.price,
+        available: v.available,
+        isDefault: v.isDefault,
+      }))
+      const contractProduct = {
+        id: p.id,
+        productNumber: p.productNumber,
+        name: p.name,
+        nameRu: p.nameRu,
+        nameAr: p.nameAr,
+        price: p.price,
+        description: p.description || '',
+        descriptionRu: p.descriptionRu,
+        descriptionAr: p.descriptionAr,
+        image: p.image || '',
+        images: p.images,
+        category: p.category,
+        size: p.size,
+        noDiscount: p.noDiscount,
+        rating: p.rating,
+        inStock: true,
+        variants,
+      } as Product
 
       return {
         id: p.id,
@@ -138,12 +168,14 @@ export async function GET(request: NextRequest) {
         userDiscountPct: null,
         noDiscount: p.noDiscount,
         rating: p.rating,
-        variants: p.variants.filter(v => v.available).map(v => ({
+        variants: variants.map(v => ({
           id: v.id,
           size: v.size,
+          color: v.color,
           price: v.price,
           isDefault: v.isDefault,
         })),
+        pricing: buildPricingContract(contractProduct, null),
       }
     }
 

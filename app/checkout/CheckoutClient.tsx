@@ -305,26 +305,19 @@ export default function CheckoutClient() {
             ...items.map(item => {
               const itemSize = (item.selectedSize && item.selectedSize.trim()) || (item.product.size && item.product.size.trim()) || undefined
               const itemColor = (item.selectedColor && item.selectedColor.trim()) || undefined
-              
-              const isBundleItem = item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0
-              
-              // Bundle items: only bundle discount on retail price (no VIP)
-              // Non-bundle items: apply user discount
-              const finalPrice = isBundleItem
-                ? Math.round(item.product.price * (1 - item.bundleDiscountPercent! / 100) * 100) / 100
-                : calculateDiscountedPrice(item.product, user).discountedPrice
+              const payloadPricing = getCartLinePayloadPricing(item, user)
               
               return {
                 product: {
                   ...item.product,
-                  price: finalPrice
+                  price: payloadPricing.price
                 },
                 quantity: item.quantity,
                 selectedColor: itemColor,
                 selectedSize: itemSize,
                 // Pass bundle flags so backend can properly reverse-calculate discount amounts
-                ...(item.fromBundle ? { fromBundle: true } : {}),
-                ...(item.bundleDiscountPercent ? { bundleDiscountPercent: item.bundleDiscountPercent } : {})
+                ...(payloadPricing.bundleDiscount ? { fromBundle: true } : {}),
+                ...(payloadPricing.bundleDiscount ? { bundleDiscountPercent: payloadPricing.bundleDiscount } : {})
               }
             }),
             ...freeMasks.map(mask => ({

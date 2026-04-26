@@ -211,4 +211,18 @@ describe('cart pricing helper', () => {
       bundleDiscount: 15,
     })
   })
+
+  it('does not expose Beauty Box built-in discount as bundle payload metadata', () => {
+    const product = createProduct({
+      productNumber: '55',
+      category: 'Beauty Boxes',
+      price: 1120,
+    })
+    const item = createItem(product)
+
+    expect(getCartLinePayloadPricing(item, null)).toEqual({
+      price: 1120,
+      total: 1120,
+    })
+  })
 })

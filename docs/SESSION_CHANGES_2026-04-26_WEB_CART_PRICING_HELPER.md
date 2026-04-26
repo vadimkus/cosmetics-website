@@ -13,6 +13,7 @@ This is the next slow step after the pricing contract display cleanup. The goal 
 - Regression fix: Beauty Box `originalPrice` now uses the full regular box price from the legacy discount rules, so cart rows and product cards again show full price + strikethrough + 15% discount instead of only the stored box price.
 - Follow-up checkout display slice: routed the visible checkout item rows through `getCartLinePricing()` so bundle, Beauty Box, variant, and user-discount row displays use the same contract-backed helper as the cart.
 - Follow-up COD payload slice: added `getCartLinePayloadPricing()` and routed the website COD order item `price`, `total`, and bundle discount metadata through the same contract-backed cart pricing helper.
+- Follow-up Stripe payload slice: routed the website Stripe payment-intent item `product.price` and bundle metadata through `getCartLinePayloadPricing()`, while leaving `/api/stripe/create-payment-intent` total/order reconstruction untouched.
 
 ## Scope Boundary
 
@@ -22,13 +23,14 @@ Changed:
 - Website `/cart` Black Friday strikethrough/savings display.
 - Website `/checkout` visible item rows in the expandable mobile/PWA summary and desktop order summary.
 - Website COD item payload pricing for `/api/orders/cod-confirmation`.
+- Website Stripe item payload pricing for `/api/stripe/create-payment-intent`.
 
 Deliberately unchanged:
 
-- Stripe payment intent item payload.
 - Order emails and admin order reconstruction.
 - Native app cart/order logic.
 - COD backend discount reconstruction, order persistence, emails, and admin notification logic.
+- Stripe backend subtotal, discount reconstruction, payment intent creation, order persistence, and webhook flow.
 
 ## Covered Scenarios
 
@@ -42,6 +44,7 @@ Deliberately unchanged:
 - Beauty Box full-price regression guard (`originalPrice > displayPrice`).
 - Checkout item row display totals for contract-backed cart pricing.
 - COD payload unit price / line total and bundle metadata.
+- Stripe payload unit price and bundle metadata, including a guard that Beauty Box built-in discounts are not sent as bundle-builder metadata.
 
 ## Verification
 
@@ -58,3 +61,5 @@ Revert the relevant slice commit. The first slice is isolated to the helper, its
 The checkout display slice is isolated to `app/checkout/CheckoutClient.tsx`; reverting that change restores the previous inline checkout row rendering while leaving cart totals and payment payloads unchanged.
 
 The COD payload slice is isolated to `getCartLinePayloadPricing()`, its focused tests, and the COD item mapper in `app/checkout/CheckoutClient.tsx`. Reverting it restores the previous inline COD payload calculation; Stripe payment intent payloads remain unchanged in this slice.
+
+The Stripe payload slice is isolated to the Stripe item mapper in `app/checkout/CheckoutClient.tsx` plus one helper test. Reverting it restores the previous inline Stripe payload calculation while leaving the backend route unchanged.

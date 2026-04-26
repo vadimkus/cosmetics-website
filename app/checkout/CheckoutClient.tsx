@@ -8,8 +8,7 @@ import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, ChevronDown,
 import Link from 'next/link'
 import CheckoutHeader from '@/components/checkout/CheckoutHeader'
 import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
-import { calculateDiscountedPrice } from '@/lib/discountUtils'
-import { getCartLinePayloadPricing, getCartLinePricing } from '@/lib/cartPricing'
+import { getCartDiscountSummary, getCartLinePayloadPricing, getCartLinePricing } from '@/lib/cartPricing'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { errorLog, debugLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
@@ -127,48 +126,18 @@ export default function CheckoutClient() {
   const vatAmount = Math.round(calculateVatIncluded(total) * 100) / 100
 
   // Waterfall discount breakdown: compute retail total, VIP discount, and bundle discount
-  const { retailTotal, userDiscountTotal, bundleDiscountTotal, afterVipSubtotal, userDiscountPct, bundleDiscountPct } = (() => {
-    let _retailTotal = 0
-    let _userDiscountTotal = 0
-    let _bundleDiscountTotal = 0
-    let _userDiscountPct = 0
-    let _bundleDiscountPct = 0
-    
-    items.forEach(item => {
-      const quantity = item.quantity || 1
-      const originalPrice = item.product.price
-      _retailTotal += originalPrice * quantity
-      
-      const isBundleItem = item.fromBundle && item.bundleDiscountPercent && item.bundleDiscountPercent > 0
-      
-      if (isBundleItem) {
-        // Bundle items: ONLY bundle discount on retail price (no VIP)
-        const bundleDiscount = (originalPrice * item.bundleDiscountPercent!) / 100
-        _bundleDiscountTotal += bundleDiscount * quantity
-        if (item.bundleDiscountPercent! > 0) _bundleDiscountPct = item.bundleDiscountPercent!
-      } else {
-        // Non-bundle items: apply user/VIP discount
-        const pricing = calculateDiscountedPrice(item.product, user)
-        if (pricing.hasDiscount && !pricing.isBeautyBox) {
-          _userDiscountTotal += pricing.discountAmount * quantity
-          if (pricing.discountPercentage > 0) _userDiscountPct = pricing.discountPercentage
-        }
-      }
-    })
-    
-    return {
-      retailTotal: Math.round(_retailTotal * 100) / 100,
-      userDiscountTotal: Math.round(_userDiscountTotal * 100) / 100,
-      bundleDiscountTotal: Math.round(_bundleDiscountTotal * 100) / 100,
-      afterVipSubtotal: Math.round((_retailTotal - _userDiscountTotal) * 100) / 100,
-      userDiscountPct: _userDiscountPct,
-      bundleDiscountPct: _bundleDiscountPct
-    }
-  })()
-  const hasUserDiscount = userDiscountTotal > 0
-  const hasBundleDiscount = bundleDiscountTotal > 0
-  const hasAnyDiscount = hasUserDiscount || hasBundleDiscount
-  const totalSaved = Math.round((userDiscountTotal + bundleDiscountTotal) * 100) / 100
+  const {
+    retailTotal,
+    userDiscountTotal,
+    bundleDiscountTotal,
+    afterVipSubtotal,
+    userDiscountPct,
+    bundleDiscountPct,
+    hasUserDiscount,
+    hasBundleDiscount,
+    hasAnyDiscount,
+    totalSaved,
+  } = getCartDiscountSummary(items, user)
 
   // Function to get free masks based on subtotal
   const getFreeMasks = useCallback(async (subtotal: number) => {

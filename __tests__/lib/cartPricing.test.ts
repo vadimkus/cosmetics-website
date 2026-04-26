@@ -1,4 +1,4 @@
-import { getCartLinePayloadPricing, getCartLinePricing, getCartRetailTotal, getCartTotalPrice } from '@/lib/cartPricing'
+import { getCartDiscountSummary, getCartLinePayloadPricing, getCartLinePricing, getCartRetailTotal, getCartTotalPrice } from '@/lib/cartPricing'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { CartItem, Product } from '@/types'
 import { ApiUser } from '@/types/user'
@@ -223,6 +223,50 @@ describe('cart pricing helper', () => {
     expect(getCartLinePayloadPricing(item, null)).toEqual({
       price: 1120,
       total: 1120,
+    })
+  })
+
+  it('summarizes checkout waterfall discounts from cart line pricing', () => {
+    const userItem = createItem(createProduct({ id: 'user-discount', price: 200 }), { quantity: 2 })
+    const bundleItem = createItem(createProduct({ id: 'bundle-item', price: 100 }), {
+      quantity: 3,
+      fromBundle: true,
+      bundleDiscountPercent: 15,
+    })
+    const user = createUser({ discountType: 'percentage', discountPercentage: 10 })
+
+    expect(getCartDiscountSummary([userItem, bundleItem], user)).toEqual({
+      retailTotal: 700,
+      userDiscountTotal: 40,
+      bundleDiscountTotal: 45,
+      afterVipSubtotal: 660,
+      userDiscountPct: 10,
+      bundleDiscountPct: 15,
+      totalSaved: 85,
+      hasUserDiscount: true,
+      hasBundleDiscount: true,
+      hasAnyDiscount: true,
+    })
+  })
+
+  it('keeps Beauty Box built-in savings out of checkout cart-level waterfall', () => {
+    const beautyBox = createItem(createProduct({
+      productNumber: '55',
+      category: 'Beauty Boxes',
+      price: 1120,
+    }))
+
+    expect(getCartDiscountSummary([beautyBox], null)).toEqual({
+      retailTotal: 1120,
+      userDiscountTotal: 0,
+      bundleDiscountTotal: 0,
+      afterVipSubtotal: 1120,
+      userDiscountPct: 0,
+      bundleDiscountPct: 0,
+      totalSaved: 0,
+      hasUserDiscount: false,
+      hasBundleDiscount: false,
+      hasAnyDiscount: false,
     })
   })
 })

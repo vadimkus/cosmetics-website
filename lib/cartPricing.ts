@@ -21,6 +21,19 @@ export interface CartLinePayloadPricing {
   bundleDiscount?: number
 }
 
+export interface CartDiscountSummary {
+  retailTotal: number
+  userDiscountTotal: number
+  bundleDiscountTotal: number
+  afterVipSubtotal: number
+  userDiscountPct: number
+  bundleDiscountPct: number
+  totalSaved: number
+  hasUserDiscount: boolean
+  hasBundleDiscount: boolean
+  hasAnyDiscount: boolean
+}
+
 function roundMoney(value: number): number {
   return Math.round((Number(value) || 0) * 100) / 100
 }
@@ -97,5 +110,55 @@ export function getCartLinePayloadPricing(
     ...(pricing.discountType === 'bundle' && pricing.discountPercentage > 0
       ? { bundleDiscount: pricing.discountPercentage }
       : {}),
+  }
+}
+
+export function getCartDiscountSummary(
+  items: CartItem[],
+  user: User | ApiUser | null = null
+): CartDiscountSummary {
+  let retailTotal = 0
+  let userDiscountTotal = 0
+  let bundleDiscountTotal = 0
+  let userDiscountPct = 0
+  let bundleDiscountPct = 0
+
+  items.forEach((item) => {
+    const pricing = getCartLinePricing(item, user)
+
+    // Beauty Boxes show their built-in discount on the line row. Keeping them out of
+    // the cart-level waterfall preserves the existing checkout summary behavior.
+    retailTotal += pricing.discountType === 'beauty_box'
+      ? pricing.lineTotal
+      : pricing.retailLineTotal
+
+    if (pricing.discountType === 'bundle') {
+      bundleDiscountTotal += pricing.discountAmount
+      if (pricing.discountPercentage > 0) bundleDiscountPct = pricing.discountPercentage
+      return
+    }
+
+    if (pricing.discountType === 'user' || pricing.discountType === 'black_friday') {
+      userDiscountTotal += pricing.discountAmount
+      if (pricing.discountPercentage > 0) userDiscountPct = pricing.discountPercentage
+    }
+  })
+
+  retailTotal = roundMoney(retailTotal)
+  userDiscountTotal = roundMoney(userDiscountTotal)
+  bundleDiscountTotal = roundMoney(bundleDiscountTotal)
+  const totalSaved = roundMoney(userDiscountTotal + bundleDiscountTotal)
+
+  return {
+    retailTotal,
+    userDiscountTotal,
+    bundleDiscountTotal,
+    afterVipSubtotal: roundMoney(retailTotal - userDiscountTotal),
+    userDiscountPct,
+    bundleDiscountPct,
+    totalSaved,
+    hasUserDiscount: userDiscountTotal > 0,
+    hasBundleDiscount: bundleDiscountTotal > 0,
+    hasAnyDiscount: totalSaved > 0,
   }
 }

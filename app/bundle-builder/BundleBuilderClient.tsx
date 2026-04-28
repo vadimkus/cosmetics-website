@@ -14,7 +14,9 @@ import { useBundleStore, ROUTINE_STEPS, type RoutineStep, type BundlePricing } f
 import { useAuth } from '@/components/auth/AuthProvider'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
+import { getCartLinePricing } from '@/lib/cartPricing'
 import { Product } from '@/types'
+import type { ApiUser, User } from '@/types/user'
 import BottomSheet from '@/components/ui/BottomSheet'
 
 interface BundleBuilderClientProps {
@@ -91,6 +93,32 @@ function getLocalizedDescription(product: Product, locale: string): string | und
 function getBundleRetailPrice(product: Product): number {
   const pricing = getPricingDisplay(product, null)
   return pricing.basePrice || product.price || 0
+}
+
+const BUNDLE_DISCOUNT_TIERS = [
+  { minItems: 2, discount: 5 },
+  { minItems: 3, discount: 10 },
+  { minItems: 4, discount: 15 },
+  { minItems: 5, discount: 20 },
+]
+
+function getBundleDiscountForCount(count: number): number {
+  let discount = 0
+  for (const tier of BUNDLE_DISCOUNT_TIERS) {
+    if (count >= tier.minItems) discount = tier.discount
+  }
+  return discount
+}
+
+function getBundleLinePricing(product: Product, user: User | ApiUser | null, bundleDiscountPercent: number) {
+  return getCartLinePricing({
+    product,
+    quantity: 1,
+    selectedColor: '',
+    selectedSize: '',
+    fromBundle: true,
+    bundleDiscountPercent,
+  }, user)
 }
 
 /**
@@ -240,11 +268,13 @@ function BundleSummary({
   onClear,
   showPrices,
   pricing,
+  user,
 }: {
   onAddToCart: () => void
   onClear: () => void
   showPrices: boolean
   pricing: BundlePricing
+  user: User | ApiUser | null
 }) {
   const { t } = useTranslation()
   const { items, removeItem, canAddToCart } = useBundleStore()
@@ -267,11 +297,10 @@ function BundleSummary({
       {/* Items List */}
       <div className="flex-1 overflow-y-auto space-y-3 pb-4">
         {items.map((item, index) => {
-          // Calculate bundle discounted price for display
-          const retailPrice = getBundleRetailPrice(item.product)
-          const bundleDiscountedPrice = pricing.discountPercent > 0 
-            ? retailPrice * (1 - pricing.discountPercent / 100)
-            : retailPrice
+          const linePricing = getBundleLinePricing(item.product, user, pricing.bundleDiscountPercent ?? pricing.discountPercent)
+          const retailPrice = linePricing.retailUnitPrice
+          const displayPrice = linePricing.unitPrice
+          const hasDiscount = linePricing.discountAmount > 0
           return (
             <motion.div
               key={item.product.id}
@@ -305,10 +334,10 @@ function BundleSummary({
                   {t(`bundleBuilder.steps.${item.step}`)}
                 </p>
                 {/* Bundle discount badge per item */}
-                {showPrices && pricing.discountPercent > 0 && (
+                {showPrices && hasDiscount && (
                   <span className="inline-flex items-center gap-1 text-[10px] text-green-600 font-medium mt-0.5">
                     <Sparkles className="w-2.5 h-2.5" />
-                    -{pricing.discountPercent}%
+                    -{linePricing.discountPercentage}%
                   </span>
                 )}
               </div>
@@ -316,9 +345,9 @@ function BundleSummary({
                 {showPrices && (
                   <div className="text-right">
                     <span className="text-sm font-medium text-gray-900 whitespace-nowrap">
-                      {t('common.aed')} {bundleDiscountedPrice.toFixed(2)}
+                      {t('common.aed')} {displayPrice.toFixed(2)}
                     </span>
-                    {pricing.discountPercent > 0 && (
+                    {hasDiscount && (
                       <p className="text-[10px] text-gray-400 line-through">
                         {t('common.aed')} {retailPrice.toFixed(2)}
                       </p>
@@ -372,7 +401,7 @@ function BundleSummary({
                 )}
                 
                 {/* Next Tier Hint */}
-                {pricing.nextTierItems !== null && pricing.nextTierDiscount !== null && (
+                {pricing.appliedDiscountType === 'bundle' && pricing.nextTierItems !== null && pricing.nextTierDiscount !== null && (
                   <div className="bg-amber-50 text-amber-800 rounded-lg p-3 text-xs mt-2">
                     <Sparkles className="w-4 h-4 inline mr-1" />
                     {t('bundleBuilder.nextTierHint', { 
@@ -488,35 +517,36 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
   
   // Compute pricing reactively based on items (using user's discounted prices)
   const pricing: BundlePricing = useMemo(() => {
-    const DISCOUNT_TIERS = [
-      { minItems: 2, discount: 5 },
-      { minItems: 3, discount: 10 },
-      { minItems: 4, discount: 15 },
-      { minItems: 5, discount: 20 },
-    ]
-    
     const itemCount = items.length
-    
-    // Calculate subtotal using retail prices only (no VIP discount in bundle builder)
-    const subtotal = items.reduce((sum, item) => {
-      return sum + getBundleRetailPrice(item.product)
-    }, 0)
-    
-    let discountPercent = 0
-    for (const tier of DISCOUNT_TIERS) {
-      if (itemCount >= tier.minItems) {
-        discountPercent = tier.discount
-      }
+    const bundleDiscountPercent = getBundleDiscountForCount(itemCount)
+
+    // Bundle and VIP/Black Friday discounts are mutually exclusive.
+    // Reuse the cart/checkout line helper so desktop web, mobile web, and
+    // checkout all show the same "best discount wins" outcome.
+    const linePricings = items.map((item) =>
+      getBundleLinePricing(item.product, user, bundleDiscountPercent)
+    )
+    const subtotal = linePricings.reduce((sum, line) => sum + line.retailLineTotal, 0)
+    const total = linePricings.reduce((sum, line) => sum + line.lineTotal, 0)
+    const discountAmount = Math.round((subtotal - total) * 100) / 100
+    const discountedLines = linePricings.filter((line) => line.discountAmount > 0)
+    const discountTypes = Array.from(new Set(discountedLines.map((line) => line.discountType)))
+    let appliedDiscountType: BundlePricing['appliedDiscountType'] = 'none'
+    if (discountTypes.length > 1) {
+      appliedDiscountType = 'mixed'
+    } else if (discountTypes.length === 1) {
+      const onlyType = discountTypes[0]
+      appliedDiscountType =
+        onlyType === 'bundle' || onlyType === 'user' || onlyType === 'black_friday'
+          ? onlyType
+          : 'mixed'
     }
-    
-    // Apply bundle discount on retail subtotal (no VIP discount stacking)
-    const discountAmount = Math.round((subtotal * discountPercent) / 100 * 100) / 100
-    const total = Math.round((subtotal - discountAmount) * 100) / 100
+    const discountPercent = discountedLines.reduce((max, line) => Math.max(max, line.discountPercentage), 0)
     
     let nextTierItems: number | null = null
     let nextTierDiscount: number | null = null
     
-    for (const tier of DISCOUNT_TIERS) {
+    for (const tier of BUNDLE_DISCOUNT_TIERS) {
       if (itemCount < tier.minItems) {
         nextTierItems = tier.minItems - itemCount
         nextTierDiscount = tier.discount
@@ -526,14 +556,16 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     
     return {
       subtotal: Math.round(subtotal * 100) / 100,
+      bundleDiscountPercent,
       discountPercent,
       discountAmount,
-      total,
+      total: Math.round(total * 100) / 100,
       itemCount,
       nextTierItems,
       nextTierDiscount,
+      appliedDiscountType,
     }
-  }, [items])
+  }, [items, user])
   
   const [showMobileSummary, setShowMobileSummary] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
@@ -616,7 +648,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
   // Handle add bundle to cart - then redirect to checkout
   const handleAddToCart = () => {
     // Use the computed pricing (with user discounts) to get the bundle discount percentage
-    const bundleDiscountPercent = pricing.discountPercent
+    const bundleDiscountPercent = pricing.bundleDiscountPercent ?? pricing.discountPercent
     
     // Add each item to cart with bundle info (discount percentage at time of adding)
     items.forEach(item => {
@@ -755,13 +787,13 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             {items.length > 0 && (
               <div className="absolute -top-6 right-0">
                 <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full ${
-                  pricing.discountPercent > 0 
+                  (pricing.bundleDiscountPercent ?? 0) > 0 
                     ? 'bg-green-100 text-green-700' 
                     : 'bg-gray-100 text-gray-600'
                 }`}>
                   {items.length} {items.length === 1 ? 'item' : 'items'}
-                  {pricing.discountPercent > 0 && (
-                    <span className="text-green-600">• {pricing.discountPercent}% off</span>
+                  {(pricing.bundleDiscountPercent ?? 0) > 0 && (
+                    <span className="text-green-600">• {pricing.bundleDiscountPercent}% off</span>
                   )}
                 </span>
               </div>
@@ -873,6 +905,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 onClear={handleClear}
                 showPrices={showPrices}
                 pricing={pricing}
+                user={user}
               />
             </div>
           </aside>
@@ -894,9 +927,9 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               >
                 <div className="flex items-center gap-2">
                   <span className="font-medium">{items.length} {t('bundleBuilder.items')}</span>
-                  {showPrices && pricing.discountPercent > 0 && (
+                  {showPrices && (pricing.bundleDiscountPercent ?? 0) > 0 && (
                     <span className="text-xs text-green-600 font-medium">
-                      {pricing.discountPercent}% {t('bundleBuilder.off')}
+                      {pricing.bundleDiscountPercent}% {t('bundleBuilder.off')}
                     </span>
                   )}
                 </div>
@@ -1035,6 +1068,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   }}
                   showPrices={showPrices}
                   pricing={pricing}
+                  user={user}
                 />
               </div>
             </motion.div>

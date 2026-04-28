@@ -27,12 +27,14 @@ export interface BundleItem {
  */
 export interface BundlePricing {
   subtotal: number
+  bundleDiscountPercent?: number
   discountPercent: number
   discountAmount: number
   total: number
   itemCount: number
   nextTierItems: number | null
   nextTierDiscount: number | null
+  appliedDiscountType?: 'none' | 'bundle' | 'user' | 'black_friday' | 'mixed'
 }
 
 /**

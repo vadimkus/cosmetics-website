@@ -55,42 +55,64 @@ export function getCartLinePricing(
     item.bundleDiscountPercent > 0
   )
 
-  if (isBundleItem) {
-    const retailUnitPrice = getBundleRetailPrice(item.product)
-    const discountPercentage = Number(item.bundleDiscountPercent || 0) || 0
-    const unitPrice = roundMoney(retailUnitPrice * (1 - discountPercentage / 100))
-    const retailLineTotal = roundMoney(retailUnitPrice * quantity)
-    const lineTotal = roundMoney(unitPrice * quantity)
-
-    return {
-      retailUnitPrice,
-      unitPrice,
-      quantity,
-      retailLineTotal,
-      lineTotal,
-      discountAmount: roundMoney(retailLineTotal - lineTotal),
-      discountPercentage,
-      discountType: 'bundle',
-    }
-  }
-
   const contract = buildPricingContract(item.product, user, {
     ...(item.selectedSize ? { selectedSize: item.selectedSize } : {}),
     ...(item.selectedColor ? { selectedColor: item.selectedColor } : {}),
   })
-  const retailUnitPrice = contract.originalPrice && contract.originalPrice > contract.displayPrice
+  const contractRetailUnitPrice = contract.originalPrice && contract.originalPrice > contract.displayPrice
     ? contract.originalPrice
     : contract.basePrice
-  const retailLineTotal = roundMoney(retailUnitPrice * quantity)
-  const lineTotal = roundMoney(contract.unitPrice * quantity)
+  const contractRetailLineTotal = roundMoney(contractRetailUnitPrice * quantity)
+  const contractLineTotal = roundMoney(contract.unitPrice * quantity)
+
+  if (isBundleItem) {
+    const retailUnitPrice = getBundleRetailPrice(item.product)
+    const bundleDiscountPercentage = Number(item.bundleDiscountPercent || 0) || 0
+    const bundleUnitPrice = roundMoney(retailUnitPrice * (1 - bundleDiscountPercentage / 100))
+    const retailLineTotal = roundMoney(retailUnitPrice * quantity)
+    const bundleLineTotal = roundMoney(bundleUnitPrice * quantity)
+    const contractBeatsBundle =
+      contract.discountAmount > 0 &&
+      (
+        contract.unitPrice < bundleUnitPrice ||
+        (contract.unitPrice === bundleUnitPrice && contract.discountPercentage >= bundleDiscountPercentage)
+      )
+
+    // Bundle Builder and VIP/Black Friday discounts are mutually exclusive.
+    // A high-discount customer should receive the better personal discount,
+    // not be downgraded to the 20% bundle cap.
+    if (contractBeatsBundle) {
+      return {
+        retailUnitPrice: contractRetailUnitPrice,
+        unitPrice: contract.unitPrice,
+        quantity,
+        retailLineTotal: contractRetailLineTotal,
+        lineTotal: contractLineTotal,
+        discountAmount: roundMoney(contractRetailLineTotal - contractLineTotal),
+        discountPercentage: contract.discountPercentage,
+        discountType: contract.discountType,
+      }
+    }
+
+    return {
+      retailUnitPrice,
+      unitPrice: bundleUnitPrice,
+      quantity,
+      retailLineTotal,
+      lineTotal: bundleLineTotal,
+      discountAmount: roundMoney(retailLineTotal - bundleLineTotal),
+      discountPercentage: bundleDiscountPercentage,
+      discountType: 'bundle',
+    }
+  }
 
   return {
-    retailUnitPrice,
+    retailUnitPrice: contractRetailUnitPrice,
     unitPrice: contract.unitPrice,
     quantity,
-    retailLineTotal,
-    lineTotal,
-    discountAmount: roundMoney(retailLineTotal - lineTotal),
+    retailLineTotal: contractRetailLineTotal,
+    lineTotal: contractLineTotal,
+    discountAmount: roundMoney(contractRetailLineTotal - contractLineTotal),
     discountPercentage: contract.discountPercentage,
     discountType: contract.discountType,
   }

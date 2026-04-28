@@ -71,9 +71,9 @@ describe('cart pricing helper', () => {
     expect(getCartTotalPrice([item], user)).toBe(360)
   })
 
-  it('keeps bundle-builder items on bundle discount only', () => {
+  it('keeps bundle-builder items on bundle discount when bundle is better', () => {
     const product = createProduct({ price: 100 })
-    const user = createUser({ discountType: 'percentage', discountPercentage: 20 })
+    const user = createUser({ discountType: 'percentage', discountPercentage: 10 })
     const item = createItem(product, {
       quantity: 2,
       fromBundle: true,
@@ -86,6 +86,28 @@ describe('cart pricing helper', () => {
     expect(pricing.unitPrice).toBe(85)
     expect(pricing.lineTotal).toBe(170)
     expect(pricing.discountAmount).toBe(30)
+  })
+
+  it('uses user discount for bundle-builder items when user discount is better', () => {
+    const product = createProduct({ price: 100 })
+    const user = createUser({ discountType: 'percentage', discountPercentage: 50 })
+    const item = createItem(product, {
+      quantity: 2,
+      fromBundle: true,
+      bundleDiscountPercent: 20,
+    })
+
+    const pricing = getCartLinePricing(item, user)
+
+    expect(pricing.discountType).toBe('user')
+    expect(pricing.discountPercentage).toBe(50)
+    expect(pricing.unitPrice).toBe(50)
+    expect(pricing.lineTotal).toBe(100)
+    expect(pricing.discountAmount).toBe(100)
+    expect(getCartLinePayloadPricing(item, user)).toEqual({
+      price: 50,
+      total: 100,
+    })
   })
 
   it('preserves Beauty Box built-in bundle pricing', () => {

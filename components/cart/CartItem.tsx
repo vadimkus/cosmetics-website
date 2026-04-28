@@ -292,8 +292,8 @@ function CartItemComponent({ item }: CartItemProps) {
               {(() => {
                 const linePricing = getCartLinePricing(item, user)
 
-                // For Build Your Set items: bundle discount ONLY on retail price — no VIP/user discount.
-                // Beauty Boxes may carry stale bundle metadata from old carts, but the helper rejects it.
+                // For Build Your Set items: bundle and VIP/Black Friday do not stack.
+                // The shared helper applies whichever discount gives the better unit price.
                 if (linePricing.discountType === 'bundle') {
                   const combinedDiscount = `${linePricing.discountPercentage}%`
                   

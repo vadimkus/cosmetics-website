@@ -74,15 +74,16 @@ Users on Safari/Chrome on their phone visit `genosys.ae` and use the **exact sam
 
 - **Stored in**: `User.discountPercentage` (e.g., `50` for 50% off)
 - **Applied to**: All eligible products (see exclusions below)
-- **When**: Applied first, before bundle discount
+- **When**: Compared against bundle discounts; the better discount wins
 
-### 2. Bundle Discount (Web only)
+### 2. Bundle Discount
 
 - **Source**: Bundle Builder feature (`/bundle-builder`)
 - **Tiers**: 2 items = 5%, 3 = 10%, 4 = 15%, 5+ = 20%
 - **Applied to**: Items added via Bundle Builder
-- **When**: Applied second, after user discount (sequential/waterfall)
-- **Native app**: Not currently supported (no Bundle Builder in native app)
+- **When**: Compared against user / Black Friday pricing; it does **not** stack
+- **Rule**: If a customer has 50% VIP and the bundle tier is 20%, the 50% VIP price wins
+- **Channels**: Desktop web, mobile web / PWA, and native app use the same non-stacking rule
 
 ### 3. Black Friday Discount
 
@@ -167,15 +168,16 @@ Exported functions:
    - Applies user discount percentage if eligible
    - Returns `{ originalPrice, discountedPrice, discountAmount, discountPercentage, hasDiscount }`
 
-2. **`lib/cartStore.ts` → `getTotalPrice(user)`**
-   - For each cart item: gets discounted price, then applies bundle discount if applicable
+2. **`lib/cartPricing.ts` → `getCartLinePricing(item, user)`**
+   - For each cart item: calculates user / Black Friday / Beauty Box pricing through `PricingContract`
+   - For Bundle Builder items: validates the bundle tier and compares bundle price vs. user-aware price
+   - Applies the lower unit price only; discounts do not stack
    - Accumulates into subtotal
-   - Bundle discount is applied **sequentially** on top of user discount
 
 3. **`CheckoutClient.tsx`**
    - Calculates shipping via `calculateMobileShipping(subtotal, emirate)`
    - Calculates VAT via `calculateVatIncluded(total)`
-   - Sends item-level `bundleDiscount` percentage to backend
+   - Sends item-level `bundleDiscount` percentage to backend only for lines where the bundle discount actually wins
 
 ### Backend Calculation (Web Routes)
 
@@ -245,7 +247,13 @@ const vat = calculateVatIncluded(total)
 
 ### Bundle Discounts in Native App
 
-The native mobile app **does not currently support** customer-built bundles (Bundle Builder is web-only). All three mobile order creation routes include comments noting this. If bundles are added to the mobile app in the future, the calculation must be updated to match the web checkout's sequential discount application.
+The native mobile app supports customer-built bundles through the native Bundle Builder. Bundle and user discounts are mutually exclusive:
+
+- If the bundle tier is better than the user's discount, the bundle discount applies.
+- If the user's personal discount is better, the personal discount applies.
+- Example: `f.this.that@gmail.com` has 50% discount, so Bundle Builder items should use 50%, not the 20% bundle cap.
+
+Desktop web and mobile web / PWA now use the same rule through `lib/cartPricing.ts`.
 
 ---
 

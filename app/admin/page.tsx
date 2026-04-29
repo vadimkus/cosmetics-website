@@ -89,6 +89,11 @@ const ProfitabilityReportTab = dynamic(() => import('@/components/admin/Profitab
   ssr: false
 })
 
+const MobileOwnerAdmin = dynamic(() => import('@/components/admin/MobileOwnerAdmin'), {
+  loading: () => <LoadingSpinner />,
+  ssr: false
+})
+
 const OrderDetails = dynamic(() => import('@/components/admin/OrderDetails'), {
   loading: () => <LoadingSpinner />,
   ssr: false
@@ -357,7 +362,7 @@ export default function AdminPage() {
     } finally {
       setOrdersLoading(false)
     }
-  }, [isAuthenticated, adminUser, getAdminHeaders])
+  }, [isAuthenticated, adminUser, getAdminHeaders, showToast])
 
   const refreshUsers = async () => {
     setUsersRefreshing(true)
@@ -402,6 +407,36 @@ export default function AdminPage() {
   // Handler for selecting multiple orders
   const handleSelectOrders = (orderIds: string[]) => {
     setSelectedOrders(orderIds)
+  }
+
+  const handleUpdateOrderStatus = async (orderId: string, status: string) => {
+    try {
+      const csrfToken = await fetchCsrfToken()
+      if (!csrfToken) {
+        showToast('Security error: Could not verify request. Please refresh the page and try again.', 'error')
+        return
+      }
+
+      const response = await fetch(`/api/admin/orders/${orderId}`, {
+        method: 'PUT',
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody({ status }))
+      })
+      
+      if (response.ok) {
+        setOrders(currentOrders => currentOrders.map(order => 
+          order.id === orderId ? { ...order, status } : order
+        ))
+        setSelectedOrder(currentOrder => currentOrder?.id === orderId ? { ...currentOrder, status } : currentOrder)
+        showToast('Order status updated successfully!', 'success')
+      } else {
+        const errorData = await response.json()
+        showToast(`Failed to update order status: ${errorData.error || 'Unknown error'}`, 'error')
+      }
+    } catch (error) {
+      errorLog('Error updating order status:', error)
+      showToast('Failed to update order status', 'error')
+    }
   }
 
   // Handler for deleting selected orders
@@ -685,7 +720,34 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="container mx-auto px-3 sm:px-4 py-4 sm:py-8 md:py-16">
+    <>
+    <div className="md:hidden">
+      <MobileOwnerAdmin
+        adminName={adminUser?.name}
+        orders={orders}
+        users={users}
+        ordersLoading={ordersLoading}
+        ordersRefreshing={ordersRefreshing}
+        usersRefreshing={usersRefreshing}
+        userSearch={userSearch}
+        setUserSearch={setUserSearch}
+        onRefreshOrders={refreshOrders}
+        onRefreshUsers={refreshUsers}
+        onUpdateOrderStatus={handleUpdateOrderStatus}
+        onSelectCustomer={handleSelectCustomer}
+        getAdminHeaders={getAdminHeaders}
+        showToast={showToast}
+        onLogout={handleAdminLogout}
+        onMoySkladPushed={(orderId, moySkladOrderId) => {
+          setOrders(currentOrders => currentOrders.map(order =>
+            order.id === orderId ? { ...order, moySkladOrderId } : order
+          ))
+          setSelectedOrder(currentOrder => currentOrder?.id === orderId ? { ...currentOrder, moySkladOrderId } : currentOrder)
+        }}
+      />
+    </div>
+
+    <div className="container mx-auto hidden px-3 py-4 sm:px-4 sm:py-8 md:block md:py-16">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center mb-4 sm:mb-6 md:mb-8">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-center">
@@ -849,41 +911,12 @@ export default function AdminPage() {
                 <OrderDetails 
                   order={selectedOrder} 
                   onBack={() => setSelectedOrder(null)}
-                  onUpdateStatus={async (orderId, status) => {
-                    try {
-                      // Ensure CSRF token is available
-                      const csrfToken = await fetchCsrfToken()
-                      if (!csrfToken) {
-                        alert('Security error: Could not verify request. Please refresh the page and try again.')
-                        return
-                      }
-
-                      const response = await fetch(`/api/admin/orders/${orderId}`, {
-                        method: 'PUT',
-                        headers: getAdminHeaders(),
-                        body: JSON.stringify(addCsrfToBody({ status }))
-                      })
-                      
-                      if (response.ok) {
-                        setOrders(orders.map(order => 
-                          order.id && order.id === orderId ? { ...order, status } : order
-                        ))
-                        setSelectedOrder(selectedOrder ? { ...selectedOrder, status } : null)
-                        showToast('Order status updated successfully!', 'success')
-                      } else {
-                        const errorData = await response.json()
-                        showToast(`Failed to update order status: ${errorData.error || 'Unknown error'}`, 'error')
-                      }
-                    } catch (error) {
-                      errorLog('Error updating order status:', error)
-                      showToast('Failed to update order status', 'error')
-                    }
-                  }}
+                  onUpdateStatus={handleUpdateOrderStatus}
                   getAdminHeaders={getAdminHeaders}
                   showToast={showToast}
                   onMoySkladPushed={(orderId, moySkladOrderId) => {
                     // Update orders list to reflect the sync
-                    setOrders(orders.map(order =>
+                    setOrders(currentOrders => currentOrders.map(order =>
                       order.id === orderId ? { ...order, moySkladOrderId } : order
                     ))
                     if (selectedOrder && selectedOrder.id === orderId) {
@@ -1047,5 +1080,6 @@ export default function AdminPage() {
         ))}
       </div>
     </div>
+    </>
   )
 }

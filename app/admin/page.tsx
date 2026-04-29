@@ -84,6 +84,11 @@ const NewsletterTab = dynamic(() => import('@/components/admin/NewsletterTab'), 
   ssr: false
 })
 
+const ProfitabilityReportTab = dynamic(() => import('@/components/admin/ProfitabilityReportTab'), {
+  loading: () => <LoadingSpinner />,
+  ssr: false
+})
+
 const OrderDetails = dynamic(() => import('@/components/admin/OrderDetails'), {
   loading: () => <LoadingSpinner />,
   ssr: false
@@ -189,7 +194,7 @@ export default function AdminPage() {
     
     return headers as HeadersInit
   }, [adminUser?.email])
-  const [activeTab, setActiveTab] = useState<'analytics' | 'reporting' | 'segmentation' | 'users' | 'orders' | 'products' | 'promo' | 'blog' | 'faq' | 'chatbot' | 'newsletter'>('analytics')
+  const [activeTab, setActiveTab] = useState<'analytics' | 'reporting' | 'profitability' | 'segmentation' | 'users' | 'orders' | 'products' | 'promo' | 'blog' | 'faq' | 'chatbot' | 'newsletter'>('analytics')
   const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
   const [selectedCustomer, setSelectedCustomer] = useState<User | null>(null)
   const [showProductForm, setShowProductForm] = useState(false)
@@ -977,6 +982,12 @@ export default function AdminPage() {
                 }
               }}
               adminEmail={adminUser?.email || ''}
+            />
+          )}
+          {activeTab === 'profitability' && (
+            <ProfitabilityReportTab
+              getAdminHeaders={getAdminHeaders}
+              showToast={showToast}
             />
           )}
           {activeTab === 'blog' && (

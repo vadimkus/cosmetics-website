@@ -1,8 +1,8 @@
 'use client'
 
-import { BarChart3, FileText, Users, Package, ShoppingBag, Filter, Megaphone, MessageCircle, HelpCircle, Mail } from 'lucide-react'
+import { BarChart3, Coins, FileText, Users, Package, ShoppingBag, Filter, Megaphone, MessageCircle, HelpCircle, Mail } from 'lucide-react'
 
-type AdminTab = 'analytics' | 'reporting' | 'segmentation' | 'users' | 'orders' | 'products' | 'promo' | 'blog' | 'faq' | 'chatbot' | 'newsletter'
+type AdminTab = 'analytics' | 'reporting' | 'profitability' | 'segmentation' | 'users' | 'orders' | 'products' | 'promo' | 'blog' | 'faq' | 'chatbot' | 'newsletter'
 
 interface AdminTabNavigationProps {
   activeTab: AdminTab
@@ -32,6 +32,13 @@ export default function AdminTabNavigation({
       label: 'Reports', 
       icon: FileText, 
       description: 'Advanced reporting',
+      count: undefined
+    },
+    {
+      id: 'profitability' as AdminTab,
+      label: 'Profitability',
+      icon: Coins,
+      description: 'MoySklad profitability reports',
       count: undefined
     },
     { 

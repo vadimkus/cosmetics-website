@@ -9,6 +9,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { useRouter } from 'next/navigation'
 import ProductContentDisplay from '@/components/product/ProductContentDisplay'
+import type { Product } from '@/types'
 
 // Mock the dependencies
 jest.mock('next/navigation', () => ({
@@ -61,7 +62,7 @@ describe('PDF Links Integration Tests', () => {
     jest.clearAllMocks()
   })
 
-  const mockProduct = {
+  const mockProduct: Product = {
     id: '1',
     name: 'Test Product',
     description: 'Test product description',
@@ -70,9 +71,9 @@ describe('PDF Links Integration Tests', () => {
     category: 'test',
     inStock: true,
     productDetails: 'Test details',
-    keyFeatures: [],
-    benefits: 'Test benefits',
-    ingredients: 'Test ingredients',
+    keyFeatures: JSON.stringify([]),
+    benefits: JSON.stringify(['Test benefits']),
+    ingredients: JSON.stringify(['Test ingredients']),
     howToUse: 'Test usage',
     directions: 'Test directions',
     skinType: 'All skin types',

@@ -26,9 +26,8 @@ const mockProduct: Product = {
   price: 100,
   category: 'Test Category',
   description: 'Test Description',
-  stock: 10,
-  rating: 4.5,
-  reviews: 10
+  inStock: true,
+  rating: 4.5
 }
 
 describe('useProductPricing', () => {

@@ -70,12 +70,7 @@ describe('ProfileInfo', () => {
   })
 
   it('handles missing optional fields gracefully', () => {
-    const userWithMissingFields = {
-      ...mockUser,
-      phone: undefined,
-      address: undefined,
-      birthday: undefined
-    }
+    const { phone: _phone, address: _address, birthday: _birthday, ...userWithMissingFields } = mockUser
     
     render(<ProfileInfo user={userWithMissingFields} />)
     

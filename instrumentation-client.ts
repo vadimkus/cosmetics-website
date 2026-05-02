@@ -53,6 +53,55 @@ function isSafariNavigationAbortLoadFailed(event: Sentry.ErrorEvent): boolean {
   return /_next\/static\/chunks\//.test(file)
 }
 
+/**
+ * iOS Safari + experimental.viewTransition + React 19 race condition.
+ *
+ * During a client-side route change, WebKit's View Transitions API takes a
+ * snapshot of the page and reparents nodes for the cross-fade. React's
+ * commit phase (commitDeletionEffectsOnFiber → commitMutationEffectsOnFiber)
+ * then tries to call `removeChild` on a node WebKit has already moved out
+ * of its parent, and `Node.removeChild` throws DOMException code 8
+ * ("NotFoundError: The object can not be found here.").
+ *
+ * Symptoms in the Sentry event:
+ *   - exception type "NotFoundError" + message "The object can not be found here."
+ *   - tags: browser.name "Mobile Safari", os.name "iOS", DOMException.code 8
+ *   - stack is exclusively inside minified _next/static/chunks/*.js (React's
+ *     commitWork; we never call removeChild on App Router-managed DOM)
+ *   - mechanism.handled: true (React swallows it on the next render)
+ *   - reproduces around route navigations (transaction != url, e.g. /orders → /products)
+ *
+ * Seen first 2026-05-02 06:02 UTC, event dd9c98ca18f4… on iOS 18.7 / Mobile
+ * Safari 26.2. Browser-engine race, no user-visible breakage, nothing for us
+ * to fix in product code. Drop to silence the alerting noise; let any
+ * NotFoundError originating from real app code (frames pointing at our own
+ * source files) through.
+ */
+function isIOSViewTransitionRemoveChildRace(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type !== 'NotFoundError') return false
+  if (!exc.value || !/object can not be found here/i.test(exc.value)) return false
+
+  const os = event.contexts?.os?.name || ''
+  const browser = event.contexts?.browser?.name || ''
+  const isIOSWebKit =
+    /^iOS$/i.test(os) ||
+    /Mobile Safari|Safari/i.test(browser) ||
+    /WebKit/i.test(browser)
+  if (!isIOSWebKit) return false
+
+  const frames = exc.stacktrace?.frames || []
+  if (frames.length === 0) return false
+  const isAllNextChunks = frames.every((f) => {
+    const file = f.filename || f.abs_path || ''
+    return file === '' || /_next\/static\/chunks\//.test(file)
+  })
+  return isAllNextChunks
+}
+
 if (dsn) {
   Sentry.init({
     dsn,
@@ -66,6 +115,7 @@ if (dsn) {
     beforeSend(event) {
       // Drop unactionable iOS Safari navigation-abort noise.
       if (isSafariNavigationAbortLoadFailed(event)) return null
+      if (isIOSViewTransitionRemoveChildRace(event)) return null
 
       // Strip PII-sensitive fields before events leave the browser.
       // Checkout pages see email/address/phone; scrub them from breadcrumbs.

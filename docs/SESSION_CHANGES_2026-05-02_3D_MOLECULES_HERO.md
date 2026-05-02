@@ -181,9 +181,9 @@ After the static-photo / atom-field hero shipped, a `hero.mp4` (15 MB, ~16:9, dr
 | State | What happens |
 |---|---|
 | First paint | Static petri-shot + atoms render immediately (instant LCP). The `<video>` element preloads silently in the background. |
-| Buffer ready (`canplaythrough` fires) | Auto-starts a cycle: static fades out, video fades in (~900 ms ease-in-out), plays end-to-end **2 times**. |
+| Buffer ready (`canplaythrough` fires) | Auto-starts a cycle: static fades out, video fades in (~900 ms ease-in-out), plays end-to-end **once**. |
 | Cycle ends | Video fades out, static fades back in. Hero container becomes a `role="button"` (cursor pointer, keyboard-accessible). |
-| User clicks the block (or presses Enter/Space) | Cycle restarts: video rewinds and plays 2 more times, then back to static. |
+| User clicks the block (or presses Enter/Space) | Cycle replays: video rewinds and plays once more, then back to static. |
 | Cursor parallax | Always running. Clicks bubble through the R3F canvas to the container's `onClick`, so the molecules don't intercept the click target. |
 | `prefers-reduced-motion: reduce` | `<video>` element is never mounted. Static + atoms only. |
 
@@ -192,7 +192,7 @@ Tuning constants live at the top of `DesktopHero3DVisual.tsx`:
 ```ts
 const STATIC_SRC = '/images/desktop-experience/genosys-athlete-face-hero.png'
 const VIDEO_SRC = '/videos/desktop-experience/genosys-hero.mp4'
-const PLAYS_PER_CYCLE = 2
+const PLAYS_PER_CYCLE = 1
 ```
 
 Why no `loop` attribute on the `<video>`: native `loop` never fires `onEnded`, so we couldn't count plays. We replay manually via `onEnded` → `currentTime = 0` → `play()`, and after `PLAYS_PER_CYCLE` we set `videoActive = false` to fade out.

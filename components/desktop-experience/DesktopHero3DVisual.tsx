@@ -16,10 +16,10 @@ const AtomFieldScene = dynamic(() => import('./AtomFieldScene'), {
  *   1. Static portrait (petri-dish + baked-in translucent molecules) renders
  *      immediately — instant LCP, no blank frame.
  *   2. <video> preloads in the background. Once it can play through it
- *      cross-fades over the static image and plays end-to-end PLAYS_PER_CYCLE
- *      times, then fades back to the static image.
+ *      cross-fades over the static image, plays through end-to-end
+ *      PLAYS_PER_CYCLE times, then fades back to the static image.
  *   3. Clicking (or pressing Enter / Space on) the hero block while the
- *      static image is showing restarts the cycle.
+ *      static image is showing replays the cycle.
  *   4. R3F atom field overlays everything with cursor parallax.
  *
  * Honors prefers-reduced-motion: skips video entirely for that audience.
@@ -27,7 +27,7 @@ const AtomFieldScene = dynamic(() => import('./AtomFieldScene'), {
 
 const STATIC_SRC = '/images/desktop-experience/genosys-athlete-face-hero.png'
 const VIDEO_SRC = '/videos/desktop-experience/genosys-hero.mp4'
-const PLAYS_PER_CYCLE = 2
+const PLAYS_PER_CYCLE = 1
 
 export default function DesktopHero3DVisual() {
   const experience = useDesktopExperience({ minWidth: 768 })

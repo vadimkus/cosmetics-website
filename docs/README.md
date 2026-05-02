@@ -9,6 +9,7 @@
 | Priority | Document | Description |
 |----------|----------|-------------|
 | 🔴 **CRITICAL** | [PROJECT_GUIDE.md](./PROJECT_GUIDE.md) | **Start here!** Tech stack, project structure, patterns |
+| 🟡 **Important** | [SESSION_CHANGES_2026-05-02_3D_MOLECULES_HERO.md](./SESSION_CHANGES_2026-05-02_3D_MOLECULES_HERO.md) | **Desktop hero rebuilt as static photoreal portrait + transparent React Three Fiber atom field** drifting around the lady with cursor parallax (X/Y/Z), replacing the autoplay video. Adds `@react-three/{fiber,drei}` + `three`, `components/desktop-experience/{AtomFieldScene,DesktopHero3DVisual}.tsx`, `hooks/useDesktopExperience.ts` (≥768 px + `prefers-reduced-motion` gate), the petri-shot portrait `genosys-athlete-face-hero.png`, and a `/dev/3d-test` GLB inspector. Mobile / PWA / `/products/27` PDP all unchanged. Build clean (376/376), tsc clean, eslint clean. |
 | 🔴 **CRITICAL** | [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) | Colors, typography, components |
 | 🔴 **CRITICAL** | [DEPLOY_MIGRATIONS.md](./DEPLOY_MIGRATIONS.md) | **DB migrations runbook** — every Vercel build runs `prisma migrate deploy`. Adding migrations, `SKIP_DB_MIGRATIONS` emergency bypass, baseline history, drift detection. Read before touching `prisma/migrations/` or `scripts/deploy-setup.js`. |
 | 🟡 **Important** | [VARIANT_VALIDATION_CHECKOUT.md](./VARIANT_VALIDATION_CHECKOUT.md) | Color & size validation at checkout + bag selectors |

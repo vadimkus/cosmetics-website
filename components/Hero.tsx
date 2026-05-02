@@ -7,13 +7,13 @@ import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import { useAuth } from './auth/AuthProvider'
 import LoginModal from './LoginModal'
-import { useState, useMemo, useRef, useEffect, useCallback } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { getLocalizedPath } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n'
-import { debugLog, warnLog } from '@/lib/logger'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useRouter } from 'next/navigation'
+import DesktopHero3DVisual from '@/components/desktop-experience/DesktopHero3DVisual'
 
 interface HeroProps {
   initialLocale?: Locale
@@ -27,8 +27,6 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
   const router = useRouter()
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
-  const [videoError, setVideoError] = useState(false)
-  const desktopVideoRef = useRef<HTMLVideoElement>(null)
 
   // Handle login click - redirect to PWA login page if in PWA mode
   const handleLoginClick = useCallback(() => {
@@ -39,19 +37,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
       setShowLoginModal(true)
     }
   }, [isPWA, initialLocale, router])
-  
-  // Try to play the desktop hero video programmatically after load.
-  // The mobile hero is a static image (see below) so we no longer
-  // need a mobile ref or autoplay retry.
-  useEffect(() => {
-    const video = desktopVideoRef.current
-    if (!video || videoError) return
 
-    video.play().catch(() => {
-      // Autoplay was prevented - this is normal, user interaction will be needed
-      debugLog('Video autoplay prevented (normal browser behavior)')
-    })
-  }, [videoError])
   
   // Messages come from MessagesProvider (populated server-side from the
   // x-pathname header). The `initialLocale` / `initialDir` props are kept
@@ -268,44 +254,10 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             <span className="text-primary-600"> {titleHighlightText}</span>
           </h1>
 
-          {/* Video */}
+          {/* Desktop 3D hero visual: static lady portrait + R3F atom field overlay */}
           <div className="mb-4">
-            <div className="aspect-video w-full max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl bg-gray-100">
-              {!videoError ? (
-                <video 
-                  ref={desktopVideoRef}
-                  className="w-full h-full object-cover"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  poster="/images/genosys-video-poster.jpg"
-                  onError={() => {
-                    warnLog('Video failed to load, showing fallback')
-                    setVideoError(true)
-                  }}
-                  onLoadedData={() => {
-                    // Video loaded successfully
-                    setVideoError(false)
-                  }}
-                >
-                  <source src="/videos/start-video.mp4" type="video/mp4" />
-                </video>
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100">
-                  <div className="text-center p-8">
-                    <Image 
-                      src="/images/genosys-logo.png" 
-                      alt="GENOSYS" 
-                      width={300}
-                      height={300}
-                      className="mx-auto mb-4 opacity-80"
-                      priority
-                    />
-                  </div>
-                </div>
-              )}
+            <div className="mx-auto max-w-4xl">
+              <DesktopHero3DVisual />
             </div>
           </div>
           

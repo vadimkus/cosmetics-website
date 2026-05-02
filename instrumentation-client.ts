@@ -85,8 +85,12 @@ function isIOSViewTransitionRemoveChildRace(event: Sentry.ErrorEvent): boolean {
   if (exc.type !== 'NotFoundError') return false
   if (!exc.value || !/object can not be found here/i.test(exc.value)) return false
 
-  const os = event.contexts?.os?.name || ''
-  const browser = event.contexts?.browser?.name || ''
+  // Sentry's `Contexts` type is an indexed map (`{ [k: string]: Context }`),
+  // so `event.contexts.os.name` resolves to `{}` instead of `string`. Narrow
+  // explicitly with `typeof` to satisfy TS strict mode.
+  const asString = (v: unknown): string => (typeof v === 'string' ? v : '')
+  const os = asString(event.contexts?.os?.name)
+  const browser = asString(event.contexts?.browser?.name)
   const isIOSWebKit =
     /^iOS$/i.test(os) ||
     /Mobile Safari|Safari/i.test(browser) ||

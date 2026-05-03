@@ -16,11 +16,7 @@ import { NextResponse } from 'next/server'
  */
 
 const SPLASH_CONFIG = {
-  // Temporarily disabled while the App Store 1.10.0 / build 82 native app
-  // rolls forward. The remote WebView splash introduces a visible native
-  // LaunchScreen -> React -> video handoff gap on iOS; build 83 should
-  // reintroduce this only with a native-level startup path.
-  enabled: false,
+  enabled: true,
   type: 'video' as const,
   videoUrl: 'https://genosys.ae/videos/Splash.mp4',
   posterUrl: null as string | null,

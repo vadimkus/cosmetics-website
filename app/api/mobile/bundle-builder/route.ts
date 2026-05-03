@@ -125,14 +125,16 @@ export async function GET(request: NextRequest) {
       // Bundle builder: NO user/VIP discount — only bundle tier discount applies.
       // Display price = retail price (bundle discount is applied at checkout based on item count).
       const displayPrice = p.price
-      const variants = p.variants.filter(v => v.available).map(v => ({
-        id: v.id,
-        size: v.size,
-        color: v.color,
-        price: v.price,
-        available: v.available,
-        isDefault: v.isDefault,
-      }))
+      const variants = p.variants
+        .filter(v => v.available && (v.size || v.color))
+        .map(v => ({
+          id: v.id,
+          size: v.size,
+          color: v.color,
+          price: v.price,
+          available: v.available,
+          isDefault: v.isDefault,
+        }))
       const contractProduct = {
         id: p.id,
         productNumber: p.productNumber,

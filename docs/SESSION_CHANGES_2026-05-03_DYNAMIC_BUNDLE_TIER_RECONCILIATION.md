@@ -72,3 +72,69 @@ Verification:
 - Website: `npx tsc --noEmit` passed.
 - Website: `npm run smoke:pricing-contract` passed.
 - ReadLints: no errors on touched web files.
+
+## Mist Price Follow-up
+
+Production checkout showed `MICROBIOME ENERGY INFUSING MIST` as `AED 320 -> AED 256` inside Build Your Set, while the correct retail base is `AED 160 -> AED 128`.
+
+Root cause:
+
+- Product `14` had correct product-level price `160`.
+- Its default DB variant had `size: null`, `color: null`, and stale price `320`.
+- The bundle retail resolver treated that null variant as selectable and used `320`.
+
+Fix:
+
+- Corrected the DB null default variant for product `14` from `320` to `160`.
+- Web Bundle Builder now ignores variants that have neither size nor color.
+- Mobile bundle-builder API filters out null size/color variants before sending data to the native app.
+- Native bundle/cart/order payload fallbacks now ignore null size/color variants and prefer product retail base for non-variant bundle items.
+
+Verification:
+
+- Website: `npm test -- --runTestsByPath __tests__/api/mobile-bundle-builder-pricing.test.ts __tests__/lib/cartPricing.test.ts __tests__/lib/checkoutPricingGuards.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts` passed (`27` tests).
+- Website: `npx eslint app/bundle-builder/BundleBuilderClient.tsx app/api/mobile/bundle-builder/route.ts lib/cartStore.ts lib/cartPricing.ts types/index.ts __tests__/lib/cartPricing.test.ts __tests__/api/mobile-bundle-builder-pricing.test.ts` passed.
+- Website: `npx tsc --noEmit` passed.
+- Website: `npm run smoke:pricing-contract` passed.
+- Native: `npm run smoke:cart-pricing-contract && npm run smoke:order-payload-pricing-contract && npm run smoke:pricing-display` passed.
+- Native: `npx tsc --noEmit` passed.
+- ReadLints: no errors on touched website/native files.
+
+## Native Build Your Set List Price Follow-up
+
+Native Build Your Set product cards showed inflated retail prices before cart add. This was the same class of issue as the Mist case, but across many null default variants:
+
+- `ALL FOR SENSITIVE SERUM`: `450` shown vs `330` product base.
+- `MOISTURE REPLENISHING HYALURON SERUM`: `450` shown vs `330` product base.
+- `MULTI VITA RADIANCE SERUM`: `490` shown vs `330` product base.
+- `MULTI FUNCTIONAL ANTI-WRINKLE SERUM`: `520` shown vs `330` product base.
+- `EGF REPAIR OXYMASK CREAM`: `450` shown vs `290` product base.
+- `INTENSIVE BLEMISH BALM CREAM`: `350` shown vs `250` product base.
+
+Root cause:
+
+- The product-level prices were correct.
+- 41 `product_variants` rows had neither size nor color but carried stale prices.
+- Native code treated those null variants as real default variants and displayed them.
+
+Fix:
+
+- Ran a DB normalization update: every null size/color variant now mirrors its parent product price (`41` rows updated, `0` mismatches remaining).
+- Website mobile bundle-builder API filters null size/color variants out of the response.
+- Web and native bundle retail resolvers ignore variants with no size/color.
+
+Verification:
+
+- Spot-check after DB correction:
+  - Product `18` Hyaluron Serum: base `330`, null variant `330`.
+  - Product `19` All For Sensitive Serum: base `330`, null variant `330`.
+  - Product `21` Multi Vita Radiance Serum: base `330`, null variant `330`.
+  - Product `22` Anti-Wrinkle Serum: base `330`, null variant `330`.
+  - Product `26` EGF Repair Oxymask Cream: base `290`, null variant `290`.
+  - Product `42` Intensive Blemish Balm Cream: base `250`, null variant `250`.
+- Website: `npm test -- --runTestsByPath __tests__/api/mobile-bundle-builder-pricing.test.ts __tests__/lib/cartPricing.test.ts __tests__/lib/checkoutPricingGuards.test.ts __tests__/api/stripe-create-payment-intent-pricing.test.ts` passed (`27` tests).
+- Website: focused ESLint passed.
+- Website: `npx tsc --noEmit` passed.
+- Native: `npm run smoke:cart-pricing-contract && npm run smoke:order-payload-pricing-contract && npm run smoke:pricing-display` passed.
+- Native: `npx tsc --noEmit` passed.
+- ReadLints: no errors on touched website/native files.

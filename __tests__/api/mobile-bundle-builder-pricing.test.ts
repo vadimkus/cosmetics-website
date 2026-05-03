@@ -111,4 +111,53 @@ describe('mobile bundle builder pricing contract', () => {
       expect.objectContaining({ id: 'variant-100', size: '100ml', color: null, price: 250 }),
     ])
   })
+
+  it('ignores default variants without size or color in bundle-builder pricing', async () => {
+    ;(prisma.product.findMany as jest.Mock).mockResolvedValue([
+      {
+        id: '14',
+        productNumber: null,
+        name: 'MICROBIOME ENERGY INFUSING MIST',
+        nameRu: null,
+        nameAr: null,
+        price: 160,
+        description: 'Mist',
+        descriptionRu: null,
+        descriptionAr: null,
+        image: '/mist.jpg',
+        images: null,
+        category: 'Toner/Mist',
+        size: null,
+        noDiscount: false,
+        rating: 5,
+        variants: [
+          {
+            id: 'mist-default',
+            size: null,
+            color: null,
+            price: 320,
+            available: true,
+            isDefault: true,
+          },
+        ],
+      },
+    ])
+
+    const response = await GET(createRequest())
+    const body = await response.json()
+    const tonerStep = body.steps.find((step: { id: string }) => step.id === 'toner')
+    const product = tonerStep.products[0]
+
+    expect(response.status).toBe(200)
+    expect(product.price).toBe(160)
+    expect(product.displayPrice).toBe(160)
+    expect(product.pricing).toMatchObject({
+      source: 'server',
+      basePrice: 160,
+      unitPrice: 160,
+      displayPrice: 160,
+      selectedVariant: null,
+    })
+    expect(product.variants).toEqual([])
+  })
 })

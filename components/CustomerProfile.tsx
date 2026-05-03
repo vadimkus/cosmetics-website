@@ -118,7 +118,7 @@ export default function CustomerProfile({
         const parsed = JSON.parse(session)
         return parsed.email || null
       }
-    } catch (error) {
+    } catch {
       return null
     }
     return null
@@ -194,9 +194,10 @@ export default function CustomerProfile({
   const handleDiscountSave = async () => {
     try {
       setSaving(true)
+      const discountType = editData.discountType === '' ? null : editData.discountType
       await onUpdateCustomer(customer.id, {
-        discountType: editData.discountType === '' ? null : editData.discountType,
-        discountPercentage: editData.discountPercentage === 0 ? null : editData.discountPercentage
+        discountType,
+        discountPercentage: discountType && editData.discountPercentage ? editData.discountPercentage : null
       })
       setDiscountEditing(false)
       alert('Discount updated successfully!')
@@ -715,7 +716,14 @@ export default function CustomerProfile({
                     <div className="flex items-center gap-2">
                       <select
                         value={editData.discountType || ''}
-                        onChange={(e) => setEditData(prev => ({ ...prev, discountType: e.target.value || null }))}
+                        onChange={(e) => {
+                          const nextDiscountType = e.target.value || null
+                          setEditData(prev => ({
+                            ...prev,
+                            discountType: nextDiscountType,
+                            discountPercentage: nextDiscountType ? prev.discountPercentage : null
+                          }))
+                        }}
                         className="px-2 py-1 border border-gray-300 rounded text-xs"
                       >
                         <option value="">No Discount</option>

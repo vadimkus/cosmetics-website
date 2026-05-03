@@ -473,7 +473,7 @@ export async function POST(request: NextRequest) {
 
     // Capture user discount percentage at time of order for waterfall display
     const pctForOrder = Number(user?.discountPercentage)
-    const userDiscountPctForOrder = (Number.isFinite(pctForOrder) && pctForOrder > 0 && pctForOrder < 100) ? pctForOrder : null
+    const userDiscountPctForOrder = (user?.discountType && Number.isFinite(pctForOrder) && pctForOrder > 0 && pctForOrder < 100) ? pctForOrder : null
 
     // Calculate order totals (must match mobile UI: VAT INCLUDED; shipping from shared rates)
     const emirate = String(orderData.customerEmirate || 'Dubai')

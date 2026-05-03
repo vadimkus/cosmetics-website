@@ -148,7 +148,7 @@ export async function POST(request: NextRequest) {
 
     // User discount (constant across all items)
     const pct = Number(user.discountPercentage)
-    const hasUserDiscount = Number.isFinite(pct) && pct > 0 && pct < 100
+    const hasUserDiscount = Boolean(user.discountType) && Number.isFinite(pct) && pct > 0 && pct < 100
 
     for (const item of items) {
       const product = await getProductById(item.id)

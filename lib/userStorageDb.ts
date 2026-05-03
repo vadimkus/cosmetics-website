@@ -28,10 +28,38 @@ export interface UserData {
 
 const normalizeEmail = (email: string): string => String(email || '').trim().toLowerCase()
 
+export const normalizeUserDiscountFields = (
+  discountType?: string | null,
+  discountPercentage?: number | null
+) => {
+  const type = typeof discountType === 'string' ? discountType.trim() : null
+  const pct = Number(discountPercentage)
+
+  if (!type || !Number.isFinite(pct) || pct <= 0 || pct >= 100) {
+    return {
+      discountType: null,
+      discountPercentage: null,
+    }
+  }
+
+  return {
+    discountType: type,
+    discountPercentage: pct,
+  }
+}
+
+const sanitizeUserDiscount = <T extends { discountType?: string | null; discountPercentage?: number | null } | null>(user: T): T => {
+  if (!user) return user
+  return {
+    ...user,
+    ...normalizeUserDiscountFields(user.discountType ?? null, user.discountPercentage ?? null),
+  }
+}
+
 // Get all users with pagination and limited fields
 export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
   try {
-    return await prisma.user.findMany({
+    const users = await prisma.user.findMany({
       select: {
         id: true,
         email: true,
@@ -56,6 +84,7 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
       take: limit,
       skip: offset
     })
+    return users.map(user => sanitizeUserDiscount(user))
   } catch (error) {
     errorLog('Error fetching users:', error)
     return []
@@ -65,6 +94,7 @@ export const getAllUsers = async (limit: number = 100, offset: number = 0) => {
 // Add a new user
 export const addUser = async (userData: UserData): Promise<User> => {
   try {
+    const discountFields = normalizeUserDiscountFields(userData.discountType ?? null, userData.discountPercentage ?? null)
     const baseData = {
       name: userData.name,
       email: userData.email,
@@ -74,8 +104,8 @@ export const addUser = async (userData: UserData): Promise<User> => {
       profilePicture: userData.profilePicture || null,
       isAdmin: userData.isAdmin || false,
       canSeePrices: userData.canSeePrices !== undefined ? userData.canSeePrices : true,
-      discountType: userData.discountType || null,
-      discountPercentage: userData.discountPercentage || null,
+      discountType: discountFields.discountType,
+      discountPercentage: discountFields.discountPercentage,
       birthday: userData.birthday || null,
       gender: userData.gender || null,
       billingAddress: userData.billingAddress || null,
@@ -117,7 +147,7 @@ export const findUserByEmail = async (email: string, maxRetries = 2): Promise<Us
       const queryPromise = (async () => {
         // 1) Fast path: exact match on normalized email (works if DB stores normalized emails)
         const exact = await prisma.user.findUnique({ where: { email: normalizedEmail } })
-        if (exact) return exact
+        if (exact) return sanitizeUserDiscount(exact)
 
         // 2) Case-insensitive match (best for existing mixed-case emails)
         try {
@@ -125,8 +155,8 @@ export const findUserByEmail = async (email: string, maxRetries = 2): Promise<Us
             where: { email: { equals: normalizedEmail, mode: 'insensitive' } },
             orderBy: { createdAt: 'desc' },
           })
-          if (insensitive) return insensitive
-        } catch (error) {
+          if (insensitive) return sanitizeUserDiscount(insensitive)
+        } catch {
           // Some Prisma providers/versions might not support mode: 'insensitive' — fall through.
         }
 
@@ -138,8 +168,8 @@ export const findUserByEmail = async (email: string, maxRetries = 2): Promise<Us
             ORDER BY "createdAt" DESC
             LIMIT 1
           `
-          return rows?.[0] || null
-        } catch (error) {
+          return sanitizeUserDiscount(rows?.[0] || null)
+        } catch {
           return null
         }
       })()
@@ -265,11 +295,13 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     }
     if (updates.isAdmin !== undefined) updateData.isAdmin = updates.isAdmin
     if (updates.canSeePrices !== undefined) updateData.canSeePrices = updates.canSeePrices
-    if (updates.discountType !== undefined) {
-      updateData.discountType = updates.discountType === '' ? null : updates.discountType
-    }
-    if (updates.discountPercentage !== undefined) {
-      updateData.discountPercentage = (updates.discountPercentage === 0 || updates.discountPercentage === null) ? null : updates.discountPercentage
+    if (updates.discountType !== undefined || updates.discountPercentage !== undefined) {
+      const discountFields = normalizeUserDiscountFields(
+        updates.discountType !== undefined ? updates.discountType : user.discountType,
+        updates.discountPercentage !== undefined ? updates.discountPercentage : user.discountPercentage
+      )
+      updateData.discountType = discountFields.discountType
+      updateData.discountPercentage = discountFields.discountPercentage
     }
     if (updates.lastLoginAt !== undefined) {
       updateData.lastLoginAt = updates.lastLoginAt ? new Date(updates.lastLoginAt) : null

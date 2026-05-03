@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { CartState, Product } from '@/types'
+import { CartLineIdentity, CartState, Product } from '@/types'
 import { getCartTotalPrice } from '@/lib/cartPricing'
 import { getPriceForSize } from '@/utils/productPricing'
 import { User } from '@/types/user'
@@ -30,6 +30,16 @@ const updateCartBadge = (items: CartState['items']) => {
   }
 }
 
+const isBundleLine = (item: CartState['items'][number]) => item.fromBundle === true
+
+const lineIdentityMatches = (
+  item: CartState['items'][number],
+  bundleInfo?: CartLineIdentity
+) => {
+  const expectedBundle = bundleInfo?.fromBundle === true
+  return isBundleLine(item) === expectedBundle
+}
+
 export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
@@ -41,7 +51,7 @@ export const useCartStore = create<CartState>()(
         set({ _hasHydrated: state })
       },
       
-      addItem: (product: Product, quantity = 1, selectedColor?: string, selectedSize?: string, bundleInfo?: { fromBundle: boolean; bundleDiscountPercent: number }) => {
+      addItem: (product: Product, quantity = 1, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => {
         const items = get().items
         const normalizedColor = selectedColor || ''
         const normalizedSize = selectedSize || ''
@@ -52,9 +62,7 @@ export const useCartStore = create<CartState>()(
           item.product.id === product.id && 
           item.selectedColor === normalizedColor && 
           item.selectedSize === normalizedSize &&
-          // Only match if both are bundle items with same discount, or both are non-bundle
-          (item.fromBundle === bundleInfo?.fromBundle) &&
-          (item.bundleDiscountPercent === bundleInfo?.bundleDiscountPercent)
+          lineIdentityMatches(item, bundleInfo)
         )
         
         if (existingItem) {
@@ -62,8 +70,7 @@ export const useCartStore = create<CartState>()(
             item.product.id === product.id && 
             item.selectedColor === normalizedColor && 
             item.selectedSize === normalizedSize &&
-            item.fromBundle === bundleInfo?.fromBundle &&
-            item.bundleDiscountPercent === bundleInfo?.bundleDiscountPercent
+            lineIdentityMatches(item, bundleInfo)
               ? { ...item, quantity: item.quantity + quantity }
               : item
           )
@@ -83,13 +90,14 @@ export const useCartStore = create<CartState>()(
         }
       },
       
-      removeItem: (productId: string, selectedColor?: string, selectedSize?: string) => {
+      removeItem: (productId: string, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => {
         const normalizedColor = selectedColor || ''
         const normalizedSize = selectedSize || ''
         const newItems = get().items.filter(item => 
           !(item.product.id === productId && 
             item.selectedColor === normalizedColor && 
-            item.selectedSize === normalizedSize)
+            item.selectedSize === normalizedSize &&
+            lineIdentityMatches(item, bundleInfo))
         )
         set({ items: newItems })
         updateCartBadge(newItems)
@@ -123,9 +131,9 @@ export const useCartStore = create<CartState>()(
         updateCartBadge(newItems)
       },
       
-      updateQuantity: (productId: string, quantity: number, selectedColor?: string, selectedSize?: string) => {
+      updateQuantity: (productId: string, quantity: number, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => {
         if (quantity <= 0) {
-          get().removeItem(productId, selectedColor, selectedSize)
+          get().removeItem(productId, selectedColor, selectedSize, bundleInfo)
           return
         }
         
@@ -134,7 +142,8 @@ export const useCartStore = create<CartState>()(
         const newItems = get().items.map(item =>
           item.product.id === productId && 
           item.selectedColor === normalizedColor && 
-          item.selectedSize === normalizedSize
+          item.selectedSize === normalizedSize &&
+          lineIdentityMatches(item, bundleInfo)
             ? { ...item, quantity }
             : item
         )
@@ -142,7 +151,7 @@ export const useCartStore = create<CartState>()(
         updateCartBadge(newItems)
       },
       
-      updateColor: (productId: string, newColor: string, oldColor?: string, selectedSize?: string) => {
+      updateColor: (productId: string, newColor: string, oldColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => {
         const normalizedOldColor = oldColor || ''
         const normalizedSize = selectedSize || ''
         const normalizedNewColor = newColor || ''
@@ -152,7 +161,8 @@ export const useCartStore = create<CartState>()(
         const itemToUpdate = items.find(item =>
           item.product.id === productId && 
           (item.selectedColor || '') === normalizedOldColor && 
-          (item.selectedSize || '') === normalizedSize
+          (item.selectedSize || '') === normalizedSize &&
+          lineIdentityMatches(item, bundleInfo)
         )
         
         if (itemToUpdate) {
@@ -161,7 +171,8 @@ export const useCartStore = create<CartState>()(
             item.product.id === productId && 
             (item.selectedColor || '') === normalizedNewColor && 
             (item.selectedSize || '') === normalizedSize &&
-            item !== itemToUpdate
+            item !== itemToUpdate &&
+            lineIdentityMatches(item, bundleInfo)
           )
           
           if (existingItemWithNewColor) {
@@ -171,7 +182,8 @@ export const useCartStore = create<CartState>()(
                 item.product.id === productId && 
                 (item.selectedColor || '') === normalizedNewColor && 
                 (item.selectedSize || '') === normalizedSize &&
-                item !== itemToUpdate
+                item !== itemToUpdate &&
+                lineIdentityMatches(item, bundleInfo)
                   ? { ...item, quantity: item.quantity + itemToUpdate.quantity }
                   : item
               )
@@ -192,7 +204,7 @@ export const useCartStore = create<CartState>()(
         }
       },
       
-      updateSize: (productId: string, newSize: string, oldSize?: string, selectedColor?: string) => {
+      updateSize: (productId: string, newSize: string, oldSize?: string, selectedColor?: string, bundleInfo?: CartLineIdentity) => {
         const normalizedOldSize = oldSize || ''
         const normalizedColor = selectedColor || ''
         const normalizedNewSize = newSize || ''
@@ -201,7 +213,8 @@ export const useCartStore = create<CartState>()(
         const itemToUpdate = items.find(item =>
           item.product.id === productId && 
           (item.selectedSize || '') === normalizedOldSize && 
-          (item.selectedColor || '') === normalizedColor
+          (item.selectedColor || '') === normalizedColor &&
+          lineIdentityMatches(item, bundleInfo)
         )
         
         if (itemToUpdate) {
@@ -209,7 +222,8 @@ export const useCartStore = create<CartState>()(
             item.product.id === productId && 
             (item.selectedSize || '') === normalizedNewSize && 
             (item.selectedColor || '') === normalizedColor &&
-            item !== itemToUpdate
+            item !== itemToUpdate &&
+            lineIdentityMatches(item, bundleInfo)
           )
           
           if (existingItemWithNewSize) {
@@ -218,7 +232,8 @@ export const useCartStore = create<CartState>()(
                 item.product.id === productId && 
                 (item.selectedSize || '') === normalizedNewSize && 
                 (item.selectedColor || '') === normalizedColor &&
-                item !== itemToUpdate
+                item !== itemToUpdate &&
+                lineIdentityMatches(item, bundleInfo)
                   ? { ...item, quantity: item.quantity + itemToUpdate.quantity }
                   : item
               )

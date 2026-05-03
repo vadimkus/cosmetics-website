@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback, useMemo } from 'react'
 import { CartItem as CartItemType } from '@/types'
 import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
@@ -30,6 +30,10 @@ function CartItemComponent({ item }: CartItemProps) {
   const { user } = useAuth()
   const { t, dir, locale, messages } = useTranslation()
   const { product, quantity, selectedColor, selectedSize } = item
+  const lineIdentity = useMemo(() => ({
+    fromBundle: item.fromBundle === true,
+    bundleDiscountPercent: item.bundleDiscountPercent || 0,
+  }), [item.fromBundle, item.bundleDiscountPercent])
   const { enabled: animationsEnabled } = useAnimationStore()
   
   // Swipe-to-delete state
@@ -92,31 +96,31 @@ function CartItemComponent({ item }: CartItemProps) {
       // Trigger delete animation
       setIsDeleting(true)
       setTimeout(() => {
-        removeItem(product.id, selectedColor, selectedSize)
+        removeItem(product.id, selectedColor, selectedSize, lineIdentity)
       }, 300)
     } else {
       // Snap back
       setShowDeleteHint(false)
     }
-  }, [product.id, selectedColor, selectedSize, removeItem])
+  }, [product.id, selectedColor, selectedSize, removeItem, lineIdentity])
 
   const handleQuantityChange = (newQuantity: number) => {
-    updateQuantity(product.id, newQuantity, selectedColor, selectedSize)
+    updateQuantity(product.id, newQuantity, selectedColor, selectedSize, lineIdentity)
   }
 
   const handleRemove = () => {
     setIsDeleting(true)
     setTimeout(() => {
-      removeItem(product.id, selectedColor, selectedSize)
+      removeItem(product.id, selectedColor, selectedSize, lineIdentity)
     }, 300)
   }
   
   const handleColorChange = (newColor: string) => {
-    updateColor(product.id, newColor, selectedColor, selectedSize)
+    updateColor(product.id, newColor, selectedColor, selectedSize, lineIdentity)
   }
   
   const handleSizeChange = (newSize: string) => {
-    updateSize(product.id, newSize, selectedSize, selectedColor)
+    updateSize(product.id, newSize, selectedSize, selectedColor, lineIdentity)
   }
   
   // Get drag constraints based on RTL
@@ -225,14 +229,14 @@ function CartItemComponent({ item }: CartItemProps) {
               <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 whitespace-nowrap ${dir === 'rtl' ? 'text-right' : ''}`}>
                 {t('product.color')}:
               </label>
-              <div className={`flex flex-nowrap gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex flex-wrap gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 {variantColors.map((color) => {
                   const isSelected = (currentColor || '') === color.value
                   return (
                     <button
                       key={color.value}
                       onClick={() => handleColorChange(color.value)}
-                      className={`px-2 md:px-4 py-1 md:py-2 rounded border transition-all touch-manipulation min-h-[32px] md:min-h-[44px] text-[10px] md:text-sm font-medium flex-shrink-0 ${
+                      className={`min-w-[44px] justify-center px-2 md:px-4 py-1 md:py-2 rounded border transition-all touch-manipulation min-h-[32px] md:min-h-[44px] text-[10px] md:text-sm font-medium flex-shrink-0 ${
                         isSelected
                           ? 'border-primary-600 bg-primary-50 text-primary-700 shadow-sm'
                           : 'border-gray-300 hover:border-gray-400 bg-white text-gray-700 hover:bg-gray-50'

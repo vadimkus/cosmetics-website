@@ -92,6 +92,7 @@ export function useHideBottomNav(
     if (pathname.includes('/pwa-login')) return true
     if (pathname.includes('/pdf-viewer')) return true
     if (pathname.includes('/products/concern/')) return true
+    if (pathname.includes('/admin')) return true
 
     if (variant === 'pwa') {
       // PWA variant is driven by PWAPageWrapper for most cases; this hook

@@ -130,16 +130,21 @@ export interface CartItem {
   bundleDiscountPercent?: number
 }
 
+export interface CartLineIdentity {
+  fromBundle?: boolean
+  bundleDiscountPercent?: number
+}
+
 export interface CartState {
   items: CartItem[]
   selectedEmirate: string
   _hasHydrated: boolean
-  addItem: (product: Product, quantity?: number, selectedColor?: string, selectedSize?: string, bundleInfo?: { fromBundle: boolean; bundleDiscountPercent: number }) => void
-  removeItem: (productId: string, selectedColor?: string, selectedSize?: string) => void
+  addItem: (product: Product, quantity?: number, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => void
+  removeItem: (productId: string, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => void
   decrementProductById: (productId: string) => void
-  updateQuantity: (productId: string, quantity: number, selectedColor?: string, selectedSize?: string) => void
-  updateColor: (productId: string, newColor: string, oldColor?: string, selectedSize?: string) => void
-  updateSize: (productId: string, newSize: string, oldSize?: string, selectedColor?: string) => void
+  updateQuantity: (productId: string, quantity: number, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => void
+  updateColor: (productId: string, newColor: string, oldColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => void
+  updateSize: (productId: string, newSize: string, oldSize?: string, selectedColor?: string, bundleInfo?: CartLineIdentity) => void
   clearCart: () => void
   getTotalPrice: (user?: User | null) => number
   getTotalItems: () => number

@@ -199,6 +199,25 @@ export default function MobileOwnerAdmin({
           <MetricCard label="MoySklad" value={unsyncedOrders} tone="amber" />
           <MetricCard label="Users" value={users.length} tone="blue" />
         </div>
+
+        <div className="mt-3 rounded-3xl bg-white/10 p-1 ring-1 ring-white/10" aria-label="Admin navigation">
+          <div className="grid grid-cols-2 gap-1">
+            <AdminNavButton
+              active={activeTab === 'orders'}
+              icon={<ShoppingBag className="h-4 w-4" />}
+              label="Orders"
+              count={openOrders}
+              onClick={() => setActiveTab('orders')}
+            />
+            <AdminNavButton
+              active={activeTab === 'users'}
+              icon={<Users className="h-4 w-4" />}
+              label="Users"
+              count={users.length}
+              onClick={() => setActiveTab('users')}
+            />
+          </div>
+        </div>
       </div>
 
       <main className="space-y-4 px-3 py-4">
@@ -277,13 +296,43 @@ export default function MobileOwnerAdmin({
         )}
       </main>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-2 shadow-2xl backdrop-blur">
+      <nav className="fixed inset-x-0 bottom-0 z-[70] border-t border-slate-200 bg-white/95 px-4 pb-[max(env(safe-area-inset-bottom),0.75rem)] pt-2 shadow-2xl backdrop-blur">
         <div className="grid grid-cols-2 gap-2">
           <BottomNavButton active={activeTab === 'orders'} icon={<ShoppingBag className="h-5 w-5" />} label="Orders" onClick={() => setActiveTab('orders')} />
           <BottomNavButton active={activeTab === 'users'} icon={<Users className="h-5 w-5" />} label="Users" onClick={() => setActiveTab('users')} />
         </div>
       </nav>
     </div>
+  )
+}
+
+function AdminNavButton({
+  active,
+  icon,
+  label,
+  count,
+  onClick,
+}: {
+  active: boolean
+  icon: ReactNode
+  label: string
+  count: number
+  onClick: () => void
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex min-h-12 items-center justify-center gap-2 rounded-[1.25rem] px-3 py-2 text-sm font-bold transition ${
+        active ? 'bg-white text-slate-950 shadow-sm' : 'text-white/80 active:bg-white/10'
+      }`}
+      aria-pressed={active}
+    >
+      {icon}
+      <span>{label}</span>
+      <span className={`rounded-full px-2 py-0.5 text-[11px] font-black ${active ? 'bg-red-50 text-red-700' : 'bg-white/10 text-white'}`}>
+        {count > 99 ? '99+' : count}
+      </span>
+    </button>
   )
 }
 

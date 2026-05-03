@@ -1,55 +1,74 @@
 import { cache } from 'react'
 import { unstable_cache } from 'next/cache'
 import { debugLog, errorLog } from '@/lib/logger'
-import { prisma } from './prisma'
-import { withPrismaRetry } from './prismaRetry'
+import { getDirectPrismaClient, prisma } from './prisma'
+import { isAccelerateResourceLimitError, withPrismaRetry } from './prismaRetry'
 import type { Product } from '@/types'
 
 // Re-export Product type from types/index.ts for convenience
 export type { Product }
 
-/**
- * Check if a product should be hidden
- * @param product - The product to check
- * @returns true if product should be hidden
- */
-function shouldHideProduct(product: Product): boolean {
-  // Use database flag instead of hardcoded IDs
-  return product.isHidden === true
+type ProductReadClient = Pick<typeof prisma, 'product'>
+
+function withProductReadRecovery<T>(
+  label: string,
+  primaryRead: () => Promise<T>,
+  directRead: (client: ProductReadClient) => Promise<T>
+): Promise<T> {
+  return withPrismaRetry(
+    primaryRead,
+    {
+      label,
+      shouldRecover: isAccelerateResourceLimitError,
+      recover: async (error) => {
+        const directPrisma = getDirectPrismaClient()
+        if (!directPrisma) throw error
+
+        errorLog(`[productsDb:${label}] Prisma Accelerate resource limit; using direct database fallback`)
+        return withPrismaRetry(
+          () => directRead(directPrisma),
+          { label: `${label}:direct`, retries: 1 }
+        )
+      },
+    }
+  )
+}
+
+function readAllProducts(client: ProductReadClient): Promise<Product[]> {
+  return client.product.findMany({
+    where: { isHidden: false },
+    include: { variants: true },
+    orderBy: { name: 'asc' },
+  })
+}
+
+function readProductById(client: ProductReadClient, id: string): Promise<Product | null> {
+  return client.product.findFirst({
+    where: {
+      isHidden: false,
+      OR: [
+        { id },
+        { productNumber: id },
+      ],
+    },
+    include: { variants: true },
+  })
 }
 
 export async function getAllProducts(): Promise<Product[]> {
-  return withPrismaRetry(
-    () =>
-      prisma.product.findMany({
-        where: { isHidden: false },
-        include: { variants: true },
-        orderBy: { name: 'asc' },
-      }),
-    { label: 'getAllProducts' }
+  return withProductReadRecovery(
+    'getAllProducts',
+    () => readAllProducts(prisma),
+    (client) => readAllProducts(client)
   )
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
-  return withPrismaRetry(async () => {
-    let product = await prisma.product.findUnique({
-      where: { id },
-      include: { variants: true }
-    })
-
-    if (!product) {
-      product = await prisma.product.findUnique({
-        where: { productNumber: id },
-        include: { variants: true }
-      })
-    }
-
-    if (product && shouldHideProduct(product)) {
-      return null
-    }
-
-    return product
-  }, { label: 'getProductById' })
+  return withProductReadRecovery(
+    'getProductById',
+    () => readProductById(prisma, id),
+    (client) => readProductById(client, id)
+  )
 }
 
 /**
@@ -79,19 +98,25 @@ export async function getProductsByCategory(category: string): Promise<Product[]
     // in the DB. Products can belong to multiple categories, e.g. a product
     // with category = "Cushion BB, Sun, Cream" must appear on the Sun,
     // Cushion BB and Cream landing pages.
-    const products = await prisma.product.findMany({
-      where: {
-        category: {
-          contains: category,
-          mode: 'insensitive',
+    const read = (client: ProductReadClient) =>
+      client.product.findMany({
+        where: {
+          category: {
+            contains: category,
+            mode: 'insensitive',
+          },
+          isHidden: false,
         },
-        isHidden: false,
-      },
-      include: { variants: true },
-      orderBy: {
-        name: 'asc',
-      },
-    })
+        include: { variants: true },
+        orderBy: {
+          name: 'asc',
+        },
+      })
+    const products = await withProductReadRecovery(
+      'getProductsByCategory',
+      () => read(prisma),
+      (client) => read(client)
+    )
     return products
   } catch (error) {
     errorLog('Error fetching products by category:', error)

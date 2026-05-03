@@ -108,11 +108,39 @@ function isTransient(error: unknown): boolean {
   return false
 }
 
-interface RetryOpts {
+function errorText(error: unknown, depth = 0): string {
+  if (!error || depth > 2) return ''
+  if (typeof error !== 'object') return String(error)
+
+  const err = error as { code?: string; message?: string; cause?: unknown }
+  return [
+    err.code,
+    err.message,
+    errorText(err.cause, depth + 1),
+  ].filter(Boolean).join('\n')
+}
+
+export function isAccelerateResourceLimitError(error: unknown): boolean {
+  const text = errorText(error)
+  return (
+    /accelerate\.prisma-data\.net|Prisma Accelerate/i.test(text) &&
+    /Error 1102|worker_exceeded_resources|Worker exceeded resource limits/i.test(text)
+  )
+}
+
+interface RetryOpts<T> {
   /** Label included in Sentry tag + debug logs. */
   label: string
   /** Max retries (default 2 → up to 3 attempts total). */
   retries?: number
+  /** Optional recovery path that runs before Sentry capture on final failure. */
+  recover?: (error: unknown, context: {
+    retriesPerformed: number
+    maxRetries: number
+    transient: boolean
+  }) => Promise<T>
+  /** Limit recovery to specific final errors. */
+  shouldRecover?: (error: unknown) => boolean
 }
 
 /**
@@ -128,7 +156,7 @@ interface RetryOpts {
  */
 export async function withPrismaRetry<T>(
   fn: () => Promise<T>,
-  opts: RetryOpts
+  opts: RetryOpts<T>
 ): Promise<T> {
   const retries = opts.retries ?? 2
   const delays = [100, 500, 1500] as const
@@ -152,6 +180,33 @@ export async function withPrismaRetry<T>(
   }
 
   const wasTransient = isTransient(lastError)
+  if (opts.recover && (!opts.shouldRecover || opts.shouldRecover(lastError))) {
+    debugLog(`[prismaRetry:${opts.label}] attempting recovery after primary read failure`)
+    try {
+      return await opts.recover(lastError, {
+        retriesPerformed,
+        maxRetries: retries,
+        transient: wasTransient,
+      })
+    } catch (recoveryError) {
+      Sentry.captureException(recoveryError, {
+        tags: {
+          area: 'prisma-retry',
+          op: opts.label,
+          recovery: 'failed',
+          transient: String(wasTransient),
+        },
+        extra: {
+          retriesPerformed,
+          maxRetries: retries,
+          primaryError: errorText(lastError),
+        },
+      })
+      errorLog(`[prismaRetry:${opts.label}] recovery failed:`, recoveryError)
+      throw recoveryError
+    }
+  }
+
   Sentry.captureException(lastError, {
     tags: {
       area: 'prisma-retry',

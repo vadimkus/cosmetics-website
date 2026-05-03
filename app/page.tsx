@@ -102,9 +102,6 @@ export default async function Home() {
           featuredProducts={featured}
         />
         <Hero initialLocale="en" initialDir="ltr" />
-        {/* Desktop-only homepage body — categories, concerns, featured, why
-            GENOSYS, newsletter. Each section opts out of mobile via hidden
-            md:block. See components/home/HomeDesktopSections.tsx. */}
         <HomeDesktopSections
           locale="en"
           dir="ltr"

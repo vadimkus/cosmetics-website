@@ -77,9 +77,6 @@ export const metadata: Metadata = {
 
 export default async function RussianHome() {
   // Same cached payload as `/` — featured products + category tile imagery.
-  // Previously this page rendered only <Hero />, which meant RU desktop users
-  // (and Google / AI crawlers in Russian) saw ~70% less indexable content than
-  // English. Adding <HomeDesktopSections /> brings all three locales to parity.
   const { featured, categoryImages } = await getHomeData()
 
   return (

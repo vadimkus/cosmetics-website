@@ -111,7 +111,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
       })
       setLoading(false)
     }
-  }, [products.length, searchParams])
+  }, [products, searchParams])
 
   // Fetch products from API only if no initial products were provided (fallback)
   useEffect(() => {

@@ -5,7 +5,9 @@ import type { Pool } from 'pg'
 // Extended global type for Prisma singleton and pg pool reference
 interface GlobalWithPrisma {
   prisma: PrismaClient | undefined
+  directPrisma?: PrismaClient
   pgPool?: Pool
+  directPgPool?: Pool
 }
 
 const globalForPrisma = globalThis as unknown as GlobalWithPrisma
@@ -17,6 +19,41 @@ if (!databaseUrl) {
     'DATABASE_URL or PRISMA_DATABASE_URL environment variable is required. ' +
     'Please set it in your .env.local file.'
   )
+}
+const runtimeDatabaseUrl = databaseUrl
+
+function isDirectPostgresUrl(url: string | undefined): url is string {
+  return Boolean(url && /^(postgres|postgresql):\/\//.test(url))
+}
+
+function createPooledPrismaClient(connectionString: string, maxConnections: number): {
+  client: PrismaClient
+  pool: Pool
+} {
+  const { PrismaPg } = require('@prisma/adapter-pg')
+  const { Pool } = require('pg')
+
+  const pool: Pool = new Pool({
+    connectionString,
+    max: maxConnections,
+    min: 0,
+    idleTimeoutMillis: 10000,
+    connectionTimeoutMillis: 5000,
+    maxUses: 7500,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  })
+
+  pool.on('error', (err: Error) => {
+    errorLog('❌ Unexpected error on idle PostgreSQL client:', err.message)
+  })
+
+  return {
+    client: new PrismaClient({
+      adapter: new PrismaPg(pool),
+      log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
+    }),
+    pool,
+  }
 }
 
 // Initialize Prisma client with lazy connection
@@ -31,46 +68,22 @@ if (globalForPrisma.prisma) {
   if (typeof window === 'undefined') {
     try {
       // Check if using Prisma Accelerate (prisma+postgres://) - use accelerateUrl
-      const isAccelerate = databaseUrl.startsWith('prisma+')
+      const isAccelerate = runtimeDatabaseUrl.startsWith('prisma+')
       
       if (isAccelerate) {
         // Prisma Accelerate - includes built-in connection pooling and caching
         // No manual pool configuration needed - Accelerate handles this
         prismaInstance = new PrismaClient({
-          accelerateUrl: databaseUrl,
+          accelerateUrl: runtimeDatabaseUrl,
           log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error']
         })
         debugLog('✅ Created new Prisma client instance with Prisma Accelerate')
         debugLog('   Connection pooling: Managed by Prisma Accelerate')
       } else {
         // Regular PostgreSQL connection - use adapter with proper pooling
-        const { PrismaPg } = require('@prisma/adapter-pg')
-        const { Pool } = require('pg')
-        
-        // Pool configuration optimized for serverless environments (Vercel)
-        // These settings help prevent connection exhaustion and timeouts
-        const pool = new Pool({ 
-          connectionString: databaseUrl,
-          // Connection pool settings for serverless
-          max: 5, // Maximum connections in the pool (serverless needs fewer)
-          min: 0, // Minimum connections (0 allows full scale-down)
-          idleTimeoutMillis: 10000, // Close idle connections after 10s (serverless functions have short lifespans)
-          connectionTimeoutMillis: 5000, // Fail fast if can't connect in 5s
-          maxUses: 7500, // Recycle connections after 7500 uses (prevents stale connections)
-          // SSL configuration for Vercel Postgres
-          ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-        })
-        
-        // Handle pool errors gracefully
-        pool.on('error', (err: Error) => {
-          errorLog('❌ Unexpected error on idle PostgreSQL client:', err.message)
-        })
-        
-        const adapter = new PrismaPg(pool)
-        prismaInstance = new PrismaClient({
-          adapter,
-          log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error']
-        })
+        const { client, pool } = createPooledPrismaClient(runtimeDatabaseUrl, 5)
+        prismaInstance = client
+        globalForPrisma.pgPool = pool
         
         debugLog('✅ Created new Prisma client instance with connection pooling')
         debugLog(`   Pool config: max=${5}, min=${0}, idleTimeout=${10000}ms`)
@@ -88,6 +101,33 @@ if (globalForPrisma.prisma) {
 }
 
 export const prisma = prismaInstance
+
+/**
+ * Direct Postgres fallback for read-only hot paths when Prisma Accelerate is
+ * unavailable or returns platform-level Cloudflare/worker failures.
+ */
+export function getDirectPrismaClient(): PrismaClient | null {
+  if (!runtimeDatabaseUrl.startsWith('prisma+')) return prisma
+  if (globalForPrisma.directPrisma) return globalForPrisma.directPrisma
+
+  const directDatabaseUrl = [
+    process.env.DATABASE_URL,
+    process.env.POSTGRES_URL,
+    process.env.POSTGRES_PRISMA_URL,
+    process.env.POSTGRES_URL_NON_POOLING,
+  ].find(isDirectPostgresUrl)
+
+  if (!directDatabaseUrl) {
+    errorLog('❌ Direct Prisma fallback unavailable: no direct Postgres URL configured')
+    return null
+  }
+
+  const { client, pool } = createPooledPrismaClient(directDatabaseUrl, 2)
+  globalForPrisma.directPrisma = client
+  globalForPrisma.directPgPool = pool
+  debugLog('✅ Created direct Prisma fallback client')
+  return client
+}
 
 // Verify PasswordResetToken model is available at initialization
 // This helps catch issues early in serverless environments
@@ -149,6 +189,8 @@ if (typeof process !== 'undefined') {
   const gracefulShutdown = async () => {
     debugLog('🔄 Gracefully disconnecting Prisma client...')
     await prisma.$disconnect()
+    await globalForPrisma.directPrisma?.$disconnect()
+    await globalForPrisma.directPgPool?.end()
     debugLog('✅ Prisma client disconnected')
   }
 

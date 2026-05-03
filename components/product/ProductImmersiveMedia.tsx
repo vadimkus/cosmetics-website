@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Box, ImageIcon, PlayCircle, Rotate3D } from 'lucide-react'
+import { ImageIcon, Package, PlayCircle, Rotate3D } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import type { ProductExperienceConfig } from '@/lib/productExperience'
 import { cn } from '@/lib/utils'
@@ -28,7 +28,7 @@ const tabIcons: Record<ProductMediaTab, typeof Rotate3D> = {
   spin360: Rotate3D,
   photos: ImageIcon,
   video: PlayCircle,
-  model3d: Box,
+  model3d: Package,
 }
 
 export default function ProductImmersiveMedia({

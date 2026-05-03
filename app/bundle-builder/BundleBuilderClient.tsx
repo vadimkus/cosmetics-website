@@ -13,7 +13,6 @@ import { useAnimationStore } from '@/lib/animationStore'
 import { useBundleStore, ROUTINE_STEPS, type RoutineStep, type BundlePricing } from '@/lib/bundleStore'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { canUserSeePrices } from '@/lib/discountUtils'
-import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import { Product } from '@/types'
 import type { ApiUser, User } from '@/types/user'
@@ -91,8 +90,31 @@ function getLocalizedDescription(product: Product, locale: string): string | und
 }
 
 function getBundleRetailPrice(product: Product): number {
-  const pricing = getPricingDisplay(product, null)
-  return pricing.basePrice || product.price || 0
+  const variants = Array.isArray(product.variants) ? product.variants : []
+  const explicitSize = String(product.size || '').trim()
+  const selectedVariant =
+    (explicitSize && variants.find((variant) => String(variant.size || '').trim() === explicitSize)) ||
+    variants.find((variant) => variant.isDefault) ||
+    variants.find((variant) => variant.available !== false) ||
+    variants[0]
+  const variantPrice = Number(selectedVariant?.price)
+
+  // Build Your Set should use actual selected/default retail, not regular
+  // pricing-contract originals such as VIP/sale basePrice.
+  if (Number.isFinite(variantPrice) && variantPrice > 0) return variantPrice
+
+  return Number(product.price || 0) || 0
+}
+
+function toBundleCartProduct(product: Product, bundleDiscountPercent: number): Product {
+  const retailPrice = getBundleRetailPrice(product)
+  return {
+    ...product,
+    price: retailPrice,
+    originalPrice: null,
+    fromBundle: true,
+    bundleDiscountPercent,
+  } as Product & { originalPrice: null; fromBundle: boolean; bundleDiscountPercent: number }
 }
 
 const BUNDLE_DISCOUNT_TIERS = [
@@ -499,7 +521,7 @@ function BundleSummary({
 export default function BundleBuilderClient({ products }: BundleBuilderClientProps) {
   const { t, locale } = useTranslation()
   const router = useRouter()
-  const { addItem: addToCart } = useCartStore()
+  const { addBundleItems } = useCartStore()
   const { user } = useAuth()
   
   // Check if user can see prices
@@ -650,13 +672,12 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     // Use the computed pricing (with user discounts) to get the bundle discount percentage
     const bundleDiscountPercent = pricing.bundleDiscountPercent ?? pricing.discountPercent
     
-    // Add each item to cart with bundle info (discount percentage at time of adding)
-    items.forEach(item => {
-      addToCart(item.product, 1, undefined, undefined, {
-        fromBundle: true,
-        bundleDiscountPercent: bundleDiscountPercent
-      })
-    })
+    // Add as one batch so the first item is not reconciled as a single
+    // non-qualifying bundle line before the rest are present.
+    addBundleItems(
+      items.map(item => toBundleCartProduct(item.product, bundleDiscountPercent)),
+      bundleDiscountPercent
+    )
     
     // Clear the bundle after adding to cart
     clearBundle()

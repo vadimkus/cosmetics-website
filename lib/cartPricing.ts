@@ -43,17 +43,31 @@ function getBundleRetailPrice(product: Product): number {
   return Number(product?.price || 0) || 0
 }
 
+function getBundleDiscountPercent(item: CartItem): number {
+  const linePct = Number(item.bundleDiscountPercent)
+  const productPct = Number((item.product as Product & { bundleDiscountPercent?: number }).bundleDiscountPercent)
+  return (Number.isFinite(linePct) && linePct > 0 ? linePct : 0) ||
+    (Number.isFinite(productPct) && productPct > 0 ? productPct : 0)
+}
+
+function isBuildSetBundleItem(item: CartItem): boolean {
+  return Boolean(
+    !isBeautyBoxProduct(item.product) &&
+    (
+      item.fromBundle === true ||
+      (item.product as Product & { fromBundle?: boolean }).fromBundle === true ||
+      getBundleDiscountPercent(item) > 0
+    )
+  )
+}
+
 export function getCartLinePricing(
   item: CartItem,
   user: User | ApiUser | null = null
 ): CartLinePricing {
   const quantity = item.quantity || 1
-  const isBundleItem = Boolean(
-    !isBeautyBoxProduct(item.product) &&
-    item.fromBundle &&
-    item.bundleDiscountPercent &&
-    item.bundleDiscountPercent > 0
-  )
+  const bundleDiscountPercentage = getBundleDiscountPercent(item)
+  const isBundleItem = isBuildSetBundleItem(item) && bundleDiscountPercentage > 0
 
   const contract = buildPricingContract(item.product, user, {
     ...(item.selectedSize ? { selectedSize: item.selectedSize } : {}),
@@ -67,7 +81,6 @@ export function getCartLinePricing(
 
   if (isBundleItem) {
     const retailUnitPrice = getBundleRetailPrice(item.product)
-    const bundleDiscountPercentage = Number(item.bundleDiscountPercent || 0) || 0
     const bundleUnitPrice = roundMoney(retailUnitPrice * (1 - bundleDiscountPercentage / 100))
     const retailLineTotal = roundMoney(retailUnitPrice * quantity)
     const bundleLineTotal = roundMoney(bundleUnitPrice * quantity)

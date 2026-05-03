@@ -90,6 +90,47 @@ describe('cart pricing helper', () => {
     expect(pricing.discountAmount).toBe(30)
   })
 
+  it('recognizes bundle metadata carried on the product object', () => {
+    const product = createProduct({
+      price: 330,
+      fromBundle: true,
+      bundleDiscountPercent: 20,
+    } as Partial<Product> & { fromBundle: boolean; bundleDiscountPercent: number })
+    const item = createItem(product)
+
+    const pricing = getCartLinePricing(item, null)
+
+    expect(pricing.discountType).toBe('bundle')
+    expect(pricing.retailUnitPrice).toBe(330)
+    expect(pricing.unitPrice).toBe(264)
+    expect(pricing.discountAmount).toBe(66)
+    expect(getCartLinePayloadPricing(item, null)).toEqual({
+      price: 264,
+      total: 264,
+      bundleDiscount: 20,
+    })
+  })
+
+  it('adds build-set products to the cart as an atomic bundle batch', () => {
+    const bundleProducts = Array.from({ length: 5 }, (_, index) =>
+      createProduct({
+        id: `store-add-bundle-${index + 1}`,
+        productNumber: `${index + 1}`,
+        price: index === 0 ? 330 : 260,
+      })
+    )
+
+    useCartStore.getState().addBundleItems(bundleProducts, 20)
+    const [first] = useCartStore.getState().items
+
+    expect(first?.fromBundle).toBe(true)
+    expect(first?.bundleDiscountPercent).toBe(20)
+    expect((first?.product as Product & { fromBundle?: boolean; bundleDiscountPercent?: number })?.fromBundle).toBe(true)
+    expect((first?.product as Product & { fromBundle?: boolean; bundleDiscountPercent?: number })?.bundleDiscountPercent).toBe(20)
+    expect(getCartLinePricing(first!, null).unitPrice).toBe(264)
+    expect(getCartTotalPrice(useCartStore.getState().items, null)).toBe(1096)
+  })
+
   it('reconciles build-set tiers after bundle line removal', () => {
     const bundleItems = Array.from({ length: 6 }, (_, index) =>
       createItem(createProduct({

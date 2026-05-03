@@ -140,6 +140,7 @@ export interface CartState {
   selectedEmirate: string
   _hasHydrated: boolean
   addItem: (product: Product, quantity?: number, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => void
+  addBundleItems: (products: Product[], discountPercent: number) => void
   removeItem: (productId: string, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => void
   decrementProductById: (productId: string) => void
   updateQuantity: (productId: string, quantity: number, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => void

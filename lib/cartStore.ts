@@ -30,7 +30,10 @@ const updateCartBadge = (items: CartState['items']) => {
   }
 }
 
-const isBundleLine = (item: CartState['items'][number]) => item.fromBundle === true
+const isBundleLine = (item: CartState['items'][number]) =>
+  item.fromBundle === true ||
+  (item.product as Product & { fromBundle?: boolean }).fromBundle === true ||
+  Number((item.product as Product & { bundleDiscountPercent?: number }).bundleDiscountPercent) > 0
 
 const lineIdentityMatches = (
   item: CartState['items'][number],
@@ -57,15 +60,26 @@ export function reconcileBuildSetBundleDiscounts(items: CartState['items']): Car
 
     if (activePct <= 0) {
       const nextItem = { ...item }
+      const nextProduct = { ...nextItem.product } as Product & { fromBundle?: boolean; bundleDiscountPercent?: number }
       delete nextItem.fromBundle
       delete nextItem.bundleDiscountPercent
-      return nextItem
+      delete nextProduct.fromBundle
+      delete nextProduct.bundleDiscountPercent
+      return {
+        ...nextItem,
+        product: nextProduct,
+      }
     }
 
     return {
       ...item,
       fromBundle: true,
       bundleDiscountPercent: activePct,
+      product: {
+        ...item.product,
+        fromBundle: true,
+        bundleDiscountPercent: activePct,
+      } as Product & { fromBundle: boolean; bundleDiscountPercent: number },
     }
   })
 }
@@ -108,7 +122,13 @@ export const useCartStore = create<CartState>()(
           updateCartBadge(newItems)
         } else {
           const newItem = { 
-            product, 
+            product: bundleInfo?.fromBundle
+              ? {
+                  ...product,
+                  fromBundle: true,
+                  bundleDiscountPercent: bundleInfo.bundleDiscountPercent || 0,
+                } as Product & { fromBundle: boolean; bundleDiscountPercent: number }
+              : product,
             quantity, 
             selectedColor: normalizedColor, 
             selectedSize: normalizedSize,
@@ -118,6 +138,61 @@ export const useCartStore = create<CartState>()(
           set({ items: newItems })
           updateCartBadge(newItems)
         }
+      },
+
+      addBundleItems: (products: Product[], discountPercent: number) => {
+        const bundlePct = Number(discountPercent) || 0
+        const bundleProducts = Array.isArray(products) ? products.filter(Boolean) : []
+        if (bundleProducts.length === 0) return
+
+        const newBundleItems = bundleProducts.map((product) => {
+          const bundleProduct = {
+            ...product,
+            fromBundle: true,
+            bundleDiscountPercent: bundlePct,
+          } as Product & { fromBundle: boolean; bundleDiscountPercent: number }
+
+          return {
+            product: bundleProduct,
+            quantity: 1,
+            selectedColor: '',
+            selectedSize: String(product.size || '').trim(),
+            fromBundle: true,
+            bundleDiscountPercent: bundlePct,
+          }
+        })
+
+        const next = [...get().items]
+
+        newBundleItems.forEach((newItem) => {
+          const existingIdx = next.findIndex((item) =>
+            item.product.id === newItem.product.id &&
+            (item.selectedColor || '') === '' &&
+            (item.selectedSize || '') === newItem.selectedSize &&
+            lineIdentityMatches(item, { fromBundle: true, bundleDiscountPercent: bundlePct })
+          )
+
+          if (existingIdx >= 0) {
+            const existingItem = next[existingIdx]
+            if (!existingItem) return
+            next[existingIdx] = {
+              ...existingItem,
+              quantity: existingItem.quantity + 1,
+              fromBundle: true,
+              bundleDiscountPercent: bundlePct,
+              product: {
+                ...existingItem.product,
+                ...newItem.product,
+              },
+            }
+          } else {
+            next.push(newItem)
+          }
+        })
+
+        const newItems = reconcileBuildSetBundleDiscounts(next)
+        set({ items: newItems })
+        updateCartBadge(newItems)
       },
       
       removeItem: (productId: string, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => {

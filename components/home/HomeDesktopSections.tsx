@@ -758,7 +758,7 @@ export default function HomeDesktopSections({
         </div>
       </section>
 
-      {/* ── 5. Newsletter CTA (visual-only, no backend yet) ─────────────── */}
+      {/* ── 5. Newsletter CTA ───────────────────────────────────────────── */}
       <HomeNewsletter locale={locale} isRtl={isRtl} />
     </div>
   )
@@ -767,7 +767,7 @@ export default function HomeDesktopSections({
 function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
   const [email, setEmail] = useState('')
   const [website, setWebsite] = useState('') // honeypot — bots will fill this; real users won't see it
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'already' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
   const headline = locale === 'ar'
@@ -821,6 +821,12 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
     ? 'Спасибо! Проверьте почту — мы отправили подтверждение.'
     : 'Thanks — check your inbox for a welcome email.'
 
+  const alreadySubscribedMsg = locale === 'ar'
+    ? 'أنت مشترك بالفعل. إذا لم تجد رسالة الترحيب، تحقق من البريد غير المرغوب أو العروض الترويجية.'
+    : locale === 'ru'
+    ? 'Вы уже подписаны. Если письма нет, проверьте папки «Спам» и «Промоакции».'
+    : 'You’re already on the list. If you missed the welcome email, check Spam or Promotions.'
+
   const genericError = locale === 'ar'
     ? 'تعذّر الاشتراك الآن. حاول مرة أخرى لاحقاً.'
     : locale === 'ru'
@@ -860,8 +866,10 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
         }),
       })
 
+      const data = await res.json().catch(() => null)
+
       if (res.ok) {
-        setStatus('success')
+        setStatus(data?.alreadySubscribed === true ? 'already' : 'success')
         setEmail('')
         return
       }
@@ -872,7 +880,6 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
         return
       }
 
-      const data = await res.json().catch(() => null)
       setStatus('error')
       setErrorMsg(
         res.status === 400
@@ -916,10 +923,12 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
                 {description}
               </p>
 
-              {status === 'success' ? (
+              {status === 'success' || status === 'already' ? (
                 <div className={`mt-8 inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 px-5 py-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
                   <Check className="h-4 w-4" aria-hidden="true" />
-                  <span className="text-sm font-semibold">{successMsg}</span>
+                  <span className="text-sm font-semibold">
+                    {status === 'already' ? alreadySubscribedMsg : successMsg}
+                  </span>
                 </div>
               ) : (
                 <form

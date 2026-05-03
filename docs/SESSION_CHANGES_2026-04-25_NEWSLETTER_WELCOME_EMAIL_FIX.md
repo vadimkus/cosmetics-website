@@ -66,3 +66,22 @@ If logs show failure, fix **environment variables** (`EMAIL_USER`/`GMAIL_USER` +
 | `docs/README.md` | Index entry |
 | `docs/NEWSLETTER_SYSTEM.md` | §3.2–3.3 serverless note |
 | `docs/EMAIL_CHANGELOG.md` | Changelog entry |
+
+## Follow-up: repeat subscribe UX (2026-05-03)
+
+**Report:** `f.this.that@gmail.com` was submitted through the homepage newsletter form; the UI said to check inbox, but no welcome email was visible.
+
+**Production check:** `POST https://genosys.ae/api/newsletter/subscribe` returned:
+
+```json
+{"ok":true,"alreadySubscribed":true}
+```
+
+This confirms the public API/database path is working and the address is already active. By design, already-active subscribers do **not** receive a second welcome email, but the homepage UI previously ignored `alreadySubscribed` and always displayed the normal welcome-email success message.
+
+**Fix:** `components/home/HomeDesktopSections.tsx` now reads the API JSON response and shows a distinct already-subscribed message:
+
+- EN: `You’re already on the list. If you missed the welcome email, check Spam or Promotions.`
+- AR/RU equivalents added inline with the existing localized newsletter copy.
+
+**Verification:** Focused IDE lints for `components/home/HomeDesktopSections.tsx` showed no errors. Recent Vercel error logs showed no newsletter SMTP failure entries; success logs are debug-only unless `DEBUG_LOG=true`.

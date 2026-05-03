@@ -33,11 +33,12 @@ describe('checkout pricing guards', () => {
     expect(getBundleDiscountTier(5)).toBe(20)
   })
 
-  it('accepts only the expected bundle tier for eligible products', () => {
+  it('uses submitted bundle markers but computes the tier on the server', () => {
     const product = createProduct()
 
     expect(getValidatedBundleDiscountPercent(5, product, 2)).toBe(5)
-    expect(getValidatedBundleDiscountPercent(90, product, 2)).toBeNull()
+    expect(getValidatedBundleDiscountPercent(20, product, 4)).toBe(15)
+    expect(getValidatedBundleDiscountPercent(90, product, 2)).toBe(5)
     expect(getValidatedBundleDiscountPercent(20, product, 1)).toBeNull()
     expect(getValidatedBundleDiscountPercent(5, createProduct({ category: 'Beauty Boxes' }), 2)).toBeNull()
   })

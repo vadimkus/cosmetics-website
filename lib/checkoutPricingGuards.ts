@@ -56,7 +56,6 @@ export function getValidatedBundleDiscountPercent(
 
   if (!isSubmittedBundleLine(submittedPct, product)) return null
   if (expectedPct <= 0) return null
-  if (Math.round(submittedPct) !== expectedPct) return null
 
   return expectedPct
 }

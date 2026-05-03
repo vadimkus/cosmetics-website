@@ -1,4 +1,5 @@
 import { getCartDiscountSummary, getCartLinePayloadPricing, getCartLinePricing, getCartRetailTotal, getCartTotalPrice } from '@/lib/cartPricing'
+import { reconcileBuildSetBundleDiscounts, useCartStore } from '@/lib/cartStore'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { CartItem, Product } from '@/types'
 import { ApiUser } from '@/types/user'
@@ -47,6 +48,7 @@ const createItem = (product: Product, overrides: Partial<CartItem> = {}): CartIt
 describe('cart pricing helper', () => {
   beforeEach(() => {
     mockIsBlackFridaySaleActive.mockReturnValue(false)
+    useCartStore.setState({ items: [], selectedEmirate: 'Dubai', _hasHydrated: true })
   })
 
   it('matches legacy regular cart subtotal for retail products', () => {
@@ -86,6 +88,79 @@ describe('cart pricing helper', () => {
     expect(pricing.unitPrice).toBe(85)
     expect(pricing.lineTotal).toBe(170)
     expect(pricing.discountAmount).toBe(30)
+  })
+
+  it('reconciles build-set tiers after bundle line removal', () => {
+    const bundleItems = Array.from({ length: 6 }, (_, index) =>
+      createItem(createProduct({
+        id: `bundle-${index + 1}`,
+        productNumber: `${index + 1}`,
+        price: 100,
+      }), {
+        quantity: 1,
+        fromBundle: true,
+        bundleDiscountPercent: 20,
+      })
+    )
+
+    const fiveLeft = reconcileBuildSetBundleDiscounts(bundleItems.slice(0, 5))
+    expect(fiveLeft).toHaveLength(5)
+    expect(fiveLeft.every((item) => item.fromBundle === true && item.bundleDiscountPercent === 20)).toBe(true)
+    expect(getCartTotalPrice(fiveLeft, null)).toBe(400)
+
+    const fourLeft = reconcileBuildSetBundleDiscounts(bundleItems.slice(0, 4))
+    expect(fourLeft).toHaveLength(4)
+    expect(fourLeft.every((item) => item.fromBundle === true && item.bundleDiscountPercent === 15)).toBe(true)
+    expect(getCartTotalPrice(fourLeft, null)).toBe(340)
+
+    const oneLeft = reconcileBuildSetBundleDiscounts(bundleItems.slice(0, 1))
+    expect(oneLeft).toHaveLength(1)
+    const remainingItem = oneLeft[0]
+    expect(remainingItem).toBeDefined()
+    expect(remainingItem?.fromBundle).toBeUndefined()
+    expect(remainingItem?.bundleDiscountPercent).toBeUndefined()
+    expect(getCartTotalPrice(oneLeft, null)).toBe(100)
+  })
+
+  it('reconciles build-set tiers through cart store mutations', () => {
+    const bundleInfo = { fromBundle: true, bundleDiscountPercent: 20 }
+    const bundleItems = Array.from({ length: 5 }, (_, index) =>
+      createItem(createProduct({
+        id: `store-bundle-${index + 1}`,
+        productNumber: `${index + 1}`,
+        price: 100,
+      }), {
+        quantity: 1,
+        fromBundle: true,
+        bundleDiscountPercent: 20,
+      })
+    )
+
+    useCartStore.setState({ items: bundleItems, selectedEmirate: 'Dubai', _hasHydrated: true })
+    useCartStore.getState().removeItem('store-bundle-5', '', '', bundleInfo)
+    const fourLeft = useCartStore.getState().items
+
+    expect(fourLeft).toHaveLength(4)
+    expect(fourLeft.every((item) => item.fromBundle === true && item.bundleDiscountPercent === 15)).toBe(true)
+    expect(getCartTotalPrice(fourLeft, null)).toBe(340)
+
+    useCartStore.getState().updateQuantity('store-bundle-4', 0, '', '', { fromBundle: true, bundleDiscountPercent: 15 })
+    const threeLeft = useCartStore.getState().items
+
+    expect(threeLeft).toHaveLength(3)
+    expect(threeLeft.every((item) => item.fromBundle === true && item.bundleDiscountPercent === 10)).toBe(true)
+    expect(getCartTotalPrice(threeLeft, null)).toBe(270)
+
+    useCartStore.getState().removeItem('store-bundle-3', '', '', { fromBundle: true, bundleDiscountPercent: 10 })
+    useCartStore.getState().removeItem('store-bundle-2', '', '', { fromBundle: true, bundleDiscountPercent: 5 })
+    const oneLeft = useCartStore.getState().items
+
+    expect(oneLeft).toHaveLength(1)
+    const remainingItem = oneLeft[0]
+    expect(remainingItem).toBeDefined()
+    expect(remainingItem?.fromBundle).toBeUndefined()
+    expect(remainingItem?.bundleDiscountPercent).toBeUndefined()
+    expect(getCartTotalPrice(oneLeft, null)).toBe(100)
   })
 
   it('uses user discount for bundle-builder items when user discount is better', () => {

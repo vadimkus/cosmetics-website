@@ -243,4 +243,58 @@ describe('web Stripe payment intent pricing', () => {
       ],
     }))
   })
+
+  it('downgrades stale submitted bundle percentage to the server tier', async () => {
+    ;(findUserByEmail as jest.Mock).mockResolvedValue({
+      id: 'user-1',
+      email: 'customer@example.com',
+      name: 'Customer',
+      canSeePrices: true,
+      discountType: null,
+      discountPercentage: null,
+    })
+    ;(getProductById as jest.Mock).mockImplementation(async (id: string) =>
+      createProduct({
+        id,
+        productNumber: id,
+        name: `Bundle Serum ${id}`,
+        price: 100,
+      })
+    )
+
+    const response = await POST(createRequest({
+      items: Array.from({ length: 4 }, (_, index) => ({
+        product: {
+          id: `bundle-${index + 1}`,
+          name: `Client Bundle ${index + 1}`,
+          image: '/client.jpg',
+          price: 80,
+          category: 'Serums',
+        },
+        quantity: 1,
+        fromBundle: true,
+        bundleDiscountPercent: 20,
+      })),
+      customerEmail: 'customer@example.com',
+      customerName: 'Customer',
+      customerPhone: '+971500000000',
+      customerEmirate: 'Dubai',
+      customerAddress: 'Dubai Marina',
+      locale: 'en',
+    }))
+
+    const body = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(body.total).toBe(340)
+    expect(createPaymentIntent).toHaveBeenCalledWith(expect.objectContaining({
+      amount: 340,
+    }))
+    expect(addOrder).toHaveBeenCalledWith(expect.objectContaining({
+      subtotal: 340,
+      total: 340,
+      bundleDiscountAmount: 60,
+      bundleDiscountPercentage: 15,
+    }))
+  })
 })

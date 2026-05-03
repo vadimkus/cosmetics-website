@@ -40,6 +40,36 @@ const lineIdentityMatches = (
   return isBundleLine(item) === expectedBundle
 }
 
+export function getBuildSetDiscountForCount(count: number): number {
+  if (count >= 5) return 20
+  if (count >= 4) return 15
+  if (count >= 3) return 10
+  if (count >= 2) return 5
+  return 0
+}
+
+export function reconcileBuildSetBundleDiscounts(items: CartState['items']): CartState['items'] {
+  const bundleLineCount = items.filter(isBundleLine).length
+  const activePct = getBuildSetDiscountForCount(bundleLineCount)
+
+  return items.map((item) => {
+    if (!isBundleLine(item)) return item
+
+    if (activePct <= 0) {
+      const nextItem = { ...item }
+      delete nextItem.fromBundle
+      delete nextItem.bundleDiscountPercent
+      return nextItem
+    }
+
+    return {
+      ...item,
+      fromBundle: true,
+      bundleDiscountPercent: activePct,
+    }
+  })
+}
+
 export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
@@ -66,14 +96,14 @@ export const useCartStore = create<CartState>()(
         )
         
         if (existingItem) {
-          const newItems = items.map(item =>
+          const newItems = reconcileBuildSetBundleDiscounts(items.map(item =>
             item.product.id === product.id && 
             item.selectedColor === normalizedColor && 
             item.selectedSize === normalizedSize &&
             lineIdentityMatches(item, bundleInfo)
               ? { ...item, quantity: item.quantity + quantity }
               : item
-          )
+          ))
           set({ items: newItems })
           updateCartBadge(newItems)
         } else {
@@ -84,7 +114,7 @@ export const useCartStore = create<CartState>()(
             selectedSize: normalizedSize,
             ...(bundleInfo && { fromBundle: bundleInfo.fromBundle, bundleDiscountPercent: bundleInfo.bundleDiscountPercent })
           }
-          const newItems = [...items, newItem]
+          const newItems = reconcileBuildSetBundleDiscounts([...items, newItem])
           set({ items: newItems })
           updateCartBadge(newItems)
         }
@@ -93,12 +123,12 @@ export const useCartStore = create<CartState>()(
       removeItem: (productId: string, selectedColor?: string, selectedSize?: string, bundleInfo?: CartLineIdentity) => {
         const normalizedColor = selectedColor || ''
         const normalizedSize = selectedSize || ''
-        const newItems = get().items.filter(item => 
+        const newItems = reconcileBuildSetBundleDiscounts(get().items.filter(item => 
           !(item.product.id === productId && 
             item.selectedColor === normalizedColor && 
             item.selectedSize === normalizedSize &&
             lineIdentityMatches(item, bundleInfo))
-        )
+        ))
         set({ items: newItems })
         updateCartBadge(newItems)
       },
@@ -123,10 +153,11 @@ export const useCartStore = create<CartState>()(
         const target = items[targetIdx]
         if (!target) return
         const nextQty = (target.quantity || 0) - 1
-        const newItems =
+        const newItems = reconcileBuildSetBundleDiscounts(
           nextQty <= 0
             ? items.filter((_, i) => i !== targetIdx)
             : items.map((it, i) => (i === targetIdx ? { ...it, quantity: nextQty } : it))
+        )
         set({ items: newItems })
         updateCartBadge(newItems)
       },
@@ -139,14 +170,14 @@ export const useCartStore = create<CartState>()(
         
         const normalizedColor = selectedColor || ''
         const normalizedSize = selectedSize || ''
-        const newItems = get().items.map(item =>
+        const newItems = reconcileBuildSetBundleDiscounts(get().items.map(item =>
           item.product.id === productId && 
           item.selectedColor === normalizedColor && 
           item.selectedSize === normalizedSize &&
           lineIdentityMatches(item, bundleInfo)
             ? { ...item, quantity }
             : item
-        )
+        ))
         set({ items: newItems })
         updateCartBadge(newItems)
       },
@@ -177,7 +208,7 @@ export const useCartStore = create<CartState>()(
           
           if (existingItemWithNewColor) {
             // Merge quantities and remove the old item
-            const updatedItems = items
+            const updatedItems = reconcileBuildSetBundleDiscounts(items
               .map(item =>
                 item.product.id === productId && 
                 (item.selectedColor || '') === normalizedNewColor && 
@@ -187,17 +218,17 @@ export const useCartStore = create<CartState>()(
                   ? { ...item, quantity: item.quantity + itemToUpdate.quantity }
                   : item
               )
-              .filter(item => item !== itemToUpdate)
+              .filter(item => item !== itemToUpdate))
             
             set({ items: updatedItems })
             updateCartBadge(updatedItems)
           } else {
             // Just update the color
-            const updatedItems = items.map(item =>
+            const updatedItems = reconcileBuildSetBundleDiscounts(items.map(item =>
               item === itemToUpdate
                 ? { ...item, selectedColor: normalizedNewColor }
                 : item
-            )
+            ))
             set({ items: updatedItems })
             updateCartBadge(updatedItems)
           }
@@ -227,7 +258,7 @@ export const useCartStore = create<CartState>()(
           )
           
           if (existingItemWithNewSize) {
-            const updatedItems = items
+            const updatedItems = reconcileBuildSetBundleDiscounts(items
               .map(item =>
                 item.product.id === productId && 
                 (item.selectedSize || '') === normalizedNewSize && 
@@ -237,13 +268,13 @@ export const useCartStore = create<CartState>()(
                   ? { ...item, quantity: item.quantity + itemToUpdate.quantity }
                   : item
               )
-              .filter(item => item !== itemToUpdate)
+              .filter(item => item !== itemToUpdate))
             
             set({ items: updatedItems })
             updateCartBadge(updatedItems)
           } else {
             const newPrice = getPriceForSize(itemToUpdate.product, newSize)
-            const updatedItems = items.map(item =>
+            const updatedItems = reconcileBuildSetBundleDiscounts(items.map(item =>
               item === itemToUpdate
                 ? { 
                     ...item, 
@@ -251,7 +282,7 @@ export const useCartStore = create<CartState>()(
                     product: { ...item.product, price: newPrice }
                   }
                 : item
-            )
+            ))
             set({ items: updatedItems })
             updateCartBadge(updatedItems)
           }

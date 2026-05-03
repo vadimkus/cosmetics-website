@@ -49,14 +49,19 @@ Sentry target:
   - `getProductsByCategory()`
 - Reduced product detail lookup from two sequential `findUnique()` calls (`id`, then `productNumber`) to one `findFirst()` with `OR`, while keeping hidden products excluded.
 - Checked current `/products` and `ProductCard` trees with focused ESLint, including hooks rules. No conditional hook violation is present in current code; `JAVASCRIPT-NEXTJS-J` is treated as a one-event historical issue unless it recurs after deploy.
+- Follow-up deploy fix: moved database analytics helpers out of browser-imported `lib/analytics.ts` into server-only `lib/analyticsDb.ts`. This prevents Turbopack from pulling `pg` / Prisma fallback code into client bundles through `PDFDownloadButton` and fixes the failed Vercel deployment for commit `11d654fa`.
 
 ## Verification
 
 - `npx tsc --noEmit --pretty false` passed.
+- `SKIP_DB_MIGRATIONS=true npm run build` passed locally after the analytics split, confirming Turbopack no longer tries to bundle Node built-ins (`dns`, `fs`, `net`, `tls`) for the browser.
 - Focused ESLint passed for:
   - `lib/prisma.ts`
   - `lib/prismaRetry.ts`
   - `lib/productsDb.ts`
+  - `lib/analytics.ts`
+  - `lib/analyticsDb.ts`
+  - `app/api/analytics/track/route.ts`
   - `app/products/ProductsPageClient.tsx`
   - `app/products/page.tsx`
   - `app/products/[id]/ProductPageClientRefactored.tsx`

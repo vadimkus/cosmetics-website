@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { trackPageViewToDatabase, trackUserSession } from '@/lib/analytics'
+import { trackPageViewToDatabase, trackUserSession } from '@/lib/analyticsDb'
 import { errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { getGeolocationData } from '@/lib/geolocation'
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
             const sessionData = verifySessionToken(sessionCookie.value)
             userEmail = sessionData?.email || null
           }
-        } catch (error) {
+        } catch {
           // Ignore parsing errors
         }
       }

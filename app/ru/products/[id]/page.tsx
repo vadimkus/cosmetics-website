@@ -5,7 +5,16 @@ import ProductPageClientRefactored from '@/app/products/[id]/ProductPageClientRe
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
-import { safeJsonParse } from '@/lib/utils'
+import ProductSchema from '@/components/schema/ProductSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import {
+  getLocalizedProductDescription,
+  getLocalizedProductName,
+  getLocalizedProductUrl,
+  getProductAlternates,
+  getProductImageUrls,
+  truncateText,
+} from '@/lib/seo'
 
 // ISR: cache for 5 min; admin routes must revalidateTag('products', 'max').
 export const revalidate = 300
@@ -40,13 +49,15 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     }
   }
 
-  const images = product.images ? safeJsonParse<string[]>(product.images, [product.image]) : [product.image]
-  const displayImages = images.length > 0 ? images : [product.image]
+  const productName = getLocalizedProductName(product, 'ru')
+  const productDescriptionText = getLocalizedProductDescription(product, 'ru')
+  const productImages = getProductImageUrls(product)
+  const productUrl = getLocalizedProductUrl(product.id, 'ru')
   
-  const productTitle = `${product.name} - Профессиональная корейская дерматокосметика ОАЭ | GENOSYS`
-  const productDescription = `${product.description.substring(0, 150)}... Профессиональная корейская дерматокосметика от GENOSYS. Официальный дистрибьютор в ОАЭ. Бесплатная доставка при заказе свыше 1000 дирхамов.`
+  const productTitle = `${productName} - Профессиональная корейская дерматокосметика ОАЭ | GENOSYS`
+  const productDescription = `${truncateText(productDescriptionText, 150)} Профессиональная корейская дерматокосметика от GENOSYS. Официальный дистрибьютор в ОАЭ. Бесплатная доставка от 1000 AED.`
   const productKeywords = [
-    product.name,
+    productName,
     `GENOSYS ${product.category}`,
     'Корейская дерматокосметика ОАЭ',
     'Профессиональный уход за кожей Дубай',
@@ -80,13 +91,13 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       title: productTitle,
       description: productDescription,
       type: 'website',
-      url: `https://genosys.ae/ru/products/${product.id}`,
+      url: productUrl,
       siteName: 'GENOSYS',
-      images: displayImages.map((img: string) => ({
-        url: `https://genosys.ae${img}`,
+      images: productImages.map((img: string) => ({
+        url: img,
         width: 800,
         height: 800,
-        alt: `${product.name} - Профессиональная корейская дерматокосметика`,
+        alt: `${productName} - Профессиональная корейская дерматокосметика`,
       })),
       locale: 'ru_AE',
       countryName: 'United Arab Emirates',
@@ -97,18 +108,14 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       creator: '@genosys_official',
       title: productTitle,
       description: productDescription,
-      images: displayImages.map((img: string) => ({
-        url: `https://genosys.ae${img}`,
-        alt: `${product.name} - Профессиональная корейская дерматокосметика`,
+      images: productImages.map((img: string) => ({
+        url: img,
+        alt: `${productName} - Профессиональная корейская дерматокосметика`,
       })),
     },
     alternates: {
-      canonical: `https://genosys.ae/ru/products/${product.id}`,
-      languages: {
-        'en': `https://genosys.ae/products/${product.id}`,
-        'ar': `https://genosys.ae/ar/products/${product.id}`,
-        'ru': `https://genosys.ae/ru/products/${product.id}`,
-      },
+      canonical: productUrl,
+      languages: getProductAlternates(product.id),
     },
     other: {
       'product:price:amount': product.price.toString(),
@@ -128,7 +135,19 @@ export default async function RussianProductPage({ params }: ProductPageProps) {
     notFound()
   }
 
-  return <ProductPageClientRefactored product={product} />
+  return (
+    <>
+      <ProductSchema product={product} locale="ru" canonicalUrl={getLocalizedProductUrl(product.id, 'ru')} />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Главная', url: '/ru' },
+          { name: 'Продукты', url: '/ru/products' },
+          { name: getLocalizedProductName(product, 'ru'), url: `/ru/products/${product.id}` },
+        ]}
+      />
+      <ProductPageClientRefactored product={product} />
+    </>
+  )
 }
 
 

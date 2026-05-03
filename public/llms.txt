@@ -17,6 +17,8 @@
 ## Products
 
 - [All Products](https://genosys.ae/products): Complete catalog of GENOSYS professional Korean dermacosmetics including serums, creams, masks, microneedling devices, and skincare solutions. Prices in AED.
+- [AI Product Index](https://genosys.ae/ai-products.txt): Product-level AI index with names, multilingual aliases, categories, prices, stock status, descriptions, target concerns, and image URLs.
+- [Google Merchant Product Feed](https://genosys.ae/feed/products.xml): XML product feed for structured product discovery.
 
 ## Shop by Skin Concern
 
@@ -64,9 +66,22 @@
 - [Partner Program](https://genosys.ae/partners): Partnership opportunities for clinics, salons, and beauty professionals in the UAE.
 - [Skin Recommendation Tool](https://genosys.ae/skin-recommendation): AI-powered skin analysis and personalized product recommendations.
 
+## Commercial Guides
+
+- [Korean Skincare Dubai](https://genosys.ae/guides/korean-skincare-dubai): Professional Korean skincare guide for Dubai climate, hydration, SPF, and authentic UAE supply.
+- [Microneedling Devices UAE](https://genosys.ae/guides/microneedling-devices-uae): Guide for professional microneedling devices, protocols, and UAE practitioner support.
+- [Professional Skincare Training Dubai](https://genosys.ae/guides/professional-skincare-training-dubai): Training overview for clinics, salons, aestheticians, and dermatology teams.
+- [GENOSYS Distributor UAE](https://genosys.ae/guides/genosys-distributor-uae): Official distributor facts and authentication guidance.
+- [Dermacosmetics for Clinics UAE](https://genosys.ae/guides/dermacosmetics-for-clinics-uae): Clinic-focused product and retail routine guide.
+- [Korean Sunscreen UAE](https://genosys.ae/guides/korean-sunscreen-uae): SPF guidance for Dubai and UAE daily sun exposure.
+- [Acne Treatment Products UAE](https://genosys.ae/guides/acne-treatment-products-uae): Acne and blemish routine guidance for UAE customers.
+- [Pigmentation Serum Dubai](https://genosys.ae/guides/pigmentation-serum-dubai): Brightening, pigmentation, and SPF-pairing guidance.
+
 ## Educational Content
 
 - [Skincare Blog](https://genosys.ae/blog): Expert articles on Korean skincare routines, microneedling techniques, professional dermacosmetics, ingredient guides, and beauty industry trends in the UAE.
+- [Blog RSS](https://genosys.ae/feed/blog.xml): RSS feed for published skincare and professional beauty articles.
+- [Blog Atom](https://genosys.ae/feed/blog.atom): Atom feed for published skincare and professional beauty articles.
 
 ## Newsletter
 
@@ -101,3 +116,6 @@ This website is available in three languages:
 
 - [XML Sitemap](https://genosys.ae/sitemap.xml)
 - [Sitemap Index](https://genosys.ae/sitemap-index.xml)
+- [Full LLM Index](https://genosys.ae/llms-full.txt)
+- [AI Product Index](https://genosys.ae/ai-products.txt)
+- [OpenSearch Descriptor](https://genosys.ae/opensearch.xml)

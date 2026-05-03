@@ -11,6 +11,7 @@ import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
 import { sanitizeHtml } from '@/lib/sanitize'
+import { buildUrl } from '@/lib/siteConfig'
 
 // Revalidate blog post every 60 seconds to show updates quickly
 export const revalidate = 60
@@ -106,7 +107,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       type: 'article',
       images: post.featuredImage ? [
         {
-          url: post.featuredImage,
+          url: buildUrl(post.featuredImage),
           width: 1200,
           height: 630,
           alt: post.title,
@@ -143,7 +144,7 @@ export async function generateStaticParams() {
       select: { slug: true },
     }) || []
     return posts.map((post: { slug: string }) => ({ slug: post.slug }))
-      } catch (error) {
+  } catch {
     return []
   }
 }
@@ -191,7 +192,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               "@type": "BlogPosting",
               "headline": post.title,
               "description": post.excerpt || post.content.substring(0, 160),
-              "image": post.featuredImage || "https://genosys.ae/images/genosys-products.jpg",
+              "image": post.featuredImage ? buildUrl(post.featuredImage) : buildUrl('/images/genosys-products.jpg'),
               "datePublished": post.publishedAt?.toISOString(),
               "dateModified": post.updatedAt.toISOString(),
               "author": {

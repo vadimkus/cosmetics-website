@@ -1,6 +1,12 @@
 import { Product } from '@/types'
 import { SITE_URL } from '@/lib/siteConfig'
 import type { Locale } from '@/lib/i18n'
+import {
+  getLocalizedProductDescription,
+  getLocalizedProductName,
+  getProductImageUrls,
+  parseStringArray,
+} from '@/lib/seo'
 
 interface ProductSchemaProps {
   product: Product
@@ -29,17 +35,11 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
     return null
   }
 
-  let parsedImages = [product.image]
-  try {
-    if (product.images) {
-      parsedImages = JSON.parse(product.images)
-    }
-  } catch {
-    // Silent fallback to main image
-    parsedImages = [product.image]
-  }
-  const displayImages = parsedImages.length > 0 ? parsedImages : [product.image]
   const productUrl = canonicalUrl ?? `${SITE_URL}/products/${product.id}`
+  const productName = getLocalizedProductName(product, locale)
+  const productDescription = getLocalizedProductDescription(product, locale)
+  const targetConcerns = parseStringArray(product.targetConcerns)
+  const productImages = getProductImageUrls(product)
 
   // NOTE: aggregateRating is intentionally NOT emitted because we don't have
   // a real review/rating system yet. Google requires reviewCount or ratingCount
@@ -50,9 +50,9 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
   const schema: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": product.name,
-    "description": product.description,
-    "image": displayImages.map((img: string) => `${SITE_URL}${img}`),
+    "name": productName,
+    "description": productDescription,
+    "image": productImages,
     "brand": {
       "@type": "Brand",
       "name": "GENOSYS",
@@ -60,6 +60,16 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
       "logo": `${SITE_URL}/images/genosys-logo.png`
     },
     "category": product.category,
+    "audience": [
+      {
+        "@type": "Audience",
+        "audienceType": "Licensed skincare professionals, dermatologists, aestheticians, salons, and clinics in the UAE"
+      },
+      {
+        "@type": "PeopleAudience",
+        "audienceType": "UAE skincare consumers seeking professional Korean dermacosmetics"
+      }
+    ],
     "countryOfOrigin": {
       "@type": "Country",
       "name": "South Korea"
@@ -74,6 +84,13 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
         "addressRegion": "Seongdong-gu"
       }
     },
+    ...(product.howToUse || product.directions ? { "usageInfo": product.howToUse || product.directions } : {}),
+    ...(targetConcerns.length > 0 ? {
+      "isRelatedTo": targetConcerns.map(concern => ({
+        "@type": "Thing",
+        "name": concern
+      }))
+    } : {}),
     "offers": {
       "@type": "Offer",
       "price": product.price,
@@ -206,13 +223,24 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
         "name": "Suitable Skin Type",
         "value": product.skinType
       }] : []),
+      ...(targetConcerns.length > 0 ? [{
+        "@type": "PropertyValue",
+        "name": "Target Concerns",
+        "value": targetConcerns.join(", ")
+      }] : []),
+      ...(product.usage ? [{
+        "@type": "PropertyValue",
+        "name": "Usage Timing",
+        "value": product.usage
+      }] : []),
     ],
     "sku": product.id,
     "mpn": product.productNumber || product.id,
     // Multilingual product names (helps AI serve correct language)
-    ...(product.nameAr ? { "alternateName": [product.nameAr, product.nameRu].filter(Boolean) } : {}),
+    "alternateName": [product.name, product.nameAr, product.nameRu].filter(Boolean),
     "url": productUrl,
     "inLanguage": locale,
+    "availableLanguage": ["English", "Arabic", "Russian"],
   }
 
   // When a real review system is implemented, enable this:

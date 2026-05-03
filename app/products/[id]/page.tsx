@@ -5,7 +5,16 @@ import ProductPageClientRefactored from './ProductPageClientRefactored'
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { errorLog, debugLog } from '@/lib/logger'
-import { safeJsonParse } from '@/lib/utils'
+import ProductSchema from '@/components/schema/ProductSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import {
+  getLocalizedProductDescription,
+  getLocalizedProductName,
+  getLocalizedProductUrl,
+  getProductAlternates,
+  getProductImageUrls,
+  truncateText,
+} from '@/lib/seo'
 
 // ISR: serve cached HTML for up to 5 minutes; admin mutations in
 // app/api/admin/products call revalidateTag('products', 'max') for instant
@@ -44,14 +53,16 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     }
   }
 
-  const images = product.images ? safeJsonParse<string[]>(product.images, [product.image]) : [product.image]
-  const displayImages = images.length > 0 ? images : [product.image]
+  const productName = getLocalizedProductName(product, 'en')
+  const productDescriptionText = getLocalizedProductDescription(product, 'en')
+  const productImages = getProductImageUrls(product)
+  const productUrl = getLocalizedProductUrl(product.id, 'en')
   
   // Enhanced product-specific meta tags
-  const productTitle = `${product.name} - Professional Korean Dermacosmetics UAE | GENOSYS`
-  const productDescription = `${product.description.substring(0, 150)}... Professional Korean dermacosmetics by GENOSYS. Official distributor in UAE. Free shipping over 1000 AED.`
+  const productTitle = `${productName} - Professional Korean Dermacosmetics UAE | GENOSYS`
+  const productDescription = `${truncateText(productDescriptionText, 150)} Professional Korean dermacosmetics by GENOSYS. Official distributor in UAE. Free shipping over 1000 AED.`
   const productKeywords = [
-    product.name,
+    productName,
     `GENOSYS ${product.category}`,
     'Korean dermacosmetics UAE',
     'professional skincare Dubai',
@@ -85,13 +96,13 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       title: productTitle,
       description: productDescription,
       type: 'website',
-      url: `https://genosys.ae/products/${product.id}`,
+      url: productUrl,
       siteName: 'GENOSYS',
-      images: displayImages.map((img: string) => ({
-        url: `https://genosys.ae${img}`,
+      images: productImages.map((img: string) => ({
+        url: img,
         width: 800,
         height: 800,
-        alt: `${product.name} - Professional Korean Dermacosmetics`,
+        alt: `${productName} - Professional Korean Dermacosmetics`,
       })),
       locale: 'en_AE',
       countryName: 'United Arab Emirates',
@@ -102,18 +113,14 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       creator: '@genosys_official',
       title: productTitle,
       description: productDescription,
-      images: displayImages.map((img: string) => ({
-        url: `https://genosys.ae${img}`,
-        alt: `${product.name} - Professional Korean Dermacosmetics`,
+      images: productImages.map((img: string) => ({
+        url: img,
+        alt: `${productName} - Professional Korean Dermacosmetics`,
       })),
     },
     alternates: {
-      canonical: `https://genosys.ae/products/${product.id}`,
-      languages: {
-        'en': `https://genosys.ae/products/${product.id}`,
-        'ar': `https://genosys.ae/ar/products/${product.id}`,
-        'ru': `https://genosys.ae/ru/products/${product.id}`,
-      },
+      canonical: productUrl,
+      languages: getProductAlternates(product.id),
     },
     other: {
       'product:price:amount': product.price.toString(),
@@ -133,5 +140,17 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound()
   }
 
-  return <ProductPageClientRefactored product={product} />
+  return (
+    <>
+      <ProductSchema product={product} locale="en" canonicalUrl={getLocalizedProductUrl(product.id, 'en')} />
+      <BreadcrumbSchema
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Products', url: '/products' },
+          { name: getLocalizedProductName(product, 'en'), url: `/products/${product.id}` },
+        ]}
+      />
+      <ProductPageClientRefactored product={product} />
+    </>
+  )
 }

@@ -5,7 +5,16 @@ import ProductPageClientRefactored from '@/app/products/[id]/ProductPageClientRe
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
-import { safeJsonParse } from '@/lib/utils'
+import ProductSchema from '@/components/schema/ProductSchema'
+import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import {
+  getLocalizedProductDescription,
+  getLocalizedProductName,
+  getLocalizedProductUrl,
+  getProductAlternates,
+  getProductImageUrls,
+  truncateText,
+} from '@/lib/seo'
 
 // ISR: cache for 5 min; admin routes must revalidateTag('products', 'max').
 export const revalidate = 300
@@ -40,14 +49,16 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     }
   }
 
-  const images = product.images ? safeJsonParse<string[]>(product.images, [product.image]) : [product.image]
-  const displayImages = images.length > 0 ? images : [product.image]
+  const productName = getLocalizedProductName(product, 'ar')
+  const productDescriptionText = getLocalizedProductDescription(product, 'ar')
+  const productImages = getProductImageUrls(product)
+  const productUrl = getLocalizedProductUrl(product.id, 'ar')
   
   // Enhanced product-specific meta tags in Arabic
-  const productTitle = `${product.name} - مستحضرات التجميل الكورية المهنية الإمارات | GENOSYS`
-  const productDescription = `${product.description.substring(0, 150)}... مستحضرات التجميل الكورية المهنية من GENOSYS. الموزع الرسمي في الإمارات. شحن مجاني لأكثر من 1000 درهم.`
+  const productTitle = `${productName} - مستحضرات تجميل كورية احترافية في الإمارات | GENOSYS`
+  const productDescription = `${truncateText(productDescriptionText, 150)} مستحضرات تجميل كورية احترافية من GENOSYS. الموزع الرسمي في الإمارات. شحن مجاني فوق 1000 درهم.`
   const productKeywords = [
-    product.name,
+    productName,
     `GENOSYS ${product.category}`,
     'مستحضرات التجميل الكورية الإمارات',
     'العناية بالبشرة المهنية دبي',
@@ -81,13 +92,13 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       title: productTitle,
       description: productDescription,
       type: 'website',
-      url: `https://genosys.ae/ar/products/${product.id}`,
+      url: productUrl,
       siteName: 'GENOSYS',
-      images: displayImages.map((img: string) => ({
-        url: `https://genosys.ae${img}`,
+      images: productImages.map((img: string) => ({
+        url: img,
         width: 800,
         height: 800,
-        alt: `${product.name} - مستحضرات التجميل الكورية المهنية`,
+        alt: `${productName} - مستحضرات تجميل كورية احترافية`,
       })),
       locale: 'ar_AE',
       countryName: 'United Arab Emirates',
@@ -98,18 +109,14 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       creator: '@genosys_official',
       title: productTitle,
       description: productDescription,
-      images: displayImages.map((img: string) => ({
-        url: `https://genosys.ae${img}`,
-        alt: `${product.name} - مستحضرات التجميل الكورية المهنية`,
+      images: productImages.map((img: string) => ({
+        url: img,
+        alt: `${productName} - مستحضرات تجميل كورية احترافية`,
       })),
     },
     alternates: {
-      canonical: `https://genosys.ae/ar/products/${product.id}`,
-      languages: {
-        'en': `https://genosys.ae/products/${product.id}`,
-        'ar': `https://genosys.ae/ar/products/${product.id}`,
-        'ru': `https://genosys.ae/ru/products/${product.id}`,
-      },
+      canonical: productUrl,
+      languages: getProductAlternates(product.id),
     },
     other: {
       'product:price:amount': product.price.toString(),
@@ -129,6 +136,18 @@ export default async function ArabicProductPage({ params }: ProductPageProps) {
     notFound()
   }
 
-  return <ProductPageClientRefactored product={product} />
+  return (
+    <>
+      <ProductSchema product={product} locale="ar" canonicalUrl={getLocalizedProductUrl(product.id, 'ar')} />
+      <BreadcrumbSchema
+        items={[
+          { name: 'الرئيسية', url: '/ar' },
+          { name: 'المنتجات', url: '/ar/products' },
+          { name: getLocalizedProductName(product, 'ar'), url: `/ar/products/${product.id}` },
+        ]}
+      />
+      <ProductPageClientRefactored product={product} />
+    </>
+  )
 }
 

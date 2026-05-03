@@ -1,5 +1,6 @@
 import { Product } from '@/types'
 import { SITE_URL } from '@/lib/siteConfig'
+import { getProductImageUrls } from '@/lib/seo'
 
 interface ProductsListSchemaProps {
   products: Product[]
@@ -32,18 +33,6 @@ export default function ProductsListSchema({ products, category }: ProductsListS
       "@type": "ItemList",
       "numberOfItems": validProducts.length,
       "itemListElement": validProducts.map((product, index) => {
-        let images = [product.image]
-        try {
-          if (product.images) {
-            const parsedImages = JSON.parse(product.images)
-            images = Array.isArray(parsedImages) && parsedImages.length > 0 ? parsedImages : [product.image]
-          }
-        } catch {
-          // Silent fallback to main image if parsing fails
-          images = [product.image]
-        }
-        const displayImages = images.length > 0 ? images : [product.image]
-        
         return {
           "@type": "ListItem",
           "position": index + 1,
@@ -51,7 +40,7 @@ export default function ProductsListSchema({ products, category }: ProductsListS
             "@type": "Product",
             "name": product.name,
             "description": product.description,
-            "image": displayImages.map((img: string) => `${baseUrl}${img}`),
+            "image": getProductImageUrls(product),
             "brand": {
               "@type": "Brand",
               "name": "GENOSYS"

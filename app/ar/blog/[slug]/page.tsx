@@ -5,6 +5,7 @@ import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
 import ArabicBlogPostClient from './ArabicBlogPostClient'
+import { buildUrl } from '@/lib/siteConfig'
 
 // Match the EN blog slug page — ISR every 60 seconds so edits propagate quickly.
 export const revalidate = 60
@@ -106,7 +107,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       type: 'article',
       images: post.featuredImage ? [
         {
-          url: post.featuredImage,
+          url: buildUrl(post.featuredImage),
           width: 1200,
           height: 630,
           alt: title,
@@ -146,7 +147,7 @@ export async function generateStaticParams() {
       select: { slug: true },
     }) || []
     return posts.map((post: { slug: string }) => ({ slug: post.slug }))
-      } catch (error) {
+  } catch {
     return []
   }
 }

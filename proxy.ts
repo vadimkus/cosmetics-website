@@ -81,7 +81,15 @@ export function proxy(request: NextRequest) {
     '/genosys-official': '/genosys',
     '/offline-mode': '/offline',
     '/professional-documents': '/documents',
-    '/proff': '/prof'
+    '/proff': '/prof',
+    '/korean-skincare-dubai': '/guides/korean-skincare-dubai',
+    '/microneedling-devices-uae': '/guides/microneedling-devices-uae',
+    '/professional-skincare-training-dubai': '/guides/professional-skincare-training-dubai',
+    '/genosys-distributor-uae': '/guides/genosys-distributor-uae',
+    '/dermacosmetics-for-clinics-uae': '/guides/dermacosmetics-for-clinics-uae',
+    '/korean-sunscreen-uae': '/guides/korean-sunscreen-uae',
+    '/acne-treatment-products-uae': '/guides/acne-treatment-products-uae',
+    '/pigmentation-serum-dubai': '/guides/pigmentation-serum-dubai',
   }
 
   // Handle redirects first (before locale handling)
@@ -93,7 +101,24 @@ export function proxy(request: NextRequest) {
   // Only redirect if path doesn't have locale and is not root
   // Exclude static assets (videos, images, icons, service worker, etc.) from locale routing
   // Also exclude development/testing routes like /phone and /pwa-demo
-  const staticAssets = ['/manifest.json', '/apple-touch-icon.png', '/favicon.ico', '/favicon-16x16.png', '/favicon-32x32.png', '/icon-192x192.png', '/icon-512x512.png', '/sw.js']
+  const staticAssets = [
+    '/manifest.json',
+    '/ar/manifest.json',
+    '/ru/manifest.json',
+    '/apple-touch-icon.png',
+    '/favicon.ico',
+    '/favicon-16x16.png',
+    '/favicon-32x32.png',
+    '/icon-192x192.png',
+    '/icon-512x512.png',
+    '/sw.js',
+    '/llms.txt',
+    '/llms-full.txt',
+    '/ai-products.txt',
+    '/sitemap.xml',
+    '/sitemap-index.xml',
+    '/opensearch.xml',
+  ]
   const excludedRoutes = ['/phone', '/phone2', '/phone3', '/pwa-demo', '/test-analytics']
   if (pathname !== '/' && !pathnameHasLocale && !pathname.startsWith('/api') && !pathname.startsWith('/_next') && !pathname.startsWith('/videos') && !pathname.startsWith('/images') && !pathname.startsWith('/Logo') && !staticAssets.includes(pathname) && !excludedRoutes.includes(pathname)) {
     // Check for user's language preference cookie first (set by language switcher)
@@ -157,9 +182,11 @@ export const config = {
      * - images (image files)
      * - Logo (logo files)
      * - favicon.ico (favicon file)
-     * - sitemap.xml (sitemap)
+     * - sitemap.xml / sitemap-index.xml (sitemaps)
      * - robots.txt (robots file)
+     * - llms.txt / llms-full.txt / ai-products.txt (AI indexes)
+     * - feed/* and opensearch.xml (machine-readable discovery files)
      */
-    '/((?!api|_next/static|_next/image|videos|images|Logo|favicon.ico|favicon-16x16.png|favicon-32x32.png|icon-192x192.png|icon-512x512.png|apple-touch-icon.png|sitemap.xml|robots.txt|manifest.json|sw.js).*)',
+    '/((?!api|_next/static|_next/image|videos|images|Logo|feed|favicon.ico|favicon-16x16.png|favicon-32x32.png|icon-192x192.png|icon-512x512.png|apple-touch-icon.png|sitemap.xml|sitemap-index.xml|robots.txt|llms.txt|llms-full.txt|ai-products.txt|opensearch.xml|manifest.json|ar/manifest.json|ru/manifest.json|sw.js).*)',
   ],
 }

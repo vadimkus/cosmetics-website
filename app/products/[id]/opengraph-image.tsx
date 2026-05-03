@@ -1,5 +1,6 @@
 import { ImageResponse } from 'next/og'
 import { getProductByIdCached } from '@/lib/productsDb'
+import { buildUrl } from '@/lib/siteConfig'
 
 // Image metadata
 export const alt = 'GENOSYS Product'
@@ -40,7 +41,7 @@ export default async function Image({ params }: { params: Promise<{ id: string }
   const price = product.price ? `${product.price} AED` : ''
   const category = product.category || ''
   const productImageUrl = product.image
-    ? `https://genosys.ae${product.image}`
+    ? buildUrl(product.image)
     : null
 
   return new ImageResponse(
@@ -67,7 +68,6 @@ export default async function Image({ params }: { params: Promise<{ id: string }
           }}
         >
           {productImageUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={productImageUrl}
               alt={product.name}

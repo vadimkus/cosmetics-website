@@ -247,6 +247,10 @@ export default async function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+        <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GENOSYS Search" />
+        <link rel="alternate" type="application/rss+xml" href="/feed/blog.xml" title="GENOSYS Blog RSS" />
+        <link rel="alternate" type="application/atom+xml" href="/feed/blog.atom" title="GENOSYS Blog Atom" />
+        <link rel="alternate" type="application/xml" href="/feed/products.xml" title="GENOSYS Product Feed" />
         {/* Preload hero video poster for instant LCP on homepage */}
         <link rel="preload" href="/images/genosys-video-poster.jpg" as="image" fetchPriority="high" />
         {/* Logo is preloaded automatically by Next.js <Image priority> in Logo.tsx */}

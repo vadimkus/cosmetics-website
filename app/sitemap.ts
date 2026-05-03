@@ -3,6 +3,7 @@ import { getAllProducts } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import { Product } from '@/types/index'
 import { prisma } from '@/lib/prisma'
+import { SEO_LANDING_PAGES } from '@/lib/seoLandingPages'
 
 const BASE_URL = 'https://genosys.ae'
 
@@ -61,6 +62,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // English-only pages (no AR/RU versions)
   entries.push(singleLocaleUrl('/genosys', staticDate, 0.7, 'monthly'))
   entries.push(singleLocaleUrl('/documents', staticDate, 0.6, 'monthly'))
+  entries.push(singleLocaleUrl('/guides', now, 0.7, 'monthly'))
+  for (const page of SEO_LANDING_PAGES) {
+    entries.push(singleLocaleUrl(`/guides/${page.slug}`, now, 0.8, 'monthly'))
+  }
 
   // Product pages
   let products: Product[] = []

@@ -17,9 +17,16 @@ export function getSiteUrl(): URL {
   return new URL(SITE_URL)
 }
 
+export function isAbsoluteUrl(value: string): boolean {
+  return /^https?:\/\//i.test(value)
+}
+
 // Build a full URL from a path
 export function buildUrl(path: string): string {
-  // Ensure path starts with /
+  if (!path) return SITE_URL
+  if (isAbsoluteUrl(path)) return path
+  if (path.startsWith('//')) return `https:${path}`
+
   const normalizedPath = path.startsWith('/') ? path : `/${path}`
   return `${SITE_URL}${normalizedPath}`
 }

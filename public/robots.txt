@@ -26,6 +26,7 @@ Allow: /delivery
 Allow: /genosys
 Allow: /partners
 Allow: /skin-recommendation
+Allow: /guides/
 
 # Allow concern-based and category landing pages
 Allow: /products/concern/
@@ -45,6 +46,12 @@ Allow: /professional-documents
 Allow: /favicon.ico
 Allow: /manifest.json
 Allow: /llms.txt
+Allow: /llms-full.txt
+Allow: /ai-products.txt
+Allow: /opensearch.xml
+Allow: /feed/products.xml
+Allow: /feed/blog.xml
+Allow: /feed/blog.atom
 
 # Disallow admin and private areas
 Disallow: /admin/
@@ -244,3 +251,12 @@ Sitemap: https://genosys.ae/sitemap-index.xml
 # Google Merchant Center Product Feed
 # Add this URL in Merchant Center > Products > Feeds > Scheduled fetch
 # Feed: https://genosys.ae/feed/products.xml
+
+# Blog discovery feeds
+# RSS: https://genosys.ae/feed/blog.xml
+# Atom: https://genosys.ae/feed/blog.atom
+
+# AI/LLM discovery indexes
+# Short index: https://genosys.ae/llms.txt
+# Full index: https://genosys.ae/llms-full.txt
+# Product index: https://genosys.ae/ai-products.txt

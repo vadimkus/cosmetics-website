@@ -1,5 +1,105 @@
 import type { Metadata } from 'next'
-import { SITE_URL, SITE_NAME } from '@/lib/siteConfig'
+import type { Product } from '@/types'
+import type { Locale } from '@/lib/i18n'
+import { buildUrl, SITE_NAME, SITE_URL } from '@/lib/siteConfig'
+import { safeJsonParse } from '@/lib/utils'
+
+export const LANGUAGE_NAMES: Record<Locale, string> = {
+  en: 'English',
+  ar: 'Arabic',
+  ru: 'Russian',
+}
+
+export function escapeXml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;')
+}
+
+export function truncateText(value: string, maxLength: number): string {
+  const normalized = value.replace(/\s+/g, ' ').trim()
+  if (normalized.length <= maxLength) return normalized
+  return `${normalized.slice(0, maxLength - 3).trim()}...`
+}
+
+export function stripHtml(value: string): string {
+  return value
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+export function parseStringArray(value?: string | null): string[] {
+  if (!value) return []
+  const parsed = safeJsonParse<unknown>(value, [])
+  if (Array.isArray(parsed)) {
+    return parsed.filter((item): item is string => typeof item === 'string' && item.trim().length > 0)
+  }
+  if (typeof parsed === 'string' && parsed.trim()) {
+    return [parsed.trim()]
+  }
+  return []
+}
+
+export function getLocalizedProductName(product: Product, locale: Locale): string {
+  if (locale === 'ar' && product.nameAr?.trim()) return product.nameAr.trim()
+  if (locale === 'ru' && product.nameRu?.trim()) return product.nameRu.trim()
+  return product.name
+}
+
+export function getLocalizedProductDescription(product: Product, locale: Locale): string {
+  if (locale === 'ar' && product.descriptionAr?.trim()) return product.descriptionAr.trim()
+  if (locale === 'ru' && product.descriptionRu?.trim()) return product.descriptionRu.trim()
+  return product.description
+}
+
+export function getLocalizedProductPath(productId: string, locale: Locale): string {
+  if (locale === 'ar') return `/ar/products/${productId}`
+  if (locale === 'ru') return `/ru/products/${productId}`
+  return `/products/${productId}`
+}
+
+export function getLocalizedProductUrl(productId: string, locale: Locale): string {
+  return buildUrl(getLocalizedProductPath(productId, locale))
+}
+
+export function getProductImageUrls(product: Product): string[] {
+  const parsedImages = parseStringArray(product.images)
+  const images = parsedImages.length > 0 ? parsedImages : [product.image]
+  return images.filter(Boolean).map(img => buildUrl(img))
+}
+
+export function getProductAlternates(productId: string): Record<string, string> {
+  return {
+    en: getLocalizedProductUrl(productId, 'en'),
+    ar: getLocalizedProductUrl(productId, 'ar'),
+    ru: getLocalizedProductUrl(productId, 'ru'),
+    'x-default': getLocalizedProductUrl(productId, 'en'),
+  }
+}
+
+export function formatFeedDate(date?: Date | string | null): string {
+  return (date ? new Date(date) : new Date()).toUTCString()
+}
+
+export function formatAtomDate(date?: Date | string | null): string {
+  return (date ? new Date(date) : new Date()).toISOString()
+}
+
+export function siteUrlWithTrailingSlash(): string {
+  return SITE_URL.endsWith('/') ? SITE_URL : `${SITE_URL}/`
+}
 
 /**
  * SEO Metadata Helper Utility
@@ -50,9 +150,7 @@ export function getLocalizedSiteName(locale: SeoLocale = 'en'): string {
  * Build absolute URL from a path
  */
 export function buildAbsoluteUrl(path: string): string {
-  if (path.startsWith('http')) return path
-  const normalizedPath = path.startsWith('/') ? path : `/${path}`
-  return `${SITE_URL}${normalizedPath}`
+  return buildUrl(path)
 }
 
 /**

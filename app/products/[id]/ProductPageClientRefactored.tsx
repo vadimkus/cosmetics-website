@@ -9,8 +9,6 @@ import ErrorPage from '@/components/ErrorPage'
 import { Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle, Share2 } from 'lucide-react'
 import { useState, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
-import ProductSchema from '@/components/schema/ProductSchema'
-import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ProductBreadcrumb from '@/app/products/[id]/components/ProductBreadcrumb'
 import ProductImageGallery from '@/components/product/ProductImageGallery'
 import ProductDetails from '@/components/product/ProductDetails'
@@ -27,7 +25,6 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { translateSize } from '@/utils/sizeTranslations'
 import { translateCategory } from '@/utils/categoryTranslations'
-import { SITE_URL } from '@/lib/siteConfig'
 import { 
   getPriceForSize, 
   hasProductSizeVariants, 
@@ -196,19 +193,6 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
   return (
     <div className="bg-white min-h-[100dvh] pb-24 md:pb-0" dir={dir}>
-      <ProductSchema
-        product={product}
-        locale={locale}
-        canonicalUrl={`${SITE_URL}${getLocalizedPath(`/products/${product.id}`, locale)}`}
-      />
-      <BreadcrumbSchema 
-        items={[
-          { name: t('navigation.home'), url: getLocalizedPath('/', locale) },
-          { name: t('navigation.products'), url: getLocalizedPath('/products', locale) },
-          { name: product.name, url: getLocalizedPath(`/products/${product.id}`, locale) }
-        ]}
-      />
-
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>

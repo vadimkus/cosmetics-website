@@ -120,7 +120,7 @@ export function proxy(request: NextRequest) {
     '/opensearch.xml',
   ]
   const excludedRoutes = ['/phone', '/phone2', '/phone3', '/pwa-demo', '/test-analytics']
-  if (pathname !== '/' && !pathnameHasLocale && !pathname.startsWith('/api') && !pathname.startsWith('/_next') && !pathname.startsWith('/videos') && !pathname.startsWith('/images') && !pathname.startsWith('/Logo') && !staticAssets.includes(pathname) && !excludedRoutes.includes(pathname)) {
+  if (pathname !== '/' && !pathnameHasLocale && !pathname.startsWith('/api') && !pathname.startsWith('/_next') && !pathname.startsWith('/videos') && !pathname.startsWith('/images') && !pathname.startsWith('/Logo') && !pathname.startsWith('/guides') && !staticAssets.includes(pathname) && !excludedRoutes.includes(pathname)) {
     // Check for user's language preference cookie first (set by language switcher)
     const localeCookie = request.cookies.get('NEXT_LOCALE')?.value
     

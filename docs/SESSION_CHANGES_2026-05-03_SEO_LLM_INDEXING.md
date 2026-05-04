@@ -31,6 +31,7 @@ Implemented a broad SEO and AI-crawler indexing pass for the GENOSYS website.
   - Acne treatment products UAE
   - Pigmentation serum Dubai
 - Added `/guides` index page and sitemap entries for the guide pages.
+- Follow-up QA fix: `/guides/*` is English-only, so the proxy now bypasses locale redirects for `/guides` paths. This prevents Arabic/Russian `Accept-Language` crawlers from being redirected to non-existent `/ar/guides/*` or `/ru/guides/*` pages.
 
 ## Notes
 

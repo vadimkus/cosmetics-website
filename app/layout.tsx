@@ -37,6 +37,7 @@ import PageViewTracker from '@/components/PageViewTracker'
 import OrganizationSchema from '@/components/schema/OrganizationSchema'
 import LocalBusinessSchema from '@/components/schema/LocalBusinessSchema'
 import WebSiteSchema from '@/components/schema/WebSiteSchema'
+import RouteStructuredData from '@/components/schema/RouteStructuredData'
 import ErrorBoundary from '@/components/ErrorBoundary'
 import LocaleWrapper from '@/components/LocaleWrapper'
 import Footer from '@/components/footer/Footer'
@@ -290,6 +291,7 @@ export default async function RootLayout({
         <WebSiteSchema />
         <OrganizationSchema />
         <LocalBusinessSchema />
+        <RouteStructuredData pathname={pathname} />
         <MessagesProvider messages={messages} locale={locale}>
           <ToastProvider>
             <AuthProvider>

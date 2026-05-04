@@ -5,8 +5,6 @@ import ProductPageClientRefactored from '@/app/products/[id]/ProductPageClientRe
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
-import ProductSchema from '@/components/schema/ProductSchema'
-import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import {
   getLocalizedProductDescription,
   getLocalizedProductName,
@@ -135,19 +133,7 @@ export default async function RussianProductPage({ params }: ProductPageProps) {
     notFound()
   }
 
-  return (
-    <>
-      <ProductSchema product={product} locale="ru" canonicalUrl={getLocalizedProductUrl(product.id, 'ru')} />
-      <BreadcrumbSchema
-        items={[
-          { name: 'Главная', url: '/ru' },
-          { name: 'Продукты', url: '/ru/products' },
-          { name: getLocalizedProductName(product, 'ru'), url: `/ru/products/${product.id}` },
-        ]}
-      />
-      <ProductPageClientRefactored product={product} />
-    </>
-  )
+  return <ProductPageClientRefactored product={product} />
 }
 
 

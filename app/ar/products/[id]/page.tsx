@@ -5,8 +5,6 @@ import ProductPageClientRefactored from '@/app/products/[id]/ProductPageClientRe
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
-import ProductSchema from '@/components/schema/ProductSchema'
-import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import {
   getLocalizedProductDescription,
   getLocalizedProductName,
@@ -136,18 +134,6 @@ export default async function ArabicProductPage({ params }: ProductPageProps) {
     notFound()
   }
 
-  return (
-    <>
-      <ProductSchema product={product} locale="ar" canonicalUrl={getLocalizedProductUrl(product.id, 'ar')} />
-      <BreadcrumbSchema
-        items={[
-          { name: 'الرئيسية', url: '/ar' },
-          { name: 'المنتجات', url: '/ar/products' },
-          { name: getLocalizedProductName(product, 'ar'), url: `/ar/products/${product.id}` },
-        ]}
-      />
-      <ProductPageClientRefactored product={product} />
-    </>
-  )
+  return <ProductPageClientRefactored product={product} />
 }
 

@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { buildUrl } from '@/lib/siteConfig'
 import { SEO_LANDING_PAGES, getSeoLandingPage } from '@/lib/seoLandingPages'
 
@@ -78,55 +77,8 @@ export default async function SeoGuidePage({ params }: GuidePageProps) {
     notFound()
   }
 
-  const pageUrl = buildUrl(`/guides/${page.slug}`)
-
-  const webPageSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: page.h1,
-    headline: page.h1,
-    description: page.description,
-    url: pageUrl,
-    inLanguage: 'en-AE',
-    about: page.keywords.map(keyword => ({ '@type': 'Thing', name: keyword })),
-    publisher: {
-      '@type': 'Organization',
-      name: 'GENOSYS Middle East FZ-LLC',
-      url: buildUrl('/'),
-    },
-  }
-
-  const faqSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: page.faq.map(item => ({
-      '@type': 'Question',
-      name: item.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: item.answer,
-      },
-    })),
-  }
-
   return (
     <div className="bg-white min-h-screen">
-      <BreadcrumbSchema
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Guides', url: '/guides' },
-          { name: page.h1, url: `/guides/${page.slug}` },
-        ]}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema, null, 2) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema, null, 2) }}
-      />
-
       <article className="mx-auto max-w-5xl px-4 py-12 md:py-20">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-600">
           {page.eyebrow}

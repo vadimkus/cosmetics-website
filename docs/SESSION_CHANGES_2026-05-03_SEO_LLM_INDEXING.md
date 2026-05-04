@@ -32,6 +32,7 @@ Implemented a broad SEO and AI-crawler indexing pass for the GENOSYS website.
   - Pigmentation serum Dubai
 - Added `/guides` index page and sitemap entries for the guide pages.
 - Follow-up QA fix: `/guides/*` is English-only, so the proxy now bypasses locale redirects for `/guides` paths. This prevents Arabic/Russian `Accept-Language` crawlers from being redirected to non-existent `/ar/guides/*` or `/ru/guides/*` pages.
+- Follow-up QA fix: route-specific Product, Breadcrumb, WebPage, and FAQ JSON-LD now renders from the server layout before client providers. This keeps important structured data as raw `<script type="application/ld+json">` in initial HTML instead of only appearing inside the Next.js flight payload.
 
 ## Notes
 

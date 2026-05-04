@@ -89,29 +89,116 @@ Disallow: /ru/newsletter/unsubscribe
 
 User-agent: Googlebot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
+Disallow: /newsletter/unsubscribe
+Disallow: /ar/newsletter/unsubscribe
+Disallow: /ru/newsletter/unsubscribe
 
 # Google's additional crawlers for AI and indexing
 User-agent: Google-Extended
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
 
 User-agent: GoogleOther
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
 Crawl-delay: 1
 
 User-agent: Yandex
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
 Crawl-delay: 1
 
 User-agent: Slurp
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
 Crawl-delay: 1
 
 # Brave Search
 User-agent: Bravebot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
 
 # ============================================================
 # AI SEARCH & ASSISTANTS (drive citations and referral traffic)
@@ -164,9 +251,33 @@ Disallow: /checkout/
 # Apple (Siri, Apple Intelligence, Safari suggestions)
 User-agent: Applebot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
 
 User-agent: Applebot-Extended
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
 
 # Amazon (Alexa, product recommendations)
 User-agent: Amazonbot
@@ -200,12 +311,24 @@ User-agent: DeepSeekBot
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
 
 # Cohere AI
 User-agent: cohere-ai
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
 
 # ============================================================
 # SEO MONITORING TOOLS
@@ -213,10 +336,34 @@ Disallow: /api/
 
 User-agent: AhrefsBot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
 Crawl-delay: 2
 
 User-agent: SemrushBot
 Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /private/
+Disallow: /profile/
+Disallow: /cart/
+Disallow: /favorites/
+Disallow: /checkout/
+Disallow: /success/
+Disallow: /login/
+Disallow: /signup/
+Disallow: /offline/
+Disallow: /test-analytics/
 Crawl-delay: 2
 
 # ============================================================

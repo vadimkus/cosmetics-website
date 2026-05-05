@@ -26,6 +26,7 @@ interface ProductSchemaProps {
  * - Added countryOfOrigin (Korea) for cosmetics provenance
  * - Added gtin placeholder for future barcode support
  * - AggregateRating only included when real data exists
+ * - audience: single PeopleAudience (Merchant Center / Search expects suggestedGender + age — not generic Audience or arrays)
  */
 export default function ProductSchema({ product, locale = 'en', canonicalUrl }: ProductSchemaProps) {
   // Skip Product schema entirely for products without a valid price.
@@ -60,16 +61,12 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
       "logo": `${SITE_URL}/images/genosys-logo.png`
     },
     "category": product.category,
-    "audience": [
-      {
-        "@type": "Audience",
-        "audienceType": "Licensed skincare professionals, dermatologists, aestheticians, salons, and clinics in the UAE"
-      },
-      {
-        "@type": "PeopleAudience",
-        "audienceType": "UAE skincare consumers seeking professional Korean dermacosmetics"
-      }
-    ],
+    // https://support.google.com/merchants/answer/6386198 — Product.audience must be PeopleAudience with gender/age, not @type Audience.
+    "audience": {
+      "@type": "PeopleAudience",
+      "suggestedGender": "unisex",
+      "suggestedMinAge": 13,
+    },
     "countryOfOrigin": {
       "@type": "Country",
       "name": "South Korea"

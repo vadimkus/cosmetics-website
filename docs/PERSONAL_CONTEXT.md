@@ -4,9 +4,9 @@
 
 Use this doc when tone, logistics, career context, or cross-project assumptions matter.
 
-**Last updated:** 2026-05-05  
+**Last updated:** 2026-05-06  
 
-**Privacy / exposure:** The section below includes **home address and personal mobile**. If this repository is **public** on GitHub, that data is **world-readable** and will stay in **git history** even if you delete it later. Use a private repo, omit this block, or rotate details if that is a concern.
+**Privacy / exposure:** **Personal** home address and personal mobile appear under Identity. **Work** mobile, corporate email, and office address appear under Primary employment. If this repository is **public**, all of it is **world-readable** and stays in **git history**. Use a private repo or redact if that is a concern.
 
 **CV source (offline, richer detail):** Desktop `Sagatdinov Vadim_CV.docx` — ingested into this file 2026-05-05; company boilerplate at end of Word doc omitted here.
 
@@ -42,8 +42,11 @@ Born in 1981 → **44** years old from **16 Oct 2025** onward (infer from DOB if
 
 | Field | Value |
 |-------|--------|
-| **Employer** | Al-Futtaim |
-| **Role** | Technology Integration & Business Enablement Lead — Automotive |
+| **Company** | **Al-Futtaim** — [alfuttaim.com](https://www.alfuttaim.com) |
+| **Role** | Technology Integration & Business Enablement Lead |
+| **Office address** | Festival Tower, Dubai Festival City · P.O. Box 152 · Dubai · United Arab Emirates |
+| **Work mobile** | +971 56 124 1388 |
+| **Work email** | vadim.sagatdinov@alfuttaim.com |
 | **Reporting** | Ivan Birukov (IT Director) |
 | **CTO** | Himanshu Shrivastava (Chief Technology & Data Officer) |
 | **Group Finance Director** | Pär Östberg |
@@ -62,7 +65,7 @@ Automotive enterprise software practitioner: **~17+ years** from hands-on enterp
 
 ## Work experience (most recent first)
 
-### Al-Futtaim — Technology Integration & Business Enablement Lead, Automotive  
+### Al-Futtaim — Technology Integration & Business Enablement Lead  
 **2026 – present** | Dubai, UAE  
 *(Org context in section above.)*
 

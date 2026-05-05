@@ -4,9 +4,9 @@
 
 Use this doc when tone, logistics, career context, or cross-project assumptions matter.
 
-**Last updated:** 2026-05-06  
+**Last updated:** 2026-05-06 *(passport ingest: same day — see Travel ID)*  
 
-**Privacy / exposure:** **Personal** home address and personal mobile appear under Identity. **Work** mobile, corporate email, and office address appear under Primary employment. If this repository is **public**, all of it is **world-readable** and stays in **git history**. Use a private repo or redact if that is a concern.
+**Privacy / exposure:** **Personal** home address and personal mobile appear under Identity. **Work** mobile, corporate email, and office address appear under Primary employment. **Passport number and MRZ are not in this file** — they live only in **`docs/PERSONAL_PASSPORT.local.md`** (gitignored). If this repository is **public**, everything in *this* tracked file is **world-readable**. Use a private repo or redact if that is a concern.
 
 **CV source (offline, richer detail):** Desktop `Sagatdinov Vadim_CV.docx` — ingested into this file 2026-05-05; company boilerplate at end of Word doc omitted here.
 
@@ -17,13 +17,29 @@ Use this doc when tone, logistics, career context, or cross-project assumptions 
 | Field | Value |
 |-------|--------|
 | **Preferred name** | Vadim |
-| **Legal name** | Vadim Sagatdinov |
+| **Legal name** | Vadim Shamilevich Sagatdinov *(patronymic Шамилевич; Russian passport Latin line may show first name only)* |
+| **Legal name (Russian)** | Вадим Шамилевич Сагатдинов |
 | **Date of birth** | 16 October 1981 |
-| **Birthplace** | Magnitogorsk, Russia |
+| **Nationality** | Russian Federation |
+| **Sex** | Male |
+| **Birthplace (city)** | Magnitogorsk, Chelyabinsk Oblast — **USSR** / Russian Federation |
+| **Birthplace (passport wording)** | Recorded as Chelyabinsk Oblast, USSR *(oblast-level line; city Magnitogorsk is in that region)* |
 | **Residence** | Dubai, UAE — **Cordoba Residences, Villa E02** |
 | **Personal mobile** | +971 55 915 2985 |
 
 Born in 1981 → **44** years old from **16 Oct 2025** onward (infer from DOB if this note goes stale).
+
+---
+
+## Travel ID (summary — no document number here)
+
+| Field | Value |
+|-------|--------|
+| **Document** | Russian Federation **biometric passport** |
+| **Issued** | 11 July 2018 |
+| **Expires** | **11 July 2028** |
+| **Issuing authority** | MVD **77435** |
+| **Series/number + MRZ** | **`docs/PERSONAL_PASSPORT.local.md` only** (local, gitignored — use `@` that file in Cursor when needed) |
 
 ---
 

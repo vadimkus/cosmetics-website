@@ -12,6 +12,7 @@ Before making any changes to this project, you MUST read the relevant documentat
 
 1. **Start with**: `docs/README.md` - Documentation index for AI
 2. **Then read**: `docs/PROJECT_GUIDE.md` - Master project guide
+3. **For owner context** (tone, employment, ventures, preferences — no secrets): `docs/PERSONAL_CONTEXT.md`
 
 ## Documentation Location
 
@@ -20,6 +21,7 @@ All documentation is centralized in `/docs/`:
 ### Critical Documents (Always Read)
 - `docs/README.md` - **AI documentation index** (start here!)
 - `docs/PROJECT_GUIDE.md` - Tech stack, patterns, hooks, testing
+- `docs/PERSONAL_CONTEXT.md` - Owner / operator bio and assistant preferences (**non-sensitive only** — see file header)
 - `docs/DESIGN_SYSTEM.md` - Colors, typography, UI components
 
 ### Feature-Specific Documents
@@ -41,11 +43,12 @@ GENOSYS Professional cosmetics e-commerce website (genosys.ae):
 ## Before Making Changes
 
 1. ✅ Read `docs/README.md` first
-2. ✅ Check relevant feature docs
-3. ✅ Review existing code patterns in `PROJECT_GUIDE.md`
-4. ✅ Test all three display modes (Desktop, Mobile Web, PWA)
-5. ✅ Test all three languages (EN, AR, RU)
-6. ✅ Update documentation if making significant changes
+2. ✅ Check `docs/PERSONAL_CONTEXT.md` when answers should reflect operator context or preferences
+3. ✅ Check relevant feature docs
+4. ✅ Review existing code patterns in `PROJECT_GUIDE.md`
+5. ✅ Test all three display modes (Desktop, Mobile Web, PWA)
+6. ✅ Test all three languages (EN, AR, RU)
+7. ✅ Update documentation if making significant changes
 
 ## After Making Changes
 

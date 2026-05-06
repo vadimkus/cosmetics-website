@@ -87,5 +87,6 @@ genosys-nextjs-app/
 .env.production.local
 .env.local.backup.*
 
-# Local-only ID extracts (passport no., MRZ) — never push
+# Local-only ID extracts (passport no., MRZ, visa UID/file no.) — never push
 docs/PERSONAL_PASSPORT.local.md
+docs/PERSONAL_VISA.local.md

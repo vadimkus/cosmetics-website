@@ -4,9 +4,9 @@
 
 Use this doc when tone, logistics, career context, or cross-project assumptions matter.
 
-**Last updated:** 2026-05-06 *(passport ingest: same day — see Travel ID)*  
+**Last updated:** 2026-05-07 *(Al-Futtaim mandate bullets)*  
 
-**Privacy / exposure:** **Personal** home address and personal mobile appear under Identity. **Work** mobile, corporate email, and office address appear under Primary employment. **Passport number and MRZ are not in this file** — they live only in **`docs/PERSONAL_PASSPORT.local.md`** (gitignored). If this repository is **public**, everything in *this* tracked file is **world-readable**. Use a private repo or redact if that is a concern.
+**Privacy / exposure:** **Personal** home address and personal mobile appear under Identity. **Work** mobile, corporate email, and office address appear under Primary employment. **Passport number, MRZ, UAE visa unified number and file number** stay only in **`docs/PERSONAL_PASSPORT.local.md`** and **`docs/PERSONAL_VISA.local.md`** (both gitignored). If this repository is **public**, everything in *this* tracked file is **world-readable** and remains in **git history**. Use a private repo or redact if that is a concern.
 
 **CV source (offline, richer detail):** Desktop `Sagatdinov Vadim_CV.docx` — ingested into this file 2026-05-05; company boilerplate at end of Word doc omitted here.
 
@@ -43,6 +43,20 @@ Born in 1981 → **44** years old from **16 Oct 2025** onward (infer from DOB if
 
 ---
 
+## UAE residence visa *(summary — no visa file / UID numbers here)*
+
+| Field | Value |
+|-------|--------|
+| **Status** | UAE **residence visa** (Federal identity / ICA-type presentation on PDF) |
+| **Place of issue** | Dubai |
+| **Sponsor** | **Al-Futtaim Company (L.L.C.)** |
+| **Profession on visa** | **Sales Officer** *(Arabic labour-title line on visa — often differs from formal role; see Primary employment)* |
+| **Valid from** | 8 April 2026 |
+| **Valid until** | **7 April 2028** |
+| **UID / file numbers + passport repeat on sticker** | **`docs/PERSONAL_VISA.local.md` only** (@ that file when booking or forms need them) |
+
+---
+
 ## Languages
 
 | Language | Level |
@@ -71,6 +85,14 @@ Born in 1981 → **44** years old from **16 Oct 2025** onward (infer from DOB if
 
 *Adjust dates/names if org chart changes.*
 
+### Current mandate *(major workstreams)*
+
+1. **Automotive budget optimization** — large, cross-cutting workstream (**primary focus / big rock**).
+2. **BYD KSA / UAE programme** — **project implementation** across both markets *(OEM rollout / distributor IT–business footprint — refine wording as the programme evolves)*.
+3. **Request tracker & overseas Automotive operations** — engage **other regions/locations**, **surface pain points**, align practice with **head office policy**, and enforce where required.
+
+*(Visa occupation line may still read “Sales Officer”; this block is the real scope.)*
+
 ---
 
 ## Professional summary
@@ -83,7 +105,10 @@ Automotive enterprise software practitioner: **~17+ years** from hands-on enterp
 
 ### Al-Futtaim — Technology Integration & Business Enablement Lead  
 **2026 – present** | Dubai, UAE  
-*(Org context in section above.)*
+
+- **Automotive budget optimization** (major initiative).
+- **BYD UAE / KSA** implementation programme.
+- **Request tracker**: overseas Automotive ops — liaison with locations, aggregate **pain points**, **head office policy** alignment / enforcement.
 
 ### Keyloop ME — Portfolio / Project Manager  
 **August 2016 – September 2024** | Dubai  

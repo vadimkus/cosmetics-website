@@ -241,8 +241,10 @@ export default async function RootLayout({
   const messages = loadMessages(locale)
 
   return (
-    <html lang={locale} dir={dir} suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang={locale} dir={dir} translate="no" className="notranslate" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+        {/* Browser auto-translation mutates React-owned text nodes and can crash route transitions. */}
+        <meta name="google" content="notranslate" />
         {/* Preconnect to external domains for faster resource loading */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -284,7 +286,7 @@ export default async function RootLayout({
           `}
         </Script>
       </head>
-      <body className={`${inter.className} ${inter.variable} ${notoSansArabic.variable} flex flex-col min-h-screen antialiased`} suppressHydrationWarning>
+      <body className={`${inter.className} ${inter.variable} ${notoSansArabic.variable} notranslate flex flex-col min-h-screen antialiased`} translate="no" suppressHydrationWarning>
         {/* Skip to content link for keyboard/screen reader users */}
         <SkipToContent />
         <LocaleManifest />

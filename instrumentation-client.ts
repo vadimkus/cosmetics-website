@@ -106,6 +106,42 @@ function isIOSViewTransitionRemoveChildRace(event: Sentry.ErrorEvent): boolean {
   return isAllNextChunks
 }
 
+/**
+ * Chrome / Google Translate DOM mutation.
+ *
+ * Chrome's page translator rewrites text nodes inside React-managed markup by
+ * wrapping translated strings in nested `<font>` elements. If the user navigates
+ * while that translated subtree is mounted, React can later try to remove a
+ * text node that Google Translate already replaced, producing:
+ *   NotFoundError: Failed to execute 'removeChild' on 'Node': The node to be
+ *   removed is not a child of this node.
+ *
+ * The 2026-05-10 `/products` event had a `ui.click` breadcrumb ending in
+ * `font > font`, Turkish culture/title, and a stack made only of minified React
+ * commit frames. The layout now opts out of browser translation; this filter
+ * keeps any cached/pre-opt-out repeats from paging us.
+ */
+function isGoogleTranslateRemoveChildMutation(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type !== 'NotFoundError') return false
+  if (!exc.value || !/removeChild.*not a child of this node/i.test(exc.value)) return false
+
+  const frames = exc.stacktrace?.frames || []
+  const isAllNextChunks = frames.length > 0 && frames.every((f) => {
+    const file = f.filename || f.abs_path || ''
+    return file === '' || /_next\/static\/chunks\//.test(file)
+  })
+  if (!isAllNextChunks) return false
+
+  return (event.breadcrumbs || []).some((breadcrumb) => {
+    const message = breadcrumb.message || ''
+    return breadcrumb.category === 'ui.click' && /font\s*>\s*font/i.test(message)
+  })
+}
+
 if (dsn) {
   Sentry.init({
     dsn,
@@ -120,6 +156,7 @@ if (dsn) {
       // Drop unactionable iOS Safari navigation-abort noise.
       if (isSafariNavigationAbortLoadFailed(event)) return null
       if (isIOSViewTransitionRemoveChildRace(event)) return null
+      if (isGoogleTranslateRemoveChildMutation(event)) return null
 
       // Strip PII-sensitive fields before events leave the browser.
       // Checkout pages see email/address/phone; scrub them from breadcrumbs.

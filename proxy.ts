@@ -64,6 +64,27 @@ export function proxy(request: NextRequest) {
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
   )
 
+  // English-only canonical pages. If stale localized URLs are requested,
+  // send crawlers/users back to the real indexable URL instead of serving 404s.
+  const localizedEnglishOnlyMatch = pathname.match(/^\/(?:ar|ru)(\/(?:genosys|documents|guides)(?:\/.*)?)$/)
+  if (localizedEnglishOnlyMatch) {
+    const canonicalPath = localizedEnglishOnlyMatch[1] ?? '/'
+    return withSecurityHeaders(
+      NextResponse.redirect(new URL(canonicalPath, request.url), 308),
+      requestId
+    )
+  }
+
+  // These pages don't have AR/RU versions and should serve English to all crawlers,
+  // regardless of Accept-Language or NEXT_LOCALE.
+  const englishOnlyPaths = ['/genosys', '/documents', '/guides']
+  const isEnglishOnlyPath = englishOnlyPaths.some(path => pathname === path || pathname.startsWith(`${path}/`))
+
+  // If it's an English-only path, skip locale detection entirely
+  if (isEnglishOnlyPath) {
+    return withSecurityHeaders(nextWithPathname(request), requestId)
+  }
+
   // Redirect new optimized URLs to existing pages (for SEO benefits)
   const redirects: Record<string, string> = {
     '/about-genosys-middle-east': '/about',

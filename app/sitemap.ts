@@ -59,12 +59,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entries.push(...localizedUrls(page.path, page.lastModified, page.priority, page.changeFrequency))
   }
 
-  // English-only pages (no AR/RU versions)
-  entries.push(singleLocaleUrl('/genosys', staticDate, 0.7, 'monthly'))
-  entries.push(singleLocaleUrl('/documents', staticDate, 0.6, 'monthly'))
-  entries.push(singleLocaleUrl('/guides', now, 0.7, 'monthly'))
-  for (const page of SEO_LANDING_PAGES) {
-    entries.push(singleLocaleUrl(`/guides/${page.slug}`, now, 0.8, 'monthly'))
+  // English-only pages (no AR/RU versions). Keep these out of localizedUrls()
+  // so the sitemap does not advertise localized variants that do not exist.
+  const englishOnlyPages = [
+    { path: '/genosys', lastModified: staticDate, priority: 0.7 },
+    { path: '/documents', lastModified: staticDate, priority: 0.6 },
+    { path: '/guides', lastModified: now, priority: 0.7 },
+    ...SEO_LANDING_PAGES.map(page => ({ path: `/guides/${page.slug}`, lastModified: now, priority: 0.8 })),
+  ]
+
+  for (const page of englishOnlyPages) {
+    entries.push(singleLocaleUrl(page.path, page.lastModified, page.priority, 'monthly'))
   }
 
   // Product pages

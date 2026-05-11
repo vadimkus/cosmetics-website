@@ -1,8 +1,16 @@
 # GENOSYS - Professional Korean Dermacosmetics
 # Official UAE Distributor (Genosys Middle East FZ-LLC) - Microneedling Devices & Skincare Products
 # AI-friendly: llms.txt available at https://genosys.ae/llms.txt
+# Last updated: 2026-05-11
 
-# Allow all search engines to crawl the site
+# SITEMAPS - Place at top for crawler discovery
+Sitemap: https://genosys.ae/sitemap.xml
+Sitemap: https://genosys.ae/sitemap-index.xml
+
+# ============================================================
+# DEFAULT CRAWL RULES
+# ============================================================
+
 User-agent: *
 Allow: /
 
@@ -389,21 +397,16 @@ User-agent: Bytespider
 Disallow: /
 
 # ============================================================
-# SITEMAPS & AI CONTENT
+# AI CONTENT DISCOVERY (for LLMs and AI assistants)
 # ============================================================
 
-Sitemap: https://genosys.ae/sitemap.xml
-Sitemap: https://genosys.ae/sitemap-index.xml
+# Short index: https://genosys.ae/llms.txt
+# Full index: https://genosys.ae/llms-full.txt
+# Product index: https://genosys.ae/ai-products.txt
 
 # Google Merchant Center Product Feed
-# Add this URL in Merchant Center > Products > Feeds > Scheduled fetch
 # Feed: https://genosys.ae/feed/products.xml
 
 # Blog discovery feeds
 # RSS: https://genosys.ae/feed/blog.xml
 # Atom: https://genosys.ae/feed/blog.atom
-
-# AI/LLM discovery indexes
-# Short index: https://genosys.ae/llms.txt
-# Full index: https://genosys.ae/llms-full.txt
-# Product index: https://genosys.ae/ai-products.txt

@@ -27,9 +27,38 @@ const formatCurrency = (amount: number) => {
   }).format(amount)
 }
 
+const roundMoney = (amount: number) => Math.round(amount * 100) / 100
+
+const getBundleLinePricing = (item: OrderItem) => {
+  const discountPercent = Number(item.bundleDiscount || 0)
+  const unitPrice = Number(item.price || 0)
+
+  if (!Number.isFinite(discountPercent) || discountPercent <= 0 || discountPercent >= 100 || unitPrice <= 0) {
+    return null
+  }
+
+  const originalUnitPrice = roundMoney(unitPrice / (1 - discountPercent / 100))
+  const originalLineTotal = roundMoney(originalUnitPrice * item.quantity)
+  const discountedLineTotal = roundMoney(unitPrice * item.quantity)
+
+  return {
+    discountPercent,
+    originalUnitPrice,
+    originalLineTotal,
+    discountedLineTotal,
+    savings: roundMoney(originalLineTotal - discountedLineTotal)
+  }
+}
+
 export default function OrderDetails({ order, onBack, onUpdateStatus, getAdminHeaders, showToast, onMoySkladPushed }: OrderDetailsProps) {
   const [pushingToMoySklad, setPushingToMoySklad] = useState(false)
   const [moySkladId, setMoySkladId] = useState<string | null>(order.moySkladOrderId)
+
+  const computedBundleSavings = roundMoney(
+    order.items.reduce((total, item) => total + (getBundleLinePricing(item)?.savings || 0), 0)
+  )
+  const storedBundleSavings = roundMoney(Number(order.bundleDiscountAmount || 0))
+  const bundleSavings = storedBundleSavings > 0 ? storedBundleSavings : computedBundleSavings
 
   const pushToMoySklad = async () => {
     try {
@@ -133,32 +162,66 @@ export default function OrderDetails({ order, onBack, onUpdateStatus, getAdminHe
 
         <h3 className="text-base sm:text-lg font-semibold mb-3 sm:mb-4">Order Items</h3>
         <div className="space-y-3 mb-4 sm:mb-6">
-          {order.items.map((item) => (
-            <div key={item.id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg">
-              <div className="flex-1 min-w-0">
-                <div className="font-medium text-sm sm:text-base break-words">{item.productName}</div>
-                <div className="text-xs sm:text-sm text-gray-600 mt-1">Quantity: {item.quantity}</div>
-                {(item.color || item.size) && (
-                  <div className="flex flex-wrap gap-2 sm:gap-4 mt-2">
-                    {item.color && (
-                      <div className="text-xs text-gray-600">
-                        <span className="text-gray-500">Color:</span> <span className="font-semibold text-gray-800 bg-blue-50 px-2 py-0.5 rounded">{item.color}</span>
-                      </div>
+          {order.items.map((item) => {
+            const bundlePricing = getBundleLinePricing(item)
+            const isFreeItem = Number(item.price || 0) === 0
+            const visibleSize = item.size && item.size !== '__PROMO__' ? item.size : null
+
+            return (
+              <div key={item.id} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 sm:p-4 bg-gray-50 rounded-lg">
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium text-sm sm:text-base break-words">{item.productName}</div>
+                  <div className="flex flex-wrap items-center gap-2 mt-1 text-xs sm:text-sm text-gray-600">
+                    <span>Quantity: {item.quantity}</span>
+                    {bundlePricing && (
+                      <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-green-700">
+                        -{Math.round(bundlePricing.discountPercent)}% Bundle
+                      </span>
                     )}
-                    {item.size && (
-                      <div className="text-xs text-gray-600">
-                        <span className="text-gray-500">Size:</span> <span className="font-semibold text-gray-800 bg-green-50 px-2 py-0.5 rounded">{item.size}</span>
-                      </div>
+                    {isFreeItem && (
+                      <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-green-700">
+                        Free item
+                      </span>
                     )}
                   </div>
-                )}
+                  {(item.color || visibleSize) && (
+                    <div className="flex flex-wrap gap-2 sm:gap-4 mt-2">
+                      {item.color && (
+                        <div className="text-xs text-gray-600">
+                          <span className="text-gray-500">Color:</span> <span className="font-semibold text-gray-800 bg-blue-50 px-2 py-0.5 rounded">{item.color}</span>
+                        </div>
+                      )}
+                      {visibleSize && (
+                        <div className="text-xs text-gray-600">
+                          <span className="text-gray-500">Size:</span> <span className="font-semibold text-gray-800 bg-green-50 px-2 py-0.5 rounded">{visibleSize}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {bundlePricing && (
+                    <div className="mt-2 text-xs text-green-700">
+                      Line total: <span className="line-through text-gray-500">{formatCurrency(bundlePricing.originalLineTotal)}</span>{' '}
+                      <span className="font-semibold">{formatCurrency(bundlePricing.discountedLineTotal)}</span>
+                      <span className="text-green-600"> · saved {formatCurrency(bundlePricing.savings)}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="text-right sm:text-left sm:ml-4">
+                  {bundlePricing ? (
+                    <>
+                      <div className="text-xs text-gray-500 line-through">{formatCurrency(bundlePricing.originalUnitPrice)}</div>
+                      <div className="font-medium text-sm sm:text-base text-green-700">{formatCurrency(item.price)}</div>
+                    </>
+                  ) : isFreeItem ? (
+                    <div className="font-bold text-sm sm:text-base text-green-700">FREE</div>
+                  ) : (
+                    <div className="font-medium text-sm sm:text-base">{formatCurrency(item.price)}</div>
+                  )}
+                  {!isFreeItem && <div className="text-xs sm:text-sm text-gray-600">each</div>}
+                </div>
               </div>
-              <div className="text-right sm:text-left sm:ml-4">
-                <div className="font-medium text-sm sm:text-base">{formatCurrency(item.price)}</div>
-                <div className="text-xs sm:text-sm text-gray-600">each</div>
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Order Breakdown */}
@@ -173,6 +236,12 @@ export default function OrderDetails({ order, onBack, onUpdateStatus, getAdminHe
               <div className="flex justify-between text-green-600">
                 <span>Discount ({Math.round((order.discountAmount / (order.subtotal + order.discountAmount)) * 100)}%):</span>
                 <span className="font-medium">-{formatCurrency(order.discountAmount)}</span>
+              </div>
+            )}
+            {bundleSavings > 0 && (
+              <div className="flex justify-between text-green-600">
+                <span>Bundle savings included:</span>
+                <span className="font-medium">{formatCurrency(bundleSavings)}</span>
               </div>
             )}
             <div className="flex justify-between">

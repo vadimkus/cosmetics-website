@@ -55,6 +55,19 @@ export async function POST(
 
     debugLog(`📤 Admin: Pushing order ${order.orderNumber} to MoySklad (by ${auth.user.email})`)
 
+    const freePromoProductIds = order.items
+      .filter(item => Number(item.price || 0) === 0 && item.size === '__PROMO__')
+      .map(item => item.productId)
+
+    const freePromoProducts = freePromoProductIds.length > 0
+      ? await prisma.product.findMany({
+        where: { id: { in: freePromoProductIds } },
+        select: { id: true, price: true },
+      })
+      : []
+
+    const productPriceById = new Map(freePromoProducts.map(product => [product.id, product.price]))
+
     // Push to MoySklad
     const result = await createMoySkladOrder({
       orderNumber: order.orderNumber,
@@ -63,13 +76,26 @@ export async function POST(
       customerPhone: order.customerPhone || '',
       customerAddress: order.customerAddress || '',
       customerEmirate: order.customerEmirate || '',
-      items: order.items.map(item => ({
-        productName: item.productName,
-        quantity: item.quantity,
-        price: item.price,
-        color: item.color,
-        size: item.size,
-      })),
+      items: order.items.map(item => {
+        const bundleDiscount = Number(item.bundleDiscount || 0)
+        const hasBundleDiscount = bundleDiscount > 0 && bundleDiscount < 100 && Number(item.price || 0) > 0
+        const isFreePromo = Number(item.price || 0) === 0 && item.size === '__PROMO__'
+        const retailPrice = isFreePromo
+          ? productPriceById.get(item.productId) || item.price
+          : hasBundleDiscount
+            ? Math.round((item.price / (1 - bundleDiscount / 100)) * 100) / 100
+            : item.price
+
+        return {
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          retailPrice,
+          discountPercent: isFreePromo ? 100 : hasBundleDiscount ? bundleDiscount : undefined,
+          color: item.color,
+          size: item.size,
+        }
+      }),
       total: order.total,
       shipping: order.shipping || 0,
       paymentMethod: order.paymentMethod || 'cod',

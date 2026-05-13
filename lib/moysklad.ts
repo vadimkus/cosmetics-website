@@ -494,7 +494,9 @@ async function findOrCreateCounterparty(
 export interface MoySkladOrderItem {
   productName: string
   quantity: number
-  price: number // Price in AED (e.g., 580)
+  price: number // Final charged unit price in AED (e.g., 200 after discount)
+  retailPrice?: number // Optional pre-discount unit price for MoySklad printable discount display
+  discountPercent?: number // MoySklad line discount percent, e.g. bundle 20 or promo 100
   color?: string | null
   size?: string | null // e.g., "50g", "250g", "180ml", "500ml"
 }
@@ -559,12 +561,13 @@ export async function createMoySkladOrder(
     const positions: Array<{
       quantity: number
       price: number
+      discount?: number
       assortment: { meta: MoySkladMeta }
       vat: number
       vatEnabled: boolean
     }> = []
 
-    let unmappedItems: string[] = []
+    const unmappedItems: string[] = []
 
     for (const item of orderData.items) {
       const moySkladProductId = getMoySkladProductId(item.productName, item.color, item.size)
@@ -583,7 +586,8 @@ export async function createMoySkladOrder(
 
       positions.push({
         quantity: item.quantity,
-        price: Math.round(item.price * 100), // Convert AED to kopecks (x100)
+        price: Math.round((item.retailPrice ?? item.price) * 100), // Convert AED to kopecks (x100)
+        ...(item.discountPercent && item.discountPercent > 0 ? { discount: item.discountPercent } : {}),
         assortment: entityMeta('product', moySkladProductId),
         vat: 5, // UAE 5% VAT
         vatEnabled: true,

@@ -91,7 +91,9 @@ export async function POST(
           quantity: item.quantity,
           price: item.price,
           retailPrice,
-          discountPercent: isFreePromo ? 100 : hasBundleDiscount ? bundleDiscount : undefined,
+          ...(isFreePromo || hasBundleDiscount
+            ? { discountPercent: isFreePromo ? 100 : bundleDiscount }
+            : {}),
           color: item.color,
           size: item.size,
         }

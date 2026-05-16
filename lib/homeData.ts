@@ -41,7 +41,7 @@ const CATEGORY_PREFERRED_PRODUCT_IDS: Record<string, string> = {
   microneedling: '1', // Microneedle Roller
   'pro-solution': '4', // POWER SOLUTION HES — has a large "hes_big1" shot
   serum: '21', // MULTI VITA RADIANCE SERUM — large "rd_big" shot
-  cream: '23', // ND Cell ANTI-WRINKLE CREAM — a real cream jar
+  cream: '32', // MULTI FUNCTIONAL ANTI-WRINKLE CREAM — clearer Cream tile product
   mask: '36', // SOOTHING BOMB SEA ALGAE MASK — has a large shot
   sun: '39', // ULTRA SHIELD SUN CREAM SPF 50+ — has large shot
 }
@@ -52,11 +52,10 @@ const CATEGORY_PREFERRED_PRODUCT_IDS: Record<string, string> = {
  * the product's `images[]` gallery in the DB. This keeps the home rail
  * looking premium without requiring a product-data migration.
  *
- *   cream → ND Cell ANTI-WRINKLE CREAM (product 23) has no gallery, so we
- *           point the tile at the canonical nd_big1 hero shot directly.
+ * Add overrides only when the desired rail image lives outside a product's
+ * gallery and should win over product image selection.
  */
 const CATEGORY_IMAGE_OVERRIDES: Record<string, string> = {
-  cream: '/images/Second/nd_big1.jpg',
 }
 
 /**
@@ -130,6 +129,6 @@ export const getHomeData = unstable_cache(
 
     return { featured, categoryImages }
   },
-  ['home-data-v4'],
+  ['home-data-v5'],
   { revalidate: 300, tags: ['products'] }
 )

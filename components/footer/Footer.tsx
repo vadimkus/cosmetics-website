@@ -105,7 +105,7 @@ const footerCopy = {
       certifiedBody: 'Включая 5% НДС',
     },
     brandBody: 'Официальный дистрибьютор профессиональной корейской дерматокосметики GENOSYS в ОАЭ с 2019 года.',
-    address: 'Cordoba Residence, Villa E02, Дубай, Объединенные Арабские Эмираты',
+    address: 'Cordoba Residence, Вилла E02, Дубай, ОАЭ',
     socialLabel: 'Социальные сети',
     instagramLabel: 'Подписаться на GENOSYS в Instagram',
     facebookLabel: 'Подписаться на GENOSYS в Facebook',

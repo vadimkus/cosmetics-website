@@ -110,7 +110,7 @@ const CATEGORY_RAIL_TITLES: Record<string, { en: string; ar: string; ru: string 
   microneedling: {
     en: 'Microneedling systems',
     ar: 'رولرات الميكرونيدلينغ',
-    ru: 'Аппараты для микронидлинга',
+    ru: 'Ролики для микронидлинга',
   },
   'pro-solution': {
     en: 'PRO Solution serums',
@@ -135,7 +135,7 @@ const CATEGORY_RAIL_TITLES: Record<string, { en: string; ar: string; ru: string 
   sun: {
     en: 'Sun protection creams',
     ar: 'كريمات الوقاية من الشمس',
-    ru: 'Солнцезащитные кремы',
+    ru: 'SPF-кремы',
   },
 }
 
@@ -387,7 +387,7 @@ export default function HomeDesktopSections({
                         <span className="font-mono text-[11px] tracking-[0.14em] text-gray-400">
                           {String(idx + 1).padStart(2, '0')} / {String(featuredCategories.length).padStart(2, '0')}
                         </span>
-                        <h3 className="mt-3 text-[17px] lg:text-[19px] font-semibold text-gray-900 leading-[1.15] tracking-tight font-display">
+                        <h3 className="mt-3 break-words text-[17px] lg:text-[19px] font-semibold text-gray-900 leading-[1.15] tracking-tight font-display">
                           {title}
                         </h3>
                         {descriptor && (
@@ -816,7 +816,7 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
   const description = locale === 'ar'
     ? 'بريد إلكتروني واحد شهرياً. أدلة العناية بالبشرة من المتخصصين، الإطلاقات الجديدة، وعروض حصرية للمشتركين — من فريقنا في دبي.'
     : locale === 'ru'
-    ? 'Одно письмо в месяц. Гайды от специалистов по уходу, новинки и эксклюзивные предложения для подписчиков — от нашей команды в Дубае.'
+    ? 'Одно письмо в месяц. Советы от специалистов по уходу, новинки и эксклюзивные предложения для подписчиков — от нашей команды в Дубае.'
     : 'One email a month. Skincare guides written by clinicians, new product launches, and subscriber-only offers — from our Dubai team.'
 
   const kicker = locale === 'ar'
@@ -841,7 +841,7 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
     : locale === 'ru'
     ? [
         'Новинки раньше, чем в магазинах',
-        'Гайды по уходу от специалистов',
+        'Советы по уходу от специалистов',
         'Эксклюзивные акции для подписчиков',
         'Ранний доступ к событиям клиники в Дубае',
       ]

@@ -8,6 +8,8 @@ interface GlobalWithPrisma {
   directPrisma?: PrismaClient
   pgPool?: Pool
   directPgPool?: Pool
+  prismaShutdownRegistered?: boolean
+  prismaShutdownPromise?: Promise<void>
 }
 
 const globalForPrisma = globalThis as unknown as GlobalWithPrisma
@@ -187,17 +189,28 @@ process.setMaxListeners(15)
 // These ensure connections are properly closed when the process terminates
 if (typeof process !== 'undefined') {
   const gracefulShutdown = async () => {
-    debugLog('🔄 Gracefully disconnecting Prisma client...')
-    await prisma.$disconnect()
-    await globalForPrisma.directPrisma?.$disconnect()
-    await globalForPrisma.directPgPool?.end()
-    debugLog('✅ Prisma client disconnected')
+    if (globalForPrisma.prismaShutdownPromise) {
+      return globalForPrisma.prismaShutdownPromise
+    }
+
+    globalForPrisma.prismaShutdownPromise = (async () => {
+      debugLog('🔄 Gracefully disconnecting Prisma client...')
+      await prisma.$disconnect()
+      await globalForPrisma.directPrisma?.$disconnect()
+      if (globalForPrisma.directPgPool && !globalForPrisma.directPgPool.ended) {
+        await globalForPrisma.directPgPool.end()
+      }
+      debugLog('✅ Prisma client disconnected')
+    })()
+
+    return globalForPrisma.prismaShutdownPromise
   }
 
-  // Handle various termination signals
-  process.on('SIGINT', gracefulShutdown)
-  process.on('SIGTERM', gracefulShutdown)
-  process.on('beforeExit', gracefulShutdown)
+  if (!globalForPrisma.prismaShutdownRegistered) {
+    globalForPrisma.prismaShutdownRegistered = true
+    process.once('SIGINT', gracefulShutdown)
+    process.once('SIGTERM', gracefulShutdown)
+  }
 }
 
 /**

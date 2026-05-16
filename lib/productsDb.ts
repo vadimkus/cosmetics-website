@@ -2,7 +2,7 @@ import { cache } from 'react'
 import { unstable_cache } from 'next/cache'
 import { debugLog, errorLog } from '@/lib/logger'
 import { getDirectPrismaClient, prisma } from './prisma'
-import { isAccelerateResourceLimitError, withPrismaRetry } from './prismaRetry'
+import { isPrismaTransientError, withPrismaRetry } from './prismaRetry'
 import type { Product } from '@/types'
 
 // Re-export Product type from types/index.ts for convenience
@@ -19,12 +19,12 @@ function withProductReadRecovery<T>(
     primaryRead,
     {
       label,
-      shouldRecover: isAccelerateResourceLimitError,
+      shouldRecover: isPrismaTransientError,
       recover: async (error) => {
         const directPrisma = getDirectPrismaClient()
         if (!directPrisma) throw error
 
-        errorLog(`[productsDb:${label}] Prisma Accelerate resource limit; using direct database fallback`)
+        errorLog(`[productsDb:${label}] Primary Prisma read failed transiently; using direct database fallback`)
         return withPrismaRetry(
           () => directRead(directPrisma),
           { label: `${label}:direct`, retries: 1 }

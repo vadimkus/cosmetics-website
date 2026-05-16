@@ -69,3 +69,19 @@ Sentry target:
   - `components/ProductCard/*`
   - `components/products/*`
 - Cursor diagnostics: no linter errors on edited files.
+
+## Follow-Up — 2026-05-16 Digest Check
+
+The Sentry digest screenshot still showed `fetch failed`, `/products` `Load failed`, and `/products/62` errors. Live checks confirmed the actionable server-side issue was still active on production release `aa988682`: Vercel logs showed fresh homepage `getAllProducts()` failures from Prisma Accelerate socket closures (`UND_ERR_SOCKET`, "other side closed") after retries.
+
+Fix applied:
+
+- Exported the transient Prisma/transport detector from `lib/prismaRetry.ts`.
+- Changed product read recovery in `lib/productsDb.ts` from "only recover on Accelerate Cloudflare 1102" to "recover on any exhausted transient read failure", so `fetch failed` / `UND_ERR_SOCKET` falls through to the direct Postgres read client instead of surfacing to users and Sentry.
+- Guarded Prisma shutdown in `lib/prisma.ts` with a single registered handler and a shared shutdown promise, removed the `beforeExit` handler, and avoided calling `pg.Pool.end()` after the pool is already ended. This addresses `JAVASCRIPT-NEXTJS-Q` (`Called end on pool more than once`).
+
+Verification:
+
+- `npx tsc --noEmit` passed.
+- `npx eslint lib/prisma.ts lib/prismaRetry.ts lib/productsDb.ts` passed.
+- `npm run build` passed, including Prisma generate, migration deploy check, service worker version generation, and `390/390` static page generation.

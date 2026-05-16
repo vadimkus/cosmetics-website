@@ -86,7 +86,7 @@ const TRANSIENT_MESSAGE_PATTERNS = [
   /Operations timed out/i,
 ]
 
-function isTransient(error: unknown): boolean {
+export function isPrismaTransientError(error: unknown): boolean {
   if (!error || typeof error !== 'object') return false
 
   const err = error as { code?: string; message?: string; cause?: unknown }
@@ -168,7 +168,7 @@ export async function withPrismaRetry<T>(
       return await fn()
     } catch (error) {
       lastError = error
-      if (!isTransient(error) || attempt === retries) break
+      if (!isPrismaTransientError(error) || attempt === retries) break
       retriesPerformed++
       const delay = delays[attempt] ?? 2000
       debugLog(
@@ -179,7 +179,7 @@ export async function withPrismaRetry<T>(
     }
   }
 
-  const wasTransient = isTransient(lastError)
+  const wasTransient = isPrismaTransientError(lastError)
   if (opts.recover && (!opts.shouldRecover || opts.shouldRecover(lastError))) {
     debugLog(`[prismaRetry:${opts.label}] attempting recovery after primary read failure`)
     try {

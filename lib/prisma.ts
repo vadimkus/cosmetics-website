@@ -34,13 +34,14 @@ function createPooledPrismaClient(connectionString: string, maxConnections: numb
 } {
   const { PrismaPg } = require('@prisma/adapter-pg')
   const { Pool } = require('pg')
+  const connectionTimeoutMillis = maxConnections === 1 ? 10000 : 5000
 
   const pool: Pool = new Pool({
     connectionString,
     max: maxConnections,
     min: 0,
     idleTimeoutMillis: 10000,
-    connectionTimeoutMillis: 5000,
+    connectionTimeoutMillis,
     maxUses: 7500,
     ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
   })
@@ -113,9 +114,9 @@ export function getDirectPrismaClient(): PrismaClient | null {
   if (globalForPrisma.directPrisma) return globalForPrisma.directPrisma
 
   const directDatabaseUrl = [
-    process.env.DATABASE_URL,
-    process.env.POSTGRES_URL,
     process.env.POSTGRES_PRISMA_URL,
+    process.env.POSTGRES_URL,
+    process.env.DATABASE_URL,
     process.env.POSTGRES_URL_NON_POOLING,
   ].find(isDirectPostgresUrl)
 
@@ -124,7 +125,7 @@ export function getDirectPrismaClient(): PrismaClient | null {
     return null
   }
 
-  const { client, pool } = createPooledPrismaClient(directDatabaseUrl, 2)
+  const { client, pool } = createPooledPrismaClient(directDatabaseUrl, 1)
   globalForPrisma.directPrisma = client
   globalForPrisma.directPgPool = pool
   debugLog('✅ Created direct Prisma fallback client')

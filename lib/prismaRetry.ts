@@ -30,12 +30,14 @@ const TRANSIENT_ERROR_CODES = new Set([
   //   P5008 — Accelerate healthcheck failed / unhealthy server
   //   P5009 — Accelerate request timeout
   //   P5011 — Request timed out (Accelerate proxy → engine)
+  //   P6000 — Accelerate proxy/engine transport failure
   //   P6004 — Accelerate query timeout
   //   P6008 — Connection / engine start error in Accelerate
   'P5000',
   'P5008',
   'P5009',
   'P5011',
+  'P6000',
   'P6004',
   'P6008',
 ])
@@ -59,6 +61,8 @@ const TRANSIENT_MESSAGE_PATTERNS = [
   /ECONNRESET/,
   /socket hang up/i,
   /connection terminated unexpectedly/i,
+  /connection terminated due to connection timeout/i,
+  /timeout exceeded when trying to connect/i,
   /client has encountered a connection error/i,
 
   // 2. Prisma query engine panics — observed in prod via Sentry

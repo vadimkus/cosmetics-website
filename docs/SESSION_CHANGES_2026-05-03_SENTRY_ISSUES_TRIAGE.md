@@ -85,3 +85,18 @@ Verification:
 - `npx tsc --noEmit` passed.
 - `npx eslint lib/prisma.ts lib/prismaRetry.ts lib/productsDb.ts` passed.
 - `npm run build` passed, including Prisma generate, migration deploy check, service worker version generation, and `390/390` static page generation.
+
+## Follow-Up — 2026-05-16 Direct Fallback Timeout
+
+After commit `925072d0`, Sentry reported a new production event on release `925072d028143a69b4c2297c5373fdd35700d68d`: `getAllProducts:direct` failed with `timeout exceeded when trying to connect`. Vercel logs showed the intended primary-to-direct fallback sequence was working, but the direct `pg` adapter path occasionally timed out while opening its own Postgres connection.
+
+Fix applied:
+
+- Classified `timeout exceeded when trying to connect`, `Connection terminated due to connection timeout`, and Accelerate `P6000` as transient retryable Prisma transport failures.
+- Changed the direct fallback URL preference to use `POSTGRES_PRISMA_URL` first, then `POSTGRES_URL`, then `DATABASE_URL`, then `POSTGRES_URL_NON_POOLING`, so Vercel/Neon serverless should prefer the pooled Prisma connection string rather than an unpooled direct URL.
+- Reduced the direct fallback pool to one connection per warm lambda and gave that fallback connection path a 10s connect timeout. This limits connection fan-out while giving the pooler enough time during transient Neon/Accelerate blips.
+
+Verification:
+
+- `npx tsc --noEmit` passed.
+- `npx eslint lib/prisma.ts lib/prismaRetry.ts lib/productsDb.ts` passed.

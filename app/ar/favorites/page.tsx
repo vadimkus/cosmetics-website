@@ -3,12 +3,12 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'المفضلة - مستحضرات التجميل الكورية المهنية GENOSYS',
-  description: 'عرض منتجات مستحضرات التجميل الكورية المهنية GENOSYS المفضلة لديك. احفظ ونظم منتجات العناية بالبشرة المفضلة لديك للوصول السهل.',
-  keywords: 'مفضلات GENOSYS، مفضلات مستحضرات التجميل الكورية، مفضلات العناية بالبشرة المهنية، المنتجات المحفوظة، قائمة الأمنيات',
+  title: 'المفضلة - مستحضرات التجميل الكورية الاحترافية GENOSYS',
+  description: 'عرض منتجات مستحضرات التجميل الكورية الاحترافية من GENOSYS المفضلة لديك. احفظ ونظم منتجات العناية بالبشرة المفضلة لديك للوصول السهل.',
+  keywords: 'مفضلات GENOSYS، مفضلات مستحضرات التجميل الكورية، مفضلات العناية بالبشرة الاحترافية، المنتجات المحفوظة، قائمة الأمنيات',
   openGraph: {
-    title: 'المفضلة - مستحضرات التجميل الكورية المهنية GENOSYS',
-    description: 'عرض منتجات مستحضرات التجميل الكورية المهنية GENOSYS المفضلة لديك. احفظ ونظم منتجات العناية بالبشرة المفضلة لديك.',
+    title: 'المفضلة - مستحضرات التجميل الكورية الاحترافية GENOSYS',
+    description: 'عرض منتجات مستحضرات التجميل الكورية الاحترافية من GENOSYS المفضلة لديك. احفظ ونظم منتجات العناية بالبشرة المفضلة لديك.',
     type: 'website',
     url: 'https://genosys.ae/ar/favorites',
     siteName: 'GENOSYS',
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'المفضلة - مستحضرات التجميل الكورية المهنية GENOSYS',
-    description: 'عرض منتجات مستحضرات التجميل الكورية المهنية GENOSYS المفضلة لديك.',
+    title: 'المفضلة - مستحضرات التجميل الكورية الاحترافية GENOSYS',
+    description: 'عرض منتجات مستحضرات التجميل الكورية الاحترافية من GENOSYS المفضلة لديك.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {

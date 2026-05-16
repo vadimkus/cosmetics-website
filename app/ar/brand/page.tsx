@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'نظام إعادة ولادة الجينات',
     'الوخز بالإبر الدقيقة',
     'مستحضرات التجميل الكورية',
-    'العناية بالبشرة المهنية'
+    'العناية بالبشرة الاحترافية'
   ],
   robots: {
     index: true,
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
-        alt: 'GENOSYS مستحضرات التجميل الكورية المهنية',
+        alt: 'GENOSYS مستحضرات التجميل الكورية الاحترافية',
       },
     ],
     locale: 'ar_AE',

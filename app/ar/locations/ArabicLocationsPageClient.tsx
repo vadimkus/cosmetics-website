@@ -120,7 +120,7 @@ export default function ArabicLocationsPageClient() {
               مواقعنا
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية المهنية إلى جميع الإمارات السبع في الإمارات
+              GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية الاحترافية إلى الإمارات السبع
             </p>
           </div>
 
@@ -160,8 +160,8 @@ export default function ArabicLocationsPageClient() {
                 الشحن المجاني متاح
               </h2>
               <p className="text-gray-600 mb-6 max-w-xl mx-auto">
-                جميع الطلبات التي تزيد عن 1000 درهم مؤهلة للشحن المجاني في جميع إمارات الإمارات. 
-                نقدم منتجات مستحضرات التجميل الكورية المهنية مع خدمة موثوقة وسريعة عبر كريم وكويك أب.
+                جميع الطلبات التي تزيد عن 1000 درهم مؤهلة للشحن المجاني في جميع الإمارات.
+                نقدم منتجات مستحضرات التجميل الكورية الاحترافية مع خدمة موثوقة وسريعة عبر كريم وكويك أب.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link

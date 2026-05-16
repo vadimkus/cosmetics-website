@@ -73,7 +73,7 @@ const CATEGORY_ACCENTS: Record<string, string> = {
 const CATEGORY_DESCRIPTORS: Record<string, { en: string; ar: string; ru: string }> = {
   microneedling: {
     en: 'In-clinic & at-home needling systems',
-    ar: 'أنظمة الوخز بالإبر للعيادة والمنزل',
+    ar: 'رولرات الميكرونيدلينغ للعيادة والمنزل',
     ru: 'Системы микронидлинга — клиника и дом',
   },
   'pro-solution': {
@@ -109,7 +109,7 @@ const CATEGORY_DESCRIPTORS: Record<string, { en: string; ar: string; ru: string 
 const CATEGORY_RAIL_TITLES: Record<string, { en: string; ar: string; ru: string }> = {
   microneedling: {
     en: 'Microneedling systems',
-    ar: 'أنظمة الوخز الدقيق',
+    ar: 'رولرات الميكرونيدلينغ',
     ru: 'Аппараты для микронидлинга',
   },
   'pro-solution': {
@@ -166,7 +166,7 @@ const CONCERN_META: Record<
     },
     benefit: {
       en: 'Daily UV protection built for UAE sun.',
-      ar: 'حماية يومية من الأشعة الفوقبنفسجية مصممة لشمس الإمارات.',
+      ar: 'حماية يومية من الأشعة فوق البنفسجية مصممة لشمس الإمارات.',
       ru: 'Дневная защита от UV для климата ОАЭ.',
     },
   },
@@ -353,7 +353,7 @@ export default function HomeDesktopSections({
               </h2>
               <p className="mt-3 text-gray-600 max-w-xl mx-auto">
                 {locale === 'ar'
-                  ? 'من علاجات العيادة إلى العناية اليومية — مصنوعة في كوريا، معتمدة من الإمارات'
+                  ? 'من بروتوكولات العيادة إلى العناية اليومية — مصنوعة في كوريا ومعتمدة في الإمارات'
                   : locale === 'ru'
                   ? 'От клинических процедур до ежедневного ухода — сделано в Корее, сертифицировано в ОАЭ'
                   : 'From in-clinic treatments to everyday essentials — made in Korea, certified in the UAE.'}
@@ -701,7 +701,7 @@ export default function HomeDesktopSections({
               </div>
               <p className="lg:col-span-5 text-[15px] text-gray-600 leading-relaxed lg:max-w-md lg:ml-auto">
                 {locale === 'ar'
-                  ? 'GENOSYS هي علامة تجميل طبية كورية محترفة، نوزعها رسمياً في الإمارات منذ عام 2019.'
+                  ? 'GENOSYS علامة كورية احترافية في مستحضرات التجميل الطبية، ونحن موزعها الرسمي في الإمارات منذ 2019.'
                   : locale === 'ru'
                   ? 'GENOSYS — профессиональная корейская дерматокосметика. Мы официальный дистрибьютор в ОАЭ с 2019 года.'
                   : 'GENOSYS is a professional Korean dermacosmetics brand. We have been the official UAE distributor since 2019.'}
@@ -714,7 +714,7 @@ export default function HomeDesktopSections({
                   icon: <IconClinical className="h-7 w-7" strokeWidth={1.5} />,
                   kicker: {
                     en: 'Clinical-grade',
-                    ar: 'بدرجة سريرية',
+                    ar: 'بجودة عيادية',
                     ru: 'Клинический класс',
                   },
                   title: {
@@ -724,7 +724,7 @@ export default function HomeDesktopSections({
                   },
                   body: {
                     en: 'The same formulas applied in Korean dermatology clinics — now available to UAE consumers and professionals.',
-                    ar: 'نفس التركيبات المستخدمة في عيادات الجلدية الكورية — متاحة الآن للمستهلكين والمختصين في الإمارات.',
+                    ar: 'نفس التركيبات المستخدمة في عيادات الجلدية الكورية — متاحة الآن للعملاء والمختصين في الإمارات.',
                     ru: 'Те же формулы, что применяются в дерматологических клиниках Кореи — теперь доступны в ОАЭ.',
                   },
                 },
@@ -742,7 +742,7 @@ export default function HomeDesktopSections({
                   },
                   body: {
                     en: 'Certified by Dubai Municipality and VAT-registered. Every product is sourced directly from GENOSYS Korea — never gray-market.',
-                    ar: 'معتمد من بلدية دبي ومسجّل للضريبة على القيمة المضافة. كل منتج موَرَّد مباشرة من GENOSYS كوريا — وليس من السوق الموازية.',
+                    ar: 'معتمد من بلدية دبي ومسجّل في ضريبة القيمة المضافة. كل منتج مورّد مباشرة من GENOSYS كوريا — وليس من السوق الموازي.',
                     ru: 'Сертифицировано муниципалитетом Дубая, регистрация НДС. Каждый продукт поставляется напрямую от GENOSYS Korea — никакого серого импорта.',
                   },
                 },

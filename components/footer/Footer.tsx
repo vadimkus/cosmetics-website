@@ -61,7 +61,7 @@ const footerCopy = {
     headings: { shop: 'تسوق', help: 'المساعدة', company: 'الشركة', legal: 'الوثائق' },
     trust: {
       authenticTitle: 'منتجات أصلية',
-      authenticBody: 'موزع رسمي GENOSYS',
+      authenticBody: 'موزع GENOSYS الرسمي',
       shippingTitle: 'شحن مجاني',
       shippingBody: 'للطلبات فوق 1000 درهم',
       checkoutTitle: 'دفع آمن',

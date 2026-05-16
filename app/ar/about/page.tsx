@@ -3,8 +3,8 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import AboutPageClient from '../../about/AboutPageClient'
 
 export const metadata: Metadata = {
-  title: 'من نحن - GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية',
-  description: 'تعرف على شركة GENOSYS الشرق الأوسط FZ-LLC، الموزع الرسمي لشركة DTSMG Co., Ltd كوريا في الإمارات. مستحضرات التجميل الكورية المهنية مع شهادة بلدية دبي.',
+  title: 'من نحن - GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية الاحترافية',
+  description: 'تعرف على شركة GENOSYS الشرق الأوسط FZ-LLC، الموزع الرسمي لشركة DTSMG Co., Ltd كوريا في الإمارات. مستحضرات تجميل كورية احترافية معتمدة من بلدية دبي.',
   keywords: [
     'GENOSYS الشرق الأوسط',
     'موزع مستحضرات التجميل الكورية',
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'من نحن - GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية',
-    description: 'تعرف على شركة GENOSYS الشرق الأوسط FZ-LLC، الموزع الرسمي لشركة DTSMG Co., Ltd كوريا في الإمارات. مستحضرات التجميل الكورية المهنية مع شهادة بلدية دبي.',
+    title: 'من نحن - GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية الاحترافية',
+    description: 'تعرف على شركة GENOSYS الشرق الأوسط FZ-LLC، الموزع الرسمي لشركة DTSMG Co., Ltd كوريا في الإمارات. مستحضرات تجميل كورية احترافية معتمدة من بلدية دبي.',
     type: 'website',
     images: [
       {
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'من نحن - GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية المهنية',
+    title: 'من نحن - GENOSYS Middle East FZ-LLC | الموزع الرسمي لمستحضرات التجميل الكورية الاحترافية',
     description: 'تعرف على شركة GENOSYS الشرق الأوسط FZ-LLC، الموزع الرسمي لشركة DTSMG Co., Ltd كوريا في الإمارات.',
     images: ['https://genosys.ae/images/genosys-logo.png'],
   },

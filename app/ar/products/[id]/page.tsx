@@ -54,16 +54,16 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   
   // Enhanced product-specific meta tags in Arabic
   const productTitle = `${productName} - مستحضرات تجميل كورية احترافية في الإمارات | GENOSYS`
-  const productDescription = `${truncateText(productDescriptionText, 150)} مستحضرات تجميل كورية احترافية من GENOSYS. الموزع الرسمي في الإمارات. شحن مجاني فوق 1000 درهم.`
+  const productDescription = `${truncateText(productDescriptionText, 150)} مستحضرات تجميل كورية احترافية من GENOSYS. الموزع الرسمي في الإمارات. شحن مجاني للطلبات فوق 1000 درهم.`
   const productKeywords = [
     productName,
     `GENOSYS ${product.category}`,
     'مستحضرات التجميل الكورية الإمارات',
-    'العناية بالبشرة المهنية دبي',
+    'العناية بالبشرة الاحترافية دبي',
     `${product.category.toLowerCase()} الإمارات`,
     'GENOSYS الشرق الأوسط',
     'الجمال الكوري دبي',
-    'الجمال المهني الإمارات',
+    'التجميل الاحترافي الإمارات',
     'منتجات مستحضرات التجميل',
     'الموزع الرسمي GENOSYS'
   ]

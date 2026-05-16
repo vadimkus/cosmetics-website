@@ -3,12 +3,12 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'الدفع الآمن - مستحضرات التجميل الكورية المهنية GENOSYS',
-  description: 'أكمل طلب مستحضرات التجميل الكورية المهنية GENOSYS بأمان. خصومات مهنية، توصيل في الإمارات، ومعالجة دفع آمنة.',
-  keywords: 'دفع GENOSYS، دفع مستحضرات التجميل الكورية، طلب العناية بالبشرة المهنية، شراء مستحضرات التجميل الإمارات، دفع آمن',
+  title: 'الدفع الآمن - مستحضرات التجميل الكورية الاحترافية GENOSYS',
+  description: 'أكمل طلب مستحضرات التجميل الكورية الاحترافية من GENOSYS بأمان. خصومات خاصة، توصيل في الإمارات، ومعالجة دفع آمنة.',
+  keywords: 'دفع GENOSYS، دفع مستحضرات التجميل الكورية، طلب العناية بالبشرة الاحترافية، شراء مستحضرات التجميل الإمارات، دفع آمن',
   openGraph: {
-    title: 'الدفع الآمن - مستحضرات التجميل الكورية المهنية GENOSYS',
-    description: 'أكمل طلب مستحضرات التجميل الكورية المهنية GENOSYS بأمان. خصومات مهنية وتوصيل في الإمارات.',
+    title: 'الدفع الآمن - مستحضرات التجميل الكورية الاحترافية GENOSYS',
+    description: 'أكمل طلب مستحضرات التجميل الكورية الاحترافية من GENOSYS بأمان. خصومات خاصة وتوصيل في الإمارات.',
     type: 'website',
     url: 'https://genosys.ae/ar/checkout',
     siteName: 'GENOSYS',
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'الدفع الآمن - مستحضرات التجميل الكورية المهنية GENOSYS',
-    description: 'أكمل طلب مستحضرات التجميل الكورية المهنية GENOSYS بأمان.',
+    title: 'الدفع الآمن - مستحضرات التجميل الكورية الاحترافية GENOSYS',
+    description: 'أكمل طلب مستحضرات التجميل الكورية الاحترافية من GENOSYS بأمان.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {

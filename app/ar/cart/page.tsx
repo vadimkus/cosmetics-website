@@ -3,12 +3,12 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'سلة التسوق - GENOSYS مستحضرات التجميل الكورية المهنية',
-  description: 'راجع منتجات GENOSYS الكورية المهنية المختارة. دفع آمن مع خصومات مهنية وتوصيل في الإمارات.',
-  keywords: 'سلة GENOSYS، سلة مستحضرات التجميل الكورية، سلة العناية بالبشرة المهنية، تسوق مستحضرات التجميل الإمارات، دفع GENOSYS',
+  title: 'سلة التسوق - GENOSYS مستحضرات التجميل الكورية الاحترافية',
+  description: 'راجع منتجات GENOSYS الكورية الاحترافية المختارة. دفع آمن مع خصومات خاصة وتوصيل في الإمارات.',
+  keywords: 'سلة GENOSYS، سلة مستحضرات التجميل الكورية، سلة العناية بالبشرة الاحترافية، تسوق مستحضرات التجميل الإمارات، دفع GENOSYS',
   openGraph: {
-    title: 'سلة التسوق - GENOSYS مستحضرات التجميل الكورية المهنية',
-    description: 'راجع منتجات GENOSYS الكورية المهنية المختارة. دفع آمن مع خصومات مهنية.',
+    title: 'سلة التسوق - GENOSYS مستحضرات التجميل الكورية الاحترافية',
+    description: 'راجع منتجات GENOSYS الكورية الاحترافية المختارة. دفع آمن مع خصومات خاصة.',
     type: 'website',
     url: 'https://genosys.ae/ar/cart',
     siteName: 'GENOSYS',
@@ -34,8 +34,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'سلة التسوق - GENOSYS مستحضرات التجميل الكورية المهنية',
-    description: 'راجع منتجات GENOSYS الكورية المهنية المختارة.',
+    title: 'سلة التسوق - GENOSYS مستحضرات التجميل الكورية الاحترافية',
+    description: 'راجع منتجات GENOSYS الكورية الاحترافية المختارة.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {

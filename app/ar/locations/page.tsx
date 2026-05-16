@@ -3,8 +3,8 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ArabicLocationsPageClient from './ArabicLocationsPageClient'
 
 export const metadata: Metadata = {
-  title: 'مواقع GENOSYS - خدمة جميع إمارات الإمارات',
-  description: 'GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية المهنية إلى جميع إمارات الإمارات: دبي، أبوظبي، الشارقة، عجمان، رأس الخيمة، الفجيرة، وأم القيوين.',
+  title: 'مواقع GENOSYS - خدمة جميع الإمارات',
+  description: 'GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية الاحترافية إلى جميع الإمارات: دبي، أبوظبي، الشارقة، عجمان، رأس الخيمة، الفجيرة، وأم القيوين.',
   keywords: [
     'مواقع GENOSYS الإمارات',
     'مستحضرات التجميل الكورية دبي',
@@ -24,8 +24,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'مواقع GENOSYS - خدمة جميع إمارات الإمارات',
-    description: 'GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية المهنية إلى جميع إمارات الإمارات.',
+    title: 'مواقع GENOSYS - خدمة جميع الإمارات',
+    description: 'GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية الاحترافية إلى جميع الإمارات.',
     type: 'website',
     images: [
       {
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'مواقع GENOSYS - خدمة جميع إمارات الإمارات',
-    description: 'GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية المهنية إلى جميع إمارات الإمارات.',
+    title: 'مواقع GENOSYS - خدمة جميع الإمارات',
+    description: 'GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية الاحترافية إلى جميع الإمارات.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {

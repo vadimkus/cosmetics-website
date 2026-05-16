@@ -110,7 +110,7 @@ function loadInvoiceTranslations(locale: string): Translations {
       officialDistributor: 'الموزع الرسمي في الإمارات',
       copyright: '© 2026 شركة GENOSYS الشرق الأوسط FZ-LLC. جميع الحقوق محفوظة.',
       emailSubject: 'فاتورة',
-      emailSubjectSuffix: 'GENOSYS المهنية',
+      emailSubjectSuffix: 'GENOSYS الاحترافية',
       na: 'غير متوفر',
       viewOrder: 'عرض الطلب'
     },

@@ -6,11 +6,11 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'اتصل بنا - GENOSYS Middle East FZ-LLC | تواصل معنا | Genosys.ae',
-  description: 'تواصل مع شركة GENOSYS الشرق الأوسط FZ-LLC لمستحضرات التجميل الكورية المهنية. الهاتف: +971 58 548 76 65، البريد الإلكتروني: sales@genosys.ae. موجود في دبي، الإمارات.',
+  description: 'تواصل مع شركة GENOSYS الشرق الأوسط FZ-LLC لمستحضرات التجميل الكورية الاحترافية. الهاتف: +971 58 548 76 65، البريد الإلكتروني: sales@genosys.ae. موجود في دبي، الإمارات.',
   keywords: 'اتصل بنا GENOSYS، اتصال مستحضرات التجميل الإمارات، مستحضرات التجميل الكورية الإمارات، موزع العناية بالبشرة دبي، رقم هاتف GENOSYS',
   openGraph: {
     title: 'اتصل بنا - GENOSYS Middle East FZ-LLC | تواصل معنا',
-    description: 'تواصل مع شركة GENOSYS الشرق الأوسط FZ-LLC لمستحضرات التجميل الكورية المهنية. الهاتف: +971 58 548 76 65، البريد الإلكتروني: sales@genosys.ae.',
+    description: 'تواصل مع شركة GENOSYS الشرق الأوسط FZ-LLC لمستحضرات التجميل الكورية الاحترافية. الهاتف: +971 58 548 76 65، البريد الإلكتروني: sales@genosys.ae.',
     type: 'website',
     images: [
       {
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     site: '@genosys_official',
     creator: '@genosys_official',
     title: 'اتصل بنا - GENOSYS Middle East FZ-LLC | تواصل معنا',
-    description: 'تواصل مع شركة GENOSYS الشرق الأوسط FZ-LLC لمستحضرات التجميل الكورية المهنية. الهاتف: +971 58 548 76 65، البريد الإلكتروني: sales@genosys.ae.',
+    description: 'تواصل مع شركة GENOSYS الشرق الأوسط FZ-LLC لمستحضرات التجميل الكورية الاحترافية. الهاتف: +971 58 548 76 65، البريد الإلكتروني: sales@genosys.ae.',
     images: ['https://genosys.ae/images/genosys-logo.png'],
   },
   alternates: {

@@ -901,7 +901,7 @@ export default function CartClient() {
                     </Link>
                     
                     <a
-                      href={`https://wa.me/971585487665?text=${locale === 'ar' ? 'مرحباً، أنا مهتم بمنتجات مستحضرات التجميل الكورية المهنية. هل يمكنك مساعدتي في الأسعار والطلب؟' : 'Hi, I\'m interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?'}`}
+                      href={`https://wa.me/971585487665?text=${locale === 'ar' ? 'مرحباً، أنا مهتم بمنتجات مستحضرات التجميل الكورية الاحترافية. هل يمكنكم مساعدتي في الأسعار والطلب؟' : 'Hi, I\'m interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?'}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`w-full bg-green-600 text-white py-2.5 md:py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center block text-sm md:text-base touch-manipulation flex items-center justify-center gap-1.5 md:gap-2 min-h-[40px] md:min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
@@ -932,7 +932,7 @@ export default function CartClient() {
                       </p>
                       <div className="space-y-2">
                         <a
-                          href={`https://wa.me/971585487665?text=${locale === 'ar' ? 'مرحباً، أنا مهتم بمنتجات مستحضرات التجميل الكورية المهنية. هل يمكنك مساعدتي في الأسعار والطلب؟' : 'Hi, I\'m interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?'}`}
+                          href={`https://wa.me/971585487665?text=${locale === 'ar' ? 'مرحباً، أنا مهتم بمنتجات مستحضرات التجميل الكورية الاحترافية. هل يمكنكم مساعدتي في الأسعار والطلب؟' : 'Hi, I\'m interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?'}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`w-full bg-green-600 text-white py-2.5 md:py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center block text-sm md:text-base touch-manipulation flex items-center justify-center gap-1.5 md:gap-2 min-h-[40px] md:min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}

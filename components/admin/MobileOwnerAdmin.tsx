@@ -4,10 +4,12 @@ import { useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import { CheckCircle, Clock, PackageCheck, RefreshCw, Search, Send, ShoppingBag, Truck, UserRound, Users, X as XIcon } from 'lucide-react'
 import { Order, OrderItem } from '@prisma/client'
+import CustomerProfile from '@/components/CustomerProfile'
 import OrderDetails from '@/components/admin/OrderDetails'
 import StatusBadge from '@/components/shared/StatusBadge'
 import { addCsrfToBody, fetchCsrfToken } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
+import type { User as CustomerUser } from '@/types/user'
 
 type OrderWithItems = Order & {
   items: OrderItem[]
@@ -15,21 +17,11 @@ type OrderWithItems = Order & {
 
 type MobileTab = 'orders' | 'users'
 
-interface MobileUser {
-  id: string
-  name: string
-  email: string
-  phone?: string | null
-  isAdmin?: boolean
-  canSeePrices?: boolean
-  discountType?: string | null
-  discountPercentage?: number | null
-  lastLoginAt?: string | null
-  lastActiveAt?: string | null
-  createdAt: string
+interface MobileUser extends CustomerUser {
   orderCount?: number
   totalSpent?: number
   lastOrderDate?: string | null
+  lastActiveAt?: string | null
 }
 
 interface MobileOwnerAdminProps {
@@ -44,7 +36,11 @@ interface MobileOwnerAdminProps {
   onRefreshOrders: () => Promise<void>
   onRefreshUsers: () => Promise<void>
   onUpdateOrderStatus: (orderId: string, status: string) => Promise<void>
+  selectedCustomer: MobileUser | null
   onSelectCustomer: (user: MobileUser) => void
+  onBackCustomer: () => void
+  onUpdateCustomer: (id: string, updates: Partial<CustomerUser>) => Promise<void>
+  onDeleteCustomer: (id: string, name: string) => Promise<void>
   getAdminHeaders: (additionalHeaders?: Record<string, string>) => HeadersInit
   showToast: (message: string, type: 'success' | 'error' | 'warning') => void
   onLogout: () => void
@@ -89,7 +85,11 @@ export default function MobileOwnerAdmin({
   onRefreshOrders,
   onRefreshUsers,
   onUpdateOrderStatus,
+  selectedCustomer,
   onSelectCustomer,
+  onBackCustomer,
+  onUpdateCustomer,
+  onDeleteCustomer,
   getAdminHeaders,
   showToast,
   onLogout,
@@ -172,6 +172,19 @@ export default function MobileOwnerAdmin({
           getAdminHeaders={getAdminHeaders}
           showToast={showToast}
           onMoySkladPushed={onMoySkladPushed}
+        />
+      </div>
+    )
+  }
+
+  if (selectedCustomer) {
+    return (
+      <div className="min-h-screen bg-slate-100 px-3 pb-6 pt-3">
+        <CustomerProfile
+          customer={selectedCustomer}
+          onBack={onBackCustomer}
+          onUpdateCustomer={onUpdateCustomer}
+          onDeleteCustomer={onDeleteCustomer}
         />
       </div>
     )

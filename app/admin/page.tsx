@@ -734,7 +734,19 @@ export default function AdminPage() {
         onRefreshOrders={refreshOrders}
         onRefreshUsers={refreshUsers}
         onUpdateOrderStatus={handleUpdateOrderStatus}
+        selectedCustomer={selectedCustomer}
         onSelectCustomer={handleSelectCustomer}
+        onBackCustomer={() => setSelectedCustomer(null)}
+        onUpdateCustomer={async (id, updates) => {
+          await updateUser(id, updates)
+          setSelectedCustomer(currentCustomer =>
+            currentCustomer?.id === id ? { ...currentCustomer, ...updates } : currentCustomer
+          )
+        }}
+        onDeleteCustomer={async (id) => {
+          await deleteUser(id)
+          setSelectedCustomer(currentCustomer => (currentCustomer?.id === id ? null : currentCustomer))
+        }}
         getAdminHeaders={getAdminHeaders}
         showToast={showToast}
         onLogout={handleAdminLogout}

@@ -103,6 +103,42 @@ const CATEGORY_DESCRIPTORS: Record<string, { en: string; ar: string; ru: string 
   },
 }
 
+// Homepage category tiles are intentionally shorter than SEO H1s. The SEO
+// labels are descriptive, but Russian versions are too long for the compact
+// desktop rail and can collide with the supporting copy.
+const CATEGORY_RAIL_TITLES: Record<string, { en: string; ar: string; ru: string }> = {
+  microneedling: {
+    en: 'Microneedling systems',
+    ar: 'أنظمة الوخز الدقيق',
+    ru: 'Аппараты для микронидлинга',
+  },
+  'pro-solution': {
+    en: 'PRO Solution serums',
+    ar: 'سيرومات PRO Solution',
+    ru: 'Сыворотки PRO Solution',
+  },
+  serum: {
+    en: 'Professional face serums',
+    ar: 'سيرومات احترافية',
+    ru: 'Сыворотки для лица',
+  },
+  cream: {
+    en: 'Professional face creams',
+    ar: 'كريمات احترافية',
+    ru: 'Кремы для лица',
+  },
+  mask: {
+    en: 'Professional face masks',
+    ar: 'ماسكات احترافية',
+    ru: 'Маски для лица',
+  },
+  sun: {
+    en: 'Sun protection creams',
+    ar: 'كريمات الوقاية من الشمس',
+    ru: 'Солнцезащитные кремы',
+  },
+}
+
 // Concern card meta — friendly label + benefit-led one-liner (replacing the
 // old symptom list, which read more like a medical chart than skincare copy)
 // + per-concern colour identity used in three places: the colored dot beside
@@ -329,11 +365,12 @@ export default function HomeDesktopSections({
                 const accent = CATEGORY_ACCENTS[cat.slug] ?? 'from-gray-100/70 to-gray-50/40'
                 const imageSrc = categoryImageBySlug[cat.slug]
                 const title =
-                  locale === 'ar'
+                  CATEGORY_RAIL_TITLES[cat.slug]?.[locale as 'en' | 'ar' | 'ru'] ??
+                  (locale === 'ar'
                     ? cat.seo.ar.h1
                     : locale === 'ru'
                     ? cat.seo.ru.h1
-                    : cat.seo.en.h1
+                    : cat.seo.en.h1)
                 const descriptor =
                   CATEGORY_DESCRIPTORS[cat.slug]?.[locale as 'en' | 'ar' | 'ru']
                 const shopLabel =
@@ -418,7 +455,7 @@ export default function HomeDesktopSections({
                   {locale === 'ar'
                     ? 'تسوق حسب مشكلة البشرة'
                     : locale === 'ru'
-                    ? 'Подбор по задаче кожи'
+                    ? 'Подбор по типу кожи'
                     : 'Shop by skin concern'}
                 </h2>
               </div>
@@ -666,7 +703,7 @@ export default function HomeDesktopSections({
                 {locale === 'ar'
                   ? 'GENOSYS هي علامة تجميل طبية كورية محترفة، نوزعها رسمياً في الإمارات منذ عام 2019.'
                   : locale === 'ru'
-                  ? 'GENOSYS — профессиональная корейская дермакосметика. Мы официальный дистрибьютор в ОАЭ с 2019 года.'
+                  ? 'GENOSYS — профессиональная корейская дерматокосметика. Мы официальный дистрибьютор в ОАЭ с 2019 года.'
                   : 'GENOSYS is a professional Korean dermacosmetics brand. We have been the official UAE distributor since 2019.'}
               </p>
             </div>

@@ -246,7 +246,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             {locale === 'ar'
               ? 'مستحضرات تجميل كورية احترافية · منذ 2019'
               : locale === 'ru'
-              ? 'Корейская профессиональная космецевтика · с 2019'
+              ? 'Корейская профессиональная дерматокосметика · с 2019'
               : 'Trusted Korean Dermacosmetics · Since 2019'}
           </p>
           <h1 className="text-display-md lg:text-[56px] lg:leading-[1.05] font-bold text-gray-800 mb-4 font-display tracking-tight">
@@ -317,7 +317,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
                 {locale === 'ar' ? 'كوريا' : locale === 'ru' ? 'Корея' : 'Korea'}
               </div>
               <div className="text-[11px] tracking-wide text-gray-500 uppercase mt-1">
-                {locale === 'ar' ? 'احترافية كورية' : locale === 'ru' ? 'Проф. космецевтика' : 'Pro dermacosmetics'}
+                {locale === 'ar' ? 'احترافية كورية' : locale === 'ru' ? 'Проф. дерматокосметика' : 'Pro dermacosmetics'}
               </div>
             </div>
             <div className="px-4 py-4">

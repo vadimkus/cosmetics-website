@@ -147,19 +147,19 @@ const blogTranslations: Record<string, {
 </div>`
   },
   'bio-ferment-age-defying-powder-mask-launch': {
-    titleRu: 'Маска BIO-FERMENT AGE DEFYING POWDER — продвинутая антивозрастная защита с факторами роста и ферментированной энергией',
-    excerptRu: 'Откройте силу ферментации в новой маске GENOSYS, которая сочетает факторы роста и ферментированную энергию для продвинутой антивозрастной защиты.',
+    titleRu: 'BIO-FERMENT AGE DEFYING POWDER MASK — антивозрастная пудровая маска с факторами роста',
+    excerptRu: 'Пудровая маска GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK сочетает ферментированные компоненты и факторы роста, чтобы успокаивать кожу, питать её и поддерживать восстановление после стресса.',
     contentRu: `<div class="blog-content">
   <div class="feature-section mb-8">
     <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-      С гордостью представляем новую маску BIO-FERMENT AGE DEFYING POWDER — революционный продукт, который сочетает силу факторов роста и ферментированную энергию для продвинутой антивозрастной защиты.
+      Представляем BIO-FERMENT AGE DEFYING POWDER MASK — пудровую маску с ферментированными компонентами и факторами роста для профессионального антивозрастного ухода.
     </p>
   </div>
 
   <div class="feature-section mb-8">
     <h3 class="text-2xl font-bold text-gray-900 mb-4">Основные компоненты</h3>
     <ul class="list-disc list-inside space-y-3 text-gray-700 text-lg">
-      <li>Продвинутые факторы роста</li>
+      <li>Факторы роста</li>
       <li>Мощные ферментированные компоненты</li>
       <li>Натуральные экстракты</li>
       <li>Витамины и минералы</li>
@@ -206,7 +206,7 @@ export async function POST(request: NextRequest) {
     let body: { force?: boolean; slug?: string } | null = null
     try {
       body = await request.json().catch(() => null)
-    } catch (error) {
+    } catch {
       // Body is optional
     }
 

@@ -4,11 +4,11 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Корзина - Профессиональная корейская дерматокосметика GENOSYS',
-  description: 'Просмотрите выбранные профессиональные корейские продукты GENOSYS. Безопасная оплата с профессиональными скидками и доставкой в ОАЭ.',
+  description: 'Просмотрите выбранные профессиональные средства GENOSYS. Безопасная оплата с профессиональными скидками и доставкой в ОАЭ.',
   keywords: 'Корзина GENOSYS, корзина корейской косметики, корзина профессионального ухода за кожей, покупка косметики ОАЭ, оплата GENOSYS',
   openGraph: {
     title: 'Корзина - Профессиональная корейская дерматокосметика GENOSYS',
-    description: 'Просмотрите выбранные профессиональные корейские продукты GENOSYS. Безопасная оплата с профессиональными скидками.',
+    description: 'Просмотрите выбранные профессиональные средства GENOSYS. Безопасная оплата с профессиональными скидками.',
     type: 'website',
     url: 'https://genosys.ae/ru/cart',
     siteName: 'GENOSYS',
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     site: '@genosys_official',
     creator: '@genosys_official',
     title: 'Корзина - Профессиональная корейская дерматокосметика GENOSYS',
-    description: 'Просмотрите выбранные профессиональные корейские продукты GENOSYS.',
+    description: 'Просмотрите выбранные профессиональные средства GENOSYS.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {

@@ -2,7 +2,7 @@
   "id": "/ru",
   "name": "GENOSYS Ближний Восток - Профессиональная корейская косметика",
   "short_name": "GENOSYS ОАЭ",
-  "description": "Откройте для себя нашу премиальную коллекцию профессиональной корейской дермакосметики от GENOSYS Ближний Восток",
+  "description": "Откройте для себя нашу премиальную коллекцию профессиональной корейской дерматокосметики от GENOSYS Ближний Восток",
   "start_url": "./",
   "version": "3.2.0",
   "display": "standalone",
@@ -70,7 +70,7 @@
       "sizes": "1280x720",
       "type": "image/jpeg",
       "form_factor": "wide",
-      "label": "Витрина продуктов GENOSYS"
+      "label": "Каталог GENOSYS"
     },
     {
       "src": "/images/screenshot-mobile.png",

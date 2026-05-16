@@ -4,7 +4,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'Персональные рекомендации для кожи | GENOSYS Professional',
-  description: 'Откройте для себя идеальные продукты GENOSYS, специально разработанные для ваших уникальных потребностей кожи. Наша система рекомендаций на основе искусственного интеллекта анализирует профиль вашей кожи, чтобы предложить лучшие продукты профессиональной корейской косметики.',
+  description: 'Подберите средства GENOSYS под ваш тип кожи и основные задачи ухода. Система AI-рекомендаций анализирует профиль кожи и предлагает подходящую профессиональную корейскую дерматокосметику.',
   keywords: ['Рекомендации для кожи', 'Продукты для ухода за кожей', 'GENOSYS', 'Корейский уход за кожей', 'Персонализированные продукты', 'Анализ кожи', 'Рекомендации продуктов'],
   robots: {
     index: true,
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Персональные рекомендации для кожи | GENOSYS Professional',
-    description: 'Откройте для себя идеальные продукты GENOSYS, специально разработанные для ваших уникальных потребностей кожи.',
+    description: 'Подберите средства GENOSYS под ваш тип кожи и основные задачи ухода.',
     url: 'https://genosys.ae/ru/skin-recommendation',
     siteName: 'GENOSYS',
     locale: 'ru_AE',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     site: '@genosys_official',
     creator: '@genosys_official',
     title: 'Персональные рекомендации для кожи | GENOSYS Professional',
-    description: 'Откройте для себя идеальные продукты GENOSYS, специально разработанные для ваших уникальных потребностей кожи.',
+    description: 'Подберите средства GENOSYS под ваш тип кожи и основные задачи ухода.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {

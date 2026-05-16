@@ -207,7 +207,7 @@ export default async function RussianLocationPage({ params }: LocationPageProps)
       <BreadcrumbSchema 
         items={[
           { name: 'Главная', url: '/ru' },
-          { name: 'Локации', url: '/ru/locations' },
+          { name: 'Где купить', url: '/ru/locations' },
           { name: location.name, url: `/ru/locations/${city}` }
         ]}
       />
@@ -255,7 +255,7 @@ export default async function RussianLocationPage({ params }: LocationPageProps)
                 href="/ru/locations"
                 className="hover:text-primary-600 transition-colors flex items-center"
               >
-                Локации
+                Где купить
               </Link>
               <span className="flex items-center">/</span>
               <span className="text-gray-900 font-medium flex items-center">
@@ -285,7 +285,7 @@ export default async function RussianLocationPage({ params }: LocationPageProps)
                 href="/ru/locations"
                 className="hover:text-primary-600 transition-colors flex items-center"
               >
-                Локации
+                Где купить
               </Link>
               <span className="flex items-center">/</span>
               <span className="text-gray-900 font-medium flex items-center">

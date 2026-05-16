@@ -123,7 +123,7 @@ export default function LocationsPageClient() {
             </span>
           </button>
           <span className="text-base font-semibold text-gray-900">
-            {locale === 'ar' ? 'المواقع' : locale === 'ru' ? 'Локации' : 'Locations'}
+            {locale === 'ar' ? 'المواقع' : locale === 'ru' ? 'Где купить' : 'Locations'}
           </span>
           {/* Profile Icon with green dot */}
           <button 
@@ -154,7 +154,7 @@ export default function LocationsPageClient() {
               </Link>
               <span> / </span>
               <span className="text-gray-900 font-medium">
-                {locale === 'ar' ? 'المواقع' : locale === 'ru' ? 'Локации' : 'Locations'}
+                {locale === 'ar' ? 'المواقع' : locale === 'ru' ? 'Где купить' : 'Locations'}
               </span>
             </nav>
           )}

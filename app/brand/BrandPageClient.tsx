@@ -45,7 +45,7 @@ export default function BrandPageClient() {
     subhead: locale === 'ar'
       ? 'GENOSYS هي أول علامة تجارية في العالم مكرّسة للعلاج بالإبر الدقيقة، تجمع بين الأجهزة والمستحضرات الصيدلية المصممة خصيصاً لتعزيز نتائج العلاج.'
       : locale === 'ru'
-        ? 'GENOSYS — первый в мире бренд, посвящённый микронидлингу: устройства плюс космецевтика, разработанная специально для усиления эффекта процедур.'
+        ? 'GENOSYS — первый в мире бренд, посвящённый микронидлингу: роллеры, дерматокосметика, разработанная специально для усиления эффекта процедур.'
         : 'GENOSYS is the world\'s first microneedling-dedicated brand. Devices and cosmeceuticals formulated specifically to amplify treatment results.',
     stats: {
       worldFirst: locale === 'ar' ? 'الأول عالمياً' : locale === 'ru' ? 'мировой первый' : 'world first',
@@ -62,7 +62,7 @@ export default function BrandPageClient() {
     grsBody: locale === 'ar'
       ? 'يمر الجلد بعملية شفاء محفّزة عند تنشيط آلية إعادة بناء الكولاجين. يعمل GENOSYS على هذا المسار ذاته من خلال نظام متكامل من ثلاثة عناصر — الأجهزة، والمستحضرات الصيدلية، والبروتوكولات — لاستعادة بشرة أصغر سناً وأكثر صحة.'
       : locale === 'ru'
-        ? 'Кожа способна запускать собственный процесс восстановления коллагена. GENOSYS работает с этим механизмом через систему из трёх элементов — устройства, космецевтика и протоколы, — чтобы вернуть коже молодость и здоровье.'
+        ? 'Кожа способна запускать собственный процесс восстановления коллагена. GENOSYS работает с этим механизмом через систему из трёх элементов — роллеры, дерматокосметика и протоколы, — чтобы вернуть коже молодость и здоровье.'
         : 'Skin can trigger its own collagen-rebuilding process. GENOSYS works with that biology through a three-part system — devices, cosmeceuticals, and protocols — to restore younger, healthier skin.',
     pillarsKicker: locale === 'ar' ? '02 · ثلاث ركائز' : locale === 'ru' ? '02 · ТРИ ОПОРЫ' : '02 · THREE PILLARS',
     pillarsTitle: locale === 'ar' ? 'نظام واحد، ثلاث طبقات.' : locale === 'ru' ? 'Одна система. Три слоя.' : 'One system. Three layers.',

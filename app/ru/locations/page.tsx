@@ -4,9 +4,9 @@ import { MapPin, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 
 export const metadata: Metadata = {
-  title: 'Локации GENOSYS - Обслуживание всех эмиратов ОАЭ',
+  title: 'GENOSYS в ОАЭ — доставка по всем эмиратам',
   description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ: Дубай, Абу-Даби, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра и Умм-эль-Кайвайн.',
-  keywords: 'Локации GENOSYS ОАЭ, корейская дерматокосметика Дубай, GENOSYS Абу-Даби, GENOSYS Шарджа, доставка ухода за кожей ОАЭ',
+  keywords: 'GENOSYS ОАЭ, корейская дерматокосметика Дубай, GENOSYS Абу-Даби, GENOSYS Шарджа, доставка дерматокосметики ОАЭ',
   robots: {
     index: true,
     follow: true,
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'Локации GENOSYS - Обслуживание всех эмиратов ОАЭ',
+    title: 'GENOSYS в ОАЭ — доставка по всем эмиратам',
     description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ.',
     type: 'website',
     images: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
-        alt: 'Локации GENOSYS ОАЭ',
+        alt: 'GENOSYS ОАЭ',
       },
     ],
     url: 'https://genosys.ae/ru/locations',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'Локации GENOSYS - Обслуживание всех эмиратов ОАЭ',
+    title: 'GENOSYS в ОАЭ — доставка по всем эмиратам',
     description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
@@ -110,7 +110,7 @@ export default function RussianLocationsPage() {
       <BreadcrumbSchema 
         items={[
           { name: 'Главная', url: '/ru' },
-          { name: 'Локации', url: '/ru/locations' }
+          { name: 'Где купить', url: '/ru/locations' }
         ]}
       />
       
@@ -120,7 +120,7 @@ export default function RussianLocationsPage() {
           <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
             <Link href="/ru" className="hover:text-primary-600 transition-colors">Главная</Link>
             <span> / </span>
-            <span className="text-gray-900 font-medium">Локации</span>
+            <span className="text-gray-900 font-medium">Где купить</span>
           </nav>
           
           {/* Back to Home */}

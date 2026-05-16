@@ -60,7 +60,7 @@ export default function RussianNotFound() {
             <Link href="/ru/blog" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Блог</Link>
             <Link href="/ru/about" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">О нас</Link>
             <Link href="/ru/training" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Обучение</Link>
-            <Link href="/ru/locations" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Локации в ОАЭ</Link>
+            <Link href="/ru/locations" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Где купить в ОАЭ</Link>
             <Link href="/ru/contact" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Контакты</Link>
             <Link href="/ru/faq" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Вопросы и ответы</Link>
             <Link href="/ru/brand" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Бренд GENOSYS</Link>

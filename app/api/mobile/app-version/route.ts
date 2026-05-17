@@ -24,13 +24,13 @@ const STORE_URLS = {
 }
 
 const VERSION_CONFIG = {
-  minimumVersion: '1.5.0',
-  latestVersion: '1.8.0',
+  minimumVersion: '1.10.0',
+  latestVersion: '1.10.0',
   forceUpdate: true,
   message: {
-    en: 'A new version of Genosys UAE is available with important improvements. Please update to continue.',
-    ar: 'يتوفر إصدار جديد من Genosys UAE مع تحسينات مهمة. يرجى التحديث للمتابعة.',
-    ru: 'Доступна новая версия Genosys UAE с важными улучшениями. Пожалуйста, обновите приложение.',
+    en: 'A new version of Genosys UAE is available with important checkout and payment improvements. Please update to continue.',
+    ar: 'يتوفر إصدار جديد من Genosys UAE مع تحسينات مهمة في الدفع وإتمام الطلب. يرجى التحديث للمتابعة.',
+    ru: 'Доступна новая версия Genosys UAE с важными улучшениями оформления заказа и оплаты. Пожалуйста, обновите приложение.',
   },
 }
 

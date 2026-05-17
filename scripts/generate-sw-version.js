@@ -32,23 +32,36 @@ console.log(`📦 Generating service worker version: ${versionString}`)
 const swPath = path.join(__dirname, '..', 'public', 'sw.js')
 let swContent = fs.readFileSync(swPath, 'utf8')
 
-// Replace version patterns
-// Match patterns like: 'genosys-cache-v58' or 'genosys-static-v0.1.0-abc123'
-// This regex handles both old numeric versions and new semver+hash versions
-const cacheVersionRegex = /(genosys-(?:cache|static|dynamic|images|products|api|pages))-v[\d.]+(?:-[a-f0-9]+)?(?:\.[\d.]+-[a-f0-9]+)?/g
+// Replace the CACHE_VERSION constant fallback so each build produces a unique
+// service worker file. The SW uses template literals like `genosys-static-${CACHE_VERSION}`,
+// so rotating this single constant rotates every cache name and invalidates the
+// previous SW (which is what triggers `update found` → activate → claim on clients).
+const cacheVersionConstRegex = /const\s+CACHE_VERSION\s*=\s*self\.__SW_VERSION\s*\|\|\s*'[^']*';?/
+const cacheVersionReplacement = `const CACHE_VERSION = self.__SW_VERSION || '${versionString}';`
 
-// Count replacements for logging
 let replacementCount = 0
+if (cacheVersionConstRegex.test(swContent)) {
+  swContent = swContent.replace(cacheVersionConstRegex, cacheVersionReplacement)
+  replacementCount = 1
+} else {
+  // Hard failure: prevents a silent regression where the constant gets renamed
+  // and we go back to shipping `CACHE_VERSION = 'dev'` on every deploy (which
+  // makes the SW byte-identical across builds and starves clients of updates).
+  console.error('❌ Could not find CACHE_VERSION constant in public/sw.js')
+  console.error('   Expected pattern: const CACHE_VERSION = self.__SW_VERSION || \'…\';')
+  console.error('   Fix the script or restore the constant before re-deploying.')
+  process.exit(1)
+}
 
-swContent = swContent.replace(cacheVersionRegex, (match, prefix) => {
-  replacementCount++
-  return `${prefix}-${versionString}`
-})
+// Also bump a top-of-file build marker so the file bytes change deterministically
+// even if some future edit removes the only token we rewrite above.
+const buildMarker = `// BUILD: ${versionString} @ ${new Date().toISOString()}\n`
+swContent = swContent.replace(/^(?:\/\/ BUILD: [^\n]*\n)?/, buildMarker)
 
 // Write back the updated service worker
 fs.writeFileSync(swPath, swContent, 'utf8')
 
-console.log(`✅ Updated ${replacementCount} cache version references`)
+console.log(`✅ Updated ${replacementCount} CACHE_VERSION reference + build marker`)
 console.log(`   Cache names now use: ${versionString}`)
 
 // Also create a version file that can be imported

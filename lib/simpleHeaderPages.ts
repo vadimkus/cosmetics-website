@@ -35,6 +35,7 @@ export const SIMPLE_HEADER_PATH_SEGMENTS = [
   '/login',
   '/orders',
   '/pdf-viewer',
+  '/partners',
   '/privacy-policy',
   '/profile',
   '/pwa-login',

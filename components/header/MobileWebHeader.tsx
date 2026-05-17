@@ -486,6 +486,14 @@ export default function MobileWebHeader() {
                 </Link>
 
                 <Link
+                  href={getLocalizedPath('/partners', locale)}
+                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  {t('navigation.partners')}
+                </Link>
+
+                <Link
                   href={getLocalizedPath('/blog', locale)}
                   className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}

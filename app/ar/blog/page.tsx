@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
-import ArabicBlogPageClient from './ArabicBlogPageClient'
+import BlogPageClient from '@/app/blog/BlogPageClient'
 
 // Revalidate blog list every 60 seconds to show new posts quickly
 export const revalidate = 60
@@ -134,6 +134,11 @@ async function getBlogPosts(): Promise<BlogPostListItem[]> {
 
 export default async function ArabicBlogPage() {
   const posts = await getBlogPosts()
+  const localizedPosts = posts.map(({ titleAr, excerptAr, ...post }) => ({
+    ...post,
+    title: titleAr || post.title,
+    excerpt: excerptAr || post.excerpt,
+  }))
 
   return (
     <>
@@ -164,7 +169,7 @@ export default async function ArabicBlogPage() {
         }}
       />
 
-      <ArabicBlogPageClient posts={posts} />
+      <BlogPageClient posts={localizedPosts} />
     </>
   )
 }

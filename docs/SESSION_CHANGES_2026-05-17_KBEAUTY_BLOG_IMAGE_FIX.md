@@ -36,3 +36,7 @@ Verification:
 
 - Focused ESLint on the three blog list components passed.
 - `npx tsc --noEmit` passed.
+
+## Follow-Up: Locale Blog Layout Parity
+
+The English `/blog` page used the newer editorial `BlogPageClient`, while `/ru/blog` and `/ar/blog` still used older locale-specific grid components. Updated the RU and AR blog pages to reuse the shared `BlogPageClient`, mapping localized titles/excerpts before rendering so all three locales now share the same structure.

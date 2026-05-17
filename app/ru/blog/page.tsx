@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
-import RussianBlogPageClient from './RussianBlogPageClient'
+import BlogPageClient from '@/app/blog/BlogPageClient'
 
 // Revalidate blog list every 60 seconds to show new posts quickly
 export const revalidate = 60
@@ -82,7 +82,7 @@ async function getBlogPosts(): Promise<BlogPostListItem[]> {
         AND column_name IN ('titleRu', 'excerptRu')
       `
       hasRussianColumns = columns.length >= 2
-      } catch (error) {
+      } catch {
       // If we can't check, assume they don't exist
       hasRussianColumns = false
     }
@@ -151,6 +151,11 @@ async function getBlogPosts(): Promise<BlogPostListItem[]> {
 
 export default async function RussianBlogPage() {
   const posts = await getBlogPosts()
+  const localizedPosts = posts.map(({ titleRu, excerptRu, ...post }) => ({
+    ...post,
+    title: titleRu || post.title,
+    excerpt: excerptRu || post.excerpt,
+  }))
 
   return (
     <>
@@ -181,7 +186,7 @@ export default async function RussianBlogPage() {
         }}
       />
 
-      <RussianBlogPageClient posts={posts} />
+      <BlogPageClient posts={localizedPosts} />
     </>
   )
 }

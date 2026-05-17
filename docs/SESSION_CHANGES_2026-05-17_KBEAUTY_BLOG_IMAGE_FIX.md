@@ -51,3 +51,17 @@ Verification:
 ## Follow-Up: Locale Blog Layout Parity
 
 The English `/blog` page used the newer editorial `BlogPageClient`, while `/ru/blog` and `/ar/blog` still used older locale-specific grid components. Updated the RU and AR blog pages to reuse the shared `BlogPageClient`, mapping localized titles/excerpts before rendering so all three locales now share the same structure.
+
+## Follow-Up: Article Hero Images (Detail Pages)
+
+User reported the hero image on `/ru/blog/uae-summer-skincare-survival-guide-2026` rendered as alt text instead of the image (screenshot 2026-05-17 22:09). Same root cause class as the listing fix: stale/inconsistent Next image optimizer behavior on some desktop browsers while the source asset (`/blog/summer-splash.jpg`) and the `_next/image` URL both returned `200 image/jpeg`.
+
+Applied the same `unoptimized` mitigation to the article hero `<Image>` on all three locales for consistency:
+
+- `app/ru/blog/[slug]/RussianBlogPostClient.tsx`
+- `app/ar/blog/[slug]/ArabicBlogPostClient.tsx`
+- `app/blog/[slug]/page.tsx`
+
+Verification:
+
+- `npx tsc --noEmit` passed.

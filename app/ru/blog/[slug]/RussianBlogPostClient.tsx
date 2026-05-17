@@ -103,6 +103,7 @@ export default function RussianBlogPostClient({ post }: RussianBlogPostClientPro
                   className="object-contain"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 896px"
+                  unoptimized
                 />
               </div>
             )}

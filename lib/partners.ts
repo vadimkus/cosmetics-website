@@ -240,6 +240,18 @@ export const partnersData: Partner[] = [
     theme: "pink"
   },
   {
+    id: "elyazia-beauty-center",
+    name: "ELYAZIA BEAUTY CENTER, MIRDIF",
+    type: "Beauty Center",
+    description: "Professional beauty center in Mirdif offering refined beauty, skincare, and self-care services with attentive treatment standards in a welcoming villa setting.",
+    location: "Street 15 Villa 57B - Mirdif - Dubai",
+    phone: "+971 4 288 8300",
+    website: "https://www.elyaziabeautycenter.com/",
+    directions: "https://www.google.com/maps/search/Elyazia+Beauty+Center+Street+15+Villa+57B+Mirdif+Dubai",
+    logo: "/images/partners/Elyazia.png",
+    theme: "pink"
+  },
+  {
     id: "bianco-spa",
     name: "BIANCO SPA, SILICON OASIS (DSO)",
     type: "Spa & Wellness Center",

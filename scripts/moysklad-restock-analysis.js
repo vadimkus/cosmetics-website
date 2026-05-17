@@ -60,6 +60,7 @@ const TARGET_COVER_DAYS = Number(args.target) || 120
 // When the last unit is sold, archive the product in MoySklad and remove it here.
 const DO_NOT_REORDER = {
   '00042': 'EGF Repair Oxymask Cream 50ml — discontinued by manufacturer; selling through stock',
+  '00028': 'Skin Whitening Serum 30ml — replaced by Multi Vita Radiance Serum line; do not restock',
 }
 
 let output = []

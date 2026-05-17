@@ -118,10 +118,10 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
               <div className="lg:col-span-7">
                 <div className={`inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.22em] uppercase text-primary-600 mb-5 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <span aria-hidden="true" className="h-px w-8 bg-primary-600" />
-                  {locale === 'ar' ? 'المجلة' : locale === 'ru' ? 'Журнал' : 'Journal'}
+                  {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Journal'}
                 </div>
                 <h1 className="text-4xl lg:text-[56px] lg:leading-[1.02] font-bold text-gray-900 font-display tracking-tight">
-                  {locale === 'ar' ? 'مدونة GENOSYS' : locale === 'ru' ? 'Журнал GENOSYS' : 'Notes from the lab.'}
+                  {locale === 'ar' ? 'مدونة GENOSYS' : locale === 'ru' ? 'Блог GENOSYS' : 'Notes from the lab.'}
                 </h1>
               </div>
               <div className="lg:col-span-5">

@@ -97,6 +97,7 @@ export default function ArabicBlogPageClient({ posts }: ArabicBlogPageClientProp
                         alt={`${post.titleAr || post.title} - مقال مدونة GENOSYS للعناية بالبشرة الكورية`}
                         fill
                         className="object-cover"
+                        unoptimized
                       />
                     </div>
                   )}

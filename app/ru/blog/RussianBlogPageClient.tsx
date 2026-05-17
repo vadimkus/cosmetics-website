@@ -72,6 +72,7 @@ export default function RussianBlogPageClient({ posts }: RussianBlogPageClientPr
                         alt={`${post.titleRu || post.title} - Статья блога GENOSYS о корейском уходе за кожей`}
                         fill
                         className="object-cover"
+                        unoptimized
                       />
                     </div>
                   )}

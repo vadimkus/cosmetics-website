@@ -23,3 +23,16 @@ The blog post stored `featuredImage` as `/blog/kbeauty-delivery-tech-2026.jpg`. 
 - Next image optimizer URL for `/blog/kbeauty-delivery-tech-2026.jpg` returned `200 image/jpeg` locally.
 - `npx tsc --noEmit` passed.
 - Focused ESLint on the new route passed.
+
+## Follow-Up: Blog Listing Preview Images
+
+After production deploy, the Russian blog listing still showed image alt text in some desktop browsers while direct image URLs returned `200 image/jpeg`. To avoid stale Next image optimizer/cache behavior on blog index cards, blog listing images were switched to direct image delivery with `unoptimized` on:
+
+- `app/ru/blog/RussianBlogPageClient.tsx`
+- `app/ar/blog/ArabicBlogPageClient.tsx`
+- `app/blog/BlogPageClient.tsx`
+
+Verification:
+
+- Focused ESLint on the three blog list components passed.
+- `npx tsc --noEmit` passed.

@@ -71,7 +71,8 @@ Orders are pushed to MoySklad **manually** by clicking the "Push to MoySklad" bu
 | Organization | Genosys Middle East FZ-LLC | `e18525a4-33c5-11ea-0a80-043f000b2738` |
 | Store/Warehouse | Genosys Warehouse | `e186d449-33c5-11ea-0a80-043f000b273a` |
 | Currency (AED) | AED (default) | `e1870630-33c5-11ea-0a80-043f000b273f` |
-| Order State | Новый (New) | `e1a0abf2-33c5-11ea-0a80-043f000b275a` |
+| Order State (COD / unpaid) | Новый (New) | `e1a0abf2-33c5-11ea-0a80-043f000b275a` |
+| Order State (paid online) | Оплачен - Ждет доставки | `909556cd-8f70-11ea-0a80-016b00219616` |
 
 ### Order States Available
 
@@ -83,7 +84,7 @@ Orders are pushed to MoySklad **manually** by clicking the "Push to MoySklad" bu
 | Доставлен | Delivered | `e1a0ae5f-...275e` |
 | Оплачен - Ждет доставки | Paid - Awaiting delivery | `909556cd-...9616` |
 
-New orders from genosys.ae are created with state **"Новый"** (New).
+New orders from genosys.ae are created with state **"Оплачен - Ждет доставки"** when the website payment method is paid online (`stripe` / `apple_pay`) and the website payment status is `paid`. COD / unpaid / pending orders remain **"Новый"**.
 
 ## Product Mapping
 

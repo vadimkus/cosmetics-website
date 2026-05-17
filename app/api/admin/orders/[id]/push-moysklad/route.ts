@@ -101,6 +101,7 @@ export async function POST(
       total: order.total,
       shipping: order.shipping || 0,
       paymentMethod: order.paymentMethod || 'cod',
+      paymentStatus: order.paymentStatus || 'pending',
     })
 
     if (!result.success) {

@@ -24,6 +24,7 @@ const MOYSKLAD_ORG_ID = 'e18525a4-33c5-11ea-0a80-043f000b2738' // Genosys Middle
 const MOYSKLAD_STORE_ID = 'e186d449-33c5-11ea-0a80-043f000b273a' // Genosys Warehouse
 const MOYSKLAD_CURRENCY_ID = 'e1870630-33c5-11ea-0a80-043f000b273f' // AED (default)
 const MOYSKLAD_STATE_NEW_ID = 'e1a0abf2-33c5-11ea-0a80-043f000b275a' // "Новый" (New)
+const MOYSKLAD_STATE_PAID_AWAITING_DELIVERY_ID = '909556cd-8f70-11ea-0a80-016b00219616' // "Оплачен - Ждет доставки"
 const MOYSKLAD_COUNTRY_UAE_ID = '8afef359-33c6-11ea-0a80-0043000aceae' // "UAE" (account's custom country entry)
 
 // ============================================================================
@@ -56,6 +57,16 @@ function entityMeta(type: string, id: string): { meta: MoySkladMeta } {
     meta: {
       href: `${MOYSKLAD_API_BASE}/entity/${type}/${id}`,
       type,
+      mediaType: 'application/json'
+    }
+  }
+}
+
+function stateMeta(entityType: string, id: string): { meta: MoySkladMeta } {
+  return {
+    meta: {
+      href: `${MOYSKLAD_API_BASE}/entity/${entityType}/metadata/states/${id}`,
+      type: 'state',
       mediaType: 'application/json'
     }
   }
@@ -126,6 +137,10 @@ function getMoySkladDeliveryServiceId(emirate: string): string | null {
     if (lower.includes(key) || key.includes(lower)) return value
   }
   return null
+}
+
+function isPaidOnlinePayment(paymentMethod: string): boolean {
+  return ['stripe', 'apple_pay'].includes(paymentMethod.trim().toLowerCase())
 }
 
 // ============================================================================
@@ -512,6 +527,7 @@ export interface MoySkladOrderData {
   total: number
   shipping: number
   paymentMethod: string // 'cod', 'stripe', 'apple_pay'
+  paymentStatus?: string // 'pending', 'paid', etc.
   description?: string
 }
 
@@ -634,19 +650,20 @@ export async function createMoySkladOrder(
     }
 
     // Step 4: Create the order
+    const isPaidOnlineOrder = isPaidOnlinePayment(orderData.paymentMethod)
+      && orderData.paymentStatus?.trim().toLowerCase() === 'paid'
+
+    const initialStateId = isPaidOnlineOrder
+      ? MOYSKLAD_STATE_PAID_AWAITING_DELIVERY_ID
+      : MOYSKLAD_STATE_NEW_ID
+
     const orderBody = {
       name: orderData.orderNumber,
       description: descParts.join(' | '),
       organization: entityMeta('organization', MOYSKLAD_ORG_ID),
       agent: { meta: counterparty.meta },
       store: entityMeta('store', MOYSKLAD_STORE_ID),
-      state: {
-        meta: {
-          href: `${MOYSKLAD_API_BASE}/entity/customerorder/metadata/states/${MOYSKLAD_STATE_NEW_ID}`,
-          type: 'state',
-          mediaType: 'application/json'
-        }
-      },
+      state: stateMeta('customerorder', initialStateId),
       vatEnabled: true,
       vatIncluded: true,
       rate: {

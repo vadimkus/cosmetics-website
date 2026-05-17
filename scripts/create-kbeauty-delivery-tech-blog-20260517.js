@@ -24,7 +24,7 @@ if (databaseUrl.startsWith('prisma+')) {
 }
 
 const slug = 'k-beauty-delivery-tech-pdrn-exosomes-spicules-2026'
-const featuredImage = '/blog/kbeauty-delivery-tech-2026.jpg'
+const featuredImage = '/images/blog/kbeauty-delivery-tech-2026.jpg'
 const publishedAt = new Date('2026-05-17T02:45:00.000Z')
 const authorName = 'GENOSYS Team'
 const tags = JSON.stringify([

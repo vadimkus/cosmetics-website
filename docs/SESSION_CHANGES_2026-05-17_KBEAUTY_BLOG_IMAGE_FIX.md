@@ -37,6 +37,17 @@ Verification:
 - Focused ESLint on the three blog list components passed.
 - `npx tsc --noEmit` passed.
 
+## Follow-Up: Shared Blog Listing Direct Images
+
+After the RU and AR blog pages were moved to the shared `BlogPageClient`, the listing preview images regressed again and displayed alt text in production. Direct image URLs still returned `200 image/jpeg`, so the issue was isolated to `next/image` rendering/optimization behavior on the shared blog listing component.
+
+Updated `app/blog/BlogPageClient.tsx` to render blog listing preview images with plain `<img>` tags and direct image URLs for both the featured article and grid cards. This intentionally bypasses `next/image` for the blog index only; individual article hero components remain separate.
+
+Verification:
+
+- `npx eslint "app/blog/BlogPageClient.tsx"` passed.
+- `npx tsc --noEmit` passed.
+
 ## Follow-Up: Locale Blog Layout Parity
 
 The English `/blog` page used the newer editorial `BlogPageClient`, while `/ru/blog` and `/ar/blog` still used older locale-specific grid components. Updated the RU and AR blog pages to reuse the shared `BlogPageClient`, mapping localized titles/excerpts before rendering so all three locales now share the same structure.

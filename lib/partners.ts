@@ -453,5 +453,17 @@ export const partnersData: Partner[] = [
     logo: "/images/partners/abeer-mekki.png",
     theme: "emerald",
     certificateUrl: "/documents/GENOSYS_Authorized_Reseller_ABEER_MEKKI.pdf"
+  },
+  {
+    id: "family-class-polyclinic",
+    name: "FAMILY CLASS POLYCLINIC (LONGEVIUM), JUMEIRAH 3",
+    type: "Longevity & Multispeciality Polyclinic",
+    description: "Longevity and metabolic health clinic in Dubai focused on extending healthspan through clinical, data-driven medicine. Services include longevity assessments, molecular dermatology, peptide protocols, weight management, stem cell therapy, and aesthetic gynecology, delivered by a multidisciplinary team of physicians and dermatologists.",
+    location: "Triple 777 Center, Ground Floor, Jumeirah 3 - Dubai",
+    phone: "+971 4 563 8202",
+    website: "https://www.instagram.com/longevium.dubai",
+    directions: "https://www.google.com/maps/search/Triple+777+Center+Jumeirah+3+Dubai",
+    logo: "/images/partners/family-class.png",
+    theme: "emerald"
   }
 ];

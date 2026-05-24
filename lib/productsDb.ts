@@ -1,7 +1,8 @@
 import { cache } from 'react'
 import { unstable_cache } from 'next/cache'
-import { debugLog, errorLog } from '@/lib/logger'
+import { debugLog, errorLog, warnLog } from '@/lib/logger'
 import { getDirectPrismaClient, prisma } from './prisma'
+import { products as staticProducts } from './products'
 import { isPrismaTransientError, withPrismaRetry } from './prismaRetry'
 import type { Product } from '@/types'
 
@@ -20,18 +21,34 @@ function withProductReadRecovery<T>(
     {
       label,
       shouldRecover: isPrismaTransientError,
+      shouldCaptureRecoveryFailure: (recoveryError) => !isPrismaTransientError(recoveryError),
       recover: async (error) => {
         const directPrisma = getDirectPrismaClient()
         if (!directPrisma) throw error
 
-        errorLog(`[productsDb:${label}] Primary Prisma read failed transiently; using direct database fallback`)
+        warnLog(`[productsDb:${label}] Primary Prisma read failed transiently; using direct database fallback`)
         return withPrismaRetry(
           () => directRead(directPrisma),
-          { label: `${label}:direct`, retries: 1 }
+          { label: `${label}:direct`, retries: 1, capture: false }
         )
       },
     }
   )
+}
+
+function staticCatalogFallback(): Product[] {
+  return staticProducts
+    .filter((product) => !product.isHidden)
+    .map((product) => ({
+      ...product,
+      variants: product.variants ?? [],
+    }))
+    .sort((a, b) => a.name.localeCompare(b.name))
+}
+
+function warnAndUseStaticCatalog(label: string, error: unknown): Product[] {
+  warnLog(`[productsDb:${label}] transient DB outage; serving static product catalog fallback`, error)
+  return staticCatalogFallback()
 }
 
 function readAllProducts(client: ProductReadClient): Promise<Product[]> {
@@ -56,19 +73,32 @@ function readProductById(client: ProductReadClient, id: string): Promise<Product
 }
 
 export async function getAllProducts(): Promise<Product[]> {
-  return withProductReadRecovery(
-    'getAllProducts',
-    () => readAllProducts(prisma),
-    (client) => readAllProducts(client)
-  )
+  try {
+    return await withProductReadRecovery(
+      'getAllProducts',
+      () => readAllProducts(prisma),
+      (client) => readAllProducts(client)
+    )
+  } catch (error) {
+    if (isPrismaTransientError(error)) return warnAndUseStaticCatalog('getAllProducts', error)
+    throw error
+  }
 }
 
 export async function getProductById(id: string): Promise<Product | null> {
-  return withProductReadRecovery(
-    'getProductById',
-    () => readProductById(prisma, id),
-    (client) => readProductById(client, id)
-  )
+  try {
+    return await withProductReadRecovery(
+      'getProductById',
+      () => readProductById(prisma, id),
+      (client) => readProductById(client, id)
+    )
+  } catch (error) {
+    if (isPrismaTransientError(error)) {
+      warnLog(`[productsDb:getProductById] transient DB outage; serving static product fallback for ${id}`, error)
+      return staticCatalogFallback().find((product) => product.id === id || product.productNumber === id) ?? null
+    }
+    throw error
+  }
 }
 
 /**
@@ -119,6 +149,11 @@ export async function getProductsByCategory(category: string): Promise<Product[]
     )
     return products
   } catch (error) {
+    if (isPrismaTransientError(error)) {
+      return warnAndUseStaticCatalog('getProductsByCategory', error).filter((product) =>
+        product.category.toLowerCase().includes(category.toLowerCase())
+      )
+    }
     errorLog('Error fetching products by category:', error)
     throw new Error('Failed to fetch products by category')
   }

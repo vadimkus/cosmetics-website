@@ -43,14 +43,21 @@ function isSafariNavigationAbortLoadFailed(event: Sentry.ErrorEvent): boolean {
   const exc = values[0]
   if (!exc) return false
   if (exc.type !== 'TypeError' || exc.value !== 'Load failed') return false
-  if (exc.mechanism?.type !== 'auto.browser.global_handlers.onerror') return false
+
+  const asString = (v: unknown): string => (typeof v === 'string' ? v : '')
+  const os = asString(event.contexts?.os?.name)
+  const browser = asString(event.contexts?.browser?.name)
+  const isIOSWebKit =
+    /^iOS$/i.test(os) ||
+    /Mobile Safari|Chrome Mobile iOS|Safari/i.test(browser)
+  if (!isIOSWebKit) return false
 
   const frames = exc.stacktrace?.frames || []
-  if (frames.length !== 1) return false
-  const frame = frames[0]
-  if (!frame) return false
-  const file = frame.filename || frame.abs_path || ''
-  return /_next\/static\/chunks\//.test(file)
+  if (frames.length === 0) return true
+  return frames.every((frame) => {
+    const file = frame.filename || frame.abs_path || ''
+    return file === '' || /_next\/static\/chunks\//.test(file)
+  })
 }
 
 /**
@@ -142,6 +149,21 @@ function isGoogleTranslateRemoveChildMutation(event: Sentry.ErrorEvent): boolean
   })
 }
 
+function isInjectedZpScriptError(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type !== 'ReferenceError' || !/zp_token is not defined/i.test(exc.value || '')) {
+    return false
+  }
+
+  return (exc.stacktrace?.frames || []).some((frame) => {
+    const file = frame.filename || frame.abs_path || ''
+    return /\/1\/zp\.js(?:$|\?)/.test(file)
+  })
+}
+
 if (dsn) {
   Sentry.init({
     dsn,
@@ -157,6 +179,7 @@ if (dsn) {
       if (isSafariNavigationAbortLoadFailed(event)) return null
       if (isIOSViewTransitionRemoveChildRace(event)) return null
       if (isGoogleTranslateRemoveChildMutation(event)) return null
+      if (isInjectedZpScriptError(event)) return null
 
       // Strip PII-sensitive fields before events leave the browser.
       // Checkout pages see email/address/phone; scrub them from breadcrumbs.

@@ -13,6 +13,8 @@ interface GlobalWithPrisma {
 }
 
 const globalForPrisma = globalThis as unknown as GlobalWithPrisma
+const prismaLog: ('error' | 'warn')[] =
+  process.env.NODE_ENV === 'development' ? ['error', 'warn'] : []
 
 // Ensure DATABASE_URL is set
 const databaseUrl = process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL
@@ -53,7 +55,7 @@ function createPooledPrismaClient(connectionString: string, maxConnections: numb
   return {
     client: new PrismaClient({
       adapter: new PrismaPg(pool),
-      log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error'],
+      log: prismaLog,
     }),
     pool,
   }
@@ -78,7 +80,7 @@ if (globalForPrisma.prisma) {
         // No manual pool configuration needed - Accelerate handles this
         prismaInstance = new PrismaClient({
           accelerateUrl: runtimeDatabaseUrl,
-          log: process.env.NODE_ENV === 'development' ? ['error', 'warn'] : ['error']
+          log: prismaLog
         })
         debugLog('✅ Created new Prisma client instance with Prisma Accelerate')
         debugLog('   Connection pooling: Managed by Prisma Accelerate')

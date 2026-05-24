@@ -100,3 +100,28 @@ Verification:
 
 - `npx tsc --noEmit` passed.
 - `npx eslint lib/prisma.ts lib/prismaRetry.ts lib/productsDb.ts` passed.
+
+## Follow-Up — 2026-05-24 Current Digest
+
+The current Sentry digest showed three live items:
+
+- `Connection terminated due to connection timeout` / `timeout exceeded when trying to connect` from `pg-pool` on production release `a3a3db95`.
+- `TypeError: Load failed` on `/products`, all recent events from Mobile Safari / Chrome iOS.
+- `ReferenceError: zp_token is not defined` from injected `/1/zp.js`, one event only.
+
+Vercel logs showed the server-side failures were mostly hourly ISR/home-data revalidations: primary Prisma Accelerate failed, the direct fallback kicked in, and then the direct `pg` fallback also timed out. These failures were explicitly captured by our retry helper and Prisma's own production error logger, even when the request was a background cache refresh or could safely degrade.
+
+Fix applied:
+
+- Product reads now return the static `lib/products.ts` catalog when both Accelerate and direct Postgres fail with transient transport errors. This keeps homepage, `/products`, category pages, and product details rendering during short database transport outages instead of throwing.
+- Direct fallback retry failures are no longer double-captured to Sentry when they are known transient transport failures and the product layer can degrade.
+- Prisma client production `log` output was disabled so handled retry failures do not appear as Vercel `error` logs before application fallback logic runs. Development still logs Prisma errors and warnings.
+- Server-side fallback messages now use `warnLog` instead of `errorLog` when the app can serve static catalog data.
+- Broadened the client-side Sentry filter for iOS `TypeError: Load failed` events with no app stack / only Next.js chunk frames.
+- Filtered one-off third-party injected `/1/zp.js` `zp_token is not defined` errors.
+
+Verification:
+
+- `npx tsc --noEmit` passed.
+- `npx eslint lib/prisma.ts lib/prismaRetry.ts lib/productsDb.ts instrumentation-client.ts` passed.
+- `npm run build` passed, including Prisma generate, migration deploy check, service worker version generation, and `394/394` static page generation.

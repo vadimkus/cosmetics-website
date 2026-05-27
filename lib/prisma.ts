@@ -113,7 +113,11 @@ export const prisma = prismaInstance
  */
 export function getDirectPrismaClient(): PrismaClient | null {
   if (!runtimeDatabaseUrl.startsWith('prisma+')) return prisma
-  if (globalForPrisma.directPrisma) return globalForPrisma.directPrisma
+  if (globalForPrisma.directPrisma) {
+    if (!globalForPrisma.directPgPool?.ended) return globalForPrisma.directPrisma
+    delete globalForPrisma.directPrisma
+    delete globalForPrisma.directPgPool
+  }
 
   const directDatabaseUrl = [
     process.env.POSTGRES_PRISMA_URL,
@@ -203,6 +207,8 @@ if (typeof process !== 'undefined') {
       if (globalForPrisma.directPgPool && !globalForPrisma.directPgPool.ended) {
         await globalForPrisma.directPgPool.end()
       }
+      delete globalForPrisma.directPrisma
+      delete globalForPrisma.directPgPool
       debugLog('✅ Prisma client disconnected')
     })()
 

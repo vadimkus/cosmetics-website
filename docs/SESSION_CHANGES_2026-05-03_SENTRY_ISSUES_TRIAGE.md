@@ -125,3 +125,20 @@ Verification:
 - `npx tsc --noEmit` passed.
 - `npx eslint lib/prisma.ts lib/prismaRetry.ts lib/productsDb.ts instrumentation-client.ts` passed.
 - `npm run build` passed, including Prisma generate, migration deploy check, service worker version generation, and `394/394` static page generation.
+
+## Follow-Up — 2026-05-27 iOS AbortError
+
+Sentry reported `JAVASCRIPT-NEXTJS-Z` on `/ru/products/21`: `AbortError: The operation was aborted.` The event was a single unhandled rejection from Mobile Safari 18.6 / iOS 18.6.2 on release `fff809b5`, with no matching Vercel server error for that route. This matches the existing iOS App Router navigation-abort class: the browser cancels an in-flight RSC/fetch request during navigation and surfaces it as a global unhandled rejection.
+
+Fix applied:
+
+- Added a narrow client-side Sentry filter for iOS WebKit `AbortError: The operation was aborted` unhandled rejections when the event has no app stack / only Next.js chunk frames.
+- Refactored the existing iOS `Load failed` filter to share the same iOS WebKit and "no app stack" checks.
+- Hardened direct Prisma fallback lifecycle: if a warm lambda sees a cached direct `pg` pool that has already been ended, discard and recreate it instead of reusing it. This addresses the related `Cannot use a pool after calling end on the pool` issue observed in the current unresolved list.
+- Classified `Cannot use a pool after calling end on the pool` as a transient direct-fallback transport/lifecycle error. Product reads can then suppress Sentry capture for that recovery failure and serve the static catalog fallback instead of paging on a handled degradation.
+
+Verification:
+
+- `npx tsc --noEmit` passed.
+- `npx eslint instrumentation-client.ts lib/prisma.ts lib/prismaRetry.ts` passed.
+- `npm run build` passed, including Prisma generate, migration deploy check, service worker version generation, and `394/394` static page generation.

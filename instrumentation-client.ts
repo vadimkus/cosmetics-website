@@ -18,6 +18,28 @@ const enabled =
   process.env.NODE_ENV === 'production' ||
   process.env.NEXT_PUBLIC_SENTRY_ENABLE_DEV === 'true'
 
+function asString(v: unknown): string {
+  return typeof v === 'string' ? v : ''
+}
+
+function isIOSWebKitBrowser(event: Sentry.ErrorEvent): boolean {
+  const os = asString(event.contexts?.os?.name)
+  const browser = asString(event.contexts?.browser?.name)
+  return (
+    /^iOS$/i.test(os) ||
+    /Mobile Safari|Chrome Mobile iOS|Safari/i.test(browser)
+  )
+}
+
+function hasNoAppStack(event: Sentry.ErrorEvent): boolean {
+  const frames = event.exception?.values?.[0]?.stacktrace?.frames || []
+  if (frames.length === 0) return true
+  return frames.every((frame) => {
+    const file = frame.filename || frame.abs_path || ''
+    return file === '' || /_next\/static\/chunks\//.test(file)
+  })
+}
+
 /**
  * iOS Safari / WebKit quirk: when the user taps a link, any in-flight
  * `fetch()` (including Next.js App Router's RSC prefetches) gets aborted and
@@ -43,21 +65,23 @@ function isSafariNavigationAbortLoadFailed(event: Sentry.ErrorEvent): boolean {
   const exc = values[0]
   if (!exc) return false
   if (exc.type !== 'TypeError' || exc.value !== 'Load failed') return false
+  return isIOSWebKitBrowser(event) && hasNoAppStack(event)
+}
 
-  const asString = (v: unknown): string => (typeof v === 'string' ? v : '')
-  const os = asString(event.contexts?.os?.name)
-  const browser = asString(event.contexts?.browser?.name)
-  const isIOSWebKit =
-    /^iOS$/i.test(os) ||
-    /Mobile Safari|Chrome Mobile iOS|Safari/i.test(browser)
-  if (!isIOSWebKit) return false
+function isIOSNavigationAbortError(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
 
-  const frames = exc.stacktrace?.frames || []
-  if (frames.length === 0) return true
-  return frames.every((frame) => {
-    const file = frame.filename || frame.abs_path || ''
-    return file === '' || /_next\/static\/chunks\//.test(file)
-  })
+  const value = exc.value || ''
+  const isAbort =
+    /AbortError/i.test(exc.type || '') ||
+    /AbortError: The operation was aborted\.?/i.test(value)
+  if (!isAbort) return false
+  if (exc.mechanism?.type !== 'auto.browser.global_handlers.onunhandledrejection') return false
+
+  return isIOSWebKitBrowser(event) && hasNoAppStack(event)
 }
 
 /**
@@ -177,6 +201,7 @@ if (dsn) {
     beforeSend(event) {
       // Drop unactionable iOS Safari navigation-abort noise.
       if (isSafariNavigationAbortLoadFailed(event)) return null
+      if (isIOSNavigationAbortError(event)) return null
       if (isIOSViewTransitionRemoveChildRace(event)) return null
       if (isGoogleTranslateRemoveChildMutation(event)) return null
       if (isInjectedZpScriptError(event)) return null

@@ -63,6 +63,7 @@ const TRANSIENT_MESSAGE_PATTERNS = [
   /connection terminated unexpectedly/i,
   /connection terminated due to connection timeout/i,
   /timeout exceeded when trying to connect/i,
+  /Cannot use a pool after calling end on the pool/i,
   /client has encountered a connection error/i,
 
   // 2. Prisma query engine panics — observed in prod via Sentry

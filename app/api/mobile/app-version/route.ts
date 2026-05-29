@@ -23,23 +23,50 @@ const STORE_URLS = {
   android: 'https://play.google.com/store/apps/details?id=ae.genosys.app',
 }
 
-const VERSION_CONFIG = {
-  minimumVersion: '1.10.0',
-  latestVersion: '1.10.0',
-  forceUpdate: true,
-  message: {
-    en: 'A new version of Genosys UAE is available with important checkout and payment improvements. Please update to continue.',
-    ar: 'يتوفر إصدار جديد من Genosys UAE مع تحسينات مهمة في الدفع وإتمام الطلب. يرجى التحديث للمتابعة.',
-    ru: 'Доступна новая версия Genosys UAE с важными улучшениями оформления заказа и оплаты. Пожалуйста, обновите приложение.',
+const UPDATE_MESSAGE = {
+  en: 'A new version of Genosys UAE is available with important checkout and payment improvements. Please update to continue.',
+  ar: 'يتوفر إصدار جديد من Genosys UAE مع تحسينات مهمة في الدفع وإتمام الطلب. يرجى التحديث للمتابعة.',
+  ru: 'Доступна новая версия Genosys UAE с важными улучшениями оформления заказа и оплаты. Пожалуйста, обновите приложение.',
+}
+
+/**
+ * Per-platform version gates.
+ *
+ * CRITICAL: `minimumVersion` must NEVER exceed the newest build that is
+ * actually live on that platform's store. If it does, users get hard-locked
+ * out — the force-update screen opens the store, but there is nothing newer
+ * to install, so the "Update" button does nothing and the user can never
+ * get back into the app.
+ *
+ * iOS:     latest live App Store build is 1.10.x → safe to force 1.10.0.
+ * Android: latest live Google Play build is 1.9.0 (versionCode 81, Apr 2026).
+ *          No 1.10.x Android binary has been submitted to Google Play yet,
+ *          so we MUST NOT force 1.10.0 on Android. Server-side checkout/pricing
+ *          guards already protect 1.9.0 clients, so a soft (non-blocking)
+ *          update prompt is sufficient until a 1.10.x AAB ships to Play.
+ */
+const PLATFORM_CONFIG = {
+  ios: {
+    minimumVersion: '1.10.0',
+    latestVersion: '1.10.0',
+    forceUpdate: true,
+  },
+  android: {
+    minimumVersion: '1.9.0',
+    latestVersion: '1.9.0',
+    forceUpdate: false,
   },
 }
 
 export async function GET(request: NextRequest) {
-  const platform = request.nextUrl.searchParams.get('platform') as 'ios' | 'android' | null
-  const updateUrl = STORE_URLS[platform ?? 'ios'] ?? STORE_URLS.ios
+  const requested = request.nextUrl.searchParams.get('platform')
+  const platform: 'ios' | 'android' = requested === 'android' ? 'android' : 'ios'
+
+  const config = PLATFORM_CONFIG[platform]
+  const updateUrl = STORE_URLS[platform]
 
   return NextResponse.json(
-    { ...VERSION_CONFIG, updateUrl },
+    { ...config, message: UPDATE_MESSAGE, updateUrl },
     {
       headers: {
         'Cache-Control': 'public, max-age=300, s-maxage=300',

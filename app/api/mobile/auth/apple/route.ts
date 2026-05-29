@@ -98,12 +98,31 @@ export async function POST(request: NextRequest) {
 
       // Send admin notification for new user registration via Apple Sign-In
       try {
+        // Resolve device + location info. Mobile-only endpoint, so default to "mobile".
+        const { resolveDeviceInfo } = await import('@/lib/deviceDetection')
+        const { getGeolocationData } = await import('@/lib/geolocation')
+
+        const forwarded = request.headers.get('x-forwarded-for')
+        const ipAddress = (forwarded ? forwarded.split(',')[0]?.trim() : request.headers.get('x-real-ip')) || 'Unknown'
+        const deviceInfo = resolveDeviceInfo(request.headers, { fallbackDeviceType: 'mobile' })
+        const geoData = await getGeolocationData(ipAddress)
+
+        const additionalInfo: Record<string, string | number> = {}
+        if (ipAddress) additionalInfo.ipAddress = ipAddress
+        if (geoData?.country) additionalInfo.country = geoData.country
+        if (geoData?.city) additionalInfo.city = geoData.city
+        additionalInfo.deviceType = deviceInfo.deviceType
+        if (deviceInfo.deviceModel) additionalInfo.deviceModel = deviceInfo.deviceModel
+        if (deviceInfo.os) additionalInfo.os = deviceInfo.os
+        if (deviceInfo.browser) additionalInfo.browser = deviceInfo.browser
+
         await sendAdminNewUserNotification(
           fullName || nameFromEmail,
           email,
           undefined, // phone
           undefined, // address
-          'Apple Sign-In (Mobile App)'
+          'Apple Sign-In (Mobile App)',
+          additionalInfo
         )
         debugLog(`[MOBILE_AUTH] Admin notification sent for new Apple Sign-In user: ${email}`)
       } catch (emailError) {

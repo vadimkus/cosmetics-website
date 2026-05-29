@@ -168,16 +168,15 @@ export async function POST(request: NextRequest) {
         // Send admin notification for new Google OAuth user registration
         try {
           // Get client information
-          const userAgent = request.headers.get('user-agent') || 'Unknown'
           const forwarded = request.headers.get('x-forwarded-for')
           const ipAddress = (forwarded ? forwarded.split(',')[0] : request.headers.get('x-real-ip')) || 'Unknown'
           
           // Import device detection and geolocation utilities
-          const { parseUserAgent } = await import('@/lib/deviceDetection')
+          const { resolveDeviceInfo } = await import('@/lib/deviceDetection')
           const { getGeolocationData } = await import('@/lib/geolocation')
           
-          // Parse device information
-          const deviceInfo = parseUserAgent(userAgent)
+          // Resolve device information. Mobile-only endpoint, so default to "mobile".
+          const deviceInfo = resolveDeviceInfo(request.headers, { fallbackDeviceType: 'mobile' })
           
           // Get geolocation data
           const geoData = await getGeolocationData(ipAddress)

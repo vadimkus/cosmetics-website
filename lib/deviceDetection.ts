@@ -123,6 +123,62 @@ export function parseUserAgent(userAgent: string): DeviceInfo {
   }
 }
 
+// Minimal header accessor (works with Next.js Headers and plain objects)
+interface HeaderReader {
+  get(name: string): string | null
+}
+
+/**
+ * Resolve device info for a request, preferring explicit device headers sent by
+ * the native mobile app over user-agent sniffing.
+ *
+ * The native app's HTTP client sends a CFNetwork/okhttp user-agent that does NOT
+ * contain "mobile"/"iphone"/"android", so parseUserAgent() would wrongly fall back
+ * to "desktop". The mobile app now sends x-device-* headers; this function trusts
+ * them, and as a final safety net applies `fallbackDeviceType` (e.g. "mobile" for
+ * /api/mobile/* endpoints, which are only ever called by the app).
+ */
+export function resolveDeviceInfo(
+  headers: HeaderReader,
+  options: { fallbackDeviceType?: 'mobile' | 'tablet' | 'desktop' } = {}
+): DeviceInfo {
+  const userAgent = headers.get('user-agent') || 'Unknown'
+  const parsed = parseUserAgent(userAgent)
+
+  const clientPlatform = headers.get('x-app-platform')?.trim().toLowerCase()
+  const clientType = headers.get('x-device-type')?.trim().toLowerCase()
+  const clientOs = headers.get('x-device-os')?.trim() || undefined
+  const clientOsVersion = headers.get('x-device-os-version')?.trim() || undefined
+  const clientModel = headers.get('x-device-model')?.trim() || undefined
+
+  const isNativeApp = clientPlatform === 'ios' || clientPlatform === 'android'
+
+  // Device type: explicit client value wins; otherwise UA parse; otherwise fallback
+  let deviceType = parsed.deviceType
+  if (clientType === 'mobile' || clientType === 'tablet' || clientType === 'desktop') {
+    deviceType = clientType
+  } else if (options.fallbackDeviceType && deviceType === 'desktop') {
+    deviceType = options.fallbackDeviceType
+  }
+
+  // OS: combine client OS + version when provided
+  const os = clientOs
+    ? (clientOsVersion ? `${clientOs} ${clientOsVersion}` : clientOs)
+    : parsed.os
+
+  const deviceModel = clientModel || parsed.deviceModel
+
+  // Native app requests have no browser; avoid showing a misleading value
+  const browser = isNativeApp ? 'Mobile App' : parsed.browser
+
+  return {
+    deviceType,
+    browser,
+    os,
+    ...(deviceModel ? { deviceModel } : {}),
+  }
+}
+
 // Generate a simple session ID
 export function generateSessionId(): string {
   return Math.random().toString(36).substring(2) + Date.now().toString(36)

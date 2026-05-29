@@ -10,7 +10,7 @@ import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
 import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 import { validateLength, INPUT_LIMITS } from '@/lib/validation'
 import bcrypt from 'bcryptjs'
-import { parseUserAgent } from '@/lib/deviceDetection'
+import { resolveDeviceInfo } from '@/lib/deviceDetection'
 import { getGeolocationData } from '@/lib/geolocation'
 import { generateMemberNumber } from '@/lib/membership'
 
@@ -274,13 +274,13 @@ export async function POST(request: NextRequest) {
     // Send admin notification
     try {
       // Extract device and location information
-      const userAgent = request.headers.get('user-agent') || 'Unknown'
       const ipAddress = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
                         request.headers.get('x-real-ip') ||
                         'Unknown'
       
-      // Parse device information
-      const deviceInfo = parseUserAgent(userAgent)
+      // Resolve device information. This is a mobile-only endpoint (gated by the
+      // mobile x-api-key), so any request is from the app — never "desktop".
+      const deviceInfo = resolveDeviceInfo(request.headers, { fallbackDeviceType: 'mobile' })
       
       // Get geolocation data
       const geoData = await getGeolocationData(ipAddress)

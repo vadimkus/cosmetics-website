@@ -43,3 +43,13 @@ app — so "desktop" was always wrong there.
   `fallbackDeviceType: 'mobile'` safety net — OS/model just won't be as precise until the
   updated app ships.
 - Type check (`tsc --noEmit`) on the web project passes.
+
+## Shipped
+
+- **Website**: commit `1453608a` on `main`, pushed → Vercel auto-deploy. Fixes the
+  "Desktop" label for everyone immediately, including older app versions.
+- **Mobile app** (`genosys-mobile-app`): commit `725ffef` on `main`; published OTA to the
+  `production` channel, runtime `1.10.1`, both platforms. Update group
+  `95074c63-7bda-4d7c-ac73-1fa403f4efbe`. Adds precise OS version / device model /
+  `Mobile App` browser label. See `docs/SESSION_CHANGES_2026-05-29_device-info-headers-ota.md`
+  in that repo for full details.

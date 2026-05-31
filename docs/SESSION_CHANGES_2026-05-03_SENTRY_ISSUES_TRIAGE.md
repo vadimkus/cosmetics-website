@@ -142,3 +142,22 @@ Verification:
 - `npx tsc --noEmit` passed.
 - `npx eslint instrumentation-client.ts lib/prisma.ts lib/prismaRetry.ts` passed.
 - `npm run build` passed, including Prisma generate, migration deploy check, service worker version generation, and `394/394` static page generation.
+
+## Follow-Up — 2026-05-31 Weekly Digest
+
+The weekly Sentry digest for May 23-30 showed 7 total errors:
+
+- `Connection terminated due to connection timeout` and `timeout exceeded when trying to connect` were stale: latest events were May 23 on release `a3a3db95`, before the product-read fallback hardening.
+- `AbortError: The operation was aborted` was stale: the only event was May 27 on release `fff809b5`, before the iOS AbortError filter.
+- `TypeError: Load failed` was still active on release `36141553`. Raw Sentry event `c45bcb6e...` showed Mobile Safari / iOS, no stack frames, `mechanism=generic handled`, and breadcrumbs `Application error: TypeError: Load failed`. That means the route error boundary (`app/error.tsx`) manually captured the error before the global browser-noise filter could remove it.
+
+Fix applied:
+
+- Added `lib/browserErrorNoise.ts`, a client-safe classifier for iOS WebKit navigation aborts (`TypeError: Load failed`, `AbortError`, and `AbortError: The operation was aborted`).
+- Guarded `app/error.tsx` and `app/global-error.tsx` so these browser navigation aborts are not manually logged/captured by route/global error boundaries.
+
+Verification:
+
+- `npx tsc --noEmit` passed.
+- `npx eslint app/error.tsx app/global-error.tsx lib/browserErrorNoise.ts instrumentation-client.ts` passed.
+- `npm run build` passed, including Prisma generate, migration deploy check, service worker version generation, and `394/394` static page generation.

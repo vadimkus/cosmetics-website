@@ -2,6 +2,7 @@
 
 import * as Sentry from '@sentry/nextjs'
 import { useEffect } from 'react'
+import { isIgnorableBrowserNavigationError } from '@/lib/browserErrorNoise'
 
 /**
  * Global error boundary — catches rendering errors that escape per-route
@@ -19,6 +20,8 @@ export default function GlobalError({
   reset: () => void
 }) {
   useEffect(() => {
+    if (isIgnorableBrowserNavigationError(error)) return
+
     Sentry.captureException(error)
   }, [error])
 
@@ -76,6 +79,8 @@ export default function GlobalError({
             >
               Try again
             </button>
+            {/* Root layout may be broken here; keep this as a plain document fallback. */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
               href="/"
               style={{

@@ -5,6 +5,7 @@ import * as Sentry from '@sentry/nextjs'
 import ErrorPage from '@/components/ErrorPage'
 import { useEffect } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { isIgnorableBrowserNavigationError } from '@/lib/browserErrorNoise'
 
 export default function Error({
   error,
@@ -16,6 +17,8 @@ export default function Error({
   const { t } = useTranslation()
 
   useEffect(() => {
+    if (isIgnorableBrowserNavigationError(error)) return
+
     errorLog('Application error:', error)
     Sentry.captureException(error)
   }, [error])

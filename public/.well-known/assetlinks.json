@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "ae.genosys.app",
+      "sha256_cert_fingerprints": [
+        "06:3F:90:51:55:25:6D:36:D7:DB:41:62:1D:D8:E3:82:59:4B:AF:62:9D:C7:3B:8C:8F:37:F2:F2:61:B8:5D:FC"
+      ]
+    }
+  }
+]

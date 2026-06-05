@@ -173,6 +173,42 @@ function isGoogleTranslateRemoveChildMutation(event: Sentry.ErrorEvent): boolean
   })
 }
 
+function hasBrowserTranslationBreadcrumb(event: Sentry.ErrorEvent): boolean {
+  return (event.breadcrumbs || []).some((breadcrumb) => {
+    if (breadcrumb.category !== 'console') return false
+
+    const args = Array.isArray(breadcrumb.data?.arguments)
+      ? breadcrumb.data.arguments
+      : []
+
+    return args.some((arg) => {
+      if (!arg || typeof arg !== 'object') return false
+      const data = arg as Record<string, unknown>
+
+      return (
+        (typeof data.from === 'string' && typeof data.to === 'string') ||
+        (
+          typeof data.current === 'number' &&
+          typeof data.total === 'number' &&
+          typeof data.success === 'boolean'
+        )
+      )
+    })
+  })
+}
+
+function isBrowserTranslationContentDocumentProbe(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type !== 'TypeError') return false
+  if (!/contentDocument\.body/i.test(exc.value || '')) return false
+  if (exc.mechanism?.type !== 'auto.browser.global_handlers.onerror') return false
+
+  return hasBrowserTranslationBreadcrumb(event)
+}
+
 function isInjectedZpScriptError(event: Sentry.ErrorEvent): boolean {
   const values = event.exception?.values
   if (!values || values.length !== 1) return false
@@ -185,6 +221,29 @@ function isInjectedZpScriptError(event: Sentry.ErrorEvent): boolean {
   return (exc.stacktrace?.frames || []).some((frame) => {
     const file = frame.filename || frame.abs_path || ''
     return /\/1\/zp\.js(?:$|\?)/.test(file)
+  })
+}
+
+function isInjectedShopLookupRejection(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type !== 'UnhandledRejection') return false
+  if (!/Non-Error promise rejection captured with value:\s*Not found/i.test(exc.value || '')) {
+    return false
+  }
+  if (exc.mechanism?.type !== 'auto.browser.global_handlers.onunhandledrejection') return false
+
+  return (event.breadcrumbs || []).some((breadcrumb) => {
+    if (breadcrumb.category !== 'fetch') return false
+    const data = breadcrumb.data || {}
+    const url = typeof data.url === 'string' ? data.url : ''
+    const statusCode = data.status_code
+    return (
+      statusCode === 404 &&
+      /execute-api\.[a-z0-9-]+\.amazonaws\.com\/dev\/sites\?site=genosys\.ae/i.test(url)
+    )
   })
 }
 
@@ -204,7 +263,9 @@ if (dsn) {
       if (isIOSNavigationAbortError(event)) return null
       if (isIOSViewTransitionRemoveChildRace(event)) return null
       if (isGoogleTranslateRemoveChildMutation(event)) return null
+      if (isBrowserTranslationContentDocumentProbe(event)) return null
       if (isInjectedZpScriptError(event)) return null
+      if (isInjectedShopLookupRejection(event)) return null
 
       // Strip PII-sensitive fields before events leave the browser.
       // Checkout pages see email/address/phone; scrub them from breadcrumbs.

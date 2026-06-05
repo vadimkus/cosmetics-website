@@ -10,6 +10,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { getLocalizedPath } from '@/lib/i18n'
 import { EMIRATES } from '@/lib/emirates'
+import { safeSessionStorageRemoveItem } from '@/lib/browserStorage'
 
 export default function PWALoginPage() {
   const router = useRouter()
@@ -33,9 +34,7 @@ export default function PWALoginPage() {
   // Clear splash flag when login page mounts (ensures clean state)
   // This is a safeguard for iOS PWA where sessionStorage can persist
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      sessionStorage.removeItem('pwa_splash_shown')
-    }
+    safeSessionStorageRemoveItem('pwa_splash_shown')
   }, [])
 
   // Handle OAuth error query params
@@ -114,7 +113,7 @@ export default function PWALoginPage() {
           setError(t('authScreen.registrationFailed'))
         }
       }
-    } catch (err) {
+    } catch {
       setError(t('common.error'))
     }
   }
@@ -126,7 +125,7 @@ export default function PWALoginPage() {
     }
     try {
       await loginWithGoogle()
-    } catch (err) {
+    } catch {
       setError(t('login.googleAuthFailed'))
     }
   }
@@ -138,7 +137,7 @@ export default function PWALoginPage() {
     }
     try {
       await loginWithApple()
-    } catch (err) {
+    } catch {
       setError(t('login.appleAuthFailed'))
     }
   }

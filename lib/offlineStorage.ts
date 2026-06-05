@@ -1,4 +1,9 @@
 import { errorLog } from '@/lib/logger'
+import {
+  safeLocalStorageGetItem,
+  safeLocalStorageRemoveItem,
+  safeLocalStorageSetItem,
+} from '@/lib/browserStorage'
 /**
  * Offline Storage Utilities
  * Handles local storage for offline functionality
@@ -47,7 +52,7 @@ class OfflineStorage {
         })
       }
       
-      localStorage.setItem(this.CART_KEY, JSON.stringify(cart))
+      safeLocalStorageSetItem(this.CART_KEY, JSON.stringify(cart))
       this.addOfflineAction('add_to_cart', { productId, quantity })
     } catch (error) {
       errorLog('Failed to add to offline cart:', error)
@@ -58,7 +63,7 @@ class OfflineStorage {
     try {
       const cart = this.getOfflineCart()
       const filteredCart = cart.filter(item => item.productId !== productId)
-      localStorage.setItem(this.CART_KEY, JSON.stringify(filteredCart))
+      safeLocalStorageSetItem(this.CART_KEY, JSON.stringify(filteredCart))
       this.addOfflineAction('remove_from_cart', { productId })
     } catch (error) {
       errorLog('Failed to remove from offline cart:', error)
@@ -67,7 +72,7 @@ class OfflineStorage {
 
   getOfflineCart(): OfflineCartItem[] {
     try {
-      const cart = localStorage.getItem(this.CART_KEY)
+      const cart = safeLocalStorageGetItem(this.CART_KEY)
       return cart ? JSON.parse(cart) : []
     } catch (error) {
       errorLog('Failed to get offline cart:', error)
@@ -77,7 +82,7 @@ class OfflineStorage {
 
   clearOfflineCart(): void {
     try {
-      localStorage.removeItem(this.CART_KEY)
+      safeLocalStorageRemoveItem(this.CART_KEY)
     } catch (error) {
       errorLog('Failed to clear offline cart:', error)
     }
@@ -92,7 +97,7 @@ class OfflineStorage {
           productId,
           timestamp: Date.now()
         })
-        localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(favorites))
+        safeLocalStorageSetItem(this.FAVORITES_KEY, JSON.stringify(favorites))
         this.addOfflineAction('add_favorite', { productId })
       }
     } catch (error) {
@@ -104,7 +109,7 @@ class OfflineStorage {
     try {
       const favorites = this.getOfflineFavorites()
       const filteredFavorites = favorites.filter(fav => fav.productId !== productId)
-      localStorage.setItem(this.FAVORITES_KEY, JSON.stringify(filteredFavorites))
+      safeLocalStorageSetItem(this.FAVORITES_KEY, JSON.stringify(filteredFavorites))
       this.addOfflineAction('remove_favorite', { productId })
     } catch (error) {
       errorLog('Failed to remove from offline favorites:', error)
@@ -113,7 +118,7 @@ class OfflineStorage {
 
   getOfflineFavorites(): OfflineFavorite[] {
     try {
-      const favorites = localStorage.getItem(this.FAVORITES_KEY)
+      const favorites = safeLocalStorageGetItem(this.FAVORITES_KEY)
       return favorites ? JSON.parse(favorites) : []
     } catch (error) {
       errorLog('Failed to get offline favorites:', error)
@@ -128,7 +133,7 @@ class OfflineStorage {
 
   clearOfflineFavorites(): void {
     try {
-      localStorage.removeItem(this.FAVORITES_KEY)
+      safeLocalStorageRemoveItem(this.FAVORITES_KEY)
     } catch (error) {
       errorLog('Failed to clear offline favorites:', error)
     }
@@ -150,7 +155,7 @@ class OfflineStorage {
         actions.splice(0, actions.length - this.MAX_ACTIONS)
       }
       
-      localStorage.setItem(this.ACTIONS_KEY, JSON.stringify(actions))
+      safeLocalStorageSetItem(this.ACTIONS_KEY, JSON.stringify(actions))
     } catch (error) {
       errorLog('Failed to add offline action:', error)
     }
@@ -158,7 +163,7 @@ class OfflineStorage {
 
   getOfflineActions(): OfflineAction[] {
     try {
-      const actions = localStorage.getItem(this.ACTIONS_KEY)
+      const actions = safeLocalStorageGetItem(this.ACTIONS_KEY)
       return actions ? JSON.parse(actions) : []
     } catch (error) {
       errorLog('Failed to get offline actions:', error)
@@ -177,7 +182,7 @@ class OfflineStorage {
         }
       })
       
-      localStorage.setItem(this.ACTIONS_KEY, JSON.stringify(allActions))
+      safeLocalStorageSetItem(this.ACTIONS_KEY, JSON.stringify(allActions))
     } catch (error) {
       errorLog('Failed to mark actions as synced:', error)
     }
@@ -192,7 +197,7 @@ class OfflineStorage {
     try {
       const actions = this.getOfflineActions()
       const unsyncedActions = actions.filter(action => !action.synced)
-      localStorage.setItem(this.ACTIONS_KEY, JSON.stringify(unsyncedActions))
+      safeLocalStorageSetItem(this.ACTIONS_KEY, JSON.stringify(unsyncedActions))
     } catch (error) {
       errorLog('Failed to clear synced actions:', error)
     }
@@ -271,7 +276,7 @@ class OfflineStorage {
     this.clearOfflineCart()
     this.clearOfflineFavorites()
     try {
-      localStorage.removeItem(this.ACTIONS_KEY)
+      safeLocalStorageRemoveItem(this.ACTIONS_KEY)
     } catch (error) {
       errorLog('Failed to clear offline actions:', error)
     }

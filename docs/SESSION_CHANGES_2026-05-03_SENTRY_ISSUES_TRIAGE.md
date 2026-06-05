@@ -161,3 +161,69 @@ Verification:
 - `npx tsc --noEmit` passed.
 - `npx eslint app/error.tsx app/global-error.tsx lib/browserErrorNoise.ts instrumentation-client.ts` passed.
 - `npm run build` passed, including Prisma generate, migration deploy check, service worker version generation, and `394/394` static page generation.
+
+## Follow-Up — 2026-06-03 Blocked Browser Storage
+
+Sentry reported two fresh homepage issues on release `9b0252c`:
+
+- `JAVASCRIPT-NEXTJS-12` / event `6690a74a...`: `SecurityError: Failed to read the 'localStorage' property from 'Window': Access is denied for this document.`
+- `JAVASCRIPT-NEXTJS-11` / event `fc00ef3f...`: same `SecurityError`, surfaced as an unhandled browser rejection.
+
+Both happened on `/` in Chrome/Linux from the same region/time. This is the browser privacy/embedded-context behavior where merely reading `window.localStorage` can throw, even though `window` exists. The homepage mounts root providers that used direct storage access for auth fallback, favorites, theme, cart persistence, offline storage, and PWA sync.
+
+Related issue:
+
+- `JAVASCRIPT-NEXTJS-10` / event `ecc2e80d...`: `ReferenceError: indexedDB is not defined` on `/`, also from release `9b0252c`.
+
+Fix applied:
+
+- Added `lib/browserStorage.ts` with safe `localStorage`, `sessionStorage`, and IndexedDB availability helpers that treat blocked storage as unavailable instead of throwing.
+- Updated `AuthProvider`, `FavoritesProvider`, `useTheme`, `cartStore`, and `offlineStorage` to use the safe storage wrappers.
+- Guarded `useBackgroundSync` so it skips IndexedDB-backed queue setup and queue operations when IndexedDB is unavailable.
+
+Verification:
+
+- `npx tsc --noEmit` passed.
+- `npx eslint lib/browserStorage.ts components/auth/AuthProvider.tsx components/FavoritesProvider.tsx hooks/useTheme.ts hooks/useBackgroundSync.ts lib/cartStore.ts lib/offlineStorage.ts` passed with 0 errors; existing hook dependency warnings remain in `useTheme` and `useBackgroundSync`.
+- `npm run build` passed, including Prisma generate, migration deploy check, service worker version generation, and `394/394` static page generation.
+
+## Follow-Up — 2026-06-04 Injected Shop Lookup Rejection
+
+Sentry reported `JAVASCRIPT-NEXTJS-13` on `/pwa-login`: `UnhandledRejection: Non-Error promise rejection captured with value: Not found` on release `9b0252c`. The app route itself loaded correctly: raw event breadcrumbs showed `GET https://genosys.ae/pwa-login?_rsc=...` returned `200`.
+
+The failing breadcrumb was an external request:
+
+- `GET https://o0rmue7xt0.execute-api.il-central-1.amazonaws.com/dev/sites?site=genosys.ae`
+- Status `404`
+- Preceded by a console breadcrumb `includeShop`
+
+There is no `includeShop` or `execute-api.../dev/sites` code in the repo, and the only in-repo `Not found` response is an unrelated admin newsletter API. This points to third-party/injected browser extension or shopping-assistant script noise.
+
+Fix applied:
+
+- Added a narrow client-side Sentry filter for non-error `Not found` unhandled rejections only when the event includes the external `execute-api.../dev/sites?site=genosys.ae` 404 breadcrumb.
+- Updated `/pwa-login` to clear the splash flag through the safe `sessionStorage` wrapper, so browser storage restrictions cannot create a separate login-page failure.
+
+Verification:
+
+- `npx tsc --noEmit` passed.
+- `npx eslint instrumentation-client.ts app/pwa-login/page.tsx lib/browserStorage.ts components/auth/AuthProvider.tsx components/FavoritesProvider.tsx hooks/useTheme.ts hooks/useBackgroundSync.ts lib/cartStore.ts lib/offlineStorage.ts` passed with 0 errors; existing hook dependency warnings remain in `useTheme` and `useBackgroundSync`.
+- `npm run build` passed, including Prisma generate, migration deploy check, service worker version generation, and `394/394` static page generation.
+
+## Follow-Up — 2026-06-05 Browser Translation iframe Probe
+
+Sentry reported `JAVASCRIPT-NEXTJS-14` on `/brand`: `TypeError: null is not an object (evaluating 'e.contentDocument.body')` on release `9b0252c`. Two events occurred on Mobile Safari / iOS 26.2.
+
+Raw event details:
+
+- Stack frames were only `app:///brand`, with no function names or source context.
+- The repo has no `contentDocument` reads in the brand page or shared components.
+- The brand page embeds YouTube videos via cross-origin iframes.
+- Breadcrumbs immediately before the error showed browser translation/probing logs such as `{ from: "en", to: "ko" }` and progress objects `{ current, total, isObserved, success }`.
+
+Assessment: this is a browser translation or extension script probing iframe documents and not handling a null `contentDocument` on iOS Safari. It is not actionable application code and did not point to a broken app route.
+
+Fix applied:
+
+- Added a narrow client-side Sentry filter for `TypeError` messages containing `contentDocument.body` only when browser-translation breadcrumbs are present.
+- Kept the filter independent from the existing Google Translate `removeChild` filter so real app errors still pass through.

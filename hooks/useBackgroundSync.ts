@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { debugLog, errorLog, warnLog } from '@/lib/logger'
+import { isIndexedDBAvailable } from '@/lib/browserStorage'
 
 // Background Sync API types (experimental)
 interface SyncManager {
@@ -53,6 +54,10 @@ interface UseBackgroundSyncReturn extends BackgroundSyncState {
 
 // Open IndexedDB
 function openSyncDB(): Promise<IDBDatabase> {
+  if (!isIndexedDBAvailable()) {
+    return Promise.reject(new Error('IndexedDB is unavailable in this browser context'))
+  }
+
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(SYNC_DB_NAME, SYNC_DB_VERSION)
 
@@ -97,6 +102,8 @@ export function useBackgroundSync(): UseBackgroundSyncReturn {
 
   // Initialize database
   useEffect(() => {
+    if (!isIndexedDBAvailable()) return
+
     openSyncDB()
       .then((db) => {
         dbRef.current = db
@@ -138,6 +145,8 @@ export function useBackgroundSync(): UseBackgroundSyncReturn {
 
   // Update pending count
   const updatePendingCount = useCallback(async () => {
+    if (!isIndexedDBAvailable()) return
+
     try {
       const db = dbRef.current || (await openSyncDB())
       const transaction = db.transaction(SYNC_STORE_NAME, 'readonly')
@@ -159,6 +168,8 @@ export function useBackgroundSync(): UseBackgroundSyncReturn {
       operation: Omit<SyncOperation, 'id' | 'timestamp' | 'retryCount' | 'status'>
     ): Promise<string> => {
       const id = generateId()
+      if (!isIndexedDBAvailable()) return id
+
       const syncOperation: SyncOperation = {
         ...operation,
         id,
@@ -212,6 +223,8 @@ export function useBackgroundSync(): UseBackgroundSyncReturn {
 
   // Process the sync queue
   const processQueue = useCallback(async () => {
+    if (!isIndexedDBAvailable()) return
+
     if (syncInProgressRef.current) {
       debugLog('Sync already in progress, skipping...')
       return
@@ -326,6 +339,8 @@ export function useBackgroundSync(): UseBackgroundSyncReturn {
     status: SyncOperation['status'],
     error?: string
   ): Promise<void> => {
+    if (!isIndexedDBAvailable()) return
+
     try {
       const db = dbRef.current || (await openSyncDB())
       const transaction = db.transaction(SYNC_STORE_NAME, 'readwrite')
@@ -347,6 +362,8 @@ export function useBackgroundSync(): UseBackgroundSyncReturn {
 
   // Update operation retry count
   const updateOperationRetry = async (id: string, retryCount: number): Promise<void> => {
+    if (!isIndexedDBAvailable()) return
+
     try {
       const db = dbRef.current || (await openSyncDB())
       const transaction = db.transaction(SYNC_STORE_NAME, 'readwrite')
@@ -369,6 +386,8 @@ export function useBackgroundSync(): UseBackgroundSyncReturn {
   // Remove an operation from the queue
   const removeOperation = useCallback(
     async (id: string): Promise<void> => {
+      if (!isIndexedDBAvailable()) return
+
       try {
         const db = dbRef.current || (await openSyncDB())
         const transaction = db.transaction(SYNC_STORE_NAME, 'readwrite')
@@ -390,6 +409,8 @@ export function useBackgroundSync(): UseBackgroundSyncReturn {
 
   // Get all pending operations
   const getPendingOperations = useCallback(async (): Promise<SyncOperation[]> => {
+    if (!isIndexedDBAvailable()) return []
+
     try {
       const db = dbRef.current || (await openSyncDB())
       const transaction = db.transaction(SYNC_STORE_NAME, 'readonly')
@@ -408,6 +429,8 @@ export function useBackgroundSync(): UseBackgroundSyncReturn {
 
   // Clear the entire queue
   const clearQueue = useCallback(async (): Promise<void> => {
+    if (!isIndexedDBAvailable()) return
+
     try {
       const db = dbRef.current || (await openSyncDB())
       const transaction = db.transaction(SYNC_STORE_NAME, 'readwrite')

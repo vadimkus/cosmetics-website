@@ -3,6 +3,11 @@ import { errorLog } from '@/lib/logger'
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { Product } from '@/types'
+import {
+  safeLocalStorageGetItem,
+  safeLocalStorageRemoveItem,
+  safeLocalStorageSetItem,
+} from '@/lib/browserStorage'
 
 interface FavoritesContextType {
   favorites: Product[]
@@ -33,13 +38,13 @@ export default function FavoritesProvider({ children }: FavoritesProviderProps) 
   // Ensure we're on the client side before accessing localStorage
   useEffect(() => {
     setIsClient(true)
-    const savedFavorites = localStorage.getItem('genosys_favorites')
+    const savedFavorites = safeLocalStorageGetItem('genosys_favorites')
     if (savedFavorites) {
       try {
         setFavorites(JSON.parse(savedFavorites))
       } catch (error) {
         errorLog('Error parsing saved favorites:', error)
-        localStorage.removeItem('genosys_favorites')
+        safeLocalStorageRemoveItem('genosys_favorites')
       }
     }
   }, [])
@@ -47,7 +52,7 @@ export default function FavoritesProvider({ children }: FavoritesProviderProps) 
   // Save favorites to localStorage whenever favorites change
   useEffect(() => {
     if (isClient) {
-      localStorage.setItem('genosys_favorites', JSON.stringify(favorites))
+      safeLocalStorageSetItem('genosys_favorites', JSON.stringify(favorites))
     }
   }, [favorites, isClient])
 

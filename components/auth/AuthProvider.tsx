@@ -5,6 +5,14 @@ import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog, debugLog } from '@/lib/logger'
 import { useToast } from '@/components/ToastProvider'
 import { useTranslation } from '@/hooks/useTranslation'
+import {
+  safeLocalStorageClear,
+  safeLocalStorageGetItem,
+  safeLocalStorageRemoveItem,
+  safeLocalStorageSetItem,
+  safeSessionStorageClear,
+  safeSessionStorageRemoveItem,
+} from '@/lib/browserStorage'
 
 // Type extension for iOS Safari PWA detection
 // Safari adds a non-standard 'standalone' property to navigator
@@ -80,7 +88,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
           }
           
           // Fallback to localStorage
-          const savedUser = localStorage.getItem('genosys_user')
+          const savedUser = safeLocalStorageGetItem('genosys_user')
           if (savedUser) {
             try {
               const parsedUser = JSON.parse(savedUser)
@@ -106,20 +114,20 @@ export default function AuthProvider({ children }: AuthProviderProps) {
               }
             } catch (error) {
               errorLog('Error parsing saved user:', error)
-              localStorage.removeItem('genosys_user')
+              safeLocalStorageRemoveItem('genosys_user')
             }
           }
           setIsLoading(false)
         })
         .catch(() => {
           // Fallback to localStorage if session check fails
-          const savedUser = localStorage.getItem('genosys_user')
+          const savedUser = safeLocalStorageGetItem('genosys_user')
           if (savedUser) {
             try {
               setUser(JSON.parse(savedUser))
             } catch (error) {
               errorLog('Error parsing saved user:', error)
-              localStorage.removeItem('genosys_user')
+              safeLocalStorageRemoveItem('genosys_user')
             }
           }
           setIsLoading(false)
@@ -154,9 +162,9 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             profilePicture: user.profilePicture // Include profile picture for display
             // Exclude: address, createdAt (not needed for session)
           }
-          localStorage.setItem('genosys_user', JSON.stringify(essentialUserData))
+          safeLocalStorageSetItem('genosys_user', JSON.stringify(essentialUserData))
         } else {
-          localStorage.removeItem('genosys_user')
+          safeLocalStorageRemoveItem('genosys_user')
         }
       } catch (error) {
         // Handle quota exceeded or other storage errors
@@ -167,19 +175,19 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             try {
               // Clear old offline actions (keep only last 20)
               const actionsKey = 'genosys_offline_actions'
-              const actions = localStorage.getItem(actionsKey)
+              const actions = safeLocalStorageGetItem(actionsKey)
               if (actions) {
                 try {
                   const parsedActions = JSON.parse(actions)
                   if (Array.isArray(parsedActions) && parsedActions.length > 20) {
                     const recentActions = parsedActions.slice(-20)
-                    localStorage.setItem(actionsKey, JSON.stringify(recentActions))
+                    safeLocalStorageSetItem(actionsKey, JSON.stringify(recentActions))
                   }
-                } catch (error) {
-                  localStorage.removeItem(actionsKey)
+                } catch {
+                  safeLocalStorageRemoveItem(actionsKey)
                 }
               }
-            } catch (error) {
+            } catch {
               // Ignore errors when cleaning up
             }
 
@@ -196,13 +204,13 @@ export default function AuthProvider({ children }: AuthProviderProps) {
                 discountPercentage: user.discountPercentage,
                 birthday: user.birthday
               }
-              localStorage.setItem('genosys_user', JSON.stringify(essentialUserData))
+              safeLocalStorageSetItem('genosys_user', JSON.stringify(essentialUserData))
             }
           } catch (retryError) {
             errorLog('Failed to store user data in localStorage after cleanup:', retryError)
             // If still failing, clear everything except critical data
             try {
-              localStorage.clear()
+              safeLocalStorageClear()
               if (user) {
                 const minimalUserData = {
                   id: user.id,
@@ -211,7 +219,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
                   isAdmin: user.isAdmin,
                   canSeePrices: user.canSeePrices
                 }
-                localStorage.setItem('genosys_user', JSON.stringify(minimalUserData))
+                safeLocalStorageSetItem('genosys_user', JSON.stringify(minimalUserData))
               }
             } catch (finalError) {
               errorLog('Failed to store minimal user data:', finalError)
@@ -271,7 +279,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
       let mergedUser = data.user
       
       if (isClient && typeof window !== 'undefined') {
-        const existingUser = localStorage.getItem('genosys_user')
+        const existingUser = safeLocalStorageGetItem('genosys_user')
         if (existingUser) {
           try {
             const parsedExistingUser = JSON.parse(existingUser)
@@ -521,12 +529,12 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     setUser(null)
     if (typeof window !== 'undefined') {
       // Clear localStorage
-      localStorage.removeItem('genosys_user')
+      safeLocalStorageRemoveItem('genosys_user')
       
       // Clear ALL PWA-related sessionStorage flags
       // This is critical for iOS PWA which may persist sessionStorage across restarts
-      sessionStorage.removeItem('pwa_splash_shown')
-      sessionStorage.clear() // Nuclear option - clear everything
+      safeSessionStorageRemoveItem('pwa_splash_shown')
+      safeSessionStorageClear() // Nuclear option - clear everything
       
       // Redirect to specified URL or default login page
       // Check if in PWA mode for appropriate login page

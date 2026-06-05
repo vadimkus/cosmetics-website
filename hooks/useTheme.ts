@@ -1,6 +1,11 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import {
+  safeLocalStorageGetItem,
+  safeLocalStorageRemoveItem,
+  safeLocalStorageSetItem,
+} from '@/lib/browserStorage'
 
 /**
  * Theme options
@@ -39,7 +44,7 @@ export function useTheme() {
     setIsClient(true)
     
     // Check for stored preference
-    const storedTheme = localStorage.getItem(STORAGE_KEY) as Theme | null
+    const storedTheme = safeLocalStorageGetItem(STORAGE_KEY) as Theme | null
     if (storedTheme && ['light', 'dark', 'system'].includes(storedTheme)) {
       setThemeState(storedTheme)
     }
@@ -52,7 +57,7 @@ export function useTheme() {
       setResolvedTheme(systemIsDark ? 'dark' : 'light')
       
       // Only apply if user prefers system theme
-      const currentTheme = localStorage.getItem(STORAGE_KEY) as Theme | null
+      const currentTheme = safeLocalStorageGetItem(STORAGE_KEY) as Theme | null
       if (!currentTheme || currentTheme === 'system') {
         applyTheme(systemIsDark ? 'dark' : 'light')
       }
@@ -108,9 +113,9 @@ export function useTheme() {
     setThemeState(newTheme)
     
     if (newTheme === 'system') {
-      localStorage.removeItem(STORAGE_KEY)
+      safeLocalStorageRemoveItem(STORAGE_KEY)
     } else {
-      localStorage.setItem(STORAGE_KEY, newTheme)
+      safeLocalStorageSetItem(STORAGE_KEY, newTheme)
     }
   }, [])
 

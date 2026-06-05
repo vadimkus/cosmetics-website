@@ -1,9 +1,14 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import { CartLineIdentity, CartState, Product } from '@/types'
 import { getCartTotalPrice } from '@/lib/cartPricing'
 import { getPriceForSize } from '@/utils/productPricing'
 import { User } from '@/types/user'
+import {
+  safeLocalStorageGetItem,
+  safeLocalStorageRemoveItem,
+  safeLocalStorageSetItem,
+} from '@/lib/browserStorage'
 
 // App badge functionality (direct API call, no hook needed in a store)
 let updateAppBadge: ((count: number) => void) | null = null
@@ -385,6 +390,13 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: 'cart-storage',
+      storage: createJSONStorage(() => ({
+        getItem: safeLocalStorageGetItem,
+        setItem: (name, value) => {
+          safeLocalStorageSetItem(name, value)
+        },
+        removeItem: safeLocalStorageRemoveItem,
+      })),
       onRehydrateStorage: () => (state) => {
         // Called when hydration from localStorage is complete
         state?.setHasHydrated(true)

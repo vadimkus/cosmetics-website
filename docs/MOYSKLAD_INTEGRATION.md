@@ -4,7 +4,7 @@
 
 Orders placed on **genosys.ae** can be manually pushed to MoySklad (МойСклад) accounting system via the admin panel.
 
-This is a **one-way sync**: genosys.ae → MoySklad. The integration only **creates** new customer orders and counterparties — it never modifies or deletes existing MoySklad data.
+This is a **one-way sync**: genosys.ae → MoySklad. The integration creates the retail document chain and counterparties when needed — it never deletes existing MoySklad data.
 
 ## How It Works
 
@@ -21,7 +21,13 @@ Admin clicks "Push to MoySklad" button
          ↓
 Customer/counterparty found or created in MoySklad
          ↓
-Order with line items appears in MoySklad
+Customer order appears in MoySklad
+         ↓
+Invoice is created from the order
+         ↓
+Отгрузка is created from the invoice
+         ↓
+For paid online orders: incoming payment (paymentin) is created and linked to the отгрузка
          ↓
 moySkladOrderId saved to order in database
 (button changes to green "Synced to MoySklad" badge)
@@ -51,13 +57,15 @@ Orders are pushed to MoySklad **manually** by clicking the "Push to MoySklad" bu
 
 | Column | Type | Purpose |
 |--------|------|---------|
-| `moySkladOrderId` | String (nullable) | MoySklad order UUID after push |
+| `moySkladOrderId` | String (nullable) | MoySklad customer order UUID after push |
 | `moySkladSyncedAt` | DateTime (nullable) | Timestamp of when order was pushed |
+
+`moySkladOrderId` intentionally remains the customer order ID for backward compatibility with the admin “Synced” badge. The API response also returns `moySkladInvoiceId`, `moySkladDemandId`, and `moySkladPaymentInId` when those documents are created, but those extra IDs are not currently stored in the database.
 
 ### Safety Guarantees
 
 - **Non-blocking checkout**: MoySklad is completely decoupled from the checkout flow
-- **No overwrites**: Existing MoySklad products, counterparties, and orders are never modified
+- **No deletes**: Existing MoySklad products, counterparties, and orders are never deleted
 - **Idempotent counterparties**: Customers are searched by phone → email → name before creating a new one
 - **Duplicate protection**: Once pushed, the button changes to a "Synced" badge and the API rejects re-pushes
 - **Graceful degradation**: If `MOYSKLAD_LOGIN` / `MOYSKLAD_PASSWORD` env vars are not set, the push endpoint returns a clear error
@@ -73,6 +81,10 @@ Orders are pushed to MoySklad **manually** by clicking the "Push to MoySklad" bu
 | Currency (AED) | AED (default) | `e1870630-33c5-11ea-0a80-043f000b273f` |
 | Order State (COD / unpaid) | Новый (New) | `e1a0abf2-33c5-11ea-0a80-043f000b275a` |
 | Order State (paid online) | Оплачен - Ждет доставки | `909556cd-8f70-11ea-0a80-016b00219616` |
+| Order State (paid chain completed) | Доставлен | `e1a0ae5f-33c5-11ea-0a80-043f000b275e` |
+| Demand State | Отгружен | `50d70717-4582-11ea-0a80-05e3001273a2` |
+| Invoice State | Выписан | `a9609013-84d0-11ea-0a80-0453000aecd1` |
+| Organization account | Default Genosys account for paymentin | `e1852e1c-33c5-11ea-0a80-043f000b2739` |
 
 ### Order States Available
 
@@ -84,7 +96,7 @@ Orders are pushed to MoySklad **manually** by clicking the "Push to MoySklad" bu
 | Доставлен | Delivered | `e1a0ae5f-...275e` |
 | Оплачен - Ждет доставки | Paid - Awaiting delivery | `909556cd-...9616` |
 
-New orders from genosys.ae are created with state **"Оплачен - Ждет доставки"** when the website payment method is paid online (`stripe` / `apple_pay`) and the website payment status is `paid`. COD / unpaid / pending orders remain **"Новый"**.
+New orders from genosys.ae are created with state **"Оплачен - Ждет доставки"** when the website payment method is paid online (`stripe` / `apple_pay`) and the website payment status is `paid`. After invoice → отгрузка → incoming payment succeeds, the customer order is moved to **"Доставлен"**. COD / unpaid / pending orders still get order → invoice → отгрузка, but **do not** get `paymentin`.
 
 ## Product Mapping
 
@@ -182,7 +194,7 @@ MOYSKLAD_PASSWORD=your-password-here
 
 | File | Purpose |
 |------|---------|
-| `lib/moysklad.ts` | Main integration module — API client, `PRODUCT_MAP`, `COLOR_VARIANT_MAP`, `DELIVERY_SERVICE_MAP`, order creation |
+| `lib/moysklad.ts` | Main integration module — API client, `PRODUCT_MAP`, `COLOR_VARIANT_MAP`, `DELIVERY_SERVICE_MAP`, order → invoice → shipment → paymentin chain |
 | `app/api/admin/orders/[id]/push-moysklad/route.ts` | Admin API endpoint — maps `OrderItem` (productName, quantity, price, color) to MoySklad |
 | `components/admin/OrderDetails.tsx` | Admin order detail view with "Push to MoySklad" button |
 | `prisma/schema.prisma` | `moySkladOrderId` and `moySkladSyncedAt` fields on Order model |
@@ -222,15 +234,22 @@ If a customer has ordered before (same phone or email), they are matched to thei
 
 New counterparties appear under: **Контрагенты** (Counterparties) → type **Физлицо** (Individual).
 
-## MoySklad Order Format
+## MoySklad Retail Document Chain
 
-Each order created in MoySklad includes:
+Each admin push now creates:
+
+1. Customer order (`customerorder`)
+2. Invoice (`invoiceout`)
+3. Отгрузка / shipment (`demand`)
+4. Incoming payment (`paymentin`) only when the website order is already paid online
+
+The customer order created in MoySklad includes:
 
 - **Name**: Order number (e.g., `CODW2602155957`)
 - **Organization**: Genosys Middle East FZ-LLC
 - **Counterparty**: Customer (found by phone/email or created)
 - **Store**: Genosys Warehouse
-- **State**: Новый (New)
+- **State**: Новый (COD/unpaid), Оплачен - Ждет доставки (paid online before chain completion), then Доставлен after `paymentin`
 - **Currency**: AED
 - **VAT**: 5% (included in prices, applied to both products and delivery)
 - **Description**: Payment method, shipping cost, any unmapped items

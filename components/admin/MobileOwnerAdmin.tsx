@@ -153,7 +153,7 @@ export default function MobileOwnerAdmin({
       }
 
       onMoySkladPushed(order.id, result.moySkladOrderId)
-      showToast(`Order #${getOrderNumber(order)} sent to MoySklad`, 'success')
+      showToast(result.message || `Order #${getOrderNumber(order)} sent to MoySklad`, 'success')
     } catch (error) {
       errorLog('Mobile admin MoySklad push failed:', error)
       showToast('Error sending order to MoySklad', 'error')

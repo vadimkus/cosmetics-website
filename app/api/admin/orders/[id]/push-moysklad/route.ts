@@ -122,12 +122,21 @@ export async function POST(
       }
     })
 
-    debugLog(`✅ Order ${order.orderNumber} pushed to MoySklad: ${result.moySkladOrderId}`)
+    debugLog(
+      `✅ Order ${order.orderNumber} pushed to MoySklad: ` +
+      `order=${result.moySkladOrderId}, invoice=${result.moySkladInvoiceId}, ` +
+      `shipment=${result.moySkladDemandId}, paymentin=${result.moySkladPaymentInId || 'skipped'}`
+    )
 
     return NextResponse.json({
       success: true,
       moySkladOrderId: result.moySkladOrderId,
-      message: `Order ${order.orderNumber} successfully pushed to MoySklad`
+      moySkladInvoiceId: result.moySkladInvoiceId,
+      moySkladDemandId: result.moySkladDemandId,
+      moySkladPaymentInId: result.moySkladPaymentInId,
+      message: result.moySkladPaymentInId
+        ? `Order ${order.orderNumber} successfully pushed to MoySklad with invoice, shipment, and incoming payment`
+        : `Order ${order.orderNumber} successfully pushed to MoySklad with invoice and shipment`
     })
 
   } catch (error) {

@@ -1,14 +1,14 @@
 /**
  * MoySklad (МойСклад) Integration Module
  * 
- * Creates customer orders in MoySklad when orders are placed on genosys.ae.
+ * Creates the retail document chain in MoySklad when orders are pushed from genosys.ae admin.
  * This is a one-way sync: genosys.ae → MoySklad (read-only for products).
  * 
  * MoySklad API docs: https://dev.moysklad.ru/doc/api/remap/1.2/
  * GitHub docs: https://github.com/moysklad/api-remap-1.2-doc
  * 
  * IMPORTANT: This module never modifies existing MoySklad products, counterparties,
- * or other entities. It only CREATES new customer orders and counterparties (if needed).
+ * or other entities. It only CREATES new documents and counterparties (if needed).
  */
 
 import { debugLog, errorLog, warnLog } from '@/lib/logger'
@@ -23,8 +23,12 @@ const MOYSKLAD_API_BASE = 'https://api.moysklad.ru/api/remap/1.2'
 const MOYSKLAD_ORG_ID = 'e18525a4-33c5-11ea-0a80-043f000b2738' // Genosys Middle East FZ-LLC
 const MOYSKLAD_STORE_ID = 'e186d449-33c5-11ea-0a80-043f000b273a' // Genosys Warehouse
 const MOYSKLAD_CURRENCY_ID = 'e1870630-33c5-11ea-0a80-043f000b273f' // AED (default)
+const MOYSKLAD_DEFAULT_ACCOUNT_ID = 'e1852e1c-33c5-11ea-0a80-043f000b2739' // Default Genosys organization account for paymentin
 const MOYSKLAD_STATE_NEW_ID = 'e1a0abf2-33c5-11ea-0a80-043f000b275a' // "Новый" (New)
 const MOYSKLAD_STATE_PAID_AWAITING_DELIVERY_ID = '909556cd-8f70-11ea-0a80-016b00219616' // "Оплачен - Ждет доставки"
+const MOYSKLAD_STATE_DELIVERED_ID = 'e1a0ae5f-33c5-11ea-0a80-043f000b275e' // "Доставлен"
+const MOYSKLAD_DEMAND_STATE_SHIPPED_ID = '50d70717-4582-11ea-0a80-05e3001273a2' // "Отгружен"
+const MOYSKLAD_INVOICE_STATE_ISSUED_ID = 'a9609013-84d0-11ea-0a80-0453000aecd1' // "Выписан"
 const MOYSKLAD_COUNTRY_UAE_ID = '8afef359-33c6-11ea-0a80-0043000aceae' // "UAE" (account's custom country entry)
 
 // ============================================================================
@@ -72,6 +76,16 @@ function stateMeta(entityType: string, id: string): { meta: MoySkladMeta } {
   }
 }
 
+function organizationAccountMeta(id: string): { meta: MoySkladMeta } {
+  return {
+    meta: {
+      href: `${MOYSKLAD_API_BASE}/entity/organization/${MOYSKLAD_ORG_ID}/accounts/${id}`,
+      type: 'account',
+      mediaType: 'application/json'
+    }
+  }
+}
+
 async function moySkladFetch(
   path: string,
   options: { method?: string; body?: unknown } = {}
@@ -87,6 +101,7 @@ async function moySkladFetch(
       headers: {
         'Authorization': auth,
         'Content-Type': 'application/json',
+        'Accept': 'application/json;charset=utf-8',
         'Accept-Encoding': 'gzip',
       },
       ...(options.body ? { body: JSON.stringify(options.body) } : {}),
@@ -531,15 +546,32 @@ export interface MoySkladOrderData {
   description?: string
 }
 
+export interface MoySkladPushResult {
+  success: boolean
+  moySkladOrderId?: string
+  moySkladInvoiceId?: string
+  moySkladDemandId?: string
+  moySkladPaymentInId?: string
+  error?: string
+}
+
+interface CreatedMoySkladEntity {
+  id: string
+  name: string
+  sum?: number
+}
+
 /**
- * Create a customer order in MoySklad.
+ * Create the retail chain in MoySklad.
  * 
  * This is the main integration function. It:
  * 1. Finds or creates the customer as a counterparty
  * 2. Maps webapp products to MoySklad product IDs
  * 3. Creates the customer order with positions
+ * 4. Creates invoice → отгрузка
+ * 5. Creates incoming payment (paymentin) for paid online orders
  * 
- * Returns { success, orderId?, error? }
+ * Returns { success, moySkladOrderId?, moySkladInvoiceId?, moySkladDemandId?, moySkladPaymentInId?, error? }
  * 
  * SAFETY: This function is designed to be called fire-and-forget.
  * It never throws — all errors are caught and logged.
@@ -547,7 +579,7 @@ export interface MoySkladOrderData {
  */
 export async function createMoySkladOrder(
   orderData: MoySkladOrderData
-): Promise<{ success: boolean; moySkladOrderId?: string; error?: string }> {
+): Promise<MoySkladPushResult> {
   try {
     // Check if MoySklad integration is enabled
     const auth = getAuthHeader()
@@ -649,7 +681,7 @@ export async function createMoySkladOrder(
       descParts.push(orderData.description)
     }
 
-    // Step 4: Create the order
+    // Step 4: Create the customer order
     const isPaidOnlineOrder = isPaidOnlinePayment(orderData.paymentMethod)
       && orderData.paymentStatus?.trim().toLowerCase() === 'paid'
 
@@ -687,14 +719,166 @@ export async function createMoySkladOrder(
       body: orderBody
     })
 
-    if (result.ok && result.data) {
-      const created = result.data as { id: string; name: string }
-      debugLog(`✅ MoySklad: Order created! ID: ${created.id}, Name: ${created.name}`)
-      return { success: true, moySkladOrderId: created.id }
+    if (!result.ok || !result.data) {
+      errorLog('❌ MoySklad: Failed to create order:', result.error)
+      return { success: false, error: result.error || 'Unknown error' }
     }
 
-    errorLog('❌ MoySklad: Failed to create order:', result.error)
-    return { success: false, error: result.error || 'Unknown error' }
+    const createdOrder = result.data as CreatedMoySkladEntity
+    debugLog(`✅ MoySklad: Order created! ID: ${createdOrder.id}, Name: ${createdOrder.name}`)
+
+    // Step 5: Create customer invoice linked to customer order.
+    // Positions are sent explicitly so the invoice is printable even if
+    // MoySklad does not auto-copy order lines for an edge case.
+    const invoiceBody = {
+      description: `Invoice for ${orderData.orderNumber} | ${descParts.join(' | ')}`,
+      organization: entityMeta('organization', MOYSKLAD_ORG_ID),
+      agent: { meta: counterparty.meta },
+      customerOrder: entityMeta('customerorder', createdOrder.id),
+      vatEnabled: true,
+      vatIncluded: true,
+      rate: {
+        currency: entityMeta('currency', MOYSKLAD_CURRENCY_ID)
+      },
+      shipmentAddressFull: orderBody.shipmentAddressFull,
+      ...(positions.length > 0 ? { positions } : {}),
+    }
+
+    let invoiceResult = await moySkladFetch('/entity/invoiceout', {
+      method: 'POST',
+      body: invoiceBody
+    })
+
+    if (!invoiceResult.ok && positions.length > 0) {
+      // Some MoySklad accounts reject explicit invoice positions when linked to
+      // a customer order. Fallback to customerOrder-only; MoySklad normally
+      // copies positions from the order.
+      invoiceResult = await moySkladFetch('/entity/invoiceout', {
+        method: 'POST',
+        body: {
+          description: invoiceBody.description,
+          organization: invoiceBody.organization,
+          agent: invoiceBody.agent,
+          customerOrder: invoiceBody.customerOrder,
+          vatEnabled: invoiceBody.vatEnabled,
+          vatIncluded: invoiceBody.vatIncluded,
+          rate: invoiceBody.rate,
+          shipmentAddressFull: invoiceBody.shipmentAddressFull,
+        }
+      })
+    }
+
+    if (!invoiceResult.ok || !invoiceResult.data) {
+      errorLog('❌ MoySklad: Failed to create invoice:', invoiceResult.error)
+      return {
+        success: false,
+        moySkladOrderId: createdOrder.id,
+        error: invoiceResult.error || 'Failed to create MoySklad invoice'
+      }
+    }
+
+    const createdInvoice = invoiceResult.data as CreatedMoySkladEntity
+    debugLog(`✅ MoySklad: Invoice created! ID: ${createdInvoice.id}, Name: ${createdInvoice.name}`)
+
+    const invoiceStateResult = await moySkladFetch(`/entity/invoiceout/${createdInvoice.id}`, {
+      method: 'PUT',
+      body: {
+        state: stateMeta('invoiceout', MOYSKLAD_INVOICE_STATE_ISSUED_ID)
+      }
+    })
+    if (!invoiceStateResult.ok) {
+      warnLog(`⚠️ MoySklad: Invoice state update failed for ${createdInvoice.name}: ${invoiceStateResult.error}`)
+    }
+
+    // Step 6: Create отгрузка from invoice.
+    const demandResult = await moySkladFetch('/entity/demand', {
+      method: 'POST',
+      body: {
+        description: `Shipment for ${createdInvoice.name} / ${orderData.orderNumber} | ${descParts.join(' | ')}`,
+        organization: entityMeta('organization', MOYSKLAD_ORG_ID),
+        agent: { meta: counterparty.meta },
+        store: entityMeta('store', MOYSKLAD_STORE_ID),
+        invoicesOut: [entityMeta('invoiceout', createdInvoice.id)],
+        state: stateMeta('demand', MOYSKLAD_DEMAND_STATE_SHIPPED_ID),
+        vatEnabled: true,
+        vatIncluded: true,
+        shipmentAddressFull: orderBody.shipmentAddressFull,
+        ...(positions.length > 0 ? { positions } : {}),
+      }
+    })
+
+    if (!demandResult.ok || !demandResult.data) {
+      errorLog('❌ MoySklad: Failed to create shipment:', demandResult.error)
+      return {
+        success: false,
+        moySkladOrderId: createdOrder.id,
+        moySkladInvoiceId: createdInvoice.id,
+        error: demandResult.error || 'Failed to create MoySklad shipment'
+      }
+    }
+
+    const createdDemand = demandResult.data as CreatedMoySkladEntity
+    debugLog(`✅ MoySklad: Shipment created! ID: ${createdDemand.id}, Name: ${createdDemand.name}`)
+
+    let paymentInId: string | undefined
+    if (isPaidOnlineOrder) {
+      const paymentSum = createdDemand.sum || createdInvoice.sum || createdOrder.sum || Math.round(orderData.total * 100)
+      const paymentResult = await moySkladFetch('/entity/paymentin', {
+        method: 'POST',
+        body: {
+          description: `Incoming payment for shipment ${createdDemand.name} / ${orderData.orderNumber} | ${descParts.join(' | ')}`,
+          organization: entityMeta('organization', MOYSKLAD_ORG_ID),
+          agent: { meta: counterparty.meta },
+          organizationAccount: organizationAccountMeta(MOYSKLAD_DEFAULT_ACCOUNT_ID),
+          sum: paymentSum,
+          operations: [
+            {
+              meta: {
+                href: `${MOYSKLAD_API_BASE}/entity/demand/${createdDemand.id}`,
+                type: 'demand',
+                mediaType: 'application/json'
+              },
+              linkedSum: paymentSum
+            }
+          ]
+        }
+      })
+
+      if (!paymentResult.ok || !paymentResult.data) {
+        errorLog('❌ MoySklad: Failed to create incoming payment:', paymentResult.error)
+        return {
+          success: false,
+          moySkladOrderId: createdOrder.id,
+          moySkladInvoiceId: createdInvoice.id,
+          moySkladDemandId: createdDemand.id,
+          error: paymentResult.error || 'Failed to create MoySklad incoming payment'
+        }
+      }
+
+      const createdPayment = paymentResult.data as CreatedMoySkladEntity
+      paymentInId = createdPayment.id
+      debugLog(`✅ MoySklad: Incoming payment created! ID: ${createdPayment.id}, Name: ${createdPayment.name}`)
+
+      const orderDeliveredResult = await moySkladFetch(`/entity/customerorder/${createdOrder.id}`, {
+        method: 'PUT',
+        body: {
+          state: stateMeta('customerorder', MOYSKLAD_STATE_DELIVERED_ID)
+        }
+      })
+      if (!orderDeliveredResult.ok) {
+        warnLog(`⚠️ MoySklad: Customer order state update failed for ${createdOrder.name}: ${orderDeliveredResult.error}`)
+      }
+    } else {
+      debugLog(`⏭️ MoySklad: Skipping paymentin for unpaid/COD order ${orderData.orderNumber}`)
+    }
+
+    return {
+      success: true,
+      moySkladOrderId: createdOrder.id,
+      moySkladInvoiceId: createdInvoice.id,
+      moySkladDemandId: createdDemand.id,
+      ...(paymentInId ? { moySkladPaymentInId: paymentInId } : {}),
+    }
 
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err)

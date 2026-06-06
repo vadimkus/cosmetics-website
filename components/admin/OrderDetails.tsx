@@ -78,7 +78,7 @@ export default function OrderDetails({ order, onBack, onUpdateStatus, getAdminHe
       const result = await response.json()
 
       if (result.success) {
-        showToast(`Order #${order.orderNumber} pushed to MoySklad!`, 'success')
+        showToast(result.message || `Order #${order.orderNumber} pushed to MoySklad!`, 'success')
         setMoySkladId(result.moySkladOrderId)
         onMoySkladPushed?.(order.id, result.moySkladOrderId)
       } else {

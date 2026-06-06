@@ -180,7 +180,7 @@ export default function AdminOrdersPage() {
       const result = await response.json()
 
       if (result.success) {
-        showToast(`Order #${orderNumber} pushed to MoySklad!`, 'success')
+        showToast(result.message || `Order #${orderNumber} pushed to MoySklad!`, 'success')
         // Update the order in state to reflect the sync
         setOrders(prev => prev.map(o => 
           o.id === orderId 

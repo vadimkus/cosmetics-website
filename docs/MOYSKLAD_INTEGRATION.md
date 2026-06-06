@@ -81,7 +81,6 @@ Orders are pushed to MoySklad **manually** by clicking the "Push to MoySklad" bu
 | Currency (AED) | AED (default) | `e1870630-33c5-11ea-0a80-043f000b273f` |
 | Order State (COD / unpaid) | Новый (New) | `e1a0abf2-33c5-11ea-0a80-043f000b275a` |
 | Order State (paid online) | Оплачен - Ждет доставки | `909556cd-8f70-11ea-0a80-016b00219616` |
-| Order State (paid chain completed) | Доставлен | `e1a0ae5f-33c5-11ea-0a80-043f000b275e` |
 | Demand State | Отгружен | `50d70717-4582-11ea-0a80-05e3001273a2` |
 | Invoice State | Выписан | `a9609013-84d0-11ea-0a80-0453000aecd1` |
 | Organization account | Default Genosys account for paymentin | `e1852e1c-33c5-11ea-0a80-043f000b2739` |
@@ -96,7 +95,7 @@ Orders are pushed to MoySklad **manually** by clicking the "Push to MoySklad" bu
 | Доставлен | Delivered | `e1a0ae5f-...275e` |
 | Оплачен - Ждет доставки | Paid - Awaiting delivery | `909556cd-...9616` |
 
-New orders from genosys.ae are created with state **"Оплачен - Ждет доставки"** when the website payment method is paid online (`stripe` / `apple_pay`) and the website payment status is `paid`. After invoice → отгрузка → incoming payment succeeds, the customer order is moved to **"Доставлен"**. COD / unpaid / pending orders still get order → invoice → отгрузка, but **do not** get `paymentin`.
+New orders from genosys.ae are created with state **"Оплачен - Ждет доставки"** when the website payment method is paid online (`stripe` / `apple_pay`) and the website payment status is `paid`. That state is **kept** after invoice → отгрузка → incoming payment — it is not auto-moved to **"Доставлен"** on sync. Move to **"Доставлен"** manually in MoySklad after physical delivery. COD / unpaid / pending orders are created as **"Новый"**, still get order → invoice → отгрузка, but **do not** get `paymentin`.
 
 ## Product Mapping
 
@@ -249,7 +248,7 @@ The customer order created in MoySklad includes:
 - **Organization**: Genosys Middle East FZ-LLC
 - **Counterparty**: Customer (found by phone/email or created)
 - **Store**: Genosys Warehouse
-- **State**: Новый (COD/unpaid), Оплачен - Ждет доставки (paid online before chain completion), then Доставлен after `paymentin`
+- **State**: Новый (COD/unpaid); **Оплачен - Ждет доставки** (paid online — kept through full sync)
 - **Currency**: AED
 - **VAT**: 5% (included in prices, applied to both products and delivery)
 - **Description**: Payment method, shipping cost, any unmapped items

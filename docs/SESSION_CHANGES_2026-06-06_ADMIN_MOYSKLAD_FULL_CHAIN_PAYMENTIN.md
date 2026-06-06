@@ -25,6 +25,7 @@ Now:
   - `paymentMethod` = `stripe` or `apple_pay`
   - `paymentStatus` = `paid`
 - COD / unpaid / pending orders still create SO → invoice → отгрузка, but no paymentin is created.
+- Paid online orders stay in customer-order state **"Оплачен - Ждет доставки"** after sync (not auto-set to **"Доставлен"**).
 - Existing database field `moySkladOrderId` still stores the MoySklad customer order ID for backward compatibility with the admin “Synced” badge.
 - API response now also returns `moySkladInvoiceId`, `moySkladDemandId`, and `moySkladPaymentInId`.
 

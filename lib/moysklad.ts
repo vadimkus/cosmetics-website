@@ -26,7 +26,6 @@ const MOYSKLAD_CURRENCY_ID = 'e1870630-33c5-11ea-0a80-043f000b273f' // AED (defa
 const MOYSKLAD_DEFAULT_ACCOUNT_ID = 'e1852e1c-33c5-11ea-0a80-043f000b2739' // Default Genosys organization account for paymentin
 const MOYSKLAD_STATE_NEW_ID = 'e1a0abf2-33c5-11ea-0a80-043f000b275a' // "Новый" (New)
 const MOYSKLAD_STATE_PAID_AWAITING_DELIVERY_ID = '909556cd-8f70-11ea-0a80-016b00219616' // "Оплачен - Ждет доставки"
-const MOYSKLAD_STATE_DELIVERED_ID = 'e1a0ae5f-33c5-11ea-0a80-043f000b275e' // "Доставлен"
 const MOYSKLAD_DEMAND_STATE_SHIPPED_ID = '50d70717-4582-11ea-0a80-05e3001273a2' // "Отгружен"
 const MOYSKLAD_INVOICE_STATE_ISSUED_ID = 'a9609013-84d0-11ea-0a80-0453000aecd1' // "Выписан"
 const MOYSKLAD_COUNTRY_UAE_ID = '8afef359-33c6-11ea-0a80-0043000aceae' // "UAE" (account's custom country entry)
@@ -858,16 +857,6 @@ export async function createMoySkladOrder(
       const createdPayment = paymentResult.data as CreatedMoySkladEntity
       paymentInId = createdPayment.id
       debugLog(`✅ MoySklad: Incoming payment created! ID: ${createdPayment.id}, Name: ${createdPayment.name}`)
-
-      const orderDeliveredResult = await moySkladFetch(`/entity/customerorder/${createdOrder.id}`, {
-        method: 'PUT',
-        body: {
-          state: stateMeta('customerorder', MOYSKLAD_STATE_DELIVERED_ID)
-        }
-      })
-      if (!orderDeliveredResult.ok) {
-        warnLog(`⚠️ MoySklad: Customer order state update failed for ${createdOrder.name}: ${orderDeliveredResult.error}`)
-      }
     } else {
       debugLog(`⏭️ MoySklad: Skipping paymentin for unpaid/COD order ${orderData.orderNumber}`)
     }

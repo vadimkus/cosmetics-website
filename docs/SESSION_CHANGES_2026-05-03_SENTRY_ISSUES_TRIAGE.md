@@ -227,3 +227,40 @@ Fix applied:
 
 - Added a narrow client-side Sentry filter for `TypeError` messages containing `contentDocument.body` only when browser-translation breadcrumbs are present.
 - Kept the filter independent from the existing Google Translate `removeChild` filter so real app errors still pass through.
+
+## Follow-Up — 2026-06-06 Weekly Digest Noise
+
+Weekly Sentry digest highlighted three noisy client-side issues:
+
+- `JAVASCRIPT-NEXTJS-3` on `/success`: `TypeError: e.getBoundingClientRect is not a function`.
+- `JAVASCRIPT-NEXTJS-A` on `/products`: `TypeError: Load failed`.
+- `JAVASCRIPT-NEXTJS-14` on `/brand`: `contentDocument.body`, already handled by the 2026-06-05 browser-translation filter.
+
+Findings:
+
+- `/success` events are Mobile Safari only, with a synthetic `window.onerror` exception and a single `blob:app:///...` frame. No app source or `_next/static/chunks` frame is present. Breadcrumbs show successful checkout navigation and successful `/api/orders/success/...` fetch before the error. This points to browser/third-party blob script behavior during the post-checkout page, not our success page React code.
+- `/products` `Load failed` latest event is on current release `1be6658`, Mobile Safari, single `_next/static/chunks` frame, and breadcrumbs show successful RSC prefetches followed by failed RSC prefetches immediately before navigation from `/` to `/products`. This is the same iOS WebKit navigation-abort class, but the previous filter relied only on `event.contexts`; Sentry's browser/OS data is safer to read from tags too.
+- `/brand` has no new event after the browser-translation filter commit; the digest is counting prior events.
+
+Fix applied:
+
+- Updated iOS/WebKit detection in `instrumentation-client.ts` to fall back to Sentry tags (`browser`, `browser.name`, `os`, `os.name`) when contexts are absent.
+- Added a narrow blob-only `getBoundingClientRect` filter: it only drops Mobile Safari `window.onerror` events where every stack frame is `blob:app:///...` and the message matches `getBoundingClientRect is not a function`.
+
+## Follow-Up — 2026-06-07 Instagram Android Navigation Logger
+
+Sentry reported `JAVASCRIPT-NEXTJS-15` on `/products`: `Error invoking enableDidUserTypeOnKeyboardLogging: Java object is gone` on release `92705d4`.
+
+Raw event details:
+
+- Browser: Instagram `431.1.0` in-app browser.
+- OS: Android 16.
+- Stack frames were exclusively `app://navigation_performance_logger_android`, including `sendBeforeUnloadMessage`.
+- Breadcrumbs showed Meta/Instagram performance console logs such as `FBNavFirstContentfulPaint`, `FBNavLargestContentfulPaint`, and `FBNavINP`.
+- App requests around the event (`/products`, `/favorites`, product RSC requests, `/api/analytics/track`) returned `200`.
+
+Assessment: this is Instagram's Android WebView navigation-performance bridge trying to call a disposed Java object during/after navigation. It is outside our app bundle and not actionable product code.
+
+Fix applied:
+
+- Added a narrow client-side Sentry filter that drops only Instagram-on-Android `window.onerror` events with the exact `enableDidUserTypeOnKeyboardLogging` message and stack frames exclusively from `app://navigation_performance_logger_android`.

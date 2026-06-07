@@ -22,9 +22,22 @@ function asString(v: unknown): string {
   return typeof v === 'string' ? v : ''
 }
 
+function getTagValue(event: Sentry.ErrorEvent, key: string): string {
+  const tag = event.tags?.[key]
+  if (typeof tag === 'string') return tag
+  if (typeof tag === 'number' || typeof tag === 'boolean') return String(tag)
+  return ''
+}
+
 function isIOSWebKitBrowser(event: Sentry.ErrorEvent): boolean {
-  const os = asString(event.contexts?.os?.name)
-  const browser = asString(event.contexts?.browser?.name)
+  const os =
+    asString(event.contexts?.os?.name) ||
+    getTagValue(event, 'os.name') ||
+    getTagValue(event, 'os')
+  const browser =
+    asString(event.contexts?.browser?.name) ||
+    getTagValue(event, 'browser.name') ||
+    getTagValue(event, 'browser')
   return (
     /^iOS$/i.test(os) ||
     /Mobile Safari|Chrome Mobile iOS|Safari/i.test(browser)
@@ -209,6 +222,54 @@ function isBrowserTranslationContentDocumentProbe(event: Sentry.ErrorEvent): boo
   return hasBrowserTranslationBreadcrumb(event)
 }
 
+function isBlobOnlyBoundingClientRectProbe(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (!/getBoundingClientRect is not a function/i.test(exc.value || '')) return false
+  if (exc.mechanism?.type !== 'auto.browser.global_handlers.onerror') return false
+  if (!isIOSWebKitBrowser(event)) return false
+
+  const frames = exc.stacktrace?.frames || []
+  if (frames.length === 0) return false
+
+  return frames.every((frame) => {
+    const file = frame.filename || frame.abs_path || ''
+    return /^blob:app:\/\//i.test(file)
+  })
+}
+
+function isInstagramAndroidNavigationLoggerError(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type !== 'Error') return false
+  if (!/Error invoking enableDidUserTypeOnKeyboardLogging: Java object is gone/i.test(exc.value || '')) {
+    return false
+  }
+  if (exc.mechanism?.type !== 'auto.browser.global_handlers.onerror') return false
+
+  const os =
+    asString(event.contexts?.os?.name) ||
+    getTagValue(event, 'os.name') ||
+    getTagValue(event, 'os')
+  const browser =
+    asString(event.contexts?.browser?.name) ||
+    getTagValue(event, 'browser.name') ||
+    getTagValue(event, 'browser')
+  if (!/Android/i.test(os) || !/Instagram/i.test(browser)) return false
+
+  const frames = exc.stacktrace?.frames || []
+  if (frames.length === 0) return false
+
+  return frames.every((frame) => {
+    const file = frame.filename || frame.abs_path || ''
+    return /^app:\/\/navigation_performance_logger_android/i.test(file)
+  })
+}
+
 function isInjectedZpScriptError(event: Sentry.ErrorEvent): boolean {
   const values = event.exception?.values
   if (!values || values.length !== 1) return false
@@ -264,6 +325,8 @@ if (dsn) {
       if (isIOSViewTransitionRemoveChildRace(event)) return null
       if (isGoogleTranslateRemoveChildMutation(event)) return null
       if (isBrowserTranslationContentDocumentProbe(event)) return null
+      if (isBlobOnlyBoundingClientRectProbe(event)) return null
+      if (isInstagramAndroidNavigationLoggerError(event)) return null
       if (isInjectedZpScriptError(event)) return null
       if (isInjectedShopLookupRejection(event)) return null
 

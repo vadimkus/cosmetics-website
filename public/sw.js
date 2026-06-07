@@ -1,11 +1,11 @@
-// BUILD: v0.1.0-ded58ed1 @ 2026-06-05T16:29:39.098Z
+// BUILD: v0.1.0-a60e3a30 @ 2026-06-07T06:19:02.226Z
 /**
  * Service Worker for Genosys Cosmetics Website
  * Provides offline functionality and caching strategies
  */
 
 // Cache versioning - generated at build time via npm run build
-const CACHE_VERSION = self.__SW_VERSION || 'v0.1.0-ded58ed1';
+const CACHE_VERSION = self.__SW_VERSION || 'v0.1.0-a60e3a30';
 const CACHE_NAMES = {
   static: `genosys-static-${CACHE_VERSION}`,
   dynamic: `genosys-dynamic-${CACHE_VERSION}`,

@@ -50,13 +50,18 @@ export function verifyAdminSessionToken(token: string): { email: string; iat: nu
     
     const [payloadBase64, signature] = parts
     
-    // Verify signature
+    // Verify signature (timing-safe comparison)
     const expectedSignature = crypto
       .createHmac('sha256', ADMIN_SESSION_SECRET)
       .update(payloadBase64)
       .digest('base64url')
     
-    if (signature !== expectedSignature) {
+    const signatureBuffer = Buffer.from(signature)
+    const expectedBuffer = Buffer.from(expectedSignature)
+    if (
+      signatureBuffer.length !== expectedBuffer.length ||
+      !crypto.timingSafeEqual(signatureBuffer, expectedBuffer)
+    ) {
       debugLog('Admin session token signature mismatch')
       return null
     }
@@ -89,45 +94,29 @@ export async function verifyAdminAuth(request: NextRequest): Promise<{
   error: string | null
 }> {
   try {
-    // First, try to verify using signed session token (secure method)
+    // Verify using the signed session token (set by /api/auth/admin-login).
+    // NOTE: The legacy email-only fallback (x-admin-email header / admin-email
+    // cookie) was removed — it allowed full admin access with a spoofable header.
     const sessionToken = request.cookies.get('admin-session')?.value
     
-    if (sessionToken) {
-      const tokenPayload = verifyAdminSessionToken(sessionToken)
-      
-      if (tokenPayload) {
-        // Verify the user still exists and is still an admin
-        const user = await findUserByEmail(tokenPayload.email)
-        
-        if (user && user.isAdmin) {
-          return {
-            user: {
-              id: user.id,
-              email: user.email,
-              name: user.name,
-              isAdmin: true
-            },
-            error: null
-          }
-        }
-      }
-    }
-    
-    // Fallback: Get admin email from headers or cookies (legacy method - for backward compatibility)
-    const adminEmail = 
-      request.headers.get('x-admin-email') || 
-      request.cookies.get('admin-email')?.value ||
-      null
-
-    if (!adminEmail) {
+    if (!sessionToken) {
       return {
         user: null,
         error: 'Admin authentication required. Please log in.'
       }
     }
 
-    // Verify user exists and is admin
-    const user = await findUserByEmail(adminEmail)
+    const tokenPayload = verifyAdminSessionToken(sessionToken)
+    
+    if (!tokenPayload) {
+      return {
+        user: null,
+        error: 'Invalid or expired admin session. Please log in again.'
+      }
+    }
+
+    // Verify the user still exists and is still an admin
+    const user = await findUserByEmail(tokenPayload.email)
     
     if (!user || !user.isAdmin) {
       return {
@@ -135,9 +124,6 @@ export async function verifyAdminAuth(request: NextRequest): Promise<{
         error: 'Invalid admin credentials. Please log in again.'
       }
     }
-
-    // Log that legacy auth was used (for monitoring purposes)
-    debugLog('⚠️ Admin auth using legacy email-only method for:', adminEmail)
 
     return {
       user: {

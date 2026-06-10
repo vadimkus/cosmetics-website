@@ -14,6 +14,7 @@ import {
   WhatsAppMessageType 
 } from '@/lib/twilio'
 import { debugLog, errorLog } from '@/lib/logger'
+import { verifyAdminAuth } from '@/lib/adminAuth'
 
 interface SendWhatsAppRequest {
   phone: string
@@ -23,13 +24,18 @@ interface SendWhatsAppRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    // Verify internal API key or admin session
+    // Verify internal API key or signed admin session.
+    // NOTE: The legacy x-admin-email header was removed — any non-empty
+    // value passed the check, allowing unauthenticated WhatsApp sends.
     const authHeader = request.headers.get('x-api-key')
     const internalKey = process.env.INTERNAL_API_KEY
-    const adminEmail = request.headers.get('x-admin-email')
     
-    // Allow internal API key OR admin email header
-    const isAuthorized = (authHeader && authHeader === internalKey) || adminEmail
+    let isAuthorized = Boolean(authHeader && internalKey && authHeader === internalKey)
+    
+    if (!isAuthorized) {
+      const auth = await verifyAdminAuth(request)
+      isAuthorized = Boolean(auth.user)
+    }
     
     if (!isAuthorized) {
       return NextResponse.json(

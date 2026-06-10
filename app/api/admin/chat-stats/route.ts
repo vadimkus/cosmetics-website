@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
 // Helper to return empty stats (used when table doesn't exist yet)
 function getEmptyStats() {
@@ -26,20 +27,10 @@ function getEmptyStats() {
 // Admin API to fetch chatbot statistics
 export async function GET(request: NextRequest) {
   try {
-    // Verify admin access
-    const adminEmail = request.headers.get('X-Admin-Email')
-    if (!adminEmail) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    // Verify the user is an admin
-    const admin = await prisma.user.findUnique({
-      where: { email: adminEmail },
-      select: { isAdmin: true },
-    })
-
-    if (!admin?.isAdmin) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    // Verify admin access via signed admin session cookie
+    const auth = await requireAdminAuth(request)
+    if (!auth.authorized) {
+      return auth.response
     }
 
     // Get date range from query params (default: last 30 days)
@@ -53,7 +44,7 @@ export async function GET(request: NextRequest) {
     let totalConversations: number
     try {
       totalConversations = await prisma.chatConversation.count()
-    } catch (tableError) {
+    } catch {
       // Table likely doesn't exist yet - return empty stats
       debugLog('[ADMIN CHAT STATS] Table may not exist yet, returning empty stats')
       return NextResponse.json(getEmptyStats())

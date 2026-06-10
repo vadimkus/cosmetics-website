@@ -202,8 +202,8 @@ with the `Mail` icon. Tab contents live in `components/admin/NewsletterTab.tsx`
 (loaded via `next/dynamic`, SSR off — same pattern as chatbot/blog tabs).
 
 Auth is inherited from the main admin page:
-- Prefers signed `admin-session` httpOnly cookie (set on admin login)
-- Falls back to `X-Admin-Email` header for legacy callers
+- Signed `admin-session` httpOnly cookie (set on admin login) — the **only** accepted credential
+- The legacy `X-Admin-Email` header fallback was removed on 2026-06-10 (see `SESSION_CHANGES_2026-06-10_ADMIN_AUTH_BYPASS_FIX.md`)
 - CSRF token sent via `X-CSRF-Token` header for every write
 
 ### 4.2 Sections
@@ -309,7 +309,7 @@ per week; a full modal with a typed-confirmation gate would be overkill.
 ## 5. API reference
 
 All admin endpoints require:
-- Signed admin session (cookie) **or** `X-Admin-Email` header for a known admin account
+- Signed admin session (cookie) — the `X-Admin-Email` header fallback was removed 2026-06-10
 - CSRF token via `X-CSRF-Token` on writes
 
 ### 5.1 Public

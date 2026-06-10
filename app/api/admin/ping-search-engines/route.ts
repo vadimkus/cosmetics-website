@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { errorLog } from '@/lib/logger'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
 /**
  * POST /api/admin/ping-search-engines
@@ -16,10 +17,12 @@ import { errorLog } from '@/lib/logger'
  */
 export async function POST(request: NextRequest) {
   try {
-    // Simple admin check (enhance with proper auth in production)
-    const authHeader = request.headers.get('authorization')
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    // Admin-only: triggers outbound requests to search engines.
+    // NOTE: the previous check only verified the header *format*
+    // ("Bearer " prefix) — any token value passed.
+    const auth = await requireAdminAuth(request)
+    if (!auth.authorized) {
+      return auth.response
     }
 
     const body = await request.json().catch(() => ({}))

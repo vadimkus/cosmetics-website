@@ -1,9 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
-export async function POST(_request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
+    // Admin-only: this route writes a published blog post to the database
+    const auth = await requireAdminAuth(request)
+    if (!auth.authorized) {
+      return auth.response
+    }
     // Blog post data
     const blogPostData = {
       title: "New Payment Options: Pay Effortlessly with Apple Pay, Google Pay & More",

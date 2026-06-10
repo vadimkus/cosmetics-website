@@ -1,9 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
-export async function POST(_request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
+    // Admin-only: leaks aggregate DB stats otherwise
+    const auth = await requireAdminAuth(request)
+    if (!auth.authorized) {
+      return auth.response
+    }
+
     debugLog('🚀 Checking database status (DB-only)...')
     const existingProducts = await prisma.product.count()
     return NextResponse.json({
@@ -23,8 +30,14 @@ export async function POST(_request: NextRequest) {
   }
 }
 
-export async function GET(_request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
+    // Admin-only: leaks user/order/product counts otherwise
+    const auth = await requireAdminAuth(request)
+    if (!auth.authorized) {
+      return auth.response
+    }
+
     const productCount = await prisma.product.count()
     const userCount = await prisma.user.count()
     const orderCount = await prisma.order.count()

@@ -13,8 +13,16 @@ import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestS
 import { parseUserAgent } from '@/lib/deviceDetection'
 import { getGeolocationData } from '@/lib/geolocation'
 import { trackUserActivityNow } from '@/lib/activityTracker'
+import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 
 const normalizePromo = (promo: unknown) => String(promo || '').trim().toUpperCase()
+
+// Rate limiting for registration (mirrors mobile register: bulk account
+// creation protection; generous enough for legitimate shared-IP users)
+const registerLimiter = rateLimitSimple({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 10, // 10 registration attempts per hour per client
+})
 
 export async function POST(request: NextRequest) {
   // CSRF protection
@@ -28,6 +36,23 @@ export async function POST(request: NextRequest) {
   const sizeCheck = requireBodySizeLimit(request, sizeLimit)
   if (!sizeCheck.valid) {
     return sizeCheck.response!
+  }
+
+  // Rate limiting (bulk registration / spam protection)
+  let clientIdentifier: string
+  try {
+    clientIdentifier = getClientIdentifierFromNextRequest(request)
+  } catch (rateLimitError) {
+    errorLog('[REGISTER] Rate limit identifier error:', rateLimitError)
+    clientIdentifier = 'unknown'
+  }
+
+  const rateLimitResult = await registerLimiter(clientIdentifier)
+  if (!rateLimitResult.success) {
+    return NextResponse.json(
+      { error: 'Too many registration attempts. Please try again later.' },
+      { status: 429 }
+    )
   }
 
   try {

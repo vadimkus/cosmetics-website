@@ -29,9 +29,7 @@
 - `check-product-description.ts` - Check product descriptions
 
 ### Blog Management
-- `create-blog-direct-db.ts` - Create blog posts directly in database
 - `create-blog-via-localhost.js` - Create blog posts via localhost API
-- `create-blog-with-env.js` - Create blog posts with environment variables
 - `add-payment-blog-post.ts` - Add payment blog post
 - `setup-russian-blog.ts` - Setup Russian blog
 

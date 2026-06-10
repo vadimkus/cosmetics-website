@@ -1,0 +1,26 @@
+# gitleaks config — extends default rules with allowlists for known false positives.
+# Real secrets must NEVER be allowlisted here; fix the file instead.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known false positives"
+# Apply regexes to the full matched text, not just the captured secret
+regexTarget = "match"
+
+paths = [
+  # Test fixtures use obvious dummy secrets (e.g. 'test-jwt-secret-with-enough-length')
+  '''__tests__/.*''',
+]
+
+regexes = [
+  # Public-by-design mobile app API key, shipped inside the app bundle.
+  # Appears in API docs as curl examples.
+  '''genosys_secure_mobile_2025_v1''',
+  # Documentation placeholders in curl examples (YOUR_TOKEN, YOUR_MOBILE_APP_KEY, ...)
+  '''YOUR_[A-Z_]+''',
+  '''reset-password/TOKEN''',
+  # Truncated example JWT in MOBILE_AUTH_ENDPOINTS.md ("eyJhbGciOi...",)
+  '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.\.\.''',
+]

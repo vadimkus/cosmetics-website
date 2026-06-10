@@ -32,7 +32,17 @@ This fix only takes effect after the website is deployed to Vercel. After deploy
 
 ```bash
 curl -i https://genosys.ae/.well-known/assetlinks.json
-curl -i https://www.genosys.ae/.well-known/assetlinks.json
+curl -sL "https://digitalassetlinks.googleapis.com/v1/statements:list?source.web.site=https://genosys.ae&relation=delegate_permission/common.handle_all_urls"
 ```
 
-Both should return HTTP `200` and JSON content. Then re-run the Play Console deep-link domain check or create a deep-link patch.
+The apex domain should return HTTP `200` and Google Digital Asset Links should return a valid statement for package `ae.genosys.app`.
+
+## Follow-up
+
+After deploy, Google Digital Asset Links validated `https://genosys.ae` successfully.
+
+`www.genosys.ae` redirects to `genosys.ae`, and Google Digital Asset Links rejects redirects for `/.well-known/assetlinks.json`. Because of that, the Android app was updated in `genosys-mobile-app` commit `38df703` to remove all `www.genosys.ae` verified App Links and ship a fresh `versionCode 85` AAB.
+
+Vadim confirmed the v85 AAB was pushed/uploaded to Google Play on 2026-06-01. The canonical mobile release record is:
+
+- `genosys-mobile-app/docs/SESSION_CHANGES_2026-06-01_android-play-v85-release.md`

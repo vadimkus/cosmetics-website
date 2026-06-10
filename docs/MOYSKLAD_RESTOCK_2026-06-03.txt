@@ -1,0 +1,89 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║  MOYSKLAD RESTOCKING ANALYSIS — Genosys Middle East FZ-LLC                    ║
+║  Generated: 03/06/2026, 14:13:52                                              ║
+║  Horizon: stock-out within 90 days  |  Target cover: 120 days               ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+Fetching MoySklad data...
+  90-day window: 2026-03-05 10:13:52 → 2026-06-03 10:13:52
+  30-day window: 2026-05-04 10:13:52 → 2026-06-03 10:13:52
+
+  [archived] 46 archived product codes (will be excluded)
+  [stock]  97 SKUs loaded / 97
+  [30d] 69 SKUs loaded / 69
+  [90d] 73 SKUs loaded / 73
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CRITICAL — will stock out in < 30 days (order NOW)  — 2 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+00038  | Genosys Soothing Repair Post Cream 20g                  |       3 |      0 |       3 |        11 |        24 |      8 |      41
+00051  | Genosys HR³ Matrix Hair Tonic 70ml                      |      36 |      0 |      36 |        43 |        67 |     25 |     136
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  URGENT — will stock out in 30–60 days (order this week)  — 7 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+00004  | Genosys Standard Detachable Manual Roller 1.5mm         |       1 |      0 |       1 |         1 |         1 |     30 |       3
+00037  | Genosys Skin Barrier Protecting Cream 100g              |      19 |      0 |      19 |        12 |        42 |     48 |      29
+00053  | Genosys EyeCell Eye Peptide Gel Patch (box)             |      82 |      0 |      82 |        50 |        83 |     49 |     118
+00052  | Genosys HR³ Matrix Scalp & Hair Shampoo 300ml           |      42 |      0 |      42 |        25 |        46 |     50 |      58
+54464  | Genosys Skin Caring Blemish Balm Cushion #3 Camel       |      42 |      0 |      42 |        25 |        52 |     50 |      58
+00022  | Genosys Snow Booster Toner 200ml                        |      57 |      0 |      57 |        33 |        66 |     52 |      75
+00140  | Genosys Soothing Bomb Sea Algae Mask 23g                |     637 |      0 |     637 |       359 |       901 |     53 |     799
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  PLAN — will stock out in 60–90 days (order within 2–3 weeks)  — 7 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+00024  | Genosys Snow O₂ Cleanser 500ml                          |      16 |      0 |      16 |         7 |        29 |     69 |      12
+00194  | Genosys Multi Vita Radiance Serum 30ml                  |      71 |      0 |      71 |        31 |        63 |     69 |      54
+54470  | Genosys BIO-MESO PDRN Expert Ampoule 60000 (3mlx4)      |       7 |      0 |       7 |         3 |         3 |     70 |       5
+00190  | Genosys Multi Functional Anti-Wrinkle Cream 50g         |      60 |      0 |      60 |        25 |        63 |     72 |      40
+00021  | Genosys Snow O₂ Cleanser 180ml                          |     170 |      0 |     170 |        69 |       158 |     74 |     106
+00191  | Genosys Multi Functional Anti-Wrinkle Serum 30ml        |      54 |      0 |      54 |        20 |        45 |     81 |      26
+00188  | Genosys Microbiome Energy Infusing Mist 80ml            |     186 |      0 |     186 |        65 |       139 |     86 |      74
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  DO NOT REORDER — sell-through watch (1 SKUs; excluded from PO suggestions)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |  30d sold |  90d sold |  Days left | Reason                        
+----------------------------------------------------------------------------------------------------------------------------------
+00042  | Genosys EGF Repair Oxymask Cream 50ml                   |      18 |         8 |        24 |         68 | EGF Repair Oxymask Cream 50ml 
+
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  PROPOSED PURCHASE ORDER — sum of `Suggested Order` to reach 120-day cover
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Code   | Product                                                                |  Order Qty |   Est. Value (AED)
+----------------------------------------------------------------------------------------------------------------------------------
+00038  | Genosys Soothing Repair Post Cream 20g                                 |         41 |            4182.00
+00051  | Genosys HR³ Matrix Hair Tonic 70ml                                     |        136 |           19720.00
+00004  | Genosys Standard Detachable Manual Roller 1.5mm                        |          3 |             345.00
+00037  | Genosys Skin Barrier Protecting Cream 100g                             |         29 |            6525.00
+00053  | Genosys EyeCell Eye Peptide Gel Patch (box)                            |        118 |           22420.00
+00052  | Genosys HR³ Matrix Scalp & Hair Shampoo 300ml                          |         58 |            9860.00
+54464  | Genosys Skin Caring Blemish Balm Cushion #3 Camel                      |         58 |            8700.00
+00022  | Genosys Snow Booster Toner 200ml                                       |         75 |            9750.00
+00140  | Genosys Soothing Bomb Sea Algae Mask 23g                               |        799 |           14382.00
+00024  | Genosys Snow O₂ Cleanser 500ml                                         |         12 |            3060.00
+00194  | Genosys Multi Vita Radiance Serum 30ml                                 |         54 |            8910.00
+54470  | Genosys BIO-MESO PDRN Expert Ampoule 60000 (3mlx4)                     |          5 |            1500.00
+00190  | Genosys Multi Functional Anti-Wrinkle Cream 50g                        |         40 |            5800.00
+00021  | Genosys Snow O₂ Cleanser 180ml                                         |        106 |           17490.00
+00191  | Genosys Multi Functional Anti-Wrinkle Serum 30ml                       |         26 |            4290.00
+00188  | Genosys Microbiome Energy Infusing Mist 80ml                           |         74 |            5920.00
+----------------------------------------------------------------------------------------------------------------------------------
+       | TOTAL                                                                  |       1634 |     142854.00 AED*
+
+  * Value is based on MoySklad sale price (retail). Your actual supplier cost will be ~40–60% of this.
+
+  By severity:
+    STOCKOUT   0 SKUs
+    CRITICAL   2 SKUs
+    URGENT     7 SKUs
+    PLAN       7 SKUs
+    OK         79 SKUs
+    NO_REORDER 2 SKUs

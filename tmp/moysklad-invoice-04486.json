@@ -1,0 +1,135 @@
+{
+  "invoice": {
+    "id": "b475c4f1-4b9c-11f1-0a80-1d26005ae2d3",
+    "number": "04486",
+    "moment": "2026-05-09 15:30:00.000",
+    "totalAed": 2099,
+    "vatSumAed": 99.94,
+    "vatEnabled": true,
+    "vatIncluded": true,
+    "description": "Invoice for GENCardM2605096278 | Bianco JGE Ladies salon pro order + invoice 2026-05-09 spreadsheet",
+    "paymentPlannedMoment": null,
+    "shipmentAddress": ""
+  },
+  "counterparty": {
+    "id": "f10054f9-da25-11ef-0a80-115c0005d233",
+    "name": "BIANCO JGE Ladies Salon L.L.C",
+    "phone": "0554802487",
+    "email": "1455456",
+    "actualAddress": "Jumeirah Golf Estate Gate 12, Clubhouse and Country Club",
+    "legalAddress": "Jumeirah Golf Estate Gate 12, Clubhouse and Country Club"
+  },
+  "organization": {
+    "name": "Genosys Middle East FZ-LLC",
+    "actualAddress": "Cordoba Residence, Villa E02",
+    "legalAddress": ""
+  },
+  "items": [
+    {
+      "name": "Genosys EZ CO₂ MASK - Professional Box (5 treatments)",
+      "quantity": 1,
+      "unitPrice": 230,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 230,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/f34ed25a-343f-11ea-0a80-05dc0001110e"
+    },
+    {
+      "name": "Genosys Hydro Cool Modeling Mask 1kg",
+      "quantity": 2,
+      "unitPrice": 300,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 600,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/806e9e52-3444-11ea-0a80-05dc00014e2d"
+    },
+    {
+      "name": "Genosys Power Solution AWS 1 Vial 2ml",
+      "quantity": 1,
+      "unitPrice": 29,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 29,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/68872ebb-3447-11ea-0a80-03f90001c5cc"
+    },
+    {
+      "name": "Genosys Power Solution CTS 1 Vial 2ml",
+      "quantity": 1,
+      "unitPrice": 29,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 29,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/c4784fc1-45d5-11ea-0a80-02fd001636a2"
+    },
+    {
+      "name": "Genosys Power Solution CVS 1 Vial 2 ml",
+      "quantity": 1,
+      "unitPrice": 29,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 29,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/febec033-45d4-11ea-0a80-00ab0015bfa1"
+    },
+    {
+      "name": "Genosys Power Solution HES 1 Vial 2ml",
+      "quantity": 2,
+      "unitPrice": 29,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 58,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/4ba9c825-45d6-11ea-0a80-067800168f95"
+    },
+    {
+      "name": "Genosys Power Solution PCS 1 Vial 2ml",
+      "quantity": 1,
+      "unitPrice": 29,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 29,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/8a43a8e9-45d4-11ea-0a80-048a00166b96"
+    },
+    {
+      "name": "Genosys Power Solution SWS 1 Vial 2ml",
+      "quantity": 1,
+      "unitPrice": 29,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 29,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/e0ff2439-3448-11ea-0a80-044a00018f60"
+    },
+    {
+      "name": "Genosys Skin Renewal Peeling System (SRS) 1 Vial 2 ml",
+      "quantity": 2,
+      "unitPrice": 40.5,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 81,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/249b01f4-3446-11ea-0a80-03f90001b3de"
+    },
+    {
+      "name": "Genosys Intensive Repair Collagen Mask 23g",
+      "quantity": 10,
+      "unitPrice": 18,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 180,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/51e74608-45cb-11ea-0a80-01f80015bea2"
+    },
+    {
+      "name": "Genosys Standard Detachable Manual Roller 0.25mm",
+      "quantity": 7,
+      "unitPrice": 115,
+      "discountPct": 0,
+      "vatPct": 5,
+      "lineTotal": 805,
+      "assortmentHref": "https://api.moysklad.ru/api/remap/1.2/entity/product/e6bfaf3b-33ce-11ea-0a80-020c000b009b"
+    }
+  ],
+  "totals": {
+    "itemCount": 11,
+    "totalQuantity": 29,
+    "linesSum": 2099,
+    "invoiceTotal": 2099,
+    "vatSum": 99.94
+  }
+}

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GENOSYS — Tax invoice (visual target for MoySklad template)</title>
+  <style>
+    :root {
+      --ink: #1d1d1f;
+      --muted: #6e6e73;
+      --line: #d2d2d7;
+      --fill: #f5f5f7;
+      --page: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 48px 32px 64px;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--ink);
+      background: #ececee;
+      -webkit-font-smoothing: antialiased;
+    }
+    .sheet {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--page);
+      padding: 48px 56px 56px;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,.06), 0 1px 3px rgba(0,0,0,.04);
+    }
+    .brand {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .company {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+    .tagline {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      margin: 40px 0 36px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+    .hero-meta {
+      text-align: right;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .hero-meta strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: 6px;
+      letter-spacing: -0.01em;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px 48px;
+      margin-bottom: 40px;
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero { flex-direction: column; }
+      .hero-meta { text-align: left; }
+      .sheet { padding: 32px 24px; }
+    }
+    .block h2 {
+      margin: 0 0 12px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .block p {
+      margin: 0 0 6px;
+      font-size: 13px;
+      color: var(--ink);
+    }
+    .block .quiet { color: var(--muted); font-size: 12px; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    thead th {
+      text-align: left;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--ink);
+      padding: 12px 10px;
+      border: none;
+    }
+    thead th:nth-child(1) { border-radius: 6px 0 0 0; }
+    thead th:last-child { border-radius: 0 6px 0 0; text-align: right; }
+    thead th.num, tbody td.num { text-align: right; }
+    tbody td {
+      padding: 11px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody td.desc { font-weight: 500; }
+    tfoot td {
+      padding: 10px;
+      border-top: 1px solid var(--line);
+    }
+    .totals {
+      margin-left: auto;
+      max-width: 280px;
+      font-size: 13px;
+    }
+    .totals-inner .row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      color: var(--muted);
+    }
+    .totals-inner .row.grand {
+      margin-top: 8px;
+      padding-top: 14px;
+      border-top: 2px solid var(--ink);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+    .notes {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .footer {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .sheet { box-shadow: none; border-radius: 0; max-width: 100%; padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="brand">Invoice</div>
+    <div class="company">Genosys Middle East FZ-LLC</div>
+    <div class="tagline">Professional dermacosmetics · United Arab Emirates</div>
+
+    <div class="hero">
+      <h1>Tax invoice</h1>
+      <div class="hero-meta">
+        Document no. & date
+        <strong>· ${o.name} ·</strong>
+        <span style="display:block;margin-top:6px">${formatter…}</span>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="block">
+        <h2>Supplier</h2>
+        <p>Genosys Middle East FZ-LLC</p>
+        <p class="quiet">TRN · License · sales@genosys.ae</p>
+        <p class="quiet">Compass Coworking Centre, Al Shahoda Road…</p>
+      </div>
+      <div class="block">
+        <h2>Bill to</h2>
+        <p>${o.targetAgentRequisite.agent.name}</p>
+        <p class="quiet">${o.targetAgentRequisite.actualAddress}</p>
+      </div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Description</th>
+          <th class="num">Qty</th>
+          <th class="num">Unit</th>
+          <th class="num">Disc %</th>
+          <th class="num">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td class="desc">Example line · ${position.printName}</td>
+          <td class="num">1</td>
+          <td class="num">0.00</td>
+          <td class="num">—</td>
+          <td class="num">0.00</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <div class="totals-inner">
+        <div class="row"><span>Subtotal</span><span>0.00</span></div>
+        <div class="row"><span>VAT 5%</span><span>0.00</span></div>
+        <div class="row grand"><span>Total AED</span><span>0.00</span></div>
+      </div>
+    </div>
+
+    <div class="notes">
+      Please check goods upon receipt. Payment by cash or bank transfer per agreement.
+    </div>
+
+    <div class="footer">
+      <div>IBAN · Bank details (as on legal template)</div>
+      <div style="text-align:right">Authorized signatory</div>
+    </div>
+  </div>
+  <p style="text-align:center;max-width:760px;margin:24px auto 0;font-size:11px;color:#86868b;">
+    Reference layout only — match this hierarchy in Excel; keep MoySklad <code>${…}</code> / <code>&lt;jx:forEach&gt;</code> cells intact.
+  </p>
+</body>
+</html>

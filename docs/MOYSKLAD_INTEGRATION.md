@@ -319,6 +319,7 @@ Beyond the order-push integration, the same credentials provide full read access
 | `scripts/moysklad-invoices-export.js` | Customer invoices export to CSV + Markdown |
 | `scripts/moysklad-2025-financials.js` | 2025 revenue, COGS, payments, losses |
 | `scripts/moysklad-2025-expenses.js` | 2025 expense categorization by counterparty |
+| `scripts/moysklad-ytd-profitability.js` | YTD gross/net profitability (profit report + opex, stock & VAT excluded) |
 
 **Usage:**
 ```bash

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script:module PUBLIC "-//OpenOffice.org//DTD OfficeDocument 1.0//EN" "module.dtd">
+<script:module xmlns:script="http://openoffice.org/2000/script" script:name="Module1" script:language="StarBasic">
+
+' ============================================================
+' Genosys_Invoice_Legal_TAX  — Awwwards-grade restyle
+' Reads:  ~/Desktop/Genosys_Invoice_Legal_TAX_backup_original.xls
+' Writes: ~/Desktop/Genosys_Invoice_Legal_TAX_AWWARDS.xls (.xls 97-2004)
+'
+' Touches ONLY visual properties (font, color, size, borders,
+' row heights, column widths). Never edits cell text, formulas,
+' merged regions, or JXLS tokens.
+' ============================================================
+
+Sub Main
+    On Error Goto Fail
+
+    Dim sUser As String
+    sUser = Environ("HOME")
+
+    Dim sSrc As String, sDst As String
+    sSrc = ConvertToURL(sUser &amp; "/Desktop/Genosys_Invoice_Legal_TAX_backup_original.xls")
+    sDst = ConvertToURL(sUser &amp; "/Desktop/Genosys_Invoice_Legal_TAX_AWWARDS.xls")
+
+    Dim oArgs(0) As New com.sun.star.beans.PropertyValue
+    oArgs(0).Name  = "Hidden"
+    oArgs(0).Value = True
+
+    Dim oDoc As Object
+    oDoc = StarDesktop.loadComponentFromURL(sSrc, "_blank", 0, oArgs())
+    Dim oSheet As Object
+    oSheet = oDoc.Sheets.getByIndex(0)
+
+    Dim FONT_BODY As String : FONT_BODY = "Helvetica Neue"
+    Dim INK    As Long      : INK    = RGB(29, 29, 31)
+    Dim MUTED  As Long      : MUTED  = RGB(110, 110, 115)
+    Dim RULEC  As Long      : RULEC  = RGB(210, 210, 215)
+    Dim ACCENT As Long      : ACCENT = RGB(0, 0, 0)
+    Dim WHITE  As Long      : WHITE  = RGB(255, 255, 255)
+    Dim BLACK  As Long      : BLACK  = RGB(0, 0, 0)
+
+    Dim WT_BOLD As Long, WT_NORMAL As Long
+    WT_BOLD   = com.sun.star.awt.FontWeight.BOLD
+    WT_NORMAL = com.sun.star.awt.FontWeight.NORMAL
+
+    Dim H_LEFT As Long, H_CENTER As Long, H_RIGHT As Long
+    H_LEFT   = com.sun.star.table.CellHoriJustify.LEFT
+    H_CENTER = com.sun.star.table.CellHoriJustify.CENTER
+    H_RIGHT  = com.sun.star.table.CellHoriJustify.RIGHT
+    Dim V_CENTER As Long
+    V_CENTER = com.sun.star.table.CellVertJustify.CENTER
+
+    ' ---- 0. Whole sheet baseline ----
+    Dim oAll As Object
+    oAll = oSheet.getCellRangeByPosition(0, 0, 17, 42)
+    oAll.CharFontName  = FONT_BODY
+    oAll.CharHeight    = 10
+    oAll.CharColor     = INK
+    oAll.CharWeight    = WT_NORMAL
+    oAll.VertJustify   = V_CENTER
+
+
+    ' Preserve original column widths exactly. Only ensure column M (12)
+    ' stays hidden — it is the VAT-amount column shown only when payerVat=true.
+    oSheet.Columns.getByIndex(12).IsVisible = False
+
+    ' Page setup: landscape A4, narrow margins, fit to 1 page wide
+    Dim oPageStyles As Object, oPS As Object
+    oPageStyles = oDoc.StyleFamilies.getByName("PageStyles")
+    Dim sPageStyle As String
+    sPageStyle = oSheet.PageStyle
+    If oPageStyles.hasByName(sPageStyle) Then
+        oPS = oPageStyles.getByName(sPageStyle)
+        oPS.IsLandscape       = True
+        oPS.LeftMargin        = 800
+        oPS.RightMargin       = 800
+        oPS.TopMargin         = 600
+        oPS.BottomMargin      = 600
+        oPS.HeaderIsOn        = False
+        oPS.FooterIsOn        = False
+        oPS.CenterHorizontally = True
+        oPS.ScaleToPagesX     = 1
+        oPS.ScaleToPagesY     = 0
+    End If
+
+    ' ---- 1. Supplier block (rows 5..17 = R6..R18 1-based) ----
+    Dim oSup As Object
+    oSup = oSheet.getCellByPosition(0, 5)
+    oSup.CharFontName = FONT_BODY
+    oSup.CharHeight   = 13
+    oSup.CharWeight   = WT_BOLD
+    oSup.CharColor    = INK
+    SetRowH(oSheet, 5, 800)
+
+    Dim r As Integer
+    For r = 6 To 16
+        StyleLabel(oSheet.getCellByPosition(0, r), FONT_BODY, MUTED)
+        StyleValue(oSheet.getCellByPosition(2, r), FONT_BODY, INK)
+        SetRowH(oSheet, r, 480)
+    Next r
+
+    ' ---- 2. Title row (row 19 = R20) ----
+    Dim oTitle As Object
+    oTitle = oSheet.getCellByPosition(0, 19)
+    oTitle.CharFontName = FONT_BODY
+    oTitle.CharHeight   = 22
+    oTitle.CharWeight   = WT_BOLD
+    oTitle.CharColor    = INK
+    oTitle.HoriJustify  = H_LEFT
+    oTitle.VertJustify  = V_CENTER
+    SetRowH(oSheet, 18, 400)
+    SetRowH(oSheet, 19, 1100)
+    SetRowH(oSheet, 20, 400)
+
+    AddTopBorder(oSheet.getCellRangeByPosition(0, 19, 12, 19), RULEC, 18)
+
+    ' ---- 3. Buyer block (rows 21..26) ----
+    Dim oBuy As Object
+    oBuy = oSheet.getCellByPosition(0, 21)
+    oBuy.CharFontName = FONT_BODY
+    oBuy.CharHeight   = 13
+    oBuy.CharWeight   = WT_BOLD
+    oBuy.CharColor    = INK
+    SetRowH(oSheet, 21, 800)
+
+    For r = 22 To 26
+        StyleLabel(oSheet.getCellByPosition(0, r), FONT_BODY, MUTED)
+        StyleValue(oSheet.getCellByPosition(2, r), FONT_BODY, INK)
+        SetRowH(oSheet, r, 480)
+    Next r
+
+    ' ---- 4. Table header (row 28) — DARK BAR ----
+    Dim oHdr As Object
+    oHdr = oSheet.getCellRangeByPosition(0, 28, 12, 28)
+    oHdr.CellBackColor = BLACK
+    oHdr.CharColor     = WHITE
+    oHdr.CharFontName  = FONT_BODY
+    oHdr.CharHeight    = 10
+    oHdr.CharWeight    = WT_BOLD
+    oHdr.HoriJustify   = H_CENTER
+    oHdr.VertJustify   = V_CENTER
+    oHdr.IsTextWrapped = True
+    SetRowH(oSheet, 28, 900)
+
+    Dim oHdrB As Object
+    oHdrB = oSheet.getCellByPosition(1, 28)
+    oHdrB.HoriJustify = H_LEFT
+
+    ' ---- 5. JXLS forEach rows (29..31) ----
+    SetRowH(oSheet, 29, 220)
+
+    Dim oData As Object
+    oData = oSheet.getCellRangeByPosition(0, 30, 12, 30)
+    oData.CharFontName = FONT_BODY
+    oData.CharHeight   = 10
+    oData.CharColor    = INK
+    oData.VertJustify  = V_CENTER
+    AddBottomBorder(oData, RULEC, 18)
+    SetRowH(oSheet, 30, 600)
+
+    SetRowH(oSheet, 31, 220)
+
+    ' ---- 6. Totals block (rows 32..34) ----
+    StyleTotal(oSheet, 32, FONT_BODY, INK, 11, False)
+    StyleTotal(oSheet, 33, FONT_BODY, INK, 11, False)
+    StyleTotal(oSheet, 34, FONT_BODY, INK, 14, True)
+
+    AddTopBorder(oSheet.getCellRangeByPosition(8, 32, 11, 32), INK, 22)
+
+    ' ---- 7. Footer notes ----
+    Dim oNote As Object
+    oNote = oSheet.getCellByPosition(0, 33)
+    oNote.CharFontName = FONT_BODY
+    oNote.CharHeight   = 9
+    oNote.CharColor    = MUTED
+
+    oNote = oSheet.getCellByPosition(0, 34)
+    oNote.CharFontName = FONT_BODY
+    oNote.CharHeight   = 9
+    oNote.CharColor    = MUTED
+
+    Dim oTL As Object
+    oTL = oSheet.getCellByPosition(0, 37)
+    oTL.CharFontName = FONT_BODY
+    oTL.CharHeight   = 11
+    oTL.CharWeight   = WT_BOLD
+    oTL.CharColor    = INK
+    SetRowH(oSheet, 37, 600)
+    SetRowH(oSheet, 38, 400)
+
+    Dim oS1 As Object
+    oS1 = oSheet.getCellByPosition(1, 39)
+    oS1.CharFontName = FONT_BODY
+    oS1.CharHeight   = 10
+    oS1.CharColor    = MUTED
+    SetRowH(oSheet, 39, 600)
+
+    SetRowH(oSheet, 40, 400)
+    SetRowH(oSheet, 41, 400)
+
+    Dim oS2 As Object
+    oS2 = oSheet.getCellByPosition(1, 42)
+    oS2.CharFontName = FONT_BODY
+    oS2.CharHeight   = 10
+    oS2.CharColor    = MUTED
+    SetRowH(oSheet, 42, 700)
+
+    ' ---- 9. Save as Excel 97-2004 ----
+    Dim oSaveArgs(1) As New com.sun.star.beans.PropertyValue
+    oSaveArgs(0).Name  = "FilterName"
+    oSaveArgs(0).Value = "MS Excel 97"
+    oSaveArgs(1).Name  = "Overwrite"
+    oSaveArgs(1).Value = True
+
+    oDoc.storeToURL(sDst, oSaveArgs())
+    oDoc.close(False)
+
+    Dim iFile As Integer
+    iFile = FreeFile
+    Open "/tmp/restyle.done" For Output As #iFile
+    Print #iFile, "OK " &amp; sDst
+    Close #iFile
+
+    StarDesktop.terminate()
+    Exit Sub
+
+Fail:
+    Dim iErr As Integer
+    iErr = FreeFile
+    Open "/tmp/restyle.done" For Output As #iErr
+    Print #iErr, "ERROR " &amp; Err &amp; " line " &amp; Erl &amp; ": " &amp; Error
+    Close #iErr
+    StarDesktop.terminate()
+End Sub
+
+' ----------------------------------------------------------- helpers
+Sub StyleLabel(oCell As Object, sFont As String, lColor As Long)
+    oCell.CharFontName = sFont
+    oCell.CharHeight   = 9
+    oCell.CharColor    = lColor
+    oCell.CharWeight   = com.sun.star.awt.FontWeight.NORMAL
+    oCell.VertJustify  = com.sun.star.table.CellVertJustify.CENTER
+End Sub
+
+Sub StyleValue(oCell As Object, sFont As String, lColor As Long)
+    oCell.CharFontName = sFont
+    oCell.CharHeight   = 11
+    oCell.CharColor    = lColor
+    oCell.CharWeight   = com.sun.star.awt.FontWeight.NORMAL
+    oCell.VertJustify  = com.sun.star.table.CellVertJustify.CENTER
+End Sub
+
+Sub StyleTotal(oSheet As Object, iRow As Integer, sFont As String, lColor As Long, iSize As Integer, bAccent As Boolean)
+    Dim oLab As Object
+    oLab = oSheet.getCellByPosition(8, iRow)
+    oLab.CharFontName = sFont
+    oLab.CharHeight   = iSize
+    oLab.CharWeight   = com.sun.star.awt.FontWeight.BOLD
+    oLab.CharColor    = lColor
+    oLab.HoriJustify  = com.sun.star.table.CellHoriJustify.RIGHT
+    oLab.VertJustify  = com.sun.star.table.CellVertJustify.CENTER
+
+    Dim oVal As Object
+    oVal = oSheet.getCellByPosition(11, iRow)
+    oVal.CharFontName = sFont
+    oVal.CharHeight   = iSize
+    oVal.CharWeight   = com.sun.star.awt.FontWeight.BOLD
+    oVal.CharColor    = lColor
+    oVal.HoriJustify  = com.sun.star.table.CellHoriJustify.RIGHT
+    oVal.VertJustify  = com.sun.star.table.CellVertJustify.CENTER
+
+    Dim oRow As Object
+    oRow = oSheet.Rows.getByIndex(iRow)
+    oRow.OptimalHeight = False
+    If bAccent Then
+        oRow.Height = 900
+    Else
+        oRow.Height = 600
+    End If
+End Sub
+
+Sub SetColW(oSheet As Object, iCol As Integer, w As Long)
+    oSheet.Columns.getByIndex(iCol).Width = w
+End Sub
+
+Sub SetRowH(oSheet As Object, iRow As Integer, h As Long)
+    Dim oRow As Object
+    oRow = oSheet.Rows.getByIndex(iRow)
+    oRow.OptimalHeight = False
+    oRow.Height        = h
+End Sub
+
+Sub AddBottomBorder(oRange As Object, lColor As Long, iWidth As Integer)
+    Dim oB As New com.sun.star.table.BorderLine2
+    oB.LineStyle = com.sun.star.table.BorderLineStyle.SOLID
+    oB.LineWidth = iWidth
+    oB.Color     = lColor
+    oRange.BottomBorder = oB
+End Sub
+
+Sub AddTopBorder(oRange As Object, lColor As Long, iWidth As Integer)
+    Dim oB As New com.sun.star.table.BorderLine2
+    oB.LineStyle = com.sun.star.table.BorderLineStyle.SOLID
+    oB.LineWidth = iWidth
+    oB.Color     = lColor
+    oRange.TopBorder = oB
+End Sub
+
+Function MakeSizeMM(wMM As Integer, hMM As Integer) As Object
+    Dim oSize As New com.sun.star.awt.Size
+    oSize.Width  = wMM * 100
+    oSize.Height = hMM * 100
+    MakeSizeMM = oSize
+End Function
+
+</script:module>

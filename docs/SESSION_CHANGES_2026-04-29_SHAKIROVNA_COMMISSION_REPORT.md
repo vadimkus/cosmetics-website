@@ -51,6 +51,10 @@ Readback confirmed:
 
 - Both documents use customer `Shakirovna Ladies Beauty Saloon`.
 - Both documents use contract `00030`.
+
+## Later: stock reconciliation (2026-05-29)
+
+Physical count reconciliation for the same customer/contract — see [SESSION_CHANGES_2026-05-29_SHAKIROVNA_LADIES_STOCK_RECON.md](./SESSION_CHANGES_2026-05-29_SHAKIROVNA_LADIES_STOCK_RECON.md).
 - Both documents total `1,598.00 AED`.
 - Both documents have `11` lines and `12` total units.
 - Stock was sufficient at dry-run time.

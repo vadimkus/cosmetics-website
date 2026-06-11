@@ -73,6 +73,17 @@ downloads after the browser is idle. Mobile behaviour unchanged (never loads the
 - Production numbers should be re-measured via PageSpeed Insights after Vercel deploy
   (Vercel caches optimized images on its CDN; local on-demand optimization skews LCP).
 
+## Production verification (post-deploy, commit 84a305a8)
+
+- All routes 200: `/`, `/blog`, blog post, `/ru/blog`, `/ar/blog`, `/products/60`, `/api/health`
+- Body images served as AVIF from CDN: `pd2.jpeg` → 50 KB, `12.png` → 69 KB (was 1.36 MB)
+- Blog post page: `uses-optimized-images` Lighthouse audit clean (no flagged savings)
+- Server TTFB stable ~0.4 s; hero image 26 KB AVIF from CDN cache
+- Local Lighthouse runs against production were too noisy to score (FCP varied
+  1.5 s → 5.6 s across runs on unchanged HTML — machine/network variance);
+  PSI API daily quota exhausted — re-measure via PageSpeed Insights when it resets.
+  First post-deploy run: perf 68, LCP 3.8 s (in line with the 74 baseline).
+
 ## Production-behaviour notes
 
 - No API, auth, payment, or order code touched. Pure rendering-layer changes.

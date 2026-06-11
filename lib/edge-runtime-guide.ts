@@ -44,7 +44,7 @@ export async function GET() {
  * - /api/auth/* (uses crypto for JWT)
  * - /api/orders/* (uses Prisma)
  * - /api/products/* (uses Prisma)
- * - /api/checkout/* (uses Stripe SDK)
+ * - /api/stripe/* (uses Stripe SDK)
  * - /api/mobile/* (uses Prisma + JWT)
  * - /api/webhooks/* (uses crypto for signature verification)
  * - /api/chat (uses OpenAI SDK)

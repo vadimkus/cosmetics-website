@@ -241,6 +241,8 @@ model Order {
   @@index([paymentStatus]) // Index for payment status queries
   @@index([stripeSessionId]) // Index for Stripe session lookups
   @@index([stripePaymentIntentId]) // Index for payment intent lookups
+  @@index([status]) // Index for admin order-status filtering
+  @@index([createdAt]) // Index for date-range queries and recent-orders sorting
   @@map("orders")
 }
 
@@ -291,6 +293,7 @@ model UserAction {
   details   String?
   timestamp DateTime @default(now())
 
+  @@index([userEmail, action]) // Index for per-user action lookups in analytics
   @@map("user_actions")
 }
 
@@ -313,6 +316,7 @@ model UserSession {
   isBounce     Boolean   @default(true)
   referrer     String?
 
+  @@index([userId]) // Index for per-user session lookups in analytics
   @@map("user_sessions")
 }
 

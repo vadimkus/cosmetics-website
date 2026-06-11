@@ -202,7 +202,7 @@ export const retry = async <T>(
 export const safeJsonParse = <T>(json: string, fallback: T): T => {
   try {
     return JSON.parse(json)
-  } catch (error) {
+  } catch {
     return fallback
   }
 }
@@ -213,7 +213,7 @@ export const safeJsonParse = <T>(json: string, fallback: T): T => {
 export const safeJsonStringify = (obj: unknown, fallback: string = '{}'): string => {
   try {
     return JSON.stringify(obj)
-  } catch (error) {
+  } catch {
     return fallback
   }
 }

@@ -133,7 +133,7 @@ export function useHapticFeedback(options: UseHapticFeedbackOptions = {}): UseHa
     try {
       navigator.vibrate(pattern)
       debugLog('📳 Haptic:', pattern)
-    } catch (err) {
+    } catch {
       // Silently fail - haptics are not critical
     }
   }, [enabled, isSupported, pwaOnly, isPWA])

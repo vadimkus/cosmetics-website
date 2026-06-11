@@ -81,7 +81,7 @@ function publicKeyFromJwk(jwk: AppleJwk): crypto.KeyObject {
       // Use Node.js crypto's JsonWebKey type with proper index signature
       const rsaJwk: CryptoJsonWebKey = { kty: 'RSA', n: jwk.n, e: jwk.e }
       return crypto.createPublicKey({ key: rsaJwk, format: 'jwk' })
-    } catch (error) {
+    } catch {
       // fall through to error below
     }
   }

@@ -23,7 +23,7 @@ export const useProductImages = (product: Product): UseProductImagesReturn => {
       try {
         const parsedImages = JSON.parse(product.images)
         return Array.isArray(parsedImages) ? parsedImages : [product.image]
-      } catch (error) {
+      } catch {
         return [product.image]
       }
     }

@@ -201,7 +201,7 @@ export const useSmartImagePreloader = () => {
           })
         }
       }
-    } catch (error) {
+    } catch {
       // Ignore JSON parse errors
     }
   }, [preloader])

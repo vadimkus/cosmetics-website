@@ -114,7 +114,7 @@ export default function BillingPage() {
       } else {
         setToast({ type: 'error', message: translations.saveFailed })
       }
-    } catch (error) {
+    } catch {
       setToast({ type: 'error', message: translations.saveFailed })
     } finally {
       setSaving(false)

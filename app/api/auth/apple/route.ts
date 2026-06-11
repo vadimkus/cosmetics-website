@@ -24,7 +24,7 @@ function normalizeOrigin(origin: string): string {
       u.hostname = u.hostname.replace(/^www\./, '')
       normalized = u.origin
     }
-  } catch (error) {
+  } catch {
     // ignore
   }
   return normalized

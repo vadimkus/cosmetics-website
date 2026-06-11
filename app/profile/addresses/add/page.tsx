@@ -135,7 +135,7 @@ export default function AddAddressPage() {
       } else {
         setError(data.error || t.saveFailed)
       }
-    } catch (err) {
+    } catch {
       setError(t.saveFailed)
     } finally {
       setIsSaving(false)

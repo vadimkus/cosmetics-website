@@ -70,7 +70,7 @@ function OrderItemImage({
           return
         }
       }
-    } catch (err) {
+    } catch {
       // Silently fail - will show fallback
     }
     setHasError(true)

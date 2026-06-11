@@ -51,7 +51,7 @@ function normalizeOrigin(origin: string): string {
       u.hostname = u.hostname.replace(/^www\./, '')
       normalized = u.origin
     }
-  } catch (error) {
+  } catch {
     // ignore
   }
   return normalized
@@ -199,7 +199,7 @@ async function handleAppleCallback(request: NextRequest, params: {
         const family = parsed?.name?.lastName || ''
         fullName = [given, family].filter(Boolean).join(' ').trim()
       }
-    } catch (error) {
+    } catch {
       // ignore
     }
     

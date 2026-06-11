@@ -35,7 +35,7 @@ export async function PUT(
         try {
           JSON.parse(tags)
           tagsValue = tags
-        } catch (error) {
+        } catch {
           tagsValue = JSON.stringify([tags])
         }
       }

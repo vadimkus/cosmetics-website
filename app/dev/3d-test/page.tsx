@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import Link from 'next/link'
 
 const ModelInspector = dynamic(() => import('./ModelInspector'), {
   ssr: false,
@@ -22,9 +23,9 @@ export default function Dev3DTestPage() {
           </code>{' '}
           and refresh.
         </div>
-        <a href="/" className="text-rose-600 underline">
+        <Link href="/" className="text-rose-600 underline">
           ← back to homepage
-        </a>
+        </Link>
       </header>
       <div className="flex-1">
         <ModelInspector />

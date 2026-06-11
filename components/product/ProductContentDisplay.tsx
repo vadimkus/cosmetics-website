@@ -837,7 +837,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
 function tryParseJSON(jsonString: string): unknown {
   try {
     return JSON.parse(jsonString)
-        } catch (error) {
+        } catch {
     // If it's not valid JSON, return the original string
     return jsonString
   }

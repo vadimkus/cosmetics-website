@@ -113,7 +113,7 @@ export default function ProductForm({ product, onSave, onCancel }: ProductFormPr
         try {
           const parsedImages = JSON.parse(product.images)
           setImagePreviews(parsedImages)
-        } catch (error) {
+        } catch {
           setImagePreviews([product.image])
         }
       } else {

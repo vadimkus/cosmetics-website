@@ -300,7 +300,7 @@ export const productImageOptimization = {
         if (Array.isArray(parsedImages) && parsedImages.length > 0) {
           imageSrc = parsedImages[0]
         }
-      } catch (error) {
+      } catch {
         // Fall back to product.image
       }
     }
@@ -322,7 +322,7 @@ export const productImageOptimization = {
       try {
         const parsedImages = JSON.parse(product.images)
         images = Array.isArray(parsedImages) ? parsedImages : [product.image]
-      } catch (error) {
+      } catch {
         // Fall back to single image
       }
     }

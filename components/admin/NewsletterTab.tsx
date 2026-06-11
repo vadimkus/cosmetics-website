@@ -734,7 +734,7 @@ export default function NewsletterTab({ getAdminHeaders, showToast }: Newsletter
               </button>
             </div>
             <div className="flex-1 overflow-auto p-6 bg-white">
-              {/* eslint-disable-next-line react/no-danger — bodyHtml is output of our sanitized markdown renderer, not user HTML */}
+              {/* bodyHtml is output of our sanitized markdown renderer, not user HTML */}
               <div dangerouslySetInnerHTML={{ __html: previewHtml }} />
             </div>
             <div className="px-5 py-3 border-t border-gray-200 bg-gray-50 text-xs text-gray-500">

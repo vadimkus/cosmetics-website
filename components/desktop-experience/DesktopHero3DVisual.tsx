@@ -36,6 +36,19 @@ export default function DesktopHero3DVisual() {
   const [videoActive, setVideoActive] = useState(false)
   const [videoReady, setVideoReady] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
+  const [idleReady, setIdleReady] = useState(false)
+
+  // Defer the three.js chunk until the browser is idle so it never competes
+  // with LCP / hydration of the rest of the page.
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(() => setIdleReady(true), { timeout: 4000 })
+      return () => window.cancelIdleCallback(id)
+    }
+    const t = setTimeout(() => setIdleReady(true), 2500)
+    return () => clearTimeout(t)
+  }, [])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -171,7 +184,7 @@ export default function DesktopHero3DVisual() {
 
       {/* Layer 3: R3F atom field — cursor parallax, floats on top of both.
           Clicks bubble up through the canvas to the container's onClick. */}
-      {experience.enabled ? (
+      {experience.enabled && idleReady ? (
         <div className="absolute inset-0">
           <AtomFieldScene />
         </div>

@@ -71,8 +71,8 @@ export default function RussianBlogPageClient({ posts }: RussianBlogPageClientPr
                         src={post.featuredImage}
                         alt={`${post.titleRu || post.title} - Статья блога GENOSYS о корейском уходе за кожей`}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover"
-                        unoptimized
                       />
                     </div>
                   )}

@@ -96,8 +96,8 @@ export default function ArabicBlogPageClient({ posts }: ArabicBlogPageClientProp
                         src={post.featuredImage}
                         alt={`${post.titleAr || post.title} - مقال مدونة GENOSYS للعناية بالبشرة الكورية`}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         className="object-cover"
-                        unoptimized
                       />
                     </div>
                   )}

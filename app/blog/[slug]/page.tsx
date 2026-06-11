@@ -11,6 +11,7 @@ import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
 import { sanitizeHtml } from '@/lib/sanitize'
+import { optimizeBlogContentImages } from '@/lib/blogContentImages'
 import { buildUrl } from '@/lib/siteConfig'
 
 // Revalidate blog post every 60 seconds to show updates quickly
@@ -278,7 +279,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   className="object-contain"
                   priority
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 896px"
-                  unoptimized
                 />
               </div>
             )}
@@ -294,7 +294,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           {/* Article Content */}
           <div 
             className="blog-content prose prose-lg prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base md:prose-p:text-lg prose-strong:text-gray-900 prose-strong:font-semibold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-ul:text-gray-700 prose-li:text-gray-700 prose-li:leading-relaxed prose-li:mb-2 max-w-none mb-12"
-            dangerouslySetInnerHTML={{ __html: sanitizeHtml(content) }}
+            dangerouslySetInnerHTML={{ __html: optimizeBlogContentImages(sanitizeHtml(content)) }}
           />
 
           {/* End-of-article: back to articles + share/related affordance */}

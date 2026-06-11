@@ -264,3 +264,21 @@ Assessment: this is Instagram's Android WebView navigation-performance bridge tr
 Fix applied:
 
 - Added a narrow client-side Sentry filter that drops only Instagram-on-Android `window.onerror` events with the exact `enableDidUserTypeOnKeyboardLogging` message and stack frames exclusively from `app://navigation_performance_logger_android`.
+
+## Follow-Up — 2026-06-11 Firefox Media Resource Fetch Abort
+
+Sentry reported `JAVASCRIPT-NEXTJS-16` on `/products/:id`: `AbortError: The fetching process for the media resource was aborted by the user agent at the user's request.` (event `63ce51a54f574a6a86f22e97d83b3933`, release `28a31dc`).
+
+Raw event details:
+
+- Browser: Firefox 151 on Windows >=10.
+- `DOMException.code = 20` (AbortError), mechanism `auto.browser.global_handlers.onunhandledrejection`, `handled = no`.
+- Stack trace has **zero frames** — the rejection comes from a browser-internal media load promise, not app code.
+- URL: `https://genosys.ae/products/40` — a product page that renders a native `<video controls preload="metadata">` tab in `components/product/ProductImmersiveMedia.tsx`.
+- Breadcrumbs show normal browsing: successful RSC prefetches and two accordion `ui.click` events right before the rejection. All app requests returned `200`.
+
+Assessment: Firefox-specific wording of the same media/navigation abort class we already filter for iOS WebKit. When the user begins loading/playing the PDP video and then switches media tabs or navigates, Firefox aborts the in-flight media fetch and rejects its internal promise. With native `<video controls>` there is no app-side promise to `.catch()` — the abort is correct browser behavior and there is no user-visible breakage. Not actionable.
+
+Fix applied:
+
+- Added `isMediaResourceFetchAbortError` to `instrumentation-client.ts`: drops only `AbortError` unhandled rejections whose message matches `fetching process for the media resource was aborted` and that carry no app stack frames. Any abort with real app frames still reaches Sentry.

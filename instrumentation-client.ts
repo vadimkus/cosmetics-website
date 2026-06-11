@@ -98,6 +98,41 @@ function isIOSNavigationAbortError(event: Sentry.ErrorEvent): boolean {
 }
 
 /**
+ * Media element fetch abort (Firefox wording).
+ *
+ * Product pages render a native `<video controls preload="metadata">` tab
+ * (components/product/ProductImmersiveMedia.tsx). When the user starts
+ * loading/playing the video and then switches media tabs or navigates away,
+ * the browser aborts the in-flight media fetch and rejects its internal
+ * load/play promise with DOMException code 20:
+ *   "AbortError: The fetching process for the media resource was aborted by
+ *    the user agent at the user's request."
+ * With native controls that promise is browser-internal — there is no app
+ * code to attach a .catch() to — so it surfaces as an unhandled rejection
+ * with zero stack frames.
+ *
+ * Seen first 2026-06-11 16:37 UTC, event 63ce51a5… on Firefox 151 / Windows
+ * at /products/40. Same class of noise as the iOS navigation aborts above,
+ * just Firefox's message wording. Aborting a media fetch on tab switch or
+ * navigation is correct behavior; drop these events.
+ */
+function isMediaResourceFetchAbortError(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+
+  const isAbort = /AbortError/i.test(exc.type || '') || /AbortError/i.test(exc.value || '')
+  if (!isAbort) return false
+  if (!/fetching process for the media resource was aborted/i.test(exc.value || '')) {
+    return false
+  }
+  if (exc.mechanism?.type !== 'auto.browser.global_handlers.onunhandledrejection') return false
+
+  return hasNoAppStack(event)
+}
+
+/**
  * iOS Safari + experimental.viewTransition + React 19 race condition.
  *
  * During a client-side route change, WebKit's View Transitions API takes a
@@ -322,6 +357,7 @@ if (dsn) {
       // Drop unactionable iOS Safari navigation-abort noise.
       if (isSafariNavigationAbortLoadFailed(event)) return null
       if (isIOSNavigationAbortError(event)) return null
+      if (isMediaResourceFetchAbortError(event)) return null
       if (isIOSViewTransitionRemoveChildRace(event)) return null
       if (isGoogleTranslateRemoveChildMutation(event)) return null
       if (isBrowserTranslationContentDocumentProbe(event)) return null

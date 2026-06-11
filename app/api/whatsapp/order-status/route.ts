@@ -7,8 +7,10 @@
  * Called internally when order status changes.
  */
 
+import crypto from 'crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/database'
+import { verifyAdminAuth } from '@/lib/adminAuth'
 import { 
   sendWhatsAppOrderConfirmation,
   sendWhatsAppOrderShipped,
@@ -18,6 +20,17 @@ import {
   isTwilioConfigured
 } from '@/lib/twilio'
 import { debugLog, errorLog } from '@/lib/logger'
+
+function isValidInternalKey(provided: string | null): boolean {
+  const internalKey = process.env.INTERNAL_API_KEY
+  if (!provided || !internalKey) return false
+  const providedBuffer = Buffer.from(provided)
+  const expectedBuffer = Buffer.from(internalKey)
+  return (
+    providedBuffer.length === expectedBuffer.length &&
+    crypto.timingSafeEqual(providedBuffer, expectedBuffer)
+  )
+}
 
 interface OrderStatusPayload {
   orderId?: string
@@ -95,13 +108,22 @@ async function sendOrderStatusWhatsApp(
 
 export async function POST(request: NextRequest) {
   try {
-    // Check internal API key
-    const authHeader = request.headers.get('x-api-key')
-    const internalKey = process.env.INTERNAL_API_KEY
-    
-    if (!authHeader || authHeader !== internalKey) {
-      // Allow internal calls without key for server-to-server
-      debugLog('[WHATSAPP_ORDER] Internal call without API key - allowing')
+    // Require either the internal API key (server-to-server calls from
+    // admin/orders/[id]) or a signed admin session. Fails closed when
+    // INTERNAL_API_KEY is not configured.
+    let isAuthorized = isValidInternalKey(request.headers.get('x-api-key'))
+
+    if (!isAuthorized) {
+      const auth = await verifyAdminAuth(request)
+      isAuthorized = Boolean(auth.user)
+    }
+
+    if (!isAuthorized) {
+      debugLog('[WHATSAPP_ORDER] Unauthorized request rejected')
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      )
     }
 
     // Check if WhatsApp is configured

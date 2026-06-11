@@ -91,6 +91,7 @@ import { GET as initDbGET, POST as initDbPOST } from '@/app/api/init-db/route'
 import { POST as pingSearchEnginesPOST } from '@/app/api/admin/ping-search-engines/route'
 import { POST as registerPOST } from '@/app/api/auth/register/route'
 import { POST as adminVerifyPOST } from '@/app/api/auth/admin-verify/route'
+import { POST as whatsappOrderStatusPOST } from '@/app/api/whatsapp/order-status/route'
 
 const ADMIN_EMAIL = 'admin@example.com'
 const adminUser = {
@@ -232,6 +233,69 @@ describe('POST /api/auth/admin-verify', () => {
     const body = await res.json()
     // Identity comes from the signed cookie, never the body
     expect(body.user.email).toBe(ADMIN_EMAIL)
+  })
+})
+
+describe('POST /api/whatsapp/order-status', () => {
+  const ORIGINAL_KEY = process.env.INTERNAL_API_KEY
+
+  afterEach(() => {
+    process.env.INTERNAL_API_KEY = ORIGINAL_KEY
+  })
+
+  it('rejects requests without credentials (old behavior allowed them)', async () => {
+    process.env.INTERNAL_API_KEY = 'test-internal-key'
+    const res = await whatsappOrderStatusPOST(
+      createMockRequest({ body: { orderNumber: 'W-123', status: 'SHIPPED' } })
+    )
+    expect(res.status).toBe(401)
+  })
+
+  it('rejects a wrong x-api-key', async () => {
+    process.env.INTERNAL_API_KEY = 'test-internal-key'
+    const res = await whatsappOrderStatusPOST(
+      createMockRequest({
+        headers: { 'x-api-key': 'wrong-key' },
+        body: { orderNumber: 'W-123', status: 'SHIPPED' },
+      })
+    )
+    expect(res.status).toBe(401)
+  })
+
+  it('fails closed when INTERNAL_API_KEY is not configured', async () => {
+    delete process.env.INTERNAL_API_KEY
+    const res = await whatsappOrderStatusPOST(
+      createMockRequest({
+        headers: { 'x-api-key': '' },
+        body: { orderNumber: 'W-123', status: 'SHIPPED' },
+      })
+    )
+    expect(res.status).toBe(401)
+  })
+
+  it('accepts the correct x-api-key', async () => {
+    process.env.INTERNAL_API_KEY = 'test-internal-key'
+    const res = await whatsappOrderStatusPOST(
+      createMockRequest({
+        headers: { 'x-api-key': 'test-internal-key' },
+        body: { orderNumber: 'W-123', status: 'SHIPPED' },
+      })
+    )
+    // Auth passes; Twilio is unconfigured in tests so the route skips with 200
+    expect(res.status).toBe(200)
+    const body = await res.json()
+    expect(body.skipped).toBe(true)
+  })
+
+  it('accepts a valid signed admin session without an API key', async () => {
+    process.env.INTERNAL_API_KEY = 'test-internal-key'
+    const res = await whatsappOrderStatusPOST(
+      createMockRequest({
+        cookies: await validAdminCookie(),
+        body: { orderNumber: 'W-123', status: 'SHIPPED' },
+      })
+    )
+    expect(res.status).toBe(200)
   })
 })
 

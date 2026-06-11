@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { Product } from '@/types'
 import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from '@/app/products/[id]/ProductPageClientRefactored'
@@ -6,8 +6,10 @@ import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import {
+  getCanonicalProductSlug,
   getLocalizedProductDescription,
   getLocalizedProductName,
+  getLocalizedProductPath,
   getLocalizedProductUrl,
   getProductAlternates,
   getProductImageUrls,
@@ -37,20 +39,21 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const product = await getProduct(id)
   
   if (!product) {
-    return {
-      title: 'Продукт не найден - GENOSYS',
-      description: 'Запрашиваемый продукт не найден.',
-      robots: {
-        index: false,
-        follow: false,
-      },
-    }
+    // Real HTTP 404 (see app/products/[id]/page.tsx for rationale)
+    notFound()
+  }
+
+  // 301 legacy CUID URLs to the canonical numeric URL (real redirect status
+  // is only possible before streaming starts)
+  const canonicalSlug = getCanonicalProductSlug(product)
+  if (id !== canonicalSlug) {
+    permanentRedirect(getLocalizedProductPath(canonicalSlug, 'ru'))
   }
 
   const productName = getLocalizedProductName(product, 'ru')
   const productDescriptionText = getLocalizedProductDescription(product, 'ru')
   const productImages = getProductImageUrls(product)
-  const productUrl = getLocalizedProductUrl(product.id, 'ru')
+  const productUrl = getLocalizedProductUrl(canonicalSlug, 'ru')
   
   const productTitle = `${productName} - Профессиональная корейская дерматокосметика ОАЭ | GENOSYS`
   const productDescription = `${truncateText(productDescriptionText, 150)} Профессиональная корейская дерматокосметика от GENOSYS. Официальный дистрибьютор в ОАЭ. Бесплатная доставка от 1000 AED.`
@@ -113,7 +116,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     },
     alternates: {
       canonical: productUrl,
-      languages: getProductAlternates(product.id),
+      languages: getProductAlternates(canonicalSlug),
     },
     other: {
       'product:price:amount': product.price.toString(),

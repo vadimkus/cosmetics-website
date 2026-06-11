@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect } from 'next/navigation'
 import { Product } from '@/types'
 import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from './ProductPageClientRefactored'
@@ -6,8 +6,10 @@ import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { errorLog, debugLog } from '@/lib/logger'
 import {
+  getCanonicalProductSlug,
   getLocalizedProductDescription,
   getLocalizedProductName,
+  getLocalizedProductPath,
   getLocalizedProductUrl,
   getProductAlternates,
   getProductImageUrls,
@@ -41,20 +43,23 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const product = await getProduct(id)
   
   if (!product) {
-    return {
-      title: 'Product Not Found - GENOSYS',
-      description: 'The requested product could not be found.',
-      robots: {
-        index: false,
-        follow: false,
-      },
-    }
+    // notFound() here (before the response starts streaming) produces a real
+    // HTTP 404. Calling it only in the page body yields a streamed 200 +
+    // noindex meta (soft 404) because loading.tsx starts the stream first.
+    notFound()
+  }
+
+  // 301 legacy CUID URLs to the canonical numeric URL (must happen here,
+  // before streaming starts, to emit a real HTTP redirect status)
+  const canonicalSlug = getCanonicalProductSlug(product)
+  if (id !== canonicalSlug) {
+    permanentRedirect(getLocalizedProductPath(canonicalSlug, 'en'))
   }
 
   const productName = getLocalizedProductName(product, 'en')
   const productDescriptionText = getLocalizedProductDescription(product, 'en')
   const productImages = getProductImageUrls(product)
-  const productUrl = getLocalizedProductUrl(product.id, 'en')
+  const productUrl = getLocalizedProductUrl(canonicalSlug, 'en')
   
   // Enhanced product-specific meta tags
   const productTitle = `${productName} - Professional Korean Dermacosmetics UAE | GENOSYS`
@@ -118,7 +123,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     },
     alternates: {
       canonical: productUrl,
-      languages: getProductAlternates(product.id),
+      languages: getProductAlternates(canonicalSlug),
     },
     other: {
       'product:price:amount': product.price.toString(),

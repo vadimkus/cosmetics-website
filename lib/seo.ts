@@ -64,6 +64,18 @@ export function getLocalizedProductDescription(product: Product, locale: Locale)
   return product.description
 }
 
+/**
+ * Canonical URL slug for a product. Always the short numeric identifier
+ * (productNumber when present, else the id - legacy products have numeric
+ * ids). Using one consistent scheme in canonicals, hreflang, sitemap,
+ * schema.org and feeds avoids sending search engines conflicting signals
+ * (previously the sitemap used numeric URLs while page canonicals used
+ * CUIDs).
+ */
+export function getCanonicalProductSlug(product: Pick<Product, 'id' | 'productNumber'>): string {
+  return product.productNumber?.trim() || product.id
+}
+
 export function getLocalizedProductPath(productId: string, locale: Locale): string {
   if (locale === 'ar') return `/ar/products/${productId}`
   if (locale === 'ru') return `/ru/products/${productId}`

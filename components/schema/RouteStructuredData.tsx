@@ -4,6 +4,7 @@ import { getLocaleFromPath, type Locale } from '@/lib/i18n'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { buildUrl } from '@/lib/siteConfig'
 import {
+  getCanonicalProductSlug,
   getLocalizedProductName,
   getLocalizedProductPath,
   getLocalizedProductUrl,
@@ -44,15 +45,16 @@ export default async function RouteStructuredData({ pathname }: RouteStructuredD
     if (!product) return null
 
     const labels = productBreadcrumbLabels(locale)
+    const canonicalSlug = getCanonicalProductSlug(product)
 
     return (
       <>
-        <ProductSchema product={product} locale={locale} canonicalUrl={getLocalizedProductUrl(product.id, locale)} />
+        <ProductSchema product={product} locale={locale} canonicalUrl={getLocalizedProductUrl(canonicalSlug, locale)} />
         <BreadcrumbSchema
           items={[
             { name: labels.home, url: locale === 'en' ? '/' : `/${locale}` },
             { name: labels.products, url: locale === 'en' ? '/products' : `/${locale}/products` },
-            { name: getLocalizedProductName(product, locale), url: getLocalizedProductPath(product.id, locale) },
+            { name: getLocalizedProductName(product, locale), url: getLocalizedProductPath(canonicalSlug, locale) },
           ]}
         />
       </>

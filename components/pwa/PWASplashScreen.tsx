@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, type ReactNode } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -27,19 +27,63 @@ function getLoginPath(locale: string): string {
   return locale === 'en' ? '/pwa-login' : `/${locale}/pwa-login`
 }
 
+function SplashOverlay({ className = '', faded = false }: { className?: string; faded?: boolean }) {
+  return (
+    <div
+      className={`fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white ${
+        faded ? 'transition-opacity duration-300 opacity-0 pointer-events-none' : ''
+      } ${className}`}
+    >
+      <div className="flex flex-col items-center px-6">
+        <Image
+          src="/Logo/Full.png"
+          alt="Genosys"
+          width={260}
+          height={90}
+          className="w-[260px] h-auto"
+        />
+        <p className="mt-5 text-lg font-semibold text-red-600 text-center">
+          {COMPANY_NAME}
+        </p>
+        {!faded && (
+          <div className="mt-8">
+            <div className="w-8 h-8 border-2 border-gray-200 border-t-red-600 rounded-full animate-spin" />
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 /**
- * PWA Splash Screen - Shows branded loading screen when PWA starts
- * 
- * CRITICAL: This component BLOCKS rendering until auth is verified.
- * In PWA mode, users MUST be logged in to see any content.
- * Unauthenticated users are redirected to /pwa-login.
+ * PWA Splash Screen - shows a branded loading screen while the PWA starts
+ * and blocks PWA content until auth is verified (unauthenticated PWA users
+ * are redirected to /pwa-login).
+ *
+ * CRITICAL FOR SEO: children must ALWAYS be present in the server-rendered
+ * HTML. AI crawlers (GPTBot, ClaudeBot, PerplexityBot) do not execute
+ * JavaScript - whatever the server sends is all they ever see. A previous
+ * version of this component returned a bare spinner during SSR, which made
+ * every page on the site invisible to non-JS crawlers (~11 words of HTML).
+ *
+ * How it works now:
+ * - SSR / pre-hydration: children render normally. The splash overlay is
+ *   also in the HTML but hidden by CSS (`pwa-boot-splash`) unless the app
+ *   is running in a PWA display mode (standalone/fullscreen/minimal-ui),
+ *   so PWA users still see the splash with no flash of content while
+ *   browsers and crawlers never see it.
+ * - After hydration in PWA mode: the original auth-gating logic applies.
+ * - After hydration in browser mode: children render, no splash.
+ *
+ * The fragment structure below is intentionally stable (<>{overlay}{content}</>)
+ * so React never remounts the page tree when hydration state flips.
  */
 export default function PWASplashScreen({ children }: { children: React.ReactNode }) {
   const { isPWA, isClient } = usePWAMode()
   const { isLoading: authLoading, user } = useAuth()
   const router = useRouter()
   const pathname = usePathname()
-  
+
   // State for splash screen
   const [showSplash, setShowSplash] = useState(true)
   const [minTimeElapsed, setMinTimeElapsed] = useState(false)
@@ -102,75 +146,28 @@ export default function PWASplashScreen({ children }: { children: React.ReactNod
     }
   }, [isClient, authLoading, isPWA, user, pathname, minTimeElapsed, redirectToLogin])
 
-  // For non-client (SSR), return minimal loading state
+  let overlay: ReactNode = null
+  let showContent = true
+
   if (!isClient) {
-    return (
-      <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white">
-        <div className="w-8 h-8 border-2 border-gray-200 border-t-red-600 rounded-full animate-spin" />
-      </div>
-    )
+    // SSR + first client paint: full content in the HTML for crawlers and
+    // web users; CSS-gated splash overlay covers it only in PWA display mode.
+    overlay = <SplashOverlay className="pwa-boot-splash" />
+  } else if (isPWA) {
+    if (!authChecked || !shouldShowContent) {
+      // PWA auth gate: cover and unmount content until auth resolves
+      overlay = <SplashOverlay />
+      showContent = false
+    } else if (showSplash) {
+      // Smooth fade-out transition from splash to content
+      overlay = <SplashOverlay faded />
+    }
   }
 
-  // Non-PWA mode: just render children
-  if (!isPWA) {
-    return <>{children}</>
-  }
-
-  // PWA mode: show splash until auth is checked and content should be shown
-  if (!authChecked || !shouldShowContent) {
-    return (
-      <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white">
-        <div className="flex flex-col items-center px-6">
-          {/* Logo */}
-          <Image
-            src="/Logo/Full.png"
-            alt="Genosys"
-            width={260}
-            height={90}
-            priority
-            className="w-[260px] h-auto"
-          />
-          
-          {/* Company Name */}
-          <p className="mt-5 text-lg font-semibold text-red-600 text-center">
-            {COMPANY_NAME}
-          </p>
-          
-          {/* Loading indicator */}
-          <div className="mt-8">
-            <div className="w-8 h-8 border-2 border-gray-200 border-t-red-600 rounded-full animate-spin" />
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  // Smooth transition from splash to content
   return (
     <>
-      {/* Splash overlay that fades out */}
-      {showSplash && (
-        <div 
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white transition-opacity duration-300 opacity-0 pointer-events-none"
-        >
-          <div className="flex flex-col items-center px-6">
-            <Image
-              src="/Logo/Full.png"
-              alt="Genosys"
-              width={260}
-              height={90}
-              priority
-              className="w-[260px] h-auto"
-            />
-            <p className="mt-5 text-lg font-semibold text-red-600 text-center">
-              {COMPANY_NAME}
-            </p>
-          </div>
-        </div>
-      )}
-      
-      {/* Main content */}
-      {children}
+      {overlay}
+      {showContent ? children : null}
     </>
   )
 }

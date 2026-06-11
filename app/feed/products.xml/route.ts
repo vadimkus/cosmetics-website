@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getAllProducts } from '@/lib/productsDb'
 import { SITE_URL } from '@/lib/siteConfig'
+import { getCanonicalProductSlug } from '@/lib/seo'
 import { errorLog } from '@/lib/logger'
 
 /**
@@ -45,7 +46,7 @@ export async function GET() {
         // Google requires title ≤ 150 chars, description ≤ 5000 chars
         const title = escapeXml(truncate(p.name, 150))
         const description = escapeXml(truncate(p.description || p.name, 5000))
-        const link = `${baseUrl}/products/${p.id}`
+        const link = `${baseUrl}/products/${getCanonicalProductSlug(p)}`
         const imageLink = p.image.startsWith('http') ? p.image : `${baseUrl}${p.image}`
         const availability = p.inStock ? 'in stock' : 'out of stock'
         const price = `${p.price.toFixed(2)} AED`

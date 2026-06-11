@@ -6,6 +6,7 @@ import { buildUrl } from '@/lib/siteConfig'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 import { SEO_LANDING_PAGES } from '@/lib/seoLandingPages'
 import {
+  getCanonicalProductSlug,
   getLocalizedProductDescription,
   getLocalizedProductName,
   parseStringArray,
@@ -88,7 +89,7 @@ export async function GET() {
         : `${product.price} AED`
 
       return [
-        `- [${getLocalizedProductName(product, 'en')}](${buildUrl(`/products/${product.id}`)})`,
+        `- [${getLocalizedProductName(product, 'en')}](${buildUrl(`/products/${getCanonicalProductSlug(product)}`)})`,
         `  Category: ${product.category}. Price: ${price}. Availability: ${product.inStock ? 'in stock' : 'out of stock'}.`,
         `  Summary: ${truncateText(getLocalizedProductDescription(product, 'en'), 350)}`,
         product.nameAr ? `  Arabic: ${getLocalizedProductName(product, 'ar')}` : null,

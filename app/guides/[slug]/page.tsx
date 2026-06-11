@@ -10,6 +10,10 @@ type GuidePageProps = {
 
 export const revalidate = 86400
 
+// All guide slugs are known at build time; unknown slugs must return a real
+// HTTP 404 instead of a streamed 200 (soft 404)
+export const dynamicParams = false
+
 export function generateStaticParams() {
   return SEO_LANDING_PAGES.map(page => ({ slug: page.slug }))
 }
@@ -19,10 +23,8 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
   const page = getSeoLandingPage(slug)
 
   if (!page) {
-    return {
-      title: 'Guide Not Found | GENOSYS',
-      robots: { index: false, follow: false },
-    }
+    // Real HTTP 404 before streaming starts (avoids soft 404)
+    notFound()
   }
 
   const url = buildUrl(`/guides/${page.slug}`)

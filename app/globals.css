@@ -1671,3 +1671,22 @@ html[dir="rtl"] {
     height: 0;
   }
 }
+
+/* ============================================================
+   PWA boot splash (PWASplashScreen)
+   Hidden for browsers and crawlers; visible only when the app
+   runs in a PWA display mode. This lets the server render full
+   page content (SEO-critical) while PWA users still get the
+   branded splash before hydration.
+   ============================================================ */
+.pwa-boot-splash {
+  display: none;
+}
+
+@media all and (display-mode: standalone),
+       all and (display-mode: fullscreen),
+       all and (display-mode: minimal-ui) {
+  .pwa-boot-splash {
+    display: flex;
+  }
+}

@@ -3,6 +3,7 @@ import { getAllProducts } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import { Product } from '@/types/index'
 import { prisma } from '@/lib/prisma'
+import { getCanonicalProductSlug } from '@/lib/seo'
 import { SEO_LANDING_PAGES } from '@/lib/seoLandingPages'
 
 const BASE_URL = 'https://genosys.ae'
@@ -82,7 +83,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const product of products) {
     const lastMod = product.updatedAt ? new Date(product.updatedAt) : now
-    entries.push(...localizedUrls(`/products/${product.id}`, lastMod, 0.8, 'weekly'))
+    entries.push(...localizedUrls(`/products/${getCanonicalProductSlug(product)}`, lastMod, 0.8, 'weekly'))
   }
 
   // Concern-based landing pages

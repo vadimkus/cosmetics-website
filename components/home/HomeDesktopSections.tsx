@@ -585,7 +585,7 @@ export default function HomeDesktopSections({
                   return (
                     <Link
                       key={product.id}
-                      href={getLocalizedPath(`/products/${product.id}`, locale)}
+                      href={getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)}
                       className="group block rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg hover:border-primary-200 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                     >
                       <div className="relative aspect-square bg-gray-50 overflow-hidden">

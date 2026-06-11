@@ -118,6 +118,36 @@ export function proxy(request: NextRequest) {
     return withSecurityHeaders(NextResponse.redirect(new URL(redirects[pathname], request.url)), requestId)
   }
 
+  // Legacy product URLs: CUID/UUID product ids that search engines indexed
+  // before product canonicals were unified on the numeric productNumber.
+  // Redirecting here gives crawlers a real HTTP 301; the page-level
+  // permanentRedirect in app/products/[id] only produces a streamed 200 +
+  // meta refresh because the root loading boundary starts the stream first.
+  const legacyProductIdMap: Record<string, string> = {
+    'cmgj9ifoi00008o07p4eqmfb7': '53', // INTENSIVE REPAIR COLLAGEN MASK
+    'cmhf1a6p400000xfa0iu3bw42': '54', // Holiday Kit
+    'cmhowxw4x00008ofct2ivnq2j': '55', // PROBLEM SKIN CARE BEAUTY BOX
+    'cmhoyg0r400008o7s4va63hsw': '56', // SKIN BRIGHTENING BEAUTY BOX
+    'cmhoyw7d500008o9tdprqkkhb': '57', // CHARMING LOOK BEAUTY BOX
+    'cmhozfrep00008oxxizeqk8a0': '58', // ANTI-AGING BEAUTY BOX
+    'cmhp0jfrq00008odr033fg0ly': '59', // DEEP MOISTURIZING BEAUTY BOX
+    'cmk449na90077e9k5anpfqz4o': '60', // Bio Meso PDRN Ampoule 60000
+    'cf2af89b-2cec-465a-8f00-7c65d82e931b': '61', // HR³ MATRIX SCALP BRUSH
+    'cml3twwvk0000ua8o9qiqwkie': '62', // SENSITIVE SKIN BEAUTY BOX
+    'cmljaahes0017e9ex5yfv76en': '63', // REVITA GLOW BLEMISH BALM CREAM
+  }
+  const legacyProductMatch = pathname.match(/^\/((?:ar|ru)\/)?products\/([^/]+)$/)
+  if (legacyProductMatch?.[2]) {
+    const numericSlug = legacyProductIdMap[legacyProductMatch[2]]
+    if (numericSlug) {
+      const newPath = `/${legacyProductMatch[1] ?? ''}products/${numericSlug}`
+      return withSecurityHeaders(
+        NextResponse.redirect(new URL(newPath, request.url), 301),
+        requestId
+      )
+    }
+  }
+
   // Don't redirect root path - it's already English (default)
   // Only redirect if path doesn't have locale and is not root
   // Exclude static assets (videos, images, icons, service worker, etc.) from locale routing

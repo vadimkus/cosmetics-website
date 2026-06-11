@@ -3,6 +3,7 @@ import { getAllProducts } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import { buildUrl } from '@/lib/siteConfig'
 import {
+  getCanonicalProductSlug,
   getLocalizedProductDescription,
   getLocalizedProductName,
   getProductImageUrls,
@@ -26,7 +27,7 @@ export async function GET() {
 
       return [
         `## ${getLocalizedProductName(product, 'en')}`,
-        `- URL: ${buildUrl(`/products/${product.id}`)}`,
+        `- URL: ${buildUrl(`/products/${getCanonicalProductSlug(product)}`)}`,
         `- Product ID: ${product.id}`,
         product.productNumber ? `- Product number: ${product.productNumber}` : null,
         `- Category: ${product.category}`,

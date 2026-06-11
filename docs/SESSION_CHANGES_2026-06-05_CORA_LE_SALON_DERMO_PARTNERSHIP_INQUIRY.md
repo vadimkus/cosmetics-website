@@ -199,3 +199,14 @@ Position for reply:
   - France/EU: Cap Actuel remains the relevant GENOSYS distributor.
   - International academy: product supply must respect each country distributor; no global rights granted by Genosys ME.
 - Next step should be a call + request for course syllabus / academy draft / target countries / exact kit list.
+
+### 2026-06-11 — final scope corrections (confirmed by Vadim)
+
+- **UAE only — not Gulf/GCC.** Genosys ME is responsible for the UAE market only; do not promise Gulf-region coverage or delivery in any reply or agreement.
+- Roller kits: licensed/qualified professionals only, **delivery within the UAE only**. Students in other countries are directed to their local GENOSYS distributor.
+- Final layman-English response drafted 2026-06-11 (see chat); key framing:
+  - Needle Pen-K discontinuation stated openly ("rollers only" on devices).
+  - Genosys ME fulfilment framed as a benefit to her (no stock/shipping on her side).
+  - Content review + UAE-only delivery framed as mutual protection.
+  - 3-month trial, then review.
+  - Asks: academy/supplier page draft, course outline, student countries, kit product list; suggest a call.

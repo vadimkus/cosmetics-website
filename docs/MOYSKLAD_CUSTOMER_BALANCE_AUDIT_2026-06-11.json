@@ -1,0 +1,1181 @@
+{
+  "asOf": "2026-06-11",
+  "elapsedSec": "67.0",
+  "totals": {
+    "counterpartiesWithActivity": 924,
+    "weOweCustomers": 39,
+    "customersOweUs": 14,
+    "overpaidDocuments": 5,
+    "duplicateInvoiceShipmentPairs": 20,
+    "consignmentCustomersWithUnpaidShipments": 67
+  },
+  "weOweTop25": [
+    {
+      "name": "X BEAUTY CONSULTING - F.Z.C",
+      "balanceAed": "16095.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "01067",
+          "balance": "-180.00"
+        },
+        {
+          "type": "invoice",
+          "name": "01059",
+          "balance": "-1820.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00233",
+          "balance": "150.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "HIDE MEDICAL CENTER L.L.C",
+      "balanceAed": "12836.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00267",
+          "balance": "2639.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00268",
+          "balance": "475.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00269",
+          "balance": "4809.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "LOES BEAUTY SALON L.L.C",
+      "balanceAed": "12511.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00220",
+          "balance": "412.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00221",
+          "balance": "330.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00222",
+          "balance": "2390.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Allure",
+      "balanceAed": "10649.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "02523",
+          "balance": "-275.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00116",
+          "balance": "515.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00154",
+          "balance": "704.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Brow And Beauty Dubai",
+      "balanceAed": "10635.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "01072",
+          "balance": "-180.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00011",
+          "balance": "6247.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00012",
+          "balance": "1218.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Bloom Aesthetic and Laser Clinic",
+      "balanceAed": "9183.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00058",
+          "balance": "4343.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00059",
+          "balance": "765.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00060",
+          "balance": "475.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Platinum Black",
+      "balanceAed": "8880.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "01090",
+          "balance": "-348.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00031",
+          "balance": "190.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00111",
+          "balance": "2105.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [
+        {
+          "type": "report",
+          "name": "00401",
+          "balance": "-165.00"
+        }
+      ]
+    },
+    {
+      "name": "She Beauty Salon",
+      "balanceAed": "7859.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00068",
+          "balance": "810.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00069",
+          "balance": "6701.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00070",
+          "balance": "348.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "ANYACOSM Medical Clinic LLC",
+      "balanceAed": "7630.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00161",
+          "balance": "3090.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00162",
+          "balance": "2690.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00163",
+          "balance": "1850.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "The Beauty House By Takhmina Usmani",
+      "balanceAed": "6738.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00047",
+          "balance": "3173.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00032",
+          "balance": "780.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00034",
+          "balance": "2640.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Modern Medicine Medical Center",
+      "balanceAed": "6655.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00197",
+          "balance": "460.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00198",
+          "balance": "1875.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00199",
+          "balance": "2755.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "The Cure FZ-LLC",
+      "balanceAed": "6173.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00176",
+          "balance": "270.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00177",
+          "balance": "480.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00178",
+          "balance": "315.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Face Retreat Ladies Salon LLC",
+      "balanceAed": "5991.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00071",
+          "balance": "5149.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00072",
+          "balance": "617.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00073",
+          "balance": "225.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "ICEQUEEN GRAND CRYO WELLNESS",
+      "balanceAed": "5533.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00003",
+          "balance": "5088.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00004",
+          "balance": "445.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Dr Yevhenia Zykova Clinic L.L.C",
+      "balanceAed": "5116.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00169",
+          "balance": "5116.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "MARAPO Beauty Salon (old)",
+      "balanceAed": "4995.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00138",
+          "balance": "4995.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Lafamilia Medical Center LLC",
+      "balanceAed": "4824.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00203",
+          "balance": "4824.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Tatiana Aniskina Nail Master",
+      "balanceAed": "4020.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "01038",
+          "balance": "-90.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00159",
+          "balance": "515.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00027",
+          "balance": "165.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Eco Lounge DMCC",
+      "balanceAed": "3975.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00204",
+          "balance": "295.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00205",
+          "balance": "270.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00206",
+          "balance": "440.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Zheteyeva Ella",
+      "balanceAed": "3525.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "01476",
+          "balance": "-8225.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00064",
+          "balance": "3525.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00298",
+          "balance": "8225.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Hortman Pharmacy L.L.C.",
+      "balanceAed": "3462.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00118",
+          "balance": "490.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00160",
+          "balance": "1522.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00216",
+          "balance": "125.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Anishyna Nataliia",
+      "balanceAed": "3426.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "01140",
+          "balance": "-490.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00202",
+          "balance": "2457.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00152",
+          "balance": "535.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Natalia Nesteruk Cosmetologist",
+      "balanceAed": "2708.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00117",
+          "balance": "2708.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Dr. Janna",
+      "balanceAed": "2656.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00145",
+          "balance": "387.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00146",
+          "balance": "335.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00147",
+          "balance": "150.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    },
+    {
+      "name": "Ulbossyn Saparbayeva",
+      "balanceAed": "2480.00",
+      "flags": [
+        "WE_OWE_CUSTOMER",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00265",
+          "balance": "145.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00266",
+          "balance": "290.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00218",
+          "balance": "2045.00"
+        }
+      ],
+      "sampleUnpaidConsignment": []
+    }
+  ],
+  "theyOweTop25": [
+    {
+      "name": "First Person Ladies Salon (Marina)",
+      "balanceAed": "-18401.00",
+      "flags": [
+        "CUSTOMER_OWES_US",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "01037",
+          "balance": "-210.00"
+        },
+        {
+          "type": "invoice",
+          "name": "00910",
+          "balance": "-13971.00"
+        },
+        {
+          "type": "invoice",
+          "name": "01073",
+          "balance": "-2282.00"
+        },
+        {
+          "type": "invoice",
+          "name": "01099",
+          "balance": "-2710.00"
+        },
+        {
+          "type": "invoice",
+          "name": "00473",
+          "balance": "-2651.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [],
+      "consignmentDemandUnpaidAed": "221695.00"
+    },
+    {
+      "name": "Brau Ladies Salon LLC",
+      "balanceAed": "-10810.00",
+      "flags": [
+        "CUSTOMER_OWES_US"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "04476",
+          "balance": "-1200.00"
+        },
+        {
+          "type": "invoice",
+          "name": "04597",
+          "balance": "-760.00"
+        },
+        {
+          "type": "invoice",
+          "name": "04502",
+          "balance": "-1060.00"
+        },
+        {
+          "type": "invoice",
+          "name": "04542",
+          "balance": "-760.00"
+        },
+        {
+          "type": "invoice",
+          "name": "04482",
+          "balance": "-760.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [],
+      "consignmentDemandUnpaidAed": "0.00"
+    },
+    {
+      "name": "Mediclinic Clinics Investment LLC",
+      "balanceAed": "-4560.00",
+      "flags": [
+        "CUSTOMER_OWES_US"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "04330",
+          "balance": "-1900.00"
+        },
+        {
+          "type": "invoice",
+          "name": "04614",
+          "balance": "-1900.00"
+        },
+        {
+          "type": "invoice",
+          "name": "04211",
+          "balance": "-760.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [],
+      "consignmentDemandUnpaidAed": "0.00"
+    },
+    {
+      "name": "Fayy Health FZCO",
+      "balanceAed": "-3800.00",
+      "flags": [
+        "CUSTOMER_OWES_US"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "04511",
+          "balance": "-3800.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [],
+      "consignmentDemandUnpaidAed": "0.00"
+    },
+    {
+      "name": "GOCOSMO BEAUTY SALON",
+      "balanceAed": "-2509.00",
+      "flags": [
+        "CUSTOMER_OWES_US",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [],
+      "sampleUnpaidConsignment": [
+        {
+          "type": "report",
+          "name": "01253",
+          "balance": "-2509.00"
+        }
+      ],
+      "consignmentDemandUnpaidAed": "45563.00"
+    },
+    {
+      "name": "BIANCO JGE Ladies Salon L.L.C",
+      "balanceAed": "-2464.00",
+      "flags": [
+        "CUSTOMER_OWES_US",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [],
+      "sampleUnpaidConsignment": [
+        {
+          "type": "report",
+          "name": "01334",
+          "balance": "-420.00"
+        },
+        {
+          "type": "report",
+          "name": "01298",
+          "balance": "-596.00"
+        },
+        {
+          "type": "report",
+          "name": "01054",
+          "balance": "-1014.00"
+        },
+        {
+          "type": "report",
+          "name": "01322",
+          "balance": "-271.00"
+        },
+        {
+          "type": "report",
+          "name": "01299",
+          "balance": "-163.00"
+        }
+      ],
+      "consignmentDemandUnpaidAed": "11790.00"
+    },
+    {
+      "name": "Bianco Spa FZCO (Cedre Center)",
+      "balanceAed": "-894.00",
+      "flags": [
+        "CUSTOMER_OWES_US",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00275",
+          "balance": "1880.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00215",
+          "balance": "675.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00219",
+          "balance": "1010.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [
+        {
+          "type": "report",
+          "name": "00931",
+          "balance": "-365.00"
+        },
+        {
+          "type": "report",
+          "name": "01300",
+          "balance": "-18.00"
+        },
+        {
+          "type": "report",
+          "name": "01055",
+          "balance": "-590.00"
+        },
+        {
+          "type": "report",
+          "name": "01335",
+          "balance": "-2329.00"
+        },
+        {
+          "type": "report",
+          "name": "01301",
+          "balance": "-165.00"
+        }
+      ],
+      "consignmentDemandUnpaidAed": "20269.00"
+    },
+    {
+      "name": "Milena AESTHETIC CLINIC LLC",
+      "balanceAed": "-540.00",
+      "flags": [
+        "CUSTOMER_OWES_US"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "04523",
+          "balance": "-540.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [],
+      "consignmentDemandUnpaidAed": "0.00"
+    },
+    {
+      "name": "Bianco Beauty Salon SPA (Dubai Hills)",
+      "balanceAed": "-277.00",
+      "flags": [
+        "CUSTOMER_OWES_US",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "03779",
+          "balance": "-510.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00295",
+          "balance": "1255.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [
+        {
+          "type": "report",
+          "name": "01333",
+          "balance": "-165.00"
+        },
+        {
+          "type": "report",
+          "name": "01295",
+          "balance": "-674.00"
+        },
+        {
+          "type": "report",
+          "name": "01053",
+          "balance": "-18.00"
+        },
+        {
+          "type": "report",
+          "name": "01296",
+          "balance": "-165.00"
+        }
+      ],
+      "consignmentDemandUnpaidAed": "11252.00"
+    },
+    {
+      "name": "BIANCO JGE GENTS SALON L.L.C",
+      "balanceAed": "-215.00",
+      "flags": [
+        "CUSTOMER_OWES_US",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [],
+      "sampleUnpaidConsignment": [
+        {
+          "type": "report",
+          "name": "01297",
+          "balance": "-143.00"
+        },
+        {
+          "type": "report",
+          "name": "01323",
+          "balance": "-72.00"
+        }
+      ],
+      "consignmentDemandUnpaidAed": "990.00"
+    },
+    {
+      "name": "Shakirovna Ladies Beauty Saloon",
+      "balanceAed": "-168.00",
+      "flags": [
+        "CUSTOMER_OWES_US",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "salesreturn",
+          "name": "00195",
+          "balance": "145.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00113",
+          "balance": "275.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00173",
+          "balance": "165.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00172",
+          "balance": "165.00"
+        },
+        {
+          "type": "salesreturn",
+          "name": "00296",
+          "balance": "401.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [
+        {
+          "type": "report",
+          "name": "01378",
+          "balance": "-4038.00"
+        }
+      ],
+      "consignmentDemandUnpaidAed": "182516.00"
+    },
+    {
+      "name": "Roksolana Tychkivska",
+      "balanceAed": "-72.00",
+      "flags": [
+        "CUSTOMER_OWES_US"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "02416",
+          "balance": "-72.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [],
+      "consignmentDemandUnpaidAed": "0.00"
+    },
+    {
+      "name": "Miss Alina Melnik",
+      "balanceAed": "-72.00",
+      "flags": [
+        "CUSTOMER_OWES_US"
+      ],
+      "sampleUnpaidRetail": [
+        {
+          "type": "invoice",
+          "name": "04382",
+          "balance": "-72.00"
+        }
+      ],
+      "sampleUnpaidConsignment": [],
+      "consignmentDemandUnpaidAed": "0.00"
+    },
+    {
+      "name": "First Person Ladies Salon (Downtown)",
+      "balanceAed": "-18.00",
+      "flags": [
+        "CUSTOMER_OWES_US",
+        "CONSIGNMENT_SHIPMENTS_SHOW_UNPAID"
+      ],
+      "sampleUnpaidRetail": [],
+      "sampleUnpaidConsignment": [
+        {
+          "type": "report",
+          "name": "01094",
+          "balance": "-18.00"
+        }
+      ],
+      "consignmentDemandUnpaidAed": "37200.00"
+    }
+  ],
+  "overpaidDocs": [
+    {
+      "type": "invoiceout",
+      "name": "04044",
+      "sum": "990.00",
+      "payedSum": "1020.00",
+      "over": "30.00"
+    },
+    {
+      "type": "invoiceout",
+      "name": "03533",
+      "sum": "271.00",
+      "payedSum": "325.00",
+      "over": "54.00"
+    },
+    {
+      "type": "invoiceout",
+      "name": "02184",
+      "sum": "527.00",
+      "payedSum": "692.00",
+      "over": "165.00"
+    },
+    {
+      "type": "demand",
+      "name": "02790",
+      "sum": "527.00",
+      "payedSum": "692.00",
+      "over": "165.00"
+    },
+    {
+      "type": "commissionreportin",
+      "name": "01231",
+      "sum": "840.00",
+      "payedSum": "1680.00",
+      "over": "840.00"
+    }
+  ],
+  "duplicatePairs": [
+    {
+      "agent": "Mediclinic Clinics Investment LLC",
+      "invoice": "04614",
+      "shipment": "06289",
+      "amount": "1900.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04578",
+      "shipment": "06232",
+      "amount": "1520.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04453",
+      "shipment": "06069",
+      "amount": "760.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04597",
+      "shipment": "06262",
+      "amount": "760.00"
+    },
+    {
+      "agent": "Milena AESTHETIC CLINIC LLC",
+      "invoice": "04523",
+      "shipment": "06169",
+      "amount": "540.00"
+    },
+    {
+      "agent": "Mediclinic Clinics Investment LLC",
+      "invoice": "04330",
+      "shipment": "05916",
+      "amount": "1900.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04476",
+      "shipment": "06104",
+      "amount": "1200.00"
+    },
+    {
+      "agent": "Fayy Health FZCO",
+      "invoice": "04511",
+      "shipment": "06153",
+      "amount": "3800.00"
+    },
+    {
+      "agent": "Bianco Beauty Salon SPA (Dubai Hills)",
+      "invoice": "03779",
+      "shipment": "05112",
+      "amount": "510.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04542",
+      "shipment": "06192",
+      "amount": "760.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04482",
+      "shipment": "06113",
+      "amount": "760.00"
+    },
+    {
+      "agent": "Mediclinic Clinics Investment LLC",
+      "invoice": "04211",
+      "shipment": "05753",
+      "amount": "760.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04483",
+      "shipment": "06114",
+      "amount": "380.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04452",
+      "shipment": "06068",
+      "amount": "380.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04639",
+      "shipment": "06317",
+      "amount": "950.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04640",
+      "shipment": "06318",
+      "amount": "950.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04641",
+      "shipment": "06319",
+      "amount": "380.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04543",
+      "shipment": "06193",
+      "amount": "570.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04426",
+      "shipment": "06038",
+      "amount": "380.00"
+    },
+    {
+      "agent": "Brau Ladies Salon LLC",
+      "invoice": "04502",
+      "shipment": "06145",
+      "amount": "1060.00"
+    }
+  ]
+}

@@ -232,4 +232,21 @@ GSC: Coverage report — valid pages trending up over 2–4 weeks
 
 ---
 
+## Status Update — 2026-06-11 EOD
+
+| Finding | Status | Where |
+|---|---|---|
+| 🔴 C1 SSR blackout | ✅ **Fixed + deployed** — homepage 11 → 1,255 words for crawlers | `SESSION_CHANGES_2026-06-11_SEO_P0_SSR_CANONICALS.md` |
+| 🔴 C2 canonical ↔ sitemap conflict | ✅ **Fixed + deployed** — unified on numeric slugs, 301s for legacy CUIDs | same |
+| 🟠 H1 soft 404s | ✅ Fixed (products + guides `notFound()` in metadata; guides `dynamicParams=false`) | same |
+| 🟠 H2 performance | ✅ Major progress — Lighthouse 31 → 74 (P0), blog images optimized, three.js deferred, 404 hero 1.59 MB → 12.9 KB | `SESSION_CHANGES_2026-06-11_PERF_BLOG_IMAGES_3D_DEFER.md`, `SESSION_CHANGES_2026-06-11_IMG_TO_NEXT_IMAGE_MIGRATION.md` |
+| 🟠 H3 Bing/GSC verification | ⏳ Pending — needs account access (user action) | — |
+| 🟠 H4 www 307 redirect | ✅ **Fixed + deployed** — www attached to Vercel project, permanent 308 | `SESSION_CHANGES_2026-06-11_SEO_QUICKWINS_WWW_ADMIN_LIGHTHOUSE.md` |
+| 🟡 M1 reviews/stars | ⏳ P2 backlog | — |
+| 🟡 M3 /admin indexable | ✅ Fixed — noindex via admin layout metadata | quick wins doc |
+| 🟡 M2 x-default, M4 AR canonical, M5 OG images | ⏳ P2 backlog | — |
+
+Re-measure production via PageSpeed Insights when the API daily quota resets
+(local Lighthouse runs against production were too noisy to score reliably).
+
 *Audit artifacts: live crawl measurements taken 2026-06-11 08:00–09:00 UTC; Lighthouse run local headless Chrome (lab); codebase inventory at commit `909d20f3`.*

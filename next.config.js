@@ -99,6 +99,16 @@ const nextConfig = {
   async headers() {
     return [
       {
+        // Apple fetches this extensionless file for iOS Universal Links and
+        // requires application/json (it does NOT follow redirects or accept
+        // the default octet-stream type for extensionless public files).
+        source: '/.well-known/apple-app-site-association',
+        headers: [
+          { key: 'Content-Type', value: 'application/json' },
+          { key: 'Cache-Control', value: 'public, max-age=3600' },
+        ],
+      },
+      {
         source: '/images/:path*',
         headers: [
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },

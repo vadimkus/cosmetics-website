@@ -1,0 +1,43 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["2842PLB7CS.ae.genosys.app"],
+        "components": [
+          { "/": "/products/*" },
+          { "/": "/cart" },
+          { "/": "/cart/*" },
+          { "/": "/orders" },
+          { "/": "/orders/*" },
+          { "/": "/profile" },
+          { "/": "/profile/*" },
+          { "/": "/favorites" },
+          { "/": "/favorites/*" },
+          { "/": "/skin-recommendation" },
+          { "/": "/skin-recommendation/*" },
+          { "/": "/skin-analysis" },
+          { "/": "/skin-analysis/*" },
+          { "/": "/blog" },
+          { "/": "/blog/*" },
+          { "/": "/bundle-builder" },
+          { "/": "/bundle-builder/*" },
+          { "/": "/training" },
+          { "/": "/training/*" },
+          { "/": "/chat" },
+          { "/": "/chat/*" },
+          { "/": "/checkout" },
+          { "/": "/checkout/*" },
+          { "/": "/track" },
+          { "/": "/track/*" },
+          { "/": "/locations" },
+          { "/": "/brand" },
+          { "/": "/delivery" },
+          { "/": "/faq" },
+          { "/": "/partners" },
+          { "/": "/about" },
+          { "/": "/contact" }
+        ]
+      }
+    ]
+  }
+}

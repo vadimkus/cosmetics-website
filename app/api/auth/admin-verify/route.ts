@@ -1,35 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { findUserByEmail } from '@/lib/userStorageDb'
+import { verifyAdminAuth } from '@/lib/adminAuth'
 import { errorLog } from '@/lib/logger'
 
+/**
+ * Verifies the current admin session.
+ *
+ * Auth comes exclusively from the signed `admin-session` cookie (set by
+ * /api/auth/admin-login). The legacy behavior — accepting any email in the
+ * request body and answering whether that account is an admin — was an
+ * admin-account enumeration oracle and was removed.
+ */
 export async function POST(request: NextRequest) {
   try {
-    const { email } = await request.json()
+    const auth = await verifyAdminAuth(request)
 
-    if (!email) {
-      return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 }
-      )
-    }
-
-    // Check if user exists in database and is admin
-    const user = await findUserByEmail(email)
-    
-    if (!user || !user.isAdmin) {
+    if (!auth.user) {
       return NextResponse.json(
         { error: 'Invalid admin session' },
         { status: 401 }
       )
     }
 
-    // Return admin user data (without password)
     return NextResponse.json({
       success: true,
       user: {
-        id: user.id,
-        email: user.email,
-        name: user.name,
+        id: auth.user.id,
+        email: auth.user.email,
+        name: auth.user.name,
         isAdmin: true
       }
     })
@@ -41,14 +38,3 @@ export async function POST(request: NextRequest) {
     )
   }
 }
-
-
-
-
-
-
-
-
-
-
-

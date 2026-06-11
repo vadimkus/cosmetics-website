@@ -90,6 +90,7 @@ import { POST as createPaymentBlogPOST } from '@/app/api/admin/create-payment-bl
 import { GET as initDbGET, POST as initDbPOST } from '@/app/api/init-db/route'
 import { POST as pingSearchEnginesPOST } from '@/app/api/admin/ping-search-engines/route'
 import { POST as registerPOST } from '@/app/api/auth/register/route'
+import { POST as adminVerifyPOST } from '@/app/api/auth/admin-verify/route'
 
 const ADMIN_EMAIL = 'admin@example.com'
 const adminUser = {
@@ -197,6 +198,40 @@ describe('POST /api/admin/ping-search-engines', () => {
   it('rejects unauthenticated requests', async () => {
     const res = await pingSearchEnginesPOST(createMockRequest())
     expect(res.status).toBe(401)
+  })
+})
+
+describe('POST /api/auth/admin-verify', () => {
+  it('rejects a body email without a signed cookie (old enumeration oracle)', async () => {
+    const res = await adminVerifyPOST(
+      createMockRequest({ body: { email: ADMIN_EMAIL } })
+    )
+    expect(res.status).toBe(401)
+    // The route must not even look the email up — no oracle behavior
+    expect(mockFindUserByEmail).not.toHaveBeenCalledWith(ADMIN_EMAIL)
+  })
+
+  it('accepts a valid signed admin session and returns the cookie user', async () => {
+    const res = await adminVerifyPOST(
+      createMockRequest({ cookies: await validAdminCookie() })
+    )
+    expect(res.status).toBe(200)
+    const body = await res.json()
+    expect(body.success).toBe(true)
+    expect(body.user.email).toBe(ADMIN_EMAIL)
+  })
+
+  it('ignores a body email that differs from the cookie identity', async () => {
+    const res = await adminVerifyPOST(
+      createMockRequest({
+        cookies: await validAdminCookie(),
+        body: { email: 'someone-else@example.com' },
+      })
+    )
+    expect(res.status).toBe(200)
+    const body = await res.json()
+    // Identity comes from the signed cookie, never the body
+    expect(body.user.email).toBe(ADMIN_EMAIL)
   })
 })
 

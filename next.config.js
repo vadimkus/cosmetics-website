@@ -125,6 +125,19 @@ const nextConfig = {
     ]
   },
   
+  // www -> apex with a permanent 308 (Vercel's domain-level redirect is a
+  // temporary 307, which keeps Google from consolidating signals on the apex)
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.genosys.ae' }],
+        destination: 'https://genosys.ae/:path*',
+        permanent: true,
+      },
+    ]
+  },
+
   // Turbopack configuration (Next.js 16)
   turbopack: {},
 }

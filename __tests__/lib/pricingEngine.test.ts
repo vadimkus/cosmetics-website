@@ -21,7 +21,12 @@ jest.mock('@/lib/discountUtils', () => ({
 jest.mock('@/data/productConfig', () => ({
   getProductConfig: jest.fn(),
   getProductSizes: jest.fn(() => []),
-  getProductColors: jest.fn(() => [])
+  getProductColors: jest.fn(() => []),
+  // Empty/undefined defaults make the engine fall back to DB-provided
+  // images/videoUrl/documentation, which is what the tests assert on.
+  getProductImages: jest.fn(() => []),
+  getProductVideoUrl: jest.fn(() => undefined),
+  getProductDocumentation: jest.fn(() => [])
 }))
 
 import { calculateDiscountedPrice } from '@/lib/discountUtils'

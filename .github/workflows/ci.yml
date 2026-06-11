@@ -30,11 +30,8 @@ jobs:
         run: npm run lint
         continue-on-error: true
 
-      # pricingEngine.test.ts has 11 pre-existing failures (audit backlog item:
-      # investigate whether tests are stale or a real pricing bug). Excluded so
-      # CI stays meaningful until that item is resolved.
       - name: Unit tests
-        run: npx jest --ci --testPathIgnorePatterns "/node_modules/" "pricingEngine"
+        run: npx jest --ci
 
   gitleaks:
     name: Secret scan

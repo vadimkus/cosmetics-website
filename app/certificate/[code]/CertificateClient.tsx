@@ -307,6 +307,7 @@ export default function CertificateClient({
                   </div>
                   {qrCodeUrl && (
                     <div className="bg-white p-2 rounded-lg shadow-sm">
+                      {/* eslint-disable-next-line @next/next/no-img-element -- external QR API, host not in remotePatterns */}
                       <img 
                         src={qrCodeUrl} 
                         alt="Certificate QR Code" 

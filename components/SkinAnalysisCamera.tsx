@@ -1424,6 +1424,7 @@ export function SkinAnalysisCamera({
         {/* Captured Image */}
         {capturedImage && (
           <div className="absolute inset-0">
+            {/* eslint-disable-next-line @next/next/no-img-element -- camera capture data URL, optimizer can't process it */}
             <img
               src={capturedImage}
               alt="Captured"

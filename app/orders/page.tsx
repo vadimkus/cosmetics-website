@@ -91,9 +91,11 @@ function OrderItemImage({
       style={{ zIndex }}
     >
       {imgSrc && !hasError ? (
-        <img
+        <Image
           src={imgSrc}
           alt={productName}
+          width={48}
+          height={48}
           className="w-full h-full object-cover"
           onError={handleImageError}
         />

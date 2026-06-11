@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useRef, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { useChat } from '@ai-sdk/react'
 import { useRouter, usePathname } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -200,9 +201,11 @@ function ChatProductCard({
         onClick={(e) => { e.preventDefault(); handleCardClick() }}
         className="flex-shrink-0"
       >
-        <img 
+        <Image
           src={product.image || '/images/placeholder.jpg'}
           alt={product.name}
+          width={56}
+          height={56}
           className="w-14 h-14 object-cover rounded-lg border border-gray-100 dark:border-gray-600 hover:scale-105 transition-transform"
         />
       </a>
@@ -382,6 +385,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
         // Render image with nice styling
         parts.push(
           <div key={keyIndex++} className="my-2">
+            {/* eslint-disable-next-line @next/next/no-img-element -- arbitrary URL from AI markdown, hosts unknown */}
             <img 
               src={url}
               alt={innerText || 'Skincare image'}

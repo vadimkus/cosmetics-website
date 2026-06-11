@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: 'Page Not Found - GENOSYS',
@@ -30,13 +31,13 @@ export default function NotFound() {
           Error · 404
         </p>
         <div className="mb-8">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src="/images/Wrong/roadend.png"
             alt="Road End — the path stops here"
             width={1698}
             height={838}
             className="mx-auto w-full max-w-2xl rounded-xl"
+            sizes="(max-width: 672px) 100vw, 672px"
           />
         </div>
         <h1 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-snug tracking-tight">
@@ -119,12 +120,13 @@ export default function NotFound() {
                 className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                 aria-label="Download Genosys UAE on the App Store (QR code)"
               >
-                <img
+                <Image
                   src="/images/qr-appstore.svg"
                   alt="QR code — Genosys UAE on the App Store"
                   width={140}
                   height={140}
                   className="rounded-lg"
+                  unoptimized
                 />
               </a>
               <a
@@ -149,12 +151,13 @@ export default function NotFound() {
                 className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                 aria-label="Get Genosys UAE on Google Play (QR code)"
               >
-                <img
+                <Image
                   src="/images/qr-playstore.svg"
                   alt="QR code — Genosys UAE on Google Play"
                   width={140}
                   height={140}
                   className="rounded-lg"
+                  unoptimized
                 />
               </a>
               <a

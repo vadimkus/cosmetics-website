@@ -457,6 +457,7 @@ export default function PowerAnimalGame({ locale, onClose }: PowerAnimalGameProp
             {/* Captured image preview */}
             {capturedImage && (
               <div className="w-32 h-32 rounded-full overflow-hidden mb-6 ring-4 ring-orange-200 animate-pulse">
+                {/* eslint-disable-next-line @next/next/no-img-element -- camera capture data URL, optimizer can't process it */}
                 <img src={capturedImage} alt="You" className="w-full h-full object-cover" />
               </div>
             )}

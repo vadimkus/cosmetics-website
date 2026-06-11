@@ -477,6 +477,7 @@ export default function EditProfilePage() {
                   <div className="w-8 h-8 border-2 border-gray-300 border-t-red-600 rounded-full animate-spin" />
                 </div>
               ) : profilePicture ? (
+                // eslint-disable-next-line @next/next/no-img-element -- base64 data URL avatar, optimizer can't process it
                 <img 
                   src={profilePicture} 
                   alt="Profile" 

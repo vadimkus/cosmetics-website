@@ -198,6 +198,7 @@ export default function CertificateGeneratorClient() {
                 </p>
                 <div className="flex justify-center">
                   <div className="bg-white p-4 rounded-lg border-2 border-gray-200 shadow-sm">
+                    {/* eslint-disable-next-line @next/next/no-img-element -- external QR API, host not in remotePatterns */}
                     <img
                       src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(generatedCertificate.url)}`}
                       alt="Certificate QR Code"

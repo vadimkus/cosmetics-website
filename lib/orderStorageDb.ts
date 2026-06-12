@@ -54,14 +54,25 @@ export type OrderWithItems = Order & {
 }
 
 // Read all orders
-export const readOrders = async (): Promise<Order[]> => {
+// Default cap for the admin "all orders" query. Bounds the worst case as the
+// order table grows (currently a few hundred rows) without changing the UI
+// contract — callers still receive a plain array, newest first. Pass an
+// explicit limit/offset to page through older orders.
+export const READ_ORDERS_DEFAULT_LIMIT = 500
+
+export const readOrders = async (
+  limit: number = READ_ORDERS_DEFAULT_LIMIT,
+  offset: number = 0
+): Promise<Order[]> => {
   try {
-    debugLog('🔍 readOrders: Starting query...')
+    debugLog(`🔍 readOrders: Starting query (limit=${limit}, offset=${offset})...`)
     const orders = await prisma.order.findMany({
       include: {
         items: true
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+      skip: offset
     })
     debugLog(`✅ readOrders: Found ${orders.length} orders`)
     return orders as Order[]
@@ -70,6 +81,16 @@ export const readOrders = async (): Promise<Order[]> => {
     errorLog('❌ Error details:', error instanceof Error ? error.message : String(error))
     errorLog('❌ Error stack:', error instanceof Error ? error.stack : 'No stack')
     return []
+  }
+}
+
+// Count of orders excluding soft-deleted, for admin pagination metadata.
+export const countOrders = async (): Promise<number> => {
+  try {
+    return await prisma.order.count({ where: { NOT: { status: 'DELETED' } } })
+  } catch (error) {
+    errorLog('❌ Error counting orders:', error)
+    return 0
   }
 }
 

@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { readOrders, getOrdersByEmail } from '@/lib/orderStorageDb'
+import { readOrders, getOrdersByEmail, countOrders, READ_ORDERS_DEFAULT_LIMIT } from '@/lib/orderStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { prisma } from '@/lib/database'
+
+// Hard ceiling so a hand-crafted ?limit= can't trigger an unbounded scan.
+const MAX_ORDERS_LIMIT = 2000
+
+function parseBoundedInt(value: string | null, fallback: number, max: number): number {
+  const n = Number.parseInt(value ?? '', 10)
+  if (!Number.isFinite(n) || n < 0) return fallback
+  return Math.min(n, max)
+}
 
 export async function GET(request: NextRequest) {
   const auth = await requireAdminAuth(request)
@@ -15,6 +24,9 @@ export async function GET(request: NextRequest) {
     const customerEmail = searchParams.get('customerEmail')
     
     let orders
+    let total: number | undefined
+    let pageLimit: number | undefined
+    let pageOffset: number | undefined
     
     // If customer email is provided, use the database query for better accuracy
     if (customerEmail) {
@@ -49,12 +61,16 @@ export async function GET(request: NextRequest) {
         })
       }
     } else {
-      // Get all orders from storage, excluding cancelled + deleted orders
-      debugLog('📊 Admin orders API: Calling readOrders()...')
-      const allOrders = await readOrders()
-      debugLog(`📊 Admin orders API: readOrders returned ${allOrders.length} total orders`)
+      // Get recent orders from storage, excluding deleted (keeps cancelled).
+      // Bounded by limit/offset so the query stays fast as the table grows;
+      // defaults return the newest READ_ORDERS_DEFAULT_LIMIT orders.
+      const limit = parseBoundedInt(searchParams.get('limit'), READ_ORDERS_DEFAULT_LIMIT, MAX_ORDERS_LIMIT)
+      const offset = parseBoundedInt(searchParams.get('offset'), 0, Number.MAX_SAFE_INTEGER)
+      debugLog(`📊 Admin orders API: Calling readOrders(limit=${limit}, offset=${offset})...`)
+      const allOrders = await readOrders(limit, offset)
+      debugLog(`📊 Admin orders API: readOrders returned ${allOrders.length} orders`)
       
-      if (allOrders.length === 0) {
+      if (allOrders.length === 0 && offset === 0) {
         debugLog('⚠️ Admin orders API: readOrders returned empty array!')
         // Try a direct query to see if it's a Prisma issue
         try {
@@ -69,7 +85,12 @@ export async function GET(request: NextRequest) {
         const status = String(order.status || '').toUpperCase()
         return status !== 'DELETED'
       })
-      debugLog(`📊 Admin orders API: Returning ${orders.length} non-deleted orders (including cancelled)`)
+      // Total non-deleted count for pagination metadata (additive; existing
+      // UI ignores it and just reads `orders`).
+      total = await countOrders()
+      pageLimit = limit
+      pageOffset = offset
+      debugLog(`📊 Admin orders API: Returning ${orders.length} non-deleted orders (page) of ${total} total`)
     }
     
     // Serialize orders to ensure dates are properly converted to strings
@@ -97,7 +118,8 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json({ 
       success: true,
-      orders: serializedOrders
+      orders: serializedOrders,
+      ...(total !== undefined ? { total, limit: pageLimit, offset: pageOffset } : {})
     })
   } catch (error) {
     errorLog('Error fetching orders:', error)

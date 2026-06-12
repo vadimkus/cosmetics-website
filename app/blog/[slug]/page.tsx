@@ -106,14 +106,21 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       title: post.title,
       description: post.excerpt || post.content.substring(0, 160),
       type: 'article',
-      images: post.featuredImage ? [
-        {
-          url: buildUrl(post.featuredImage),
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ] : [],
+      // When there's no featured image, omit the key entirely so the
+      // file-based opengraph-image.tsx title card is used instead of
+      // an explicit empty list (which suppresses og:image altogether).
+      ...(post.featuredImage
+        ? {
+            images: [
+              {
+                url: buildUrl(post.featuredImage),
+                width: 1200,
+                height: 630,
+                alt: post.title,
+              },
+            ],
+          }
+        : {}),
       publishedTime: post.publishedAt?.toISOString(),
       authors: post.authorName ? [post.authorName] : [],
     },

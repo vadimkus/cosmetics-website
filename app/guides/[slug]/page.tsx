@@ -50,20 +50,14 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
       url,
       siteName: 'GENOSYS',
       locale: 'en_AE',
-      images: [
-        {
-          url: buildUrl('/images/genosys-products.jpg'),
-          width: 1200,
-          height: 630,
-          alt: page.h1,
-        },
-      ],
+      // og:image intentionally omitted — file-based opengraph-image.tsx
+      // renders a per-guide branded title card instead of the shared stock photo.
     },
     twitter: {
       card: 'summary_large_image',
       title: page.title,
       description: page.description,
-      images: [buildUrl('/images/genosys-products.jpg')],
+      // twitter:image comes from the file-based twitter-image.tsx card.
     },
     alternates: {
       canonical: url,

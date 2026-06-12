@@ -12,7 +12,6 @@ import {
   getLocalizedProductPath,
   getLocalizedProductUrl,
   getProductAlternates,
-  getProductImageUrls,
   truncateText,
 } from '@/lib/seo'
 
@@ -58,7 +57,6 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
 
   const productName = getLocalizedProductName(product, 'en')
   const productDescriptionText = getLocalizedProductDescription(product, 'en')
-  const productImages = getProductImageUrls(product)
   const productUrl = getLocalizedProductUrl(canonicalSlug, 'en')
   
   // Enhanced product-specific meta tags
@@ -101,12 +99,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       type: 'website',
       url: productUrl,
       siteName: 'GENOSYS',
-      images: productImages.map((img: string) => ({
-        url: img,
-        width: 800,
-        height: 800,
-        alt: `${productName} - Professional Korean Dermacosmetics`,
-      })),
+      // og:image intentionally omitted — the file-based opengraph-image.tsx
+      // (branded 1200x630 product card) is used instead of raw 800x800 photos,
+      // which crop badly in link previews.
       locale: 'en_AE',
       countryName: 'United Arab Emirates',
     },
@@ -116,10 +111,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       creator: '@genosys_official',
       title: productTitle,
       description: productDescription,
-      images: productImages.map((img: string) => ({
-        url: img,
-        alt: `${productName} - Professional Korean Dermacosmetics`,
-      })),
+      // twitter:image comes from the file-based twitter-image.tsx card.
     },
     alternates: {
       canonical: productUrl,

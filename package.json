@@ -108,5 +108,10 @@
     "sharp": "^0.34.5",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "tar": "^7.5.16",
+    "@hono/node-server": "1.19.13",
+    "postcss": "$postcss"
   }
 }

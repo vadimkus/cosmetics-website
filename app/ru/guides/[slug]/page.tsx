@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { buildUrl } from '@/lib/siteConfig'
-import { SEO_LANDING_PAGES, getSeoLandingPage } from '@/lib/seoLandingPages'
+import { SEO_LANDING_PAGES_RU, getSeoLandingPageRu } from '@/lib/seoLandingPagesRu'
 
 type GuidePageProps = {
   params: Promise<{ slug: string }>
@@ -15,19 +15,18 @@ export const revalidate = 86400
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return SEO_LANDING_PAGES.map(page => ({ slug: page.slug }))
+  return SEO_LANDING_PAGES_RU.map(page => ({ slug: page.slug }))
 }
 
 export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
   const { slug } = await params
-  const page = getSeoLandingPage(slug)
+  const page = getSeoLandingPageRu(slug)
 
   if (!page) {
-    // Real HTTP 404 before streaming starts (avoids soft 404)
     notFound()
   }
 
-  const url = buildUrl(`/guides/${page.slug}`)
+  const url = buildUrl(`/ru/guides/${page.slug}`)
 
   return {
     title: page.title,
@@ -49,15 +48,23 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
       type: 'article',
       url,
       siteName: 'GENOSYS',
-      locale: 'en_AE',
-      // og:image intentionally omitted — file-based opengraph-image.tsx
-      // renders a per-guide branded title card instead of the shared stock photo.
+      locale: 'ru_AE',
+      // Reuse the EN guide title card: satori's bundled font is Latin-only,
+      // so a localized card would render Cyrillic glyphs as tofu boxes.
+      images: [
+        {
+          url: buildUrl(`/guides/${page.slug}/opengraph-image`),
+          width: 1200,
+          height: 630,
+          alt: page.h1,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: page.title,
       description: page.description,
-      // twitter:image comes from the file-based twitter-image.tsx card.
+      images: [buildUrl(`/guides/${page.slug}/twitter-image`)],
     },
     alternates: {
       canonical: url,
@@ -70,9 +77,9 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
   }
 }
 
-export default async function SeoGuidePage({ params }: GuidePageProps) {
+export default async function RussianSeoGuidePage({ params }: GuidePageProps) {
   const { slug } = await params
-  const page = getSeoLandingPage(slug)
+  const page = getSeoLandingPageRu(slug)
 
   if (!page) {
     notFound()
@@ -101,7 +108,7 @@ export default async function SeoGuidePage({ params }: GuidePageProps) {
         </div>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-950">Recommended Next Steps</h2>
+          <h2 className="text-2xl font-bold text-gray-950">Рекомендуемые следующие шаги</h2>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {page.links.map(link => (
               <Link
@@ -117,7 +124,7 @@ export default async function SeoGuidePage({ params }: GuidePageProps) {
         </section>
 
         <section className="mt-12 rounded-3xl bg-primary-50 p-6 md:p-8">
-          <h2 className="text-2xl font-bold text-gray-950">Quick Answers</h2>
+          <h2 className="text-2xl font-bold text-gray-950">Быстрые ответы</h2>
           <div className="mt-5 space-y-5">
             {page.faq.map(item => (
               <div key={item.question}>
@@ -129,16 +136,16 @@ export default async function SeoGuidePage({ params }: GuidePageProps) {
         </section>
 
         <section className="mt-12 rounded-3xl bg-gray-950 p-6 text-white md:p-8">
-          <h2 className="text-2xl font-bold">Need product guidance?</h2>
+          <h2 className="text-2xl font-bold">Нужна помощь с подбором продуктов?</h2>
           <p className="mt-3 max-w-2xl text-gray-300">
-            Contact GENOSYS Middle East for product recommendations, professional training, or clinic partnership support in the UAE.
+            Свяжитесь с GENOSYS Middle East для рекомендаций по продуктам, профессионального обучения или партнёрства для клиник в ОАЭ.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link href="/products" className="rounded-full bg-white px-5 py-3 text-center font-semibold text-gray-950">
-              Shop Products
+            <Link href="/ru/products" className="rounded-full bg-white px-5 py-3 text-center font-semibold text-gray-950">
+              Каталог продуктов
             </Link>
-            <Link href="/contact" className="rounded-full border border-white/30 px-5 py-3 text-center font-semibold text-white">
-              Contact GENOSYS UAE
+            <Link href="/ru/contact" className="rounded-full border border-white/30 px-5 py-3 text-center font-semibold text-white">
+              Связаться с GENOSYS ОАЭ
             </Link>
           </div>
         </section>

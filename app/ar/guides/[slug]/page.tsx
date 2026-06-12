@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { buildUrl } from '@/lib/siteConfig'
-import { SEO_LANDING_PAGES, getSeoLandingPage } from '@/lib/seoLandingPages'
+import { SEO_LANDING_PAGES_AR, getSeoLandingPageAr } from '@/lib/seoLandingPagesAr'
 
 type GuidePageProps = {
   params: Promise<{ slug: string }>
@@ -15,19 +15,18 @@ export const revalidate = 86400
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return SEO_LANDING_PAGES.map(page => ({ slug: page.slug }))
+  return SEO_LANDING_PAGES_AR.map(page => ({ slug: page.slug }))
 }
 
 export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
   const { slug } = await params
-  const page = getSeoLandingPage(slug)
+  const page = getSeoLandingPageAr(slug)
 
   if (!page) {
-    // Real HTTP 404 before streaming starts (avoids soft 404)
     notFound()
   }
 
-  const url = buildUrl(`/guides/${page.slug}`)
+  const url = buildUrl(`/ar/guides/${page.slug}`)
 
   return {
     title: page.title,
@@ -49,15 +48,23 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
       type: 'article',
       url,
       siteName: 'GENOSYS',
-      locale: 'en_AE',
-      // og:image intentionally omitted — file-based opengraph-image.tsx
-      // renders a per-guide branded title card instead of the shared stock photo.
+      locale: 'ar_AE',
+      // Reuse the EN guide title card: satori's bundled font is Latin-only,
+      // so a localized card would render Arabic glyphs as tofu boxes.
+      images: [
+        {
+          url: buildUrl(`/guides/${page.slug}/opengraph-image`),
+          width: 1200,
+          height: 630,
+          alt: page.h1,
+        },
+      ],
     },
     twitter: {
       card: 'summary_large_image',
       title: page.title,
       description: page.description,
-      // twitter:image comes from the file-based twitter-image.tsx card.
+      images: [buildUrl(`/guides/${page.slug}/twitter-image`)],
     },
     alternates: {
       canonical: url,
@@ -70,16 +77,16 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
   }
 }
 
-export default async function SeoGuidePage({ params }: GuidePageProps) {
+export default async function ArabicSeoGuidePage({ params }: GuidePageProps) {
   const { slug } = await params
-  const page = getSeoLandingPage(slug)
+  const page = getSeoLandingPageAr(slug)
 
   if (!page) {
     notFound()
   }
 
   return (
-    <div className="bg-white min-h-screen">
+    <div className="bg-white min-h-screen" dir="rtl">
       <article className="mx-auto max-w-5xl px-4 py-12 md:py-20">
         <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-600">
           {page.eyebrow}
@@ -101,7 +108,7 @@ export default async function SeoGuidePage({ params }: GuidePageProps) {
         </div>
 
         <section className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-950">Recommended Next Steps</h2>
+          <h2 className="text-2xl font-bold text-gray-950">الخطوات التالية الموصى بها</h2>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
             {page.links.map(link => (
               <Link
@@ -117,7 +124,7 @@ export default async function SeoGuidePage({ params }: GuidePageProps) {
         </section>
 
         <section className="mt-12 rounded-3xl bg-primary-50 p-6 md:p-8">
-          <h2 className="text-2xl font-bold text-gray-950">Quick Answers</h2>
+          <h2 className="text-2xl font-bold text-gray-950">إجابات سريعة</h2>
           <div className="mt-5 space-y-5">
             {page.faq.map(item => (
               <div key={item.question}>
@@ -129,16 +136,16 @@ export default async function SeoGuidePage({ params }: GuidePageProps) {
         </section>
 
         <section className="mt-12 rounded-3xl bg-gray-950 p-6 text-white md:p-8">
-          <h2 className="text-2xl font-bold">Need product guidance?</h2>
+          <h2 className="text-2xl font-bold">هل تحتاجين إلى مساعدة في اختيار المنتجات؟</h2>
           <p className="mt-3 max-w-2xl text-gray-300">
-            Contact GENOSYS Middle East for product recommendations, professional training, or clinic partnership support in the UAE.
+            تواصلي مع GENOSYS الشرق الأوسط للحصول على توصيات المنتجات أو التدريب الاحترافي أو دعم شراكة العيادات في الإمارات.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link href="/products" className="rounded-full bg-white px-5 py-3 text-center font-semibold text-gray-950">
-              Shop Products
+            <Link href="/ar/products" className="rounded-full bg-white px-5 py-3 text-center font-semibold text-gray-950">
+              تسوّق المنتجات
             </Link>
-            <Link href="/contact" className="rounded-full border border-white/30 px-5 py-3 text-center font-semibold text-white">
-              Contact GENOSYS UAE
+            <Link href="/ar/contact" className="rounded-full border border-white/30 px-5 py-3 text-center font-semibold text-white">
+              تواصل مع GENOSYS الإمارات
             </Link>
           </div>
         </section>

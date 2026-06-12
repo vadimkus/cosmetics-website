@@ -66,7 +66,8 @@ export function proxy(request: NextRequest) {
 
   // English-only canonical pages. If stale localized URLs are requested,
   // send crawlers/users back to the real indexable URL instead of serving 404s.
-  const localizedEnglishOnlyMatch = pathname.match(/^\/(?:ar|ru)(\/(?:genosys|documents|guides)(?:\/.*)?)$/)
+  // NOTE: guides are no longer English-only — /ar/guides and /ru/guides exist.
+  const localizedEnglishOnlyMatch = pathname.match(/^\/(?:ar|ru)(\/(?:genosys|documents)(?:\/.*)?)$/)
   if (localizedEnglishOnlyMatch) {
     const canonicalPath = localizedEnglishOnlyMatch[1] ?? '/'
     return withSecurityHeaders(

@@ -65,12 +65,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const englishOnlyPages = [
     { path: '/genosys', lastModified: staticDate, priority: 0.7 },
     { path: '/documents', lastModified: staticDate, priority: 0.6 },
-    { path: '/guides', lastModified: now, priority: 0.7 },
-    ...SEO_LANDING_PAGES.map(page => ({ path: `/guides/${page.slug}`, lastModified: now, priority: 0.8 })),
   ]
 
   for (const page of englishOnlyPages) {
     entries.push(singleLocaleUrl(page.path, page.lastModified, page.priority, 'monthly'))
+  }
+
+  // Guides exist in EN, AR, and RU (same slugs under /ar/guides and /ru/guides)
+  entries.push(...localizedUrls('/guides', now, 0.7, 'monthly'))
+  for (const page of SEO_LANDING_PAGES) {
+    entries.push(...localizedUrls(`/guides/${page.slug}`, now, 0.8, 'monthly'))
   }
 
   // Product pages

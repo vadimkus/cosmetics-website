@@ -282,3 +282,26 @@ Assessment: Firefox-specific wording of the same media/navigation abort class we
 Fix applied:
 
 - Added `isMediaResourceFetchAbortError` to `instrumentation-client.ts`: drops only `AbortError` unhandled rejections whose message matches `fetching process for the media resource was aborted` and that carry no app stack frames. Any abort with real app frames still reaches Sentry.
+
+## Follow-Up — 2026-06-12 Checkout Pay Tap Before Stripe Element Ready (REAL BUG)
+
+Sentry reported a new issue on `/checkout`: `IntegrationError: We could not retrieve data from the specified Element. Please make sure the Element you are attempting to use is mounted and the ready event has been emitted.` (event `8d9077c5414d4a2a899b0652409429d5`, group `127578370`, release `38b062d`, iPhone / Mobile Safari 18.7.2).
+
+Unlike the recent third-party noise items, this one is an actionable checkout UX bug.
+
+Raw event timeline (breadcrumbs):
+
+- `17:39:41` — navigation `/cart` → `/checkout`.
+- `17:39:47` — user starts filling the checkout form (`checkout-lastname`).
+- `17:40:06` — `POST /api/stripe/create-payment-intent` returns `200`; payment bottom sheet opens with `StripeProvider` + `PaymentForm`.
+- `17:40:09.9` — user taps the Pay submit button — only ~3.5s after the intent was created.
+- `17:40:10.6` — console breadcrumb `❌ Payment failed: We could not retrieve data from the specified Element...` (our `onError` handler in `CheckoutClient`).
+
+Root cause: in `components/stripe/PaymentForm.tsx`, the submit button was only gated on `!stripe || isProcessing`. The `PaymentElement` iframe loads asynchronously after the sheet opens; on a slower mobile connection the user can tap Pay before the element has emitted `ready`. `stripe.confirmPayment({ elements })` then fails with `IntegrationError`. Our error handler displayed it, but Stripe's internal promise also rejects unhandled — that is the event Sentry captured (stack exclusively in `clover/stripe.js`).
+
+Fix applied (source fix, intentionally NO Sentry filter):
+
+- Added `isElementReady` state to `PaymentForm`, set by `<PaymentElement onReady>`.
+- Submit button now disabled until `stripe && isElementReady`, and shows a "Loading payment form…" spinner state (EN/AR) until the element is interactive.
+- `handleSubmit` also early-returns unless the element is ready (covers keyboard/Enter submits).
+- No `beforeSend` filter for this error: if it reappears after this fix it indicates a real Stripe integration regression and must page us.

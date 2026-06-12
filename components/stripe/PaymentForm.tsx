@@ -23,13 +23,19 @@ export default function PaymentForm({
   const elements = useElements()
   const [isProcessing, setIsProcessing] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  // The PaymentElement iframe loads asynchronously after the sheet opens. If
+  // the user taps Pay before it emits `ready`, stripe.confirmPayment() throws
+  // IntegrationError ("Element ... is mounted and the ready event has been
+  // emitted") — seen in Sentry 2026-06-12 on iPhone (tap 3.5s after the
+  // payment intent was created). Keep the button disabled until then.
+  const [isElementReady, setIsElementReady] = useState(false)
 
   const isArabic = locale === 'ar'
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!stripe || !elements) {
+    if (!stripe || !elements || !isElementReady) {
       return
     }
 
@@ -100,6 +106,7 @@ export default function PaymentForm({
           options={{
             layout: 'tabs',
           }}
+          onReady={() => setIsElementReady(true)}
         />
       </div>
 
@@ -114,21 +121,25 @@ export default function PaymentForm({
       {/* Submit Button */}
       <button
         type="submit"
-        disabled={!stripe || isProcessing}
+        disabled={!stripe || !isElementReady || isProcessing}
         className={`
           w-full py-4 px-6 rounded-xl font-semibold text-white
           flex items-center justify-center gap-2
           transition-all duration-200
-          ${isProcessing || !stripe
+          ${isProcessing || !stripe || !isElementReady
             ? 'bg-gray-400 cursor-not-allowed'
             : 'bg-blue-600 hover:bg-blue-700 active:scale-[0.98]'
           }
         `}
       >
-        {isProcessing ? (
+        {isProcessing || !isElementReady ? (
           <>
             <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
-            <span>{isArabic ? 'جاري المعالجة...' : 'Processing...'}</span>
+            <span>
+              {isProcessing
+                ? (isArabic ? 'جاري المعالجة...' : 'Processing...')
+                : (isArabic ? 'جاري تحميل نموذج الدفع...' : 'Loading payment form...')}
+            </span>
           </>
         ) : (
           <>

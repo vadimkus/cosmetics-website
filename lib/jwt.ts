@@ -11,19 +11,20 @@ function getJwtSecret(): string {
   const secret = ENV_JWT_SECRET
   
   if (!secret) {
-    // Warn once about missing JWT_SECRET (don't throw - let fallback work)
+    // Hard-fail in production: a guessable fallback secret would let anyone
+    // forge session cookies and mobile tokens. Vercel has JWT_SECRET set in
+    // all environments, so this only fires on misconfiguration.
+    if (process.env.NODE_ENV === 'production') {
+      errorLog('⚠️ FATAL: JWT_SECRET not set in production — refusing to sign/verify tokens.')
+      throw new Error('JWT_SECRET must be set in production')
+    }
     if (!_jwtSecretWarned) {
-      if (process.env.NODE_ENV === 'production') {
-        errorLog('⚠️ SECURITY WARNING: JWT_SECRET not set in production!')
-        errorLog('⚠️ Using deterministic fallback - sessions may be vulnerable. Set JWT_SECRET env var.')
-      } else {
-        warnLog('JWT_SECRET not set - using development fallback. Set JWT_SECRET for production.')
-      }
+      warnLog('JWT_SECRET not set - using development fallback. Set JWT_SECRET for production.')
       _jwtSecretWarned = true
     }
-    // Use a deterministic fallback based on DATABASE_URL if available.
-    // CRITICAL: This MUST be deterministic (same on every call) so that tokens
-    // created in one request can be verified in subsequent requests.
+    // Development/test fallback. CRITICAL: This MUST be deterministic (same on
+    // every call) so that tokens created in one request can be verified in
+    // subsequent requests.
     const dbUrl = process.env.DATABASE_URL
     const fallback = dbUrl 
       ? `fallback-${Buffer.from(dbUrl).toString('base64').slice(0, 32)}`
@@ -343,23 +344,13 @@ export function createSessionToken(user: {
  */
 export function verifySessionToken(token: string): SessionPayload | null {
   try {
-    // Handle legacy JSON format (for backward compatibility during migration)
+    // SECURITY: legacy unsigned-JSON cookies are no longer accepted. They had
+    // no signature (any client could forge {"isAdmin":true}) and no expiry.
+    // The signed-JWT cookie format has been issued on every login since the
+    // migration; remaining legacy cookies just require a fresh sign-in.
     if (token.startsWith('{')) {
-      try {
-        const legacyPayload = JSON.parse(token)
-        // Return legacy payload but log warning
-        debugLog('Legacy session cookie detected - will be upgraded on next login')
-        return {
-          id: legacyPayload.id,
-          email: legacyPayload.email,
-          name: legacyPayload.name,
-          isAdmin: legacyPayload.isAdmin || false,
-          canSeePrices: legacyPayload.canSeePrices !== false,
-          profilePicture: legacyPayload.profilePicture || null
-        }
-      } catch {
-        return null
-      }
+      debugLog('Rejected legacy unsigned session cookie - user must sign in again')
+      return null
     }
 
     // Split token into parts
@@ -408,7 +399,7 @@ export function verifySessionToken(token: string): SessionPayload | null {
 }
 
 /**
- * Parse session from cookie value (handles both legacy JSON and new JWT format)
+ * Parse session from cookie value (signed JWT format only)
  */
 export function parseSessionCookie(cookieValue: string | undefined): SessionPayload | null {
   if (!cookieValue) {

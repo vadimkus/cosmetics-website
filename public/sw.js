@@ -1,4 +1,4 @@
-// BUILD: v0.1.0-bd089377 @ 2026-06-12T05:48:04.427Z
+// BUILD: v0.1.0-bd089377 @ 2026-06-12T06:35:02.314Z
 /**
  * Service Worker for Genosys Cosmetics Website
  * Provides offline functionality and caching strategies

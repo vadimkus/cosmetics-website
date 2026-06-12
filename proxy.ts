@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { locales, defaultLocale } from './i18n'
+import { SEO_LANDING_PAGES } from './lib/seoLandingPages'
+
+// Guide slugs are a small build-time list shared by EN/AR/RU routes.
+const GUIDE_SLUGS = new Set(SEO_LANDING_PAGES.map(page => page.slug))
 
 // Generate a unique request ID for correlation/debugging
 function generateRequestId(): string {
@@ -72,6 +76,18 @@ export function proxy(request: NextRequest) {
     const canonicalPath = localizedEnglishOnlyMatch[1] ?? '/'
     return withSecurityHeaders(
       NextResponse.redirect(new URL(canonicalPath, request.url), 308),
+      requestId
+    )
+  }
+
+  // Unknown guide slugs must return a real HTTP 404. The guide pages render
+  // dynamically (root layout), so a page-level notFound() only streams the
+  // 404 UI with a 200 status (soft 404). Rewriting to an unrouteable path
+  // makes Next's global not-found handler respond with a genuine 404.
+  const guideSlug = pathname.match(/^\/(?:(?:ar|ru)\/)?guides\/([^/]+)\/?$/)?.[1]
+  if (guideSlug && !GUIDE_SLUGS.has(guideSlug)) {
+    return withSecurityHeaders(
+      NextResponse.rewrite(new URL('/__not-found', request.url)),
       requestId
     )
   }

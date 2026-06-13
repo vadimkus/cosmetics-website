@@ -29,6 +29,22 @@ function getTagValue(event: Sentry.ErrorEvent, key: string): string {
   return ''
 }
 
+/**
+ * The live `navigator.userAgent` from the browser running `beforeSend`.
+ *
+ * Critical: Sentry derives `event.contexts.browser` / `event.contexts.os` and
+ * the `browser.name` / `os.name` tags SERVER-SIDE from the User-Agent header.
+ * Inside `beforeSend` (which runs in the browser before the event is sent)
+ * those fields are still empty, so any filter that relies only on them never
+ * matches. Reading `navigator.userAgent` directly is the one browser/OS signal
+ * we can trust client-side.
+ */
+function getUserAgent(): string {
+  return typeof navigator !== 'undefined' && typeof navigator.userAgent === 'string'
+    ? navigator.userAgent
+    : ''
+}
+
 function isIOSWebKitBrowser(event: Sentry.ErrorEvent): boolean {
   const os =
     asString(event.contexts?.os?.name) ||
@@ -38,10 +54,18 @@ function isIOSWebKitBrowser(event: Sentry.ErrorEvent): boolean {
     asString(event.contexts?.browser?.name) ||
     getTagValue(event, 'browser.name') ||
     getTagValue(event, 'browser')
-  return (
+  if (
     /^iOS$/i.test(os) ||
     /Mobile Safari|Chrome Mobile iOS|Safari/i.test(browser)
-  )
+  ) {
+    return true
+  }
+
+  // Fallback: server-derived browser/OS are absent in beforeSend, so read the
+  // UA directly. On iOS every browser is WebKit, so an iOS device UA is enough
+  // (iPhone/iPad/iPod, plus CriOS/FxiOS/EdgiOS for in-app variants).
+  const ua = getUserAgent()
+  return /iPhone|iPad|iPod/i.test(ua) || /CriOS|FxiOS|EdgiOS/i.test(ua)
 }
 
 function hasNoAppStack(event: Sentry.ErrorEvent): boolean {
@@ -286,14 +310,17 @@ function isInstagramAndroidNavigationLoggerError(event: Sentry.ErrorEvent): bool
   }
   if (exc.mechanism?.type !== 'auto.browser.global_handlers.onerror') return false
 
+  const ua = getUserAgent()
   const os =
     asString(event.contexts?.os?.name) ||
     getTagValue(event, 'os.name') ||
-    getTagValue(event, 'os')
+    getTagValue(event, 'os') ||
+    ua
   const browser =
     asString(event.contexts?.browser?.name) ||
     getTagValue(event, 'browser.name') ||
-    getTagValue(event, 'browser')
+    getTagValue(event, 'browser') ||
+    ua
   if (!/Android/i.test(os) || !/Instagram/i.test(browser)) return false
 
   const frames = exc.stacktrace?.frames || []

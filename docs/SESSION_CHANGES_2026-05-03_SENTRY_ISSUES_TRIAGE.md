@@ -305,3 +305,28 @@ Fix applied (source fix, intentionally NO Sentry filter):
 - Submit button now disabled until `stripe && isElementReady`, and shows a "Loading payment form…" spinner state (EN/AR) until the element is interactive.
 - `handleSubmit` also early-returns unless the element is ready (covers keyboard/Enter submits).
 - No `beforeSend` filter for this error: if it reappears after this fix it indicates a real Stripe integration regression and must page us.
+
+## Follow-Up — 2026-06-13 Weekly Digest: Filters Never Matched (Root Cause Fix)
+
+Weekly digest (Jun 6–13) re-listed three issues we had already written `beforeSend` filters for:
+
+- `JAVASCRIPT-NEXTJS-3` `/success`: `TypeError: e.getBoundingClientRect is not a function` (3 new).
+- `JAVASCRIPT-NEXTJS-A` `/products`: `TypeError: Load failed` (2 new).
+- `JAVASCRIPT-NEXTJS-15` `/products`: Instagram `enableDidUserTypeOnKeyboardLogging` (1, no new events since Jun 7).
+
+Investigation:
+
+- Latest events for NEXTJS-3 (Jun 13 14:58, Mobile Safari iOS, single `blob:app:///…` frame) and NEXTJS-A (Jun 13 09:27, Chrome Mobile iOS, single `app:///_next/static/chunks/…` frame) both landed on release `9fd5fa58`.
+- Confirmed `9fd5fa58` already contains `isBlobOnlyBoundingClientRectProbe` and the iOS abort filters — so the filters were deployed but still not dropping events.
+
+Root cause:
+
+- Sentry derives `event.contexts.browser` / `event.contexts.os` and the `browser.name` / `os.name` tags **server-side from the User-Agent header**. Inside `beforeSend` (browser, pre-send) those fields are empty.
+- Every filter gated on `isIOSWebKitBrowser()` — including the blob `getBoundingClientRect` filter and the iOS `Load failed` filter — therefore never matched, regardless of the actual device. The filters that did work (zp_token, injected shop-lookup) only inspect stack frames and breadcrumbs, which are present client-side.
+
+Fix applied:
+
+- Added `getUserAgent()` reading `navigator.userAgent` directly (the one reliable client-side browser/OS signal in `beforeSend`).
+- `isIOSWebKitBrowser()` now falls back to UA matching (`iPhone|iPad|iPod`, plus `CriOS|FxiOS|EdgiOS` in-app variants) when contexts/tags are empty.
+- `isInstagramAndroidNavigationLoggerError()` now falls back to the UA for Android/Instagram detection.
+- Frame/mechanism/message gates are unchanged, so events with real app stack frames still reach Sentry. This repairs all four iOS/WebKit-gated filters at once.

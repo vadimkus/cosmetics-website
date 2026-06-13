@@ -4,4 +4,4 @@
 export const SW_VERSION = 'v0.1.0-aa028a8f'
 export const APP_VERSION = '0.1.0'
 export const BUILD_HASH = 'aa028a8f'
-export const BUILD_DATE = '2026-06-13T08:18:18.009Z'
+export const BUILD_DATE = '2026-06-13T16:39:59.750Z'

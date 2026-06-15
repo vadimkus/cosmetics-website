@@ -18,7 +18,7 @@ const locations = [
     slug: 'abu-dhabi',
     name: 'أبوظبي والعين',
     description: 'موزع معتمد حصري متاح في أبوظبي والعين',
-    shippingCost: '30 درهم',
+    shippingCost: '70 درهم',
     deliveryTime: '24 ساعة عبر كويك أب',
   },
   {

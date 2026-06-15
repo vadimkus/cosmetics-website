@@ -25,7 +25,7 @@ const locations = [
     nameAr: 'أبوظبي والعين',
     nameRu: 'Абу-Даби и Аль-Айн',
     description: 'Official Authorized Reseller available in Abu Dhabi & Al Ain',
-    shippingCost: '30 AED',
+    shippingCost: '70 AED',
     deliveryTime: '24 hours via Quiqup',
   },
   {

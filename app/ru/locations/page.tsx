@@ -64,7 +64,7 @@ const locations = [
     slug: 'abu-dhabi',
     name: 'Абу-Даби и Аль-Айн',
     description: 'Официальный авторизованный реселлер в Абу-Даби и Аль-Айне',
-    shippingCost: '30 дирхамов',
+    shippingCost: '70 дирхамов',
     deliveryTime: '24 часа через Quiqup',
   },
   {

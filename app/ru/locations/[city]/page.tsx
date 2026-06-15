@@ -53,7 +53,7 @@ const locations: Record<string, {
     instagram: 'https://www.instagram.com/genosys.me',
     website: 'https://genosys.ae',
     shippingInfo: 'Мы доставляем во все районы Абу-Даби, включая Al Khalidiyah, Al Markaziyah, Al Zahiyah, Corniche, и все районы Аль-Айна.',
-    shippingCost: '30 дирхамов (Бесплатно для заказов свыше 1000 дирхамов)',
+    shippingCost: '70 дирхамов (Бесплатно для заказов свыше 1000 дирхамов)',
     deliveryTime: '24 часа через Quiqup',
     coordinates: { lat: 24.4539, lng: 54.3773 },
     authorizedReseller: {

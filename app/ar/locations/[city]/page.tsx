@@ -53,7 +53,7 @@ const locations: Record<string, {
     instagram: 'https://www.instagram.com/genosys.me',
     website: 'https://genosys.ae',
     shippingInfo: 'نقوم بالتوصيل إلى جميع مناطق أبوظبي بما في ذلك الخالدية، المركزية، الزاهية، الكورنيش، وجميع مناطق العين.',
-    shippingCost: '30 درهم (مجاني للطلبات التي تزيد عن 1000 درهم)',
+    shippingCost: '70 درهم (مجاني للطلبات التي تزيد عن 1000 درهم)',
     deliveryTime: '24 ساعة عبر كويك أب',
     coordinates: { lat: 24.4539, lng: 54.3773 },
     authorizedReseller: {

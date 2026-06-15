@@ -51,7 +51,7 @@ const locations: Record<string, {
     instagram: 'https://www.instagram.com/genosys.me',
     website: 'https://genosys.ae',
     shippingInfo: 'We deliver to all areas of Abu Dhabi including Al Khalidiyah, Al Markaziyah, Al Zahiyah, Corniche, and all areas of Al Ain.',
-    shippingCost: '30 AED (Free for orders over 1000 AED)',
+    shippingCost: '70 AED (Free for orders over 1000 AED)',
     deliveryTime: '24 hours via Quiqup',
     coordinates: { lat: 24.4539, lng: 54.3773 },
     authorizedReseller: {

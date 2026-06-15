@@ -449,6 +449,19 @@ export default function ProductRecommendation({
       }
     }
 
+    // Hair Stamp + HairGen Booster device combination (64 + 3)
+    if ((currentProduct.productNumber === '64') && recommendedProduct.id === '3') {
+      return {
+        intro: t('product.pc64Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc64Benefit1Title'), text: t('product.pc64Benefit1Text') },
+          { title: t('product.pc64Benefit2Title'), text: t('product.pc64Benefit2Text') },
+          { title: t('product.pc64Benefit3Title'), text: t('product.pc64Benefit3Text') },
+          { title: t('product.pc64Benefit4Title'), text: t('product.pc64Benefit4Text') }
+        ]
+      }
+    }
+
     // Bio-Ferment Mask + Anti-Wrinkle Serum combination (51 + 22)
     if (currentProduct.id === '51' && recommendedProduct.id === '22') {
       return {

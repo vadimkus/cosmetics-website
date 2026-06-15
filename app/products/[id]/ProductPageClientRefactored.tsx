@@ -726,6 +726,16 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
+            {/* Product Recommendation Section - Hair Stamp (64) → HairGen Booster device (3) - Desktop only */}
+            {(product.productNumber === '64') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="3"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
             {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) - Desktop only */}
             {(product.id === '55' || product.productNumber === '55') && (
               <div className="hidden md:block bg-blue-50 border-2 border-blue-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
@@ -1315,6 +1325,16 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="22"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Hair Stamp (64) → HairGen Booster device (3) - Mobile only */}
+            {(product.productNumber === '64') && (
+              <div className="md:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="3"
                   currentProduct={product}
                 />
               </div>

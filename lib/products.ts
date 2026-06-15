@@ -561,4 +561,41 @@ export const products: Product[] = [
     inStock: true,
     size: '50g',
   },
+  {
+    id: '60',
+    productNumber: '60',
+    name: 'Bio Meso PDRN Ampoule 60000',
+    price: 600,
+    description: `The Genosys Bio Meso PDRN Expert Ampoule 60000 is a specialized skincare treatment ampoule designed for bio-meso therapy, a no-needle microneedling approach. It utilizes microscopic spicules (needle-like components extracted from freshwater sponges) to create temporary microchannels in the skin, enhancing the absorption of active ingredients without the need for actual needles. This product is enriched with the uniquely formulated BIO-MESO™ PDRN (Polydeoxyribonucleotide), panthenol, and an anti-aging complex to regenerate skin and strengthen the skin barrier.
+
+It features a 2-way system for customizable care:
+• Professional Use (Expert Ampoule 60000): Higher concentration for clinic-based treatments.
+• Home-Use (Homecare Ampoule 50000): Lower concentration for ongoing maintenance.
+
+The ampoule functions as a spicule peeling or bio-meso peeling treatment, inducing a peel-off effect on the skin. It contains a significantly higher concentration of spicules compared to other products, delivering intensive results.`,
+    image: '/images/Second/Prof_Meso.jpg',
+    images: null,
+    category: 'Bio Meso',
+    inStock: true,
+    size: '3ml x 4 ampoules',
+    isPriceOnRequest: false,
+    disclaimer: 'For Professional/Clinic Use Only. This product requires proper training and should only be used by licensed aestheticians or dermatologists.',
+  },
+  {
+    id: '64',
+    productNumber: '64',
+    name: 'HairStamp For HAIRGEN BOOSTER',
+    price: 600,
+    description: `The GENOSYS HR³ MATRIX HAIR STAMP is a precision microneedle applicator developed for the GENOSYS HairGen Booster scalp treatment system. Each stamp head is fitted with an array of ultra-fine microneedles that create temporary microchannels in the scalp, dramatically increasing skin permeability so the active ingredients of HR³ MATRIX HAIR SOLUTION α are delivered directly to the hair follicles and surrounding tissue.
+
+When mounted on the HairGen Booster, the stamp performs automatic microneedling — a gentle, massaging action that creates far more microchannels than manual stamping or rolling while minimizing discomfort. The micro-injuries also trigger the skin's natural wound-healing response, supporting scalp regeneration, improved blood circulation and a healthier environment for hair growth.
+
+Supplied as 1 box containing 8 hair stamps. A fresh stamp is used together with a new dose of HR³ MATRIX HAIR SOLUTION α for every treatment to ensure hygienic, contamination-free application. Manufactured in South Korea.`,
+    image: '/images/BStamp1.png',
+    images: null,
+    category: 'Scalp/Hair',
+    inStock: true,
+    size: '1 box - 8 pcs of hair stamp',
+    isPriceOnRequest: false,
+  },
 ]

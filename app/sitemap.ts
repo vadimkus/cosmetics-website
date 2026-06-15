@@ -5,6 +5,7 @@ import { Product } from '@/types/index'
 import { prisma } from '@/lib/prisma'
 import { getCanonicalProductSlug } from '@/lib/seo'
 import { SEO_LANDING_PAGES } from '@/lib/seoLandingPages'
+import { CATEGORY_PAGES } from '@/lib/concernsData'
 
 const BASE_URL = 'https://genosys.ae'
 
@@ -36,6 +37,13 @@ function singleLocaleUrl(path: string, lastModified: Date, priority: number, cha
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date()
   const staticDate = new Date('2026-02-12T00:00:00.000Z')
+  // Stable lastmod for editorial landing pages (guides, concern + category
+  // pages). Their content is code-defined and rarely changes, so they must
+  // NOT report `now` on every sitemap regeneration — a constantly-moving
+  // lastmod trains Google to ignore the signal and deprioritise crawling
+  // (a known driver of "Discovered – currently not indexed"). Bump this date
+  // only when the landing-page copy actually changes.
+  const contentDate = new Date('2026-06-01T00:00:00.000Z')
 
   const staticPages: Array<{ path: string; lastModified: Date; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }> = [
     { path: '', lastModified: now, priority: 1.0, changeFrequency: 'daily' },
@@ -72,9 +80,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // Guides exist in EN, AR, and RU (same slugs under /ar/guides and /ru/guides)
-  entries.push(...localizedUrls('/guides', now, 0.7, 'monthly'))
+  entries.push(...localizedUrls('/guides', contentDate, 0.7, 'monthly'))
   for (const page of SEO_LANDING_PAGES) {
-    entries.push(...localizedUrls(`/guides/${page.slug}`, now, 0.8, 'monthly'))
+    entries.push(...localizedUrls(`/guides/${page.slug}`, contentDate, 0.8, 'monthly'))
   }
 
   // Product pages
@@ -90,16 +98,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entries.push(...localizedUrls(`/products/${getCanonicalProductSlug(product)}`, lastMod, 0.8, 'weekly'))
   }
 
-  // Concern-based landing pages
+  // Concern-based landing pages (static editorial content → stable lastmod)
   const concerns = ['sun-protection', 'acne-treatment', 'pigmentation', 'scars-treatment', 'hair-loss', 'anti-aging', 'hydration', 'sensitivity']
   for (const concern of concerns) {
-    entries.push(...localizedUrls(`/products/concern/${concern}`, now, 0.8, 'weekly'))
+    entries.push(...localizedUrls(`/products/concern/${concern}`, contentDate, 0.8, 'weekly'))
   }
 
-  // Category landing pages
-  const categories = ['microneedling', 'pro-solution', 'cleanser', 'peeling', 'toner-mist', 'serum', 'cream', 'mask', 'sun', 'cushion-bb', 'scalp-hair', 'eye-care', 'device', 'bio-meso']
-  for (const cat of categories) {
-    entries.push(...localizedUrls(`/products/category/${cat}`, now, 0.7, 'weekly'))
+  // Category landing pages (static editorial content → stable lastmod).
+  // Only advertise categories that actually contain products — an empty
+  // category page returns a 404 (see app/products/category/[slug]) and would
+  // otherwise show up as a Soft 404 / "Not found" in Search Console. This is
+  // data-driven so it self-heals: e.g. bio-meso reappears once a product is
+  // tagged with that category.
+  for (const category of CATEGORY_PAGES) {
+    const hasProducts = products.some(p =>
+      (p.category || '').toLowerCase().includes(category.categoryKey.toLowerCase())
+    )
+    if (!hasProducts) continue
+    entries.push(...localizedUrls(`/products/category/${category.slug}`, contentDate, 0.7, 'weekly'))
   }
 
   // Location pages

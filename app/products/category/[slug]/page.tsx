@@ -85,6 +85,9 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   if (!category) notFound()
   
   const products = await getCategoryProducts(category.categoryKey)
+  // A category landing page with no products is thin content that Google
+  // flags as a Soft 404. Return a real 404 instead of serving an empty grid.
+  if (products.length === 0) notFound()
   const seo = category.seo.en
 
   return (

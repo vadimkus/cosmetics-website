@@ -131,7 +131,7 @@ const ProductFilters = memo(function ProductFilters({
                     <div className="space-y-2">
                       {categories.filter(c => c.id !== 'all').map((category) => {
                         // Mark these as NEW — matches the mobile pill badges for consistency
-                        const isNew = category.id === 'skin-concern' || category.id === 'cream' || category.id === 'beauty-boxes'
+                        const isNew = category.id === 'skin-concern' || category.id === 'cream' || category.id === 'beauty-boxes' || category.id === 'bio-meso'
                         return (
                           <label
                             key={category.id}

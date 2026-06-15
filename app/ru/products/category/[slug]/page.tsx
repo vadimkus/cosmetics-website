@@ -68,6 +68,8 @@ export default async function RussianCategoryPage({ params }: { params: Promise<
   if (!category) notFound()
   
   const products = await getCategoryProducts(category.categoryKey)
+  // Empty category = thin content (Soft 404). Return a real 404 instead.
+  if (products.length === 0) notFound()
   const seo = category.seo.ru
 
   return (

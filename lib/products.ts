@@ -584,7 +584,7 @@ The ampoule functions as a spicule peeling or bio-meso peeling treatment, induci
   {
     id: '64',
     productNumber: '64',
-    name: 'HairStamp For HAIRGEN BOOSTER',
+    name: 'Hair Stamp For HAIRGEN BOOSTER',
     price: 600,
     description: `The GENOSYS HR³ MATRIX HAIR STAMP is a precision microneedle applicator developed for the GENOSYS HairGen Booster scalp treatment system. Each stamp head is fitted with an array of ultra-fine microneedles that create temporary microchannels in the scalp, dramatically increasing skin permeability so the active ingredients of HR³ MATRIX HAIR SOLUTION α are delivered directly to the hair follicles and surrounding tissue.
 

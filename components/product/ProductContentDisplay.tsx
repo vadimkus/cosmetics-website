@@ -624,11 +624,16 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 lg:p-4 mb-2 lg:mb-4">
           <h3 className="font-semibold text-blue-800 mb-1 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.productDetails')}</h3>
           <div className="space-y-1 lg:space-y-2 text-xs lg:text-sm text-blue-800">
-            {Object.entries(productDetails as Record<string, string>).map(([key, value]) => (
-              <p key={key}>
-                <strong>{formatKey(key, t)}:</strong> {String(value)}
-              </p>
-            ))}
+            {Object.entries(productDetails as Record<string, string>)
+              // `pdfBrochure` is an internal file path — the brochure is
+              // surfaced to users via the "Product Documentation" buttons, so
+              // we don't expose the raw /documents/... path here.
+              .filter(([key]) => key !== 'pdfBrochure')
+              .map(([key, value]) => (
+                <p key={key}>
+                  <strong>{formatKey(key, t)}:</strong> {String(value)}
+                </p>
+              ))}
           </div>
         </div>
       )}

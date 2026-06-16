@@ -299,6 +299,71 @@ function isBlobOnlyBoundingClientRectProbe(event: Sentry.ErrorEvent): boolean {
   })
 }
 
+/**
+ * React streaming-SSR Suspense reveal hitting a detached node.
+ *
+ * `$RS` (and siblings `$RC`/`$RT`/`$RB`) are the tiny functions React injects
+ * INLINE into the streamed HTML document to reveal Suspense boundaries as
+ * their content arrives. They call `parentNode`/`insertBefore`/`removeChild`
+ * to splice the completed segment into place. If something mutates the DOM
+ * between the server stream and hydration — mobile Chrome's auto-translate,
+ * a data-saver proxy, or an extension rewriting nodes — hydration fails
+ * (React error #418) and the node `$RS` expected is already detached, so
+ * reading `.parentNode` returns null:
+ *   TypeError: Cannot read properties of null (reading 'parentNode')
+ *
+ * Seen 2026-06-16 11:23 UTC, group 128278882 on /products: Chrome Mobile 149 /
+ * Android 10, referrer accounts.google.com, a #418 breadcrumb fires ~2s before
+ * the crash, and the stack is exclusively `app:///products` frames whose
+ * function is `$RS` (React's inline reveal runtime — never our chunk code).
+ * 3 events, one session, one instant; no other hydration errors project-wide.
+ *
+ * This is not actionable from our code: the stack has zero app/component or
+ * `_next/static/chunks` frames. Drop only this exact shape — a parentNode/null
+ * DOM race whose stack is entirely React's inline `$R*` reveal helpers. Any
+ * hydration error with real app frames (a deterministic server/client
+ * mismatch we could fix) still reaches Sentry. If this starts recurring across
+ * many sessions/users it signals a real mismatch (locale/date/random render on
+ * /products) and must be investigated rather than filtered.
+ */
+function isReactStreamingRevealNullNodeRace(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type !== 'TypeError') return false
+  // Chrome: "Cannot read properties of null (reading 'parentNode')"
+  // Safari/Firefox null-node wording variants kept loose, but the $R* frame
+  // requirement below is the real discriminator.
+  const value = exc.value || ''
+  const isNullNodeRead =
+    /reading 'parentNode'/i.test(value) ||
+    /null is not an object.*parentNode/i.test(value)
+  if (!isNullNodeRead) return false
+  if (exc.mechanism?.type !== 'auto.browser.global_handlers.onerror') return false
+
+  const frames = exc.stacktrace?.frames || []
+  if (frames.length === 0) return false
+
+  const isReactRevealFn = (fn: string) => /^\$R[A-Z]?$/.test(fn)
+  // At least one frame must be React's inline reveal helper ($RS/$RC/...).
+  if (!frames.some((frame) => isReactRevealFn(frame.function || ''))) return false
+
+  // Every frame must be either a React reveal helper or an inline-document
+  // frame (the bare route URL, e.g. app:///products) — never our bundled code
+  // under _next/static/chunks or a resolved component path.
+  return frames.every((frame) => {
+    const file = frame.filename || frame.abs_path || ''
+    const fn = frame.function || ''
+    if (isReactRevealFn(fn)) return true
+    const isInlineDocFrame =
+      file !== '' &&
+      !/_next\/static\/chunks\//.test(file) &&
+      !/\.(?:js|mjs|cjs|ts|tsx|jsx)(?:\?|$)/.test(file)
+    return isInlineDocFrame
+  })
+}
+
 function isInstagramAndroidNavigationLoggerError(event: Sentry.ErrorEvent): boolean {
   const values = event.exception?.values
   if (!values || values.length !== 1) return false
@@ -387,6 +452,7 @@ if (dsn) {
       if (isMediaResourceFetchAbortError(event)) return null
       if (isIOSViewTransitionRemoveChildRace(event)) return null
       if (isGoogleTranslateRemoveChildMutation(event)) return null
+      if (isReactStreamingRevealNullNodeRace(event)) return null
       if (isBrowserTranslationContentDocumentProbe(event)) return null
       if (isBlobOnlyBoundingClientRectProbe(event)) return null
       if (isInstagramAndroidNavigationLoggerError(event)) return null

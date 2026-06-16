@@ -330,3 +330,28 @@ Fix applied:
 - `isIOSWebKitBrowser()` now falls back to UA matching (`iPhone|iPad|iPod`, plus `CriOS|FxiOS|EdgiOS` in-app variants) when contexts/tags are empty.
 - `isInstagramAndroidNavigationLoggerError()` now falls back to the UA for Android/Instagram detection.
 - Frame/mechanism/message gates are unchanged, so events with real app stack frames still reach Sentry. This repairs all four iOS/WebKit-gated filters at once.
+
+## Follow-Up — 2026-06-16 React Streaming Reveal parentNode Null Race
+
+Sentry reported a new issue on `/products`: `TypeError: Cannot read properties of null (reading 'parentNode')` (event `b1bf8b145f914779a5287a368bb45d71`, group `128278882`, release `06e32ae`).
+
+Raw event details:
+
+- Browser: Chrome Mobile 149 on Android 10; referrer `accounts.google.com`.
+- Mechanism `auto.browser.global_handlers.onerror`, `handled = no`.
+- Stack is two frames, both `app:///products` (the inline streamed HTML document), one with function `$RS`.
+- A breadcrumb ~2s earlier: `Minified React error #418` (hydration mismatch), followed by a `/products` → `/products` self-navigation.
+- Group has `count = 3` but `firstSeen == lastSeen` (one instant), `userCount = 0` — a single cascading burst in one session. No other hydration / `parentNode` / `removeChild` issues exist project-wide.
+
+Assessment:
+
+- `$RS` (and `$RC`/`$RT`/`$RB`) are React's tiny INLINE functions injected into the streamed HTML to reveal Suspense boundaries as content arrives; they splice nodes via `parentNode`/`insertBefore`/`removeChild`.
+- A #418 hydration mismatch — here almost certainly caused by client-side DOM mutation before hydration (mobile Chrome auto-translate / data-saver proxy / extension), consistent with the Google referrer and mobile Chrome — left the node `$RS` expected already detached, so `.parentNode` was null.
+- Verified our own code is not the culprit: all `parentNode`/`removeChild`/`appendChild` usages operate on `document.body`/`document.head` for clipboard textareas, download links, confetti, and style/manifest links — none touch the `/products` React tree, and none appear in this stack.
+- Stack has zero app/component or `_next/static/chunks` frames, so there is nothing actionable in our code.
+
+Fix applied (narrow filter, NOT a blanket hydration suppression):
+
+- Added `isReactStreamingRevealNullNodeRace` to `instrumentation-client.ts`. It drops only: a `TypeError` reading `parentNode` on `null` (Chrome wording, plus the Safari `null is not an object … parentNode` variant), mechanism `onerror`, whose stack contains at least one React inline reveal helper (`$R*`) and whose every frame is either such a helper or a bare inline-document frame (no `_next/static/chunks` and no resolved module path).
+- Any hydration error with real app/component frames (a deterministic server/client mismatch we could fix) still reaches Sentry.
+- Documented escalation rule: if this recurs across many sessions/users it indicates a real mismatch (e.g. locale/date/random rendering on `/products`) and must be investigated rather than filtered.

@@ -7,6 +7,166 @@ import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 import { trackUserAction } from '@/lib/analyticsServer'
+import type { Prisma } from '@prisma/client'
+
+type OrderWithItems = Prisma.OrderGetPayload<{ include: { items: true } }>
+
+/**
+ * Atomically claim the pending -> paid transition for an order.
+ *
+ * Both this route (mobile/web payment-status polling) and the Stripe webhook
+ * can observe a payment becoming "paid" at nearly the same time. Whoever flips
+ * the row from non-paid to paid first "wins" and is responsible for sending the
+ * confirmation + admin emails. Using a conditional updateMany makes this a
+ * single atomic DB operation, so emails are sent exactly once regardless of
+ * which path arrives first. This fixes the bug where the poll marked the order
+ * paid (without emailing) and the webhook then skipped emails as a "duplicate".
+ *
+ * @returns true if this caller won the transition and should send emails.
+ */
+async function claimPaidTransition(
+  orderId: string,
+  data: Prisma.OrderUpdateManyMutationInput,
+): Promise<boolean> {
+  const result = await prisma.order.updateMany({
+    where: { id: orderId, paymentStatus: { not: 'paid' } },
+    data,
+  })
+  return result.count === 1
+}
+
+/**
+ * Sends the customer confirmation email and the admin new-order notification
+ * for an order that just transitioned to paid. Mirrors the logic used by the
+ * Stripe webhook so both paths produce identical emails.
+ */
+async function sendPaidConfirmationEmails(order: OrderWithItems) {
+  // Get user for discount tier info and preferred email
+  const user = order.customerEmail
+    ? await findUserByEmail(order.customerEmail)
+    : null
+
+  // Get preferred email address (use user's contactEmail if available for Apple Private Relay)
+  const emailToUse = user ? getPreferredEmail(user) : order.customerEmail || ''
+
+  // Calculate discount info for items
+  const userDiscountPct = Number(user?.discountPercentage || 0)
+  const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
+
+  // Send customer confirmation email
+  if (emailToUse) {
+    await sendOrderConfirmationEmail({
+      orderNumber: order.orderNumber,
+      customerName: order.customerName,
+      customerEmail: emailToUse,
+      items: order.items.map((item) => {
+        const itemName = item.productName || 'Product'
+        const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
+        const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
+        const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
+        const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
+
+        let discountLabel: string | undefined = undefined
+        if (isFreeItem) {
+          discountLabel = undefined
+        } else if (isBundle) {
+          discountLabel = '15% OFF - Bundle'
+        } else if (hasUserDiscountApplied) {
+          discountLabel = `${userDiscountPct}% OFF`
+        }
+
+        return {
+          productName: itemName,
+          quantity: item.quantity,
+          price: item.price,
+          image: item.image || '',
+          ...(item.size ? { size: item.size } : {}),
+          ...(item.color ? { color: item.color } : {}),
+          ...(discountLabel ? { discountLabel } : {})
+        }
+      }),
+      subtotal: order.subtotal || 0,
+      shipping: order.shipping || 0,
+      vat: order.vat || 0,
+      total: order.total || 0,
+      address: order.customerAddress || '',
+      emirate: order.customerEmirate || '',
+      locale: order.locale || 'en',
+      discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
+      discountAmount: order.discountAmount ?? undefined,
+      bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
+      bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
+    })
+
+    debugLog('📧 Customer email sent for order:', order.orderNumber)
+
+    if (order.customerEmail) {
+      await trackUserAction({
+        userEmail: order.customerEmail,
+        action: 'order_confirmation_email_sent',
+        metadata: {
+          orderNumber: order.orderNumber,
+          source: 'payment-status-route'
+        }
+      })
+    }
+  }
+
+  // Send admin notification email
+  await sendAdminNewOrderNotification({
+    orderNumber: order.orderNumber,
+    customerName: order.customerName,
+    customerEmail: emailToUse,
+    customerPhone: order.customerPhone ?? undefined,
+    total: order.total,
+    itemCount: order.items.length,
+    items: order.items.map((item) => {
+      const itemName = item.productName || 'Product'
+      const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
+      const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
+      const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
+      const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
+
+      let discountLabel: string | undefined = undefined
+      let originalPrice: number | undefined = undefined
+
+      if (isFreeItem) {
+        discountLabel = undefined
+        originalPrice = undefined
+      } else if (isBundle) {
+        discountLabel = '15% OFF - Bundle'
+        originalPrice = item.price / (1 - 0.15)
+      } else if (hasUserDiscountApplied) {
+        discountLabel = `${userDiscountPct}% OFF`
+        originalPrice = item.price / (1 - userDiscountPct / 100)
+      }
+
+      return {
+        productName: itemName,
+        quantity: item.quantity,
+        price: item.price,
+        originalPrice,
+        image: item.image || '',
+        ...(item.size ? { size: item.size } : {}),
+        ...(item.color ? { color: item.color } : {}),
+        ...(discountLabel ? { discountLabel } : {})
+      }
+    }),
+    subtotal: order.subtotal ?? undefined,
+    shipping: order.shipping ?? undefined,
+    vat: order.vat ?? undefined,
+    address: order.customerAddress ?? undefined,
+    emirate: order.customerEmirate ?? undefined,
+    paymentStatus: 'PAID',
+    paymentMethod: order.paymentMethod ?? 'Stripe',
+    discountPercentage: hasUserDiscount ? userDiscountPct : 0,
+    discountAmount: order.discountAmount ?? 0,
+    bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
+    bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
+  })
+
+  debugLog('📧 Admin notification sent for order:', order.orderNumber)
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -79,30 +239,51 @@ export async function GET(request: NextRequest) {
         orderStatus = 'FAILED'
     }
 
-    // NOTE: All confirmation emails (both customer and admin) are sent by the Stripe webhook handler
-    // (/api/webhooks/stripe/route.ts) to avoid duplicate emails due to race conditions.
-    // This endpoint is only for checking/updating payment status, NOT for sending emails.
-    // The webhook is the single source of truth for email notifications.
-    if (paymentStatus === 'paid' && order.paymentStatus !== 'paid') {
-      debugLog('ℹ️ Order status changing to paid - emails handled by Stripe webhook for:', order.orderNumber)
-    } else if (paymentStatus === 'paid') {
-      debugLog('ℹ️ Order already marked as paid:', order.orderNumber)
-    }
+    // When a payment becomes paid, both this poll and the Stripe webhook race to
+    // handle it. We atomically claim the pending -> paid transition so that
+    // exactly one path marks the order paid AND sends the emails. Previously this
+    // route marked the order paid but deferred emails to the webhook; if the poll
+    // won, the webhook then saw the order "already paid" and skipped ALL emails —
+    // so neither the customer nor the admin got notified for a paid order.
+    const justBecamePaid = paymentStatus === 'paid' && order.paymentStatus !== 'paid'
 
-    // Update order status if it has changed (separate from email sending)
-    if (order.paymentStatus !== paymentStatus || order.status !== orderStatus) {
+    if (justBecamePaid) {
       try {
-        const updateData = {
-          paymentStatus: paymentStatus,
+        const won = await claimPaidTransition(order.id, {
+          paymentStatus: 'paid',
           status: orderStatus,
-          stripePaymentIntentId: session.payment_intent as string || null,
-          paidAt: paymentStatus === 'paid' ? new Date() : null,
+          stripePaymentIntentId: (session.payment_intent as string) || null,
+          paidAt: new Date(),
           updatedAt: new Date()
+        })
+
+        if (won) {
+          debugLog('📧 Payment-status poll won paid-transition, sending confirmation emails for:', order.orderNumber)
+          try {
+            await sendPaidConfirmationEmails(order)
+          } catch (emailError) {
+            // Don't fail the request if email fails
+            errorLog('❌ Failed to send confirmation emails:', emailError)
+          }
+        } else {
+          debugLog('ℹ️ Paid-transition already handled by webhook/earlier poll, skipping emails for:', order.orderNumber)
         }
-        
+      } catch (updateError) {
+        errorLog('❌ Failed to update order status:', updateError)
+        // Continue without failing the entire request
+      }
+    } else if (order.paymentStatus !== paymentStatus || order.status !== orderStatus) {
+      // Non paid-transition status change (e.g. pending, cancelled, failed).
+      try {
         await prisma.order.update({
           where: { id: order.id },
-          data: updateData
+          data: {
+            paymentStatus: paymentStatus,
+            status: orderStatus,
+            stripePaymentIntentId: (session.payment_intent as string) || null,
+            paidAt: paymentStatus === 'paid' ? new Date() : null,
+            updatedAt: new Date()
+          }
         })
 
         debugLog('✅ Order status updated successfully:', {
@@ -241,24 +422,46 @@ async function handlePaymentIntentStatus(paymentIntentId: string, orderId: strin
         orderStatus = 'FAILED'
     }
 
-    // Track if this is a new payment confirmation (to avoid duplicate emails)
-    const wasNotPaidBefore = order.paymentStatus !== 'paid'
-    const isNowPaid = paymentStatus === 'paid'
-    
-    // Update order status if it has changed
-    if (order.paymentStatus !== paymentStatus || order.status !== orderStatus) {
+    const justBecamePaid = paymentStatus === 'paid' && order.paymentStatus !== 'paid'
+
+    if (justBecamePaid) {
+      // Atomically claim the pending -> paid transition so emails are sent
+      // exactly once across this poll and the Stripe webhook.
       try {
-        const updateData = {
-          paymentStatus: paymentStatus,
+        const won = await claimPaidTransition(order.id, {
+          paymentStatus: 'paid',
           status: orderStatus,
           stripePaymentIntentId: paymentIntentId,
-          paidAt: paymentStatus === 'paid' ? new Date() : null,
+          paidAt: new Date(),
           updatedAt: new Date()
+        })
+
+        if (won) {
+          debugLog('📧 Payment-status poll won paid-transition (payment intent), sending emails for:', order.orderNumber)
+          try {
+            await sendPaidConfirmationEmails(order)
+          } catch (emailError) {
+            // Don't fail the request if email fails
+            errorLog('❌ Failed to send confirmation emails:', emailError)
+          }
+        } else {
+          debugLog('ℹ️ Paid-transition already handled by webhook/earlier poll, skipping emails for:', order.orderNumber)
         }
-        
+      } catch (updateError) {
+        errorLog('❌ Failed to update order status:', updateError)
+      }
+    } else if (order.paymentStatus !== paymentStatus || order.status !== orderStatus) {
+      // Non paid-transition status change (e.g. processing, cancelled, failed).
+      try {
         await prisma.order.update({
           where: { id: order.id },
-          data: updateData
+          data: {
+            paymentStatus: paymentStatus,
+            status: orderStatus,
+            stripePaymentIntentId: paymentIntentId,
+            paidAt: paymentStatus === 'paid' ? new Date() : null,
+            updatedAt: new Date()
+          }
         })
 
         debugLog('✅ Order status updated successfully (payment intent):', {
@@ -266,151 +469,6 @@ async function handlePaymentIntentStatus(paymentIntentId: string, orderId: strin
           paymentStatus,
           orderStatus
         })
-        
-        // Send confirmation emails if payment just became successful
-        // This ensures emails are sent even if webhook is delayed or fails
-        if (wasNotPaidBefore && isNowPaid) {
-          debugLog('📧 Sending confirmation emails for embedded payment:', order.orderNumber)
-          
-          try {
-            // Get user for discount tier info and preferred email
-            const user = order.customerEmail 
-              ? await findUserByEmail(order.customerEmail)
-              : null
-            
-            // Get preferred email address (use user's contactEmail if available for Apple Private Relay)
-            const emailToUse = user ? getPreferredEmail(user) : order.customerEmail || ''
-            
-            // Calculate discount info for items
-            const userDiscountPct = Number(user?.discountPercentage || 0)
-            const hasUserDiscount = Number.isFinite(userDiscountPct) && userDiscountPct > 0 && userDiscountPct < 100
-            
-            // Send customer confirmation email
-            if (emailToUse) {
-              await sendOrderConfirmationEmail({
-                orderNumber: order.orderNumber,
-                customerName: order.customerName,
-                customerEmail: emailToUse,
-                items: order.items.map((item) => {
-                  const itemName = item.productName || 'Product'
-                  
-                  // Check item type for discount labeling
-                  const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
-                  const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
-                  const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
-                  const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
-                  
-                  // Determine discount label
-                  let discountLabel: string | undefined = undefined
-                  if (isFreeItem) {
-                    discountLabel = undefined
-                  } else if (isBundle) {
-                    discountLabel = '15% OFF - Bundle'
-                  } else if (hasUserDiscountApplied) {
-                    discountLabel = `${userDiscountPct}% OFF`
-                  }
-                  
-                  return {
-                    productName: itemName,
-                    quantity: item.quantity,
-                    price: item.price,
-                    image: item.image || '',
-                    ...(item.size ? { size: item.size } : {}),
-                    ...(item.color ? { color: item.color } : {}),
-                    ...(discountLabel ? { discountLabel } : {})
-                  }
-                }),
-                subtotal: order.subtotal || 0,
-                shipping: order.shipping || 0,
-                vat: order.vat || 0,
-                total: order.total || 0,
-                address: order.customerAddress || '',
-                emirate: order.customerEmirate || '',
-                locale: order.locale || 'en',
-                discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
-                discountAmount: order.discountAmount ?? undefined,
-                bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
-                bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
-              })
-              
-              debugLog('📧 Customer email sent for order:', order.orderNumber)
-              
-              // Track email sent
-              if (order.customerEmail) {
-                await trackUserAction({
-                  userEmail: order.customerEmail,
-                  action: 'order_confirmation_email_sent',
-                  metadata: {
-                    orderNumber: order.orderNumber,
-                    source: 'payment-status-route'
-                  }
-                })
-              }
-            }
-            
-            // Send admin notification email
-            await sendAdminNewOrderNotification({
-              orderNumber: order.orderNumber,
-              customerName: order.customerName,
-              customerEmail: emailToUse,
-              customerPhone: order.customerPhone ?? undefined,
-              total: order.total,
-              itemCount: order.items.length,
-              items: order.items.map((item) => {
-                const itemName = item.productName || 'Product'
-                
-                // Check item type for discount labeling
-                const isFreeItem = item.price === 0 || itemName.toLowerCase().includes('(free)')
-                const isBundle = itemName.toLowerCase().includes('beauty box') || itemName.toLowerCase().includes('bundle')
-                const isExcludedFromUserDiscount = isUserDiscountExcludedProduct({ name: itemName })
-                const hasUserDiscountApplied = hasUserDiscount && !isExcludedFromUserDiscount && !isFreeItem
-                
-                // Determine discount label and original price
-                let discountLabel: string | undefined = undefined
-                let originalPrice: number | undefined = undefined
-                
-                if (isFreeItem) {
-                  discountLabel = undefined
-                  originalPrice = undefined
-                } else if (isBundle) {
-                  discountLabel = '15% OFF - Bundle'
-                  originalPrice = item.price / (1 - 0.15)
-                } else if (hasUserDiscountApplied) {
-                  discountLabel = `${userDiscountPct}% OFF`
-                  originalPrice = item.price / (1 - userDiscountPct / 100)
-                }
-                
-                return {
-                  productName: itemName,
-                  quantity: item.quantity,
-                  price: item.price,
-                  originalPrice,
-                  image: item.image || '',
-                  ...(item.size ? { size: item.size } : {}),
-                  ...(item.color ? { color: item.color } : {}),
-                  ...(discountLabel ? { discountLabel } : {})
-                }
-              }),
-              subtotal: order.subtotal ?? undefined,
-              shipping: order.shipping ?? undefined,
-              vat: order.vat ?? undefined,
-              address: order.customerAddress ?? undefined,
-              emirate: order.customerEmirate ?? undefined,
-              paymentStatus: 'PAID',
-              paymentMethod: order.paymentMethod ?? 'Stripe',
-              discountPercentage: hasUserDiscount ? userDiscountPct : 0,
-              discountAmount: order.discountAmount ?? 0,
-              bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
-              bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
-            })
-            
-            debugLog('📧 Admin notification sent for order:', order.orderNumber)
-            
-          } catch (emailError) {
-            // Don't fail the request if email fails
-            errorLog('❌ Failed to send confirmation emails:', emailError)
-          }
-        }
       } catch (updateError) {
         errorLog('❌ Failed to update order status:', updateError)
       }

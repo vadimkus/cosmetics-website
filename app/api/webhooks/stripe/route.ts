@@ -149,37 +149,63 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       updateData.paidAt = new Date()
     }
 
-    await prisma.order.update({
-      where: { id: order.id },
-      data: updateData
-    })
-
-    debugLog('✅ Order updated after checkout completion:', {
-      orderId: order.orderNumber,
-      paymentStatus: updateData.paymentStatus,
-      status: updateData.status
-    })
-
-    // If payment is complete and order wasn't already marked as paid, send confirmation emails
-    // This prevents duplicate emails if Stripe retries the webhook
-    const wasAlreadyPaid = order.paymentStatus === 'paid'
-    
-    if (session.payment_status === 'paid' && !wasAlreadyPaid) {
-      debugLog('📧 Order newly paid, sending confirmation emails:', order.orderNumber)
-      await sendConfirmationEmails(order)
-      
-      // Track successful order completion
-      trackUserAction({
-        action: 'order_completed',
-        userEmail: order.customerEmail,
-        details: `Order #${order.orderNumber} - Payment: ${session.amount_total} fils - Stripe session: ${session.id}`
-      }).catch(err => {
-        errorLog('❌ Failed to track order completion:', err)
+    if (session.payment_status === 'paid') {
+      // Atomically claim the pending -> paid transition. The mobile/web
+      // payment-status poll (/api/stripe/payment-status) can also flip this
+      // order to paid; whoever wins the claim is the single owner of the
+      // confirmation + admin emails. This prevents both duplicate emails AND
+      // the previous bug where the poll marked the order paid first and the
+      // webhook then skipped emails entirely.
+      const claim = await prisma.order.updateMany({
+        where: { id: order.id, paymentStatus: { not: 'paid' } },
+        data: updateData
       })
 
-      // MoySklad sync is done manually via admin panel "Push to MoySklad" button
-    } else if (wasAlreadyPaid) {
-      debugLog('ℹ️ Order already marked as paid, skipping duplicate emails:', order.orderNumber)
+      if (claim.count === 1) {
+        debugLog('✅ Webhook won paid-transition:', {
+          orderId: order.orderNumber,
+          paymentStatus: updateData.paymentStatus,
+          status: updateData.status
+        })
+
+        debugLog('📧 Order newly paid, sending confirmation emails:', order.orderNumber)
+        await sendConfirmationEmails(order)
+
+        // Track successful order completion
+        trackUserAction({
+          action: 'order_completed',
+          userEmail: order.customerEmail,
+          details: `Order #${order.orderNumber} - Payment: ${session.amount_total} fils - Stripe session: ${session.id}`
+        }).catch(err => {
+          errorLog('❌ Failed to track order completion:', err)
+        })
+
+        // MoySklad sync is done manually via admin panel "Push to MoySklad" button
+      } else {
+        // Already marked paid by the payment-status poll (or a webhook retry).
+        // Persist the authoritative payment intent id + metadata, but do NOT
+        // resend emails.
+        await prisma.order.update({
+          where: { id: order.id },
+          data: {
+            paymentMetadata: updateData.paymentMetadata,
+            updatedAt: new Date(),
+            ...(updateData.stripePaymentIntentId ? { stripePaymentIntentId: updateData.stripePaymentIntentId } : {})
+          }
+        })
+        debugLog('ℹ️ Order already marked as paid, skipping duplicate emails:', order.orderNumber)
+      }
+    } else {
+      await prisma.order.update({
+        where: { id: order.id },
+        data: updateData
+      })
+
+      debugLog('✅ Order updated after checkout completion:', {
+        orderId: order.orderNumber,
+        paymentStatus: updateData.paymentStatus,
+        status: updateData.status
+      })
     }
 
   } catch (error) {
@@ -210,9 +236,11 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
       return
     }
 
-    // Update order to paid status
-    await prisma.order.update({
-      where: { id: order.id },
+    // Atomically claim the pending -> paid transition so emails are sent
+    // exactly once across the payment-status poll, checkout.session.completed,
+    // and any Stripe retries of this event.
+    const claim = await prisma.order.updateMany({
+      where: { id: order.id, paymentStatus: { not: 'paid' } },
       data: {
         paymentStatus: 'paid',
         status: 'CONFIRMED',
@@ -227,13 +255,15 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
       }
     })
 
-    debugLog('✅ Order marked as paid:', {
-      orderId: order.orderNumber,
-      paymentIntentId: paymentIntent.id
-    })
-
-    // Send confirmation emails if not already sent
-    await sendConfirmationEmails(order)
+    if (claim.count === 1) {
+      debugLog('✅ Order marked as paid:', {
+        orderId: order.orderNumber,
+        paymentIntentId: paymentIntent.id
+      })
+      await sendConfirmationEmails(order)
+    } else {
+      debugLog('ℹ️ Order already marked as paid, skipping duplicate emails:', order.orderNumber)
+    }
 
   } catch (error) {
     errorLog('❌ Error handling payment_intent.succeeded:', error)

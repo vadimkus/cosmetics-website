@@ -576,7 +576,7 @@ The ampoule functions as a spicule peeling or bio-meso peeling treatment, induci
     image: '/images/Second/Prof_Meso.jpg',
     images: null,
     category: 'Bio Meso',
-    inStock: false,
+    inStock: true,
     size: '3ml x 4 ampoules',
     isPriceOnRequest: false,
     disclaimer: 'For Professional/Clinic Use Only. This product requires proper training and should only be used by licensed aestheticians or dermatologists.',

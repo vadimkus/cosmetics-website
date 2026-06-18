@@ -699,6 +699,19 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
         type: 'pdf'
       }
     ]
+  },
+  '65': {
+    id: '65',
+    pricing: {
+      basePrice: 300
+    },
+    documentation: [
+      {
+        title: 'Bio-Meso PDRN Line Training Manual',
+        url: '/documents/ppt/GENOSYS-Training%20manual-Bio-Meso%20PDRN%20line.pdf',
+        type: 'pdf'
+      }
+    ]
   }
 }
 
@@ -767,6 +780,7 @@ const documentationTitleTranslations: Record<string, string> = {
   'INTENSIVE PROBLEM CONTROL TONER': 'Руководство по INTENSIVE PROBLEM CONTROL TONER',
   'BIO MESO PDRN EXPERT AMPOULE 60000 Guide': 'Руководство по BIO MESO PDRN EXPERT AMPOULE 60000',
   'REVITA GLOW BLEMISH BALM CREAM Guide': 'Руководство по REVITA GLOW BLEMISH BALM CREAM',
+  'Bio-Meso PDRN Line Training Manual': 'Учебное руководство по линии Bio-Meso PDRN',
   'Microneedling Protocols (Carboxy + Power Solutions)': 'Протоколы микронидлинга (Карбокси + Power Solutions)'
 }
 

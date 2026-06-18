@@ -736,6 +736,26 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
+            {/* Product Recommendation Section - Bio-Meso PDRN Ampoule 60000 (60) → Soothing Repair Postcream (25) - Desktop only */}
+            {(product.productNumber === '60') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="25"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Bio-Meso PDRN Homecare Ampoule 5000 (65) → Soothing Repair Postcream (25) - Desktop only */}
+            {(product.productNumber === '65') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="25"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
             {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) - Desktop only */}
             {(product.id === '55' || product.productNumber === '55') && (
               <div className="hidden md:block bg-blue-50 border-2 border-blue-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
@@ -1335,6 +1355,26 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="3"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Bio-Meso PDRN Ampoule 60000 (60) → Soothing Repair Postcream (25) - Mobile only */}
+            {(product.productNumber === '60') && (
+              <div className="md:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="25"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Bio-Meso PDRN Homecare Ampoule 5000 (65) → Soothing Repair Postcream (25) - Mobile only */}
+            {(product.productNumber === '65') && (
+              <div className="md:hidden">
+                <ProductRecommendation 
+                  recommendedProductId="25"
                   currentProduct={product}
                 />
               </div>

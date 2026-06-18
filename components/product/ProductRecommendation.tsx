@@ -475,6 +475,32 @@ export default function ProductRecommendation({
       }
     }
 
+    // Bio-Meso PDRN Professional Ampoule (60) + Soothing Repair Postcream (25)
+    if ((currentProduct.id === '60' || currentProduct.productNumber === '60') && recommendedProduct.id === '25') {
+      return {
+        intro: t('product.pc60Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc60Benefit1Title'), text: t('product.pc60Benefit1Text') },
+          { title: t('product.pc60Benefit2Title'), text: t('product.pc60Benefit2Text') },
+          { title: t('product.pc60Benefit3Title'), text: t('product.pc60Benefit3Text') },
+          { title: t('product.pc60Benefit4Title'), text: t('product.pc60Benefit4Text') }
+        ]
+      }
+    }
+
+    // Bio-Meso PDRN Homecare Ampoule 5000 (65) + Soothing Repair Postcream (25)
+    if ((currentProduct.id === '65' || currentProduct.productNumber === '65') && recommendedProduct.id === '25') {
+      return {
+        intro: t('product.pc65Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc65Benefit1Title'), text: t('product.pc65Benefit1Text') },
+          { title: t('product.pc65Benefit2Title'), text: t('product.pc65Benefit2Text') },
+          { title: t('product.pc65Benefit3Title'), text: t('product.pc65Benefit3Text') },
+          { title: t('product.pc65Benefit4Title'), text: t('product.pc65Benefit4Text') }
+        ]
+      }
+    }
+
     // Default generic description
     return {
       intro: t('product.pcDefaultIntro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),

@@ -598,4 +598,19 @@ Supplied as 1 box containing 8 hair stamps. A fresh stamp is used together with 
     size: '1 box - 8 pcs of hair stamp',
     isPriceOnRequest: false,
   },
+  {
+    id: '65',
+    productNumber: '65',
+    name: 'Bio-Meso PDRN Homecare Ampoule 5000',
+    price: 300,
+    description: `A specialized homecare treatment ampoule, enriched with the uniquely formulated BIO-MESO™ PDRN, panthenol, and an anti-aging complex to regenerate skin and strengthen the skin barrier.
+
+BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables direct skin penetration, providing a bio-peeling effect that promotes skin turnover and delivers excellent skin regeneration benefits — all without classic needles. Designed for ongoing, gentle home care to maintain and reinforce results between professional treatments.`,
+    image: '/images/Bio_Meso_5000.png',
+    images: null,
+    category: 'Bio Meso',
+    inStock: true,
+    size: '50ml',
+    isPriceOnRequest: false,
+  },
 ]

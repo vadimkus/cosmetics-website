@@ -274,7 +274,8 @@ export async function POST(request: NextRequest) {
         },
         success_url: successUrl,
         cancel_url: cancelUrl,
-        payment_method_types: ['card'],
+        // Dynamic payment methods: omit payment_method_types so the hosted
+        // Checkout page uses the methods enabled in the Stripe Dashboard.
         expires_at: Math.floor(Date.now() / 1000) + (30 * 60),
       })
 
@@ -606,7 +607,8 @@ export async function POST(request: NextRequest) {
       },
       success_url: successUrl,
       cancel_url: cancelUrl,
-      payment_method_types: ['card'],
+      // Dynamic payment methods: omit payment_method_types so the hosted
+      // Checkout page uses the methods enabled in the Stripe Dashboard.
       expires_at: Math.floor(Date.now() / 1000) + (30 * 60) // 30 minutes
     })
 

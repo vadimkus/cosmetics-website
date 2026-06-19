@@ -95,7 +95,8 @@ export async function createCheckoutSession(params: {
     })
 
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card', 'link'],
+      // Dynamic payment methods: omit payment_method_types so Checkout uses the
+      // methods enabled in the Stripe Dashboard (card, Apple Pay, Google Pay, Link).
       mode: 'payment',
       currency: STRIPE_CONFIG.currency,
       
@@ -185,7 +186,9 @@ export async function createPaymentIntent(params: {
     const paymentIntent = await stripe.paymentIntents.create({
       amount: aedToFils(params.amount),
       currency: STRIPE_CONFIG.currency,
-      payment_method_types: ['card', 'link'],
+      // Dynamic payment methods: methods (card, Apple Pay, Google Pay, Link)
+      // are controlled from the Stripe Dashboard instead of hardcoded here.
+      automatic_payment_methods: { enabled: true },
       description: params.description || `Order ${params.orderNumber}`,
       metadata: {
         orderNumber: params.orderNumber,

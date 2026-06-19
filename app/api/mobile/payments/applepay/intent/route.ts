@@ -343,7 +343,11 @@ export async function POST(request: NextRequest) {
     const intent = await stripe.paymentIntents.create({
       amount,
       currency: 'aed',
-      payment_method_types: ['card'],
+      // Dynamic payment methods so the native Payment Sheet surfaces every
+      // method enabled in the Stripe Dashboard (card, Apple Pay, Google Pay,
+      // Link) instead of card-only. allow_redirects defaults to 'always';
+      // only non-redirect methods are enabled, so no extra return handling.
+      automatic_payment_methods: { enabled: true },
       metadata: {
         orderNumber: order.orderNumber,
         orderId: order.id,
@@ -353,9 +357,9 @@ export async function POST(request: NextRequest) {
         customerEmirate: emirate,
         orderNotes: orderNotes || '',
         source: 'mobile_app',
-        paymentFlow: 'apple_pay',
+        paymentFlow: 'payment_sheet',
       },
-      description: `Genosys UAE order ${order.orderNumber} (Apple Pay)`,
+      description: `Genosys UAE order ${order.orderNumber}`,
     })
 
     await prisma.order.update({

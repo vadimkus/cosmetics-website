@@ -40,7 +40,7 @@ export default function PrivacyPolicyClient() {
 
   const isAppLikeMode = (isClient && isPWA) || isMobileWeb
 
-  const lastUpdated = locale === 'ar' ? '30 مارس 2026' : locale === 'ru' ? '30 марта 2026' : 'March 30, 2026'
+  const lastUpdated = locale === 'ar' ? '20 يونيو 2026' : locale === 'ru' ? '20 июня 2026' : 'June 20, 2026'
 
   const t = {
     title: locale === 'ar' ? 'سياسة الخصوصية' : locale === 'ru' ? 'Политика конфиденциальности' : 'Privacy Policy',

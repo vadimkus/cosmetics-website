@@ -58,7 +58,7 @@ export default function TermsClient() {
   const isAppLikeMode = (isClient && isPWA) || isMobileWeb
 
   // Date translations
-  const lastUpdated = locale === 'ar' ? '17 أبريل 2026' : locale === 'ru' ? '17 апреля 2026' : 'April 17, 2026'
+  const lastUpdated = locale === 'ar' ? '20 يونيو 2026' : locale === 'ru' ? '20 июня 2026' : 'June 20, 2026'
   
   // All translations organized by section
   const translations = {

@@ -8,10 +8,10 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 
-const LAST_UPDATED = '2026-03-30'
+const LAST_UPDATED = '2026-06-20'
 
 function getContent(locale: string) {
-  const lastUpdated = locale === 'ar' ? '30 مارس 2026' : locale === 'ru' ? '30 марта 2026' : 'March 30, 2026'
+  const lastUpdated = locale === 'ar' ? '20 يونيو 2026' : locale === 'ru' ? '20 июня 2026' : 'June 20, 2026'
 
   const sections = [
     {

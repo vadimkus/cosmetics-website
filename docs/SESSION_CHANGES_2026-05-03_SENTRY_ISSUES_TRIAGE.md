@@ -355,3 +355,25 @@ Fix applied (narrow filter, NOT a blanket hydration suppression):
 - Added `isReactStreamingRevealNullNodeRace` to `instrumentation-client.ts`. It drops only: a `TypeError` reading `parentNode` on `null` (Chrome wording, plus the Safari `null is not an object … parentNode` variant), mechanism `onerror`, whose stack contains at least one React inline reveal helper (`$R*`) and whose every frame is either such a helper or a bare inline-document frame (no `_next/static/chunks` and no resolved module path).
 - Any hydration error with real app/component frames (a deterministic server/client mismatch we could fix) still reaches Sentry.
 - Documented escalation rule: if this recurs across many sessions/users it indicates a real mismatch (e.g. locale/date/random rendering on `/products`) and must be investigated rather than filtered.
+
+## Follow-Up — 2026-06-20 Weekly Digest: Filters Confirmed + N+1 Query Triage
+
+Weekly digest (Jun 13–20) listed three errors and two new N+1 performance issues.
+
+Errors — all confirmed already filtered (digest is counting pre-fix events):
+
+- `JAVASCRIPT-NEXTJS-3` `getBoundingClientRect` `/success`: last event Jun 13 14:58 on release `9fd5fa58` — before the Jun 13 UA-detection fix (`524c571e`). No events since.
+- `JAVASCRIPT-NEXTJS-A` `Load failed` `/products`: last event Jun 13 09:27 on `9fd5fa58` — also pre-UA-fix. No events since.
+- `JAVASCRIPT-NEXTJS-1A` `parentNode` `/products`: 3-event burst Jun 16 11:23 on `06e32ae` — before the Jun 16 React-reveal filter (`c6435fa2`). No events since.
+
+No error-filter action needed; all three are working.
+
+Performance — two `performance_n_plus_one_db_queries` issues (Prisma Accelerate):
+
+- `JAVASCRIPT-NEXTJS-1B` `GET /api/admin/users` (count 7): route is already batched (order stats via a single `$queryRaw`). Remaining sequential queries are list `findMany` + `count` (parallel), a backfill `updateMany` that runs on every request, and a conditional refetch. Wasteful but admin-only (~7 hits/week) and idempotent; left unchanged to avoid touching working migration logic without sign-off. Optional future cleanup: gate the backfill behind a one-time flag.
+- `JAVASCRIPT-NEXTJS-19` `POST /api/analytics/track` (count 7): fires on every page view. Did `pageView.create`, then sequentially `userSession.findUnique` → `update`/`create`. The pageview write and session tracking hit independent tables with no ordering dependency.
+
+Fix applied:
+
+- `app/api/analytics/track/route.ts`: run `trackPageViewToDatabase` and `trackUserSession` via `Promise.all` instead of sequential awaits. Removes a wasted DB round-trip on the hottest endpoint. Safe because the two helpers write to different tables and each swallows its own errors internally (so `Promise.all` never rejects). The session `findUnique` → `update` read-then-write inside `trackUserSession` is left intact (the update computes duration/pageViews from the existing row).
+- Note: the blocking `ipapi.co` geolocation lookup on each pageview is a separate latency item; not changed here to preserve geo data — flagged for future discussion.

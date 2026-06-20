@@ -50,35 +50,39 @@ export async function POST(request: NextRequest) {
         sessionId = randomBytes(16).toString('hex')
       }
       
-      // Track page view
-      await trackPageViewToDatabase({
-        ...data,
-        ipAddress: ip,
-        country: geolocationData?.country,
-        city: geolocationData?.city,
-        userAgent,
-        referrer,
-        deviceType: deviceInfo.deviceType,
-        browser: deviceInfo.browser,
-        os: deviceInfo.os,
-        screenWidth: data.screenWidth,
-        screenHeight: data.screenHeight,
-        userEmail
-      })
-      
-      // Track session
-      await trackUserSession({
-        sessionId,
-        ipAddress: ip || 'unknown',
-        ...(geolocationData?.country && { country: geolocationData.country }),
-        ...(deviceInfo.deviceType && { deviceType: deviceInfo.deviceType }),
-        ...(deviceInfo.browser && { browser: deviceInfo.browser }),
-        ...(deviceInfo.os && { os: deviceInfo.os }),
-        ...(data.screenWidth && { screenWidth: data.screenWidth }),
-        ...(data.screenHeight && { screenHeight: data.screenHeight }),
-        ...(userEmail && { userEmail }),
-        ...(referrer && referrer !== 'unknown' && { referrer })
-      })
+      // Track page view and session in parallel. They write to independent
+      // tables (pageView vs userSession) with no ordering dependency, and both
+      // helpers swallow their own errors, so running them sequentially only
+      // added a wasted DB round-trip on this hot (every-pageview) path —
+      // which Sentry flagged as an N+1 (JAVASCRIPT-NEXTJS-19).
+      await Promise.all([
+        trackPageViewToDatabase({
+          ...data,
+          ipAddress: ip,
+          country: geolocationData?.country,
+          city: geolocationData?.city,
+          userAgent,
+          referrer,
+          deviceType: deviceInfo.deviceType,
+          browser: deviceInfo.browser,
+          os: deviceInfo.os,
+          screenWidth: data.screenWidth,
+          screenHeight: data.screenHeight,
+          userEmail
+        }),
+        trackUserSession({
+          sessionId,
+          ipAddress: ip || 'unknown',
+          ...(geolocationData?.country && { country: geolocationData.country }),
+          ...(deviceInfo.deviceType && { deviceType: deviceInfo.deviceType }),
+          ...(deviceInfo.browser && { browser: deviceInfo.browser }),
+          ...(deviceInfo.os && { os: deviceInfo.os }),
+          ...(data.screenWidth && { screenWidth: data.screenWidth }),
+          ...(data.screenHeight && { screenHeight: data.screenHeight }),
+          ...(userEmail && { userEmail }),
+          ...(referrer && referrer !== 'unknown' && { referrer })
+        }),
+      ])
       
       // Set session ID cookie (30 minutes expiration)
       const response = NextResponse.json({ success: true })

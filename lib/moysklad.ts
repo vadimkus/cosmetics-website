@@ -12,6 +12,16 @@
  */
 
 import { debugLog, errorLog, warnLog } from '@/lib/logger'
+import {
+  explodeBeautyBoxItem,
+  isBeautyBoxProductName,
+} from '@/lib/moyskladBeautyBoxExplosion'
+import {
+  explodePowerSolutionBoxItem,
+  isPowerSolutionBoxProductName,
+  POWER_SOLUTION_VIALS_PER_BOX,
+  resolvePowerSolutionBoxKey,
+} from '@/lib/moyskladPowerSolutionExplosion'
 
 // ============================================================================
 // Configuration
@@ -174,13 +184,21 @@ function isPaidOnlinePayment(paymentMethod: string): boolean {
  * our prices need to be multiplied by 100 when sending to MoySklad.
  */
 const PRODUCT_MAP: Record<string, string> = {
-  // === Power Solutions (boxes, 10 vials each) ===
-  'POWER SOLUTION AWS': '05507ec8-3447-11ea-0a80-05dc00016a6b',       // POWER SOLUTION AWS Box
-  'POWER SOLUTION SWS': '662f268a-3448-11ea-0a80-00e60001a228',       // POWER SOLUTION SWS Box
-  'POWER SOLUTION CVS': 'cd352a84-45d4-11ea-0a80-01f800166866',       // POWER SOLUTION CVS Box
-  'POWER SOLUTION HES': '22afc79d-45d6-11ea-0a80-01f80016717c',       // POWER SOLUTION HES Box
-  'POWER SOLUTION PCS': 'e5c696ee-45cb-11ea-0a80-01f80015e85a',       // POWER SOLUTION PCS Box
-  'POWER SOLUTION CTS': '726570c8-45d5-11ea-0a80-01f800166ccf',       // POWER SOLUTION CTS Box
+  // === Power Solutions — vials (used when box lines explode on push; codes 00018/00020/…) ===
+  'POWER SOLUTION AWS 1 VIAL 2ML': '68872ebb-3447-11ea-0a80-03f90001c5cc', // 00018
+  'POWER SOLUTION SWS 1 VIAL 2ML': 'e0ff2439-3448-11ea-0a80-044a00018f60', // 00020
+  'POWER SOLUTION CVS 1 VIAL 2ML': 'febec033-45d4-11ea-0a80-00ab0015bfa1', // 00067
+  'POWER SOLUTION HES 1 VIAL 2ML': '4ba9c825-45d6-11ea-0a80-067800168f95', // 00071
+  'POWER SOLUTION PCS 1 VIAL 2ML': '8a43a8e9-45d4-11ea-0a80-048a00166b96', // 00065
+  'POWER SOLUTION CTS 1 VIAL 2ML': 'c4784fc1-45d5-11ea-0a80-02fd001636a2', // 00069
+
+  // === Power Solutions — boxes (legacy fallback only; push explodes to vials above) ===
+  'POWER SOLUTION AWS': '05507ec8-3447-11ea-0a80-05dc00016a6b',       // 00017 Box
+  'POWER SOLUTION SWS': '662f268a-3448-11ea-0a80-00e60001a228',       // 00019 Box
+  'POWER SOLUTION CVS': 'cd352a84-45d4-11ea-0a80-01f800166866',       // 00066 Box
+  'POWER SOLUTION HES': '22afc79d-45d6-11ea-0a80-01f80016717c',       // 00070 Box
+  'POWER SOLUTION PCS': 'e5c696ee-45cb-11ea-0a80-01f80015e85a',       // 00064 Box
+  'POWER SOLUTION CTS': '726570c8-45d5-11ea-0a80-01f800166ccf',       // 00068 Box
 
   // === Skincare Creams ===
   'INTENSIVE HYDRO SOOTHING CREAM': '1ebfde72-42b6-11ea-0a80-05c1000c3129',  // 50g
@@ -253,6 +271,9 @@ const PRODUCT_MAP: Record<string, string> = {
 
   // === Professional ===
   'Bio Meso PDRN Ampoule 60000': '89b90c39-da54-11f0-0a80-166700076a14',       // BIO-MESO PDRN Expert Ampoule
+  'Bio-Meso PDRN Homecare Ampoule 5000': '3706b193-6ae8-11f1-0a80-16e5003a85d3', // 54475 clinic 150 / retail 300
+  'Bio Meso PDRN Homecare Ampoule 5000': '3706b193-6ae8-11f1-0a80-16e5003a85d3', // alias (hyphen variant)
+  '54475': '3706b193-6ae8-11f1-0a80-16e5003a85d3',                               // MoySklad code fallback
 
   // === Kits & Holiday ===
   'Holiday Kit': '2457826d-993a-11f0-0a80-1616000c9d82',                       // OXY VITA Holiday KIT
@@ -615,8 +636,81 @@ export async function createMoySkladOrder(
     }> = []
 
     const unmappedItems: string[] = []
+    const explodedBeautyBoxes: string[] = []
+    const explodedPowerSolutionBoxes: string[] = []
+
+    type LineToMap = {
+      productName: string
+      quantity: number
+      price: number
+      retailPrice?: number
+      discountPercent?: number
+      color?: string | null
+      size?: string | null
+    }
+
+    const linesToMap: LineToMap[] = []
 
     for (const item of orderData.items) {
+      if (isBeautyBoxProductName(item.productName)) {
+        const boxKey = item.productName.trim().toUpperCase()
+        explodedBeautyBoxes.push(boxKey)
+        const discountPercent = item.discountPercent && item.discountPercent > 0
+          ? item.discountPercent
+          : undefined
+        for (const exploded of explodeBeautyBoxItem({
+          productName: item.productName,
+          quantity: item.quantity,
+          ...(item.color != null ? { color: item.color } : {}),
+          ...(discountPercent != null ? { discountPercent } : {}),
+        })) {
+          const mapped: LineToMap = {
+            productName: exploded.productName,
+            quantity: exploded.quantity,
+            price: exploded.retailPrice * (100 - exploded.discountPercent) / 100,
+            retailPrice: exploded.retailPrice,
+            discountPercent: exploded.discountPercent,
+          }
+          if (exploded.color != null) mapped.color = exploded.color
+          if (exploded.size != null) mapped.size = exploded.size
+          linesToMap.push(mapped)
+        }
+        continue
+      }
+
+      if (isPowerSolutionBoxProductName(item.productName)) {
+        const boxKey = resolvePowerSolutionBoxKey(item.productName) ?? item.productName.trim().toUpperCase()
+        explodedPowerSolutionBoxes.push(boxKey)
+        for (const exploded of explodePowerSolutionBoxItem({
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          ...(item.retailPrice != null ? { retailPrice: item.retailPrice } : {}),
+          ...(item.discountPercent != null ? { discountPercent: item.discountPercent } : {}),
+        })) {
+          linesToMap.push({
+            productName: exploded.productName,
+            quantity: exploded.quantity,
+            price: exploded.retailPrice * (100 - exploded.discountPercent) / 100,
+            retailPrice: exploded.retailPrice,
+            discountPercent: exploded.discountPercent,
+          })
+        }
+        continue
+      }
+
+      linesToMap.push({
+        productName: item.productName,
+        quantity: item.quantity,
+        price: item.price,
+        ...(item.retailPrice != null ? { retailPrice: item.retailPrice } : {}),
+        ...(item.discountPercent != null ? { discountPercent: item.discountPercent } : {}),
+        ...(item.color != null ? { color: item.color } : {}),
+        ...(item.size != null ? { size: item.size } : {}),
+      })
+    }
+
+    for (const item of linesToMap) {
       const moySkladProductId = getMoySkladProductId(item.productName, item.color, item.size)
 
       if (!moySkladProductId) {
@@ -641,6 +735,13 @@ export async function createMoySkladOrder(
       })
     }
 
+    if (unmappedItems.length > 0) {
+      return {
+        success: false,
+        error: `Cannot sync to MoySklad — unmapped line items: ${unmappedItems.join('; ')}`,
+      }
+    }
+
     // Step 2b: Add shipping as a service line item (if applicable)
     // UAE delivery is taxable at 5% VAT (inclusive in the charge) — matches the
     // website's checkout VAT calc which treats shipping as VAT-inclusive.
@@ -660,6 +761,20 @@ export async function createMoySkladOrder(
       }
     }
 
+    const mappedTotalAed = positions.reduce((sum, p) => {
+      const discount = p.discount ?? 0
+      return sum + (p.quantity * p.price * (100 - discount)) / 10000
+    }, 0)
+
+    if (Math.abs(mappedTotalAed - orderData.total) > 0.05) {
+      return {
+        success: false,
+        error:
+          `Cannot sync to MoySklad — mapped total AED ${mappedTotalAed.toFixed(2)} ` +
+          `does not match order total AED ${orderData.total.toFixed(2)}`,
+      }
+    }
+
     // Step 3: Build order description
     const paymentLabel = orderData.paymentMethod === 'cod' ? 'Cash on Delivery' 
       : orderData.paymentMethod === 'stripe' ? 'Stripe (Card)'
@@ -672,6 +787,14 @@ export async function createMoySkladOrder(
     ]
     if (orderData.shipping > 0) {
       descParts.push(`Shipping: ${orderData.shipping} AED (${orderData.customerEmirate})`)
+    }
+    if (explodedBeautyBoxes.length > 0) {
+      descParts.push(`Beauty boxes exploded: ${[...new Set(explodedBeautyBoxes)].join(', ')}`)
+    }
+    if (explodedPowerSolutionBoxes.length > 0) {
+      descParts.push(
+        `Power Solution boxes → vials (×${POWER_SOLUTION_VIALS_PER_BOX}): ${[...new Set(explodedPowerSolutionBoxes)].join(', ')}`
+      )
     }
     if (unmappedItems.length > 0) {
       descParts.push(`Unmapped items: ${unmappedItems.join(', ')}`)
@@ -874,6 +997,166 @@ export async function createMoySkladOrder(
     errorLog('❌ MoySklad: Unexpected error:', message)
     return { success: false, error: message }
   }
+}
+
+export type MoySkladSyncStatus = 'missing' | 'partial' | 'complete'
+
+/** Find an active MoySklad customer order by exact document name (web orderNumber). */
+export async function findMoySkladCustomerOrderByName(
+  orderNumber: string
+): Promise<{ id: string; name: string } | null> {
+  const auth = getAuthHeader()
+  if (!auth || !orderNumber.trim()) return null
+
+  const result = await moySkladFetch(
+    `/entity/customerorder?filter=name=${encodeURIComponent(orderNumber.trim())}&limit=1`
+  )
+  if (!result.ok || !result.data) return null
+
+  const rows = (result.data as { rows: Array<{ id: string; name: string; deleted?: boolean }> }).rows
+  const row = rows?.find(r => !r.deleted)
+  return row ? { id: row.id, name: row.name } : null
+}
+
+/**
+ * Before (re)pushing, remove incomplete MoySklad docs so name uniqueness (HTTP 412) does not block retry.
+ * Handles orphans when a prior push created the customer order but failed before invoice/shipment.
+ */
+export async function prepareMoySkladOrderForPush(
+  orderNumber: string,
+  existingMoySkladOrderId: string | null | undefined,
+  expectedTotalAed: number
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const idsToCheck = new Set<string>()
+
+  if (existingMoySkladOrderId) {
+    idsToCheck.add(existingMoySkladOrderId)
+  }
+
+  const orphan = await findMoySkladCustomerOrderByName(orderNumber)
+  if (orphan) {
+    idsToCheck.add(orphan.id)
+  }
+
+  for (const moySkladOrderId of idsToCheck) {
+    const syncStatus = await getMoySkladOrderSyncStatus(moySkladOrderId, expectedTotalAed)
+    if (syncStatus === 'complete') {
+      return {
+        ok: false,
+        error: `Order already pushed to MoySklad (ID: ${moySkladOrderId})`,
+      }
+    }
+    if (syncStatus === 'partial' || syncStatus === 'missing') {
+      debugLog(`♻️ MoySklad: Trashing incomplete sync ${moySkladOrderId} for ${orderNumber}`)
+      const trashed = await trashMoySkladOrderChain(moySkladOrderId)
+      if (!trashed) {
+        return {
+          ok: false,
+          error: `Could not remove incomplete MoySklad documents for ${orderNumber}. Delete invoice/shipment manually in MoySklad, then retry.`,
+        }
+      }
+    }
+  }
+
+  return { ok: true }
+}
+
+/** Check whether an existing MoySklad customer order matches a fully synced paid web order. */
+export async function getMoySkladOrderSyncStatus(
+  moySkladOrderId: string,
+  expectedTotalAed: number
+): Promise<MoySkladSyncStatus> {
+  const auth = getAuthHeader()
+  if (!auth) return 'missing'
+
+  const orderResult = await moySkladFetch(`/entity/customerorder/${moySkladOrderId}`)
+  if (!orderResult.ok || !orderResult.data) return 'missing'
+
+  const order = orderResult.data as CreatedMoySkladEntity & { deleted?: boolean; sum?: number }
+  if (order.deleted) return 'missing'
+
+  const orderTotalAed = (order.sum || 0) / 100
+  if (Math.abs(orderTotalAed - expectedTotalAed) > 0.05) return 'partial'
+
+  const invoiceResult = await moySkladFetch(
+    `/entity/invoiceout?filter=customerOrder=${encodeURIComponent(`${MOYSKLAD_API_BASE}/entity/customerorder/${moySkladOrderId}`)}&limit=1`
+  )
+  const invoiceRows = invoiceResult.ok && invoiceResult.data
+    ? (invoiceResult.data as { rows: Array<{ id: string; deleted?: boolean }> }).rows?.filter(r => !r.deleted) ?? []
+    : []
+  if (invoiceRows.length === 0) return 'partial'
+
+  for (const invoice of invoiceRows) {
+    const demands = await listMoySkladDemandsForInvoice(invoice.id)
+    if (demands.length > 0) return 'complete'
+  }
+
+  return 'partial'
+}
+
+async function listMoySkladInvoicesForOrder(moySkladOrderId: string): Promise<Array<{ id: string; name: string }>> {
+  const invoiceResult = await moySkladFetch(
+    `/entity/invoiceout?filter=customerOrder=${encodeURIComponent(`${MOYSKLAD_API_BASE}/entity/customerorder/${moySkladOrderId}`)}&limit=100`
+  )
+  if (!invoiceResult.ok || !invoiceResult.data) return []
+  return (invoiceResult.data as { rows: Array<{ id: string; name: string; deleted?: boolean }> }).rows
+    ?.filter(r => !r.deleted)
+    .map(r => ({ id: r.id, name: r.name })) ?? []
+}
+
+async function listMoySkladDemandsForInvoice(invoiceId: string): Promise<Array<{ id: string; name: string }>> {
+  const demandResult = await moySkladFetch(
+    `/entity/demand?filter=invoiceOut=${encodeURIComponent(`${MOYSKLAD_API_BASE}/entity/invoiceout/${invoiceId}`)}&limit=100`
+  )
+  if (!demandResult.ok || !demandResult.data) return []
+  return (demandResult.data as { rows: Array<{ id: string; name: string; deleted?: boolean }> }).rows
+    ?.filter(r => !r.deleted)
+    .map(r => ({ id: r.id, name: r.name })) ?? []
+}
+
+async function listMoySkladPaymentInsForDemand(demandId: string): Promise<Array<{ id: string; name: string }>> {
+  const paymentResult = await moySkladFetch(
+    `/entity/paymentin?filter=operations=${encodeURIComponent(`${MOYSKLAD_API_BASE}/entity/demand/${demandId}`)}&limit=100`
+  )
+  if (!paymentResult.ok || !paymentResult.data) return []
+  return (paymentResult.data as { rows: Array<{ id: string; name: string; deleted?: boolean }> }).rows
+    ?.filter(r => !r.deleted)
+    .map(r => ({ id: r.id, name: r.name })) ?? []
+}
+
+/** Delete paymentin → demand → invoice → customer order (for incomplete re-push). */
+export async function trashMoySkladOrderChain(moySkladOrderId: string): Promise<boolean> {
+  const invoices = await listMoySkladInvoicesForOrder(moySkladOrderId)
+
+  for (const invoice of invoices) {
+    const demands = await listMoySkladDemandsForInvoice(invoice.id)
+    for (const demand of demands) {
+      const payments = await listMoySkladPaymentInsForDemand(demand.id)
+      for (const payment of payments) {
+        const paymentDelete = await moySkladFetch(`/entity/paymentin/${payment.id}`, { method: 'DELETE' })
+        if (!paymentDelete.ok) {
+          warnLog(`⚠️ MoySklad: Failed to trash paymentin ${payment.name}: ${paymentDelete.error}`)
+        }
+      }
+      const demandDelete = await moySkladFetch(`/entity/demand/${demand.id}`, { method: 'DELETE' })
+      if (!demandDelete.ok) {
+        warnLog(`⚠️ MoySklad: Failed to trash demand ${demand.name}: ${demandDelete.error}`)
+        return false
+      }
+    }
+    const invoiceDelete = await moySkladFetch(`/entity/invoiceout/${invoice.id}`, { method: 'DELETE' })
+    if (!invoiceDelete.ok) {
+      warnLog(`⚠️ MoySklad: Failed to trash invoice ${invoice.name}: ${invoiceDelete.error}`)
+      return false
+    }
+  }
+
+  const orderDelete = await moySkladFetch(`/entity/customerorder/${moySkladOrderId}`, { method: 'DELETE' })
+  return orderDelete.ok
+}
+
+export async function trashMoySkladCustomerOrder(moySkladOrderId: string): Promise<boolean> {
+  return trashMoySkladOrderChain(moySkladOrderId)
 }
 
 // ============================================================================

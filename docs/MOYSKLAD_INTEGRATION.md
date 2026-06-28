@@ -160,7 +160,11 @@ Uses fuzzy matching (`.includes()`) for emirate name variations. If no mapping i
 
 ### Unmapped Products
 
-Some webapp products like **beauty boxes** (ANTI-AGING BEAUTY BOX, CHARMING LOOK BEAUTY BOX, etc.) are custom bundles that don't have a 1:1 MoySklad product. These are noted in the order description in MoySklad but won't have line items.
+**Beauty boxes** (Problem Skin, Skin Brightening, Charming Look, Anti-Aging, Deep Moisturizing, Sensitive Skin) are web-only bundles with no 1:1 MoySklad SKU. On push they are **automatically exploded** into individual retail products (see `lib/moyskladBeautyBoxExplosion.ts`) with the built-in 15% box discount applied to each component line.
+
+**Power Solution boxes** (AWS, SWS, CVS, HES, PCS, CTS) are sold on the website as 10-vial kits but MoySklad often holds **vial** stock only. On push, each box line is **automatically routed to vials**: **1 box → 10 vials** at `box_price ÷ 10` per vial (e.g. SWS box 580 AED → `00020` × 10 @ 58 AED). See `lib/moyskladPowerSolutionExplosion.ts`. Order description notes `Power Solution boxes → vials (×10): …`.
+
+Sync **fails** (admin sees an error) if any line remains unmapped or if the mapped total does not match the website order total — this prevents partial syncs when a box was skipped.
 
 ### Adding New Products
 

@@ -3,7 +3,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { prisma } from '@/lib/database'
-import { createMoySkladOrder, isMoySkladEnabled } from '@/lib/moysklad'
+import { createMoySkladOrder, isMoySkladEnabled, prepareMoySkladOrderForPush } from '@/lib/moysklad'
 
 export async function POST(
   request: NextRequest,
@@ -45,10 +45,15 @@ export async function POST(
       )
     }
 
-    // Check if already pushed
-    if (order.moySkladOrderId) {
+    // Trash incomplete/orphan MoySklad docs (same orderNumber, no invoice) before re-push
+    const prep = await prepareMoySkladOrderForPush(
+      order.orderNumber,
+      order.moySkladOrderId,
+      order.total
+    )
+    if (!prep.ok) {
       return NextResponse.json(
-        { success: false, error: `Order already pushed to MoySklad (ID: ${order.moySkladOrderId})` },
+        { success: false, error: prep.error },
         { status: 409 }
       )
     }
@@ -76,14 +81,16 @@ export async function POST(
       customerPhone: order.customerPhone || '',
       customerAddress: order.customerAddress || '',
       customerEmirate: order.customerEmirate || '',
+// Push route: pass bundle discount for beauty boxes from paid line price
       items: order.items.map(item => {
         const bundleDiscount = Number(item.bundleDiscount || 0)
         const hasBundleDiscount = bundleDiscount > 0 && bundleDiscount < 100 && Number(item.price || 0) > 0
         const isFreePromo = Number(item.price || 0) === 0 && item.size === '__PROMO__'
+        const isBeautyBox = item.productName.toLowerCase().includes('beauty box')
         const retailPrice = isFreePromo
           ? productPriceById.get(item.productId) || item.price
-          : hasBundleDiscount
-            ? Math.round((item.price / (1 - bundleDiscount / 100)) * 100) / 100
+          : hasBundleDiscount || isBeautyBox
+            ? Math.round((item.price / (1 - (hasBundleDiscount ? bundleDiscount : 15) / 100)) * 100) / 100
             : item.price
 
         return {
@@ -91,8 +98,8 @@ export async function POST(
           quantity: item.quantity,
           price: item.price,
           retailPrice,
-          ...(isFreePromo || hasBundleDiscount
-            ? { discountPercent: isFreePromo ? 100 : bundleDiscount }
+          ...(isFreePromo || hasBundleDiscount || isBeautyBox
+            ? { discountPercent: isFreePromo ? 100 : hasBundleDiscount ? bundleDiscount : 15 }
             : {}),
           color: item.color,
           size: item.size,

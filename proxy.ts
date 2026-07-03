@@ -41,10 +41,11 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const requestId = generateRequestId()
 
-  // Redirect /en to root (English is default, no prefix needed)
+  // Redirect /en to root (English is default, no prefix needed).
+  // 308 permanent: /en URLs are never canonical, so let Google consolidate.
   if (pathname === '/en' || pathname.startsWith('/en/')) {
     const newPath = pathname === '/en' ? '/' : pathname.replace('/en', '')
-    const response = NextResponse.redirect(new URL(newPath, request.url))
+    const response = NextResponse.redirect(new URL(newPath, request.url), 308)
     // Set cookie to 'en' when accessing English version
     response.cookies.set('NEXT_LOCALE', 'en', { path: '/', maxAge: 31536000, sameSite: 'lax' })
     return withSecurityHeaders(response, requestId)
@@ -130,9 +131,15 @@ export function proxy(request: NextRequest) {
     '/pigmentation-serum-dubai': '/guides/pigmentation-serum-dubai',
   }
 
-  // Handle redirects first (before locale handling)
+  // Handle redirects first (before locale handling).
+  // 308 permanent (not the 307 default): these aliases are stable, and a
+  // temporary redirect keeps Google re-crawling them and reporting
+  // "Page with redirect" instead of consolidating onto the target URL.
   if (redirects[pathname]) {
-    return withSecurityHeaders(NextResponse.redirect(new URL(redirects[pathname], request.url)), requestId)
+    return withSecurityHeaders(
+      NextResponse.redirect(new URL(redirects[pathname], request.url), 308),
+      requestId
+    )
   }
 
   // Legacy product URLs: CUID/UUID product ids that search engines indexed

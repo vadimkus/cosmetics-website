@@ -92,6 +92,7 @@ const productDocuments = [
   { id: 'hair-solution', title: 'HR³ MATRIX HAIR SOLUTION α', size: '2.3 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf', image: '/images/HHR.jpg', productId: '45' },
   { id: 'hair-tonic', title: 'HR³ MATRIX HAIR TONIC α', size: '1.9 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf', image: '/images/HT.jpg', productId: '43' },
   { id: 'scalp-peeling', title: 'HR³ MATRIX SCALP PEELING α', size: '2.1 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf', image: '/images/scal.jpg', productId: '46' },
+  { id: 'scalp-brush', title: 'HR³ MATRIX SCALP BRUSH', size: '0.4 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20BRUSH.pdf', image: '/images/Second/brush.jpg', productId: '61' },
   { id: 'geno-led', title: 'GENO-LED IR II', size: '4.6 MB', href: '/documents/ppt/GENO-LED%20IR%20II_2025.pdf', image: '/images/LEDD.jpg', productId: '49' },
   { id: 'pdrn-mask', title: 'SKIN REBOOT PDRN MASK PACK', size: '1.2 MB', href: '/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf', image: '/images/PDRN.png', productId: '52' },
   { id: 'co2-mask', title: 'EZ CO₂ MASK KIT', size: '0.5 MB', href: '/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf', image: '/images/EZE.jpg', productId: '38' },

@@ -930,6 +930,39 @@ export default function RussianTrainingPage() {
                     </div>
                   </div>
                   
+                  {/* HR³ MATRIX SCALP BRUSH */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/61">
+                          <Image
+                            src="/images/Second/brush.jpg"
+                            alt="HR³ MATRIX SCALP BRUSH"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          HR³ MATRIX ЩЁТКА ДЛЯ КОЖИ ГОЛОВЫ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          0.4 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20BRUSH.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
+                  
                   {/* GENO-LED IR II */}
                   <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
                     <div className="flex items-center gap-2 md:gap-3">

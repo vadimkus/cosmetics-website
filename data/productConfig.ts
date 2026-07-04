@@ -691,6 +691,19 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       }
     ]
   },
+  '61': {
+    id: '61',
+    pricing: {
+      basePrice: 50
+    },
+    documentation: [
+      {
+        title: 'HR³ MATRIX SCALP BRUSH Guide',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20BRUSH.pdf',
+        type: 'pdf'
+      }
+    ]
+  },
   '63': {
     id: '63',
     pricing: {
@@ -780,6 +793,7 @@ const documentationTitleTranslations: Record<string, string> = {
   'HR³ MATRIX SCALP SHAMPOO α Guide': 'Руководство по HR³ MATRIX SCALP SHAMPOO α',
   'HR³ MATRIX HAIR SOLUTION α Guide': 'Руководство по HR³ MATRIX HAIR SOLUTION α',
   'HR³ MATRIX SCALP PEELING α Guide': 'Руководство по HR³ MATRIX SCALP PEELING α',
+  'HR³ MATRIX SCALP BRUSH Guide': 'Руководство по HR³ MATRIX SCALP BRUSH',
   'Hair-GENTRON Guide': 'Руководство по Hair-GENTRON',
   'GENO-LED IR II Guide': 'Руководство по GENO-LED IR II',
   'EyeCell EYE ZONE CARE KIT Guide': 'Руководство по EyeCell EYE ZONE CARE KIT',

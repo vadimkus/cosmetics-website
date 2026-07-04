@@ -272,6 +272,7 @@ export default function ArabicTrainingPageClient() {
                     { id: 45, image: '/images/HHR.jpg', name: 'HR³ MATRIX HAIR SOLUTION α', size: '2.3 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf' },
                     { id: 43, image: '/images/HT.jpg', name: 'HR³ MATRIX HAIR TONIC α', size: '1.9 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf' },
                     { id: 46, image: '/images/scal.jpg', name: 'HR³ MATRIX SCALP PEELING α', size: '2.1 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf' },
+                    { id: 61, image: '/images/Second/brush.jpg', name: 'HR³ MATRIX SCALP BRUSH', size: '0.4 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20BRUSH.pdf' },
                     { id: 49, image: '/images/LEDD.jpg', name: 'GENO-LED IR II', size: '4.6 MB', href: '/documents/ppt/GENO-LED%20IR%20II_2025.pdf' },
                     { id: 52, image: '/images/PDRN.png', name: 'SKIN REBOOT PDRN MASK PACK', size: '1.2 MB', href: '/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' },
                     { id: 38, image: '/images/EZE.jpg', name: 'EZ CO₂ MASK KIT', size: '0.5 MB', href: '/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf' },

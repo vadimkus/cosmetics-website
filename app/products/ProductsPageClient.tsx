@@ -13,6 +13,7 @@ import ProductFilters from '@/components/products/ProductFilters'
 import ProductSort, { SortOption } from '@/components/products/ProductSort'
 import BlackFridayMini from '@/components/BlackFridayMini'
 import BuildYourSetBanner from '@/components/products/BuildYourSetBanner'
+import ConcernFaceMap from '@/components/products/ConcernFaceMap'
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { Product } from '@/types'
 import ProductsListSchema from '@/components/schema/ProductsListSchema'
@@ -488,8 +489,10 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
           {/* Products Section */}
           <div className="flex-1">
             {filters.categories.includes('skin-concern') ? (
-              /* Skin Concern Cards Grid */
+              /* Skin Concern — interactive face map + cards grid */
               <div>
+                <ConcernFaceMap locale={locale} />
+
                 <h2 className="text-xl font-bold text-gray-900 mb-1 text-center">
                   {locale === 'ar' ? 'اختاري مشكلة بشرتك' : locale === 'ru' ? 'Выберите проблему кожи' : 'Choose Your Skin Concern'}
                 </h2>

@@ -1,0 +1,36 @@
+---
+description: Single source of truth and workflow for product gallery images
+alwaysApply: true
+---
+
+# Product Gallery Images — One Source of Truth
+
+Product galleries live in **one place: the database `images` field** (JSON string
+array of gallery paths, e.g. `'["/images/6000/S1.jpeg","/images/6000/S2.jpeg"]'`).
+
+- Do NOT include the main image in `images` — web (`components/product/ProductImageGallery.tsx`)
+  and mobile (`lib/pricingEngine.ts`) both prepend `product.image` automatically.
+- Do NOT add new `images` arrays to `data/productConfig.ts`. Legacy entries exist
+  there (config wins over DB when present) — leave them, but never extend the pattern.
+  If a product already has a config gallery, edit it in BOTH config and DB, or
+  migrate it to DB-only.
+- The mobile app is API-driven — a DB gallery update needs **no OTA**.
+
+## Workflow for adding gallery images
+
+1. Put files in `public/images/<folder>/` — new folders lowercase
+   (Vercel is case-sensitive; existing `Second/`, `Third/` stay as-is).
+2. Photos as JPEG, target ≤ ~500 KB and ≤ 2000 px.
+3. Commit the image files + push (they only serve after the Vercel deploy).
+4. Update the DB `images` field with a `tsx` script using
+   `prisma.product.findFirst({ where: { productNumber: 'NN' } })` —
+   product ids are CUIDs for newer products, never assume `id === productNumber`.
+   Run with `npx tsx --env-file=.env.local <script>`.
+5. Verify live: image URLs return 200 and the product page HTML references them
+   (page is ISR-cached ~5 min).
+
+## Cache rule
+
+`/images/*` is served with `Cache-Control: immutable, 1 year`. **Never replace an
+image in place under the same filename** — repeat visitors keep the stale copy.
+Changed content = new filename.

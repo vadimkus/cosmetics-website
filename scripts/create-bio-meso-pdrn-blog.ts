@@ -11,8 +11,13 @@ import { prisma } from '../lib/prisma'
 
 const SLUG = 'bio-meso-pdrn-spicule-treatment-line'
 
-const PROF_IMG = '/images/Second/Prof_Meso.jpg' // Product 60 (also featured/hero)
 const HOME_IMG = '/images/Bio_Meso_5000.png' // Product 65
+// Product 60 campaign visuals (also used in the product-60 gallery)
+const HERO_IMG = '/images/6000/S1.jpeg' // "Skin that looks younger. No needles."
+const PROF_SHOT = '/images/6000/S2.jpeg' // 4-syringe product shot
+const APPLY_IMG = '/images/6000/S3.jpeg' // in-clinic application (PDRN dots)
+const MECH_IMG = '/images/6000/S4.jpeg' // needle-free regeneration visual
+const RITUAL_IMG = '/images/6000/S6.jpeg' // "Start your PDRN ritual" closer
 
 const contentEn = `<div class="max-w-4xl mx-auto space-y-10">
   <div>
@@ -29,6 +34,7 @@ const contentEn = `<div class="max-w-4xl mx-auto space-y-10">
       <li><strong>Trigger natural exfoliation</strong> — spicules remain 24–72h, gently shedding and renewing skin.</li>
     </ul>
     <p class="text-gray-700">Penetration depth is roughly <strong>0.1–0.25 mm</strong>, controlled by spicule size and application — deep enough to stimulate, gentle enough to avoid puncturing the dermis.</p>
+    <img src="${MECH_IMG}" alt="Needle-free skin regeneration — how Bio-Meso PDRN works" class="w-full h-auto rounded-2xl mt-6" />
   </div>
 
   <div class="bg-gradient-to-br from-rose-50 to-amber-50 p-6 rounded-2xl">
@@ -48,9 +54,29 @@ const contentEn = `<div class="max-w-4xl mx-auto space-y-10">
   </div>
 
   <div>
+    <h2 class="text-3xl font-bold">The proof: clinically measured in 4 weeks</h2>
+    <div class="grid gap-6 sm:grid-cols-3 mt-4">
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm text-center">
+        <p class="text-4xl font-extrabold text-primary-600">−7.45%</p>
+        <p class="text-gray-700 mt-2">Periorbital wrinkles</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm text-center">
+        <p class="text-4xl font-extrabold text-primary-600">+19.86%</p>
+        <p class="text-gray-700 mt-2">Skin elasticity</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm text-center">
+        <p class="text-4xl font-extrabold text-primary-600">+52.25%</p>
+        <p class="text-gray-700 mt-2">Skin moisture</p>
+      </div>
+    </div>
+    <p class="text-sm text-gray-500 mt-3 text-center">Clinically measured results after 4 weeks. Real skin, no needles.</p>
+  </div>
+
+  <div>
     <h2 class="text-3xl font-bold">A 2-way system: Professional + Homecare</h2>
     <div class="grid gap-8 md:grid-cols-2 mt-6">
       <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <img src="${PROF_SHOT}" alt="Bio-Meso PDRN Expert Ampoule 60000 — 4 syringes" class="w-full h-auto rounded-xl mb-5" />
         <h3 class="text-xl font-semibold mb-2">Bio-Meso PDRN Expert Ampoule 60000</h3>
         <p class="text-sm text-primary-600 font-medium mb-4">Professional · 3 ml × 4 syringes · 60,000 ppm spicules</p>
         <p class="text-gray-700 mb-4">The in-clinic powerhouse. Contains a significantly higher spicule concentration than other products on the market for intensive, peel-off renewal. Equivalent to a <strong>1.0 mm needle depth</strong> and recommended <strong>once a month</strong>.</p>
@@ -91,6 +117,7 @@ const contentEn = `<div class="max-w-4xl mx-auto space-y-10">
   <div>
     <h2 class="text-3xl font-bold">How to use</h2>
     <h3 class="text-2xl font-semibold mt-6">Professional (Expert 60000)</h3>
+    <img src="${APPLY_IMG}" alt="How bio-meso is applied in clinic — targeted PDRN dots, no needles" class="w-full h-auto rounded-2xl my-5" />
     <p class="text-gray-700">After cleansing and prep, protect the eyes with wet cotton pads and apply the full 3 ml on the face (avoid eyes and lips). Spread evenly, press the spicules in with palms/fingers, then massage with a rolling motion. To calm the skin, finish with the Skin Reboot PDRN Mask Pack (10–15 min) or, for sensitive skin, the Bio Ferment Age-Defying Mask (~20 min). Interval: 3–4 weeks.</p>
     <h3 class="text-2xl font-semibold mt-6">Homecare (Homecare 5000)</h3>
     <p class="text-gray-700">In the evening, after cleansing, apply about 3 ml on the face. Spread evenly, press into the treatment area with palms/fingers, then massage in a rolling motion for ~30 seconds. To calm the skin, apply the Skin Reboot PDRN Mask Pack for 10–15 minutes. Use once a week.</p>
@@ -106,6 +133,8 @@ const contentEn = `<div class="max-w-4xl mx-auto space-y-10">
       <li><strong>Avoid</strong> on active infections, severe acne/rosacea, open wounds, known ingredient allergies, autoimmune skin conditions, recent peels/laser, recent sunburn, or during pregnancy/breastfeeding.</li>
     </ul>
   </div>
+
+  <img src="${RITUAL_IMG}" alt="Start your PDRN ritual — Bio-Meso PDRN Expert Ampoule 60000" class="w-full h-auto rounded-2xl" />
 
   <div class="text-center bg-gradient-to-r from-primary-600 to-primary-700 text-white p-8 rounded-2xl">
     <h3 class="text-2xl font-bold mb-3">Renew your skin the needle-free way</h3>
@@ -132,6 +161,7 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
       <li><strong>Запускают естественное отшелушивание</strong> — спикулы остаются в коже 24–72 часа, мягко обновляя её.</li>
     </ul>
     <p class="text-gray-700">Глубина проникновения — примерно <strong>0,1–0,25 мм</strong>: достаточно, чтобы стимулировать, и мягко, чтобы не повреждать дерму.</p>
+    <img src="${MECH_IMG}" alt="Регенерация кожи без игл — как работает Bio-Meso PDRN" class="w-full h-auto rounded-2xl mt-6" />
   </div>
 
   <div class="bg-gradient-to-br from-rose-50 to-amber-50 p-6 rounded-2xl">
@@ -151,9 +181,29 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
   </div>
 
   <div>
+    <h2 class="text-3xl font-bold">Доказательства: клинические замеры за 4 недели</h2>
+    <div class="grid gap-6 sm:grid-cols-3 mt-4">
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm text-center">
+        <p class="text-4xl font-extrabold text-primary-600">−7,45%</p>
+        <p class="text-gray-700 mt-2">Морщины вокруг глаз</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm text-center">
+        <p class="text-4xl font-extrabold text-primary-600">+19,86%</p>
+        <p class="text-gray-700 mt-2">Эластичность кожи</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm text-center">
+        <p class="text-4xl font-extrabold text-primary-600">+52,25%</p>
+        <p class="text-gray-700 mt-2">Увлажнённость кожи</p>
+      </div>
+    </div>
+    <p class="text-sm text-gray-500 mt-3 text-center">Клинически измеренные результаты через 4 недели. Настоящая кожа, без игл.</p>
+  </div>
+
+  <div>
     <h2 class="text-3xl font-bold">Система 2-в-1: профессиональный + домашний уход</h2>
     <div class="grid gap-8 md:grid-cols-2 mt-6">
       <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <img src="${PROF_SHOT}" alt="Bio-Meso PDRN Expert Ampoule 60000 — 4 шприца" class="w-full h-auto rounded-xl mb-5" />
         <h3 class="text-xl font-semibold mb-2">Bio-Meso PDRN Expert Ampoule 60000</h3>
         <p class="text-sm text-primary-600 font-medium mb-4">Профессиональный · 3 мл × 4 шприца · 60 000 ppm спикул</p>
         <p class="text-gray-700 mb-4">Мощное средство для клиники со значительно более высокой концентрацией спикул для интенсивного обновления с эффектом пилинга. Эквивалент <strong>глубины иглы 1,0 мм</strong>, рекомендуется <strong>раз в месяц</strong>.</p>
@@ -194,6 +244,7 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
   <div>
     <h2 class="text-3xl font-bold">Как применять</h2>
     <h3 class="text-2xl font-semibold mt-6">Профессионально (Expert 60000)</h3>
+    <img src="${APPLY_IMG}" alt="Как наносится био-мезо в клинике — точечное нанесение PDRN, без игл" class="w-full h-auto rounded-2xl my-5" />
     <p class="text-gray-700">После очищения и подготовки защитите глаза влажными ватными дисками и нанесите все 3 мл на лицо (избегая зоны глаз и губ). Распределите равномерно, вбейте спикулы ладонями/пальцами, затем сделайте массаж круговыми движениями. Для успокоения завершите маской Skin Reboot PDRN (10–15 мин) или, для чувствительной кожи, маской Bio Ferment Age-Defying (~20 мин). Интервал: 3–4 недели.</p>
     <h3 class="text-2xl font-semibold mt-6">Домашний уход (Homecare 5000)</h3>
     <p class="text-gray-700">Вечером, после очищения, нанесите около 3 мл на лицо. Распределите равномерно, вбейте в зону обработки ладонями/пальцами, затем массируйте круговыми движениями около 30 секунд. Для успокоения нанесите маску Skin Reboot PDRN на 10–15 минут. Используйте раз в неделю.</p>
@@ -209,6 +260,8 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
       <li><strong>Не используйте</strong> при активных инфекциях, тяжёлом акне/розацеа, открытых ранах, аллергии на компоненты, аутоиммунных заболеваниях кожи, после недавних пилингов/лазера, при свежем загаре/ожоге, во время беременности и кормления.</li>
     </ul>
   </div>
+
+  <img src="${RITUAL_IMG}" alt="Начните свой PDRN-ритуал — Bio-Meso PDRN Expert Ampoule 60000" class="w-full h-auto rounded-2xl" />
 
   <div class="text-center bg-gradient-to-r from-primary-600 to-primary-700 text-white p-8 rounded-2xl">
     <h3 class="text-2xl font-bold mb-3">Обновите кожу без игл</h3>
@@ -235,6 +288,7 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10" dir="rtl">
       <li><strong>تقشير طبيعي</strong> — تبقى الـ Spicules من 24 إلى 72 ساعة لتجدّد البشرة بلطف.</li>
     </ul>
     <p class="text-gray-700">عمق الاختراق حوالي <strong>0.1–0.25 مم</strong>: كافٍ للتحفيز ولطيف بما يكفي لتجنّب اختراق الأدمة.</p>
+    <img src="${MECH_IMG}" alt="تجديد البشرة بدون إبر — كيف يعمل Bio-Meso PDRN" class="w-full h-auto rounded-2xl mt-6" />
   </div>
 
   <div class="bg-gradient-to-br from-rose-50 to-amber-50 p-6 rounded-2xl">
@@ -254,9 +308,29 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10" dir="rtl">
   </div>
 
   <div>
+    <h2 class="text-3xl font-bold">الدليل: نتائج مقاسة سريرياً خلال 4 أسابيع</h2>
+    <div class="grid gap-6 sm:grid-cols-3 mt-4">
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm text-center">
+        <p class="text-4xl font-extrabold text-primary-600">%7.45−</p>
+        <p class="text-gray-700 mt-2">تجاعيد محيط العين</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm text-center">
+        <p class="text-4xl font-extrabold text-primary-600">%19.86+</p>
+        <p class="text-gray-700 mt-2">مرونة البشرة</p>
+      </div>
+      <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm text-center">
+        <p class="text-4xl font-extrabold text-primary-600">%52.25+</p>
+        <p class="text-gray-700 mt-2">ترطيب البشرة</p>
+      </div>
+    </div>
+    <p class="text-sm text-gray-500 mt-3 text-center">نتائج مقاسة سريرياً بعد 4 أسابيع. بشرة حقيقية، بدون إبر.</p>
+  </div>
+
+  <div>
     <h2 class="text-3xl font-bold">نظام ثنائي: احترافي + منزلي</h2>
     <div class="grid gap-8 md:grid-cols-2 mt-6">
       <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <img src="${PROF_SHOT}" alt="Bio-Meso PDRN Expert Ampoule 60000 — 4 محاقن" class="w-full h-auto rounded-xl mb-5" />
         <h3 class="text-xl font-semibold mb-2">Bio-Meso PDRN Expert Ampoule 60000</h3>
         <p class="text-sm text-primary-600 font-medium mb-4">احترافي · 3 مل × 4 محاقن · 60,000 جزء بالمليون</p>
         <p class="text-gray-700 mb-4">القوة الاحترافية للعيادة بتركيز Spicules أعلى بكثير من المنتجات الأخرى لتجديد مكثّف بتأثير تقشير. يعادل <strong>عمق إبرة 1.0 مم</strong> ويُنصح به <strong>مرة شهرياً</strong>.</p>
@@ -297,6 +371,7 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10" dir="rtl">
   <div>
     <h2 class="text-3xl font-bold">طريقة الاستخدام</h2>
     <h3 class="text-2xl font-semibold mt-6">احترافي (Expert 60000)</h3>
+    <img src="${APPLY_IMG}" alt="كيف يُطبَّق البيو-ميزو في العيادة — نقاط PDRN موجّهة، بدون إبر" class="w-full h-auto rounded-2xl my-5" />
     <p class="text-gray-700">بعد التنظيف والتحضير، احمي العينين بقطن مبلل وطبّقي كامل الـ 3 مل على الوجه (تجنّبي العينين والشفاه). وزّعي بالتساوي، ثم اضغطي الـ Spicules براحتي اليدين أو الأصابع، ثم دلّكي بحركة دائرية. لتهدئة البشرة، أنهي بقناع Skin Reboot PDRN (10–15 دقيقة) أو، للبشرة الحساسة، قناع Bio Ferment Age-Defying (~20 دقيقة). الفاصل: 3–4 أسابيع.</p>
     <h3 class="text-2xl font-semibold mt-6">العناية المنزلية (Homecare 5000)</h3>
     <p class="text-gray-700">مساءً، بعد التنظيف، طبّقي حوالي 3 مل على الوجه. وزّعي بالتساوي واضغطي على منطقة العلاج براحتي اليدين أو الأصابع، ثم دلّكي بحركة دائرية لنحو 30 ثانية. لتهدئة البشرة، طبّقي قناع Skin Reboot PDRN لمدة 10–15 دقيقة. استخدمي مرة أسبوعياً.</p>
@@ -312,6 +387,8 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10" dir="rtl">
       <li><strong>تجنّبي الاستخدام</strong> مع العدوى النشطة وحب الشباب/الوردية الشديدة والجروح المفتوحة وحساسية المكونات وأمراض المناعة الذاتية الجلدية وبعد التقشير/الليزر الحديث والحروق الشمسية الحديثة وأثناء الحمل والرضاعة.</li>
     </ul>
   </div>
+
+  <img src="${RITUAL_IMG}" alt="ابدئي طقس PDRN الخاص بك — Bio-Meso PDRN Expert Ampoule 60000" class="w-full h-auto rounded-2xl" />
 
   <div class="text-center bg-gradient-to-r from-primary-600 to-primary-700 text-white p-8 rounded-2xl">
     <h3 class="text-2xl font-bold mb-3">جدّدي بشرتك بدون إبر</h3>
@@ -330,7 +407,7 @@ async function main() {
     excerpt:
       'Discover the GENOSYS Bio-Meso PDRN line — needle-free "liquid microneedling" powered by 3rd-generation PDRN-coated spicules. A 2-way system: the professional Expert Ampoule 60000 for the clinic and the gentle Homecare Ampoule 5000 to maintain results at home.',
     content: contentEn,
-    featuredImage: PROF_IMG,
+    featuredImage: HERO_IMG,
     titleRu: 'Bio-Meso PDRN: обновление спикулами без игл — профессиональная 60000 и домашняя 5000',
     excerptRu:
       'Откройте для себя линию GENOSYS Bio-Meso PDRN — безыгольный «жидкий микронидлинг» на спикулах 3-го поколения с покрытием PDRN. Система 2-в-1: профессиональная Expert Ampoule 60000 для клиники и мягкая Homecare Ampoule 5000 для поддержания результата дома.',

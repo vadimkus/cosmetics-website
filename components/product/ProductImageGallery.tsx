@@ -17,7 +17,10 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   const [thumbnailErrors, setThumbnailErrors] = useState<Record<number, boolean>>({})
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxIndex, setLightboxIndex] = useState(0)
-  const videoUrl = getProductVideoUrl(product.id)
+  // Config keys are product numbers; DB products have CUID ids. Resolve like
+  // the mobile API (pricingEngine.resolveConfigKey) so both surfaces agree.
+  const configKey = product.productNumber || product.id
+  const videoUrl = getProductVideoUrl(configKey)
   const { t, dir } = useTranslation()
   
   // Check if this is the Holiday Kit
@@ -51,7 +54,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
     const mainImage = product.image
     
     // First check productConfig for images (takes priority)
-    const configImages = getConfigImages(product.id)
+    const configImages = getConfigImages(configKey)
     if (configImages.length > 0) {
       return configImages
     }

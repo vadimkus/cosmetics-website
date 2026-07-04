@@ -1,11 +1,11 @@
-import { render, screen, fireEvent } from '@testing-library/react'
-import ProductImageGallery from '@/app/products/[id]/components/ProductImageGallery'
+import { render, screen } from '@testing-library/react'
+import ProductImageGallery from '@/components/product/ProductImageGallery'
 import { Product } from '@/types'
+import { getProductImages as getConfigImages, getProductVideoUrl } from '@/data/productConfig'
 
 // Mock Next.js Image component
 jest.mock('next/image', () => {
   return function MockImage({ src, alt, priority, ...props }: any) {
-    // Convert priority boolean to string to avoid React warning
     const imgProps = { ...props }
     if (priority !== undefined) {
       imgProps.priority = priority.toString()
@@ -15,87 +15,85 @@ jest.mock('next/image', () => {
   }
 })
 
-const mockProduct: Product = {
-  id: '1',
+jest.mock('@/hooks/useTranslation', () => ({
+  useTranslation: () => ({ t: (key: string) => key, dir: 'ltr', locale: 'en' }),
+}))
+
+// Isolate from the real productConfig catalog
+jest.mock('@/data/productConfig', () => ({
+  getProductImages: jest.fn(() => []),
+  getProductVideoUrl: jest.fn(() => undefined),
+}))
+
+const mockGetConfigImages = getConfigImages as jest.Mock
+const mockGetVideoUrl = getProductVideoUrl as jest.Mock
+
+const baseProduct: Product = {
+  id: 'cmk449na90077e9k5anpfqz4o', // CUID id (like real DB products)
+  productNumber: '60',
   name: 'Test Product',
-  image: '/test-image.jpg',
-  images: JSON.stringify(['/test-image-1.jpg', '/test-image-2.jpg']),
+  image: '/test-main.jpg',
+  images: null,
   price: 100,
   category: 'Test Category',
   description: 'Test Description',
   inStock: true,
-  rating: 4.5
+  rating: 4.5,
 }
 
-describe('ProductImageGallery', () => {
-  it('renders main image correctly', () => {
-    render(
-      <ProductImageGallery 
-        product={mockProduct}
-        selectedImage={0}
-        onImageSelect={jest.fn()}
-      />
-    )
+beforeEach(() => {
+  mockGetConfigImages.mockReset().mockReturnValue([])
+  mockGetVideoUrl.mockReset().mockReturnValue(undefined)
+})
 
-    // Component now uses enhanced SEO alt text format
-    expect(screen.getByAltText(/Test Product - GENOSYS professional/i)).toBeInTheDocument()
+describe('ProductImageGallery (components/product)', () => {
+  it('resolves productConfig by productNumber, not CUID id (regression)', () => {
+    mockGetConfigImages.mockReturnValue(['/test-main.jpg', '/cfg-1.jpg', '/cfg-2.jpg'])
+
+    render(<ProductImageGallery product={baseProduct} />)
+
+    // Config lookups must use the productNumber so CUID products match config
+    expect(mockGetConfigImages).toHaveBeenCalledWith('60')
+    expect(mockGetVideoUrl).toHaveBeenCalledWith('60')
+
+    // All 3 config images render as thumbnails
+    expect(
+      screen.getByAltText(/Test Product - GENOSYS product thumbnail 1 of 3/i)
+    ).toBeInTheDocument()
+    expect(
+      screen.getByAltText(/Test Product - GENOSYS product thumbnail 3 of 3/i)
+    ).toBeInTheDocument()
   })
 
-  it('renders thumbnail images when multiple images exist', () => {
-    render(
-      <ProductImageGallery 
-        product={mockProduct}
-        selectedImage={0}
-        onImageSelect={jest.fn()}
-      />
-    )
+  it('falls back to id as config key when productNumber is absent', () => {
+    render(<ProductImageGallery product={{ ...baseProduct, productNumber: null }} />)
 
-    // Thumbnails use format: "Product Name - GENOSYS product thumbnail view N"
-    expect(screen.getByAltText(/Test Product - GENOSYS product thumbnail view 1/i)).toBeInTheDocument()
-    expect(screen.getByAltText(/Test Product - GENOSYS product thumbnail view 2/i)).toBeInTheDocument()
+    expect(mockGetConfigImages).toHaveBeenCalledWith(baseProduct.id)
   })
 
-  it('calls onImageSelect when thumbnail is clicked', () => {
-    const mockOnImageSelect = jest.fn()
-    
-    render(
-      <ProductImageGallery 
-        product={mockProduct}
-        selectedImage={0}
-        onImageSelect={mockOnImageSelect}
-      />
-    )
+  it('falls back to DB images and prepends the main image', () => {
+    const product = {
+      ...baseProduct,
+      images: JSON.stringify(['/db-1.jpg', '/db-2.jpg']),
+    }
 
-    const thumbnail = screen.getByAltText(/Test Product - GENOSYS product thumbnail view 2/i)
-    fireEvent.click(thumbnail)
+    render(<ProductImageGallery product={product} />)
 
-    expect(mockOnImageSelect).toHaveBeenCalledWith(1)
+    // main + 2 gallery images = 3 thumbnails
+    expect(
+      screen.getByAltText(/Test Product - GENOSYS product thumbnail 1 of 3/i)
+    ).toBeInTheDocument()
+    expect(
+      screen.getByAltText(/Test Product - GENOSYS product thumbnail 3 of 3/i)
+    ).toBeInTheDocument()
   })
 
-  it('highlights selected thumbnail', () => {
-    render(
-      <ProductImageGallery 
-        product={mockProduct}
-        selectedImage={1}
-        onImageSelect={jest.fn()}
-      />
-    )
+  it('renders only the main image (no thumbnails) for single-image products', () => {
+    render(<ProductImageGallery product={baseProduct} />)
 
-    const selectedThumbnail = screen.getByAltText(/Test Product - GENOSYS product thumbnail view 2/i).closest('button')
-    expect(selectedThumbnail).toHaveClass('border-primary-600')
-  })
-
-  it('renders video iframe for product with video', () => {
-    const productWithVideo = { ...mockProduct, id: '3' }
-    
-    render(
-      <ProductImageGallery 
-        product={productWithVideo}
-        selectedImage={2}
-        onImageSelect={jest.fn()}
-      />
-    )
-
-    expect(screen.getByTitle('Test Product Video')).toBeInTheDocument()
+    expect(
+      screen.getByAltText(/Test Product - GENOSYS Korean dermacosmetics product image 1 of 1/i)
+    ).toBeInTheDocument()
+    expect(screen.queryByAltText(/product thumbnail/i)).not.toBeInTheDocument()
   })
 })

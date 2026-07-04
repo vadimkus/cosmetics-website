@@ -450,6 +450,7 @@ export const partnersData: Partner[] = [
     description: "Officially authorized GENOSYS reseller for Abu Dhabi and Al Ain. Abeer Mekki Beauty Ladies Center is the exclusive certified distributor of GENOSYS professional Korean dermacosmetics in the Abu Dhabi and Al Ain regions.",
     location: "Abu Dhabi & Al Ain, United Arab Emirates",
     phone: "+971 55 671 75 64",
+    website: "https://www.instagram.com/beeromekki",
     logo: "/images/partners/abeer-mekki.png",
     theme: "emerald",
     certificateUrl: "/documents/GENOSYS_Authorized_Reseller_ABEER_MEKKI.pdf"

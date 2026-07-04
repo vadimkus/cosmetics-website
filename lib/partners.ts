@@ -465,5 +465,16 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/search/Triple+777+Center+Jumeirah+3+Dubai",
     logo: "/images/partners/family-class.png",
     theme: "emerald"
+  },
+  {
+    id: "rise-up-beauty-centre",
+    name: "RISE UP BEAUTY CENTRE, BUSINESS BAY",
+    type: "Beauty Centre",
+    description: "Beauty centre by Irina Kovalenko offering professional skincare, facial treatments, and comprehensive beauty services in Business Bay. Rated 5.0 on Google by its clients.",
+    location: "The Metropolis Tower 906 - Business Bay - Dubai",
+    phone: "+971 58 530 9320",
+    directions: "https://www.google.com/maps/search/Rise+Up+Beauty+Centre+The+Metropolis+Tower+906+Dubai",
+    logo: "/images/partners/riseup.png",
+    theme: "pink"
   }
 ];

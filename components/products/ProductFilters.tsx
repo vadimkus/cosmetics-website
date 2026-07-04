@@ -1,9 +1,11 @@
 'use client'
 
 import { useState, useCallback, memo } from 'react'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import Link from 'next/link'
+import { ChevronDown, ChevronUp, Gift, ArrowRight } from 'lucide-react'
 import { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 interface FilterState {
   categories: string[]
@@ -25,7 +27,7 @@ const ProductFilters = memo(function ProductFilters({
   onFiltersChange, 
   activeFilters 
 }: ProductFiltersProps) {
-  const { t, dir } = useTranslation()
+  const { t, dir, locale } = useTranslation()
   const [expandedSections, setExpandedSections] = useState({
     category: true,
     price: true,
@@ -118,6 +120,20 @@ const ProductFilters = memo(function ProductFilters({
               style={{ maxHeight: 'calc(100vh - 10rem)' }}
             >
               <div className="space-y-4 text-gray-900">
+                {/* Build Your Set — entry point to the bundle builder (not a filter) */}
+                <Link
+                  href={getLocalizedPath('/bundle-builder', locale)}
+                  className={`flex items-center gap-2.5 p-2.5 -m-1 rounded-lg bg-gradient-to-r from-primary-50 to-red-50 border border-primary-100 hover:border-primary-300 hover:shadow-sm transition-all group ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                >
+                  <span className="flex-shrink-0 w-8 h-8 rounded-lg bg-primary-600 flex items-center justify-center">
+                    <Gift className="w-4 h-4 text-white" />
+                  </span>
+                  <span className="flex-1 min-w-0 text-sm font-semibold text-gray-900 truncate">
+                    {t('bundleBuilder.title')}
+                  </span>
+                  <ArrowRight className={`w-4 h-4 text-primary-600 flex-shrink-0 transition-transform group-hover:translate-x-0.5 ${dir === 'rtl' ? 'rotate-180 group-hover:-translate-x-0.5' : ''}`} />
+                </Link>
+
                 {/* Categories */}
                 <div className="border-b border-gray-200 pb-4">
                   <button

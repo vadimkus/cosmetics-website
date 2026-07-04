@@ -417,6 +417,15 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
         {/* gap-3 leaves enough room for the floating "Новинка" badge (longer in RU/AR) to overflow the pill horizontally without overlapping the next pill. */}
         <div className="md:hidden mb-4 -mx-4 px-4">
           <div className="flex gap-3 overflow-x-auto scrollbar-hide pt-3 pb-1 snap-x snap-mandatory">
+            {/* Build Your Set — navigates to the bundle builder (not a filter) */}
+            <Link
+              href={getLocalizedPath('/bundle-builder', locale)}
+              className="px-3 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap min-h-[40px] flex items-center justify-center gap-1.5 select-none transition-all duration-150 active:scale-95 relative flex-shrink-0 snap-start bg-gradient-to-r from-primary-600 to-red-500 text-white shadow-sm"
+              style={{ touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
+            >
+              <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" /></svg>
+              {t('bundleBuilder.title')}
+            </Link>
             {getCategories(t).map((category) => {
               const isActive = filters.categories.includes(category.id) || (category.id === 'all' && filters.categories.length === 0)
               return (

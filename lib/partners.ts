@@ -477,5 +477,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/search/Rise+Up+Beauty+Centre+The+Metropolis+Tower+906+Dubai",
     logo: "/images/partners/riseup.png",
     theme: "pink"
+  },
+  {
+    id: "tonetrendz",
+    name: "TONETRENDZ, JVC",
+    type: "Body Contouring & Skincare Center",
+    description: "Slim. Sculpt. Confident. Advanced body contouring and skincare center offering personalised treatments with premium technology — advanced body contouring, hydrating facial treatments, and premium skincare in Jumeirah Village Circle.",
+    location: "Binghatti Azure Office 214 - JVC - Dubai",
+    phone: "+971 55 872 6119",
+    website: "https://tonetrendz.com/",
+    directions: "https://www.google.com/maps/search/TONETRENDZ+Binghatti+Azure+Office+214+JVC+Dubai",
+    logo: "/images/partners/tonetrendz.png",
+    theme: "blue"
   }
 ];

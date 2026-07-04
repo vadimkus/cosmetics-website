@@ -104,6 +104,7 @@ const trainingDocuments = [
 
 // Product documentation - each linked to a product with image
 const productDocuments = [
+  { id: 'cerabarrier-cleanser', title: 'CERABARRIER BIOME GEL CLEANSER', fileSize: '1.4 MB', downloadUrl: `${BASE_URL}/documents/ppt/GENOSYS%20CERABARRIER%20BIOME%20GEL%20CLEANSER.pdf`, image: `${BASE_URL}/images/cera/main.jpeg`, productId: '66' },
   { id: 'radiance-cream', title: 'MULTI VITA RADIANCE CREAM', fileSize: '2.1 MB', downloadUrl: `${BASE_URL}/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf`, image: `${BASE_URL}/images/RAA.jpg`, productId: '31' },
   { id: 'eyecell-zone', title: 'EyeCell EYE ZONE CARE SYSTEM', fileSize: '1.8 MB', downloadUrl: `${BASE_URL}/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf`, image: `${BASE_URL}/images/EYEZ.jpg`, productId: '50' },
   { id: 'epi-peeling', title: 'EPI TURNOVER BOOSTING PEELING GEL', fileSize: '3.8 MB', downloadUrl: `${BASE_URL}/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf`, image: `${BASE_URL}/images/EPI.jpg`, productId: '12' },

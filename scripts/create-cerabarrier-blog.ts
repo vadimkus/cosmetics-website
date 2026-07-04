@@ -78,11 +78,13 @@ const contentEn = `<div class="max-w-4xl mx-auto space-y-10">
         <img src="${IMG_200}" alt="CERABARRIER BIOME GEL CLEANSER 200ml — Homecare" class="w-full h-auto rounded-xl mb-5" />
         <h3 class="text-xl font-semibold mb-2">Homecare — 200ml</h3>
         <p class="text-gray-700">Your daily gel-to-foam cleanser at home: gentle enough for morning and evening use, powerful enough to remove base makeup — while keeping the barrier hydrated and calm.</p>
+        <a href="/products/66" class="inline-block mt-5 bg-primary-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-primary-700 transition-colors">View product — 380 AED</a>
       </div>
       <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
         <img src="${IMG_600}" alt="CERABARRIER BIOME GEL CLEANSER 600ml — Professional" class="w-full h-auto rounded-xl mb-5" />
         <h3 class="text-xl font-semibold mb-2">Professional — 600ml</h3>
         <p class="text-gray-700">The clinic-size format for professional treatment rooms — the ideal first step of every facial and microneedling protocol, prepping skin without stripping it.</p>
+        <a href="/products/66" class="inline-block mt-5 bg-primary-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-primary-700 transition-colors">View product — 620 AED</a>
       </div>
     </div>
   </div>
@@ -109,9 +111,9 @@ const contentEn = `<div class="max-w-4xl mx-auto space-y-10">
 
   <div class="text-center bg-gradient-to-r from-primary-600 to-primary-700 text-white p-8 rounded-2xl">
     <h3 class="text-2xl font-bold mb-3">Available now in the UAE</h3>
-    <p class="text-lg mb-6">CERABARRIER BIOME GEL CLEANSER — 200ml for home, 600ml for the treatment room. Official GENOSYS distributor.</p>
+    <p class="text-lg mb-6">CERABARRIER BIOME GEL CLEANSER — 200ml for home (380 AED), 600ml for the treatment room (620 AED). Official GENOSYS distributor.</p>
     <div class="flex flex-col sm:flex-row gap-3 justify-center">
-      <a href="/products" class="inline-block bg-white text-primary-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">Shop GENOSYS</a>
+      <a href="/products/66" class="inline-block bg-white text-primary-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">View product</a>
       <a href="/contact" class="inline-block bg-primary-800/40 border border-white/40 text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-800/60 transition-colors">Contact us</a>
     </div>
   </div>
@@ -180,11 +182,13 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
         <img src="${IMG_200}" alt="CERABARRIER BIOME GEL CLEANSER 200 мл — домашний уход" class="w-full h-auto rounded-xl mb-5" />
         <h3 class="text-xl font-semibold mb-2">Домашний уход — 200 мл</h3>
         <p class="text-gray-700">Ежедневное умывание дома: достаточно деликатное для утра и вечера и достаточно эффективное, чтобы снять базовый макияж — сохраняя барьер увлажнённым и спокойным.</p>
+        <a href="/ru/products/66" class="inline-block mt-5 bg-primary-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-primary-700 transition-colors">К товару — 380 AED</a>
       </div>
       <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
         <img src="${IMG_600}" alt="CERABARRIER BIOME GEL CLEANSER 600 мл — профессиональный" class="w-full h-auto rounded-xl mb-5" />
         <h3 class="text-xl font-semibold mb-2">Профессиональный — 600 мл</h3>
         <p class="text-gray-700">Кабинетный формат для процедурных: идеальный первый шаг каждого ухода и протокола микронидлинга — подготавливает кожу, не пересушивая её.</p>
+        <a href="/ru/products/66" class="inline-block mt-5 bg-primary-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-primary-700 transition-colors">К товару — 620 AED</a>
       </div>
     </div>
   </div>
@@ -211,9 +215,9 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
 
   <div class="text-center bg-gradient-to-r from-primary-600 to-primary-700 text-white p-8 rounded-2xl">
     <h3 class="text-2xl font-bold mb-3">Уже в продаже в ОАЭ</h3>
-    <p class="text-lg mb-6">CERABARRIER BIOME GEL CLEANSER — 200 мл для дома и 600 мл для кабинета. Официальный дистрибьютор GENOSYS.</p>
+    <p class="text-lg mb-6">CERABARRIER BIOME GEL CLEANSER — 200 мл для дома (380 AED) и 600 мл для кабинета (620 AED). Официальный дистрибьютор GENOSYS.</p>
     <div class="flex flex-col sm:flex-row gap-3 justify-center">
-      <a href="/ru/products" class="inline-block bg-white text-primary-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">Каталог GENOSYS</a>
+      <a href="/ru/products/66" class="inline-block bg-white text-primary-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">К товару</a>
       <a href="/ru/contact" class="inline-block bg-primary-800/40 border border-white/40 text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-800/60 transition-colors">Связаться с нами</a>
     </div>
   </div>
@@ -282,11 +286,13 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10">
         <img src="${IMG_200}" alt="CERABARRIER BIOME GEL CLEANSER 200 مل — للعناية المنزلية" class="w-full h-auto rounded-xl mb-5" />
         <h3 class="text-xl font-semibold mb-2">العناية المنزلية — 200 مل</h3>
         <p class="text-gray-700">منظّفك اليومي في المنزل: لطيف بما يكفي صباحاً ومساءً، وفعّال بما يكفي لإزالة مكياج الأساس — مع الحفاظ على حاجز رطب وهادئ.</p>
+        <a href="/ar/products/66" class="inline-block mt-5 bg-primary-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-primary-700 transition-colors">عرض المنتج — 380 درهم</a>
       </div>
       <div class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
         <img src="${IMG_600}" alt="CERABARRIER BIOME GEL CLEANSER 600 مل — للاستخدام الاحترافي" class="w-full h-auto rounded-xl mb-5" />
         <h3 class="text-xl font-semibold mb-2">الاحترافي — 600 مل</h3>
         <p class="text-gray-700">عبوة العيادات لغرف العلاج — الخطوة الأولى المثالية لكل بروتوكول عناية بالوجه وميكرونيدلينج، تُحضّر البشرة من دون تجريدها.</p>
+        <a href="/ar/products/66" class="inline-block mt-5 bg-primary-600 text-white px-6 py-2.5 rounded-full font-semibold hover:bg-primary-700 transition-colors">عرض المنتج — 620 درهم</a>
       </div>
     </div>
   </div>
@@ -313,9 +319,9 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10">
 
   <div class="text-center bg-gradient-to-r from-primary-600 to-primary-700 text-white p-8 rounded-2xl">
     <h3 class="text-2xl font-bold mb-3">متوفر الآن في الإمارات</h3>
-    <p class="text-lg mb-6">CERABARRIER BIOME GEL CLEANSER — 200 مل للمنزل و600 مل لغرفة العلاج. الموزّع الرسمي لـ GENOSYS.</p>
+    <p class="text-lg mb-6">CERABARRIER BIOME GEL CLEANSER — 200 مل للمنزل (380 درهم) و600 مل لغرفة العلاج (620 درهم). الموزّع الرسمي لـ GENOSYS.</p>
     <div class="flex flex-col sm:flex-row gap-3 justify-center">
-      <a href="/ar/products" class="inline-block bg-white text-primary-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">تسوّقي GENOSYS</a>
+      <a href="/ar/products/66" class="inline-block bg-white text-primary-700 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">عرض المنتج</a>
       <a href="/ar/contact" class="inline-block bg-primary-800/40 border border-white/40 text-white px-8 py-3 rounded-full font-semibold hover:bg-primary-800/60 transition-colors">تواصلي معنا</a>
     </div>
   </div>

@@ -252,6 +252,7 @@ export default function ArabicTrainingPageClient() {
                 <div className="space-y-1.5 md:space-y-2">
                   {/* Product documentation items - keeping product names in English as they are brand names */}
                   {[
+                    { id: 66, image: '/images/cera/main.jpeg', name: 'CERABARRIER BIOME GEL CLEANSER', size: '1.4 MB', href: '/documents/ppt/GENOSYS%20CERABARRIER%20BIOME%20GEL%20CLEANSER.pdf' },
                     { id: 31, image: '/images/RAA.jpg', name: 'MULTI VITA RADIANCE CREAM', size: '2.1 MB', href: '/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf' },
                     { id: 50, image: '/images/EYEZ.jpg', name: 'EyeCell EYE ZONE CARE SYSTEM', size: '1.8 MB', href: '/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf' },
                     { id: 12, image: '/images/EPI.jpg', name: 'EPI TURNOVER BOOSTING PEELING GEL', size: '3.8 MB', href: '/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf' },

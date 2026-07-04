@@ -734,6 +734,23 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
         type: 'pdf'
       }
     ]
+  },
+  '66': {
+    id: '66',
+    pricing: {
+      basePrice: 380,
+      sizeVariants: {
+        '200ml': 380,
+        '600ml': 620
+      }
+    },
+    documentation: [
+      {
+        title: 'CERABARRIER BIOME GEL CLEANSER Guide',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS%20CERABARRIER%20BIOME%20GEL%20CLEANSER.pdf',
+        type: 'pdf'
+      }
+    ]
   }
 }
 
@@ -794,6 +811,7 @@ const documentationTitleTranslations: Record<string, string> = {
   'HR³ MATRIX HAIR SOLUTION α Guide': 'Руководство по HR³ MATRIX HAIR SOLUTION α',
   'HR³ MATRIX SCALP PEELING α Guide': 'Руководство по HR³ MATRIX SCALP PEELING α',
   'HR³ MATRIX SCALP BRUSH Guide': 'Руководство по HR³ MATRIX SCALP BRUSH',
+  'CERABARRIER BIOME GEL CLEANSER Guide': 'Руководство по CERABARRIER BIOME GEL CLEANSER',
   'Hair-GENTRON Guide': 'Руководство по Hair-GENTRON',
   'GENO-LED IR II Guide': 'Руководство по GENO-LED IR II',
   'EyeCell EYE ZONE CARE KIT Guide': 'Руководство по EyeCell EYE ZONE CARE KIT',

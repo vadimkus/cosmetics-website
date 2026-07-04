@@ -37,6 +37,11 @@ export function getPriceForSize(product: Product, size: string): number {
     return size === '20g' ? 204 : 440
   }
   
+  // Product 66 - CERABARRIER BIOME GEL CLEANSER: 200ml homecare / 600ml professional
+  if (pid === '66') {
+    return size === '200ml' ? 380 : 620
+  }
+  
   // Default: return product's base price
   return product.price
 }
@@ -45,7 +50,7 @@ export function getPriceForSize(product: Product, size: string): number {
  * Check if a product has size variants
  */
 export function hasProductSizeVariants(productId: string): boolean {
-  return ['1', '10', '15', '16', '25', '28', '29', '30', '31', '32'].includes(productId)
+  return ['1', '10', '15', '16', '25', '28', '29', '30', '31', '32', '66'].includes(productId)
 }
 
 /**
@@ -108,6 +113,13 @@ export function getProductSizeOptions(productId: string): Array<{ value: string;
     return [
       { value: '20g', label: '20g' },
       { value: '100g', label: '100g' }
+    ]
+  }
+  
+  if (productId === '66') {
+    return [
+      { value: '200ml', label: '200ml' },
+      { value: '600ml', label: '600ml' }
     ]
   }
   

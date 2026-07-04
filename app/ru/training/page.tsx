@@ -119,10 +119,10 @@ export default function RussianTrainingPage() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">Каталог продукции 2026</h4>
-                        <p className="text-[10px] md:text-xs text-gray-400">235.5 МБ</p>
+                        <p className="text-[10px] md:text-xs text-gray-400">39.9 МБ</p>
                       </div>
                       <PDFDownloadButton
-                        href="https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7"
+                        href="https://genosys.ae/documents/GENOSYS%20Catalogue_2026.pdf"
                         filename="Каталог продукции 2026"
                         external={true}
                         className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"

@@ -30,8 +30,8 @@ export const trainingDocuments: TrainingDocument[] = [
     id: '1',
     title: 'Product Catalogue 2026',
     description: 'Complete product catalog for 2026 featuring all GENOSYS products and specifications.',
-    downloadUrl: '/documents/product-catalogue-2026.pdf',
-    fileSize: '235.5 MB',
+    downloadUrl: '/documents/GENOSYS%20Catalogue_2026.pdf',
+    fileSize: '39.9 MB',
     category: 'Training Documents'
   },
   {

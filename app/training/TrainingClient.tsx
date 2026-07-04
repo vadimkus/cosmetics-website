@@ -15,8 +15,8 @@ const trainingDocuments = [
   {
     id: 'product-catalogue',
     title: 'Product Catalogue 2026',
-    size: '235.5 MB',
-    href: 'https://u.pcloud.link/publink/show?code=XZ9wc15ZDTFcM6uvKg0snY1dEJwzwQgHsEF7',
+    size: '39.9 MB',
+    href: '/documents/GENOSYS%20Catalogue_2026.pdf',
     type: 'training'
   },
   {

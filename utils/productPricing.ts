@@ -1,4 +1,15 @@
-import { Product } from '@/types'
+import { Product, ProductVariant } from '@/types'
+
+/**
+ * Real size variants from the database (source of truth for new products).
+ * Legacy products (see hardcoded branches below) predate DB variants; their
+ * hardcoded values stay authoritative so behavior never changes under them.
+ */
+function dbSizeVariants(product: Product | undefined): ProductVariant[] {
+  return (product?.variants || []).filter(
+    v => v.size && v.size !== 'default' && v.available !== false
+  )
+}
 
 /**
  * Get the price for a specific size variant
@@ -37,9 +48,10 @@ export function getPriceForSize(product: Product, size: string): number {
     return size === '20g' ? 204 : 440
   }
   
-  // Product 66 - CERABARRIER BIOME GEL CLEANSER: 200ml homecare / 600ml professional
-  if (pid === '66') {
-    return size === '200ml' ? 380 : 620
+  // New products: price comes from the DB variant (single source of truth)
+  const dbVariant = dbSizeVariants(product).find(v => v.size === size)
+  if (dbVariant) {
+    return dbVariant.price
   }
   
   // Default: return product's base price
@@ -49,8 +61,12 @@ export function getPriceForSize(product: Product, size: string): number {
 /**
  * Check if a product has size variants
  */
-export function hasProductSizeVariants(productId: string): boolean {
-  return ['1', '10', '15', '16', '25', '28', '29', '30', '31', '32', '66'].includes(productId)
+export function hasProductSizeVariants(productId: string, product?: Product): boolean {
+  if (['1', '10', '15', '16', '25', '28', '29', '30', '31', '32'].includes(productId)) {
+    return true
+  }
+  // New products: DB variants decide (pass the product to enable this path)
+  return dbSizeVariants(product).length > 0
 }
 
 /**
@@ -63,7 +79,7 @@ export function hasProductColorVariants(productId: string): boolean {
 /**
  * Get available size options for a product
  */
-export function getProductSizeOptions(productId: string): Array<{ value: string; label: string }> {
+export function getProductSizeOptions(productId: string, product?: Product): Array<{ value: string; label: string }> {
   if (productId === '1') {
     return [
       { value: '0.25mm', label: '0.25mm' },
@@ -116,11 +132,15 @@ export function getProductSizeOptions(productId: string): Array<{ value: string;
     ]
   }
   
-  if (productId === '66') {
-    return [
-      { value: '200ml', label: '200ml' },
-      { value: '600ml', label: '600ml' }
-    ]
+  // New products: derive options from DB variants (default first, then by price)
+  const dbVariants = dbSizeVariants(product)
+  if (dbVariants.length > 0) {
+    const seen = new Set<string>()
+    return dbVariants
+      .slice()
+      .sort((a, b) => (b.isDefault ? 1 : 0) - (a.isDefault ? 1 : 0) || a.price - b.price)
+      .filter(v => (seen.has(v.size!) ? false : (seen.add(v.size!), true)))
+      .map(v => ({ value: v.size!, label: v.size! }))
   }
   
   return []

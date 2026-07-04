@@ -52,7 +52,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   
   // Variant state
   const productNum = product.productNumber || product.id
-  const sizeOptions = getProductSizeOptions(productNum)
+  const sizeOptions = getProductSizeOptions(productNum, product)
   const colorOptions = getProductColorOptions(productNum)
   const [selectedSize, setSelectedSize] = useState(sizeOptions[0]?.value || '50g')
   const [selectedColor, setSelectedColor] = useState(colorOptions[0]?.value || 'Beige')
@@ -125,7 +125,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
   
   // Calculate current price based on selected variant
   const currentPrice = useCallback(() => {
-    if (hasProductSizeVariants(productNum)) {
+    if (hasProductSizeVariants(productNum, product)) {
       return getPriceForSize(product, selectedSize)
     }
     return product.price
@@ -140,10 +140,10 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
     try {
       const colorToPass = hasProductColorVariants(productNum) ? selectedColor : undefined
-      const sizeToPass = hasProductSizeVariants(productNum) ? selectedSize : undefined
+      const sizeToPass = hasProductSizeVariants(productNum, product) ? selectedSize : undefined
       
       // Create a modified product with the correct price for variant products
-      const productToAdd = hasProductSizeVariants(productNum)
+      const productToAdd = hasProductSizeVariants(productNum, product)
         ? { ...product, price: getPriceForSize(product, selectedSize) }
         : product
       

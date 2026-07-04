@@ -23,8 +23,6 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
-import { CONCERN_PAGES } from '@/lib/concernsData'
-
 // Order: All → NEW categories first (skin-concern, cream, beauty-boxes) → then the rest
 const getCategories = (t: (key: string) => string): Array<{ id: string; name: string }> => [
   { id: 'all', name: t('products.allProducts') },
@@ -489,48 +487,10 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
           {/* Products Section */}
           <div className="flex-1">
             {filters.categories.includes('skin-concern') ? (
-              /* Skin Concern — interactive face map + cards grid */
-              <div>
-                <ConcernFaceMap locale={locale} />
-
-                <h2 className="text-xl font-bold text-gray-900 mb-1 text-center">
-                  {locale === 'ar' ? 'اختاري مشكلة بشرتك' : locale === 'ru' ? 'Выберите проблему кожи' : 'Choose Your Skin Concern'}
-                </h2>
-                <p className="text-sm text-gray-500 mb-5 text-center">
-                  {locale === 'ar' ? 'منتجات وبروتوكولات مخصصة لكل مشكلة' : locale === 'ru' ? 'Персональные продукты и протоколы для каждой проблемы' : 'Personalized products & protocols for every concern'}
-                </p>
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                  {CONCERN_PAGES.map((concern) => {
-                    const seo = locale === 'ar' ? concern.seo.ar : locale === 'ru' ? concern.seo.ru : concern.seo.en
-                    const heroShort = seo.heroShort
-                    return (
-                      <Link
-                        key={concern.slug}
-                        href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
-                        className="group block rounded-2xl border border-gray-100 bg-white p-4 sm:p-5 shadow-sm hover:shadow-lg hover:border-primary-300 transition-all duration-200"
-                      >
-                        {concern.icon && (
-                          <span className="text-3xl sm:text-4xl block mb-2">{concern.icon}</span>
-                        )}
-                        <h3 className="font-semibold text-gray-900 text-sm sm:text-base group-hover:text-primary-600 transition-colors leading-snug">
-                          {seo.h1}
-                        </h3>
-                        {heroShort && (
-                          <p className="text-xs text-gray-500 mt-1.5 line-clamp-2 leading-relaxed">
-                            {heroShort}
-                          </p>
-                        )}
-                        <span className="inline-flex items-center gap-1 text-xs font-medium text-primary-600 mt-3 group-hover:gap-2 transition-all">
-                          {locale === 'ar' ? 'اكتشف' : locale === 'ru' ? 'Подробнее' : 'Explore'}
-                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d={locale === 'ar' ? 'M19 12H5m0 0l7 7m-7-7l7-7' : 'M5 12h14m0 0l-7-7m7 7l-7 7'} />
-                          </svg>
-                        </span>
-                      </Link>
-                    )
-                  })}
-                </div>
-              </div>
+              /* Skin Concern — interactive face map (chips inside cover direct
+                 access; the site-wide "Shop by Skin Concern" section below the
+                 grid keeps the full card list for scrollers + SEO) */
+              <ConcernFaceMap locale={locale} />
             ) : (
               /* Regular Products View */
               <>

@@ -433,7 +433,10 @@ async function main() {
 
   const existing = await prisma.blogPost.findUnique({ where: { slug: SLUG } })
   if (existing) {
-    const updated = await prisma.blogPost.update({ where: { slug: SLUG }, data })
+    // Preserve the original publish date on content updates so the post
+    // keeps its place in the blog timeline (newest-first ordering).
+    const { publishedAt: _ignored, ...updateData } = data
+    const updated = await prisma.blogPost.update({ where: { slug: SLUG }, data: updateData })
     console.log('Updated existing blog post:', updated.slug, updated.id)
   } else {
     const created = await prisma.blogPost.create({ data })

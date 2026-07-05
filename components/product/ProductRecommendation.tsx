@@ -532,22 +532,12 @@ export default function ProductRecommendation({
             href={`/products/${recommendedProduct.id}`}
             className="group bg-white rounded-lg p-2 lg:p-3 border-2 border-red-300 hover:border-red-500 transition-all shadow-md hover:shadow-xl"
           >
-            <div className="relative w-full h-32 lg:h-40 mb-2 lg:mb-3 rounded-lg overflow-hidden bg-white">
-              {/* Blurred cover copy fills the frame so contained image has no white bars */}
-              <Image
-                src={recommendedProduct.image}
-                alt=""
-                aria-hidden="true"
-                fill
-                className="object-cover scale-125 blur-lg opacity-80"
-                sizes="64px"
-                quality={30}
-              />
+            <div className="relative w-full aspect-square mb-2 lg:mb-3 rounded-lg overflow-hidden bg-white">
               <Image
                 src={recommendedProduct.image}
                 alt={recommendedProduct.name}
                 fill
-                className="object-contain p-2 group-hover:scale-105 transition-transform duration-300"
+                className="object-contain group-hover:scale-105 transition-transform duration-300"
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>

@@ -69,23 +69,12 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
         >
           {/* Product Image */}
           <div className="relative aspect-square bg-white overflow-hidden">
-            {/* Blurred cover copy fills the frame so contained image has no white bars */}
-            <Image
-              src={product.image}
-              alt=""
-              aria-hidden="true"
-              fill
-              sizes="64px"
-              quality={30}
-              className="object-cover scale-125 blur-lg opacity-80"
-              loading="lazy"
-            />
             <Image
               src={product.image}
               alt={getName(product)}
               fill
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-              className="object-contain p-3 group-hover:scale-105 transition-transform duration-300"
+              className="object-contain group-hover:scale-105 transition-transform duration-300"
               loading="lazy"
             />
             {spfBadge && (

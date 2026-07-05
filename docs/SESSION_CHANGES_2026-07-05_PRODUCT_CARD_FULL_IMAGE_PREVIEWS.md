@@ -33,27 +33,40 @@ Not changed (already correct): `ConcernProductGrid.tsx` (already
 - Same `ProductCard` renders mobile web / PWA / desktop grids, so the fix
   applies at every breakpoint (`h-24 sm:h-32 md:h-40 lg:h-48`).
 
-## Follow-up (same day): blurred backdrop fill
+## Follow-up (same day): square preview frames — FINAL SOLUTION
 
-Plain white letterboxing made the new gray studio shots (Bio-Ferment, PDRN
-mask, Cerabarrier) look like cut-out patches — the image's gray background
-ended abruptly with white bars on the sides.
+Two intermediate attempts were rejected:
 
-Fix: each preview frame now renders a second copy of the same photo behind
-the contained image — `object-cover`, `scale-125`, `blur-lg`, `opacity-80`,
-requested at 64px/quality 30 (tiny extra payload). The blur extends the
-photo's own background colors edge-to-edge, so the frame is always fully
-filled while the product itself stays complete and uncropped.
+1. White letterboxing (contain in the old wide 3:2 frame) — gray studio
+   shots ended in white side bars, looked "cut".
+2. Blurred backdrop fill behind the contained image — looked like a photo
+   floating in a frosted frame; user did not like it.
+
+Root cause: the preview frame was wide (`w-full` × fixed `h-24…h-48` ≈ 3:2)
+while product photos are square (1024×1024). Any fit either crops (cover) or
+letterboxes (contain).
+
+Final fix: the preview frame is now **square (`aspect-square`) with
+`object-contain`, no padding, white background, no backdrop**:
+
+- Square studio shots (Bio-Ferment, PDRN mask, Cerabarrier…) fill the frame
+  100% edge-to-edge — their own background reaches the card edges.
+- Non-square white-background renders letterbox invisibly on white.
+- Nothing is ever cropped.
+
+This matches the pattern the concern-page grid already used successfully.
 
 Applied in:
 
 - `components/ProductCard/ProductImage.tsx` (products grid, favorites, PWA)
-- `components/product/ProductRecommendation.tsx` (related products)
-- `components/home/HomeDesktopSections.tsx` (home bestsellers)
-- `components/ConcernProductGrid.tsx` (skin-concern pages, `bg-gray-50` → `bg-white`)
+- `components/product/ProductRecommendation.tsx` (related products → aspect-square)
+- `components/home/HomeDesktopSections.tsx` (home bestsellers, padding removed)
+- `components/ConcernProductGrid.tsx` (padding removed, `bg-gray-50` → `bg-white`)
 
 ## Notes
 
-- The hover `scale-105/110` zoom animations are preserved.
-- Search dropdown thumbnails (40px) keep plain white contain — too small for
-  a backdrop to matter.
+- Cards are taller than before (square preview vs 3:2) — standard
+  e-commerce card proportions.
+- The hover `scale-105/110` zoom animations are preserved; Revita Glow (63)
+  keeps its `scale-110` to offset baked-in whitespace.
+- Search dropdown thumbnails (40px) keep plain white contain.

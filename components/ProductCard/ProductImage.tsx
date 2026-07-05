@@ -38,29 +38,15 @@ const ProductImage = memo(function ProductImage({
   
   const imageAlt = `${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`
   
-  // All card previews render the full image (object-contain) — product photos
-  // must never be cropped. A blurred, zoomed copy of the same photo sits
-  // behind it (object-cover) so the preview area is always fully filled and
-  // studio backgrounds extend edge-to-edge instead of ending in white bars.
-  // Revita Glow (63) keeps its slight zoom to offset the large whitespace
-  // baked into its source render.
+  // Square preview frame + object-contain, no padding. Product photos are
+  // square (1024×1024) studio shots, so they fill the frame edge-to-edge
+  // with zero cropping; non-square white-background renders letterbox
+  // invisibly on the white frame. Revita Glow (63) keeps its slight zoom to
+  // offset the large whitespace baked into its source render.
   const productNum = product.productNumber || product.id
   const isRevitaGlow = productNum === '63'
-  const frameClass = 'relative w-full h-24 sm:h-32 md:h-40 lg:h-48 overflow-hidden bg-white'
-  const imageClass = `relative z-10 w-full h-full object-contain ${isRevitaGlow ? 'p-1 scale-110' : 'p-2'}`
-  const backdrop = (
-    <Image
-      src={product.image}
-      alt=""
-      aria-hidden="true"
-      width={64}
-      height={64}
-      className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-80"
-      priority={false}
-      quality={30}
-      sizes="64px"
-    />
-  )
+  const frameClass = 'relative w-full aspect-square overflow-hidden bg-white'
+  const imageClass = `w-full h-full object-contain ${isRevitaGlow ? 'scale-110' : ''}`
   
   // PWA-specific touch handling styles
   const pwaStyles = {
@@ -90,7 +76,6 @@ const ProductImage = memo(function ProductImage({
           style={pwaStyles}
         >
           <div className={`${frameClass} pointer-events-none`}>
-            {backdrop}
             <Image
               src={product.image}
               alt={imageAlt}
@@ -113,7 +98,6 @@ const ProductImage = memo(function ProductImage({
             transition={animationsEnabled ? { duration: 0.4, ease: "easeOut" } : {}}
             className={frameClass}
           >
-            {backdrop}
             <Image
               src={product.image}
               alt={imageAlt}

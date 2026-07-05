@@ -16,7 +16,9 @@ const prisma = new PrismaClient({ accelerateUrl: databaseUrl, log: ['error'] })
 const NEW_MAIN = '/images/bio_ferment/bferment_main.jpg'
 const NEW_GALLERY = [
   '/images/BFAD.png',
-  '/images/Third/Ferment_3.jpeg',
+  // Reworked model shot — new filename because /images/* is cached immutable
+  // (was /images/Third/Ferment_3.jpeg)
+  '/images/bio_ferment/bferment_model.jpg',
   '/images/Third/ferment_high.jpeg',
 ]
 

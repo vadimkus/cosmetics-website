@@ -63,6 +63,14 @@ Applied in:
 - `components/home/HomeDesktopSections.tsx` (home bestsellers, padding removed)
 - `components/ConcernProductGrid.tsx` (padding removed, `bg-gray-50` → `bg-white`)
 
+## Follow-up: Cerabarrier (66) main image swap
+
+Its main was `/images/cera/main_wide.jpeg` (1474×1024) — the only wide main
+left, so it letterboxed inside the new square frame. Swapped the DB `image`
+to the square `/images/cera/main2.jpeg` (1024×1024) via
+`scripts/update-product-66-main-image.ts`; gallery unchanged. New file
+committed (was untracked).
+
 ## Notes
 
 - Cards are taller than before (square preview vs 3:2) — standard

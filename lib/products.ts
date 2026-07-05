@@ -534,7 +534,7 @@ export const products: Product[] = [
     name: 'SKIN REBOOT PDRN MASK PACK',
     price: 400,
     description: 'Professional PDRN mask pack with salmon DNA technology for skin regeneration and repair. Ultra-slim fit sheets with 30 masks per container.',
-    image: '/images/PDRN.png',
+    image: '/images/pdrn_mask/main.jpeg',
     images: null,
     category: 'Mask',
     inStock: true,
@@ -570,7 +570,7 @@ export const products: Product[] = [
 
 It features a 2-way system for customizable care:
 • Professional Use (Expert Ampoule 60000): Higher concentration for clinic-based treatments.
-• Home-Use (Homecare Ampoule 50000): Lower concentration for ongoing maintenance.
+• Home-Use (Homecare Ampoule 5000): Lower concentration for ongoing maintenance.
 
 The ampoule functions as a spicule peeling or bio-meso peeling treatment, inducing a peel-off effect on the skin. It contains a significantly higher concentration of spicules compared to other products, delivering intensive results.`,
     image: '/images/Second/Prof_Meso.jpg',

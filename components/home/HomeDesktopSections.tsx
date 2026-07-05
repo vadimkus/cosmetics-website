@@ -588,13 +588,13 @@ export default function HomeDesktopSections({
                       href={getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)}
                       className="group block rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg hover:border-primary-200 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                     >
-                      <div className="relative aspect-square bg-gray-50 overflow-hidden">
+                      <div className="relative aspect-square bg-white overflow-hidden">
                         <Image
                           src={imgSrc}
                           alt={name}
                           width={400}
                           height={400}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="w-full h-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
                           quality={80}
                         />
                         {product.inStock && (

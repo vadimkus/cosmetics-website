@@ -38,17 +38,12 @@ const ProductImage = memo(function ProductImage({
   
   const imageAlt = `${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`
   
-  // Products whose card images need object-contain (banner-style / composite images that crop poorly)
+  // All card previews render the full image (object-contain) — product photos
+  // must never be cropped. Revita Glow (63) keeps its slight zoom to offset
+  // the large whitespace baked into its source render.
   const productNum = product.productNumber || product.id
-  const useContain = product.name.includes('INTENSIVE REPAIR COLLAGEN MASK')
-    || product.category?.toLowerCase().includes('beauty box')
-    || product.name.toLowerCase().includes('beauty box')
-    || productNum === '63'
-    || productNum === '16' || product.name === 'SNOW BOOSTER'
   const isRevitaGlow = productNum === '63'
-  const imageClass = useContain
-    ? `w-full h-24 sm:h-32 md:h-40 lg:h-48 object-contain ${isRevitaGlow ? 'bg-white p-1 scale-110' : 'bg-white p-2'}`
-    : 'w-full h-24 sm:h-32 md:h-40 lg:h-48 object-cover'
+  const imageClass = `w-full h-24 sm:h-32 md:h-40 lg:h-48 object-contain bg-white ${isRevitaGlow ? 'p-1 scale-110' : 'p-2'}`
   
   // PWA-specific touch handling styles
   const pwaStyles = {

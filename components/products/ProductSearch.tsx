@@ -198,7 +198,7 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
                 <Image
                   src={product.image}
                   alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} product`}
-                  className="w-10 h-10 object-cover rounded"
+                  className="w-10 h-10 object-contain bg-white rounded"
                   width={40}
                   height={40}
                 />

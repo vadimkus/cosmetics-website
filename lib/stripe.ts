@@ -9,7 +9,7 @@ if (!process.env.STRIPE_SECRET_KEY) {
 // API version pinned explicitly to match stripe-node v22 (Dahlia) so behavior
 // is deterministic instead of inheriting the SDK/account default.
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2026-05-27.dahlia',
+  apiVersion: '2026-06-24.dahlia',
   typescript: true,
 })
 

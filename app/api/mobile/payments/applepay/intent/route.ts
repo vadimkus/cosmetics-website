@@ -27,7 +27,7 @@ import {
  */
 
 const stripe = new Stripe(STRIPE_SECRET_KEY!, {
-  apiVersion: '2026-05-27.dahlia',
+  apiVersion: '2026-06-24.dahlia',
 })
 
 // NOTE: Shipping/VAT config must match `/api/mobile/shipping-rates` and the mobile UI.

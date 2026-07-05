@@ -119,23 +119,25 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   return (
     <div className="space-y-2 md:space-y-3 lg:space-y-0 lg:flex lg:gap-4 lg:items-start">
       {/* Main Image or Video */}
-      <div 
-        className="w-full max-w-[280px] md:max-w-[360px] lg:max-w-[420px] xl:max-w-[480px] 2xl:max-w-[560px] mx-auto lg:mx-0 lg:order-2 lg:flex-1 aspect-square bg-gray-100 rounded-lg overflow-hidden relative cursor-zoom-in group"
-        onClick={() => !(product.id === '3' && selectedImage === 2 && videoUrl) && openLightbox(selectedImage)}
-      >
-        {/* Stock Badge */}
-        <div className={`absolute top-2 md:top-3 ${dir === 'rtl' ? 'left-2 md:left-3' : 'right-2 md:right-3'} z-30`}>
+      <div className="w-full max-w-[280px] md:max-w-[360px] lg:max-w-[420px] xl:max-w-[480px] 2xl:max-w-[560px] mx-auto lg:mx-0 lg:order-2 lg:flex-1">
+        {/* Stock Badge — above the picture so it never overlaps the photo */}
+        <div className={`flex mb-2 ${dir === 'rtl' ? 'justify-start' : 'justify-end'}`}>
           {product.inStock ? (
-            <span className={`inline-flex items-center px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-green-500 text-white font-medium text-xs md:text-sm shadow-lg ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <span className={`inline-flex items-center px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-green-500 text-white font-medium text-xs md:text-sm shadow-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <span className={`w-1.5 h-1.5 bg-white rounded-full animate-pulse ${dir === 'rtl' ? 'ml-1.5' : 'mr-1.5'}`}></span>
               {t('product.inStock')}
             </span>
           ) : (
-            <span className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-red-600 text-white font-bold text-sm md:text-base shadow-xl uppercase tracking-wide">
+            <span className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 rounded-lg bg-red-600 text-white font-bold text-sm md:text-base shadow-md uppercase tracking-wide">
               {t('product.soldOut')}
             </span>
           )}
         </div>
+
+        <div
+          className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden relative cursor-zoom-in group"
+          onClick={() => !(product.id === '3' && selectedImage === 2 && videoUrl) && openLightbox(selectedImage)}
+        >
         
         {product.id === '3' && selectedImage === 2 && videoUrl ? (
           <iframe
@@ -247,11 +249,12 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
             )}
           </>
         )}
+        </div>
       </div>
 
       {/* Thumbnail Navigation (horizontal row on mobile/md, vertical rail at lg+) */}
       {productImages.length > 1 && (
-        <div className="flex gap-1.5 md:gap-2 justify-center flex-wrap max-w-[280px] md:max-w-[360px] mx-auto lg:mx-0 lg:flex-col lg:flex-nowrap lg:max-w-none lg:w-16 lg:gap-2 lg:order-1 lg:flex-shrink-0 lg:justify-start">
+        <div className="flex gap-1.5 md:gap-2 justify-center flex-wrap max-w-[280px] md:max-w-[360px] mx-auto lg:mx-0 lg:flex-col lg:flex-nowrap lg:max-w-none lg:w-16 lg:gap-2 lg:order-1 lg:flex-shrink-0 lg:justify-start lg:pt-10">
           {productImages.map((img, index) => (
             <button
               key={index}

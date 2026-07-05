@@ -68,7 +68,18 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
           className="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-300"
         >
           {/* Product Image */}
-          <div className="relative aspect-square bg-gray-50 overflow-hidden">
+          <div className="relative aspect-square bg-white overflow-hidden">
+            {/* Blurred cover copy fills the frame so contained image has no white bars */}
+            <Image
+              src={product.image}
+              alt=""
+              aria-hidden="true"
+              fill
+              sizes="64px"
+              quality={30}
+              className="object-cover scale-125 blur-lg opacity-80"
+              loading="lazy"
+            />
             <Image
               src={product.image}
               alt={getName(product)}

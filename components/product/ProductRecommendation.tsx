@@ -533,6 +533,16 @@ export default function ProductRecommendation({
             className="group bg-white rounded-lg p-2 lg:p-3 border-2 border-red-300 hover:border-red-500 transition-all shadow-md hover:shadow-xl"
           >
             <div className="relative w-full h-32 lg:h-40 mb-2 lg:mb-3 rounded-lg overflow-hidden bg-white">
+              {/* Blurred cover copy fills the frame so contained image has no white bars */}
+              <Image
+                src={recommendedProduct.image}
+                alt=""
+                aria-hidden="true"
+                fill
+                className="object-cover scale-125 blur-lg opacity-80"
+                sizes="64px"
+                quality={30}
+              />
               <Image
                 src={recommendedProduct.image}
                 alt={recommendedProduct.name}

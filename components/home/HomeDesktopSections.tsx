@@ -589,12 +589,23 @@ export default function HomeDesktopSections({
                       className="group block rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg hover:border-primary-200 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                     >
                       <div className="relative aspect-square bg-white overflow-hidden">
+                        {/* Blurred cover copy fills the frame so contained image has no white bars */}
+                        <Image
+                          src={imgSrc}
+                          alt=""
+                          aria-hidden="true"
+                          width={64}
+                          height={64}
+                          className="absolute inset-0 w-full h-full object-cover scale-125 blur-lg opacity-80"
+                          quality={30}
+                          sizes="64px"
+                        />
                         <Image
                           src={imgSrc}
                           alt={name}
                           width={400}
                           height={400}
-                          className="w-full h-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                          className="relative w-full h-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
                           quality={80}
                         />
                         {product.inStock && (

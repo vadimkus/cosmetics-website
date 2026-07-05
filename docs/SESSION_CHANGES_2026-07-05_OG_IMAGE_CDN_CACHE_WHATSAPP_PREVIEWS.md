@@ -33,14 +33,36 @@ The endpoint itself always returned HTTP 200 with a valid 1200x630 PNG
 
 ## Fix
 
-Added ISR to all dynamic share-card routes so the rendered PNG is cached at
-the Vercel CDN and served in milliseconds after the first hit:
+Two-part fix (the first alone was not enough):
+
+**1. `export const revalidate = 3600`** on all dynamic share-card routes.
+Deployed alone this did NOT change the response headers — verified live:
+still `max-age=0` + `x-vercel-cache: MISS` on every request. Root cause:
+`ImageResponse` (from `next/og`) sets its own `Cache-Control` header on the
+Response object, which overrides route segment config for metadata image
+routes (documented in vercel/next.js discussions #62742 and community
+writeups).
+
+**2. Explicit `Cache-Control` headers on every `ImageResponse`** in
+`lib/ogImages.tsx` (shared by all card renderers):
 
 ```ts
-export const revalidate = 3600 // 1 hour
+const CACHE_HEADERS = {
+  'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
+}
+// passed as: new ImageResponse(jsx, { ...size, headers: CACHE_HEADERS })
 ```
 
+- `s-maxage=86400` — Vercel CDN caches the PNG for a day
+- `stale-while-revalidate=604800` — after expiry, serve stale instantly and
+  re-render in background (crawlers never wait)
+- `max-age=3600` — browsers/WhatsApp proxy keep it for an hour
+
 Files changed:
+
+| File | Purpose |
+|---|---|
+| `lib/ogImages.tsx` | **The actual fix** — explicit Cache-Control on all 3 renderers (product card, fallback, title card) |
 
 | File | Purpose |
 |---|---|

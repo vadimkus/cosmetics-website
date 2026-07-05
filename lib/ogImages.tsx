@@ -13,6 +13,16 @@ export const OG_SIZE = { width: 1200, height: 630 }
 export const TWITTER_SIZE = { width: 1200, height: 600 }
 export const OG_CONTENT_TYPE = 'image/png'
 
+// ImageResponse sets its own Cache-Control that overrides route segment
+// config (`export const revalidate`), leaving dynamic cards at max-age=0 —
+// every crawler fetch was a 1-4s cold render and WhatsApp's short preview
+// timeout intermittently dropped the image. Explicit headers let the Vercel
+// CDN cache the PNG (s-maxage) while deploys still bust the URL via the
+// deployment-hash query Next.js appends to og:image.
+const CACHE_HEADERS = {
+  'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800',
+}
+
 type OgLocale = 'en' | 'ar' | 'ru'
 
 // NOTE: ImageResponse's default bundled font (Noto Sans) only covers Latin
@@ -71,7 +81,7 @@ export function renderFallbackOgImage(size: { width: number; height: number }) {
         GENOSYS Middle East
       </div>
     ),
-    { ...size }
+    { ...size, headers: CACHE_HEADERS }
   )
 }
 
@@ -241,7 +251,7 @@ export function renderProductOgImage(
         </div>
       </div>
     ),
-    { ...opts.size }
+    { ...opts.size, headers: CACHE_HEADERS }
   )
 }
 
@@ -330,6 +340,6 @@ export function renderTitleOgImage(
         </div>
       </div>
     ),
-    { ...opts.size }
+    { ...opts.size, headers: CACHE_HEADERS }
   )
 }

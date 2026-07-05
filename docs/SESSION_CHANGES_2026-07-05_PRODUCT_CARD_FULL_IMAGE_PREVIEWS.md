@@ -71,6 +71,13 @@ to the square `/images/cera/main2.jpeg` (1024×1024) via
 `scripts/update-product-66-main-image.ts`; gallery unchanged. New file
 committed (was untracked).
 
+## Follow-up: Bio-Meso 5000 (65) main image swap
+
+Main swapped from `/images/Bio_Meso_5000.png` (white-box render) to the new
+square studio shot `/images/meso_5000/main.jpg` (1024×1024) via
+`scripts/update-product-65-main-image.ts` — DB + `lib/products.ts` fallback.
+The old PNG stays in the repo: the Bio-Meso blog post still uses it.
+
 ## Notes
 
 - Cards are taller than before (square preview vs 3:2) — standard

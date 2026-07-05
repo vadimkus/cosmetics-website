@@ -5,6 +5,9 @@ export const alt = 'GENOSYS'
 export const size = TWITTER_SIZE
 export const contentType = OG_CONTENT_TYPE
 
+// ISR: CDN-cache the rendered card (see /products/[id]/opengraph-image.tsx)
+export const revalidate = 3600
+
 export default async function Image({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const product = await getProductByIdCached(id)

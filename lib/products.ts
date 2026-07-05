@@ -591,7 +591,7 @@ The ampoule functions as a spicule peeling or bio-meso peeling treatment, induci
 When mounted on the HairGen Booster, the stamp performs automatic microneedling — a gentle, massaging action that creates far more microchannels than manual stamping or rolling while minimizing discomfort. The micro-injuries also trigger the skin's natural wound-healing response, supporting scalp regeneration, improved blood circulation and a healthier environment for hair growth.
 
 Supplied as 1 box containing 8 hair stamps. A fresh stamp is used together with a new dose of HR³ MATRIX HAIR SOLUTION α for every treatment to ensure hygienic, contamination-free application. Manufactured in South Korea.`,
-    image: '/images/BStamp1.png',
+    image: '/images/needles/main.jpg',
     images: null,
     category: 'Scalp/Hair',
     inStock: true,

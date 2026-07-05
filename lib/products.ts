@@ -523,7 +523,7 @@ export const products: Product[] = [
     name: 'BIO-FERMENT AGE DEFYING POWDER MASK',
     price: 250,
     description: 'GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK is an innovative fermented powder mask that combines traditional fermentation technology with modern skincare science. This unique powder-to-mask formula activates upon mixing with water, creating a powerful treatment that delivers concentrated nutrients and beneficial compounds directly to the skin for maximum anti-aging benefits.',
-    image: '/images/BFAD.png',
+    image: '/images/bio_ferment/bferment_main.jpg',
     images: null,
     category: 'Mask',
     inStock: true,

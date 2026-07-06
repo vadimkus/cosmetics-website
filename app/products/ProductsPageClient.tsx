@@ -23,6 +23,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { filterProductsBySearch } from '@/lib/productSearch'
 import { trackSearch } from '@/lib/analytics'
+import NewsletterSignup from '@/components/NewsletterSignup'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
 // Order: All → NEW categories first (skin-concern, cream, beauty-boxes) → then the rest
@@ -626,6 +627,15 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
             )}
           </div>
         </div>
+
+        {/* Newsletter signup — this is the page mobile/PWA visitors land on
+            (the homepage redirects them here and the content footer is hidden
+            on mobile), so it's the primary email-capture surface off desktop. */}
+        {!loading && (
+          <div className="max-w-2xl mx-auto mt-10 md:mt-14">
+            <NewsletterSignup locale={locale} isRtl={locale === 'ar'} source="products" />
+          </div>
+        )}
       </div>
     </div>
   )

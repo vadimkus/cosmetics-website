@@ -12,7 +12,7 @@
  *  2. Category rail           — 6 categories, image tile grid + product counts
  *  3. Shop-by-concern grid    — 8 concerns + product counts + analysis CTA
  *  4. Why GENOSYS 3-up        — brand credibility
- *  5. Newsletter CTA          — email capture (stubbed — no backend wiring yet)
+ *  5. Newsletter CTA          — email capture → /api/newsletter/subscribe (live)
  */
 
 import Link from 'next/link'

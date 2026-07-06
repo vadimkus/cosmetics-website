@@ -36,16 +36,14 @@ export default function LocalBusinessSchema() {
         "streetAddress": "Cordoba Residence, Villa E02",
         "addressLocality": "Dubai",
         "addressRegion": "Dubai",
-        "addressCountry": "AE",
-        "postalCode": "00000"
+        "addressCountry": "AE"
       },
       {
         "@type": "PostalAddress",
         "streetAddress": "MBAM0014 Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ",
         "addressLocality": "Ras Al Khaimah",
         "addressRegion": "Ras Al Khaimah",
-        "addressCountry": "AE",
-        "postalCode": "00000"
+        "addressCountry": "AE"
       }
     ],
     "geo": [

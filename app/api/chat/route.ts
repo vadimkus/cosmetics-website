@@ -6,6 +6,8 @@ import { getDynamicCatalogSection, spliceCatalogSection } from '@/lib/chatbot/pr
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/prisma'
 import { OPENAI_API_KEY } from '@/lib/envValidation'
+import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
+import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 
 // Message type for chat API - supports AI SDK v6 UIMessage format with parts array
 interface ChatMessage {
@@ -19,36 +21,18 @@ interface MessagePart {
   text?: string
 }
 
-// Rate limiting storage (in production, use Redis)
-const rateLimits = new Map<string, { count: number; resetTime: number }>()
-
-function getRateLimitKey(request: NextRequest): string {
-  // Use IP address for rate limiting
-  const forwarded = request.headers.get('x-forwarded-for')
-  const ip = forwarded ? forwarded.split(',')[0] ?? 'anonymous' : 'anonymous'
-  return ip
-}
-
-function checkRateLimit(key: string): { allowed: boolean; remaining: number } {
-  const now = Date.now()
-  const limit = rateLimits.get(key)
-  
-  if (!limit || now > limit.resetTime) {
-    // Reset or create new limit
-    rateLimits.set(key, {
-      count: 1,
-      resetTime: now + 60000, // 1 minute window
-    })
-    return { allowed: true, remaining: CHATBOT_CONFIG.maxMessagesPerMinute - 1 }
-  }
-  
-  if (limit.count >= CHATBOT_CONFIG.maxMessagesPerMinute) {
-    return { allowed: false, remaining: 0 }
-  }
-  
-  limit.count++
-  return { allowed: true, remaining: CHATBOT_CONFIG.maxMessagesPerMinute - limit.count }
-}
+// Per-minute burst limit + a daily per-IP cap. Uses the shared DB-backed
+// limiter so it survives serverless cold starts (the old in-memory Map reset
+// on every new instance, so the limit was effectively bypassable — and every
+// message costs an OpenAI call).
+const chatBurstLimiter = rateLimitSimple({
+  windowMs: 60 * 1000,
+  max: CHATBOT_CONFIG.maxMessagesPerMinute,
+})
+const chatDailyLimiter = rateLimitSimple({
+  windowMs: 24 * 60 * 60 * 1000,
+  max: 200,
+})
 
 export async function POST(request: NextRequest) {
   try {
@@ -61,13 +45,23 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Rate limiting
-    const rateLimitKey = getRateLimitKey(request)
-    const rateLimit = checkRateLimit(rateLimitKey)
-    
-    if (!rateLimit.allowed) {
+    // Cap request body size (prevents huge-payload abuse to the LLM)
+    const sizeCheck = requireBodySizeLimit(request, getSizeLimitForContentType(request))
+    if (!sizeCheck.valid) return sizeCheck.response!
+
+    // Rate limiting (burst + daily), keyed per IP+UA, DB-backed
+    const clientId = getClientIdentifierFromNextRequest(request)
+    const burst = await chatBurstLimiter(`chat:${clientId}`)
+    if (!burst.success) {
       return NextResponse.json(
         { error: 'Too many messages. Please wait a minute before sending more.' },
+        { status: 429 }
+      )
+    }
+    const daily = await chatDailyLimiter(`chat-daily:${clientId}`)
+    if (!daily.success) {
+      return NextResponse.json(
+        { error: 'Daily chat limit reached. Please try again tomorrow or contact us on WhatsApp.' },
         { status: 429 }
       )
     }

@@ -1,0 +1,4 @@
+Contact: mailto:sales@genosys.ae
+Preferred-Languages: en, ar, ru
+Canonical: https://genosys.ae/.well-known/security.txt
+Expires: 2027-07-06T00:00:00.000Z

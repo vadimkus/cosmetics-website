@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { sendCertificateEmail } from '@/lib/certificate-email'
 import { errorLog } from '@/lib/logger'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
 /**
  * API endpoint to send a gift certificate via email
@@ -28,7 +29,14 @@ interface SendCertificateRequest {
   senderMessage?: string
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
+  // Admin-only: this sends a branded GENOSYS gift-certificate email to an
+  // arbitrary address. Left open it was a spam/phishing amplifier.
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) {
+    return auth.response
+  }
+
   try {
     const body: SendCertificateRequest = await request.json()
 

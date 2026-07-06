@@ -12,7 +12,13 @@ const DEBUG_LOG_ENABLED = process.env.DEBUG_LOG === 'true' || isDevelopment
  */
 async function writeToFile(level: string, ...args: unknown[]): Promise<void> {
   if (typeof window !== 'undefined') return // Skip in browser
-  
+
+  // Vercel's serverless filesystem is read-only at process.cwd(), so every
+  // appendFileSync throws EROFS and is swallowed below — pure wasted async
+  // work on every log call in production. Skip the file path entirely there;
+  // console.error/warn still reach Vercel's function logs.
+  if (process.env.VERCEL || process.env.NODE_ENV === 'production') return
+
   // Use dynamic import to avoid bundling fs in client code
   try {
     const fs = await import('fs')

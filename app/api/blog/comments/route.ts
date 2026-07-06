@@ -3,8 +3,9 @@ import { prisma } from '@/lib/prisma'
 import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { errorLog } from '@/lib/logger'
-import { findUserByEmail } from '@/lib/userStorageDb'
+import { findUserByEmail, findUserById } from '@/lib/userStorageDb'
 import { stripHtml } from '@/lib/sanitizeHtml'
+import { verifySessionToken } from '@/lib/jwt'
 
 export async function POST(request: NextRequest) {
   // CSRF protection
@@ -39,21 +40,35 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Get user email from request body or headers
-    const userEmail = bodyUserEmail || request.headers.get('x-user-email')
-    
-    if (!userEmail) {
+    // Identity comes ONLY from the session cookie — never the request body or
+    // headers. Previously `userEmail` was read from the body, letting a scripted
+    // caller post comments as any user by supplying their email.
+    void bodyUserEmail
+    const sessionCookie = request.cookies.get('genosys_session')
+    const session = sessionCookie ? verifySessionToken(sessionCookie.value) : null
+    if (!session || (!session.id && !session.email)) {
       return NextResponse.json(
         { error: 'Authentication required. Please log in to comment.' },
         { status: 401 }
       )
     }
 
-    const user = await findUserByEmail(userEmail)
-    
+    const user = session.id
+      ? await findUserById(session.id)
+      : await findUserByEmail(session.email)
+
     if (!user) {
       return NextResponse.json(
         { error: 'User not found. Please log in to comment.' },
+        { status: 401 }
+      )
+    }
+
+    // Reject sessions revoked by a password reset / account deletion.
+    const userTv = (user as { tokenVersion?: number }).tokenVersion ?? 0
+    if ((session.tv ?? 0) !== userTv) {
+      return NextResponse.json(
+        { error: 'Session expired. Please log in again.' },
         { status: 401 }
       )
     }

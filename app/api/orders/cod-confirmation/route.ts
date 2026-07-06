@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse, after } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { sendEmail, sendAdminNewOrderNotification, generateCODOrderHTML, OrderHTMLData, OrderHTMLItem } from '@/lib/email'
 import { debugLog, errorLog } from '@/lib/logger'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
@@ -16,6 +17,8 @@ import {
   getValidatedBundleDiscountPercent,
   isAllowedFreeGiftProduct,
   isSubmittedBundleLine,
+  allowedFreeGiftUnits,
+  freeGiftKind,
 } from '@/lib/checkoutPricingGuards'
 
 interface SubmittedCODItem {
@@ -187,6 +190,10 @@ export async function POST(request: NextRequest) {
       isSubmittedBundleLine(item.bundleDiscount, product)
     ).length
 
+    // Free-gift candidates are collected here and validated against the spend
+    // threshold AFTER the paid subtotal is known (below).
+    const freeGiftCandidates: Array<{ item: SubmittedCODItem; product: Product; quantity: number; selectedColor: string; selectedSize: string }> = []
+
     for (const { item, product } of productRecords) {
       const quantity = Number(item.quantity) || 0
       const selectedSize = String(item.size || '').trim()
@@ -202,17 +209,17 @@ export async function POST(request: NextRequest) {
       }
 
       if (isFreeGift) {
-        serverItems.push({
-          id: product.id,
-          name: String(item.name || `${product.name} (FREE)`),
-          price: 0,
-          quantity,
-          total: 0,
-          image: item.image || product.image,
-          ...(selectedColor ? { color: selectedColor } : {}),
-          ...(selectedSize ? { size: selectedSize } : {}),
-        })
+        freeGiftCandidates.push({ item, product, quantity, selectedColor, selectedSize })
         continue
+      }
+
+      // Out-of-stock enforcement (paid items only). The UI disables add-to-cart
+      // for OOS products; this closes the crafted-request / went-OOS-mid-checkout gap.
+      if (!product.inStock) {
+        return NextResponse.json(
+          { error: `${product.name} is currently out of stock` },
+          { status: 400 }
+        )
       }
 
       const cartItem: CartItem = {
@@ -249,6 +256,33 @@ export async function POST(request: NextRequest) {
     subtotal = Math.round(subtotal * 100) / 100
     discountAmount = Math.round(discountAmount * 100) / 100
     bundleDiscountAmountCalc = Math.round(bundleDiscountAmountCalc * 100) / 100
+
+    // Now that the paid subtotal is final, admit only the free masks the spend
+    // threshold allows (>=500 → collagen, >=700 → + sea algae). Extra or
+    // undeserved free items are silently dropped rather than granted.
+    {
+      const allowance = allowedFreeGiftUnits(subtotal)
+      let collagenLeft = allowance.collagen
+      let seaAlgaeLeft = allowance.seaAlgae
+      for (const g of freeGiftCandidates) {
+        const kind = freeGiftKind(g.product)
+        let grant = 0
+        if (kind === 'collagen') { grant = Math.min(g.quantity, collagenLeft); collagenLeft -= grant }
+        else if (kind === 'sea_algae') { grant = Math.min(g.quantity, seaAlgaeLeft); seaAlgaeLeft -= grant }
+        if (grant <= 0) continue
+        serverItems.push({
+          id: g.product.id,
+          name: String(g.item.name || `${g.product.name} (FREE)`),
+          price: 0,
+          quantity: grant,
+          total: 0,
+          image: g.item.image || g.product.image,
+          ...(g.selectedColor ? { color: g.selectedColor } : {}),
+          ...(g.selectedSize ? { size: g.selectedSize } : {}),
+        })
+      }
+    }
+
     const shippingCost = calculateMobileShipping(subtotal, emirate)
     const total = subtotal + shippingCost
     const vatAmount = Math.round(calculateVatIncluded(total) * 100) / 100
@@ -565,6 +599,7 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     errorLog('Error sending COD order confirmation:', error)
+    Sentry.captureException(error, { tags: { area: 'checkout', op: 'cod-confirmation' } })
     return NextResponse.json(
       {
         error: 'Failed to send COD order confirmation',

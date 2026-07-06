@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import * as Sentry from '@sentry/nextjs'
 import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { createCheckoutSession, aedToFils, getCheckoutSession } from '@/lib/stripe'
@@ -18,7 +19,13 @@ import {
   getValidatedBundleDiscountPercent,
   isAllowedFreeGiftProduct,
   isSubmittedBundleLine,
+  allowedFreeGiftUnits,
+  freeGiftKind,
 } from '@/lib/checkoutPricingGuards'
+import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
+
+// Each call hits Stripe (billable) + writes an order + N product lookups.
+const checkoutSessionLimiter = rateLimitSimple({ windowMs: 60 * 1000, max: 8 })
 
 interface CheckoutItem {
   product: Product
@@ -72,6 +79,15 @@ function getSubmittedProductId(item: CheckoutItem): string {
 }
 
 export async function POST(request: NextRequest) {
+  // Per-IP rate limit (before any expensive work)
+  const rl = await checkoutSessionLimiter(`cs:${getClientIdentifierFromNextRequest(request)}`)
+  if (!rl.success) {
+    return NextResponse.json(
+      { error: 'Too many payment attempts. Please wait a moment and try again.' },
+      { status: 429 }
+    )
+  }
+
   // CSRF protection
   const csrfCheck = await requireCsrfToken(request)
   if (!csrfCheck.valid) {
@@ -164,6 +180,10 @@ export async function POST(request: NextRequest) {
       isSubmittedBundleLine(item.bundleDiscountPercent, product)
     ).length
 
+    // Free-gift candidates, validated against the spend threshold after the
+    // paid subtotal is known (below).
+    const freeGiftCandidates: Array<{ item: CheckoutItem; product: Product; quantity: number; selectedColor: string; selectedSize: string }> = []
+
     for (const { item, product } of productRecords) {
       const quantity = Number(item.quantity) || 0
       if (quantity <= 0) {
@@ -179,21 +199,16 @@ export async function POST(request: NextRequest) {
       const bundlePct = getValidatedBundleDiscountPercent(item.bundleDiscountPercent, product, bundleLineCount)
 
       if (isFreeGift) {
-        pricedItems.push({
-          product: {
-            ...product,
-            name: String(item.product?.name || `${product.name} (FREE)`),
-          },
-          quantity,
-          ...(selectedColor ? { selectedColor } : {}),
-          ...(selectedSize ? { selectedSize } : {}),
-          unitPrice: 0,
-          lineTotal: 0,
-          discountAmount: 0,
-          discountPercentage: 0,
-          discountType: 'free_gift',
-        })
+        freeGiftCandidates.push({ item, product, quantity, selectedColor, selectedSize })
         continue
+      }
+
+      // Out-of-stock enforcement (paid items only).
+      if (!product.inStock) {
+        return NextResponse.json(
+          { error: `${product.name} is currently out of stock` },
+          { status: 400 }
+        )
       }
 
       const cartItem: CartItem = {
@@ -232,6 +247,34 @@ export async function POST(request: NextRequest) {
     subtotal = Math.round(subtotal * 100) / 100
     discountAmount = Math.round(discountAmount * 100) / 100
     bundleDiscountAmount = Math.round(bundleDiscountAmount * 100) / 100
+
+    // Admit only the free masks the spend threshold allows.
+    {
+      const allowance = allowedFreeGiftUnits(subtotal)
+      let collagenLeft = allowance.collagen
+      let seaAlgaeLeft = allowance.seaAlgae
+      for (const g of freeGiftCandidates) {
+        const kind = freeGiftKind(g.product)
+        let grant = 0
+        if (kind === 'collagen') { grant = Math.min(g.quantity, collagenLeft); collagenLeft -= grant }
+        else if (kind === 'sea_algae') { grant = Math.min(g.quantity, seaAlgaeLeft); seaAlgaeLeft -= grant }
+        if (grant <= 0) continue
+        pricedItems.push({
+          product: {
+            ...g.product,
+            name: String(g.item.product?.name || `${g.product.name} (FREE)`),
+          },
+          quantity: grant,
+          ...(g.selectedColor ? { selectedColor: g.selectedColor } : {}),
+          ...(g.selectedSize ? { selectedSize: g.selectedSize } : {}),
+          unitPrice: 0,
+          lineTotal: 0,
+          discountAmount: 0,
+          discountPercentage: 0,
+          discountType: 'free_gift',
+        })
+      }
+    }
 
     // Use shared mobile checkout config for consistency
     const shipping = calculateMobileShipping(subtotal, customerEmirate)
@@ -453,6 +496,7 @@ export async function POST(request: NextRequest) {
     
     // Extract error details safely
     const stripeErr = isStripeError(error) ? error : null
+    Sentry.captureException(error, { tags: { area: 'checkout', op: 'create-checkout-session' } })
     
     errorLog('❌ Error creating Stripe checkout session:', {
       message: error instanceof Error ? error.message : 'Unknown error',

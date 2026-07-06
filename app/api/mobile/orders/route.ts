@@ -16,6 +16,8 @@ import {
   getValidatedBundleDiscountPercent,
   isAllowedFreeGiftProduct,
   isSubmittedBundleLine,
+  allowedFreeGiftUnits,
+  freeGiftKind,
 } from '@/lib/checkoutPricingGuards'
 
 interface SubmittedMobileOrderItem {
@@ -410,6 +412,10 @@ export async function POST(request: NextRequest) {
       isSubmittedBundleLine(item.bundleDiscountPercent, product)
     ).length
 
+    // Free-gift candidates, validated against the spend threshold after the
+    // paid subtotal is known (below).
+    const freeGiftCandidates: Array<{ item: SubmittedMobileOrderItem; product: Product; quantity: number; selectedColor: string }> = []
+
     for (const { item, product } of productRecords) {
       const quantity = Number(item?.quantity)
 
@@ -424,17 +430,16 @@ export async function POST(request: NextRequest) {
       const bundlePct = getValidatedBundleDiscountPercent(item.bundleDiscountPercent, product, bundleLineCount)
 
       if (isPromo) {
-        validatedItems.push({
-          productId: product.id,
-          productName: String(item.productName || item.name || `${product.name} (FREE)`),
-          price: 0,
-          quantity,
-          image: item.image || product.image,
-          color: selectedColor || null,
-          size: '__PROMO__',
-          bundleDiscount: null,
-        })
+        freeGiftCandidates.push({ item, product, quantity, selectedColor })
         continue
+      }
+
+      // Out-of-stock enforcement (paid items only).
+      if (!product.inStock) {
+        return NextResponse.json(
+          { success: false, error: `${product.name} is currently out of stock` },
+          { status: 400 }
+        )
       }
 
       const cartItem: CartItem = {
@@ -470,6 +475,30 @@ export async function POST(request: NextRequest) {
     subtotal = Math.round(subtotal * 100) / 100
     discountAmount = Math.round(discountAmount * 100) / 100
     bundleDiscountAmount = Math.round(bundleDiscountAmount * 100) / 100
+
+    // Admit only the free masks the spend threshold allows.
+    {
+      const allowance = allowedFreeGiftUnits(subtotal)
+      let collagenLeft = allowance.collagen
+      let seaAlgaeLeft = allowance.seaAlgae
+      for (const g of freeGiftCandidates) {
+        const kind = freeGiftKind(g.product)
+        let grant = 0
+        if (kind === 'collagen') { grant = Math.min(g.quantity, collagenLeft); collagenLeft -= grant }
+        else if (kind === 'sea_algae') { grant = Math.min(g.quantity, seaAlgaeLeft); seaAlgaeLeft -= grant }
+        if (grant <= 0) continue
+        validatedItems.push({
+          productId: g.product.id,
+          productName: String(g.item.productName || g.item.name || `${g.product.name} (FREE)`),
+          price: 0,
+          quantity: grant,
+          image: g.item.image || g.product.image,
+          color: g.selectedColor || null,
+          size: '__PROMO__',
+          bundleDiscount: null,
+        })
+      }
+    }
 
     // Capture user discount percentage at time of order for waterfall display
     const pctForOrder = Number(user?.discountPercentage)

@@ -21,6 +21,36 @@ export function isAllowedFreeGiftProduct(product: Product): boolean {
   return keys.some((key) => FREE_GIFT_PRODUCT_KEYS.has(key))
 }
 
+// Which free-gift mask a product is, if any. Keeps the threshold logic
+// (below) able to enforce "collagen at >=500, + sea algae at >=700".
+const SEA_ALGAE_GIFT_KEYS = new Set(['36'])
+const COLLAGEN_GIFT_KEYS = new Set(['53', 'cmgj9ifoi00008o07p4eqmfb7'])
+
+export function freeGiftKind(product: Product): 'collagen' | 'sea_algae' | null {
+  const keys = [product.id, product.productNumber]
+    .map((value) => String(value || '').trim())
+    .filter(Boolean)
+  if (keys.some((key) => SEA_ALGAE_GIFT_KEYS.has(key))) return 'sea_algae'
+  if (keys.some((key) => COLLAGEN_GIFT_KEYS.has(key))) return 'collagen'
+  return null
+}
+
+/**
+ * Server-side free-gift threshold enforcement (mirrors the checkout UI):
+ *   paid subtotal >= 700 → 1 collagen mask + 1 sea algae mask
+ *   paid subtotal >= 500 → 1 collagen mask
+ *   otherwise            → none
+ *
+ * Prevents a crafted request from claiming free masks (or extra quantities)
+ * without meeting the spend threshold. `paidSubtotal` is the server-computed
+ * subtotal of the non-free items only.
+ */
+export function allowedFreeGiftUnits(paidSubtotal: number): { collagen: number; seaAlgae: number } {
+  if (paidSubtotal >= 700) return { collagen: 1, seaAlgae: 1 }
+  if (paidSubtotal >= 500) return { collagen: 1, seaAlgae: 0 }
+  return { collagen: 0, seaAlgae: 0 }
+}
+
 export function getBundleDiscountTier(itemCount: number): number {
   if (itemCount >= 5) return 20
   if (itemCount >= 4) return 15

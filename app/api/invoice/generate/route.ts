@@ -3,10 +3,12 @@ import { sendEmail } from '@/lib/email'
 import { debugLog, errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
-import { findUserByEmail } from '@/lib/userStorageDb'
+import { findUserByEmail, findUserById } from '@/lib/userStorageDb'
 import { SITE_URL } from '@/lib/siteConfig'
 import { LOGO_URL } from '@/lib/email/utils'
 import { getOrderByNumber, OrderWithItems } from '@/lib/orderStorageDb'
+import { verifySessionToken } from '@/lib/jwt'
+import { verifyAdminSessionToken } from '@/lib/adminAuth'
 
 interface InvoiceItem {
   id?: string
@@ -177,6 +179,28 @@ export async function POST(request: NextRequest) {
 
     const order = await getOrderByNumber(orderNumber)
     if (!order) {
+      return NextResponse.json(
+        { success: false, message: 'Order not found' },
+        { status: 404 }
+      )
+    }
+
+    // Authorize: only the order owner (session email matches) or an admin may
+    // trigger an invoice email. Previously any caller could re-send invoices
+    // to customers by enumerating order numbers.
+    const sessionCookie = request.cookies.get('genosys_session')
+    const session = sessionCookie ? verifySessionToken(sessionCookie.value) : null
+    let sessionEmail: string | null = null
+    if (session?.email) {
+      sessionEmail = session.email.toLowerCase()
+    } else if (session?.id) {
+      const u = await findUserById(session.id)
+      sessionEmail = u?.email ? u.email.toLowerCase() : null
+    }
+    const isOwner = !!sessionEmail && sessionEmail === order.customerEmail.toLowerCase()
+    const adminCookie = request.cookies.get('admin-session')
+    const isAdmin = adminCookie ? !!verifyAdminSessionToken(adminCookie.value) : false
+    if (!isOwner && !isAdmin) {
       return NextResponse.json(
         { success: false, message: 'Order not found' },
         { status: 404 }

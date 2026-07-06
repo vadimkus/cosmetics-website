@@ -27,7 +27,9 @@ export default function Error({
     <ErrorPage
       title={t('common.somethingWentWrong')}
       message={t('common.errorMessage')}
-      error={error.message}
+      // Only expose the raw error string in development. In production a
+      // client-side throw could otherwise render an internal message to users.
+      {...(process.env.NODE_ENV !== 'production' ? { error: error.message } : {})}
       type="server"
       onRetry={reset}
       showBack={false}

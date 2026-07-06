@@ -138,6 +138,18 @@ if (dsn) {
     beforeSend(event) {
       if (isUnactionablePrismaFetchReject(event)) return null
       if (isBotPrismaRetry(event)) return null
+      // Strip PII before sending (mirror of the client config). Server events
+      // can carry request cookies (session token) and user context.
+      if (event.request?.cookies) delete event.request.cookies
+      if (event.request?.headers) {
+        delete event.request.headers['cookie']
+        delete event.request.headers['authorization']
+        delete event.request.headers['x-api-key']
+      }
+      if (event.user) {
+        delete event.user.ip_address
+        delete event.user.email
+      }
       return event
     },
   })

@@ -212,7 +212,11 @@ export async function GET(request: NextRequest) {
     const errorStack = error instanceof Error ? error.stack : undefined
     errorLog('Error fetching analytics:', { message: errorMessage, stack: errorStack })
     return NextResponse.json(
-      { error: 'Failed to fetch analytics data', detail: errorMessage },
+      {
+        error: 'Failed to fetch analytics data',
+        // Never leak internal error text in production.
+        ...(process.env.NODE_ENV === 'development' ? { detail: errorMessage } : {}),
+      },
       { status: 500 }
     )
   }

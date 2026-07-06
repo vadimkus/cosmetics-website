@@ -198,7 +198,8 @@ export async function GET(request: NextRequest) {
       details?: { stack?: string; error?: string; message?: string; name?: string }
     } = {
       error: 'Internal server error',
-      message: errorMessage
+      // Don't leak the raw error message in production (admin route, but still).
+      message: process.env.NODE_ENV === 'development' ? errorMessage : 'Internal server error'
     }
     
     if (process.env.NODE_ENV === 'development') {

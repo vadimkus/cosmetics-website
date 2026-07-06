@@ -1,33 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { openai } from '@ai-sdk/openai'
 import { generateText } from 'ai'
+import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 
-// Rate limiting
-const rateLimit = new Map<string, { count: number; resetTime: number }>()
-const RATE_LIMIT_MAX = 10 // 10 analyses per hour
-const RATE_LIMIT_WINDOW = 60 * 60 * 1000 // 1 hour
-
-function getRateLimitKey(request: NextRequest): string {
-  const forwarded = request.headers.get('x-forwarded-for')
-  return forwarded ? forwarded.split(',')[0] ?? 'anonymous' : 'anonymous'
-}
-
-function checkRateLimit(key: string): boolean {
-  const now = Date.now()
-  const record = rateLimit.get(key)
-  
-  if (!record || now > record.resetTime) {
-    rateLimit.set(key, { count: 1, resetTime: now + RATE_LIMIT_WINDOW })
-    return true
-  }
-  
-  if (record.count >= RATE_LIMIT_MAX) {
-    return false
-  }
-  
-  record.count++
-  return true
-}
+// Hybrid (in-memory + DB) rate limiter so the cap survives serverless cold
+// starts — the previous in-memory Map reset per instance, letting the OpenAI
+// call be hammered under load. 10 analyses / hour / IP.
+const aiAnalysisLimiter = rateLimitSimple({ windowMs: 60 * 60 * 1000, max: 10 })
 
 const getLanguageInstruction = (locale: string): string => {
   switch (locale) {
@@ -109,8 +88,8 @@ Be professional, evidence-based, and reference specific ingredients when explain
 export async function POST(request: NextRequest) {
   try {
     // Check rate limit
-    const rateLimitKey = getRateLimitKey(request)
-    if (!checkRateLimit(rateLimitKey)) {
+    const rl = await aiAnalysisLimiter(`skin-ai:${getClientIdentifierFromNextRequest(request)}`)
+    if (!rl.success) {
       return NextResponse.json(
         { error: 'Rate limit exceeded. Please try again later.' },
         { status: 429 }

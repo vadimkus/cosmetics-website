@@ -294,7 +294,12 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     errorLog('Failed to translate blog posts:', error)
     return NextResponse.json(
-      { error: 'Internal server error', details: error instanceof Error ? error.message : String(error) },
+      {
+        error: 'Internal server error',
+        ...(process.env.NODE_ENV === 'development'
+          ? { details: error instanceof Error ? error.message : String(error) }
+          : {}),
+      },
       { status: 500 }
     )
   }

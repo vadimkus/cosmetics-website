@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
-import { validateWebhookSignature } from '@/lib/stripe'
+import { validateWebhookSignature, aedToFils } from '@/lib/stripe'
 import { prisma } from '@/lib/database'
 import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib/email'
 import { trackUserAction } from '@/lib/analyticsServer'
@@ -95,6 +95,34 @@ export async function POST(request: NextRequest) {
   }
 }
 
+/**
+ * Reconciliation safeguard: verify the amount Stripe actually charged matches
+ * the order total we recorded. The charged amount is already authoritative
+ * (we create the intent/session server-side with the recomputed total), so a
+ * mismatch signals something to investigate — a Stripe promo code applied at
+ * hosted checkout, a partial capture, a currency issue, or a bug. Log-only:
+ * we NEVER block a genuinely paid order (that would be worse than a discrepancy),
+ * but finance gets a loud, greppable signal to reconcile.
+ */
+function reconcilePaidAmount(
+  order: { orderNumber: string; total: number },
+  paidFils: number | null | undefined,
+  context: string
+) {
+  if (paidFils == null) return
+  const expectedFils = aedToFils(order.total)
+  if (Math.abs(expectedFils - paidFils) > 1) {
+    errorLog('⚠️ PAYMENT AMOUNT MISMATCH — reconcile:', {
+      context,
+      orderNumber: order.orderNumber,
+      orderTotalAed: order.total,
+      expectedFils,
+      stripePaidFils: paidFils,
+      diffAed: (paidFils - expectedFils) / 100,
+    })
+  }
+}
+
 async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) {
   try {
     debugLog('✅ Processing checkout.session.completed:', {
@@ -116,6 +144,11 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
     if (!order) {
       errorLog('❌ Order not found for session:', session.id)
       return
+    }
+
+    // Defense-in-depth: flag if the charged amount differs from the order total
+    if (session.payment_status === 'paid') {
+      reconcilePaidAmount(order, session.amount_total, 'checkout.session.completed')
     }
 
     // Update order status - build the update object dynamically to handle optional fields
@@ -235,6 +268,9 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
       debugLog('🔍 No order found for payment intent:', paymentIntent.id)
       return
     }
+
+    // Defense-in-depth: flag if the charged amount differs from the order total
+    reconcilePaidAmount(order, paymentIntent.amount_received ?? paymentIntent.amount, 'payment_intent.succeeded')
 
     // Atomically claim the pending -> paid transition so emails are sent
     // exactly once across the payment-status poll, checkout.session.completed,

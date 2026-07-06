@@ -3,7 +3,7 @@
  * All email template definitions (HTML generation)
  */
 import { SITE_URL } from '@/lib/siteConfig'
-import { loadEmailTranslations, getLocaleSettings, LOGO_URL } from './utils'
+import { loadEmailTranslations, getLocaleSettings, LOGO_URL, renderEmailFooter } from './utils'
 import type { OrderConfirmationEmailData, AdminNewOrderEmailData } from './types'
 import { orderChannelLabel } from '@/lib/orderChannel'
 
@@ -91,15 +91,7 @@ export const emailTemplates = {
                 </tr>
                 
                 <!-- Footer -->
-                <tr>
-                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
-                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
-                      Genosys Middle East FZ-LLC<br>
-                      ${t.officialDistributor || 'Official Distributor in the UAE'}<br><br>
-                      ${t.copyright || '© 2026 All rights reserved.'}
-        </div>
-                  </td>
-                </tr>
+                ${renderEmailFooter(locale)}
                 
               </table>
             </td>
@@ -206,16 +198,8 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 
-                <!-- Footer -->
-                <tr>
-                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
-                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
-                      Genosys Middle East FZ-LLC<br>
-                      Official Distributor in the UAE<br><br>
-                      © 2026 All rights reserved.
-        </div>
-                  </td>
-                </tr>
+                <!-- Corporate footer (shared: support + links + legal/TRN) -->
+                ${renderEmailFooter('en')}
                 
               </table>
             </td>
@@ -303,16 +287,8 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 
-                <!-- Footer -->
-                <tr>
-                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
-                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
-                      Genosys Middle East FZ-LLC<br>
-                      Official Distributor in the UAE<br><br>
-                      © 2026 All rights reserved.
-        </div>
-                  </td>
-                </tr>
+                <!-- Corporate footer (shared: support + links + legal/TRN) -->
+                ${renderEmailFooter('en')}
                 
               </table>
             </td>
@@ -401,16 +377,8 @@ export const emailTemplates = {
               </td>
                 </tr>
                 
-                <!-- Footer -->
-                <tr>
-                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
-                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
-                      Genosys Middle East FZ-LLC<br>
-                      Official Distributor in the UAE<br><br>
-                      © 2026 All rights reserved.
-                    </div>
-              </td>
-                </tr>
+                <!-- Corporate footer (shared: support + links + legal/TRN) -->
+                ${renderEmailFooter(orderData.locale || 'en', { trackUrl: `${SITE_URL}/track/${orderData.orderNumber}` })}
                 
               </table>
               </td>
@@ -499,16 +467,8 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 
-                <!-- Footer -->
-                <tr>
-                  <td style="text-align: center; padding-top: 32px; border-top: 1px solid #d2d2d7;">
-                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
-                      Genosys Middle East FZ-LLC<br>
-                      Official Distributor in the UAE<br><br>
-                      © 2026 All rights reserved.
-        </div>
-                  </td>
-                </tr>
+                <!-- Corporate footer (shared: support + links + legal/TRN) -->
+                ${renderEmailFooter('en')}
                 
               </table>
             </td>
@@ -858,47 +818,8 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 
-                <!-- Support -->
-                <tr>
-                  <td style="padding-top: 56px;">
-                    <div style="height: 1px; background-color: #e8e8ed;"></div>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding-top: 28px; text-align: center;">
-                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; font-weight: 600; color: #1d1d1f;">
-                      ${t.needHelp || 'Need help with your order?'}
-                    </div>
-                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #86868b; padding-top: 6px;">
-                      <a href="https://wa.me/971585487665" style="color: #0071e3; text-decoration: none;">WhatsApp</a>
-                      &nbsp;·&nbsp;
-                      <a href="mailto:sales@genosys.ae" style="color: #0071e3; text-decoration: none;">sales@genosys.ae</a>
-                    </div>
-                  </td>
-                </tr>
-
-                <!-- Brand links -->
-                <tr>
-                  <td style="padding-top: 24px; text-align: center;">
-                    <a href="${SITE_URL}" style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-decoration: none; padding: 0 10px;">${t.shopOnline || 'Shop'}</a>
-                    <span style="color: #d2d2d7;">|</span>
-                    <a href="https://www.instagram.com/genosys.ae/" style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-decoration: none; padding: 0 10px;">Instagram</a>
-                    <span style="color: #d2d2d7;">|</span>
-                    <a href="${SITE_URL}/${locale === 'en' ? '' : locale + '/'}track/${orderData.orderNumber}" style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-decoration: none; padding: 0 10px;">${t.trackOrder || 'Track Order'}</a>
-                  </td>
-                </tr>
-                
-                <!-- Footer -->
-                <tr>
-                  <td style="padding-top: 32px; text-align: center;">
-                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
-                      <strong style="color: #6e6e73; font-weight: 600;">Genosys Middle East FZ-LLC</strong><br>
-                      ${t.officialDistributor || 'Official Distributor in the UAE'}<br>
-                      Dubai, United Arab Emirates<br><br>
-                      ${t.copyright || '© 2026 All rights reserved.'}
-          </div>
-                  </td>
-                </tr>
+                <!-- Corporate footer (shared: support + links + legal/TRN) -->
+                ${renderEmailFooter(locale, { trackUrl: `${SITE_URL}/${locale === 'en' ? '' : locale + '/'}track/${orderData.orderNumber}` })}
                 
               </table>
             </td>

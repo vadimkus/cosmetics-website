@@ -31,6 +31,20 @@ and no links**. Added, matching the existing Apple-clean aesthetic (muted grays,
   distributor line, and `Dubai, United Arab Emirates`.
 - New i18n keys `needHelp` + `shopOnline` in EN/AR/RU (existing `trackOrder` reused).
 
+## Follow-up (same day): canonical contact + shared footer + TRN — DONE
+
+- **Canonical contact set** fixed in `lib/siteConfig.ts` SOCIAL_LINKS (was phone
+  `+971 50 731 9498` / `info@genosys.ae` / instagram `genosys.ae`): now WhatsApp
+  `+971 58 548 76 65` (`wa.me/971585487665`), `sales@genosys.ae`, Instagram
+  `instagram.com/genosys.uae` — matching the /contact page, emails and chatbot.
+  Added `LEGAL_INFO` (company, TRN `104229886700003`, license `5023192`, Dubai UAE).
+- **Shared corporate footer** `renderEmailFooter(locale, { trackUrl })` in
+  `lib/email/utils.ts`: support row (WhatsApp + sales@genosys.ae), Shop · Instagram ·
+  Track links, and legal block with **TRN** for a tax-compliant receipt. EN/AR/RU.
+- **Applied to every customer email**: order confirmation, shipped, confirmed,
+  delivered, discount-assigned, and welcome — one consistent signature. Verified by
+  rendering each template (TRN + WhatsApp + Instagram + legal entity all present).
+
 ## Further suggestions (not yet done — for review)
 
 - **Unify contact details**: `lib/siteConfig.ts` SOCIAL_LINKS uses phone

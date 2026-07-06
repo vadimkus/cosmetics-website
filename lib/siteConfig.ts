@@ -39,12 +39,23 @@ export const SITE_NAME = 'GENOSYS'
 export const SITE_LEGAL_NAME = 'Genosys Middle East FZ-LLC'
 export const SITE_DESCRIPTION = 'Official distributor of GENOSYS Korean dermacosmetics in UAE'
 
-// Social media and contact
+// Social media and contact — canonical set (matches /contact page, emails, chatbot).
+// Do not diverge these; other surfaces should import from here.
 export const SOCIAL_LINKS = {
-  instagram: 'https://www.instagram.com/genosys.ae/',
-  whatsapp: 'https://api.whatsapp.com/send?phone=971507319498',
-  phone: '+971507319498',
-  email: 'info@genosys.ae'
+  instagram: 'https://instagram.com/genosys.uae',
+  instagramHandle: '@genosys.uae',
+  whatsapp: 'https://wa.me/971585487665',
+  phone: '+971585487665',
+  phoneDisplay: '+971 58 548 76 65',
+  email: 'sales@genosys.ae',
+}
+
+// Legal / tax identity for transactional emails and receipts.
+export const LEGAL_INFO = {
+  companyName: 'Genosys Middle East FZ-LLC',
+  trn: '104229886700003',
+  license: '5023192',
+  city: 'Dubai, United Arab Emirates',
 }
 
 // Push notifications VAPID key

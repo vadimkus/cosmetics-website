@@ -252,7 +252,8 @@ export async function DELETE(
             details: {
               contains: 'items - Total:'
             }
-          }
+          },
+          take: 50, // bound the scan — cleanup only needs recent matches
         })
         
         if (patternMatches.length > 0) {

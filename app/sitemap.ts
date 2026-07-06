@@ -46,11 +46,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const contentDate = new Date('2026-06-01T00:00:00.000Z')
 
   const staticPages: Array<{ path: string; lastModified: Date; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }> = [
-    { path: '', lastModified: now, priority: 1.0, changeFrequency: 'daily' },
+    // Home + /products use a stable date, not `now`: a lastmod that changes on
+    // every ISR regeneration trains Google to ignore the signal. Product entries
+    // below still carry their real per-row updatedAt.
+    { path: '', lastModified: contentDate, priority: 1.0, changeFrequency: 'daily' },
     { path: '/about', lastModified: staticDate, priority: 0.8, changeFrequency: 'monthly' },
     { path: '/brand', lastModified: staticDate, priority: 0.8, changeFrequency: 'monthly' },
-    { path: '/products', lastModified: now, priority: 0.9, changeFrequency: 'daily' },
-    { path: '/blog', lastModified: now, priority: 0.8, changeFrequency: 'weekly' },
+    { path: '/products', lastModified: contentDate, priority: 0.9, changeFrequency: 'daily' },
+    { path: '/blog', lastModified: contentDate, priority: 0.8, changeFrequency: 'weekly' },
     { path: '/faq', lastModified: staticDate, priority: 0.7, changeFrequency: 'monthly' },
     { path: '/locations', lastModified: staticDate, priority: 0.7, changeFrequency: 'monthly' },
     { path: '/training', lastModified: staticDate, priority: 0.7, changeFrequency: 'monthly' },
@@ -59,6 +62,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/partners', lastModified: staticDate, priority: 0.6, changeFrequency: 'monthly' },
     { path: '/skin-recommendation', lastModified: staticDate, priority: 0.6, changeFrequency: 'monthly' },
     { path: '/privacy-policy', lastModified: staticDate, priority: 0.3, changeFrequency: 'yearly' },
+    { path: '/terms', lastModified: staticDate, priority: 0.3, changeFrequency: 'yearly' },
     { path: '/bundle-builder', lastModified: staticDate, priority: 0.5, changeFrequency: 'monthly' },
   ]
 

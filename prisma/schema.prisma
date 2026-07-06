@@ -11,7 +11,7 @@ datasource db {
 model User {
   id                 String    @id @default(cuid())
   email              String    @unique
-  contactEmail       String?   // Optional: For Apple Private Relay users to provide real email
+  contactEmail       String? // Optional: For Apple Private Relay users to provide real email
   appleSub           String?   @unique
   name               String
   password           String?
@@ -28,19 +28,19 @@ model User {
   discountPercentage Float?
   birthday           String?
   lastLoginAt        DateTime?
-  lastLoginSource    String?   // Tracks login source: desktop_web, mobile_web, mobile_app
+  lastLoginSource    String? // Tracks login source: desktop_web, mobile_web, mobile_app
   lastActiveAt       DateTime? // Tracks last user activity for online status
   tokenVersion       Int       @default(0) // Bumped on password change/reset to revoke all sessions/tokens
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
   // Membership / loyalty
-  memberNumber       String?   @unique
-  memberTier         String    @default("MEMBER") // MEMBER, SILVER, GOLD, PLATINUM
-  memberSince        DateTime?
-  totalSpent         Float     @default(0)
-  totalOrders        Int       @default(0)
-  loyaltyPoints      Int       @default(0)
+  memberNumber  String?   @unique
+  memberTier    String    @default("MEMBER") // MEMBER, SILVER, GOLD, PLATINUM
+  memberSince   DateTime?
+  totalSpent    Float     @default(0)
+  totalOrders   Int       @default(0)
+  loyaltyPoints Int       @default(0)
 
   orders              Order[]
   passwordResetTokens PasswordResetToken[]
@@ -53,51 +53,51 @@ model User {
 
 // WebAuthn Passkeys - enables Face ID/Touch ID authentication
 model Passkey {
-  id              String    @id @default(cuid())
-  
+  id String @id @default(cuid())
+
   // Link to user
-  userId          String
-  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   // WebAuthn credential data
-  credentialId    String    @unique @db.Text  // Base64url encoded credential ID
-  publicKey       String    @db.Text          // Base64url encoded public key (COSE format)
-  counter         BigInt    @default(0)       // Signature counter for replay attack protection
-  
+  credentialId String @unique @db.Text // Base64url encoded credential ID
+  publicKey    String @db.Text // Base64url encoded public key (COSE format)
+  counter      BigInt @default(0) // Signature counter for replay attack protection
+
   // Credential metadata
-  transports      String?   @db.Text          // JSON array of transports (usb, nfc, ble, internal, hybrid)
-  
+  transports String? @db.Text // JSON array of transports (usb, nfc, ble, internal, hybrid)
+
   // Device info (for user management UI)
-  deviceType      String?                     // "platform" (built-in) or "cross-platform" (security key)
-  deviceName      String?                     // User-friendly name (e.g., "MacBook Pro", "iPhone 15")
-  
+  deviceType String? // "platform" (built-in) or "cross-platform" (security key)
+  deviceName String? // User-friendly name (e.g., "MacBook Pro", "iPhone 15")
+
   // Backup state (PRF extension)
-  backedUp        Boolean   @default(false)   // Whether credential is backed up to iCloud/Google
-  
-  createdAt       DateTime  @default(now())
-  lastUsedAt      DateTime?
-  
+  backedUp Boolean @default(false) // Whether credential is backed up to iCloud/Google
+
+  createdAt  DateTime  @default(now())
+  lastUsedAt DateTime?
+
   @@index([userId])
   @@index([credentialId])
   @@map("passkeys")
 }
 
 model Address {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  type        String   // home | work | other
-  label       String?  // Optional display label (e.g., "My Home", "Office")
-  name        String   // Recipient full name
-  phone       String   // Phone number
-  addressLine1 String  // Street/building
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type         String // home | work | other
+  label        String? // Optional display label (e.g., "My Home", "Office")
+  name         String // Recipient full name
+  phone        String // Phone number
+  addressLine1 String // Street/building
   addressLine2 String? // Apt/unit (optional)
-  city        String   // City
-  emirate     String   // Emirate (UAE)
-  country     String   @default("United Arab Emirates") // Default to UAE
-  isDefault   Boolean  @default(false) // Only one address per user can be default
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  city         String // City
+  emirate      String // Emirate (UAE)
+  country      String   @default("United Arab Emirates") // Default to UAE
+  isDefault    Boolean  @default(false) // Only one address per user can be default
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@index([userId])
   @@index([userId, isDefault])
@@ -107,12 +107,12 @@ model Address {
 // Promotions / announcements shown to users in the app/website.
 // Minimal spec: date + text (localized).
 model Promotion {
-  id      String   @id @default(cuid())
-  date    DateTime @default(now())
-  textEn  String   @db.Text
-  textRu  String?  @db.Text
-  textAr  String?  @db.Text
-  isActive Boolean @default(true)
+  id        String   @id @default(cuid())
+  date      DateTime @default(now())
+  textEn    String   @db.Text
+  textRu    String?  @db.Text
+  textAr    String?  @db.Text
+  isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -121,27 +121,27 @@ model Promotion {
 }
 
 model Product {
-  id            String   @id @default(cuid())
-  productNumber String?  @unique
-  name          String
-  nameRu        String?  @db.Text
-  nameAr        String?  @db.Text
-  price         Float
-  description   String   @db.Text
-  descriptionRu String?  @db.Text
-  descriptionAr String?  @db.Text
-  image         String
-  category      String
-  inStock       Boolean  @default(true)
-  size          String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  images        String?
-  videoUrl      String?  // Video URL path (e.g., /videos/egf.mp4) – served to mobile app dynamically
-  noDiscount    Boolean  @default(false) // Exclude from discount calculations
-  isHidden      Boolean  @default(false) // Hide product from public listings
-  isPriceOnRequest Boolean @default(false) // Professional products with price available on request only
-  disclaimer    String?  @db.Text // Product disclaimer (e.g., "For professional/clinic use only")
+  id               String   @id @default(cuid())
+  productNumber    String?  @unique
+  name             String
+  nameRu           String?  @db.Text
+  nameAr           String?  @db.Text
+  price            Float
+  description      String   @db.Text
+  descriptionRu    String?  @db.Text
+  descriptionAr    String?  @db.Text
+  image            String
+  category         String
+  inStock          Boolean  @default(true)
+  size             String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  images           String?
+  videoUrl         String? // Video URL path (e.g., /videos/egf.mp4) – served to mobile app dynamically
+  noDiscount       Boolean  @default(false) // Exclude from discount calculations
+  isHidden         Boolean  @default(false) // Hide product from public listings
+  isPriceOnRequest Boolean  @default(false) // Professional products with price available on request only
+  disclaimer       String?  @db.Text // Product disclaimer (e.g., "For professional/clinic use only")
 
   // Detailed product content fields
   productDetails String? @db.Text // JSON object with key-value pairs for product specs
@@ -171,19 +171,19 @@ model Product {
 }
 
 model ProductVariant {
-  id        String   @id @default(cuid())
+  id        String  @id @default(cuid())
   productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
   // Variant attributes
-  size      String? // Size variant (e.g., "50ml", "100ml", "500ml")
-  color     String? // Color variant (e.g., "Beige", "Ivory", "Natural")
-  
+  size  String? // Size variant (e.g., "50ml", "100ml", "500ml")
+  color String? // Color variant (e.g., "Beige", "Ivory", "Natural")
+
   // Pricing and availability
   price     Float // Variant-specific price
-  available Boolean  @default(true) // Is this variant in stock?
-  isDefault Boolean  @default(false) // Default variant to display
-  
+  available Boolean @default(true) // Is this variant in stock?
+  isDefault Boolean @default(false) // Default variant to display
+
   // Stock management (optional for future)
   stockQuantity Int? // Track inventory per variant
   sku           String? // SKU for inventory management
@@ -198,45 +198,45 @@ model ProductVariant {
 }
 
 model Order {
-  id              String      @id @default(cuid())
-  orderNumber     String      @unique
-  customerEmail   String
-  customerName    String
-  customerPhone   String
-  customerEmirate String
-  customerAddress String
-  orderNotes      String?     @db.Text
-  subtotal        Float
-  discountPercentage Float?   // User's discount percentage at time of order
-  discountAmount  Float       @default(0)
-  bundleDiscountPercentage Float?   // Bundle discount percentage (e.g., 20% for 5+ items)
-  bundleDiscountAmount Float       @default(0)  // Bundle discount amount in AED
-  shipping        Float       @default(0)
-  vat             Float
-  total           Float
-  status          String      @default("PENDING")
-  locale          String      @default("en") // User's preferred language (en or ar)
-  sessionId       String?
-  
+  id                       String  @id @default(cuid())
+  orderNumber              String  @unique
+  customerEmail            String
+  customerName             String
+  customerPhone            String
+  customerEmirate          String
+  customerAddress          String
+  orderNotes               String? @db.Text
+  subtotal                 Float
+  discountPercentage       Float? // User's discount percentage at time of order
+  discountAmount           Float   @default(0)
+  bundleDiscountPercentage Float? // Bundle discount percentage (e.g., 20% for 5+ items)
+  bundleDiscountAmount     Float   @default(0) // Bundle discount amount in AED
+  shipping                 Float   @default(0)
+  vat                      Float
+  total                    Float
+  status                   String  @default("PENDING")
+  locale                   String  @default("en") // User's preferred language (en or ar)
+  sessionId                String?
+
   // Payment-related fields
-  paymentMethod   String      @default("cod") // cod, stripe, bank_transfer
-  paymentStatus   String      @default("pending") // pending, processing, paid, failed, refunded, cancelled
-  stripeSessionId String?     // Stripe checkout session ID
+  paymentMethod         String    @default("cod") // cod, stripe, bank_transfer
+  paymentStatus         String    @default("pending") // pending, processing, paid, failed, refunded, cancelled
+  stripeSessionId       String? // Stripe checkout session ID
   stripePaymentIntentId String? // Stripe payment intent ID
-  stripeCustomerId String?    // Stripe customer ID for future payments
-  paidAt          DateTime?   // When payment was completed
-  refundedAt      DateTime?   // When refund was processed
-  refundAmount    Float?      // Amount refunded (can be partial)
-  paymentMetadata String?     @db.Text // JSON metadata from payment provider
-  
+  stripeCustomerId      String? // Stripe customer ID for future payments
+  paidAt                DateTime? // When payment was completed
+  refundedAt            DateTime? // When refund was processed
+  refundAmount          Float? // Amount refunded (can be partial)
+  paymentMetadata       String?   @db.Text // JSON metadata from payment provider
+
   // MoySklad (accounting system) integration
-  moySkladOrderId String?     // MoySklad order UUID after manual push from admin
-  moySkladSyncedAt DateTime?  // When order was pushed to MoySklad
-  
-  createdAt       DateTime    @default(now())
-  updatedAt       DateTime    @updatedAt
-  items           OrderItem[]
-  customer        User        @relation(fields: [customerEmail], references: [email])
+  moySkladOrderId  String? // MoySklad order UUID after manual push from admin
+  moySkladSyncedAt DateTime? // When order was pushed to MoySklad
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  items     OrderItem[]
+  customer  User        @relation(fields: [customerEmail], references: [email])
 
   @@index([customerEmail]) // Index for faster order lookups by email
   @@index([paymentStatus]) // Index for payment status queries
@@ -244,23 +244,25 @@ model Order {
   @@index([stripePaymentIntentId]) // Index for payment intent lookups
   @@index([status]) // Index for admin order-status filtering
   @@index([createdAt]) // Index for date-range queries and recent-orders sorting
+  @@index([status, createdAt]) // Compound for revenue-trends / CLV reports (WHERE status=X AND createdAt>=Y)
   @@map("orders")
 }
 
 model OrderItem {
-  id              String  @id @default(cuid())
-  orderId         String
-  productId       String
-  productName     String
-  price           Float
-  quantity        Int
-  image           String
-  color           String? // Product color variant (e.g., "beige", "ivory", "camel")
-  size            String? // Product size variant (e.g., "50g", "100g")
-  bundleDiscount  Float?  // Bundle discount % applied to this item (null = not a bundle item)
-  order           Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  id             String  @id @default(cuid())
+  orderId        String
+  productId      String
+  productName    String
+  price          Float
+  quantity       Int
+  image          String
+  color          String? // Product color variant (e.g., "beige", "ivory", "camel")
+  size           String? // Product size variant (e.g., "50g", "100g")
+  bundleDiscount Float? // Bundle discount % applied to this item (null = not a bundle item)
+  order          Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
 
   @@index([orderId]) // Index for faster order item lookups
+  @@index([productId]) // product-performance report groupBy + admin product-delete check
   @@map("order_items")
 }
 
@@ -442,14 +444,14 @@ model ProductReview {
 model PromoCode {
   id              String    @id @default(cuid())
   code            String    @unique // Promo code (e.g., "WELCOME20", "QR20")
-  discountType    String    // Type identifier (e.g., "QR_SIGNUP", "REFERRAL", "EVENT")
-  discountPercent Float     // Discount percentage (e.g., 20.0 for 20%)
+  discountType    String // Type identifier (e.g., "QR_SIGNUP", "REFERRAL", "EVENT")
+  discountPercent Float // Discount percentage (e.g., 20.0 for 20%)
   isActive        Boolean   @default(true) // Can be used?
   expiresAt       DateTime? // Optional expiration date
-  maxUses         Int?      // Maximum number of uses (null = unlimited)
+  maxUses         Int? // Maximum number of uses (null = unlimited)
   usedCount       Int       @default(0) // How many times used
   description     String?   @db.Text // Description of promo (for admin reference)
-  createdBy       String?   // Admin user who created it
+  createdBy       String? // Admin user who created it
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
 
@@ -472,14 +474,14 @@ model WishlistItem {
 }
 
 model PushSubscription {
-  id           String   @id @default(cuid())
-  userId       String   // User who subscribed
-  endpoint     String   @unique @db.Text // Push service endpoint URL
-  p256dh       String   @db.Text // Public key for encryption
-  auth         String   // Authentication secret
-  userAgent    String?  @db.Text // Browser/device info
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        String   @id @default(cuid())
+  userId    String // User who subscribed
+  endpoint  String   @unique @db.Text // Push service endpoint URL
+  p256dh    String   @db.Text // Public key for encryption
+  auth      String // Authentication secret
+  userAgent String?  @db.Text // Browser/device info
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
   @@map("push_subscriptions")
@@ -488,19 +490,19 @@ model PushSubscription {
 // PWA Notifications - sent from admin to PWA users
 model PWANotification {
   id          String   @id @default(cuid())
-  promotionId String?  // Optional link to promotion (for reusing promo content)
-  title       String   // Notification title
-  titleRu     String?  // Russian title
-  titleAr     String?  // Arabic title
+  promotionId String? // Optional link to promotion (for reusing promo content)
+  title       String // Notification title
+  titleRu     String? // Russian title
+  titleAr     String? // Arabic title
   body        String   @db.Text // Notification body
   bodyRu      String?  @db.Text // Russian body
   bodyAr      String?  @db.Text // Arabic body
-  url         String?  // URL to open when notification is clicked
+  url         String? // URL to open when notification is clicked
   sentAt      DateTime @default(now())
-  sentBy      String?  // Admin email who sent it
+  sentBy      String? // Admin email who sent it
   totalSent   Int      @default(0) // Number of push notifications sent
   createdAt   DateTime @default(now())
-  
+
   reads NotificationRead[]
 
   @@index([sentAt])
@@ -513,8 +515,8 @@ model NotificationRead {
   notificationId String
   userId         String
   readAt         DateTime @default(now())
-  
-  notification   PWANotification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  notification PWANotification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
 
   @@unique([notificationId, userId]) // One read record per user per notification
   @@index([userId])
@@ -524,38 +526,38 @@ model NotificationRead {
 
 // Chatbot Analytics - tracks conversations and messages for admin insights
 model ChatConversation {
-  id              String   @id @default(cuid())
-  sessionId       String   // Chat session ID (unique per conversation)
-  userId          String?  // User ID if logged in
-  userEmail       String?  // User email if available
-  locale          String   @default("en") // User's language preference
-  
+  id        String  @id @default(cuid())
+  sessionId String // Chat session ID (unique per conversation)
+  userId    String? // User ID if logged in
+  userEmail String? // User email if available
+  locale    String  @default("en") // User's language preference
+
   // Conversation metrics
-  messageCount    Int      @default(0) // Total messages in conversation
-  userMessages    Int      @default(0) // Messages from user
-  botMessages     Int      @default(0) // Messages from bot
-  
+  messageCount Int @default(0) // Total messages in conversation
+  userMessages Int @default(0) // Messages from user
+  botMessages  Int @default(0) // Messages from bot
+
   // Topics/keywords (JSON array of detected topics)
-  topics          String?  @db.Text // e.g., ["skincare", "products", "delivery"]
-  
+  topics String? @db.Text // e.g., ["skincare", "products", "delivery"]
+
   // First user message (for quick preview in admin)
-  firstMessage    String?  @db.Text
-  
+  firstMessage String? @db.Text
+
   // Device/location info
-  ipAddress       String?
-  country         String?
-  city            String?
-  userAgent       String?  @db.Text
-  deviceType      String?  // mobile, desktop, tablet
-  browser         String?
-  
+  ipAddress  String?
+  country    String?
+  city       String?
+  userAgent  String? @db.Text
+  deviceType String? // mobile, desktop, tablet
+  browser    String?
+
   // Timestamps
-  startedAt       DateTime @default(now())
-  lastMessageAt   DateTime @default(now())
-  endedAt         DateTime? // When conversation ended (if detectable)
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  startedAt     DateTime  @default(now())
+  lastMessageAt DateTime  @default(now())
+  endedAt       DateTime? // When conversation ended (if detectable)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([sessionId])
   @@index([startedAt])
@@ -567,49 +569,49 @@ model ChatConversation {
 
 // Skin Analysis - stores user skin analysis results with photos
 model SkinAnalysis {
-  id                String   @id @default(cuid())
-  userId            String?  // Optional - can be used by guests
-  
+  id     String  @id @default(cuid())
+  userId String? // Optional - can be used by guests
+
   // Captured image (stored as base64 data URL or cloud storage URL)
-  imageUrl          String?  @db.Text
-  
+  imageUrl String? @db.Text
+
   // Primary results
-  skinType          String   // dry, oily, combination, normal, sensitive
-  confidence        Int      // 0-100
-  
+  skinType   String // dry, oily, combination, normal, sensitive
+  confidence Int // 0-100
+
   // Detailed metrics (0-100)
-  oilinessLevel     Int
-  hydrationLevel    Int
-  rednessLevel      Int
-  textureScore      Int      // smoothness
-  evennessScore     Int      // color uniformity
-  tZoneOiliness     Int
-  cheekHydration    Int
-  
+  oilinessLevel  Int
+  hydrationLevel Int
+  rednessLevel   Int
+  textureScore   Int // smoothness
+  evennessScore  Int // color uniformity
+  tZoneOiliness  Int
+  cheekHydration Int
+
   // Skin characteristics
-  skinTone          String   // fair, light, medium, tan, deep
-  undertone         String   // warm, cool, neutral
-  poreVisibility    String   // minimal, moderate, visible
-  estimatedSkinAge  Int
-  
+  skinTone         String // fair, light, medium, tan, deep
+  undertone        String // warm, cool, neutral
+  poreVisibility   String // minimal, moderate, visible
+  estimatedSkinAge Int
+
   // Detected concerns (JSON array)
-  concerns          String   @db.Text // JSON array: ["hydration", "anti-aging", ...]
-  
+  concerns String @db.Text // JSON array: ["hydration", "anti-aging", ...]
+
   // Generated recommendations (JSON array)
-  recommendations   String   @db.Text // JSON array of strings
-  
+  recommendations String @db.Text // JSON array of strings
+
   // Age group derived from analysis
-  ageGroup          String?  // teen, young-adult, adult, mature
-  
+  ageGroup String? // teen, young-adult, adult, mature
+
   // Analysis quality
-  lightingQuality   String   // poor, fair, good, excellent
-  
+  lightingQuality String // poor, fair, good, excellent
+
   // Metadata
-  deviceInfo        String?  @db.Text // User agent / device info
-  locale            String?  // Language used during analysis
-  
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  deviceInfo String? @db.Text // User agent / device info
+  locale     String? // Language used during analysis
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
   @@index([createdAt])
@@ -619,25 +621,25 @@ model SkinAnalysis {
 
 // FAQ Items - stores frequently asked questions with multilingual support
 model FaqItem {
-  id          String   @id @default(cuid())
-  sortOrder   Int      @default(0)
-  isActive    Boolean  @default(true)
-  category    String?
+  id        String  @id @default(cuid())
+  sortOrder Int     @default(0)
+  isActive  Boolean @default(true)
+  category  String?
 
   // English (required)
-  questionEn  String
-  answerEn    String   @db.Text
+  questionEn String
+  answerEn   String @db.Text
 
   // Arabic (optional)
-  questionAr  String?
-  answerAr    String?  @db.Text
+  questionAr String?
+  answerAr   String? @db.Text
 
   // Russian (optional)
-  questionRu  String?
-  answerRu    String?  @db.Text
+  questionRu String?
+  answerRu   String? @db.Text
 
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([isActive, sortOrder])
   @@index([category])

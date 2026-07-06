@@ -21,6 +21,8 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { filterProductsBySearch } from '@/lib/productSearch'
+import { trackSearch } from '@/lib/analytics'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
 // Order: All → NEW categories first (skin-concern, cream, beauty-boxes) → then the rest
@@ -196,14 +198,9 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = [...products]
 
-    // Search filter
+    // Search filter (tokenized, locale-agnostic — see lib/productSearch.ts)
     if (searchQuery) {
-      const query = searchQuery.toLowerCase()
-      filtered = filtered.filter(product =>
-        product.name.toLowerCase().includes(query) ||
-        product.category.toLowerCase().includes(query) ||
-        product.description.toLowerCase().includes(query)
-      )
+      filtered = filterProductsBySearch(filtered, searchQuery)
     }
 
     // Category filter
@@ -267,29 +264,12 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
           return b.price - a.price
         case 'rating-desc':
           return (b.rating || 0) - (a.rating || 0)
-        case 'newest':
-          // Prioritize products 51 and 52 first, then sort by productNumber (newest first)
-          const isProduct51 = a.productNumber === '51' || a.id === '51'
-          const isProduct52 = a.productNumber === '52' || a.id === '52'
-          const isBProduct51 = b.productNumber === '51' || b.id === '51'
-          const isBProduct52 = b.productNumber === '52' || b.id === '52'
-          
-          // If one is product 51 or 52 and the other isn't, prioritize it
-          if ((isProduct51 || isProduct52) && !(isBProduct51 || isBProduct52)) {
-            return -1 // a comes first
-          }
-          if (!(isProduct51 || isProduct52) && (isBProduct51 || isBProduct52)) {
-            return 1 // b comes first
-          }
-          
-          // If both are 51/52, prioritize 51 over 52
-          if (isProduct51 && isBProduct52) return -1
-          if (isProduct52 && isBProduct51) return 1
-          
-          // For other products, sort by productNumber descending (higher numbers = newer)
+        case 'newest': {
+          // Higher productNumber = newer product
           const aNum = a.productNumber ? parseInt(a.productNumber) : 0
           const bNum = b.productNumber ? parseInt(b.productNumber) : 0
           return bNum - aNum
+        }
         default:
           return 0
       }
@@ -297,6 +277,19 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
 
     return filtered
   }, [products, searchQuery, filters, sortBy])
+
+  // Debounced search analytics: report settled queries (with result count,
+  // so zero-result searches are visible in GA)
+  const searchResultsCountRef = useRef(0)
+  searchResultsCountRef.current = filteredAndSortedProducts.length
+  useEffect(() => {
+    const query = searchQuery.trim()
+    if (query.length < 2) return
+    const timeout = setTimeout(() => {
+      trackSearch(query, searchResultsCountRef.current)
+    }, 1200)
+    return () => clearTimeout(timeout)
+  }, [searchQuery])
 
   const handleSearchChange = useCallback((query: string) => {
     setSearchQuery(query)

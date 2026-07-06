@@ -6,6 +6,7 @@ import { Search, X, Mic, MicOff } from 'lucide-react'
 import { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useVoiceSearch } from '@/hooks/useVoiceSearch'
+import { matchesProductSearch } from '@/lib/productSearch'
 
 interface ProductSearchProps {
   products: Product[]
@@ -75,12 +76,9 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
     }
 
     if (query.length > 0) {
-      // Generate suggestions based on product names and categories
+      // Same tokenized, locale-agnostic matching as the main results list
       const filtered = products
-        .filter(product => 
-          product.name.toLowerCase().includes(query.toLowerCase()) ||
-          product.category.toLowerCase().includes(query.toLowerCase())
-        )
+        .filter(product => matchesProductSearch(product, query))
         .slice(0, 5)
       setSuggestions(filtered)
     } else {

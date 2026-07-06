@@ -111,12 +111,13 @@ export const trackRegistration = (method: string = 'email') => {
   }
 };
 
-// Track search queries
-export const trackSearch = (searchTerm: string) => {
+// Track search queries (resultsCount surfaces zero-result searches in GA)
+export const trackSearch = (searchTerm: string, resultsCount?: number) => {
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', 'search', {
       search_term: searchTerm,
       event_category: 'engagement',
+      ...(typeof resultsCount === 'number' ? { results_count: resultsCount } : {}),
     });
   }
 };

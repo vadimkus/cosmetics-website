@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟢 **UI/Dev** | [ORDERS_AUDIT_2026-07-06.md](./ORDERS_AUDIT_2026-07-06.md) | **Orders & tracking audit.** Access control verified sound. Fixed: web `/orders` showed raw "CONFIRMED"/"PAID" (missing from status labels/colors — CONFIRMED is live in prod); mobile missing `out_for_delivery`. Rate-limited the public tracking endpoint (order numbers are sequential/guessable → was bulk-enumerable for customer names/items/totals). |
 | 🟢 **UI/Dev** | [AUTH_LOGIN_HARDENING_2026-07-06.md](./AUTH_LOGIN_HARDENING_2026-07-06.md) | **Login hardening (web+app).** `tokenVersion` revocation (password reset now logs out ALL devices; enforced at session/refresh/validate), 48 legacy plaintext passwords migrated to bcrypt + lazy-upgrade code removed, method-agnostic social-login message, timing-safe mobile token compare, register min 8 chars, AASA `webcredentials` + app entitlement + AutoFill props (TestFlight build 94), biometric v1 payloads auto-upgrade to token + password purge. |
 | 🟢 **UI/Dev** | [CHAT_ASSISTANT_AUDIT_2026-07-06.md](./CHAT_ASSISTANT_AUDIT_2026-07-06.md) | **AI chat (Genie) audit.** All 53 prompt products verified live. Fixed: eye-care advice carded the SCALP BRUSH (id 61 vs 17); dead Needle Pen-K (404) removed; mobile infinite spinner on failed cards; 12 missing sellable products added to the catalog (PDRN ampoules, Cerabarrier, Revita Glow BB, collagen mask, hair stamp, all 6 beauty boxes). |
 | 🟢 **UI/Dev** | [PASSWORD_RESET_AUDIT_2026-07-06.md](./PASSWORD_RESET_AUDIT_2026-07-06.md) | **Password reset full audit.** Backend solid (hashed single-use 30-min tokens, enumeration-proof, rate-limited). Fixed: email had button-only (no copyable link) while the app demanded a "reset code" → dead end; email now has a plain-link fallback, app accepts pasted link OR token + deep-link prefill, token table now purged. Flagged: sessions survive reset; register allows 6-char vs reset 8. |
@@ -28,6 +29,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-06_BROW_BEAUTY_CLINIC_ORDER.md](./SESSION_CHANGES_2026-07-06_BROW_BEAUTY_CLINIC_ORDER.md) | **Brow and Beauty Aesthetic Clinic L.L.C** — new counterparty (license 1582255) + PO **GENCardM260706BBAC** / **17,885 AED** (PDRN ×30 packs). |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-06_AMERICAN_MEDICAL_CENTER_HAIR_CASH.md](./SESSION_CHANGES_2026-07-06_AMERICAN_MEDICAL_CENTER_HAIR_CASH.md) | **American Medical Center DMCC** — invoice **04772** + shipment **06483** + cashin **00175** / **335 AED** (HR³ tonic + scalp peeling + delivery 45); Legal_TAX PDF → `~/Desktop/orders/`. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-01_COSMIDEN_MYLINE_CONSIGNMENT_SALES.md](./SESSION_CHANGES_2026-07-01_COSMIDEN_MYLINE_CONSIGNMENT_SALES.md) | **Cosmiden / Myline** — report **01389** / **1,339 AED** (June 2026 consignment sales); paymentin **05893** full settlement **2026-07-06**. |
 

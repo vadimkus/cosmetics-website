@@ -23,11 +23,16 @@ type OrderWithItems = Order & {
   discountAmount?: number | null
 }
 
-// Status translations
+// Status translations. Must cover every status the admin can assign
+// (PENDING, CONFIRMED, PAID, SHIPPED, DELIVERED, CANCELLED) plus tracking-only
+// states, otherwise the badge falls back to raw uppercase text (e.g. "CONFIRMED").
 const statusLabels: Record<string, Record<string, string>> = {
   pending: { en: 'Pending', ar: 'قيد الانتظار', ru: 'В ожидании' },
+  confirmed: { en: 'Confirmed', ar: 'تم التأكيد', ru: 'Подтверждён' },
+  paid: { en: 'Paid', ar: 'مدفوع', ru: 'Оплачено' },
   processing: { en: 'Processing', ar: 'قيد المعالجة', ru: 'В обработке' },
   shipped: { en: 'Shipped', ar: 'تم الشحن', ru: 'Отправлено' },
+  out_for_delivery: { en: 'Out for Delivery', ar: 'قيد التوصيل', ru: 'В доставке' },
   delivered: { en: 'Delivered', ar: 'تم التوصيل', ru: 'Доставлено' },
   cancelled: { en: 'Cancelled', ar: 'ملغاة', ru: 'Отменено' },
 }
@@ -125,6 +130,16 @@ function StatusBadge({ status, locale = 'en' }: { status: string; locale?: strin
       bg: 'bg-amber-50', 
       text: 'text-amber-700'
     },
+    confirmed: { 
+      icon: <CheckCircle className="w-3.5 h-3.5" />, 
+      bg: 'bg-teal-50', 
+      text: 'text-teal-700'
+    },
+    paid: { 
+      icon: <CheckCircle className="w-3.5 h-3.5" />, 
+      bg: 'bg-emerald-50', 
+      text: 'text-emerald-700'
+    },
     processing: { 
       icon: <RefreshCw className="w-3.5 h-3.5" />, 
       bg: 'bg-blue-50', 
@@ -134,6 +149,11 @@ function StatusBadge({ status, locale = 'en' }: { status: string; locale?: strin
       icon: <Truck className="w-3.5 h-3.5" />, 
       bg: 'bg-indigo-50', 
       text: 'text-indigo-700'
+    },
+    out_for_delivery: { 
+      icon: <Truck className="w-3.5 h-3.5" />, 
+      bg: 'bg-orange-50', 
+      text: 'text-orange-700'
     },
     delivered: { 
       icon: <CheckCircle className="w-3.5 h-3.5" />, 

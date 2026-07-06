@@ -1,6 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { debugLog, errorLog } from '@/lib/logger'
+import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
+
+// Order numbers are sequential/predictable (GEN + date + global counter), and
+// this endpoint is intentionally public (guest order tracking from email links).
+// Rate limit to stop bulk enumeration harvesting customer names/items/totals,
+// while staying generous for a real customer checking a few orders.
+const trackLimiter = rateLimitSimple({
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  max: 30,
+  message: 'Too many tracking requests. Please try again later.',
+})
 
 /**
  * GET /api/orders/track/[orderNumber]
@@ -9,10 +20,32 @@ import { debugLog, errorLog } from '@/lib/logger'
  * Returns limited order information (no customer details for privacy).
  */
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ orderNumber: string }> }
 ) {
   try {
+    // Rate limiting (fail closed) — anti-enumeration
+    let clientId = 'unknown'
+    try {
+      clientId = getClientIdentifierFromNextRequest(request)
+    } catch { /* fall through with 'unknown' */ }
+    let rl
+    try {
+      rl = await trackLimiter(clientId)
+    } catch (rlErr) {
+      errorLog('[ORDER_TRACK] Rate limiter error:', rlErr)
+      return NextResponse.json(
+        { success: false, error: 'Service temporarily unavailable. Please try again later.' },
+        { status: 503 }
+      )
+    }
+    if (!rl || !rl.success) {
+      return NextResponse.json(
+        { success: false, error: rl?.message || 'Too many requests' },
+        { status: 429 }
+      )
+    }
+
     const { orderNumber } = await params
     
     if (!orderNumber || typeof orderNumber !== 'string') {

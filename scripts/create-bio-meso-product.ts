@@ -13,7 +13,7 @@ async function main() {
 
 It features a 2-way system for customizable care:
 • Professional Use (Expert Ampoule 60000): Higher concentration for clinic-based treatments.
-• Home-Use (Homecare Ampoule 50000): Lower concentration for ongoing maintenance.
+• Home-Use (Homecare Ampoule 5000): Lower concentration for ongoing maintenance.
 
 The ampoule functions as a spicule peeling or bio-meso peeling treatment, inducing a peel-off effect on the skin. It contains a significantly higher concentration of spicules compared to other products, delivering intensive results.`,
 
@@ -70,7 +70,7 @@ The ampoule functions as a spicule peeling or bio-meso peeling treatment, induci
 
     howToUse: `Professional Treatment (Expert 60000): Equivalent to a 1.0mm needle depth; recommended once a month. Start with professional sessions for deep stimulation, then transition to home care.
 
-Home Care (Homecare 50000): Use for frequent, gentle reinforcement to maintain results. Apply after professional treatment to support barrier repair and collagen remodeling.
+Home Care (Homecare 5000): Use for frequent, gentle reinforcement to maintain results. Apply after professional treatment to support barrier repair and collagen remodeling.
 
 General Approach: Apply topically to create microchannels. High-dose spicules (60,000 ppm) for periodic intensive therapy; moderate-dose for daily/weekly reinforcement.
 

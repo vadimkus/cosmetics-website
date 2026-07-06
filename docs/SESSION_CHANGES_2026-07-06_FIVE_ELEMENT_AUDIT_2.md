@@ -78,6 +78,26 @@ subtotal, `>= 1000` inclusive. (All numbers agreed across the codebase.)
 Verified live: HSTS + nosniff + Referrer-Policy present; `/api/analytics` now
 401; robots serves a single sitemap.
 
+## Follow-up hardening (commit `797dfe48`)
+- **Chat endpoint** had only an in-memory rate map that reset on every
+  serverless cold start (effectively bypassable; each message is a paid OpenAI
+  call). Replaced with the DB-backed limiter — 10/min burst + 200/day per IP —
+  plus a request body-size cap.
+- Added `/.well-known/security.txt` (RFC 9116).
+- Dropped the dummy `postalCode: "00000"` from LocalBusiness schema (optional
+  for UAE; fake value hurts the validator).
+- Left the `/api/revalidate` GET as-is: it's secret-gated and may be used by an
+  external revalidation trigger, so removing it risks breakage for a low-sev
+  secret-in-URL concern.
+
+## Deferred (documented, not changed)
+Blog: comment moderation queue (all auto-approve — product decision), index
+pagination (capped at 20), AR/RU move sanitize to server (client-sanitized
+today so not exploitable), dead `ArabicBlogPageClient.tsx`, blog image served
+via API route, RU listing raw-SQL migration guard. SEO: robots `Allow:` lines
+for alias paths, sitemap 500-post cap. Contact: chat "talk to a human"
+escalation, Android Google OAuth client ID (needs Google Cloud Console).
+
 ## Files
 Web: `lib/mobileCheckoutConfig.ts`, `app/cart/CartClient.tsx`,
 `components/footer/Footer.tsx`, `app/ar/contact/page.tsx`,

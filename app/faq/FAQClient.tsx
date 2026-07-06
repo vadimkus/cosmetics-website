@@ -12,6 +12,8 @@ import PWAPageWrapper from '@/components/pwa/PWAPageWrapper'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { sanitizeHtml } from '@/lib/sanitize'
+import { stripHtml } from '@/lib/sanitizeHtml'
+import { toJsonLd } from '@/lib/jsonLd'
 import { usePWAMode } from '@/hooks/usePWAMode'
 
 interface FaqItemData {
@@ -77,6 +79,9 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
       category: (item.category || 'general') as CategoryKey,
       question,
       answer,
+      // Plain-text copy of the answer for search — matching against raw HTML
+      // would let tag/attribute names (e.g. "strong", "href") count as hits.
+      answerText: stripHtml(answer),
     }
   }), [faqItems, locale])
 
@@ -96,7 +101,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
       const q = searchQuery.toLowerCase()
       result = result.filter(f =>
         f.question.toLowerCase().includes(q) ||
-        f.answer.toLowerCase().includes(q)
+        f.answerText.toLowerCase().includes(q)
       )
     }
 
@@ -121,12 +126,37 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
   const toggleFAQ = (id: string) => {
     setOpenIds(prev => {
       const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+        // Reflect the opened question in the URL so it can be shared/bookmarked.
+        // replaceState (not a hash assignment) avoids a scroll jump.
+        if (typeof window !== 'undefined') {
+          window.history.replaceState(null, '', `#q-${id}`)
+        }
+      }
       return next
     })
     setExpandAll(false)
   }
+
+  // Open + scroll to a question linked directly via #q-<id> (shared/bookmarked
+  // link, or a click from elsewhere on the site). Runs once after the list is
+  // populated.
+  useEffect(() => {
+    if (typeof window === 'undefined' || faqs.length === 0) return
+    const hash = window.location.hash
+    if (!hash.startsWith('#q-')) return
+    const id = hash.slice(3)
+    if (!faqs.some(f => f.id === id)) return
+    setOpenIds(prev => new Set(prev).add(id))
+    // Wait a frame so the target is in the DOM before scrolling.
+    const t = setTimeout(() => {
+      document.getElementById(`q-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }, 150)
+    return () => clearTimeout(t)
+  }, [faqs])
 
   const handleExpandAll = () => {
     if (expandAll) {
@@ -164,21 +194,27 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
         ]}
       />
       
+      {/* Single FAQPage schema built from the visible questions. Answers are
+          HTML-stripped to plain text (schema.org Answer.text expects text, and
+          Google penalises markup that doesn't match the rendered text), and the
+          whole payload is escaped so a stored `</script>` can't break out. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: toJsonLd({
             "@context": "https://schema.org",
             "@type": "FAQPage",
+            "url": getLocalizedPath('/faq', locale),
+            "inLanguage": locale,
             "mainEntity": faqs.map(faq => ({
               "@type": "Question",
               "name": faq.question,
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": faq.answer
+                "text": stripHtml(faq.answer)
               }
             }))
-          }, null, 2)
+          })
         }}
       />
       
@@ -425,12 +461,14 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                       return (
                         <div
                           key={faq.id}
-                          className={idx > 0 ? 'border-t border-gray-100' : ''}
+                          id={`q-${faq.id}`}
+                          className={`scroll-mt-24 ${idx > 0 ? 'border-t border-gray-100' : ''}`}
                         >
                           <button
                             onClick={() => toggleFAQ(faq.id)}
                             className="w-full px-4 py-3.5 text-left flex items-center justify-between active:bg-gray-50 transition-colors"
                             aria-expanded={isOpen}
+                            aria-controls={`faq-answer-${faq.id}`}
                           >
                             <h3 className={`text-sm font-semibold text-gray-900 ${dir === 'rtl' ? 'pl-2 text-right' : 'pr-2'} flex-1`}>
                               {faq.question}
@@ -444,6 +482,8 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                             </div>
                           </button>
                           <div
+                            id={`faq-answer-${faq.id}`}
+                            role="region"
                             className={`overflow-hidden transition-all duration-300 ease-in-out ${
                               isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
                             }`}
@@ -473,12 +513,14 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                       return (
                         <div
                           key={faq.id}
-                          className={`group ${idx > 0 ? 'border-t border-gray-100' : ''}`}
+                          id={`q-${faq.id}`}
+                          className={`group scroll-mt-24 ${idx > 0 ? 'border-t border-gray-100' : ''}`}
                         >
                           <button
                             onClick={() => toggleFAQ(faq.id)}
                             className={`relative w-full px-5 md:px-7 py-4 md:py-5 text-left flex items-start gap-4 transition-colors hover:bg-gray-50/70 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}
                             aria-expanded={isOpen}
+                            aria-controls={`faq-answer-d-${faq.id}`}
                           >
                             {/* Number marker — editorial detail */}
                             <span className="hidden md:inline-flex h-6 min-w-[2.25rem] items-center justify-center rounded-full bg-gray-100 px-2 text-[10px] font-mono uppercase tracking-[0.18em] text-gray-500 mt-0.5 flex-shrink-0">
@@ -502,6 +544,8 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                             </div>
                           </button>
                           <div
+                            id={`faq-answer-d-${faq.id}`}
+                            role="region"
                             className={`overflow-hidden transition-all duration-300 ease-in-out ${
                               isOpen ? 'max-h-[2000px] opacity-100' : 'max-h-0 opacity-0'
                             }`}

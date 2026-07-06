@@ -1,6 +1,5 @@
 import FAQClient from './FAQClient'
 import { getActiveFaqItems } from '@/lib/faqDb'
-import GeoFaqSchema, { GENOSYS_FAQ_EN } from '@/components/schema/GeoFaqSchema'
 import type { Metadata } from 'next'
 
 // ISR: cache for 5 min; admin routes revalidateTag('faq', 'max') on mutation.
@@ -69,11 +68,11 @@ export const metadata: Metadata = {
 export default async function FAQPage() {
   const faqItems = await getActiveFaqItems()
 
-  return (
-    <>
-      <GeoFaqSchema items={GENOSYS_FAQ_EN} pageUrl="/faq" language="en" />
-      <FAQClient faqItems={faqItems} />
-    </>
-  )
+  // NOTE: the FAQPage JSON-LD is emitted once inside FAQClient, built from the
+  // actual (visible) DB questions. We intentionally do NOT also render the
+  // hardcoded GeoFaqSchema here — two FAQPage blocks on one URL, and marking up
+  // questions that aren't visible on the page, both violate Google's rich-result
+  // guidelines and risk the markup being ignored.
+  return <FAQClient faqItems={faqItems} />
 }
 

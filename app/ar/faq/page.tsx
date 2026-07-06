@@ -1,7 +1,6 @@
 import FAQClient from '../../faq/FAQClient'
 import { getActiveFaqItems } from '@/lib/faqDb'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
-import GeoFaqSchema, { GENOSYS_FAQ_AR } from '@/components/schema/GeoFaqSchema'
 import type { Metadata } from 'next'
 
 export const revalidate = 300
@@ -73,7 +72,8 @@ export default async function ArabicFAQPage() {
           { name: 'الأسئلة الشائعة', url: '/ar/faq' },
         ]}
       />
-      <GeoFaqSchema items={GENOSYS_FAQ_AR} pageUrl="/ar/faq" language="ar" />
+      {/* FAQPage JSON-LD is emitted once inside FAQClient from the visible DB
+          questions — no duplicate hardcoded GeoFaqSchema here. */}
       <FAQClient faqItems={faqItems} />
     </>
   )

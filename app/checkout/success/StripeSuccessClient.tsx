@@ -99,20 +99,27 @@ export default function StripeSuccessClient() {
           }, 4000)
         }
 
-        // Track successful payment in Google Analytics
-        if (typeof window !== 'undefined') {
-          trackGtagEvent('purchase', {
-            transaction_id: data.order.orderNumber,
-            value: data.order.total,
-            currency: 'AED',
-            items: data.order.items.map((item, index) => ({
-              item_id: `item-${index}`,
-              item_name: item.productName,
-              category: 'Cosmetics',
-              quantity: item.quantity,
-              price: item.price
-            }))
-          })
+        // Track successful payment in Google Analytics — once per order
+        // (guarded so a reload/back-nav to this URL doesn't double-count).
+        if (typeof window !== 'undefined' && data.paymentStatus === 'paid') {
+          try {
+            const key = `ga_purchase_${data.order.orderNumber}`
+            if (!sessionStorage.getItem(key)) {
+              sessionStorage.setItem(key, '1')
+              trackGtagEvent('purchase', {
+                transaction_id: data.order.orderNumber,
+                value: data.order.total,
+                currency: 'AED',
+                items: data.order.items.map((item, index) => ({
+                  item_id: `item-${index}`,
+                  item_name: item.productName,
+                  category: 'Cosmetics',
+                  quantity: item.quantity,
+                  price: item.price
+                }))
+              })
+            }
+          } catch { /* best-effort */ }
         }
 
       } catch (error) {

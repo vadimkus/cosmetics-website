@@ -79,6 +79,10 @@ export default function DesktopHero3DVisual() {
   // Buffer detection: the moment the browser estimates it can play through.
   useEffect(() => {
     if (reduceMotion) return
+    // Wait for the browser to go idle (post-LCP) before fetching the ~12MB
+    // hero loop — with preload="none" the fetch only starts when we call
+    // load(), so it no longer competes with LCP images / hydration.
+    if (!idleReady) return
     const v = videoRef.current
     if (!v) return
 
@@ -91,13 +95,15 @@ export default function DesktopHero3DVisual() {
       handleReady()
     } else {
       v.addEventListener('canplaythrough', handleReady, { once: true })
+      // Kick off buffering now that we're idle (preload="none" won't fetch on its own).
+      try { v.load() } catch { /* noop */ }
     }
 
     return () => {
       cancelled = true
       v.removeEventListener('canplaythrough', handleReady)
     }
-  }, [reduceMotion])
+  }, [reduceMotion, idleReady])
 
   // First buffer-ready → kick the first cycle automatically.
   useEffect(() => {
@@ -170,7 +176,7 @@ export default function DesktopHero3DVisual() {
           src={VIDEO_SRC}
           muted
           playsInline
-          preload="auto"
+          preload="none"
           aria-hidden
           onEnded={handleEnded}
           className={`pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_30%] transition-opacity duration-[900ms] ease-in-out ${

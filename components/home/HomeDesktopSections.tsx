@@ -360,6 +360,7 @@ export default function HomeDesktopSections({
                           alt={name}
                           width={400}
                           height={400}
+                          sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 400px"
                           className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                           quality={80}
                         />
@@ -502,6 +503,7 @@ export default function HomeDesktopSections({
                             alt=""
                             width={320}
                             height={320}
+                            sizes="(max-width: 768px) 50vw, (max-width: 1280px) 30vw, 320px"
                             className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
                             aria-hidden="true"
                           />

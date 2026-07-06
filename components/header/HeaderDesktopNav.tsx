@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useAuth } from '@/components/auth/AuthProvider'
@@ -17,8 +18,9 @@ interface HeaderDesktopNavProps {
 export default function HeaderDesktopNav({ isRTL, isClient }: HeaderDesktopNavProps) {
   const { t, locale } = useTranslation()
   const { user } = useAuth()
+  const pathname = usePathname()
 
-  const linkClass = "text-gray-700 hover:text-primary-600 transition-colors"
+  const linkClass = "text-gray-700 hover:text-primary-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 rounded"
   
   // Navigation links (in LTR order)
   const links = [
@@ -40,15 +42,20 @@ export default function HeaderDesktopNav({ isRTL, isClient }: HeaderDesktopNavPr
       role="navigation" 
       aria-label="Main navigation"
     >
-      {orderedLinks.map((link) => (
-        <Link 
-          key={link.href}
-          href={getLocalizedPath(link.href, locale)} 
-          className={linkClass}
-        >
-          {link.label}
-        </Link>
-      ))}
+      {orderedLinks.map((link) => {
+        const localizedHref = getLocalizedPath(link.href, locale)
+        const isActive = pathname === localizedHref
+        return (
+          <Link
+            key={link.href}
+            href={localizedHref}
+            className={linkClass}
+            aria-current={isActive ? 'page' : undefined}
+          >
+            {link.label}
+          </Link>
+        )
+      })}
     </nav>
   )
 }

@@ -52,10 +52,16 @@ export function ToastProvider({ children }: ToastProviderProps) {
       {children}
       
       {/* Toast Container */}
-      <div className="fixed top-4 right-4 z-[9999] space-y-2 max-w-sm pointer-events-none">
+      <div
+        className="fixed top-4 right-4 z-[9999] space-y-2 max-w-sm pointer-events-none"
+        role="region"
+        aria-label="Notifications"
+        aria-live="polite"
+      >
         {toasts.map((toast) => (
           <div
             key={toast.id}
+            role="status"
             className={`flex items-start gap-3 p-4 rounded-xl shadow-lg backdrop-blur-sm transition-all duration-300 animate-slide-in pointer-events-auto ${
               toast.type === 'success' ? 'bg-green-50/95 border border-green-200' :
               toast.type === 'error' ? 'bg-red-50/95 border border-red-200' :
@@ -78,10 +84,12 @@ export function ToastProvider({ children }: ToastProviderProps) {
             </p>
             
             <button
+              type="button"
               onClick={() => removeToast(toast.id)}
+              aria-label="Dismiss notification"
               className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         ))}

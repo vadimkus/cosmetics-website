@@ -58,6 +58,7 @@ import NetworkStatus from '@/components/NetworkStatus'
 import SkipToContent from '@/components/SkipToContent'
 // Lazy load ChatWidget via client wrapper (uses AI SDK, renders on every page)
 import ChatWidgetLazy from '@/components/ChatWidgetLazy'
+import CookieConsentBanner from '@/components/CookieConsentBanner'
 import { getSiteUrl } from '@/lib/siteConfig'
 
 const inter = Inter({ 
@@ -245,9 +246,9 @@ export default async function RootLayout({
       <head>
         {/* Browser auto-translation mutates React-owned text nodes and can crash route transitions. */}
         <meta name="google" content="notranslate" />
-        {/* Preconnect to external domains for faster resource loading */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Preconnect to external domains for faster resource loading.
+            NOTE: no fonts.googleapis/gstatic preconnect — next/font self-hosts
+            fonts at build time, so those origins are never fetched at runtime. */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GENOSYS Search" />
@@ -272,15 +273,40 @@ export default async function RootLayout({
             __html: `(function(){try{var s=localStorage.getItem('genosys-theme'),d=window.matchMedia('(prefers-color-scheme:dark)').matches,t=s==='dark'?'dark':s==='light'?'light':d?'dark':'light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t)}catch(e){}})()`,
           }}
         />
-        {/* Google Analytics */}
+        {/* Google Analytics with Consent Mode v2.
+            Consent defaults to DENIED (cookieless pings only) until the visitor
+            accepts via the cookie banner, which calls gtag('consent','update').
+            A previously stored 'accepted' choice is replayed here so returning
+            visitors aren't re-gated. */}
+        <Script id="ga-consent-default" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              analytics_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              wait_for_update: 500
+            });
+            try {
+              if (localStorage.getItem('genosys_cookie_consent') === 'accepted') {
+                gtag('consent', 'update', {
+                  ad_storage: 'granted',
+                  analytics_storage: 'granted',
+                  ad_user_data: 'granted',
+                  ad_personalization: 'granted'
+                });
+              }
+            } catch (e) {}
+          `}
+        </Script>
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-50SH0F79YG"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-50SH0F79YG');
           `}
@@ -327,6 +353,7 @@ export default async function RootLayout({
                       <SyncStatusIndicator />
                       <NetworkStatus />
                       <ChatWidgetLazy />
+                      <CookieConsentBanner />
                     </ServiceWorkerProvider>
                   </CartProvider>
                 </FavoritesProvider>

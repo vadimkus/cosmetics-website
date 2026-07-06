@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import { trackPageView } from '@/lib/analytics'
+import { getConsent } from '@/lib/consent'
 
 export default function PageViewTracker() {
   const pathname = usePathname()
@@ -10,6 +11,22 @@ export default function PageViewTracker() {
   useEffect(() => {
     if (typeof window === 'undefined' || !pathname) return
 
+    // First-party analytics (IP/geo/device) only runs with explicit consent.
+    // GA itself is gated separately via Consent Mode. Re-run when consent
+    // changes so an accept mid-session starts capturing without a reload.
+    const record = () => {
+      if (getConsent() !== 'accepted') return
+      sendPageView(pathname)
+    }
+    record()
+    window.addEventListener('genosys-consent-change', record)
+    return () => window.removeEventListener('genosys-consent-change', record)
+  }, [pathname])
+
+  return null
+}
+
+function sendPageView(pathname: string) {
     trackPageView(pathname)
 
     // Best-effort POST to our own analytics pipe.
@@ -40,7 +57,4 @@ export default function PageViewTracker() {
       body,
       keepalive: true,
     }).catch(() => {})
-  }, [pathname])
-
-  return null
 }

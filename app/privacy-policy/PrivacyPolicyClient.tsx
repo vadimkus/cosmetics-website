@@ -172,28 +172,34 @@ export default function PrivacyPolicyClient() {
       'شركاء التوصيل: لتسليم طلباتك (الاسم، العنوان، رقم الهاتف فقط)',
       'OpenAI: لميزات تحليل البشرة والمساعد الذكي (بيانات مجهولة الهوية)',
       'Vercel: استضافة الموقع (بيانات مجهولة الهوية)',
+      'Google Analytics: تحليلات الاستخدام (بموافقتك فقط)',
+      'ipapi.co: تحديد الموقع التقريبي من عنوان IP للتحليلات (بموافقتك فقط)',
       'السلطات القانونية: عند الطلب بموجب القانون الإماراتي',
     ] : locale === 'ru' ? [
       'Stripe: для безопасной обработки платежей',
       'Партнёры по доставке: для доставки заказов (только имя, адрес, телефон)',
       'OpenAI: для анализа кожи и ИИ-ассистента (обезличенные данные)',
       'Vercel: хостинг сайта (обезличенные данные)',
+      'Google Analytics: аналитика использования (только с вашего согласия)',
+      'ipapi.co: приблизительная геолокация по IP для аналитики (только с вашего согласия)',
       'Правоохранительные органы: по требованию закона ОАЭ',
     ] : [
       'Stripe: for secure payment processing',
       'Delivery partners: to fulfil your orders (name, address, phone only)',
       'OpenAI: for AI skin analysis and chat assistant (anonymized data)',
       'Vercel: website hosting (anonymized data)',
+      'Google Analytics: usage analytics (only with your consent)',
+      'ipapi.co: approximate IP geolocation for analytics (only with your consent)',
       'Law enforcement: when required by UAE law',
     ],
 
     // 9. Cookies
     s9Title: locale === 'ar' ? '9. ملفات تعريف الارتباط والتتبع' : locale === 'ru' ? '9. Файлы cookie и отслеживание' : '9. Cookies & Tracking',
     s9Text: locale === 'ar'
-      ? 'نستخدم ملفات تعريف الارتباط الأساسية للحفاظ على جلسة تسجيل الدخول وسلة التسوق وتفضيلات اللغة. لا نستخدم ملفات تعريف ارتباط للتتبع من أطراف ثالثة أو إعلانات مستهدفة.'
+      ? 'نستخدم ملفات تعريف الارتباط الأساسية للحفاظ على جلسة تسجيل الدخول وسلة التسوق وتفضيلات اللغة. بموافقتك فقط، نستخدم أيضاً Google Analytics (ملفات _ga) وملف تعريف ارتباط تحليلي خاص بنا (genosys_session_id) لفهم استخدام الموقع، وقد يشمل ذلك عنوان IP والموقع التقريبي (عبر خدمة ipapi.co) ونوع الجهاز. يمكنك القبول أو الرفض عبر شريط الموافقة على ملفات تعريف الارتباط، ولن يتم تفعيل التحليلات قبل موافقتك. لا نستخدم إعلانات مستهدفة.'
       : locale === 'ru'
-        ? 'Мы используем только необходимые файлы cookie для поддержания сессии входа, корзины и языковых настроек. Мы не используем сторонние отслеживающие cookie или таргетированную рекламу.'
-        : 'We use essential cookies to maintain your login session, shopping cart, and language preferences. We do not use third-party tracking cookies or targeted advertising.',
+        ? 'Мы используем необходимые файлы cookie для сессии входа, корзины и языковых настроек. Только с вашего согласия мы также используем Google Analytics (cookie _ga) и наш собственный аналитический cookie (genosys_session_id) для анализа использования сайта — это может включать IP-адрес, приблизительную геолокацию (через сервис ipapi.co) и тип устройства. Вы можете принять или отклонить это в баннере согласия; аналитика не активируется до вашего согласия. Мы не используем таргетированную рекламу.'
+        : 'We use essential cookies to maintain your login session, shopping cart, and language preferences. With your consent only, we also use Google Analytics (the _ga cookies) and our own first-party analytics cookie (genosys_session_id) to understand site usage — this may include your IP address, approximate location (via the ipapi.co service), and device type. You can accept or decline via the cookie consent banner; analytics does not activate before you consent. We do not use targeted advertising.',
 
     // 10. Data Security
     s10Title: locale === 'ar' ? '10. أمن البيانات' : locale === 'ru' ? '10. Безопасность данных' : '10. Data Security',

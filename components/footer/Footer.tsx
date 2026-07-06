@@ -443,7 +443,7 @@ export default function Footer() {
               by Stripe; we surface the Stripe trust mark on the right. */}
           <div className={`flex flex-wrap items-center gap-x-3 gap-y-2 ${locale === 'ar' ? 'flex-row-reverse' : ''}`}>
             <div className="flex items-center gap-2" aria-label="Accepted payment methods">
-              <span className="text-[11px] text-gray-500 uppercase tracking-wider mr-1">
+              <span className={`text-[11px] text-gray-500 uppercase tracking-wider ${locale === 'ar' ? 'ml-1' : 'mr-1'}`}>
                 {copy.links.payment}
               </span>
               {/* Payment-method chips. Shared base class for symmetry; each
@@ -503,7 +503,7 @@ export default function Footer() {
                 hairline underline grows in from the start side. Uses a
                 named group so it doesn't conflict with the per-chip
                 `group/pay` above. */}
-            <span className="group/stripe inline-flex items-center gap-1.5 text-[11px] text-gray-500 border-l border-gray-200 pl-3 ml-1 transition-colors duration-300 hover:text-gray-700 cursor-default">
+            <span className={`group/stripe inline-flex items-center gap-1.5 text-[11px] text-gray-500 ${locale === 'ar' ? 'border-r pr-3 mr-1' : 'border-l pl-3 ml-1'} border-gray-200 transition-colors duration-300 hover:text-gray-700 cursor-default`}>
               <ShieldCheck
                 className="h-3.5 w-3.5 text-emerald-600 transition-transform duration-300 ease-out group-hover/stripe:scale-125 group-hover/stripe:text-emerald-500 motion-reduce:group-hover/stripe:scale-100"
                 aria-hidden="true"
@@ -527,7 +527,8 @@ export default function Footer() {
         {/* Mobile fallback (in case mobile detection hasn't resolved yet).
             This keeps pre-existing behavior for crawlers and SSR. */}
         <div className="md:hidden text-center py-4">
-          <p className="text-[10px] text-gray-400" suppressHydrationWarning>
+          {/* text-gray-600 for WCAG AA contrast at this tiny size */}
+          <p className="text-[10px] text-gray-600" suppressHydrationWarning>
             {t('footer.copyright')}
           </p>
         </div>

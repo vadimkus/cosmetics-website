@@ -62,6 +62,32 @@ export const trackAddToCart = (product: {
   }
 };
 
+// Track begin_checkout (user lands on the checkout page)
+export const trackBeginCheckout = (cart: {
+  value: number;
+  items: Array<{
+    id: string;
+    name: string;
+    category?: string;
+    price: number;
+    quantity: number;
+  }>;
+}) => {
+  if (typeof window !== 'undefined' && window.gtag) {
+    window.gtag('event', 'begin_checkout', {
+      currency: 'AED',
+      value: cart.value,
+      items: cart.items.map(item => ({
+        item_id: item.id,
+        item_name: item.name,
+        category: item.category,
+        price: item.price,
+        quantity: item.quantity,
+      }))
+    });
+  }
+};
+
 // Track purchase
 export const trackPurchase = (order: {
   id: string;

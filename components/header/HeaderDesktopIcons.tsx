@@ -51,7 +51,11 @@ export default function HeaderDesktopIcons({
         rel="noopener noreferrer"
         className="text-sm text-gray-600 hover:text-green-600 transition-colors flex items-center gap-1 header-contact-link"
       >
-        {isRTL ? '📱 +971 58 548 76 65' : '+971 58 548 76 65 📱'}
+        {isRTL ? (
+          <><span aria-hidden="true">📱</span> +971 58 548 76 65</>
+        ) : (
+          <>+971 58 548 76 65 <span aria-hidden="true">📱</span></>
+        )}
       </a>
       <a 
         href="mailto:sales@genosys.ae"

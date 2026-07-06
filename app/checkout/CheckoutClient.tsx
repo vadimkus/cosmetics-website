@@ -11,6 +11,7 @@ import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
 import { getCartDiscountSummary, getCartLinePayloadPricing, getCartLinePricing } from '@/lib/cartPricing'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { errorLog, debugLog } from '@/lib/logger'
+import { trackBeginCheckout } from '@/lib/analytics'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -49,6 +50,27 @@ export default function CheckoutClient() {
       errorLog('Failed to fetch CSRF token:', err)
     })
   }, [])
+
+  // GA4 begin_checkout — fire once when the checkout page has hydrated with items
+  const beginCheckoutFiredRef = useRef(false)
+  useEffect(() => {
+    if (beginCheckoutFiredRef.current) return
+    if (!_hasHydrated || items.length === 0) return
+    beginCheckoutFiredRef.current = true
+    try {
+      trackBeginCheckout({
+        value: getTotalPrice(user),
+        items: items.map(it => ({
+          id: it.product.id,
+          name: it.product.name,
+          category: it.product.category || 'Cosmetics',
+          price: it.product.price,
+          quantity: it.quantity,
+        })),
+      })
+    } catch { /* best-effort */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [_hasHydrated, items.length])
   // Website COD order number: CODW + YYMMDD + 4-digit sequence. Generated ONCE
   // so the number shown in the UI, the WhatsApp support message, and the
   // persisted COD order are all the same number. (Card payments get their
@@ -645,7 +667,7 @@ export default function CheckoutClient() {
                       
                       return (
                         <div key={`${item.product.id}-bundle`} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                          <div className="flex-1 min-w-0 pr-2">
+                          <div className={`flex-1 min-w-0 ${dir === 'rtl' ? 'pl-2' : 'pr-2'}`}>
                             <div className="text-sm font-medium text-gray-900">{item.product.name}</div>
                             <div className={`flex items-center gap-2 mt-0.5 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                               <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
@@ -654,7 +676,7 @@ export default function CheckoutClient() {
                               </span>
                             </div>
                           </div>
-                          <div className="text-right">
+                          <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
                             <span className="text-sm font-semibold text-purple-700">AED {linePricing.lineTotal.toFixed(2)}</span>
                             <div className="text-xs text-gray-400 line-through">AED {linePricing.retailLineTotal.toFixed(2)}</div>
                           </div>
@@ -667,7 +689,7 @@ export default function CheckoutClient() {
                     const isBeautyBox = linePricing.discountType === 'beauty_box'
                     return (
                       <div key={item.product.id} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <div className="flex-1 min-w-0 pr-2">
+                        <div className={`flex-1 min-w-0 ${dir === 'rtl' ? 'pl-2' : 'pr-2'}`}>
                           <div className="text-sm font-medium text-gray-900">{item.product.name}</div>
                           <div className={`flex items-center gap-2 mt-0.5 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                             <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
@@ -680,7 +702,7 @@ export default function CheckoutClient() {
                         </div>
                         <div className="shrink-0">
                           {hasDiscount ? (
-                            <div className="text-right">
+                            <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
                               <div className="text-xs text-gray-400 line-through">AED {linePricing.retailLineTotal.toFixed(2)}</div>
                               <div className="text-sm font-semibold text-green-600">AED {linePricing.lineTotal.toFixed(2)}</div>
                             </div>
@@ -694,7 +716,7 @@ export default function CheckoutClient() {
                   {/* Free masks */}
                   {freeMasks.map((mask) => (
                     <div key={mask.id} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className="flex-1 min-w-0 pr-2">
+                      <div className={`flex-1 min-w-0 ${dir === 'rtl' ? 'pl-2' : 'pr-2'}`}>
                         <div className="text-sm font-medium text-gray-900">{mask.name}</div>
                         <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {mask.quantity}</span>
                       </div>

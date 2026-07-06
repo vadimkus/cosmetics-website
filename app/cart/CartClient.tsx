@@ -232,9 +232,9 @@ export default function CartClient() {
           {!isAppLikeMode && (
             <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
               <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-              <span> / </span>
+              <span aria-hidden="true"> / </span>
               <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
-              <span> / </span>
+              <span aria-hidden="true"> / </span>
               <span className="text-gray-900 font-medium">{t('common.cart')}</span>
             </nav>
           )}
@@ -395,6 +395,7 @@ export default function CartClient() {
               muted
               playsInline
               autoPlay
+              aria-hidden="true"
             />
           )}
           {/* Image on top */}
@@ -445,9 +446,9 @@ export default function CartClient() {
       {!isAppLikeMode && (
         <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
           <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-          <span> / </span>
+          <span aria-hidden="true"> / </span>
           <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
-          <span> / </span>
+          <span aria-hidden="true"> / </span>
           <span className="text-gray-900 font-medium">{t('common.cart')}</span>
         </nav>
       )}
@@ -739,10 +740,11 @@ export default function CartClient() {
 
                 {/* Shipping Location */}
                 <div className="mb-4 md:mb-6">
-                  <label className={`block text-xs md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <label htmlFor="cart-emirate" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('cart.deliveryLocation')}
                   </label>
                   <select
+                    id="cart-emirate"
                     value={selectedEmirate}
                     onChange={(e) => setSelectedEmirate(e.target.value)}
                     className={`w-full p-2.5 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 text-sm md:text-base ${dir === 'rtl' ? 'text-right' : ''}`}

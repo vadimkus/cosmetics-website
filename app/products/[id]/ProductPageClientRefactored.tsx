@@ -1,5 +1,6 @@
 'use client'
 import { errorLog } from '@/lib/logger'
+import { trackProductView, trackAddToCart } from '@/lib/analytics'
 
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/components/cart/CartProvider'
@@ -147,6 +148,16 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
         : product
       
       await addItem(productToAdd, quantity, colorToPass, sizeToPass)
+      // GA4 add_to_cart
+      try {
+        trackAddToCart({
+          id: product.id,
+          name: product.name,
+          category: product.category || 'Cosmetics',
+          price: productToAdd.price,
+          quantity,
+        })
+      } catch { /* best-effort */ }
     } catch (error) {
       errorLog('Error adding to cart:', error)
       // Rethrow so callers (e.g. the mobile handler) don't show a false
@@ -154,6 +165,20 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
       throw error
     }
   }, [user, product, productNum, selectedSize, selectedColor, addItem, router, locale])
+
+  // GA4 view_item — fire once per product view
+  useEffect(() => {
+    if (!product?.id) return
+    try {
+      trackProductView({
+        id: product.id,
+        name: product.name,
+        category: product.category || 'Cosmetics',
+        price: product.price,
+      })
+    } catch { /* best-effort */ }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product?.id])
   
   // Handle toggle favorite
   const handleToggleFavorite = useCallback(() => {

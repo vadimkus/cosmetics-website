@@ -16,6 +16,7 @@ import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
+import { trackAddToCart } from '@/lib/analytics'
 import { translateCategory } from '@/utils/categoryTranslations'
 import type { UseProductCardReturn } from '../types'
 
@@ -114,6 +115,16 @@ export function useProductCard(product: Product): UseProductCardReturn {
     haptic.success()
     setIsAdding(true)
     addItem(product, 1, '', '')
+    // GA4 add_to_cart
+    try {
+      trackAddToCart({
+        id: product.id,
+        name: product.name,
+        category: product.category || 'Cosmetics',
+        price: product.price,
+        quantity: 1,
+      })
+    } catch { /* best-effort */ }
     setAddedToCartMessage(`${product.name} ${t('product.addedToCart') || 'added to cart'}`)
     
     addTimerRef.current = setTimeout(() => {

@@ -154,7 +154,7 @@ export default function ProductInfo({
             <Star key={i} className="h-5 w-5 fill-current" />
           ))}
         </div>
-        <span className="text-gray-600 text-sm ml-2">({(product.rating || 5.0).toFixed(1)}/5)</span>
+        <span className={`text-gray-600 text-sm ${locale === 'ar' ? 'mr-2' : 'ml-2'}`}>({(product.rating || 5.0).toFixed(1)}/5)</span>
       </div>
 
       {/* Price and Size */}
@@ -206,7 +206,7 @@ export default function ProductInfo({
           </>
         ) : user ? (
           <div className="flex items-center text-gray-500">
-            <Lock className="h-5 w-5 mr-2" />
+            <Lock className={`h-5 w-5 ${locale === 'ar' ? 'ml-2' : 'mr-2'}`} />
             <span className="text-lg">{t('product.priceLocked')}</span>
           </div>
         ) : (
@@ -350,7 +350,7 @@ export default function ProductInfo({
 
       {/* Quantity Selector */}
       <div className="flex items-center mt-6">
-        <h4 className="text-sm font-medium text-gray-700 mr-4">{t('product.quantity')}:</h4>
+        <h4 className={`text-sm font-medium text-gray-700 ${locale === 'ar' ? 'ml-4' : 'mr-4'}`}>{t('product.quantity')}:</h4>
         <div className="flex items-center border border-gray-300 rounded-lg">
           <button
             onClick={() => setQuantity((prev: number) => Math.max(1, prev - 1))}

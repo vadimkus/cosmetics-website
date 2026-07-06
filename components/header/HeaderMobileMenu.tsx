@@ -138,6 +138,7 @@ export default function HeaderMobileMenu({
                 {t('common.profile')}
               </Link>
               <button 
+                type="button"
                 onClick={() => {
                   logout()
                   handleLinkClick()

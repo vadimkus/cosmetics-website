@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ShoppingBag, ArrowLeft, MessageCircle, CheckCircle2, Mail, MapPin, Clock, Truck, Package } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
+import { trackPurchase } from '@/lib/analytics'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -99,6 +100,26 @@ function SuccessContent() {
         
         if (result.success && result.data) {
           setOrderData(result.data)
+          // GA4 purchase event — fire once per order (COD + card both land here;
+          // previously only Stripe-hosted-checkout tracked purchases). Guarded
+          // by sessionStorage so a reload/back-nav doesn't double-count.
+          try {
+            const key = `ga_purchase_${result.data.orderNumber}`
+            if (typeof window !== 'undefined' && !sessionStorage.getItem(key)) {
+              sessionStorage.setItem(key, '1')
+              trackPurchase({
+                id: result.data.orderNumber,
+                total: result.data.total,
+                items: (result.data.items || []).map((it: OrderItem) => ({
+                  id: it.productId,
+                  name: it.productName,
+                  category: 'Cosmetics',
+                  price: it.price,
+                  quantity: it.quantity,
+                })),
+              })
+            }
+          } catch { /* analytics is best-effort */ }
         }
       } catch (error) {
         errorLog('Failed to fetch order details:', error)

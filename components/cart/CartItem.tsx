@@ -412,7 +412,7 @@ function CartItemComponent({ item }: CartItemProps) {
               color: '#dc2626' 
             } : {}}
             transition={animationsEnabled ? springPresets.snappy : {}}
-            className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors touch-manipulation ml-3 md:ml-0 -mt-1 md:mt-0"
+            className={`p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors touch-manipulation ${isRTL ? 'mr-3 md:mr-0' : 'ml-3 md:ml-0'} -mt-1 md:mt-0`}
             aria-label={t('cart.removeItem')}
           >
             <Trash2 className="h-4 w-4 md:h-5 md:w-5" />

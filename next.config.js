@@ -87,8 +87,12 @@ const nextConfig = {
   
   // Enhanced compiler options
   compiler: {
-    // Don't remove console.log in production - we need it for build logs
-    removeConsole: false,
+    // Strip console.log/debug/info from the production browser bundle but keep
+    // console.error / console.warn (real errors + our warnLog). Reduces INP
+    // overhead from debugLog noise in hot paths (product, cart).
+    removeConsole: process.env.NODE_ENV === 'production'
+      ? { exclude: ['error', 'warn'] }
+      : false,
   },
   
   // Performance optimizations

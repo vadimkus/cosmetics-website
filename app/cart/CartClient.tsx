@@ -15,7 +15,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
 import { getCartLinePricing, getCartRetailTotal } from '@/lib/cartPricing'
-import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
+import { calculateVatIncluded, calculateMobileShipping, MOBILE_CHECKOUT_CONFIG } from '@/lib/mobileCheckoutConfig'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -78,16 +78,9 @@ export default function CartClient() {
   const [saleProgress, setSaleProgress] = useState(0)
   const [isSaleActive, setIsSaleActive] = useState(false)
 
-  // Emirates list with shipping costs
-  const emirates = [
-    { name: 'Dubai', shippingCost: 45 },
-    { name: 'Abu Dhabi', shippingCost: 70 },
-    { name: 'Sharjah', shippingCost: 70 },
-    { name: 'Ajman', shippingCost: 70 },
-    { name: 'Ras Al Khaimah', shippingCost: 70 },
-    { name: 'Fujairah', shippingCost: 70 },
-    { name: 'Umm Al Quwain', shippingCost: 70 }
-  ]
+  // Emirates list with shipping costs — single source of truth shared with
+  // checkout and the mobile backend (rates drift = display vs charge mismatch)
+  const emirates = MOBILE_CHECKOUT_CONFIG.emirates
 
   // Function to translate emirate names based on locale
   const getEmirateDisplayName = (emirateName: string): string => {
@@ -106,9 +99,8 @@ export default function CartClient() {
     return emirateName
   }
 
-  const selectedEmirateData = emirates.find(e => e.name === selectedEmirate)
   const subtotal = getTotalPrice(user)
-  const shippingCost = subtotal >= 1000 ? 0 : (selectedEmirateData?.shippingCost || 45)
+  const shippingCost = calculateMobileShipping(subtotal, selectedEmirate || 'Dubai')
   const total = subtotal + shippingCost
   
   // Check if Black Friday sale is active

@@ -1560,6 +1560,11 @@ export const emailTemplates = {
       : locale === 'ar'
       ? 'إذا لم تطلب هذا، يمكنك تجاهل هذا البريد الإلكتروني بأمان.<br>ستبقى كلمة المرور الخاصة بك دون تغيير.'
       : "If you didn't request this, you can safely ignore this email.<br>Your password will remain unchanged."
+    const linkFallbackText = locale === 'ru'
+      ? 'Кнопка не работает? Скопируйте и вставьте эту ссылку в браузер (или в приложение):'
+      : locale === 'ar'
+      ? 'الزر لا يعمل؟ انسخ هذا الرابط والصقه في المتصفح (أو في التطبيق):'
+      : "Button not working? Copy and paste this link into your browser (or the app):"
     
     return {
       subject: t.subject || headingText,
@@ -1630,6 +1635,14 @@ export const emailTemplates = {
                           </td>
                         </tr>
                       </table>
+                    </td>
+                  </tr>
+                  
+                  <!-- Plain link fallback (button-less email clients + copy into mobile app) -->
+                  <tr>
+                    <td style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-align: ${textAlign}; padding-bottom: 24px; line-height: 1.6;">
+                      ${linkFallbackText}<br>
+                      <a href="${resetUrl}" style="color: #0071e3; word-break: break-all; font-size: 12px;">${resetUrl}</a>
                     </td>
                   </tr>
                   

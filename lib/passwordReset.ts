@@ -296,6 +296,11 @@ export async function createPasswordResetToken(userId: string): Promise<string> 
       throw new Error('Password reset feature not configured. Please run database migration.')
     }
     
+    // Opportunistic purge: nothing else calls cleanupExpiredTokens, and
+    // verifyPasswordResetToken bcrypt-compares against EVERY live token,
+    // so keeping the table small keeps verification fast.
+    cleanupExpiredTokens().catch(() => {})
+    
     // Generate token
     const { plainToken, hashedToken, expiresAt } = await generatePasswordResetToken()
     

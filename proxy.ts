@@ -23,6 +23,9 @@ function withSecurityHeaders(response: NextResponse, requestId: string): NextRes
     'camera=(self), microphone=(), geolocation=(), payment=(self "https://js.stripe.com")'
   )
   response.headers.set('X-DNS-Prefetch-Control', 'on')
+  // Force HTTPS for a year (incl. subdomains). Safe: the site is HTTPS-only on
+  // Vercel. Not adding `preload` (that's a stronger, irreversible commitment).
+  response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains')
   response.headers.set('X-Request-Id', requestId)
   return response
 }

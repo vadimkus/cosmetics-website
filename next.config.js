@@ -147,24 +147,10 @@ const nextConfig = {
           { key: 'Cache-Control', value: 'no-cache, must-revalidate' },
         ],
       },
-      {
-        // Site-wide defensive headers. All additive and non-breaking — they do
-        // NOT restrict script/frame sources, so Stripe.js, Google Analytics,
-        // Google/Apple sign-in and the service worker keep working.
-        // Deliberately NOT setting X-Frame-Options or an enforcing CSP here:
-        // those risk breaking legit embedding / third-party scripts and need a
-        // dedicated hardening pass (start with CSP report-only).
-        source: '/:path*',
-        headers: [
-          { key: 'X-Content-Type-Options', value: 'nosniff' },
-          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
-          { key: 'Strict-Transport-Security', value: 'max-age=31536000; includeSubDomains' },
-          { key: 'X-DNS-Prefetch-Control', value: 'off' },
-          // camera=(self): skin-analysis camera. microphone=(self): voice search.
-          // geolocation disabled (not used client-side).
-          { key: 'Permissions-Policy', value: 'camera=(self), microphone=(self), geolocation=(), interest-cohort=()' },
-        ],
-      },
+      // NOTE: site-wide security headers (X-Frame-Options, X-Content-Type-Options,
+      // Referrer-Policy, Permissions-Policy, X-DNS-Prefetch-Control) are set in
+      // proxy.ts (the middleware) — do not duplicate them here or they'll
+      // conflict. HSTS is added there too.
     ]
   },
   

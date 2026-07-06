@@ -96,6 +96,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     openGraph: {
       title: productTitle,
       description: productDescription,
+      // Intentionally 'website', NOT 'product': OG type "product" expects
+      // product:price:amount, but prices are login-gated and deliberately not
+      // exposed in metadata. A priceless "product" card renders as incomplete.
       type: 'website',
       url: productUrl,
       siteName: 'GENOSYS',

@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Calendar, User, ArrowLeft } from 'lucide-react'
@@ -11,6 +12,8 @@ import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
 import { sanitizeHtml } from '@/lib/sanitize'
+import { stripHtml } from '@/lib/sanitizeHtml'
+import { toJsonLd } from '@/lib/jsonLd'
 import { optimizeBlogContentImages } from '@/lib/blogContentImages'
 import { buildUrl } from '@/lib/siteConfig'
 
@@ -36,7 +39,10 @@ type BlogPostWithComments = {
   }>
 }
 
-async function getBlogPost(slug: string): Promise<BlogPostWithComments | null> {
+// Wrapped in React.cache so generateMetadata() and the page component share a
+// single call per request — otherwise the view-count increment fired twice per
+// render (once for each), inflating views 2x.
+const getBlogPost = cache(async (slug: string): Promise<BlogPostWithComments | null> => {
   try {
     // Type-safe Prisma query with fallback for type checking
     type PrismaClientWithBlogPost = typeof prisma & {
@@ -87,7 +93,7 @@ async function getBlogPost(slug: string): Promise<BlogPostWithComments | null> {
     errorLog('Error fetching blog post:', error)
     return null
   }
-}
+})
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params
@@ -99,12 +105,13 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     }
   }
 
+  const metaDescription = post.excerpt || stripHtml(post.content).substring(0, 160)
   return {
     title: `${post.title} | GENOSYS Blog`,
-    description: post.excerpt || post.content.substring(0, 160),
+    description: metaDescription,
     openGraph: {
       title: post.title,
-      description: post.excerpt || post.content.substring(0, 160),
+      description: metaDescription,
       type: 'article',
       // When there's no featured image, omit the key entirely so the
       // file-based opengraph-image.tsx title card is used instead of
@@ -130,6 +137,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
         'en': `https://genosys.ae/blog/${slug}`,
         'ar': `https://genosys.ae/ar/blog/${slug}`,
         'ru': `https://genosys.ae/ru/blog/${slug}`,
+        'x-default': `https://genosys.ae/blog/${slug}`,
       },
     },
   }
@@ -195,11 +203,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
+            __html: toJsonLd({
               "@context": "https://schema.org",
               "@type": "BlogPosting",
               "headline": post.title,
-              "description": post.excerpt || post.content.substring(0, 160),
+              "description": post.excerpt || stripHtml(post.content).substring(0, 160),
               "image": post.featuredImage ? buildUrl(post.featuredImage) : buildUrl('/images/genosys-products.jpg'),
               "datePublished": post.publishedAt?.toISOString(),
               "dateModified": post.updatedAt.toISOString(),
@@ -219,7 +227,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 "@type": "WebPage",
                 "@id": `https://genosys.ae/blog/${post.slug}`
               }
-            }, null, 2)
+            })
           }}
         />
 

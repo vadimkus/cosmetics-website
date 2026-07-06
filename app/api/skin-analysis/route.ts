@@ -3,6 +3,7 @@ import { prisma } from '@/lib/database'
 import { debugLog, errorLog } from '@/lib/logger'
 import { findUserById, findUserByEmail } from '@/lib/userStorageDb'
 import { verifySessionToken } from '@/lib/jwt'
+import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 
 // Helper to get user from session cookie
 async function getUserFromSession(request: NextRequest) {
@@ -32,7 +33,19 @@ async function getUserFromSession(request: NextRequest) {
   }
 }
 
+// Unauthenticated writes allowed (guests can run analysis), so cap per IP to
+// stop table flooding. 20/hr covers repeated real sessions comfortably.
+const skinLimiter = rateLimitSimple({ windowMs: 60 * 60 * 1000, max: 20 })
+
 export async function POST(request: NextRequest) {
+  const rl = await skinLimiter(`skin:${getClientIdentifierFromNextRequest(request)}`)
+  if (!rl.success) {
+    return NextResponse.json(
+      { error: rl.message || 'Too many requests' },
+      { status: 429 }
+    )
+  }
+
   try {
     const user = await getUserFromSession(request)
     const userId = user?.id || null

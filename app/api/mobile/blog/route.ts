@@ -30,9 +30,11 @@ export async function GET(request: NextRequest) {
           id: true,
           title: true,
           titleRu: true,
+          titleAr: true,
           slug: true,
           excerpt: true,
           excerptRu: true,
+          excerptAr: true,
           featuredImage: true,
           authorName: true,
           publishedAt: true,
@@ -42,12 +44,22 @@ export async function GET(request: NextRequest) {
       prisma.blogPost.count({ where: { published: true } }),
     ])
 
-    // Format posts with locale-aware content
+    // Format posts with locale-aware content (AR was previously omitted, so
+    // Arabic app users saw English titles/excerpts in the blog list).
+    const localizedTitle = (post: (typeof posts)[number]) =>
+      locale === 'ru' ? (post.titleRu || post.title)
+      : locale === 'ar' ? (post.titleAr || post.title)
+      : post.title
+    const localizedExcerpt = (post: (typeof posts)[number]) =>
+      locale === 'ru' ? (post.excerptRu || post.excerpt)
+      : locale === 'ar' ? (post.excerptAr || post.excerpt)
+      : post.excerpt
+
     const formattedPosts = posts.map((post) => ({
       id: post.id,
-      title: locale === 'ru' && post.titleRu ? post.titleRu : post.title,
+      title: localizedTitle(post),
       slug: post.slug,
-      excerpt: locale === 'ru' && post.excerptRu ? post.excerptRu : post.excerpt,
+      excerpt: localizedExcerpt(post),
       featuredImage: post.featuredImage,
       authorName: post.authorName,
       publishedAt: post.publishedAt?.toISOString() || null,

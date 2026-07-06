@@ -102,6 +102,7 @@ export default function CartClient() {
   const subtotal = getTotalPrice(user)
   const shippingCost = calculateMobileShipping(subtotal, selectedEmirate || 'Dubai')
   const total = subtotal + shippingCost
+  const freeShippingThreshold = MOBILE_CHECKOUT_CONFIG.freeShippingThreshold
   
   // Check if Black Friday sale is active
   const blackFridayActive = isBlackFridaySaleActive()
@@ -669,17 +670,17 @@ export default function CartClient() {
                   <div className="mt-6 border-t border-gray-200 pt-6">
                     <div className={`p-4 border border-gray-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
                       <div className={`flex items-center gap-2 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <Truck className={`h-5 w-5 ${subtotal >= 1000 ? 'text-green-600' : 'text-primary-600'}`} />
+                        <Truck className={`h-5 w-5 ${subtotal >= freeShippingThreshold ? 'text-green-600' : 'text-primary-600'}`} />
                         <span className="text-sm font-medium text-gray-900">
                           {t('cart.freeDelivery')}
                         </span>
-                        {subtotal >= 1000 ? (
+                        {subtotal >= freeShippingThreshold ? (
                           <span className="text-xs font-semibold text-green-600">
                             {t('cart.unlocked')}
                           </span>
                         ) : (
                           <span className="text-xs text-gray-600">
-                            {subtotal < 1000 ? `AED ${(1000 - subtotal).toFixed(2)} ${t('cart.more')}` : ''}
+                            {subtotal < freeShippingThreshold ? `AED ${(freeShippingThreshold - subtotal).toFixed(2)} ${t('cart.more')}` : ''}
                           </span>
                         )}
                       </div>
@@ -688,14 +689,14 @@ export default function CartClient() {
                       <div className="w-full bg-gray-200 rounded-full h-2 mb-2 overflow-hidden">
                         <div
                           className={`h-full rounded-full transition-all duration-500 ${
-                            subtotal >= 1000 ? 'bg-green-600' : 'bg-gray-400'
+                            subtotal >= freeShippingThreshold ? 'bg-green-600' : 'bg-gray-400'
                           }`}
-                          style={{ width: `${Math.min(100, (subtotal / 1000) * 100)}%` }}
+                          style={{ width: `${Math.min(100, (subtotal / freeShippingThreshold) * 100)}%` }}
                         />
                       </div>
                       
                       <p className={`text-xs text-gray-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        {subtotal >= 1000 ? (
+                        {subtotal >= freeShippingThreshold ? (
                           <span className="font-medium text-green-600">
                             {t('cart.qualifyForFreeDelivery')}
                           </span>

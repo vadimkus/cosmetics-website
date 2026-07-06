@@ -30,12 +30,30 @@ export function normalizeEmirateName(emirate: string): string {
   return String(emirate || '').trim().toLowerCase();
 }
 
+/** Highest configured shipping rate — used as the fail-closed default. */
+const MAX_SHIPPING_COST = Math.max(
+  ...MOBILE_CHECKOUT_CONFIG.emirates.map((e) => e.shippingCost)
+);
+
+/** True only for a recognised UAE emirate in the config (case-insensitive). */
+export function isValidEmirate(emirate: string): boolean {
+  const key = normalizeEmirateName(emirate);
+  return MOBILE_CHECKOUT_CONFIG.emirates.some(
+    (e) => normalizeEmirateName(e.name) === key
+  );
+}
+
 export function getShippingCostForEmirate(emirate: string): number {
   const key = normalizeEmirateName(emirate);
   const found = MOBILE_CHECKOUT_CONFIG.emirates.find(
     (e) => normalizeEmirateName(e.name) === key
   );
-  return Number(found?.shippingCost) || 0;
+  // Fail CLOSED: an unrecognised emirate (typo, tampering, wrong script) must
+  // never yield free shipping. Charge the highest configured rate instead of 0.
+  // The checkout UI constrains selection to the config list, so this only
+  // triggers on malformed/tampered requests.
+  if (!found) return MAX_SHIPPING_COST;
+  return found.shippingCost;
 }
 
 export function calculateMobileShipping(subtotal: number, emirate: string): number {

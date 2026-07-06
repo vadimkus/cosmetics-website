@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 import { BlogPostPageProps } from '@/types/common'
@@ -6,6 +7,8 @@ import { notFound } from 'next/navigation'
 import { errorLog } from '@/lib/logger'
 import ArabicBlogPostClient from './ArabicBlogPostClient'
 import { buildUrl } from '@/lib/siteConfig'
+import { stripHtml } from '@/lib/sanitizeHtml'
+import { toJsonLd } from '@/lib/jsonLd'
 
 // Match the EN blog slug page — ISR every 60 seconds so edits propagate quickly.
 export const revalidate = 60
@@ -32,7 +35,9 @@ type BlogPostWithComments = {
   }>
 }
 
-async function getBlogPost(slug: string): Promise<BlogPostWithComments | null> {
+// React.cache: share one call per request across generateMetadata + page,
+// so the view-count increment fires once, not twice.
+const getBlogPost = cache(async (slug: string): Promise<BlogPostWithComments | null> => {
   try {
     // Type-safe Prisma query with fallback for type checking
     type PrismaClientWithBlogPost = typeof prisma & {
@@ -83,7 +88,7 @@ async function getBlogPost(slug: string): Promise<BlogPostWithComments | null> {
     errorLog('Error fetching blog post:', error)
     return null
   }
-}
+})
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params
@@ -125,6 +130,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
         'en': `https://genosys.ae/blog/${slug}`,
         'ar': `https://genosys.ae/ar/blog/${slug}`,
         'ru': `https://genosys.ae/ru/blog/${slug}`,
+        'x-default': `https://genosys.ae/blog/${slug}`,
       },
     },
   }
@@ -190,11 +196,11 @@ export default async function ArabicBlogPostPage({ params }: BlogPostPageProps) 
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: toJsonLd({
             "@context": "https://schema.org",
             "@type": "BlogPosting",
             "headline": title,
-            "description": excerpt || content.substring(0, 160),
+            "description": excerpt || stripHtml(content).substring(0, 160),
             "image": post.featuredImage || "https://genosys.ae/images/genosys-products.jpg",
             "datePublished": post.publishedAt?.toISOString(),
             "dateModified": post.updatedAt.toISOString(),
@@ -215,7 +221,7 @@ export default async function ArabicBlogPostPage({ params }: BlogPostPageProps) 
               "@id": `https://genosys.ae/ar/blog/${post.slug}`
             },
             "inLanguage": "ar-AE"
-          }, null, 2)
+          })
         }}
       />
 

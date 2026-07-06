@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     ],
     url: 'https://genosys.ae/ru/blog',
     siteName: 'GENOSYS',
-    locale: 'ru_AE',
+    locale: 'ru_RU',
   },
   twitter: {
     card: 'summary_large_image',

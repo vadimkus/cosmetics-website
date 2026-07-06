@@ -4,6 +4,7 @@ import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { errorLog } from '@/lib/logger'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import { stripHtml } from '@/lib/sanitizeHtml'
 
 export async function POST(request: NextRequest) {
   // CSRF protection
@@ -26,6 +27,14 @@ export async function POST(request: NextRequest) {
     if (!postId || !content) {
       return NextResponse.json(
         { error: 'Post ID and content are required' },
+        { status: 400 }
+      )
+    }
+
+    // Cap comment length server-side (mobile UI caps at 1000; be a bit lenient)
+    if (typeof content !== 'string' || content.trim().length === 0 || content.length > 2000) {
+      return NextResponse.json(
+        { error: 'Comment must be between 1 and 2000 characters.' },
         { status: 400 }
       )
     }
@@ -68,7 +77,9 @@ export async function POST(request: NextRequest) {
         userId: user.id,
         userName: user.name,
         userEmail: user.email,
-        content: content.trim(),
+        // Strip any HTML so stored comments are plain text (matches the mobile
+        // path and stays safe even if a future admin view renders them as HTML)
+        content: stripHtml(content.trim()),
         approved: true, // Auto-approve for registered users
       },
     })

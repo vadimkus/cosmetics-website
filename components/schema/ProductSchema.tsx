@@ -90,10 +90,12 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
     } : {}),
     "offers": {
       "@type": "Offer",
-      "price": product.price,
+      // Price is intentionally NOT emitted — product prices are gated behind
+      // login site-wide, so exposing them in JSON-LD (readable by any crawler/
+      // scraper) would contradict that. Availability, seller, shipping and
+      // returns are public and safe to keep. (Mirrors the OG-tag decision.)
       "priceCurrency": "AED",
       "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-      "priceValidUntil": new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
       "itemCondition": "https://schema.org/NewCondition",
       "seller": {
         "@type": "Organization",
@@ -231,7 +233,7 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
         "value": product.usage
       }] : []),
     ],
-    "sku": product.id,
+    "sku": product.productNumber || product.id,
     "mpn": product.productNumber || product.id,
     // Multilingual product names (helps AI serve correct language)
     "alternateName": [product.name, product.nameAr, product.nameRu].filter(Boolean),

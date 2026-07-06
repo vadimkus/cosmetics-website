@@ -3,7 +3,9 @@ import AnimationShowcase from './components/AnimationShowcase'
 
 export const metadata: Metadata = {
   title: 'Animation Examples - GENOSYS',
-  description: 'Smooth animation examples for the GENOSYS website'
+  description: 'Smooth animation examples for the GENOSYS website',
+  // Internal dev demo — keep out of search results
+  robots: { index: false, follow: false },
 }
 
 export default function AnimationPage() {

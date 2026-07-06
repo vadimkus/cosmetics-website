@@ -2,8 +2,15 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getAnalyticsData, getRealTimeVisitors, getUserActivityTimeline, getTopCountries, getTopCities } from '@/lib/analyticsServer'
 import { errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/prisma'
+import { requireAdminAuth } from '@/lib/adminAuth'
 
 export async function GET(request: NextRequest) {
+  // Admin-only: this returns revenue, visitor geolocation, and PDF-download
+  // PII (emails). Only the admin dashboard calls it (via the httpOnly
+  // admin-session cookie, sent automatically same-origin).
+  const auth = await requireAdminAuth(request)
+  if (!auth.authorized) return auth.response
+
   try {
     const { searchParams } = new URL(request.url)
     const daysParam = searchParams.get('days') || '30'

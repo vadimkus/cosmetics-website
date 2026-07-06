@@ -2,6 +2,12 @@ import { getAllProducts } from '@/lib/productsDb'
 import Link from 'next/link'
 import { Product } from '@/types'
 import { errorLog } from '@/lib/logger'
+import type { Metadata } from 'next'
+
+// Internal professional cost/margin tool — not for public search indexing.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+}
 
 interface TableProduct {
   name: string

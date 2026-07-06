@@ -3,6 +3,7 @@ import { sendEmail, sendAdminNewOrderNotification, generateCODOrderHTML, OrderHT
 import { debugLog, errorLog } from '@/lib/logger'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
+import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
@@ -68,11 +69,25 @@ function detectDeviceType(userAgent: string | null): string {
   return 'Desktop'
 }
 
+// Each COD order writes a DB row + sends a customer email + an admin email.
+// Rate-limit per IP so a script with one CSRF token can't flood orders/email.
+// 5 / 10 min is generous for a real shopper.
+const codLimiter = rateLimitSimple({ windowMs: 10 * 60 * 1000, max: 5 })
+
 export async function POST(request: NextRequest) {
   // CSRF protection
   const csrfCheck = await requireCsrfToken(request)
   if (!csrfCheck.valid) {
     return csrfCheck.response!
+  }
+
+  // Abuse protection (email/DB flood)
+  const rl = await codLimiter(`cod:${getClientIdentifierFromNextRequest(request)}`)
+  if (!rl.success) {
+    return NextResponse.json(
+      { error: rl.message || 'Too many requests' },
+      { status: 429 }
+    )
   }
 
   try {
@@ -551,7 +566,13 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     errorLog('Error sending COD order confirmation:', error)
     return NextResponse.json(
-      { error: 'Failed to send COD order confirmation', details: error instanceof Error ? error.message : String(error) },
+      {
+        error: 'Failed to send COD order confirmation',
+        // Don't leak internal error text (DB/SQL/paths) to clients in prod
+        ...(process.env.NODE_ENV !== 'production'
+          ? { details: error instanceof Error ? error.message : String(error) }
+          : {}),
+      },
       { status: 500 }
     )
   }

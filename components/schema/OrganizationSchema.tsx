@@ -29,7 +29,7 @@ export default function OrganizationSchema() {
     "url": baseUrl,
     "logo": {
       "@type": "ImageObject",
-      "url": `${baseUrl}/favicon/genosys-logo.png`,
+      "url": `${baseUrl}/images/genosys-logo.png`,
       "width": 200,
       "height": 200
     },

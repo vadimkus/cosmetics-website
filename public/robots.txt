@@ -5,7 +5,6 @@
 
 # SITEMAPS - Place at top for crawler discovery
 Sitemap: https://genosys.ae/sitemap.xml
-Sitemap: https://genosys.ae/sitemap-index.xml
 
 # ============================================================
 # DEFAULT CRAWL RULES

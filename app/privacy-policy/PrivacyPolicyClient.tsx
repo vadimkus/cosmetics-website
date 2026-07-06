@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { ArrowLeft, Shield, Mail, Phone, ExternalLink, Clock, ArrowUp } from 'lucide-react'
+import { ArrowLeft, Mail, Phone, ExternalLink, Clock, ArrowUp } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -295,18 +295,20 @@ export default function PrivacyPolicyClient() {
 
     return (
       <>
-        {/* Last Updated — pill badge. Clock icon already conveys
-            "last updated" so we show just the date, keeping the pill tight */}
-        <div className={`flex ${isRTL ? 'justify-end' : 'justify-start'} mb-4`}>
-          <span
-            className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium"
-            title={`${t.lastUpdatedLabel} ${lastUpdated}`}
-          >
-            <Clock className="w-3.5 h-3.5" aria-hidden="true" />
-            <span className="sr-only">{t.lastUpdatedLabel} </span>
-            {lastUpdated}
-          </span>
-        </div>
+        {/* Last Updated — pill badge (mobile/PWA only; the desktop editorial
+            header already shows it, so we avoid a duplicate there). */}
+        {compact && (
+          <div className={`flex ${isRTL ? 'justify-end' : 'justify-start'} mb-4`}>
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium"
+              title={`${t.lastUpdatedLabel} ${lastUpdated}`}
+            >
+              <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+              <span className="sr-only">{t.lastUpdatedLabel} </span>
+              {lastUpdated}
+            </span>
+          </div>
+        )}
 
         {/* Rights Highlight — uses side-specific full classes (avoid template-literal JIT pitfall) */}
         <div
@@ -507,7 +509,7 @@ export default function PrivacyPolicyClient() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50" dir={dir}>
+    <div className="min-h-screen bg-white" dir={dir}>
       <BreadcrumbSchema
         items={[
           { name: t.home, url: getLocalizedPath('/', locale) },
@@ -517,28 +519,37 @@ export default function PrivacyPolicyClient() {
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
         <Link
           href={getLocalizedPath('/', locale)}
-          className={`inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-6 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
         >
-          <ArrowLeft className={`w-4 h-4 group-hover:-translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
+          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 group-hover:-translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
           <span>{t.backToHome}</span>
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-8">
-          <div className={`flex items-center gap-4 mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <div className="bg-primary-100 p-4 rounded-xl">
-              <Shield className="w-8 h-8 text-primary-600" />
-            </div>
-            <div className={isRTL ? 'text-right' : ''}>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900">{t.title}</h1>
-              <p className="text-gray-600 mt-1">{t.subtitle}</p>
-            </div>
-          </div>
-          <p className={`text-gray-600 text-lg ${isRTL ? 'text-right' : ''}`}>
-            {t.lastUpdatedLabel} <span className="font-semibold">{lastUpdated}</span>
+        {/* Editorial header — kicker → headline → subhead → last-updated pill,
+            consistent with About / Delivery / Contact / Terms / FAQ. */}
+        <header className={`mb-8 md:mb-12 ${isRTL ? 'text-right' : ''}`}>
+          <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-gray-500">
+            {locale === 'ar' ? 'الخصوصية · GENOSYS الإمارات' : locale === 'ru' ? 'КОНФИДЕНЦИАЛЬНОСТЬ · GENOSYS ОАЭ' : 'PRIVACY · GENOSYS UAE'}
           </p>
-        </div>
+          <h1 className="mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.05] tracking-tight text-gray-900">
+            {t.title}
+          </h1>
+          <p className={`mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-gray-600 ${isRTL ? 'text-right' : ''}`}>
+            {t.subtitle}
+          </p>
+          <div className={`mt-5 flex ${isRTL ? 'justify-end' : 'justify-start'}`}>
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium"
+              title={`${t.lastUpdatedLabel} ${lastUpdated}`}
+            >
+              <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+              <span className="sr-only">{t.lastUpdatedLabel} </span>
+              {lastUpdated}
+            </span>
+          </div>
+        </header>
 
-        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 space-y-8">
+        <div className="rounded-2xl border border-gray-200 bg-white p-6 md:p-10 space-y-8">
           {renderContent(false)}
         </div>
 

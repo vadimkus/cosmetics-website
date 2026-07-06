@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { MapPin, ArrowLeft } from 'lucide-react'
+import { MapPin, ArrowLeft, ArrowRight } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -167,20 +167,71 @@ export default function LocationsPageClient() {
             </Link>
           )}
 
-          {/* Page Header */}
-          <div className="text-center mb-6 md:mb-12">
-            {!isAppLikeMode && (
-              <div className="hidden md:inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
-                <MapPin className="h-8 w-8 text-primary-600" />
-              </div>
-            )}
-            <h1 className="text-2xl md:text-5xl font-bold text-gray-800 mb-2 md:mb-4">
-              {locale === 'ar' ? 'مواقعنا' : locale === 'ru' ? 'Наши локации' : 'Our Locations'}
-            </h1>
-            <p className="text-xs md:text-lg text-gray-600 max-w-2xl mx-auto">
-              {locale === 'ar' ? 'التوصيل إلى جميع الإمارات السبع' : locale === 'ru' ? 'Доставка во все 7 эмиратов ОАЭ' : 'Delivering to all 7 UAE emirates'}
-            </p>
-          </div>
+          {/* Page Header.
+              App-like (mobile/PWA): compact centered title.
+              Desktop: editorial hero (kicker → left headline → subhead + stats)
+              to match About / Delivery / Contact / FAQ. */}
+          {isAppLikeMode ? (
+            <div className="text-center mb-6">
+              <h1 className="text-2xl font-bold text-gray-800 mb-2">
+                {locale === 'ar' ? 'مواقعنا' : locale === 'ru' ? 'Наши локации' : 'Our Locations'}
+              </h1>
+              <p className="text-xs text-gray-600 max-w-2xl mx-auto">
+                {locale === 'ar' ? 'التوصيل إلى جميع الإمارات السبع' : locale === 'ru' ? 'Доставка во все 7 эмиратов ОАЭ' : 'Delivering to all 7 UAE emirates'}
+              </p>
+            </div>
+          ) : (
+            <header className="mb-8 md:mb-12">
+              <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-gray-500">
+                {locale === 'ar'
+                  ? 'أين نصل · الإمارات السبع'
+                  : locale === 'ru'
+                    ? 'ЗОНА ДОСТАВКИ · 7 ЭМИРАТОВ'
+                    : 'WHERE WE DELIVER · 7 EMIRATES'}
+              </p>
+              <h1 className={`mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.05] tracking-tight text-gray-900 ${isRTL ? 'text-right' : ''}`}>
+                {locale === 'ar' ? 'مواقعنا' : locale === 'ru' ? 'Наши локации' : 'Our Locations'}
+              </h1>
+              <p className={`mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-gray-600 ${isRTL ? 'text-right' : ''}`}>
+                {locale === 'ar'
+                  ? 'التوصيل إلى جميع الإمارات السبع — من مكتبينا في دبي ورأس الخيمة، عبر Careem و Quiqup.'
+                  : locale === 'ru'
+                    ? 'Доставка во все 7 эмиратов ОАЭ — из наших офисов в Дубае и Рас-эль-Хайме, через Careem и Quiqup.'
+                    : 'Delivering to all 7 UAE emirates — from our Dubai and Ras Al Khaimah offices, via Careem and Quiqup.'}
+              </p>
+
+              {/* Stats strip — mirrors About / FAQ */}
+              <dl className="mt-8 hidden md:grid md:grid-cols-3 gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200">
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <MapPin className="h-3.5 w-3.5 text-red-600" />
+                    {locale === 'ar' ? 'الإمارات المخدومة' : locale === 'ru' ? 'эмиратов' : 'emirates served'}
+                  </dt>
+                  <dd className="mt-2 text-3xl font-semibold tracking-tight text-gray-900">7</dd>
+                </div>
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <ArrowRight className="h-3.5 w-3.5 text-red-600" />
+                    {locale === 'ar' ? 'أسرع توصيل' : locale === 'ru' ? 'самая быстрая доставка' : 'fastest delivery'}
+                  </dt>
+                  <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    <span>1–2h</span>
+                    <span className="text-sm font-medium text-gray-500">{locale === 'ar' ? 'دبي' : locale === 'ru' ? 'Дубай' : 'Dubai'}</span>
+                  </dd>
+                </div>
+                <div className="bg-white px-6 py-5">
+                  <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
+                    <MapPin className="h-3.5 w-3.5 text-red-600" />
+                    {locale === 'ar' ? 'مكاتبنا' : locale === 'ru' ? 'наши офисы' : 'our offices'}
+                  </dt>
+                  <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-gray-900">
+                    <span>2</span>
+                    <span className="text-sm font-medium text-gray-500">Dubai · RAK</span>
+                  </dd>
+                </div>
+              </dl>
+            </header>
+          )}
 
           {/* Locations Grid */}
           <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-6 mb-6 md:mb-12">
@@ -214,35 +265,46 @@ export default function LocationsPageClient() {
             ))}
           </div>
 
-          {/* General Information */}
-          <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-lg md:rounded-xl p-4 md:p-8 border border-primary-100 shadow-sm">
-            <div className="text-center">
-              <h2 className="text-lg md:text-2xl font-bold text-gray-800 mb-2 md:mb-3">
-                {locale === 'ar' ? 'شحن مجاني متاح' : locale === 'ru' ? 'Бесплатная доставка' : 'Free Shipping Available'}
-              </h2>
-              <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6 max-w-xl mx-auto">
-                {locale === 'ar' 
-                  ? 'الطلبات فوق 1000 درهم تحصل على شحن مجاني في جميع أنحاء الإمارات'
-                  : locale === 'ru'
-                    ? 'Заказы от 1000 AED доставляются бесплатно по всем ОАЭ'
-                    : 'Orders over 1000 AED qualify for free shipping across all UAE emirates.'}
-              </p>
-              <div className="flex flex-row gap-3 justify-center">
+          {/* Free-shipping CTA — editorial dark panel, matching About / Delivery
+              / Contact / FAQ (replaces the old pink-gradient block). */}
+          <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-gray-950 text-white">
+            <span aria-hidden className="pointer-events-none absolute -top-32 -left-20 h-72 w-72 rounded-full bg-red-600/25 blur-3xl" />
+            <span aria-hidden className="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-red-500/15 blur-3xl" />
+
+            <div className="relative grid gap-8 p-6 md:grid-cols-[1.4fr_1fr] md:items-end md:gap-12 md:p-10">
+              <div className={isRTL ? 'text-right' : ''}>
+                <p className="text-[11px] font-mono uppercase tracking-[0.32em] text-red-300/90">
+                  {locale === 'ar' ? 'شحن مجاني' : locale === 'ru' ? 'БЕСПЛАТНАЯ ДОСТАВКА' : 'FREE SHIPPING'}
+                </p>
+                <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight leading-[1.1]">
+                  {locale === 'ar' ? 'توصيل مجاني للطلبات فوق 1000 درهم.' : locale === 'ru' ? 'Бесплатная доставка от 1000 AED.' : 'Free delivery on orders over 1000 AED.'}
+                </h2>
+                <p className="mt-3 max-w-md text-sm md:text-base leading-relaxed text-gray-300">
+                  {locale === 'ar'
+                    ? 'يُطبَّق تلقائيًا عند الدفع، في جميع الإمارات السبع. لا رسوم خفية.'
+                    : locale === 'ru'
+                      ? 'Применяется автоматически при оформлении заказа, во всех 7 эмиратах. Без скрытых сборов.'
+                      : 'Applied automatically at checkout, across all 7 emirates. No hidden fees.'}
+                </p>
+              </div>
+
+              <div className={`flex flex-col gap-3 sm:flex-row md:flex-col ${isRTL ? 'md:items-end' : 'md:items-stretch'}`}>
                 <Link
                   href={getLocalizedPath('/products', locale)}
-                  className="bg-primary-600 text-white px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors text-center shadow-md flex items-center justify-center"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 transition-all hover:bg-red-500 hover:text-white"
                 >
                   {locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Продукты' : 'Products'}
+                  <ArrowRight className={`h-4 w-4 transition-transform group-hover:translate-x-0.5 ${isRTL ? 'rotate-180 group-hover:-translate-x-0.5 group-hover:translate-x-0' : ''}`} />
                 </Link>
                 <Link
                   href={getLocalizedPath('/contact', locale)}
-                  className="border border-primary-600 text-primary-600 px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-white transition-colors text-center shadow-md flex items-center justify-center"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-all hover:border-white/40 hover:bg-white/10"
                 >
                   {locale === 'ar' ? 'اتصل بنا' : locale === 'ru' ? 'Контакты' : 'Contact'}
                 </Link>
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </div>
     </div>

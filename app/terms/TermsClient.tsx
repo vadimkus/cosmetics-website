@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { ArrowLeft, FileText, Mail, Phone, MapPin, Clock, ArrowUp } from 'lucide-react'
+import { ArrowLeft, Mail, Phone, MapPin, Clock, ArrowUp } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -362,29 +362,35 @@ export default function TermsClient() {
       />
 
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
-        {/* Back Button */}
+        {/* Back to home — gray editorial style, matching About / FAQ. */}
         <Link 
           href={getLocalizedPath('/', locale)}
-          className={`inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-6 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
         >
-          <ArrowLeft className={`w-4 h-4 group-hover:-translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
+          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 group-hover:-translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
           <span>{translations.backToHome}</span>
         </Link>
 
-        {/* Header */}
-        <div className={`flex items-center gap-4 mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          <div className="bg-primary-100 p-3 rounded-xl">
-            <FileText className="w-6 h-6 text-primary-600" />
-          </div>
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{translations.title}</h1>
-        </div>
-
-        {/* Last Updated */}
-        <div className={`bg-gray-50 rounded-lg px-4 py-3 mb-8 ${isRTL ? 'text-right' : ''}`}>
-          <p className="text-sm text-gray-500 italic">
-            {translations.lastUpdatedLabel} {lastUpdated}
+        {/* Editorial header — kicker → headline → last-updated pill, consistent
+            with About / Delivery / Contact / FAQ. */}
+        <header className={`mb-8 md:mb-12 ${isRTL ? 'text-right' : ''}`}>
+          <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-gray-500">
+            {locale === 'ar' ? 'قانوني · GENOSYS الإمارات' : locale === 'ru' ? 'ПРАВОВАЯ ИНФОРМАЦИЯ · GENOSYS ОАЭ' : 'LEGAL · GENOSYS UAE'}
           </p>
-        </div>
+          <h1 className="mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.05] tracking-tight text-gray-900">
+            {translations.title}
+          </h1>
+          <div className={`mt-4 flex ${isRTL ? 'justify-end' : 'justify-start'}`}>
+            <span
+              className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium"
+              title={`${translations.lastUpdatedLabel} ${lastUpdated}`}
+            >
+              <Clock className="w-3.5 h-3.5" aria-hidden="true" />
+              <span className="sr-only">{translations.lastUpdatedLabel} </span>
+              {lastUpdated}
+            </span>
+          </div>
+        </header>
 
         {/* Content */}
         <div className="space-y-0">

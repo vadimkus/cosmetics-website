@@ -1712,7 +1712,9 @@
       "trackOrder": "تتبع طلبك",
       "questions": "أسئلة حول طلبك؟ اتصل بنا على",
       "officialDistributor": "الموزع الرسمي في دولة الإمارات العربية المتحدة.",
-      "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة."
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. جميع الحقوق محفوظة.",
+      "needHelp": "هل تحتاج مساعدة بشأن طلبك؟",
+      "shopOnline": "تسوّق"
     },
     "welcome": {
       "subject": "مرحباً بك في GENOSYS",

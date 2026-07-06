@@ -5,6 +5,7 @@
 import { SITE_URL } from '@/lib/siteConfig'
 import { loadEmailTranslations, getLocaleSettings, LOGO_URL } from './utils'
 import type { OrderConfirmationEmailData, AdminNewOrderEmailData } from './types'
+import { orderChannelLabel } from '@/lib/orderChannel'
 
 // Email templates
 export const emailTemplates = {
@@ -857,12 +858,43 @@ export const emailTemplates = {
                   </td>
                 </tr>
                 
+                <!-- Support -->
+                <tr>
+                  <td style="padding-top: 56px;">
+                    <div style="height: 1px; background-color: #e8e8ed;"></div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding-top: 28px; text-align: center;">
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 15px; font-weight: 600; color: #1d1d1f;">
+                      ${t.needHelp || 'Need help with your order?'}
+                    </div>
+                    <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 14px; color: #86868b; padding-top: 6px;">
+                      <a href="https://wa.me/971585487665" style="color: #0071e3; text-decoration: none;">WhatsApp</a>
+                      &nbsp;·&nbsp;
+                      <a href="mailto:sales@genosys.ae" style="color: #0071e3; text-decoration: none;">sales@genosys.ae</a>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Brand links -->
+                <tr>
+                  <td style="padding-top: 24px; text-align: center;">
+                    <a href="${SITE_URL}" style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-decoration: none; padding: 0 10px;">${t.shopOnline || 'Shop'}</a>
+                    <span style="color: #d2d2d7;">|</span>
+                    <a href="https://www.instagram.com/genosys.ae/" style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-decoration: none; padding: 0 10px;">Instagram</a>
+                    <span style="color: #d2d2d7;">|</span>
+                    <a href="${SITE_URL}/${locale === 'en' ? '' : locale + '/'}track/${orderData.orderNumber}" style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; color: #86868b; text-decoration: none; padding: 0 10px;">${t.trackOrder || 'Track Order'}</a>
+                  </td>
+                </tr>
+                
                 <!-- Footer -->
                 <tr>
-                  <td style="padding-top: 64px; text-align: center;">
+                  <td style="padding-top: 32px; text-align: center;">
                     <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
-                      Genosys Middle East FZ-LLC<br>
-                      ${t.officialDistributor || 'Official Distributor in the UAE'}<br><br>
+                      <strong style="color: #6e6e73; font-weight: 600;">Genosys Middle East FZ-LLC</strong><br>
+                      ${t.officialDistributor || 'Official Distributor in the UAE'}<br>
+                      Dubai, United Arab Emirates<br><br>
                       ${t.copyright || '© 2026 All rights reserved.'}
           </div>
                   </td>
@@ -1119,6 +1151,18 @@ export const emailTemplates = {
                         ${orderData.paymentStatus === 'PAID' ? '✅ PAID' : orderData.paymentStatus === 'COD' ? '💵 Cash on Delivery' : '🔗 Awaiting Payment'}
                       </p>
                       ${orderData.paymentMethod ? `<p style="margin: 4px 0 0 0; color: #6b7280; font-size: 14px;">via ${orderData.paymentMethod}</p>` : ''}
+                    </div>
+                  </td>
+                </tr>
+                ` : ''}
+
+                <!-- Order Source (ADMIN ONLY — app vs website) -->
+                ${orderData.orderSource ? `
+                <tr>
+                  <td style="padding: 0 20px 20px 20px; text-align: center;">
+                    <div style="display: inline-block; background-color: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 8px; padding: 10px 24px;">
+                      <p style="margin: 0 0 4px 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Order Source</p>
+                      <p style="margin: 0; color: #6d28d9; font-size: 16px; font-weight: 700;">${orderChannelLabel(orderData.orderSource)}</p>
                     </div>
                   </td>
                 </tr>

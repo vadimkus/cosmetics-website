@@ -78,6 +78,11 @@ export interface AdminNewOrderEmailData {
   deviceType?: string | undefined
   paymentMethod?: string | undefined
   paymentStatus?: 'PAID' | 'PENDING' | 'COD' | undefined
+  // Admin-only: which channel the order came from ('app' | 'website').
+  // Usually derived from the order number in sendAdminNewOrderNotification.
+  orderSource?: 'app' | 'website' | undefined
+  // Optional raw payment metadata (JSON) used as a backstop for channel detection
+  paymentMetadata?: string | null | undefined
   discountPercentage?: number | undefined
   discountAmount?: number | undefined
   bundleDiscountPercentage?: number | undefined

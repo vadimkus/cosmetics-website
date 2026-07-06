@@ -1677,7 +1677,9 @@
       "trackOrder": "Track Your Order",
       "questions": "Questions about your order? Contact us at",
       "officialDistributor": "Official Distributor in the UAE.",
-      "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved."
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. All rights reserved.",
+      "needHelp": "Need help with your order?",
+      "shopOnline": "Shop"
     },
     "welcome": {
       "subject": "Welcome to GENOSYS",

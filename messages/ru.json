@@ -1712,7 +1712,9 @@
       "trackOrder": "Отследить заказ",
       "questions": "Вопросы по заказу? Свяжитесь с нами по",
       "officialDistributor": "Официальный дистрибьютор в ОАЭ.",
-      "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены."
+      "copyright": "© 2026 Genosys Middle East FZ-LLC. Все права защищены.",
+      "needHelp": "Нужна помощь с заказом?",
+      "shopOnline": "Магазин"
     },
     "welcome": {
       "subject": "Добро пожаловать в GENOSYS",

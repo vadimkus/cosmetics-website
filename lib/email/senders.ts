@@ -9,6 +9,7 @@ import { getPreferredEmail } from '@/lib/emailHelpers'
 import { sendEmail } from './transporter'
 import { emailTemplates } from './templates'
 import type { OrderConfirmationEmailData, AdminNewOrderEmailData } from './types'
+import { resolveOrderChannel } from '@/lib/orderChannel'
 
 // Specific email functions
 export const sendWelcomeEmail = async (userName: string, userEmail: string, password?: string, locale: string = 'en') => {
@@ -191,7 +192,14 @@ export const sendAdminNewOrderNotification = async (orderData: AdminNewOrderEmai
       // Ignore lookup failures; fall back to provided email
     }
 
-    const adminOrderData = { ...orderData, customerEmail: customerEmailForAdmin }
+    // Derive the order channel (app vs website) from the order number/metadata
+    // unless the caller explicitly provided it. Admin-only line in the template.
+    const orderSource = orderData.orderSource || resolveOrderChannel({
+      orderNumber: orderData.orderNumber,
+      paymentMetadata: orderData.paymentMetadata ?? null,
+    })
+
+    const adminOrderData = { ...orderData, customerEmail: customerEmailForAdmin, orderSource }
     const template = emailTemplates.adminNewOrder(adminOrderData)
     debugLog(`📧 Admin email template generated, subject: ${template.subject}`)
     

@@ -4,7 +4,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { validateMobileAuth } from '@/lib/jwt'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { verifyPasswordResetToken, markTokenAsUsed, invalidateUserTokens } from '@/lib/passwordReset'
-import { updateUser } from '@/lib/userStorageDb'
+import { updateUser, bumpTokenVersion } from '@/lib/userStorageDb'
 import bcrypt from 'bcryptjs'
 
 // Rate limiter for reset attempts (10 / 15 minutes per IP)
@@ -99,6 +99,8 @@ export async function POST(request: NextRequest) {
     await updateUser(verification.userId, { password: hashedPassword })
     await markTokenAsUsed(verification.tokenId)
     await invalidateUserTokens(verification.userId)
+    // Revoke ALL existing sessions/tokens on every device (see web route)
+    await bumpTokenVersion(verification.userId)
 
     debugLog('[MOBILE_RESET_PASSWORD] Completed', Date.now() - startTime, 'ms')
     return NextResponse.json({ success: true, message: 'Password has been reset successfully' })

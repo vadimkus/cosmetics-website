@@ -30,6 +30,7 @@ model User {
   lastLoginAt        DateTime?
   lastLoginSource    String?   // Tracks login source: desktop_web, mobile_web, mobile_app
   lastActiveAt       DateTime? // Tracks last user activity for online status
+  tokenVersion       Int       @default(0) // Bumped on password change/reset to revoke all sessions/tokens
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 

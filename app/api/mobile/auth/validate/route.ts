@@ -96,6 +96,21 @@ export async function GET(request: NextRequest) {
       )
     }
 
+    // Revocation check: password change/reset bumps users.tokenVersion,
+    // invalidating all previously issued tokens.
+    const userTv = (user as { tokenVersion?: number }).tokenVersion ?? 0
+    if ((tokenPayload.tv ?? 0) !== userTv) {
+      debugLog('[MOBILE_AUTH] Token revoked (tokenVersion mismatch):', tokenPayload.email)
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Session revoked. Please log in again.',
+          valid: false
+        },
+        { status: 401 }
+      )
+    }
+
     // Return fresh user data (without password)
     const { password: __, ...userWithoutPassword } = user
 

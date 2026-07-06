@@ -452,6 +452,7 @@ async function handleAppleCallback(request: NextRequest, params: {
         isAdmin: user.isAdmin || false,
         canSeePrices: user.canSeePrices !== undefined ? user.canSeePrices : true,
         profilePicture: user.profilePicture || null,
+        tokenVersion: (user as { tokenVersion?: number }).tokenVersion ?? 0,
       })
       debugLog('[APPLE_CALLBACK] Created signed session token')
     } catch (jwtError) {

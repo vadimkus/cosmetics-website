@@ -48,6 +48,8 @@ export interface TokenPayload {
   name: string
   isAdmin: boolean
   canSeePrices: boolean
+  /** Token version — must match users.tokenVersion; bumped to revoke all tokens */
+  tv?: number
   iat?: number
   exp?: number
 }
@@ -78,6 +80,7 @@ export function generateMobileToken(user: {
   name: string
   isAdmin: boolean
   canSeePrices: boolean
+  tokenVersion?: number
 }): string {
   try {
     const now = Math.floor(Date.now() / 1000)
@@ -89,6 +92,7 @@ export function generateMobileToken(user: {
       name: user.name,
       isAdmin: user.isAdmin || false,
       canSeePrices: user.canSeePrices !== false, // Default to true
+      tv: user.tokenVersion ?? 0,
       iat: now,
       exp: expiresIn
     }
@@ -126,14 +130,17 @@ export function verifyMobileToken(token: string): TokenPayload | null {
 
     const [headerEncoded, payloadEncoded, signature] = parts
 
-    // Verify signature
+    // Verify signature (timing-safe, same as session tokens)
     const data = `${headerEncoded}.${payloadEncoded}`
     const expectedSignature = crypto
       .createHmac('sha256', getJwtSecret())
       .update(data)
       .digest('base64url')
     
-    if (signature !== expectedSignature) {
+    const signatureBuffer = Buffer.from(signature)
+    const expectedBuffer = Buffer.from(expectedSignature)
+    if (signatureBuffer.length !== expectedBuffer.length ||
+        !crypto.timingSafeEqual(signatureBuffer, expectedBuffer)) {
       debugLog('Invalid mobile token signature')
       return null
     }
@@ -171,14 +178,16 @@ export function verifyMobileTokenIgnoreExpiration(token: string): (TokenPayload 
 
     const [headerEncoded, payloadEncoded, signature] = parts
 
-    // Verify signature (proves the token was issued by us)
+    // Verify signature (proves the token was issued by us) — timing-safe
     const data = `${headerEncoded}.${payloadEncoded}`
     const expectedSignature = crypto
       .createHmac('sha256', getJwtSecret())
       .update(data)
       .digest('base64url')
     
-    if (signature !== expectedSignature) {
+    const sigBuf = Buffer.from(signature)
+    const expBuf = Buffer.from(expectedSignature)
+    if (sigBuf.length !== expBuf.length || !crypto.timingSafeEqual(sigBuf, expBuf)) {
       debugLog('Invalid mobile token signature (refresh)')
       return null
     }
@@ -288,6 +297,8 @@ export interface SessionPayload {
   isAdmin: boolean
   canSeePrices: boolean
   profilePicture: string | null
+  /** Token version — must match users.tokenVersion; bumped to revoke all sessions */
+  tv?: number
   iat?: number
   exp?: number
 }
@@ -303,6 +314,7 @@ export function createSessionToken(user: {
   isAdmin?: boolean
   canSeePrices?: boolean
   profilePicture?: string | null
+  tokenVersion?: number
 }): string {
   try {
     const now = Math.floor(Date.now() / 1000)
@@ -315,6 +327,7 @@ export function createSessionToken(user: {
       isAdmin: user.isAdmin || false,
       canSeePrices: user.canSeePrices !== false, // Default to true
       profilePicture: user.profilePicture || null,
+      tv: user.tokenVersion ?? 0,
       iat: now,
       exp: expiresIn
     }

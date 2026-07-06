@@ -42,6 +42,14 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ user: null })
     }
 
+    // Revocation check: tokens carry the tokenVersion they were issued with.
+    // A password change/reset bumps users.tokenVersion, killing older sessions.
+    const userTv = (user as { tokenVersion?: number }).tokenVersion ?? 0
+    if ((sessionData.tv ?? 0) !== userTv) {
+      debugLog('Session token revoked (tokenVersion mismatch)')
+      return NextResponse.json({ user: null })
+    }
+
     // Track web user activity (throttled — updates DB at most once per minute)
     // This serves as a heartbeat since UserRefreshWrapper calls this endpoint periodically
     trackUserActivity(user.id)

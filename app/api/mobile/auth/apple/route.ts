@@ -149,6 +149,7 @@ export async function POST(request: NextRequest) {
       name: user.name,
       isAdmin: user.isAdmin || false,
       canSeePrices: user.canSeePrices !== false,
+      tokenVersion: (user as { tokenVersion?: number }).tokenVersion ?? 0,
     })
 
     const { password: __, ...userWithoutPassword } = user

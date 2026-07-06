@@ -114,7 +114,7 @@ export default function LoginClient() {
       if (!formData.name.trim()) { setError(t('login.nameRequired')); return }
       if (!formData.email.trim()) { setError(t('login.emailRequired')); return }
       if (!formData.password.trim()) { setError(t('login.passwordRequired')); return }
-      if (formData.password.length < 6) { setError(t('login.passwordMinLength')); return }
+      if (formData.password.length < 8) { setError(t('login.passwordMinLength')); return }
       if (!formData.phone.trim()) { setError(t('login.phoneRequired')); return }
       if (!formData.address.trim()) { setError(t('login.addressRequired')); return }
       if (!formData.emirate.trim()) { setError(t('login.emirateRequired')); return }

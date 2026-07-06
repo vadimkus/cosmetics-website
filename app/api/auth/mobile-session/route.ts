@@ -72,6 +72,8 @@ export async function GET(request: NextRequest) {
       isAdmin: payload.isAdmin || false,
       canSeePrices: payload.canSeePrices !== false,
       profilePicture: null,
+      // Carry over the version from the (already validated) mobile token
+      tokenVersion: payload.tv ?? 0,
     })
 
     debugLog('[MOBILE-SESSION] Session created for user:', payload.email)

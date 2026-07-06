@@ -319,6 +319,7 @@ export async function GET(request: NextRequest) {
         isAdmin: user.isAdmin || false,
         canSeePrices: user.canSeePrices !== undefined ? user.canSeePrices : true,
         profilePicture: user.profilePicture || null,
+        tokenVersion: (user as { tokenVersion?: number }).tokenVersion ?? 0,
       })
       debugLog('[GOOGLE_CALLBACK] Created signed session token')
     } catch (jwtError) {

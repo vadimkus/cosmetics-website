@@ -176,7 +176,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         setError(t('login.passwordRequired'))
         return
       }
-      if (formData.password.length < 6) {
+      if (formData.password.length < 8) {
         setError(t('login.passwordMinLength'))
         return
       }

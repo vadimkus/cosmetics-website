@@ -96,12 +96,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validate password length
-    if (password.length < 6) {
+    // Validate password length (aligned with reset-password policy: min 8)
+    if (password.length < 8) {
       return NextResponse.json(
         { 
           success: false, 
-          error: 'Password must be at least 6 characters' 
+          error: 'Password must be at least 8 characters' 
         },
         { status: 400 }
       )
@@ -334,7 +334,8 @@ export async function POST(request: NextRequest) {
       email: createdUser.email,
       name: createdUser.name,
       isAdmin: createdUser.isAdmin || false,
-      canSeePrices: createdUser.canSeePrices !== false
+      canSeePrices: createdUser.canSeePrices !== false,
+      tokenVersion: (createdUser as { tokenVersion?: number }).tokenVersion ?? 0
     })
 
     // Return success response (without password)

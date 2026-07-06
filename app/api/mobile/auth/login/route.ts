@@ -94,29 +94,26 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Verify password
+    // Social-only accounts have no password. Method-agnostic hint (do not
+    // reveal WHICH provider the account uses).
+    if (!user.password) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'This account uses social sign-in. Please use the Google or Apple button to log in.'
+        },
+        { status: 401 }
+      )
+    }
+
+    // Verify bcrypt password. Legacy plaintext passwords were migrated in
+    // bulk (scripts/migrate-plaintext-passwords.ts, 2026-07-06).
     let passwordValid = false
-    
-    if (user.password) {
-      // Check if password is bcrypt hashed (starts with $2a$, $2b$, or $2y$)
-      if (user.password.startsWith('$2')) {
-        passwordValid = await bcrypt.compare(password, user.password)
-      } else {
-        // Legacy plaintext password - compare directly and then upgrade to bcrypt
-        if (user.password === password) {
-          passwordValid = true
-          
-          // Upgrade to bcrypt hash
-          try {
-            const hashedPassword = await bcrypt.hash(password, 12)
-            await updateUser(user.id, { password: hashedPassword })
-            debugLog('Password upgraded to bcrypt for user:', email)
-          } catch (upgradeError) {
-            errorLog('Failed to upgrade password for user:', email, upgradeError)
-            // Don't fail login if password upgrade fails
-          }
-        }
-      }
+    try {
+      passwordValid = await bcrypt.compare(password, user.password)
+    } catch (error) {
+      passwordValid = false
+      errorLog('[MOBILE_AUTH] Password verification error:', error)
     }
 
     if (!passwordValid) {
@@ -148,7 +145,8 @@ export async function POST(request: NextRequest) {
       email: user.email,
       name: user.name,
       isAdmin: user.isAdmin || false,
-      canSeePrices: user.canSeePrices !== false
+      canSeePrices: user.canSeePrices !== false,
+      tokenVersion: (user as { tokenVersion?: number }).tokenVersion ?? 0
     })
 
     // Return user data without password

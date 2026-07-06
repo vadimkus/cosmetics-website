@@ -3,7 +3,7 @@ import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateL
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
-import { debugLog, errorLog, warnLog } from '@/lib/logger'
+import { debugLog, errorLog } from '@/lib/logger'
 import { createSessionToken } from '@/lib/jwt'
 import { trackUserActivityNow } from '@/lib/activityTracker'
 import bcrypt from 'bcryptjs'
@@ -95,39 +95,22 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Check if user has a password (social login users don't have passwords)
+    // Check if user has a password (social login users don't have passwords).
+    // Method-agnostic hint: don't reveal WHICH provider the account uses.
     if (!user.password) {
       return NextResponse.json(
-        { error: 'This account was created with social login. Please sign in with Google instead.' },
+        { error: 'This account uses social sign-in. Please use the Google or Apple button to log in.' },
         { status: 401 }
       )
     }
 
-    // Check password - handle both bcrypt and legacy plaintext passwords
+    // Verify bcrypt password. Legacy plaintext passwords were migrated to
+    // bcrypt in bulk (scripts/migrate-plaintext-passwords.ts, 2026-07-06),
+    // so the plaintext comparison path is gone.
     debugLog('[LOGIN] Verifying password...', Date.now() - startTime, 'ms')
     let passwordMatches = false
-    let needsPasswordUpgrade = false
-    
     try {
-      if (user.password && user.password.startsWith('$2')) {
-        // bcrypt hash - normal verification
-        const bcryptStart = Date.now()
-        passwordMatches = await bcrypt.compare(password, user.password)
-        debugLog('[LOGIN] Password verification completed', Date.now() - bcryptStart, 'ms')
-      } else {
-        // Legacy plaintext password - check if it matches, then upgrade to bcrypt
-        warnLog('Legacy plaintext password detected for user:', user.email)
-        
-        // Compare plaintext password
-        if (user.password === password) {
-          passwordMatches = true
-          needsPasswordUpgrade = true
-          debugLog('[LOGIN] Plaintext password matches, will upgrade to bcrypt')
-        } else {
-          passwordMatches = false
-          debugLog('[LOGIN] Plaintext password does not match')
-        }
-      }
+      passwordMatches = await bcrypt.compare(password, user.password)
     } catch (error) {
       passwordMatches = false
       errorLog('[LOGIN] Password verification error:', error)
@@ -138,20 +121,6 @@ export async function POST(request: NextRequest) {
         { error: 'Invalid email or password' },
         { status: 401 }
       )
-    }
-
-    // Upgrade plaintext password to bcrypt if needed
-    if (needsPasswordUpgrade) {
-      try {
-        debugLog('[LOGIN] Upgrading plaintext password to bcrypt for user:', user.email)
-        const hashedPassword = await bcrypt.hash(password, 12)
-        await updateUser(user.id, { password: hashedPassword })
-        debugLog('[LOGIN] Password successfully upgraded to bcrypt')
-      } catch (upgradeError) {
-        errorLog('[LOGIN] Error upgrading password:', upgradeError)
-        // Don't fail login if upgrade fails - user can try again next time
-        warnLog('Password upgrade failed, but allowing login to proceed')
-      }
     }
 
     // Detect login source from User-Agent
@@ -192,6 +161,7 @@ export async function POST(request: NextRequest) {
         isAdmin: updatedUser.isAdmin || false,
         canSeePrices: updatedUser.canSeePrices !== undefined ? updatedUser.canSeePrices : true,
         profilePicture: updatedUser.profilePicture || null,
+        tokenVersion: (updatedUser as { tokenVersion?: number }).tokenVersion ?? 0,
       })
       debugLog('[LOGIN] Created signed session token')
     } catch (jwtError) {

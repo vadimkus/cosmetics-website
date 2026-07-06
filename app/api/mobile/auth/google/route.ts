@@ -260,7 +260,8 @@ export async function POST(request: NextRequest) {
       email: user.email,
       name: user.name,
       isAdmin: user.isAdmin || false,
-      canSeePrices: user.canSeePrices !== false
+      canSeePrices: user.canSeePrices !== false,
+      tokenVersion: (user as { tokenVersion?: number }).tokenVersion ?? 0
     })
 
     // Return user data without password

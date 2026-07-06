@@ -1420,7 +1420,7 @@
     "nameRequired": "Name is required",
     "emailRequired": "Email is required",
     "passwordRequired": "Password is required",
-    "passwordMinLength": "Password must be at least 6 characters",
+    "passwordMinLength": "Password must be at least 8 characters",
     "phoneRequired": "Phone number is required",
     "addressRequired": "Address is required",
     "emirateRequired": "Emirate is required",

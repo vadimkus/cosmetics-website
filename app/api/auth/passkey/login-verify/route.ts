@@ -137,6 +137,7 @@ export async function POST(request: NextRequest) {
       isAdmin: passkey.user.isAdmin,
       canSeePrices: passkey.user.canSeePrices,
       profilePicture: passkey.user.profilePicture,
+      tokenVersion: (passkey.user as { tokenVersion?: number }).tokenVersion ?? 0,
     })
 
     // Return user data and set session cookie

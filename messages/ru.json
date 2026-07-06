@@ -1466,7 +1466,7 @@
     "nameRequired": "Имя обязательно",
     "emailRequired": "Электронная почта обязательна",
     "passwordRequired": "Пароль обязателен",
-    "passwordMinLength": "Пароль должен содержать не менее 6 символов",
+    "passwordMinLength": "Пароль должен содержать не менее 8 символов",
     "phoneRequired": "Номер телефона обязателен",
     "addressRequired": "Адрес обязателен",
     "emirateRequired": "Эмират обязателен",

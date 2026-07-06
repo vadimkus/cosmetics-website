@@ -342,6 +342,26 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
   }
 }
 
+/**
+ * Revoke all sessions/tokens for a user by bumping tokenVersion.
+ * Every JWT (web session cookie + mobile token) embeds `tv`; validation
+ * rejects tokens whose tv no longer matches. Call after password change,
+ * password reset, or an explicit "log out everywhere".
+ */
+export const bumpTokenVersion = async (userId: string): Promise<boolean> => {
+  try {
+    await prisma.user.update({
+      where: { id: userId },
+      data: { tokenVersion: { increment: 1 } },
+    })
+    debugLog('Token version bumped (all sessions revoked) for user:', userId)
+    return true
+  } catch (error) {
+    errorLog('Error bumping token version:', error)
+    return false
+  }
+}
+
 // Delete user
 export const deleteUser = async (userId: string): Promise<boolean> => {
   try {

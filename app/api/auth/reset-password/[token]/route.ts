@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyPasswordResetToken, markTokenAsUsed, invalidateUserTokens } from '@/lib/passwordReset'
-import { updateUser } from '@/lib/userStorageDb'
+import { updateUser, bumpTokenVersion } from '@/lib/userStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 import { requireBodySizeLimit, getSizeLimitForContentType } from '@/lib/requestSizeLimit'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -142,6 +142,11 @@ export async function POST(
     
     // Invalidate all other tokens for this user (security best practice)
     await invalidateUserTokens(verification.userId)
+    
+    // Revoke ALL existing sessions/tokens on every device — if the reset was
+    // triggered because the account was compromised, the attacker's session
+    // must not survive the password change.
+    await bumpTokenVersion(verification.userId)
     
     debugLog('[RESET-PASSWORD] Password reset successful')
 

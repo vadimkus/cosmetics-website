@@ -1466,7 +1466,7 @@
     "nameRequired": "الاسم مطلوب",
     "emailRequired": "البريد الإلكتروني مطلوب",
     "passwordRequired": "كلمة المرور مطلوبة",
-    "passwordMinLength": "يجب أن تكون كلمة المرور 6 أحرف على الأقل",
+    "passwordMinLength": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
     "phoneRequired": "رقم الهاتف مطلوب",
     "addressRequired": "العنوان مطلوب",
     "emirateRequired": "الإمارة مطلوبة",

@@ -105,6 +105,19 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Revocation check: a password change/reset bumps users.tokenVersion,
+    // making all previously issued tokens unrefreshable.
+    const userTv = (user as { tokenVersion?: number }).tokenVersion ?? 0
+    if ((payload.tv ?? 0) !== userTv) {
+      debugLog('[MOBILE_AUTH] Refresh rejected - token revoked (tokenVersion mismatch)', {
+        email: payload.email,
+      })
+      return NextResponse.json(
+        { success: false, error: 'Session revoked. Please log in again.' },
+        { status: 401 }
+      )
+    }
+
     // Generate a fresh token (30-day expiry)
     const newToken = generateMobileToken({
       id: user.id,
@@ -112,6 +125,7 @@ export async function POST(request: NextRequest) {
       name: user.name,
       isAdmin: user.isAdmin || false,
       canSeePrices: user.canSeePrices !== false,
+      tokenVersion: userTv,
     })
 
     // Return fresh user data (without password)

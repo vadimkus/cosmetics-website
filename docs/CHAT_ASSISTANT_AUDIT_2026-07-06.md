@@ -42,10 +42,23 @@ price + stock + existence), and the live catalog was diffed the other way.
   correct price in the bag (same accepted gap as skin-analysis/rec surfaces; mobile
   chat is already user-aware).
 - Rate limiting is an in-memory map per serverless instance — soft at scale, fine today.
-- Prompt prices are hardcoded — this audit is the sync mechanism until the catalog
-  is generated from the DB (worth doing if product churn increases).
+
+## Follow-up (same day): catalog now generated from the DB
+
+`lib/chatbot/productCatalog.ts` builds the catalog section live from the database
+(visible + in-stock products, grouped by category, `productNumber || id` keys that
+`getProductById` resolves for links and add-to-cart cards, sizes included,
+price-on-request handled). Cached in-memory for 10 minutes. `/api/chat` splices it
+into SYSTEM_PROMPT between the catalog markers; on any DB failure the hardcoded
+static section (kept in `config.ts`) remains as automatic fallback.
+
+Result: 64 products in the dynamic catalog vs 53 in the static one — new products,
+price changes, hides, and stock-outs propagate to Genie within 10 minutes with no
+manual prompt edits. Verified against the production DB
+(`scripts/test-dynamic-chat-catalog.ts`): all lines carry parseable `{{id}}` tags,
+dead products absent, splice replaces the static section cleanly.
 
 ## Ship
 
-- Web: prompt fixes deployed via main.
+- Web: prompt fixes + dynamic catalog deployed via main.
 - Mobile: OTA runtime 1.10.4 (chat spinner fix).

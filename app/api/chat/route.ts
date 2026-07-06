@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { openai } from '@ai-sdk/openai'
 import { streamText } from 'ai'
 import { SYSTEM_PROMPT, CHATBOT_CONFIG } from '@/lib/chatbot/config'
+import { getDynamicCatalogSection, spliceCatalogSection } from '@/lib/chatbot/productCatalog'
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/prisma'
 import { OPENAI_API_KEY } from '@/lib/envValidation'
@@ -200,7 +201,12 @@ The user's browser is set to Russian. YOU MUST FOLLOW THESE RULES:
 Respond in English unless the user writes in another language.`
     }
 
-    const localizedSystemPrompt = `${SYSTEM_PROMPT}
+    // Swap the hand-maintained catalog section for one generated live from the
+    // DB (10-min cache). Falls back to the static section on any failure.
+    const dynamicCatalog = await getDynamicCatalogSection()
+    const systemPromptWithCatalog = spliceCatalogSection(SYSTEM_PROMPT, dynamicCatalog)
+
+    const localizedSystemPrompt = `${systemPromptWithCatalog}
 ${contextInfo}
 Current user locale: ${locale}
 ${languageInstructions[locale as keyof typeof languageInstructions] || languageInstructions.en}`

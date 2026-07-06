@@ -450,12 +450,13 @@ Eye patches, overnight masks, sheet masks, collagen masks available. Check produ
 
 ## 🎁 PROFESSIONAL
 Carboxy therapy, Bio-Meso PDRN treatments. For clinic use. Contact for training.
+For at-home PDRN: recommend Bio-Meso PDRN Homecare Ampoule 5000 {{id:65}} or SKIN REBOOT PDRN MASK PACK {{id:52}}.
 
 ## 👁️ EYE CARE
-EyeCell line for dark circles, puffiness, fine lines. EYE CONTOUR SERUM {{id:61}} recommended.
+EyeCell line for dark circles, puffiness, fine lines. EYE CONTOUR SERUM {{id:17}} recommended.
 
 ## 🎁 BEAUTY BOXES
-Value sets with 15% savings! Anti-aging box, Hydration box, Problem Control box, etc. Great for gifts!
+Value sets with 15% savings! Great for gifts! Use the Beauty Boxes entries from the Product Catalog below (ids 55-59, 62) so customers can add them to cart directly.
 
 ## 🎧 CUSTOMER SERVICE
 Returns: 7 days, unopened. Tracking: Email + WhatsApp updates. Contact: sales@genosys.ae, +971 58 548 76 65.
@@ -499,8 +500,8 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 
 ### Devices & Microneedling
 - [Microneedle Roller](https://genosys.ae/products/1){{id:1}} - AED 230 - 450 ultra-thin needles for better product absorption
-- [Needle Pen-K](https://genosys.ae/products/2){{id:2}} - AED 1,450 - Automatic microneedling pen device
 - [HairGen BOOSTER](https://genosys.ae/products/3){{id:3}} - AED 1,800 - Professional hair growth device
+- [Hair Stamp For HAIRGEN BOOSTER](https://genosys.ae/products/64){{id:64}} - AED 600 - Microneedle stamp refills (8 pcs) for HairGen Booster
 - [Hair-GENTRON](https://genosys.ae/products/48){{id:48}} - AED 3,300 - Advanced hair device
 - [GENO-LED IR II](https://genosys.ae/products/49){{id:49}} - AED 5,500 - LED therapy device
 
@@ -514,6 +515,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 
 ### Cleansers
 - [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} - AED 330 - Oxygen bubble cleanser
+- [CERABARRIER BIOME GEL CLEANSER](https://genosys.ae/products/66){{id:66}} - AED 380 - Ceramide + probiotic barrier-care daily gel cleanser
 - [SKIN DEFENDER LIP & EYE MAKEUP REMOVER](https://genosys.ae/products/11){{id:11}} - AED 290
 
 ### Toners & Mists
@@ -528,6 +530,10 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - AED 330 - Acne/oily skin
 - [MULTI VITA RADIANCE SERUM](https://genosys.ae/products/21){{id:21}} - AED 330 - Brightening
 - [MULTI FUNCTIONAL ANTI-WRINKLE SERUM](https://genosys.ae/products/22){{id:22}} - AED 330 - Anti-aging
+
+### Bio-Meso PDRN (Regenerating Ampoules — very popular!)
+- [Bio-Meso PDRN Homecare Ampoule 5000](https://genosys.ae/products/65){{id:65}} - AED 300 - PDRN home ampoule for skin regeneration & anti-aging
+- [Bio Meso PDRN Ampoule 60000](https://genosys.ae/products/60){{id:60}} - AED 600 - High-strength PDRN ampoule for intensive repair
 
 ### Creams
 - [ND Cell ANTI-WRINKLE CREAM](https://genosys.ae/products/23){{id:23}} - AED 370 - Premium anti-aging
@@ -546,12 +552,14 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [ULTRA SHIELD SUN CREAM SPF 50+](https://genosys.ae/products/39){{id:39}} - AED 250
 - [INTENSIVE BLEMISH BALM CREAM SPF 30](https://genosys.ae/products/42){{id:42}} - AED 250 - BB cream with sun protection
 - [SKIN CARING BLEMISH BALM CUSHION SPF 50+](https://genosys.ae/products/41){{id:41}} - AED 300 - Cushion BB
+- [REVITA GLOW BLEMISH BALM CREAM SPF 38](https://genosys.ae/products/63){{id:63}} - AED 250 - Brightening BB cream with SPF 38 PA+++
 
 ### Masks
 - [EyeCell EYE PEPTIDE GEL PATCH](https://genosys.ae/products/33){{id:33}} - AED 380 - Eye patches
 - [SKIN RESCUE OVERNIGHT CREAM MASK](https://genosys.ae/products/34){{id:34}} - AED 340 - Overnight mask
 - [HYDRO COOL MODELING MASK](https://genosys.ae/products/35){{id:35}} - AED 300 (1kg) - Cooling modeling mask
 - [SOOTHING BOMB SEA ALGAE MASK](https://genosys.ae/products/36){{id:36}} - AED 36 - Sheet mask
+- [INTENSIVE REPAIR COLLAGEN MASK](https://genosys.ae/products/53){{id:53}} - AED 36 - Collagen sheet mask
 - [PEPTIDE GEL MASK](https://genosys.ae/products/37){{id:37}} - AED 380 - Gel mask
 - [EZ CO₂ MASK KIT](https://genosys.ae/products/38){{id:38}} - AED 460 - CO2 carboxy therapy
 - [BIO-FERMENT AGE DEFYING POWDER MASK](https://genosys.ae/products/51){{id:51}} - AED 250
@@ -571,6 +579,14 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 
 ### Eye Care Kit
 - [EyeCell EYE ZONE CARE KIT](https://genosys.ae/products/50){{id:50}} - AED 980 - Complete eye care set
+
+### Beauty Boxes (value sets, 15% bundle discount already included!)
+- [PROBLEM SKIN CARE BEAUTY BOX](https://genosys.ae/products/55){{id:55}} - AED 1,120.30 - For oily/acne-prone skin
+- [SKIN BRIGHTENING BEAUTY BOX](https://genosys.ae/products/56){{id:56}} - AED 1,271.60 - Radiance & even tone set
+- [CHARMING LOOK BEAUTY BOX](https://genosys.ae/products/57){{id:57}} - AED 1,292 - Complete glow routine
+- [ANTI-AGING BEAUTY BOX](https://genosys.ae/products/58){{id:58}} - AED 1,181.50 - Wrinkle care set
+- [DEEP MOISTURIZING BEAUTY BOX](https://genosys.ae/products/59){{id:59}} - AED 1,120.30 - Hydration set
+- [SENSITIVE SKIN BEAUTY BOX](https://genosys.ae/products/62){{id:62}} - AED 1,442 - Gentle barrier-care set
 
 ## Product PDF Documentation (Recommend when discussing these products!)
 **When customers ask for more details about these products, offer the PDF brochure/guide.**

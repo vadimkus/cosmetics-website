@@ -40,13 +40,23 @@ export interface BundlePricing {
 /**
  * Discount Tiers for Bundle Builder
  * More items = higher discount
+ * Single source of truth for the builder UI (checkout revalidates via
+ * lib/checkoutPricingGuards.getBundleDiscountTier).
  */
-const DISCOUNT_TIERS = [
+export const DISCOUNT_TIERS = [
   { minItems: 2, discount: 5 },
   { minItems: 3, discount: 10 },
   { minItems: 4, discount: 15 },
   { minItems: 5, discount: 20 },
 ]
+
+export function getBundleDiscountForCount(count: number): number {
+  let discount = 0
+  for (const tier of DISCOUNT_TIERS) {
+    if (count >= tier.minItems) discount = tier.discount
+  }
+  return discount
+}
 
 /**
  * Routine Steps - The steps in a skincare routine
@@ -135,7 +145,6 @@ interface BundleState {
   setIsOpen: (isOpen: boolean) => void
   
   // Computed
-  getPricing: () => BundlePricing
   getItemForStep: (stepId: string) => BundleItem | undefined
   getItemsForStep: (stepId: string) => BundleItem[]
   getItemCountForStep: (stepId: string) => number
@@ -143,47 +152,6 @@ interface BundleState {
   isStepComplete: (stepId: string) => boolean
   areRequiredStepsComplete: () => boolean
   canAddToCart: () => boolean
-}
-
-/**
- * Calculate bundle pricing with tiered discounts
- */
-function calculatePricing(items: BundleItem[]): BundlePricing {
-  const itemCount = items.length
-  const subtotal = items.reduce((sum, item) => sum + item.product.price, 0)
-  
-  // Find applicable discount tier
-  let discountPercent = 0
-  for (const tier of DISCOUNT_TIERS) {
-    if (itemCount >= tier.minItems) {
-      discountPercent = tier.discount
-    }
-  }
-  
-  const discountAmount = Math.round((subtotal * discountPercent) / 100)
-  const total = subtotal - discountAmount
-  
-  // Find next tier info
-  let nextTierItems: number | null = null
-  let nextTierDiscount: number | null = null
-  
-  for (const tier of DISCOUNT_TIERS) {
-    if (itemCount < tier.minItems) {
-      nextTierItems = tier.minItems - itemCount
-      nextTierDiscount = tier.discount
-      break
-    }
-  }
-  
-  return {
-    subtotal,
-    discountPercent,
-    discountAmount,
-    total,
-    itemCount,
-    nextTierItems,
-    nextTierDiscount,
-  }
 }
 
 /**
@@ -233,10 +201,6 @@ export const useBundleStore = create<BundleState>((set, get) => ({
   
   setIsOpen: (isOpen: boolean) => {
     set({ isOpen })
-  },
-  
-  getPricing: () => {
-    return calculatePricing(get().items)
   },
   
   getItemForStep: (stepId: string) => {

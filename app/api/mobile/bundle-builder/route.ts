@@ -39,8 +39,9 @@ const DISCOUNT_TIERS = [
   { minItems: 5, discount: 20 },
 ]
 
-// Products excluded from bundle builder
-const EXCLUDED_PRODUCTS = ['SKIN RENEWAL PEELING SYSTEM']
+// Products excluded from bundle builder by name (none currently — SRS was
+// re-admitted 2026-07-06; category-level exclusions in the query still apply)
+const EXCLUDED_PRODUCTS: string[] = []
 
 // Category matching for each step
 function matchesStep(category: string, stepCategory: string): boolean {
@@ -50,6 +51,8 @@ function matchesStep(category: string, stepCategory: string): boolean {
   // Special mappings
   if (step === 'toner/mist') return cat.includes('toner') || cat.includes('mist')
   if (step === 'eye care') return cat.includes('eye')
+  // Bio Meso PDRN ampoules are serum-type treatments
+  if (step === 'serum') return cat.includes('serum') || cat.includes('bio meso')
   
   return cat.includes(step)
 }

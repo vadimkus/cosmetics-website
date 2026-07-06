@@ -17,10 +17,9 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 export const maxDuration = 30 // Allow time for DB cold start + retry
 
-// Products excluded from bundle builder (professional products, kits, etc.)
-const EXCLUDED_PRODUCTS = [
-  'SKIN RENEWAL PEELING SYSTEM',
-]
+// Products excluded from bundle builder by name (none currently — SRS was
+// re-admitted 2026-07-06; category-level exclusions below still apply)
+const EXCLUDED_PRODUCTS: string[] = []
 
 /**
  * Fetch products with retry logic for Neon Postgres cold starts.

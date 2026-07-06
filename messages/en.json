@@ -126,7 +126,7 @@
   "hero": {
     "title": "Professional Korean",
     "titleHighlight": "Dermacosmetics",
-    "subtitle": "Premium Korean dermacosmetics and skincare from GENOSYS \u2014 microneedling devices, serums and creams shipped free across the UAE.",
+    "subtitle": "Premium Korean dermacosmetics and skincare from GENOSYS — microneedling devices, serums and creams shipped free across the UAE.",
     "orderNow": "Order Now",
     "login": "Login",
     "learnMore": "Learn More",
@@ -987,7 +987,7 @@
     "recommendedSkinBrighteningRoutine": "Recommended Skin Brightening Routine",
     "routineSnowBoosterDescBrightening": "After cleansing, apply the toner to moisturize and refine skin texture. It helps balance pH level and prepares your skin for the brightening treatment.",
     "routineMultiVitaSerumTitle": "Multi Vita Radiance Serum",
-    "routineMultiVitaSerumDesc": "Apply the serum to even skin tone and revive natural brightness. The MELAZERO® complex and multi vitamins work together to reduce dullness and reveal a brighter complexion.",
+    "routineMultiVitaSerumDesc": "Apply the vitamin-infused serum to brighten and energize your complexion. The 12-vitamin complex enhances your skin's natural radiance from within.",
     "routineMultiVitaCreamTitle": "Multi Vita Radiance Cream",
     "routineMultiVitaCreamDesc": "Finish with the cream to maintain and protect your brightened skin. It forms a moisturizing barrier and continues to even skin tone for a luminous glow.",
     "routinePeelingGelTitle": "EPI Turnover Boosting Peeling Gel",
@@ -1004,8 +1004,6 @@
     "routineSoothingBombMaskDescSensitive": "Use 2-3 times per week to complement your routine. The sea algae complex provides deep calming hydration and soothes reactive, sensitive skin.",
     "recommendedRevitaGlowRoutine": "Recommended Radiant Glow Routine",
     "routineSnowBoosterDescRevitaGlow": "After cleansing, apply the toner to hydrate and balance your skin. It refines skin texture and prepares the perfect base for your radiant glow routine.",
-    "routineMultiVitaSerumTitle": "Multi Vita Radiance Serum",
-    "routineMultiVitaSerumDesc": "Apply the vitamin-infused serum to brighten and energize your complexion. The 12-vitamin complex enhances your skin's natural radiance from within.",
     "routineHyaluronCreamDescRevitaGlow": "Apply the hyaluron cream to deeply hydrate and plump your skin. This creates a smooth, moisturized canvas for flawless BB cream application.",
     "routineRevitaGlowBBTitle": "REVITA GLOW BB Cream",
     "routineRevitaGlowBBDesc": "As the final step, apply the BB cream using the dedicated puff with gentle tapping motions. It provides natural coverage, UV protection (SPF 38 PA+++), and a radiant glass-like glow all day.",
@@ -1951,7 +1949,10 @@
       "tier2": "3 items: 10% off",
       "tier3": "4 items: 15% off",
       "tier4": "5+ items: 20% off"
-    }
+    },
+    "recommended": "Recommended",
+    "vipDiscount": "VIP Discount",
+    "discountApplied": "Discount"
   },
   "chat": {
     "title": "GENOSYS Assistant",

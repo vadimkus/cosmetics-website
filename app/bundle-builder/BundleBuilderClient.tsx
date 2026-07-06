@@ -10,7 +10,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useCartStore } from '@/lib/cartStore'
 import { useAnimationStore } from '@/lib/animationStore'
-import { useBundleStore, ROUTINE_STEPS, type RoutineStep, type BundlePricing } from '@/lib/bundleStore'
+import { useBundleStore, ROUTINE_STEPS, DISCOUNT_TIERS, getBundleDiscountForCount, type RoutineStep, type BundlePricing } from '@/lib/bundleStore'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getCartLinePricing } from '@/lib/cartPricing'
@@ -117,21 +117,6 @@ function toBundleCartProduct(product: Product, bundleDiscountPercent: number): P
     fromBundle: true,
     bundleDiscountPercent,
   } as Product & { originalPrice: null; fromBundle: boolean; bundleDiscountPercent: number }
-}
-
-const BUNDLE_DISCOUNT_TIERS = [
-  { minItems: 2, discount: 5 },
-  { minItems: 3, discount: 10 },
-  { minItems: 4, discount: 15 },
-  { minItems: 5, discount: 20 },
-]
-
-function getBundleDiscountForCount(count: number): number {
-  let discount = 0
-  for (const tier of BUNDLE_DISCOUNT_TIERS) {
-    if (count >= tier.minItems) discount = tier.discount
-  }
-  return discount
 }
 
 function getBundleLinePricing(product: Product, user: User | ApiUser | null, bundleDiscountPercent: number) {
@@ -414,11 +399,15 @@ function BundleSummary({
                   </div>
                 )}
                 
-                {/* Bundle Discount */}
+                {/* Discount row — label follows the discount that actually won (bundle vs VIP) */}
                 {pricing.discountPercent > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-green-600">
-                      {t('bundleBuilder.discount')} ({pricing.discountPercent}%)
+                      {(pricing.appliedDiscountType === 'user' || pricing.appliedDiscountType === 'black_friday')
+                        ? t('bundleBuilder.vipDiscount')
+                        : pricing.appliedDiscountType === 'mixed'
+                          ? t('bundleBuilder.discountApplied')
+                          : t('bundleBuilder.discount')} ({pricing.discountPercent}%)
                     </span>
                     <span className="text-green-600">-{pricing.discountAmount.toFixed(2)} {t('common.aed')}</span>
                   </div>
@@ -570,7 +559,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
     let nextTierItems: number | null = null
     let nextTierDiscount: number | null = null
     
-    for (const tier of BUNDLE_DISCOUNT_TIERS) {
+    for (const tier of DISCOUNT_TIERS) {
       if (itemCount < tier.minItems) {
         nextTierItems = tier.minItems - itemCount
         nextTierDiscount = tier.discount
@@ -636,17 +625,23 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
       if (currentStepData.id === 'eye-care') {
         return category.includes('eye')
       }
+      if (currentStepData.id === 'serum') {
+        // Bio Meso PDRN ampoules are serum-type treatments
+        return category.includes('serum') || category.includes('bio meso')
+      }
       
       return category.includes(stepCategory)
     })
   }, [products, currentStepData])
   
-  // Get selected product IDs for current step (allows multiple)
+  // Selected product IDs across ALL steps. Must be global, not per-step:
+  // multi-category products (e.g. cushions tagged "Cushion BB, Sun, Cream")
+  // appear in more than one step, and addItem() toggles by product id
+  // globally — a per-step indicator made the same product look unselected
+  // in the sibling step, where "Add to Set" would silently REMOVE it.
   const selectedProductIds = useMemo(() => {
-    return items
-      .filter(i => i.step === currentStepData?.id)
-      .map(i => i.product.id)
-  }, [items, currentStepData])
+    return items.map(i => i.product.id)
+  }, [items])
   
   // Handle product selection
   const handleProductSelect = (product: Product) => {
@@ -838,8 +833,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   {t(`bundleBuilder.steps.${currentStepData?.id}`) || currentStepData?.name}
                 </h2>
                 {currentStepData?.required && (
-                  <span className="bg-gray-900 text-white text-xs px-2 py-0.5 rounded-full">
-                    {t('bundleBuilder.required')}
+                  <span className="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded-full">
+                    {t('bundleBuilder.recommended')}
                   </span>
                 )}
               </div>
@@ -889,8 +884,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 {t('bundleBuilder.previous')}
               </button>
               
-              {/* Skip Button (for optional steps) */}
-              {!currentStepData?.required && !hasItemForStep(currentStepData?.id || '') && (
+              {/* Skip Button (any step without items — steps are recommendations, not gates) */}
+              {!hasItemForStep(currentStepData?.id || '') && (
                 <button
                   onClick={handleNextStep}
                   className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
@@ -1007,8 +1002,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               {t('bundleBuilder.previous')}
             </button>
             
-            {/* Skip (for optional steps) */}
-            {!currentStepData?.required && !hasItemForStep(currentStepData?.id || '') && currentStep < ROUTINE_STEPS.length - 1 && (
+            {/* Skip (any step without items — steps are recommendations, not gates) */}
+            {!hasItemForStep(currentStepData?.id || '') && currentStep < ROUTINE_STEPS.length - 1 && (
               <button
                 onClick={handleNextStep}
                 className="text-sm text-gray-400 hover:text-gray-600 transition-colors px-3 py-2.5"
@@ -1133,20 +1128,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     const isProductSelected = selectedProductIds.includes(detailProduct.id)
                     const currentItemCount = items.length
                     const newItemCount = isProductSelected ? currentItemCount : currentItemCount + 1
-                    
-                    const DISCOUNT_TIERS = [
-                      { minItems: 2, discount: 5 },
-                      { minItems: 3, discount: 10 },
-                      { minItems: 4, discount: 15 },
-                      { minItems: 5, discount: 20 },
-                    ]
-                    
-                    let bundleDiscountForItem = 0
-                    for (const tier of DISCOUNT_TIERS) {
-                      if (newItemCount >= tier.minItems) {
-                        bundleDiscountForItem = tier.discount
-                      }
-                    }
+                    const bundleDiscountForItem = getBundleDiscountForCount(newItemCount)
                     
                     return (
                       <div className="flex flex-col h-full">
@@ -1200,7 +1182,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                           {showPrices ? (
                             <div className="flex flex-col items-center">
                               <span className="text-2xl font-bold text-gray-900">
-                                {detailProduct.price.toFixed(2)} {t('common.aed')}
+                                {getBundleRetailPrice(detailProduct).toFixed(2)} {t('common.aed')}
                               </span>
                               <span className="text-xs text-gray-400 mt-1">5% {t('product.vatIncluded')}</span>
                             </div>
@@ -1261,26 +1243,10 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               {(() => {
             const isProductSelected = selectedProductIds.includes(detailProduct.id)
             
-            // Calculate bundle discount for this item
-            // If item is already selected, show current discount
-            // If not selected, show what discount would be after adding
+            // Bundle discount preview: current tier if selected, else the tier after adding
             const currentItemCount = items.length
             const newItemCount = isProductSelected ? currentItemCount : currentItemCount + 1
-            
-            // Discount tiers
-            const DISCOUNT_TIERS = [
-              { minItems: 2, discount: 5 },
-              { minItems: 3, discount: 10 },
-              { minItems: 4, discount: 15 },
-              { minItems: 5, discount: 20 },
-            ]
-            
-            let bundleDiscountForItem = 0
-            for (const tier of DISCOUNT_TIERS) {
-              if (newItemCount >= tier.minItems) {
-                bundleDiscountForItem = tier.discount
-              }
-            }
+            const bundleDiscountForItem = getBundleDiscountForCount(newItemCount)
             
             return (
               <div className="flex flex-col h-full">
@@ -1342,7 +1308,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   {showPrices ? (
                     <div className="flex flex-col">
                       <span className="text-xl font-bold text-gray-900">
-                        {detailProduct.price.toFixed(2)} {t('common.aed')}
+                        {getBundleRetailPrice(detailProduct).toFixed(2)} {t('common.aed')}
                       </span>
                       <span className="text-xs text-gray-400 mt-0.5">
                         5% {t('product.vatIncluded')}

@@ -132,6 +132,21 @@ const nextConfig = {
           { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
         ],
       },
+      {
+        // The service worker MUST always be revalidated — if it ever gets a
+        // long cache, users are frozen on an old version and never receive
+        // updates. Enforce no-store in code (don't rely on Vercel defaults).
+        source: '/sw.js',
+        headers: [
+          { key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' },
+        ],
+      },
+      {
+        source: '/manifest.json',
+        headers: [
+          { key: 'Cache-Control', value: 'no-cache, must-revalidate' },
+        ],
+      },
     ]
   },
   

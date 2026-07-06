@@ -111,8 +111,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       languages: getProductAlternates(canonicalSlug),
     },
     other: {
-      'product:price:amount': product.price.toString(),
-      'product:price:currency': 'AED',
+      // Price omitted — gated behind login (see EN page for rationale)
       'product:availability': product.inStock ? 'in stock' : 'out of stock',
       'product:brand': 'GENOSYS',
       'product:category': product.category,

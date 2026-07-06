@@ -118,8 +118,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       languages: getProductAlternates(canonicalSlug),
     },
     other: {
-      'product:price:amount': product.price.toString(),
-      'product:price:currency': 'AED',
+      // Price intentionally NOT exposed here — prices are gated behind login
+      // (canUserSeePrices), so emitting product:price:amount would leak the
+      // base price to any crawler/link-unfurl bot.
       'product:availability': product.inStock ? 'in stock' : 'out of stock',
       'product:brand': 'GENOSYS',
       'product:category': product.category,

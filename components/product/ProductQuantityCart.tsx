@@ -49,7 +49,7 @@ export default function ProductQuantityCart({
   // Use "Add to Bag" for PWA and mobile web
   const useBagText = isPWA || isMobile
 
-  const handleIncrease = () => setQuantity(prev => prev + 1)
+  const handleIncrease = () => setQuantity(prev => Math.min(prev + 1, 99))
   const handleDecrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1))
 
   // Share functionality

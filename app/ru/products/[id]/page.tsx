@@ -94,7 +94,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       siteName: 'GENOSYS',
       // og:image intentionally omitted — file-based opengraph-image.tsx
       // renders the branded localized 1200x630 product card instead.
-      locale: 'ru_AE',
+      locale: 'ru_RU',
       countryName: 'United Arab Emirates',
     },
     twitter: {
@@ -110,8 +110,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       languages: getProductAlternates(canonicalSlug),
     },
     other: {
-      'product:price:amount': product.price.toString(),
-      'product:price:currency': 'AED',
+      // Price omitted — gated behind login (see EN page for rationale)
       'product:availability': product.inStock ? 'in stock' : 'out of stock',
       'product:brand': 'GENOSYS',
       'product:category': product.category,

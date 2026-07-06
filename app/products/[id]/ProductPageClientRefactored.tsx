@@ -11,7 +11,6 @@ import { useState, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
 import ProductBreadcrumb from '@/app/products/[id]/components/ProductBreadcrumb'
 import ProductImageGallery from '@/components/product/ProductImageGallery'
-import ProductDetails from '@/components/product/ProductDetails'
 import ProductPriceDisplay from '@/components/product/ProductPriceDisplay'
 import ProductVariantSelector from '@/components/product/ProductVariantSelector'
 import ProductQuantityCart from '@/components/product/ProductQuantityCart'
@@ -150,6 +149,9 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
       await addItem(productToAdd, quantity, colorToPass, sizeToPass)
     } catch (error) {
       errorLog('Error adding to cart:', error)
+      // Rethrow so callers (e.g. the mobile handler) don't show a false
+      // "Added to Bag" success state when the add actually failed.
+      throw error
     }
   }, [user, product, productNum, selectedSize, selectedColor, addItem, router, locale])
   
@@ -1102,12 +1104,6 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
 
           {/* Right Column - Product Details and Content */}
           <div className={`space-y-6 ${dir === 'rtl' ? 'md:col-start-1 md:row-start-1' : ''}`}>
-            {/* Product Details - Hidden on desktop (info shown in desktop header above image in left column) */}
-            {/* Hidden on mobile (info shown in mobile header above image) */}
-            <div className="hidden">
-              <ProductDetails product={product} />
-            </div>
-
             {/* Detailed Product Content */}
             <ProductContentDisplay product={product} />
 
@@ -1418,7 +1414,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                   {mobileQuantity}
                 </span>
                 <button
-                  onClick={() => setMobileQuantity(prev => prev + 1)}
+                  onClick={() => setMobileQuantity(prev => Math.min(prev + 1, 99))}
                   className="p-2.5 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label={t('product.increaseQuantity')}
                 >

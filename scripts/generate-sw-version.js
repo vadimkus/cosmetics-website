@@ -16,10 +16,13 @@ const packageJsonPath = path.join(__dirname, '..', 'package.json')
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'))
 const version = packageJson.version
 
-// Generate a short hash from build time + version for uniqueness
+// Generate a short hash from build time + version for uniqueness.
+// Use the FULL ISO timestamp (not just the date) so two deploys on the same
+// day produce different cache names — otherwise a same-day hotfix ships a new
+// SW that never purges the previous day's caches (stale assets/pages persist).
 const buildHash = crypto
   .createHash('md5')
-  .update(`${version}-${new Date().toISOString().slice(0, 10)}`)
+  .update(`${version}-${new Date().toISOString()}`)
   .digest('hex')
   .slice(0, 8)
 

@@ -135,7 +135,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
         </div>
 
         <div
-          className="w-full aspect-square bg-gray-100 rounded-lg overflow-hidden relative cursor-zoom-in group"
+          className="w-full aspect-square bg-white rounded-lg overflow-hidden relative cursor-zoom-in group"
           onClick={() => !(product.id === '3' && selectedImage === 2 && videoUrl) && openLightbox(selectedImage)}
         >
         
@@ -178,7 +178,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
                   alt={`${product.name} - GENOSYS Korean dermacosmetics product image ${selectedImage + 1} of ${productImages.length}`}
                   width={600}
                   height={600}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
                   priority={selectedImage === 0}
                   quality={90}
                   placeholder="blur"
@@ -261,7 +261,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
               onClick={() => setSelectedImage(index)}
               aria-label={`Show image ${index + 1} of ${productImages.length}`}
               aria-pressed={selectedImage === index}
-              className={`w-11 h-11 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-md md:rounded-lg overflow-hidden border-2 transition-colors flex-shrink-0 ${
+              className={`w-11 h-11 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-md md:rounded-lg overflow-hidden border-2 transition-colors flex-shrink-0 bg-white ${
                 selectedImage === index
                   ? 'border-primary-600'
                   : 'border-gray-200 hover:border-gray-300'
@@ -283,7 +283,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
                   alt={`${product.name} - GENOSYS product thumbnail ${index + 1} of ${productImages.length}`}
                   width={64}
                   height={64}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   quality={75}
                   placeholder="blur"
                   blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="

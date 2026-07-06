@@ -1,11 +1,11 @@
-// BUILD: v0.1.0-89b5bcd2 @ 2026-07-06T12:03:14.601Z
+// BUILD: v0.1.0-c2e910d0 @ 2026-07-06T12:58:02.144Z
 /**
  * Service Worker for Genosys Cosmetics Website
  * Provides offline functionality and caching strategies
  */
 
 // Cache versioning - generated at build time via npm run build
-const CACHE_VERSION = self.__SW_VERSION || 'v0.1.0-89b5bcd2';
+const CACHE_VERSION = self.__SW_VERSION || 'v0.1.0-c2e910d0';
 const CACHE_NAMES = {
   static: `genosys-static-${CACHE_VERSION}`,
   dynamic: `genosys-dynamic-${CACHE_VERSION}`,
@@ -16,7 +16,6 @@ const CACHE_NAMES = {
 };
 
 // Backward-compatible aliases
-const CACHE_NAME = CACHE_NAMES.static
 const STATIC_CACHE = CACHE_NAMES.static
 const DYNAMIC_CACHE = CACHE_NAMES.dynamic
 const IMAGE_CACHE = CACHE_NAMES.images
@@ -46,18 +45,6 @@ const STATIC_ASSETS = [
   '/images/genosys-logo.png',
   '/images/genosys-products.jpg',
   // Add critical CSS and JS files
-]
-
-// API routes to cache for offline product viewing
-const PRODUCTS_API_ROUTES = [
-  '/api/products',
-]
-
-// API routes to cache
-const API_ROUTES = [
-  '/api/products',
-  '/api/auth/login',
-  '/api/auth/register',
 ]
 
 // Product catalog configuration
@@ -123,9 +110,7 @@ self.addEventListener('install', (event) => {
 // Activate event - clean up old caches, check quota, and pre-cache products
 self.addEventListener('activate', (event) => {
   console.log('Service Worker activating...')
-  
-  const currentCaches = [STATIC_CACHE, DYNAMIC_CACHE, IMAGE_CACHE, PRODUCTS_CACHE, API_CACHE, PAGE_CACHE]
-  
+
   event.waitUntil(
     Promise.all([
       // Clean up old caches from previous versions
@@ -251,13 +236,35 @@ function isProductsAPIRequest(request) {
   return url.pathname === '/api/products' || url.pathname.startsWith('/api/products/')
 }
 
+// Per-user / private API responses must NEVER be written to the shared cache:
+// they are keyed by URL only, so a cached response for User A could be served
+// to User B on the same device (or after logout) while offline.
+const PRIVATE_API_PATTERNS = [
+  /\/api\/user\//,
+  /\/api\/orders/,
+  /\/api\/addresses/,
+  /\/api\/auth\//,
+  /\/api\/push\//,
+  /\/api\/mobile\//,
+]
+
+function isPrivateAPIRequest(request) {
+  return PRIVATE_API_PATTERNS.some((pattern) => pattern.test(request.url))
+}
+
 // Handle API requests with appropriate caching strategy
 async function handleAPIRequest(request) {
   // Use stale-while-revalidate for products API (better offline experience)
   if (isProductsAPIRequest(request)) {
     return handleProductsAPIRequest(request)
   }
-  
+
+  // Private/authenticated endpoints: always go to the network, never cache,
+  // never serve a stale copy (prevents cross-user data leakage offline).
+  if (isPrivateAPIRequest(request)) {
+    return fetch(request)
+  }
+
   // Network-first for other API requests
   try {
     const networkResponse = await fetch(request)
@@ -1330,7 +1337,6 @@ async function getCacheInfo() {
   }
 }
 
-// Periodic quota check (every 5 minutes)
-setInterval(() => {
-  checkStorageQuota()
-}, 5 * 60 * 1000)
+// NOTE: no setInterval here — a service worker is terminated after ~30s idle,
+// so periodic timers never fire reliably. Quota is checked on `activate` and
+// auto-cleans at the 90% threshold, which is sufficient.

@@ -277,6 +277,10 @@ export async function POST(request: NextRequest) {
         // Dynamic payment methods: omit payment_method_types so the hosted
         // Checkout page uses the methods enabled in the Stripe Dashboard.
         expires_at: Math.floor(Date.now() / 1000) + (30 * 60),
+      }, {
+        // Idempotency: dedupe double-taps within a 2-minute window; a genuine
+        // later resume still gets a fresh session.
+        idempotencyKey: `mob_sess_${existing.orderNumber}_${Math.floor(Date.now() / 120000)}`,
       })
 
       await prisma.order.update({
@@ -610,6 +614,10 @@ export async function POST(request: NextRequest) {
       // Dynamic payment methods: omit payment_method_types so the hosted
       // Checkout page uses the methods enabled in the Stripe Dashboard.
       expires_at: Math.floor(Date.now() / 1000) + (30 * 60) // 30 minutes
+    }, {
+      // Idempotency: dedupe double-taps within a 2-minute window; a genuine
+      // later resume still gets a fresh session.
+      idempotencyKey: `mob_sess_${orderNumber}_${Math.floor(Date.now() / 120000)}`,
     })
 
     // Update order with Stripe session ID

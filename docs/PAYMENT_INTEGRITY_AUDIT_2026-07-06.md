@@ -45,16 +45,25 @@ MISMATCH — reconcile") with both amounts and the delta. **Log-only** — it ne
 blocks a genuinely paid order (blocking would be worse than the discrepancy);
 finance just gets a signal to reconcile.
 
-## Flagged, not changed (business decisions)
+## Follow-up (same day): both hardenings applied
 
-- **`allow_promotion_codes: true`** on the hosted checkout session lets a customer
-  enter Stripe Dashboard promo codes and pay less than the order total, while the
-  order record keeps the full total. If GENOSYS doesn't intentionally use Stripe
-  promo codes, consider setting this to `false` (all discounts already flow through
-  the server pricing). The new reconciliation log will surface any such underpayment.
-- **No Stripe idempotency key** on `paymentIntents.create` / `sessions.create`. The
-  5-minute dedup covers the common double-tap; a per-attempt idempotency key would
-  be strictly more robust but is a minor hardening.
+1. **`allow_promotion_codes` → `false`** on the hosted checkout session. All
+   discounts (VIP, bundle, Beauty Box) are computed server-side and baked into the
+   line items, so a Stripe-level code was the only way a customer could pay less
+   than the recorded order total. Now disabled.
+2. **Stripe idempotency keys** added to every charge-creation call:
+   - Web `lib/stripe.ts` `createPaymentIntent` / `createCheckoutSession`: keyed by
+     `payment_intent_<orderNumber>` / `checkout_session_<orderNumber>`. Both web
+     routes mint a fresh order number per call, so the key only collapses true
+     Stripe-level retries of the identical create.
+   - Mobile `checkout/stripe` (new + resume session) and `applepay/intent`: keyed by
+     `<order>_<2-min bucket>` so a double-tap within the window is deduped while a
+     genuine later resume still gets a fresh session/intent (these paths reuse the
+     same pending order across attempts, so a plain key would wrongly return a stale
+     expired session).
+
+## Flagged, not changed
+
 - Rate limiting on payment-creation endpoints relies on the same soft per-instance
   limiter noted elsewhere.
 

@@ -129,8 +129,10 @@ export async function createCheckoutSession(params: {
       // Shipping is handled via line items, not shipping options
       // This prevents double charging for shipping
       
-      // Allow promotion codes
-      allow_promotion_codes: true,
+      // Stripe Dashboard promo codes are disabled: all discounts (VIP, bundle,
+      // Beauty Box) are computed server-side and baked into the line items, so a
+      // Stripe-level code would let a customer underpay vs the recorded order total.
+      allow_promotion_codes: false,
       
       // Automatic tax (disabled as we handle VAT manually)
       automatic_tax: {
@@ -144,6 +146,10 @@ export async function createCheckoutSession(params: {
       phone_number_collection: {
         enabled: true,
       },
+    }, {
+      // Idempotency: retries or double-taps for the same order reuse the same
+      // session instead of creating (and potentially charging) duplicates.
+      idempotencyKey: `checkout_session_${params.orderNumber}`,
     })
 
     debugLog('✅ Stripe checkout session created:', {
@@ -199,6 +205,10 @@ export async function createPaymentIntent(params: {
         locale: params.locale,
       },
       receipt_email: params.customerEmail,
+    }, {
+      // Idempotency: retries/double-taps for the same order reuse the same
+      // PaymentIntent instead of creating duplicate intents (and orders).
+      idempotencyKey: `payment_intent_${params.orderNumber}`,
     })
 
     debugLog('✅ Stripe payment intent created:', {

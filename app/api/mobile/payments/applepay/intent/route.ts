@@ -360,6 +360,10 @@ export async function POST(request: NextRequest) {
         paymentFlow: 'payment_sheet',
       },
       description: `Genosys UAE order ${order.orderNumber}`,
+    }, {
+      // Idempotency: dedupe double-taps within a 2-minute window while still
+      // allowing a genuine later retry to create a fresh intent.
+      idempotencyKey: `applepay_${order.orderNumber}_${Math.floor(Date.now() / 120000)}`,
     })
 
     await prisma.order.update({

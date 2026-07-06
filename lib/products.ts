@@ -592,7 +592,7 @@ When mounted on the HairGen Booster, the stamp performs automatic microneedling 
 
 Supplied as 1 box containing 8 hair stamps. A fresh stamp is used together with a new dose of HR³ MATRIX HAIR SOLUTION α for every treatment to ensure hygienic, contamination-free application. Manufactured in South Korea.`,
     image: '/images/needles/main.jpg',
-    images: null,
+    images: JSON.stringify(['/images/needles/main.jpg', '/images/needles/s1.jpg', '/images/needles/s2.jpg', '/images/needles/s3.jpg', '/images/needles/s4.jpg']),
     category: 'Scalp/Hair',
     inStock: true,
     size: '1 box - 8 pcs of hair stamp',

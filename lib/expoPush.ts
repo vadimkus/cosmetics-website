@@ -114,17 +114,17 @@ const ORDER_STATUS_MESSAGES: Record<OrderStatus, Record<Locale, NotificationCont
   CANCELLED: {
     en: {
       title: '❌ Order Cancelled',
-      body: 'Your order #{orderNumber} has been cancelled. Contact us if you have questions.',
+      body: 'Your order #{orderNumber} was cancelled. If this wasn\u2019t expected, message us — we\u2019ll make it right.',
       emoji: '❌',
     },
     ar: {
       title: '❌ تم إلغاء الطلب',
-      body: 'تم إلغاء طلبك رقم #{orderNumber}. تواصل معنا إذا كان لديك أي استفسارات.',
+      body: 'تم إلغاء طلبك رقم #{orderNumber}. إذا لم يكن ذلك متوقعاً، راسلنا وسنصحح الأمر فوراً.',
       emoji: '❌',
     },
     ru: {
       title: '❌ Заказ отменён',
-      body: 'Ваш заказ #{orderNumber} отменён. Свяжитесь с нами, если есть вопросы.',
+      body: 'Ваш заказ #{orderNumber} отменён. Если это неожиданно — напишите нам, и мы всё исправим.',
       emoji: '❌',
     },
   },

@@ -145,7 +145,7 @@ export const sendOrderStatusUpdate = async (order: { orderNumber: string; custom
             PAID: 'Your order payment has been confirmed.',
             SHIPPED: 'Your order has been shipped.',
             DELIVERED: 'We appreciate your placing the order with us! ❤️<br>Order {orderNumber} has been delivered successfully!',
-            CANCELLED: 'Your order has been cancelled as requested.',
+            CANCELLED: "Your order has been cancelled. If this wasn't expected — or you'd like help placing a new order — just reply to this email or message us on WhatsApp, and we'll make it right.",
             default: 'Your order status has been updated.'
           }
         }

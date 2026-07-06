@@ -118,6 +118,16 @@ export async function POST(request: NextRequest) {
  */
 export async function DELETE(request: NextRequest) {
   try {
+    // Same session gate as POST — otherwise anyone who learns an endpoint
+    // URL could silently unsubscribe another user.
+    const user = await getUserFromSession(request)
+    if (!user) {
+      return NextResponse.json(
+        { success: false, error: 'Authentication required' },
+        { status: 401 }
+      )
+    }
+
     const body = await request.json()
     const { endpoint } = body
 
@@ -128,9 +138,9 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    // Delete subscription by endpoint
+    // Delete only the caller's own subscription for this endpoint
     await prisma.pushSubscription.deleteMany({
-      where: { endpoint }
+      where: { endpoint, userId: user.id }
     })
 
     debugLog('[PUSH_SUBSCRIBE] Subscription deleted:', {

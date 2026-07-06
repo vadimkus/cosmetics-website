@@ -269,6 +269,16 @@ The two fields are mutually exclusive; sending both at once causes the API to re
 
 **UAE country reference**: `8afef359-33c6-11ea-0a80-0043000aceae` (the account's custom "UAE" country entry). Do not use the generic "Объединенные Арабские Эмираты" ISO entry — the account uses the English-named one.
 
+### Clinic customer VAT — exceptions
+
+Most clinic B2B scripts use `vatIncluded: true` (MoySklad salePrice is treated as VAT-inclusive). **Exceptions — VAT added on top** (`vatIncluded: false`, line price = ex-VAT list, 5% VAT on document total):
+
+| Customer | Counterparty ID | Invoice PDF template |
+|----------|-----------------|----------------------|
+| **HORTMAN CLINICS 2 L.L.C** | `1ac006c7-2687-11f0-0a80-094f001f888f` | **Genosys_Invoice_Legal_TAX** (`5e56cd7d-ce85-4db5-8771-d7531f9ffd71`) — not RETAIL_PRINT |
+
+Example: peptide mask ×100 @ 38 AED ex-VAT → 3,800 + 190 VAT = **3,990 AED** total.
+
 ## Troubleshooting
 
 ### Orders not appearing in MoySklad

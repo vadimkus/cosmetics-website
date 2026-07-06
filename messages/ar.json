@@ -401,7 +401,8 @@
     "reviewCart": "مراجعة السلة",
     "tryAgainCheckout": "حاول الدفع مرة أخرى",
     "color": "اللون",
-    "variantRequiredMessage": "يرجى اختيار اللون/الحجم لـ: {products}. ارجع إلى السلة للاختيار."
+    "variantRequiredMessage": "يرجى اختيار اللون/الحجم لـ: {products}. ارجع إلى السلة للاختيار.",
+    "invalidPhone": "يرجى إدخال رقم هاتف إماراتي صحيح (مثال: 050 123 4567)."
   },
   "invoice": {
     "title": "فاتورة ضريبية",
@@ -562,7 +563,9 @@
     "myFavorites": "المفضلات",
     "savedProductsDescription": "منتجاتك المحفوظة من GENOSYS",
     "noProductsFound": "لم يتم العثور على منتجات",
-    "productsMayNoLongerBeAvailable": "قد لا تكون المنتجات متاحة بعد الآن."
+    "productsMayNoLongerBeAvailable": "قد لا تكون المنتجات متاحة بعد الآن.",
+    "itemCountOne": "منتج واحد",
+    "itemCountMany": "{count} منتجات"
   },
   "blog": {
     "title": "مدونة GENOSYS",

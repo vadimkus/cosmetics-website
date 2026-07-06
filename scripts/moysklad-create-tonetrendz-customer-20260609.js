@@ -82,7 +82,7 @@ async function main() {
   console.log(`  Mode   : ${COMMIT ? 'COMMIT' : 'DRY RUN'}`)
   console.log(`  Name   : ${CUSTOMER.name}`)
   console.log(`  Phone  : ${CUSTOMER.phone}`)
-  console.log(`  License: ${CUSTOMER.licenseNo} (email field)`)
+  console.log(`  License: ${CUSTOMER.licenseNo} (email + fax fields — Face Room pattern)`)
   console.log(`  Legal  : ${LEGAL_ADDRESS}`)
   console.log(`  Actual : ${ACTUAL_ADDRESS}`)
   console.log(`  Note   : No TRN — not VAT registered`)
@@ -99,6 +99,7 @@ async function main() {
     companyType: 'legal',
     phone: CUSTOMER.phone,
     email: CUSTOMER.email,
+    fax: CUSTOMER.licenseNo, // License # on consignment stock note (contact.faxes — Face Room pattern)
     description: [
       `Contact: ${CUSTOMER.contact}. License ${CUSTOMER.licenseNo} (${CUSTOMER.licenseIssued} → ${CUSTOMER.licenseExpires}).`,
       'Setup: 2 cosmetologists; Hydra Beauty 14-in-1 Hydra Facial + Eximia.',

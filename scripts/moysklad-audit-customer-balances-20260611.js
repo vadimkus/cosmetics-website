@@ -9,12 +9,17 @@
  *   Payments         = paymentin + cashin (applicable)
  *   Balance (MoySklad convention) = Σ (payedSum − sum) on receivable docs
  *     invoiceout + commissionreportin
- *     + Σ (sum − payedSum) on salesreturn (customer credit / reduces debt)
- *     > 0  → we overpaid / owe customer
+ *     + Σ (sum − payedSum) on RETAIL salesreturn (customer credit / reduces debt)
+ *     > 0  → we overpaid / owe customer (real cash liability)
  *     < 0  → customer owes us
  *
  * Consignment отгрузки (demand with contract) are excluded — they often show
  * "Не оплачено" in UI but settlement is via commission report, not the shipment.
+ *
+ * Consignment salesreturns (return WITH a contract) are ALSO excluded from the
+ * cash balance — they are stock events that net against the consignment shipment
+ * (goods physically came back), NOT a cash refund owed. Counting them inflated a
+ * phantom "we owe customer". They are tracked separately as consignmentReturnCredit.
  *
  * Also flags:
  *   - payedSum > sum on any doc
@@ -44,16 +49,26 @@ const JSON_OUT = process.argv.includes('--json')
 const GAP_MS = 80
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
-async function api(pathStr, retries = 5) {
+async function api(pathStr, retries = 6) {
   for (let i = 0; i <= retries; i++) {
     await sleep(GAP_MS)
-    const res = await fetch(pathStr.startsWith('http') ? pathStr : API + pathStr, {
-      headers: {
-        Authorization: AUTH,
-        Accept: 'application/json;charset=utf-8',
-        'Accept-Encoding': 'gzip',
-      },
-    })
+    let res
+    try {
+      res = await fetch(pathStr.startsWith('http') ? pathStr : API + pathStr, {
+        headers: {
+          Authorization: AUTH,
+          Accept: 'application/json;charset=utf-8',
+          'Accept-Encoding': 'gzip',
+        },
+      })
+    } catch (err) {
+      // Network-level failure (DNS, reset, timeout) — retry with backoff
+      if (i < retries) {
+        await sleep(800 * (i + 1))
+        continue
+      }
+      throw err
+    }
     const text = await res.text()
     if ((res.status === 429 || res.status === 503) && i < retries) {
       await sleep(600 * (i + 1))
@@ -119,6 +134,8 @@ async function main() {
         consignmentDocs: [],
         consignmentDemandUnpaid: 0,
         consignmentDemandDocs: [],
+        consignmentReturnCredit: 0,
+        consignmentReturnDocs: [],
         flags: [],
       })
     }
@@ -201,6 +218,15 @@ async function main() {
     const delta = (ret.sum || 0) - (ret.payedSum || 0)
     const b = ensure(agentId(ret))
     if (!b || delta <= 0) continue
+
+    if (hasContract(ret)) {
+      // Consignment physical return — stock event, nets against the отгрузка.
+      // NOT a cash refund owed. Track separately, keep out of cash balance.
+      b.consignmentReturnCredit += delta
+      b.consignmentReturnDocs.push({ type: 'salesreturn', name: ret.name, balance: money(delta) })
+      continue
+    }
+
     b.balance += delta
     b.retailDocs.push({ type: 'salesreturn', name: ret.name, balance: money(delta) })
   }
@@ -228,16 +254,22 @@ async function main() {
     if (b.balance > 100) flags.push('WE_OWE_CUSTOMER')
     if (b.balance < -100) flags.push('CUSTOMER_OWES_US')
     if (b.consignmentDemandUnpaid > 0) flags.push('CONSIGNMENT_SHIPMENTS_SHOW_UNPAID')
+    if (b.consignmentReturnCredit > 0) flags.push('CONSIGNMENT_RETURN_CREDIT')
     return {
       ...b,
       balanceAed: money(b.balance),
       consignmentDemandUnpaidAed: money(b.consignmentDemandUnpaid),
+      consignmentReturnCreditAed: money(b.consignmentReturnCredit),
       flags,
     }
   })
 
   const weOwe = rows.filter((r) => r.balance > 100).sort((a, b) => b.balance - a.balance)
   const theyOwe = rows.filter((r) => r.balance < -100).sort((a, b) => a.balance - b.balance)
+  const consignmentReturns = rows
+    .filter((r) => r.consignmentReturnCredit > 0)
+    .sort((a, b) => b.consignmentReturnCredit - a.consignmentReturnCredit)
+  const consignmentReturnTotal = consignmentReturns.reduce((s, r) => s + r.consignmentReturnCredit, 0)
 
   const summary = {
     asOf: uaeToday(),
@@ -250,6 +282,8 @@ async function main() {
       duplicateInvoiceShipmentPairs: duplicatePairs.length,
       consignmentCustomersWithUnpaidShipments: rows.filter((r) => r.consignmentDemandUnpaid > 0)
         .length,
+      consignmentReturnCustomers: consignmentReturns.length,
+      consignmentReturnCreditTotalAed: money(consignmentReturnTotal),
     },
     weOweTop25: weOwe.slice(0, 25).map((r) => ({
       name: r.name,
@@ -268,6 +302,12 @@ async function main() {
     })),
     overpaidDocs: overpaidDocs.slice(0, 50),
     duplicatePairs: duplicatePairs.slice(0, 50),
+    consignmentReturnCredits: consignmentReturns.map((r) => ({
+      name: r.name,
+      creditAed: r.consignmentReturnCreditAed,
+      cashBalanceAed: r.balanceAed,
+      sampleReturns: r.consignmentReturnDocs.slice(0, 5),
+    })),
   }
 
   const outDir = path.join(__dirname, '..', 'docs')
@@ -282,10 +322,11 @@ async function main() {
     '',
     '## Method',
     '',
-    '- **Settlement balance** = Σ (`payedSum` − `sum`) on `invoiceout` + `commissionreportin`',
-    '- **Positive** → Genosys overpaid / owes customer',
+    '- **Cash settlement balance** = Σ (`payedSum` − `sum`) on `invoiceout` + `commissionreportin` + Σ (`sum` − `payedSum`) on **retail** `salesreturn` (no contract)',
+    '- **Positive** → Genosys overpaid / owes customer (real cash liability)',
     '- **Negative** → customer owes Genosys',
-    '- **Consignment отгрузки** (demand with contract) are **excluded** from settlement — they often show **Не оплачено** in UI; payment is via commission report',
+    '- **Consignment отгрузки** (demand with contract) are **excluded** — UI shows **Не оплачено** but payment is via commission report',
+    '- **Consignment salesreturns** (return with contract) are **excluded** from the cash balance — physical stock came back; it nets against the отгрузка, it is **not** a cash refund. Tracked separately below.',
     '',
     '## Summary',
     '',
@@ -295,8 +336,10 @@ async function main() {
     `| **We owe customer** (overpaid, balance > 1 AED) | **${summary.totals.weOweCustomers}** |`,
     `| Customer owes us (balance < −1 AED) | ${summary.totals.customersOweUs} |`,
     `| Consignment customers with unpaid отгрузки (UI only) | ${summary.totals.consignmentCustomersWithUnpaidShipments} |`,
+    `| Consignment customers with return credit (stock, not cash) | ${summary.totals.consignmentReturnCustomers} |`,
+    `| Consignment return credit total (excluded from cash) | ${summary.totals.consignmentReturnCreditTotalAed} AED |`,
     `| Documents with payedSum > sum | ${summary.totals.overpaidDocuments} |`,
-    `| Invoice + shipment both unpaid (duplicate risk) | ${summary.totals.duplicateInvoiceShipmentPairs} |`,
+    `| Open retail AR (invoice+shipment both unpaid — clears on payment) | ${summary.totals.duplicateInvoiceShipmentPairs} |`,
     '',
     '## Interpretation',
     '',
@@ -304,14 +347,28 @@ async function main() {
     '',
     '**True mistakes to fix:**',
     '1. `payedSum > sum` on invoice / report (real overpayment)',
-    '2. Same retail sale unpaid on **both** invoice **and** shipment (double debt)',
-    '3. Unpaid **commission report** with no matching payment (customer owes you — collect)',
+    '2. Unpaid **commission report** with no matching payment (customer owes you — collect)',
     '',
-    '## We owe customer (overpaid)',
+    '**NOT an error:** invoice + shipment both unpaid for the same retail sale. In this account a',
+    'payment clears **both** documents together (verified 2026-06-26: 12/12 recent paid sales had',
+    'invoice PAID = shipment PAID). These are just **open receivables awaiting payment** and will',
+    'self-clear. Do not void them.',
+    '',
+    '## We owe customer — real cash liability (retail overpay / retail return)',
     '',
     weOwe.length
       ? weOwe.map((r) => `- **${r.name}** — ${r.balanceAed} AED`).join('\n')
       : '_None > 1 AED._',
+    '',
+    '## Consignment return credit (stock came back — NOT cash owed)',
+    '',
+    'These show «мы должны» in MoySklad only because a `salesreturn` was posted on a consignment contract (goods physically returned). They net against the отгрузка and are **not** a cash refund. Clear via Взаимозачёт if you want the UI balance to zero; never refund cash, never void the return.',
+    '',
+    consignmentReturns.length
+      ? consignmentReturns
+          .map((r) => `- **${r.name}** — ${r.consignmentReturnCreditAed} AED return credit (cash balance ${r.balanceAed} AED)`)
+          .join('\n')
+      : '_None found._',
     '',
     '## Top 25 — customer owes us',
     '',
@@ -319,7 +376,9 @@ async function main() {
     '|----------|------------:|------------------------|',
     ...summary.theyOweTop25.map((r) => `| ${r.name} | ${r.balanceAed} | see JSON |`),
     '',
-    '## Duplicate invoice + shipment (both unpaid)',
+    '## Open retail AR — invoice + shipment both unpaid (NOT an error)',
+    '',
+    'A payment in this account clears **both** the invoice and the shipment together, so these are simply **open receivables awaiting payment** — they self-clear when the customer pays. Do **not** void them.',
     '',
     duplicatePairs.length
       ? duplicatePairs
@@ -373,7 +432,7 @@ async function main() {
   }
 
   if (duplicatePairs.length) {
-    console.log('\n  ⚠ Duplicate unpaid invoice+shipment (fix these):')
+    console.log('\n  Open retail AR (invoice+shipment unpaid — clears on payment, NOT an error):')
     for (const d of duplicatePairs.slice(0, 8)) {
       console.log(`    ${d.agent}: ${d.invoice} + ${d.shipment} @ ${d.amount}`)
     }

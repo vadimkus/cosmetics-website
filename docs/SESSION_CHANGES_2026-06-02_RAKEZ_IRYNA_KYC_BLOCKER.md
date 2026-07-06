@@ -81,3 +81,47 @@ Update 2026-06-06 17:16:
 - Vadim confirmed the RAKEZ portal does not provide a clear upload slot for all supplemental host/KYC documents; only a text field or unrelated document designations are available.
 - Recommended approach: do not upload host/KYC evidence under an incorrect portal category unless RAKEZ instructs it. Email RAKEZ support / case handler on Monday with the full supplemental pack and reference the returned review / amendment request.
 - Supplemental email pack should include Iryna passport, UAE EID, UAE residence, RAKEZ card, Wio April/May statements (June optional), host residence letter, Vadim tenancy contract, Vadim passport/EID, filled business plan, and filled sanctions questionnaire.
+
+Update 2026-06-07/08:
+
+- Full supplementary KYC package submitted to RAKEZ Support (ticket #1587214) for SR-1785556.
+- Iryna signed the Business Plan and Sanctions Questionnaire (wet-signed + stamped, dated 06.06.2026) before leaving.
+
+Update 2026-06-22:
+
+- SR-1785556 detail page showed Status = Approved, Payment Done, while dashboard still showed In Progress / Under Review. Interpreted as approved at decision level, pending final document issuance.
+- Iryna's Genosys-sponsored residence visa still active (valid to 28/10/2027); likely requires cancellation before amended license issues. No cancel option visible on portal employee row yet.
+
+Update 2026-06-24 — DISPUTE / SIGNATURE BLOCKER:
+
+- RAKEZ moved SR-1785556 to step SRStep-6658, Status "Awaiting Additional Info" / "Upload Signed Documents". Documents were sent for E-Signature to BOTH parties: Iryna Kobzarenko (i.kosmetologist@gmail.com) and Vadim Sagatdinov (f.this.that@gmail.com). The step also exposes an "Upload Document" button.
+- Iryna has returned to Ukraine and now REFUSES to e-sign the final RAKEZ-generated documents unless paid USD 36,000 (36k USDT), framed as "compensation for her contribution." Captured in Russian WhatsApp conversation (screenshots saved 2026-06-24).
+- Vadim declined the 36k one-time demand and her alternative demand for a monthly % of revenue.
+- Assets in hand: earlier wet-signed + stamped Shareholders Resolution (transfer of her 50 shares to Vadim), Appointment/Resignation resolution, Acceptance letter (all dated 03/04/2026), plus signed Business Plan and Sanctions Questionnaire (06.06.2026), plus full KYC pack and WhatsApp evidence of the payment demand.
+- Open question: whether RAKEZ will accept the already wet-signed originals uploaded via the "Upload Document" step in lieu of Iryna's fresh e-signature, OR whether the transferor's signature on the new RAKEZ-generated transfer/MOA documents is mandatory.
+- Recommended: (1) do NOT pay the 36k under WhatsApp pressure / no finality; (2) ask RAKEZ if wet-signed originals can be uploaded to satisfy the e-signature step; (3) consult a UAE corporate lawyer / RAKEZ-registered agent on enforceability of the already-signed transfer + resignation given a now-refusing outgoing shareholder.
+
+Update 2026-06-24 (afternoon) — key fact + officer call:
+
+- Licensing officer (g.ogalde@rakez.com) emailed; also called: she will check the paperwork with her manager by ~next day and initially stated Iryna's signature is required. Vadim noted all signed/stamped documents are already attached to the case. Awaiting manager's ruling on whether the scanned signed documents satisfy the step.
+- KEY FACT confirmed by Vadim: Iryna signed all transfer/resignation/acceptance documents IN GOOD FAITH with NO payment/compensation term ever discussed. The USD 36,000 demand was introduced only AFTER signing, at the final e-signature step. This is therefore an opportunistic re-trade / leverage play, not a pre-agreed share-value claim.
+- Strategy stance: strong position to resist. Do not pay under pressure, do not acknowledge any debt in writing, push RAKEZ administrative cure (accept scans / split SR to process manager+signatory change now, hold share transfer pending), keep WhatsApp evidence of the post-signing payment demand. License expires 08/11/2026; letting it lapse is NOT a clean exit (penalties, FTA corporate tax/VAT filing + deregistration obligations, Iryna's active visa to 28/10/2027, and her signature also needed for clean voluntary liquidation).
+
+Update 2026-06-25/26 — EXPLICIT WRITTEN REFUSAL:
+
+- RAKEZ licensing officer (Grail Ogalde) sent the official e-signature request/reminder to Iryna ("RAKEZ eSignature — Grail Ogalde sent you a document to review and sign", re: Genosys Middle East FZ-LLC Transfer Agreement).
+- Iryna received it and replied to Vadim by WhatsApp (25 Jun, 22:54): "Хватит мне слать доки. Скажи ему. Я ему уже писала. Что не буду подписывать." = "Stop sending me documents. Tell him. I already wrote to him. That I will not sign." Screenshot saved 2026-06-26.
+- She states she has also told RAKEZ directly that she will not sign. This is now an EXPLICIT, WRITTEN REFUSAL to complete the e-signature on a transfer she already signed and stamped on 03/04/2026 — i.e., repudiation of a binding signed agreement.
+- A formal reminder letter to Iryna (CC RAKEZ officer), citing UAE Civil Transactions Law Art. 246(1) and 267 and RAKEZ Companies Regs Reg. 40, was drafted and saved at /Users/vadimkus/Desktop/Formal_Reminder_Iryna_Kobzarenko_2026-06-25.md (dated 02 July 2026, attachments = the 3 signed April documents only).
+- PIVOTAL NEXT STEP: ask RAKEZ whether the already signed + stamped documents on file can be accepted to register the transfer WITHOUT her fresh e-signature (RAKEZ Reg. 40 instrument-of-transfer route). If yes -> her refusal is irrelevant. If no -> escalate to a RAK advocate / legal notice; consider compulsory routes. Also find out what Iryna communicated to RAKEZ.
+- Evidence position is now stronger: signed/stamped scans + her post-signing 36k demand + her explicit written refusal to honour her own signature.
+
+Update 2026-06-26 — RAKEZ CONFIRMS E-SIGNATURE MANDATORY; MOVING TO LEGAL ROUTE:
+
+- Grail Ogalde (RAKEZ) confirmed by phone: the SR (SR-1785556) will remain OPEN INDEFINITELY until Iryna completes the e-signature. E-signature is MANDATORY — RAKEZ will NOT register the transfer on the basis of the already-signed/stamped scans alone. Vadim informed Grail that Iryna is in Ukraine and not in a position to sign.
+- Administrative cure (accept scans / Reg. 40 instrument-of-transfer route) is therefore NOT available. The deadlock can only be broken by (a) Iryna signing, or (b) a court order / legal route.
+- Vadim replied to Iryna by WhatsApp (measured, no mention of 36k): noted she already signed all documents in April, that the RAKEZ step is only technical completion of what she signed, that it is regrettable she changed her mind in June, and that the process will need to be completed. Tone appropriate; closed politely.
+- Iryna is expected to claim she "received no compensation" etc. Anticipated defence framing for advocate: she signed voluntarily and in good faith with NO payment term; the 36k demand and revenue-share demand were raised only AFTER signing; this is post-hoc leverage, not a pre-existing entitlement.
+- DECISION: line up a RAK-registered advocate and take it to court to enforce the binding signed transfer / obtain an order giving effect to it (or, failing that, a court-supervised route to break the deadlock).
+- Evidence pack for advocate: (1) signed+stamped Shareholders Resolution, Resignation, Acceptance (03/04/2026); (2) signed Business Plan + Sanctions Questionnaire (06/06/2026); (3) WhatsApp 36k/USDT + revenue-share demand; (4) WhatsApp explicit written refusal ("не буду подписывать", 25/06/2026); (5) RAKEZ SR-1785556 record + RAKEZ confirmation e-signature mandatory + Grail correspondence; (6) MOA (to confirm dispute-resolution forum / transfer mechanics); (7) company licence (expiry 08/11/2026).
+- Open strategic point to raise with advocate: litigation timeline (months) vs licence renewal due 08/11/2026, and whether the objective is (i) force completion of transfer to Vadim, or (ii) court-supervised dissolution if she blocks indefinitely.

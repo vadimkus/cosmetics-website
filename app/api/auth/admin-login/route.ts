@@ -138,7 +138,13 @@ export async function POST(request: NextRequest) {
       name: error instanceof Error ? error.name : undefined
     })
     return NextResponse.json(
-      { error: 'Internal server error', details: error instanceof Error ? error.message : 'Unknown error' },
+      {
+        error: 'Internal server error',
+        // Never leak internal error messages (DB/Prisma details) in production
+        ...(process.env.NODE_ENV === 'development'
+          ? { details: error instanceof Error ? error.message : 'Unknown error' }
+          : {}),
+      },
       { status: 500 }
     )
   }

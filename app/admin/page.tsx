@@ -185,20 +185,16 @@ export default function AdminPage() {
     }
   }, [isAuthenticated])
 
-  // Helper function to get admin auth headers with CSRF
+  // Helper function to get admin auth headers with CSRF.
+  // Auth itself rides on the httpOnly admin-session cookie — no headers needed.
   const getAdminHeaders = useCallback((additionalHeaders: Record<string, string> = {}): HeadersInit => {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       ...additionalHeaders,
       ...getCsrfHeaders() as Record<string, string>
     }
-    
-    if (adminUser?.email) {
-      headers['X-Admin-Email'] = adminUser.email
-    }
-    
     return headers as HeadersInit
-  }, [adminUser?.email])
+  }, [])
   const [activeTab, setActiveTab] = useState<'analytics' | 'reporting' | 'profitability' | 'segmentation' | 'users' | 'orders' | 'products' | 'promo' | 'blog' | 'faq' | 'chatbot' | 'newsletter'>('analytics')
   const [selectedOrder, setSelectedOrder] = useState<OrderWithItems | null>(null)
   const [selectedCustomer, setSelectedCustomer] = useState<User | null>(null)
@@ -593,6 +589,12 @@ export default function AdminPage() {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('admin_session')
     }
+
+    // Expire the httpOnly admin-session cookie server-side — without this
+    // the cookie stays valid for up to 24h after "logout"
+    fetch('/api/auth/admin-logout', { method: 'POST' }).catch(() => {
+      /* cookie will still expire naturally after 24h */
+    })
   }
 
   // Check for existing admin session on mount

@@ -11,6 +11,7 @@
 | ID | `74aa75cb-63db-11f1-0a80-111d001bbe72` |
 | Phone | +971555512913 |
 | License (email field) | **1626587** |
+| License (fax field) | **1626587** — prints as **License #** on consignment stock note (Face Room pattern) |
 | Legal address | Office 214, Gita Shaira Offices, Arjan, Dubai |
 | Actual address | JVC, Binghatti Azure, commercial unit, Dubai |
 | TRN | — (not VAT registered) |

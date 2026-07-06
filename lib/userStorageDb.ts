@@ -383,6 +383,7 @@ export const anonymizeUser = async (userId: string): Promise<boolean> => {
       where: { id: userId },
       data: {
         email: deletedEmail,
+        contactEmail: null,
         appleSub: null,
         name: 'Deleted User',
         password: null,
@@ -399,8 +400,14 @@ export const anonymizeUser = async (userId: string): Promise<boolean> => {
         lastLoginAt: null,
         isAdmin: false,
         canSeePrices: true,
+        // Revoke every live session/token for the deleted account
+        tokenVersion: { increment: 1 },
       }
     })
+    // Erasure must cover related PII too — saved addresses (name, phone,
+    // street address) and PWA push subscriptions belong to the person.
+    await prisma.address.deleteMany({ where: { userId } })
+    await prisma.pushSubscription.deleteMany({ where: { userId } })
     return true
   } catch (error) {
     errorLog('Error anonymizing user:', error)

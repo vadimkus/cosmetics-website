@@ -10,6 +10,10 @@ import {
   safeLocalStorageSetItem,
 } from '@/lib/browserStorage'
 
+// Upper bound per cart line — prevents absurd/scripted quantities from
+// reaching the order APIs (matches the mobile app's cap).
+export const MAX_LINE_QUANTITY = 99
+
 // App badge functionality (direct API call, no hook needed in a store)
 let updateAppBadge: ((count: number) => void) | null = null
 
@@ -120,7 +124,7 @@ export const useCartStore = create<CartState>()(
             item.selectedColor === normalizedColor && 
             item.selectedSize === normalizedSize &&
             lineIdentityMatches(item, bundleInfo)
-              ? { ...item, quantity: item.quantity + quantity }
+              ? { ...item, quantity: Math.min(item.quantity + quantity, MAX_LINE_QUANTITY) }
               : item
           ))
           set({ items: newItems })
@@ -248,6 +252,7 @@ export const useCartStore = create<CartState>()(
           return
         }
         
+        const cappedQuantity = Math.min(quantity, MAX_LINE_QUANTITY)
         const normalizedColor = selectedColor || ''
         const normalizedSize = selectedSize || ''
         const newItems = reconcileBuildSetBundleDiscounts(get().items.map(item =>
@@ -255,7 +260,7 @@ export const useCartStore = create<CartState>()(
           item.selectedColor === normalizedColor && 
           item.selectedSize === normalizedSize &&
           lineIdentityMatches(item, bundleInfo)
-            ? { ...item, quantity }
+            ? { ...item, quantity: cappedQuantity }
             : item
         ))
         set({ items: newItems })

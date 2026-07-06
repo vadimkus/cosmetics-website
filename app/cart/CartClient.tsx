@@ -122,75 +122,43 @@ export default function CartClient() {
     ? getCartRetailTotal(items, user)
     : subtotal
 
-  // Black Friday countdown timer
+  // Black Friday countdown timer — only runs while the sale window is active
+  // (isBlackFridaySaleActive gates the UI; no reason to tick every second
+  // year-round for an expired campaign).
   useEffect(() => {
-    const saleStartDate = new Date('2025-11-25T20:00:00Z').getTime() // Nov 26th, 2025 at 00:00:00 UAE time
+    if (!blackFridayActive) return
+
     const saleEndDate = new Date('2025-11-28T19:59:59Z').getTime() // Nov 28th, 2025 at 23:59:59 UAE time
+    const saleStartDate = new Date('2025-11-25T20:00:00Z').getTime()
     const totalDuration = saleEndDate - saleStartDate
 
     const calculateTime = () => {
       const now = new Date().getTime()
+      const difference = saleEndDate - now
 
-      if (now >= saleEndDate) {
+      if (difference <= 0) {
         setIsSaleActive(false)
         setTimeLeft(null)
         setSaleProgress(100)
         return
       }
 
-      if (now >= saleStartDate) {
-        // Sale is active - countdown to end
-        setIsSaleActive(true)
-        const difference = saleEndDate - now
-        
-        // Check if countdown has reached zero
-        if (difference <= 0) {
-          setIsSaleActive(false)
-          setTimeLeft(null)
-          setSaleProgress(100)
-          return
-        }
-        
-        const elapsed = totalDuration - difference
-        const progress = Math.min(100, (elapsed / totalDuration) * 100)
-        setSaleProgress(progress)
-
-        const timeLeftValue = {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((difference % (1000 * 60)) / 1000),
-        }
-        
-        // Check if all time values are zero
-        if (timeLeftValue.days === 0 && timeLeftValue.hours === 0 && timeLeftValue.minutes === 0 && timeLeftValue.seconds === 0) {
-          setIsSaleActive(false)
-          setTimeLeft(null)
-          setSaleProgress(100)
-          return
-        }
-        
-        setTimeLeft(timeLeftValue)
-      } else {
-        // Sale hasn't started - countdown to start
-        setIsSaleActive(false)
-        const difference = saleStartDate - now
-        setSaleProgress(0)
-
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((difference % (1000 * 60)) / 1000),
-        })
-      }
+      setIsSaleActive(true)
+      const elapsed = totalDuration - difference
+      setSaleProgress(Math.min(100, (elapsed / totalDuration) * 100))
+      setTimeLeft({
+        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((difference % (1000 * 60)) / 1000),
+      })
     }
 
     calculateTime()
     const timer = setInterval(calculateTime, 1000)
 
     return () => clearInterval(timer)
-  }, [])
+  }, [blackFridayActive])
 
   // Show loading state while cart is hydrating from localStorage
   if (!_hasHydrated) {
@@ -532,7 +500,7 @@ export default function CartClient() {
                 <AnimatePresence mode="popLayout" initial={false}>
                   {displayItems.map((item, index) => (
                     <motion.div
-                      key={`${item.product.id}-${item.selectedColor || 'default'}-${item.selectedSize || 'default'}`}
+                      key={`${item.product.id}-${item.selectedColor || 'default'}-${item.selectedSize || 'default'}-${item.fromBundle ? 'bundle' : 'solo'}`}
                       initial={animationsEnabled ? { opacity: 0, y: 20 } : {}}
                       animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
                       transition={animationsEnabled ? { 

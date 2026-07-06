@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/database'
+import { anonymizeUser } from '@/lib/userStorageDb'
 
 /**
  * Mobile account deletion endpoint
@@ -42,24 +43,16 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'Account mismatch' }, { status: 403 })
     }
 
-    const deletedEmail = `deleted+${userId}@genosys.local`
-    await prisma.user.update({
-      where: { id: userId },
-      data: {
-        email: deletedEmail,
-        name: 'Deleted User',
-        password: null,
-        phone: null,
-        address: null,
-        profilePicture: null,
-        birthday: null,
-        discountType: null,
-        discountPercentage: null,
-        lastLoginAt: null,
-        isAdmin: false,
-        canSeePrices: true,
-      },
-    })
+    // Shared anonymization path (same as web deletion): clears all PII
+    // fields including contactEmail/appleSub, bumps tokenVersion to revoke
+    // every live session, and erases saved addresses + push subscriptions.
+    const anonymized = await anonymizeUser(userId)
+    if (!anonymized) {
+      return NextResponse.json(
+        { success: false, error: 'Failed to delete account' },
+        { status: 500 }
+      )
+    }
 
     const duration = Date.now() - startTime
     debugLog(`[MOBILE_USER] Account deleted/anonymized for ${email} in ${duration}ms`)

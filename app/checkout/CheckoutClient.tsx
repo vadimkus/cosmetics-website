@@ -49,20 +49,28 @@ export default function CheckoutClient() {
       errorLog('Failed to fetch CSRF token:', err)
     })
   }, [])
-  const [orderNumber] = useState(() => {
-    // Generate professional order number: GEN + year + month + day + 4 digit sequence
+  // Website COD order number: CODW + YYMMDD + 4-digit sequence. Generated ONCE
+  // so the number shown in the UI, the WhatsApp support message, and the
+  // persisted COD order are all the same number. (Card payments get their
+  // order number from the server when the payment intent is created, so the
+  // UI only shows this number while COD is the selected method.)
+  const [codOrderNumber] = useState(() => {
     const now = new Date()
     const year = now.getFullYear().toString().slice(-2)
     const month = (now.getMonth() + 1).toString().padStart(2, '0')
     const day = now.getDate().toString().padStart(2, '0')
     const sequence = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
-    return `GEN${year}${month}${day}${sequence}`
+    return `CODW${year}${month}${day}${sequence}`
   })
 
   // WhatsApp support function
   const contactWhatsApp = () => {
     const phoneNumber = '971585487665' // WhatsApp number
-    const message = `Hi! I need help with my order ${orderNumber}. Can you assist me?`
+    // Only reference the order number when it is the real (COD) one
+    const message =
+      selectedPaymentMethod === 'cod'
+        ? `Hi! I need help with my order ${codOrderNumber}. Can you assist me?`
+        : 'Hi! I need help with my checkout. Can you assist me?'
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
     window.open(whatsappUrl, '_blank')
   }
@@ -231,8 +239,20 @@ export default function CheckoutClient() {
       const customerAddress = (formData.get('address') as string) || user?.address || ''
       const customerEmail = (formData.get('email') as string) || user?.email || ''
       const customerPhone = (formData.get('phone') as string) || user?.phone || ''
+      const orderNotes = ((formData.get('notes') as string) || '').trim().slice(0, 1000)
 
       if (!['cod', 'stripe'].includes(paymentMethod)) {
+        isSubmittingRef.current = false
+        setIsProcessing(false)
+        return
+      }
+
+      // UAE phone validation (same rule as the mobile app):
+      // accepts +9715XXXXXXXX / 9715XXXXXXXX / 05XXXXXXXX and landlines 0X-XXXXXXX
+      const normalizedPhone = customerPhone.replace(/[\s\-()]/g, '')
+      const uaePhonePattern = /^(\+?971|0)(2|3|4|5|6|7|9)\d{7,8}$/
+      if (!uaePhonePattern.test(normalizedPhone)) {
+        alert(t('checkout.invalidPhone') || 'Please enter a valid UAE phone number (e.g. 050 123 4567).')
         isSubmittingRef.current = false
         setIsProcessing(false)
         return
@@ -325,6 +345,7 @@ export default function CheckoutClient() {
               customerPhone: customerPhone,
               customerEmirate: selectedEmirate,
               customerAddress: customerAddress,
+              ...(orderNotes ? { orderNotes } : {}),
               locale: locale
             }))
           })
@@ -380,15 +401,8 @@ export default function CheckoutClient() {
         }
       }
 
-      // For Cash on Delivery, proceed with normal flow
-              // Generate canonical order number for website COD: CODW + YYMMDD + 4-digit sequence
-              const now = new Date()
-              const year = now.getFullYear().toString().slice(-2)
-              const month = (now.getMonth() + 1).toString().padStart(2, '0')
-              const day = now.getDate().toString().padStart(2, '0')
-              const sequence = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
-              const codOrderNumber = `CODW${year}${month}${day}${sequence}`
-      
+      // For Cash on Delivery, proceed with normal flow using the same
+      // codOrderNumber that has been displayed to the customer since mount.
       // Send COD order confirmation email
       try {
         // Combine regular items with free masks
@@ -430,6 +444,7 @@ export default function CheckoutClient() {
           customerPhone: customerPhone,
           customerAddress: customerAddress,
           emirate: selectedEmirate,
+          ...(orderNotes ? { orderNotes } : {}),
           items: allItems,
           subtotal,
           shippingCost,
@@ -596,7 +611,9 @@ export default function CheckoutClient() {
                   </span>
                   <div className={`min-w-0 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className="text-[11px] md:text-xs text-gray-500 font-medium uppercase tracking-wide truncate">
-                      {t('checkout.orderNumber') || 'Order #'} {orderNumber}
+                      {selectedPaymentMethod === 'cod'
+                        ? `${t('checkout.orderNumber') || 'Order #'} ${codOrderNumber}`
+                        : t('checkout.orderSummary') || 'Order Summary'}
                     </div>
                     <div className="text-base md:text-lg font-bold text-gray-900">
                       AED {total.toFixed(2)}
@@ -988,7 +1005,11 @@ export default function CheckoutClient() {
                 <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-3 md:px-6 py-3 md:py-4">
                   <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                      <div className="text-sm md:text-lg font-mono font-bold text-white">{t('checkout.orderNumber')} {orderNumber}</div>
+                      <div className="text-sm md:text-lg font-mono font-bold text-white">
+                        {selectedPaymentMethod === 'cod'
+                          ? `${t('checkout.orderNumber')} ${codOrderNumber}`
+                          : t('checkout.orderSummary')}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1017,7 +1038,7 @@ export default function CheckoutClient() {
                                 </h4>
                                 <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                   <span className="text-[9px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
-                                  {item.selectedColor && item.selectedColor.trim() && (item.product.id === '41' || item.product.productNumber === '41' || item.product.id === '63' || item.product.productNumber === '63') && (
+                                  {item.selectedColor && item.selectedColor.trim() && (
                                     <span className="text-[9px] md:text-xs text-purple-600 font-medium bg-purple-50 border border-purple-200 rounded px-1.5 py-0.5">
                                       {t('product.color')}: {item.selectedColor}
                                     </span>
@@ -1050,7 +1071,7 @@ export default function CheckoutClient() {
                               </h4>
                               <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                                 <span className="text-[9px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
-                                {item.selectedColor && item.selectedColor.trim() && (item.product.id === '41' || item.product.productNumber === '41' || item.product.id === '63' || item.product.productNumber === '63') && (
+                                {item.selectedColor && item.selectedColor.trim() && (
                                   <span className="text-[9px] md:text-xs text-purple-600 font-medium bg-purple-50 border border-purple-200 rounded px-1.5 py-0.5">
                                     {t('product.color')}: {item.selectedColor}
                                   </span>

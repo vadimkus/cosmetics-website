@@ -401,7 +401,8 @@
     "reviewCart": "Проверить корзину",
     "tryAgainCheckout": "Попробовать снова",
     "color": "Цвет",
-    "variantRequiredMessage": "Пожалуйста, выберите цвет/размер для: {products}. Вернитесь в корзину для выбора."
+    "variantRequiredMessage": "Пожалуйста, выберите цвет/размер для: {products}. Вернитесь в корзину для выбора.",
+    "invalidPhone": "Пожалуйста, введите корректный номер телефона ОАЭ (например, 050 123 4567)."
   },
   "invoice": {
     "title": "НАЛОГОВЫЙ СЧЁТ",
@@ -562,7 +563,9 @@
     "myFavorites": "Избранное",
     "savedProductsDescription": "Сохранённые средства GENOSYS",
     "noProductsFound": "Товары не найдены",
-    "productsMayNoLongerBeAvailable": "Товары могут быть больше недоступны."
+    "productsMayNoLongerBeAvailable": "Товары могут быть больше недоступны.",
+    "itemCountOne": "1 товар",
+    "itemCountMany": "{count} тов."
   },
   "blog": {
     "title": "Блог GENOSYS",

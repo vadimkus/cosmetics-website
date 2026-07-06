@@ -82,8 +82,15 @@ export async function POST(request: NextRequest) {
       customerPhone, 
       customerEmirate, 
       customerAddress,
+      orderNotes: rawOrderNotes,
       locale 
     } = await request.json()
+
+    // Optional customer delivery notes (length-capped, plain text)
+    const orderNotes =
+      typeof rawOrderNotes === 'string' && rawOrderNotes.trim()
+        ? rawOrderNotes.trim().slice(0, 1000)
+        : null
 
     // Validate required fields
     if (!items || !Array.isArray(items) || items.length === 0) {
@@ -347,6 +354,7 @@ export async function POST(request: NextRequest) {
       customerPhone,
       customerEmirate,
       customerAddress,
+      ...(orderNotes ? { orderNotes } : {}),
       items: orderItems,
       subtotal,
       discountPercentage: hasUserDiscount ? userDiscountPct : 0,

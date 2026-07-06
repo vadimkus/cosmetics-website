@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
+import { requireCsrfToken } from '@/lib/csrf'
 
 export async function PUT(
   request: NextRequest,
@@ -9,6 +10,11 @@ export async function PUT(
   const auth = await requireAdminAuth(request)
   if (!auth.authorized) {
     return auth.response
+  }
+
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
   }
 
   try {
@@ -53,6 +59,11 @@ export async function DELETE(
   const auth = await requireAdminAuth(request)
   if (!auth.authorized) {
     return auth.response
+  }
+
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
   }
 
   try {

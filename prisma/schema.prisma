@@ -460,6 +460,17 @@ model PromoCode {
 }
 
 // PWA Web Push Subscriptions - stores push subscription details for each user
+model WishlistItem {
+  id        String   @id @default(cuid())
+  userId    String
+  productId String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, productId])
+  @@index([userId])
+  @@map("wishlist_items")
+}
+
 model PushSubscription {
   id           String   @id @default(cuid())
   userId       String   // User who subscribed

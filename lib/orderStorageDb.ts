@@ -152,6 +152,7 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
         customerPhone: orderData.customerPhone,
         customerEmirate: orderData.customerEmirate,
         customerAddress: orderData.customerAddress,
+        orderNotes: orderData.orderNotes || null,
         subtotal: orderData.subtotal,
         discountPercentage: orderData.discountPercentage || 0,
         discountAmount: orderData.discountAmount || 0,

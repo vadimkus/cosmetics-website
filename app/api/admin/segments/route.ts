@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
+import { requireCsrfToken } from '@/lib/csrf'
 
 export async function GET(request: NextRequest) {
   const auth = await requireAdminAuth(request)
@@ -27,6 +28,11 @@ export async function POST(request: NextRequest) {
   const auth = await requireAdminAuth(request)
   if (!auth.authorized) {
     return auth.response
+  }
+
+  const csrfCheck = await requireCsrfToken(request)
+  if (!csrfCheck.valid) {
+    return csrfCheck.response!
   }
 
   try {

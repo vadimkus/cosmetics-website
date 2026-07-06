@@ -92,6 +92,12 @@ export async function POST(request: NextRequest) {
       locale = 'en'
     } = orderData
 
+    // Optional customer delivery notes (length-capped, plain text)
+    const orderNotes =
+      typeof orderData.orderNotes === 'string' && orderData.orderNotes.trim()
+        ? orderData.orderNotes.trim().slice(0, 1000)
+        : null
+
     // Validate required fields
     if (!customerEmail || !customerEmail.trim()) {
       errorLog('❌ COD order missing customerEmail:', orderNumber)
@@ -269,6 +275,7 @@ export async function POST(request: NextRequest) {
       customerPhone,
       customerEmirate: emirate,
       customerAddress,
+      ...(orderNotes ? { orderNotes } : {}),
       items: orderItems,
       subtotal,
       discountPercentage: hasUserDiscount ? userDiscountPct : 0,

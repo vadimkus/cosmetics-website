@@ -280,7 +280,9 @@ export default function FavoritesClient() {
                     {t('favorites.myFavorites') || 'My Favorites'}
                   </h1>
                   <p className="text-xs text-gray-500">
-                    {favorites.length} {favorites.length === 1 ? 'item' : 'items'}
+                    {favorites.length === 1
+                      ? t('favorites.itemCountOne') || '1 item'
+                      : (t('favorites.itemCountMany') || '{count} items').replace('{count}', String(favorites.length))}
                   </p>
                 </div>
               </div>

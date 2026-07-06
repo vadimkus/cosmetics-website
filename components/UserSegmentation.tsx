@@ -15,6 +15,7 @@ import {
   AlertCircle
 } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
+import { fetchCsrfToken, getCsrfHeaders } from '@/lib/csrfClient'
 
 interface User {
   id: string
@@ -275,9 +276,10 @@ export default function UserSegmentation({ users, onUserClick, onSegmentUsers: _
       const url = editingSegment ? `/api/admin/segments/${editingSegment.id}` : '/api/admin/segments'
       const method = editingSegment ? 'PUT' : 'POST'
 
+      await fetchCsrfToken()
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
+        headers: getCsrfHeaders(),
         body: JSON.stringify(segmentData)
       })
 
@@ -302,8 +304,10 @@ export default function UserSegmentation({ users, onUserClick, onSegmentUsers: _
     if (!confirm('Are you sure you want to delete this segment?')) return
 
     try {
+      await fetchCsrfToken()
       const response = await fetch(`/api/admin/segments/${segmentId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: getCsrfHeaders()
       })
 
       if (response.ok) {

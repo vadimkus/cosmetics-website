@@ -664,32 +664,39 @@ function parseJsonArray(value: string | null | undefined): string[] {
  * 2. GENOSYS curated concern mappings (GENOSYS_PRODUCT_CONCERNS)
  * 3. Category fallbacks (e.g., "sun" category for sun-protection concern)
  */
+export function filterProductsByConcern(
+  products: Product[],
+  concernKeys: string[],
+  categoryFallbacks: string[] = []
+): Product[] {
+  return products.filter(product => {
+    // Strategy 1: Match by targetConcerns field in database
+    const dbConcerns = parseJsonArray(product.targetConcerns)
+    if (dbConcerns.some(c => concernKeys.includes(c))) return true
+
+    // Strategy 2: Match by GENOSYS curated product-to-concern mapping
+    const curatedConcerns = GENOSYS_PRODUCT_CONCERNS[product.name] || []
+    if (curatedConcerns.some(c => concernKeys.includes(c))) return true
+
+    // Strategy 3: Match by category fallback
+    if (categoryFallbacks.length > 0) {
+      const productCategory = (product.category || '').toLowerCase()
+      if (categoryFallbacks.some(cat => productCategory === cat || productCategory.includes(cat))) {
+        return true
+      }
+    }
+
+    return false
+  })
+}
+
 export async function getProductsByConcern(
   concernKeys: string[],
   categoryFallbacks: string[] = []
 ): Promise<Product[]> {
   try {
     const allProducts = await getAllProducts()
-    
-    return allProducts.filter(product => {
-      // Strategy 1: Match by targetConcerns field in database
-      const dbConcerns = parseJsonArray(product.targetConcerns)
-      if (dbConcerns.some(c => concernKeys.includes(c))) return true
-      
-      // Strategy 2: Match by GENOSYS curated product-to-concern mapping
-      const curatedConcerns = GENOSYS_PRODUCT_CONCERNS[product.name] || []
-      if (curatedConcerns.some(c => concernKeys.includes(c))) return true
-      
-      // Strategy 3: Match by category fallback
-      if (categoryFallbacks.length > 0) {
-        const productCategory = (product.category || '').toLowerCase()
-        if (categoryFallbacks.some(cat => productCategory === cat || productCategory.includes(cat))) {
-          return true
-        }
-      }
-      
-      return false
-    })
+    return filterProductsByConcern(allProducts, concernKeys, categoryFallbacks)
   } catch (error) {
     errorLog('Error fetching products by concern:', error)
     return []

@@ -8,9 +8,9 @@
  * crawlers see them and mobile flashes stay clean.
  *
  * Sections (top → bottom):
- *  1. Category rail           — 6 categories, image tile grid
- *  2. Shop-by-concern grid    — 8 concerns with emoji icon wells
- *  3. Featured products rail  — 4 up, real DB products
+ *  1. Bestsellers rail        — 4 up, real sales data (units sold, 180d)
+ *  2. Category rail           — 6 categories, image tile grid + product counts
+ *  3. Shop-by-concern grid    — 8 concerns + product counts + analysis CTA
  *  4. Why GENOSYS 3-up        — brand credibility
  *  5. Newsletter CTA          — email capture (stubbed — no backend wiring yet)
  */
@@ -42,6 +42,10 @@ interface HomeDesktopSectionsProps {
    * 4 categories that happen to be in featuredProducts.
    */
   categoryImages?: Record<string, string>
+  /** Visible product count per homepage category slug (server-computed). */
+  categoryCounts?: Record<string, number>
+  /** Visible product count per concern slug (server-computed). */
+  concernCounts?: Record<string, number>
 }
 
 // Curated category slugs we want to surface on the homepage rail (6 tiles).
@@ -54,19 +58,6 @@ const FEATURED_CATEGORY_SLUGS = [
   'mask',
   'sun',
 ] as const
-
-// Per-category backdrop tint for the product photograph. All tiles share a
-// uniform warm-neutral card body; the tint is confined to a soft circular
-// vignette behind the product so the rail still has a whisper of category
-// colour without the old "pastel-grid" look.
-const CATEGORY_ACCENTS: Record<string, string> = {
-  microneedling: 'from-rose-100/70 to-rose-50/40',
-  'pro-solution': 'from-violet-100/70 to-violet-50/40',
-  serum: 'from-emerald-100/70 to-emerald-50/40',
-  cream: 'from-amber-100/70 to-amber-50/40',
-  mask: 'from-sky-100/70 to-sky-50/40',
-  sun: 'from-orange-100/70 to-orange-50/40',
-}
 
 // One-line descriptors per category, keyed by locale. Short enough to fit
 // beside the title in the 3-col rail without wrapping to 3 lines.
@@ -139,26 +130,17 @@ const CATEGORY_RAIL_TITLES: Record<string, { en: string; ar: string; ru: string 
   },
 }
 
-// Concern card meta — friendly label + benefit-led one-liner (replacing the
-// old symptom list, which read more like a medical chart than skincare copy)
-// + per-concern colour identity used in three places: the colored dot beside
-// the title, the bottom "Explore" CTA text colour, and the very subtle
-// tinted hover background. Colour is meaningful — warm tones for
-// sun/acne/aging, cool tones for hydration/sensitivity, etc.
+// Concern card meta — friendly label + benefit-led one-liner. Visual identity
+// is uniform (brand red accent on hover) rather than the old 8-colour rainbow,
+// so the grid reads as one system, in line with the rest of the site.
 const CONCERN_META: Record<
   string,
   {
-    accentDot: string
-    accentText: string
-    hoverTint: string
     label: { en: string; ar: string; ru: string }
     benefit: { en: string; ar: string; ru: string }
   }
 > = {
   'sun-protection': {
-    accentDot: 'bg-amber-400',
-    accentText: 'text-amber-700',
-    hoverTint: 'bg-amber-50/60',
     label: {
       en: 'Sun Protection',
       ar: 'الحماية من الشمس',
@@ -171,9 +153,6 @@ const CONCERN_META: Record<
     },
   },
   'acne-treatment': {
-    accentDot: 'bg-rose-400',
-    accentText: 'text-rose-700',
-    hoverTint: 'bg-rose-50/60',
     label: {
       en: 'Acne & Blemishes',
       ar: 'حب الشباب والبثور',
@@ -186,9 +165,6 @@ const CONCERN_META: Record<
     },
   },
   pigmentation: {
-    accentDot: 'bg-violet-400',
-    accentText: 'text-violet-700',
-    hoverTint: 'bg-violet-50/60',
     label: {
       en: 'Pigmentation',
       ar: 'التصبغات',
@@ -201,9 +177,6 @@ const CONCERN_META: Record<
     },
   },
   'scars-treatment': {
-    accentDot: 'bg-teal-400',
-    accentText: 'text-teal-700',
-    hoverTint: 'bg-teal-50/60',
     label: {
       en: 'Scar Treatment',
       ar: 'علاج الندبات',
@@ -216,9 +189,6 @@ const CONCERN_META: Record<
     },
   },
   'hair-loss': {
-    accentDot: 'bg-emerald-500',
-    accentText: 'text-emerald-700',
-    hoverTint: 'bg-emerald-50/60',
     label: {
       en: 'Hair Loss',
       ar: 'تساقط الشعر',
@@ -231,9 +201,6 @@ const CONCERN_META: Record<
     },
   },
   'anti-aging': {
-    accentDot: 'bg-indigo-400',
-    accentText: 'text-indigo-700',
-    hoverTint: 'bg-indigo-50/60',
     label: {
       en: 'Anti-Aging',
       ar: 'مكافحة الشيخوخة',
@@ -246,9 +213,6 @@ const CONCERN_META: Record<
     },
   },
   hydration: {
-    accentDot: 'bg-sky-400',
-    accentText: 'text-sky-700',
-    hoverTint: 'bg-sky-50/60',
     label: {
       en: 'Hydration',
       ar: 'الترطيب',
@@ -261,9 +225,6 @@ const CONCERN_META: Record<
     },
   },
   sensitivity: {
-    accentDot: 'bg-lime-500',
-    accentText: 'text-lime-700',
-    hoverTint: 'bg-lime-50/60',
     label: {
       en: 'Sensitive Skin',
       ar: 'البشرة الحساسة',
@@ -275,6 +236,23 @@ const CONCERN_META: Record<
       ru: 'Снимаем покраснения, успокаиваем чувствительную кожу.',
     },
   },
+}
+
+// Localized "N products" label with correct Russian plural forms.
+function formatProductCount(count: number, locale: Locale): string {
+  if (locale === 'ar') return `${count} منتج`
+  if (locale === 'ru') {
+    const mod10 = count % 10
+    const mod100 = count % 100
+    const word =
+      mod10 === 1 && mod100 !== 11
+        ? 'продукт'
+        : mod10 >= 2 && mod10 <= 4 && (mod100 < 12 || mod100 > 14)
+        ? 'продукта'
+        : 'продуктов'
+    return `${count} ${word}`
+  }
+  return `${count} ${count === 1 ? 'product' : 'products'}`
 }
 
 function pickFirstImage(product: Product): string {
@@ -294,6 +272,8 @@ export default function HomeDesktopSections({
   dir,
   featuredProducts,
   categoryImages,
+  categoryCounts,
+  concernCounts,
 }: HomeDesktopSectionsProps) {
   const isRtl = dir === 'rtl'
   // Pricing on the bestsellers rail mirrors the site-wide auth-gated pattern:
@@ -336,221 +316,7 @@ export default function HomeDesktopSections({
 
   return (
     <div className="hidden md:block" dir={dir}>
-      {/* ── 1. Category rail ─────────────────────────────────────────────── */}
-      <section className="border-t border-gray-100 bg-white py-16 lg:py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="mb-10 text-center">
-              <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-2">
-                {locale === 'ar' ? 'تسوق حسب الفئة' : locale === 'ru' ? 'Категории' : 'Shop by category'}
-              </p>
-              <h2 className="text-3xl lg:text-[40px] lg:leading-[1.1] font-bold text-gray-900 font-display tracking-tight">
-                {locale === 'ar'
-                  ? 'مجموعة GENOSYS الاحترافية'
-                  : locale === 'ru'
-                  ? 'Профессиональная коллекция GENOSYS'
-                  : 'The GENOSYS professional range'}
-              </h2>
-              <p className="mt-3 text-gray-600 max-w-xl mx-auto">
-                {locale === 'ar'
-                  ? 'من بروتوكولات العيادة إلى العناية اليومية — مصنوعة في كوريا ومعتمدة في الإمارات'
-                  : locale === 'ru'
-                  ? 'От клинических процедур до ежедневного ухода — сделано в Корее, сертифицировано в ОАЭ'
-                  : 'From in-clinic treatments to everyday essentials — made in Korea, certified in the UAE.'}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
-              {featuredCategories.map((cat, idx) => {
-                const accent = CATEGORY_ACCENTS[cat.slug] ?? 'from-gray-100/70 to-gray-50/40'
-                const imageSrc = categoryImageBySlug[cat.slug]
-                const title =
-                  CATEGORY_RAIL_TITLES[cat.slug]?.[locale as 'en' | 'ar' | 'ru'] ??
-                  (locale === 'ar'
-                    ? cat.seo.ar.h1
-                    : locale === 'ru'
-                    ? cat.seo.ru.h1
-                    : cat.seo.en.h1)
-                const descriptor =
-                  CATEGORY_DESCRIPTORS[cat.slug]?.[locale as 'en' | 'ar' | 'ru']
-                const shopLabel =
-                  locale === 'ar' ? 'تسوق' : locale === 'ru' ? 'Смотреть' : 'Shop'
-                return (
-                  <Link
-                    key={cat.slug}
-                    href={getLocalizedPath(`/products/category/${cat.slug}`, locale)}
-                    className="group relative flex h-[220px] lg:h-[240px] overflow-hidden rounded-2xl bg-white border border-gray-200/80 shadow-[0_1px_2px_rgba(17,24,39,0.04)] transition-all duration-300 hover:border-gray-300 hover:shadow-[0_16px_32px_-12px_rgba(17,24,39,0.15)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2"
-                  >
-                    {/* ── LEFT: copy (45%) ──────────────────────────── */}
-                    <div className={`relative z-10 flex w-[45%] flex-col justify-between p-5 lg:p-6 ${isRtl ? 'text-right' : ''}`}>
-                      <div>
-                        <span className="font-mono text-[11px] tracking-[0.14em] text-gray-400">
-                          {String(idx + 1).padStart(2, '0')} / {String(featuredCategories.length).padStart(2, '0')}
-                        </span>
-                        <h3 className="mt-3 break-words text-[17px] lg:text-[19px] font-semibold text-gray-900 leading-[1.15] tracking-tight font-display">
-                          {title}
-                        </h3>
-                        {descriptor && (
-                          <p className="mt-2 text-[12px] lg:text-[13px] text-gray-500 leading-snug line-clamp-2">
-                            {descriptor}
-                          </p>
-                        )}
-                      </div>
-                      <div className={`flex items-center gap-1.5 text-[13px] font-semibold text-gray-900 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                        <span className="relative pb-0.5 after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:origin-left after:scale-x-0 after:bg-gray-900 after:transition-transform after:duration-300 group-hover:after:scale-x-100">
-                          {shopLabel}
-                        </span>
-                        <ArrowRight className={`h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''}`} aria-hidden="true" />
-                      </div>
-                    </div>
-
-                    {/* ── RIGHT: image (55%) with soft tinted vignette ─ */}
-                    <div className="relative w-[55%] overflow-hidden">
-                      <div className={`absolute inset-0 bg-gradient-to-br ${accent}`} aria-hidden="true" />
-                      <div
-                        className="absolute inset-3 rounded-xl bg-white/60 backdrop-blur-[2px]"
-                        aria-hidden="true"
-                      />
-                      {imageSrc && (
-                        <div className="absolute inset-0 flex items-center justify-center p-4 lg:p-5">
-                          <Image
-                            src={imageSrc}
-                            alt=""
-                            width={320}
-                            height={320}
-                            className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
-                            aria-hidden="true"
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-
-            <div className="mt-8 text-center">
-              <Link
-                href={getLocalizedPath('/products', locale)}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-primary-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded px-2 py-1"
-              >
-                {locale === 'ar' ? 'استعرض جميع المنتجات' : locale === 'ru' ? 'Посмотреть все продукты' : 'Browse all products'}
-                <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 2. Shop by concern ──────────────────────────────────────────── */}
-      <section className="bg-gray-50 py-16 lg:py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className={`mb-12 lg:mb-14 grid lg:grid-cols-12 gap-6 items-end ${isRtl ? 'text-right' : ''}`}>
-              <div className="lg:col-span-7">
-                <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-3">
-                  {locale === 'ar' ? 'الحلول الموجهة' : locale === 'ru' ? 'Точечные решения' : 'Targeted solutions'}
-                </p>
-                <h2 className="text-3xl lg:text-[44px] lg:leading-[1.05] font-bold text-gray-900 font-display tracking-tight">
-                  {locale === 'ar'
-                    ? 'تسوق حسب مشكلة البشرة'
-                    : locale === 'ru'
-                    ? 'Подбор по типу кожи'
-                    : 'Shop by skin concern'}
-                </h2>
-              </div>
-              <p className="lg:col-span-5 text-[15px] text-gray-600 leading-relaxed lg:max-w-md lg:ml-auto">
-                {locale === 'ar'
-                  ? 'اختر مخاوفك وسنوصلك إلى المنتجات والروتين المناسب لها — مدعوم بأبحاث GENOSYS العلمية.'
-                  : locale === 'ru'
-                  ? 'Выберите задачу — подберём продукты и пошаговый уход. Опираемся на клинические исследования GENOSYS.'
-                  : 'Pick a concern and we\u2019ll route you to the right products and step-by-step routine — backed by GENOSYS clinical research.'}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
-              {CONCERN_PAGES.map(concern => {
-                const meta = CONCERN_META[concern.slug] ?? {
-                  accentDot: 'bg-gray-300',
-                  accentText: 'text-gray-700',
-                  hoverTint: 'bg-gray-50/60',
-                  label: { en: '', ar: '', ru: '' },
-                  benefit: { en: '', ar: '', ru: '' },
-                }
-                const label =
-                  meta.label[locale as 'en' | 'ar' | 'ru'] ||
-                  (locale === 'ar' ? concern.seo.ar.h1 : locale === 'ru' ? concern.seo.ru.h1 : concern.seo.en.h1)
-                const benefit = meta.benefit[locale as 'en' | 'ar' | 'ru'] || ''
-                const exploreLabel =
-                  locale === 'ar' ? 'اكتشف' : locale === 'ru' ? 'Подобрать уход' : 'Explore'
-                return (
-                  <Link
-                    key={concern.slug}
-                    href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
-                    className={`group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-5 lg:p-6 min-h-[156px] lg:min-h-[172px] transition-all duration-300 hover:border-gray-300 hover:shadow-[0_14px_28px_-14px_rgba(17,24,39,0.18)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2 ${isRtl ? 'text-right' : ''}`}
-                  >
-                    {/* Subtle per-concern tinted background on hover */}
-                    <span
-                      aria-hidden="true"
-                      className={`pointer-events-none absolute inset-0 ${meta.hoverTint} opacity-0 transition-opacity duration-300 group-hover:opacity-100`}
-                    />
-
-                    {/* Title row: colored dot + label */}
-                    <div className={`relative z-10 flex items-center gap-2.5 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                      <span
-                        aria-hidden="true"
-                        className={`h-2 w-2 flex-shrink-0 rounded-full ${meta.accentDot} ring-4 ring-white shadow-sm transition-transform duration-300 group-hover:scale-125`}
-                      />
-                      <h3 className="text-[16px] lg:text-[17px] font-semibold text-gray-900 tracking-tight leading-[1.2]">
-                        {label}
-                      </h3>
-                    </div>
-
-                    {/* Benefit-led description */}
-                    {benefit && (
-                      <p className="relative z-10 mt-2 text-[13px] lg:text-[14px] text-gray-600 leading-relaxed">
-                        {benefit}
-                      </p>
-                    )}
-
-                    {/* Bottom CTA — pinned, accent-colored, animated arrow */}
-                    <div
-                      className={`relative z-10 mt-auto flex items-center gap-1.5 pt-4 text-[12px] lg:text-[13px] font-semibold ${meta.accentText} ${isRtl ? 'flex-row-reverse justify-end' : 'justify-start'}`}
-                    >
-                      <span className="opacity-80 transition-opacity duration-300 group-hover:opacity-100">
-                        {exploreLabel}
-                      </span>
-                      <ArrowRight
-                        className={`h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''}`}
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-
-            <div className="mt-10 text-center">
-              <Link
-                href={getLocalizedPath('/skin-recommendation', locale)}
-                className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-gray-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
-              >
-                <Sparkles className="h-4 w-4" aria-hidden="true" />
-                {locale === 'ar' ? 'ابدأ تحليل البشرة المجاني' : locale === 'ru' ? 'Бесплатный анализ кожи' : 'Start free skin analysis'}
-              </Link>
-              <p className="mt-3 text-[12px] text-gray-500">
-                {locale === 'ar'
-                  ? 'استبيان قصير من 4 أسئلة — يوصي بالمنتجات في 60 ثانية'
-                  : locale === 'ru'
-                  ? 'Короткая анкета из 4 вопросов — подбор за 60 секунд'
-                  : '4 short questions · personalised routine in under a minute'}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 3. Featured products rail ───────────────────────────────────── */}
+      {/* ── 1. Bestsellers rail — driven by real sales data (homeData) ───── */}
       {featuredProducts.length > 0 && (
         <section className="bg-white py-16 lg:py-20 border-t border-gray-100">
           <div className="container mx-auto px-4">
@@ -558,10 +324,10 @@ export default function HomeDesktopSections({
               <div className={`mb-10 flex items-end justify-between gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <div className={isRtl ? 'text-right' : ''}>
                   <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-2">
-                    {locale === 'ar' ? 'المفضلة' : locale === 'ru' ? 'Избранное' : 'Bestsellers'}
+                    {locale === 'ar' ? 'الأكثر مبيعاً' : locale === 'ru' ? 'Бестселлеры' : 'Bestsellers'}
                   </p>
                   <h2 className="text-3xl lg:text-[40px] lg:leading-[1.1] font-bold text-gray-900 font-display tracking-tight">
-                    {locale === 'ar' ? 'الأكثر مبيعاً هذا الموسم' : locale === 'ru' ? 'Хиты сезона' : 'What\u2019s popular right now'}
+                    {locale === 'ar' ? 'الأكثر مبيعاً هذا الموسم' : locale === 'ru' ? 'Хиты продаж' : 'What\u2019s popular right now'}
                   </h2>
                 </div>
                 <Link
@@ -681,6 +447,214 @@ export default function HomeDesktopSections({
           </div>
         </section>
       )}
+
+      {/* ── 2. Category rail ─────────────────────────────────────────────── */}
+      <section className="border-t border-gray-100 bg-white py-16 lg:py-20">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-10 text-center">
+              <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-2">
+                {locale === 'ar' ? 'تسوق حسب الفئة' : locale === 'ru' ? 'Категории' : 'Shop by category'}
+              </p>
+              <h2 className="text-3xl lg:text-[40px] lg:leading-[1.1] font-bold text-gray-900 font-display tracking-tight">
+                {locale === 'ar'
+                  ? 'مجموعة GENOSYS الاحترافية'
+                  : locale === 'ru'
+                  ? 'Профессиональная коллекция GENOSYS'
+                  : 'The GENOSYS professional range'}
+              </h2>
+              <p className="mt-3 text-gray-600 max-w-xl mx-auto">
+                {locale === 'ar'
+                  ? 'من بروتوكولات العيادة إلى العناية اليومية — مصنوعة في كوريا ومعتمدة في الإمارات'
+                  : locale === 'ru'
+                  ? 'От клинических процедур до ежедневного ухода — сделано в Корее, сертифицировано в ОАЭ'
+                  : 'From in-clinic treatments to everyday essentials — made in Korea, certified in the UAE.'}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+              {featuredCategories.map((cat, idx) => {
+                const imageSrc = categoryImageBySlug[cat.slug]
+                const count = categoryCounts?.[cat.slug]
+                const title =
+                  CATEGORY_RAIL_TITLES[cat.slug]?.[locale as 'en' | 'ar' | 'ru'] ??
+                  (locale === 'ar'
+                    ? cat.seo.ar.h1
+                    : locale === 'ru'
+                    ? cat.seo.ru.h1
+                    : cat.seo.en.h1)
+                const descriptor =
+                  CATEGORY_DESCRIPTORS[cat.slug]?.[locale as 'en' | 'ar' | 'ru']
+                const shopLabel =
+                  locale === 'ar' ? 'تسوق' : locale === 'ru' ? 'Смотреть' : 'Shop'
+                return (
+                  <Link
+                    key={cat.slug}
+                    href={getLocalizedPath(`/products/category/${cat.slug}`, locale)}
+                    className="group flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:border-primary-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2"
+                  >
+                    {/* Product image on a neutral well — same treatment as product cards */}
+                    <div className="relative h-[170px] lg:h-[190px] bg-gray-50 overflow-hidden">
+                      {imageSrc && (
+                        <div className="absolute inset-0 flex items-center justify-center p-5">
+                          <Image
+                            src={imageSrc}
+                            alt=""
+                            width={320}
+                            height={320}
+                            className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+                            aria-hidden="true"
+                          />
+                        </div>
+                      )}
+                      <span
+                        className={`absolute top-3 font-mono text-[11px] tracking-[0.14em] text-gray-400 ${isRtl ? 'right-4' : 'left-4'}`}
+                        aria-hidden="true"
+                      >
+                        {String(idx + 1).padStart(2, '0')} / {String(featuredCategories.length).padStart(2, '0')}
+                      </span>
+                    </div>
+
+                    {/* Copy */}
+                    <div className={`flex flex-1 flex-col p-5 ${isRtl ? 'text-right' : ''}`}>
+                      <h3 className="text-[16px] lg:text-[17px] font-semibold text-gray-900 leading-snug tracking-tight font-display">
+                        {title}
+                      </h3>
+                      {descriptor && (
+                        <p className="mt-1.5 text-[12px] lg:text-[13px] text-gray-500 leading-snug line-clamp-2">
+                          {descriptor}
+                        </p>
+                      )}
+                      <div className={`mt-auto flex items-center justify-between gap-3 pt-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                        {typeof count === 'number' && count > 0 ? (
+                          <span className="text-[12px] text-gray-500">
+                            {formatProductCount(count, locale)}
+                          </span>
+                        ) : (
+                          <span aria-hidden="true" />
+                        )}
+                        <span className={`flex items-center gap-1.5 text-[13px] font-semibold text-gray-900 transition-colors group-hover:text-primary-700 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                          {shopLabel}
+                          <ArrowRight className={`h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''}`} aria-hidden="true" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+
+            <div className="mt-8 text-center">
+              <Link
+                href={getLocalizedPath('/products', locale)}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-primary-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded px-2 py-1"
+              >
+                {locale === 'ar' ? 'استعرض جميع المنتجات' : locale === 'ru' ? 'Посмотреть все продукты' : 'Browse all products'}
+                <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3. Shop by concern ──────────────────────────────────────────── */}
+      <section className="bg-gray-50 py-16 lg:py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className={`mb-12 lg:mb-14 grid lg:grid-cols-12 gap-6 items-end ${isRtl ? 'text-right' : ''}`}>
+              <div className="lg:col-span-7">
+                <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-3">
+                  {locale === 'ar' ? 'الحلول الموجهة' : locale === 'ru' ? 'Точечные решения' : 'Targeted solutions'}
+                </p>
+                <h2 className="text-3xl lg:text-[44px] lg:leading-[1.05] font-bold text-gray-900 font-display tracking-tight">
+                  {locale === 'ar'
+                    ? 'تسوق حسب مشكلة البشرة'
+                    : locale === 'ru'
+                    ? 'Подбор по типу кожи'
+                    : 'Shop by skin concern'}
+                </h2>
+              </div>
+              <p className="lg:col-span-5 text-[15px] text-gray-600 leading-relaxed lg:max-w-md lg:ml-auto">
+                {locale === 'ar'
+                  ? 'اختر مخاوفك وسنوصلك إلى المنتجات والروتين المناسب لها — مدعوم بأبحاث GENOSYS العلمية.'
+                  : locale === 'ru'
+                  ? 'Выберите задачу — подберём продукты и пошаговый уход. Опираемся на клинические исследования GENOSYS.'
+                  : 'Pick a concern and we\u2019ll route you to the right products and step-by-step routine — backed by GENOSYS clinical research.'}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
+              {CONCERN_PAGES.map(concern => {
+                const meta = CONCERN_META[concern.slug] ?? {
+                  label: { en: '', ar: '', ru: '' },
+                  benefit: { en: '', ar: '', ru: '' },
+                }
+                const label =
+                  meta.label[locale as 'en' | 'ar' | 'ru'] ||
+                  (locale === 'ar' ? concern.seo.ar.h1 : locale === 'ru' ? concern.seo.ru.h1 : concern.seo.en.h1)
+                const benefit = meta.benefit[locale as 'en' | 'ar' | 'ru'] || ''
+                const count = concernCounts?.[concern.slug]
+                const exploreLabel =
+                  locale === 'ar' ? 'اكتشف' : locale === 'ru' ? 'Подобрать уход' : 'Explore'
+                return (
+                  <Link
+                    key={concern.slug}
+                    href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
+                    className={`group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-5 lg:p-6 min-h-[156px] lg:min-h-[172px] transition-all duration-300 hover:border-primary-200 hover:shadow-[0_14px_28px_-14px_rgba(17,24,39,0.18)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2 ${isRtl ? 'text-right' : ''}`}
+                  >
+                    {/* Title + product count chip */}
+                    <div className={`flex items-start justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                      <h3 className="text-[16px] lg:text-[17px] font-semibold text-gray-900 tracking-tight leading-[1.2]">
+                        {label}
+                      </h3>
+                      {typeof count === 'number' && count > 0 && (
+                        <span className="flex-shrink-0 rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-gray-600 transition-colors group-hover:bg-primary-50 group-hover:text-primary-700">
+                          {count}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Benefit-led description */}
+                    {benefit && (
+                      <p className="mt-2 text-[13px] lg:text-[14px] text-gray-600 leading-relaxed">
+                        {benefit}
+                      </p>
+                    )}
+
+                    {/* Bottom CTA — pinned, brand accent on hover */}
+                    <div
+                      className={`mt-auto flex items-center gap-1.5 pt-4 text-[12px] lg:text-[13px] font-semibold text-gray-500 transition-colors group-hover:text-primary-700 ${isRtl ? 'flex-row-reverse justify-end' : 'justify-start'}`}
+                    >
+                      <span>{exploreLabel}</span>
+                      <ArrowRight
+                        className={`h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''}`}
+                        aria-hidden="true"
+                      />
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+
+            <div className="mt-10 text-center">
+              <Link
+                href={getLocalizedPath('/skin-recommendation', locale)}
+                className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-gray-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+              >
+                <Sparkles className="h-4 w-4" aria-hidden="true" />
+                {locale === 'ar' ? 'ابدأ تحليل البشرة المجاني' : locale === 'ru' ? 'Бесплатный анализ кожи' : 'Start free skin analysis'}
+              </Link>
+              <p className="mt-3 text-[12px] text-gray-500">
+                {locale === 'ar'
+                  ? 'استبيان قصير من 4 أسئلة — يوصي بالمنتجات في 60 ثانية'
+                  : locale === 'ru'
+                  ? 'Короткая анкета из 4 вопросов — подбор за 60 секунд'
+                  : '4 short questions · personalised routine in under a minute'}
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── 4. Why GENOSYS 3-up ─────────────────────────────────────────── */}
       <section className="bg-white py-16 lg:py-24 border-t border-gray-100">

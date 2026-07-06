@@ -356,6 +356,70 @@ const SCORE_WEIGHTS = {
 const MAX_RECOMMENDATIONS = 4
 const MIN_SCORE_THRESHOLD = 30
 
+// ─── Input normalization ───────────────────────────────────────
+// Clients send different vocabularies: the web quiz sends canonical keys
+// ("oily", "acne-blemishes", "young-adult") while the native app quiz
+// historically sent display labels ("Oily", "Acne", "Under 25"). Everything
+// is normalized here so scoring always runs on the canonical vocabulary.
+
+const CANONICAL_CONCERNS = new Set([
+  'acne-blemishes', 'anti-aging', 'brightening', 'hydration', 'sensitivity',
+  'pore-care', 'eye-care', 'sun-protection', 'scar-repair', 'hair',
+])
+
+const CONCERN_ALIASES: Record<string, string> = {
+  'acne': 'acne-blemishes',
+  'blemishes': 'acne-blemishes',
+  'wrinkles': 'anti-aging',
+  'fine lines': 'anti-aging',
+  'aging': 'anti-aging',
+  'dark spots': 'brightening',
+  'dark-spots': 'brightening',
+  'pigmentation': 'brightening',
+  'dullness': 'brightening',
+  'dryness': 'hydration',
+  'dehydration': 'hydration',
+  'redness': 'sensitivity',
+  'pores': 'pore-care',
+  'eye': 'eye-care',
+  'sun': 'sun-protection',
+  'scars': 'scar-repair',
+}
+
+const VALID_SKIN_TYPES = new Set(['dry', 'oily', 'combination', 'normal', 'sensitive'])
+
+const AGE_GROUP_ALIASES: Record<string, string> = {
+  'under 25': 'young-adult',
+  '25-35': 'adult',
+  '35-45': 'adult',
+  '45-55': 'mature',
+  '55+': 'mature',
+}
+
+function normalizeConcerns(raw: string[] | undefined): string[] {
+  if (!raw || raw.length === 0) return []
+  const out: string[] = []
+  for (const value of raw) {
+    const key = String(value || '').trim().toLowerCase()
+    if (!key) continue
+    const canonical = CANONICAL_CONCERNS.has(key) ? key : CONCERN_ALIASES[key]
+    if (canonical && !out.includes(canonical)) out.push(canonical)
+  }
+  return out
+}
+
+function normalizeSkinType(raw: string | undefined): string | undefined {
+  const key = String(raw || '').trim().toLowerCase()
+  return VALID_SKIN_TYPES.has(key) ? key : undefined
+}
+
+function normalizeAgeGroup(raw: string | undefined): string | undefined {
+  const key = String(raw || '').trim().toLowerCase()
+  if (!key) return undefined
+  if (['teen', 'young-adult', 'adult', 'mature', 'all'].includes(key)) return key
+  return AGE_GROUP_ALIASES[key]
+}
+
 interface ScoredProduct extends Product {
   _score: number
   _matchedConcerns: string[]
@@ -365,15 +429,22 @@ export async function getSkinRecommendations(filters: {
   skinType?: string
   ageGroup?: string
   targetConcerns?: string[]
+  usage?: string
   // New: analysis metrics for smarter recommendations
   oilinessLevel?: number
   hydrationLevel?: number
   rednessLevel?: number
 }): Promise<Product[]> {
   try {
-    const { skinType, ageGroup, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel } = filters
-    
-    debugLog('🔍 Fetching skin recommendations with filters:', { skinType, ageGroup, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel })
+    const { oilinessLevel, hydrationLevel, rednessLevel } = filters
+    const skinType = normalizeSkinType(filters.skinType)
+    const ageGroup = normalizeAgeGroup(filters.ageGroup)
+    const targetConcerns = normalizeConcerns(filters.targetConcerns)
+    // At-home users must not get professional-only lines (PRO Solution)
+    const usage = String(filters.usage || '').trim().toLowerCase()
+    const excludeProfessional = usage === 'at-home' || usage === 'home'
+
+    debugLog('🔍 Fetching skin recommendations with filters:', { skinType, ageGroup, targetConcerns, usage, oilinessLevel, hydrationLevel, rednessLevel })
     
     // Special handling for hair products
     if (targetConcerns && targetConcerns.includes('hair')) {
@@ -416,6 +487,13 @@ export async function getSkinRecommendations(filters: {
           { NOT: { name: { contains: 'Shampoo' } } },
           { NOT: { name: { contains: 'Hair Tonic' } } },
           { NOT: { name: { contains: 'Scalp Peeling' } } },
+          // At-home users: professional-only lines are not recommendable
+          ...(excludeProfessional
+            ? [
+                { NOT: { category: { contains: 'PRO Solution' } } },
+                { NOT: { isPriceOnRequest: true } },
+              ]
+            : []),
         ]
       },
       include: { variants: true }
@@ -547,7 +625,12 @@ export async function getSkinRecommendations(filters: {
 
     const topProducts = recommendedProducts.slice(0, MAX_RECOMMENDATIONS)
     debugLog(`📦 Returning ${topProducts.length} recommended products`)
-    return topProducts.map(({ _score, _matchedConcerns, ...product }) => product)
+    // Expose match metadata so clients can explain WHY a product was picked
+    return topProducts.map(({ _score, _matchedConcerns, ...product }) => ({
+      ...product,
+      matchScore: _score,
+      matchedConcerns: _matchedConcerns,
+    })) as Product[]
   } catch (error) {
     errorLog('Error fetching skin recommendations:', error)
     throw new Error('Failed to fetch skin recommendations')

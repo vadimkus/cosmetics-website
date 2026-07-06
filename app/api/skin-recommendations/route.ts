@@ -7,6 +7,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const skinType = searchParams.get('skinType')
     const ageGroup = searchParams.get('ageGroup')
+    const usage = searchParams.get('usage')
     const targetConcerns = searchParams.get('targetConcerns')?.split(',').filter(Boolean) || []
     
     // New: analysis metrics for smarter recommendations
@@ -26,6 +27,7 @@ export async function GET(request: NextRequest) {
     const products = await getSkinRecommendations({
       ...(skinType && { skinType }),
       ...(ageGroup && { ageGroup }),
+      ...(usage && { usage }),
       ...(targetConcerns.length > 0 && { targetConcerns }),
       ...(oilinessLevel !== undefined && { oilinessLevel }),
       ...(hydrationLevel !== undefined && { hydrationLevel }),
@@ -52,14 +54,15 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { skinType, ageGroup, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel } = body
+    const { skinType, ageGroup, usage, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel } = body
     
-    debugLog('🔍 Fetching skin recommendations via POST:', { skinType, ageGroup, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel })
+    debugLog('🔍 Fetching skin recommendations via POST:', { skinType, ageGroup, usage, targetConcerns, oilinessLevel, hydrationLevel, rednessLevel })
     
     // Use the scoring-based recommendations function
     const products = await getSkinRecommendations({
       ...(skinType && { skinType }),
       ...(ageGroup && { ageGroup }),
+      ...(usage && { usage }),
       ...(targetConcerns && targetConcerns.length > 0 && { targetConcerns }),
       ...(oilinessLevel !== undefined && { oilinessLevel }),
       ...(hydrationLevel !== undefined && { hydrationLevel }),

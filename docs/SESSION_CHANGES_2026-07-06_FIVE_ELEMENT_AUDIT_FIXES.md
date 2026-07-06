@@ -86,6 +86,16 @@ verified live on production.
    blocks cross-site POST; adding the header requirement could break the
    owner's curl workflows).
 
+## Follow-up (same day): warmer order-cancelled copy
+
+Commit `c8a2e60d` — user flagged the cancelled push as cold. Rewrote the
+CANCELLED copy in all three languages across push (`lib/expoPush.ts`), status
+email (`orderEmail.statusUpdate.statusMessages.CANCELLED` in `messages/*.json`
++ hardcoded fallback in `lib/email/statusUpdate.ts`), and WhatsApp
+(`lib/twilio.ts`). Dropped the incorrect "as requested" phrasing — admin
+cancellations aren't customer-requested — for an apology-neutral message that
+invites a reply / WhatsApp and offers to place a new order.
+
 ## Files touched (web)
 
 `app/api/profile/update/route.ts`, `app/api/push/order-status/route.ts` (deleted),

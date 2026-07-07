@@ -10,6 +10,7 @@ import {
   getLocalizedProductUrl,
 } from '@/lib/seo'
 import { getSeoLandingPage } from '@/lib/seoLandingPages'
+import { toJsonLd } from '@/lib/jsonLd'
 
 interface RouteStructuredDataProps {
   pathname: string
@@ -31,7 +32,10 @@ function getProductIdFromPath(pathname: string): string | null {
 }
 
 function getGuideSlugFromPath(pathname: string): string | null {
-  const match = pathname.match(/^\/guides\/([^/]+)$/)
+  // Match EN, AR and RU guide URLs. Guide bodies are English-only, so AR/RU
+  // routes render the same content — but they were previously getting NO
+  // FAQPage/WebPage schema at all. Emit it there too for rich-result eligibility.
+  const match = pathname.match(/^\/(?:ar\/|ru\/)?guides\/([^/]+)$/)
   return match?.[1] ?? null
 }
 
@@ -65,7 +69,9 @@ export default async function RouteStructuredData({ pathname }: RouteStructuredD
   const guide = guideSlug ? getSeoLandingPage(guideSlug) : null
 
   if (guide) {
-    const pageUrl = buildUrl(`/guides/${guide.slug}`)
+    const guideLocale = getLocaleFromPath(pathname)
+    const guidePrefix = guideLocale === 'en' ? '' : `/${guideLocale}`
+    const pageUrl = buildUrl(`${guidePrefix}/guides/${guide.slug}`)
     const webPageSchema = {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
@@ -95,22 +101,23 @@ export default async function RouteStructuredData({ pathname }: RouteStructuredD
       })),
     }
 
+    const guideLabels = productBreadcrumbLabels(guideLocale)
     return (
       <>
         <BreadcrumbSchema
           items={[
-            { name: 'Home', url: '/' },
-            { name: 'Guides', url: '/guides' },
-            { name: guide.h1, url: `/guides/${guide.slug}` },
+            { name: guideLabels.home, url: guidePrefix || '/' },
+            { name: 'Guides', url: `${guidePrefix}/guides` },
+            { name: guide.h1, url: `${guidePrefix}/guides/${guide.slug}` },
           ]}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema, null, 2) }}
+          dangerouslySetInnerHTML={{ __html: toJsonLd(webPageSchema) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema, null, 2) }}
+          dangerouslySetInnerHTML={{ __html: toJsonLd(faqSchema) }}
         />
       </>
     )

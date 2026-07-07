@@ -15,6 +15,7 @@ export const metadata: Metadata = {
       en: buildUrl('/guides'),
       ar: buildUrl('/ar/guides'),
       ru: buildUrl('/ru/guides'),
+      'x-default': buildUrl('/guides'),
     },
   },
   robots: {

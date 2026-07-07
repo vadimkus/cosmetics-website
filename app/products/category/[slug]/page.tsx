@@ -10,6 +10,11 @@ import CollectionPageSchema from '@/components/schema/CollectionPageSchema'
 import type { Product } from '@/types'
 
 export const revalidate = 3600
+// Only the slugs from generateStaticParams are valid. Without this, an unknown
+// slug (e.g. /products/category/serums) streams the layout then hits
+// notFound() mid-render → a soft 404 (HTTP 200 + 404 UI) that wastes crawl
+// budget. `false` makes unknown slugs return a genuine 404.
+export const dynamicParams = false
 
 export function generateStaticParams() {
   return getAllCategorySlugs().map(slug => ({ slug }))

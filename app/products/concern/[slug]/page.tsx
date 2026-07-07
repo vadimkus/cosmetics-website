@@ -15,6 +15,9 @@ import ConcernCTA from '@/components/ConcernCTA'
 import type { Product } from '@/types'
 
 export const revalidate = 3600 // Revalidate every hour
+// Unknown concern slugs return a genuine 404 (not a soft 404) — see the
+// category page for the rationale.
+export const dynamicParams = false
 
 // Pre-generate all concern pages at build time
 export function generateStaticParams() {
@@ -128,11 +131,13 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
   return (
     <div className="min-h-screen bg-white">
       {/* Structured Data */}
+      {/* Breadcrumb JSON-LD points to indexable pages only — the previous
+          intermediate `/products?categories=skin-concern` is a client-filtered
+          view with no canonical, which mislead Google's breadcrumb graph. */}
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: '/' },
           { name: 'Products', url: '/products' },
-          { name: 'Skin Concerns', url: '/products?categories=skin-concern' },
           { name: seo.h1, url: `/products/concern/${slug}` },
         ]}
       />

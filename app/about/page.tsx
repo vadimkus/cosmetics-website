@@ -14,10 +14,10 @@ export const metadata: Metadata = {
     locale: 'en_AE',
     images: [
       {
-        url: 'https://genosys.ae/images/genosys-logo.png',
-        width: 400,
-        height: 400,
-        alt: 'GENOSYS Middle East FZ-LLC Logo',
+        url: 'https://genosys.ae/images/genosys-products.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'GENOSYS Middle East FZ-LLC — official UAE distributor',
       },
     ],
   },
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     creator: '@genosys_official',
     title: 'About GENOSYS Middle East FZ-LLC - Official Korean Dermacosmetics Distributor',
     description: 'Learn about GENOSYS Middle East FZ-LLC, the official distributor of DTSMG Co., Ltd Korea in the UAE.',
-    images: ['https://genosys.ae/images/genosys-logo.png'],
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
   },
   alternates: {
     canonical: 'https://genosys.ae/about',
@@ -46,6 +46,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/about',
       'ar': 'https://genosys.ae/ar/about',
       'ru': 'https://genosys.ae/ru/about',
+      'x-default': 'https://genosys.ae/about',
     },
   },
 }

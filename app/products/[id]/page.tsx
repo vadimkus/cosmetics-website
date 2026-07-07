@@ -59,8 +59,10 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const productDescriptionText = getLocalizedProductDescription(product, 'en')
   const productUrl = getLocalizedProductUrl(canonicalSlug, 'en')
   
-  // Enhanced product-specific meta tags
-  const productTitle = `${productName} - Professional Korean Dermacosmetics UAE | GENOSYS`
+  // Keep the title under ~60 chars so Google doesn't truncate/rewrite it.
+  // The product name is the primary keyword; the suffix stays short (brand +
+  // market). Long descriptive terms live in the H1/description instead.
+  const productTitle = `${productName} | GENOSYS UAE`
   const productDescription = `${truncateText(productDescriptionText, 150)} Professional Korean dermacosmetics by GENOSYS. Official distributor in UAE. Free shipping over 1000 AED.`
   const productKeywords = [
     productName,

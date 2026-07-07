@@ -15,6 +15,8 @@ import ConcernCTA from '@/components/ConcernCTA'
 import type { Product } from '@/types'
 
 export const revalidate = 3600
+// Unknown slugs return a genuine 404 (not a soft 404) — matches the EN route.
+export const dynamicParams = false
 
 export function generateStaticParams() {
   return getAllConcernSlugs().map(slug => ({ slug }))
@@ -115,7 +117,6 @@ export default async function RussianConcernPage({ params }: { params: Promise<{
         items={[
           { name: 'Главная', url: '/ru' },
           { name: 'Продукция', url: '/ru/products' },
-          { name: 'Проблемы кожи', url: '/ru/products?categories=skin-concern' },
           { name: seo.h1, url: `/ru/products/concern/${slug}` },
         ]}
       />

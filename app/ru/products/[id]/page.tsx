@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const productDescriptionText = getLocalizedProductDescription(product, 'ru')
   const productUrl = getLocalizedProductUrl(canonicalSlug, 'ru')
   
-  const productTitle = `${productName} - Профессиональная корейская дерматокосметика ОАЭ | GENOSYS`
+  const productTitle = `${productName} | GENOSYS ОАЭ`
   const productDescription = `${truncateText(productDescriptionText, 150)} Профессиональная корейская дерматокосметика от GENOSYS. Официальный дистрибьютор в ОАЭ. Бесплатная доставка от 1000 AED.`
   const productKeywords = [
     productName,

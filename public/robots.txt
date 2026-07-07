@@ -79,6 +79,11 @@ Disallow: /pwa/
 Disallow: /pwa-login/
 Disallow: /test-analytics/
 Disallow: /pdf-viewer/
+Disallow: /phone
+Disallow: /phone2
+Disallow: /phone3
+Disallow: /template
+Disallow: /animation
 Disallow: /track/
 Disallow: /share/
 Disallow: /certificate/

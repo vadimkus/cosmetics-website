@@ -54,7 +54,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const productUrl = getLocalizedProductUrl(canonicalSlug, 'ar')
   
   // Enhanced product-specific meta tags in Arabic
-  const productTitle = `${productName} - مستحضرات تجميل كورية احترافية في الإمارات | GENOSYS`
+  const productTitle = `${productName} | GENOSYS الإمارات`
   const productDescription = `${truncateText(productDescriptionText, 150)} مستحضرات تجميل كورية احترافية من GENOSYS. الموزع الرسمي في الإمارات. شحن مجاني للطلبات فوق 1000 درهم.`
   const productKeywords = [
     productName,

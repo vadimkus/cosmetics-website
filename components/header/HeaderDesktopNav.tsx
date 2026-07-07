@@ -28,6 +28,7 @@ export default function HeaderDesktopNav({ isRTL, isClient }: HeaderDesktopNavPr
     { href: '/about', label: t('navigation.about') },
     { href: '/brand', label: t('navigation.brand') },
     { href: '/products', label: t('navigation.products') },
+    { href: '/blog', label: t('navigation.blog') },
     ...(isClient && user ? [{ href: '/training', label: t('navigation.training') }] : []),
     { href: '/contact', label: t('navigation.contact') },
     { href: '/delivery', label: t('navigation.delivery') },

@@ -75,6 +75,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/blog',
       'ar': 'https://genosys.ae/ar/blog',
       'ru': 'https://genosys.ae/ru/blog',
+      'x-default': 'https://genosys.ae/blog',
     },
   },
 }

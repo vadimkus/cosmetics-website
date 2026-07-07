@@ -311,21 +311,22 @@ function RailProductCard({
           className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
           quality={80}
         />
-        {/* "New" moved off the image (product shots often have text in the
-            top-left corner) — it renders on the category line below instead. */}
-        {badge === 'inStock' && product.inStock && (
-          <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur text-[10px] font-semibold text-emerald-700 border border-emerald-200">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-            {locale === 'ar' ? 'متوفر' : locale === 'ru' ? 'В наличии' : 'In stock'}
-          </span>
-        )}
+        {/* Badges live on the category line below, never over the image —
+            the studio-style product shots must stay clean. */}
       </div>
       <div className={`p-4 ${isRtl ? 'text-right' : ''}`}>
         <p className={`flex items-center gap-2 mb-1 ${isRtl ? 'flex-row-reverse' : ''}`}>
-          {badge === 'new' && (
+          {badge === 'new' ? (
             <span className="inline-flex items-center rounded-full bg-gray-900 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white">
               {locale === 'ar' ? 'جديد' : locale === 'ru' ? 'Новинка' : 'New'}
             </span>
+          ) : (
+            product.inStock && (
+              <span className={`inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-emerald-700 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+                {locale === 'ar' ? 'متوفر' : locale === 'ru' ? 'В наличии' : 'In stock'}
+              </span>
+            )
           )}
           <span className="text-[10px] tracking-wide font-semibold text-gray-500 uppercase line-clamp-1">
             {product.category}

@@ -62,10 +62,19 @@ const ProductInfo = memo(function ProductInfo({
     ? t('products.orderByRequest') 
     : t('product.inStock')
   
+  // Recent launches get a "New" pill on the category row (kept off the
+  // image so studio-style product shots stay clean).
+  const isNewLaunch = ['63', '66'].includes(product.productNumber || product.id)
+
   return (
     <div className="p-3 md:p-4 flex flex-col">
-      {/* Category */}
-      <div className="mb-2">
+      {/* Category (+ New pill for recent launches) */}
+      <div className="mb-2 flex items-center gap-2">
+        {isNewLaunch && (
+          <span className="inline-flex items-center rounded-full bg-gray-900 px-2 py-0.5 text-[9px] md:text-[10px] font-semibold uppercase tracking-wide text-white">
+            {t('common.new')}
+          </span>
+        )}
         <span className="text-xs md:text-sm text-primary-600 font-medium">
           {translateCategory(product.category, messages)}
         </span>

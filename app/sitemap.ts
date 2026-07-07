@@ -3,13 +3,13 @@ import { getAllProducts } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import { Product } from '@/types/index'
 import { prisma } from '@/lib/prisma'
-import { getCanonicalProductSlug } from '@/lib/seo'
+import { getCanonicalProductSlug, getProductImageUrls } from '@/lib/seo'
 import { SEO_LANDING_PAGES } from '@/lib/seoLandingPages'
 import { CATEGORY_PAGES } from '@/lib/concernsData'
 
 const BASE_URL = 'https://genosys.ae'
 
-function localizedUrls(path: string, lastModified: Date, priority: number, changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency']): MetadataRoute.Sitemap {
+function localizedUrls(path: string, lastModified: Date, priority: number, changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'], images?: string[]): MetadataRoute.Sitemap {
   const enPath = path === '' ? '/' : path
   const arPath = path === '' ? '/ar' : `/ar${path}`
   const ruPath = path === '' ? '/ru' : `/ru${path}`
@@ -22,11 +22,14 @@ function localizedUrls(path: string, lastModified: Date, priority: number, chang
       'x-default': `${BASE_URL}${enPath}`,
     },
   }
+  // `images` emits <image:image> sub-entries (Google image sitemap) so product
+  // photos are discoverable in Google Images without relying on HTML crawl.
+  const imgProp = images && images.length > 0 ? { images } : {}
 
   return [
-    { url: `${BASE_URL}${enPath}`, lastModified, changeFrequency, priority, alternates },
-    { url: `${BASE_URL}${arPath}`, lastModified, changeFrequency, priority, alternates },
-    { url: `${BASE_URL}${ruPath}`, lastModified, changeFrequency, priority, alternates },
+    { url: `${BASE_URL}${enPath}`, lastModified, changeFrequency, priority, alternates, ...imgProp },
+    { url: `${BASE_URL}${arPath}`, lastModified, changeFrequency, priority, alternates, ...imgProp },
+    { url: `${BASE_URL}${ruPath}`, lastModified, changeFrequency, priority, alternates, ...imgProp },
   ]
 }
 
@@ -99,7 +102,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const product of products) {
     const lastMod = product.updatedAt ? new Date(product.updatedAt) : now
-    entries.push(...localizedUrls(`/products/${getCanonicalProductSlug(product)}`, lastMod, 0.8, 'weekly'))
+    // Cap at 5 images per product to keep the sitemap lean; the main image
+    // comes first via getProductImageUrls.
+    const images = getProductImageUrls(product).slice(0, 5)
+    entries.push(...localizedUrls(`/products/${getCanonicalProductSlug(product)}`, lastMod, 0.8, 'weekly', images))
   }
 
   // Concern-based landing pages (static editorial content → stable lastmod)

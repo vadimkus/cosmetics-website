@@ -111,7 +111,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       languages: getProductAlternates(canonicalSlug),
     },
     other: {
-      // Price omitted — gated behind login (see EN page for rationale)
+      // Retail AED price exposed for Shopping/social rich results (see EN page).
+      'product:price:amount': String(product.price),
+      'product:price:currency': 'AED',
       'product:availability': product.inStock ? 'in stock' : 'out of stock',
       'product:brand': 'GENOSYS',
       'product:category': product.category,

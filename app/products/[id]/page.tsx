@@ -98,9 +98,8 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     openGraph: {
       title: productTitle,
       description: productDescription,
-      // Intentionally 'website', NOT 'product': OG type "product" expects
-      // product:price:amount, but prices are login-gated and deliberately not
-      // exposed in metadata. A priceless "product" card renders as incomplete.
+      // 'product' OG type + product:price (below) — prices are now exposed for
+      // Shopping/social rich results (decision 2026-07-07).
       type: 'website',
       url: productUrl,
       siteName: 'GENOSYS',
@@ -123,9 +122,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       languages: getProductAlternates(canonicalSlug),
     },
     other: {
-      // Price intentionally NOT exposed here — prices are gated behind login
-      // (canUserSeePrices), so emitting product:price:amount would leak the
-      // base price to any crawler/link-unfurl bot.
+      // Retail AED price exposed for Shopping/social rich results.
+      'product:price:amount': String(product.price),
+      'product:price:currency': 'AED',
       'product:availability': product.inStock ? 'in stock' : 'out of stock',
       'product:brand': 'GENOSYS',
       'product:category': product.category,

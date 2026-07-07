@@ -28,6 +28,11 @@ interface ProductSchemaProps {
  * - AggregateRating only included when real data exists
  * - audience: single PeopleAudience (Merchant Center / Search expects suggestedGender + age — not generic Audience or arrays)
  */
+// Google requires offers.priceValidUntil for Product rich-result eligibility.
+// Roll it ~1 year forward so it never goes stale (prices are re-checked far
+// more often than yearly, and an expired date silently drops the rich result).
+const PRICE_VALID_UNTIL = `${new Date().getFullYear() + 1}-12-31`
+
 export default function ProductSchema({ product, locale = 'en', canonicalUrl }: ProductSchemaProps) {
   // Skip Product schema entirely for products without a valid price.
   // Google requires "offers", "review", or "aggregateRating" for @type:Product.
@@ -90,11 +95,12 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
     } : {}),
     "offers": {
       "@type": "Offer",
-      // Price is intentionally NOT emitted — product prices are gated behind
-      // login site-wide, so exposing them in JSON-LD (readable by any crawler/
-      // scraper) would contradict that. Availability, seller, shipping and
-      // returns are public and safe to keep. (Mirrors the OG-tag decision.)
+      // Price IS emitted so products qualify for Google Shopping rich results
+      // and Merchant Center listings (decision 2026-07-07). Retail AED price
+      // from the DB; priceValidUntil is required by Google for eligibility.
       "priceCurrency": "AED",
+      "price": Number(product.price),
+      "priceValidUntil": PRICE_VALID_UNTIL,
       "availability": product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
       "itemCondition": "https://schema.org/NewCondition",
       "seller": {

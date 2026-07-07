@@ -5,6 +5,18 @@ import { SEO_LANDING_PAGES } from './lib/seoLandingPages'
 
 // Guide slugs are a small build-time list shared by EN/AR/RU routes.
 const GUIDE_SLUGS = new Set(SEO_LANDING_PAGES.map(page => page.slug))
+// Concern + category slugs — inlined (not imported) so the 3000-line
+// concernsData module isn't pulled into the edge-middleware bundle. Keep in
+// sync with CONCERN_PAGES / CATEGORY_PAGES in lib/concernsData.ts.
+const CONCERN_SLUGS = new Set([
+  'sun-protection', 'acne-treatment', 'pigmentation', 'scars-treatment',
+  'hair-loss', 'anti-aging', 'hydration', 'sensitivity',
+])
+const CATEGORY_SLUGS = new Set([
+  'microneedling', 'pro-solution', 'cleanser', 'peeling', 'toner-mist',
+  'serum', 'cream', 'mask', 'sun', 'cushion-bb', 'scalp-hair', 'eye-care',
+  'device', 'bio-meso',
+])
 
 // Generate a unique request ID for correlation/debugging
 function generateRequestId(): string {
@@ -90,6 +102,25 @@ export function proxy(request: NextRequest) {
   // makes Next's global not-found handler respond with a genuine 404.
   const guideSlug = pathname.match(/^\/(?:(?:ar|ru)\/)?guides\/([^/]+)\/?$/)?.[1]
   if (guideSlug && !GUIDE_SLUGS.has(guideSlug)) {
+    return withSecurityHeaders(
+      NextResponse.rewrite(new URL('/__not-found', request.url)),
+      requestId
+    )
+  }
+
+  // Same real-404 treatment for unknown concern / category slugs. These pages
+  // render via the root layout, so a page-level notFound() only yields a soft
+  // 404 (HTTP 200 + 404 UI). dynamicParams=false alone isn't enough because the
+  // layout still streams first; rewriting to an unrouteable path forces a true 404.
+  const concernSlug = pathname.match(/^\/(?:(?:ar|ru)\/)?products\/concern\/([^/]+)\/?$/)?.[1]
+  if (concernSlug && !CONCERN_SLUGS.has(concernSlug)) {
+    return withSecurityHeaders(
+      NextResponse.rewrite(new URL('/__not-found', request.url)),
+      requestId
+    )
+  }
+  const categorySlug = pathname.match(/^\/(?:(?:ar|ru)\/)?products\/category\/([^/]+)\/?$/)?.[1]
+  if (categorySlug && !CATEGORY_SLUGS.has(categorySlug)) {
     return withSecurityHeaders(
       NextResponse.rewrite(new URL('/__not-found', request.url)),
       requestId

@@ -4,12 +4,39 @@ import { errorLog } from '@/lib/logger'
 import BundleBuilderClient from './BundleBuilderClient'
 
 export const metadata: Metadata = {
-  title: 'Build Your Skincare Set | GENOSYS',
-  description: 'Create your personalized skincare routine. Select products from each category and save up to 20% with bundle discounts.',
+  title: 'Build Your Skincare Set — Custom Bundle | GENOSYS UAE',
+  description: 'Build a custom GENOSYS Korean skincare set in the UAE: pick a cleanser, serum, cream, mask and more, then save up to 20% with automatic bundle discounts. Free UAE delivery over 1000 AED.',
+  keywords: [
+    'custom skincare set UAE',
+    'build your skincare routine',
+    'Korean skincare bundle Dubai',
+    'GENOSYS bundle discount',
+    'personalized skincare UAE',
+  ],
   openGraph: {
-    title: 'Build Your Skincare Set | GENOSYS',
-    description: 'Create your personalized skincare routine and save up to 20%.',
+    title: 'Build Your Skincare Set — Custom Bundle | GENOSYS UAE',
+    description: 'Pick products across categories and save up to 20% with automatic bundle discounts. Free UAE delivery over 1000 AED.',
     type: 'website',
+    url: 'https://genosys.ae/bundle-builder',
+    siteName: 'GENOSYS',
+    locale: 'en_AE',
+    images: [{ url: 'https://genosys.ae/images/genosys-products.jpg', width: 1200, height: 630, alt: 'GENOSYS custom skincare set' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@genosys_official',
+    title: 'Build Your Skincare Set — Custom Bundle | GENOSYS UAE',
+    description: 'Pick products across categories and save up to 20% with automatic bundle discounts.',
+    images: ['https://genosys.ae/images/genosys-products.jpg'],
+  },
+  alternates: {
+    canonical: 'https://genosys.ae/bundle-builder',
+    languages: {
+      'en': 'https://genosys.ae/bundle-builder',
+      'ar': 'https://genosys.ae/ar/bundle-builder',
+      'ru': 'https://genosys.ae/ru/bundle-builder',
+      'x-default': 'https://genosys.ae/bundle-builder',
+    },
   },
 }
 

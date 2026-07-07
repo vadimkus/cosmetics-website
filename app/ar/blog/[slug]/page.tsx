@@ -124,6 +124,14 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       siteName: 'GENOSYS',
       locale: 'ar_AE',
     },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@genosys_official',
+      creator: '@genosys_official',
+      title,
+      description: excerpt,
+      ...(post.featuredImage ? { images: [buildUrl(post.featuredImage)] } : {}),
+    },
     alternates: {
       canonical: `https://genosys.ae/ar/blog/${slug}`,
       languages: {

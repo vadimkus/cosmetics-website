@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
 import ProductsPageClient from './ProductsPageClient'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import ProductsListSchema from '@/components/schema/ProductsListSchema'
 import { ProductsErrorBoundary } from '@/components/error-boundaries'
 import { getAllProducts } from '@/lib/productsDb'
 import { CONCERN_PAGES } from '@/lib/concernsData'
@@ -100,6 +101,10 @@ export default async function ProductsPage() {
           { name: 'Products', url: '/products' }
         ]}
       />
+      {/* CollectionPage + ItemList JSON-LD so the /products listing is
+          eligible for Google's product-list rich results (category/concern
+          pages already have their own CollectionPageSchema). */}
+      <ProductsListSchema products={products} />
       <ProductsErrorBoundary>
         <Suspense fallback={<ProductsLoading />}>
           <ProductsPageClient initialProducts={products} />

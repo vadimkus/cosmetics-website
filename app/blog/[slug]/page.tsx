@@ -131,6 +131,16 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       publishedTime: post.publishedAt?.toISOString(),
       authors: post.authorName ? [post.authorName] : [],
     },
+    twitter: {
+      card: 'summary_large_image',
+      site: '@genosys_official',
+      creator: '@genosys_official',
+      title: post.title,
+      description: metaDescription,
+      // Uses the featured image when present; otherwise the file-based
+      // twitter-image.tsx title card is served.
+      ...(post.featuredImage ? { images: [buildUrl(post.featuredImage)] } : {}),
+    },
     alternates: {
       canonical: `https://genosys.ae/blog/${slug}`,
       languages: {

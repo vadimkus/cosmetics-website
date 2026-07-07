@@ -1,6 +1,7 @@
 import { Product } from '@/types'
 import { SITE_URL } from '@/lib/siteConfig'
-import { getProductImageUrls } from '@/lib/seo'
+import { getProductImageUrls, getCanonicalProductSlug } from '@/lib/seo'
+import { toJsonLd } from '@/lib/jsonLd'
 
 interface ProductsListSchemaProps {
   products: Product[]
@@ -28,11 +29,14 @@ export default function ProductsListSchema({ products, category }: ProductsListS
     "description": category 
       ? `Professional ${category.toLowerCase()} products by GENOSYS Middle East FZ-LLC. Korean dermacosmetics for professional and home use.`
       : "Professional Korean dermacosmetics by GENOSYS Middle East FZ-LLC. Complete range of skincare products for professional and home use.",
-    "url": `${baseUrl}/products${category ? `?category=${category}` : ''}`,
+    // Canonical, param-free collection URL (category listings live at
+    // /products/category/<slug>, which have their own CollectionPageSchema).
+    "url": `${baseUrl}/products`,
     "mainEntity": {
       "@type": "ItemList",
       "numberOfItems": validProducts.length,
       "itemListElement": validProducts.map((product, index) => {
+        const productUrl = `${baseUrl}/products/${getCanonicalProductSlug(product)}`
         return {
           "@type": "ListItem",
           "position": index + 1,
@@ -58,7 +62,7 @@ export default function ProductsListSchema({ products, category }: ProductsListS
                 "name": "GENOSYS Middle East FZ-LLC",
                 "url": baseUrl
               },
-              "url": `${baseUrl}/products/${product.id}`,
+              "url": productUrl,
               "hasMerchantReturnPolicy": {
                 "@type": "MerchantReturnPolicy",
                 "applicableCountry": "AE",
@@ -85,9 +89,9 @@ export default function ProductsListSchema({ products, category }: ProductsListS
                 }
               },
             },
-            "sku": product.id,
+            "sku": product.productNumber || product.id,
             "mpn": product.productNumber || product.id,
-            "url": `${baseUrl}/products/${product.id}`
+            "url": productUrl
           }
         }
       })
@@ -111,7 +115,7 @@ export default function ProductsListSchema({ products, category }: ProductsListS
           "@type": "ListItem",
           "position": 3,
           "name": category,
-          "item": `${baseUrl}/products?category=${category}`
+          "item": `${baseUrl}/products/category/${category}`
         }] : [])
       ]
     },
@@ -121,7 +125,7 @@ export default function ProductsListSchema({ products, category }: ProductsListS
       "url": baseUrl,
       "logo": {
         "@type": "ImageObject",
-        "url": `${baseUrl}/favicon/genosys-logo.png`
+        "url": `${baseUrl}/images/genosys-logo.png`
       }
     }
   }
@@ -129,7 +133,7 @@ export default function ProductsListSchema({ products, category }: ProductsListS
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema, null, 2) }}
+      dangerouslySetInnerHTML={{ __html: toJsonLd(schema) }}
     />
   )
 }

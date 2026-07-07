@@ -311,22 +311,25 @@ function RailProductCard({
           className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
           quality={80}
         />
-        {badge === 'new' ? (
-          <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gray-900 text-[10px] font-semibold text-white">
-            {locale === 'ar' ? 'جديد' : locale === 'ru' ? 'Новинка' : 'New'}
+        {/* "New" moved off the image (product shots often have text in the
+            top-left corner) — it renders on the category line below instead. */}
+        {badge === 'inStock' && product.inStock && (
+          <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur text-[10px] font-semibold text-emerald-700 border border-emerald-200">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+            {locale === 'ar' ? 'متوفر' : locale === 'ru' ? 'В наличии' : 'In stock'}
           </span>
-        ) : (
-          product.inStock && (
-            <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur text-[10px] font-semibold text-emerald-700 border border-emerald-200">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-              {locale === 'ar' ? 'متوفر' : locale === 'ru' ? 'В наличии' : 'In stock'}
-            </span>
-          )
         )}
       </div>
       <div className={`p-4 ${isRtl ? 'text-right' : ''}`}>
-        <p className="text-[10px] tracking-wide font-semibold text-gray-500 uppercase mb-1 line-clamp-1">
-          {product.category}
+        <p className={`flex items-center gap-2 mb-1 ${isRtl ? 'flex-row-reverse' : ''}`}>
+          {badge === 'new' && (
+            <span className="inline-flex items-center rounded-full bg-gray-900 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white">
+              {locale === 'ar' ? 'جديد' : locale === 'ru' ? 'Новинка' : 'New'}
+            </span>
+          )}
+          <span className="text-[10px] tracking-wide font-semibold text-gray-500 uppercase line-clamp-1">
+            {product.category}
+          </span>
         </p>
         <h3 className="text-sm lg:text-base font-semibold text-gray-900 leading-tight line-clamp-2 mb-2 group-hover:text-primary-700 transition-colors">
           {name}

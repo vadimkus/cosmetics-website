@@ -80,7 +80,7 @@ export default async function Home() {
   // Fetch homepage data on the server (cached 5min). We intentionally keep
   // this outside MobileRedirect so crawlers still see a rich homepage even
   // when mobile browsers get bounced to /products.
-  const { featured, categoryImages, categoryCounts, concernCounts } = await getHomeData()
+  const { featured, newArrivals, categoryImages, categoryCounts, concernCounts } = await getHomeData()
 
   return (
     <MobileRedirect to="/products">
@@ -107,6 +107,7 @@ export default async function Home() {
           locale="en"
           dir="ltr"
           featuredProducts={featured}
+          newArrivals={newArrivals}
           categoryImages={categoryImages}
           categoryCounts={categoryCounts}
           concernCounts={concernCounts}

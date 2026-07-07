@@ -9,10 +9,11 @@
  *
  * Sections (top → bottom):
  *  1. Bestsellers rail        — 4 up, real sales data (units sold, 180d)
- *  2. Category rail           — 6 categories, image tile grid + product counts
- *  3. Shop-by-concern grid    — 8 concerns + product counts + analysis CTA
- *  4. Why GENOSYS 3-up        — brand credibility
- *  5. Newsletter CTA          — email capture → /api/newsletter/subscribe (live)
+ *  2. New arrivals rail       — newest products (≤120d old), aids indexing too
+ *  3. Category rail           — 6 categories, image tile grid + product counts
+ *  4. Shop-by-concern grid    — 8 concerns + product counts + analysis CTA
+ *  5. Why GENOSYS 3-up        — brand credibility
+ *  6. Newsletter CTA          — email capture → /api/newsletter/subscribe (live)
  */
 
 import Link from 'next/link'
@@ -36,6 +37,8 @@ interface HomeDesktopSectionsProps {
   locale: Locale
   dir: 'ltr' | 'rtl'
   featuredProducts: Product[]
+  /** Newest products (added recently), rendered as a "New arrivals" rail. */
+  newArrivals?: Product[]
   /**
    * Map of category slug -> product image URL. Computed on the server against
    * the full catalog so every tile on the rail has real imagery, not just the
@@ -267,10 +270,135 @@ function pickFirstImage(product: Product): string {
   return product.image || '/images/placeholder.png'
 }
 
+/**
+ * Product card shared by the Bestsellers and New Arrivals rails.
+ * Auth-gated pricing mirrors ProductCard/ProductPrice site-wide rules.
+ */
+function RailProductCard({
+  product,
+  locale,
+  isRtl,
+  user,
+  userCanSeePrices,
+  badge,
+}: {
+  product: Product
+  locale: Locale
+  isRtl: boolean
+  user: ReturnType<typeof useAuth>['user']
+  userCanSeePrices: boolean
+  badge: 'inStock' | 'new'
+}) {
+  const imgSrc = pickFirstImage(product)
+  const name =
+    locale === 'ar' && product.nameAr
+      ? product.nameAr
+      : locale === 'ru' && product.nameRu
+      ? product.nameRu
+      : product.name
+  return (
+    <Link
+      href={getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)}
+      className="group block rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg hover:border-primary-200 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+    >
+      <div className="relative aspect-square bg-white overflow-hidden">
+        <Image
+          src={imgSrc}
+          alt={name}
+          width={400}
+          height={400}
+          sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 400px"
+          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+          quality={80}
+        />
+        {badge === 'new' ? (
+          <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-gray-900 text-[10px] font-semibold text-white">
+            {locale === 'ar' ? 'جديد' : locale === 'ru' ? 'Новинка' : 'New'}
+          </span>
+        ) : (
+          product.inStock && (
+            <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur text-[10px] font-semibold text-emerald-700 border border-emerald-200">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+              {locale === 'ar' ? 'متوفر' : locale === 'ru' ? 'В наличии' : 'In stock'}
+            </span>
+          )
+        )}
+      </div>
+      <div className={`p-4 ${isRtl ? 'text-right' : ''}`}>
+        <p className="text-[10px] tracking-wide font-semibold text-gray-500 uppercase mb-1 line-clamp-1">
+          {product.category}
+        </p>
+        <h3 className="text-sm lg:text-base font-semibold text-gray-900 leading-tight line-clamp-2 mb-2 group-hover:text-primary-700 transition-colors">
+          {name}
+        </h3>
+        {product.isPriceOnRequest ? (
+          <p className="text-sm font-semibold text-amber-600">
+            {locale === 'ar'
+              ? 'السعر عند الطلب'
+              : locale === 'ru'
+              ? 'Цена по запросу'
+              : 'Price on request'}
+          </p>
+        ) : userCanSeePrices ? (
+          (() => {
+            const pricing = getPricingDisplay(product, user)
+            if (pricing.hasDiscount) {
+              return (
+                <div>
+                  <div className={`flex items-center gap-2 flex-wrap ${isRtl ? 'flex-row-reverse' : ''}`}>
+                    <span className="text-sm font-bold text-primary-600">
+                      AED {pricing.displayPrice.toFixed(2)}
+                    </span>
+                    {pricing.originalPrice ? (
+                      <span className="text-xs text-gray-500 line-through">
+                        AED {pricing.originalPrice.toFixed(2)}
+                      </span>
+                    ) : null}
+                  </div>
+                  <span className="mt-0.5 inline-block text-[10px] font-semibold text-green-600">
+                    {pricing.discountPercentage}%{' '}
+                    {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'off'}
+                  </span>
+                </div>
+              )
+            }
+            return (
+              <p className="text-sm font-semibold text-gray-900">
+                AED {pricing.displayPrice.toFixed(2)}
+              </p>
+            )
+          })()
+        ) : user ? (
+          <p className="inline-flex items-center gap-1 text-sm font-semibold text-gray-500">
+            <Lock className="h-3.5 w-3.5" aria-hidden="true" />
+            {locale === 'ar'
+              ? 'السعر مقفل'
+              : locale === 'ru'
+              ? 'Цена заблокирована'
+              : 'Price locked'}
+          </p>
+        ) : (
+          <span
+            className={`inline-flex items-center gap-1.5 text-xs font-semibold text-primary-700 border border-primary-200 bg-primary-50 rounded-full px-2.5 py-1 ${isRtl ? 'flex-row-reverse' : ''}`}
+          >
+            <Lock className="h-3 w-3" aria-hidden="true" />
+            {locale === 'ar'
+              ? 'سجّل الدخول لرؤية السعر'
+              : locale === 'ru'
+              ? 'Войдите, чтобы увидеть цену'
+              : 'Login to see price'}
+          </span>
+        )}
+      </div>
+    </Link>
+  )
+}
+
 export default function HomeDesktopSections({
   locale,
   dir,
   featuredProducts,
+  newArrivals,
   categoryImages,
   categoryCounts,
   concernCounts,
@@ -340,116 +468,70 @@ export default function HomeDesktopSections({
               </div>
 
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                {featuredProducts.slice(0, 4).map(product => {
-                  const imgSrc = pickFirstImage(product)
-                  const name =
-                    locale === 'ar' && product.nameAr
-                      ? product.nameAr
-                      : locale === 'ru' && product.nameRu
-                      ? product.nameRu
-                      : product.name
-                  return (
-                    <Link
-                      key={product.id}
-                      href={getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)}
-                      className="group block rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg hover:border-primary-200 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
-                    >
-                      <div className="relative aspect-square bg-white overflow-hidden">
-                        <Image
-                          src={imgSrc}
-                          alt={name}
-                          width={400}
-                          height={400}
-                          sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 400px"
-                          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
-                          quality={80}
-                        />
-                        {product.inStock && (
-                          <span className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/90 backdrop-blur text-[10px] font-semibold text-emerald-700 border border-emerald-200">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
-                            {locale === 'ar' ? 'متوفر' : locale === 'ru' ? 'В наличии' : 'In stock'}
-                          </span>
-                        )}
-                      </div>
-                      <div className={`p-4 ${isRtl ? 'text-right' : ''}`}>
-                        <p className="text-[10px] tracking-wide font-semibold text-gray-500 uppercase mb-1 line-clamp-1">
-                          {product.category}
-                        </p>
-                        <h3 className="text-sm lg:text-base font-semibold text-gray-900 leading-tight line-clamp-2 mb-2 group-hover:text-primary-700 transition-colors">
-                          {name}
-                        </h3>
-                        {/* Auth-gated price block — mirrors ProductCard/ProductPrice */}
-                        {product.isPriceOnRequest ? (
-                          <p className="text-sm font-semibold text-amber-600">
-                            {locale === 'ar'
-                              ? 'السعر عند الطلب'
-                              : locale === 'ru'
-                              ? 'Цена по запросу'
-                              : 'Price on request'}
-                          </p>
-                        ) : userCanSeePrices ? (
-                          (() => {
-                            // Applies user-specific discount (Black Friday, tier-based,
-                            // Beauty Box bundle) exactly like ProductCard/ProductPrice.
-                            const pricing = getPricingDisplay(product, user)
-                            if (pricing.hasDiscount) {
-                              return (
-                                <div>
-                                  <div className={`flex items-center gap-2 flex-wrap ${isRtl ? 'flex-row-reverse' : ''}`}>
-                                    <span className="text-sm font-bold text-primary-600">
-                                      AED {pricing.displayPrice.toFixed(2)}
-                                    </span>
-                                    {pricing.originalPrice ? (
-                                      <span className="text-xs text-gray-500 line-through">
-                                        AED {pricing.originalPrice.toFixed(2)}
-                                      </span>
-                                    ) : null}
-                                  </div>
-                                  <span className="mt-0.5 inline-block text-[10px] font-semibold text-green-600">
-                                    {pricing.discountPercentage}%{' '}
-                                    {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'off'}
-                                  </span>
-                                </div>
-                              )
-                            }
-                            return (
-                              <p className="text-sm font-semibold text-gray-900">
-                                AED {pricing.displayPrice.toFixed(2)}
-                              </p>
-                            )
-                          })()
-                        ) : user ? (
-                          <p className="inline-flex items-center gap-1 text-sm font-semibold text-gray-500">
-                            <Lock className="h-3.5 w-3.5" aria-hidden="true" />
-                            {locale === 'ar'
-                              ? 'السعر مقفل'
-                              : locale === 'ru'
-                              ? 'Цена заблокирована'
-                              : 'Price locked'}
-                          </p>
-                        ) : (
-                          <span
-                            className={`inline-flex items-center gap-1.5 text-xs font-semibold text-primary-700 border border-primary-200 bg-primary-50 rounded-full px-2.5 py-1 ${isRtl ? 'flex-row-reverse' : ''}`}
-                          >
-                            <Lock className="h-3 w-3" aria-hidden="true" />
-                            {locale === 'ar'
-                              ? 'سجّل الدخول لرؤية السعر'
-                              : locale === 'ru'
-                              ? 'Войдите, чтобы увидеть цену'
-                              : 'Login to see price'}
-                          </span>
-                        )}
-                      </div>
-                    </Link>
-                  )
-                })}
+                {featuredProducts.slice(0, 4).map(product => (
+                  <RailProductCard
+                    key={product.id}
+                    product={product}
+                    locale={locale}
+                    isRtl={isRtl}
+                    user={user}
+                    userCanSeePrices={userCanSeePrices}
+                    badge="inStock"
+                  />
+                ))}
               </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* ── 2. Category rail ─────────────────────────────────────────────── */}
+      {/* ── 2. New arrivals rail — newest products, also feeds Google fresh
+             internal links so new PDPs get crawled and indexed quickly ───── */}
+      {newArrivals && newArrivals.length > 0 && (
+        <section className="bg-gray-50 py-16 lg:py-20 border-t border-gray-100">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className={`mb-10 flex items-end justify-between gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                <div className={isRtl ? 'text-right' : ''}>
+                  <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-2">
+                    {locale === 'ar' ? 'وصل حديثاً' : locale === 'ru' ? 'Новинки' : 'Just landed'}
+                  </p>
+                  <h2 className="text-3xl lg:text-[40px] lg:leading-[1.1] font-bold text-gray-900 font-display tracking-tight">
+                    {locale === 'ar'
+                      ? 'أحدث منتجات GENOSYS'
+                      : locale === 'ru'
+                      ? 'Последние поступления GENOSYS'
+                      : 'New arrivals from GENOSYS Korea'}
+                  </h2>
+                </div>
+                <Link
+                  href={getLocalizedPath('/products', locale)}
+                  className="hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-primary-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded px-1"
+                >
+                  {locale === 'ar' ? 'عرض الكل' : locale === 'ru' ? 'Все продукты' : 'View all'}
+                  <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+                {newArrivals.slice(0, 4).map(product => (
+                  <RailProductCard
+                    key={product.id}
+                    product={product}
+                    locale={locale}
+                    isRtl={isRtl}
+                    user={user}
+                    userCanSeePrices={userCanSeePrices}
+                    badge="new"
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── 3. Category rail ─────────────────────────────────────────────── */}
       <section className="border-t border-gray-100 bg-white py-16 lg:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -559,7 +641,7 @@ export default function HomeDesktopSections({
         </div>
       </section>
 
-      {/* ── 3. Shop by concern ──────────────────────────────────────────── */}
+      {/* ── 4. Shop by concern ──────────────────────────────────────────── */}
       <section className="bg-gray-50 py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -658,7 +740,7 @@ export default function HomeDesktopSections({
         </div>
       </section>
 
-      {/* ── 4. Why GENOSYS 3-up ─────────────────────────────────────────── */}
+      {/* ── 5. Why GENOSYS 3-up ─────────────────────────────────────────── */}
       <section className="bg-white py-16 lg:py-24 border-t border-gray-100">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
@@ -771,7 +853,7 @@ export default function HomeDesktopSections({
         </div>
       </section>
 
-      {/* ── 5. Newsletter CTA ───────────────────────────────────────────── */}
+      {/* ── 6. Newsletter CTA ───────────────────────────────────────────── */}
       <HomeNewsletter locale={locale} isRtl={isRtl} />
     </div>
   )

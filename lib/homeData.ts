@@ -16,6 +16,11 @@ import type { Product } from '@/types'
 // How far back to look when computing real bestsellers from order history.
 const BESTSELLER_WINDOW_DAYS = 180
 
+// A product counts as a "new arrival" if it was added within this window.
+// Keeps the rail genuinely fresh and self-expiring — no manual curation.
+const NEW_ARRIVAL_WINDOW_DAYS = 120
+const NEW_ARRIVAL_MAX = 4
+
 // Fallback featured-product IDs if the order-history query fails or returns
 // too few products (e.g. right after a DB restore). The rail must never be
 // empty, so we top up from the visible catalog as a last resort.
@@ -143,6 +148,8 @@ async function computeBestsellers(visible: Product[]): Promise<Product[]> {
 
 export interface HomeData {
   featured: Product[]
+  /** Newest visible products (added within NEW_ARRIVAL_WINDOW_DAYS), newest first. */
+  newArrivals: Product[]
   categoryImages: Record<string, string>
   /** Visible product count per homepage category slug. */
   categoryCounts: Record<string, number>
@@ -219,8 +226,25 @@ export const getHomeData = unstable_cache(
       ).length
     }
 
-    return { featured, categoryImages, categoryCounts, concernCounts }
+    // New arrivals — newest products added in the last NEW_ARRIVAL_WINDOW_DAYS,
+    // excluding anything already on the bestsellers rail. Doubles as internal
+    // linking from the homepage so Google discovers/indexes new PDPs quickly.
+    const featuredIds = new Set(featured.map(p => p.id))
+    const arrivalCutoff = Date.now() - NEW_ARRIVAL_WINDOW_DAYS * 24 * 3600 * 1000
+    const newArrivals = visible
+      .filter(p => {
+        if (featuredIds.has(p.id)) return false
+        const created = p.createdAt ? new Date(p.createdAt).getTime() : 0
+        return created >= arrivalCutoff
+      })
+      .sort(
+        (a, b) =>
+          new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime()
+      )
+      .slice(0, NEW_ARRIVAL_MAX)
+
+    return { featured, newArrivals, categoryImages, categoryCounts, concernCounts }
   },
-  ['home-data-v6'],
+  ['home-data-v7'],
   { revalidate: 300, tags: ['products'] }
 )

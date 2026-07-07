@@ -18,7 +18,8 @@ const crypto = require('crypto')
 const os = require('os')
 
 const SITE_URL = 'https://genosys.ae/'
-const SCOPE = 'https://www.googleapis.com/auth/webmasters.readonly'
+// Full (non-readonly) scope so sitemap resubmission works; queries work with it too.
+const SCOPE = 'https://www.googleapis.com/auth/webmasters'
 
 function loadKey() {
   const keyPath = (process.env.GSC_KEY_FILE || '').replace(/^~/, os.homedir())
@@ -89,8 +90,38 @@ async function main() {
   } else if (cmd === 'sitemaps') {
     const data = await api(token, `/sites/${encodedSite}/sitemaps`)
     console.log(JSON.stringify(data, null, 2))
+  } else if (cmd === 'resubmit-sitemap') {
+    const feed = encodeURIComponent(`${SITE_URL}sitemap.xml`)
+    const res = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${encodedSite}/sitemaps/${feed}`, {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    console.log(res.ok ? 'Sitemap resubmitted.' : `Failed: ${res.status} ${await res.text()}`)
+  } else if (cmd === 'inspect') {
+    // URL Inspection API lives on a different host than the webmasters v3 API.
+    const res = await fetch('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ inspectionUrl: arg, siteUrl: SITE_URL }),
+    })
+    const data = await res.json()
+    if (!res.ok) {
+      console.error(`Inspect error ${res.status}:`, JSON.stringify(data, null, 2))
+      process.exit(1)
+    }
+    const r = data.inspectionResult?.indexStatusResult || {}
+    console.log(JSON.stringify({
+      url: arg,
+      verdict: r.verdict,
+      coverageState: r.coverageState,
+      lastCrawlTime: r.lastCrawlTime,
+      googleCanonical: r.googleCanonical,
+      userCanonical: r.userCanonical,
+      robotsTxtState: r.robotsTxtState,
+      indexingState: r.indexingState,
+    }))
   } else {
-    console.error('Commands: sites | query <jsonBody> | sitemaps')
+    console.error('Commands: sites | query <jsonBody> | sitemaps | resubmit-sitemap | inspect <url>')
     process.exit(1)
   }
 }

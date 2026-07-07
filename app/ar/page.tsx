@@ -78,7 +78,7 @@ export const metadata: Metadata = {
 
 export default async function ArabicHome() {
   // Same cached payload as `/` — featured products + category tile imagery.
-  const { featured, categoryImages, categoryCounts, concernCounts } = await getHomeData()
+  const { featured, newArrivals, categoryImages, categoryCounts, concernCounts } = await getHomeData()
 
   return (
     <MobileRedirect to="/ar/products">
@@ -105,6 +105,7 @@ export default async function ArabicHome() {
           locale="ar"
           dir="rtl"
           featuredProducts={featured}
+          newArrivals={newArrivals}
           categoryImages={categoryImages}
           categoryCounts={categoryCounts}
           concernCounts={concernCounts}

@@ -38,9 +38,20 @@ Continuation of the 2026-07-06/07 session ("lets work on SEO make sure we are to
 - `/bundle-builder`: new title + hreflang alternates rendered; `/ar/` + `/ru/` variants return 200
 - `sitemap.xml`: 357 `<image:loc>` entries
 
+## Google Search Console API access (added same session)
+
+- GSC property `https://genosys.ae/` was already verified (user account). Service account `gsc-reader@genosys-website.iam.gserviceaccount.com` added as full user; JSON key stored locally outside the repo (path passed via `GSC_KEY_FILE`).
+- New tool: `scripts/gsc.js` (commit `21ac3383`) — dependency-free Search Console API client. Commands: `sites`, `query <jsonBody>`, `sitemaps`.
+- **"/products lost 98% impressions" GSC flag investigated with real data — benign:**
+  - `/products` earns almost only branded queries ("genosys", "genosys mask") at low volume (tens of impressions/day).
+  - It regularly drops to zero when Google picks the homepage instead for branded terms (identical zero stretch May 27–Jun 3, again Jun 26–Jul 4; already recovering Jul 5 at position 3.4).
+  - Site-wide impressions/clicks were steady the whole time (~250–460 imp/day, 14–28 clicks/day). No action needed.
+- Sitemap status via API: submitted, last downloaded by Google 2026-07-06, 0 errors, 401 URLs. Image-sitemap entries will be picked up on next crawl.
+- Insight: the search profile is overwhelmingly branded (homepage ~3.7K impressions per 28d vs low hundreds for everything else). Growth lever = non-branded content (guides for "microneedling at home UAE"-type queries).
+
 ## Remaining SEO items (not actioned — need user input or are content projects)
 
-1. **Google Search Console / Bing Webmaster verification codes** — `verification` block in root layout metadata is empty. Need the actual codes from the GSC/Bing accounts to add them (or DNS verification already in place — worth confirming which).
+1. ~~Google Search Console verification~~ — done; API access wired up (see above).
 2. **Product reviews / aggregateRating** — schema is ready for it but there is no review system. Would unlock star ratings in search results. Separate product decision.
 3. **New guide content for high-intent keywords** (e.g. "microneedling at home UAE", "Korean skincare Dubai") — content creation project, highest long-term ranking upside.
 4. **Differentiated OG images per concern/category page** — needs designed image assets; all currently share the product collage.

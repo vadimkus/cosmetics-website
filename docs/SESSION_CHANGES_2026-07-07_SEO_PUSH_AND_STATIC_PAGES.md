@@ -49,6 +49,30 @@ Continuation of the 2026-07-06/07 session ("lets work on SEO make sure we are to
 - Sitemap status via API: submitted, last downloaded by Google 2026-07-06, 0 errors, 401 URLs. Image-sitemap entries will be picked up on next crawl.
 - Insight: the search profile is overwhelmingly branded (homepage ~3.7K impressions per 28d vs low hundreds for everything else). Growth lever = non-branded content (guides for "microneedling at home UAE"-type queries).
 
+## Product catalog vs Google index alignment (added same session, commit `88a975fe`)
+
+Ran a URL Inspection API audit of all 65 canonical product URLs (`scripts/gsc-product-alignment.js`, report at `/tmp/gsc_product_alignment.json`).
+
+**Result: 60 of 65 indexed. 5 not indexed:**
+
+| Product | State | Cause |
+|---|---|---|
+| 66 CERABARRIER BIOME GEL CLEANSER (added Jul 4) | Discovered, not crawled | Too new |
+| 65 Bio-Meso PDRN Homecare Ampoule 5000 (Jun 18) | Discovered, not crawled | Too new |
+| 64 Hair Stamp (Jun 15) | Discovered, not crawled | Too new (has 13 imp already) |
+| 62 SENSITIVE SKIN BEAUTY BOX (Feb 1) | Discovered, not crawled | Low crawl priority |
+| 57 CHARMING LOOK BEAUTY BOX | Alternate page w/ canonical | Google's Jun 4 crawl predates the cuid→numeric canonical migration; live page is correct, needs recrawl |
+
+Old cuid URLs (products 53/58/61 etc.) all 301 to numeric slugs — correct, will consolidate on recrawl.
+
+**Actions taken:**
+- New Arrivals rail ("Just landed") on EN/AR/RU homepages — products added in last 120 days, newest first, excludes bestsellers, self-expiring. Gives new PDPs homepage-level internal links for fast discovery. Verified live: shows 66/65/64.
+- Extracted `RailProductCard` shared by Bestsellers + New Arrivals (no behavior change to bestsellers).
+- Sitemap resubmitted via API (was last submitted Feb 12; `resubmit-sitemap` command added to `scripts/gsc.js`, now uses full webmasters scope; also added `inspect <url>` command).
+- Confirmed all 5 products present in `/feed/products.xml` and sitemap.
+
+**Manual follow-up for Vadim (API cannot do this):** In GSC, URL Inspection → paste each URL → "Request indexing" for: `/products/66`, `/products/65`, `/products/64`, `/products/62`, `/products/57`. Cuts discovery from weeks to days.
+
 ## Remaining SEO items (not actioned — need user input or are content projects)
 
 1. ~~Google Search Console verification~~ — done; API access wired up (see above).

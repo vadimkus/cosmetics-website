@@ -4,7 +4,7 @@ import React, { useState, useRef, useCallback, useMemo } from 'react'
 import { CartItem as CartItemType } from '@/types'
 import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
-import { Minus, Plus, Trash2, Lock } from 'lucide-react'
+import { Minus, Plus, Trash2, Lock, Award } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useMotionValue, useTransform, PanInfo, AnimatePresence } from 'framer-motion'
@@ -23,9 +23,11 @@ import {
 
 interface CartItemProps {
   item: CartItemType
+  /** GENOSYS Rewards multiplier (0 = hide earn preview, e.g. guests/partners). */
+  loyaltyMultiplier?: number
 }
 
-function CartItemComponent({ item }: CartItemProps) {
+function CartItemComponent({ item, loyaltyMultiplier = 0 }: CartItemProps) {
   const { updateQuantity, removeItem, updateColor, updateSize } = useCart()
   const { user } = useAuth()
   const { t, dir, locale, messages } = useTranslation()
@@ -366,6 +368,21 @@ function CartItemComponent({ item }: CartItemProps) {
               <span className="text-sm">{t('profile.priceAccessRequired')}</span>
             </div>
           )}
+
+          {/* GENOSYS Rewards — per-line earn estimate (mirrors the mobile bag).
+              Free/promo lines price at 0 so they hide themselves. */}
+          {canUserSeePrices(user) && loyaltyMultiplier > 0 && (() => {
+            const earnPts = Math.floor(getCartLinePricing(item, user).lineTotal * loyaltyMultiplier)
+            if (earnPts <= 0) return null
+            return (
+              <div className={`flex items-center gap-1 mt-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <Award className="h-3 w-3 text-primary-600 shrink-0" />
+                <span className="text-[10px] md:text-xs text-gray-500">
+                  {t('rewards.earnItem', { points: earnPts.toLocaleString() })}
+                </span>
+              </div>
+            )
+          })()}
         </div>
         
         {/* Right: Quantity Controls + Delete */}
@@ -433,6 +450,7 @@ function areCartItemsEqual(prevProps: CartItemProps, nextProps: CartItemProps): 
   const prev = prevProps.item
   const next = nextProps.item
   return (
+    prevProps.loyaltyMultiplier === nextProps.loyaltyMultiplier &&
     prev.product.id === next.product.id &&
     prev.quantity === next.quantity &&
     prev.selectedColor === next.selectedColor &&

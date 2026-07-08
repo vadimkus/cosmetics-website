@@ -532,7 +532,7 @@ export default function CartClient() {
                         ...springPresets.default 
                       } : {}}
                     >
-                      <CartItem item={item} />
+                      <CartItem item={item} loyaltyMultiplier={loyaltyMultiplier} />
                     </motion.div>
                   ))}
                 </AnimatePresence>

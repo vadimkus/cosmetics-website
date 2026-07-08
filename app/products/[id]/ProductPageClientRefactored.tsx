@@ -39,7 +39,7 @@ interface ProductPageClientProps {
 
 export default function ProductPageClientRefactored({ product }: ProductPageClientProps) {
   const router = useRouter()
-  const { addItem } = useCart()
+  const { addItem, items: cartItems, decrementProductById } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
   const { t, locale, dir, messages } = useTranslation()
@@ -165,6 +165,19 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
       throw error
     }
   }, [user, product, productNum, selectedSize, selectedColor, addItem, router, locale])
+
+  // Total units of this product already in the cart (all variants) — drives
+  // the [-] [In Cart (N)] [+] stepper, same behaviour as the grid cards and
+  // the mobile app.
+  const inCartQty = cartItems.reduce(
+    (total, item) => (item?.product?.id === product.id ? total + (item.quantity || 0) : total),
+    0,
+  )
+
+  const handleDecrementFromCart = useCallback(() => {
+    if (inCartQty <= 0) return
+    decrementProductById(product.id)
+  }, [decrementProductById, inCartQty, product.id])
 
   // GA4 view_item — fire once per product view
   useEffect(() => {
@@ -463,6 +476,8 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 isPriceOnRequest={product.isPriceOnRequest ?? false}
                 productName={product.name}
                 productUrl={typeof window !== 'undefined' ? `${window.location.origin}/products/${product.id}` : `/products/${product.id}`}
+                inCartQty={inCartQty}
+                onDecrementFromCart={handleDecrementFromCart}
               />
             </div>
 
@@ -1425,8 +1440,9 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
       >
         <div className="container mx-auto px-3 pt-3 pb-1">
           <div className={`flex items-center gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            {/* Quantity Controls - Hide for price on request products */}
-            {!product.isPriceOnRequest && (
+            {/* Quantity Controls - hidden for price-on-request products and
+                once the item is in the cart (the stepper takes over). */}
+            {!product.isPriceOnRequest && !(inCartQty > 0 && product.inStock && user) && (
               <div className={`flex items-center border border-gray-300 rounded-lg bg-gray-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <button
                   onClick={() => setMobileQuantity(prev => prev > 1 ? prev - 1 : 1)}
@@ -1448,7 +1464,7 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
               </div>
             )}
 
-            {/* Add to Cart Button or Request Quote */}
+            {/* Add to Cart Button, in-cart stepper, or Request Quote */}
             {product.isPriceOnRequest ? (
               <a
                 href={`https://wa.me/971585487665?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)}`}
@@ -1460,6 +1476,45 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                 <MessageCircle className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
                 <span className="text-sm sm:text-base">{t('products.requestQuote') || 'Request Quote'}</span>
               </a>
+            ) : inCartQty > 0 && product.inStock && user ? (
+              /* In-cart stepper: [-] [In Bag (N)] [+] — adjusts the cart line
+                 directly, same pattern as the mobile app and the grid cards. */
+              <div
+                className={`flex-1 flex items-center justify-between gap-2 rounded-lg font-semibold min-h-[44px] px-1.5 py-1 bg-green-600 text-white ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                role="group"
+                aria-label={`${isAppLikeMode ? t('product.inBag') : t('product.inCart')} (${inCartQty}) — ${product.name}`}
+                style={{ touchAction: 'manipulation' }}
+              >
+                <button
+                  type="button"
+                  onClick={handleDecrementFromCart}
+                  disabled={isAddingMobile}
+                  className="inline-flex items-center justify-center h-9 w-9 rounded-md bg-white/15 hover:bg-white/25 active:bg-white/35 transition-colors disabled:opacity-50 touch-manipulation"
+                  aria-label={t('cart.decreaseQuantity') || 'Decrease quantity'}
+                >
+                  <Minus className="h-4 w-4" aria-hidden="true" />
+                </button>
+                <span className="flex-1 flex items-center justify-center gap-1.5 text-sm sm:text-base tabular-nums select-none" aria-live="polite">
+                  <Check className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
+                  {`${isAppLikeMode ? t('product.inBag') : t('product.inCart')} (${inCartQty})`}
+                </span>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    setIsAddingMobile(true)
+                    try {
+                      await handleAddToCart(1)
+                    } catch { /* handled upstream */ } finally {
+                      setIsAddingMobile(false)
+                    }
+                  }}
+                  disabled={isAddingMobile}
+                  className="inline-flex items-center justify-center h-9 w-9 rounded-md bg-white/15 hover:bg-white/25 active:bg-white/35 transition-colors disabled:opacity-50 touch-manipulation"
+                  aria-label={t('cart.increaseQuantity') || 'Increase quantity'}
+                >
+                  <Plus className="h-4 w-4" aria-hidden="true" />
+                </button>
+              </div>
             ) : (
               <button
                 onClick={handleMobileAddToCart}

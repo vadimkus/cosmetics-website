@@ -15,6 +15,10 @@ interface ProductQuantityCartProps {
   isPriceOnRequest?: boolean
   productName?: string
   productUrl?: string
+  /** Total units of this product already in the cart (all variants). */
+  inCartQty?: number
+  /** Removes one unit from the cart (newest line first). */
+  onDecrementFromCart?: () => void
 }
 
 export default function ProductQuantityCart({
@@ -25,7 +29,9 @@ export default function ProductQuantityCart({
   inStock = true,
   isPriceOnRequest = false,
   productName = '',
-  productUrl = ''
+  productUrl = '',
+  inCartQty = 0,
+  onDecrementFromCart
 }: ProductQuantityCartProps) {
   const { t, dir } = useTranslation()
   const { isPWA } = usePWAMode()
@@ -97,6 +103,19 @@ export default function ProductQuantityCart({
     }
   }
 
+  // "+" on the in-cart stepper always adds exactly one unit,
+  // mirroring the grid-card stepper behaviour.
+  const handleIncrementInCart = async () => {
+    setIsAdding(true)
+    try {
+      await onAddToCart(1)
+    } finally {
+      setIsAdding(false)
+    }
+  }
+
+  const isInCart = inCartQty > 0 && inStock && !!user
+
   // For price on request products, show only the request quote button
   if (isPriceOnRequest) {
     return (
@@ -149,32 +168,68 @@ export default function ProductQuantityCart({
 
   return (
     <div className="space-y-3 md:space-y-4" dir={dir}>
-      {/* Quantity Selector */}
-      <div className={`flex items-center gap-3 md:gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-        <label className="text-xs md:text-sm font-medium text-gray-700">{t('product.quantity')}:</label>
-        <div className="flex items-center border border-gray-300 rounded-lg">
-          <button
-            onClick={handleDecrease}
-            className="p-1.5 md:p-2 hover:bg-gray-100 transition-colors touch-manipulation min-h-[36px] md:min-h-[44px] min-w-[36px] md:min-w-[44px] flex items-center justify-center"
-            aria-label={t('product.decreaseQuantity')}
-          >
-            <Minus className="h-3.5 w-3.5 md:h-4 md:w-4" />
-          </button>
-          <span className="px-3 md:px-4 py-1.5 md:py-2 text-center min-w-[2.5rem] md:min-w-[3rem] font-medium text-sm md:text-base">
-            {quantity}
-          </span>
-          <button
-            onClick={handleIncrease}
-            className="p-1.5 md:p-2 hover:bg-gray-100 transition-colors touch-manipulation min-h-[36px] md:min-h-[44px] min-w-[36px] md:min-w-[44px] flex items-center justify-center"
-            aria-label={t('product.increaseQuantity')}
-          >
-            <Plus className="h-3.5 w-3.5 md:h-4 md:w-4" />
-          </button>
+      {/* Quantity Selector — hidden once the item is in the cart, because the
+          stepper below then controls the cart quantity directly. */}
+      {!isInCart && (
+        <div className={`flex items-center gap-3 md:gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <label className="text-xs md:text-sm font-medium text-gray-700">{t('product.quantity')}:</label>
+          <div className="flex items-center border border-gray-300 rounded-lg">
+            <button
+              onClick={handleDecrease}
+              className="p-1.5 md:p-2 hover:bg-gray-100 transition-colors touch-manipulation min-h-[36px] md:min-h-[44px] min-w-[36px] md:min-w-[44px] flex items-center justify-center"
+              aria-label={t('product.decreaseQuantity')}
+            >
+              <Minus className="h-3.5 w-3.5 md:h-4 md:w-4" />
+            </button>
+            <span className="px-3 md:px-4 py-1.5 md:py-2 text-center min-w-[2.5rem] md:min-w-[3rem] font-medium text-sm md:text-base">
+              {quantity}
+            </span>
+            <button
+              onClick={handleIncrease}
+              className="p-1.5 md:p-2 hover:bg-gray-100 transition-colors touch-manipulation min-h-[36px] md:min-h-[44px] min-w-[36px] md:min-w-[44px] flex items-center justify-center"
+              aria-label={t('product.increaseQuantity')}
+            >
+              <Plus className="h-3.5 w-3.5 md:h-4 md:w-4" />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Action Buttons */}
       <div className={`flex gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        {isInCart ? (
+          /* In-cart state: [-] [In Cart (N)] [+] stepper that adjusts the cart
+             line directly — same pattern as the product-grid cards and the
+             mobile app. */
+          <div
+            className="flex-1 flex items-center justify-between gap-2 rounded-lg font-medium min-h-[44px] px-1.5 py-1 bg-green-600 text-white transition-colors"
+            role="group"
+            aria-label={`${useBagText ? t('product.inBag') : t('product.inCart')} (${inCartQty}) — ${productName}`}
+          >
+            <button
+              type="button"
+              onClick={onDecrementFromCart}
+              disabled={isAdding}
+              className="inline-flex items-center justify-center h-9 w-9 rounded-md bg-white/15 hover:bg-white/25 active:bg-white/35 transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+              aria-label={t('cart.decreaseQuantity') || 'Decrease quantity'}
+            >
+              <Minus className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <span className="flex-1 flex items-center justify-center gap-1.5 text-sm md:text-base tabular-nums select-none" aria-live="polite">
+              <Check className="h-4 w-4" aria-hidden="true" />
+              {`${useBagText ? t('product.inBag') : t('product.inCart')} (${inCartQty})`}
+            </span>
+            <button
+              type="button"
+              onClick={handleIncrementInCart}
+              disabled={isAdding}
+              className="inline-flex items-center justify-center h-9 w-9 rounded-md bg-white/15 hover:bg-white/25 active:bg-white/35 transition-colors disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
+              aria-label={t('cart.increaseQuantity') || 'Increase quantity'}
+            >
+              <Plus className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
+        ) : (
         <button
           onClick={handleAddToCart}
           disabled={isAdding || !user || !inStock}
@@ -187,6 +242,7 @@ export default function ProductQuantityCart({
           <ShoppingCart className="h-4 w-4 md:h-5 md:w-5" />
           {!inStock ? t('product.outOfStock') : isAdding ? t('product.adding') : (useBagText ? t('product.addToBag') : t('product.addToCart'))}
         </button>
+        )}
         
         <button
           onClick={onToggleFavorite}

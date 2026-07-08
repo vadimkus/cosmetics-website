@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
 import {
   Mail,
   Phone,
@@ -133,6 +134,7 @@ export default function Footer() {
   const { isPWA, isClient: isPWAClient } = usePWAMode()
   const { isMobile, isClient: isMobileClient } = useIsMobile()
   const isClient = isPWAClient && isMobileClient
+  const pathname = usePathname()
 
   const { t, locale } = useTranslation()
   const copy = footerCopy[locale]
@@ -141,6 +143,76 @@ export default function Footer() {
   // Hide footer on mobile (sticky footer nav handles it) and in PWA mode
   if (isClient && (isPWA || isMobile)) {
     return null
+  }
+
+  // ── Enclosed checkout ─────────────────────────────────────────────
+  // On the checkout route the full sitemap footer is a set of exit ramps
+  // mid-purchase (Baymard: enclosed checkout). Render a slim variant:
+  // compact trust badges + payment marks + legal links + copyright.
+  if (pathname?.includes('/checkout')) {
+    return (
+      <footer role="contentinfo" className="bg-white border-t border-gray-200 mt-6" suppressHydrationWarning>
+        <div className="container mx-auto px-4 py-5">
+          {/* Compact trust row */}
+          <div className="hidden md:flex flex-wrap items-center justify-center gap-x-8 gap-y-2 pb-4 border-b border-gray-100">
+            <span className="inline-flex items-center gap-2 text-xs text-gray-600">
+              <IconAuthentic className="h-4 w-4 text-emerald-600" aria-hidden="true" />
+              {copy.trust.authenticTitle}
+            </span>
+            <span className="inline-flex items-center gap-2 text-xs text-gray-600">
+              <IconShipping className="h-4 w-4 text-primary-600" aria-hidden="true" />
+              {copy.trust.shippingTitle}
+            </span>
+            <span className="inline-flex items-center gap-2 text-xs text-gray-600">
+              <IconSecureCheckout className="h-4 w-4 text-blue-600" aria-hidden="true" />
+              {copy.trust.checkoutTitle}
+            </span>
+            <span className="inline-flex items-center gap-2 text-xs text-gray-600">
+              <IconCertified className="h-4 w-4 text-amber-600" aria-hidden="true" />
+              {copy.trust.certifiedTitle}
+            </span>
+          </div>
+
+          {/* Payments + legal + copyright */}
+          <div className="flex flex-wrap items-center justify-center md:justify-between gap-x-6 gap-y-3 pt-4">
+            <div className="flex items-center gap-2" aria-label="Accepted payment methods">
+              <span className="inline-flex items-center justify-center h-6 w-10 rounded border border-gray-200 bg-white px-1" aria-label="Visa" title="Visa">
+                <svg viewBox="0 0 48 16" className="h-3 w-auto" aria-hidden="true">
+                  <text x="0" y="12" fontFamily="'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="13" fontStyle="italic" fill="#1A1F71" letterSpacing="0.5">VISA</text>
+                </svg>
+              </span>
+              <span className="inline-flex items-center justify-center h-6 w-10 rounded border border-gray-200 bg-white px-1" aria-label="Mastercard" title="Mastercard">
+                <svg viewBox="0 0 32 20" className="h-4 w-auto" aria-hidden="true">
+                  <circle cx="12" cy="10" r="7" fill="#EB001B" />
+                  <circle cx="20" cy="10" r="7" fill="#F79E1B" />
+                  <path d="M16 4.4A7 7 0 0 0 13 10a7 7 0 0 0 3 5.6A7 7 0 0 0 19 10a7 7 0 0 0-3-5.6z" fill="#FF5F00" />
+                </svg>
+              </span>
+              <span className="inline-flex items-center justify-center h-6 w-10 rounded border border-gray-200 bg-white px-1" aria-label="Apple Pay" title="Apple Pay">
+                <svg viewBox="0 0 40 16" className="h-3.5 w-auto" aria-hidden="true" fill="#000">
+                  <path d="M6.7 3.2c-.4.5-1.1.9-1.7.8-.1-.7.2-1.4.6-1.8.4-.5 1.2-.8 1.8-.9.1.7-.2 1.4-.7 1.9zm.7.9c-1 0-1.8.6-2.3.6s-1.2-.5-2-.5c-1 0-2 .6-2.5 1.6-1.1 1.9-.3 4.6.8 6.1.5.7 1.2 1.5 2 1.5s1.1-.5 2-.5 1.2.5 2 .5 1.4-.7 1.9-1.5c.6-.8.8-1.6.8-1.7 0 0-1.6-.6-1.6-2.5 0-1.6 1.3-2.3 1.3-2.3-.7-1.1-1.9-1.2-2.4-1.3z"/>
+                  <text x="14" y="12" fontFamily="'Helvetica Neue', Arial, sans-serif" fontWeight="600" fontSize="10">Pay</text>
+                </svg>
+              </span>
+              <span className={`inline-flex items-center gap-1.5 text-[11px] text-gray-500 ${locale === 'ar' ? 'border-r pr-3 mr-1' : 'border-l pl-3 ml-1'} border-gray-200`}>
+                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" aria-hidden="true" />
+                {copy.links.stripe}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-4 text-[11px] text-gray-500">
+              <Link href={getLocalizedPath('/privacy-policy', locale)} className="hover:text-gray-700 transition-colors">
+                {t('navigation.privacyPolicy')}
+              </Link>
+              <Link href={getLocalizedPath('/terms', locale)} className="hover:text-gray-700 transition-colors">
+                {copy.links.terms}
+              </Link>
+              <span suppressHydrationWarning>{t('footer.copyright')}</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    )
   }
 
   // Reusable class for column link items — consistent hit area and focus ring.

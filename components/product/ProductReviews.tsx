@@ -190,13 +190,20 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
             </div>
           )}
         </div>
-        {user && !userReview && !showForm && (
-          <button
-            onClick={() => setShowForm(true)}
-            className="px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm md:text-base font-medium whitespace-nowrap min-h-[44px] touch-manipulation"
-          >
-            {t('product.writeReview')}
-          </button>
+        {/* Header CTA only when reviews exist — the empty state below has its
+            own button, so don't show "Write a Review" twice. */}
+        {user && !userReview && !showForm && reviews.length > 0 && (
+          <div className={`flex flex-col items-center gap-1 ${dir === 'rtl' ? 'sm:items-start' : 'sm:items-end'}`}>
+            <button
+              onClick={() => setShowForm(true)}
+              className="px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors text-sm md:text-base font-medium whitespace-nowrap min-h-[44px] touch-manipulation"
+            >
+              {t('product.writeReview')}
+            </button>
+            <span className="text-[11px] font-medium text-primary-700">
+              {t('product.reviewBonusHint', { points: '50' })}
+            </span>
+          </div>
         )}
       </div>
 
@@ -313,6 +320,10 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
               {t('product.loginToReview')}
             </Link>
           )}
+          {/* GENOSYS Rewards incentive — reviews earn points */}
+          <p className="mt-3 text-xs font-medium text-primary-700">
+            {t('product.reviewBonusHint', { points: '50' })}
+          </p>
         </div>
       )}
 

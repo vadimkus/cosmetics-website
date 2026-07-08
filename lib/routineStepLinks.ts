@@ -25,4 +25,7 @@ export const ROUTINE_STEP_PRODUCT_IDS: Record<string, string> = {
   routineSkinBarrierCreamTitle: '27',
   routineEGFOxymaskTitle: '26',
   routineRevitaGlowBBTitle: '63',
+  routineCerabarrierCleanserTitle: '66',
+  routineMicrobiomeMistTitle: '14',
+  routineMultiSunCreamTitle: '40',
 }

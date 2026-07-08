@@ -20,6 +20,7 @@ export const PARTNER_DISCOUNT_THRESHOLD = 20
 export const POINTS_PER_AED = 1
 export const POINT_VALUE_AED = 0.05 // 100 points = 5 AED
 export const WELCOME_BONUS_POINTS = 100
+export const REVIEW_BONUS_POINTS = 50 // once per user per product
 
 // Phase 2 — redemption at checkout
 export const REDEEM_BLOCK_POINTS = 100 // redeem in blocks of 100 points
@@ -199,6 +200,45 @@ export async function awardPointsForDeliveredOrder(orderId: string): Promise<Awa
   const tierUpgraded = tierOrder.indexOf(tier) > tierOrder.indexOf(previousTier)
 
   return { awarded, points: awarded ? points : 0, balance, tier, previousTier, tierUpgraded, track }
+}
+
+/**
+ * Award the review bonus (+50 pts) for a product review. Retail track only.
+ * Idempotent per (user, product): the synthetic orderId reuses the ledger's
+ * (orderId, type) unique constraint, so deleting and re-posting a review
+ * can never double-credit.
+ */
+export async function awardReviewBonus(params: {
+  userId: string
+  productId: string
+  productName?: string
+}): Promise<number> {
+  const { userId, productId, productName } = params
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { discountType: true, discountPercentage: true },
+  })
+  if (!user || loyaltyTrackForUser(user) !== 'REWARDS') return 0
+
+  try {
+    await prisma.loyaltyTransaction.create({
+      data: {
+        userId,
+        points: REVIEW_BONUS_POINTS,
+        type: 'REVIEW_BONUS',
+        orderId: `review:${productId}:${userId}`,
+        description: `Review bonus — ${productName || 'product review'}`,
+      },
+    })
+  } catch (err: unknown) {
+    const code = (err as { code?: string })?.code
+    if (code !== 'P2002') throw err
+    return 0 // already credited for this product
+  }
+
+  const balance = await getLedgerBalance(userId)
+  await prisma.user.update({ where: { id: userId }, data: { loyaltyPoints: balance } })
+  return REVIEW_BONUS_POINTS
 }
 
 // ─── Phase 2: redemption at checkout ─────────────────────────────────────

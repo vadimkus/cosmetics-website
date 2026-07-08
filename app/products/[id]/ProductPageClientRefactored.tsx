@@ -8,7 +8,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
-import { Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle, Share2 } from 'lucide-react'
+import { Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle, Share2, TrendingUp } from 'lucide-react'
 import { useState, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
 import ProductBreadcrumb from '@/app/products/[id]/components/ProductBreadcrumb'
@@ -34,12 +34,15 @@ import {
   getProductColorOptions
 } from '@/utils/productPricing'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
+import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 
 interface ProductPageClientProps {
   product: Product
+  /** Real units sold (non-cancelled orders) — 0/undefined hides the badge. */
+  unitsSold?: number
 }
 
-export default function ProductPageClientRefactored({ product }: ProductPageClientProps) {
+export default function ProductPageClientRefactored({ product, unitsSold = 0 }: ProductPageClientProps) {
   const router = useRouter()
   const { addItem, items: cartItems, decrementProductById } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
@@ -421,6 +424,16 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                     <span className="text-gray-300">|</span>
                     <span className={`text-gray-600 ${dir === 'rtl' ? 'flex flex-row-reverse gap-1' : ''}`}>
                       <span className="font-medium">{t('product.size')}:</span> {translateSize(product.size, locale, product.category)}
+                    </span>
+                  </>
+                )}
+                {/* Social proof from real order data (see lib/salesStats.ts) */}
+                {unitsSold >= UNITS_SOLD_DISPLAY_THRESHOLD && (
+                  <>
+                    <span className="text-gray-300">|</span>
+                    <span className={`inline-flex items-center gap-1 text-gray-700 font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <TrendingUp className="h-3.5 w-3.5 text-primary-600" aria-hidden="true" />
+                      {t('product.unitsSold', { count: roundUnitsSold(unitsSold).toLocaleString() })}
                     </span>
                   </>
                 )}
@@ -1152,6 +1165,53 @@ export default function ProductPageClientRefactored({ product }: ProductPageClie
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineRevitaGlowBBTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineRevitaGlowBBDesc')}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Skincare Routine Block - Only for Cerabarrier Biome Gel Cleanser (product 66) */}
+            {(product.id === '66' || product.productNumber === '66') && (
+              <div className="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+                <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedBarrierCareRoutine')}</h3>
+                </div>
+                <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
+                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
+                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineCerabarrierCleanserTitle')}</h4>
+                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineCerabarrierCleanserDesc')}</p>
+                    </div>
+                  </div>
+                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
+                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMicrobiomeMistTitle')}</h4>
+                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMicrobiomeMistDesc')}</p>
+                    </div>
+                  </div>
+                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
+                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineAllForSensitiveSerumTitle')}</h4>
+                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineAllForSensitiveSerumDesc')}</p>
+                    </div>
+                  </div>
+                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
+                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSkinBarrierCreamTitle')}</h4>
+                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSkinBarrierCreamDesc')}</p>
+                    </div>
+                  </div>
+                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
+                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiSunCreamTitle')}</h4>
+                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiSunCreamDesc')}</p>
                     </div>
                   </div>
                 </div>

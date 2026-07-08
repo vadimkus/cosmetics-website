@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
 import { validateCsrfToken } from '@/lib/csrf'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import { awardReviewBonus } from '@/lib/loyalty'
 
 // GET - Fetch reviews for a product
 export async function GET(
@@ -190,8 +191,22 @@ export async function POST(
       })
     }
 
+    // GENOSYS Rewards — +50 pts per review, once per user per product
+    // (retail track only; idempotent). Never blocks review creation.
+    let pointsAwarded = 0
+    try {
+      pointsAwarded = await awardReviewBonus({
+        userId: user.id,
+        productId,
+        productName: product.name,
+      })
+    } catch (bonusError) {
+      errorLog('Review bonus award failed (review still created):', bonusError)
+    }
+
     return NextResponse.json({
       success: true,
+      pointsAwarded,
       review: {
         id: review.id,
         userName: review.userName,

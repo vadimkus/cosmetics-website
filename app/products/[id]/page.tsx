@@ -4,6 +4,7 @@ import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from './ProductPageClientRefactored'
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
+import { getUnitsSold } from '@/lib/salesStats'
 import { errorLog, debugLog } from '@/lib/logger'
 import {
   getCanonicalProductSlug,
@@ -140,5 +141,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     notFound()
   }
 
-  return <ProductPageClientRefactored product={product} />
+  const unitsSold = await getUnitsSold(product.id)
+
+  return <ProductPageClientRefactored product={product} unitsSold={unitsSold} />
 }

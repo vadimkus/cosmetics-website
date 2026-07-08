@@ -173,8 +173,8 @@ export default function CheckoutClient() {
 
   // GENOSYS Rewards redemption quote — mirrors server rules (lib/loyalty.ts):
   // blocks of 100 pts = AED 5, capped at 20% of the product subtotal,
-  // not combinable with a personal account discount.
-  const canUsePoints = !(Number(user?.discountPercentage || 0) > 0)
+  // not combinable with an ACTIVE personal discount (type + percentage set).
+  const canUsePoints = !(Boolean(user?.discountType) && Number(user?.discountPercentage || 0) > 0)
   const redeemableBlocks = canUsePoints
     ? Math.max(0, Math.min(Math.floor(loyaltyBalance / 100), Math.floor((subtotal * 0.2) / 5)))
     : 0

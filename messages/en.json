@@ -669,11 +669,31 @@
     "topTier": "You've reached the top tier — 2x points on every order",
     "professionalPartner": "GENOSYS Professional Partner",
     "partnerPricing": "partner pricing on all orders",
+    "partnerStatusTitle": "Your Partner Status",
+    "partnerPricingLabel": "Your professional pricing",
+    "off": "off",
+    "partnerAppliedAuto": "applied automatically to every order",
+    "partnerThanks": "Your partner pricing already goes beyond what the rewards program offers, so your account stays on the professional track — nothing changes for you. Thank you for building with GENOSYS.",
+    "howItWorksTitle": "How it works",
+    "howItWorksBody": "Earn 1 point for every 1 AED you spend. 100 points = AED 5 off — redeem them right at checkout. Bonus: double points on every order during your birthday month.",
+    "yourTier": "your tier",
     "tier": {
       "member": "Member",
       "silver": "Silver",
       "gold": "Gold",
       "platinum": "Platinum"
+    },
+    "tierReq": {
+      "member": "From your first order",
+      "silver": "AED 1,000 lifetime spend",
+      "gold": "AED 5,000 lifetime spend",
+      "platinum": "AED 15,000 lifetime spend"
+    },
+    "tierPerk": {
+      "member": "1 point per AED",
+      "silver": "1.25 points per AED + early access",
+      "gold": "1.5 points per AED + free shipping + birthday gift",
+      "platinum": "2 points per AED + exclusive gifts + first access"
     }
   },
   "profile": {

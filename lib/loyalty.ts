@@ -34,11 +34,27 @@ export const TIER_MULTIPLIERS: Record<MemberTier, number> = {
 
 export type LoyaltyTrack = 'REWARDS' | 'PARTNER'
 
-export function isPartnerAccount(user: { discountPercentage?: number | null }): boolean {
-  return (user.discountPercentage ?? 0) >= PARTNER_DISCOUNT_THRESHOLD
+interface DiscountFields {
+  discountType?: string | null
+  discountPercentage?: number | null
 }
 
-export function loyaltyTrackForUser(user: { discountPercentage?: number | null }): LoyaltyTrack {
+/**
+ * A discount only APPLIES at checkout when both discountType and a positive
+ * percentage are set (see lib/discountUtils.ts). Records with an orphan
+ * percentage but no type get NO pricing benefit and must not be treated as
+ * discounted here either — otherwise the loyalty track and the actual
+ * pricing disagree (bug found 2026-07-08: 3 accounts misclassified).
+ */
+export function hasActiveDiscount(user: DiscountFields): boolean {
+  return Boolean(user.discountType) && (user.discountPercentage ?? 0) > 0
+}
+
+export function isPartnerAccount(user: DiscountFields): boolean {
+  return hasActiveDiscount(user) && (user.discountPercentage ?? 0) >= PARTNER_DISCOUNT_THRESHOLD
+}
+
+export function loyaltyTrackForUser(user: DiscountFields): LoyaltyTrack {
   return isPartnerAccount(user) ? 'PARTNER' : 'REWARDS'
 }
 
@@ -97,6 +113,7 @@ export async function awardPointsForDeliveredOrder(orderId: string): Promise<Awa
       id: true,
       email: true,
       birthday: true,
+      discountType: true,
       discountPercentage: true,
       memberTier: true,
       loyaltyPoints: true,
@@ -178,10 +195,12 @@ export async function awardPointsForDeliveredOrder(orderId: string): Promise<Awa
 
 /**
  * Redemption is retail-only and does not stack with personal discounts:
- * any account-level discountPercentage (VIP 2-15% or partner 20%+) disables it.
+ * any ACTIVE account discount (VIP 2-15% or partner 20%+) disables it.
+ * Orphan percentages without a discountType don't apply at checkout and
+ * therefore don't block redemption either.
  */
-export function canRedeemPoints(user: { discountPercentage?: number | null }): boolean {
-  return (user.discountPercentage ?? 0) <= 0
+export function canRedeemPoints(user: DiscountFields): boolean {
+  return !hasActiveDiscount(user)
 }
 
 export interface RedemptionQuote {
@@ -217,7 +236,7 @@ export function computeRedemption(
  * Reads the live ledger balance; never trusts client-submitted balances.
  */
 export async function resolveRedemptionForCheckout(params: {
-  user: { id: string; discountPercentage?: number | null } | null
+  user: ({ id: string } & DiscountFields) | null
   requestedPoints: unknown
   productSubtotal: number
 }): Promise<RedemptionQuote> {

@@ -19,7 +19,22 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
-import { ArrowRight, Check, Sparkles, Mail, Lock } from 'lucide-react'
+import {
+  ArrowRight,
+  Check,
+  Sparkles,
+  Mail,
+  Lock,
+  Sun,
+  ShieldCheck,
+  Droplets,
+  Contrast,
+  Bandage,
+  Sprout,
+  Hourglass,
+  Feather,
+  type LucideIcon,
+} from 'lucide-react'
 import type { Locale } from '@/lib/i18n'
 import { getLocalizedPath } from '@/lib/i18n'
 import { CATEGORY_PAGES, CONCERN_PAGES } from '@/lib/concernsData'
@@ -141,6 +156,10 @@ const CONCERN_META: Record<
   {
     label: { en: string; ar: string; ru: string }
     benefit: { en: string; ar: string; ru: string }
+    /** Concern glyph + soft tint classes (static strings for Tailwind JIT). */
+    icon: LucideIcon
+    iconTile: string
+    blob: string
   }
 > = {
   'sun-protection': {
@@ -154,6 +173,9 @@ const CONCERN_META: Record<
       ar: 'حماية يومية من الأشعة فوق البنفسجية مصممة لشمس الإمارات.',
       ru: 'Дневная защита от UV для климата ОАЭ.',
     },
+    icon: Sun,
+    iconTile: 'bg-amber-50 text-amber-600',
+    blob: 'bg-amber-200/50',
   },
   'acne-treatment': {
     label: {
@@ -166,6 +188,9 @@ const CONCERN_META: Record<
       ar: 'تهدئة البثور وتفتيح آثار حب الشباب.',
       ru: 'Успокаиваем высыпания и убираем следы постакне.',
     },
+    icon: ShieldCheck,
+    iconTile: 'bg-emerald-50 text-emerald-600',
+    blob: 'bg-emerald-200/50',
   },
   pigmentation: {
     label: {
@@ -178,6 +203,9 @@ const CONCERN_META: Record<
       ar: 'تفتيح البقع الداكنة وتوحيد لون البشرة.',
       ru: 'Осветляем пятна и выравниваем тон кожи.',
     },
+    icon: Contrast,
+    iconTile: 'bg-violet-50 text-violet-600',
+    blob: 'bg-violet-200/50',
   },
   'scars-treatment': {
     label: {
@@ -190,6 +218,9 @@ const CONCERN_META: Record<
       ar: 'تنعيم الندبات وتحسين ملمس البشرة.',
       ru: 'Сглаживаем рубцы и улучшаем рельеф кожи.',
     },
+    icon: Bandage,
+    iconTile: 'bg-sky-50 text-sky-600',
+    blob: 'bg-sky-200/50',
   },
   'hair-loss': {
     label: {
@@ -202,6 +233,9 @@ const CONCERN_META: Record<
       ar: 'جذور أقوى وفروة رأس أكثر صحة.',
       ru: 'Крепкие корни и здоровая кожа головы.',
     },
+    icon: Sprout,
+    iconTile: 'bg-teal-50 text-teal-600',
+    blob: 'bg-teal-200/50',
   },
   'anti-aging': {
     label: {
@@ -214,6 +248,9 @@ const CONCERN_META: Record<
       ar: 'تنعيم التجاعيد واستعادة المرونة والإشراق.',
       ru: 'Разглаживаем морщины, возвращаем упругость и сияние.',
     },
+    icon: Hourglass,
+    iconTile: 'bg-rose-50 text-rose-600',
+    blob: 'bg-rose-200/50',
   },
   hydration: {
     label: {
@@ -226,6 +263,9 @@ const CONCERN_META: Record<
       ar: 'ترطيب عميق يدوم طوال اليوم.',
       ru: 'Глубокое увлажнение на весь день.',
     },
+    icon: Droplets,
+    iconTile: 'bg-blue-50 text-blue-600',
+    blob: 'bg-blue-200/50',
   },
   sensitivity: {
     label: {
@@ -238,6 +278,9 @@ const CONCERN_META: Record<
       ar: 'تهدئة الاحمرار والعناية بالبشرة الحساسة.',
       ru: 'Снимаем покраснения, успокаиваем чувствительную кожу.',
     },
+    icon: Feather,
+    iconTile: 'bg-orange-50 text-orange-600',
+    blob: 'bg-orange-200/50',
   },
 }
 
@@ -672,42 +715,60 @@ export default function HomeDesktopSections({
                 const meta = CONCERN_META[concern.slug] ?? {
                   label: { en: '', ar: '', ru: '' },
                   benefit: { en: '', ar: '', ru: '' },
+                  icon: Sparkles,
+                  iconTile: 'bg-gray-100 text-gray-600',
+                  blob: 'bg-gray-200/50',
                 }
                 const label =
                   meta.label[locale as 'en' | 'ar' | 'ru'] ||
                   (locale === 'ar' ? concern.seo.ar.h1 : locale === 'ru' ? concern.seo.ru.h1 : concern.seo.en.h1)
                 const benefit = meta.benefit[locale as 'en' | 'ar' | 'ru'] || ''
                 const count = concernCounts?.[concern.slug]
+                const Icon = meta.icon
                 const exploreLabel =
                   locale === 'ar' ? 'اكتشف' : locale === 'ru' ? 'Подобрать уход' : 'Explore'
                 return (
                   <Link
                     key={concern.slug}
                     href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
-                    className={`group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-5 lg:p-6 min-h-[156px] lg:min-h-[172px] transition-all duration-300 hover:border-primary-200 hover:shadow-[0_14px_28px_-14px_rgba(17,24,39,0.18)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2 ${isRtl ? 'text-right' : ''}`}
+                    className={`group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-5 lg:p-6 min-h-[184px] lg:min-h-[204px] transition-all duration-300 hover:border-primary-200 hover:shadow-[0_14px_28px_-14px_rgba(17,24,39,0.18)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2 ${isRtl ? 'text-right' : ''}`}
                   >
-                    {/* Title + product count chip */}
-                    <div className={`flex items-start justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                      <h3 className="text-[16px] lg:text-[17px] font-semibold text-gray-900 tracking-tight leading-[1.2]">
-                        {label}
-                      </h3>
+                    {/* Soft decorative blob — gives each card its concern colour */}
+                    <div
+                      className={`pointer-events-none absolute -top-10 h-28 w-28 rounded-full blur-2xl opacity-70 transition-all duration-500 group-hover:opacity-100 group-hover:scale-125 ${meta.blob} ${isRtl ? '-left-10' : '-right-10'}`}
+                      aria-hidden="true"
+                    />
+
+                    {/* Icon tile + product count */}
+                    <div className={`relative flex items-start justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                      <span
+                        className={`inline-flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${meta.iconTile}`}
+                        aria-hidden="true"
+                      >
+                        <Icon className="h-[22px] w-[22px]" strokeWidth={1.9} />
+                      </span>
                       {typeof count === 'number' && count > 0 && (
-                        <span className="flex-shrink-0 rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-gray-600 transition-colors group-hover:bg-primary-50 group-hover:text-primary-700">
-                          {count}
+                        <span className="flex-shrink-0 rounded-full border border-gray-200 bg-white/80 backdrop-blur px-2.5 py-1 text-[11px] font-semibold text-gray-600 transition-colors group-hover:border-primary-200 group-hover:bg-primary-50 group-hover:text-primary-700">
+                          {formatProductCount(count, locale)}
                         </span>
                       )}
                     </div>
 
+                    {/* Title */}
+                    <h3 className="relative mt-4 text-[16px] lg:text-[17px] font-semibold text-gray-900 tracking-tight leading-[1.2]">
+                      {label}
+                    </h3>
+
                     {/* Benefit-led description */}
                     {benefit && (
-                      <p className="mt-2 text-[13px] lg:text-[14px] text-gray-600 leading-relaxed">
+                      <p className="relative mt-1.5 text-[13px] lg:text-[14px] text-gray-600 leading-relaxed">
                         {benefit}
                       </p>
                     )}
 
                     {/* Bottom CTA — pinned, brand accent on hover */}
                     <div
-                      className={`mt-auto flex items-center gap-1.5 pt-4 text-[12px] lg:text-[13px] font-semibold text-gray-500 transition-colors group-hover:text-primary-700 ${isRtl ? 'flex-row-reverse justify-end' : 'justify-start'}`}
+                      className={`relative mt-auto flex items-center gap-1.5 pt-4 text-[12px] lg:text-[13px] font-semibold text-gray-500 transition-colors group-hover:text-primary-700 ${isRtl ? 'flex-row-reverse justify-end' : 'justify-start'}`}
                     >
                       <span>{exploreLabel}</span>
                       <ArrowRight

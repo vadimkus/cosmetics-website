@@ -93,6 +93,7 @@ jest.mock('@/lib/productsDb', () => ({
 jest.mock('@/lib/loyalty', () => ({
   resolveRedemptionForCheckout: jest.fn(async () => ({ points: 0, amountAed: 0 })),
   recordRedemption: jest.fn(async () => true),
+  loyaltyTrackForUser: jest.fn(() => 'REWARDS'),
 }))
 
 const createProduct = (overrides: Partial<Product> = {}): Product => ({

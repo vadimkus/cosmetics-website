@@ -39,6 +39,9 @@ jest.mock('@/lib/database', () => ({
       findMany: jest.fn(),
       findFirst: jest.fn(),
     },
+    loyaltyTransaction: {
+      findMany: jest.fn(async () => []),
+    },
   },
 }))
 
@@ -59,6 +62,7 @@ jest.mock('@/lib/productsDb', () => ({
 jest.mock('@/lib/loyalty', () => ({
   resolveRedemptionForCheckout: jest.fn(async () => ({ points: 0, amountAed: 0 })),
   recordRedemption: jest.fn(async () => true),
+  loyaltyTrackForUser: jest.fn(() => 'REWARDS'),
 }))
 
 jest.mock('@/lib/cartPricing', () => ({

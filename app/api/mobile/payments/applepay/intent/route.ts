@@ -444,7 +444,9 @@ export async function POST(request: NextRequest) {
       {
         success: false,
         error: 'Failed to create Apple Pay payment intent',
-        details: error instanceof Error ? error.message : 'Unknown error',
+        ...(process.env.NODE_ENV !== 'production' && {
+          details: error instanceof Error ? error.message : 'Unknown error',
+        }),
       },
       { status: 500 }
     )

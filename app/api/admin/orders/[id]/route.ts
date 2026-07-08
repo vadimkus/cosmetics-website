@@ -9,6 +9,8 @@ import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { isTwilioConfigured } from '@/lib/twilio'
 import { sendOrderStatusPushNotification, isValidExpoPushToken, OrderStatus, Locale } from '@/lib/expoPush'
+import { awardPointsForDeliveredOrder } from '@/lib/loyalty'
+import { sendLoyaltyPointsEarnedEmail, sendLoyaltyTierUpgradeEmail } from '@/lib/email'
 
 export async function PUT(
   request: NextRequest,
@@ -54,6 +56,39 @@ export async function PUT(
         { success: false, error: 'Failed to update order status' },
         { status: 500 }
       )
+    }
+
+    // Award loyalty points when the order is delivered (idempotent, non-blocking)
+    if (status === 'DELIVERED') {
+      try {
+        const loyalty = await awardPointsForDeliveredOrder(id)
+        if (loyalty?.awarded && loyalty.points > 0) {
+          debugLog(`✅ Loyalty: +${loyalty.points} pts for order ${order.orderNumber} (balance ${loyalty.balance})`)
+          // Notify customer about earned points (skip Apple relay)
+          const loyaltyUser = await findUserByEmail(order.customerEmail)
+          const loyaltyEmail = loyaltyUser ? getPreferredEmail(loyaltyUser) : order.customerEmail
+          if (!isApplePrivateRelayEmail(loyaltyEmail)) {
+            await sendLoyaltyPointsEarnedEmail({
+              customerName: order.customerName,
+              customerEmail: loyaltyEmail,
+              orderNumber: order.orderNumber,
+              points: loyalty.points,
+              balance: loyalty.balance,
+              tier: loyalty.tier,
+            }).catch(e => errorLog('❌ Loyalty points email failed:', e))
+            if (loyalty.tierUpgraded) {
+              await sendLoyaltyTierUpgradeEmail({
+                customerName: order.customerName,
+                customerEmail: loyaltyEmail,
+                tier: loyalty.tier,
+                balance: loyalty.balance,
+              }).catch(e => errorLog('❌ Loyalty tier email failed:', e))
+            }
+          }
+        }
+      } catch (loyaltyError) {
+        errorLog('❌ Loyalty award failed (status update continues):', loyaltyError)
+      }
     }
 
     // Send email notification to customer about status change

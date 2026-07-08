@@ -659,6 +659,23 @@
       }
     }
   },
+  "rewards": {
+    "title": "GENOSYS Rewards",
+    "points": "pts",
+    "inValue": "in rewards value",
+    "earnRate": "earn rate",
+    "spent": "spent",
+    "atSpend": "at",
+    "topTier": "You've reached the top tier — 2x points on every order",
+    "professionalPartner": "GENOSYS Professional Partner",
+    "partnerPricing": "partner pricing on all orders",
+    "tier": {
+      "member": "Member",
+      "silver": "Silver",
+      "gold": "Gold",
+      "platinum": "Platinum"
+    }
+  },
   "profile": {
     "title": "Profile",
     "personalInformation": "Personal Information",

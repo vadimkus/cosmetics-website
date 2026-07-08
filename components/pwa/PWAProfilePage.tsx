@@ -10,6 +10,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { ChevronRight, ChevronLeft } from 'lucide-react'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 import { ARSkinAnalysisCamera } from '@/components/ar'
+import MembershipCard from '@/components/profile/MembershipCard'
 import { debugLog } from '@/lib/logger'
 import { VAPID_PUBLIC_KEY, APP_VERSION } from '@/lib/siteConfig'
 import { plural } from '@/lib/plurals'
@@ -556,6 +557,11 @@ export default function PWAProfilePage() {
               </button>
             )}
           </div>
+        </div>
+
+        {/* GENOSYS Rewards membership card */}
+        <div className="px-5 pb-4">
+          <MembershipCard />
         </div>
 
         {/* Quick Actions */}

@@ -93,3 +93,4 @@ genosys-nextjs-app/
 # Local-only ID extracts (passport no., MRZ, visa UID/file no.) — never push
 docs/PERSONAL_PASSPORT.local.md
 docs/PERSONAL_VISA.local.md
+scripts/.loyalty-launch-sent.json

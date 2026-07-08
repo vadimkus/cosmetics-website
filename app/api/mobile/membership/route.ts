@@ -3,6 +3,7 @@ import { prisma } from '@/lib/database'
 import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { debugLog, errorLog } from '@/lib/logger'
 import { computeTier, nextTierInfo, type MemberTier } from '@/lib/membership'
+import { loyaltyTrackForUser, getLedgerBalance, TIER_MULTIPLIERS, POINT_VALUE_AED } from '@/lib/loyalty'
 
 export async function GET(request: NextRequest) {
   const startTime = Date.now()
@@ -33,11 +34,32 @@ export async function GET(request: NextRequest) {
         totalOrders: true,
         loyaltyPoints: true,
         createdAt: true,
+        discountType: true,
+        discountPercentage: true,
       },
     })
 
     if (!user) {
       return NextResponse.json({ success: false, error: 'User not found' }, { status: 404 })
+    }
+
+    const track = loyaltyTrackForUser(user)
+
+    if (track === 'PARTNER') {
+      return NextResponse.json({
+        success: true,
+        track,
+        memberNumber: user.memberNumber,
+        memberSince: user.memberSince || user.createdAt,
+        partner: {
+          discountType: user.discountType,
+          discountPercentage: user.discountPercentage,
+        },
+        user: {
+          name: user.name,
+          email: user.email,
+        },
+      })
     }
 
     const orderAgg = await prisma.order.aggregate({
@@ -52,12 +74,13 @@ export async function GET(request: NextRequest) {
     const totalSpent = orderAgg._sum.total ?? 0
     const totalOrders = orderAgg._count ?? 0
     const tier = computeTier(totalSpent, totalOrders)
-    const loyaltyPoints = Math.floor(totalSpent)
+    const loyaltyPoints = await getLedgerBalance(user.id)
 
     if (
       tier !== user.memberTier ||
       Math.abs(totalSpent - user.totalSpent) > 0.01 ||
-      totalOrders !== user.totalOrders
+      totalOrders !== user.totalOrders ||
+      loyaltyPoints !== user.loyaltyPoints
     ) {
       await prisma.user.update({
         where: { id: user.id },
@@ -72,9 +95,15 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
+      track,
       memberNumber: user.memberNumber,
       memberSince: user.memberSince || user.createdAt,
       tier,
+      multiplier: TIER_MULTIPLIERS[tier],
+      points: {
+        balance: loyaltyPoints,
+        valueAed: Math.round(loyaltyPoints * POINT_VALUE_AED * 100) / 100,
+      },
       tierProgress: {
         currentSpent: Math.round(totalSpent * 100) / 100,
         nextTierAt: tierProgress.nextTierAt,

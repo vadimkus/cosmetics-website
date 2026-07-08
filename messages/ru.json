@@ -659,6 +659,23 @@
       }
     }
   },
+  "rewards": {
+    "title": "GENOSYS Rewards",
+    "points": "балл.",
+    "inValue": "в виде бонусов",
+    "earnRate": "ставка начисления",
+    "spent": "потрачено",
+    "atSpend": "при",
+    "topTier": "Вы достигли высшего уровня — двойные баллы за каждый заказ",
+    "professionalPartner": "Профессиональный партнёр GENOSYS",
+    "partnerPricing": "партнёрские цены на все заказы",
+    "tier": {
+      "member": "Участник",
+      "silver": "Серебро",
+      "gold": "Золото",
+      "platinum": "Платина"
+    }
+  },
   "profile": {
     "title": "Профиль",
     "personalInformation": "Личная информация",

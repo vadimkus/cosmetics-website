@@ -699,6 +699,23 @@
     "moreLessonsComingSoon": "المزيد من الدروس قريباً",
     "checkBackRegularly": "تحقق بانتظام للحصول على محتوى ودروس تدريبية جديدة."
   },
+  "rewards": {
+    "title": "مكافآت جينوسيس",
+    "points": "نقطة",
+    "inValue": "من قيمة المكافآت",
+    "earnRate": "معدل الكسب",
+    "spent": "تم إنفاقه",
+    "atSpend": "عند",
+    "topTier": "لقد وصلت إلى أعلى مستوى — نقاط مضاعفة على كل طلب",
+    "professionalPartner": "شريك جينوسيس المحترف",
+    "partnerPricing": "أسعار الشركاء على جميع الطلبات",
+    "tier": {
+      "member": "عضو",
+      "silver": "فضي",
+      "gold": "ذهبي",
+      "platinum": "بلاتيني"
+    }
+  },
   "profile": {
     "title": "الملف الشخصي",
     "personalInformation": "المعلومات الشخصية",

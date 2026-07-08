@@ -47,8 +47,26 @@ model User {
   reviews             ProductReview[]
   addresses           Address[] // Multiple addresses support
   passkeys            Passkey[] // WebAuthn passkeys for passwordless auth
+  loyaltyTransactions LoyaltyTransaction[]
 
   @@map("users")
+}
+
+// Auditable ledger of loyalty point movements.
+// user.loyaltyPoints is the materialized balance; every change goes through here.
+model LoyaltyTransaction {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  points      Int // positive = earned, negative = redeemed/adjusted down
+  type        String // ORDER_EARN, WELCOME_BONUS, BIRTHDAY_BONUS, BACKFILL, REDEEM, ADJUST
+  description String?
+  orderId     String? // set for ORDER_EARN / REDEEM; unique per type for idempotency
+  createdAt   DateTime @default(now())
+
+  @@unique([orderId, type])
+  @@index([userId, createdAt])
+  @@map("loyalty_transactions")
 }
 
 // WebAuthn Passkeys - enables Face ID/Touch ID authentication

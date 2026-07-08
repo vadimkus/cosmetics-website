@@ -17,6 +17,7 @@ import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysi
 
 // Import refactored components
 import ProfileHeader from '@/components/profile/ProfileHeader'
+import MembershipCard from '@/components/profile/MembershipCard'
 import ProfileForm from '@/components/profile/ProfileForm'
 import OrderHistory from '@/components/profile/OrderHistory'
 import SettingsPanel from '@/components/profile/SettingsPanel'
@@ -529,6 +530,9 @@ export default function ProfilePageRefactored() {
             onRemoveImage={handleRemoveImage}
             fileInputRef={fileInputRef}
           />
+
+          {/* GENOSYS Rewards membership card */}
+          <MembershipCard />
 
           {/* Navigation Tabs */}
           <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-1.5 md:p-2 mb-3 md:mb-6 lg:mb-8">

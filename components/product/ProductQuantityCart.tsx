@@ -234,15 +234,23 @@ export default function ProductQuantityCart({
         ) : (
         <button
           onClick={handleAddToCart}
-          disabled={isAdding || !user || !inStock}
+          disabled={isAdding || !inStock}
           className={`flex-1 px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-sm md:text-base font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation ${
-            !inStock || !user || isAdding
+            !inStock || isAdding
               ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
               : 'bg-primary-600 text-white hover:bg-primary-700'
           }`}
         >
           <ShoppingCart className="h-4 w-4 md:h-5 md:w-5" />
-          {!inStock ? t('product.outOfStock') : isAdding ? t('product.adding') : (useBagText ? t('product.addToBag') : t('product.addToCart'))}
+          {/* Guests get an actionable "Login to Shop" (routes to /login via the
+              page handler) instead of a dead disabled button. */}
+          {!inStock
+            ? t('product.outOfStock')
+            : isAdding
+            ? t('product.adding')
+            : !user
+            ? t('product.loginToShop')
+            : (useBagText ? t('product.addToBag') : t('product.addToCart'))}
         </button>
         )}
         

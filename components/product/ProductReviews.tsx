@@ -1,11 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { Star, Edit2, Trash2 } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalizedPath } from '@/lib/i18n'
 
 interface Review {
   id: string
@@ -284,6 +286,34 @@ export default function ProductReviews({ productId }: ProductReviewsProps) {
             </button>
           </div>
         </form>
+      )}
+
+      {/* Empty state — visible section instead of a bare heading */}
+      {!loading && reviews.length === 0 && !showForm && (
+        <div className="text-center py-10 px-4 bg-gray-50 border border-gray-200 rounded-xl">
+          <div className="flex items-center justify-center gap-0.5 mb-3" aria-hidden="true">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} className="h-5 w-5 text-gray-300" />
+            ))}
+          </div>
+          <p className="font-semibold text-gray-900 mb-1">{t('product.noReviewsYet')}</p>
+          <p className="text-sm text-gray-600 mb-4">{t('product.beFirstToReview')}</p>
+          {user ? (
+            <button
+              onClick={() => setShowForm(true)}
+              className="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium min-h-[44px] touch-manipulation"
+            >
+              {t('product.writeReview')}
+            </button>
+          ) : (
+            <Link
+              href={getLocalizedPath('/login', locale)}
+              className="inline-flex items-center px-5 py-2.5 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors text-sm font-medium min-h-[44px] touch-manipulation"
+            >
+              {t('product.loginToReview')}
+            </Link>
+          )}
+        </div>
       )}
 
       {/* Reviews List */}

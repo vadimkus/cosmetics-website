@@ -51,7 +51,28 @@
 
 - 264K points ≈ AED 13.2K max redemption value (5%), spread across 808 users, most of it concentrated in ~92 active buyers. Redemption capped at 20% per order in Phase 2.
 
-## Phase 2 (next)
+## Phase 2 — redemption at checkout (SHIPPED same day, 2026-07-08)
 
-- Point redemption at checkout (web + mobile): apply points as AED discount, blocks of 100 pts, cap 20% of order subtotal, not combinable with personal discounts
-- Later: Apple Wallet pass surfacing (endpoint already exists), points for reviews, referral bonuses
+### Rules
+- Redeem in blocks of 100 points = AED 5, max 20% of the discounted product subtotal
+- Not combinable with a personal account discount (any `discountPercentage` > 0 disables redemption; partners are already outside the program)
+- Shipping threshold uses the pre-redemption subtotal (points never cost free shipping); points reduce the final total; VAT recomputed on the reduced total
+- Server is authoritative: clients send `redeemPoints`, the server clamps against the live ledger balance via `resolveRedemptionForCheckout()`
+
+### Ledger timing
+- COD orders (web + mobile): REDEEM entry written immediately at order creation
+- Card orders: charge amount reduced at intent creation, but the REDEEM entry is written only when payment succeeds (Stripe webhook `payment_intent.succeeded` / `checkout.session.completed`, plus the payment-status poll fallback) — abandoned payment sheets never consume points
+- Order cancellation (user cancel route + admin CANCELLED status): `reverseRedemptionForOrder()` writes an idempotent REDEEM_REVERSAL, returning the points
+
+### Schema
+- `orders.loyaltyPointsRedeemed` (Int) + `orders.loyaltyDiscountAmount` (Float), migration `20260708080000_add_order_loyalty_redemption` (applied to prod)
+
+### Touched surfaces
+- Web: `app/api/orders/cod-confirmation` (session-verified redemption — guests/mismatched sessions get none), `app/api/stripe/create-payment-intent`, `app/api/stripe/payment-status`, `app/api/webhooks/stripe`, checkout UI toggle in `app/checkout/CheckoutClient.tsx` (both summaries, EN/AR/RU inline)
+- Mobile API: `app/api/mobile/orders` (COD, immediate ledger), `app/api/mobile/payments/applepay/intent` (deferred; PaymentIntent reuse now amount-checked), `app/api/mobile/checkout/stripe` resume path preserves redemption via one-off Stripe coupon
+- Mobile app: `fetchMembership` balance in checkout, "Use my points" toggle row in `CheckoutOrderHeaderCard`, `redeemPoints` in COD + payment-sheet payloads
+- Emails: order confirmation templates (web COD HTML + orderConfirmation) show a "★ GENOSYS Rewards (X pts) −AED Y" row
+
+## Phase 3 (later)
+
+- Apple Wallet pass surfacing (endpoint already exists), points for reviews, referral bonuses

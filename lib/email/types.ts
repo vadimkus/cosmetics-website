@@ -48,6 +48,8 @@ export interface OrderConfirmationEmailData {
   discountAmount?: number | undefined
   bundleDiscountPercentage?: number | undefined
   bundleDiscountAmount?: number | undefined
+  loyaltyPointsRedeemed?: number | undefined
+  loyaltyDiscountAmount?: number | undefined
 }
 
 // Admin new order notification data
@@ -128,4 +130,6 @@ export interface OrderHTMLData {
   discountAmount?: number | undefined
   bundleDiscountPercentage?: number | undefined
   bundleDiscountAmount?: number | undefined
+  loyaltyPointsRedeemed?: number | undefined
+  loyaltyDiscountAmount?: number | undefined
 }

@@ -224,7 +224,10 @@ export async function POST(request: NextRequest) {
       const serverSubtotal = existing.items.reduce((sum, it) => sum + (Number(it.price) || 0) * (Number(it.quantity) || 0), 0)
       const emirateFromOrder = String(existing.customerEmirate || emirate || 'Dubai')
       const serverShipping = calculateMobileShipping(serverSubtotal, emirateFromOrder)
-      const serverTotal = serverSubtotal + serverShipping
+      // Preserve a loyalty redemption captured at order creation (points are
+      // only deducted on payment success, so the pending discount must survive resume)
+      const loyaltyDiscountAed = Math.max(0, Number(existing.loyaltyDiscountAmount || 0))
+      const serverTotal = Math.round((serverSubtotal + serverShipping - loyaltyDiscountAed) * 100) / 100
       const serverVatAmount = calculateVatIncluded(serverTotal)
 
       const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = existing.items.map((it) => ({
@@ -261,9 +264,23 @@ export async function POST(request: NextRequest) {
       const successUrl = `${NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${existing.orderNumber}`
       const cancelUrl = `${NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/cancel?orderNumber=${existing.orderNumber}`
 
+      // Loyalty redemption on hosted checkout: apply as a one-off coupon so the
+      // charged amount matches the order total (line items can't be negative).
+      let loyaltyDiscounts: Stripe.Checkout.SessionCreateParams.Discount[] | undefined
+      if (loyaltyDiscountAed > 0) {
+        const coupon = await stripe.coupons.create({
+          amount_off: Math.round(loyaltyDiscountAed * 100),
+          currency: 'aed',
+          duration: 'once',
+          name: `GENOSYS Rewards (${existing.loyaltyPointsRedeemed} pts)`,
+        })
+        loyaltyDiscounts = [{ coupon: coupon.id }]
+      }
+
       const session = await stripe.checkout.sessions.create({
         mode: 'payment',
         line_items: lineItems,
+        ...(loyaltyDiscounts ? { discounts: loyaltyDiscounts } : {}),
         customer_email: existing.customerEmail,
         metadata: {
           orderNumber: existing.orderNumber,

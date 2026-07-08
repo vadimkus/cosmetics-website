@@ -11,6 +11,7 @@ import { trackUserActivity } from '@/lib/activityTracker'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import { getCustomerEmailWhere } from '@/lib/mobileOrderOwnership'
+import { resolveRedemptionForCheckout, recordRedemption } from '@/lib/loyalty'
 import { CartItem, Product } from '@/types'
 import {
   getValidatedBundleDiscountPercent,
@@ -504,10 +505,26 @@ export async function POST(request: NextRequest) {
     const pctForOrder = Number(user?.discountPercentage)
     const userDiscountPctForOrder = (user?.discountType && Number.isFinite(pctForOrder) && pctForOrder > 0 && pctForOrder < 100) ? pctForOrder : null
 
+    // Loyalty redemption (GENOSYS Rewards): user is JWT-authenticated here.
+    // Shipping threshold stays on the pre-redemption subtotal.
+    let loyaltyRedemption = { points: 0, amountAed: 0 }
+    const requestedRedeemPoints = Math.floor(Number(orderData.redeemPoints) || 0)
+    if (requestedRedeemPoints > 0) {
+      try {
+        loyaltyRedemption = await resolveRedemptionForCheckout({
+          user,
+          requestedPoints: requestedRedeemPoints,
+          productSubtotal: subtotal,
+        })
+      } catch (redeemError) {
+        errorLog('[MOBILE_ORDERS] Loyalty redemption resolution failed (order continues):', redeemError)
+      }
+    }
+
     // Calculate order totals (must match mobile UI: VAT INCLUDED; shipping from shared rates)
     const emirate = String(orderData.customerEmirate || 'Dubai')
     const shipping = calculateMobileShipping(subtotal, emirate)
-    const total = subtotal + shipping
+    const total = Math.round((subtotal + shipping - loyaltyRedemption.amountAed) * 100) / 100
     const vat = calculateVatIncluded(total)
 
     // Generate canonical order number (Mobile)
@@ -543,6 +560,8 @@ export async function POST(request: NextRequest) {
         discountAmount,
         bundleDiscountPercentage: bundleDiscountPct > 0 ? bundleDiscountPct : null,
         bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : 0,
+        loyaltyPointsRedeemed: loyaltyRedemption.points,
+        loyaltyDiscountAmount: loyaltyRedemption.amountAed,
         shipping,
         vat,
         total,
@@ -556,6 +575,23 @@ export async function POST(request: NextRequest) {
         items: true
       }
     })
+
+    // COD orders are committed immediately — deduct the redeemed points now.
+    // Card orders defer the ledger write to the Stripe webhook (payment success).
+    if (loyaltyRedemption.points > 0 && (orderData.paymentMethod || 'cod') === 'cod') {
+      try {
+        await recordRedemption({
+          userId: user.id,
+          orderId: order.id,
+          orderNumber: order.orderNumber,
+          points: loyaltyRedemption.points,
+          amountAed: loyaltyRedemption.amountAed,
+        })
+        debugLog(`[MOBILE_ORDERS] Loyalty: -${loyaltyRedemption.points} pts redeemed on ${order.orderNumber}`)
+      } catch (redeemError) {
+        errorLog('[MOBILE_ORDERS] Loyalty redemption ledger write failed:', redeemError)
+      }
+    }
 
     // Schedule background tasks with after() — emails
     // MoySklad sync is done manually via admin panel "Push to MoySklad" button
@@ -585,7 +621,9 @@ export async function POST(request: NextRequest) {
           discountPercentage: userDiscountPctForOrder ?? undefined,
           discountAmount: order.discountAmount ?? undefined,
           bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
-          bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined
+          bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined,
+          loyaltyPointsRedeemed: (order.loyaltyPointsRedeemed || 0) > 0 ? order.loyaltyPointsRedeemed : undefined,
+          loyaltyDiscountAmount: (order.loyaltyDiscountAmount || 0) > 0 ? order.loyaltyDiscountAmount : undefined
         })
         debugLog('[MOBILE_ORDERS] ✅ Order confirmation email sent to:', order.customerEmail)
       } catch (emailError) {
@@ -659,6 +697,8 @@ export async function POST(request: NextRequest) {
       discountAmount: order.discountAmount,
       bundleDiscountPercentage: order.bundleDiscountPercentage || null,
       bundleDiscountAmount: order.bundleDiscountAmount || 0,
+      loyaltyPointsRedeemed: order.loyaltyPointsRedeemed || 0,
+      loyaltyDiscountAmount: order.loyaltyDiscountAmount || 0,
       shipping: order.shipping,
       vat: order.vat,
       total: order.total,

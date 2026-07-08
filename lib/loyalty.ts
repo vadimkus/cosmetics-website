@@ -20,6 +20,11 @@ export const POINTS_PER_AED = 1
 export const POINT_VALUE_AED = 0.05 // 100 points = 5 AED
 export const WELCOME_BONUS_POINTS = 100
 
+// Phase 2 — redemption at checkout
+export const REDEEM_BLOCK_POINTS = 100 // redeem in blocks of 100 points
+export const REDEEM_BLOCK_AED = 5 // each block is worth AED 5
+export const REDEEM_MAX_ORDER_FRACTION = 0.2 // max 20% of the discounted product subtotal
+
 export const TIER_MULTIPLIERS: Record<MemberTier, number> = {
   MEMBER: 1,
   SILVER: 1.25,
@@ -167,4 +172,125 @@ export async function awardPointsForDeliveredOrder(orderId: string): Promise<Awa
   const tierUpgraded = tierOrder.indexOf(tier) > tierOrder.indexOf(previousTier)
 
   return { awarded, points: awarded ? points : 0, balance, tier, previousTier, tierUpgraded, track }
+}
+
+// ─── Phase 2: redemption at checkout ─────────────────────────────────────
+
+/**
+ * Redemption is retail-only and does not stack with personal discounts:
+ * any account-level discountPercentage (VIP 2-15% or partner 20%+) disables it.
+ */
+export function canRedeemPoints(user: { discountPercentage?: number | null }): boolean {
+  return (user.discountPercentage ?? 0) <= 0
+}
+
+export interface RedemptionQuote {
+  points: number
+  amountAed: number
+}
+
+/**
+ * Clamp a requested redemption to program rules:
+ * blocks of 100 points (= AED 5), limited by balance and by 20% of the
+ * product subtotal. Returns { 0, 0 } when nothing is redeemable.
+ */
+export function computeRedemption(
+  requestedPoints: number,
+  balance: number,
+  productSubtotal: number,
+): RedemptionQuote {
+  const requested = Math.floor(Number(requestedPoints) || 0)
+  if (requested <= 0 || balance <= 0 || productSubtotal <= 0) return { points: 0, amountAed: 0 }
+
+  const requestedBlocks = Math.floor(requested / REDEEM_BLOCK_POINTS)
+  const balanceBlocks = Math.floor(balance / REDEEM_BLOCK_POINTS)
+  const orderCapAed = productSubtotal * REDEEM_MAX_ORDER_FRACTION
+  const orderBlocks = Math.floor(orderCapAed / REDEEM_BLOCK_AED)
+
+  const blocks = Math.max(0, Math.min(requestedBlocks, balanceBlocks, orderBlocks))
+  if (blocks <= 0) return { points: 0, amountAed: 0 }
+  return { points: blocks * REDEEM_BLOCK_POINTS, amountAed: blocks * REDEEM_BLOCK_AED }
+}
+
+/**
+ * Resolve a checkout redemption request into an authoritative quote.
+ * Reads the live ledger balance; never trusts client-submitted balances.
+ */
+export async function resolveRedemptionForCheckout(params: {
+  user: { id: string; discountPercentage?: number | null } | null
+  requestedPoints: unknown
+  productSubtotal: number
+}): Promise<RedemptionQuote> {
+  const { user, productSubtotal } = params
+  const requested = Math.floor(Number(params.requestedPoints) || 0)
+  if (!user || requested <= 0 || !canRedeemPoints(user)) return { points: 0, amountAed: 0 }
+  const balance = await getLedgerBalance(user.id)
+  return computeRedemption(requested, balance, productSubtotal)
+}
+
+/**
+ * Write the REDEEM ledger entry for an order and refresh the materialized
+ * balance. Idempotent via the (orderId, 'REDEEM') unique constraint —
+ * safe to call from both order creation and payment webhooks.
+ */
+export async function recordRedemption(params: {
+  userId: string
+  orderId: string
+  orderNumber: string
+  points: number
+  amountAed: number
+}): Promise<boolean> {
+  const { userId, orderId, orderNumber, points, amountAed } = params
+  if (points <= 0) return false
+  let recorded = false
+  try {
+    await prisma.loyaltyTransaction.create({
+      data: {
+        userId,
+        points: -points,
+        type: 'REDEEM',
+        orderId,
+        description: `Redeemed on order ${orderNumber} — AED ${amountAed.toFixed(2)} off`,
+      },
+    })
+    recorded = true
+  } catch (err: unknown) {
+    const code = (err as { code?: string })?.code
+    if (code !== 'P2002') throw err
+    debugLog(`[loyalty] redemption already recorded for order ${orderNumber}`)
+  }
+  const balance = await getLedgerBalance(userId)
+  await prisma.user.update({ where: { id: userId }, data: { loyaltyPoints: balance } })
+  return recorded
+}
+
+/**
+ * Return redeemed points to the customer when an order is cancelled.
+ * Idempotent via the (orderId, 'REDEEM_REVERSAL') unique constraint.
+ */
+export async function reverseRedemptionForOrder(orderId: string): Promise<boolean> {
+  const redeemTx = await prisma.loyaltyTransaction.findFirst({
+    where: { orderId, type: 'REDEEM' },
+  })
+  if (!redeemTx) return false
+
+  let reversed = false
+  try {
+    await prisma.loyaltyTransaction.create({
+      data: {
+        userId: redeemTx.userId,
+        points: -redeemTx.points, // REDEEM is negative, reversal is positive
+        type: 'REDEEM_REVERSAL',
+        orderId,
+        description: 'Points returned — order cancelled',
+      },
+    })
+    reversed = true
+  } catch (err: unknown) {
+    const code = (err as { code?: string })?.code
+    if (code !== 'P2002') throw err
+  }
+  const balance = await getLedgerBalance(redeemTx.userId)
+  await prisma.user.update({ where: { id: redeemTx.userId }, data: { loyaltyPoints: balance } })
+  return reversed
 }

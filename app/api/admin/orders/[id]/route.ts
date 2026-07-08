@@ -9,7 +9,7 @@ import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { isTwilioConfigured } from '@/lib/twilio'
 import { sendOrderStatusPushNotification, isValidExpoPushToken, OrderStatus, Locale } from '@/lib/expoPush'
-import { awardPointsForDeliveredOrder } from '@/lib/loyalty'
+import { awardPointsForDeliveredOrder, reverseRedemptionForOrder } from '@/lib/loyalty'
 import { sendLoyaltyPointsEarnedEmail, sendLoyaltyTierUpgradeEmail } from '@/lib/email'
 
 export async function PUT(
@@ -56,6 +56,16 @@ export async function PUT(
         { success: false, error: 'Failed to update order status' },
         { status: 500 }
       )
+    }
+
+    // Return redeemed loyalty points when an order is cancelled (idempotent)
+    if (status === 'CANCELLED') {
+      try {
+        const reversed = await reverseRedemptionForOrder(id)
+        if (reversed) debugLog(`✅ Loyalty: redeemed points returned for cancelled order ${order.orderNumber}`)
+      } catch (loyaltyError) {
+        errorLog('❌ Loyalty redemption reversal failed on admin cancel:', loyaltyError)
+      }
     }
 
     // Award loyalty points when the order is delivered (idempotent, non-blocking)

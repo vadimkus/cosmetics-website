@@ -28,6 +28,8 @@ describe('useProfileState', () => {
     discountAmount: 0,
     bundleDiscountPercentage: null,
     bundleDiscountAmount: 0,
+    loyaltyPointsRedeemed: 0,
+    loyaltyDiscountAmount: 0,
     shipping: 0,
     vat: 5,
     total: 100,

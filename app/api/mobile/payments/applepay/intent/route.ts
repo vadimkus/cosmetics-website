@@ -9,6 +9,7 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
+import { resolveRedemptionForCheckout } from '@/lib/loyalty'
 import { CartItem, Product } from '@/types'
 import {
   getValidatedBundleDiscountPercent,
@@ -65,6 +66,7 @@ interface ApplePayIntentRequest {
   items: CheckoutItem[]
   orderNotes?: string
   locale?: string
+  redeemPoints?: number
 }
 
 export async function POST(request: NextRequest) {
@@ -267,8 +269,25 @@ export async function POST(request: NextRequest) {
     // Capture user discount percentage at time of order for waterfall display
     const userDiscountPctForOrder = (hasUserDiscount && pct > 0) ? pct : null
 
+    // Loyalty redemption (GENOSYS Rewards): the charge is reduced now; the
+    // points ledger entry is written by the Stripe webhook on payment success,
+    // so abandoned payment sheets never consume points.
+    let loyaltyRedemption = { points: 0, amountAed: 0 }
+    const requestedRedeemPoints = Math.floor(Number(body?.redeemPoints) || 0)
+    if (requestedRedeemPoints > 0) {
+      try {
+        loyaltyRedemption = await resolveRedemptionForCheckout({
+          user,
+          requestedPoints: requestedRedeemPoints,
+          productSubtotal: serverSubtotal,
+        })
+      } catch (redeemError) {
+        errorLog('[MOBILE_APPLEPAY] Loyalty redemption resolution failed (payment continues):', redeemError)
+      }
+    }
+
     const serverShipping: number = calculateMobileShipping(serverSubtotal, emirate)
-    const serverTotal: number = serverSubtotal + serverShipping
+    const serverTotal: number = Math.round((serverSubtotal + serverShipping - loyaltyRedemption.amountAed) * 100) / 100
     const serverVatAmount: number = calculateVatIncluded(serverTotal)
 
     // Create or update order in database (PENDING status)
@@ -290,6 +309,8 @@ export async function POST(request: NextRequest) {
           discountAmount: discountAmount,
           bundleDiscountPercentage: bundleDiscountPct > 0 ? bundleDiscountPct : null,
           bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : 0,
+          loyaltyPointsRedeemed: loyaltyRedemption.points,
+          loyaltyDiscountAmount: loyaltyRedemption.amountAed,
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,
@@ -317,6 +338,8 @@ export async function POST(request: NextRequest) {
           discountAmount: discountAmount,
           bundleDiscountPercentage: bundleDiscountPct > 0 ? bundleDiscountPct : null,
           bundleDiscountAmount: bundleDiscountAmount > 0 ? bundleDiscountAmount : 0,
+          loyaltyPointsRedeemed: loyaltyRedemption.points,
+          loyaltyDiscountAmount: loyaltyRedemption.amountAed,
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,
@@ -344,12 +367,15 @@ export async function POST(request: NextRequest) {
       })
     }
 
-    // Reuse existing PaymentIntent when possible (avoid creating duplicates)
+    // Reuse existing PaymentIntent when possible (avoid creating duplicates).
+    // Only reuse when the amount still matches — a changed redemption or cart
+    // must never charge a stale amount.
     if (order.stripePaymentIntentId) {
       try {
         const existingIntent = await stripe.paymentIntents.retrieve(order.stripePaymentIntentId)
         const status = String(existingIntent?.status || '')
-        if (status && status !== 'canceled' && status !== 'succeeded') {
+        const expectedAmount = Math.round(serverTotal * 100)
+        if (status && status !== 'canceled' && status !== 'succeeded' && existingIntent.amount === expectedAmount) {
           const duration = Date.now() - startTime
           return NextResponse.json({
             success: true,
@@ -426,6 +452,8 @@ export async function POST(request: NextRequest) {
         validatedTotals: {
           subtotal: serverSubtotal,
           discountAmount,
+          loyaltyPointsRedeemed: loyaltyRedemption.points,
+          loyaltyDiscountAmount: loyaltyRedemption.amountAed,
           shipping: serverShipping,
           vat: serverVatAmount,
           total: serverTotal,

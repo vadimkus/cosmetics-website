@@ -338,6 +338,12 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
                       </td>
                       <td style="padding: 8px 0; font-size: 15px; text-align: ${textAlignReverse}; font-weight: 500; ${order.shippingCost === 0 ? 'color: #34c759;' : 'color: #1d1d1f;'}">${order.shippingCost === 0 ? 'FREE' : `AED ${order.shippingCost.toFixed(2)}`}</td>
                     </tr>
+                    ${(order.loyaltyDiscountAmount || 0) > 0 ? `
+                    <tr>
+                      <td style="padding: 8px 0; font-size: 15px; color: #0071e3; font-weight: 500; text-align: ${textAlign};">★ GENOSYS Rewards (${(order.loyaltyPointsRedeemed || 0).toLocaleString('en-US')} pts)</td>
+                      <td style="padding: 8px 0; font-size: 15px; color: #0071e3; font-weight: 500; text-align: ${textAlignReverse};">-AED ${(order.loyaltyDiscountAmount || 0).toFixed(2)}</td>
+                    </tr>
+                    ` : ''}
                     <tr>
                       <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">${t.vat || 'VAT (5%)'}</td>
                       <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; font-weight: 500; text-align: ${textAlignReverse};">AED ${order.vatAmount.toFixed(2)}</td>

@@ -229,6 +229,8 @@ model Order {
   discountAmount           Float   @default(0)
   bundleDiscountPercentage Float? // Bundle discount percentage (e.g., 20% for 5+ items)
   bundleDiscountAmount     Float   @default(0) // Bundle discount amount in AED
+  loyaltyPointsRedeemed    Int     @default(0) // GENOSYS Rewards points spent on this order
+  loyaltyDiscountAmount    Float   @default(0) // AED value of redeemed points
   shipping                 Float   @default(0)
   vat                      Float
   total                    Float

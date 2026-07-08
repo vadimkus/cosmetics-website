@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse, after } from 'next/server'
+import { cookies } from 'next/headers'
 import * as Sentry from '@sentry/nextjs'
+import { verifySessionToken } from '@/lib/jwt'
+import { resolveRedemptionForCheckout, recordRedemption } from '@/lib/loyalty'
 import { sendEmail, sendAdminNewOrderNotification, generateCODOrderHTML, OrderHTMLData, OrderHTMLItem } from '@/lib/email'
 import { debugLog, errorLog } from '@/lib/logger'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
@@ -283,8 +286,35 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Loyalty redemption (GENOSYS Rewards): requires a logged-in session that
+    // matches the customer email — guests or mismatched sessions get no redemption.
+    // Shipping stays based on the pre-redemption subtotal (points never cost you
+    // your free-shipping threshold); points reduce the final total.
+    let loyaltyRedemption = { points: 0, amountAed: 0 }
+    const requestedRedeemPoints = Math.floor(Number(orderData.redeemPoints) || 0)
+    if (requestedRedeemPoints > 0 && user) {
+      try {
+        const cookieStore = await cookies()
+        const sessionCookie = cookieStore.get('genosys_session')
+        const session = sessionCookie?.value ? verifySessionToken(sessionCookie.value) : null
+        const sessionEmail = String(session?.email || '').trim().toLowerCase()
+        const allowedEmails = new Set(
+          [user.email, user.contactEmail].filter(Boolean).map(e => String(e).trim().toLowerCase())
+        )
+        if (sessionEmail && allowedEmails.has(sessionEmail)) {
+          loyaltyRedemption = await resolveRedemptionForCheckout({
+            user,
+            requestedPoints: requestedRedeemPoints,
+            productSubtotal: subtotal,
+          })
+        }
+      } catch (redeemError) {
+        errorLog('❌ COD loyalty redemption resolution failed (order continues without it):', redeemError)
+      }
+    }
+
     const shippingCost = calculateMobileShipping(subtotal, emirate)
-    const total = subtotal + shippingCost
+    const total = Math.round((subtotal + shippingCost - loyaltyRedemption.amountAed) * 100) / 100
     const vatAmount = Math.round(calculateVatIncluded(total) * 100) / 100
     
     debugLog('🎟️ COD DISCOUNT CALCULATED:', JSON.stringify({
@@ -331,6 +361,8 @@ export async function POST(request: NextRequest) {
       discountAmount: discountAmount > 0 ? discountAmount : 0,
       ...(bundleDiscountPercentCalc ? { bundleDiscountPercentage: bundleDiscountPercentCalc } : {}),
       bundleDiscountAmount: bundleDiscountAmountCalc,
+      loyaltyPointsRedeemed: loyaltyRedemption.points,
+      loyaltyDiscountAmount: loyaltyRedemption.amountAed,
       shipping: shippingCost,
       vat: vatAmount,
       total,
@@ -347,6 +379,22 @@ export async function POST(request: NextRequest) {
       )
       savedOrder = await Promise.race([savePromise, timeoutPromise]) as Awaited<ReturnType<typeof addOrder>>
       debugLog('✅ COD order saved to database:', savedOrder.id)
+
+      // Deduct redeemed points now that the order row exists (idempotent per order)
+      if (loyaltyRedemption.points > 0 && user) {
+        try {
+          await recordRedemption({
+            userId: user.id,
+            orderId: savedOrder.id,
+            orderNumber,
+            points: loyaltyRedemption.points,
+            amountAed: loyaltyRedemption.amountAed,
+          })
+          debugLog(`✅ Loyalty: -${loyaltyRedemption.points} pts redeemed on ${orderNumber}`)
+        } catch (redeemError) {
+          errorLog('❌ Loyalty redemption ledger write failed:', redeemError)
+        }
+      }
     } catch (dbError) {
       errorLog('⚠️ Database save failed or timed out, continuing with order processing:', dbError)
       // Continue even if database save fails - order will be processed via email
@@ -365,6 +413,8 @@ export async function POST(request: NextRequest) {
         discountAmount: dbOrder.discountAmount ?? 0,
         bundleDiscountPercentage: bundleDiscountPercentCalc,
         bundleDiscountAmount: bundleDiscountAmountCalc,
+        loyaltyPointsRedeemed: loyaltyRedemption.points,
+        loyaltyDiscountAmount: loyaltyRedemption.amountAed,
         shipping: dbOrder.shipping ?? 0,
         vat: dbOrder.vat,
         total: dbOrder.total,
@@ -407,6 +457,8 @@ export async function POST(request: NextRequest) {
       discountAmount: discountAmount > 0 ? discountAmount : undefined,
       bundleDiscountPercentage: bundleDiscountPercentCalc ?? undefined,
       bundleDiscountAmount: bundleDiscountAmountCalc > 0 ? bundleDiscountAmountCalc : undefined,
+      loyaltyPointsRedeemed: loyaltyRedemption.points > 0 ? loyaltyRedemption.points : undefined,
+      loyaltyDiscountAmount: loyaltyRedemption.amountAed > 0 ? loyaltyRedemption.amountAed : undefined,
       items: serverItems.map((item): OrderHTMLItem => {
         // Enhance with default size if missing
         const itemName = item.name || 'Product'
@@ -594,7 +646,10 @@ export async function POST(request: NextRequest) {
       success: true, 
       message: 'COD order confirmation sent successfully',
       orderId: savedOrder?.id || 'pending',
-      orderNumber: orderNumber
+      orderNumber: orderNumber,
+      loyaltyPointsRedeemed: loyaltyRedemption.points,
+      loyaltyDiscountAmount: loyaltyRedemption.amountAed,
+      total
     })
 
   } catch (error) {

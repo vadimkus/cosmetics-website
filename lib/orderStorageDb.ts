@@ -29,6 +29,8 @@ export interface OrderData {
   discountAmount?: number      // User's personal discount amount in AED
   bundleDiscountPercentage?: number  // Bundle discount percentage (e.g., 20)
   bundleDiscountAmount?: number      // Bundle discount amount in AED
+  loyaltyPointsRedeemed?: number     // GENOSYS Rewards points spent on this order
+  loyaltyDiscountAmount?: number     // AED value of redeemed points
   shipping?: number
   vat: number
   total: number
@@ -158,6 +160,8 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
         discountAmount: orderData.discountAmount || 0,
         bundleDiscountPercentage: orderData.bundleDiscountPercentage || null,
         bundleDiscountAmount: orderData.bundleDiscountAmount || 0,
+        loyaltyPointsRedeemed: orderData.loyaltyPointsRedeemed || 0,
+        loyaltyDiscountAmount: orderData.loyaltyDiscountAmount || 0,
         shipping: orderData.shipping || 0,
         vat: orderData.vat,
         total: orderData.total,

@@ -756,6 +756,12 @@ export const emailTemplates = {
                         <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">🚚 ${(t.shippingTo || 'Shipping to {emirate}').replace('{emirate}', orderData.emirate)}</td>
                         <td style="padding: 8px 0; font-size: 15px; text-align: ${textAlignReverse}; font-weight: 500; ${orderData.shipping === 0 ? 'color: #34c759;' : 'color: #1d1d1f;'}">${orderData.shipping === 0 ? (t.free || 'FREE') : `AED ${orderData.shipping.toFixed(2)}`}</td>
                       </tr>
+                      ${(orderData.loyaltyDiscountAmount || 0) > 0 ? `
+                      <tr>
+                        <td style="padding: 8px 0; font-size: 15px; color: #0071e3; font-weight: 500; text-align: ${textAlign};">★ GENOSYS Rewards (${(orderData.loyaltyPointsRedeemed || 0).toLocaleString('en-US')} pts)</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #0071e3; font-weight: 500; text-align: ${textAlignReverse};">-AED ${(orderData.loyaltyDiscountAmount || 0).toFixed(2)}</td>
+                      </tr>
+                      ` : ''}
                       <tr>
                         <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">${t.vat || 'VAT (5%)'}</td>
                         <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; font-weight: 500; text-align: ${textAlignReverse};">AED ${orderData.vat.toFixed(2)}</td>

@@ -9,6 +9,7 @@ import { STRIPE_WEBHOOK_SECRET } from '@/lib/envValidation'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
+import { recordRedemption } from '@/lib/loyalty'
 import Stripe from 'stripe'
 
 // Disable body parsing for webhooks
@@ -201,6 +202,8 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
           status: updateData.status
         })
 
+        await settleLoyaltyRedemption(order)
+
         debugLog('📧 Order newly paid, sending confirmation emails:', order.orderNumber)
         await sendConfirmationEmails(order)
 
@@ -296,6 +299,7 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
         orderId: order.orderNumber,
         paymentIntentId: paymentIntent.id
       })
+      await settleLoyaltyRedemption(order)
       await sendConfirmationEmails(order)
     } else {
       debugLog('ℹ️ Order already marked as paid, skipping duplicate emails:', order.orderNumber)
@@ -390,7 +394,37 @@ interface OrderWithItems {
   discountAmount?: number | null | undefined
   bundleDiscountPercentage?: number | null | undefined
   bundleDiscountAmount?: number | null | undefined
+  loyaltyPointsRedeemed?: number | null | undefined
+  loyaltyDiscountAmount?: number | null | undefined
   items: OrderItem[]
+}
+
+/**
+ * Card payments defer the loyalty REDEEM ledger entry until payment success.
+ * Idempotent (one REDEEM per order), so webhook retries and poll/webhook
+ * races are safe.
+ */
+async function settleLoyaltyRedemption(order: OrderWithItems) {
+  const points = Number(order.loyaltyPointsRedeemed || 0)
+  const amountAed = Number(order.loyaltyDiscountAmount || 0)
+  if (points <= 0) return
+  try {
+    const user = await findUserByEmail(order.customerEmail)
+    if (!user) {
+      errorLog('❌ Loyalty redemption settle: user not found for', order.customerEmail)
+      return
+    }
+    await recordRedemption({
+      userId: user.id,
+      orderId: order.id,
+      orderNumber: order.orderNumber,
+      points,
+      amountAed,
+    })
+    debugLog(`✅ Loyalty: -${points} pts settled on paid order ${order.orderNumber}`)
+  } catch (error) {
+    errorLog('❌ Loyalty redemption settle failed:', error)
+  }
 }
 
 async function sendConfirmationEmails(order: OrderWithItems) {
@@ -455,7 +489,9 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
       discountAmount: order.discountAmount ?? undefined,
       bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
-      bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
+      bundleDiscountAmount: order.bundleDiscountAmount ?? undefined,
+      loyaltyPointsRedeemed: order.loyaltyPointsRedeemed ?? undefined,
+      loyaltyDiscountAmount: order.loyaltyDiscountAmount ?? undefined
     })
 
     debugLog('✅ Customer confirmation email sent for order:', order.orderNumber)

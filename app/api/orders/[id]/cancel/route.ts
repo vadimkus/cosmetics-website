@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { updateOrderStatus } from '@/lib/orderStorageDb'
 import { errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
+import { reverseRedemptionForOrder } from '@/lib/loyalty'
 
 export async function POST(
   request: NextRequest,
@@ -24,6 +25,13 @@ export async function POST(
         { success: false, error: 'Order not found' },
         { status: 404 }
       )
+    }
+
+    // Return any redeemed loyalty points (idempotent, no-op if none)
+    try {
+      await reverseRedemptionForOrder(id)
+    } catch (loyaltyError) {
+      errorLog('❌ Loyalty redemption reversal failed on cancel:', loyaltyError)
     }
 
     return NextResponse.json({ 

@@ -12,6 +12,9 @@ import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { prisma } from '@/lib/prisma'
+import { cookies } from 'next/headers'
+import { verifySessionToken } from '@/lib/jwt'
+import { resolveRedemptionForCheckout } from '@/lib/loyalty'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import {
@@ -101,6 +104,7 @@ export async function POST(request: NextRequest) {
       customerEmirate, 
       customerAddress,
       orderNotes: rawOrderNotes,
+      redeemPoints,
       locale 
     } = await request.json()
 
@@ -296,9 +300,36 @@ export async function POST(request: NextRequest) {
       total: discountAmount + bundleDiscountAmount 
     })
 
-    // Calculate shipping and total
+    // Loyalty redemption (GENOSYS Rewards): requires a logged-in session matching
+    // the customer email. The charge amount is reduced now; the points ledger
+    // entry is written by the Stripe webhook when payment actually succeeds,
+    // so abandoned payment attempts never consume points.
+    let loyaltyRedemption = { points: 0, amountAed: 0 }
+    const requestedRedeemPoints = Math.floor(Number(redeemPoints) || 0)
+    if (requestedRedeemPoints > 0 && user) {
+      try {
+        const cookieStore = await cookies()
+        const sessionCookie = cookieStore.get('genosys_session')
+        const session = sessionCookie?.value ? verifySessionToken(sessionCookie.value) : null
+        const sessionEmail = String(session?.email || '').trim().toLowerCase()
+        const allowedEmails = new Set(
+          [user.email, user.contactEmail].filter(Boolean).map(e => String(e).trim().toLowerCase())
+        )
+        if (sessionEmail && allowedEmails.has(sessionEmail)) {
+          loyaltyRedemption = await resolveRedemptionForCheckout({
+            user,
+            requestedPoints: requestedRedeemPoints,
+            productSubtotal: subtotal,
+          })
+        }
+      } catch (redeemError) {
+        errorLog('❌ Loyalty redemption resolution failed (payment continues without it):', redeemError)
+      }
+    }
+
+    // Calculate shipping and total (shipping threshold uses pre-redemption subtotal)
     const shipping = calculateMobileShipping(subtotal, customerEmirate)
-    const total = subtotal + shipping
+    const total = Math.round((subtotal + shipping - loyaltyRedemption.amountAed) * 100) / 100
     const vat = calculateVatIncluded(total)
 
     // Idempotency check: Look for recent pending CARD orders from same customer with same total
@@ -406,6 +437,8 @@ export async function POST(request: NextRequest) {
       discountAmount,
       ...(bundleDiscountPercent ? { bundleDiscountPercentage: bundleDiscountPercent } : {}),
       bundleDiscountAmount,
+      loyaltyPointsRedeemed: loyaltyRedemption.points,
+      loyaltyDiscountAmount: loyaltyRedemption.amountAed,
       shipping,
       vat,
       total,
@@ -431,6 +464,8 @@ export async function POST(request: NextRequest) {
       clientSecret: paymentIntent.client_secret,
       orderId: orderId,
       total: total,
+      loyaltyPointsRedeemed: loyaltyRedemption.points,
+      loyaltyDiscountAmount: loyaltyRedemption.amountAed,
       message: 'Payment intent created successfully'
     })
 

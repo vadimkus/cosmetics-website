@@ -6,6 +6,7 @@ import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
+import { recordRedemption } from '@/lib/loyalty'
 import { trackUserAction } from '@/lib/analyticsServer'
 import type { Prisma } from '@prisma/client'
 
@@ -258,6 +259,24 @@ export async function GET(request: NextRequest) {
         })
 
         if (won) {
+          // Settle deferred loyalty redemption (idempotent — one REDEEM per order)
+          if (Number(order.loyaltyPointsRedeemed || 0) > 0) {
+            try {
+              const loyaltyUser = await findUserByEmail(order.customerEmail)
+              if (loyaltyUser) {
+                await recordRedemption({
+                  userId: loyaltyUser.id,
+                  orderId: order.id,
+                  orderNumber: order.orderNumber,
+                  points: Number(order.loyaltyPointsRedeemed || 0),
+                  amountAed: Number(order.loyaltyDiscountAmount || 0),
+                })
+              }
+            } catch (loyaltyError) {
+              errorLog('❌ Loyalty redemption settle failed (poll path):', loyaltyError)
+            }
+          }
+
           debugLog('📧 Payment-status poll won paid-transition, sending confirmation emails for:', order.orderNumber)
           try {
             await sendPaidConfirmationEmails(order)

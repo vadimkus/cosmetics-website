@@ -44,6 +44,26 @@ export default function CheckoutClient() {
   const [paymentOrderId, setPaymentOrderId] = useState<string | null>(null)
   const [paymentTotal, setPaymentTotal] = useState<number>(0)
 
+  // GENOSYS Rewards — points redemption (retail track only)
+  const [loyaltyBalance, setLoyaltyBalance] = useState(0)
+  const [usePoints, setUsePoints] = useState(false)
+
+  useEffect(() => {
+    if (!user) return
+    let cancelled = false
+    fetch('/api/user/membership', { credentials: 'include' })
+      .then(res => (res.ok ? res.json() : null))
+      .then(json => {
+        if (!cancelled && json?.success && json.track === 'REWARDS') {
+          setLoyaltyBalance(Number(json.points?.balance || 0))
+        }
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [user])
+
   // Fetch CSRF token on mount
   useEffect(() => {
     fetchCsrfToken().catch(err => {
@@ -150,9 +170,22 @@ export default function CheckoutClient() {
   }
 
   const subtotal = getTotalPrice(user)
-  // Shipping & VAT — single source of truth from mobileCheckoutConfig (matches backend)
+
+  // GENOSYS Rewards redemption quote — mirrors server rules (lib/loyalty.ts):
+  // blocks of 100 pts = AED 5, capped at 20% of the product subtotal,
+  // not combinable with a personal account discount.
+  const canUsePoints = !(Number(user?.discountPercentage || 0) > 0)
+  const redeemableBlocks = canUsePoints
+    ? Math.max(0, Math.min(Math.floor(loyaltyBalance / 100), Math.floor((subtotal * 0.2) / 5)))
+    : 0
+  const redeemablePoints = redeemableBlocks * 100
+  const redeemableAed = redeemableBlocks * 5
+  const loyaltyDiscount = usePoints && redeemablePoints > 0 ? redeemableAed : 0
+
+  // Shipping & VAT — single source of truth from mobileCheckoutConfig (matches backend).
+  // Shipping threshold uses the pre-redemption subtotal (points never cost free shipping).
   const shippingCost = calculateMobileShipping(subtotal, selectedEmirate)
-  const total = subtotal + shippingCost // Total is VAT-inclusive
+  const total = Math.round((subtotal + shippingCost - loyaltyDiscount) * 100) / 100 // VAT-inclusive
   const vatAmount = Math.round(calculateVatIncluded(total) * 100) / 100
 
   // Waterfall discount breakdown: compute retail total, VIP discount, and bundle discount
@@ -368,6 +401,7 @@ export default function CheckoutClient() {
               customerEmirate: selectedEmirate,
               customerAddress: customerAddress,
               ...(orderNotes ? { orderNotes } : {}),
+              ...(loyaltyDiscount > 0 ? { redeemPoints: redeemablePoints } : {}),
               locale: locale
             }))
           })
@@ -475,7 +509,8 @@ export default function CheckoutClient() {
           locale,
           // Bundle discount data for proper waterfall display
           ...(bundleDiscountPct > 0 ? { bundleDiscountPercentage: bundleDiscountPct } : {}),
-          ...(bundleDiscountTotal > 0 ? { bundleDiscountAmount: bundleDiscountTotal } : {})
+          ...(bundleDiscountTotal > 0 ? { bundleDiscountAmount: bundleDiscountTotal } : {}),
+          ...(loyaltyDiscount > 0 ? { redeemPoints: redeemablePoints } : {})
         }
 
         // Ensure CSRF token is available
@@ -785,6 +820,25 @@ export default function CheckoutClient() {
                       {shippingCost === 0 ? (locale === 'ar' ? 'مجاني' : locale === 'ru' ? 'Бесплатно' : 'FREE') : `AED ${shippingCost}`}
                     </span>
                   </div>
+                  {/* GENOSYS Rewards redemption */}
+                  {redeemablePoints > 0 && (
+                    <div className={`flex justify-between items-center text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <label className={`flex items-center gap-2 cursor-pointer ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <input
+                          type="checkbox"
+                          checked={usePoints}
+                          onChange={(e) => setUsePoints(e.target.checked)}
+                          className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="text-blue-600 font-medium">
+                          ★ {locale === 'ar' ? 'استخدم نقاطي' : locale === 'ru' ? 'Использовать баллы' : 'Use my points'} ({redeemablePoints.toLocaleString()} {locale === 'ar' ? 'نقطة' : locale === 'ru' ? 'балл.' : 'pts'})
+                        </span>
+                      </label>
+                      <span className={usePoints ? 'text-blue-600 font-semibold' : 'text-gray-400'}>
+                        -AED {redeemableAed.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span className="text-gray-600">{locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}</span>
                     <span className="text-gray-900">AED {vatAmount.toFixed(2)}</span>
@@ -1230,6 +1284,26 @@ export default function CheckoutClient() {
                       {shippingCost === 0 ? <span className="text-[9px] md:text-xs text-green-600 font-semibold">{t('checkout.free')}</span> : `AED ${shippingCost}`}
                     </span>
                   </div>
+
+                  {/* GENOSYS Rewards redemption */}
+                  {redeemablePoints > 0 && (
+                    <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <label className={`flex items-center gap-1.5 md:gap-2 cursor-pointer ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <input
+                          type="checkbox"
+                          checked={usePoints}
+                          onChange={(e) => setUsePoints(e.target.checked)}
+                          className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        />
+                        <span className="text-[10px] md:text-sm text-blue-600 font-medium">
+                          ★ {locale === 'ar' ? 'استخدم نقاطي' : locale === 'ru' ? 'Использовать баллы' : 'Use my points'} ({redeemablePoints.toLocaleString()} {locale === 'ar' ? 'نقطة' : locale === 'ru' ? 'балл.' : 'pts'})
+                        </span>
+                      </label>
+                      <span className={`text-[10px] md:text-sm font-medium ${usePoints ? 'text-blue-600' : 'text-gray-400'}`}>
+                        -AED {redeemableAed.toFixed(2)}
+                      </span>
+                    </div>
+                  )}
                   
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.vat')}</span>

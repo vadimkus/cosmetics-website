@@ -73,6 +73,20 @@
 - Mobile app: `fetchMembership` balance in checkout, "Use my points" toggle row in `CheckoutOrderHeaderCard`, `redeemPoints` in COD + payment-sheet payloads
 - Emails: order confirmation templates (web COD HTML + orderConfirmation) show a "★ GENOSYS Rewards (X pts) −AED Y" row
 
+## Bugfix: partner misclassification (found by Vadim, 2026-07-08 afternoon)
+
+- **Symptom:** Vadim's own account showed "Professional Partner — 50%" badge while the admin panel said "No discount" and checkout gave no discount.
+- **Root cause:** his record had an orphan `discountPercentage: 50` with `discountType: null`. The pricing engine (`lib/discountUtils.ts`) requires BOTH fields to apply a discount, but `isPartnerAccount()` only checked the percentage → loyalty track and pricing disagreed.
+- **Verified scope:** exactly 3 affected accounts (f.this.that@gmail.com @50, olenaalieksieieva73 @50, one Apple-relay user @90). Zero accounts with type-but-no-percentage.
+- **Fix:** `hasActiveDiscount()` (type AND percentage > 0) now gates both `isPartnerAccount` and `canRedeemPoints`; client checkout gates aligned on web + mobile. Orphan percentages cleared on the 3 accounts and their skipped backfill credited (Vadim: 532 pts / SILVER; others: 100 pts / MEMBER).
+- No wrong emails were sent (mass launch send hadn't run yet). Launch email copy also updated — redemption is live now.
+
+## Enhancement: expandable membership card (web + mobile, both runtimes)
+
+- Tap the card to expand: rewards track shows "How it works" + full tier table (requirement + perks per tier, current tier highlighted); partner track shows partner status details (pricing box + thank-you note)
+- Mobile shipped via OTA to runtime 1.10.5 (live users, via `release/1.10.5` branch cherry-pick) and runtime 1.11.0 (TestFlight build 101)
+- SDK 57 note: `expo.platforms` restricted to ios/android — `eas update` web export broke on Stripe RN native imports
+
 ## Phase 3 (later)
 
 - Apple Wallet pass surfacing (endpoint already exists), points for reviews, referral bonuses

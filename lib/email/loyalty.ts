@@ -130,7 +130,7 @@ export const sendLoyaltyLaunchEmail = async (data: LoyaltyLaunchEmailData) => {
     <tr>
       <td style="font-family: ${FONT_TEXT}; font-size: 15px; line-height: 1.6; color: #1d1d1f; padding-bottom: 20px;">
         <strong>How it works</strong><br/>
-        Earn 1 point for every 1 AED you spend. 100 points = AED 5 off — and you can redeem them at checkout right now, on the website and in the app.
+        Earn 1 point for every 1 AED you spend on products (delivery fees don't earn points). 100 points = AED 5 off — and you can redeem them at checkout right now, on the website and in the app.
       </td>
     </tr>
     <tr>

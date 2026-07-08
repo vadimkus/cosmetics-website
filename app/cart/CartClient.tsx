@@ -124,7 +124,9 @@ export default function CartClient() {
       cancelled = true
     }
   }, [user])
-  const earnPreviewPoints = user && loyaltyMultiplier > 0 ? Math.floor(total * loyaltyMultiplier) : 0
+  // Earn basis is products-only (shipping never earns points) — matches
+  // awardPointsForDeliveredOrder in lib/loyalty.ts.
+  const earnPreviewPoints = user && loyaltyMultiplier > 0 ? Math.floor(subtotal * loyaltyMultiplier) : 0
   
   // Check if Black Friday sale is active
   const blackFridayActive = isBlackFridaySaleActive()

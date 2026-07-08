@@ -675,7 +675,7 @@
     "partnerAppliedAuto": "applied automatically to every order",
     "partnerThanks": "Your partner pricing already goes beyond what the rewards program offers, so your account stays on the professional track — nothing changes for you. Thank you for building with GENOSYS.",
     "howItWorksTitle": "How it works",
-    "howItWorksBody": "Earn 1 point for every 1 AED you spend. 100 points = AED 5 off — redeem them right at checkout. Bonus: double points on every order during your birthday month.",
+    "howItWorksBody": "Earn 1 point for every 1 AED you spend on products (delivery fees don't earn points). 100 points = AED 5 off — redeem them right at checkout. Bonus: double points on every order during your birthday month.",
     "yourTier": "your tier",
     "earnPreview": "You'll earn ~{points} points with this order",
     "earnItem": "Earn ~{points} pts",

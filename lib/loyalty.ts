@@ -1,8 +1,9 @@
 /**
  * GENOSYS Rewards — loyalty points engine.
  *
- * Program rules (decided 2026-07-08):
- * - Retail accounts earn 1 point per 1 AED paid (order total), credited on DELIVERED.
+ * Program rules (decided 2026-07-08; earn basis switched to products-only same day):
+ * - Retail accounts earn 1 point per 1 AED paid for PRODUCTS (order total minus
+ *   shipping — delivery fees never earn points), credited on DELIVERED.
  * - Tier multipliers boost earning: MEMBER 1x, SILVER 1.25x, GOLD 1.5x, PLATINUM 2x.
  * - Birthday month: earning doubled on top of the tier multiplier.
  * - 100 points = 5 AED redemption value (redemption ships in Phase 2).
@@ -66,13 +67,18 @@ export function isBirthdayMonth(birthday: string | null | undefined, now = new D
   return parseInt(match[1], 10) === now.getMonth() + 1
 }
 
+/**
+ * Points for an amount of PRODUCT spend (AED, after all discounts and
+ * redemption, excluding shipping). Callers are responsible for passing the
+ * products-only basis — see awardPointsForDeliveredOrder.
+ */
 export function computeOrderPoints(
-  orderTotal: number,
+  productSpendAed: number,
   tier: MemberTier,
   birthdayMonth: boolean,
 ): number {
-  if (!Number.isFinite(orderTotal) || orderTotal <= 0) return 0
-  const base = orderTotal * POINTS_PER_AED * (TIER_MULTIPLIERS[tier] ?? 1)
+  if (!Number.isFinite(productSpendAed) || productSpendAed <= 0) return 0
+  const base = productSpendAed * POINTS_PER_AED * (TIER_MULTIPLIERS[tier] ?? 1)
   return Math.floor(birthdayMonth ? base * 2 : base)
 }
 
@@ -103,7 +109,7 @@ export interface AwardResult {
 export async function awardPointsForDeliveredOrder(orderId: string): Promise<AwardResult | null> {
   const order = await prisma.order.findUnique({
     where: { id: orderId },
-    select: { id: true, orderNumber: true, total: true, customerEmail: true, status: true },
+    select: { id: true, orderNumber: true, total: true, shipping: true, customerEmail: true, status: true },
   })
   if (!order) return null
 
@@ -151,8 +157,12 @@ export async function awardPointsForDeliveredOrder(orderId: string): Promise<Awa
     }
   }
 
-  // Earn at the tier held BEFORE this order (standard loyalty semantics)
-  const points = computeOrderPoints(order.total, previousTier, isBirthdayMonth(user.birthday))
+  // Earn at the tier held BEFORE this order (standard loyalty semantics).
+  // Basis is products-only: order total minus shipping. Total is already net
+  // of every discount (personal, bundle, points redemption), so this equals
+  // what the customer actually paid for products.
+  const productSpend = Math.max(0, (order.total || 0) - (order.shipping || 0))
+  const points = computeOrderPoints(productSpend, previousTier, isBirthdayMonth(user.birthday))
 
   let awarded = false
   if (points > 0) {
@@ -163,7 +173,7 @@ export async function awardPointsForDeliveredOrder(orderId: string): Promise<Awa
           points,
           type: 'ORDER_EARN',
           orderId: order.id,
-          description: `Order ${order.orderNumber} delivered — AED ${order.total.toFixed(2)}`,
+          description: `Order ${order.orderNumber} delivered — AED ${productSpend.toFixed(2)} in products`,
         },
       })
       awarded = true

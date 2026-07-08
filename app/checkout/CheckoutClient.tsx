@@ -189,7 +189,11 @@ export default function CheckoutClient() {
   const shippingCost = calculateMobileShipping(subtotal, selectedEmirate)
   const total = Math.round((subtotal + shippingCost - loyaltyDiscount) * 100) / 100 // VAT-inclusive
   const vatAmount = Math.round(calculateVatIncluded(total) * 100) / 100
-  const earnPreviewPoints = loyaltyMultiplier > 0 ? Math.floor(total * loyaltyMultiplier) : 0
+  // Earn basis is products-only (after points redemption, excluding shipping)
+  // — matches awardPointsForDeliveredOrder in lib/loyalty.ts.
+  const earnPreviewPoints = loyaltyMultiplier > 0
+    ? Math.floor(Math.max(0, subtotal - loyaltyDiscount) * loyaltyMultiplier)
+    : 0
 
   // Waterfall discount breakdown: compute retail total, VIP discount, and bundle discount
   const {

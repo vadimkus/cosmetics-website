@@ -549,7 +549,7 @@ export default function ProfilePageRefactored() {
                   onClick={() => setActiveTab(tab.id as ActiveTab)}
                   className={`flex-1 flex items-center justify-center py-2.5 rounded-lg transition-all ${
                     activeTab === tab.id
-                      ? 'bg-primary-600 text-white shadow-sm'
+                      ? 'bg-gray-900 text-white shadow-sm'
                       : 'text-gray-500'
                   }`}
                 >
@@ -582,7 +582,7 @@ export default function ProfilePageRefactored() {
                   aria-pressed={activeTab === tab.id}
                   className={`flex items-center gap-2 px-4 lg:px-5 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap ${
                     activeTab === tab.id
-                      ? 'bg-primary-600 text-white shadow-sm'
+                      ? 'bg-gray-900 text-white shadow-sm'
                       : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
                   }`}
                 >
@@ -630,31 +630,33 @@ export default function ProfilePageRefactored() {
                 onCancel={handleCancel}
               />
               
-              {/* AI Skin Analysis Section */}
-              <div className="mt-4 md:mt-8 bg-gradient-to-br from-pink-50 via-red-50 to-orange-50 rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-pink-100 p-4 md:p-6 lg:p-8">
-                <div className={`flex items-center gap-3 mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <div className="p-2 md:p-3 bg-gradient-to-r from-pink-200 to-red-200 rounded-lg md:rounded-xl">
-                    <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-red-600" />
+              {/* AI Skin Analysis Section — corporate dark banner */}
+              <div className="mt-3 md:mt-8 bg-gray-900 rounded-xl md:rounded-2xl shadow-sm md:shadow-lg p-4 md:p-6 lg:p-8">
+                <div className={`flex flex-col md:flex-row md:items-center gap-4 md:gap-6 ${dir === 'rtl' ? 'md:flex-row-reverse' : ''}`}>
+                  <div className={`flex items-center gap-3 md:gap-4 flex-1 min-w-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
+                      <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                    </div>
+                    <div className={dir === 'rtl' ? 'text-right' : ''}>
+                      <h2 className="text-base md:text-lg font-semibold text-white tracking-tight">
+                        {locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
+                      </h2>
+                      <p className="text-xs md:text-sm text-gray-400 mt-0.5">
+                        {locale === 'ar' ? 'اكتشف نوع بشرتك واحصل على توصيات مخصصة' : locale === 'ru' ? 'Узнайте тип кожи и получите персональные рекомендации' : 'Discover your skin type and get personalized recommendations'}
+                      </p>
+                    </div>
                   </div>
-                  <div className={dir === 'rtl' ? 'text-right' : ''}>
-                    <h2 className="text-base md:text-xl font-bold text-gray-800">
-                      {locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
-                    </h2>
-                    <p className="text-xs md:text-sm text-gray-600">
-                      {locale === 'ar' ? 'اكتشف نوع بشرتك واحصل على توصيات مخصصة' : locale === 'ru' ? 'Узнайте тип кожи и получите персональные рекомендации' : 'Discover your skin type and get personalized recommendations'}
-                    </p>
-                  </div>
+
+                  <button
+                    onClick={() => setShowSkinAnalysis(true)}
+                    className={`shrink-0 flex items-center justify-center gap-2 bg-white text-gray-900 py-2.5 md:py-3 px-5 md:px-8 rounded-lg md:rounded-xl font-semibold text-sm transition-all hover:bg-gray-100 active:scale-[0.99] w-full md:w-auto ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                  >
+                    <Sparkles className="h-4 w-4" />
+                    {locale === 'ar' ? 'ابدأ تحليل البشرة' : locale === 'ru' ? 'Начать анализ кожи' : 'Start Skin Analysis'}
+                  </button>
                 </div>
-                
-                <button
-                  onClick={() => setShowSkinAnalysis(true)}
-                  className={`w-full flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 text-white py-3 md:py-4 px-6 rounded-xl font-semibold text-sm md:text-base transition-all duration-200 shadow-lg shadow-red-500/25 hover:shadow-red-500/40 active:scale-[0.98] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-                >
-                  <Sparkles className="h-5 w-5" />
-                  {locale === 'ar' ? 'ابدأ تحليل البشرة' : locale === 'ru' ? 'Начать анализ кожи' : 'Start Skin Analysis'}
-                </button>
-                
-                <p className="text-xs text-gray-500 text-center mt-3">
+
+                <p className={`text-[11px] text-gray-500 mt-3 md:mt-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   {locale === 'ar' ? 'يتطلب الوصول إلى الكاميرا • يعمل بشكل أفضل في الإضاءة الطبيعية' : locale === 'ru' ? 'Требуется доступ к камере • Лучше работает при естественном освещении' : 'Requires camera access • Works best in natural lighting'}
                 </p>
               </div>

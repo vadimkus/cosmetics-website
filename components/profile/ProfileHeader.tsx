@@ -66,7 +66,7 @@ export default function ProfileHeader({
             <h1 className="text-base font-bold text-gray-900 truncate">{user.name}</h1>
             <p className="text-xs text-gray-500 truncate">{displayEmail}</p>
             {customerNumber > 0 && (
-              <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary-600 text-white rounded-full mt-1">
+              <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-900 text-white rounded-full mt-1">
                 <Sparkles className="h-2.5 w-2.5" />
                 <span className="text-[10px] font-medium">#{customerNumber}</span>
               </div>
@@ -129,7 +129,7 @@ export default function ProfileHeader({
           <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-1 truncate">{user.name}</h1>
           <p className="text-gray-600 text-sm lg:text-base break-all">{displayEmail}</p>
           {customerNumber > 0 && (
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary-600 text-white rounded-full shadow-sm mt-3">
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-900 text-white rounded-full shadow-sm mt-3">
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
               <span className="text-xs lg:text-sm font-semibold">{t('profile.familyMember')} #{customerNumber}</span>
             </div>

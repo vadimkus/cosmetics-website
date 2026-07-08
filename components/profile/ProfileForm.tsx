@@ -47,11 +47,11 @@ export default function ProfileForm({
       
       {/* Personal Information */}
       <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-3 md:p-6 lg:p-8">
-        <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-6">
-          <div className="p-2 md:p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-lg md:rounded-xl">
-            <User className="h-4 w-4 md:h-6 md:w-6 text-green-600" />
+        <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-6">
+          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-gray-900 flex items-center justify-center shrink-0">
+            <User className="h-4 w-4 md:h-5 md:w-5 text-white" />
           </div>
-          <h2 className="text-sm md:text-2xl font-bold text-gray-800">{t('profile.personalInformation')}</h2>
+          <h2 className="text-sm md:text-xl font-semibold text-gray-900 tracking-tight">{t('profile.personalInformation')}</h2>
         </div>
 
         {isEditing && (
@@ -250,17 +250,17 @@ export default function ProfileForm({
         </div>
 
         {isEditing && (
-          <div className="flex gap-2 md:gap-4 mt-4 md:mt-8 pt-3 md:pt-6 border-t border-gray-200">
+          <div className="flex gap-2 md:gap-3 mt-4 md:mt-8 pt-3 md:pt-6 border-t border-gray-100">
             <button
               onClick={onSave}
-              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-6 py-2.5 md:py-3 bg-emerald-600 text-white rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-emerald-700 transition-all min-h-[40px] md:min-h-[44px] touch-manipulation"
+              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-8 py-2.5 md:py-3 bg-gray-900 text-white rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-gray-800 active:scale-[0.99] transition-all min-h-[40px] md:min-h-[44px] touch-manipulation shadow-sm"
             >
               <CheckCircle className="h-4 w-4 md:h-5 md:w-5" />
               {t('profile.saveChanges')}
             </button>
             <button
               onClick={onCancel}
-              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-6 py-2.5 md:py-3 bg-gray-200 text-gray-700 rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-gray-300 transition-all min-h-[40px] md:min-h-[44px] touch-manipulation"
+              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-6 py-2.5 md:py-3 bg-white text-gray-700 border border-gray-200 rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all min-h-[40px] md:min-h-[44px] touch-manipulation"
             >
               <X className="h-4 w-4 md:h-5 md:w-5" />
               {t('common.cancel')}
@@ -271,66 +271,58 @@ export default function ProfileForm({
 
       {/* Account Status */}
       <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-3 md:p-6 lg:p-8">
-        <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-6">
-          <div className="p-2 md:p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-lg md:rounded-xl">
-            <Shield className="h-4 w-4 md:h-6 md:w-6 text-green-600" />
+        <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-6">
+          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-gray-900 flex items-center justify-center shrink-0">
+            <Shield className="h-4 w-4 md:h-5 md:w-5 text-white" />
           </div>
-          <h2 className="text-sm md:text-2xl font-bold text-gray-800">{t('profile.accountStatus')}</h2>
+          <h2 className="text-sm md:text-xl font-semibold text-gray-900 tracking-tight">{t('profile.accountStatus')}</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
           {/* Price Access */}
-          <div className="p-3 md:p-6 bg-emerald-50 rounded-lg md:rounded-xl border border-emerald-100">
-            <div className="flex items-center justify-between md:justify-start md:gap-3 mb-2 md:mb-3">
-              <div className="flex items-center gap-2">
-                <Eye className="h-4 w-4 md:h-5 md:w-5 text-emerald-600" />
-                <h3 className="text-xs md:text-base font-semibold text-gray-800">{t('profile.priceAccess')}</h3>
-              </div>
-              {user.canSeePrices ? (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-200 text-emerald-800 rounded-full text-[10px] md:text-sm font-medium">
-                  <CheckCircle className="h-3 w-3 md:h-4 md:w-4" />
-                  {t('profile.allowed')}
-                </span>
-              ) : (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-red-200 text-red-800 rounded-full text-[10px] md:text-sm font-medium">
-                  <Lock className="h-3 w-3 md:h-4 md:w-4" />
-                  {t('profile.restricted')}
-                </span>
-              )}
+          <div className="flex items-center justify-between p-3 md:p-5 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
+            <div className="flex items-center gap-2.5">
+              <Eye className="h-4 w-4 md:h-5 md:w-5 text-gray-400" />
+              <h3 className="text-xs md:text-sm font-medium text-gray-700">{t('profile.priceAccess')}</h3>
             </div>
+            {user.canSeePrices ? (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full text-[10px] md:text-xs font-semibold">
+                <CheckCircle className="h-3 w-3 md:h-3.5 md:w-3.5" />
+                {t('profile.allowed')}
+              </span>
+            ) : (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-red-50 text-red-700 border border-red-200 rounded-full text-[10px] md:text-xs font-semibold">
+                <Lock className="h-3 w-3 md:h-3.5 md:w-3.5" />
+                {t('profile.restricted')}
+              </span>
+            )}
           </div>
 
           {/* Discount Level */}
           {user.discountType ? (
-            <div className={`p-3 md:p-6 rounded-lg md:rounded-xl border ${
-              user.discountType === 'CLINIC' ? 'bg-green-50 border-green-100' : 'bg-red-50 border-red-100'
-            }`}>
-              <div className="flex items-center justify-between md:justify-start md:gap-3">
-                <div className="flex items-center gap-2">
-                  <CheckCircle className={`h-4 w-4 md:h-5 md:w-5 ${user.discountType === 'CLINIC' ? 'text-green-600' : 'text-red-600'}`} aria-hidden="true" />
-                  <h3 className="text-xs md:text-base font-semibold text-gray-800">{t('profile.discountLevel')}</h3>
-                </div>
-                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] md:text-sm font-medium ${
-                  user.discountType === 'CLINIC' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800'
-                }`}>
-                  {user.discountPercentage}% {t('product.off')}
-                </span>
+            <div className="flex items-center justify-between p-3 md:p-5 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
+              <div className="flex items-center gap-2.5">
+                <CheckCircle className="h-4 w-4 md:h-5 md:w-5 text-gray-400" aria-hidden="true" />
+                <h3 className="text-xs md:text-sm font-medium text-gray-700">{t('profile.discountLevel')}</h3>
               </div>
+              <span className="inline-flex items-center px-2.5 py-1 bg-gray-900 text-white rounded-full text-[10px] md:text-xs font-semibold">
+                {user.discountPercentage}% {t('product.off')}
+              </span>
             </div>
           ) : (
-            <div className="p-3 md:p-6 rounded-lg md:rounded-xl border bg-gray-50 border-gray-100">
-              <div className="flex items-center justify-between md:justify-start md:gap-3">
-                <div className="flex items-center gap-2">
-                  <Shield className="h-4 w-4 md:h-5 md:w-5 text-gray-500" aria-hidden="true" />
-                  <h3 className="text-xs md:text-base font-semibold text-gray-800">{t('profile.accountType') || 'Account type'}</h3>
+            <div className="flex items-center justify-between p-3 md:p-5 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
+              <div className="flex items-center gap-2.5 min-w-0">
+                <Shield className="h-4 w-4 md:h-5 md:w-5 text-gray-400 shrink-0" aria-hidden="true" />
+                <div className="min-w-0">
+                  <h3 className="text-xs md:text-sm font-medium text-gray-700">{t('profile.accountType') || 'Account type'}</h3>
+                  <p className="hidden md:block text-[11px] text-gray-400 truncate">
+                    {t('profile.standardAccountHint') || 'Contact us to apply for clinic-partner pricing.'}
+                  </p>
                 </div>
-                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] md:text-sm font-medium bg-gray-200 text-gray-700">
-                  {t('profile.standardAccount') || 'Standard'}
-                </span>
               </div>
-              <p className="hidden md:block text-xs md:text-sm text-gray-500 mt-2">
-                {t('profile.standardAccountHint') || 'Contact us to apply for clinic-partner pricing.'}
-              </p>
+              <span className="inline-flex items-center px-2.5 py-1 bg-white text-gray-600 border border-gray-200 rounded-full text-[10px] md:text-xs font-semibold shrink-0">
+                {t('profile.standardAccount') || 'Standard'}
+              </span>
             </div>
           )}
         </div>
@@ -340,58 +332,58 @@ export default function ProfileForm({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 lg:gap-8">
         {/* Support */}
         <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-3 md:p-6 lg:p-8 flex flex-col">
-          <div className="flex items-center gap-2 md:gap-4 mb-3 md:mb-6">
-            <div className="p-2 md:p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-lg md:rounded-xl">
-              <MessageCircle className="h-4 w-4 md:h-6 md:w-6 text-green-600" />
+          <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-5">
+            <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-gray-900 flex items-center justify-center shrink-0">
+              <MessageCircle className="h-4 w-4 md:h-5 md:w-5 text-white" />
             </div>
             <div>
-              <h2 className="text-sm md:text-xl font-bold text-gray-800">{t('profile.needHelp')}</h2>
-              <p className="text-[10px] md:text-sm text-gray-500 hidden md:block">{t('profile.getInstantSupport')}</p>
+              <h2 className="text-sm md:text-lg font-semibold text-gray-900 tracking-tight">{t('profile.needHelp')}</h2>
+              <p className="text-[10px] md:text-xs text-gray-400 hidden md:block">{t('profile.getInstantSupport')}</p>
             </div>
+          </div>
+
+          <div className="hidden md:flex md:flex-col mb-5 gap-2.5 text-sm text-gray-500">
+            <div className="flex items-center gap-2.5"><Zap className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.available247')}</span></div>
+            <div className="flex items-center gap-2.5"><Clock className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.quickResponse')}</span></div>
+            <div className="flex items-center gap-2.5"><Gift className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.productRecommendations')}</span></div>
           </div>
 
           <a
             href="https://wa.me/971585487665"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1.5 md:gap-2 bg-green-600 text-white px-3 py-2 md:px-6 md:py-3 rounded-lg md:rounded-xl text-xs md:text-base font-medium md:font-semibold hover:bg-green-700 transition-colors min-h-[36px] md:min-h-[44px] touch-manipulation w-full"
+            className="mt-auto flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 px-3 py-2 md:px-6 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold hover:bg-gray-50 hover:border-gray-300 active:scale-[0.99] transition-all min-h-[40px] md:min-h-[46px] touch-manipulation w-full"
           >
-            <MessageCircle className="h-3.5 w-3.5 md:h-5 md:w-5" aria-hidden="true" />
+            <MessageCircle className="h-4 w-4 md:h-[18px] md:w-[18px] text-emerald-500" aria-hidden="true" />
             {t('profile.startWhatsAppChat')}
           </a>
-
-          <div className="hidden md:flex md:flex-col mt-5 gap-2 text-sm text-gray-600">
-            <div className="flex items-center gap-2"><Zap className="h-4 w-4" aria-hidden="true" /><span>{t('profile.available247')}</span></div>
-            <div className="flex items-center gap-2"><Clock className="h-4 w-4" aria-hidden="true" /><span>{t('profile.quickResponse')}</span></div>
-            <div className="flex items-center gap-2"><Gift className="h-4 w-4" aria-hidden="true" /><span>{t('profile.productRecommendations')}</span></div>
-          </div>
         </div>
 
         {/* Skin Recommendation */}
         <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-3 md:p-6 lg:p-8 flex flex-col">
-          <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-6">
-            <div className="p-2 md:p-3 bg-gradient-to-r from-pink-100 to-rose-100 rounded-lg md:rounded-xl">
-              <Sparkles className="h-4 w-4 md:h-6 md:w-6 text-pink-600" />
+          <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-5">
+            <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-gray-900 flex items-center justify-center shrink-0">
+              <Sparkles className="h-4 w-4 md:h-5 md:w-5 text-white" />
             </div>
             <div>
-              <h2 className="text-sm md:text-xl font-bold text-gray-800">{t('profile.skinRecommendation')}</h2>
-              <p className="text-[10px] md:text-sm text-gray-500 hidden md:block">{t('profile.getPersonalizedRecommendations')}</p>
+              <h2 className="text-sm md:text-lg font-semibold text-gray-900 tracking-tight">{t('profile.skinRecommendation')}</h2>
+              <p className="text-[10px] md:text-xs text-gray-400 hidden md:block">{t('profile.getPersonalizedRecommendations')}</p>
             </div>
+          </div>
+
+          <div className="hidden md:flex md:flex-col mb-5 gap-2.5 text-sm text-gray-500">
+            <div className="flex items-center gap-2.5"><Sparkles className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.aiPoweredAnalysis')}</span></div>
+            <div className="flex items-center gap-2.5"><Heart className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.personalizedResults')}</span></div>
+            <div className="flex items-center gap-2.5"><Gift className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.productSuggestions')}</span></div>
           </div>
 
           <Link
             href={getLocalizedPath('/skin-recommendation', locale)}
-            className="flex items-center justify-center gap-1.5 md:gap-2 bg-pink-600 text-white px-3 py-2 md:px-6 md:py-3 rounded-lg md:rounded-xl text-xs md:text-base font-medium md:font-semibold hover:bg-pink-700 transition-colors min-h-[36px] md:min-h-[44px] touch-manipulation w-full"
+            className="mt-auto flex items-center justify-center gap-2 bg-gray-900 text-white px-3 py-2 md:px-6 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold hover:bg-gray-800 active:scale-[0.99] transition-all min-h-[40px] md:min-h-[46px] touch-manipulation w-full shadow-sm"
           >
-            <Sparkles className="h-3.5 w-3.5 md:h-5 md:w-5" aria-hidden="true" />
+            <Sparkles className="h-4 w-4 md:h-[18px] md:w-[18px]" aria-hidden="true" />
             {t('profile.getSkinAnalysis')}
           </Link>
-
-          <div className="hidden md:flex md:flex-col mt-5 gap-2 text-sm text-gray-600">
-            <div className="flex items-center gap-2"><Sparkles className="h-4 w-4" aria-hidden="true" /><span>{t('profile.aiPoweredAnalysis')}</span></div>
-            <div className="flex items-center gap-2"><Heart className="h-4 w-4" aria-hidden="true" /><span>{t('profile.personalizedResults')}</span></div>
-            <div className="flex items-center gap-2"><Gift className="h-4 w-4" aria-hidden="true" /><span>{t('profile.productSuggestions')}</span></div>
-          </div>
         </div>
       </div>
     </div>

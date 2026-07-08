@@ -231,17 +231,28 @@ export const getHomeData = unstable_cache(
     // linking from the homepage so Google discovers/indexes new PDPs quickly.
     const featuredIds = new Set(featured.map(p => p.id))
     const arrivalCutoff = Date.now() - NEW_ARRIVAL_WINDOW_DAYS * 24 * 3600 * 1000
+    const byNewest = (a: Product, b: Product) =>
+      new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime()
+
     const newArrivals = visible
       .filter(p => {
         if (featuredIds.has(p.id)) return false
         const created = p.createdAt ? new Date(p.createdAt).getTime() : 0
         return created >= arrivalCutoff
       })
-      .sort(
-        (a, b) =>
-          new Date(b.createdAt ?? 0).getTime() - new Date(a.createdAt ?? 0).getTime()
-      )
+      .sort(byNewest)
       .slice(0, NEW_ARRIVAL_MAX)
+
+    // Keep the rail visually full (4-up grid): pad with the next-newest
+    // products when fewer than NEW_ARRIVAL_MAX fall inside the window.
+    if (newArrivals.length < NEW_ARRIVAL_MAX) {
+      const usedIds = new Set([...featuredIds, ...newArrivals.map(p => p.id)])
+      const fillers = visible
+        .filter(p => !usedIds.has(p.id))
+        .sort(byNewest)
+        .slice(0, NEW_ARRIVAL_MAX - newArrivals.length)
+      newArrivals.push(...fillers)
+    }
 
     return { featured, newArrivals, categoryImages, categoryCounts, concernCounts }
   },

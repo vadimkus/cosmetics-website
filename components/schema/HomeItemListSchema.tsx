@@ -63,9 +63,8 @@ function localizedH1(seo: {
   return seo.en.h1
 }
 
-function localizedProductName(p: Product, locale: Locale): string {
-  if (locale === 'ar' && p.nameAr) return p.nameAr
-  if (locale === 'ru' && p.nameRu) return p.nameRu
+function localizedProductName(p: Product, _locale: Locale): string {
+  // Product names are never translated (brand identity) — English everywhere.
   return p.name
 }
 

@@ -52,9 +52,12 @@ export function parseStringArray(value?: string | null): string[] {
   return []
 }
 
-export function getLocalizedProductName(product: Product, locale: Locale): string {
-  if (locale === 'ar' && product.nameAr?.trim()) return product.nameAr.trim()
-  if (locale === 'ru' && product.nameRu?.trim()) return product.nameRu.trim()
+export function getLocalizedProductName(product: Product, _locale: Locale): string {
+  // Brand decision (2026-07-08): product names are NEVER translated — the
+  // English name is the product's identity across EN/AR/RU (packaging,
+  // invoices, and support all reference the same name). Translated names
+  // remain available as SEO alternates (ProductSchema.alternateName) and
+  // for search matching (lib/productSearch.ts).
   return product.name
 }
 

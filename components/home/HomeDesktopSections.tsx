@@ -290,12 +290,8 @@ function RailProductCard({
   badge: 'inStock' | 'new'
 }) {
   const imgSrc = pickFirstImage(product)
-  const name =
-    locale === 'ar' && product.nameAr
-      ? product.nameAr
-      : locale === 'ru' && product.nameRu
-      ? product.nameRu
-      : product.name
+  // Product names are never translated (brand identity) — English everywhere.
+  const name = product.name
   return (
     <Link
       href={getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)}

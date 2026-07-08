@@ -38,12 +38,8 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
     )
   }
 
-  // Get localized product name
-  const getName = (product: Product): string => {
-    if (locale === 'ar' && product.nameAr) return product.nameAr
-    if (locale === 'ru' && product.nameRu) return product.nameRu
-    return product.name
-  }
+  // Product names are never translated (brand identity) — English everywhere.
+  const getName = (product: Product): string => product.name
 
   // Get localized product description
   const getDescription = (product: Product): string => {

@@ -4,7 +4,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, ChevronDown, ShoppingBag, Pencil } from 'lucide-react'
+import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, ChevronDown, ShoppingBag, Pencil, Award } from 'lucide-react'
 import Link from 'next/link'
 import CheckoutHeader from '@/components/checkout/CheckoutHeader'
 import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
@@ -44,8 +44,9 @@ export default function CheckoutClient() {
   const [paymentOrderId, setPaymentOrderId] = useState<string | null>(null)
   const [paymentTotal, setPaymentTotal] = useState<number>(0)
 
-  // GENOSYS Rewards — points redemption (retail track only)
+  // GENOSYS Rewards — points redemption + earn preview (retail track only)
   const [loyaltyBalance, setLoyaltyBalance] = useState(0)
+  const [loyaltyMultiplier, setLoyaltyMultiplier] = useState(0)
   const [usePoints, setUsePoints] = useState(false)
 
   useEffect(() => {
@@ -56,6 +57,7 @@ export default function CheckoutClient() {
       .then(json => {
         if (!cancelled && json?.success && json.track === 'REWARDS') {
           setLoyaltyBalance(Number(json.points?.balance || 0))
+          setLoyaltyMultiplier(Number(json.multiplier || 1))
         }
       })
       .catch(() => {})
@@ -187,6 +189,7 @@ export default function CheckoutClient() {
   const shippingCost = calculateMobileShipping(subtotal, selectedEmirate)
   const total = Math.round((subtotal + shippingCost - loyaltyDiscount) * 100) / 100 // VAT-inclusive
   const vatAmount = Math.round(calculateVatIncluded(total) * 100) / 100
+  const earnPreviewPoints = loyaltyMultiplier > 0 ? Math.floor(total * loyaltyMultiplier) : 0
 
   // Waterfall discount breakdown: compute retail total, VIP discount, and bundle discount
   const {
@@ -850,6 +853,12 @@ export default function CheckoutClient() {
                     <span className="text-gray-900">{locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}:</span>
                     <span className="text-primary-600">AED {total.toFixed(2)}</span>
                   </div>
+                  {earnPreviewPoints > 0 && (
+                    <div className={`flex items-center gap-1.5 text-[11px] text-gray-500 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Award className="h-3.5 w-3.5 text-primary-600 shrink-0" />
+                      {t('rewards.earnPreview', { points: earnPreviewPoints.toLocaleString() })}
+                    </div>
+                  )}
                   {/* You Saved */}
                   {hasAnyDiscount && (
                     <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-1.5 text-center">
@@ -1319,6 +1328,12 @@ export default function CheckoutClient() {
                       <span className={`text-sm md:text-lg font-bold text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.total')}</span>
                       <span className="text-base md:text-xl font-bold text-primary-600">AED {total.toFixed(2)}</span>
                     </div>
+                    {earnPreviewPoints > 0 && (
+                      <div className={`flex items-center gap-1.5 text-[10px] md:text-xs text-gray-500 mt-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <Award className="h-3.5 w-3.5 text-primary-600 shrink-0" />
+                        {t('rewards.earnPreview', { points: earnPreviewPoints.toLocaleString() })}
+                      </div>
+                    )}
                   </div>
                   {/* You Saved */}
                   {hasAnyDiscount && (

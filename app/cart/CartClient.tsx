@@ -10,7 +10,7 @@ import { springPresets } from '@/lib/appleAnimations'
 import FreeMaskPromotion from '@/components/FreeMaskPromotion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag } from 'lucide-react'
+import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag, Award } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
@@ -103,6 +103,28 @@ export default function CartClient() {
   const shippingCost = calculateMobileShipping(subtotal, selectedEmirate || 'Dubai')
   const total = subtotal + shippingCost
   const freeShippingThreshold = MOBILE_CHECKOUT_CONFIG.freeShippingThreshold
+
+  // GENOSYS Rewards earn preview (rewards track only; partners see nothing)
+  const [loyaltyMultiplier, setLoyaltyMultiplier] = useState(0)
+  useEffect(() => {
+    if (!user) {
+      setLoyaltyMultiplier(0)
+      return
+    }
+    let cancelled = false
+    fetch('/api/user/membership', { credentials: 'include' })
+      .then(res => (res.ok ? res.json() : null))
+      .then(json => {
+        if (!cancelled) {
+          setLoyaltyMultiplier(json?.success && json.track === 'REWARDS' ? Number(json.multiplier || 1) : 0)
+        }
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
+    }
+  }, [user])
+  const earnPreviewPoints = user && loyaltyMultiplier > 0 ? Math.floor(total * loyaltyMultiplier) : 0
   
   // Check if Black Friday sale is active
   const blackFridayActive = isBlackFridaySaleActive()
@@ -816,6 +838,16 @@ export default function CartClient() {
                       <span>{user ? `AED ${total.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
                     </div>
                   </div>
+
+                  {/* GENOSYS Rewards — earn preview */}
+                  {earnPreviewPoints > 0 && (
+                    <div className={`flex items-center gap-1.5 bg-gray-50 border border-gray-100 rounded-lg px-2.5 py-2 mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Award className="h-3.5 w-3.5 text-primary-600 shrink-0" />
+                      <span className={`text-[11px] md:text-xs text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        {t('rewards.earnPreview', { points: earnPreviewPoints.toLocaleString() })}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Free Masks Notice */}

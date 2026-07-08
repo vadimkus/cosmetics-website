@@ -180,22 +180,6 @@ export default function ProfilePageRefactored() {
   // Initialize profile picture and customer number when user loads
   useEffect(() => {
     if (user) {
-      // Check profile picture via debug endpoint (only if NOT editing to avoid disruption)
-      if (!isEditing) {
-        fetch('/api/debug/profile-picture')
-          .then(res => res.json())
-          .then(data => {
-            if (data.success && data.profilePicture.exists && !user.profilePicture && !isEditing) {
-              forceRefreshUser().catch(err => {
-                errorLog('[PROFILE_PAGE] Error refreshing user:', err)
-              })
-            }
-          })
-          .catch(err => {
-            errorLog('[PROFILE_PAGE] Error checking profile picture:', err)
-          })
-      }
-      
       // If no profile picture but user is logged in, try to refresh from server
       if (!user.profilePicture && !isEditing) {
         forceRefreshUser().catch(err => {

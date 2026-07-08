@@ -184,24 +184,17 @@ headers: {
 
 ## 🧪 TESTING
 
-### Test Endpoint Available
-```
-GET /api/test-enhanced-mobile?productId=1&userId=USER_ID
-```
+> Note (2026-07-08): the `/api/test-enhanced-mobile` endpoint was removed in the
+> test/debug route cleanup. Test enhanced product data through the real
+> endpoints instead.
 
 ### Sample Test Commands
 ```bash
-# Test Microneedle Roller (variants)
-curl "http://localhost:3000/api/test-enhanced-mobile?productId=1"
+# Test via enhanced web API
+curl "http://localhost:3000/api/products/1?enhanced=true"
 
-# Test BB Cushion (color variants)  
-curl "http://localhost:3000/api/test-enhanced-mobile?productId=41"
-
-# Test Beauty Box (bundle pricing)
-curl "http://localhost:3000/api/test-enhanced-mobile?productId=55"
-
-# Test with user context (discounts)
-curl "http://localhost:3000/api/test-enhanced-mobile?productId=1&userId=USER_ID"
+# Test via mobile API (requires API key)
+curl -H "x-api-key: YOUR_API_KEY" "http://localhost:3000/api/mobile/products/41"
 ```
 
 ## 📱 MOBILE APP INTEGRATION

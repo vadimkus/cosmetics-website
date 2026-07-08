@@ -108,14 +108,6 @@ The API automatically derives formulation type from product category and descrip
 
 ## 🧪 TESTING THE NEW FIELDS
 
-### **Test Individual Product:**
-```bash
-# Test Product #19 (ALL FOR SENSITIVE SERUM)
-curl "http://localhost:3000/api/test-enhanced-mobile?productId=19" | jq '.testData.enhancedProduct | {
-  size, skinType, formulation, keyBenefits, origin
-}'
-```
-
 ### **Test via Enhanced API:**
 ```bash
 # Test via enhanced web API

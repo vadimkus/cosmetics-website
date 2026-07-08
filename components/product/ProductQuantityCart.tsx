@@ -174,19 +174,21 @@ export default function ProductQuantityCart({
         <div className={`flex items-center gap-3 md:gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <label className="text-xs md:text-sm font-medium text-gray-700">{t('product.quantity')}:</label>
           <div className="flex items-center border border-gray-300 rounded-lg">
+            {/* Explicit text colors: the page inherits white text in system
+                dark mode, which made the unstyled qty number invisible. */}
             <button
               onClick={handleDecrease}
-              className="p-1.5 md:p-2 hover:bg-gray-100 transition-colors touch-manipulation min-h-[36px] md:min-h-[44px] min-w-[36px] md:min-w-[44px] flex items-center justify-center"
+              className="p-1.5 md:p-2 text-gray-600 hover:bg-gray-100 transition-colors touch-manipulation min-h-[36px] md:min-h-[44px] min-w-[36px] md:min-w-[44px] flex items-center justify-center"
               aria-label={t('product.decreaseQuantity')}
             >
               <Minus className="h-3.5 w-3.5 md:h-4 md:w-4" />
             </button>
-            <span className="px-3 md:px-4 py-1.5 md:py-2 text-center min-w-[2.5rem] md:min-w-[3rem] font-medium text-sm md:text-base">
+            <span className="px-3 md:px-4 py-1.5 md:py-2 text-center min-w-[2.5rem] md:min-w-[3rem] font-medium text-sm md:text-base text-gray-900">
               {quantity}
             </span>
             <button
               onClick={handleIncrease}
-              className="p-1.5 md:p-2 hover:bg-gray-100 transition-colors touch-manipulation min-h-[36px] md:min-h-[44px] min-w-[36px] md:min-w-[44px] flex items-center justify-center"
+              className="p-1.5 md:p-2 text-gray-600 hover:bg-gray-100 transition-colors touch-manipulation min-h-[36px] md:min-h-[44px] min-w-[36px] md:min-w-[44px] flex items-center justify-center"
               aria-label={t('product.increaseQuantity')}
             >
               <Plus className="h-3.5 w-3.5 md:h-4 md:w-4" />

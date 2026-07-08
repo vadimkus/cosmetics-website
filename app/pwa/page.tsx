@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowLeft, ArrowRight, Check, Smartphone, Monitor, Apple, Chrome, Share, Plus, MoreVertical, Download, Home, Sparkles } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Smartphone, Monitor, Apple, Share, Plus, MoreVertical, Download, Home, Sparkles } from 'lucide-react'
+import { Chrome } from '@/components/icons/BrandIcons'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 

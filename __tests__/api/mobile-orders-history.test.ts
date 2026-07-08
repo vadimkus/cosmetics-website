@@ -55,6 +55,12 @@ jest.mock('@/lib/productsDb', () => ({
   getProductById: jest.fn(),
 }))
 
+// Loyalty engine pulls in the real Prisma client — mock the whole module
+jest.mock('@/lib/loyalty', () => ({
+  resolveRedemptionForCheckout: jest.fn(async () => ({ points: 0, amountAed: 0 })),
+  recordRedemption: jest.fn(async () => true),
+}))
+
 jest.mock('@/lib/cartPricing', () => ({
   getCartLinePricing: jest.fn(),
 }))

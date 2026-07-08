@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { Share2, Check, Copy, MessageCircle, Send, Instagram } from 'lucide-react'
+import { Share2, Check, Copy, MessageCircle, Send } from 'lucide-react'
+import { Instagram } from '@/components/icons/BrandIcons'
 import { useWebShare } from '@/hooks/useWebShare'
 import { cn } from '@/lib/utils'
 import { errorLog } from '@/lib/logger'

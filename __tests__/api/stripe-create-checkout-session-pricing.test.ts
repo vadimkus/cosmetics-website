@@ -75,6 +75,13 @@ jest.mock('@/lib/productsDb', () => ({
   getProductById: jest.fn(),
 }))
 
+// DB-backed rate limiter (added 2026-07-06) pulls in the real Prisma client
+// and reads request.headers — mock both sides.
+jest.mock('@/lib/rateLimitSimple', () => ({
+  rateLimitSimple: jest.fn(() => jest.fn(async () => ({ success: true }))),
+  getClientIdentifierFromNextRequest: jest.fn(() => 'test-client'),
+}))
+
 const createProduct = (overrides: Partial<Product> = {}): Product => ({
   id: 'product-1',
   productNumber: '1',

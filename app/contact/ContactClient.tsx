@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { ArrowLeft, Phone, Mail, MapPin, FileText, Globe, Instagram, Facebook } from 'lucide-react'
+import { ArrowLeft, Phone, Mail, MapPin, FileText, Globe } from 'lucide-react'
+import { Instagram, Facebook } from '@/components/icons/BrandIcons'
 import { IconOfficialDistributor } from '@/components/icons/BrandIcons'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'

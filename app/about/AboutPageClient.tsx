@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import {
   ArrowLeft, ArrowRight, Sparkles, Target, Building2, Phone as PhoneIcon,
-  ShieldCheck, MapPin, Calendar, Globe2, Mail, Instagram,
+  ShieldCheck, MapPin, Calendar, Globe2, Mail,
 } from 'lucide-react'
-import { IconOfficialDistributor } from '@/components/icons/BrandIcons'
+import { IconOfficialDistributor, Instagram } from '@/components/icons/BrandIcons'
 import Logo from '@/components/Logo'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'

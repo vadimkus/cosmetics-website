@@ -1,5 +1,6 @@
 import Link from 'next/link'
-import { MapPin, Phone, Mail, Truck, ArrowLeft, Instagram, Globe, Award, FileText } from 'lucide-react'
+import { MapPin, Phone, Mail, Truck, ArrowLeft, Globe, Award, FileText } from 'lucide-react'
+import { Instagram } from '@/components/icons/BrandIcons'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 import { LocationPageProps } from '@/types/common'

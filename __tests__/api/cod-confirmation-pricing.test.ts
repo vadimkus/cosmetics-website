@@ -54,6 +54,26 @@ jest.mock('@/lib/mobileCheckoutConfig', () => ({
   calculateVatIncluded: jest.fn(() => 0),
 }))
 
+// Loyalty engine pulls in the real Prisma client — mock the whole module
+jest.mock('@/lib/loyalty', () => ({
+  resolveRedemptionForCheckout: jest.fn(async () => ({ points: 0, amountAed: 0 })),
+  recordRedemption: jest.fn(async () => true),
+}))
+
+// DB-backed rate limiter also pulls in the real Prisma client
+jest.mock('@/lib/rateLimitSimple', () => ({
+  rateLimitSimple: jest.fn(() => jest.fn(async () => ({ success: true }))),
+  getClientIdentifierFromNextRequest: jest.fn(() => 'test-client'),
+}))
+
+jest.mock('next/headers', () => ({
+  cookies: jest.fn(async () => ({ get: jest.fn(() => undefined) })),
+}))
+
+jest.mock('@/lib/jwt', () => ({
+  verifySessionToken: jest.fn(() => null),
+}))
+
 const createProduct = (overrides: Partial<Product> = {}): Product => ({
   id: 'product-1',
   productNumber: '1',

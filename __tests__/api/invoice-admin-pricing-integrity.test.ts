@@ -28,6 +28,11 @@ jest.mock('@/lib/csrf', () => ({
 
 jest.mock('@/lib/adminAuth', () => ({
   requireAdminAuth: jest.fn(async () => ({ authorized: true })),
+  verifyAdminSessionToken: jest.fn(() => ({ email: 'admin@genosys.ae' })),
+}))
+
+jest.mock('@/lib/jwt', () => ({
+  verifySessionToken: jest.fn(() => null),
 }))
 
 jest.mock('@/lib/userStorageDb', () => ({
@@ -87,6 +92,12 @@ const storedOrder = {
 function createRequest(body: unknown): Parameters<typeof generateInvoice>[0] {
   return {
     json: async () => body,
+    // Invoice route requires owner session or admin cookie (2026-07-06 hardening)
+    cookies: {
+      get: jest.fn((name: string) =>
+        name === 'admin-session' ? { name, value: 'admin-token' } : undefined
+      ),
+    },
   } as unknown as Parameters<typeof generateInvoice>[0]
 }
 

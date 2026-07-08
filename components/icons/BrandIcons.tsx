@@ -242,3 +242,37 @@ export function IconMadeInKorea(props: IconProps) {
     </Base>
   )
 }
+
+/* ─── Social/brand glyphs removed from lucide-react v1.0 ────────────── */
+/* lucide dropped third-party brand icons upstream. These are the original
+ * lucide 0.x glyphs, kept as drop-in replacements (same names + props). */
+
+export function Instagram(props: IconProps) {
+  return (
+    <Base strokeWidth={2} {...props}>
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </Base>
+  )
+}
+
+export function Facebook(props: IconProps) {
+  return (
+    <Base strokeWidth={2} {...props}>
+      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+    </Base>
+  )
+}
+
+export function Chrome(props: IconProps) {
+  return (
+    <Base strokeWidth={2} {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <circle cx="12" cy="12" r="4" />
+      <line x1="21.17" x2="12" y1="8" y2="8" />
+      <line x1="3.95" x2="8.54" y1="6.06" y2="14" />
+      <line x1="10.88" x2="15.46" y1="21.94" y2="14" />
+    </Base>
+  )
+}

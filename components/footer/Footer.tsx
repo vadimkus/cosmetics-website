@@ -3,8 +3,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import {
-  Instagram,
-  Facebook,
   Mail,
   Phone,
   MapPin,
@@ -15,6 +13,8 @@ import {
   IconShipping,
   IconSecureCheckout,
   IconCertified,
+  Instagram,
+  Facebook,
 } from '@/components/icons/BrandIcons'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'

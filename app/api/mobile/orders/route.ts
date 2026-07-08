@@ -11,7 +11,35 @@ import { trackUserActivity } from '@/lib/activityTracker'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import { getCustomerEmailWhere } from '@/lib/mobileOrderOwnership'
-import { resolveRedemptionForCheckout, recordRedemption } from '@/lib/loyalty'
+import { resolveRedemptionForCheckout, recordRedemption, loyaltyTrackForUser } from '@/lib/loyalty'
+
+/**
+ * Points earned per order for display in order history.
+ * Real ORDER_EARN ledger entries win; delivered orders from before the
+ * program launch (covered by the aggregate BACKFILL credit) fall back to
+ * the backfill formula (1 pt per AED of total) — rewards-track users only.
+ */
+async function getEarnedPointsByOrder(
+  orders: Array<{ id: string; status: string; total: number }>,
+  user: { discountType?: string | null; discountPercentage?: number | null },
+): Promise<Map<string, number>> {
+  const earned = new Map<string, number>()
+  if (orders.length === 0 || loyaltyTrackForUser(user) !== 'REWARDS') return earned
+
+  const entries = await prisma.loyaltyTransaction.findMany({
+    where: { orderId: { in: orders.map(o => o.id) }, type: 'ORDER_EARN' },
+    select: { orderId: true, points: true },
+  })
+  for (const e of entries) {
+    if (e.orderId) earned.set(e.orderId, e.points)
+  }
+  for (const o of orders) {
+    if (!earned.has(o.id) && String(o.status).toUpperCase() === 'DELIVERED') {
+      earned.set(o.id, Math.floor(Number(o.total) || 0))
+    }
+  }
+  return earned
+}
 import { CartItem, Product } from '@/types'
 import {
   getValidatedBundleDiscountPercent,
@@ -159,6 +187,8 @@ export async function GET(request: NextRequest) {
         )
       }
 
+      const earnedSingle = await getEarnedPointsByOrder([order], user)
+
       // Format order data for mobile app
       const formattedOrder = {
         id: order.id,
@@ -166,6 +196,8 @@ export async function GET(request: NextRequest) {
         status: order.status,
         paymentMethod: order.paymentMethod,
         paymentStatus: order.paymentStatus,
+        loyaltyPointsEarned: earnedSingle.get(order.id) || 0,
+        loyaltyPointsRedeemed: order.loyaltyPointsRedeemed || 0,
         orderNotes: order.orderNotes || '',
         subtotal: order.subtotal,
         discountPercentage: order.discountPercentage || null,
@@ -228,6 +260,8 @@ export async function GET(request: NextRequest) {
       take: limit
     })
 
+    const earnedByOrder = await getEarnedPointsByOrder(orders, user)
+
     // Format orders data for mobile app
     const formattedOrders = orders.map(order => ({
       id: order.id,
@@ -236,6 +270,8 @@ export async function GET(request: NextRequest) {
       paymentMethod: order.paymentMethod,
       paymentStatus: order.paymentStatus,
       paymentFlow: extractPaymentFlow(order),
+      loyaltyPointsEarned: earnedByOrder.get(order.id) || 0,
+      loyaltyPointsRedeemed: order.loyaltyPointsRedeemed || 0,
       orderNotes: order.orderNotes || '',
       subtotal: order.subtotal,
       discountPercentage: order.discountPercentage || null,

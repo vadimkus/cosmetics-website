@@ -4,7 +4,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 import { getPreferredEmail, isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 import { findUserByEmail, findUserById } from '@/lib/userStorageDb'
-import { SITE_URL } from '@/lib/siteConfig'
+import { SITE_URL, LEGAL_INFO, SOCIAL_LINKS } from '@/lib/siteConfig'
 import { LOGO_URL } from '@/lib/email/utils'
 import { getOrderByNumber, OrderWithItems } from '@/lib/orderStorageDb'
 import { verifySessionToken } from '@/lib/jwt'
@@ -79,7 +79,12 @@ function loadInvoiceTranslations(locale: string): Translations {
       emailSubject: 'Invoice',
       emailSubjectSuffix: 'GENOSYS Professional',
       na: 'N/A',
-      viewOrder: 'View Order'
+      viewOrder: 'View Order',
+      trnLabel: 'TRN',
+      licenseLabel: 'Trade License',
+      bankLabel: 'Bank',
+      ibanLabel: 'IBAN',
+      accountLabel: 'Acc No'
     },
     ar: {
       title: 'فاتورة ضريبية',
@@ -114,7 +119,12 @@ function loadInvoiceTranslations(locale: string): Translations {
       emailSubject: 'فاتورة',
       emailSubjectSuffix: 'GENOSYS الاحترافية',
       na: 'غير متوفر',
-      viewOrder: 'عرض الطلب'
+      viewOrder: 'عرض الطلب',
+      trnLabel: 'الرقم الضريبي',
+      licenseLabel: 'الرخصة التجارية',
+      bankLabel: 'البنك',
+      ibanLabel: 'IBAN',
+      accountLabel: 'رقم الحساب'
     },
     ru: {
       title: 'НАЛОГОВЫЙ СЧЁТ',
@@ -149,7 +159,12 @@ function loadInvoiceTranslations(locale: string): Translations {
       emailSubject: 'Счёт',
       emailSubjectSuffix: 'GENOSYS Professional',
       na: 'Н/Д',
-      viewOrder: 'Посмотреть заказ'
+      viewOrder: 'Посмотреть заказ',
+      trnLabel: 'TRN (налоговый №)',
+      licenseLabel: 'Торговая лицензия',
+      bankLabel: 'Банк',
+      ibanLabel: 'IBAN',
+      accountLabel: 'Счёт №'
     }
   }
   return (translations[locale] || translations['en']) as Translations
@@ -286,7 +301,8 @@ function buildInvoiceDataFromOrder(order: OrderWithItems, requestedLocale?: stri
   }
 }
 
-function generateInvoiceHTML(data: InvoiceData, t: Translations): string {
+// Exported for preview/testing (scripts) — not a route handler.
+export function generateInvoiceHTML(data: InvoiceData, t: Translations): string {
   const {
     orderNumber,
     customerName,
@@ -416,10 +432,23 @@ function generateInvoiceHTML(data: InvoiceData, t: Translations): string {
           <td align="center" style="padding: 40px 20px;">
             <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="max-width: 580px;">
               
-              <!-- Logo -->
+              <!-- Letterhead: logo + seller legal identity (UAE tax invoice requirements) -->
               <tr>
-                <td style="text-align: center; padding-bottom: 32px;">
-                  <img src="${LOGO_URL}" alt="GENOSYS" style="height: 32px; width: auto;" />
+                <td style="padding-bottom: 28px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                    <tr>
+                      <td style="vertical-align: top; text-align: ${textAlign};">
+                        <img src="${LOGO_URL}" alt="GENOSYS" style="height: 30px; width: auto;" />
+                      </td>
+                      <td style="vertical-align: top; text-align: ${textAlignReverse}; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 11px; color: #6e6e73; line-height: 1.7;">
+                        <strong style="font-size: 12px; color: #1d1d1f;">${LEGAL_INFO.companyName}</strong><br>
+                        ${t.trnLabel}: ${LEGAL_INFO.trn} &nbsp;·&nbsp; ${t.licenseLabel}: ${LEGAL_INFO.license}<br>
+                        ${LEGAL_INFO.registeredAddress}<br>
+                        ${SOCIAL_LINKS.email} &nbsp;·&nbsp; ${SOCIAL_LINKS.phoneDisplay} &nbsp;·&nbsp; genosys.ae
+                      </td>
+                    </tr>
+                  </table>
+                  <div style="height: 1px; background-color: #d2d2d7; margin-top: 20px;"></div>
                 </td>
               </tr>
               
@@ -601,12 +630,15 @@ function generateInvoiceHTML(data: InvoiceData, t: Translations): string {
                 </td>
               </tr>
               
-              <!-- Footer -->
+              <!-- Footer: legal identity + banking details -->
               <tr>
-                <td style="padding-top: 64px; text-align: center;">
-                  <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.6;">
-                    Genosys Middle East FZ-LLC<br>
-                    ${t.officialDistributor}<br><br>
+                <td style="padding-top: 56px;">
+                  <div style="height: 1px; background-color: #e5e7eb; margin-bottom: 20px;"></div>
+                  <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.8; text-align: center;">
+                    <strong style="color: #6e6e73;">${LEGAL_INFO.companyName}</strong> — ${t.officialDistributor}<br>
+                    ${t.trnLabel}: ${LEGAL_INFO.trn} &nbsp;·&nbsp; ${t.licenseLabel}: ${LEGAL_INFO.license}<br>
+                    ${LEGAL_INFO.registeredAddress}<br>
+                    ${t.bankLabel}: ${LEGAL_INFO.bankName} &nbsp;·&nbsp; ${t.ibanLabel}: ${LEGAL_INFO.iban} &nbsp;·&nbsp; ${t.accountLabel}: ${LEGAL_INFO.accountNo}<br><br>
                     ${t.copyright}
                   </div>
                 </td>

@@ -64,8 +64,8 @@ export function renderEmailFooter(
                     <div style="font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Roboto,sans-serif;font-size:12px;color:#86868b;line-height:1.7;">
                       <strong style="color:#6e6e73;font-weight:600;">${LEGAL_INFO.companyName}</strong><br>
                       ${c.distributor}<br>
-                      ${LEGAL_INFO.city}<br>
-                      TRN: ${LEGAL_INFO.trn}<br><br>
+                      ${LEGAL_INFO.registeredAddress}<br>
+                      TRN: ${LEGAL_INFO.trn} &nbsp;·&nbsp; Trade License: ${LEGAL_INFO.license}<br><br>
                       ${c.rights}
                     </div>
                   </td>

@@ -343,3 +343,88 @@ export const sendLoyaltyTierUpgradeEmail = async (data: LoyaltyTierUpgradeEmailD
     emailShell('Tier Upgrade', inner, data.locale || 'en'),
   )
 }
+
+export interface ReviewRequestEmailData {
+  customerName: string
+  customerEmail: string
+  orderNumber: string
+  products: Array<{ id: string; name: string; image?: string | null }>
+  locale?: string
+}
+
+/**
+ * Post-delivery review request (sent ~5 days after DELIVERED via cron).
+ * Lists the order's products with direct links to each review section and
+ * leads with the +50 pts per review incentive.
+ */
+export const sendReviewRequestEmail = async (data: ReviewRequestEmailData) => {
+  const firstName = data.customerName.split(' ')[0] || data.customerName
+  const productRows = data.products
+    .map(p => {
+      const url = `${SITE_URL}/products/${p.id}#reviews`
+      const img = p.image
+        ? `<img src="${p.image.startsWith('http') ? p.image : `${SITE_URL}${p.image}`}" alt="" width="56" height="56" style="width: 56px; height: 56px; border-radius: 12px; object-fit: cover; background-color: #f5f5f7;" />`
+        : `<div style="width: 56px; height: 56px; border-radius: 12px; background-color: #f5f5f7;"></div>`
+      return `
+        <tr>
+          <td style="padding: 10px 16px;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+              <tr>
+                <td width="56" style="vertical-align: middle;">${img}</td>
+                <td style="vertical-align: middle; padding: 0 12px;">
+                  <div style="font-family: ${FONT_TEXT}; font-size: 15px; font-weight: 600; color: #1d1d1f;">${p.name}</div>
+                </td>
+                <td width="110" style="vertical-align: middle; text-align: right;">
+                  <a href="${url}" style="display: inline-block; font-family: ${FONT_TEXT}; font-size: 13px; font-weight: 600; color: #0071e3; text-decoration: none; border: 1px solid #0071e3; padding: 7px 14px; border-radius: 980px;">Rate it</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>`
+    })
+    .join('')
+
+  const inner = `
+    <tr>
+      <td style="text-align: center; padding-bottom: 24px;">
+        <div style="display: inline-block; width: 64px; height: 64px; background-color: #1d1d1f; border-radius: 50%; line-height: 64px; font-size: 28px; color: #ffffff;">★</div>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center; padding-bottom: 12px;">
+        <h1 style="margin: 0; font-family: ${FONT_DISPLAY}; font-size: 28px; font-weight: 600; color: #1d1d1f; letter-spacing: -0.02em;">
+          How was your order?
+        </h1>
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center; padding-bottom: 32px;">
+        <span style="font-family: ${FONT_TEXT}; font-size: 17px; color: #86868b;">Order #${data.orderNumber}</span>
+      </td>
+    </tr>
+    <tr>
+      <td style="font-family: ${FONT_TEXT}; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: center; padding-bottom: 28px;">
+        Hi ${firstName}, we'd love to hear what you think. Rate your products and earn
+        <strong>50 GENOSYS Rewards points for every review</strong> — points you can spend
+        right at checkout (100 pts = AED 5).
+      </td>
+    </tr>
+    <tr>
+      <td style="padding-bottom: 32px;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #fbfbfd; border-radius: 16px; padding: 8px 0;">
+          ${productRows}
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td style="font-family: ${FONT_TEXT}; font-size: 13px; line-height: 1.6; color: #86868b; text-align: center; padding-bottom: 48px;">
+        Reviews take under a minute — a star rating and a couple of sentences.
+      </td>
+    </tr>
+  `
+  return sendEmail(
+    data.customerEmail,
+    `How was your order? Earn 50 points per review`,
+    emailShell('Review Your Order', inner, data.locale || 'en'),
+  )
+}

@@ -46,8 +46,8 @@ type VariantCandidate = {
 }
 
 interface PricingContractOptions {
-  selectedSize?: string
-  selectedColor?: string
+  selectedSize?: string | undefined
+  selectedColor?: string | undefined
 }
 
 const roundMoney = (value: number) => Math.round(value * 100) / 100

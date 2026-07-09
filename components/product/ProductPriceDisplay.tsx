@@ -13,8 +13,10 @@ interface ProductPriceDisplayProps {
   product: Product
   basePrice: number
   user: User | null
-  selectedSize?: string
-  selectedColor?: string
+  // `| undefined` required: callers pass explicit undefined under
+  // exactOptionalPropertyTypes (see ProductPageClientRefactored).
+  selectedSize?: string | undefined
+  selectedColor?: string | undefined
 }
 
 export default function ProductPriceDisplay({ product, basePrice, user, selectedSize, selectedColor }: ProductPriceDisplayProps) {

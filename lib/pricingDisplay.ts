@@ -17,7 +17,7 @@ export interface PricingDisplay {
 export function getPricingDisplay(
   product: Product,
   user: User | ApiUser | null = null,
-  options: { selectedSize?: string; selectedColor?: string } = {}
+  options: { selectedSize?: string | undefined; selectedColor?: string | undefined } = {}
 ): PricingDisplay {
   const contract = buildPricingContract(product, user, options)
   const originalPrice = contract.originalPrice && contract.originalPrice > contract.displayPrice

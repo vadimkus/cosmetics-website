@@ -13,6 +13,10 @@ export function normalizeSearchText(value: unknown): string {
 }
 
 function buildHaystack(product: Product): string {
+  // Variant colors/sizes make shade and size queries work ("beige cushion",
+  // "0.25mm roller", "600ml cleanser") — those values never appear in the
+  // product name or description.
+  const variantTerms = (product.variants ?? []).flatMap((v) => [v.color, v.size])
   return [
     product.name,
     product.nameRu,
@@ -21,6 +25,8 @@ function buildHaystack(product: Product): string {
     product.description,
     product.descriptionRu,
     product.descriptionAr,
+    product.size,
+    ...variantTerms,
   ]
     .map(normalizeSearchText)
     .join(' ')

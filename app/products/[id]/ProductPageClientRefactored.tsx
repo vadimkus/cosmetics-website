@@ -306,13 +306,15 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
       )}
 
       <div className="container mx-auto px-3 md:px-4 py-1 md:py-8 lg:py-16">
-        {/* Breadcrumb + Share - hidden in app-like mode (PWA/mobile web) which has its own header */}
+        {/* Breadcrumb - hidden in app-like mode (PWA/mobile web) which has its own header.
+            Share lives next to the product title (desktop) / in the mobile row below,
+            not stranded at the end of the breadcrumb. */}
         {!isAppLikeMode && (
           <div className={`flex items-center justify-between gap-3 pt-2 md:pt-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <ProductBreadcrumb product={product} className="mb-0 flex-1 min-w-0" />
             <button
               onClick={handleShare}
-              className={`p-2 rounded-full flex-shrink-0 transition-colors ${
+              className={`md:hidden p-2 rounded-full flex-shrink-0 transition-colors ${
                 shareStatus === 'copied'
                   ? 'text-green-600 bg-green-50'
                   : 'text-gray-500 hover:text-primary-600 hover:bg-gray-50'
@@ -321,9 +323,9 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               title={shareStatus === 'copied' ? (t('product.linkCopied') || 'Link copied!') : (t('product.shareProduct') || 'Share')}
             >
               {shareStatus === 'copied' ? (
-                <Check className="h-4 w-4 md:h-5 md:w-5" />
+                <Check className="h-4 w-4" />
               ) : (
-                <Share2 className="h-4 w-4 md:h-5 md:w-5" />
+                <Share2 className="h-4 w-4" />
               )}
             </button>
           </div>
@@ -394,10 +396,29 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </span>
               </div>
 
-              {/* Product Name — larger at lg+, tracking-tight for tighter line economy */}
-              <h1 className={`text-3xl xl:text-4xl font-bold text-gray-900 leading-tight tracking-tight mb-3 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                {product.name}
-              </h1>
+              {/* Product Name — larger at lg+, tracking-tight for tighter line economy.
+                  Share sits inline after the title, standard PDP placement. */}
+              <div className={`flex items-start gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <h1 className={`text-3xl xl:text-4xl font-bold text-gray-900 leading-tight tracking-tight ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                  {product.name}
+                </h1>
+                <button
+                  onClick={handleShare}
+                  className={`p-2 mt-1 rounded-full flex-shrink-0 transition-colors ${
+                    shareStatus === 'copied'
+                      ? 'text-green-600 bg-green-50'
+                      : 'text-gray-400 hover:text-primary-600 hover:bg-gray-50'
+                  }`}
+                  aria-label={t('product.shareProduct') || 'Share'}
+                  title={shareStatus === 'copied' ? (t('product.linkCopied') || 'Link copied!') : (t('product.shareProduct') || 'Share')}
+                >
+                  {shareStatus === 'copied' ? (
+                    <Check className="h-5 w-5" />
+                  ) : (
+                    <Share2 className="h-5 w-5" />
+                  )}
+                </button>
+              </div>
 
               {/* Rating & Size (honest: driven by real review count) */}
               <div className={`flex items-center flex-wrap gap-3 text-sm ${dir === 'rtl' ? 'flex-row-reverse justify-end' : 'justify-start'}`}>

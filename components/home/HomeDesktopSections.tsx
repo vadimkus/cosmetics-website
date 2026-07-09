@@ -304,6 +304,9 @@ function formatProductCount(count: number, locale: Locale): string {
 }
 
 function pickFirstImage(product: Product): string {
+  // The main `image` field is the curated hero shot — always prefer it over
+  // the gallery, whose first entry is often an infographic or box shot.
+  if (product.image) return product.image
   if (product.images) {
     try {
       const arr = JSON.parse(product.images) as string[]
@@ -312,7 +315,7 @@ function pickFirstImage(product: Product): string {
       /* noop */
     }
   }
-  return product.image || '/images/placeholder.png'
+  return '/images/placeholder.png'
 }
 
 /**

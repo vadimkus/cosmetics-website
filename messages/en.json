@@ -470,7 +470,18 @@
   },
   "pwa": {
     "installApp": "Install App",
-    "installIOS": "Tap Share → Add to Home Screen"
+    "installIOS": "Tap Share → Add to Home Screen",
+    "installTitle": "Install GENOSYS App",
+    "installSubtitle": "Get the full app experience with faster loading and offline access to our premium beauty products.",
+    "benefitFast": "Lightning fast performance",
+    "benefitOffline": "Works offline",
+    "benefitNative": "Native app experience",
+    "notNow": "Not now",
+    "install": "Install",
+    "cardTitle": "Get the GENOSYS App",
+    "cardSubtitle": "Install for the best experience",
+    "bannerTitle": "Install GENOSYS",
+    "bannerSubtitle": "Get the app for faster access"
   },
   "partners": {
     "title": "Our Partners",
@@ -928,7 +939,8 @@
     "eyeTreatments": "Eye Treatments",
     "hairLossTreatments": "Hair Loss Treatments",
     "moreLessonsComingSoon": "More Lessons Coming Soon",
-    "checkBackRegularly": "Check back regularly for new training content and lessons."
+    "checkBackRegularly": "Check back regularly for new training content and lessons.",
+    "professionalTraining": "Training Library"
   },
   "product": {
     "backToProducts": "Back to Products",

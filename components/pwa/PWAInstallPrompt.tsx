@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Download, X, Smartphone, Zap, Wifi } from 'lucide-react'
 import { usePWAInstall } from '@/hooks/usePWAInstall'
+import { useTranslation } from '@/hooks/useTranslation'
 import { cn } from '@/lib/utils'
 import { errorLog } from '@/lib/logger'
 
@@ -34,6 +35,7 @@ export default function PWAInstallPrompt({
   showDelay = 30 
 }: PWAInstallPromptProps) {
   const { isInstallable, showPrompt, dismissPrompt } = usePWAInstall()
+  const { t } = useTranslation()
   const [isVisible, setIsVisible] = useState(false)
   const [isInstalling, setIsInstalling] = useState(false)
   const isMobile = isMobileDevice()
@@ -83,25 +85,25 @@ export default function PWAInstallPrompt({
               <Smartphone className="w-8 h-8 text-primary-600" />
             </div>
             <h3 className="text-xl font-bold text-gray-900 mb-2">
-              Install GENOSYS App
+              {t('pwa.installTitle')}
             </h3>
             <p className="text-gray-600">
-              Get the full app experience with faster loading and offline access to our premium beauty products.
+              {t('pwa.installSubtitle')}
             </p>
           </div>
 
           <div className="space-y-3 mb-6">
             <div className="flex items-center gap-3">
               <Zap className="w-5 h-5 text-green-500 flex-shrink-0" />
-              <span className="text-sm text-gray-700">Lightning fast performance</span>
+              <span className="text-sm text-gray-700">{t('pwa.benefitFast')}</span>
             </div>
             <div className="flex items-center gap-3">
               <Wifi className="w-5 h-5 text-blue-500 flex-shrink-0" />
-              <span className="text-sm text-gray-700">Works offline</span>
+              <span className="text-sm text-gray-700">{t('pwa.benefitOffline')}</span>
             </div>
             <div className="flex items-center gap-3">
               <Smartphone className="w-5 h-5 text-purple-500 flex-shrink-0" />
-              <span className="text-sm text-gray-700">Native app experience</span>
+              <span className="text-sm text-gray-700">{t('pwa.benefitNative')}</span>
             </div>
           </div>
 
@@ -110,7 +112,7 @@ export default function PWAInstallPrompt({
               onClick={handleDismiss}
               className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
             >
-              Not now
+              {t('pwa.notNow')}
             </button>
             <button
               onClick={handleInstall}
@@ -122,7 +124,7 @@ export default function PWAInstallPrompt({
               ) : (
                 <Download className="w-4 h-4" />
               )}
-              Install
+              {t('pwa.install')}
             </button>
           </div>
         </div>
@@ -142,8 +144,8 @@ export default function PWAInstallPrompt({
               <Smartphone className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="font-bold text-lg">Get the GENOSYS App</h3>
-              <p className="text-primary-100 text-sm">Install for the best experience</p>
+              <h3 className="font-bold text-lg">{t('pwa.cardTitle')}</h3>
+              <p className="text-primary-100 text-sm">{t('pwa.cardSubtitle')}</p>
             </div>
           </div>
           <button
@@ -165,7 +167,7 @@ export default function PWAInstallPrompt({
             ) : (
               <Download className="w-4 h-4" />
             )}
-            Install App
+            {t('pwa.installApp')}
           </button>
         </div>
       </div>
@@ -184,8 +186,8 @@ export default function PWAInstallPrompt({
             <Smartphone className="w-5 h-5 text-primary-600" />
           </div>
           <div>
-            <h4 className="font-semibold text-gray-900 text-sm">Install GENOSYS</h4>
-            <p className="text-xs text-gray-600">Get the app for faster access</p>
+            <h4 className="font-semibold text-gray-900 text-sm">{t('pwa.bannerTitle')}</h4>
+            <p className="text-xs text-gray-600">{t('pwa.bannerSubtitle')}</p>
           </div>
         </div>
         
@@ -206,7 +208,7 @@ export default function PWAInstallPrompt({
             ) : (
               <Download className="w-3 h-3" />
             )}
-            Install
+            {t('pwa.install')}
           </button>
         </div>
       </div>

@@ -470,7 +470,18 @@
   },
   "pwa": {
     "installApp": "تثبيت التطبيق",
-    "installIOS": "اضغط مشاركة → إضافة إلى الشاشة الرئيسية"
+    "installIOS": "اضغط مشاركة → إضافة إلى الشاشة الرئيسية",
+    "installTitle": "ثبّت تطبيق GENOSYS",
+    "installSubtitle": "احصل على تجربة التطبيق الكاملة مع تحميل أسرع ووصول دون اتصال إلى منتجاتنا التجميلية المميزة.",
+    "benefitFast": "أداء فائق السرعة",
+    "benefitOffline": "يعمل دون اتصال بالإنترنت",
+    "benefitNative": "تجربة تطبيق أصلي",
+    "notNow": "ليس الآن",
+    "install": "تثبيت",
+    "cardTitle": "احصل على تطبيق GENOSYS",
+    "cardSubtitle": "ثبّته للحصول على أفضل تجربة",
+    "bannerTitle": "ثبّت GENOSYS",
+    "bannerSubtitle": "احصل على التطبيق لوصول أسرع"
   },
   "partners": {
     "title": "شركاؤنا",
@@ -697,7 +708,8 @@
     "eyeTreatments": "علاجات العيون",
     "hairLossTreatments": "علاجات تساقط الشعر",
     "moreLessonsComingSoon": "المزيد من الدروس قريباً",
-    "checkBackRegularly": "تحقق بانتظام للحصول على محتوى ودروس تدريبية جديدة."
+    "checkBackRegularly": "تحقق بانتظام للحصول على محتوى ودروس تدريبية جديدة.",
+    "professionalTraining": "مكتبة التدريب"
   },
   "rewards": {
     "title": "مكافآت جينوسيس",

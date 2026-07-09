@@ -46,6 +46,20 @@ jest.mock('@/lib/emailHelpers', () => ({
 
 jest.mock('@/lib/siteConfig', () => ({
   SITE_URL: 'https://genosys.ae',
+  LEGAL_INFO: {
+    companyName: 'Genosys Middle East FZ-LLC',
+    trn: '104229886700003',
+    license: '5023192',
+    registeredAddress: 'Compass Coworking Centre, Genosys ME, Ras Al Khaimah, UAE',
+    city: 'Dubai, United Arab Emirates',
+    bankName: 'WIO Bank P.J.S.C.',
+    iban: 'AE110860000009833011607',
+    accountNo: '9833011607',
+  },
+  SOCIAL_LINKS: {
+    email: 'sales@genosys.ae',
+    phoneDisplay: '+971 58 548 76 65',
+  },
 }))
 
 jest.mock('@/lib/email/utils', () => ({

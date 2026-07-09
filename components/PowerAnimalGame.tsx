@@ -475,9 +475,15 @@ export default function PowerAnimalGame({ locale, onClose }: PowerAnimalGameProp
 
             {/* Fun loading messages */}
             <div className="space-y-2 text-sm text-gray-500">
-              <p className="animate-pulse">Consulting ancient animal spirits...</p>
-              <p className="animate-pulse delay-500">Measuring your wild energy...</p>
-              <p className="animate-pulse delay-1000">Calculating resemblance matrix...</p>
+              <p className="animate-pulse">
+                {locale === 'ar' ? 'نستشير أرواح الحيوانات القديمة...' : locale === 'ru' ? 'Советуемся с духами древних зверей...' : 'Consulting ancient animal spirits...'}
+              </p>
+              <p className="animate-pulse delay-500">
+                {locale === 'ar' ? 'نقيس طاقتك البرية...' : locale === 'ru' ? 'Измеряем вашу дикую энергию...' : 'Measuring your wild energy...'}
+              </p>
+              <p className="animate-pulse delay-1000">
+                {locale === 'ar' ? 'نحسب مصفوفة التشابه...' : locale === 'ru' ? 'Считаем матрицу сходства...' : 'Calculating resemblance matrix...'}
+              </p>
             </div>
 
             <Loader2 className="w-8 h-8 text-orange-500 animate-spin mt-6" />

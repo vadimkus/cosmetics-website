@@ -31,7 +31,6 @@ const ProductImage = memo(function ProductImage({
   isTogglingFavorite,
   onFavorite,
   onNavigate,
-  locale,
   t,
   prefetchProps,
 }: ProductImageProps) {
@@ -137,9 +136,10 @@ const ProductImage = memo(function ProductImage({
         />
       </button>
       
-      {/* Sold Out Badge */}
+      {/* Sold Out Badge — always top-left: the favorite button owns the
+          top-right corner, so the badge must not share it. */}
       {!product.inStock && (
-        <div className={`absolute top-2 ${locale === 'ar' ? 'left-2' : 'right-2'} z-30`}>
+        <div className="absolute top-2 left-2 z-30">
           <span className="inline-flex items-center px-3 py-1.5 rounded-md bg-red-600 text-white font-bold text-xs md:text-sm shadow-lg uppercase tracking-wide">
             {t('product.soldOut')}
           </span>

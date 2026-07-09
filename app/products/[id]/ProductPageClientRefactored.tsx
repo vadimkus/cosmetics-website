@@ -8,7 +8,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
-import { Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle, Share2, TrendingUp } from 'lucide-react'
+import { Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle, Share2, TrendingUp, Play } from 'lucide-react'
 import { useState, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
 import ProductBreadcrumb from '@/app/products/[id]/components/ProductBreadcrumb'
@@ -66,6 +66,9 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   // Mobile footer state
   const [mobileQuantity, setMobileQuantity] = useState(1)
   const [isAddingMobile, setIsAddingMobile] = useState(false)
+  // Video player mounts only after the user taps play — until then a compact
+  // play button keeps the layout tight and avoids loading video bytes.
+  const [videoOpen, setVideoOpen] = useState(false)
   const [isAddedMobile, setIsAddedMobile] = useState(false)
   
   // Share state
@@ -461,27 +464,43 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 max-h caps portrait videos so they don't dominate the page. */}
             {product.videoUrl && (
               <div className="mt-4 lg:mt-6 lg:max-w-sm lg:mx-auto">
-                <div className="flex justify-center rounded-xl overflow-hidden shadow-lg bg-black">
-                  <video
-                    className="w-auto max-w-full max-h-[65vh]"
-                    controls
-                    playsInline
-                    preload="metadata"
-                    poster="/Logo/BlackG.png"
-                    onLoadedMetadata={(e) => {
-                      // Browsers size a <video> from the poster's aspect ratio
-                      // until playback starts; adopt the real video ratio as
-                      // soon as metadata arrives so portrait clips render tall.
-                      const v = e.currentTarget
-                      if (v.videoWidth && v.videoHeight) {
-                        v.style.aspectRatio = `${v.videoWidth} / ${v.videoHeight}`
-                      }
-                    }}
+                {!videoOpen ? (
+                  <button
+                    type="button"
+                    onClick={() => setVideoOpen(true)}
+                    aria-label={t('product.watchVideo') || 'Watch product video'}
+                    className="group mx-auto flex flex-col items-center gap-2 py-2 focus:outline-none"
                   >
-                    <source src={product.videoUrl} type="video/mp4" />
-                    {t('product.videoNotSupported') || 'Your browser does not support the video tag.'}
-                  </video>
-                </div>
+                    <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200 text-gray-700 shadow-md transition-all group-hover:bg-gray-300 group-hover:scale-105 group-active:scale-95">
+                      <Play className="h-7 w-7 ml-0.5 fill-current" />
+                    </span>
+                    <span className="text-xs font-medium text-gray-500 group-hover:text-gray-700 transition-colors">
+                      {t('product.watchVideo') || 'Watch product video'}
+                    </span>
+                  </button>
+                ) : (
+                  <div className="flex justify-center rounded-xl overflow-hidden shadow-lg bg-black">
+                    <video
+                      className="w-auto max-w-full max-h-[65vh]"
+                      controls
+                      autoPlay
+                      playsInline
+                      preload="auto"
+                      onLoadedMetadata={(e) => {
+                        // Browsers size a <video> from the poster's aspect ratio
+                        // until playback starts; adopt the real video ratio as
+                        // soon as metadata arrives so portrait clips render tall.
+                        const v = e.currentTarget
+                        if (v.videoWidth && v.videoHeight) {
+                          v.style.aspectRatio = `${v.videoWidth} / ${v.videoHeight}`
+                        }
+                      }}
+                    >
+                      <source src={product.videoUrl} type="video/mp4" />
+                      {t('product.videoNotSupported') || 'Your browser does not support the video tag.'}
+                    </video>
+                  </div>
+                )}
               </div>
             )}
             

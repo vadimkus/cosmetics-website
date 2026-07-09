@@ -13,8 +13,9 @@ invoice compliant and graceful.
 
 Aligned with the official MoySklad tax-invoice template:
 
-- `license`: **I14330AT** (was `5023192` — old/incorrect value, flagged to
-  Vadim)
+- `license`: kept **5023192** — Vadim confirmed (2026-07-09) this is the
+  current trade license; I14330AT on the MoySklad template is the OLD number
+  (the MoySklad template itself should be updated)
 - `registeredAddress`: Compass Coworking Centre, Genosys ME, Ras Al
   Khaimah, UAE (new)
 - `bankName` WIO Bank P.J.S.C., `iban` AE110860000009833011607,
@@ -52,6 +53,6 @@ explicit VAT line). Recipient details and invoice number also included
 
 ## Note
 
-`LEGAL_INFO.license` change: the old value `5023192` didn't match the
-official invoice template (I14330AT). If `5023192` is a different registry
-number (e.g. an establishment card), tell me and I'll label both.
+License number resolved: 5023192 is current (Vadim, 2026-07-09); I14330AT
+is the old license still shown on the MoySklad B2B invoice template —
+worth updating there too.

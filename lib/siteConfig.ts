@@ -51,11 +51,13 @@ export const SOCIAL_LINKS = {
 }
 
 // Legal / tax identity for transactional emails and receipts.
-// Source of truth: the official MoySklad tax-invoice template (2026-07).
+// TRN/address/bank per the official MoySklad tax-invoice template (2026-07);
+// trade license 5023192 confirmed current by Vadim 2026-07-09 (I14330AT is
+// the old number still printed on the MoySklad template).
 export const LEGAL_INFO = {
   companyName: 'Genosys Middle East FZ-LLC',
   trn: '104229886700003',
-  license: 'I14330AT',
+  license: '5023192',
   registeredAddress: 'Compass Coworking Centre, Genosys ME, Ras Al Khaimah, UAE',
   city: 'Dubai, United Arab Emirates',
   bankName: 'WIO Bank P.J.S.C.',

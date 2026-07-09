@@ -10,12 +10,19 @@
     },
     "app/api/cron/analytics-retention/route.ts": {
       "maxDuration": 60
+    },
+    "app/api/cron/review-requests/route.ts": {
+      "maxDuration": 60
     }
   },
   "crons": [
     {
       "path": "/api/cron/analytics-retention",
       "schedule": "30 1 * * *"
+    },
+    {
+      "path": "/api/cron/review-requests",
+      "schedule": "0 5 * * *"
     }
   ]
 }

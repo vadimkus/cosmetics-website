@@ -235,6 +235,8 @@ model Order {
   vat                      Float
   total                    Float
   status                   String  @default("PENDING")
+  deliveredAt              DateTime? // first transition to DELIVERED (drives review-request timing)
+  reviewRequestSentAt      DateTime? // post-delivery review-request email sent (idempotency)
   locale                   String  @default("en") // User's preferred language (en or ar)
   sessionId                String?
 

@@ -34,6 +34,8 @@ describe('useProfileState', () => {
     vat: 5,
     total: 100,
     status: 'pending',
+    deliveredAt: null,
+    reviewRequestSentAt: null,
     locale: 'en',
     sessionId: null,
     paymentMethod: 'cod',

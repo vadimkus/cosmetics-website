@@ -206,11 +206,19 @@ export const updateOrderStatus = async (orderId: string, status: string): Promis
   try {
     await prisma.order.update({
       where: { id: orderId },
-      data: { 
+      data: {
         status,
         updatedAt: new Date()
       }
     })
+    // Stamp the first DELIVERED transition — drives the post-delivery
+    // review-request email timing. Never moved on re-marking.
+    if (status === 'DELIVERED') {
+      await prisma.order.updateMany({
+        where: { id: orderId, deliveredAt: null },
+        data: { deliveredAt: new Date() },
+      })
+    }
     return true
   } catch (error) {
     errorLog('Error updating order status:', error)

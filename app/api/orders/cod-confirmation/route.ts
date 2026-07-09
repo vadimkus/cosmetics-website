@@ -419,6 +419,8 @@ export async function POST(request: NextRequest) {
         vat: dbOrder.vat,
         total: dbOrder.total,
         status: dbOrder.status ?? 'PENDING',
+        deliveredAt: null,
+        reviewRequestSentAt: null,
         locale: dbOrder.locale ?? 'en',
         sessionId: dbOrder.sessionId ?? null,
         paymentMethod: 'cod',

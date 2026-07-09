@@ -203,13 +203,16 @@ function BundleProductCard({
       
       {/* No VIP discount badge in bundle builder — only bundle discount applies at checkout */}
       
-      {/* Product Image */}
-      <div className="relative aspect-square bg-gray-50 p-4">
+      {/* Product Image — same presentation as the products-page card: white
+          square frame, photo edge-to-edge. object-cover center-crops the
+          956×662 landscape studio shots to fill the tile (verified safe:
+          products are centered), so no white letterbox bands appear. */}
+      <div className="relative aspect-square bg-white overflow-hidden">
         <Image
           src={product.image}
           alt={product.name}
           fill
-          className="object-contain p-2"
+          className="object-cover"
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
         />
       </div>
@@ -326,7 +329,7 @@ function BundleSummary({
                     src={item.product.image}
                     alt={item.product.name}
                     fill
-                    className="object-contain p-1"
+                    className="object-cover"
                   />
                 </div>
                 {item.product.size && (
@@ -1133,12 +1136,12 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     return (
                       <div className="flex flex-col h-full">
                         {/* Product Image */}
-                        <div className="relative w-[250px] h-[250px] bg-gray-50 rounded-2xl overflow-hidden mx-auto mb-4">
+                        <div className="relative w-[250px] h-[250px] bg-white rounded-2xl overflow-hidden mx-auto mb-4 border border-gray-100">
                           <Image
                             src={detailProduct.image}
                             alt={detailProduct.name}
                             fill
-                            className="object-contain p-4"
+                            className="object-cover"
                             sizes="250px"
                           />
                           {isProductSelected && (
@@ -1251,12 +1254,12 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             return (
               <div className="flex flex-col h-full">
                 {/* Product Image */}
-                <div className="relative w-[200px] h-[200px] bg-gray-50 rounded-2xl overflow-hidden mx-auto">
+                <div className="relative w-[200px] h-[200px] bg-white rounded-2xl overflow-hidden mx-auto border border-gray-100">
                   <Image
                     src={detailProduct.image}
                     alt={detailProduct.name}
                     fill
-                    className="object-contain p-4"
+                    className="object-cover"
                     sizes="200px"
                   />
                   {/* Selected Badge */}

@@ -75,7 +75,7 @@ export default function FreeMaskPromotion({ subtotal }: FreeMaskPromotionProps) 
           <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <Link href={getLocalizedPath('/products/53', locale)} className="relative w-12 h-12 md:w-14 md:h-14 flex-shrink-0 rounded border border-gray-200 overflow-hidden bg-gray-50 hover:border-primary-500 transition-colors">
               <Image
-                src="/images/in.png"
+                src="/images/collagen_mask/Main.jpeg"
                 alt="GENOSYS Collagen Mask - Free Korean dermacosmetics skincare product"
                 width={56}
                 height={56}
@@ -134,7 +134,7 @@ export default function FreeMaskPromotion({ subtotal }: FreeMaskPromotionProps) 
               </Link>
               <Link href={getLocalizedPath('/products/53', locale)} className="relative w-12 h-12 md:w-14 md:h-14 flex-shrink-0 rounded border border-gray-200 overflow-hidden bg-gray-50 hover:border-primary-500 transition-colors">
                 <Image
-                  src="/images/in.png"
+                  src="/images/collagen_mask/Main.jpeg"
                   alt="GENOSYS Collagen Mask - Free Korean dermacosmetics skincare product"
                   width={56}
                   height={56}

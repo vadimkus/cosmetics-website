@@ -468,6 +468,15 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                     playsInline
                     preload="metadata"
                     poster="/Logo/BlackG.png"
+                    onLoadedMetadata={(e) => {
+                      // Browsers size a <video> from the poster's aspect ratio
+                      // until playback starts; adopt the real video ratio as
+                      // soon as metadata arrives so portrait clips render tall.
+                      const v = e.currentTarget
+                      if (v.videoWidth && v.videoHeight) {
+                        v.style.aspectRatio = `${v.videoWidth} / ${v.videoHeight}`
+                      }
+                    }}
                   >
                     <source src={product.videoUrl} type="video/mp4" />
                     {t('product.videoNotSupported') || 'Your browser does not support the video tag.'}

@@ -231,7 +231,8 @@ model Order {
   bundleDiscountAmount     Float   @default(0) // Bundle discount amount in AED
   loyaltyPointsRedeemed    Int     @default(0) // GENOSYS Rewards points spent on this order
   loyaltyDiscountAmount    Float   @default(0) // AED value of redeemed points
-  reviewRequestSentAt      DateTime? // post-delivery review-request email sent (cron)
+  deliveredAt              DateTime? // first transition to DELIVERED (drives review-request timing)
+  reviewRequestSentAt      DateTime? // post-delivery review-request email sent (idempotency)
   shipping                 Float   @default(0)
   vat                      Float
   total                    Float

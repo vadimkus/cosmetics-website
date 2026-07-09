@@ -47,6 +47,7 @@ describe('useProfileState', () => {
     paymentMetadata: null,
     moySkladOrderId: null,
     moySkladSyncedAt: null,
+    deliveredAt: null,
     reviewRequestSentAt: null,
     createdAt: new Date(),
     updatedAt: new Date(),

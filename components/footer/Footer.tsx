@@ -53,6 +53,7 @@ const footerCopy = {
       training: 'Pro training',
       terms: 'Terms of service',
       montaji: 'Montaji Certificate',
+      halal: 'Halal Declaration',
       app: 'Get the app',
       payment: 'We accept',
       stripe: 'Secure checkout by Stripe',
@@ -88,6 +89,7 @@ const footerCopy = {
       training: 'التدريب',
       terms: 'الشروط والأحكام',
       montaji: 'شهادة منتجي',
+      halal: 'إقرار الحلال',
       app: 'حمّل التطبيق',
       payment: 'طرق الدفع',
       stripe: 'الدفع الآمن بواسطة Stripe',
@@ -123,6 +125,7 @@ const footerCopy = {
       training: 'Обучение',
       terms: 'Условия',
       montaji: 'Сертификат Montaji',
+      halal: 'Декларация Халяль',
       app: 'Приложение',
       payment: 'Оплата',
       stripe: 'Безопасная оплата через Stripe',
@@ -470,6 +473,16 @@ export default function Footer() {
                   className={colLinkClass}
                 >
                   {copy.links.montaji}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/documents/Genosys_Halal_Declaration_EN_AR.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={colLinkClass}
+                >
+                  {copy.links.halal}
                 </a>
               </li>
             </ul>

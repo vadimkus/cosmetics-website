@@ -36,6 +36,8 @@ const CATEGORY_KEY_MAP: Record<string, string> = {
   microneedling: 'microneedling',
   'pro solution': 'proSolution',
   'pro-solution': 'proSolution',
+  'bio meso': 'bioMeso',
+  'bio-meso': 'bioMeso',
 }
 
 /**
@@ -49,12 +51,26 @@ export function translateCategory(
 ): string {
   if (!category) return ''
 
-  const normalizedCategory = category.trim().toLowerCase()
-  const translationKey = CATEGORY_KEY_MAP[normalizedCategory]
-  if (!translationKey) return category
-
   const productsMessages = (messages as unknown as { products?: Record<string, string> }).products
-  const translated = productsMessages?.[translationKey]
 
-  return typeof translated === 'string' && translated ? translated : category
+  const translateOne = (part: string): string => {
+    const key = CATEGORY_KEY_MAP[part.trim().toLowerCase()]
+    const translated = key ? productsMessages?.[key] : undefined
+    return typeof translated === 'string' && translated ? translated : part.trim()
+  }
+
+  // Whole-string match first (covers keys containing separators like
+  // "Scalp/Hair"), then per-segment for multi-category products like
+  // "Cream, Sun, Cushion BB".
+  const whole = CATEGORY_KEY_MAP[category.trim().toLowerCase()]
+  if (whole) {
+    const translated = productsMessages?.[whole]
+    if (typeof translated === 'string' && translated) return translated
+  }
+
+  if (category.includes(',')) {
+    return category.split(',').map(translateOne).join(', ')
+  }
+
+  return translateOne(category)
 }

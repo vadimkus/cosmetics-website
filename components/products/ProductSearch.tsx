@@ -7,6 +7,7 @@ import { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useVoiceSearch } from '@/hooks/useVoiceSearch'
 import { matchesProductSearch } from '@/lib/productSearch'
+import { translateCategory } from '@/utils/categoryTranslations'
 
 interface ProductSearchProps {
   products: Product[]
@@ -15,7 +16,7 @@ interface ProductSearchProps {
 }
 
 export default function ProductSearch({ products, onSearchChange, searchQuery }: ProductSearchProps) {
-  const { t, dir, locale } = useTranslation()
+  const { t, dir, locale, messages } = useTranslation()
   const [isFocused, setIsFocused] = useState(false)
   const [suggestions, setSuggestions] = useState<Product[]>([])
   const searchRef = useRef<HTMLDivElement>(null)
@@ -202,7 +203,7 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
                 />
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-900 truncate">{product.name}</p>
-                  <p className="text-xs text-gray-500">{product.category}</p>
+                  <p className="text-xs text-gray-500">{translateCategory(product.category, messages)}</p>
                 </div>
               </div>
             </button>

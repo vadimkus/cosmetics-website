@@ -3,6 +3,13 @@ import Link from 'next/link'
 import type { Product } from '@/types'
 import ConcernProductPrice from './ConcernProductPrice'
 import ConcernAddToCart from './ConcernAddToCart'
+import { translateCategory } from '@/utils/categoryTranslations'
+// Server component — static locale bundles stay out of client JS.
+import enMessages from '@/messages/en.json'
+import arMessages from '@/messages/ar.json'
+import ruMessages from '@/messages/ru.json'
+
+const MESSAGES_BY_LOCALE = { en: enMessages, ar: arMessages, ru: ruMessages } as const
 
 interface ConcernProductGridProps {
   products: Product[]
@@ -88,7 +95,9 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
           {/* Product Info */}
           <div className="p-3 sm:p-4">
             {product.category && (
-              <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">{product.category}</p>
+              <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">
+                {translateCategory(product.category, MESSAGES_BY_LOCALE[locale] as never)}
+              </p>
             )}
             <h3 className="text-sm sm:text-base font-medium text-gray-900 line-clamp-2 mb-1 group-hover:text-primary-600 transition-colors">
               {getName(product)}

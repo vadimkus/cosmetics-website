@@ -313,14 +313,14 @@ export default async function RootLayout({
         </Script>
       </head>
       <body className={`${inter.className} ${inter.variable} ${notoSansArabic.variable} notranslate flex flex-col min-h-screen antialiased`} translate="no" suppressHydrationWarning>
-        {/* Skip to content link for keyboard/screen reader users */}
-        <SkipToContent />
         <LocaleManifest />
         <WebSiteSchema />
         <OrganizationSchema />
         <LocalBusinessSchema />
         <RouteStructuredData pathname={pathname} />
         <MessagesProvider messages={messages} locale={locale}>
+          {/* Skip link needs MessagesProvider context to localize (AR/RU) */}
+          <SkipToContent />
           <ToastProvider>
             <AuthProvider>
               <PWASplashScreen>

@@ -37,6 +37,8 @@ import {
 } from 'lucide-react'
 import type { Locale } from '@/lib/i18n'
 import { getLocalizedPath } from '@/lib/i18n'
+import { useTranslation } from '@/hooks/useTranslation'
+import { translateCategory } from '@/utils/categoryTranslations'
 import { CATEGORY_PAGES, CONCERN_PAGES } from '@/lib/concernsData'
 import type { Product } from '@/types'
 import { useAuth } from '@/components/auth/AuthProvider'
@@ -333,8 +335,11 @@ function RailProductCard({
   badge: 'inStock' | 'new'
 }) {
   const imgSrc = pickFirstImage(product)
+  const { messages } = useTranslation()
   // Product names are never translated (brand identity) — English everywhere.
+  // Categories ARE translated (they're UI labels, not brand names).
   const name = product.name
+  const categoryLabel = translateCategory(product.category, messages)
   return (
     <Link
       href={getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)}
@@ -368,7 +373,7 @@ function RailProductCard({
             )
           )}
           <span className="text-[10px] tracking-wide font-semibold text-gray-500 uppercase line-clamp-1">
-            {product.category}
+            {categoryLabel}
           </span>
         </p>
         <h3 className="text-sm lg:text-base font-semibold text-gray-900 leading-tight line-clamp-2 mb-2 group-hover:text-primary-700 transition-colors">

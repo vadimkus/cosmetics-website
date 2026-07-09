@@ -4,7 +4,7 @@
   "short_name": "GENOSYS",
   "description": "Discover the premium collection of professional Korean dermacosmetics and microneedling devices from GENOSYS, the official UAE distributor.",
   "start_url": "./",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "display": "standalone",
   "display_override": ["standalone", "minimal-ui", "browser"],
   "background_color": "#ffffff",

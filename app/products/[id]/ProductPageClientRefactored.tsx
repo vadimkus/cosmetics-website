@@ -455,15 +455,18 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               <ProductImageGallery product={product} />
             </div>
 
-            {/* Product Video — dynamic from DB videoUrl field */}
+            {/* Product Video — dynamic from DB videoUrl field. The player sizes
+                itself to the video's intrinsic aspect ratio (portrait clips
+                stay tall and centered instead of letterboxing in a 16:9 box);
+                max-h caps portrait videos so they don't dominate the page. */}
             {product.videoUrl && (
               <div className="mt-4 lg:mt-6 lg:max-w-sm lg:mx-auto">
-                <div className="rounded-xl overflow-hidden shadow-lg bg-black">
+                <div className="flex justify-center rounded-xl overflow-hidden shadow-lg bg-black">
                   <video
-                    className="w-full aspect-video object-contain lg:aspect-auto"
+                    className="w-auto max-w-full max-h-[65vh]"
                     controls
                     playsInline
-                    preload="none"
+                    preload="metadata"
                     poster="/Logo/BlackG.png"
                   >
                     <source src={product.videoUrl} type="video/mp4" />

@@ -13,9 +13,11 @@ interface ProductPriceDisplayProps {
   product: Product
   basePrice: number
   user: User | null
+  selectedSize?: string
+  selectedColor?: string
 }
 
-export default function ProductPriceDisplay({ product, basePrice, user }: ProductPriceDisplayProps) {
+export default function ProductPriceDisplay({ product, basePrice, user, selectedSize, selectedColor }: ProductPriceDisplayProps) {
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
 
@@ -37,8 +39,12 @@ export default function ProductPriceDisplay({ product, basePrice, user }: Produc
       {canUserSeePrices(user) ? (
         <>
           {(() => {
+            // Pass the selected variant through — buildPricingContract falls
+            // back to the DEFAULT DB variant's price when no size/color is
+            // given, which silently overrides basePrice (bug: size switch
+            // didn't change the displayed price).
             const productWithPrice = { ...product, price: basePrice }
-            const pricing = getPricingDisplay(productWithPrice, user)
+            const pricing = getPricingDisplay(productWithPrice, user, { selectedSize, selectedColor })
             
             return (
               <div className="w-full text-center">

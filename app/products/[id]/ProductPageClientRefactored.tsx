@@ -510,6 +510,8 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 product={product}
                 basePrice={currentPrice()}
                 user={user}
+                selectedSize={hasProductSizeVariants(productNum, product) ? selectedSize : undefined}
+                selectedColor={hasProductColorVariants(productNum) ? selectedColor : undefined}
               />
             </div>
 

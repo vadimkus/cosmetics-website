@@ -1,0 +1,55 @@
+---
+description: Print GENOSYS invoices and consignment notes in landscape (horizontal)
+alwaysApply: true
+---
+
+# MoySklad / GENOSYS — Print Landscape (Horizontal)
+
+## Do not auto-print
+
+**Never send PDFs to the printer from scripts or agent runs unless Vadim explicitly asks** (e.g. “print it”, “send to printer”). Default: save PDF to `~/Desktop/orders/` only.
+
+When printing is requested, pass **`--print`** on the script (opt-in), not `--no-print` to skip.
+
+When sending any business PDF to the printer (`lp`), **always use horizontal / landscape orientation**.
+
+Applies to:
+- Tax invoices (retail + clinic / Legal_TAX)
+- Consignment stock notes (`Genosys_Consignment_Stock_Note`)
+- Commissioner / consignment sales reports
+- SOA, return notes, and other GENOSYS MoySklad printouts
+
+## Required command (macOS / CUPS)
+
+```javascript
+const { execFileSync } = require('child_process')
+
+function printPdfLandscape(pdfPath) {
+  execFileSync('lp', ['-o', 'orientation-requested=4', pdfPath], { stdio: 'inherit' })
+}
+```
+
+- `orientation-requested=4` = landscape (IPP standard)
+- **Never** use bare `lp [pdfPath]` for invoices or notes
+
+## Fallback
+
+If `lp` fails, open the PDF for manual print — do not silently skip:
+
+```javascript
+try {
+  printPdfLandscape(pdfPath)
+} catch (e) {
+  execFileSync('open', [pdfPath], { stdio: 'inherit' })
+}
+```
+
+## Session docs
+
+When a document was printed, note **landscape** in the session log (e.g. `lp -o orientation-requested=4`).
+
+## Existing correct examples
+
+- `scripts/moysklad-create-le-bleu-ciel-cushion-order-invoice-demand-20260705.js`
+- `scripts/moysklad-create-family-class-polyclinic-hair-tonic-order-invoice-demand-20260704.js`
+- `scripts/moysklad-create-saba-yousuf-order-invoice-demand-paymentin-20260606.js`

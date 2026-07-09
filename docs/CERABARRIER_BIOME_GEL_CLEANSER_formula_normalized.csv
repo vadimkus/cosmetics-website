@@ -1,0 +1,35 @@
+order,inci_name,percent_w_w,reference,cas_no,function
+1,Aqua (Water),To 100,ICID,7732-18-5,Solvent
+2,Sodium Cocoyl Glutamate,8.75,ICID,68187-32-6,Surfactant - Cleansing Agent
+3,Cocamidopropyl Betaine,6,ICID,61789-40-0,Surfactant
+4,Glycerin,5.0000076,ICID,56-81-5,Humectant
+5,Butylene Glycol,3.000041,ICID,107-88-0,Humectant
+6,Decyl Glucoside,1.65,ICID,68515-73-1,Surfactant
+7,Sodium Chloride,1,ICID,7647-14-5,Viscosity Increasing Agent
+8,Lactobacillus Ferment Lysate,0.000001,ICID,-,Skin-Conditioning Agent
+9,Epilobium Angustifolium Flower/Leaf/Stem Extract,0.000001,ICID,90028-31-2,Skin-Conditioning Agent
+10,Bifida Ferment Lysate,0.0000003,ICID,96507-89-0,Skin-Conditioning Agent
+11,Cichorium Intybus (Chicory) Root Extract,0.0000005,ICID,68650-43-1,Skin-Conditioning Agent; Fragrance Ingredient
+12,Taraxacum Officinale (Dandelion) Rhizome/Root Extract,0.0000005,ICID,68990-74-9,Skin Conditioning Agent
+13,Ceramide NP,0.00000451,ICID,34354-88-6,Skin-Conditioning Agent
+14,Ceramide AS,0.0000001,ICID,100403-19-8,Skin-Conditioning Agent
+15,Ceramide AP,0.0000001,ICID,100403-19-8,Hair Conditioning Agent; Skin Conditioning Agent
+16,Ceramide NS,0.0000001,ICID,2304-81-6,Skin Conditioning Agent
+17,Ceramide EOP,0.00000000001,ICID,-,Skin-Conditioning Agent
+18,Fructan,0.0000005,ICID,-,Skin Conditioning Agent
+19,Anastatica Hierochuntica Extract,0.000001,ICID,-,Skin Conditioning Agent
+20,Phytosphingosine,0.00000015,ICID,554-62-1,Skin-Conditioning Agent
+21,Butyrospermum Parkii (Shea) Butter,0.00000185,ICID,194043-92-0,Skin Conditioning Agent
+22,Hydrogenated Lecithin,0.000001,ICID,92128-87-5,Surfactant - Emulsifying; Skin Conditioning Agent
+23,Glyceryl Stearate,0.00000049999,ICID,31566-31-1,Skin Conditioning - Emollient
+24,Cholesterol,0.0000001,ICID,57-88-5,Skin-Conditioning Agent
+25,Ethylhexylglycerin,0.35,ICID,70445-33-9,Skin Conditioning Agent
+26,Dipropylene Glycol,0.000004,ICID,25265-71-8,Solvent
+27,Betaine,0.5,ICID,107-43-7,Humectant
+28,Arginine,0.001,ICID,74-79-3,Skin-Conditioning Agent
+29,Citric Acid,0.4,ICID,5949-29-1,pH Adjusting Agent
+30,Hydroxyacetophenone,0.4,ICID,99-93-4,Antioxidant
+31,1,2-Hexanediol,0.3500024,ICID,6920-22-5,Solvent
+32,Disodium EDTA,0.1,ICID,139-33-3,Chelating Agent
+33,Polyquaternium-67,0.5,ICID,-,Hair Conditioning Agent
+34,Parfum (Fragrance),0.5,ICID,-,Fragrance Ingredient

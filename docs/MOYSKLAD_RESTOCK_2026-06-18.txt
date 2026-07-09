@@ -1,0 +1,85 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║  MOYSKLAD RESTOCKING ANALYSIS — Genosys Middle East FZ-LLC                    ║
+║  Generated: 18/06/2026, 11:48:32                                              ║
+║  Horizon: stock-out within 90 days  |  Target cover: 120 days               ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+Fetching MoySklad data...
+  90-day window: 2026-03-20 07:48:32 → 2026-06-18 07:48:32
+  30-day window: 2026-05-19 07:48:32 → 2026-06-18 07:48:32
+
+  [archived] 45 archived product codes (will be excluded)
+  [stock]  96 SKUs loaded / 96
+  [30d] 68 SKUs loaded / 68
+  [90d] 73 SKUs loaded / 73
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ★ STOCKOUT — 0 units available but active demand (order IMMEDIATELY)  — 2 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+00142  | Genosys HairGen Booster Device                          |       0 |      0 |       0 |         1 |         1 |      0 |       4
+54462  | Genosys Holiday Kit Skin Glow Coverage Kit #2           |       0 |      0 |       0 |         1 |         1 |      0 |       4
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CRITICAL — will stock out in < 30 days (order NOW)  — 2 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+54461  | Genosys Skin Defender Lip & Eye Makeup Remover 200ml    |       9 |      0 |       9 |        16 |        32 |     17 |      55
+54470  | Genosys BIO-MESO PDRN Expert Ampoule 60000 (3mlx4)      |       8 |      0 |       8 |        12 |        12 |     20 |      40
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  URGENT — will stock out in 30–60 days (order this week)  — 3 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+00039  | Genosys Soothing Repair Post Cream Box                  |       3 |      0 |       3 |         3 |         3 |     30 |       9
+54465  | Genosys Soothing Repair Post Cream 100g                 |      16 |      0 |      16 |        14 |        19 |     34 |      40
+00145  | Genosys Problem Control Toner 200ml                     |      27 |      0 |      27 |        14 |        30 |     58 |      29
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  PLAN — will stock out in 60–90 days (order within 2–3 weeks)  — 4 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+00069  | Genosys Power Solution CTS 1 Vial 2ml                   |      59 |      0 |      59 |        29 |        65 |     61 |      57
+54457  | Genosys Ultra Shield Sun Cream SPF50/PA++++ 50g         |     106 |      0 |     106 |        47 |       108 |     68 |      82
+00144  | Genosys Skin Caring Blemish Balm Cushion #2 Biege       |     327 |      0 |     327 |       118 |       266 |     83 |     145
+00059  | Genosys EyeCell Eye Zone Care Kit (box)                 |      17 |      0 |      17 |         6 |         8 |     85 |       7
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  DO NOT REORDER — sell-through watch (1 SKUs; excluded from PO suggestions)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |  30d sold |  90d sold |  Days left | Reason                        
+----------------------------------------------------------------------------------------------------------------------------------
+00042  | Genosys EGF Repair Oxymask Cream 50ml                   |      15 |         8 |        25 |         56 | EGF Repair Oxymask Cream 50ml 
+
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  PROPOSED PURCHASE ORDER — sum of `Suggested Order` to reach 120-day cover
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Code   | Product                                                                |  Order Qty |   Est. Value (AED)
+----------------------------------------------------------------------------------------------------------------------------------
+00142  | Genosys HairGen Booster Device                                         |          4 |               0.00
+54462  | Genosys Holiday Kit Skin Glow Coverage Kit #2                          |          4 |               0.00
+54461  | Genosys Skin Defender Lip & Eye Makeup Remover 200ml                   |         55 |            7975.00
+54470  | Genosys BIO-MESO PDRN Expert Ampoule 60000 (3mlx4)                     |         40 |           12000.00
+00039  | Genosys Soothing Repair Post Cream Box                                 |          9 |            8280.00
+54465  | Genosys Soothing Repair Post Cream 100g                                |         40 |            8800.00
+00145  | Genosys Problem Control Toner 200ml                                    |         29 |            3770.00
+00069  | Genosys Power Solution CTS 1 Vial 2ml                                  |         57 |            1653.00
+54457  | Genosys Ultra Shield Sun Cream SPF50/PA++++ 50g                        |         82 |           10250.00
+00144  | Genosys Skin Caring Blemish Balm Cushion #2 Biege                      |        145 |           21750.00
+00059  | Genosys EyeCell Eye Zone Care Kit (box)                                |          7 |            3430.00
+----------------------------------------------------------------------------------------------------------------------------------
+       | TOTAL                                                                  |        472 |      77908.00 AED*
+
+  * Value is based on MoySklad sale price (retail). Your actual supplier cost will be ~40–60% of this.
+
+  By severity:
+    STOCKOUT   2 SKUs
+    CRITICAL   2 SKUs
+    URGENT     3 SKUs
+    PLAN       4 SKUs
+    OK         85 SKUs
+    NO_REORDER 2 SKUs

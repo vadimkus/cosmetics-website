@@ -38,6 +38,8 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-07_KOREA_REORDER_DOUBLECHECK.md](./SESSION_CHANGES_2026-07-07_KOREA_REORDER_DOUBLECHECK.md) | **Korea reorder recheck** — live MoySklad 2026-07-07; **~1,435 u** proposed (add algae/cushion/SPF40; drop PDRN home/Cerabarrier); 260616 + Jun3 PO fully received. |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-06_MELIS_SARIOGLU_CUSHION_RETAIL_ORDER.md](./SESSION_CHANGES_2026-07-06_MELIS_SARIOGLU_CUSHION_RETAIL_ORDER.md) | **Melis Sarioglu** (Paloma Tower 1204) — SO **GENCardM2607066552** + inv **04776** + ship **06488** + pay **05899** / **300 AED** (Beige cushion + free delivery); PDF → `~/Desktop/orders/`. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-06_TATIANA_ANISKINA_CONSIGNMENT_SALES.md](./SESSION_CHANGES_2026-07-06_TATIANA_ANISKINA_CONSIGNMENT_SALES.md) | **Tatiana Aniskina Nail Master** — consignment sales **01401** / **520 AED** + paymentin **05895** + replenishment demand **06485** / **1,050 AED**; PDFs → `~/Desktop/orders/`. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-06_MISS_VALERIYA_CUSHION_RETAIL_ORDER.md](./SESSION_CHANGES_2026-07-06_MISS_VALERIYA_CUSHION_RETAIL_ORDER.md) | **Miss Valeriya** (+971585207755) — SO **GENCardM2607067755** + inv **04773** + ship **06484** + pay **05894** / **345 AED** (Beige cushion + delivery); PDF → `~/Desktop/orders/`. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-06_BROW_BEAUTY_CLINIC_ORDER.md](./SESSION_CHANGES_2026-07-06_BROW_BEAUTY_CLINIC_ORDER.md) | **Brow and Beauty Aesthetic Clinic L.L.C** — new counterparty (license 1582255) + PO **GENCardM260706BBAC** / **17,885 AED** (PDRN ×30 packs). |

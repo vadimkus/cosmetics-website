@@ -269,7 +269,8 @@ export const products: Product[] = [
     image: '/images/EGF.jpg',
     images: null,
     category: 'Cream',
-    inStock: true,
+    inStock: false,
+    isHidden: true, // Discontinued Jul 2026
   },
   {
     id: '27',

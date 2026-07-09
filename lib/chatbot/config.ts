@@ -539,7 +539,6 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [ND Cell ANTI-WRINKLE CREAM](https://genosys.ae/products/23){{id:23}} - AED 370 - Premium anti-aging
 - [EyeCell EYE CONTOUR CREAM](https://genosys.ae/products/24){{id:24}} - AED 370 - Eye cream
 - [SOOTHING REPAIR POSTCREAM](https://genosys.ae/products/25){{id:25}} - AED 204 - Post-treatment
-- [EGF REPAIR OXYMASK CREAM](https://genosys.ae/products/26){{id:26}} - AED 290 - Healing
 - [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}} - AED 450 - Barrier repair
 - [INTENSIVE HYDRO SOOTHING CREAM](https://genosys.ae/products/28){{id:28}} - AED 290 - Hydrating
 - [MOISTURE REPLENISHING HYALURON CREAM](https://genosys.ae/products/29){{id:29}} - AED 290 - Hydrating

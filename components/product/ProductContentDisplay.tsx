@@ -195,8 +195,6 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       'All For Sensitive Serum': '21',
       'SKIN BARRIER PROTECTING CREAM WITH CERAMIDES': '31',
       'Skin Barrier Protecting Cream with Ceramides': '31',
-      'EGF REPAIR OXYMASK': '52',
-      'EGF Repair Oxymask': '52',
     }
     
     // Normalize product name for matching (uppercase, remove extra spaces)

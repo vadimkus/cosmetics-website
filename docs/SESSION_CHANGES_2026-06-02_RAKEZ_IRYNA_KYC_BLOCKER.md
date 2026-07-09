@@ -125,3 +125,8 @@ Update 2026-06-26 — RAKEZ CONFIRMS E-SIGNATURE MANDATORY; MOVING TO LEGAL ROUT
 - DECISION: line up a RAK-registered advocate and take it to court to enforce the binding signed transfer / obtain an order giving effect to it (or, failing that, a court-supervised route to break the deadlock).
 - Evidence pack for advocate: (1) signed+stamped Shareholders Resolution, Resignation, Acceptance (03/04/2026); (2) signed Business Plan + Sanctions Questionnaire (06/06/2026); (3) WhatsApp 36k/USDT + revenue-share demand; (4) WhatsApp explicit written refusal ("не буду подписывать", 25/06/2026); (5) RAKEZ SR-1785556 record + RAKEZ confirmation e-signature mandatory + Grail correspondence; (6) MOA (to confirm dispute-resolution forum / transfer mechanics); (7) company licence (expiry 08/11/2026).
 - Open strategic point to raise with advocate: litigation timeline (months) vs licence renewal due 08/11/2026, and whether the objective is (i) force completion of transfer to Vadim, or (ii) court-supervised dissolution if she blocks indefinitely.
+
+Update 2026-07-07 — visa cancellation paid:
+
+- RAKEZ Portal 360 e-wallet top-up **685.00 AED** (REC-1058659, Visa) for **Iryna Kobzarenko visa cancellation** — prerequisite before amended license can issue (see prior note: visa valid to 28/10/2027).
+- MoySklad paymentout **00646** booked (Wio corporate Visa card, not owner personal) — see [SESSION_CHANGES_2026-07-07_RAKEZ_IRYNA_VISA_CANCEL_PAYMENTOUT.md](./SESSION_CHANGES_2026-07-07_RAKEZ_IRYNA_VISA_CANCEL_PAYMENTOUT.md).

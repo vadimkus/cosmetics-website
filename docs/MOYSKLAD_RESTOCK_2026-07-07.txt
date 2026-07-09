@@ -1,0 +1,87 @@
+╔════════════════════════════════════════════════════════════════════════════════╗
+║  MOYSKLAD RESTOCKING ANALYSIS — Genosys Middle East FZ-LLC                    ║
+║  Generated: 07/07/2026, 07:06:34                                              ║
+║  Horizon: stock-out within 90 days  |  Target cover: 120 days               ║
+╚════════════════════════════════════════════════════════════════════════════════╝
+
+Fetching MoySklad data...
+  90-day window: 2026-04-08 03:06:34 → 2026-07-07 03:06:34
+  30-day window: 2026-06-07 03:06:34 → 2026-07-07 03:06:34
+
+  [archived] 45 archived product codes (will be excluded)
+  [stock]  113 SKUs loaded / 113
+  [30d] 88 SKUs loaded / 88
+  [90d] 94 SKUs loaded / 94
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ★ STOCKOUT — 0 units available but active demand (order IMMEDIATELY)  — 1 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+54462  | Genosys Holiday Kit Skin Glow Coverage Kit #2           |       0 |      0 |       0 |         0 |         1 |      0 |       1
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CRITICAL — will stock out in < 30 days (order NOW)  — 4 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+54461  | Genosys Skin Defender Lip & Eye Makeup Remover 200ml    |       4 |      0 |       4 |        13 |        31 |      9 |      48
+54467  | Genosys Skin Reboot PDRN mask Pack (30 sheets) 350g     |      40 |      0 |      40 |        68 |       127 |     18 |     232
+54457  | Genosys Ultra Shield Sun Cream SPF50/PA++++ 50g         |      53 |      0 |      53 |        69 |       145 |     23 |     223
+00020  | Genosys Power Solution SWS 1 Vial 2ml                   |      81 |      0 |      81 |        85 |       124 |     29 |     259
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  URGENT — will stock out in 30–60 days (order this week)  — 4 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+54464  | Genosys Skin Caring Blemish Balm Cushion #3 Camel       |      57 |      0 |      57 |        46 |        91 |     37 |     127
+00035  | Genosys Intensive Problem Control Cream 50g             |      33 |      0 |      33 |        21 |        43 |     47 |      51
+00195  | Genosys Moisture Replenishing Hyaluron Serum 30ml       |      40 |      0 |      40 |        24 |        50 |     50 |      56
+00038  | Genosys Soothing Repair Post Cream 20g                  |      68 |      0 |      68 |        37 |        57 |     55 |      80
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  PLAN — will stock out in 60–90 days (order within 2–3 weeks)  — 3 SKUs
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |   Resv |   Avail |  30d sold |  90d sold |   Days |   Order
+----------------------------------------------------------------------------------------------------------------------------------
+00069  | Genosys Power Solution CTS 1 Vial 2ml                   |      55 |      0 |      55 |        27 |        65 |     61 |      53
+54473  | Genosys Revita Glow BB Cream #02 Natural 50g            |      40 |      0 |      40 |        19 |        33 |     63 |      36
+00037  | Genosys Skin Barrier Protecting Cream 100g              |      32 |      0 |      32 |        11 |        33 |     87 |      12
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  DO NOT REORDER — sell-through watch (1 SKUs; excluded from PO suggestions)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Code   | Product                                                 |   Stock |  30d sold |  90d sold |  Days left | Reason                        
+----------------------------------------------------------------------------------------------------------------------------------
+00042  | Genosys EGF Repair Oxymask Cream 50ml                   |      12 |         5 |        22 |         70 | EGF Repair Oxymask Cream 50ml 
+
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+  PROPOSED PURCHASE ORDER — sum of `Suggested Order` to reach 120-day cover
+══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+Code   | Product                                                                |  Order Qty |   Est. Value (AED)
+----------------------------------------------------------------------------------------------------------------------------------
+54462  | Genosys Holiday Kit Skin Glow Coverage Kit #2                          |          1 |               0.00
+54461  | Genosys Skin Defender Lip & Eye Makeup Remover 200ml                   |         48 |            6960.00
+54467  | Genosys Skin Reboot PDRN mask Pack (30 sheets) 350g                    |        232 |           46400.00
+54457  | Genosys Ultra Shield Sun Cream SPF50/PA++++ 50g                        |        223 |           27875.00
+00020  | Genosys Power Solution SWS 1 Vial 2ml                                  |        259 |            7511.00
+54464  | Genosys Skin Caring Blemish Balm Cushion #3 Camel                      |        127 |           19050.00
+00035  | Genosys Intensive Problem Control Cream 50g                            |         51 |            7395.00
+00195  | Genosys Moisture Replenishing Hyaluron Serum 30ml                      |         56 |            9240.00
+00038  | Genosys Soothing Repair Post Cream 20g                                 |         80 |            8160.00
+00069  | Genosys Power Solution CTS 1 Vial 2ml                                  |         53 |            1537.00
+54473  | Genosys Revita Glow BB Cream #02 Natural 50g                           |         36 |            4500.00
+00037  | Genosys Skin Barrier Protecting Cream 100g                             |         12 |            2700.00
+----------------------------------------------------------------------------------------------------------------------------------
+       | TOTAL                                                                  |       1178 |     141328.00 AED*
+
+  * Value is based on MoySklad sale price (retail). Your actual supplier cost will be ~40–60% of this.
+
+  By severity:
+    STOCKOUT   1 SKUs
+    CRITICAL   4 SKUs
+    URGENT     4 SKUs
+    PLAN       3 SKUs
+    OK         100 SKUs
+    NO_REORDER 2 SKUs

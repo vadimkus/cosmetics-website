@@ -173,15 +173,6 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
       step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescSensitive'),
     ],
   },
-  '26': {
-    headingKey: 'recommendedRecoveryRoutine',
-    steps: [
-      CLEANSE_GENTLE,
-      MIST,
-      step('routineEGFOxymaskTitle', 'routineEGFOxymaskDesc'),
-      step('routinePDRNMaskTitle', 'routinePDRNMaskDesc'),
-    ],
-  },
   '27': {
     headingKey: 'recommendedSensitiveSkinRoutine',
     steps: [

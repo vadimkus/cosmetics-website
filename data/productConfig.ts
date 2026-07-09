@@ -279,13 +279,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     ],
     images: ['/images/SRC.jpg', '/images/Second/soothrep.png']
   },
-  '26': {
-    id: '26',
-    pricing: {
-      basePrice: 290
-    },
-    images: ['/images/EGF.jpg', '/images/Second/egf_big.jpg']
-  },
   '27': {
     id: '27',
     pricing: {

@@ -216,6 +216,11 @@ export default function AdminOrdersManager({
                             <div className="text-xs text-gray-400">ID #{String(order.id).slice(-8)}</div>
                           )}
                           <div className="text-sm text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</div>
+                          {order.paymentMethod === 'partner' && (
+                            <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-bold uppercase tracking-wide">
+                              Partner Portal
+                            </span>
+                          )}
                           {/* Customer name - visible on mobile only (Customer column is hidden on mobile) */}
                           <div className="text-xs text-blue-600 font-medium mt-0.5 sm:hidden">{order.customerName}</div>
                         </td>

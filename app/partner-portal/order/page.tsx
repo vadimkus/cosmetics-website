@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Search, Plus, Minus, Check, Loader2 } from 'lucide-react'
+import { Search, Plus, Minus, Check, Loader2, Package } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -135,11 +135,11 @@ function PartnerOrderInner() {
           <p className="text-sm text-gray-500 mb-1">{t('We received your order', 'Мы получили ваш заказ', 'لقد استلمنا طلبك')}</p>
           <p className="text-sm font-semibold text-gray-900 mb-1">{placed.orderNumber}</p>
           <p className="text-base font-bold text-red-600 mb-6">{placed.total.toFixed(2)} AED</p>
-          <p className="text-xs text-gray-400 mb-6">
+          <p className="text-xs text-gray-500 mb-6">
             {t(
-              'We will confirm and arrange delivery shortly.',
-              'Мы подтвердим и организуем доставку в ближайшее время.',
-              'سنؤكد ونرتب التسليم قريبًا.'
+              'Priority partner order — we will confirm and arrange same-day delivery.',
+              'Приоритетный партнёрский заказ — подтвердим и организуем доставку в тот же день.',
+              'طلب شريك ذو أولوية — سنؤكد ونرتب التوصيل في نفس اليوم.'
             )}
           </p>
           <button
@@ -200,15 +200,23 @@ function PartnerOrderInner() {
               const q = qty[product.id] || 0
               const info = calculateDiscountedPrice(product, user)
               const price = info.discountedPrice
+              const soldOut = product.inStock === false
               return (
                 <div
                   key={product.id}
-                  className={`flex items-center gap-3 bg-white border rounded-2xl p-3 ${q > 0 ? 'border-red-200 ring-1 ring-red-100' : 'border-gray-100'} ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`flex items-center gap-3 bg-white border rounded-2xl p-3 ${soldOut ? 'opacity-60' : ''} ${q > 0 ? 'border-red-200 ring-1 ring-red-100' : 'border-gray-100'} ${isRTL ? 'flex-row-reverse' : ''}`}
                 >
-                  <div className="w-14 h-14 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0 relative">
+                  <div className="w-14 h-14 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0 relative flex items-center justify-center">
                     {product.image ? (
                       <Image src={product.image} alt={product.name} width={56} height={56} className="w-full h-full object-cover" />
-                    ) : null}
+                    ) : (
+                      <Package className="w-5 h-5 text-gray-300" />
+                    )}
+                    {soldOut && (
+                      <span className="absolute inset-x-0 bottom-0 bg-black/60 text-white text-[8px] font-bold text-center uppercase py-0.5">
+                        {t('Sold out', 'Нет', 'نفد')}
+                      </span>
+                    )}
                   </div>
                   <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
                     <p className="text-sm font-semibold text-gray-900 leading-tight line-clamp-2">{product.name}</p>
@@ -223,7 +231,11 @@ function PartnerOrderInner() {
                     </div>
                   </div>
                   {/* Stepper */}
-                  {q > 0 ? (
+                  {soldOut ? (
+                    <span className="px-3 h-8 flex items-center rounded-full bg-gray-100 text-gray-400 text-sm font-semibold flex-shrink-0">
+                      {t('Sold out', 'Нет в наличии', 'نفدت')}
+                    </span>
+                  ) : q > 0 ? (
                     <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <button
                         onClick={() => setLineQty(product.id, q - 1)}

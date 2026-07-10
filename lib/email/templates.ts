@@ -1034,7 +1034,7 @@ export const emailTemplates = {
 
   // Admin notification for new order
   adminNewOrder: (orderData: AdminNewOrderEmailData) => ({
-    subject: `${orderData.paymentStatus === 'PAID' ? 'New Paid Order' : 'New Order'} #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
+    subject: `${String(orderData.paymentMethod || '').toLowerCase().includes('partner') ? '🤝 PARTNER ORDER' : (orderData.paymentStatus === 'PAID' ? 'New Paid Order' : 'New Order')} #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
     html: `
       <!DOCTYPE html>
       <html lang="en">
@@ -1057,6 +1057,16 @@ export const emailTemplates = {
                     <p style="color: #6b7280; margin: 0; font-size: 14px; font-weight: 500;">New Order Notification</p>
                   </td>
                 </tr>
+
+                <!-- Partner order banner (only for partner-portal orders) -->
+                ${String(orderData.paymentMethod || '').toLowerCase().includes('partner') ? `
+                <tr>
+                  <td style="background-color: #dc2626; padding: 18px 20px; text-align: center;">
+                    <p style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 800; letter-spacing: 1px;">🤝 PARTNER ORDER</p>
+                    <p style="margin: 6px 0 0 0; color: #fee2e2; font-size: 13px; font-weight: 600;">Placed via Partner Portal · Priority handling · Same-day delivery · Partner pricing</p>
+                  </td>
+                </tr>
+                ` : ''}
                 
                 <!-- Order Number Highlight -->
                 <tr>

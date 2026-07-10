@@ -605,20 +605,11 @@ export default function ProfilePageRefactored() {
           {/* Tab Content */}
           {activeTab === 'profile' && (
             <>
-              <ProfileForm
-                user={user}
-                isEditing={isEditing}
-                editData={editData}
-                onEditDataChange={setEditData}
-                onSave={handleSave}
-                onCancel={handleCancel}
-              />
-              
-              {/* Partner Portal banner — only for clinic / wholesale accounts */}
+              {/* Partner Portal banner — prominent, top of profile, clinic/VIP only */}
               {['CLINIC', 'VIP'].includes(String(user.discountType || '').toUpperCase()) && (
                 <Link
                   href={getLocalizedPath('/partner-portal', locale)}
-                  className={`mt-3 md:mt-8 flex items-center justify-between gap-4 bg-red-600 rounded-xl md:rounded-2xl shadow-sm md:shadow-lg p-4 md:p-6 hover:bg-red-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                  className={`mb-3 md:mb-6 flex items-center justify-between gap-4 bg-red-600 rounded-xl md:rounded-2xl shadow-sm md:shadow-lg p-4 md:p-6 hover:bg-red-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                 >
                   <div className={`flex items-center gap-3 md:gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
@@ -636,6 +627,15 @@ export default function ProfilePageRefactored() {
                   <ArrowLeft className={`h-5 w-5 text-white ${dir === 'rtl' ? '' : 'rotate-180'}`} />
                 </Link>
               )}
+
+              <ProfileForm
+                user={user}
+                isEditing={isEditing}
+                editData={editData}
+                onEditDataChange={setEditData}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
 
               {/* AI Skin Analysis Section — corporate dark banner */}
               <div className="mt-3 md:mt-8 bg-gray-900 rounded-xl md:rounded-2xl shadow-sm md:shadow-lg p-4 md:p-6 lg:p-8">

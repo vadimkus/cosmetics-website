@@ -614,6 +614,29 @@ export default function ProfilePageRefactored() {
                 onCancel={handleCancel}
               />
               
+              {/* Partner Portal banner — only for clinic / wholesale accounts */}
+              {['CLINIC', 'VIP'].includes(String(user.discountType || '').toUpperCase()) && (
+                <Link
+                  href={getLocalizedPath('/partner-portal', locale)}
+                  className={`mt-3 md:mt-8 flex items-center justify-between gap-4 bg-red-600 rounded-xl md:rounded-2xl shadow-sm md:shadow-lg p-4 md:p-6 hover:bg-red-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                >
+                  <div className={`flex items-center gap-3 md:gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
+                      <Package className="h-5 w-5 md:h-6 md:w-6 text-white" />
+                    </div>
+                    <div className={dir === 'rtl' ? 'text-right' : ''}>
+                      <h2 className="text-base md:text-lg font-semibold text-white">
+                        {locale === 'ar' ? 'بوابة الشركاء' : locale === 'ru' ? 'Портал партнёра' : 'Partner Portal'}
+                      </h2>
+                      <p className="text-xs md:text-sm text-white/80 mt-0.5">
+                        {locale === 'ar' ? 'اطلب بسعر الشريك وتابع طلباتك' : locale === 'ru' ? 'Заказы по партнёрской цене и история' : 'Order at partner price & track your orders'}
+                      </p>
+                    </div>
+                  </div>
+                  <ArrowLeft className={`h-5 w-5 text-white ${dir === 'rtl' ? '' : 'rotate-180'}`} />
+                </Link>
+              )}
+
               {/* AI Skin Analysis Section — corporate dark banner */}
               <div className="mt-3 md:mt-8 bg-gray-900 rounded-xl md:rounded-2xl shadow-sm md:shadow-lg p-4 md:p-6 lg:p-8">
                 <div className={`flex flex-col md:flex-row md:items-center gap-4 md:gap-6 ${dir === 'rtl' ? 'md:flex-row-reverse' : ''}`}>

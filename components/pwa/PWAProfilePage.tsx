@@ -612,6 +612,33 @@ export default function PWAProfilePage() {
           </div>
         </div>
 
+        {/* Partner Portal — only for clinic / wholesale accounts */}
+        {['CLINIC', 'VIP'].includes(String(user?.discountType || '').toUpperCase()) && (
+          <div className="px-5 pb-4">
+            <button
+              onClick={() => router.push(getLocalizedPath('/partner-portal', locale))}
+              className={`w-full flex items-center justify-between gap-3 bg-red-600 text-white rounded-2xl p-4 active:bg-red-700 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <div className="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                </div>
+                <div className={isRTL ? 'text-right' : 'text-left'}>
+                  <p className="text-[17px] font-semibold">
+                    {locale === 'ar' ? 'بوابة الشركاء' : locale === 'ru' ? 'Портал партнёра' : 'Partner Portal'}
+                  </p>
+                  <p className="text-[13px] text-white/80">
+                    {locale === 'ar' ? 'اطلب بسعر الشريك' : locale === 'ru' ? 'Заказ по партнёрской цене' : 'Order at partner price'}
+                  </p>
+                </div>
+              </div>
+              {isRTL ? <ChevronLeft className="w-5 h-5 text-white/90" /> : <ChevronRight className="w-5 h-5 text-white/90" />}
+            </button>
+          </div>
+        )}
+
         {/* ─────────────────────────────────────────────────────────────────
             Sections are ordered iOS-Settings-style:
               1. Account (who you are)

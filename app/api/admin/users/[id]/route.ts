@@ -126,7 +126,8 @@ export async function PUT(
       )
     }
 
-    // Check if discount is being assigned (either newly assigned or changed)
+    // Check if discount is being assigned (either newly assigned or changed).
+    // Discounts are assigned manually per partner — no automatic default.
     const isDiscountBeingAssigned = (discountType !== undefined && discountType !== null && discountPercentage !== undefined && discountPercentage !== null && discountPercentage > 0) &&
       (currentUser.discountType !== discountType || currentUser.discountPercentage !== discountPercentage)
 

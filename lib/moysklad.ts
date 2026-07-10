@@ -224,6 +224,7 @@ const PRODUCT_MAP: Record<string, string> = {
 
   // === Cleansers & Toners ===
   'SNOW O₂ CLEANSER': '429cb35d-3449-11ea-0a80-00e60001afc8',                 // 180ml
+  'CERABARRIER BIOME GEL CLEANSER': '4403ccba-6ed1-11f1-0a80-16ec00a25b21',   // 200ml default (54484)
   'SNOW BOOSTER': '70f536c1-3449-11ea-0a80-05dc0001878d',                     // Snow Booster Toner 200ml
   'INTENSIVE PROBLEM CONTROL TONER': '86d64dba-29c8-11ed-0a80-07740006f514',   // 200ml
   'SKIN DEFENDER LIP & EYE MAKEUP REMOVER': 'bcf432e7-ec44-11ee-0a80-077500174711', // 200ml
@@ -346,6 +347,10 @@ const SIZE_VARIANT_MAP: Record<string, string> = {
   'MICRONEEDLE ROLLER | 1.0mm':  'fca27ce5-343a-11ea-0a80-01b500011297', // code 00003
   'MICRONEEDLE ROLLER | 1.5mm':  'c83c9cf9-343b-11ea-0a80-05dc0000f00e', // code 00004
   'MICRONEEDLE ROLLER | 2.0mm':  'f4fb8b3a-343b-11ea-0a80-06a400010a65', // code 00005
+
+  // === CERABARRIER Biome Gel Cleanser (product 66) ===
+  'CERABARRIER BIOME GEL CLEANSER | 200ml': '4403ccba-6ed1-11f1-0a80-16ec00a25b21', // code 54484
+  'CERABARRIER BIOME GEL CLEANSER | 600ml': '44439568-6ed1-11f1-0a80-112d00a360a0', // code 54485
 }
 
 /**

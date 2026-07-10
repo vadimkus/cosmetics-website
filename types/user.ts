@@ -15,6 +15,9 @@ export interface User {
   canSeePrices?: boolean
   discountType?: string | null
   discountPercentage?: number | null
+  consignmentActive?: boolean
+  moyskladCounterpartyId?: string | null
+  moyskladContractId?: string | null
   birthday?: string | null
   lastLoginAt?: string | null
   createdAt: string

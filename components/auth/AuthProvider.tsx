@@ -36,6 +36,7 @@ interface User {
   canSeePrices?: boolean
   discountType?: string | null
   discountPercentage?: number | null
+  consignmentActive?: boolean
 }
 
 interface AuthContextType {

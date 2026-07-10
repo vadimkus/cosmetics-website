@@ -9,6 +9,8 @@ import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { sendAdminNewOrderNotification, sendOrderConfirmationEmail } from '@/lib/email'
 import type { OrderConfirmationEmailData } from '@/lib/email/types'
+import { createOrderCheckoutSession } from '@/lib/stripe'
+import { prisma } from '@/lib/prisma'
 import { debugLog, errorLog } from '@/lib/logger'
 
 export const runtime = 'nodejs'
@@ -68,6 +70,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: false, error: 'No items in order' }, { status: 400, headers: CORS })
     }
 
+    const rawOption = String(body?.paymentOption || 'cod').toLowerCase()
+    const paymentOption: 'consignment' | 'online' | 'cod' =
+      rawOption === 'consignment' ? 'consignment' : rawOption === 'online' ? 'online' : 'cod'
+    if (paymentOption === 'consignment' && !user.consignmentActive) {
+      return NextResponse.json({ success: false, error: 'No active consignment agreement on this account.' }, { status: 403, headers: CORS })
+    }
+
     const orderNotesInput =
       typeof body?.orderNotes === 'string' && body.orderNotes.trim() ? body.orderNotes.trim().slice(0, 1000) : ''
     const emirate = typeof body?.emirate === 'string' && body.emirate.trim() ? body.emirate.trim() : 'Dubai'
@@ -118,7 +127,15 @@ export async function POST(request: NextRequest) {
     const vat = calculateVatIncluded(total)
     const orderNumber = await generateUniquePartnerOrderNumber({ channel: 'M' })
 
-    const partnerTag = `PARTNER ORDER — ${user.name || user.email}`
+    const paymentMethodByOption: Record<typeof paymentOption, string> = {
+      consignment: 'partner_consignment',
+      online: 'partner_online', // "online" keyword → app shows Pay/resume for abandoned checkouts
+      cod: 'partner_cod',
+    }
+    const settlementLabel = paymentOption === 'consignment'
+      ? 'CONSIGNMENT STOCK (settle via monthly report)'
+      : paymentOption === 'online' ? 'ONLINE CARD PAYMENT' : 'CASH ON DELIVERY'
+    const partnerTag = `PARTNER ORDER — ${user.name || user.email}\nSettlement: ${settlementLabel}`
     const orderNotes = orderNotesInput ? `${partnerTag}\n${orderNotesInput}` : partnerTag
 
     const dbOrder: OrderData = {
@@ -137,7 +154,7 @@ export async function POST(request: NextRequest) {
       vat,
       total,
       status: 'PENDING',
-      paymentMethod: 'partner',
+      paymentMethod: paymentMethodByOption[paymentOption],
       paymentStatus: 'pending',
       locale: typeof body?.locale === 'string' ? body.locale : 'en',
     }
@@ -146,10 +163,40 @@ export async function POST(request: NextRequest) {
     try {
       const saved = await addOrder(dbOrder)
       savedOrderId = saved.id
-      debugLog('✅ Mobile partner order saved:', orderNumber, saved.id)
+      debugLog('✅ Mobile partner order saved:', orderNumber, saved.id, paymentOption)
     } catch (dbError) {
       errorLog('❌ Mobile partner order DB save failed:', dbError)
       return NextResponse.json({ success: false, error: 'Could not save order' }, { status: 500, headers: CORS })
+    }
+
+    // Online payment: hosted Stripe Checkout URL for the app to open.
+    let paymentUrl: string | null = null
+    if (paymentOption === 'online') {
+      try {
+        const session = await createOrderCheckoutSession({
+          order: {
+            id: savedOrderId,
+            orderNumber,
+            customerEmail: user.email,
+            customerName: user.name || user.email,
+            customerPhone: user.phone || '',
+            total,
+            items: orderItems,
+          },
+          source: 'mobile_app',
+        })
+        paymentUrl = session.url
+        await prisma.order.update({
+          where: { id: savedOrderId },
+          data: {
+            stripeSessionId: session.id,
+            paymentMetadata: JSON.stringify({ sessionUrl: session.url, source: 'mobile_app', createdAt: new Date().toISOString() }),
+          },
+        })
+      } catch (payErr) {
+        errorLog('❌ Mobile partner online payment session failed:', orderNumber, payErr)
+        return NextResponse.json({ success: true, orderNumber, orderId: savedOrderId, total, paymentOption, paymentUrl: null, paymentError: true }, { headers: CORS })
+      }
     }
 
     after(async () => {
@@ -174,7 +221,7 @@ export async function POST(request: NextRequest) {
           vat,
           emirate,
           paymentStatus: 'PENDING',
-          paymentMethod: 'Partner Replenishment Order (App)',
+          paymentMethod: `Partner (App) — ${settlementLabel}`,
           discountPercentage: Number(user.discountPercentage || 0) || undefined,
         })
       } catch (emailError) {
@@ -203,7 +250,7 @@ export async function POST(request: NextRequest) {
     })
 
     return NextResponse.json(
-      { success: true, orderNumber, orderId: savedOrderId, total },
+      { success: true, orderNumber, orderId: savedOrderId, total, paymentOption, paymentUrl },
       { headers: CORS }
     )
   } catch (error) {

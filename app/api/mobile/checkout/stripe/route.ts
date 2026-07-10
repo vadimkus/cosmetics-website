@@ -223,7 +223,9 @@ export async function POST(request: NextRequest) {
       // NOTE: Order item prices are already server-authoritative at time of order creation.
       const serverSubtotal = existing.items.reduce((sum, it) => sum + (Number(it.price) || 0) * (Number(it.quantity) || 0), 0)
       const emirateFromOrder = String(existing.customerEmirate || emirate || 'Dubai')
-      const serverShipping = calculateMobileShipping(serverSubtotal, emirateFromOrder)
+      // Partner orders (PART…) always ship free — don't re-derive retail shipping.
+      const isPartnerOrder = String(existing.orderNumber || '').startsWith('PART')
+      const serverShipping = isPartnerOrder ? 0 : calculateMobileShipping(serverSubtotal, emirateFromOrder)
       // Preserve a loyalty redemption captured at order creation (points are
       // only deducted on payment success, so the pending discount must survive resume)
       const loyaltyDiscountAed = Math.max(0, Number(existing.loyaltyDiscountAmount || 0))

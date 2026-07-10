@@ -26,8 +26,14 @@ function PartnerOrderInner() {
   const [qty, setQty] = useState<Record<string, number>>({})
   const [notes, setNotes] = useState('')
   const [submitting, setSubmitting] = useState(false)
-  const [placed, setPlaced] = useState<{ orderNumber: string; total: number } | null>(null)
+  const [placed, setPlaced] = useState<{ orderNumber: string; total: number; paymentOption: string } | null>(null)
   const [reorderLoaded, setReorderLoaded] = useState(0)
+
+  const hasConsignment = user?.consignmentActive === true
+  const [payOption, setPayOption] = useState<'consignment' | 'online' | 'cod'>('cod')
+  useEffect(() => {
+    if (hasConsignment) setPayOption('consignment')
+  }, [hasConsignment])
 
   const isRTL = dir === 'rtl'
   const t = (en: string, ru: string, ar: string) => (locale === 'ru' ? ru : locale === 'ar' ? ar : en)
@@ -132,11 +138,16 @@ function PartnerOrderInner() {
       const res = await fetch('/api/partners/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...getCsrfHeaders() },
-        body: JSON.stringify(addCsrfToBody({ items, orderNotes: notes, locale })),
+        body: JSON.stringify(addCsrfToBody({ items, orderNotes: notes, locale, paymentOption: payOption })),
       })
       const data = await res.json()
       if (res.ok && data.success) {
-        setPlaced({ orderNumber: data.orderNumber, total: data.total })
+        if (data.paymentUrl) {
+          // Online payment: hand over to Stripe hosted checkout.
+          window.location.href = data.paymentUrl
+          return
+        }
+        setPlaced({ orderNumber: data.orderNumber, total: data.total, paymentOption: data.paymentOption || payOption })
         setQty({})
         setNotes('')
       } else {
@@ -161,13 +172,30 @@ function PartnerOrderInner() {
           <h1 className="text-lg font-bold text-gray-900 mb-1">{t('Order sent', 'Заказ отправлен', 'تم إرسال الطلب')}</h1>
           <p className="text-sm text-gray-500 mb-1">{t('We received your order', 'Мы получили ваш заказ', 'لقد استلمنا طلبك')}</p>
           <p className="text-sm font-semibold text-gray-900 mb-1">{placed.orderNumber}</p>
-          <p className="text-base font-bold text-red-600 mb-6">{placed.total.toFixed(2)} AED</p>
+          <p className="text-base font-bold text-red-600 mb-3">{placed.total.toFixed(2)} AED</p>
+          {placed.paymentOption === 'consignment' && (
+            <span className="inline-block text-[11px] font-bold uppercase tracking-wide bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full mb-3">
+              {t('Consignment stock', 'Консигнация', 'بضاعة أمانة')}
+            </span>
+          )}
           <p className="text-xs text-gray-500 mb-6">
-            {t(
-              'Priority partner order — we will confirm and arrange same-day delivery.',
-              'Приоритетный партнёрский заказ — подтвердим и организуем доставку в тот же день.',
-              'طلب شريك ذو أولوية — سنؤكد ونرتب التوصيل في نفس اليوم.'
-            )}
+            {placed.paymentOption === 'consignment'
+              ? t(
+                  'Added to your consignment stock — priority same-day delivery. Settlement via your monthly sales report.',
+                  'Добавлено на ваш консигнационный склад — приоритетная доставка в тот же день. Расчёт по ежемесячному отчёту о продажах.',
+                  'أُضيف إلى مخزون الأمانة — توصيل في نفس اليوم. التسوية عبر تقرير المبيعات الشهري.'
+                )
+              : placed.paymentOption === 'online'
+                ? t(
+                    'Order recorded — the payment link could not be opened. We will send you a payment link shortly.',
+                    'Заказ записан — не удалось открыть ссылку на оплату. Мы пришлём её вам в ближайшее время.',
+                    'تم تسجيل الطلب — تعذر فتح رابط الدفع. سنرسله إليك قريبًا.'
+                  )
+                : t(
+                    'Priority partner order — we will confirm and arrange same-day delivery. Payment on delivery.',
+                    'Приоритетный партнёрский заказ — подтвердим и организуем доставку в тот же день. Оплата при получении.',
+                    'طلب شريك ذو أولوية — سنؤكد ونرتب التوصيل في نفس اليوم. الدفع عند الاستلام.'
+                  )}
           </p>
           <button
             onClick={() => router.push(getLocalizedPath('/partner-portal', locale))}
@@ -322,6 +350,56 @@ function PartnerOrderInner() {
             />
           </div>
         )}
+
+        {/* Payment / settlement option */}
+        {itemCount > 0 && (
+          <div className="mt-4">
+            <label className={`block text-xs font-semibold text-gray-500 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+              {t('Settlement', 'Оплата', 'الدفع')}
+            </label>
+            <div className="space-y-2">
+              {hasConsignment && (
+                <button
+                  onClick={() => setPayOption('consignment')}
+                  className={`w-full flex items-center gap-3 rounded-xl border p-3.5 text-left transition-colors ${payOption === 'consignment' ? 'border-amber-400 bg-amber-50 ring-1 ring-amber-200' : 'border-gray-200 bg-white'} ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+                >
+                  <span className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${payOption === 'consignment' ? 'border-amber-500 bg-amber-500' : 'border-gray-300'}`} />
+                  <span className="flex-1 min-w-0">
+                    <span className="block text-sm font-semibold text-gray-900">
+                      {t('Add to consignment stock', 'На консигнационный склад', 'إضافة إلى مخزون الأمانة')}
+                    </span>
+                    <span className="block text-xs text-gray-500">
+                      {t('Settle via monthly sales report', 'Расчёт по ежемесячному отчёту о продажах', 'التسوية عبر تقرير المبيعات الشهري')}
+                    </span>
+                  </span>
+                  <span className="text-[10px] font-bold uppercase tracking-wide bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full flex-shrink-0">
+                    {t('Agreement', 'Договор', 'اتفاقية')}
+                  </span>
+                </button>
+              )}
+              <button
+                onClick={() => setPayOption('online')}
+                className={`w-full flex items-center gap-3 rounded-xl border p-3.5 text-left transition-colors ${payOption === 'online' ? 'border-red-400 bg-red-50 ring-1 ring-red-200' : 'border-gray-200 bg-white'} ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+              >
+                <span className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${payOption === 'online' ? 'border-red-500 bg-red-500' : 'border-gray-300'}`} />
+                <span className="flex-1 min-w-0">
+                  <span className="block text-sm font-semibold text-gray-900">{t('Pay online now', 'Оплатить онлайн', 'الدفع عبر الإنترنت')}</span>
+                  <span className="block text-xs text-gray-500">{t('Card / Apple Pay — secure Stripe checkout', 'Карта / Apple Pay — безопасная оплата Stripe', 'بطاقة / Apple Pay — دفع آمن عبر Stripe')}</span>
+                </span>
+              </button>
+              <button
+                onClick={() => setPayOption('cod')}
+                className={`w-full flex items-center gap-3 rounded-xl border p-3.5 text-left transition-colors ${payOption === 'cod' ? 'border-red-400 bg-red-50 ring-1 ring-red-200' : 'border-gray-200 bg-white'} ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+              >
+                <span className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${payOption === 'cod' ? 'border-red-500 bg-red-500' : 'border-gray-300'}`} />
+                <span className="flex-1 min-w-0">
+                  <span className="block text-sm font-semibold text-gray-900">{t('Cash on delivery', 'Оплата при получении', 'الدفع عند الاستلام')}</span>
+                  <span className="block text-xs text-gray-500">{t('Pay when your order arrives', 'Оплатите при доставке заказа', 'ادفع عند وصول طلبك')}</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Sticky submit bar */}
@@ -344,6 +422,10 @@ function PartnerOrderInner() {
                   <Loader2 className="w-5 h-5 animate-spin" />
                   {t('Sending…', 'Отправка…', 'جارٍ الإرسال…')}
                 </>
+              ) : payOption === 'online' ? (
+                t('Continue to payment', 'Перейти к оплате', 'المتابعة إلى الدفع')
+              ) : payOption === 'consignment' ? (
+                t('Add to consignment stock', 'На консигнационный склад', 'إضافة إلى مخزون الأمانة')
               ) : (
                 t('Place order', 'Оформить заказ', 'تقديم الطلب')
               )}

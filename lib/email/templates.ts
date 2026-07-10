@@ -1034,7 +1034,7 @@ export const emailTemplates = {
 
   // Admin notification for new order
   adminNewOrder: (orderData: AdminNewOrderEmailData) => ({
-    subject: `${String(orderData.paymentMethod || '').toLowerCase().includes('partner') ? '🤝 PARTNER ORDER' : (orderData.paymentStatus === 'PAID' ? 'New Paid Order' : 'New Order')} #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
+    subject: `${String(orderData.paymentMethod || '').toLowerCase().includes('consignment') ? '🏬 PARTNER CONSIGNMENT' : String(orderData.paymentMethod || '').toLowerCase().includes('partner') ? '🤝 PARTNER ORDER' : (orderData.paymentStatus === 'PAID' ? 'New Paid Order' : 'New Order')} #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
     html: `
       <!DOCTYPE html>
       <html lang="en">
@@ -1059,11 +1059,18 @@ export const emailTemplates = {
                 </tr>
 
                 <!-- Partner order banner (only for partner-portal orders) -->
-                ${String(orderData.paymentMethod || '').toLowerCase().includes('partner') ? `
+                ${String(orderData.paymentMethod || '').toLowerCase().includes('consignment') ? `
+                <tr>
+                  <td style="background-color: #b45309; padding: 18px 20px; text-align: center;">
+                    <p style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 800; letter-spacing: 1px;">🏬 PARTNER CONSIGNMENT</p>
+                    <p style="margin: 6px 0 0 0; color: #fef3c7; font-size: 13px; font-weight: 600;">Add to consignment stock · Same-day delivery · Settle via monthly sales report — NO invoice payment due now</p>
+                  </td>
+                </tr>
+                ` : String(orderData.paymentMethod || '').toLowerCase().includes('partner') ? `
                 <tr>
                   <td style="background-color: #dc2626; padding: 18px 20px; text-align: center;">
                     <p style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 800; letter-spacing: 1px;">🤝 PARTNER ORDER</p>
-                    <p style="margin: 6px 0 0 0; color: #fee2e2; font-size: 13px; font-weight: 600;">Placed via Partner Portal · Priority handling · Same-day delivery · Partner pricing</p>
+                    <p style="margin: 6px 0 0 0; color: #fee2e2; font-size: 13px; font-weight: 600;">Placed via Partner Portal · Priority handling · Same-day delivery · ${String(orderData.paymentMethod || '').toLowerCase().includes('online') ? 'Online card payment' : 'Cash on delivery'}</p>
                   </td>
                 </tr>
                 ` : ''}

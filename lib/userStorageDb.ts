@@ -20,6 +20,9 @@ export interface UserData {
   canSeePrices?: boolean
   discountType?: string | null
   discountPercentage?: number | null
+  consignmentActive?: boolean
+  moyskladCounterpartyId?: string | null
+  moyskladContractId?: string | null
   birthday?: string | null
   lastLoginAt?: string | null
   lastLoginSource?: string | null // desktop_web, mobile_web, mobile_app
@@ -295,6 +298,13 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     }
     if (updates.isAdmin !== undefined) updateData.isAdmin = updates.isAdmin
     if (updates.canSeePrices !== undefined) updateData.canSeePrices = updates.canSeePrices
+    if (updates.consignmentActive !== undefined) updateData.consignmentActive = updates.consignmentActive
+    if (updates.moyskladCounterpartyId !== undefined) {
+      updateData.moyskladCounterpartyId = updates.moyskladCounterpartyId === '' ? null : updates.moyskladCounterpartyId
+    }
+    if (updates.moyskladContractId !== undefined) {
+      updateData.moyskladContractId = updates.moyskladContractId === '' ? null : updates.moyskladContractId
+    }
     if (updates.discountType !== undefined || updates.discountPercentage !== undefined) {
       const discountFields = normalizeUserDiscountFields(
         updates.discountType !== undefined ? updates.discountType : user.discountType,

@@ -57,6 +57,68 @@ export function mapStripeEmirateValue(stripeValue: string): string {
   return emirateMapping[stripeValue] || stripeValue
 }
 
+/**
+ * Create a hosted Checkout session to pay for an ALREADY-CREATED order
+ * (partner "pay online", or resuming a pending order). Line-item prices are the
+ * stored, VAT-inclusive order prices. The webhook marks the order paid via the
+ * orderId/orderNumber metadata. `source` tags web vs app for order-channel.
+ */
+export async function createOrderCheckoutSession(params: {
+  order: {
+    id: string
+    orderNumber: string
+    customerEmail: string
+    customerName?: string | null
+    customerPhone?: string | null
+    total: number
+    items: Array<{ productId?: string | null; productName: string; price: number; quantity: number; image?: string | null; size?: string | null; color?: string | null }>
+  }
+  source: 'website' | 'mobile_app'
+}): Promise<Stripe.Checkout.Session> {
+  const { order, source } = params
+  const base = process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'
+
+  const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = order.items
+    .filter((it) => Number(it.price) > 0)
+    .map((it) => ({
+      price_data: {
+        currency: 'aed',
+        unit_amount: Math.round((Number(it.price) || 0) * 100),
+        product_data: {
+          name: String(it.productName || 'Item') + (it.size ? ` (${it.size})` : '') + (it.color ? ` - ${it.color}` : ''),
+          ...(it.image ? { images: [String(it.image).startsWith('http') ? it.image : `https://genosys.ae${it.image}`] } : {}),
+          metadata: { product_id: String(it.productId || '') },
+        },
+      },
+      quantity: Number(it.quantity) || 1,
+    }))
+
+  return stripe.checkout.sessions.create({
+    mode: 'payment',
+    line_items: lineItems,
+    customer_email: order.customerEmail,
+    metadata: {
+      orderNumber: order.orderNumber,
+      orderId: order.id,
+      customerName: order.customerName || '',
+      customerPhone: order.customerPhone || '',
+      source,
+      partner: 'true',
+    },
+    success_url: `${base}/pay/success?orderNumber=${order.orderNumber}`,
+    cancel_url: `${base}/pay/cancel?orderNumber=${order.orderNumber}`,
+    allow_promotion_codes: false,
+    phone_number_collection: { enabled: true },
+    // Anchored to the idempotency bucket so a retry inside the same window
+    // sends identical params (otherwise Stripe rejects the reused key).
+    // Bucket floor can lag now by up to 2 min, so use 35 min to stay over
+    // Stripe's 30-minute minimum.
+    expires_at: Math.floor(Date.now() / 120000) * 120 + (35 * 60),
+  }, {
+    idempotencyKey: `partner_sess_${order.orderNumber}_${Math.floor(Date.now() / 120000)}`,
+  })
+}
+
 // Validate webhook signature
 export function validateWebhookSignature(
   payload: string | Buffer,

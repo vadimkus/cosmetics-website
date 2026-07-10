@@ -239,6 +239,11 @@ function PartnerDashboardInner() {
                   {discountPct > 0 && (
                     <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-red-600 text-xs font-bold">−{discountPct}%</span>
                   )}
+                  {user?.consignmentActive && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wide">
+                      {t('Consignment', 'Консигнация', 'أمانة')}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -388,6 +393,11 @@ function PartnerDashboardInner() {
                 <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-red-600 text-white text-xs font-bold">
                   {discountPct > 0 ? `−${discountPct}% ${t('pricing', 'цена', 'سعر')}` : t('Partner pricing', 'Партнёрская цена', 'سعر الشريك')}
                 </span>
+                {user?.consignmentActive && (
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wide">
+                    {t('Consignment', 'Консигнация', 'أمانة')}
+                  </span>
+                )}
               </div>
             </div>
           </div>

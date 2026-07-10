@@ -26,6 +26,12 @@ model User {
   canSeePrices       Boolean   @default(true)
   discountType       String?
   discountPercentage Float?
+  // Partner consignment agreement (mirrors an active MoySklad Commission
+  // contract). When true, the partner may "Add to consignment stock" at
+  // checkout. Set by the one-off MoySklad matcher and by admin manually.
+  consignmentActive       Boolean @default(false)
+  moyskladCounterpartyId  String? // MoySklad counterparty UUID (matched by phone)
+  moyskladContractId      String? // Active Commission contract UUID
   birthday           String?
   lastLoginAt        DateTime?
   lastLoginSource    String? // Tracks login source: desktop_web, mobile_web, mobile_app

@@ -50,8 +50,12 @@ export default function AdminOrdersManager({
   const [toasts, setToasts] = useState<Toast[]>([])
   const toastIdCounter = useRef(0)
 
-  const partnerCount = orders.filter(o => o.paymentMethod === 'partner').length
-  const visibleOrders = orderFilter === 'partner' ? orders.filter(o => o.paymentMethod === 'partner') : orders
+  // Partner orders: PART… order numbers (new) or legacy paymentMethod 'partner'.
+  const isPartnerOrder = (o: Order) =>
+    String(o.orderNumber || '').startsWith('PART') || String(o.paymentMethod || '').startsWith('partner')
+  const isConsignmentOrder = (o: Order) => String(o.paymentMethod || '') === 'partner_consignment'
+  const partnerCount = orders.filter(isPartnerOrder).length
+  const visibleOrders = orderFilter === 'partner' ? orders.filter(isPartnerOrder) : orders
 
   // Add toast notification
   const showToast = (message: string, type: ToastType = 'success') => {
@@ -223,7 +227,7 @@ export default function AdminOrdersManager({
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {visibleOrders.map((order) => (
-                      <tr key={order.id} className={`hover:bg-gray-50 ${order.paymentMethod === 'partner' ? 'bg-red-50/40' : ''}`}>
+                      <tr key={order.id} className={`hover:bg-gray-50 ${isPartnerOrder(order) ? 'bg-red-50/40' : ''}`}>
                         <td className="px-2 sm:px-3 md:px-6 py-4">
                           <input
                             type="checkbox"
@@ -238,9 +242,14 @@ export default function AdminOrdersManager({
                             <div className="text-xs text-gray-400">ID #{String(order.id).slice(-8)}</div>
                           )}
                           <div className="text-sm text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</div>
-                          {order.paymentMethod === 'partner' && (
+                          {isPartnerOrder(order) && (
                             <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full bg-red-600 text-white text-[10px] font-bold uppercase tracking-wide">
                               Partner Portal
+                            </span>
+                          )}
+                          {isConsignmentOrder(order) && (
+                            <span className="inline-flex items-center gap-1 mt-1 ml-1 px-2 py-0.5 rounded-full bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wide">
+                              Consignment
                             </span>
                           )}
                           {/* Customer name - visible on mobile only (Customer column is hidden on mobile) */}

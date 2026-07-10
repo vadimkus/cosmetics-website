@@ -10,6 +10,8 @@ import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { sendAdminNewOrderNotification, sendOrderConfirmationEmail } from '@/lib/email'
 import type { OrderConfirmationEmailData } from '@/lib/email/types'
+import { createOrderCheckoutSession } from '@/lib/stripe'
+import { prisma } from '@/lib/prisma'
 import { requireCsrfToken } from '@/lib/csrf'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -65,6 +67,14 @@ export async function POST(request: NextRequest) {
     const submitted: SubmittedPartnerItem[] = Array.isArray(body?.items) ? body.items : []
     if (submitted.length === 0) {
       return NextResponse.json({ error: 'No items in order.' }, { status: 400 })
+    }
+
+    // Payment option: consignment (only if agreement active) | online | cod.
+    const rawOption = String(body?.paymentOption || 'cod').toLowerCase()
+    const paymentOption: 'consignment' | 'online' | 'cod' =
+      rawOption === 'consignment' ? 'consignment' : rawOption === 'online' ? 'online' : 'cod'
+    if (paymentOption === 'consignment' && !user.consignmentActive) {
+      return NextResponse.json({ error: 'No active consignment agreement on this account.' }, { status: 403 })
     }
 
     const orderNotesInput =
@@ -130,8 +140,17 @@ export async function POST(request: NextRequest) {
 
     const orderNumber = await generateUniquePartnerOrderNumber({ channel: 'W' })
 
-    // Mark clearly as a partner order (no schema change needed for MVP).
-    const partnerTag = `PARTNER ORDER — ${user.name || user.email}`
+    // Mark clearly as a partner order. paymentMethod keeps "partner" so existing
+    // detection (badge/email) still matches; the settlement type is appended.
+    const paymentMethodByOption: Record<typeof paymentOption, string> = {
+      consignment: 'partner_consignment',
+      online: 'partner_online', // "online" keyword → app shows Pay/resume for abandoned checkouts
+      cod: 'partner_cod',
+    }
+    const settlementLabel = paymentOption === 'consignment'
+      ? 'CONSIGNMENT STOCK (settle via monthly report)'
+      : paymentOption === 'online' ? 'ONLINE CARD PAYMENT' : 'CASH ON DELIVERY'
+    const partnerTag = `PARTNER ORDER — ${user.name || user.email}\nSettlement: ${settlementLabel}`
     const orderNotes = orderNotesInput ? `${partnerTag}\n${orderNotesInput}` : partnerTag
 
     const dbOrder: OrderData = {
@@ -150,7 +169,7 @@ export async function POST(request: NextRequest) {
       vat,
       total,
       status: 'PENDING',
-      paymentMethod: 'partner',
+      paymentMethod: paymentMethodByOption[paymentOption],
       paymentStatus: 'pending',
       locale: typeof body?.locale === 'string' ? body.locale : 'en',
     }
@@ -159,10 +178,41 @@ export async function POST(request: NextRequest) {
     try {
       const saved = await addOrder(dbOrder)
       savedOrderId = saved.id
-      debugLog('✅ Partner order saved:', orderNumber, saved.id)
+      debugLog('✅ Partner order saved:', orderNumber, saved.id, paymentOption)
     } catch (dbError) {
       errorLog('❌ Partner order DB save failed:', dbError)
       return NextResponse.json({ error: 'Could not save order. Please try again.' }, { status: 500 })
+    }
+
+    // Online payment: create a hosted Stripe Checkout session; client redirects.
+    let paymentUrl: string | null = null
+    if (paymentOption === 'online') {
+      try {
+        const session = await createOrderCheckoutSession({
+          order: {
+            id: savedOrderId,
+            orderNumber,
+            customerEmail: user.email,
+            customerName: user.name || user.email,
+            customerPhone: user.phone || '',
+            total,
+            items: orderItems,
+          },
+          source: 'website',
+        })
+        paymentUrl = session.url
+        await prisma.order.update({
+          where: { id: savedOrderId },
+          data: {
+            stripeSessionId: session.id,
+            paymentMetadata: JSON.stringify({ sessionUrl: session.url, source: 'partner_web', createdAt: new Date().toISOString() }),
+          },
+        })
+      } catch (payErr) {
+        errorLog('❌ Partner online payment session failed:', orderNumber, payErr)
+        // Order still exists as pending; report so the client can fall back.
+        return NextResponse.json({ success: true, orderNumber, orderId: savedOrderId, total, paymentOption, paymentUrl: null, paymentError: true })
+      }
     }
 
     // Notify admin (Vadim) — same channel as retail orders. He then pushes to MoySklad.
@@ -188,7 +238,7 @@ export async function POST(request: NextRequest) {
           vat,
           emirate,
           paymentStatus: 'PENDING',
-          paymentMethod: 'Partner Replenishment Order',
+          paymentMethod: `Partner — ${settlementLabel}`,
           discountPercentage: discountPct > 0 ? discountPct : undefined,
         })
         debugLog('✅ Admin notified of partner order:', orderNumber)
@@ -223,6 +273,8 @@ export async function POST(request: NextRequest) {
       orderNumber,
       orderId: savedOrderId,
       total,
+      paymentOption,
+      paymentUrl,
     })
   } catch (error) {
     errorLog('❌ Partner order error:', error)

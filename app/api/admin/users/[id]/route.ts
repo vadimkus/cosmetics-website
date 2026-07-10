@@ -81,11 +81,18 @@ export async function PUT(
     const { id } = await params
     const updates = await request.json()
     debugLog('Admin user update request:', { id, updates })
-    const { canSeePrices, discountType, discountPercentage, name: __name, email: __email, phone: __phone, address: __address, birthday: __birthday, profilePicture: __profilePicture } = updates
+    const { canSeePrices, consignmentActive, discountType, discountPercentage, name: __name, email: __email, phone: __phone, address: __address, birthday: __birthday, profilePicture: __profilePicture } = updates
 
     if (canSeePrices !== undefined && typeof canSeePrices !== 'boolean') {
       return NextResponse.json(
         { error: 'canSeePrices must be a boolean' },
+        { status: 400 }
+      )
+    }
+
+    if (consignmentActive !== undefined && typeof consignmentActive !== 'boolean') {
+      return NextResponse.json(
+        { error: 'consignmentActive must be a boolean' },
         { status: 400 }
       )
     }

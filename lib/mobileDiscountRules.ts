@@ -41,12 +41,14 @@ export const isDeviceProduct = (product: DiscountCheckProduct): boolean => {
   const cat = normalizeText(product?.category);
   if (cat === 'device' || cat.includes('device')) return true;
 
-  // Fallback by name (covers datasets where category is missing)
-  const name = normalizeText(product?.name);
+  // Fallback by name (covers datasets where category is missing).
+  // Compact to alphanumerics so hyphenated names match too:
+  // "GENO-LED IR II" -> "genoledirii", "Hair-GENTRON" -> "hairgentron".
+  const nameCompact = normalizeText(product?.name).replace(/[^a-z0-9]/g, '');
   return (
-    name.includes('genoled') ||
-    name.includes('gentron') ||
-    name.includes('hairgen')
+    nameCompact.includes('genoled') ||
+    nameCompact.includes('gentron') ||
+    nameCompact.includes('hairgen')
   );
 };
 

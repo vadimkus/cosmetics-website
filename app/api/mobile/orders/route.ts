@@ -64,6 +64,44 @@ interface SubmittedMobileOrderItem {
   bundleDiscountPercent?: unknown
 }
 
+/**
+ * Older orders were saved with an empty `item.image`. Build a productId → image
+ * map from the current catalog so order history still shows thumbnails.
+ */
+async function getProductImageFallback(
+  orders: Array<{ items: Array<{ productId: string; image: string | null }> }>,
+): Promise<Map<string, string>> {
+  const missingIds = new Set<string>()
+  for (const order of orders) {
+    for (const item of order.items) {
+      if (!item.image || !String(item.image).trim()) missingIds.add(item.productId)
+    }
+  }
+  const map = new Map<string, string>()
+  if (missingIds.size === 0) return map
+  try {
+    const products = await prisma.product.findMany({
+      where: { id: { in: Array.from(missingIds) } },
+      select: { id: true, image: true },
+    })
+    for (const p of products) {
+      if (p.image) map.set(p.id, p.image)
+    }
+  } catch (e) {
+    errorLog('[MOBILE_ORDERS] image fallback lookup failed:', e)
+  }
+  return map
+}
+
+const resolveItemImage = (
+  item: { productId: string; image: string | null },
+  fallback: Map<string, string>,
+): string | null => {
+  const stored = String(item.image || '').trim()
+  if (stored) return stored
+  return fallback.get(item.productId) || null
+}
+
 const extractPaymentFlow = (order: { paymentMetadata?: string | Record<string, unknown> | null; payment_metadata?: string | Record<string, unknown> | null }): string | null => {
   const raw = order?.paymentMetadata ?? order?.payment_metadata ?? null
   if (!raw) return null
@@ -188,6 +226,7 @@ export async function GET(request: NextRequest) {
       }
 
       const earnedSingle = await getEarnedPointsByOrder([order], user)
+      const singleImageFallback = await getProductImageFallback([order])
 
       // Format order data for mobile app
       const formattedOrder = {
@@ -222,7 +261,7 @@ export async function GET(request: NextRequest) {
           productName: item.productName,
           price: item.price,
           quantity: item.quantity,
-          image: item.image,
+          image: resolveItemImage(item, singleImageFallback),
           color: item.color,
           size: item.size,
           bundleDiscount: item.bundleDiscount ?? null,
@@ -261,6 +300,7 @@ export async function GET(request: NextRequest) {
     })
 
     const earnedByOrder = await getEarnedPointsByOrder(orders, user)
+    const listImageFallback = await getProductImageFallback(orders)
 
     // Format orders data for mobile app
     const formattedOrders = orders.map(order => ({
@@ -297,7 +337,7 @@ export async function GET(request: NextRequest) {
         productName: item.productName,
         price: item.price,
         quantity: item.quantity,
-        image: item.image,
+        image: resolveItemImage(item, listImageFallback),
         color: item.color,
         size: item.size,
         bundleDiscount: item.bundleDiscount ?? null,

@@ -46,6 +46,37 @@ function statusStyle(status: string): { bg: string; text: string; label: (l: str
   return { bg: 'bg-amber-50', text: 'text-amber-700', label: L('Pending', 'В ожидании', 'قيد الانتظار') }
 }
 
+// Order-item thumbnail with product-image fallback: older orders may have no
+// stored `item.image`, so fall back to the product's current image (same
+// behaviour as the main Orders page).
+function OrderThumb({ image, productId }: { image?: string | null; productId: string }) {
+  const [src, setSrc] = useState<string | null>(null)
+  const [failed, setFailed] = useState(false)
+
+  useEffect(() => {
+    setFailed(false)
+    if (image && image.trim()) {
+      setSrc(image)
+      return
+    }
+    let active = true
+    fetch(`/api/products/${productId}`)
+      .then(r => (r.ok ? r.json() : null))
+      .then(p => {
+        if (!active) return
+        if (p?.image) setSrc(p.image)
+        else setFailed(true)
+      })
+      .catch(() => { if (active) setFailed(true) })
+    return () => { active = false }
+  }, [image, productId])
+
+  if (src && !failed) {
+    return <Image src={src} alt="" width={44} height={44} className="w-full h-full object-cover" onError={() => setFailed(true)} />
+  }
+  return <Package className="w-4 h-4 text-gray-300 absolute inset-0 m-auto" />
+}
+
 function PartnerDashboardInner() {
   const router = useRouter()
   const { locale, dir } = useTranslation()
@@ -261,7 +292,7 @@ function PartnerDashboardInner() {
                       <div className={`flex -space-x-2 ${isRTL ? 'flex-row-reverse space-x-reverse' : ''}`}>
                         {items.slice(0, 3).map((it, idx) => (
                           <div key={idx} className="w-11 h-11 rounded-lg bg-gray-100 border-2 border-white overflow-hidden relative flex-shrink-0">
-                            {it.image ? <Image src={it.image} alt="" width={44} height={44} className="w-full h-full object-cover" /> : <Package className="w-4 h-4 text-gray-300 absolute inset-0 m-auto" />}
+                            <OrderThumb image={it.image ?? null} productId={it.productId} />
                           </div>
                         ))}
                         {items.length > 3 && (

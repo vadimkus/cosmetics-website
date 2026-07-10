@@ -179,6 +179,170 @@ function PartnerDashboardInner() {
   const initial = (user?.name || user?.email || 'P').charAt(0).toUpperCase()
   const discountPct = Math.round(Number(user?.discountPercentage) || 0)
 
+  const signOutModal = showSignOut ? (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
+        <div className="flex items-center gap-3 mb-5">
+          <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center flex-shrink-0">
+            <LogOut className="w-6 h-6 text-red-600" />
+          </div>
+          <div>
+            <h3 className="text-lg font-bold text-gray-900">{t('Sign out?', 'Выйти?', 'تسجيل الخروج؟')}</h3>
+            <p className="text-sm text-gray-500">{t('You can sign back in anytime', 'Вы можете войти снова', 'يمكنك تسجيل الدخول مرة أخرى')}</p>
+          </div>
+        </div>
+        <div className="flex gap-3">
+          <button onClick={() => setShowSignOut(false)} className="flex-1 bg-gray-100 text-gray-700 py-3 rounded-xl font-medium hover:bg-gray-200 transition-colors">
+            {t('Cancel', 'Отмена', 'إلغاء')}
+          </button>
+          <button onClick={() => logout()} className="flex-1 bg-red-600 text-white py-3 rounded-xl font-medium hover:bg-red-700 transition-colors">
+            {t('Sign out', 'Выйти', 'خروج')}
+          </button>
+        </div>
+      </div>
+    </div>
+  ) : null
+
+  // ── Desktop / laptop: compact multi-column dashboard ──
+  if (!isAppLikeMode) {
+    return (
+      <div className="min-h-screen bg-gray-50" dir={dir}>
+        {welcome && (
+          <div className="fixed top-4 right-6 z-50 max-w-sm">
+            <div className="flex items-center gap-3 bg-gray-900 text-white rounded-xl px-4 py-3 shadow-lg">
+              <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+                <Check className="w-4 h-4" />
+              </div>
+              <p className="text-sm">{t(`Welcome back, ${user?.name || 'Partner'}`, `С возвращением, ${user?.name || 'Партнёр'}`, `مرحبًا بعودتك`)}</p>
+            </div>
+          </div>
+        )}
+
+        <div className="container mx-auto px-6 py-8 max-w-6xl">
+          {/* Header bar */}
+          <div className="flex items-center justify-between bg-gray-950 text-white rounded-2xl px-6 py-5 mb-6">
+            <div className="flex items-center gap-4 min-w-0">
+              <div className="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center flex-shrink-0">
+                <span className="text-xl font-bold">{initial}</span>
+              </div>
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="text-base font-black tracking-[0.2em]">GENOSYS</span>
+                  <span className="text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-0.5">Partner</span>
+                </div>
+                <div className="flex items-center gap-2 mt-1">
+                  <h1 className="text-lg font-bold truncate">{user?.name || t('Partner', 'Партнёр', 'شريك')}</h1>
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/10 text-xs font-semibold">
+                    <ShieldCheck className="w-3.5 h-3.5 text-green-400" />
+                    {t('Verified', 'Проверен', 'موثّق')}
+                  </span>
+                  {discountPct > 0 && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-red-600 text-xs font-bold">−{discountPct}%</span>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 flex-shrink-0">
+              <button
+                onClick={() => router.push(getLocalizedPath('/partner-portal/order', locale))}
+                className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors"
+              >
+                <Plus className="w-4 h-4" /> {t('New Order', 'Новый заказ', 'طلب جديد')}
+              </button>
+              <button onClick={() => setShowSignOut(true)} className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
+                <LogOut className="w-4 h-4" /> {t('Sign out', 'Выйти', 'خروج')}
+              </button>
+            </div>
+          </div>
+
+          {/* Stat strip */}
+          <div className="grid grid-cols-4 gap-4 mb-6">
+            {[
+              { icon: Package, value: String(stats.count), label: t('Orders', 'Заказов', 'الطلبات') },
+              { icon: TrendingUp, value: stats.spent.toFixed(0), label: t('Total AED', 'Всего AED', 'إجمالي AED') },
+              { icon: Clock, value: stats.daysSince === null ? '—' : `${stats.daysSince}d`, label: t('Since last order', 'С посл. заказа', 'منذ آخر طلب') },
+              { icon: ShieldCheck, value: discountPct > 0 ? `−${discountPct}%` : '—', label: t('Partner price', 'Партнёрская цена', 'سعر الشريك') },
+            ].map((s, i) => (
+              <div key={i} className="bg-white rounded-2xl border border-gray-100 shadow-sm px-5 py-4">
+                <s.icon className="w-4 h-4 text-gray-300 mb-2" />
+                <p className="text-2xl font-bold text-gray-900 leading-none">{s.value}</p>
+                <p className="text-xs text-gray-400 mt-1.5">{s.label}</p>
+              </div>
+            ))}
+          </div>
+
+          {showReorderNudge && (
+            <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-6">
+              <RefreshCw className="w-4 h-4 text-amber-600 flex-shrink-0" />
+              <p className="text-sm text-amber-800">
+                {t(`It's been ${stats.daysSince} days since your last order — time to restock?`, `С последнего заказа прошло ${stats.daysSince} дн. — пора пополнить?`, `مرّ ${stats.daysSince} يومًا على آخر طلب`)}
+              </p>
+            </div>
+          )}
+
+          {/* Order history table */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+              <h2 className="text-base font-bold text-gray-900">{t('Order history', 'История заказов', 'سجل الطلبات')}</h2>
+              <button onClick={handleRefresh} disabled={refreshing} className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50">
+                <RefreshCw className={`w-4 h-4 text-gray-400 ${refreshing ? 'animate-spin' : ''}`} />
+              </button>
+            </div>
+            {loading ? (
+              <div className="p-6 space-y-3">
+                {[1, 2, 3, 4].map(i => <div key={i} className="h-12 bg-gray-100 rounded-lg animate-pulse" />)}
+              </div>
+            ) : orders.length === 0 ? (
+              <div className="py-14 text-center">
+                <ShoppingBag className="w-12 h-12 text-gray-200 mx-auto mb-3" />
+                <p className="text-sm font-medium text-gray-900">{t('No orders yet', 'Заказов пока нет', 'لا توجد طلبات بعد')}</p>
+                <p className="text-xs text-gray-400 mt-1">{t('Place your first partner order', 'Оформите первый заказ', 'قدّم طلبك الأول')}</p>
+              </div>
+            ) : (
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-xs font-medium text-gray-400 uppercase tracking-wider">
+                    <th className="px-6 py-3">{t('Order', 'Заказ', 'الطلب')}</th>
+                    <th className="px-6 py-3">{t('Date', 'Дата', 'التاريخ')}</th>
+                    <th className="px-6 py-3">{t('Items', 'Позиции', 'العناصر')}</th>
+                    <th className="px-6 py-3">{t('Status', 'Статус', 'الحالة')}</th>
+                    <th className="px-6 py-3 text-right">{t('Total', 'Итого', 'الإجمالي')}</th>
+                    <th className="px-6 py-3" />
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-50">
+                  {orders.map(order => {
+                    const st = statusStyle(order.status)
+                    return (
+                      <tr key={order.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-3.5 font-semibold text-gray-900 whitespace-nowrap">{order.orderNumber}</td>
+                        <td className="px-6 py-3.5 text-gray-500 whitespace-nowrap">{fmtDate(order.createdAt)}</td>
+                        <td className="px-6 py-3.5 text-gray-500">{order.items?.length || 0}</td>
+                        <td className="px-6 py-3.5">
+                          <span className={`inline-flex px-2 py-0.5 rounded-full text-[11px] font-semibold ${st.bg} ${st.text}`}>{st.label(locale)}</span>
+                        </td>
+                        <td className="px-6 py-3.5 text-right font-bold text-gray-900 whitespace-nowrap">{Number(order.total).toFixed(2)} AED</td>
+                        <td className="px-6 py-3.5 text-right">
+                          <button
+                            onClick={() => reorder(order)}
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-900 text-white text-xs font-semibold hover:bg-black transition-colors"
+                          >
+                            <RefreshCw className="w-3.5 h-3.5" /> {t('Reorder', 'Повторить', 'إعادة')}
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
+        {signOutModal}
+      </div>
+    )
+  }
+
   return (
     <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-28' : ''}`} dir={dir}>
       {/* Welcome toast */}

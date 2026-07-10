@@ -160,6 +160,22 @@ function PartnerDashboardInner() {
     })
   }
 
+  // Reorder: stash this order's lines and jump to the order builder prefilled.
+  const reorder = (order: POrder) => {
+    const map: Record<string, number> = {}
+    for (const it of order.items || []) {
+      map[it.productId] = (map[it.productId] || 0) + it.quantity
+    }
+    const items = Object.entries(map).map(([id, quantity]) => ({ id, quantity }))
+    if (items.length === 0) return
+    try {
+      sessionStorage.setItem('partner_reorder', JSON.stringify(items))
+    } catch {
+      /* ignore storage errors */
+    }
+    router.push(getLocalizedPath('/partner-portal/order', locale))
+  }
+
   const initial = (user?.name || user?.email || 'P').charAt(0).toUpperCase()
   const discountPct = Math.round(Number(user?.discountPercentage) || 0)
 
@@ -331,6 +347,13 @@ function PartnerDashboardInner() {
                           <span className="text-sm font-semibold text-gray-900">{t('Total', 'Итого', 'الإجمالي')}</span>
                           <span className="text-base font-bold text-red-600">{Number(order.total).toFixed(2)} AED</span>
                         </div>
+                        <button
+                          onClick={() => reorder(order)}
+                          className={`mt-3 w-full flex items-center justify-center gap-2 bg-gray-900 text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-black transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                        >
+                          <RefreshCw className="w-4 h-4" />
+                          {t('Reorder these items', 'Повторить заказ', 'إعادة طلب هذه المنتجات')}
+                        </button>
                       </div>
                     )}
                   </div>

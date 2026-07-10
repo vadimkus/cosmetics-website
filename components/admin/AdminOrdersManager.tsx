@@ -46,8 +46,12 @@ export default function AdminOrdersManager({
   getAdminHeaders
 }: AdminOrdersManagerProps) {
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null)
+  const [orderFilter, setOrderFilter] = useState<'all' | 'partner'>('all')
   const [toasts, setToasts] = useState<Toast[]>([])
   const toastIdCounter = useRef(0)
+
+  const partnerCount = orders.filter(o => o.paymentMethod === 'partner').length
+  const visibleOrders = orderFilter === 'partner' ? orders.filter(o => o.paymentMethod === 'partner') : orders
 
   // Add toast notification
   const showToast = (message: string, type: ToastType = 'success') => {
@@ -104,11 +108,11 @@ export default function AdminOrdersManager({
 
   const handleSelectAll = useCallback((checked: boolean) => {
     if (checked) {
-      onSelectOrders(orders.map(order => order.id))
+      onSelectOrders(visibleOrders.map(order => order.id))
     } else {
       onSelectOrders([])
     }
-  }, [orders, onSelectOrders])
+  }, [visibleOrders, onSelectOrders])
 
   const handleSelectOrder = useCallback((orderId: string, checked: boolean) => {
     if (checked) {
@@ -119,8 +123,8 @@ export default function AdminOrdersManager({
   }, [selectedOrders, onSelectOrders])
 
 
-  const allSelected = selectedOrders.length === orders.length && orders.length > 0
-  const someSelected = selectedOrders.length > 0 && selectedOrders.length < orders.length
+  const allSelected = selectedOrders.length === visibleOrders.length && visibleOrders.length > 0
+  const someSelected = selectedOrders.length > 0 && selectedOrders.length < visibleOrders.length
 
   return (
     <div className="space-y-6">
@@ -157,6 +161,24 @@ export default function AdminOrdersManager({
             </button>
           </div>
         </div>
+
+        {/* Filter tabs — All vs Partner Portal */}
+        {partnerCount > 0 && (
+          <div className="mt-4 flex gap-2">
+            <button
+              onClick={() => setOrderFilter('all')}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${orderFilter === 'all' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
+            >
+              All orders ({orders.length})
+            </button>
+            <button
+              onClick={() => setOrderFilter('partner')}
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${orderFilter === 'partner' ? 'bg-red-600 text-white' : 'bg-red-50 text-red-600 hover:bg-red-100'}`}
+            >
+              Partner Portal ({partnerCount})
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Orders List */}
@@ -166,13 +188,13 @@ export default function AdminOrdersManager({
             <RefreshCw className="animate-spin h-8 w-8 text-primary-500 mx-auto mb-4" />
             <p className="text-gray-500">Loading orders...</p>
           </div>
-        ) : orders.length === 0 ? (
+        ) : visibleOrders.length === 0 ? (
           <div className="text-center py-12">
             <div className="bg-gray-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
               <Package className="h-12 w-12 text-gray-300" />
             </div>
-            <h3 className="text-xl font-semibold mb-2">No orders yet</h3>
-            <p className="text-gray-400">Orders will appear here as customers make purchases.</p>
+            <h3 className="text-xl font-semibold mb-2">{orderFilter === 'partner' ? 'No partner orders yet' : 'No orders yet'}</h3>
+            <p className="text-gray-400">{orderFilter === 'partner' ? 'Orders placed via the Partner Portal will appear here.' : 'Orders will appear here as customers make purchases.'}</p>
           </div>
         ) : (
           <div className="overflow-x-auto -mx-3 sm:-mx-4 md:mx-0 scrollbar-hide">
@@ -200,7 +222,7 @@ export default function AdminOrdersManager({
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
-                    {orders.map((order) => (
+                    {visibleOrders.map((order) => (
                       <tr key={order.id} className={`hover:bg-gray-50 ${order.paymentMethod === 'partner' ? 'bg-red-50/40' : ''}`}>
                         <td className="px-2 sm:px-3 md:px-6 py-4">
                           <input

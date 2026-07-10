@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Search, Plus, Minus, Check, Loader2, Package } from 'lucide-react'
+import { Search, Plus, Minus, Check, Loader2, Package, RefreshCw } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -27,6 +27,7 @@ function PartnerOrderInner() {
   const [notes, setNotes] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [placed, setPlaced] = useState<{ orderNumber: string; total: number } | null>(null)
+  const [reorderLoaded, setReorderLoaded] = useState(0)
 
   const isRTL = dir === 'rtl'
   const t = (en: string, ru: string, ar: string) => (locale === 'ru' ? ru : locale === 'ar' ? ar : en)
@@ -48,7 +49,33 @@ function PartnerOrderInner() {
         if (res.ok) {
           const data = await res.json()
           const list: Product[] = Array.isArray(data) ? data : data?.data || []
-          setProducts(list.filter(p => p && !p.isHidden))
+          const available = list.filter(p => p && !p.isHidden)
+          setProducts(available)
+
+          // Reorder prefill: only for products that still exist and are in stock.
+          try {
+            const raw = sessionStorage.getItem('partner_reorder')
+            if (raw) {
+              sessionStorage.removeItem('partner_reorder')
+              const items: Array<{ id: string; quantity: number }> = JSON.parse(raw)
+              const byId = new Map(available.map(p => [p.id, p]))
+              const next: Record<string, number> = {}
+              let loaded = 0
+              for (const it of items) {
+                const p = byId.get(it.id)
+                if (p && p.inStock !== false && it.quantity > 0) {
+                  next[it.id] = it.quantity
+                  loaded += 1
+                }
+              }
+              if (loaded > 0) {
+                setQty(next)
+                setReorderLoaded(loaded)
+              }
+            }
+          } catch {
+            /* ignore prefill errors */
+          }
         }
       } catch (e) {
         errorLog('Partner product load failed:', e)
@@ -186,6 +213,18 @@ function PartnerOrderInner() {
 
       {/* Product list */}
       <div className={`${isAppLikeMode ? 'px-4 py-3' : 'container mx-auto px-4 py-4 max-w-3xl'}`}>
+        {reorderLoaded > 0 && (
+          <div className={`flex items-center gap-2 bg-gray-900 text-white rounded-xl px-4 py-3 mb-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+            <RefreshCw className="w-4 h-4 flex-shrink-0" />
+            <p className="text-sm flex-1">
+              {t(
+                `Loaded ${reorderLoaded} item${reorderLoaded === 1 ? '' : 's'} from a previous order — adjust and place.`,
+                `Загружено ${reorderLoaded} поз. из прошлого заказа — измените и оформите.`,
+                `تم تحميل ${reorderLoaded} من طلب سابق — عدّل ثم قدّم.`
+              )}
+            </p>
+          </div>
+        )}
         {loading ? (
           <div className="space-y-3">
             {[1, 2, 3, 4, 5].map(i => (

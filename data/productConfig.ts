@@ -664,15 +664,9 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '60': {
     id: '60',
-    images: [
-      '/images/Second/Prof_Meso.jpg',
-      '/images/6000/S1.jpeg',
-      '/images/6000/S2.jpeg',
-      '/images/6000/S3.jpeg',
-      '/images/6000/S4.jpeg',
-      '/images/6000/S5.jpeg',
-      '/images/6000/S6.jpeg',
-    ],
+    // Gallery migrated to DB-only (product.image /images/6000/main.jpg + images
+    // S1-S6). Config gallery removed 2026-07-10 — it still pointed at the
+    // deleted /images/Second/Prof_Meso.jpg and config wins over DB.
     pricing: {
       basePrice: 0
     },

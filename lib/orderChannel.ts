@@ -17,8 +17,8 @@ export function resolveOrderChannel(input: {
 }): OrderChannel {
   const orderNumber = String(input.orderNumber || '').trim()
 
-  // 1) Channel letter right after the prefix (COD | GENCard)
-  const m = orderNumber.match(/^(?:COD|GENCard)([MW])/i)
+  // 1) Channel letter right after the prefix (COD | GENCard | PART)
+  const m = orderNumber.match(/^(?:COD|GENCard|PART)([MW])/i)
   if (m && m[1]) return m[1].toUpperCase() === 'M' ? 'app' : 'website'
 
   // 2) Backstop: mobile flows tag paymentMetadata.source = 'mobile_app'

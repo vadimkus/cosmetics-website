@@ -5,10 +5,11 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { getProductById } from '@/lib/productsDb'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
-import { generateUniqueOrderNumber } from '@/lib/orderNumber'
+import { generateUniquePartnerOrderNumber } from '@/lib/orderNumber'
 import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { getPreferredEmail } from '@/lib/emailHelpers'
-import { sendAdminNewOrderNotification } from '@/lib/email'
+import { sendAdminNewOrderNotification, sendOrderConfirmationEmail } from '@/lib/email'
+import type { OrderConfirmationEmailData } from '@/lib/email/types'
 import { requireCsrfToken } from '@/lib/csrf'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { debugLog, errorLog } from '@/lib/logger'
@@ -78,6 +79,7 @@ export async function POST(request: NextRequest) {
     // ---- Server-side pricing (never trust client prices) ----
     let subtotal = 0
     const orderItems: OrderItemData[] = []
+    const emailItems: OrderConfirmationEmailData['items'] = []
 
     for (const line of submitted) {
       const productId = String(line?.id || '').trim()
@@ -93,18 +95,30 @@ export async function POST(request: NextRequest) {
 
       // Partner price = this account's own discount off retail (existing
       // accounts keep their negotiated %, new partner accounts default to 50%).
-      const unitPrice = calculateDiscountedPrice(product, user).discountedPrice
+      const pricing = calculateDiscountedPrice(product, user)
+      const unitPrice = pricing.discountedPrice
       const lineTotal = Math.round(unitPrice * quantity * 100) / 100
       subtotal += lineTotal
 
+      const size = line.size ? String(line.size) : undefined
+      const color = line.color ? String(line.color) : undefined
       orderItems.push({
         productId: product.id,
         productName: product.name,
         price: unitPrice,
         quantity,
         image: product.image || '/images/placeholder.jpg',
-        ...(line.size ? { size: String(line.size) } : {}),
-        ...(line.color ? { color: String(line.color) } : {}),
+        ...(size ? { size } : {}),
+        ...(color ? { color } : {}),
+      })
+      emailItems.push({
+        productName: product.name,
+        quantity,
+        price: unitPrice,
+        image: product.image || '/images/placeholder.jpg',
+        ...(size ? { size } : {}),
+        ...(color ? { color } : {}),
+        ...(pricing.hasDiscount ? { originalPrice: pricing.originalPrice, discountLabel: `${Math.round(pricing.discountPercentage)}% OFF` } : {}),
       })
     }
 
@@ -114,7 +128,7 @@ export async function POST(request: NextRequest) {
     const vat = calculateVatIncluded(total)
     const discountPct = Number(user.discountPercentage || 0)
 
-    const orderNumber = await generateUniqueOrderNumber({ channel: 'W', payment: 'COD' })
+    const orderNumber = await generateUniquePartnerOrderNumber({ channel: 'W' })
 
     // Mark clearly as a partner order (no schema change needed for MVP).
     const partnerTag = `PARTNER ORDER — ${user.name || user.email}`
@@ -180,6 +194,27 @@ export async function POST(request: NextRequest) {
         debugLog('✅ Admin notified of partner order:', orderNumber)
       } catch (emailError) {
         errorLog('❌ Failed to notify admin of partner order:', orderNumber, emailError)
+      }
+
+      // Confirmation to the partner themselves.
+      try {
+        await sendOrderConfirmationEmail({
+          orderNumber,
+          customerName: user.name || user.email,
+          customerEmail: getPreferredEmail(user),
+          items: emailItems,
+          subtotal,
+          shipping,
+          vat,
+          total,
+          address: user.address || 'Partner account',
+          emirate,
+          ...(discountPct > 0 ? { discountPercentage: discountPct } : {}),
+          locale: typeof body?.locale === 'string' ? body.locale : 'en',
+        })
+        debugLog('✅ Partner order confirmation sent:', orderNumber)
+      } catch (emailError) {
+        errorLog('❌ Failed to send partner confirmation:', orderNumber, emailError)
       }
     })
 

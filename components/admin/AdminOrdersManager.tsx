@@ -201,7 +201,7 @@ export default function AdminOrdersManager({
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {orders.map((order) => (
-                      <tr key={order.id} className="hover:bg-gray-50">
+                      <tr key={order.id} className={`hover:bg-gray-50 ${order.paymentMethod === 'partner' ? 'bg-red-50/40' : ''}`}>
                         <td className="px-2 sm:px-3 md:px-6 py-4">
                           <input
                             type="checkbox"

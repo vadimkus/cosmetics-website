@@ -4,10 +4,11 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { getProductById } from '@/lib/productsDb'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
-import { generateUniqueOrderNumber } from '@/lib/orderNumber'
+import { generateUniquePartnerOrderNumber } from '@/lib/orderNumber'
 import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { getPreferredEmail } from '@/lib/emailHelpers'
-import { sendAdminNewOrderNotification } from '@/lib/email'
+import { sendAdminNewOrderNotification, sendOrderConfirmationEmail } from '@/lib/email'
+import type { OrderConfirmationEmailData } from '@/lib/email/types'
 import { debugLog, errorLog } from '@/lib/logger'
 
 export const runtime = 'nodejs'
@@ -73,6 +74,7 @@ export async function POST(request: NextRequest) {
 
     let subtotal = 0
     const orderItems: OrderItemData[] = []
+    const emailItems: OrderConfirmationEmailData['items'] = []
 
     for (const line of submitted) {
       const productId = String(line?.id || '').trim()
@@ -84,17 +86,29 @@ export async function POST(request: NextRequest) {
       if (!product) {
         return NextResponse.json({ success: false, error: `Product not found: ${productId}` }, { status: 400, headers: CORS })
       }
-      const unitPrice = calculateDiscountedPrice(product, user).discountedPrice
+      const pricing = calculateDiscountedPrice(product, user)
+      const unitPrice = pricing.discountedPrice
       const lineTotal = Math.round(unitPrice * quantity * 100) / 100
       subtotal += lineTotal
+      const size = line.size ? String(line.size) : undefined
+      const color = line.color ? String(line.color) : undefined
       orderItems.push({
         productId: product.id,
         productName: product.name,
         price: unitPrice,
         quantity,
         image: product.image || '/images/placeholder.jpg',
-        ...(line.size ? { size: String(line.size) } : {}),
-        ...(line.color ? { color: String(line.color) } : {}),
+        ...(size ? { size } : {}),
+        ...(color ? { color } : {}),
+      })
+      emailItems.push({
+        productName: product.name,
+        quantity,
+        price: unitPrice,
+        image: product.image || '/images/placeholder.jpg',
+        ...(size ? { size } : {}),
+        ...(color ? { color } : {}),
+        ...(pricing.hasDiscount ? { originalPrice: pricing.originalPrice, discountLabel: `${Math.round(pricing.discountPercentage)}% OFF` } : {}),
       })
     }
 
@@ -102,7 +116,7 @@ export async function POST(request: NextRequest) {
     const shipping = 0
     const total = subtotal
     const vat = calculateVatIncluded(total)
-    const orderNumber = await generateUniqueOrderNumber({ channel: 'M', payment: 'COD' })
+    const orderNumber = await generateUniquePartnerOrderNumber({ channel: 'M' })
 
     const partnerTag = `PARTNER ORDER — ${user.name || user.email}`
     const orderNotes = orderNotesInput ? `${partnerTag}\n${orderNotesInput}` : partnerTag
@@ -165,6 +179,26 @@ export async function POST(request: NextRequest) {
         })
       } catch (emailError) {
         errorLog('❌ Failed to notify admin of mobile partner order:', orderNumber, emailError)
+      }
+
+      try {
+        const dPct = Number(user.discountPercentage || 0)
+        await sendOrderConfirmationEmail({
+          orderNumber,
+          customerName: user.name || user.email,
+          customerEmail: getPreferredEmail(user),
+          items: emailItems,
+          subtotal,
+          shipping,
+          vat,
+          total,
+          address: user.address || 'Partner account',
+          emirate,
+          ...(dPct > 0 ? { discountPercentage: dPct } : {}),
+          locale: typeof body?.locale === 'string' ? body.locale : 'en',
+        })
+      } catch (emailError) {
+        errorLog('❌ Failed to send mobile partner confirmation:', orderNumber, emailError)
       }
     })
 

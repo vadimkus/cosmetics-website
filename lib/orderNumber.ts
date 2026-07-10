@@ -32,6 +32,27 @@ function buildOrderNumber(channel: OrderChannel, payment: PaymentKind, datePart:
 }
 
 /**
+ * Partner (clinic/salon) replenishment orders use a distinct `PART` prefix so
+ * they are unmistakable at a glance (e.g. PARTW2607100852). Channel letter is
+ * preserved (W website, M app) so lib/orderChannel can still resolve the source.
+ */
+export async function generateUniquePartnerOrderNumber(args: {
+  channel: OrderChannel
+  date?: Date
+}): Promise<string> {
+  const datePart = yymmdd(args.date || new Date())
+  for (let attempt = 0; attempt < 10; attempt++) {
+    const candidate = `PART${args.channel}${datePart}${random4()}`
+    const existing = await prisma.order.findUnique({
+      where: { orderNumber: candidate },
+      select: { id: true },
+    })
+    if (!existing) return candidate
+  }
+  return `PART${args.channel}${datePart}${random4()}${crypto.randomInt(0, 10)}`
+}
+
+/**
  * Generates a unique order number with collision detection.
  * 
  * Format: `{PREFIX}{CHANNEL}YYMMDD####`

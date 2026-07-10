@@ -351,61 +351,55 @@ function PartnerOrderInner() {
           </div>
         )}
 
-        {/* Payment / settlement option */}
-        {itemCount > 0 && (
-          <div className="mt-4">
-            <label className={`block text-xs font-semibold text-gray-500 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
-              {t('Settlement', 'Оплата', 'الدفع')}
-            </label>
-            <div className="space-y-2">
+      </div>
+
+      {/* Sticky submit bar (settlement selector always visible here) */}
+      {itemCount > 0 && (
+        <div className={`fixed left-0 right-0 ${isAppLikeMode ? 'bottom-20' : 'bottom-0'} z-30 bg-white border-t border-gray-100 px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]`}>
+          <div className="container mx-auto max-w-3xl">
+            {/* Settlement pills */}
+            <div className={`flex items-center gap-2 mb-1.5 overflow-x-auto scrollbar-hide ${isRTL ? 'flex-row-reverse' : ''}`}>
               {hasConsignment && (
                 <button
                   onClick={() => setPayOption('consignment')}
-                  className={`w-full flex items-center gap-3 rounded-xl border p-3.5 text-left transition-colors ${payOption === 'consignment' ? 'border-amber-400 bg-amber-50 ring-1 ring-amber-200' : 'border-gray-200 bg-white'} ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+                  className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                    payOption === 'consignment'
+                      ? 'bg-amber-500 border-amber-500 text-white'
+                      : 'bg-white border-gray-200 text-gray-600 hover:border-amber-300'
+                  }`}
                 >
-                  <span className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${payOption === 'consignment' ? 'border-amber-500 bg-amber-500' : 'border-gray-300'}`} />
-                  <span className="flex-1 min-w-0">
-                    <span className="block text-sm font-semibold text-gray-900">
-                      {t('Add to consignment stock', 'На консигнационный склад', 'إضافة إلى مخزون الأمانة')}
-                    </span>
-                    <span className="block text-xs text-gray-500">
-                      {t('Settle via monthly sales report', 'Расчёт по ежемесячному отчёту о продажах', 'التسوية عبر تقرير المبيعات الشهري')}
-                    </span>
-                  </span>
-                  <span className="text-[10px] font-bold uppercase tracking-wide bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full flex-shrink-0">
-                    {t('Agreement', 'Договор', 'اتفاقية')}
-                  </span>
+                  {t('Consignment stock', 'Консигнация', 'مخزون أمانة')}
                 </button>
               )}
               <button
                 onClick={() => setPayOption('online')}
-                className={`w-full flex items-center gap-3 rounded-xl border p-3.5 text-left transition-colors ${payOption === 'online' ? 'border-red-400 bg-red-50 ring-1 ring-red-200' : 'border-gray-200 bg-white'} ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+                className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                  payOption === 'online'
+                    ? 'bg-gray-900 border-gray-900 text-white'
+                    : 'bg-white border-gray-200 text-gray-600 hover:border-gray-400'
+                }`}
               >
-                <span className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${payOption === 'online' ? 'border-red-500 bg-red-500' : 'border-gray-300'}`} />
-                <span className="flex-1 min-w-0">
-                  <span className="block text-sm font-semibold text-gray-900">{t('Pay online now', 'Оплатить онлайн', 'الدفع عبر الإنترنت')}</span>
-                  <span className="block text-xs text-gray-500">{t('Card / Apple Pay — secure Stripe checkout', 'Карта / Apple Pay — безопасная оплата Stripe', 'بطاقة / Apple Pay — دفع آمن عبر Stripe')}</span>
-                </span>
+                {t('Pay online', 'Оплатить онлайн', 'دفع أونلاين')}
               </button>
               <button
                 onClick={() => setPayOption('cod')}
-                className={`w-full flex items-center gap-3 rounded-xl border p-3.5 text-left transition-colors ${payOption === 'cod' ? 'border-red-400 bg-red-50 ring-1 ring-red-200' : 'border-gray-200 bg-white'} ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+                className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                  payOption === 'cod'
+                    ? 'bg-gray-900 border-gray-900 text-white'
+                    : 'bg-white border-gray-200 text-gray-600 hover:border-gray-400'
+                }`}
               >
-                <span className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${payOption === 'cod' ? 'border-red-500 bg-red-500' : 'border-gray-300'}`} />
-                <span className="flex-1 min-w-0">
-                  <span className="block text-sm font-semibold text-gray-900">{t('Cash on delivery', 'Оплата при получении', 'الدفع عند الاستلام')}</span>
-                  <span className="block text-xs text-gray-500">{t('Pay when your order arrives', 'Оплатите при доставке заказа', 'ادفع عند وصول طلبك')}</span>
-                </span>
+                {t('Cash on delivery', 'При получении', 'عند الاستلام')}
               </button>
             </div>
-          </div>
-        )}
-      </div>
-
-      {/* Sticky submit bar */}
-      {itemCount > 0 && (
-        <div className={`fixed left-0 right-0 ${isAppLikeMode ? 'bottom-20' : 'bottom-0'} z-30 bg-white border-t border-gray-100 px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]`}>
-          <div className={`container mx-auto max-w-3xl flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <p className={`text-[11px] text-gray-400 mb-2 ${isRTL ? 'text-right' : ''}`}>
+              {payOption === 'consignment'
+                ? t('Settle via monthly sales report — no payment now', 'Расчёт по ежемесячному отчёту — без оплаты сейчас', 'التسوية عبر التقرير الشهري — بدون دفع الآن')
+                : payOption === 'online'
+                  ? t('Card / Apple Pay — secure Stripe checkout', 'Карта / Apple Pay — безопасная оплата Stripe', 'بطاقة / Apple Pay — دفع آمن عبر Stripe')
+                  : t('Pay when your order arrives', 'Оплатите при доставке заказа', 'ادفع عند وصول طلبك')}
+            </p>
+            <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className={isRTL ? 'text-right' : ''}>
               <p className="text-xs text-gray-500">
                 {itemCount} {itemCount === 1 ? t('item', 'товар', 'منتج') : t('items', 'товаров', 'منتجات')}
@@ -430,6 +424,7 @@ function PartnerOrderInner() {
                 t('Place order', 'Оформить заказ', 'تقديم الطلب')
               )}
             </button>
+            </div>
           </div>
         </div>
       )}

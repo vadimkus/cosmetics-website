@@ -23,10 +23,16 @@ import type { Locale } from '@/lib/i18n'
  * Localized — the URLs and names honor `/ar` / `/ru` prefixes so each locale
  * homepage gets its own ItemList pointing at its own URLs.
  *
- * Price / availability are intentionally omitted from the featured items
- * schema here — full `ProductSchema` lives on the PDP and handles that
- * authoritatively. Duplicating those fields would risk drift.
+ * Featured items include `offers` with live DB price — Google Search Console
+ * flags any `@type: Product` whose offers lack `price` as a CRITICAL Product
+ * snippets error (reported against https://genosys.ae/ on 2026-07-11).
+ * Products without a valid price (price ≤ 0 or price-on-request) are emitted
+ * as URL-only ListItems, which is Google's recommended summary-page pattern.
  */
+
+// Google requires offers.priceValidUntil for Product rich-result eligibility.
+// Same convention as ProductSchema.tsx — rolled ~1 year forward.
+const PRICE_VALID_UNTIL = `${new Date().getFullYear() + 1}-12-31`
 
 interface HomeItemListSchemaProps {
   locale: Locale
@@ -122,19 +128,40 @@ export default function HomeItemListSchema({
 
   // 3. Featured products (bestsellers)
   const featuredItems = featuredProducts.slice(0, 4).map((product, idx) => {
+    const productUrl = ensureUrl(getLocalizedPath(`/products/${product.id}`, locale))
     const item: Record<string, unknown> = {
       '@type': 'ListItem',
       position: idx + 1,
-      url: ensureUrl(getLocalizedPath(`/products/${product.id}`, locale)),
-      item: {
+      url: productUrl,
+    }
+
+    // A ListItem may carry a nested Product ONLY when we can emit a complete
+    // offer (Google: "Either 'price' or 'priceSpecification.price' should be
+    // specified (in 'offers')" is a critical Product snippets error).
+    // Price-on-request / unpriced products stay as URL-only ListItems.
+    if (product.price && product.price > 0 && !product.isPriceOnRequest) {
+      const nested: Record<string, unknown> = {
         '@type': 'Product',
         name: localizedProductName(product, locale),
-        url: ensureUrl(getLocalizedPath(`/products/${product.id}`, locale)),
-      },
-    }
-    const img = productImage(product)
-    if (img) {
-      ;(item.item as Record<string, unknown>).image = img
+        url: productUrl,
+        brand: { '@type': 'Brand', name: 'GENOSYS' },
+        offers: {
+          '@type': 'Offer',
+          price: Number(product.price),
+          priceCurrency: 'AED',
+          priceValidUntil: PRICE_VALID_UNTIL,
+          availability: product.inStock
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock',
+          itemCondition: 'https://schema.org/NewCondition',
+          url: productUrl,
+        },
+      }
+      const img = productImage(product)
+      if (img) nested.image = img
+      item.item = nested
+    } else {
+      item.name = localizedProductName(product, locale)
     }
     return item
   })

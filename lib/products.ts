@@ -375,7 +375,7 @@ export const products: Product[] = [
     images: null,
     category: 'Mask',
     inStock: true,
-    size: '1 sheet (23g)',
+    size: '1 sheet (25g)',
   },
   {
     id: '37',

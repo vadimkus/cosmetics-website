@@ -41,7 +41,7 @@ export function getDefaultSizeForProduct(productName: string): string | undefine
   
   // Masks
   if (name.includes('MASK')) {
-    if (name.includes('SOOTHING BOMB SEA ALGAE')) return '23g'
+    if (name.includes('SOOTHING BOMB SEA ALGAE')) return '25g'
     if (name.includes('PEPTIDE GEL')) return '38g'
     if (name.includes('COLLAGEN')) return '25g'
     return '25g' // Default for masks

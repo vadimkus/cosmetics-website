@@ -218,6 +218,25 @@ export default function Footer() {
     )
   }
 
+  // ── Partner portal ────────────────────────────────────────────────
+  // B2B ordering surface — retail trust badges and the sitemap footer
+  // are exit ramps mid-order. Render the bare minimum: legal + copyright.
+  if (pathname?.includes('/partner-portal')) {
+    return (
+      <footer role="contentinfo" className="bg-white border-t border-gray-200 mt-6" suppressHydrationWarning>
+        <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] text-gray-500">
+          <Link href={getLocalizedPath('/privacy-policy', locale)} className="hover:text-gray-700 transition-colors">
+            {t('navigation.privacyPolicy')}
+          </Link>
+          <Link href={getLocalizedPath('/terms', locale)} className="hover:text-gray-700 transition-colors">
+            {copy.links.terms}
+          </Link>
+          <span suppressHydrationWarning>{t('footer.copyright')}</span>
+        </div>
+      </footer>
+    )
+  }
+
   // Reusable class for column link items — consistent hit area and focus ring.
   const colLinkClass =
     'text-sm text-gray-600 hover:text-primary-700 transition-colors py-1 inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded'

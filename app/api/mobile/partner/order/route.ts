@@ -95,12 +95,22 @@ export async function POST(request: NextRequest) {
       if (!product) {
         return NextResponse.json({ success: false, error: `Product not found: ${productId}` }, { status: 400, headers: CORS })
       }
-      const pricing = calculateDiscountedPrice(product, user)
+      const size = line.size ? String(line.size) : undefined
+      const color = line.color ? String(line.color) : undefined
+      // Size/color variant selected → the variant's price is the retail base
+      // (e.g. CERABARRIER 200ml vs 600ml). Discount applies on top of it.
+      const variant = (size || color)
+        ? (product.variants || []).find(v =>
+            (size ? String(v.size || '') === size : true) &&
+            (color ? String(v.color || '') === color : true))
+        : undefined
+      const pricing = calculateDiscountedPrice(
+        variant ? ({ ...product, price: variant.price } as typeof product) : product,
+        user
+      )
       const unitPrice = pricing.discountedPrice
       const lineTotal = Math.round(unitPrice * quantity * 100) / 100
       subtotal += lineTotal
-      const size = line.size ? String(line.size) : undefined
-      const color = line.color ? String(line.color) : undefined
       orderItems.push({
         productId: product.id,
         productName: product.name,

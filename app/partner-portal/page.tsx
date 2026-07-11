@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import {
@@ -161,12 +161,19 @@ function PartnerDashboardInner() {
   }
 
   // Reorder: stash this order's lines and jump to the order builder prefilled.
+  // Size variants are preserved (one line per product+size).
   const reorder = (order: POrder) => {
     const map: Record<string, number> = {}
     for (const it of order.items || []) {
-      map[it.productId] = (map[it.productId] || 0) + it.quantity
+      const key = it.size ? `${it.productId}||${it.size}` : it.productId
+      map[key] = (map[key] || 0) + it.quantity
     }
-    const items = Object.entries(map).map(([id, quantity]) => ({ id, quantity }))
+    const items = Object.entries(map).map(([key, quantity]) => {
+      const i = key.indexOf('||')
+      return i === -1
+        ? { id: key, quantity }
+        : { id: key.slice(0, i), quantity, size: key.slice(i + 2) }
+    })
     if (items.length === 0) return
     try {
       sessionStorage.setItem('partner_reorder', JSON.stringify(items))
@@ -318,24 +325,60 @@ function PartnerDashboardInner() {
                 <tbody className="divide-y divide-gray-50">
                   {orders.map(order => {
                     const st = statusStyle(order.status)
+                    const isOpen = expanded.has(order.id)
+                    const items = order.items || []
                     return (
-                      <tr key={order.id} className="hover:bg-gray-50">
-                        <td className="px-6 py-3.5 font-semibold text-gray-900 whitespace-nowrap">{order.orderNumber}</td>
-                        <td className="px-6 py-3.5 text-gray-500 whitespace-nowrap">{fmtDate(order.createdAt)}</td>
-                        <td className="px-6 py-3.5 text-gray-500">{order.items?.length || 0}</td>
-                        <td className="px-6 py-3.5">
-                          <span className={`inline-flex px-2 py-0.5 rounded-full text-[11px] font-semibold ${st.bg} ${st.text}`}>{st.label(locale)}</span>
-                        </td>
-                        <td className="px-6 py-3.5 text-right font-bold text-gray-900 whitespace-nowrap">{Number(order.total).toFixed(2)} AED</td>
-                        <td className="px-6 py-3.5 text-right">
-                          <button
-                            onClick={() => reorder(order)}
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-900 text-white text-xs font-semibold hover:bg-black transition-colors"
-                          >
-                            <RefreshCw className="w-3.5 h-3.5" /> {t('Reorder', 'Повторить', 'إعادة')}
-                          </button>
-                        </td>
-                      </tr>
+                      <React.Fragment key={order.id}>
+                        <tr className="hover:bg-gray-50 cursor-pointer" onClick={() => toggle(order.id)}>
+                          <td className="px-6 py-3.5 font-semibold text-gray-900 whitespace-nowrap">
+                            <span className="inline-flex items-center gap-2">
+                              <ChevronDown className={`w-4 h-4 text-gray-300 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                              {order.orderNumber}
+                            </span>
+                          </td>
+                          <td className="px-6 py-3.5 text-gray-500 whitespace-nowrap">{fmtDate(order.createdAt)}</td>
+                          <td className="px-6 py-3.5 text-gray-500">{items.length}</td>
+                          <td className="px-6 py-3.5">
+                            <span className={`inline-flex px-2 py-0.5 rounded-full text-[11px] font-semibold ${st.bg} ${st.text}`}>{st.label(locale)}</span>
+                          </td>
+                          <td className="px-6 py-3.5 text-right font-bold text-gray-900 whitespace-nowrap">{Number(order.total).toFixed(2)} AED</td>
+                          <td className="px-6 py-3.5 text-right">
+                            <button
+                              onClick={e => { e.stopPropagation(); reorder(order) }}
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-900 text-white text-xs font-semibold hover:bg-black transition-colors"
+                            >
+                              <RefreshCw className="w-3.5 h-3.5" /> {t('Reorder', 'Повторить', 'إعادة')}
+                            </button>
+                          </td>
+                        </tr>
+                        {isOpen && (
+                          <tr className="bg-gray-50/60">
+                            <td colSpan={6} className="px-6 py-4">
+                              <div className="space-y-2 max-w-2xl">
+                                {items.map((it, idx) => (
+                                  <div key={idx} className="flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden relative flex-shrink-0">
+                                      <OrderThumb image={it.image ?? null} productId={it.productId} />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-sm text-gray-900 leading-tight">{it.productName}</p>
+                                      <p className="text-xs text-gray-400">
+                                        {t('Qty', 'Кол-во', 'الكمية')}: {it.quantity}{it.size ? ` · ${it.size}` : ''}
+                                      </p>
+                                    </div>
+                                    <span className="text-sm font-medium text-gray-900 flex-shrink-0">
+                                      {(Number(it.price) * it.quantity).toFixed(2)} AED
+                                    </span>
+                                  </div>
+                                ))}
+                                {items.length === 0 && (
+                                  <p className="text-sm text-gray-400">{t('No item details for this order', 'Нет данных о позициях', 'لا توجد تفاصيل')}</p>
+                                )}
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
                     )
                   })}
                 </tbody>

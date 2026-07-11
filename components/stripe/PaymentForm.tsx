@@ -10,6 +10,8 @@ interface PaymentFormProps {
   onSuccess: (paymentIntentId: string) => void
   onError: (error: string) => void
   locale?: string
+  /** Where 3DS/redirect payment methods return. Defaults to the retail checkout success page. */
+  returnUrl?: string
 }
 
 export default function PaymentForm({
@@ -17,7 +19,8 @@ export default function PaymentForm({
   orderId,
   onSuccess,
   onError,
-  locale = 'en'
+  locale = 'en',
+  returnUrl
 }: PaymentFormProps) {
   const stripe = useStripe()
   const elements = useElements()
@@ -48,7 +51,7 @@ export default function PaymentForm({
       const { error, paymentIntent } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-          return_url: `${baseUrl}/checkout/success?payment_intent={PAYMENT_INTENT_ID}&order_id=${orderId}`,
+          return_url: returnUrl || `${baseUrl}/checkout/success?payment_intent={PAYMENT_INTENT_ID}&order_id=${orderId}`,
         },
         redirect: 'if_required',
       })

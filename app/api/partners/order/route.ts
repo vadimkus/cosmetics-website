@@ -10,7 +10,7 @@ import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { sendAdminNewOrderNotification, sendOrderConfirmationEmail } from '@/lib/email'
 import type { OrderConfirmationEmailData } from '@/lib/email/types'
-import { createOrderCheckoutSession } from '@/lib/stripe'
+import { createPaymentIntent } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
 import { requireCsrfToken } from '@/lib/csrf'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
@@ -103,15 +103,26 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: `Product not found: ${productId}` }, { status: 400 })
       }
 
+      const size = line.size ? String(line.size) : undefined
+      const color = line.color ? String(line.color) : undefined
+
+      // Size/color variant selected → the variant's price is the retail base
+      // (e.g. CERABARRIER 200ml vs 600ml). Discount applies on top of it.
+      const variant = (size || color)
+        ? (product.variants || []).find(v =>
+            (size ? String(v.size || '') === size : true) &&
+            (color ? String(v.color || '') === color : true))
+        : undefined
+
       // Partner price = this account's own discount off retail (existing
       // accounts keep their negotiated %, new partner accounts default to 50%).
-      const pricing = calculateDiscountedPrice(product, user)
+      const pricing = calculateDiscountedPrice(
+        variant ? ({ ...product, price: variant.price } as typeof product) : product,
+        user
+      )
       const unitPrice = pricing.discountedPrice
       const lineTotal = Math.round(unitPrice * quantity * 100) / 100
       subtotal += lineTotal
-
-      const size = line.size ? String(line.size) : undefined
-      const color = line.color ? String(line.color) : undefined
       orderItems.push({
         productId: product.id,
         productName: product.name,
@@ -184,34 +195,35 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Could not save order. Please try again.' }, { status: 500 })
     }
 
-    // Online payment: create a hosted Stripe Checkout session; client redirects.
-    let paymentUrl: string | null = null
+    // Online payment: create a PaymentIntent so the client can render the
+    // embedded Stripe Payment Element in a bottom sheet on the same page
+    // (no redirect to hosted checkout). The webhook marks the order paid
+    // via stripePaymentIntentId on payment_intent.succeeded.
+    let clientSecret: string | null = null
     if (paymentOption === 'online') {
       try {
-        const session = await createOrderCheckoutSession({
-          order: {
-            id: savedOrderId,
-            orderNumber,
-            customerEmail: user.email,
-            customerName: user.name || user.email,
-            customerPhone: user.phone || '',
-            total,
-            items: orderItems,
-          },
-          source: 'website',
+        const paymentIntent = await createPaymentIntent({
+          amount: total,
+          customerEmail: user.email,
+          customerName: user.name || user.email,
+          customerPhone: user.phone || '',
+          customerEmirate: emirate,
+          orderNumber,
+          locale: typeof body?.locale === 'string' ? body.locale : 'en',
+          description: `Partner order ${orderNumber}`,
         })
-        paymentUrl = session.url
+        clientSecret = paymentIntent.client_secret
         await prisma.order.update({
           where: { id: savedOrderId },
           data: {
-            stripeSessionId: session.id,
-            paymentMetadata: JSON.stringify({ sessionUrl: session.url, source: 'partner_web', createdAt: new Date().toISOString() }),
+            stripePaymentIntentId: paymentIntent.id,
+            paymentMetadata: JSON.stringify({ paymentIntentId: paymentIntent.id, source: 'partner_web', createdAt: new Date().toISOString() }),
           },
         })
       } catch (payErr) {
-        errorLog('❌ Partner online payment session failed:', orderNumber, payErr)
+        errorLog('❌ Partner online payment intent failed:', orderNumber, payErr)
         // Order still exists as pending; report so the client can fall back.
-        return NextResponse.json({ success: true, orderNumber, orderId: savedOrderId, total, paymentOption, paymentUrl: null, paymentError: true })
+        return NextResponse.json({ success: true, orderNumber, orderId: savedOrderId, total, paymentOption, clientSecret: null, paymentError: true })
       }
     }
 
@@ -274,7 +286,7 @@ export async function POST(request: NextRequest) {
       orderId: savedOrderId,
       total,
       paymentOption,
-      paymentUrl,
+      clientSecret,
     })
   } catch (error) {
     errorLog('❌ Partner order error:', error)

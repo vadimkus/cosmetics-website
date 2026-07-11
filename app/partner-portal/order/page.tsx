@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Search, Plus, Minus, Check, Loader2, Package, RefreshCw } from 'lucide-react'
+import { Search, Plus, Minus, Check, Loader2, Package, RefreshCw, Trash2, ChevronDown } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -12,7 +12,22 @@ import { PartnerGuard } from '@/components/partners/PartnerGuard'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
+import BottomSheet from '@/components/ui/BottomSheet'
+import StripeProvider from '@/components/stripe/StripeProvider'
+import PaymentForm from '@/components/stripe/PaymentForm'
 import type { Product } from '@/types'
+
+// Order lines are keyed by product id, or `id||size` when a size variant is
+// selected — one product can have several lines (e.g. 200ml and 600ml).
+const keyOf = (id: string, size?: string | null) => (size ? `${id}||${size}` : id)
+const parseKey = (key: string): { id: string; size?: string } => {
+  const i = key.indexOf('||')
+  return i === -1 ? { id: key } : { id: key.slice(0, i), size: key.slice(i + 2) }
+}
+
+// Real size variants only (ignore size-less "default" price records).
+const sizesOf = (product: Product) =>
+  (product.variants || []).filter(v => v.size && v.size !== 'default')
 
 function PartnerOrderInner() {
   const router = useRouter()
@@ -26,8 +41,11 @@ function PartnerOrderInner() {
   const [qty, setQty] = useState<Record<string, number>>({})
   const [notes, setNotes] = useState('')
   const [submitting, setSubmitting] = useState(false)
-  const [placed, setPlaced] = useState<{ orderNumber: string; total: number; paymentOption: string } | null>(null)
+  const [placed, setPlaced] = useState<{ orderNumber: string; total: number; paymentOption: string; paid?: boolean } | null>(null)
   const [reorderLoaded, setReorderLoaded] = useState(0)
+  const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set())
+  // Embedded Stripe payment (bottom sheet on this page — no redirect).
+  const [paySheet, setPaySheet] = useState<{ clientSecret: string; orderNumber: string; total: number } | null>(null)
 
   const hasConsignment = user?.consignmentActive === true
   const [payOption, setPayOption] = useState<'consignment' | 'online' | 'cod'>('cod')
@@ -63,14 +81,22 @@ function PartnerOrderInner() {
             const raw = sessionStorage.getItem('partner_reorder')
             if (raw) {
               sessionStorage.removeItem('partner_reorder')
-              const items: Array<{ id: string; quantity: number }> = JSON.parse(raw)
+              const items: Array<{ id: string; quantity: number; size?: string }> = JSON.parse(raw)
               const byId = new Map(available.map(p => [p.id, p]))
               const next: Record<string, number> = {}
               let loaded = 0
               for (const it of items) {
                 const p = byId.get(it.id)
                 if (p && p.inStock !== false && it.quantity > 0) {
-                  next[it.id] = it.quantity
+                  const productSizes = sizesOf(p)
+                  let size = it.size && productSizes.some(v => v.size === it.size) ? it.size : undefined
+                  // Multi-size product without a stored size (old order) → default size,
+                  // so the line stays visible and editable in the size selector.
+                  if (!size && productSizes.length >= 2) {
+                    const def = productSizes.find(v => v.isDefault) || productSizes[0]
+                    size = def?.size || undefined
+                  }
+                  next[keyOf(it.id, size)] = it.quantity
                   loaded += 1
                 }
               }
@@ -103,27 +129,51 @@ function PartnerOrderInner() {
     )
   }, [products, search])
 
-  const setLineQty = (id: string, next: number) => {
+  const setLineQty = (key: string, next: number) => {
     setQty(prev => {
       const clone = { ...prev }
-      if (next <= 0) delete clone[id]
-      else clone[id] = next
+      if (next <= 0) delete clone[key]
+      else clone[key] = next
       return clone
     })
   }
 
+  const toggleCard = (id: string) => {
+    setExpandedCards(prev => {
+      const n = new Set(prev)
+      if (n.has(id)) n.delete(id)
+      else n.add(id)
+      return n
+    })
+  }
+
+  // Partner price for a line: size variant price (if selected) with the
+  // account discount applied on top — mirrors the server calculation.
+  const linePricing = useMemo(() => {
+    return (product: Product, size?: string | null) => {
+      if (size) {
+        const v = sizesOf(product).find(vv => vv.size === size)
+        if (v) return calculateDiscountedPrice({ ...product, price: v.price } as Product, user)
+      }
+      return calculateDiscountedPrice(product, user)
+    }
+  }, [user])
+
+  const productById = useMemo(() => new Map(products.map(p => [p.id, p])), [products])
+
   const { itemCount, total } = useMemo(() => {
     let count = 0
     let sum = 0
-    for (const p of products) {
-      const q = qty[p.id] || 0
-      if (q > 0) {
-        count += q
-        sum += calculateDiscountedPrice(p, user).discountedPrice * q
-      }
+    for (const [key, q] of Object.entries(qty)) {
+      if (q <= 0) continue
+      const { id, size } = parseKey(key)
+      const p = productById.get(id)
+      if (!p) continue
+      count += q
+      sum += linePricing(p, size).discountedPrice * q
     }
     return { itemCount: count, total: Math.round(sum * 100) / 100 }
-  }, [qty, products, user])
+  }, [qty, productById, linePricing])
 
   const submit = async () => {
     if (itemCount === 0 || submitting) return
@@ -133,7 +183,10 @@ function PartnerOrderInner() {
       if (!token) throw new Error('No CSRF token')
       const items = Object.entries(qty)
         .filter(([, q]) => q > 0)
-        .map(([id, q]) => ({ id, quantity: q }))
+        .map(([key, q]) => {
+          const { id, size } = parseKey(key)
+          return { id, quantity: q, ...(size ? { size } : {}) }
+        })
 
       const res = await fetch('/api/partners/order', {
         method: 'POST',
@@ -142,9 +195,9 @@ function PartnerOrderInner() {
       })
       const data = await res.json()
       if (res.ok && data.success) {
-        if (data.paymentUrl) {
-          // Online payment: hand over to Stripe hosted checkout.
-          window.location.href = data.paymentUrl
+        if (data.clientSecret) {
+          // Online payment: open the embedded Stripe sheet on this page.
+          setPaySheet({ clientSecret: data.clientSecret, orderNumber: data.orderNumber, total: data.total })
           return
         }
         setPlaced({ orderNumber: data.orderNumber, total: data.total, paymentOption: data.paymentOption || payOption })
@@ -159,6 +212,22 @@ function PartnerOrderInner() {
     } finally {
       setSubmitting(false)
     }
+  }
+
+  const clearAll = () => {
+    if (itemCount === 0) return
+    if (window.confirm(t('Remove all items from this order?', 'Убрать все позиции из заказа?', 'إزالة جميع العناصر من هذا الطلب؟'))) {
+      setQty({})
+    }
+  }
+
+  // Embedded payment finished (paid) or sheet dismissed (order stays pending).
+  const finishPayment = (paid: boolean) => {
+    if (!paySheet) return
+    setPlaced({ orderNumber: paySheet.orderNumber, total: paySheet.total, paymentOption: 'online', paid })
+    setPaySheet(null)
+    setQty({})
+    setNotes('')
   }
 
   // Success screen
@@ -178,6 +247,11 @@ function PartnerOrderInner() {
               {t('Consignment stock', 'Консигнация', 'بضاعة أمانة')}
             </span>
           )}
+          {placed.paymentOption === 'online' && placed.paid && (
+            <span className="inline-block text-[11px] font-bold uppercase tracking-wide bg-green-100 text-green-800 px-2.5 py-1 rounded-full mb-3">
+              {t('Paid', 'Оплачено', 'مدفوع')}
+            </span>
+          )}
           <p className="text-xs text-gray-500 mb-6">
             {placed.paymentOption === 'consignment'
               ? t(
@@ -186,11 +260,17 @@ function PartnerOrderInner() {
                   'أُضيف إلى مخزون الأمانة — توصيل في نفس اليوم. التسوية عبر تقرير المبيعات الشهري.'
                 )
               : placed.paymentOption === 'online'
-                ? t(
-                    'Order recorded — the payment link could not be opened. We will send you a payment link shortly.',
-                    'Заказ записан — не удалось открыть ссылку на оплату. Мы пришлём её вам в ближайшее время.',
-                    'تم تسجيل الطلب — تعذر فتح رابط الدفع. سنرسله إليك قريبًا.'
-                  )
+                ? placed.paid
+                  ? t(
+                      'Payment received — we will confirm and arrange same-day delivery.',
+                      'Оплата получена — подтвердим и организуем доставку в тот же день.',
+                      'تم استلام الدفعة — سنؤكد ونرتب التوصيل في نفس اليوم.'
+                    )
+                  : t(
+                      'Order recorded — payment not completed. Reopen it any time from your orders to pay, or we will send you a payment link.',
+                      'Заказ записан — оплата не завершена. Откройте его в своих заказах, чтобы оплатить, или мы пришлём ссылку на оплату.',
+                      'تم تسجيل الطلب — لم يكتمل الدفع. افتحه من طلباتك للدفع، أو سنرسل لك رابط دفع.'
+                    )
                 : t(
                     'Priority partner order — we will confirm and arrange same-day delivery. Payment on delivery.',
                     'Приоритетный партнёрский заказ — подтвердим и организуем доставку в тот же день. Оплата при получении.',
@@ -253,6 +333,20 @@ function PartnerOrderInner() {
             </p>
           </div>
         )}
+        {!loading && itemCount > 0 && (
+          <div className="flex items-center justify-between mb-2">
+            <p className="text-xs text-gray-400">
+              {itemCount} {itemCount === 1 ? t('item selected', 'товар выбран', 'منتج محدد') : t('items selected', 'товаров выбрано', 'منتجات محددة')}
+            </p>
+            <button
+              onClick={clearAll}
+              className="flex items-center gap-1 text-xs font-semibold text-gray-400 hover:text-red-600 transition-colors py-1"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              {t('Clear all', 'Очистить всё', 'مسح الكل')}
+            </button>
+          </div>
+        )}
         {loading ? (
           <div className="space-y-3">
             {[1, 2, 3, 4, 5].map(i => (
@@ -264,69 +358,181 @@ function PartnerOrderInner() {
         ) : (
           <div className="space-y-2.5">
             {filtered.map(product => {
-              const q = qty[product.id] || 0
-              const info = calculateDiscountedPrice(product, user)
-              const price = info.discountedPrice
+              const sizes = sizesOf(product)
+              const multiSize = sizes.length >= 2
+              const isOpen = expandedCards.has(product.id)
               const soldOut = product.inStock === false
+              const baseKey = keyOf(product.id)
+              const q = qty[baseKey] || 0
+              const info = linePricing(product)
+              const price = info.discountedPrice
+              const productQty = Object.entries(qty).reduce(
+                (s, [k, n]) => (parseKey(k).id === product.id ? s + n : s), 0
+              )
+              const description =
+                ((locale === 'ru' ? product.descriptionRu : locale === 'ar' ? product.descriptionAr : null) ||
+                  product.description || '').trim()
               return (
                 <div
                   key={product.id}
-                  className={`flex items-center gap-3 bg-white border rounded-2xl p-3 ${soldOut ? 'opacity-60' : ''} ${q > 0 ? 'border-red-200 ring-1 ring-red-100' : 'border-gray-100'} ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`bg-white border rounded-2xl ${soldOut ? 'opacity-60' : ''} ${productQty > 0 ? 'border-red-200 ring-1 ring-red-100' : 'border-gray-100'}`}
                 >
-                  <div className="w-14 h-14 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0 relative flex items-center justify-center">
-                    {product.image ? (
-                      <Image src={product.image} alt={product.name} width={56} height={56} className="w-full h-full object-cover" />
-                    ) : (
-                      <Package className="w-5 h-5 text-gray-300" />
-                    )}
-                    {soldOut && (
-                      <span className="absolute inset-x-0 bottom-0 bg-black/60 text-white text-[8px] font-bold text-center uppercase py-0.5">
-                        {t('Sold out', 'Нет', 'نفد')}
+                  <div className={`flex items-center gap-3 p-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                    {/* Tapping the image/name expands the card (description + sizes) */}
+                    <button
+                      onClick={() => toggleCard(product.id)}
+                      className={`flex items-center gap-3 flex-1 min-w-0 ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
+                    >
+                      <div className="w-14 h-14 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0 relative flex items-center justify-center">
+                        {product.image ? (
+                          <Image src={product.image} alt={product.name} width={56} height={56} className="w-full h-full object-cover" />
+                        ) : (
+                          <Package className="w-5 h-5 text-gray-300" />
+                        )}
+                        {soldOut && (
+                          <span className="absolute inset-x-0 bottom-0 bg-black/60 text-white text-[8px] font-bold text-center uppercase py-0.5">
+                            {t('Sold out', 'Нет', 'نفد')}
+                          </span>
+                        )}
+                      </div>
+                      <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
+                        <p className="text-sm font-semibold text-gray-900 leading-tight line-clamp-2">{product.name}</p>
+                        <div className={`flex items-center gap-2 mt-1 flex-wrap ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          {multiSize ? (
+                            <>
+                              <span className="text-sm font-bold text-red-600">
+                                {t('from', 'от', 'من')}{' '}
+                                {Math.min(...sizes.map(v => linePricing(product, v.size).discountedPrice)).toFixed(2)} AED
+                              </span>
+                              <span className="text-[10px] font-bold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
+                                {sizes.length} {t('sizes', 'объёма', 'أحجام')}
+                              </span>
+                            </>
+                          ) : (
+                            <>
+                              <span className="text-sm font-bold text-red-600">{price.toFixed(2)} AED</span>
+                              {info.hasDiscount && (
+                                <>
+                                  <span className="text-xs text-gray-400 line-through">{info.originalPrice.toFixed(2)}</span>
+                                  <span className="text-[10px] font-bold text-green-700 bg-green-50 px-1.5 py-0.5 rounded">−{Math.round(info.discountPercentage)}%</span>
+                                </>
+                              )}
+                            </>
+                          )}
+                          <ChevronDown className={`w-3.5 h-3.5 text-gray-300 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                        </div>
+                      </div>
+                    </button>
+                    {/* Right-side control */}
+                    {soldOut ? (
+                      <span className="px-3 h-8 flex items-center rounded-full bg-gray-100 text-gray-400 text-sm font-semibold flex-shrink-0">
+                        {t('Sold out', 'Нет в наличии', 'نفدت')}
                       </span>
+                    ) : multiSize ? (
+                      productQty > 0 ? (
+                        <button
+                          onClick={() => toggleCard(product.id)}
+                          className="px-3 h-8 rounded-full bg-red-600 text-white text-sm font-bold flex-shrink-0"
+                        >
+                          ×{productQty}
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() => toggleCard(product.id)}
+                          className="px-3 h-8 rounded-full bg-red-50 text-red-600 text-sm font-semibold active:bg-red-100 flex-shrink-0"
+                        >
+                          {t('Select size', 'Выбрать объём', 'اختر الحجم')}
+                        </button>
+                      )
+                    ) : q > 0 ? (
+                      <div className={`flex items-center gap-2 flex-shrink-0 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                        <button
+                          onClick={() => setLineQty(baseKey, q - 1)}
+                          className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center active:bg-gray-200"
+                          aria-label="decrease"
+                        >
+                          <Minus className="w-4 h-4 text-gray-700" />
+                        </button>
+                        <span className="w-6 text-center text-sm font-bold text-gray-900">{q}</span>
+                        <button
+                          onClick={() => setLineQty(baseKey, q + 1)}
+                          className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center active:bg-red-700"
+                          aria-label="increase"
+                        >
+                          <Plus className="w-4 h-4 text-white" />
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setLineQty(baseKey, 1)}
+                        className="px-3 h-8 rounded-full bg-red-50 text-red-600 text-sm font-semibold active:bg-red-100 flex-shrink-0"
+                      >
+                        {t('Add', 'Добавить', 'إضافة')}
+                      </button>
                     )}
                   </div>
-                  <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
-                    <p className="text-sm font-semibold text-gray-900 leading-tight line-clamp-2">{product.name}</p>
-                    <div className={`flex items-center gap-2 mt-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-sm font-bold text-red-600">{price.toFixed(2)} AED</span>
-                      {info.hasDiscount && (
-                        <>
-                          <span className="text-xs text-gray-400 line-through">{info.originalPrice.toFixed(2)}</span>
-                          <span className="text-[10px] font-bold text-green-700 bg-green-50 px-1.5 py-0.5 rounded">−{Math.round(info.discountPercentage)}%</span>
-                        </>
+
+                  {/* Expanded: description + size lines */}
+                  {isOpen && (
+                    <div className={`px-3 pb-3 border-t border-gray-50 pt-2.5 ${isRTL ? 'text-right' : ''}`}>
+                      {description && (
+                        <p className="text-xs text-gray-500 leading-relaxed line-clamp-4 mb-2.5">{description}</p>
+                      )}
+                      {sizes.length > 0 && (
+                        <div className="space-y-2">
+                          {sizes.map(v => {
+                            const lineKey = keyOf(product.id, v.size)
+                            const lq = qty[lineKey] || 0
+                            const vInfo = linePricing(product, v.size)
+                            const unavailable = v.available === false
+                            return (
+                              <div
+                                key={lineKey}
+                                className={`flex items-center gap-3 rounded-xl bg-gray-50 px-3 py-2 ${unavailable ? 'opacity-50' : ''} ${isRTL ? 'flex-row-reverse' : ''}`}
+                              >
+                                <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
+                                  <span className="text-sm font-semibold text-gray-900">{v.size}</span>
+                                  <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                    <span className="text-sm font-bold text-red-600">{vInfo.discountedPrice.toFixed(2)} AED</span>
+                                    {vInfo.hasDiscount && (
+                                      <span className="text-xs text-gray-400 line-through">{vInfo.originalPrice.toFixed(2)}</span>
+                                    )}
+                                  </div>
+                                </div>
+                                {unavailable ? (
+                                  <span className="text-xs font-semibold text-gray-400">{t('Unavailable', 'Недоступно', 'غير متاح')}</span>
+                                ) : lq > 0 ? (
+                                  <div className={`flex items-center gap-2 flex-shrink-0 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                    <button
+                                      onClick={() => setLineQty(lineKey, lq - 1)}
+                                      className="w-7 h-7 rounded-full bg-white border border-gray-200 flex items-center justify-center active:bg-gray-100"
+                                      aria-label="decrease"
+                                    >
+                                      <Minus className="w-3.5 h-3.5 text-gray-700" />
+                                    </button>
+                                    <span className="w-5 text-center text-sm font-bold text-gray-900">{lq}</span>
+                                    <button
+                                      onClick={() => setLineQty(lineKey, lq + 1)}
+                                      className="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center active:bg-red-700"
+                                      aria-label="increase"
+                                    >
+                                      <Plus className="w-3.5 h-3.5 text-white" />
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <button
+                                    onClick={() => setLineQty(lineKey, 1)}
+                                    className="px-3 h-7 rounded-full bg-red-50 text-red-600 text-xs font-semibold active:bg-red-100 flex-shrink-0"
+                                  >
+                                    {t('Add', 'Добавить', 'إضافة')}
+                                  </button>
+                                )}
+                              </div>
+                            )
+                          })}
+                        </div>
                       )}
                     </div>
-                  </div>
-                  {/* Stepper */}
-                  {soldOut ? (
-                    <span className="px-3 h-8 flex items-center rounded-full bg-gray-100 text-gray-400 text-sm font-semibold flex-shrink-0">
-                      {t('Sold out', 'Нет в наличии', 'نفدت')}
-                    </span>
-                  ) : q > 0 ? (
-                    <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      <button
-                        onClick={() => setLineQty(product.id, q - 1)}
-                        className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center active:bg-gray-200"
-                        aria-label="decrease"
-                      >
-                        <Minus className="w-4 h-4 text-gray-700" />
-                      </button>
-                      <span className="w-6 text-center text-sm font-bold text-gray-900">{q}</span>
-                      <button
-                        onClick={() => setLineQty(product.id, q + 1)}
-                        className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center active:bg-red-700"
-                        aria-label="increase"
-                      >
-                        <Plus className="w-4 h-4 text-white" />
-                      </button>
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => setLineQty(product.id, 1)}
-                      className="px-3 h-8 rounded-full bg-red-50 text-red-600 text-sm font-semibold active:bg-red-100 flex-shrink-0"
-                    >
-                      {t('Add', 'Добавить', 'إضافة')}
-                    </button>
                   )}
                 </div>
               )
@@ -428,6 +634,29 @@ function PartnerOrderInner() {
           </div>
         </div>
       )}
+
+      {/* Embedded Stripe payment — slides up from below, stays on this page */}
+      <BottomSheet
+        isOpen={paySheet !== null}
+        onClose={() => finishPayment(false)}
+        title={t('Secure payment', 'Безопасная оплата', 'دفع آمن')}
+        height="large"
+      >
+        {paySheet && (
+          <StripeProvider clientSecret={paySheet.clientSecret} locale={locale}>
+            <PaymentForm
+              total={paySheet.total}
+              orderId={paySheet.orderNumber}
+              locale={locale}
+              returnUrl={`${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${paySheet.orderNumber}`}
+              onSuccess={() => finishPayment(true)}
+              onError={() => {
+                /* keep the sheet open — the form shows the error inline */
+              }}
+            />
+          </StripeProvider>
+        )}
+      </BottomSheet>
     </div>
   )
 }

@@ -516,6 +516,9 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                           v.style.aspectRatio = `${v.videoWidth} / ${v.videoHeight}`
                         }
                       }}
+                      // Collapse back to the play button once the clip finishes
+                      // so the page doesn't keep a dead black player on screen.
+                      onEnded={() => setVideoOpen(false)}
                     >
                       <source src={product.videoUrl} type="video/mp4" />
                       {t('product.videoNotSupported') || 'Your browser does not support the video tag.'}

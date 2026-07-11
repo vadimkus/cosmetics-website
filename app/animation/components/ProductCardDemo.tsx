@@ -49,7 +49,7 @@ const demoProducts = [
     rating: 4.6,
     reviews: 156,
     badge: null,
-    image: '/images/SEA.jpg'
+    image: '/images/sea_algae/Main.jpeg'
   },
   {
     id: 5,

@@ -371,7 +371,7 @@ export const products: Product[] = [
     name: 'SOOTHING BOMB SEA ALGAE MASK',
     price: 36,
     description: '25g x 10ea. Eucalace® sheet mask inspired by the healing power of the ocean. It is a Eucalace® sheet mask inspired by the healing power of the ocean. It provides intensive relief to the skin and moisturizes skin with sea algae complex and centella asiatica extract. Key ingredients: Jania Rubens Extract, Undaria Pinnatifida Extract, Bambusa Vulgaris Extract, Centella Asiatica Extract, Hamamelis Virginiana (Witch Hazel) Extract, Custanea Crenata Shell Extract, Panthenol, Allantoin. Dermatologically tested. Efficacy test on skin hydration.',
-    image: '/images/SEA.jpg',
+    image: '/images/sea_algae/Main.jpeg',
     images: null,
     category: 'Mask',
     inStock: true,

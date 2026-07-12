@@ -205,8 +205,8 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
     )
   }
 
-  // Routine-step marker: product thumbnail with the step number badged on top
-  // (falls back to the plain numbered circle when the step has no image).
+  // Routine-step marker: numbered circle + product thumbnail side by side
+  // (falls back to just the numbered circle when the step has no image).
   // Thumbnails deep-link to the step's product page, same as the title.
   const RoutineStepMarker = ({ n, titleKey }: { n: number; titleKey: string }) => {
     const img = getRoutineStepImage(titleKey)
@@ -217,22 +217,25 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
     const pid = ROUTINE_STEP_PRODUCT_IDS[titleKey]
     const isSelf = !pid || String(product.id) === pid || String(product.productNumber || '') === pid
     const thumb = (
-      <span className="relative flex-shrink-0 block w-12 h-12 sm:w-14 sm:h-14 mt-0.5">
-        <Image
-          src={img}
-          alt=""
-          width={56}
-          height={56}
-          className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border border-gray-200 bg-white"
-        />
-        <span className={`absolute -top-1.5 w-5 h-5 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-[10px] shadow-sm ${dir === 'rtl' ? '-right-1.5' : '-left-1.5'}`}>{n}</span>
-      </span>
+      <Image
+        src={img}
+        alt=""
+        width={56}
+        height={56}
+        className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border border-gray-200 bg-white"
+      />
     )
-    if (isSelf) return thumb
     return (
-      <Link href={getLocalizedPath(`/products/${pid}`, locale)} className="flex-shrink-0 transition-opacity hover:opacity-80" aria-label={t(`product.${titleKey}`)}>
-        {thumb}
-      </Link>
+      <span className={`flex-shrink-0 flex items-start gap-1.5 sm:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        {numberCircle}
+        {isSelf ? (
+          <span className="flex-shrink-0 block mt-0.5">{thumb}</span>
+        ) : (
+          <Link href={getLocalizedPath(`/products/${pid}`, locale)} className="flex-shrink-0 block mt-0.5 transition-opacity hover:opacity-80" aria-label={t(`product.${titleKey}`)}>
+            {thumb}
+          </Link>
+        )}
+      </span>
     )
   }
 

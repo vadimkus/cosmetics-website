@@ -7,6 +7,7 @@ import { ApiUser } from '@/types/user'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { getProductDocumentation } from '@/data/productConfig'
+import { getMobileRoutine } from '@/lib/mobileProductRoutines'
 
 /**
  * Database product type - matches Prisma query select fields
@@ -314,6 +315,9 @@ export async function GET(
       isPriceOnRequest: typedProduct.isPriceOnRequest ?? false,
       pricing: buildPricingContract(typedProduct, user),
       documentation: getProductDocumentation(productIdForTranslation, locale),
+      // Recommended Routine (same data the website PDP renders) — localized,
+      // with per-step productId deep links. null when the product has none.
+      routine: getMobileRoutine(productIdForTranslation, locale),
     }
     const enhancementDuration = Date.now() - enhancementStartTime
     

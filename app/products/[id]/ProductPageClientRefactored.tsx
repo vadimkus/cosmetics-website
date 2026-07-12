@@ -3,6 +3,7 @@ import { errorLog } from '@/lib/logger'
 import { trackProductView, trackAddToCart } from '@/lib/analytics'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
@@ -35,6 +36,7 @@ import {
 } from '@/utils/productPricing'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
+import { getRoutineStepImage } from '@/lib/routineStepImages'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 
 interface ProductPageClientProps {
@@ -199,6 +201,37 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
         className="underline decoration-gray-300 underline-offset-2 transition-colors hover:text-primary-700 hover:decoration-primary-400"
       >
         {label}
+      </Link>
+    )
+  }
+
+  // Routine-step marker: product thumbnail with the step number badged on top
+  // (falls back to the plain numbered circle when the step has no image).
+  // Thumbnails deep-link to the step's product page, same as the title.
+  const RoutineStepMarker = ({ n, titleKey }: { n: number; titleKey: string }) => {
+    const img = getRoutineStepImage(titleKey)
+    const numberCircle = (
+      <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">{n}</span>
+    )
+    if (!img) return numberCircle
+    const pid = ROUTINE_STEP_PRODUCT_IDS[titleKey]
+    const isSelf = !pid || String(product.id) === pid || String(product.productNumber || '') === pid
+    const thumb = (
+      <span className="relative flex-shrink-0 block w-12 h-12 sm:w-14 sm:h-14 mt-0.5">
+        <Image
+          src={img}
+          alt=""
+          width={56}
+          height={56}
+          className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border border-gray-200 bg-white"
+        />
+        <span className={`absolute -top-1.5 w-5 h-5 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-[10px] shadow-sm ${dir === 'rtl' ? '-right-1.5' : '-left-1.5'}`}>{n}</span>
+      </span>
+    )
+    if (isSelf) return thumb
+    return (
+      <Link href={getLocalizedPath(`/products/${pid}`, locale)} className="flex-shrink-0 transition-opacity hover:opacity-80" aria-label={t(`product.${titleKey}`)}>
+        {thumb}
       </Link>
     )
   }
@@ -895,35 +928,35 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                    <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                    <RoutineStepMarker n={2} titleKey="routineProblemControlTonerTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineProblemControlTonerTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineProblemControlTonerDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                    <RoutineStepMarker n={3} titleKey="routineProblemControlSerumTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineProblemControlSerumTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineProblemControlSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                    <RoutineStepMarker n={4} titleKey="routineProblemControlCreamTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineProblemControlCreamTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineProblemControlCreamDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                    <RoutineStepMarker n={5} titleKey="routineSoothingBombMaskTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSoothingBombMaskTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSoothingBombMaskDescProblem')}</p>
@@ -942,42 +975,42 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                    <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                    <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescBrightening')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                    <RoutineStepMarker n={3} titleKey="routineMultiVitaSerumTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiVitaSerumTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiVitaSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                    <RoutineStepMarker n={4} titleKey="routineMultiVitaCreamTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiVitaCreamTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiVitaCreamDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                    <RoutineStepMarker n={5} titleKey="routinePeelingGelTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routinePeelingGelTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routinePeelingGelDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">6</span>
+                    <RoutineStepMarker n={6} titleKey="routineSoothingBombMaskTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSoothingBombMaskTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSoothingBombMaskDescBrightening')}</p>
@@ -996,35 +1029,35 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                    <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                    <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescMakeup')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                    <RoutineStepMarker n={3} titleKey="routineBBCushionTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineBBCushionTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineBBCushionDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                    <RoutineStepMarker n={4} titleKey="routineMakeupRemoverTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMakeupRemoverTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMakeupRemoverDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                    <RoutineStepMarker n={5} titleKey="routineOvernightMaskTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineOvernightMaskTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineOvernightMaskDesc')}</p>
@@ -1043,35 +1076,35 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                    <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                    <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescAntiAging')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                    <RoutineStepMarker n={3} titleKey="routineAntiWrinkleSerumTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineAntiWrinkleSerumTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineAntiWrinkleSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                    <RoutineStepMarker n={4} titleKey="routineAntiWrinkleCreamTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineAntiWrinkleCreamTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineAntiWrinkleCreamDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                    <RoutineStepMarker n={5} titleKey="routineCollagenMaskTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineCollagenMaskTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineCollagenMaskDesc')}</p>
@@ -1090,35 +1123,35 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                    <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                    <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescMoisturizing')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                    <RoutineStepMarker n={3} titleKey="routineHyaluronSerumTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineHyaluronSerumTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineHyaluronSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                    <RoutineStepMarker n={4} titleKey="routineHyaluronCreamTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineHyaluronCreamTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineHyaluronCreamDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                    <RoutineStepMarker n={5} titleKey="routineSoothingBombMaskTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSoothingBombMaskTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSoothingBombMaskDesc')}</p>
@@ -1137,42 +1170,42 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                    <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                    <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescSensitive')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                    <RoutineStepMarker n={3} titleKey="routineAllForSensitiveSerumTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineAllForSensitiveSerumTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineAllForSensitiveSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                    <RoutineStepMarker n={4} titleKey="routineSkinBarrierCreamTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSkinBarrierCreamTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSkinBarrierCreamDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                    <RoutineStepMarker n={5} titleKey="routineEGFOxymaskTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineEGFOxymaskTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineEGFOxymaskDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">6</span>
+                    <RoutineStepMarker n={6} titleKey="routineSoothingBombMaskTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSoothingBombMaskTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSoothingBombMaskDescSensitive')}</p>
@@ -1191,35 +1224,35 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                    <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                    <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescRevitaGlow')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                    <RoutineStepMarker n={3} titleKey="routineMultiVitaSerumTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiVitaSerumTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiVitaSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                    <RoutineStepMarker n={4} titleKey="routineHyaluronCreamTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineHyaluronCreamTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineHyaluronCreamDescRevitaGlow')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                    <RoutineStepMarker n={5} titleKey="routineRevitaGlowBBTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineRevitaGlowBBTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineRevitaGlowBBDesc')}</p>
@@ -1238,35 +1271,35 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">1</span>
+                    <RoutineStepMarker n={1} titleKey="routineCerabarrierCleanserTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineCerabarrierCleanserTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineCerabarrierCleanserDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">2</span>
+                    <RoutineStepMarker n={2} titleKey="routineMicrobiomeMistTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMicrobiomeMistTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMicrobiomeMistDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">3</span>
+                    <RoutineStepMarker n={3} titleKey="routineAllForSensitiveSerumTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineAllForSensitiveSerumTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineAllForSensitiveSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">4</span>
+                    <RoutineStepMarker n={4} titleKey="routineSkinBarrierCreamTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSkinBarrierCreamTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSkinBarrierCreamDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">5</span>
+                    <RoutineStepMarker n={5} titleKey="routineMultiSunCreamTitle" />
                     <div className="flex-1 min-w-0">
                       <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiSunCreamTitle')}</h4>
                       <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiSunCreamDesc')}</p>
@@ -1291,7 +1324,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                   <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                     {routine.steps.map((routineStep, idx) => (
                       <div key={routineStep.titleKey} className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                        <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">{idx + 1}</span>
+                        <RoutineStepMarker n={idx + 1} titleKey={routineStep.titleKey} />
                         <div className="flex-1 min-w-0">
                           <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle(routineStep.titleKey)}</h4>
                           <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t(`product.${routineStep.descKey}`)}</p>

@@ -13,6 +13,7 @@
  */
 import { PRODUCT_ROUTINES, type ProductRoutine } from '@/lib/productRoutines'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
+import { getRoutineStepImage } from '@/lib/routineStepImages'
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
@@ -22,6 +23,8 @@ export interface MobileRoutineStep {
   description: string
   /** Product id/productNumber the step deep-links to (null = no link) */
   productId: string | null
+  /** Step product's main image path (relative, e.g. /images/mist/main.jpeg) */
+  image: string | null
 }
 
 export interface MobileRoutine {
@@ -91,6 +94,7 @@ export function getMobileRoutine(productIdOrNumber: string, locale: string): Mob
       title: tr(s.titleKey),
       description: tr(s.descKey),
       productId: ROUTINE_STEP_PRODUCT_IDS[s.titleKey] || null,
+      image: getRoutineStepImage(s.titleKey),
     }))
     .filter((s) => s.title && s.description)
 

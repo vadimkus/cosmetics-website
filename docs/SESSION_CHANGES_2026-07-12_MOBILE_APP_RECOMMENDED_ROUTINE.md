@@ -65,3 +65,16 @@ whatever arrives. Future routine changes on the web need **no app update**.
 - App: commit `fa3f438` — EAS OTA published to `production`, runtime 1.11.0,
   update group `1b03fd27-bbe5-46a3-a3d8-ac660bab3db6` (iOS + Android).
   Users get it on next app relaunch (two launches max).
+
+## Follow-up — RU/AR translation audit (same day)
+
+Full scan of `messages/{ru,ar}.json` (all keys, not just routines):
+- AR: fully translated — Latin remnants are brand names only, no action.
+- RU: **23 routine step titles** were plain English (e.g. "EyeCell Eye
+  Contour Serum"). Rewrote them following the catalog convention
+  (Russian descriptor + Latin brand name), e.g.
+  "Сыворотка для контура глаз EyeCell". Commit `e5c2b6e3`, verified live
+  via the mobile API (`products/17` ru).
+- DB backfill: `nameRu`/`nameAr` were NULL for **Needle Pen-K (id 2,
+  hidden)**, **Hair Stamp (64)** and **Cerabarrier Cleanser (66)** —
+  filled in and verified live via `localizedName`.

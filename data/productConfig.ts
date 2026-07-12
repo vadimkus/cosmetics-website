@@ -188,7 +188,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 160
     },
-    images: ['/images/mist.jpg', '/images/Second/mist2.jpg'],
     documentation: [
       {
         title: 'MICROBIOME ENERGY INFUSING MIST Guide',

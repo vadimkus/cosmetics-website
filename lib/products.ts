@@ -140,7 +140,7 @@ export const products: Product[] = [
     name: 'MICROBIOME ENERGY INFUSING MIST',
     price: 160,
     description: '80ml. Revitalizing mist that gives skin natural glow and radiance. It revitalizes skin and enhances skin\'s natural strength with unique blend of pre/probiotics that corrects the balance of skin microbiome and hyaluronic acid complex that replenishes the skin\'s moisture barrier. Key ingredients: CUREBIOME (Probiotics & Prebiotics), FENSEBIOME™ (Acetyl Heptapeptide-4), Hyaluronan 10 Multi-Complex, Butyrospermum Parkii (Shea) Butter. Dermatologically tested. Efficacy test on skin hydration.',
-    image: '/images/mist.jpg',
+    image: '/images/mist/main.jpeg',
     images: null,
     category: 'Toner/Mist',
     inStock: true,

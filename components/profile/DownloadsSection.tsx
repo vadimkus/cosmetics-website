@@ -382,7 +382,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/14">
                   <Image
-                    src="/images/mist.jpg"
+                    src="/images/mist/main.jpeg"
                     alt="MICROBIOME ENERGY INFUSING MIST"
                     width={500}
                     height={300} 

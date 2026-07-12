@@ -258,7 +258,7 @@ export default function ArabicTrainingPageClient() {
                     { id: 12, image: '/images/EPI.jpg', name: 'EPI TURNOVER BOOSTING PEELING GEL', size: '3.8 MB', href: '/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf' },
                     { id: 21, image: '/images/RADS.jpg', name: 'MULTI VITA RADIANCE SERUM', size: '1.5 MB', href: '/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf' },
                     { id: 11, image: '/images/DEF.jpg', name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', size: '0.7 MB', href: '/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf' },
-                    { id: 14, image: '/images/mist.jpg', name: 'MICROBIOME ENERGY INFUSING MIST', size: '0.8 MB', href: '/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' },
+                    { id: 14, image: '/images/mist/main.jpeg', name: 'MICROBIOME ENERGY INFUSING MIST', size: '0.8 MB', href: '/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' },
                     { id: 34, image: '/images/SKIN.jpg', name: 'SKIN RESCUE OVERNIGHT CREAM MASK', size: '1.3 MB', href: '/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' },
                     { id: 15, image: '/images/PRS.jpg', name: 'INTENSIVE PROBLEM CONTROL TONER', size: '1.0 MB', href: '/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' },
                     { id: 39, image: '/images/SPF50.jpg', name: 'ULTRA SHIELD SUN CREAM', size: '0.6 MB', href: '/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' },

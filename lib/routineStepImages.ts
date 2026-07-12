@@ -9,7 +9,12 @@
 import { products } from '@/lib/products'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 
-const IMAGE_BY_ID: Record<string, string> = {}
+// Newer DB-only products that never made it into the static catalog
+// (verified against the live DB on 2026-07-12).
+const IMAGE_BY_ID: Record<string, string> = {
+  '53': '/images/collagen_mask/Main.jpeg', // Intensive Repair Collagen Mask
+  '66': '/images/cera/main2.jpeg', // Cerabarrier Biome Gel Cleanser
+}
 for (const p of products) {
   const img = typeof p.image === 'string' && p.image.trim() ? p.image.trim() : ''
   if (!img) continue

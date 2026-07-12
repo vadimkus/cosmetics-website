@@ -113,9 +113,11 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
   },
 
   // ── Serums ────────────────────────────────────────────────────────────
+  // Deep Moisturizing routines open with the Cerabarrier ceramide cleanser
+  // (cleans without stripping the moisture barrier) instead of Snow O₂.
   '18': {
     headingKey: 'recommendedDeepMoisturizingRoutine',
-    steps: [CLEANSE, MIST, HYALURON_SERUM, HYALURON_CREAM],
+    steps: [CLEANSE_GENTLE, MIST, HYALURON_SERUM, HYALURON_CREAM],
   },
   '19': {
     headingKey: 'recommendedSensitiveSkinRoutine',
@@ -185,7 +187,7 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
   '28': {
     headingKey: 'recommendedDeepMoisturizingRoutine',
     steps: [
-      CLEANSE,
+      CLEANSE_GENTLE,
       MIST,
       HYALURON_SERUM,
       step('routineHydroSoothingCreamTitle', 'routineHydroSoothingCreamDesc'),
@@ -193,7 +195,7 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
   },
   '29': {
     headingKey: 'recommendedDeepMoisturizingRoutine',
-    steps: [CLEANSE, MIST, HYALURON_SERUM, HYALURON_CREAM],
+    steps: [CLEANSE_GENTLE, MIST, HYALURON_SERUM, HYALURON_CREAM],
   },
   '30': {
     headingKey: 'recommendedProblemSkinRoutine',
@@ -227,7 +229,7 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
   '34': {
     headingKey: 'recommendedDeepMoisturizingRoutine',
     steps: [
-      CLEANSE,
+      CLEANSE_GENTLE,
       BOOSTER,
       HYALURON_SERUM,
       step('routineOvernightMaskTitle', 'routineOvernightMaskDesc'),
@@ -236,7 +238,7 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
   '35': {
     headingKey: 'recommendedDeepMoisturizingRoutine',
     steps: [
-      CLEANSE,
+      CLEANSE_GENTLE,
       MIST,
       step('routineHydroCoolMaskTitle', 'routineHydroCoolMaskDesc'),
       HYALURON_CREAM,

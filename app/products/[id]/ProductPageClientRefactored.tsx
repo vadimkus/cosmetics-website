@@ -599,7 +599,6 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 inStock={product.inStock}
                 isPriceOnRequest={product.isPriceOnRequest ?? false}
                 productName={product.name}
-                productUrl={typeof window !== 'undefined' ? `${window.location.origin}/products/${product.id}` : `/products/${product.id}`}
                 inCartQty={inCartQty}
                 onDecrementFromCart={handleDecrementFromCart}
               />

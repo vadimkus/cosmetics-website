@@ -416,7 +416,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/34">
                   <Image
-                    src="/images/SKIN.jpg"
+                    src="/images/overnight/main.jpeg"
                     alt="SKIN RESCUE OVERNIGHT CREAM MASK"
                     width={500}
                     height={300} 

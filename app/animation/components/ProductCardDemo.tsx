@@ -38,7 +38,7 @@ const demoProducts = [
     rating: 4.7,
     reviews: 203,
     badge: 'Sale',
-    image: '/images/SKIN.jpg'
+    image: '/images/overnight/main.jpeg'
   },
   {
     id: 4,

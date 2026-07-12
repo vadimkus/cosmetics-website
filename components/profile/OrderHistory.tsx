@@ -133,7 +133,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'SOOTHING REPAIR POSTCREAM': '/images/SRC.jpg',
       'SKIN RENEWAL PEELING SYSTEM (SRS)': '/images/SRS.jpg',
       'PEPTIDE GEL MASK': '/images/PEP.jpg',
-      'SKIN RESCUE OVERNIGHT CREAM MASK': '/images/SKIN.jpg',
+      'SKIN RESCUE OVERNIGHT CREAM MASK': '/images/overnight/main.jpeg',
       'SOOTHING BOMB SEA ALGAE MASK': '/images/sea_algae/Main.jpeg',
       'MULTI SUN CREAM [SPF 40 PA++]': '/images/SSUN.jpg',
       'ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]': '/images/SPF50.jpg',

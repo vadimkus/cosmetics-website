@@ -391,7 +391,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '34': {
     id: '34',
-    images: ['/images/SKIN.jpg', '/images/Second/overnight1.jpg'],
+    // Gallery migrated to DB `images` (2026-07-12) — do not re-add here.
     pricing: {
       basePrice: 340
     }

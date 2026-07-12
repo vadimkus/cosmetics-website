@@ -45,6 +45,9 @@ export const isDeviceProduct = (product: DiscountCheckProduct): boolean => {
   // Compact to alphanumerics so hyphenated names match too:
   // "GENO-LED IR II" -> "genoledirii", "Hair-GENTRON" -> "hairgentron".
   const nameCompact = normalizeText(product?.name).replace(/[^a-z0-9]/g, '');
+  // The Hair Stamp is a consumable cartridge for the HairGen Booster, not a
+  // device — user discounts DO apply despite "hairgen" in its name.
+  if (nameCompact.includes('hairstamp')) return false;
   return (
     nameCompact.includes('genoled') ||
     nameCompact.includes('gentron') ||

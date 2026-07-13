@@ -921,6 +921,24 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               </div>
             )}
 
+            {/* Barrier-first night ritual: Overnight Mask (34) ↔ Cerabarrier Cleanser (66) */}
+            {(product.id === '34' || product.productNumber === '34') && (
+              <div className="hidden md:block">
+                <ProductRecommendation
+                  recommendedProductId="66"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '66' || product.productNumber === '66') && (
+              <div className="hidden md:block">
+                <ProductRecommendation
+                  recommendedProductId="34"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
             {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) - Desktop only */}
             {(product.id === '55' || product.productNumber === '55') && (
               <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
@@ -1608,6 +1626,24 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               <div className="md:hidden">
                 <ProductRecommendation 
                   recommendedProductId="25"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Barrier-first night ritual: Overnight Mask (34) ↔ Cerabarrier Cleanser (66) - Mobile only */}
+            {(product.id === '34' || product.productNumber === '34') && (
+              <div className="md:hidden">
+                <ProductRecommendation
+                  recommendedProductId="66"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '66' || product.productNumber === '66') && (
+              <div className="md:hidden">
+                <ProductRecommendation
+                  recommendedProductId="34"
                   currentProduct={product}
                 />
               </div>

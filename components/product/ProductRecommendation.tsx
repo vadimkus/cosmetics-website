@@ -501,6 +501,24 @@ export default function ProductRecommendation({
       }
     }
 
+    // Barrier-first night ritual: Cerabarrier Cleanser + Overnight Cream Mask
+    const currentId = String(currentProduct.productNumber || currentProduct.id || '')
+    const recommendedId = String(recommendedProduct.productNumber || recommendedProduct.id || '')
+    if (
+      (currentId === '34' && recommendedId === '66') ||
+      (currentId === '66' && recommendedId === '34')
+    ) {
+      return {
+        intro: t('product.pc34Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
+        benefits: [
+          { title: t('product.pc34Benefit1Title'), text: t('product.pc34Benefit1Text') },
+          { title: t('product.pc34Benefit2Title'), text: t('product.pc34Benefit2Text') },
+          { title: t('product.pc34Benefit3Title'), text: t('product.pc34Benefit3Text') },
+          { title: t('product.pc34Benefit4Title'), text: t('product.pc34Benefit4Text') }
+        ]
+      }
+    }
+
     // Default generic description
     return {
       intro: t('product.pcDefaultIntro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),

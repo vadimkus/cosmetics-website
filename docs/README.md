@@ -11,6 +11,7 @@
 | Priority | Document | Description |
 |----------|----------|-------------|
 | 🟢 **SEO/Content** | [SESSION_CHANGES_2026-07-13_EVERGREEN_UAE_SKINCARE_GUIDES.md](./SESSION_CHANGES_2026-07-13_EVERGREEN_UAE_SKINCARE_GUIDES.md) | **Six high-intent UAE evergreen guides.** Three new topics (microneedling aftercare, PDRN benefits, ceramide/barrier care) + three major rewrites (Korean skincare Dubai, clinic dermacosmetics, Dubai sunscreen), fully localized EN/RU/AR. Adds evidence sources, relevant product-image cards, localized structured data, x-default hreflang, and guide images in the sitemap. |
+| 🟢 **Content/Commerce** | [SESSION_CHANGES_2026-07-13_OVERNIGHT_MASK_BLOG_CERABARRIER_COMBINATION.md](./SESSION_CHANGES_2026-07-13_OVERNIGHT_MASK_BLOG_CERABARRIER_COMBINATION.md) | **Overnight Mask feature article + barrier-first product pairing.** EN/RU/AR blog uses the new main + S1–S5 images and product video, with a CERABARRIER two-step night ritual. Reciprocal 34↔66 Perfect Combination added across web, APIs, and native app with localized benefit copy. |
 
 ### UI & Web Development (2026-07-05)
 

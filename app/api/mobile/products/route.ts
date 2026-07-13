@@ -81,6 +81,8 @@ function getRecommendedProductId(currentIdRaw: unknown): string | null {
     '29': '18',
     '10': '16',
     '25': '38',
+    '34': '66',
+    '66': '34',
     '33': '17',
     '17': '24',
     '24': '17',

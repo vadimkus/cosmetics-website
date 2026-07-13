@@ -46,6 +46,7 @@ const footerCopy = {
       creams: 'Creams',
       microneedling: 'Microneedling',
       skinAnalysis: 'Skin analysis',
+      guides: 'Guides',
       contact: 'Contact us',
       delivery: 'Shipping & delivery',
       orders: 'Track my order',
@@ -82,6 +83,7 @@ const footerCopy = {
       creams: 'الكريمات',
       microneedling: 'الوخز الدقيق',
       skinAnalysis: 'تحليل البشرة',
+      guides: 'الأدلة',
       contact: 'تواصل معنا',
       delivery: 'الشحن والتوصيل',
       orders: 'طلباتي',
@@ -118,6 +120,7 @@ const footerCopy = {
       creams: 'Кремы',
       microneedling: 'Микронидлинг',
       skinAnalysis: 'Анализ кожи',
+      guides: 'Руководства',
       contact: 'Контакты',
       delivery: 'Доставка',
       orders: 'Мои заказы',
@@ -400,6 +403,11 @@ export default function Footer() {
               <li>
                 <Link href={getLocalizedPath('/skin-recommendation', locale)} className={colLinkClass}>
                   {copy.links.skinAnalysis}
+                </Link>
+              </li>
+              <li>
+                <Link href={getLocalizedPath('/guides', locale)} className={colLinkClass}>
+                  {copy.links.guides}
                 </Link>
               </li>
             </ul>

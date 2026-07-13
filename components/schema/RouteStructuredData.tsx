@@ -10,6 +10,8 @@ import {
   getLocalizedProductUrl,
 } from '@/lib/seo'
 import { getSeoLandingPage } from '@/lib/seoLandingPages'
+import { getSeoLandingPageAr } from '@/lib/seoLandingPagesAr'
+import { getSeoLandingPageRu } from '@/lib/seoLandingPagesRu'
 import { toJsonLd } from '@/lib/jsonLd'
 
 interface RouteStructuredDataProps {
@@ -32,11 +34,21 @@ function getProductIdFromPath(pathname: string): string | null {
 }
 
 function getGuideSlugFromPath(pathname: string): string | null {
-  // Match EN, AR and RU guide URLs. Guide bodies are English-only, so AR/RU
-  // routes render the same content — but they were previously getting NO
-  // FAQPage/WebPage schema at all. Emit it there too for rich-result eligibility.
+  // Match EN, AR and RU guide URLs (all three have fully localized bodies).
   const match = pathname.match(/^\/(?:ar\/|ru\/)?guides\/([^/]+)$/)
   return match?.[1] ?? null
+}
+
+function getLocalizedGuide(locale: Locale, slug: string) {
+  if (locale === 'ar') return getSeoLandingPageAr(slug)
+  if (locale === 'ru') return getSeoLandingPageRu(slug)
+  return getSeoLandingPage(slug)
+}
+
+function guideBreadcrumbLabel(locale: Locale) {
+  if (locale === 'ar') return 'الأدلة'
+  if (locale === 'ru') return 'Руководства'
+  return 'Guides'
 }
 
 export default async function RouteStructuredData({ pathname }: RouteStructuredDataProps) {
@@ -66,10 +78,10 @@ export default async function RouteStructuredData({ pathname }: RouteStructuredD
   }
 
   const guideSlug = getGuideSlugFromPath(pathname)
-  const guide = guideSlug ? getSeoLandingPage(guideSlug) : null
+  const guideLocale = getLocaleFromPath(pathname)
+  const guide = guideSlug ? getLocalizedGuide(guideLocale, guideSlug) : null
 
   if (guide) {
-    const guideLocale = getLocaleFromPath(pathname)
     const guidePrefix = guideLocale === 'en' ? '' : `/${guideLocale}`
     const pageUrl = buildUrl(`${guidePrefix}/guides/${guide.slug}`)
     const webPageSchema = {
@@ -79,7 +91,13 @@ export default async function RouteStructuredData({ pathname }: RouteStructuredD
       headline: guide.h1,
       description: guide.description,
       url: pageUrl,
-      inLanguage: 'en-AE',
+      inLanguage: guideLocale === 'ar' ? 'ar-AE' : guideLocale === 'ru' ? 'ru-AE' : 'en-AE',
+      primaryImageOfPage: guide.featuredProducts?.[0]
+        ? {
+            '@type': 'ImageObject',
+            url: buildUrl(guide.featuredProducts[0].image),
+          }
+        : undefined,
       about: guide.keywords.map(keyword => ({ '@type': 'Thing', name: keyword })),
       publisher: {
         '@type': 'Organization',
@@ -107,7 +125,7 @@ export default async function RouteStructuredData({ pathname }: RouteStructuredD
         <BreadcrumbSchema
           items={[
             { name: guideLabels.home, url: guidePrefix || '/' },
-            { name: 'Guides', url: `${guidePrefix}/guides` },
+            { name: guideBreadcrumbLabel(guideLocale), url: `${guidePrefix}/guides` },
             { name: guide.h1, url: `${guidePrefix}/guides/${guide.slug}` },
           ]}
         />

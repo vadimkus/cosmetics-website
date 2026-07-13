@@ -46,7 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // lastmod trains Google to ignore the signal and deprioritise crawling
   // (a known driver of "Discovered – currently not indexed"). Bump this date
   // only when the landing-page copy actually changes.
-  const contentDate = new Date('2026-06-01T00:00:00.000Z')
+  const contentDate = new Date('2026-07-13T00:00:00.000Z')
 
   const staticPages: Array<{ path: string; lastModified: Date; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }> = [
     // Home + /products use a stable date, not `now`: a lastmod that changes on
@@ -89,7 +89,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Guides exist in EN, AR, and RU (same slugs under /ar/guides and /ru/guides)
   entries.push(...localizedUrls('/guides', contentDate, 0.7, 'monthly'))
   for (const page of SEO_LANDING_PAGES) {
-    entries.push(...localizedUrls(`/guides/${page.slug}`, contentDate, 0.8, 'monthly'))
+    const guideImages = (page.featuredProducts || []).map(product => `${BASE_URL}${product.image}`)
+    entries.push(...localizedUrls(`/guides/${page.slug}`, contentDate, 0.8, 'monthly', guideImages))
   }
 
   // Product pages

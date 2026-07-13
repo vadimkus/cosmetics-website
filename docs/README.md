@@ -6,6 +6,12 @@
 
 ## Quick Links
 
+### SEO Guides (2026-07-13)
+
+| Priority | Document | Description |
+|----------|----------|-------------|
+| 🟢 **SEO/Content** | [SESSION_CHANGES_2026-07-13_EVERGREEN_UAE_SKINCARE_GUIDES.md](./SESSION_CHANGES_2026-07-13_EVERGREEN_UAE_SKINCARE_GUIDES.md) | **Six high-intent UAE evergreen guides.** Three new topics (microneedling aftercare, PDRN benefits, ceramide/barrier care) + three major rewrites (Korean skincare Dubai, clinic dermacosmetics, Dubai sunscreen), fully localized EN/RU/AR. Adds evidence sources, relevant product-image cards, localized structured data, x-default hreflang, and guide images in the sitemap. |
+
 ### UI & Web Development (2026-07-05)
 
 | Priority | Document | Description |

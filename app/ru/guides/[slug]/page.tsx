@@ -1,8 +1,8 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { buildUrl } from '@/lib/siteConfig'
 import { SEO_LANDING_PAGES_RU, getSeoLandingPageRu } from '@/lib/seoLandingPagesRu'
+import GuideArticle from '@/components/guides/GuideArticle'
 
 type GuidePageProps = {
   params: Promise<{ slug: string }>
@@ -72,6 +72,7 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
         en: buildUrl(`/guides/${page.slug}`),
         ar: buildUrl(`/ar/guides/${page.slug}`),
         ru: buildUrl(`/ru/guides/${page.slug}`),
+        'x-default': buildUrl(`/guides/${page.slug}`),
       },
     },
   }
@@ -86,70 +87,23 @@ export default async function RussianSeoGuidePage({ params }: GuidePageProps) {
   }
 
   return (
-    <div className="bg-white min-h-screen">
-      <article className="mx-auto max-w-5xl px-4 py-12 md:py-20">
-        <p className="text-sm font-semibold uppercase tracking-[0.2em] text-primary-600">
-          {page.eyebrow}
-        </p>
-        <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight text-gray-950 md:text-5xl">
-          {page.h1}
-        </h1>
-        <p className="mt-5 max-w-3xl text-lg leading-8 text-gray-600">
-          {page.intro}
-        </p>
-
-        <div className="mt-10 grid gap-5 md:grid-cols-2">
-          {page.sections.map(section => (
-            <section key={section.heading} className="rounded-2xl border border-gray-100 bg-gray-50 p-6">
-              <h2 className="text-xl font-semibold text-gray-950">{section.heading}</h2>
-              <p className="mt-3 leading-7 text-gray-600">{section.body}</p>
-            </section>
-          ))}
-        </div>
-
-        <section className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-950">Рекомендуемые следующие шаги</h2>
-          <div className="mt-5 grid gap-4 md:grid-cols-3">
-            {page.links.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="rounded-2xl border border-primary-100 bg-white p-5 transition hover:border-primary-300 hover:shadow-md"
-              >
-                <span className="font-semibold text-primary-700">{link.label}</span>
-                <p className="mt-2 text-sm leading-6 text-gray-600">{link.description}</p>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-12 rounded-3xl bg-primary-50 p-6 md:p-8">
-          <h2 className="text-2xl font-bold text-gray-950">Быстрые ответы</h2>
-          <div className="mt-5 space-y-5">
-            {page.faq.map(item => (
-              <div key={item.question}>
-                <h3 className="font-semibold text-gray-950">{item.question}</h3>
-                <p className="mt-2 leading-7 text-gray-600">{item.answer}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="mt-12 rounded-3xl bg-gray-950 p-6 text-white md:p-8">
-          <h2 className="text-2xl font-bold">Нужна помощь с подбором продуктов?</h2>
-          <p className="mt-3 max-w-2xl text-gray-300">
-            Свяжитесь с GENOSYS Middle East для рекомендаций по продуктам, профессионального обучения или партнёрства для клиник в ОАЭ.
-          </p>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link href="/ru/products" className="rounded-full bg-white px-5 py-3 text-center font-semibold text-gray-950">
-              Каталог продуктов
-            </Link>
-            <Link href="/ru/contact" className="rounded-full border border-white/30 px-5 py-3 text-center font-semibold text-white">
-              Связаться с GENOSYS ОАЭ
-            </Link>
-          </div>
-        </section>
-      </article>
-    </div>
+    <GuideArticle
+      page={page}
+      productsHref="/ru/products"
+      contactHref="/ru/contact"
+      labels={{
+        keyPoints: 'Главное',
+        recommendedProducts: 'Подходящие продукты GENOSYS',
+        recommendedProductsIntro: 'Продукты показаны для обучения и планирования ухода. Выбирайте их по состоянию кожи, инструкции и рекомендации специалиста, когда она необходима.',
+        nextSteps: 'Рекомендуемые следующие шаги',
+        quickAnswers: 'Быстрые ответы',
+        sources: 'Научные источники и безопасность',
+        sourceNote: 'Независимые источники подтверждают общие образовательные рекомендации. Заявления о конкретном продукте следует сверять с этикеткой и профессиональным протоколом.',
+        guidanceTitle: 'Нужна помощь с подбором продуктов?',
+        guidanceBody: 'Свяжитесь с GENOSYS Middle East для рекомендаций по продуктам, профессионального обучения или партнёрства для клиник в ОАЭ.',
+        shopProducts: 'Каталог продуктов',
+        contact: 'Связаться с GENOSYS ОАЭ',
+      }}
+    />
   )
 }

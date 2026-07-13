@@ -55,16 +55,21 @@ export default function GuideArticle({
                 <Link
                   key={product.href}
                   href={product.href}
-                  className="group relative aspect-square overflow-hidden rounded-2xl border border-gray-100 bg-white"
+                  className="group flex aspect-square min-h-0 flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white"
                   aria-label={product.name}
                 >
-                  <Image
-                    src={product.image}
-                    alt={product.imageAlt}
-                    fill
-                    sizes="(max-width: 640px) 45vw, 220px"
-                    className="object-contain transition-transform duration-300 group-hover:scale-[1.03]"
-                  />
+                  <span className="relative min-h-0 flex-1">
+                    <Image
+                      src={product.image}
+                      alt={product.imageAlt}
+                      fill
+                      sizes="(max-width: 640px) 45vw, 220px"
+                      className="object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+                    />
+                  </span>
+                  <span className="line-clamp-2 px-2 py-2 text-center text-[10px] font-semibold leading-3.5 text-gray-900 sm:text-xs sm:leading-4">
+                    {product.name}
+                  </span>
                 </Link>
               ))}
             </div>

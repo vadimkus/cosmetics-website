@@ -19,10 +19,13 @@ const prisma = new PrismaClient(
 const OLD_PATHS = ['/images/PEP.jpg']
 const NEW_MAIN = '/images/peptide_mask/main.jpeg'
 // Gallery only — main is prepended by web + mobile
-// s1b/s2b: cache-safe names (CDN immutable — never overwrite s1/s2 in place)
+// s1c–s5c: cache-safe names (CDN immutable — never overwrite gallery files in place)
 const NEW_GALLERY = [
-  '/images/peptide_mask/s1b.jpeg',
-  '/images/peptide_mask/s2b.jpeg',
+  '/images/peptide_mask/s1c.jpeg',
+  '/images/peptide_mask/s2c.jpeg',
+  '/images/peptide_mask/s3c.jpeg',
+  '/images/peptide_mask/s4c.jpeg',
+  '/images/peptide_mask/s5c.jpeg',
 ]
 
 async function main() {

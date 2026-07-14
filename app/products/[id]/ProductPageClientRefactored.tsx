@@ -611,333 +611,6 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               <TrustBadges layout="stacked" />
             </div>
 
-            {/* Product Recommendation Section - Only for product 22 - Desktop only */}
-            {(product.id === '22' || product.productNumber === '22') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="32"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 32 - Desktop only */}
-            {(product.id === '32' || product.productNumber === '32') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="22"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 20 - Desktop only */}
-            {(product.id === '20' || product.productNumber === '20') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="30"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 30 - Desktop only */}
-            {(product.id === '30' || product.productNumber === '30') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="20"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 21 - Desktop only */}
-            {(product.id === '21' || product.productNumber === '21') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="31"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 31 - Desktop only */}
-            {(product.id === '31' || product.productNumber === '31') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="21"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 49 - Desktop only */}
-            {(product.id === '49' || product.productNumber === '49') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="37"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 37 - Desktop only */}
-            {(product.id === '37' || product.productNumber === '37') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="49"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - PRO Solution products (4, 5, 6, 7, 8, 9) - Desktop only */}
-            {(product.id === '4' || product.productNumber === '4') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="1"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-            {(product.id === '5' || product.productNumber === '5') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="1"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-            {(product.id === '6' || product.productNumber === '6') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="1"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-            {(product.id === '7' || product.productNumber === '7') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="1"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-            {(product.id === '8' || product.productNumber === '8') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="1"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-            {(product.id === '9' || product.productNumber === '9') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="1"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 15 - Desktop only */}
-            {(product.id === '15' || product.productNumber === '15') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="30"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 19 - Desktop only (mobile shows after NOTE block) */}
-            {(product.id === '19' || product.productNumber === '19') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="27"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 18 - Desktop only */}
-            {(product.id === '18' || product.productNumber === '18') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="29"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 29 - Desktop only */}
-            {(product.id === '29' || product.productNumber === '29') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="18"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 10 - Desktop only */}
-            {(product.id === '10' || product.productNumber === '10') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="16"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 25 - Desktop only */}
-            {(product.id === '25' || product.productNumber === '25') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="38"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 33 - Desktop only */}
-            {(product.id === '33' || product.productNumber === '33') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="17"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 17 - Desktop only */}
-            {(product.id === '17' || product.productNumber === '17') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="24"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 24 - Desktop only */}
-            {(product.id === '24' || product.productNumber === '24') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="17"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 44 - Desktop only */}
-            {(product.id === '44' || product.productNumber === '44') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="43"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 43 - Desktop only */}
-            {(product.id === '43' || product.productNumber === '43') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="44"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 45 - Desktop only */}
-            {(product.id === '45' || product.productNumber === '45') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="43"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Only for product 46 - Desktop only */}
-            {(product.id === '46' || product.productNumber === '46') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="44"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Scalp Brush (61) → Hair Tonic (43) - Desktop only */}
-            {(product.productNumber === '61') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="43"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Bio-Ferment Mask (51) → Anti-Wrinkle Serum (22) - Desktop only */}
-            {(product.id === '51') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="22"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Hair Stamp (64) → HairGen Booster device (3) - Desktop only */}
-            {(product.productNumber === '64') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="3"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Bio-Meso PDRN Ampoule 60000 (60) → Soothing Repair Postcream (25) - Desktop only */}
-            {(product.productNumber === '60') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="25"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Product Recommendation Section - Bio-Meso PDRN Homecare Ampoule 5000 (65) → Soothing Repair Postcream (25) - Desktop only */}
-            {(product.productNumber === '65') && (
-              <div className="hidden md:block">
-                <ProductRecommendation 
-                  recommendedProductId="25"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-
-            {/* Barrier-first night ritual: Overnight Mask (34) ↔ Cerabarrier Cleanser (66) */}
-            {(product.id === '34' || product.productNumber === '34') && (
-              <div className="hidden md:block">
-                <ProductRecommendation
-                  recommendedProductId="66"
-                  currentProduct={product}
-                />
-              </div>
-            )}
-            {(product.id === '66' || product.productNumber === '66') && (
-              <div className="hidden md:block">
-                <ProductRecommendation
-                  recommendedProductId="34"
-                  currentProduct={product}
-                />
-              </div>
-            )}
 
             {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) - Desktop only */}
             {(product.id === '55' || product.productNumber === '55') && (
@@ -1355,6 +1028,335 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </div>
               )
             })()}
+
+            {/* Product Recommendation Section - Only for product 22 - Desktop only */}
+            {(product.id === '22' || product.productNumber === '22') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="32"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 32 - Desktop only */}
+            {(product.id === '32' || product.productNumber === '32') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="22"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 20 - Desktop only */}
+            {(product.id === '20' || product.productNumber === '20') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="30"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 30 - Desktop only */}
+            {(product.id === '30' || product.productNumber === '30') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="20"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 21 - Desktop only */}
+            {(product.id === '21' || product.productNumber === '21') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="31"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 31 - Desktop only */}
+            {(product.id === '31' || product.productNumber === '31') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="21"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 49 - Desktop only */}
+            {(product.id === '49' || product.productNumber === '49') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="37"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 37 - Desktop only */}
+            {(product.id === '37' || product.productNumber === '37') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="49"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - PRO Solution products (4, 5, 6, 7, 8, 9) - Desktop only */}
+            {(product.id === '4' || product.productNumber === '4') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '5' || product.productNumber === '5') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '6' || product.productNumber === '6') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '7' || product.productNumber === '7') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '8' || product.productNumber === '8') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '9' || product.productNumber === '9') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="1"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 15 - Desktop only */}
+            {(product.id === '15' || product.productNumber === '15') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="30"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 19 - Desktop only (mobile shows after NOTE block) */}
+            {(product.id === '19' || product.productNumber === '19') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="27"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 18 - Desktop only */}
+            {(product.id === '18' || product.productNumber === '18') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="29"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 29 - Desktop only */}
+            {(product.id === '29' || product.productNumber === '29') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="18"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 10 - Desktop only */}
+            {(product.id === '10' || product.productNumber === '10') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="16"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 25 - Desktop only */}
+            {(product.id === '25' || product.productNumber === '25') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="38"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 33 - Desktop only */}
+            {(product.id === '33' || product.productNumber === '33') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="17"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 17 - Desktop only */}
+            {(product.id === '17' || product.productNumber === '17') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="24"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 24 - Desktop only */}
+            {(product.id === '24' || product.productNumber === '24') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="17"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 44 - Desktop only */}
+            {(product.id === '44' || product.productNumber === '44') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="43"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 43 - Desktop only */}
+            {(product.id === '43' || product.productNumber === '43') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="44"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 45 - Desktop only */}
+            {(product.id === '45' || product.productNumber === '45') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="43"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Only for product 46 - Desktop only */}
+            {(product.id === '46' || product.productNumber === '46') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="44"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Scalp Brush (61) → Hair Tonic (43) - Desktop only */}
+            {(product.productNumber === '61') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="43"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Bio-Ferment Mask (51) → Anti-Wrinkle Serum (22) - Desktop only */}
+            {(product.id === '51') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="22"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Hair Stamp (64) → HairGen Booster device (3) - Desktop only */}
+            {(product.productNumber === '64') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="3"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Bio-Meso PDRN Ampoule 60000 (60) → Soothing Repair Postcream (25) - Desktop only */}
+            {(product.productNumber === '60') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="25"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Product Recommendation Section - Bio-Meso PDRN Homecare Ampoule 5000 (65) → Soothing Repair Postcream (25) - Desktop only */}
+            {(product.productNumber === '65') && (
+              <div className="hidden md:block">
+                <ProductRecommendation 
+                  recommendedProductId="25"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
+            {/* Barrier-first night ritual: Overnight Mask (34) ↔ Cerabarrier Cleanser (66) */}
+            {(product.id === '34' || product.productNumber === '34') && (
+              <div className="hidden md:block">
+                <ProductRecommendation
+                  recommendedProductId="66"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+            {(product.id === '66' || product.productNumber === '66') && (
+              <div className="hidden md:block">
+                <ProductRecommendation
+                  recommendedProductId="34"
+                  currentProduct={product}
+                />
+              </div>
+            )}
+
           </div>
 
           {/* Right Column - Product Details and Content */}

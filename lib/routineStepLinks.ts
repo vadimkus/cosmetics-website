@@ -41,6 +41,7 @@ export const ROUTINE_STEP_PRODUCT_IDS: Record<string, string> = {
   routineHydroCoolMaskTitle: '35',
   routineEZCO2MaskTitle: '38',
   routinePDRNAmpouleTitle: '65',
+  routineBioMesoExpertTitle: '60',
   routineMicroneedleRollerTitle: '1',
   routineScalpShampooTitle: '44',
   routineScalpPeelingTitle: '46',

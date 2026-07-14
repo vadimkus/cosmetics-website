@@ -13,6 +13,24 @@
 | 🟢 **SEO/Content** | [SESSION_CHANGES_2026-07-13_EVERGREEN_UAE_SKINCARE_GUIDES.md](./SESSION_CHANGES_2026-07-13_EVERGREEN_UAE_SKINCARE_GUIDES.md) | **Six high-intent UAE evergreen guides.** Three new topics (microneedling aftercare, PDRN benefits, ceramide/barrier care) + three major rewrites (Korean skincare Dubai, clinic dermacosmetics, Dubai sunscreen), fully localized EN/RU/AR. Adds evidence sources, relevant product-image cards, localized structured data, x-default hreflang, and guide images in the sitemap. |
 | 🟢 **Content/Commerce** | [SESSION_CHANGES_2026-07-13_OVERNIGHT_MASK_BLOG_CERABARRIER_COMBINATION.md](./SESSION_CHANGES_2026-07-13_OVERNIGHT_MASK_BLOG_CERABARRIER_COMBINATION.md) | **Overnight Mask feature article + barrier-first product pairing.** EN/RU/AR blog uses the new main + S1–S5 images and product video, with a CERABARRIER two-step night ritual. Reciprocal 34↔66 Perfect Combination added across web, APIs, and native app with localized benefit copy. |
 
+### Operations & Accounting (2026-07-14)
+
+| Priority | Document | Description |
+|----------|----------|-------------|
+| 🟢 **UI/App** | [SESSION_CHANGES_2026-07-14_NO_ROLLER_WITH_SPICULES.md](./SESSION_CHANGES_2026-07-14_NO_ROLLER_WITH_SPICULES.md) | **Never roller + spicules** — #65 Bio-Meso routine drops roller; #1 roller pairs with hyaluron serum instead of Homecare 5000. |
+| 🟢 **UI/App** | [SESSION_CHANGES_2026-07-14_BIO_MESO_60000_ROUTINE.md](./SESSION_CHANGES_2026-07-14_BIO_MESO_60000_ROUTINE.md) | **Bio Meso #60** Recommended Routine added (cleanse → Expert 60000 → PDRN mask → postcream); EN/AR/RU. |
+| 🟢 **UI/App** | [SESSION_CHANGES_2026-07-14_REVITA_GLOW_MOBILE_ROUTINE.md](./SESSION_CHANGES_2026-07-14_REVITA_GLOW_MOBILE_ROUTINE.md) | **Revita Glow #63** Recommended Routine was desktop-only; folded into `ProductRoutineCard` so mobile web shows it after Product Details. |
+| 🟢 **UI/App** | [SESSION_CHANGES_2026-07-14_COLLAGEN_PROMO_IMAGE_FIX.md](./SESSION_CHANGES_2026-07-14_COLLAGEN_PROMO_IMAGE_FIX.md) | **Mobile free collagen promo** still used deleted `/images/in.png` → broken order-email thumbs; pointed at `collagen_mask/Main.jpeg` + OTA; repointed **352** historical orderItems. |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-14_ILMIRA_HAIRULINA_CONSIGNMENT_SALES_RETURN.md](./SESSION_CHANGES_2026-07-14_ILMIRA_HAIRULINA_CONSIGNMENT_SALES_RETURN.md) | **Ilmira Hairulina** — report **01406** / **231 AED** (collagen×5, algae×2, SPF40) + return **00304** / **2,132 AED**; PDFs in `~/Desktop/orders/`; collagen book −4 vs physical. |
+
+### Operations & Accounting (2026-07-13)
+
+| Priority | Document | Description |
+|----------|----------|-------------|
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-13_BRAU_LADIES_SPLIT_PEPTIDE_ORDERS.md](./SESSION_CHANGES_2026-07-13_BRAU_LADIES_SPLIT_PEPTIDE_ORDERS.md) | **Brau Ladies** — 2 identical chains (ADU + JBR): peptide `00012` ×20 @ 38 + free delivery; inv **04811**/04812, ship **06531**/06532 / **760 AED** each (**1,520** total); PDFs in `~/Desktop/orders/`. |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-13_SALES_BONUS_500_PAYMENTOUT.md](./SESSION_CHANGES_2026-07-13_SALES_BONUS_500_PAYMENTOUT.md) | **Sales bonus** — paymentout **00651** / **500 AED** → Vadim Sagatdinov (expense Sales Bonus). |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-13_MISS_OSHBA_AL_FALASI_RETAIL_ORDER.md](./SESSION_CHANGES_2026-07-13_MISS_OSHBA_AL_FALASI_RETAIL_ORDER.md) | **Miss Oshba Al Falasi** — SO **GENCardM2607130007** / inv **04813** / ship **06533** / pay **05930** / **705 AED** (radiance + hyaluron serums + delivery 45); **Доставлен**; PDF in `~/Desktop/orders/`. |
+
 ### UI & Web Development (2026-07-05)
 
 | Priority | Document | Description |

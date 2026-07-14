@@ -908,56 +908,8 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               </div>
             )}
 
-            {/* Skincare Routine Block - Only for Revita Glow BB Cream (product 63) - Desktop only */}
-            {(product.id === '63' || product.productNumber === '63') && (
-              <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
-                <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedRevitaGlowRoutine')}</h3>
-                </div>
-                <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
-                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
-                    </div>
-                  </div>
-                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescRevitaGlow')}</p>
-                    </div>
-                  </div>
-                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <RoutineStepMarker n={3} titleKey="routineMultiVitaSerumTitle" />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiVitaSerumTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiVitaSerumDesc')}</p>
-                    </div>
-                  </div>
-                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <RoutineStepMarker n={4} titleKey="routineHyaluronCreamTitle" />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineHyaluronCreamTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineHyaluronCreamDescRevitaGlow')}</p>
-                    </div>
-                  </div>
-                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <RoutineStepMarker n={5} titleKey="routineRevitaGlowBBTitle" />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineRevitaGlowBBTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineRevitaGlowBBDesc')}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Data-driven + Cerabarrier 66 routine — desktop left column only.
-                Mobile web renders the same card after Product Details in
-                ProductContentDisplay (md:hidden) so it sits below benefits. */}
+            {/* Data-driven + Revita 63 + Cerabarrier 66 — desktop left column.
+                Mobile web: same card after Product Details in ProductContentDisplay. */}
             <ProductRoutineCard product={product} className="hidden md:block mt-4" />
 
             {/* Product Recommendation Section - Only for product 22 - Desktop only */}

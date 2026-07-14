@@ -6,10 +6,10 @@
  * designed to combine with. Steps reference i18n keys under `product.*` and
  * deep-link via ROUTINE_STEP_PRODUCT_IDS (lib/routineStepLinks.ts).
  *
- * Products with bespoke hardcoded routine blocks (beauty boxes 55-59, 62,
- * Revita Glow 63, Cerabarrier 66) are intentionally NOT listed here.
- * Professional clinic lines (Power Solutions, SRS, professional devices)
- * are also excluded — their protocols are practitioner territory.
+ * Products with bespoke routine blocks (beauty boxes 55-59, 62) stay hardcoded.
+ * Revita Glow 63 and Cerabarrier 66 live in ProductRoutineCard (not this map).
+ * Professional clinic lines (Power Solutions, SRS, devices 48/49) are excluded.
+ * Bio Meso Expert 60000 (60) is included — retail SKU with a clinic protocol card.
  */
 export interface RoutineStep {
   titleKey: string
@@ -413,22 +413,32 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     ],
   },
 
-  // ── Microneedling home care ───────────────────────────────────────────
+  // ── Microneedling / Bio-Meso ──────────────────────────────────────────
+  // NEVER pair microneedle roller with Bio-Meso spicule ampoules (60/65).
   '1': {
     headingKey: 'recommendedMicroneedlingRoutine',
     steps: [
       CLEANSE,
       step('routineMicroneedleRollerTitle', 'routineMicroneedleRollerDesc'),
-      step('routinePDRNAmpouleTitle', 'routinePDRNAmpouleDesc'),
+      step('routineHyaluronSerumTitle', 'routineHyaluronSerumDescMicroneedling'),
+      step('routinePostcreamTitle', 'routinePostcreamDesc'),
+    ],
+  },
+  '60': {
+    headingKey: 'recommendedBioMesoRoutine',
+    steps: [
+      CLEANSE,
+      step('routineBioMesoExpertTitle', 'routineBioMesoExpertDesc'),
+      step('routinePDRNMaskTitle', 'routinePDRNMaskDesc'),
       step('routinePostcreamTitle', 'routinePostcreamDesc'),
     ],
   },
   '65': {
-    headingKey: 'recommendedMicroneedlingRoutine',
+    headingKey: 'recommendedBioMesoRoutine',
     steps: [
       CLEANSE,
-      step('routineMicroneedleRollerTitle', 'routineMicroneedleRollerDesc'),
       step('routinePDRNAmpouleTitle', 'routinePDRNAmpouleDesc'),
+      step('routinePDRNMaskTitle', 'routinePDRNMaskDesc'),
       step('routinePostcreamTitle', 'routinePostcreamDesc'),
     ],
   },

@@ -382,7 +382,7 @@ export const products: Product[] = [
     name: 'PEPTIDE GEL MASK',
     price: 380,
     description: '38g x 5ea. Patented thermo-sensitive hydro gel mask that cools down skin heat and moisturizes skin. It is a patented thermo-sensitive hydro gel mask that instantly cools down skin and moisturizes skin. Specially recommended after the dermatological operations such laser or microneedling. Mechanism: It is made of temperature-sensitive hydro gel. When the mask is applied to the skin, the temperature rises due to body temperature and the hydrogel composition is changed into a fluid state, so that the adhesion to the skin is improved and the effective ingredients are rapidly delivered into the skin (transdermal cosmetic delivery system). And as skin heat is displaced by moisture from the mask, skin feels a cooling effect. Key ingredients: Chondrus Crispus (Carrageenan) Extract, Acetyl Hexapeptide-8, Dipotassium Glycyrrhizate, Hydrolyzed Collagen, Hyaluronic Acid, Arnica Montana Flower Extract, Chamomilla Recutita (Matricaria) Flower Extract. Dermatologically tested. Efficacy test on skin hydration.',
-    image: '/images/PEP.jpg',
+    image: '/images/peptide_mask/main.jpeg',
     images: null,
     category: 'Mask',
     inStock: true,

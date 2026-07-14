@@ -132,7 +132,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'ND Cell ANTI-WRINKLE CREAM': '/images/ND.jpg',
       'SOOTHING REPAIR POSTCREAM': '/images/SRC.jpg',
       'SKIN RENEWAL PEELING SYSTEM (SRS)': '/images/SRS.jpg',
-      'PEPTIDE GEL MASK': '/images/PEP.jpg',
+      'PEPTIDE GEL MASK': '/images/peptide_mask/main.jpeg',
       'SKIN RESCUE OVERNIGHT CREAM MASK': '/images/overnight/main.jpeg',
       'SOOTHING BOMB SEA ALGAE MASK': '/images/sea_algae/Main.jpeg',
       'MULTI SUN CREAM [SPF 40 PA++]': '/images/SSUN.jpg',

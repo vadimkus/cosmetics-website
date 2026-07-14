@@ -10,6 +10,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import ProductInfoAccordion from '@/components/product/ProductInfoAccordion'
+import ProductRoutineCard from '@/components/product/ProductRoutineCard'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -676,6 +677,10 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           </div>
         </div>
       )}
+
+      {/* Mobile web only: Recommended Routine after Product Details / Key Benefits.
+          Desktop keeps the card in the left column (ProductPageClient). */}
+      <ProductRoutineCard product={product} className="md:hidden mt-4 mb-2" />
 
       {/* Available Colors - For BB Cushion (product 41) */}
       {(product.id === '41' || product.productNumber === '41') && (

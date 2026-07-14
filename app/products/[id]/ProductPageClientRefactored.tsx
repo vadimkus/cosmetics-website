@@ -35,8 +35,8 @@ import {
   getProductColorOptions
 } from '@/utils/productPricing'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
-import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import { getRoutineStepImage } from '@/lib/routineStepImages'
+import ProductRoutineCard from '@/components/product/ProductRoutineCard'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 
 interface ProductPageClientProps {
@@ -955,79 +955,10 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               </div>
             )}
 
-            {/* Skincare Routine Block - Only for Cerabarrier Biome Gel Cleanser (product 66) */}
-            {(product.id === '66' || product.productNumber === '66') && (
-              <div className="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
-                <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedBarrierCareRoutine')}</h3>
-                </div>
-                <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
-                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <RoutineStepMarker n={1} titleKey="routineCerabarrierCleanserTitle" />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineCerabarrierCleanserTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineCerabarrierCleanserDesc')}</p>
-                    </div>
-                  </div>
-                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <RoutineStepMarker n={2} titleKey="routineMicrobiomeMistTitle" />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMicrobiomeMistTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMicrobiomeMistDesc')}</p>
-                    </div>
-                  </div>
-                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <RoutineStepMarker n={3} titleKey="routineAllForSensitiveSerumTitle" />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineAllForSensitiveSerumTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineAllForSensitiveSerumDesc')}</p>
-                    </div>
-                  </div>
-                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <RoutineStepMarker n={4} titleKey="routineSkinBarrierCreamTitle" />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSkinBarrierCreamTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSkinBarrierCreamDesc')}</p>
-                    </div>
-                  </div>
-                  <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                    <RoutineStepMarker n={5} titleKey="routineMultiSunCreamTitle" />
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiSunCreamTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiSunCreamDesc')}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Data-driven routine card — every product mapped in
-                lib/productRoutines.ts (products with bespoke blocks above
-                are not in the map, so nothing renders twice). */}
-            {(() => {
-              const routine = PRODUCT_ROUTINES[String(product.productNumber || product.id)]
-              if (!routine) return null
-              return (
-                <div className="bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
-                  <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
-                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t(`product.${routine.headingKey}`)}</h3>
-                  </div>
-                  <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
-                    {routine.steps.map((routineStep, idx) => (
-                      <div key={routineStep.titleKey} className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
-                        <RoutineStepMarker n={idx + 1} titleKey={routineStep.titleKey} />
-                        <div className="flex-1 min-w-0">
-                          <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle(routineStep.titleKey)}</h4>
-                          <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t(`product.${routineStep.descKey}`)}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )
-            })()}
+            {/* Data-driven + Cerabarrier 66 routine — desktop left column only.
+                Mobile web renders the same card after Product Details in
+                ProductContentDisplay (md:hidden) so it sits below benefits. */}
+            <ProductRoutineCard product={product} className="hidden md:block mt-4" />
 
             {/* Product Recommendation Section - Only for product 22 - Desktop only */}
             {(product.id === '22' || product.productNumber === '22') && (

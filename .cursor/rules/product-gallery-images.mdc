@@ -29,6 +29,20 @@ array of gallery paths, e.g. `'["/images/6000/S1.jpeg","/images/6000/S2.jpeg"]'`
 5. Verify live: image URLs return 200 and the product page HTML references them
    (page is ISR-cached ~5 min).
 
+## Order-email image safety
+
+- New orders must persist `canonicalOrderItemImage(product)` from the
+  server-side DB product. Never prefer `item.image` from a cart/client snapshot:
+  carts can outlive an image migration and reintroduce deleted URLs.
+- Before deleting an old main image, run
+  `npx tsx --env-file=.env.local scripts/repair-dead-order-item-images.ts`.
+  After the product DB image and new asset are live, delete the old asset, run
+  the script with `--apply`, then run it once more and require zero unresolved
+  dead paths.
+- Do not use nonexistent `/images/placeholder*.{jpg,png}` or
+  `/images/default-product.jpg` fallbacks. The valid neutral fallback is
+  `/images/genosys-logo-transparent.png`.
+
 ## Cache rule
 
 `/images/*` is served with `Cache-Control: immutable, 1 year`. **Never replace an

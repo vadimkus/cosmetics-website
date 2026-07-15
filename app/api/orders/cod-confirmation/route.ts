@@ -14,6 +14,7 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
+import { canonicalOrderItemImage, ORDER_ITEM_IMAGE_FALLBACK } from '@/lib/orderItemImage'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { CartItem, Product } from '@/types'
 import {
@@ -248,7 +249,7 @@ export async function POST(request: NextRequest) {
         price: pricing.unitPrice,
         quantity,
         total: pricing.lineTotal,
-        image: item.image || product.image,
+        image: canonicalOrderItemImage(product),
         ...(selectedColor ? { color: selectedColor } : {}),
         ...(selectedSize ? { size: selectedSize } : {}),
         ...(pricing.discountType === 'bundle' ? { bundleDiscount: pricing.discountPercentage } : {}),
@@ -279,7 +280,7 @@ export async function POST(request: NextRequest) {
           price: 0,
           quantity: grant,
           total: 0,
-          image: g.item.image || g.product.image,
+          image: canonicalOrderItemImage(g.product),
           ...(g.selectedColor ? { color: g.selectedColor } : {}),
           ...(g.selectedSize ? { size: g.selectedSize } : {}),
         })
@@ -340,7 +341,7 @@ export async function POST(request: NextRequest) {
         productName: itemName,
         price: item.price,
         quantity: item.quantity,
-        image: item.image || '/images/placeholder.jpg',
+        image: item.image || ORDER_ITEM_IMAGE_FALLBACK,
         ...(enhanced.color ? { color: enhanced.color } : {}),
         ...(enhanced.size ? { size: enhanced.size } : {}),
         ...(item.bundleDiscount && item.bundleDiscount > 0 ? { bundleDiscount: item.bundleDiscount } : {})
@@ -610,7 +611,7 @@ export async function POST(request: NextRequest) {
               quantity: item.quantity,
               price: item.price,
               originalPrice,
-              image: item.image || '/images/default-product.jpg',
+              image: item.image || ORDER_ITEM_IMAGE_FALLBACK,
               ...(item.size ? { size: item.size } : {}),
               ...(item.color ? { color: item.color } : {}),
               ...(discountLabel ? { discountLabel } : {}),

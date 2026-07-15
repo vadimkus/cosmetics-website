@@ -5,6 +5,7 @@ import { getOrdersByEmail } from '@/lib/orderStorageDb'
 import { Order, OrderItem } from '@prisma/client'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
+import { ORDER_ITEM_IMAGE_FALLBACK } from '@/lib/orderItemImage'
 
 // Type definition for Order with items relation
 type OrderWithItems = Order & {
@@ -69,7 +70,7 @@ export async function POST(request: NextRequest) {
             productName: item.productName || 'Product',
             quantity: item.quantity,
             price: item.price,
-            image: item.image || '/images/default-product.jpg'
+            image: item.image || ORDER_ITEM_IMAGE_FALLBACK
           })),
           subtotal: order.subtotal || undefined,
           shipping: order.shipping || undefined,

@@ -4,6 +4,7 @@ import { errorLog } from '@/lib/logger'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { requireCsrfToken } from '@/lib/csrf'
 import { getOrderByNumber } from '@/lib/orderStorageDb'
+import { ORDER_ITEM_IMAGE_FALLBACK } from '@/lib/orderItemImage'
 
 export async function POST(request: NextRequest) {
   const auth = await requireAdminAuth(request)
@@ -50,7 +51,7 @@ export async function POST(request: NextRequest) {
         productName: item.productName || 'Product',
         quantity: item.quantity,
         price: item.price,
-        image: item.image || '/images/default-product.jpg',
+        image: item.image || ORDER_ITEM_IMAGE_FALLBACK,
       })),
       subtotal: order.subtotal,
       shipping: order.shipping || 0,

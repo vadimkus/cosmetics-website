@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { verifySessionToken } from '@/lib/jwt'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { getProductById } from '@/lib/productsDb'
+import { canonicalOrderItemImage, ORDER_ITEM_IMAGE_FALLBACK } from '@/lib/orderItemImage'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { generateUniquePartnerOrderNumber } from '@/lib/orderNumber'
@@ -128,7 +129,7 @@ export async function POST(request: NextRequest) {
         productName: product.name,
         price: unitPrice,
         quantity,
-        image: product.image || '/images/placeholder.jpg',
+        image: canonicalOrderItemImage(product),
         ...(size ? { size } : {}),
         ...(color ? { color } : {}),
       })
@@ -136,7 +137,7 @@ export async function POST(request: NextRequest) {
         productName: product.name,
         quantity,
         price: unitPrice,
-        image: product.image || '/images/placeholder.jpg',
+        image: canonicalOrderItemImage(product),
         ...(size ? { size } : {}),
         ...(color ? { color } : {}),
         ...(pricing.hasDiscount ? { originalPrice: pricing.originalPrice, discountLabel: `${Math.round(pricing.discountPercentage)}% OFF` } : {}),
@@ -241,7 +242,7 @@ export async function POST(request: NextRequest) {
             productName: item.productName,
             quantity: item.quantity,
             price: item.price,
-            image: item.image || '/images/default-product.jpg',
+            image: item.image || ORDER_ITEM_IMAGE_FALLBACK,
             ...(item.size ? { size: item.size } : {}),
             ...(item.color ? { color: item.color } : {}),
           })),

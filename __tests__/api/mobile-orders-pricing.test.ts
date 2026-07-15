@@ -174,6 +174,7 @@ describe('mobile orders COD pricing', () => {
               productName: 'Server Serum',
               price: 180,
               quantity: 2,
+              image: '/server.jpg',
             }),
           ],
         },

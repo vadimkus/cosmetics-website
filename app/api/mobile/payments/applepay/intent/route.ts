@@ -9,6 +9,7 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
+import { canonicalOrderItemImage } from '@/lib/orderItemImage'
 import { resolveRedemptionForCheckout } from '@/lib/loyalty'
 import { CartItem, Product } from '@/types'
 import {
@@ -230,7 +231,7 @@ export async function POST(request: NextRequest) {
         name: product.name,
         price: pricing.unitPrice,
         quantity: qty,
-        image: item.image || product.image,
+        image: canonicalOrderItemImage(product),
         // Preserve a stable promo marker so mobile UI can reliably show "FREE"
         size: selectedSize || undefined,
         color: selectedColor || undefined,
@@ -259,7 +260,7 @@ export async function POST(request: NextRequest) {
           name: String(g.item.name || `${g.product.name} (FREE)`),
           price: 0,
           quantity: grant,
-          image: g.item.image || g.product.image,
+          image: canonicalOrderItemImage(g.product),
           size: '__PROMO__',
           color: g.selectedColor || undefined,
         })

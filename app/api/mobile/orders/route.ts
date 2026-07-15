@@ -10,6 +10,7 @@ import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheck
 import { trackUserActivity } from '@/lib/activityTracker'
 import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
+import { canonicalOrderItemImage } from '@/lib/orderItemImage'
 import { getCustomerEmailWhere } from '@/lib/mobileOrderOwnership'
 import { resolveRedemptionForCheckout, recordRedemption, loyaltyTrackForUser } from '@/lib/loyalty'
 
@@ -541,7 +542,7 @@ export async function POST(request: NextRequest) {
         productName: product.name,
         price: pricing.unitPrice,
         quantity,
-        image: item.image || product.image,
+        image: canonicalOrderItemImage(product),
         color: selectedColor || null,
         size: selectedSize || null,
         bundleDiscount: pricing.discountType === 'bundle' ? pricing.discountPercentage : null,
@@ -569,7 +570,7 @@ export async function POST(request: NextRequest) {
           productName: String(g.item.productName || g.item.name || `${g.product.name} (FREE)`),
           price: 0,
           quantity: grant,
-          image: g.item.image || g.product.image,
+          image: canonicalOrderItemImage(g.product),
           color: g.selectedColor || null,
           size: '__PROMO__',
           bundleDiscount: null,

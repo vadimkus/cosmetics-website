@@ -540,7 +540,7 @@ export default function RussianTrainingPage() {
                       <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                         <Link href="/ru/products/15">
                           <Image
-                            src="/images/PRS.jpg"
+                            src="/images/problem/Main.jpg"
                             alt="INTENSIVE PROBLEM CONTROL TONER"
                             width={500}
                             height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"

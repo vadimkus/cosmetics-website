@@ -18,6 +18,10 @@
 | Priority | Document | Description |
 |----------|----------|-------------|
 | 🔴 **Critical** | [SESSION_CHANGES_2026-07-15_ORDER_EMAIL_IMAGE_CANONICALIZATION.md](./SESSION_CHANGES_2026-07-15_ORDER_EMAIL_IMAGE_CANONICALIZATION.md) | **Permanent order-email thumbnail fix** — all order channels now persist canonical server product images; repaired 75 dead historical rows, post-audit zero unresolved. |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-15_PRODUCT_15_PROBLEM_TONER_IMAGES.md](./SESSION_CHANGES_2026-07-15_PRODUCT_15_PROBLEM_TONER_IMAGES.md) | **Product 15 toner** — new `problem/Main` + S1–S6 gallery; config gallery removed so DB wins; 20 order items repointed; old `PRS.jpg` deleted. |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-15_MISS_ESTEFA_PASTOR_FOC_ORDER.md](./SESSION_CHANGES_2026-07-15_MISS_ESTEFA_PASTOR_FOC_ORDER.md) | **Miss Estefa Pastor** — amended existing SO **GENCardM2607155574** / inv **04822** / ship **06545** — added Bio-Meso 5000 ×1 + collagen ×5 @ 100% off (paid total **320 AED** unchanged); removed mistaken duplicate chain. |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-15_BEIGE_CUSHION_OVERNIGHT_MASK_WRITEOFF.md](./SESSION_CHANGES_2026-07-15_BEIGE_CUSHION_OVERNIGHT_MASK_WRITEOFF.md) | **Write-off 00008-00472** — beige cushion `00144` ×1 + overnight mask `00189` ×1 @ buyPrice **99.16 AED**. |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-15_NEW_CLINIC_DEMO_WRITEOFF.md](./SESSION_CHANGES_2026-07-15_NEW_CLINIC_DEMO_WRITEOFF.md) | **New clinic demo** — loss **00008-00473** / **180.68 AED** @ buyPrice (Snow Booster 200ml, Snow O₂ 180ml, SRS ×2, PDRN Expert 60000 box). |
 
 ### Operations & Accounting (2026-07-14)
 

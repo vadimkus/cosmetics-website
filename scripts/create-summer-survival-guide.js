@@ -174,7 +174,7 @@ const content = `<div class="blog-content">
       <div class="grid md:grid-cols-3 gap-5 items-center">
         <div class="md:col-span-1">
           <a href="https://genosys.ae/products/10">
-            <img src="/images/SNOW.jpg" alt="GENOSYS Snow O₂ Cleanser — foaming oxygen cleanser" class="rounded-xl shadow-sm w-full bg-gray-50" />
+            <img src="/images/cleanser/Main.jpg" alt="GENOSYS Snow O₂ Cleanser — foaming oxygen cleanser" class="rounded-xl shadow-sm w-full bg-gray-50" />
           </a>
         </div>
         <div class="md:col-span-2">
@@ -469,7 +469,7 @@ const contentAr = `<div class="blog-content" dir="rtl">
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
         <div class="flex items-center gap-3 mb-3"><span class="w-9 h-9 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold">1</span><h4 class="text-lg font-bold text-gray-900">التنظيف — دون تجريد</h4></div>
         <div class="grid grid-cols-3 gap-4 items-center">
-          <a href="https://genosys.ae/products/10" class="col-span-1"><img src="/images/SNOW.jpg" alt="Snow O₂ Cleanser" class="rounded-lg w-full bg-gray-50" /></a>
+          <a href="https://genosys.ae/products/10" class="col-span-1"><img src="/images/cleanser/Main.jpg" alt="Snow O₂ Cleanser" class="rounded-lg w-full bg-gray-50" /></a>
           <div class="col-span-2">
             <p class="text-gray-700 leading-relaxed mb-3">نوصي بـ<a href="https://genosys.ae/products/10" class="text-sky-700 font-semibold hover:underline">SNOW O₂ CLEANSER</a> — رغوة مؤكسجة ترفع العرق والواقي الشمسي دون إتلاف حاجز البشرة.</p>
             <a href="https://genosys.ae/products/10" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">منظف Snow O₂ — 330 درهم ←</a>
@@ -633,7 +633,7 @@ const contentRu = `<div class="blog-content">
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
         <div class="flex items-center gap-3 mb-3"><span class="w-9 h-9 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold">1</span><h4 class="text-lg font-bold text-gray-900">Очищение — без травмирования</h4></div>
         <div class="grid grid-cols-3 gap-4 items-center">
-          <a href="https://genosys.ae/products/10" class="col-span-1"><img src="/images/SNOW.jpg" alt="GENOSYS Snow O₂ Cleanser" class="rounded-lg w-full bg-gray-50" /></a>
+          <a href="https://genosys.ae/products/10" class="col-span-1"><img src="/images/cleanser/Main.jpg" alt="GENOSYS Snow O₂ Cleanser" class="rounded-lg w-full bg-gray-50" /></a>
           <div class="col-span-2">
             <p class="text-gray-700 leading-relaxed mb-2">Летом коже нужно <strong>больше</strong> очищения (пот, SPF, пыль), но <strong>мягче</strong>. Ответ — кислородная пенка.</p>
             <p class="text-gray-700 leading-relaxed mb-3">Наш выбор — <a href="https://genosys.ae/products/10" class="text-sky-700 font-semibold hover:underline">SNOW O₂ CLEANSER</a>. Снимает себум и SPF, не стягивает.</p>

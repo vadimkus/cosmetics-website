@@ -57,6 +57,8 @@ export async function GET(request: NextRequest) {
       isAdmin: true,
       canSeePrices: true,
       consignmentActive: true,
+      creditActive: true,
+      creditDays: true,
       discountType: true,
       discountPercentage: true,
       birthday: true,

@@ -32,6 +32,8 @@ export async function GET(
         isAdmin: true,
         canSeePrices: true,
         consignmentActive: true,
+        creditActive: true,
+        creditDays: true,
         discountType: true,
         discountPercentage: true,
         birthday: true,
@@ -82,7 +84,7 @@ export async function PUT(
     const { id } = await params
     const updates = await request.json()
     debugLog('Admin user update request:', { id, updates })
-    const { canSeePrices, consignmentActive, discountType, discountPercentage, name: __name, email: __email, phone: __phone, address: __address, birthday: __birthday, profilePicture: __profilePicture } = updates
+    const { canSeePrices, consignmentActive, creditActive, creditDays, discountType, discountPercentage, name: __name, email: __email, phone: __phone, address: __address, birthday: __birthday, profilePicture: __profilePicture } = updates
 
     if (canSeePrices !== undefined && typeof canSeePrices !== 'boolean') {
       return NextResponse.json(
@@ -94,6 +96,20 @@ export async function PUT(
     if (consignmentActive !== undefined && typeof consignmentActive !== 'boolean') {
       return NextResponse.json(
         { error: 'consignmentActive must be a boolean' },
+        { status: 400 }
+      )
+    }
+
+    if (creditActive !== undefined && typeof creditActive !== 'boolean') {
+      return NextResponse.json(
+        { error: 'creditActive must be a boolean' },
+        { status: 400 }
+      )
+    }
+
+    if (creditDays !== undefined && creditDays !== null && ![30, 45, 60, 90].includes(creditDays)) {
+      return NextResponse.json(
+        { error: 'creditDays must be 30, 45, 60 or 90' },
         { status: 400 }
       )
     }

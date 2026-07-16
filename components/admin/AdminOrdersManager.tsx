@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback, useRef } from 'react'
-import { Package, RefreshCw, Eye, Truck, CheckCircle, X as XIcon, Trash2, AlertCircle, Check } from 'lucide-react'
+import { Package, RefreshCw, Eye, Truck, CheckCircle, X as XIcon, Trash2, AlertCircle, Check, BadgeDollarSign } from 'lucide-react'
 import { Order, OrderItem } from '@prisma/client'
 import { errorLog } from '@/lib/logger'
 import StatusBadge from '@/components/shared/StatusBadge'
@@ -46,7 +46,8 @@ export default function AdminOrdersManager({
   getAdminHeaders
 }: AdminOrdersManagerProps) {
   const [updatingStatus, setUpdatingStatus] = useState<string | null>(null)
-  const [orderFilter, setOrderFilter] = useState<'all' | 'partner'>('all')
+  const [orderFilter, setOrderFilter] = useState<'all' | 'partner' | 'consignment' | 'credit'>('all')
+  const [markingPaid, setMarkingPaid] = useState<string | null>(null)
   const [toasts, setToasts] = useState<Toast[]>([])
   const toastIdCounter = useRef(0)
 
@@ -54,8 +55,21 @@ export default function AdminOrdersManager({
   const isPartnerOrder = (o: Order) =>
     String(o.orderNumber || '').startsWith('PART') || String(o.paymentMethod || '').startsWith('partner')
   const isConsignmentOrder = (o: Order) => String(o.paymentMethod || '') === 'partner_consignment'
+  const isCreditOrder = (o: Order) => String(o.paymentMethod || '') === 'partner_credit'
+  // Settlement tracking: consignment + credit orders carry an open balance
+  // until admin marks the payment received.
+  const isSettlementOrder = (o: Order) => isConsignmentOrder(o) || isCreditOrder(o)
+  const isPaid = (o: Order) => String(o.paymentStatus || '') === 'paid'
+  const isOverdue = (o: Order) =>
+    isCreditOrder(o) && !isPaid(o) && o.paymentDueDate != null && new Date(o.paymentDueDate) < new Date()
   const partnerCount = orders.filter(isPartnerOrder).length
-  const visibleOrders = orderFilter === 'partner' ? orders.filter(isPartnerOrder) : orders
+  const consignmentCount = orders.filter(isConsignmentOrder).length
+  const creditCount = orders.filter(isCreditOrder).length
+  const visibleOrders =
+    orderFilter === 'partner' ? orders.filter(isPartnerOrder)
+    : orderFilter === 'consignment' ? orders.filter(isConsignmentOrder)
+    : orderFilter === 'credit' ? orders.filter(isCreditOrder)
+    : orders
 
   // Add toast notification
   const showToast = (message: string, type: ToastType = 'success') => {
@@ -107,6 +121,26 @@ export default function AdminOrdersManager({
       showToast('Failed to update order status. Please try again.', 'error')
     } finally {
       setUpdatingStatus(null)
+    }
+  }, [getAdminHeaders, onRefreshOrders])
+
+  const handleMarkPaid = useCallback(async (order: OrderWithItems) => {
+    if (!window.confirm(`Mark payment received for #${order.orderNumber} (${order.total.toFixed(2)} AED)?`)) return
+    setMarkingPaid(order.id)
+    try {
+      const response = await fetch(`/api/admin/orders/${order.id}`, {
+        method: 'PUT',
+        headers: getAdminHeaders(),
+        body: JSON.stringify(addCsrfToBody({ paymentReceived: true }))
+      })
+      if (!response.ok) throw new Error(`Failed: ${response.status}`)
+      showToast(`Payment received for #${order.orderNumber}`, 'success')
+      await onRefreshOrders()
+    } catch (error) {
+      errorLog('Error marking payment received:', error)
+      showToast('Failed to mark payment received. Please try again.', 'error')
+    } finally {
+      setMarkingPaid(null)
     }
   }, [getAdminHeaders, onRefreshOrders])
 
@@ -166,9 +200,9 @@ export default function AdminOrdersManager({
           </div>
         </div>
 
-        {/* Filter tabs — All vs Partner Portal */}
+        {/* Filter tabs — All / Partner / Consignment / Credit */}
         {partnerCount > 0 && (
-          <div className="mt-4 flex gap-2">
+          <div className="mt-4 flex gap-2 flex-wrap">
             <button
               onClick={() => setOrderFilter('all')}
               className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${orderFilter === 'all' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
@@ -181,6 +215,22 @@ export default function AdminOrdersManager({
             >
               Partner Portal ({partnerCount})
             </button>
+            {consignmentCount > 0 && (
+              <button
+                onClick={() => setOrderFilter('consignment')}
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${orderFilter === 'consignment' ? 'bg-amber-500 text-white' : 'bg-amber-50 text-amber-700 hover:bg-amber-100'}`}
+              >
+                Consignment ({consignmentCount})
+              </button>
+            )}
+            {creditCount > 0 && (
+              <button
+                onClick={() => setOrderFilter('credit')}
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${orderFilter === 'credit' ? 'bg-blue-600 text-white' : 'bg-blue-50 text-blue-700 hover:bg-blue-100'}`}
+              >
+                Credit ({creditCount})
+              </button>
+            )}
           </div>
         )}
       </div>
@@ -252,6 +302,24 @@ export default function AdminOrdersManager({
                               Consignment
                             </span>
                           )}
+                          {isCreditOrder(order) && (
+                            <span className="inline-flex items-center gap-1 mt-1 ml-1 px-2 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wide">
+                              Credit {order.creditDays ? `${order.creditDays}d` : ''}
+                            </span>
+                          )}
+                          {isSettlementOrder(order) && (
+                            isPaid(order) ? (
+                              <div className="text-[11px] font-semibold text-green-700 mt-0.5">
+                                Paid{order.paidAt ? ` · ${new Date(order.paidAt).toLocaleDateString('en-GB')}` : ''}
+                              </div>
+                            ) : (
+                              <div className={`text-[11px] font-semibold mt-0.5 ${isOverdue(order) ? 'text-red-600' : 'text-amber-700'}`}>
+                                {isCreditOrder(order) && order.paymentDueDate
+                                  ? `${isOverdue(order) ? 'OVERDUE — due' : 'Due'} ${new Date(order.paymentDueDate).toLocaleDateString('en-GB')}`
+                                  : 'Payment pending'}
+                              </div>
+                            )
+                          )}
                           {/* Customer name - visible on mobile only (Customer column is hidden on mobile) */}
                           <div className="text-xs text-blue-600 font-medium mt-0.5 sm:hidden">{order.customerName}</div>
                         </td>
@@ -302,6 +370,16 @@ export default function AdminOrdersManager({
                                 title="Cancel Order"
                               >
                                 <XIcon className="h-4 w-4" />
+                              </button>
+                            )}
+                            {isSettlementOrder(order) && !isPaid(order) && order.status !== 'CANCELLED' && (
+                              <button
+                                onClick={() => handleMarkPaid(order)}
+                                disabled={markingPaid === order.id}
+                                className="text-green-700 hover:text-green-900 transition-colors disabled:opacity-50 touch-manipulation p-1"
+                                title="Mark payment received"
+                              >
+                                <BadgeDollarSign className="h-4 w-4" />
                               </button>
                             )}
                           </div>

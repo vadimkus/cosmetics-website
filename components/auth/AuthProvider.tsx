@@ -37,6 +37,8 @@ interface User {
   discountType?: string | null
   discountPercentage?: number | null
   consignmentActive?: boolean
+  creditActive?: boolean
+  creditDays?: number | null
 }
 
 interface AuthContextType {

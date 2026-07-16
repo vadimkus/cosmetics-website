@@ -21,6 +21,8 @@ export interface UserData {
   discountType?: string | null
   discountPercentage?: number | null
   consignmentActive?: boolean
+  creditActive?: boolean
+  creditDays?: number | null
   moyskladCounterpartyId?: string | null
   moyskladContractId?: string | null
   birthday?: string | null
@@ -299,6 +301,8 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     if (updates.isAdmin !== undefined) updateData.isAdmin = updates.isAdmin
     if (updates.canSeePrices !== undefined) updateData.canSeePrices = updates.canSeePrices
     if (updates.consignmentActive !== undefined) updateData.consignmentActive = updates.consignmentActive
+    if (updates.creditActive !== undefined) updateData.creditActive = updates.creditActive
+    if (updates.creditDays !== undefined) updateData.creditDays = updates.creditDays
     if (updates.moyskladCounterpartyId !== undefined) {
       updateData.moyskladCounterpartyId = updates.moyskladCounterpartyId === '' ? null : updates.moyskladCounterpartyId
     }

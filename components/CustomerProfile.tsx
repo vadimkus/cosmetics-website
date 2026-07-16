@@ -790,6 +790,49 @@ export default function CustomerProfile({
                   </button>
                 </div>
               </div>
+
+              {/* Credit terms (partner setting) */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-sm font-medium text-gray-700">Credit terms</span>
+                  <p className="text-[11px] text-gray-400">Professional orders on 30–90 day payment terms</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <select
+                    value={customer.creditDays || 30}
+                    onChange={(e) =>
+                      onUpdateCustomer(customer.id, {
+                        creditDays: Number(e.target.value),
+                        ...(customer.creditActive ? { creditActive: true } : {}),
+                      })
+                    }
+                    className="px-2 py-1 border border-gray-300 rounded text-xs"
+                  >
+                    <option value={30}>30 days</option>
+                    <option value={45}>45 days</option>
+                    <option value={60}>60 days</option>
+                    <option value={90}>90 days</option>
+                  </select>
+                  <span className={`px-2 py-1 rounded text-xs font-medium ${customer.creditActive ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
+                    {customer.creditActive ? `Active · ${customer.creditDays || 30}d` : 'Off'}
+                  </span>
+                  <button
+                    onClick={() =>
+                      onUpdateCustomer(customer.id, {
+                        creditActive: !customer.creditActive,
+                        ...(customer.creditActive ? {} : { creditDays: customer.creditDays || 30 }),
+                      })
+                    }
+                    className={`px-3 py-1 rounded text-xs ${
+                      customer.creditActive
+                        ? 'bg-red-500 text-white hover:bg-red-600'
+                        : 'bg-green-500 text-white hover:bg-green-600'
+                    }`}
+                  >
+                    {customer.creditActive ? 'Deactivate' : 'Activate'}
+                  </button>
+                </div>
+              </div>
             </div>
 
             {/* Delete Customer */}

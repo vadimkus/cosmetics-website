@@ -251,6 +251,11 @@ function PartnerDashboardInner() {
                       {t('Consignment', 'Консигнация', 'أمانة')}
                     </span>
                   )}
+                  {user?.creditActive && Number(user?.creditDays) > 0 && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wide">
+                      {t(`Credit ${user.creditDays}d`, `Кредит ${user.creditDays}д`, `أجل ${user.creditDays} يومًا`)}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -439,6 +444,11 @@ function PartnerDashboardInner() {
                 {user?.consignmentActive && (
                   <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wide">
                     {t('Consignment', 'Консигнация', 'أمانة')}
+                  </span>
+                )}
+                {user?.creditActive && Number(user?.creditDays) > 0 && (
+                  <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wide">
+                    {t(`Credit ${user.creditDays}d`, `Кредит ${user.creditDays}д`, `أجل ${user.creditDays} يومًا`)}
                   </span>
                 )}
               </div>

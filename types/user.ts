@@ -16,6 +16,8 @@ export interface User {
   discountType?: string | null
   discountPercentage?: number | null
   consignmentActive?: boolean
+  creditActive?: boolean
+  creditDays?: number | null
   moyskladCounterpartyId?: string | null
   moyskladContractId?: string | null
   birthday?: string | null

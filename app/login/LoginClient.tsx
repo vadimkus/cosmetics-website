@@ -89,9 +89,18 @@ export default function LoginClient() {
     }
   }, [router, locale, forceRefreshUser, t])
 
+  // Safe internal post-login redirect (e.g. /login?redirect=/partner-portal
+  // set by PartnerGuard or the Partner Access link below).
+  const getSafeRedirect = (): string | null => {
+    if (typeof window === 'undefined') return null
+    const r = new URLSearchParams(window.location.search).get('redirect')
+    if (r && r.startsWith('/') && !r.startsWith('//') && !r.includes(':')) return r
+    return null
+  }
+
   useEffect(() => {
     if (user) {
-      router.push(getLocalizedPath('/products', locale))
+      router.push(getLocalizedPath(getSafeRedirect() || '/products', locale))
     }
   }, [user, router, locale])
 
@@ -511,6 +520,17 @@ export default function LoginClient() {
               {isLoginMode ? t('authScreen.signUp') || 'Sign Up' : t('authScreen.signIn') || 'Sign In'}
             </button>
           </div>
+
+          {/* Partner access (clinics & salons) */}
+          <div className="text-center mt-5 pt-4 border-t border-gray-100">
+            <Link
+              href={`${getLocalizedPath('/login', locale)}?redirect=/partner-portal`}
+              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-gray-500 hover:text-gray-900"
+            >
+              <span className="w-1.5 h-1.5 rounded-full bg-red-600" />
+              {locale === 'ru' ? 'Вход для партнёров (клиники)' : locale === 'ar' ? 'دخول الشركاء (العيادات)' : 'Partner Access — Clinics'}
+            </Link>
+          </div>
         </div>
       </div>
     )
@@ -925,6 +945,14 @@ export default function LoginClient() {
                   {isLoginMode ? t('login.switchToCreate') : t('login.switchToLogin')}
                 </button>
               </div>
+              {/* Partner access (clinics & salons) */}
+              <Link
+                href={`${getLocalizedPath('/login', locale)}?redirect=/partner-portal`}
+                className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-gray-500 hover:text-gray-900"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-red-600" />
+                {locale === 'ru' ? 'Вход для партнёров (клиники)' : locale === 'ar' ? 'دخول الشركاء (العيادات)' : 'Partner Access — Clinics'}
+              </Link>
             </div>
           </div>
         </div>

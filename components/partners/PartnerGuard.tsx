@@ -24,7 +24,8 @@ export function PartnerGuard({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (isClient && !authLoading && !user) {
-      router.push(getLocalizedPath('/login', locale))
+      // redirect param routes the partner straight back here after login
+      router.push(`${getLocalizedPath('/login', locale)}?redirect=/partner-portal`)
     }
   }, [isClient, authLoading, user, router, locale])
 

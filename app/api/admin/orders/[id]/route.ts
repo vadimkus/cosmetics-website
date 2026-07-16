@@ -29,7 +29,22 @@ export async function PUT(
 
   try {
     const { id } = await params
-    const { status } = await request.json()
+    const { status, paymentReceived } = await request.json()
+
+    // Payment tracking for partner consignment/credit orders: mark the money
+    // as received without touching fulfilment status or sending emails.
+    if (paymentReceived === true && status === undefined) {
+      const order = await getOrderById(id)
+      if (!order) {
+        return NextResponse.json({ success: false, error: 'Order not found' }, { status: 404 })
+      }
+      await prisma.order.update({
+        where: { id },
+        data: { paymentStatus: 'paid', paidAt: new Date() },
+      })
+      debugLog(`✅ Payment marked received for order ${order.orderNumber}`)
+      return NextResponse.json({ success: true, message: 'Payment marked as received' })
+    }
 
     // Validate status
     const validStatuses = ['PENDING', 'CONFIRMED', 'PAID', 'SHIPPED', 'DELIVERED', 'CANCELLED']

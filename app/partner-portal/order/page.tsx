@@ -10,6 +10,7 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { getLocalizedPath } from '@/lib/i18n'
 import { PartnerGuard } from '@/components/partners/PartnerGuard'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { classifyPartnerLine, isValidCreditDays } from '@/lib/partnerCatalog'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 import BottomSheet from '@/components/ui/BottomSheet'
@@ -48,10 +49,13 @@ function PartnerOrderInner() {
   const [paySheet, setPaySheet] = useState<{ clientSecret: string; orderNumber: string; total: number } | null>(null)
 
   const hasConsignment = user?.consignmentActive === true
-  const [payOption, setPayOption] = useState<'consignment' | 'online' | 'cod'>('cod')
+  const creditDays = Number(user?.creditDays || 0)
+  const hasCredit = user?.creditActive === true && isValidCreditDays(creditDays)
+  const [payOption, setPayOption] = useState<'consignment' | 'credit' | 'online' | 'cod'>('cod')
   useEffect(() => {
     if (hasConsignment) setPayOption('consignment')
-  }, [hasConsignment])
+    else if (hasCredit) setPayOption('credit')
+  }, [hasConsignment, hasCredit])
 
   const isRTL = dir === 'rtl'
   const t = (en: string, ru: string, ar: string) => (locale === 'ru' ? ru : locale === 'ar' ? ar : en)
@@ -161,6 +165,23 @@ function PartnerOrderInner() {
 
   const productById = useMemo(() => new Map(products.map(p => [p.id, p])), [products])
 
+  // Consignment stock is retail-only: professional sizes, PRO Solutions and
+  // equipment must be ordered on credit terms or paid. Names of cart lines
+  // that cannot go to consignment (used to block the pill / submit).
+  const nonConsignableInCart = useMemo(() => {
+    const names: string[] = []
+    for (const [key, q] of Object.entries(qty)) {
+      if (q <= 0) continue
+      const { id, size } = parseKey(key)
+      const p = productById.get(id)
+      if (!p) continue
+      if (classifyPartnerLine(p, size) !== 'retail') {
+        names.push(size ? `${p.name} (${size})` : p.name)
+      }
+    }
+    return names
+  }, [qty, productById])
+
   const { itemCount, total } = useMemo(() => {
     let count = 0
     let sum = 0
@@ -177,6 +198,16 @@ function PartnerOrderInner() {
 
   const submit = async () => {
     if (itemCount === 0 || submitting) return
+    if (payOption === 'consignment' && nonConsignableInCart.length > 0) {
+      alert(
+        t(
+          'These items are professional/equipment and cannot go to consignment stock:\n\n',
+          'Эти позиции — профессиональные/оборудование, их нельзя добавить на консигнацию:\n\n',
+          'هذه المنتجات مهنية/أجهزة ولا يمكن إضافتها إلى مخزون الأمانة:\n\n'
+        ) + nonConsignableInCart.join('\n')
+      )
+      return
+    }
     setSubmitting(true)
     try {
       const token = await fetchCsrfToken()
@@ -247,6 +278,11 @@ function PartnerOrderInner() {
               {t('Consignment stock', 'Консигнация', 'بضاعة أمانة')}
             </span>
           )}
+          {placed.paymentOption === 'credit' && (
+            <span className="inline-block text-[11px] font-bold uppercase tracking-wide bg-blue-100 text-blue-800 px-2.5 py-1 rounded-full mb-3">
+              {t(`Credit ${creditDays} days`, `Кредит ${creditDays} дней`, `أجل ${creditDays} يومًا`)}
+            </span>
+          )}
           {placed.paymentOption === 'online' && placed.paid && (
             <span className="inline-block text-[11px] font-bold uppercase tracking-wide bg-green-100 text-green-800 px-2.5 py-1 rounded-full mb-3">
               {t('Paid', 'Оплачено', 'مدفوع')}
@@ -258,6 +294,12 @@ function PartnerOrderInner() {
                   'Added to your consignment stock — priority same-day delivery. Settlement via your monthly sales report.',
                   'Добавлено на ваш консигнационный склад — приоритетная доставка в тот же день. Расчёт по ежемесячному отчёту о продажах.',
                   'أُضيف إلى مخزون الأمانة — توصيل في نفس اليوم. التسوية عبر تقرير المبيعات الشهري.'
+                )
+              : placed.paymentOption === 'credit'
+              ? t(
+                  `Professional order on ${creditDays}-day credit terms — priority same-day delivery. Payment due within ${creditDays} days of delivery.`,
+                  `Профессиональный заказ с отсрочкой ${creditDays} дней — приоритетная доставка в тот же день. Оплата в течение ${creditDays} дней после доставки.`,
+                  `طلب مهني بأجل ${creditDays} يومًا — توصيل في نفس اليوم. الدفع خلال ${creditDays} يومًا من التسليم.`
                 )
               : placed.paymentOption === 'online'
                 ? placed.paid
@@ -366,6 +408,10 @@ function PartnerOrderInner() {
               const q = qty[baseKey] || 0
               const info = linePricing(product)
               const price = info.discountedPrice
+              // Whole-product tier (professional sizes of dual-size products
+              // are classified per size row below).
+              const productClass = classifyPartnerLine(product)
+              const productBlocked = payOption === 'consignment' && productClass !== 'retail'
               const productQty = Object.entries(qty).reduce(
                 (s, [k, n]) => (parseKey(k).id === product.id ? s + n : s), 0
               )
@@ -419,6 +465,14 @@ function PartnerOrderInner() {
                               )}
                             </>
                           )}
+                          {productClass === 'professional' && (
+                            <span className="text-[9px] font-bold text-white bg-blue-600 px-1.5 py-0.5 rounded uppercase tracking-wide">PRO</span>
+                          )}
+                          {productClass === 'equipment' && (
+                            <span className="text-[9px] font-bold text-white bg-gray-800 px-1.5 py-0.5 rounded uppercase tracking-wide">
+                              {t('Equipment', 'Оборудование', 'أجهزة')}
+                            </span>
+                          )}
                           <ChevronDown className={`w-3.5 h-3.5 text-gray-300 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                         </div>
                       </div>
@@ -462,6 +516,13 @@ function PartnerOrderInner() {
                           <Plus className="w-4 h-4 text-white" />
                         </button>
                       </div>
+                    ) : productBlocked ? (
+                      <span
+                        className="px-3 h-8 flex items-center rounded-full bg-gray-100 text-gray-400 text-xs font-semibold flex-shrink-0"
+                        title={t('Not available for consignment stock', 'Недоступно для консигнации', 'غير متاح لمخزون الأمانة')}
+                      >
+                        {t('Not for consignment', 'Не для консигнации', 'ليس للأمانة')}
+                      </span>
                     ) : (
                       <button
                         onClick={() => setLineQty(baseKey, 1)}
@@ -485,6 +546,8 @@ function PartnerOrderInner() {
                             const lq = qty[lineKey] || 0
                             const vInfo = linePricing(product, v.size)
                             const unavailable = v.available === false
+                            const rowClass = classifyPartnerLine(product, v.size)
+                            const rowBlocked = payOption === 'consignment' && rowClass !== 'retail'
                             return (
                               <div
                                 key={lineKey}
@@ -492,6 +555,9 @@ function PartnerOrderInner() {
                               >
                                 <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
                                   <span className="text-sm font-semibold text-gray-900">{v.size}</span>
+                                  {rowClass === 'professional' && (
+                                    <span className={`text-[9px] font-bold text-white bg-blue-600 px-1.5 py-0.5 rounded uppercase tracking-wide ${isRTL ? 'mr-1.5' : 'ml-1.5'}`}>PRO</span>
+                                  )}
                                   <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                                     <span className="text-sm font-bold text-red-600">{vInfo.discountedPrice.toFixed(2)} AED</span>
                                     {vInfo.hasDiscount && (
@@ -501,6 +567,13 @@ function PartnerOrderInner() {
                                 </div>
                                 {unavailable ? (
                                   <span className="text-xs font-semibold text-gray-400">{t('Unavailable', 'Недоступно', 'غير متاح')}</span>
+                                ) : rowBlocked && lq === 0 ? (
+                                  <span
+                                    className="px-3 h-7 flex items-center rounded-full bg-gray-100 text-gray-400 text-[11px] font-semibold flex-shrink-0"
+                                    title={t('Not available for consignment stock', 'Недоступно для консигнации', 'غير متاح لمخزون الأمانة')}
+                                  >
+                                    {t('Not for consignment', 'Не для консигнации', 'ليس للأمانة')}
+                                  </span>
                                 ) : lq > 0 ? (
                                   <div className={`flex items-center gap-2 flex-shrink-0 ${isRTL ? 'flex-row-reverse' : ''}`}>
                                     <button
@@ -567,7 +640,19 @@ function PartnerOrderInner() {
             <div className={`flex items-center gap-2 mb-1.5 overflow-x-auto scrollbar-hide ${isRTL ? 'flex-row-reverse' : ''}`}>
               {hasConsignment && (
                 <button
-                  onClick={() => setPayOption('consignment')}
+                  onClick={() => {
+                    if (nonConsignableInCart.length > 0) {
+                      alert(
+                        t(
+                          'Remove professional/equipment items first — consignment stock is retail products only:\n\n',
+                          'Сначала уберите профессиональные позиции/оборудование — на консигнацию идут только розничные продукты:\n\n',
+                          'أزل المنتجات المهنية/الأجهزة أولًا — مخزون الأمانة للمنتجات التجزئة فقط:\n\n'
+                        ) + nonConsignableInCart.join('\n')
+                      )
+                      return
+                    }
+                    setPayOption('consignment')
+                  }}
                   className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                     payOption === 'consignment'
                       ? 'bg-amber-500 border-amber-500 text-white'
@@ -575,6 +660,18 @@ function PartnerOrderInner() {
                   }`}
                 >
                   {t('Consignment stock', 'Консигнация', 'مخزون أمانة')}
+                </button>
+              )}
+              {hasCredit && (
+                <button
+                  onClick={() => setPayOption('credit')}
+                  className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
+                    payOption === 'credit'
+                      ? 'bg-blue-600 border-blue-600 text-white'
+                      : 'bg-white border-gray-200 text-gray-600 hover:border-blue-300'
+                  }`}
+                >
+                  {t(`Credit ${creditDays} days`, `Кредит ${creditDays} дн.`, `أجل ${creditDays} يومًا`)}
                 </button>
               )}
               <button
@@ -600,7 +697,9 @@ function PartnerOrderInner() {
             </div>
             <p className={`text-[11px] text-gray-400 mb-2 ${isRTL ? 'text-right' : ''}`}>
               {payOption === 'consignment'
-                ? t('Settle via monthly sales report — no payment now', 'Расчёт по ежемесячному отчёту — без оплаты сейчас', 'التسوية عبر التقرير الشهري — بدون دفع الآن')
+                ? t('Retail products only — settle via monthly sales report, no payment now', 'Только розничные продукты — расчёт по ежемесячному отчёту, без оплаты сейчас', 'منتجات التجزئة فقط — التسوية عبر التقرير الشهري، بدون دفع الآن')
+                : payOption === 'credit'
+                  ? t(`Professional order — payment due within ${creditDays} days of delivery`, `Профессиональный заказ — оплата в течение ${creditDays} дней после доставки`, `طلب مهني — الدفع خلال ${creditDays} يومًا من التسليم`)
                 : payOption === 'online'
                   ? t('Card / Apple Pay — secure Stripe checkout', 'Карта / Apple Pay — безопасная оплата Stripe', 'بطاقة / Apple Pay — دفع آمن عبر Stripe')
                   : t('Pay when your order arrives', 'Оплатите при доставке заказа', 'ادفع عند وصول طلبك')}
@@ -626,6 +725,8 @@ function PartnerOrderInner() {
                 t('Continue to payment', 'Перейти к оплате', 'المتابعة إلى الدفع')
               ) : payOption === 'consignment' ? (
                 t('Add to consignment stock', 'На консигнационный склад', 'إضافة إلى مخزون الأمانة')
+              ) : payOption === 'credit' ? (
+                t(`Place order — ${creditDays} day credit`, `Оформить с отсрочкой ${creditDays} дн.`, `تقديم الطلب — أجل ${creditDays} يومًا`)
               ) : (
                 t('Place order', 'Оформить заказ', 'تقديم الطلب')
               )}

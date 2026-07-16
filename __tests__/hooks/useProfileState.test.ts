@@ -45,6 +45,8 @@ describe('useProfileState', () => {
     refundedAt: null,
     refundAmount: null,
     paymentMetadata: null,
+    creditDays: null,
+    paymentDueDate: null,
     moySkladOrderId: null,
     moySkladSyncedAt: null,
     deliveredAt: null,

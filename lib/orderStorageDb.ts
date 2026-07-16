@@ -49,6 +49,10 @@ export interface OrderData {
   refundedAt?: Date // When refund was processed
   refundAmount?: number // Amount refunded (can be partial)
   paymentMetadata?: string // JSON metadata from payment provider
+
+  // Partner credit-term orders (paymentMethod partner_credit)
+  creditDays?: number // 30 | 45 | 60 | 90
+  paymentDueDate?: Date // createdAt + creditDays
 }
 
 export type OrderWithItems = Order & {
@@ -177,6 +181,8 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
         refundedAt: orderData.refundedAt || null,
         refundAmount: orderData.refundAmount || null,
         paymentMetadata: orderData.paymentMetadata || null,
+        creditDays: orderData.creditDays || null,
+        paymentDueDate: orderData.paymentDueDate || null,
         items: {
           create: orderData.items.map(item => ({
             productId: item.productId,

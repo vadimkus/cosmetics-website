@@ -5,6 +5,7 @@ import { getProductById } from '@/lib/productsDb'
 import { canonicalOrderItemImage, ORDER_ITEM_IMAGE_FALLBACK } from '@/lib/orderItemImage'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
 import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
+import { consignmentBlockReason, isValidCreditDays } from '@/lib/partnerCatalog'
 import { generateUniquePartnerOrderNumber } from '@/lib/orderNumber'
 import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { getPreferredEmail } from '@/lib/emailHelpers'
@@ -72,10 +73,16 @@ export async function POST(request: NextRequest) {
     }
 
     const rawOption = String(body?.paymentOption || 'cod').toLowerCase()
-    const paymentOption: 'consignment' | 'online' | 'cod' =
-      rawOption === 'consignment' ? 'consignment' : rawOption === 'online' ? 'online' : 'cod'
+    const paymentOption: 'consignment' | 'credit' | 'online' | 'cod' =
+      rawOption === 'consignment' ? 'consignment'
+      : rawOption === 'credit' ? 'credit'
+      : rawOption === 'online' ? 'online' : 'cod'
     if (paymentOption === 'consignment' && !user.consignmentActive) {
       return NextResponse.json({ success: false, error: 'No active consignment agreement on this account.' }, { status: 403, headers: CORS })
+    }
+    const creditDays = Number(user.creditDays || 0)
+    if (paymentOption === 'credit' && (!user.creditActive || !isValidCreditDays(creditDays))) {
+      return NextResponse.json({ success: false, error: 'No active credit terms on this account.' }, { status: 403, headers: CORS })
     }
 
     const orderNotesInput =
@@ -98,6 +105,14 @@ export async function POST(request: NextRequest) {
       }
       const size = line.size ? String(line.size) : undefined
       const color = line.color ? String(line.color) : undefined
+      // Consignment stock is retail products only — professional sizes,
+      // PRO Solutions and equipment must go on credit/paid orders.
+      if (paymentOption === 'consignment') {
+        const blocked = consignmentBlockReason(product, size)
+        if (blocked) {
+          return NextResponse.json({ success: false, error: blocked }, { status: 403, headers: CORS })
+        }
+      }
       // Size/color variant selected → the variant's price is the retail base
       // (e.g. CERABARRIER 200ml vs 600ml). Discount applies on top of it.
       const variant = (size || color)
@@ -140,12 +155,18 @@ export async function POST(request: NextRequest) {
 
     const paymentMethodByOption: Record<typeof paymentOption, string> = {
       consignment: 'partner_consignment',
+      credit: 'partner_credit',
       online: 'partner_online', // "online" keyword → app shows Pay/resume for abandoned checkouts
       cod: 'partner_cod',
     }
+    const paymentDueDate = paymentOption === 'credit'
+      ? new Date(Date.now() + creditDays * 24 * 60 * 60 * 1000)
+      : undefined
     const settlementLabel = paymentOption === 'consignment'
       ? 'CONSIGNMENT STOCK (settle via monthly report)'
-      : paymentOption === 'online' ? 'ONLINE CARD PAYMENT' : 'CASH ON DELIVERY'
+      : paymentOption === 'credit'
+        ? `CREDIT ${creditDays} DAYS (due ${paymentDueDate!.toLocaleDateString('en-GB')})`
+        : paymentOption === 'online' ? 'ONLINE CARD PAYMENT' : 'CASH ON DELIVERY'
     const partnerTag = `PARTNER ORDER — ${user.name || user.email}\nSettlement: ${settlementLabel}`
     const orderNotes = orderNotesInput ? `${partnerTag}\n${orderNotesInput}` : partnerTag
 
@@ -168,6 +189,7 @@ export async function POST(request: NextRequest) {
       paymentMethod: paymentMethodByOption[paymentOption],
       paymentStatus: 'pending',
       locale: typeof body?.locale === 'string' ? body.locale : 'en',
+      ...(paymentOption === 'credit' && paymentDueDate ? { creditDays, paymentDueDate } : {}),
     }
 
     let savedOrderId = 'pending'

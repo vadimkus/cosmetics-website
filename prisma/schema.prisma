@@ -30,6 +30,10 @@ model User {
   // contract). When true, the partner may "Add to consignment stock" at
   // checkout. Set by the one-off MoySklad matcher and by admin manually.
   consignmentActive       Boolean @default(false)
+  // Partner credit terms (clinics). When active, the partner may place
+  // professional-product orders on 30/45/60/90-day payment terms.
+  creditActive            Boolean @default(false)
+  creditDays              Int? // 30 | 45 | 60 | 90
   moyskladCounterpartyId  String? // MoySklad counterparty UUID (matched by phone)
   moyskladContractId      String? // Active Commission contract UUID
   birthday           String?
@@ -256,6 +260,10 @@ model Order {
   refundedAt            DateTime? // When refund was processed
   refundAmount          Float? // Amount refunded (can be partial)
   paymentMetadata       String?   @db.Text // JSON metadata from payment provider
+
+  // Partner credit-term orders (paymentMethod partner_credit)
+  creditDays     Int? // Credit term length at time of order (30/45/60/90)
+  paymentDueDate DateTime? // When payment is due (createdAt + creditDays)
 
   // MoySklad (accounting system) integration
   moySkladOrderId  String? // MoySklad order UUID after manual push from admin

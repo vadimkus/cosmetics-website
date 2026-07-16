@@ -130,10 +130,10 @@ export default function LoginClient() {
         setPartnerLoginUsed(false)
         setPartnerError(
           locale === 'ru'
-            ? 'Неверный email или пароль. Это тот же логин, что и ваш обычный аккаунт GENOSYS.'
+            ? 'Неверный email или пароль. Используйте данные вашего аккаунта GENOSYS.'
             : locale === 'ar'
-              ? 'بريد أو كلمة مرور غير صحيحة. هذا هو نفس حساب GENOSYS العادي.'
-              : 'Wrong email or password. This is the SAME login as your regular GENOSYS account.'
+              ? 'بريد إلكتروني أو كلمة مرور غير صحيحة. استخدم بيانات حساب GENOSYS الخاص بك.'
+              : 'Incorrect email or password. Please use your GENOSYS account credentials.'
         )
       }
       // Success: the user effect above routes straight to /partner-portal.
@@ -221,10 +221,10 @@ export default function LoginClient() {
         </h2>
         <p className="text-xs text-gray-400 mt-1 mb-5 leading-relaxed">
           {locale === 'ru'
-            ? 'Используйте тот же email и пароль, что и в обычном аккаунте GENOSYS. После входа вы попадёте прямо в портал партнёра с вашими ценами.'
+            ? 'Войдите с данными вашего аккаунта GENOSYS. Доступ к порталу предоставляется индивидуально — для подключения напишите на sales@genosys.ae.'
             : locale === 'ar'
-              ? 'استخدم نفس البريد وكلمة المرور لحساب GENOSYS العادي. بعد الدخول ستصل مباشرة إلى بوابة الشركاء بأسعارك.'
-              : 'Use the SAME email & password as your regular GENOSYS account. You will land straight in the Partner Portal with your partner prices.'}
+              ? 'سجّل الدخول ببيانات حساب GENOSYS الخاص بك. يُمنح الوصول إلى البوابة بشكل فردي — للتفعيل راسلنا على sales@genosys.ae.'
+              : 'Sign in with your GENOSYS account credentials. Partner access is assigned individually — to request access, contact sales@genosys.ae.'}
         </p>
 
         <form onSubmit={handlePartnerSubmit} className="space-y-3">
@@ -271,12 +271,14 @@ export default function LoginClient() {
         </form>
 
         <a
-          href="https://wa.me/971585487665?text=Hi%2C%20I%27d%20like%20partner%20clinic%20access%20on%20genosys.ae"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="mailto:sales@genosys.ae?subject=Partner%20Portal%20Access%20Request"
           className="block text-center text-xs text-gray-400 hover:text-white mt-4"
         >
-          {locale === 'ru' ? 'Нет партнёрского доступа? Напишите нам в WhatsApp' : locale === 'ar' ? 'لا تملك وصول شريك؟ راسلنا واتساب' : "No partner access yet? WhatsApp us"}
+          {locale === 'ru'
+            ? 'Запросить партнёрский доступ — sales@genosys.ae'
+            : locale === 'ar'
+              ? 'طلب وصول الشركاء — sales@genosys.ae'
+              : 'Request partner access — sales@genosys.ae'}
         </a>
       </div>
     </div>

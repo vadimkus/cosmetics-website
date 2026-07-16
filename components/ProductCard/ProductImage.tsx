@@ -6,6 +6,8 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Heart } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
+import { restockNote } from '@/lib/restockInfo'
+import { useTranslation } from '@/hooks/useTranslation'
 import type { ProductImageProps } from './types'
 
 /**
@@ -34,7 +36,11 @@ const ProductImage = memo(function ProductImage({
   t,
   prefetchProps,
 }: ProductImageProps) {
-  
+  const { locale } = useTranslation()
+  // Restock note (e.g. "Available in 14 days") replaces the generic Sold out
+  // badge for products with a known next shipment.
+  const restock = !product.inStock ? restockNote(product.id, locale) : null
+
   const imageAlt = `${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} professional skincare product UAE`
   
   // Square preview frame + object-contain, no padding. Product photos are
@@ -136,12 +142,12 @@ const ProductImage = memo(function ProductImage({
         />
       </button>
       
-      {/* Sold Out Badge — always top-left: the favorite button owns the
-          top-right corner, so the badge must not share it. */}
+      {/* Sold Out / Restock Badge — always top-left: the favorite button owns
+          the top-right corner, so the badge must not share it. */}
       {!product.inStock && (
         <div className="absolute top-2 left-2 z-30">
-          <span className="inline-flex items-center px-3 py-1.5 rounded-md bg-red-600 text-white font-bold text-xs md:text-sm shadow-lg uppercase tracking-wide">
-            {t('product.soldOut')}
+          <span className={`inline-flex items-center px-3 py-1.5 rounded-md font-bold text-xs md:text-sm shadow-lg uppercase tracking-wide ${restock ? 'bg-amber-500 text-white' : 'bg-red-600 text-white'}`}>
+            {restock || t('product.soldOut')}
           </span>
         </div>
       )}

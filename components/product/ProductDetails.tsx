@@ -5,6 +5,7 @@ import { Star } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
 import { translateCategory } from '@/utils/categoryTranslations'
+import { restockNote } from '@/lib/restockInfo'
 
 interface ProductDetailsProps {
   product: Product
@@ -45,11 +46,13 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           {product.category.split(',').map(cat => translateCategory(cat.trim(), messages)).join(', ')}
         </span>
         <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
-          product.inStock 
-            ? 'bg-green-100 text-green-800' 
-            : 'bg-red-100 text-red-800'
+          product.inStock
+            ? 'bg-green-100 text-green-800'
+            : restockNote(product.id, locale)
+              ? 'bg-amber-100 text-amber-800'
+              : 'bg-red-100 text-red-800'
         }`}>
-          {product.inStock ? t('product.inStock') : t('product.outOfStock')}
+          {product.inStock ? t('product.inStock') : (restockNote(product.id, locale) || t('product.outOfStock'))}
         </span>
       </div>
     </div>

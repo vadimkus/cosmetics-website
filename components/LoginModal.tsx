@@ -641,6 +641,17 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 {isLoginMode ? t('login.switchToCreate') : t('login.switchToLogin')}
               </button>
             </div>
+            {/* Partner access (clinics & salons) — dedicated login on /login */}
+            {isLoginMode && (
+              <Link
+                href={`${getLocalizedPath('/login', locale)}?partner=1`}
+                onClick={onClose}
+                className={`mt-3 w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-black text-white py-3 rounded-lg font-bold text-xs uppercase tracking-wide transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              >
+                <span className="w-2 h-2 rounded-full bg-red-500" />
+                {locale === 'ru' ? 'Вход для партнёров — клиники' : locale === 'ar' ? 'دخول الشركاء — العيادات' : 'Partner Access — Clinics'}
+              </Link>
+            )}
           </div>
         </div>
       </div>

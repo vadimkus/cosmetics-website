@@ -95,6 +95,12 @@ export default function LoginClient() {
         setPromoCode(String(promo || '').trim())
         setIsLoginMode(false)
       }
+
+      // /login?partner=1 → open the dedicated partner login modal directly
+      // (used by the header LoginModal's Partner Access button).
+      if (searchParams.get('partner') === '1') {
+        setShowPartnerLogin(true)
+      }
     }
   }, [router, locale, forceRefreshUser, t])
 

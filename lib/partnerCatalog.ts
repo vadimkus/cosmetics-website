@@ -82,6 +82,64 @@ export function consignmentBlockReason(
     : `${label} is a professional product — not available for consignment stock.`
 }
 
+/**
+ * Category groups for the partner order screen (web + mirrored in the
+ * mobile app's partner-portal screen — keep both in sync when editing).
+ * Display order = array order. First matching keyword rule wins.
+ */
+export interface PartnerCategoryGroup {
+  key: string
+  en: string
+  ru: string
+  ar: string
+}
+
+export const PARTNER_CATEGORY_GROUPS: PartnerCategoryGroup[] = [
+  { key: 'cleansers', en: 'Cleansers', ru: 'Очищение', ar: 'منظفات' },
+  { key: 'toners', en: 'Toners & Mists', ru: 'Тонеры и мисты', ar: 'تونر وبخاخ' },
+  { key: 'serums', en: 'Serums', ru: 'Сыворотки', ar: 'سيرومات' },
+  { key: 'creams', en: 'Creams', ru: 'Кремы', ar: 'كريمات' },
+  { key: 'eye_care', en: 'Eye Care', ru: 'Уход за глазами', ar: 'العناية بالعين' },
+  { key: 'masks', en: 'Masks', ru: 'Маски', ar: 'أقنعة' },
+  { key: 'sun_bb', en: 'Sun & BB', ru: 'Солнцезащита и BB', ar: 'واقي شمس و BB' },
+  { key: 'peeling', en: 'Peeling', ru: 'Пилинги', ar: 'تقشير' },
+  { key: 'microneedling', en: 'Microneedling', ru: 'Микронидлинг', ar: 'الإبر الدقيقة' },
+  { key: 'bio_meso', en: 'Bio Meso', ru: 'Био-мезо', ar: 'بيو ميزو' },
+  { key: 'pro_solutions', en: 'PRO Solutions', ru: 'PRO растворы', ar: 'محاليل PRO' },
+  { key: 'scalp_hair', en: 'Scalp & Hair', ru: 'Кожа головы и волосы', ar: 'فروة الرأس والشعر' },
+  { key: 'beauty_boxes', en: 'Beauty Boxes', ru: 'Бьюти-боксы', ar: 'صناديق الجمال' },
+  { key: 'kits', en: 'Kits', ru: 'Наборы', ar: 'أطقم' },
+  { key: 'devices', en: 'Devices & Equipment', ru: 'Оборудование', ar: 'أجهزة' },
+  { key: 'other', en: 'Other', ru: 'Другое', ar: 'أخرى' },
+]
+
+/** Match priority (checked in this order — multi-category strings resolve here). */
+const GROUP_MATCH_RULES: Array<[string, string[]]> = [
+  ['devices', ['device']],
+  ['pro_solutions', ['pro solution']],
+  ['bio_meso', ['bio meso']],
+  ['beauty_boxes', ['beauty box']],
+  ['kits', ['kit']],
+  ['scalp_hair', ['scalp', 'hair']],
+  ['sun_bb', ['cushion', 'sun']],
+  ['eye_care', ['eye']],
+  ['masks', ['mask']],
+  ['creams', ['cream']],
+  ['serums', ['serum']],
+  ['toners', ['toner', 'mist']],
+  ['cleansers', ['cleanser']],
+  ['peeling', ['peeling']],
+  ['microneedling', ['microneedling']],
+]
+
+export function partnerGroupKey(category?: string | null): string {
+  const cat = String(category || '').toLowerCase()
+  for (const [key, words] of GROUP_MATCH_RULES) {
+    if (words.some(w => cat.includes(w))) return key
+  }
+  return 'other'
+}
+
 export const CREDIT_DAY_OPTIONS = [30, 45, 60, 90] as const
 export type CreditDays = (typeof CREDIT_DAY_OPTIONS)[number]
 

@@ -10,7 +10,7 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { getLocalizedPath } from '@/lib/i18n'
 import { PartnerGuard } from '@/components/partners/PartnerGuard'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
-import { classifyPartnerLine, isValidCreditDays } from '@/lib/partnerCatalog'
+import { classifyPartnerLine, isValidCreditDays, partnerGroupKey, PARTNER_CATEGORY_GROUPS } from '@/lib/partnerCatalog'
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 import BottomSheet from '@/components/ui/BottomSheet'
@@ -45,6 +45,9 @@ function PartnerOrderInner() {
   const [placed, setPlaced] = useState<{ orderNumber: string; total: number; paymentOption: string; paid?: boolean } | null>(null)
   const [reorderLoaded, setReorderLoaded] = useState(0)
   const [expandedCards, setExpandedCards] = useState<Set<string>>(new Set())
+  // Collapsible category sections (Creams, Serums, Masks…). Collapsed by
+  // default; searching shows a flat filtered list instead.
+  const [openGroups, setOpenGroups] = useState<Set<string>>(new Set())
   // Embedded Stripe payment (bottom sheet on this page — no redirect).
   const [paySheet, setPaySheet] = useState<{ clientSecret: string; orderNumber: string; total: number } | null>(null)
 
@@ -107,6 +110,14 @@ function PartnerOrderInner() {
               if (loaded > 0) {
                 setQty(next)
                 setReorderLoaded(loaded)
+                // Open the sections that contain the prefilled items so the
+                // reorder is immediately visible.
+                const groups = new Set<string>()
+                for (const key of Object.keys(next)) {
+                  const p = byId.get(parseKey(key).id)
+                  if (p) groups.add(partnerGroupKey(p.category))
+                }
+                setOpenGroups(groups)
               }
             }
           } catch {
@@ -150,6 +161,32 @@ function PartnerOrderInner() {
       return n
     })
   }
+
+  const toggleGroup = (key: string) => {
+    setOpenGroups(prev => {
+      const n = new Set(prev)
+      if (n.has(key)) n.delete(key)
+      else n.add(key)
+      return n
+    })
+  }
+
+  // Products bucketed into ordered category sections (empty groups hidden).
+  const groupedProducts = useMemo(() => {
+    const byKey = new Map<string, Product[]>()
+    for (const p of products) {
+      const k = partnerGroupKey(p.category)
+      const arr = byKey.get(k) || []
+      arr.push(p)
+      byKey.set(k, arr)
+    }
+    return PARTNER_CATEGORY_GROUPS
+      .map(group => ({
+        group,
+        items: (byKey.get(group.key) || []).sort((a, b) => a.name.localeCompare(b.name)),
+      }))
+      .filter(g => g.items.length > 0)
+  }, [products])
 
   // Partner price for a line: size variant price (if selected) with the
   // account discount applied on top — mirrors the server calculation.
@@ -397,9 +434,8 @@ function PartnerOrderInner() {
           </div>
         ) : filtered.length === 0 ? (
           <p className="text-center text-sm text-gray-500 py-12">{t('No products found', 'Товары не найдены', 'لم يتم العثور على منتجات')}</p>
-        ) : (
-          <div className="space-y-2.5">
-            {filtered.map(product => {
+        ) : (() => {
+            const renderProductCard = (product: Product) => {
               const sizes = sizesOf(product)
               const multiSize = sizes.length >= 2
               const isOpen = expandedCards.has(product.id)
@@ -609,9 +645,50 @@ function PartnerOrderInner() {
                   )}
                 </div>
               )
-            })}
-          </div>
-        )}
+            }
+
+            // Searching → flat filtered list (all categories at once)
+            if (search.trim()) {
+              return <div className="space-y-2.5">{filtered.map(p => renderProductCard(p))}</div>
+            }
+
+            // Default → collapsible category sections
+            return (
+              <div className="space-y-3">
+                {groupedProducts.map(({ group, items }) => {
+                  const isOpenGroup = openGroups.has(group.key)
+                  const label = locale === 'ru' ? group.ru : locale === 'ar' ? group.ar : group.en
+                  const selectedInGroup = items.reduce(
+                    (sum, p) =>
+                      sum + Object.entries(qty).reduce((s, [k, n]) => (parseKey(k).id === p.id ? s + n : s), 0),
+                    0
+                  )
+                  return (
+                    <div key={group.key} className={`bg-white border rounded-2xl ${selectedInGroup > 0 ? 'border-red-200' : 'border-gray-100'}`}>
+                      <button
+                        onClick={() => toggleGroup(group.key)}
+                        className={`w-full flex items-center justify-between px-4 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}
+                      >
+                        <span className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-sm font-bold text-gray-900">{label}</span>
+                          <span className="text-[11px] font-semibold text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{items.length}</span>
+                          {selectedInGroup > 0 && (
+                            <span className="text-[11px] font-bold text-white bg-red-600 px-2 py-0.5 rounded-full">×{selectedInGroup}</span>
+                          )}
+                        </span>
+                        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isOpenGroup ? 'rotate-180' : ''}`} />
+                      </button>
+                      {isOpenGroup && (
+                        <div className="px-2.5 pb-2.5 space-y-2.5">
+                          {items.map(p => renderProductCard(p))}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })()}
 
         {/* Notes */}
         {itemCount > 0 && (

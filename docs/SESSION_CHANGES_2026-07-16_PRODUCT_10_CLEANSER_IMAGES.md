@@ -15,3 +15,9 @@
 - PDP: https://genosys.ae/products/10
 - Main: https://genosys.ae/images/cleanser/Main.jpg
 - Gallery: `/images/cleanser/S1.jpg` … `S6.jpg`
+
+## Audit 2026-07-16 (evening)
+- Product **10**: all **84** orderItems already on `/images/cleanser/Main.jpg` — fully repointed.
+- Found gap on product **15**: **3** absolute `https://genosys.ae/images/PRS.jpg` (file deleted) → repointed to `/images/problem/Main.jpg`.
+- Also canonicalized product **44** leftover `Sham.jpg` ×1 → shampoo Main.
+- Global check: **0** orderItem images missing on disk after fixes.

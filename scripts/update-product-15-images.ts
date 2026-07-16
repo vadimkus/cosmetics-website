@@ -30,6 +30,7 @@ const NEW_GALLERY = [
 
 const OLD_IMAGES = [
   '/images/PRS.jpg',
+  'https://genosys.ae/images/PRS.jpg',
   '/images/Second/problem_both.jpg',
 ]
 

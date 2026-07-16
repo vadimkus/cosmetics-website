@@ -26,3 +26,11 @@ gallery `S1–S6.jpg`.
 New orders already persist `canonicalOrderItemImage(product)` from DB
 (`lib/orderItemImage.ts`). Historical rows for this SKU were repaired
 before deleting the old main asset.
+
+## Follow-up 2026-07-16
+
+Audit found **3** leftover absolute URLs
+`https://genosys.ae/images/PRS.jpg` (missed by relative-only repoint).
+Repointed → `/images/problem/Main.jpg`. Product 15 now **22/22** on new
+main. Script `update-product-15-images.ts` updated to include the absolute
+variant.

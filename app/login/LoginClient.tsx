@@ -40,6 +40,15 @@ export default function LoginClient() {
   const [showLangDropdown, setShowLangDropdown] = useState(false)
   const normalizedPromo = String(promoCode || '').trim().toUpperCase()
 
+  // Dedicated partner (clinic) login modal — same credentials, lands in the
+  // Partner Portal instead of the shop.
+  const [showPartnerLogin, setShowPartnerLogin] = useState(false)
+  const [partnerForm, setPartnerForm] = useState({ email: '', password: '' })
+  const [partnerError, setPartnerError] = useState('')
+  const [partnerSubmitting, setPartnerSubmitting] = useState(false)
+  const [showPartnerPassword, setShowPartnerPassword] = useState(false)
+  const [partnerLoginUsed, setPartnerLoginUsed] = useState(false)
+
   // Redirect PWA users to clean PWA login page
   useEffect(() => {
     if (isPWAClient && isPWA) {
@@ -100,9 +109,38 @@ export default function LoginClient() {
 
   useEffect(() => {
     if (user) {
-      router.push(getLocalizedPath(getSafeRedirect() || '/products', locale))
+      const dest = partnerLoginUsed ? '/partner-portal' : (getSafeRedirect() || '/products')
+      router.push(getLocalizedPath(dest, locale))
     }
-  }, [user, router, locale])
+  }, [user, router, locale, partnerLoginUsed])
+
+  const handlePartnerSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setPartnerError('')
+    const email = partnerForm.email.trim()
+    if (!email || !partnerForm.password) {
+      setPartnerError(locale === 'ru' ? 'Введите email и пароль' : locale === 'ar' ? 'أدخل البريد وكلمة المرور' : 'Enter your email and password')
+      return
+    }
+    setPartnerSubmitting(true)
+    setPartnerLoginUsed(true)
+    try {
+      const success = await login(email, partnerForm.password)
+      if (!success) {
+        setPartnerLoginUsed(false)
+        setPartnerError(
+          locale === 'ru'
+            ? 'Неверный email или пароль. Это тот же логин, что и ваш обычный аккаунт GENOSYS.'
+            : locale === 'ar'
+              ? 'بريد أو كلمة مرور غير صحيحة. هذا هو نفس حساب GENOSYS العادي.'
+              : 'Wrong email or password. This is the SAME login as your regular GENOSYS account.'
+        )
+      }
+      // Success: the user effect above routes straight to /partner-portal.
+    } finally {
+      setPartnerSubmitting(false)
+    }
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -151,6 +189,109 @@ export default function LoginClient() {
   }
 
   const currentLangCode = locale === 'ar' ? 'AR' : locale === 'ru' ? 'RU' : 'EN'
+
+  // Blunt, unmissable partner login modal (clinics & salons).
+  const partnerLoginModal = showPartnerLogin ? (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 bg-black/80" onClick={() => setShowPartnerLogin(false)}>
+      <div
+        className="w-full max-w-sm bg-gray-950 rounded-3xl p-7 shadow-2xl border border-white/10"
+        dir={dir}
+        onClick={e => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="flex items-start justify-between mb-1">
+          <div>
+            <span className="text-xl font-black tracking-[0.2em] text-white">GENOSYS</span>
+            <span className="block text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-1">
+              {locale === 'ru' ? 'Портал партнёра' : locale === 'ar' ? 'بوابة الشركاء' : 'Partner Portal'}
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={() => setShowPartnerLogin(false)}
+            className="text-gray-500 hover:text-white text-2xl leading-none px-1"
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </div>
+
+        <h2 className="text-lg font-bold text-white mt-4">
+          {locale === 'ru' ? 'Вход для клиник и салонов' : locale === 'ar' ? 'دخول العيادات والصالونات' : 'Clinic & Salon Login'}
+        </h2>
+        <p className="text-xs text-gray-400 mt-1 mb-5 leading-relaxed">
+          {locale === 'ru'
+            ? 'Используйте тот же email и пароль, что и в обычном аккаунте GENOSYS. После входа вы попадёте прямо в портал партнёра с вашими ценами.'
+            : locale === 'ar'
+              ? 'استخدم نفس البريد وكلمة المرور لحساب GENOSYS العادي. بعد الدخول ستصل مباشرة إلى بوابة الشركاء بأسعارك.'
+              : 'Use the SAME email & password as your regular GENOSYS account. You will land straight in the Partner Portal with your partner prices.'}
+        </p>
+
+        <form onSubmit={handlePartnerSubmit} className="space-y-3">
+          <input
+            type="email"
+            value={partnerForm.email}
+            onChange={e => { setPartnerForm(p => ({ ...p, email: e.target.value })); setPartnerError('') }}
+            placeholder={locale === 'ru' ? 'Email клиники' : locale === 'ar' ? 'بريد العيادة' : 'Clinic email'}
+            autoComplete="email"
+            className={`w-full px-4 py-3.5 rounded-xl bg-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 ${isRTL ? 'text-right' : ''}`}
+          />
+          <div className="relative">
+            <input
+              type={showPartnerPassword ? 'text' : 'password'}
+              value={partnerForm.password}
+              onChange={e => { setPartnerForm(p => ({ ...p, password: e.target.value })); setPartnerError('') }}
+              placeholder={locale === 'ru' ? 'Пароль' : locale === 'ar' ? 'كلمة المرور' : 'Password'}
+              autoComplete="current-password"
+              className={`w-full px-4 py-3.5 rounded-xl bg-white/10 text-white placeholder-gray-500 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 ${isRTL ? 'text-right pl-11' : 'pr-11'}`}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPartnerPassword(v => !v)}
+              className={`absolute top-1/2 -translate-y-1/2 text-gray-400 hover:text-white ${isRTL ? 'left-3' : 'right-3'}`}
+              aria-label="Toggle password visibility"
+            >
+              {showPartnerPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
+          </div>
+
+          {partnerError && (
+            <p className="text-xs font-semibold text-red-400 leading-relaxed">{partnerError}</p>
+          )}
+
+          <button
+            type="submit"
+            disabled={partnerSubmitting || isLoading}
+            className="w-full bg-red-600 hover:bg-red-700 active:bg-red-800 text-white py-4 rounded-xl font-bold text-sm uppercase tracking-wide transition-colors disabled:opacity-60"
+          >
+            {partnerSubmitting
+              ? (locale === 'ru' ? 'Входим…' : locale === 'ar' ? 'جارٍ الدخول…' : 'Signing in…')
+              : (locale === 'ru' ? 'Войти в портал партнёра' : locale === 'ar' ? 'دخول بوابة الشركاء' : 'Enter Partner Portal')}
+          </button>
+        </form>
+
+        <a
+          href="https://wa.me/971585487665?text=Hi%2C%20I%27d%20like%20partner%20clinic%20access%20on%20genosys.ae"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block text-center text-xs text-gray-400 hover:text-white mt-4"
+        >
+          {locale === 'ru' ? 'Нет партнёрского доступа? Напишите нам в WhatsApp' : locale === 'ar' ? 'لا تملك وصول شريك؟ راسلنا واتساب' : "No partner access yet? WhatsApp us"}
+        </a>
+      </div>
+    </div>
+  ) : null
+
+  const partnerAccessButton = (
+    <button
+      type="button"
+      onClick={() => { setShowPartnerLogin(true); setPartnerError('') }}
+      className="w-full mt-4 flex items-center justify-center gap-2 bg-gray-900 hover:bg-black text-white py-3.5 rounded-xl font-bold text-sm uppercase tracking-wide transition-colors"
+    >
+      <span className="w-2 h-2 rounded-full bg-red-500" />
+      {locale === 'ru' ? 'Вход для партнёров — клиники' : locale === 'ar' ? 'دخول الشركاء — العيادات' : 'Partner Access — Clinics'}
+    </button>
+  )
 
   // Clean mobile login UI
   if (isMobileClient && isMobile && !user) {
@@ -522,16 +663,11 @@ export default function LoginClient() {
           </div>
 
           {/* Partner access (clinics & salons) */}
-          <div className="text-center mt-5 pt-4 border-t border-gray-100">
-            <Link
-              href={`${getLocalizedPath('/login', locale)}?redirect=/partner-portal`}
-              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-gray-500 hover:text-gray-900"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-red-600" />
-              {locale === 'ru' ? 'Вход для партнёров (клиники)' : locale === 'ar' ? 'دخول الشركاء (العيادات)' : 'Partner Access — Clinics'}
-            </Link>
+          <div className="mt-5 pt-4 border-t border-gray-100">
+            {partnerAccessButton}
           </div>
         </div>
+        {partnerLoginModal}
       </div>
     )
   }
@@ -946,19 +1082,14 @@ export default function LoginClient() {
                 </button>
               </div>
               {/* Partner access (clinics & salons) */}
-              <Link
-                href={`${getLocalizedPath('/login', locale)}?redirect=/partner-portal`}
-                className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-gray-500 hover:text-gray-900"
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-red-600" />
-                {locale === 'ru' ? 'Вход для партнёров (клиники)' : locale === 'ar' ? 'دخول الشركاء (العيادات)' : 'Partner Access — Clinics'}
-              </Link>
+              {partnerAccessButton}
             </div>
           </div>
         </div>
       </div>
       {/* /Form panel */}
       </div>
+      {partnerLoginModal}
     </div>
   )
 }

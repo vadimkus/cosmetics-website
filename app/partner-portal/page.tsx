@@ -235,7 +235,13 @@ function PartnerDashboardInner() {
                 </div>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <span className="text-base font-black tracking-[0.2em]">GENOSYS</span>
+                    <Image
+                      src="/images/genosys-wordmark-transparent.png"
+                      alt="GENOSYS"
+                      width={977}
+                      height={210}
+                      className="h-5 w-auto brightness-0 invert"
+                    />
                     <span className="text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-0.5">Partner</span>
                   </div>
                   <div className="flex items-center gap-2 mt-1">
@@ -440,7 +446,13 @@ function PartnerDashboardInner() {
         <div className={`${isAppLikeMode ? 'px-5' : 'container mx-auto px-6 max-w-5xl'} pt-6 pb-8`}>
           <div className={`flex items-center justify-between mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <span className="text-lg font-black tracking-[0.2em] text-white">GENOSYS</span>
+              <Image
+                src="/images/genosys-wordmark-transparent.png"
+                alt="GENOSYS"
+                width={977}
+                height={210}
+                className="h-6 w-auto brightness-0 invert"
+              />
               <span className="text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-0.5">Partner</span>
             </div>
             <button

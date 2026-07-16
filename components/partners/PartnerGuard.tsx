@@ -1,6 +1,7 @@
 'use client'
 
 import { ReactNode, useEffect } from 'react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -33,8 +34,15 @@ export function PartnerGuard({ children }: { children: ReactNode }) {
   if (!isClient || authLoading || !user) {
     return (
       <div className="min-h-[100dvh] bg-gray-950 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-4">
-          <span className="text-lg font-black tracking-[0.2em] text-white">GENOSYS</span>
+        <div className="flex flex-col items-center gap-5">
+          <Image
+            src="/images/genosys-wordmark-transparent.png"
+            alt="GENOSYS"
+            width={977}
+            height={210}
+            priority
+            className="h-8 w-auto brightness-0 invert"
+          />
           <div className="animate-spin rounded-full h-8 w-8 border-2 border-white/20 border-t-red-500" />
         </div>
       </div>
@@ -45,9 +53,16 @@ export function PartnerGuard({ children }: { children: ReactNode }) {
     return (
       <div className="min-h-[100dvh] bg-gray-950 flex items-center justify-center px-6">
         <div className="max-w-sm w-full text-center">
-          <div className="mb-6">
-            <span className="text-xl font-black tracking-[0.2em] text-white">GENOSYS</span>
-            <span className="block text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-1">Partner Portal</span>
+          <div className="mb-6 flex flex-col items-center">
+            <Image
+              src="/images/genosys-wordmark-transparent.png"
+              alt="GENOSYS"
+              width={977}
+              height={210}
+              priority
+              className="h-8 w-auto brightness-0 invert"
+            />
+            <span className="block text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-2">Partner Portal</span>
           </div>
           <div className="bg-white rounded-2xl p-8 shadow-2xl">
             <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-gray-900 flex items-center justify-center">

@@ -207,8 +207,14 @@ export default function LoginClient() {
         {/* Header */}
         <div className="flex items-start justify-between mb-1">
           <div>
-            <span className="text-xl font-black tracking-[0.2em] text-white">GENOSYS</span>
-            <span className="block text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-1">
+            <Image
+              src="/images/genosys-wordmark-transparent.png"
+              alt="GENOSYS"
+              width={977}
+              height={210}
+              className="h-7 w-auto brightness-0 invert"
+            />
+            <span className="block text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-2">
               {locale === 'ru' ? 'Портал партнёра' : locale === 'ar' ? 'بوابة الشركاء' : 'Partner Portal'}
             </span>
           </div>

@@ -149,6 +149,19 @@ function PartnerDashboardInner() {
 
   const showReorderNudge = stats.daysSince !== null && stats.daysSince >= 30
 
+  // Partner identity line: member number + join date (memberSince, falling
+  // back to account creation).
+  const partnerSince = useMemo(() => {
+    const raw = user?.memberSince || user?.createdAt
+    if (!raw) return null
+    const d = new Date(raw)
+    if (Number.isNaN(d.getTime())) return null
+    return d.toLocaleDateString(locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-GB', {
+      month: 'short',
+      year: 'numeric',
+    })
+  }, [user?.memberSince, user?.createdAt, locale])
+
   // Outstanding balances on portal orders: unpaid consignment stock and
   // unpaid credit-term orders (admin marks payments received in /admin).
   const outstanding = useMemo(() => {
@@ -271,6 +284,13 @@ function PartnerDashboardInner() {
                       {t('Verified', 'Проверен', 'موثّق')}
                     </span>
                   </div>
+                  {(user?.memberNumber || partnerSince) && (
+                    <p className="text-[11px] text-gray-400 mt-1 tracking-wide">
+                      {user?.memberNumber ? `${t('Partner ID', 'ID партнёра', 'رقم الشريك')}: ${user.memberNumber}` : ''}
+                      {user?.memberNumber && partnerSince ? ' · ' : ''}
+                      {partnerSince ? `${t('Partner since', 'Партнёр с', 'شريك منذ')} ${partnerSince}` : ''}
+                    </p>
+                  )}
                 </div>
               </div>
               <div className="flex items-center gap-3 flex-shrink-0">
@@ -510,6 +530,13 @@ function PartnerDashboardInner() {
                   {discountPct > 0 ? `−${discountPct}% ${t('pricing', 'цена', 'سعر')}` : t('Partner pricing', 'Партнёрская цена', 'سعر الشريك')}
                 </span>
               </div>
+              {(user?.memberNumber || partnerSince) && (
+                <p className="text-[11px] text-gray-400 mt-1.5 tracking-wide">
+                  {user?.memberNumber ? `${t('Partner ID', 'ID партнёра', 'رقم الشريك')}: ${user.memberNumber}` : ''}
+                  {user?.memberNumber && partnerSince ? ' · ' : ''}
+                  {partnerSince ? `${t('Partner since', 'Партнёр с', 'شريك منذ')} ${partnerSince}` : ''}
+                </p>
+              )}
             </div>
           </div>
 

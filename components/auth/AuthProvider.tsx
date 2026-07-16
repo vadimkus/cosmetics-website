@@ -40,6 +40,9 @@ interface User {
   creditActive?: boolean
   creditDays?: number | null
   partnerPortalAccess?: boolean
+  memberNumber?: string | null
+  memberSince?: string | null
+  createdAt?: string
 }
 
 interface AuthContextType {

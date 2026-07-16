@@ -78,6 +78,24 @@
 - Partner login modal on /login unchanged — accounts without the flag now
   see the "Partners only / Request Access" screen after signing in.
 
+## Follow-up: collapsible category sections (web + app)
+
+- Partner order list is now grouped into collapsible sections — Cleansers,
+  Toners & Mists, Serums, Creams, Eye Care, Masks, Sun & BB, Peeling,
+  Microneedling, Bio Meso, PRO Solutions, Scalp & Hair, Beauty Boxes, Kits,
+  Devices — with product counts and a red ×N badge for selected items.
+  Sections start collapsed; search shows a flat list; reorder prefills
+  auto-open their sections. (`lib/partnerCatalog.ts` →
+  `PARTNER_CATEGORY_GROUPS` + `partnerGroupKey`.)
+- **Mobile app fully aligned** (`genosys-mobile-app`, commit `ec31e85`):
+  same category sections, Credit N-days pill, PRO/Equipment badges,
+  retail-only consignment gating, and access via `partnerPortalAccess`
+  (fresh profile fetch; legacy discount fallback until re-login).
+  `utils/partnerCatalog.js` in the app mirrors the web lib — keep in sync.
+- **OTA published**: runtime 1.11.0, update group
+  `dbb336ca-def7-40ed-b87a-86db589398cf` (iOS + Android, production).
+- Mobile web + PWA use the same web page — nothing extra needed.
+
 ## How to adjust the pro/retail mapping
 
 Edit `lib/partnerCatalog.ts` — add/remove product ids in

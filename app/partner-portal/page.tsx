@@ -152,7 +152,9 @@ function PartnerDashboardInner() {
   // Partner identity line: member number + join date (memberSince, falling
   // back to account creation).
   const partnerSince = useMemo(() => {
-    const raw = user?.memberSince || user?.createdAt
+    // Session user carries createdAt at runtime (full DB record) even though
+    // the auth User type doesn't declare it.
+    const raw = user?.memberSince || (user as { createdAt?: string } | null)?.createdAt
     if (!raw) return null
     const d = new Date(raw)
     if (Number.isNaN(d.getTime())) return null
@@ -160,7 +162,7 @@ function PartnerDashboardInner() {
       month: 'short',
       year: 'numeric',
     })
-  }, [user?.memberSince, user?.createdAt, locale])
+  }, [user, locale])
 
   // Outstanding balances on portal orders: unpaid consignment stock and
   // unpaid credit-term orders (admin marks payments received in /admin).

@@ -42,7 +42,6 @@ interface User {
   partnerPortalAccess?: boolean
   memberNumber?: string | null
   memberSince?: string | null
-  createdAt?: string
 }
 
 interface AuthContextType {

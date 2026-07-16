@@ -227,49 +227,74 @@ function PartnerDashboardInner() {
 
         <div className="container mx-auto px-6 py-8 max-w-6xl">
           {/* Header bar */}
-          <div className="flex items-center justify-between bg-gray-950 text-white rounded-2xl px-6 py-5 mb-6">
-            <div className="flex items-center gap-4 min-w-0">
-              <div className="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center flex-shrink-0">
-                <span className="text-xl font-bold">{initial}</span>
-              </div>
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  <span className="text-base font-black tracking-[0.2em]">GENOSYS</span>
-                  <span className="text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-0.5">Partner</span>
+          <div className="bg-gray-950 text-white rounded-2xl px-6 py-5 mb-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4 min-w-0">
+                <div className="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center flex-shrink-0">
+                  <span className="text-xl font-bold">{initial}</span>
                 </div>
-                <div className="flex items-center gap-2 mt-1">
-                  <h1 className="text-lg font-bold truncate">{user?.name || t('Partner', 'Партнёр', 'شريك')}</h1>
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/10 text-xs font-semibold">
-                    <ShieldCheck className="w-3.5 h-3.5 text-green-400" />
-                    {t('Verified', 'Проверен', 'موثّق')}
-                  </span>
-                  {discountPct > 0 && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-red-600 text-xs font-bold">−{discountPct}%</span>
-                  )}
-                  {user?.consignmentActive && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wide">
-                      {t('Consignment', 'Консигнация', 'أمانة')}
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base font-black tracking-[0.2em]">GENOSYS</span>
+                    <span className="text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-0.5">Partner</span>
+                  </div>
+                  <div className="flex items-center gap-2 mt-1">
+                    <h1 className="text-lg font-bold truncate">{user?.name || t('Partner', 'Партнёр', 'شريك')}</h1>
+                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/10 text-xs font-semibold">
+                      <ShieldCheck className="w-3.5 h-3.5 text-green-400" />
+                      {t('Verified', 'Проверен', 'موثّق')}
                     </span>
-                  )}
-                  {user?.creditActive && Number(user?.creditDays) > 0 && (
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wide">
-                      {t(`Credit ${user.creditDays}d`, `Кредит ${user.creditDays}д`, `أجل ${user.creditDays} يومًا`)}
-                    </span>
-                  )}
+                    {discountPct > 0 && (
+                      <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-red-600 text-xs font-bold">−{discountPct}%</span>
+                    )}
+                  </div>
                 </div>
               </div>
+              <div className="flex items-center gap-3 flex-shrink-0">
+                <button
+                  onClick={() => router.push(getLocalizedPath('/partner-portal/order', locale))}
+                  className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors"
+                >
+                  <Plus className="w-4 h-4" /> {t('New Order', 'Новый заказ', 'طلب جديد')}
+                </button>
+                <button onClick={() => setShowSignOut(true)} className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
+                  <LogOut className="w-4 h-4" /> {t('Sign out', 'Выйти', 'خروج')}
+                </button>
+              </div>
             </div>
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <button
-                onClick={() => router.push(getLocalizedPath('/partner-portal/order', locale))}
-                className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors"
-              >
-                <Plus className="w-4 h-4" /> {t('New Order', 'Новый заказ', 'طلب جديد')}
-              </button>
-              <button onClick={() => setShowSignOut(true)} className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
-                <LogOut className="w-4 h-4" /> {t('Sign out', 'Выйти', 'خروج')}
-              </button>
-            </div>
+
+            {/* Active trade agreements — spelled out so the partner knows
+                exactly what each term covers */}
+            {(user?.consignmentActive || (user?.creditActive && Number(user?.creditDays) > 0)) && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
+                {user?.consignmentActive && (
+                  <div className="flex items-start gap-3 rounded-xl bg-amber-500/10 border border-amber-500/25 px-4 py-3">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wide text-amber-300">
+                        {t('Consignment — Active', 'Консигнация — активна', 'الأمانة — مفعّلة')}
+                      </p>
+                      <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
+                        {t('Retail products · settle via monthly sales report', 'Розничные продукты · расчёт по ежемесячному отчёту', 'منتجات التجزئة · تسوية عبر التقرير الشهري')}
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {user?.creditActive && Number(user?.creditDays) > 0 && (
+                  <div className="flex items-start gap-3 rounded-xl bg-blue-500/10 border border-blue-500/25 px-4 py-3">
+                    <span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+                    <div>
+                      <p className="text-xs font-bold uppercase tracking-wide text-blue-300">
+                        {t(`Credit ${user.creditDays} days — Active`, `Кредит ${user.creditDays} дней — активен`, `أجل ${user.creditDays} يومًا — مفعّل`)}
+                      </p>
+                      <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
+                        {t(`Professional products · pay within ${user.creditDays} days of delivery`, `Профессиональные продукты · оплата в течение ${user.creditDays} дней после доставки`, `منتجات مهنية · الدفع خلال ${user.creditDays} يومًا من التسليم`)}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Stat strip */}
@@ -441,19 +466,42 @@ function PartnerDashboardInner() {
                 <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-red-600 text-white text-xs font-bold">
                   {discountPct > 0 ? `−${discountPct}% ${t('pricing', 'цена', 'سعر')}` : t('Partner pricing', 'Партнёрская цена', 'سعر الشريك')}
                 </span>
-                {user?.consignmentActive && (
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold uppercase tracking-wide">
-                    {t('Consignment', 'Консигнация', 'أمانة')}
-                  </span>
-                )}
-                {user?.creditActive && Number(user?.creditDays) > 0 && (
-                  <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-blue-500/20 text-blue-300 text-xs font-bold uppercase tracking-wide">
-                    {t(`Credit ${user.creditDays}d`, `Кредит ${user.creditDays}д`, `أجل ${user.creditDays} يومًا`)}
-                  </span>
-                )}
               </div>
             </div>
           </div>
+
+          {/* Active trade agreements — spelled out so the partner knows
+              exactly what each term covers */}
+          {(user?.consignmentActive || (user?.creditActive && Number(user?.creditDays) > 0)) && (
+            <div className="space-y-2.5 mt-4">
+              {user?.consignmentActive && (
+                <div className={`flex items-start gap-3 rounded-xl bg-amber-500/10 border border-amber-500/25 px-4 py-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                  <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wide text-amber-300">
+                      {t('Consignment — Active', 'Консигнация — активна', 'الأمانة — مفعّلة')}
+                    </p>
+                    <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
+                      {t('Retail products · settle via monthly sales report', 'Розничные продукты · расчёт по ежемесячному отчёту', 'منتجات التجزئة · تسوية عبر التقرير الشهري')}
+                    </p>
+                  </div>
+                </div>
+              )}
+              {user?.creditActive && Number(user?.creditDays) > 0 && (
+                <div className={`flex items-start gap-3 rounded-xl bg-blue-500/10 border border-blue-500/25 px-4 py-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                  <span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-wide text-blue-300">
+                      {t(`Credit ${user.creditDays} days — Active`, `Кредит ${user.creditDays} дней — активен`, `أجل ${user.creditDays} يومًا — مفعّل`)}
+                    </p>
+                    <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
+                      {t(`Professional products · pay within ${user.creditDays} days of delivery`, `Профессиональные продукты · оплата в течение ${user.creditDays} дней после доставки`, `منتجات مهنية · الدفع خلال ${user.creditDays} يومًا من التسليم`)}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

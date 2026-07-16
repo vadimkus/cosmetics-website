@@ -31,6 +31,9 @@ interface POrder {
   status: string
   createdAt: string
   items?: POrderItem[]
+  paymentMethod?: string | null
+  paymentStatus?: string | null
+  paymentDueDate?: string | null
 }
 
 const DAY = 24 * 60 * 60 * 1000
@@ -146,6 +149,23 @@ function PartnerDashboardInner() {
 
   const showReorderNudge = stats.daysSince !== null && stats.daysSince >= 30
 
+  // Outstanding balances on portal orders: unpaid consignment stock and
+  // unpaid credit-term orders (admin marks payments received in /admin).
+  const outstanding = useMemo(() => {
+    let consignment = 0
+    let credit = 0
+    for (const o of orders) {
+      if (String(o.paymentStatus || '') === 'paid') continue
+      const method = String(o.paymentMethod || '')
+      if (method === 'partner_consignment') consignment += Number(o.total) || 0
+      else if (method === 'partner_credit') credit += Number(o.total) || 0
+    }
+    return {
+      consignment: Math.round(consignment * 100) / 100,
+      credit: Math.round(credit * 100) / 100,
+    }
+  }, [orders])
+
   const fmtDate = (d: string) =>
     new Date(d).toLocaleDateString(locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-GB', {
       year: 'numeric', month: 'short', day: 'numeric',
@@ -250,9 +270,6 @@ function PartnerDashboardInner() {
                       <ShieldCheck className="w-3.5 h-3.5 text-green-400" />
                       {t('Verified', 'Проверен', 'موثّق')}
                     </span>
-                    {discountPct > 0 && (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-red-600 text-xs font-bold">−{discountPct}%</span>
-                    )}
                   </div>
                 </div>
               </div>
@@ -276,10 +293,17 @@ function PartnerDashboardInner() {
                 {user?.consignmentActive && (
                   <div className="flex items-start gap-3 rounded-xl bg-amber-500/10 border border-amber-500/25 px-4 py-3">
                     <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-wide text-amber-300">
-                        {t('Consignment — Active', 'Консигнация — активна', 'الأمانة — مفعّلة')}
-                      </p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <p className="text-xs font-bold uppercase tracking-wide text-amber-300">
+                          {t('Consignment Agreement — Active', 'Договор консигнации — активен', 'اتفاقية الأمانة — مفعّلة')}
+                        </p>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${outstanding.consignment > 0 ? 'bg-amber-400 text-gray-900' : 'bg-white/10 text-gray-300'}`}>
+                          {outstanding.consignment > 0
+                            ? t(`AED ${outstanding.consignment.toFixed(2)} outstanding`, `${outstanding.consignment.toFixed(2)} AED к оплате`, `${outstanding.consignment.toFixed(2)} د.إ مستحقة`)
+                            : t('All settled', 'Всё оплачено', 'مُسدَّد بالكامل')}
+                        </span>
+                      </div>
                       <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
                         {t('Retail products · settle via monthly sales report', 'Розничные продукты · расчёт по ежемесячному отчёту', 'منتجات التجزئة · تسوية عبر التقرير الشهري')}
                       </p>
@@ -289,10 +313,17 @@ function PartnerDashboardInner() {
                 {user?.creditActive && Number(user?.creditDays) > 0 && (
                   <div className="flex items-start gap-3 rounded-xl bg-blue-500/10 border border-blue-500/25 px-4 py-3">
                     <span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-wide text-blue-300">
-                        {t(`Credit ${user.creditDays} days — Active`, `Кредит ${user.creditDays} дней — активен`, `أجل ${user.creditDays} يومًا — مفعّل`)}
-                      </p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center justify-between gap-2 flex-wrap">
+                        <p className="text-xs font-bold uppercase tracking-wide text-blue-300">
+                          {t(`Credit ${user.creditDays} days — Active`, `Кредит ${user.creditDays} дней — активен`, `أجل ${user.creditDays} يومًا — مفعّل`)}
+                        </p>
+                        <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${outstanding.credit > 0 ? 'bg-blue-400 text-gray-900' : 'bg-white/10 text-gray-300'}`}>
+                          {outstanding.credit > 0
+                            ? t(`AED ${outstanding.credit.toFixed(2)} outstanding`, `${outstanding.credit.toFixed(2)} AED к оплате`, `${outstanding.credit.toFixed(2)} د.إ مستحقة`)
+                            : t('All settled', 'Всё оплачено', 'مُسدَّد بالكامل')}
+                        </span>
+                      </div>
                       <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
                         {t(`Professional products · pay within ${user.creditDays} days of delivery`, `Профессиональные продукты · оплата в течение ${user.creditDays} дней после доставки`, `منتجات مهنية · الدفع خلال ${user.creditDays} يومًا من التسليم`)}
                       </p>
@@ -489,10 +520,17 @@ function PartnerDashboardInner() {
               {user?.consignmentActive && (
                 <div className={`flex items-start gap-3 rounded-xl bg-amber-500/10 border border-amber-500/25 px-4 py-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                   <span className="w-2 h-2 rounded-full bg-amber-400 mt-1.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-wide text-amber-300">
-                      {t('Consignment — Active', 'Консигнация — активна', 'الأمانة — مفعّلة')}
-                    </p>
+                  <div className="flex-1 min-w-0">
+                    <div className={`flex items-center justify-between gap-2 flex-wrap ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <p className="text-xs font-bold uppercase tracking-wide text-amber-300">
+                        {t('Consignment Agreement — Active', 'Договор консигнации — активен', 'اتفاقية الأمانة — مفعّلة')}
+                      </p>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${outstanding.consignment > 0 ? 'bg-amber-400 text-gray-900' : 'bg-white/10 text-gray-300'}`}>
+                        {outstanding.consignment > 0
+                          ? t(`AED ${outstanding.consignment.toFixed(2)} outstanding`, `${outstanding.consignment.toFixed(2)} AED к оплате`, `${outstanding.consignment.toFixed(2)} د.إ مستحقة`)
+                          : t('All settled', 'Всё оплачено', 'مُسدَّد بالكامل')}
+                      </span>
+                    </div>
                     <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
                       {t('Retail products · settle via monthly sales report', 'Розничные продукты · расчёт по ежемесячному отчёту', 'منتجات التجزئة · تسوية عبر التقرير الشهري')}
                     </p>
@@ -502,10 +540,17 @@ function PartnerDashboardInner() {
               {user?.creditActive && Number(user?.creditDays) > 0 && (
                 <div className={`flex items-start gap-3 rounded-xl bg-blue-500/10 border border-blue-500/25 px-4 py-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                   <span className="w-2 h-2 rounded-full bg-blue-400 mt-1.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-xs font-bold uppercase tracking-wide text-blue-300">
-                      {t(`Credit ${user.creditDays} days — Active`, `Кредит ${user.creditDays} дней — активен`, `أجل ${user.creditDays} يومًا — مفعّل`)}
-                    </p>
+                  <div className="flex-1 min-w-0">
+                    <div className={`flex items-center justify-between gap-2 flex-wrap ${isRTL ? 'flex-row-reverse' : ''}`}>
+                      <p className="text-xs font-bold uppercase tracking-wide text-blue-300">
+                        {t(`Credit ${user.creditDays} days — Active`, `Кредит ${user.creditDays} дней — активен`, `أجل ${user.creditDays} يومًا — مفعّل`)}
+                      </p>
+                      <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${outstanding.credit > 0 ? 'bg-blue-400 text-gray-900' : 'bg-white/10 text-gray-300'}`}>
+                        {outstanding.credit > 0
+                          ? t(`AED ${outstanding.credit.toFixed(2)} outstanding`, `${outstanding.credit.toFixed(2)} AED к оплате`, `${outstanding.credit.toFixed(2)} د.إ مستحقة`)
+                          : t('All settled', 'Всё оплачено', 'مُسدَّد بالكامل')}
+                      </span>
+                    </div>
                     <p className="text-[11px] text-gray-400 mt-0.5 leading-relaxed">
                       {t(`Professional products · pay within ${user.creditDays} days of delivery`, `Профессиональные продукты · оплата в течение ${user.creditDays} дней после доставки`, `منتجات مهنية · الدفع خلال ${user.creditDays} يومًا من التسليم`)}
                     </p>

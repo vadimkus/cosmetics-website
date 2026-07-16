@@ -204,9 +204,17 @@ export default function LoginClient() {
         dir={dir}
         onClick={e => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="flex items-start justify-between mb-1">
-          <div>
+        {/* Header — brand centered, close pinned to the corner */}
+        <div className="relative mb-1">
+          <button
+            type="button"
+            onClick={() => setShowPartnerLogin(false)}
+            className={`absolute top-0 ${isRTL ? 'left-0' : 'right-0'} text-gray-500 hover:text-white text-2xl leading-none px-1`}
+            aria-label="Close"
+          >
+            ×
+          </button>
+          <div className="flex flex-col items-center pt-1">
             <Image
               src="/images/genosys-wordmark-transparent.png"
               alt="GENOSYS"
@@ -218,20 +226,12 @@ export default function LoginClient() {
               {locale === 'ru' ? 'Портал партнёра' : locale === 'ar' ? 'بوابة الشركاء' : 'Partner Portal'}
             </span>
           </div>
-          <button
-            type="button"
-            onClick={() => setShowPartnerLogin(false)}
-            className="text-gray-500 hover:text-white text-2xl leading-none px-1"
-            aria-label="Close"
-          >
-            ×
-          </button>
         </div>
 
-        <h2 className="text-lg font-bold text-white mt-4">
+        <h2 className="text-lg font-bold text-white mt-4 text-center">
           {locale === 'ru' ? 'Вход для клиник и салонов' : locale === 'ar' ? 'دخول العيادات والصالونات' : 'Clinic & Salon Login'}
         </h2>
-        <p className="text-xs text-gray-400 mt-1 mb-5 leading-relaxed">
+        <p className="text-xs text-gray-400 mt-1 mb-5 leading-relaxed text-center">
           {locale === 'ru'
             ? 'Войдите с данными вашего аккаунта GENOSYS. Доступ к порталу предоставляется индивидуально — для подключения напишите на sales@genosys.ae.'
             : locale === 'ar'

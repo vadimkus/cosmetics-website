@@ -1033,8 +1033,32 @@ export const emailTemplates = {
   }),
 
   // Admin notification for new order
-  adminNewOrder: (orderData: AdminNewOrderEmailData) => ({
-    subject: `${String(orderData.paymentMethod || '').toLowerCase().includes('consignment') ? '🏬 PARTNER CONSIGNMENT' : String(orderData.paymentMethod || '').toLowerCase().includes('partner') ? '🤝 PARTNER ORDER' : (orderData.paymentStatus === 'PAID' ? 'New Paid Order' : 'New Order')} #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
+  adminNewOrder: (orderData: AdminNewOrderEmailData) => {
+    // Partner settlement wording, derived from paymentMethod. Handles both
+    // labelled strings ("Partner — CREDIT 30 DAYS (due 15/08/2026)") and raw
+    // stored methods ("partner_credit") so resends stay consistent.
+    const pm = String(orderData.paymentMethod || '')
+    const pmLower = pm.toLowerCase()
+    const isConsignment = pmLower.includes('consignment')
+    const isPartner = pmLower.includes('partner')
+    const isCredit = pmLower.includes('credit')
+    const creditMatch = pm.match(/credit\s*(\d+)\s*days?\s*(\(due[^)]*\))?/i)
+    const partnerSettlement = pmLower.includes('online')
+      ? 'Online card payment'
+      : isCredit
+        ? creditMatch
+          ? `Credit ${creditMatch[1]} days ${creditMatch[2] || ''}`.trim()
+          : 'Credit terms — payment due per agreement'
+        : 'Cash on delivery'
+    const subjectTag = isConsignment
+      ? '🏬 PARTNER CONSIGNMENT'
+      : isPartner && isCredit
+        ? '💳 PARTNER CREDIT'
+        : isPartner
+          ? '🤝 PARTNER ORDER'
+          : orderData.paymentStatus === 'PAID' ? 'New Paid Order' : 'New Order'
+    return {
+    subject: `${subjectTag} #${orderData.orderNumber} - ${orderData.customerName} - AED ${orderData.total.toFixed(2)}`,
     html: `
       <!DOCTYPE html>
       <html lang="en">
@@ -1059,18 +1083,25 @@ export const emailTemplates = {
                 </tr>
 
                 <!-- Partner order banner (only for partner-portal orders) -->
-                ${String(orderData.paymentMethod || '').toLowerCase().includes('consignment') ? `
+                ${isConsignment ? `
                 <tr>
                   <td style="background-color: #b45309; padding: 18px 20px; text-align: center;">
                     <p style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 800; letter-spacing: 1px;">🏬 PARTNER CONSIGNMENT</p>
                     <p style="margin: 6px 0 0 0; color: #fef3c7; font-size: 13px; font-weight: 600;">Add to consignment stock · Same-day delivery · Settle via monthly sales report — NO invoice payment due now</p>
                   </td>
                 </tr>
-                ` : String(orderData.paymentMethod || '').toLowerCase().includes('partner') ? `
+                ` : isPartner && isCredit ? `
+                <tr>
+                  <td style="background-color: #1d4ed8; padding: 18px 20px; text-align: center;">
+                    <p style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 800; letter-spacing: 1px;">💳 PARTNER CREDIT</p>
+                    <p style="margin: 6px 0 0 0; color: #dbeafe; font-size: 13px; font-weight: 600;">Placed via Partner Portal · Priority handling · Same-day delivery · ${partnerSettlement}</p>
+                  </td>
+                </tr>
+                ` : isPartner ? `
                 <tr>
                   <td style="background-color: #dc2626; padding: 18px 20px; text-align: center;">
                     <p style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 800; letter-spacing: 1px;">🤝 PARTNER ORDER</p>
-                    <p style="margin: 6px 0 0 0; color: #fee2e2; font-size: 13px; font-weight: 600;">Placed via Partner Portal · Priority handling · Same-day delivery · ${String(orderData.paymentMethod || '').toLowerCase().includes('online') ? 'Online card payment' : 'Cash on delivery'}</p>
+                    <p style="margin: 6px 0 0 0; color: #fee2e2; font-size: 13px; font-weight: 600;">Placed via Partner Portal · Priority handling · Same-day delivery · ${partnerSettlement}</p>
                   </td>
                 </tr>
                 ` : ''}
@@ -1415,7 +1446,8 @@ export const emailTemplates = {
       </body>
       </html>
     `,
-  }),
+    }
+  },
 
   // Password reset email
   blackFridaySale: (userName: string, blogLink: string) => ({

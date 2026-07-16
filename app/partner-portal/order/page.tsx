@@ -369,31 +369,33 @@ function PartnerOrderInner() {
 
   return (
     <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-36' : 'pb-28'}`} dir={dir}>
-      {/* Header */}
+      {/* Header (content constrained to the same column as the list) */}
       <div className={`sticky top-0 z-20 bg-white border-b border-gray-100`}>
-        <div className={`flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          <button
-            onClick={() => router.push(getLocalizedPath('/partner-portal', locale))}
-            className={`flex items-center gap-1 text-red-600 ${isRTL ? 'flex-row-reverse' : ''}`}
-          >
-            <svg className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            <span className="text-base">{t('Portal', 'Портал', 'البوابة')}</span>
-          </button>
-          <span className="text-base font-semibold text-gray-900">{t('New Order', 'Новый заказ', 'طلب جديد')}</span>
-          <span className="min-w-[60px]" />
-        </div>
-        {/* Search */}
-        <div className="px-4 pb-3">
-          <div className="relative">
-            <Search className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 ${isRTL ? 'right-3' : 'left-3'}`} />
-            <input
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              placeholder={t('Search products…', 'Поиск товаров…', 'ابحث عن المنتجات…')}
-              className={`w-full ${isRTL ? 'pr-9 pl-3 text-right' : 'pl-9 pr-3'} py-2.5 rounded-xl bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-red-200`}
-            />
+        <div className={isAppLikeMode ? '' : 'container mx-auto max-w-3xl'}>
+          <div className={`flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <button
+              onClick={() => router.push(getLocalizedPath('/partner-portal', locale))}
+              className={`flex items-center gap-1 text-red-600 ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <svg className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              <span className="text-base">{t('Portal', 'Портал', 'البوابة')}</span>
+            </button>
+            <span className="text-base font-semibold text-gray-900">{t('New Order', 'Новый заказ', 'طلب جديد')}</span>
+            <span className="min-w-[60px]" />
+          </div>
+          {/* Search */}
+          <div className="px-4 pb-3">
+            <div className="relative">
+              <Search className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 ${isRTL ? 'right-3' : 'left-3'}`} />
+              <input
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                placeholder={t('Search products…', 'Поиск товаров…', 'ابحث عن المنتجات…')}
+                className={`w-full ${isRTL ? 'pr-9 pl-3 text-right' : 'pl-9 pr-3'} py-2.5 rounded-xl bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-red-200`}
+              />
+            </div>
           </div>
         </div>
       </div>

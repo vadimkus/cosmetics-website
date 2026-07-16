@@ -157,6 +157,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             phone: user.phone,
             isAdmin: user.isAdmin,
             canSeePrices: user.canSeePrices,
+            consignmentActive: user.consignmentActive,
             discountType: user.discountType,
             discountPercentage: user.discountPercentage,
             birthday: user.birthday,
@@ -201,6 +202,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
                 phone: user.phone,
                 isAdmin: user.isAdmin,
                 canSeePrices: user.canSeePrices,
+                consignmentActive: user.consignmentActive,
                 discountType: user.discountType,
                 discountPercentage: user.discountPercentage,
                 birthday: user.birthday
@@ -381,6 +383,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
             ...data.user,
             // Ensure server data overrides these critical fields
             canSeePrices: data.user.canSeePrices,
+            consignmentActive: data.user.consignmentActive,
             isAdmin: data.user.isAdmin,
             // Ensure all server fields are included (like birthday, profilePicture)
             birthday: data.user.birthday,

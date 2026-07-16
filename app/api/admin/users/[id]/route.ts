@@ -31,6 +31,7 @@ export async function GET(
         profilePicture: true,
         isAdmin: true,
         canSeePrices: true,
+        consignmentActive: true,
         discountType: true,
         discountPercentage: true,
         birthday: true,

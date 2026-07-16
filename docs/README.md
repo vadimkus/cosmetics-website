@@ -13,15 +13,25 @@
 | 🟢 **SEO/Content** | [SESSION_CHANGES_2026-07-13_EVERGREEN_UAE_SKINCARE_GUIDES.md](./SESSION_CHANGES_2026-07-13_EVERGREEN_UAE_SKINCARE_GUIDES.md) | **Six high-intent UAE evergreen guides.** Three new topics (microneedling aftercare, PDRN benefits, ceramide/barrier care) + three major rewrites (Korean skincare Dubai, clinic dermacosmetics, Dubai sunscreen), fully localized EN/RU/AR. Adds evidence sources, relevant product-image cards, localized structured data, x-default hreflang, and guide images in the sitemap. |
 | 🟢 **Content/Commerce** | [SESSION_CHANGES_2026-07-13_OVERNIGHT_MASK_BLOG_CERABARRIER_COMBINATION.md](./SESSION_CHANGES_2026-07-13_OVERNIGHT_MASK_BLOG_CERABARRIER_COMBINATION.md) | **Overnight Mask feature article + barrier-first product pairing.** EN/RU/AR blog uses the new main + S1–S5 images and product video, with a CERABARRIER two-step night ritual. Reciprocal 34↔66 Perfect Combination added across web, APIs, and native app with localized benefit copy. |
 
+### Operations & Accounting (2026-07-16)
+
+| Priority | Document | Description |
+|----------|----------|-------------|
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-16_ARFI_NAILS_CONSIGNMENT_PAYMENTINS.md](./SESSION_CHANGES_2026-07-16_ARFI_NAILS_CONSIGNMENT_PAYMENTINS.md) | **ARFI Nails** — paymentin **05946** (Barsha report **01397** / **3,821 AED**) + **05947** (Jumeirah **01398** / **1,476 AED**); both reports **Paid**. |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-16_SHINE_MEDICAL_CENTER_ORDER.md](./SESSION_CHANGES_2026-07-16_SHINE_MEDICAL_CENTER_ORDER.md) | **Shine Medical Center (Dibba)** — SO **GENCardM2607165371** / inv **04826** / ship **06549** / **1,195 AED**; SWS skipped (OOS). |
+
 ### UI & Order Reliability (2026-07-15)
 
 | Priority | Document | Description |
 |----------|----------|-------------|
 | 🔴 **Critical** | [SESSION_CHANGES_2026-07-15_ORDER_EMAIL_IMAGE_CANONICALIZATION.md](./SESSION_CHANGES_2026-07-15_ORDER_EMAIL_IMAGE_CANONICALIZATION.md) | **Permanent order-email thumbnail fix** — all order channels now persist canonical server product images; repaired 75 dead historical rows, post-audit zero unresolved. |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-16_GENESIS_CONSIGNMENT_ADMIN_FIX.md](./SESSION_CHANGES_2026-07-16_GENESIS_CONSIGNMENT_ADMIN_FIX.md) | **Genesis Healthcare Center** consignment activated; fixed admin profile toggle not persisting (`consignmentActive` missing from admin user GETs). |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-16_KATERYNA_SIEROVA_ORDER.md](./SESSION_CHANGES_2026-07-16_KATERYNA_SIEROVA_ORDER.md) | **Kateryna Sierova** — offline retail order **MSK-KATERYNA-160726** (1,135 AED) + VIP 12% + 1,090 pts / SILVER; not for MoySklad. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-15_PRODUCT_15_PROBLEM_TONER_IMAGES.md](./SESSION_CHANGES_2026-07-15_PRODUCT_15_PROBLEM_TONER_IMAGES.md) | **Product 15 toner** — new `problem/Main` + S1–S6 gallery; config gallery removed so DB wins; 20 order items repointed; old `PRS.jpg` deleted. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-15_MISS_ESTEFA_PASTOR_FOC_ORDER.md](./SESSION_CHANGES_2026-07-15_MISS_ESTEFA_PASTOR_FOC_ORDER.md) | **Miss Estefa Pastor** — amended existing SO **GENCardM2607155574** / inv **04822** / ship **06545** — added Bio-Meso 5000 ×1 + collagen ×5 @ 100% off (paid total **320 AED** unchanged); removed mistaken duplicate chain. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-15_BEIGE_CUSHION_OVERNIGHT_MASK_WRITEOFF.md](./SESSION_CHANGES_2026-07-15_BEIGE_CUSHION_OVERNIGHT_MASK_WRITEOFF.md) | **Write-off 00008-00472** — beige cushion `00144` ×1 + overnight mask `00189` ×1 @ buyPrice **99.16 AED**. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-15_NEW_CLINIC_DEMO_WRITEOFF.md](./SESSION_CHANGES_2026-07-15_NEW_CLINIC_DEMO_WRITEOFF.md) | **New clinic demo** — loss **00008-00473** / **180.68 AED** @ buyPrice (Snow Booster 200ml, Snow O₂ 180ml, SRS ×2, PDRN Expert 60000 box). |
+| 🟡 **Important** | [SESSION_CHANGES_2026-07-15_NONNA_COLLECTION_RETAIL_ORDER.md](./SESSION_CHANGES_2026-07-15_NONNA_COLLECTION_RETAIL_ORDER.md) | **Nonna Collection** — SO **GENCardM2607156716** / inv **04824** / ship **06547** / pay **05944** / **1,020 AED** (Snow O₂ 500ml ×2 @510, delivery free); PDF in `~/Desktop/orders/`. |
 
 ### Operations & Accounting (2026-07-14)
 

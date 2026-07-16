@@ -114,6 +114,7 @@ interface User {
   profilePicture?: string | null
   isAdmin?: boolean
   canSeePrices?: boolean
+  consignmentActive?: boolean
   discountType?: string | null
   discountPercentage?: number | null
   lastLoginAt?: string | null
@@ -387,7 +388,14 @@ export default function AdminPage() {
       if (response.ok) {
         const data = await response.json()
         if (data.success && data.user) {
-          setSelectedCustomer({ ...user, profilePicture: data.user.profilePicture })
+          setSelectedCustomer({
+            ...user,
+            ...data.user,
+            // Keep list-derived stats that the detail endpoint does not return
+            orderCount: user.orderCount,
+            totalSpent: user.totalSpent,
+            lastOrderDate: user.lastOrderDate,
+          })
         }
       }
     } catch {

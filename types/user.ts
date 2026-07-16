@@ -18,6 +18,7 @@ export interface User {
   consignmentActive?: boolean
   creditActive?: boolean
   creditDays?: number | null
+  partnerPortalAccess?: boolean
   moyskladCounterpartyId?: string | null
   moyskladContractId?: string | null
   birthday?: string | null

@@ -7,14 +7,15 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 
-function isPartnerUser(user: { discountType?: string | null } | null | undefined): boolean {
-  const t = String(user?.discountType || '').toUpperCase()
-  return t === 'CLINIC' || t === 'VIP'
+function isPartnerUser(user: { partnerPortalAccess?: boolean } | null | undefined): boolean {
+  // Access is assigned manually by admin (partnerPortalAccess toggle),
+  // typically for 50%-off clinic accounts. Discount alone is NOT enough.
+  return user?.partnerPortalAccess === true
 }
 
 /**
- * Gates the /partners area. Only logged-in clinic/wholesale (CLINIC/VIP) accounts
- * may enter. Retail users see an upgrade note; logged-out users go to /login.
+ * Gates the /partners area. Only accounts with admin-assigned Partner Portal
+ * access may enter. Others see a request note; logged-out users go to /login.
  */
 export function PartnerGuard({ children }: { children: ReactNode }) {
   const router = useRouter()

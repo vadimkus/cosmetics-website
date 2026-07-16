@@ -34,6 +34,9 @@ model User {
   // professional-product orders on 30/45/60/90-day payment terms.
   creditActive            Boolean @default(false)
   creditDays              Int? // 30 | 45 | 60 | 90
+  // Partner Portal gate — assigned manually by admin. Only accounts with
+  // this flag may enter /partner-portal (typically 50%-off clinic accounts).
+  partnerPortalAccess     Boolean @default(false)
   moyskladCounterpartyId  String? // MoySklad counterparty UUID (matched by phone)
   moyskladContractId      String? // Active Commission contract UUID
   birthday           String?

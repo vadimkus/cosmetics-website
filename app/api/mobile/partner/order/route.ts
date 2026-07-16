@@ -28,9 +28,9 @@ export async function OPTIONS() {
   return new NextResponse(null, { status: 204, headers: CORS })
 }
 
-function isPartner(user: { discountType?: string | null } | null): boolean {
-  const t = String(user?.discountType || '').toUpperCase()
-  return t === 'CLINIC' || t === 'VIP'
+// A partner is a logged-in account with admin-assigned Partner Portal access.
+function isPartner(user: { partnerPortalAccess?: boolean } | null): boolean {
+  return user?.partnerPortalAccess === true
 }
 
 interface SubmittedPartnerItem {

@@ -64,6 +64,20 @@
   Cerabarrier 200/600, roller sizes, Bio Meso 60000)
 - `useProfileState` suite 7/7 passed
 
+## Follow-up (same day): Partner Portal access gate
+
+- New `users.partnerPortalAccess` flag (migration
+  `20260716080000_partner_portal_access`, applied) — **the only thing that
+  lets an account into /partner-portal** (guard + both order APIs).
+  Discount type/percent alone no longer grants access.
+- Admin → Customer Profile: new **"Partner Portal"** Grant/Revoke row above
+  Consignment. New users default to NO access — Vadim verifies manually.
+- Backfill: all accounts with a 50% discount were granted access
+  (54 accounts) + explicitly `support@genesis-dubai.com` and
+  `admin@genosys.ae` → 56 total.
+- Partner login modal on /login unchanged — accounts without the flag now
+  see the "Partners only / Request Access" screen after signing in.
+
 ## How to adjust the pro/retail mapping
 
 Edit `lib/partnerCatalog.ts` — add/remove product ids in

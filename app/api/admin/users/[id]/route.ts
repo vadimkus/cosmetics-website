@@ -34,6 +34,7 @@ export async function GET(
         consignmentActive: true,
         creditActive: true,
         creditDays: true,
+        partnerPortalAccess: true,
         discountType: true,
         discountPercentage: true,
         birthday: true,
@@ -84,7 +85,7 @@ export async function PUT(
     const { id } = await params
     const updates = await request.json()
     debugLog('Admin user update request:', { id, updates })
-    const { canSeePrices, consignmentActive, creditActive, creditDays, discountType, discountPercentage, name: __name, email: __email, phone: __phone, address: __address, birthday: __birthday, profilePicture: __profilePicture } = updates
+    const { canSeePrices, consignmentActive, creditActive, creditDays, partnerPortalAccess, discountType, discountPercentage, name: __name, email: __email, phone: __phone, address: __address, birthday: __birthday, profilePicture: __profilePicture } = updates
 
     if (canSeePrices !== undefined && typeof canSeePrices !== 'boolean') {
       return NextResponse.json(
@@ -110,6 +111,13 @@ export async function PUT(
     if (creditDays !== undefined && creditDays !== null && ![30, 45, 60, 90].includes(creditDays)) {
       return NextResponse.json(
         { error: 'creditDays must be 30, 45, 60 or 90' },
+        { status: 400 }
+      )
+    }
+
+    if (partnerPortalAccess !== undefined && typeof partnerPortalAccess !== 'boolean') {
+      return NextResponse.json(
+        { error: 'partnerPortalAccess must be a boolean' },
         { status: 400 }
       )
     }

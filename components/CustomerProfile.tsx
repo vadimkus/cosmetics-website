@@ -768,6 +768,29 @@ export default function CustomerProfile({
                 </div>
               </div>
 
+              {/* Partner Portal access gate (admin-assigned) */}
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-sm font-medium text-gray-700">Partner Portal</span>
+                  <p className="text-[11px] text-gray-400">Allows login to /partner-portal (assign for verified 50% partners)</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className={`px-2 py-1 rounded text-xs font-medium ${customer.partnerPortalAccess ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}`}>
+                    {customer.partnerPortalAccess ? 'Access' : 'No access'}
+                  </span>
+                  <button
+                    onClick={() => onUpdateCustomer(customer.id, { partnerPortalAccess: !customer.partnerPortalAccess })}
+                    className={`px-3 py-1 rounded text-xs ${
+                      customer.partnerPortalAccess
+                        ? 'bg-red-500 text-white hover:bg-red-600'
+                        : 'bg-green-500 text-white hover:bg-green-600'
+                    }`}
+                  >
+                    {customer.partnerPortalAccess ? 'Revoke' : 'Grant'}
+                  </button>
+                </div>
+              </div>
+
               {/* Consignment agreement (partner setting) */}
               <div className="flex items-center justify-between">
                 <div>

@@ -23,6 +23,7 @@ export interface UserData {
   consignmentActive?: boolean
   creditActive?: boolean
   creditDays?: number | null
+  partnerPortalAccess?: boolean
   moyskladCounterpartyId?: string | null
   moyskladContractId?: string | null
   birthday?: string | null
@@ -303,6 +304,7 @@ export const updateUser = async (userId: string, updates: Partial<UserData>): Pr
     if (updates.consignmentActive !== undefined) updateData.consignmentActive = updates.consignmentActive
     if (updates.creditActive !== undefined) updateData.creditActive = updates.creditActive
     if (updates.creditDays !== undefined) updateData.creditDays = updates.creditDays
+    if (updates.partnerPortalAccess !== undefined) updateData.partnerPortalAccess = updates.partnerPortalAccess
     if (updates.moyskladCounterpartyId !== undefined) {
       updateData.moyskladCounterpartyId = updates.moyskladCounterpartyId === '' ? null : updates.moyskladCounterpartyId
     }

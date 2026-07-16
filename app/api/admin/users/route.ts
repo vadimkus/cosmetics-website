@@ -59,6 +59,7 @@ export async function GET(request: NextRequest) {
       consignmentActive: true,
       creditActive: true,
       creditDays: true,
+      partnerPortalAccess: true,
       discountType: true,
       discountPercentage: true,
       birthday: true,

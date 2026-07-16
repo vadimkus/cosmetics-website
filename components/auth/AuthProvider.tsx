@@ -39,6 +39,7 @@ interface User {
   consignmentActive?: boolean
   creditActive?: boolean
   creditDays?: number | null
+  partnerPortalAccess?: boolean
 }
 
 interface AuthContextType {

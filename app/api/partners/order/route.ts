@@ -20,10 +20,9 @@ import { debugLog, errorLog } from '@/lib/logger'
 
 export const runtime = 'nodejs'
 
-// A partner is a logged-in user flagged as a clinic/wholesale account.
-function isPartner(user: { discountType?: string | null } | null): boolean {
-  const t = String(user?.discountType || '').toUpperCase()
-  return t === 'CLINIC' || t === 'VIP'
+// A partner is a logged-in account with admin-assigned Partner Portal access.
+function isPartner(user: { partnerPortalAccess?: boolean } | null): boolean {
+  return user?.partnerPortalAccess === true
 }
 
 interface SubmittedPartnerItem {

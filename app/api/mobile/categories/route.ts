@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog, debugLog } from '@/lib/logger'
+import { isNewCategoryDisplayName } from '@/lib/productBadges'
 
 /**
  * Mobile API Endpoint for Categories
@@ -68,13 +69,10 @@ export async function GET(request: NextRequest) {
       .filter(Boolean)
       .sort((a, b) => a.localeCompare(b))
     
-    // Categories with "New" badge (matches website: ProductsPageClient.tsx)
-    // Update this list when new products are added to a category
-    const CATEGORIES_WITH_NEW_BADGE = ['Cream', 'Beauty Boxes']
-    
+    // Category New badges — single source of truth in lib/productBadges.ts
     const categoriesWithBadges = categories.map(cat => ({
       name: cat,
-      badge: CATEGORIES_WITH_NEW_BADGE.includes(cat) ? 'new' : null
+      badge: isNewCategoryDisplayName(cat) ? 'new' as const : null
     }))
 
     const duration = Date.now() - startTime

@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { translateCategory } from '@/utils/categoryTranslations'
 import { translateSize } from '@/utils/sizeTranslations'
 import { useTranslation } from '@/hooks/useTranslation'
+import { isNewLaunchProduct } from '@/lib/productBadges'
 import type { ProductInfoProps } from './types'
 
 /**
@@ -63,8 +64,8 @@ const ProductInfo = memo(function ProductInfo({
     : t('product.inStock')
   
   // Recent launches get a "New" pill on the category row (kept off the
-  // image so studio-style product shots stay clean).
-  const isNewLaunch = ['63', '66'].includes(product.productNumber || product.id)
+  // image so studio-style product shots stay clean). See lib/productBadges.ts.
+  const isNewLaunch = isNewLaunchProduct(product.id, product.productNumber)
 
   return (
     <div className="p-3 md:p-4 flex flex-col">

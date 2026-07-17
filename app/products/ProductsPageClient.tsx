@@ -26,28 +26,29 @@ import { trackSearch } from '@/lib/analytics'
 import NewsletterSignup from '@/components/NewsletterSignup'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
-// Order: All → NEW categories first (skin-concern, cream, beauty-boxes) → then the rest
+import { isNewCategoryFilterId } from '@/lib/productBadges'
+
+// Catalog order: discovery tool first, then skincare routine flow, then specialty.
+// "New" badges are product-level only — see lib/productBadges.ts.
 const getCategories = (t: (key: string) => string): Array<{ id: string; name: string }> => [
   { id: 'all', name: t('products.allProducts') },
-  // NEW — grouped together right after "All Products"
   { id: 'skin-concern', name: t('products.skinConcern') },
-  { id: 'cream', name: t('products.cream') },
-  { id: 'beauty-boxes', name: t('products.beautyBoxes') },
-  // Rest of the categories
-  { id: 'microneedling', name: t('products.microneedling') },
-  { id: 'pro-solution', name: t('products.proSolution') },
   { id: 'cleanser', name: t('products.cleanser') },
-  { id: 'peeling', name: t('products.peeling') },
   { id: 'toner-mist', name: t('products.tonerMist') },
   { id: 'serum', name: t('products.serum') },
+  { id: 'cream', name: t('products.cream') },
   { id: 'mask', name: t('products.mask') },
+  { id: 'eye-care', name: t('products.eyeCare') },
   { id: 'sun', name: t('products.sun') },
   { id: 'cushion-bb', name: t('products.cushionBb') },
+  { id: 'peeling', name: t('products.peeling') },
+  { id: 'microneedling', name: t('products.microneedling') },
+  { id: 'pro-solution', name: t('products.proSolution') },
   { id: 'scalp-hair', name: t('products.scalpHair') },
-  { id: 'eye-care', name: t('products.eyeCare') },
-  { id: 'device', name: t('products.device') },
   { id: 'bio-meso', name: t('products.bioMeso') },
-  { id: 'kits', name: t('products.holidayKits') }
+  { id: 'beauty-boxes', name: t('products.beautyBoxes') },
+  { id: 'kits', name: t('products.holidayKits') },
+  { id: 'device', name: t('products.device') },
 ]
 
 interface FilterState {
@@ -406,12 +407,12 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
         </div>
 
         {/* Mobile Categories - Below Search. Horizontal scroll keeps it to ONE row. */}
-        {/* pt-3 gives the floating "New" badge ( -top-2 ) room so it doesn't clip the trust strip above */}
-        {/* gap-3 leaves enough room for the floating "Новинка" badge (longer in RU/AR) to overflow the pill horizontally without overlapping the next pill. */}
+        {/* pt/gap leave room if a category is temporarily re-enabled in lib/productBadges.ts */}
         <div className="md:hidden mb-4 -mx-4 px-4">
-          <div className="flex gap-3 overflow-x-auto scrollbar-hide pt-3 pb-1 snap-x snap-mandatory">
+          <div className="flex gap-2 overflow-x-auto scrollbar-hide pt-2 pb-1 snap-x snap-mandatory">
             {getCategories(t).map((category) => {
               const isActive = filters.categories.includes(category.id) || (category.id === 'all' && filters.categories.length === 0)
+              const showNewBadge = isNewCategoryFilterId(category.id)
               return (
                 <button
                   key={category.id}
@@ -450,7 +451,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                     WebkitTapHighlightColor: 'transparent'
                   }}
                 >
-                  {(category.id === 'beauty-boxes' || category.id === 'cream' || category.id === 'skin-concern' || category.id === 'bio-meso' || category.id === 'cleanser') && (
+                  {showNewBadge && (
                     <span
                       className={`pointer-events-none absolute -top-2 left-1/2 -translate-x-1/2 text-[8px] font-bold leading-none px-1.5 py-0.5 rounded-full whitespace-nowrap uppercase tracking-wide shadow-sm ${
                         isActive

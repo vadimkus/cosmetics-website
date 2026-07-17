@@ -4,6 +4,7 @@ import { useState, useCallback, memo } from 'react'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
+import { isNewCategoryFilterId } from '@/lib/productBadges'
 
 interface FilterState {
   categories: string[]
@@ -130,8 +131,7 @@ const ProductFilters = memo(function ProductFilters({
                   {expandedSections.category && (
                     <div className="space-y-2">
                       {categories.filter(c => c.id !== 'all').map((category) => {
-                        // Mark these as NEW — matches the mobile pill badges for consistency
-                        const isNew = category.id === 'skin-concern' || category.id === 'cream' || category.id === 'beauty-boxes' || category.id === 'bio-meso' || category.id === 'cleanser'
+                        const isNew = isNewCategoryFilterId(category.id)
                         return (
                           <label
                             key={category.id}

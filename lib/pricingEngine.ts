@@ -15,6 +15,7 @@ import { Product } from '@/types'
 import { User, ApiUser } from '@/types/user'
 import { getProductConfig, getProductSizes, getProductColors, getProductImages, getProductVideoUrl, getProductDocumentation } from '@/data/productConfig'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
+import { isNewLaunchProduct } from '@/lib/productBadges'
 import { debugLog } from '@/lib/logger'
 
 /**
@@ -337,9 +338,8 @@ export function generateProductBadges(
     })
   }
   
-  // New product badge (products created in last 30 days or manually flagged)
-  const newProductIds = ['52', '63', '66', 'cmgj9ifoi00008o07p4eqmfb7'] // Recently added
-  if (newProductIds.includes(badgeKey) || newProductIds.includes(product.id)) {
+  // New product badge — single source of truth in lib/productBadges.ts
+  if (isNewLaunchProduct(product.id, badgeKey)) {
     badges.push({
       text: 'NEW',
       color: '#059669', // green-600

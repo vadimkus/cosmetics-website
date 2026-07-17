@@ -16,4 +16,5 @@
 - PDP: https://genosys.ae/products/11
 - Main: https://genosys.ae/images/remover/Main2.jpg
 - 2026-07-17 evening: main hero refreshed → `Main2.jpg` (immutable cache; 27 order items repointed).
-- Gallery: `/images/remover/S1.jpg` … `S6.jpg`
+- Gallery: `/images/remover/S1b.jpg` … `S6b.jpg`
+- 2026-07-17 evening #2: gallery refreshed → `S1b`–`S6b` (immutable cache).

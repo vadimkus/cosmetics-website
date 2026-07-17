@@ -20,12 +20,12 @@ const prisma = new PrismaClient(
 
 const NEW_MAIN = '/images/remover/Main2.jpg'
 const NEW_GALLERY = [
-  '/images/remover/S1.jpg',
-  '/images/remover/S2.jpg',
-  '/images/remover/S3.jpg',
-  '/images/remover/S4.jpg',
-  '/images/remover/S5.jpg',
-  '/images/remover/S6.jpg',
+  '/images/remover/S1b.jpg',
+  '/images/remover/S2b.jpg',
+  '/images/remover/S3b.jpg',
+  '/images/remover/S4b.jpg',
+  '/images/remover/S5b.jpg',
+  '/images/remover/S6b.jpg',
 ]
 
 const OLD_IMAGES = [

@@ -38,18 +38,6 @@ export const partnersData: Partner[] = [
     theme: "pink"
   },
   {
-    id: "faceroom",
-    name: "FACE ROOM, DUBAI MARINA",
-    type: "Facial Care & Massage Studio",
-    description: "Professional facial massage and cosmetology services with unique techniques for skin care and relaxation",
-    location: "The Residences at Marina Gate 2, Dubai Marina",
-    phone: "+971 52 829 0457",
-    website: "https://face-rooms.com",
-    directions: "https://www.google.com/maps/search/The+Residences+at+Marina+Gate+2+Dubai+Marina",
-    logo: "/images/partners/logo-faceroom.png",
-    theme: "blue"
-  },
-  {
     id: "evolution",
     name: "EVOLUTION AESTHETICS CLINIC, JUMEIRAH 3",
     type: "Aesthetic Medical Clinic",

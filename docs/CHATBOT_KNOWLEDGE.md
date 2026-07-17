@@ -678,9 +678,8 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 
 ### Partner Locations (30+ locations)
 
-#### Dubai Marina Area (6 locations)
+#### Dubai Marina Area (5 locations)
 - UNIQUE PERSONA
-- FACE ROOM
 - SHAKIROVNA Ladies Salon
 - EGOISTKA Beauty Salon
 - VESNA Beauty Lounge

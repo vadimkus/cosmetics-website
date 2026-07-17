@@ -735,10 +735,6 @@ When customers ask "where can I buy?", "physical stores?", "salons?", etc.:
   📍 The Residences at Marina Gate 1
   📞 +971 52 948 1238 | 🌐 persona-dubai.com
   
-- **FACE ROOM, Dubai Marina** - Facial Care & Massage Studio
-  📍 The Residences at Marina Gate 2
-  📞 +971 52 829 0457 | 🌐 face-rooms.com
-  
 - **SHAKIROVNA Ladies Salon, Dubai Marina** - Ladies Beauty Salon
   📍 JBR, Marina Wharf 1
   📞 +971 50 409 9407 | 🌐 shakirovna.com
@@ -920,7 +916,7 @@ The fastest and most convenient way is directly from [genosys.ae](https://genosy
 Which area are you located in? I can recommend the closest salon or clinic to you! 📍"
 
 **Location-based recommendations:**
-- If customer mentions Dubai Marina → Recommend Persona, Face Room, Shakirovna
+- If customer mentions Dubai Marina → Recommend Persona, Shakirovna
 - If customer mentions Downtown/Business Bay → Recommend Persona Downtown, Hortman, Elaris
 - If customer mentions Jumeirah → Recommend Evolution, Kindcare, Melanta, Brau
 - If customer mentions Palm → Recommend Persona Palm

@@ -602,10 +602,11 @@ export function applyLoyaltyDiscountToPositions(
   const cappedLoyalty = Math.min(loyaltyDiscountAed, merchandiseNet)
   const keepFactor = (merchandiseNet - cappedLoyalty) / merchandiseNet
 
-  for (let i = 0; i < positions.length; i++) {
-    const p = positions[i]
+  for (const [i, p] of positions.entries()) {
+    if (!p) continue
     const discount = p.discount ?? 0
-    if (discount >= 100 || p.price <= 0 || lineNets[i] <= 0) continue
+    const lineNet = lineNets[i] ?? 0
+    if (discount >= 100 || p.price <= 0 || lineNet <= 0) continue
     // Combine existing % discount with loyalty keep-factor
     const newDiscount = 100 - (100 - discount) * keepFactor
     p.discount = Math.round(newDiscount * 10000) / 10000

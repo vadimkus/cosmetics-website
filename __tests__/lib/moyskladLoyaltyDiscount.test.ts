@@ -16,7 +16,7 @@ describe('applyLoyaltyDiscountToPositions', () => {
     }, 0)
 
     expect(merch).toBeCloseTo(490, 2) // 560 − 70
-    expect(positions[2].discount).toBe(100)
+    expect(positions[2]?.discount).toBe(100)
     expect(merch + 45).toBeCloseTo(535, 2)
   })
 })

@@ -13,7 +13,7 @@
 - API: `https://genosys.ae/api/products/11`
 - PDF: `public/documents/ppt/GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER.pdf`
 - Intertek folder: `GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER/` (artwork, formula, COA, posters)
-- Images: `/images/remover/Main.jpg` + gallery S1–S6
+- Images: `/images/remover/Main2.jpg` + gallery S1–S6
 
 ## Key claims (PDF)
 - Fresh, non-greasy lip & eye makeup remover
@@ -52,7 +52,7 @@ Natural **golden yellow** (oil layer / label band).
 ## Slide 6 — Finishing (bottle center)
 - Aspect: **1:1** (optional 4:5 for IG close)
 - Composition: bottle **centered** (not product-right)
-- Ref: `/images/remover/Main.jpg`
+- Ref: `/images/remover/Main2.jpg`
 - Job: brand close + claim recall — no new ingredients
 
 ## Instagram caption

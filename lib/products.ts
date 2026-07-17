@@ -116,7 +116,7 @@ export const products: Product[] = [
     name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER',
     price: 290,
     description: '200ml. Fresh, non-greasy lip & eye makeup remover. It is a fresh, non-greasy lip & eye makeup remover. Biphasic layer of essence layer with vitamins, firming peptides and oil layer with a strong cleansing power turn into emulsion which cleans the delicate lip and eye area without irritation. Key ingredients: 10 Vitamin Complex, Palmitoyl Tripeptide-5, Acetyl Tetrapeptide-5, Saccharide Hydrolysate, Rosa Damascena Flower Water, Daucus Carota Sativa (Carrot) Root Extract, Brassica Oleracea Italica (Broccoli) Extract, Daucus Carota Sativa (Carrot) Seed Oil, Hippophae Rhamnoides Oil. Usage: Shake well before use. Dermatologically tested.',
-    image: '/images/remover/Main.jpg',
+    image: '/images/remover/Main2.jpg',
     images: JSON.stringify([
       '/images/remover/S1.jpg',
       '/images/remover/S2.jpg',

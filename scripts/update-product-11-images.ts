@@ -18,7 +18,7 @@ const prisma = new PrismaClient(
     : { datasourceUrl: databaseUrl, log: ['error'] } as never,
 )
 
-const NEW_MAIN = '/images/remover/Main.jpg'
+const NEW_MAIN = '/images/remover/Main2.jpg'
 const NEW_GALLERY = [
   '/images/remover/S1.jpg',
   '/images/remover/S2.jpg',
@@ -34,6 +34,8 @@ const OLD_IMAGES = [
   'https://www.genosys.ae/images/DEF.jpg',
   '/images/Second/def_big.jpg',
   'https://genosys.ae/images/Second/def_big.jpg',
+  '/images/remover/Main.jpg',
+  'https://genosys.ae/images/remover/Main.jpg',
 ]
 
 async function main() {

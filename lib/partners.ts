@@ -462,7 +462,6 @@ export const partnersData: Partner[] = [
     description: "DHA-licensed beauty health clinic and polyclinic at The Mall, Umm Suqeim 3. Offers aesthetic treatments, facials, laser hair removal, and medical consultations. Open daily 10:00–22:00. Google rating 4.8/5.",
     location: "The Mall - Umm Suqeim 3 - G Floor - Shop 21-22, Jumeira St - Dubai",
     phone: "+971 54 777 6703",
-    website: "https://www.fresha.com/a/newyou-p-c-c-poly-clinic-llc-dubai-the-mall-jumeirah-the-mall-food-court-45rr-4hh-x2ajnkf3",
     directions: "https://www.google.com/maps?daddr=The+Mall+-+Umm+suqeim+3+-+G+FLOOR+-+shop+21-22+Jumeira+St+-+Dubai",
     logo: "/images/partners/new-you-star.png",
     theme: "emerald"

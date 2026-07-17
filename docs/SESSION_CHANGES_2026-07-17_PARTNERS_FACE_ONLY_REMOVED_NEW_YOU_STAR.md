@@ -11,7 +11,7 @@
    - Phone: +971 54 777 6703
    - Hours: daily 10:00–22:00 (from Google / Zavis)
    - Directions: Google Maps daddr for The Mall shops 21–22
-   - Website: Fresha booking page for NewYou P C C Poly Clinic
+   - No website / Fresha link (removed on request)
    - Logo: `public/images/partners/new-you-star.png`
    - Theme: emerald (clinic)
 

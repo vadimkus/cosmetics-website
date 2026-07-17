@@ -12,7 +12,7 @@
    - Hours: daily 10:00–22:00 (from Google / Zavis)
    - Directions: Google Maps daddr for The Mall shops 21–22
    - No website / Fresha link (removed on request)
-   - Logo: `public/images/partners/new-you-star.png`
+   - Logo: `public/images/partners/new.png` (clinic sign photo; replaced generated placeholder)
    - Theme: emerald (clinic)
 
 ## Sources

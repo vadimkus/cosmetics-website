@@ -463,7 +463,7 @@ export const partnersData: Partner[] = [
     location: "The Mall - Umm Suqeim 3 - G Floor - Shop 21-22, Jumeira St - Dubai",
     phone: "+971 54 777 6703",
     directions: "https://www.google.com/maps?daddr=The+Mall+-+Umm+suqeim+3+-+G+FLOOR+-+shop+21-22+Jumeira+St+-+Dubai",
-    logo: "/images/partners/new-you-star.png",
+    logo: "/images/partners/new.png",
     theme: "emerald"
   },
   {

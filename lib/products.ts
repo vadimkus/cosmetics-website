@@ -121,6 +121,7 @@ export const products: Product[] = [
     category: 'Cleanser',
     inStock: true,
     size: '200ml',
+    videoUrl: '/videos/remover.mp4',
   },
   {
     id: '12',

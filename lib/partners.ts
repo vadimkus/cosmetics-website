@@ -499,7 +499,7 @@ export const partnersData: Partner[] = [
     phone: "+971 50 374 5371",
     website: "https://www.instagram.com/shine.medical.center/",
     directions: "https://www.google.com/maps/dir/?api=1&destination=H7P9%2B2WM+Al+Rifa+Dibba+Al+Fujairah",
-    logo: "/images/partners/shine.png",
+    logo: "/images/partners/shine-medical.png",
     theme: "emerald"
   }
 ];

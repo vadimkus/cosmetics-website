@@ -811,11 +811,11 @@ When customers ask "where can I buy?", "physical stores?", "salons?", etc.:
   📍 Al Wasl Road
   📞 +971 4 437 2600 | 🌐 brau.ae
 
+- **NEW YOU STAR BEAUTY HEALTH CLINIC L.L.C, The Mall Umm Suqeim** - Beauty Health Clinic & Polyclinic
+  📍 The Mall, G Floor, Shop 21-22, Jumeira St, Umm Suqeim 3
+  📞 +971 54 777 6703 | Open daily 10:00–22:00
+
 **DUBAI - BLUEWATERS ISLAND:**
-- **THE FACE ONLY, Bluewaters** - Facial Treatment Salon
-  📍 Blue Waves Residence
-  📞 +971 54 348 8117 | 🌐 thefaceonly.com
-  
 - **LOVE MY BODY, Bluewaters** - Body Correction Center
   📍 Bluewaters island, building 9
   📞 +971 58 578 5311 | 🌐 lovemybody.ae

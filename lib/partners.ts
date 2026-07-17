@@ -85,18 +85,6 @@ export const partnersData: Partner[] = [
     logo: "/images/partners/Shakirovna.png",
     theme: "purple"
   },
-      {
-        id: "face-only",
-        name: "THE FACE ONLY, BLUEWATERS ISLAND",
-        type: "Specialized Facial Treatment Salon",
-    description: "Professional facial treatment salon specializing in signature TFO massage, skin therapy, and advanced facial treatments with focus on natural beauty and effective results",
-    location: "Blue Waves Residence - 9 A Street - Marsa Dubai, Dubai",
-    phone: "+971 54 348 8117",
-    website: "https://thefaceonly.com",
-    directions: "https://www.google.com/maps?sca_esv=254941356981cfe9&rlz=1C5CHFA_enAE820AE820&sxsrf=AE3TifPF4L5bN-vsNASbTGi2iDyOGwbNcQ:1761385666402&uact=5&gs_lp=Egxnd3Mtd2l6LXNlcnAiFWZhY2Ugb25seSBzYWxvbiBkdWJhaTIFECEYoAEyBRAhGKABMgUQIRigATIFECEYnwUyBRAhGJ8FMgUQIRifBTIFECEYnwUyBRAhGJ8FMgUQIRifBTIFECEYnwVIkB9QmghYnx1wAngBkAEAmAGYAaAB9AmqAQQwLjEwuAEDyAEA-AEBmAIMoAK4CsICChAAGLADGNYEGEfCAgQQIxgnwgIIEAAYBRgNGB7CAgUQABjvBcICCBAAGIAEGKIEwgIIEAAYCBgNGB7CAgYQABgWGB7CAgQQIRgVwgIHECEYoAEYCpgDAIgGAZAGCJIHBDIuMTCgB8gvsgcEMC4xMLgHsgrCBwUwLjQuOMgHJw&um=1&ie=UTF-8&fb=1&gl=es&sa=X&geocode=KQG0tOpTFV8-Maa3vu0wEN-S&daddr=Blue+Waves+Residence+-+9+A+Street+-+Marsa+Dubai+-+Dubai+-+%D0%9E%D0%90%D0%AD",
-    logo: "/images/partners/thefaceonly.png",
-    theme: "blue"
-  },
   {
     id: "egoistka",
     name: "EGOISTKA BEAUTY SALON, DUBAI MARINA",
@@ -465,6 +453,18 @@ export const partnersData: Partner[] = [
     website: "https://www.instagram.com/longevium.dubai",
     directions: "https://www.google.com/maps/search/Triple+777+Center+Jumeirah+3+Dubai",
     logo: "/images/partners/family-class.png",
+    theme: "emerald"
+  },
+  {
+    id: "new-you-star",
+    name: "NEW YOU STAR BEAUTY HEALTH CLINIC L.L.C, THE MALL UMM SUQEIM",
+    type: "Beauty Health Clinic & Polyclinic",
+    description: "DHA-licensed beauty health clinic and polyclinic at The Mall, Umm Suqeim 3. Offers aesthetic treatments, facials, laser hair removal, and medical consultations. Open daily 10:00–22:00. Google rating 4.8/5.",
+    location: "The Mall - Umm Suqeim 3 - G Floor - Shop 21-22, Jumeira St - Dubai",
+    phone: "+971 54 777 6703",
+    website: "https://www.fresha.com/a/newyou-p-c-c-poly-clinic-llc-dubai-the-mall-jumeirah-the-mall-food-court-45rr-4hh-x2ajnkf3",
+    directions: "https://www.google.com/maps?daddr=The+Mall+-+Umm+suqeim+3+-+G+FLOOR+-+shop+21-22+Jumeira+St+-+Dubai",
+    logo: "/images/partners/new-you-star.png",
     theme: "emerald"
   },
   {

@@ -699,16 +699,16 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 - LFK CLINIC / LIPS for KISS
 - LAVANA SPA
 
-#### Jumeirah Area (6 locations)
+#### Jumeirah Area (7 locations)
 - EVOLUTION AESTHETICS CLINIC
 - HORTMAN CLINICS 2
 - KINDCARE Medical Center
 - MELANTA Aesthetic Clinic
 - THE HIDEAWAY for Women
 - BRAU Ladies Salon
+- NEW YOU STAR BEAUTY HEALTH CLINIC L.L.C (The Mall, Umm Suqeim 3)
 
-#### Bluewaters Island (2 locations)
-- THE FACE ONLY
+#### Bluewaters Island (1 location)
 - LOVE MY BODY
 
 #### City Walk (1 location)

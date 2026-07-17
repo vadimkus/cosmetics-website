@@ -22,6 +22,11 @@ import {
   POWER_SOLUTION_VIALS_PER_BOX,
   resolvePowerSolutionBoxKey,
 } from '@/lib/moyskladPowerSolutionExplosion'
+import {
+  explodePeptideGelMaskItem,
+  isPeptideGelMaskPackProductName,
+  PEPTIDE_GEL_MASK_SINGLE_PRODUCT_NAME,
+} from '@/lib/moyskladPeptideGelMaskExplosion'
 
 // ============================================================================
 // Configuration
@@ -232,7 +237,9 @@ const PRODUCT_MAP: Record<string, string> = {
   // === Peeling & Masks ===
   'SKIN RENEWAL PEELING SYSTEM (SRS)': '62225706-3445-11ea-0a80-05dc000156b3', // Box
   'EPI TURNOVER BOOSTING PEELING GEL': 'cd901a4e-e88b-11ea-0a80-05ae00007806', // 100g
-  'PEPTIDE GEL MASK': 'a7b0f2a5-3446-11ea-0a80-05dc000165ba',                 // Box (5pcs)
+  // Pack on website (5 masks) — push explodes to singles below; keep pack key unused after explode
+  'PEPTIDE GEL MASK': '3068531d-3444-11ea-0a80-06a300016deb',                 // 00012 single (legacy fallback)
+  [PEPTIDE_GEL_MASK_SINGLE_PRODUCT_NAME]: '3068531d-3444-11ea-0a80-06a300016deb', // 00012 after pack explode
   'EZ CO₂ MASK KIT': 'f34ed25a-343f-11ea-0a80-05dc0001110e',                  // Box (5 treatments)
   'HYDRO COOL MODELING MASK': '806e9e52-3444-11ea-0a80-05dc00014e2d',          // 1kg
   'EyeCell EYE PEPTIDE GEL PATCH': '3e1bd611-42bd-11ea-0a80-01e3000bd9c2',     // Box
@@ -566,9 +573,43 @@ export interface MoySkladOrderData {
   items: MoySkladOrderItem[]
   total: number
   shipping: number
+  /** GENOSYS Rewards redeemed — AED off merchandise (not shipping). */
+  loyaltyDiscountAmount?: number
+  loyaltyPointsRedeemed?: number
   paymentMethod: string // 'cod', 'stripe', 'apple_pay'
   paymentStatus?: string // 'pending', 'paid', etc.
   description?: string
+}
+
+/**
+ * Apply loyalty AED as an extra MoySklad line discount on paid product rows
+ * (skips 100% promo lines). Shipping is added separately after this.
+ */
+export function applyLoyaltyDiscountToPositions(
+  positions: Array<{ quantity: number; price: number; discount?: number }>,
+  loyaltyDiscountAed: number
+): void {
+  if (!(loyaltyDiscountAed > 0) || positions.length === 0) return
+
+  const lineNets = positions.map((p) => {
+    const discount = p.discount ?? 0
+    if (discount >= 100 || p.price <= 0) return 0
+    return (p.quantity * p.price * (100 - discount)) / 10000
+  })
+  const merchandiseNet = lineNets.reduce((s, n) => s + n, 0)
+  if (merchandiseNet <= 0) return
+
+  const cappedLoyalty = Math.min(loyaltyDiscountAed, merchandiseNet)
+  const keepFactor = (merchandiseNet - cappedLoyalty) / merchandiseNet
+
+  for (let i = 0; i < positions.length; i++) {
+    const p = positions[i]
+    const discount = p.discount ?? 0
+    if (discount >= 100 || p.price <= 0 || lineNets[i] <= 0) continue
+    // Combine existing % discount with loyalty keep-factor
+    const newDiscount = 100 - (100 - discount) * keepFactor
+    p.discount = Math.round(newDiscount * 10000) / 10000
+  }
 }
 
 export interface MoySkladPushResult {
@@ -704,6 +745,25 @@ export async function createMoySkladOrder(
         continue
       }
 
+      if (isPeptideGelMaskPackProductName(item.productName)) {
+        for (const exploded of explodePeptideGelMaskItem({
+          productName: item.productName,
+          quantity: item.quantity,
+          price: item.price,
+          ...(item.retailPrice != null ? { retailPrice: item.retailPrice } : {}),
+          ...(item.discountPercent != null ? { discountPercent: item.discountPercent } : {}),
+        })) {
+          linesToMap.push({
+            productName: exploded.productName,
+            quantity: exploded.quantity,
+            price: exploded.retailPrice * (100 - exploded.discountPercent) / 100,
+            retailPrice: exploded.retailPrice,
+            discountPercent: exploded.discountPercent,
+          })
+        }
+        continue
+      }
+
       linesToMap.push({
         productName: item.productName,
         quantity: item.quantity,
@@ -747,7 +807,20 @@ export async function createMoySkladOrder(
       }
     }
 
-    // Step 2b: Add shipping as a service line item (if applicable)
+    // Step 2b: GENOSYS Rewards — fold loyalty AED into product line discounts
+    // before shipping, so mapped total matches website (merchandise − loyalty + shipping).
+    const loyaltyDiscountAed = Number(orderData.loyaltyDiscountAmount || 0)
+    if (loyaltyDiscountAed > 0) {
+      applyLoyaltyDiscountToPositions(positions, loyaltyDiscountAed)
+      debugLog(
+        `★ MoySklad: Applied GENOSYS Rewards −${loyaltyDiscountAed.toFixed(2)} AED` +
+          (orderData.loyaltyPointsRedeemed
+            ? ` (${orderData.loyaltyPointsRedeemed} pts)`
+            : '')
+      )
+    }
+
+    // Step 2c: Add shipping as a service line item (if applicable)
     // UAE delivery is taxable at 5% VAT (inclusive in the charge) — matches the
     // website's checkout VAT calc which treats shipping as VAT-inclusive.
     if (orderData.shipping > 0) {
@@ -792,6 +865,14 @@ export async function createMoySkladOrder(
     ]
     if (orderData.shipping > 0) {
       descParts.push(`Shipping: ${orderData.shipping} AED (${orderData.customerEmirate})`)
+    }
+    if (loyaltyDiscountAed > 0) {
+      descParts.push(
+        `GENOSYS Rewards: −${loyaltyDiscountAed.toFixed(2)} AED` +
+          (orderData.loyaltyPointsRedeemed
+            ? ` (${orderData.loyaltyPointsRedeemed} pts)`
+            : '')
+      )
     }
     if (explodedBeautyBoxes.length > 0) {
       descParts.push(`Beauty boxes exploded: ${[...new Set(explodedBeautyBoxes)].join(', ')}`)

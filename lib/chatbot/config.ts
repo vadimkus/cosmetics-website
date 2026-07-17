@@ -880,6 +880,11 @@ When customers ask "where can I buy?", "physical stores?", "salons?", etc.:
   📍 Waitrose Center, Khalifa City
   📞 +971 4 437 2600 | 🌐 brau.ae
 
+**FUJAIRAH / DIBBA:**
+- **SHINE MEDICAL CENTER (مركز شاين الطبي), Dibba Al Fujairah** - Medical Center
+  📍 H7P9+2WM, Al Rifa‘, Dibba Al Fujairah
+  📞 +971 50 374 5371 | 📸 @shine.medical.center
+
 **AL AIN & ABU DHABI AREA:**
 - **ABEER MEKKI** - Certified GENOSYS Partner & Reseller ⭐
   📍 Al Ain, UAE (Also covers Abu Dhabi area)

@@ -489,5 +489,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/search/TONETRENDZ+Binghatti+Azure+Office+214+JVC+Dubai",
     logo: "/images/partners/tonetrendz.png",
     theme: "blue"
+  },
+  {
+    id: "shine-medical-center",
+    name: "SHINE MEDICAL CENTER, DIBBA AL FUJAIRAH",
+    type: "Medical Center",
+    description: "مركز شاين الطبي — medical center in Dibba Al Fujairah offering medical and aesthetic care. Highly rated on Google (4,800+ reviews).",
+    location: "H7P9+2WM - Al Rifa‘ - Dibba Al Fujairah - Fujairah",
+    phone: "+971 50 374 5371",
+    website: "https://www.instagram.com/shine.medical.center/",
+    directions: "https://www.google.com/maps/dir/?api=1&destination=H7P9%2B2WM+Al+Rifa+Dibba+Al+Fujairah",
+    logo: "/images/partners/shine.png",
+    theme: "emerald"
   }
 ];

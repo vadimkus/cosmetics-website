@@ -14,6 +14,7 @@ type AreaKey =
   | 'palm-bluewaters'
   | 'other-dubai'
   | 'abu-dhabi'
+  | 'northern-emirates'
   | 'online'
 
 type TypeKey = 'all' | 'salon' | 'clinic' | 'spa' | 'reseller'
@@ -29,6 +30,7 @@ const AREA_MATCHERS: AreaDef[] = [
   { key: 'palm-bluewaters', matchers: ['palm jumeirah', 'nakheel mall', 'bluewaters', 'blue waters'] },
   { key: 'jumeirah', matchers: ['jumeira', 'umm suqeim', 'al wasl', 'al athar'] },
   { key: 'abu-dhabi', matchers: ['abu dhabi', 'al ain', 'khalifa city', 'al bateen'] },
+  { key: 'northern-emirates', matchers: ['fujairah', 'dibba', 'al rifa', 'ras al khaimah', 'sharjah', 'ajman', 'umm al quwain'] },
   { key: 'online', matchers: ['online'] },
 ]
 
@@ -67,6 +69,7 @@ const AREA_LABELS: Record<AreaKey, { en: string; ru: string; ar: string }> = {
   'palm-bluewaters': { en: 'Palm & Bluewaters', ru: 'Палм и Bluewaters', ar: 'النخلة و Bluewaters' },
   'other-dubai': { en: 'Other Dubai', ru: 'Другие районы Дубая', ar: 'مناطق أخرى في دبي' },
   'abu-dhabi': { en: 'Abu Dhabi & Al Ain', ru: 'Абу-Даби и Аль-Айн', ar: 'أبوظبي والعين' },
+  'northern-emirates': { en: 'Northern Emirates', ru: 'Северные эмираты', ar: 'الإمارات الشمالية' },
   online: { en: 'Online', ru: 'Онлайн', ar: 'عبر الإنترنت' },
 }
 

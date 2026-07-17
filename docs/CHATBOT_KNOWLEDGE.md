@@ -742,6 +742,9 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 #### Al Ain & Abu Dhabi Region
 - ABEER MEKKI (Certified Partner)
 
+#### Fujairah / Dibba
+- SHINE MEDICAL CENTER (مركز شاين الطبي), Dibba Al Fujairah
+
 #### Online Store
 - SKIN STORY DUBAI
 

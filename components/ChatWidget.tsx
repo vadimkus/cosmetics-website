@@ -515,14 +515,17 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     pathname?.startsWith(`/ar${page}`) || 
     pathname?.startsWith(`/ru${page}`)
   )
+
+  // Product pages have a dense mobile sticky purchase bar. The floating chat
+  // button overlaps that primary action, so keep Genie off PDPs on mobile web.
+  const isProductPage =
+    pathname?.match(/^\/(en|ar|ru)?\/products\/[^/]+/) ||
+    pathname?.match(/^\/products\/[^/]+/)
   
-  // Don't render chatbot on mobile web for cart/checkout pages
-  if (isMobileWeb && isHiddenPage) {
+  // Don't render chatbot on mobile web for critical pages or PDPs.
+  if (isMobileWeb && (isHiddenPage || isProductPage)) {
     return null
   }
-  
-  // Check if on product detail page (has sticky footer on mobile)
-  const isProductPage = pathname?.match(/^\/(en|ar|ru)?\/products\/\d+/) || pathname?.match(/^\/products\/\d+/)
 
   const handleOpen = () => {
     setIsOpen(true)

@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🔴 **Mobile commerce** | [Mobile PDP bag controls](./SESSION_CHANGES_2026-07-18_MOBILE_PDP_BAG_CONTROLS.md) | Removes the overlapping mobile PDP chat button and makes the localized in-bag control navigate directly to the bag. |
 | 🟢 **UI/Dev** | [Phase A stabilization + product morphs](./SESSION_CHANGES_2026-07-18_PHASE_A_PRODUCT52_PILOTS.md) | Reliable guide progress, repeatable home reveals, same-document image morphs, and high-positioned customer quick facts with verified sales evidence across all EN/RU/AR PDPs; fully browser-tested locally. |
 
 ### SEO Guides (2026-07-13)

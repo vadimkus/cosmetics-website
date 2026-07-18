@@ -1624,10 +1624,15 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 >
                   <Minus className="h-4 w-4" aria-hidden="true" />
                 </button>
-                <span className="flex-1 flex items-center justify-center gap-1.5 text-sm sm:text-base tabular-nums select-none" aria-live="polite">
+                <button
+                  type="button"
+                  onClick={() => router.push(getLocalizedPath('/cart', locale))}
+                  className="flex-1 flex items-center justify-center gap-1.5 text-sm sm:text-base tabular-nums min-h-9 rounded-md hover:bg-white/10 active:bg-white/20 transition-colors"
+                  aria-label={`${t('product.viewBag') || 'View Bag'} (${inCartQty})`}
+                >
                   <Check className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
-                  {`${isAppLikeMode ? t('product.inBag') : t('product.inCart')} (${inCartQty})`}
-                </span>
+                  {`${isAppLikeMode ? t('product.viewBag') : t('product.inCart')} (${inCartQty})`}
+                </button>
                 <button
                   type="button"
                   onClick={async () => {

@@ -139,3 +139,14 @@ Final local results:
   home reveals.
 - Mobile browser viewport `390×844`: no horizontal overflow on home, Arabic
   home, products, PDP, blog, or checkout.
+
+## Vercel function-size deployment fix
+
+- Initial deployment of commit `279e08f2` compiled successfully but Vercel
+  rejected `/ar/blog/[slug]` at **535.98 MB uncompressed** (250 MB limit).
+- Cause: the blog route imported `sharp` at runtime to inspect hero dimensions,
+  so Vercel traced the native image binaries into each localized function.
+- Fix: replaced the runtime `sharp` lookup with the audited dimensions of all 18
+  published blog hero images. `sharp` remains only in the read-only audit script
+  and is no longer reachable from a route bundle.
+- Verification: TypeScript, targeted ESLint, and the full production build pass.

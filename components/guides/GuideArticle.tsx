@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { SeoLandingPage } from '@/lib/seoLandingPages'
+import ReadingProgress from '@/components/ui/ReadingProgressV3'
 
 export interface GuideArticleLabels {
   keyPoints: string
@@ -35,6 +36,7 @@ export default function GuideArticle({
 
   return (
     <div className="min-h-screen bg-white" dir={dir}>
+      <ReadingProgress />
       <article className="mx-auto max-w-6xl px-4 py-12 md:py-20">
         <header className={`grid items-center gap-10 ${featured.length > 0 ? 'lg:grid-cols-[1.1fr_0.9fr]' : ''}`}>
           <div>

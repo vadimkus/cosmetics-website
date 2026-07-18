@@ -6,6 +6,10 @@ import { X, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react'
 import { Product } from '@/types'
 import { getProductVideoUrl, getProductImages as getConfigImages } from '@/data/productConfig'
 import { useTranslation } from '@/hooks/useTranslation'
+import {
+  productTransitionName,
+  updateProductImageWithTransition,
+} from '@/lib/productViewTransition'
 
 interface ProductImageGalleryProps {
   product: Product
@@ -20,6 +24,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   // Config keys are product numbers; DB products have CUID ids. Resolve like
   // the mobile API (pricingEngine.resolveConfigKey) so both surfaces agree.
   const configKey = product.productNumber || product.id
+  const transitionName = productTransitionName(configKey)
   const videoUrl = getProductVideoUrl(configKey)
   const { t, dir } = useTranslation()
   
@@ -76,6 +81,15 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   }
 
   const productImages = getProductImages()
+
+  const selectImage = (index: number) => {
+    if (index === selectedImage) return
+    if (transitionName) {
+      updateProductImageWithTransition(() => setSelectedImage(index))
+      return
+    }
+    setSelectedImage(index)
+  }
 
   // Lightbox functions
   const openLightbox = (index: number) => {
@@ -178,7 +192,11 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
                   alt={`${product.name} - GENOSYS Korean dermacosmetics product image ${selectedImage + 1} of ${productImages.length}`}
                   width={600}
                   height={600}
-                  className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  className={`product-gallery-main w-full h-full object-contain transition-transform duration-300 group-hover:scale-105${
+                    transitionName ? ' product-vt-image' : ''
+                  }`}
+                  style={transitionName ? { viewTransitionName: transitionName } : undefined}
+                  data-product-vt-target={transitionName}
                   priority={selectedImage === 0}
                   quality={90}
                   placeholder="blur"
@@ -258,7 +276,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
           {productImages.map((img, index) => (
             <button
               key={index}
-              onClick={() => setSelectedImage(index)}
+              onClick={() => selectImage(index)}
               aria-label={`Show image ${index + 1} of ${productImages.length}`}
               aria-pressed={selectedImage === index}
               className={`w-11 h-11 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-md md:rounded-lg overflow-hidden border-2 transition-colors flex-shrink-0 bg-white ${

@@ -18,6 +18,10 @@ import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { trackAddToCart } from '@/lib/analytics'
 import { translateCategory } from '@/utils/categoryTranslations'
+import {
+  navigateProductWithTransition,
+  productTransitionName,
+} from '@/lib/productViewTransition'
 import type { UseProductCardReturn } from '../types'
 
 /**
@@ -163,8 +167,12 @@ export function useProductCard(product: Product): UseProductCardReturn {
   }, [isPWA, locale, router])
   
   const handleNavigate = useCallback(() => {
-    router.push(productPath)
-  }, [router, productPath])
+    navigateProductWithTransition(
+      productPath,
+      () => router.push(productPath),
+      productTransitionName(productId)
+    )
+  }, [router, productPath, productId])
   
   return {
     // State

@@ -8,6 +8,7 @@ import { Heart } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { restockNote } from '@/lib/restockInfo'
 import { useTranslation } from '@/hooks/useTranslation'
+import { productTransitionName } from '@/lib/productViewTransition'
 import type { ProductImageProps } from './types'
 
 /**
@@ -50,7 +51,13 @@ const ProductImage = memo(function ProductImage({
   // offset the large whitespace baked into its source render.
   const productNum = product.productNumber || product.id
   const isRevitaGlow = productNum === '63'
-  const frameClass = 'relative w-full aspect-square overflow-hidden bg-white'
+  const transitionName = productTransitionName(productNum)
+  const transitionStyle = transitionName
+    ? { viewTransitionName: transitionName }
+    : undefined
+  const frameClass = `relative w-full aspect-square overflow-hidden bg-white${
+    transitionName ? ' product-vt-image' : ''
+  }`
   const imageClass = `w-full h-full object-contain ${isRevitaGlow ? 'scale-110' : ''}`
   
   // PWA-specific touch handling styles
@@ -80,7 +87,11 @@ const ProductImage = memo(function ProductImage({
           className="block w-full cursor-pointer active:opacity-80 transition-opacity"
           style={pwaStyles}
         >
-          <div className={`${frameClass} pointer-events-none`}>
+          <div
+            className={`${frameClass} pointer-events-none`}
+            style={transitionStyle}
+            data-product-vt-source={transitionName}
+          >
             <Image
               src={product.image}
               alt={imageAlt}
@@ -96,8 +107,41 @@ const ProductImage = memo(function ProductImage({
             />
           </div>
         </div>
+      ) : transitionName ? (
+        <Link
+          href={productPath}
+          className="block"
+          {...prefetchProps}
+          data-product-morph-link={transitionName}
+        >
+          <motion.div
+            whileHover={animationsEnabled ? { scale: 1.1 } : {}}
+            transition={animationsEnabled ? { duration: 0.4, ease: "easeOut" } : {}}
+            className={frameClass}
+            data-product-vt-source={transitionName}
+            {...(transitionStyle ? { style: transitionStyle } : {})}
+          >
+            <Image
+              src={product.image}
+              alt={imageAlt}
+              width={300}
+              height={300}
+              className={`${imageClass} cursor-pointer`}
+              placeholder="blur"
+              blurDataURL={BLUR_DATA_URL}
+              priority={false}
+              quality={85}
+              sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              onError={() => errorLog('Image failed to load:', product.image)}
+            />
+          </motion.div>
+        </Link>
       ) : (
-        <Link href={productPath} className="block" {...prefetchProps}>
+        <Link
+          href={productPath}
+          className="block"
+          {...prefetchProps}
+        >
           <motion.div
             whileHover={animationsEnabled ? { scale: 1.1 } : {}}
             transition={animationsEnabled ? { duration: 0.4, ease: "easeOut" } : {}}

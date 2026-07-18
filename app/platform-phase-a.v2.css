@@ -1,0 +1,114 @@
+/* Phase A stabilization — CSS-native timelines with durable fallbacks. */
+
+/*
+ * Reading progress is JS-driven (ReadingProgressV3). CSS scroll timelines are
+ * intentionally not used here — some engines report support but leave the bar
+ * stuck at scaleX(0).
+ */
+
+/*
+ * Bidirectional view reveal:
+ * hidden outside either viewport edge, visible through the central journey.
+ * Because the animation is scroll-linked, reversing scroll reverses/replays it.
+ */
+@keyframes genosys-section-presence {
+  0% {
+    opacity: 0;
+    transform: translateY(64px) scale(0.97);
+    filter: blur(2px);
+  }
+  18%,
+  82% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-48px) scale(0.98);
+    filter: blur(2px);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  .reveal-on-view {
+    animation: genosys-section-presence linear both !important;
+    animation-timeline: view(block) !important;
+    animation-range: entry 0% exit 100%;
+    transition: none !important;
+  }
+}
+
+/* Product card → PDP image morph. Each card receives a unique inline
+   view-transition-name derived from its product number. */
+@supports (view-transition-name: none) {
+  /* The legacy shared name appeared on every card, which invalidates a view
+     transition because names must be unique in the rendered document. */
+  .product-card {
+    view-transition-name: none !important;
+  }
+}
+
+::view-transition-group(*) {
+  animation-duration: 700ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-group(root),
+::view-transition-group(main-header) {
+  animation-duration: 180ms;
+}
+
+::view-transition-image-pair(*) {
+  isolation: isolate;
+}
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  mix-blend-mode: normal;
+  object-fit: contain;
+}
+
+/* Product quick-facts helper — trigger anchor + panel where supported. */
+.product-facts-trigger {
+  anchor-name: --product-quick-facts;
+}
+
+@supports (position-anchor: --product-quick-facts) {
+  .product-facts-popover {
+    position: absolute;
+    position-anchor: --product-quick-facts;
+    position-area: block-end span-inline-end;
+    position-try-fallbacks: flip-block, flip-inline;
+    inset: auto;
+    margin-block-start: 0.5rem;
+    z-index: 20;
+  }
+}
+
+/* Ensure JS can always set transform on the progress bar. */
+.reading-progress-v2 {
+  animation: none !important;
+  animation-timeline: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-progress-v2 {
+    display: none !important;
+    animation: none !important;
+  }
+
+  .reveal-on-view {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.01ms !important;
+  }
+}

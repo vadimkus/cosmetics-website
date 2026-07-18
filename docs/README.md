@@ -6,6 +6,12 @@
 
 ## Quick Links
 
+### Strategy & Roadmaps (2026-07-18)
+
+| Priority | Document | Description |
+|----------|----------|-------------|
+| 🟢 **UI/Dev** | [Phase A stabilization + product morphs](./SESSION_CHANGES_2026-07-18_PHASE_A_PRODUCT52_PILOTS.md) | Reliable guide progress, repeatable home reveals, same-document image morphs, and high-positioned customer quick facts with verified sales evidence across all EN/RU/AR PDPs; fully browser-tested locally. |
+
 ### SEO Guides (2026-07-13)
 
 | Priority | Document | Description |

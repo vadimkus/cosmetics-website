@@ -1,11 +1,37 @@
-// BUILD: v0.1.0-0ecacfd0 @ 2026-07-09T17:10:37.717Z
+// BUILD: v0.1.0-0a889a6c @ 2026-07-18T11:09:35.110Z
 /**
  * Service Worker for Genosys Cosmetics Website
  * Provides offline functionality and caching strategies
  */
 
+// A production PWA worker must never control Next.js development pages.
+// If an older local build registered this worker, remove it and its caches so
+// localhost always receives current Turbopack assets.
+const IS_LOCAL_DEVELOPMENT =
+  self.location.hostname === 'localhost' ||
+  self.location.hostname === '127.0.0.1'
+
+if (IS_LOCAL_DEVELOPMENT) {
+  self.addEventListener('install', event => {
+    event.waitUntil(self.skipWaiting())
+  })
+
+  self.addEventListener('activate', event => {
+    event.waitUntil(
+      (async () => {
+        const cacheNames = await caches.keys()
+        await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)))
+        await self.registration.unregister()
+
+        const windows = await self.clients.matchAll({ type: 'window' })
+        await Promise.all(windows.map(client => client.navigate(client.url)))
+      })()
+    )
+  })
+}
+
 // Cache versioning - generated at build time via npm run build
-const CACHE_VERSION = self.__SW_VERSION || 'v0.1.0-0ecacfd0';
+const CACHE_VERSION = self.__SW_VERSION || 'v0.1.0-0a889a6c';
 const CACHE_NAMES = {
   static: `genosys-static-${CACHE_VERSION}`,
   dynamic: `genosys-dynamic-${CACHE_VERSION}`,

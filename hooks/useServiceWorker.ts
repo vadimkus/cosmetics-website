@@ -112,6 +112,28 @@ export function useServiceWorker() {
       return
     }
 
+    // Never let a production PWA worker control Next.js development pages.
+    // Cached localhost chunks make local UI changes appear missing and can
+    // trigger reload loops after Turbopack recompiles.
+    if (process.env.NODE_ENV !== 'production') {
+      void navigator.serviceWorker
+        .getRegistrations()
+        .then(registrations =>
+          Promise.all(registrations.map(registration => registration.unregister()))
+        )
+        .catch(error => {
+          errorLog('Failed to clear development service workers:', error)
+        })
+      setState(prev => ({
+        ...prev,
+        isSupported: true,
+        isRegistered: false,
+        registration: null,
+        error: null,
+      }))
+      return
+    }
+
     setState(prev => ({ ...prev, isSupported: true }))
 
     // Register service worker

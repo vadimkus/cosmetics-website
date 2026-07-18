@@ -18,6 +18,7 @@ import ProductPriceDisplay from '@/components/product/ProductPriceDisplay'
 import ProductVariantSelector from '@/components/product/ProductVariantSelector'
 import ProductQuantityCart from '@/components/product/ProductQuantityCart'
 import ProductContentDisplay from '@/components/product/ProductContentDisplay'
+import ProductQuickFactsHelper from '@/components/product/ProductQuickFactsHelper'
 import ProductReviews from '@/components/product/ProductReviews'
 import TrustBadges from '@/components/product/TrustBadges'
 import ProductRecommendation from '@/components/product/ProductRecommendation'
@@ -510,6 +511,17 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               </div>
             )}
 
+            {/* Customer-facing quick facts — kept high in the PDP hierarchy,
+                directly below the product heading. */}
+            <div className="mb-3 md:mb-4" data-product-quick-facts-slot="header">
+              <ProductQuickFactsHelper
+                product={product}
+                unitsSold={unitsSold}
+                selectedSize={selectedSize}
+                selectedColor={selectedColor}
+              />
+            </div>
+
             {/* Image Gallery */}
             <div>
               <ProductImageGallery product={product} />
@@ -610,7 +622,6 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             <div className="hidden md:block mt-4">
               <TrustBadges layout="stacked" />
             </div>
-
 
             {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) - Desktop only */}
             {(product.id === '55' || product.productNumber === '55') && (
@@ -1246,6 +1257,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
           <div className={`space-y-6 ${dir === 'rtl' ? 'md:col-start-1 md:row-start-1' : ''}`}>
             {/* Detailed Product Content */}
             <ProductContentDisplay product={product} />
+
 
             {/* Product Recommendations - Mobile only (shows after content) */}
             {(product.id === '19' || product.productNumber === '19') && (

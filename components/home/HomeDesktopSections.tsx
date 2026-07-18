@@ -19,6 +19,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
+import HomeScrollReveals from '@/components/home/HomeScrollRevealsV2'
 import {
   ArrowRight,
   Check,
@@ -494,10 +495,11 @@ export default function HomeDesktopSections({
   }, [featuredCategories, featuredProducts, categoryImages])
 
   return (
-    <div className="hidden md:block" dir={dir}>
+    <div className="hidden md:block" dir={dir} data-home-reveals>
+      <HomeScrollReveals />
       {/* ── 1. Bestsellers rail — driven by real sales data (homeData) ───── */}
       {featuredProducts.length > 0 && (
-        <section className="bg-white py-16 lg:py-20 border-t border-gray-100">
+        <section className="reveal-on-view bg-white py-16 lg:py-20 border-t border-gray-100">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className={`mb-10 flex items-end justify-between gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
@@ -539,7 +541,7 @@ export default function HomeDesktopSections({
       {/* ── 2. New arrivals rail — newest products, also feeds Google fresh
              internal links so new PDPs get crawled and indexed quickly ───── */}
       {newArrivals && newArrivals.length > 0 && (
-        <section className="bg-gray-50 py-16 lg:py-20 border-t border-gray-100">
+        <section className="reveal-on-view bg-gray-50 py-16 lg:py-20 border-t border-gray-100">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className={`mb-10 flex items-end justify-between gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
@@ -583,7 +585,7 @@ export default function HomeDesktopSections({
       )}
 
       {/* ── 3. Category rail ─────────────────────────────────────────────── */}
-      <section className="border-t border-gray-100 bg-white py-16 lg:py-20">
+      <section className="reveal-on-view border-t border-gray-100 bg-white py-16 lg:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="mb-10 text-center">
@@ -693,7 +695,7 @@ export default function HomeDesktopSections({
       </section>
 
       {/* ── 4. Shop by concern ──────────────────────────────────────────── */}
-      <section className="bg-gray-50 py-16 lg:py-24">
+      <section className="reveal-on-view bg-gray-50 py-16 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className={`mb-12 lg:mb-14 grid lg:grid-cols-12 gap-6 items-end ${isRtl ? 'text-right' : ''}`}>
@@ -810,7 +812,7 @@ export default function HomeDesktopSections({
       </section>
 
       {/* ── 5. Why GENOSYS 3-up ─────────────────────────────────────────── */}
-      <section className="bg-white py-16 lg:py-24 border-t border-gray-100">
+      <section className="reveal-on-view bg-white py-16 lg:py-24 border-t border-gray-100">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className={`mb-12 lg:mb-14 grid lg:grid-cols-12 gap-6 items-end ${isRtl ? 'text-right' : ''}`}>
@@ -1057,7 +1059,7 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
   }
 
   return (
-    <section className="relative overflow-hidden bg-gray-950 text-white py-20 lg:py-28">
+    <section className="reveal-on-view relative overflow-hidden bg-gray-950 text-white py-20 lg:py-28">
       {/* Subtle radial highlight + grain to add depth to the dark band */}
       <div
         aria-hidden="true"

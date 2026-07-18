@@ -10,6 +10,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { sanitizeHtml } from '@/lib/sanitize'
 import { optimizeBlogContentImages } from '@/lib/blogContentImages'
 import { useMemo } from 'react'
+import ReadingProgress from '@/components/ui/ReadingProgressV3'
 
 type BlogPostWithComments = {
   id: string
@@ -38,6 +39,7 @@ export default function RussianBlogPostClient({ post }: RussianBlogPostClientPro
 
   return (
     <article className="bg-gradient-to-b from-gray-50 to-white min-h-screen" dir={dir}>
+      <ReadingProgress />
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
           {/* Navigation Breadcrumb */}

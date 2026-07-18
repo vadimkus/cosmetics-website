@@ -1,7 +1,7 @@
 import { notFound, permanentRedirect } from 'next/navigation'
 import { Product } from '@/types'
 import { ProductPageProps } from '@/types/common'
-import ProductPageClientRefactored from './ProductPageClientRefactored'
+import ProductPageClientRefactored from './ProductPageClientPhaseA'
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { getUnitsSold } from '@/lib/salesStats'

@@ -85,11 +85,33 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
   
   // Use motion.div or regular div based on animation state
   const MotionWrapper = useAnimations ? motion.div : 'div'
+
+  const handleMorphClickCapture = (event: React.MouseEvent<HTMLElement>) => {
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey ||
+      !(event.target instanceof Element)
+    ) {
+      return
+    }
+
+    const morphLink = event.target.closest('a[data-product-morph-link]')
+    if (!morphLink) return
+
+    event.preventDefault()
+    event.stopPropagation()
+    handleNavigate()
+  }
   
   return (
     <MotionWrapper 
       {...animationProps}
-      className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
+      onClickCapture={handleMorphClickCapture}
+      className="product-card product-card-cq bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow flex flex-col"
       role="article"
       aria-label={productAriaLabel}
       aria-describedby={`${descriptionId} ${priceId} ${stockId}`}

@@ -6,6 +6,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import BlogComments from '@/components/blog/BlogComments'
 import BlackFridayCountdown from '@/components/BlackFridayCountdown'
 import BlogPostClient from './BlogPostClient'
+import ReadingProgress from '@/components/ui/ReadingProgressV3'
 import type { Metadata } from 'next'
 import { BlogPostPageProps } from '@/types/common'
 import { prisma } from '@/lib/prisma'
@@ -241,6 +242,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           }}
         />
 
+        <ReadingProgress />
         <article className="bg-gradient-to-b from-gray-50 to-white min-h-screen">
         <div className="container mx-auto px-4 py-8 md:py-16">
           <div className="max-w-4xl mx-auto">

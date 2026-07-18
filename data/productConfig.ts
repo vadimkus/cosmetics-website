@@ -156,7 +156,14 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '12': {
     id: '12',
-    images: ['/images/EPI.jpg', '/images/Second/eppi_big.jpg'],
+    images: [
+      '/images/epi/s1.jpeg',
+      '/images/epi/s2.jpeg',
+      '/images/epi/s3.jpeg',
+      '/images/epi/s4.jpeg',
+      '/images/epi/s5.jpeg',
+      '/images/epi/s6.jpeg',
+    ],
     pricing: {
       basePrice: 250
     },

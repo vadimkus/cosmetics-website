@@ -729,12 +729,15 @@ export default function OrdersPage() {
                               const freeItemCount = freeItems.reduce((sum, item) => sum + item.quantity, 0)
                               const _discountAmount = Number(order.discountAmount || 0)
                               const _bundleDiscountAmount = Number(order.bundleDiscountAmount || 0)
+                              const _loyaltyDiscountAmount = Number(order.loyaltyDiscountAmount || 0)
+                              const _loyaltyPointsRedeemed = Number(order.loyaltyPointsRedeemed || 0)
                               const _hasUserDiscount = _discountAmount > 0
                               const _hasBundleDiscount = _bundleDiscountAmount > 0
+                              const _hasLoyaltyDiscount = _loyaltyDiscountAmount > 0 && _loyaltyPointsRedeemed > 0
                               const _hasAnyDiscount = _hasUserDiscount || _hasBundleDiscount
                               const _retailTotal = Number(order.subtotal) + _discountAmount + _bundleDiscountAmount
                               const _afterVipSubtotal = _retailTotal - _discountAmount
-                              const _totalSaved = _discountAmount + _bundleDiscountAmount
+                              const _totalSaved = _discountAmount + _bundleDiscountAmount + _loyaltyDiscountAmount
                               
                               // Get discount percentages
                               let _userDiscountPct = 0
@@ -835,6 +838,16 @@ export default function OrdersPage() {
                                     </span>
                                   </div>
 
+                                  {/* GENOSYS Rewards redemption */}
+                                  {_hasLoyaltyDiscount && (
+                                    <div className={`flex justify-between items-center text-blue-600 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                                      <span className="text-sm font-medium">
+                                        ★ GENOSYS Rewards ({_loyaltyPointsRedeemed.toLocaleString()} {locale === 'ar' ? 'نقطة' : locale === 'ru' ? 'балл.' : 'pts'})
+                                      </span>
+                                      <span className="text-sm font-semibold">-AED {_loyaltyDiscountAmount.toFixed(2)}</span>
+                                    </div>
+                                  )}
+
                                   {/* VAT */}
                                   <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
                                     <span className="text-sm text-gray-500">
@@ -864,7 +877,7 @@ export default function OrdersPage() {
                                   </div>
 
                                   {/* You Saved */}
-                                  {_hasAnyDiscount && (
+                                  {(_hasAnyDiscount || _hasLoyaltyDiscount) && (
                                     <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-2 text-center mt-1">
                                       <span className="text-xs text-green-700 font-semibold">
                                         💰 {youSavedLabel}: AED {_totalSaved.toFixed(2)}

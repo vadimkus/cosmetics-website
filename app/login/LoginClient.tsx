@@ -927,7 +927,7 @@ export default function LoginClient() {
               </>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4 form-enhanced">
               {/* Promo banner */}
               {!isLoginMode && normalizedPromo && (
                 <div className={`bg-green-50 border border-green-200 text-green-700 px-3 py-2 rounded-lg text-xs md:text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>

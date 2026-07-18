@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import { X, Eye, EyeOff, Gift, Fingerprint } from 'lucide-react'
 import { useAuth } from './auth/AuthProvider'
 import Link from 'next/link'
@@ -215,11 +216,12 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
     setShowPrivacyPolicy(false)
   }
 
-  if (!isOpen) return null
+  if (!isOpen || typeof document === 'undefined') return null
 
-  return (
+  return createPortal(
     <div 
-      className="fixed inset-0 modal-overlay-heavy flex items-center justify-center z-50 p-3 md:p-4"
+      className="fixed inset-0 modal-overlay-heavy flex items-center justify-center z-[10000] p-3 md:p-4"
+      style={{ zIndex: 10000 }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
@@ -655,6 +657,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   )
 }

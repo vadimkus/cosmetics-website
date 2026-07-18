@@ -128,7 +128,7 @@ export default function NewsletterSignup({
           <label htmlFor="products-newsletter-email" className="sr-only">
             {locale === 'ar' ? 'البريد الإلكتروني' : locale === 'ru' ? 'Email' : 'Email address'}
           </label>
-          <div className={`flex items-center gap-1 p-1 rounded-full bg-white border border-gray-300 transition-colors focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-500/20 ${isRtl ? 'flex-row-reverse' : ''}`}>
+          <div className={`form-enhanced flex items-center gap-1 p-1 rounded-full bg-white border border-gray-300 transition-colors focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-500/20 ${isRtl ? 'flex-row-reverse' : ''}`}>
             <input
               id="products-newsletter-email"
               type="email"

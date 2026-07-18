@@ -19,6 +19,46 @@ function optimizerUrl(src: string, width: number): string {
   return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${QUALITY}`
 }
 
+/**
+ * Removes only a leading duplicate of the featured image from CMS HTML.
+ * Later uses of the same image are intentional content and must remain.
+ */
+export function stripOpeningFeaturedImage(
+  html: string,
+  featuredImage: string | null | undefined
+): string {
+  if (!featuredImage) return html
+
+  const escapedPath = featuredImage.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const candidates = [
+    new RegExp(
+      `<div[^>]*>\\s*<img[^>]*src=["']${escapedPath}["'][^>]*>\\s*</div>`,
+      'i'
+    ),
+    new RegExp(`<img[^>]*src=["']${escapedPath}["'][^>]*>`, 'i'),
+  ]
+
+  const match = candidates
+    .map((pattern) => {
+      const result = pattern.exec(html)
+      return result ? { index: result.index, value: result[0] } : null
+    })
+    .filter((result): result is { index: number; value: string } => result !== null)
+    .sort((a, b) => a.index - b.index)[0]
+
+  if (!match) return html
+
+  const textBeforeImage = html
+    .slice(0, match.index)
+    .replace(/<[^>]*>/g, '')
+    .replace(/&nbsp;/gi, ' ')
+    .trim()
+
+  if (textBeforeImage) return html
+
+  return html.slice(0, match.index) + html.slice(match.index + match.value.length)
+}
+
 export function optimizeBlogContentImages(html: string): string {
   return html.replace(/<img\b([^>]*)>/gi, (tag, attrs: string) => {
     const srcMatch = attrs.match(/\ssrc\s*=\s*("([^"]+)"|'([^']+)')/i)

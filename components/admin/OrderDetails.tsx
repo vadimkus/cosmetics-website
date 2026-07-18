@@ -244,6 +244,12 @@ export default function OrderDetails({ order, onBack, onUpdateStatus, getAdminHe
                 <span className="font-medium">{formatCurrency(bundleSavings)}</span>
               </div>
             )}
+            {Number(order.loyaltyDiscountAmount || 0) > 0 && Number(order.loyaltyPointsRedeemed || 0) > 0 && (
+              <div className="flex justify-between text-blue-600">
+                <span>GENOSYS Rewards ({Number(order.loyaltyPointsRedeemed).toLocaleString()} pts):</span>
+                <span className="font-medium">-{formatCurrency(Number(order.loyaltyDiscountAmount))}</span>
+              </div>
+            )}
             <div className="flex justify-between">
               <span className="text-gray-600">Shipping:</span>
               <span className="font-medium">{formatCurrency(order.shipping)}</span>

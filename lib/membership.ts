@@ -63,7 +63,14 @@ export async function recalcUserStats(userId: string) {
   const totalSpent = agg._sum.total ?? 0
   const totalOrders = agg._count ?? 0
   const tier = computeTier(totalSpent, totalOrders)
-  const loyaltyPoints = Math.floor(totalSpent)
+  // The ledger is authoritative. Lifetime spend cannot reconstruct the balance
+  // because redemptions, review/welcome bonuses, reversals and adjustments all
+  // move points independently of delivered-order spend.
+  const balanceAgg = await prisma.loyaltyTransaction.aggregate({
+    where: { userId },
+    _sum: { points: true },
+  })
+  const loyaltyPoints = balanceAgg._sum.points ?? 0
 
   await prisma.user.update({
     where: { id: userId },

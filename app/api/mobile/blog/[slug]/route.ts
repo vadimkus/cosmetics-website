@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { sanitizeHtml } from '@/lib/sanitize'
 import { errorLog } from '@/lib/logger'
+import { stripOpeningFeaturedImage } from '@/lib/blogContentImages'
 
 export async function GET(
   request: NextRequest,
@@ -74,13 +75,7 @@ export async function GET(
       content = post.contentRu || post.content
     }
 
-    // Remove featured image from content if duplicated
-    if (post.featuredImage && content) {
-      const escapedPath = post.featuredImage.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-      const imgRegex = new RegExp(`<img[^>]*src=["']${escapedPath}["'][^>]*>`, 'gi')
-      const divImgRegex = new RegExp(`<div[^>]*>\\s*<img[^>]*src=["']${escapedPath}["'][^>]*>\\s*</div>`, 'gi')
-      content = content.replace(divImgRegex, '').replace(imgRegex, '')
-    }
+    content = stripOpeningFeaturedImage(content, post.featuredImage)
 
     // Sanitize HTML content
     content = sanitizeHtml(content)

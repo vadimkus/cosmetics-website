@@ -122,6 +122,7 @@
   --brand-red-soft: #fee2e2;      /* tinted backgrounds / badges */
   --brand-red-ink: #7f1d1d;       /* text on soft */
   --brand-red-ring: rgba(220, 38, 38, 0.2); /* focus ring tint */
+  /* OKLCH mirrors (enhanced below via @supports color-mix) — hex stays source of truth for Tailwind */
   
   /* Rose color palette */
   --color-rose-50: #fff1f2;

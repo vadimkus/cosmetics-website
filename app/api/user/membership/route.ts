@@ -4,7 +4,16 @@ import { prisma } from '@/lib/prisma'
 import { verifySessionToken } from '@/lib/jwt'
 import { errorLog } from '@/lib/logger'
 import { computeTier, nextTierInfo, type MemberTier } from '@/lib/membership'
-import { loyaltyTrackForUser, getLedgerBalance, TIER_MULTIPLIERS, POINT_VALUE_AED } from '@/lib/loyalty'
+import {
+  loyaltyTrackForUser,
+  getLedgerBalance,
+  TIER_MULTIPLIERS,
+  POINT_VALUE_AED,
+  REDEEM_BLOCK_POINTS,
+  REDEEM_BLOCK_AED,
+  REDEEM_MAX_ORDER_FRACTION,
+  canRedeemPoints,
+} from '@/lib/loyalty'
 
 /**
  * GET /api/user/membership — GENOSYS Rewards status for the website profile.
@@ -44,6 +53,11 @@ export async function GET() {
     }
 
     const track = loyaltyTrackForUser(user)
+    const redemptionRules = {
+      blockPoints: REDEEM_BLOCK_POINTS,
+      blockAed: REDEEM_BLOCK_AED,
+      maxOrderFraction: REDEEM_MAX_ORDER_FRACTION,
+    }
 
     if (track === 'PARTNER') {
       return NextResponse.json({
@@ -54,6 +68,11 @@ export async function GET() {
         partner: {
           discountType: user.discountType,
           discountPercentage: user.discountPercentage,
+        },
+        redemption: {
+          ...redemptionRules,
+          eligible: false,
+          reason: 'PARTNER_PRICING',
         },
       })
     }
@@ -68,6 +87,7 @@ export async function GET() {
     const totalOrders = agg._count ?? 0
     const tier = computeTier(totalSpent, totalOrders)
     const balance = await getLedgerBalance(user.id)
+    const redemptionEligible = canRedeemPoints(user)
 
     if (
       tier !== user.memberTier ||
@@ -93,6 +113,11 @@ export async function GET() {
       points: {
         balance,
         valueAed: Math.round(balance * POINT_VALUE_AED * 100) / 100,
+      },
+      redemption: {
+        ...redemptionRules,
+        eligible: redemptionEligible,
+        reason: redemptionEligible ? null : 'ACCOUNT_DISCOUNT',
       },
       tierProgress: {
         currentSpent: Math.round(totalSpent * 100) / 100,

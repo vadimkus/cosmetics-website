@@ -8,6 +8,7 @@ import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, ChevronDown,
 import Link from 'next/link'
 import CheckoutHeader from '@/components/checkout/CheckoutHeader'
 import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
+import RewardsRedemptionCard from '@/components/checkout/RewardsRedemptionCard'
 import { getCartDiscountSummary, getCartLinePayloadPricing, getCartLinePricing } from '@/lib/cartPricing'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { errorLog, debugLog } from '@/lib/logger'
@@ -23,6 +24,14 @@ import dynamic from 'next/dynamic'
 const BottomSheet = dynamic(() => import('@/components/ui/BottomSheet'), { ssr: false })
 const StripeProvider = dynamic(() => import('@/components/stripe/StripeProvider'), { ssr: false })
 const PaymentForm = dynamic(() => import('@/components/stripe/PaymentForm'), { ssr: false })
+
+interface LoyaltyRedemptionRules {
+  eligible: boolean
+  reason: string | null
+  blockPoints: number
+  blockAed: number
+  maxOrderFraction: number
+}
 
 export default function CheckoutClient() {
   const { items, getTotalPrice, getTotalItems, selectedEmirate, _hasHydrated } = useCart()
@@ -47,20 +56,46 @@ export default function CheckoutClient() {
   // GENOSYS Rewards — points redemption + earn preview (retail track only)
   const [loyaltyBalance, setLoyaltyBalance] = useState(0)
   const [loyaltyMultiplier, setLoyaltyMultiplier] = useState(0)
-  const [usePoints, setUsePoints] = useState(false)
+  const [loyaltyTrack, setLoyaltyTrack] = useState<'REWARDS' | 'PARTNER' | null>(null)
+  const [membershipLoaded, setMembershipLoaded] = useState(false)
+  const [redemptionRules, setRedemptionRules] = useState<LoyaltyRedemptionRules | null>(null)
+  const [selectedRedeemPoints, setSelectedRedeemPoints] = useState(0)
 
   useEffect(() => {
-    if (!user) return
+    if (!user) {
+      setLoyaltyBalance(0)
+      setLoyaltyMultiplier(0)
+      setLoyaltyTrack(null)
+      setRedemptionRules(null)
+      setSelectedRedeemPoints(0)
+      setMembershipLoaded(true)
+      return
+    }
     let cancelled = false
+    setMembershipLoaded(false)
     fetch('/api/user/membership', { credentials: 'include' })
       .then(res => (res.ok ? res.json() : null))
       .then(json => {
-        if (!cancelled && json?.success && json.track === 'REWARDS') {
-          setLoyaltyBalance(Number(json.points?.balance || 0))
+        if (cancelled || !json?.success) return
+        setLoyaltyTrack(json.track === 'PARTNER' ? 'PARTNER' : 'REWARDS')
+        if (json.track === 'REWARDS') {
+          setLoyaltyBalance(Math.max(0, Math.floor(Number(json.points?.balance || 0))))
           setLoyaltyMultiplier(Number(json.multiplier || 1))
+        }
+        if (json.redemption) {
+          setRedemptionRules({
+            eligible: Boolean(json.redemption.eligible),
+            reason: typeof json.redemption.reason === 'string' ? json.redemption.reason : null,
+            blockPoints: Math.max(1, Math.floor(Number(json.redemption.blockPoints || 100))),
+            blockAed: Math.max(0.01, Number(json.redemption.blockAed || 5)),
+            maxOrderFraction: Math.max(0, Math.min(1, Number(json.redemption.maxOrderFraction || 0.2))),
+          })
         }
       })
       .catch(() => {})
+      .finally(() => {
+        if (!cancelled) setMembershipLoaded(true)
+      })
     return () => {
       cancelled = true
     }
@@ -173,16 +208,34 @@ export default function CheckoutClient() {
 
   const subtotal = getTotalPrice(user)
 
-  // GENOSYS Rewards redemption quote — mirrors server rules (lib/loyalty.ts):
-  // blocks of 100 pts = AED 5, capped at 20% of the product subtotal,
-  // not combinable with an ACTIVE personal discount (type + percentage set).
-  const canUsePoints = !(Boolean(user?.discountType) && Number(user?.discountPercentage || 0) > 0)
+  // GENOSYS Rewards redemption quote. Program constants come from the
+  // membership API; order endpoints still reprice and clamp authoritatively.
+  const blockPoints = redemptionRules?.blockPoints ?? 100
+  const blockAed = redemptionRules?.blockAed ?? 5
+  const maxOrderFraction = redemptionRules?.maxOrderFraction ?? 0.2
+  const canUsePoints = Boolean(redemptionRules?.eligible)
   const redeemableBlocks = canUsePoints
-    ? Math.max(0, Math.min(Math.floor(loyaltyBalance / 100), Math.floor((subtotal * 0.2) / 5)))
+    ? Math.max(
+        0,
+        Math.min(
+          Math.floor(loyaltyBalance / blockPoints),
+          Math.floor((subtotal * maxOrderFraction) / blockAed)
+        )
+      )
     : 0
-  const redeemablePoints = redeemableBlocks * 100
-  const redeemableAed = redeemableBlocks * 5
-  const loyaltyDiscount = usePoints && redeemablePoints > 0 ? redeemableAed : 0
+  const redeemablePoints = redeemableBlocks * blockPoints
+  const appliedRedeemPoints = Math.min(selectedRedeemPoints, redeemablePoints)
+  const loyaltyDiscount = appliedRedeemPoints > 0
+    ? (appliedRedeemPoints / blockPoints) * blockAed
+    : 0
+
+  useEffect(() => {
+    setSelectedRedeemPoints((current) => {
+      if (current <= 0) return 0
+      if (redeemablePoints < blockPoints) return 0
+      return Math.floor(Math.min(current, redeemablePoints) / blockPoints) * blockPoints
+    })
+  }, [redeemablePoints, blockPoints])
 
   // Shipping & VAT — single source of truth from mobileCheckoutConfig (matches backend).
   // Shipping threshold uses the pre-redemption subtotal (points never cost free shipping).
@@ -208,6 +261,8 @@ export default function CheckoutClient() {
     hasAnyDiscount,
     totalSaved,
   } = getCartDiscountSummary(items, user)
+  const hasAnySavings = hasAnyDiscount || loyaltyDiscount > 0
+  const totalSavingsIncludingRewards = totalSaved + loyaltyDiscount
 
   // Function to get free masks based on subtotal
   const getFreeMasks = useCallback(async (subtotal: number) => {
@@ -408,7 +463,7 @@ export default function CheckoutClient() {
               customerEmirate: selectedEmirate,
               customerAddress: customerAddress,
               ...(orderNotes ? { orderNotes } : {}),
-              ...(loyaltyDiscount > 0 ? { redeemPoints: redeemablePoints } : {}),
+              ...(loyaltyDiscount > 0 ? { redeemPoints: appliedRedeemPoints } : {}),
               locale: locale
             }))
           })
@@ -517,7 +572,7 @@ export default function CheckoutClient() {
           // Bundle discount data for proper waterfall display
           ...(bundleDiscountPct > 0 ? { bundleDiscountPercentage: bundleDiscountPct } : {}),
           ...(bundleDiscountTotal > 0 ? { bundleDiscountAmount: bundleDiscountTotal } : {}),
-          ...(loyaltyDiscount > 0 ? { redeemPoints: redeemablePoints } : {})
+          ...(loyaltyDiscount > 0 ? { redeemPoints: appliedRedeemPoints } : {})
         }
 
         // Ensure CSRF token is available
@@ -828,21 +883,13 @@ export default function CheckoutClient() {
                     </span>
                   </div>
                   {/* GENOSYS Rewards redemption */}
-                  {redeemablePoints > 0 && (
-                    <div className={`flex justify-between items-center text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <label className={`flex items-center gap-2 cursor-pointer ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <input
-                          type="checkbox"
-                          checked={usePoints}
-                          onChange={(e) => setUsePoints(e.target.checked)}
-                          className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        />
-                        <span className="text-blue-600 font-medium">
-                          ★ {locale === 'ar' ? 'استخدم نقاطي' : locale === 'ru' ? 'Использовать баллы' : 'Use my points'} ({redeemablePoints.toLocaleString()} {locale === 'ar' ? 'نقطة' : locale === 'ru' ? 'балл.' : 'pts'})
-                        </span>
-                      </label>
-                      <span className={usePoints ? 'text-blue-600 font-semibold' : 'text-gray-400'}>
-                        -AED {redeemableAed.toFixed(2)}
+                  {loyaltyDiscount > 0 && (
+                    <div className={`flex justify-between items-center text-sm text-blue-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="font-medium">
+                        ★ GENOSYS Rewards ({appliedRedeemPoints.toLocaleString()} {t('rewards.points')})
+                      </span>
+                      <span className="font-semibold">
+                        -AED {loyaltyDiscount.toFixed(2)}
                       </span>
                     </div>
                   )}
@@ -864,10 +911,10 @@ export default function CheckoutClient() {
                     </div>
                   )}
                   {/* You Saved */}
-                  {hasAnyDiscount && (
+                  {hasAnySavings && (
                     <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-1.5 text-center">
                       <span className="text-xs text-green-700 font-semibold">
-                        💰 {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'Вы сэкономили' : 'You saved'}: AED {totalSaved.toFixed(2)}
+                        💰 {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'Вы сэкономили' : 'You saved'}: AED {totalSavingsIncludingRewards.toFixed(2)}
                       </span>
                     </div>
                   )}
@@ -888,7 +935,7 @@ export default function CheckoutClient() {
                 </h1>
               </div>
               
-              <form id="checkout-form" onSubmit={handleSubmit} className="p-3 md:p-6 space-y-4 md:space-y-6">
+              <form id="checkout-form" onSubmit={handleSubmit} className="p-3 md:p-6 space-y-4 md:space-y-6 form-enhanced">
 
                 {/* Shipping Information */}
                 <div className="space-y-3 md:space-y-4">
@@ -898,7 +945,7 @@ export default function CheckoutClient() {
                   </h2>
 
                   <div className="grid grid-cols-2 gap-3 md:gap-4">
-                    <div>
+                    <div className="form-field">
                       <label htmlFor="checkout-firstname" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.firstName')} *
                       </label>
@@ -915,7 +962,7 @@ export default function CheckoutClient() {
                       />
                     </div>
 
-                    <div>
+                    <div className="form-field">
                       <label htmlFor="checkout-lastname" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.lastName')} *
                       </label>
@@ -934,7 +981,7 @@ export default function CheckoutClient() {
                   </div>
 
                   <div className="space-y-3 md:space-y-4">
-                    <div>
+                    <div className="form-field">
                       <label htmlFor="checkout-email" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.emailAddress')} *
                       </label>
@@ -952,7 +999,7 @@ export default function CheckoutClient() {
                       />
                     </div>
 
-                    <div>
+                    <div className="form-field">
                       <label htmlFor="checkout-phone" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.phoneNumber')} *
                       </label>
@@ -971,7 +1018,7 @@ export default function CheckoutClient() {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="form-field">
                     <label htmlFor="checkout-address" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.deliveryAddress')} *
                     </label>
@@ -982,7 +1029,7 @@ export default function CheckoutClient() {
                       rows={2}
                       autoComplete="street-address"
                       defaultValue={user?.address || ''}
-                      className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                      className={`auto-grow w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                       placeholder={t('checkout.enterDeliveryAddress')}
                       style={{ color: '#111827', backgroundColor: '#ffffff' }}
                     />
@@ -1013,6 +1060,20 @@ export default function CheckoutClient() {
                   </div>
                 </div>
 
+                {membershipLoaded && loyaltyTrack === 'REWARDS' && redemptionRules && (
+                  <RewardsRedemptionCard
+                    balance={loyaltyBalance}
+                    selectedPoints={appliedRedeemPoints}
+                    maxPoints={redeemablePoints}
+                    blockPoints={blockPoints}
+                    blockAed={blockAed}
+                    maxOrderFraction={maxOrderFraction}
+                    eligible={redemptionRules.eligible}
+                    disabledReason={redemptionRules.reason}
+                    onChange={setSelectedRedeemPoints}
+                  />
+                )}
+
                 <PaymentMethodSelector
                   isPWA={isPWA}
                   isPWAClient={isPWAClient}
@@ -1025,7 +1086,7 @@ export default function CheckoutClient() {
                 />
 
                 {/* Order Notes */}
-                <div>
+                <div className="form-field">
                   <label htmlFor="checkout-notes" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('checkout.orderNotes')}
                   </label>
@@ -1034,7 +1095,7 @@ export default function CheckoutClient() {
                     name="notes"
                     rows={2}
                     maxLength={500}
-                    className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                    className={`auto-grow w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
                     placeholder={t('checkout.orderNotesPlaceholder')}
                     style={{ color: '#111827', backgroundColor: '#ffffff' }}
                   />
@@ -1299,21 +1360,13 @@ export default function CheckoutClient() {
                   </div>
 
                   {/* GENOSYS Rewards redemption */}
-                  {redeemablePoints > 0 && (
-                    <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <label className={`flex items-center gap-1.5 md:gap-2 cursor-pointer ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <input
-                          type="checkbox"
-                          checked={usePoints}
-                          onChange={(e) => setUsePoints(e.target.checked)}
-                          className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                        />
-                        <span className="text-[10px] md:text-sm text-blue-600 font-medium">
-                          ★ {locale === 'ar' ? 'استخدم نقاطي' : locale === 'ru' ? 'Использовать баллы' : 'Use my points'} ({redeemablePoints.toLocaleString()} {locale === 'ar' ? 'نقطة' : locale === 'ru' ? 'балл.' : 'pts'})
-                        </span>
-                      </label>
-                      <span className={`text-[10px] md:text-sm font-medium ${usePoints ? 'text-blue-600' : 'text-gray-400'}`}>
-                        -AED {redeemableAed.toFixed(2)}
+                  {loyaltyDiscount > 0 && (
+                    <div className={`flex justify-between items-center py-1.5 md:py-2 text-blue-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="text-[10px] md:text-sm font-medium">
+                        ★ GENOSYS Rewards ({appliedRedeemPoints.toLocaleString()} {t('rewards.points')})
+                      </span>
+                      <span className="text-[10px] md:text-sm font-semibold">
+                        -AED {loyaltyDiscount.toFixed(2)}
                       </span>
                     </div>
                   )}
@@ -1340,10 +1393,10 @@ export default function CheckoutClient() {
                     )}
                   </div>
                   {/* You Saved */}
-                  {hasAnyDiscount && (
+                  {hasAnySavings && (
                     <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-1.5 text-center mt-1">
                       <span className="text-[10px] md:text-xs text-green-700 font-semibold">
-                        💰 {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'Вы сэкономили' : 'You saved'}: AED {totalSaved.toFixed(2)}
+                        💰 {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'Вы сэкономили' : 'You saved'}: AED {totalSavingsIncludingRewards.toFixed(2)}
                       </span>
                     </div>
                   )}

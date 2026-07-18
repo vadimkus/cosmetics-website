@@ -106,7 +106,7 @@ const ProductInfo = memo(function ProductInfo({
       </div>
       
       {/* Size and Stock Row */}
-      <div className="flex items-center gap-2 mb-2 flex-wrap">
+      <div className="product-card__meta flex items-center gap-2 mb-2 flex-wrap">
         {/* Size Badge */}
         {(product.size || product.id === '37') && (
           <span className="inline-flex items-center px-2 py-1 rounded-md text-[10px] md:text-xs font-medium bg-gray-100 text-gray-700">
@@ -129,7 +129,7 @@ const ProductInfo = memo(function ProductInfo({
       {/* Description — clamped to 2 lines on all breakpoints (was 4 on mobile, too noisy) */}
       <p 
         id={descriptionId}
-        className="text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2"
+        className="product-card__desc text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2"
       >
         {cleanDescription}
       </p>

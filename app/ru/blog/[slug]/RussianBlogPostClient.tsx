@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { Calendar, User, ArrowLeft } from 'lucide-react'
 import BlogComments from '@/components/blog/BlogComments'
 import BlackFridayCountdown from '@/components/BlackFridayCountdown'
@@ -11,6 +10,8 @@ import { sanitizeHtml } from '@/lib/sanitize'
 import { optimizeBlogContentImages } from '@/lib/blogContentImages'
 import { useMemo } from 'react'
 import ReadingProgress from '@/components/ui/ReadingProgressV3'
+import BlogContentHtml from '@/components/blog/BlogContentHtml'
+import BlogFeaturedImage from '@/components/blog/BlogFeaturedImage'
 
 type BlogPostWithComments = {
   id: string
@@ -32,9 +33,13 @@ type BlogPostWithComments = {
 
 interface RussianBlogPostClientProps {
   post: BlogPostWithComments
+  featuredImageDimensions: { width: number; height: number }
 }
 
-export default function RussianBlogPostClient({ post }: RussianBlogPostClientProps) {
+export default function RussianBlogPostClient({
+  post,
+  featuredImageDimensions,
+}: RussianBlogPostClientProps) {
   const { t, locale, dir } = useTranslation()
 
   return (
@@ -98,16 +103,11 @@ export default function RussianBlogPostClient({ post }: RussianBlogPostClientPro
             </div>
 
             {post.featuredImage && (
-              <div className="relative w-full rounded-xl overflow-hidden mb-10 shadow-lg bg-gray-50" style={{ aspectRatio: '1522 / 922' }}>
-                <Image
-                  src={post.featuredImage}
-                  alt={`${post.title} - Статья блога GENOSYS о профессиональной корейской дерматокосметике`}
-                  fill
-                  className="object-contain"
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 896px"
-                />
-              </div>
+              <BlogFeaturedImage
+                src={post.featuredImage}
+                alt={`${post.title} - Статья блога GENOSYS о профессиональной корейской дерматокосметике`}
+                dimensions={featuredImageDimensions}
+              />
             )}
 
             {/* Black Friday Countdown Timer - Only for Black Friday post */}
@@ -119,9 +119,9 @@ export default function RussianBlogPostClient({ post }: RussianBlogPostClientPro
           </header>
 
           {/* Article Content */}
-          <div 
+          <BlogContentHtml
             className="blog-content prose prose-lg prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base md:prose-p:text-lg prose-strong:text-gray-900 prose-strong:font-semibold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-ul:text-gray-700 prose-li:text-gray-700 prose-li:leading-relaxed prose-li:mb-2 max-w-none mb-12 break-words"
-            dangerouslySetInnerHTML={{ __html: useMemo(() => optimizeBlogContentImages(sanitizeHtml(post.content)), [post.content]) }}
+            html={useMemo(() => optimizeBlogContentImages(sanitizeHtml(post.content)), [post.content])}
           />
 
           {/* End-of-article: back to articles + meta */}

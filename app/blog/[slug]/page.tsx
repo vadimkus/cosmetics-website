@@ -1,6 +1,5 @@
 import { cache } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { Calendar, User, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import BlogComments from '@/components/blog/BlogComments'
@@ -15,8 +14,14 @@ import { errorLog } from '@/lib/logger'
 import { sanitizeHtml } from '@/lib/sanitize'
 import { stripHtml } from '@/lib/sanitizeHtml'
 import { toJsonLd } from '@/lib/jsonLd'
-import { optimizeBlogContentImages } from '@/lib/blogContentImages'
+import {
+  optimizeBlogContentImages,
+  stripOpeningFeaturedImage,
+} from '@/lib/blogContentImages'
 import { buildUrl } from '@/lib/siteConfig'
+import BlogContentHtml from '@/components/blog/BlogContentHtml'
+import BlogFeaturedImage from '@/components/blog/BlogFeaturedImage'
+import { getBlogImageDimensions } from '@/lib/blogImageDimensions.server'
 
 // Revalidate blog post every 60 seconds to show updates quickly
 export const revalidate = 60
@@ -184,20 +189,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound()
   }
 
-  // Remove featured image from content if it appears there (to avoid duplication)
-  let content = post.content
-  if (post.featuredImage) {
-    // Escape special regex characters in the image path
-    const escapedPath = post.featuredImage.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    // Match img tags with the featured image src (handles both single and double quotes)
-    const imgRegex = new RegExp(`<img[^>]*src=["']${escapedPath}["'][^>]*>`, 'gi')
-    // Also match img tags within div containers
-    const divImgRegex = new RegExp(`<div[^>]*>\\s*<img[^>]*src=["']${escapedPath}["'][^>]*>\\s*</div>`, 'gi')
-    content = content.replace(divImgRegex, '').replace(imgRegex, '')
-  }
+  // If the featured image is repeated at the very start of the body, strip that
+  // opening duplicate only. Later intentional uses (pair cards, etc.) stay.
+  let content = stripOpeningFeaturedImage(post.content, post.featuredImage)
 
   // Sanitize content to prevent XSS attacks
   content = sanitizeHtml(content)
+  const featuredImageDimensions = await getBlogImageDimensions(post.featuredImage)
 
   return (
     <BlogPostClient>
@@ -298,16 +296,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </div>
 
             {post.featuredImage && (
-              <div className="relative w-full rounded-xl overflow-hidden mb-10 shadow-lg bg-gray-50" style={{ aspectRatio: '1522 / 922' }}>
-                <Image
-                  src={post.featuredImage}
-                  alt={`${post.title} - GENOSYS Professional Korean Dermacosmetics Blog Post`}
-                  fill
-                  className="object-contain"
-                  priority
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 896px"
-                />
-              </div>
+              <BlogFeaturedImage
+                src={post.featuredImage}
+                alt={`${post.title} - GENOSYS Professional Korean Dermacosmetics Blog Post`}
+                dimensions={featuredImageDimensions}
+              />
             )}
 
             {/* Black Friday Countdown Timer - Only for Black Friday post */}
@@ -319,9 +312,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </header>
 
           {/* Article Content */}
-          <div 
+          <BlogContentHtml
             className="blog-content prose prose-lg prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base md:prose-p:text-lg prose-strong:text-gray-900 prose-strong:font-semibold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-ul:text-gray-700 prose-li:text-gray-700 prose-li:leading-relaxed prose-li:mb-2 max-w-none mb-12"
-            dangerouslySetInnerHTML={{ __html: optimizeBlogContentImages(sanitizeHtml(content)) }}
+            html={optimizeBlogContentImages(sanitizeHtml(content))}
           />
 
           {/* End-of-article: back to articles + share/related affordance */}

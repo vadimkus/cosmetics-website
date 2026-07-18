@@ -9,6 +9,8 @@ import ArabicBlogPostClient from './ArabicBlogPostClient'
 import { buildUrl } from '@/lib/siteConfig'
 import { stripHtml } from '@/lib/sanitizeHtml'
 import { toJsonLd } from '@/lib/jsonLd'
+import { getBlogImageDimensions } from '@/lib/blogImageDimensions.server'
+import { stripOpeningFeaturedImage } from '@/lib/blogContentImages'
 
 // Match the EN blog slug page — ISR every 60 seconds so edits propagate quickly.
 export const revalidate = 60
@@ -177,18 +179,11 @@ export default async function ArabicBlogPostPage({ params }: BlogPostPageProps) 
   // Use Arabic content if available, otherwise fall back to English
   const title = post.titleAr || post.title
   const excerpt = post.excerptAr || post.excerpt
-  let content = post.contentAr || post.content
-
-  // Remove featured image from content if it appears there (to avoid duplication)
-  if (post.featuredImage) {
-    // Escape special regex characters in the image path
-    const escapedPath = post.featuredImage.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-    // Match img tags with the featured image src (handles both single and double quotes)
-    const imgRegex = new RegExp(`<img[^>]*src=["']${escapedPath}["'][^>]*>`, 'gi')
-    // Also match img tags within div containers
-    const divImgRegex = new RegExp(`<div[^>]*>\\s*<img[^>]*src=["']${escapedPath}["'][^>]*>\\s*</div>`, 'gi')
-    content = content.replace(divImgRegex, '').replace(imgRegex, '')
-  }
+  const content = stripOpeningFeaturedImage(
+    post.contentAr || post.content,
+    post.featuredImage
+  )
+  const featuredImageDimensions = await getBlogImageDimensions(post.featuredImage)
 
   return (
     <>
@@ -240,6 +235,7 @@ export default async function ArabicBlogPostPage({ params }: BlogPostPageProps) 
           excerpt,
           content,
         }}
+        featuredImageDimensions={featuredImageDimensions}
       />
     </>
   )

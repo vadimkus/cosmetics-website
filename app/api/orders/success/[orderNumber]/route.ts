@@ -120,6 +120,9 @@ export async function GET(
       // Bundle discount
       bundleDiscountPercentage: order.bundleDiscountPercentage,
       bundleDiscountAmount: order.bundleDiscountAmount,
+      // GENOSYS Rewards redemption
+      loyaltyPointsRedeemed: order.loyaltyPointsRedeemed,
+      loyaltyDiscountAmount: order.loyaltyDiscountAmount,
       // Items with full details
       items: order.items.map(item => ({
         id: item.id,

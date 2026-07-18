@@ -5,6 +5,8 @@ import { formatCurrency } from '@/lib/utils'
 interface OrderBreakdownProps {
   subtotal: number
   discountAmount?: number
+  loyaltyPointsRedeemed?: number
+  loyaltyDiscountAmount?: number
   shipping: number
   vat: number
   total: number
@@ -14,6 +16,8 @@ interface OrderBreakdownProps {
 export default function OrderBreakdown({
   subtotal,
   discountAmount = 0,
+  loyaltyPointsRedeemed = 0,
+  loyaltyDiscountAmount = 0,
   shipping,
   vat,
   total,
@@ -32,6 +36,12 @@ export default function OrderBreakdown({
           <div className="flex justify-between text-green-600">
             <span>Discount:</span>
             <span>-{formatCurrency(discountAmount)}</span>
+          </div>
+        )}
+        {loyaltyDiscountAmount > 0 && loyaltyPointsRedeemed > 0 && (
+          <div className="flex justify-between text-blue-600">
+            <span>GENOSYS Rewards ({loyaltyPointsRedeemed.toLocaleString()} pts):</span>
+            <span>-{formatCurrency(loyaltyDiscountAmount)}</span>
           </div>
         )}
         <div className="flex justify-between">

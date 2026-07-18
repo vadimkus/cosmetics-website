@@ -487,6 +487,10 @@ export const emailTemplates = {
     const isRTL = locale === 'ar'
     const textAlign = isRTL ? 'right' : 'left'
     const textAlignReverse = isRTL ? 'left' : 'right'
+    const loyaltyPointsLocale =
+      locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-US'
+    const loyaltyPointsLabel =
+      locale === 'ar' ? 'نقطة' : locale === 'ru' ? 'балл.' : 'pts'
     
     // Count paid items and free items
     const paidItems = orderData.items.filter(item => item.price > 0 && !item.productName.toLowerCase().includes('(free)'))
@@ -691,15 +695,20 @@ export const emailTemplates = {
                 ${(() => {
                   const _hasUserDiscount = (orderData.discountAmount || 0) > 0
                   const _hasBundleDiscount = (orderData.bundleDiscountAmount || 0) > 0
-                  const _hasAnyDiscount = _hasUserDiscount || _hasBundleDiscount
+                  const _hasProductDiscount = _hasUserDiscount || _hasBundleDiscount
+                  const _hasLoyaltyDiscount = (orderData.loyaltyDiscountAmount || 0) > 0
+                  const _hasAnySavings = _hasProductDiscount || _hasLoyaltyDiscount
                   const _retailTotal = orderData.subtotal + (orderData.discountAmount || 0) + (orderData.bundleDiscountAmount || 0)
                   const _afterVipSubtotal = _retailTotal - (orderData.discountAmount || 0)
-                  const _totalSaved = (orderData.discountAmount || 0) + (orderData.bundleDiscountAmount || 0)
+                  const _totalSaved =
+                    (orderData.discountAmount || 0) +
+                    (orderData.bundleDiscountAmount || 0) +
+                    (orderData.loyaltyDiscountAmount || 0)
                   
                   return `<tr>
                   <td style="padding-top: 24px;">
                     <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;">
-                      ${_hasAnyDiscount ? `
+                      ${_hasProductDiscount ? `
                       <!-- Retail Price (original before discounts) -->
                       <tr>
                         <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">
@@ -739,7 +748,7 @@ export const emailTemplates = {
                         <td style="padding: 8px 0; font-size: 15px; color: #16a34a; font-weight: 500; text-align: ${textAlignReverse};">-AED ${(orderData.bundleDiscountAmount || 0).toFixed(2)}</td>
                       </tr>
                       ` : ''}
-                      ${_hasAnyDiscount ? `
+                      ${_hasProductDiscount ? `
                       <!-- Net Subtotal separator -->
                       <tr>
                         <td colspan="2" style="padding: 4px 0;">
@@ -758,7 +767,7 @@ export const emailTemplates = {
                       </tr>
                       ${(orderData.loyaltyDiscountAmount || 0) > 0 ? `
                       <tr>
-                        <td style="padding: 8px 0; font-size: 15px; color: #0071e3; font-weight: 500; text-align: ${textAlign};">★ GENOSYS Rewards (${(orderData.loyaltyPointsRedeemed || 0).toLocaleString('en-US')} pts)</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #0071e3; font-weight: 500; text-align: ${textAlign};">★ GENOSYS Rewards (${(orderData.loyaltyPointsRedeemed || 0).toLocaleString(loyaltyPointsLocale)} ${loyaltyPointsLabel})</td>
                         <td style="padding: 8px 0; font-size: 15px; color: #0071e3; font-weight: 500; text-align: ${textAlignReverse};">-AED ${(orderData.loyaltyDiscountAmount || 0).toFixed(2)}</td>
                       </tr>
                       ` : ''}
@@ -782,7 +791,7 @@ export const emailTemplates = {
                         <td style="padding: 8px 0; font-size: 18px; font-weight: 700; color: #1d1d1f; text-align: ${textAlign};">${t.totalLabel || 'Total:'}</td>
                         <td style="padding: 8px 0; font-size: 18px; font-weight: 700; color: #dc2626; text-align: ${textAlignReverse};">AED ${orderData.total.toFixed(2)}</td>
                       </tr>
-                      ${_hasAnyDiscount ? `
+                      ${_hasAnySavings ? `
                       <!-- You Saved -->
                       <tr>
                         <td colspan="2" style="padding: 12px 0 0 0;">
@@ -1383,6 +1392,18 @@ export const emailTemplates = {
                               <tr>
                                 <td style="color: #374151; font-size: 14px;">🚚 Shipping${orderData.emirate ? ` to ${orderData.emirate}` : ''}:</td>
                                 <td align="right" style="font-size: 14px; font-weight: 500; ${orderData.shipping === 0 ? 'color: #059669;' : 'color: #374151;'}">${orderData.shipping === 0 ? 'FREE' : `AED ${orderData.shipping.toFixed(2)}`}</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+            ` : ''}
+            ${(orderData.loyaltyDiscountAmount || 0) > 0 ? `
+                        <tr>
+                          <td style="padding: 8px 0; border-top: 1px solid #e5e7eb;">
+                            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                              <tr>
+                                <td style="color: #2563eb; font-size: 14px; font-weight: 600;">★ GENOSYS Rewards (${(orderData.loyaltyPointsRedeemed || 0).toLocaleString('en-US')} pts):</td>
+                                <td align="right" style="color: #2563eb; font-size: 14px; font-weight: 600;">-AED ${(orderData.loyaltyDiscountAmount || 0).toFixed(2)}</td>
                               </tr>
                             </table>
                           </td>

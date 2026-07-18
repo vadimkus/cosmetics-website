@@ -1,0 +1,214 @@
+/* Platform polish — loaded separately so Tailwind/LightningCSS does not strip it */
+
+h1, h2, h3, h4, h5, h6,
+.font-display {
+  text-wrap: balance;
+}
+
+@supports (text-wrap: pretty) {
+  .prose p,
+  article p {
+    text-wrap: pretty;
+  }
+}
+
+/* ============================================================================
+   WEB PLATFORM POLISH (2026-07) — progressive enhancement only
+   text-wrap / scroll progress / view() reveals / :has forms /
+   field-sizing / accordion / container queries / OKLCH mixes /
+   PDP gallery view-transition
+   ============================================================================ */
+
+/* --- Reading progress (blog + guides) ---
+   JS (ReadingProgress.tsx) sets inline transform: scaleX(p). */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 100;
+  pointer-events: none;
+  transform-origin: left center;
+  background: linear-gradient(
+    90deg,
+    var(--brand-red, #dc2626),
+    color-mix(in srgb, var(--brand-red, #dc2626) 70%, #f59e0b)
+  );
+  transform: scaleX(0);
+  opacity: 1;
+  will-change: transform;
+}
+
+/* --- Blog embedded videos: same params as PDP (/products/52) ---
+   Wrapper: max-w-sm + rounded-xl overflow-hidden shadow-lg bg-black
+   Video:   w-auto max-w-full max-h-[65vh] (width shrinks with max-h — no letterbox) */
+.blog-content video {
+  display: block;
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 65vh !important;
+  margin: 0 auto;
+  border-radius: 0;
+  background: transparent;
+  object-fit: contain;
+}
+
+.blog-content div:has(> video) {
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 0.75rem; /* rounded-xl */
+  background: #000;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* --- Home section scroll reveals (JS toggles .is-in-view both ways) --- */
+.reveal-on-view {
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.9s ease;
+}
+
+.reveal-on-view.reveal-ready:not(.is-in-view) {
+  will-change: opacity, transform, filter;
+  opacity: 0;
+  transform: translateY(64px) scale(0.97);
+  filter: blur(2px);
+}
+
+.reveal-on-view.is-in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: none;
+}
+
+/* --- Form field :has() states (visual only — does not change validation logic) --- */
+.form-field {
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.form-field:has(:focus-within) input,
+.form-field:has(:focus-within) textarea,
+.form-field:has(:focus-within) select {
+  border-color: var(--color-primary-500, #ef4444);
+  box-shadow: 0 0 0 3px var(--brand-red-ring, rgba(220, 38, 38, 0.2));
+}
+
+.form-enhanced:has(input:invalid:not(:placeholder-shown):not(:focus)),
+.form-field:has(input:invalid:not(:placeholder-shown):not(:focus)) input,
+.form-field:has(textarea:invalid:not(:placeholder-shown):not(:focus)) textarea {
+  border-color: #fca5a5;
+}
+
+.form-enhanced:has(input:valid:not(:placeholder-shown)),
+.form-field:has(input:valid:not(:placeholder-shown):not(:focus)) input {
+  border-color: #86efac;
+}
+
+/* Newsletter pill row (div.form-enhanced wrapping inputs) */
+div.form-enhanced:has(input:focus) {
+  border-color: var(--color-primary-400, #f87171);
+  box-shadow: 0 0 0 3px var(--brand-red-ring, rgba(220, 38, 38, 0.2));
+}
+
+/* Login / checkout forms: soft valid/invalid borders without JS */
+form.form-enhanced input:invalid:not(:placeholder-shown):not(:focus),
+form.form-enhanced textarea:invalid:not(:placeholder-shown):not(:focus) {
+  border-color: #fca5a5;
+}
+
+form.form-enhanced input[type='email']:valid:not(:placeholder-shown):not(:focus) {
+  border-color: #86efac;
+}
+
+/* --- Auto-growing textareas --- */
+@supports (field-sizing: content) {
+  textarea.auto-grow {
+    field-sizing: content;
+    min-height: 4.5rem;
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+}
+
+/* --- Accordion panel height (grid 0fr → 1fr) --- */
+.accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms ease;
+}
+
+.accordion-panel[data-open='true'] {
+  grid-template-rows: 1fr;
+}
+
+.accordion-panel__inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* --- Product card container queries --- */
+.product-card-cq {
+  container-type: inline-size;
+  container-name: product-card;
+}
+
+@container product-card (max-width: 200px) {
+  .product-card-cq .product-card__desc {
+    display: none;
+  }
+
+  .product-card-cq .product-card__meta {
+    gap: 0.25rem;
+  }
+
+  .product-card-cq h3 {
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+}
+
+@container product-card (min-width: 260px) {
+  .product-card-cq h3 {
+    font-size: 1.05rem;
+  }
+}
+
+/* --- OKLCH / color-mix brand soft tokens (hex remains fallback) --- */
+@supports (color: color-mix(in oklch, red, white)) {
+  :root {
+    --brand-red-soft: color-mix(in oklch, var(--brand-red, #dc2626) 14%, white);
+    --brand-red-ring: color-mix(in oklch, var(--brand-red, #dc2626) 22%, transparent);
+  }
+}
+
+/* --- Reduced motion: kill polish animations --- */
+@media (prefers-reduced-motion: reduce) {
+  .reading-progress,
+  .reveal-on-view,
+  .accordion-panel {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .reading-progress {
+    display: none;
+  }
+
+  .accordion-panel {
+    grid-template-rows: 0fr;
+  }
+
+  .accordion-panel[data-open='true'] {
+    grid-template-rows: 1fr;
+  }
+}

@@ -66,6 +66,8 @@ function sanitizeTagAttributes(tagName: string, attrs: string): string {
     allowedAttrs.add('loop')
     allowedAttrs.add('width')
     allowedAttrs.add('height')
+    // Portrait product clips need aspect-ratio through sanitize (poster is often square).
+    allowedAttrs.add('style')
   }
   if (t === 'td' || t === 'th') {
     allowedAttrs.add('colspan')
@@ -88,9 +90,21 @@ function sanitizeTagAttributes(tagName: string, attrs: string): string {
       if (!/^(https?:|mailto:|tel:|\/)/i.test(unq)) continue
     }
     if (key === 'style') {
-      // Keep only "color:" declarations
       const v = raw.replace(/^style\s*=\s*/i, '').trim()
       const unq = v.replace(/^['"]|['"]$/g, '')
+      if (t === 'video') {
+        // Safe layout-only props for blog/PDP-parity video sizing
+        const allowed = unq
+          .split(';')
+          .map((s) => s.trim())
+          .filter((s) =>
+            /^(aspect-ratio|max-width|max-height|width|height|object-fit)\s*:/i.test(s)
+          )
+        if (!allowed.length) continue
+        kept.push(`style="${allowed.join('; ')}"`)
+        continue
+      }
+      // Keep only "color:" declarations for other tags
       const colorMatch = unq.match(/color\s*:\s*[^;]+/i)
       if (!colorMatch) continue
       kept.push(`style="${colorMatch[0]}"`)

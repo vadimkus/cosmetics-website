@@ -195,14 +195,17 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
         data: updateData
       })
 
+      // Settlement is idempotent and intentionally independent from the email
+      // transition claim. A webhook retry can therefore recover a transient
+      // ledger failure even when another observer already marked the order paid.
+      await settleLoyaltyRedemption(order)
+
       if (claim.count === 1) {
         debugLog('✅ Webhook won paid-transition:', {
           orderId: order.orderNumber,
           paymentStatus: updateData.paymentStatus,
           status: updateData.status
         })
-
-        await settleLoyaltyRedemption(order)
 
         debugLog('📧 Order newly paid, sending confirmation emails:', order.orderNumber)
         await sendConfirmationEmails(order)
@@ -294,12 +297,13 @@ async function handlePaymentIntentSucceeded(paymentIntent: Stripe.PaymentIntent)
       }
     })
 
+    await settleLoyaltyRedemption(order)
+
     if (claim.count === 1) {
       debugLog('✅ Order marked as paid:', {
         orderId: order.orderNumber,
         paymentIntentId: paymentIntent.id
       })
-      await settleLoyaltyRedemption(order)
       await sendConfirmationEmails(order)
     } else {
       debugLog('ℹ️ Order already marked as paid, skipping duplicate emails:', order.orderNumber)
@@ -548,7 +552,9 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       discountPercentage: hasUserDiscount ? userDiscountPct : 0,
       discountAmount: order.discountAmount ?? 0,
       bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
-      bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
+      bundleDiscountAmount: order.bundleDiscountAmount ?? undefined,
+      loyaltyPointsRedeemed: order.loyaltyPointsRedeemed ?? undefined,
+      loyaltyDiscountAmount: order.loyaltyDiscountAmount ?? undefined,
     })
 
     debugLog('✅ Admin notification sent for order:', order.orderNumber)

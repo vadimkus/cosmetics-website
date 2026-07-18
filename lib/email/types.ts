@@ -89,6 +89,8 @@ export interface AdminNewOrderEmailData {
   discountAmount?: number | undefined
   bundleDiscountPercentage?: number | undefined
   bundleDiscountAmount?: number | undefined
+  loyaltyPointsRedeemed?: number | undefined
+  loyaltyDiscountAmount?: number | undefined
 }
 
 // Order status update email data

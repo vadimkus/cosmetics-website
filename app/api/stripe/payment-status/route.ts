@@ -37,6 +37,37 @@ async function claimPaidTransition(
 }
 
 /**
+ * Card orders store the requested redemption on the order and debit the ledger
+ * only after Stripe confirms payment. Every successful observer may call this:
+ * the ledger's (orderId, type) constraint makes it idempotent and also lets a
+ * later poll/webhook retry recover from a transient settlement failure.
+ */
+async function settleLoyaltyRedemption(
+  order: OrderWithItems,
+  context: 'session-poll' | 'payment-intent-poll'
+) {
+  const points = Number(order.loyaltyPointsRedeemed || 0)
+  if (points <= 0) return
+
+  try {
+    const loyaltyUser = await findUserByEmail(order.customerEmail)
+    if (!loyaltyUser) {
+      errorLog('❌ Loyalty redemption settle: user not found for', order.customerEmail)
+      return
+    }
+    await recordRedemption({
+      userId: loyaltyUser.id,
+      orderId: order.id,
+      orderNumber: order.orderNumber,
+      points,
+      amountAed: Number(order.loyaltyDiscountAmount || 0),
+    })
+  } catch (loyaltyError) {
+    errorLog(`❌ Loyalty redemption settle failed (${context}):`, loyaltyError)
+  }
+}
+
+/**
  * Sends the customer confirmation email and the admin new-order notification
  * for an order that just transitioned to paid. Mirrors the logic used by the
  * Stripe webhook so both paths produce identical emails.
@@ -96,7 +127,9 @@ async function sendPaidConfirmationEmails(order: OrderWithItems) {
       discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
       discountAmount: order.discountAmount ?? undefined,
       bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
-      bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
+      bundleDiscountAmount: order.bundleDiscountAmount ?? undefined,
+      loyaltyPointsRedeemed: order.loyaltyPointsRedeemed ?? undefined,
+      loyaltyDiscountAmount: order.loyaltyDiscountAmount ?? undefined,
     })
 
     debugLog('📧 Customer email sent for order:', order.orderNumber)
@@ -163,7 +196,9 @@ async function sendPaidConfirmationEmails(order: OrderWithItems) {
     discountPercentage: hasUserDiscount ? userDiscountPct : 0,
     discountAmount: order.discountAmount ?? 0,
     bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
-    bundleDiscountAmount: order.bundleDiscountAmount ?? undefined
+    bundleDiscountAmount: order.bundleDiscountAmount ?? undefined,
+    loyaltyPointsRedeemed: order.loyaltyPointsRedeemed ?? undefined,
+    loyaltyDiscountAmount: order.loyaltyDiscountAmount ?? undefined,
   })
 
   debugLog('📧 Admin notification sent for order:', order.orderNumber)
@@ -240,6 +275,10 @@ export async function GET(request: NextRequest) {
         orderStatus = 'FAILED'
     }
 
+    if (paymentStatus === 'paid') {
+      await settleLoyaltyRedemption(order, 'session-poll')
+    }
+
     // When a payment becomes paid, both this poll and the Stripe webhook race to
     // handle it. We atomically claim the pending -> paid transition so that
     // exactly one path marks the order paid AND sends the emails. Previously this
@@ -259,24 +298,6 @@ export async function GET(request: NextRequest) {
         })
 
         if (won) {
-          // Settle deferred loyalty redemption (idempotent — one REDEEM per order)
-          if (Number(order.loyaltyPointsRedeemed || 0) > 0) {
-            try {
-              const loyaltyUser = await findUserByEmail(order.customerEmail)
-              if (loyaltyUser) {
-                await recordRedemption({
-                  userId: loyaltyUser.id,
-                  orderId: order.id,
-                  orderNumber: order.orderNumber,
-                  points: Number(order.loyaltyPointsRedeemed || 0),
-                  amountAed: Number(order.loyaltyDiscountAmount || 0),
-                })
-              }
-            } catch (loyaltyError) {
-              errorLog('❌ Loyalty redemption settle failed (poll path):', loyaltyError)
-            }
-          }
-
           debugLog('📧 Payment-status poll won paid-transition, sending confirmation emails for:', order.orderNumber)
           try {
             await sendPaidConfirmationEmails(order)
@@ -439,6 +460,10 @@ async function handlePaymentIntentStatus(paymentIntentId: string, orderId: strin
       default:
         paymentStatus = 'failed'
         orderStatus = 'FAILED'
+    }
+
+    if (paymentStatus === 'paid') {
+      await settleLoyaltyRedemption(order, 'payment-intent-poll')
     }
 
     const justBecamePaid = paymentStatus === 'paid' && order.paymentStatus !== 'paid'

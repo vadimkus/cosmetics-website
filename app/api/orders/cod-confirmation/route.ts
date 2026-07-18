@@ -5,7 +5,12 @@ import { verifySessionToken } from '@/lib/jwt'
 import { resolveRedemptionForCheckout, recordRedemption } from '@/lib/loyalty'
 import { sendEmail, sendAdminNewOrderNotification, generateCODOrderHTML, OrderHTMLData, OrderHTMLItem } from '@/lib/email'
 import { debugLog, errorLog } from '@/lib/logger'
-import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
+import {
+  addOrder,
+  getOrderByNumber,
+  OrderData,
+  OrderItemData,
+} from '@/lib/orderStorageDb'
 import { requireCsrfToken } from '@/lib/csrf'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { enhanceOrderItemWithDefaultSize } from '@/lib/orderSizeDefaults'
@@ -371,32 +376,57 @@ export async function POST(request: NextRequest) {
       locale: locale || 'en' // Capture locale from request, default to English
     }
 
-    // Save to database with timeout protection
-    let savedOrder
-    try {
-      const savePromise = addOrder(dbOrder)
-      const timeoutPromise = new Promise((_, reject) => 
-        setTimeout(() => reject(new Error('Database save timeout after 8 seconds')), 8000)
-      )
-      savedOrder = await Promise.race([savePromise, timeoutPromise]) as Awaited<ReturnType<typeof addOrder>>
-      debugLog('✅ COD order saved to database:', savedOrder.id)
-
-      // Deduct redeemed points now that the order row exists (idempotent per order)
-      if (loyaltyRedemption.points > 0 && user) {
+    // Deduct redeemed points only after a real order row exists. The helper is
+    // idempotent and retries once for transient DB errors.
+    const settleCodRedemption = async (
+      persistedOrder: Awaited<ReturnType<typeof addOrder>>
+    ) => {
+      if (loyaltyRedemption.points <= 0 || !user || persistedOrder.id === 'pending') return
+      let lastError: unknown
+      for (let attempt = 1; attempt <= 2; attempt += 1) {
         try {
           await recordRedemption({
             userId: user.id,
-            orderId: savedOrder.id,
+            orderId: persistedOrder.id,
             orderNumber,
             points: loyaltyRedemption.points,
             amountAed: loyaltyRedemption.amountAed,
           })
           debugLog(`✅ Loyalty: -${loyaltyRedemption.points} pts redeemed on ${orderNumber}`)
+          return
         } catch (redeemError) {
-          errorLog('❌ Loyalty redemption ledger write failed:', redeemError)
+          lastError = redeemError
+          errorLog(`❌ Loyalty redemption ledger write failed (attempt ${attempt}):`, redeemError)
         }
       }
+      throw lastError
+    }
+
+    // Save to database with timeout protection. If the timeout wins, keep using
+    // the original save promise instead of starting a duplicate write; once it
+    // resolves in the background, settle the redemption against its real ID.
+    let savedOrder
+    const savePromise = addOrder(dbOrder)
+    let saveTimeout: ReturnType<typeof setTimeout> | undefined
+    try {
+      const timeoutPromise = new Promise<never>((_, reject) => {
+        saveTimeout = setTimeout(
+          () => reject(new Error('Database save timeout after 8 seconds')),
+          8000
+        )
+      })
+      savedOrder = await Promise.race([savePromise, timeoutPromise])
+      if (saveTimeout) clearTimeout(saveTimeout)
+      debugLog('✅ COD order saved to database:', savedOrder.id)
+      try {
+        await settleCodRedemption(savedOrder)
+      } catch (redeemError) {
+        // The order exists and must not be downgraded to the email-only fallback.
+        // Keep the explicit error for operational recovery.
+        errorLog('❌ COD order saved but loyalty settlement failed after retry:', redeemError)
+      }
     } catch (dbError) {
+      if (saveTimeout) clearTimeout(saveTimeout)
       errorLog('⚠️ Database save failed or timed out, continuing with order processing:', dbError)
       // Continue even if database save fails - order will be processed via email
       // Create a minimal order object for fallback (matches Order type structure)
@@ -442,12 +472,27 @@ export async function POST(request: NextRequest) {
         items: []
       } as Awaited<ReturnType<typeof addOrder>>
       
-      // Try to save asynchronously in background (don't wait)
-      addOrder(dbOrder).then((retryOrder) => {
-        debugLog('✅ COD order saved to database (retry):', retryOrder.id)
-      }).catch((retryError) => {
-        errorLog('❌ Retry database save also failed:', retryError)
-      })
+      // Continue the original save asynchronously. If it genuinely rejected,
+      // perform one retry. A connection can also drop after the first insert
+      // committed; if that makes the retry hit the unique order number, recover
+      // the existing row so loyalty still settles.
+      void savePromise
+        .catch(async () => {
+          try {
+            return await addOrder(dbOrder)
+          } catch (retryError) {
+            const existingOrder = await getOrderByNumber(dbOrder.orderNumber)
+            if (existingOrder) return existingOrder
+            throw retryError
+          }
+        })
+        .then(async (retryOrder) => {
+          debugLog('✅ COD order saved to database (background):', retryOrder.id)
+          await settleCodRedemption(retryOrder)
+        })
+        .catch((retryError) => {
+          errorLog('❌ Background order save/redemption settlement failed:', retryError)
+        })
     }
 
     // Prepare order HTML data with proper types
@@ -631,7 +676,9 @@ export async function POST(request: NextRequest) {
           discountPercentage: hasUserDiscount ? userDiscountPct : undefined,
           discountAmount: discountAmount > 0 ? discountAmount : undefined,
           bundleDiscountPercentage: bundleDiscountPercentCalc ?? undefined,
-          bundleDiscountAmount: bundleDiscountAmountCalc > 0 ? bundleDiscountAmountCalc : undefined
+          bundleDiscountAmount: bundleDiscountAmountCalc > 0 ? bundleDiscountAmountCalc : undefined,
+          loyaltyPointsRedeemed: loyaltyRedemption.points > 0 ? loyaltyRedemption.points : undefined,
+          loyaltyDiscountAmount: loyaltyRedemption.amountAed > 0 ? loyaltyRedemption.amountAed : undefined,
         })
         if (adminResult.success) {
           debugLog('✅ Admin notification sent successfully for COD order:', orderNumber)

@@ -12,7 +12,7 @@ import { getProductById } from '@/lib/productsDb'
 import { getCartLinePricing } from '@/lib/cartPricing'
 import { canonicalOrderItemImage } from '@/lib/orderItemImage'
 import { getCustomerEmailWhere } from '@/lib/mobileOrderOwnership'
-import { resolveRedemptionForCheckout, recordRedemption, loyaltyTrackForUser } from '@/lib/loyalty'
+import { estimateOrderPoints, resolveRedemptionForCheckout, recordRedemption, loyaltyTrackForUser } from '@/lib/loyalty'
 
 /**
  * Points earned per order for display in order history.
@@ -700,7 +700,16 @@ export async function POST(request: NextRequest) {
           bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
           bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined,
           loyaltyPointsRedeemed: (order.loyaltyPointsRedeemed || 0) > 0 ? order.loyaltyPointsRedeemed : undefined,
-          loyaltyDiscountAmount: (order.loyaltyDiscountAmount || 0) > 0 ? order.loyaltyDiscountAmount : undefined
+          loyaltyDiscountAmount: (order.loyaltyDiscountAmount || 0) > 0 ? order.loyaltyDiscountAmount : undefined,
+          ...(payment === 'COD'
+            ? {
+                loyaltyPointsExpected: estimateOrderPoints({
+                  total: order.total,
+                  shipping: order.shipping,
+                  user,
+                }),
+              }
+            : {}),
         })
         debugLog('[MOBILE_ORDERS] ✅ Order confirmation email sent to:', order.customerEmail)
       } catch (emailError) {

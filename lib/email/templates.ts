@@ -491,6 +491,17 @@ export const emailTemplates = {
       locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-US'
     const loyaltyPointsLabel =
       locale === 'ar' ? 'نقطة' : locale === 'ru' ? 'балл.' : 'pts'
+    const rewardsPoints = Math.max(0, Number(orderData.loyaltyPointsExpected) || 0)
+    const rewardsTitle = locale === 'ru'
+      ? `Вы получите ${rewardsPoints.toLocaleString(loyaltyPointsLocale)} балл. GENOSYS Rewards`
+      : locale === 'ar'
+        ? `ستحصل على ${rewardsPoints.toLocaleString(loyaltyPointsLocale)} نقطة من مكافآت GENOSYS`
+        : `You’ll earn ${rewardsPoints.toLocaleString(loyaltyPointsLocale)} GENOSYS Rewards points`
+    const rewardsTiming = locale === 'ru'
+      ? 'Баллы будут начислены после получения оплаты при доставке и перевода заказа в статус «Доставлен». Доставка не участвует в начислении баллов.'
+      : locale === 'ar'
+        ? 'ستُضاف النقاط بعد تحصيل الدفع عند الاستلام وتحديث الطلب إلى «تم التوصيل». رسوم التوصيل لا تكسب نقاطاً.'
+        : 'Points will be credited after your Cash on Delivery payment is collected and the order is marked delivered. Shipping does not earn points.'
     
     // Count paid items and free items
     const paidItems = orderData.items.filter(item => item.price > 0 && !item.productName.toLowerCase().includes('(free)'))
@@ -811,6 +822,26 @@ export const emailTemplates = {
                   </td>
                 </tr>`
                 })()}
+
+                ${rewardsPoints > 0 ? `
+                <!-- GENOSYS Rewards timing for mobile COD orders -->
+                <tr>
+                  <td style="padding-top: 24px;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px;">
+                      <tr>
+                        <td style="padding: 18px 22px; text-align: ${textAlign};">
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 16px; color: #1e40af; font-weight: 700; margin-bottom: 6px;">
+                            ★ ${rewardsTitle}
+                          </div>
+                          <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; line-height: 1.5; color: #1e3a8a;">
+                            ${rewardsTiming}
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                ` : ''}
                 
                 <!-- Delivery Info -->
                 <tr>

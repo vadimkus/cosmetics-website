@@ -43,6 +43,21 @@ describe('loyalty redemption in order emails', () => {
     expect(html).toContain('Shipping does not earn points')
   })
 
+  it('shows expected rewards in the mobile COD confirmation template', () => {
+    const template = emailTemplates.orderConfirmation({
+      ...base,
+      orderNumber: 'CODM2607197947',
+      address: 'Ajman',
+      emirate: 'Ajman',
+      locale: 'en',
+      loyaltyPointsExpected: 1500,
+    })
+
+    expect(template.html).toContain('You’ll earn 1,500 GENOSYS Rewards points')
+    expect(template.html).toContain('after your Cash on Delivery payment is collected')
+    expect(template.html).toContain('Shipping does not earn points')
+  })
+
   it('shows points and AED discount in the customer confirmation', () => {
     const template = emailTemplates.orderConfirmation({
       ...base,

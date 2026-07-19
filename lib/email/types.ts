@@ -50,6 +50,7 @@ export interface OrderConfirmationEmailData {
   bundleDiscountAmount?: number | undefined
   loyaltyPointsRedeemed?: number | undefined
   loyaltyDiscountAmount?: number | undefined
+  clinicPointsDiscountAmount?: number | undefined
 }
 
 // Admin new order notification data
@@ -91,6 +92,7 @@ export interface AdminNewOrderEmailData {
   bundleDiscountAmount?: number | undefined
   loyaltyPointsRedeemed?: number | undefined
   loyaltyDiscountAmount?: number | undefined
+  clinicPointsDiscountAmount?: number | undefined
 }
 
 // Order status update email data
@@ -134,4 +136,5 @@ export interface OrderHTMLData {
   bundleDiscountAmount?: number | undefined
   loyaltyPointsRedeemed?: number | undefined
   loyaltyDiscountAmount?: number | undefined
+  clinicPointsDiscountAmount?: number | undefined
 }

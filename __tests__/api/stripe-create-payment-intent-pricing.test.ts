@@ -87,6 +87,12 @@ jest.mock('@/lib/loyalty', () => ({
   recordRedemption: jest.fn(async () => true),
 }))
 
+jest.mock('@/lib/homecare', () => ({
+  validateHomecareAttribution: jest.fn(async () => null),
+  selectWinningHomecareAttribution: jest.fn(() => null),
+  computeHomecareEligibleAmounts: jest.fn((lines: unknown[]) => lines.map(() => 0)),
+}))
+
 jest.mock('next/headers', () => ({
   cookies: jest.fn(async () => ({ get: jest.fn(() => undefined) })),
 }))

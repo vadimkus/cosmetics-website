@@ -4,6 +4,11 @@
       {
         "appIDs": ["2842PLB7CS.ae.genosys.app"],
         "components": [
+          {
+            "/": "/r/*",
+            "exclude": true,
+            "comment": "Private Homecare recommendation links must remain in the patient web browser"
+          },
           { "/": "/products/*" },
           { "/": "/cart" },
           { "/": "/cart/*" },

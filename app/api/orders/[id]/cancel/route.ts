@@ -3,6 +3,7 @@ import { updateOrderStatus } from '@/lib/orderStorageDb'
 import { errorLog } from '@/lib/logger'
 import { requireCsrfToken } from '@/lib/csrf'
 import { reverseRedemptionForOrder } from '@/lib/loyalty'
+import { restoreClinicPointsRedemptionForOrder } from '@/lib/homecare'
 
 export async function POST(
   request: NextRequest,
@@ -32,6 +33,11 @@ export async function POST(
       await reverseRedemptionForOrder(id)
     } catch (loyaltyError) {
       errorLog('❌ Loyalty redemption reversal failed on cancel:', loyaltyError)
+    }
+    try {
+      await restoreClinicPointsRedemptionForOrder(id)
+    } catch (clinicPointsError) {
+      errorLog('❌ Clinic Points redemption restore failed on cancel:', clinicPointsError)
     }
 
     return NextResponse.json({ 

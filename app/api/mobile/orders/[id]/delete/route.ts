@@ -4,6 +4,17 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/database'
 
+async function restoreOrderRedemptions(orderId: string) {
+  const [{ reverseRedemptionForOrder }, { restoreClinicPointsRedemptionForOrder }] = await Promise.all([
+    import('@/lib/loyalty'),
+    import('@/lib/homecare'),
+  ])
+  await Promise.all([
+    reverseRedemptionForOrder(orderId),
+    restoreClinicPointsRedemptionForOrder(orderId),
+  ])
+}
+
 /**
  * Mobile Order Delete Fallback Endpoint (POST)
  *
@@ -78,9 +89,16 @@ export async function POST(
     // Stripe orders often have paymentStatus = "pending" until paid.
     const status = String(order.status || '').toUpperCase()
     const paymentStatus = String(order.paymentStatus || '').toUpperCase()
-    const isPendingStatus = status === 'PENDING'
+    const isPendingStatus = status === 'PENDING' || status === 'FAILED'
     const isPaidPayment = paymentStatus === 'PAID' || paymentStatus === 'CONFIRMED'
     const isDeletable = isPendingStatus && !isPaidPayment
+
+    // A previous attempt may have soft-deleted the order before a transient
+    // ledger failure. Retrying completes the idempotent restoration.
+    if (status === 'DELETED') {
+      await restoreOrderRedemptions(id)
+      return NextResponse.json({ success: true, message: 'Order already deleted' })
+    }
 
     if (!isDeletable) {
       const reason = isPaidPayment
@@ -99,6 +117,7 @@ export async function POST(
       where: { id },
       data: { status: 'DELETED', updatedAt: new Date() },
     })
+    await restoreOrderRedemptions(id)
 
     debugLog('[MOBILE_ORDERS_DELETE_POST] Order soft-deleted successfully', {
       orderId: id,

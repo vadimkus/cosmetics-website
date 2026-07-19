@@ -4,7 +4,7 @@ import { findUserByEmail } from '@/lib/userStorageDb'
 import { getProductById } from '@/lib/productsDb'
 import { canonicalOrderItemImage, ORDER_ITEM_IMAGE_FALLBACK } from '@/lib/orderItemImage'
 import { calculateDiscountedPrice } from '@/lib/discountUtils'
-import { addOrder, OrderData, OrderItemData } from '@/lib/orderStorageDb'
+import { OrderData, OrderItemData } from '@/lib/orderStorageDb'
 import { consignmentBlockReason, isValidCreditDays } from '@/lib/partnerCatalog'
 import { generateUniquePartnerOrderNumber } from '@/lib/orderNumber'
 import { calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
@@ -14,6 +14,7 @@ import type { OrderConfirmationEmailData } from '@/lib/email/types'
 import { createOrderCheckoutSession } from '@/lib/stripe'
 import { prisma } from '@/lib/prisma'
 import { debugLog, errorLog } from '@/lib/logger'
+import { createPartnerOrderWithClinicPoints } from '@/lib/homecare'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -84,6 +85,10 @@ export async function POST(request: NextRequest) {
     if (paymentOption === 'credit' && (!user.creditActive || !isValidCreditDays(creditDays))) {
       return NextResponse.json({ success: false, error: 'No active credit terms on this account.' }, { status: 403, headers: CORS })
     }
+    const requestedClinicPoints = Math.max(0, Number(body?.redeemClinicPoints) || 0)
+    if (requestedClinicPoints > 0 && paymentOption === 'consignment') {
+      return NextResponse.json({ success: false, error: 'Clinic Points cannot be used for consignment stock orders.' }, { status: 400, headers: CORS })
+    }
 
     const orderNotesInput =
       typeof body?.orderNotes === 'string' && body.orderNotes.trim() ? body.orderNotes.trim().slice(0, 1000) : ''
@@ -149,8 +154,8 @@ export async function POST(request: NextRequest) {
 
     subtotal = Math.round(subtotal * 100) / 100
     const shipping = 0
-    const total = subtotal
-    const vat = calculateVatIncluded(total)
+    let total = subtotal
+    let vat = calculateVatIncluded(total)
     const orderNumber = await generateUniquePartnerOrderNumber({ channel: 'M' })
 
     const paymentMethodByOption: Record<typeof paymentOption, string> = {
@@ -193,10 +198,19 @@ export async function POST(request: NextRequest) {
     }
 
     let savedOrderId = 'pending'
+    let clinicPointsRedeemed = 0
     try {
-      const saved = await addOrder(dbOrder)
-      savedOrderId = saved.id
-      debugLog('✅ Mobile partner order saved:', orderNumber, saved.id, paymentOption)
+      const saved = await createPartnerOrderWithClinicPoints({
+        orderData: dbOrder,
+        clinicUserId: user.id,
+        requestedPoints: requestedClinicPoints,
+        allowRedemption: paymentOption !== 'consignment',
+      })
+      savedOrderId = saved.order.id
+      clinicPointsRedeemed = saved.redeemed
+      total = saved.order.total
+      vat = saved.order.vat
+      debugLog('✅ Mobile partner order saved:', orderNumber, saved.order.id, paymentOption)
     } catch (dbError) {
       errorLog('❌ Mobile partner order DB save failed:', dbError)
       return NextResponse.json({ success: false, error: 'Could not save order' }, { status: 500, headers: CORS })
@@ -205,6 +219,12 @@ export async function POST(request: NextRequest) {
     // Online payment: hosted Stripe Checkout URL for the app to open.
     let paymentUrl: string | null = null
     if (paymentOption === 'online') {
+      if (total === 0) {
+        await prisma.order.update({
+          where: { id: savedOrderId },
+          data: { paymentStatus: 'paid', paidAt: new Date() },
+        })
+      } else {
       try {
         const session = await createOrderCheckoutSession({
           order: {
@@ -228,7 +248,8 @@ export async function POST(request: NextRequest) {
         })
       } catch (payErr) {
         errorLog('❌ Mobile partner online payment session failed:', orderNumber, payErr)
-        return NextResponse.json({ success: true, orderNumber, orderId: savedOrderId, total, paymentOption, paymentUrl: null, paymentError: true }, { headers: CORS })
+        return NextResponse.json({ success: true, orderNumber, orderId: savedOrderId, total, paymentOption, paymentUrl: null, paymentError: true, clinicPointsRedeemed }, { headers: CORS })
+      }
       }
     }
 
@@ -253,9 +274,10 @@ export async function POST(request: NextRequest) {
           shipping,
           vat,
           emirate,
-          paymentStatus: 'PENDING',
+          paymentStatus: total === 0 ? 'PAID' : 'PENDING',
           paymentMethod: `Partner (App) — ${settlementLabel}`,
           discountPercentage: Number(user.discountPercentage || 0) || undefined,
+          clinicPointsDiscountAmount: clinicPointsRedeemed || undefined,
         })
       } catch (emailError) {
         errorLog('❌ Failed to notify admin of mobile partner order:', orderNumber, emailError)
@@ -275,6 +297,7 @@ export async function POST(request: NextRequest) {
           address: user.address || 'Partner account',
           emirate,
           ...(dPct > 0 ? { discountPercentage: dPct } : {}),
+          clinicPointsDiscountAmount: clinicPointsRedeemed || undefined,
           locale: typeof body?.locale === 'string' ? body.locale : 'en',
         })
       } catch (emailError) {
@@ -283,7 +306,7 @@ export async function POST(request: NextRequest) {
     })
 
     return NextResponse.json(
-      { success: true, orderNumber, orderId: savedOrderId, total, paymentOption, paymentUrl },
+      { success: true, orderNumber, orderId: savedOrderId, total, paymentOption, paymentUrl, clinicPointsRedeemed },
       { headers: CORS }
     )
   } catch (error) {

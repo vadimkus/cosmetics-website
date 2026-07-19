@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import {
   Package, Plus, RefreshCw, ChevronRight, ChevronDown, LogOut, ShoppingBag,
-  Clock, ShieldCheck, TrendingUp, Check,
+  Clock, ShieldCheck, TrendingUp, Check, Send,
 } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -296,6 +296,12 @@ function PartnerDashboardInner() {
                 </div>
               </div>
               <div className="flex items-center gap-3 flex-shrink-0">
+                <button
+                  onClick={() => router.push(getLocalizedPath('/partner-portal/homecare', locale))}
+                  className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors"
+                >
+                  <Send className="w-4 h-4" /> {t('Homecare Scripts', 'Рекомендации', 'توصيات منزلية')}
+                </button>
                 <button
                   onClick={() => router.push(getLocalizedPath('/partner-portal/order', locale))}
                   className="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors"
@@ -622,6 +628,21 @@ function PartnerDashboardInner() {
         )}
 
         {/* Primary action */}
+        <button
+          onClick={() => router.push(getLocalizedPath('/partner-portal/homecare', locale))}
+          className={`w-full flex items-center justify-between gap-3 bg-gray-950 text-white rounded-2xl p-5 mb-3 shadow-lg hover:bg-black active:bg-black transition-colors ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+        >
+          <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className="w-11 h-11 rounded-xl bg-red-600 flex items-center justify-center">
+              <Send className="w-5 h-5" />
+            </div>
+            <div className={isRTL ? 'text-right' : 'text-left'}>
+              <p className="font-bold text-base">{t('Homecare Scripts', 'Домашние рекомендации', 'توصيات العناية المنزلية')}</p>
+              <p className="text-xs text-white/65">{t('Recommend products and earn Clinic Points', 'Рекомендуйте продукты и получайте баллы', 'أوصِ بالمنتجات واكسب نقاط العيادة')}</p>
+            </div>
+          </div>
+          <ChevronRight className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} />
+        </button>
         <button
           onClick={() => router.push(getLocalizedPath('/partner-portal/order', locale))}
           className={`w-full flex items-center justify-between gap-3 bg-red-600 text-white rounded-2xl p-5 mb-5 shadow-lg shadow-red-600/20 hover:bg-red-700 active:bg-red-800 transition-colors ${isRTL ? 'flex-row-reverse text-right' : ''}`}

@@ -60,6 +60,12 @@ jest.mock('@/lib/loyalty', () => ({
   recordRedemption: jest.fn(async () => true),
 }))
 
+jest.mock('@/lib/homecare', () => ({
+  validateHomecareAttribution: jest.fn(async () => null),
+  selectWinningHomecareAttribution: jest.fn(() => null),
+  computeHomecareEligibleAmounts: jest.fn((lines: unknown[]) => lines.map(() => 0)),
+}))
+
 // DB-backed rate limiter also pulls in the real Prisma client
 jest.mock('@/lib/rateLimitSimple', () => ({
   rateLimitSimple: jest.fn(() => jest.fn(async () => ({ success: true }))),

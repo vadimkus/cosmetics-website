@@ -50,6 +50,8 @@ function PartnerOrderInner() {
   const [openGroups, setOpenGroups] = useState<Set<string>>(new Set())
   // Embedded Stripe payment (bottom sheet on this page — no redirect).
   const [paySheet, setPaySheet] = useState<{ clientSecret: string; orderNumber: string; total: number } | null>(null)
+  const [availableClinicPoints, setAvailableClinicPoints] = useState(0)
+  const [useClinicPoints, setUseClinicPoints] = useState(false)
 
   const hasConsignment = user?.consignmentActive === true
   const creditDays = Number(user?.creditDays || 0)
@@ -76,7 +78,14 @@ function PartnerOrderInner() {
     fetchCsrfToken().catch(() => {})
     const load = async () => {
       try {
-        const res = await fetch('/api/products')
+        const [res, pointsRes] = await Promise.all([
+          fetch('/api/products'),
+          fetch('/api/partner/homecare-scripts'),
+        ])
+        if (pointsRes.ok) {
+          const pointsData = await pointsRes.json()
+          setAvailableClinicPoints(Math.max(0, Number(pointsData?.points?.available) || 0))
+        }
         if (res.ok) {
           const data = await res.json()
           const list: Product[] = Array.isArray(data) ? data : data?.data || []
@@ -232,6 +241,10 @@ function PartnerOrderInner() {
     }
     return { itemCount: count, total: Math.round(sum * 100) / 100 }
   }, [qty, productById, linePricing])
+  const clinicPointsToRedeem = useClinicPoints && payOption !== 'consignment'
+    ? Math.min(availableClinicPoints, total)
+    : 0
+  const payableTotal = Math.max(0, Math.round((total - clinicPointsToRedeem) * 100) / 100)
 
   const submit = async () => {
     if (itemCount === 0 || submitting) return
@@ -259,18 +272,28 @@ function PartnerOrderInner() {
       const res = await fetch('/api/partners/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...getCsrfHeaders() },
-        body: JSON.stringify(addCsrfToBody({ items, orderNotes: notes, locale, paymentOption: payOption })),
+        body: JSON.stringify(addCsrfToBody({
+          items,
+          orderNotes: notes,
+          locale,
+          paymentOption: payOption,
+          redeemClinicPoints: clinicPointsToRedeem,
+        })),
       })
       const data = await res.json()
       if (res.ok && data.success) {
         if (data.clientSecret) {
           // Online payment: open the embedded Stripe sheet on this page.
           setPaySheet({ clientSecret: data.clientSecret, orderNumber: data.orderNumber, total: data.total })
+          setAvailableClinicPoints(points => Math.max(0, points - (Number(data.clinicPointsRedeemed) || 0)))
+          setUseClinicPoints(false)
           return
         }
         setPlaced({ orderNumber: data.orderNumber, total: data.total, paymentOption: data.paymentOption || payOption })
         setQty({})
         setNotes('')
+        setAvailableClinicPoints(points => Math.max(0, points - (Number(data.clinicPointsRedeemed) || 0)))
+        setUseClinicPoints(false)
       } else {
         alert(data.error || t('Could not place order', 'Не удалось оформить заказ', 'تعذر تقديم الطلب'))
       }
@@ -715,6 +738,25 @@ function PartnerOrderInner() {
       {itemCount > 0 && (
         <div className={`fixed left-0 right-0 ${isAppLikeMode ? 'bottom-20' : 'bottom-0'} z-30 bg-white border-t border-gray-100 px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]`}>
           <div className="container mx-auto max-w-3xl">
+            {availableClinicPoints > 0 && (
+              <label className={`mb-2 flex items-center justify-between gap-3 rounded-xl bg-amber-50 px-3 py-2 text-xs ${payOption === 'consignment' ? 'opacity-50' : ''}`}>
+                <span>
+                  <span className="font-semibold text-amber-950">
+                    {t('Use Clinic Points', 'Использовать баллы клиники', 'استخدم نقاط العيادة')}
+                  </span>
+                  <span className="ml-2 text-amber-700">
+                    {availableClinicPoints.toFixed(2)} {t('available', 'доступно', 'متاحة')}
+                  </span>
+                </span>
+                <input
+                  type="checkbox"
+                  checked={useClinicPoints && payOption !== 'consignment'}
+                  disabled={payOption === 'consignment'}
+                  onChange={event => setUseClinicPoints(event.target.checked)}
+                  className="h-4 w-4 accent-amber-700"
+                />
+              </label>
+            )}
             {/* Settlement pills */}
             <div className={`flex items-center gap-2 mb-1.5 overflow-x-auto scrollbar-hide ${isRTL ? 'flex-row-reverse' : ''}`}>
               {hasConsignment && (
@@ -788,7 +830,10 @@ function PartnerOrderInner() {
               <p className="text-xs text-gray-500">
                 {itemCount} {itemCount === 1 ? t('item', 'товар', 'منتج') : t('items', 'товаров', 'منتجات')}
               </p>
-              <p className="text-lg font-bold text-gray-900">{total.toFixed(2)} AED</p>
+              {clinicPointsToRedeem > 0 && (
+                <p className="text-[11px] text-amber-700">−{clinicPointsToRedeem.toFixed(2)} Clinic Points</p>
+              )}
+              <p className="text-lg font-bold text-gray-900">{payableTotal.toFixed(2)} AED</p>
             </div>
             <button
               onClick={submit}

@@ -100,6 +100,21 @@ export default function CustomerProfile({
   const [saving, setSaving] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
+  const [clinicPoints, setClinicPoints] = useState<{
+    balances: { available: number; pending: number }
+    transactions: Array<{
+      id: string
+      points: number
+      type: string
+      status: string
+      description?: string | null
+      createdAt: string
+      order?: { orderNumber: string } | null
+    }>
+  } | null>(null)
+  const [pointAdjustment, setPointAdjustment] = useState('')
+  const [pointReason, setPointReason] = useState('')
+  const [adjustingPoints, setAdjustingPoints] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [customerStats, setCustomerStats] = useState({
     totalOrders: 0,
@@ -136,6 +151,43 @@ export default function CustomerProfile({
     }
     return headers as HeadersInit
   }, [])
+
+  const fetchClinicPoints = useCallback(async () => {
+    if (!customer.partnerPortalAccess) {
+      setClinicPoints(null)
+      return
+    }
+    const response = await fetch(`/api/admin/users/${customer.id}/clinic-points`, {
+      headers: getAdminHeaders(),
+    })
+    if (response.ok) setClinicPoints(await response.json())
+  }, [customer.id, customer.partnerPortalAccess, getAdminHeaders])
+
+  useEffect(() => {
+    fetchClinicPoints().catch(error => errorLog('Failed to load Clinic Points:', error))
+  }, [fetchClinicPoints])
+
+  const adjustPoints = async () => {
+    const points = Number(pointAdjustment)
+    if (!Number.isFinite(points) || points === 0 || !pointReason.trim()) return
+    setAdjustingPoints(true)
+    try {
+      const response = await fetch(`/api/admin/users/${customer.id}/clinic-points`, {
+        method: 'POST',
+        headers: getAdminHeaders(),
+        body: JSON.stringify({ points, description: pointReason.trim() }),
+      })
+      const data = await response.json()
+      if (!response.ok) throw new Error(data.error || 'Adjustment failed')
+      setPointAdjustment('')
+      setPointReason('')
+      await fetchClinicPoints()
+    } catch (error) {
+      alert(error instanceof Error ? error.message : 'Adjustment failed')
+    } finally {
+      setAdjustingPoints(false)
+    }
+  }
 
   const fetchCustomerOrders = useCallback(async () => {
     try {
@@ -857,6 +909,63 @@ export default function CustomerProfile({
                 </div>
               </div>
             </div>
+
+            {customer.partnerPortalAccess && clinicPoints && (
+              <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50/60 p-4">
+                <div className="flex items-center justify-between gap-3 mb-3">
+                  <div>
+                    <h3 className="text-sm font-bold text-gray-900">Clinic Points</h3>
+                    <p className="text-xs text-gray-600">
+                      {clinicPoints.balances.available.toFixed(2)} available · {clinicPoints.balances.pending.toFixed(2)} pending
+                    </p>
+                  </div>
+                  <button onClick={fetchClinicPoints} className="text-xs font-semibold text-amber-900">Refresh</button>
+                </div>
+                <div className="grid grid-cols-[90px_1fr_auto] gap-2 mb-3">
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={pointAdjustment}
+                    onChange={event => setPointAdjustment(event.target.value)}
+                    placeholder="+ / −"
+                    className="rounded border border-amber-200 bg-white px-2 py-1.5 text-sm"
+                  />
+                  <input
+                    value={pointReason}
+                    onChange={event => setPointReason(event.target.value)}
+                    maxLength={300}
+                    placeholder="Required adjustment reason"
+                    className="rounded border border-amber-200 bg-white px-2 py-1.5 text-sm"
+                  />
+                  <button
+                    onClick={adjustPoints}
+                    disabled={adjustingPoints || !pointReason.trim() || !Number(pointAdjustment)}
+                    className="rounded bg-amber-800 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-40"
+                  >
+                    Apply
+                  </button>
+                </div>
+                <div className="max-h-48 overflow-y-auto divide-y divide-amber-100 rounded border border-amber-100 bg-white">
+                  {clinicPoints.transactions.map(transaction => (
+                    <div key={transaction.id} className="flex items-start justify-between gap-3 px-3 py-2 text-xs">
+                      <div className="min-w-0">
+                        <p className="font-medium text-gray-800 truncate">
+                          {transaction.description || transaction.type.replaceAll('_', ' ')}
+                        </p>
+                        <p className="text-gray-400">
+                          {new Date(transaction.createdAt).toLocaleDateString()}
+                          {transaction.order?.orderNumber ? ` · ${transaction.order.orderNumber}` : ''}
+                          {` · ${transaction.status.toLowerCase()}`}
+                        </p>
+                      </div>
+                      <span className={`font-bold ${transaction.points >= 0 ? 'text-green-700' : 'text-red-700'}`}>
+                        {transaction.points >= 0 ? '+' : ''}{transaction.points.toFixed(2)}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Delete Customer */}
             <div className="mt-6 pt-4 border-t border-gray-200">

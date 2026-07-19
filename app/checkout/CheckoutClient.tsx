@@ -423,7 +423,8 @@ export default function CheckoutClient() {
                 selectedSize: itemSize,
                 // Pass bundle flags so backend can properly reverse-calculate discount amounts
                 ...(payloadPricing.bundleDiscount ? { fromBundle: true } : {}),
-                ...(payloadPricing.bundleDiscount ? { bundleDiscountPercent: payloadPricing.bundleDiscount } : {})
+                ...(payloadPricing.bundleDiscount ? { bundleDiscountPercent: payloadPricing.bundleDiscount } : {}),
+                ...(item.homecare ? { homecare: item.homecare } : {}),
               }
             }),
             ...freeMasks.map(mask => ({
@@ -540,7 +541,8 @@ export default function CheckoutClient() {
               image: item.product.image,
               color: itemColor,
               size: itemSize,
-              ...(payloadPricing.bundleDiscount ? { bundleDiscount: payloadPricing.bundleDiscount } : {})
+              ...(payloadPricing.bundleDiscount ? { bundleDiscount: payloadPricing.bundleDiscount } : {}),
+              ...(item.homecare ? { homecare: item.homecare } : {}),
             }
           }),
           ...freeMasks.map(mask => ({

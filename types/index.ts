@@ -128,11 +128,21 @@ export interface CartItem {
   // Bundle tracking - items added from Bundle Builder
   fromBundle?: boolean
   bundleDiscountPercent?: number
+  homecare?: HomecareCartAttribution
+}
+
+export interface HomecareCartAttribution {
+  scriptId: string
+  versionId: string
+  scriptItemId: string
+  token: string
+  addedAt: string
 }
 
 export interface CartLineIdentity {
   fromBundle?: boolean
   bundleDiscountPercent?: number
+  homecare?: HomecareCartAttribution
 }
 
 export interface CartState {

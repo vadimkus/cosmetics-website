@@ -51,6 +51,39 @@ describe('cart pricing helper', () => {
     useCartStore.setState({ items: [], selectedEmirate: 'Dubai', _hasHydrated: true })
   })
 
+  it('keeps recommendation lines separate from ordinary and other-script lines', () => {
+    const product = createProduct()
+    const firstScript = {
+      homecare: {
+        scriptId: 'script-1',
+        versionId: 'version-1',
+        scriptItemId: 'item-1',
+        token: 'token-1',
+        addedAt: '2026-07-19T07:00:00.000Z',
+      },
+    }
+    const secondScript = {
+      homecare: {
+        scriptId: 'script-2',
+        versionId: 'version-2',
+        scriptItemId: 'item-2',
+        token: 'token-2',
+        addedAt: '2026-07-19T08:00:00.000Z',
+      },
+    }
+
+    useCartStore.getState().addItem(product, 1)
+    useCartStore.getState().addItem(product, 1, undefined, undefined, firstScript)
+    useCartStore.getState().addItem(product, 2, undefined, undefined, firstScript)
+    useCartStore.getState().addItem(product, 1, undefined, undefined, secondScript)
+
+    const items = useCartStore.getState().items
+    expect(items).toHaveLength(3)
+    expect(items.map(item => item.quantity)).toEqual([1, 3, 1])
+    expect(items[1]?.homecare).toEqual(firstScript.homecare)
+    expect(items[2]?.homecare).toEqual(secondScript.homecare)
+  })
+
   it('matches legacy regular cart subtotal for retail products', () => {
     const product = createProduct({ price: 125 })
     const item = createItem(product, { quantity: 2 })

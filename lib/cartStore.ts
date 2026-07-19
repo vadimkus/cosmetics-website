@@ -49,7 +49,16 @@ const lineIdentityMatches = (
   bundleInfo?: CartLineIdentity
 ) => {
   const expectedBundle = bundleInfo?.fromBundle === true
-  return isBundleLine(item) === expectedBundle
+  if (isBundleLine(item) !== expectedBundle) return false
+  const expectedHomecare = bundleInfo?.homecare
+  const actualHomecare = item.homecare
+  if (!expectedHomecare && !actualHomecare) return true
+  if (!expectedHomecare || !actualHomecare) return false
+  return (
+    expectedHomecare.scriptId === actualHomecare.scriptId &&
+    expectedHomecare.versionId === actualHomecare.versionId &&
+    expectedHomecare.scriptItemId === actualHomecare.scriptItemId
+  )
 }
 
 export function getBuildSetDiscountForCount(count: number): number {
@@ -141,7 +150,8 @@ export const useCartStore = create<CartState>()(
             quantity, 
             selectedColor: normalizedColor, 
             selectedSize: normalizedSize,
-            ...(bundleInfo && { fromBundle: bundleInfo.fromBundle, bundleDiscountPercent: bundleInfo.bundleDiscountPercent })
+            ...(bundleInfo && { fromBundle: bundleInfo.fromBundle, bundleDiscountPercent: bundleInfo.bundleDiscountPercent }),
+            ...(bundleInfo?.homecare ? { homecare: bundleInfo.homecare } : {}),
           }
           const newItems = reconcileBuildSetBundleDiscounts([...items, newItem])
           set({ items: newItems })

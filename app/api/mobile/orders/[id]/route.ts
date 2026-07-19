@@ -5,6 +5,17 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/database'
 import { canAccessCustomerEmail, getCustomerEmailWhere } from '@/lib/mobileOrderOwnership'
 
+async function restoreOrderRedemptions(orderId: string) {
+  const [{ reverseRedemptionForOrder }, { restoreClinicPointsRedemptionForOrder }] = await Promise.all([
+    import('@/lib/loyalty'),
+    import('@/lib/homecare'),
+  ])
+  await Promise.all([
+    reverseRedemptionForOrder(orderId),
+    restoreClinicPointsRedemptionForOrder(orderId),
+  ])
+}
+
 /**
  * Mobile Order Delete Endpoint
  * 
@@ -123,9 +134,14 @@ export async function DELETE(
     // Stripe orders typically have paymentStatus = "pending" until paid, so include that as deletable.
     const status = String(order.status || '').toUpperCase()
     const paymentStatus = String(order.paymentStatus || '').toUpperCase()
-    const isPendingStatus = status === 'PENDING'
+    const isPendingStatus = status === 'PENDING' || status === 'FAILED'
     const isPaidPayment = paymentStatus === 'PAID' || paymentStatus === 'CONFIRMED'
     const isDeletable = isPendingStatus && !isPaidPayment
+
+    if (status === 'DELETED') {
+      await restoreOrderRedemptions(id)
+      return NextResponse.json({ success: true, message: 'Order already deleted' })
+    }
 
     if (!isDeletable) {
       const reason = isPaidPayment
@@ -163,6 +179,7 @@ export async function DELETE(
         updatedAt: new Date()
       }
     })
+    await restoreOrderRedemptions(id)
 
     debugLog('[MOBILE_ORDERS_DELETE] Order soft-deleted successfully', {
       orderId: id,

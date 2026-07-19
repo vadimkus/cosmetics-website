@@ -9,43 +9,43 @@ datasource db {
 }
 
 model User {
-  id                 String    @id @default(cuid())
-  email              String    @unique
-  contactEmail       String? // Optional: For Apple Private Relay users to provide real email
-  appleSub           String?   @unique
-  name               String
-  password           String?
-  phone              String?
-  address            String?   @db.Text // Legacy field - kept for backward compatibility
-  profilePicture     String?   @db.Text
-  gender             String?
-  billingAddress     String?   @db.Text
-  vatNumber          String?   @db.Text
-  expoPushToken      String?   @db.Text
-  isAdmin            Boolean   @default(false)
-  canSeePrices       Boolean   @default(true)
-  discountType       String?
-  discountPercentage Float?
+  id                     String    @id @default(cuid())
+  email                  String    @unique
+  contactEmail           String? // Optional: For Apple Private Relay users to provide real email
+  appleSub               String?   @unique
+  name                   String
+  password               String?
+  phone                  String?
+  address                String?   @db.Text // Legacy field - kept for backward compatibility
+  profilePicture         String?   @db.Text
+  gender                 String?
+  billingAddress         String?   @db.Text
+  vatNumber              String?   @db.Text
+  expoPushToken          String?   @db.Text
+  isAdmin                Boolean   @default(false)
+  canSeePrices           Boolean   @default(true)
+  discountType           String?
+  discountPercentage     Float?
   // Partner consignment agreement (mirrors an active MoySklad Commission
   // contract). When true, the partner may "Add to consignment stock" at
   // checkout. Set by the one-off MoySklad matcher and by admin manually.
-  consignmentActive       Boolean @default(false)
+  consignmentActive      Boolean   @default(false)
   // Partner credit terms (clinics). When active, the partner may place
   // professional-product orders on 30/45/60/90-day payment terms.
-  creditActive            Boolean @default(false)
-  creditDays              Int? // 30 | 45 | 60 | 90
+  creditActive           Boolean   @default(false)
+  creditDays             Int? // 30 | 45 | 60 | 90
   // Partner Portal gate — assigned manually by admin. Only accounts with
   // this flag may enter /partner-portal (typically 50%-off clinic accounts).
-  partnerPortalAccess     Boolean @default(false)
-  moyskladCounterpartyId  String? // MoySklad counterparty UUID (matched by phone)
-  moyskladContractId      String? // Active Commission contract UUID
-  birthday           String?
-  lastLoginAt        DateTime?
-  lastLoginSource    String? // Tracks login source: desktop_web, mobile_web, mobile_app
-  lastActiveAt       DateTime? // Tracks last user activity for online status
-  tokenVersion       Int       @default(0) // Bumped on password change/reset to revoke all sessions/tokens
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
+  partnerPortalAccess    Boolean   @default(false)
+  moyskladCounterpartyId String? // MoySklad counterparty UUID (matched by phone)
+  moyskladContractId     String? // Active Commission contract UUID
+  birthday               String?
+  lastLoginAt            DateTime?
+  lastLoginSource        String? // Tracks login source: desktop_web, mobile_web, mobile_app
+  lastActiveAt           DateTime? // Tracks last user activity for online status
+  tokenVersion           Int       @default(0) // Bumped on password change/reset to revoke all sessions/tokens
+  createdAt              DateTime  @default(now())
+  updatedAt              DateTime  @updatedAt
 
   // Membership / loyalty
   memberNumber  String?   @unique
@@ -55,12 +55,14 @@ model User {
   totalOrders   Int       @default(0)
   loyaltyPoints Int       @default(0)
 
-  orders              Order[]
-  passwordResetTokens PasswordResetToken[]
-  reviews             ProductReview[]
-  addresses           Address[] // Multiple addresses support
-  passkeys            Passkey[] // WebAuthn passkeys for passwordless auth
-  loyaltyTransactions LoyaltyTransaction[]
+  orders                  Order[]
+  passwordResetTokens     PasswordResetToken[]
+  reviews                 ProductReview[]
+  addresses               Address[] // Multiple addresses support
+  passkeys                Passkey[] // WebAuthn passkeys for passwordless auth
+  loyaltyTransactions     LoyaltyTransaction[]
+  homecareScripts         HomecareScript[]         @relation("ClinicHomecareScripts")
+  clinicPointTransactions ClinicPointTransaction[] @relation("ClinicPointTransactions")
 
   @@map("users")
 }
@@ -193,7 +195,8 @@ model Product {
   reviews ProductReview[]
 
   // Product variants (sizes, colors with individual pricing)
-  variants ProductVariant[]
+  variants            ProductVariant[]
+  homecareScriptItems HomecareScriptItem[]
 
   @@index([category]) // Index for faster category filtering
   @@index([isHidden]) // Index for filtering hidden products
@@ -229,28 +232,30 @@ model ProductVariant {
 }
 
 model Order {
-  id                       String  @id @default(cuid())
-  orderNumber              String  @unique
+  id                       String    @id @default(cuid())
+  orderNumber              String    @unique
   customerEmail            String
   customerName             String
   customerPhone            String
   customerEmirate          String
   customerAddress          String
-  orderNotes               String? @db.Text
+  orderNotes               String?   @db.Text
   subtotal                 Float
   discountPercentage       Float? // User's discount percentage at time of order
-  discountAmount           Float   @default(0)
+  discountAmount           Float     @default(0)
   bundleDiscountPercentage Float? // Bundle discount percentage (e.g., 20% for 5+ items)
-  bundleDiscountAmount     Float   @default(0) // Bundle discount amount in AED
-  loyaltyPointsRedeemed    Int     @default(0) // GENOSYS Rewards points spent on this order
-  loyaltyDiscountAmount    Float   @default(0) // AED value of redeemed points
+  bundleDiscountAmount     Float     @default(0) // Bundle discount amount in AED
+  loyaltyPointsRedeemed    Int       @default(0) // GENOSYS Rewards points spent on this order
+  loyaltyDiscountAmount    Float     @default(0) // AED value of redeemed points
+  clinicPointsRedeemed     Float     @default(0) // Clinic Points spent by a partner on this order
+  clinicPointsDiscountAmount Float   @default(0) // AED discount; 1 Clinic Point = AED 1
   deliveredAt              DateTime? // first transition to DELIVERED (drives review-request timing)
   reviewRequestSentAt      DateTime? // post-delivery review-request email sent (idempotency)
-  shipping                 Float   @default(0)
+  shipping                 Float     @default(0)
   vat                      Float
   total                    Float
-  status                   String  @default("PENDING")
-  locale                   String  @default("en") // User's preferred language (en or ar)
+  status                   String    @default("PENDING")
+  locale                   String    @default("en") // User's preferred language (en or ar)
   sessionId                String?
 
   // Payment-related fields
@@ -272,10 +277,19 @@ model Order {
   moySkladOrderId  String? // MoySklad order UUID after manual push from admin
   moySkladSyncedAt DateTime? // When order was pushed to MoySklad
 
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  items     OrderItem[]
-  customer  User        @relation(fields: [customerEmail], references: [email])
+  // Clinic Homecare Script attribution. The version is immutable so the
+  // recommendation that drove the order remains auditable after later edits.
+  homecareScriptId           String?
+  homecareScriptVersionId    String?
+  homecareAttributedSubtotal Float   @default(0)
+
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
+  items                   OrderItem[]
+  customer                User                     @relation(fields: [customerEmail], references: [email])
+  homecareScript          HomecareScript?          @relation(fields: [homecareScriptId], references: [id], onDelete: SetNull)
+  homecareScriptVersion   HomecareScriptVersion?   @relation(fields: [homecareScriptVersionId], references: [id], onDelete: SetNull)
+  clinicPointTransactions ClinicPointTransaction[]
 
   @@index([customerEmail]) // Index for faster order lookups by email
   @@index([paymentStatus]) // Index for payment status queries
@@ -284,25 +298,121 @@ model Order {
   @@index([status]) // Index for admin order-status filtering
   @@index([createdAt]) // Index for date-range queries and recent-orders sorting
   @@index([status, createdAt]) // Compound for revenue-trends / CLV reports (WHERE status=X AND createdAt>=Y)
+  @@index([homecareScriptId])
+  @@index([homecareScriptVersionId])
   @@map("orders")
 }
 
 model OrderItem {
-  id             String  @id @default(cuid())
-  orderId        String
-  productId      String
-  productName    String
-  price          Float
-  quantity       Int
-  image          String
-  color          String? // Product color variant (e.g., "beige", "ivory", "camel")
-  size           String? // Product size variant (e.g., "50g", "100g")
-  bundleDiscount Float? // Bundle discount % applied to this item (null = not a bundle item)
-  order          Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  id                      String                 @id @default(cuid())
+  orderId                 String
+  productId               String
+  productName             String
+  price                   Float
+  quantity                Int
+  image                   String
+  color                   String? // Product color variant (e.g., "beige", "ivory", "camel")
+  size                    String? // Product size variant (e.g., "50g", "100g")
+  bundleDiscount          Float? // Bundle discount % applied to this item (null = not a bundle item)
+  order                   Order                  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  homecareScriptItemId    String?
+  homecareScriptVersionId String?
+  homecareEligibleAmount  Float                  @default(0)
+  homecareScriptItem      HomecareScriptItem?    @relation(fields: [homecareScriptItemId], references: [id], onDelete: SetNull)
+  homecareScriptVersion   HomecareScriptVersion? @relation(fields: [homecareScriptVersionId], references: [id], onDelete: SetNull)
 
   @@index([orderId]) // Index for faster order item lookups
   @@index([productId]) // product-performance report groupBy + admin product-delete check
+  @@index([homecareScriptItemId])
+  @@index([homecareScriptVersionId])
   @@map("order_items")
+}
+
+// A clinic-owned, patient-shareable homecare recommendation. The public token
+// is random and unguessable; edits create immutable versions below.
+model HomecareScript {
+  id           String    @id @default(cuid())
+  clinicUserId String
+  clinic       User      @relation("ClinicHomecareScripts", fields: [clinicUserId], references: [id], onDelete: Cascade)
+  publicToken  String    @unique
+  tokenPrefix  String
+  patientLabel String?
+  status       String    @default("ACTIVE") // ACTIVE, EXPIRED, REVOKED
+  expiresAt    DateTime
+  openCount    Int       @default(0)
+  lastOpenedAt DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  versions HomecareScriptVersion[]
+  orders   Order[]
+
+  @@index([clinicUserId, createdAt])
+  @@index([status, expiresAt])
+  @@map("homecare_scripts")
+}
+
+// Every edit produces a new version. Orders and cart attribution point at a
+// version so later changes cannot rewrite clinical/commercial history.
+model HomecareScriptVersion {
+  id               String         @id @default(cuid())
+  scriptId         String
+  script           HomecareScript @relation(fields: [scriptId], references: [id], onDelete: Cascade)
+  versionNumber    Int
+  careInstructions String?        @db.Text
+  createdAt        DateTime       @default(now())
+
+  items                   HomecareScriptItem[]
+  orders                  Order[]
+  orderItems              OrderItem[]
+  clinicPointTransactions ClinicPointTransaction[]
+
+  @@unique([scriptId, versionNumber])
+  @@index([scriptId, createdAt])
+  @@map("homecare_script_versions")
+}
+
+model HomecareScriptItem {
+  id        String                @id @default(cuid())
+  versionId String
+  version   HomecareScriptVersion @relation(fields: [versionId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product               @relation(fields: [productId], references: [id], onDelete: Restrict)
+  size      String?
+  quantity  Int                   @default(1)
+  sortOrder Int                   @default(0)
+
+  orderItems OrderItem[]
+
+  @@index([versionId, sortOrder])
+  @@index([productId])
+  @@map("homecare_script_items")
+}
+
+// Clinic Points are intentionally separate from retail GENOSYS Rewards.
+// Positive points are earned/adjusted in; negative points are redemptions or
+// reversals. A unique idempotency key prevents duplicate lifecycle events.
+model ClinicPointTransaction {
+  id              String                 @id @default(cuid())
+  clinicUserId    String
+  clinic          User                   @relation("ClinicPointTransactions", fields: [clinicUserId], references: [id], onDelete: Cascade)
+  orderId         String?
+  order           Order?                 @relation(fields: [orderId], references: [id], onDelete: SetNull)
+  scriptVersionId String?
+  scriptVersion   HomecareScriptVersion? @relation(fields: [scriptVersionId], references: [id], onDelete: SetNull)
+  points          Float
+  eligibleAmount  Float                  @default(0)
+  type            String // EARN, REVERSE, REDEEM, REDEEM_RESTORE, ADJUST
+  status          String                 @default("PENDING") // PENDING, AVAILABLE, SPENT, REVERSED
+  idempotencyKey  String                 @unique
+  description     String?
+  availableAt     DateTime?
+  createdAt       DateTime               @default(now())
+
+  @@index([clinicUserId, status, createdAt])
+  @@index([orderId])
+  @@index([availableAt, status])
+  @@map("clinic_point_transactions")
 }
 
 model PageView {

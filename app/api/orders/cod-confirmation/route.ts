@@ -29,6 +29,13 @@ import {
   allowedFreeGiftUnits,
   freeGiftKind,
 } from '@/lib/checkoutPricingGuards'
+import {
+  computeHomecareEligibleAmounts,
+  selectWinningHomecareAttribution,
+  validateHomecareAttribution,
+  type SubmittedHomecareAttribution,
+  type ValidHomecareAttribution,
+} from '@/lib/homecare'
 
 interface SubmittedCODItem {
   id?: string
@@ -39,6 +46,7 @@ interface SubmittedCODItem {
   color?: string
   size?: string
   bundleDiscount?: number
+  homecare?: SubmittedHomecareAttribution
 }
 
 interface ServerPricedCODItem {
@@ -51,6 +59,8 @@ interface ServerPricedCODItem {
   color?: string
   size?: string
   bundleDiscount?: number
+  homecareAttribution?: ValidHomecareAttribution | null
+  homecareEligibleAmount?: number
 }
 
 function isSubmittedFreeGift(item: SubmittedCODItem): boolean {
@@ -240,6 +250,11 @@ export async function POST(request: NextRequest) {
       }
       const pricing = getCartLinePricing(cartItem, user)
       subtotal += pricing.lineTotal
+      const homecareAttribution = await validateHomecareAttribution({
+        ...(item.homecare ? { attribution: item.homecare } : {}),
+        product,
+        selectedSize,
+      })
 
       if (pricing.discountType === 'bundle') {
         bundleDiscountAmountCalc += pricing.discountAmount
@@ -258,6 +273,7 @@ export async function POST(request: NextRequest) {
         ...(selectedColor ? { color: selectedColor } : {}),
         ...(selectedSize ? { size: selectedSize } : {}),
         ...(pricing.discountType === 'bundle' ? { bundleDiscount: pricing.discountPercentage } : {}),
+        ...(homecareAttribution ? { homecareAttribution } : {}),
       })
     }
 
@@ -322,6 +338,31 @@ export async function POST(request: NextRequest) {
     const shippingCost = calculateMobileShipping(subtotal, emirate)
     const total = Math.round((subtotal + shippingCost - loyaltyRedemption.amountAed) * 100) / 100
     const vatAmount = Math.round(calculateVatIncluded(total) * 100) / 100
+
+    // Latest explicitly-added valid script wins for this order. Existing cart
+    // lines retain their own immutable version; only lines from the winning
+    // script/version enter the eligible subtotal.
+    const winningHomecare = selectWinningHomecareAttribution(
+      serverItems.map(item => item.homecareAttribution || null),
+    )
+    const homecareEligibleAmounts = computeHomecareEligibleAmounts(
+      serverItems.map(item => ({
+        lineTotal: item.total,
+        attribution:
+          winningHomecare &&
+          item.homecareAttribution?.scriptId === winningHomecare.scriptId &&
+          item.homecareAttribution.versionId === winningHomecare.versionId
+            ? item.homecareAttribution
+            : null,
+      })),
+      loyaltyRedemption.amountAed,
+    )
+    serverItems.forEach((item, index) => {
+      item.homecareEligibleAmount = homecareEligibleAmounts[index] || 0
+    })
+    const homecareAttributedSubtotal = Math.round(
+      homecareEligibleAmounts.reduce((sum, amount) => sum + amount, 0) * 100,
+    ) / 100
     
     debugLog('🎟️ COD DISCOUNT CALCULATED:', JSON.stringify({
       orderNumber,
@@ -349,7 +390,14 @@ export async function POST(request: NextRequest) {
         image: item.image || ORDER_ITEM_IMAGE_FALLBACK,
         ...(enhanced.color ? { color: enhanced.color } : {}),
         ...(enhanced.size ? { size: enhanced.size } : {}),
-        ...(item.bundleDiscount && item.bundleDiscount > 0 ? { bundleDiscount: item.bundleDiscount } : {})
+        ...(item.bundleDiscount && item.bundleDiscount > 0 ? { bundleDiscount: item.bundleDiscount } : {}),
+        ...(item.homecareEligibleAmount && item.homecareAttribution && winningHomecare
+          ? {
+              homecareScriptItemId: item.homecareAttribution.scriptItemId,
+              homecareScriptVersionId: winningHomecare.versionId,
+              homecareEligibleAmount: item.homecareEligibleAmount,
+            }
+          : {}),
       }
     })
 
@@ -369,6 +417,13 @@ export async function POST(request: NextRequest) {
       bundleDiscountAmount: bundleDiscountAmountCalc,
       loyaltyPointsRedeemed: loyaltyRedemption.points,
       loyaltyDiscountAmount: loyaltyRedemption.amountAed,
+      ...(winningHomecare && homecareAttributedSubtotal > 0
+        ? {
+            homecareScriptId: winningHomecare.scriptId,
+            homecareScriptVersionId: winningHomecare.versionId,
+            homecareAttributedSubtotal,
+          }
+        : {}),
       shipping: shippingCost,
       vat: vatAmount,
       total,
@@ -446,6 +501,8 @@ export async function POST(request: NextRequest) {
         bundleDiscountAmount: bundleDiscountAmountCalc,
         loyaltyPointsRedeemed: loyaltyRedemption.points,
         loyaltyDiscountAmount: loyaltyRedemption.amountAed,
+        clinicPointsRedeemed: 0,
+        clinicPointsDiscountAmount: 0,
         shipping: dbOrder.shipping ?? 0,
         vat: dbOrder.vat,
         total: dbOrder.total,
@@ -461,6 +518,9 @@ export async function POST(request: NextRequest) {
         refundedAt: null,
         refundAmount: null,
         paymentMetadata: null,
+        homecareScriptId: dbOrder.homecareScriptId ?? null,
+        homecareScriptVersionId: dbOrder.homecareScriptVersionId ?? null,
+        homecareAttributedSubtotal: dbOrder.homecareAttributedSubtotal ?? 0,
         creditDays: null,
         paymentDueDate: null,
         moySkladOrderId: null,

@@ -35,7 +35,8 @@ function CartItemComponent({ item, loyaltyMultiplier = 0 }: CartItemProps) {
   const lineIdentity = useMemo(() => ({
     fromBundle: item.fromBundle === true,
     bundleDiscountPercent: item.bundleDiscountPercent || 0,
-  }), [item.fromBundle, item.bundleDiscountPercent])
+    ...(item.homecare ? { homecare: item.homecare } : {}),
+  }), [item.fromBundle, item.bundleDiscountPercent, item.homecare])
   const { enabled: animationsEnabled } = useAnimationStore()
   
   // Swipe-to-delete state

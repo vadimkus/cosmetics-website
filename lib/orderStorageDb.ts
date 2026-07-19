@@ -1,6 +1,6 @@
 import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from './database'
-import { Order, OrderItem } from '@prisma/client'
+import { Order, OrderItem, Prisma } from '@prisma/client'
 import crypto from 'crypto'
 
 export interface OrderItemData {
@@ -12,6 +12,9 @@ export interface OrderItemData {
   color?: string // Product color variant (e.g., "beige", "ivory", "camel")
   size?: string // Product size variant (e.g., "50g", "100g")
   bundleDiscount?: number // Bundle discount % applied to this item (null/undefined = not a bundle item)
+  homecareScriptItemId?: string
+  homecareScriptVersionId?: string
+  homecareEligibleAmount?: number
 }
 
 export interface OrderData {
@@ -31,6 +34,8 @@ export interface OrderData {
   bundleDiscountAmount?: number      // Bundle discount amount in AED
   loyaltyPointsRedeemed?: number     // GENOSYS Rewards points spent on this order
   loyaltyDiscountAmount?: number     // AED value of redeemed points
+  clinicPointsRedeemed?: number      // Clinic Points spent on a partner order
+  clinicPointsDiscountAmount?: number // AED value; 1 Clinic Point = AED 1
   shipping?: number
   vat: number
   total: number
@@ -49,6 +54,9 @@ export interface OrderData {
   refundedAt?: Date // When refund was processed
   refundAmount?: number // Amount refunded (can be partial)
   paymentMetadata?: string // JSON metadata from payment provider
+  homecareScriptId?: string
+  homecareScriptVersionId?: string
+  homecareAttributedSubtotal?: number
 
   // Partner credit-term orders (paymentMethod partner_credit)
   creditDays?: number // 30 | 45 | 60 | 90
@@ -124,7 +132,10 @@ export const generateOrderId = async (): Promise<string> => {
 }
 
 // Add order
-export const addOrder = async (orderData: OrderData): Promise<Order> => {
+export const addOrder = async (
+  orderData: OrderData,
+  db: typeof prisma | Prisma.TransactionClient = prisma,
+): Promise<Order> => {
   try {
     // Normalize email to lowercase and trim whitespace for consistent matching
     const normalizedEmail = orderData.customerEmail.trim().toLowerCase()
@@ -132,7 +143,7 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
     // First, ensure the customer exists in the database
     // IMPORTANT: canSeePrices defaults to true for new customers (guest checkout)
     // This ensures they can see prices when they later create an account
-    await prisma.user.upsert({
+    await db.user.upsert({
       where: { email: normalizedEmail },
       update: {
         name: orderData.customerName,
@@ -150,7 +161,7 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
       }
     })
 
-    return await prisma.order.create({
+    return await db.order.create({
       data: {
         orderNumber: orderData.orderNumber,
         customerEmail: normalizedEmail, // Use normalized email for consistency
@@ -166,6 +177,8 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
         bundleDiscountAmount: orderData.bundleDiscountAmount || 0,
         loyaltyPointsRedeemed: orderData.loyaltyPointsRedeemed || 0,
         loyaltyDiscountAmount: orderData.loyaltyDiscountAmount || 0,
+        clinicPointsRedeemed: orderData.clinicPointsRedeemed || 0,
+        clinicPointsDiscountAmount: orderData.clinicPointsDiscountAmount || 0,
         shipping: orderData.shipping || 0,
         vat: orderData.vat,
         total: orderData.total,
@@ -181,6 +194,9 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
         refundedAt: orderData.refundedAt || null,
         refundAmount: orderData.refundAmount || null,
         paymentMetadata: orderData.paymentMetadata || null,
+        homecareScriptId: orderData.homecareScriptId || null,
+        homecareScriptVersionId: orderData.homecareScriptVersionId || null,
+        homecareAttributedSubtotal: orderData.homecareAttributedSubtotal || 0,
         creditDays: orderData.creditDays || null,
         paymentDueDate: orderData.paymentDueDate || null,
         items: {
@@ -193,6 +209,9 @@ export const addOrder = async (orderData: OrderData): Promise<Order> => {
             color: item.color || null,
             size: item.size || null,
             bundleDiscount: item.bundleDiscount ?? null,
+            homecareScriptItemId: item.homecareScriptItemId || null,
+            homecareScriptVersionId: item.homecareScriptVersionId || null,
+            homecareEligibleAmount: item.homecareEligibleAmount || 0,
           }))
         }
       },

@@ -25,6 +25,13 @@ import {
   freeGiftKind,
 } from '@/lib/checkoutPricingGuards'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
+import {
+  computeHomecareEligibleAmounts,
+  selectWinningHomecareAttribution,
+  validateHomecareAttribution,
+  type SubmittedHomecareAttribution,
+  type ValidHomecareAttribution,
+} from '@/lib/homecare'
 
 // Each call hits Stripe (billable) + writes an order + N product lookups.
 // Cap per-IP to blunt DoS / billing amplification. Genuine checkout retries
@@ -38,6 +45,7 @@ interface CheckoutItem {
   selectedSize?: string
   fromBundle?: boolean
   bundleDiscountPercent?: number
+  homecare?: SubmittedHomecareAttribution
 }
 
 interface ServerPricedCheckoutItem {
@@ -53,6 +61,8 @@ interface ServerPricedCheckoutItem {
   discountDesc?: string
   fromBundle?: boolean
   bundleDiscountPercent?: number
+  homecareAttribution?: ValidHomecareAttribution | null
+  homecareEligibleAmount?: number
 }
 
 function isSubmittedFreeGift(item: CheckoutItem): boolean {
@@ -227,6 +237,11 @@ export async function POST(request: NextRequest) {
       }
       const pricing = getCartLinePricing(cartItem, user)
       subtotal += pricing.lineTotal
+      const homecareAttribution = await validateHomecareAttribution({
+        ...(item.homecare ? { attribution: item.homecare } : {}),
+        product,
+        selectedSize,
+      })
 
       if (pricing.discountType === 'bundle') {
         bundleDiscountAmount += pricing.discountAmount
@@ -258,6 +273,7 @@ export async function POST(request: NextRequest) {
         ...(discountDesc ? { discountDesc } : {}),
         ...(pricing.discountType === 'bundle' ? { fromBundle: true } : {}),
         ...(pricing.discountType === 'bundle' ? { bundleDiscountPercent: pricing.discountPercentage } : {}),
+        ...(homecareAttribution ? { homecareAttribution } : {}),
       })
     }
     
@@ -331,6 +347,27 @@ export async function POST(request: NextRequest) {
     const shipping = calculateMobileShipping(subtotal, customerEmirate)
     const total = Math.round((subtotal + shipping - loyaltyRedemption.amountAed) * 100) / 100
     const vat = calculateVatIncluded(total)
+    const winningHomecare = selectWinningHomecareAttribution(
+      pricedItems.map(item => item.homecareAttribution || null),
+    )
+    const homecareEligibleAmounts = computeHomecareEligibleAmounts(
+      pricedItems.map(item => ({
+        lineTotal: item.lineTotal,
+        attribution:
+          winningHomecare &&
+          item.homecareAttribution?.scriptId === winningHomecare.scriptId &&
+          item.homecareAttribution.versionId === winningHomecare.versionId
+            ? item.homecareAttribution
+            : null,
+      })),
+      loyaltyRedemption.amountAed,
+    )
+    pricedItems.forEach((item, index) => {
+      item.homecareEligibleAmount = homecareEligibleAmounts[index] || 0
+    })
+    const homecareAttributedSubtotal = Math.round(
+      homecareEligibleAmounts.reduce((sum, amount) => sum + amount, 0) * 100,
+    ) / 100
 
     // Idempotency check: Look for recent pending CARD orders from same customer with same total
     const recentDuplicateCheck = await prisma.order.findFirst({
@@ -339,6 +376,7 @@ export async function POST(request: NextRequest) {
         paymentMethod: 'stripe',
         paymentStatus: 'pending',
         total: total,
+        homecareScriptVersionId: winningHomecare?.versionId || null,
         createdAt: {
           gte: new Date(Date.now() - 5 * 60 * 1000)
         }
@@ -400,7 +438,14 @@ export async function POST(request: NextRequest) {
         image: item.product.image,
         color: enhanced.color || '',
         size: enhanced.size || '',
-        ...(item.fromBundle && item.bundleDiscountPercent ? { bundleDiscount: item.bundleDiscountPercent } : {})
+        ...(item.fromBundle && item.bundleDiscountPercent ? { bundleDiscount: item.bundleDiscountPercent } : {}),
+        ...(item.homecareEligibleAmount && item.homecareAttribution && winningHomecare
+          ? {
+              homecareScriptItemId: item.homecareAttribution.scriptItemId,
+              homecareScriptVersionId: winningHomecare.versionId,
+              homecareEligibleAmount: item.homecareEligibleAmount,
+            }
+          : {}),
       }
     })
 
@@ -439,6 +484,13 @@ export async function POST(request: NextRequest) {
       bundleDiscountAmount,
       loyaltyPointsRedeemed: loyaltyRedemption.points,
       loyaltyDiscountAmount: loyaltyRedemption.amountAed,
+      ...(winningHomecare && homecareAttributedSubtotal > 0
+        ? {
+            homecareScriptId: winningHomecare.scriptId,
+            homecareScriptVersionId: winningHomecare.versionId,
+            homecareAttributedSubtotal,
+          }
+        : {}),
       shipping,
       vat,
       total,

@@ -771,6 +771,12 @@ export const emailTemplates = {
                         <td style="padding: 8px 0; font-size: 15px; color: #0071e3; font-weight: 500; text-align: ${textAlignReverse};">-AED ${(orderData.loyaltyDiscountAmount || 0).toFixed(2)}</td>
                       </tr>
                       ` : ''}
+                      ${(orderData.clinicPointsDiscountAmount || 0) > 0 ? `
+                      <tr>
+                        <td style="padding: 8px 0; font-size: 15px; color: #92400e; font-weight: 500; text-align: ${textAlign};">★ Clinic Points</td>
+                        <td style="padding: 8px 0; font-size: 15px; color: #92400e; font-weight: 500; text-align: ${textAlignReverse};">-AED ${(orderData.clinicPointsDiscountAmount || 0).toFixed(2)}</td>
+                      </tr>
+                      ` : ''}
                       <tr>
                         <td style="padding: 8px 0; font-size: 15px; color: #6b7280; text-align: ${textAlign};">${t.vat || 'VAT (5%)'}</td>
                         <td style="padding: 8px 0; font-size: 15px; color: #1d1d1f; font-weight: 500; text-align: ${textAlignReverse};">AED ${orderData.vat.toFixed(2)}</td>
@@ -1408,6 +1414,12 @@ export const emailTemplates = {
                             </table>
                           </td>
                         </tr>
+            ` : ''}
+            ${(orderData.clinicPointsDiscountAmount || 0) > 0 ? `
+                            <tr>
+                                <td style="color: #92400e; font-size: 14px; font-weight: 600;">★ Clinic Points</td>
+                                <td align="right" style="color: #92400e; font-size: 14px; font-weight: 600;">-AED ${(orderData.clinicPointsDiscountAmount || 0).toFixed(2)}</td>
+                            </tr>
             ` : ''}
             ${orderData.vat !== undefined ? `
                         <tr>

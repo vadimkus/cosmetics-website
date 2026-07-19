@@ -11,6 +11,11 @@ import { isTwilioConfigured } from '@/lib/twilio'
 import { sendOrderStatusPushNotification, isValidExpoPushToken, OrderStatus, Locale } from '@/lib/expoPush'
 import { awardPointsForDeliveredOrder, reverseRedemptionForOrder } from '@/lib/loyalty'
 import { sendLoyaltyPointsEarnedEmail, sendLoyaltyTierUpgradeEmail } from '@/lib/email'
+import {
+  awardClinicPointsForOrder,
+  restoreClinicPointsRedemptionForOrder,
+  reverseClinicPointsForOrder,
+} from '@/lib/homecare'
 
 export async function PUT(
   request: NextRequest,
@@ -29,7 +34,31 @@ export async function PUT(
 
   try {
     const { id } = await params
-    const { status, paymentReceived } = await request.json()
+    const { status, paymentReceived, refundAmount } = await request.json()
+
+    // Record a full/partial refund and reverse the proportional Clinic Points.
+    if (refundAmount !== undefined && status === undefined && paymentReceived === undefined) {
+      const amount = Math.max(0, Number(refundAmount) || 0)
+      const order = await getOrderById(id)
+      if (!order) {
+        return NextResponse.json({ success: false, error: 'Order not found' }, { status: 404 })
+      }
+      if (amount <= 0 || amount > order.total) {
+        return NextResponse.json({ success: false, error: 'Invalid refund amount' }, { status: 400 })
+      }
+      const cumulativeRefund = Math.min(order.total, Number(order.refundAmount || 0) + amount)
+      await prisma.order.update({
+        where: { id },
+        data: {
+          refundAmount: cumulativeRefund,
+          refundedAt: new Date(),
+          ...(cumulativeRefund >= order.total ? { paymentStatus: 'refunded' } : {}),
+        },
+      })
+      await reverseClinicPointsForOrder(id, cumulativeRefund)
+      await restoreClinicPointsRedemptionForOrder(id, cumulativeRefund)
+      return NextResponse.json({ success: true, message: 'Refund recorded' })
+    }
 
     // Payment tracking for partner consignment/credit orders: mark the money
     // as received without touching fulfilment status or sending emails.
@@ -42,6 +71,11 @@ export async function PUT(
         where: { id },
         data: { paymentStatus: 'paid', paidAt: new Date() },
       })
+      if (order.status === 'DELIVERED') {
+        await awardClinicPointsForOrder(id).catch(e =>
+          errorLog('❌ Clinic Points award failed after payment receipt:', e),
+        )
+      }
       debugLog(`✅ Payment marked received for order ${order.orderNumber}`)
       return NextResponse.json({ success: true, message: 'Payment marked as received' })
     }
@@ -81,10 +115,28 @@ export async function PUT(
       } catch (loyaltyError) {
         errorLog('❌ Loyalty redemption reversal failed on admin cancel:', loyaltyError)
       }
+      try {
+        await reverseClinicPointsForOrder(id, order.total)
+      } catch (clinicPointsError) {
+        errorLog('❌ Clinic Points reversal failed on admin cancel:', clinicPointsError)
+      }
+      try {
+        await restoreClinicPointsRedemptionForOrder(id)
+      } catch (clinicRedemptionError) {
+        errorLog('❌ Clinic Points redemption restore failed on admin cancel:', clinicRedemptionError)
+      }
     }
 
     // Award loyalty points when the order is delivered (idempotent, non-blocking)
     if (status === 'DELIVERED') {
+      try {
+        const clinicPoints = await awardClinicPointsForOrder(id)
+        if (clinicPoints?.awarded) {
+          debugLog(`✅ Clinic Points: +${clinicPoints.points} for order ${order.orderNumber}`)
+        }
+      } catch (clinicPointsError) {
+        errorLog('❌ Clinic Points award failed (status update continues):', clinicPointsError)
+      }
       try {
         const loyalty = await awardPointsForDeliveredOrder(id)
         if (loyalty?.awarded && loyalty.points > 0) {

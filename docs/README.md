@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟢 **Rewards UX** | [COD Rewards disclosure](./SESSION_CHANGES_2026-07-19_COD_REWARDS_DISCLOSURE.md) | Shows estimated retail GENOSYS Rewards points in COD confirmation email and website success page, with clear collection/delivery timing and shipping exclusion in EN/RU/AR. |
 | 🔴 **Clinic commerce** | [Clinic Homecare Scripts](./SESSION_CHANGES_2026-07-19_CLINIC_HOMECARE_SCRIPTS.md) | Versioned clinic recommendations, private patient links, cart/order attribution, Clinic Points, responsive web/PWA and native API support; fully verified against an isolated local database. |
 | 🔴 **Mobile commerce** | [Mobile PDP bag controls](./SESSION_CHANGES_2026-07-18_MOBILE_PDP_BAG_CONTROLS.md) | Removes the overlapping mobile PDP chat button and makes the localized in-bag control navigate directly to the bag. |
 | 🟢 **UI/Dev** | [Phase A stabilization + product morphs](./SESSION_CHANGES_2026-07-18_PHASE_A_PRODUCT52_PILOTS.md) | Reliable guide progress, repeatable home reveals, same-document image morphs, and high-positioned customer quick facts with verified sales evidence across all EN/RU/AR PDPs; fully browser-tested locally. |

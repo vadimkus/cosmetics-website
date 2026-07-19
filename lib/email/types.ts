@@ -136,5 +136,6 @@ export interface OrderHTMLData {
   bundleDiscountAmount?: number | undefined
   loyaltyPointsRedeemed?: number | undefined
   loyaltyDiscountAmount?: number | undefined
+  loyaltyPointsExpected?: number | undefined
   clinicPointsDiscountAmount?: number | undefined
 }

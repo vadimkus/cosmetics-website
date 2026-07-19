@@ -18,9 +18,37 @@ jest.mock('@/lib/logger', () => ({
   errorLog: jest.fn(),
 }))
 
-import { recordRedemption, reverseRedemptionForOrder } from '@/lib/loyalty'
+import { estimateOrderPoints, recordRedemption, reverseRedemptionForOrder } from '@/lib/loyalty'
 
 const mockPrisma = jest.requireMock('@/lib/prisma').prisma
+
+describe('loyalty order estimate', () => {
+  it('matches the Silver COD reward basis and excludes shipping', () => {
+    expect(estimateOrderPoints({
+      total: 345,
+      shipping: 45,
+      user: {
+        memberTier: 'SILVER',
+        birthday: null,
+        discountType: null,
+        discountPercentage: null,
+      },
+    })).toBe(375)
+  })
+
+  it('does not promise rewards to Professional Partner accounts', () => {
+    expect(estimateOrderPoints({
+      total: 345,
+      shipping: 45,
+      user: {
+        memberTier: 'SILVER',
+        birthday: null,
+        discountType: 'percentage',
+        discountPercentage: 50,
+      },
+    })).toBe(0)
+  })
+})
 
 describe('loyalty redemption ledger lifecycle', () => {
   beforeEach(() => {

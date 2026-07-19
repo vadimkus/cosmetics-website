@@ -450,7 +450,9 @@
     "contactWhatsApp": "Получить обновлёния через WhatsApp",
     "sessionId": "ID сессии",
     "deliveryDubai": "1-2 часа",
-    "deliveryOther": "1-2 рабочих дня"
+    "deliveryOther": "1-2 рабочих дня",
+    "rewardsPendingTitle": "Вы получите {points} балл. GENOSYS Rewards",
+    "rewardsCodTiming": "Баллы будут начислены после получения оплаты при доставке и перевода заказа в статус «Доставлен». Доставка не участвует в начислении баллов."
   },
   "voiceSearch": {
     "startListening": "Начать голосовой поиск",

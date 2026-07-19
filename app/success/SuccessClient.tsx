@@ -5,7 +5,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useEffect, Suspense, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingBag, ArrowLeft, MessageCircle, CheckCircle2, Mail, MapPin, Clock, Truck, Package } from 'lucide-react'
+import { ShoppingBag, ArrowLeft, MessageCircle, CheckCircle2, Gift, Mail, MapPin, Clock, Truck, Package } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { trackPurchase } from '@/lib/analytics'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -51,6 +51,7 @@ interface OrderData {
   bundleDiscountAmount: number
   loyaltyPointsRedeemed: number
   loyaltyDiscountAmount: number
+  loyaltyPointsExpected: number
   items: OrderItem[]
   deliveryEstimate: {
     time: string
@@ -539,6 +540,27 @@ function SuccessContent() {
               </div>
             </div>
           ) : null}
+
+          {orderData &&
+            String(orderData.paymentMethod || '').toLowerCase().includes('cod') &&
+            orderData.loyaltyPointsExpected > 0 && (
+              <div className="mb-4 rounded-2xl border border-blue-200 bg-blue-50 p-4 md:p-5">
+                <div className={`flex items-start gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-600 text-white">
+                    <Gift className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h2 className="font-bold text-blue-950">
+                      {(t('success.rewardsPendingTitle') || 'You’ll earn {points} GENOSYS Rewards points')
+                        .replace('{points}', orderData.loyaltyPointsExpected.toLocaleString(locale))}
+                    </h2>
+                    <p className="mt-1 text-sm leading-relaxed text-blue-800">
+                      {t('success.rewardsCodTiming') || 'Points will be credited after your Cash on Delivery payment is collected and the order is marked delivered. Shipping does not earn points.'}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
 
           {/* What Happens Next Card */}
           <div className="bg-blue-50 rounded-2xl p-4 md:p-5 mb-4 border border-blue-100">

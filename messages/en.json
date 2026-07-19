@@ -450,7 +450,9 @@
     "contactWhatsApp": "Get Updates via WhatsApp",
     "sessionId": "Session ID",
     "deliveryDubai": "1-2 hours",
-    "deliveryOther": "1-2 business days"
+    "deliveryOther": "1-2 business days",
+    "rewardsPendingTitle": "You’ll earn {points} GENOSYS Rewards points",
+    "rewardsCodTiming": "Points will be credited after your Cash on Delivery payment is collected and the order is marked delivered. Shipping does not earn points."
   },
   "voiceSearch": {
     "startListening": "Start voice search",

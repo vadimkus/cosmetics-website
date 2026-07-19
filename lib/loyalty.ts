@@ -83,6 +83,27 @@ export function computeOrderPoints(
   return Math.floor(birthdayMonth ? base * 2 : base)
 }
 
+/**
+ * Preview the points an order will earn once it qualifies for delivery credit.
+ * This mirrors the award basis: net product spend only, current tier, birthday
+ * multiplier, and no rewards for Professional Partner accounts.
+ */
+export function estimateOrderPoints(params: {
+  total: number
+  shipping: number
+  user: DiscountFields & {
+    memberTier?: string | null
+    birthday?: string | null
+  } | null | undefined
+}): number {
+  if (!params.user || loyaltyTrackForUser(params.user) !== 'REWARDS') return 0
+  const tier = params.user.memberTier && params.user.memberTier in TIER_MULTIPLIERS
+    ? params.user.memberTier as MemberTier
+    : 'MEMBER'
+  const productSpend = Math.max(0, (Number(params.total) || 0) - (Number(params.shipping) || 0))
+  return computeOrderPoints(productSpend, tier, isBirthdayMonth(params.user.birthday))
+}
+
 /** Sum of a user's ledger — the authoritative points balance. */
 export async function getLedgerBalance(userId: string): Promise<number> {
   const agg = await prisma.loyaltyTransaction.aggregate({

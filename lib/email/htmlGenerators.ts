@@ -168,6 +168,18 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
   // Localized labels
   const orderConfirmedText = locale === 'ru' ? 'Заказ подтвержден' : locale === 'ar' ? 'تم تأكيد الطلب' : 'Order Confirmed'
   const codPaymentText = locale === 'ru' ? '💵 Оплата: При получении' : locale === 'ar' ? '💵 الدفع: عند الاستلام' : '💵 Payment: Cash on Delivery'
+  const rewardsPoints = Math.max(0, Number(order.loyaltyPointsExpected) || 0)
+  const rewardsLocale = locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-US'
+  const rewardsTitle = locale === 'ru'
+    ? `Вы получите ${rewardsPoints.toLocaleString(rewardsLocale)} балл. GENOSYS Rewards`
+    : locale === 'ar'
+      ? `ستحصل على ${rewardsPoints.toLocaleString(rewardsLocale)} نقطة من مكافآت GENOSYS`
+      : `You’ll earn ${rewardsPoints.toLocaleString(rewardsLocale)} GENOSYS Rewards points`
+  const rewardsTiming = locale === 'ru'
+    ? 'Баллы будут начислены после получения оплаты при доставке и перевода заказа в статус «Доставлен». Доставка не участвует в начислении баллов.'
+    : locale === 'ar'
+      ? 'ستُضاف النقاط بعد تحصيل الدفع عند الاستلام وتحديث الطلب إلى «تم التوصيل». رسوم التوصيل لا تكسب نقاطاً.'
+      : 'Points will be credited after your Cash on Delivery payment is collected and the order is marked delivered. Shipping does not earn points.'
   const greetingText = locale === 'ru' 
     ? `Здравствуйте, ${firstName},<br><br>Спасибо за ваш заказ. Вы оплатите заказ наличными при получении. Мы уведомим вас, когда он будет отправлен.`
     : locale === 'ar'
@@ -252,6 +264,26 @@ export const generateCODOrderHTML = (order: OrderHTMLData, locale: string = 'en'
                   </table>
                 </td>
               </tr>
+
+              ${rewardsPoints > 0 ? `
+              <!-- GENOSYS Rewards timing -->
+              <tr>
+                <td style="padding-bottom: 32px;">
+                  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px;">
+                    <tr>
+                      <td style="padding: 18px 22px; text-align: ${textAlign};">
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 16px; color: #1e40af; font-weight: 700; margin-bottom: 6px;">
+                          ★ ${rewardsTitle}
+                        </div>
+                        <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 13px; line-height: 1.5; color: #1e3a8a;">
+                          ${rewardsTiming}
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              ` : ''}
               
               <!-- Divider -->
               <tr>

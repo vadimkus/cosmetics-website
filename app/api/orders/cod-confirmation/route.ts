@@ -2,7 +2,7 @@ import { NextRequest, NextResponse, after } from 'next/server'
 import { cookies } from 'next/headers'
 import * as Sentry from '@sentry/nextjs'
 import { verifySessionToken } from '@/lib/jwt'
-import { resolveRedemptionForCheckout, recordRedemption } from '@/lib/loyalty'
+import { estimateOrderPoints, resolveRedemptionForCheckout, recordRedemption } from '@/lib/loyalty'
 import { sendEmail, sendAdminNewOrderNotification, generateCODOrderHTML, OrderHTMLData, OrderHTMLItem } from '@/lib/email'
 import { debugLog, errorLog } from '@/lib/logger'
 import {
@@ -569,6 +569,11 @@ export async function POST(request: NextRequest) {
       bundleDiscountAmount: bundleDiscountAmountCalc > 0 ? bundleDiscountAmountCalc : undefined,
       loyaltyPointsRedeemed: loyaltyRedemption.points > 0 ? loyaltyRedemption.points : undefined,
       loyaltyDiscountAmount: loyaltyRedemption.amountAed > 0 ? loyaltyRedemption.amountAed : undefined,
+      loyaltyPointsExpected: estimateOrderPoints({
+        total,
+        shipping: shippingCost,
+        user,
+      }),
       items: serverItems.map((item): OrderHTMLItem => {
         // Enhance with default size if missing
         const itemName = item.name || 'Product'

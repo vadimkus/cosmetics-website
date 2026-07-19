@@ -450,7 +450,9 @@
     "contactWhatsApp": "احصل على التحديثات عبر واتساب",
     "sessionId": "معرف الجلسة",
     "deliveryDubai": "١-٢ ساعة",
-    "deliveryOther": "١-٢ أيام عمل"
+    "deliveryOther": "١-٢ أيام عمل",
+    "rewardsPendingTitle": "ستحصل على {points} نقطة من مكافآت GENOSYS",
+    "rewardsCodTiming": "ستُضاف النقاط بعد تحصيل الدفع عند الاستلام وتحديث الطلب إلى «تم التوصيل». رسوم التوصيل لا تكسب نقاطاً."
   },
   "voiceSearch": {
     "startListening": "بدء البحث الصوتي",

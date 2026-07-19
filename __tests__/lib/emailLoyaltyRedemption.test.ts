@@ -1,4 +1,5 @@
 import { emailTemplates } from '@/lib/email/templates'
+import { generateCODOrderHTML } from '@/lib/email/htmlGenerators'
 
 const base = {
   orderNumber: 'GENCardM2607176967',
@@ -21,6 +22,27 @@ const base = {
 }
 
 describe('loyalty redemption in order emails', () => {
+  it('shows expected rewards and COD credit timing in the customer email', () => {
+    const html = generateCODOrderHTML({
+      orderNumber: 'CODW2607196058',
+      customerName: 'Vadim Sagatdinov',
+      customerEmail: 'customer@example.com',
+      customerPhone: '+971500000000',
+      customerAddress: 'Dubai',
+      emirate: 'Dubai',
+      items: [{ name: 'BIO-MESO PDRN HOMECARE AMPOULE 5000', quantity: 1, price: 300 }],
+      subtotal: 300,
+      shippingCost: 45,
+      vatAmount: 16.43,
+      total: 345,
+      loyaltyPointsExpected: 375,
+    }, 'en')
+
+    expect(html).toContain('You’ll earn 375 GENOSYS Rewards points')
+    expect(html).toContain('after your Cash on Delivery payment is collected')
+    expect(html).toContain('Shipping does not earn points')
+  })
+
   it('shows points and AED discount in the customer confirmation', () => {
     const template = emailTemplates.orderConfirmation({
       ...base,

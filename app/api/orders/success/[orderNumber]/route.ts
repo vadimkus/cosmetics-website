@@ -4,6 +4,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { verifySessionToken } from '@/lib/jwt'
 import { findUserById } from '@/lib/userStorageDb'
 import { verifyAdminSessionToken } from '@/lib/adminAuth'
+import { estimateOrderPoints } from '@/lib/loyalty'
 
 /**
  * GET /api/orders/success/[orderNumber]
@@ -59,6 +60,14 @@ export async function GET(
             size: true,
             bundleDiscount: true
           }
+        },
+        customer: {
+          select: {
+            memberTier: true,
+            birthday: true,
+            discountType: true,
+            discountPercentage: true,
+          },
         }
       }
     })
@@ -123,6 +132,11 @@ export async function GET(
       // GENOSYS Rewards redemption
       loyaltyPointsRedeemed: order.loyaltyPointsRedeemed,
       loyaltyDiscountAmount: order.loyaltyDiscountAmount,
+      loyaltyPointsExpected: estimateOrderPoints({
+        total: order.total,
+        shipping: order.shipping,
+        user: order.customer,
+      }),
       // Items with full details
       items: order.items.map(item => ({
         id: item.id,

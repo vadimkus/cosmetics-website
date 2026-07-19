@@ -6,6 +6,8 @@ Date: 2026-07-19
 
 The authenticated desktop `/profile` experience is now a utility-first customer dashboard. Mobile web and installed-PWA users continue to receive the existing `PWAProfilePage`; no native-app code was changed.
 
+**Skin analysis (2026-07-19 follow-up):** Overview “Start analysis” now navigates to `/skin-recommendation` (same entry as the homepage), instead of opening a profile-only camera modal.
+
 ## Design direction
 
 - Adapted the quiet identity rail and spacious task canvas seen in Awwwards' Houston Drip Factory account example without copying its artwork.

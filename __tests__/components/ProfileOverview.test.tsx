@@ -101,9 +101,9 @@ describe('ProfileOverview', () => {
     expect(screen.getByText('Registered')).toBeInTheDocument()
     expect(screen.getByText('GENOSYS Member')).toBeInTheDocument()
     expect(screen.getByText('Silver')).toBeInTheDocument()
-    expect(screen.getByAltText('GENOSYS Professional')).toHaveAttribute(
+    expect(screen.getByAltText('GENOSYS')).toHaveAttribute(
       'src',
-      '/images/genosys-logo-transparent.png'
+      '/images/genosys-wordmark-transparent.png'
     )
     expect(screen.getByText('+971501234567')).toBeInTheDocument()
     expect(screen.getByText('Dubai Marina, Dubai')).toBeInTheDocument()
@@ -149,7 +149,7 @@ describe('ProfileOverview', () => {
     expect(screen.getByAltText('GENOSYS Serum')).toHaveAttribute('src', '/images/genosys-logo-transparent.png')
   })
 
-  it('starts the real skin-analysis flow', () => {
+  it('starts skin analysis via the homepage entry callback', () => {
     const onStart = jest.fn()
     render(
       <ProfileOverview user={user} orders={[]} loadingOrders={false} onStartSkinAnalysis={onStart} />

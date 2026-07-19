@@ -11,7 +11,6 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import PWAProfilePage from '@/components/pwa/PWAProfilePage'
-import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useMembershipData } from '@/hooks/useMembershipData'
 
@@ -112,9 +111,6 @@ export default function ProfilePageRefactored() {
   // Toast notification state
   const [toasts, setToasts] = useState<Toast[]>([])
   const toastIdCounter = useRef(0)
-  
-  // Skin analysis modal state
-  const [showSkinAnalysis, setShowSkinAnalysis] = useState(false)
 
   // Read tab from URL query parameter
   useEffect(() => {
@@ -471,7 +467,9 @@ export default function ProfilePageRefactored() {
             user={user}
             orders={orders}
             loadingOrders={loadingOrders}
-            onStartSkinAnalysis={() => setShowSkinAnalysis(true)}
+            onStartSkinAnalysis={() =>
+              router.push(getLocalizedPath('/skin-recommendation', locale))
+            }
           />
         )}
 
@@ -676,23 +674,6 @@ export default function ProfilePageRefactored() {
         ))}
       </div>
 
-      {/* AI Skin Analysis Modal */}
-      {showSkinAnalysis && (
-        <SkinAnalysisCamera
-          onAnalysisComplete={(result: SkinAnalysisResult) => {
-            setShowSkinAnalysis(false)
-            showToast(
-              locale === 'ar' ? `تم تحليل بشرتك: ${result.skinType}` :
-              locale === 'ru' ? `Анализ завершен: ${result.skinType}` :
-              `Skin analysis complete: ${result.skinType}`,
-              'success'
-            )
-            // Navigate to skin recommendation page with results
-            router.push(getLocalizedPath('/skin-recommendation', locale) + `?skinType=${result.skinType}&concerns=${result.concerns.join(',')}`)
-          }}
-          onClose={() => setShowSkinAnalysis(false)}
-        />
-      )}
     </div>
   )
 }

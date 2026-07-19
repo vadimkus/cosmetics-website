@@ -1,10 +1,8 @@
 'use client'
 
-import Link from 'next/link'
-import { User, Shield, Eye, Lock, CheckCircle, X, MessageCircle, Zap, Clock, Gift, Sparkles, Heart, Mail, AlertCircle, Edit3 } from 'lucide-react'
+import { User, Shield, Eye, Lock, CheckCircle, X, Mail, AlertCircle, Edit3 } from 'lucide-react'
 import { User as UserType } from '@/types/user'
 import { useTranslation } from '@/hooks/useTranslation'
-import { getLocalizedPath } from '@/lib/i18n'
 
 interface ProfileFormProps {
   user: UserType
@@ -46,7 +44,7 @@ export default function ProfileForm({
     <div className="space-y-3 md:space-y-8">
       
       {/* Personal Information */}
-      <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-3 md:p-6 lg:p-8">
+      <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] md:p-6 lg:p-8">
         <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-6">
           <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-gray-900 flex items-center justify-center shrink-0">
             <User className="h-4 w-4 md:h-5 md:w-5 text-white" />
@@ -270,7 +268,7 @@ export default function ProfileForm({
       </div>
 
       {/* Account Status */}
-      <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-3 md:p-6 lg:p-8">
+      <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] md:p-6 lg:p-8">
         <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-6">
           <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-gray-900 flex items-center justify-center shrink-0">
             <Shield className="h-4 w-4 md:h-5 md:w-5 text-white" />
@@ -328,64 +326,6 @@ export default function ProfileForm({
         </div>
       </div>
 
-      {/* Support + Skin Recommendation — stacked on mobile, side-by-side on md+ */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6 lg:gap-8">
-        {/* Support */}
-        <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-3 md:p-6 lg:p-8 flex flex-col">
-          <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-5">
-            <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-gray-900 flex items-center justify-center shrink-0">
-              <MessageCircle className="h-4 w-4 md:h-5 md:w-5 text-white" />
-            </div>
-            <div>
-              <h2 className="text-sm md:text-lg font-semibold text-gray-900 tracking-tight">{t('profile.needHelp')}</h2>
-              <p className="text-[10px] md:text-xs text-gray-400 hidden md:block">{t('profile.getInstantSupport')}</p>
-            </div>
-          </div>
-
-          <div className="hidden md:flex md:flex-col mb-5 gap-2.5 text-sm text-gray-500">
-            <div className="flex items-center gap-2.5"><Zap className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.available247')}</span></div>
-            <div className="flex items-center gap-2.5"><Clock className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.quickResponse')}</span></div>
-            <div className="flex items-center gap-2.5"><Gift className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.productRecommendations')}</span></div>
-          </div>
-
-          <a
-            href="https://wa.me/971585487665"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-auto flex items-center justify-center gap-2 bg-white text-gray-900 border border-gray-200 px-3 py-2 md:px-6 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold hover:bg-gray-50 hover:border-gray-300 active:scale-[0.99] transition-all min-h-[40px] md:min-h-[46px] touch-manipulation w-full"
-          >
-            <MessageCircle className="h-4 w-4 md:h-[18px] md:w-[18px] text-emerald-500" aria-hidden="true" />
-            {t('profile.startWhatsAppChat')}
-          </a>
-        </div>
-
-        {/* Skin Recommendation */}
-        <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-3 md:p-6 lg:p-8 flex flex-col">
-          <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-5">
-            <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-gray-900 flex items-center justify-center shrink-0">
-              <Sparkles className="h-4 w-4 md:h-5 md:w-5 text-white" />
-            </div>
-            <div>
-              <h2 className="text-sm md:text-lg font-semibold text-gray-900 tracking-tight">{t('profile.skinRecommendation')}</h2>
-              <p className="text-[10px] md:text-xs text-gray-400 hidden md:block">{t('profile.getPersonalizedRecommendations')}</p>
-            </div>
-          </div>
-
-          <div className="hidden md:flex md:flex-col mb-5 gap-2.5 text-sm text-gray-500">
-            <div className="flex items-center gap-2.5"><Sparkles className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.aiPoweredAnalysis')}</span></div>
-            <div className="flex items-center gap-2.5"><Heart className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.personalizedResults')}</span></div>
-            <div className="flex items-center gap-2.5"><Gift className="h-4 w-4 text-gray-300" aria-hidden="true" /><span>{t('profile.productSuggestions')}</span></div>
-          </div>
-
-          <Link
-            href={getLocalizedPath('/skin-recommendation', locale)}
-            className="mt-auto flex items-center justify-center gap-2 bg-gray-900 text-white px-3 py-2 md:px-6 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-semibold hover:bg-gray-800 active:scale-[0.99] transition-all min-h-[40px] md:min-h-[46px] touch-manipulation w-full shadow-sm"
-          >
-            <Sparkles className="h-4 w-4 md:h-[18px] md:w-[18px]" aria-hidden="true" />
-            {t('profile.getSkinAnalysis')}
-          </Link>
-        </div>
-      </div>
     </div>
   )
 }

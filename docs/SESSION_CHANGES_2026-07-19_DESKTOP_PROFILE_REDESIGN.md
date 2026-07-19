@@ -1,0 +1,74 @@
+# Desktop Profile Redesign
+
+Date: 2026-07-19
+
+## Outcome
+
+The authenticated desktop `/profile` experience is now a utility-first customer dashboard. Mobile web and installed-PWA users continue to receive the existing `PWAProfilePage`; no native-app code was changed.
+
+## Design direction
+
+- Adapted the quiet identity rail and spacious task canvas seen in Awwwards' Houston Drip Factory account example without copying its artwork.
+- Applied GENOSYS typography, neutral surfaces, restrained elevation, red interaction accents, and consistent 44px+ controls.
+- Prioritized rewards, latest-order status, favorites, shipping, billing, skin analysis, documents, and support.
+- Kept primary dashboard views distinct from standalone destinations.
+
+Research references:
+
+- [Awwwards — Houston Drip Factory eCommerce My account page](https://www.awwwards.com/inspiration/ecommerce-my-account-page-houston-drip-factory-1)
+- [Baymard — Accounts & Self-Service UX Best Practices 2025](https://baymard.com/blog/current-state-accounts-selfservice)
+- [Baymard — Order Tracking UX](https://baymard.com/blog/integrate-tracking-info)
+
+## Information architecture
+
+The sticky desktop account rail contains:
+
+- Overview
+- Orders
+- Favorites
+- Personal details
+- Shipping addresses
+- Billing
+- Security & privacy
+- Documents
+- Partner Portal for eligible clinic/VIP accounts
+- Sign out, separated from normal navigation
+
+Overview, orders, personal details, and security use deep links such as `/profile?tab=orders`. Favorites, addresses, billing, documents, and Partner Portal remain real routes.
+
+## Functional changes
+
+- Added `components/profile/desktop/DesktopProfileShell.tsx`.
+- Added `components/profile/desktop/ProfileOverview.tsx`.
+- Added `components/profile/desktop/DesktopSecurityPanel.tsx`.
+- Added a deduplicated `useMembershipData` hook so the rail and rewards card use the real membership API.
+- Removed the browser-local fake customer-number generator.
+- Reused existing order, profile-edit, passkey, privacy, account deletion, and skin-analysis flows.
+- Removed the nonfunctional theme control from the exposed desktop experience.
+- Replaced duplicate in-profile document listings with `/training`.
+- Replaced obsolete order-image placeholders with `/images/genosys-logo-transparent.png`.
+- Removed dead profile copies:
+  - `app/ar/profile/ProfilePageClient.tsx`
+  - `components/profile/ProfileHeader.backup.tsx`
+- Added all dashboard copy to EN/RU/AR message bundles.
+
+## Verification
+
+- Jest: 2 focused suites, 7 tests passed.
+- TypeScript: `npx tsc --noEmit` passed.
+- Targeted ESLint: passed without errors or warnings after cleanup.
+- Production: `npx next build` passed (454 static pages generated).
+- Playwright: authenticated profile-access smoke passed. The full legacy profile suite was updated for the current login form and deep links; a later full local run was blocked by Turbopack serving stale/404 API chunks after the production build replaced the active dev cache.
+- `git diff --check`: passed for profile-related changes.
+- Authenticated browser checks at desktop width:
+  - overview and partner visibility
+  - personal-details deep link
+  - edit mode and safe cancel
+  - real rewards/member data
+  - EN, RU, and AR labels
+  - Arabic profile canvas uses `dir="rtl"`
+- Mobile regression at 390 × 844:
+  - existing account/PWA profile rendered
+  - new desktop account rail was absent
+
+Focused tests cover active navigation, deep-link destinations, real member number, partner eligibility, RTL, favorites count, empty orders, recent-order tracking, neutral image fallback, and skin-analysis launch.

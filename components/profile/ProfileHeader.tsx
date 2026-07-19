@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { Camera, X, Crown, Building, Eye, Calendar, Sparkles } from 'lucide-react'
+import { Camera, X, Crown, Building, Eye, Calendar } from 'lucide-react'
 import { User as UserType } from '@/types/user'
 import { useTranslation } from '@/hooks/useTranslation'
 
@@ -9,7 +9,6 @@ interface ProfileHeaderProps {
   user: UserType
   isEditing: boolean
   previewImage: string | null
-  customerNumber: number
   onImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void
   onRemoveImage: () => void
   fileInputRef: React.RefObject<HTMLInputElement | null>
@@ -19,7 +18,6 @@ export default function ProfileHeader({
   user,
   isEditing,
   previewImage,
-  customerNumber,
   onImageUpload,
   onRemoveImage,
   fileInputRef
@@ -35,7 +33,7 @@ export default function ProfileHeader({
     : user.email
     
   return (
-    <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-xl border border-gray-100 p-3 md:p-6 lg:p-8 mb-3 md:mb-6 lg:mb-8">
+    <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] md:p-6 lg:p-8">
       {/* Mobile Layout */}
       <div className="md:hidden">
         <div className="flex items-center gap-3">
@@ -63,14 +61,8 @@ export default function ProfileHeader({
           
           {/* Name & Email */}
           <div className="flex-1 min-w-0">
-            <h1 className="text-base font-bold text-gray-900 truncate">{user.name}</h1>
+            <p className="truncate text-base font-bold text-gray-900">{user.name}</p>
             <p className="text-xs text-gray-500 truncate">{displayEmail}</p>
-            {customerNumber > 0 && (
-              <div className="inline-flex items-center gap-1 px-2 py-0.5 bg-gray-900 text-white rounded-full mt-1">
-                <Sparkles className="h-2.5 w-2.5" />
-                <span className="text-[10px] font-medium">#{customerNumber}</span>
-              </div>
-            )}
           </div>
         </div>
         
@@ -101,7 +93,7 @@ export default function ProfileHeader({
       <div className="hidden md:flex md:flex-row md:items-center md:gap-6 lg:gap-8">
         {/* Profile Picture */}
         <div className="relative flex-shrink-0">
-          <div className="w-24 h-24 md:w-24 md:h-24 lg:w-28 lg:h-28 rounded-full overflow-hidden bg-gradient-to-br from-green-100 to-emerald-200 border-4 border-white shadow-xl flex items-center justify-center">
+          <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-3xl border border-gray-200 bg-gray-100 shadow-sm md:h-24 md:w-24 lg:h-28 lg:w-28">
             {previewImage ? (
               <Image src={previewImage} alt="Profile" width={112} height={112} className="w-full h-full object-cover" />
             ) : user.profilePicture ? (
@@ -126,15 +118,8 @@ export default function ProfileHeader({
 
         {/* Profile Info */}
         <div className="flex-1 min-w-0 text-left">
-          <h1 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-1 truncate">{user.name}</h1>
+          <p className="mb-1 truncate text-2xl font-bold text-gray-900 lg:text-3xl">{user.name}</p>
           <p className="text-gray-600 text-sm lg:text-base break-all">{displayEmail}</p>
-          {customerNumber > 0 && (
-            <div className="inline-flex items-center gap-2 px-3 py-1 bg-gray-900 text-white rounded-full shadow-sm mt-3">
-              <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-              <span className="text-xs lg:text-sm font-semibold">{t('profile.familyMember')} #{customerNumber}</span>
-            </div>
-          )}
-
           {/* User Type Badges */}
           <div className="flex flex-wrap gap-2 justify-start mt-3">
             {user.canSeePrices && (

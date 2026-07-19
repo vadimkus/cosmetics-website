@@ -1,7 +1,6 @@
 'use client'
 
-import Link from 'next/link'
-import { ArrowLeft, User, Package, Settings, Download, Shield, Trash2, X, RefreshCw, Edit3, CheckCircle, XCircle, AlertCircle, Sparkles } from 'lucide-react'
+import { Trash2, X, RefreshCw, Edit3, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -10,25 +9,22 @@ import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import PWAProfilePage from '@/components/pwa/PWAProfilePage'
 import { SkinAnalysisCamera, SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
+import { useFavorites } from '@/components/FavoritesProvider'
+import { useMembershipData } from '@/hooks/useMembershipData'
 
-// Import refactored components
 import ProfileHeader from '@/components/profile/ProfileHeader'
-import MembershipCard from '@/components/profile/MembershipCard'
 import ProfileForm from '@/components/profile/ProfileForm'
 import OrderHistory from '@/components/profile/OrderHistory'
-import SettingsPanel from '@/components/profile/SettingsPanel'
-import DownloadsSection from '@/components/profile/DownloadsSection'
-import PrivacySettings from '@/components/profile/PrivacySettings'
+import DesktopProfileShell, { type DesktopProfileTab } from '@/components/profile/desktop/DesktopProfileShell'
+import ProfileOverview from '@/components/profile/desktop/ProfileOverview'
+import DesktopSecurityPanel from '@/components/profile/desktop/DesktopSecurityPanel'
 
 // Constants
 const LOCAL_STORAGE_KEYS = {
-  USER: 'genosys_user',
-  CUSTOMER_NUMBER: (userId: string) => `customer_number_${userId}`,
-  LAST_CUSTOMER_NUMBER: 'last_customer_number'
+  USER: 'genosys_user'
 } as const
 
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024 // 5MB
@@ -38,9 +34,6 @@ const REFRESH_ANIMATION_DELAY = 1000 // 1 second
 type OrderWithItems = Order & {
   items: OrderItem[]
 }
-
-// Tab type for better type safety
-type ActiveTab = 'profile' | 'orders' | 'settings' | 'downloads' | 'privacy'
 
 // Edit data type
 type EditData = {
@@ -76,6 +69,8 @@ export default function ProfilePageRefactored() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { isPWA, isClient } = usePWAMode()
+  const { favorites } = useFavorites()
+  const { data: membership } = useMembershipData()
   const [isMobileWeb, setIsMobileWeb] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
   
@@ -98,14 +93,13 @@ export default function ProfilePageRefactored() {
   })
   const [profilePicture, setProfilePicture] = useState<string | null>(null)
   const [previewImage, setPreviewImage] = useState<string | null>(null)
-  const [customerNumber, setCustomerNumber] = useState<number>(0)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
   const [showCancelOrderConfirm, setShowCancelOrderConfirm] = useState(false)
   const [orderToCancel, setOrderToCancel] = useState<string | null>(null)
   const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [loadingOrders, setLoadingOrders] = useState(false)
-  const [activeTab, setActiveTab] = useState<ActiveTab>('profile')
+  const [activeTab, setActiveTab] = useState<DesktopProfileTab>('overview')
   const [isRefreshing, setIsRefreshing] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -119,9 +113,16 @@ export default function ProfilePageRefactored() {
   // Read tab from URL query parameter
   useEffect(() => {
     const tab = searchParams.get('tab')
-    if (tab && ['profile', 'orders', 'settings', 'downloads', 'privacy'].includes(tab)) {
-      setActiveTab(tab as ActiveTab)
+    const normalized: Record<string, DesktopProfileTab> = {
+      overview: 'overview',
+      profile: 'details',
+      details: 'details',
+      orders: 'orders',
+      settings: 'security',
+      privacy: 'security',
+      security: 'security',
     }
+    setActiveTab((tab && normalized[tab]) || 'overview')
   }, [searchParams])
 
   // Add toast notification
@@ -177,7 +178,7 @@ export default function ProfilePageRefactored() {
     }
   }, [user, authLoading, router, locale])
 
-  // Initialize profile picture and customer number when user loads
+  // Initialize editable profile data when the user loads.
   useEffect(() => {
     if (user) {
       // If no profile picture but user is logged in, try to refresh from server
@@ -202,19 +203,6 @@ export default function ProfilePageRefactored() {
           birthday: user.birthday || '',
           contactEmail: user.contactEmail || ''
         })
-      }
-      
-      const savedCustomerNumber = localStorage.getItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
-      if (savedCustomerNumber) {
-        setCustomerNumber(parseInt(savedCustomerNumber, 10))
-      } else {
-        const lastCustomerNumber = parseInt(localStorage.getItem(LOCAL_STORAGE_KEYS.LAST_CUSTOMER_NUMBER) || '0', 10)
-        const newCustomerNumber = lastCustomerNumber + 1
-        
-        localStorage.setItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id), newCustomerNumber.toString())
-        localStorage.setItem(LOCAL_STORAGE_KEYS.LAST_CUSTOMER_NUMBER, newCustomerNumber.toString())
-        
-        setCustomerNumber(newCustomerNumber)
       }
     }
   }, [user, isEditing, forceRefreshUser])
@@ -261,7 +249,7 @@ export default function ProfilePageRefactored() {
     }
 
     fetchOrders()
-  }, [user?.email])
+  }, [user?.email, user?.contactEmail])
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -388,7 +376,6 @@ export default function ProfilePageRefactored() {
 
       if (response.ok) {
         localStorage.removeItem(LOCAL_STORAGE_KEYS.USER)
-        localStorage.removeItem(LOCAL_STORAGE_KEYS.CUSTOMER_NUMBER(user.id))
         
         showToast(t('profileActions.accountDeleted'), 'success')
         // Small delay before logout to show the message
@@ -462,241 +449,80 @@ export default function ProfilePageRefactored() {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-white">
-      <BreadcrumbSchema 
-        items={[
-          { name: t('common.home'), url: getLocalizedPath('/', locale) },
-          { name: t('common.profile'), url: getLocalizedPath('/profile', locale) },
-          ...(activeTab !== 'profile' ? [{ 
-            name: activeTab === 'orders' ? (t('profile.orders') || 'Orders') : 
-                  activeTab === 'settings' ? (t('profile.settings') || 'Settings') :
-                  activeTab === 'downloads' ? (t('profile.downloads') || 'Downloads') :
-                  activeTab === 'privacy' ? (t('profile.privacyPolicy') || 'Privacy') :
-                  String(activeTab).charAt(0).toUpperCase() + String(activeTab).slice(1), 
-            url: getLocalizedPath(`/profile#${activeTab}`, locale) 
-          }] : [])
-        ]}
-      />
-      {/* Breadcrumb Navigation */}
-      <div className="container mx-auto px-3 md:px-4 pt-4 md:pt-8">
-        {/* Navigation Breadcrumb */}
-        <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-          <span> / </span>
-          <span className="text-gray-900 font-medium">{t('common.profile')}</span>
-          {activeTab !== 'profile' && (
-            <>
-              <span> / </span>
-              <span className="text-gray-900 font-medium">
-                {activeTab === 'orders' ? (t('profile.orders') || 'Orders') : activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
-              </span>
-            </>
-          )}
-        </nav>
-        
-        {/* Back to Home */}
-        <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-          <span>{t('common.backToHome')}</span>
-        </Link>
-      </div>
-
-      <div className="container mx-auto px-3 sm:px-4">
-        <div className="max-w-6xl mx-auto">
-          
-          {/* Profile Header Card */}
-          <ProfileHeader
+    <div className="min-h-[100dvh] bg-[#f7f7f5]">
+      <DesktopProfileShell
+        user={user}
+        activeTab={activeTab}
+        orderCount={orders.length}
+        favoritesCount={favorites.length}
+        onLogout={logout}
+      >
+        {activeTab === 'overview' && (
+          <ProfileOverview
             user={user}
-            isEditing={isEditing}
-            previewImage={previewImage}
-            customerNumber={customerNumber}
-            onImageUpload={handleImageUpload}
-            onRemoveImage={handleRemoveImage}
-            fileInputRef={fileInputRef}
+            orders={orders}
+            loadingOrders={loadingOrders}
+            onStartSkinAnalysis={() => setShowSkinAnalysis(true)}
           />
+        )}
 
-          {/* GENOSYS Rewards membership card */}
-          <MembershipCard />
+        {activeTab === 'orders' && (
+          <OrderHistory
+            orders={orders}
+            loadingOrders={loadingOrders}
+            onCancelOrder={handleCancelOrderClick}
+          />
+        )}
 
-          {/* Navigation Tabs */}
-          <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-lg border border-gray-100 p-1.5 md:p-2 mb-3 md:mb-6 lg:mb-8">
-            {/* Mobile: Icon-only tabs (downloads hidden - duplicate of Training page) */}
-            <div className="flex justify-between md:hidden">
-              {[
-                { id: 'profile', icon: User },
-                { id: 'orders', icon: Package },
-                { id: 'settings', icon: Settings },
-                { id: 'privacy', icon: Shield }
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as ActiveTab)}
-                  className={`flex-1 flex items-center justify-center py-2.5 rounded-lg transition-all ${
-                    activeTab === tab.id
-                      ? 'bg-gray-900 text-white shadow-sm'
-                      : 'text-gray-500'
-                  }`}
-                >
-                  <tab.icon className="h-4 w-4" />
-                </button>
-              ))}
-              {/* Edit button */}
+        {activeTab === 'details' && (
+          <div className="space-y-5">
+            <div className={`flex flex-wrap items-center justify-end gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <button
-                onClick={() => setIsEditing(!isEditing)}
-                className={`flex-1 flex items-center justify-center py-2.5 rounded-lg transition-all ${
-                  isEditing ? 'bg-red-100 text-red-600' : 'text-gray-500'
-                }`}
+                type="button"
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-sm font-semibold text-gray-700 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-50"
               >
-                <Edit3 className="h-4 w-4" />
+                <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} aria-hidden="true" />
+                {t('profileActions.refresh')}
+              </button>
+              <button
+                type="button"
+                onClick={() => (isEditing ? handleCancel() : setIsEditing(true))}
+                aria-pressed={isEditing}
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-gray-950 px-4 text-sm font-semibold text-white hover:bg-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+              >
+                <Edit3 className="h-4 w-4" aria-hidden="true" />
+                {isEditing ? t('profileActions.cancel') : t('profileActions.edit')}
               </button>
             </div>
-            
-            {/* Desktop: Full tabs with labels */}
-            <div className="hidden md:flex md:flex-wrap md:items-center gap-2">
-              {[
-                { id: 'profile', label: 'Profile', icon: User },
-                { id: 'orders', label: 'Orders', icon: Package },
-                { id: 'settings', label: 'Settings', icon: Settings },
-                { id: 'downloads', label: 'Downloads', icon: Download },
-                { id: 'privacy', label: 'Privacy', icon: Shield }
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id as ActiveTab)}
-                  aria-pressed={activeTab === tab.id}
-                  className={`flex items-center gap-2 px-4 lg:px-5 py-2.5 rounded-lg font-medium text-sm transition-colors whitespace-nowrap ${
-                    activeTab === tab.id
-                      ? 'bg-gray-900 text-white shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
-                  }`}
-                >
-                  <tab.icon className="h-4 w-4" />
-                  <span>{tab.label}</span>
-                </button>
-              ))}
 
-              {/* Action Buttons — pinned right on md+, flow to new row when tabs overflow */}
-              <div className="flex items-center gap-2 md:ml-auto">
-                <button
-                  onClick={handleRefresh}
-                  disabled={isRefreshing}
-                  className="flex items-center gap-2 px-3 lg:px-4 py-2.5 bg-white text-gray-600 border border-gray-200 rounded-lg font-medium text-sm hover:text-gray-900 hover:bg-gray-50 transition-colors disabled:opacity-50"
-                  aria-label={t('profileActions.refresh')}
-                >
-                  <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} aria-hidden="true" />
-                  <span>{t('profileActions.refresh')}</span>
-                </button>
-                <button
-                  onClick={() => setIsEditing(!isEditing)}
-                  aria-pressed={isEditing}
-                  className={`flex items-center gap-2 px-3 lg:px-4 py-2.5 rounded-lg font-medium text-sm transition-colors ${
-                    isEditing
-                      ? 'bg-red-50 text-red-700 border border-red-200 hover:bg-red-100'
-                      : 'bg-white text-gray-600 border border-gray-200 hover:text-gray-900 hover:bg-gray-50'
-                  }`}
-                >
-                  <Edit3 className="h-4 w-4" aria-hidden="true" />
-                  <span>{isEditing ? t('profileActions.cancel') : t('profileActions.edit')}</span>
-                </button>
-              </div>
-            </div>
+            <ProfileHeader
+              user={user}
+              isEditing={isEditing}
+              previewImage={previewImage}
+              onImageUpload={handleImageUpload}
+              onRemoveImage={handleRemoveImage}
+              fileInputRef={fileInputRef}
+            />
+            <ProfileForm
+              user={user}
+              isEditing={isEditing}
+              editData={editData}
+              onEditDataChange={setEditData}
+              onSave={handleSave}
+              onCancel={handleCancel}
+            />
           </div>
+        )}
 
-          {/* Tab Content */}
-          {activeTab === 'profile' && (
-            <>
-              {/* Partner Portal banner — prominent, top of profile, clinic/VIP only */}
-              {['CLINIC', 'VIP'].includes(String(user.discountType || '').toUpperCase()) && (
-                <Link
-                  href={getLocalizedPath('/partner-portal', locale)}
-                  className={`mb-3 md:mb-6 flex items-center justify-between gap-4 bg-red-600 rounded-xl md:rounded-2xl shadow-sm md:shadow-lg p-4 md:p-6 hover:bg-red-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-                >
-                  <div className={`flex items-center gap-3 md:gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
-                      <Package className="h-5 w-5 md:h-6 md:w-6 text-white" />
-                    </div>
-                    <div className={dir === 'rtl' ? 'text-right' : ''}>
-                      <h2 className="text-base md:text-lg font-semibold text-white">
-                        {locale === 'ar' ? 'بوابة الشركاء' : locale === 'ru' ? 'Портал партнёра' : 'Partner Portal'}
-                      </h2>
-                      <p className="text-xs md:text-sm text-white/80 mt-0.5">
-                        {locale === 'ar' ? 'اطلب بسعر الشريك وتابع طلباتك' : locale === 'ru' ? 'Заказы по партнёрской цене и история' : 'Order at partner price & track your orders'}
-                      </p>
-                    </div>
-                  </div>
-                  <ArrowLeft className={`h-5 w-5 text-white ${dir === 'rtl' ? '' : 'rotate-180'}`} />
-                </Link>
-              )}
-
-              <ProfileForm
-                user={user}
-                isEditing={isEditing}
-                editData={editData}
-                onEditDataChange={setEditData}
-                onSave={handleSave}
-                onCancel={handleCancel}
-              />
-
-              {/* AI Skin Analysis Section — corporate dark banner */}
-              <div className="mt-3 md:mt-8 bg-gray-900 rounded-xl md:rounded-2xl shadow-sm md:shadow-lg p-4 md:p-6 lg:p-8">
-                <div className={`flex flex-col md:flex-row md:items-center gap-4 md:gap-6 ${dir === 'rtl' ? 'md:flex-row-reverse' : ''}`}>
-                  <div className={`flex items-center gap-3 md:gap-4 flex-1 min-w-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-white/10 flex items-center justify-center shrink-0">
-                      <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-white" />
-                    </div>
-                    <div className={dir === 'rtl' ? 'text-right' : ''}>
-                      <h2 className="text-base md:text-lg font-semibold text-white tracking-tight">
-                        {locale === 'ar' ? 'تحليل البشرة بالذكاء الاصطناعي' : locale === 'ru' ? 'AI Анализ кожи' : 'AI Skin Analysis'}
-                      </h2>
-                      <p className="text-xs md:text-sm text-gray-400 mt-0.5">
-                        {locale === 'ar' ? 'اكتشف نوع بشرتك واحصل على توصيات مخصصة' : locale === 'ru' ? 'Узнайте тип кожи и получите персональные рекомендации' : 'Discover your skin type and get personalized recommendations'}
-                      </p>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => setShowSkinAnalysis(true)}
-                    className={`shrink-0 flex items-center justify-center gap-2 bg-white text-gray-900 py-2.5 md:py-3 px-5 md:px-8 rounded-lg md:rounded-xl font-semibold text-sm transition-all hover:bg-gray-100 active:scale-[0.99] w-full md:w-auto ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-                  >
-                    <Sparkles className="h-4 w-4" />
-                    {locale === 'ar' ? 'ابدأ تحليل البشرة' : locale === 'ru' ? 'Начать анализ кожи' : 'Start Skin Analysis'}
-                  </button>
-                </div>
-
-                <p className={`text-[11px] text-gray-500 mt-3 md:mt-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  {locale === 'ar' ? 'يتطلب الوصول إلى الكاميرا • يعمل بشكل أفضل في الإضاءة الطبيعية' : locale === 'ru' ? 'Требуется доступ к камере • Лучше работает при естественном освещении' : 'Requires camera access • Works best in natural lighting'}
-                </p>
-              </div>
-            </>
-          )}
-
-          {activeTab === 'orders' && (
-            <OrderHistory
-              orders={orders}
-              loadingOrders={loadingOrders}
-              onCancelOrder={handleCancelOrderClick}
-            />
-          )}
-
-          {activeTab === 'settings' && (
-            <SettingsPanel
-              isRefreshing={isRefreshing}
-              onLogout={logout}
-              onDeleteAccount={() => setShowDeleteConfirm(true)}
-              onRefresh={handleRefresh}
-            />
-          )}
-
-          {activeTab === 'downloads' && (
-            <DownloadsSection />
-          )}
-
-          {activeTab === 'privacy' && (
-            <PrivacySettings />
-          )}
-
-        </div>
-      </div>
+        {activeTab === 'security' && (
+          <DesktopSecurityPanel
+            onLogout={logout}
+            onDeleteAccount={() => setShowDeleteConfirm(true)}
+          />
+        )}
+      </DesktopProfileShell>
 
       {/* Delete Account Confirmation Modal */}
       {showDeleteConfirm && (
@@ -718,7 +544,7 @@ export default function ProfilePageRefactored() {
                 <ul className="text-red-700 text-sm space-y-1">
                   <li>• {t('profileActions.deleteProfileInfo')}</li>
                   <li>• {t('profileActions.deleteLoginAccess')}</li>
-                  <li>• {t('profileActions.deleteCustomerNumber').replace('{customerNumber}', String(customerNumber || ''))}</li>
+                  <li>• {t('profileActions.deleteCustomerNumber').replace('{customerNumber}', membership?.memberNumber || '')}</li>
                   <li>• {t('profileActions.deletePreferences')}</li>
                 </ul>
                 <p className="text-red-800 text-sm mt-3">

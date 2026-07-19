@@ -139,11 +139,11 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]': '/images/SPF50.jpg',
       'BIO-FERMENT AGE DEFYING POWDER MASK': '/images/BFAD.png',
       'SKIN REBOOT PDRN MASK PACK': '/images/REB.png',
-      'Test Product': '/images/placeholder.jpg',
-      'Support Product': '/images/placeholder.jpg'
+      'Test Product': '/images/genosys-logo-transparent.png',
+      'Support Product': '/images/genosys-logo-transparent.png'
     }
     
-    return imageMap[productName] || '/images/placeholder.jpg'
+    return imageMap[productName] || '/images/genosys-logo-transparent.png'
   }
 
   const getStatusIcon = (status: string) => {
@@ -175,12 +175,12 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
   }
 
   return (
-    <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 sm:p-6 lg:p-8">
+    <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.05)] sm:p-6 lg:p-8">
       <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-        <div className="p-2 md:p-3 bg-gradient-to-r from-green-100 to-emerald-100 rounded-lg md:rounded-xl">
-          <Package className="h-4 w-4 md:h-6 md:w-6 text-green-600" />
+        <div className="rounded-xl bg-gray-100 p-2 md:p-3">
+          <Package className="h-4 w-4 text-gray-700 md:h-6 md:w-6" />
         </div>
-        <h2 className="text-lg md:text-2xl font-bold text-gray-800">{t('profile.orderHistory')}</h2>
+        <h2 className="text-lg font-semibold tracking-tight text-gray-950 md:text-2xl">{t('profile.orderHistory')}</h2>
       </div>
       
       {loadingOrders ? (
@@ -328,14 +328,8 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                             width={48}
                             height={48}
                             className="w-full h-full object-cover"
-                            onError={(e) => {
-                              const target = e.target as HTMLImageElement | null;
-                              if (!target) return;
-                              target.style.display = 'none';
-                              const parent = target.parentElement;
-                              if (parent) {
-                                parent.innerHTML = '<div class="w-full h-full flex items-center justify-center text-gray-400 text-xs">📦</div>';
-                              }
+                            onError={(event) => {
+                              event.currentTarget.src = '/images/genosys-logo-transparent.png'
                             }}
                           />
                         </div>

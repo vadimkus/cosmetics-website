@@ -18,45 +18,57 @@ test.describe('Profile Management', () => {
     updatedName: 'Updated Profile User'
   }
 
+  test.beforeAll(async ({ request }) => {
+    const csrfResponse = await request.get('/api/csrf-token')
+    const { token } = await csrfResponse.json()
+    const registration = await request.post('/api/auth/register', {
+      headers: {
+        'X-CSRF-Token': token,
+        'X-Forwarded-For': `198.51.100.${Math.floor(Math.random() * 200) + 1}`,
+      },
+      data: {
+        name: testUser.name,
+        email: testUser.email,
+        password: testUser.password,
+        phone: '+971500000001',
+        address: 'GENOSYS Playwright Test Address',
+        emirate: 'Dubai',
+        locale: 'en',
+        csrfToken: token,
+      },
+    })
+    expect([200, 201, 400]).toContain(registration.status())
+  })
+
   test.beforeEach(async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 })
     // Login before each test
-    await page.goto('/')
+    await page.goto('/login')
     await page.waitForLoadState('networkidle')
-    
-    // Open login modal
-    const loginButton = page.locator('button, a').filter({ hasText: /login|sign in|account/i }).first()
-    await loginButton.click()
-    
-    // Check if need to register first
-    const emailField = page.locator('input[name="email"], input[type="email"]').first()
-    await emailField.fill(testUser.email)
-    
-    const passwordField = page.locator('input[name="password"], input[type="password"]').first()
-    await passwordField.fill(testUser.password)
-    
-    // Try to find name field (registration)
-    const nameField = page.locator('input[name="name"], input[placeholder*="name" i]').first()
-    if (await nameField.isVisible({ timeout: 2000 })) {
-      // Registration form
-      await nameField.fill(testUser.name)
-      
-      const termsCheckbox = page.locator('input[type="checkbox"]').first()
-      if (await termsCheckbox.isVisible({ timeout: 1000 })) {
-        await termsCheckbox.check()
-      }
+
+    const consentDialog = page.getByRole('dialog', { name: /privacy policy/i })
+    if (await consentDialog.isVisible()) {
+      await consentDialog.getByRole('button', { name: /decline/i }).click()
     }
     
+    const loginDialog = page.locator('form').filter({ has: page.locator('input[name="email"]') })
+    await expect(loginDialog).toBeVisible()
+    
+    const emailField = loginDialog.locator('input[name="email"]')
+    await emailField.fill(testUser.email)
+    
+    const passwordField = loginDialog.locator('input[name="password"]')
+    await passwordField.fill(testUser.password)
+    
     // Submit
-    await page.click('button[type="submit"]')
-    await page.waitForTimeout(3000)
+    await loginDialog.locator('button[type="submit"]').click()
+    await expect(page.locator('a[href*="/profile"]:visible').first()).toBeVisible({ timeout: 10000 })
   })
 
   test('should access profile page', async ({ page }) => {
     console.log('Step 1: Accessing profile page...')
     
-    // Click on account/profile button
-    const accountButton = page.locator('button, a').filter({ hasText: /profile|account|my account/i }).first()
-    await accountButton.click()
+    await page.goto('/profile')
     
     // Should navigate to profile page
     await expect(page).toHaveURL(/profile|account/i, { timeout: 10000 })
@@ -72,11 +84,12 @@ test.describe('Profile Management', () => {
   test('should update profile information', async ({ page }) => {
     console.log('Step 1: Navigating to profile edit...')
     
-    // Go to profile
-    const accountButton = page.locator('button, a').filter({ hasText: /profile|account/i }).first()
-    await accountButton.click()
-    
+    await page.goto('/profile')
     await page.waitForLoadState('networkidle')
+
+    // Personal details is a URL-backed desktop view.
+    await page.goto('/profile?tab=details')
+    await expect(page).toHaveURL(/\/profile\?tab=details/)
     
     // Find edit button
     const editButton = page.locator('button, a').filter({ hasText: /edit|update|modify/i }).first()
@@ -135,10 +148,7 @@ test.describe('Profile Management', () => {
   test('should view order history', async ({ page }) => {
     console.log('Step 1: Accessing order history...')
     
-    // Go to profile
-    const accountButton = page.locator('button, a').filter({ hasText: /profile|account/i }).first()
-    await accountButton.click()
-    
+    await page.goto('/profile')
     await page.waitForLoadState('networkidle')
     
     // Look for orders section
@@ -168,13 +178,20 @@ test.describe('Profile Management', () => {
     }
   })
 
+  test('should support direct links to desktop account sections', async ({ page }) => {
+    await page.goto('/profile?tab=orders')
+    await expect(page).toHaveURL(/\/profile\?tab=orders/)
+    await expect(page.getByRole('link', { name: /orders/i }).first()).toHaveAttribute('aria-current', 'page')
+
+    await page.goto('/profile?tab=security')
+    await expect(page).toHaveURL(/\/profile\?tab=security/)
+    await expect(page.getByRole('link', { name: /security|privacy/i }).first()).toHaveAttribute('aria-current', 'page')
+  })
+
   test('should display profile information correctly', async ({ page }) => {
     console.log('Verifying profile data display...')
     
-    // Go to profile
-    const accountButton = page.locator('button, a').filter({ hasText: /profile|account/i }).first()
-    await accountButton.click()
-    
+    await page.goto('/profile')
     await page.waitForLoadState('networkidle')
     
     // Verify email is displayed

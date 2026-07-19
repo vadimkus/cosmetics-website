@@ -72,7 +72,10 @@ export default function ProductRoutineCard({ product, className = '' }: ProductR
   const RoutineStepMarker = ({ n, titleKey }: { n: number; titleKey: string }) => {
     const img = getRoutineStepImage(titleKey)
     const numberCircle = (
-      <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">
+      <span
+        aria-hidden="true"
+        className="flex h-7 w-7 items-center justify-center rounded-full bg-primary-600 text-xs font-bold tabular-nums text-white shadow-sm ring-2 ring-white sm:h-8 sm:w-8 sm:text-sm"
+      >
         {n}
       </span>
     )
@@ -85,23 +88,25 @@ export default function ProductRoutineCard({ product, className = '' }: ProductR
         alt=""
         width={56}
         height={56}
-        className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border border-gray-200 bg-white"
+        className="h-14 w-14 rounded-xl border border-gray-200 bg-white object-cover shadow-sm sm:h-16 sm:w-16"
       />
     )
     return (
-      <span className={`flex-shrink-0 flex items-start gap-1.5 sm:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-        {numberCircle}
+      <span className="relative block h-14 w-14 flex-shrink-0 sm:h-16 sm:w-16">
         {isSelf ? (
-          <span className="flex-shrink-0 block mt-0.5">{thumb}</span>
+          <span className="block">{thumb}</span>
         ) : (
           <Link
             href={getLocalizedPath(`/products/${pid}`, locale)}
-            className="flex-shrink-0 block mt-0.5 transition-opacity hover:opacity-80"
+            className="block rounded-xl transition-transform duration-200 hover:scale-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
             aria-label={t(`product.${titleKey}`)}
           >
             {thumb}
           </Link>
         )}
+        <span className={`pointer-events-none absolute -top-1.5 ${dir === 'rtl' ? '-right-1.5' : '-left-1.5'}`}>
+          {numberCircle}
+        </span>
       </span>
     )
   }
@@ -114,11 +119,11 @@ export default function ProductRoutineCard({ product, className = '' }: ProductR
           {t(`product.${routine.headingKey}`)}
         </h3>
       </div>
-      <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
+      <ol className="list-none space-y-3 sm:space-y-4">
         {routine.steps.map((routineStep, idx) => (
-          <div
+          <li
             key={routineStep.titleKey}
-            className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}
+            className={`flex items-start gap-3 sm:gap-4 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}
           >
             <RoutineStepMarker n={idx + 1} titleKey={routineStep.titleKey} />
             <div className="flex-1 min-w-0">
@@ -129,9 +134,9 @@ export default function ProductRoutineCard({ product, className = '' }: ProductR
                 {t(`product.${routineStep.descKey}`)}
               </p>
             </div>
-          </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   )
 }

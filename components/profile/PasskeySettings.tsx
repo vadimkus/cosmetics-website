@@ -77,14 +77,14 @@ export default function PasskeySettings() {
   }
 
   return (
-    <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 sm:p-6 lg:p-8">
+    <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] sm:p-6 lg:p-8">
       {/* Header */}
       <div className={`flex items-center gap-2 md:gap-3 mb-4 md:mb-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-        <div className="p-2 md:p-3 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-lg md:rounded-xl">
-          <Fingerprint className="h-4 w-4 md:h-6 md:w-6 text-blue-600" />
+        <div className="rounded-xl bg-gray-100 p-2 text-gray-700 md:p-3">
+          <Fingerprint className="h-4 w-4 md:h-6 md:w-6" />
         </div>
         <div className={dir === 'rtl' ? 'text-right' : ''}>
-          <h2 className="text-lg md:text-2xl font-bold text-gray-800">
+          <h2 className="text-lg font-semibold tracking-tight text-gray-950 md:text-2xl">
             {t('login.managePasskeys') || 'Manage Passkeys'}
           </h2>
           <p className="text-xs md:text-sm text-gray-500">
@@ -188,7 +188,7 @@ export default function PasskeySettings() {
         <button
           onClick={handleAddPasskey}
           disabled={isLoading}
-          className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 md:py-4 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          className={`flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-gray-950 py-3 font-semibold text-white transition-colors hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-50 md:gap-3 md:py-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
           {isLoading ? (
             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

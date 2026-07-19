@@ -53,25 +53,25 @@ export default function PrivacySettings() {
   const { t } = useTranslation()
   
   return (
-    <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 md:p-6 lg:p-8">
+    <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] md:p-6 lg:p-8">
       {/* Header */}
       <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-        <div className="p-2 md:p-3 bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg md:rounded-xl">
-          <Shield className="h-4 w-4 md:h-6 md:w-6 text-blue-600" />
+        <div className="rounded-xl bg-gray-100 p-2 text-gray-700 md:p-3">
+          <Shield className="h-4 w-4 md:h-6 md:w-6" />
         </div>
         <div>
-          <h2 className="text-lg md:text-2xl font-bold text-gray-800">{t('profile.privacyPolicyHeader')}</h2>
+          <h2 className="text-lg font-semibold tracking-tight text-gray-950 md:text-2xl">{t('profile.privacyPolicyHeader')}</h2>
           <p className="text-[10px] md:text-xs text-gray-500">{t('profile.yourDataYourRights')}</p>
         </div>
       </div>
 
       {/* Quick Summary Card */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg md:rounded-xl p-3 md:p-4 mb-4 md:mb-6">
+      <div className="mb-4 rounded-xl border border-gray-200 bg-gray-50 p-3 md:mb-6 md:p-4">
         <div className="flex items-start gap-2 md:gap-3">
-          <UserCheck className="h-4 w-4 md:h-5 md:w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+          <UserCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-700 md:h-5 md:w-5" />
           <div>
-            <h3 className="text-xs md:text-sm font-semibold text-blue-800 mb-1">{t('profile.yourPrivacyRights')}</h3>
-            <p className="text-[10px] md:text-xs text-blue-700 leading-relaxed">
+            <h3 className="mb-1 text-xs font-semibold text-gray-900 md:text-sm">{t('profile.yourPrivacyRights')}</h3>
+            <p className="text-[10px] leading-relaxed text-gray-600 md:text-xs">
               {t('profile.privacyRightsShort')}
             </p>
           </div>

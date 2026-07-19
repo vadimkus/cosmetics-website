@@ -1,62 +1,27 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Award, Building, ChevronDown, Gift, TrendingUp } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
+import { MembershipTier, useMembershipData } from '@/hooks/useMembershipData'
 
-type Tier = 'MEMBER' | 'SILVER' | 'GOLD' | 'PLATINUM'
-
-interface MembershipData {
-  success: boolean
-  track: 'REWARDS' | 'PARTNER'
-  memberNumber: string | null
-  tier?: Tier
-  multiplier?: number
-  points?: { balance: number; valueAed: number }
-  tierProgress?: {
-    currentSpent: number
-    nextTier: Tier | null
-    nextTierAt: number
-    progressPercent: number
-  }
-  stats?: { totalOrders: number; totalSpent: number }
-  partner?: { discountType: string | null; discountPercentage: number | null }
-}
-
-const TIER_STYLES: Record<Tier, { badge: string; bar: string }> = {
+const TIER_STYLES: Record<MembershipTier, { badge: string; bar: string }> = {
   MEMBER: { badge: 'bg-gray-100 text-gray-700', bar: 'bg-gray-400' },
   SILVER: { badge: 'bg-slate-200 text-slate-700', bar: 'bg-slate-400' },
   GOLD: { badge: 'bg-amber-100 text-amber-800', bar: 'bg-amber-400' },
   PLATINUM: { badge: 'bg-gray-900 text-white', bar: 'bg-gray-900' },
 }
 
-const TIERS: Tier[] = ['MEMBER', 'SILVER', 'GOLD', 'PLATINUM']
+const TIERS: MembershipTier[] = ['MEMBER', 'SILVER', 'GOLD', 'PLATINUM']
 
 export default function MembershipCard() {
-  const { t } = useTranslation()
-  const [data, setData] = useState<MembershipData | null>(null)
-  const [loading, setLoading] = useState(true)
+  const { t, dir } = useTranslation()
+  const { data, loading } = useMembershipData()
   const [expanded, setExpanded] = useState(false)
-
-  useEffect(() => {
-    let cancelled = false
-    fetch('/api/user/membership', { credentials: 'include' })
-      .then(res => (res.ok ? res.json() : null))
-      .then(json => {
-        if (!cancelled && json?.success) setData(json)
-      })
-      .catch(() => {})
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [])
 
   if (loading) {
     return (
-      <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-xl border border-gray-100 p-4 md:p-6 mb-3 md:mb-6 lg:mb-8 animate-pulse">
+      <div className="animate-pulse rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] md:p-6">
         <div className="h-4 bg-gray-100 rounded w-1/3 mb-3" />
         <div className="h-8 bg-gray-100 rounded w-1/2" />
       </div>
@@ -68,12 +33,12 @@ export default function MembershipCard() {
   // Professional Partner track
   if (data.track === 'PARTNER') {
     return (
-      <div className="bg-gray-900 text-white rounded-xl md:rounded-2xl shadow-sm md:shadow-xl mb-3 md:mb-6 lg:mb-8 overflow-hidden">
+      <div className="overflow-hidden rounded-3xl bg-gray-950 text-white shadow-[0_14px_40px_rgba(17,24,39,0.08)]">
         <button
           type="button"
           onClick={() => setExpanded(v => !v)}
           aria-expanded={expanded}
-          className="w-full p-4 md:p-6 text-left"
+          className={`w-full p-5 md:p-6 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}
         >
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-3">
@@ -116,12 +81,12 @@ export default function MembershipCard() {
   const progress = data.tierProgress
 
   return (
-    <div className="bg-white rounded-xl md:rounded-2xl shadow-sm md:shadow-xl border border-gray-100 mb-3 md:mb-6 lg:mb-8 overflow-hidden">
+    <div className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_14px_40px_rgba(17,24,39,0.04)]">
       <button
         type="button"
         onClick={() => setExpanded(v => !v)}
         aria-expanded={expanded}
-        className="w-full p-4 md:p-6 text-left"
+        className={`w-full p-5 md:p-6 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}
       >
         {/* Header row */}
         <div className="flex items-center justify-between gap-3 mb-4">

@@ -453,6 +453,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '40': {
     id: '40',
     images: [
+      '/images/sun/main.jpeg',
       '/images/sun/s1.jpeg',
       '/images/sun/s2.jpeg',
       '/images/sun/s3.jpeg',

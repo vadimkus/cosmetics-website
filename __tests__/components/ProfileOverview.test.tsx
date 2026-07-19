@@ -70,7 +70,9 @@ describe('ProfileOverview', () => {
     expect(screen.getByText('No orders yet')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Browse products' })).toHaveAttribute('href', '/products')
     expect(screen.getByText('2')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /favorites/i })).toHaveAttribute('href', '/favorites')
+    expect(screen.getByRole('link', { name: /favorites/i })).toHaveAttribute('href', '/profile?tab=favorites')
+    expect(screen.getByRole('link', { name: /shipping/i })).toHaveAttribute('href', '/profile?tab=addresses')
+    expect(screen.getByRole('link', { name: /billing/i })).toHaveAttribute('href', '/profile?tab=billing')
     expect(screen.getByTestId('membership-card')).toBeInTheDocument()
   })
 

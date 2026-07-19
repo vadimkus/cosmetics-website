@@ -21,7 +21,14 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { useMembershipData } from '@/hooks/useMembershipData'
 import { getLocalizedPath } from '@/lib/i18n'
 
-export type DesktopProfileTab = 'overview' | 'orders' | 'details' | 'security'
+export type DesktopProfileTab =
+  | 'overview'
+  | 'orders'
+  | 'favorites'
+  | 'details'
+  | 'addresses'
+  | 'billing'
+  | 'security'
 
 interface DesktopProfileShellProps {
   user: User
@@ -35,19 +42,19 @@ interface DesktopProfileShellProps {
 const tabItems = [
   { id: 'overview', labelKey: 'overview', icon: LayoutDashboard },
   { id: 'orders', labelKey: 'orders', icon: Package, count: 'orders' },
+  { id: 'favorites', labelKey: 'savedFavorites', icon: Heart, count: 'favorites' },
   { id: 'details', labelKey: 'personalDetails', icon: UserRound },
-] as const
-
-const routeItems = [
-  { href: '/favorites', labelKey: 'savedFavorites', icon: Heart, count: 'favorites' },
-  { href: '/profile/addresses', labelKey: 'shippingAddresses', icon: MapPin },
-  { href: '/profile/billing', labelKey: 'billing', icon: CreditCard },
+  { id: 'addresses', labelKey: 'shippingAddresses', icon: MapPin },
+  { id: 'billing', labelKey: 'billing', icon: CreditCard },
 ] as const
 
 const sectionCopy: Record<DesktopProfileTab, { title: string; description: string }> = {
   overview: { title: 'overview', description: 'overviewDescription' },
   orders: { title: 'orders', description: 'ordersDescription' },
+  favorites: { title: 'savedFavorites', description: 'favoritesDescription' },
   details: { title: 'personalDetails', description: 'detailsDescription' },
+  addresses: { title: 'shippingAddresses', description: 'manageAddresses' },
+  billing: { title: 'billing', description: 'manageBilling' },
   security: { title: 'securityAndPrivacy', description: 'securityDescription' },
 }
 
@@ -120,32 +127,11 @@ export default function DesktopProfileShell({
                     >
                       <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
                       <span className="flex-1">{t(`profile.${item.labelKey}`)}</span>
-                      {'count' in item && item.count === 'orders' && orderCount > 0 && (
+                      {'count' in item && (
                         <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${active ? 'bg-white/15 text-white' : 'bg-gray-100 text-gray-600'}`}>
-                          {orderCount}
+                          {item.count === 'orders' ? orderCount : favoritesCount}
                         </span>
                       )}
-                    </Link>
-                  )
-                })}
-
-                {routeItems.map(item => {
-                  const Icon = item.icon
-                  const count = 'count' in item && item.count === 'favorites' ? favoritesCount : 0
-                  return (
-                    <Link
-                      key={item.href}
-                      href={getLocalizedPath(item.href, locale)}
-                      className={navClass()}
-                    >
-                      <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-                      <span className="flex-1">{t(`profile.${item.labelKey}`)}</span>
-                      {count > 0 && (
-                        <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-bold text-gray-600">
-                          {count}
-                        </span>
-                      )}
-                      <ChevronRight className={`h-4 w-4 text-gray-300 transition-transform group-hover:translate-x-0.5 ${isRTL ? 'rotate-180 group-hover:-translate-x-0.5' : ''}`} aria-hidden="true" />
                     </Link>
                   )
                 })}

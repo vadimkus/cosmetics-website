@@ -74,7 +74,9 @@ describe('DesktopProfileShell', () => {
 
     expect(screen.getByRole('link', { name: /orders/i })).toHaveAttribute('href', '/profile?tab=orders')
     expect(screen.getByRole('link', { name: /orders/i })).toHaveAttribute('aria-current', 'page')
-    expect(screen.getByRole('link', { name: /favorites/i })).toHaveAttribute('href', '/favorites')
+    expect(screen.getByRole('link', { name: /favorites/i })).toHaveAttribute('href', '/profile?tab=favorites')
+    expect(screen.getByRole('link', { name: /shipping addresses/i })).toHaveAttribute('href', '/profile?tab=addresses')
+    expect(screen.getByRole('link', { name: /^billing$/i })).toHaveAttribute('href', '/profile?tab=billing')
     expect(screen.getByText('Order content')).toBeInTheDocument()
   })
 

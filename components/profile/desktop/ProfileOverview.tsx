@@ -168,7 +168,7 @@ export default function ProfileOverview({
 
         <div className="grid grid-cols-1 gap-5">
           <Link
-            href={getLocalizedPath('/favorites', locale)}
+            href={`${getLocalizedPath('/profile', locale)}?tab=favorites`}
             className={`group rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] transition-transform hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${isRTL ? 'text-right' : ''}`}
           >
             <div className={`flex items-start justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -183,12 +183,12 @@ export default function ProfileOverview({
           </Link>
 
           <div className="grid grid-cols-2 gap-3">
-            <Link href={getLocalizedPath('/profile/addresses', locale)} className="rounded-2xl border border-gray-200 bg-white p-4 transition-colors hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500">
+              <Link href={`${getLocalizedPath('/profile', locale)}?tab=addresses`} className="rounded-2xl border border-gray-200 bg-white p-4 transition-colors hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500">
               <MapPin className="h-5 w-5 text-gray-700" aria-hidden="true" />
               <p className="mt-4 text-sm font-semibold text-gray-950">{t('profile.shipping')}</p>
               <p className="mt-1 text-xs leading-5 text-gray-500">{t('profile.manageAddresses')}</p>
             </Link>
-            <Link href={getLocalizedPath('/profile/billing', locale)} className="rounded-2xl border border-gray-200 bg-white p-4 transition-colors hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500">
+              <Link href={`${getLocalizedPath('/profile', locale)}?tab=billing`} className="rounded-2xl border border-gray-200 bg-white p-4 transition-colors hover:border-gray-300 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500">
               <CreditCard className="h-5 w-5 text-gray-700" aria-hidden="true" />
               <p className="mt-4 text-sm font-semibold text-gray-950">{t('profile.billing')}</p>
               <p className="mt-1 text-xs leading-5 text-gray-500">{t('profile.manageBilling')}</p>

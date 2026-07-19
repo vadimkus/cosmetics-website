@@ -34,7 +34,7 @@ The sticky desktop account rail contains:
 - Partner Portal for eligible clinic/VIP accounts
 - Sign out, separated from normal navigation
 
-Overview, orders, personal details, and security use deep links such as `/profile?tab=orders`. Favorites, addresses, billing, documents, and Partner Portal remain real routes.
+Overview, orders, favorites, personal details, shipping addresses, billing, and security use deep links such as `/profile?tab=addresses`. Favorites, address management, and billing reuse their existing functional content inside the account canvas so the identity rail stays visible. Documents and Partner Portal remain real routes.
 
 ## Functional changes
 

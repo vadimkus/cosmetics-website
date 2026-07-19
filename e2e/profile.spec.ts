@@ -179,6 +179,18 @@ test.describe('Profile Management', () => {
   })
 
   test('should support direct links to desktop account sections', async ({ page }) => {
+    await page.goto('/profile?tab=favorites')
+    await expect(page).toHaveURL(/\/profile\?tab=favorites/)
+    await expect(page.getByRole('link', { name: /favorites/i }).first()).toHaveAttribute('aria-current', 'page')
+
+    await page.goto('/profile?tab=addresses')
+    await expect(page).toHaveURL(/\/profile\?tab=addresses/)
+    await expect(page.getByRole('link', { name: /shipping addresses/i }).first()).toHaveAttribute('aria-current', 'page')
+
+    await page.goto('/profile?tab=billing')
+    await expect(page).toHaveURL(/\/profile\?tab=billing/)
+    await expect(page.getByRole('link', { name: /^billing$/i }).first()).toHaveAttribute('aria-current', 'page')
+
     await page.goto('/profile?tab=orders')
     await expect(page).toHaveURL(/\/profile\?tab=orders/)
     await expect(page.getByRole('link', { name: /orders/i }).first()).toHaveAttribute('aria-current', 'page')

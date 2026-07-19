@@ -21,6 +21,9 @@ import OrderHistory from '@/components/profile/OrderHistory'
 import DesktopProfileShell, { type DesktopProfileTab } from '@/components/profile/desktop/DesktopProfileShell'
 import ProfileOverview from '@/components/profile/desktop/ProfileOverview'
 import DesktopSecurityPanel from '@/components/profile/desktop/DesktopSecurityPanel'
+import FavoritesClient from '@/app/favorites/FavoritesClient'
+import { AddressesContent } from '@/app/profile/addresses/page'
+import { BillingContent } from '@/app/profile/billing/page'
 
 // Constants
 const LOCAL_STORAGE_KEYS = {
@@ -118,6 +121,9 @@ export default function ProfilePageRefactored() {
       profile: 'details',
       details: 'details',
       orders: 'orders',
+      favorites: 'favorites',
+      addresses: 'addresses',
+      billing: 'billing',
       settings: 'security',
       privacy: 'security',
       security: 'security',
@@ -473,6 +479,12 @@ export default function ProfilePageRefactored() {
             onCancelOrder={handleCancelOrderClick}
           />
         )}
+
+        {activeTab === 'favorites' && <FavoritesClient embedded />}
+
+        {activeTab === 'addresses' && <AddressesContent embedded />}
+
+        {activeTab === 'billing' && <BillingContent embedded />}
 
         {activeTab === 'details' && (
           <div className="space-y-5">

@@ -37,7 +37,11 @@ interface Address {
   isDefault: boolean
 }
 
-export default function AddressesPage() {
+interface AddressesPageProps {
+  embedded?: boolean
+}
+
+export function AddressesContent({ embedded = false }: AddressesPageProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user } = useAuth()
@@ -258,23 +262,32 @@ export default function AddressesPage() {
   }
 
   return (
-    <div className={`min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div
+      className={
+        embedded
+          ? 'overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_14px_40px_rgba(17,24,39,0.04)]'
+          : `min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`
+      }
+      dir={dir}
+    >
       {/* Unified nav header */}
-      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <button
-          onClick={handleBack}
-          className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
-        >
-          <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-          <span className="text-base text-red-600">{t.back}</span>
-        </button>
-        <h1 className="text-base font-semibold text-gray-900">{t.title}</h1>
-        <div className="min-w-[80px] flex justify-end">
-          <button onClick={handleAddAddress} className="p-1" aria-label="Add address">
-            <Plus className="w-6 h-6 text-red-600" />
+      {!embedded && (
+        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <button
+            onClick={handleBack}
+            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+          >
+            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-red-600">{t.back}</span>
           </button>
+          <h1 className="text-base font-semibold text-gray-900">{t.title}</h1>
+          <div className="min-w-[80px] flex justify-end">
+            <button onClick={handleAddAddress} className="p-1" aria-label="Add address">
+              <Plus className="w-6 h-6 text-red-600" />
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Content */}
       <div className="overflow-y-auto" ref={listRef}>
@@ -468,4 +481,8 @@ export default function AddressesPage() {
       </div>
     </div>
   )
+}
+
+export default function AddressesPage() {
+  return <AddressesContent />
 }

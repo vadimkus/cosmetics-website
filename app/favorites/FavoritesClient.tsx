@@ -22,7 +22,11 @@ function isMobileDevice(): boolean {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || window.innerWidth < 768
 }
 
-export default function FavoritesClient() {
+interface FavoritesClientProps {
+  embedded?: boolean
+}
+
+export default function FavoritesClient({ embedded = false }: FavoritesClientProps) {
   const { t, locale, dir } = useTranslation()
   const { favorites } = useFavorites()
   const { enabled: animationsEnabled } = useAnimationStore()
@@ -106,9 +110,9 @@ export default function FavoritesClient() {
           </div>
         )}
         
-        <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
+        <div className={embedded ? 'py-0' : 'container mx-auto px-3 py-4 md:px-4 md:py-16'}>
           {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
-          {!isAppLikeMode && (
+          {!isAppLikeMode && !embedded && (
             <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
               <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
               <span> / </span>
@@ -117,7 +121,7 @@ export default function FavoritesClient() {
           )}
           
           {/* Back to Home - Hide in PWA/Mobile Web */}
-          {!isAppLikeMode && (
+          {!isAppLikeMode && !embedded && (
             <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               <span>{t('common.backToHome')}</span>
@@ -249,9 +253,9 @@ export default function FavoritesClient() {
         </div>
       )}
       
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
+      <div className={embedded ? 'py-0' : 'container mx-auto px-3 py-4 md:px-4 md:py-16'}>
         {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
-        {!isAppLikeMode && (
+        {!isAppLikeMode && !embedded && (
           <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
             <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
             <span> / </span>
@@ -260,7 +264,7 @@ export default function FavoritesClient() {
         )}
         
         {/* Back to Home - Hide in PWA/Mobile Web */}
-        {!isAppLikeMode && (
+        {!isAppLikeMode && !embedded && (
           <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
             <span>{t('common.backToHome')}</span>
@@ -290,7 +294,7 @@ export default function FavoritesClient() {
           )}
 
           {/* Desktop Title - Hide in PWA/Mobile Web */}
-          {!isAppLikeMode && (
+          {!isAppLikeMode && !embedded && (
             <div className="mb-4 md:mb-8">
               <h1 className="text-xl md:text-3xl font-bold text-gray-900 mb-2 md:mb-4 flex items-center gap-2">
                 <Heart className={`h-6 w-6 md:h-8 md:w-8 text-red-500 transition-all duration-500 ${isPulsing && shouldAnimate ? 'animate-pulse scale-110' : ''}`} />

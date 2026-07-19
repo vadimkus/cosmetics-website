@@ -6,11 +6,13 @@ import type { Order, OrderItem } from '@prisma/client'
 import {
   ArrowUpRight,
   BookOpen,
+  CalendarDays,
   CreditCard,
   Heart,
   MapPin,
   MessageCircle,
   Package,
+  Phone,
   Sparkles,
 } from 'lucide-react'
 import type { User } from '@/types/user'
@@ -45,26 +47,73 @@ export default function ProfileOverview({
   const latestOrder = [...orders].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   )[0]
+  const dateLocale = locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-AE'
   const formatCurrency = (amount: number) =>
-    new Intl.NumberFormat(locale === 'ar' ? 'ar-AE' : 'en-AE', {
+    new Intl.NumberFormat(dateLocale, {
       style: 'currency',
       currency: 'AED',
       maximumFractionDigits: 2,
     }).format(amount)
+  const registeredDate = new Intl.DateTimeFormat(dateLocale, {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(new Date(user.createdAt))
+  const phone = user.phone?.trim() || latestOrder?.customerPhone?.trim() || t('profile.notAdded')
+  const address = user.address?.trim() || latestOrder?.customerAddress?.trim() || t('profile.notAdded')
+  const paymentLabels: Record<string, string> = {
+    cod: t('profile.paymentCashOnDelivery'),
+    stripe: t('profile.paymentOnline'),
+    bank_transfer: t('profile.paymentBankTransfer'),
+    partner_credit: t('profile.paymentPartnerCredit'),
+  }
+  const paymentMethod = latestOrder
+    ? paymentLabels[latestOrder.paymentMethod] || latestOrder.paymentMethod
+    : t('profile.noPaymentsYet')
+  const summaryItems = [
+    { label: t('profile.registered'), value: registeredDate, icon: CalendarDays },
+    { label: t('profile.phone'), value: phone, icon: Phone, ltr: true },
+    { label: t('profile.address'), value: address, icon: MapPin },
+    { label: t('profile.lastPayment'), value: paymentMethod, icon: CreditCard },
+  ]
 
   return (
     <div className="space-y-5">
       <section className={`rounded-3xl bg-gray-950 px-6 py-7 text-white lg:px-8 lg:py-8 ${isRTL ? 'text-right' : ''}`}>
         <div className={`flex items-start justify-between gap-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <div>
-            <p className="text-sm text-gray-400">{t('profile.welcomeBack')}</p>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
+              {t('profile.accountSummary')}
+            </p>
             <h2 className="mt-1 text-2xl font-semibold tracking-[-0.03em] lg:text-3xl">{user.name}</h2>
-            <p className="mt-3 max-w-xl text-sm leading-6 text-gray-400">{t('profile.welcomeDescription')}</p>
           </div>
           <span className="hidden rounded-full bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-gray-300 lg:block">
             GENOSYS UAE
           </span>
         </div>
+        <dl className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+          {summaryItems.map(item => {
+            const Icon = item.icon
+            return (
+              <div
+                key={item.label}
+                className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3.5"
+              >
+                <dt className={`flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-gray-400 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <Icon className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  {item.label}
+                </dt>
+                <dd
+                  className="mt-2 truncate text-sm font-medium text-white"
+                  dir={item.ltr ? 'ltr' : undefined}
+                  title={item.value}
+                >
+                  {item.value}
+                </dd>
+              </div>
+            )
+          })}
+        </dl>
       </section>
 
       <MembershipCard />

@@ -11,6 +11,7 @@ The authenticated desktop `/profile` experience is now a utility-first customer 
 - Adapted the quiet identity rail and spacious task canvas seen in Awwwards' Houston Drip Factory account example without copying its artwork.
 - Applied GENOSYS typography, neutral surfaces, restrained elevation, red interaction accents, and consistent 44px+ controls.
 - Prioritized rewards, latest-order status, favorites, shipping, billing, skin analysis, documents, and support.
+- Replaced the generic welcome banner with a black account-summary panel showing the real registration date, phone, address, and most recent order payment method; missing values are stated explicitly rather than fabricated.
 - Kept primary dashboard views distinct from standalone destinations.
 
 Research references:

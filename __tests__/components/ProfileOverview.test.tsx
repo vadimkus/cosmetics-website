@@ -18,6 +18,17 @@ const mockedTranslation = jest.mocked(useTranslation)
 const copy: Record<string, string> = {
   'profile.welcomeBack': 'Welcome back',
   'profile.welcomeDescription': 'Account summary',
+  'profile.accountSummary': 'Account summary',
+  'profile.registered': 'Registered',
+  'profile.phone': 'Phone',
+  'profile.address': 'Address',
+  'profile.lastPayment': 'Last payment',
+  'profile.notAdded': 'Not added',
+  'profile.noPaymentsYet': 'No payments yet',
+  'profile.paymentCashOnDelivery': 'Cash on delivery',
+  'profile.paymentOnline': 'Online card',
+  'profile.paymentBankTransfer': 'Bank transfer',
+  'profile.paymentPartnerCredit': 'Partner credit',
   'profile.recentOrder': 'Recent order',
   'profile.orderActivity': 'Latest activity',
   'profile.viewAllOrders': 'View all',
@@ -47,6 +58,8 @@ const user = {
   id: 'user-1',
   name: 'Test Customer',
   email: 'customer@example.com',
+  phone: '+971501234567',
+  address: 'Dubai Marina, Dubai',
   createdAt: '2026-01-01T00:00:00.000Z',
 }
 
@@ -68,6 +81,10 @@ describe('ProfileOverview', () => {
     )
 
     expect(screen.getByText('No orders yet')).toBeInTheDocument()
+    expect(screen.getByText('Registered')).toBeInTheDocument()
+    expect(screen.getByText('+971501234567')).toBeInTheDocument()
+    expect(screen.getByText('Dubai Marina, Dubai')).toBeInTheDocument()
+    expect(screen.getByText('No payments yet')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'Browse products' })).toHaveAttribute('href', '/products')
     expect(screen.getByText('2')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /favorites/i })).toHaveAttribute('href', '/profile?tab=favorites')
@@ -83,6 +100,7 @@ describe('ProfileOverview', () => {
       createdAt: new Date('2026-07-18T12:00:00.000Z'),
       status: 'shipped',
       total: 420,
+      paymentMethod: 'cod',
       items: [
         {
           id: 'item-1',
@@ -103,6 +121,7 @@ describe('ProfileOverview', () => {
     )
 
     expect(screen.getByText(/ORD-100/)).toBeInTheDocument()
+    expect(screen.getByText('Cash on delivery')).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /track order/i })).toHaveAttribute('href', '/track/ORD-100')
     expect(screen.getByAltText('GENOSYS Serum')).toHaveAttribute('src', '/images/genosys-logo-transparent.png')
   })

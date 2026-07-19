@@ -114,10 +114,10 @@ export default function ProfileOverview({
           </div>
           <div className={`flex shrink-0 flex-col gap-2 ${isRTL ? 'items-start' : 'items-end'}`}>
             <Image
-              src="/images/genosys-logo-transparent.png"
-              alt="GENOSYS Professional"
+              src="/images/genosys-wordmark-transparent.png"
+              alt="GENOSYS"
               width={116}
-              height={30}
+              height={25}
               className="h-auto w-[116px] brightness-0 invert"
             />
             <span

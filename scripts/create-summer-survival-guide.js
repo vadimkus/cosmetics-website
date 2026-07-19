@@ -267,7 +267,7 @@ const content = `<div class="blog-content">
         </div>
         <div class="bg-white rounded-xl p-5 border border-gray-200 shadow-sm flex flex-col">
           <a href="https://genosys.ae/products/40" class="block mb-4">
-            <img src="/images/SSUN.jpg" alt="GENOSYS Multi Sun Cream SPF 40 PA++" class="rounded-lg w-full bg-gray-50" />
+            <img src="/images/sun/main.jpeg" alt="GENOSYS Multi Sun Cream SPF 40 PA++" class="rounded-lg w-full bg-gray-50" />
           </a>
           <div class="flex items-baseline justify-between mb-2">
             <h5 class="font-bold text-gray-900 text-lg">Multi Sun</h5>
@@ -510,7 +510,7 @@ const contentAr = `<div class="blog-content" dir="rtl">
             <a href="https://genosys.ae/products/39" class="inline-flex bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">تسوقي الآن ←</a>
           </div>
           <div class="bg-white rounded-xl p-4 border border-gray-200 text-center">
-            <a href="https://genosys.ae/products/40" class="block mb-3"><img src="/images/SSUN.jpg" alt="Multi Sun SPF 40" class="rounded-lg w-full bg-gray-50" /></a>
+            <a href="https://genosys.ae/products/40" class="block mb-3"><img src="/images/sun/main.jpeg" alt="Multi Sun SPF 40" class="rounded-lg w-full bg-gray-50" /></a>
             <h5 class="font-bold text-gray-900 mb-1">Multi Sun SPF 40 PA++</h5>
             <p class="font-bold text-gray-900 mb-2">210 درهم</p>
             <a href="https://genosys.ae/products/40" class="inline-flex bg-gray-900 text-white px-4 py-2 rounded-lg text-sm font-semibold">تسوقي الآن ←</a>
@@ -679,7 +679,7 @@ const contentRu = `<div class="blog-content">
             <a href="https://genosys.ae/products/39" class="inline-flex items-center justify-center gap-2 bg-amber-600 text-white px-3 py-2 rounded-lg text-sm font-semibold mt-auto">250 AED →</a>
           </div>
           <div class="bg-white rounded-xl p-4 border border-gray-200 flex flex-col">
-            <a href="https://genosys.ae/products/40" class="block mb-3"><img src="/images/SSUN.jpg" alt="Multi Sun SPF 40" class="rounded-lg w-full bg-gray-50" /></a>
+            <a href="https://genosys.ae/products/40" class="block mb-3"><img src="/images/sun/main.jpeg" alt="Multi Sun SPF 40" class="rounded-lg w-full bg-gray-50" /></a>
             <h5 class="font-bold text-gray-900 mb-1">Multi Sun SPF 40 PA++</h5>
             <p class="text-gray-600 text-xs mb-3">Лёгкий вариант для «в основном внутри» дней.</p>
             <a href="https://genosys.ae/products/40" class="inline-flex items-center justify-center gap-2 bg-gray-900 text-white px-3 py-2 rounded-lg text-sm font-semibold mt-auto">210 AED →</a>

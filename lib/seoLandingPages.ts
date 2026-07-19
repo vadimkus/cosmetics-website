@@ -244,7 +244,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/SPF50.jpg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'A high-SPF cream for strong daily UV protection.' },
-      { name: 'Multi Sun Cream SPF 40', href: '/products/40', image: '/images/SSUN.jpg', imageAlt: 'GENOSYS Multi Sun Cream SPF 40', description: 'A mild daily sunscreen with a lightweight cream format.' },
+      { name: 'Multi Sun Cream SPF 40', href: '/products/40', image: '/images/sun/main.jpeg', imageAlt: 'GENOSYS Multi Sun Cream SPF 40', description: 'A mild daily sunscreen with a lightweight cream format.' },
       { name: 'Skin Caring BB Cushion SPF 50+', href: '/products/41', image: '/images/BBC.jpg', imageAlt: 'GENOSYS Skin Caring BB Cushion SPF 50+', description: 'Portable coverage for touch-ups and visible redness.' },
       { name: 'Intensive Blemish Balm SPF 30', href: '/products/42', image: '/images/BLEM.jpg', imageAlt: 'GENOSYS Intensive Blemish Balm Cream SPF 30', description: 'A coverage product that combines complexion correction with labelled SPF.' },
     ],

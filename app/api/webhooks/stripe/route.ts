@@ -9,7 +9,7 @@ import { STRIPE_WEBHOOK_SECRET } from '@/lib/envValidation'
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
-import { recordRedemption } from '@/lib/loyalty'
+import { estimateOrderPoints, recordRedemption } from '@/lib/loyalty'
 import Stripe from 'stripe'
 
 // Disable body parsing for webhooks
@@ -495,7 +495,13 @@ async function sendConfirmationEmails(order: OrderWithItems) {
       bundleDiscountPercentage: order.bundleDiscountPercentage ?? undefined,
       bundleDiscountAmount: order.bundleDiscountAmount ?? undefined,
       loyaltyPointsRedeemed: order.loyaltyPointsRedeemed ?? undefined,
-      loyaltyDiscountAmount: order.loyaltyDiscountAmount ?? undefined
+      loyaltyDiscountAmount: order.loyaltyDiscountAmount ?? undefined,
+      loyaltyPointsExpected: estimateOrderPoints({
+        total: order.total,
+        shipping: order.shipping || 0,
+        user,
+      }),
+      rewardsCreditTiming: 'paid',
     })
 
     debugLog('✅ Customer confirmation email sent for order:', order.orderNumber)

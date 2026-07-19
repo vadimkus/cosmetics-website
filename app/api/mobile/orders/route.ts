@@ -701,15 +701,12 @@ export async function POST(request: NextRequest) {
           bundleDiscountAmount: (order.bundleDiscountAmount || 0) > 0 ? order.bundleDiscountAmount : undefined,
           loyaltyPointsRedeemed: (order.loyaltyPointsRedeemed || 0) > 0 ? order.loyaltyPointsRedeemed : undefined,
           loyaltyDiscountAmount: (order.loyaltyDiscountAmount || 0) > 0 ? order.loyaltyDiscountAmount : undefined,
-          ...(payment === 'COD'
-            ? {
-                loyaltyPointsExpected: estimateOrderPoints({
-                  total: order.total,
-                  shipping: order.shipping,
-                  user,
-                }),
-              }
-            : {}),
+          loyaltyPointsExpected: estimateOrderPoints({
+            total: order.total,
+            shipping: order.shipping,
+            user,
+          }),
+          rewardsCreditTiming: payment === 'COD' ? 'cod' : 'paid',
         })
         debugLog('[MOBILE_ORDERS] ✅ Order confirmation email sent to:', order.customerEmail)
       } catch (emailError) {

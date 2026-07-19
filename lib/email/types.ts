@@ -51,6 +51,7 @@ export interface OrderConfirmationEmailData {
   loyaltyPointsRedeemed?: number | undefined
   loyaltyDiscountAmount?: number | undefined
   loyaltyPointsExpected?: number | undefined
+  rewardsCreditTiming?: 'cod' | 'paid' | undefined
   clinicPointsDiscountAmount?: number | undefined
 }
 

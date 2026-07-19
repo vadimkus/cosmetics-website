@@ -498,10 +498,16 @@ export const emailTemplates = {
         ? `ستحصل على ${rewardsPoints.toLocaleString(loyaltyPointsLocale)} نقطة من مكافآت GENOSYS`
         : `You’ll earn ${rewardsPoints.toLocaleString(loyaltyPointsLocale)} GENOSYS Rewards points`
     const rewardsTiming = locale === 'ru'
-      ? 'Баллы будут начислены после получения оплаты при доставке и перевода заказа в статус «Доставлен». Доставка не участвует в начислении баллов.'
+      ? orderData.rewardsCreditTiming === 'paid'
+        ? 'Баллы будут начислены после перевода заказа в статус «Доставлен». Доставка не участвует в начислении баллов.'
+        : 'Баллы будут начислены после получения оплаты при доставке и перевода заказа в статус «Доставлен». Доставка не участвует в начислении баллов.'
       : locale === 'ar'
-        ? 'ستُضاف النقاط بعد تحصيل الدفع عند الاستلام وتحديث الطلب إلى «تم التوصيل». رسوم التوصيل لا تكسب نقاطاً.'
-        : 'Points will be credited after your Cash on Delivery payment is collected and the order is marked delivered. Shipping does not earn points.'
+        ? orderData.rewardsCreditTiming === 'paid'
+          ? 'ستُضاف النقاط بعد تحديث الطلب إلى «تم التوصيل». رسوم التوصيل لا تكسب نقاطاً.'
+          : 'ستُضاف النقاط بعد تحصيل الدفع عند الاستلام وتحديث الطلب إلى «تم التوصيل». رسوم التوصيل لا تكسب نقاطاً.'
+        : orderData.rewardsCreditTiming === 'paid'
+          ? 'Points will be credited when the order is marked delivered. Shipping does not earn points.'
+          : 'Points will be credited after your Cash on Delivery payment is collected and the order is marked delivered. Shipping does not earn points.'
     
     // Count paid items and free items
     const paidItems = orderData.items.filter(item => item.price > 0 && !item.productName.toLowerCase().includes('(free)'))

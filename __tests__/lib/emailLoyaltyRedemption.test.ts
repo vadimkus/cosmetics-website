@@ -51,11 +51,28 @@ describe('loyalty redemption in order emails', () => {
       emirate: 'Ajman',
       locale: 'en',
       loyaltyPointsExpected: 1500,
+      rewardsCreditTiming: 'cod',
     })
 
     expect(template.html).toContain('You’ll earn 1,500 GENOSYS Rewards points')
     expect(template.html).toContain('after your Cash on Delivery payment is collected')
     expect(template.html).toContain('Shipping does not earn points')
+  })
+
+  it('uses delivered-only timing for paid order rewards', () => {
+    const template = emailTemplates.orderConfirmation({
+      ...base,
+      orderNumber: 'GENCardM2607197948',
+      address: 'Dubai',
+      emirate: 'Dubai',
+      locale: 'en',
+      loyaltyPointsExpected: 700,
+      rewardsCreditTiming: 'paid',
+    })
+
+    expect(template.html).toContain('You’ll earn 700 GENOSYS Rewards points')
+    expect(template.html).toContain('when the order is marked delivered')
+    expect(template.html).not.toContain('Cash on Delivery payment is collected')
   })
 
   it('shows points and AED discount in the customer confirmation', () => {

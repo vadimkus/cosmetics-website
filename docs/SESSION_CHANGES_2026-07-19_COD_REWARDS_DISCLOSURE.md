@@ -6,6 +6,8 @@ Date: 2026-07-19
 
 - COD order-confirmation emails now show the estimated GENOSYS Rewards points for the order.
 - Mobile-app COD confirmations use the same estimate and timing disclosure as website COD confirmations.
+- Paid/Stripe confirmations from both the webhook and payment-status fallback show the same estimate, with paid-order wording that credits points when the order is marked delivered.
+- Native mobile card-order confirmations also show the estimate with paid-order timing.
 - The website success page shows the same estimate for authenticated COD customers.
 - Both surfaces state that points are credited only after COD payment is collected and the order is marked delivered.
 - Shipping is explicitly excluded from points.

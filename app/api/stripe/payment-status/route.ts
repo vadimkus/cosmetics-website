@@ -6,7 +6,7 @@ import { sendOrderConfirmationEmail, sendAdminNewOrderNotification } from '@/lib
 import { getPreferredEmail } from '@/lib/emailHelpers'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { isUserDiscountExcludedProduct } from '@/lib/mobileDiscountRules'
-import { recordRedemption } from '@/lib/loyalty'
+import { estimateOrderPoints, recordRedemption } from '@/lib/loyalty'
 import { trackUserAction } from '@/lib/analyticsServer'
 import type { Prisma } from '@prisma/client'
 
@@ -130,6 +130,12 @@ async function sendPaidConfirmationEmails(order: OrderWithItems) {
       bundleDiscountAmount: order.bundleDiscountAmount ?? undefined,
       loyaltyPointsRedeemed: order.loyaltyPointsRedeemed ?? undefined,
       loyaltyDiscountAmount: order.loyaltyDiscountAmount ?? undefined,
+      loyaltyPointsExpected: estimateOrderPoints({
+        total: order.total,
+        shipping: order.shipping || 0,
+        user,
+      }),
+      rewardsCreditTiming: 'paid',
     })
 
     debugLog('📧 Customer email sent for order:', order.orderNumber)

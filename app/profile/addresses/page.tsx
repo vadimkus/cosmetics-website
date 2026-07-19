@@ -135,11 +135,19 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
   }
 
   const handleAddAddress = () => {
-    router.push(getLocalizedPath('/profile/addresses/add', locale) + '?from=profile')
+    router.push(
+      embedded
+        ? `${getLocalizedPath('/profile', locale)}?tab=addresses&mode=add`
+        : getLocalizedPath('/profile/addresses/add', locale) + '?from=profile'
+    )
   }
 
   const handleEditAddress = (addressId: string) => {
-    router.push(getLocalizedPath('/profile/addresses/add', locale) + `?edit=${addressId}&from=profile`)
+    router.push(
+      embedded
+        ? `${getLocalizedPath('/profile', locale)}?tab=addresses&edit=${encodeURIComponent(addressId)}`
+        : getLocalizedPath('/profile/addresses/add', locale) + `?edit=${addressId}&from=profile`
+    )
   }
 
   const handleRequestDelete = (addressId: string) => {

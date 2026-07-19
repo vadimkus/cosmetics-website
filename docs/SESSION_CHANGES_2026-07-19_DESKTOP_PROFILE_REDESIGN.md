@@ -11,7 +11,7 @@ The authenticated desktop `/profile` experience is now a utility-first customer 
 - Adapted the quiet identity rail and spacious task canvas seen in Awwwards' Houston Drip Factory account example without copying its artwork.
 - Applied GENOSYS typography, neutral surfaces, restrained elevation, red interaction accents, and consistent 44px+ controls.
 - Prioritized rewards, latest-order status, favorites, shipping, billing, skin analysis, documents, and support.
-- Replaced the generic welcome banner with a black account-summary panel showing the real registration date, phone, address, and most recent order payment method; missing values are stated explicitly rather than fabricated.
+- Replaced the generic welcome banner with a black **GENOSYS Member** panel showing the real registration date, phone, address, and most recent order payment method; missing values are stated explicitly rather than fabricated. The panel carries the GENOSYS Professional mark in a white-on-black treatment. Its live membership badge follows `/api/user/membership`: Member uses an award, Silver and Gold use tier-colored medals, Platinum uses a crown, and professional accounts retain their Partner identity.
 - Kept primary dashboard views distinct from standalone destinations.
 
 Research references:
@@ -36,6 +36,8 @@ The sticky desktop account rail contains:
 - Sign out, separated from normal navigation
 
 Overview, orders, favorites, personal details, shipping addresses, billing, and security use deep links such as `/profile?tab=addresses`. Favorites, address management, and billing reuse their existing functional content inside the account canvas so the identity rail stays visible. Documents and Partner Portal remain real routes.
+
+Address creation and editing also stay inside that canvas through `/profile?tab=addresses&mode=add` and `/profile?tab=addresses&edit=…`; cancel/save returns to the embedded address list without dropping the desktop sidebar. Existing standalone address routes remain intact for mobile and PWA flows.
 
 ## Functional changes
 

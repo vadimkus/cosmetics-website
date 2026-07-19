@@ -186,6 +186,10 @@ test.describe('Profile Management', () => {
     await page.goto('/profile?tab=addresses')
     await expect(page).toHaveURL(/\/profile\?tab=addresses/)
     await expect(page.getByRole('link', { name: /shipping addresses/i }).first()).toHaveAttribute('aria-current', 'page')
+    await page.getByRole('button', { name: /add new address/i }).click()
+    await expect(page).toHaveURL(/\/profile\?tab=addresses&mode=add/)
+    await expect(page.getByRole('navigation', { name: /account navigation/i })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /add address/i })).toBeVisible()
 
     await page.goto('/profile?tab=billing')
     await expect(page).toHaveURL(/\/profile\?tab=billing/)

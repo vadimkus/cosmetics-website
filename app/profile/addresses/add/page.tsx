@@ -18,7 +18,17 @@ const EMIRATES = [
   { value: 'Fujairah', key: 'fujairah' },
 ]
 
-export default function AddAddressPage() {
+interface AddressEditorContentProps {
+  embedded?: boolean
+  editIdOverride?: string | null
+  onDone?: () => void
+}
+
+export function AddressEditorContent({
+  embedded = false,
+  editIdOverride,
+  onDone,
+}: AddressEditorContentProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user } = useAuth()
@@ -42,7 +52,7 @@ export default function AddAddressPage() {
   
   const isAppLikeMode = isPWA || isMobileWeb
 
-  const editId = searchParams?.get('edit')
+  const editId = editIdOverride === undefined ? searchParams?.get('edit') : editIdOverride
   const isEditing = !!editId
 
   const [formData, setFormData] = useState({
@@ -131,7 +141,11 @@ export default function AddAddressPage() {
       const data = await response.json()
 
       if (data.success) {
-        router.push(getLocalizedPath('/profile/addresses', locale) + '?from=profile')
+        if (embedded && onDone) {
+          onDone()
+        } else {
+          router.push(getLocalizedPath('/profile/addresses', locale) + '?from=profile')
+        }
       } else {
         setError(data.error || t.saveFailed)
       }
@@ -143,7 +157,11 @@ export default function AddAddressPage() {
   }
 
   const handleCancel = () => {
-    router.push(getLocalizedPath('/profile/addresses', locale) + '?from=profile')
+    if (embedded && onDone) {
+      onDone()
+    } else {
+      router.push(getLocalizedPath('/profile/addresses', locale) + '?from=profile')
+    }
   }
 
   // Translations
@@ -209,14 +227,21 @@ export default function AddAddressPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className={`${embedded ? 'min-h-64 rounded-3xl border border-gray-200 bg-white' : 'min-h-screen bg-white'} flex items-center justify-center`}>
         <Loader2 className="w-8 h-8 text-red-600 animate-spin" />
       </div>
     )
   }
 
   return (
-    <div className={`min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div
+      className={
+        embedded
+          ? 'overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_14px_40px_rgba(17,24,39,0.04)]'
+          : `min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`
+      }
+      dir={dir}
+    >
       {/* Unified nav header */}
       <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <div className="min-w-[80px]">
@@ -400,5 +425,9 @@ export default function AddAddressPage() {
       </div>
     </div>
   )
+}
+
+export default function AddAddressPage() {
+  return <AddressEditorContent />
 }
 

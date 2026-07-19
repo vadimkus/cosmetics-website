@@ -5,11 +5,15 @@ import Link from 'next/link'
 import type { Order, OrderItem } from '@prisma/client'
 import {
   ArrowUpRight,
+  Award,
   BookOpen,
+  Building,
   CalendarDays,
+  Crown,
   CreditCard,
   Heart,
   MapPin,
+  Medal,
   MessageCircle,
   Package,
   Phone,
@@ -21,6 +25,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import MembershipCard from '@/components/profile/MembershipCard'
 import StatusBadge from '@/components/shared/StatusBadge'
+import { useMembershipData, type MembershipTier } from '@/hooks/useMembershipData'
 
 type OrderWithItems = Order & { items: OrderItem[] }
 
@@ -43,6 +48,7 @@ export default function ProfileOverview({
 }: ProfileOverviewProps) {
   const { t, locale, dir } = useTranslation()
   const { favorites } = useFavorites()
+  const { data: membership } = useMembershipData()
   const isRTL = dir === 'rtl'
   const latestOrder = [...orders].sort(
     (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -76,6 +82,25 @@ export default function ProfileOverview({
     { label: t('profile.address'), value: address, icon: MapPin },
     { label: t('profile.lastPayment'), value: paymentMethod, icon: CreditCard },
   ]
+  const isPartner = membership?.track === 'PARTNER'
+  const tier: MembershipTier =
+    membership?.track === 'REWARDS' ? membership.tier || 'MEMBER' : 'MEMBER'
+  const TierIcon = isPartner
+    ? Building
+    : tier === 'PLATINUM'
+      ? Crown
+      : tier === 'SILVER' || tier === 'GOLD'
+        ? Medal
+        : Award
+  const tierLabel = isPartner
+    ? t('rewards.professionalPartner')
+    : t(`rewards.tier.${tier.toLowerCase()}`)
+  const tierBadgeStyles: Record<MembershipTier, string> = {
+    MEMBER: 'border-white/15 bg-white/10 text-gray-200',
+    SILVER: 'border-slate-300/30 bg-slate-200/15 text-slate-100',
+    GOLD: 'border-amber-300/35 bg-amber-300/15 text-amber-200',
+    PLATINUM: 'border-cyan-200/30 bg-cyan-100/15 text-cyan-100',
+  }
 
   return (
     <div className="space-y-5">
@@ -87,9 +112,21 @@ export default function ProfileOverview({
             </p>
             <h2 className="mt-1 text-2xl font-semibold tracking-[-0.03em] lg:text-3xl">{user.name}</h2>
           </div>
-          <span className="hidden rounded-full bg-white/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-gray-300 lg:block">
-            GENOSYS UAE
-          </span>
+          <div className={`flex shrink-0 flex-col gap-2 ${isRTL ? 'items-start' : 'items-end'}`}>
+            <Image
+              src="/images/genosys-logo-transparent.png"
+              alt="GENOSYS Professional"
+              width={116}
+              height={30}
+              className="h-auto w-[116px] brightness-0 invert"
+            />
+            <span
+              className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] ${tierBadgeStyles[tier]} ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <TierIcon className="h-3.5 w-3.5" aria-hidden="true" />
+              {tierLabel}
+            </span>
+          </div>
         </div>
         <dl className="mt-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {summaryItems.map(item => {

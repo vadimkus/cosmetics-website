@@ -2,6 +2,7 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import ProfileOverview from '@/components/profile/desktop/ProfileOverview'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
+import { useMembershipData } from '@/hooks/useMembershipData'
 
 jest.mock('next/image', () => ({
   __esModule: true,
@@ -11,14 +12,16 @@ jest.mock('next/image', () => ({
 jest.mock('@/components/profile/MembershipCard', () => () => <div data-testid="membership-card">Rewards</div>)
 jest.mock('@/components/FavoritesProvider', () => ({ useFavorites: jest.fn() }))
 jest.mock('@/hooks/useTranslation', () => ({ useTranslation: jest.fn() }))
+jest.mock('@/hooks/useMembershipData', () => ({ useMembershipData: jest.fn() }))
 
 const mockedFavorites = jest.mocked(useFavorites)
 const mockedTranslation = jest.mocked(useTranslation)
+const mockedMembership = jest.mocked(useMembershipData)
 
 const copy: Record<string, string> = {
   'profile.welcomeBack': 'Welcome back',
   'profile.welcomeDescription': 'Account summary',
-  'profile.accountSummary': 'Account summary',
+  'profile.accountSummary': 'GENOSYS Member',
   'profile.registered': 'Registered',
   'profile.phone': 'Phone',
   'profile.address': 'Address',
@@ -52,6 +55,11 @@ const copy: Record<string, string> = {
   'profile.supportDescription': 'WhatsApp support',
   'profile.documents': 'Documents',
   'profile.documentsDescription': 'Product resources',
+  'rewards.tier.member': 'Member',
+  'rewards.tier.silver': 'Silver',
+  'rewards.tier.gold': 'Gold',
+  'rewards.tier.platinum': 'Platinum',
+  'rewards.professionalPartner': 'Professional Partner',
 }
 
 const user = {
@@ -73,6 +81,15 @@ describe('ProfileOverview', () => {
     mockedFavorites.mockReturnValue({
       favorites: [{ id: '1' }, { id: '2' }],
     } as ReturnType<typeof useFavorites>)
+    mockedMembership.mockReturnValue({
+      data: {
+        success: true,
+        track: 'REWARDS',
+        memberNumber: 'GNS-00001-AE',
+        tier: 'SILVER',
+      },
+      loading: false,
+    })
   })
 
   it('renders empty order and favorites states with working destinations', () => {
@@ -82,6 +99,12 @@ describe('ProfileOverview', () => {
 
     expect(screen.getByText('No orders yet')).toBeInTheDocument()
     expect(screen.getByText('Registered')).toBeInTheDocument()
+    expect(screen.getByText('GENOSYS Member')).toBeInTheDocument()
+    expect(screen.getByText('Silver')).toBeInTheDocument()
+    expect(screen.getByAltText('GENOSYS Professional')).toHaveAttribute(
+      'src',
+      '/images/genosys-logo-transparent.png'
+    )
     expect(screen.getByText('+971501234567')).toBeInTheDocument()
     expect(screen.getByText('Dubai Marina, Dubai')).toBeInTheDocument()
     expect(screen.getByText('No payments yet')).toBeInTheDocument()

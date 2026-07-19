@@ -23,6 +23,7 @@ import ProfileOverview from '@/components/profile/desktop/ProfileOverview'
 import DesktopSecurityPanel from '@/components/profile/desktop/DesktopSecurityPanel'
 import FavoritesClient from '@/app/favorites/FavoritesClient'
 import { AddressesContent } from '@/app/profile/addresses/page'
+import { AddressEditorContent } from '@/app/profile/addresses/add/page'
 import { BillingContent } from '@/app/profile/billing/page'
 
 // Constants
@@ -103,6 +104,8 @@ export default function ProfilePageRefactored() {
   const [orders, setOrders] = useState<OrderWithItems[]>([])
   const [loadingOrders, setLoadingOrders] = useState(false)
   const [activeTab, setActiveTab] = useState<DesktopProfileTab>('overview')
+  const addressEditId = searchParams.get('edit')
+  const isAddingAddress = searchParams.get('mode') === 'add'
   const [isRefreshing, setIsRefreshing] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -482,7 +485,16 @@ export default function ProfilePageRefactored() {
 
         {activeTab === 'favorites' && <FavoritesClient embedded />}
 
-        {activeTab === 'addresses' && <AddressesContent embedded />}
+        {activeTab === 'addresses' && (addressEditId || isAddingAddress) ? (
+          <AddressEditorContent
+            key={addressEditId || 'new-address'}
+            embedded
+            editIdOverride={addressEditId}
+            onDone={() => router.push(`${getLocalizedPath('/profile', locale)}?tab=addresses`)}
+          />
+        ) : activeTab === 'addresses' ? (
+          <AddressesContent embedded />
+        ) : null}
 
         {activeTab === 'billing' && <BillingContent embedded />}
 

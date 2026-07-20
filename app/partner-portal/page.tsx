@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import {
   Package, Plus, RefreshCw, ChevronRight, ChevronDown, LogOut, ShoppingBag,
-  Clock, ShieldCheck, TrendingUp, Check, Send,
+  Clock, ShieldCheck, TrendingUp, Check, Send, User,
 } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -308,6 +308,13 @@ function PartnerDashboardInner() {
                 >
                   <Plus className="w-4 h-4" /> {t('New Order', 'Новый заказ', 'طلب جديد')}
                 </button>
+                <button
+                  type="button"
+                  onClick={() => router.push(getLocalizedPath('/profile', locale))}
+                  className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors"
+                >
+                  <User className="w-4 h-4" /> {t('My profile', 'Мой профиль', 'ملفي')}
+                </button>
                 <button onClick={() => setShowSignOut(true)} className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors">
                   <LogOut className="w-4 h-4" /> {t('Sign out', 'Выйти', 'خروج')}
                 </button>
@@ -514,13 +521,24 @@ function PartnerDashboardInner() {
               />
               <span className="text-[10px] font-semibold tracking-[0.25em] text-red-500 uppercase mt-0.5">Partner</span>
             </div>
-            <button
-              onClick={() => setShowSignOut(true)}
-              className={`flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
-            >
-              <LogOut className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
-              <span className="hidden sm:inline">{t('Sign out', 'Выйти', 'خروج')}</span>
-            </button>
+            <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <button
+                type="button"
+                onClick={() => router.push(getLocalizedPath('/profile', locale))}
+                className={`flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                aria-label={t('My profile', 'Мой профиль', 'ملفي')}
+              >
+                <User className="w-4 h-4" />
+                <span className="hidden sm:inline">{t('My profile', 'Мой профиль', 'ملفي')}</span>
+              </button>
+              <button
+                onClick={() => setShowSignOut(true)}
+                className={`flex items-center gap-1.5 text-sm text-gray-400 hover:text-white transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+              >
+                <LogOut className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
+                <span className="hidden sm:inline">{t('Sign out', 'Выйти', 'خروج')}</span>
+              </button>
+            </div>
           </div>
 
           <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>

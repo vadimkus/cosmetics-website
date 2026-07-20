@@ -228,6 +228,30 @@ function HomecareScriptsInner() {
     )
   }, [products, search])
 
+  const selectionSummary = useMemo(() => {
+    let count = 0
+    let total = 0
+    for (const line of Object.values(selected)) {
+      const product = products.find(item => item.id === line.productId)
+      if (!product) continue
+      count += 1
+      const qty = Math.max(1, Number(line.quantity) || 1)
+      if (line.size) {
+        const variant = (product.variants || []).find(item => item.size === line.size)
+        total += (Number(variant?.price ?? product.price) || 0) * qty
+      } else {
+        total += (Number(product.price) || 0) * qty
+      }
+    }
+    return { count, total }
+  }, [selected, products])
+
+  const formatAed = (amount: number) =>
+    amount.toLocaleString(locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-AE', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })
+
   return (
     <main className="min-h-screen bg-gray-50 pb-24" dir={dir}>
       <div className="bg-gray-950 text-white">
@@ -351,8 +375,25 @@ function HomecareScriptsInner() {
               })}
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-5">
-              <p className="text-sm text-gray-500">{Object.keys(selected).length} {t('products selected', 'продуктов выбрано', 'منتجات مختارة')}</p>
-              <button onClick={save} disabled={saving || Object.keys(selected).length === 0} className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-950 px-6 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-600 hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none">
+              <div className="min-w-0">
+                {selectionSummary.count === 0 ? (
+                  <p className="text-sm text-gray-500">
+                    {t('No products selected', 'Продукты не выбраны', 'لم يتم اختيار منتجات')}
+                  </p>
+                ) : (
+                  <>
+                    <p className="text-sm text-gray-500">
+                      {selectionSummary.count}{' '}
+                      {t('products selected', 'продуктов выбрано', 'منتجات مختارة')}
+                    </p>
+                    <p className="mt-0.5 text-base font-semibold text-gray-900 tabular-nums">
+                      {t('Patient total', 'Итого для пациента', 'إجمالي المريض')}{' '}
+                      <span className="text-red-600">{formatAed(selectionSummary.total)} AED</span>
+                    </p>
+                  </>
+                )}
+              </div>
+              <button onClick={save} disabled={saving || selectionSummary.count === 0} className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-950 px-6 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-600 hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none">
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                 {editingId ? t('Save new version', 'Сохранить новую версию', 'حفظ نسخة جديدة') : t('Create private link', 'Создать приватную ссылку', 'إنشاء رابط خاص')}
               </button>

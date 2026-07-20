@@ -431,8 +431,8 @@ export default function CustomerProfile({
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Customer Information */}
-        <div className="lg:col-span-1">
-          <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+        <div className="min-w-0 lg:col-span-1">
+          <div className="overflow-hidden bg-white rounded-lg shadow-sm border p-4 sm:p-6">
             <div className="text-center mb-4 sm:mb-6">
               <div
                 className="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden bg-gray-200 border-4 border-gray-300 flex items-center justify-center mx-auto mb-3 sm:mb-4 group cursor-pointer"
@@ -911,39 +911,54 @@ export default function CustomerProfile({
             </div>
 
             {customer.partnerPortalAccess && clinicPoints && (
-              <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50/60 p-4">
-                <div className="flex items-center justify-between gap-3 mb-3">
-                  <div>
+              <div className="mt-6 min-w-0 overflow-hidden rounded-lg border border-amber-200 bg-amber-50/60 p-3">
+                <div className="mb-3 flex items-start justify-between gap-2">
+                  <div className="min-w-0">
                     <h3 className="text-sm font-bold text-gray-900">Clinic Points</h3>
                     <p className="text-xs text-gray-600">
-                      {clinicPoints.balances.available.toFixed(2)} available · {clinicPoints.balances.pending.toFixed(2)} pending
+                      {clinicPoints.balances.available.toFixed(2)} available ·{' '}
+                      {clinicPoints.balances.pending.toFixed(2)} pending
+                    </p>
+                    <p className="mt-1 text-[11px] leading-snug text-gray-500">
+                      Homecare Scripts earn 5% of eligible ex-VAT patient spend. Clinics redeem 1 point = AED 1 on partner orders (not consignment). Pending releases after 14 days.
                     </p>
                   </div>
-                  <button onClick={fetchClinicPoints} className="text-xs font-semibold text-amber-900">Refresh</button>
+                  <button
+                    type="button"
+                    onClick={fetchClinicPoints}
+                    className="shrink-0 text-xs font-semibold text-amber-900"
+                  >
+                    Refresh
+                  </button>
                 </div>
-                <div className="grid grid-cols-[90px_1fr_auto] gap-2 mb-3">
-                  <input
-                    type="number"
-                    step="0.01"
-                    value={pointAdjustment}
-                    onChange={event => setPointAdjustment(event.target.value)}
-                    placeholder="+ / −"
-                    className="rounded border border-amber-200 bg-white px-2 py-1.5 text-sm"
-                  />
+                <div className="mb-3 space-y-2">
+                  <div className="flex gap-2">
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={pointAdjustment}
+                      onChange={event => setPointAdjustment(event.target.value)}
+                      placeholder="+ / −"
+                      aria-label="Clinic Points adjustment amount"
+                      className="w-24 min-w-0 shrink-0 rounded border border-amber-200 bg-white px-2 py-1.5 text-sm"
+                    />
+                    <button
+                      type="button"
+                      onClick={adjustPoints}
+                      disabled={adjustingPoints || !pointReason.trim() || !Number(pointAdjustment)}
+                      className="shrink-0 rounded bg-amber-800 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-40"
+                    >
+                      {adjustingPoints ? 'Applying…' : 'Apply'}
+                    </button>
+                  </div>
                   <input
                     value={pointReason}
                     onChange={event => setPointReason(event.target.value)}
                     maxLength={300}
                     placeholder="Required adjustment reason"
-                    className="rounded border border-amber-200 bg-white px-2 py-1.5 text-sm"
+                    aria-label="Clinic Points adjustment reason"
+                    className="w-full min-w-0 rounded border border-amber-200 bg-white px-2 py-1.5 text-sm"
                   />
-                  <button
-                    onClick={adjustPoints}
-                    disabled={adjustingPoints || !pointReason.trim() || !Number(pointAdjustment)}
-                    className="rounded bg-amber-800 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-40"
-                  >
-                    Apply
-                  </button>
                 </div>
                 <div className="max-h-48 overflow-y-auto divide-y divide-amber-100 rounded border border-amber-100 bg-white">
                   {clinicPoints.transactions.map(transaction => (
@@ -958,7 +973,7 @@ export default function CustomerProfile({
                           {` · ${transaction.status.toLowerCase()}`}
                         </p>
                       </div>
-                      <span className={`font-bold ${transaction.points >= 0 ? 'text-green-700' : 'text-red-700'}`}>
+                      <span className={`shrink-0 font-bold ${transaction.points >= 0 ? 'text-green-700' : 'text-red-700'}`}>
                         {transaction.points >= 0 ? '+' : ''}{transaction.points.toFixed(2)}
                       </span>
                     </div>

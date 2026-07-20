@@ -12,6 +12,7 @@
 |----------|----------|-------------|
 | 🟢 **UI/UX** | [Desktop profile redesign](./SESSION_CHANGES_2026-07-19_DESKTOP_PROFILE_REDESIGN.md) | Award-inspired desktop account dashboard with sticky navigation, real rewards/orders/favorites data, URL-backed sections, security consolidation, EN/RU/AR and RTL; mobile/PWA unchanged. |
 | 🟢 **UI/UX** | [Recommended Routine step badges](./SESSION_CHANGES_2026-07-19_ROUTINE_STEP_BADGES.md) | Replaces detached number circles with compact red badges over product thumbnails; semantic ordered lists, responsive sizing, keyboard focus, and RTL support. |
+| 🟡 **Important** | [Product 20 Problem Control Serum PDF](./SESSION_CHANGES_2026-07-20_PRODUCT_20_PROBLEM_SERUM_PDF.md) | New guide in `documents/PPT/`; productConfig + training/downloads listings; product 18 was Hyaluron (wrong ID in request). |
 | 🟡 **Important** | [Product 39 Ultra Shield SPF 50+ video](./SESSION_CHANGES_2026-07-20_PRODUCT_39_ULTRA_VIDEO.md) | New compressed `ultra.mp4` (23 MB → 776 KB); DB + productConfig + products.ts updated; old `spf50.mp4` deleted. |
 | 🟡 **Important** | [Product 40 Multi Sun SPF 40 images](./SESSION_CHANGES_2026-07-19_PRODUCT_40_SUN_IMAGES.md) | New `sun/main` + s1–s6 gallery; 16 order items + summer blog repointed; old `SSUN.jpg` / `40big.jpg` deleted. |
 | 🟡 **Important** | [Product 40 Multi Sun SPF 40 video](./SESSION_CHANGES_2026-07-19_PRODUCT_40_SUN_VIDEO.md) | New compressed `sun2.mp4` (35 MB → 1.2 MB); DB + productConfig updated; old `sun.mp4` deleted. |

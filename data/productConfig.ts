@@ -233,7 +233,14 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '20',
     pricing: {
       basePrice: 330
-    }
+    },
+    documentation: [
+      {
+        title: 'INTENSIVE PROBLEM CONTROL SERUM Guide',
+        url: 'https://genosys.ae/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20SERUM.pdf',
+        type: 'pdf'
+      }
+    ]
   },
   '21': {
     id: '21',

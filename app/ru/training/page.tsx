@@ -566,6 +566,39 @@ export default function RussianTrainingPage() {
                       </PDFDownloadButton>
                     </div>
                   </div>
+
+                  {/* PROBLEM CONTROL SERUM */}
+                  <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+                    <div className="flex items-center gap-2 md:gap-3">
+                      <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-100 rounded-md md:rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+                        <Link href="/ru/products/20">
+                          <Image
+                            src="/images/PRSS.jpg"
+                            alt="PROBLEM CONTROL SERUM"
+                            width={500}
+                            height={300} className="w-full h-full object-cover cursor-pointer hover:opacity-80 transition-opacity"
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-xs md:text-sm font-semibold text-gray-900 truncate">
+                          СЫВОРОТКА ДЛЯ КОНТРОЛЯ ПРОБЛЕМНОЙ КОЖИ
+                        </h4>
+                        <p className="text-[10px] md:text-xs text-gray-400">
+                          2.2 МБ
+                        </p>
+                      </div>
+                      <PDFDownloadButton 
+                        href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20SERUM.pdf"
+                        filename="Документация по продукции"
+                        external={true}
+                        className="inline-flex items-center px-2 md:px-3 py-1 md:py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-[10px] md:text-xs font-medium flex-shrink-0"
+                      >
+                        <Download className="h-2.5 w-2.5 md:h-3 md:w-3 mr-0.5 md:mr-1" />
+                        PDF
+                      </PDFDownloadButton>
+                    </div>
+                  </div>
                   
                   {/* ULTRA SHIELD SUN CREAM */}
                   <div className="group border border-gray-200 rounded-md md:rounded-lg p-2 md:p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">

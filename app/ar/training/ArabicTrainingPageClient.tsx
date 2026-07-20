@@ -261,6 +261,7 @@ export default function ArabicTrainingPageClient() {
                     { id: 14, image: '/images/mist/main2.jpeg', name: 'MICROBIOME ENERGY INFUSING MIST', size: '0.8 MB', href: '/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf' },
                     { id: 34, image: '/images/overnight/main.jpeg', name: 'SKIN RESCUE OVERNIGHT CREAM MASK', size: '1.3 MB', href: '/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf' },
                     { id: 15, image: '/images/problem/Main.jpg', name: 'INTENSIVE PROBLEM CONTROL TONER', size: '1.0 MB', href: '/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf' },
+                    { id: 20, image: '/images/PRSS.jpg', name: 'PROBLEM CONTROL SERUM', size: '2.2 MB', href: '/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20SERUM.pdf' },
                     { id: 39, image: '/images/SPF50.jpg', name: 'ULTRA SHIELD SUN CREAM', size: '0.6 MB', href: '/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' },
                     { id: 44, image: '/images/Sham.jpg', name: 'HR³ MATRIX SCALP SHAMPOO α', size: '2.3 MB', href: '/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' },
                     { id: 18, image: '/images/HRS.jpg', name: 'MOISTURE REPLENISHING HYALURON SERUM', size: '1.9 MB', href: '/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' },

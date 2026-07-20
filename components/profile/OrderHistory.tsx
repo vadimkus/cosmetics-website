@@ -136,7 +136,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'SKIN RESCUE OVERNIGHT CREAM MASK': '/images/overnight/main.jpeg',
       'SOOTHING BOMB SEA ALGAE MASK': '/images/sea_algae/Main.jpeg',
       'MULTI SUN CREAM [SPF 40 PA++]': '/images/sun/main.jpeg',
-      'ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]': '/images/SPF50.jpg',
+      'ULTRA SHIELD SUN CREAM [SPF 50+ PA++++]': '/images/ultra/main.jpeg',
       'BIO-FERMENT AGE DEFYING POWDER MASK': '/images/BFAD.png',
       'SKIN REBOOT PDRN MASK PACK': '/images/REB.png',
       'Test Product': '/images/genosys-logo-transparent.png',

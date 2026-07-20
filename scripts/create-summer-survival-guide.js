@@ -255,7 +255,7 @@ const content = `<div class="blog-content">
       <div class="grid md:grid-cols-2 gap-4">
         <div class="bg-white rounded-xl p-5 border-2 border-amber-300 shadow-sm flex flex-col">
           <a href="https://genosys.ae/products/39" class="block mb-4">
-            <img src="/images/SPF50.jpg" alt="GENOSYS Ultra Shield Sun Cream SPF 50+ PA++++" class="rounded-lg w-full bg-gray-50" />
+            <img src="/images/ultra/main.jpeg" alt="GENOSYS Ultra Shield Sun Cream SPF 50+ PA++++" class="rounded-lg w-full bg-gray-50" />
           </a>
           <div class="flex items-baseline justify-between mb-2">
             <h5 class="font-bold text-gray-900 text-lg">Ultra Shield</h5>
@@ -504,7 +504,7 @@ const contentAr = `<div class="blog-content" dir="rtl">
         <p class="text-gray-700 leading-relaxed mb-4">بين مايو وأكتوبر: SPF 50+ PA++++ كل صباح مع إعادة التطبيق كل ساعتين.</p>
         <div class="grid md:grid-cols-2 gap-3">
           <div class="bg-white rounded-xl p-4 border-2 border-amber-300 text-center">
-            <a href="https://genosys.ae/products/39" class="block mb-3"><img src="/images/SPF50.jpg" alt="Ultra Shield SPF 50+" class="rounded-lg w-full bg-gray-50" /></a>
+            <a href="https://genosys.ae/products/39" class="block mb-3"><img src="/images/ultra/main.jpeg" alt="Ultra Shield SPF 50+" class="rounded-lg w-full bg-gray-50" /></a>
             <h5 class="font-bold text-gray-900 mb-1">Ultra Shield SPF 50+ PA++++</h5>
             <p class="font-bold text-gray-900 mb-2">250 درهم</p>
             <a href="https://genosys.ae/products/39" class="inline-flex bg-amber-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">تسوقي الآن ←</a>
@@ -673,7 +673,7 @@ const contentRu = `<div class="blog-content">
         <p class="text-gray-700 leading-relaxed mb-4">С мая по октябрь — SPF 50+ PA++++ каждое утро. Обновлять каждые 2 часа на улице или в 12:00 и 15:00 в помещении.</p>
         <div class="grid md:grid-cols-2 gap-3">
           <div class="bg-white rounded-xl p-4 border-2 border-amber-300 flex flex-col">
-            <a href="https://genosys.ae/products/39" class="block mb-3"><img src="/images/SPF50.jpg" alt="Ultra Shield SPF 50+" class="rounded-lg w-full bg-gray-50" /></a>
+            <a href="https://genosys.ae/products/39" class="block mb-3"><img src="/images/ultra/main.jpeg" alt="Ultra Shield SPF 50+" class="rounded-lg w-full bg-gray-50" /></a>
             <h5 class="font-bold text-gray-900 mb-1">Ultra Shield SPF 50+ PA++++</h5>
             <p class="text-gray-600 text-xs mb-3">Рабочая лошадка лета. Пляж, гольф, школа.</p>
             <a href="https://genosys.ae/products/39" class="inline-flex items-center justify-center gap-2 bg-amber-600 text-white px-3 py-2 rounded-lg text-sm font-semibold mt-auto">250 AED →</a>

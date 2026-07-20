@@ -54,7 +54,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'A low-foam cleanser for a barrier-conscious daily routine.' },
       { name: 'Multi Vita Radiance Serum', href: '/products/21', image: '/images/RADS.jpg', imageAlt: 'GENOSYS Multi Vita Radiance Serum', description: 'A targeted brightening step for uneven-looking tone and radiance.' },
       { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/BRR.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Ceramide- and amino-acid-focused moisture support for dry or stressed skin.' },
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/SPF50.jpg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High daily UV protection in a non-greasy cream format.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High daily UV protection in a non-greasy cream format.' },
     ],
     sections: [
       {
@@ -243,7 +243,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       'Shade, clothing, hats, and sunglasses remain important because sunscreen is only one part of sun protection.',
     ],
     featuredProducts: [
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/SPF50.jpg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'A high-SPF cream for strong daily UV protection.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'A high-SPF cream for strong daily UV protection.' },
       { name: 'Multi Sun Cream SPF 40', href: '/products/40', image: '/images/sun/main.jpeg', imageAlt: 'GENOSYS Multi Sun Cream SPF 40', description: 'A mild daily sunscreen with a lightweight cream format.' },
       { name: 'Skin Caring BB Cushion SPF 50+', href: '/products/41', image: '/images/BBC.jpg', imageAlt: 'GENOSYS Skin Caring BB Cushion SPF 50+', description: 'Portable coverage for touch-ups and visible redness.' },
       { name: 'Intensive Blemish Balm SPF 30', href: '/products/42', image: '/images/BLEM.jpg', imageAlt: 'GENOSYS Intensive Blemish Balm Cream SPF 30', description: 'A coverage product that combines complexion correction with labelled SPF.' },
@@ -300,7 +300,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'Post-treatment moisture support in home-care and professional sizes.' },
       { name: 'Intensive Hydro Soothing Cream', href: '/products/28', image: '/images/HSC.jpg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'A soothing gel-cream option for hydration when approved for the protocol.' },
       { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/BRR.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Richer barrier support for the later recovery and maintenance phase.' },
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/SPF50.jpg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
     ],
     sections: [
       {

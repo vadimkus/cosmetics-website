@@ -23,7 +23,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'منظف GENOSYS Cerabarrier Biome Gel Cleanser', description: 'منظف يومي قليل الرغوة لروتين يراعي حاجز البشرة.' },
       { name: 'Multi Vita Radiance Serum', href: '/ar/products/21', image: '/images/RADS.jpg', imageAlt: 'سيروم GENOSYS Multi Vita Radiance Serum', description: 'خطوة تفتيح موجّهة لمظهر اللون غير المتجانس والبهتان.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/BRR.jpg', imageAlt: 'كريم GENOSYS Skin Barrier Protecting Cream', description: 'دعم للبشرة الجافة أو المجهدة بالسيراميد والأحماض الأمينية.' },
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/SPF50.jpg', imageAlt: 'واقي GENOSYS Ultra Shield SPF 50+', description: 'حماية يومية عالية من الأشعة بتركيبة كريم غير دهنية.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'واقي GENOSYS Ultra Shield SPF 50+', description: 'حماية يومية عالية من الأشعة بتركيبة كريم غير دهنية.' },
     ],
     sections: [
       {
@@ -212,7 +212,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       'الظل والملابس والقبعة والنظارات مهمة لأن الواقي جزء واحد فقط من الحماية.',
     ],
     featuredProducts: [
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/SPF50.jpg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'كريم عالي الحماية من الأشعة للاستخدام اليومي.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'كريم عالي الحماية من الأشعة للاستخدام اليومي.' },
       { name: 'Multi Sun Cream SPF 40', href: '/ar/products/40', image: '/images/sun/main.jpeg', imageAlt: 'GENOSYS Multi Sun Cream SPF 40', description: 'واقي يومي لطيف بقوام كريم خفيف.' },
       { name: 'Skin Caring BB Cushion SPF 50+', href: '/ar/products/41', image: '/images/BBC.jpg', imageAlt: 'كوشن GENOSYS Skin Caring BB Cushion SPF 50+', description: 'تغطية محمولة للتجديد وتقليل مظهر الاحمرار.' },
       { name: 'Intensive Blemish Balm SPF 30', href: '/ar/products/42', image: '/images/BLEM.jpg', imageAlt: 'GENOSYS Intensive Blemish Balm SPF 30', description: 'منتج تغطية يجمع تصحيح اللون مع SPF معلن.' },
@@ -269,7 +269,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم رطوبة ما بعد الإجراء بأحجام منزلية واحترافية.' },
       { name: 'Intensive Hydro Soothing Cream', href: '/ar/products/28', image: '/images/HSC.jpg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'جل كريم مهدئ للترطيب عند اعتماده في البروتوكول.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/BRR.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'دعم أغنى للحاجز في مراحل التعافي اللاحقة.' },
-      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/SPF50.jpg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'حماية عالية بعد سماح المختص باستئناف الواقي.' },
+      { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'حماية عالية بعد سماح المختص باستئناف الواقي.' },
     ],
     sections: [
       { heading: 'بعد الإجراء مباشرة', body: 'قد يظهر احمرار أو شد أو دفء أو تورم خفيف أو إحساس يشبه حرق الشمس. لا تلمسي المنطقة بلا حاجة ولا تفركيها أو تضيفي منتجات غير معتمدة. تشير FDA إلى أن البشرة تصبح أكثر حساسية؛ اسألي المختص بدقة عن التنظيف والترطيب والمكياج والواقي.' },

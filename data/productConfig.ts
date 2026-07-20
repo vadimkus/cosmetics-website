@@ -444,7 +444,15 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '39': {
     id: '39',
-    images: ['/images/SPF50.jpg', '/images/Second/50big.jpg'],
+    images: [
+      '/images/ultra/main.jpeg',
+      '/images/ultra/s1.jpeg',
+      '/images/ultra/s2.jpeg',
+      '/images/ultra/s3.jpeg',
+      '/images/ultra/s4.jpeg',
+      '/images/ultra/s5.jpeg',
+      '/images/ultra/s6.jpeg',
+    ],
     videoUrl: '/videos/ultra.mp4',
     pricing: {
       basePrice: 250

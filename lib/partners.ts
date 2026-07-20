@@ -489,5 +489,17 @@ export const partnersData: Partner[] = [
     directions: "https://www.google.com/maps/dir/?api=1&destination=H7P9%2B2WM+Al+Rifa+Dibba+Al+Fujairah",
     logo: "/images/partners/shine-medical.png",
     theme: "emerald"
+  },
+  {
+    id: "lifting-pro-difc",
+    name: "LIFTING PRO FACE AND BODY TREATMENTS SPA, DIFC",
+    type: "Face and Body Treatments Spa",
+    description: "Spa salon in Index Tower, DIFC, offering face and body treatments. Book online via Fresha. Google rating 4.8/5.",
+    location: "Index Tower - Floor R1, Unit 215 - Zaa'beel Second - DIFC - Dubai",
+    phone: "+971 50 150 4735",
+    website: "https://www.fresha.com/a/lifting-pro-face-and-body-treatments-spa-dubai-difc-dubay-index-tower-happiness-street-dznxzmt3",
+    directions: "https://www.google.com/maps?daddr=Index+Tower+-+Zaa%27beel+Second+-+DIFC+-+Dubai",
+    logo: "/images/partners/lifting.png",
+    theme: "pink"
   }
 ];

@@ -782,6 +782,10 @@ When customers ask "where can I buy?", "physical stores?", "salons?", etc.:
   📍 Residence Inn by Marriott, Floor 45
   📞 +971 56 395 8899 | 🌐 lavanaspa.ae
 
+- **LIFTING PRO FACE AND BODY TREATMENTS SPA, DIFC** - Face and Body Treatments Spa
+  📍 Index Tower, Floor R1 Unit 215
+  📞 +971 50 150 4735 | 🌐 Fresha booking
+
 **DUBAI - JUMEIRAH AREA:**
 - **EVOLUTION AESTHETICS CLINIC, Jumeirah 3** - Aesthetic Medical Clinic
   📍 49 Umm Al Sheif Rd

@@ -694,9 +694,10 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 - HORTMAN CLINICS
 - ELARIS Beauty Salon
 
-#### DIFC (2 locations)
+#### DIFC (3 locations)
 - LFK CLINIC / LIPS for KISS
 - LAVANA SPA
+- LIFTING PRO FACE AND BODY TREATMENTS SPA (Index Tower)
 
 #### Jumeirah Area (7 locations)
 - EVOLUTION AESTHETICS CLINIC

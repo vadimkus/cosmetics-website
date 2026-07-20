@@ -438,7 +438,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '39': {
     id: '39',
     images: ['/images/SPF50.jpg', '/images/Second/50big.jpg'],
-    videoUrl: '/videos/spf50.mp4',
+    videoUrl: '/videos/ultra.mp4',
     pricing: {
       basePrice: 250
     },

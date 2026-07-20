@@ -433,7 +433,7 @@ export const products: Product[] = [
     description: '50g. Non-greasy and silky sunscreen with powerful UV protection and sun burn care effect. It is a non-greasy silky sunscreen that strongly defends skin against UV rays, and promotes skin recovery from the damage caused by sun exposure with sunburn care complex, hyaluronic acid and lactobacillus ferment. It is a reef-safe product. Key ingredients: Sunburn Care Complex, MicroHA™ (ultra-low molecular weight hyaluronic acid), ProbioMETA™ (Lactobacillus Ferment), Tropical Antioxidant Complex. Dermatologically tested. Reef-safe.',
     image: '/images/SPF50.jpg',
     images: JSON.stringify(['/images/SPF50.jpg', '/images/Second/50big.jpg']),
-    videoUrl: '/videos/spf50.mp4',
+    videoUrl: '/videos/ultra.mp4',
     category: 'Sun',
     inStock: true,
   },

@@ -25,3 +25,18 @@
 - TypeScript: passed.
 - Desktop visual check on product 65.
 - Responsive DOM check at 390 × 844: 366 px component width, one-column facts, 81 px trigger, and no horizontal overflow.
+
+## Duplicate-fact follow-up
+
+- Audited all 66 database products in English, Russian, and Arabic: 198
+  product/locale combinations.
+- Found repeated source claims in 121 combinations, mainly where `keyFeatures`,
+  `benefits`, `productDetails`, and size metadata describe the same fact.
+- Benefit strings such as `Rapid Recovery - ...` are now parsed into a heading
+  and body, allowing them to match structured feature headings.
+- The display removes repeated normalized headings or bodies while retaining
+  source priority: richer key features win over duplicate benefits/details.
+- Candidate benefits/details are deduplicated before the six-card limit, so a
+  later distinct claim replaces an early duplicate.
+- Post-fix audit result: **0 duplicate headings or bodies across all 198
+  product/locale combinations**.

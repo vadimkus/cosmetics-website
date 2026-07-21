@@ -124,12 +124,47 @@ function readableLabel(value: string) {
     : value
 }
 
+function normalizeFactValue(value: string | undefined) {
+  return (value || '')
+    .normalize('NFKD')
+    .toLocaleLowerCase()
+    .replace(/[\p{P}\p{S}]+/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function benefitToFact(benefit: string): QuickFact {
+  const match = benefit.match(/^(.+?)\s+[-–—:]\s+(.+)$/)
+  if (!match) return { text: benefit.trim() }
+
+  const [, title, text] = match
+  return {
+    ...(title?.trim() ? { title: title.trim() } : {}),
+    text: text?.trim() || benefit.trim(),
+  }
+}
+
 function uniqueFacts(facts: QuickFact[]) {
-  const seen = new Set<string>()
+  const seenTitles = new Set<string>()
+  const seenTexts = new Set<string>()
+
   return facts.filter(fact => {
-    const key = `${fact.title || ''}:${fact.text}`.toLocaleLowerCase()
-    if (!fact.text || seen.has(key)) return false
-    seen.add(key)
+    const titleKey = normalizeFactValue(fact.title)
+    const textKey = normalizeFactValue(fact.text)
+    if (!textKey) return false
+
+    // Structured features, benefits and product details often repeat the same
+    // claim with slightly different copy. A repeated heading or body is one
+    // fact—not another card. Source order keeps the richer feature first.
+    if (
+      (titleKey && seenTitles.has(titleKey)) ||
+      seenTexts.has(textKey)
+    ) {
+      return false
+    }
+
+    if (titleKey) seenTitles.add(titleKey)
+    seenTexts.add(textKey)
     return true
   })
 }
@@ -215,10 +250,13 @@ export default function ProductQuickFactsHelper({
           })
         }
       }
-      for (const benefit of benefits.slice(0, 3)) {
-        facts.push({ text: benefit })
+      // Include the full candidate list before the final six-card limit. If an
+      // early benefit duplicates a feature, a later distinct benefit can take
+      // its place instead of leaving the panel short.
+      for (const benefit of benefits) {
+        facts.push(benefitToFact(benefit))
       }
-      for (const [title, value] of Object.entries(details).slice(0, 4)) {
+      for (const [title, value] of Object.entries(details)) {
         facts.push({ title: readableLabel(title), text: String(value) })
       }
     }

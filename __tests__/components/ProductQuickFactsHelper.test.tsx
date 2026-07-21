@@ -79,6 +79,31 @@ describe('ProductQuickFactsHelper', () => {
     )
   })
 
+  it('removes repeated claims across features and benefits', () => {
+    render(
+      <ProductQuickFactsHelper
+        product={product('25', 'SOOTHING REPAIR POSTCREAM', {
+          keyFeatures: JSON.stringify([
+            {
+              title: 'Rapid Recovery',
+              description: 'Helps skin rapidly recover after professional treatments.',
+            },
+          ]),
+          benefits: JSON.stringify([
+            'Rapid Recovery - Helps skin quickly recover from professional treatment side effects',
+            'Redness Reduction - Soothes and reduces redness and inflammation',
+          ]),
+        })}
+      />
+    )
+
+    fireEvent.click(screen.getByRole('button', { name: 'Quick product facts' }))
+    const region = screen.getByRole('region')
+    expect(region.querySelectorAll('h4')).toHaveLength(3)
+    expect(screen.getAllByText('Rapid Recovery')).toHaveLength(1)
+    expect(region).toHaveTextContent('Redness Reduction')
+  })
+
   it('keeps verified PDRN quick facts for Product 52', () => {
     render(
       <ProductQuickFactsHelper

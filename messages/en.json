@@ -238,6 +238,8 @@
     "continueShopping": "Continue Shopping",
     "backToProducts": "Back to Products",
     "remove": "Remove",
+    "clearCart": "Clear cart",
+    "clearCartConfirm": "Remove all items from your cart?",
     "itemRemoved": "Item removed",
     "undo": "Undo",
     "update": "Update",

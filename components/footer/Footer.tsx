@@ -161,7 +161,8 @@ export default function Footer() {
     pathname?.includes('/partner-portal') ||
     pathname?.includes('/profile') ||
     pathname?.includes('/skin-recommendation') ||
-    pathname?.includes('/training')
+    pathname?.includes('/training') ||
+    pathname?.includes('/admin')
 
   if (usesMinimalFooter) {
     return (

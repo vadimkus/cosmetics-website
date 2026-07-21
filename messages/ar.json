@@ -238,6 +238,8 @@
     "continueShopping": "متابعة التسوق",
     "backToProducts": "العودة إلى المنتجات",
     "remove": "إزالة",
+    "clearCart": "إفراغ السلة",
+    "clearCartConfirm": "هل تريد إزالة جميع المنتجات من السلة؟",
     "itemRemoved": "تمت إزالة المنتج",
     "undo": "تراجع",
     "update": "تحديث",

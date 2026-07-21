@@ -11,7 +11,7 @@ import { springPresets } from '@/lib/appleAnimations'
 import FreeMaskPromotion from '@/components/FreeMaskPromotion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag, Award } from 'lucide-react'
+import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag, Award, Trash2 } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
@@ -27,6 +27,7 @@ export default function CartClient() {
     items,
     addItem,
     removeItem,
+    clearCart,
     selectedEmirate,
     setSelectedEmirate,
     _hasHydrated,
@@ -79,6 +80,14 @@ export default function CartClient() {
     setRecentlyRemoved(null)
     if (undoTimerRef.current) clearTimeout(undoTimerRef.current)
   }, [addItem, recentlyRemoved])
+
+  const handleClearCart = useCallback(() => {
+    if (!window.confirm(t('cart.clearCartConfirm'))) return
+
+    clearCart()
+    setRecentlyRemoved(null)
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current)
+  }, [clearCart, t])
   
   // Compute total items directly from items array for reactivity
   const totalItemCount = items.reduce((total, item) => total + item.quantity, 0)
@@ -573,9 +582,18 @@ export default function CartClient() {
                   <span className="text-sm font-medium text-gray-700">
                     {totalItemCount} {totalItemCount === 1 ? t('cart.item') : t('cart.items')}
                   </span>
+                  <button
+                    type="button"
+                    onClick={handleClearCart}
+                    className={`${dir === 'rtl' ? 'mr-auto' : 'ml-auto'} inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-red-600 transition-colors hover:bg-red-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/40`}
+                    aria-label={t('cart.clearCart')}
+                    title={t('cart.clearCart')}
+                  >
+                    <Trash2 className="h-5 w-5" aria-hidden="true" />
+                  </button>
                 </div>
               ) : (
-                <div className="p-3 md:p-6 border-b border-gray-200">
+                <div className={`p-3 md:p-6 border-b border-gray-200 flex items-center justify-between gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <motion.h1
                     initial={animationsEnabled ? { opacity: 0, y: -10 } : {}}
                     animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
@@ -586,6 +604,16 @@ export default function CartClient() {
                     <span className="text-sm md:text-base lg:text-lg">{t('cart.shoppingCart')}</span>{' '}
                     <span className="text-sm md:text-base lg:text-lg">{totalItemCount} {totalItemCount === 1 ? t('cart.item') : t('cart.items')}</span>
                   </motion.h1>
+                  <button
+                    type="button"
+                    onClick={handleClearCart}
+                    className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-3 text-sm font-medium text-red-600 transition-colors hover:bg-red-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500/40"
+                    aria-label={t('cart.clearCart')}
+                    title={t('cart.clearCart')}
+                  >
+                    <Trash2 className="h-5 w-5" aria-hidden="true" />
+                    <span className="hidden sm:inline">{t('cart.clearCart')}</span>
+                  </button>
                 </div>
               )}
               

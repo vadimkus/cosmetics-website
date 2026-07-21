@@ -716,10 +716,12 @@ export default function LoginClient() {
             </button>
           </div>
 
-          {/* Partner access (clinics & salons) */}
-          <div className="mt-5 pt-4 border-t border-gray-100">
-            {partnerAccessButton}
-          </div>
+          {/* Partner access belongs to sign-in only, never account creation. */}
+          {isLoginMode && (
+            <div className="mt-5 pt-4 border-t border-gray-100">
+              {partnerAccessButton}
+            </div>
+          )}
         </div>
         {partnerLoginModal}
       </div>
@@ -1150,8 +1152,8 @@ export default function LoginClient() {
                   {isLoginMode ? t('login.switchToCreate') : t('login.switchToLogin')}
                 </button>
               </div>
-              {/* Partner access (clinics & salons) */}
-              {partnerAccessButton}
+              {/* Partner access belongs to sign-in only, never account creation. */}
+              {isLoginMode && partnerAccessButton}
             </div>
           </div>
         </div>

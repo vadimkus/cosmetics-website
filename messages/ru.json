@@ -238,6 +238,8 @@
     "continueShopping": "Продолжить покупки",
     "backToProducts": "Назад к средствам",
     "remove": "Удалить",
+    "clearCart": "Очистить корзину",
+    "clearCartConfirm": "Удалить все товары из корзины?",
     "itemRemoved": "Товар удалён",
     "undo": "Отменить",
     "update": "Обновить",

@@ -7,9 +7,10 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, ChevronDown, ShoppingBag, Pencil, Award } from 'lucide-react'
 import Link from 'next/link'
 import CheckoutHeader from '@/components/checkout/CheckoutHeader'
+import CheckoutProgress from '@/components/checkout/CheckoutProgress'
 import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
 import RewardsRedemptionCard from '@/components/checkout/RewardsRedemptionCard'
-import { getCartDiscountSummary, getCartLinePayloadPricing, getCartLinePricing } from '@/lib/cartPricing'
+import { getCartDiscountSummary, getCartLinePayloadPricing, getCartLinePricing, getCartTotalPrice } from '@/lib/cartPricing'
 import { calculateMobileShipping, calculateVatIncluded } from '@/lib/mobileCheckoutConfig'
 import { errorLog, debugLog } from '@/lib/logger'
 import { trackBeginCheckout } from '@/lib/analytics'
@@ -34,10 +35,12 @@ interface LoyaltyRedemptionRules {
 }
 
 export default function CheckoutClient() {
-  const { items, getTotalPrice, getTotalItems, selectedEmirate, _hasHydrated } = useCart()
+  const { items, selectedEmirate, _hasHydrated } = useCart()
   const { user, isLoading: authLoading } = useAuth()
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
+  const subtotal = getCartTotalPrice(items, user)
+  const totalItemCount = items.reduce((total, item) => total + item.quantity, 0)
   const { isPWA, isClient: isPWAClient } = usePWAMode()
   const [isProcessing, setIsProcessing] = useState(false)
   // Use ref for synchronous double-submission prevention (state updates are async)
@@ -116,7 +119,7 @@ export default function CheckoutClient() {
     beginCheckoutFiredRef.current = true
     try {
       trackBeginCheckout({
-        value: getTotalPrice(user),
+        value: subtotal,
         items: items.map(it => ({
           id: it.product.id,
           name: it.product.name,
@@ -205,8 +208,6 @@ export default function CheckoutClient() {
     }
     return emirateName
   }
-
-  const subtotal = getTotalPrice(user)
 
   // GENOSYS Rewards redemption quote. Program constants come from the
   // membership API; order endpoints still reprice and clamp authoritatively.
@@ -702,7 +703,7 @@ export default function CheckoutClient() {
   const isAppLikeMode = (isPWAClient && isPWA) || isMobileWeb
 
   return (
-    <div className={`container mx-auto px-4 py-2 md:py-8 lg:py-16 ${isAppLikeMode ? 'pb-[calc(96px+env(safe-area-inset-bottom))]' : ''}`} dir={dir}>
+    <div className={`container mx-auto px-4 py-2 md:pb-8 md:pt-4 lg:pb-16 lg:pt-4 ${isAppLikeMode ? 'pb-[calc(96px+env(safe-area-inset-bottom))]' : ''}`} dir={dir}>
       <CheckoutHeader
         isPWA={isPWA}
         isPWAClient={isPWAClient}
@@ -711,6 +712,13 @@ export default function CheckoutClient() {
         dir={dir}
         t={t}
         user={user}
+        progress={
+          <CheckoutProgress
+            currentStep="checkout"
+            locale={locale}
+            className="mb-4 md:mb-6"
+          />
+        }
       />
 
       <div className="max-w-6xl mx-auto">
@@ -830,7 +838,7 @@ export default function CheckoutClient() {
                   {hasAnyDiscount ? (
                     <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="text-gray-600">
-                        {locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'}: ({getTotalItems()} {getTotalItems() === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
+                        {locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'}: ({totalItemCount} {totalItemCount === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
                         {freeMasks.length > 0 && <span className="block text-xs">+ {freeMasks.length} {locale === 'ar' ? 'هدايا مجانية' : locale === 'ru' ? 'бесплатных масок' : 'free masks'}</span>}
                       </span>
                       <span className="text-gray-400 line-through">AED {retailTotal.toFixed(2)}</span>
@@ -838,7 +846,7 @@ export default function CheckoutClient() {
                   ) : (
                     <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="text-gray-600">
-                        {locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}: ({getTotalItems()} {getTotalItems() === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
+                        {locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}: ({totalItemCount} {totalItemCount === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
                         {freeMasks.length > 0 && <span className="block text-xs">+ {freeMasks.length} {locale === 'ar' ? 'هدايا مجانية' : locale === 'ru' ? 'бесплатных масок' : 'free masks'}</span>}
                       </span>
                       <span className="text-gray-900 font-medium">AED {subtotal.toFixed(2)}</span>
@@ -1294,7 +1302,7 @@ export default function CheckoutClient() {
                     <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <div className={`flex flex-col ${dir === 'rtl' ? 'text-right' : ''}`}>
                         <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          {locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'}: ({getTotalItems()} {getTotalItems() === 1 ? t('checkout.item') : t('checkout.items')})
+                          {locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'}: ({totalItemCount} {totalItemCount === 1 ? t('checkout.item') : t('checkout.items')})
                         </span>
                         {freeMasks.length > 0 && (
                           <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
@@ -1308,7 +1316,7 @@ export default function CheckoutClient() {
                     <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <div className={`flex flex-col ${dir === 'rtl' ? 'text-right' : ''}`}>
                         <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                          {t('checkout.subtotal')}: ({getTotalItems()} {getTotalItems() === 1 ? t('checkout.item') : t('checkout.items')})
+                          {t('checkout.subtotal')}: ({totalItemCount} {totalItemCount === 1 ? t('checkout.item') : t('checkout.items')})
                         </span>
                         {freeMasks.length > 0 && (
                           <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>

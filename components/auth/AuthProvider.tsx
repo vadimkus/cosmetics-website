@@ -49,7 +49,7 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>
   loginWithGoogle: () => Promise<void>
   loginWithApple: () => Promise<void>
-  register: (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string, promoCode?: string) => Promise<boolean>
+  register: (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string, promoCode?: string, emailSuggestionConfirmed?: boolean) => Promise<boolean>
   logout: (redirectUrl?: string) => Promise<void>
   refreshUser: () => Promise<void>
   forceRefreshUser: () => Promise<void>
@@ -312,7 +312,7 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  const register = async (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string, promoCode?: string): Promise<boolean> => {
+  const register = async (name: string, email: string, password: string, phone: string, address: string, emirate: string, birthday?: string, promoCode?: string, emailSuggestionConfirmed = false): Promise<boolean> => {
     try {
       setIsLoading(true)
       
@@ -332,7 +332,17 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         response = await fetch('/api/auth/register', {
           method: 'POST',
           headers: getCsrfHeaders(),
-          body: JSON.stringify(addCsrfToBody({ name, email, password, phone, address, emirate, birthday: birthday || '', promoCode: promoCode || '' })),
+          body: JSON.stringify(addCsrfToBody({
+            name,
+            email,
+            password,
+            phone,
+            address,
+            emirate,
+            birthday: birthday || '',
+            promoCode: promoCode || '',
+            emailSuggestionConfirmed,
+          })),
           signal: controller.signal
         })
       } catch (error) {

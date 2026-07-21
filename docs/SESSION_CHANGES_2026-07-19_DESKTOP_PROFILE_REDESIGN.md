@@ -43,6 +43,7 @@ Address creation and editing also stay inside that canvas through `/profile?tab=
 
 ## Functional changes
 
+- **2026-07-21 follow-up:** `/profile`, every nested profile route, `/skin-recommendation`, and `/training` now use the same compact trust/payment/legal footer as cart and checkout instead of the full retail sitemap.
 - Added `components/profile/desktop/DesktopProfileShell.tsx`.
 - Added `components/profile/desktop/ProfileOverview.tsx`.
 - Added `components/profile/desktop/DesktopSecurityPanel.tsx`.

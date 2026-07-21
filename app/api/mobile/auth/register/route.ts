@@ -13,6 +13,7 @@ import bcrypt from 'bcryptjs'
 import { resolveDeviceInfo } from '@/lib/deviceDetection'
 import { getGeolocationData } from '@/lib/geolocation'
 import { generateMemberNumber } from '@/lib/membership'
+import { validateRegistrationEmail } from '@/lib/emailDomainValidation.server'
 
 // Rate limiting for mobile registration
 const mobileRegisterLimiter = rateLimitSimple({
@@ -82,15 +83,41 @@ export async function POST(request: NextRequest) {
     }
 
     // Parse request body
-    const { name, email, password, phone, address, emirate, birthday, gender, promoCode, locale = 'en' } = await request.json()
+    const {
+      name,
+      email,
+      password,
+      phone,
+      address,
+      emirate,
+      birthday,
+      gender,
+      promoCode,
+      locale = 'en',
+      emailSuggestionConfirmed = false,
+    } = await request.json()
+    const emailCheck = await validateRegistrationEmail(email, emailSuggestionConfirmed === true)
+    const normalizedEmail = emailCheck.email
     const promo = String(promoCode || '').trim().toUpperCase()
 
     // Validate required fields (phone, address, emirate are optional at registration)
-    if (!name || !email || !password) {
+    if (!name || !normalizedEmail || !password) {
       return NextResponse.json(
         { 
           success: false, 
           error: 'Name, email and password are required' 
+        },
+        { status: 400 }
+      )
+    }
+
+    if (!emailCheck.valid) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: emailCheck.error,
+          code: emailCheck.code,
+          suggestedEmail: emailCheck.suggestedEmail,
         },
         { status: 400 }
       )
@@ -116,7 +143,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const emailValidation = validateLength(email, INPUT_LIMITS.USER_EMAIL, 'Email')
+    const emailValidation = validateLength(normalizedEmail, INPUT_LIMITS.USER_EMAIL, 'Email')
     if (!emailValidation.valid) {
       return NextResponse.json(
         { success: false, error: emailValidation.error },
@@ -168,7 +195,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    const existingUser = await findUserByEmail(email)
+    const existingUser = await findUserByEmail(normalizedEmail)
     if (existingUser) {
       return NextResponse.json(
         { 
@@ -227,7 +254,7 @@ export async function POST(request: NextRequest) {
       const memberNumber = await generateMemberNumber()
       const userData: Prisma.UserCreateInput = {
         name,
-        email,
+        email: normalizedEmail,
         password: hashedPassword,
         phone: phone || null,
         address: fullAddress,
@@ -250,7 +277,7 @@ export async function POST(request: NextRequest) {
     try {
       await trackUserAction({
         action: 'mobile_user_registered',
-        userEmail: email,
+        userEmail: normalizedEmail,
         details: `New mobile user registered: ${name}`
       })
     } catch (error) {
@@ -259,12 +286,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Send welcome email (skip Apple Private Relay emails)
-    if (isApplePrivateRelayEmail(email)) {
-      debugLog('⏭️ Skipping welcome email for Apple Private Relay user:', email)
+    if (isApplePrivateRelayEmail(normalizedEmail)) {
+      debugLog('⏭️ Skipping welcome email for Apple Private Relay user:', normalizedEmail)
     } else {
       try {
-        await sendWelcomeEmail(name, email, password, locale)
-        debugLog('✅ Welcome email sent to:', email)
+        await sendWelcomeEmail(name, normalizedEmail, password, locale)
+        debugLog('✅ Welcome email sent to:', normalizedEmail)
       } catch (error) {
         errorLog('❌ Failed to send welcome email:', error)
         // Don't fail registration if email fails
@@ -311,7 +338,7 @@ export async function POST(request: NextRequest) {
       
       const adminResult = await sendAdminNewUserNotification(
         name, 
-        email, 
+        normalizedEmail,
         phone || '', 
         fullAddress || '', 
         'Mobile App',
@@ -319,7 +346,7 @@ export async function POST(request: NextRequest) {
       )
       
       if (adminResult?.success) {
-        debugLog('✅ Admin notification sent for new mobile user:', email)
+        debugLog('✅ Admin notification sent for new mobile user:', normalizedEmail)
       } else {
         errorLog('❌ Failed to send admin notification:', adminResult?.error || 'Unknown error')
       }
@@ -342,7 +369,7 @@ export async function POST(request: NextRequest) {
     const { password: __, ...userWithoutPassword } = createdUser
 
     const duration = Date.now() - startTime
-    debugLog(`[MOBILE_AUTH] Registration successful for ${email} in ${duration}ms`)
+    debugLog(`[MOBILE_AUTH] Registration successful for ${normalizedEmail} in ${duration}ms`)
 
     return NextResponse.json({
       success: true,

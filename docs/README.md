@@ -10,6 +10,11 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🔴 **Account integrity** | [Registration email-domain validation](./SESSION_CHANGES_2026-07-21_EMAIL_DOMAIN_VALIDATION.md) | Layered web/PWA/native signup protection: syntax checks, explicit common-domain typo suggestions, and server-side MX/domain deliverability validation. |
+| 🟡 **Account ops** | [Claire Cabarles email correction](./SESSION_CHANGES_2026-07-21_CLAIRE_EMAIL_CORRECTION.md) | Corrected the mistyped Gmail login while preserving the password/account, verified password login readiness, and resent the welcome email. |
+| 🟢 **Commerce UX** | [Checkout progress indicator](./SESSION_CHANGES_2026-07-21_CHECKOUT_PROGRESS.md) | Persistent three-step Cart → Details & payment → Confirmation indicator with green progress segments, secure-checkout cue, EN/RU/AR, RTL, and accessible current/completed states. |
+| 🟢 **UI/UX** | [Product quick-facts disclosure redesign](./SESSION_CHANGES_2026-07-21_QUICK_FACTS_DISCLOSURE.md) | Inline PDP disclosure with a full-row trigger, responsive visual fact cards, clear open state, EN/RU/AR and RTL support, and accessible disclosure semantics. |
+| 🟢 **Commerce UX** | [Website order-item UX refinement](./SESSION_CHANGES_2026-07-21_WEBSITE_ORDER_ITEM_UX.md) | Variant-safe product-card/cart actions, Revita Glow shade changes, reactive totals, checkout progress, Genie-free purchase pages, and one consistent minimal footer across focused journeys. |
 | 🟢 **UI/UX** | [Desktop profile redesign](./SESSION_CHANGES_2026-07-19_DESKTOP_PROFILE_REDESIGN.md) | Award-inspired desktop account dashboard with sticky navigation, real rewards/orders/favorites data, URL-backed sections, security consolidation, EN/RU/AR and RTL; mobile/PWA unchanged. |
 | 🟢 **UI/UX** | [Recommended Routine step badges](./SESSION_CHANGES_2026-07-19_ROUTINE_STEP_BADGES.md) | Replaces detached number circles with compact red badges over product thumbnails; semantic ordered lists, responsive sizing, keyboard focus, and RTL support. |
 | 🟡 **Important** | [Product 20 Problem Control Serum PDF](./SESSION_CHANGES_2026-07-20_PRODUCT_20_PROBLEM_SERUM_PDF.md) | New guide in `documents/PPT/`; productConfig + training/downloads listings; product 18 was Hyaluron (wrong ID in request). |

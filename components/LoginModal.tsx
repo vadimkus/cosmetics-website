@@ -9,6 +9,12 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { EMIRATES } from '@/lib/emirates'
 import { usePasskey } from '@/hooks/usePasskey'
+import EmailDomainSuggestion from '@/components/auth/EmailDomainSuggestion'
+import {
+  isEmailAddressSyntaxValid,
+  normalizeEmailAddress,
+  suggestEmailAddressCorrection,
+} from '@/lib/emailAddressValidation'
 
 interface LoginModalProps {
   isOpen: boolean
@@ -44,6 +50,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false)
   const [privacyConsent, setPrivacyConsent] = useState(false)
   const [hasPasskey, setHasPasskey] = useState(false)
+  const [confirmedEmail, setConfirmedEmail] = useState<string | null>(null)
   const normalizedPromo = String(promoCode || '').trim().toUpperCase()
   const modalRef = useRef<HTMLDivElement>(null)
   const firstInputRef = useRef<HTMLInputElement>(null)
@@ -151,6 +158,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
       ...prev,
       [name]: value
     }))
+    if (name === 'email') setConfirmedEmail(null)
     setError('')
   }
 
@@ -171,6 +179,15 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
       }
       if (!formData.email.trim()) {
         setError(t('login.emailRequired'))
+        return
+      }
+      const normalizedEmail = normalizeEmailAddress(formData.email)
+      if (!isEmailAddressSyntaxValid(normalizedEmail)) {
+        setError(t('login.emailInvalid'))
+        return
+      }
+      if (suggestEmailAddressCorrection(normalizedEmail) && confirmedEmail !== normalizedEmail) {
+        setError(t('login.emailSuggestionRequired'))
         return
       }
       if (!formData.password.trim()) {
@@ -198,7 +215,17 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
         return
       }
 
-      const success = await register(formData.name, formData.email, formData.password, formData.phone, formData.address, formData.emirate, formData.birthday, normalizedPromo || '')
+      const success = await register(
+        formData.name,
+        normalizedEmail,
+        formData.password,
+        formData.phone,
+        formData.address,
+        formData.emirate,
+        formData.birthday,
+        normalizedPromo || '',
+        confirmedEmail === normalizedEmail
+      )
       if (success) {
         onClose()
         setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })
@@ -211,6 +238,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
   const toggleMode = () => {
     setIsLoginMode(!isLoginMode)
     setError('')
+    setConfirmedEmail(null)
     setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })
     setPrivacyConsent(false)
     setShowPrivacyPolicy(false)
@@ -426,6 +454,21 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 required
                 aria-describedby={error ? "error-message" : undefined}
               />
+              {!isLoginMode && (
+                <EmailDomainSuggestion
+                  email={formData.email}
+                  confirmedEmail={confirmedEmail}
+                  message={t('login.emailDidYouMean')}
+                  useSuggestionLabel={t('login.useSuggestedEmail')}
+                  keepEnteredLabel={t('login.keepEnteredEmail')}
+                  onUseSuggestion={(email) => {
+                    setFormData((prev) => ({ ...prev, email }))
+                    setConfirmedEmail(null)
+                    setError('')
+                  }}
+                  onKeepEntered={setConfirmedEmail}
+                />
+              )}
             </div>
 
             {!isLoginMode && (

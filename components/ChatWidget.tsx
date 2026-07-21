@@ -515,6 +515,12 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     pathname?.startsWith(`/ar${page}`) || 
     pathname?.startsWith(`/ru${page}`)
   )
+  const isPurchasePage = ['/cart', '/checkout'].some(page =>
+    pathname === page ||
+    pathname?.startsWith(`/en${page}`) ||
+    pathname?.startsWith(`/ar${page}`) ||
+    pathname?.startsWith(`/ru${page}`)
+  )
 
   // Product pages have a dense mobile sticky purchase bar. The floating chat
   // button overlaps that primary action, so keep Genie off PDPs on mobile web.
@@ -522,8 +528,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     pathname?.match(/^\/(en|ar|ru)?\/products\/[^/]+/) ||
     pathname?.match(/^\/products\/[^/]+/)
   
-  // Don't render chatbot on mobile web for critical pages or PDPs.
-  if (isMobileWeb && (isHiddenPage || isProductPage)) {
+  // Cart and checkout are enclosed purchase journeys on every viewport.
+  // Mobile web retains the wider critical-page/PDP suppression as well.
+  if (isPurchasePage || (isMobileWeb && (isHiddenPage || isProductPage))) {
     return null
   }
 

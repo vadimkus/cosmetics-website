@@ -60,8 +60,12 @@ export interface ProductActionsProps {
   isAdding: boolean
   useBagText: boolean
   inCartQty: number
+  canAdjustInline: boolean
   onAddToCart: () => void
+  onIncrementCart: () => void
   onDecrementFromCart: () => void
+  onOpenCart: () => void
+  onChooseOptions: () => void
   onLoginClick: (e: React.MouseEvent) => void
   t: (key: string) => string
 }
@@ -79,6 +83,7 @@ export interface UseProductCardReturn {
   isMobile: boolean
   addedToCartMessage: string
   inCartQty: number
+  canAdjustInline: boolean
   
   // Derived values
   productId: string
@@ -96,7 +101,9 @@ export interface UseProductCardReturn {
   
   // Handlers
   handleAddToCart: () => void
+  handleIncrementCart: () => void
   handleDecrementFromCart: () => void
+  handleOpenCart: () => void
   handleFavorite: (e?: React.MouseEvent | React.TouchEvent) => void
   handleLoginClick: (e: React.MouseEvent) => void
   handleNavigate: () => void

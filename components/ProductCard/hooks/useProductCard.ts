@@ -37,7 +37,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
   const router = useRouter()
   
   // Context hooks
-  const { addItem, decrementProductById, items: cartItems } = useCart()
+  const { addItem, updateQuantity, removeItem, items: cartItems } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
   const { t, locale, messages } = useTranslation()
@@ -85,14 +85,18 @@ export function useProductCard(product: Product): UseProductCardReturn {
   // Use "Add to Bag" for PWA and mobile web
   const useBagText = isPWA || isMobile
 
-  // Sum the quantity of every matching cart row for this product (regardless
-  // of selected color/size/bundle) so the "In Bag (N)" button on the product
-  // grid reflects the user's real cart state. Tapping the button again adds
-  // one more unit — same behaviour as before, but with clear feedback.
-  const inCartQty = cartItems.reduce(
-    (total, item) => (item?.product?.id === product.id ? total + (item.quantity || 0) : total),
+  const matchingCartLines = cartItems.filter(item => item?.product?.id === product.id)
+  const inCartQty = matchingCartLines.reduce(
+    (total, item) => total + (item.quantity || 0),
     0,
   )
+  // Inline quantity editing is safe only when the card maps to one exact,
+  // non-bundle cart line. Multiple variants must be edited in the bag so a
+  // tap can never change the wrong size/colour.
+  const adjustableLine = matchingCartLines.length === 1 && !matchingCartLines[0]?.fromBundle
+    ? matchingCartLines[0]
+    : null
+  const canAdjustInline = Boolean(adjustableLine)
   
   // Disable framer-motion animations in PWA mode
   const useAnimations = animationsEnabled && !isPWA
@@ -137,14 +141,49 @@ export function useProductCard(product: Product): UseProductCardReturn {
     }, 500)
   }, [addItem, product, haptic, t])
 
-  // Decrement one unit of this product in the bag from the grid stepper.
-  // Fires a lighter haptic than the add-to-cart tap because it's a correction,
-  // not a commit.
-  const handleDecrementFromCart = useCallback(() => {
-    if (inCartQty <= 0) return
+  const handleIncrementCart = useCallback(() => {
+    if (!adjustableLine) return
     haptic.light()
-    decrementProductById(product.id)
-  }, [decrementProductById, inCartQty, product.id, haptic])
+    updateQuantity(
+      product.id,
+      adjustableLine.quantity + 1,
+      adjustableLine.selectedColor,
+      adjustableLine.selectedSize,
+      {
+        fromBundle: false,
+        ...(adjustableLine.homecare ? { homecare: adjustableLine.homecare } : {}),
+      },
+    )
+  }, [adjustableLine, haptic, product.id, updateQuantity])
+
+  const handleDecrementFromCart = useCallback(() => {
+    if (!adjustableLine) return
+    haptic.light()
+    const lineIdentity = {
+      fromBundle: false,
+      ...(adjustableLine.homecare ? { homecare: adjustableLine.homecare } : {}),
+    }
+    if (adjustableLine.quantity <= 1) {
+      removeItem(
+        product.id,
+        adjustableLine.selectedColor,
+        adjustableLine.selectedSize,
+        lineIdentity,
+      )
+      return
+    }
+    updateQuantity(
+      product.id,
+      adjustableLine.quantity - 1,
+      adjustableLine.selectedColor,
+      adjustableLine.selectedSize,
+      lineIdentity,
+    )
+  }, [adjustableLine, haptic, product.id, removeItem, updateQuantity])
+
+  const handleOpenCart = useCallback(() => {
+    router.push(getLocalizedPath('/cart', locale))
+  }, [locale, router])
   
   const handleFavorite = useCallback((e?: React.MouseEvent | React.TouchEvent) => {
     e?.preventDefault()
@@ -183,6 +222,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
     isMobile,
     addedToCartMessage,
     inCartQty,
+    canAdjustInline,
     
     // Derived values
     productId,
@@ -200,7 +240,9 @@ export function useProductCard(product: Product): UseProductCardReturn {
     
     // Handlers
     handleAddToCart,
+    handleIncrementCart,
     handleDecrementFromCart,
+    handleOpenCart,
     handleFavorite,
     handleLoginClick,
     handleNavigate,

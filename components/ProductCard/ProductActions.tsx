@@ -1,7 +1,9 @@
 'use client'
 
 import { memo } from 'react'
-import { ShoppingCart, User, MessageCircle, Minus, Plus } from 'lucide-react'
+import { Check, ShoppingCart, User, MessageCircle, Minus, Plus } from 'lucide-react'
+import { getProductSizes } from '@/data/productConfig'
+import { getProductColorOptions } from '@/utils/productPricing'
 import type { ProductActionsProps } from './types'
 
 /**
@@ -34,8 +36,12 @@ const ProductActions = memo(function ProductActions({
   isAdding,
   useBagText,
   inCartQty,
+  canAdjustInline,
   onAddToCart,
+  onIncrementCart,
   onDecrementFromCart,
+  onOpenCart,
+  onChooseOptions,
   onLoginClick,
   t,
 }: ProductActionsProps) {
@@ -91,43 +97,64 @@ const ProductActions = memo(function ProductActions({
   // Authenticated user.
   //
   // - Not in cart → single primary "Add to Bag/Cart" button.
-  // - In cart    → green [-] [N in Bag] [+] stepper so the user can adjust
-  //                quantity in place without leaving the grid.
-  //
-  // The stepper operates on cart line(s) for this product as a whole, so
-  // multi-variant products (e.g. Snow O2 Cleanser 180ml / 500ml) show the
-  // total quantity across variants. "+" adds one more of the default
-  // variant (same behaviour as the original Add to Bag button); "-" removes
-  // the most recently added line's unit and deletes the line when it hits
-  // zero.
+  // - In one exact cart line → neutral, touch-safe quantity stepper.
+  // - Multiple variants/bundle lines → View Bag; never mutate an ambiguous
+  //   aggregate from a compact product card.
   const isInCart = inCartQty > 0
   const inStateLabel = useBagText ? t('product.inBag') : t('product.inCart')
   const addStateLabel = useBagText ? t('product.addToBag') : t('product.addToCart')
+  const productConfigId = product.productNumber || product.id
+  const availableVariantKeys = new Set(
+    (product.variants || [])
+      .filter(variant => variant.available !== false)
+      .map(variant => `${variant.size || ''}:${variant.color || ''}`),
+  )
+  const requiresOptions =
+    getProductSizes(productConfigId).filter(option => option.available).length > 1 ||
+    getProductColorOptions(productConfigId).length > 1 ||
+    availableVariantKeys.size > 1
 
-  if (isInCart && product.inStock) {
+  if (isInCart) {
     const decLabel = `${t('cart.decreaseQuantity') || 'Decrease quantity'} — ${product.name}`
     const incLabel = `${t('cart.increaseQuantity') || 'Increase quantity'} — ${product.name}`
     const isBusy = isAdding
-    const stepperBase = `
-      flex items-center justify-between gap-2
-      rounded-lg font-medium w-full
-      min-h-[44px] md:min-h-[40px]
-      px-1 md:px-1.5 py-1 md:py-1
-      bg-green-600 text-white
-      transition-colors
-    `
-    const stepBtn = `
-      inline-flex items-center justify-center
-      h-8 w-8 md:h-8 md:w-8 rounded-md
-      bg-white/15 hover:bg-white/25 active:bg-white/35
-      transition-colors
-      disabled:opacity-50 disabled:cursor-not-allowed
-    `
+
+    if (isAdding) {
+      return (
+        <div className="mt-2">
+          <div
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 text-body-xs font-semibold text-green-700"
+            role="status"
+            aria-live="polite"
+          >
+            <Check className="h-4 w-4" aria-hidden="true" />
+            <span>{t('product.addedToBag')}</span>
+          </div>
+        </div>
+      )
+    }
+
+    if (!product.inStock || !canAdjustInline) {
+      return (
+        <div className="mt-2">
+          <button
+            type="button"
+            onClick={onOpenCart}
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3 text-body-xs font-semibold text-gray-800 transition-colors hover:border-primary-300 hover:bg-primary-50 active:bg-primary-100"
+            aria-label={`${t('product.viewBag')} — ${product.name}`}
+            style={touchStyles}
+          >
+            <ShoppingCart className="h-4 w-4 text-primary-600" aria-hidden="true" />
+            <span>{t('product.viewBag')} ({inCartQty})</span>
+          </button>
+        </div>
+      )
+    }
 
     return (
       <div className="mt-2">
         <div
-          className={stepperBase}
+          className="flex min-h-12 w-full items-stretch overflow-hidden rounded-lg border border-green-700 bg-green-600 font-medium text-white shadow-sm"
           role="group"
           aria-label={`${inStateLabel} (${inCartQty}) — ${product.name}`}
           style={touchStyles}
@@ -137,23 +164,23 @@ const ProductActions = memo(function ProductActions({
             onClick={onDecrementFromCart}
             aria-label={decLabel}
             disabled={isBusy}
-            className={stepBtn}
+            className="inline-flex min-h-12 min-w-12 items-center justify-center border-e border-white/25 text-white transition-colors hover:bg-white/15 active:bg-white/25 disabled:cursor-not-allowed disabled:opacity-50"
             style={touchStyles}
           >
             <Minus className="h-4 w-4" aria-hidden="true" />
           </button>
           <span
-            className="flex-1 text-center text-body-xs tabular-nums select-none"
+            className="flex min-w-0 flex-1 items-center justify-center px-1 text-center text-body-xs font-semibold tabular-nums text-white select-none"
             aria-live="polite"
           >
-            {`${inStateLabel} (${inCartQty})`}
+            <span className="truncate">{inCartQty} {inStateLabel.toLowerCase()}</span>
           </span>
           <button
             type="button"
-            onClick={onAddToCart}
+            onClick={onIncrementCart}
             aria-label={incLabel}
             disabled={isBusy}
-            className={stepBtn}
+            className="inline-flex min-h-12 min-w-12 items-center justify-center border-s border-white/25 text-white transition-colors hover:bg-white/15 active:bg-white/25 disabled:cursor-not-allowed disabled:opacity-50"
             style={touchStyles}
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
@@ -163,7 +190,11 @@ const ProductActions = memo(function ProductActions({
     )
   }
 
-  const buttonText = isAdding ? t('product.adding') : addStateLabel
+  const buttonText = isAdding
+    ? t('product.adding')
+    : requiresOptions
+      ? t('product.chooseOptions')
+      : addStateLabel
   const isDisabled = !product.inStock || isAdding
 
   let buttonColorClasses: string
@@ -181,9 +212,9 @@ const ProductActions = memo(function ProductActions({
     <div className="mt-2">
       <button
         type="button"
-        onClick={onAddToCart}
+        onClick={requiresOptions ? onChooseOptions : onAddToCart}
         disabled={isDisabled}
-        aria-label={buttonText}
+        aria-label={`${buttonText} — ${product.name}`}
         aria-live="polite"
         className={buttonClasses}
         style={touchStyles}

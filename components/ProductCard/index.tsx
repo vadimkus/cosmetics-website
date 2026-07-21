@@ -37,6 +37,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     isLoginMode,
     addedToCartMessage,
     inCartQty,
+    canAdjustInline,
     
     // Derived values
     productPath,
@@ -53,7 +54,9 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     
     // Handlers
     handleAddToCart,
+    handleIncrementCart,
     handleDecrementFromCart,
+    handleOpenCart,
     handleFavorite,
     handleLoginClick,
     handleNavigate,
@@ -171,8 +174,12 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           isAdding={isAdding}
           useBagText={useBagText}
           inCartQty={inCartQty}
+          canAdjustInline={canAdjustInline}
           onAddToCart={handleAddToCart}
+          onIncrementCart={handleIncrementCart}
           onDecrementFromCart={handleDecrementFromCart}
+          onOpenCart={handleOpenCart}
+          onChooseOptions={handleNavigate}
           onLoginClick={handleLoginClick}
           t={t}
         />

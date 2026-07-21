@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import CartItem from '@/components/cart/CartItem'
+import CheckoutProgress from '@/components/checkout/CheckoutProgress'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import { springPresets } from '@/lib/appleAnimations'
@@ -14,7 +15,7 @@ import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag, Award } from 
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
-import { getCartLinePricing, getCartRetailTotal } from '@/lib/cartPricing'
+import { getCartLinePricing, getCartRetailTotal, getCartTotalPrice } from '@/lib/cartPricing'
 import { calculateVatIncluded, calculateMobileShipping, MOBILE_CHECKOUT_CONFIG } from '@/lib/mobileCheckoutConfig'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
@@ -22,7 +23,14 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 
 export default function CartClient() {
-  const { items, getTotalPrice, getTotalItems, selectedEmirate, setSelectedEmirate, _hasHydrated } = useCart()
+  const {
+    items,
+    addItem,
+    removeItem,
+    selectedEmirate,
+    setSelectedEmirate,
+    _hasHydrated,
+  } = useCart()
   const { user } = useAuth()
   const { t, locale, dir } = useTranslation()
   const { isPWA } = usePWAMode()
@@ -34,9 +42,43 @@ export default function CartClient() {
   const [showUniVideo, setShowUniVideo] = useState(false)
   const uniVideoRef = useRef<HTMLVideoElement>(null)
   const { isMobileWeb } = useIsMobileWeb()
+  const [recentlyRemoved, setRecentlyRemoved] = useState<typeof items[number] | null>(null)
+  const undoTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Combined flag for PWA or mobile web
   const isAppLikeMode = isPWA || isMobileWeb
+
+  useEffect(() => () => {
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current)
+  }, [])
+
+  const handleRemoveItem = useCallback((item: typeof items[number]) => {
+    removeItem(item.product.id, item.selectedColor, item.selectedSize, {
+      fromBundle: item.fromBundle === true,
+      bundleDiscountPercent: item.bundleDiscountPercent || 0,
+      ...(item.homecare ? { homecare: item.homecare } : {}),
+    })
+    setRecentlyRemoved(item)
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current)
+    undoTimerRef.current = setTimeout(() => setRecentlyRemoved(null), 5000)
+  }, [removeItem])
+
+  const undoRemoveItem = useCallback(() => {
+    if (!recentlyRemoved) return
+    addItem(
+      recentlyRemoved.product,
+      recentlyRemoved.quantity,
+      recentlyRemoved.selectedColor,
+      recentlyRemoved.selectedSize,
+      {
+        fromBundle: recentlyRemoved.fromBundle === true,
+        bundleDiscountPercent: recentlyRemoved.bundleDiscountPercent || 0,
+        ...(recentlyRemoved.homecare ? { homecare: recentlyRemoved.homecare } : {}),
+      },
+    )
+    setRecentlyRemoved(null)
+    if (undoTimerRef.current) clearTimeout(undoTimerRef.current)
+  }, [addItem, recentlyRemoved])
   
   // Compute total items directly from items array for reactivity
   const totalItemCount = items.reduce((total, item) => total + item.quantity, 0)
@@ -99,7 +141,9 @@ export default function CartClient() {
     return emirateName
   }
 
-  const subtotal = getTotalPrice(user)
+  // Derive totals from the subscribed items array. Calling the stable Zustand
+  // getter here can be cached by React Compiler and leave the summary stale.
+  const subtotal = getCartTotalPrice(items, user)
   const shippingCost = calculateMobileShipping(subtotal, selectedEmirate || 'Dubai')
   const total = subtotal + shippingCost
   const freeShippingThreshold = MOBILE_CHECKOUT_CONFIG.freeShippingThreshold
@@ -362,6 +406,29 @@ export default function CartClient() {
           </div>
         </div>
       </div>
+      <AnimatePresence>
+        {recentlyRemoved && (
+          <motion.div
+            initial={animationsEnabled ? { opacity: 0, y: 16 } : false}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12 }}
+            className={`fixed z-[70] flex max-w-[calc(100vw-2rem)] items-center gap-4 rounded-xl bg-gray-950 px-4 py-3 text-white ${
+              isAppLikeMode ? 'bottom-24' : 'bottom-6'
+            } ${isRTL ? 'left-4 flex-row-reverse' : 'right-4'}`}
+            role="status"
+            aria-live="polite"
+          >
+            <span className="max-w-56 truncate text-sm">{t('cart.itemRemoved')}</span>
+            <button
+              type="button"
+              onClick={undoRemoveItem}
+              className="min-h-11 rounded-lg px-2 text-sm font-bold text-red-300 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              {t('cart.undo')}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
       </div>
     )
   }
@@ -405,7 +472,13 @@ export default function CartClient() {
         </div>
       )}
       
-      <div className="container mx-auto px-4 py-2 md:py-8 lg:py-16" dir={dir}>
+      <div className="container mx-auto px-4 py-2 md:pb-8 md:pt-4 lg:pb-16 lg:pt-4" dir={dir}>
+      <CheckoutProgress
+        currentStep="cart"
+        locale={locale}
+        className="mb-4 md:mb-6"
+      />
+
       {/* Mobile-only Uni Image/Video - Only show when cart is empty */}
       {items.length === 0 && (
         <div className="md:hidden w-full max-w-xs mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative mb-4">
@@ -534,7 +607,11 @@ export default function CartClient() {
                         ...springPresets.default 
                       } : {}}
                     >
-                      <CartItem item={item} loyaltyMultiplier={loyaltyMultiplier} />
+                      <CartItem
+                        item={item}
+                        loyaltyMultiplier={loyaltyMultiplier}
+                        onRemove={handleRemoveItem}
+                      />
                     </motion.div>
                   ))}
                 </AnimatePresence>
@@ -809,7 +886,7 @@ export default function CartClient() {
                 {/* Price Breakdown */}
                 <div className={`space-y-2 md:space-y-3 mb-4 md:mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   <div className={`flex justify-between text-xs md:text-base text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span>{t('cart.subtotal')} ({getTotalItems()})</span>
+                    <span>{t('cart.subtotal')} ({totalItemCount})</span>
                     {blackFridayActive && originalSubtotal > subtotal ? (
                       <div className={`flex items-center gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <span className="text-gray-900 font-semibold">{user ? `${subtotal.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
@@ -946,6 +1023,31 @@ export default function CartClient() {
           </div>
         </div>
       </div>
+      <AnimatePresence>
+        {recentlyRemoved && (
+          <motion.div
+            initial={animationsEnabled ? { opacity: 0, y: 16 } : false}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 12 }}
+            className={`fixed z-[70] flex max-w-[calc(100vw-2rem)] items-center gap-4 rounded-xl bg-gray-950 px-4 py-3 text-white ${
+              isAppLikeMode ? 'bottom-24' : 'bottom-6'
+            } ${isRTL ? 'left-4 flex-row-reverse' : 'right-4'}`}
+            role="status"
+            aria-live="polite"
+          >
+            <span className="max-w-56 truncate text-sm">
+              {t('cart.itemRemoved')}
+            </span>
+            <button
+              type="button"
+              onClick={undoRemoveItem}
+              className="min-h-11 rounded-lg px-2 text-sm font-bold text-red-300 transition-colors hover:bg-white/10 hover:text-white"
+            >
+              {t('cart.undo')}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
     </div>
   )

@@ -11,6 +11,12 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { getLocalizedPath } from '@/lib/i18n'
 import { EMIRATES } from '@/lib/emirates'
 import { safeSessionStorageRemoveItem } from '@/lib/browserStorage'
+import EmailDomainSuggestion from '@/components/auth/EmailDomainSuggestion'
+import {
+  isEmailAddressSyntaxValid,
+  normalizeEmailAddress,
+  suggestEmailAddressCorrection,
+} from '@/lib/emailAddressValidation'
 
 export default function PWALoginPage() {
   const router = useRouter()
@@ -30,6 +36,7 @@ export default function PWALoginPage() {
   const [privacyConsent, setPrivacyConsent] = useState(false)
   const [error, setError] = useState('')
   const [showLangDropdown, setShowLangDropdown] = useState(false)
+  const [confirmedEmail, setConfirmedEmail] = useState<string | null>(null)
 
   // Clear splash flag when login page mounts (ensures clean state)
   // This is a safeguard for iOS PWA where sessionStorage can persist
@@ -106,7 +113,26 @@ export default function PWALoginPage() {
           setError(t('login.fillAllFields'))
           return
         }
-        const success = await register(name, email, password, phone, address, emirate, '')
+        const normalizedEmail = normalizeEmailAddress(email)
+        if (!isEmailAddressSyntaxValid(normalizedEmail)) {
+          setError(t('login.emailInvalid'))
+          return
+        }
+        if (suggestEmailAddressCorrection(normalizedEmail) && confirmedEmail !== normalizedEmail) {
+          setError(t('login.emailSuggestionRequired'))
+          return
+        }
+        const success = await register(
+          name,
+          normalizedEmail,
+          password,
+          phone,
+          address,
+          emirate,
+          '',
+          '',
+          confirmedEmail === normalizedEmail
+        )
         if (success) {
           router.replace(getLocalizedPath('/products', locale))
         } else {
@@ -276,12 +302,31 @@ export default function PWALoginPage() {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value)
+                setConfirmedEmail(null)
+                setError('')
+              }}
               placeholder={t('authScreen.emailPlaceholder')}
               className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
               style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
               dir="ltr"
             />
+            {!isLoginMode && (
+              <EmailDomainSuggestion
+                email={email}
+                confirmedEmail={confirmedEmail}
+                message={t('login.emailDidYouMean')}
+                useSuggestionLabel={t('login.useSuggestedEmail')}
+                keepEnteredLabel={t('login.keepEnteredEmail')}
+                onUseSuggestion={(suggestedEmail) => {
+                  setEmail(suggestedEmail)
+                  setConfirmedEmail(null)
+                  setError('')
+                }}
+                onKeepEntered={setConfirmedEmail}
+              />
+            )}
           </div>
 
           {/* Phone, Address, Emirate (only for registration) */}
@@ -428,6 +473,7 @@ export default function PWALoginPage() {
             onClick={() => {
               setIsLoginMode(!isLoginMode)
               setError('')
+              setConfirmedEmail(null)
             }}
             className="text-red-600 font-semibold text-sm mt-1"
           >

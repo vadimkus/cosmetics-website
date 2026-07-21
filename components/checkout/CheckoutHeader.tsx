@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import { getLocalizedPath } from '@/lib/i18n'
+import type { ReactNode } from 'react'
 
 interface CheckoutHeaderProps {
   isPWA: boolean
@@ -13,9 +14,10 @@ interface CheckoutHeaderProps {
   dir: string
   t: (key: string) => string
   user: { name?: string } | null
+  progress?: ReactNode
 }
 
-export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale, dir, t, user }: CheckoutHeaderProps) {
+export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale, dir, t, user, progress }: CheckoutHeaderProps) {
   const router = useRouter()
 
   return (
@@ -58,6 +60,8 @@ export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale
           </button>
         </div>
       ) : null}
+
+      {progress}
 
       {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
       {!(isPWAClient && isPWA) && !isMobileWeb && (

@@ -14,6 +14,7 @@ import { parseUserAgent } from '@/lib/deviceDetection'
 import { getGeolocationData } from '@/lib/geolocation'
 import { trackUserActivityNow } from '@/lib/activityTracker'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
+import { validateRegistrationEmail } from '@/lib/emailDomainValidation.server'
 
 const normalizePromo = (promo: unknown) => String(promo || '').trim().toUpperCase()
 
@@ -56,13 +57,36 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { name, email, password, phone, address, emirate, birthday, promoCode, locale = 'en' } = await request.json()
-    const normalizedEmail = String(email || '').trim().toLowerCase()
+    const {
+      name,
+      email,
+      password,
+      phone,
+      address,
+      emirate,
+      birthday,
+      promoCode,
+      locale = 'en',
+      emailSuggestionConfirmed = false,
+    } = await request.json()
+    const emailCheck = await validateRegistrationEmail(email, emailSuggestionConfirmed === true)
+    const normalizedEmail = emailCheck.email
     const promo = normalizePromo(promoCode)
 
     if (!name || !normalizedEmail || !password || !phone || !address || !emirate) {
       return NextResponse.json(
         { error: 'Name, email, password, phone, address and emirate are required' },
+        { status: 400 }
+      )
+    }
+
+    if (!emailCheck.valid) {
+      return NextResponse.json(
+        {
+          error: emailCheck.error,
+          code: emailCheck.code,
+          suggestedEmail: emailCheck.suggestedEmail,
+        },
         { status: 400 }
       )
     }

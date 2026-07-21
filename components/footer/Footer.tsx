@@ -151,11 +151,19 @@ export default function Footer() {
     return null
   }
 
-  // ── Enclosed checkout ─────────────────────────────────────────────
-  // On the checkout route the full sitemap footer is a set of exit ramps
-  // mid-purchase (Baymard: enclosed checkout). Render a slim variant:
-  // compact trust badges + payment marks + legal links + copyright.
-  if (pathname?.includes('/checkout')) {
+  // ── Focused journeys ───────────────────────────────────────────────
+  // These pages already provide their own task navigation. Keep every
+  // "minimal footer" route visually identical: compact trust signals,
+  // payment marks, legal links, and copyright.
+  const usesMinimalFooter =
+    pathname?.includes('/cart') ||
+    pathname?.includes('/checkout') ||
+    pathname?.includes('/partner-portal') ||
+    pathname?.includes('/profile') ||
+    pathname?.includes('/skin-recommendation') ||
+    pathname?.includes('/training')
+
+  if (usesMinimalFooter) {
     return (
       <footer role="contentinfo" className="bg-white border-t border-gray-200 mt-6" suppressHydrationWarning>
         <div className="container mx-auto px-4 py-5">
@@ -216,25 +224,6 @@ export default function Footer() {
               <span suppressHydrationWarning>{t('footer.copyright')}</span>
             </div>
           </div>
-        </div>
-      </footer>
-    )
-  }
-
-  // ── Partner portal ────────────────────────────────────────────────
-  // B2B ordering surface — retail trust badges and the sitemap footer
-  // are exit ramps mid-order. Render the bare minimum: legal + copyright.
-  if (pathname?.includes('/partner-portal')) {
-    return (
-      <footer role="contentinfo" className="bg-white border-t border-gray-200 mt-6" suppressHydrationWarning>
-        <div className="container mx-auto px-4 py-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] text-gray-500">
-          <Link href={getLocalizedPath('/privacy-policy', locale)} className="hover:text-gray-700 transition-colors">
-            {t('navigation.privacyPolicy')}
-          </Link>
-          <Link href={getLocalizedPath('/terms', locale)} className="hover:text-gray-700 transition-colors">
-            {copy.links.terms}
-          </Link>
-          <span suppressHydrationWarning>{t('footer.copyright')}</span>
         </div>
       </footer>
     )

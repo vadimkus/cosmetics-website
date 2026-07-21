@@ -333,7 +333,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
           { name: t('navigation.products'), url: getLocalizedPath('/products', locale) }
         ]}
       />
-      <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16">
+      <div className="container mx-auto px-4 pt-4 pb-28 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
         {!isPWA && !isMobile && (
           <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4 products-breadcrumb" aria-label="Breadcrumb">

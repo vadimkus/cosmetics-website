@@ -1,6 +1,17 @@
 'use client'
 
 import { useId, useMemo, useState } from 'react'
+import {
+  Check,
+  ChevronDown,
+  Droplets,
+  FlaskConical,
+  PackageCheck,
+  Ruler,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+} from 'lucide-react'
 import type { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getProductTranslations } from '@/data/productTranslations'
@@ -25,6 +36,8 @@ const copy = {
     button: 'Quick product facts',
     popularButton: 'Quick facts',
     title: 'Good to know',
+    eyebrow: 'Product snapshot',
+    itemCount: (count: number) => `${count} useful details`,
     salesTitle: 'Popular with customers',
     salesText: (count: string) => `${count}+ units sold through GENOSYS UAE`,
     sizeTitle: 'Format',
@@ -41,6 +54,8 @@ const copy = {
     button: 'Кратко о продукте',
     popularButton: 'Кратко о продукте',
     title: 'Полезно знать',
+    eyebrow: 'Краткий обзор',
+    itemCount: (count: number) => `${count} полезных фактов`,
     salesTitle: 'Популярно у покупателей',
     salesText: (count: string) => `Более ${count} единиц продано через GENOSYS UAE`,
     sizeTitle: 'Формат',
@@ -57,6 +72,8 @@ const copy = {
     button: 'حقائق سريعة عن المنتج',
     popularButton: 'حقائق سريعة عن المنتج',
     title: 'معلومات مفيدة',
+    eyebrow: 'نظرة سريعة',
+    itemCount: (count: number) => `${count} معلومات مفيدة`,
     salesTitle: 'شائع لدى العملاء',
     salesText: (count: string) => `تم بيع أكثر من ${count} وحدة عبر GENOSYS UAE`,
     sizeTitle: 'الحجم',
@@ -117,6 +134,15 @@ function uniqueFacts(facts: QuickFact[]) {
   })
 }
 
+const factIcons = [
+  Sparkles,
+  Droplets,
+  FlaskConical,
+  PackageCheck,
+  Ruler,
+  Check,
+] as const
+
 export default function ProductQuickFactsHelper({
   product,
   unitsSold = 0,
@@ -132,6 +158,7 @@ export default function ProductQuickFactsHelper({
   const language = locale === 'ar' ? 'ar' : locale === 'ru' ? 'ru' : 'en'
   const text = copy[language]
   const panelId = useId()
+  const triggerId = useId()
   const [open, setOpen] = useState(false)
   const isRtl = dir === 'rtl'
   const productKey = product.productNumber || product.id
@@ -230,57 +257,99 @@ export default function ProductQuickFactsHelper({
 
   return (
     <section
-      className={`relative ${isRtl ? 'text-right' : 'text-left'}`}
+      className={`relative max-w-2xl ${isRtl ? 'text-right' : 'text-left'}`}
       data-product-quick-facts={productKey}
       data-product-fact-count={content.facts.length}
     >
       <button
+        id={triggerId}
         type="button"
         onClick={() => setOpen(value => !value)}
         aria-expanded={open}
         aria-controls={panelId}
-        className={`product-facts-trigger inline-flex min-h-[44px] items-center gap-2 rounded-full border border-primary-200 bg-primary-50 px-4 py-2 text-sm font-semibold text-primary-700 transition-colors hover:border-primary-300 hover:bg-primary-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${isRtl ? 'flex-row-reverse' : ''}`}
+        aria-label={showSales ? text.popularButton : text.button}
+        className={`group flex min-h-16 w-full items-center gap-3 rounded-2xl border px-3.5 py-3 text-start shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
+          open
+            ? 'border-primary-300 bg-gradient-to-r from-primary-50 via-white to-rose-50 shadow-md shadow-primary-100/60'
+            : 'border-gray-200 bg-white hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-md'
+        } ${isRtl ? 'flex-row-reverse' : ''}`}
       >
-        {showSales ? text.popularButton : text.button}
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-rose-600 text-white shadow-sm shadow-primary-200">
+          {showSales ? (
+            <TrendingUp className="h-5 w-5" aria-hidden="true" />
+          ) : (
+            <Sparkles className="h-5 w-5" aria-hidden="true" />
+          )}
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block text-[10px] font-bold uppercase tracking-[0.14em] text-primary-600">
+            {text.eyebrow}
+          </span>
+          <span className="mt-0.5 block text-sm font-bold text-gray-950 md:text-base">
+            {showSales ? text.popularButton : text.button}
+          </span>
+          <span className="mt-0.5 block truncate text-xs text-gray-500">
+            {text.itemCount(content.facts.length)} · {content.productName}
+          </span>
+        </span>
+        <span
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 transition-transform duration-300 group-hover:border-primary-200 group-hover:text-primary-600 ${
+            open ? 'rotate-180' : ''
+          }`}
+          aria-hidden="true"
+        >
+          <ChevronDown className="h-4 w-4" />
+        </span>
       </button>
 
       {open && (
-        <div
-          id={panelId}
-          role="dialog"
-          aria-label={text.title}
-          className="product-facts-popover mt-3 max-h-[70vh] w-full max-w-lg overflow-y-auto rounded-xl border border-gray-200 bg-white p-4 shadow-lg"
-          dir={dir}
-        >
-          <div className={`flex items-start justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-primary-600">
-                {content.productName}
-              </p>
-              <h3 className="mt-1 text-lg font-bold text-gray-950">{text.title}</h3>
+        <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+          <div
+            id={panelId}
+            role="region"
+            aria-labelledby={triggerId}
+            className="mt-2 overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50/80 p-3 shadow-lg shadow-gray-200/50 md:p-4"
+            dir={dir}
+          >
+            <div className={`mb-3 flex items-center gap-2 px-1 ${isRtl ? 'flex-row-reverse' : ''}`}>
+              <span className="h-1.5 w-1.5 rounded-full bg-primary-500" aria-hidden="true" />
+              <h3 className="text-sm font-bold text-gray-950 md:text-base">{text.title}</h3>
             </div>
-            <button
-              type="button"
-              onClick={() => setOpen(false)}
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-800"
-              aria-label={text.close}
-            >
-              ×
-            </button>
-          </div>
 
-          <div className="mt-3 space-y-3 text-sm leading-6 text-gray-700">
-            {content.facts.map((fact, index) => (
-              <div key={`${fact.title || 'fact'}-${index}`}>
-                {fact.title && (
-                  <h4 className="font-semibold text-gray-950">{fact.title}</h4>
-                )}
-                <p>{fact.text}</p>
-              </div>
-            ))}
-            <p className="border-t border-gray-200 pt-3 text-xs text-gray-500">
-              {text.source}
-            </p>
+            <div className="grid gap-2 sm:grid-cols-2">
+              {content.facts.map((fact, index) => (
+                <div
+                  key={`${fact.title || 'fact'}-${index}`}
+                  className="group/fact relative overflow-hidden rounded-xl border border-gray-200/80 bg-white p-3 transition-all duration-200 hover:border-primary-200 hover:shadow-sm"
+                >
+                  <div className={`flex items-start gap-2.5 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-600 transition-colors group-hover/fact:bg-primary-100">
+                      {(() => {
+                        const FactIcon = factIcons[index % factIcons.length] ?? Sparkles
+                        return <FactIcon className="h-4 w-4" aria-hidden="true" />
+                      })()}
+                    </span>
+                    <div className="min-w-0">
+                      {fact.title && (
+                        <h4 className="text-xs font-bold leading-5 text-gray-950 md:text-sm">
+                          {fact.title}
+                        </h4>
+                      )}
+                      <p className={`${fact.title ? 'mt-0.5' : ''} text-xs leading-5 text-gray-600 md:text-sm`}>
+                        {fact.text}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={`mt-3 flex items-center gap-2 rounded-xl bg-gray-100/80 px-3 py-2 text-xs text-gray-500 ${isRtl ? 'flex-row-reverse' : ''}`}>
+              <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
+              <p>
+                {text.source}
+              </p>
+            </div>
           </div>
         </div>
       )}

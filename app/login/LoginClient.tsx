@@ -12,6 +12,12 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { EMIRATES } from '@/lib/emirates'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
+import EmailDomainSuggestion from '@/components/auth/EmailDomainSuggestion'
+import {
+  isEmailAddressSyntaxValid,
+  normalizeEmailAddress,
+  suggestEmailAddressCorrection,
+} from '@/lib/emailAddressValidation'
 
 export default function LoginClient() {
   const { user, login, register, loginWithGoogle, loginWithApple, isLoading, forceRefreshUser } = useAuth()
@@ -38,6 +44,7 @@ export default function LoginClient() {
   const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false)
   const [privacyConsent, setPrivacyConsent] = useState(false)
   const [showLangDropdown, setShowLangDropdown] = useState(false)
+  const [confirmedEmail, setConfirmedEmail] = useState<string | null>(null)
   const normalizedPromo = String(promoCode || '').trim().toUpperCase()
 
   // Dedicated partner (clinic) login modal — same credentials, lands in the
@@ -151,6 +158,7 @@ export default function LoginClient() {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
+    if (name === 'email') setConfirmedEmail(null)
     setError('')
   }
 
@@ -166,6 +174,12 @@ export default function LoginClient() {
     } else {
       if (!formData.name.trim()) { setError(t('login.nameRequired')); return }
       if (!formData.email.trim()) { setError(t('login.emailRequired')); return }
+      const normalizedEmail = normalizeEmailAddress(formData.email)
+      if (!isEmailAddressSyntaxValid(normalizedEmail)) { setError(t('login.emailInvalid')); return }
+      if (suggestEmailAddressCorrection(normalizedEmail) && confirmedEmail !== normalizedEmail) {
+        setError(t('login.emailSuggestionRequired'))
+        return
+      }
       if (!formData.password.trim()) { setError(t('login.passwordRequired')); return }
       if (formData.password.length < 8) { setError(t('login.passwordMinLength')); return }
       if (!formData.phone.trim()) { setError(t('login.phoneRequired')); return }
@@ -173,7 +187,17 @@ export default function LoginClient() {
       if (!formData.emirate.trim()) { setError(t('login.emirateRequired')); return }
       if (!privacyConsent) { setError(t('login.privacyConsentRequired')); return }
 
-      const success = await register(formData.name, formData.email, formData.password, formData.phone, formData.address, formData.emirate, formData.birthday, normalizedPromo || '')
+      const success = await register(
+        formData.name,
+        normalizedEmail,
+        formData.password,
+        formData.phone,
+        formData.address,
+        formData.emirate,
+        formData.birthday,
+        normalizedPromo || '',
+        confirmedEmail === normalizedEmail
+      )
       if (success) {
         setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })
         setPrivacyConsent(false)
@@ -184,6 +208,7 @@ export default function LoginClient() {
   const toggleMode = () => {
     setIsLoginMode(!isLoginMode)
     setError('')
+    setConfirmedEmail(null)
     setFormData({ name: '', email: '', password: '', phone: '', address: '', emirate: '', birthday: '' })
     setPrivacyConsent(false)
     setShowPrivacyPolicy(false)
@@ -505,6 +530,21 @@ export default function LoginClient() {
                 required
                 dir="ltr"
               />
+              {!isLoginMode && (
+                <EmailDomainSuggestion
+                  email={formData.email}
+                  confirmedEmail={confirmedEmail}
+                  message={t('login.emailDidYouMean')}
+                  useSuggestionLabel={t('login.useSuggestedEmail')}
+                  keepEnteredLabel={t('login.keepEnteredEmail')}
+                  onUseSuggestion={(email) => {
+                    setFormData((prev) => ({ ...prev, email }))
+                    setConfirmedEmail(null)
+                    setError('')
+                  }}
+                  onKeepEntered={setConfirmedEmail}
+                />
+              )}
             </div>
 
             {/* Phone, Address, Emirate (only for registration) */}
@@ -957,6 +997,21 @@ export default function LoginClient() {
                 className={`w-full px-3 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm bg-white text-gray-900 placeholder:text-gray-400 ${dir === 'rtl' ? 'text-right' : ''}`}
                 required
               />
+              {!isLoginMode && (
+                <EmailDomainSuggestion
+                  email={formData.email}
+                  confirmedEmail={confirmedEmail}
+                  message={t('login.emailDidYouMean')}
+                  useSuggestionLabel={t('login.useSuggestedEmail')}
+                  keepEnteredLabel={t('login.keepEnteredEmail')}
+                  onUseSuggestion={(email) => {
+                    setFormData((prev) => ({ ...prev, email }))
+                    setConfirmedEmail(null)
+                    setError('')
+                  }}
+                  onKeepEntered={setConfirmedEmail}
+                />
+              )}
 
               {!isLoginMode && (
                 <>

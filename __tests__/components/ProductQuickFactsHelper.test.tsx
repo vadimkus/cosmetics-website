@@ -43,10 +43,10 @@ describe('ProductQuickFactsHelper', () => {
     fireEvent.click(
       screen.getByRole('button', { name: 'Quick facts' })
     )
-    expect(screen.getByRole('dialog')).toHaveTextContent(
+    expect(screen.getByRole('region')).toHaveTextContent(
       '40+ units sold through GENOSYS UAE'
     )
-    expect(screen.getByRole('dialog')).not.toHaveTextContent(/best[- ]seller/i)
+    expect(screen.getByRole('region')).not.toHaveTextContent(/best[- ]seller/i)
 
     rerender(
       <ProductQuickFactsHelper
@@ -73,8 +73,8 @@ describe('ProductQuickFactsHelper', () => {
       />
     )
     fireEvent.click(screen.getByRole('button', { name: 'Quick product facts' }))
-    expect(screen.getByRole('dialog')).toHaveTextContent('Four wavelengths')
-    expect(screen.getByRole('dialog')).toHaveTextContent(
+    expect(screen.getByRole('region')).toHaveTextContent('Four wavelengths')
+    expect(screen.getByRole('region')).toHaveTextContent(
       'Selectable treatment modes'
     )
   })
@@ -88,10 +88,10 @@ describe('ProductQuickFactsHelper', () => {
       />
     )
     fireEvent.click(screen.getByRole('button', { name: 'Quick product facts' }))
-    const dialog = screen.getByRole('dialog')
-    expect(dialog).toHaveTextContent('Sodium DNA 1,000 ppm')
-    expect(dialog).toHaveTextContent('Niacinamide 2% and panthenol 1%')
-    expect(dialog).toHaveTextContent('30 ready-to-use sheets')
+    const region = screen.getByRole('region')
+    expect(region).toHaveTextContent('Sodium DNA 1,000 ppm')
+    expect(region).toHaveTextContent('Niacinamide 2% and panthenol 1%')
+    expect(region).toHaveTextContent('30 ready-to-use sheets')
   })
 
   it('always produces useful fallback facts', () => {
@@ -117,6 +117,6 @@ describe('ProductQuickFactsHelper', () => {
       />
     )
     fireEvent.click(screen.getByRole('button', { name: button }))
-    expect(screen.getByRole('dialog')).toHaveTextContent(title)
+    expect(screen.getByRole('region')).toHaveTextContent(title)
   })
 })

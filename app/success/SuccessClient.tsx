@@ -14,6 +14,7 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useHapticFeedback } from '@/hooks/useHapticFeedback'
 import ConfettiCelebration from '@/components/ConfettiCelebration'
+import CheckoutProgress from '@/components/checkout/CheckoutProgress'
 
 interface OrderItem {
   id: string
@@ -204,6 +205,12 @@ function SuccessContent() {
       {/* Header removed per user request - success page should be clean without navigation */}
 
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-8 lg:py-12 pb-24 md:pb-16">
+        <CheckoutProgress
+          currentStep="confirmed"
+          locale={locale}
+          className="mb-5 md:mb-7"
+        />
+
         {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
         {!isAppLikeMode && (
           <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>

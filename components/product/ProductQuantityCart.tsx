@@ -14,9 +14,9 @@ interface ProductQuantityCartProps {
   inStock?: boolean
   isPriceOnRequest?: boolean
   productName?: string
-  /** Total units of this product already in the cart (all variants). */
+  /** Units of the currently selected product variant already in the cart. */
   inCartQty?: number
-  /** Removes one unit from the cart (newest line first). */
+  /** Removes one unit from the currently selected cart line. */
   onDecrementFromCart?: () => void
 }
 

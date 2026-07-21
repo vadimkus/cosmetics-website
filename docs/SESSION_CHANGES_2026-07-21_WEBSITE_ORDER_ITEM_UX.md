@@ -19,9 +19,10 @@
 - Desktop cart rows place line price, VAT/discount detail, and reward estimate beneath the quantity controls, using the previously empty right column and reducing row height. Mobile web keeps pricing in the product-information flow.
 - Cart and checkout totals now derive directly from the subscribed `items` array. This prevents React Compiler from caching stable Zustand getter calls and leaving subtotal, VAT, total, rewards, promotions, or checkout item counts stale after quantity changes.
 - Cart variant controls now resolve legacy configuration through `productNumber` instead of a database CUID. Revita Glow therefore exposes both `#01 Bright` and `#02 Natural` in the cart and persists shade changes correctly.
-- Cart, checkout, profile routes, Partner Portal, skin recommendation, training, and every admin route now share one enclosed minimal footer: compact trust cues, payment marks, legal links, and copyright.
+- Cart, checkout, profile routes, Partner Portal, skin recommendation, training, every admin route, the blog index, and all blog posts now share one enclosed minimal footer: compact trust cues, payment marks, legal links, and copyright.
 - Genie is completely removed from cart and checkout on desktop, mobile web, and PWA so it cannot compete with purchase actions.
 - Cart headers now include a localized trash action that clears every cart line in one operation after a confirmation prompt. The desktop control uses icon plus label; compact mobile/PWA layouts retain a 44 px icon target.
+- Product-detail purchase controls are now variant-specific on desktop and mobile web. Switching from an in-cart size/colour to a different selection shows **Add to Cart/Bag** unless that exact variant is already present; plus/minus updates only the selected variant.
 - Existing promotion rewards remain visually separate from paid cart lines and do not receive paid-item quantity controls.
 - Added EN/RU/AR labels for Choose options, item removed, and Undo.
 
@@ -45,6 +46,7 @@
 - Training check confirmed the exact same compact footer structure and content as cart/checkout.
 - Cart accessibility snapshot confirmed no Genie/chat trigger is rendered.
 - Clear-cart accessibility snapshot confirmed the control is labelled and positioned in the cart-card header without shifting item content.
+- Multi-size PDP regression: adding the 600 ml variant no longer turns the 200 ml selection green; switching back to 600 ml restores its exact in-cart quantity.
 
 ## Next step
 

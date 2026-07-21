@@ -162,7 +162,8 @@ export default function Footer() {
     pathname?.includes('/profile') ||
     pathname?.includes('/skin-recommendation') ||
     pathname?.includes('/training') ||
-    pathname?.includes('/admin')
+    pathname?.includes('/admin') ||
+    pathname?.includes('/blog')
 
   if (usesMinimalFooter) {
     return (

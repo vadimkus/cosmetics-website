@@ -39,6 +39,7 @@ import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 import { getRoutineStepImage } from '@/lib/routineStepImages'
 import ProductRoutineCard from '@/components/product/ProductRoutineCard'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
+import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 
 interface ProductPageClientProps {
   product: Product
@@ -48,7 +49,7 @@ interface ProductPageClientProps {
 
 export default function ProductPageClientRefactored({ product, unitsSold = 0 }: ProductPageClientProps) {
   const router = useRouter()
-  const { addItem, items: cartItems, decrementProductById } = useCart()
+  const { addItem, items: cartItems, updateQuantity } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const { user } = useAuth()
   const { t, locale, dir, messages } = useTranslation()
@@ -178,18 +179,22 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
     }
   }, [user, product, productNum, selectedSize, selectedColor, addItem, router, locale])
 
-  // Total units of this product already in the cart (all variants) — drives
-  // the [-] [In Cart (N)] [+] stepper, same behaviour as the grid cards and
-  // the mobile app.
-  const inCartQty = cartItems.reduce(
-    (total, item) => (item?.product?.id === product.id ? total + (item.quantity || 0) : total),
-    0,
+  // The PDP action belongs to the currently selected variant, not the product
+  // aggregate. A 600 ml line must not make the 200 ml selection look in-cart.
+  const selectedCartColor = hasProductColorVariants(productNum) ? selectedColor : ''
+  const selectedCartSize = hasProductSizeVariants(productNum, product) ? selectedSize : ''
+  const selectedCartLine = findSelectedStandardCartLine(
+    cartItems,
+    product.id,
+    selectedCartColor,
+    selectedCartSize,
   )
+  const inCartQty = selectedCartLine?.quantity || 0
 
   const handleDecrementFromCart = useCallback(() => {
     if (inCartQty <= 0) return
-    decrementProductById(product.id)
-  }, [decrementProductById, inCartQty, product.id])
+    updateQuantity(product.id, inCartQty - 1, selectedCartColor, selectedCartSize)
+  }, [inCartQty, product.id, selectedCartColor, selectedCartSize, updateQuantity])
 
   // Routine-step titles deep-link to each product's page (self-links skipped)
   const routineTitle = (key: string) => {
@@ -595,8 +600,14 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 selectedColor={selectedColor}
                 availableSizes={availableSizes}
                 availableColors={availableColors}
-                onSizeChange={setSelectedSize}
-                onColorChange={setSelectedColor}
+                onSizeChange={(size) => {
+                  setSelectedSize(size)
+                  setIsAddedMobile(false)
+                }}
+                onColorChange={(color) => {
+                  setSelectedColor(color)
+                  setIsAddedMobile(false)
+                }}
                 user={user}
               />
             </div>

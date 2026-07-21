@@ -202,4 +202,42 @@ describe('mobile Apple Pay intent pricing', () => {
       }),
     }))
   })
+
+  it('stores the canonical login email when checkout uses contactEmail', async () => {
+    ;(findUserByEmail as jest.Mock).mockResolvedValue({
+      id: 'user-1',
+      email: 'login@example.com',
+      contactEmail: 'customer@example.com',
+      name: 'Customer',
+      canSeePrices: true,
+      discountType: null,
+      discountPercentage: null,
+    })
+
+    const response = await POST(createRequest({
+      orderNumber: 'GENCardM2604260003',
+      customer: {
+        name: 'Customer',
+        email: 'customer@example.com',
+        phone: '+971500000000',
+        address: 'Abu Dhabi',
+      },
+      emirate: 'Abu Dhabi',
+      items: [{
+        id: 'product-1',
+        name: 'Server Serum',
+        price: 200,
+        quantity: 1,
+        image: '/client.jpg',
+      }],
+      locale: 'en',
+    }))
+
+    expect(response.status).toBe(200)
+    expect(prisma.order.create).toHaveBeenCalledWith(expect.objectContaining({
+      data: expect.objectContaining({
+        customerEmail: 'login@example.com',
+      }),
+    }))
+  })
 })

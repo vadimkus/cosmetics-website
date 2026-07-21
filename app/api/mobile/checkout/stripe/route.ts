@@ -359,15 +359,19 @@ export async function POST(request: NextRequest) {
     }
     const customerEmailLower = String(customer.email || '').trim().toLowerCase()
     const userEmailLower = String(user.email || '').trim().toLowerCase()
-    const contactEmailLower = String((user as any).contactEmail || '').trim().toLowerCase()
+    const contactEmailLower = String(user.contactEmail || '').trim().toLowerCase()
     const isAppleRelay = userEmailLower.includes('@privaterelay.appleid.com') || customerEmailLower.includes('@privaterelay.appleid.com')
     if (!isAppleRelay && customerEmailLower !== userEmailLower && (!contactEmailLower || customerEmailLower !== contactEmailLower)) {
       return NextResponse.json({ success: false, error: 'Customer email does not match authenticated user' }, { status: 403 })
     }
+    // orders.customerEmail references User.email. Keep the canonical login
+    // email in the relationship even when checkout uses a verified contactEmail.
+    const orderCustomerEmail = user.email
 
     debugLog('[MOBILE_STRIPE] Processing checkout:', {
       orderNumber,
-      customerEmail: customer.email,
+      customerEmail: orderCustomerEmail,
+      notificationEmail: customer.email,
       itemCount: items.length,
       emirate
     })
@@ -537,7 +541,7 @@ export async function POST(request: NextRequest) {
         where: { id: existingOrder.id },
         data: {
           customerName: customer.name,
-          customerEmail: customer.email,
+          customerEmail: orderCustomerEmail,
           customerPhone: customer.phone,
           customerAddress: customer.address,
           customerEmirate: emirate,
@@ -567,7 +571,7 @@ export async function POST(request: NextRequest) {
         data: {
           orderNumber,
           customerName: customer.name,
-          customerEmail: customer.email,
+          customerEmail: orderCustomerEmail,
           customerPhone: customer.phone,
           customerAddress: customer.address,
           customerEmirate: emirate,

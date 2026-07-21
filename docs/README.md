@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🔴 **Payment incident** | [Mobile card payment contact-email fix](./SESSION_CHANGES_2026-07-21_MOBILE_CARD_PAYMENT_CONTACT_EMAIL_FIX.md) | Fixes native Stripe Payment Sheet startup for accounts using a separate contact email by preserving the canonical login email required by the order foreign key. |
 | 🔴 **Account integrity** | [Registration email-domain validation](./SESSION_CHANGES_2026-07-21_EMAIL_DOMAIN_VALIDATION.md) | Layered web/PWA/native signup protection: syntax checks, explicit common-domain typo suggestions, and server-side MX/domain deliverability validation. |
 | 🟡 **Account ops** | [Claire Cabarles email correction](./SESSION_CHANGES_2026-07-21_CLAIRE_EMAIL_CORRECTION.md) | Corrected the mistyped Gmail login while preserving the password/account, verified password login readiness, and resent the welcome email. |
 | 🟢 **Commerce UX** | [Checkout progress indicator](./SESSION_CHANGES_2026-07-21_CHECKOUT_PROGRESS.md) | Persistent three-step Cart → Details & payment → Confirmation indicator with green progress segments, secure-checkout cue, EN/RU/AR, RTL, and accessible current/completed states. |

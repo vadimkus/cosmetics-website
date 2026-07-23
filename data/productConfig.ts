@@ -483,6 +483,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '41': {
     id: '41',
+    videoUrl: '/videos/cushion.mp4',
     pricing: {
       basePrice: 300
     },

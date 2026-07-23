@@ -474,6 +474,7 @@ export const products: Product[] = [
       '/images/cushion/s5.jpeg',
       '/images/cushion/s6.jpeg',
     ]),
+    videoUrl: '/videos/cushion.mp4',
     category: 'Cushion BB',
     inStock: true,
   },

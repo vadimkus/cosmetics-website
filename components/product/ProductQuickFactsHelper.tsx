@@ -10,19 +10,18 @@ import {
   Ruler,
   ShieldCheck,
   Sparkles,
-  TrendingUp,
 } from 'lucide-react'
 import type { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import {
-  UNITS_SOLD_DISPLAY_THRESHOLD,
-  roundUnitsSold,
-} from '@/lib/salesDisplay'
+  getCatalogQuickFacts,
+  type QuickFactLocale,
+} from '@/lib/productQuickFactsCatalog'
 
-type FeatureItem = {
-  title?: string
+type IngredientItem = {
+  name?: string
   description?: string
 }
 
@@ -33,58 +32,34 @@ type QuickFact = {
 
 const copy = {
   en: {
-    button: 'Quick product facts',
-    popularButton: 'Quick facts',
+    button: 'Quick facts',
     title: 'Good to know',
     eyebrow: 'Product snapshot',
     itemCount: (count: number) => `${count} useful details`,
-    salesTitle: 'Popular with customers',
-    salesText: (count: string) => `${count}+ units sold through GENOSYS UAE`,
     sizeTitle: 'Format',
     shadeTitle: 'Selected shade',
-    source: 'Based on official GENOSYS product information.',
+    source: 'Based on official GENOSYS product manuals and verified formula data.',
     close: 'Close quick product facts',
-    pdrnFacts: [
-      { title: 'Verified PDRN level', text: 'Sodium DNA 1,000 ppm in the official formula.' },
-      { title: 'Supporting actives', text: 'Niacinamide 2% and panthenol 1% support brightening, comfort and the skin barrier.' },
-      { title: 'Practical format', text: '30 ready-to-use sheets with built-in tweezers.' },
-    ],
   },
   ru: {
     button: 'Кратко о продукте',
-    popularButton: 'Кратко о продукте',
     title: 'Полезно знать',
     eyebrow: 'Краткий обзор',
     itemCount: (count: number) => `${count} полезных фактов`,
-    salesTitle: 'Популярно у покупателей',
-    salesText: (count: string) => `Более ${count} единиц продано через GENOSYS UAE`,
     sizeTitle: 'Формат',
     shadeTitle: 'Выбранный оттенок',
-    source: 'На основе официальной информации GENOSYS.',
+    source: 'На основе официальных руководств GENOSYS и проверенных данных формулы.',
     close: 'Закрыть краткую информацию',
-    pdrnFacts: [
-      { title: 'Подтверждённый уровень PDRN', text: 'Sodium DNA 1 000 ppm в официальной формуле.' },
-      { title: 'Дополнительные активы', text: 'Ниацинамид 2% и пантенол 1% поддерживают сияние, комфорт и кожный барьер.' },
-      { title: 'Удобный формат', text: '30 готовых масок со встроенным пинцетом.' },
-    ],
   },
   ar: {
     button: 'حقائق سريعة عن المنتج',
-    popularButton: 'حقائق سريعة عن المنتج',
     title: 'معلومات مفيدة',
     eyebrow: 'نظرة سريعة',
     itemCount: (count: number) => `${count} معلومات مفيدة`,
-    salesTitle: 'شائع لدى العملاء',
-    salesText: (count: string) => `تم بيع أكثر من ${count} وحدة عبر GENOSYS UAE`,
     sizeTitle: 'الحجم',
     shadeTitle: 'الدرجة المختارة',
-    source: 'استناداً إلى معلومات GENOSYS الرسمية.',
+    source: 'استناداً إلى أدلة GENOSYS الرسمية وبيانات التركيبة الموثّقة.',
     close: 'إغلاق الحقائق السريعة',
-    pdrnFacts: [
-      { title: 'مستوى PDRN موثّق', text: 'يحتوي على Sodium DNA بتركيز 1,000 ppm وفق التركيبة الرسمية.' },
-      { title: 'مكونات فعالة داعمة', text: 'نياسيناميد 2% وبانثينول 1% لدعم الإشراقة والراحة وحاجز البشرة.' },
-      { title: 'عبوة عملية', text: '30 ورقة جاهزة للاستخدام مع ملقط مدمج.' },
-    ],
   },
 } as const
 
@@ -102,28 +77,6 @@ function parseArray<T>(value: string | null | undefined): T[] {
   return Array.isArray(parsed) ? (parsed as T[]) : []
 }
 
-function parseObject(value: string | null | undefined): Record<string, string> {
-  const parsed = parseValue(value)
-  return parsed && typeof parsed === 'object' && !Array.isArray(parsed)
-    ? (parsed as Record<string, string>)
-    : {}
-}
-
-function plainText(value: string | null | undefined) {
-  return (value || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
-}
-
-function readableLabel(value: string) {
-  const spaced = value
-    .replace(/[_-]+/g, ' ')
-    .replace(/([a-z])([A-Z])/g, '$1 $2')
-    .replace(/\s+/g, ' ')
-    .trim()
-  return spaced
-    ? `${spaced.charAt(0).toLocaleUpperCase()}${spaced.slice(1)}`
-    : value
-}
-
 function normalizeFactValue(value: string | undefined) {
   return (value || '')
     .normalize('NFKD')
@@ -131,17 +84,6 @@ function normalizeFactValue(value: string | undefined) {
     .replace(/[\p{P}\p{S}]+/gu, ' ')
     .replace(/\s+/g, ' ')
     .trim()
-}
-
-function benefitToFact(benefit: string): QuickFact {
-  const match = benefit.match(/^(.+?)\s+[-–—:]\s+(.+)$/)
-  if (!match) return { text: benefit.trim() }
-
-  const [, title, text] = match
-  return {
-    ...(title?.trim() ? { title: title.trim() } : {}),
-    text: text?.trim() || benefit.trim(),
-  }
 }
 
 function uniqueFacts(facts: QuickFact[]) {
@@ -153,13 +95,7 @@ function uniqueFacts(facts: QuickFact[]) {
     const textKey = normalizeFactValue(fact.text)
     if (!textKey) return false
 
-    // Structured features, benefits and product details often repeat the same
-    // claim with slightly different copy. A repeated heading or body is one
-    // fact—not another card. Source order keeps the richer feature first.
-    if (
-      (titleKey && seenTitles.has(titleKey)) ||
-      seenTexts.has(textKey)
-    ) {
+    if ((titleKey && seenTitles.has(titleKey)) || seenTexts.has(textKey)) {
       return false
     }
 
@@ -167,6 +103,33 @@ function uniqueFacts(facts: QuickFact[]) {
     seenTexts.add(textKey)
     return true
   })
+}
+
+function ingredientFacts(
+  ingredients: IngredientItem[],
+  locale: QuickFactLocale
+): QuickFact[] {
+  const facts: QuickFact[] = []
+  for (const ingredient of ingredients) {
+    const name = (ingredient.name || '').trim()
+    const description = (ingredient.description || '').trim()
+    if (!name && !description) continue
+    if (name && description) {
+      facts.push({ title: name, text: description })
+    } else {
+      facts.push({
+        text:
+          description ||
+          (locale === 'ru'
+            ? `Актив: ${name}`
+            : locale === 'ar'
+              ? `مكوّن فعّال: ${name}`
+              : `Key active: ${name}`),
+      })
+    }
+    if (facts.length >= 6) break
+  }
+  return facts
 }
 
 const factIcons = [
@@ -180,25 +143,25 @@ const factIcons = [
 
 export default function ProductQuickFactsHelper({
   product,
-  unitsSold = 0,
+  unitsSold: _unitsSold = 0,
   selectedSize,
   selectedColor,
 }: {
   product: Product
+  /** Kept for call-site compatibility; sales proof is no longer shown here. */
   unitsSold?: number
   selectedSize?: string
   selectedColor?: string
 }) {
   const { locale, dir } = useTranslation()
-  const language = locale === 'ar' ? 'ar' : locale === 'ru' ? 'ru' : 'en'
+  const language: QuickFactLocale =
+    locale === 'ar' ? 'ar' : locale === 'ru' ? 'ru' : 'en'
   const text = copy[language]
   const panelId = useId()
   const triggerId = useId()
   const [open, setOpen] = useState(false)
   const isRtl = dir === 'rtl'
   const productKey = product.productNumber || product.id
-  const isPdrnMask = String(productKey) === '52'
-  const showSales = unitsSold >= UNITS_SOLD_DISPLAY_THRESHOLD
 
   const content = useMemo(() => {
     const translations =
@@ -213,53 +176,22 @@ export default function ProductQuickFactsHelper({
         : locale === 'ru'
           ? product.nameRu || product.name
           : product.name
-    const details = parseObject(
-      translations?.productDetails || product.productDetails
-    )
-    const features = parseArray<FeatureItem>(
-      translations?.keyFeatures || product.keyFeatures
-    )
-    const benefits = parseArray<string>(
-      translations?.benefits || product.benefits
-    )
-    const description = plainText(
-      translations?.description ||
-        (locale === 'ar'
-          ? product.descriptionAr
-          : locale === 'ru'
-            ? product.descriptionRu
-            : product.description) ||
-        product.description
-    )
 
-    const facts: QuickFact[] = []
-    if (showSales) {
-      facts.push({
-        title: text.salesTitle,
-        text: text.salesText(roundUnitsSold(unitsSold).toLocaleString()),
-      })
+    const catalogFacts = getCatalogQuickFacts(productKey, language)
+    const facts: QuickFact[] = catalogFacts.map(fact => ({
+      title: fact.title,
+      text: fact.text,
+    }))
+
+    // Manual-sourced catalog first. If a SKU has no catalog yet, fall back to
+    // ingredient actives — never recycle on-page benefits/keyFeatures copy.
+    if (facts.length < 3) {
+      const ingredients = parseArray<IngredientItem>(
+        translations?.ingredients || product.ingredients
+      )
+      facts.push(...ingredientFacts(ingredients, language))
     }
-    if (isPdrnMask) {
-      facts.push(...text.pdrnFacts)
-    } else {
-      for (const feature of features.slice(0, 3)) {
-        if (feature.description) {
-          facts.push({
-            ...(feature.title ? { title: feature.title } : {}),
-            text: feature.description,
-          })
-        }
-      }
-      // Include the full candidate list before the final six-card limit. If an
-      // early benefit duplicates a feature, a later distinct benefit can take
-      // its place instead of leaving the panel short.
-      for (const benefit of benefits) {
-        facts.push(benefitToFact(benefit))
-      }
-      for (const [title, value] of Object.entries(details)) {
-        facts.push({ title: readableLabel(title), text: String(value) })
-      }
-    }
+
     if (selectedColor) {
       facts.push({ title: text.shadeTitle, text: selectedColor })
     }
@@ -267,30 +199,19 @@ export default function ProductQuickFactsHelper({
     if (format) {
       facts.push({ title: text.sizeTitle, text: format })
     }
-    if (facts.length < 3 && description) {
-      const sentences = description
-        .split(/(?<=[.!?])\s+/)
-        .map(sentence => sentence.trim())
-        .filter(Boolean)
-      for (const sentence of sentences.slice(0, 3)) {
-        facts.push({ text: sentence })
-      }
-    }
 
     return {
       productName,
       facts: uniqueFacts(facts).slice(0, 6),
     }
   }, [
-    isPdrnMask,
+    language,
     locale,
     product,
     productKey,
     selectedColor,
     selectedSize,
-    showSales,
     text,
-    unitsSold,
   ])
 
   return (
@@ -305,7 +226,7 @@ export default function ProductQuickFactsHelper({
         onClick={() => setOpen(value => !value)}
         aria-expanded={open}
         aria-controls={panelId}
-        aria-label={showSales ? text.popularButton : text.button}
+        aria-label={text.button}
         className={`group flex min-h-16 w-full items-center gap-3 rounded-2xl border px-3.5 py-3 text-start shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
           open
             ? 'border-primary-300 bg-gradient-to-r from-primary-50 via-white to-rose-50 shadow-md shadow-primary-100/60'
@@ -313,18 +234,14 @@ export default function ProductQuickFactsHelper({
         } ${isRtl ? 'flex-row-reverse' : ''}`}
       >
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-rose-600 text-white shadow-sm shadow-primary-200">
-          {showSales ? (
-            <TrendingUp className="h-5 w-5" aria-hidden="true" />
-          ) : (
-            <Sparkles className="h-5 w-5" aria-hidden="true" />
-          )}
+          <Sparkles className="h-5 w-5" aria-hidden="true" />
         </span>
         <span className="min-w-0 flex-1">
           <span className="block text-[10px] font-bold uppercase tracking-[0.14em] text-primary-600">
             {text.eyebrow}
           </span>
           <span className="mt-0.5 block text-sm font-bold text-gray-950 md:text-base">
-            {showSales ? text.popularButton : text.button}
+            {text.button}
           </span>
           <span className="mt-0.5 block truncate text-xs text-gray-500">
             {text.itemCount(content.facts.length)} · {content.productName}
@@ -384,9 +301,7 @@ export default function ProductQuickFactsHelper({
 
             <div className={`mt-3 flex items-center gap-2 rounded-xl bg-gray-100/80 px-3 py-2 text-xs text-gray-500 ${isRtl ? 'flex-row-reverse' : ''}`}>
               <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
-              <p>
-                {text.source}
-              </p>
+              <p>{text.source}</p>
             </div>
           </div>
         </div>

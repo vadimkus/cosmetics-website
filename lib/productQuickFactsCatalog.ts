@@ -1,0 +1,308 @@
+/**
+ * Manual-sourced Quick Facts for PDP.
+ *
+ * Sources: GENOSYS product PDFs under public/documents/ppt, Intertek claims
+ * already verified in SESSION_CHANGES_*_SLIDES docs, and official clinical
+ * numbers from those manuals. Do NOT seed this catalog from on-page
+ * keyFeatures / benefits / description copy.
+ */
+
+export type QuickFactLocale = 'en' | 'ru' | 'ar'
+
+export type LocalizedQuickFact = {
+  title: Record<QuickFactLocale, string>
+  text: Record<QuickFactLocale, string>
+}
+
+const t = (
+  enTitle: string,
+  enText: string,
+  ruTitle: string,
+  ruText: string,
+  arTitle: string,
+  arText: string,
+): LocalizedQuickFact => ({
+  title: { en: enTitle, ru: ruTitle, ar: arTitle },
+  text: { en: enText, ru: ruText, ar: arText },
+})
+
+/** Catalog keyed by productNumber or legacy product id. */
+export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> = {
+  '10': [
+    t('Oxygen bubble cleanse', 'Naturally generated O₂ bubbles lift makeup and impurities with less rubbing.', 'Кислородное очищение', 'Пузырьки O₂ мягко снимают макияж и загрязнения без сильного трения.', 'تنظيف بفقاعات الأكسجين', 'فقاعات الأكسجين تزيل المكياج والشوائب بلطف وبأقل فرك.'),
+    t('Dry-to-foam ritual', 'Apply on dry skin, activate bubbles, then massage with damp fingers and rinse.', 'Ритуал dry-to-foam', 'Нанесите на сухую кожу, активируйте пузырьки, затем массируйте влажными пальцами и смойте.', 'طقوس من الجاف إلى الرغوة', 'يُوضع على بشرة جافة ثم تُفعَّل الفقاعات ويُدلَّك بأصابع مبللة ويُشطف.'),
+    t('Gentle daily cleanser', 'Homecare 180 ml and professional 500 ml formats for AM/PM use.', 'Мягкое ежедневное очищение', 'Форматы 180 мл (дом) и 500 мл (про) для утра и вечера.', 'منظف يومي لطيف', 'عبوات 180 مل منزلية و500 مل مهنية للاستخدام صباحاً ومساءً.'),
+    t('Dermatologically tested', 'Formulated for comfortable cleansing, including sensitive-skin routines.', 'Дерматологически протестирован', 'Комфортное очищение, подходит для чувствительной кожи.', 'مختبر جلدياً', 'مصمم لتنظيف مريح حتى ضمن روتين البشرة الحساسة.'),
+    t('Phyto cleansing complex', 'Phytolex SC and MultiEx Phytrogen support a nourished after-cleanse feel.', 'Фито-комплекс очищения', 'Phytolex SC и MultiEx Phytrogen поддерживают комфорт после умывания.', 'مركب نباتي للتنظيف', 'Phytolex SC و MultiEx Phytrogen يدعمان شعوراً مغذياً بعد التنظيف.'),
+    t('Paraben-free formula', 'Labelled paraben-free for everyday facial cleansing.', 'Без парабенов', 'По этикетке — без парабенов для ежедневного очищения лица.', 'خالٍ من البارابين', 'موضَّح على الملصق أنه خالٍ من البارابين للاستخدام اليومي.'),
+  ],
+  '11': [
+    t('Dual eye + lip remover', 'One biphasic formula for waterproof eye and lip makeup.', 'Снятие макияжа глаз и губ', 'Одна двухфазная формула для стойкого макияжа глаз и губ.', 'مزيل للعين والشفاه', 'تركيبة ثنائية الطور لمكياج العين والشفاه المقاوم للماء.'),
+    t('Peptide eye care', 'Palmitoyl Tripeptide-5 and Acetyl Tetrapeptide-5 support firmer-looking eye skin.', 'Пептидный уход за глазами', 'Palmitoyl Tripeptide-5 и Acetyl Tetrapeptide-5 поддерживают более упругий вид зоны глаз.', 'عناية ببتيدية للعين', 'Palmitoyl Tripeptide-5 و Acetyl Tetrapeptide-5 يدعمان مظهراً أكثر تماسكاً حول العين.'),
+    t('Vita 10 complex', 'Vitamin blend helps condition skin while makeup is removed.', 'Комплекс Vita 10', 'Витаминный комплекс ухаживает за кожей во время снятия макияжа.', 'مركب Vita 10', 'مزيج فيتامينات يعتني بالبشرة أثناء إزالة المكياج.'),
+    t('Botanical oil support', 'Carrot, broccoli and sea buckthorn oils help leave a comfortable finish.', 'Растительные масла', 'Масла моркови, брокколи и облепихи оставляют комфортное ощущение.', 'زيوت نباتية داعمة', 'زيوت الجزر والبروكلي ونبق البحر تترك ملمساً مريحاً.'),
+    t('Shake before use', 'Shake to blend phases, then sweep without harsh rubbing.', 'Встряхнуть перед использованием', 'Встряхните, чтобы смешать фазы, затем снимайте без сильного трения.', 'يُرج قبل الاستخدام', 'يُرج لخلط الطورين ثم يُزال المكياج دون فرك قاسٍ.'),
+    t('200 ml daily size', 'Practical bottle format for home makeup removal.', 'Объём 200 мл', 'Удобный формат для ежедневного снятия макияжа дома.', 'حجم 200 مل', 'عبوة عملية لإزالة المكياج يومياً في المنزل.'),
+  ],
+  '12': [
+    t('Enzyme peeling gel', 'Helps renew dull surface texture with a professional-style enzyme peel.', 'Ферментный пилинг-гель', 'Обновляет тусклую поверхность кожи ферментным пилингом.', 'جل تقشير إنزيمي', 'يساعد على تجديد ملمس البشرة الباهت بتقشير إنزيمي.'),
+    t('Desert plant complex', 'Five desert-plant extracts help moisturize and soothe during renewal.', 'Пустынный комплекс', 'Пять экстрактов пустынных растений увлажняют и успокаивают при обновлении.', 'مركب نباتات الصحراء', 'خمسة مستخلصات نباتات صحراوية ترطّب وتهدئ أثناء التجديد.'),
+    t('Low-friction renewal', 'Gel texture supports controlled exfoliation without aggressive scrub particles.', 'Мягкое обновление', 'Гель даёт контролируемое отшелушивание без жёстких абразивов.', 'تجديد بلطف', 'قوام الجل يتيح تقشيراً مضبوطاً دون حبيبات كاشطة.'),
+    t('Pre-treatment prep', 'Often used to refine texture before professional procedures or mask steps.', 'Подготовка к процедурам', 'Часто используют перед профессиональными процедурами или масками.', 'تحضير قبل العلاجات', 'يُستخدم غالباً لتنعيم الملمس قبل الإجراءات أو الماسكات.'),
+    t('Soothe + polish', 'Pairs renewal with comfort so skin does not feel stripped.', 'Обновление + комфорт', 'Сочетает обновление с комфортом, без ощущения «стянутости».', 'تنعيم وتهدئة', 'يجمع التجديد مع الراحة دون شعور بجفاف مفرط.'),
+    t('100 g clinic-home size', 'Convenient jar for regular texture-care routines.', '100 г', 'Удобный объём для регулярного ухода за текстурой.', 'حجم 100 غ', 'عبوة مناسبة لروتين العناية بالملمس بانتظام.'),
+  ],
+  '14': [
+    t('Microbiome mist', 'FENSEBIOME™ (Acetyl Heptapeptide-4) helps support a balanced skin microbiome.', 'Мист для микробиома', 'FENSEBIOME™ (Acetyl Heptapeptide-4) поддерживает баланс микробиома кожи.', 'رذاذ الميكروبيوم', 'FENSEBIOME™ (Acetyl Heptapeptide-4) يدعم توازن ميكروبيوم البشرة.'),
+    t('HA multi-complex', 'Hyaluronan 10 Multi-Complex helps replenish moisture at multiple depths.', 'Мульти-комплекс ГК', 'Hyaluronan 10 Multi-Complex увлажняет на нескольких уровнях.', 'مركب هيالورون متعدد', 'Hyaluronan 10 Multi-Complex يرطّب على مستويات متعددة.'),
+    t('Barrier refresh spray', 'Quick mist to soothe dryness and reinforce the moisture barrier on the go.', 'Спрей для барьера', 'Быстрый мист от сухости и для поддержки влагобарьера.', 'رذاذ لدعم الحاجز', 'رذاذ سريع لتهدئة الجفاف وتعزيز حاجز الرطوبة.'),
+    t('Dewy makeup prep', 'Spray before makeup when you want a fresher, dewier complexion.', 'Сияние под макияж', 'Распылите перед макияжем для более свежего «dewу» эффекта.', 'تحضير مكياج ندي', 'يُرش قبل المكياج لمنح البشرة إشراقة ندية.'),
+    t('Everyday barrier care', 'Useful when skin feels tight, flaky or depleted by AC and heat.', 'Ежедневный уход за барьером', 'Полезно при стянутости, шелушении и сухости от кондиционера и жары.', 'عناية يومية بالحاجز', 'مفيد عند الشد أو التقشر أو الجفاف بسبب التكييف والحرارة.'),
+    t('80 ml travel mist', 'Compact bottle for desk, bag and post-flight refresh.', '80 мл', 'Компактный формат для сумки, офиса и путешествий.', 'رذاذ 80 مل', 'عبوة مدمجة للمكتب والحقيبة وتجديد البشرة بعد السفر.'),
+  ],
+  '34': [
+    t('Clinical TEWL −15%', '4-week clinical use reduced transepidermal water loss by 15%.', 'TEWL −15%', 'За 4 недели TEWL снизился на 15% в клиническом тесте.', 'TEWL −15%', 'انخفض فقدان الماء عبر البشرة 15% خلال 4 أسابيع سريرياً.'),
+    t('Erythema −26%', 'The same clinical window showed a 26% reduction in erythema.', 'Эритема −26%', 'В том же клиническом окне эритема снизилась на 26%.', 'احمرار −26%', 'انخفض الاحمرار 26% في الفترة السريرية نفسها.'),
+    t('Oxygen + pink ceramide', 'Italian oxygenated-water capsules meet a pink ceramide cream base.', 'Кислород + розовый церамид', 'Капсулы с оксигенированной водой и крем на розовых церамидах.', 'أكسجين وسراميد وردي', 'كبسولات ماء مؤكسج إيطالية مع قاعدة كريم سراميد وردي.'),
+    t('Overnight leave-on mask', 'Massage until capsules burst, leave on overnight — no rinse.', 'Ночная маска leave-on', 'Массируйте до разрыва капсул и оставьте на ночь без смывания.', 'ماسك ليلي بلا شطف', 'يُدلَّك حتى تنفجر الكبسولات ويُترك طوال الليل دون شطف.'),
+    t('Growth-factor complex', 'EGF / aFGF / bFGF / PlGF / IGF complex supports overnight recovery feel.', 'Комплекс факторов роста', 'Комплекс EGF/aFGF/bFGF/PlIGF/IGF поддерживает ночное восстановление.', 'مركب عوامل النمو', 'مركب EGF/aFGF/bFGF/PlGF/IGF يدعم شعور التعافي الليلي.'),
+    t('Edema-care botanicals', 'Bromelain, Ruscus, Melissa and Arnica help the morning de-puffed look.', 'Против отёчности', 'Бромелайн, иглица, мелисса и арника помогают убрать утреннюю пастозность.', 'عناية بمضاد التورم', 'البروميلين والسعدية والميليسّا والأرنيكا تساعد على مظهر أقل انتفاخاً صباحاً.'),
+  ],
+  '39': [
+    t('SPF 50+ / PA++++', 'Highest-tier UVB/UVA grade in the GENOSYS sun range for outdoor heat.', 'SPF 50+ / PA++++', 'Максимальная защита в линейке GENOSYS для активного солнца.', 'SPF 50+ / PA++++', 'أعلى درجة حماية في مجموعة GENOSYS لحرارة الشمس الخارجية.'),
+    t('Hybrid UV filters', 'Chemical filters plus Titanium Dioxide for broad-spectrum defense.', 'Гибридные фильтры', 'Химические фильтры плюс диоксид титана для широкого спектра.', 'مرشحات هجينة', 'مرشحات كيميائية مع ثاني أكسيد التيتانيوم لحماية واسعة الطيف.'),
+    t('Sunburn Care Complex', 'Lithospermum, Scutellaria and Ceramide NP help calm sun-stressed skin.', 'Sunburn Care Complex', 'Lithospermum, Scutellaria и Ceramide NP успокаивают кожу после солнца.', 'مركب العناية بحروق الشمس', 'Lithospermum و Scutellaria و Ceramide NP تهدئ البشرة المجهدة بالشمس.'),
+    t('MicroHA™ hydration', 'Ultra-low-molecular hyaluronic acid supports a silky, non-greasy finish.', 'MicroHA™', 'Сверхнизкомолекулярная ГК даёт шёлковое, нежирное покрытие.', 'ترطيب MicroHA™', 'حمض هيالورونيك منخفض الجزيئات جداً لملمس حريري غير دهني.'),
+    t('Reef-conscious formula', 'Positioned as reef-safe for swimming and marine sports use.', 'Reef-safe формула', 'Заявлена как reef-safe для плавания и водных активностей.', 'تركيبة مراعية للشعاب', 'موضوعة كـ reef-safe للسباحة والرياضات البحرية.'),
+    t('High-UV outdoor pick', 'Choose Ultra Shield when the UV index is high; Multi Sun is the lighter daily option.', 'Для высокого УФ-индекса', 'Берите Ultra Shield при высоком УФ; Multi Sun — более лёгкий ежедневный вариант.', 'لاختيار الأشعة العالية', 'يُفضَّل Ultra Shield عند ارتفاع مؤشر UV؛ Multi Sun للروتين اليومي الأخف.'),
+  ],
+  '40': [
+    t('SPF 40 / PA++ daily', 'Everyday UVA/UVB shield sized for office and light outdoor use.', 'SPF 40 / PA++ ежедневно', 'Ежедневная защита UVA/UVB для офиса и лёгкого солнца.', 'SPF 40 / PA++ يومياً', 'حماية يومية من UVA/UVB للمكتب والتعرّض الخفيف.'),
+    t('Hybrid sun filters', 'Titanium Dioxide plus chemical filters — not a mineral-only sunscreen.', 'Гибридные фильтры', 'Диоксид титана плюс химические фильтры — не только минеральный SPF.', 'مرشحات هجينة', 'ثاني أكسيد التيتانيوم مع مرشحات كيميائية — ليس معدنياً فقط.'),
+    t('Pentapeptide comfort', 'Palmitoyl Pentapeptide-4 with Centella and Scutellaria soothes sun-exposed skin.', 'Пентапептидный комфорт', 'Palmitoyl Pentapeptide-4 с Centella и Scutellaria успокаивает кожу после солнца.', 'راحة البنتاببتيد', 'Palmitoyl Pentapeptide-4 مع القنطورية والدرقة يهدئان البشرة بعد الشمس.'),
+    t('Glow, non-greasy finish', 'Lightweight texture works as a daily under-makeup sun layer.', 'Сияние без жирности', 'Лёгкая текстура как ежедневный SPF под макияж.', 'إشراقة بلا دهون', 'قوام خفيف يعمل كطبقة شمس يومية تحت المكياج.'),
+    t('Reapply in strong sun', 'Reapply about every 2 hours when sweating, swimming or prolonged sun.', 'Обновлять на солнце', 'Обновляйте примерно каждые 2 часа при поте, купании или долгом солнце.', 'أعد التطبيق في الشمس القوية', 'أعد التطبيق كل ساعتين تقريباً عند التعرق أو السباحة أو التعرض الطويل.'),
+    t('40 g everyday tube', 'Compact daily sunscreen format for face, neck and body touch-ups.', 'Туба 40 г', 'Компактный ежедневный формат для лица, шеи и тела.', 'أنبوب 40 غ', 'عبوة يومية مدمجة للوجه والرقبة ولمسات الجسم.'),
+  ],
+  '41': [
+    t('SPF 50+ / PA++++', 'Hybrid chemical + mineral filters for high UVB/UVA protection in one cushion.', 'SPF 50+ / PA++++', 'Гибридные химические и минеральные фильтры для высокой защиты UVA/UVB.', 'SPF 50+ / PA++++', 'مرشحات هجينة كيميائية ومعدنية لحماية عالية من UVB/UVA في كوشن واحد.'),
+    t('>60% moisture essence', 'More than 60% of the formula is moisture essence for a natural healthy glow.', '>60% увлажняющей эссенции', 'Более 60% формулы — увлажняющая эссенция для естественного сияния.', 'أكثر من 60% خلاصة مرطبة', 'أكثر من 60% من التركيبة خلاصة مرطبة لإشراقة طبيعية صحية.'),
+    t('9 regenerating peptides', 'Repairing Pep9 Complex helps calm irritated, post-treatment skin.', '9 регенерирующих пептидов', 'Repairing Pep9 Complex помогает успокоить раздражённую постпроцедурную кожу.', '9 ببتيدات مجدِّدة', 'مركب Repairing Pep9 يساعد على تهدئة البشرة المتهيجة بعد العلاجات.'),
+    t('Cushion + refill (15 g × 2)', 'Pack includes 1 cushion, 1 refill and puff — refill-only packs are also available.', 'Кушон + рефил (15 г × 2)', 'В наборе 1 кушон, 1 рефил и спонж; есть и отдельный рефил.', 'كوشن + عبوة إعادة 15 غ × 2', 'تشمل العبوة كوشناً وعبوة إعادة وإسفنجة — وتتوفر عبوات إعادة فقط.'),
+    t('Triple fixing polymers', 'Long-wear polymer system helps coverage stay put through the day.', 'Тройные фиксирующие полимеры', 'Полимерная система помогает покрытию держаться в течение дня.', 'بوليمرات تثبيت ثلاثية', 'نظام بوليمرات طويل الثبات يساعد على ثبات التغطية طوال اليوم.'),
+    t('3 professional shades', '#01 Ivory, #02 Beige and #03 Camel for tone correction after treatment.', '3 профессиональных оттенка', '#01 Ivory, #02 Beige и #03 Camel для коррекции тона после процедур.', '3 درجات مهنية', '#01 Ivory و #02 Beige و #03 Camel لتصحيح اللون بعد العلاج.'),
+  ],
+  '51': [
+    t('218% hydration lift', 'Clinical trial showed about 218% improvement in skin hydration.', 'Увлажнение +218%', 'Клинически увлажнение улучшилось примерно на 218%.', 'ترطيب +218%', 'أظهر الاختبار السريري تحسناً بنحو 218% في ترطيب البشرة.'),
+    t('Cooling clinical effect', 'Skin temperature decreased about 27–30% in clinical case readings.', 'Охлаждающий эффект', 'Температура кожи снижалась примерно на 27–30% в клинических кейсах.', 'تأثير تبريد سريري', 'انخفضت حرارة البشرة نحو 27–30% في القراءات السريرية.'),
+    t('6 growth factors', 'EGF, IGF, bFGF, KGF, VEGF and TGF support regenerative mask care.', '6 факторов роста', 'EGF, IGF, bFGF, KGF, VEGF и TGF поддерживают регенерирующий уход.', '6 عوامل نمو', 'EGF و IGF و bFGF و KGF و VEGF و TGF تدعم عناية الماسك التجديدية.'),
+    t('6 regenerative peptides', 'Peptide complex complements fermented energy for recovering skin.', '6 регенерирующих пептидов', 'Пептидный комплекс дополняет ферментированную энергию восстановления.', '6 ببتيدات مجدِّدة', 'مركب الببتيدات يكمل طاقة التخمير لبشرة متعافية.'),
+    t('Powder-to-cream mask', 'Professional powder format activates fresh for each treatment.', 'Маска powder-to-cream', 'Профессиональный порошок активируется свежим на каждую процедуру.', 'ماسك من بودرة إلى كريم', 'صيغة بودرة مهنية تُنشَّط طازجة لكل جلسة.'),
+    t('300 g clinic format', 'High-yield jar for repeated professional modeling-mask use.', '300 г', 'Объёмный формат для многократного профессионального применения.', 'حجم 300 غ', 'عبوة عالية الإنتاجية للاستخدام المهني المتكرر.'),
+  ],
+  '52': [
+    t('Sodium DNA 1,000 ppm', 'Verified PDRN level from salmon DNA in the official formula.', 'Sodium DNA 1 000 ppm', 'Подтверждённый уровень PDRN из ДНК лосося в официальной формуле.', 'Sodium DNA 1,000 ppm', 'مستوى PDRN موثّق من DNA السلمون وفق التركيبة الرسمية.'),
+    t('TEWL improved ~35%', 'Clinical TEWL improved about 34.97% after physical stress recovery.', 'TEWL ≈ −35%', 'Клинически TEWL улучшился примерно на 34,97% после стресса кожи.', 'تحسّن TEWL نحو 35%', 'تحسّن TEWL سريرياً بنحو 34.97% بعد الإجهاد الفيزيائي.'),
+    t('Barrier recovery ~40–45%', 'Skin-barrier readings improved about 40–45% in the clinical panels.', 'Барьер ≈ +40–45%', 'Показатели барьера выросли примерно на 40–45% в клинических панелях.', 'تعافي الحاجز ~40–45%', 'تحسّنت قراءات الحاجز نحو 40–45% في اللوحات السريرية.'),
+    t('Panthenol 1% + Niacinamide 2%', 'Barrier-support actives for comfort, brightening and recovery.', 'Пантенол 1% + ниацинамид 2%', 'Активы для барьера, комфорта и сияния.', 'بانثينول 1% ونياسيناميد 2%', 'مكونات لدعم الحاجز والراحة والإشراقة.'),
+    t('Ultra-slim sheet fit', 'Seamless sheet adhesion increases contact for essence delivery.', 'Ультратонкий фит', 'Плотное прилегание увеличивает контакт и доставку эссенции.', 'ملامسة ورقة فائقة الرقة', 'التصاق الورقة يزيد مساحة التماس لتوصيل الخلاصة.'),
+    t('30 ready-to-use sheets', 'Pack includes 30 sheets with built-in tweezers for hygienic handling.', '30 готовых масок', '30 листов со встроенным пинцетом для гигиеничного использования.', '30 ورقة جاهزة', 'العبوة تضم 30 ورقة مع ملقط مدمج للاستخدام الصحي.'),
+  ],
+  '63': [
+    t('SPF 38 / PA+++', 'Daily BB cream with meaningful UVA/UVB protection for UAE routines.', 'SPF 38 / PA+++', 'Ежедневный BB-крем с заметной защитой UVA/UVB.', 'SPF 38 / PA+++', 'كريم BB يومي بحماية ملموسة من UVA/UVB لروتين الإمارات.'),
+    t('Vita 10 complex', 'Vitamins A, B-complex, C and E support a clearer glass-skin look.', 'Комплекс Vita 10', 'Витамины A, группы B, C и E поддерживают эффект glass skin.', 'مركب Vita 10', 'فيتامينات A ومجموعة B و C و E تدعم مظهر الزجاج الصافي.'),
+    t('Herb 7 complex', 'Camellia, Centella, Tremella, Chamomile and more soothe while evening tone.', 'Комплекс Herb 7', 'Камелия, центелла, tremella, ромашка и другие успокаивают и выравнивают тон.', 'مركب Herb 7', 'الكاميليا والقنطورية والترميلا والبابونج وغيرها تهدئ وتوحّد اللون.'),
+    t('Glass-skin film network', 'Transparent gel network helps resist smudge and transfer through the day.', 'Сетка glass-skin', 'Прозрачная гелевая сеть помогает стойкости без смазывавания.', 'شبكة فيلم Glass Skin', 'شبكة جل شفافة تساعد على مقاومة التلطيخ والانتقال طوال اليوم.'),
+    t('2 glow shades', '#01 Bright for illuminating fair skin and #02 Natural for refined medium tones.', '2 оттенка сияния', '#01 Bright для светлой кожи и #02 Natural для средних тонов.', 'درجتان للإشراقة', '#01 Bright للإشراقة الفاتحة و #02 Natural للدرجات المتوسطة.'),
+    t('Adenosine support', 'Adenosine contributes to a smoother, more rested-looking finish.', 'Поддержка аденозина', 'Аденозин способствует более гладкому и отдохнувшему виду.', 'دعم الأدينوزين', 'الأدينوزين يساهم في ملمس أنعم ومظهر أكثر راحة.'),
+  ],
+  '66': [
+    t('+145.8% post-wash hydration', 'Clinical test: immediate skin hydration improved 145.8% after cleansing.', '+145,8% увлажнения', 'Клинически увлажнение сразу после умывания выросло на 145,8%.', '+145.8% ترطيب بعد الغسل', 'اختبار سريري: تحسّن الترطيب الفوري 145.8% بعد التنظيف.'),
+    t('2.4× hydration boost', 'Barrier cleanser delivered a 2.4× increase in measured skin hydration.', 'Увлажнение ×2,4', 'Барьерный очиститель дал рост увлажнения в 2,4 раза.', 'ترطيب ×2.4', 'المنظف المعزز للحاجز رفع الترطيب المقاس 2.4 مرة.'),
+    t('Pink ceramide complex', 'Pink ceramide with 5 ceramides helps reinforce the moisture barrier.', 'Розовый церамидный комплекс', 'Розовый церамид и 5 церамидов укрепляют влагобарьер.', 'مركب السراميد الوردي', 'السراميد الوردي مع 5 سيراميدات يعزز حاجز الرطوبة.'),
+    t('Microbiome support', 'Bifida and Lactobacillus lysates help maintain a balanced skin microbiome.', 'Поддержка микробиома', 'Лизаты Bifida и Lactobacillus поддерживают баланс микробиома.', 'دعم الميكروبيوم', 'ليسَات Bifida و Lactobacillus تساعد على توازن ميكروبيوم البشرة.'),
+    t('Gel-to-foam comfort', 'Smooth-rolling gel becomes foam that cleanses with less friction.', 'Гель-в-пену', 'Гель превращается в пену и очищает с меньшим трением.', 'من جل إلى رغوة', 'جل ناعم يتحول إلى رغوة تنظّف بأقل احتكاك.'),
+    t('200 ml / 600 ml sizes', 'Homecare 200 ml and professional 600 ml for daily barrier-first cleansing.', '200 / 600 мл', '200 мл для дома и 600 мл для профессионального использования.', 'أحجام 200 / 600 مل', '200 مل منزلية و600 مل مهنية للتنظيف اليومي المعزز للحاجز.'),
+  ],
+
+  '20': [
+    t('ACZERO® sebum control', 'Patented ACZERO® helps regulate excess sebum and calm acne-prone inflammation.', 'ACZERO® контроль себума', 'Патентованный ACZERO® регулирует себум и успокаивает воспаление.', 'ACZERO® للتحكم بالدهون', 'مركب ACZERO® الحاصل على براءة يساعد على تنظيم الدهون وتهدئة الالتهاب.'),
+    t('PORE LASER™ refining', 'Patented PORE LASER™ complex supports pore appearance and skin renewal.', 'PORE LASER™', 'Патентованный PORE LASER™ помогает порам и обновлению кожи.', 'PORE LASER™', 'مركب PORE LASER™ الحاصل على براءة يدعم مظهر المسام وتجديد البشرة.'),
+    t('Redness −16.6%', 'Clinically proven soothing on acne-prone skin with about 16.6% improvement.', 'Краснота −16,6%', 'Клинически успокаивает проблемную кожу — улучшение около 16,6%.', 'احمرار −16.6%', 'تهدئة مثبتة سريرياً لبشرة حب الشباب بتحسّن نحو 16.6%.'),
+    t('Non-comedogenic certified', 'Clinically tested and certified as non-comedogenic (QACS Ltd.).', 'Некомедогенный', 'Клинически протестирован и сертифицирован как некомедогенный.', 'غير مسبب للرؤوس السوداء', 'مختبر ومُعتمد سريرياً كغير مسبب لانسداد المسام.'),
+    t('Tea tree + Zinc PCA', 'Tea Tree Complex with Zinc PCA and niacinamide for clearer-looking skin.', 'Чайное дерево + Zinc PCA', 'Tea Tree Complex с Zinc PCA и ниацинамидом для более чистого вида.', 'شجرة الشاي و Zinc PCA', 'مركب شجرة الشاي مع Zinc PCA والنياسيناميد لبشرة أوضح.'),
+    t('HydroFerment hydration', 'HydroFerment Complex helps keep hydration while controlling oil.', 'HydroFerment увлажнение', 'HydroFerment Complex поддерживает увлажнение при контроле жира.', 'ترطيب HydroFerment', 'مركب HydroFerment يحافظ على الترطيب مع التحكم بالدهون.'),
+  ],
+  '21': [
+    t('Multi Vita 12 Complex', 'Twelve-vitamin complex targets dullness and uneven tone for a brighter finish.', 'Комплекс Multi Vita 12', 'Комплекс из 12 витаминов для тусклого и неровного тона.', 'مركب Multi Vita 12', 'مركب من 12 فيتاميناً يستهدف البهتان وعدم تجانس اللون.'),
+    t('MELAZERO® melanin care', 'Patented MELAZERO® melanin-care complex supports clearer-looking skin.', 'MELAZERO®', 'Патентованный MELAZERO® помогает более ясному тону.', 'MELAZERO®', 'مركب MELAZERO® الحاصل على براءة لدعم لون أوضح.'),
+    t('~28% melanin improvement', 'Clinical chart: skin-surface melanin improved about 28% after 2 weeks.', 'Меланин ≈ −28%', 'Клинически индекс меланина поверхности улучшился примерно на 28% за 2 недели.', 'تحسّن الميلانين ~28%', 'تحسّن ميلانين سطح البشرة نحو 28% بعد أسبوعين سريرياً.'),
+    t('Panthenol-rich glow', 'Panthenol-rich formula supports a natural glow and moisture barrier.', 'Сияние с пантенолом', 'Формула с пантенолом даёт естественное сияние и поддержку барьера.', 'إشراقة غنية بالبانثينول', 'تركيبة غنية بالبانثينول تدعم إشراقة طبيعية وحاجز الرطوبة.'),
+    t('100% satisfaction panel', '21-woman panel: 100% reported even tone, no tightness and no irritation.', '100% удовлетворённость', 'Панель из 21 женщины: 100% отметили ровный тон, без стянутости и раздражения.', 'رضا 100%', 'لوحة من 21 امرأة: 100% أبلغن عن توحيد اللون بلا شد ولا تهيج.'),
+    t('Daily radiance serum', 'Lightweight AM/PM layer under cream or sunscreen.', 'Ежедневная сыворотка сияния', 'Лёгкий слой утром и вечером под крем или SPF.', 'سيروم إشراقة يومي', 'طبقة خفيفة صباحاً ومساءً تحت الكريم أو الواقي.'),
+  ],
+  '29': [
+    t('+82% immediate hydration', 'Clinical hydration value rose 82% immediately after a single use.', '+82% увлажнения сразу', 'Клинически увлажнение выросло на 82% сразу после одного нанесения.', '+82% ترطيب فوري', 'ارتفعت قيمة الترطيب السريرية 82% فوراً بعد استخدام واحد.'),
+    t('72-hour hydration hold', 'Moisture stayed elevated at the 72-hour clinical checkpoint.', 'Увлажнение 72 часа', 'Увлажнение оставалось повышенным на контрольной точке 72 часа.', 'ترطيب يدوم 72 ساعة', 'بقي الترطيب مرتفعاً عند نقطة الفحص السريرية بعد 72 ساعة.'),
+    t('HA + mushroom complex', 'Hyaluronic acid with Tremella and mushroom extracts for multi-depth moisture.', 'ГК + грибной комплекс', 'Гиалуроновая кислота с Tremella и грибами для многоуровневого увлажнения.', 'هيالورون ومركب فطر', 'حمض الهيالورونيك مع Tremella ومستخلصات الفطر لترطيب متعدد الأعماق.'),
+    t('Barrier cream seal', 'Helps form a moisture barrier so hydration lasts longer.', 'Кремовый барьер', 'Формирует влагобарьер, чтобы увлажнение держалось дольше.', 'ختم كريمي للحاجز', 'يساعد على تشكيل حاجز رطوبة ليدوم الترطيب أطول.'),
+    t('Cream after serum', 'Ideal final moisture step over hyaluron serum.', 'Финиш после сыворотки', 'Идеальный финальный шаг поверх гиалуроновой сыворотки.', 'كريم بعد السيروم', 'خطوة ترطيب نهائية مثالية فوق سيروم الهيالورون.'),
+    t('50 g daily cream', 'Rich but workable texture for morning and night.', '50 г', 'Питательная, но комфортная текстура для утра и вечера.', 'كريم 50 غ', 'قوام غني وعملي للصباح والليل.'),
+  ],
+  '18': [
+    t('HA 2,000 ppm boost', 'Rich in ultra-low-molecular hyaluronic acid at about 2,000 ppm.', 'ГК ≈ 2 000 ppm', 'Богата сверхнизкомолекулярной ГК около 2 000 ppm.', 'هيالورون ~2,000 ppm', 'غني بحمض هيالورونيك منخفض الجزيئات بنحو 2,000 ppm.'),
+    t('11 HA multi-complex', 'Hyaluronan 11 Multi-Complex hydrates multiple depths of skin.', 'Мульти-комплекс 11 ГК', 'Hyaluronan 11 Multi-Complex увлажняет на нескольких уровнях.', 'مركب 11 هيالورون', 'Hyaluronan 11 Multi-Complex يرطّب على أعماق متعددة.'),
+    t('Deep hydration +52%', 'Clinical inner hydration improved about 52% after a single use.', 'Глубокое увлажнение +52%', 'Клинически глубинное увлажнение выросло примерно на 52% после одного применения.', 'ترطيب عميق +52%', 'تحسّن الترطيب الداخلي سريرياً نحو 52% بعد استخدام واحد.'),
+    t('Mushroom moisture net', 'Tremella and mushroom complex supports water-binding comfort.', 'Грибная влагосеть', 'Tremella и грибной комплекс усиливают удержание влаги.', 'شبكة رطوبة فطرية', 'Tremella ومركب الفطر يدعمان الاحتفاظ بالرطوبة.'),
+    t('Barrier-strengthening serum', 'Helps strengthen the moisture barrier for longer-lasting plumpness.', 'Сыворотка для барьера', 'Укрепляет влагобарьер для более стойкого эффекта.', 'سيروم لتعزيز الحاجز', 'يساعد على تعزيز حاجز الرطوبة لامتلاء يدوم أطول.'),
+    t('100% satisfaction panel', 'Panel panel reported 100% satisfaction on efficacy and overall use.', '100% удовлетворённость', 'Панель отметила 100% удовлетворённость эффективностью и использованием.', 'رضا 100%', 'أبلغت لوحة المستخدمين عن رضا 100% بالفعالية والاستخدام.'),
+  ],
+  '15': [
+    t('Sebum −50% / 4 weeks', 'Clinical use for 4 weeks decreased sebum by about 50%.', 'Себум −50% / 4 недели', 'Клинически за 4 недели себум снизился примерно на 50%.', 'الدهون −50% / 4 أسابيع', 'انخفض الزهم سريرياً نحو 50% بعد 4 أسابيع.'),
+    t('Anti Sebum P patented', 'Patented botanical complex targets pores and excess oil.', 'Anti Sebum P', 'Патентованный ботанический комплекс для пор и себума.', 'Anti Sebum P', 'مركب نباتي حاصل على براءة يستهدف المسام وزيادة الدهون.'),
+    t('Copper peptide balance', 'Copper Tripeptide-1 supports clearer-looking, more balanced skin.', 'Медный пептид', 'Copper Tripeptide-1 поддерживает более чистый и ровный вид.', 'ببتيد النحاس', 'Copper Tripeptide-1 يدعم بشرة أوضح وأكثر توازناً.'),
+    t('Non-comedogenic toner', 'Clinically positioned for blemish-prone routines without clogging feel.', 'Некомедогенный тоник', 'Для проблемной кожи без ощущения закупорки пор.', 'تونر غير مسبب للانسداد', 'مخصّص لروتين البشرة المعرّضة للعيوب دون شعور بانسداد.'),
+    t('SNOW ICE cooling', 'Cooling complex refreshes after cleansing and oil control.', 'Охлаждающий SNOW ICE', 'Охлаждающий комплекс освежает после очищения.', 'تبريد SNOW ICE', 'مركب التبريد ينعش بعد التنظيف والتحكم بالدهون.'),
+    t('360° body spray', '200 ml bottle sprays upside-down for back and hard-to-reach zones.', 'Спрей 360°', 'Флакон 200 мл распыляет вверх дном для спины и труднодоступных зон.', 'رذاذ 360°', 'زجاجة 200 مل ترش بالمقلوب للظهر والمناطق الصعبة.'),
+  ],
+  '31': [
+    t('Multi Vita 12 Complex', 'Twelve-vitamin cream finish for dull, uneven-looking complexions.', 'Комплекс Multi Vita 12', 'Крем с 12 витаминами для тусклого и неровного тона.', 'مركب Multi Vita 12', 'كريم بمركب 12 فيتاميناً للبشرة الباهتة وغير المتجانسة.'),
+    t('Melanin-care clinical', 'Clinical melanin-surface care supports a clearer-looking complexion.', 'Уход за меланином', 'Клинический уход за поверхностным меланином для более ясного тона.', 'عناية بالميلانين', 'عناية سريرية بميلانين السطح لدعم لون أوضح.'),
+    t('Astaxanthin defense', 'Antioxidant support helps defend against everyday environmental stress.', 'Астаксантин', 'Антиоксидантная поддержка против ежедневного стресса среды.', 'أستازانتين', 'دعم مضاد للأكسدة ضد إجهاد البيئة اليومي.'),
+    t('Barrier-reinforcing cream', 'Helps reinforce the protective barrier while locking in radiance serum.', 'Крем для барьера', 'Укрепляет защитный барьер и закрепляет сыворотку сияния.', 'كريم معزز للحاجز', 'يعزز الحاجز الواقي ويثبّت سيروم الإشراقة.'),
+    t('High satisfaction panel', 'User panel reported very high satisfaction on tone and comfort.', 'Высокая удовлетворённость', 'Панель отметила очень высокую удовлетворённость тоном и комфортом.', 'رضا مرتفع', 'أبلغت لوحة المستخدمين عن رضا مرتفع باللون والراحة.'),
+    t('50 g radiance cream', 'Daily cream seal after Multi Vita Radiance Serum.', '50 г', 'Ежедневный крем поверх сыворотки Multi Vita Radiance.', 'كريم 50 غ', 'ختم كريمي يومي بعد سيروم Multi Vita Radiance.'),
+  ],
+  '33': [
+    t('Acetyl Hexapeptide-8', 'Peptide care helps the eye area look smoother and more rested.', 'Acetyl Hexapeptide-8', 'Пептидный уход для более гладкого и отдохнувшего вида зоны глаз.', 'Acetyl Hexapeptide-8', 'عناية ببتيدية لمظهر أنعم وأكثر راحة حول العين.'),
+    t('Madecassoside complex', 'Patented madecassoside complex supports soothing after procedures.', 'Мадекассосид-комплекс', 'Патентованный комплекс мадекассосида успокаивает после процедур.', 'مركب ماديكاسوسيد', 'مركب ماديكاسوسيد الحاصل على براءة يدعم التهدئة بعد الإجراءات.'),
+    t('Cooling hydrogel patches', 'Thermo-sensitive gel cools and moisturizes the eye contour.', 'Охлаждающие патчи', 'Термочувствительный гель охлаждает и увлажняет контур глаз.', 'لصقات هيدروجيل مبرّدة', 'جل حسّاس للحرارة يبرّد ويرطّب محيط العين.'),
+    t('Adenosine + niacinamide', 'Adenosine and niacinamide support a brighter, smoother eye look.', 'Аденозин + ниацинамид', 'Аденозин и ниацинамид поддерживают более светлый и гладкий вид.', 'أدينوزين ونياسيناميد', 'الأدينوزين والنياسيناميد يدعمان مظهراً أكثر إشراقاً ونعومة.'),
+    t('Multi 12 Complex', 'Vitamin complex conditions the delicate eye area during wear.', 'Комплекс Multi 12', 'Витаминный комплекс ухаживает за тонкой кожей вокруг глаз.', 'مركب Multi 12', 'مركب فيتامينات يعتني بمنطقة العين الرقيقة أثناء الاستخدام.'),
+    t('60 patches / pack', 'Ready-to-use pairs for clinic postcare or home eye recovery nights.', '60 патчей', 'Готовые пары для постпроцедурного ухода или домашних вечеров.', '60 لصقة', 'أزواج جاهزة للعناية بعد العيادة أو ليالي التعافي في المنزل.'),
+  ],
+  '43': [
+    t('Copper Tripeptide-1', 'Stimulates dermal papilla cells and helps inhibit 5α-reductase pathways.', 'Copper Tripeptide-1', 'Стимулирует клетки дермального сосочка и помогает ингибировать 5α-редуктазу.', 'Copper Tripeptide-1', 'يحرّض خلايا الحليمة الجلدية ويساعد على تثبيط مسارات 5α-reductase.'),
+    t('Anagen-support actives', 'Formula supports a healthier scalp environment for the growth phase.', 'Поддержка анагена', 'Поддерживает среду кожи головы для фазы роста.', 'دعم طور النمو', 'التركيبة تدعم بيئة فروة صحية لطور النمو.'),
+    t('Leave on 3–4 hours', 'Do not rinse — leave on for at least 3–4 hours for contact time.', 'Оставить 3–4 часа', 'Не смывать — оставить минимум на 3–4 часа.', 'اتركه 3–4 ساعات', 'لا يُشطف — يُترك 3–4 ساعات على الأقل.'),
+    t('Menthol cool finish', 'Cooling menthol comfort helps calm heat and scalp irritation feel.', 'Охлаждение ментолом', 'Ментол снижает ощущение жара и раздражения кожи головы.', 'انتعاش بالمنثول', 'المنثول المبرّد يهدئ حرارة وتهيج فروة الرأس.'),
+    t('Daily scalp tonic', 'Targeted leave-on tonic for thinning-concern scalp routines.', 'Ежедневный тоник', 'Тоник leave-on для кожи головы при прореживании.', 'تونيك يومي لفروة الرأس', 'تونيك يُترك على الفروة لروتين تساقط الشعر.'),
+    t('Pairs with scalp brush', 'Use after Scalp Brush massage to improve tonic contact.', 'С щёткой для кожи головы', 'Используйте после массажа щёткой для лучшего контакта.', 'مع فرشاة الفروة', 'يُستخدم بعد تدليك فرشاة الفروة لتحسين التماس.'),
+  ],
+  '44': [
+    t('Sebum-aware shampoo', 'Helps reduce excess sebum while cleansing the scalp.', 'Шампунь против себума', 'Помогает снижать избыточный себум при очищении кожи головы.', 'شامبو واعٍ بالدهون', 'يساعد على تقليل الدهون الزائدة مع تنظيف فروة الرأس.'),
+    t('HP-DCC Complex', 'Complex support for scalp comfort and healthier-looking hair roots.', 'Комплекс HP-DCC', 'Комплекс для комфорта кожи головы и более здоровых корней.', 'مركب HP-DCC', 'مركب لدعم راحة الفروة ومظهر جذور أكثر صحة.'),
+    t('Growth-factor support', 'Helps increase expression of hair-growth factors such as VEGF.', 'Факторы роста', 'Способствует экспрессии факторов роста волос, включая VEGF.', 'دعم عوامل النمو', 'يساعد على زيادة تعبير عوامل نمو الشعر مثل VEGF.'),
+    t('Cooling menthol rinse', 'Menthol cooling comfort after wash for irritated, oily scalps.', 'Охлаждающий ментол', 'Охлаждающий ментол после мытья для жирной и раздражённой кожи головы.', 'شطف منثول مبرّد', 'انتعاش بالمنثول بعد الغسل لفروة دهنية أو متهيجة.'),
+    t('Flake + residue cleanse', 'Helps remove flaking and sebum remnants before tonic or ampoule steps.', 'Очищение от перхоти', 'Помогает убрать шелушение и остатки себума перед тоником или ампулой.', 'تنظيف القشور والبقايا', 'يساعد على إزالة القشور وبقايا الدهون قبل التونيك أو الأمبول.'),
+    t('Medi-scalp daily wash', 'Professional medi-scalp shampoo format for regular hair-loss routines.', 'Меди-шампунь', 'Профессиональный medi-scalp шампунь для регулярного анти-loss ухода.', 'غسيل medi-scalp يومي', 'شامبو medi-scalp مهني لروتين تساقط الشعر المنتظم.'),
+  ],
+  '45': [
+    t('Multi growth-factor ampoule', 'VEGF, HGH, EGF and VIP peptides support follicle nutrition delivery.', 'Ампула с факторами роста', 'VEGF, HGH, EGF и VIP поддерживают питание фолликулов.', 'أمبول عوامل نمو', 'ببتيدات VEGF و HGH و EGF و VIP تدعم تغذية البصيلات.'),
+    t('Copper Tripeptide-1', 'Copper peptide helps create a healthier scalp environment for growth.', 'Copper Tripeptide-1', 'Медный пептид поддерживает более здоровую среду кожи головы.', 'Copper Tripeptide-1', 'ببتيد النحاس يساعد على بيئة فروة أكثر صحة للنمو.'),
+    t('Saw palmetto support', 'Serenoa serrulata extract targets common hair-loss pathway concerns.', 'Со пальметто', 'Экстракт сереноа помогает при типичных факторах выпадения.', 'نخيل المنشار', 'مستخلص Serenoa serrulata يستهدف مسارات تساقط شائعة.'),
+    t('Microneedling-ready', 'Formulated for stamp/roller delivery into the scalp.', 'Для микронйдлинга', 'Сформулирован для доставки штампом/роллером в кожу головы.', 'جاهز للميكرونيدلينغ', 'مصمم للتوصيل عبر الختم/الرولر إلى فروة الرأس.'),
+    t('Clinic + homecare kits', 'Available in professional and home kits with applicators.', 'Клиника + дом', 'Доступны профессиональные и домашние наборы с аппликаторами.', 'عيادة ومنزل', 'يتوفر في أطقم مهنية ومنزلية مع أدوات التطبيق.'),
+    t('4 ml treatment vials', 'Single-dose style vials keep each session fresh and measured.', 'Флаконы 4 мл', 'Флаконы на сессию сохраняют свежесть и дозировку.', 'قوارير 4 مل', 'قوارير لكل جلسة تحافظ على الجرعة والطزاجة.'),
+  ],
+  '49': [
+    t('5 LED wavelengths', '423 / 532 / 583 / 640 / 830 nm modes for multi-concern LED care.', '5 длин волн LED', 'Режимы 423 / 532 / 583 / 640 / 830 нм для разных задач.', '5 أطوال موجات LED', 'أوضاع 423 / 532 / 583 / 640 / 830 نانومتر لعناية متعددة.'),
+    t('Near-IR SMD LEDs', 'High-brightness near-infrared SMD LEDs support regeneration protocols.', 'Near-IR SMD LED', 'Яркие near-IR SMD LED поддерживают протоколы регенерации.', 'LEDs قريبة من تحت الأحمر', 'صمامات SMD عالية السطوع تدعم بروتوكولات التجديد.'),
+    t('Postcare pairing', 'Often paired with Peptide Gel Mask under red light for recovery.', 'Постпроцедурный уход', 'Часто сочетают с Peptide Gel Mask под красным светом.', 'اقتران بعد العناية', 'غالباً يُقرن مع Peptide Gel Mask تحت الضوء الأحمر.'),
+    t('Professional device', 'Clinic LED tool for regeneration, soothing and trouble-care protocols.', 'Профессиональный аппарат', 'Клинический LED для регенерации, успокоения и проблемной кожи.', 'جهاز مهني', 'أداة LED عيادية للتجديد والتهدئة وعلاج المشاكل.'),
+    t('Broad 423–830 nm range', 'Covers blue-to-near-IR spectrum in one device workflow.', 'Диапазон 423–830 нм', 'Покрывает спектр от синего до near-IR в одном устройстве.', 'نطاق 423–830 نانومتر', 'يغطي الطيف من الأزرق إلى تحت الأحمر القريب في جهاز واحد.'),
+    t('Protocol-driven use', 'Select wavelength by concern instead of one generic light setting.', 'По протоколу', 'Выбор длины волны по задаче, а не один общий режим.', 'استخدام وفق بروتوكول', 'يُختار طول الموجة حسب المشكلة لا وضعاً عاماً واحداً.'),
+  ],
+  '60': [
+    t('60,000 ppm spicules', 'Professional BIO-MESO dose for intensive no-needle microneedling.', 'Спикулы 60 000 ppm', 'Профессиональная доза BIO-MESO для интенсивного микронйдлинга без игл.', 'شويكات 60,000 ppm', 'جرعة BIO-MESO مهنية للميكرونيدلينغ المكثف بلا إبر.'),
+    t('3rd-gen cog spicules', 'Phytosome-coated cog spicules deliver PDRN while forming microchannels.', 'Спикулы 3-го поколения', 'Cog-спикулы с фитосомами доставляют PDRN и создают микроканалы.', 'شويكات cog من الجيل 3', 'شويكات مطلية بالفايتوزوم توصل PDRN وتشكّل قنوات دقيقة.'),
+    t('PDRN + panthenol', 'BIO-MESO™ PDRN with panthenol and anti-aging complex for barrier repair.', 'PDRN + пантенол', 'BIO-MESO™ PDRN с пантенолом и anti-aging комплексом для барьера.', 'PDRN وبانثينول', 'BIO-MESO™ PDRN مع بانثينول ومركب مضاد للشيخوخة لإصلاح الحاجز.'),
+    t('Bio-peeling turnover', 'Spicule peel-off effect boosts turnover, collagen and elastin production.', 'Био-пилинг', 'Эффект peel-off ускоряет обновление и синтез коллагена/эластина.', 'تقشير حيوي', 'تأثير التقشير بالشويكات يعزز التجدد وإنتاج الكولاجين والإيلاستين.'),
+    t('Clinic-first intensity', 'High-dose professional step before gentler 5000 homecare maintenance.', 'Сначала клиника', 'Интенсивный клинический шаг перед домашним уходом 5000.', 'شدة العيادة أولاً', 'خطوة مهنية عالية الجرعة قبل العناية المنزلية 5000.'),
+    t('No classic needles', 'Liquid / bio microneedling pathway without traditional needle devices.', 'Без классических игл', 'Био-микронйдлинг без классических игл.', 'بلا إبر تقليدية', 'مسار ميكرونيدلينغ حيوي دون أجهزة إبر تقليدية.'),
+  ],
+  '65': [
+    t('Sodium DNA 1,010 ppm', 'Verified PDRN level for ongoing homecare regeneration.', 'Sodium DNA 1 010 ppm', 'Подтверждённый уровень PDRN для домашнего восстановления.', 'Sodium DNA 1,010 ppm', 'مستوى PDRN موثّق للتجديد المنزلي المستمر.'),
+    t('5,000 ppm spicules', 'Moderate spicule dose for weekly reinforcement between clinic visits.', 'Спикулы 5 000 ppm', 'Умеренная доза спикул для еженедельной поддержки между визитами.', 'شويكات 5,000 ppm', 'جرعة شويكات معتدلة للتعزيز الأسبوعي بين زيارات العيادة.'),
+    t('1.25–1.5M spicules / tube', 'About 25,000–30,000 spicules per ml in the 50 ml tube.', '1,25–1,5 млн спикул / туба', 'Около 25 000–30 000 спикул на мл в тубе 50 мл.', '1.25–1.5 مليون شويكة / أنبوب', 'نحو 25,000–30,000 شويكة لكل مل في أنبوب 50 مل.'),
+    t('Weekly evening ritual', 'Use once weekly at night; expect a 6-day renewal timeline.', 'Раз в неделю вечером', 'Используйте раз в неделю вечером; цикл обновления около 6 дней.', 'طقوس مسائي أسبوعي', 'مرة أسبوعياً مساءً؛ جدول تجديد نحو 6 أيام.'),
+    t('EGF + 7 peptides', 'EGF and 7-peptide complex support collagen remodeling between visits.', 'EGF + 7 пептидов', 'EGF и комплекс из 7 пептидов поддерживают ремоделирование коллагена.', 'EGF و 7 ببتيدات', 'EGF ومركب 7 ببتيدات يدعمان إعادة تشكيل الكولاجين بين الزيارات.'),
+    t('5 ceramides barrier', 'Five ceramides plus phytosphingosine help reinforce the barrier after peel.', '5 церамидов', 'Пять церамидов и фитосфингозин укрепляют барьер после пилинга.', '5 سيراميدات', 'خمسة سيراميدات مع فايتوسفينغوزين تعزز الحاجز بعد التقشير.'),
+  ],
+  '37': [
+    t('Thermo-sensitive gel', 'Hydrogel shifts with skin temperature for closer active contact.', 'Термочувствительный гель', 'Гидрогель меняется с температурой кожи для лучшего контакта активов.', 'جل حسّاس للحرارة', 'الهيدروجيل يتغيّر مع حرارة البشرة لتماس أفضل للمكونات.'),
+    t('Instant cooling comfort', 'Post-treatment cooling mask for heat, redness and tightness feel.', 'Мгновенное охлаждение', 'Охлаждающая маска после процедур при жаре, красноте и стянутости.', 'تبريد فوري', 'ماسك مبرّد بعد العلاجات للحرارة والاحمرار والشد.'),
+    t('Peptide recovery layer', 'Peptide gel care supports a calmer, more comfortable finish.', 'Пептидное восстановление', 'Пептидный гель поддерживает более спокойный и комфортный финиш.', 'طبقة تعافٍ ببتيدية', 'عناية جل الببتيدات تدعم إنهاءً أهدأ وأكثر راحة.'),
+    t('Pairs with GENO-LED', 'Often used with red LED protocols for recovery workflows.', 'С GENO-LED', 'Часто сочетают с красным LED в протоколах восстановления.', 'مع GENO-LED', 'غالباً يُستخدم مع بروتوكولات LED الأحمر للتعافي.'),
+    t('Clinic-to-home mask', 'Useful after needling, peels or heat-based treatments.', 'Клиника и дом', 'Полезно после нидлинга, пилингов и тепловых процедур.', 'من العيادة إلى المنزل', 'مفيد بعد الإبر أو التقشير أو العلاجات الحرارية.'),
+    t('Leave-on gel format', 'Apply, allow contact time, then remove per protocol — no scrubbing.', 'Формат leave-on', 'Нанесите, выдержите контакт, снимите по протоколу без трения.', 'صيغة تُترك ثم تُزال', 'يُوضع ويُترك ثم يُزال وفق البروتوكول بلا فرك.'),
+  ],
+  '36': [
+    t('Eucalace® sheet tech', 'Ocean-inspired sheet mask designed for intensive soothing contact.', 'Технология Eucalace®', 'Тканевая маска с технологией Eucalace® для интенсивного успокоения.', 'تقنية Eucalace®', 'ماسك ورقي بتقنية Eucalace® لتهدئة مكثفة.'),
+    t('Seaweed herb complex', 'Marine botanical complex helps replenish comfort in stressed skin.', 'Комплекс морских трав', 'Морской ботанический комплекс возвращает комфорт стрессированной коже.', 'مركب أعشاب بحرية', 'مركب نباتي بحري يعيد الراحة للبشرة المجهدة.'),
+    t('Centella calm support', 'Centella extract supports recovery when skin feels hot or reactive.', 'Успокоение с центеллой', 'Центелла поддерживает восстановление при реактивности.', 'تهدئة بالقنطورية', 'مستخلص القنطورية يدعم التعافي عند الحرارة أو التهيّج.'),
+    t('Post-heat rescue mask', 'Ideal after sun, flights, peels or device treatments.', 'Маска после стресса', 'Идеальна после солнца, перелётов, пилингов и аппаратов.', 'ماسك إنقاذ بعد الحر', 'مثالي بعد الشمس أو الطيران أو التقشير أو الأجهزة.'),
+    t('Deep moisture sheet', 'Sheet occlusion helps drive soothing essence into dehydrated skin.', 'Глубокое увлажнение', 'Окклюзия ткани помогает доставить успокаивающую эссенцию.', 'ورقة ترطيب عميق', 'انسداد الورقة يساعد على إيصال الخلاصة المهدئة للبشرة الجافة.'),
+    t('Single-use intensive', 'Ready-to-use mask for targeted recovery nights.', 'Одноразовая маска', 'Готовая маска для целевых вечеров восстановления.', 'ماسك لمرة واحدة', 'ماسك جاهز لليالي التعافي المركّزة.'),
+  ],
+  '50': [
+    t('3-step eye system', 'Serum + cream + peptide gel patches for full eye-zone protocols.', 'Система из 3 шагов', 'Сыворотка + крем + пептидные патчи для зоны глаз.', 'نظام عناية ثلاثي', 'سيروم + كريم + لصقات ببتيدية لمنطقة العين.'),
+    t('Peptide dark-circle care', 'Haloxyl™ anti-dark-circle complex with multi-peptide support.', 'Уход от тёмных кругов', 'Комплекс Haloxyl™ и пептиды против тёмных кругов.', 'عناية بهالات داكنة', 'مركب Haloxyl™ مع دعم ببتيدات متعددة.'),
+    t('Eye roller delivery', 'Specialized roller increases absorption on curved under-eye zones.', 'Eye roller', 'Специальный роллер повышает впитывание на изогнутых зонах.', 'رولر العين', 'رولر متخصص يزيد الامتصاص في المناطق المنحنية.'),
+    t('Puff + wrinkle focus', 'Targets dehydration, bags, dark circles and crow’s feet together.', 'Отёки и морщины', 'Работает с обезвоживанием, мешками, кругами и гусиными лапками.', 'انتفاخ وتجاعيد', 'يستهدف الجفاف والانتفاخ والهالات وخطوط القدم.'),
+    t('Callus culture extracts', 'Botanical callus extracts support a smoother, younger-looking eye area.', 'Callus-экстракты', 'Ботанические callus-экстракты поддерживают более гладкий вид.', 'مستخلصات مزارع الخلايا', 'مستخلصات نباتية تدعم مظهراً أنعم وأصغر حول العين.'),
+    t('Clinic eye protocol kit', 'Professional kit format for systematic eye-contour treatments.', 'Клинический набор', 'Профессиональный набор для системного ухода за контуром глаз.', 'طقم بروتوكول عيادي', 'طقم مهني لعلاجات محيط العين المنهجية.'),
+  ],
+
+
+  '25': [
+    t('Post-treatment recovery', 'Specialized cream for calming skin after professional procedures.', 'Восстановление после процедур', 'Специализированный крем для успокоения кожи после профессиональных процедур.', 'تعافٍ بعد العلاجات', 'كريم متخصص لتهدئة البشرة بعد الإجراءات المهنية.'),
+    t('Centella repair complex', 'Centella-focused care helps redness and irritation settle faster.', 'Комплекс с центеллой', 'Уход с центеллой помогает быстрее снять красноту и раздражение.', 'مركب إصلاح بالقنطورية', 'عناية بالقنطورية تساعد على تهدئة الاحمرار والتهيّج أسرع.'),
+    t('Redness + edema comfort', 'Supports comfort when skin shows erythema or post-care puffiness.', 'Комфорт при красноте', 'Поддерживает комфорт при эритеме и постпроцедурной пастозности.', 'راحة من الاحمرار والتورم', 'يدعم الراحة عند الاحمرار أو الانتفاخ بعد العناية.'),
+    t('Peptide support layer', 'Peptide technology helps the skin look calmer during recovery.', 'Пептидная поддержка', 'Пептидная технология помогает более спокойному виду в период восстановления.', 'طبقة دعم ببتيدية', 'تقنية الببتيدات تساعد البشرة على مظهر أهدأ أثناء التعافي.'),
+    t('Clinic finish cream', 'Final leave-on step after needling, peels or device treatments.', 'Финишный крем клиники', 'Финальный leave-on шаг после нидлинга, пилингов и аппаратов.', 'كريم إنهاء عيادي', 'خطوة نهائية تُترك بعد الإبر أو التقشير أو الأجهزة.'),
+    t('Daily barrier seal', 'Also useful as a soothing day cream when skin feels reactive.', 'Ежедневный барьер', 'Также как успокаивающий дневной крем при реактивной коже.', 'ختم حاجز يومي', 'مفيد أيضاً ككريم مهدئ يومي عندما تكون البشرة متفاعلة.'),
+  ],
+  '38': [
+    t('CO₂ gel mask kit', 'Professional CO₂ gel system for intensive brightening and firmness protocols.', 'Набор CO₂ маски', 'Профессиональная CO₂-система для протоколов сияния и плотности.', 'طقم ماسك CO₂', 'نظام جل CO₂ مهني لبروتوكولات الإشراقة والصلابة.'),
+    t('Two-day renewal feel', 'Protocol framing targets tighter, more radiant skin across the treatment window.', 'Эффект за 2 дня', 'Протокол нацелен на более плотную и сияющую кожу в окне процедуры.', 'شعور تجديد يومين', 'الإطار البروتوكولي يستهدف بشرة أشد وأكثر إشراقاً خلال نافذة العلاج.'),
+    t('Clinic treatment format', 'Designed for professional application rather than casual daily cream use.', 'Клинический формат', 'Для профессионального нанесения, а не как обычный ежедневный крем.', 'صيغة علاج عيادية', 'مصمم للتطبيق المهني وليس ككريم يومي عادي.'),
+    t('Oil-balance focus', 'Positions skin oil balance and radiance as part of the renewal outcome.', 'Баланс себума', 'Баланс кожного жира и сияние — часть результата обновления.', 'تركيز توازن الدهون', 'يضع توازن الدهون والإشراقة ضمن نتيجة التجديد.'),
+    t('Gel activation system', 'Kit components activate together for a controlled in-clinic experience.', 'Система активации геля', 'Компоненты набора активируются вместе для контролируемого эффекта в клинике.', 'نظام تفعيل الجل', 'مكوّنات الطقم تُفعَّل معاً لتجربة مضبوطة في العيادة.'),
+    t('Professional-only workflow', 'Best used within a trained aesthetic protocol for consistent results.', 'Только профессионально', 'Лучше в обученном эстетическом протоколе для стабильного результата.', 'سير عمل مهني فقط', 'يُفضَّل ضمن بروتوكول تجميلي مدرَّب لنتائج متسقة.'),
+  ],
+  '42': [
+    t('SPF 30 / PA++ BB', 'Daily blemish balm with SPF 30 PA++ for lighter coverage days.', 'BB SPF 30 / PA++', 'Ежедневный BB с SPF 30 PA++ для более лёгкого покрытия.', 'BB SPF 30 / PA++', 'كريم BB يومي بحماية SPF 30 PA++ لأيام التغطية الأخف.'),
+    t('Tone-correcting base', 'Evens the look of imperfections while keeping a skincare-first finish.', 'База под тон', 'Выравнивает несовершенства с уходовым финишем.', 'قاعدة مصححة للون', 'يوحّد مظهر العيوب مع إنهاء عناية أولاً.'),
+    t('Everyday office SPF', 'Useful under makeup or alone for commute and indoor-outdoor days.', 'Ежедневный офисный SPF', 'Под макияж или соло для офиса и города.', 'واقي يومي للمكتب', 'مفيد تحت المكياج أو وحده للتنقل والأيام المختلطة.'),
+    t('Skincare BB hybrid', 'Coverage plus conditioning actives for a less makeup-heavy look.', 'Уходовый BB', 'Покрытие плюс уходовые активы для менее «макияжного» вида.', 'BB هجين عناية', 'تغطية مع مكوّنات عناية لمظهر أقل مكياجاً.'),
+    t('Lighter than cushion SPF', 'Choose when you want BB coverage without the SPF 50+ cushion level.', 'Легче кушона SPF 50+', 'Когда нужно BB-покрытие без уровня защиты кушона SPF 50+.', 'أخف من كوشن SPF 50+', 'اختره عندما تريد تغطية BB دون مستوى كوشن SPF 50+.'),
+    t('Daily tube format', 'Practical cream format for quick morning application.', 'Формат тубы', 'Удобный кремовый формат для быстрого утреннего нанесения.', 'صيغة أنبوب يومية', 'صيغة كريم عملية للتطبيق الصباحي السريع.'),
+  ],
+  '46': [
+    t('Scalp peel prep', 'Light scalp peeling cleanses keratin and sebum before tonic or ampoule steps.', 'Пилинг кожи головы', 'Лёгкий пилинг очищает кератин и себум перед тоником или ампулой.', 'تحضير تقشير الفروة', 'تقشير خفيف ينظّف الكيراتين والدهون قبل التونيك أو الأمبول.'),
+    t('Copper peptide cleanse', 'Copper Tripeptide-1 supports a healthier-feeling scalp environment.', 'Медный пептид', 'Copper Tripeptide-1 поддерживает более здоровую среду кожи головы.', 'تنظيف ببتيد النحاس', 'Copper Tripeptide-1 يدعم بيئة فروة أكثر صحة.'),
+    t('Saw palmetto support', 'Serenoa extract targets common scalp concerns linked to thinning.', 'Со пальметто', 'Экстракт сереноа помогает при типичных факторах прореживания.', 'دعم نخيل المنشار', 'مستخلص Serenoa يستهدف مخاوف الفروة المرتبطة بالتساقط.'),
+    t('BHA scalp refine', 'Salicylic acid helps clear residue for better treatment contact.', 'BHA для кожи головы', 'Салициловая кислота помогает очистить остатки для лучшего контакта активов.', 'تنقية BHA للفروة', 'حمض الساليسيليك يساعد على إزالة البقايا لتماس علاجي أفضل.'),
+    t('Cooling menthol refresh', 'Menthol cooling comfort after peel prep.', 'Охлаждающий ментол', 'Охлаждающий ментол после пилинг-подготовки.', 'انتعاش بالمنثول', 'راحة تبريد بالمنثول بعد تحضير التقشير.'),
+    t('Pre-microneedling step', 'Standard first step before Hair Solution + stamp protocols.', 'Шаг перед микронйдлингом', 'Стандартный первый шаг перед Hair Solution + штамп.', 'خطوة قبل الميكرونيدلينغ', 'الخطوة الأولى القياسية قبل Hair Solution والختم.'),
+  ],
+
+}
+
+export function getCatalogQuickFacts(
+  productKey: string | number | null | undefined,
+  locale: QuickFactLocale,
+): Array<{ title: string; text: string }> {
+  const key = String(productKey || '')
+  const facts = PRODUCT_QUICK_FACTS_CATALOG[key]
+  if (!facts?.length) return []
+  return facts.map(fact => ({
+    title: fact.title[locale] || fact.title.en,
+    text: fact.text[locale] || fact.text.en,
+  }))
+}
+
+export function hasCatalogQuickFacts(productKey: string | number | null | undefined) {
+  return getCatalogQuickFacts(productKey, 'en').length > 0
+}

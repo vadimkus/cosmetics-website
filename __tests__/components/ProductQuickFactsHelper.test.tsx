@@ -33,78 +33,60 @@ describe('ProductQuickFactsHelper', () => {
     mockLocale = 'en'
   })
 
-  it('shows verified sales evidence only above the display threshold', () => {
-    const { rerender } = render(
-      <ProductQuickFactsHelper
-        product={product('66', 'CERABARRIER BIOME GEL CLEANSER')}
-        unitsSold={47}
-      />
-    )
-    fireEvent.click(
-      screen.getByRole('button', { name: 'Quick facts' })
-    )
-    expect(screen.getByRole('region')).toHaveTextContent(
-      '40+ units sold through GENOSYS UAE'
-    )
-    expect(screen.getByRole('region')).not.toHaveTextContent(/best[- ]seller/i)
-
-    rerender(
-      <ProductQuickFactsHelper
-        product={product('66', 'CERABARRIER BIOME GEL CLEANSER')}
-        unitsSold={19}
-      />
-    )
-    expect(
-      screen.getByRole('button', { name: 'Quick product facts' })
-    ).toBeInTheDocument()
-  })
-
-  it('uses structured product features before description fallback', () => {
+  it('never shows units-sold popular proof in quick facts', () => {
     render(
       <ProductQuickFactsHelper
-        product={product('49', 'GENO-LED IR II', {
-          keyFeatures: JSON.stringify([
-            {
-              title: 'Four wavelengths',
-              description: 'Selectable treatment modes for professional use.',
-            },
-          ]),
-        })}
+        product={product('66', 'CERABARRIER BIOME GEL CLEANSER')}
+        unitsSold={120}
       />
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Quick product facts' }))
-    expect(screen.getByRole('region')).toHaveTextContent('Four wavelengths')
-    expect(screen.getByRole('region')).toHaveTextContent(
-      'Selectable treatment modes'
-    )
-  })
-
-  it('removes repeated claims across features and benefits', () => {
-    render(
-      <ProductQuickFactsHelper
-        product={product('25', 'SOOTHING REPAIR POSTCREAM', {
-          keyFeatures: JSON.stringify([
-            {
-              title: 'Rapid Recovery',
-              description: 'Helps skin rapidly recover after professional treatments.',
-            },
-          ]),
-          benefits: JSON.stringify([
-            'Rapid Recovery - Helps skin quickly recover from professional treatment side effects',
-            'Redness Reduction - Soothes and reduces redness and inflammation',
-          ]),
-        })}
-      />
-    )
-
-    fireEvent.click(screen.getByRole('button', { name: 'Quick product facts' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Quick facts' }))
     const region = screen.getByRole('region')
-    expect(region.querySelectorAll('h4')).toHaveLength(3)
-    expect(screen.getAllByText('Rapid Recovery')).toHaveLength(1)
-    expect(region).toHaveTextContent('Redness Reduction')
+    expect(region).not.toHaveTextContent(/units sold/i)
+    expect(region).not.toHaveTextContent(/popular with customers/i)
+    expect(region).toHaveTextContent('+145.8% post-wash hydration')
   })
 
-  it('keeps verified PDRN quick facts for Product 52', () => {
+  it('uses manual-sourced catalog facts for cushion 41', () => {
+    render(
+      <ProductQuickFactsHelper
+        product={product('41', 'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]')}
+      />
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Quick facts' }))
+    const region = screen.getByRole('region')
+    expect(region).toHaveTextContent('SPF 50+ / PA++++')
+    expect(region).toHaveTextContent('>60% moisture essence')
+    expect(region).toHaveTextContent('9 regenerating peptides')
+    expect(region).not.toHaveTextContent(/40% peptide/i)
+    expect(region).not.toHaveTextContent(/popular with customers/i)
+  })
+
+  it('does not recycle on-page benefits when catalog exists', () => {
+    render(
+      <ProductQuickFactsHelper
+        product={product('41', 'CUSHION', {
+          benefits: JSON.stringify([
+            'Popular with customers - ignore this PDP copy',
+            'Skin cover up - ignore this PDP copy',
+          ]),
+          keyFeatures: JSON.stringify([
+            {
+              title: 'Weak PDP feature',
+              description: 'Should not appear when catalog facts exist.',
+            },
+          ]),
+        })}
+      />
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Quick facts' }))
+    const region = screen.getByRole('region')
+    expect(region).not.toHaveTextContent('Weak PDP feature')
+    expect(region).not.toHaveTextContent('Skin cover up')
+    expect(region).toHaveTextContent('Triple fixing polymers')
+  })
+
+  it('keeps verified PDRN catalog facts for Product 52', () => {
     render(
       <ProductQuickFactsHelper
         product={product('52', 'SKIN REBOOT PDRN MASK PACK', {
@@ -112,21 +94,48 @@ describe('ProductQuickFactsHelper', () => {
         })}
       />
     )
-    fireEvent.click(screen.getByRole('button', { name: 'Quick product facts' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Quick facts' }))
     const region = screen.getByRole('region')
     expect(region).toHaveTextContent('Sodium DNA 1,000 ppm')
-    expect(region).toHaveTextContent('Niacinamide 2% and panthenol 1%')
+    expect(region).toHaveTextContent('TEWL improved ~35%')
     expect(region).toHaveTextContent('30 ready-to-use sheets')
   })
 
-  it('always produces useful fallback facts', () => {
+  it('falls back to ingredient actives when no catalog exists', () => {
+    render(
+      <ProductQuickFactsHelper
+        product={product('19', 'ALL FOR SENSITIVE SERUM', {
+          ingredients: JSON.stringify([
+            {
+              name: 'Centella Complex',
+              description: 'Supports post-treatment recovery comfort.',
+            },
+            {
+              name: 'Peptide Technology',
+              description: 'Helps the skin look calmer after procedures.',
+            },
+          ]),
+          benefits: JSON.stringify([
+            'Rapid Recovery - Should not be preferred over ingredients',
+          ]),
+        })}
+      />
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Quick facts' }))
+    const region = screen.getByRole('region')
+    expect(region).toHaveTextContent('Centella Complex')
+    expect(region).toHaveTextContent('Peptide Technology')
+    expect(region).not.toHaveTextContent('Rapid Recovery')
+  })
+
+  it('always produces useful fallback facts from size when needed', () => {
     render(
       <ProductQuickFactsHelper
         product={product('55', 'PROBLEM SKIN CARE BEAUTY BOX')}
       />
     )
     const section = screen.getByRole('button', {
-      name: 'Quick product facts',
+      name: 'Quick facts',
     }).closest('section')
     expect(Number(section?.getAttribute('data-product-fact-count'))).toBeGreaterThan(0)
   })

@@ -214,7 +214,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'كريم عالي الحماية من الأشعة للاستخدام اليومي.' },
       { name: 'Multi Sun Cream SPF 40', href: '/ar/products/40', image: '/images/sun/main.jpeg', imageAlt: 'GENOSYS Multi Sun Cream SPF 40', description: 'واقي يومي لطيف بقوام كريم خفيف.' },
-      { name: 'Skin Caring BB Cushion SPF 50+', href: '/ar/products/41', image: '/images/BBC.jpg', imageAlt: 'كوشن GENOSYS Skin Caring BB Cushion SPF 50+', description: 'تغطية محمولة للتجديد وتقليل مظهر الاحمرار.' },
+      { name: 'Skin Caring BB Cushion SPF 50+', href: '/ar/products/41', image: '/images/cushion/main.jpeg', imageAlt: 'كوشن GENOSYS Skin Caring BB Cushion SPF 50+', description: 'تغطية محمولة للتجديد وتقليل مظهر الاحمرار.' },
       { name: 'Intensive Blemish Balm SPF 30', href: '/ar/products/42', image: '/images/BLEM.jpg', imageAlt: 'GENOSYS Intensive Blemish Balm SPF 30', description: 'منتج تغطية يجمع تصحيح اللون مع SPF معلن.' },
     ],
     sections: [

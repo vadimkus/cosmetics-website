@@ -21,7 +21,10 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
-import { filterProductsBySearch } from '@/lib/productSearch'
+import {
+  filterProductsBySearch,
+  getProductSearchRelevance,
+} from '@/lib/productSearch'
 import { trackSearch } from '@/lib/analytics'
 import NewsletterSignup from '@/components/NewsletterSignup'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -255,6 +258,13 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
 
     // Sort products
     filtered.sort((a, b) => {
+      if (searchQuery.trim()) {
+        const relevanceDifference =
+          getProductSearchRelevance(b, searchQuery) -
+          getProductSearchRelevance(a, searchQuery)
+        if (relevanceDifference !== 0) return relevanceDifference
+      }
+
       switch (sortBy) {
         case 'name-asc':
           return a.name.localeCompare(b.name)

@@ -6,7 +6,7 @@ import { Search, X, Mic, MicOff } from 'lucide-react'
 import { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useVoiceSearch } from '@/hooks/useVoiceSearch'
-import { matchesProductSearch } from '@/lib/productSearch'
+import { filterProductsBySearch } from '@/lib/productSearch'
 import { translateCategory } from '@/utils/categoryTranslations'
 
 interface ProductSearchProps {
@@ -77,10 +77,9 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
     }
 
     if (query.length > 0) {
-      // Same tokenized, locale-agnostic matching as the main results list
-      const filtered = products
-        .filter(product => matchesProductSearch(product, query))
-        .slice(0, 5)
+      // Rank direct product-name matches above bundles or descriptions that
+      // merely mention the search term.
+      const filtered = filterProductsBySearch(products, query).slice(0, 5)
       setSuggestions(filtered)
     } else {
       setSuggestions([])

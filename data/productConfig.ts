@@ -328,7 +328,15 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '50g', label: '50g', available: true },
       { value: '250g', label: '250g', available: true }
     ],
-    images: ['/images/HER.jpg', '/images/Second/hyabig.jpg'],
+    images: [
+      '/images/hyaluron/main.jpeg',
+      '/images/hyaluron/s1.jpeg',
+      '/images/hyaluron/s2.jpeg',
+      '/images/hyaluron/s3.jpeg',
+      '/images/hyaluron/s4.jpeg',
+      '/images/hyaluron/s5.jpeg',
+      '/images/hyaluron/s6.jpeg',
+    ],
     videoUrl: '/videos/hyal_cream.mp4',
     documentation: [
       {

@@ -327,7 +327,7 @@ export const products: Product[] = [
     name: 'MOISTURE REPLENISHING HYALURON CREAM',
     price: 290,
     description: '50g (Homecare) / 250g (Professional). Long-lasting moisturizer with hyaluronic complex and various mushrooms. It is a refreshing moisturizer that strengthens moisture barrier and provides long-lasting hydration to skin with hyaluronic acid complex and various mushrooms. 4 STEP Skin Hydration: 1) When it touches the skin, natural-origin cooling agents help lower the skin temperature and make skin refreshed. 2) By stimulating the formation of aqua-porin, it opens water-transport channel, and attracts moisture to the skin with moisture magnet ingredient. 3) Low/middle molecular weight hyaluronic acids replenish moisture layer by layer form the inside of the skin. 4) High molecular weight hyaluronic acid prevents moisture evaporation by forming moisture barrier on the skin surface. Mushrooms nourish and protect skin with powerful anti-inflammatory and antioxidant properties. Clinical Study: 72-Hour Hydration Persistence. Key ingredients: Hyaluronan 11 Multi-Complex, Glyceryl Glucoside (aquaporin), PENTAVITIN™ (moisture magnet), Tremella Fuciformis, Mushroom Complex, Solanum Melongena (Eggplant) Fruit Extract, Aloe Barbadensis Flower Extract, Natural-Origin Cooling Agent (Xylitol, Erythritol). Dermatologically tested. Efficacy test on 72-hour hydration persistence.',
-    image: '/images/HER.jpg',
+    image: '/images/hyaluron/main.jpeg',
     images: null,
     category: 'Cream',
     inStock: true,

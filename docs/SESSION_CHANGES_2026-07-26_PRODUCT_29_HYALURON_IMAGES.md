@@ -25,4 +25,4 @@
 - PDP: https://genosys.ae/products/29
 - Main: https://genosys.ae/images/hyaluron/main.jpeg
 - Gallery: `/images/hyaluron/s1.jpeg` … `s6.jpeg`
-- Video unchanged: `/videos/hyal_cream.mp4`
+- Video: `/videos/hyaluron.mp4` (see SESSION_CHANGES_2026-07-26_PRODUCT_29_HYALURON_VIDEO.md)

@@ -337,7 +337,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       '/images/hyaluron/s5.jpeg',
       '/images/hyaluron/s6.jpeg',
     ],
-    videoUrl: '/videos/hyal_cream.mp4',
+    videoUrl: '/videos/hyaluron.mp4',
     documentation: [
       {
         title: 'MOISTURE REPLENISHING HYALURON CREAM Guide',

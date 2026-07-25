@@ -331,6 +331,7 @@ export const products: Product[] = [
     images: null,
     category: 'Cream',
     inStock: true,
+    videoUrl: '/videos/hyaluron.mp4',
   },
   {
     id: '30',

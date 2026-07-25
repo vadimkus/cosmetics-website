@@ -6,7 +6,7 @@
 - Form: Sky-blue watery cream · instant cool · multi-depth HA
 - Visual: white tube, **blue** product name, “with MUSHROOMS”, MHC PROFESSIONAL
 - Origin: South Korea · Dermatologically tested
-- Video: `/videos/hyal_cream.mp4`
+- Video: `/videos/hyaluron.mp4`
 - Image: `/images/hyaluron/main.jpeg` (gallery s1–s6; see SESSION_CHANGES_2026-07-26_PRODUCT_29_HYALURON_IMAGES.md)
 
 ## Sources

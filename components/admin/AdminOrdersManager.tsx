@@ -328,7 +328,39 @@ export default function AdminOrdersManager({
                           <div className="text-sm text-gray-500">{order.customerEmail}</div>
                         </td>
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap">
-                          <StatusBadge status={order.status} />
+                          {/* Fulfillment stays primary. Credit/consignment payment
+                              is a second badge — never overwrite order.status. */}
+                          <div className="flex flex-col items-start gap-1">
+                            <StatusBadge status={order.status} />
+                            {isSettlementOrder(order) && order.status !== 'CANCELLED' && (
+                              <span
+                                className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide ${
+                                  isPaid(order)
+                                    ? 'bg-emerald-100 text-emerald-800'
+                                    : isOverdue(order)
+                                      ? 'bg-red-100 text-red-800'
+                                      : 'bg-amber-100 text-amber-900'
+                                }`}
+                                title={
+                                  isPaid(order) && order.paidAt
+                                    ? `Paid ${new Date(order.paidAt).toLocaleDateString('en-GB')}`
+                                    : isCreditOrder(order) && order.paymentDueDate
+                                      ? `Due ${new Date(order.paymentDueDate).toLocaleDateString('en-GB')}`
+                                      : undefined
+                                }
+                              >
+                                {isPaid(order)
+                                  ? isCreditOrder(order)
+                                    ? 'Credit paid'
+                                    : 'Settled'
+                                  : isOverdue(order)
+                                    ? 'Credit overdue'
+                                    : isCreditOrder(order)
+                                      ? 'Credit open'
+                                      : 'Unpaid'}
+                              </span>
+                            )}
+                          </div>
                         </td>
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap text-sm text-gray-900 hidden md:table-cell">
                           {formatCurrency(order.total)}

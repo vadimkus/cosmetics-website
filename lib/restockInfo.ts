@@ -6,8 +6,7 @@
  * Remove the entry (and flip the product back to inStock) once restocked.
  */
 export const RESTOCK_NOTES: Record<string, { en: string; ru: string; ar: string }> = {
-  // POWER SOLUTION SWS — out of stock 2026-07-16, next shipment ~2 weeks
-  '8': { en: 'Available in 14 days', ru: 'Поступит через 14 дней', ar: 'متوفر خلال 14 يومًا' },
+  // POWER SOLUTION SWS (8) restocked 2026-07-26 — note removed
 }
 
 export function restockNote(productId: string | undefined, locale: string): string | null {

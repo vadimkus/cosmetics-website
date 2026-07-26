@@ -126,7 +126,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'Needle Pen-K': '/images/Needle-pen.jpg',
       'SNOW O₂ CLEANSER': '/images/cleanser/Main.jpg',
       'SNOW BOOSTER': '/images/BOOS.jpg',
-      'MULTI VITA RADIANCE CREAM': '/images/RAA.jpg',
+      'MULTI VITA RADIANCE CREAM': '/images/radiance/main.jpeg',
       'MULTI VITA RADIANCE SERUM': '/images/RADS.jpg',
       'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': '/images/MSSS.jpg',
       'ND Cell ANTI-WRINKLE CREAM': '/images/ND.jpg',

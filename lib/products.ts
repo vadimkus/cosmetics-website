@@ -247,6 +247,7 @@ export const products: Product[] = [
     category: 'Serum',
     inStock: true,
     size: '30ml',
+    videoUrl: '/videos/radiance_serum.mp4',
   },
   {
     id: '22',

@@ -245,6 +245,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '21': {
     id: '21',
     images: ['/images/RADS.jpg', '/images/Second/rd_big.jpg'],
+    videoUrl: '/videos/radiance_serum.mp4',
     pricing: {
       basePrice: 330
     },

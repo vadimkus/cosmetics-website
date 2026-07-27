@@ -84,7 +84,7 @@ const locations: Record<string, {
     name: 'رأس الخيمة',
     title: 'GENOSYS رأس الخيمة - موزع مستحضرات التجميل الكورية',
     description: 'GENOSYS الشرق الأوسط يخدم رأس الخيمة بمستحضرات التجميل الكورية الاحترافية. مكتبنا يقع في رأس الخيمة.',
-    address: 'MBAM0014 كومباس بيلدنج، طريق الشهداء، منطقة الحمرا الصناعية-FZ، رأس الخيمة، الإمارات',
+    address: 'VUET0209 مبنى كومباس، منطقة الحليلة الصناعية-FZ، رأس الخيمة، الإمارات',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
     instagram: 'https://www.instagram.com/genosys.me',

@@ -52,13 +52,14 @@ export const SOCIAL_LINKS = {
 
 // Legal / tax identity for transactional emails and receipts.
 // TRN/address/bank per the official MoySklad tax-invoice template (2026-07);
-// trade license 5023192 confirmed current by Vadim 2026-07-09 (I14330AT is
-// the old number still printed on the MoySklad template).
+// trade license 5023192 — renewed PDF 2026-07-27 (expiry 08-11-2026);
+// unit VUET0209 Al Hulaila (was MBAM0014 Al Hamra). I14330AT is the old
+// number still printed on the MoySklad template.
 export const LEGAL_INFO = {
   companyName: 'Genosys Middle East FZ-LLC',
   trn: '104229886700003',
   license: '5023192',
-  registeredAddress: 'Compass Coworking Centre, Genosys ME, Ras Al Khaimah, UAE',
+  registeredAddress: 'VUET0209, Compass Building - Al Hulaila, Al Hulaila Industrial Zone-FZ, Ras Al Khaimah, UAE',
   city: 'Dubai, United Arab Emirates',
   bankName: 'WIO Bank P.J.S.C.',
   iban: 'AE110860000009833011607',

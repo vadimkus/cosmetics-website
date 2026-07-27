@@ -201,7 +201,7 @@ export default function ContactClient() {
                     </p>
                     <div className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-2.5">
                       <PDFLinkButton
-                        href="/documents/commercial-license.pdf"
+                        href="/documents/Genosys_License.pdf"
                         filename="Genosys-Commercial-License-5023192.pdf"
                         download="Genosys-Commercial-License-5023192.pdf"
                         className="inline-flex items-center gap-1.5 text-primary-600 hover:text-primary-700 font-medium transition-colors text-[10px] md:text-sm touch-manipulation bg-white md:bg-gray-50 md:hover:bg-white px-2 py-1 md:px-3 md:py-2 rounded-md md:rounded-lg shadow-sm md:shadow-none md:border md:border-gray-200"

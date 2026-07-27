@@ -935,7 +935,7 @@ When customers ask about our legitimacy, certifications, or business registratio
 
 - **TRN Certificate** (Tax Registration): [View TRN Certificate](https://genosys.ae/documents/genosys-trn-104229886700003.pdf)
   - TRN: 104229886700003
-- **Commercial License**: [View Trade License](https://genosys.ae/documents/commercial-license.pdf)
+- **Commercial License**: [View Trade License](https://genosys.ae/documents/Genosys_License.pdf)
 - **TDRA NOC** (Telecom Regulatory Authority): [View TDRA Certificate](https://genosys.ae/documents/TDRA_NOC.pdf)
 - **Dubai Municipality Registration** (Montaji): [View Registration](https://genosys.ae/documents/Genosys_UAE_Montaji_Registration.pdf)
 - **Halal Declaration** (EN + Arabic): [View Halal Declaration](https://genosys.ae/documents/Genosys_Halal_Declaration_EN_AR.pdf)
@@ -974,7 +974,7 @@ supporting documentation, contact us at sales@genosys.ae! 😊"
 "Absolutely! GENOSYS Middle East FZ-LLC is a fully registered and licensed company in the UAE. 📋
 
 Here are our official documents:
-- 📄 [Trade License](https://genosys.ae/documents/commercial-license.pdf)
+- 📄 [Trade License](https://genosys.ae/documents/Genosys_License.pdf)
 - 🏛️ [TRN Certificate](https://genosys.ae/documents/genosys-trn-104229886700003.pdf) - TRN: 104229886700003
 - ✅ [Dubai Municipality Registration](https://genosys.ae/documents/Genosys_UAE_Montaji_Registration.pdf)
 

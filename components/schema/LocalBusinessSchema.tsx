@@ -40,7 +40,7 @@ export default function LocalBusinessSchema() {
       },
       {
         "@type": "PostalAddress",
-        "streetAddress": "MBAM0014 Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ",
+        "streetAddress": "VUET0209 Compass Building, Al Hulaila Industrial Zone-FZ",
         "addressLocality": "Ras Al Khaimah",
         "addressRegion": "Ras Al Khaimah",
         "addressCountry": "AE"

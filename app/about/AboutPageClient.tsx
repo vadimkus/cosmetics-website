@@ -96,7 +96,7 @@ export default function AboutPageClient() {
                 </div>
                 <div className={`flex items-baseline justify-between gap-3 py-1.5 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <dt className="text-gray-500 flex-shrink-0">{locale === 'ru' ? 'Лицензия' : locale === 'ar' ? 'الترخيص' : 'License'}</dt>
-                  <dd><PDFLinkButton href="/documents/commercial-license.pdf" filename="Genosys-Commercial-License-5023192.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-red-600 underline underline-offset-2 font-medium">5023192</PDFLinkButton></dd>
+                  <dd><PDFLinkButton href="/documents/Genosys_License.pdf" filename="Genosys-Commercial-License-5023192.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-red-600 underline underline-offset-2 font-medium">5023192</PDFLinkButton></dd>
                 </div>
                 <div className={`flex items-baseline justify-between gap-3 py-1.5 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <dt className="text-gray-500 flex-shrink-0">TRN</dt>
@@ -104,7 +104,7 @@ export default function AboutPageClient() {
                 </div>
                 <div className={`flex items-baseline justify-between gap-3 py-1.5 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <dt className="text-gray-500 flex-shrink-0">{locale === 'ru' ? 'Главный офис' : locale === 'ar' ? 'المكتب الرئيسي' : 'Main Office'}</dt>
-                  <dd className={`text-gray-900 font-medium ${dir === 'rtl' ? 'text-left' : 'text-right'}`}>Compass Bldg, GF, RAK</dd>
+                  <dd className={`text-gray-900 font-medium ${dir === 'rtl' ? 'text-left' : 'text-right'}`}>Compass Bldg, Al Hulaila, RAK</dd>
                 </div>
                 <div className={`flex items-baseline justify-between gap-3 py-1.5 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <dt className="text-gray-500 flex-shrink-0">{locale === 'ru' ? 'Офис в Дубае' : locale === 'ar' ? 'مكتب دبي' : 'Dubai Office'}</dt>
@@ -344,7 +344,7 @@ export default function AboutPageClient() {
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <dt className="text-gray-500 flex-shrink-0">{locale === 'ru' ? 'Лицензия' : locale === 'ar' ? 'الترخيص' : 'License'}</dt>
                     <dd className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                      <PDFLinkButton href="/documents/commercial-license.pdf" filename="Genosys-Commercial-License-5023192.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-red-600 underline underline-offset-2 decoration-red-300 hover:decoration-red-600 font-medium transition-colors">5023192</PDFLinkButton>
+                      <PDFLinkButton href="/documents/Genosys_License.pdf" filename="Genosys-Commercial-License-5023192.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-red-600 underline underline-offset-2 decoration-red-300 hover:decoration-red-600 font-medium transition-colors">5023192</PDFLinkButton>
                     </dd>
                   </div>
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -355,7 +355,7 @@ export default function AboutPageClient() {
                   </div>
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <dt className="text-gray-500 flex-shrink-0">{locale === 'ru' ? 'Главный офис' : locale === 'ar' ? 'المكتب الرئيسي' : 'HQ'}</dt>
-                    <dd className={`text-gray-900 font-medium ${dir === 'rtl' ? 'text-left' : 'text-right'}`}>Compass Bldg, GF, RAK</dd>
+                    <dd className={`text-gray-900 font-medium ${dir === 'rtl' ? 'text-left' : 'text-right'}`}>Compass Bldg, Al Hulaila, RAK</dd>
                   </div>
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <dt className="text-gray-500 flex-shrink-0">{locale === 'ru' ? 'Дубай' : locale === 'ar' ? 'دبي' : 'Dubai'}</dt>

@@ -84,7 +84,7 @@ const locations: Record<string, {
     name: 'Рас-эль-Хайма',
     title: 'GENOSYS Рас-эль-Хайма - Дистрибьютор корейской дерматокосметики',
     description: 'GENOSYS обслуживает Рас-эль-Хайму профессиональной корейской дерматокосметикой. Наш офис находится в Рас-эль-Хайме.',
-    address: 'MBAM0014 Compass Building, Al Shohada Road, AL Hamra Industrial Zone-FZ, Рас-эль-Хайма, ОАЭ',
+    address: 'VUET0209 Compass Building, Al Hulaila Industrial Zone-FZ, Рас-эль-Хайма, ОАЭ',
     phone: '+971 58 548 76 65',
     email: 'sales@genosys.ae',
     instagram: 'https://www.instagram.com/genosys.me',

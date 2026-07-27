@@ -64,23 +64,20 @@ const CATEGORY_IMAGE_OVERRIDES: Record<string, string> = {
 }
 
 /**
- * Prefer the SECOND image from the product gallery when available — those
- * are typically larger hero shots (see /public/images/Second/*). Fall back
- * to the first gallery image, then to the legacy `image` field.
+ * Prefer the product's main packshot (`image`). Gallery slides (s1/s2…) are
+ * marketing art and look wrong on the homepage category rail.
  */
 function pickCategoryImage(p: Product): string | undefined {
+  if (p.image) return p.image
   if (p.images) {
     try {
       const arr = JSON.parse(p.images) as string[]
-      if (Array.isArray(arr)) {
-        if (arr[1]) return arr[1]
-        if (arr[0]) return arr[0]
-      }
+      if (Array.isArray(arr) && arr[0]) return arr[0]
     } catch {
       /* noop */
     }
   }
-  return p.image || undefined
+  return undefined
 }
 
 function normalizeCategory(raw?: string): string {
@@ -256,6 +253,6 @@ export const getHomeData = unstable_cache(
 
     return { featured, newArrivals, categoryImages, categoryCounts, concernCounts }
   },
-  ['home-data-v7'],
+  ['home-data-v8'],
   { revalidate: 300, tags: ['products'] }
 )

@@ -9,7 +9,9 @@
  *
  * - Pure CSS/framer-motion (no new deps), works on touch + mouse + keyboard
  * - Fully localized (EN/AR/RU) with RTL support
- * - Falls back gracefully: the classic concern grid stays below this section
+ * - Desktop: centered face; idle chip list hidden (page-level concern grid below)
+ * - Mobile web: face + idle hint/chips panel unchanged
+ * - Native app has its own ConcernFaceMap — do not mirror layout changes there
  */
 
 import { useMemo, useRef, useState } from 'react'
@@ -156,15 +158,17 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-start max-w-4xl mx-auto">
+      {/* Desktop: centered face only (idle chip list lives in the page-level
+          "Shop by Skin Concern" section). Mobile web keeps face + chips panel. */}
+      <div className="grid grid-cols-1 gap-6 md:gap-8 items-start max-w-4xl mx-auto">
         {/* ==== Face with hotspots ==== */}
-        <div className="relative mx-auto w-full max-w-sm select-none">
+        <div className="relative mx-auto w-full max-w-sm md:max-w-md select-none">
           <div className="relative rounded-3xl overflow-hidden shadow-xl ring-1 ring-black/5" style={{ aspectRatio: '4 / 5' }}>
             <Image
               src="/images/face-map/face-front.jpg"
               alt="Interactive skin concern face map"
               fill
-              sizes="(max-width: 768px) 100vw, 384px"
+              sizes="(max-width: 768px) 100vw, 448px"
               className="object-cover"
               priority={false}
             />
@@ -247,8 +251,15 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
           </div>
         </div>
 
-        {/* ==== Result panel ==== */}
-        <div ref={panelRef} className="min-h-[280px] scroll-mt-24">
+        {/* ==== Result panel ====
+            Desktop: only after a zone is selected (centered under the face).
+            Mobile web: keep idle hint + quick chips beside/below the face. */}
+        <div
+          ref={panelRef}
+          className={`scroll-mt-24 md:max-w-xl md:mx-auto ${
+            activeConcerns.length > 0 ? 'min-h-0' : 'min-h-[280px] md:hidden md:min-h-0'
+          }`}
+        >
           <AnimatePresence mode="wait">
             {activeConcerns.length > 0 ? (
               <motion.div
@@ -259,7 +270,7 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
                 transition={{ duration: 0.2 }}
                 className="space-y-4"
               >
-                <p className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 text-center">
                   {COPY.zoneLabel[locale]} — <span className="text-gray-700">{activeZone?.label[locale]}</span>
                 </p>
                 {activeConcerns.map(concern => {
@@ -297,14 +308,14 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="h-full"
+                className="h-full md:hidden"
               >
                 <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50/60 p-6 text-center">
                   <span className="text-2xl block mb-2" aria-hidden>👆</span>
                   <p className="text-sm text-gray-500">{COPY.hint[locale]}</p>
                 </div>
 
-                {/* Quick chips — every concern reachable without the map */}
+                {/* Quick chips — mobile web only; desktop uses page-level concern grid */}
                 <div className="mt-5 flex flex-wrap gap-2 justify-center">
                   {CONCERN_PAGES.map(concern => {
                     const seo = seoFor(concern)

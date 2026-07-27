@@ -149,7 +149,7 @@ export default function AboutPageClient() {
                   <dd className={dir === 'rtl' ? 'text-left' : 'text-right'}>
                     <span className="text-gray-900">{t('about.dubaiMunicipality')} </span>
                     <span className="text-gray-400">·</span>{' '}
-                    <PDFLinkButton href="/documents/Genosys_UAE_Montaji_Registration.pdf" filename="Genosys_UAE_Montaji_Registration.pdf" download="Genosys_UAE_Montaji_Registration.pdf" className="text-red-600 underline underline-offset-2 font-medium">Montaji</PDFLinkButton>
+                    <PDFLinkButton href="/documents/Genosys_Product_Registration_Montaji.pdf" filename="Genosys_Product_Registration_Montaji.pdf" download="Genosys_Product_Registration_Montaji.pdf" className="text-red-600 underline underline-offset-2 font-medium">Montaji</PDFLinkButton>
                   </dd>
                 </div>
                 <div className={`flex items-baseline justify-between gap-3 py-1.5 text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -419,7 +419,7 @@ export default function AboutPageClient() {
                       <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-[11px] font-medium text-gray-700">
                         {t('about.dubaiMunicipality')}
                       </span>
-                      <PDFLinkButton href="/documents/Genosys_UAE_Montaji_Registration.pdf" filename="Genosys_UAE_Montaji_Registration.pdf" download="Genosys_UAE_Montaji_Registration.pdf" className="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-[11px] font-medium text-red-700 hover:bg-red-100 transition-colors">
+                      <PDFLinkButton href="/documents/Genosys_Product_Registration_Montaji.pdf" filename="Genosys_Product_Registration_Montaji.pdf" download="Genosys_Product_Registration_Montaji.pdf" className="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-[11px] font-medium text-red-700 hover:bg-red-100 transition-colors">
                         Montaji
                       </PDFLinkButton>
                       <PDFLinkButton href="/documents/TDRA_NOC.pdf" filename="GENOSYS-TDRA-NOC.pdf" download="GENOSYS-TDRA-NOC.pdf" className="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-[11px] font-medium text-red-700 hover:bg-red-100 transition-colors">

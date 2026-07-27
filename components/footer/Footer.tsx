@@ -485,7 +485,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="/documents/Genosys_UAE_Montaji_Registration.pdf"
+                  href="/documents/Genosys_Product_Registration_Montaji.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={colLinkClass}

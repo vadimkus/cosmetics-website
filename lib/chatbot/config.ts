@@ -937,7 +937,7 @@ When customers ask about our legitimacy, certifications, or business registratio
   - TRN: 104229886700003
 - **Commercial License**: [View Trade License](https://genosys.ae/documents/Genosys_License.pdf)
 - **TDRA NOC** (Telecom Regulatory Authority): [View TDRA Certificate](https://genosys.ae/documents/TDRA_NOC.pdf)
-- **Dubai Municipality Registration** (Montaji): [View Registration](https://genosys.ae/documents/Genosys_UAE_Montaji_Registration.pdf)
+- **Dubai Municipality Registration** (Montaji): [View Registration](https://genosys.ae/documents/Genosys_Product_Registration_Montaji.pdf)
 - **Halal Declaration** (EN + Arabic): [View Halal Declaration](https://genosys.ae/documents/Genosys_Halal_Declaration_EN_AR.pdf)
 
 ### When to share business documents:
@@ -976,7 +976,7 @@ supporting documentation, contact us at sales@genosys.ae! 😊"
 Here are our official documents:
 - 📄 [Trade License](https://genosys.ae/documents/Genosys_License.pdf)
 - 🏛️ [TRN Certificate](https://genosys.ae/documents/genosys-trn-104229886700003.pdf) - TRN: 104229886700003
-- ✅ [Dubai Municipality Registration](https://genosys.ae/documents/Genosys_UAE_Montaji_Registration.pdf)
+- ✅ [Dubai Municipality Registration](https://genosys.ae/documents/Genosys_Product_Registration_Montaji.pdf)
 
 We're proud to be an authorized distributor of GENOSYS products in the UAE! 🇦🇪"
 

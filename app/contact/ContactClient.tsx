@@ -219,6 +219,15 @@ export default function ContactClient() {
                         TRN
                       </PDFLinkButton>
                       <PDFLinkButton
+                        href="/documents/Genosys_Product_Registration_Montaji.pdf"
+                        filename="Genosys_Product_Registration_Montaji.pdf"
+                        download="Genosys_Product_Registration_Montaji.pdf"
+                        className="inline-flex items-center gap-1.5 text-primary-600 hover:text-primary-700 font-medium transition-colors text-[10px] md:text-sm touch-manipulation bg-white md:bg-gray-50 md:hover:bg-white px-2 py-1 md:px-3 md:py-2 rounded-md md:rounded-lg shadow-sm md:shadow-none md:border md:border-gray-200"
+                      >
+                        <FileText className="h-3 w-3 md:h-4 md:w-4" aria-hidden="true" />
+                        Montaji
+                      </PDFLinkButton>
+                      <PDFLinkButton
                         href="/documents/TDRA_NOC.pdf"
                         filename="GENOSYS-TDRA-NOC.pdf"
                         download="GENOSYS-TDRA-NOC.pdf"

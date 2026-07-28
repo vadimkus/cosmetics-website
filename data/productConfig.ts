@@ -266,7 +266,15 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '22': {
     id: '22',
-    images: ['/images/MSSS.jpg', '/images/Second/multiserum1.jpg'],
+    images: [
+      '/images/multif_serum/main.jpeg',
+      '/images/multif_serum/s1.jpeg',
+      '/images/multif_serum/s2.jpeg',
+      '/images/multif_serum/s3.jpeg',
+      '/images/multif_serum/s4.jpeg',
+      '/images/multif_serum/s5.jpeg',
+      '/images/multif_serum/s6.jpeg',
+    ],
     pricing: {
       basePrice: 330
     }

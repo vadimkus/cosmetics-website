@@ -109,7 +109,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton
-                href="/documents/ppt/GENOSYS%20FACIAL%20TREATMENT_Homecare_2025.pdf"
+                href="/documents/PPT/GENOSYS%20FACIAL%20TREATMENT_Homecare_2025.pdf"
                 filename="Facial Treatment Homecare 2026"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -134,7 +134,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton
-                href="/documents/ppt/GENOSYS%20FACIAL%20TREATMENT_Professional_2025.pdf"
+                href="/documents/PPT/GENOSYS%20FACIAL%20TREATMENT_Professional_2025.pdf"
                 filename="Facial Treatment Professional 2026"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -159,7 +159,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton
-                href="/documents/ppt/Achieve%20Korean%20Glass%20Skin%20with%20GENOSYS%20approach_F.pdf"
+                href="/documents/PPT/Achieve%20Korean%20Glass%20Skin%20with%20GENOSYS%20approach_F.pdf"
                 filename="Achieve Korean Glass Skin with GENOSYS approach"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -184,7 +184,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton
-                href="/documents/ppt/Bio-Meso%20PDRN%20Expert_Treatment%20guide_for%20print_S.pdf"
+                href="/documents/PPT/Bio-Meso%20PDRN%20Expert_Treatment%20guide_for%20print_S.pdf"
                 filename="Bio-Meso PDRN Expert Treatment Guide"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -230,7 +230,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf"
+                href="/documents/PPT/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -263,7 +263,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf" 
+                href="/documents/PPT/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf" 
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -297,7 +297,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf" 
+                href="/documents/PPT/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf" 
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -331,7 +331,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf" 
+                href="/documents/PPT/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf" 
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -365,7 +365,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
+                href="/documents/PPT/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -399,7 +399,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf" 
+                href="/documents/PPT/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf" 
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -433,7 +433,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf" 
+                href="/documents/PPT/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf" 
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -467,7 +467,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
+                href="/documents/PPT/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -501,7 +501,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20SERUM.pdf"
+                href="/documents/PPT/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20SERUM.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -535,7 +535,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
+                href="/documents/PPT/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -569,7 +569,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf"
+                href="/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -603,7 +603,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf"
+                href="/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -637,7 +637,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
+                href="/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -671,7 +671,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf"
+                href="/documents/PPT/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -705,7 +705,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
+                href="/documents/PPT/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -739,7 +739,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
+                href="/documents/PPT/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -773,7 +773,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/HAIR%20GENTRON.pdf"
+                href="/documents/PPT/HAIR%20GENTRON.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -807,7 +807,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf"
+                href="/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -841,7 +841,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf"
+                href="/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -875,7 +875,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
+                href="/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -909,7 +909,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENO-LED%20IR%20II_2025.pdf"
+                href="/documents/PPT/GENO-LED%20IR%20II_2025.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -943,7 +943,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
+                href="/documents/PPT/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -977,7 +977,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf"
+                href="/documents/PPT/Genosys%20Ez%20Co2%20Mask.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"
@@ -1011,7 +1011,7 @@ export default function DownloadsSection() {
                 </p>
               </div>
               <PDFDownloadButton 
-                href="/documents/ppt/Overview%20of%20Microneedling_S.pdf"
+                href="/documents/PPT/Overview%20of%20Microneedling_S.pdf"
                 filename="Product Documentation"
                 external={true}
                 className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-md hover:from-red-700 hover:to-red-800 transition-colors text-xs font-medium flex-shrink-0"

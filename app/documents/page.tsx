@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const documents = [
   { name: 'GENOSYS Business presentation', category: 'Business' },
-  { name: 'SKIN REBOOT PDRN MASK PACK', category: 'Mask' },
+  { name: 'GENOSYS SKIN REBOOT PDRN MASK PACK', category: 'Mask' },
   { name: 'GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK', category: 'Mask' },
   { name: 'GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK', category: 'Mask' },
   { name: 'GENOSYS EyeCell EYE PEPTIDE GEL PATCH', category: 'Eye Care' },
@@ -64,7 +64,7 @@ export default function DocumentsPage() {
                 {docs.map((doc) => (
                   <Link
                     key={doc.name}
-                    href={`/documents/ppt/${encodeURIComponent(doc.name + '.pdf')}`}
+                    href={`/documents/PPT/${encodeURIComponent(doc.name + '.pdf')}`}
                     className="flex items-center gap-3 p-4 rounded-lg border border-gray-200 hover:border-primary-300 hover:bg-primary-50 transition-colors group"
                   >
                     <FileText className="h-5 w-5 text-gray-400 group-hover:text-primary-600 flex-shrink-0" />

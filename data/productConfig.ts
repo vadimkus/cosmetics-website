@@ -25,7 +25,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'Microneedling Protocols (Carboxy + Power Solutions)',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS_Microneedling_Protocols.pdf',
         type: 'pdf'
       }
     ]
@@ -38,7 +38,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'Microneedling Protocols (Carboxy + Power Solutions)',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS_Microneedling_Protocols.pdf',
         type: 'pdf'
       }
     ]
@@ -52,7 +52,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'Microneedling Protocols (Carboxy + Power Solutions)',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS_Microneedling_Protocols.pdf',
         type: 'pdf'
       }
     ]
@@ -66,7 +66,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'Microneedling Protocols (Carboxy + Power Solutions)',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS_Microneedling_Protocols.pdf',
         type: 'pdf'
       }
     ]
@@ -80,7 +80,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'Microneedling Protocols (Carboxy + Power Solutions)',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS_Microneedling_Protocols.pdf',
         type: 'pdf'
       }
     ]
@@ -94,7 +94,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'Microneedling Protocols (Carboxy + Power Solutions)',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS_Microneedling_Protocols.pdf',
         type: 'pdf'
       }
     ]
@@ -122,7 +122,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'Overview of Microneedling',
-        url: 'https://genosys.ae/documents/ppt/Overview%20of%20Microneedling_S.pdf',
+        url: 'https://genosys.ae/documents/PPT/Overview%20of%20Microneedling_S.pdf',
         type: 'pdf'
       }
     ]
@@ -170,7 +170,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'EPI TURNOVER BOOSTING PEELING GEL Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf',
         type: 'pdf'
       }
     ]
@@ -184,7 +184,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'Microneedling Protocols (Carboxy + Power Solutions)',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS_Microneedling_Protocols.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS_Microneedling_Protocols.pdf',
         type: 'pdf'
       }
     ]
@@ -197,7 +197,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'MICROBIOME ENERGY INFUSING MIST Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf',
         type: 'pdf'
       }
     ]
@@ -217,7 +217,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'MOISTURE REPLENISHING HYALURON SERUM Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf',
         type: 'pdf'
       }
     ]
@@ -237,7 +237,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'INTENSIVE PROBLEM CONTROL SERUM Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20SERUM.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20SERUM.pdf',
         type: 'pdf'
       }
     ]
@@ -259,7 +259,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'MULTI VITA RADIANCE SERUM Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf',
         type: 'pdf'
       }
     ]
@@ -358,7 +358,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'MOISTURE REPLENISHING HYALURON CREAM Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf',
         type: 'pdf'
       }
     ]
@@ -404,7 +404,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'MULTI VITA RADIANCE CREAM Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf',
         type: 'pdf'
       }
     ]
@@ -432,7 +432,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'EyeCell EYE PEPTIDE GEL PATCH Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf',
         type: 'pdf'
       }
     ]
@@ -472,7 +472,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'EZ CO₂ MASK KIT Guide',
-        url: 'https://genosys.ae/documents/ppt/Genosys%20Ez%20Co2%20Mask.pdf',
+        url: 'https://genosys.ae/documents/PPT/Genosys%20Ez%20Co2%20Mask.pdf',
         type: 'pdf'
       }
     ]
@@ -495,7 +495,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'ULTRA SHIELD SUN CREAM Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf',
         type: 'pdf'
       }
     ]
@@ -530,7 +530,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'SKIN CARING BLEMISH BALM CUSHION Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf',
         type: 'pdf'
       }
     ]
@@ -550,7 +550,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'HR³ MATRIX HAIR TONIC α Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf',
         type: 'pdf'
       }
     ]
@@ -563,7 +563,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'HR³ MATRIX SCALP SHAMPOO α Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf',
         type: 'pdf'
       }
     ]
@@ -577,7 +577,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'HR³ MATRIX HAIR SOLUTION α Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf',
         type: 'pdf'
       }
     ]
@@ -590,7 +590,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'HR³ MATRIX SCALP PEELING α Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf',
         type: 'pdf'
       }
     ]
@@ -609,7 +609,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'Hair-GENTRON Guide',
-        url: 'https://genosys.ae/documents/ppt/HAIR%20GENTRON.pdf',
+        url: 'https://genosys.ae/documents/PPT/HAIR%20GENTRON.pdf',
         type: 'pdf'
       }
     ]
@@ -622,7 +622,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'GENO-LED IR II Guide',
-        url: 'https://genosys.ae/documents/ppt/GENO-LED%20IR%20II_2025.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENO-LED%20IR%20II_2025.pdf',
         type: 'pdf'
       }
     ]
@@ -636,7 +636,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'EyeCell EYE ZONE CARE KIT Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf',
         type: 'pdf'
       }
     ]
@@ -650,7 +650,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'BIO-FERMENT AGE DEFYING POWDER MASK Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf',
         type: 'pdf'
       }
     ]
@@ -664,7 +664,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'SKIN REBOOT PDRN MASK PACK Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf',
         type: 'pdf'
       }
     ]
@@ -683,7 +683,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'SKIN DEFENDER Product Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf',
         type: 'pdf'
       }
     ]
@@ -704,7 +704,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'INTENSIVE PROBLEM CONTROL TONER',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf',
         type: 'pdf'
       }
     ]
@@ -735,7 +735,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'BIO MESO PDRN EXPERT AMPOULE 60000 Guide',
-        url: '/documents/ppt/GENOSYS_BIO_MESO_PDRN_EXPERT_AMPOULE_60000.pdf',
+        url: '/documents/PPT/GENOSYS_BIO_MESO_PDRN_EXPERT_AMPOULE_60000.pdf',
         type: 'pdf'
       }
     ]
@@ -748,7 +748,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'HR³ MATRIX SCALP BRUSH Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20HR3%20MATRIX%20SCALP%20BRUSH.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20BRUSH.pdf',
         type: 'pdf'
       }
     ]
@@ -766,7 +766,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'REVITA GLOW BLEMISH BALM CREAM Guide',
-        url: '/documents/ppt/GENOSYS_REVITA_GLOW_BB_CREAM.pdf',
+        url: '/documents/PPT/GENOSYS_REVITA_GLOW_BB_CREAM.pdf',
         type: 'pdf'
       }
     ]
@@ -779,7 +779,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'Bio-Meso PDRN Line Training Manual',
-        url: '/documents/ppt/GENOSYS-Training%20manual-Bio-Meso%20PDRN%20line.pdf',
+        url: '/documents/PPT/GENOSYS-Training%20manual-Bio-Meso%20PDRN%20line.pdf',
         type: 'pdf'
       }
     ]
@@ -796,7 +796,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     documentation: [
       {
         title: 'CERABARRIER BIOME GEL CLEANSER Guide',
-        url: 'https://genosys.ae/documents/ppt/GENOSYS%20CERABARRIER%20BIOME%20GEL%20CLEANSER.pdf',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20CERABARRIER%20BIOME%20GEL%20CLEANSER.pdf',
         type: 'pdf'
       }
     ]

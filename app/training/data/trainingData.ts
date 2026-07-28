@@ -38,7 +38,7 @@ export const trainingDocuments: TrainingDocument[] = [
     id: '2',
     title: 'Home Care Guide 2026',
     description: 'Comprehensive home care guide for clients using GENOSYS products.',
-    downloadUrl: '/documents/home-care-guide-2026.pdf',
+    downloadUrl: '/documents/Genosys-Home-Care-Guide.pdf',
     fileSize: '9.8 MB',
     category: 'Training Documents'
   },
@@ -46,7 +46,7 @@ export const trainingDocuments: TrainingDocument[] = [
     id: '3',
     title: 'Professional Manual 2026',
     description: 'Professional manual for practitioners using GENOSYS products in clinical settings.',
-    downloadUrl: '/documents/professional-manual-2026.pdf',
+    downloadUrl: '/documents/Genosys-Professional-Manual.pdf',
     fileSize: '10.4 MB',
     category: 'Training Documents'
   },
@@ -54,7 +54,7 @@ export const trainingDocuments: TrainingDocument[] = [
     id: '4',
     title: 'Facial Treatment Homecare 2026',
     description: 'Detailed guide for facial treatment homecare protocols.',
-    downloadUrl: '/documents/facial-treatment-homecare-2026.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20FACIAL%20TREATMENT_Homecare_2025.pdf',
     fileSize: '8.2 MB',
     category: 'Training Documents'
   },
@@ -62,7 +62,7 @@ export const trainingDocuments: TrainingDocument[] = [
     id: '5',
     title: 'Facial Treatment Professional 2026',
     description: 'Professional facial treatment protocols and techniques.',
-    downloadUrl: '/documents/facial-treatment-professional-2026.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20FACIAL%20TREATMENT_Professional_2025.pdf',
     fileSize: '8.2 MB',
     category: 'Training Documents'
   }
@@ -73,7 +73,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '6',
     title: 'MULTI VITA RADIANCE CREAM',
     description: 'Product documentation for Multi Vita Radiance Cream.',
-    downloadUrl: '/documents/multi-vita-radiance-cream.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf',
     fileSize: '2.1 MB',
     category: 'Product Documentation'
   },
@@ -81,7 +81,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '7',
     title: 'EyeCell EYE ZONE CARE SYSTEM',
     description: 'Product documentation for EyeCell Eye Zone Care System.',
-    downloadUrl: '/documents/eyecell-eye-zone-care-system.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf',
     fileSize: '1.8 MB',
     category: 'Product Documentation'
   },
@@ -89,7 +89,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '8',
     title: 'EPI TURNOVER BOOSTING PEELING GEL',
     description: 'Product documentation for Epi Turnover Boosting Peeling Gel.',
-    downloadUrl: '/documents/epi-turnover-boosting-peeling-gel.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf',
     fileSize: '3.8 MB',
     category: 'Product Documentation'
   },
@@ -97,7 +97,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '9',
     title: 'MULTI VITA RADIANCE SERUM',
     description: 'Product documentation for Multi Vita Radiance Serum.',
-    downloadUrl: '/documents/multi-vita-radiance-serum.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf',
     fileSize: '1.5 MB',
     category: 'Product Documentation'
   },
@@ -105,7 +105,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '10',
     title: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER',
     description: 'Product documentation for Skin Defender Lip & Eye Makeup Remover.',
-    downloadUrl: '/documents/skin-defender-lip-eye-makeup-remover.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf',
     fileSize: '0.7 MB',
     category: 'Product Documentation'
   },
@@ -113,7 +113,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '11',
     title: 'MICROBIOME ENERGY INFUSING MIST',
     description: 'Product documentation for Microbiome Energy Infusing Mist.',
-    downloadUrl: '/documents/microbiome-energy-infusing-mist.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20MICROBIOME%20ENERGY%20INFUSING%20MIST.pdf',
     fileSize: '0.8 MB',
     category: 'Product Documentation'
   },
@@ -121,7 +121,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '12',
     title: 'SKIN RESCUE OVERNIGHT CREAM MASK',
     description: 'Product documentation for Skin Rescue Overnight Cream Mask.',
-    downloadUrl: '/documents/skin-rescue-overnight-cream-mask.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf',
     fileSize: '1.3 MB',
     category: 'Product Documentation'
   },
@@ -129,7 +129,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '13',
     title: 'INTENSIVE PROBLEM CONTROL TONER',
     description: 'Product documentation for Intensive Problem Control Toner.',
-    downloadUrl: '/documents/intensive-problem-control-toner.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20TONER.pdf',
     fileSize: '1.0 MB',
     category: 'Product Documentation'
   },
@@ -137,7 +137,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '14',
     title: 'ULTRA SHIELD SUN CREAM',
     description: 'Product documentation for Ultra Shield Sun Cream.',
-    downloadUrl: '/documents/ultra-shield-sun-cream.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf',
     fileSize: '0.6 MB',
     category: 'Product Documentation'
   },
@@ -145,7 +145,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '15',
     title: 'HR³ MATRIX SCALP SHAMPOO α',
     description: 'Product documentation for HR³ Matrix Scalp Shampoo α.',
-    downloadUrl: '/documents/hr3-matrix-scalp-shampoo-alpha.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf',
     fileSize: '2.3 MB',
     category: 'Product Documentation'
   },
@@ -153,7 +153,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '16',
     title: 'MOISTURE REPLENISHING HYALURON SERUM',
     description: 'Product documentation for Moisture Replenishing Hyaluron Serum.',
-    downloadUrl: '/documents/moisture-replenishing-hyaluron-serum.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf',
     fileSize: '1.9 MB',
     category: 'Product Documentation'
   },
@@ -161,7 +161,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '17',
     title: 'MOISTURE REPLENISHING HYALURON CREAM',
     description: 'Product documentation for Moisture Replenishing Hyaluron Cream.',
-    downloadUrl: '/documents/moisture-replenishing-hyaluron-cream.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf',
     fileSize: '2.0 MB',
     category: 'Product Documentation'
   },
@@ -169,7 +169,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '18',
     title: 'SKIN CARING BLEMISH BALM CUSHION',
     description: 'Product documentation for Skin Caring Blemish Balm Cushion.',
-    downloadUrl: '/documents/skin-caring-blemish-balm-cushion.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf',
     fileSize: '1.2 MB',
     category: 'Product Documentation'
   },
@@ -177,7 +177,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '19',
     title: 'EyeCell EYE PEPTIDE GEL PATCH',
     description: 'Product documentation for EyeCell Eye Peptide Gel Patch.',
-    downloadUrl: '/documents/eyecell-eye-peptide-gel-patch.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20EyeCell%20EYE%20PEPTIDE%20GEL%20PATCH.pdf',
     fileSize: '1.4 MB',
     category: 'Product Documentation'
   },
@@ -185,7 +185,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '20',
     title: 'BIO-FERMENT AGE DEFYING POWDER MASK',
     description: 'Product documentation for Bio-Ferment Age Defying Powder Mask.',
-    downloadUrl: '/documents/bio-ferment-age-defying-powder-mask.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20BIO-FERMENT%20AGE%20DEFYING%20POWDER%20MASK.pdf',
     fileSize: '2.1 MB',
     category: 'Product Documentation'
   },
@@ -193,7 +193,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '21',
     title: 'HAIR GENTRON',
     description: 'Product documentation for Hair Gentron.',
-    downloadUrl: '/documents/hair-gentron.pdf',
+    downloadUrl: '/documents/PPT/HAIR%20GENTRON.pdf',
     fileSize: '1.8 MB',
     category: 'Product Documentation'
   },
@@ -201,7 +201,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '22',
     title: 'HR³ MATRIX HAIR SOLUTION α',
     description: 'Product documentation for HR³ Matrix Hair Solution α.',
-    downloadUrl: '/documents/hr3-matrix-hair-solution-alpha.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20SOLUTION%20ALPHA.pdf',
     fileSize: '2.3 MB',
     category: 'Product Documentation'
   },
@@ -209,7 +209,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '23',
     title: 'HR³ MATRIX HAIR TONIC α',
     description: 'Product documentation for HR³ Matrix Hair Tonic α.',
-    downloadUrl: '/documents/hr3-matrix-hair-tonic-alpha.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20HAIR%20TONIC%20ALPHA.pdf',
     fileSize: '1.9 MB',
     category: 'Product Documentation'
   },
@@ -217,7 +217,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '24',
     title: 'HR³ MATRIX SCALP PEELING α',
     description: 'Product documentation for HR³ Matrix Scalp Peeling α.',
-    downloadUrl: '/documents/hr3-matrix-scalp-peeling-alpha.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20PEELING%20ALPHA.pdf',
     fileSize: '2.1 MB',
     category: 'Product Documentation'
   },
@@ -225,7 +225,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '25',
     title: 'GENO-LED IR II',
     description: 'Product documentation for Geno-Led IR II.',
-    downloadUrl: '/documents/geno-led-ir-ii.pdf',
+    downloadUrl: '/documents/PPT/GENO-LED%20IR%20II_2025.pdf',
     fileSize: '4.6 MB',
     category: 'Product Documentation'
   },
@@ -233,7 +233,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '26',
     title: 'SKIN REBOOT PDRN MASK PACK',
     description: 'Product documentation for Skin Reboot PDRN Mask Pack.',
-    downloadUrl: '/documents/skin-reboot-pdrn-mask-pack.pdf',
+    downloadUrl: '/documents/PPT/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf',
     fileSize: '1.2 MB',
     category: 'Product Documentation'
   },
@@ -241,7 +241,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '27',
     title: 'EZ CO₂ MASK KIT',
     description: 'Product documentation for EZ CO₂ Mask Kit.',
-    downloadUrl: '/documents/ez-co2-mask-kit.pdf',
+    downloadUrl: '/documents/PPT/Genosys%20Ez%20Co2%20Mask.pdf',
     fileSize: '0.5 MB',
     category: 'Product Documentation'
   },
@@ -249,7 +249,7 @@ export const productDocuments: TrainingDocument[] = [
     id: '28',
     title: 'Microneedle Roller',
     description: 'Product documentation for Microneedle Roller.',
-    downloadUrl: '/documents/microneedle-roller.pdf',
+    downloadUrl: '/documents/PPT/Overview%20of%20Microneedling_S.pdf',
     fileSize: '1.5 MB',
     category: 'Product Documentation'
   }

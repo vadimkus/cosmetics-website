@@ -1,52 +1,41 @@
 import { notFound } from 'next/navigation'
+import { promises as fs } from 'fs'
+import path from 'path'
 import PDFViewerClient from '@/components/PDFViewerClient'
 
 interface PageProps {
   params: Promise<{ filename: string }>
 }
 
+async function resolvePdf(filename: string) {
+  const decodedFilename = decodeURIComponent(filename)
+  const isSafeName =
+    !decodedFilename.includes('..') &&
+    !decodedFilename.includes('/') &&
+    decodedFilename.toLowerCase().endsWith('.pdf')
+  if (!isSafeName) return null
+
+  const filePath = path.join(process.cwd(), 'public', 'documents', 'PPT', decodedFilename)
+  try {
+    await fs.access(filePath)
+    return decodedFilename
+  } catch {
+    return null
+  }
+}
+
 export default async function PDFViewerPage({ params }: PageProps) {
   const { filename } = await params
-  
-  // Decode the filename from URL encoding
-  const decodedFilename = decodeURIComponent(filename)
-  
-  // List of valid PDF files
-  const validPDFs = [
-    'GENOSYS Business presentation.pdf',
-    'SKIN REBOOT PDRN MASK PACK.pdf',
-    'GENOSYS HR3 MATRIX SCALP PEELING ALPHA.pdf',
-    'GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK.pdf',
-    'GENOSYS EPI TURNOVER BOOSTING PEELING GEL.pdf',
-    'GENOSYS EyeCell EYE PEPTIDE GEL PATCH.pdf',
-    'GENOSYS EyeCell EYE ZONE CARE SYSTEM.pdf',
-    'GENOSYS HR3 MATRIX HAIR SOLUTION ALPHA.pdf',
-    'GENOSYS HR3 MATRIX HAIR TONIC ALPHA.pdf',
-    'GENOSYS HR3 MATRIX SCALP PEELING ALPHA.pdf',
-    'GENOSYS HR3 MATRIX SCALP SHAMPOO ALPHA.pdf',
-    'GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf',
-    'GENOSYS INTENSIVE PROBLEM CONTROL SERUM.pdf',
-    'GENOSYS MICROBIOME ENERGY INFUSING MIST.pdf',
-    'GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf',
-    'GENOSYS MOISTURE REPLENISHING HYALURON SERUM.pdf',
-    'GENOSYS MULTI VITA RADIANCE CREAM.pdf',
-    'GENOSYS MULTI VITA RADIANCE SERUM.pdf',
-    'GENOSYS SKIN CARING BLEMISH BALM CUSHION.pdf',
-    'GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER.pdf',
-    'GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pdf',
-    'GENOSYS ULTRA SHIELD SUN CREAM.pdf',
-    'HAIR GENTRON.pdf'
-  ]
-  
-  // Check if the requested PDF is valid
-  if (!validPDFs.includes(decodedFilename)) {
+  const decodedFilename = await resolvePdf(filename)
+
+  if (!decodedFilename) {
     notFound()
   }
-  
-  const pdfUrl = `/documents/ppt/${encodeURIComponent(decodedFilename)}`
-  
+
+  const pdfUrl = `/documents/PPT/${encodeURIComponent(decodedFilename)}`
+
   return (
-    <PDFViewerClient 
+    <PDFViewerClient
       filename={decodedFilename}
       pdfUrl={pdfUrl}
     />
@@ -56,7 +45,7 @@ export default async function PDFViewerPage({ params }: PageProps) {
 export async function generateMetadata({ params }: PageProps) {
   const { filename } = await params
   const decodedFilename = decodeURIComponent(filename)
-  
+
   return {
     title: `${decodedFilename.replace('.pdf', '')} - Genosys Middle East FZ-LLC`,
     description: `View ${decodedFilename} from Genosys Middle East FZ-LLC`,

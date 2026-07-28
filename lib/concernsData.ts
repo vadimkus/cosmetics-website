@@ -90,7 +90,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
     categoryFallbacks: ['sun', 'cushion bb'],
     relatedConcerns: ['pigmentation', 'sensitivity', 'anti-aging'],
     protocolPdf: {
-      url: '/documents/ppt/Protocol_sun.pdf',
+      url: '/documents/PPT/Protocol_sun.pdf',
       title: {
         en: 'Daily Sun Protection Routine',
         ar: 'روتين الحماية اليومية من الشمس',
@@ -451,7 +451,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
     categoryFallbacks: [],
     relatedConcerns: ['scars-treatment', 'pigmentation', 'sensitivity'],
     protocolPdf: {
-      url: '/documents/ppt/Protocol_acne.pdf',
+      url: '/documents/PPT/Protocol_acne.pdf',
       title: {
         en: 'Acne & Blemish Home Care Protocol',
         ar: 'بروتوكول العناية المنزلية لحب الشباب والبثور',
@@ -793,7 +793,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
     categoryFallbacks: [],
     relatedConcerns: ['sun-protection', 'anti-aging', 'acne-treatment'],
     protocolPdf: {
-      url: '/documents/ppt/Protocol_Pigmentation.pdf',
+      url: '/documents/PPT/Protocol_Pigmentation.pdf',
       title: {
         en: 'Pigmentation & Brightening Home Care Protocol',
         ar: 'بروتوكول العناية المنزلية بالتصبغات وتفتيح البشرة',
@@ -1138,7 +1138,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
     categoryFallbacks: [],
     relatedConcerns: ['acne-treatment', 'pigmentation', 'anti-aging'],
     protocolPdf: {
-      url: '/documents/ppt/Protocol_scar.pdf',
+      url: '/documents/PPT/Protocol_scar.pdf',
       title: {
         en: 'Scar Treatment & Skin Repair Home Care Protocol',
         ar: 'بروتوكول العناية المنزلية بعلاج الندبات وإصلاح البشرة',
@@ -1450,7 +1450,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
     categoryFallbacks: [],
     relatedConcerns: ['sensitivity', 'anti-aging'],
     protocolPdf: {
-      url: '/documents/ppt/Protocol_Hair_Loss.pdf',
+      url: '/documents/PPT/Protocol_Hair_Loss.pdf',
       title: {
         en: 'Hair Loss & Scalp Care Home Protocol',
         ar: 'بروتوكول العناية المنزلية بتساقط الشعر وفروة الرأس',
@@ -1747,7 +1747,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
     categoryFallbacks: [],
     relatedConcerns: ['hydration', 'pigmentation', 'sun-protection'],
     protocolPdf: {
-      url: '/documents/ppt/Protocol_Anti-Aging.pdf',
+      url: '/documents/PPT/Protocol_Anti-Aging.pdf',
       title: {
         en: 'Anti-Aging & Wrinkle Home Care Protocol',
         ar: 'بروتوكول العناية المنزلية لمكافحة الشيخوخة والتجاعيد',
@@ -2095,7 +2095,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
     categoryFallbacks: [],
     relatedConcerns: ['sensitivity', 'anti-aging', 'sun-protection'],
     protocolPdf: {
-      url: '/documents/ppt/Protocol_Hydration_Treatment.pdf',
+      url: '/documents/PPT/Protocol_Hydration_Treatment.pdf',
       title: {
         en: 'Hydration & Moisture Barrier Home Care Protocol',
         ar: 'بروتوكول العناية المنزلية بالترطيب وحاجز الرطوبة',
@@ -2419,7 +2419,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
     categoryFallbacks: [],
     relatedConcerns: ['hydration', 'sun-protection', 'acne-treatment'],
     protocolPdf: {
-      url: '/documents/ppt/Protocol_Sensitive.pdf',
+      url: '/documents/PPT/Protocol_Sensitive.pdf',
       title: {
         en: 'Sensitive Skin Home Care Protocol',
         ar: 'بروتوكول العناية المنزلية بالبشرة الحساسة',

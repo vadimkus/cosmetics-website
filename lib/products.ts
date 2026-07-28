@@ -375,6 +375,7 @@ export const products: Product[] = [
     category: 'Cream',
     inStock: true,
     size: '50g',
+    videoUrl: '/videos/multif_cream.mp4',
   },
   {
     id: '33',

@@ -411,6 +411,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '32': {
     id: '32',
+    videoUrl: '/videos/multif_cream.mp4',
     pricing: {
       basePrice: 290,
       sizeVariants: {

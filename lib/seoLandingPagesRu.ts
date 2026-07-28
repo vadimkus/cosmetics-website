@@ -21,7 +21,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'Гель для умывания GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Мягкое ежедневное очищение с акцентом на сохранение кожного барьера.' },
-      { name: 'Multi Vita Radiance Serum', href: '/ru/products/21', image: '/images/RADS.jpg', imageAlt: 'Сыворотка GENOSYS Multi Vita Radiance Serum', description: 'Целевой осветляющий этап при неровном тоне и тусклости.' },
+      { name: 'Multi Vita Radiance Serum', href: '/ru/products/21', image: '/images/radiance_serum/main.jpeg', imageAlt: 'Сыворотка GENOSYS Multi Vita Radiance Serum', description: 'Целевой осветляющий этап при неровном тоне и тусклости.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/BRR.jpg', imageAlt: 'Крем GENOSYS Skin Barrier Protecting Cream', description: 'Поддержка сухой и перегруженной кожи с церамидами и аминокислотами.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'Солнцезащитный крем GENOSYS Ultra Shield SPF 50+', description: 'Высокая ежедневная защита от ультрафиолета в нежирной кремовой текстуре.' },
     ],

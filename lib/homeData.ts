@@ -48,7 +48,7 @@ export const HOME_CATEGORY_SLUGS = [
 const CATEGORY_PREFERRED_PRODUCT_IDS: Record<string, string> = {
   microneedling: '1', // Microneedle Roller
   'pro-solution': '4', // POWER SOLUTION HES — has a large "hes_big1" shot
-  serum: '21', // MULTI VITA RADIANCE SERUM — large "rd_big" shot
+  serum: '21', // MULTI VITA RADIANCE SERUM — radiance_serum/main.jpeg
   cream: '32', // MULTI FUNCTIONAL ANTI-WRINKLE CREAM — clearer Cream tile product
   mask: '36', // SOOTHING BOMB SEA ALGAE MASK — has a large shot
   sun: '39', // ULTRA SHIELD SUN CREAM SPF 50+ — has large shot
@@ -253,6 +253,6 @@ export const getHomeData = unstable_cache(
 
     return { featured, newArrivals, categoryImages, categoryCounts, concernCounts }
   },
-  ['home-data-v8'],
+  ['home-data-v9'],
   { revalidate: 300, tags: ['products'] }
 )

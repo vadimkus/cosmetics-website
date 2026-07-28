@@ -21,7 +21,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'منظف GENOSYS Cerabarrier Biome Gel Cleanser', description: 'منظف يومي قليل الرغوة لروتين يراعي حاجز البشرة.' },
-      { name: 'Multi Vita Radiance Serum', href: '/ar/products/21', image: '/images/RADS.jpg', imageAlt: 'سيروم GENOSYS Multi Vita Radiance Serum', description: 'خطوة تفتيح موجّهة لمظهر اللون غير المتجانس والبهتان.' },
+      { name: 'Multi Vita Radiance Serum', href: '/ar/products/21', image: '/images/radiance_serum/main.jpeg', imageAlt: 'سيروم GENOSYS Multi Vita Radiance Serum', description: 'خطوة تفتيح موجّهة لمظهر اللون غير المتجانس والبهتان.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/BRR.jpg', imageAlt: 'كريم GENOSYS Skin Barrier Protecting Cream', description: 'دعم للبشرة الجافة أو المجهدة بالسيراميد والأحماض الأمينية.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'واقي GENOSYS Ultra Shield SPF 50+', description: 'حماية يومية عالية من الأشعة بتركيبة كريم غير دهنية.' },
     ],

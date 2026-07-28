@@ -231,3 +231,14 @@ veo3 "Cinematic product closing shot, 1:1 square. A dark charcoal translucent gl
 ## Pairing
 Cream **32** = same Bakuchiol line (50g / 250g). Serum first, cream seal.  
 Do not confuse with Multi Vita serum **21** (MELAZERO®) or ND Cell neck cream **23**.
+
+## Bug fixes (2026-07-28)
+1. **How to use was wrong (evening-only)** — DB + AR/RU said “once daily, preferably evening”. Artwork + brand deck = **morning & evening**; Bakuchiol photostable.  
+   - Live DB `howToUse` / `directions` / `keyFeatures` updated via `scripts/fix-product-22-bakuchiol-copy-20260728.ts --apply`  
+   - `data/productTranslations.ts` + `productTranslationsRu.ts` frequency/directions aligned
+2. **Pairing copy day/night split** — `pc22Benefit2` / `pc32Benefit2` (web + mobile EN/AR/RU) said serum=day / cream=night. Fixed to **AM & PM layering** + SPF.
+3. **Chatbot Bakuchiol “pregnancy-safe”** — removed from `docs/CHATBOT_KNOWLEDGE.md` (artwork does not clear pregnancy use).
+4. Softened absolute “clinically proven / without irritation” wording in DB keyFeatures/directions toward studied / typically gentler.
+
+## Instagram caption
+- Not yet delivered for product 22 (ask when ready).

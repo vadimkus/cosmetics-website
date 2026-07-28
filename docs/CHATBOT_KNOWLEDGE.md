@@ -358,7 +358,7 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 
 | Ingredient | Category | Key Benefits |
 |------------|----------|--------------|
-| Bakuchiol | Retinol Alternative | Collagen boost, pregnancy-safe, no irritation |
+| Bakuchiol | Retinol Alternative | Collagen support, photostable retinol alternative; do not claim pregnancy-safe unless artwork/label allows |
 | Squalane | Moisture | Lightweight, non-comedogenic, all skin types |
 | Allantoin | Soother | Wound healing, irritation calming |
 | Panthenol (B5) | Healer | Hydration, barrier repair, wound healing |

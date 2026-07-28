@@ -275,6 +275,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       '/images/multif_serum/s5.jpeg',
       '/images/multif_serum/s6.jpeg',
     ],
+    videoUrl: '/videos/multif_serum.mp4',
     pricing: {
       basePrice: 330
     }

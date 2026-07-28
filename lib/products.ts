@@ -266,6 +266,7 @@ export const products: Product[] = [
     ]),
     category: 'Serum',
     inStock: true,
+    videoUrl: '/videos/multif_serum.mp4',
   },
   {
     id: '23',

@@ -43,7 +43,9 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
 
   const productUrl = canonicalUrl ?? `${SITE_URL}/products/${product.id}`
   const productName = getLocalizedProductName(product, locale)
-  const productDescription = getLocalizedProductDescription(product, locale)
+  const productDescription =
+    getLocalizedProductDescription(product, locale).trim() ||
+    `${productName} — GENOSYS professional Korean dermacosmetics.`
   const targetConcerns = parseStringArray(product.targetConcerns)
   const productImages = getProductImageUrls(product)
 

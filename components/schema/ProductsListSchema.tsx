@@ -43,7 +43,9 @@ export default function ProductsListSchema({ products, category }: ProductsListS
           "item": {
             "@type": "Product",
             "name": product.name,
-            "description": product.description,
+            "description":
+              (product.description || '').trim() ||
+              `${product.name} — GENOSYS professional Korean dermacosmetics.`,
             "image": getProductImageUrls(product),
             "brand": {
               "@type": "Brand",

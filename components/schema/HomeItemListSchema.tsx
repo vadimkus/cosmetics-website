@@ -23,9 +23,10 @@ import type { Locale } from '@/lib/i18n'
  * Localized — the URLs and names honor `/ar` / `/ru` prefixes so each locale
  * homepage gets its own ItemList pointing at its own URLs.
  *
- * Featured items include `offers` with live DB price — Google Search Console
- * flags any `@type: Product` whose offers lack `price` as a CRITICAL Product
- * snippets error (reported against https://genosys.ae/ on 2026-07-11).
+ * Featured items include a complete Offer for Merchant listings:
+ *   - `price` / `priceValidUntil` (critical Product snippets — fixed 2026-07-11)
+ *   - `shippingDetails` + `hasMerchantReturnPolicy` + Product `description`
+ *     (non-critical Merchant listings — fixed 2026-07-28)
  * Products without a valid price (price ≤ 0 or price-on-request) are emitted
  * as URL-only ListItems, which is Google's recommended summary-page pattern.
  */
@@ -140,9 +141,14 @@ export default function HomeItemListSchema({
     // specified (in 'offers')" is a critical Product snippets error).
     // Price-on-request / unpriced products stay as URL-only ListItems.
     if (product.price && product.price > 0 && !product.isPriceOnRequest) {
+      const productName = localizedProductName(product, locale)
+      const description =
+        (product.description || '').trim() ||
+        `${productName} — GENOSYS professional Korean dermacosmetics.`
       const nested: Record<string, unknown> = {
         '@type': 'Product',
-        name: localizedProductName(product, locale),
+        name: productName,
+        description,
         url: productUrl,
         brand: { '@type': 'Brand', name: 'GENOSYS' },
         offers: {
@@ -155,6 +161,44 @@ export default function HomeItemListSchema({
             : 'https://schema.org/OutOfStock',
           itemCondition: 'https://schema.org/NewCondition',
           url: productUrl,
+          // Merchant listings (non-critical GSC): shipping + return policy required
+          // on Offer for Google Shopping / free product listings eligibility.
+          hasMerchantReturnPolicy: {
+            '@type': 'MerchantReturnPolicy',
+            applicableCountry: 'AE',
+            returnPolicyCategory:
+              'https://schema.org/MerchantReturnFiniteReturnWindow',
+            merchantReturnDays: 14,
+            returnMethod: 'https://schema.org/ReturnByMail',
+            returnFees: 'https://schema.org/FreeReturn',
+          },
+          shippingDetails: {
+            '@type': 'OfferShippingDetails',
+            shippingRate: {
+              '@type': 'MonetaryAmount',
+              value: '45',
+              currency: 'AED',
+            },
+            shippingDestination: {
+              '@type': 'DefinedRegion',
+              addressCountry: 'AE',
+            },
+            deliveryTime: {
+              '@type': 'ShippingDeliveryTime',
+              handlingTime: {
+                '@type': 'QuantitativeValue',
+                minValue: 0,
+                maxValue: 1,
+                unitCode: 'DAY',
+              },
+              transitTime: {
+                '@type': 'QuantitativeValue',
+                minValue: 0,
+                maxValue: 2,
+                unitCode: 'DAY',
+              },
+            },
+          },
         },
       }
       const img = productImage(product)

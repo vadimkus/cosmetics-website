@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟢 **SEO** | [SESSION_CHANGES_2026-07-28_GSC_MERCHANT_LISTINGS_SCHEMA.md](./SESSION_CHANGES_2026-07-28_GSC_MERCHANT_LISTINGS_SCHEMA.md) | **GSC Merchant listings** — homepage nested Products now emit `description` + `offers.shippingDetails` + `offers.hasMerchantReturnPolicy`; collection/list/PDP always have non-empty description. |
 | 🔴 **Payment incident** | [Mobile card payment contact-email fix](./SESSION_CHANGES_2026-07-21_MOBILE_CARD_PAYMENT_CONTACT_EMAIL_FIX.md) | Fixes native Stripe Payment Sheet startup for accounts using a separate contact email by preserving the canonical login email required by the order foreign key. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-27_MONTAJI_LETTER_CERABARRIER.md](./SESSION_CHANGES_2026-07-27_MONTAJI_LETTER_CERABARRIER.md) | **Montaji Letter.docx** — ingested **73** registered products; added **Cerabarrier Biome Gel Cleanser 200ml / 600ml** (`8809849809834` / `8809849809841`); reg#/dates left blank for user. |
 | 🟡 **Important** | [SESSION_CHANGES_2026-07-24_DESKTOP_16072026_FOLDER_INGEST.md](./SESSION_CHANGES_2026-07-24_DESKTOP_16072026_FOLDER_INGEST.md) | **Desktop `16072026` ingest** — Korea air **DM GME 260710**: USD **13,383** / 35 lines; AWB **176-6176-3914** (23 Jul, 14 pkgs); BOE **101-01290285-26**; Montaji **`Air.xlsx`** with **20 core barcodes** (testers left manual). |

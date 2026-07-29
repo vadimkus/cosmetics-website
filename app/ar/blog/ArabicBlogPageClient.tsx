@@ -91,13 +91,13 @@ export default function ArabicBlogPageClient({ posts }: ArabicBlogPageClientProp
                   className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
                 >
                   {post.featuredImage && (
-                    <div className="relative h-48 w-full">
+                    <div className="relative h-48 w-full bg-gray-50">
                       <Image
                         src={post.featuredImage}
                         alt={`${post.titleAr || post.title} - مقال مدونة GENOSYS للعناية بالبشرة الكورية`}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover"
+                        className="object-contain"
                       />
                     </div>
                   )}

@@ -165,7 +165,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                         fill
                         priority
                         sizes="(max-width: 1024px) 100vw, 58vw"
-                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
                       />
                     </div>
                   )}
@@ -239,7 +239,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
                             fill
                             loading={idx <= 2 ? 'eager' : 'lazy'}
                             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                            className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
                           />
                         </div>
                       )}

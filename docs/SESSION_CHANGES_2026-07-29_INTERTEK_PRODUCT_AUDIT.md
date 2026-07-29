@@ -72,7 +72,7 @@
 | INTENSIVE HYDRO SOOTHING (28) | 0 | 1 | 1 | Snail trace toned down; usage evening → morning-evening |
 | SOOTHING REPAIR POSTCREAM (25) | 1 | 0 | 0 | REVERTED — both sizes real, sold as variants (20g=204 AED default / 100g=440 AED) |
 | SKIN BARRIER PROTECTING (27) | 1 | 2 | 0 | Fixed (above) |
-| INTENSIVE PROBLEM CONTROL (30) | 0 | 1 | 1 | Added "lightweight gel-cream texture" (gel formulation, no emollients) |
+| INTENSIVE PROBLEM CONTROL (30) | 0 | 1 | 1 | REVERTED — "gel-cream" texture note removed; user confirms it is a cream (formula-based texture inference was wrong) |
 | ND Cell ANTI-WRINKLE (23) | 0 | 1 | 1 | "Botox-like" removed (Acetyl Hexapeptide-8 at 0.000025%, ~100× below functional threshold) |
 | EGF REPAIR OXYMASK (26) | 2 | 1 | 0 | Fixed (above) |
 

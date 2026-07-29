@@ -27,7 +27,7 @@
 - **BIO MESO PDRN AMPOULE 60000 (60) / PDRN HOMECARE AMPOULE 5000 (65):** fixed PDRN concentration misattribution and wording.
 
 ### Batch 2 — Creams (full report below)
-- **SOOTHING REPAIR POSTCREAM (25):** size field aligned to the listed price — site listing at 204 AED = **100g professional** tube (UAE price list: 20g Personal 102 AED / 100g Professional 220 AED). **Correction (user-confirmed, with product photo): the product is genuinely sold in BOTH sizes** — 20g homecare and 100g professional. The "20g" COA filename was NOT a clerical error. `productDetails.size` already reads "20g (Homecare) / 100g (Professional)" in EN/AR/RU; fallback description now notes both sizes.
+- **SOOTHING REPAIR POSTCREAM (25):** **final resolution (user-confirmed with product photo + variant selector):** the product is sold in BOTH sizes via DB variants — **20g = 204 AED (default)** and **100g = 440 AED** (exactly 2× the UAE clinic price list of 102/220 AED = standard retail markup). The original "20g" base size was CORRECT all along; the audit's 20g→100g change was reverted. Base `size` field = "20g" (default variant), descriptions note both sizes. The "20g" COA filename was NOT a clerical error.
 - **MOISTURE REPLENISHING HYALURON CREAM (29):** removed invented "72-hour hydration persistence / clinically proven" (no study cert in file; artwork says only "DERMATOLOGICALLY TESTED"); "Hyaluronan 11 Multi-Complex" → multi-molecular HA complex (8 forms — "11" appears only in Korean marketing text, never in English docs); "4-step" → multi-level.
 - **EGF REPAIR OXYMASK CREAM (26, hidden):** sh-Oligopeptide-1 at 0.00001% (0.1 ppb) and Madecassoside at 0.0001% (1 ppm) — both non-functional trace; reframed story around the real hero: oxygen bubbling technology (Methyl Perfluoroisobutyl Ether 5%).
 - **SKIN BARRIER PROTECTING CREAM (27):** removed "Enriched Ceramide / high concentration" (Ceramide NP is trace); replaced unverified "MultiEx BSASM® Plus" branding with NMF amino acid complex; removed "clinically proven" directions.
@@ -70,7 +70,7 @@
 | MULTI FUNCTIONAL ANTI-WRINKLE (32) | 0 | 1 | 1 | Collagen/Elastin trace overpromised → reframed as "Hydrolyzed … ECM support" |
 | MOISTURE REPLENISHING HYALURON (29) | 2 | 1 | 0 | Fixed (above) |
 | INTENSIVE HYDRO SOOTHING (28) | 0 | 1 | 1 | Snail trace toned down; usage evening → morning-evening |
-| SOOTHING REPAIR POSTCREAM (25) | 1 | 0 | 0 | Size aligned to listed price (100g prof.); both 20g + 100g sizes exist (user-confirmed) |
+| SOOTHING REPAIR POSTCREAM (25) | 1 | 0 | 0 | REVERTED — both sizes real, sold as variants (20g=204 AED default / 100g=440 AED) |
 | SKIN BARRIER PROTECTING (27) | 1 | 2 | 0 | Fixed (above) |
 | INTENSIVE PROBLEM CONTROL (30) | 0 | 1 | 1 | Added "lightweight gel-cream texture" (gel formulation, no emollients) |
 | ND Cell ANTI-WRINKLE (23) | 0 | 1 | 1 | "Botox-like" removed (Acetyl Hexapeptide-8 at 0.000025%, ~100× below functional threshold) |

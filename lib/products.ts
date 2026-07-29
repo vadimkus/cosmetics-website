@@ -293,7 +293,7 @@ export const products: Product[] = [
     id: '25',
     name: 'SOOTHING REPAIR POSTCREAM',
     price: 204,
-    description: '100g. Regenerating cream for healthy skin recovery after professional treatment. It is a regenerating cream that promotes skin recovery after professional treatment. It helps irritated skin rapidly recover from redness, erythema and edema after the dermatological operations or any other irritations and promotes healthy rejuvenation. Key ingredients: sh-Polypeptide-7, Centella Complex (Asiaticoside, Madecassic Acid, Asiatic Acid), Dipotassium Glycyrrhizate, Panthenol, Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Scutellaria Baicalensis Root Extract. Dermatologically tested. Efficacy test on protection of the skin against damage induced by physical stimuli.',
+    description: '100g professional size (also available in 20g homecare). Regenerating cream for healthy skin recovery after professional treatment. It is a regenerating cream that promotes skin recovery after professional treatment. It helps irritated skin rapidly recover from redness, erythema and edema after the dermatological operations or any other irritations and promotes healthy rejuvenation. Key ingredients: sh-Polypeptide-7, Centella Complex (Asiaticoside, Madecassic Acid, Asiatic Acid), Dipotassium Glycyrrhizate, Panthenol, Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Scutellaria Baicalensis Root Extract. Dermatologically tested. Efficacy test on protection of the skin against damage induced by physical stimuli.',
     image: '/images/SRC.jpg',
     images: null,
     category: 'Cream',

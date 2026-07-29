@@ -27,7 +27,7 @@
 - **BIO MESO PDRN AMPOULE 60000 (60) / PDRN HOMECARE AMPOULE 5000 (65):** fixed PDRN concentration misattribution and wording.
 
 ### Batch 2 — Creams (full report below)
-- **SOOTHING REPAIR POSTCREAM (25):** size **20g → 100g** — confirmed by artwork "NET WT. 100g / 3.53oz", COA L0302B ("Unit of Packaging 100 g, Content amount 100.2g"), and COA L1233B ("20g" in filename is a clerical error; internal spec says 100 g / 100.5 g).
+- **SOOTHING REPAIR POSTCREAM (25):** size field aligned to the listed price — site listing at 204 AED = **100g professional** tube (UAE price list: 20g Personal 102 AED / 100g Professional 220 AED). **Correction (user-confirmed, with product photo): the product is genuinely sold in BOTH sizes** — 20g homecare and 100g professional. The "20g" COA filename was NOT a clerical error. `productDetails.size` already reads "20g (Homecare) / 100g (Professional)" in EN/AR/RU; fallback description now notes both sizes.
 - **MOISTURE REPLENISHING HYALURON CREAM (29):** removed invented "72-hour hydration persistence / clinically proven" (no study cert in file; artwork says only "DERMATOLOGICALLY TESTED"); "Hyaluronan 11 Multi-Complex" → multi-molecular HA complex (8 forms — "11" appears only in Korean marketing text, never in English docs); "4-step" → multi-level.
 - **EGF REPAIR OXYMASK CREAM (26, hidden):** sh-Oligopeptide-1 at 0.00001% (0.1 ppb) and Madecassoside at 0.0001% (1 ppm) — both non-functional trace; reframed story around the real hero: oxygen bubbling technology (Methyl Perfluoroisobutyl Ether 5%).
 - **SKIN BARRIER PROTECTING CREAM (27):** removed "Enriched Ceramide / high concentration" (Ceramide NP is trace); replaced unverified "MultiEx BSASM® Plus" branding with NMF amino acid complex; removed "clinically proven" directions.
@@ -70,7 +70,7 @@
 | MULTI FUNCTIONAL ANTI-WRINKLE (32) | 0 | 1 | 1 | Collagen/Elastin trace overpromised → reframed as "Hydrolyzed … ECM support" |
 | MOISTURE REPLENISHING HYALURON (29) | 2 | 1 | 0 | Fixed (above) |
 | INTENSIVE HYDRO SOOTHING (28) | 0 | 1 | 1 | Snail trace toned down; usage evening → morning-evening |
-| SOOTHING REPAIR POSTCREAM (25) | 1 | 0 | 0 | Size fixed 20g → 100g |
+| SOOTHING REPAIR POSTCREAM (25) | 1 | 0 | 0 | Size aligned to listed price (100g prof.); both 20g + 100g sizes exist (user-confirmed) |
 | SKIN BARRIER PROTECTING (27) | 1 | 2 | 0 | Fixed (above) |
 | INTENSIVE PROBLEM CONTROL (30) | 0 | 1 | 1 | Added "lightweight gel-cream texture" (gel formulation, no emollients) |
 | ND Cell ANTI-WRINKLE (23) | 0 | 1 | 1 | "Botox-like" removed (Acetyl Hexapeptide-8 at 0.000025%, ~100× below functional threshold) |
@@ -90,7 +90,7 @@ Verified-OK highlights:
 
 - MRHC (29): feature Saccharide Isomerate (0.615%) and name the 6 mushroom species.
 - IHSC (28): feature Betaine (5.0%) and Lactobacillus/Pumpkin Ferment (0.1%).
-- SRPC (25): communicate "100g at 204 AED" value; feature Beta-Glucan 2.5%, Sodium Hyaluronate 5.0%, Squalane 1.5%.
+- SRPC (25): communicate both sizes — 20g homecare (102 AED list) for retail, 100g professional (220 AED list) for clinics; feature Beta-Glucan 2.5%, Sodium Hyaluronate 5.0%, Squalane 1.5%.
 - SBPC (27): position Glycerin 17.5% + Hydrogenated Polydecene 7% as moisturizing backbone; market amino acids as "NMF blend".
 - IPCC (30): feature Polyglutamic Acid, Rumex Crispus, Radish Root Ferment, Beta-Glucan, Birch Bark (all 0.1%).
 - ND Cell (23): lead with Copper Tripeptide-1 (0.005%); specify "stable vitamin C" (Ascorbyl Glucoside).

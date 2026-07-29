@@ -17,24 +17,14 @@ interface ProductPriceDisplayProps {
   // exactOptionalPropertyTypes (see ProductPageClientRefactored).
   selectedSize?: string | undefined
   selectedColor?: string | undefined
-  /** One-line rendering for tight slots (e.g. inline with the product name on mobile web). */
-  compact?: boolean
 }
 
-export default function ProductPriceDisplay({ product, basePrice, user, selectedSize, selectedColor, compact = false }: ProductPriceDisplayProps) {
+export default function ProductPriceDisplay({ product, basePrice, user, selectedSize, selectedColor }: ProductPriceDisplayProps) {
   const router = useRouter()
   const { t, locale, dir } = useTranslation()
 
   // Handle price on request products
   if (product.isPriceOnRequest) {
-    if (compact) {
-      return (
-        <span className={`inline-flex items-center gap-1 text-amber-600 text-sm font-semibold whitespace-nowrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} dir={dir}>
-          <MessageCircle className="h-3.5 w-3.5" />
-          {t('products.priceOnRequest')}
-        </span>
-      )
-    }
     return (
       <div className="w-full flex flex-col items-center justify-center" dir={dir}>
         <div className={`flex items-center gap-2 text-amber-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -47,7 +37,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
   }
 
   return (
-    <div className={compact ? 'flex justify-end' : 'w-full flex justify-center'} dir={dir}>
+    <div className="w-full flex justify-center" dir={dir}>
       {canUserSeePrices(user) ? (
         <>
           {(() => {
@@ -57,30 +47,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
             // didn't change the displayed price).
             const productWithPrice = { ...product, price: basePrice }
             const pricing = getPricingDisplay(productWithPrice, user, { selectedSize, selectedColor })
-
-            if (compact) {
-              return (
-                <div className={`flex flex-col items-end ${dir === 'rtl' ? 'text-left' : 'text-right'}`}>
-                  <div className={`flex items-baseline gap-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-base font-bold text-primary-600 whitespace-nowrap">
-                      {pricing.displayPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
-                    </span>
-                    {pricing.hasDiscount && pricing.originalPrice ? (
-                      <span className="text-[11px] text-gray-400 line-through whitespace-nowrap">
-                        {pricing.originalPrice.toFixed(2)}
-                      </span>
-                    ) : null}
-                  </div>
-                  <span className="text-[9px] leading-tight text-gray-500 whitespace-nowrap">
-                    {pricing.hasDiscount ? (
-                      <span className="text-green-600 font-medium">{pricing.discountPercentage}% {t('product.off')} · </span>
-                    ) : null}
-                    {t('product.vatIncluded')}
-                  </span>
-                </div>
-              )
-            }
-
+            
             return (
               <div className="w-full text-center">
                 {pricing.hasDiscount ? (
@@ -117,15 +84,13 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
         </>
       ) : user ? (
         <div className={`flex items-center justify-center text-gray-500 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <Lock className={`${compact ? 'h-3.5 w-3.5' : 'h-4 w-4 md:h-5 md:w-5'} ${dir === 'rtl' ? 'ml-2' : 'mr-2'}`} />
-          <span className={compact ? 'text-xs whitespace-nowrap' : 'text-base md:text-lg'}>{t('product.priceLocked')}</span>
+          <Lock className={`h-4 w-4 md:h-5 md:w-5 ${dir === 'rtl' ? 'ml-2' : 'mr-2'}`} />
+          <span className="text-base md:text-lg">{t('product.priceLocked')}</span>
         </div>
       ) : (
         <button
           onClick={() => router.push(getLocalizedPath('/login', locale))}
-          className={compact
-            ? 'bg-primary-600 text-white px-2.5 py-1 rounded-md text-xs font-medium hover:bg-primary-700 transition-colors touch-manipulation whitespace-nowrap'
-            : 'bg-primary-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-medium hover:bg-primary-700 transition-colors touch-manipulation'}
+          className="bg-primary-600 text-white px-4 py-2 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-medium hover:bg-primary-700 transition-colors touch-manipulation"
         >
           {t('product.loginToSeePrice')}
         </button>

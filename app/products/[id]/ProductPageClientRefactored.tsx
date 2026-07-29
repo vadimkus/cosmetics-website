@@ -507,27 +507,8 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               </div>
             </div>
 
-            {/* Mobile Product Name - Above Image.
-                Mobile web: name and compact price share one row so the price is
-                visible before the gallery. PWA keeps the centered stacked layout. */}
-            {isMobileWeb && (
-              <div className="md:hidden mb-2 px-1 flex items-start justify-between gap-3">
-                <h1 className={`text-lg font-bold text-gray-900 leading-tight flex-1 min-w-0 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                  {product.name}
-                </h1>
-                <div className="flex-shrink-0 pt-0.5">
-                  <ProductPriceDisplay
-                    product={product}
-                    basePrice={currentPrice()}
-                    user={user}
-                    selectedSize={hasProductSizeVariants(productNum, product) ? selectedSize : undefined}
-                    selectedColor={hasProductColorVariants(productNum) ? selectedColor : undefined}
-                    compact
-                  />
-                </div>
-              </div>
-            )}
-            {isPWA && !isMobileWeb && (
+            {/* Mobile Product Name - Above Image (PWA and Mobile Web) */}
+            {isAppLikeMode && (
               <div className="md:hidden mb-2 px-1">
                 <h1 className="text-lg font-bold text-gray-900 leading-tight text-center">
                   {product.name}
@@ -600,19 +581,16 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               </div>
             )}
             
-            {/* Size and Price - Below Image. Hidden on mobile web, where the
-                price lives inline with the product name above the gallery. */}
-            {!isMobileWeb && (
-              <div className="mt-1.5 lg:mt-4 flex justify-center">
-                <ProductPriceDisplay 
-                  product={product}
-                  basePrice={currentPrice()}
-                  user={user}
-                  selectedSize={hasProductSizeVariants(productNum, product) ? selectedSize : undefined}
-                  selectedColor={hasProductColorVariants(productNum) ? selectedColor : undefined}
-                />
-              </div>
-            )}
+            {/* Size and Price - Below Image */}
+            <div className="mt-1.5 lg:mt-4 flex justify-center">
+              <ProductPriceDisplay 
+                product={product}
+                basePrice={currentPrice()}
+                user={user}
+                selectedSize={hasProductSizeVariants(productNum, product) ? selectedSize : undefined}
+                selectedColor={hasProductColorVariants(productNum) ? selectedColor : undefined}
+              />
+            </div>
 
             {/* Variant Selectors - Below Price */}
             <div className="mt-1.5 lg:mt-4">

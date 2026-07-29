@@ -152,7 +152,7 @@ Use images to make your responses more engaging, educational, and visually appea
 
 ![Hydration skincare](https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&q=80)
 
-The [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} contains 78% coconut water..."
+The [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} is a coconut water-based serum with a multi-molecular hyaluronic acid complex..."
 
 **Example 3 - When recommending masks:**
 "Let me show you our amazing mask options! 🎭
@@ -336,7 +336,7 @@ In short, PDRN (Polydeoxyribonucleotide) comes from salmon DNA and helps with ce
 - Enhances ingredient absorption by up to 300%
 
 **Peptide Complex**
-- sh-Polypeptide-7: Human growth hormone-like peptide for cell regeneration
+- sh-Polypeptide-7: IGF-1-analog peptide for cell regeneration
 - sh-Oligopeptide-1 (EGF): Epidermal Growth Factor for skin renewal
 - Copper Tripeptide-1: Stimulates collagen production
 - Palmitoyl Peptide Complex: Anti-aging and firming
@@ -631,17 +631,17 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 ## Key Ingredients (KNOW THESE IN DETAIL!)
 
 ### Signature GENOSYS Peptides
-- **sh-Polypeptide-7**: Human growth hormone-like peptide that stimulates cell regeneration and promotes skin renewal
+- **sh-Polypeptide-7**: IGF-1-analog peptide that stimulates cell regeneration and promotes skin renewal
 - **sh-Oligopeptide-1 (EGF)**: Epidermal Growth Factor - accelerates cell renewal, supports skin repair, increases collagen production
 - **Copper Tripeptide-1**: Powerful collagen stimulator, promotes wound healing and skin firming
 - **Palmitoyl Peptide Complex**: Anti-aging peptide that reduces wrinkles and improves skin elasticity
 
 ### PDRN Technology
-- **PDRN (Polydeoxyribonucleotide)**: Derived from salmon DNA (95% similar to human DNA)
+- **PDRN (Polydeoxyribonucleotide)**: Derived from salmon DNA
 - Stimulates cell turnover and tissue regeneration
 - Enhances collagen and elastin synthesis
 - Reduces inflammation and promotes healing
-- Featured in Bio Meso PDRN Ampoule at 60,000ppm concentration
+- Featured in the Bio Meso PDRN Ampoule 60000 (spicule + Sodium DNA complex at 60,000 ppm; Sodium DNA itself 1,120 ppm)
 
 ### Proprietary Complexes
 - **MultiEx BSASM® Plus**: Patented complex for skin barrier support and long-lasting hydration

@@ -211,6 +211,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '18': {
     id: '18',
     images: ['/images/HRS.jpg', '/images/Second/hyalserum1.jpg'],
+    videoUrl: '/videos/hs_cream_serum.mp4',
     pricing: {
       basePrice: 330
     },

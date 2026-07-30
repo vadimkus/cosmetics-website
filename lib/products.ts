@@ -215,6 +215,7 @@ export const products: Product[] = [
     images: JSON.stringify(['/images/HRS.jpg', '/images/Second/hyalserum1.jpg']),
     category: 'Serum',
     inStock: true,
+    videoUrl: '/videos/hs_cream_serum.mp4',
   },
   {
     id: '19',

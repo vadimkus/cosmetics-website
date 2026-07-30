@@ -377,7 +377,7 @@ export const products: Product[] = [
     id: '32',
     name: 'MULTI FUNCTIONAL ANTI-WRINKLE CREAM',
     price: 290,
-    description: '50g (Homecare) / 250g (Professional). Anti-aging cream with bakuchiol, a natural alternative to retinol and anti-wrinkle peptide complex. It is an anti-aging cream that helps visibly smooth the signs of wrinkles and reinforces skin firmness with a nourishing ingredient – bakuchiol, a natural alternative to retinol and anti-wrinkle peptide complex. Clinical study on improvement of skin age index, P&K Skin Research Center, Feb. 22 to May 13, 2024, 24 adult women aged 30~59 years. Key ingredients: Bakuchiol, Anti-aging Peptide 6, Lipid Barrier Liposome (Ceramide NP, Cholesterol, Phytosphingosine), Collagen, Elastin, Propolis Extract, Adenosine, Niacinamide. Dermatologically tested. Efficacy test on improving wrinkles and skin tone balance.',
+    description: '50g (Homecare) / 250g (Professional). Multi-functional anti-wrinkle and brightening cream with bakuchiol, a natural alternative to retinol. Helps visibly smooth wrinkles, reinforce skin firmness, and even skin tone with propolis, collagen, adenosine, niacinamide, mango seed butter, and a lipid barrier liposome. Gently massage morning and evening. Clinical study on improvement of skin age index, P&K Skin Research Center, Feb. 22 to May 13, 2024, 24 adult women aged 30~59 years. Key ingredients: Bakuchiol, Propolis Extract, Hydrolyzed Collagen & Elastin, Adenosine, Niacinamide, Mango Seed Butter, Lipid Barrier Liposome (Ceramide NP, Cholesterol, Phytosphingosine). Dermatologically tested. Efficacy test on improving wrinkles and skin tone balance.',
     image: '/images/ANT.jpg',
     images: null,
     category: 'Cream',

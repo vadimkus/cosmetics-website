@@ -208,7 +208,7 @@ const content = `<div class="blog-content">
       <div class="grid md:grid-cols-3 gap-5 items-center">
         <div class="md:col-span-1">
           <a href="https://genosys.ae/products/18">
-            <img src="/images/HRS.jpg" alt="GENOSYS Moisture Replenishing Hyaluron Serum" class="rounded-xl shadow-sm w-full bg-gray-50" />
+            <img src="/images/hyaluron_serum/main.jpeg" alt="GENOSYS Moisture Replenishing Hyaluron Serum" class="rounded-xl shadow-sm w-full bg-gray-50" />
           </a>
         </div>
         <div class="md:col-span-2">
@@ -486,7 +486,7 @@ const contentAr = `<div class="blog-content" dir="rtl">
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
         <div class="flex items-center gap-3 mb-3"><span class="w-9 h-9 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold">3</span><h4 class="text-lg font-bold text-gray-900">السيروم — استعيدي الرطوبة</h4></div>
         <div class="grid grid-cols-3 gap-4 items-center">
-          <a href="https://genosys.ae/products/18" class="col-span-1"><img src="/images/HRS.jpg" alt="Moisture Replenishing Hyaluron Serum" class="rounded-lg w-full bg-gray-50" /></a>
+          <a href="https://genosys.ae/products/18" class="col-span-1"><img src="/images/hyaluron_serum/main.jpeg" alt="Moisture Replenishing Hyaluron Serum" class="rounded-lg w-full bg-gray-50" /></a>
           <div class="col-span-2">
             <p class="text-gray-700 leading-relaxed mb-3">السيروم بـ 5 أوزان جزيئية من حمض الهيالورونيك يرطب على كل الأعماق. <a href="https://genosys.ae/products/18" class="text-sky-700 font-semibold hover:underline">MOISTURE REPLENISHING HYALURON SERUM</a>.</p>
             <a href="https://genosys.ae/products/18" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">سيروم الهيالورون — 330 درهم ←</a>
@@ -651,7 +651,7 @@ const contentRu = `<div class="blog-content">
       <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
         <div class="flex items-center gap-3 mb-3"><span class="w-9 h-9 bg-sky-600 text-white rounded-full flex items-center justify-center font-bold">3</span><h4 class="text-lg font-bold text-gray-900">Сыворотка — верните то, что забрал кондиционер</h4></div>
         <div class="grid grid-cols-3 gap-4 items-center">
-          <a href="https://genosys.ae/products/18" class="col-span-1"><img src="/images/HRS.jpg" alt="GENOSYS Moisture Replenishing Hyaluron Serum" class="rounded-lg w-full bg-gray-50" /></a>
+          <a href="https://genosys.ae/products/18" class="col-span-1"><img src="/images/hyaluron_serum/main.jpeg" alt="GENOSYS Moisture Replenishing Hyaluron Serum" class="rounded-lg w-full bg-gray-50" /></a>
           <div class="col-span-2">
             <p class="text-gray-700 leading-relaxed mb-3">Большинство жителей ОАЭ хронически <em>обезвожены</em>, не сухие. <a href="https://genosys.ae/products/18" class="text-sky-700 font-semibold hover:underline">MOISTURE REPLENISHING HYALURON SERUM</a> содержит 5 молекулярных весов гиалуроновой кислоты — увлажнение на всех глубинах.</p>
             <a href="https://genosys.ae/products/18" class="inline-flex items-center gap-2 bg-sky-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Hyaluron Serum — 330 AED →</a>

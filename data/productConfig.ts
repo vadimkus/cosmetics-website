@@ -210,7 +210,15 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '18': {
     id: '18',
-    images: ['/images/HRS.jpg', '/images/Second/hyalserum1.jpg'],
+    images: [
+      '/images/hyaluron_serum/main.jpeg',
+      '/images/hyaluron_serum/s1.jpeg',
+      '/images/hyaluron_serum/s2.jpeg',
+      '/images/hyaluron_serum/s3.jpeg',
+      '/images/hyaluron_serum/s4.jpeg',
+      '/images/hyaluron_serum/s5.jpeg',
+      '/images/hyaluron_serum/s6.jpeg',
+    ],
     videoUrl: '/videos/hs_cream_serum.mp4',
     pricing: {
       basePrice: 330

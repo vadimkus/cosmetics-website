@@ -129,6 +129,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'MULTI VITA RADIANCE CREAM': '/images/radiance/main.jpeg',
       'MULTI VITA RADIANCE SERUM': '/images/radiance_serum/main.jpeg',
       'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': '/images/multif_serum/main.jpeg',
+      'MOISTURE REPLENISHING HYALURON SERUM': '/images/hyaluron_serum/main.jpeg',
       'ND Cell ANTI-WRINKLE CREAM': '/images/ND.jpg',
       'SOOTHING REPAIR POSTCREAM': '/images/SRC.jpg',
       'SKIN RENEWAL PEELING SYSTEM (SRS)': '/images/SRS.jpg',

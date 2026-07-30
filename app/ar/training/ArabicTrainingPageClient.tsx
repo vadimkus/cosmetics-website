@@ -264,7 +264,7 @@ export default function ArabicTrainingPageClient() {
                     { id: 20, image: '/images/PRSS.jpg', name: 'PROBLEM CONTROL SERUM', size: '2.2 MB', href: '/documents/PPT/GENOSYS%20INTENSIVE%20PROBLEM%20CONTROL%20SERUM.pdf' },
                     { id: 39, image: '/images/ultra/main.jpeg', name: 'ULTRA SHIELD SUN CREAM', size: '0.6 MB', href: '/documents/PPT/GENOSYS%20ULTRA%20SHIELD%20SUN%20CREAM.pdf' },
                     { id: 44, image: '/images/Sham.jpg', name: 'HR³ MATRIX SCALP SHAMPOO α', size: '2.3 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20SHAMPOO%20ALPHA.pdf' },
-                    { id: 18, image: '/images/HRS.jpg', name: 'MOISTURE REPLENISHING HYALURON SERUM', size: '1.9 MB', href: '/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' },
+                    { id: 18, image: '/images/hyaluron_serum/main.jpeg', name: 'MOISTURE REPLENISHING HYALURON SERUM', size: '1.9 MB', href: '/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20SERUM.pdf' },
                     { id: 29, image: '/images/hyaluron/main.jpeg', name: 'MOISTURE REPLENISHING HYALURON CREAM', size: '2.0 MB', href: '/documents/PPT/GENOSYS%20MOISTURE%20REPLENISHING%20HYALURON%20CREAM.pdf' },
                     { id: 41, image: '/images/cushion/main.jpeg', name: 'SKIN CARING BLEMISH BALM CUSHION', size: '1.2 MB', href: '/documents/PPT/GENOSYS%20SKIN%20CARING%20BLEMISH%20BALM%20CUSHION.pdf' },
                     { id: 63, image: '/images/revita/main.jpg', name: 'REVITA GLOW BLEMISH BALM CREAM', size: '2.0 MB', href: '/documents/PPT/GENOSYS_REVITA_GLOW_BB_CREAM.pdf' },

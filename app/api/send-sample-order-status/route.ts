@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
           productName: 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM',
           quantity: 1,
           price: 156.75,
-          image: 'https://genosys.ae/images/HRS.jpg'
+          image: 'https://genosys.ae/images/hyaluron_serum/main.jpeg'
         }
       ],
       total: 456.75,

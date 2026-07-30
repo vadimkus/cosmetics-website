@@ -101,7 +101,7 @@ async function testOrderConfirmationEmails() {
             productName: 'GENOSYS MOISTURE REPLENISHING HYALURON SERUM',
             quantity: 1,
             price: 156.75,
-            image: 'https://genosys.ae/images/HRS.jpg'
+            image: 'https://genosys.ae/images/hyaluron_serum/main.jpeg'
           }
         ],
         subtotal: 456.75,

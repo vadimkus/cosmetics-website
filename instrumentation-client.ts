@@ -435,6 +435,47 @@ function isInjectedShopLookupRejection(event: Sentry.ErrorEvent): boolean {
   })
 }
 
+/**
+ * Meta iOS in-app browser injected bridge code.
+ *
+ * Instagram/Facebook on iOS render external pages in a WKWebView and inject
+ * their own minified bridge script into every page. That script talks to the
+ * native app via `window.webkit.messageHandlers.<handler>.postMessage(...)`.
+ * In webview instances where the handler map isn't exposed (varies by app
+ * version and webview pool), the INJECTED script itself throws:
+ *   TypeError: undefined is not an object (evaluating 'window.webkit.messageHandlers')
+ * The throw fires the page's `window.onerror`, so Sentry attributes it to us
+ * even though the crashing code belongs to the host app.
+ *
+ * Seen first 2026-07-30 05:32 UTC, issue 368a5316… on /products: Instagram
+ * 393.1.0 / iPhone17,2 / iOS 26.5.2, stack frames are anonymous `app:///`
+ * single-letter functions (w, v) with zero `_next/static/chunks` frames.
+ *
+ * Verified non-actionable on our side: `messageHandlers` appears nowhere in
+ * our source or in the built client chunks (`grep -rl messageHandlers
+ * .next/static/chunks` → empty), so no app code path can produce this
+ * message. The page itself loads and works normally for the user.
+ *
+ * Drop only when no stack frame resolves into our deployed chunks — if our
+ * own code ever touches this API the event still reaches Sentry.
+ */
+function isInjectedWebkitMessageHandlersError(event: Sentry.ErrorEvent): boolean {
+  const values = event.exception?.values
+  if (!values || values.length !== 1) return false
+  const exc = values[0]
+  if (!exc) return false
+  if (exc.type !== 'TypeError') return false
+  if (!/window\.webkit\.messageHandlers/i.test(exc.value || '')) return false
+  if (exc.mechanism?.type !== 'auto.browser.global_handlers.onerror') return false
+  if (!isIOSWebKitBrowser(event)) return false
+
+  const frames = exc.stacktrace?.frames || []
+  return !frames.some((frame) => {
+    const file = frame.filename || frame.abs_path || ''
+    return /_next\/static\/chunks\//.test(file)
+  })
+}
+
 if (dsn) {
   Sentry.init({
     dsn,
@@ -458,6 +499,7 @@ if (dsn) {
       if (isInstagramAndroidNavigationLoggerError(event)) return null
       if (isInjectedZpScriptError(event)) return null
       if (isInjectedShopLookupRejection(event)) return null
+      if (isInjectedWebkitMessageHandlersError(event)) return null
 
       // Strip PII-sensitive fields before events leave the browser.
       // Checkout pages see email/address/phone; scrub them from breadcrumbs.

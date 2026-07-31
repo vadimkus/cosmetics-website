@@ -6,13 +6,13 @@ import {
   BookOpen,
   ChevronRight,
   CreditCard,
+  Handshake,
   Heart,
   LayoutDashboard,
   LogOut,
   MapPin,
   Package,
   ShieldCheck,
-  Stethoscope,
   UserRound,
 } from 'lucide-react'
 import type { ReactNode } from 'react'
@@ -155,7 +155,7 @@ export default function DesktopProfileShell({
               {(user.partnerPortalAccess || ['CLINIC', 'VIP'].includes(String(user.discountType || '').toUpperCase())) && (
                 <div className="mt-3 border-t border-gray-100 pt-3">
                   <Link href={getLocalizedPath('/partner-portal', locale)} className={navClass()}>
-                    <Stethoscope className="h-[18px] w-[18px] shrink-0 text-primary-600" aria-hidden="true" />
+                    <Handshake className="h-[18px] w-[18px] shrink-0 text-primary-600" aria-hidden="true" />
                     <span className="flex-1">{t('profile.partnerPortal')}</span>
                     <ChevronRight className={`h-4 w-4 text-gray-300 ${isRTL ? 'rotate-180' : ''}`} aria-hidden="true" />
                   </Link>

@@ -38,7 +38,7 @@ const copy = {
     itemCount: (count: number) => `${count} useful details`,
     sizeTitle: 'Format',
     shadeTitle: 'Selected shade',
-    source: 'Based on official GENOSYS product manuals and verified formula data.',
+    source: 'Official GENOSYS product formula.',
     close: 'Close quick product facts',
   },
   ru: {
@@ -48,7 +48,7 @@ const copy = {
     itemCount: (count: number) => `${count} полезных фактов`,
     sizeTitle: 'Формат',
     shadeTitle: 'Выбранный оттенок',
-    source: 'На основе официальных руководств GENOSYS и проверенных данных формулы.',
+    source: 'Официальная формула продукта GENOSYS.',
     close: 'Закрыть краткую информацию',
   },
   ar: {
@@ -58,7 +58,7 @@ const copy = {
     itemCount: (count: number) => `${count} معلومات مفيدة`,
     sizeTitle: 'الحجم',
     shadeTitle: 'الدرجة المختارة',
-    source: 'استناداً إلى أدلة GENOSYS الرسمية وبيانات التركيبة الموثّقة.',
+    source: 'تركيبة منتج GENOSYS الرسمية.',
     close: 'إغلاق الحقائق السريعة',
   },
 } as const

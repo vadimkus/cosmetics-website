@@ -788,6 +788,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       basePrice: 250
     },
     images: ['/images/revita/main.jpg', '/images/revita/s1.jpg', '/images/revita/s2.jpg', '/images/revita/s3.jpg', '/images/revita/s4.jpg'],
+    videoUrl: '/videos/revita.mp4',
     colors: [
       { value: 'Bright', label: '#01 Bright', available: true },
       { value: 'Natural', label: '#02 Natural', available: true }

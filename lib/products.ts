@@ -648,6 +648,7 @@ export const products: Product[] = [
     category: 'Cream, Sun, Cushion BB',
     inStock: true,
     size: '50g',
+    videoUrl: '/videos/revita.mp4',
   },
   {
     id: '60',

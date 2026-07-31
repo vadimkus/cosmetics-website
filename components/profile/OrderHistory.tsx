@@ -131,6 +131,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': '/images/multif_serum/main.jpeg',
       'MOISTURE REPLENISHING HYALURON SERUM': '/images/hyaluron_serum/main.jpeg',
       'ALL FOR SENSITIVE SERUM': '/images/sensitive_serum/main.jpeg',
+      'PROBLEM CONTROL SERUM': '/images/problem_serum/main.jpeg',
       'ND Cell ANTI-WRINKLE CREAM': '/images/ND.jpg',
       'SOOTHING REPAIR POSTCREAM': '/images/SRC.jpg',
       'SKIN RENEWAL PEELING SYSTEM (SRS)': '/images/SRS.jpg',

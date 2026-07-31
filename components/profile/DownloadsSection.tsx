@@ -484,7 +484,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/20">
                   <Image
-                    src="/images/PRSS.jpg"
+                    src="/images/problem_serum/main.jpeg"
                     alt="PROBLEM CONTROL SERUM"
                     width={500}
                     height={300} 

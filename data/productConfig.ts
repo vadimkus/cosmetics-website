@@ -250,6 +250,15 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '20': {
     id: '20',
+    images: [
+      '/images/problem_serum/main.jpeg',
+      '/images/problem_serum/s1.jpeg',
+      '/images/problem_serum/s2.jpeg',
+      '/images/problem_serum/s3.jpeg',
+      '/images/problem_serum/s4.jpeg',
+      '/images/problem_serum/s5.jpeg',
+      '/images/problem_serum/s6.jpeg',
+    ],
     pricing: {
       basePrice: 330
     },

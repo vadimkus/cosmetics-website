@@ -553,9 +553,9 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                     </span>
                   </button>
                 ) : (
-                  <div className="flex justify-center rounded-xl overflow-hidden shadow-lg bg-black">
+                  <div className="flex justify-center">
                     <video
-                      className="w-auto max-w-full max-h-[65vh]"
+                      className="block h-auto w-auto max-h-[65vh] max-w-full overflow-hidden rounded-xl bg-white shadow-lg"
                       controls
                       autoPlay
                       playsInline

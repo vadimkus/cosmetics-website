@@ -10,6 +10,9 @@ The product video on the PDP (e.g. `/products/51` BIO-FERMENT AGE DEFYING POWDER
 - A compact grey circular play button (64px, `bg-gray-200`, dark `Play` icon) with the caption "Watch product video" renders in its place.
 - Clicking it mounts the `<video>` element with `autoPlay` + `preload="auto"` — the video loads and starts playing immediately.
 - The portrait/landscape `aspectRatio` adoption via `onLoadedMetadata` is preserved.
+- The player wrapper stays transparent and the rounded frame follows the
+  intrinsic video width, preventing black side corners around height-capped
+  portrait clips on mobile web.
 - No video bytes are downloaded until the user taps play (previously `preload="metadata"` fetched moov atom + poster box reserved ~65vh of black space).
 
 ## Files

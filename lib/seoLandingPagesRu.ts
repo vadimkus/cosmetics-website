@@ -353,7 +353,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Гелевое очищение с акцентом на микробиом и кожный барьер.' },
       { name: 'Microbiome Energy Infusing Mist', href: '/ru/products/14', image: '/images/mist/main2.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'Лёгкий этап увлажнения, который дополняет, но не заменяет крем.' },
-      { name: 'All For Sensitive Serum', href: '/ru/products/19', image: '/images/ASE.jpg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'Сыворотка для поддержки увлажнения чувствительной кожи.' },
+      { name: 'All For Sensitive Serum', href: '/ru/products/19', image: '/images/sensitive_serum/main.jpeg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'Сыворотка для поддержки увлажнения чувствительной кожи.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/BRR.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Несмываемый крем с церамидами, аминокислотами и эмолентами.' },
     ],
     sections: [

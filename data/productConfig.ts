@@ -236,7 +236,15 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 330
     },
-    images: ['/images/ASE.jpg', '/images/Second/allserum_big.jpg']
+    images: [
+      '/images/sensitive_serum/main.jpeg',
+      '/images/sensitive_serum/s1.jpeg',
+      '/images/sensitive_serum/s2.jpeg',
+      '/images/sensitive_serum/s3.jpeg',
+      '/images/sensitive_serum/s4.jpeg',
+      '/images/sensitive_serum/s5.jpeg',
+      '/images/sensitive_serum/s6.jpeg',
+    ],
   },
   '20': {
     id: '20',

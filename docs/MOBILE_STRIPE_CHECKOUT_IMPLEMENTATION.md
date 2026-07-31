@@ -75,7 +75,7 @@ Body:
       "name": "ALL FOR SENSITIVE SERUM",
       "price": 330,
       "quantity": 1,
-      "image": "https://genosys.ae/images/ASE.jpg",
+      "image": "https://genosys.ae/images/sensitive_serum/main.jpeg",
       "size": "30ml",
       "color": ""
     }
@@ -312,7 +312,7 @@ curl -X POST https://genosys.ae/api/mobile/checkout/stripe \
       "name": "ALL FOR SENSITIVE SERUM",
       "price": 330,
       "quantity": 1,
-      "image": "/images/ASE.jpg"
+      "image": "/images/sensitive_serum/main.jpeg"
     }]
   }'
 ```

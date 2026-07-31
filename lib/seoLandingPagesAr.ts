@@ -353,7 +353,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'منظف جل يراعي الميكروبيوم وحاجز البشرة.' },
       { name: 'Microbiome Energy Infusing Mist', href: '/ar/products/14', image: '/images/mist/main2.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'ترطيب خفيف يكمل المرطب ولا يستبدله.' },
-      { name: 'All For Sensitive Serum', href: '/ar/products/19', image: '/images/ASE.jpg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'سيروم دعم للرطوبة للبشرة الحساسة المظهر.' },
+      { name: 'All For Sensitive Serum', href: '/ar/products/19', image: '/images/sensitive_serum/main.jpeg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'سيروم دعم للرطوبة للبشرة الحساسة المظهر.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/BRR.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'كريم يترك على البشرة مع السيراميد والأحماض الأمينية والزيوت الملينة.' },
     ],
     sections: [

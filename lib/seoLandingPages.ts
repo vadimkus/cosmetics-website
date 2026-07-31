@@ -408,7 +408,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'A gel cleanser positioned for microbiome- and barrier-conscious cleansing.' },
       { name: 'Microbiome Energy Infusing Mist', href: '/products/14', image: '/images/mist/main2.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'A light hydration step that can complement—not replace—moisturizer.' },
-      { name: 'All For Sensitive Serum', href: '/products/19', image: '/images/ASE.jpg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'A moisture-support serum for sensitive-looking skin.' },
+      { name: 'All For Sensitive Serum', href: '/products/19', image: '/images/sensitive_serum/main.jpeg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'A moisture-support serum for sensitive-looking skin.' },
       { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/BRR.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'A leave-on cream with ceramide, amino acids, and emollient oils.' },
     ],
     sections: [

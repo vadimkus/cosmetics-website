@@ -6,7 +6,7 @@
 - Form: Soothing · moisturizing serum for sensitive / reactive skin
 - Visual: dark charcoal → soft teal translucent glass dropper · matte black bulb · silver GENOSYS collar · white DNA / AFS PROFESSIONAL mark
 - Live: https://genosys.ae/products/19
-- Image: `/images/ASE.jpg` · video `/videos/allserum.mp4`
+- Image: `/images/sensitive_serum/main.jpeg` (+ gallery s1–s6) · video `/videos/allserum.mp4`
 - Accent (artwork Pantone): **375 C** fresh lime/chartreuse (Centella mood) · **432 C** charcoal · **187 C** red → use **soft lime / fresh green** overlays
 
 ## Sources checked
@@ -25,7 +25,8 @@
 
 ### Site copy (secondary — already Intertek-audited 2026-07-29)
 - `lib/products.ts` / live API: Centella · Chamomile · Allantoin · HA · Phytosphingosine · Aloe · Witch Hazel · Beta-Glucan · Pumpkin ferment ✓
-- ✓ Perfect Combination `pc19Benefit*` fixed 2026-07-30 (EN/AR/RU web + mobile) — Centella/Allantoin + NMF cream language; BSASM removed
+- ✓ Perfect Combination `pc19Benefit*` fixed + OTA shipped 2026-07-30 — Centella/Allantoin + NMF cream language; BSASM removed
+- Overlays refreshed 2026-07-30 (tighter; pairing line matches live pc19)
 
 ## Verified claims (use these)
 - Designed for **sensitive skin** — relieve · protect from harmful environment · supply moisture (artwork / bottle)
@@ -73,15 +74,15 @@
 veo3 "Cinematic product hero shot, 1:1 square. A dark charcoal glass serum dropper bottle fading to soft teal translucency at the base, matte black rubber bulb and silver metallic collar, fixed and sharp on the right — premium Korean professional sensitive-skin packaging. Soft lime-green and fresh mint luminous particles with gentle calming botanical light accents floating beside the bottle, suggesting soothed, comforted skin. Pure white seamless studio background, soft diffused beauty lighting, gentle reflection. The entire left half clean empty white space for text overlay. Photorealistic, premium Korean medical-aesthetic cosmeceutical aesthetic, refined lime-green and charcoal mood, no people, no hands, no readable text, no logos, no watermark. Very slow subtle push-in, minimal motion, every frame usable as a still." --aspect 1:1 --duration 4 --resolution 1080p -o ~/Movies/Veo/afs-serum-s1-hero.mp4
 ```
 
-## Text overlay
+## Text overlay *(refreshed 2026-07-30)*
 
 **WHEN SKIN SAYS ENOUGH.**  
 ALL FOR SENSITIVE SERUM
 
-✦ Designed for sensitive · reactive skin  
-✦ Soothes · comforts · moisturizes  
-✦ Helps protect from environmental stress  
-✦ Lightweight serum — daily calm  
+✦ Sensitive · reactive · easily irritated skin  
+✦ Soothe · comfort · moisturize  
+✦ Environmental stress protection feel  
+✦ Lightweight daily serum  
 
 **30ml** · *AFS PROFESSIONAL*  
 *Made in Korea · Dermatologically tested*
@@ -97,24 +98,16 @@ ALL FOR SENSITIVE SERUM
 veo3 "Cinematic technology-story shot, 1:1 square. A dark charcoal-to-teal glass serum dropper bottle with silver collar, positioned upper right, fixed and sharp. Across left and center, an elegant three-pillar calming visualization in soft lime, mint, and ivory: (1) soothing relief glow reducing redness-like warmth, (2) a gentle protective shield against environmental stress particles, (3) soft moisture droplets replenishing comfort — scientific but soft, never clinical-harsh. Pure white seamless studio background, soft diffused beauty lighting. Large clean empty areas on the left for text overlay. Photorealistic with subtle scientific mood, premium Korean medical-aesthetic, no people, no hands, no readable text, no logos, no watermark. Very slow subtle motion, every frame usable as a still." --aspect 1:1 --duration 4 --resolution 1080p -o ~/Movies/Veo/afs-serum-s2-pillars.mp4
 ```
 
-## Text overlay
+## Text overlay *(refreshed 2026-07-30)*
 
-**RELIEVE · PROTECT · MOISTURIZE**  
-*AFS — artwork function*
+**RELIEVE · PROTECT · MOISTURIZE**
 
-**① RELIEVE**  
-Calm sensitized · reactive feel  
-Centella · Chamomile · Allantoin  
+**① RELIEVE** — Centella · Chamomile · Allantoin  
+**② PROTECT** — Phytosphingosine · botanical complex  
+**③ MOISTURIZE** — Betaine · Sodium Hyaluronate  
 
-**② PROTECT**  
-Comfort barrier support  
-Phytosphingosine · botanical complex  
-
-**③ MOISTURIZE**  
-Betaine · Sodium Hyaluronate  
-Soft lasting comfort moisture  
-
-*Function: Soothing · Moisturizing*
+*Function: Soothing · Moisturizing*  
+*Artwork language — Intertek actives*
 
 ---
 
@@ -127,7 +120,7 @@ Soft lasting comfort moisture
 veo3 "Cinematic clean-formula product shot, 1:1 square. A dark charcoal-to-teal serum dropper bottle with silver collar, positioned upper right, fixed and sharp. On the left, five elegant minimal icon-like soft lime and silver marks suggesting a clean free-from checklist, with a calm protective aura — no literal text in the image. Pure white seamless studio background, soft diffused beauty lighting. Large clean empty areas for checklist text overlay. Photorealistic, premium Korean medical-aesthetic, no people, no hands, no readable text, no logos, no watermark. Very slow subtle motion, every frame usable as a still." --aspect 1:1 --duration 4 --resolution 1080p -o ~/Movies/Veo/afs-serum-s3-freefrom.mp4
 ```
 
-## Text overlay
+## Text overlay *(refreshed 2026-07-30)*
 
 **CLEAN COMFORT FORMULA**
 
@@ -139,10 +132,9 @@ veo3 "Cinematic clean-formula product shot, 1:1 square. A dark charcoal-to-teal 
 ✗ Ethanol  
 
 **DERMATOLOGICALLY TESTED**  
-Formulated for sensitive skin  
+pH comfort range · COA ~5.8  
 
-*pH-balanced comfort range (COA ~5.8)*  
-*Not a clinical % study slide — no invented numbers*
+*No invented clinical %*
 
 ---
 
@@ -155,20 +147,17 @@ Formulated for sensitive skin
 veo3 "Cinematic ingredient-story shot, 1:1 square. A dark charcoal-to-teal glass serum dropper bottle with silver collar, fixed and sharp on the right. On the left, elegant abstract botanical motifs: Centella leaves in soft lime, chamomile petals, clear moisture droplets, and a gentle barrier lipid ribbon in mint and ivory. Pure white seamless studio background, soft diffused beauty lighting. Large clean empty areas on the left for ingredient text overlay. Photorealistic, premium Korean medical-aesthetic, no people, no hands, no readable text, no logos, no watermark. Very slow subtle motion, every frame usable as a still." --aspect 1:1 --duration 4 --resolution 1080p -o ~/Movies/Veo/afs-serum-s4-ingredients.mp4
 ```
 
-## Text overlay
+## Text overlay *(refreshed 2026-07-30)*
 
-**INSIDE THE SERUM**  
-*Intertek-verified actives*
+**INSIDE THE SERUM**
 
 **① CENTELLA ASIATICA 0.05%** — calm · comfort  
 **② ALLANTOIN 0.1%** — soothe · protect  
-**③ BETAINE 0.5%** — gentle moisture magnet feel  
+**③ BETAINE 0.5%** — gentle moisture  
 **④ SODIUM HYALURONATE** — soft hydration  
 **⑤ CHAMOMILE · LICORICE · GREEN TEA · SCUTELLARIA**  
-Botanical soothing complex  
 
-*Also: Aloe · Witch Hazel water · Phytosphingosine · Beta-Glucan*  
-❌ No MultiEx BSASM® · no Phytolex SC · no Madecassoside claim
+*Also: Aloe · Witch Hazel · Phytosphingosine · Beta-Glucan*
 
 ---
 
@@ -180,19 +169,18 @@ Botanical soothing complex
 veo3 "Cinematic skincare lifestyle shot, 4:5 portrait. An adult with calm, even, comforted-looking skin, soft natural glow, relaxed expression with eyes gently closed — complexion looking soothed and resilient, not heavy makeup, no visible irritation. Soft lime-green and mint lighting accents. Bright clean white studio background, soft diffused beauty lighting. The dark charcoal-to-teal ALL FOR SENSITIVE SERUM dropper bottle with silver collar softly placed in the lower right corner. Clean empty space along the left edge and top for minimal text overlay. Photorealistic, K-beauty aesthetic, natural calm healthy skin, no readable text, no logos, no watermark. Very slow subtle motion, every frame usable as a still." --aspect 4:5 --duration 4 --resolution 1080p -o ~/Movies/Veo/afs-serum-s5-result.mp4
 ```
 
-## Text overlay
+## Text overlay *(refreshed 2026-07-30)*
 
 **CALM. COMFORT. DAILY.**
 
 **①** Cleanse + toner (gentle)  
 **②** 2–3 drops · pat — avoid eye area  
-**③** AM & PM  
+**③** AM & PM · seal with Skin Barrier Protecting Cream  
 
-*Seal with Skin Barrier Protecting Cream*  
-*Day finish: Ultra Shield SPF*
+*Day: Ultra Shield SPF*  
+Serum soothes (Centella + Allantoin) · cream NMF barrier support  
 
-**30ml** · *AFS PROFESSIONAL*  
-*Sensitive · reactive · easily irritated skin*
+**30ml** · *AFS PROFESSIONAL*
 
 ---
 
@@ -204,7 +192,7 @@ veo3 "Cinematic skincare lifestyle shot, 4:5 portrait. An adult with calm, even,
 veo3 "Cinematic product closing shot, 1:1 square. A dark charcoal glass serum dropper bottle fading to soft teal at the base, matte black bulb and silver metallic collar, perfectly centered in the frame as the hero, fixed and sharp — not on the right. Soft reflection on a seamless white surface, delicate lime-green luminous particles drifting gently around the bottle. Pure white seamless studio background, soft diffused beauty lighting with fresh green accents. Clean empty space above and below the bottle for closing text overlay. Photorealistic, premium Korean medical-aesthetic cosmeceutical aesthetic, refined sensitive-skin calm mood, no people, no hands, no readable text, no logos, no watermark. Very slow subtle push-in, minimal motion, every frame usable as a still." --aspect 1:1 --duration 4 --resolution 1080p -o ~/Movies/Veo/afs-serum-s6-closing.mp4
 ```
 
-## Text overlay
+## Text overlay *(refreshed 2026-07-30)*
 
 **RELIEVE. PROTECT. MOISTURIZE.**
 
@@ -220,16 +208,14 @@ veo3 "Cinematic product closing shot, 1:1 square. A dark charcoal glass serum dr
 
 ---
 
-## Pairing
-- Cream **27** Skin Barrier Protecting Cream (site Perfect Combination) — serum first, cream seal  
-- Do **not** claim shared MultiEx BSASM®  
-- Optional protocol partners: Hydro Soothing Cream · Soothing Repair Postcream · Ultra Shield SPF (day)
+## Pairing *(site aligned 2026-07-30)*
+- Cream **27** Skin Barrier Protecting Cream — Perfect Combination live  
+- Pairing copy: Centella/Allantoin (serum) + NMF amino acids (cream) — **no MultiEx BSASM®**  
+- Optional: Hydro Soothing Cream · Soothing Repair Postcream · Ultra Shield SPF (day)
 
 ## Site fix (2026-07-30)
-- Fixed `pc19Benefit1–4` in `messages/{en,ar,ru}.json` + mobile `i18n/messages/{en,ar,ru}.json`
-- Benefit1: Centella Asiatica + Allantoin (serum) → NMF amino-acid barrier support (cream 27)
-- Benefit3: removed overclaim “ceramides” (cream 27 Ceramide NP is trace per Intertek audit) → NMF amino acids
+- Fixed `pc19Benefit1–4` in web + mobile i18n; shipped OTA group `c8f6679c`
 - See `SESSION_CHANGES_2026-07-30_AFS_PC19_PAIRING_INTERTEK_FIX.md`
 
 ## Instagram caption
-- Not yet delivered (ask when ready).
+- Delivered 2026-07-31 → `SESSION_CHANGES_2026-07-31_AFS_SERUM_IG_CAPTION.md`

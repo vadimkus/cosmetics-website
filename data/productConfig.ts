@@ -259,6 +259,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       '/images/problem_serum/s5.jpeg',
       '/images/problem_serum/s6.jpeg',
     ],
+    videoUrl: '/videos/problem_serum.mp4',
     pricing: {
       basePrice: 330
     },

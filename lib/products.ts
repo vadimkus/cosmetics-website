@@ -259,6 +259,7 @@ export const products: Product[] = [
     category: 'Serum',
     inStock: true,
     size: '30ml',
+    videoUrl: '/videos/problem_serum.mp4',
   },
   {
     id: '21',

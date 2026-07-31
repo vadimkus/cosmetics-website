@@ -520,7 +520,7 @@ describe('pricingEngine', () => {
 
     it('sets isNewProduct and isBestSeller based on badges', () => {
       const bestSeller = createMockProduct({ id: '1' }) // Best seller ID
-      const newProduct = createMockProduct({ id: '52' }) // New product ID
+      const newProduct = createMockProduct({ id: '63' }) // Current new-launch ID
       
       const bestSellerResult = generateEnhancedProductData(bestSeller, null)
       const newProductResult = generateEnhancedProductData(newProduct, null)

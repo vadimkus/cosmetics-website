@@ -18,8 +18,9 @@ Both jobs failed: `Typecheck, lint, tests` and `Secret scan`.
 
 - Added `estimateOrderPoints: jest.fn(() => 0)` to loyalty mocks in COD + related API tests (stripe payment intent, payment-status, mobile orders).
 - Allowlisted `routineSnowO2Desc` in `.gitleaks.toml`.
+- Updated `pricingEngine.test.ts` new-product fixture from id `52` to `63` (current launch badge list).
 
 ## Verification
 
-- `npx jest --ci` on the affected API test files
+- `npx jest --ci` full suite (clean tree)
 - `gitleaks dir` against a `git archive HEAD` tree with updated config

@@ -46,6 +46,7 @@ jest.mock('@/lib/mobileDiscountRules', () => ({
 }))
 
 jest.mock('@/lib/loyalty', () => ({
+  estimateOrderPoints: jest.fn(() => 0),
   recordRedemption: jest.fn(async () => true),
 }))
 

@@ -23,4 +23,6 @@ regexes = [
   '''reset-password/TOKEN''',
   # Truncated example JWT in MOBILE_AUTH_ENDPOINTS.md ("eyJhbGciOi...",)
   '''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9\.\.\.''',
+  # i18n routine description key — false positive for generic-api-key
+  '''routineSnowO2Desc''',
 ]

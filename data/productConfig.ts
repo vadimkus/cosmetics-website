@@ -246,6 +246,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       '/images/sensitive_serum/s5.jpeg',
       '/images/sensitive_serum/s6.jpeg',
     ],
+    videoUrl: '/videos/all_serum.mp4',
   },
   '20': {
     id: '20',

@@ -240,6 +240,7 @@ export const products: Product[] = [
     ]),
     category: 'Serum',
     inStock: true,
+    videoUrl: '/videos/all_serum.mp4',
   },
   {
     id: '20',

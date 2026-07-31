@@ -6,7 +6,7 @@
 - Form: Soothing · moisturizing serum for sensitive / reactive skin
 - Visual: dark charcoal → soft teal translucent glass dropper · matte black bulb · silver GENOSYS collar · white DNA / AFS PROFESSIONAL mark
 - Live: https://genosys.ae/products/19
-- Image: `/images/sensitive_serum/main.jpeg` (+ gallery s1–s6) · video `/videos/allserum.mp4`
+- Image: `/images/sensitive_serum/main.jpeg` (+ gallery s1–s6) · video `/videos/all_serum.mp4`
 - Accent (artwork Pantone): **375 C** fresh lime/chartreuse (Centella mood) · **432 C** charcoal · **187 C** red → use **soft lime / fresh green** overlays
 
 ## Sources checked

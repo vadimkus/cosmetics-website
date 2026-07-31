@@ -4,6 +4,8 @@ import {
   validateBase64Image,
   validateProductInput,
   validateUserProfileInput,
+  validateBirthday,
+  getTodayYmd,
   INPUT_LIMITS,
   PRICE_LIMITS,
   FILE_LIMITS
@@ -349,6 +351,44 @@ describe('validation', () => {
       })
       expect(result.valid).toBe(false)
       expect(result.errors?.length).toBeGreaterThanOrEqual(3)
+    })
+
+    it('rejects a future birthday', () => {
+      const result = validateUserProfileInput({ birthday: '2099-01-01' })
+      expect(result.valid).toBe(false)
+      expect(result.errors?.some((e) => e.includes('future'))).toBe(true)
+    })
+  })
+
+  describe('validateBirthday', () => {
+    it('allows empty birthday', () => {
+      expect(validateBirthday('').valid).toBe(true)
+      expect(validateBirthday(null).valid).toBe(true)
+      expect(validateBirthday(undefined).valid).toBe(true)
+    })
+
+    it('rejects invalid format and calendar dates', () => {
+      expect(validateBirthday('02-08-1990').valid).toBe(false)
+      expect(validateBirthday('2026-02-31').valid).toBe(false)
+    })
+
+    it('rejects future dates vs Asia/Dubai today', () => {
+      const [y, m, d] = getTodayYmd('Asia/Dubai').split('-').map(Number) as [number, number, number]
+      const next = new Date(Date.UTC(y, m - 1, d + 1))
+      const tomorrow = [
+        next.getUTCFullYear(),
+        String(next.getUTCMonth() + 1).padStart(2, '0'),
+        String(next.getUTCDate()).padStart(2, '0'),
+      ].join('-')
+      const result = validateBirthday(tomorrow)
+      expect(result.valid).toBe(false)
+      expect(result.error).toMatch(/future/i)
+    })
+
+    it('accepts a past birthday', () => {
+      const result = validateBirthday('1990-08-02')
+      expect(result.valid).toBe(true)
+      expect(result.value).toBe('1990-08-02')
     })
   })
 })

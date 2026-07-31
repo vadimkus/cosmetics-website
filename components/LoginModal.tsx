@@ -15,6 +15,7 @@ import {
   normalizeEmailAddress,
   suggestEmailAddressCorrection,
 } from '@/lib/emailAddressValidation'
+import { getLocalTodayYmd } from '@/lib/validation'
 
 interface LoginModalProps {
   isOpen: boolean
@@ -27,6 +28,7 @@ interface LoginModalProps {
 export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMode, promoCode }: LoginModalProps) {
   const { login, register, loginWithGoogle, loginWithApple, isLoading, forceRefreshUser } = useAuth()
   const { t, locale, dir } = useTranslation()
+  const maxBirthday = getLocalTodayYmd()
   const { 
     isPlatformAuthenticatorAvailable, 
     checkPasskeyExists, 
@@ -538,6 +540,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                   name="birthday"
                   value={formData.birthday}
                   onChange={handleInputChange}
+                  max={maxBirthday}
                   className={`w-full px-3 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm bg-white ${formData.birthday ? 'text-gray-900' : 'text-gray-400'} transition-shadow ${dir === 'rtl' ? 'text-right' : ''}`}
                   aria-describedby={error && !isLoginMode ? "error-message" : undefined}
                 />

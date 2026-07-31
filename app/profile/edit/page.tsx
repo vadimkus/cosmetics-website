@@ -9,6 +9,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
 import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
+import { getLocalTodayYmd } from '@/lib/validation'
 
 // Toast notification type
 type ToastType = 'success' | 'error'
@@ -32,6 +33,7 @@ export default function EditProfilePage() {
   const { locale, dir } = useTranslation()
   const { isPWA } = usePWAMode()
   const isRTL = dir === 'rtl'
+  const maxBirthday = getLocalTodayYmd()
   const [isMobileWeb, setIsMobileWeb] = useState(false)
   const [isFormLoaded, setIsFormLoaded] = useState(false)
   
@@ -640,6 +642,7 @@ export default function EditProfilePage() {
                     autoComplete="bday"
                     value={formData.birthday}
                     onChange={(e) => updateField('birthday', e.target.value)}
+                    max={maxBirthday}
                     className={`flex-1 text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
                   />
                 </div>

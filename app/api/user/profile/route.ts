@@ -3,6 +3,7 @@ import { cookies } from 'next/headers'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { verifySessionToken } from '@/lib/jwt'
+import { validateBirthday } from '@/lib/validation'
 
 /**
  * Web User Profile Endpoint (Session-based auth)
@@ -184,21 +185,16 @@ export async function PUT(request: NextRequest) {
       sanitizedUpdates.gender = g
     }
 
-    // Validate birthday if provided
+    // Validate birthday if provided (no future dates)
     if (sanitizedUpdates.birthday !== undefined && sanitizedUpdates.birthday !== null && sanitizedUpdates.birthday !== '') {
-      if (typeof sanitizedUpdates.birthday !== 'string') {
+      const birthdayValidation = validateBirthday(sanitizedUpdates.birthday)
+      if (!birthdayValidation.valid) {
         return NextResponse.json(
-          { success: false, error: 'Birthday must be a string' },
+          { success: false, error: birthdayValidation.error || 'Invalid birthday' },
           { status: 400 }
         )
       }
-      const dateRegex = /^\d{4}-\d{2}-\d{2}$/
-      if (!dateRegex.test(sanitizedUpdates.birthday as string)) {
-        return NextResponse.json(
-          { success: false, error: 'Birthday must be in YYYY-MM-DD format' },
-          { status: 400 }
-        )
-      }
+      sanitizedUpdates.birthday = birthdayValidation.value
     }
 
     // Validate contactEmail if provided

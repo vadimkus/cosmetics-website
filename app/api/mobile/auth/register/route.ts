@@ -8,7 +8,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserAction } from '@/lib/analyticsServer'
 import { sendWelcomeEmail, sendAdminNewUserNotification } from '@/lib/email'
 import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
-import { validateLength, INPUT_LIMITS } from '@/lib/validation'
+import { validateLength, validateBirthday, INPUT_LIMITS } from '@/lib/validation'
 import bcrypt from 'bcryptjs'
 import { resolveDeviceInfo } from '@/lib/deviceDetection'
 import { getGeolocationData } from '@/lib/geolocation'
@@ -194,6 +194,18 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    const birthdayValidation = validateBirthday(birthday)
+    if (!birthdayValidation.valid) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: birthdayValidation.error || 'Invalid birthday',
+        },
+        { status: 400 }
+      )
+    }
+    const normalizedBirthday = birthdayValidation.value ?? null
+
     // Check if user already exists
     const existingUser = await findUserByEmail(normalizedEmail)
     if (existingUser) {
@@ -263,7 +275,7 @@ export async function POST(request: NextRequest) {
         canSeePrices: true,
         discountType,
         discountPercentage,
-        birthday: birthday || null,
+        birthday: normalizedBirthday,
         lastLoginAt: now,
         lastLoginSource: 'mobile_app',
         memberNumber,
@@ -312,16 +324,17 @@ export async function POST(request: NextRequest) {
       // Get geolocation data
       const geoData = await getGeolocationData(ipAddress)
       
-      // Calculate age from birthday if available
+      // Calculate age from birthday if available (skip invalid / future)
       let age: number | undefined
-      if (birthday) {
-        const birthDate = new Date(birthday)
+      if (normalizedBirthday) {
+        const birthDate = new Date(`${normalizedBirthday}T00:00:00Z`)
         const today = new Date()
-        age = today.getFullYear() - birthDate.getFullYear()
-        const monthDiff = today.getMonth() - birthDate.getMonth()
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age = today.getFullYear() - birthDate.getUTCFullYear()
+        const monthDiff = today.getMonth() - birthDate.getUTCMonth()
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getUTCDate())) {
           age--
         }
+        if (!Number.isFinite(age) || age < 0) age = undefined
       }
       
       // Build additionalInfo object, only including defined values
@@ -333,7 +346,7 @@ export async function POST(request: NextRequest) {
       if (deviceInfo.deviceModel) additionalInfo.deviceModel = deviceInfo.deviceModel
       if (deviceInfo.os) additionalInfo.os = deviceInfo.os
       if (deviceInfo.browser) additionalInfo.browser = deviceInfo.browser
-      if (age) additionalInfo.age = age
+      if (typeof age === 'number' && age >= 0) additionalInfo.age = age
       if (gender) additionalInfo.gender = String(gender)
       
       const adminResult = await sendAdminNewUserNotification(

@@ -965,7 +965,7 @@ export const emailTemplates = {
                         </td>
                       </tr>
                       ` : ''}
-                      ${additionalInfo?.age ? `
+                      ${typeof additionalInfo?.age === 'number' && additionalInfo.age >= 0 ? `
                       <tr>
                         <td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6;">
                           <p style="margin: 0; color: #6b7280; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Age</p>

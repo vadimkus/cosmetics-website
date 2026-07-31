@@ -3,6 +3,7 @@
 import { User, Shield, Eye, Lock, CheckCircle, X, Mail, AlertCircle, Edit3 } from 'lucide-react'
 import { User as UserType } from '@/types/user'
 import { useTranslation } from '@/hooks/useTranslation'
+import { getLocalTodayYmd } from '@/lib/validation'
 
 interface ProfileFormProps {
   user: UserType
@@ -28,6 +29,7 @@ export default function ProfileForm({
   onCancel
 }: ProfileFormProps) {
   const { t, locale } = useTranslation()
+  const maxBirthday = getLocalTodayYmd()
   const handleInputChange = (field: keyof typeof editData, value: string) => {
     onEditDataChange({
       ...editData,
@@ -197,6 +199,7 @@ export default function ProfileForm({
                   type="date"
                   value={editData.birthday}
                   onChange={(e) => handleInputChange('birthday', e.target.value)}
+                  max={maxBirthday}
                   className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
                   aria-describedby="birthday-hint"
                   autoComplete="bday"

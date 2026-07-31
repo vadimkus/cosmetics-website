@@ -31,6 +31,68 @@ export const FILE_LIMITS = {
   PROFILE_PICTURE_BASE64_MAX_LENGTH: 10 * 1024 * 1024, // 10MB base64 (roughly 7.5MB binary)
 } as const
 
+/** Calendar today as YYYY-MM-DD in the given IANA timezone (default UAE). */
+export function getTodayYmd(timeZone = 'Asia/Dubai', now = new Date()): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(now)
+}
+
+/** Local browser/calendar today as YYYY-MM-DD (for HTML date input `max`). */
+export function getLocalTodayYmd(now = new Date()): string {
+  const y = now.getFullYear()
+  const m = String(now.getMonth() + 1).padStart(2, '0')
+  const d = String(now.getDate()).padStart(2, '0')
+  return `${y}-${m}-${d}`
+}
+
+/**
+ * Optional birthday validator. Empty/null is allowed.
+ * Requires YYYY-MM-DD, a real calendar date, and not after today (Asia/Dubai).
+ */
+export function validateBirthday(birthday: unknown): {
+  valid: boolean
+  error?: string
+  value?: string | null
+} {
+  if (birthday === undefined || birthday === null || birthday === '') {
+    return { valid: true, value: null }
+  }
+  if (typeof birthday !== 'string') {
+    return { valid: false, error: 'Birthday must be a string' }
+  }
+
+  const trimmed = birthday.trim()
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(trimmed)) {
+    return { valid: false, error: 'Birthday must be in YYYY-MM-DD format' }
+  }
+
+  const parts = trimmed.split('-')
+  const year = Number(parts[0])
+  const month = Number(parts[1])
+  const day = Number(parts[2])
+  if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) {
+    return { valid: false, error: 'Birthday is not a valid date' }
+  }
+  const utc = new Date(Date.UTC(year, month - 1, day))
+  if (
+    utc.getUTCFullYear() !== year ||
+    utc.getUTCMonth() !== month - 1 ||
+    utc.getUTCDate() !== day
+  ) {
+    return { valid: false, error: 'Birthday is not a valid date' }
+  }
+
+  if (trimmed > getTodayYmd('Asia/Dubai')) {
+    return { valid: false, error: 'Birthday cannot be in the future' }
+  }
+
+  return { valid: true, value: trimmed }
+}
+
 /**
  * Validates that a string value does not exceed a maximum length.
  * Used to prevent DoS attacks via oversized input.
@@ -317,10 +379,15 @@ export function validateUserProfileInput(input: {
   }
   
   // Validate birthday
-  if (input.birthday !== undefined && input.birthday !== null) {
-    const birthdayValidation = validateLength(input.birthday, INPUT_LIMITS.USER_BIRTHDAY, 'Birthday')
-    if (!birthdayValidation.valid) {
-      errors.push(birthdayValidation.error!)
+  if (input.birthday !== undefined && input.birthday !== null && input.birthday !== '') {
+    const birthdayLength = validateLength(input.birthday, INPUT_LIMITS.USER_BIRTHDAY, 'Birthday')
+    if (!birthdayLength.valid) {
+      errors.push(birthdayLength.error!)
+    } else {
+      const birthdayValidation = validateBirthday(input.birthday)
+      if (!birthdayValidation.valid && birthdayValidation.error) {
+        errors.push(birthdayValidation.error)
+      }
     }
   }
   

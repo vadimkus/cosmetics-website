@@ -18,6 +18,7 @@ import {
   normalizeEmailAddress,
   suggestEmailAddressCorrection,
 } from '@/lib/emailAddressValidation'
+import { getLocalTodayYmd } from '@/lib/validation'
 
 export default function LoginClient() {
   const { user, login, register, loginWithGoogle, loginWithApple, isLoading, forceRefreshUser } = useAuth()
@@ -46,6 +47,7 @@ export default function LoginClient() {
   const [showLangDropdown, setShowLangDropdown] = useState(false)
   const [confirmedEmail, setConfirmedEmail] = useState<string | null>(null)
   const normalizedPromo = String(promoCode || '').trim().toUpperCase()
+  const maxBirthday = getLocalTodayYmd()
 
   // Dedicated partner (clinic) login modal — same credentials, lands in the
   // Partner Portal instead of the shop.
@@ -608,6 +610,7 @@ export default function LoginClient() {
                     name="birthday"
                     value={formData.birthday}
                     onChange={handleInputChange}
+                    max={maxBirthday}
                     className={`w-full px-4 py-3.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all ${formData.birthday ? 'text-gray-900' : 'text-gray-400'} ${isRTL ? 'text-right' : ''}`}
                   />
                   <p className={`text-xs text-gray-500 mt-1 flex items-center gap-1 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
@@ -1058,6 +1061,7 @@ export default function LoginClient() {
                       name="birthday"
                       value={formData.birthday}
                       onChange={handleInputChange}
+                      max={maxBirthday}
                       className={`w-full px-3 py-2.5 md:py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-xs md:text-sm bg-white ${formData.birthday ? 'text-gray-900' : 'text-gray-400'} ${dir === 'rtl' ? 'text-right' : ''}`}
                     />
                     <p className={`text-[11px] text-gray-500 mt-1 flex items-center justify-center gap-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

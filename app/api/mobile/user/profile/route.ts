@@ -3,6 +3,7 @@ import { validateMobileAuth, extractTokenFromHeader } from '@/lib/jwt'
 import { findUserByEmail, updateUser } from '@/lib/userStorageDb'
 import { debugLog, errorLog } from '@/lib/logger'
 import { trackUserActivity } from '@/lib/activityTracker'
+import { validateBirthday } from '@/lib/validation'
 
 /**
  * Mobile User Profile Endpoint
@@ -231,28 +232,19 @@ export async function PUT(request: NextRequest) {
       sanitizedUpdates.gender = g
     }
 
-    // Validate birthday if provided
+    // Validate birthday if provided (no future dates)
     if (sanitizedUpdates.birthday !== undefined && sanitizedUpdates.birthday !== null && sanitizedUpdates.birthday !== '') {
-      if (typeof sanitizedUpdates.birthday !== 'string') {
+      const birthdayValidation = validateBirthday(sanitizedUpdates.birthday)
+      if (!birthdayValidation.valid) {
         return NextResponse.json(
-          { 
-            success: false, 
-            error: 'Birthday must be a string' 
+          {
+            success: false,
+            error: birthdayValidation.error || 'Invalid birthday',
           },
           { status: 400 }
         )
       }
-      // Basic date validation (you might want to add more sophisticated validation)
-      const dateRegex = /^\d{4}-\d{2}-\d{2}$/
-      if (!dateRegex.test(sanitizedUpdates.birthday)) {
-        return NextResponse.json(
-          { 
-            success: false, 
-            error: 'Birthday must be in YYYY-MM-DD format' 
-          },
-          { status: 400 }
-        )
-      }
+      sanitizedUpdates.birthday = birthdayValidation.value
     }
 
     // Validate contactEmail if provided

@@ -24,6 +24,7 @@ import { User } from '@/types/user'
 import { getCsrfHeaders } from '@/lib/csrfClient'
 import { debugLog, errorLog } from '@/lib/logger'
 import StatusBadge from '@/components/shared/StatusBadge'
+import { getLocalTodayYmd } from '@/lib/validation'
 
 type Customer = User
 
@@ -77,6 +78,7 @@ export default function CustomerProfile({
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(false)
+  const maxBirthday = getLocalTodayYmd()
   const [editData, setEditData] = useState({
     name: customer.name || '',
     email: customer.email || '',
@@ -694,6 +696,7 @@ export default function CustomerProfile({
                       type="date"
                       value={editData.birthday}
                       onChange={(e) => setEditData({ ...editData, birthday: e.target.value })}
+                      max={maxBirthday}
                       className="px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   ) : (

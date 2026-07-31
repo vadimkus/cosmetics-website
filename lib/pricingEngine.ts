@@ -508,13 +508,17 @@ export function generateEnhancedProductData(
   
   // Merge images: prioritize productConfig images (like the website does),
   // then fall back to DB product.images (combined with main image), then just the main image.
-  // IMPORTANT: productConfig images already include the main image as the first element.
-  // DB product.images only contains gallery images (not the main image), so we must
-  // prepend product.image to match the web's ProductImageGallery behavior.
+  // Config galleries sometimes list slide assets only — always ensure product.image
+  // (packshot) is first, matching ProductImageGallery on the web PDP.
+  // DB product.images is gallery-only (main not duplicated).
   const configImages = getProductImages(configKey)
   let mergedImages: string | null = null
   if (configImages.length > 0) {
-    mergedImages = JSON.stringify(configImages)
+    const mainImage = product.image
+    const combined = mainImage
+      ? [mainImage, ...configImages.filter((img) => img !== mainImage)]
+      : configImages
+    mergedImages = JSON.stringify(combined)
   } else if (product.images) {
     // DB images are gallery-only — combine main image + gallery, avoiding duplicates
     try {

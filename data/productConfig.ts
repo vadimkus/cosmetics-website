@@ -157,6 +157,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '12': {
     id: '12',
     images: [
+      '/images/epi/main.jpeg',
       '/images/epi/s1.jpeg',
       '/images/epi/s2.jpeg',
       '/images/epi/s3.jpeg',

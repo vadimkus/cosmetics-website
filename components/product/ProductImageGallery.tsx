@@ -55,15 +55,17 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
   }, [isHolidayKit])
 
   const getProductImages = () => {
-    // Always start with the main image
+    // Always start with the main image (packshot). Config galleries sometimes
+    // list slide assets only — never drop the main if it is absent there.
     const mainImage = product.image
-    
+
     // First check productConfig for images (takes priority)
     const configImages = getConfigImages(configKey)
     if (configImages.length > 0) {
-      return configImages
+      if (!mainImage) return configImages
+      return [mainImage, ...configImages.filter((img) => img !== mainImage)]
     }
-    
+
     // Then check product.images JSON field
     if (product.images) {
       try {

@@ -236,7 +236,7 @@ async function main() {
     excerpt:
       'A scalp-first guide without miracle-growth promises: what Korea’s functional-cosmetic status means, what is really inside the current α formula, and how to use this leave-on tonic correctly.',
     content: contentEn,
-    featuredImage: `${IMG}/main.jpeg`,
+    featuredImage: `${IMG}/main-v2.jpeg`,
     titleRu: 'Сначала кожа головы: честная история HR³ MATRIX HAIR TONIC α',
     excerptRu:
       'Уход за кожей головы без обещаний чудо-роста: что означает корейский статус функциональной косметики, что реально входит в актуальную формулу α и как правильно применять несмываемый тоник.',

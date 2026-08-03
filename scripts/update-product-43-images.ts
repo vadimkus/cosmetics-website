@@ -9,7 +9,7 @@
  */
 import { prisma } from '../lib/prisma'
 
-const NEW_MAIN = '/images/hair_tonic/main.jpeg'
+const NEW_MAIN = '/images/hair_tonic/main-v2.jpeg'
 const NEW_GALLERY = [
   '/images/hair_tonic/s1.jpeg',
   '/images/hair_tonic/s2.jpeg',
@@ -20,6 +20,7 @@ const NEW_GALLERY = [
 ]
 const REPLACEMENTS: Array<[string, string]> = [
   ['/images/HT.jpg', NEW_MAIN],
+  ['/images/hair_tonic/main.jpeg', NEW_MAIN],
   ['/images/Second/tonicc.jpg', NEW_GALLERY[0]],
 ]
 

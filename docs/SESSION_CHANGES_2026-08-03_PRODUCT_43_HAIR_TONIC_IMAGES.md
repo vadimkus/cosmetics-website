@@ -27,3 +27,11 @@ verified against local Intertek formula, artwork, and COA documents in
 - Product 43 database image and gallery use the new paths.
 - Historical order items on old image paths: zero.
 - Repository-wide dead-order-image audit: zero repairable and zero unresolved.
+
+## Updated square main image
+
+Later on 2026-08-03, the main product image was replaced with the updated
+square artwork supplied as `main2.jpeg`. It was deployed under the cache-safe
+path `/images/hair_tonic/main-v2.jpeg`, then propagated to the product,
+historical order/email images, training surfaces, profile fallbacks, and the
+Hair Tonic blog featured image. Gallery slides `s1.jpeg`–`s6.jpeg` are unchanged.

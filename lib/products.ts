@@ -537,7 +537,7 @@ export const products: Product[] = [
     name: 'HR³ MATRIX HAIR TONIC α',
     price: 290,
     description: '70ml. Functional tonic that improves the conditions of hair loss. It is a functional tonic approved as a \'functional product that improves the symptoms of hair loss\' by KFDA. It improves the scalp environment that causes hair loss and cools down the scalp heat, giving the sense of freshness to the scalp. Key ingredients: Copper Tripeptide-1, Sophora Japonica Extract, Caffeine, Menthol, Salicylic Acid, Allantoin, Centella Asiatica Extract, Scutellaria Baicalensis Root Extract, Licorice Root Extract. Dermatologically tested. KFDA approved as a functional product for improving hair loss symptoms. Efficacy test on improving hair loss.',
-    image: '/images/hair_tonic/main.jpeg',
+    image: '/images/hair_tonic/main-v2.jpeg',
     images: JSON.stringify([
       '/images/hair_tonic/s1.jpeg',
       '/images/hair_tonic/s2.jpeg',

@@ -73,6 +73,18 @@ Two more routes had the same vulnerability class independently:
    → must return **401**.
 3. Place a test order from the mobile app (sanity).
 
+## 2026-08-03 reliability follow-up
+
+`POST /api/auth/admin-login` now falls back to the existing direct, pooled
+PostgreSQL client when the primary Prisma Accelerate lookup returns no user
+during an upstream timeout. This preserves password and admin-role verification;
+it only changes the database transport used to retrieve the account.
+
+The incident was confirmed in Vercel runtime logs as Prisma `P6000` query
+timeouts across admin login, normal session refresh, analytics, and a cron. The
+admin account remained present, admin-enabled, and bcrypt-protected when queried
+through the direct connection.
+
 ## Known Edge Case (accepted)
 
 If the browser's `admin-session` cookie is purged while the localStorage UI

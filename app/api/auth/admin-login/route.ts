@@ -4,6 +4,7 @@ import { errorLog, debugLog } from '@/lib/logger'
 import bcrypt from 'bcryptjs'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 import { generateAdminSessionToken } from '@/lib/adminAuth'
+import { getDirectPrismaClient } from '@/lib/prisma'
 
 const adminLoginLimiter = rateLimitSimple({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -53,7 +54,24 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user exists in database and is admin
-    const user = await findUserByEmail(email)
+    let user = await findUserByEmail(email)
+
+    // Prisma Accelerate can occasionally time out while the underlying
+    // PostgreSQL database remains healthy. Admin login is a critical recovery
+    // path, so fall back to the existing direct, pooled connection before
+    // reporting invalid credentials.
+    if (!user) {
+      const directPrisma = getDirectPrismaClient()
+      if (directPrisma) {
+        try {
+          user = await directPrisma.user.findUnique({
+            where: { email: String(email).trim().toLowerCase() },
+          })
+        } catch (directError) {
+          errorLog('Admin login direct database fallback failed:', directError)
+        }
+      }
+    }
     
     if (!user || !user.isAdmin) {
       return NextResponse.json(

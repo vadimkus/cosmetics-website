@@ -16,19 +16,32 @@ const globalForPrisma = globalThis as unknown as GlobalWithPrisma
 const prismaLog: ('error' | 'warn')[] =
   process.env.NODE_ENV === 'development' ? ['error', 'warn'] : []
 
-// Ensure DATABASE_URL is set
-const databaseUrl = process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL
-if (!databaseUrl) {
-  throw new Error(
-    'DATABASE_URL or PRISMA_DATABASE_URL environment variable is required. ' +
-    'Please set it in your .env.local file.'
-  )
-}
-const runtimeDatabaseUrl = databaseUrl
-
 function isDirectPostgresUrl(url: string | undefined): url is string {
   return Boolean(url && /^(postgres|postgresql):\/\//.test(url))
 }
+
+// Prefer direct PostgreSQL for all runtime traffic. Prisma Accelerate remains a
+// fallback only when no direct URL is configured; widespread Accelerate
+// P6000 timeouts must not take authentication and product APIs offline.
+const directDatabaseUrl = [
+  process.env.POSTGRES_PRISMA_URL,
+  process.env.POSTGRES_URL,
+  process.env.DATABASE_URL,
+  process.env.POSTGRES_URL_NON_POOLING,
+].find(isDirectPostgresUrl)
+const accelerateDatabaseUrl =
+  process.env.PRISMA_DATABASE_URL?.startsWith('prisma+')
+    ? process.env.PRISMA_DATABASE_URL
+    : undefined
+const selectedDatabaseUrl = directDatabaseUrl || accelerateDatabaseUrl
+
+if (!selectedDatabaseUrl) {
+  throw new Error(
+    'A direct PostgreSQL URL or PRISMA_DATABASE_URL is required. ' +
+    'Please configure POSTGRES_URL, DATABASE_URL, or PRISMA_DATABASE_URL.'
+  )
+}
+const runtimeDatabaseUrl: string = selectedDatabaseUrl
 
 function createPooledPrismaClient(connectionString: string, maxConnections: number): {
   client: PrismaClient
@@ -86,12 +99,13 @@ if (globalForPrisma.prisma) {
         debugLog('   Connection pooling: Managed by Prisma Accelerate')
       } else {
         // Regular PostgreSQL connection - use adapter with proper pooling
-        const { client, pool } = createPooledPrismaClient(runtimeDatabaseUrl, 5)
+        const maxConnections = process.env.VERCEL ? 1 : 5
+        const { client, pool } = createPooledPrismaClient(runtimeDatabaseUrl, maxConnections)
         prismaInstance = client
         globalForPrisma.pgPool = pool
         
         debugLog('✅ Created new Prisma client instance with connection pooling')
-        debugLog(`   Pool config: max=${5}, min=${0}, idleTimeout=${10000}ms`)
+        debugLog(`   Pool config: max=${maxConnections}, min=${0}, idleTimeout=${10000}ms`)
       }
     } catch (error) {
       errorLog('❌ Failed to initialize Prisma client:', error)

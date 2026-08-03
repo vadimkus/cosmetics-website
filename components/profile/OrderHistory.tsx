@@ -129,6 +129,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'MULTI VITA RADIANCE CREAM': '/images/radiance/main.jpeg',
       'MULTI VITA RADIANCE SERUM': '/images/radiance_serum/main.jpeg',
       'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': '/images/multif_serum/main.jpeg',
+      'MULTI FUNCTIONAL ANTI-WRINKLE CREAM': '/images/multifunc_cream/main.jpeg',
       'MOISTURE REPLENISHING HYALURON SERUM': '/images/hyaluron_serum/main.jpeg',
       'ALL FOR SENSITIVE SERUM': '/images/sensitive_serum/main.jpeg',
       'PROBLEM CONTROL SERUM': '/images/problems_serum/main.jpeg',

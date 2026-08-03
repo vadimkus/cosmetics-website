@@ -10,16 +10,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import { PrismaClient } from '@prisma/client'
-
-const databaseUrl = process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL
-if (!databaseUrl) throw new Error('DATABASE_URL or PRISMA_DATABASE_URL is required')
-
-const prisma = new PrismaClient(
-  databaseUrl.includes('prisma.io') || databaseUrl.includes('accelerate')
-    ? { accelerateUrl: databaseUrl, log: ['error'] }
-    : { datasourceUrl: databaseUrl, log: ['error'] } as never,
-)
+import { prisma } from '../lib/prisma'
 
 const PUBLIC_DIR = path.resolve(process.cwd(), 'public')
 const OWN_HOSTS = new Set(['genosys.ae', 'www.genosys.ae'])

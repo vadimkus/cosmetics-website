@@ -251,13 +251,13 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '20': {
     id: '20',
     images: [
-      '/images/problem_serum/main.jpeg',
-      '/images/problem_serum/s1.jpeg',
-      '/images/problem_serum/s2.jpeg',
-      '/images/problem_serum/s3.jpeg',
-      '/images/problem_serum/s4.jpeg',
-      '/images/problem_serum/s5.jpeg',
-      '/images/problem_serum/s6.jpeg',
+      '/images/problems_serum/main.jpeg',
+      '/images/problems_serum/s1.jpeg',
+      '/images/problems_serum/s2.jpeg',
+      '/images/problems_serum/s3.jpeg',
+      '/images/problems_serum/s4.jpeg',
+      '/images/problems_serum/s5.jpeg',
+      '/images/problems_serum/s6.jpeg',
     ],
     videoUrl: '/videos/problem_serum.mp4',
     pricing: {

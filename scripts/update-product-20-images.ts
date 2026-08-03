@@ -1,44 +1,46 @@
 /**
- * Update product 20 (PROBLEM CONTROL SERUM) to the new
- * public/images/problem_serum/ set (main + s1–s6).
+ * Update product 20 (PROBLEM CONTROL SERUM) to the refreshed
+ * public/images/problems_serum/ set (main + s1–s6).
  *
  * Dry run:
  *   npx tsx --env-file=.env.local scripts/update-product-20-images.ts
  * Apply:
  *   npx tsx --env-file=.env.local scripts/update-product-20-images.ts --apply
  */
-import { PrismaClient } from '@prisma/client'
+import { prisma } from '../lib/prisma'
 
-const databaseUrl = process.env.PRISMA_DATABASE_URL || process.env.DATABASE_URL
-if (!databaseUrl) throw new Error('DATABASE_URL or PRISMA_DATABASE_URL is required')
-
-const prisma = new PrismaClient(
-  databaseUrl.includes('prisma.io') || databaseUrl.includes('accelerate')
-    ? { accelerateUrl: databaseUrl, log: ['error'] }
-    : { datasourceUrl: databaseUrl, log: ['error'] } as never,
-)
-
-const NEW_MAIN = '/images/problem_serum/main.jpeg'
+const NEW_MAIN = '/images/problems_serum/main.jpeg'
 const NEW_GALLERY = [
-  '/images/problem_serum/s1.jpeg',
-  '/images/problem_serum/s2.jpeg',
-  '/images/problem_serum/s3.jpeg',
-  '/images/problem_serum/s4.jpeg',
-  '/images/problem_serum/s5.jpeg',
-  '/images/problem_serum/s6.jpeg',
+  '/images/problems_serum/s1.jpeg',
+  '/images/problems_serum/s2.jpeg',
+  '/images/problems_serum/s3.jpeg',
+  '/images/problems_serum/s4.jpeg',
+  '/images/problems_serum/s5.jpeg',
+  '/images/problems_serum/s6.jpeg',
 ]
 
-const OLD_IMAGES = [
-  '/images/PRSS.jpg',
-  'https://genosys.ae/images/PRSS.jpg',
-  'https://www.genosys.ae/images/PRSS.jpg',
+const IMAGE_REPLACEMENTS: Array<[string, string]> = [
+  ['/images/problem_serum/main.jpeg', NEW_MAIN],
+  ...NEW_GALLERY.map(
+    (newImage, index): [string, string] => [
+      `/images/problem_serum/s${index + 1}.jpeg`,
+      newImage,
+    ],
+  ),
+  ['/images/PRSS.jpg', NEW_MAIN],
 ]
+
+function variants(image: string): string[] {
+  return [image, `https://genosys.ae${image}`, `https://www.genosys.ae${image}`]
+}
 
 function replaceOldPaths(html: string | null): string | null {
   if (!html) return html
   let out = html
-  for (const old of OLD_IMAGES) {
-    out = out.replaceAll(old, NEW_MAIN)
+  for (const [oldImage, newImage] of IMAGE_REPLACEMENTS) {
+    for (const old of variants(oldImage)) {
+      out = out.replaceAll(old, newImage)
+    }
   }
   return out
 }
@@ -56,9 +58,9 @@ async function main() {
     console.log('DRY RUN — pass --apply to write')
     console.log('Would set image:', NEW_MAIN)
     console.log('Would set gallery:', NEW_GALLERY)
-    for (const img of OLD_IMAGES) {
-      const c = await prisma.orderItem.count({ where: { image: img } })
-      console.log(`orderItems with ${img}:`, c)
+    for (const [oldImage] of IMAGE_REPLACEMENTS) {
+      const c = await prisma.orderItem.count({ where: { image: { in: variants(oldImage) } } })
+      console.log(`orderItems with ${oldImage}:`, c)
     }
     const byProduct = await prisma.orderItem.count({ where: { productId: p.id } })
     console.log('orderItems for product 20 total:', byProduct)
@@ -68,11 +70,11 @@ async function main() {
     })
     const hit = blogs.filter((b) =>
       [b.featuredImage, b.content, b.contentAr, b.contentRu].some((c) =>
-        Boolean(c && c.includes('PRSS.jpg')),
+        Boolean(c && IMAGE_REPLACEMENTS.some(([oldImage]) => c.includes(oldImage))),
       ),
     )
     console.log(
-      'Blog posts with old PRSS paths:',
+      'Blog posts with old product paths:',
       hit.map((b) => ({ slug: b.slug, featured: b.featuredImage })),
     )
     return
@@ -85,19 +87,22 @@ async function main() {
   })
   console.log('AFTER:', JSON.stringify(updated, null, 2))
 
-  for (const img of OLD_IMAGES) {
+  for (const [oldImage, newImage] of IMAGE_REPLACEMENTS) {
     const result = await prisma.orderItem.updateMany({
-      where: { image: img },
-      data: { image: NEW_MAIN },
+      where: { image: { in: variants(oldImage) } },
+      data: { image: newImage },
     })
     if (result.count > 0) {
-      console.log(`Repointed ${result.count} orderItems from ${img} → ${NEW_MAIN}`)
+      console.log(`Repointed ${result.count} orderItems from ${oldImage} → ${newImage}`)
     }
   }
 
   // Also repoint any remaining product-20 order items still on the old main
   const productRepoint = await prisma.orderItem.updateMany({
-    where: { productId: p.id, image: { in: OLD_IMAGES } },
+    where: {
+      productId: p.id,
+      image: { in: IMAGE_REPLACEMENTS.flatMap(([oldImage]) => variants(oldImage)) },
+    },
     data: { image: NEW_MAIN },
   })
   if (productRepoint.count > 0) {
@@ -131,7 +136,7 @@ async function main() {
         where: { id: b.id },
         data: next,
       })
-      console.log(`Repointed blog ${b.slug} PRSS paths → ${NEW_MAIN}`)
+      console.log(`Repointed blog ${b.slug} product image paths`)
     }
   }
 }

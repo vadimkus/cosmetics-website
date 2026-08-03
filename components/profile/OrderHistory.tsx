@@ -133,6 +133,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'MOISTURE REPLENISHING HYALURON SERUM': '/images/hyaluron_serum/main.jpeg',
       'ALL FOR SENSITIVE SERUM': '/images/sensitive_serum/main.jpeg',
       'PROBLEM CONTROL SERUM': '/images/problems_serum/main.jpeg',
+      'HR³ MATRIX HAIR TONIC α': '/images/hair_tonic/main.jpeg',
       'ND Cell ANTI-WRINKLE CREAM': '/images/ND.jpg',
       'SOOTHING REPAIR POSTCREAM': '/images/SRC.jpg',
       'SKIN RENEWAL PEELING SYSTEM (SRS)': '/images/SRS.jpg',

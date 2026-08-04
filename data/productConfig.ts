@@ -635,6 +635,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 3300
     },
+    videoUrl: '/videos/gentron.mp4',
     documentation: [
       {
         title: 'Hair-GENTRON Guide',
@@ -648,6 +649,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 5500
     },
+    videoUrl: '/videos/led.mp4',
     documentation: [
       {
         title: 'GENO-LED IR II Guide',

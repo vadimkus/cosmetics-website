@@ -401,6 +401,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
         '250g': 420
       }
     },
+    videoUrl: '/videos/problem_cream.mp4',
     sizes: [
       { value: '50g', label: '50g', available: true },
       { value: '250g', label: '250g', available: true }

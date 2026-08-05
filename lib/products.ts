@@ -376,6 +376,7 @@ export const products: Product[] = [
     images: null,
     category: 'Cream',
     inStock: true,
+    videoUrl: '/videos/problem_cream.mp4',
   },
   {
     id: '31',

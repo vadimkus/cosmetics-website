@@ -263,7 +263,10 @@ export async function POST(request: NextRequest) {
         }
       }
 
-      const memberNumber = await generateMemberNumber()
+      // Keep every query on the interactive transaction's connection. Production
+      // uses a one-connection serverless pool; calling the global Prisma client
+      // here waits for a second connection until this transaction expires.
+      const memberNumber = await generateMemberNumber(tx)
       const userData: Prisma.UserCreateInput = {
         name,
         email: normalizedEmail,

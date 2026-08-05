@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/database'
 
 export const TIER_THRESHOLDS = {
@@ -34,8 +35,10 @@ export function nextTierInfo(tier: MemberTier, totalSpent: number) {
   }
 }
 
-export async function generateMemberNumber(): Promise<string> {
-  const lastUser = await prisma.user.findFirst({
+type MembershipDb = Pick<Prisma.TransactionClient, 'user'>
+
+export async function generateMemberNumber(db: MembershipDb = prisma): Promise<string> {
+  const lastUser = await db.user.findFirst({
     where: { memberNumber: { not: null } },
     orderBy: { memberNumber: 'desc' },
     select: { memberNumber: true },

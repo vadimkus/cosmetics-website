@@ -242,6 +242,24 @@ Vercel was automatically upgrading to Node.js 24.x due to the `>=22.0.0` constra
 
 ---
 
+## Production Fix - August 5, 2026
+
+Voice recognition was available in the browser, but the site-wide
+`Permissions-Policy` response header explicitly disabled microphone access.
+Clicking the voice-search button therefore failed with "Microphone access
+denied" before the browser could prompt the user.
+
+Updated `proxy.ts` to allow microphone access for the same origin while
+preserving the existing camera, geolocation, and Stripe payment directives:
+
+```text
+camera=(self), microphone=(self), geolocation=(), payment=(self "https://js.stripe.com")
+```
+
+Cross-origin microphone access remains blocked.
+
+---
+
 ## Git Commits
 
 1. `feat: add voice search to product catalog` - Initial implementation

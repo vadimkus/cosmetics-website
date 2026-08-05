@@ -32,7 +32,7 @@ function withSecurityHeaders(response: NextResponse, requestId: string): NextRes
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
   response.headers.set(
     'Permissions-Policy',
-    'camera=(self), microphone=(), geolocation=(), payment=(self "https://js.stripe.com")'
+    'camera=(self), microphone=(self), geolocation=(), payment=(self "https://js.stripe.com")'
   )
   response.headers.set('X-DNS-Prefetch-Control', 'on')
   // Force HTTPS for a year (incl. subdomains). Safe: the site is HTTPS-only on

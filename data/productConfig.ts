@@ -401,7 +401,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
         '250g': 420
       }
     },
-    images: ['/images/PRB.jpg', '/images/Second/problem_duo.jpg'],
     sizes: [
       { value: '50g', label: '50g', available: true },
       { value: '250g', label: '250g', available: true }

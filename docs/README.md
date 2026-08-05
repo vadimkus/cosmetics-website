@@ -11,6 +11,7 @@
 | Priority | Document | Description |
 |----------|----------|-------------|
 | 🔴 **Mobile auth reliability** | [Mobile registration transaction fix](./SESSION_CHANGES_2026-08-05_MOBILE_REGISTRATION_TRANSACTION_FIX.md) | Fixes native email-registration HTTP 500 after account deletion: member-number lookup now stays on the active Prisma transaction connection instead of deadlocking the one-connection Vercel pool. |
+| 🟡 **Account ops** | [Olga Pikina paid order website import](./SESSION_CHANGES_2026-08-05_OLGA_PIKINA_WEBSITE_IMPORT.md) | Mirrored existing paid MoySklad SO **GENCardM260805PIKI** into her website history; **270 points**, one customer-only email, and duplicate guards. |
 | 🔴 **Production reliability** | [Site-wide Prisma direct failover](./SESSION_CHANGES_2026-08-03_PRISMA_DIRECT_FAILOVER.md) | Accelerate `P6000` timeouts caused auth/API 504s; runtime now prefers healthy direct PostgreSQL with a one-connection Vercel pool and retains Accelerate only as a fallback. |
 | 🟡 **Important** | [Hair-GENTRON and GENO-LED videos](./SESSION_CHANGES_2026-08-04_PRODUCT_48_49_DEVICE_VIDEOS.md) | Products 48/49: compressed portrait device videos to 438 KB/623 KB; DB + productConfig + products.ts set `videoUrl`. |
 | 🟢 **SEO** | [SESSION_CHANGES_2026-07-28_GSC_MERCHANT_LISTINGS_SCHEMA.md](./SESSION_CHANGES_2026-07-28_GSC_MERCHANT_LISTINGS_SCHEMA.md) | **GSC Merchant listings** — homepage nested Products now emit `description` + `offers.shippingDetails` + `offers.hasMerchantReturnPolicy`; collection/list/PDP always have non-empty description. |

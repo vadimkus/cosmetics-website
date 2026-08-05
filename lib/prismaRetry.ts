@@ -66,6 +66,15 @@ const TRANSIENT_MESSAGE_PATTERNS = [
   /Cannot use a pool after calling end on the pool/i,
   /client has encountered a connection error/i,
 
+  // Neon PgBouncer / pooler proxy could not reach the compute. Observed in
+  // prod via Sentry (JAVASCRIPT-NEXTJS-1M, 2026-08-05, `getProductById`) with
+  // `@prisma/adapter-pg`. The pooler is reachable; the upstream Postgres
+  // compute is briefly unavailable (wake/suspend race or pooler flap). Safe
+  // to retry on idempotent reads — without this pattern the error is treated
+  // as permanent (`transient=false`), skips retries, and bypasses the static
+  // product catalog fallback.
+  /Failed to connect to upstream database/i,
+
   // 2. Prisma query engine panics — observed in prod via Sentry
   //    (JAVASCRIPT-NEXTJS-4, 2026-04-18, `getProductById`)
   /null pointer passed to rust/i,

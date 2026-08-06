@@ -323,6 +323,7 @@ export const products: Product[] = [
     category: 'Cream',
     inStock: true,
     size: '20g',
+    videoUrl: '/videos/soothing-repair-postcream-20260806.mp4',
   },
   {
     id: '26',
@@ -418,6 +419,7 @@ export const products: Product[] = [
     images: null,
     category: 'Eye care',
     inStock: true,
+    videoUrl: '/videos/eyecell-eye-peptide-gel-patch-20260806.mp4',
   },
   {
     id: '34',

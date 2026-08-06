@@ -324,6 +324,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '25': {
     id: '25',
+    videoUrl: '/videos/soothing-repair-postcream-20260806.mp4',
     pricing: {
       basePrice: 204,
       sizeVariants: {
@@ -455,6 +456,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '33': {
     id: '33',
+    videoUrl: '/videos/eyecell-eye-peptide-gel-patch-20260806.mp4',
     pricing: {
       basePrice: 380
     },

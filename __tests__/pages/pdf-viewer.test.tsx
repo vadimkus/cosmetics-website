@@ -49,6 +49,23 @@ describe('PDF Viewer Pages', () => {
       expect(screen.getByTestId('pdf-viewer-client')).toHaveTextContent('PDF Viewer: test.pdf - https://example.com/test.pdf')
     })
 
+    it('decodes the production EyeCell viewer URL exactly once per encoding layer', async () => {
+      const mockSearchParams = new URLSearchParams(
+        'file=https%3A%2F%2Fgenosys.ae%2Fdocuments%2FPPT%2FGENOSYS%2520EyeCell%2520EYE%2520ZONE%2520CARE%2520SYSTEM.pdf'
+      )
+      mockUseSearchParams.mockReturnValue({
+        get: (key: string) => mockSearchParams.get(key),
+      } as any)
+
+      const { default: PDFViewerPage } = await import('@/app/pdf-viewer/page')
+
+      render(<PDFViewerPage />)
+
+      expect(screen.getByTestId('pdf-viewer-client')).toHaveTextContent(
+        'https://genosys.ae/documents/PPT/GENOSYS EyeCell EYE ZONE CARE SYSTEM.pdf'
+      )
+    })
+
     it('shows no file specified message when no file parameter', async () => {
       const mockSearchParams = new URLSearchParams('')
       mockUseSearchParams.mockReturnValue({

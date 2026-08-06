@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🔴 **Production reliability** | [EyeCell PDF production path fix](./SESSION_CHANGES_2026-08-06_EYECELL_PDF_PRODUCTION_FIX.md) | Records `public/documents/PPT/` with the correct Git casing so the Eye Zone Care guide and shared EN/RU/AR/profile/mobile links deploy as real PDFs instead of falling into the 404 viewer route. |
 | 🔴 **Mobile auth reliability** | [Mobile registration transaction fix](./SESSION_CHANGES_2026-08-05_MOBILE_REGISTRATION_TRANSACTION_FIX.md) | Fixes native email-registration HTTP 500 after account deletion: member-number lookup now stays on the active Prisma transaction connection instead of deadlocking the one-connection Vercel pool. |
 | 🟡 **Account ops** | [Olga Pikina paid order website import](./SESSION_CHANGES_2026-08-05_OLGA_PIKINA_WEBSITE_IMPORT.md) | Mirrored existing paid MoySklad SO **GENCardM260805PIKI** into her website history; **270 points**, one customer-only email, and duplicate guards. |
 | 🔴 **Production reliability** | [Site-wide Prisma direct failover](./SESSION_CHANGES_2026-08-03_PRISMA_DIRECT_FAILOVER.md) | Accelerate `P6000` timeouts caused auth/API 504s; runtime now prefers healthy direct PostgreSQL with a one-connection Vercel pool and retains Accelerate only as a fallback. |

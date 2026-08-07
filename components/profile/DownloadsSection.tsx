@@ -246,7 +246,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/50">
                   <Image
-                    src="/images/EYEZ.jpg"
+                    src="/images/eye_kit/main.jpeg"
                     alt="EyeCell EYE ZONE CARE SYSTEM"
                     width={500}
                     height={300} 

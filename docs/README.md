@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Product 50 EyeCell kit main image](./SESSION_CHANGES_2026-08-07_PRODUCT_50_MAIN_IMAGE.md) | Main-only image migration to cache-safe `eye_kit/main.jpeg`; DB gallery preserved exactly; historical order and training/profile fallbacks repointed; old gallery assets retained. |
 | 🟡 **Important** | [Soothing Repair Postcream and Eye Peptide Gel Patch videos](./SESSION_CHANGES_2026-08-06_PRODUCTS_25_33_VIDEOS.md) | Products 25/33: compressed portrait videos to 1.92 MB/1.82 MB; DB + productConfig + products.ts set to cache-safe `videoUrl` paths. |
 | 🔴 **Production reliability** | [EyeCell PDF production path fix](./SESSION_CHANGES_2026-08-06_EYECELL_PDF_PRODUCTION_FIX.md) | Records `public/documents/PPT/` with the correct Git casing so the Eye Zone Care guide and shared EN/RU/AR/profile/mobile links deploy as real PDFs instead of falling into the 404 viewer route. |
 | 🔴 **Mobile auth reliability** | [Mobile registration transaction fix](./SESSION_CHANGES_2026-08-05_MOBILE_REGISTRATION_TRANSACTION_FIX.md) | Fixes native email-registration HTTP 500 after account deletion: member-number lookup now stays on the active Prisma transaction connection instead of deadlocking the one-connection Vercel pool. |

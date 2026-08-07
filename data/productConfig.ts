@@ -662,7 +662,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '50': {
     id: '50',
-    images: ['/images/EYEZ.jpg', '/images/Second/ekit_big.jpg'],
+    // Gallery is DB-only so the current DB main image is prepended automatically.
     pricing: {
       basePrice: 980
     },

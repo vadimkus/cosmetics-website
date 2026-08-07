@@ -74,7 +74,7 @@ const trainingDocuments = [
 const productDocuments = [
   { id: 'cerabarrier-cleanser', title: 'CERABARRIER BIOME GEL CLEANSER', size: '1.4 MB', href: '/documents/PPT/GENOSYS%20CERABARRIER%20BIOME%20GEL%20CLEANSER.pdf', image: '/images/cera/main.jpeg', productId: '66' },
   { id: 'radiance-cream', title: 'MULTI VITA RADIANCE CREAM', size: '2.1 MB', href: '/documents/PPT/GENOSYS%20MULTI%20VITA%20RADIANCE%20CREAM.pdf', image: '/images/radiance/main.jpeg', productId: '31' },
-  { id: 'eyecell-zone', title: 'EyeCell EYE ZONE CARE SYSTEM', size: '1.8 MB', href: '/documents/PPT/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf', image: '/images/EYEZ.jpg', productId: '50' },
+  { id: 'eyecell-zone', title: 'EyeCell EYE ZONE CARE SYSTEM', size: '1.8 MB', href: '/documents/PPT/GENOSYS%20EyeCell%20EYE%20ZONE%20CARE%20SYSTEM.pdf', image: '/images/eye_kit/main.jpeg', productId: '50' },
   { id: 'epi-peeling', title: 'EPI TURNOVER BOOSTING PEELING GEL', size: '3.8 MB', href: '/documents/PPT/GENOSYS%20EPI%20TURNOVER%20BOOSTING%20PEELING%20GEL.pdf', image: '/images/epi/main.jpeg', productId: '12' },
   { id: 'radiance-serum', title: 'MULTI VITA RADIANCE SERUM', size: '1.5 MB', href: '/documents/PPT/GENOSYS%20MULTI%20VITA%20RADIANCE%20SERUM.pdf', image: '/images/radiance_serum/main.jpeg', productId: '21' },
   { id: 'skin-defender', title: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', size: '0.7 MB', href: '/documents/PPT/GENOSYS%20SKIN%20DEFENDER%20LIP%20%26%20EYE%20MAKEUP%20REMOVER.pdf', image: '/images/remover/Main2.jpg', productId: '11' },

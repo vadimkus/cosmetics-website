@@ -44,3 +44,25 @@ The script is idempotent, updates only the product main field, preserves the
 gallery string byte-for-byte, handles relative and absolute `genosys.ae`
 historical order references, and rewrites matching blog image references in
 `featuredImage`, `content`, `contentAr`, and `contentRu`.
+
+## Follow-up: remove second gallery image
+
+The live DOM confirmed the displayed order was:
+
+1. `/images/eye_kit/main.jpeg` — current main
+2. `/images/EYEZ.jpg` — first legacy gallery item
+3. `/images/Second/ekit_big.jpg` — second legacy gallery item
+
+At the owner's request, only the second gallery item was removed:
+
+- Before: `["/images/EYEZ.jpg","/images/Second/ekit_big.jpg"]`
+- After: `["/images/EYEZ.jpg"]`
+- Main remained `/images/eye_kit/main.jpeg`.
+- Product 33 and historical order-item images were not changed.
+- No order item, blog post, or other product referenced `ekit_big.jpg`.
+- The physical `public/images/Second/ekit_big.jpg` asset was retained as the
+  safer non-destructive choice; it is no longer in product 50's payload or DOM.
+
+The migration script now supports the narrow, idempotent
+`--remove-second-gallery` operation and refuses to run if the product main or
+gallery is in an unexpected state.

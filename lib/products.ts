@@ -620,7 +620,7 @@ export const products: Product[] = [
     price: 980,
     description: 'Professional kit to treat various skin problems around eyes. It is a professional kit designed to treat various skin problems around eyes from dehydration, dark circle, eye bag to crow\'s feet. It combines cosmeceuticals with a roller specially designed for eye area to activate collagen production and increase the absorption of ingredients into skin. Components: EYE CONTOUR SERUM (10ml) + EYE ROLLER - It is a highly enriched all-in-one eye serum that helps improve wrinkles, dark circles and diminish the appearance of eye puffs. It can be used together with EYE ROLLER developed to enable delicate and detailed care even for the curved area of face as well as eye contour area. EYE CONTOUR CREAM (20g) - It is a daily cream for eye contour area that brings younger-looking eyes by helping reduce wrinkles and dark circles and depuff the under eye with peptide complex, botanical callus culture extracts and anti-dark circle complex. EYE PEPTIDE GEL PATCH (101g / 60ea) - It is a patented thermo-sensitive for eye contour area that soothes and moisturizes the skin that went through dermatologic procedures or natural aging. And it improves eye bags. Dermatologically tested. Efficacy test on improving wrinkles and moisturizing.',
     image: '/images/eye_kit/main.jpeg',
-    images: JSON.stringify(['/images/EYEZ.jpg', '/images/Second/ekit_big.jpg']),
+    images: JSON.stringify(['/images/EYEZ.jpg']),
     category: 'Eye care',
     inStock: true,
     size: '1 box',

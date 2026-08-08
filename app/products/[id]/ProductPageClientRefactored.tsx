@@ -66,8 +66,11 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   const useLegacyBeautyBoxRoutine = !PRODUCT_ROUTINES[String(productNum)]
   const sizeOptions = getProductSizeOptions(productNum, product)
   const colorOptions = getProductColorOptions(productNum)
-  const [selectedSize, setSelectedSize] = useState(sizeOptions[0]?.value || '50g')
-  const [selectedColor, setSelectedColor] = useState(colorOptions[0]?.value || 'Beige')
+  // An absent variant is an empty selection, never a synthetic product fact.
+  // The old 50g/Beige fallbacks leaked into Beauty Box Quick Facts even though
+  // boxes have no direct size or shade option of their own.
+  const [selectedSize, setSelectedSize] = useState(sizeOptions[0]?.value || '')
+  const [selectedColor, setSelectedColor] = useState(colorOptions[0]?.value || '')
   
   // Mobile footer state
   const [mobileQuantity, setMobileQuantity] = useState(1)

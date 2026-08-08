@@ -19,6 +19,7 @@ import {
   getCatalogQuickFacts,
   type QuickFactLocale,
 } from '@/lib/productQuickFactsCatalog'
+import { isBeautyBoxProduct } from '@/lib/mobileDiscountRules'
 
 type IngredientItem = {
   name?: string
@@ -39,6 +40,7 @@ const copy = {
     sizeTitle: 'Format',
     shadeTitle: 'Selected shade',
     source: 'Official GENOSYS product formula.',
+    boxSource: 'Verified GENOSYS box contents and pricing.',
     close: 'Close quick product facts',
   },
   ru: {
@@ -49,6 +51,7 @@ const copy = {
     sizeTitle: 'Формат',
     shadeTitle: 'Выбранный оттенок',
     source: 'Официальная формула продукта GENOSYS.',
+    boxSource: 'Проверенные состав и цена набора GENOSYS.',
     close: 'Закрыть краткую информацию',
   },
   ar: {
@@ -59,6 +62,7 @@ const copy = {
     sizeTitle: 'الحجم',
     shadeTitle: 'الدرجة المختارة',
     source: 'تركيبة منتج GENOSYS الرسمية.',
+    boxSource: 'محتويات وأسعار مجموعة GENOSYS موثقة.',
     close: 'إغلاق الحقائق السريعة',
   },
 } as const
@@ -162,6 +166,7 @@ export default function ProductQuickFactsHelper({
   const [open, setOpen] = useState(false)
   const isRtl = dir === 'rtl'
   const productKey = product.productNumber || product.id
+  const isBeautyBox = isBeautyBoxProduct(product)
 
   const content = useMemo(() => {
     const translations =
@@ -192,12 +197,17 @@ export default function ProductQuickFactsHelper({
       facts.push(...ingredientFacts(ingredients, language))
     }
 
-    if (selectedColor) {
-      facts.push({ title: text.shadeTitle, text: selectedColor })
-    }
-    const format = selectedSize || product.size
-    if (format) {
-      facts.push({ title: text.sizeTitle, text: format })
+    // Variant facts are useful for single products, but never for curated
+    // Beauty Boxes. A box may contain a sized or coloured constituent and must
+    // not inherit that constituent's option state as if it described the box.
+    if (!isBeautyBox) {
+      if (selectedColor) {
+        facts.push({ title: text.shadeTitle, text: selectedColor })
+      }
+      const format = selectedSize || product.size
+      if (format) {
+        facts.push({ title: text.sizeTitle, text: format })
+      }
     }
 
     return {
@@ -206,6 +216,7 @@ export default function ProductQuickFactsHelper({
     }
   }, [
     language,
+    isBeautyBox,
     locale,
     product,
     productKey,
@@ -301,7 +312,7 @@ export default function ProductQuickFactsHelper({
 
             <div className={`mt-3 flex items-center gap-2 rounded-xl bg-gray-100/80 px-3 py-2 text-xs text-gray-500 ${isRtl ? 'flex-row-reverse' : ''}`}>
               <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
-              <p>{text.source}</p>
+              <p>{isBeautyBox ? text.boxSource : text.source}</p>
             </div>
           </div>
         </div>

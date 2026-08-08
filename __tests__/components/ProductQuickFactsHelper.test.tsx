@@ -140,6 +140,30 @@ describe('ProductQuickFactsHelper', () => {
     expect(Number(section?.getAttribute('data-product-fact-count'))).toBeGreaterThan(0)
   })
 
+  it('never lets constituent option defaults leak into Beauty Box facts', () => {
+    render(
+      <ProductQuickFactsHelper
+        product={product('58', 'ANTI-AGING BEAUTY BOX', {
+          category: 'Beauty Boxes',
+          size: '1 kit',
+        })}
+        selectedSize="50g"
+        selectedColor="Beige"
+      />
+    )
+    fireEvent.click(screen.getByRole('button', { name: 'Quick facts' }))
+    const region = screen.getByRole('region')
+
+    expect(region).toHaveTextContent('9 pieces inside')
+    expect(region).toHaveTextContent('Save AED 208.50')
+    expect(region).toHaveTextContent('Verified GENOSYS box contents and pricing.')
+    expect(region).not.toHaveTextContent('Selected shade')
+    expect(region).not.toHaveTextContent('Beige')
+    expect(region).not.toHaveTextContent('Format')
+    expect(region).not.toHaveTextContent('50g')
+    expect(region).not.toHaveTextContent('1 kit')
+  })
+
   it.each([
     ['ru', 'Кратко о продукте', 'Полезно знать'],
     ['ar', 'حقائق سريعة عن المنتج', 'معلومات مفيدة'],

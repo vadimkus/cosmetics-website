@@ -14,6 +14,17 @@ export type LocalizedQuickFact = {
   text: Record<QuickFactLocale, string>
 }
 
+export const BEAUTY_BOX_PRODUCT_IDS = ['55', '56', '57', '58', '59', '62'] as const
+
+export const BEAUTY_BOX_PRODUCT_CUIDS: Record<(typeof BEAUTY_BOX_PRODUCT_IDS)[number], string> = {
+  '55': 'cmhowxw4x00008ofct2ivnq2j',
+  '56': 'cmhoyg0r400008o7s4va63hsw',
+  '57': 'cmhoyw7d500008o9tdprqkkhb',
+  '58': 'cmhozfrep00008oxxizeqk8a0',
+  '59': 'cmhp0jfrq00008odr033fg0ly',
+  '62': 'cml3twwvk0000ua8o9qiqwkie',
+}
+
 const t = (
   enTitle: string,
   enText: string,
@@ -107,6 +118,54 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('Panthenol 1% + Niacinamide 2%', 'Barrier-support actives for comfort, brightening and recovery.', 'Пантенол 1% + ниацинамид 2%', 'Активы для барьера, комфорта и сияния.', 'بانثينول 1% ونياسيناميد 2%', 'مكونات لدعم الحاجز والراحة والإشراقة.'),
     t('Ultra-slim sheet fit', 'Seamless sheet adhesion increases contact for essence delivery.', 'Ультратонкий фит', 'Плотное прилегание увеличивает контакт и доставку эссенции.', 'ملامسة ورقة فائقة الرقة', 'التصاق الورقة يزيد مساحة التماس لتوصيل الخلاصة.'),
     t('30 ready-to-use sheets', 'Pack includes 30 sheets with built-in tweezers for hygienic handling.', '30 готовых масок', '30 листов со встроенным пинцетом для гигиеничного использования.', '30 ورقة جاهزة', 'العبوة تضم 30 ورقة مع ملقط مدمج للاستخدام الصحي.'),
+  ],
+  '55': [
+    t('Blemish-care focus', 'An oil-aware home routine for combination, congested and blemish-prone skin.', 'Фокус на проблемной коже', 'Домашний уход для комбинированной, жирной и склонной к высыпаниям кожи.', 'تركيز على البشرة المعرضة للحبوب', 'روتين منزلي للبشرة المختلطة أو الدهنية أو المعرضة للانسداد والحبوب.'),
+    t('7 pieces inside', 'Four full-size daily products plus three Sea Algae sheet masks.', '7 единиц в наборе', 'Четыре полноразмерных средства и три тканевые маски Sea Algae.', '7 قطع داخل المجموعة', 'أربعة منتجات يومية كاملة الحجم وثلاثة أقنعة ورقية Sea Algae.'),
+    t('Complete daily core', 'Snow O₂ Cleanser, Problem Control Toner, Serum and Cream cover the core routine.', 'Полная ежедневная база', 'Snow O₂, тоник, сыворотка и крем Problem Control составляют основу ухода.', 'أساس يومي متكامل', 'منظف Snow O₂ وتونر وسيروم وكريم Problem Control تغطي أساس الروتين.'),
+    t('Mask-ready sequence', 'Use a Sea Algae mask after toner and before the leave-on serum and cream steps.', 'Маска в правильной последовательности', 'Маску Sea Algae используют после тоника, перед сывороткой и кремом.', 'ترتيب واضح للقناع', 'يُستخدم قناع Sea Algae بعد التونر وقبل السيروم والكريم اللذين يتركان على البشرة.'),
+    t('One concern-led set', 'Cleansing, oil balance, targeted leave-on care and recovery masks are packed together.', 'Один набор по задаче', 'Очищение, баланс себума, несмываемый уход и восстанавливающие маски в одном наборе.', 'مجموعة واحدة موجهة للمشكلة', 'التنظيف وتوازن الدهون والعناية التي تترك على البشرة وأقنعة التهدئة في مجموعة واحدة.'),
+    t('Save AED 197.70', 'AED 1,318 separate value; box price AED 1,120.30 after the built-in 15% saving.', 'Экономия 197,70 AED', 'Стоимость по отдельности 1 318 AED; цена набора 1 120,30 AED со скидкой 15%.', 'وفّر 197.70 درهم', 'القيمة المنفصلة 1,318 درهماً؛ سعر المجموعة 1,120.30 درهماً بعد توفير 15%.'),
+  ],
+  '56': [
+    t('Tone + texture focus', 'A home routine built for dull, uneven-looking skin and rough surface texture.', 'Тон + текстура', 'Домашний уход для тусклой кожи, неровного тона и шероховатой текстуры.', 'تركيز على اللون والملمس', 'روتين منزلي للبشرة الباهتة وغير المتجانسة ولتحسين ملمس السطح.'),
+    t('6 products inside', 'Five full-size skincare products plus one Sea Algae sheet mask.', '6 средств в наборе', 'Пять полноразмерных средств и одна тканевая маска Sea Algae.', '6 منتجات داخل المجموعة', 'خمسة منتجات عناية كاملة الحجم وقناع ورقي واحد Sea Algae.'),
+    t('Daily + weekly rhythm', 'Cleanser, toner, serum and cream form the daily core; peel and mask are treatment steps.', 'Ежедневно + еженедельно', 'Очищение, тоник, сыворотка и крем составляют базу; пилинг и маска дополняют её.', 'إيقاع يومي وأسبوعي', 'المنظف والتونر والسيروم والكريم أساس يومي، بينما التقشير والقناع خطوات إضافية.'),
+    t('Matched Multi Vita duo', 'Multi Vita Radiance Serum and Cream create a coordinated leave-on pair.', 'Дуэт Multi Vita', 'Сыворотка и крем Multi Vita Radiance работают как согласованная несмываемая пара.', 'ثنائي Multi Vita متناسق', 'سيروم وكريم Multi Vita Radiance يشكلان ثنائياً متناسقاً يترك على البشرة.'),
+    t('Renewal step included', 'EPI Peeling Gel adds a dedicated exfoliation step before toner, mask and leave-on care.', 'Шаг обновления включён', 'EPI Peeling Gel добавляет этап эксфолиации перед тоником, маской и основным уходом.', 'خطوة تجديد متضمنة', 'يضيف EPI Peeling Gel خطوة تقشير قبل التونر والقناع والعناية التي تترك على البشرة.'),
+    t('Save AED 224.40', 'AED 1,496 separate value; box price AED 1,271.60 after the built-in 15% saving.', 'Экономия 224,40 AED', 'Стоимость по отдельности 1 496 AED; цена набора 1 271,60 AED со скидкой 15%.', 'وفّر 224.40 درهم', 'القيمة المنفصلة 1,496 درهماً؛ سعر المجموعة 1,271.60 درهماً بعد توفير 15%.'),
+  ],
+  '57': [
+    t('Skincare + complexion', 'The only Beauty Box combining daily skincare, complexion coverage and makeup removal.', 'Уход + тон', 'Единственный Beauty Box, объединяющий ежедневный уход, тональное покрытие и демакияж.', 'عناية وتغطية للبشرة', 'مجموعة Beauty Box الوحيدة التي تجمع العناية اليومية والتغطية وإزالة المكياج.'),
+    t('5 full-size products', 'Cleanser, toner, BB cushion, biphasic remover and overnight cream mask.', '5 полноразмерных средств', 'Очищение, тоник, BB-кушон, двухфазный ремувер и ночная крем-маска.', '5 منتجات كاملة الحجم', 'منظف وتونر وكوشن BB ومزيل ثنائي الطور وقناع كريمي ليلي.'),
+    t('Daytime finish', 'Snow O₂ and Snow Booster prepare skin before the SPF 50+ PA++++ cushion.', 'Дневной финиш', 'Snow O₂ и Snow Booster готовят кожу перед кушоном SPF 50+ PA++++.', 'إنهاء نهاري', 'يهيئ Snow O₂ وSnow Booster البشرة قبل كوشن SPF 50+ PA++++.'),
+    t('Evening reset', 'The lip-and-eye remover and overnight mask create a separate PM cleansing and care pair.', 'Вечерний перезапуск', 'Ремувер для глаз и губ и ночная маска образуют отдельную вечернюю пару.', 'إعادة ضبط مسائية', 'مزيل مكياج العين والشفاه والقناع الليلي يشكلان ثنائياً منفصلاً للمساء.'),
+    t('Two honest rituals', 'Daytime complexion and nighttime recovery stay separate instead of forming one false sequence.', 'Два честных ритуала', 'Дневной макияж и ночной уход разделены, а не собраны в неверную последовательность.', 'روتينان واضحان', 'تظل تغطية النهار وعناية الليل منفصلتين بدلاً من دمجهما في تسلسل غير صحيح.'),
+    t('Save AED 228', 'AED 1,520 separate value; box price AED 1,292 after the built-in 15% saving.', 'Экономия 228 AED', 'Стоимость по отдельности 1 520 AED; цена набора 1 292 AED со скидкой 15%.', 'وفّر 228 درهماً', 'القيمة المنفصلة 1,520 درهماً؛ سعر المجموعة 1,292 درهماً بعد توفير 15%.'),
+  ],
+  '58': [
+    t('Firmness + line care', 'A coordinated home routine for visible fine lines, firmness and elasticity concerns.', 'Упругость + линии', 'Согласованный домашний уход при тонких линиях и снижении упругости.', 'عناية بالتماسك والخطوط', 'روتين منزلي متناسق لمظهر الخطوط الدقيقة ومشاكل التماسك والمرونة.'),
+    t('9 pieces inside', 'Four full-size daily products plus five Collagen sheet masks.', '9 единиц в наборе', 'Четыре полноразмерных средства и пять коллагеновых тканевых масок.', '9 قطع داخل المجموعة', 'أربعة منتجات يومية كاملة الحجم وخمسة أقنعة كولاجين ورقية.'),
+    t('Matched treatment duo', 'Multi Functional Anti-Wrinkle Serum and Cream form the leave-on treatment pair.', 'Согласованный дуэт', 'Сыворотка и крем Multi Functional Anti-Wrinkle образуют несмываемую пару.', 'ثنائي عناية متناسق', 'سيروم وكريم Multi Functional Anti-Wrinkle يشكلان ثنائياً يترك على البشرة.'),
+    t('Five mask sessions', 'Five individual Collagen masks support planned intensive-care nights.', 'Пять сеансов с маской', 'Пять отдельных коллагеновых масок для запланированных вечеров интенсивного ухода.', 'خمس جلسات قناع', 'خمسة أقنعة كولاجين منفردة لليالي العناية المكثفة المخطط لها.'),
+    t('Clear routine order', 'Cleanser → booster → optional mask → serum → cream.', 'Понятный порядок', 'Очищение → бустер → маска по необходимости → сыворотка → крем.', 'ترتيب روتين واضح', 'منظف، ثم معزز، فقناع اختياري، ثم سيروم وكريم.'),
+    t('Save AED 208.50', 'AED 1,390 separate value; box price AED 1,181.50 after the built-in 15% saving.', 'Экономия 208,50 AED', 'Стоимость по отдельности 1 390 AED; цена набора 1 181,50 AED со скидкой 15%.', 'وفّر 208.50 درهم', 'القيمة المنفصلة 1,390 درهماً؛ سعر المجموعة 1,181.50 درهماً بعد توفير 15%.'),
+  ],
+  '59': [
+    t('Deep hydration focus', 'A layered home routine for dry, dehydrated skin and moisture-barrier comfort.', 'Фокус на увлажнении', 'Многоэтапный домашний уход для сухой, обезвоженной кожи и комфорта барьера.', 'تركيز على الترطيب العميق', 'روتين منزلي متعدد الطبقات للبشرة الجافة والمتعطشة للماء وراحة الحاجز.'),
+    t('7 pieces inside', 'Four full-size daily products plus three Sea Algae sheet masks.', '7 единиц в наборе', 'Четыре полноразмерных средства и три тканевые маски Sea Algae.', '7 قطع داخل المجموعة', 'أربعة منتجات يومية كاملة الحجم وثلاثة أقنعة ورقية Sea Algae.'),
+    t('Matched Hyaluron duo', 'Moisture Replenishing Hyaluron Serum and Cream layer water-focused care together.', 'Дуэт Hyaluron', 'Сыворотка и крем Moisture Replenishing Hyaluron дают последовательное увлажнение.', 'ثنائي Hyaluron متناسق', 'سيروم وكريم Moisture Replenishing Hyaluron يقدمان عناية ترطيب متدرجة.'),
+    t('Five-step layering', 'Cleanser → booster → optional mask → Hyaluron serum → Hyaluron cream.', 'Пять слоёв ухода', 'Очищение → бустер → маска по необходимости → Hyaluron Serum → Hyaluron Cream.', 'خمس خطوات متدرجة', 'منظف، ثم معزز، فقناع اختياري، ثم سيروم وكريم Hyaluron.'),
+    t('Three recovery masks', 'Sea Algae sheets add three separate soothing and moisture-focused sessions.', 'Три восстанавливающие маски', 'Три маски Sea Algae добавляют отдельные успокаивающие и увлажняющие сеансы.', 'ثلاثة أقنعة للراحة', 'تضيف أقنعة Sea Algae ثلاث جلسات منفصلة للتهدئة والترطيب.'),
+    t('Save AED 197.70', 'AED 1,318 separate value; box price AED 1,120.30 after the built-in 15% saving.', 'Экономия 197,70 AED', 'Стоимость по отдельности 1 318 AED; цена набора 1 120,30 AED со скидкой 15%.', 'وفّر 197.70 درهم', 'القيمة المنفصلة 1,318 درهماً؛ سعر المجموعة 1,120.30 درهماً بعد توفير 15%.'),
+  ],
+  '62': [
+    t('Sensitive-barrier focus', 'A home routine for sensitive, reactive skin that prioritizes comfort and barrier support.', 'Фокус на чувствительном барьере', 'Домашний уход для чувствительной, реактивной кожи с акцентом на комфорт и барьер.', 'تركيز على حاجز البشرة الحساسة', 'روتين منزلي للبشرة الحساسة والمتفاعلة يركز على الراحة ودعم الحاجز.'),
+    t('6 products inside', 'Five full-size skincare products plus one Sea Algae sheet mask.', '6 средств в наборе', 'Пять полноразмерных средств и одна тканевая маска Sea Algae.', '6 منتجات داخل المجموعة', 'خمسة منتجات عناية كاملة الحجم وقناع ورقي واحد Sea Algae.'),
+    t('Serum + barrier cream', 'All For Sensitive Serum layers under the 100 ml Skin Barrier Protecting Cream.', 'Сыворотка + барьерный крем', 'All For Sensitive Serum наносится под Skin Barrier Protecting Cream объёмом 100 мл.', 'سيروم وكريم للحاجز', 'يوضع All For Sensitive Serum تحت كريم Skin Barrier Protecting Cream بحجم 100 مل.'),
+    t('Two mask formats', 'A 50 ml EGF Repair Oxymask and one Sea Algae sheet provide two distinct mask steps.', 'Два формата масок', 'EGF Repair Oxymask 50 мл и одна маска Sea Algae дают два разных формата ухода.', 'نوعان من الأقنعة', 'قناع EGF Repair Oxymask بحجم 50 مل وقناع Sea Algae ورقي يقدمان خطوتين مختلفتين.'),
+    t('Barrier-first sequence', 'Cleanser → booster → optional mask → sensitive serum → barrier cream.', 'Барьерная последовательность', 'Очищение → бустер → маска по необходимости → сыворотка → барьерный крем.', 'تسلسل يركز على الحاجز', 'منظف، ثم معزز، فقناع اختياري، ثم سيروم للبشرة الحساسة وكريم الحاجز.'),
+    t('Save AED 254', 'AED 1,696 separate value; box price AED 1,442 after the built-in 15% saving.', 'Экономия 254 AED', 'Стоимость по отдельности 1 696 AED; цена набора 1 442 AED со скидкой 15%.', 'وفّر 254 درهماً', 'القيمة المنفصلة 1,696 درهماً؛ سعر المجموعة 1,442 درهماً بعد توفير 15%.'),
   ],
   '63': [
     t('SPF 38 / PA+++', 'Daily BB cream with meaningful UVA/UVB protection for UAE routines.', 'SPF 38 / PA+++', 'Ежедневный BB-крем с заметной защитой UVA/UVB.', 'SPF 38 / PA+++', 'كريم BB يومي بحماية ملموسة من UVA/UVB لروتين الإمارات.'),
@@ -305,4 +364,11 @@ export function getCatalogQuickFacts(
 
 export function hasCatalogQuickFacts(productKey: string | number | null | undefined) {
   return getCatalogQuickFacts(productKey, 'en').length > 0
+}
+
+export function getQuickFactLocale(locale: string): QuickFactLocale {
+  const value = String(locale || 'en').toLowerCase()
+  if (value.startsWith('ar')) return 'ar'
+  if (value.startsWith('ru')) return 'ru'
+  return 'en'
 }

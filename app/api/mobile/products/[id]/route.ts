@@ -8,6 +8,7 @@ import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { getProductDocumentation } from '@/data/productConfig'
 import { getMobileRoutine } from '@/lib/mobileProductRoutines'
+import { getCatalogQuickFacts, getQuickFactLocale } from '@/lib/productQuickFactsCatalog'
 
 /**
  * Database product type - matches Prisma query select fields
@@ -320,6 +321,8 @@ export async function GET(
       // Recommended Routine (same data the website PDP renders) — localized,
       // with per-step productId deep links. null when the product has none.
       routine: getMobileRoutine(productIdForTranslation, locale),
+      // Localized PDP Quick Facts from the same curated catalog as web/PWA.
+      quickFacts: getCatalogQuickFacts(productIdForTranslation, getQuickFactLocale(locale)),
     }
     const enhancementDuration = Date.now() - enhancementStartTime
     
@@ -344,7 +347,8 @@ export async function GET(
           'uae_vat_included',
           'user_discounts',
           'beauty_box_bundles',
-          'product_details'
+          'product_details',
+          'quick_facts'
         ]
       }
     }, {

@@ -6,6 +6,7 @@ import { buildPricingContract } from '@/lib/pricingContract'
 import { ApiUser } from '@/types/user'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+import { getCatalogQuickFacts, getQuickFactLocale } from '@/lib/productQuickFactsCatalog'
 
 /**
  * Database product type - matches Prisma query select fields
@@ -358,6 +359,7 @@ export async function GET(request: NextRequest) {
         note: extras.note,
         isPriceOnRequest: dbRow?.isPriceOnRequest ?? false,
         ...(dbRow ? { pricing: buildPricingContract(dbRow, user) } : {}),
+        quickFacts: getCatalogQuickFacts(productIdForTranslation, getQuickFactLocale(locale)),
       }
     })
     
@@ -380,7 +382,8 @@ export async function GET(request: NextRequest) {
           'color_variants',
           'uae_vat_included',
           'user_discounts',
-          'beauty_box_bundles'
+          'beauty_box_bundles',
+          'quick_facts'
         ]
       }
     }, {

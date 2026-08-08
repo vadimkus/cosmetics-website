@@ -152,12 +152,18 @@ const DELIVERY_SERVICE_MAP: Record<string, string> = {
   'fujairah': '557d2277-814f-11ea-0a80-03ae0014ed65', // Delivery Fujairah — 80 AED
   'rak':      'a9d199bf-b909-11ea-0a80-03ec0015b2d7', // Delivery RAK — 80 AED
   'ras al khaimah': 'a9d199bf-b909-11ea-0a80-03ec0015b2d7', // alias for RAK
+  // Website ships Ajman / UAQ at 70 AED (same as Sharjah). MoySklad has no
+  // dedicated Ajman/UAQ services — reuse Delivery Sharjah; line price still
+  // comes from the website order.shipping amount.
+  'ajman':    '52864050-59a7-11eb-0a80-022e00579624',
+  'umm al quwain': '52864050-59a7-11eb-0a80-022e00579624',
+  'uaq':      '52864050-59a7-11eb-0a80-022e00579624',
 }
 
 /**
  * Resolve MoySklad delivery service ID from emirate name.
  */
-function getMoySkladDeliveryServiceId(emirate: string): string | null {
+export function getMoySkladDeliveryServiceId(emirate: string): string | null {
   const lower = (emirate || '').trim().toLowerCase()
   if (DELIVERY_SERVICE_MAP[lower]) return DELIVERY_SERVICE_MAP[lower]!
 
@@ -826,18 +832,22 @@ export async function createMoySkladOrder(
     // website's checkout VAT calc which treats shipping as VAT-inclusive.
     if (orderData.shipping > 0) {
       const deliveryServiceId = getMoySkladDeliveryServiceId(orderData.customerEmirate)
-      if (deliveryServiceId) {
-        positions.push({
-          quantity: 1,
-          price: Math.round(orderData.shipping * 100),
-          assortment: entityMeta('service', deliveryServiceId),
-          vat: 5,
-          vatEnabled: true,
-        })
-        debugLog(`📦 MoySklad: Added delivery service for ${orderData.customerEmirate} (${orderData.shipping} AED, 5% VAT)`)
-      } else {
-        warnLog(`⚠️ MoySklad: No delivery service mapping for emirate "${orderData.customerEmirate}"`)
+      if (!deliveryServiceId) {
+        return {
+          success: false,
+          error:
+            `Cannot sync to MoySklad — no delivery service mapping for emirate ` +
+            `"${orderData.customerEmirate}" (shipping AED ${orderData.shipping.toFixed(2)})`,
+        }
       }
+      positions.push({
+        quantity: 1,
+        price: Math.round(orderData.shipping * 100),
+        assortment: entityMeta('service', deliveryServiceId),
+        vat: 5,
+        vatEnabled: true,
+      })
+      debugLog(`📦 MoySklad: Added delivery service for ${orderData.customerEmirate} (${orderData.shipping} AED, 5% VAT)`)
     }
 
     const mappedTotalAed = positions.reduce((sum, p) => {

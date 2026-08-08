@@ -7,36 +7,11 @@ import { Product } from '@/types'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
-import { PRODUCT_ROUTINES, type ProductRoutine } from '@/lib/productRoutines'
+import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import { getRoutineStepImage } from '@/lib/routineStepImages'
 
-/** Bespoke routines kept outside PRODUCT_ROUTINES (same copy as desktop hardcoded blocks). */
-const REVITA_GLOW_ROUTINE: ProductRoutine = {
-  headingKey: 'recommendedRevitaGlowRoutine',
-  steps: [
-    { titleKey: 'routineSnowO2Title', descKey: 'routineSnowO2Desc' },
-    { titleKey: 'routineSnowBoosterTitle', descKey: 'routineSnowBoosterDescRevitaGlow' },
-    { titleKey: 'routineMultiVitaSerumTitle', descKey: 'routineMultiVitaSerumDesc' },
-    { titleKey: 'routineHyaluronCreamTitle', descKey: 'routineHyaluronCreamDescRevitaGlow' },
-    { titleKey: 'routineRevitaGlowBBTitle', descKey: 'routineRevitaGlowBBDesc' },
-  ],
-}
-
-const CERABARRIER_ROUTINE: ProductRoutine = {
-  headingKey: 'recommendedBarrierCareRoutine',
-  steps: [
-    { titleKey: 'routineCerabarrierCleanserTitle', descKey: 'routineCerabarrierCleanserDesc' },
-    { titleKey: 'routineMicrobiomeMistTitle', descKey: 'routineMicrobiomeMistDesc' },
-    { titleKey: 'routineAllForSensitiveSerumTitle', descKey: 'routineAllForSensitiveSerumDesc' },
-    { titleKey: 'routineSkinBarrierCreamTitle', descKey: 'routineSkinBarrierCreamDesc' },
-    { titleKey: 'routineMultiSunCreamTitle', descKey: 'routineMultiSunCreamDesc' },
-  ],
-}
-
-function resolveRoutine(product: Product): ProductRoutine | null {
+function resolveRoutine(product: Product) {
   const key = String(product.productNumber || product.id)
-  if (key === '63') return REVITA_GLOW_ROUTINE
-  if (key === '66') return CERABARRIER_ROUTINE
   return PRODUCT_ROUTINES[key] || null
 }
 
@@ -47,7 +22,7 @@ interface ProductRoutineCardProps {
 }
 
 /**
- * Shared Recommended Routine card for PDPs (PRODUCT_ROUTINES + Revita 63 + Cerabarrier 66).
+ * Shared Recommended Routine card for every routine in PRODUCT_ROUTINES.
  * Pass `hidden md:block` for desktop left column, `md:hidden` for mobile content column.
  */
 export default function ProductRoutineCard({ product, className = '' }: ProductRoutineCardProps) {

@@ -37,6 +37,7 @@ import {
 } from '@/utils/productPricing'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
 import { getRoutineStepImage } from '@/lib/routineStepImages'
+import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import ProductRoutineCard from '@/components/product/ProductRoutineCard'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
@@ -62,6 +63,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   
   // Variant state
   const productNum = product.productNumber || product.id
+  const useLegacyBeautyBoxRoutine = !PRODUCT_ROUTINES[String(productNum)]
   const sizeOptions = getProductSizeOptions(productNum, product)
   const colorOptions = getProductColorOptions(productNum)
   const [selectedSize, setSelectedSize] = useState(sizeOptions[0]?.value || '50g')
@@ -635,7 +637,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             </div>
 
             {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) - Desktop only */}
-            {(product.id === '55' || product.productNumber === '55') && (
+            {useLegacyBeautyBoxRoutine && (product.id === '55' || product.productNumber === '55') && (
               <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
@@ -682,7 +684,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             )}
 
             {/* Skincare Routine Block - Only for Skin Brightening Beauty Box (product 56) - Desktop only */}
-            {(product.id === '56' || product.productNumber === '56') && (
+            {useLegacyBeautyBoxRoutine && (product.id === '56' || product.productNumber === '56') && (
               <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
@@ -736,7 +738,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             )}
 
             {/* Skincare Routine Block - Only for Charming Look Beauty Box (product 57) - Desktop only */}
-            {(product.id === '57' || product.productNumber === '57') && (
+            {useLegacyBeautyBoxRoutine && (product.id === '57' || product.productNumber === '57') && (
               <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
@@ -783,7 +785,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             )}
 
             {/* Skincare Routine Block - Only for Anti-Aging Beauty Box (product 58) - Desktop only */}
-            {(product.id === '58' || product.productNumber === '58') && (
+            {useLegacyBeautyBoxRoutine && (product.id === '58' || product.productNumber === '58') && (
               <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
@@ -830,7 +832,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             )}
 
             {/* Skincare Routine Block - Only for Deep Moisturizing Beauty Box (product 59) - Desktop only */}
-            {(product.id === '59' || product.productNumber === '59') && (
+            {useLegacyBeautyBoxRoutine && (product.id === '59' || product.productNumber === '59') && (
               <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
@@ -877,7 +879,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             )}
 
             {/* Skincare Routine Block - Only for Sensitive Skin Beauty Box (product 62) - Desktop only */}
-            {(product.id === '62' || product.productNumber === '62') && (
+            {useLegacyBeautyBoxRoutine && (product.id === '62' || product.productNumber === '62') && (
               <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />

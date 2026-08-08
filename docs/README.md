@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🔴 **Clinical UX** | [Recommended Routine full audit](./SESSION_CHANGES_2026-08-08_RECOMMENDED_ROUTINES_FULL_AUDIT.md) | Audits 54 product recipients / 35 sequences across web, PWA, API, and native consumption; fixes product 41 remover-after-cushion, mask/eye/scalp/device ordering, broken links, duplicate sources, EN/RU/AR, and adds catalog-wide invariants. |
 | 🟡 **Important** | [Product 50 EyeCell kit main image](./SESSION_CHANGES_2026-08-07_PRODUCT_50_MAIN_IMAGE.md) | Main image migrated to cache-safe `eye_kit/main.jpeg`; follow-up removed only the second legacy gallery item while retaining `EYEZ.jpg`; historical orders use the canonical main. |
 | 🟡 **Important** | [Soothing Repair Postcream and Eye Peptide Gel Patch videos](./SESSION_CHANGES_2026-08-06_PRODUCTS_25_33_VIDEOS.md) | Products 25/33: compressed portrait videos to 1.92 MB/1.82 MB; DB + productConfig + products.ts set to cache-safe `videoUrl` paths. |
 | 🔴 **Production reliability** | [EyeCell PDF production path fix](./SESSION_CHANGES_2026-08-06_EYECELL_PDF_PRODUCTION_FIX.md) | Records `public/documents/PPT/` with the correct Git casing so the Eye Zone Care guide and shared EN/RU/AR/profile/mobile links deploy as real PDFs instead of falling into the 404 viewer route. |

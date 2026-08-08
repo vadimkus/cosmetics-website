@@ -6,8 +6,9 @@
  * designed to combine with. Steps reference i18n keys under `product.*` and
  * deep-link via ROUTINE_STEP_PRODUCT_IDS (lib/routineStepLinks.ts).
  *
- * Products with bespoke routine blocks (beauty boxes 55-59, 62) stay hardcoded.
- * Revita Glow 63 and Cerabarrier 66 live in ProductRoutineCard (not this map).
+ * This is the single source of truth for every PDP routine, including beauty
+ * boxes, Revita Glow 63, and Cerabarrier 66. Website and mobile API render the
+ * same definitions.
  * Professional clinic lines (Power Solutions, SRS, devices 48/49) are excluded.
  * Bio Meso Expert 60000 (60) is included — retail SKU with a clinic protocol card.
  */
@@ -70,9 +71,9 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     steps: [
       CLEANSE,
       step('routineProblemControlTonerTitle', 'routineProblemControlTonerDesc'),
+      step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescProblem'),
       step('routineProblemControlSerumTitle', 'routineProblemControlSerumDesc'),
       step('routineProblemControlCreamTitle', 'routineProblemControlCreamDesc'),
-      step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescProblem'),
     ],
   },
   '16': BRIGHTENING([
@@ -88,18 +89,18 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     headingKey: 'recommendedEyeCareRoutine',
     steps: [
       CLEANSE,
+      step('routineEyePatchTitle', 'routineEyePatchDesc'),
       step('routineEyeSerumTitle', 'routineEyeSerumDesc'),
       step('routineEyeCreamTitle', 'routineEyeCreamDesc'),
-      step('routineEyePatchTitle', 'routineEyePatchDesc'),
     ],
   },
   '24': {
     headingKey: 'recommendedEyeCareRoutine',
     steps: [
       CLEANSE,
+      step('routineEyePatchTitle', 'routineEyePatchDesc'),
       step('routineEyeSerumTitle', 'routineEyeSerumDesc'),
       step('routineEyeCreamTitle', 'routineEyeCreamDesc'),
-      step('routineEyePatchTitle', 'routineEyePatchDesc'),
     ],
   },
   '33': {
@@ -133,9 +134,9 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     steps: [
       CLEANSE,
       step('routineProblemControlTonerTitle', 'routineProblemControlTonerDesc'),
+      step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescProblem'),
       step('routineProblemControlSerumTitle', 'routineProblemControlSerumDesc'),
       step('routineProblemControlCreamTitle', 'routineProblemControlCreamDesc'),
-      step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescProblem'),
     ],
   },
   '21': BRIGHTENING([
@@ -150,9 +151,9 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     steps: [
       CLEANSE,
       step('routineSnowBoosterTitle', 'routineSnowBoosterDescAntiAging'),
+      step('routineCollagenMaskTitle', 'routineCollagenMaskDesc'),
       step('routineAntiWrinkleSerumTitle', 'routineAntiWrinkleSerumDesc'),
       step('routineAntiWrinkleCreamTitle', 'routineAntiWrinkleCreamDesc'),
-      step('routineCollagenMaskTitle', 'routineCollagenMaskDesc'),
     ],
   },
 
@@ -171,8 +172,8 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     steps: [
       CLEANSE_GENTLE,
       MIST,
-      step('routinePostcreamTitle', 'routinePostcreamDesc'),
       step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescSensitive'),
+      step('routinePostcreamTitle', 'routinePostcreamDesc'),
     ],
   },
   '27': {
@@ -202,9 +203,9 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     steps: [
       CLEANSE,
       step('routineProblemControlTonerTitle', 'routineProblemControlTonerDesc'),
+      step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescProblem'),
       step('routineProblemControlSerumTitle', 'routineProblemControlSerumDesc'),
       step('routineProblemControlCreamTitle', 'routineProblemControlCreamDesc'),
-      step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescProblem'),
     ],
   },
   '31': BRIGHTENING([
@@ -219,9 +220,9 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     steps: [
       CLEANSE,
       step('routineSnowBoosterTitle', 'routineSnowBoosterDescAntiAging'),
+      step('routineCollagenMaskTitle', 'routineCollagenMaskDesc'),
       step('routineAntiWrinkleSerumTitle', 'routineAntiWrinkleSerumDesc'),
       step('routineAntiWrinkleCreamTitle', 'routineAntiWrinkleCreamDesc'),
-      step('routineCollagenMaskTitle', 'routineCollagenMaskDesc'),
     ],
   },
 
@@ -284,7 +285,6 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     headingKey: 'recommendedRenewalRoutine',
     steps: [
       CLEANSE,
-      step('routinePeelingGelTitle', 'routinePeelingGelDesc'),
       step('routinePDRNMaskTitle', 'routinePDRNMaskDesc'),
       HYALURON_CREAM,
     ],
@@ -315,7 +315,6 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
       MIST,
       HYALURON_CREAM,
       step('routineBBCushionTitle', 'routineBBCushionDesc'),
-      step('routineMakeupRemoverTitle', 'routineMakeupRemoverDesc'),
     ],
   },
   '42': {
@@ -325,7 +324,6 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
       MIST,
       HYALURON_CREAM,
       step('routineIntensiveBBTitle', 'routineIntensiveBBDesc'),
-      step('routineMakeupRemoverTitle', 'routineMakeupRemoverDesc'),
     ],
   },
 
@@ -334,8 +332,8 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     headingKey: 'recommendedHairCareRoutine',
     steps: [
       step('routineScalpShampooTitle', 'routineScalpShampooDesc'),
-      step('routineHairSolutionTitle', 'routineHairSolutionDesc'),
       step('routineHairStampTitle', 'routineHairStampDesc'),
+      step('routineHairSolutionTitle', 'routineHairSolutionDesc'),
       step('routineHairGenBoosterTitle', 'routineHairGenBoosterDesc'),
     ],
   },
@@ -360,10 +358,10 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
   '45': {
     headingKey: 'recommendedHairCareRoutine',
     steps: [
-      step('routineScalpShampooTitle', 'routineScalpShampooDesc'),
       step('routineScalpPeelingTitle', 'routineScalpPeelingDesc'),
-      step('routineHairSolutionTitle', 'routineHairSolutionDesc'),
+      step('routineScalpShampooTitle', 'routineScalpShampooDesc'),
       step('routineHairStampTitle', 'routineHairStampDesc'),
+      step('routineHairSolutionTitle', 'routineHairSolutionDesc'),
     ],
   },
   '46': {
@@ -387,8 +385,8 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     headingKey: 'recommendedHairCareRoutine',
     steps: [
       step('routineScalpShampooTitle', 'routineScalpShampooDesc'),
-      step('routineHairSolutionTitle', 'routineHairSolutionDesc'),
       step('routineHairStampTitle', 'routineHairStampDesc'),
+      step('routineHairSolutionTitle', 'routineHairSolutionDesc'),
       step('routineHairGenBoosterTitle', 'routineHairGenBoosterDesc'),
     ],
   },
@@ -397,19 +395,19 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
   '47': {
     headingKey: 'recommendedHairCareRoutine',
     steps: [
-      step('routineScalpShampooTitle', 'routineScalpShampooDesc'),
       step('routineScalpPeelingTitle', 'routineScalpPeelingDesc'),
-      step('routineHairSolutionTitle', 'routineHairSolutionDesc'),
+      step('routineScalpShampooTitle', 'routineScalpShampooDesc'),
       step('routineHairStampTitle', 'routineHairStampDesc'),
+      step('routineHairSolutionTitle', 'routineHairSolutionDesc'),
     ],
   },
   '50': {
     headingKey: 'recommendedEyeCareRoutine',
     steps: [
       CLEANSE,
+      step('routineEyePatchTitle', 'routineEyePatchDesc'),
       step('routineEyeSerumTitle', 'routineEyeSerumDesc'),
       step('routineEyeCreamTitle', 'routineEyeCreamDesc'),
-      step('routineEyePatchTitle', 'routineEyePatchDesc'),
     ],
   },
 
@@ -440,6 +438,92 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
       step('routinePDRNAmpouleTitle', 'routinePDRNAmpouleDesc'),
       step('routinePDRNMaskTitle', 'routinePDRNMaskDesc'),
       step('routinePostcreamTitle', 'routinePostcreamDesc'),
+    ],
+  },
+
+  // ── Beauty boxes ──────────────────────────────────────────────────────
+  // These are practical use sequences, not exhaustive box inventories.
+  // Optional masks sit before leave-on serums/creams; incompatible AM/PM
+  // products are not forced into one linear routine.
+  '55': {
+    headingKey: 'recommendedProblemSkinRoutine',
+    steps: [
+      CLEANSE,
+      step('routineProblemControlTonerTitle', 'routineProblemControlTonerDesc'),
+      step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescProblem'),
+      step('routineProblemControlSerumTitle', 'routineProblemControlSerumDesc'),
+      step('routineProblemControlCreamTitle', 'routineProblemControlCreamDesc'),
+    ],
+  },
+  '56': {
+    headingKey: 'recommendedSkinBrighteningRoutine',
+    steps: [
+      CLEANSE,
+      step('routinePeelingGelTitle', 'routinePeelingGelDesc'),
+      BOOSTER,
+      step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescBrightening'),
+      step('routineMultiVitaSerumTitle', 'routineMultiVitaSerumDesc'),
+      step('routineMultiVitaCreamTitle', 'routineMultiVitaCreamDesc'),
+    ],
+  },
+  '57': {
+    headingKey: 'recommendedSkincareMakeupRoutine',
+    steps: [
+      CLEANSE,
+      step('routineSnowBoosterTitle', 'routineSnowBoosterDescMakeup'),
+      step('routineBBCushionTitle', 'routineBBCushionDesc'),
+    ],
+  },
+  '58': {
+    headingKey: 'recommendedAntiAgingRoutine',
+    steps: [
+      CLEANSE,
+      step('routineSnowBoosterTitle', 'routineSnowBoosterDescAntiAging'),
+      step('routineCollagenMaskTitle', 'routineCollagenMaskDesc'),
+      step('routineAntiWrinkleSerumTitle', 'routineAntiWrinkleSerumDesc'),
+      step('routineAntiWrinkleCreamTitle', 'routineAntiWrinkleCreamDesc'),
+    ],
+  },
+  '59': {
+    headingKey: 'recommendedDeepMoisturizingRoutine',
+    steps: [
+      CLEANSE,
+      step('routineSnowBoosterTitle', 'routineSnowBoosterDescMoisturizing'),
+      step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDesc'),
+      HYALURON_SERUM,
+      HYALURON_CREAM,
+    ],
+  },
+  '62': {
+    headingKey: 'recommendedSensitiveSkinRoutine',
+    steps: [
+      CLEANSE,
+      step('routineSnowBoosterTitle', 'routineSnowBoosterDescSensitive'),
+      step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescSensitive'),
+      step('routineAllForSensitiveSerumTitle', 'routineAllForSensitiveSerumDesc'),
+      step('routineSkinBarrierCreamTitle', 'routineSkinBarrierCreamDesc'),
+    ],
+  },
+
+  // ── BB and barrier care ───────────────────────────────────────────────
+  '63': {
+    headingKey: 'recommendedRevitaGlowRoutine',
+    steps: [
+      CLEANSE,
+      step('routineSnowBoosterTitle', 'routineSnowBoosterDescRevitaGlow'),
+      step('routineMultiVitaSerumTitle', 'routineMultiVitaSerumDesc'),
+      step('routineHyaluronCreamTitle', 'routineHyaluronCreamDescRevitaGlow'),
+      step('routineRevitaGlowBBTitle', 'routineRevitaGlowBBDesc'),
+    ],
+  },
+  '66': {
+    headingKey: 'recommendedBarrierCareRoutine',
+    steps: [
+      CLEANSE_GENTLE,
+      MIST,
+      step('routineAllForSensitiveSerumTitle', 'routineAllForSensitiveSerumDesc'),
+      step('routineSkinBarrierCreamTitle', 'routineSkinBarrierCreamDesc'),
+      SUN_40,
     ],
   },
 }

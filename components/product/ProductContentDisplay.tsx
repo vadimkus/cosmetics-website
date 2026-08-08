@@ -12,6 +12,7 @@ import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import ProductInfoAccordion from '@/components/product/ProductInfoAccordion'
 import ProductRoutineCard from '@/components/product/ProductRoutineCard'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
+import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import { getLocalizedPath } from '@/lib/i18n'
 
 interface ProductContentDisplayProps {
@@ -20,6 +21,7 @@ interface ProductContentDisplayProps {
 
 export default function ProductContentDisplay({ product }: ProductContentDisplayProps) {
   const { t, locale, dir } = useTranslation()
+  const useLegacyBeautyBoxRoutine = !PRODUCT_ROUTINES[String(product.productNumber || product.id)]
   const arabicTranslations = locale === 'ar' ? getProductTranslations(product.productNumber || product.id) : null
   const russianTranslations = locale === 'ru' ? getProductTranslationsRu(product.productNumber || product.id) : null
   
@@ -182,8 +184,8 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       'Multi Functional Anti-wrinkle serum': '22',
       'MULTI FUNCTIONAL ANTI-WRINKLE CREAM': '32',
       'Multifunctional Anti-Wrinkle cream': '32',
-      'COLLAGEN MASK': '36',
-      'Collagen mask': '36',
+      'COLLAGEN MASK': '53',
+      'Collagen mask': '53',
       // Deep Moisturizing Beauty Box items
       'MOISTURE REPLENISHING HYALURON SERUM': '18',
       'Moisture Replenishing Hyaluron serum': '18',
@@ -192,10 +194,10 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
       'Moisture Replenishing Hyaluron cream': '29',
       'Moisture Replenishing Hyaluron Cream': '29',
       // Sensitive Skin Beauty Box items
-      'ALL FOR SENSITIVE SERUM': '21',
-      'All For Sensitive Serum': '21',
-      'SKIN BARRIER PROTECTING CREAM WITH CERAMIDES': '31',
-      'Skin Barrier Protecting Cream with Ceramides': '31',
+      'ALL FOR SENSITIVE SERUM': '19',
+      'All For Sensitive Serum': '19',
+      'SKIN BARRIER PROTECTING CREAM WITH CERAMIDES': '27',
+      'Skin Barrier Protecting Cream with Ceramides': '27',
     }
     
     // Normalize product name for matching (uppercase, remove extra spaces)
@@ -355,19 +357,19 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
                   if (!colors) return null
                   
                         // Check if this is the Soothing Bomb Sea Algae Mask item for product 56
-                        const isSoothingBombItem = (product.id === '56' || product.productNumber === '56') && 
+                        const isSoothingBombItem = useLegacyBeautyBoxRoutine && (product.id === '56' || product.productNumber === '56') &&
                           (item.name.toLowerCase().includes('soothing bomb') || item.name.toLowerCase().includes('sea algae'))
                         
                         // Check if this is the Soothing Bomb Sea Algae Mask item for product 59
-                        const isSoothingBombItem59 = (product.id === '59' || product.productNumber === '59') && 
+                        const isSoothingBombItem59 = useLegacyBeautyBoxRoutine && (product.id === '59' || product.productNumber === '59') &&
                           (item.name.toLowerCase().includes('soothing bomb') || item.name.toLowerCase().includes('sea algae'))
                         
                         // Check if this is the Skin Rescue Overnight Cream Mask item for product 57
-                        const isOvernightMaskItem = (product.id === '57' || product.productNumber === '57') && 
+                        const isOvernightMaskItem = useLegacyBeautyBoxRoutine && (product.id === '57' || product.productNumber === '57') &&
                           (item.name.toLowerCase().includes('skin rescue') || item.name.toLowerCase().includes('overnight'))
                         
                         // Check if this is the Collagen mask item for product 58
-                        const isCollagenMaskItem = (product.id === '58' || product.productNumber === '58') && 
+                        const isCollagenMaskItem = useLegacyBeautyBoxRoutine && (product.id === '58' || product.productNumber === '58') &&
                           (item.name.toLowerCase().includes('collagen mask') || item.name.toLowerCase().includes('collagen'))
                   
                   return (
@@ -602,7 +604,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           )}
 
           {/* Skincare Routine Block - Mobile only - Only for Problem Skin Care Beauty Box (product 55) */}
-          {(product.id === '55' || product.productNumber === '55') && kitItems.length > 0 && (
+          {useLegacyBeautyBoxRoutine && (product.id === '55' || product.productNumber === '55') && kitItems.length > 0 && (
             <div className="block lg:hidden bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
               <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />

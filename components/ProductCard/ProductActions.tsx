@@ -2,8 +2,7 @@
 
 import { memo } from 'react'
 import { Check, ShoppingCart, User, MessageCircle, Minus, Plus } from 'lucide-react'
-import { getProductSizes } from '@/data/productConfig'
-import { getProductColorOptions } from '@/utils/productPricing'
+import { isProductOptionSelectionRequired } from '@/lib/productOptions'
 import type { ProductActionsProps } from './types'
 
 /**
@@ -103,16 +102,7 @@ const ProductActions = memo(function ProductActions({
   const isInCart = inCartQty > 0
   const inStateLabel = useBagText ? t('product.inBag') : t('product.inCart')
   const addStateLabel = useBagText ? t('product.addToBag') : t('product.addToCart')
-  const productConfigId = product.productNumber || product.id
-  const availableVariantKeys = new Set(
-    (product.variants || [])
-      .filter(variant => variant.available !== false)
-      .map(variant => `${variant.size || ''}:${variant.color || ''}`),
-  )
-  const requiresOptions =
-    getProductSizes(productConfigId).filter(option => option.available).length > 1 ||
-    getProductColorOptions(productConfigId).length > 1 ||
-    availableVariantKeys.size > 1
+  const requiresOptions = isProductOptionSelectionRequired(product)
 
   if (isInCart) {
     const decLabel = `${t('cart.decreaseQuantity') || 'Decrease quantity'} — ${product.name}`

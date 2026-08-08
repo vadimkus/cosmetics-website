@@ -8,6 +8,7 @@ import ProductImage from './ProductImage'
 import ProductInfo from './ProductInfo'
 import ProductPrice from './ProductPrice'
 import ProductActions from './ProductActions'
+import ProductOptionDialog from '@/components/product/ProductOptionDialog'
 import type { ProductCardProps, ProductCardAnimationProps } from './types'
 
 /**
@@ -35,6 +36,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     isTogglingFavorite,
     showLoginModal,
     isLoginMode,
+    showOptionDialog,
     addedToCartMessage,
     inCartQty,
     canAdjustInline,
@@ -60,10 +62,13 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     handleFavorite,
     handleLoginClick,
     handleNavigate,
+    handleChooseOptions,
+    handleConfirmOptions,
     
     // Modal controls
     setShowLoginModal,
     setIsLoginMode,
+    setShowOptionDialog,
     
     // Context values
     user,
@@ -179,7 +184,7 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           onIncrementCart={handleIncrementCart}
           onDecrementFromCart={handleDecrementFromCart}
           onOpenCart={handleOpenCart}
-          onChooseOptions={handleNavigate}
+          onChooseOptions={handleChooseOptions}
           onLoginClick={handleLoginClick}
           t={t}
         />
@@ -197,6 +202,17 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           setIsLoginMode={setIsLoginMode}
         />
       )}
+
+      {showOptionDialog && user ? (
+        <ProductOptionDialog
+          open={showOptionDialog}
+          product={product}
+          user={user}
+          isAdding={isAdding}
+          onClose={() => setShowOptionDialog(false)}
+          onConfirm={handleConfirmOptions}
+        />
+      ) : null}
     </MotionWrapper>
   )
 })

@@ -22,6 +22,7 @@ import {
   navigateProductWithTransition,
   productTransitionName,
 } from '@/lib/productViewTransition'
+import type { ProductOptionSelection } from '@/lib/productOptions'
 import type { UseProductCardReturn } from '../types'
 
 /**
@@ -51,11 +52,13 @@ export function useProductCard(product: Product): UseProductCardReturn {
   const [isTogglingFavorite, setIsTogglingFavorite] = useState(false)
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
+  const [showOptionDialog, setShowOptionDialog] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [addedToCartMessage, setAddedToCartMessage] = useState('')
   const addTimerRef = useRef<NodeJS.Timeout | null>(null)
   const messageTimerRef = useRef<NodeJS.Timeout | null>(null)
   const favoriteTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const addInFlightRef = useRef(false)
 
   // Clean up timers on unmount
   useEffect(() => () => {
@@ -120,6 +123,8 @@ export function useProductCard(product: Product): UseProductCardReturn {
   
   // Event handlers
   const handleAddToCart = useCallback(() => {
+    if (addInFlightRef.current) return
+    addInFlightRef.current = true
     haptic.success()
     setIsAdding(true)
     addItem(product, 1, '', '')
@@ -133,13 +138,56 @@ export function useProductCard(product: Product): UseProductCardReturn {
         quantity: 1,
       })
     } catch { /* best-effort */ }
-    setAddedToCartMessage(`${product.name} ${t('product.addedToCart') || 'added to cart'}`)
+    setAddedToCartMessage(`${product.name} ${t('product.addedToBag')}`)
     
     addTimerRef.current = setTimeout(() => {
       setIsAdding(false)
+      addInFlightRef.current = false
       messageTimerRef.current = setTimeout(() => setAddedToCartMessage(''), 1000)
     }, 500)
   }, [addItem, product, haptic, t])
+
+  const handleChooseOptions = useCallback(() => {
+    if (addInFlightRef.current) return
+    setShowOptionDialog(true)
+  }, [])
+
+  const handleConfirmOptions = useCallback(async (
+    selectedProduct: Product,
+    selection: ProductOptionSelection,
+    quantity: number,
+  ) => {
+    if (addInFlightRef.current) return
+    addInFlightRef.current = true
+    haptic.success()
+    setIsAdding(true)
+    addItem(
+      selectedProduct,
+      quantity,
+      selection.selectedColor,
+      selection.selectedSize,
+    )
+    const selectedPricing = getPricingDisplay(selectedProduct, user, selection)
+    try {
+      trackAddToCart({
+        id: selectedProduct.id,
+        name: selectedProduct.name,
+        category: selectedProduct.category || 'Cosmetics',
+        price: selectedPricing.displayPrice,
+        quantity,
+      })
+    } catch { /* best-effort */ }
+    setAddedToCartMessage(
+      `${selectedProduct.name} ${t('product.addedToBag')}`,
+    )
+    setShowOptionDialog(false)
+
+    addTimerRef.current = setTimeout(() => {
+      setIsAdding(false)
+      addInFlightRef.current = false
+      messageTimerRef.current = setTimeout(() => setAddedToCartMessage(''), 1000)
+    }, 500)
+  }, [addItem, haptic, t, user])
 
   const handleIncrementCart = useCallback(() => {
     if (!adjustableLine) return
@@ -219,6 +267,7 @@ export function useProductCard(product: Product): UseProductCardReturn {
     isTogglingFavorite,
     showLoginModal,
     isLoginMode,
+    showOptionDialog,
     isMobile,
     addedToCartMessage,
     inCartQty,
@@ -246,10 +295,13 @@ export function useProductCard(product: Product): UseProductCardReturn {
     handleFavorite,
     handleLoginClick,
     handleNavigate,
+    handleChooseOptions,
+    handleConfirmOptions,
     
     // Modal controls
     setShowLoginModal,
     setIsLoginMode,
+    setShowOptionDialog,
     
     // Context values
     user,

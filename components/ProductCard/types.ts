@@ -1,5 +1,6 @@
 import { Product } from '@/types'
 import { User } from '@/types/user'
+import type { ProductOptionSelection } from '@/lib/productOptions'
 
 /**
  * ProductCard Types
@@ -80,6 +81,7 @@ export interface UseProductCardReturn {
   isTogglingFavorite: boolean
   showLoginModal: boolean
   isLoginMode: boolean
+  showOptionDialog: boolean
   isMobile: boolean
   addedToCartMessage: string
   inCartQty: number
@@ -107,10 +109,17 @@ export interface UseProductCardReturn {
   handleFavorite: (e?: React.MouseEvent | React.TouchEvent) => void
   handleLoginClick: (e: React.MouseEvent) => void
   handleNavigate: () => void
+  handleChooseOptions: () => void
+  handleConfirmOptions: (
+    product: Product,
+    selection: ProductOptionSelection,
+    quantity: number,
+  ) => Promise<void>
   
   // Modal controls
   setShowLoginModal: (show: boolean) => void
   setIsLoginMode: (mode: boolean) => void
+  setShowOptionDialog: (show: boolean) => void
   
   // Context values
   user: User | null

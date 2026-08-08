@@ -128,5 +128,22 @@ inspection was deleted and is not part of the shipped change.
 
 ## Deployment
 
-Deployment commit, Vercel ID/status, and production verification are appended
-after the production rollout.
+- Implementation commit: `075fae43` (`Add mobile product option sheet`), pushed
+  to `origin/main`.
+- Vercel production deployment:
+  `dpl_9mQQvQE9M9aJN9Fma8VUnzkeaHwb`
+  (`cosmetics-website2-nddfybvfn-vadimkus-projects.vercel.app`).
+- Status: `READY`; `genosys.ae` resolves to the same deployment ID.
+- Production `/products`, `/api/products`, and `/api/products/66` returned 200.
+- The deployed products bundle contains the new option-sheet strings and is
+  tagged with the same Vercel deployment ID.
+- Production API re-audit returned all 13 option products, all in stock and all
+  with either live DB variants or the Revita Glow config fallback.
+- Mobile production grid at 390 × 844 and desktop at 1280 × 900 had zero
+  horizontal overflow; Cerabarrier and product 41 were present after a
+  cache-busting reload; Arabic products completed loading with `dir="rtl"`.
+- The browser session on production was logged out, so the live authenticated
+  sheet/cart mutation was not repeated against a real account. Authenticated
+  Cerabarrier/product-41 payload behavior was verified locally with the real
+  deployed component and deterministically in Jest. Logged-out card/login
+  behavior was unchanged in production.

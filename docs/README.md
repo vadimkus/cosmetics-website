@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🔴 **Commerce UX** | [Beauty Box Quick Facts full audit](./SESSION_CHANGES_2026-08-08_BEAUTY_BOX_QUICK_FACTS.md) | Replaces `Selected shade Beige` / `Format 50g` leakage with six tailored EN/RU/AR facts for every live Beauty Box; exact contents, routines and savings; shared web/PWA/mobile API catalog; native renderer + production OTA; 36 live PDP combinations verified. |
 | 🔴 **Mobile commerce** | [Mobile-web product option sheet parity](./SESSION_CHANGES_2026-08-08_MOBILE_WEB_PRODUCT_OPTIONS.md) | Brings native-style explicit size/shade selection to mobile web/PWA product cards with a responsive desktop dialog, live variant/VIP pricing, OOS and quantity handling, EN/RU/AR + RTL, catalog-backed raw-key regression guards, accessibility, cart identity safety, and a live 13-product audit. |
 | 🔴 **Clinical UX** | [Recommended Routine full audit](./SESSION_CHANGES_2026-08-08_RECOMMENDED_ROUTINES_FULL_AUDIT.md) | Audits 54 product recipients / 35 sequences across web, PWA, API, and native consumption; fixes product 41 remover-after-cushion, mask/eye/scalp/device ordering, broken links, duplicate sources, EN/RU/AR, and adds catalog-wide invariants. |
 | 🟡 **Important** | [Product 50 EyeCell kit main image](./SESSION_CHANGES_2026-08-07_PRODUCT_50_MAIN_IMAGE.md) | Main image migrated to cache-safe `eye_kit/main.jpeg`; both legacy gallery items subsequently removed so the PDP shows only the new main; historical orders remain canonical. |

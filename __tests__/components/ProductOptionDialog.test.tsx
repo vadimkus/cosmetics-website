@@ -8,6 +8,8 @@ let mockIsMobile = true
 const labelsByLocale = {
   en: {
     choose: 'Choose options',
+    size: 'Size',
+    color: 'Color',
     quantity: 'Quantity',
     add: 'Add to Bag',
     cancel: 'Cancel',
@@ -27,6 +29,8 @@ const labelsByLocale = {
   },
   ru: {
     choose: 'Выбрать вариант',
+    size: 'Размер',
+    color: 'Цвет',
     quantity: 'Количество',
     add: 'В корзину',
     cancel: 'Отмена',
@@ -46,6 +50,8 @@ const labelsByLocale = {
   },
   ar: {
     choose: 'اختر الخيارات',
+    size: 'الحجم',
+    color: 'اللون',
     quantity: 'الكمية',
     add: 'أضف إلى الحقيبة',
     cancel: 'إلغاء',
@@ -69,6 +75,8 @@ const mockTranslate = (key: string) => {
   const labels = labelsByLocale[mockLocale as keyof typeof labelsByLocale]
   const translations: Record<string, string> = {
     'product.chooseOptions': labels.choose,
+    'product.size': labels.size,
+    'product.color': labels.color,
     'product.quantity': labels.quantity,
     'product.addToBag': labels.add,
     'product.closeOptions': labels.close,
@@ -83,7 +91,7 @@ const mockTranslate = (key: string) => {
     'product.decreaseQuantity': labels.decrease,
     'product.increaseQuantity': labels.increase,
     'common.cancel': labels.cancel,
-    'common.required': labels.required,
+    'accessibility.required': labels.required,
     'common.tryAgain': labels.tryAgain,
   }
   return translations[key] || key
@@ -233,8 +241,11 @@ describe('ProductOptionDialog', () => {
     const labels = labelsByLocale[locale as keyof typeof labelsByLocale]
     expect(screen.getByText(labels.choose)).toBeInTheDocument()
     expect(screen.getByText(labels.quantity)).toBeInTheDocument()
+    expect(screen.getByText(labels.required)).toBeInTheDocument()
     expect(screen.getByTestId('product-option-overlay')).toHaveAttribute('dir', direction)
-    expect(screen.queryByText('product.quantity')).not.toBeInTheDocument()
+    expect(screen.getByRole('dialog').textContent).not.toMatch(
+      /\b(?:common|product|accessibility)\.[A-Za-z][\w.-]*\b/i,
+    )
   })
 
   it('closes through backdrop and restores focus', async () => {

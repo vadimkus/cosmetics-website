@@ -438,7 +438,7 @@ export default function ProductOptionDialog({
                 <span>{t('product.size')}</span>
                 {model.required.size && !selection.selectedSize ? (
                   <span className="text-[10px] font-bold uppercase tracking-wide text-primary-600">
-                    {t('common.required')}
+                    {t('accessibility.required')}
                   </span>
                 ) : null}
               </legend>
@@ -482,7 +482,7 @@ export default function ProductOptionDialog({
                 <span>{t('product.color')}</span>
                 {model.required.color && !selection.selectedColor ? (
                   <span className="text-[10px] font-bold uppercase tracking-wide text-primary-600">
-                    {t('common.required')}
+                    {t('accessibility.required')}
                   </span>
                 ) : null}
               </legend>

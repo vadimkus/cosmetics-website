@@ -39,8 +39,9 @@ model. That made a direct UI clone unsafe, especially for:
   different selections remain separate lines.
 - The portal uses `z-index: 20000`, above the website mobile navigation
   (`z-index: 9999`), and restores body scroll/focus after close.
-- EN/RU/AR strings use real `product.quantity` translations. Arabic sets `dir=rtl`;
-  no literal translation key is rendered.
+- EN/RU/AR strings use real `product.quantity` translations and the established
+  `accessibility.required` message. Arabic sets `dir=rtl`; literal translation
+  keys are blocked by catalog-backed regression coverage.
 
 ## UX and accessibility
 
@@ -77,7 +78,7 @@ Production `/api/products` and local `productConfig` were cross-checked on
 
 ## Deterministic coverage
 
-Added 17 focused tests covering:
+Added 20 focused tests covering:
 
 - required trigger vs one-tap add;
 - all 13 option products;
@@ -85,14 +86,15 @@ Added 17 focused tests covering:
 - exact cart key/payload, identical-line merge, different-variant separation;
 - cancel, close, backdrop, Escape, focus restoration, retry, and double tap;
 - mobile sheet vs desktop dialog;
-- EN/RU/AR labels, Arabic RTL, and no `product.quantity` leak.
+- EN/RU/AR labels, Arabic RTL, and no raw/key-shaped output from every
+  option-sheet translation.
 
 Repository checks:
 
 - `npx tsc --noEmit` — passed.
 - `npm run lint` — passed with 170 pre-existing warnings and 0 errors.
-- `npm test -- --runInBand` — 60 suites passed; 379 tests passed, 3 skipped.
-- Focused suite — 17/17 passed.
+- `npm test -- --runInBand` — 61 suites passed; 382 tests passed, 3 skipped.
+- Focused suite — 20/20 passed.
 - `npm run build` — passed (460 static pages generated).
 
 ## Browser evidence
@@ -147,3 +149,22 @@ inspection was deleted and is not part of the shipped change.
   Cerabarrier/product-41 payload behavior was verified locally with the real
   deployed component and deterministically in Jest. Logged-out card/login
   behavior was unchanged in production.
+
+## Localization hotfix
+
+The first production release requested `common.required`, while the existing
+EN/RU/AR catalogs define that label at `accessibility.required`. The translation
+hook intentionally returns an unresolved key verbatim; the badge's uppercase CSS
+then displayed `common.required` as `COMMON.REQUIRED`. This was a key-path error,
+not a stale deployment or missing locale message.
+
+The component now uses `accessibility.required`, resolving to:
+
+- English: `Required field`
+- Russian: `Обязательное поле`
+- Arabic: `حقل مطلوب`
+
+The option-sheet tests now resolve the complete message set through the real
+`MessagesProvider` for EN/RU/AR. They assert natural core labels, Arabic `rtl`,
+and fail if any value remains key-shaped, including `COMMON.REQUIRED` or
+`product.quantity`.

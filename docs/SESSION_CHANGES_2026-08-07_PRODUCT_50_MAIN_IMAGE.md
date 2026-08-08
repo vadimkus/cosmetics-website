@@ -66,3 +66,29 @@ At the owner's request, only the second gallery item was removed:
 The migration script now supports the narrow, idempotent
 `--remove-second-gallery` operation and refuses to run if the product main or
 gallery is in an unexpected state.
+
+## Follow-up: remove final legacy gallery image
+
+The next live DOM check confirmed the remaining two displayed images were:
+
+1. `/images/eye_kit/main.jpeg` — current main
+2. `/images/EYEZ.jpg` — the only remaining DB gallery item
+
+At the owner's request, the final gallery item was removed:
+
+- Before: `["/images/EYEZ.jpg"]`
+- After: `null`
+- Main remained `/images/eye_kit/main.jpeg`.
+- Product 50 now has one displayed product image and no gallery thumbnails.
+- Product 33, the Eye Zone PDF, and the 8 canonical historical order images were
+  not changed.
+- No order item, blog post, or other product referenced `/images/EYEZ.jpg`
+  outside product 50's gallery.
+- The physical `public/images/EYEZ.jpg` asset was retained because it was the
+  product's former public main URL and may still be used by historical external
+  links. Retaining it avoids creating dead links without reintroducing it into
+  the product payload or DOM.
+
+The migration script supports the idempotent `--clear-gallery` operation, writes
+the repository-standard `null` gallery value, and refuses to change the gallery
+unless the canonical new main is still active.

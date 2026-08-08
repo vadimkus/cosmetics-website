@@ -10,6 +10,10 @@
  * Remove only the second legacy gallery item:
  *   npx tsx --env-file=.env.local scripts/update-product-50-main-image.ts --remove-second-gallery
  *   npx tsx --env-file=.env.local scripts/update-product-50-main-image.ts --remove-second-gallery --apply
+ *
+ * Clear the final legacy gallery item while preserving the current main:
+ *   npx tsx --env-file=.env.local scripts/update-product-50-main-image.ts --clear-gallery
+ *   npx tsx --env-file=.env.local scripts/update-product-50-main-image.ts --clear-gallery --apply
  */
 import { prisma } from '../lib/prisma'
 
@@ -35,11 +39,66 @@ function replaceOldMain(value: string | null): string | null {
 async function main() {
   const apply = process.argv.includes('--apply')
   const removeSecondGallery = process.argv.includes('--remove-second-gallery')
+  const clearGallery = process.argv.includes('--clear-gallery')
   const product = await prisma.product.findFirst({
     where: { OR: [{ productNumber: '50' }, { id: '50' }] },
     select: { id: true, productNumber: true, name: true, image: true, images: true },
   })
   if (!product) throw new Error('Product 50 not found')
+
+  if (clearGallery) {
+    if (product.image !== NEW_MAIN) {
+      throw new Error(`Refusing to clear gallery while main is ${product.image}`)
+    }
+
+    const isExpectedBefore = product.images === JSON.stringify(REMAINING_GALLERY)
+    const isAlreadyApplied = product.images === null
+    if (!isExpectedBefore && !isAlreadyApplied) {
+      throw new Error(`Unexpected product 50 gallery: ${product.images}`)
+    }
+
+    const [orderReferences, productReferences, blogs] = await Promise.all([
+      prisma.orderItem.findMany({
+        where: { image: { contains: OLD_MAIN } },
+        select: { id: true, productId: true, productName: true, image: true },
+      }),
+      prisma.product.findMany({
+        where: { OR: [{ image: { contains: OLD_MAIN } }, { images: { contains: OLD_MAIN } }] },
+        select: { id: true, productNumber: true, name: true, image: true, images: true },
+      }),
+      prisma.blogPost.findMany({
+        where: {
+          OR: [
+            { featuredImage: { contains: OLD_MAIN } },
+            { content: { contains: OLD_MAIN } },
+            { contentAr: { contains: OLD_MAIN } },
+            { contentRu: { contains: OLD_MAIN } },
+          ],
+        },
+        select: { id: true, slug: true },
+      }),
+    ])
+
+    console.log('BEFORE:', JSON.stringify(product, null, 2))
+    console.log('Gallery after: null')
+    console.log('Order references to retained legacy asset:', JSON.stringify(orderReferences, null, 2))
+    console.log('Product references:', JSON.stringify(productReferences, null, 2))
+    console.log('Blog references:', blogs.map(({ slug }) => slug))
+
+    if (!apply || isAlreadyApplied) {
+      console.log(isAlreadyApplied ? 'ALREADY APPLIED — no write needed' : 'DRY RUN — pass --apply to write')
+      return
+    }
+
+    const updated = await prisma.product.update({
+      where: { id: product.id },
+      data: { images: null },
+      select: { id: true, productNumber: true, name: true, image: true, images: true },
+    })
+    if (updated.image !== NEW_MAIN) throw new Error('Product 50 main changed unexpectedly')
+    console.log('AFTER:', JSON.stringify(updated, null, 2))
+    return
+  }
 
   if (removeSecondGallery) {
     if (product.image !== NEW_MAIN) {

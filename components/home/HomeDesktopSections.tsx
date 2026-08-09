@@ -3,9 +3,9 @@
 /**
  * HomeDesktopSections — sections rendered BELOW the hero on the homepage.
  *
- * Desktop-only. Mobile users are redirected to `/products` by `MobileRedirect`
- * already, but every section still opts in with `hidden md:block` so SSR /
- * crawlers see them and mobile flashes stay clean.
+ * Mobile users are redirected to `/products` by `MobileRedirect` unless they
+ * explicitly open `?full=true` from the Home menu. Sections therefore remain
+ * responsive so that opt-in full-home experience works at every viewport.
  *
  * Sections (top → bottom):
  *  1. Bestsellers rail        — 4 up, real sales data (units sold, 180d)
@@ -23,24 +23,15 @@ import HomeScrollReveals from '@/components/home/HomeScrollRevealsV2'
 import {
   ArrowRight,
   Check,
-  Sparkles,
   Mail,
   Lock,
-  Sun,
-  ShieldCheck,
-  Droplets,
-  Contrast,
-  Bandage,
-  Sprout,
-  Hourglass,
-  Feather,
-  type LucideIcon,
 } from 'lucide-react'
 import type { Locale } from '@/lib/i18n'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateCategory } from '@/utils/categoryTranslations'
-import { CATEGORY_PAGES, CONCERN_PAGES } from '@/lib/concernsData'
+import { CATEGORY_PAGES } from '@/lib/concernsData'
+import SkinConcernSection from '@/components/home/SkinConcernSection'
 import type { Product } from '@/types'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { canUserSeePrices } from '@/lib/discountUtils'
@@ -148,142 +139,6 @@ const CATEGORY_RAIL_TITLES: Record<string, { en: string; ar: string; ru: string 
     en: 'Sun protection creams',
     ar: 'كريمات الوقاية من الشمس',
     ru: 'SPF-кремы',
-  },
-}
-
-// Concern card meta — friendly label + benefit-led one-liner. Visual identity
-// is uniform (brand red accent on hover) rather than the old 8-colour rainbow,
-// so the grid reads as one system, in line with the rest of the site.
-const CONCERN_META: Record<
-  string,
-  {
-    label: { en: string; ar: string; ru: string }
-    benefit: { en: string; ar: string; ru: string }
-    /** Concern glyph + soft tint classes (static strings for Tailwind JIT). */
-    icon: LucideIcon
-    iconTile: string
-    blob: string
-  }
-> = {
-  'sun-protection': {
-    label: {
-      en: 'Sun Protection',
-      ar: 'الحماية من الشمس',
-      ru: 'Защита от солнца',
-    },
-    benefit: {
-      en: 'Daily UV protection built for UAE sun.',
-      ar: 'حماية يومية من الأشعة فوق البنفسجية مصممة لشمس الإمارات.',
-      ru: 'Дневная защита от UV для климата ОАЭ.',
-    },
-    icon: Sun,
-    iconTile: 'bg-amber-50 text-amber-600',
-    blob: 'bg-amber-200/50',
-  },
-  'acne-treatment': {
-    label: {
-      en: 'Acne & Blemishes',
-      ar: 'حب الشباب والبثور',
-      ru: 'Акне и высыпания',
-    },
-    benefit: {
-      en: 'Calm breakouts and fade post-acne marks.',
-      ar: 'تهدئة البثور وتفتيح آثار حب الشباب.',
-      ru: 'Успокаиваем высыпания и убираем следы постакне.',
-    },
-    icon: ShieldCheck,
-    iconTile: 'bg-emerald-50 text-emerald-600',
-    blob: 'bg-emerald-200/50',
-  },
-  pigmentation: {
-    label: {
-      en: 'Pigmentation',
-      ar: 'التصبغات',
-      ru: 'Пигментация',
-    },
-    benefit: {
-      en: 'Fade dark spots and even out skin tone.',
-      ar: 'تفتيح البقع الداكنة وتوحيد لون البشرة.',
-      ru: 'Осветляем пятна и выравниваем тон кожи.',
-    },
-    icon: Contrast,
-    iconTile: 'bg-violet-50 text-violet-600',
-    blob: 'bg-violet-200/50',
-  },
-  'scars-treatment': {
-    label: {
-      en: 'Scar Treatment',
-      ar: 'علاج الندبات',
-      ru: 'Рубцы и шрамы',
-    },
-    benefit: {
-      en: 'Smooth scars and refine skin texture.',
-      ar: 'تنعيم الندبات وتحسين ملمس البشرة.',
-      ru: 'Сглаживаем рубцы и улучшаем рельеф кожи.',
-    },
-    icon: Bandage,
-    iconTile: 'bg-sky-50 text-sky-600',
-    blob: 'bg-sky-200/50',
-  },
-  'hair-loss': {
-    label: {
-      en: 'Hair Loss',
-      ar: 'تساقط الشعر',
-      ru: 'Выпадение волос',
-    },
-    benefit: {
-      en: 'Stronger roots and a healthier scalp.',
-      ar: 'جذور أقوى وفروة رأس أكثر صحة.',
-      ru: 'Крепкие корни и здоровая кожа головы.',
-    },
-    icon: Sprout,
-    iconTile: 'bg-teal-50 text-teal-600',
-    blob: 'bg-teal-200/50',
-  },
-  'anti-aging': {
-    label: {
-      en: 'Anti-Aging',
-      ar: 'مكافحة الشيخوخة',
-      ru: 'Anti-age',
-    },
-    benefit: {
-      en: 'Smooth wrinkles, restore firmness and glow.',
-      ar: 'تنعيم التجاعيد واستعادة المرونة والإشراق.',
-      ru: 'Разглаживаем морщины, возвращаем упругость и сияние.',
-    },
-    icon: Hourglass,
-    iconTile: 'bg-rose-50 text-rose-600',
-    blob: 'bg-rose-200/50',
-  },
-  hydration: {
-    label: {
-      en: 'Hydration',
-      ar: 'الترطيب',
-      ru: 'Увлажнение',
-    },
-    benefit: {
-      en: 'Deep hydration that lasts all day.',
-      ar: 'ترطيب عميق يدوم طوال اليوم.',
-      ru: 'Глубокое увлажнение на весь день.',
-    },
-    icon: Droplets,
-    iconTile: 'bg-blue-50 text-blue-600',
-    blob: 'bg-blue-200/50',
-  },
-  sensitivity: {
-    label: {
-      en: 'Sensitive Skin',
-      ar: 'البشرة الحساسة',
-      ru: 'Чувствительная кожа',
-    },
-    benefit: {
-      en: 'Soothe redness and calm sensitive skin.',
-      ar: 'تهدئة الاحمرار والعناية بالبشرة الحساسة.',
-      ru: 'Снимаем покраснения, успокаиваем чувствительную кожу.',
-    },
-    icon: Feather,
-    iconTile: 'bg-orange-50 text-orange-600',
-    blob: 'bg-orange-200/50',
   },
 }
 
@@ -495,7 +350,7 @@ export default function HomeDesktopSections({
   }, [featuredCategories, featuredProducts, categoryImages])
 
   return (
-    <div className="hidden md:block" dir={dir} data-home-reveals>
+    <div className="block" dir={dir} data-home-reveals>
       <HomeScrollReveals />
       {/* ── 1. Bestsellers rail — driven by real sales data (homeData) ───── */}
       {featuredProducts.length > 0 && (
@@ -695,121 +550,7 @@ export default function HomeDesktopSections({
       </section>
 
       {/* ── 4. Shop by concern ──────────────────────────────────────────── */}
-      <section className="reveal-on-view bg-gray-50 py-16 lg:py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className={`mb-12 lg:mb-14 grid lg:grid-cols-12 gap-6 items-end ${isRtl ? 'text-right' : ''}`}>
-              <div className="lg:col-span-7">
-                <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-3">
-                  {locale === 'ar' ? 'الحلول الموجهة' : locale === 'ru' ? 'Точечные решения' : 'Targeted solutions'}
-                </p>
-                <h2 className="text-3xl lg:text-[44px] lg:leading-[1.05] font-bold text-gray-900 font-display tracking-tight">
-                  {locale === 'ar'
-                    ? 'تسوق حسب مشكلة البشرة'
-                    : locale === 'ru'
-                    ? 'Подбор по типу кожи'
-                    : 'Shop by skin concern'}
-                </h2>
-              </div>
-              <p className="lg:col-span-5 text-[15px] text-gray-600 leading-relaxed lg:max-w-md lg:ml-auto">
-                {locale === 'ar'
-                  ? 'اختر مخاوفك وسنوصلك إلى المنتجات والروتين المناسب لها — مدعوم بأبحاث GENOSYS العلمية.'
-                  : locale === 'ru'
-                  ? 'Выберите задачу — подберём продукты и пошаговый уход. Опираемся на клинические исследования GENOSYS.'
-                  : 'Pick a concern and we\u2019ll route you to the right products and step-by-step routine — backed by GENOSYS clinical research.'}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4">
-              {CONCERN_PAGES.map(concern => {
-                const meta = CONCERN_META[concern.slug] ?? {
-                  label: { en: '', ar: '', ru: '' },
-                  benefit: { en: '', ar: '', ru: '' },
-                  icon: Sparkles,
-                  iconTile: 'bg-gray-100 text-gray-600',
-                  blob: 'bg-gray-200/50',
-                }
-                const label =
-                  meta.label[locale as 'en' | 'ar' | 'ru'] ||
-                  (locale === 'ar' ? concern.seo.ar.h1 : locale === 'ru' ? concern.seo.ru.h1 : concern.seo.en.h1)
-                const benefit = meta.benefit[locale as 'en' | 'ar' | 'ru'] || ''
-                const count = concernCounts?.[concern.slug]
-                const Icon = meta.icon
-                const exploreLabel =
-                  locale === 'ar' ? 'اكتشف' : locale === 'ru' ? 'Подобрать уход' : 'Explore'
-                return (
-                  <Link
-                    key={concern.slug}
-                    href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
-                    className={`group relative flex flex-col overflow-hidden rounded-2xl border border-gray-200/80 bg-white p-5 lg:p-6 min-h-[184px] lg:min-h-[204px] transition-all duration-300 hover:border-primary-200 hover:shadow-[0_14px_28px_-14px_rgba(17,24,39,0.18)] hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2 ${isRtl ? 'text-right' : ''}`}
-                  >
-                    {/* Soft decorative blob — gives each card its concern colour */}
-                    <div
-                      className={`pointer-events-none absolute -top-10 h-28 w-28 rounded-full blur-2xl opacity-70 transition-all duration-500 group-hover:opacity-100 group-hover:scale-125 ${meta.blob} ${isRtl ? '-left-10' : '-right-10'}`}
-                      aria-hidden="true"
-                    />
-
-                    {/* Icon tile + product count */}
-                    <div className={`relative flex items-start justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                      <span
-                        className={`inline-flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110 ${meta.iconTile}`}
-                        aria-hidden="true"
-                      >
-                        <Icon className="h-[22px] w-[22px]" strokeWidth={1.9} />
-                      </span>
-                      {typeof count === 'number' && count > 0 && (
-                        <span className="flex-shrink-0 rounded-full border border-gray-200 bg-white/80 backdrop-blur px-2.5 py-1 text-[11px] font-semibold text-gray-600 transition-colors group-hover:border-primary-200 group-hover:bg-primary-50 group-hover:text-primary-700">
-                          {formatProductCount(count, locale)}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="relative mt-4 text-[16px] lg:text-[17px] font-semibold text-gray-900 tracking-tight leading-[1.2]">
-                      {label}
-                    </h3>
-
-                    {/* Benefit-led description */}
-                    {benefit && (
-                      <p className="relative mt-1.5 text-[13px] lg:text-[14px] text-gray-600 leading-relaxed">
-                        {benefit}
-                      </p>
-                    )}
-
-                    {/* Bottom CTA — pinned, brand accent on hover */}
-                    <div
-                      className={`relative mt-auto flex items-center gap-1.5 pt-4 text-[12px] lg:text-[13px] font-semibold text-gray-500 transition-colors group-hover:text-primary-700 ${isRtl ? 'flex-row-reverse justify-end' : 'justify-start'}`}
-                    >
-                      <span>{exploreLabel}</span>
-                      <ArrowRight
-                        className={`h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''}`}
-                        aria-hidden="true"
-                      />
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-
-            <div className="mt-10 text-center">
-              <Link
-                href={getLocalizedPath('/skin-recommendation', locale)}
-                className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full font-semibold text-sm hover:bg-gray-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
-              >
-                <Sparkles className="h-4 w-4" aria-hidden="true" />
-                {locale === 'ar' ? 'ابدأ تحليل البشرة المجاني' : locale === 'ru' ? 'Бесплатный анализ кожи' : 'Start free skin analysis'}
-              </Link>
-              <p className="mt-3 text-[12px] text-gray-500">
-                {locale === 'ar'
-                  ? 'استبيان قصير من 4 أسئلة — يوصي بالمنتجات في 60 ثانية'
-                  : locale === 'ru'
-                  ? 'Короткая анкета из 4 вопросов — подбор за 60 секунд'
-                  : '4 short questions · personalised routine in under a minute'}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <SkinConcernSection locale={locale} dir={dir} concernCounts={concernCounts} />
 
       {/* ── 5. Why GENOSYS 3-up ─────────────────────────────────────────── */}
       <section className="reveal-on-view bg-white py-16 lg:py-24 border-t border-gray-100">

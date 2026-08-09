@@ -5,7 +5,8 @@ import { Product } from '@/types/index'
 import { prisma } from '@/lib/prisma'
 import { getCanonicalProductSlug, getProductImageUrls } from '@/lib/seo'
 import { SEO_LANDING_PAGES } from '@/lib/seoLandingPages'
-import { CATEGORY_PAGES } from '@/lib/concernsData'
+import { CATEGORY_PAGES, getAllConcernSlugs } from '@/lib/concernsData'
+import { getConcernVisual } from '@/lib/concernVisuals'
 
 const BASE_URL = 'https://genosys.ae'
 
@@ -110,9 +111,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // Concern-based landing pages (static editorial content → stable lastmod)
-  const concerns = ['sun-protection', 'acne-treatment', 'pigmentation', 'scars-treatment', 'hair-loss', 'anti-aging', 'hydration', 'sensitivity']
-  for (const concern of concerns) {
-    entries.push(...localizedUrls(`/products/concern/${concern}`, contentDate, 0.8, 'weekly'))
+  for (const concern of getAllConcernSlugs()) {
+    const visual = getConcernVisual(concern)
+    const images = visual ? [`${BASE_URL}${visual.image}`] : undefined
+    entries.push(...localizedUrls(`/products/concern/${concern}`, contentDate, 0.8, 'weekly', images))
   }
 
   // Category landing pages (static editorial content → stable lastmod).

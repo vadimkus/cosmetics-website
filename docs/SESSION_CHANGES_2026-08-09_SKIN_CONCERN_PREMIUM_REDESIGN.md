@@ -1,7 +1,7 @@
 # Premium homepage skin-concern redesign
 
 **Date:** 2026-08-09
-**Scope:** Homepage `Shop by skin concern` section only
+**Scope:** Homepage `Shop by skin concern` section and all concern landing/catalog surfaces
 
 ## Outcome
 
@@ -54,11 +54,38 @@ Sharp generated semantic 960 × 720 WebP derivatives at quality 86 without upsca
 
 The original JPEGs remain untouched as first-party source assets. Superseded downloaded Unsplash/Pexels card assets were unreferenced and removed. No remote image host is used at runtime.
 
+## Concern route and surface audit
+
+- Canonical concern slugs remain sourced from `CONCERN_PAGES`: `sun-protection`, `acne-treatment`, `pigmentation`, `scars-treatment`, `hair-loss`, `anti-aging`, `hydration`, and `sensitivity`.
+- The 24 localized landing pages under `/products/concern/[slug]`, `/ru/products/concern/[slug]`, and `/ar/products/concern/[slug]` now render the same per-slug artwork in a shared responsive hero and shared related-concern cards.
+- `lib/concernVisuals.ts` is the single visual mapping used by the homepage, landing-page heroes, related cards, product-catalog concern grids, the interactive face-map result cards, social metadata, image sitemap entries, and the mobile concern API.
+- Open Graph and Twitter metadata now use each concern's artwork with its actual 960 × 720 dimensions. Canonical URLs and EN/RU/AR hreflang alternates were not changed.
+- Sitemap concern URLs are still generated for all three locales, now from `getAllConcernSlugs()` instead of a second hardcoded list; each entry includes its matching image.
+- The mobile API response now exposes additive `image` and `imagePosition` fields for the current concern and an `image` field for related concerns. Product filtering, pricing, routine, FAQ, and cache behavior are unchanged.
+- The mobile API's `meta.productCount` intentionally remains larger than the homepage/landing collection count for most concerns because its existing contract appends products referenced by routine steps. Verification returned 16, 11, 12, 11, 9, 15, 12, and 11; this was not forced to the homepage's filtered 5, 7, 5, 6, 9, 9, 8, and 9.
+- The compact idle quick chips in `ConcernFaceMap` intentionally remain icon/text controls because they are navigation controls around the diagnostic face diagram; selected concern result cards use the shared artwork.
+- Guide pages, product cards, category pages, breadcrumb schema, collection schema, and product imagery intentionally retain their existing content-specific images. Their concern links were audited but they are not decorative concern-image surfaces.
+- The edge proxy retains its small inlined concern-slug allowlist intentionally to avoid pulling the large `concernsData` module into middleware. The visual mapping is not duplicated there.
+
 ## Files
 
+- `lib/concernVisuals.ts`
 - `components/home/SkinConcernSection.tsx`
 - `components/home/HomeDesktopSections.tsx`
+- `components/ConcernHero.tsx`
+- `components/RelatedConcernCards.tsx`
+- `components/products/ConcernLinkGrid.tsx`
+- `components/products/ConcernFaceMap.tsx`
+- `app/products/concern/[slug]/page.tsx`
+- `app/ru/products/concern/[slug]/page.tsx`
+- `app/ar/products/concern/[slug]/page.tsx`
+- `app/products/page.tsx`
+- `app/ru/products/page.tsx`
+- `app/ar/products/page.tsx`
+- `app/api/mobile/concerns/[slug]/route.ts`
+- `app/sitemap.ts`
 - `__tests__/components/SkinConcernSection.test.tsx`
+- `__tests__/components/ConcernVisuals.test.tsx`
 - `public/images/home/skin_concern/*.jpeg`
 - `public/images/home/skin_concern/*.webp`
 - `docs/README.md`
@@ -68,9 +95,27 @@ The original JPEGs remain untouched as first-party source assets. Superseded dow
 - Focused Jest: exact content/order/counts, concern links, localized routes, CTA, and RTL.
 - TypeScript `tsc --noEmit`.
 - Focused ESLint and IDE diagnostics.
+- Production `npm run build` completed successfully. Its existing PostgreSQL SSL-mode warnings and non-fatal blog fetch timeout logs did not fail generation; build-created service-worker version changes were restored so verification did not pollute the worktree.
 - Automated final screenshots at 1000px desktop, 390px mobile, and 1000px Arabic/RTL.
 - Browser checks confirmed all eight local images load with non-zero natural dimensions and the expected localized CTA routes.
+- All eight English concern URLs returned HTTP 200 with the correct `currentSrc`, 200 image responses, dedicated Open Graph image, no console errors, and unchanged product totals: 5, 7, 5, 6, 9, 9, 8, and 9.
+- Representative Russian, Arabic RTL, mobile, product-catalog grid, and related-card checks also returned HTTP 200 with non-zero image dimensions and no console errors.
+- Authenticated local mobile API checks returned HTTP 200 for all eight slugs, the exact shared image filename for each concern, and images for every related-concern object.
 - Final evidence captures:
   - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/skin-concern-first-party-1000x630.png`
   - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/skin-concern-first-party-mobile.png`
   - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/skin-concern-first-party-ar-rtl.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-sun-protection-en.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-acne-treatment-en.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-pigmentation-en.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-scars-treatment-en.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-hair-loss-en.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-anti-aging-en.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-hydration-en.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-sensitivity-en.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-acne-treatment-en-mobile-final.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-pigmentation-ru.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-page-sensitivity-ar-final.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-related-sun-en-related.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-catalog-grid-en.png`
+  - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/concern-catalog-grid-ar.png`

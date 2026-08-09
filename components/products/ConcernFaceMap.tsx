@@ -19,6 +19,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { CONCERN_PAGES } from '@/lib/concernsData'
+import { getConcernVisual } from '@/lib/concernVisuals'
 import { getLocalizedPath } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n'
 
@@ -275,14 +276,32 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
                 </p>
                 {activeConcerns.map(concern => {
                   const seo = seoFor(concern)
+                  const visual = getConcernVisual(concern.slug)
                   return (
                     <Link
                       key={concern.slug}
                       href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
                       className="group block rounded-2xl border border-gray-100 bg-white p-5 shadow-sm hover:shadow-lg hover:border-primary-300 transition-all duration-200"
                     >
-                      <div className="flex items-start gap-4">
-                        {concern.icon && <span className="text-3xl leading-none mt-0.5">{concern.icon}</span>}
+                      <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                        {visual ? (
+                          <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
+                            <Image
+                              src={visual.image}
+                              alt=""
+                              fill
+                              sizes="80px"
+                              className="object-cover"
+                              style={{
+                                objectPosition: visual.imagePosition,
+                                transform: isRTL ? 'scaleX(-1)' : undefined,
+                              }}
+                              aria-hidden="true"
+                            />
+                          </div>
+                        ) : (
+                          concern.icon && <span className="text-3xl leading-none mt-0.5">{concern.icon}</span>
+                        )}
                         <div className="flex-1 min-w-0">
                           <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors leading-snug">
                             {seo.h1}

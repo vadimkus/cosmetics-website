@@ -1,10 +1,12 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
-import { getConcernBySlug, getAllConcernSlugs, CONCERN_PAGES } from '@/lib/concernsData'
+import { getConcernBySlug, getAllConcernSlugs } from '@/lib/concernsData'
+import { getConcernVisual } from '@/lib/concernVisuals'
 import { getProductsByConcern, getProductsByNumbers } from '@/lib/productsDb'
 import ConcernProductGrid from '@/components/ConcernProductGrid'
+import ConcernHero from '@/components/ConcernHero'
+import RelatedConcernCards from '@/components/RelatedConcernCards'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import CollectionPageSchema from '@/components/schema/CollectionPageSchema'
 import GeoFaqSchema from '@/components/schema/GeoFaqSchema'
@@ -34,6 +36,8 @@ export async function generateMetadata(
   
   const seo = concern.seo.en
   const baseUrl = 'https://genosys.ae'
+  const visual = getConcernVisual(slug)
+  const socialImage = visual ? `${baseUrl}${visual.image}` : `${baseUrl}/images/genosys-products.jpg`
   
   return {
     title: seo.title,
@@ -58,9 +62,9 @@ export async function generateMetadata(
       siteName: 'GENOSYS',
       locale: 'en_AE',
       images: [{
-        url: `${baseUrl}/images/genosys-products.jpg`,
-        width: 1200,
-        height: 630,
+        url: socialImage,
+        width: visual ? 960 : 1200,
+        height: visual ? 720 : 630,
         alt: seo.h1,
       }],
     },
@@ -68,7 +72,7 @@ export async function generateMetadata(
       card: 'summary_large_image',
       title: seo.title,
       description: seo.description,
-      images: [`${baseUrl}/images/genosys-products.jpg`],
+      images: [socialImage],
     },
     alternates: {
       canonical: `${baseUrl}/products/concern/${slug}`,
@@ -119,9 +123,6 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
   const routineProducts = missingNums.length > 0 ? await getProductsByNumbers(missingNums) : []
   const allProducts = [...products, ...routineProducts]
 
-  // All concerns excluding current for cross-linking
-  const allRelatedConcerns = CONCERN_PAGES.filter(c => c.slug !== slug)
-
   const productById = new Map<string, Product>()
   for (const p of allProducts) {
     productById.set(String(p.id), p)
@@ -151,35 +152,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
       )}
       <GeoFaqSchema items={faq} pageUrl={`/products/concern/${slug}`} language="en" />
 
-      {/* Hero Section */}
-      <section className="bg-gradient-to-b from-gray-50 to-white py-10 sm:py-14 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <nav className="hidden sm:block text-sm text-gray-500 mb-4">
-            <Link href="/" className="hover:text-gray-700">Home</Link>
-            <span className="mx-2">/</span>
-            <Link href="/products" className="hover:text-gray-700">Products</Link>
-            <span className="mx-2">/</span>
-            <Link href="/products?categories=skin-concern" className="hover:text-gray-700">Skin Concerns</Link>
-            <span className="mx-2">/</span>
-            <span className="text-gray-900">{seo.h1}</span>
-          </nav>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            {seo.h1}
-          </h1>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            {seo.heroShort || seo.intro}
-          </p>
-          <Link
-            href="/products?categories=skin-concern"
-            className="inline-flex items-center gap-1.5 mt-4 text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
-            View All Skin Concerns
-          </Link>
-        </div>
-      </section>
+      <ConcernHero concern={concern} locale="en" />
 
       {/* Why Section — Collapsible on mobile */}
       {why && <ConcernWhySection title={why.title} items={why.items} />}
@@ -345,31 +318,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* Related Concerns — all except current */}
-      {allRelatedConcerns.length > 0 && (
-        <section className="py-8 sm:py-12 px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6">
-              Related Skin Concerns
-            </h2>
-            <div className="flex gap-4 overflow-x-auto pb-2 sm:grid sm:grid-cols-3 lg:grid-cols-4 sm:overflow-visible sm:pb-0 snap-x snap-mandatory scrollbar-hide">
-              {allRelatedConcerns.map(related => (
-                <Link
-                  key={related.slug}
-                  href={`/products/concern/${related.slug}`}
-                  className="block min-w-[200px] sm:min-w-0 p-5 sm:p-6 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors border border-gray-100 snap-start flex-shrink-0 sm:flex-shrink"
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    {related.icon && <span className="text-lg">{related.icon}</span>}
-                    <h3 className="font-semibold text-gray-900">{related.seo.en.h1}</h3>
-                  </div>
-                  <p className="text-sm text-gray-500 line-clamp-2">{related.seo.en.description}</p>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <RelatedConcernCards currentSlug={slug} locale="en" />
       <ConcernStickyBar locale="en" />
     </div>
   )

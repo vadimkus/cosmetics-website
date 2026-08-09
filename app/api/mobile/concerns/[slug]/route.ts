@@ -4,6 +4,7 @@ import { errorLog, debugLog } from '@/lib/logger'
 import { generateBatchEnhancedProductData } from '@/lib/pricingEngine'
 import { buildPricingContract } from '@/lib/pricingContract'
 import { getConcernBySlug, CONCERN_PAGES, type ConcernPage } from '@/lib/concernsData'
+import { getConcernVisual } from '@/lib/concernVisuals'
 import { getProductsByConcern } from '@/lib/productsDb'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
@@ -48,6 +49,7 @@ export async function GET(
     if (!concern) {
       return NextResponse.json({ success: false, error: 'Concern not found' }, { status: 404 })
     }
+    const visual = getConcernVisual(concern.slug)
 
     debugLog(`[CONCERNS_API] Fetching concern: ${slug}, locale: ${validLocale}`)
 
@@ -167,6 +169,7 @@ export async function GET(
         return {
           slug: rc!.slug,
           icon: rc!.icon || '',
+          image: getConcernVisual(rc!.slug)?.image || null,
           h1: rcSeo?.h1 || '',
           heroShort: rcSeo?.heroShort || rcSeo?.intro || '',
         }
@@ -187,6 +190,8 @@ export async function GET(
       data: {
         slug: concern.slug,
         icon: concern.icon || '',
+        image: visual?.image || null,
+        imagePosition: visual?.imagePosition || null,
         seo,
         why,
         protocolPdf,

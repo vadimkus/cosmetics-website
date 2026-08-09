@@ -2,6 +2,7 @@ import { render, screen, within } from '@testing-library/react'
 import SkinConcernSection, {
   SKIN_CONCERN_CARDS,
 } from '@/components/home/SkinConcernSection'
+import { getConcernVisual } from '@/lib/concernVisuals'
 
 jest.mock('next/image', () => ({
   __esModule: true,
@@ -39,7 +40,7 @@ describe('SkinConcernSection', () => {
       'Hydration',
       'Sensitive Skin',
     ])
-    expect(SKIN_CONCERN_CARDS.map((card) => card.image)).toEqual([
+    expect(SKIN_CONCERN_CARDS.map((card) => getConcernVisual(card.slug)?.image)).toEqual([
       '/images/home/skin_concern/sun-protection.webp',
       '/images/home/skin_concern/acne-blemishes.webp',
       '/images/home/skin_concern/pigmentation.webp',

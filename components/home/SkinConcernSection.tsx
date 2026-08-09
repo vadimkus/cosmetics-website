@@ -16,6 +16,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { getLocalizedPath, type Locale } from '@/lib/i18n'
+import { getConcernVisual } from '@/lib/concernVisuals'
 
 type LocalizedCopy = Record<Locale, string>
 
@@ -24,10 +25,8 @@ export interface SkinConcernCard {
   label: LocalizedCopy
   benefit: LocalizedCopy
   count: number
-  image: string
   icon: LucideIcon
   accent: string
-  imagePosition?: string
 }
 
 export const SKIN_CONCERN_CARDS: SkinConcernCard[] = [
@@ -40,10 +39,8 @@ export const SKIN_CONCERN_CARDS: SkinConcernCard[] = [
       ar: 'حماية يومية من الأشعة فوق البنفسجية مصممة لشمس الإمارات.',
     },
     count: 5,
-    image: '/images/home/skin_concern/sun-protection.webp',
     icon: Sun,
     accent: 'text-[#a77a2d] bg-[#fffaf0] border-[#ead8b3]',
-    imagePosition: '58% center',
   },
   {
     slug: 'acne-treatment',
@@ -54,10 +51,8 @@ export const SKIN_CONCERN_CARDS: SkinConcernCard[] = [
       ar: 'تهدئة البثور وتفتيح آثار حب الشباب.',
     },
     count: 7,
-    image: '/images/home/skin_concern/acne-blemishes.webp',
     icon: ShieldCheck,
     accent: 'text-[#3b8b72] bg-[#f1faf6] border-[#cbe5da]',
-    imagePosition: '60% center',
   },
   {
     slug: 'pigmentation',
@@ -68,10 +63,8 @@ export const SKIN_CONCERN_CARDS: SkinConcernCard[] = [
       ar: 'تفتيح البقع الداكنة وتوحيد لون البشرة.',
     },
     count: 5,
-    image: '/images/home/skin_concern/pigmentation.webp',
     icon: Contrast,
     accent: 'text-[#8a60a8] bg-[#faf6fd] border-[#dfcfe9]',
-    imagePosition: '59% center',
   },
   {
     slug: 'scars-treatment',
@@ -82,10 +75,8 @@ export const SKIN_CONCERN_CARDS: SkinConcernCard[] = [
       ar: 'تنعيم الندبات وتحسين ملمس البشرة.',
     },
     count: 6,
-    image: '/images/home/skin_concern/scar-treatment.webp',
     icon: Bandage,
     accent: 'text-[#547ca3] bg-[#f3f8fc] border-[#ccdeeb]',
-    imagePosition: '60% center',
   },
   {
     slug: 'hair-loss',
@@ -96,10 +87,8 @@ export const SKIN_CONCERN_CARDS: SkinConcernCard[] = [
       ar: 'جذور أقوى وفروة رأس أكثر صحة.',
     },
     count: 9,
-    image: '/images/home/skin_concern/hair-loss.webp',
     icon: Sprout,
     accent: 'text-[#438b7b] bg-[#f1faf7] border-[#cae5de]',
-    imagePosition: '61% center',
   },
   {
     slug: 'anti-aging',
@@ -110,10 +99,8 @@ export const SKIN_CONCERN_CARDS: SkinConcernCard[] = [
       ar: 'تنعيم التجاعيد واستعادة المرونة والإشراق.',
     },
     count: 9,
-    image: '/images/home/skin_concern/anti-aging.webp',
     icon: Hourglass,
     accent: 'text-[#b15f75] bg-[#fff5f7] border-[#edced7]',
-    imagePosition: '61% center',
   },
   {
     slug: 'hydration',
@@ -124,10 +111,8 @@ export const SKIN_CONCERN_CARDS: SkinConcernCard[] = [
       ar: 'ترطيب عميق يدوم طوال اليوم.',
     },
     count: 8,
-    image: '/images/home/skin_concern/hydration.webp',
     icon: Droplets,
     accent: 'text-[#557cba] bg-[#f3f7fd] border-[#ccd9ed]',
-    imagePosition: '60% center',
   },
   {
     slug: 'sensitivity',
@@ -138,10 +123,8 @@ export const SKIN_CONCERN_CARDS: SkinConcernCard[] = [
       ar: 'تهدئة الاحمرار والعناية بالبشرة الحساسة.',
     },
     count: 9,
-    image: '/images/home/skin_concern/sensitive-skin.webp',
     icon: Feather,
     accent: 'text-[#a8783d] bg-[#fffaf2] border-[#ead9be]',
-    imagePosition: '62% center',
   },
 ]
 
@@ -265,6 +248,8 @@ export default function SkinConcernSection({
           {SKIN_CONCERN_CARDS.map((concern) => {
             const Icon = concern.icon
             const count = concernCounts?.[concern.slug] ?? concern.count
+            const visual = getConcernVisual(concern.slug)
+            if (!visual) return null
 
             return (
               <Link
@@ -276,14 +261,14 @@ export default function SkinConcernSection({
                 }`}
               >
                 <Image
-                  src={concern.image}
+                  src={visual.image}
                   alt=""
                   fill
                   sizes="(max-width: 639px) 100vw, (max-width: 959px) 50vw, 320px"
                   className={`pointer-events-none -z-20 object-cover transition-transform duration-700 motion-reduce:transition-none ${
                     isRtl ? 'concern-image-rtl' : 'group-hover:scale-[1.035]'
                   }`}
-                  style={{ objectPosition: concern.imagePosition ?? 'center' }}
+                  style={{ objectPosition: visual.imagePosition }}
                   aria-hidden="true"
                 />
                 <span

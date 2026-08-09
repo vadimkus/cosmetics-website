@@ -1,8 +1,7 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import ProductsPageClient from '../../products/ProductsPageClient'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
-import { CONCERN_PAGES } from '@/lib/concernsData'
+import ConcernLinkGrid from '@/components/products/ConcernLinkGrid'
 
 export const metadata: Metadata = {
   title: 'Продукция GENOSYS - Профессиональная корейская дерматокосметика ОАЭ',
@@ -78,14 +77,7 @@ export default function RussianProductsPage() {
         <div className="max-w-6xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Выбор по проблеме кожи</h2>
           <p className="text-gray-500 mb-6">Найдите подходящие продукты для ваших потребностей</p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {CONCERN_PAGES.map(concern => (
-              <Link key={concern.slug} href={`/ru/products/concern/${concern.slug}`}
-                className="block p-4 bg-white rounded-xl border border-primary-100 hover:border-primary-300 hover:shadow-md transition-all duration-200 group">
-                <h3 className="font-semibold text-gray-900 text-sm sm:text-base group-hover:text-primary-600 transition-colors">{concern.seo.ru.h1}</h3>
-              </Link>
-            ))}
-          </div>
+          <ConcernLinkGrid locale="ru" />
         </div>
       </section>
     </>

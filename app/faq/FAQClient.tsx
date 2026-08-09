@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import {
   ArrowLeft, ArrowRight, ChevronDown, ChevronUp, Search, X,
@@ -653,12 +654,28 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                 </div>
               </div>
 
-              {/* Decorative side panel — desktop only */}
+              {/* Official app icon — desktop only */}
               <div className="hidden md:flex justify-center">
                 <div className="relative">
-                  <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-red-500/30 via-red-500/10 to-transparent blur-2xl" />
-                  <div className="relative flex h-32 w-32 items-center justify-center rounded-[2rem] border border-white/10 bg-white/5 backdrop-blur-sm">
-                    <Smartphone className="h-14 w-14 text-white/90" strokeWidth={1.5} />
+                  <div
+                    aria-hidden
+                    className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-red-500/35 via-red-500/10 to-transparent blur-2xl"
+                  />
+                  <div className="relative h-32 w-32 overflow-hidden rounded-[1.75rem] border border-white/15 bg-white shadow-[0_18px_40px_-18px_rgba(0,0,0,0.65)] ring-1 ring-white/10">
+                    <Image
+                      src="/images/app-icon.png"
+                      alt={
+                        locale === 'ar'
+                          ? 'شعار تطبيق GENOSYS'
+                          : locale === 'ru'
+                            ? 'Иконка приложения GENOSYS'
+                            : 'GENOSYS app icon'
+                      }
+                      width={128}
+                      height={128}
+                      className="h-full w-full object-cover"
+                      priority={false}
+                    />
                   </div>
                 </div>
               </div>

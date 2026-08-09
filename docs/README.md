@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟢 **FAQ UX** | [FAQ app download banner icon](./SESSION_CHANGES_2026-08-09_FAQ_APP_ICON.md) | Replaces the generic smartphone glyph on the FAQ app banner with the official white/red GENOSYS app icon (`/images/app-icon.png`) across EN/RU/AR FAQ pages. |
 | 🟢 **Homepage UX** | [WHY GENOSYS premium redesign](./SESSION_CHANGES_2026-08-09_WHY_GENOSYS_PREMIUM_REDESIGN.md) | Rebuilds the flat credibility columns as one warm ivory editorial panel with shared first-party scientific artwork, serif EN/RU hierarchy, three dimensional informational cards, polished mobile stacking, Arabic RTL mirroring, and focused locale/content tests. |
 | 🟢 **Homepage UX** | [Premium skin-concern section redesign](./SESSION_CHANGES_2026-08-09_SKIN_CONCERN_PREMIUM_REDESIGN.md) | Editorial ivory 4/2/1 concern grid with eight licensed local image assets, exact EN copy/counts, polished RU/AR + RTL, accessible image-led cards, full-width skin-analysis CTA, focused tests, and responsive visual verification. |
 | 🟡 **Account ops** | [Olga Pikina permanent account discount](./SESSION_CHANGES_2026-08-09_OLGA_PIKINA_PERMANENT_DISCOUNT.md) | Verified Olga's exact account through her established MoySklad link and two imported orders; activated a permanent automatic **10% VIP account discount**, preserved retail rewards earning while disabling non-stackable points redemption, and sent one idempotently guarded confirmation email. |

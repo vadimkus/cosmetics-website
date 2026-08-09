@@ -16,6 +16,7 @@ describe('WhyGenosysSection', () => {
   it('preserves the approved English claims and three-card order', () => {
     render(<WhyGenosysSection locale="en" dir="ltr" />)
 
+    expect(screen.getByTestId('why-genosys-section')).toHaveClass('bg-[#f4efe8]')
     expect(screen.getByText('Why GENOSYS')).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 2 })).toHaveTextContent(
       'Korean science.Certified in the UAE.'

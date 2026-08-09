@@ -94,7 +94,7 @@ export default function WhyGenosysSection({
 
   return (
     <section
-      className="reveal-on-view border-t border-[#eee9e1] bg-white px-4 py-16 lg:py-24"
+      className="reveal-on-view border-t border-[#e9e1d6] bg-[#f4efe8] px-4 py-16 lg:py-24"
       data-testid="why-genosys-section"
       dir={dir}
     >

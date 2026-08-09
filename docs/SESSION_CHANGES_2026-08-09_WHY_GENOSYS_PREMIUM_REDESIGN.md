@@ -37,6 +37,10 @@ No third-party asset or additional license attribution was required.
 - Browser checks at 1000px, 1440px, 390px mobile, Russian, and Arabic confirm three cards, no overflow, correct RTL, and a successful optimized image response with non-zero natural dimensions.
 - The section asset produced no failed request or console error. The full homepage still emits two pre-existing HTTP 400 requests for the unrelated missing `/images/genosys-video-poster.jpg` Hero poster.
 
+## Production visual follow-up
+
+Vadim's production review showed that the white outer band made the rounded panel feel detached. The section wrapper now uses warm ivory `#f4efe8`, only one RGB step lighter than the panel's `#f3eee7`. The retained `#e4ddd2` panel border and soft shadow preserve its boundary without returning to a stark white canvas. Focused checks and responsive captures were rerun after this adjustment.
+
 ## Visual evidence
 
 - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/why-genosys-premium-final-en-1000.png`
@@ -44,3 +48,5 @@ No third-party asset or additional license attribution was required.
 - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/why-genosys-premium-final-en-mobile.png`
 - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/why-genosys-premium-final-ru-1000.png`
 - `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/why-genosys-premium-final-ar-rtl-1000.png`
+- `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/why-genosys-warm-band-final-desktop-1024.png`
+- `/Users/vadimkus/.cursor/projects/Users-vadimkus-VisionDrive/assets/why-genosys-warm-band-final-mobile-390.png`

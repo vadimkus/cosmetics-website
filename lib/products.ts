@@ -353,6 +353,7 @@ export const products: Product[] = [
     category: 'Cream',
     inStock: true,
     size: '100g',
+    videoUrl: '/videos/barrier2.mp4',
   },
   {
     id: '28',

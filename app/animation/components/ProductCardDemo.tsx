@@ -27,7 +27,7 @@ const demoProducts = [
     rating: 4.9,
     reviews: 89,
     badge: 'New',
-    image: '/images/EC.jpg'
+    image: '/images/eye_cream/main.jpeg'
   },
   {
     id: 3,

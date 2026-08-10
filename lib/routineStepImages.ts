@@ -26,7 +26,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '21': '/images/radiance_serum/main.jpeg',
   '22': '/images/multif_serum/main.jpeg',
   '23': '/images/ND.jpg',
-  '24': '/images/EC.jpg',
+  '24': '/images/eye_cream/main.jpeg',
   '25': '/images/SRC.jpg',
   '27': '/images/BRR.jpg',
   '28': '/images/HSC.jpg',

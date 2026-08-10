@@ -480,7 +480,8 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 300
     },
-    images: ['/images/HYDR.jpg', '/images/Second/hmask_big.jpg']
+    images: ['/images/HYDR.jpg', '/images/Second/hmask_big.jpg'],
+    videoUrl: '/videos/hydro.mp4',
   },
   '36': {
     id: '36',

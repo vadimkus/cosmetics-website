@@ -449,6 +449,7 @@ export const products: Product[] = [
     images: null,
     category: 'Mask',
     inStock: true,
+    videoUrl: '/videos/hydro.mp4',
   },
   {
     id: '36',

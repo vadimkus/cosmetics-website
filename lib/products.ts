@@ -624,6 +624,7 @@ export const products: Product[] = [
     category: 'Eye care',
     inStock: true,
     size: '1 box',
+    videoUrl: '/videos/kit.mp4',
   },
   {
     id: '51',

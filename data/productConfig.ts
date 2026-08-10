@@ -663,6 +663,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '50': {
     id: '50',
     // Gallery is DB-only so the current DB main image is prepended automatically.
+    videoUrl: '/videos/kit.mp4',
     pricing: {
       basePrice: 980
     },

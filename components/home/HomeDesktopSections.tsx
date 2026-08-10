@@ -138,6 +138,18 @@ const CATEGORY_RAIL_TITLES: Record<string, { en: string; ar: string; ru: string 
   },
 }
 
+// Curated editorial artwork for the six professional-range tiles. These are
+// intentionally category compositions, not whichever product happens to be
+// first in the catalog.
+const CATEGORY_RAIL_IMAGES: Record<string, string> = {
+  microneedling: '/images/prof_range/microneedling.jpeg',
+  'pro-solution': '/images/prof_range/pro_solutions.jpeg',
+  serum: '/images/prof_range/prof_face_serums.jpeg',
+  cream: '/images/prof_range/prof_face_creams.jpeg',
+  mask: '/images/prof_range/prof_face_masks.jpeg',
+  sun: '/images/prof_range/prof_sun.jpeg',
+}
+
 // Localized "N products" label with correct Russian plural forms.
 function formatProductCount(count: number, locale: Locale): string {
   if (locale === 'ar') return `${count} منتج`
@@ -323,11 +335,13 @@ export default function HomeDesktopSections({
     []
   )
 
-  // For each category tile, prefer the server-computed map (covers all 6
-  // categories from the full catalog). Fall back to featuredProducts in case
-  // the server map was not provided.
+  // Always prefer the curated professional-range compositions. Keep the
+  // server/fallback map as a defensive fallback if a category is added later.
   const categoryImageBySlug = useMemo(() => {
-    const map: Record<string, string> = { ...(categoryImages ?? {}) }
+    const map: Record<string, string> = {
+      ...(categoryImages ?? {}),
+      ...CATEGORY_RAIL_IMAGES,
+    }
     featuredCategories.forEach(cat => {
       if (map[cat.slug]) return
       const match = featuredProducts.find(p => {
@@ -436,30 +450,41 @@ export default function HomeDesktopSections({
       )}
 
       {/* ── 3. Category rail ─────────────────────────────────────────────── */}
-      <section className="reveal-on-view border-t border-gray-100 bg-white py-16 lg:py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="mb-10 text-center">
-              <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-2">
+      <section
+        className="reveal-on-view border-t border-[#e8ded2] bg-[#f8f3ec] px-4 py-16 lg:py-20"
+        data-testid="professional-range-section"
+      >
+        <div className="mx-auto max-w-[1240px]">
+          <div className="mx-auto max-w-[1160px]">
+            <div className="mb-10 text-center lg:mb-12">
+              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a52f35]">
                 {locale === 'ar' ? 'تسوق حسب الفئة' : locale === 'ru' ? 'Категории' : 'Shop by category'}
               </p>
-              <h2 className="text-3xl lg:text-[40px] lg:leading-[1.1] font-bold text-gray-900 font-display tracking-tight">
+              <h2
+                className={`text-[32px] font-semibold leading-[1.08] tracking-[-0.025em] text-[#17171a] sm:text-[38px] lg:text-[46px] ${isRtl ? 'font-display' : ''}`}
+                style={isRtl ? undefined : { fontFamily: 'Georgia, "Times New Roman", serif' }}
+              >
                 {locale === 'ar'
                   ? 'مجموعة GENOSYS الاحترافية'
                   : locale === 'ru'
                   ? 'Профессиональная коллекция GENOSYS'
                   : 'The GENOSYS professional range'}
               </h2>
-              <p className="mt-3 text-gray-600 max-w-xl mx-auto">
+              <p className="mx-auto mt-3 max-w-xl text-[14px] leading-relaxed text-[#5f5a54] sm:text-[15px]">
                 {locale === 'ar'
                   ? 'من بروتوكولات العيادة إلى العناية اليومية — مصنوعة في كوريا ومعتمدة في الإمارات'
                   : locale === 'ru'
                   ? 'От клинических процедур до ежедневного ухода — сделано в Корее, сертифицировано в ОАЭ'
                   : 'From in-clinic treatments to everyday essentials — made in Korea, certified in the UAE.'}
               </p>
+              <div className="mx-auto mt-5 flex w-16 items-center justify-center" aria-hidden="true">
+                <span className="h-px flex-1 bg-[#d99a9d]" />
+                <span className="mx-1.5 h-2 w-2 rotate-45 bg-[#b5252e]" />
+                <span className="h-px flex-1 bg-[#d99a9d]" />
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
               {featuredCategories.map((cat, idx) => {
                 const imageSrc = categoryImageBySlug[cat.slug]
                 const count = categoryCounts?.[cat.slug]
@@ -478,50 +503,50 @@ export default function HomeDesktopSections({
                   <Link
                     key={cat.slug}
                     href={getLocalizedPath(`/products/category/${cat.slug}`, locale)}
-                    className="group flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:border-primary-200 hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/50 focus-visible:ring-offset-2"
+                    className="group flex flex-col overflow-hidden rounded-[14px] border border-[#ded5ca] bg-[#fbf8f3] shadow-[0_8px_24px_-20px_rgba(54,38,24,0.7)] transition-all duration-300 hover:-translate-y-1 hover:border-[#cdbeb0] hover:shadow-[0_18px_35px_-22px_rgba(54,38,24,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#b5252e]/45 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8f3ec]"
                   >
-                    {/* Product image on a neutral well — same treatment as product cards */}
-                    <div className="relative h-[170px] lg:h-[190px] bg-gray-50 overflow-hidden">
+                    {/* Full-bleed editorial category artwork, matching the supplied template. */}
+                    <div className="relative aspect-[1.62/1] overflow-hidden bg-[#eee8df]">
                       {imageSrc && (
-                        <div className="absolute inset-0 flex items-center justify-center p-5">
-                          <Image
-                            src={imageSrc}
-                            alt=""
-                            width={320}
-                            height={320}
-                            sizes="(max-width: 768px) 50vw, (max-width: 1280px) 30vw, 320px"
-                            className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-[1.04]"
-                            aria-hidden="true"
-                          />
-                        </div>
+                        <Image
+                          src={imageSrc}
+                          alt=""
+                          fill
+                          sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) 50vw, 380px"
+                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+                          aria-hidden="true"
+                        />
                       )}
                       <span
-                        className={`absolute top-3 font-mono text-[11px] tracking-[0.14em] text-gray-400 ${isRtl ? 'right-4' : 'left-4'}`}
+                        className={`absolute top-4 text-[12px] font-semibold tracking-[0.06em] text-[#b5252e] drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)] ${isRtl ? 'right-4' : 'left-4'}`}
                         aria-hidden="true"
                       >
-                        {String(idx + 1).padStart(2, '0')} / {String(featuredCategories.length).padStart(2, '0')}
+                        {String(idx + 1).padStart(2, '0')}/{String(featuredCategories.length).padStart(2, '0')}
                       </span>
                     </div>
 
                     {/* Copy */}
-                    <div className={`flex flex-1 flex-col p-5 ${isRtl ? 'text-right' : ''}`}>
-                      <h3 className="text-[16px] lg:text-[17px] font-semibold text-gray-900 leading-snug tracking-tight font-display">
+                    <div className={`flex flex-1 flex-col px-5 pb-4 pt-4 sm:px-5 ${isRtl ? 'text-right' : ''}`}>
+                      <h3
+                        className={`text-[18px] font-semibold leading-tight tracking-[-0.015em] text-[#1c1a18] lg:text-[20px] ${isRtl ? 'font-display' : ''}`}
+                        style={isRtl ? undefined : { fontFamily: 'Georgia, "Times New Roman", serif' }}
+                      >
                         {title}
                       </h3>
                       {descriptor && (
-                        <p className="mt-1.5 text-[12px] lg:text-[13px] text-gray-500 leading-snug line-clamp-2">
+                        <p className="mt-1.5 min-h-[38px] text-[13px] leading-[1.45] text-[#5f5a54] line-clamp-2">
                           {descriptor}
                         </p>
                       )}
-                      <div className={`mt-auto flex items-center justify-between gap-3 pt-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                      <div className={`mt-4 flex items-center justify-between gap-3 border-t border-[#e2dad0] pt-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
                         {typeof count === 'number' && count > 0 ? (
-                          <span className="text-[12px] text-gray-500">
+                          <span className="text-[12px] text-[#6f6860]">
                             {formatProductCount(count, locale)}
                           </span>
                         ) : (
                           <span aria-hidden="true" />
                         )}
-                        <span className={`flex items-center gap-1.5 text-[13px] font-semibold text-gray-900 transition-colors group-hover:text-primary-700 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                        <span className={`flex items-center gap-1.5 text-[13px] font-semibold text-[#b5252e] transition-colors group-hover:text-[#8f171f] ${isRtl ? 'flex-row-reverse' : ''}`}>
                           {shopLabel}
                           <ArrowRight className={`h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''}`} aria-hidden="true" />
                         </span>
@@ -532,10 +557,10 @@ export default function HomeDesktopSections({
               })}
             </div>
 
-            <div className="mt-8 text-center">
+            <div className="mt-9 text-center">
               <Link
                 href={getLocalizedPath('/products', locale)}
-                className="inline-flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-primary-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded px-2 py-1"
+                className="inline-flex items-center gap-2 rounded px-2 py-1 text-sm font-semibold text-[#3f3a35] transition-colors hover:text-[#a21e27] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#b5252e]/40"
               >
                 {locale === 'ar' ? 'استعرض جميع المنتجات' : locale === 'ru' ? 'Посмотреть все продукты' : 'Browse all products'}
                 <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />

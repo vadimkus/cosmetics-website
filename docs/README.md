@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟢 **Homepage UX** | [Professional range editorial redesign](./SESSION_CHANGES_2026-08-10_PROFESSIONAL_RANGE_REDESIGN.md) | Rebuilds the six category cards from the supplied warm editorial template with dedicated `prof_range` compositions, serif hierarchy, full-bleed imagery, live counts, responsive 3/2/1 layout, and EN/RU/AR + RTL support. |
 | 🟢 **FAQ UX** | [FAQ app download banner icon](./SESSION_CHANGES_2026-08-09_FAQ_APP_ICON.md) | Replaces the generic smartphone glyph on the FAQ app banner with the official white/red GENOSYS app icon (`/images/app-icon.png`) across EN/RU/AR FAQ pages. |
 | 🟢 **Homepage UX** | [WHY GENOSYS premium redesign](./SESSION_CHANGES_2026-08-09_WHY_GENOSYS_PREMIUM_REDESIGN.md) | Rebuilds the flat credibility columns as one warm ivory editorial panel with shared first-party scientific artwork, serif EN/RU hierarchy, three dimensional informational cards, polished mobile stacking, Arabic RTL mirroring, and focused locale/content tests. |
 | 🟢 **Homepage UX** | [Premium skin-concern section redesign](./SESSION_CHANGES_2026-08-09_SKIN_CONCERN_PREMIUM_REDESIGN.md) | Editorial ivory 4/2/1 concern grid with eight licensed local image assets, exact EN copy/counts, polished RU/AR + RTL, accessible image-led cards, full-width skin-analysis CTA, focused tests, and responsive visual verification. |

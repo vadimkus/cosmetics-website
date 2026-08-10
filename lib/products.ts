@@ -568,6 +568,7 @@ export const products: Product[] = [
     images: '["/images/shampoo/S1.jpg","/images/shampoo/S2.jpg","/images/shampoo/S3.jpg","/images/shampoo/S4.jpg","/images/shampoo/S5.jpg","/images/shampoo/S6.jpg"]',
     category: 'Scalp/Hair',
     inStock: true,
+    videoUrl: '/videos/shamp.mp4',
   },
   {
     id: '45',

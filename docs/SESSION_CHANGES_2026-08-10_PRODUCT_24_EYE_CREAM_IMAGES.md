@@ -22,10 +22,12 @@
 | Old main | `/images/EC.jpg` |
 | Old gallery | `/images/Second/Eye_Cream_2.jpg` |
 
-## Verification checklist
+## Verification (done)
 
-- All seven new JPEGs return 200 on production.
-- Product 24 DB: `image` = new main; `images` = s1–s6 only.
-- Historical order items remaining on old paths: zero.
-- Database blog records on old paths: zero.
-- Product page /products/24 gallery renders new set.
+- All seven new JPEGs return **200** on production.
+- Product 24 DB: `image` = `/images/eye_cream/main.jpeg`; `images` = s1–s6 only.
+- Repointed **25** historical order items → new main (emails/order history).
+- Database blog records on old paths: **zero**.
+- Dead-order-image repair dry audit: **0 unresolved**.
+- `/products/24` returns 200; API image points at new main.
+- Removed legacy assets after cutover: `/images/EC.jpg`, `/images/Second/Eye_Cream_2.jpg`.

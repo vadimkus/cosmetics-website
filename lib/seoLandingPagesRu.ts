@@ -214,7 +214,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'Крем с высокой степенью защиты для ежедневного использования.' },
       { name: 'Multi Sun Cream SPF 40', href: '/ru/products/40', image: '/images/sun/main.jpeg', imageAlt: 'GENOSYS Multi Sun Cream SPF 40', description: 'Мягкий ежедневный санскрин в лёгкой кремовой текстуре.' },
-      { name: 'Skin Caring BB Cushion SPF 50+', href: '/ru/products/41', image: '/images/cushion/main.jpeg', imageAlt: 'Кушон GENOSYS Skin Caring BB Cushion SPF 50+', description: 'Переносной формат покрытия для обновления и коррекции покраснения.' },
+      { name: 'Skin Caring BB Cushion SPF 50+', href: '/ru/products/41', image: '/images/cushion_2/main.jpeg', imageAlt: 'Кушон GENOSYS Skin Caring BB Cushion SPF 50+', description: 'Переносной формат покрытия для обновления и коррекции покраснения.' },
       { name: 'Intensive Blemish Balm SPF 30', href: '/ru/products/42', image: '/images/BLEM.jpg', imageAlt: 'GENOSYS Intensive Blemish Balm Cream SPF 30', description: 'Тональное средство с коррекцией цвета и заявленным SPF.' },
     ],
     sections: [

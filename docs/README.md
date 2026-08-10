@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Product 41 BB Cushion images V2](./SESSION_CHANGES_2026-08-10_PRODUCT_41_CUSHION_2_IMAGES.md) | Cache-safe `cushion_2/` main + s1–s6 gallery; DB/config/training/SEO/order fallbacks updated; old `cushion/` set removed after cutover. |
 | 🟡 **Important** | [Product 35 Hydro Cool Modeling Mask video](./SESSION_CHANGES_2026-08-10_PRODUCT_35_HYDRO_VIDEO.md) | Compressed portrait video from 19.6 MB to 698 KB; DB + productConfig + products.ts set to `/videos/hydro.mp4`. |
 | 🟢 **Homepage UX** | [Professional range editorial redesign](./SESSION_CHANGES_2026-08-10_PROFESSIONAL_RANGE_REDESIGN.md) | Rebuilds the six category cards from the supplied warm editorial template with dedicated `prof_range` compositions, serif hierarchy, full-bleed imagery, live counts, responsive 3/2/1 layout, and EN/RU/AR + RTL support. |
 | 🟢 **FAQ UX** | [FAQ app download banner icon](./SESSION_CHANGES_2026-08-09_FAQ_APP_ICON.md) | Replaces the generic smartphone glyph on the FAQ app banner with the official white/red GENOSYS app icon (`/images/app-icon.png`) across EN/RU/AR FAQ pages. |

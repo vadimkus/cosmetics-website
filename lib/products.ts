@@ -586,6 +586,7 @@ export const products: Product[] = [
     ]),
     category: 'Scalp/Hair',
     inStock: true,
+    videoUrl: '/videos/hairt.mp4',
   },
   {
     id: '44',

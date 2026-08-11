@@ -757,5 +757,6 @@ BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables dir
     inStock: true,
     size: '50ml',
     isPriceOnRequest: false,
+    videoUrl: '/videos/5000.mp4',
   },
 ]

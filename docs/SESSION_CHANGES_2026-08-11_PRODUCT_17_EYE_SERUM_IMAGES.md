@@ -22,10 +22,12 @@
 | Old main | `/images/EYS.jpg` |
 | Old gallery | `/images/Second/SERUM_2.jpg` |
 
-## Verification
+## Verification (done)
 
 - All eight new JPEGs return **200** on production before DB cutover.
 - Product 17 DB: `image` = `/images/eye_serum/main.jpeg`; `images` = s1–s7 only.
-- Historical order/blog refs on old paths repointed.
-- Dead-order-image repair dry audit: **0 unresolved** after cutover.
-- Old `EYS.jpg` / `SERUM_2.jpg` removed only after live refs were clean.
+- Repointed **13** historical order items → new main (emails/order history).
+- Database blog records on old paths: **zero**.
+- Dead-order-image repair dry audit: **0 unresolved**.
+- `/api/products/17` returns the new main + s1–s7 gallery.
+- Removed legacy assets after cutover: `/images/EYS.jpg`, `/images/Second/SERUM_2.jpg`.

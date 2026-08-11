@@ -196,6 +196,7 @@ export const products: Product[] = [
     category: 'Toner/Mist',
     inStock: true,
     size: '200ml',
+    videoUrl: '/videos/booster.mp4',
   },
   {
     id: '17',

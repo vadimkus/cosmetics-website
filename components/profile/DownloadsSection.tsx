@@ -960,7 +960,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/38">
                   <Image
-                    src="/images/EZE.jpg"
+                    src="/images/ez_mask/main.jpeg"
                     alt="EZ CO₂ MASK KIT"
                     width={500}
                     height={300} 

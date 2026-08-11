@@ -97,7 +97,7 @@ const productDocuments = [
   { id: 'scalp-brush', title: 'HR³ MATRIX SCALP BRUSH', size: '0.4 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20BRUSH.pdf', image: '/images/Second/brush.jpg', productId: '61' },
   { id: 'geno-led', title: 'GENO-LED IR II', size: '4.6 MB', href: '/documents/PPT/GENO-LED%20IR%20II_2025.pdf', image: '/images/LEDD.jpg', productId: '49' },
   { id: 'pdrn-mask', title: 'SKIN REBOOT PDRN MASK PACK', size: '1.2 MB', href: '/documents/PPT/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf', image: '/images/PDRN.png', productId: '52' },
-  { id: 'co2-mask', title: 'EZ CO₂ MASK KIT', size: '0.5 MB', href: '/documents/PPT/Genosys%20Ez%20Co2%20Mask.pdf', image: '/images/EZE.jpg', productId: '38' },
+  { id: 'co2-mask', title: 'EZ CO₂ MASK KIT', size: '0.5 MB', href: '/documents/PPT/Genosys%20Ez%20Co2%20Mask.pdf', image: '/images/ez_mask/main.jpeg', productId: '38' },
   { id: 'microneedle', title: 'Microneedle Roller', size: '1.5 MB', href: '/documents/PPT/Overview%20of%20Microneedling_S.pdf', image: '/images/genosys-microneedling-devices.jpg', productId: '1' },
 ]
 

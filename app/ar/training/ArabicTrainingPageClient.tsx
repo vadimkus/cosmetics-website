@@ -277,7 +277,7 @@ export default function ArabicTrainingPageClient() {
                     { id: 61, image: '/images/Second/brush.jpg', name: 'HR³ MATRIX SCALP BRUSH', size: '0.4 MB', href: '/documents/PPT/GENOSYS%20HR3%20MATRIX%20SCALP%20BRUSH.pdf' },
                     { id: 49, image: '/images/LEDD.jpg', name: 'GENO-LED IR II', size: '4.6 MB', href: '/documents/PPT/GENO-LED%20IR%20II_2025.pdf' },
                     { id: 52, image: '/images/PDRN.png', name: 'SKIN REBOOT PDRN MASK PACK', size: '1.2 MB', href: '/documents/PPT/GENOSYS%20SKIN%20REBOOT%20PDRN%20MASK%20PACK.pdf' },
-                    { id: 38, image: '/images/EZE.jpg', name: 'EZ CO₂ MASK KIT', size: '0.5 MB', href: '/documents/PPT/Genosys%20Ez%20Co2%20Mask.pdf' },
+                    { id: 38, image: '/images/ez_mask/main.jpeg', name: 'EZ CO₂ MASK KIT', size: '0.5 MB', href: '/documents/PPT/Genosys%20Ez%20Co2%20Mask.pdf' },
                     { id: 1, image: '/images/genosys-microneedling-devices.jpg', name: 'Microneedle Roller', size: '1.5 MB', href: '/documents/PPT/Overview%20of%20Microneedling_S.pdf' },
                   ].map((product) => (
                     <div key={product.id} className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">

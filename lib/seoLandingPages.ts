@@ -53,7 +53,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'A low-foam cleanser for a barrier-conscious daily routine.' },
       { name: 'Multi Vita Radiance Serum', href: '/products/21', image: '/images/radiance_serum/main.jpeg', imageAlt: 'GENOSYS Multi Vita Radiance Serum', description: 'A targeted brightening step for uneven-looking tone and radiance.' },
-      { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/BRR.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Ceramide- and amino-acid-focused moisture support for dry or stressed skin.' },
+      { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Ceramide- and amino-acid-focused moisture support for dry or stressed skin.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High daily UV protection in a non-greasy cream format.' },
     ],
     sections: [
@@ -299,7 +299,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'Soothing Repair Postcream', href: '/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'Post-treatment moisture support in home-care and professional sizes.' },
       { name: 'Intensive Hydro Soothing Cream', href: '/products/28', image: '/images/HSC.jpg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'A soothing gel-cream option for hydration when approved for the protocol.' },
-      { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/BRR.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Richer barrier support for the later recovery and maintenance phase.' },
+      { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Richer barrier support for the later recovery and maintenance phase.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'High UV protection for use when the treating professional says sunscreen can resume.' },
     ],
     sections: [
@@ -409,7 +409,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'A gel cleanser positioned for microbiome- and barrier-conscious cleansing.' },
       { name: 'Microbiome Energy Infusing Mist', href: '/products/14', image: '/images/mist/main2.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'A light hydration step that can complement—not replace—moisturizer.' },
       { name: 'All For Sensitive Serum', href: '/products/19', image: '/images/sensitive_serum/main.jpeg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'A moisture-support serum for sensitive-looking skin.' },
-      { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/BRR.jpg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'A leave-on cream with ceramide, amino acids, and emollient oils.' },
+      { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'A leave-on cream with ceramide, amino acids, and emollient oils.' },
     ],
     sections: [
       {

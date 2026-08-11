@@ -58,7 +58,7 @@ function StaticFallback() {
   return (
     <div className="relative h-[620px] overflow-hidden rounded-[2rem] border border-rose-100 bg-gradient-to-br from-white via-rose-50 to-slate-100 shadow-2xl">
       <Image
-        src="/images/BRR.jpg"
+        src="/images/skin_barr/main.jpeg"
         alt="GENOSYS Skin Barrier Protecting Cream"
         fill
         priority

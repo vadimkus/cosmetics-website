@@ -86,7 +86,7 @@ function SkinBarrierFallback({ product }: { product: Product }) {
         </div>
         <div className="relative mx-auto aspect-square max-w-[560px]">
           <Image
-            src={product.image || '/images/BRR.jpg'}
+            src={product.image || '/images/skin_barr/main.jpeg'}
             alt={product.name}
             fill
             sizes="50vw"

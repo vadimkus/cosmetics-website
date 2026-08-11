@@ -89,7 +89,7 @@ function StaticUniverseFallback({ locale }: { locale: Locale }) {
         </div>
         <div className="relative h-[600px]">
           <div className="absolute inset-0 rounded-full bg-rose-500/10 blur-3xl" />
-          <Image src="/images/BRR.jpg" alt="GENOSYS Skin Barrier" fill sizes="50vw" className="object-contain p-20" />
+          <Image src="/images/skin_barr/main.jpeg" alt="GENOSYS Skin Barrier" fill sizes="50vw" className="object-contain p-20" />
         </div>
       </div>
     </div>

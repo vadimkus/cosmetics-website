@@ -59,11 +59,11 @@ export const PRODUCT_EXPERIENCE_CONFIG: Record<string, ProductExperienceConfig> 
     spin360: {
       frameCount: skinBarrierFrames.length,
       frames: skinBarrierFrames,
-      poster: skinBarrierFrames[0] || '/images/BRR.jpg',
+      poster: skinBarrierFrames[0] || '/images/skin_barr/main.jpeg',
       alt: '360 degree product view of GENOSYS Skin Barrier Protecting Cream',
     },
     model3d: {
-      poster: '/images/BRR.jpg',
+      poster: '/images/skin_barr/main.jpeg',
       alt: '3D model of GENOSYS Skin Barrier Protecting Cream',
     },
     notes: 'Prepared for the first 36-frame turntable capture. Keep inactive until optimized assets are uploaded.',

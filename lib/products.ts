@@ -110,6 +110,7 @@ export const products: Product[] = [
     category: 'Cleanser',
     inStock: true,
     size: '180ml',
+    videoUrl: '/videos/cleanser.mp4',
   },
   {
     id: '11',

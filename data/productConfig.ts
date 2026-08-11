@@ -142,6 +142,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '10': {
     id: '10',
+    videoUrl: '/videos/cleanser.mp4',
     pricing: {
       basePrice: 330,
       sizeVariants: {

@@ -21,10 +21,12 @@
 | Old main | `/images/BRR.jpg` |
 | Old gallery | `/images/Second/bar_big.jpg` |
 
-## Verification
+## Verification (done)
 
 - All seven new JPEGs return **200** on production before DB cutover.
 - Product 27 DB: `image` = `/images/skin_barr/main.jpeg`; `images` = s1–s6 only.
-- Historical order/blog refs on old paths repointed.
-- Dead-order-image repair dry audit: **0 unresolved** after cutover.
-- Old `BRR.jpg` / `bar_big.jpg` removed only after live refs were clean.
+- Repointed **8** historical order items → new main (emails/order history).
+- Database blog records on old paths: **zero**.
+- Dead-order-image repair dry audit: **0 unresolved**.
+- `/api/products/27` returns the new main + s1–s6 gallery.
+- Removed legacy assets after cutover: `/images/BRR.jpg`, `/images/Second/bar_big.jpg`.

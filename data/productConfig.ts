@@ -763,6 +763,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     // Gallery migrated to DB-only (product.image /images/6000/main.jpg + images
     // S1-S6). Config gallery removed 2026-07-10 — it still pointed at the
     // deleted /images/Second/Prof_Meso.jpg and config wins over DB.
+    videoUrl: '/videos/60000.mp4',
     pricing: {
       basePrice: 0
     },

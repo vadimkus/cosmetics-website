@@ -9,6 +9,7 @@ import { Sparkles } from 'lucide-react'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+import { withFullInciFallback } from '@/lib/localizedIngredients'
 import ProductInfoAccordion from '@/components/product/ProductInfoAccordion'
 import ProductRoutineCard from '@/components/product/ProductRoutineCard'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
@@ -18,6 +19,21 @@ import { getLocalizedPath } from '@/lib/i18n'
 interface ProductContentDisplayProps {
   product: Product
 }
+
+/**
+ * productDetails keys that must never reach the spec table. `pdfBrochure` is a
+ * raw /documents/... path (the brochure is offered via the Product Documentation
+ * buttons) and the `perfectCombination*` keys duplicate the localised pairing
+ * block rendered by ProductRecommendation — `perfectCombinationId` was leaking a
+ * bare product id as a spec row. They are also English-only, so hiding them keeps
+ * the Arabic and Russian spec tables consistent with the English one.
+ */
+const INTERNAL_DETAIL_KEYS = new Set([
+  'pdfBrochure',
+  'perfectCombination',
+  'perfectCombinationId',
+  'perfectCombinationBenefit',
+])
 
 export default function ProductContentDisplay({ product }: ProductContentDisplayProps) {
   const { t, locale, dir } = useTranslation()
@@ -31,7 +47,11 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   const productDetailsStr = translations?.productDetails || product.productDetails
   const keyFeaturesStr = translations?.keyFeatures || product.keyFeatures
   const benefitsStr = translations?.benefits || product.benefits
-  const ingredientsStr = translations?.ingredients || product.ingredients
+  const ingredientsStr = withFullInciFallback(
+    translations?.ingredients || product.ingredients,
+    product.ingredients,
+    locale,
+  )
   const howToUseStr = translations?.howToUse || product.howToUse
   const directionsStr = translations?.directions || product.directions
   
@@ -667,10 +687,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           <h3 className="font-semibold text-gray-900 mb-1 lg:mb-2 text-xs lg:text-sm" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.productDetails')}</h3>
           <div className="space-y-1 lg:space-y-2 text-xs lg:text-sm text-gray-600">
             {Object.entries(productDetails as Record<string, string>)
-              // `pdfBrochure` is an internal file path — the brochure is
-              // surfaced to users via the "Product Documentation" buttons, so
-              // we don't expose the raw /documents/... path here.
-              .filter(([key]) => key !== 'pdfBrochure')
+              .filter(([key]) => !INTERNAL_DETAIL_KEYS.has(key))
               .map(([key, value]) => (
                 <p key={key}>
                   <strong className="text-gray-900">{formatKey(key, t)}:</strong> {String(value)}
@@ -920,7 +937,41 @@ function formatKey(key: string, t: (key: string) => string): string {
     'application': 'product.detailApplication',
     'formulation': 'product.detailFormulation',
     'type': 'product.detailType',
-    'system': 'product.detailSystem'
+    'system': 'product.detailSystem',
+    'professionaluse': 'product.detailProfessionalUse',
+    'testing': 'product.detailTesting',
+    'clinicaltesting': 'product.detailClinicalTesting',
+    'safety': 'product.detailSafety',
+    'spf': 'product.detailSpf',
+    'spfrating': 'product.detailSpfRating',
+    'results': 'product.detailResults',
+    'needlecount': 'product.detailNeedleCount',
+    'needles': 'product.detailNeedles',
+    'needlethickness': 'product.detailNeedleThickness',
+    'treatmentareas': 'product.detailTreatmentAreas',
+    'treatmenttime': 'product.detailTreatmentTime',
+    'compatibility': 'product.detailCompatibility',
+    'approval': 'product.detailApproval',
+    'coverage': 'product.detailCoverage',
+    'producttype': 'product.detailProductType',
+    'refcode': 'product.detailRefCode',
+    'duration': 'product.detailDuration',
+    'availablecolors': 'product.detailAvailableColors',
+    'colornote': 'product.detailColorNote',
+    'patent': 'product.detailPatent',
+    'award': 'product.detailAward',
+    'features': 'product.detailFeatures',
+    'sizeoptions': 'product.detailSizeOptions',
+    'keycomponents': 'product.detailKeyComponents',
+    'components': 'product.detailComponents',
+    'benefits': 'product.detailBenefits',
+    'lightwavelengths': 'product.detailLightWavelengths',
+    'lighttypes': 'product.detailLightTypes',
+    'totalleds': 'product.detailTotalLeds',
+    'frequency': 'product.detailFrequency',
+    'powersource': 'product.detailPowerSource',
+    'ratedpower': 'product.detailRatedPower',
+    'design': 'product.detailDesign'
   }
   
   // Normalize key (lowercase) for lookup

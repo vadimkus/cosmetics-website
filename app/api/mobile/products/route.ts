@@ -6,6 +6,7 @@ import { buildPricingContract } from '@/lib/pricingContract'
 import { ApiUser } from '@/types/user'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+import { withFullInciFallback } from '@/lib/localizedIngredients'
 import { getCatalogQuickFacts, getQuickFactLocale } from '@/lib/productQuickFactsCatalog'
 
 /**
@@ -352,7 +353,7 @@ export async function GET(request: NextRequest) {
         productDetails: fileTranslations?.productDetails ?? p.productDetails,
         keyFeatures: fileTranslations?.keyFeatures ?? p.keyFeatures,
         benefits: fileTranslations?.benefits ?? p.benefits,
-        ingredients: fileTranslations?.ingredients ?? p.ingredients,
+        ingredients: withFullInciFallback(fileTranslations?.ingredients ?? p.ingredients, p.ingredients, locale),
         howToUse: fileTranslations?.howToUse ?? p.howToUse,
         directions: fileTranslations?.directions ?? p.directions,
         recommendedProductId: extras.recommendedProductId,

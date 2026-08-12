@@ -6,6 +6,7 @@ import { buildPricingContract } from '@/lib/pricingContract'
 import { ApiUser } from '@/types/user'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
+import { withFullInciFallback } from '@/lib/localizedIngredients'
 import { getProductDocumentation } from '@/data/productConfig'
 import { getMobileRoutine } from '@/lib/mobileProductRoutines'
 import { getCatalogQuickFacts, getQuickFactLocale } from '@/lib/productQuickFactsCatalog'
@@ -310,7 +311,11 @@ export async function GET(
       productDetails: fileTranslations?.productDetails ?? enhancedProduct.productDetails,
       keyFeatures: fileTranslations?.keyFeatures ?? enhancedProduct.keyFeatures,
       benefits: fileTranslations?.benefits ?? enhancedProduct.benefits,
-      ingredients: fileTranslations?.ingredients ?? enhancedProduct.ingredients,
+      ingredients: withFullInciFallback(
+        fileTranslations?.ingredients ?? enhancedProduct.ingredients,
+        typedProduct.ingredients,
+        locale,
+      ),
       howToUse: fileTranslations?.howToUse ?? enhancedProduct.howToUse,
       directions: fileTranslations?.directions ?? enhancedProduct.directions,
       recommendedProductId: getRecommendedProductId(typedProduct.productNumber || typedProduct.id),

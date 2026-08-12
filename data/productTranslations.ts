@@ -455,7 +455,23 @@ HR³ MATRIX HAIR STAMP - معزز توصيل حاصل على براءة اختر
     productDetails: '{"form":"شامبو فروة رأس متقدم","size":"300ml","target":"تنظيف فروة الرأس وتعزيز صحة الشعر","technology":"تقنية HR³ MATRIX المتقدمة","keyBenefits":"تنظيف عميق، تعزيز صحة الشعر، رعاية شاملة","usage":"استخدام يومي للشعر","skinType":"جميع أنواع فروة الرأس","application":"ضع على الشعر الرطب، دلك، اشطف","origin":"كوريا الجنوبية"}',
     keyFeatures: null,
     benefits: '["تنظيف عميق - ينظف فروة الرأس بعمق من الأوساخ والزيوت","تعزيز صحة الشعر - يعزز صحة الشعر وفروة الرأس","رعاية شاملة - يوفر رعاية شاملة للشعر وفروة الرأس","تقنية متقدمة - يستخدم تقنية HR³ MATRIX المتقدمة","شعر نظيف - يعزز شعر نظيف وصحي","استخدام يومي - مناسب للاستخدام اليومي"]',
-    ingredients: null,
+    ingredients: JSON.stringify([
+      { name: 'المنثول', description: 'عامل تبريد لفروة الرأس (1.12%) يساعد على تقليل حرارة الفروة ويمنح إحساساً منعشاً بعد التنظيف.' },
+      { name: 'الكافيين', description: 'منشط لفروة الرأس (1%) يدعم بيئة أفضل لبصيلات الشعر وتوصيل المغذيات.' },
+      { name: 'Copper Tripeptide-1', description: 'ببتيد إشاري يدعم تخليق الكولاجين ويساعد على تقوية بيئة الشعر وفروة الرأس.' },
+      { name: 'البيوتين', description: 'فيتامين B7 يدعم بنية الشعر ضمن مركب العناية الوظيفية بفروة الرأس.' },
+      { name: 'البانثينول (بروفيتامين B5)', description: 'مرطب ومكيف يساعد على تهدئة وتنعيم فروة الرأس والشعر بعد الغسل.' },
+      { name: 'مستخلص Viscum Album (الدبق)', description: 'مستخلص نباتي حاصل على براءة ضمن مركب CSS لدعم تكييف فروة الرأس والعناية بتساقط الشعر.' },
+      { name: 'مستخلص Saccharomyces Cerevisiae + مستخلص الشعير', description: 'مستخلصات تخمير وشعير تغذي بيئة فروة الرأس كجزء من النظام النباتي المركّب.' },
+      { name: 'مستخلص ثمار Serenoa Serrulata (الساو بالميتو)', description: 'نبات يُستخدم تقليدياً في العناية بترقق الشعر لدعم بيئة بصيلات أكثر صحة.' },
+      { name: 'بيروكتون أولامين', description: 'مبيد تجميلي يساعد على السيطرة على اختلال فروة الرأس المرتبط بالقشرة أثناء التنظيف.' },
+      { name: 'مستخلصات Acorus Calamus + Panax Ginseng + فول الصويا', description: 'ثلاثي نباتي يكيّف فروة الرأس ويكمل قاعدة الشامبو المبرّدة والمنظّفة.' },
+      {
+        name: 'Full INCI',
+        description:
+          'Aqua (Water), Sodium C14-16 Olefin Sulfonate, Coco-Betaine, Glycerin, C12-13 Alketh-9, Menthol, Caffeine, Copper Tripeptide-1, Biotin, Panthenol, Viscum Album (Mistletoe) Extract, Saccharomyces Cerevisiae Extract, Malt Extract, Acorus Calamus Root Extract, Panax Ginseng Root Extract, Glycine Soja (Soybean) Seed Extract, Serenoa Serrulata Fruit Extract, Piroctone Olamine, Tocopherol, Citric Acid, Diospyros Kaki Fruit Extract, Camellia Japonica Leaf Extract, Ceratonia Siliqua (Carob) Fruit Extract, Lecithin, Menthyl Lactate, Ethylhexylglycerin, Glycine, Glyceryl Oleate, 1,2-Hexanediol, Glyceryl Stearate, Butylene Glycol, Coco-Glucoside, Sorbitol, Polyquaternium-67, Decyl Glucoside, Disodium EDTA, Acrylates Copolymer, Propanediol, Potassium Benzoate, Parfum (Fragrance).',
+      },
+    ]),
     howToUse: "بلل الشعر جيداً. ضع الشامبو على فروة الرأس. دلك برفق في حركات دائرية. اشطف جيداً بالماء. استخدمه يومياً.",
     directions: "هذا المنتج مناسب لجميع أنواع فروة الرأس. استخدمه بانتظام للحصول على أفضل النتائج. احفظ في مكان بارد وجاف."
   },

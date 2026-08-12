@@ -27,6 +27,7 @@ import {
   isPeptideGelMaskPackProductName,
   PEPTIDE_GEL_MASK_SINGLE_PRODUCT_NAME,
 } from '@/lib/moyskladPeptideGelMaskExplosion'
+import { buildMoySkladAddressFull } from '@/lib/moyskladAddress'
 
 // ============================================================================
 // Configuration
@@ -448,24 +449,22 @@ interface CounterpartyResult {
 /**
  * Build a structured actualAddressFull for a counterparty, matching the
  * order-level shipmentAddressFull shape. Emirate → city, free-form address
- * → street, country → UAE reference. MoySklad's UI / printed docs read
- * from the structured object; the plain-string `actualAddress` field is
- * truncated and silently dumped into addInfo only.
+ * → street (street-only — website canonical "Street, City, UAE" is stripped
+ * so MoySklad UI does not print Dubai/UAE twice), country → UAE reference.
+ * Never set addInfo to the same text as street.
  */
 function buildCounterpartyAddressFull(
   customerAddress: string | undefined,
   customerEmirate: string | undefined
 ): { actualAddressFull: Record<string, unknown> } | Record<string, never> {
-  const street = (customerAddress || '').replace(/\s+/g, ' ').trim()
   const city = (customerEmirate || '').trim()
-  if (!street && !city) return {}
-  return {
-    actualAddressFull: {
-      country: entityMeta('country', MOYSKLAD_COUNTRY_UAE_ID),
-      ...(city ? { city } : {}),
-      ...(street ? { street } : {}),
-    },
-  }
+  const full = buildMoySkladAddressFull(
+    customerAddress,
+    customerEmirate,
+    entityMeta('country', MOYSKLAD_COUNTRY_UAE_ID),
+  )
+  if (!full.street && !city) return {}
+  return { actualAddressFull: full }
 }
 
 /**
@@ -925,11 +924,14 @@ export async function createMoySkladOrder(
       // structured object; a plain-string shipmentAddress gets silently dumped
       // into addInfo only, which is why the main address was showing blank.
       // The two fields are mutually exclusive — MoySklad rejects both at once.
-      shipmentAddressFull: {
-        country: entityMeta('country', MOYSKLAD_COUNTRY_UAE_ID),
-        city: orderData.customerEmirate || '',
-        street: (orderData.customerAddress || '').replace(/\s+/g, ' ').trim(),
-      },
+      // Street must be street-only: website stores "Street, City, UAE" but
+      // city/country already live in structured fields — otherwise UI shows
+      // "UAE, Dubai, Street, Dubai, UAE".
+      shipmentAddressFull: buildMoySkladAddressFull(
+        orderData.customerAddress,
+        orderData.customerEmirate,
+        entityMeta('country', MOYSKLAD_COUNTRY_UAE_ID),
+      ),
       ...(positions.length > 0 ? { positions } : {}),
     }
 

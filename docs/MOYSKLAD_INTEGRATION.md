@@ -256,7 +256,7 @@ The customer order created in MoySklad includes:
 - **Currency**: AED
 - **VAT**: 5% (included in prices, applied to both products and delivery)
 - **Description**: Payment method, shipping cost, any unmapped items
-- **Shipping Address**: Structured `shipmentAddressFull` with `country` (UAE), `city` (emirate), `street` (customer's free-form address)
+- **Shipping Address**: Structured `shipmentAddressFull` with `country` (UAE), `city` (emirate), `street` (street-only — see below)
 - **Positions**: Line items with quantities and prices
 
 ### Delivery Address — Important
@@ -266,6 +266,17 @@ The integration sends the delivery address as a **structured object** (`shipment
 If you send `shipmentAddress` as a plain string, MoySklad dumps the whole thing into `shipmentAddressFull.addInfo` (additional info / comment field) and leaves `street`, `city`, `country` blank — which means the UI shows a blank delivery address even though the data was technically accepted.
 
 The two fields are mutually exclusive; sending both at once causes the API to reject the request.
+
+**Website canonical form** (Aug 2026): `Street, City, UAE`  
+Example: `Binghatti Jasmine 218, Dubai, UAE`
+
+**MoySklad mapping** (`lib/moyskladAddress.ts`):
+- `country` → UAE entity
+- `city` → emirate (`Dubai`)
+- `street` → street-only (`Binghatti Jasmine 218`) — city/UAE stripped from the website string
+- `addInfo` → empty (never duplicate street)
+
+MoySklad UI then shows `UAE, Dubai, Binghatti Jasmine 218` — not `UAE, Dubai, …, Dubai, UAE`.
 
 **UAE country reference**: `8afef359-33c6-11ea-0a80-0043000aceae` (the account's custom "UAE" country entry). Do not use the generic "Объединенные Арабские Эмираты" ISO entry — the account uses the English-named one.
 

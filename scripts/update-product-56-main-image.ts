@@ -11,8 +11,8 @@
 import { prisma } from '../lib/prisma'
 
 const PRODUCT_NUMBER = '56'
-const OLD_MAIN = '/images/bbbox_brightening/main.jpeg'
-const NEW_MAIN = '/images/bbbox_brightening/main2.png'
+const OLD_MAIN = '/images/bbbox_brightening/main2.png'
+const NEW_MAIN = '/images/bbbox_brightening/main3.jpeg'
 const OWN_HOSTS = ['', 'https://genosys.ae', 'https://www.genosys.ae']
 
 function variants(image: string): string[] {

@@ -815,14 +815,14 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
             </ProductInfoAccordion>
           )}
 
-          {/* Directions - when howToUse is a string */}
+          {/* How to Use - plain text instructions */}
           {howToUse && typeof howToUse === 'string' && (
-            <ProductInfoAccordion title={t('product.directions')}>
+            <ProductInfoAccordion title={t('product.howToUse')}>
               <p className="whitespace-pre-line text-gray-700">{howToUse}</p>
             </ProductInfoAccordion>
           )}
 
-          {/* How to Use - when howToUse is an array of steps */}
+          {/* How to Use - numbered step array */}
           {howToUse && Array.isArray(howToUse) && (
             <ProductInfoAccordion title={t('product.howToUse')}>
               <ol className="list-decimal list-inside space-y-1.5 text-gray-700">

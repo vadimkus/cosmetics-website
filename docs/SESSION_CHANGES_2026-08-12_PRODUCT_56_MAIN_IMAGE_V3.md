@@ -22,3 +22,10 @@ Main-image-only replacement for product 56, SKIN BRIGHTENING BEAUTY BOX.
 ## Script
 
 `scripts/update-product-56-main-image.ts`
+
+## Done
+
+- Asset commit: `aaa3f325` — live at `https://genosys.ae/images/bbbox_brightening/main3.jpeg` (HTTP 200, hash match)
+- DB: product 56 `image` → `/images/bbbox_brightening/main3.jpeg`; gallery still `null`
+- Repointed 9 order items; blogs 0; dead-image audit 0/0
+- Deleted `main2.png`

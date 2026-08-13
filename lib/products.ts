@@ -40,7 +40,7 @@ export const products: Product[] = [
     description: '2ml x 10ea. Hydrating and firming ampoule for microneedling treatment. Dermatologically tested. Efficacy test on skin hydration. Features: It is a hydrating and firming ampoule specially formulated for microneedling treatment that provides long-lasting moisturizing and plumping effects, and relieves skin irritation with sh-polypeptide-7 (IGF-1-analog peptide), hyaluronic acid and BIOPHYTEX™. Key Ingredients: Hyaluronic Acid, Panthenol, Phytosphingosine, BIOPHYTEX™, Copper Tripeptide-1, sh-Polypeptide-7, Palmitoyl Tetrapeptide-7. Manufactured in South Korea.',
     image: '/images/hes_power/main.jpeg',
     images: JSON.stringify([
-      '/images/hes_power/s1.jpeg',
+      '/images/hes_power/s1new.jpeg',
       '/images/hes_power/s2.jpeg',
       '/images/hes_power/s3.jpeg',
       '/images/hes_power/s4.jpeg',

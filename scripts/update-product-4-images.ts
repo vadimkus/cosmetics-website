@@ -11,7 +11,7 @@ import { prisma } from '../lib/prisma'
 
 const NEW_MAIN = '/images/hes_power/main.jpeg'
 const NEW_GALLERY = [
-  '/images/hes_power/s1.jpeg',
+  '/images/hes_power/s1new.jpeg',
   '/images/hes_power/s2.jpeg',
   '/images/hes_power/s3.jpeg',
   '/images/hes_power/s4.jpeg',

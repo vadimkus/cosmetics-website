@@ -23,6 +23,32 @@ Priority order:
 5. `Registration DOC/Artwork/` and `Label/` PDFs — good for packaging text and public-facing wording, secondary for formula verification.
 6. Website code, product cards, markdown protocols, and docs are secondary references only; do not treat them as the source of truth for ingredients if Intertek PDFs disagree.
 
+## Before calling any claim unsupported, check these two as well
+
+An INCI list cannot disprove a marketing name, and a registration dossier does not contain
+branded complex names. Both live elsewhere. Read both before writing that something is
+undocumented, fabricated, or unsupported:
+
+1. **Safety Assessment Reports** — `Registration DOC/SA/SA-GENOSYS <PRODUCT>.pdf` and
+   `Intertek_folder/Safety Assessment Report/<n> <PRODUCT>.pdf`. These are the only
+   registration documents that map **supplier trade names to INCI, with supplier name and
+   percentage**. This is where "Phytolex SC (ACT Co., Ltd., 0.2000%) = Phaseolus Radiatus +
+   Betula Platyphylla Japonica Bark + Rumex Crispus Root extracts" is recorded.
+2. **DTS MG product decks** — `~/Desktop/Glass_Skin/01-official-pdfs/`, plus `.pptx` files
+   inside product folders such as `Cerrabar/GENOSYS CERABARRIER BIOME GEL CLEANSER.pptx`,
+   and `Artwork/Art_Work/Catalogue/GENOSYS CATALOG.pdf`. These carry **branded complex
+   names and clinical figures** that appear in no dossier: "Hyaluronan 11 Multi-Complex",
+   "7 Herb Complex", "145.8% hydration improvement", "Pink Ceramide Complex".
+
+A branded name counting differently from the INCI list is normal, not an error. "11 types"
+against 8 hyaluronate INCI names, and "7 herbs" against 8 botanical extracts, are both the
+manufacturer counting molecular-weight grades or reassigning a dual-function ingredient.
+Report the reconciliation; do not call the brand wrong.
+
+Two failures have already been caused by skipping this step, on products 10, 16, 28, 29 and
+63. When a claim cannot be found, say which documents were searched rather than asserting it
+appears nowhere.
+
 Important handling notes:
 
 - Use exact local paths under `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek`, not guessed relative paths.

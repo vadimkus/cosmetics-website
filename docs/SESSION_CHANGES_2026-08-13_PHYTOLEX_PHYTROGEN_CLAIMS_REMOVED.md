@@ -105,47 +105,86 @@ fields say `علاج الأكسجين`, without the article, so the first sweep 
   the new English copy renders in the ingredient list, the feature grid, the benefit list
   and the detail rows.
 
+## CORRECTION, same day: the two trade names are documented after all
+
+This section overrides the reasoning above. Found while verifying the artwork for the
+re-export worklist.
+
+**Phytolex SC and MultiEx Phytrogen are manufacturer nomenclature, not invented marketing.**
+
+| Document | What it says |
+|---|---|
+| `Registration DOC/SA/SA-GENOSYS SNOW O2.pdf` | Raw-material table, row 15: `Phytolex SC` from **ACT Co., Ltd.** at **0.2000%**, containing Phaseolus Radiatus Extract, Betula Platyphylla Japonica Bark Extract, Rumex Crispus Root Extract. Row 19: `MultiEX™ Phytrogen` from **BioSpectrum, Inc.** at **0.0100%**, containing Cimicifuga Racemosa, Punica Granatum, Trifolium Pratense, Angelica Polymorpha Sinensis, Pueraria Lobata, Polygonum Cuspidatum and Pueraria Mirifica extracts |
+| `Artwork/Art_Work/Catalogue/GENOSYS CATALOG.pdf` | Uses "Phytolex SC" as a KEY INGREDIENTS entry on several products, glossed as "It comfortably relieves skin irritation and inflammation. (Complex of Phaseolus Radiatus Extract, Betula Platyphylla Japonica Bark Extract, Rumex Crispus Root Extract)" |
+| `Registration DOC/Artwork/[GENOSYS]SNOW BOOSTER(200ml).pdf` | Printed label, Russian panel: "Содержит комплекс растительных экстрактов Phytolex SC" |
+| `Cerrabar/GENOSYS CERABARRIER BIOME GEL CLEANSER.pptx`, slide 5 | Comparison table names both as SNOW O₂'s key ingredients |
+| 28 files in total across the Drive | Contain one or both names |
+
+**And on product 29, "11 types" is the manufacturer's own figure.**
+`Glass_Skin/01-official-pdfs/GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf` brands the
+complex **"Hyaluronan 11 Multi-Complex"** and states "11 types of hyaluronic acid with
+various molecular weights", while listing the same 8 INCI names on that page. It counts the
+three molecular-weight grades as separate types. Identical to the "7 Herb Complex" case on
+product 63, which was documented three weeks ago.
+
+### What was wrong and what still stands
+
+Wrong: the claim that these names appear in no document, and the resulting statement that
+the artwork contradicts the record. It does not. `S3.jpg` on #10 and the "11 HA types"
+captions on #29 are quoting the manufacturer and need no correction.
+
+Still stands, on its own merits:
+
+- **"Oxygen therapy" removal.** Absent from every Snow O₂ document. The deck says "oxygen
+  bubble tech", the label says bubbles form on application. The benefit line promising
+  improved circulation from a rinse-off cleanser had nothing behind it in any source.
+- **The dry-face application fix.** The label is explicit and the site said the opposite.
+- **The dosage point.** Phytolex SC is 0.2% of the formula and Phaseolus Radiatus is 1.5%
+  of that raw material, so roughly 0.003% in the finished product; MultiEx Phytrogen is
+  0.01% in total. Leading with them as headline actives overstates them either way.
+
+### Root cause
+
+The audit read the ingredient lists, signed formulas, printed labels and COAs, and stopped
+there. It never opened the **Safety Assessment Reports**, which are the only registration
+documents that map supplier trade names to INCI, nor the **DTS MG sales decks**, which are
+where branded complex names live. Both are inside the Intertek folder. The `#63` review had
+already hit this exact wall and recorded it; the lesson was not carried across.
+
+The source-of-truth rule has been amended so both are checked before any claim is called
+unsupported.
+
 ## Still outstanding: artwork
 
 The text no longer makes these claims. The marketing slides still do, and they need
 re-exporting under new filenames, since `/images/*` is served with a one-year immutable
 cache.
 
-| File | Product | Gallery slot | Claim on the slide | Replace with |
+No claim on either product's slides needs correcting; see the correction section above.
+What does need re-exporting is packaging text and one stale tube render.
+
+| File | Product | Gallery slot | Problem | Replace with |
 |---|---|---|---|---|
-| [`/images/cleanser/S3.jpg`](https://genosys.ae/images/cleanser/S3.jpg) | #10 Snow O₂ | 3 of 6 | "PHYTOLEX SC - Botanical complex", "MULTIEX PHYTROGEN - Multi-plant complex" | Keep the Methyl Perfluoroisobutyl Ether and Glycerin blocks; swap the two trade names for Phaseolus Radiatus / Camellia Sinensis / Coix Lacryma-Jobi extracts |
-| [`/images/hyaluron/s1.jpeg`](https://genosys.ae/images/hyaluron/s1.jpeg) | #29 Hyaluron Cream | 1 of 6 | "11 Types of **Hyaluronic Acid**", plus a rendered tube reading "multilevel hydration with 11 types of hyaluronic acid" | "8 Forms of Hyaluronic Acid"; re-render the tube with the current label line |
-| [`/images/hyaluron/s3.jpeg`](https://genosys.ae/images/hyaluron/s3.jpeg) | #29 | 3 of 6 | Headline is fine; the rendered tube still reads "11 types of hyaluronic acid" | Re-render the tube only |
-| [`/images/hyaluron/s4.jpeg`](https://genosys.ae/images/hyaluron/s4.jpeg) | #29 | 4 of 6 | "11 MULTI-COMPLEX - 11 HA types" | "8 HA FORMS - low / mid / high MW - 1,000 ppm high MW" |
-| [`/images/hyaluron/s6.jpeg`](https://genosys.ae/images/hyaluron/s6.jpeg) | #29 | 6 of 6 | "11 HA TYPES - Multi-depth fill" | "8 HA FORMS - Multi-depth fill" |
+| [`/images/cleanser/S1.jpg`](https://genosys.ae/images/cleanser/S1.jpg) | #10 Snow O₂ | 1 of 6 | Bottle reads "DERMATOLOBICALLY TESTED", "PBOFESSIONAL", "GENOXIS à is a compound word of Gene Re-Bibth System" | The real label text |
+| [`/images/cleanser/S2.jpg`](https://genosys.ae/images/cleanser/S2.jpg) | #10 | 2 of 6 | "REMATOLIIE\|COUV IRCISS", "PROFJ2SIONAL" | Same; the four-step copy beside it is correct, including APPLY DRY |
+| [`/images/cleanser/S6.jpg`](https://genosys.ae/images/cleanser/S6.jpg) | #10 | 6 of 6 | Both bottles read "GENOSTS" / "GENONN", "Gene Ro-Bnck Sqstem" | Same. This is the size-comparison slide, so the label is the subject |
+| [`/images/hyaluron/s1.jpeg`](https://genosys.ae/images/hyaluron/s1.jpeg) | #29 Hyaluron Cream | 1 of 6 | Renders an **older tube** reading "multilevel hydration with 11 types of hyaluronic acid" | "multi-level hydration with hyaluronic acid complex and various mushrooms", which is what the carton says today |
+| [`/images/hyaluron/s3.jpeg`](https://genosys.ae/images/hyaluron/s3.jpeg) | #29 | 3 of 6 | Same older tube | Same. Headline needs no change |
 
-On S3 the honest replacement is already on the same slide: Methyl Perfluoroisobutyl Ether,
-which is second only to water in the declaration.
+On #29, `s4` and `s6` already render the current carton wording, so the set contradicts
+itself about what the packaging says. Use those two as the reference.
 
-For #29 the count is the problem, not the ingredient. The signed formula
-(`Formula-GENOSYS MOISTURE REPLENISHING HYALURON CREAM.xlsx`) and the 250 g artwork
-(`Artwork-GENOSYS MOISTURE REPLENISHING HYALURON CREAM 250g.pdf`) both declare **eight**
-hyaluronate INCI names and no more: Sodium Hyaluronate (1,000.9 ppm), Sodium Hyaluronate
-Crosspolymer, Potassium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Hydrolyzed Sodium
-Hyaluronate, Hydrolyzed Hyaluronic Acid, Hyaluronic Acid (all 30 ppb) and Sodium Acetylated
-Hyaluronate (1 ppb). The string "11" appears nowhere in either document. The current
-printed tube claims "multi-level hydration with hyaluronic acid complex and various
-mushrooms" - GENOSYS themselves dropped the count.
+Worth knowing if the ingredient slides are ever rewritten: seven of the eight hyaluronate
+INCI entries are dosed at 30 ppb or 1 ppb, which is 0.000003% and below. Only Sodium
+Hyaluronate at 1,000 ppm (0.1%) is present in a functional amount, and both the deck and
+our own `s4` already lead with that figure. The count is the manufacturer's to make;
+presenting all of them as equal actives would be ours.
 
-Our slides are internally inconsistent about this: s4 and s6 render the current tube text,
-while s1 and s3 render an older tube that still carries the eleven. Whoever re-exports
-should treat s4/s6 as the reference for the label artwork.
+Em dashes appear throughout `/images/cleanser/S1.jpg`, `S2.jpg`, `S4.jpg`, `S6.jpg` and
+`/images/hyaluron/s5.jpeg`, against the house rule for hyphens. Worth fixing in the same pass.
 
-Worth knowing before rewriting the copy on s4: seven of the eight forms are dosed at
-30 ppb or 1 ppb, which is 0.000003% and below. Only Sodium Hyaluronate at 1,000 ppm (0.1%)
-is present in a functional amount, and the current text already leads with that figure.
-"8 forms" is true; presenting all eight as equal actives would be the next version of the
-same problem.
-
-Separately, the Snow O₂ slides S1, S2, S3 and S6 render a bottle whose label text is
-garbled - "DERMATOLOBICALLY TESTEB", "PBOFESSIONAL", "GENOXIS is a compounet word of Gene
-Re-biuth Sonira". It reads at gallery size on desktop. Not a claims problem, but the same
-re-export should fix it.
+A full worklist covering all seven rebuilt product pages, with replacement wording and
+new filenames, is at `~/Desktop/genosys-artwork-corrections.html`.
 
 ## Not fixed, and worth a separate pass
 

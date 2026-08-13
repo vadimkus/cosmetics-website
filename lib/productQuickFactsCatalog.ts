@@ -210,7 +210,7 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
   ],
   '18': [
     t('HA 2,000 ppm boost', 'Rich in ultra-low-molecular hyaluronic acid at about 2,000 ppm.', 'ГК ≈ 2 000 ppm', 'Богата сверхнизкомолекулярной ГК около 2 000 ppm.', 'هيالورون ~2,000 ppm', 'غني بحمض هيالورونيك منخفض الجزيئات بنحو 2,000 ppm.'),
-    t('HA multi-complex', 'Multi-molecular hyaluronic complex (8 forms) hydrates multiple depths of skin.', 'Мульти-комплекс ГК', 'Мультимолекулярный комплекс ГК (8 форм) увлажняет на нескольких уровнях.', 'مركب هيالورون متعدد', 'مركب هيالورونيك متعدد الجزيئات (8 أشكال) يرطّب على أعماق متعددة.'),
+    t('HA multi-complex', 'Hyaluronan 11 Multi-Complex hydrates multiple depths of skin.', 'Мульти-комплекс ГК', 'Мультикомплекс Hyaluronan 11 увлажняет на нескольких уровнях.', 'مركب هيالورون متعدد', 'مركب Hyaluronan 11 يرطّب على أعماق متعددة.'),
     t('Deep hydration +52%', 'Clinical inner hydration improved about 52% after a single use.', 'Глубокое увлажнение +52%', 'Клинически глубинное увлажнение выросло примерно на 52% после одного применения.', 'ترطيب عميق +52%', 'تحسّن الترطيب الداخلي سريرياً نحو 52% بعد استخدام واحد.'),
     t('Mushroom moisture net', 'Tremella and mushroom complex supports water-binding comfort.', 'Грибная влагосеть', 'Tremella и грибной комплекс усиливают удержание влаги.', 'شبكة رطوبة فطرية', 'Tremella ومركب الفطر يدعمان الاحتفاظ بالرطوبة.'),
     t('Barrier-strengthening serum', 'Helps strengthen the moisture barrier for longer-lasting plumpness.', 'Сыворотка для барьера', 'Укрепляет влагобарьер для более стойкого эффекта.', 'سيروم لتعزيز الحاجز', 'يساعد على تعزيز حاجز الرطوبة لامتلاء يدوم أطول.'),

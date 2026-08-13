@@ -111,17 +111,41 @@ The text no longer makes these claims. The marketing slides still do, and they n
 re-exporting under new filenames, since `/images/*` is served with a one-year immutable
 cache.
 
-| File | Product | Claim on the slide |
-|---|---|---|
-| `/images/cleanser/S3.jpg` | #10 Snow O₂ | "PHYTOLEX SC - Botanical complex", "MULTIEX PHYTROGEN - Multi-plant complex" |
-| `/images/hyaluron/s1.jpeg` | #29 Hyaluron Cream | "11 Types of Hyaluronic Acid" |
-| `/images/hyaluron/s4.jpeg` | #29 | "11 MULTI-COMPLEX - 11 HA types" |
-| `/images/hyaluron/s6.jpeg` | #29 | "11 HA TYPES" |
+| File | Product | Gallery slot | Claim on the slide | Replace with |
+|---|---|---|---|---|
+| [`/images/cleanser/S3.jpg`](https://genosys.ae/images/cleanser/S3.jpg) | #10 Snow O₂ | 3 of 6 | "PHYTOLEX SC - Botanical complex", "MULTIEX PHYTROGEN - Multi-plant complex" | Keep the Methyl Perfluoroisobutyl Ether and Glycerin blocks; swap the two trade names for Phaseolus Radiatus / Camellia Sinensis / Coix Lacryma-Jobi extracts |
+| [`/images/hyaluron/s1.jpeg`](https://genosys.ae/images/hyaluron/s1.jpeg) | #29 Hyaluron Cream | 1 of 6 | "11 Types of **Hyaluronic Acid**", plus a rendered tube reading "multilevel hydration with 11 types of hyaluronic acid" | "8 Forms of Hyaluronic Acid"; re-render the tube with the current label line |
+| [`/images/hyaluron/s3.jpeg`](https://genosys.ae/images/hyaluron/s3.jpeg) | #29 | 3 of 6 | Headline is fine; the rendered tube still reads "11 types of hyaluronic acid" | Re-render the tube only |
+| [`/images/hyaluron/s4.jpeg`](https://genosys.ae/images/hyaluron/s4.jpeg) | #29 | 4 of 6 | "11 MULTI-COMPLEX - 11 HA types" | "8 HA FORMS - low / mid / high MW - 1,000 ppm high MW" |
+| [`/images/hyaluron/s6.jpeg`](https://genosys.ae/images/hyaluron/s6.jpeg) | #29 | 6 of 6 | "11 HA TYPES - Multi-depth fill" | "8 HA FORMS - Multi-depth fill" |
 
 On S3 the honest replacement is already on the same slide: Methyl Perfluoroisobutyl Ether,
-which is second only to water in the declaration. For #29 the count is the problem, not
-the ingredient: both DTS MG hyaluronate decks list **eight** hyaluronate INCI names, and
-eleven appears nowhere except our own artwork.
+which is second only to water in the declaration.
+
+For #29 the count is the problem, not the ingredient. The signed formula
+(`Formula-GENOSYS MOISTURE REPLENISHING HYALURON CREAM.xlsx`) and the 250 g artwork
+(`Artwork-GENOSYS MOISTURE REPLENISHING HYALURON CREAM 250g.pdf`) both declare **eight**
+hyaluronate INCI names and no more: Sodium Hyaluronate (1,000.9 ppm), Sodium Hyaluronate
+Crosspolymer, Potassium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Hydrolyzed Sodium
+Hyaluronate, Hydrolyzed Hyaluronic Acid, Hyaluronic Acid (all 30 ppb) and Sodium Acetylated
+Hyaluronate (1 ppb). The string "11" appears nowhere in either document. The current
+printed tube claims "multi-level hydration with hyaluronic acid complex and various
+mushrooms" - GENOSYS themselves dropped the count.
+
+Our slides are internally inconsistent about this: s4 and s6 render the current tube text,
+while s1 and s3 render an older tube that still carries the eleven. Whoever re-exports
+should treat s4/s6 as the reference for the label artwork.
+
+Worth knowing before rewriting the copy on s4: seven of the eight forms are dosed at
+30 ppb or 1 ppb, which is 0.000003% and below. Only Sodium Hyaluronate at 1,000 ppm (0.1%)
+is present in a functional amount, and the current text already leads with that figure.
+"8 forms" is true; presenting all eight as equal actives would be the next version of the
+same problem.
+
+Separately, the Snow O₂ slides S1, S2, S3 and S6 render a bottle whose label text is
+garbled - "DERMATOLOBICALLY TESTEB", "PBOFESSIONAL", "GENOXIS is a compounet word of Gene
+Re-biuth Sonira". It reads at gallery size on desktop. Not a claims problem, but the same
+re-export should fix it.
 
 ## Not fixed, and worth a separate pass
 

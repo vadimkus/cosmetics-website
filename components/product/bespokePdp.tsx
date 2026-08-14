@@ -6,6 +6,7 @@ import { getProductsByNumbers } from '@/lib/productsDb'
 import BeautyBoxProductPage from '@/components/product/beautybox/BeautyBoxProductPage'
 import type { BeautyBoxNumber } from '@/components/product/beautybox/beautyBoxes'
 import CerabarrierProductPage from '@/components/product/cerabarrier/CerabarrierProductPage'
+import CollagenMaskProductPage from '@/components/product/collagenmask/CollagenMaskProductPage'
 import BioMesoProductPage from '@/components/product/biomeso/BioMesoProductPage'
 import BioMesoExpertProductPage from '@/components/product/biomeso/BioMesoExpertProductPage'
 import HairStampProductPage from '@/components/product/hairstamp/HairStampProductPage'
@@ -22,6 +23,7 @@ import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushPro
  * and hand it the routine products.
  */
 export const BESPOKE_PDP_LAYOUTS = {
+  '53': CollagenMaskProductPage,
   // 55 to 59 are beauty boxes: one layout, configured in beautyBoxes.ts.
   '55': BeautyBoxProductPage,
   '56': BeautyBoxProductPage,

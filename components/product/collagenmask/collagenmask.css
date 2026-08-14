@@ -1,0 +1,68 @@
+/**
+ * Palette override for the INTENSIVE REPAIR COLLAGEN MASK page (product 53).
+ *
+ * The structural design system lives in cerabarrier.css - cards, reveals,
+ * accordion, numerals, focus rings. That file is imported first and every rule
+ * in it reads from CSS variables, so this file only has to restate the
+ * variables to re-skin the whole page.
+ *
+ * WHY CRIMSON. Every other bespoke page picks an accent that separates it from
+ * its neighbours; this one picks the accent the product already has. The sachet
+ * is a single saturated block of GENOSYS red and it is the only thing in the
+ * photograph, so any other hue would have the page fighting its own packshot,
+ * most visibly in the closing band where the sachet sits against the tint.
+ *
+ * It has to stay clear of #58's garnet (#a3324a), which is the nearest thing in
+ * the range. This is warmer and a shade brighter, sitting on the orange side of
+ * red where the garnet sits on the purple side, and the two are only ever seen
+ * on different page families anyway.
+ *
+ * The neutrals are deliberately cool and close to white. Red saturates fast
+ * against a warm ground, and the gallery slides are all white-background
+ * packshots that would go pink if the cream were tinted any further.
+ *
+ * Scoped to `.cera-page.collagenmask-page`, so importing this file cannot
+ * affect products 55 to 61, 63, 64, 65 or 66, or any other route.
+ */
+
+.cera-page.collagenmask-page {
+  --cera-cream: #faf6f6;
+  --cera-cream-deep: #f2e7e7;
+  --cera-blush: #fbeceb;
+  --cera-blush-deep: #efc9c6;
+  --cera-rose: #b8323a;
+  --cera-rose-ink: #8a1f28;
+  --cera-ink: #17100f;
+  --cera-body: #3a2c2c;
+  --cera-muted: #6b5757;
+  --cera-line: #ecdcdb;
+}
+
+/* The hero stage shadow is tinted per page; restate it for the crimson theme. */
+.collagenmask-page .cera-stage {
+  background-color: #f7efef;
+  box-shadow: 0 24px 60px -34px rgba(138, 31, 40, 0.4);
+}
+
+@media (hover: hover) {
+  .collagenmask-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(23, 16, 15, 0.04), 0 26px 48px -26px rgba(138, 31, 40, 0.32);
+  }
+}
+
+/* --- Suited / not suited ------------------------------------------------- */
+/* The two lists carry opposite weight: one is a reason to buy, the other a
+   reason not to. The card is tinted as well as icon-marked so the difference
+   survives at a glance, before either list is read. Same treatment as the
+   upkeep/cautions pair on product 61. */
+.collagenmask-page .collagenmask-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+/* --- Stat strip ---------------------------------------------------------- */
+/* "18%" is the number the page is arguing on, so the stat values are set a
+   little heavier here than the shared default gives them. */
+.collagenmask-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}

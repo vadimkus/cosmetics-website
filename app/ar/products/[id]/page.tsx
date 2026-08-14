@@ -135,7 +135,7 @@ export default async function ArabicProductPage({ params }: ProductPageProps) {
   // translated.
   // getUnitsSold is only called on that branch so the shared PDP keeps its
   // current query count.
-  const BespokeLayout = getBespokePdpLayout(product, ['55', '56', '57', '58', '59', '60', '61', '63', '64', '65', '66'])
+  const BespokeLayout = getBespokePdpLayout(product, ['53', '55', '56', '57', '58', '59', '60', '61', '63', '64', '65', '66'])
   if (BespokeLayout) {
     const [unitsSold, routineProducts] = await Promise.all([
       getUnitsSold(product.id),

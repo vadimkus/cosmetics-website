@@ -11,6 +11,7 @@ import BioMesoProductPage from '@/components/product/biomeso/BioMesoProductPage'
 import BioMesoExpertProductPage from '@/components/product/biomeso/BioMesoExpertProductPage'
 import HairStampProductPage from '@/components/product/hairstamp/HairStampProductPage'
 import PdrnMaskProductPage from '@/components/product/pdrnmask/PdrnMaskProductPage'
+import PowerSolutionProductPage from '@/components/product/powersolution/PowerSolutionProductPage'
 import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
@@ -24,6 +25,8 @@ import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushPro
  * and hand it the routine products.
  */
 export const BESPOKE_PDP_LAYOUTS = {
+  // 5 is one of the six professional Power Solution ampoules.
+  '5': PowerSolutionProductPage,
   // 52 and 53 are both masks but share no layout: 52 has a clinical study and a
   // Korean functional licence to build on, 53 has neither.
   '52': PdrnMaskProductPage,
@@ -64,11 +67,28 @@ export function getBespokePdpLayout(
 }
 
 /**
- * The bespoke layouts add routine products straight to the bag, so they need
+ * Products whose cross-sell is not a retail routine.
+ *
+ * PRODUCT_ROUTINES only covers the retail line; the professional Power Solution
+ * ampoules are deliberately absent from it, because a routine that tells a
+ * shopper to layer a clinic ampoule at home is the wrong advice. What those
+ * pages cross-sell instead is the rest of their own range, since choosing
+ * between the six vials IS the decision a buyer is making.
+ */
+const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
+  // The other five Power Solutions, for the range table on product 5.
+  '5': ['4', '6', '7', '8', '9'],
+}
+
+/**
+ * The bespoke layouts add companion products straight to the bag, so they need
  * real price and stock records. Resolved on the server so the cross-sell is
  * render-complete on first paint rather than popping in after hydration.
  */
 export async function getRoutineProducts(productNumber: string): Promise<Product[]> {
+  const companions = BESPOKE_COMPANIONS[productNumber]
+  if (companions) return getProductsByNumbers([...companions])
+
   const numbers = (PRODUCT_ROUTINES[productNumber]?.steps ?? [])
     .map(step => ROUTINE_STEP_PRODUCT_IDS[step.titleKey])
     .filter((n): n is string => Boolean(n))

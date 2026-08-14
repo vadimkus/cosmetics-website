@@ -1,0 +1,189 @@
+/**
+ * Palette override for the POWER SOLUTION CVS page (product 5).
+ *
+ * The structural design system lives in cerabarrier.css - cards, reveals,
+ * accordion, numerals, focus rings. That file is imported first and every rule
+ * in it reads from CSS variables, so this file only has to restate the
+ * variables to re-skin the whole page.
+ *
+ * WHY COOL GREY AND ONE RED. Everything about this product is white, glass and
+ * clinical: a white carton, clear vials, a lifestyle shot on a lilac-grey
+ * studio backdrop sampled at #cecbd2. The only colour anywhere on it is the
+ * label red, sampled off the DNA mark and the CVS wordmark at #be0a14. So the
+ * page runs cool and near-neutral and spends its one colour on the accent,
+ * which is what the packaging does.
+ *
+ * It has to stay clear of the two bespoke pages a shopper is most likely to see
+ * either side of it. Product 53 is crimson (#b8323a) and product 52 is a warm
+ * dusty clay (#a87461); both sit on warm grounds. This one is a colder, harder
+ * red on a cold ground, and the neutrals are blue-leaning rather than
+ * brown-leaning, so a professional ampoule does not read as a retail mask.
+ *
+ * Scoped to `.cera-page.powersolution-page`, so importing this file cannot
+ * affect products 52, 53, 55 to 61, 63, 64, 65 or 66, or any other route.
+ */
+
+.cera-page.powersolution-page {
+  --cera-cream: #f5f4f8;
+  --cera-cream-deep: #e6e4ec;
+  --cera-blush: #fbecee;
+  --cera-blush-deep: #edcbcf;
+  --cera-rose: #be0a14;
+  --cera-rose-ink: #96101c;
+  --cera-ink: #161c22;
+  --cera-body: #3c4550;
+  --cera-muted: #6d7883;
+  --cera-line: #dedde5;
+  /* The closing band. The lifestyle pack shot is already on a lilac-grey
+     backdrop, so the band is set a shade lighter than that backdrop and the
+     shot sits on it as a panel rather than dissolving into it. */
+  --cera-shot: #eceaf1;
+}
+
+/* The hero stage shadow is tinted per page; restate it for the cool theme. */
+.powersolution-page .cera-stage {
+  background-color: #edecf2;
+  box-shadow: 0 24px 60px -34px rgba(22, 28, 34, 0.4);
+}
+
+/* The two inline figures - the single vial and the open box - are both on pure
+   white, and the stage contains rather than crops, so untouched they would draw
+   a hard-cornered white rectangle inside the stage's rounded tint. Multiplying
+   turns their white surround into the tint and the pack sits on the page with
+   no inner edge.
+
+   Deliberately NOT applied to the gallery or the closing band: the main shot
+   (CVS.jpg) is on a lilac-grey studio backdrop, and multiplying that would show
+   the backdrop as a grey block. Only the two white-background figures carry
+   .cera-stage on this page. */
+.powersolution-page .cera-stage img {
+  mix-blend-mode: multiply;
+}
+
+@media (hover: hover) {
+  .powersolution-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(22, 28, 34, 0.04), 0 26px 48px -26px rgba(150, 16, 28, 0.26);
+  }
+}
+
+/* --- Suited / not suited ------------------------------------------------- */
+/* The two lists carry opposite weight: one is a reason to buy, the other a
+   reason to buy a different vial in the same range. The card is tinted as well
+   as icon-marked so the difference survives at a glance. */
+.powersolution-page .ps-not {
+  background: color-mix(in srgb, var(--cera-blush) 55%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 22%, var(--cera-line));
+}
+
+/* --- Formula chart ------------------------------------------------------- */
+/* Horizontal bars rather than the vertical pairs used on product 52, because
+   there are ten rows here and each one needs its ingredient name read next to
+   it. Widths come from inline styles because they are data.
+
+   The two groups are scaled independently - the base against 12.485%, the
+   actives against 2.5% - because they are two orders of magnitude apart and a
+   single scale would render every active as an invisible sliver. The group
+   headings state the scale, and the figure is printed on every row, so the
+   chart never has to be read on its own. It is decorative reinforcement of the
+   numbers beside it and is hidden from assistive tech. */
+.powersolution-page .ps-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72px;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 0;
+}
+
+.powersolution-page .ps-row + .ps-row {
+  border-top: 1px solid color-mix(in srgb, var(--cera-line) 60%, transparent);
+}
+
+.powersolution-page .ps-row-name {
+  font-size: 14.5px;
+  line-height: 1.35;
+  color: var(--cera-body);
+}
+
+.powersolution-page .ps-row-pct {
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  text-align: end;
+  color: var(--cera-rose-ink);
+}
+
+.powersolution-page .ps-track {
+  grid-column: 1 / -1;
+  height: 7px;
+  margin-top: 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cera-line) 70%, transparent);
+  overflow: hidden;
+}
+
+.powersolution-page .ps-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--cera-rose);
+  /* Beta-glucan is 0.8% of the group scale. Without a floor it renders as
+     nothing at all, which reads as an error rather than as a small number. */
+  min-width: 3px;
+  transition: width 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.powersolution-page .ps-fill-base {
+  background: color-mix(in srgb, var(--cera-rose) 55%, #fff);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .powersolution-page .ps-fill {
+    transition: none;
+  }
+}
+
+/* --- 5-Free ------------------------------------------------------------- */
+/* Five exclusions, struck through, because the claim is about absence. The
+   line is drawn with a pseudo-element rather than text-decoration so it can be
+   set in the accent and sit at the right optical height in Arabic as well. */
+.powersolution-page .ps-free-item {
+  position: relative;
+  display: inline-block;
+}
+
+.powersolution-page .ps-free-item::after {
+  content: '';
+  position: absolute;
+  inset-inline: -3px;
+  top: 52%;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--cera-rose);
+  opacity: 0.85;
+}
+
+/* --- Range table --------------------------------------------------------- */
+/* Six rows, one per ampoule, with the current product highlighted. On mobile
+   the grid collapses so the code and the name stack above the function rather
+   than each column squeezing to a few characters. */
+.powersolution-page .ps-range-row {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1.25fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px 16px;
+}
+
+@media (max-width: 767px) {
+  .powersolution-page .ps-range-row {
+    grid-template-columns: 56px minmax(0, 1fr) auto;
+  }
+
+  .powersolution-page .ps-range-for {
+    grid-column: 2 / -1;
+  }
+}
+
+.powersolution-page .ps-range-self {
+  background: color-mix(in srgb, var(--cera-blush) 60%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 26%, var(--cera-line));
+}

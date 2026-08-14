@@ -167,7 +167,7 @@ const EN: BeautyBoxCopy = {
   loginToShop: 'Log in to shop',
   inBag: 'In your bag',
   viewBag: 'View bag',
-  badges: ['Authentic GENOSYS', 'Made in Korea', 'Two licensed brighteners', 'Ships same day before 2pm'],
+  badges: ['Authentic GENOSYS', 'Made in Korea', '6 full sizes', 'Dubai in 1-2 hours'],
   stats: [
     { value: '27.99%', label: 'less pigment on the surface after two weeks with the serum' },
     { value: '2%', label: 'niacinamide in the serum and again in the cream, morning and night' },
@@ -424,7 +424,7 @@ const AR: BeautyBoxCopy = {
   loginToShop: 'سجّل الدخول للشراء',
   inBag: 'في حقيبتك',
   viewBag: 'عرض الحقيبة',
-  badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'منتجان مرخَّصان للتفتيح', 'يُشحن في اليوم نفسه قبل الثانية ظهراً'],
+  badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'ستة أحجام كاملة', 'دبي خلال ساعة إلى ساعتين'],
   stats: [
     { value: '‎27.99%‎', label: 'صبغة أقل على السطح بعد أسبوعين مع السيروم' },
     { value: '‎2%‎', label: 'نياسيناميد في السيروم ومرة أخرى في الكريم، صباحاً ومساءً' },
@@ -676,7 +676,7 @@ const RU: BeautyBoxCopy = {
   loginToShop: 'Войдите, чтобы купить',
   inBag: 'В корзине',
   viewBag: 'Открыть корзину',
-  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Два лицензированных осветлителя', 'Отправка в тот же день до 14:00'],
+  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', '6 полных размеров', 'Дубай за 1-2 часа'],
   stats: [
     { value: '27.99%', label: 'меньше пигмента на поверхности через две недели с сывороткой' },
     { value: '2%', label: 'ниацинамида в сыворотке и снова в креме, утром и вечером' },

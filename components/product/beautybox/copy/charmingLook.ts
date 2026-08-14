@@ -136,7 +136,7 @@ const EN: BeautyBoxCopy = {
   loginToShop: 'Log in to shop',
   inBag: 'In your bag',
   viewBag: 'View bag',
-  badges: ['Authentic GENOSYS', 'Made in Korea', 'Triple-function cushion', 'Ships same day before 2pm'],
+  badges: ['Authentic GENOSYS', 'Made in Korea', 'Triple-function cushion', 'Dubai in 1-2 hours'],
   stats: [
     { value: '3', label: 'jobs the cushion does at once: sun protection, brightening, wrinkles' },
     { value: 'SPF50+', label: 'PA++++, from five filters totalling a quarter of the formula' },
@@ -378,7 +378,7 @@ const AR: BeautyBoxCopy = {
   loginToShop: 'سجّل الدخول للشراء',
   inBag: 'في سلّتك',
   viewBag: 'عرض السلة',
-  badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'كوشن ثلاثي الوظيفة', 'يُشحن في اليوم نفسه قبل الثانية ظهراً'],
+  badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'كوشن ثلاثي الوظيفة', 'دبي خلال ساعة إلى ساعتين'],
   stats: [
     { value: '3', label: 'وظائف يؤدّيها الكوشن دفعة واحدة: حماية من الشمس، تفتيح، تجاعيد' },
     /* Every SPF and PA token in this Arabic block sits inside U+2066/U+2069.
@@ -619,7 +619,7 @@ const RU: BeautyBoxCopy = {
   loginToShop: 'Войдите, чтобы купить',
   inBag: 'В корзине',
   viewBag: 'Открыть корзину',
-  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Кушон тройного действия', 'Отправка в день заказа до 14:00'],
+  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Кушон тройного действия', 'Дубай за 1-2 часа'],
   stats: [
     { value: '3', label: 'задачи кушон решает разом: защита от УФ, тон, морщины' },
     { value: 'SPF50+', label: 'PA++++, на пяти фильтрах — это четверть формулы' },

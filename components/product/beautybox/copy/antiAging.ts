@@ -147,7 +147,7 @@ const EN: BeautyBoxCopy = {
   loginToShop: 'Log in to shop',
   inBag: 'In your bag',
   viewBag: 'View bag',
-  badges: ['Authentic GENOSYS', 'Made in Korea', 'Dermatologically tested', 'Ships same day before 2pm'],
+  badges: ['Authentic GENOSYS', 'Made in Korea', 'Dermatologically tested', 'Dubai in 1-2 hours'],
   stats: [
     { value: '5', label: 'full-size products, in the order you use them' },
     { value: '2%', label: 'niacinamide in the serum and in the cream, confirmed batch by batch' },
@@ -375,7 +375,7 @@ const AR: BeautyBoxCopy = {
   loginToShop: 'سجّلي الدخول للشراء',
   inBag: 'في حقيبتك',
   viewBag: 'عرض الحقيبة',
-  badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'مختبر من أطباء الجلد', 'يُشحن في اليوم نفسه قبل الثانية ظهراً'],
+  badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'مختبر من أطباء الجلد', 'دبي خلال ساعة إلى ساعتين'],
   stats: [
     { value: '5', label: 'منتجات بالحجم الكامل، بترتيب استخدامها' },
     { value: '2%', label: 'نياسيناميد في السيروم وفي الكريم، معايَر في كل دفعة' },
@@ -603,7 +603,7 @@ const RU: BeautyBoxCopy = {
   loginToShop: 'Войдите, чтобы купить',
   inBag: 'В корзине',
   viewBag: 'Открыть корзину',
-  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Дерматологический контроль', 'Отправка в день заказа до 14:00'],
+  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Дерматологический контроль', 'Дубай за 1-2 часа'],
   stats: [
     { value: '5', label: 'средств полного объёма, в порядке применения' },
     { value: '2%', label: 'ниацинамида в сыворотке и в креме, с проверкой в каждой партии' },

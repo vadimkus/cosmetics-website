@@ -119,7 +119,7 @@ const EN: BeautyBoxCopy = {
   loginToShop: 'Log in to shop',
   inBag: 'In your bag',
   viewBag: 'View bag',
-  badges: ['Authentic GENOSYS', 'Made in Korea', 'Full retail sizes', 'Ships same day before 2pm'],
+  badges: ['Authentic GENOSYS', 'Made in Korea', 'Full retail sizes', 'Dubai in 1-2 hours'],
   stats: [
     { value: '5', label: 'full-size products, in the order you use them' },
     { value: '82%', label: 'more hydration immediately after one application of the cream' },
@@ -340,7 +340,7 @@ const AR: BeautyBoxCopy = {
   loginToShop: 'سجّلي الدخول للشراء',
   inBag: 'في حقيبتك',
   viewBag: 'عرض الحقيبة',
-  badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'أحجام كاملة', 'يُشحن في اليوم نفسه قبل الثانية ظهراً'],
+  badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'أحجام كاملة', 'دبي خلال ساعة إلى ساعتين'],
   stats: [
     { value: '5', label: 'منتجات بالحجم الكامل، بترتيب استخدامها' },
     { value: '82%', label: 'ترطيب أعلى فوراً بعد استخدام واحد للكريم' },
@@ -561,7 +561,7 @@ const RU: BeautyBoxCopy = {
   loginToShop: 'Войдите, чтобы купить',
   inBag: 'В корзине',
   viewBag: 'Открыть корзину',
-  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Полные объёмы', 'Отправка в день заказа до 14:00'],
+  badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Полные объёмы', 'Дубай за 1-2 часа'],
   stats: [
     { value: '5', label: 'средств полного объёма, в порядке применения' },
     { value: '82%', label: 'прибавка увлажнённости сразу после одного нанесения крема' },

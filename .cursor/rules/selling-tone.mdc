@@ -1,0 +1,56 @@
+---
+description: Write GENOSYS customer-facing copy to sell, not to audit the product
+alwaysApply: true
+---
+
+# Selling Tone
+
+Applies to every string a customer reads: bespoke page copy modules, `data/productTranslations*.ts`,
+`messages/{en,ru,ar}.json`, product records in the DB, emails, and social captions. All three
+languages, not just English.
+
+We are selling the product, not examining it. The Intertek dossier is where a claim is
+*verified*, never how it is *phrased*.
+
+## Five rules
+
+1. **Lead with what it does for the buyer.** Regulatory and lab facts are the proof underneath
+   the claim, never the headline.
+2. **Never cite the packaging as a source in body copy.** Exception: `fullInciNote` and
+   precaution notes, where "as printed on the carton" tells the buyer the on-screen list matches
+   the pack in their hand. That is a trust signal and it stays.
+3. **No dossier vocabulary.** Banned in body copy: declared, assayed, batch pH, certificate of
+   analysis, paperwork, test mark, released against, label rounding.
+4. **Never undercut a claim in the next clause.** No "a real but modest dose", "shows direction,
+   not a guarantee", "we will not invent a number", "not a fault in the formula".
+5. **Never name a contract manufacturer.** GENIC, SLC, CNF and the like stay off the page.
+   DTS MG is fine everywhere: it owns GENOSYS, so it reads as heritage.
+
+Also: no "the manufacturer says/records/specifies/describes". If the claim is good enough to
+print, make it in our own voice.
+
+## Examples
+
+```
+BAD   The registered piece. Five UV filters take it to SPF50+ PA++++, and the same formula
+      carries niacinamide at 2%...
+GOOD  Coverage, sun protection and skincare in one press of the puff, and Korea licenses it
+      for all three at once. Five filters take it to SPF50+ PA++++...
+
+BAD   The cleanser, toner and cream all carry a dermatological test mark on their cartons.
+GOOD  Cleanser, toner and cream all dermatologically tested.
+
+BAD   Declared at 2% in both. On the lots we hold certificates for it came back at 98.65%.
+GOOD  A full 2% in both, and every batch is tested to prove it. The latest came back at 98.65%.
+
+BAD   Its carton says it can go over make-up.
+GOOD  Light enough to go straight over make-up.
+```
+
+## What is not self-defeating
+
+Honest guidance that protects the buyer stays, and makes everything else believable:
+SPF layering advice, downtime and peeling timelines, pregnancy referrals to a doctor, and
+"look elsewhere if" lists that talk someone out of the wrong product.
+
+Accuracy is never traded for tone. Reword a claim, never loosen it.

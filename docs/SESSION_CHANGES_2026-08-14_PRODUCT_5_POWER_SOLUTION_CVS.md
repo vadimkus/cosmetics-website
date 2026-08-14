@@ -372,3 +372,17 @@ having worked.
   file is written once.
 - `scripts/set-cvs-5-square-hero-20260814.ts` — points product 5 at the new hero
   and keeps the main image out of the gallery array. Dry run by default.
+
+### Mistake worth not repeating: order of operations
+
+The database was pointed at `/images/cvs-hero.jpg` *before* the file was pushed.
+The database is shared with production, so production started asking for the new
+hero on its next render while the asset still returned **404** — about three
+minutes of a broken hero image on a live product page. Polling caught it: the
+page referenced `cvs-hero` from the second attempt, the asset only answered 200 on
+the eleventh.
+
+The product-gallery-images rule already says to commit and push the image files
+first, because they only serve after the Vercel deploy, and *then* update the
+database. Local-only verification is not a reason to skip that order — there is
+no local-only database.

@@ -633,7 +633,15 @@ export default function BeautyBoxProductPage({
                   </h3>
 
                   <p className="mt-1.5 flex flex-wrap items-baseline gap-x-2.5 gap-y-1 text-[13.5px] text-[var(--cera-muted)]">
-                    {item.size ? <span className="tabular-nums">{item.size}</span> : null}
+                    {item.size ? (
+                      /* dir=auto, because a size that opens on a digit ("1 sheet (25g)")
+                         has the 1 thrown to the end of the line in an Arabic paragraph.
+                         Auto resolves off the first strong character, so Latin sizes stay
+                         Latin and translated Arabic sizes stay Arabic. */
+                      <span className="tabular-nums" dir="auto">
+                        {item.size}
+                      </span>
+                    ) : null}
                     {canSeePrices && item.unitPrice !== null ? (
                       <span className="tabular-nums">
                         {item.unitPrice.toFixed(2)} {currency} {copy.contents.each}

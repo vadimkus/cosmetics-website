@@ -146,7 +146,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
   // Products 57 to 61 and 63 to 66 have bespoke editorial layouts. Every other
   // product keeps the shared PDP.
-  const BespokeLayout = getBespokePdpLayout(product, ['56', '57', '58', '59', '60', '61', '63', '64', '65', '66'])
+  const BespokeLayout = getBespokePdpLayout(product, ['55', '56', '57', '58', '59', '60', '61', '63', '64', '65', '66'])
   if (BespokeLayout) {
     return (
       <BespokeLayout

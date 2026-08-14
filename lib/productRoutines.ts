@@ -373,12 +373,18 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
       step('routineScalpBrushTitle', 'routineScalpBrushDesc'),
     ],
   },
+  /* The brush sits second, immediately after the shampoo, because DTS MG's own
+     instruction is to use the two together in the shower: "apply shampoo to
+     create sufficient lather. Massage scalp with the brush." Listing the brush
+     last, after the leave-on tonic, implied a dry post-tonic massage that no
+     manufacturer document describes. */
   '61': {
     headingKey: 'recommendedHairCareRoutine',
     steps: [
+      step('routineScalpPeelingTitle', 'routineScalpPeelingDesc'),
       step('routineScalpShampooTitle', 'routineScalpShampooDesc'),
-      step('routineHairTonicTitle', 'routineHairTonicDesc'),
       step('routineScalpBrushTitle', 'routineScalpBrushDesc'),
+      step('routineHairTonicTitle', 'routineHairTonicDesc'),
     ],
   },
   '64': {
@@ -466,11 +472,21 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
       step('routineMultiVitaCreamTitle', 'routineMultiVitaCreamDesc'),
     ],
   },
+  /* All five items the Charming Look box actually contains. The remover and the
+     overnight mask were missing, which mattered once the box page started
+     deriving its contents list and its saving from this routine: three of five
+     products would have priced a five-product box.
+     Order follows the two rules the catalogue keeps everywhere: a remover comes
+     before the cleanser, and complexion make-up is the last step. The overnight
+     mask therefore sits with the treatments, which is the same compromise every
+     mixed morning-and-evening routine in this file makes. */
   '57': {
     headingKey: 'recommendedSkincareMakeupRoutine',
     steps: [
+      step('routineMakeupRemoverTitle', 'routineMakeupRemoverDesc'),
       CLEANSE,
       step('routineSnowBoosterTitle', 'routineSnowBoosterDescMakeup'),
+      step('routineOvernightMaskTitle', 'routineOvernightMaskDesc'),
       step('routineBBCushionTitle', 'routineBBCushionDesc'),
     ],
   },

@@ -22,7 +22,8 @@ import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushPro
  * and hand it the routine products.
  */
 export const BESPOKE_PDP_LAYOUTS = {
-  // 57, 58 and 59 are beauty boxes: one layout, configured in beautyBoxes.ts.
+  // 55 to 59 are beauty boxes: one layout, configured in beautyBoxes.ts.
+  '55': BeautyBoxProductPage,
   '56': BeautyBoxProductPage,
   '57': BeautyBoxProductPage,
   '58': BeautyBoxProductPage,

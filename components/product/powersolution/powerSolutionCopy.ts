@@ -386,7 +386,7 @@ const EN: PowerSolutionCopy = {
       {
         title: 'Very little to react to',
         body:
-          'No fragrance, no ethanol, no pigment, and a pH of 5.94 on the last lot tested, which is close to skin. On a face that has just been through a treatment, what a product leaves out matters as much as what it puts in.',
+          'No fragrance, no ethanol, no pigment, and a pH of 5.94, which is close to skin. On a face that has just been through a treatment, what a product leaves out matters as much as what it puts in.',
       },
       {
         title: 'It stays on',
@@ -524,7 +524,7 @@ const EN: PowerSolutionCopy = {
     ],
     inciTitle: 'Full ingredient list',
     inciNote:
-      'As printed on the carton. pH is tested on every lot; the last one came back at 5.94 against a 6.00 ± 1.00 specification.',
+      'As printed on the carton. pH is tested on every batch, and the last came back at 5.94 against a 6.00 ± 1.00 specification.',
   },
   suited: {
     eyebrow: 'Honestly',
@@ -574,7 +574,7 @@ const EN: PowerSolutionCopy = {
       },
       {
         q: 'How long does a box last?',
-        a: 'Ten treatments, one vial each. Unopened it holds three years from manufacture: the lot we last certified was made in December 2024 and runs to November 2027.',
+        a: 'Ten treatments, one vial each. Unopened it holds three years from manufacture, and the expiry date is printed on the box.',
       },
       {
         q: 'Is it safe in pregnancy?',
@@ -592,10 +592,10 @@ const EN: PowerSolutionCopy = {
       { label: 'Base', value: 'Butylene glycol 12.5% and glycerin 11.5%, 23.97% together' },
       { label: 'Key actives', value: 'Soy ferment 2.5%, panthenol 0.5%, allantoin 0.1%, sodium hyaluronate 0.1%, marine collagen 0.1%' },
       { label: 'Peptides', value: 'sh-Polypeptide-7 1 ppm, palmitoyl tripeptide-1 0.5 ppm' },
-      { label: 'pH', value: '5.94 on lot L1036B, against a 6.00 ± 1.00 specification' },
+      { label: 'pH', value: '5.94, inside a 6.00 ± 1.00 specification' },
       { label: 'Free from', value: 'Parabens, ethanol, artificial pigment, artificial fragrance, artificial surfactant' },
-      { label: 'Shelf life', value: 'Three years unopened; lot L1036B runs to November 2027' },
-      { label: 'Tested', value: 'Dermatologically tested; every lot certified for pH, gravity and microbial count' },
+      { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the box' },
+      { label: 'Tested', value: 'Dermatologically tested, and every batch tested for pH, gravity and microbial count' },
       { label: 'Made by', value: 'DTS MG Co., Ltd., South Korea' },
     ],
   },
@@ -837,7 +837,7 @@ const AR: PowerSolutionCopy = {
       },
       {
         q: 'كم تكفي العلبة؟',
-        a: 'عشر جلسات، قارورة لكل واحدة. وغير مفتوحة تبقى ثلاث سنوات من تاريخ الإنتاج: التشغيلة التي شهدناها أخيراً أُنتجت في ديسمبر 2024 وتصلح حتى نوفمبر 2027.',
+        a: 'عشر جلسات، قارورة لكل واحدة. وغير مفتوحة تبقى ثلاث سنوات من تاريخ الإنتاج، وتاريخ انتهاء الصلاحية مطبوع على العلبة.',
       },
       {
         q: 'هل هي آمنة أثناء الحمل؟',
@@ -855,10 +855,10 @@ const AR: PowerSolutionCopy = {
       { label: 'القاعدة', value: 'بيوتيلين جلايكول 12.5% وجليسرين 11.5%، أي 23.97% معاً' },
       { label: 'المواد الفعالة', value: 'خميرة صويا 2.5%، بانثينول 0.5%، ألانتوين 0.1%، هيالورونات الصوديوم 0.1%، كولاجين بحري 0.1%' },
       { label: 'الببتيدات', value: 'sh-Polypeptide-7 جزء واحد في المليون، palmitoyl tripeptide-1 نصف جزء في المليون' },
-      { label: 'الحموضة', value: '5.94 في التشغيلة L1036B مقابل مواصفة 6.00 ± 1.00' },
+      { label: 'الحموضة', value: '5.94، داخل مواصفة 6.00 ± 1.00' },
       { label: 'خالٍ من', value: 'البارابين، الإيثانول، الأصباغ الصناعية، العطور الصناعية، المواد الخافضة للتوتر السطحي الصناعية' },
-      { label: 'مدة الصلاحية', value: 'ثلاث سنوات غير مفتوحة؛ التشغيلة L1036B صالحة حتى نوفمبر 2027' },
-      { label: 'الاختبارات', value: 'مختبر جلدياً؛ كل تشغيلة معتمدة للحموضة والكثافة والعدّ الميكروبي' },
+      { label: 'مدة الصلاحية', value: 'ثلاث سنوات غير مفتوحة، وتاريخ انتهاء الصلاحية مطبوع على العلبة' },
+      { label: 'الاختبارات', value: 'مختبر جلدياً، وكل دفعة تُختبَر للحموضة والكثافة والعدّ الميكروبي' },
       { label: 'الصانع', value: 'DTS MG Co., Ltd.، كوريا الجنوبية' },
     ],
   },
@@ -913,7 +913,7 @@ const RU: PowerSolutionCopy = {
       {
         title: 'Реагировать почти не на что',
         body:
-          'Ни отдушки, ни этанола, ни красителя, и pH 5,94 на последней проверенной партии, то есть близко к коже. На лице, которое только что прошло процедуру, отсутствие компонента значит не меньше, чем его наличие.',
+          'Ни отдушки, ни этанола, ни красителя, и pH 5,94 — то есть близко к коже. На лице, которое только что прошло процедуру, отсутствие компонента значит не меньше, чем его наличие.',
       },
       {
         title: 'Остаётся на коже',
@@ -1100,7 +1100,7 @@ const RU: PowerSolutionCopy = {
       },
       {
         q: 'На сколько хватает коробки?',
-        a: 'На десять процедур, по флакону на каждую. Невскрытая она хранится три года с даты производства: последняя сертифицированная партия сделана в декабре 2024 года и годна до ноября 2027-го.',
+        a: 'На десять процедур, по флакону на каждую. Невскрытая она хранится три года с даты производства, срок годности напечатан на коробке.',
       },
       {
         q: 'Безопасно при беременности?',
@@ -1118,10 +1118,10 @@ const RU: PowerSolutionCopy = {
       { label: 'База', value: 'Бутиленгликоль 12,5% и глицерин 11,5%, вместе 23,97%' },
       { label: 'Активы', value: 'Соевый фермент 2,5%, пантенол 0,5%, аллантоин 0,1%, гиалуронат натрия 0,1%, морской коллаген 0,1%' },
       { label: 'Пептиды', value: 'sh-Polypeptide-7 1 ppm, palmitoyl tripeptide-1 0,5 ppm' },
-      { label: 'pH', value: '5,94 на партии L1036B при спецификации 6,00 ± 1,00' },
+      { label: 'pH', value: '5,94, в пределах спецификации 6,00 ± 1,00' },
       { label: 'Без', value: 'Парабенов, этанола, искусственных красителей, искусственной отдушки, искусственных ПАВ' },
-      { label: 'Срок годности', value: 'Три года невскрытым; партия L1036B годна до ноября 2027' },
-      { label: 'Тестирование', value: 'Дерматологически протестировано; каждая партия сертифицирована по pH, плотности и микробиологии' },
+      { label: 'Срок годности', value: 'Три года невскрытым, срок годности напечатан на коробке' },
+      { label: 'Тестирование', value: 'Дерматологически протестировано, и каждая партия проверяется по pH, плотности и микробиологии' },
       { label: 'Производитель', value: 'DTS MG Co., Ltd., Южная Корея' },
     ],
   },

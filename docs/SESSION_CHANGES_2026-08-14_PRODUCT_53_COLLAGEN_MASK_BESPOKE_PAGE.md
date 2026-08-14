@@ -75,6 +75,7 @@ pH comes from the two COAs: **6.67** and **6.96** against a spec of 6.50 +/- 1.0
 | Boosts collagen production | DB, AR, RU | False mechanism, and a drug claim in any case |
 | Clinically tested, proven results | DB | No study exists for this product |
 | Клинически доказан для улучшения увлажнения | RU `directions` | Same claim, survived the first pass in Russian only |
+| Clinically proven to improve skin hydration | EN `directions` | Same claim again. Survived two passes and was caught only by grepping the deployed page |
 | Brightening, evens tone | DB, AR, RU | No vitamin C, niacinamide, arbutin or any other brightener in the formula |
 | Anti-ageing, antioxidant | DB, AR, RU | English pack claims neither; only the Russian pack panel does, and that is logged as an artwork correction rather than copied onto the site |
 | Antioxidant care (botanical card) | DB, AR, RU | Same, at ingredient level |
@@ -163,14 +164,44 @@ Logged to `~/Desktop/genosys-artwork-corrections.html` under product 53.
 
 The gallery is unchanged pending a decision on whether to pull S2, S3 and S5 or re-export them.
 
-## 8. Pack corrections for DTS MG
+## 8. The same claim class elsewhere in the catalogue
+
+A catalogue-wide scan for `clinically proven / tested / validated` and
+`boosts / stimulates collagen production` returns **13 of 66 products**. Each needs the same
+dossier check this one got before anything is changed - some of these are probably supported,
+since the DTS MG decks do carry clinical figures for Cerabarrier and the PDRN mask, and
+"stimulates collagen production" is defensible for the microneedling devices where it
+describes a wound-healing response rather than a topical mechanism.
+
+| Product | Field | Term |
+|---|---|---|
+| 52 SKIN REBOOT PDRN MASK PACK | directions, ingredients | clinically proven, stimulates collagen production |
+| 58 ANTI-AGING BEAUTY BOX | description | clinically proven |
+| 62 SENSITIVE SKIN BEAUTY BOX | description | clinically proven |
+| 66 CERABARRIER BIOME GEL CLEANSER | description, benefits | clinically proven |
+| EyeCell EYE ZONE CARE KIT | description | stimulate collagen production |
+| ND Cell ANTI-WRINKLE CREAM | keyFeatures, productDetails | stimulate collagen production, clinically proven |
+| MULTI FUNCTIONAL ANTI-WRINKLE SERUM | productDetails | clinically tested |
+| SOOTHING REPAIR POSTCREAM | productDetails | clinically proven |
+| MULTI VITA RADIANCE CREAM | benefits | stimulates collagen production |
+| EyeCell EYE CONTOUR SERUM | benefits | stimulates collagen production |
+| SKIN RESCUE OVERNIGHT CREAM MASK | directions | clinically proven |
+| SKIN RENEWAL PEELING SYSTEM (SRS) | ingredients | stimulate collagen production |
+| HYDRO COOL MODELING MASK | benefits | stimulates collagen production |
+
+Worth noting how product 53's copy survived two dedicated cleanup passes: the claim was in
+`directions`, a field that renders low on the page and was not in the set being reviewed.
+Grepping the deployed HTML rather than the source is what caught it, and is worth repeating
+on each product in this series.
+
+## 9. Pack corrections for DTS MG
 
 Already logged; unchanged by this session. The urgent one is that **two packs are in
 circulation stamping expiry in opposite formats** - `EXP. YYYY/MM/DD` on the photographed
 sachet, `EXP. DD/MM/YYYY` on the 2024 artwork - so a batch stamped `01/02/2026` means
 1 February on one pack and 2 January on the other.
 
-## 9. Files touched
+## 10. Files touched
 
 ```
 components/product/collagenmask/CollagenMaskProductPage.tsx   new
@@ -184,6 +215,7 @@ data/productTranslations.ts                                   claims + duplicate
 data/productTranslationsRu.ts                                 claims incl. clinical claim
 scripts/fix-collagen-mask-53-claims-20260814.ts               DB, first pass
 scripts/fix-collagen-mask-53-consistency-20260814.ts          DB, second pass
+scripts/fix-collagen-mask-53-directions-20260814.ts           DB, clinical claim in directions
 ~/Desktop/genosys-artwork-corrections.html                    slide rows
 ```
 

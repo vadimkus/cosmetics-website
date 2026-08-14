@@ -98,6 +98,54 @@ All from the DTS MG professional and homecare decks, four-week measurements:
 Three of the five products in the box were measured. The `evidence.intro` says
 exactly that — an earlier draft said "three of the four", which was wrong.
 
+## Follow-up: the member products themselves
+
+Script: `scripts/fix-problem-line-claims-20260814.ts`
+
+Verifying the box turned up three problems that live on #15, #20 and #30 rather
+than on the box.
+
+**1. The Russian toner page listed ingredients the toner does not contain.**
+Its five cards were witch hazel, aloe vera, niacinamide, salicylic acid and tea
+tree. The first three are in none of the 31 ingredients in the formula. This was
+a legacy translation that had never been checked against the product. Replaced
+with the real five, matching the English and Arabic sets.
+
+A structural check across the whole catalogue — comparing ingredient card sets
+per product across the three locales, ignoring the Full INCI card that locales
+correctly do not duplicate — now reports no mismatches anywhere. #15 was the only
+one.
+
+**2. Antimicrobial as a headline claim, in places the first pass missed.**
+The cream's description and benefits were cleaned earlier the same day; its
+`productDetails` and two ingredient cards were not, and the toner carried the
+same phrasing on its tea tree card. The manufacturer's deck does say
+"antimicrobial and anti-inflammatory" (Professional 2025, slide 26), so the claim
+has a source — but it is drug register on a consumer page in this market, and it
+now reads consistently across the line in all three locales. "Anti-inflammatory"
+went the same way on the panthenol and beta-glucan cards.
+
+**3. Willow bark sold as an exfoliant.** The serum card called Salix Nigra a
+"natural salicylic acid source that gently exfoliates". The serum declares it at
+**0.001%**, which is 10 ppm. It stays named — accurately, as
+`Salix Nigra (Willow) Bark Extract` — as a clarifying botanical alongside zinc
+PCA. It is not the exfoliating step. The serum contains no salicylic acid of its
+own; that is the toner, also at 0.001%.
+
+Also dropped: `"testing":"Dermatologically tested and clinically proven"` on the
+serum. The patch test supports "dermatologically tested". "Clinically proven" is
+a step beyond what is on file.
+
+### Deliberately not changed
+
+The site's Full INCI strings mirror the printed cartons, **including** the Zinc
+PCA ordering error. The pack is what the customer holds, so the two should agree.
+The reorder is logged as an artwork correction instead.
+
+The toner keeps its "gently exfoliates and removes impurities" benefit. Slide 32
+credits salicylic acid with promoting exfoliation and removing sebum remnants in
+this product specifically.
+
 ## Page
 
 - Copy module: `components/product/beautybox/copy/problemSkin.ts`

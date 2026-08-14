@@ -336,7 +336,7 @@ In short, PDRN (Polydeoxyribonucleotide) comes from salmon DNA and helps with ce
 - Enhances ingredient absorption by up to 300%
 
 **Peptide Complex**
-- sh-Polypeptide-7: IGF-1-analog peptide for cell regeneration
+- sh-Polypeptide-7: recombinant human peptide with the somatotropin sequence, made by fermentation (NOT an IGF-1 analogue - that is sh-Oligopeptide-2, which GENOSYS does not use)
 - sh-Oligopeptide-1 (EGF): Epidermal Growth Factor for skin renewal
 - Copper Tripeptide-1: Stimulates collagen production
 - Palmitoyl Peptide Complex: Anti-aging and firming
@@ -631,7 +631,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 ## Key Ingredients (KNOW THESE IN DETAIL!)
 
 ### Signature GENOSYS Peptides
-- **sh-Polypeptide-7**: IGF-1-analog peptide that stimulates cell regeneration and promotes skin renewal
+- **sh-Polypeptide-7**: recombinant human peptide carrying the 217-amino-acid somatotropin sequence, grown by fermentation so every batch is identical. COSING lists it as a skin protectant. NEVER call it an IGF-1 analogue - the IGF-1 peptide is sh-Oligopeptide-2 and is not in any GENOSYS product
 - **sh-Oligopeptide-1 (EGF)**: Epidermal Growth Factor - accelerates cell renewal, supports skin repair, increases collagen production
 - **Copper Tripeptide-1**: Powerful collagen stimulator, promotes wound healing and skin firming
 - **Palmitoyl Peptide Complex**: Anti-aging peptide that reduces wrinkles and improves skin elasticity

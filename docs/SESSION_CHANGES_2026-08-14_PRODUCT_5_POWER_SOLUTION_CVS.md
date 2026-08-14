@@ -248,3 +248,26 @@ Throwaway, in `scripts/tmp/`: `cvs-locales.py`, `cvs-peptide-locales.py`,
 `cvs-use-context-locales.py`, `check-locales.ts`, `ps-siblings.ts`, `shoot-p5.js`.
 
 All DB scripts are dry-run by default and need `--apply` to write.
+
+---
+
+## Follow-up: two more sources of the IGF-1 claim (found during production verification)
+
+Verifying the range on production turned up the same falsehood in two places the
+first sweep missed, because it only searched the database and the translation
+files:
+
+- **`lib/chatbot/config.ts`** — the chat widget's knowledge base told customers
+  sh-Polypeptide-7 was an *"IGF-1-analog peptide that stimulates cell
+  regeneration"*. This is live customer-facing text and the most likely place the
+  claim would have been repeated verbatim. Rewritten, and given an explicit
+  instruction never to call it an IGF-1 analogue, naming sh-Oligopeptide-2 as the
+  peptide that actually is one.
+- **`lib/products.ts`** — the static catalogue served by
+  `staticCatalogFallback()` in `lib/productsDb.ts` whenever a database read
+  fails. Eight occurrences: six across the Power Solution descriptions and two in
+  the HR³ hair solution peptide lists.
+
+The Snow O2 / Skin Rescue Overnight growth-factor complex genuinely lists IGF-1
+as one of five factors, so those mentions in the translation files were left
+alone.

@@ -16,6 +16,7 @@ import type { BeautyBoxLocaleCopy } from './beautyBoxCopy'
 import { ANTI_AGING_COPY } from './copy/antiAging'
 import { CHARMING_LOOK_COPY } from './copy/charmingLook'
 import { DEEP_MOISTURIZING_COPY } from './copy/deepMoisturizing'
+import { SKIN_BRIGHTENING_COPY } from './copy/skinBrightening'
 
 export interface BeautyBoxConfig {
   copy: BeautyBoxLocaleCopy
@@ -26,6 +27,7 @@ export interface BeautyBoxConfig {
 /* `satisfies` rather than an annotation, so the catalogue numbers stay literal
    types and bespokePdp.tsx can check that every box listed here has a route. */
 export const BEAUTY_BOXES = {
+  '56': { copy: SKIN_BRIGHTENING_COPY, palette: 'bb-amber' },
   '57': { copy: CHARMING_LOOK_COPY, palette: 'bb-mauve' },
   '58': { copy: ANTI_AGING_COPY, palette: 'bb-garnet' },
   '59': { copy: DEEP_MOISTURIZING_COPY, palette: 'bb-water' },

@@ -2,6 +2,8 @@ import { notFound, permanentRedirect } from 'next/navigation'
 import { Product } from '@/types'
 import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from '@/app/products/[id]/ProductPageClientRefactored'
+import { getBespokePdpLayout, getRoutineProducts } from '@/components/product/bespokePdp'
+import { getUnitsSold } from '@/lib/salesStats'
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
@@ -126,6 +128,21 @@ export default async function RussianProductPage({ params }: ProductPageProps) {
   
   if (!product) {
     notFound()
+  }
+
+  // Products 57 to 61 and 63 to 66 have bespoke editorial layouts, all fully
+  // translated.
+  // getUnitsSold is only called on that branch so the shared PDP keeps its
+  // current query count.
+  const BespokeLayout = getBespokePdpLayout(product, ['56', '57', '58', '59', '60', '61', '63', '64', '65', '66'])
+  if (BespokeLayout) {
+    const [unitsSold, routineProducts] = await Promise.all([
+      getUnitsSold(product.id),
+      getRoutineProducts(product.productNumber!),
+    ])
+    return (
+      <BespokeLayout product={product} unitsSold={unitsSold} routineProducts={routineProducts} />
+    )
   }
 
   return <ProductPageClientRefactored product={product} />

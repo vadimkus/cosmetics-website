@@ -106,6 +106,40 @@
   }
 }
 
+/* --- 56, SKIN BRIGHTENING ----------------------------------------------- */
+/* The only dark object in the photograph is the serum, and it is amber glass
+   full of visibly golden liquid, standing at the front of the group. That is
+   also the premise of the box, so the accent comes from the bottle.
+   63, the RevitaGlow BB, already holds a warm gold, but that one is a pale,
+   desaturated beige-gold (#c2955f) against this marigold, and the two sit far
+   enough apart that the pages never read as one template. Nothing else in the
+   set is anywhere near the amber range. The creams stay warm so the mint
+   peeling-gel tube and the deep green mask sachet in the photograph read as
+   accents against the page rather than fighting it. */
+.cera-page.bb-amber {
+  --cera-cream: #fbf7f1;
+  --cera-cream-deep: #f4eade;
+  --cera-blush: #f8eddd;
+  --cera-blush-deep: #e5cda8;
+  --cera-rose: #b4762a;
+  --cera-rose-ink: #85520f;
+  --cera-ink: #17130c;
+  --cera-body: #38312a;
+  --cera-muted: #6a5c4b;
+  --cera-line: #ece0cf;
+  --cera-shot: #ffffff;
+}
+
+.bb-amber .cera-stage {
+  box-shadow: 0 20px 52px -34px rgba(133, 82, 15, 0.28);
+}
+
+@media (hover: hover) {
+  .bb-amber .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(23, 19, 12, 0.04), 0 26px 48px -26px rgba(133, 82, 15, 0.3);
+  }
+}
+
 /* --- Shared: the hero stage --------------------------------------------- */
 /* The single-product pages tint this, because their packshots are square studio
  * shots that fill it edge to edge and the tint is never actually visible. The

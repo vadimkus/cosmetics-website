@@ -2,6 +2,7 @@ import { notFound, permanentRedirect } from 'next/navigation'
 import { Product } from '@/types'
 import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from './ProductPageClientPhaseA'
+import { getBespokePdpLayout, getRoutineProducts } from '@/components/product/bespokePdp'
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { getUnitsSold } from '@/lib/salesStats'
@@ -142,6 +143,19 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   const unitsSold = await getUnitsSold(product.id)
+
+  // Products 57 to 61 and 63 to 66 have bespoke editorial layouts. Every other
+  // product keeps the shared PDP.
+  const BespokeLayout = getBespokePdpLayout(product, ['56', '57', '58', '59', '60', '61', '63', '64', '65', '66'])
+  if (BespokeLayout) {
+    return (
+      <BespokeLayout
+        product={product}
+        unitsSold={unitsSold}
+        routineProducts={await getRoutineProducts(product.productNumber!)}
+      />
+    )
+  }
 
   return <ProductPageClientRefactored product={product} unitsSold={unitsSold} />
 }

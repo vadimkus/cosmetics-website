@@ -1,0 +1,46 @@
+/**
+ * Palette override for the HR³ MATRIX HAIR STAMP page (product 64).
+ *
+ * The structural design system lives in cerabarrier.css — cards, reveals,
+ * accordion, numerals, focus rings. That file is imported first and every rule
+ * in it reads from CSS variables, so this file only has to restate the
+ * variables to re-skin the whole page.
+ *
+ * Cerabarrier is warm rose on cream and Bio-Meso is pearl on violet, because
+ * both are creams in soft packaging. This is a black anodized instrument shot
+ * on white, so the palette is graphite and cool steel: closer to a device
+ * spec sheet than to skincare, which is what the product actually is.
+ *
+ * Scoped to `.cera-page.hairstamp-page`, so importing this file cannot affect
+ * products 65 or 66 or any other route.
+ */
+
+.cera-page.hairstamp-page {
+  --cera-cream: #f6f7f9;
+  --cera-cream-deep: #eaedf1;
+  --cera-blush: #e9eef3;
+  --cera-blush-deep: #cfd9e3;
+  --cera-rose: #64809b;
+  --cera-rose-ink: #33475c;
+  --cera-ink: #12161a;
+  --cera-body: #333b43;
+  --cera-muted: #5b656f;
+  --cera-line: #dfe4ea;
+}
+
+/* The hero stage shadow is tinted per page; restate it for the steel theme. */
+.hairstamp-page .cera-stage {
+  background-color: #eff1f4;
+  box-shadow: 0 24px 60px -34px rgba(51, 71, 92, 0.45);
+}
+
+@media (hover: hover) {
+  .hairstamp-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(18, 22, 26, 0.04), 0 26px 48px -26px rgba(51, 71, 92, 0.36);
+  }
+}
+
+/* --- Spec table --------------------------------------------------------- */
+.hairstamp-spec tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 45%, transparent);
+}

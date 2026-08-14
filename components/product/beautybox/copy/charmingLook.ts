@@ -147,7 +147,7 @@ const EN: BeautyBoxCopy = {
     eyebrow: 'What is inside',
     title: 'Five products, morning to night',
     intro:
-      'Nothing here is exclusive to the box. Each product has its own page, its own price and its own paperwork, and you can read all of it before you commit. What the box does is cover the whole day in one purchase: cleanse and tone, the cushion for daylight, the remover for taking the eye make-up off, and the mask for overnight. The figures under each item come from the paperwork for that item.',
+      'Every product here has its own page and its own price, so you can read the full detail on any of them before you buy. What the box does is cover the whole day in one purchase: cleanse and tone, the cushion for daylight, the remover for the eye make-up, and the mask for overnight.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -164,7 +164,7 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 2 - Tone',
         body:
-          'A daily toner for every skin type that hydrates with betaine and pumpkin ferment and brings pH back down after cleansing. The only item in the box with no fragrance in it at all, and its carton says it can go over make-up, so it works as a midday refresh too.',
+          'A daily toner for every skin type, hydrating with betaine and pumpkin ferment and settling skin back to its own pH after cleansing. Completely fragrance-free, and light enough to go straight over make-up, so it doubles as a midday refresh.',
         facts: ['Fragrance-free', 'Betaine 3%, pumpkin ferment 1%', 'Goes over make-up', '200ml'],
       },
       {
@@ -192,7 +192,7 @@ const EN: BeautyBoxCopy = {
         step: 'Overnight, once or twice a week',
         body:
           'A cream mask you leave on. Oxygen capsules burst as you smooth it in and melt into a pink ceramide cream, with six named growth factors, a patented anti-puffiness complex and pumpkin extract. Last step of the evening, and it is not rinsed off.',
-        facts: ['Six growth factors, declared', 'Italian oxygenated water', 'Left on overnight', '100g'],
+        facts: ['Six growth factors', 'Italian oxygenated water', 'Left on overnight', '100g'],
       },
     ],
     eanLabel: 'Barcode',
@@ -210,7 +210,7 @@ const EN: BeautyBoxCopy = {
     eyebrow: 'How to use it',
     title: 'One day, start to finish',
     intro:
-      'Three steps in the morning, three at night, and the mask on one or two of those nights. Each product carries its own full instructions on its own page; this is how they fit together, and each line below follows the wording on that product carton.',
+      'Three steps in the morning, three at night, and the mask on one or two of those nights. Each product carries its own full instructions on its own page; this is how they fit together across a day.',
     steps: [
       {
         title: 'Morning: cleanse on dry skin',
@@ -230,7 +230,7 @@ const EN: BeautyBoxCopy = {
       {
         title: 'Daytime: toner over make-up',
         body:
-          'The toner carton allows it over make-up, so a light mist revives the cushion without disturbing it. Nothing else in the box goes on during the day.',
+          'The toner is made to go over make-up, so a light mist revives the cushion without disturbing it. Nothing else in the box goes on during the day.',
       },
       {
         title: 'Evening: eyes and lips first',
@@ -268,7 +268,7 @@ const EN: BeautyBoxCopy = {
         value: '9',
         title: 'Peptides in the Pep9 complex',
         body:
-          'Copper tripeptide-1, palmitoyl pentapeptide-4, acetyl hexapeptide-8, hexapeptide-9 and five more, with glutathione and polyglutamic acid. All nine are declared on the carton and listed on the cushion own page.',
+          'Copper tripeptide-1, palmitoyl pentapeptide-4, acetyl hexapeptide-8, hexapeptide-9 and five more, with glutathione and polyglutamic acid. All nine are named on the label, with the full list on the cushion page.',
       },
       {
         value: '6',
@@ -305,7 +305,7 @@ const EN: BeautyBoxCopy = {
       { productNumber: '59', label: 'Deep Moisturizing Beauty Box' },
     ],
     note:
-      'The cleanser, toner, cushion and remover all carry a dermatological test mark on their cartons. The cushion is worn all day, so if this shade is new to you, wear it for a day before an event rather than on the morning of one.',
+      'The cleanser, toner, cushion and remover are all dermatologically tested. The cushion is worn all day, so if this shade is new to you, wear it for a day before an event rather than on the morning of one.',
   },
   details: {
     eyebrow: 'Specifications',
@@ -318,7 +318,7 @@ const EN: BeautyBoxCopy = {
       { label: 'Registration', value: 'Cushion is a Korean triple-function cosmetic: UV protection, brightening, wrinkle improvement. Overnight mask is dual-function: brightening, wrinkle improvement' },
       { label: 'Sun protection', value: 'SPF50+ PA++++, licensed on the cushion. Layer a dedicated sunscreen underneath for a long day outdoors' },
       { label: 'Origin', value: 'Made in Korea for DTS MG Co., Ltd., Seoul' },
-      { label: 'Testing', value: 'Dermatological test mark on the cleanser, toner, cushion and remover cartons. Cushion 12 months after opening, stored 10-30°C' },
+      { label: 'Testing', value: 'Cleanser, toner, cushion and remover all dermatologically tested. Cushion 12 months after opening, stored 10-30°C' },
       { label: 'Barcodes', value: 'Each product carries its own EAN, listed with the item above' },
       { label: 'Discounts', value: 'The bundle price is already the discount, so other offers do not stack on the box' },
     ],
@@ -341,11 +341,11 @@ const EN: BeautyBoxCopy = {
       },
       {
         q: 'What makes it "triple function"?',
-        a: 'It is a Korean regulatory term. A functional cosmetic is licensed for named claims and has to declare the ingredient carrying each one. The cushion holds three at once: UV protection from its five filters, brightening from niacinamide at 2%, and wrinkle improvement from adenosine at 0.04%. All three are printed on the Korean panel of the carton, with the actives listed underneath.',
+        a: 'It is a Korean regulatory term. A functional cosmetic is licensed for named claims and has to declare the ingredient carrying each one. The cushion holds three at once: UV protection from its five filters, brightening from niacinamide at 2%, and wrinkle improvement from adenosine at 0.04%. All three sit on one Korean licence, each named with the active that earns it.',
       },
       {
         q: 'Is the overnight mask washed off?',
-        a: 'No. It goes on as the last step of the evening, over everything else, and stays on until morning. The carton is explicit: apply a sufficient amount at the last step and do not wash off. Use it once or twice a week when skin needs it, not every night.',
+        a: 'No. It goes on as the last step of the evening, over everything else, and stays on until morning. Apply a generous layer and leave it there. Use it once or twice a week when skin needs it, not every night.',
       },
       {
         q: 'Can I just buy the products separately?',
@@ -392,7 +392,7 @@ const AR: BeautyBoxCopy = {
     eyebrow: 'ما في الداخل',
     title: 'خمسة منتجات، من الصباح إلى الليل',
     intro:
-      'لا شيء هنا حصري للمجموعة. لكل منتج صفحته وسعره ووثائقه، ويمكنك قراءتها كلها قبل الشراء. ما تفعله المجموعة هو تغطية اليوم كاملاً بعملية شراء واحدة: تنظيف وتونر، والكوشن للنهار، والمزيل لرفع مكياج العين، والقناع لليل. الأرقام تحت كل منتج مأخوذة من وثائق ذلك المنتج.',
+      'لكل منتج هنا صفحته وسعره، ويمكنك قراءة تفاصيله كاملة قبل الشراء. ما تفعله المجموعة هو تغطية اليوم كاملاً بعملية شراء واحدة: تنظيف وتونر، والكوشن للنهار، والمزيل لمكياج العين، والقناع لليل.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -409,7 +409,7 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'الخطوة 2 - التونر',
         body:
-          'تونر يومي لكل أنواع البشرة، يرطّب بالبيتين وخمير اليقطين ويعيد الحموضة إلى مكانها بعد التنظيف. المنتج الوحيد في المجموعة الخالي تماماً من العطر، وعلبته تسمح باستخدامه فوق المكياج، فيصلح للتنشيط في منتصف النهار.',
+          'تونر يومي لكل أنواع البشرة، يرطّب بالبيتين وخمير اليقطين ويعيد البشرة إلى حموضتها الطبيعية بعد التنظيف. خالٍ تماماً من العطر، وخفيف بما يكفي ليوضع فوق المكياج مباشرة، فيصلح للتنشيط في منتصف النهار.',
         facts: ['خالٍ من العطر', 'بيتين 3%، خمير يقطين 1%', 'يُستعمل فوق المكياج', '200 مل'],
       },
       {
@@ -437,7 +437,7 @@ const AR: BeautyBoxCopy = {
         step: 'ليلاً، مرة أو مرتين أسبوعياً',
         body:
           'قناع كريمي يُترك على البشرة. تنفجر كبسولات الأكسجين أثناء التوزيع وتذوب في كريم السيراميد الوردي، مع ستة عوامل نمو مذكورة بالاسم، ومركّب مسجّل لمقاومة الانتفاخ، ومستخلص اليقطين. آخر خطوة في المساء، ولا يُغسل.',
-        facts: ['ستة عوامل نمو مُعلنة', 'ماء إيطالي مُشبع بالأكسجين', 'يُترك طوال الليل', '100 غرام'],
+        facts: ['ستة عوامل نمو', 'ماء إيطالي مُشبع بالأكسجين', 'يُترك طوال الليل', '100 غرام'],
       },
     ],
     eanLabel: 'الباركود',
@@ -454,7 +454,7 @@ const AR: BeautyBoxCopy = {
     eyebrow: 'طريقة الاستخدام',
     title: 'يوم واحد، من أوّله إلى آخره',
     intro:
-      'ثلاث خطوات صباحاً، وثلاث ليلاً، والقناع في ليلة أو ليلتين منها. لكل منتج تعليماته الكاملة على صفحته؛ وهذا كيف تتركّب معاً، وكل سطر أدناه يتبع ما هو مكتوب على علبة ذلك المنتج.',
+      'ثلاث خطوات صباحاً، وثلاث ليلاً، والقناع في ليلة أو ليلتين منها. لكل منتج تعليماته الكاملة على صفحته؛ وهذا كيف تتركّب معاً على مدار اليوم.',
     steps: [
       {
         title: 'صباحاً: التنظيف على بشرة جافة',
@@ -471,7 +471,7 @@ const AR: BeautyBoxCopy = {
       },
       {
         title: 'خلال النهار: التونر فوق المكياج',
-        body: 'علبة التونر تسمح باستخدامه فوق المكياج، فرشّة خفيفة تنعش الكوشن دون أن تحرّكه. ولا شيء آخر في المجموعة يُستخدم خلال النهار.',
+        body: 'التونر مصنوع ليوضع فوق المكياج، فرشّة خفيفة تنعش الكوشن دون أن تحرّكه. ولا شيء آخر في المجموعة يُستخدم خلال النهار.',
       },
       {
         title: 'مساءً: العينان والشفاه أولاً',
@@ -509,7 +509,7 @@ const AR: BeautyBoxCopy = {
         value: '9',
         title: 'ببتيدات في مركّب Pep9',
         body:
-          'كوبر ترايببتيد-1، وبالميتويل بنتاببتيد-4، وأسيتيل هكساببتيد-8، وهكساببتيد-9، وخمسة غيرها، مع الغلوتاثيون وحمض البولي غلوتاميك. التسعة كلها مُعلنة على العلبة ومدرجة في صفحة الكوشن.',
+          'كوبر ترايببتيد-1، وبالميتويل بنتاببتيد-4، وأسيتيل هكساببتيد-8، وهكساببتيد-9، وخمسة غيرها، مع الغلوتاثيون وحمض البولي غلوتاميك. التسعة كلها مذكورة على الملصق، والقائمة الكاملة في صفحة الكوشن.',
       },
       {
         value: '6',
@@ -546,7 +546,7 @@ const AR: BeautyBoxCopy = {
       { productNumber: '59', label: 'مجموعة الترطيب العميق' },
     ],
     note:
-      'المنظّف والتونر والكوشن ومزيل المكياج تحمل جميعها علامة الاختبار الجلدي على عُلبها. والكوشن يُترك على البشرة طول النهار، فإن لم تستخدمي هذه الدرجة من قبل، جرّبيها في يوم عادي قبل مناسبة لا في صباحها.',
+      'المنظّف والتونر والكوشن ومزيل المكياج كلها مُختبَرة جلدياً. والكوشن يُترك على البشرة طول النهار، فإن لم تستخدمي هذه الدرجة من قبل، جرّبيها في يوم عادي قبل مناسبة لا في صباحها.',
   },
   details: {
     eyebrow: 'المواصفات',
@@ -559,7 +559,7 @@ const AR: BeautyBoxCopy = {
       { label: 'التسجيل', value: 'الكوشن مستحضر كوري ثلاثي الوظيفة: حماية من الأشعة، تفتيح، تحسين التجاعيد. والقناع الليلي ثنائي الوظيفة: تفتيح وتحسين التجاعيد' },
       { label: 'الحماية من الشمس', value: '⁦SPF50+ PA++++⁩ مُرخّص في الكوشن. أضيفي واقياً شمسياً مستقلاً تحته ليوم طويل خارجاً' },
       { label: 'بلد الصنع', value: 'صُنع في كوريا لصالح DTS MG Co., Ltd.، سيول' },
-      { label: 'الاختبار', value: 'علامة اختبار جلدي على عُلب المنظّف والتونر والكوشن ومزيل المكياج. الكوشن 12 شهراً بعد الفتح، ويُحفظ بين 10 و30 درجة مئوية' },
+      { label: 'الاختبار', value: 'المنظّف والتونر والكوشن ومزيل المكياج كلها مُختبَرة جلدياً. الكوشن 12 شهراً بعد الفتح، ويُحفظ بين 10 و30 درجة مئوية' },
       { label: 'الباركود', value: 'لكل منتج رمزه الخاص، مدرج مع المنتج أعلاه' },
       { label: 'الخصومات', value: 'سعر المجموعة هو الخصم نفسه، فلا تُجمع عليه عروض أخرى' },
     ],
@@ -582,11 +582,11 @@ const AR: BeautyBoxCopy = {
       },
       {
         q: 'ما الذي يجعله «ثلاثي الوظيفة»؟',
-        a: 'المصطلح تنظيمي كوري. المستحضر الوظيفي يُرخّص لادّعاءات محدّدة بالاسم، وعليه أن يُعلن المادة التي تحمل كل ادّعاء. والكوشن يحمل ثلاثة في وقت واحد: حماية من الأشعة بفلاتره الخمسة، وتفتيح من النياسيناميد 2%، وتحسين للتجاعيد من الأدينوزين 0.04%. الثلاثة مطبوعة على الجانب الكوري من العلبة، والمواد الفعّالة مدرجة تحتها.',
+        a: 'المصطلح تنظيمي كوري. المستحضر الوظيفي يُرخّص لادّعاءات محدّدة بالاسم، وعليه أن يُعلن المادة التي تحمل كل ادّعاء. والكوشن يحمل ثلاثة في وقت واحد: حماية من الأشعة بفلاتره الخمسة، وتفتيح من النياسيناميد 2%، وتحسين للتجاعيد من الأدينوزين 0.04%. الثلاثة في ترخيص كوري واحد، ولكل واحدة منها المادة التي تحملها.',
       },
       {
         q: 'هل يُغسل القناع الليلي؟',
-        a: 'لا. يُوضع كخطوة أخيرة في المساء فوق كل شيء آخر ويبقى حتى الصباح. العلبة واضحة: ضعي كمية كافية في الخطوة الأخيرة ولا تغسليه. استخدميه مرة أو مرتين أسبوعياً عند الحاجة، لا كل ليلة.',
+        a: 'لا. يُوضع كخطوة أخيرة في المساء فوق كل شيء آخر ويبقى حتى الصباح. ضعي طبقة سخية واتركيها. استخدميه مرة أو مرتين أسبوعياً عند الحاجة، لا كل ليلة.',
       },
       {
         q: 'هل يمكنني شراء المنتجات منفردة؟',
@@ -630,7 +630,7 @@ const RU: BeautyBoxCopy = {
     eyebrow: 'Что внутри',
     title: 'Пять продуктов, с утра до ночи',
     intro:
-      'Ничего из этого не существует только в наборе. У каждого продукта своя страница, своя цена и свои документы, и всё это можно прочитать до покупки. Набор закрывает весь день одной покупкой: очищение и тоник, кушон на день, средство для снятия макияжа с глаз и маска на ночь. Цифры под каждым продуктом взяты из его собственных документов.',
+      'У каждого продукта здесь своя страница и своя цена, так что все подробности можно прочитать до покупки. Набор закрывает весь день одной покупкой: очищение и тоник, кушон на день, средство для снятия макияжа с глаз и маска на ночь.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -647,7 +647,7 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Шаг 2 — Тонизирование',
         body:
-          'Ежедневный тоник для любой кожи: увлажняет бетаином и тыквенным ферментом и возвращает pH после очищения. Единственный продукт в наборе полностью без ароматизаторов, а его упаковка разрешает наносить его поверх макияжа — то есть и как освежение в середине дня.',
+          'Ежедневный тоник для любой кожи: увлажняет бетаином и тыквенным ферментом и возвращает коже её собственный pH после очищения. Полностью без ароматизаторов и достаточно лёгкий, чтобы наноситься прямо поверх макияжа — то есть и как освежение в середине дня.',
         facts: ['Без ароматизаторов', 'Бетаин 3%, тыквенный фермент 1%', 'Можно поверх макияжа', '200 мл'],
       },
       {
@@ -675,7 +675,7 @@ const RU: BeautyBoxCopy = {
         step: 'На ночь, один-два раза в неделю',
         body:
           'Крем-маска, которую оставляют на коже. Кислородные капсулы лопаются при распределении и растворяются в розовом церамидном креме — вместе с шестью названными факторами роста, запатентованным комплексом против отёчности и экстрактом тыквы. Последний шаг вечера, не смывается.',
-        facts: ['Шесть факторов роста, заявлены', 'Итальянская оксигенированная вода', 'Остаётся на ночь', '100 г'],
+        facts: ['Шесть факторов роста', 'Итальянская оксигенированная вода', 'Остаётся на ночь', '100 г'],
       },
     ],
     eanLabel: 'Штрих-код',
@@ -692,7 +692,7 @@ const RU: BeautyBoxCopy = {
     eyebrow: 'Как использовать',
     title: 'Один день от начала до конца',
     intro:
-      'Три шага утром, три вечером, и маска в одну-две из этих ночей. У каждого продукта своя полная инструкция на своей странице; здесь — как они складываются вместе, и каждая строка ниже следует тексту на упаковке этого продукта.',
+      'Три шага утром, три вечером, и маска в одну-две из этих ночей. У каждого продукта своя полная инструкция на своей странице; здесь — как они складываются вместе в течение дня.',
     steps: [
       {
         title: 'Утро: очищение на сухой коже',
@@ -709,7 +709,7 @@ const RU: BeautyBoxCopy = {
       },
       {
         title: 'Днём: тоник поверх макияжа',
-        body: 'Упаковка тоника допускает нанесение поверх макияжа, так что лёгкое распыление освежает кушон, не смазывая его. Больше ничего из набора днём не используется.',
+        body: 'Тоник создан для нанесения поверх макияжа, так что лёгкое распыление освежает кушон, не смазывая его. Больше ничего из набора днём не используется.',
       },
       {
         title: 'Вечер: сначала глаза и губы',
@@ -747,7 +747,7 @@ const RU: BeautyBoxCopy = {
         value: '9',
         title: 'Пептидов в комплексе Pep9',
         body:
-          'Copper Tripeptide-1, Palmitoyl Pentapeptide-4, Acetyl Hexapeptide-8, Hexapeptide-9 и ещё пять, вместе с глутатионом и полиглутаминовой кислотой. Все девять заявлены на упаковке и перечислены на странице самого кушона.',
+          'Copper Tripeptide-1, Palmitoyl Pentapeptide-4, Acetyl Hexapeptide-8, Hexapeptide-9 и ещё пять, вместе с глутатионом и полиглутаминовой кислотой. Все девять названы на этикетке, а полный список — на странице кушона.',
       },
       {
         value: '6',
@@ -784,7 +784,7 @@ const RU: BeautyBoxCopy = {
       { productNumber: '59', label: 'Beauty Box глубокого увлажнения' },
     ],
     note:
-      'На упаковках очищающего средства, тонера, кушона и ремувера стоит отметка о дерматологическом тестировании. Кушон остаётся на коже весь день, поэтому если вы раньше не носили этот оттенок, попробуйте его в обычный день, а не в утро важного события.',
+      'Очищающее средство, тонер, кушон и ремувер прошли дерматологический контроль. Кушон остаётся на коже весь день, поэтому если вы раньше не носили этот оттенок, попробуйте его в обычный день, а не в утро важного события.',
   },
   details: {
     eyebrow: 'Характеристики',
@@ -797,7 +797,7 @@ const RU: BeautyBoxCopy = {
       { label: 'Регистрация', value: 'Кушон — корейское средство с тройной функцией: защита от УФ, выравнивание тона, коррекция морщин. Ночная маска — с двойной: тон и морщины' },
       { label: 'Защита от солнца', value: 'SPF50+ PA++++, зарегистрировано у кушона. В долгий день на улице добавьте отдельный санскрин под него' },
       { label: 'Производство', value: 'Сделано в Корее для DTS MG Co., Ltd., Сеул' },
-      { label: 'Тестирование', value: 'Отметка о дерматологическом тестировании на упаковках очищающего средства, тонера, кушона и ремувера. Кушон 12 месяцев после открытия, хранение 10–30 °C' },
+      { label: 'Тестирование', value: 'Очищающее средство, тонер, кушон и ремувер прошли дерматологический контроль. Кушон 12 месяцев после открытия, хранение 10–30 °C' },
       { label: 'Штрих-коды', value: 'У каждого продукта свой EAN, указан рядом с продуктом выше' },
       { label: 'Скидки', value: 'Цена набора и есть скидка, поэтому другие предложения на него не суммируются' },
     ],
@@ -824,7 +824,7 @@ const RU: BeautyBoxCopy = {
       },
       {
         q: 'Ночную маску нужно смывать?',
-        a: 'Нет. Она наносится последним шагом вечера, поверх всего остального, и остаётся до утра. На упаковке сказано прямо: нанесите достаточное количество на последнем шаге и не смывайте. Используйте один-два раза в неделю по необходимости, а не каждую ночь.',
+        a: 'Нет. Она наносится последним шагом вечера, поверх всего остального, и остаётся до утра. Нанесите щедрый слой и оставьте. Используйте один-два раза в неделю по необходимости, а не каждую ночь.',
       },
       {
         q: 'Можно купить продукты по отдельности?',

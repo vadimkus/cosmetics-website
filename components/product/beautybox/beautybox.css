@@ -1,0 +1,149 @@
+/**
+ * Palettes for the beauty box pages.
+ *
+ * The structural system lives in cerabarrier.css - cards, reveals, accordion,
+ * numerals, focus rings - and every rule in it reads from CSS variables, so this
+ * file only restates the variables to re-skin a page. One class per box, applied
+ * by BeautyBoxProductPage from the `palette` field of BEAUTY_BOXES, so importing
+ * this file cannot affect products 60, 61, 63, 64, 65 or 66, or any other route.
+ *
+ * Every box is photographed the same way - the five products standing in front
+ * of the white outer carton, on pure white - so the shared rules at the bottom
+ * apply to all of them and only the accent changes per box.
+ */
+
+/* --- 59, DEEP MOISTURIZING ---------------------------------------------- */
+/* The carton puts DEEP MOISTURIZING on a pale cyan band, and the five products
+   inside are a white cleanser, a white toner, a white tube, a black dropper
+   bottle and three deep green sachets. A water blue picks up the carton band,
+   keeps five different packshots from fighting each other, and separates the
+   page from 61's slate-teal, the nearest neighbour in the bespoke set. */
+.cera-page.bb-water {
+  --cera-cream: #f4f8fb;
+  --cera-cream-deep: #e6eff5;
+  --cera-blush: #e2eef6;
+  --cera-blush-deep: #c2dcec;
+  --cera-rose: #4887a9;
+  --cera-rose-ink: #235a72;
+  --cera-ink: #101a1f;
+  --cera-body: #2f3d45;
+  --cera-muted: #536671;
+  --cera-line: #d8e4ec;
+  --cera-shot: #ffffff;
+}
+
+.bb-water .cera-stage {
+  box-shadow: 0 20px 52px -34px rgba(35, 90, 114, 0.32);
+}
+
+@media (hover: hover) {
+  .bb-water .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(16, 26, 31, 0.04), 0 26px 48px -26px rgba(35, 90, 114, 0.34);
+  }
+}
+
+/* --- 58, ANTI-AGING ----------------------------------------------------- */
+/* The carton sets ANTI AGING in a deep crimson serif and the five mask sachets
+   inside are garnet red - the only colour in an otherwise white and black
+   line-up. Taking the accent from the sachets rather than inventing a gold keeps
+   the page and the photograph in the same register, and garnet is far enough
+   from 66's dusty rose that the two pages never read as the same template. */
+.cera-page.bb-garnet {
+  --cera-cream: #fbf6f6;
+  --cera-cream-deep: #f4e8e9;
+  --cera-blush: #f8e9eb;
+  --cera-blush-deep: #e7c8ce;
+  --cera-rose: #a3324a;
+  --cera-rose-ink: #7a2032;
+  --cera-ink: #171113;
+  --cera-body: #3b3033;
+  --cera-muted: #6a575b;
+  --cera-line: #eddfe0;
+  --cera-shot: #ffffff;
+}
+
+.bb-garnet .cera-stage {
+  box-shadow: 0 20px 52px -34px rgba(122, 32, 50, 0.28);
+}
+
+@media (hover: hover) {
+  .bb-garnet .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(23, 17, 19, 0.04), 0 26px 48px -26px rgba(122, 32, 50, 0.3);
+  }
+}
+
+/* --- 57, CHARMING LOOK -------------------------------------------------- */
+/* The obvious cue is the cushion: black case, gold rim, and CHARMING LOOK set on
+   the carton between two bronze rules. But 63, the RevitaGlow BB, already owns
+   warm gold (#c2955f), and two BB pages in the same gold would read as one
+   template. So the accent comes from the other colour in the photograph, the
+   pink overnight-mask tube, pulled down to a muted plum.
+   Plum is unclaimed across the set: far less saturated than 58's garnet, warmer
+   and darker than biomeso's lilac, and nothing like 63's gold. The creams keep a
+   pink cast so the page still reads as the make-up box rather than a second
+   anti-aging one. */
+.cera-page.bb-mauve {
+  --cera-cream: #faf6f8;
+  --cera-cream-deep: #f1e7ec;
+  --cera-blush: #f5e9ef;
+  --cera-blush-deep: #ddc4d1;
+  --cera-rose: #8e5f77;
+  --cera-rose-ink: #653d52;
+  --cera-ink: #161013;
+  --cera-body: #372e33;
+  --cera-muted: #66555e;
+  --cera-line: #e9dde3;
+  --cera-shot: #ffffff;
+}
+
+.bb-mauve .cera-stage {
+  box-shadow: 0 20px 52px -34px rgba(101, 61, 82, 0.3);
+}
+
+@media (hover: hover) {
+  .bb-mauve .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(22, 16, 19, 0.04), 0 26px 48px -26px rgba(101, 61, 82, 0.32);
+  }
+}
+
+/* --- Shared: the hero stage --------------------------------------------- */
+/* The single-product pages tint this, because their packshots are square studio
+ * shots that fill it edge to edge and the tint is never actually visible. The
+ * box shots are 1:1 but on pure white, and the member packshots behind them sit
+ * on a studio grey, so a tinted stage showed as a coloured margin around some
+ * slides and not others.
+ *
+ * White instead, matching the photographs' own background, so the products
+ * appear to stand directly on the stage. The shadow keeps the accent cast, which
+ * is what still separates the stage from the page. */
+.bb-page .cera-stage {
+  background-color: #ffffff;
+}
+
+/* --- Shared: value panel ------------------------------------------------ */
+/* The saving is the one number on a box page a shopper is actually deciding on,
+   so the row it sits in gets the accent tint and a heavier rule above it, rather
+   than being one more line in a list of prices. */
+.bb-page .bb-saving {
+  background: var(--cera-blush);
+  border-top: 2px solid var(--cera-blush-deep);
+}
+
+/* --- Shared: suitability lists ----------------------------------------- */
+/* Two lists with opposite meanings sit side by side. Tinting the second one as
+   well as changing its icon means the difference survives a glance, before
+   either list has been read. */
+.bb-page .bb-notfor {
+  background: color-mix(in srgb, var(--cera-cream-deep) 60%, white);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+/* --- Shared: per-item fact chips ---------------------------------------- */
+/* Each item card can carry a few measured facts - a pH, a percentage, a
+   fragrance warning. They are set apart from the body copy because they are the
+   part a shopper checks rather than reads, and monospaced numerals keep a column
+   of them legible when several cards are scanned in sequence. */
+.bb-page .bb-fact {
+  background: color-mix(in srgb, var(--cera-blush) 55%, white);
+  border: 1px solid color-mix(in srgb, var(--cera-blush-deep) 65%, white);
+}

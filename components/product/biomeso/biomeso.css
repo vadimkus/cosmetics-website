@@ -1,0 +1,75 @@
+/**
+ * Palette override for the BIO-MESO PDRN HOMECARE AMPOULE 5000 page
+ * (product 65).
+ *
+ * The structural design system lives in cerabarrier.css — cards, reveals,
+ * accordion, numerals, focus rings. That file is imported first and every rule
+ * in it reads from CSS variables, so this file only has to restate the
+ * variables to re-skin the whole page.
+ *
+ * Cerabarrier is warm rose on cream because the cleanser is a barrier product.
+ * Bio-Meso is pearl and iridescent violet because that is the holographic
+ * foil on the tube and the cool lilac of the packshot photography.
+ *
+ * Scoped to `.cera-page.biomeso-page`, so importing this file cannot affect
+ * product 66 or any other route.
+ */
+
+.cera-page.biomeso-page {
+  --cera-cream: #f8f7fa;
+  --cera-cream-deep: #efedf4;
+  --cera-blush: #efebf6;
+  --cera-blush-deep: #ddd5ee;
+  --cera-rose: #9c8ec4;
+  --cera-rose-ink: #5f5189;
+  --cera-ink: #17151c;
+  --cera-body: #3a3640;
+  --cera-muted: #5f5a69;
+  --cera-line: #e5e1ec;
+}
+
+/* The hero stage shadow is tinted per page; restate it for the violet theme. */
+.biomeso-page .cera-stage {
+  background-color: #f1f0f4;
+  box-shadow: 0 24px 60px -34px rgba(95, 81, 137, 0.42);
+}
+
+@media (hover: hover) {
+  .biomeso-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(23, 21, 28, 0.04), 0 26px 48px -26px rgba(95, 81, 137, 0.34);
+  }
+}
+
+/* --- Renewal timeline rail --------------------------------------------- */
+/* A single vertical hairline behind the day markers, drawn as a gradient so
+   it fades out at both ends instead of stopping abruptly. */
+.biomeso-rail {
+  position: relative;
+}
+
+.biomeso-rail::before {
+  content: "";
+  position: absolute;
+  inset-block: 12px;
+  inset-inline-start: 23px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--cera-blush-deep) 8%,
+    var(--cera-blush-deep) 92%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+@media (min-width: 640px) {
+  .biomeso-rail::before {
+    inset-inline-start: 27px;
+  }
+}
+
+/* --- Spec table --------------------------------------------------------- */
+.biomeso-spec tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 45%, transparent);
+}

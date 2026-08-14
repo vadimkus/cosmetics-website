@@ -1,0 +1,219 @@
+/**
+ * Page-scoped styling for the CERABARRIER BIOME product page (product 66).
+ *
+ * Every rule is nested under `.cera-page` so importing this file cannot leak
+ * into any other route. Imported once from CerabarrierProductPage.tsx.
+ */
+
+.cera-page {
+  --cera-cream: #faf7f5;
+  --cera-cream-deep: #f3ece8;
+  --cera-blush: #f7ecec;
+  --cera-blush-deep: #efd9d9;
+  --cera-rose: #c98b8b;
+  --cera-rose-ink: #8f5a5a;
+  --cera-ink: #191716;
+  --cera-body: #3d3734;
+  --cera-muted: #665e59;
+  --cera-line: #e8e0db;
+  /* The studio grey the catalogue shots were photographed on. Every bespoke
+     product's main image measures between #ebebeb and #f3f3f3 at its corners,
+     so a panel in this tone reads as part of the photograph rather than as a
+     frame around it. Not palette-tinted for that reason. */
+  --cera-shot: #eeeeee;
+
+  background-color: var(--cera-cream);
+  color: var(--cera-body);
+}
+
+.cera-serif {
+  font-family: var(--font-cera-serif), var(--font-arabic), "Iowan Old Style", Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.cera-page :where(h1, h2, h3) {
+  color: var(--cera-ink);
+}
+
+/* Eyebrow label above every section heading */
+.cera-eyebrow {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cera-rose-ink);
+}
+
+/* Hairline divider used between major sections */
+.cera-rule {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cera-line) 18%, var(--cera-line) 82%, transparent);
+}
+
+/* --- Cards ------------------------------------------------------------- */
+.cera-card {
+  background: #fff;
+  border: 1px solid var(--cera-line);
+  border-radius: 22px;
+  box-shadow: 0 1px 2px rgba(25, 23, 22, 0.03), 0 12px 32px -22px rgba(25, 23, 22, 0.28);
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease, border-color 320ms ease;
+}
+
+@media (hover: hover) {
+  .cera-card-hover:hover {
+    transform: translateY(-3px);
+    border-color: var(--cera-blush-deep);
+    box-shadow: 0 2px 4px rgba(25, 23, 22, 0.04), 0 26px 48px -26px rgba(143, 90, 90, 0.34);
+  }
+}
+
+/* Hero gallery stage. The packshot fills it edge to edge, so instead of a
+   border the card is separated from the cream page by a soft shadow and a
+   faint inset hairline that follows the corner radius. The background only
+   shows through if an image is ever not square. */
+.cera-stage {
+  background-color: #f1efee;
+  box-shadow: 0 24px 60px -34px rgba(143, 90, 90, 0.4);
+}
+
+/* Painted over the image, so the hairline stays visible at the rounded edge. */
+.cera-stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(25, 23, 22, 0.06);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Soft radial glow behind the hero packshot */
+.cera-glow {
+  background:
+    radial-gradient(120% 90% at 50% 18%, #ffffff 0%, #fdf9f7 42%, var(--cera-cream-deep) 100%);
+}
+
+.cera-glow::after {
+  content: "";
+  position: absolute;
+  inset: auto 12% 6% 12%;
+  height: 42%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(201, 139, 139, 0.16), transparent 72%);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+/* --- Texture story orbs ------------------------------------------------ */
+.cera-orb {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 18px 40px -26px rgba(143, 90, 90, 0.5);
+}
+
+.cera-orb--gel {
+  background:
+    radial-gradient(70% 70% at 32% 26%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 62%),
+    linear-gradient(150deg, #f6eeee 0%, #ecdede 55%, #e2cccc 100%);
+}
+
+.cera-orb--water {
+  background:
+    radial-gradient(60% 60% at 68% 30%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 60%),
+    linear-gradient(150deg, #f2f6f7 0%, #e4eef0 55%, #d6e5e8 100%);
+}
+
+.cera-orb--foam {
+  background:
+    radial-gradient(45% 45% at 30% 30%, #ffffff, rgba(255, 255, 255, 0) 70%),
+    radial-gradient(35% 35% at 70% 60%, #ffffff, rgba(255, 255, 255, 0) 70%),
+    radial-gradient(30% 30% at 45% 76%, #ffffff, rgba(255, 255, 255, 0) 70%),
+    linear-gradient(150deg, #fdfbfb 0%, #f4ecec 100%);
+}
+
+.cera-orb__sheen {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0) 38%, rgba(255, 255, 255, 0.55) 50%, rgba(255, 255, 255, 0) 62%);
+  transform: translateX(-120%);
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .cera-orb:hover .cera-orb__sheen {
+    transform: translateX(120%);
+  }
+}
+
+/* --- Numerals ---------------------------------------------------------- */
+/* Cormorant Garamond defaults to old-style figures: the 5 drops below the
+   baseline, the 0 sits at x-height. Beautiful in running text, wrong for a
+   price, where it reads as a typo and gets clipped by tight leading. Prices and
+   any other figure a shopper has to read exactly opt into lining, tabular
+   digits with room to breathe. */
+.cera-numeral {
+  font-family: var(--font-cera-serif), Georgia, serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  /* Same request in the low-level syntax, for engines that drop the
+     font-variant-numeric shorthand once a fallback face takes over. */
+  font-feature-settings: 'lnum' 1, 'tnum' 1;
+  line-height: 1.1;
+}
+
+/* --- Accordion (grid 0fr -> 1fr, reduced-motion friendly) --------------- */
+.cera-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 280ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cera-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.cera-panel__inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* --- Scroll reveal ------------------------------------------------------ */
+.cera-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms cubic-bezier(0.22, 1, 0.36, 1), transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.cera-reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Selection + focus -------------------------------------------------- */
+.cera-page ::selection {
+  background: var(--cera-blush-deep);
+  color: var(--cera-ink);
+}
+
+.cera-page :where(button, a):focus-visible {
+  outline: 2px solid var(--cera-rose);
+  outline-offset: 3px;
+  border-radius: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cera-page *,
+  .cera-page *::before,
+  .cera-page *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .cera-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

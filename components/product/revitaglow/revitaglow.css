@@ -1,0 +1,68 @@
+/**
+ * Palette override for the REVITA GLOW BB CREAM page (product 63).
+ *
+ * The structural design system lives in cerabarrier.css — cards, reveals,
+ * accordion, numerals, focus rings. That file is imported first and every rule
+ * in it reads from CSS variables, so this file only has to restate the
+ * variables to re-skin the whole page.
+ *
+ * Cerabarrier is rose on cream, Bio-Meso is violet on pearl. Revita Glow is
+ * warm champagne and bronze, taken from the two shade swatches themselves —
+ * #e9ccb6 for #01 Bright and #c99569 for #02 Natural — so the page reads as
+ * the product rather than as a generic skincare template.
+ *
+ * Scoped to `.cera-page.revitaglow-page`, so importing this file cannot affect
+ * products 64, 65 or 66.
+ */
+
+.cera-page.revitaglow-page {
+  --cera-cream: #faf7f2;
+  --cera-cream-deep: #f2ebe1;
+  --cera-blush: #f7eee1;
+  --cera-blush-deep: #e8d5bb;
+  --cera-rose: #c2955f;
+  --cera-rose-ink: #8a6231;
+  --cera-ink: #1c1814;
+  --cera-body: #3d372f;
+  --cera-muted: #6b6156;
+  --cera-line: #ece3d6;
+}
+
+/* The hero stage shadow is tinted per page; restate it for the bronze theme. */
+.revitaglow-page .cera-stage {
+  background-color: #f4f0e9;
+  box-shadow: 0 24px 60px -34px rgba(138, 98, 49, 0.4);
+}
+
+@media (hover: hover) {
+  .revitaglow-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(28, 24, 20, 0.04), 0 26px 48px -26px rgba(138, 98, 49, 0.32);
+  }
+}
+
+/* --- Shade swatch ------------------------------------------------------- */
+/* The swatch colour is passed inline as --swatch, so a new shade needs no CSS
+   change. The inner ring keeps a light swatch legible against a light card. */
+.revitaglow-swatch {
+  background: var(--swatch, #e9ccb6);
+  box-shadow: inset 0 0 0 1px rgba(28, 24, 20, 0.12);
+}
+
+.revitaglow-shade-button {
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.revitaglow-shade-button[aria-checked='true'] {
+  border-color: var(--cera-rose);
+  background-color: color-mix(in srgb, var(--cera-blush) 70%, white);
+  box-shadow: 0 10px 26px -18px rgba(138, 98, 49, 0.7);
+}
+
+/* --- Spec and filter tables --------------------------------------------- */
+.revitaglow-spec tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 45%, transparent);
+}
+
+.revitaglow-filters tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 38%, transparent);
+}

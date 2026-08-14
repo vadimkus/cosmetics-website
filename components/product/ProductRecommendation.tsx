@@ -436,18 +436,12 @@ export default function ProductRecommendation({
       }
     }
 
-    // Scalp brush + hair tonic combination (61 + 43)
-    if ((currentProduct.productNumber === '61') && recommendedProduct.id === '43') {
-      return {
-        intro: t('product.pc61Intro', { currentName: `<strong>${currentName}</strong>`, recommendedName: `<strong>${recommendedName}</strong>` }),
-        benefits: [
-          { title: t('product.pc61Benefit1Title'), text: t('product.pc61Benefit1Text') },
-          { title: t('product.pc61Benefit2Title'), text: t('product.pc61Benefit2Text') },
-          { title: t('product.pc61Benefit3Title'), text: t('product.pc61Benefit3Text') },
-          { title: t('product.pc61Benefit4Title'), text: t('product.pc61Benefit4Text') }
-        ]
-      }
-    }
+    /* The scalp brush (61) deliberately has no pairing block here. Its former
+       61 + 43 case sold the brush as a way to make HAIR TONIC α absorb better,
+       which no manufacturer document supports, and attributed the line's KFDA
+       functional approval to the tonic when it belongs to MEDI SCALP SHAMPOO α
+       (product 44). DTS MG pairs the brush with the shampoo, at wash time; the
+       bespoke page for 61 states that pairing instead. */
 
     // Hair Stamp + HairGen Booster device combination (64 + 3)
     if ((currentProduct.productNumber === '64') && recommendedProduct.id === '3') {

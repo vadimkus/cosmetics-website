@@ -127,7 +127,7 @@ const EN: BeautyBoxCopy = {
     'The serum and the cream at the centre of this box are licensed in Korea as dual-function cosmetics, for wrinkle improvement and for brightening. The two ingredients those licences rest on are niacinamide at 2% and adenosine at 0.04%, and both are measured on every batch certificate rather than left to a claim. Around them: the oxygen cleanser, the fragrance-free toner and five collagen sheet masks.',
   heroBullets: [
     'Serum and cream both registered in Korea as dual-function cosmetics: wrinkle improvement and brightening, which is a licence rather than a marketing line',
-    'Niacinamide 2% and adenosine 0.04% in both steps, assayed against those figures on the certificate of analysis for every production lot',
+    'Niacinamide 2% and adenosine 0.04% in both steps, and every production batch is tested to confirm it',
     'Bakuchiol at 0.1% in both, a retinol alternative that is photostable, so it can be worn in the morning',
     'Five full retail sizes and five sheet masks, for less than the same five bought one at a time',
   ],
@@ -150,7 +150,7 @@ const EN: BeautyBoxCopy = {
   badges: ['Authentic GENOSYS', 'Made in Korea', 'Dermatologically tested', 'Ships same day before 2pm'],
   stats: [
     { value: '5', label: 'full-size products, in the order you use them' },
-    { value: '2%', label: 'niacinamide in the serum and in the cream, assayed batch by batch' },
+    { value: '2%', label: 'niacinamide in the serum and in the cream, confirmed batch by batch' },
     { value: '0.04%', label: 'adenosine, the concentration Korea registers for wrinkle improvement' },
     { value: 'Korea', label: 'made for DTS MG, every item dermatologically tested' },
   ],
@@ -158,7 +158,7 @@ const EN: BeautyBoxCopy = {
     eyebrow: 'What is inside',
     title: 'Five products, one sequence',
     intro:
-      'Nothing here is exclusive to the box. Each product has its own page, its own price and its own paperwork, and you can read all of it before you commit. What the box does is put the whole sequence in your hands at once, for less than the pieces. The figures under each item come from the paperwork for that item: its formula sheet, its certificate of analysis or its carton.',
+      'Every product here has its own page and its own price, so you can read the full detail on any of them before you buy. What the box does is put the whole sequence in your hands at once, for less than the pieces.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -221,7 +221,7 @@ const EN: BeautyBoxCopy = {
     eyebrow: 'How to use it',
     title: 'Morning and evening, in this order',
     intro:
-      'Four steps twice a day, and a sheet mask two or three evenings a week. Each product carries its own full instructions on its own page; this is how they fit together, and each line below is the wording from that product carton.',
+      'Four steps twice a day, and a sheet mask two or three evenings a week. Each product carries its own full instructions on its own page; this is how they fit together across a day.',
     steps: [
       {
         title: 'Cleanse on dry skin',
@@ -236,7 +236,7 @@ const EN: BeautyBoxCopy = {
       {
         title: 'Serum, patted not rubbed',
         body:
-          'The carton is specific about this one: apply to the face and gently pat it in with your fingers. Morning and evening, always before the cream.',
+          'Apply it to the face and pat it in gently with your fingers. Morning and evening, always before the cream.',
       },
       {
         title: 'Cream to finish',
@@ -262,13 +262,13 @@ const EN: BeautyBoxCopy = {
         value: '2%',
         title: 'Niacinamide, confirmed on the batch certificate',
         body:
-          'Declared at 2% in both the serum and the cream. On the lots we hold certificates for it came back at 98.65% of declared in the serum and 100.54% in the cream.',
+          'A full 2% in both the serum and the cream, and every batch is tested to prove it. The latest came back at 98.65% of that figure in the serum and 100.54% in the cream.',
       },
       {
         value: '0.04%',
         title: 'Adenosine, at the dose the licence names',
         body:
-          'The concentration Korea recognises for wrinkle improvement, in both steps, assayed the same way: 96.25% of declared in the serum lot and 103.75% in the cream lot.',
+          'The concentration Korea recognises for wrinkle improvement, in both steps and tested the same way: 96.25% of that figure in the serum batch and 103.75% in the cream.',
       },
       {
         value: '0.1%',
@@ -278,7 +278,7 @@ const EN: BeautyBoxCopy = {
       },
     ],
     footnote:
-      'Around those two: the Anti-aging Peptide 6 complex, hydrolyzed collagen and elastin, propolis and a ceramide lipid-barrier liposome in the serum, mango seed butter and propolis in the cream, and collagen with witch hazel, centella, grapefruit and pomegranate in the masks. All declared on the labels, all in the ingredient lists on the pages above. The manufacturer also cites a clinical study on the skin age index run at P&K Skin Research Center on 24 women aged 30 to 59.',
+      'Around those two: the Anti-aging Peptide 6 complex, hydrolyzed collagen and elastin, propolis and a ceramide lipid-barrier liposome in the serum, mango seed butter and propolis in the cream, and collagen with witch hazel, centella, grapefruit and pomegranate in the masks. All named on the labels and listed in full on the pages above. The manufacturer also cites a clinical study on the skin age index run at P&K Skin Research Center on 24 women aged 30 to 59.',
   },
   suited: {
     eyebrow: 'Suitability',
@@ -286,7 +286,7 @@ const EN: BeautyBoxCopy = {
     forTitle: 'A good match if',
     forList: [
       'Fine lines, slackening firmness or uneven tone are what you want to work on',
-      'You would rather buy actives at stated, checkable concentrations than a story about them',
+      'You would rather buy actives at concentrations you can check',
       'Retinol has irritated you, or you want an active you can wear in the morning as well as at night',
       'You are starting an anti-aging routine and would rather buy the sequence than assemble it yourself',
     ],
@@ -326,15 +326,15 @@ const EN: BeautyBoxCopy = {
     items: [
       {
         q: 'What does "multi functional" actually mean?',
-        a: 'It is a Korean regulatory term rather than a marketing one. A dual-function cosmetic is licensed for two named claims, here wrinkle improvement and brightening, and has to declare the ingredient carrying each of them. On both the serum and the cream those are adenosine at 0.04% and niacinamide at 2%, printed on the Korean carton as the principal actives.',
+        a: 'It is a Korean regulatory term rather than a marketing one. A dual-function cosmetic is licensed for two named claims, here wrinkle improvement and brightening, and names the ingredient behind each one. On both the serum and the cream those are adenosine at 0.04% and niacinamide at 2%, the two principal actives on the licence.',
       },
       {
         q: 'Is bakuchiol as good as retinol?',
-        a: 'The manufacturer position is that the two behave alike in gene expression and that published work found no statistical difference between them in wrinkle surface area. What is clearly different is tolerance: bakuchiol is photostable, so unlike retinol it can be used in daylight, and it does not carry retinol irritation profile. Both the serum and the cream contain it at 0.1%, which is a real but modest dose.',
+        a: 'The manufacturer position is that the two behave alike in gene expression and that published work found no statistical difference between them in wrinkle surface area. What is clearly different is tolerance: bakuchiol is photostable, so unlike retinol it can be worn in daylight, and it comes without the irritation retinol is known for. Both the serum and the cream carry it at 0.1%.',
       },
       {
         q: 'What about the peptides and the collagen?',
-        a: 'The serum carries the manufacturer Anti-aging Peptide 6 complex, six peptides working alongside hydrolyzed collagen and elastin, and the sheet masks carry collagen with witch hazel, centella and pomegranate. They are on the labels and in the ingredient lists on each product page. The two ingredients the Korean licence names, and the two assayed on every batch, are the niacinamide at 2% and the adenosine at 0.04%.',
+        a: 'The serum carries the manufacturer Anti-aging Peptide 6 complex, six peptides working alongside hydrolyzed collagen and elastin, and the sheet masks carry collagen with witch hazel, centella and pomegranate. They are named on the labels and listed in full on each product page. The two the Korean licence is built on, and the two confirmed on every batch, are niacinamide at 2% and adenosine at 0.04%.',
       },
       {
         q: 'Can I just buy the products separately?',
@@ -357,10 +357,10 @@ const AR: BeautyBoxCopy = {
   backToProducts: 'المنتجات',
   headline: 'مادتان فعّالتان مسجّلتان، مرتين يومياً، للمدة التي تحتاجها.',
   subheadline:
-    'السيروم والكريم في قلب هذا الصندوق مسجّلان في كوريا كمستحضرين ثنائيي الوظيفة: تحسين التجاعيد وتفتيح البشرة. والمادتان اللتان يقوم عليهما هذا التسجيل هما النياسيناميد بنسبة 2% والأدينوزين بنسبة 0.04%، وكلتاهما تُقاس في شهادة تحليل كل دفعة إنتاج بدل أن تبقى مجرد ادّعاء. ومن حولهما: منظف الأكسجين، والتونر الخالي من العطر، وخمسة أقنعة كولاجين ورقية.',
+    'السيروم والكريم في قلب هذا الصندوق مسجّلان في كوريا كمستحضرين ثنائيي الوظيفة: تحسين التجاعيد وتفتيح البشرة. والمادتان اللتان يقوم عليهما هذا التسجيل هما النياسيناميد بنسبة 2% والأدينوزين بنسبة 0.04%، وكل دفعة إنتاج تُختبَر للتأكد من النسبتين. ومن حولهما: منظف الأكسجين، والتونر الخالي من العطر، وخمسة أقنعة كولاجين ورقية.',
   heroBullets: [
     'السيروم والكريم مسجّلان في كوريا كمستحضرين ثنائيي الوظيفة: تحسين التجاعيد وتفتيح البشرة، وهذا ترخيص لا عبارة تسويقية',
-    'نياسيناميد 2% وأدينوزين 0.04% في الخطوتين، ويُعاير كلٌّ منهما مقابل هذه النسب في شهادة تحليل كل دفعة',
+    'نياسيناميد 2% وأدينوزين 0.04% في الخطوتين، وكل دفعة إنتاج تُختبَر للتأكد من النسبتين',
     'باكوتشيول بنسبة 0.1% في الاثنين، وهو بديل للريتينول ثابت ضوئياً فيمكن استخدامه في الصباح',
     'خمسة أحجام كاملة وخمسة أقنعة ورقية، بأقل من ثمن المنتجات الخمسة نفسها واحداً واحداً',
   ],
@@ -386,7 +386,7 @@ const AR: BeautyBoxCopy = {
     eyebrow: 'ماذا يوجد داخله',
     title: 'خمسة منتجات، تتابع واحد',
     intro:
-      'لا شيء هنا حصري للصندوق. لكل منتج صفحته وسعره وملفه، ويمكنك قراءة كل ذلك قبل الشراء. ما يفعله الصندوق أنه يضع التتابع كله بين يديك مرة واحدة، بأقل من ثمن قطعه منفصلة. والأرقام تحت كل منتج مأخوذة من تركيبته أو شهادة تحليله أو علبته.',
+      'لكل منتج هنا صفحته وسعره، ويمكنك قراءة تفاصيله كاملة قبل الشراء. ما يفعله الصندوق أنه يضع التتابع كله بين يديك مرة واحدة، بأقل من ثمن قطعه منفصلة.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -449,7 +449,7 @@ const AR: BeautyBoxCopy = {
     eyebrow: 'طريقة الاستخدام',
     title: 'صباحاً ومساءً، بهذا الترتيب',
     intro:
-      'أربع خطوات مرتين يومياً، وقناع ورقي في مساءين أو ثلاثة كل أسبوع. لكل منتج تعليماته الكاملة في صفحته؛ وهذا هو ترتيب تعاونها معاً، وكل سطر أدناه مأخوذ من نص علبة المنتج نفسه.',
+      'أربع خطوات مرتين يومياً، وقناع ورقي في مساءين أو ثلاثة كل أسبوع. لكل منتج تعليماته الكاملة في صفحته؛ وهذا هو ترتيب تعاونها معاً على مدار اليوم.',
     steps: [
       {
         title: 'التنظيف على بشرة جافة',
@@ -464,7 +464,7 @@ const AR: BeautyBoxCopy = {
       {
         title: 'السيروم بالطبطبة لا بالفرك',
         body:
-          'العلبة واضحة في هذه الخطوة: ضعي السيروم على الوجه ووزّعيه بالطبطبة بأطراف الأصابع. صباحاً ومساءً، ودائماً قبل الكريم.',
+          'ضعي السيروم على الوجه ووزّعيه بالطبطبة بأطراف الأصابع. صباحاً ومساءً، ودائماً قبل الكريم.',
       },
       {
         title: 'الكريم للإنهاء',
@@ -484,19 +484,19 @@ const AR: BeautyBoxCopy = {
     eyebrow: 'ما يُقاس فعلاً',
     title: 'الأرقام التي نضمنها',
     intro:
-      'منتجان من الخمسة مستحضران وظيفيان مسجّلان، والمادتان اللتان يقوم عليهما هذا التسجيل تُقاسان في كل دفعة إنتاج. فالنسب أدناه ليست تقريباً على الملصق: كل واحدة منها مؤكَّدة في الشهادة التي وصلت مع الدفعة.',
+      'منتجان من الخمسة مستحضران وظيفيان مسجّلان، والمادتان اللتان يقوم عليهما هذا التسجيل تُختبَران في كل دفعة إنتاج. فالنسب أدناه مؤكَّدة، لا مقرّبة.',
     cards: [
       {
         value: '2%',
-        title: 'نياسيناميد، مؤكَّد في شهادة الدفعة',
+        title: 'نياسيناميد، مؤكَّد في كل دفعة',
         body:
-          'مُعلن بنسبة 2% في السيروم وفي الكريم. وفي الدفعات التي نحمل شهاداتها جاءت النتيجة 98.65% من المُعلن في السيروم و100.54% في الكريم.',
+          'نسبة 2% كاملة في السيروم وفي الكريم، وكل دفعة تُختبَر لإثباتها. وجاءت النتيجة الأخيرة 98.65% من هذه النسبة في السيروم و100.54% في الكريم.',
       },
       {
         value: '0.04%',
         title: 'أدينوزين، بالنسبة التي يحددها الترخيص',
         body:
-          'النسبة التي تعترف بها كوريا لتحسين التجاعيد، في الخطوتين، ومعايَرة بالطريقة نفسها: 96.25% من المُعلن في دفعة السيروم و103.75% في دفعة الكريم.',
+          'النسبة التي تعترف بها كوريا لتحسين التجاعيد، في الخطوتين، ومُختبَرة بالطريقة نفسها: 96.25% منها في دفعة السيروم و103.75% في دفعة الكريم.',
       },
       {
         value: '0.1%',
@@ -506,7 +506,7 @@ const AR: BeautyBoxCopy = {
       },
     ],
     footnote:
-      'وحول هاتين المادتين: مركّب Anti-aging Peptide 6، والكولاجين والإيلاستين المُحلّلان، والبروبوليس وليبوسوم السيراميد في السيروم؛ وزبدة بذور المانجو والبروبوليس في الكريم؛ والكولاجين مع الهاماميليس والسنتيلا والجريب فروت والرمان في الأقنعة. كل ذلك مُعلن على الملصقات وموجود في قوائم المكوّنات على الصفحات أعلاه. كما تستشهد الشركة المصنّعة بدراسة سريرية على مؤشر عمر البشرة أُجريت في مركز P&K لبحوث الجلد على 24 امرأة بين 30 و59 عاماً.',
+      'وحول هاتين المادتين: مركّب Anti-aging Peptide 6، والكولاجين والإيلاستين المُحلّلان، والبروبوليس وليبوسوم السيراميد في السيروم؛ وزبدة بذور المانجو والبروبوليس في الكريم؛ والكولاجين مع الهاماميليس والسنتيلا والجريب فروت والرمان في الأقنعة. كل ذلك مذكور على الملصقات ومدرج كاملاً في الصفحات أعلاه. كما تستشهد الشركة المصنّعة بدراسة سريرية على مؤشر عمر البشرة أُجريت في مركز P&K لبحوث الجلد على 24 امرأة بين 30 و59 عاماً.',
   },
   suited: {
     eyebrow: 'مدى الملاءمة',
@@ -514,7 +514,7 @@ const AR: BeautyBoxCopy = {
     forTitle: 'مناسب إذا',
     forList: [
       'كانت الخطوط الدقيقة أو تراخي الشد أو تفاوت اللون هي ما تريدين العمل عليه',
-      'كنت تفضّلين شراء مواد فعّالة بنسب معلنة قابلة للتحقق بدل قصة عنها',
+      'كنت تفضّلين شراء مواد فعّالة بنسب يمكنك التحقق منها',
       'كان الريتينول قد هيّج بشرتك، أو أردت مادة فعّالة تصلح للصباح كما تصلح للمساء',
       'كنت تبدأين روتيناً مضاداً للتقدّم في السن وتفضّلين شراء التتابع كاملاً بدل تجميعه بنفسك',
     ],
@@ -554,11 +554,11 @@ const AR: BeautyBoxCopy = {
     items: [
       {
         q: 'ما معنى "multi functional" فعلاً؟',
-        a: 'هو مصطلح تنظيمي كوري لا تسويقي. فالمستحضر ثنائي الوظيفة مرخّص لادّعاءين محددين، هنا تحسين التجاعيد وتفتيح البشرة، وعليه أن يُعلن المادة التي تحمل كل واحد منهما. وفي السيروم والكريم كلاهما هما الأدينوزين بنسبة 0.04% والنياسيناميد بنسبة 2%، مطبوعتان على العلبة الكورية كالمادتين الأساسيتين.',
+        a: 'هو مصطلح تنظيمي كوري لا تسويقي. فالمستحضر ثنائي الوظيفة مرخّص لادّعاءين محددين، هنا تحسين التجاعيد وتفتيح البشرة، ويُسمّي المادة التي تحمل كل واحد منهما. وفي السيروم والكريم هما الأدينوزين بنسبة 0.04% والنياسيناميد بنسبة 2%، المادتان الأساسيتان في الترخيص.',
       },
       {
         q: 'هل الباكوتشيول بمستوى الريتينول؟',
-        a: 'موقف الشركة المصنّعة أن المادتين تتصرفان بشكل متشابه في التعبير الجيني، وأن أعمالاً منشورة لم تجد فرقاً ذا دلالة إحصائية بينهما في مساحة التجاعيد. والفرق الواضح هو التحمّل: الباكوتشيول ثابت ضوئياً، فيمكن استخدامه في ضوء النهار خلافاً للريتينول، ولا يحمل صورة التهيّج التي يحملها الريتينول. ويحتويه السيروم والكريم بنسبة 0.1%، وهي نسبة حقيقية لكنها متوسطة.',
+        a: 'موقف الشركة المصنّعة أن المادتين تتصرفان بشكل متشابه في التعبير الجيني، وأن أعمالاً منشورة لم تجد فرقاً ذا دلالة إحصائية بينهما في مساحة التجاعيد. والفرق الواضح هو التحمّل: الباكوتشيول ثابت ضوئياً، فيمكن استخدامه في ضوء النهار خلافاً للريتينول، ويأتي بلا التهيّج المعروف عن الريتينول. ويحتويه السيروم والكريم بنسبة 0.1%.',
       },
       {
         q: 'وماذا عن الببتيدات والكولاجين؟',
@@ -585,10 +585,10 @@ const RU: BeautyBoxCopy = {
   backToProducts: 'Продукты',
   headline: 'Два зарегистрированных актива, дважды в день, столько, сколько нужно.',
   subheadline:
-    'Сыворотка и крем в центре этого набора зарегистрированы в Корее как средства двойного действия: разглаживание морщин и выравнивание тона. Две молекулы, на которых держится эта регистрация, - ниацинамид 2% и аденозин 0,04%, и обе измеряются в сертификате каждой производственной партии, а не остаются заявлением на упаковке. Вокруг них: кислородное очищающее средство, тоник без ароматизаторов и пять коллагеновых тканевых масок.',
+    'Сыворотка и крем в центре этого набора зарегистрированы в Корее как средства двойного действия: разглаживание морщин и выравнивание тона. Две молекулы, на которых держится эта регистрация, - ниацинамид 2% и аденозин 0,04%, и каждая производственная партия проверяется на соответствие этим цифрам. Вокруг них: кислородное очищающее средство, тоник без ароматизаторов и пять коллагеновых тканевых масок.',
   heroBullets: [
     'Сыворотка и крем зарегистрированы в Корее как средства двойного действия: разглаживание морщин и выравнивание тона. Это лицензия, а не маркетинговая формулировка',
-    'Ниацинамид 2% и аденозин 0,04% в двух шагах, и оба проверяются на соответствие этим цифрам в сертификате каждой партии',
+    'Ниацинамид 2% и аденозин 0,04% в двух шагах, и каждая производственная партия проверяется на соответствие',
     'Бакучиол 0,1% в обоих средствах: альтернатива ретинолу, фотостабильная, поэтому её можно наносить утром',
     'Пять полных розничных объёмов и пять тканевых масок - дешевле, чем те же пять средств по одному',
   ],
@@ -614,7 +614,7 @@ const RU: BeautyBoxCopy = {
     eyebrow: 'Что внутри',
     title: 'Пять средств, один порядок',
     intro:
-      'Ничего эксклюзивного для набора здесь нет. У каждого средства своя страница, своя цена и свои документы, и всё это можно прочитать до покупки. Набор просто отдаёт вам весь порядок сразу - дешевле, чем по частям. Цифры под каждой позицией взяты из её собственной формулы, сертификата анализа или упаковки.',
+      'У каждого средства здесь своя страница и своя цена, так что все подробности можно прочитать до покупки. Набор просто отдаёт вам весь порядок сразу - дешевле, чем по частям.',
     items: [
       {
         titleKey: 'routineSnowO2Title',
@@ -677,7 +677,7 @@ const RU: BeautyBoxCopy = {
     eyebrow: 'Как применять',
     title: 'Утром и вечером, в этом порядке',
     intro:
-      'Четыре шага дважды в день и тканевая маска два-три вечера в неделю. Полные инструкции есть на странице каждого средства; здесь - как они складываются вместе, и каждая строка ниже это формулировка с упаковки самого средства.',
+      'Четыре шага дважды в день и тканевая маска два-три вечера в неделю. Полные инструкции есть на странице каждого средства; здесь - как они складываются вместе в течение дня.',
     steps: [
       {
         title: 'Очищение на сухой коже',
@@ -712,19 +712,19 @@ const RU: BeautyBoxCopy = {
     eyebrow: 'Что действительно измерено',
     title: 'Цифры, за которые мы отвечаем',
     intro:
-      'Два средства из пяти - зарегистрированные функциональные косметические средства, и две молекулы, на которых держится эта регистрация, измеряются в каждой производственной партии. Поэтому цифры ниже - не округление на этикетке: каждая подтверждена сертификатом, пришедшим с партией.',
+      'Два средства из пяти - зарегистрированные функциональные косметические средства, и две молекулы, на которых держится эта регистрация, проверяются в каждой производственной партии. Поэтому цифры ниже подтверждены, а не округлены.',
     cards: [
       {
         value: '2%',
-        title: 'Ниацинамид, подтверждённый в сертификате партии',
+        title: 'Ниацинамид, подтверждённый в каждой партии',
         body:
-          'Заявлен на уровне 2% и в сыворотке, и в креме. В партиях, сертификаты которых у нас есть, получено 98,65% от заявленного в сыворотке и 100,54% в креме.',
+          'Полные 2% и в сыворотке, и в креме, и каждая партия проверяется, чтобы это подтвердить. В последней получено 98,65% от этой цифры в сыворотке и 100,54% в креме.',
       },
       {
         value: '0,04%',
         title: 'Аденозин в той дозе, которую называет лицензия',
         body:
-          'Концентрация, признанная в Корее для разглаживания морщин, в двух шагах и с той же проверкой: 96,25% от заявленного в партии сыворотки и 103,75% в партии крема.',
+          'Концентрация, признанная в Корее для разглаживания морщин, в двух шагах и с той же проверкой: 96,25% от этой цифры в партии сыворотки и 103,75% в партии крема.',
       },
       {
         value: '0,1%',
@@ -734,7 +734,7 @@ const RU: BeautyBoxCopy = {
       },
     ],
     footnote:
-      'Вокруг этих двух активов: комплекс Anti-aging Peptide 6, гидролизованные коллаген и эластин, прополис и церамидная липосома в сыворотке, масло семян манго и прополис в креме, коллаген с гамамелисом, центеллой, грейпфрутом и гранатом в масках. Всё заявлено на этикетках и есть в составах на страницах выше. Производитель также ссылается на клиническое исследование индекса возраста кожи, проведённое в P&K Skin Research Center на 24 женщинах от 30 до 59 лет.',
+      'Вокруг этих двух активов: комплекс Anti-aging Peptide 6, гидролизованные коллаген и эластин, прополис и церамидная липосома в сыворотке, масло семян манго и прополис в креме, коллаген с гамамелисом, центеллой, грейпфрутом и гранатом в масках. Всё названо на этикетках и полностью перечислено на страницах выше. Производитель также ссылается на клиническое исследование индекса возраста кожи, проведённое в P&K Skin Research Center на 24 женщинах от 30 до 59 лет.',
   },
   suited: {
     eyebrow: 'Кому подходит',
@@ -742,7 +742,7 @@ const RU: BeautyBoxCopy = {
     forTitle: 'Подойдёт, если',
     forList: [
       'Работать нужно с мелкими морщинами, потерей плотности или неровным тоном',
-      'Вы предпочитаете покупать активы в заявленных и проверяемых концентрациях, а не рассказ о них',
+      'Вы предпочитаете покупать активы в концентрациях, которые можно проверить',
       'Ретинол вас раздражал, или нужен актив, который можно наносить и утром, и вечером',
       'Вы начинаете антивозрастной уход и предпочитаете купить готовый порядок, а не собирать его самостоятельно',
     ],
@@ -782,11 +782,11 @@ const RU: BeautyBoxCopy = {
     items: [
       {
         q: 'Что на самом деле значит "multi functional"?',
-        a: 'Это корейский регуляторный термин, а не маркетинговый. Средство двойного действия лицензируется под два названных заявления - здесь разглаживание морщин и выравнивание тона - и обязано указать молекулу, отвечающую за каждое из них. И в сыворотке, и в креме это аденозин 0,04% и ниацинамид 2%, напечатанные на корейской упаковке как основные активы.',
+        a: 'Это корейский регуляторный термин, а не маркетинговый. Средство двойного действия лицензируется под два названных заявления - здесь разглаживание морщин и выравнивание тона - и называет молекулу, отвечающую за каждое из них. И в сыворотке, и в креме это аденозин 0,04% и ниацинамид 2%, два основных актива в этой регистрации.',
       },
       {
         q: 'Бакучиол не хуже ретинола?',
-        a: 'Позиция производителя: обе молекулы ведут себя схоже в профиле экспрессии генов, а опубликованные работы не нашли статистически значимой разницы между ними по площади морщин. Явно отличается переносимость: бакучиол фотостабилен, поэтому в отличие от ретинола его можно применять при дневном свете, и он не несёт ретиноловый профиль раздражения. В сыворотке и в креме его 0,1% - доза реальная, но умеренная.',
+        a: 'Позиция производителя: обе молекулы ведут себя схоже в профиле экспрессии генов, а опубликованные работы не нашли статистически значимой разницы между ними по площади морщин. Явно отличается переносимость: бакучиол фотостабилен, поэтому в отличие от ретинола его можно носить при дневном свете, и он обходится без раздражения, которым известен ретинол. В сыворотке и в креме его 0,1%.',
       },
       {
         q: 'А что с пептидами и коллагеном?',

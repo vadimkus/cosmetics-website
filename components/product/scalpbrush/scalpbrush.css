@@ -1,0 +1,51 @@
+/**
+ * Palette override for the HR³ MATRIX SCALP BRUSH page (product 61).
+ *
+ * The structural design system lives in cerabarrier.css - cards, reveals,
+ * accordion, numerals, focus rings. That file is imported first and every rule
+ * in it reads from CSS variables, so this file only has to restate the
+ * variables to re-skin the whole page.
+ *
+ * Product 64 (hair stamp) is graphite and blue steel because it is a clinical
+ * instrument. This is also a black object on white, so it borrows that
+ * structure, but shifts the accent to a cool slate-teal: the product is used
+ * under running water, and the teal keeps it from reading as a second device
+ * page sitting next to the stamp in the same routine strip.
+ *
+ * Scoped to `.cera-page.scalpbrush-page`, so importing this file cannot affect
+ * products 60, 63, 64, 65 or 66, or any other route.
+ */
+
+.cera-page.scalpbrush-page {
+  --cera-cream: #f5f8f8;
+  --cera-cream-deep: #e8eeee;
+  --cera-blush: #e6eeef;
+  --cera-blush-deep: #c9dadb;
+  --cera-rose: #4f7f82;
+  --cera-rose-ink: #2b4c4f;
+  --cera-ink: #111718;
+  --cera-body: #313b3c;
+  --cera-muted: #576465;
+  --cera-line: #dce4e4;
+}
+
+/* The hero stage shadow is tinted per page; restate it for the teal theme. */
+.scalpbrush-page .cera-stage {
+  background-color: #eef2f2;
+  box-shadow: 0 24px 60px -34px rgba(43, 76, 79, 0.45);
+}
+
+@media (hover: hover) {
+  .scalpbrush-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(17, 23, 24, 0.04), 0 26px 48px -26px rgba(43, 76, 79, 0.36);
+  }
+}
+
+/* --- Care and cautions -------------------------------------------------- */
+/* The two lists in the care section carry opposite weight: upkeep is routine,
+   cautions are reasons to stop. The card is tinted as well as icon-marked so the
+   difference survives at a glance, before either list is read. */
+.scalpbrush-page .scalpbrush-cautions {
+  background: color-mix(in srgb, var(--cera-blush) 55%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 22%, var(--cera-line));
+}

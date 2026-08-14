@@ -108,7 +108,10 @@ export async function getProductById(id: string): Promise<Product | null> {
  */
 const getProductByIdFromDb = unstable_cache(
   async (id: string): Promise<Product | null> => getProductById(id),
-  ['product-by-id'],
+  // Bump when product rows are edited outside admin (admin already
+  // revalidateTag('products')). Out-of-band image swaps otherwise keep
+  // serving the previous path for up to 5 minutes.
+  ['product-by-id-v2'],
   { revalidate: 300, tags: ['products'] }
 )
 

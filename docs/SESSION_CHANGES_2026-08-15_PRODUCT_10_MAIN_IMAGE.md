@@ -36,3 +36,13 @@ and repoints historical order items plus the one blog that still named
 - `app/animation/components/ProductCardDemo.tsx`
 
 `data/productConfig.ts` has no gallery override for product 10.
+
+## Applied
+
+Database `image` is now `/images/cleanser/main_clean.jpeg`. Gallery unchanged.
+95 order items and the summer-survival blog were repointed.
+
+The product page reads through `unstable_cache` (`product-by-id`, 5 minutes).
+Writing the row outside the admin API does not call `revalidateTag('products')`,
+so localhost kept serving `Main.jpg` until the cache key was bumped to
+`product-by-id-v2`. Hard-refresh after that.

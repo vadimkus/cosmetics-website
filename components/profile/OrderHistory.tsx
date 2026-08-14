@@ -124,7 +124,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       // Add your product image mappings here
       'Microneedle Roller': '/images/genosys-microneedling-devices.jpg',
       'Needle Pen-K': '/images/Needle-pen.jpg',
-      'SNOW O₂ CLEANSER': '/images/cleanser/Main.jpg',
+      'SNOW O₂ CLEANSER': '/images/cleanser/main_clean.jpeg',
       'SNOW BOOSTER': '/images/BOOS.jpg',
       'MULTI VITA RADIANCE CREAM': '/images/radiance/main.jpeg',
       'MULTI VITA RADIANCE SERUM': '/images/radiance_serum/main.jpeg',

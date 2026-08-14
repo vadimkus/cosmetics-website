@@ -60,7 +60,7 @@ const demoProducts = [
     rating: 4.5,
     reviews: 78,
     badge: null,
-    image: '/images/cleanser/Main.jpg'
+    image: '/images/cleanser/main_clean.jpeg'
   },
   {
     id: 6,

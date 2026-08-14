@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Product 10 Snow O₂ Cleanser main image](./SESSION_CHANGES_2026-08-15_PRODUCT_10_MAIN_IMAGE.md) | Main-only swap to cache-safe `cleanser/main_clean.jpeg`; gallery S1–S6 preserved; `Main.jpg` kept for emails already sent. |
 | 🟡 **Important** | [Product 4 POWER SOLUTION HES images](./SESSION_CHANGES_2026-08-13_PRODUCT_4_HES_POWER_IMAGES.md) | Cache-safe `hes_power/` main + gallery (`s1new`, s2–s7); DB/catalog/order fallbacks updated; old `HES.jpg` / `hes_big1.jpg` / `hes_big2.jpg` / `s1.jpeg` removed after cutover. |
 | 🟡 **Important** | [Product 27 Skin Barrier Cream images](./SESSION_CHANGES_2026-08-11_PRODUCT_27_SKIN_BARR_IMAGES.md) | Cache-safe `skin_barr/` main + s1–s6 gallery; DB/catalog/SEO/desktop fallbacks updated; old `BRR.jpg` / `bar_big.jpg` removed after cutover. |
 | 🟡 **Important** | [Product 17 Eye Contour Serum images](./SESSION_CHANGES_2026-08-11_PRODUCT_17_EYE_SERUM_IMAGES.md) | Cache-safe `eye_serum/` main + s1–s7 gallery; DB/catalog/routine/order fallbacks updated; old `EYS.jpg` / `SERUM_2.jpg` removed after cutover. |

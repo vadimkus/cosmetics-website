@@ -1,18 +1,23 @@
 'use client'
 
 /**
- * Bespoke product page for POWER SOLUTION CVS (product 5).
+ * Shared bespoke layout for the six POWER SOLUTION ampoules. Two products use
+ * it so far: CVS (5) and HES (4), each through a thin wrapper that hands over
+ * its variant. Everything product-specific - the copy, the formula, the
+ * photography, the palette - comes in through PowerSolutionVariant, so adding
+ * CTS, PCS, SWS or AWS is a copy module and a palette class, not a new layout.
  *
  * Shares the editorial design system built for product 66 - the primitives, the
  * gallery and the structural CSS all come from ../cerabarrier - and layers a
- * cool clinical palette on top via powersolution.css, sampled off the vial.
+ * per-product palette on top via powersolution.css, sampled off the vial.
  *
  * Structurally it starts from the product 52 layout and diverges where this
  * product is a different kind of thing. Section order:
  *
  *   solution  what the three letters mean and what the carton registers it for
+ *   ladder    optional: the molecular-weight story, where one exists (HES)
  *   formula   the quantitative composition, charted from the dossier
- *   freeFrom  the 5-Free panel, which is the strongest thing on the packaging
+ *   freeFrom  the no-additions panel, the strongest thing on the packaging
  *   range     the other five ampoules
  *   howTo     the carton's four pictograms plus the two vial-handling steps
  *   actives   ingredient cards, plus the full INCI
@@ -21,7 +26,7 @@
  *
  * Where it deliberately diverges from product 52:
  *
- *   - No proof section. There is no clinical study on this product. Product 52
+ *   - No proof section. There is no clinical study on either ampoule. Product 52
  *     has one and charts it; inventing an equivalent here would be the exact
  *     thing that makes 52's chart worth reading.
  *
@@ -36,10 +41,13 @@
  *     hands the layout the untranslated row, so DB cards would render in
  *     English on the Arabic and Russian pages.
  *
- * See powerSolutionCopy.ts for the sourcing rules, the full quantitative
- * formula and the list of claims that must not come back without a document. In
- * particular: nothing on this page may say microneedling, and sh-Polypeptide-7
- * is a somatotropin-sequence peptide, never an IGF-1 analogue.
+ * See each variant's copy module for its sourcing rules, its quantitative
+ * formula and the claims that must not come back without a document. Two rules
+ * hold across all six: sh-Polypeptide-7 is a somatotropin-sequence peptide and
+ * never an IGF-1 analogue, and the roller is only mentioned where that
+ * product's own carton shows it. CVS's carton does not, so its page never says
+ * microneedling; HES's carton diagrams the roller across three panels, so its
+ * page leads on it.
  */
 
 import '../cerabarrier/cerabarrier.css'
@@ -87,13 +95,7 @@ import {
   CeraSectionHeader,
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
-import {
-  FORMULA_ACTIVES,
-  FORMULA_BASE,
-  FULL_INCI,
-  RANGE,
-  getPowerSolutionCopy,
-} from './powerSolutionCopy'
+import { RANGE, type PowerSolutionVariant } from './powerSolutionCopy'
 
 interface Props {
   product: Product
@@ -102,24 +104,9 @@ interface Props {
    *  the range table can show live price and stock and add straight to the bag.
    *  Named `routineProducts` because every bespoke layout takes the same props. */
   routineProducts?: Product[]
+  /** Everything that differs between the six ampoules. See powerSolutionCopy.ts. */
+  variant: PowerSolutionVariant
 }
-
-/** Both verified at full resolution and both on pure white, which is what lets
- *  the .ps-figure multiply rule drop their surround into the page tint. The hero
- *  is on a lilac-grey studio sweep, not on white, so it must never carry that
- *  class - multiplying would darken the sweep into a grey block. */
-const VIAL_IMAGE = '/images/Second/cvs_big2.jpg'
-const BOX_IMAGE = '/images/Second/cvs_big1.jpg'
-
-/** The gallery carries these two alongside the hero, which is on a studio sweep,
- *  so it has to be told which slides are the white ones. */
-const WHITE_BACKGROUND_SHOTS = new Set([VIAL_IMAGE, BOX_IMAGE])
-
-/** Each group is scaled against its own largest value, because the humectant
- *  base and the actives are two orders of magnitude apart and one shared scale
- *  would draw every active as nothing. */
-const BASE_MAX = Math.max(...FORMULA_BASE.map(r => r.pct))
-const ACTIVES_MAX = Math.max(...FORMULA_ACTIVES.map(r => r.pct))
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -135,6 +122,7 @@ export default function PowerSolutionProductPage({
   product,
   unitsSold = 0,
   routineProducts = [],
+  variant,
 }: Props) {
   const router = useRouter()
   const { locale, dir, t } = useTranslation()
@@ -143,8 +131,14 @@ export default function PowerSolutionProductPage({
   const { isFavorite, toggleFavorite } = useFavorites()
 
   const isRtl = dir === 'rtl'
-  const copy = getPowerSolutionCopy(locale)
+  const copy = variant.getCopy(locale)
   const Chevron = isRtl ? ChevronLeft : ChevronRight
+
+  /** Each group is scaled against its own largest value, because the humectant
+   *  base and the actives are two orders of magnitude apart and one shared scale
+   *  would draw every active as nothing. */
+  const baseMax = Math.max(...variant.formulaBase.map(r => r.pct))
+  const activesMax = Math.max(...variant.formulaActives.map(r => r.pct))
 
   // Single SKU - one carton of ten vials - so no size is ever passed to the cart.
   const [quantity, setQuantity] = useState(1)
@@ -157,10 +151,12 @@ export default function PowerSolutionProductPage({
   const cartLine = findSelectedStandardCartLine(cartItems, product.id, '', '')
   const inCartQty = cartLine?.quantity || 0
 
-  /** Russian writes 12,485 where English writes 12.485. */
+  /** Russian writes 12,485 where English writes 12.485. Trailing zeros go: the
+   *  formulas carry figures from 12.485% down to 0.02%, and padding a round 10%
+   *  out to "10.000%" reads like a measurement rather than a round number. */
   const pct = useCallback(
     (value: number) => {
-      const text = value >= 1 ? value.toFixed(3) : value.toFixed(4).replace(/0+$/, '')
+      const text = value.toFixed(4).replace(/\.?0+$/, '')
       return `${text.replace('.', copy.decimalSeparator)}%`
     },
     [copy.decimalSeparator]
@@ -175,12 +171,9 @@ export default function PowerSolutionProductPage({
     return list.map((src, i) => ({
       src,
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
-      // This gallery mixes backgrounds: the hero is on a lilac-grey studio
-      // sweep and fills the stage on its own, while these two are on pure white
-      // and would otherwise turn the whole card into a white block.
-      blend: WHITE_BACKGROUND_SHOTS.has(src),
+      blend: variant.blendGallerySlides.has(src),
     }))
-  }, [product.image, product.images, product.name])
+  }, [product.image, product.images, product.name, variant.blendGallerySlides])
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -345,7 +338,10 @@ export default function PowerSolutionProductPage({
     ))
 
   return (
-    <div className={`cera-page powersolution-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
+    <div
+      className={`cera-page powersolution-page ${variant.paletteClass} ${ceraSerif.variable} min-h-[100dvh]`}
+      dir={dir}
+    >
       {/* ───────────────────────────── Hero ─────────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 md:pt-8 lg:pt-12">
         <nav
@@ -609,7 +605,7 @@ export default function PowerSolutionProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="cera-stage ps-figure relative aspect-square overflow-hidden rounded-[28px]">
               <Image
-                src={VIAL_IMAGE}
+                src={variant.vialImage}
                 alt={copy.solution.figureAlt}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -620,6 +616,68 @@ export default function PowerSolutionProductPage({
           </CeraReveal>
         </div>
       </section>
+
+      {/* ─────────────────── Molecular weight ladder (HES) ───────────────── */}
+      {/* Three grades of hyaluronic acid side by side, with this product's own
+          marked. Only rendered where the copy module defines it, which is where
+          the manufacturer publishes the ladder: HES has it, CVS does not. The
+          middle column is the whole argument for the product, so it is scaled up
+          and carries the accent. */}
+      {copy.ladder ? (
+        <section className="bg-[var(--cera-cream-deep)] py-16 lg:py-24">
+          <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+            <CeraSectionHeader
+              eyebrow={copy.ladder.eyebrow}
+              title={copy.ladder.title}
+              intro={copy.ladder.intro}
+            />
+
+            <div className="ps-ladder-grid mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3 lg:mt-14 lg:gap-6">
+              {copy.ladder.columns.map((column, i) => (
+                <CeraReveal
+                  key={column.grade}
+                  delay={i * 90}
+                  className={`cera-card flex flex-col p-6 lg:p-7 ${column.self ? 'ps-ladder-self' : ''}`}
+                >
+                  {/* The dot is a to-scale stand-in for the molecule, so the
+                      three differ in size. The rail is a fixed height with the
+                      dot sitting at its foot: that puts all three on one
+                      baseline and keeps the text below them aligned across the
+                      row, which sizing alone would not.
+
+                      Decorative - each column prints its own weight, so the dot
+                      is hidden from assistive tech. */}
+                  <span className="ps-ladder-rail" aria-hidden="true">
+                    <span className="ps-ladder-dot" data-self={column.self ? 'true' : undefined} />
+                  </span>
+                  <p className="mt-5 text-[12.5px] font-semibold uppercase tracking-[0.14em] text-[var(--cera-muted)]">
+                    {column.grade}
+                  </p>
+                  <p
+                    className="cera-serif cera-numeral mt-2 text-[26px] leading-tight text-[var(--cera-ink)]"
+                    dir="ltr"
+                  >
+                    {column.weight}
+                  </p>
+                  <p className="mt-3 text-[14.5px] font-semibold leading-snug text-[var(--cera-rose-ink)]">
+                    {column.delivery}
+                  </p>
+                  <p className="mt-2 text-[14.5px] leading-relaxed text-[var(--cera-body)]">
+                    {column.effect}
+                  </p>
+                </CeraReveal>
+              ))}
+            </div>
+
+            <CeraReveal delay={140} className="mx-auto mt-6 max-w-[860px]">
+              <p className="flex gap-3 rounded-2xl border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)]/60 p-5 text-[15px] leading-relaxed text-[var(--cera-body)]">
+                <Sparkles className="mt-0.5 h-5 w-5 flex-none text-[var(--cera-rose-ink)]" aria-hidden="true" />
+                <span>{copy.ladder.note}</span>
+              </p>
+            </CeraReveal>
+          </div>
+        </section>
+      ) : null}
 
       {/* ────────────────────────── The formula ─────────────────────────── */}
       <section className="bg-white py-16 lg:py-24">
@@ -636,7 +694,7 @@ export default function PowerSolutionProductPage({
                 {copy.formula.baseTitle}
               </p>
               <div className="mt-5">
-                {chartGroup(FORMULA_BASE, copy.formula.baseRows, BASE_MAX, 'base')}
+                {chartGroup(variant.formulaBase, copy.formula.baseRows, baseMax, 'base')}
               </div>
               <p className="mt-6 text-[14.5px] leading-relaxed text-[var(--cera-body)]">
                 {copy.formula.baseNote}
@@ -648,7 +706,7 @@ export default function PowerSolutionProductPage({
                 {copy.formula.activesTitle}
               </p>
               <div className="mt-5">
-                {chartGroup(FORMULA_ACTIVES, copy.formula.activesRows, ACTIVES_MAX, 'actives')}
+                {chartGroup(variant.formulaActives, copy.formula.activesRows, activesMax, 'actives')}
               </div>
               <p className="mt-6 text-[14.5px] leading-relaxed text-[var(--cera-body)]">
                 {copy.formula.activesNote}
@@ -675,7 +733,7 @@ export default function PowerSolutionProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="cera-stage ps-figure relative aspect-[4/3] overflow-hidden rounded-[28px]">
               <Image
-                src={BOX_IMAGE}
+                src={variant.boxImage}
                 alt={copy.freeFrom.figureAlt}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -908,7 +966,7 @@ export default function PowerSolutionProductPage({
           <CeraReveal className="mx-auto mt-10 max-w-[820px]">
             <CeraAccordion title={copy.actives.inciTitle}>
               <p dir="ltr" className="text-start text-[14.5px] leading-[1.9] text-[var(--cera-body)]">
-                {FULL_INCI}
+                {variant.fullInci}
               </p>
               <p className="mt-3 text-[13px] text-[var(--cera-muted)]">{copy.actives.inciNote}</p>
             </CeraAccordion>
@@ -1000,10 +1058,12 @@ export default function PowerSolutionProductPage({
       </section>
 
       {/* ────────────────────────── Closing band ───────────────────────── */}
-      {/* imageFit stays "cover": the hero is on a lilac-grey studio sweep, not
-          on white, so the blend mode would darken the sweep rather than dissolve
-          it. The hero is square, so cover crops nothing here. */}
+      {/* "cover" for a hero on a studio sweep, where blending would darken the
+          sweep rather than dissolve it; "blend" for one on pure white, where it
+          dissolves the surround into the band. Both heroes are square, so cover
+          crops nothing either way. */}
       <CeraClosingCta
+        imageFit={variant.heroOnWhite ? 'blend' : 'cover'}
         image={product.image}
         name={product.name}
         headline={copy.closing.title}

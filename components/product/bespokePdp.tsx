@@ -11,7 +11,8 @@ import BioMesoProductPage from '@/components/product/biomeso/BioMesoProductPage'
 import BioMesoExpertProductPage from '@/components/product/biomeso/BioMesoExpertProductPage'
 import HairStampProductPage from '@/components/product/hairstamp/HairStampProductPage'
 import PdrnMaskProductPage from '@/components/product/pdrnmask/PdrnMaskProductPage'
-import PowerSolutionProductPage from '@/components/product/powersolution/PowerSolutionProductPage'
+import CvsProductPage from '@/components/product/powersolution/CvsProductPage'
+import HesProductPage from '@/components/product/powersolution/HesProductPage'
 import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
@@ -25,8 +26,10 @@ import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushPro
  * and hand it the routine products.
  */
 export const BESPOKE_PDP_LAYOUTS = {
-  // 5 is one of the six professional Power Solution ampoules.
-  '5': PowerSolutionProductPage,
+  // 4 and 5 are two of the six professional Power Solution ampoules. They share
+  // one layout and differ only by variant; see powerSolutionCopy.ts.
+  '4': HesProductPage,
+  '5': CvsProductPage,
   // 52 and 53 are both masks but share no layout: 52 has a clinical study and a
   // Korean functional licence to build on, 53 has neither.
   '52': PdrnMaskProductPage,
@@ -76,7 +79,8 @@ export function getBespokePdpLayout(
  * between the six vials IS the decision a buyer is making.
  */
 const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
-  // The other five Power Solutions, for the range table on product 5.
+  // The other five Power Solutions, for the range table on each ampoule's page.
+  '4': ['5', '6', '7', '8', '9'],
   '5': ['4', '6', '7', '8', '9'],
 }
 

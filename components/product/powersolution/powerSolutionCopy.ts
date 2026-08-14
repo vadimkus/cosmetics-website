@@ -276,6 +276,70 @@ export interface PowerSolutionCopy {
     body: string
   }
   backToProducts: string
+  /**
+   * Optional. Rendered only by products whose selling point is the molecular
+   * weight of one ingredient, which so far is HES alone: its hyaluronic acid
+   * sits between filler grade and the grade ordinary cosmetics use, and the
+   * whole reason the carton pairs it with a roller is that weight. CVS has no
+   * equivalent story and leaves this undefined, which drops the section.
+   */
+  ladder?: {
+    eyebrow: string
+    title: string
+    intro: string
+    /** Three grades, lightest last, with the product's own marked `self`. */
+    columns: Array<{
+      grade: string
+      weight: string
+      delivery: string
+      effect: string
+      self?: boolean
+    }>
+    note: string
+  }
+}
+
+/**
+ * What differs between one Power Solution page and the next.
+ *
+ * The six ampoules share a carton design, a range table, a 5-Free panel and a
+ * formula worth charting, so they share a layout. What they do not share is the
+ * formula itself, the photography, the accent colour off the vial label, or
+ * whether there is a molecular-weight story to tell. Those go here, and
+ * PowerSolutionProductPage reads everything product-specific through this.
+ */
+export interface PowerSolutionVariant {
+  /** Sits alongside .powersolution-page and restates the palette variables. */
+  paletteClass: string
+  getCopy: (locale: string) => PowerSolutionCopy
+  /** Matched by index to copy.formula.baseRows. */
+  formulaBase: readonly { pct: number }[]
+  /** Matched by index to copy.formula.activesRows. */
+  formulaActives: readonly { pct: number }[]
+  fullInci: string
+  /** Square, on pure white: it multiplies into the stage tint. */
+  vialImage: string
+  /** 4:3, on pure white, with the no-additions badge legible. */
+  boxImage: string
+  /**
+   * Gallery slides to multiply into the stage tint. Every slide in these
+   * galleries is square and so fills the square stage edge to edge, which means
+   * a slide shot on pure white turns the whole card into a stark white block
+   * unless it is multiplied down to the tint.
+   *
+   * Only worth doing where it makes the rail consistent. CVS is three shots on
+   * white and blends all three, so the card is the same colour on every slide.
+   * HES is eight, four on white and four full-bleed infographics; blending half
+   * of them would change the card colour as you click through, so it blends
+   * none and takes a near-white stage instead.
+   */
+  blendGallerySlides: ReadonlySet<string>
+  /**
+   * Whether the hero is on pure white, which decides how the closing band
+   * carries it. A hero on a studio sweep must not be multiplied: the sweep
+   * darkens into a grey block instead of dissolving.
+   */
+  heroOnWhite: boolean
 }
 
 const EN: PowerSolutionCopy = {
@@ -1072,4 +1136,20 @@ const BY_LOCALE: Record<PowerSolutionLocale, PowerSolutionCopy> = { en: EN, ar: 
 
 export function getPowerSolutionCopy(locale: string): PowerSolutionCopy {
   return BY_LOCALE[(locale as PowerSolutionLocale) in BY_LOCALE ? (locale as PowerSolutionLocale) : 'en']
+}
+
+export const CVS_VARIANT: PowerSolutionVariant = {
+  paletteClass: 'ps-cvs',
+  getCopy: getPowerSolutionCopy,
+  formulaBase: FORMULA_BASE,
+  formulaActives: FORMULA_ACTIVES,
+  fullInci: FULL_INCI,
+  vialImage: '/images/Second/cvs_big2.jpg',
+  boxImage: '/images/Second/cvs_big1.jpg',
+  // Three slides: the hero on a lilac-grey sweep, then the box and a vial on
+  // pure white. The two on white are blended down to the stage tint so the card
+  // holds one colour across the rail.
+  blendGallerySlides: new Set(['/images/Second/cvs_big1.jpg', '/images/Second/cvs_big2.jpg']),
+  // The hero is on that sweep, not on white, so it must never be multiplied.
+  heroOnWhite: false,
 }

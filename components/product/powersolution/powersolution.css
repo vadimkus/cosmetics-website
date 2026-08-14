@@ -1,29 +1,40 @@
 /**
- * Palette override for the POWER SOLUTION CVS page (product 5).
+ * Palettes and structure for the POWER SOLUTION pages, products 4 and 5.
  *
  * The structural design system lives in cerabarrier.css - cards, reveals,
  * accordion, numerals, focus rings. That file is imported first and every rule
- * in it reads from CSS variables, so this file only has to restate the
+ * in it reads from CSS variables, so a palette block only has to restate the
  * variables to re-skin the whole page.
  *
- * WHY COOL GREY AND ONE RED. Everything about this product is white, glass and
- * clinical: a white carton, clear vials, a lifestyle shot on a lilac-grey
- * studio backdrop sampled at #cecbd2. The only colour anywhere on it is the
- * label red, sampled off the DNA mark and the CVS wordmark at #be0a14. So the
- * page runs cool and near-neutral and spends its one colour on the accent,
- * which is what the packaging does.
+ * Everything here is scoped to `.powersolution-page`, and each product's colour
+ * to a second class on the same element (`.ps-cvs`, `.ps-hes`), so importing
+ * this file cannot affect products 52, 53, 55 to 61, 63, 64, 65 or 66, and the
+ * two ampoules cannot bleed into each other.
  *
- * It has to stay clear of the two bespoke pages a shopper is most likely to see
- * either side of it. Product 53 is crimson (#b8323a) and product 52 is a warm
- * dusty clay (#a87461); both sit on warm grounds. This one is a colder, harder
- * red on a cold ground, and the neutrals are blue-leaning rather than
- * brown-leaning, so a professional ampoule does not read as a retail mask.
+ * Two variables are declared per palette rather than hard-coded, because the
+ * two products need different answers:
  *
- * Scoped to `.cera-page.powersolution-page`, so importing this file cannot
- * affect products 52, 53, 55 to 61, 63, 64, 65 or 66, or any other route.
+ *   --ps-stage         behind the gallery. What the shopper sees around a slide
+ *                      that does not fill the square stage, and what a blended
+ *                      white slide multiplies down to.
+ *   --ps-figure-stage  behind the two inline figures, which never fill their
+ *                      stage and are always on white.
  */
 
-.cera-page.powersolution-page {
+/* --- CVS, product 5 ------------------------------------------------------ */
+/* WHY COOL GREY AND ONE RED. Everything about this product is white, glass and
+   clinical: a white carton, clear vials, a lifestyle shot on a lilac-grey
+   studio backdrop sampled at #cecbd2. The only colour anywhere on it is the
+   label red, sampled off the DNA mark and the CVS wordmark at #be0a14. So the
+   page runs cool and near-neutral and spends its one colour on the accent,
+   which is what the packaging does.
+
+   It has to stay clear of the two bespoke pages a shopper is most likely to see
+   either side of it. Product 53 is crimson (#b8323a) and product 52 is a warm
+   dusty clay (#a87461); both sit on warm grounds. This one is a colder, harder
+   red on a cold ground, and the neutrals are blue-leaning rather than
+   brown-leaning, so a professional ampoule does not read as a retail mask. */
+.cera-page.powersolution-page.ps-cvs {
   --cera-cream: #f5f4f8;
   --cera-cream-deep: #e6e4ec;
   --cera-blush: #fbecee;
@@ -40,35 +51,84 @@
      nothing to give it away. A shade lighter, as this was, drew the shot as a
      panel on the band. */
   --cera-shot: #e6e5e8;
+  /* Same tone as that outer ring, which is what makes the card read identically
+     on every slide: the hero fills the stage with its own sweep, and the two
+     white packshots multiply down to this, so clicking through the rail does not
+     change the colour of the card. */
+  --ps-stage: #e6e5e8;
+  --ps-figure-stage: #e6e5e8;
+  --ps-stage-shadow: rgba(22, 28, 34, 0.4);
+  --ps-card-hover-glow: rgba(150, 16, 28, 0.26);
 }
 
-/* The hero stage shadow is tinted per page; restate it for the cool theme.
-   The background is the same tone as the outer ring of cvs-hero.jpg, which is
-   what makes the card read identically on every slide: the hero fills the stage
-   with its own sweep, and the two white packshots multiply down to this, so
-   clicking through the rail does not change the colour of the card. */
+/* --- HES, product 4 ------------------------------------------------------ */
+/* WHY GREEN. The HES wordmark, the DNA mark above it and the leaf on the
+   no-additions badge are all one green, sampled off the vial label at #54a240;
+   the slides pair it with a warm stone hairline at #a0937f. So the accent is
+   that green, deepened to #4a9a38 for fills and #337524 for text, and the
+   neutrals lean green rather than blue.
+
+   This is the widest possible separation from CVS, its nearest neighbour in the
+   range, which runs a hard red on cold grey. Two professional ampoules with the
+   same carton, the same format and the same price should not be confusable for
+   each other at a glance, and colour is the fastest way to tell them apart.
+
+   Every text pair here was checked against WCAG AA and the closest is 4.63:1;
+   see scripts/tmp/hes_contrast.py for the pairs the page actually renders. */
+.cera-page.powersolution-page.ps-hes {
+  --cera-cream: #f4f6f1;
+  --cera-cream-deep: #e6ebe1;
+  --cera-blush: #eef5ea;
+  --cera-blush-deep: #cfe3c6;
+  --cera-rose: #4a9a38;
+  --cera-rose-ink: #337524;
+  --cera-ink: #17201a;
+  --cera-body: #3d4a3f;
+  --cera-muted: #667267;
+  --cera-line: #dde2d8;
+  /* This hero is on pure white and the closing band blends it, so the band tone
+     only has to be near enough to white that the dissolve leaves no edge. */
+  --cera-shot: #f2f4ef;
+  /* Near-white, because nothing in this gallery is blended. All eight slides are
+     square and fill the stage; four are on white and four are full-bleed
+     infographics, so multiplying half of them would change the card colour as
+     the shopper clicks through. A near-white stage means the white slides meet
+     it invisibly instead. */
+  --ps-stage: #fbfcfa;
+  /* The inline figures do not fill their stage, and both are on pure white, so
+     here the tint is worth having: multiply dissolves their surround into it. */
+  --ps-figure-stage: #eef1ea;
+  --ps-stage-shadow: rgba(23, 32, 26, 0.34);
+  --ps-card-hover-glow: rgba(51, 117, 36, 0.24);
+}
+
 .powersolution-page .cera-stage {
-  background-color: #e6e5e8;
-  box-shadow: 0 24px 60px -34px rgba(22, 28, 34, 0.4);
+  background-color: var(--ps-stage);
+  box-shadow: 0 24px 60px -34px var(--ps-stage-shadow);
 }
 
-/* The two inline figures - the single vial and the open box - are both on pure
+/* Must follow .cera-stage: the inline figures carry both classes, and these two
+   selectors have equal specificity, so order is what decides the tint. */
+.powersolution-page .ps-figure {
+  background-color: var(--ps-figure-stage);
+}
+
+/* The two inline figures - a single vial and the box front - are both on pure
    white, and the stage contains rather than crops, so untouched they would draw
    a hard-cornered white rectangle inside the stage's rounded tint. Multiplying
    turns their white surround into the tint and the pack sits on the page with
    no inner edge.
 
    Scoped to .ps-figure rather than to .cera-stage img, because the gallery
-   stage is also a .cera-stage. The hero shot is on a lilac-grey studio sweep,
-   not on white, so multiplying it darkens the sweep and makes it read as a grey
-   block - which is the opposite of what this rule is for. */
+   stage is also a .cera-stage, and which of its slides may be multiplied is a
+   per-product decision made in each variant. */
 .powersolution-page .ps-figure img {
   mix-blend-mode: multiply;
 }
 
 @media (hover: hover) {
   .powersolution-page .cera-card-hover:hover {
-    box-shadow: 0 2px 4px rgba(22, 28, 34, 0.04), 0 26px 48px -26px rgba(150, 16, 28, 0.26);
+    box-shadow: 0 2px 4px rgba(22, 28, 34, 0.04), 0 26px 48px -26px var(--ps-card-hover-glow);
   }
 }
 
@@ -166,6 +226,58 @@
   border-radius: 2px;
   background: var(--cera-rose);
   opacity: 0.85;
+}
+
+/* --- Molecular weight ladder (HES) --------------------------------------- */
+/* Three columns, heaviest first, and the middle one is this product. The dot
+   above each column is a to-scale-ish stand-in for the molecule: filler grade
+   above 2 million Dalton, HES at 1.65 million, ordinary cosmetic HA below 1
+   million. Sized by nth-child rather than by a modifier class, because the
+   order is fixed by the copy module and the DOM order does not change in RTL -
+   only the visual direction does, which keeps the dots matched to their figures.
+
+   It is decorative: every column prints its own weight, so the dots are hidden
+   from assistive tech. */
+/* Fixed to the largest dot, with the dot at its foot, so the three sit on one
+   baseline and the copy underneath stays aligned across the row. */
+.powersolution-page .ps-ladder-rail {
+  display: flex;
+  align-items: flex-end;
+  height: 46px;
+}
+
+.powersolution-page .ps-ladder-dot {
+  display: block;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--cera-rose) 22%, transparent);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--cera-rose) 45%, transparent);
+}
+
+.powersolution-page .ps-ladder-dot[data-self] {
+  background: color-mix(in srgb, var(--cera-rose) 42%, transparent);
+  box-shadow: inset 0 0 0 2px var(--cera-rose);
+}
+
+.powersolution-page .ps-ladder-grid > *:nth-child(1) .ps-ladder-dot {
+  width: 46px;
+  height: 46px;
+}
+
+.powersolution-page .ps-ladder-grid > *:nth-child(2) .ps-ladder-dot {
+  width: 36px;
+  height: 36px;
+}
+
+.powersolution-page .ps-ladder-grid > *:nth-child(3) .ps-ladder-dot {
+  width: 20px;
+  height: 20px;
+}
+
+/* This product's own column. Tinted and accent-bordered rather than scaled, so
+   the three cards stay on one baseline and the grid does not shift on load. */
+.powersolution-page .ps-ladder-self {
+  background: color-mix(in srgb, var(--cera-blush) 70%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 32%, var(--cera-line));
 }
 
 /* --- Range table --------------------------------------------------------- */

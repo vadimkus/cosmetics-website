@@ -21,6 +21,11 @@ We are selling the product, not examining it. The Intertek dossier is where a cl
    the pack in their hand. That is a trust signal and it stays.
 3. **No dossier vocabulary.** Banned in body copy: declared, assayed, batch pH, certificate of
    analysis, paperwork, test mark, released against, label rounding.
+   **Never print a lot or batch code** (`WNL053`, `L1036B`). Keep the measured figure and the
+   specification it sits inside, drop the code that identifies it: "5.75, inside a 4.50 to 6.50
+   specification", never "5.75 on lot WNL053". A code also dates the page, because the box the
+   buyer receives carries a different lot. Same for expiry: "three years unopened, with the
+   expiry date on the box", never "lot WNL053 runs to December 2027".
 4. **Never undercut a claim in the next clause.** No "a real but modest dose", "shows direction,
    not a guarantee", "we will not invent a number", "not a fault in the formula".
 5. **Never name a contract manufacturer.** GENIC, SLC, CNF and the like stay off the page.
@@ -45,6 +50,9 @@ GOOD  A full 2% in both, and every batch is tested to prove it. The latest came 
 
 BAD   Its carton says it can go over make-up.
 GOOD  Light enough to go straight over make-up.
+
+BAD   Three years unopened; lot WNL053 runs to December 2027.
+GOOD  Three years unopened, with the expiry date on the box.
 ```
 
 ## What is not self-defeating

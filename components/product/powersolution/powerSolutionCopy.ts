@@ -101,17 +101,24 @@
  * IMAGE NOTE. Three shots on file, all verified at full resolution, all real
  * photographs:
  *
- *   CVS.jpg                  main. Box, flask, ten vials, petri dish and
- *                            pipette on a cool lilac-grey backdrop. NOT on
- *                            white, so it must never go on a .cera-stage - the
- *                            multiply rule would show the backdrop as a block.
+ *   cvs-hero-square.jpg      main. Box, flask, ten vials, petri dish and
+ *                            pipette on a cool lilac-grey studio sweep. NOT on
+ *                            white, so it must never carry .ps-figure - the
+ *                            multiply rule would darken the sweep into a block.
  *   Second/cvs_big1.jpg      the open box, 2000px, pure white. The 5-Free panel
  *                            and its five exclusions are legible on the lid.
  *   Second/cvs_big2.jpg      a single vial, 2000px, pure white.
  *
- * The two on white carry the inline figures and blend into the stage tint. The
- * lifestyle shot stays in the gallery and the closing band, where it is not
- * multiplied.
+ * The two on white carry the inline figures and multiply into the stage tint.
+ *
+ * The hero is squared, and that is load-bearing. The original CVS.jpg is
+ * 956x662, and the gallery stage is square with object-contain, so it sat inside
+ * the stage tint with 147px of a different grey above and below - a
+ * hard-cornered rectangle inside a rounded card. scripts/square-cvs-hero-image-20260814.py
+ * extended the sweep to 956x956 by continuing the photo's own vertical gradient,
+ * so it now fills the stage edge to edge. Any replacement hero for this page has
+ * to be square for the same reason. CVS.jpg is kept on disk for historical order
+ * emails.
  */
 
 export type PowerSolutionLocale = 'en' | 'ar' | 'ru'

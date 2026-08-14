@@ -34,15 +34,21 @@
   --cera-body: #3c4550;
   --cera-muted: #6d7883;
   --cera-line: #dedde5;
-  /* The closing band. The lifestyle pack shot is already on a lilac-grey
-     backdrop, so the band is set a shade lighter than that backdrop and the
-     shot sits on it as a panel rather than dissolving into it. */
-  --cera-shot: #eceaf1;
+  /* The closing band. The shot is contained in a 300px column, so whatever tone
+     the band carries meets the shot's own sweep along a straight vertical edge.
+     Sampled from the outer ring of cvs-hero.jpg, which means the column edge has
+     nothing to give it away. A shade lighter, as this was, drew the shot as a
+     panel on the band. */
+  --cera-shot: #e6e5e8;
 }
 
-/* The hero stage shadow is tinted per page; restate it for the cool theme. */
+/* The hero stage shadow is tinted per page; restate it for the cool theme.
+   The background is the same tone as the outer ring of cvs-hero.jpg, which is
+   what makes the card read identically on every slide: the hero fills the stage
+   with its own sweep, and the two white packshots multiply down to this, so
+   clicking through the rail does not change the colour of the card. */
 .powersolution-page .cera-stage {
-  background-color: #edecf2;
+  background-color: #e6e5e8;
   box-shadow: 0 24px 60px -34px rgba(22, 28, 34, 0.4);
 }
 
@@ -52,11 +58,11 @@
    turns their white surround into the tint and the pack sits on the page with
    no inner edge.
 
-   Deliberately NOT applied to the gallery or the closing band: the main shot
-   (CVS.jpg) is on a lilac-grey studio backdrop, and multiplying that would show
-   the backdrop as a grey block. Only the two white-background figures carry
-   .cera-stage on this page. */
-.powersolution-page .cera-stage img {
+   Scoped to .ps-figure rather than to .cera-stage img, because the gallery
+   stage is also a .cera-stage. The hero shot is on a lilac-grey studio sweep,
+   not on white, so multiplying it darkens the sweep and makes it read as a grey
+   block - which is the opposite of what this rule is for. */
+.powersolution-page .ps-figure img {
   mix-blend-mode: multiply;
 }
 

@@ -105,11 +105,15 @@ interface Props {
 }
 
 /** Both verified at full resolution and both on pure white, which is what lets
- *  the multiply rule in powersolution.css drop their surround into the page
- *  tint. The main shot, CVS.jpg, is on a lilac-grey studio backdrop and must
- *  never go on a .cera-stage. */
+ *  the .ps-figure multiply rule drop their surround into the page tint. The hero
+ *  is on a lilac-grey studio sweep, not on white, so it must never carry that
+ *  class - multiplying would darken the sweep into a grey block. */
 const VIAL_IMAGE = '/images/Second/cvs_big2.jpg'
 const BOX_IMAGE = '/images/Second/cvs_big1.jpg'
+
+/** The gallery carries these two alongside the hero, which is on a studio sweep,
+ *  so it has to be told which slides are the white ones. */
+const WHITE_BACKGROUND_SHOTS = new Set([VIAL_IMAGE, BOX_IMAGE])
 
 /** Each group is scaled against its own largest value, because the humectant
  *  base and the actives are two orders of magnitude apart and one shared scale
@@ -171,6 +175,10 @@ export default function PowerSolutionProductPage({
     return list.map((src, i) => ({
       src,
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
+      // This gallery mixes backgrounds: the hero is on a lilac-grey studio
+      // sweep and fills the stage on its own, while these two are on pure white
+      // and would otherwise turn the whole card into a white block.
+      blend: WHITE_BACKGROUND_SHOTS.has(src),
     }))
   }, [product.image, product.images, product.name])
 
@@ -599,7 +607,7 @@ export default function PowerSolutionProductPage({
           {/* On pure white, so the multiply rule drops the surround into the
               tint and the vial stands on the page with no inner edge. */}
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
-            <div className="cera-stage relative aspect-square overflow-hidden rounded-[28px]">
+            <div className="cera-stage ps-figure relative aspect-square overflow-hidden rounded-[28px]">
               <Image
                 src={VIAL_IMAGE}
                 alt={copy.solution.figureAlt}
@@ -665,7 +673,7 @@ export default function PowerSolutionProductPage({
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
-            <div className="cera-stage relative aspect-[4/3] overflow-hidden rounded-[28px]">
+            <div className="cera-stage ps-figure relative aspect-[4/3] overflow-hidden rounded-[28px]">
               <Image
                 src={BOX_IMAGE}
                 alt={copy.freeFrom.figureAlt}
@@ -992,9 +1000,9 @@ export default function PowerSolutionProductPage({
       </section>
 
       {/* ────────────────────────── Closing band ───────────────────────── */}
-      {/* imageFit stays "cover": the main shot is on a lilac-grey studio
-          backdrop, not on white, so blending it into the band would show the
-          backdrop as a block rather than dissolving it. */}
+      {/* imageFit stays "cover": the hero is on a lilac-grey studio sweep, not
+          on white, so the blend mode would darken the sweep rather than dissolve
+          it. The hero is square, so cover crops nothing here. */}
       <CeraClosingCta
         image={product.image}
         name={product.name}

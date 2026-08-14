@@ -271,3 +271,104 @@ files:
 The Snow O2 / Skin Rescue Overnight growth-factor complex genuinely lists IGF-1
 as one of five factors, so those mentions in the translation files were left
 alone.
+
+## Follow-up: making the hero blend into the page
+
+The hero shot sat inside the gallery card as a hard-cornered grey rectangle. Two
+separate causes, both fixed.
+
+### 1. The shot was the wrong shape for the stage
+
+`CVS.jpg` is **956x662** on a lilac-grey studio sweep. The gallery stage is
+square and uses `object-contain`, so the shot landed in the middle of the stage
+tint with 147px of a *different* grey above and below it — a rectangle with sharp
+corners inside a rounded card.
+
+No CSS fixes this. The sweep is a 2D gradient (darker top-left, lighter
+bottom-right), so no flat stage colour and no single `linear-gradient` can meet
+it without a seam. And it cannot be cropped square: a centre crop of 956x662
+cuts the box off on the left and the vials off on the right.
+
+`scripts/square-cvs-hero-image-20260814.py` extends the shot to **956x956** by continuing
+its own sweep. The top and bottom edge rows carry no product detail, only smooth
+sweep, so they can be run outward. The extension continues the photo's measured
+vertical brightness slope with the step damped geometrically, so a 147px pad
+cannot drift into a visible band, and the first extended row *is* the photo's own
+edge row, which makes the join seamless by construction. Measured seam delta:
+**0.26/255 top, 0.02/255 bottom.**
+
+There is no higher-resolution version of this composition on the Drive. The
+3744x3300 transparent PNG in `Artwork/Art_Work/Product_images/` is the open-box
+shot, which is already on file as `cvs_big1.jpg`.
+
+### 2. The sweep was darker than the page
+
+Filling the stage removed the inner rectangle but the card still read as a grey
+slab: the sweep ran to `#c8c5cd` while the page behind it is `#f5f4f8`.
+
+The first attempt was a plain levels move, 150 -> 196. It worked on the tone and
+wrecked the pack: everything above the black point is rescaled, and the box and
+the vial labels live in the 200-255 range, so they lost **44% of their contrast**
+and went chalky.
+
+The fix separates the two. A 10px blur holds the sweep, which is pure low
+frequency; the difference holds every edge, letter and label. Only the blur is
+lifted, then the detail is added back at full amplitude. The curve is a flat
++22 offset up to 200, easing to nothing by 252 — flat so the sweep and the
+shadow under the box move together and the pack stays grounded rather than
+floating, rolling off so the pack's own whites barely move and nothing clips.
+Long enough to stay monotonic, so the sweep cannot band or invert.
+
+| | before | after |
+|---|---|---|
+| gap to page tint at the corners | 44/255 | 24/255 |
+| box face + logo contrast kept | 56% | **85%** |
+| vial label contrast kept | — | **92%** |
+| pixels blown to white | 0.00% | 0.19% |
+
+### 3. A bug this surfaced: the multiply rule was catching the gallery
+
+`powersolution.css` had `.powersolution-page .cera-stage img { mix-blend-mode:
+multiply }` for the two inline figures, which are on pure white. But the gallery
+stage is *also* a `.cera-stage`, so the hero was being multiplied against the
+stage tint — darkening the very sweep this work is about. Rescoped to a new
+`.ps-figure` class carried only by the two inline figures.
+
+Rescoping then exposed the opposite problem in the gallery: `cvs_big1.jpg` and
+`cvs_big2.jpg` are 2000px on **pure white**, and a white square in a square stage
+fills the card completely, turning it into a stark white block against the lilac
+page. So `CeraGalleryImage` gained an optional `blend` flag. This gallery mixes
+backgrounds — one studio sweep, two whites — and now each slide is treated
+correctly. Thumbnails sit on white and are left alone.
+
+With `--cera-stage` set to `#e6e5e8`, sampled from the outer ring of the squared
+hero, the card is the **same tone on all three slides** (measured `(223..238)`
+for the hero, `(230,229,232)` exactly for both whites), so clicking through the
+rail no longer changes the colour of the card. `--cera-shot` was moved to the
+same value so the closing band's 300px image column stops reading as a panel.
+
+### Filenames and caching
+
+Written as a **new file**, `/images/cvs-hero.jpg`. `/images/*` is served with a
+one-year immutable cache, so overwriting `CVS.jpg` would have left every repeat
+visitor on the old copy. `CVS.jpg` stays on disk: historical order emails
+reference it. `scripts/repair-dead-order-item-images.ts` reports **0 dead and 0
+unresolved** rows across 1,931 order items.
+
+`lib/products.ts` was updated to match, and the main image dropped from its
+`images` array — web and mobile both prepend it, per the product-gallery-images
+rule.
+
+Worth knowing for the next one of these: Next 16 caches optimised images in
+`.next/dev/cache/images`, not `.next/cache/images`, and it caches AVIF and WebP
+under separate keys. A `curl` sending `Accept: image/webp` can return fresh bytes
+while the browser keeps getting stale AVIF, which looks exactly like the edit not
+having worked.
+
+### Scripts
+
+- `scripts/square-cvs-hero-image-20260814.py` — squares and lifts the hero. Takes an
+  optional output path so the look can be iterated into `/tmp` before the real
+  file is written once.
+- `scripts/set-cvs-5-square-hero-20260814.ts` — points product 5 at the new hero
+  and keeps the main image out of the gallery array. Dry run by default.

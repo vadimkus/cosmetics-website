@@ -8,6 +8,19 @@ import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
 export interface CeraGalleryImage {
   src: string
   alt: string
+  /**
+   * Multiply this slide into the stage tint. For shots on a pure white
+   * background, which the stage contains rather than crops: untouched, a white
+   * shot fills the square stage completely and turns the whole card into a stark
+   * white block against a tinted page. Multiplying turns its white surround into
+   * the stage tint so only the product reads.
+   *
+   * Leave it off for shots on a studio sweep. Multiplying those darkens the
+   * sweep instead of dissolving it, which is the grey-block problem in reverse.
+   * A gallery can mix the two: product 5 pairs a lifestyle shot on lilac-grey
+   * with two packshots on white.
+   */
+  blend?: boolean
 }
 
 /**
@@ -75,7 +88,9 @@ export default function CeraGallery({
               }`}
             >
               {/* Matches the stage, so the thumbnail previews the framing the
-                  shopper actually gets when they click it. */}
+                  shopper actually gets when they click it. Thumbnails sit on
+                  white rather than the stage tint, so a blended slide has
+                  nothing to multiply into and is left alone. */}
               <Image
                 src={img.src}
                 alt=""
@@ -128,7 +143,9 @@ export default function CeraGallery({
               /* contain, not cover: most slides are square and render the same
                  either way, but product 60's infographics are 4:3 and cover was
                  slicing their headline off. The stage tint fills the gap. */
-              className="object-contain transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+              className={`object-contain transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] ${
+                current.blend ? 'mix-blend-multiply' : ''
+              }`}
             />
             <span
               className={`pointer-events-none absolute bottom-4 flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-[var(--cera-ink)] opacity-0 shadow-sm backdrop-blur transition-opacity duration-300 group-hover:opacity-100 ${

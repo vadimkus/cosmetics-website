@@ -384,14 +384,14 @@ const EN: PowerSolutionCopy = {
           'Two millilitres, sealed in glass under a crimped cap and opened at the chair. Nothing is decanted, nothing is kept, and nothing oxidises between one face and the next. Ten vials is ten full doses.',
       },
       {
-        title: 'Very little to react to',
+        title: 'Nothing harsh in it',
         body:
           'No fragrance, no ethanol, no pigment, and a pH of 5.94, which is close to skin. On a face that has just been through a treatment, what a product leaves out matters as much as what it puts in.',
       },
       {
         title: 'It stays on',
         body:
-          'A leave-on solution, not a rinse-off. The safety dossier assesses it the way it assesses a face cream, and the carton gives you four steps: cleanse, open, apply, absorb.',
+          'A leave-on solution, not a rinse-off. It stays on the skin and works there the way a treatment cream does, in four steps: cleanse, open, apply, absorb.',
       },
     ],
     figureAlt: 'A single 2 ml POWER SOLUTION CVS glass vial, showing the Concentrated Vitality Solution label',
@@ -400,11 +400,11 @@ const EN: PowerSolutionCopy = {
     eyebrow: 'The formula',
     title: 'Where the vial actually goes.',
     intro:
-      'Every percentage below is a finished concentration out of the registration file, not a guess at what a name near the top of an ingredient list might mean. Water is 70.5% of the vial, as it is in almost every serum on earth. The interesting part is what fills the rest.',
+      'Every percentage below is the finished concentration in the vial, not a guess at what a name near the top of an ingredient list might mean. Water is the carrier, 70.5% of it, as in every serum on earth. What sets this one apart is the other 29.5%.',
     baseTitle: 'The base — 23.97% of the vial',
     baseRows: ['Butylene Glycol', 'Glycerin'],
     baseNote:
-      'Two humectants, almost a quarter of the bottle between them. That is a lot, and it is deliberate: it is what carries a small dose across a whole face and leaves it feeling cushioned instead of tight.',
+      'Two humectants, almost a quarter of the bottle between them. That is a lot, and it is deliberate: it is what carries the actives across a whole face and leaves it feeling cushioned instead of tight.',
     activesTitle: 'The actives',
     activesRows: [
       'Lactobacillus/Soymilk Ferment Filtrate',
@@ -417,16 +417,16 @@ const EN: PowerSolutionCopy = {
       'Beta-Glucan',
     ],
     activesNote:
-      'Panthenol at 0.5% and allantoin at 0.1% are both at the top of the range you normally see them used at. Bars are drawn to each group’s own scale, because the base and the actives are two orders of magnitude apart.',
+      'Panthenol at 0.5% and allantoin at 0.1% are both at the top of the range you normally see them used at. Each group is charted on its own scale so the actives stay readable beside the base.',
     traceTitle: 'And the peptides',
     traceBody:
-      'sh-Polypeptide-7 at 1 ppm and palmitoyl tripeptide-1 at 0.5 ppm. Peptides are dosed in parts per million by design — the CIR expert panel puts typical cosmetic use of the palmitoyl tripeptide family under 10 ppm — and these are the ingredients the Power Solution name is built on.',
+      'These are the two ingredients the Power Solution name is built on: sh-Polypeptide-7 at 1 ppm and palmitoyl tripeptide-1 at 0.5 ppm. Peptides work at parts per million by design, and the CIR expert panel puts typical cosmetic use of the palmitoyl tripeptide family under 10 ppm.',
   },
   freeFrom: {
     eyebrow: '5-Free',
-    title: 'Five things the box says are not in it.',
+    title: 'Five things that are not in it.',
     body:
-      'The 5-Free mark is printed twice on the packaging, on the front face and again inside the lid, and it names all five exclusions rather than leaving you to guess. Every one of them can be checked against the ingredient list further down this page, which is the point of printing it.',
+      'GENOSYS prints the 5-Free mark twice on the pack, on the front face and again inside the lid, and names all five exclusions rather than leaving you to guess. Every one of them holds up against the ingredient list further down this page.',
     items: [
       'Parabens',
       'Ethanol',
@@ -442,7 +442,7 @@ const EN: PowerSolutionCopy = {
     eyebrow: 'The range',
     title: 'Six vials, one problem each.',
     intro:
-      'The Power Solutions are a set, and they are meant to be chosen between rather than collected. Same format, same price, same 2 ml sealed vial — a different job printed on each carton. CVS is the one for skin that is simply tired.',
+      'The Power Solutions are a set, and each one is chosen for the skin in front of you. Same format, same price, same 2 ml sealed vial — a different job printed on each carton. CVS is the one for skin that is simply tired.',
     thisOne: 'This one',
     entries: [
       { name: 'HA Volume Enhancing Solution', forWhat: 'Plumping and instant hydration' },
@@ -474,7 +474,7 @@ const EN: PowerSolutionCopy = {
     eyebrow: 'What is in it',
     title: 'The ingredients, with their real figures.',
     intro:
-      'Percentages are finished concentrations from the registration dossier, not inferences from where a name sits in the list.',
+      'Every percentage here is the finished concentration in the vial, not an inference from where a name sits in the list.',
     cards: [
       {
         name: 'sh-Polypeptide-7, 1 ppm',
@@ -489,7 +489,7 @@ const EN: PowerSolutionCopy = {
       {
         name: 'Lactobacillus/Soymilk Ferment Filtrate, 2.5%',
         body:
-          'Soymilk fermented with lactobacillus, then filtered. At 2.5% it is by a wide margin the largest active in the vial, and it is what the "nourishment" on the carton mostly means.',
+          'Soymilk fermented with lactobacillus, then filtered. At 2.5% it is by a wide margin the largest active in the vial, and it is where the nourishment comes from.',
       },
       {
         name: 'Panthenol, 0.5%',
@@ -499,7 +499,7 @@ const EN: PowerSolutionCopy = {
       {
         name: 'Allantoin, 0.1%',
         body:
-          'A quiet, old-fashioned comfort ingredient, sitting here at the top of the range it is normally used at rather than the bottom.',
+          'A comfort ingredient with decades of use behind it, here at the top of the range it is normally used at.',
       },
       {
         name: 'Sodium Hyaluronate, 0.1%',
@@ -509,7 +509,7 @@ const EN: PowerSolutionCopy = {
       {
         name: 'Hydrolyzed Collagen, 0.1%',
         body:
-          'Marine collagen, broken down small enough to sit on the skin as a humectant film. The dossier names the source: fish.',
+          'Marine collagen, broken down small enough to sit on the skin as a humectant film. The source is fish.',
       },
       {
         name: 'Grape and rose callus cultures, 0.03% each',
@@ -517,9 +517,9 @@ const EN: PowerSolutionCopy = {
           'Plant stem-cell cultures from Vitis vinifera and Rosa damascena, grown in a lab rather than harvested from a field, which is what makes them consistent batch to batch.',
       },
       {
-        name: 'The Korean botanical tail',
+        name: 'The Korean botanicals',
         body:
-          'Green tea, yuzu, mugwort, houttuynia, baicalensis root and hinoki cypress water. All present in small amounts, all named in full on the carton rather than hidden behind a complex name.',
+          'Green tea, yuzu, mugwort, houttuynia, baicalensis root and hinoki cypress water. Each one named in full rather than folded into an invented complex name.',
       },
     ],
     inciTitle: 'Full ingredient list',
@@ -535,7 +535,7 @@ const EN: PowerSolutionCopy = {
       'Your skin is tired, dull and dehydrated rather than pigmented, oily or lined',
       'You want a sealed single-use dose rather than a bottle that stays open for months',
       'You react to fragrance and alcohol, which this leaves out and prints that it leaves out',
-      'You want the percentages, because they are on this page and they came from the registration file',
+      'You want the percentages, because every one of them is on this page',
     ],
     notTitle: 'Look elsewhere if',
     notList: [
@@ -566,7 +566,7 @@ const EN: PowerSolutionCopy = {
       },
       {
         q: 'What does sh-Polypeptide-7 do?',
-        a: 'It is a recombinant human peptide built to the somatotropin sequence and grown by fermentation, and COSING classifies it as a skin-protecting ingredient. We are not going to tell you it regenerates tissue or produces new cells, because those are drug claims and no cosmetic can make them honestly.',
+        a: 'It is a recombinant human peptide built to the somatotropin sequence and grown by fermentation, and COSING classifies it as a skin-protecting ingredient. Tissue repair and new cell production are drug claims that belong to medicine rather than to a cosmetic; what this peptide brings to the vial is a sequence that is identical every time.',
       },
       {
         q: 'Which of the six should I pick?',
@@ -601,7 +601,7 @@ const EN: PowerSolutionCopy = {
   },
   closing: {
     title: 'Ten treatments, sealed one at a time.',
-    body: 'The nourishing vial of the Power Solution range, with the whole formula and every percentage printed above so you can check it before you buy it.',
+    body: 'The nourishing vial of the Power Solution range, with the whole formula and every percentage printed above, nothing held back.',
   },
   backToProducts: 'Products',
 }
@@ -648,14 +648,14 @@ const AR: PowerSolutionCopy = {
           'ملليلتران، مُحكمان في زجاج تحت غطاء مضغوط، يُفتحان عند الكرسي. لا شيء يُنقل، ولا شيء يُحفظ، ولا شيء يتأكسد بين وجه وآخر. عشر قوارير تعني عشر جرعات كاملة.',
       },
       {
-        title: 'القليل جداً مما قد تتفاعل معه البشرة',
+        title: 'لا شيء قاسٍ فيه',
         body:
-          'بلا عطر، بلا إيثانول، بلا صبغة، وبحموضة 5.94 في آخر تشغيلة مختبرة، وهي قريبة من البشرة. وعلى وجه خرج للتو من جلسة، ما يخلو منه المستحضر لا يقل أهمية عما يحويه.',
+          'بلا عطر، بلا إيثانول، بلا صبغة، وبحموضة 5.94، وهي قريبة من البشرة. وعلى وجه خرج للتو من جلسة، ما يخلو منه المستحضر لا يقل أهمية عما يحويه.',
       },
       {
         title: 'يبقى على البشرة',
         body:
-          'محلول يبقى على البشرة ولا يُغسل. ويقيّمه ملف السلامة كما يقيّم كريم الوجه، وتعطيك العلبة أربع خطوات: نظّف، افتح، طبّق، اترك حتى يُمتَص.',
+          'محلول يبقى على البشرة ولا يُغسل. يبقى على البشرة ويعمل عليها كما يعمل كريم العناية، في أربع خطوات: نظّف، افتح، طبّق، اترك حتى يُمتَص.',
       },
     ],
     figureAlt: 'قارورة زجاجية واحدة سعة 2 مل من POWER SOLUTION CVS، ويظهر عليها اسم Concentrated Vitality Solution',
@@ -664,11 +664,11 @@ const AR: PowerSolutionCopy = {
     eyebrow: 'التركيبة',
     title: 'أين تذهب محتويات القارورة فعلاً.',
     intro:
-      'كل نسبة أدناه هي تركيز نهائي من ملف التسجيل، لا تخميناً لما قد يعنيه اسم قريب من رأس قائمة المكوّنات. الماء 70.5% من القارورة، كما هو الحال في كل سيروم تقريباً. المثير للاهتمام هو ما يملأ البقية.',
+      'كل نسبة أدناه هي التركيز النهائي في القارورة، لا تخميناً لما قد يعنيه اسم قريب من رأس قائمة المكوّنات. الماء هو الحامل، 70.5% منها، كما في كل سيروم على وجه الأرض. وما يميّز هذه القارورة هو الـ29.5% الباقية.',
     baseTitle: 'القاعدة — 23.97% من القارورة',
     baseRows: ['بيوتيلين جلايكول', 'جليسرين'],
     baseNote:
-      'مرطِّبان اثنان يشكّلان معاً ما يقارب ربع القارورة. هذه نسبة كبيرة، وهي مقصودة: هي ما يحمل جرعة صغيرة عبر وجه كامل ويتركه محميّاً لا مشدوداً.',
+      'مرطِّبان اثنان يشكّلان معاً ما يقارب ربع القارورة. هذه نسبة كبيرة، وهي مقصودة: هي ما يحمل المواد الفعّالة عبر الوجه كله ويتركه محميّاً لا مشدوداً.',
     activesTitle: 'المواد الفعّالة',
     activesRows: [
       'خميرة اللاكتوباسيلوس/حليب الصويا المُرشَّحة',
@@ -681,16 +681,16 @@ const AR: PowerSolutionCopy = {
       'بيتا-جلوكان',
     ],
     activesNote:
-      'البانثينول 0.5% والألانتوين 0.1% كلاهما في أعلى النطاق الذي يُستعملان فيه عادة. وأعمدة كل مجموعة مرسومة بمقياسها الخاص، لأن القاعدة والمواد الفعّالة تفصل بينهما مرتبتان عشريتان.',
+      'البانثينول 0.5% والألانتوين 0.1% كلاهما في أعلى النطاق الذي يُستعملان فيه عادة. وكل مجموعة مرسومة بمقياسها الخاص لتبقى المواد الفعّالة واضحة بجانب القاعدة.',
     traceTitle: 'وأما الببتيدات',
     traceBody:
-      'sh-Polypeptide-7 بجزء واحد في المليون، وpalmitoyl tripeptide-1 بنصف جزء في المليون. تُجرَّع الببتيدات بأجزاء من المليون بحكم تصميمها — تضع لجنة خبراء CIR الاستخدام المعتاد لعائلة palmitoyl tripeptide دون 10 أجزاء في المليون — وهي المكوّنات التي بُني عليها اسم Power Solution.',
+      'هما المكوّنان اللذان بُني عليهما اسم Power Solution: sh-Polypeptide-7 بجزء واحد في المليون، وpalmitoyl tripeptide-1 بنصف جزء في المليون. تعمل الببتيدات بأجزاء من المليون بحكم تصميمها، وتضع لجنة خبراء CIR الاستخدام المعتاد لعائلة palmitoyl tripeptide دون 10 أجزاء في المليون.',
   },
   freeFrom: {
     eyebrow: 'تركيبة 5-Free',
-    title: 'خمسة أشياء تقول العلبة إنها ليست فيه.',
+    title: 'خمسة أشياء ليست فيه.',
     body:
-      'علامة 5-Free مطبوعة مرتين على العبوة، على الواجهة الأمامية ومرة أخرى داخل الغطاء، وتسمّي الاستثناءات الخمسة كلها بدل أن تتركك تخمّن. وكل واحد منها يمكن التحقق منه في قائمة المكوّنات أسفل هذه الصفحة، وهذا هو الغرض من طباعتها.',
+      'تطبع GENOSYS علامة 5-Free مرتين على العبوة، على الواجهة الأمامية ومرة أخرى داخل الغطاء، وتسمّي الاستثناءات الخمسة كلها بدل أن تتركك تخمّن. وكل واحد منها يصمد أمام قائمة المكوّنات أسفل هذه الصفحة.',
     items: [
       'البارابين',
       'الإيثانول',
@@ -706,7 +706,7 @@ const AR: PowerSolutionCopy = {
     eyebrow: 'المجموعة',
     title: 'ست قوارير، لكل واحدة مشكلتها.',
     intro:
-      'مستحضرات Power Solution مجموعة واحدة، والمقصود أن يُختار بينها لا أن تُجمع كلها. الشكل نفسه والسعر نفسه والقارورة المُحكمة نفسها سعة 2 مل — ومهمة مختلفة مطبوعة على كل علبة. وCVS هي المخصّصة للبشرة المتعبة ببساطة.',
+      'مستحضرات Power Solution مجموعة واحدة، وكل واحدة منها تُختار حسب البشرة التي أمامك. الشكل نفسه والسعر نفسه والقارورة المُحكمة نفسها سعة 2 مل — ومهمة مختلفة مطبوعة على كل علبة. وCVS هي المخصّصة للبشرة المتعبة ببساطة.',
     thisOne: 'هذا المنتج',
     entries: [
       { name: 'HA Volume Enhancing Solution', forWhat: 'امتلاء وترطيب فوري' },
@@ -737,7 +737,7 @@ const AR: PowerSolutionCopy = {
   actives: {
     eyebrow: 'المكوّنات',
     title: 'المكوّنات، بأرقامها الحقيقية.',
-    intro: 'النسب المئوية تراكيز نهائية من ملف التسجيل، لا استنتاجات من موقع الاسم في القائمة.',
+    intro: 'كل نسبة هنا هي التركيز النهائي في القارورة، لا استنتاجاً من موقع الاسم في القائمة.',
     cards: [
       {
         name: 'sh-Polypeptide-7، جزء واحد في المليون',
@@ -752,7 +752,7 @@ const AR: PowerSolutionCopy = {
       {
         name: 'خميرة اللاكتوباسيلوس/حليب الصويا المُرشَّحة، 2.5%',
         body:
-          'حليب صويا مخمَّر باللاكتوباسيلوس ثم مُرشَّح. بنسبة 2.5% هو بفارق كبير أكبر مادة فعّالة في القارورة، وهو ما تعنيه «التغذية» المكتوبة على العلبة في معظمها.',
+          'حليب صويا مخمَّر باللاكتوباسيلوس ثم مُرشَّح. بنسبة 2.5% هو بفارق كبير أكبر مادة فعّالة في القارورة، ومنه تأتي التغذية.',
       },
       {
         name: 'البانثينول، 0.5%',
@@ -762,7 +762,7 @@ const AR: PowerSolutionCopy = {
       {
         name: 'الألانتوين، 0.1%',
         body:
-          'مكوّن مريح هادئ وقديم الطراز، وهو هنا في أعلى النطاق الذي يُستعمل فيه عادة لا في أدناه.',
+          'مكوّن مريح للبشرة وراءه عقود من الاستعمال، وهو هنا في أعلى النطاق الذي يُستعمل فيه عادة.',
       },
       {
         name: 'هيالورونات الصوديوم، 0.1%',
@@ -772,7 +772,7 @@ const AR: PowerSolutionCopy = {
       {
         name: 'الكولاجين المُحلَّل، 0.1%',
         body:
-          'كولاجين بحري، مُجزَّأ إلى جزيئات صغيرة تكفي ليستقر على البشرة كطبقة مرطِّبة. ويسمّي الملف مصدره: الأسماك.',
+          'كولاجين بحري، مُجزَّأ إلى جزيئات صغيرة تكفي ليستقر على البشرة كطبقة مرطِّبة. ومصدره الأسماك.',
       },
       {
         name: 'كالوس العنب والورد، 0.03% لكل منهما',
@@ -780,9 +780,9 @@ const AR: PowerSolutionCopy = {
           'مزارع خلايا جذعية نباتية من Vitis vinifera وRosa damascena، مُنمّاة في المختبر لا محصودة من حقل، وهذا ما يجعلها ثابتة من دفعة إلى أخرى.',
       },
       {
-        name: 'الذيل النباتي الكوري',
+        name: 'النباتات الكورية',
         body:
-          'شاي أخضر ويوزو وشيح وهوتونيا وجذر القُبَّعية وماء السرو الياباني. كلها بكميات صغيرة، وكلها مذكورة بالكامل على العلبة لا مخبّأة خلف اسم مركّب.',
+          'شاي أخضر ويوزو وشيح وهوتونيا وجذر القُبَّعية وماء السرو الياباني. كل واحد منها مذكور باسمه كاملاً لا مخبّأ خلف اسم مركّب مُبتكَر.',
       },
     ],
     inciTitle: 'قائمة المكوّنات الكاملة',
@@ -798,7 +798,7 @@ const AR: PowerSolutionCopy = {
       'كانت بشرتك متعبة وباهتة وجافة لا مصطبغة أو دهنية أو ذات تجاعيد',
       'أردت جرعة مُحكمة لاستعمال واحد بدل زجاجة تبقى مفتوحة لأشهر',
       'كنت تتفاعلين مع العطور والكحول، وهذه تخلو منهما وتطبع أنها تخلو منهما',
-      'أردت النسب المئوية، فهي على هذه الصفحة ومصدرها ملف التسجيل',
+      'أردت النسب المئوية، فهي كلها مطبوعة على هذه الصفحة',
     ],
     notTitle: 'ابحثي عن غيرها إذا',
     notList: [
@@ -829,7 +829,7 @@ const AR: PowerSolutionCopy = {
       },
       {
         q: 'ماذا يفعل sh-Polypeptide-7؟',
-        a: 'هو ببتيد بشري مُعاد تركيبه مبني على تسلسل السوماتوتروبين ويُنتَج بالتخمير، وتصنّفه قاعدة COSING ضمن المكوّنات الحامية للبشرة. ولن نقول لك إنه يجدّد الأنسجة أو ينتج خلايا جديدة، فتلك ادعاءات دوائية لا يستطيع أي مستحضر تجميل أن يقولها بصدق.',
+        a: 'هو ببتيد بشري مُعاد تركيبه مبني على تسلسل السوماتوتروبين ويُنتَج بالتخمير، وتصنّفه قاعدة COSING ضمن المكوّنات الحامية للبشرة. أما تجديد الأنسجة وإنتاج الخلايا فادعاءات دوائية تخصّ الطب لا مستحضرات التجميل؛ وما يقدّمه هذا الببتيد هنا تسلسل واحد لا يتغيّر.',
       },
       {
         q: 'أيّ الست أختار؟',
@@ -864,7 +864,7 @@ const AR: PowerSolutionCopy = {
   },
   closing: {
     title: 'عشر جلسات، مُحكمة واحدة تلو الأخرى.',
-    body: 'القارورة المغذّية في مجموعة Power Solution، وتركيبتها كاملة وكل نسبة فيها مطبوعة أعلاه لتتحقّقي منها قبل الشراء.',
+    body: 'القارورة المغذّية في مجموعة Power Solution، وتركيبتها كاملة وكل نسبة فيها مطبوعة أعلاه، دون إخفاء شيء.',
   },
   backToProducts: 'المنتجات',
 }
@@ -873,7 +873,7 @@ const RU: PowerSolutionCopy = {
   eyebrow: 'Профессиональная ампула · Десять запаянных флаконов',
   headline: 'Тот флакон, к которому тянутся, когда коже нужно питание.',
   subheadline:
-    'CVS — это Concentrated Vitality Solution, и Корея регистрирует её функцию одним словом: питание кожи. Это универсальная ампула линии Power Solution из шести позиций, та, что нужна уставшей и сухой коже, а не пигментированной, жирной или с морщинами. Почти четверть флакона — увлажнители, и именно поэтому полные 2 мл спокойно ложатся на лицо сразу после процедуры. Десять запаянных стеклянных флаконов, по одному на процедуру.',
+    'CVS — это Concentrated Vitality Solution, и Корея регистрирует её функцию двумя словами: питание кожи. Это универсальная ампула линии Power Solution из шести позиций, та, что нужна уставшей и сухой коже, а не пигментированной, жирной или с морщинами. Почти четверть флакона — увлажнители, и именно поэтому полные 2 мл спокойно ложатся на лицо сразу после процедуры. Десять запаянных стеклянных флаконов, по одному на процедуру.',
   heroBullets: [
     'Почти четверть — увлажнители, поэтому полные 2 мл остаются комфортными на обработанной коже',
     'Соевый фермент 2,5% и пантенол 0,5%, оба в реальной рабочей дозировке',
@@ -911,14 +911,14 @@ const RU: PowerSolutionCopy = {
           'Два миллилитра, запаянные в стекло под обжимной крышкой и вскрываемые у кресла. Ничего не переливают, ничего не хранят и ничего не окисляется между лицами. Десять флаконов — это десять полных доз.',
       },
       {
-        title: 'Реагировать почти не на что',
+        title: 'Ничего агрессивного в составе',
         body:
           'Ни отдушки, ни этанола, ни красителя, и pH 5,94 — то есть близко к коже. На лице, которое только что прошло процедуру, отсутствие компонента значит не меньше, чем его наличие.',
       },
       {
         title: 'Остаётся на коже',
         body:
-          'Несмываемый раствор. Досье по безопасности оценивает его так же, как крем для лица, а упаковка даёт четыре шага: очистить, вскрыть, нанести, дать впитаться.',
+          'Несмываемый раствор. Он остаётся на коже и работает на ней, как уходовый крем, в четыре шага: очистить, вскрыть, нанести, дать впитаться.',
       },
     ],
     figureAlt: 'Один стеклянный флакон POWER SOLUTION CVS на 2 мл с надписью Concentrated Vitality Solution',
@@ -927,11 +927,11 @@ const RU: PowerSolutionCopy = {
     eyebrow: 'Состав',
     title: 'Куда на самом деле уходит флакон.',
     intro:
-      'Каждый процент ниже — готовая концентрация из регистрационного досье, а не догадка о том, что означает название в начале списка ингредиентов. Вода — 70,5% флакона, как почти в любой сыворотке на свете. Интересно то, что заполняет остальное.',
+      'Каждый процент ниже — готовая концентрация во флаконе, а не догадка о том, что означает название в начале списка ингредиентов. Вода здесь носитель, 70,5% флакона, как в любой сыворотке на свете. Отличают этот флакон остальные 29,5%.',
     baseTitle: 'База — 23,97% флакона',
     baseRows: ['Бутиленгликоль', 'Глицерин'],
     baseNote:
-      'Два увлажнителя, вместе почти четверть флакона. Это много, и это сделано намеренно: именно они разносят небольшую дозу по всему лицу и оставляют его смягчённым, а не стянутым.',
+      'Два увлажнителя, вместе почти четверть флакона. Это много, и это сделано намеренно: именно они разносят активные вещества по всему лицу и оставляют его смягчённым, а не стянутым.',
     activesTitle: 'Активные вещества',
     activesRows: [
       'Фильтрат ферментации лактобактерий/соевого молока',
@@ -944,16 +944,16 @@ const RU: PowerSolutionCopy = {
       'Бета-глюкан',
     ],
     activesNote:
-      'Пантенол 0,5% и аллантоин 0,1% — оба в верхней части того диапазона, в котором их обычно применяют. Столбцы построены по своей шкале в каждой группе, потому что база и активы различаются на два порядка.',
+      'Пантенол 0,5% и аллантоин 0,1% — оба в верхней части того диапазона, в котором их обычно применяют. Каждая группа построена в своём масштабе, чтобы активы оставались читаемыми рядом с базой.',
     traceTitle: 'И пептиды',
     traceBody:
-      'sh-Polypeptide-7 в концентрации 1 ppm и palmitoyl tripeptide-1 в концентрации 0,5 ppm. Пептиды дозируются в частях на миллион по самой своей природе — экспертная панель CIR указывает типичное косметическое применение семейства palmitoyl tripeptide ниже 10 ppm — и именно на них построено само название Power Solution.',
+      'Именно на них построено само название Power Solution: sh-Polypeptide-7 в концентрации 1 ppm и palmitoyl tripeptide-1 в концентрации 0,5 ppm. Пептиды работают в частях на миллион по самой своей природе, и экспертная панель CIR указывает типичное косметическое применение семейства palmitoyl tripeptide ниже 10 ppm.',
   },
   freeFrom: {
     eyebrow: 'Формула 5-Free',
-    title: 'Пять вещей, которых, как говорит коробка, здесь нет.',
+    title: 'Пять вещей, которых здесь нет.',
     body:
-      'Отметка 5-Free напечатана на упаковке дважды, на лицевой стороне и ещё раз с внутренней стороны крышки, и она называет все пять исключений, а не оставляет вас гадать. Каждое из них проверяется по составу ниже на этой странице — ради этого её и печатают.',
+      'GENOSYS печатает отметку 5-Free на упаковке дважды, на лицевой стороне и ещё раз с внутренней стороны крышки, и называет все пять исключений, а не оставляет вас гадать. И каждое из них подтверждается составом ниже на этой странице.',
     items: [
       'Парабены',
       'Этанол',
@@ -969,7 +969,7 @@ const RU: PowerSolutionCopy = {
     eyebrow: 'Линия',
     title: 'Шесть флаконов, по одной задаче на каждый.',
     intro:
-      'Power Solution — это набор, и между ними выбирают, а не собирают их все. Один формат, одна цена, один и тот же запаянный флакон 2 мл — и своя задача, напечатанная на каждой коробке. CVS для кожи, которая просто устала.',
+      'Power Solution — это набор, и каждый выбирают под ту кожу, что перед вами. Один формат, одна цена, один и тот же запаянный флакон 2 мл — и своя задача, напечатанная на каждой коробке. CVS для кожи, которая просто устала.',
     thisOne: 'Этот',
     entries: [
       { name: 'HA Volume Enhancing Solution', forWhat: 'Наполненность и мгновенное увлажнение' },
@@ -1000,7 +1000,7 @@ const RU: PowerSolutionCopy = {
   actives: {
     eyebrow: 'Что внутри',
     title: 'Ингредиенты, с настоящими цифрами.',
-    intro: 'Проценты — готовые концентрации из регистрационного досье, а не выводы из места названия в списке.',
+    intro: 'Каждый процент здесь — готовая концентрация во флаконе, а не вывод из места названия в списке.',
     cards: [
       {
         name: 'sh-Polypeptide-7, 1 ppm',
@@ -1015,7 +1015,7 @@ const RU: PowerSolutionCopy = {
       {
         name: 'Фильтрат ферментации лактобактерий/соевого молока, 2,5%',
         body:
-          'Соевое молоко, сброженное лактобактериями и отфильтрованное. При 2,5% это с большим отрывом самый крупный актив во флаконе, и именно он в основном и означает «питание» на упаковке.',
+          'Соевое молоко, сброженное лактобактериями и отфильтрованное. При 2,5% это с большим отрывом самый крупный актив во флаконе, и именно отсюда берётся питание.',
       },
       {
         name: 'Пантенол, 0,5%',
@@ -1025,7 +1025,7 @@ const RU: PowerSolutionCopy = {
       {
         name: 'Аллантоин, 0,1%',
         body:
-          'Тихий, старомодный успокаивающий компонент, здесь в верхней части того диапазона, в котором его обычно применяют, а не в нижней.',
+          'Успокаивающий компонент с десятилетиями применения за плечами, здесь — в верхней части того диапазона, в котором его обычно применяют.',
       },
       {
         name: 'Гиалуронат натрия, 0,1%',
@@ -1035,7 +1035,7 @@ const RU: PowerSolutionCopy = {
       {
         name: 'Гидролизованный коллаген, 0,1%',
         body:
-          'Морской коллаген, расщеплённый достаточно мелко, чтобы лежать на коже увлажняющей плёнкой. Досье называет источник: рыба.',
+          'Морской коллаген, расщеплённый достаточно мелко, чтобы лежать на коже увлажняющей плёнкой. Источник — рыба.',
       },
       {
         name: 'Каллус винограда и розы, по 0,03%',
@@ -1043,9 +1043,9 @@ const RU: PowerSolutionCopy = {
           'Растительные стволовые культуры Vitis vinifera и Rosa damascena, выращенные в лаборатории, а не собранные в поле, — именно поэтому они одинаковы от партии к партии.',
       },
       {
-        name: 'Корейский растительный «хвост»',
+        name: 'Корейские растительные экстракты',
         body:
-          'Зелёный чай, юдзу, полынь, хауттюйния, корень шлемника и вода хиноки. Все в небольших количествах и все полностью названы на упаковке, а не спрятаны за названием комплекса.',
+          'Зелёный чай, юдзу, полынь, хауттюйния, корень шлемника и вода хиноки. Каждое названо полностью, а не спрятано за придуманным названием комплекса.',
       },
     ],
     inciTitle: 'Полный состав',
@@ -1061,7 +1061,7 @@ const RU: PowerSolutionCopy = {
       'Кожа уставшая, тусклая и обезвоженная, а не пигментированная, жирная или с морщинами',
       'Вам нужна запаянная доза на одно применение, а не флакон, который стоит открытым месяцами',
       'Вы реагируете на отдушку и спирт, а здесь их нет и об этом написано на упаковке',
-      'Вам нужны проценты — они на этой странице и взяты из регистрационного файла',
+      'Вам нужны проценты — здесь они все до одного',
     ],
     notTitle: 'Ищите другое, если',
     notList: [
@@ -1092,7 +1092,7 @@ const RU: PowerSolutionCopy = {
       },
       {
         q: 'Что делает sh-Polypeptide-7?',
-        a: 'Это рекомбинантный человеческий пептид, построенный по последовательности соматотропина и полученный ферментацией; COSING относит его к защитным компонентам кожи. Мы не станем говорить, что он восстанавливает ткани или производит новые клетки: это лекарственные заявления, и ни одна косметика не может сделать их честно.',
+        a: 'Это рекомбинантный человеческий пептид, построенный по последовательности соматотропина и полученный ферментацией; COSING относит его к защитным компонентам кожи. Восстановление тканей и производство новых клеток — лекарственные заявления, они относятся к медицине, а не к косметике; здесь пептид даёт последовательность, одинаковую в каждой партии.',
       },
       {
         q: 'Какую из шести выбрать?',
@@ -1127,7 +1127,7 @@ const RU: PowerSolutionCopy = {
   },
   closing: {
     title: 'Десять процедур, запаянных по одной.',
-    body: 'Питательный флакон линии Power Solution, с полным составом и всеми процентами выше, чтобы проверить их до покупки.',
+    body: 'Питательный флакон линии Power Solution: полный состав и все проценты выше, без умолчаний.',
   },
   backToProducts: 'Продукты',
 }

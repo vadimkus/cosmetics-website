@@ -278,7 +278,7 @@ const EN: PowerSolutionCopy = {
     eyebrow: 'The formula',
     title: 'What is actually in the 2 ml.',
     intro:
-      'No proprietary blend, no undisclosed complex. Here is the whole thing by weight, in two groups, because the base and the actives are two orders of magnitude apart and one scale would draw every active as nothing.',
+      'No proprietary blend, no undisclosed complex. Here is the whole thing by weight, in two groups, each on its own scale so every active stays readable beside the base.',
     baseTitle: 'The base · scaled against glycerin at 10%',
     baseRows: ['Glycerin', 'Butylene glycol', '1,2-Hexanediol', 'Betaine'],
     baseNote:
@@ -314,7 +314,7 @@ const EN: PowerSolutionCopy = {
     eyebrow: 'The range',
     title: 'Six vials, one problem each.',
     intro:
-      'The Power Solutions are a set, and they are meant to be chosen between rather than collected. Same format, same price, same 2 ml sealed vial — a different job in each one. HES is the one for skin that has gone flat and thirsty.',
+      'The Power Solutions are a set, and each one is chosen for the skin in front of you. Same format, same price, same 2 ml sealed vial — a different job in each one. HES is the one for skin that has gone flat and thirsty.',
     thisOne: 'This one',
     entries: [
       { name: 'HA Volume Enhancing Solution', forWhat: 'Plumping and instant hydration' },
@@ -485,7 +485,7 @@ const EN: PowerSolutionCopy = {
   closing: {
     title: 'Ten treatments, sealed one at a time.',
     body:
-      'Hyaluronic acid at 1.65 million Dalton, a full 1% of it, and every other percentage listed above so you can check them before you buy.',
+      'Hyaluronic acid at 1.65 million Dalton, a full 1% of it, and every other percentage listed above, nothing held back.',
   },
   backToProducts: 'Products',
 }
@@ -582,7 +582,7 @@ const AR: PowerSolutionCopy = {
     eyebrow: 'التركيبة',
     title: 'ما يوجد فعلاً في الـ 2 مل.',
     intro:
-      'لا مزيج سرّي ولا مركّب غير معلن. هذه هي التركيبة كاملة بالوزن، في مجموعتين، لأن القاعدة والمكوّنات الفعّالة تفصل بينهما مرتبتان عشريتان، وأي مقياس واحد سيرسم كل فعّال كأنه لا شيء.',
+      'لا مزيج سرّي ولا مركّب غير معلن. هذه هي التركيبة كاملة بالوزن، في مجموعتين، كل واحدة بمقياسها الخاص ليبقى كل مكوّن فعّال واضحاً بجانب القاعدة.',
     baseTitle: 'القاعدة · مقيسة على الجليسرين بنسبة 10%',
     baseRows: ['جليسرين', 'بيوتيلين جلايكول', '1,2-هيكسانيديول', 'بيتايين'],
     baseNote:
@@ -618,7 +618,7 @@ const AR: PowerSolutionCopy = {
     eyebrow: 'المجموعة',
     title: 'ست قوارير، لكل واحدة مشكلتها.',
     intro:
-      'مستحضرات Power Solution مجموعة واحدة، والمقصود أن يُختار بينها لا أن تُجمع كلها. الشكل نفسه والسعر نفسه والقارورة المُحكمة نفسها سعة 2 مل — ومهمة مختلفة في كل واحدة. وHES هي المخصّصة للبشرة التي فقدت امتلاءها وعطشت.',
+      'مستحضرات Power Solution مجموعة واحدة، وكل واحدة منها تُختار حسب البشرة التي أمامك. الشكل نفسه والسعر نفسه والقارورة المُحكمة نفسها سعة 2 مل — ومهمة مختلفة في كل واحدة. وHES هي المخصّصة للبشرة التي فقدت امتلاءها وعطشت.',
     thisOne: 'هذا المنتج',
     entries: [
       { name: 'HA Volume Enhancing Solution', forWhat: 'امتلاء وترطيب فوري' },
@@ -787,7 +787,7 @@ const AR: PowerSolutionCopy = {
   closing: {
     title: 'عشر جلسات، مُحكمة واحدة واحدة.',
     body:
-      'حمض هيالورونيك بوزن 1.65 مليون دالتون، ونسبة كاملة 1% منه، وكل نسبة أخرى مذكورة أعلاه لتتحقّق منها قبل الشراء.',
+      'حمض هيالورونيك بوزن 1.65 مليون دالتون، ونسبة كاملة 1% منه، وكل نسبة أخرى مذكورة أعلاه، دون إخفاء شيء.',
   },
   backToProducts: 'المنتجات',
 }
@@ -884,7 +884,7 @@ const RU: PowerSolutionCopy = {
     eyebrow: 'Формула',
     title: 'Что на самом деле в этих 2 мл.',
     intro:
-      'Никакой закрытой смеси и незаявленного комплекса. Вот весь состав по весу, двумя группами: основа и активные компоненты отличаются на два порядка, и единая шкала нарисовала бы каждый активный как ничто.',
+      'Никакой закрытой смеси и незаявленного комплекса. Вот весь состав по весу, двумя группами, каждая в своём масштабе, чтобы каждый активный компонент оставался читаемым рядом с основой.',
     baseTitle: 'Основа · шкала по глицерину 10%',
     baseRows: ['Глицерин', 'Бутиленгликоль', '1,2-гександиол', 'Бетаин'],
     baseNote:
@@ -920,7 +920,7 @@ const RU: PowerSolutionCopy = {
     eyebrow: 'Линия',
     title: 'Шесть флаконов, по одной задаче на каждый.',
     intro:
-      'Power Solution — это набор, и между ними выбирают, а не собирают их все. Один формат, одна цена, один и тот же запаянный флакон 2 мл — и своя задача у каждого. HES — для кожи, которая потеряла наполненность и хочет пить.',
+      'Power Solution — это набор, и каждый выбирают под ту кожу, что перед вами. Один формат, одна цена, один и тот же запаянный флакон 2 мл — и своя задача у каждого. HES — для кожи, которая потеряла наполненность и хочет пить.',
     thisOne: 'Этот',
     entries: [
       { name: 'HA Volume Enhancing Solution', forWhat: 'Наполненность и мгновенное увлажнение' },
@@ -1089,7 +1089,7 @@ const RU: PowerSolutionCopy = {
   closing: {
     title: 'Десять процедур, запаянных по одной.',
     body:
-      'Гиалуроновая кислота 1,65 миллиона дальтон, полный 1% её и все остальные проценты выше, чтобы проверить их до покупки.',
+      'Гиалуроновая кислота 1,65 миллиона дальтон, полный 1% её и все остальные проценты выше, без умолчаний.',
   },
   backToProducts: 'Продукты',
 }

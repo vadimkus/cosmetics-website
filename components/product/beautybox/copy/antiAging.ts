@@ -122,14 +122,14 @@ import type { BeautyBoxCopy, BeautyBoxLocaleCopy } from '../beautyBoxCopy'
 const EN: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Products',
-  headline: 'Two registered actives, twice a day, for as long as it takes.',
+  headline: 'Softer lines and a more even tone, morning and night.',
   subheadline:
-    'The serum and the cream at the centre of this box are licensed in Korea as dual-function cosmetics, for wrinkle improvement and for brightening. The two ingredients those licences rest on are niacinamide at 2% and adenosine at 0.04%, and every production batch is tested to confirm both. Around them: the oxygen cleanser, the fragrance-free toner and five collagen sheet masks.',
+    'The serum and the cream at the centre of this box work on both at once, and Korea licenses them to do exactly that: dual-function cosmetics for wrinkle improvement and for brightening. Niacinamide at 2% and adenosine at 0.04% are what earn those licences, and every production batch is tested to confirm both. Around them, the oxygen cleanser, the fragrance-free toner and five collagen sheet masks.',
   heroBullets: [
-    'Serum and cream both registered in Korea as dual-function cosmetics: wrinkle improvement and brightening',
-    'Niacinamide 2% and adenosine 0.04% in both steps, and every production batch is tested to confirm it',
-    'Bakuchiol at 0.1% in both, a retinol alternative that is photostable, so it can be worn in the morning',
-    'Five full retail sizes and five sheet masks, for less than the same five bought one at a time',
+    'Fine lines and uneven tone worked on together, in the same two steps, twice a day',
+    'Niacinamide 2% and adenosine 0.04% in serum and cream alike, confirmed on every production batch',
+    'Bakuchiol at 0.1% in both, a retinol alternative that holds up in daylight, so it can be worn in the morning',
+    'Five full sizes and five sheet masks, for less than the same five bought one at a time',
   ],
   kitSize: '5 products',
   fullSizeNote: 'Full sizes',
@@ -355,12 +355,12 @@ const EN: BeautyBoxCopy = {
 const AR: BeautyBoxCopy = {
   eyebrow: 'صندوق الجمال',
   backToProducts: 'المنتجات',
-  headline: 'مادتان فعّالتان مسجّلتان، مرتين يومياً، للمدة التي تحتاجها.',
+  headline: 'تجاعيد أنعم ولون أكثر توحّداً، صباحاً ومساءً.',
   subheadline:
-    'السيروم والكريم في قلب هذا الصندوق مسجّلان في كوريا كمستحضرين ثنائيي الوظيفة: تحسين التجاعيد وتفتيح البشرة. والمادتان اللتان يقوم عليهما هذا التسجيل هما النياسيناميد بنسبة 2% والأدينوزين بنسبة 0.04%، وكل دفعة إنتاج تُختبَر للتأكد من النسبتين. ومن حولهما: منظف الأكسجين، والتونر الخالي من العطر، وخمسة أقنعة كولاجين ورقية.',
+    'السيروم والكريم في قلب هذا الصندوق يعملان على الاثنين معاً، وكوريا ترخّصهما لذلك تحديداً: مستحضران ثنائيا الوظيفة لتحسين التجاعيد وتفتيح البشرة. النياسيناميد بنسبة 2% والأدينوزين بنسبة 0.04% هما ما يستحقّ هذين الترخيصين، وكل دفعة إنتاج تُختبَر للتأكد من النسبتين. ومن حولهما منظف الأكسجين، والتونر الخالي من العطر، وخمسة أقنعة كولاجين ورقية.',
   heroBullets: [
-    'السيروم والكريم مسجّلان في كوريا كمستحضرين ثنائيي الوظيفة: تحسين التجاعيد وتفتيح البشرة',
-    'نياسيناميد 2% وأدينوزين 0.04% في الخطوتين، وكل دفعة إنتاج تُختبَر للتأكد من النسبتين',
+    'الخطوط الدقيقة وتفاوت اللون يُعالَجان معاً، في الخطوتين نفسيهما، مرتين يومياً',
+    'نياسيناميد 2% وأدينوزين 0.04% في السيروم والكريم معاً، ومؤكَّدان في كل دفعة إنتاج',
     'باكوتشيول بنسبة 0.1% في الاثنين، وهو بديل للريتينول ثابت ضوئياً فيمكن استخدامه في الصباح',
     'خمسة أحجام كاملة وخمسة أقنعة ورقية، بأقل من ثمن المنتجات الخمسة نفسها واحداً واحداً',
   ],
@@ -583,12 +583,12 @@ const AR: BeautyBoxCopy = {
 const RU: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Продукты',
-  headline: 'Два зарегистрированных актива, дважды в день, столько, сколько нужно.',
+  headline: 'Более гладкие морщины и ровный тон, утром и вечером.',
   subheadline:
-    'Сыворотка и крем в центре этого набора зарегистрированы в Корее как средства двойного действия: разглаживание морщин и выравнивание тона. Две молекулы, на которых держится эта регистрация, - ниацинамид 2% и аденозин 0,04%, и каждая производственная партия проверяется на соответствие этим цифрам. Вокруг них: кислородное очищающее средство, тоник без ароматизаторов и пять коллагеновых тканевых масок.',
+    'Сыворотка и крем в центре этого набора работают над тем и другим одновременно, и Корея лицензирует их именно на это: средства двойного действия - разглаживание морщин и выравнивание тона. Лицензии заслужены ниацинамидом 2% и аденозином 0,04%, и каждая производственная партия проверяется на соответствие. Вокруг них кислородное очищающее средство, тоник без ароматизаторов и пять коллагеновых тканевых масок.',
   heroBullets: [
-    'Сыворотка и крем зарегистрированы в Корее как средства двойного действия: разглаживание морщин и выравнивание тона',
-    'Ниацинамид 2% и аденозин 0,04% в двух шагах, и каждая производственная партия проверяется на соответствие',
+    'Мелкие морщины и неровный тон прорабатываются вместе, теми же двумя шагами, дважды в день',
+    'Ниацинамид 2% и аденозин 0,04% и в сыворотке, и в креме, подтверждено на каждой партии',
     'Бакучиол 0,1% в обоих средствах: альтернатива ретинолу, фотостабильная, поэтому её можно наносить утром',
     'Пять полных розничных объёмов и пять тканевых масок - дешевле, чем те же пять средств по одному',
   ],

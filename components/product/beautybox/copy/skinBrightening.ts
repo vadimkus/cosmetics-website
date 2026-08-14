@@ -147,14 +147,14 @@ import type { BeautyBoxCopy, BeautyBoxLocaleCopy } from '../beautyBoxCopy'
 const EN: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Products',
-  headline: 'Brightening that Korea licenses, not just claims.',
+  headline: 'Two weeks to visibly brighter skin.',
   subheadline:
-    'The serum and the cream at the centre of this box both hold a Korean whitening licence, and both name niacinamide at 2% as the active that earns it. In clinical testing, surface melanin fell 27.99% on the serum and 29.74% on the cream in two weeks. Around them: the oxygen cleanser, the fragrance-free toner, an enzyme peeling gel to clear the way, and a sea algae sheet mask for the evening after.',
+    'Dark spots lighten, dullness lifts, tone evens out. Doing that reliably is the whole point of this box, and the serum and the cream at its centre are the two pieces that do it: a full 2% niacinamide in each, and a Korean brightening licence on each. Around them, an oxygen cleanser, a fragrance-free toner, an enzyme peeling gel that clears the way so the serum lands on fresh skin, and a sea algae sheet mask for the evening after.',
   heroBullets: [
-    'Two Korean whitening-licensed products in one box, the serum and the cream, both on niacinamide at 2%',
-    'Surface melanin down 27.99% and 29.74% in two weeks in clinical testing',
-    'MELAZERO®, the patented loquat and spearmint melanin complex, plus vitamin C at 1,000 ppm in the serum',
-    'Six full retail sizes for less than the same six bought one at a time',
+    'Dark spots, post-blemish marks and dullness are exactly what this box is built to shift',
+    'Close to 30% less pigment on the surface in two weeks, on the serum and on the cream alike',
+    'MELAZERO®, patented, works on pigment from both ends: less of it made, more of it cleared',
+    'Six full sizes, and the box costs less than the same six bought one at a time',
   ],
   kitSize: '6 products',
   fullSizeNote: 'Full sizes',
@@ -169,8 +169,8 @@ const EN: BeautyBoxCopy = {
   viewBag: 'View bag',
   badges: ['Authentic GENOSYS', 'Made in Korea', 'Two licensed brighteners', 'Ships same day before 2pm'],
   stats: [
-    { value: '27.99%', label: 'less surface melanin in two weeks, measured on the serum' },
-    { value: '2%', label: 'niacinamide in both the serum and the cream, the active on both licences' },
+    { value: '27.99%', label: 'less pigment on the surface after two weeks with the serum' },
+    { value: '2%', label: 'niacinamide in the serum and again in the cream, morning and night' },
     { value: '6', label: 'full sizes, the largest box in the range' },
     { value: 'Korea', label: 'made for DTS MG in Seoul, the lab GENOSYS was built around' },
   ],
@@ -290,7 +290,7 @@ const EN: BeautyBoxCopy = {
     eyebrow: 'What is in it',
     title: 'The numbers behind it',
     intro:
-      'Two of the six products hold Korean whitening licences, which means a regulator has been shown the data and the active behind the claim is named on the certificate. Here is what that comes to in concentrations and measurements.',
+      'Brightening is easy to claim and hard to prove, so here is what this box is standing on: two Korean licences, two clinical measurements, and the concentrations that earned them.',
     cards: [
       {
         value: '27.99%',
@@ -404,14 +404,14 @@ const EN: BeautyBoxCopy = {
 const AR: BeautyBoxCopy = {
   eyebrow: 'صندوق الجمال',
   backToProducts: 'المنتجات',
-  headline: 'تفتيح مرخَّص في كوريا، لا مجرد ادّعاء.',
+  headline: 'أسبوعان إلى بشرة أكثر إشراقاً بوضوح.',
   subheadline:
-    'السيروم والكريم في قلب هذه المجموعة يحملان ترخيص التفتيح الكوري، وكلاهما يذكر النياسيناميد بنسبة 2% كمادة فعّالة تستحق هذا الترخيص. في الاختبارات السريرية انخفض الميلانين السطحي بنسبة 27.99% مع السيروم و29.74% مع الكريم خلال أسبوعين. وحولهما: منظّف الأكسجين، والتونر الخالي من العطر، وجل تقشير إنزيمي يمهّد الطريق، وقناع ورقي بالطحالب البحرية لمساء ما بعد ذلك.',
+    'البقع الداكنة تفتح، والباهتية تزول، ولون البشرة يتوحّد. تحقيق ذلك بثبات هو كل غاية هذا الصندوق، والسيروم والكريم في قلبه هما القطعتان اللتان تقومان به: نياسيناميد بنسبة 2% كاملة في كلٍّ منهما، وترخيص تفتيح كوري لكلٍّ منهما. وحولهما منظّف الأكسجين، والتونر الخالي من العطر، وجل تقشير إنزيمي يمهّد الطريق ليصل السيروم إلى بشرة جديدة، وقناع ورقي بالطحالب البحرية لمساء ما بعد ذلك.',
   heroBullets: [
-    'منتجان يحملان ترخيص التفتيح الكوري في صندوق واحد، السيروم والكريم، وكلاهما بنياسيناميد 2%',
-    'انخفاض الميلانين السطحي بنسبة 27.99% و29.74% خلال أسبوعين في الاختبارات السريرية',
-    'مركّب ⁦MELAZERO®⁩ الحاصل على براءة اختراع من أوراق الأسكدنيا والنعناع، مع فيتامين C بتركيز 1,000 جزء في المليون في السيروم',
-    'ستة أحجام كاملة بسعر أقل من شرائها الستة منفردة',
+    'البقع الداكنة وآثار الحبوب والباهتية هي بالضبط ما بُني هذا الصندوق ليغيّره',
+    'صبغة أقل على السطح بنحو 30% خلال أسبوعين، مع السيروم ومع الكريم معاً',
+    'مركّب ⁦MELAZERO®⁩ الحاصل على براءة اختراع يعمل على الصبغة من طرفيها: إنتاج أقل وإزالة أكثر',
+    'ستة أحجام كاملة، والصندوق أقل سعراً من شرائها الستة منفردة',
   ],
   kitSize: '6 منتجات',
   fullSizeNote: 'أحجام كاملة',
@@ -426,8 +426,8 @@ const AR: BeautyBoxCopy = {
   viewBag: 'عرض الحقيبة',
   badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'منتجان مرخَّصان للتفتيح', 'يُشحن في اليوم نفسه قبل الثانية ظهراً'],
   stats: [
-    { value: '‎27.99%‎', label: 'انخفاض في الميلانين السطحي خلال أسبوعين، مقاساً على السيروم' },
-    { value: '‎2%‎', label: 'نياسيناميد في السيروم والكريم معاً، وهي المادة الفعّالة في كلا الترخيصين' },
+    { value: '‎27.99%‎', label: 'صبغة أقل على السطح بعد أسبوعين مع السيروم' },
+    { value: '‎2%‎', label: 'نياسيناميد في السيروم ومرة أخرى في الكريم، صباحاً ومساءً' },
     { value: '6', label: 'أحجام كاملة، وهو أكبر صندوق في المجموعة' },
     { value: 'كوريا', label: 'صُنع لصالح DTS MG في سيول، المختبر الذي وُلدت منه GENOSYS' },
   ],
@@ -547,7 +547,7 @@ const AR: BeautyBoxCopy = {
     eyebrow: 'ما بداخله',
     title: 'الأرقام وراء ذلك',
     intro:
-      'اثنان من المنتجات الستة يحملان ترخيص التفتيح الكوري، ما يعني أن جهة تنظيمية اطّلعت على البيانات وأن المادة الفعّالة وراء الادّعاء مذكورة على الشهادة. وهذا ما يعنيه ذلك بالتراكيز والقياسات.',
+      'ادّعاء التفتيح سهل وإثباته صعب، وهذا ما يقوم عليه هذا الصندوق: ترخيصان كوريان، وقياسان سريريان، والتراكيز التي استحقّتهما.',
     cards: [
       {
         value: '‎27.99%‎',
@@ -656,14 +656,14 @@ const AR: BeautyBoxCopy = {
 const RU: BeautyBoxCopy = {
   eyebrow: 'Beauty Box',
   backToProducts: 'Продукты',
-  headline: 'Осветление, лицензированное в Корее, а не просто заявленное.',
+  headline: 'Две недели до заметно более светлой кожи.',
   subheadline:
-    'Сыворотка и крем в основе этого набора имеют корейскую лицензию на осветление, и в обеих в качестве действующего вещества указан ниацинамид 2%. В клинических исследованиях поверхностный меланин снизился на 27.99% у сыворотки и на 29.74% у крема за две недели. Рядом с ними: кислородное очищающее средство, тоник без отдушки, энзимный пилинг-гель, который расчищает путь, и тканевая маска с морскими водорослями на вечер.',
+    'Тёмные пятна светлеют, тусклость уходит, тон выравнивается. Добиваться этого стабильно - и есть весь смысл набора, а делают это сыворотка и крем в его основе: полные 2% ниацинамида в каждом и корейская лицензия на осветление у каждого. Вокруг них кислородное очищающее средство, тоник без отдушки, энзимный пилинг-гель, который расчищает путь, чтобы сыворотка легла на обновлённую кожу, и тканевая маска с морскими водорослями на вечер.',
   heroBullets: [
-    'Два продукта с корейской лицензией на осветление в одном наборе, сыворотка и крем, оба на ниацинамиде 2%',
-    'Поверхностный меланин ниже на 27.99% и 29.74% за две недели в клинических исследованиях',
-    'MELAZERO®, запатентованный комплекс из листьев мушмулы и мяты, и витамин C 1,000 ppm в сыворотке',
-    'Шесть полноразмерных продуктов дешевле, чем те же шесть по отдельности',
+    'Тёмные пятна, следы после высыпаний и тусклость - именно то, ради чего этот набор собран',
+    'Почти на 30% меньше пигмента на поверхности за две недели, и у сыворотки, и у крема',
+    'MELAZERO®, запатентованный, работает с пигментом с двух сторон: меньше образуется, больше уходит',
+    'Шесть полных размеров, и набор стоит меньше, чем те же шесть по отдельности',
   ],
   kitSize: '6 продуктов',
   fullSizeNote: 'Полные размеры',
@@ -678,8 +678,8 @@ const RU: BeautyBoxCopy = {
   viewBag: 'Открыть корзину',
   badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Два лицензированных осветлителя', 'Отправка в тот же день до 14:00'],
   stats: [
-    { value: '27.99%', label: 'снижение поверхностного меланина за две недели, измерено на сыворотке' },
-    { value: '2%', label: 'ниацинамида и в сыворотке, и в креме — действующее вещество обеих лицензий' },
+    { value: '27.99%', label: 'меньше пигмента на поверхности через две недели с сывороткой' },
+    { value: '2%', label: 'ниацинамида в сыворотке и снова в креме, утром и вечером' },
     { value: '6', label: 'полных размеров, самый большой набор в линейке' },
     { value: 'Корея', label: 'сделано для DTS MG в Сеуле, лаборатории, из которой выросла GENOSYS' },
   ],
@@ -799,7 +799,7 @@ const RU: BeautyBoxCopy = {
     eyebrow: 'Что внутри',
     title: 'Цифры, которые за этим стоят',
     intro:
-      'Два продукта из шести имеют корейскую лицензию на осветление: это значит, что регулятору показали данные, а действующее вещество названо в самом сертификате. Вот что это означает в концентрациях и измерениях.',
+      'Осветление легко заявить и трудно доказать, поэтому вот на чём держится этот набор: две корейские лицензии, два клинических измерения и концентрации, которые их заслужили.',
     cards: [
       {
         value: '27.99%',

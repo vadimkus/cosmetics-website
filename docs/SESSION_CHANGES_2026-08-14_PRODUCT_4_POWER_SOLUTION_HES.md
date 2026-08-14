@@ -248,3 +248,22 @@ The CVS session got this backwards and put a 404 on a live product page for abou
 three minutes: the database is shared with production, so pointing it at an asset
 that has not deployed yet breaks the live page immediately. Push the image, wait
 for the deploy, confirm `s6new.jpeg` returns 200, **then** update the gallery.
+
+### Deploy status at the end of this session
+
+Commit `484e7890` is on `main`. Forty minutes later production was still serving
+the previous build: `vial-square.jpg`, `box-front.jpg` and `s6new.jpeg` all 404,
+and `/products/4` had no `ps-ladder` markup. `npm run build` passes locally and
+`npx tsc --noEmit` is clean, so this is a Vercel queue or build-side matter, not
+the code. The gallery was left on `s6.jpeg` as the rule requires.
+
+Once the build lands, the remaining step is one command:
+
+```bash
+npx tsx --env-file=.env.local scripts/update-power-solution-hes-4-gallery-20260814.ts --apply
+```
+
+That script HEADs `https://genosys.ae/images/hes_power/s6new.jpeg` first and
+refuses to write while it 404s, so the CVS mistake cannot repeat even if it is
+run early. Dry run without `--apply`. Afterwards, confirm `/products/4` shows
+the corrected slide 6 and that no gallery entry resolves to a 404.

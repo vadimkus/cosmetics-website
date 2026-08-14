@@ -114,12 +114,33 @@
  *     the TEWL result, which was 34.969%. The slide was pulled for a different
  *     reason (see below) but the misattribution is logged separately.
  *
- * IMAGE NOTE. Three of the four images this product shipped with were AI
- * renders with mangled pack text, and two of them rendered "PDRN" as "PORN" -
- * on the inset tub in s1.jpeg and in the anti-ageing icon in s2.jpeg. Both were
- * pulled from the gallery on 14 Aug 2026 and the main image was switched to
- * Second/pdrnnn.jpg, the real pack shot. Check any new image for this product
- * at full magnification before adding it.
+ * IMAGE NOTE - READ BEFORE ADDING ANY PICTURE TO THIS PRODUCT.
+ *
+ * Four of the seven images on file for the PDRN mask are AI renders with
+ * mangled pack text, and two of them render "PDRN" as "PORN":
+ *
+ *   pdrn_mask/s1.jpeg      inset tub reads "SKIN REDOOT PORN IWASK PACK"
+ *   pdrn_mask/s2.jpeg      anti-ageing icon reads "PORN / Collagen / Elastin",
+ *                          and it misattributes the study: 44.8% is a single
+ *                          subject's barrier reading, the TEWL result is 34.969%
+ *   pdrn_mask/main.jpeg    "DERMATOLOGIGAELY TESTED" on the body,
+ *                          "DERMATOLODICALLY TESTED" on the lid, "Ultrs-Slim",
+ *                          "Planthenol"
+ *   Second/pdrn_big2.jpg   "Ultra-Slim Fit Skteet", "optimal absorptic",
+ *                          "SKIN REBOCT PDRN MASK PACK", and a melted rim
+ *
+ * The last one survived the first pass on 14 Aug because it reads as a
+ * photograph at thumbnail size. It is only legible as a render when opened at
+ * 2000px. Check every candidate at full resolution, not at gallery size.
+ *
+ * The three that pass, all verified at full resolution:
+ *
+ *   Second/pdrnnn.jpg   main. Single tub straight on, 2000px, every line right
+ *   PDRN.png            two tubs at an angle, 998px, every line right
+ *   Second/pdrn22.jpg   the sheet in the hands, no pack text on it at all
+ *
+ * All three are on pure white, which is what lets the multiply rule in
+ * pdrnmask.css drop the white surround into the page tint.
  */
 
 export type PdrnMaskLocale = 'en' | 'ar' | 'ru'

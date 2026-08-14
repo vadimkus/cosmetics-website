@@ -18,17 +18,31 @@ lid, plus `Ultrs-Slim` and `Planthenol`.
 `Second/pdrnnn.jpg` was already in the repo, unused, and is a real photograph of
 the pack with every line spelled correctly. It is now the main image.
 
+**Then a fourth render turned up.** `Second/pdrn_big2.jpg` went into the gallery
+on the first pass because it reads as a photograph at thumbnail size. Opened at
+2000px it is not one: the upper tub reads `Ultra-Slim Fit Skteet` and
+`optimal absorptic`, the lower tub reads `SKIN REBOCT PDRN MASK PACK`, and the
+rim between the two tubs melts into itself. Replaced with `/images/PDRN.png`,
+the same two-tub composition with every line correct.
+
+The lesson, written down because it cost two passes: **check every candidate at
+full resolution, not at gallery size.**
+
+Three images survive, all verified at 2000px:
+
 ```
-main    /images/Second/pdrnnn.jpg
-gallery /images/Second/pdrn_big2.jpg, /images/Second/pdrn22.jpg
+main       /images/Second/pdrnnn.jpg   single tub straight on, 2000px
+gallery 1  /images/PDRN.png            two tubs at an angle, 998px
+gallery 2  /images/Second/pdrn22.jpg   the sheet in the hands, no pack text
 ```
 
-Script: `scripts/fix-pdrn-mask-52-images-20260814.ts`.
+Scripts: `scripts/fix-pdrn-mask-52-images-20260814.ts` then
+`scripts/fix-pdrn-mask-52-gallery-20260814b.ts`.
 
 The old files are left on disk rather than deleted. Past order items reference
 `pdrn_mask/main.jpeg` and the order emails resolve against the stored path, so
 deleting it would break historical emails. Nothing on the page points at that
-folder any more.
+folder, or at `pdrn_big2`, any more.
 
 ## Sources
 
@@ -151,8 +165,18 @@ of 53's crimson `#b8323a`, the other mask in the range and the page a shopper is
 most likely to see next - this one is desaturated and brown-leaning where 53 is
 saturated and red, so the two read as different products rather than as a set.
 
-**Closing band** uses `imageFit="blend"`. The pack shot is on pure white, so it
-multiplies into the band and the tub sits on the tint with no panel around it.
+**No white boxes anywhere.** All three surviving shots are on pure white, and
+both the hero stage and the two inline figures contain rather than crop, so the
+untouched version drew a hard-cornered white rectangle inside each rounded tint
+- two competing boxes, one of them square. A single rule in `pdrnmask.css`
+multiplies any image inside a `.cera-stage` into the tint, which turns the white
+surround into the background and leaves the pack floating with no inner edge.
+The two inline figures carry `.cera-stage` for that reason rather than the white
+card frame the other bespoke pages use. Only safe because the backgrounds really
+are `#ffffff`; a studio grey would come through as a grey block.
+
+**Closing band** uses `imageFit="blend"`, which is the same trick built into the
+shared component.
 
 **Active ingredient cards live in the copy module, not the product record.** The
 bespoke layouts get the untranslated product row, so a page reading actives from
@@ -174,12 +198,13 @@ app/ar/products/[id]/page.tsx                         allowlist + stale comment
 data/productTranslations.ts                           52 block rewritten (AR)
 data/productTranslationsRu.ts                         52 block rewritten (RU)
 scripts/fix-pdrn-mask-52-images-20260814.ts           new, run with --commit
+scripts/fix-pdrn-mask-52-gallery-20260814b.ts         new, run with --commit
 scripts/fix-pdrn-mask-52-claims-20260814.ts           new, run with --commit
 ```
 
 ## Logged for DTS MG
 
-Seven rows under #52 in `~/Desktop/genosys-artwork-corrections.html`: the four
+Eight rows under #52 in `~/Desktop/genosys-artwork-corrections.html`: the five
 image rows above, and three carton/deck ingredient-prominence rows (the front
 panel's "Enriched with Panthenol & Ceramide", the back panel's "Anti-Aging:
 enriched with PDRN, Collagen, Elastin", and the deck's "Green Leaf Complex").

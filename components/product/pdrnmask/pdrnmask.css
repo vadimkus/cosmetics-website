@@ -49,6 +49,19 @@
   box-shadow: 0 24px 60px -34px rgba(124, 79, 62, 0.4);
 }
 
+/* Every surviving shot for this product is on pure white, and the stage
+   contains rather than crops, so the untouched version drew a hard-cornered
+   white rectangle inside the stage's rounded tint - two competing boxes, one of
+   them square. Multiplying the shot into the stage turns its white surround
+   into the tint, so the pack sits on the clay with no inner edge at all.
+
+   Applies to the two inline figures as well, which carry .cera-stage for the
+   same reason. Only safe because the backgrounds really are #ffffff; a studio
+   grey would come through as a grey block. */
+.pdrnmask-page .cera-stage img {
+  mix-blend-mode: multiply;
+}
+
 @media (hover: hover) {
   .pdrnmask-page .cera-card-hover:hover {
     box-shadow: 0 2px 4px rgba(26, 20, 18, 0.04), 0 26px 48px -26px rgba(124, 79, 62, 0.3);

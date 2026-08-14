@@ -69,3 +69,79 @@ products that carry it — four of five in box 57, four of five in box 59, all f
 
 `tsc --noEmit` and `eslint components/product` both clean. All three locales of products
 57, 58 and 59 rendered and the changed sections read back correct.
+
+---
+
+# Second pass — page-by-page read
+
+The first sweep was pattern-driven, so it caught the phrases it was looking for and missed
+whatever it was not. This pass read all nine bespoke pages in full, one at a time, in all
+three languages.
+
+## What the full read found that a pattern search could not
+
+**Two contract manufacturers named on the page.** Box 58 listed *"Serum and cream by GENIC
+Co., Ltd., mask by SLC Co., Ltd."* in its Origin row. Same problem as the CNF mention that
+was pulled from product 65 — we are selling GENOSYS, not advertising who else touched it.
+The row now reads *"Made in Korea for DTS MG Co., Ltd., Seoul"*. DTS MG stays everywhere it
+appears: it owns the brand, so it is heritage, not outsourcing.
+
+**Two section headers that advertised their own limits.** "What is actually measured" over
+"The numbers we can stand behind" implies there are numbers we cannot, and box 59's "The
+part that was tested" says out loud that the rest was not. They are now "What is in it /
+The numbers behind it" and "The clinical results / Measured on real skin".
+
+**A lab dump at the end of box 57's evidence band.** *"Batch certificates on file: cushion
+pH 6.51, overnight mask pH 5.71, cleanser pH 5.86, toner pH 6.08."* Deleted. Four pH values
+in a row sell nothing.
+
+**"We will not invent a number" and "we will not tell you it is pain-free."** Box 59's
+shelf-life answer and product 65's stinging answer were both arguing with an imaginary
+sceptic. Both now answer the question and stop.
+
+**Fifteen more "the manufacturer" constructions**, mostly on the hair stamp: *the
+manufacturer records / describes / specifies / has not recommended*. Every one of them put
+a third party between us and the reader on a claim we are happy to make ourselves.
+
+**One Russian string the first sweep missed entirely** — the triple-function answer on box
+57 still said the three functions were "printed on the Korean side of the packaging" long
+after the English and Arabic had been fixed. Also fixed a Russian case error in the same
+file (*в креме*, not *в крем*).
+
+**Two apostrophe-avoidance bugs** that read as broken English: "the skin own water-transport
+channels" (box 59) and "the manufacturer Anti-aging Peptide 6 complex" (box 58).
+
+## Second-pass counts
+
+| File | Product | Strings |
+|---|---|---|
+| `components/product/beautybox/copy/charmingLook.ts` | 57 | 29 |
+| `components/product/beautybox/copy/antiAging.ts` | 58 | 38 |
+| `components/product/beautybox/copy/deepMoisturizing.ts` | 59 | 29 |
+| `components/product/biomeso/biomesoExpertCopy.ts` | 60 | 9 |
+| `components/product/scalpbrush/scalpBrushCopy.ts` | 61 | 14 |
+| `components/product/revitaglow/revitaGlowCopy.ts` | 63 | 9 |
+| `components/product/hairstamp/hairstampCopy.ts` | 64 | 21 |
+| `components/product/biomeso/biomesoCopy.ts` | 65 | 15 |
+| `components/product/cerabarrier/cerabarrierCopy.ts` | 66 | 12 |
+
+Product 66 needed the least work and product 58 the most, which tracks: 66 was written as
+sales copy from the start, 58 was written straight out of the Intertek dossier.
+
+## What was deliberately kept
+
+Honest guidance that protects the buyer is not the same as undercutting a claim, so these
+stayed:
+
+- The SPF caveat on 57 and 63 — a tinted base is rated at a heavier layer than anyone wears,
+  so a beach day needs sunscreen underneath. Says so plainly.
+- "Sunscreen is the one thing this routine assumes and does not contain" on 58 and 59.
+- Product 60's downtime timeline, day by day, including the peeling.
+- Every "look elsewhere if" list, including "you never wear base make-up — the cushion is a
+  third of the value of this box".
+- `fullInciNote` and the precautions notes, which still say "as printed on the carton".
+
+## Verification
+
+`tsc --noEmit` clean, `eslint` clean on all nine modules. Products 57, 58, 59, 60 and 65
+rendered locally and the rewritten bands read back correct.

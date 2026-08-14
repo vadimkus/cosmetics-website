@@ -138,7 +138,7 @@ const EN: BeautyBoxCopy = {
   viewBag: 'View bag',
   badges: ['Authentic GENOSYS', 'Made in Korea', 'Triple-function cushion', 'Ships same day before 2pm'],
   stats: [
-    { value: '3', label: 'functions on the cushion licence: UV, brightening, wrinkles' },
+    { value: '3', label: 'jobs the cushion does at once: sun protection, brightening, wrinkles' },
     { value: 'SPF50+', label: 'PA++++, from five filters totalling a quarter of the formula' },
     { value: '2 × 15g', label: 'cushion and refill, so the compact is reloaded rather than replaced' },
     { value: 'Korea', label: 'made for DTS MG in Seoul, the lab GENOSYS was built around' },
@@ -204,7 +204,7 @@ const EN: BeautyBoxCopy = {
     againstSeparate: 'against buying the five separately',
     seeBreakdown: 'See the breakdown',
     savingNote:
-      'Prices read live from the five product records, so this comparison is always the one you would actually pay today.',
+      'Prices update live, so this comparison is always what you would actually pay today.',
   },
   howTo: {
     eyebrow: 'How to use it',
@@ -247,10 +247,10 @@ const EN: BeautyBoxCopy = {
       'The cushion carries a full SPF50+ PA++++ licence, which covers the commute, the office and the errands. SPF is graded at 2mg per square centimetre, a heavier layer than anyone pats on as make-up, so for a beach day or a long walk put your sunscreen down first and let the cushion sit on top as the colour.',
   },
   evidence: {
-    eyebrow: 'What is actually measured',
-    title: 'The numbers we can stand behind',
+    eyebrow: 'What is in it',
+    title: 'The numbers behind it',
     intro:
-      'Two of the five products hold Korean functional registrations, and the cushion holds three functions on one certificate. The concentrations below are from the signed formula sheet for the Camel shade and the batch certificate that shipped with it.',
+      'Two of the five products hold Korean functional registrations, and the cushion holds three functions on one certificate. Here is what that means in concentrations.',
     cards: [
       {
         value: 'SPF50+',
@@ -274,11 +274,11 @@ const EN: BeautyBoxCopy = {
         value: '6',
         title: 'Growth factors in the overnight mask',
         body:
-          'The manufacturer names each one against its INCI: EGF, bFGF, aFGF, PlGF and IGF-1, plus sh-Polypeptide-4. They sit in a pink ceramide cream with a patented anti-puffiness complex of bromelain, butcher broom, melissa, arnica and grape seed.',
+          'Each one is named with its INCI: EGF, bFGF, aFGF, PlGF and IGF-1, plus sh-Polypeptide-4. They sit in a pink ceramide cream with a patented anti-puffiness complex of bromelain, butcher broom, melissa, arnica and grape seed.',
       },
     ],
     footnote:
-      'The remover brings the Vita 10 Complex, which the manufacturer defines as vitamins B1, B3, B5, B6, B9, B12, C, E, F and H, with palmitoyl tripeptide-5 and acetyl tetrapeptide-5 for firmness and puffiness, and saccharide hydrolysate from Schisandra berries. Its yellow colour and its scent are both from the ingredients: no artificial pigment and no artificial fragrance are added. Batch certificates on file: cushion pH 6.51, overnight mask pH 5.71, cleanser pH 5.86, toner pH 6.08.',
+      'The remover brings the Vita 10 Complex: vitamins B1, B3, B5, B6, B9, B12, C, E, F and H, with palmitoyl tripeptide-5 and acetyl tetrapeptide-5 for firmness and puffiness, and saccharide hydrolysate from Schisandra berries. Its yellow colour and its scent are both from the ingredients: no artificial pigment and no artificial fragrance are added.',
   },
   suited: {
     eyebrow: 'Suitability',
@@ -341,7 +341,7 @@ const EN: BeautyBoxCopy = {
       },
       {
         q: 'What makes it "triple function"?',
-        a: 'It is a Korean regulatory term. A functional cosmetic is licensed for named claims and has to declare the ingredient carrying each one. The cushion holds three at once: UV protection from its five filters, brightening from niacinamide at 2%, and wrinkle improvement from adenosine at 0.04%. All three sit on one Korean licence, each named with the active that earns it.',
+        a: 'It is a Korean regulatory term. A functional cosmetic is licensed for named claims and names the ingredient behind each one. The cushion holds three at once: UV protection from its five filters, brightening from niacinamide at 2%, and wrinkle improvement from adenosine at 0.04%. All three sit on one Korean licence, each named with the active that earns it.',
       },
       {
         q: 'Is the overnight mask washed off?',
@@ -380,7 +380,7 @@ const AR: BeautyBoxCopy = {
   viewBag: 'عرض السلة',
   badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'كوشن ثلاثي الوظيفة', 'يُشحن في اليوم نفسه قبل الثانية ظهراً'],
   stats: [
-    { value: '3', label: 'وظائف في ترخيص الكوشن: الأشعة، التفتيح، التجاعيد' },
+    { value: '3', label: 'وظائف يؤدّيها الكوشن دفعة واحدة: حماية من الشمس، تفتيح، تجاعيد' },
     /* Every SPF and PA token in this Arabic block sits inside U+2066/U+2069.
        Without the isolate the right-to-left paragraph throws the plus signs to
        the wrong end and "PA++++" prints as "++++PA". */
@@ -448,7 +448,7 @@ const AR: BeautyBoxCopy = {
     youSave: 'توفّر',
     againstSeparate: 'مقارنةً بشراء الخمسة منفردة',
     seeBreakdown: 'اطّلع على التفصيل',
-    savingNote: 'الأسعار تُقرأ مباشرة من سجلات المنتجات الخمسة، فهذه المقارنة هي ما ستدفعه اليوم فعلاً.',
+    savingNote: 'الأسعار تُحدَّث مباشرة، فهذه المقارنة هي ما ستدفعه اليوم فعلاً.',
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',
@@ -488,10 +488,10 @@ const AR: BeautyBoxCopy = {
       'الكوشن يحمل ترخيص ⁦SPF50+ PA++++⁩ كاملاً، وهو ما يكفي للتنقّل والمكتب والمهام اليومية. ويُقاس SPF في المختبر بمعدّل 2 ملغ لكل سنتيمتر مربّع، وهي طبقة أثقل مما يُربَّت كمكياج، فليوم على البحر أو مشي طويل ضعي واقيك الشمسي أولاً واجعلي الكوشن هو اللون فوقه.',
   },
   evidence: {
-    eyebrow: 'ما هو مقيس فعلاً',
-    title: 'الأرقام التي نستند إليها',
+    eyebrow: 'ما في التركيبة',
+    title: 'الأرقام التي وراءها',
     intro:
-      'منتجان من الخمسة يحملان تسجيلاً وظيفياً كورياً، والكوشن يحمل ثلاث وظائف في شهادة واحدة. التركيزات أدناه من ورقة التركيبة الموقّعة لدرجة Camel ومن شهادة الدفعة التي شُحنت معها.',
+      'منتجان من الخمسة يحملان تسجيلاً وظيفياً كورياً، والكوشن يحمل ثلاث وظائف في شهادة واحدة. وهذا ما يعنيه ذلك بالتركيزات.',
     cards: [
       {
         value: '⁦SPF50+⁩',
@@ -515,11 +515,11 @@ const AR: BeautyBoxCopy = {
         value: '6',
         title: 'عوامل نمو في القناع الليلي',
         body:
-          'الشركة المصنّعة تسمّي كل واحد مقابل اسمه في INCI: EGF وbFGF وaFGF وPlGF وIGF-1، وإلى جانبها sh-Polypeptide-4. وتقع في كريم سيراميد وردي مع مركّب مسجّل لمقاومة الانتفاخ من البروميلين وعصا الراعي والمليسة والأرنيكا وبذور العنب.',
+          'كل واحد منها مذكور باسمه في INCI: EGF وbFGF وaFGF وPlGF وIGF-1، وإلى جانبها sh-Polypeptide-4. وتقع في كريم سيراميد وردي مع مركّب مسجّل لمقاومة الانتفاخ من البروميلين وعصا الراعي والمليسة والأرنيكا وبذور العنب.',
       },
     ],
     footnote:
-      'المزيل يأتي بمركّب Vita 10، وتعرّفه الشركة المصنّعة بفيتامينات B1 وB3 وB5 وB6 وB9 وB12 وC وE وF وH، مع بالميتويل ترايببتيد-5 وأسيتيل تيتراببتيد-5 للشدّ والانتفاخ، وهيدروليزات السكاريد من توت الشيزاندرا. لونه الأصفر ورائحته كلاهما من المكوّنات: بلا صباغ صناعي وبلا عطر صناعي. شهادات الدفعات المتوفّرة: الكوشن pH 6.51، القناع الليلي pH 5.71، المنظّف pH 5.86، التونر pH 6.08.',
+      'المزيل يأتي بمركّب Vita 10: فيتامينات B1 وB3 وB5 وB6 وB9 وB12 وC وE وF وH، مع بالميتويل ترايببتيد-5 وأسيتيل تيتراببتيد-5 للشدّ والانتفاخ، وهيدروليزات السكاريد من توت الشيزاندرا. لونه الأصفر ورائحته كلاهما من المكوّنات: بلا صباغ صناعي وبلا عطر صناعي.',
   },
   suited: {
     eyebrow: 'الملاءمة',
@@ -582,7 +582,7 @@ const AR: BeautyBoxCopy = {
       },
       {
         q: 'ما الذي يجعله «ثلاثي الوظيفة»؟',
-        a: 'المصطلح تنظيمي كوري. المستحضر الوظيفي يُرخّص لادّعاءات محدّدة بالاسم، وعليه أن يُعلن المادة التي تحمل كل ادّعاء. والكوشن يحمل ثلاثة في وقت واحد: حماية من الأشعة بفلاتره الخمسة، وتفتيح من النياسيناميد 2%، وتحسين للتجاعيد من الأدينوزين 0.04%. الثلاثة في ترخيص كوري واحد، ولكل واحدة منها المادة التي تحملها.',
+        a: 'المصطلح تنظيمي كوري. المستحضر الوظيفي يُرخّص لادّعاءات محدّدة بالاسم، ويسمّي المادة التي تحمل كل ادّعاء. والكوشن يحمل ثلاثة في وقت واحد: حماية من الأشعة بفلاتره الخمسة، وتفتيح من النياسيناميد 2%، وتحسين للتجاعيد من الأدينوزين 0.04%. الثلاثة في ترخيص كوري واحد، ولكل واحدة منها المادة التي تحملها.',
       },
       {
         q: 'هل يُغسل القناع الليلي؟',
@@ -621,7 +621,7 @@ const RU: BeautyBoxCopy = {
   viewBag: 'Открыть корзину',
   badges: ['Оригинальный GENOSYS', 'Сделано в Корее', 'Кушон тройного действия', 'Отправка в день заказа до 14:00'],
   stats: [
-    { value: '3', label: 'функции в регистрации кушона: УФ, тон, морщины' },
+    { value: '3', label: 'задачи кушон решает разом: защита от УФ, тон, морщины' },
     { value: 'SPF50+', label: 'PA++++, на пяти фильтрах — это четверть формулы' },
     { value: '2 × 15 г', label: 'кушон и рефилл: компакт перезаряжается, а не выбрасывается' },
     { value: 'Корея', label: 'сделано для DTS MG в Сеуле — лаборатории, из которой вырос GENOSYS' },
@@ -686,7 +686,7 @@ const RU: BeautyBoxCopy = {
     youSave: 'Вы экономите',
     againstSeparate: 'по сравнению с покупкой пяти продуктов по отдельности',
     seeBreakdown: 'Посмотреть расчёт',
-    savingNote: 'Цены берутся напрямую из карточек пяти продуктов, поэтому сравнение всегда актуально на сегодня.',
+    savingNote: 'Цены обновляются автоматически, поэтому сравнение всегда актуально на сегодня.',
   },
   howTo: {
     eyebrow: 'Как использовать',
@@ -726,10 +726,10 @@ const RU: BeautyBoxCopy = {
       'У кушона полноценная регистрация SPF50+ PA++++ — этого хватает на дорогу, офис и дела по городу. SPF измеряют в лаборатории при 2 мг на квадратный сантиметр, а это слой плотнее макияжного, поэтому для пляжа или долгой прогулки нанесите санскрин первым, а кушон оставьте сверху как тон.',
   },
   evidence: {
-    eyebrow: 'Что действительно измерено',
-    title: 'Цифры, за которые мы отвечаем',
+    eyebrow: 'Что внутри формулы',
+    title: 'Цифры, которые за этим стоят',
     intro:
-      'Два продукта из пяти имеют корейскую функциональную регистрацию, а у кушона три функции в одном сертификате. Концентрации ниже — из подписанной рецептуры оттенка Camel и из сертификата партии, с которым он пришёл.',
+      'Два продукта из пяти имеют корейскую функциональную регистрацию, а у кушона три функции в одном сертификате. Вот что это значит в концентрациях.',
     cards: [
       {
         value: 'SPF50+',
@@ -741,7 +741,7 @@ const RU: BeautyBoxCopy = {
         value: '2%',
         title: 'Ниацинамид, в самом кушоне',
         body:
-          'Та же концентрация, что в антивозрастной сыворотке и крем, но в том, что вы носите весь день. Это один из двух компонентов, названных в корейской регистрации, рядом с аденозином 0,04% для коррекции морщин.',
+          'Та же концентрация, что в антивозрастной сыворотке и креме, но в том, что вы носите весь день. Это один из двух компонентов, названных в корейской регистрации, рядом с аденозином 0,04% для коррекции морщин.',
       },
       {
         value: '9',
@@ -753,11 +753,11 @@ const RU: BeautyBoxCopy = {
         value: '6',
         title: 'Факторов роста в ночной маске',
         body:
-          'Производитель называет каждый вместе с его INCI: EGF, bFGF, aFGF, PlGF и IGF-1, плюс sh-Polypeptide-4. Они в розовом церамидном креме с запатентованным комплексом против отёчности из бромелайна, иглицы, мелиссы, арники и виноградных косточек.',
+          'Каждый назван вместе с его INCI: EGF, bFGF, aFGF, PlGF и IGF-1, плюс sh-Polypeptide-4. Они в розовом церамидном креме с запатентованным комплексом против отёчности из бромелайна, иглицы, мелиссы, арники и виноградных косточек.',
       },
     ],
     footnote:
-      'Средство для снятия макияжа приносит комплекс Vita 10, который производитель определяет как витамины B1, B3, B5, B6, B9, B12, C, E, F и H, вместе с Palmitoyl Tripeptide-5 и Acetyl Tetrapeptide-5 для упругости и отёчности, и гидролизат сахаридов из ягод шизандры. Его жёлтый цвет и запах — от самих ингредиентов: искусственный пигмент и ароматизатор не добавлены. Сертификаты партий в наличии: кушон pH 6,51, ночная маска pH 5,71, очищающий гель pH 5,86, тоник pH 6,08.',
+      'Средство для снятия макияжа приносит комплекс Vita 10: витамины B1, B3, B5, B6, B9, B12, C, E, F и H, вместе с Palmitoyl Tripeptide-5 и Acetyl Tetrapeptide-5 для упругости и отёчности, и гидролизат сахаридов из ягод шизандры. Его жёлтый цвет и запах — от самих ингредиентов: искусственный пигмент и ароматизатор не добавлены.',
   },
   suited: {
     eyebrow: 'Кому подходит',
@@ -820,7 +820,7 @@ const RU: BeautyBoxCopy = {
       },
       {
         q: 'Что значит «тройная функция»?',
-        a: 'Это корейский регуляторный термин. Функциональное средство лицензируется под названные заявления и обязано указать компонент, отвечающий за каждое. У кушона их три сразу: защита от УФ за счёт пяти фильтров, выравнивание тона за счёт ниацинамида 2% и коррекция морщин за счёт аденозина 0,04%. Все три напечатаны на корейской стороне упаковки, а активные компоненты перечислены под ними.',
+        a: 'Это корейский регуляторный термин. Функциональное средство лицензируется под названные заявления и и называет компонент, отвечающий за каждое. У кушона их три сразу: защита от УФ за счёт пяти фильтров, выравнивание тона за счёт ниацинамида 2% и коррекция морщин за счёт аденозина 0,04%. Все три в одной корейской регистрации, и у каждой назван свой активный компонент.',
       },
       {
         q: 'Ночную маску нужно смывать?',

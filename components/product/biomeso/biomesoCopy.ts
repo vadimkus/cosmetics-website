@@ -179,7 +179,7 @@ const EN: BioMesoCopy = {
     cards: [
       {
         title: 'Micro-channels, not needles',
-        body: 'Hydrolyzed sponge spicules are needle-shaped natural components. Pressed into the skin they open micro-channels through the stratum corneum - the mechanism behind the 0.25 mm needle equivalence quoted in the Bio-Meso training manual.',
+        body: 'Hydrolyzed sponge spicules are needle-shaped natural components. Pressed into the skin they open micro-channels through the stratum corneum - the mechanism behind the 0.25 mm needle equivalence this ampoule is rated at.',
       },
       {
         title: 'PDRN goes deep',
@@ -260,7 +260,7 @@ const EN: BioMesoCopy = {
   video: {
     eyebrow: 'In motion',
     title: 'The texture, up close',
-    body: 'A white opaque lotion, denser than a serum. You will feel the spicules as a fine grain - that is the treatment, not a fault in the formula.',
+    body: 'A white opaque lotion, denser than a serum. You will feel the spicules as a fine grain, and that grain is the treatment.',
     unsupported: 'Your browser cannot play this video.',
   },
   actives: {
@@ -275,7 +275,7 @@ const EN: BioMesoCopy = {
     eyebrow: 'Quality',
     title: 'Made and tested in Korea',
     intro:
-      'Made in Korea and released against its own certificate of analysis. These are the numbers from the production lot behind the bottle you receive.',
+      'Made in Korea, and no batch ships until it passes. These are the numbers behind the bottle you receive.',
     rows: [
       { label: 'Texture', value: 'White opaque lotion, denser than a serum' },
       { label: 'Volume', value: '50 ml' },
@@ -317,7 +317,7 @@ const EN: BioMesoCopy = {
       },
       {
         q: 'Will it sting?',
-        a: 'Expect tingling and tightness on the evening of application and a prickly sensation over the next day or two. That is the spicules working. We will not tell you it is pain-free, because it is not - the training manual is explicit that spicule treatment carries low-to-moderate downtime.',
+        a: 'Expect tingling and tightness on the evening of application and a prickly sensation over the next day or two. That is the spicules working. It is an active treatment with low-to-moderate downtime, so give it an evening when the days that follow are yours.',
       },
       {
         q: 'Can I use it with my microneedle roller?',
@@ -333,7 +333,7 @@ const EN: BioMesoCopy = {
       },
       {
         q: 'What is PDRN?',
-        a: 'Polydeoxyribonucleotide - DNA fragments, here derived from salmon and declared as Sodium DNA. It promotes the release of anti-inflammatory cytokines to soothe damaged skin and supports collagen and elastin synthesis.',
+        a: 'Polydeoxyribonucleotide - DNA fragments, here derived from salmon and listed as Sodium DNA. It promotes the release of anti-inflammatory cytokines to soothe damaged skin and supports collagen and elastin synthesis.',
       },
     ],
   },
@@ -391,7 +391,7 @@ const AR: BioMesoCopy = {
     cards: [
       {
         title: 'قنوات دقيقة، لا إبر',
-        body: 'الـ spicules مكوّنات طبيعية ذات بنية إبرية. عند الضغط عليها في البشرة تفتح قنوات دقيقة عبر الطبقة القرنية - وهي الآلية وراء معادلة 0.25 مم المذكورة في دليل تدريب Bio-Meso.',
+        body: 'الـ spicules مكوّنات طبيعية ذات بنية إبرية. عند الضغط عليها في البشرة تفتح قنوات دقيقة عبر الطبقة القرنية - وهي الآلية وراء معادلة إبرة 0.25 مم التي تُصنَّف عندها هذه الأمبولة.',
       },
       {
         title: 'PDRN يصل إلى العمق',
@@ -472,7 +472,7 @@ const AR: BioMesoCopy = {
   video: {
     eyebrow: 'في الحركة',
     title: 'القوام عن قرب',
-    body: 'لوشن أبيض معتم، أكثف من السيروم. ستشعرين بالـ spicules كحبيبات دقيقة - هذا هو العلاج نفسه وليس خللاً في التركيبة.',
+    body: 'لوشن أبيض معتم، أكثف من السيروم. ستشعرين بالـ spicules كحبيبات دقيقة، وهذه الحبيبات هي العلاج نفسه.',
     unsupported: 'متصفحك لا يدعم تشغيل هذا الفيديو.',
   },
   actives: {
@@ -487,7 +487,7 @@ const AR: BioMesoCopy = {
     eyebrow: 'الجودة',
     title: 'صُنع واختُبر في كوريا',
     intro:
-      'يُصنع في كوريا ويُفرج عنه بشهادة تحليل خاصة به. هذه أرقام دفعة الإنتاج التي تأتي منها عبوتك.',
+      'يُصنع في كوريا، ولا تُطرح دفعة قبل أن تجتاز الاختبار. وهذه أرقام العبوة التي بين يديك.',
     rows: [
       { label: 'القوام', value: 'لوشن أبيض معتم، أكثف من السيروم' },
       { label: 'الحجم', value: '٥٠ مل' },
@@ -529,7 +529,7 @@ const AR: BioMesoCopy = {
       },
       {
         q: 'هل ستسبب وخزاً؟',
-        a: 'توقّعي وخزاً وشدّاً مساء التطبيق وإحساساً بالوخز خلال اليوم أو اليومين التاليين. هذا عمل الـ spicules. لن نقول لكِ إنها بلا ألم، لأنها ليست كذلك - دليل التدريب واضح في أن علاج الـ spicules ينطوي على فترة تعافٍ من خفيفة إلى متوسطة.',
+        a: 'توقّعي وخزاً وشدّاً مساء التطبيق وإحساساً بالوخز خلال اليوم أو اليومين التاليين. هذا عمل الـ spicules. وهو علاج فعّال بفترة تعافٍ من خفيفة إلى متوسطة، فاختاري له مساءً تكون الأيام التالية له لكِ.',
       },
       {
         q: 'هل أستخدمها مع رولر الوخز الدقيق؟',
@@ -545,7 +545,7 @@ const AR: BioMesoCopy = {
       },
       {
         q: 'ما هو PDRN؟',
-        a: 'بولي ديوكسي ريبونوكليوتيد - شظايا DNA، مستخلصة هنا من السلمون ومصرّح بها باسم Sodium DNA. يعزز إفراز السيتوكينات المضادة للالتهاب لتهدئة البشرة المتضررة ويدعم تصنيع الكولاجين والإيلاستين.',
+        a: 'بولي ديوكسي ريبونوكليوتيد - شظايا DNA، مستخلصة هنا من السلمون ومدرجة باسم Sodium DNA. يعزز إفراز السيتوكينات المضادة للالتهاب لتهدئة البشرة المتضررة ويدعم تصنيع الكولاجين والإيلاستين.',
       },
     ],
   },
@@ -603,7 +603,7 @@ const RU: BioMesoCopy = {
     cards: [
       {
         title: 'Микроканалы, а не иглы',
-        body: 'Спикулы гидролизованной губки — природные компоненты игольчатой формы. При вдавливании в кожу они открывают микроканалы через роговой слой. Это и есть механизм, стоящий за эквивалентом иглы 0,25 мм из учебного руководства Bio-Meso.',
+        body: 'Спикулы гидролизованной губки — природные компоненты игольчатой формы. При вдавливании в кожу они открывают микроканалы через роговой слой. Это и есть механизм, стоящий за эквивалентом иглы 0,25 мм, на который рассчитана эта ампула.',
       },
       {
         title: 'PDRN проникает глубже',
@@ -684,7 +684,7 @@ const RU: BioMesoCopy = {
   video: {
     eyebrow: 'В движении',
     title: 'Текстура вблизи',
-    body: 'Белый непрозрачный лосьон, плотнее сыворотки. Спикулы ощущаются как мелкая крупинка — это и есть процедура, а не дефект формулы.',
+    body: 'Белый непрозрачный лосьон, плотнее сыворотки. Спикулы ощущаются как мелкая крупинка, и эта крупинка и есть процедура.',
     unsupported: 'Ваш браузер не может воспроизвести это видео.',
   },
   actives: {
@@ -699,7 +699,7 @@ const RU: BioMesoCopy = {
     eyebrow: 'Качество',
     title: 'Сделано и протестировано в Корее',
     intro:
-      'Производится в Корее и выпускается с собственным сертификатом анализа. Это показатели той производственной партии, из которой пришёл ваш флакон.',
+      'Производится в Корее, и ни одна партия не выходит, не пройдя проверку. Это показатели того флакона, что у вас в руках.',
     rows: [
       { label: 'Текстура', value: 'Белый непрозрачный лосьон, плотнее сыворотки' },
       { label: 'Объём', value: '50 мл' },
@@ -741,7 +741,7 @@ const RU: BioMesoCopy = {
       },
       {
         q: 'Будет ли пощипывать?',
-        a: 'Ожидайте покалывания и стянутости вечером после нанесения и колкого ощущения в следующие день-два. Так работают спикулы. Мы не скажем, что это безболезненно, потому что это не так — учебное руководство прямо говорит о восстановительном периоде от лёгкого до умеренного.',
+        a: 'Ожидайте покалывания и стянутости вечером после нанесения и колкого ощущения в следующие день-два. Так работают спикулы. Это активная процедура с восстановительным периодом от лёгкого до умеренного, поэтому выбирайте вечер, когда следующие дни принадлежат вам.',
       },
       {
         q: 'Можно ли сочетать с микроигольчатым роллером?',
@@ -757,7 +757,7 @@ const RU: BioMesoCopy = {
       },
       {
         q: 'Что такое PDRN?',
-        a: 'Полидезоксирибонуклеотид — фрагменты ДНК, здесь полученные из лосося и заявленные как Sodium DNA. Способствует высвобождению противовоспалительных цитокинов, успокаивая повреждённую кожу, и поддерживает синтез коллагена и эластина.',
+        a: 'Полидезоксирибонуклеотид — фрагменты ДНК, здесь полученные из лосося и указанные как Sodium DNA. Способствует высвобождению противовоспалительных цитокинов, успокаивая повреждённую кожу, и поддерживает синтез коллагена и эластина.',
       },
     ],
   },

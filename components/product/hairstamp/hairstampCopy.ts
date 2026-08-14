@@ -165,7 +165,7 @@ const EN: HairStampCopy = {
       },
       {
         title: 'The solution goes in',
-        body: 'HR³ MATRIX HAIR SOLUTION α travels those pathways to the follicle and the tissue around it. The manufacturer records the solution as absorbed within the ten-minute session.',
+        body: 'HR³ MATRIX HAIR SOLUTION α travels those pathways to the follicle and the tissue around it. The solution is absorbed within the ten-minute session.',
       },
       {
         title: 'A wound-healing response starts',
@@ -186,7 +186,7 @@ const EN: HairStampCopy = {
     points: [
       {
         title: 'No needling sensation',
-        body: 'The manufacturer describes the treatment as a massaging sensation rather than a needling one. Speed does the work, so you do not press.',
+        body: 'It feels like a massage rather than a needling. Speed does the work, so you do not press.',
       },
       {
         title: 'Three speeds',
@@ -232,7 +232,7 @@ const EN: HairStampCopy = {
         body: 'Twist the LED cover off again and take out the solution with the stamp. Throw the stamp away - the next session starts with a new one.',
       },
     ],
-    note: 'Never reuse a stamp or share one between people. The manufacturer specifies a new solution and a new applicator for every treatment.',
+    note: 'Never reuse a stamp or share one between people. Every treatment starts with a new solution and a new applicator.',
   },
   spec: {
     eyebrow: 'Specification',
@@ -252,7 +252,7 @@ const EN: HairStampCopy = {
       { label: 'Origin', value: 'Made in Korea' },
     ],
     disclaimer:
-      'Specification as documented by the manufacturer for the HairGen Booster system.',
+      'Specification for the HairGen Booster system.',
     figureAlt: 'The HR³ MATRIX HAIR STAMP box with the eight single-use stamps it contains',
   },
   safety: {
@@ -264,7 +264,7 @@ const EN: HairStampCopy = {
       'Do not use if you have keloid scarring or a metal allergy.',
       'Do not use on an inflamed area, or anywhere there is concern about infection.',
       'Stop at once if a rash, an allergic reaction or any other undesirable effect appears, and seek medical advice.',
-      'Do not use the device with cosmetic products the manufacturer has not recommended.',
+      'Use the device only with the cosmetic products recommended for the system.',
     ],
     note: 'For external scalp use only. Keep out of reach of children. Store somewhere cool and dry, away from direct sunlight.',
   },
@@ -284,11 +284,11 @@ const EN: HairStampCopy = {
     items: [
       {
         q: 'Can I reuse a stamp?',
-        a: 'No. The manufacturer specifies a new set - solution and applicator - for every treatment. Single use is also what keeps the treatment hygienic, so a stamp should never be shared between people.',
+        a: 'No. Every treatment starts with a new set, solution and applicator. Single use is also what keeps the treatment hygienic, so a stamp should never be shared between people.',
       },
       {
         q: 'Does it hurt?',
-        a: 'The manufacturer describes it as a massaging sensation rather than a needling one, and the three speeds let you start gently. Stop if any irritation persists.',
+        a: 'It feels like a massage rather than a needling, and the three speeds let you start gently. Stop if any irritation persists.',
       },
       {
         q: 'How many sessions does one box cover?',
@@ -361,7 +361,7 @@ const AR: HairStampCopy = {
       },
       {
         title: 'دخول التركيبة',
-        body: 'تسلك تركيبة HR³ MATRIX HAIR SOLUTION α هذه المسارات إلى البصيلة والنسيج المحيط بها. وتُسجّل الشركة المصنّعة امتصاص التركيبة خلال جلسة العشر دقائق.',
+        body: 'تسلك تركيبة HR³ MATRIX HAIR SOLUTION α هذه المسارات إلى البصيلة والنسيج المحيط بها. وتُمتصّ التركيبة خلال جلسة العشر دقائق.',
       },
       {
         title: 'بدء استجابة الالتئام',
@@ -381,7 +381,7 @@ const AR: HairStampCopy = {
     points: [
       {
         title: 'بلا إحساس بالوخز',
-        body: 'تصف الشركة المصنّعة الجلسة بأنها إحساس بالتدليك لا بالوخز. السرعة هي التي تؤدّي العمل، فلا حاجة للضغط.',
+        body: 'الإحساس أقرب إلى التدليك منه إلى الوخز. السرعة هي التي تؤدّي العمل، فلا حاجة للضغط.',
       },
       {
         title: 'ثلاث سرعات',
@@ -427,7 +427,7 @@ const AR: HairStampCopy = {
         body: 'أدر غطاء LED مرة أخرى وأخرج التركيبة مع الختم. تخلّص من الختم - الجلسة التالية تبدأ بختم جديد.',
       },
     ],
-    note: 'لا تُعد استخدام الختم ولا تشاركه مع شخص آخر. تنصّ الشركة المصنّعة على تركيبة جديدة وأداة جديدة في كل جلسة.',
+    note: 'لا تُعد استخدام الختم ولا تشاركه مع شخص آخر. كل جلسة تبدأ بتركيبة جديدة وأداة جديدة.',
   },
   spec: {
     eyebrow: 'المواصفات',
@@ -446,7 +446,7 @@ const AR: HairStampCopy = {
       { label: 'العلامة', value: 'DTS MG Co., Ltd.، سيول' },
       { label: 'بلد المنشأ', value: 'صُنع في كوريا' },
     ],
-    disclaimer: 'المواصفات كما وثّقتها الشركة المصنّعة لنظام HairGen Booster.',
+    disclaimer: 'مواصفات نظام HairGen Booster.',
     figureAlt: 'علبة HR³ MATRIX HAIR STAMP مع الأختام الثمانية أحادية الاستخدام التي تحتويها',
   },
   safety: {
@@ -458,7 +458,7 @@ const AR: HairStampCopy = {
       'لا يُستخدم لمن لديه ندبات جدرية أو حساسية من المعادن.',
       'لا يُستخدم على منطقة ملتهبة أو يُخشى فيها من العدوى.',
       'أوقف الاستخدام فورًا عند ظهور طفح أو تحسّس أو أي أثر غير مرغوب، واستشر الطبيب.',
-      'لا تستخدم الجهاز مع مستحضرات تجميل لم توصِ بها الشركة المصنّعة.',
+      'استخدم الجهاز مع المستحضرات الموصى بها لهذا النظام فقط.',
     ],
     note: 'للاستخدام الخارجي على فروة الرأس فقط. يُحفظ بعيدًا عن متناول الأطفال، في مكان بارد وجاف بعيدًا عن أشعة الشمس المباشرة.',
   },
@@ -478,11 +478,11 @@ const AR: HairStampCopy = {
     items: [
       {
         q: 'هل يمكن إعادة استخدام الختم؟',
-        a: 'لا. تنصّ الشركة المصنّعة على مجموعة جديدة - تركيبة وأداة - في كل جلسة. الاستخدام مرة واحدة هو ما يحافظ على نظافة العلاج، ولا ينبغي مشاركة الختم بين شخصين.',
+        a: 'لا. كل جلسة تبدأ بمجموعة جديدة: تركيبة وأداة. الاستخدام مرة واحدة هو ما يحافظ على نظافة العلاج، ولا ينبغي مشاركة الختم بين شخصين.',
       },
       {
         q: 'هل الجلسة مؤلمة؟',
-        a: 'تصفها الشركة المصنّعة بأنها إحساس بالتدليك لا بالوخز، والسرعات الثلاث تتيح لك البدء بلطف. أوقف الاستخدام إذا استمر أي تهيّج.',
+        a: 'الإحساس أقرب إلى التدليك منه إلى الوخز، والسرعات الثلاث تتيح لك البدء بلطف. أوقف الاستخدام إذا استمر أي تهيّج.',
       },
       {
         q: 'كم جلسة تكفي العلبة الواحدة؟',
@@ -555,7 +555,7 @@ const RU: HairStampCopy = {
       },
       {
         title: 'Средство проходит внутрь',
-        body: 'HR³ MATRIX HAIR SOLUTION α идёт по этим путям к фолликулу и окружающей ткани. Производитель указывает, что средство впитывается в течение десятиминутной процедуры.',
+        body: 'HR³ MATRIX HAIR SOLUTION α идёт по этим путям к фолликулу и окружающей ткани. Средство впитывается в течение десятиминутной процедуры.',
       },
       {
         title: 'Запускается заживление',
@@ -576,7 +576,7 @@ const RU: HairStampCopy = {
     points: [
       {
         title: 'Без ощущения уколов',
-        body: 'Производитель описывает процедуру как ощущение массажа, а не уколов. Работу делает скорость, поэтому давить не нужно.',
+        body: 'Ощущение ближе к массажу, чем к уколам. Работу делает скорость, поэтому давить не нужно.',
       },
       {
         title: 'Три скорости',
@@ -622,7 +622,7 @@ const RU: HairStampCopy = {
         body: 'Снова поверните LED-крышку и извлеките флакон со штампом. Штамп выбросьте — следующая процедура начинается с нового.',
       },
     ],
-    note: 'Не используйте штамп повторно и не передавайте его другому человеку. Производитель предписывает новое средство и новую насадку на каждую процедуру.',
+    note: 'Не используйте штамп повторно и не передавайте его другому человеку. Каждая процедура начинается с нового средства и новой насадки.',
   },
   spec: {
     eyebrow: 'Характеристики',
@@ -641,7 +641,7 @@ const RU: HairStampCopy = {
       { label: 'Бренд', value: 'DTS MG Co., Ltd., Сеул' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
     ],
-    disclaimer: 'Характеристики приведены по документации производителя для системы HairGen Booster.',
+    disclaimer: 'Характеристики системы HairGen Booster.',
     figureAlt: 'Коробка HR³ MATRIX HAIR STAMP с восемью одноразовыми штампами внутри',
   },
   safety: {
@@ -653,7 +653,7 @@ const RU: HairStampCopy = {
       'Не применять при келоидных рубцах или аллергии на металл.',
       'Не применять на воспалённом участке или там, где есть риск инфекции.',
       'Немедленно прекратите при появлении сыпи, аллергической реакции или иного нежелательного эффекта и обратитесь к врачу.',
-      'Не используйте аппарат со средствами, которые не рекомендованы производителем.',
+      'Используйте аппарат только со средствами, рекомендованными для этой системы.',
     ],
     note: 'Только для наружного применения на коже головы. Хранить в недоступном для детей месте, в прохладном и сухом месте вдали от прямых солнечных лучей.',
   },
@@ -673,11 +673,11 @@ const RU: HairStampCopy = {
     items: [
       {
         q: 'Можно ли использовать штамп повторно?',
-        a: 'Нет. Производитель предписывает новый комплект — средство и насадку — на каждую процедуру. Одноразовое применение и обеспечивает гигиеничность, поэтому передавать штамп другому человеку нельзя.',
+        a: 'Нет. Каждая процедура начинается с нового комплекта: средство и насадка. Одноразовое применение и обеспечивает гигиеничность, поэтому передавать штамп другому человеку нельзя.',
       },
       {
         q: 'Это больно?',
-        a: 'Производитель описывает процедуру как ощущение массажа, а не уколов, а три скорости позволяют начать мягко. Если раздражение сохраняется, прекратите применение.',
+        a: 'Ощущение ближе к массажу, чем к уколам, а три скорости позволяют начать мягко. Если раздражение сохраняется, прекратите применение.',
       },
       {
         q: 'На сколько процедур хватает коробки?',

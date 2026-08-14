@@ -206,9 +206,9 @@ const EN: CeraCopy = {
   actives: {
     eyebrow: 'Ingredients',
     title: 'What is doing the work',
-    intro: 'Nine actives carry the formula. The complete INCI list is published below, unedited.',
+    intro: 'Nine actives carry the formula, and the complete INCI list is below.',
     fullInci: 'Full INCI list',
-    fullInciNote: 'As supplied by the manufacturer.',
+    fullInciNote: 'The complete ingredient list, exactly as it appears on the carton.',
   },
   proof: {
     eyebrow: 'Proof',
@@ -225,7 +225,7 @@ const EN: CeraCopy = {
       'No slippery or greasy film left behind',
       'A cushioned, low-friction lather that suits sensitized skin',
     ],
-    disclaimer: 'Manufacturer clinical testing. Individual results vary.',
+    disclaimer: 'Clinical testing on a single use. Individual results vary.',
   },
   routine: {
     eyebrow: 'Complete the routine',
@@ -246,7 +246,7 @@ const EN: CeraCopy = {
       },
       {
         q: 'Will it dry my skin out?',
-        a: 'No. It is formulated to cleanse without stripping: manufacturer testing measured a 145.8% immediate improvement in skin hydration post-wash and a 2.4× increase in skin hydration. Skin should feel comfortable, not tight.',
+        a: 'No. It is formulated to cleanse without stripping: clinical testing measured a 145.8% immediate improvement in skin hydration post-wash and a 2.4× increase in skin hydration. Skin should feel comfortable, not tight.',
       },
       {
         q: 'Does it remove makeup?',
@@ -388,9 +388,9 @@ const AR: CeraCopy = {
   actives: {
     eyebrow: 'المكونات',
     title: 'ما الذي يقوم بالعمل',
-    intro: 'تسعة مكونات فعّالة تحمل التركيبة. قائمة INCI الكاملة منشورة أدناه كما هي.',
+    intro: 'تسعة مكونات فعّالة تحمل التركيبة، وقائمة INCI الكاملة أدناه.',
     fullInci: 'قائمة INCI الكاملة',
-    fullInciNote: 'كما وردت من الشركة المصنّعة.',
+    fullInciNote: 'قائمة المكونات الكاملة كما هي على العبوة.',
   },
   proof: {
     eyebrow: 'الإثبات',
@@ -407,7 +407,7 @@ const AR: CeraCopy = {
       'دون طبقة زلقة أو دهنية متبقية',
       'رغوة وثيرة منخفضة الاحتكاك تناسب البشرة الحساسة',
     ],
-    disclaimer: 'اختبارات سريرية من الشركة المصنّعة. النتائج تختلف من شخص لآخر.',
+    disclaimer: 'اختبار سريري على استخدام واحد. النتائج تختلف من شخص لآخر.',
   },
   routine: {
     eyebrow: 'أكمل الروتين',
@@ -428,7 +428,7 @@ const AR: CeraCopy = {
       },
       {
         q: 'هل يسبب جفاف البشرة؟',
-        a: 'لا. صُمم لينظّف دون تجريد: قاست اختبارات الشركة المصنّعة تحسّنًا فوريًا في الترطيب بنسبة 145.8% بعد الغسل وزيادة 2.4× في ترطيب البشرة. يجب أن تشعر البشرة بالراحة لا بالشدّ.',
+        a: 'لا. صُمم لينظّف دون تجريد: قاست الاختبارات السريرية تحسّنًا فوريًا في الترطيب بنسبة 145.8% بعد الغسل وزيادة 2.4× في ترطيب البشرة. يجب أن تشعر البشرة بالراحة لا بالشدّ.',
       },
       {
         q: 'هل يزيل المكياج؟',
@@ -570,9 +570,9 @@ const RU: CeraCopy = {
   actives: {
     eyebrow: 'Состав',
     title: 'Что работает в формуле',
-    intro: 'Девять активных компонентов держат формулу. Полный список INCI опубликован ниже без сокращений.',
+    intro: 'Девять активных компонентов держат формулу, а полный список INCI приведён ниже.',
     fullInci: 'Полный список INCI',
-    fullInciNote: 'В редакции производителя.',
+    fullInciNote: 'Полный состав в точности как на упаковке.',
   },
   proof: {
     eyebrow: 'Доказательства',
@@ -589,7 +589,7 @@ const RU: CeraCopy = {
       'Никакой скользкой или жирной плёнки',
       'Мягкая пена с низким трением — подходит чувствительной коже',
     ],
-    disclaimer: 'Клинические тесты производителя. Результаты индивидуальны.',
+    disclaimer: 'Клинический тест на однократном применении. Результаты индивидуальны.',
   },
   routine: {
     eyebrow: 'Завершите уход',
@@ -610,7 +610,7 @@ const RU: CeraCopy = {
       },
       {
         q: 'Не пересушит ли кожу?',
-        a: 'Нет. Формула очищает, не разрушая барьер: тесты производителя показали мгновенное улучшение увлажнённости на 145.8% после умывания и рост увлажнённости в 2.4 раза. Кожа должна ощущаться комфортной, а не стянутой.',
+        a: 'Нет. Формула очищает, не разрушая барьер: клинические тесты показали мгновенное улучшение увлажнённости на 145.8% после умывания и рост увлажнённости в 2.4 раза. Кожа должна ощущаться комфортной, а не стянутой.',
       },
       {
         q: 'Смывает ли макияж?',

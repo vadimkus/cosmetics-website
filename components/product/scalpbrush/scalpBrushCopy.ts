@@ -163,7 +163,7 @@ const EN: ScalpBrushCopy = {
   vatIncluded: 'VAT included',
   freeDelivery: 'Free delivery over 1,000 AED · Ships from Dubai',
   stats: [
-    { value: 'Soft', label: 'Silicone that scales the scalp without scratching' },
+    { value: 'Soft', label: 'Silicone that deep-cleans the scalp without scratching' },
     { value: 'In the shower', label: 'Used on wet hair, with your shampoo' },
     { value: 'Every wash', label: 'Gentle enough to use each time' },
     { value: 'Korea', label: 'Made by DTS MG, the HR³ MATRIX manufacturer' },
@@ -199,7 +199,7 @@ const EN: ScalpBrushCopy = {
     points: [
       {
         title: 'Soft silicone head',
-        body: 'Soft silicone allows for comfortable scalp scaling and massage without scratching, so it stays comfortable on skin that has been softened by hot water.',
+        body: 'Soft silicone means comfortable deep-cleansing and massage without scratching, so it stays comfortable on skin that has been softened by hot water.',
       },
       {
         title: 'Stable grip',
@@ -265,7 +265,7 @@ const EN: ScalpBrushCopy = {
     items: [
       {
         q: 'Can I use it on dry hair?',
-        a: 'It is made for the shower. Nothing about a dry massage is harmful, but the brush is designed to work lather down to the skin, so that is where it earns its place, and that is the only use DTS MG documents.',
+        a: 'It is made for the shower. Nothing about a dry massage is harmful, but the brush is designed to work lather down to the skin, so that is where it earns its place.',
       },
       {
         q: 'Will it help with hair loss?',
@@ -273,7 +273,7 @@ const EN: ScalpBrushCopy = {
       },
       {
         q: 'Does it work with any shampoo?',
-        a: 'Yes. The rich-foam effect is documented with HR³ MATRIX MEDI SCALP SHAMPOO α specifically, but the brush is a cleansing and massage tool and does not depend on which shampoo you use.',
+        a: 'Yes. The rich-foam effect is at its best with HR³ MATRIX MEDI SCALP SHAMPOO α, but the brush is a cleansing and massage tool and works with whatever you use.',
       },
       {
         q: 'Is it safe if my scalp is sensitive?',
@@ -281,11 +281,11 @@ const EN: ScalpBrushCopy = {
       },
       {
         q: 'How often should I replace it?',
-        a: 'There is no manufacturer replacement interval. Judge it by condition: replace it once the silicone tears, splays or stops springing back.',
+        a: 'Judge it by condition rather than a calendar: replace it once the silicone tears, splays or stops springing back. Looked after, one lasts a long time.',
       },
       {
         q: 'Can it be used on children?',
-        a: 'It is a general scalp brush rather than a children\u2019s product, and no age guidance is specified. Keep it out of reach of children and use your judgement for older kids.',
+        a: 'It is designed as a general scalp brush rather than a children\u2019s product. Keep it out of reach of small children, and use your judgement for older kids.',
       },
     ],
   },
@@ -434,7 +434,7 @@ const AR: ScalpBrushCopy = {
     items: [
       {
         q: 'هل يمكنني استخدامها على شعر جاف؟',
-        a: 'هي مصنوعة للاستحمام. لا شيء ضار في التدليك الجاف، لكن الفرشاة مصمّمة لإيصال الرغوة إلى الجلد، وهناك تؤدي دورها الحقيقي، وهذا هو الاستخدام الوحيد الذي توثّقه DTS MG.',
+        a: 'هي مصنوعة للاستحمام. لا شيء ضار في التدليك الجاف، لكن الفرشاة مصمّمة لإيصال الرغوة إلى الجلد، وهناك تؤدي دورها الحقيقي.',
       },
       {
         q: 'هل تساعد في تساقط الشعر؟',
@@ -442,7 +442,7 @@ const AR: ScalpBrushCopy = {
       },
       {
         q: 'هل تعمل مع أي شامبو؟',
-        a: 'نعم. تأثير الرغوة الغنية موثّق مع HR³ MATRIX MEDI SCALP SHAMPOO α تحديداً، لكن الفرشاة أداة تنظيف وتدليك ولا تعتمد على نوع الشامبو الذي تستخدمينه.',
+        a: 'نعم. تأثير الرغوة الغنية يبلغ ذروته مع HR³ MATRIX MEDI SCALP SHAMPOO α، لكن الفرشاة أداة تنظيف وتدليك تعمل مع أي شامبو تستخدمينه.',
       },
       {
         q: 'هل هي آمنة إذا كانت فروة رأسي حساسة؟',
@@ -450,11 +450,11 @@ const AR: ScalpBrushCopy = {
       },
       {
         q: 'كم مرة يجب أن أستبدلها؟',
-        a: 'لا توجد فترة استبدال محددة من الشركة المصنّعة. احكمي بحالتها: استبدليها عندما يتمزق السيليكون أو يتباعد أو يفقد مرونته.',
+        a: 'احكمي بحالتها لا بالتقويم: استبدليها عندما يتمزق السيليكون أو يتباعد أو يفقد مرونته. ومع العناية بها تدوم طويلاً.',
       },
       {
         q: 'هل يمكن استخدامها للأطفال؟',
-        a: 'هي فرشاة عامة لفروة الرأس وليست منتجاً للأطفال، ولا توجد إرشادات عمرية محددة. احفظيها بعيداً عن متناول الأطفال واستخدمي تقديرك مع الأكبر سناً.',
+        a: 'هي مصمّمة كفرشاة عامة لفروة الرأس لا كمنتج للأطفال. احفظيها بعيداً عن متناول الصغار، واستخدمي تقديرك مع الأكبر سناً.',
       },
     ],
   },
@@ -606,7 +606,7 @@ const RU: ScalpBrushCopy = {
     items: [
       {
         q: 'Можно ли использовать на сухих волосах?',
-        a: 'Она сделана для душа. Сухой массаж ничем не вреден, но щётка рассчитана на то, чтобы доводить пену до кожи головы, — именно там она и работает по-настоящему, и только этот способ применения документирует DTS MG.',
+        a: 'Она сделана для душа. Сухой массаж ничем не вреден, но щётка рассчитана на то, чтобы доводить пену до кожи головы, — именно там она и работает по-настоящему.',
       },
       {
         q: 'Поможет ли она при выпадении волос?',
@@ -614,7 +614,7 @@ const RU: ScalpBrushCopy = {
       },
       {
         q: 'Работает ли она с любым шампунем?',
-        a: 'Да. Эффект густой пены документирован именно с HR³ MATRIX MEDI SCALP SHAMPOO α, но щётка — инструмент для очищения и массажа и не зависит от того, каким шампунем вы пользуетесь.',
+        a: 'Да. Эффект густой пены раскрывается лучше всего с HR³ MATRIX MEDI SCALP SHAMPOO α, но щётка — инструмент для очищения и массажа и работает с любым шампунем.',
       },
       {
         q: 'Безопасна ли она для чувствительной кожи головы?',
@@ -622,11 +622,11 @@ const RU: ScalpBrushCopy = {
       },
       {
         q: 'Как часто её менять?',
-        a: 'Производитель не указывает срок замены. Ориентируйтесь на состояние: меняйте, когда силикон порвался, разошёлся или перестал пружинить.',
+        a: 'Ориентируйтесь на состояние, а не на календарь: меняйте, когда силикон порвался, разошёлся или перестал пружинить. При аккуратном обращении служит долго.',
       },
       {
         q: 'Можно ли использовать для детей?',
-        a: 'Это обычная щётка для кожи головы, а не детский продукт, и возрастных указаний нет. Храните её в недоступном для детей месте, а для детей постарше решайте сами.',
+        a: 'Она задумана как щётка для кожи головы, а не как детский продукт. Храните её в недоступном для маленьких детей месте, а для детей постарше решайте сами.',
       },
     ],
   },

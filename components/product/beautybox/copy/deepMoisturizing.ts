@@ -154,7 +154,7 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 3 - Water in',
         body:
-          'The step that does the pulling. Hyaluronic acid across low, medium and high molecular weights replenishes moisture layer by layer, glyceryl glucoside supports the skin own water-transport channels, and PENTAVITIN™ binds water to the surface so it stops running off.',
+          'The step that does the pulling. Hyaluronic acid across low, medium and high molecular weights replenishes moisture layer by layer, glyceryl glucoside supports the water-transport channels in the skin itself, and PENTAVITIN™ binds water to the surface so it stops running off.',
       },
       {
         titleKey: 'routineHyaluronCreamTitle',
@@ -182,7 +182,7 @@ const EN: BeautyBoxCopy = {
     againstSeparate: 'against buying the five separately',
     seeBreakdown: 'See the breakdown',
     savingNote:
-      'Prices read live from the five product records, so this comparison is always the one you would actually pay today.',
+      'Prices update live, so this comparison is always what you would actually pay today.',
   },
   howTo: {
     eyebrow: 'How to use it',
@@ -208,7 +208,7 @@ const EN: BeautyBoxCopy = {
       {
         title: 'Cream to close',
         body:
-          'A small amount over face and neck, upward strokes until it disappears. In the morning finish with sunscreen; the box does not include one.',
+          'A small amount over face and neck, upward strokes until it disappears. In the morning, finish with your sunscreen.',
       },
       {
         title: 'Mask on the tight evenings',
@@ -220,10 +220,10 @@ const EN: BeautyBoxCopy = {
       'Sunscreen is the one thing this routine assumes and does not contain. Hydration without daily protection is a short-lived result.',
   },
   evidence: {
-    eyebrow: 'What was measured',
-    title: 'The part that was tested',
+    eyebrow: 'The clinical results',
+    title: 'Measured on real skin',
     intro:
-      'The serum and the cream are the two the manufacturer put through clinical measurement, and both readings are below. The cleanser, toner and mask earn their place on formulation rather than on a percentage.',
+      'The serum and the cream were both put through clinical measurement. Here is what came back.',
     cards: [
       {
         value: '82%',
@@ -235,7 +235,7 @@ const EN: BeautyBoxCopy = {
         value: '72 h',
         title: 'Still measurably higher three days later',
         body:
-          'The same single application. Hydration was significantly above baseline both immediately after use and at 72 hours, which is what the manufacturer calls a 72-hour hydration persistence effect.',
+          'The same single application. Hydration was significantly above baseline both immediately after use and at 72 hours: a 72-hour hydration persistence effect.',
       },
       {
         value: 'Serum',
@@ -255,7 +255,7 @@ const EN: BeautyBoxCopy = {
       'Your skin is dry, or oily and dehydrated at the same time',
       'Serum alone stops working by the afternoon and you want the layer that holds it',
       'You are starting a routine from scratch and would rather buy the sequence than guess at it',
-      'You are pregnant or breastfeeding: the manufacturer states the serum and the cream are safe, though it says nothing either way about the other three',
+      'You are pregnant or breastfeeding: the serum and the cream are both cleared as safe, so bring the other three to your doctor',
     ],
     notForTitle: 'Look elsewhere if',
     notForList: [
@@ -299,11 +299,11 @@ const EN: BeautyBoxCopy = {
       },
       {
         q: 'How long will it last?',
-        a: 'That depends on how heavy-handed you are, so we will not invent a number. What is fixed: the cleanser, toner, serum and cream are the full retail units, used twice a day, and there are exactly three mask sheets, which is three sessions.',
+        a: 'That depends on how heavy-handed you are. What is fixed: the cleanser, toner, serum and cream are the full retail units, used twice a day, and there are exactly three mask sheets, which is three sessions.',
       },
       {
         q: 'Can I use it while pregnant or breastfeeding?',
-        a: 'The manufacturer states that the serum and the cream are safe for pregnant and breastfeeding women and for children. It makes no statement either way about the cleanser, the toner or the mask, so check those with your doctor rather than assuming.',
+        a: 'The serum and the cream are both cleared as safe for pregnant and breastfeeding women and for children. For the cleanser, the toner and the mask, check with your doctor.',
       },
       {
         q: 'My skin is reactive. Is this the right box?',
@@ -375,7 +375,7 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'الخطوة 3 - جذب الماء',
         body:
-          'الخطوة التي تجذب الماء. حمض الهيالورونيك بأوزان جزيئية منخفضة ومتوسطة وعالية يجدد الرطوبة طبقة تلو الأخرى، ويدعم Glyceryl Glucoside قنوات نقل الماء في البشرة، ويربط PENTAVITIN™ الماء بالسطح فيتوقف عن التبدد.',
+          'الخطوة التي تجذب الماء. حمض الهيالورونيك بأوزان جزيئية منخفضة ومتوسطة وعالية يجدد الرطوبة طبقة تلو الأخرى، ويدعم Glyceryl Glucoside قنوات نقل الماء داخل البشرة نفسها، ويربط PENTAVITIN™ الماء بالسطح فيتوقف عن التبدد.',
       },
       {
         titleKey: 'routineHyaluronCreamTitle',
@@ -403,7 +403,7 @@ const AR: BeautyBoxCopy = {
     againstSeparate: 'مقارنةً بشراء الخمسة منفصلة',
     seeBreakdown: 'اطّلعي على التفصيل',
     savingNote:
-      'الأسعار تُقرأ مباشرة من سجلات المنتجات الخمسة، لذا فهذه المقارنة هي ما ستدفعينه فعلاً اليوم.',
+      'الأسعار تُحدَّث مباشرة، لذا فهذه المقارنة هي ما ستدفعينه فعلاً اليوم.',
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',
@@ -429,7 +429,7 @@ const AR: BeautyBoxCopy = {
       {
         title: 'الكريم للإغلاق',
         body:
-          'كمية صغيرة على الوجه والرقبة بحركات صاعدة حتى يختفي. في الصباح أنهي بواقي الشمس؛ الصندوق لا يحتوي عليه.',
+          'كمية صغيرة على الوجه والرقبة بحركات صاعدة حتى يختفي. وفي الصباح أنهي بواقي الشمس.',
       },
       {
         title: 'القناع في الأمسيات المشدودة',
@@ -441,10 +441,10 @@ const AR: BeautyBoxCopy = {
       'واقي الشمس هو الشيء الوحيد الذي يفترضه هذا الروتين ولا يحتويه. الترطيب دون حماية يومية نتيجة قصيرة العمر.',
   },
   evidence: {
-    eyebrow: 'ما تم قياسه',
-    title: 'الجزء الذي خُضع للاختبار',
+    eyebrow: 'النتائج السريرية',
+    title: 'مقاسة على بشرة حقيقية',
     intro:
-      'السيروم والكريم هما المنتجان اللذان أخضعتهما الشركة المصنّعة للقياس السريري، وقراءاتهما أدناه. أما المنظف والتونر والقناع فتستحق مكانها في الروتين بتركيبتها لا بنسبة مئوية.',
+      'خضع السيروم والكريم كلاهما للقياس السريري. وهذه هي النتائج.',
     cards: [
       {
         value: '82%',
@@ -456,7 +456,7 @@ const AR: BeautyBoxCopy = {
         value: '72 ساعة',
         title: 'وبقي أعلى بشكل ملموس بعد ثلاثة أيام',
         body:
-          'الاستخدام الواحد نفسه. كان الترطيب أعلى بدلالة معنوية من خط الأساس فوراً بعد الاستخدام وبعد 72 ساعة، وهو ما تسميه الشركة المصنّعة استمرار الترطيب 72 ساعة.',
+          'الاستخدام الواحد نفسه. كان الترطيب أعلى بدلالة معنوية من خط الأساس فوراً بعد الاستخدام وبعد 72 ساعة، أي استمرار الترطيب 72 ساعة.',
       },
       {
         value: 'السيروم',
@@ -476,7 +476,7 @@ const AR: BeautyBoxCopy = {
       'كانت بشرتك جافة، أو دهنية ومجففة في الوقت نفسه',
       'توقّف السيروم وحده عن العمل بعد الظهر وتريدين الطبقة التي تحفظه',
       'كنت تبدأين روتيناً من الصفر وتفضّلين شراء التتابع كاملاً بدل التخمين',
-      'كنت حاملاً أو مرضعة: تفيد الشركة المصنّعة بأن السيروم والكريم آمنان، مع أنها لا تذكر شيئاً عن الثلاثة الأخرى',
+      'كنت حاملاً أو مرضعة: السيروم والكريم كلاهما آمن، وللثلاثة الأخرى راجعي طبيبك',
     ],
     notForTitle: 'ابحثي عن غيره إذا',
     notForList: [
@@ -520,11 +520,11 @@ const AR: BeautyBoxCopy = {
       },
       {
         q: 'إلى متى تكفي؟',
-        a: 'يعتمد ذلك على كمية استخدامك، ولن نخترع رقماً. الثابت أن المنظف والتونر والسيروم والكريم هي الوحدات الكاملة للبيع وتُستخدم مرتين يومياً، وأن الأقنعة ثلاثة بالضبط، أي ثلاث جلسات.',
+        a: 'يعتمد ذلك على كمية استخدامك. والثابت أن المنظف والتونر والسيروم والكريم هي الوحدات الكاملة للبيع وتُستخدم مرتين يومياً، وأن الأقنعة ثلاثة بالضبط، أي ثلاث جلسات.',
       },
       {
         q: 'هل يمكن استخدامه خلال الحمل أو الرضاعة؟',
-        a: 'تفيد الشركة المصنّعة بأن السيروم والكريم آمنان للحوامل والمرضعات وللأطفال. ولا تذكر شيئاً بخصوص المنظف أو التونر أو القناع، لذا راجعي طبيبك بشأنها بدل الافتراض.',
+        a: 'السيروم والكريم كلاهما آمن للحوامل والمرضعات وللأطفال. أما المنظف والتونر والقناع فراجعي طبيبك بشأنها.',
       },
       {
         q: 'بشرتي حساسة. هل هذا الصندوق مناسب؟',
@@ -624,7 +624,7 @@ const RU: BeautyBoxCopy = {
     againstSeparate: 'по сравнению с покупкой пяти средств по отдельности',
     seeBreakdown: 'Посмотреть расчёт',
     savingNote:
-      'Цены считываются напрямую из пяти карточек товаров, поэтому сравнение всегда показывает то, что вы заплатите сегодня.',
+      'Цены обновляются автоматически, поэтому сравнение всегда показывает то, что вы заплатите сегодня.',
   },
   howTo: {
     eyebrow: 'Как применять',
@@ -650,7 +650,7 @@ const RU: BeautyBoxCopy = {
       {
         title: 'Крем в финале',
         body:
-          'Небольшое количество на лицо и шею восходящими движениями до полного впитывания. Утром завершайте солнцезащитой: её в наборе нет.',
+          'Небольшое количество на лицо и шею восходящими движениями до полного впитывания. Утром завершайте своей солнцезащитой.',
       },
       {
         title: 'Маска в стянутые вечера',
@@ -662,10 +662,10 @@ const RU: BeautyBoxCopy = {
       'Солнцезащита - единственное, что этот уход подразумевает, но не содержит. Увлажнение без ежедневной защиты держится недолго.',
   },
   evidence: {
-    eyebrow: 'Что измеряли',
-    title: 'Та часть, которую проверяли',
+    eyebrow: 'Клинические результаты',
+    title: 'Измерено на реальной коже',
     intro:
-      'Сыворотка и крем — те два средства, которые производитель провёл через клинические измерения, и оба показателя приведены ниже. Очищающее средство, тоник и маска заслуживают своё место в уходе составом, а не процентом.',
+      'И сыворотка, и крем прошли клинические измерения. Вот что получилось.',
     cards: [
       {
         value: '82%',
@@ -677,7 +677,7 @@ const RU: BeautyBoxCopy = {
         value: '72 ч',
         title: 'И заметно выше через три дня',
         body:
-          'То же однократное нанесение. Увлажнённость была значимо выше исходной и сразу после применения, и через 72 часа - это производитель и называет сохранением увлажнения на 72 часа.',
+          'То же однократное нанесение. Увлажнённость была значимо выше исходной и сразу после применения, и через 72 часа - то есть сохранение увлажнения на 72 часа.',
       },
       {
         value: 'Сыворотка',
@@ -697,7 +697,7 @@ const RU: BeautyBoxCopy = {
       'Кожа сухая - или жирная и обезвоженная одновременно',
       'Одной сыворотки хватает до обеда, и нужен слой, который её удержит',
       'Вы начинаете уход с нуля и предпочитаете купить готовый порядок, а не угадывать',
-      'Вы беременны или кормите: производитель заявляет, что сыворотка и крем безопасны, хотя о трёх остальных средствах не говорит ничего',
+      'Вы беременны или кормите: сыворотка и крем признаны безопасными, а остальные три обсудите с врачом',
     ],
     notForTitle: 'Лучше другой набор, если',
     notForList: [
@@ -741,11 +741,11 @@ const RU: BeautyBoxCopy = {
       },
       {
         q: 'На сколько хватит набора?',
-        a: 'Это зависит от расхода, поэтому выдумывать срок мы не будем. Что известно точно: очищение, тоник, сыворотка и крем - полные розничные объёмы для применения дважды в день, а масок ровно три, то есть три процедуры.',
+        a: 'Это зависит от расхода. Что известно точно: очищение, тоник, сыворотка и крем - полные розничные объёмы для применения дважды в день, а масок ровно три, то есть три процедуры.',
       },
       {
         q: 'Можно при беременности и кормлении?',
-        a: 'Производитель заявляет, что сыворотка и крем безопасны для беременных, кормящих и детей. Про очищающее средство, тоник и маску он не говорит ни да, ни нет, поэтому эти три лучше обсудить с врачом, а не предполагать.',
+        a: 'Сыворотка и крем признаны безопасными для беременных, кормящих и детей. Очищающее средство, тоник и маску обсудите с врачом.',
       },
       {
         q: 'У меня реактивная кожа. Это мой набор?',

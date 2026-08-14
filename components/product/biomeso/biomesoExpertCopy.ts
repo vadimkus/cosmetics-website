@@ -175,7 +175,7 @@ const EN: BioMesoCopy = {
     eyebrow: 'Quality',
     title: 'Made and tested in Korea',
     intro:
-      'Manufactured in Gyeonggi-do and released against a batch certificate. These are the numbers from the analysis of the production lot.',
+      'Made in Gyeonggi-do, and no batch ships until it passes. These are the numbers behind the lot in your hand.',
     rows: [
       { label: 'Texture', value: 'White lotion, near-neutral at pH 7.27 - the window that keeps niacinamide stable' },
       { label: 'Sterility', value: 'Tested clear for E. coli, P. aeruginosa, S. aureus and C. albicans' },
@@ -197,7 +197,7 @@ const EN: BioMesoCopy = {
     ],
     note: 'Skin density improved 4.4% and cheek lifting angle 3.6% over the same period, and dermal absorption depth and rate both beat the control product. No erythema, swelling, itching or stinging was recorded at any timepoint.',
     disclaimer:
-      'Clinical test by KC Skin Research Center, Seoul, 11 August to 9 September 2025. 20 female subjects aged 48 ± 8, measured at 1, 2 and 4 weeks after a single application against an untreated control site. A panel this size shows direction, not a guarantee - individual results vary.',
+      'Clinical test by KC Skin Research Center, Seoul, 11 August to 9 September 2025. 20 female subjects aged 48 ± 8, measured at 1, 2 and 4 weeks after a single application against an untreated control site. Individual results vary.',
   },
   safety: {
     eyebrow: 'Before you book',
@@ -253,7 +253,7 @@ const EN: BioMesoCopy = {
       },
       {
         q: 'How often should I have it?',
-        a: 'Once a month. The manufacturer\'s programme runs a professional session, then weekly homecare for two months, then the next session - three or four treatments a year with the homecare ampoule holding the line in between.',
+        a: 'Once a month. The programme runs a professional session, then weekly homecare for two months, then the next session - three or four treatments a year with the homecare ampoule holding the line in between.',
       },
     ],
   },
@@ -397,7 +397,7 @@ const AR: BioMesoCopy = {
     eyebrow: 'الجودة',
     title: 'مصنوع ومختبر في كوريا',
     intro:
-      'يُصنع في مقاطعة غيونغي ويُطرح بشهادة تحليل لكل دفعة. هذه أرقام تحليل دفعة الإنتاج.',
+      'يُصنع في مقاطعة غيونغي، ولا تُطرح دفعة قبل أن تجتاز الاختبار. وهذه أرقام الدفعة التي بين يديك.',
     rows: [
       { label: 'القوام', value: 'لوشن أبيض، قريب من التعادل عند pH 7.27 - النطاق الذي يحافظ على ثبات النياسيناميد' },
       { label: 'التعقيم', value: 'خالٍ من E. coli وP. aeruginosa وS. aureus وC. albicans' },
@@ -419,7 +419,7 @@ const AR: BioMesoCopy = {
     ],
     note: 'تحسنت كثافة البشرة بنسبة 4.4% وزاوية شد الخد بنسبة 3.6% خلال الفترة نفسها، وتفوق عمق ومعدل الامتصاص الجلدي على المنتج المرجعي. لم يُسجل أي احمرار أو تورم أو حكة أو وخز في أي مرحلة.',
     disclaimer:
-      'دراسة سريرية أجراها مركز KC Skin Research في سيول، من 11 أغسطس إلى 9 سبتمبر 2025. 20 متطوعة بعمر 48 ± 8، قيست النتائج بعد أسبوع وأسبوعين وأربعة أسابيع من تطبيق واحد مقارنة بمنطقة غير معالجة. عينة بهذا الحجم تبيّن الاتجاه لا الضمان - والنتائج تختلف من شخص لآخر.',
+      'دراسة سريرية أجراها مركز KC Skin Research في سيول، من 11 أغسطس إلى 9 سبتمبر 2025. 20 متطوعة بعمر 48 ± 8، قيست النتائج بعد أسبوع وأسبوعين وأربعة أسابيع من تطبيق واحد مقارنة بمنطقة غير معالجة. والنتائج تختلف من شخص لآخر.',
   },
   safety: {
     eyebrow: 'قبل الحجز',
@@ -475,7 +475,7 @@ const AR: BioMesoCopy = {
       },
       {
         q: 'كم مرة يجب تكرارها؟',
-        a: 'مرة شهرياً. برنامج الشركة المصنّعة يبدأ بجلسة احترافية، ثم عناية منزلية أسبوعية لشهرين، ثم الجلسة التالية - أي ثلاث إلى أربع جلسات سنوياً مع أمبولة العناية المنزلية بينها.',
+        a: 'مرة شهرياً. يبدأ البرنامج بجلسة احترافية، ثم عناية منزلية أسبوعية لشهرين، ثم الجلسة التالية - أي ثلاث إلى أربع جلسات سنوياً مع أمبولة العناية المنزلية بينها.',
       },
     ],
   },
@@ -619,7 +619,7 @@ const RU: BioMesoCopy = {
     eyebrow: 'Качество',
     title: 'Произведено и протестировано в Корее',
     intro:
-      'Производится в провинции Кёнгидо и выпускается с сертификатом анализа партии. Это показатели анализа производственной партии.',
+      'Производится в провинции Кёнгидо, и ни одна партия не выходит, не пройдя проверку. Это показатели той партии, что у вас в руках.',
     rows: [
       { label: 'Текстура', value: 'Белый лосьон, почти нейтральный pH 7,27 — диапазон, в котором ниацинамид стабилен' },
       { label: 'Стерильность', value: 'Не обнаружены E. coli, P. aeruginosa, S. aureus и C. albicans' },
@@ -641,7 +641,7 @@ const RU: BioMesoCopy = {
     ],
     note: 'За тот же период плотность кожи выросла на 4,4%, а угол подтяжки щеки — на 3,6%; глубина и скорость дермальной абсорбции превзошли контрольный продукт. Ни эритемы, ни отёка, ни зуда, ни покалывания не зафиксировано ни на одном этапе.',
     disclaimer:
-      'Клиническое исследование KC Skin Research Center, Сеул, с 11 августа по 9 сентября 2025 года. 20 женщин в возрасте 48 ± 8 лет, измерения через 1, 2 и 4 недели после одного применения в сравнении с необработанным участком. Выборка такого размера показывает направление, а не гарантию — результаты индивидуальны.',
+      'Клиническое исследование KC Skin Research Center, Сеул, с 11 августа по 9 сентября 2025 года. 20 женщин в возрасте 48 ± 8 лет, измерения через 1, 2 и 4 недели после одного применения в сравнении с необработанным участком. Результаты индивидуальны.',
   },
   safety: {
     eyebrow: 'Перед записью',
@@ -697,7 +697,7 @@ const RU: BioMesoCopy = {
       },
       {
         q: 'Как часто её делать?',
-        a: 'Раз в месяц. Программа производителя выглядит так: профессиональная процедура, затем два месяца еженедельного домашнего ухода, затем следующая процедура — три-четыре сеанса в год, а домашняя ампула удерживает результат между ними.',
+        a: 'Раз в месяц. Программа выглядит так: профессиональная процедура, затем два месяца еженедельного домашнего ухода, затем следующая процедура — три-четыре сеанса в год, а домашняя ампула удерживает результат между ними.',
       },
     ],
   },

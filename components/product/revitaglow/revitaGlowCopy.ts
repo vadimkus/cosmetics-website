@@ -269,7 +269,7 @@ const EN: RevitaGlowCopy = {
   vatIncluded: 'VAT included',
   freeDelivery: 'Free delivery over AED 1,000 · Dispatched from Dubai',
   stats: [
-    { value: 'SPF 38', label: 'PA+++ - the rating printed on the tube' },
+    { value: 'SPF 38', label: 'PA+++ broad-spectrum, every single day' },
     { value: '4', label: 'UV filters, two organic and two mineral' },
     { value: '2%', label: 'Niacinamide, the registered brightening active' },
     { value: '10', label: 'Vitamins in the complex, alongside eight botanical extracts' },
@@ -393,7 +393,7 @@ const EN: RevitaGlowCopy = {
     eyebrow: 'Quality',
     title: 'Made and tested in Korea',
     intro:
-      'Every batch is tested and released against a fixed specification before it leaves the factory, and the paperwork travels with it all the way to Dubai.',
+      'Every batch is tested and released against a fixed specification before it leaves the factory, and it reaches Dubai with the certificate that proves it.',
     rows: [
       { label: 'Skin testing', value: 'Dermatologically tested' },
       { label: 'Purity', value: 'Microbial counts came back under 10 cfu/g, against a limit of 100' },
@@ -444,7 +444,7 @@ const EN: RevitaGlowCopy = {
       },
       {
         q: 'Is this the same as the GENOSYS BB Cushion?',
-        a: 'No, they are different products. This is a 50 g tube; the Skin Caring Blemish Balm Cushion is a compact with a refill and a heavier SPF 50+ PA++++ formula. GENOSYS does make a dedicated air-cell puff that pairs with this cream, and tapping the last layer in with one is the finish the brand recommends - but the puff is an accessory and is not in this box. What you receive is the tube on its own, which blends perfectly well with fingertips, a sponge or a brush.',
+        a: 'No, they are different products. This is a 50 g tube; the Skin Caring Blemish Balm Cushion is a compact with a refill and a heavier SPF 50+ PA++++ formula. GENOSYS does make a dedicated air-cell puff that pairs with this cream, and tapping the last layer in with one is the finish the brand recommends . The puff is sold separately, and the tube blends perfectly well with fingertips, a sponge or a brush.',
       },
       {
         q: 'How do the two shades differ in the formula?',
@@ -518,7 +518,7 @@ const AR: RevitaGlowCopy = {
   vatIncluded: 'شامل ضريبة القيمة المضافة',
   freeDelivery: 'توصيل مجاني للطلبات فوق ١٬٠٠٠ درهم · يُشحن من دبي',
   stats: [
-    { value: 'SPF 38', label: 'PA+++ - التصنيف المطبوع على العبوة' },
+    { value: 'SPF 38', label: 'PA+++ حماية واسعة الطيف، كل يوم' },
     { value: '٤', label: 'فلاتر للأشعة فوق البنفسجية، اثنان عضويان واثنان معدنيان' },
     { value: '٢٪', label: 'نياسيناميد، المادة الفعّالة المسجّلة للتفتيح' },
     { value: '١٠', label: 'فيتامينات في المركّب، إلى جانب ثمانية مستخلصات نباتية' },
@@ -640,7 +640,7 @@ const AR: RevitaGlowCopy = {
     eyebrow: 'الجودة',
     title: 'صُنع واختُبر في كوريا',
     intro:
-      'كل دفعة تُختبر وتُفرج عنها وفق مواصفة ثابتة قبل مغادرتها المصنع، وتسافر معها أوراقها حتى دبي.',
+      'كل دفعة تُختبر وتُفرج عنها وفق مواصفة ثابتة قبل مغادرتها المصنع، وتصل إلى دبي ومعها الشهادة التي تثبت ذلك.',
     rows: [
       { label: 'الاختبار الجلدي', value: 'مختبر جلدياً' },
       { label: 'النقاء', value: 'جاءت أعداد الميكروبات أقل من ١٠ وحدة/غ، مقابل حد مسموح به يبلغ ١٠٠' },
@@ -691,7 +691,7 @@ const AR: RevitaGlowCopy = {
       },
       {
         q: 'هل هو نفسه كوشن جينوسيس؟',
-        a: 'لا، هما منتجان مختلفان. هذا أنبوب سعة ٥٠ غ، أما Skin Caring Blemish Balm Cushion فهو علبة كوشن مع عبوة تعبئة وتركيبة أثقل بحماية SPF 50+ PA++++. وجينوسيس تنتج بالفعل إسفنجة ضغط مخصّصة بخلايا هوائية دقيقة تُستخدم مع هذا الكريم، والتربيت بها في الطبقة الأخيرة هو اللمسة التي توصي بها العلامة - لكن الإسفنجة ملحق منفصل وغير مرفقة داخل هذه العلبة. ما تستلمه هو الأنبوب وحده، وهو يمتزج بسهولة بأطراف الأصابع أو الإسفنجة أو الفرشاة.',
+        a: 'لا، هما منتجان مختلفان. هذا أنبوب سعة ٥٠ غ، أما Skin Caring Blemish Balm Cushion فهو علبة كوشن مع عبوة تعبئة وتركيبة أثقل بحماية SPF 50+ PA++++. وجينوسيس تنتج بالفعل إسفنجة ضغط مخصّصة بخلايا هوائية دقيقة تُستخدم مع هذا الكريم، والتربيت بها في الطبقة الأخيرة هو اللمسة التي توصي بها العلامة . والإسفنجة تُباع منفصلة، والأنبوب يمتزج بسهولة بأطراف الأصابع أو الإسفنجة أو الفرشاة.',
       },
       {
         q: 'كيف تختلف الدرجتان في التركيبة؟',
@@ -765,7 +765,7 @@ const RU: RevitaGlowCopy = {
   vatIncluded: 'НДС включён',
   freeDelivery: 'Бесплатная доставка от 1 000 AED · Отправка из Дубая',
   stats: [
-    { value: 'SPF 38', label: 'PA+++ — рейтинг, указанный на тубе' },
+    { value: 'SPF 38', label: 'PA+++ широкий спектр, каждый день' },
     { value: '4', label: 'УФ-фильтра: два органических и два минеральных' },
     { value: '2%', label: 'Ниацинамид — зарегистрированный актив для осветления' },
     { value: '10', label: 'Витаминов в комплексе плюс восемь растительных экстрактов' },
@@ -887,7 +887,7 @@ const RU: RevitaGlowCopy = {
     eyebrow: 'Качество',
     title: 'Сделано и протестировано в Корее',
     intro:
-      'Каждая партия проверяется и выпускается по фиксированной спецификации ещё до отгрузки с завода, а документы едут вместе с ней до самого Дубая.',
+      'Каждая партия проверяется и выпускается по фиксированной спецификации ещё до отгрузки с завода, и до Дубая она доезжает с сертификатом, который это подтверждает.',
     rows: [
       { label: 'Кожные тесты', value: 'Дерматологически протестировано' },
       { label: 'Чистота', value: 'Микробиологические показатели — менее 10 КОЕ/г при допустимых 100' },
@@ -938,7 +938,7 @@ const RU: RevitaGlowCopy = {
       },
       {
         q: 'Это то же самое, что кушон GENOSYS?',
-        a: 'Нет, это разные продукты. Здесь туба 50 г, а Skin Caring Blemish Balm Cushion — кушон в компактном футляре со сменным блоком и более плотной формулой SPF 50+ PA++++. У GENOSYS действительно есть отдельная пуховка с микроячеистой структурой, рассчитанная на этот крем, и вбить ею последний слой — тот финиш, который рекомендует марка. Но пуховка продаётся отдельно и в эту коробку не входит: вы получаете только тубу, а она прекрасно растушёвывается пальцами, спонжем или кистью.',
+        a: 'Нет, это разные продукты. Здесь туба 50 г, а Skin Caring Blemish Balm Cushion — кушон в компактном футляре со сменным блоком и более плотной формулой SPF 50+ PA++++. У GENOSYS действительно есть отдельная пуховка с микроячеистой структурой, рассчитанная на этот крем, и вбить ею последний слой — тот финиш, который рекомендует марка. Пуховка продаётся отдельно, а сама туба прекрасно растушёвывается пальцами, спонжем или кистью.',
       },
       {
         q: 'Чем оттенки различаются по формуле?',

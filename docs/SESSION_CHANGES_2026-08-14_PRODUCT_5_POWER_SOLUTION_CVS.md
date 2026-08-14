@@ -386,3 +386,47 @@ The product-gallery-images rule already says to commit and push the image files
 first, because they only serve after the Vercel deploy, and *then* update the
 database. Local-only verification is not a reason to skip that order — there is
 no local-only database.
+
+---
+
+## Selling-tone pass, Aug 15
+
+Commit `fa1b91d7`, applied to CVS and HES together because HES inherited the
+phrasing. An audit of the page found one pattern repeated a dozen times: the
+copy sized the actives down at the moment it should have been selling them.
+
+| Was | Now |
+|---|---|
+| the base "carries a small dose across a whole face" | carries the actives |
+| "The Korean botanical tail", "all present in small amounts" | "The Korean botanicals", each named in full |
+| chart caption noting base and actives are "two orders of magnitude apart" | each group charted on its own scale so the actives stay readable |
+| peptide FAQ ending on tissue repair being a drug claim | boundary kept, but the answer ends on the sequence being identical every time |
+| "A quiet, old-fashioned comfort ingredient" | "decades of use behind it" |
+| "Five things the box says are not in it" | "Five things that are not in it" |
+| "the registration file" (×4) and a closing line about checking before you buy | dropped |
+
+Two of the edits were corrections, not tone. The Arabic still carried a
+"last tested batch" phrase that the English and Russian lost in the lot-code
+cleanup, and the Russian subheadline promised the function in one word and
+then gave two.
+
+Rejected from the audit: it claimed Arabic and Russian say "declared function"
+where English says "registered", four times each. Both already say مسجّل and
+зарегистрированное. It also proposed restoring "our most recent lot was made in
+December 2024", which is the lot vocabulary the same session had just removed.
+Verify a reported string exists before rewriting it.
+
+Also rejected: the suggested heading "Nothing in it to sting" promises a
+reaction no formula can guarantee. Shipped as "Nothing harsh in it", which the
+no-fragrance, no-ethanol, no-pigment formula supports.
+
+### Deploy state at the end of the session
+
+`fa1b91d7` was on `main` and unshipped after an hour, with production still on
+`dpl_2kmzoBiMsQPkcQEyNPktUd1oGWoD`. Builds ran 25 to 60+ minutes all evening.
+`npm run build` compiles and all 463 pages generate, so this is queue time, not
+the code. To confirm it landed:
+
+```bash
+curl -s https://genosys.ae/products/5 | grep -c 'botanical tail'   # expect 0
+```

@@ -59,6 +59,32 @@ INCI behind them:
 Also real: **Eucalace®** (the eucalyptus sheet on the mask), **Phytolex SC**,
 **U-active®P10**.
 
+### Where the toner claims are documented — read this before doubting them again
+
+A verification pass searched the toner formula, its COA, its artwork and the DTS
+MG **Homecare** deck and concluded that "Anti Sebum P" and "SNOW ICE" appear
+nowhere, and that the non-comedogenic claim was unsupported. That conclusion is
+wrong, and the reason is worth recording: the Homecare deck does not cover the
+toner. Page 12 says so in as many words — *"Detailed information can be refereed
+at the presentation of Professional treatment."*
+
+Everything is in `~/Desktop/Training/Intensive training/GENOSYS FACIAL
+TREATMENT_Professional_2025.pptx`:
+
+| Claim on the page | Slide | What the slide says |
+|---|---|---|
+| Non-comedogenic, tested by QACS Ltd. | 27 | "certified as a non-comedogenic product... * Tested by QACS Ltd." |
+| Sebum down about 50% in four weeks | 27 | "After using... for 4 weeks, the amount of sebum decreased by about 50%" |
+| Anti Sebum P, patented | 29 | "A patented complex of botanical extracts to contract pores and control excessive sebum secretion", naming Ulmus Davidiana root, Pueraria Lobata root, Oenothera Biennis flower and Pinus Palustris leaf |
+| SNOW ICE, cools through TRPM8 | 32 | "Complex of Menthyl Lactate, Ethyl Menthane Carboxamide, Methyl Diisopropyl Propionamide, Caprylic/Capric Triglyceride... activating TRPM8" |
+
+All four botanicals in Anti Sebum P are in the toner formula at 0.00125% each,
+and all three SNOW ICE cooling agents are there too. Composition and trade name
+both check out.
+
+The toner carries **no** Korean 기능성 (functional cosmetic) registration, and the
+page does not claim one. The whitening licences belong to box #56.
+
 ## Clinical figures used on the page
 
 All from the DTS MG professional and homecare decks, four-week measurements:
@@ -111,19 +137,46 @@ edge of the Latin run, which is correct in RTL flow. Not a bug.
 
 ## Artwork
 
-Five rows added to `~/Desktop/genosys-artwork-corrections.html` under #55:
+Thirteen rows under #55 in `~/Desktop/genosys-artwork-corrections.html`. The box
+photograph itself is genuine product photography with all five reorder codes
+correct, so unlike #56, #57 and #58 it does **not** need regenerating. Everything
+below is carton text.
 
-1. Serum carton copy is misleading about what the product does.
-2. No net content printed on the serum carton.
-3. Deck errors on the cream slide.
-4. Mask sachet detail mismatches.
-5. Missing volume markings.
+The one worth doing first:
 
-These need the designer and a re-export under new filenames — `/images/*` is
-served immutable for a year, so a replacement must not reuse a filename.
+- **Zinc PCA is printed fifth in the INCI list on both the cream and the serum**,
+  and it is declared at 0.050%. On the cream it sits above three ingredients
+  present at 0.5–0.7%. That is a descending-order compliance problem, not a
+  wording preference, and it should be corrected before the next EU or GCC
+  submission. Cream: move to roughly position 14–15. Serum: roughly position 12.
+
+The rest, for the next print run:
+
+- Cream inner panel says 1.7 oz where the outer carton says 1.76 oz. 50 g is
+  1.76 oz, so the inner panel is the wrong one.
+- Cream French panel heads the safety warnings "Fonction" instead of "Précaution".
+- Toner Spanish panel: "hichazón" should be "hinchazón", in the adverse-reaction
+  warning.
+- Toner Russian panel sends the customer to the bottom of the "туба" for the batch
+  code. It is a spray bottle; there is no tube.
+- Toner Turkish panel drops "Intensive" from the product name.
+- Toner front panel reads "NET WT. 200ml", mixing a weight abbreviation with a
+  volume unit. The Russian panel on the same pack already gets this right.
+- Serum front panel: "improve skin breakouts" and "contributing to excessive sebum
+  control" both say the opposite of what is meant.
+- Serum carton has no net content printed.
+- Mask sachet detail mismatches.
+
+If any image is replaced, it needs a new filename — `/images/*` is served
+immutable for a year.
 
 ## Open
 
+- The four-week sebum and blemish figures come from the DTS MG decks with no named
+  testing house and no volunteer count attached. Same footing as the P&K citation
+  on #58: real-looking, no invented percentages, low risk while the source is
+  chased. Ask DTS MG for the study reports behind the toner's 50% and the serum
+  and cream's 17/8 and 14/9.
 - P&K skin age index study report still to be requested from DTS MG (carried over
   from #58).
 - Re-export of the flagged slides for #10, #29, #55, #56, #57, #58, #60, #61,

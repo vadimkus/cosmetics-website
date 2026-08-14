@@ -1,0 +1,127 @@
+/**
+ * Palette override for the SKIN REBOOT PDRN MASK PACK page (product 52).
+ *
+ * The structural design system lives in cerabarrier.css - cards, reveals,
+ * accordion, numerals, focus rings. That file is imported first and every rule
+ * in it reads from CSS variables, so this file only has to restate the
+ * variables to re-skin the whole page.
+ *
+ * WHY CLAY. The tub is one large flat field of warm dusty rose, sampled at
+ * #c8aca1 on the body and #bea79f on the lid, and it fills most of every
+ * photograph we have. Taking the accent off the pack itself keeps the page from
+ * fighting its own packshot, which matters more here than on most products
+ * because the closing band puts the tub directly on the tint.
+ *
+ * It has to stay clear of product 53's crimson (#b8323a), the other mask in the
+ * range and the page a shopper is most likely to see next. This one is
+ * desaturated and brown-leaning where 53 is saturated and red, so the two read
+ * as different products rather than as a set, which is correct: they share a
+ * category and nothing else.
+ *
+ * The neutrals run warm here, unlike 53. The pack is warm, the photography is
+ * shot on warm white, and a cool ground made the tub look grey in the closing
+ * band.
+ *
+ * Scoped to `.cera-page.pdrnmask-page`, so importing this file cannot affect
+ * products 53, 55 to 61, 63, 64, 65 or 66, or any other route.
+ */
+
+.cera-page.pdrnmask-page {
+  --cera-cream: #faf7f5;
+  --cera-cream-deep: #f0e7e2;
+  --cera-blush: #f7ece7;
+  --cera-blush-deep: #e2c8bd;
+  --cera-rose: #a87461;
+  --cera-rose-ink: #7c4f3e;
+  --cera-ink: #1a1412;
+  --cera-body: #3d3330;
+  --cera-muted: #6e605a;
+  --cera-line: #e9ddd6;
+  /* The closing band. Base is a cool studio grey, which turned the warm pack
+     grey beside it. This is light enough that the tub at #c8aca1 still reads as
+     an object on it rather than dissolving into it. */
+  --cera-shot: #f2e9e4;
+}
+
+/* The hero stage shadow is tinted per page; restate it for the clay theme. */
+.pdrnmask-page .cera-stage {
+  background-color: #f5efea;
+  box-shadow: 0 24px 60px -34px rgba(124, 79, 62, 0.4);
+}
+
+@media (hover: hover) {
+  .pdrnmask-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(26, 20, 18, 0.04), 0 26px 48px -26px rgba(124, 79, 62, 0.3);
+  }
+}
+
+/* --- Suited / not suited ------------------------------------------------- */
+/* The two lists carry opposite weight: one is a reason to buy, the other a
+   reason not to. The card is tinted as well as icon-marked so the difference
+   survives at a glance, before either list is read. */
+.pdrnmask-page .pdrnmask-not {
+  background: color-mix(in srgb, var(--cera-blush) 55%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 22%, var(--cera-line));
+}
+
+/* --- TEWL chart ---------------------------------------------------------- */
+/* Three pairs of bars, untreated against treated, at the three points the study
+   measured. Heights come from inline styles because they are data, not design:
+   each bar is scaled against the highest reading in the set so the shape of the
+   chart is the shape of the result. The chart is decorative reinforcement - the
+   same figures are in the table beside it and in the caption - so it is hidden
+   from assistive tech rather than duplicated into it. */
+.pdrnmask-page .pdrn-chart {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  align-items: end;
+  height: 190px;
+}
+
+.pdrnmask-page .pdrn-chart-group {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 10px;
+  height: 100%;
+}
+
+.pdrnmask-page .pdrn-bar {
+  width: 34px;
+  border-radius: 7px 7px 0 0;
+  position: relative;
+  transition: height 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pdrnmask-page .pdrn-bar-control {
+  background: color-mix(in srgb, var(--cera-rose) 26%, #fff);
+}
+
+.pdrnmask-page .pdrn-bar-treated {
+  background: var(--cera-rose);
+}
+
+/* The reading sits above its own bar, so the pair can be compared without
+   crossing to a legend. The middle pair is the closest, 13.09 against 13.45, so
+   the type has to stay narrow enough that the two labels do not touch. */
+.pdrnmask-page .pdrn-bar-value {
+  position: absolute;
+  inset-inline: 0;
+  top: -20px;
+  text-align: center;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--cera-muted);
+}
+
+.pdrnmask-page .pdrn-bar-treated .pdrn-bar-value {
+  color: var(--cera-rose-ink);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdrnmask-page .pdrn-bar {
+    transition: none;
+  }
+}

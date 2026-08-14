@@ -10,6 +10,7 @@ import CollagenMaskProductPage from '@/components/product/collagenmask/CollagenM
 import BioMesoProductPage from '@/components/product/biomeso/BioMesoProductPage'
 import BioMesoExpertProductPage from '@/components/product/biomeso/BioMesoExpertProductPage'
 import HairStampProductPage from '@/components/product/hairstamp/HairStampProductPage'
+import PdrnMaskProductPage from '@/components/product/pdrnmask/PdrnMaskProductPage'
 import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
@@ -23,6 +24,9 @@ import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushPro
  * and hand it the routine products.
  */
 export const BESPOKE_PDP_LAYOUTS = {
+  // 52 and 53 are both masks but share no layout: 52 has a clinical study and a
+  // Korean functional licence to build on, 53 has neither.
+  '52': PdrnMaskProductPage,
   '53': CollagenMaskProductPage,
   // 55 to 59 are beauty boxes: one layout, configured in beautyBoxes.ts.
   '55': BeautyBoxProductPage,

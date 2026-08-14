@@ -393,10 +393,10 @@ const EN: RevitaGlowCopy = {
     eyebrow: 'Quality',
     title: 'Made and tested in Korea',
     intro:
-      'Every batch is tested and released against a fixed specification before it leaves the factory, and it reaches Dubai with the certificate that proves it.',
+      'No batch leaves the factory until it passes, and it arrives in Dubai cleared for sale here as well as in Korea.',
     rows: [
       { label: 'Skin testing', value: 'Dermatologically tested' },
-      { label: 'Purity', value: 'Microbial counts came back under 10 cfu/g, against a limit of 100' },
+      { label: 'Purity', value: 'Ten times cleaner than the limit allows - under 10 cfu/g against a permitted 100' },
       { label: 'Shelf life', value: 'Three years sealed · 12 months after opening' },
       { label: 'Cleared for the UAE', value: 'Registered with Dubai Municipality on the Montaji system, on top of the Korean certificate of free sale' },
     ],
@@ -640,10 +640,10 @@ const AR: RevitaGlowCopy = {
     eyebrow: 'الجودة',
     title: 'صُنع واختُبر في كوريا',
     intro:
-      'كل دفعة تُختبر وتُفرج عنها وفق مواصفة ثابتة قبل مغادرتها المصنع، وتصل إلى دبي ومعها الشهادة التي تثبت ذلك.',
+      'لا تغادر أي دفعة المصنع قبل أن تجتاز الاختبار، وتصل إلى دبي ومعها ما يثبت ذلك.',
     rows: [
       { label: 'الاختبار الجلدي', value: 'مختبر جلدياً' },
-      { label: 'النقاء', value: 'جاءت أعداد الميكروبات أقل من ١٠ وحدة/غ، مقابل حد مسموح به يبلغ ١٠٠' },
+      { label: 'النقاء', value: 'أنظف عشر مرات مما يسمح به الحد - أقل من ١٠ وحدة/غ مقابل ١٠٠ مسموح بها' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات مغلقاً · ١٢ شهراً بعد الفتح' },
       { label: 'مصرّح به للإمارات', value: 'مسجّل لدى بلدية دبي ضمن نظام Montaji، إضافة إلى شهادة البيع الحر الكورية' },
     ],
@@ -887,10 +887,10 @@ const RU: RevitaGlowCopy = {
     eyebrow: 'Качество',
     title: 'Сделано и протестировано в Корее',
     intro:
-      'Каждая партия проверяется и выпускается по фиксированной спецификации ещё до отгрузки с завода, и до Дубая она доезжает с сертификатом, который это подтверждает.',
+      'Ни одна партия не покидает завод, не пройдя проверку, и до Дубая она доезжает с допуском к продаже и здесь, и в Корее.',
     rows: [
       { label: 'Кожные тесты', value: 'Дерматологически протестировано' },
-      { label: 'Чистота', value: 'Микробиологические показатели — менее 10 КОЕ/г при допустимых 100' },
+      { label: 'Чистота', value: 'В десять раз чище допустимого — менее 10 КОЕ/г при разрешённых 100' },
       { label: 'Срок годности', value: 'Три года в закрытой упаковке · 12 месяцев после вскрытия' },
       { label: 'Допуск в ОАЭ', value: 'Зарегистрирован Муниципалитетом Дубая в системе Montaji, плюс корейский сертификат свободной продажи' },
     ],

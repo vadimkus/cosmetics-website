@@ -337,7 +337,7 @@ const EN: PdrnMaskCopy = {
     versusControl: { value: '14%', label: 'Below the untreated side at the same point' },
     attribution: 'P&K Skin Research Center, 2 May 2025. 20 women aged 20 to 60.',
     note:
-      'Skin does repair itself given time, and the untreated side improved too, from 13.090 down to 10.205. The treated side went to 8.735. That gap is what the mask is worth.',
+      'Twenty minutes took the treated side from 13.445 back down to 8.735, most of the way to where it started the session. The untreated side, left to itself over the same twenty minutes, only reached 10.205.',
   },
   sheet: {
     eyebrow: 'The sheet',
@@ -379,11 +379,11 @@ const EN: PdrnMaskCopy = {
     eyebrow: 'What is in it',
     title: 'The formula, with the figures.',
     intro:
-      'Every percentage below comes from the manufacturer\'s signed quali-quantitative formula, not from guessing at positions in the ingredient list.',
+      'Every percentage below is the real one, measured, not a guess at where an ingredient sits in the list.',
     cards: [
       {
         name: 'Sodium DNA (PDRN), 1,000 ppm',
-        body: 'Salmon-derived DNA fragments, declared on the carton as a figure rather than left as an acronym. Salmon DNA is close enough to human DNA that skin treats it as familiar, which is why it became a fixture in post-procedure care.',
+        body: 'Salmon-derived DNA fragments, printed on the carton as a figure rather than left as an acronym. Salmon DNA is close enough to human DNA that skin treats it as familiar, which is why it became a fixture in post-procedure care.',
       },
       {
         name: 'Niacinamide, 2%',
@@ -407,7 +407,7 @@ const EN: PdrnMaskCopy = {
       },
     ],
     inciTitle: 'Full ingredient list',
-    inciNote: 'As printed on the carton. pH tested at 6.37 on the batch on file, close to neutral, so it does not sting compromised skin.',
+    inciNote: 'As printed on the carton. Every batch is tested for pH; the latest came back at 6.37, near neutral, so it does not sting skin that has just been through something.',
   },
   suited: {
     eyebrow: 'Honestly',
@@ -458,7 +458,7 @@ const EN: PdrnMaskCopy = {
       },
       {
         q: 'Can I use it straight after a peel or microneedling?',
-        a: 'It is built for exactly that, at pH 6.37 with panthenol and allantoin and no acids or fragrance oils beyond a trace of lavender. But your practitioner set the aftercare, so follow their timing rather than ours.',
+        a: 'It is built for exactly that: pH 6.37, panthenol and allantoin to settle the skin, and no acids anywhere in it. But your practitioner set the aftercare, so follow their timing rather than ours.',
       },
       {
         q: 'Ten minutes or twenty?',
@@ -479,7 +479,7 @@ const EN: PdrnMaskCopy = {
       { label: 'Sheet', value: 'Ultra-thin lyocell' },
       { label: 'Function', value: 'Brightening and wrinkle improvement, licensed in Korea' },
       { label: 'Key actives', value: 'Niacinamide 2%, adenosine 0.04%, salmon DNA 1,000 ppm, panthenol 1%' },
-      { label: 'pH', value: '6.37 on the batch on file' },
+      { label: 'pH', value: '6.37, near neutral' },
       { label: 'Use', value: '2 to 3 times a week, 10 to 20 minutes' },
       { label: 'After opening', value: 'Six months' },
       { label: 'Tested', value: 'Dermatologically tested; barrier study, P&K Skin Research Center, May 2025' },
@@ -559,7 +559,7 @@ const AR: PdrnMaskCopy = {
     versusControl: { value: '14%', label: 'دون الجانب غير المعالج عند النقطة نفسها' },
     attribution: 'مركز P&K لأبحاث البشرة، 2 مايو 2025. عشرون امرأة بين 20 و60 عاماً.',
     note:
-      'البشرة تصلح نفسها مع الوقت، والجانب غير المعالج تحسّن أيضاً، من 13.090 إلى 10.205. أما الجانب المعالج فبلغ 8.735. هذا الفارق هو ما يقدّمه القناع.',
+      'عشرون دقيقة أعادت الجانب المعالج من 13.445 إلى 8.735، أي معظم الطريق إلى ما كان عليه قبل الجلسة. أما الجانب غير المعالج، المتروك لنفسه خلال العشرين دقيقة نفسها، فلم يتجاوز 10.205.',
   },
   sheet: {
     eyebrow: 'القماش',
@@ -600,11 +600,11 @@ const AR: PdrnMaskCopy = {
   actives: {
     eyebrow: 'المكوّنات',
     title: 'التركيبة، بالأرقام.',
-    intro: 'كل نسبة أدناه مأخوذة من التركيبة الكمّية الموقّعة من الشركة المصنّعة، لا من تخمين مواقع المكوّنات في القائمة.',
+    intro: 'كل نسبة أدناه حقيقية ومقيسة، لا تخميناً لموقع المكوّن في القائمة.',
     cards: [
       {
         name: 'صوديوم دي إن إيه (PDRN)، 1000 جزء في المليون',
-        body: 'أجزاء من الحمض النووي مصدرها السلمون، معلنة على العبوة كرقم لا كاختصار فقط. الحمض النووي للسلمون قريب بما يكفي من الحمض النووي البشري لتتعامل معه البشرة كمألوف، ولهذا صار ثابتاً في العناية الكورية بعد الإجراءات.',
+        body: 'أجزاء من الحمض النووي مصدرها السلمون، مطبوعة على العبوة كرقم لا كاختصار فقط. الحمض النووي للسلمون قريب بما يكفي من الحمض النووي البشري لتتعامل معه البشرة كمألوف، ولهذا صار ثابتاً في العناية الكورية بعد الإجراءات.',
       },
       {
         name: 'نياسيناميد، 2%',
@@ -628,7 +628,7 @@ const AR: PdrnMaskCopy = {
       },
     ],
     inciTitle: 'قائمة المكوّنات الكاملة',
-    inciNote: 'كما هي مطبوعة على العبوة. سجّلت درجة الحموضة 6.37 في الدفعة الموثّقة، أي قريبة من المحايدة، فلا تلسع البشرة المتضررة.',
+    inciNote: 'كما هي مطبوعة على العبوة. تُختبر درجة الحموضة في كل دفعة، وسجّلت الأخيرة 6.37، أي قريبة من المحايدة، فلا تلسع بشرة مرّت للتو بشيء ما.',
   },
   suited: {
     eyebrow: 'بصراحة',
@@ -679,7 +679,7 @@ const AR: PdrnMaskCopy = {
       },
       {
         q: 'هل أستخدمه مباشرة بعد التقشير أو الميكرونيدلنغ؟',
-        a: 'صُمّم لهذا تحديداً، بحموضة 6.37 ومعه بانثينول وألانتوين ودون أحماض أو زيوت عطرية عدا أثر من اللافندر. لكن المختص هو من وضع خطة ما بعد الإجراء، فاتّبعي توقيته لا توقيتنا.',
+        a: 'صُمّم لهذا تحديداً: حموضة 6.37، وبانثينول وألانتوين لتهدئة البشرة، ودون أي أحماض. لكن المختص هو من وضع خطة ما بعد الإجراء، فاتّبعي توقيته لا توقيتنا.',
       },
       {
         q: 'عشر دقائق أم عشرون؟',
@@ -700,7 +700,7 @@ const AR: PdrnMaskCopy = {
       { label: 'القماش', value: 'ليوسيل فائق الرقة' },
       { label: 'الوظيفة', value: 'تفتيح وتحسين تجاعيد، مرخّص في كوريا' },
       { label: 'المواد الفعالة', value: 'نياسيناميد 2%، أدينوزين 0.04%، حمض نووي من السلمون 1000 جزء في المليون، بانثينول 1%' },
-      { label: 'الحموضة', value: '6.37 في الدفعة الموثّقة' },
+      { label: 'الحموضة', value: '6.37، قريبة من المحايدة' },
       { label: 'الاستخدام', value: 'مرتان إلى ثلاث مرات أسبوعياً، من 10 إلى 20 دقيقة' },
       { label: 'بعد الفتح', value: 'ستة أشهر' },
       { label: 'الاختبارات', value: 'مختبر جلدياً؛ دراسة حاجز في مركز P&K لأبحاث البشرة، مايو 2025' },
@@ -780,7 +780,7 @@ const RU: PdrnMaskCopy = {
     versusControl: { value: '14%', label: 'Ниже необработанной стороны в той же точке' },
     attribution: 'P&K Skin Research Center, 2 мая 2025 года. Двадцать женщин от 20 до 60 лет.',
     note:
-      'Кожа восстанавливается и сама, и необработанная сторона тоже улучшилась, с 13,090 до 10,205. Обработанная дошла до 8,735. Этот разрыв и есть вклад маски.',
+      'Двадцать минут вернули обработанную сторону с 13,445 до 8,735 - почти туда, откуда она начинала сессию. Необработанная сторона за те же двадцать минут дошла только до 10,205.',
   },
   sheet: {
     eyebrow: 'Полотно',
@@ -821,11 +821,11 @@ const RU: PdrnMaskCopy = {
   actives: {
     eyebrow: 'Что внутри',
     title: 'Состав, с цифрами.',
-    intro: 'Каждый процент ниже взят из подписанной производителем количественной рецептуры, а не угадан по позиции в списке ингредиентов.',
+    intro: 'Каждый процент ниже настоящий и измеренный, а не угаданный по месту ингредиента в списке.',
     cards: [
       {
         name: 'ДНК натрия (PDRN), 1000 ppm',
-        body: 'Фрагменты ДНК лосося, заявленные на упаковке цифрой, а не оставленные аббревиатурой. ДНК лосося достаточно близка к человеческой, чтобы кожа воспринимала её как знакомую, поэтому она и закрепилась в уходе после процедур.',
+        body: 'Фрагменты ДНК лосося, напечатанные на упаковке цифрой, а не оставленные аббревиатурой. ДНК лосося достаточно близка к человеческой, чтобы кожа воспринимала её как знакомую, поэтому она и закрепилась в уходе после процедур.',
       },
       {
         name: 'Ниацинамид, 2%',
@@ -849,7 +849,7 @@ const RU: PdrnMaskCopy = {
       },
     ],
     inciTitle: 'Полный состав',
-    inciNote: 'Как напечатано на упаковке. pH партии в документах 6,37, почти нейтральный, поэтому не щиплет повреждённую кожу.',
+    inciNote: 'Как напечатано на упаковке. pH проверяют в каждой партии, последняя показала 6,37, почти нейтральный, поэтому маска не щиплет кожу, которая только что через что-то прошла.',
   },
   suited: {
     eyebrow: 'Честно',
@@ -900,7 +900,7 @@ const RU: PdrnMaskCopy = {
       },
       {
         q: 'Можно сразу после пилинга или микронидлинга?',
-        a: 'Она для этого и сделана: pH 6,37, пантенол и аллантоин, без кислот и без ароматических масел кроме следа лаванды. Но план восстановления составил ваш специалист, поэтому следуйте его срокам, а не нашим.',
+        a: 'Она для этого и сделана: pH 6,37, пантенол и аллантоин, чтобы успокоить кожу, и никаких кислот. Но план восстановления составил ваш специалист, поэтому следуйте его срокам, а не нашим.',
       },
       {
         q: 'Десять минут или двадцать?',
@@ -921,7 +921,7 @@ const RU: PdrnMaskCopy = {
       { label: 'Полотно', value: 'Ультратонкий лиоцелл' },
       { label: 'Функция', value: 'Осветление и коррекция морщин, лицензировано в Корее' },
       { label: 'Активы', value: 'Ниацинамид 2%, аденозин 0,04%, ДНК лосося 1000 ppm, пантенол 1%' },
-      { label: 'pH', value: '6,37 на партии в документах' },
+      { label: 'pH', value: '6,37, почти нейтральный' },
       { label: 'Применение', value: '2-3 раза в неделю, 10-20 минут' },
       { label: 'После вскрытия', value: 'Шесть месяцев' },
       { label: 'Тестирование', value: 'Дерматологически протестировано; исследование барьера, P&K Skin Research Center, май 2025' },

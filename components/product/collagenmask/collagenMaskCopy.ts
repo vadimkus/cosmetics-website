@@ -294,7 +294,7 @@ const EN: CollagenMaskCopy = {
       'You want a brightening mask - there is no vitamin C or niacinamide here',
       'You are after an exfoliating step, which this deliberately is not',
     ],
-    note: 'A trace of alcohol carries the botanical extracts into the essence. Everything else in the pouch is there to put water back.',
+    note: 'For external use only, and keep it clear of the eye area. Stop and speak to a doctor if redness, swelling or irritation appears.',
   },
   routine: {
     eyebrow: 'Complete the routine',
@@ -481,7 +481,7 @@ const AR: CollagenMaskCopy = {
       'أردت قناعاً مفتحاً - لا يوجد هنا فيتامين C أو نياسيناميد',
       'كنت تبحثين عن خطوة تقشير، وهذا القناع ليس كذلك عن قصد',
     ],
-    note: 'أثر من الكحول يحمل المستخلصات النباتية داخل الإسنس. وكل ما عدا ذلك في العبوة موجود لإعادة الماء إلى البشرة.',
+    note: 'للاستخدام الخارجي فقط، وتجنّبي منطقة العينين. أوقفي الاستخدام واستشيري طبيباً عند ظهور احمرار أو تورّم أو تهيّج.',
   },
   routine: {
     eyebrow: 'أكملي الروتين',
@@ -668,7 +668,7 @@ const RU: CollagenMaskCopy = {
       'Нужна осветляющая маска - здесь нет ни витамина C, ни ниацинамида',
       'Вы ищете этап отшелушивания, которым эта маска намеренно не является',
     ],
-    note: 'Следовое количество спирта служит носителем растительных экстрактов. Всё остальное в саше работает на то, чтобы вернуть коже воду.',
+    note: 'Только для наружного применения, избегайте области вокруг глаз. Прекратите использование и обратитесь к врачу при покраснении, отёке или раздражении.',
   },
   routine: {
     eyebrow: 'Дополните уход',

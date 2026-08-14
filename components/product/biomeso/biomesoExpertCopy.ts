@@ -183,7 +183,7 @@ const EN: BioMesoCopy = {
       { label: 'Cleared for the UAE', value: 'Registered with Dubai Municipality on the Montaji system, on top of the Korean certificate of free sale' },
       { label: 'Shelf life', value: 'Twelve months once opened, sealed in single-use 3 ml ampoules' },
     ],
-    disclaimer: 'Batch certificates are issued per production lot and available on request.',
+    disclaimer: 'Every production lot is tested before it ships, and we can show you the results for yours.',
   },
   clinical: {
     eyebrow: 'Measured results',
@@ -405,7 +405,7 @@ const AR: BioMesoCopy = {
       { label: 'معتمد في الإمارات', value: 'مسجّل لدى بلدية دبي على نظام مُنتجي، إضافة إلى شهادة البيع الحر الكورية' },
       { label: 'مدة الصلاحية', value: 'اثنا عشر شهراً بعد الفتح، معبأ في أمبولات 3 مل للاستخدام مرة واحدة' },
     ],
-    disclaimer: 'شهادات التحليل تصدر لكل دفعة إنتاج وتتوفر عند الطلب.',
+    disclaimer: 'كل دفعة إنتاج تُختبر قبل شحنها، ويمكننا أن نطلعك على نتائج دفعتك.',
   },
   clinical: {
     eyebrow: 'نتائج مقاسة',
@@ -627,7 +627,7 @@ const RU: BioMesoCopy = {
       { label: 'Допуск в ОАЭ', value: 'Зарегистрировано в муниципалитете Дубая в системе Montaji, в дополнение к корейскому сертификату свободной продажи' },
       { label: 'Срок годности', value: 'Двенадцать месяцев после вскрытия, в одноразовых ампулах по 3 мл' },
     ],
-    disclaimer: 'Сертификаты анализа выдаются на каждую производственную партию и доступны по запросу.',
+    disclaimer: 'Каждая производственная партия проверяется перед отгрузкой, и результаты по вашей мы готовы показать.',
   },
   clinical: {
     eyebrow: 'Измеренные результаты',

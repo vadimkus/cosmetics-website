@@ -284,7 +284,7 @@ const EN: BioMesoCopy = {
       { label: 'Shelf life', value: 'Twelve months once opened' },
     ],
     disclaimer:
-      'Certificates of analysis are issued per production lot and available on request. This is the homecare that keeps professional results going between appointments.',
+      'Every production lot is tested before it ships, and we can show you the results for yours. This is the homecare that keeps professional results going between appointments.',
   },
   safety: {
     eyebrow: 'Before you start',
@@ -496,7 +496,7 @@ const AR: BioMesoCopy = {
       { label: 'مدة الصلاحية', value: 'اثنا عشر شهراً بعد الفتح' },
     ],
     disclaimer:
-      'تُصدر شهادة التحليل لكل دفعة إنتاج وهي متاحة عند الطلب. هذه هي العناية المنزلية التي تحافظ على نتائج الجلسات بين موعد وآخر.',
+      'كل دفعة إنتاج تُختبر قبل شحنها، ويمكننا أن نطلعك على نتائج دفعتك. هذه هي العناية المنزلية التي تحافظ على نتائج الجلسات بين موعد وآخر.',
   },
   safety: {
     eyebrow: 'قبل البدء',
@@ -708,7 +708,7 @@ const RU: BioMesoCopy = {
       { label: 'Срок годности', value: 'Двенадцать месяцев после открытия' },
     ],
     disclaimer:
-      'Сертификат анализа выпускается на каждую производственную партию и доступен по запросу. Это домашний уход, который поддерживает результат между визитами.',
+      'Каждая производственная партия проверяется перед отгрузкой, и результаты по вашей мы готовы показать. Это домашний уход, который поддерживает результат между визитами.',
   },
   safety: {
     eyebrow: 'Перед началом',

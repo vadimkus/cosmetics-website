@@ -1,0 +1,100 @@
+/**
+ * Palette override for the BIO-FERMENT AGE DEFYING POWDER MASK page
+ * (product 51).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the pack's own peach band — sampled off the
+ * terracotta lower half of the jar label — with a deep brown ink so body
+ * text stays readable. Peach itself fails WCAG as body text.
+ *
+ * Keep it clear of product 52's clay and product 53's crimson. Those are
+ * the other two masks a shopper is most likely to open next.
+ *
+ * Scoped to `.cera-page.bf-page`.
+ */
+
+.cera-page.bf-page {
+  --cera-cream: #f7f1ed;
+  --cera-cream-deep: #eadfd6;
+  --cera-blush: #f3e0d6;
+  --cera-blush-deep: #e0c0b0;
+  --cera-rose: #c4846a;
+  --cera-rose-ink: #8a4f3a;
+  --cera-ink: #1c1614;
+  --cera-body: #3d332f;
+  --cera-muted: #6e605a;
+  --cera-line: #e6d6cc;
+  --cera-shot: #f3ebe6;
+}
+
+.bf-page .cera-stage {
+  background-color: #f4ece6;
+  box-shadow: 0 24px 60px -34px rgba(138, 79, 58, 0.4);
+}
+
+@media (hover: hover) {
+  .bf-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(28, 22, 20, 0.04), 0 26px 48px -26px rgba(138, 79, 58, 0.3);
+  }
+}
+
+.bf-page .bf-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.bf-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.bf-page .bf-video {
+  border: 1px solid var(--cera-line);
+  background: #14110f;
+}
+
+/* Two-bar hydration chart. Values come from the DTS MG deck: 17.27 before,
+   48.513 after. Heights are set inline from those numbers. */
+.bf-page .bf-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 48px;
+  min-height: 220px;
+  padding: 8px 8px 0;
+}
+
+.bf-page .bf-bar-wrap {
+  display: flex;
+  width: 88px;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.bf-page .bf-bar {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  border-radius: 10px 10px 4px 4px;
+  padding-top: 10px;
+}
+
+.bf-page .bf-bar-before {
+  background: color-mix(in srgb, var(--cera-rose) 22%, #fff);
+}
+
+.bf-page .bf-bar-after {
+  background: var(--cera-rose);
+}
+
+.bf-page .bf-bar-value {
+  font-variant-numeric: tabular-nums;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cera-ink);
+}
+
+.bf-page .bf-bar-after .bf-bar-value {
+  color: #fff;
+}

@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Product 51 Bio-Ferment Powder Mask page](./SESSION_CHANGES_2026-08-15_PRODUCT_51_BIO_FERMENT.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: diatomaceous-earth modeling mask, mix 1:1.5, +218% hydration. Cut rice/soy/ginseng/HA and 1 ppb peptides as the engine. |
 | 🟡 **Important** | [Product 19 All For Sensitive Serum page](./SESSION_CHANGES_2026-08-15_PRODUCT_19_ALL_FOR_SENSITIVE_SERUM.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: MultiEx BSASM® Plus at 1%. Cut repair / anti-inflammatory / lot codes. |
 | 🟡 **Important** | [Product 10 Snow O₂ Cleanser main image](./SESSION_CHANGES_2026-08-15_PRODUCT_10_MAIN_IMAGE.md) | Main-only swap to cache-safe `cleanser/main_clean.jpeg`; gallery S1–S6 preserved; `Main.jpg` kept for emails already sent. |
 | 🟡 **Important** | [Product 4 POWER SOLUTION HES images](./SESSION_CHANGES_2026-08-13_PRODUCT_4_HES_POWER_IMAGES.md) | Cache-safe `hes_power/` main + gallery (`s1new`, s2–s7); DB/catalog/order fallbacks updated; old `HES.jpg` / `hes_big1.jpg` / `hes_big2.jpg` / `s1.jpeg` removed after cutover. |

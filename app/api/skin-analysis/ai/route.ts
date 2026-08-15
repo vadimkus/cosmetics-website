@@ -55,7 +55,7 @@ Based on your analysis, recommend 3-5 GENOSYS products using EXACT format:
 - [Bio-Meso PDRN Homecare Ampoule 5000](https://genosys.ae/products/65){{id:65}} - AED 300 - PDRN regenerating home ampoule (anti-aging, repair)
 - [Bio Meso PDRN Ampoule 60000](https://genosys.ae/products/60){{id:60}} - AED 600 - High-strength PDRN ampoule for intensive regeneration
 - [SKIN REBOOT PDRN MASK PACK](https://genosys.ae/products/52){{id:52}} - AED 400 - PDRN sheet mask pack (anti-aging, hydration)
-- [BIO-FERMENT AGE DEFYING POWDER MASK](https://genosys.ae/products/51){{id:51}} - AED 250 - Fermented enzyme powder mask (anti-aging, glow)
+- [BIO-FERMENT AGE DEFYING POWDER MASK](https://genosys.ae/products/51){{id:51}} - AED 250 - Diatomaceous-earth modeling mask (hydration, peel-off)
 
 ## Response Format
 

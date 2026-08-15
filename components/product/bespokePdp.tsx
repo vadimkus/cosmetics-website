@@ -12,6 +12,7 @@ import BioMesoExpertProductPage from '@/components/product/biomeso/BioMesoExpert
 import HairStampProductPage from '@/components/product/hairstamp/HairStampProductPage'
 import PdrnMaskProductPage from '@/components/product/pdrnmask/PdrnMaskProductPage'
 import AfsProductPage from '@/components/product/afs/AfsProductPage'
+import BioFermentProductPage from '@/components/product/bioferment/BioFermentProductPage'
 import CvsProductPage from '@/components/product/powersolution/CvsProductPage'
 import HesProductPage from '@/components/product/powersolution/HesProductPage'
 import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowProductPage'
@@ -34,6 +35,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 19 is the sensitive-skin serum. Single SKU, no deck, no efficacy study;
   // the page is built on the artwork sentence and MultiEx BSASM Plus at 1%.
   '19': AfsProductPage,
+  // 51 is the Bio-Ferment powder modeling mask. DTS MG deck + clinical
+  // hydration trial; no safety assessment. The page is built on the
+  // diatomaceous-earth set, not on the six peptides at 1 ppb.
+  '51': BioFermentProductPage,
   // 52 and 53 are both masks but share no layout: 52 has a clinical study and a
   // Korean functional licence to build on, 53 has neither.
   '52': PdrnMaskProductPage,

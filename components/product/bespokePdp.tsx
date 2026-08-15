@@ -15,6 +15,7 @@ import AfsProductPage from '@/components/product/afs/AfsProductPage'
 import BioFermentProductPage from '@/components/product/bioferment/BioFermentProductPage'
 import EpiProductPage from '@/components/product/epi/EpiProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
+import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
 import EzCo2ProductPage from '@/components/product/ezco2/EzCo2ProductPage'
 import CvsProductPage from '@/components/product/powersolution/CvsProductPage'
 import HesProductPage from '@/components/product/powersolution/HesProductPage'
@@ -40,6 +41,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 12 is the enzyme + cellulose peeling gel. Cellulose 3% is the roll;
   // papaya and moringa sit at trace. No clinical percentages.
   '12': EpiProductPage,
+  // 17 is the first-layer EyeCell serum. Arbutin 2% is the figure on the
+  // card; peptides sit at cosmetic trace. No clinical percentages.
+  '17': EyeSerumProductPage,
   // 24 is the daily EyeCell cream. Arbutin 2% is the figure on the card;
   // peptides sit at cosmetic trace. No clinical percentages.
   '24': EyeCreamProductPage,

@@ -443,7 +443,7 @@ Use 1-2x weekly. EZ CO₂ is ten minutes then rinse.
 - INTENSIVE REPAIR CREAM {{id:21}} - Barrier repair
 - NECK LIFTING CREAM {{id:10}} - Neck/décolletage
 - EyeCell Contour Cream - Eye area
-- MULTI PEPTIDE ANTI-WRINKLE {{id:17}} - Anti-aging
+- MULTI FUNCTIONAL ANTI-WRINKLE SERUM {{id:22}} - Anti-aging
 
 ## 🎭 MORE MASKS
 Eye patches, overnight masks, sheet masks, collagen masks available. Check product catalog.

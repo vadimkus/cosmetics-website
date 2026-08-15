@@ -1,0 +1,52 @@
+/**
+ * Palette override for the EyeCell EYE CONTOUR SERUM page (product 17).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the cool silver / lilac of the black syringe
+ * applicator, kept dark enough that body text stays readable. Pale silver
+ * itself fails WCAG as body text.
+ *
+ * Keep it clear of product 24's champagne / bronze and product 38's teal.
+ * Those are the two editorial pages a shopper is most likely to open next.
+ *
+ * Scoped to `.cera-page.eys-page`.
+ */
+
+.cera-page.eys-page {
+  --cera-cream: #f3f1f5;
+  --cera-cream-deep: #e4e0e8;
+  --cera-blush: #ddd6e4;
+  --cera-blush-deep: #c4b8cc;
+  --cera-rose: #6a6278;
+  --cera-rose-ink: #3f3848;
+  --cera-ink: #1c1a20;
+  --cera-body: #3a3640;
+  --cera-muted: #6a6470;
+  --cera-line: #d4d0d8;
+  --cera-shot: #ece8ee;
+}
+
+.eys-page .cera-stage {
+  background-color: #efeaf2;
+  box-shadow: 0 24px 60px -34px rgba(63, 56, 72, 0.35);
+}
+
+@media (hover: hover) {
+  .eys-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(28, 26, 32, 0.04), 0 26px 48px -26px rgba(63, 56, 72, 0.28);
+  }
+}
+
+.eys-page .eys-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.eys-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.eys-page .eys-video {
+  border: 1px solid var(--cera-line);
+  background: #16141a;
+}

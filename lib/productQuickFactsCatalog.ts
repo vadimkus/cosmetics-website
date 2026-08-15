@@ -232,6 +232,14 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('High satisfaction panel', 'User panel reported very high satisfaction on tone and comfort.', 'Высокая удовлетворённость', 'Панель отметила очень высокую удовлетворённость тоном и комфортом.', 'رضا مرتفع', 'أبلغت لوحة المستخدمين عن رضا مرتفع باللون والراحة.'),
     t('50 g radiance cream', 'Daily cream seal after Multi Vita Radiance Serum.', '50 г', 'Ежедневный крем поверх сыворотки Multi Vita Radiance.', 'كريم 50 غ', 'ختم كريمي يومي بعد سيروم Multi Vita Radiance.'),
   ],
+  '17': [
+    t('Arbutin 2%', 'Korean brightening functional. The figure that belongs on a card.', 'Арбутин 2%', 'Корейский осветляющий функциональный актив. Цифра для карточки.', 'أربوتين ٢٪', 'مكوّن التفتيح الوظيفي الكوري. الرقم الذي يستحق بطاقة.'),
+    t('Adenosine 0.04%', 'Korean wrinkle-care functional pair in the same serum.', 'Аденозин 0,04%', 'Корейская функциональная пара для морщин в той же сыворотке.', 'أدينوسين ٠٫٠٤٪', 'شريك العناية الوظيفية بالتجاعيد في السيروم نفسه.'),
+    t('Deep wrinkles, dark circles, eye puffs', 'Intensive first-layer eye serum. Then the cream seals.', 'Глубокие морщины, круги, припухлость', 'Интенсивная сыворотка первым слоем. Затем крем закрепляет.', 'تجاعيد عميقة وهالات وانتفاخ', 'سيروم عين مكثّف كطبقة أولى. ثم يختم الكريم.'),
+    t('Morning and evening', 'Gently pat the contour, then leave on. Cream after when you pair it.', 'Утро и вечер', 'Мягко похлопать контур, затем оставить. Затем крем, если используете пару.', 'صباحاً ومساءً', 'ربّتي المحيط بلطف ثم اتركي. الكريم بعدها عند استخدام الثنائي.'),
+    t('Avoid pregnancy / lactation', 'The pack says avoid. No retinyl and no peanut oil, and the warning still stands.', 'Не при беременности', 'Упаковка говорит избегать. Нет ретинола и нет арахиса, и предупреждение всё равно стоит.', 'تجنّبي الحمل والرضاعة', 'العبوة تقول تجنّبي. لا ريتينيل ولا زيت فول سوداني، والتنبيه قائم.'),
+    t('10ml leave-on', 'Dermatologically tested intensive eye serum. Made in Korea by DTS MG.', '10 мл leave-on', 'Интенсивная сыворотка, дерматологически протестирована. Сделано в Корее, DTS MG.', '١٠ مل يُترك', 'سيروم عين مكثّف مختبر جلدياً. صنع في كوريا، DTS MG.'),
+  ],
   '24': [
     t('Arbutin 2%', 'Korean brightening functional. The figure that belongs on a card.', 'Арбутин 2%', 'Корейский осветляющий функциональный актив. Цифра для карточки.', 'أربوتين ٢٪', 'مكوّن التفتيح الوظيفي الكوري. الرقم الذي يستحق بطاقة.'),
     t('Adenosine 0.04%', 'Korean wrinkle-care functional pair in the same cream.', 'Аденозин 0,04%', 'Корейская функциональная пара для морщин в том же креме.', 'أدينوسين ٠٫٠٤٪', 'شريك العناية الوظيفية بالتجاعيد في الكريم نفسه.'),

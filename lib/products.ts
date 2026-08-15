@@ -215,7 +215,7 @@ export const products: Product[] = [
     id: '17',
     name: 'EyeCell EYE CONTOUR SERUM',
     price: 370,
-    description: '10ml. Highly enriched all-in-one eye serum. It is a highly enriched all-in-one eye serum that helps improve wrinkles, dark circles and diminish the appearance of eye puffs with peptide complex, botanical callus culture extracts and anti-dark circle complex. Key ingredients: Palmitoyl Hexapeptide-12, Copper Tripeptide-1, Acetyl Hexapeptide-8, Anti-Dark Circle Complex (Haloxyl™), Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Adenosine, Arbutin. Dermatologically tested. Efficacy test on improving wrinkles.',
+    description: '10ml. Intensive all-in-one eye serum for deep wrinkles, dark circles and eye puffs. Arbutin 2% and Adenosine 0.04% are the Korean functional pair. Morning and evening, pat and leave on. Dermatologically tested. Avoid during pregnancy and lactation.',
     image: '/images/eye_serum/main.jpeg',
     images: JSON.stringify([
       '/images/eye_serum/s1.jpeg',

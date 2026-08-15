@@ -13,6 +13,7 @@ import HairStampProductPage from '@/components/product/hairstamp/HairStampProduc
 import PdrnMaskProductPage from '@/components/product/pdrnmask/PdrnMaskProductPage'
 import AfsProductPage from '@/components/product/afs/AfsProductPage'
 import BioFermentProductPage from '@/components/product/bioferment/BioFermentProductPage'
+import EpiProductPage from '@/components/product/epi/EpiProductPage'
 import CvsProductPage from '@/components/product/powersolution/CvsProductPage'
 import HesProductPage from '@/components/product/powersolution/HesProductPage'
 import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowProductPage'
@@ -34,6 +35,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   '5': CvsProductPage,
   // 19 is the sensitive-skin serum. Single SKU, no deck, no efficacy study;
   // the page is built on the artwork sentence and MultiEx BSASM Plus at 1%.
+  // 12 is the enzyme + cellulose peeling gel. Cellulose 3% is the roll;
+  // papaya and moringa sit at trace. No clinical percentages.
+  '12': EpiProductPage,
   '19': AfsProductPage,
   // 51 is the Bio-Ferment powder modeling mask. DTS MG deck + clinical
   // hydration trial; no safety assessment. The page is built on the

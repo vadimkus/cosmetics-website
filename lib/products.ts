@@ -147,7 +147,7 @@ export const products: Product[] = [
     id: '12',
     name: 'EPI TURNOVER BOOSTING PEELING GEL',
     price: 250,
-    description: '100g. Mild peeling gel combining enzymatic peeling and cellulose peeling. It is the enzyme peeling gel that removes dead skin cells without irritation. Moringa, so-called "Miracle Tree" purifies and nourishes skin and the plant complex from desert moisturizes and soothes skin. Key ingredients: Carica Papaya (Papaya) Fruit Extract, Moringa Pterygosperma Seed Extract, Hyaluronic Acid, Simmondsia Chinensis (Jojoba) Seed Oil, Desert Complex. Dermatologically tested.',
+    description: '100g. Enzyme + cellulose peeling gel. On clean, dry skin, massage for up to one minute; the dead cells clump and rinse away with tepid water. Cellulose 3% is the roll you feel. Once or twice a week. Dermatologically tested.',
     image: '/images/epi/main.jpeg',
     images: JSON.stringify([
       '/images/epi/s1.jpeg',
@@ -159,6 +159,7 @@ export const products: Product[] = [
     ]),
     category: 'Peeling',
     inStock: true,
+    videoUrl: '/videos/epi.mp4',
   },
   {
     id: '13',

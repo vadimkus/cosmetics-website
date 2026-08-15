@@ -500,7 +500,7 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 2. Problem Control Toner
 3. Problem Control Serum
 4. Light moisturizer
-5. Weekly: EPI TURNOVER PEELING GEL 2-3x
+5. Weekly: EPI TURNOVER PEELING GEL 1-2x
 
 **Key tips:** Don't over-cleanse, never skip moisturizer, change pillowcase weekly
 

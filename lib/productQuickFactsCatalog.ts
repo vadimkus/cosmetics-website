@@ -56,12 +56,12 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('200 ml daily size', 'Practical bottle format for home makeup removal.', 'Объём 200 мл', 'Удобный формат для ежедневного снятия макияжа дома.', 'حجم 200 مل', 'عبوة عملية لإزالة المكياج يومياً في المنزل.'),
   ],
   '12': [
-    t('Enzyme peeling gel', 'Helps renew dull surface texture with a professional-style enzyme peel.', 'Ферментный пилинг-гель', 'Обновляет тусклую поверхность кожи ферментным пилингом.', 'جل تقشير إنزيمي', 'يساعد على تجديد ملمس البشرة الباهت بتقشير إنزيمي.'),
-    t('Desert plant complex', 'Five desert-plant extracts help moisturize and soothe during renewal.', 'Пустынный комплекс', 'Пять экстрактов пустынных растений увлажняют и успокаивают при обновлении.', 'مركب نباتات الصحراء', 'خمسة مستخلصات نباتات صحراوية ترطّب وتهدئ أثناء التجديد.'),
-    t('Low-friction renewal', 'Gel texture supports controlled exfoliation without aggressive scrub particles.', 'Мягкое обновление', 'Гель даёт контролируемое отшелушивание без жёстких абразивов.', 'تجديد بلطف', 'قوام الجل يتيح تقشيراً مضبوطاً دون حبيبات كاشطة.'),
-    t('Pre-treatment prep', 'Often used to refine texture before professional procedures or mask steps.', 'Подготовка к процедурам', 'Часто используют перед профессиональными процедурами или масками.', 'تحضير قبل العلاجات', 'يُستخدم غالباً لتنعيم الملمس قبل الإجراءات أو الماسكات.'),
-    t('Soothe + polish', 'Pairs renewal with comfort so skin does not feel stripped.', 'Обновление + комфорт', 'Сочетает обновление с комфортом, без ощущения «стянутости».', 'تنعيم وتهدئة', 'يجمع التجديد مع الراحة دون شعور بجفاف مفرط.'),
-    t('100 g clinic-home size', 'Convenient jar for regular texture-care routines.', '100 г', 'Удобный объём для регулярного ухода за текстурой.', 'حجم 100 غ', 'عبوة مناسبة لروتين العناية بالملمس بانتظام.'),
+    t('Enzyme + cellulose', 'A rinse-off gommage: cellulose binds dead cells so they clump and rinse away.', 'Энзим + целлюлоза', 'Смываемый гоммаж: целлюлоза связывает мёртвые клетки, и они смываются комочками.', 'إنزيم + سليلوز', 'غوماج يُشطف: السليلوز يمسك الخلايا الميتة فتُشطف كتلًا.'),
+    t('Cellulose 3%', 'The peel you feel. Plant cellulose rolls the dead cells off without grit.', 'Целлюлоза 3%', 'Пилинг, который вы чувствуете. Растительная целлюлоза скатывает клетки без крупинок.', 'سليلوز ٣٪', 'التقشير الذي تحسّين به. سليلوز نباتي يدحرج الخلايا الميتة بلا حبيبات.'),
+    t('Dry skin, one minute', 'Massage on clean, dry skin for up to one minute, then rinse with tepid water.', 'Сухая кожа, минута', 'Массируйте на чистой сухой коже до минуты, затем смойте тёплой водой.', 'بشرة جافة، دقيقة', 'دلّكي على بشرة نظيفة جافة حتى دقيقة، ثم اشطفي بماء فاتر.'),
+    t('Once or twice a week', 'A weekly polish, not a daily leave-on.', 'Раз или два в неделю', 'Еженедельная полировка, не ежедневный leave-on.', 'مرة أو مرتين في الأسبوع', 'تلميع أسبوعي، لا عناية يومية تُترك على البشرة.'),
+    t('Face and body', 'The same gel is used on knees, elbows and heels as well as the face.', 'Лицо и тело', 'Тот же гель — на колени, локти и пятки, не только на лицо.', 'الوجه والجسم', 'الجل نفسه للركبتين والمرفقين والكعبين كما للوجه.'),
+    t('100g tube', 'Dermatologically tested rinse-off peeling gel.', 'Тюбик 100 г', 'Дерматологически протестированный смываемый пилинг-гель.', 'أنبوب ١٠٠ غ', 'جل تقشير يُشطف، مختبر جلدياً.'),
   ],
   '14': [
     t('Microbiome mist', 'FENSEBIOME™ (Acetyl Heptapeptide-4) helps support a balanced skin microbiome.', 'Мист для микробиома', 'FENSEBIOME™ (Acetyl Heptapeptide-4) поддерживает баланс микробиома кожи.', 'رذاذ الميكروبيوم', 'FENSEBIOME™ (Acetyl Heptapeptide-4) يدعم توازن ميكروبيوم البشرة.'),

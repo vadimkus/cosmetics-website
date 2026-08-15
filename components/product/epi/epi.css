@@ -1,0 +1,53 @@
+/**
+ * Palette override for the EPI TURNOVER BOOSTING PEELING GEL page
+ * (product 12).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the tube's own mint, sampled off the pastel
+ * green pack, with a deep forest ink so body text stays readable. Mint
+ * itself fails WCAG as body text.
+ *
+ * Keep it clear of product 19's lime/charcoal. That is the other leave-on
+ * a shopper is most likely to open next after a peel.
+ *
+ * Scoped to `.cera-page.epi-page`.
+ */
+
+.cera-page.epi-page {
+  --cera-cream: #f2f7f4;
+  --cera-cream-deep: #dce8e1;
+  --cera-blush: #d5ebe0;
+  --cera-blush-deep: #a8cfc0;
+  --cera-rose: #3a8f6e;
+  --cera-rose-ink: #1b5a42;
+  --cera-ink: #13241c;
+  --cera-body: #2d3f36;
+  --cera-muted: #5a6e64;
+  --cera-line: #cfdcd4;
+  --cera-shot: #eaf3ee;
+}
+
+.epi-page .cera-stage {
+  background-color: #eef6f1;
+  box-shadow: 0 24px 60px -34px rgba(27, 90, 66, 0.35);
+}
+
+@media (hover: hover) {
+  .epi-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(19, 36, 28, 0.04), 0 26px 48px -26px rgba(27, 90, 66, 0.28);
+  }
+}
+
+.epi-page .epi-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.epi-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.epi-page .epi-video {
+  border: 1px solid var(--cera-line);
+  background: #121a16;
+}

@@ -1,0 +1,53 @@
+/**
+ * Palette override for the EyeCell EYE PEPTIDE GEL PATCH page (product 33).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the burgundy / wine of the black jar and the
+ * red EyeCell collar, kept dark enough that body text stays readable.
+ * Bright jar-red itself fails WCAG as body text.
+ *
+ * Keep it clear of product 24's champagne / bronze and product 17's
+ * silver / lilac. Those are the two editorial pages a shopper is most
+ * likely to open next.
+ *
+ * Scoped to `.cera-page.egp-page`.
+ */
+
+.cera-page.egp-page {
+  --cera-cream: #f6f1f2;
+  --cera-cream-deep: #eadde0;
+  --cera-blush: #e8d0d4;
+  --cera-blush-deep: #d4a8b0;
+  --cera-rose: #8b3a48;
+  --cera-rose-ink: #5c2430;
+  --cera-ink: #1f1618;
+  --cera-body: #3f3236;
+  --cera-muted: #74656a;
+  --cera-line: #dccfd2;
+  --cera-shot: #f3e8ea;
+}
+
+.egp-page .cera-stage {
+  background-color: #f3e9eb;
+  box-shadow: 0 24px 60px -34px rgba(92, 36, 48, 0.35);
+}
+
+@media (hover: hover) {
+  .egp-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(31, 22, 24, 0.04), 0 26px 48px -26px rgba(92, 36, 48, 0.28);
+  }
+}
+
+.egp-page .egp-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.egp-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.egp-page .egp-video {
+  border: 1px solid var(--cera-line);
+  background: #1a1214;
+}

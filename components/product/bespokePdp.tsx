@@ -15,6 +15,7 @@ import AfsProductPage from '@/components/product/afs/AfsProductPage'
 import BioFermentProductPage from '@/components/product/bioferment/BioFermentProductPage'
 import EpiProductPage from '@/components/product/epi/EpiProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
+import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
 import EzCo2ProductPage from '@/components/product/ezco2/EzCo2ProductPage'
 import CvsProductPage from '@/components/product/powersolution/CvsProductPage'
@@ -44,6 +45,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 17 is the first-layer EyeCell serum. Arbutin 2% is the figure on the
   // card; peptides sit at cosmetic trace. No clinical percentages.
   '17': EyeSerumProductPage,
+  // 33 is the take-off EyeCell hydrogel mask. Niacinamide 2% is the
+  // figure on the card; the peptide sits at 46.5 ppb. No clinical
+  // percentages.
+  '33': EyePatchProductPage,
   // 24 is the daily EyeCell cream. Arbutin 2% is the figure on the card;
   // peptides sit at cosmetic trace. No clinical percentages.
   '24': EyeCreamProductPage,

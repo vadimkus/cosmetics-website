@@ -452,7 +452,7 @@ export const products: Product[] = [
     id: '33',
     name: 'EyeCell EYE PEPTIDE GEL PATCH',
     price: 380,
-    description: '101g (60ea). Patented thermo-sensitive hydro gel mask for eye contour area for soothing and moisturizing. It is a patented thermo-sensitive hydrogel mask for eye contour area that soothes and moisturizes the skin that went through dermatologic procedures or natural aging. And it improves eye bags. Mechanism: It is made of temperature-sensitive hydro gel. When the patch is applied to the skin, the temperature rises due to body temperature and the hydrogel composition is changed into a fluid state, so that the adhesion to the skin is improved and the effective ingredients are rapidly delivered into the skin (transdermal cosmetic delivery system). And as skin heat is displaced by moisture from the patch, skin feels a cooling effect. Key ingredients: Acetyl Hexapeptide-8, Hydrolyzed Collagen, Made White™, Calcium Lactate, Centella Asiatica Extract, Multi 12 Complex, Adenosine, Niacinamide. Dermatologically tested. Efficacy test on moisturizing.',
+    description: '101g (60 patches / 30 applications). Take-off hydrogel eye mask for calming and moisturizing the contour. Niacinamide 2% and Adenosine 0.04% are the Korean functional pair. Under the eyes and/or eyebrow bones for 20 to 40 minutes, then remove. Dermatologically tested.',
     image: '/images/patch/main.jpeg',
     images: null,
     category: 'Eye care',

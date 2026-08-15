@@ -510,7 +510,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [POWER SOLUTION CVS](https://genosys.ae/products/5){{id:5}} - AED 580 - Revitalizing
 - [POWER SOLUTION CTS](https://genosys.ae/products/6){{id:6}} - AED 580 - Remodeling/firming
 - [POWER SOLUTION PCS](https://genosys.ae/products/7){{id:7}} - AED 580 - Problem/acne control
-- [POWER SOLUTION SWS](https://genosys.ae/products/8){{id:8}} - AED 580 - Whitening/brightening
+- [POWER SOLUTION SWS](https://genosys.ae/products/8){{id:8}} - AED 580 - Pigment / uneven tone. Arbutin 2%. Leave-on 2 ml × 10. Not a microneedling instruction from this carton.
 - [POWER SOLUTION AWS](https://genosys.ae/products/9){{id:9}} - AED 580 - Anti-aging/wrinkle
 
 ### Cleansers

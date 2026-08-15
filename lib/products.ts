@@ -250,7 +250,7 @@ export const products: Product[] = [
     id: '19',
     name: 'ALL FOR SENSITIVE SERUM',
     price: 330,
-    description: '30ml. Skin repairing serum for sensitive skin. It is a skin repairing serum that provides moisture barrier to skin and relieves the sensitized skin with its anti-inflammatory and soothing properties. Key ingredients: Centella Asiatica Extract, Chamomilla Recutita Flower Extract, Hyaluronic Acid, Phytosphingosine, Aloe Barbadensis Leaf Extract, Hamamelis Virginiana (Witch Hazel) Water, Beta-Glucan. Dermatologically tested.',
+    description: '30ml. Serum for sensitive, reactive skin. Relieves, protects and moisturizes — MultiEx BSASM® Plus at 1%, with betaine, allantoin and hyaluronic acid. Morning and night. Dermatologically tested.',
     image: '/images/sensitive_serum/main.jpeg',
     images: JSON.stringify([
       '/images/sensitive_serum/s1.jpeg',

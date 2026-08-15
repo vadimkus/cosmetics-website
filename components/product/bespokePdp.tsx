@@ -11,6 +11,7 @@ import BioMesoProductPage from '@/components/product/biomeso/BioMesoProductPage'
 import BioMesoExpertProductPage from '@/components/product/biomeso/BioMesoExpertProductPage'
 import HairStampProductPage from '@/components/product/hairstamp/HairStampProductPage'
 import PdrnMaskProductPage from '@/components/product/pdrnmask/PdrnMaskProductPage'
+import AfsProductPage from '@/components/product/afs/AfsProductPage'
 import CvsProductPage from '@/components/product/powersolution/CvsProductPage'
 import HesProductPage from '@/components/product/powersolution/HesProductPage'
 import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowProductPage'
@@ -30,6 +31,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // one layout and differ only by variant; see powerSolutionCopy.ts.
   '4': HesProductPage,
   '5': CvsProductPage,
+  // 19 is the sensitive-skin serum. Single SKU, no deck, no efficacy study;
+  // the page is built on the artwork sentence and MultiEx BSASM Plus at 1%.
+  '19': AfsProductPage,
   // 52 and 53 are both masks but share no layout: 52 has a clinical study and a
   // Korean functional licence to build on, 53 has neither.
   '52': PdrnMaskProductPage,
@@ -64,7 +68,7 @@ export function getBespokePdpLayout(
   product: Product,
   allowed: readonly BespokeProductNumber[]
 ) {
-  const key = product.productNumber as BespokeProductNumber | undefined
+  const key = (product.productNumber || product.id) as BespokeProductNumber | undefined
   if (!key || !allowed.includes(key)) return null
   return BESPOKE_PDP_LAYOUTS[key] ?? null
 }

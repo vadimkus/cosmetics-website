@@ -17,6 +17,7 @@ import EpiProductPage from '@/components/product/epi/EpiProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
+import OvernightProductPage from '@/components/product/overnight/OvernightProductPage'
 import EzCo2ProductPage from '@/components/product/ezco2/EzCo2ProductPage'
 import CvsProductPage from '@/components/product/powersolution/CvsProductPage'
 import HesProductPage from '@/components/product/powersolution/HesProductPage'
@@ -49,6 +50,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // figure on the card; the peptide sits at 46.5 ppb. No clinical
   // percentages.
   '33': EyePatchProductPage,
+  // 34 is the leave-on overnight cream mask. Niacinamide 2% is the
+  // figure on the card; oxygen and the growth-factor list print at 0%.
+  // Four-week TEWL / erythema figures come from the DTS MG deck.
+  '34': OvernightProductPage,
   // 24 is the daily EyeCell cream. Arbutin 2% is the figure on the card;
   // peptides sit at cosmetic trace. No clinical percentages.
   '24': EyeCreamProductPage,

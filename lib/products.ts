@@ -463,7 +463,7 @@ export const products: Product[] = [
     id: '34',
     name: 'SKIN RESCUE OVERNIGHT CREAM MASK',
     price: 340,
-    description: '100g. Revitalizing overnight mask that provides intensive care to the fatigued skin. It revitalizes skin and provides intensive care to the fatigued skin with oxygen capsules and a unique skin protecting complex - pink ceramide. Dual Formula: Oxygen capsule in Pink ceramide cream - It has dual formula where oxygen capsule (which contains Italian oxygenated water) bursts smoothly when touching the skin and melts together with pink ceramide cream. Key ingredients: Pink Ceramide Complex, Oxygen, Growth Factor Complex (EGF, aFGF, bFGF, PIGF, IGF), Swelling Controller, Cucurbita Pepo (Pumpkin) Fruit Extract, Phytosphingosine. Dermatologically tested. With efficacy test on improving erythema and transepidermal water loss.',
+    description: '100g. Leave-on overnight cream mask for soothing and revitalizing tired-looking skin. Niacinamide 2% and Adenosine 0.04% are the Korean functional pair. Last step of the evening. Do not wash off. Dermatologically tested.',
     image: '/images/overnight/main.jpeg',
     images: null,
     category: 'Mask',

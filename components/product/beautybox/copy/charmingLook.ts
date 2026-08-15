@@ -63,30 +63,28 @@
  *
  *   Skin Rescue Overnight Cream Mask 100g (product 34)
  *     GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK/
- *       Artwork-...pdf, COA-...(M30A15B).pdf,
- *       GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pptx
+ *       Ingredients-...pdf (signed DTS MG, Narae Han), Artwork-...pdf,
+ *       COA-...(M30A15B).pdf, GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pptx
  *     Carton, English: "Function Soothing, revitalizing", NET WT. 100 g,
  *     "Apply the sufficient amount of the product on the face at the last step
- *     of skin care routine. Do not wash off."
- *     Korean carton: [미백·주름개선 2중 기능성 화장품] - a dual-function cosmetic for
- *     brightening and wrinkle improvement, which the English panel omits.
- *     Deck slide 3: the oxygen capsule "contains Italian oxygenated water".
- *     Deck slides 7 and 10: the Growth Factor Complex, each growth factor
- *     mapped to its INCI - sh-Oligopeptide-1 (EGF), sh-Polypeptide-1 (bFGF),
- *     sh-Polypeptide-11 (aFGF), sh-Polypeptide-16 (PlGF), sh-Oligopeptide-2
- *     (IGF-1), plus sh-Polypeptide-4. Slide 11: the Swelling Controller is a
- *     patented complex of Bromelain, Ruscus Aculeatus Root, Melissa
- *     Officinalis, Arnica Montana Flower and Vitis Vinifera Seed. Slide 4:
- *     special overnight care is "once or twice a week".
- *     COA lot M30A15B: pH 5.71, spec 5.8 ± 0.5. Viscosity 19,000.
+ *     of skin care routine. Do not wash off." Do not use near eyes.
+ *     Korean carton: [미백·주름개선 2중 기능성 화장품] - dual-function brightening +
+ *     wrinkle care. Efficacy ingredients: Niacinamide 2.000000%, Adenosine
+ *     0.040000%. Those are the figures that belong on a card.
+ *     Formula sheet: Oxygen 0.000000%. Every named growth factor
+ *     (sh-Oligopeptide-1 / -2, sh-Polypeptide-1 / -4 / -11 / -16) prints at
+ *     0.000000%. Ceramide NP 0.000005%. Trehalose 2%. Glycerin 6%.
+ *     Deck slide 4: special overnight care is "once or twice a week".
+ *     Deck four-week trial (Dr Koziej): TEWL -15%, erythema -26%.
+ *     COA: pH 5.71, spec 5.8 ± 0.5. Never print the lot. DTS MG only.
+ *     EGF REPAIR OXYMASK CREAM is a different formula. Do not borrow its SA.
  *
  * ─── Claims that must not come back without a new document ───────────────────
  *
- *   "Clinically proven" for the    The DB carried "clinically proven to improve
- *   overnight mask                 erythema and transepidermal water loss".
- *                                  There is no study for this product in
- *                                  Intertek or in the repo, so it was removed
- *                                  rather than reworded.
+ *   "Clinically proven" as a       The DTS MG deck has a four-week TEWL / erythema
+ *   shout for the overnight mask   trial. The figures can be used. The dossier
+ *                                  shout cannot. Oxygen therapy and the
+ *                                  growth-factor list cannot: they print at 0%.
  *   Ophthalmological testing for   Its carton claims DERMATOLOGICALLY TESTED
  *   the remover                    and nothing more, so the second claim came
  *                                  out of the product record.
@@ -191,8 +189,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Overnight, once or twice a week',
         body:
-          'A cream mask you leave on. Oxygen capsules burst as you smooth it in and melt into a pink ceramide cream, with six named growth factors, a patented anti-puffiness complex and pumpkin extract. Last step of the evening, and it is not rinsed off.',
-        facts: ['Six growth factors', 'Italian oxygenated water', 'Left on overnight', '100g'],
+          'A cream mask you leave on. Niacinamide 2% and Adenosine 0.04% are the Korean functional pair. Capsules melt into the cream as you smooth it in. Last step of the evening, and it is not rinsed off.',
+        facts: ['Niacinamide 2%', 'Adenosine 0.04%', 'Left on overnight', '100g'],
       },
     ],
     eanLabel: 'Barcode',
@@ -271,10 +269,10 @@ const EN: BeautyBoxCopy = {
           'Copper tripeptide-1, palmitoyl pentapeptide-4, acetyl hexapeptide-8, hexapeptide-9 and five more, with glutathione and polyglutamic acid. All nine are named on the label, with the full list on the cushion page.',
       },
       {
-        value: '6',
-        title: 'Growth factors in the overnight mask',
+        value: '2%',
+        title: 'Niacinamide in the overnight mask',
         body:
-          'Each one is named with its INCI: EGF, bFGF, aFGF, PlGF and IGF-1, plus sh-Polypeptide-4. They sit in a pink ceramide cream with a patented anti-puffiness complex of bromelain, butcher broom, melissa, arnica and grape seed.',
+          'The same Korean brightening functional as the cushion, with Adenosine 0.04% as the wrinkle-care pair. Oxygen and the named growth factors print at 0%. Last step. Do not wash off.',
       },
     ],
     footnote:
@@ -436,8 +434,8 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'ليلاً، مرة أو مرتين أسبوعياً',
         body:
-          'قناع كريمي يُترك على البشرة. تنفجر كبسولات الأكسجين أثناء التوزيع وتذوب في كريم السيراميد الوردي، مع ستة عوامل نمو مذكورة بالاسم، ومركّب مسجّل لمقاومة الانتفاخ، ومستخلص اليقطين. آخر خطوة في المساء، ولا يُغسل.',
-        facts: ['ستة عوامل نمو', 'ماء إيطالي مُشبع بالأكسجين', 'يُترك طوال الليل', '100 غرام'],
+          'قناع كريمي يُترك على البشرة. نياسيناميد ٢٪ وأدينوسين ٠٫٠٤٪ هما الزوج الوظيفي الكوري. تذوب الكبسولات في الكريم وأنت توزّعينه. آخر خطوة في المساء، ولا يُغسل.',
+        facts: ['نياسيناميد ٢٪', 'أدينوسين ٠٫٠٤٪', 'يُترك طوال الليل', '100 غرام'],
       },
     ],
     eanLabel: 'الباركود',
@@ -512,10 +510,10 @@ const AR: BeautyBoxCopy = {
           'كوبر ترايببتيد-1، وبالميتويل بنتاببتيد-4، وأسيتيل هكساببتيد-8، وهكساببتيد-9، وخمسة غيرها، مع الغلوتاثيون وحمض البولي غلوتاميك. التسعة كلها مذكورة على الملصق، والقائمة الكاملة في صفحة الكوشن.',
       },
       {
-        value: '6',
-        title: 'عوامل نمو في القناع الليلي',
+        value: '2%',
+        title: 'نياسيناميد في القناع الليلي',
         body:
-          'كل واحد منها مذكور باسمه في INCI: EGF وbFGF وaFGF وPlGF وIGF-1، وإلى جانبها sh-Polypeptide-4. وتقع في كريم سيراميد وردي مع مركّب مسجّل لمقاومة الانتفاخ من البروميلين وعصا الراعي والمليسة والأرنيكا وبذور العنب.',
+          'مكوّن التفتيح الوظيفي الكوري نفسه الذي في الكوشن، مع أدينوسين ٠٫٠٤٪ كشريك العناية بالتجاعيد. الأكسجين وعوامل النمو المسمّاة تطبع عند ٠٪. آخر خطوة. لا يُغسل.',
       },
     ],
     footnote:
@@ -674,8 +672,8 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'На ночь, один-два раза в неделю',
         body:
-          'Крем-маска, которую оставляют на коже. Кислородные капсулы лопаются при распределении и растворяются в розовом церамидном креме — вместе с шестью названными факторами роста, запатентованным комплексом против отёчности и экстрактом тыквы. Последний шаг вечера, не смывается.',
-        facts: ['Шесть факторов роста', 'Итальянская оксигенированная вода', 'Остаётся на ночь', '100 г'],
+          'Крем-маска, которую оставляют на коже. Ниацинамид 2% и аденозин 0,04% - корейская функциональная пара. Капсулы растворяются в креме, пока вы распределяете. Последний шаг вечера, не смывается.',
+        facts: ['Ниацинамид 2%', 'Аденозин 0,04%', 'Остаётся на ночь', '100 г'],
       },
     ],
     eanLabel: 'Штрих-код',
@@ -750,10 +748,10 @@ const RU: BeautyBoxCopy = {
           'Copper Tripeptide-1, Palmitoyl Pentapeptide-4, Acetyl Hexapeptide-8, Hexapeptide-9 и ещё пять, вместе с глутатионом и полиглутаминовой кислотой. Все девять названы на этикетке, а полный список — на странице кушона.',
       },
       {
-        value: '6',
-        title: 'Факторов роста в ночной маске',
+        value: '2%',
+        title: 'Ниацинамид в ночной маске',
         body:
-          'Каждый назван вместе с его INCI: EGF, bFGF, aFGF, PlGF и IGF-1, плюс sh-Polypeptide-4. Они в розовом церамидном креме с запатентованным комплексом против отёчности из бромелайна, иглицы, мелиссы, арники и виноградных косточек.',
+          'Тот же корейский осветляющий функциональный актив, что и в кушоне, с аденозином 0,04% как парой для морщин. Кислород и названные факторы роста печатаются как 0%. Последний шаг. Не смывать.',
       },
     ],
     footnote:

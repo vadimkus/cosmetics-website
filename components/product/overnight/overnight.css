@@ -1,0 +1,51 @@
+/**
+ * Palette override for the SKIN RESCUE OVERNIGHT CREAM MASK page (product 34).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the ballet-slipper pink of the tube, kept dark
+ * enough that body text stays readable.
+ *
+ * Keep it clear of product 33's burgundy / wine, product 24's champagne /
+ * bronze and product 17's silver / lilac.
+ *
+ * Scoped to `.cera-page.sro-page`.
+ */
+
+.cera-page.sro-page {
+  --cera-cream: #faf4f6;
+  --cera-cream-deep: #f0e4e8;
+  --cera-blush: #f3d4dc;
+  --cera-blush-deep: #e8b8c4;
+  --cera-rose: #c45b74;
+  --cera-rose-ink: #8a3d52;
+  --cera-ink: #2a1a1e;
+  --cera-body: #4a353c;
+  --cera-muted: #7a646c;
+  --cera-line: #ead6dc;
+  --cera-shot: #f7ecef;
+}
+
+.sro-page .cera-stage {
+  background-color: #f8eef1;
+  box-shadow: 0 24px 60px -34px rgba(138, 61, 82, 0.32);
+}
+
+@media (hover: hover) {
+  .sro-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(42, 26, 30, 0.04), 0 26px 48px -26px rgba(138, 61, 82, 0.26);
+  }
+}
+
+.sro-page .sro-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.sro-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.sro-page .sro-video {
+  border: 1px solid var(--cera-line);
+  background: #1a1214;
+}

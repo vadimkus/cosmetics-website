@@ -42,4 +42,9 @@ Training thumbs stay on `/images/cera/main.jpeg`.
 
 ## Applied
 
-Pending the live 200 and `--apply`.
+Database `image` is now `/images/cera/main3.jpeg`. Gallery unchanged (S1–S5).
+7 order items and the overnight-mask blog (`skin-rescue-overnight-cream-mask-night-ritual`) were repointed.
+
+The product page reads through `unstable_cache` (`product-by-id`, 5 minutes).
+Writing the row outside the admin API does not call `revalidateTag('products')`,
+so the cache key was bumped to `product-by-id-v5`. Hard-refresh after that.

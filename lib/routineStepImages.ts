@@ -56,7 +56,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '63': '/images/revita/main.jpg',
   '64': '/images/needles/main.jpeg',
   '65': '/images/meso_5000/main.jpg',
-  '66': '/images/cera/main2.jpeg',
+  '66': '/images/cera/main3.jpeg',
 }
 
 /** Returns the step product's main image path (e.g. /images/mist/main.jpeg) or null. */

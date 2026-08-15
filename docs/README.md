@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Product 66 Cerabarrier main image](./SESSION_CHANGES_2026-08-15_PRODUCT_66_MAIN3.md) | Main-only swap to cache-safe `cera/main3.jpeg`; gallery S1–S5 preserved; `main2.jpeg` kept for emails already sent. |
 | 🟡 **Important** | [Product 51 Bio-Ferment Powder Mask page](./SESSION_CHANGES_2026-08-15_PRODUCT_51_BIO_FERMENT.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: diatomaceous-earth modeling mask, mix 1:1.5, +218% hydration. Cut rice/soy/ginseng/HA and 1 ppb peptides as the engine. |
 | 🟡 **Important** | [Product 19 All For Sensitive Serum page](./SESSION_CHANGES_2026-08-15_PRODUCT_19_ALL_FOR_SENSITIVE_SERUM.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: MultiEx BSASM® Plus at 1%. Cut repair / anti-inflammatory / lot codes. |
 | 🟡 **Important** | [Product 10 Snow O₂ Cleanser main image](./SESSION_CHANGES_2026-08-15_PRODUCT_10_MAIN_IMAGE.md) | Main-only swap to cache-safe `cleanser/main_clean.jpeg`; gallery S1–S6 preserved; `Main.jpg` kept for emails already sent. |

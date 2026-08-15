@@ -20,7 +20,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       'اشتري من مورد مسؤول في الإمارات للتحقق من هوية المنتج والتخزين والصلاحية والحصول على دعم محلي.',
     ],
     featuredProducts: [
-      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'منظف GENOSYS Cerabarrier Biome Gel Cleanser', description: 'منظف يومي قليل الرغوة لروتين يراعي حاجز البشرة.' },
+      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera/main3.jpeg', imageAlt: 'منظف GENOSYS Cerabarrier Biome Gel Cleanser', description: 'منظف يومي قليل الرغوة لروتين يراعي حاجز البشرة.' },
       { name: 'Multi Vita Radiance Serum', href: '/ar/products/21', image: '/images/radiance_serum/main.jpeg', imageAlt: 'سيروم GENOSYS Multi Vita Radiance Serum', description: 'خطوة تفتيح موجّهة لمظهر اللون غير المتجانس والبهتان.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'كريم GENOSYS Skin Barrier Protecting Cream', description: 'دعم للبشرة الجافة أو المجهدة بالسيراميد والأحماض الأمينية.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'واقي GENOSYS Ultra Shield SPF 50+', description: 'حماية يومية عالية من الأشعة بتركيبة كريم غير دهنية.' },
@@ -351,7 +351,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       'الحرقان أو التشقق أو الحكة أو الطفح أو النوبات المتكررة قد تشير إلى حالة تحتاج تشخيصاً.',
     ],
     featuredProducts: [
-      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'منظف جل يراعي الميكروبيوم وحاجز البشرة.' },
+      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera/main3.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'منظف جل يراعي الميكروبيوم وحاجز البشرة.' },
       { name: 'Microbiome Energy Infusing Mist', href: '/ar/products/14', image: '/images/mist/main2.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'ترطيب خفيف يكمل المرطب ولا يستبدله.' },
       { name: 'All For Sensitive Serum', href: '/ar/products/19', image: '/images/sensitive_serum/main.jpeg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'سيروم دعم للرطوبة للبشرة الحساسة المظهر.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'كريم يترك على البشرة مع السيراميد والأحماض الأمينية والزيوت الملينة.' },

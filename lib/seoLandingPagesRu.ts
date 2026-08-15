@@ -20,7 +20,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       'Покупайте у ответственного поставщика в ОАЭ, где можно проверить происхождение, хранение, срок годности и получить локальную поддержку.',
     ],
     featuredProducts: [
-      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'Гель для умывания GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Мягкое ежедневное очищение с акцентом на сохранение кожного барьера.' },
+      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera/main3.jpeg', imageAlt: 'Гель для умывания GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Мягкое ежедневное очищение с акцентом на сохранение кожного барьера.' },
       { name: 'Multi Vita Radiance Serum', href: '/ru/products/21', image: '/images/radiance_serum/main.jpeg', imageAlt: 'Сыворотка GENOSYS Multi Vita Radiance Serum', description: 'Целевой осветляющий этап при неровном тоне и тусклости.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'Крем GENOSYS Skin Barrier Protecting Cream', description: 'Поддержка сухой и перегруженной кожи с церамидами и аминокислотами.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'Солнцезащитный крем GENOSYS Ultra Shield SPF 50+', description: 'Высокая ежедневная защита от ультрафиолета в нежирной кремовой текстуре.' },
@@ -351,7 +351,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       'Стойкое жжение, трещины, зуд, сыпь или повторные обострения могут требовать диагностики дерматолога.',
     ],
     featuredProducts: [
-      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera/main2.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Гелевое очищение с акцентом на микробиом и кожный барьер.' },
+      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera/main3.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Гелевое очищение с акцентом на микробиом и кожный барьер.' },
       { name: 'Microbiome Energy Infusing Mist', href: '/ru/products/14', image: '/images/mist/main2.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'Лёгкий этап увлажнения, который дополняет, но не заменяет крем.' },
       { name: 'All For Sensitive Serum', href: '/ru/products/19', image: '/images/sensitive_serum/main.jpeg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'Сыворотка для поддержки увлажнения чувствительной кожи.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Несмываемый крем с церамидами, аминокислотами и эмолентами.' },

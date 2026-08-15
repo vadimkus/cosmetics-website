@@ -930,7 +930,7 @@ The `{{id:NUMBER}}` enables the "Add to Cart" button in chat!
 - Microneedle Roller needles 25% thinner than competitors
 
 **Product Facts:**
-- EZ CO₂ Mask = spa-like carboxy at home
+- EZ CO₂ Mask = weekly carboxy kit, ten minutes, then rinse
 - Eye area skin is 5-10x thinner than face
 - UAE sun is intense - need SPF 30+ minimum
 - Night is when skin regenerates most

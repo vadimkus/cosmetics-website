@@ -1,0 +1,52 @@
+/**
+ * Palette override for the EZ CO₂ MASK KIT page (product 38).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the sachet's own teal, sampled off the lower
+ * half of the mask pouch, with a deep ink so body text stays readable.
+ * Teal itself fails WCAG as body text.
+ *
+ * Keep it clear of product 12's mint/forest. That is the other weekly
+ * treatment a shopper is most likely to open next.
+ *
+ * Scoped to `.cera-page.ez-page`.
+ */
+
+.cera-page.ez-page {
+  --cera-cream: #f3f7f7;
+  --cera-cream-deep: #dce8e8;
+  --cera-blush: #d4e8e8;
+  --cera-blush-deep: #9ec8c8;
+  --cera-rose: #1f7a7a;
+  --cera-rose-ink: #145555;
+  --cera-ink: #122326;
+  --cera-body: #2c3d40;
+  --cera-muted: #5a6e70;
+  --cera-line: #cddcdc;
+  --cera-shot: #e8f2f2;
+}
+
+.ez-page .cera-stage {
+  background-color: #eef5f5;
+  box-shadow: 0 24px 60px -34px rgba(20, 85, 85, 0.35);
+}
+
+@media (hover: hover) {
+  .ez-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(18, 35, 38, 0.04), 0 26px 48px -26px rgba(20, 85, 85, 0.28);
+  }
+}
+
+.ez-page .ez-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.ez-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.ez-page .ez-video {
+  border: 1px solid var(--cera-line);
+  background: #10181a;
+}

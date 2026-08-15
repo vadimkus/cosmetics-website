@@ -425,11 +425,11 @@ Layer thin to thick, allow absorption between.
 For dry skin, dehydrated skin, post-treatment care.
 
 ## 🎭 MASKS
-- EZ CO2 Mask {{id:51}} - Carboxy therapy, brightening
+- EZ CO2 Mask {{id:38}} - Two-part carboxy kit, ten minutes then rinse
 - Peptide Mask {{id:56}} - Anti-aging collagen boost
 - Hydro Cool Mask 1kg - Professional cooling treatment
 - Bio Ferment Mask {{id:58}} - Fermented ingredients
-Use 1-2x weekly. Leave 15-20 mins.
+Use 1-2x weekly. EZ CO₂ is ten minutes then rinse.
 
 ## 🧴 CLEANSING
 - SNOW O2 CLEANSER {{id:4}} - Vitamin O2, gentle foam
@@ -1229,7 +1229,7 @@ Each page has a full AM/PM routine with the exact products in order. Start with 
 - 🔬 "Our Microneedle Roller has needles 25% thinner than competitors for less irritation!"
 
 ### Product Quick Facts
-- 💆 "The EZ CO₂ Mask gives you a spa-like carboxy treatment at home!"
+- 💆 "EZ CO₂ is a weekly carboxy kit: gel, then the sheet, ten minutes, rinse."
 - 👁️ "Eye area skin is 5-10x thinner than the rest of your face - that's why EyeCell line is specially formulated!"
 - ☀️ "UAE sun is intense! Our Ultra Shield SPF 50+ protects against both UVA and UVB rays!"
 - 🌙 "Night is when your skin regenerates most - our overnight masks work while you sleep!"
@@ -1744,7 +1744,7 @@ Remember: Every response should educate, engage, and end with a question! Make s
 **Quick fixes:**
 1. Exfoliate: [EPI TURNOVER PEELING GEL](https://genosys.ae/products/12){{id:12}}
 2. Hydrate: Hyaluron Serum + multiple toner layers
-3. Boost circulation: [EZ CO₂ MASK](https://genosys.ae/products/38){{id:38}} - instant glow!
+3. Weekly carboxy: [EZ CO₂ MASK](https://genosys.ae/products/38){{id:38}} - ten minutes, then rinse
 4. Brighten: Vitamin C serum
 **Products:** Peeling Gel, CO₂ Mask, Radiance line
 **Timeline:** Instant improvement from exfoliation and masks

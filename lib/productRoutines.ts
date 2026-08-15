@@ -255,12 +255,12 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     ],
   },
   '37': {
-    headingKey: 'recommendedAntiAgingRoutine',
+    headingKey: 'recommendedRecoveryRoutine',
     steps: [
-      CLEANSE,
+      CLEANSE_GENTLE,
+      MIST,
       step('routinePeptideGelMaskTitle', 'routinePeptideGelMaskDesc'),
-      step('routineAntiWrinkleSerumTitle', 'routineAntiWrinkleSerumDesc'),
-      step('routineAntiWrinkleCreamTitle', 'routineAntiWrinkleCreamDesc'),
+      step('routinePostcreamTitle', 'routinePostcreamDesc'),
     ],
   },
   '38': {

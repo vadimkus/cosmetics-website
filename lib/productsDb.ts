@@ -111,7 +111,7 @@ const getProductByIdFromDb = unstable_cache(
   // Bump when product rows are edited outside admin (admin already
   // revalidateTag('products')). Out-of-band image swaps otherwise keep
   // serving the previous path for up to 5 minutes.
-  ['product-by-id-v13'],
+  ['product-by-id-v14'],
   { revalidate: 300, tags: ['products'] }
 )
 
@@ -283,7 +283,7 @@ const GENOSYS_PRODUCT_CONCERNS: Record<string, string[]> = {
   'SKIN RESCUE OVERNIGHT CREAM MASK': ['hydration', 'anti-aging', 'sensitivity', 'page-hydration'],
   'HYDRO COOL MODELING MASK': ['hydration', 'sensitivity', 'page-hydration', 'page-sensitivity'],
   'SOOTHING BOMB SEA ALGAE MASK': ['hydration', 'sensitivity', 'page-sensitivity'],
-  'PEPTIDE GEL MASK': ['hydration', 'sensitivity', 'anti-aging', 'page-anti-aging'],
+  'PEPTIDE GEL MASK': ['hydration', 'sensitivity', 'page-hydration', 'page-sensitivity'],
   'EZ CO₂ MASK KIT': ['brightening', 'anti-aging', 'pore-care', 'page-pigmentation'],
   'BIO-FERMENT AGE DEFYING POWDER MASK': ['anti-aging', 'brightening', 'page-anti-aging'],
   'SKIN REBOOT PDRN MASK PACK': ['anti-aging', 'hydration', 'page-anti-aging'],
@@ -342,7 +342,7 @@ const GENOSYS_PRODUCT_SKIN_TYPES: Record<string, string[]> = {
   'MULTI VITA RADIANCE CREAM': ['all'],
   'MULTI FUNCTIONAL ANTI-WRINKLE SERUM': ['all'],
   'MULTI FUNCTIONAL ANTI-WRINKLE CREAM': ['all'],
-  'PEPTIDE GEL MASK': ['all'],
+  'PEPTIDE GEL MASK': ['sensitive'],
 }
 
 // Score weights for recommendation ranking — tuned for sharp, focused results

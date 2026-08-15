@@ -493,7 +493,15 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '37',
     pricing: {
       basePrice: 380
-    }
+    },
+    images: [
+      '/images/peptide_mask/s1c.jpeg',
+      '/images/peptide_mask/s2c.jpeg',
+      '/images/peptide_mask/s3c.jpeg',
+      '/images/peptide_mask/s4c.jpeg',
+      '/images/peptide_mask/s5c.jpeg',
+    ],
+    videoUrl: '/videos/peptide.mp4',
   },
   '38': {
     id: '38',

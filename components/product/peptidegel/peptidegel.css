@@ -1,0 +1,52 @@
+/**
+ * Palette override for the PEPTIDE GEL MASK page (product 37).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the royal blue of the white-and-blue pouch,
+ * kept dark enough that body text stays readable.
+ *
+ * Keep it clear of product 35's ice-teal (Hydro Cool) and product 33's
+ * burgundy (EyeCell patch). Those are the two mask pages a shopper is
+ * most likely to open next.
+ *
+ * Scoped to `.cera-page.pgm-page`.
+ */
+
+.cera-page.pgm-page {
+  --cera-cream: #eef2f7;
+  --cera-cream-deep: #dce4ee;
+  --cera-blush: #c9d6e8;
+  --cera-blush-deep: #8aa4c4;
+  --cera-rose: #1e4a8c;
+  --cera-rose-ink: #12305c;
+  --cera-ink: #121820;
+  --cera-body: #2c3644;
+  --cera-muted: #5a6778;
+  --cera-line: #cdd6e2;
+  --cera-shot: #e8eef5;
+}
+
+.pgm-page .cera-stage {
+  background-color: #e8eef5;
+  box-shadow: 0 24px 60px -34px rgba(18, 48, 92, 0.4);
+}
+
+@media (hover: hover) {
+  .pgm-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(18, 24, 32, 0.04), 0 26px 48px -26px rgba(18, 48, 92, 0.28);
+  }
+}
+
+.pgm-page .pgm-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.pgm-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.pgm-page .pgm-video {
+  border: 1px solid var(--cera-line);
+  background: #10141c;
+}

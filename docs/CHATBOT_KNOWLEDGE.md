@@ -550,7 +550,7 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 3. Anti-wrinkle serum
 4. Eye cream (ring finger, pat gently)
 5. Rich night cream
-6. Weekly: PEPTIDE GEL MASK, EZ CO₂ MASK
+6. After a procedure: PEPTIDE GEL MASK. Weekly carboxy: EZ CO₂ MASK
 
 **Key tips:** SPF is #1 anti-aging, neck & hands show age first, consistency > intensity
 

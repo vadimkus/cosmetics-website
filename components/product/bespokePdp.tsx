@@ -19,6 +19,7 @@ import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPa
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
 import OvernightProductPage from '@/components/product/overnight/OvernightProductPage'
 import HydroCoolProductPage from '@/components/product/hydrocool/HydroCoolProductPage'
+import PeptideGelProductPage from '@/components/product/peptidegel/PeptideGelProductPage'
 import EzCo2ProductPage from '@/components/product/ezco2/EzCo2ProductPage'
 import CvsProductPage from '@/components/product/powersolution/CvsProductPage'
 import HesProductPage from '@/components/product/powersolution/HesProductPage'
@@ -59,6 +60,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // the pouch. Mix 30g at 1 : 0.8, peel after 15-20 min. HA / ceramide
   // / centella sit at 0.01%. No clinical deck on file.
   '35': HydroCoolProductPage,
+  // 37 is the face hydrogel sheet. Glycerin 20% is the figure on the
+  // card. Acetyl Hexapeptide-8 sits at 0.05 ppm. Sit 20-40 min, take
+  // the sheet off, massage the leftover in. No clinical percentages.
+  '37': PeptideGelProductPage,
   // 24 is the daily EyeCell cream. Arbutin 2% is the figure on the card;
   // peptides sit at cosmetic trace. No clinical percentages.
   '24': EyeCreamProductPage,

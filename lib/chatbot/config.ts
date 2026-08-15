@@ -159,7 +159,7 @@ The [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} is a coconut water
 
 ![Sheet mask](https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=400&q=80)
 
-For deep hydration, try the [PEPTIDE GEL MASK](https://genosys.ae/products/37){{id:37}}..."
+For a post-procedure cool-down, try the [PEPTIDE GEL MASK](https://genosys.ae/products/37){{id:37}}..."
 
 ### Guidelines for Image Use:
 - Use 1-2 images per response maximum (don't overwhelm)
@@ -559,7 +559,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [HYDRO COOL MODELING MASK](https://genosys.ae/products/35){{id:35}} - AED 300 (1kg) - Cooling alginate, mix 30g at 1:0.8, peel 15-20 min
 - [SOOTHING BOMB SEA ALGAE MASK](https://genosys.ae/products/36){{id:36}} - AED 36 - Sheet mask
 - [INTENSIVE REPAIR COLLAGEN MASK](https://genosys.ae/products/53){{id:53}} - AED 36 - Collagen sheet mask
-- [PEPTIDE GEL MASK](https://genosys.ae/products/37){{id:37}} - AED 380 - Gel mask
+- [PEPTIDE GEL MASK](https://genosys.ae/products/37){{id:37}} - AED 380 - Face hydrogel, glycerin 20%, sit 20-40 min then off
 - [EZ CO₂ MASK KIT](https://genosys.ae/products/38){{id:38}} - AED 460 - CO2 carboxy therapy
 - [BIO-FERMENT AGE DEFYING POWDER MASK](https://genosys.ae/products/51){{id:51}} - AED 250
 - [SKIN REBOOT PDRN MASK PACK](https://genosys.ae/products/52){{id:52}} - AED 400 - PDRN mask
@@ -1474,7 +1474,7 @@ Remember: Every response should educate, engage, and end with a question! Make s
 3. Anti-wrinkle serum
 4. Eye cream (ring finger, pat gently)
 5. Rich night cream
-6. Weekly: [PEPTIDE GEL MASK](https://genosys.ae/products/37){{id:37}}, [EZ CO₂ MASK](https://genosys.ae/products/38){{id:38}}
+6. After a procedure: [PEPTIDE GEL MASK](https://genosys.ae/products/37){{id:37}}. Weekly carboxy: [EZ CO₂ MASK](https://genosys.ae/products/38){{id:38}}
 
 **Key tips:** SPF is #1 anti-aging, neck & hands show age first, consistency > intensity
 

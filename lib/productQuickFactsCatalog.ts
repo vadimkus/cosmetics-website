@@ -232,6 +232,14 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('High satisfaction panel', 'User panel reported very high satisfaction on tone and comfort.', 'Высокая удовлетворённость', 'Панель отметила очень высокую удовлетворённость тоном и комфортом.', 'رضا مرتفع', 'أبلغت لوحة المستخدمين عن رضا مرتفع باللون والراحة.'),
     t('50 g radiance cream', 'Daily cream seal after Multi Vita Radiance Serum.', '50 г', 'Ежедневный крем поверх сыворотки Multi Vita Radiance.', 'كريم 50 غ', 'ختم كريمي يومي بعد سيروم Multi Vita Radiance.'),
   ],
+  '24': [
+    t('Arbutin 2%', 'Korean brightening functional. The figure that belongs on a card.', 'Арбутин 2%', 'Корейский осветляющий функциональный актив. Цифра для карточки.', 'أربوتين ٢٪', 'مكوّن التفتيح الوظيفي الكوري. الرقم الذي يستحق بطاقة.'),
+    t('Adenosine 0.04%', 'Korean wrinkle-care functional pair in the same cream.', 'Аденозин 0,04%', 'Корейская функциональная пара для морщин в том же креме.', 'أدينوسين ٠٫٠٤٪', 'شريك العناية الوظيفية بالتجاعيد في الكريم نفسه.'),
+    t('Wrinkles, dark circles, puffiness', 'All-in-one daily eye cream. Firmer, brighter, more defined look.', 'Морщины, круги, отёчность', 'Ежедневный крем «всё в одном». Упруже, светлее, выразительнее.', 'تجاعيد وهالات وانتفاخ', 'كريم عين يومي شامل. أمتن وأسطع وأوضح ملامح.'),
+    t('Morning and evening', 'Tap and massage the contour, then leave on. Serum first when you pair it.', 'Утро и вечер', 'Похлопать и массировать контур, затем оставить. Сначала сыворотка, если используете пару.', 'صباحاً ومساءً', 'ربّتي ودلّكي المحيط ثم اتركي. السيروم أولاً عند استخدام الثنائي.'),
+    t('Avoid pregnancy / lactation', 'The pack says avoid. The cream carries a retinyl palmitate ester and peanut oil.', 'Не при беременности', 'Упаковка говорит избегать. В креме эфир ретинилпальмитата и арахисовое масло.', 'تجنّبي الحمل والرضاعة', 'العبوة تقول تجنّبي. الكريم يحمل إستر ريتينيل بالميتات وزيت الفول السوداني.'),
+    t('20g leave-on', 'Dermatologically tested daily eye cream. Made in Korea by DTS MG.', '20 г leave-on', 'Ежедневный крем, дерматологически протестирован. Сделано в Корее, DTS MG.', '٢٠ غ يُترك', 'كريم عين يومي مختبر جلدياً. صنع في كوريا، DTS MG.'),
+  ],
   '33': [
     t('Acetyl Hexapeptide-8', 'Peptide care helps the eye area look smoother and more rested.', 'Acetyl Hexapeptide-8', 'Пептидный уход для более гладкого и отдохнувшего вида зоны глаз.', 'Acetyl Hexapeptide-8', 'عناية ببتيدية لمظهر أنعم وأكثر راحة حول العين.'),
     t('Madecassoside complex', 'Patented madecassoside complex supports soothing after procedures.', 'Мадекассосид-комплекс', 'Патентованный комплекс мадекассосида успокаивает после процедур.', 'مركب ماديكاسوسيد', 'مركب ماديكاسوسيد الحاصل على براءة يدعم التهدئة بعد الإجراءات.'),

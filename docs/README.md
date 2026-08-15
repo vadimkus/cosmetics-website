@@ -11,6 +11,7 @@
 | Priority | Document | Description |
 |----------|----------|-------------|
 | 🟡 **Important** | [NOVA MEDICAL CENTER address + TRN](./SESSION_CHANGES_2026-08-15_NOVA_MEDICAL_CENTER_ADDRESS_TRN.md) | MoySklad customer Face Room layout: Al Noor Complex, Al Ain; VAT TRN **100255565200003** in `legalAddressFull.comment`. |
+| 🟡 **Important** | [Product 24 EyeCell Eye Contour Cream page](./SESSION_CHANGES_2026-08-15_PRODUCT_24_EYE_CONTOUR_CREAM.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: Arbutin 2% + Adenosine 0.04%. Cut peptide premix / Haloxyl-as-0.05%-active / 10 Years Back. Image rows in `~/Desktop/genosys-artwork-corrections.html`. |
 | 🟡 **Important** | [Product 38 EZ CO₂ Mask Kit page](./SESSION_CHANGES_2026-08-15_PRODUCT_38_EZ_CO2_MASK.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: acidic gel + bicarbonate 9% sheet, ten minutes, rinse. Cut 15-20 min / peptide mask / clinic-at-home. Image rows in `~/Desktop/genosys-artwork-corrections.html`. |
 | 🟡 **Important** | [Product 12 EPI Peeling Gel page](./SESSION_CHANGES_2026-08-15_PRODUCT_12_EPI_PEELING_GEL.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: cellulose 3% rolling peel, dry skin, one minute. Cut miracle-tree / desert-complex / no-irritation. |
 | 🟡 **Important** | [Product 66 Cerabarrier main image](./SESSION_CHANGES_2026-08-15_PRODUCT_66_MAIN3.md) | Main-only swap to cache-safe `cera/main3.jpeg`; gallery S1–S5 preserved; `main2.jpeg` kept for emails already sent. |

@@ -330,7 +330,7 @@ export const products: Product[] = [
     id: '24',
     name: 'EyeCell EYE CONTOUR CREAM',
     price: 370,
-    description: '20g. Daily eye cream that brings younger-looking eye contour. It is a daily cream for eye contour area that brings younger-looking eye contour by helping reduce wrinkles and dark circles and depuff the under eye with peptide complex, botanical callus culture extracts and anti-dark circle complex. Key ingredients: Palmitoyl Hexapeptide-12, Copper Tripeptide-1, Acetyl Hexapeptide-8, Anti-Dark Circle Complex (Haloxyl™), Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Adenosine, Arbutin. Dermatologically tested. Efficacy test on improving wrinkles.',
+    description: '20g. Daily all-in-one eye cream for wrinkles, dark circles and puffiness. Arbutin 2% and Adenosine 0.04% are the Korean functional pair. Morning and evening, tap and leave on. Dermatologically tested. Avoid during pregnancy and lactation. Contains peanut oil.',
     image: '/images/eye_cream/main.jpeg',
     images: JSON.stringify([
       '/images/eye_cream/s1.jpeg',

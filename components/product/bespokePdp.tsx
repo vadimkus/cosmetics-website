@@ -14,6 +14,7 @@ import PdrnMaskProductPage from '@/components/product/pdrnmask/PdrnMaskProductPa
 import AfsProductPage from '@/components/product/afs/AfsProductPage'
 import BioFermentProductPage from '@/components/product/bioferment/BioFermentProductPage'
 import EpiProductPage from '@/components/product/epi/EpiProductPage'
+import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EzCo2ProductPage from '@/components/product/ezco2/EzCo2ProductPage'
 import CvsProductPage from '@/components/product/powersolution/CvsProductPage'
 import HesProductPage from '@/components/product/powersolution/HesProductPage'
@@ -39,6 +40,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 12 is the enzyme + cellulose peeling gel. Cellulose 3% is the roll;
   // papaya and moringa sit at trace. No clinical percentages.
   '12': EpiProductPage,
+  // 24 is the daily EyeCell cream. Arbutin 2% is the figure on the card;
+  // peptides sit at cosmetic trace. No clinical percentages.
+  '24': EyeCreamProductPage,
   // 38 is the two-part carboxy kit. Sodium bicarbonate 9% in the sheet
   // plus an acidic gel. Ten minutes. No clinical percentages.
   '38': EzCo2ProductPage,

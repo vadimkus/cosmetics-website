@@ -1,0 +1,52 @@
+/**
+ * Palette override for the EyeCell EYE CONTOUR CREAM page (product 24).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the champagne / bronze from the EyeCell slides
+ * and the silver collar on the black pump, with a warm ink so body text
+ * stays readable. Champagne gold itself fails WCAG as body text.
+ *
+ * Keep it clear of product 12's mint and product 38's teal. Those are the
+ * two editorial pages a shopper is most likely to open next.
+ *
+ * Scoped to `.cera-page.eye-page`.
+ */
+
+.cera-page.eye-page {
+  --cera-cream: #f6f2ee;
+  --cera-cream-deep: #e8ddd4;
+  --cera-blush: #ead9c8;
+  --cera-blush-deep: #d4b896;
+  --cera-rose: #9a7b4f;
+  --cera-rose-ink: #6b4f32;
+  --cera-ink: #2a221c;
+  --cera-body: #4a3f36;
+  --cera-muted: #7a6b5c;
+  --cera-line: #ddd0c4;
+  --cera-shot: #f3ebe3;
+}
+
+.eye-page .cera-stage {
+  background-color: #f4eee8;
+  box-shadow: 0 24px 60px -34px rgba(107, 79, 50, 0.35);
+}
+
+@media (hover: hover) {
+  .eye-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(42, 34, 28, 0.04), 0 26px 48px -26px rgba(107, 79, 50, 0.28);
+  }
+}
+
+.eye-page .eye-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.eye-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.eye-page .eye-video {
+  border: 1px solid var(--cera-line);
+  background: #1a1612;
+}

@@ -225,7 +225,7 @@ const EN: EpiCopy = {
   heroBullets: [
     'On clean, dry skin. Circular massage for up to one minute',
     'Cellulose 3% binds the dead cells so they roll off in clumps',
-    'Enzyme + cellulose — the pairing on the tube',
+    'Enzyme + cellulose — both in the formula',
     '100g, for the face and the rough spots on the body',
   ],
   badges: ['Dermatologically tested', 'Made in Korea', '100g tube', 'Once or twice a week'],
@@ -274,7 +274,7 @@ const EN: EpiCopy = {
     points: [
       {
         title: 'Cellulose · 3%',
-        body: 'Plant cellulose that binds dead cells and waste so they clump and rinse away. This is the physical half of the pairing on the tube.',
+        body: 'Plant cellulose that binds dead cells and waste so they clump and rinse away. This is the peel you feel.',
       },
       {
         title: 'The gel that holds it',
@@ -286,7 +286,7 @@ const EN: EpiCopy = {
       },
       {
         title: 'Enzyme + cellulose',
-        body: 'The tube’s own pairing. Papaya fruit extract is the enzyme half. Cellulose is the half you feel. Both are in the formula. One of them is 3%.',
+        body: 'Papaya fruit extract is the enzyme half. Cellulose is the half you feel. Both are in the formula. One of them is 3%.',
       },
     ],
     figureAlt: 'GENOSYS EPI TURNOVER BOOSTING PEELING GEL mint tube, 100g',
@@ -321,7 +321,7 @@ const EN: EpiCopy = {
     eyebrow: 'What is in it',
     title: 'The formula, with the figures.',
     intro:
-      'The cards below are the parts of the tube that do the work. The complete registered INCI is under the list.',
+      'The cards below are the parts of the formula that do the work. The complete registered INCI is under the list.',
     inciTitle: 'Full ingredient list (INCI)',
     inciNote: 'The registered formula.',
   },
@@ -341,7 +341,7 @@ const EN: EpiCopy = {
       'Skin is broken, freshly treated, or already stinging',
       'Fragrance or Hexyl Cinnamal bothers you — both are in the gel',
       'You want a daily leave-on. This is once or twice a week, then rinse',
-      'You want the professional AHA peel — that is SRS, not this tube',
+      'You want the professional AHA peel — that is SRS, not this gel',
       'You habitually apply peels on a wet face. The directions are dry skin',
     ],
     note: 'For external use only. If it reaches the eyes, rinse with cool water. Stop and speak to a doctor if redness, swelling or irritation appears.',
@@ -382,7 +382,7 @@ const EN: EpiCopy = {
       },
       {
         q: 'Is it fragrance-free?',
-        a: 'No. Fragrance is in the gel, and Hexyl Cinnamal is declared on the pack. If you avoid both, this is not the peel.',
+        a: 'No. Fragrance and Hexyl Cinnamal are in the gel. If you avoid both, this is not the peel.',
       },
       {
         q: 'Is it alcohol-free?',
@@ -430,7 +430,7 @@ const AR: EpiCopy = {
   heroBullets: [
     'على بشرة نظيفة جافة. تدليك دائري حتى دقيقة واحدة',
     'سليلوز ٣٪ يمسك الخلايا الميتة فتتدحرج كتلًا',
-    'إنزيم + سليلوز — الاقتران المكتوب على الأنبوب',
+    'إنزيم + سليلوز — كلاهما في التركيبة',
     '١٠٠ غ، للوجه وللمناطق الخشنة في الجسم',
   ],
   badges: ['مختبر جلدياً', 'صنع في كوريا', 'أنبوب ١٠٠ غ', 'مرة أو مرتين في الأسبوع'],
@@ -479,7 +479,7 @@ const AR: EpiCopy = {
     points: [
       {
         title: 'سليلوز · ٣٪',
-        body: 'سليلوز نباتي يمسك الخلايا الميتة والشوائب فتتكتّل وتُشطف. هذا هو النصف الفيزيائي من الاقتران على الأنبوب.',
+        body: 'سليلوز نباتي يمسك الخلايا الميتة والشوائب فتتكتّل وتُشطف. هذا هو التقشير الذي تحسّين به.',
       },
       {
         title: 'الجل الذي يحمله',
@@ -491,7 +491,7 @@ const AR: EpiCopy = {
       },
       {
         title: 'إنزيم + سليلوز',
-        body: 'اقتران الأنبوب نفسه. مستخلص البابايا هو النصف الإنزيمي. السليلوز هو النصف الذي تحسّين به. كلاهما في التركيبة. واحد منهما ٣٪.',
+        body: 'مستخلص البابايا هو النصف الإنزيمي. السليلوز هو النصف الذي تحسّين به. كلاهما في التركيبة. واحد منهما ٣٪.',
       },
     ],
     figureAlt: 'أنبوب GENOSYS EPI TURNOVER BOOSTING PEELING GEL بالنعناع، ١٠٠ غ',
@@ -526,7 +526,7 @@ const AR: EpiCopy = {
     eyebrow: 'ماذا فيه',
     title: 'التركيبة، بالأرقام.',
     intro:
-      'البطاقات أدناه هي أجزاء الأنبوب التي تعمل. قائمة INCI المسجّلة كاملة تحتها.',
+      'البطاقات أدناه هي أجزاء التركيبة التي تعمل. قائمة INCI المسجّلة كاملة تحتها.',
     inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote: 'التركيبة المسجّلة.',
   },
@@ -546,7 +546,7 @@ const AR: EpiCopy = {
       'البشرة مجروحة أو معالجة حديثًا أو تلسع أصلًا',
       'يزعجك العطر أو Hexyl Cinnamal — كلاهما في الجل',
       'تريدين عناية يومية تُترك على البشرة. هذا مرة أو مرتين في الأسبوع ثم يُشطف',
-      'تريدين التقشير الحمضي المهني — ذلك SRS، لا هذا الأنبوب',
+      'تريدين التقشير الحمضي المهني — ذلك SRS، لا هذا الجل',
       'تعتادين وضع التقشير على وجه مبلول. التعليمات بشرة جافة',
     ],
     note: 'للاستخدام الخارجي فقط. إن وصل إلى العينين، اشطفي بماء بارد. توقفي وراجعي طبيباً إن ظهر احمرار أو تورم أو تهيّج.',
@@ -587,7 +587,7 @@ const AR: EpiCopy = {
       },
       {
         q: 'هل هو خالٍ من العطر؟',
-        a: 'لا. العطر في الجل، وHexyl Cinnamal معلن على العبوة. إن كنتِ تتجنّبين الاثنين، فهذا ليس التقشير.',
+        a: 'لا. العطر وHexyl Cinnamal في الجل. إن كنتِ تتجنّبين الاثنين، فهذا ليس التقشير.',
       },
       {
         q: 'هل هو خالٍ من الكحول؟',
@@ -635,7 +635,7 @@ const RU: EpiCopy = {
   heroBullets: [
     'На чистую сухую кожу. Круговой массаж до одной минуты',
     'Целлюлоза 3% связывает мёртвые клетки, и они скатываются комочками',
-    'Энзим + целлюлоза — пара с тюбика',
+    'Энзим + целлюлоза — оба в формуле',
     '100 г, для лица и шероховатых участков тела',
   ],
   badges: ['Дерматологически протестировано', 'Сделано в Корее', 'Тюбик 100 г', 'Раз или два в неделю'],
@@ -684,7 +684,7 @@ const RU: EpiCopy = {
     points: [
       {
         title: 'Целлюлоза · 3%',
-        body: 'Растительная целлюлоза связывает мёртвые клетки и загрязнения, чтобы они собрались в комочки и смылись. Это физическая половина пары с тюбика.',
+        body: 'Растительная целлюлоза связывает мёртвые клетки и загрязнения, чтобы они собрались в комочки и смылись. Это пилинг, который вы чувствуете.',
       },
       {
         title: 'Гель, который её держит',
@@ -696,7 +696,7 @@ const RU: EpiCopy = {
       },
       {
         title: 'Энзим + целлюлоза',
-        body: 'Собственная пара тюбика. Экстракт папайи — энзимная половина. Целлюлоза — та, которую вы чувствуете. Оба в формуле. Одно из них — 3%.',
+        body: 'Экстракт папайи — энзимная половина. Целлюлоза — та, которую вы чувствуете. Оба в формуле. Одно из них — 3%.',
       },
     ],
     figureAlt: 'Мятный тюбик GENOSYS EPI TURNOVER BOOSTING PEELING GEL, 100 г',
@@ -731,7 +731,7 @@ const RU: EpiCopy = {
     eyebrow: 'Что внутри',
     title: 'Формула, с цифрами.',
     intro:
-      'Карточки ниже — те части тюбика, которые работают. Полный зарегистрированный INCI под списком.',
+      'Карточки ниже — те части формулы, которые работают. Полный зарегистрированный INCI под списком.',
     inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote: 'Зарегистрированная формула.',
   },
@@ -751,7 +751,7 @@ const RU: EpiCopy = {
       'Кожа повреждена, только что после процедуры или уже щиплет',
       'Вас беспокоит отдушка или Hexyl Cinnamal — оба в геле',
       'Нужен ежедневный leave-on. Это раз или два в неделю, затем смыть',
-      'Нужен профессиональный AHA-пилинг — это SRS, не этот тюбик',
+      'Нужен профессиональный AHA-пилинг — это SRS, не этот гель',
       'Привыкли наносить пилинг на мокрое лицо. В инструкции — сухая кожа',
     ],
     note: 'Только для наружного применения. При попадании в глаза промойте прохладной водой. Прекратите использование и обратитесь к врачу при покраснении, отёке или раздражении.',
@@ -792,7 +792,7 @@ const RU: EpiCopy = {
       },
       {
         q: 'Он без отдушки?',
-        a: 'Нет. В геле есть отдушка, а Hexyl Cinnamal указан на упаковке. Если избегаете обоих, это не ваш пилинг.',
+        a: 'Нет. В геле есть отдушка и Hexyl Cinnamal. Если избегаете обоих, это не ваш пилинг.',
       },
       {
         q: 'Он безалкогольный?',

@@ -44,7 +44,9 @@ Sections: Roll · Rinse · Smooth → cellulose 3% engine → dry skin + one min
 
 No proof chart. The deck has photos, not numbers.
 
-Wired in `bespokePdp.tsx` and the EN / AR / RU product routes. DB row now has `productNumber = '12'`. Cache key bumped to `product-by-id-v6`.
+Wired in `bespokePdp.tsx` and the EN / AR / RU product routes. DB row now has `productNumber = '12'`. Cache key bumped to `product-by-id-v7`.
+
+Selling-tone pass after the first ship: dropped “pairing on the tube / declared on the pack” as the source of a claim, and replaced the leftover `routinePeelingGelDesc` “without irritation” line in EN / AR / RU. Chatbot oily-skin frequency for this gel is 1–2×, matching the deck.
 
 ## Files
 - `components/product/epi/epiCopy.ts`

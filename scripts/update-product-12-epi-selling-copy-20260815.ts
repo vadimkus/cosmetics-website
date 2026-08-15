@@ -28,7 +28,7 @@ const BENEFITS = JSON.stringify([
   'Roll — cellulose 3% binds dead cells into clumps you can feel',
   'Rinse — up to one minute on dry skin, then tepid water',
   'Smooth — a weekly polish for dull, rough texture',
-  'Enzyme + cellulose — the pairing on the tube',
+  'Enzyme + cellulose — both in the formula',
   'Face and body — knees, elbows and heels as well',
   '100g tube — once or twice a week',
 ])
@@ -37,7 +37,7 @@ const INGREDIENTS = JSON.stringify([
   {
     name: 'Cellulose 3%',
     description:
-      'Plant cellulose that binds dead cells so they clump and rinse away. This is the peel you feel, and the physical half of the pairing on the tube.',
+      'Plant cellulose that binds dead cells so they clump and rinse away. This is the peel you feel.',
   },
   {
     name: 'Allantoin 0.1%',
@@ -47,7 +47,7 @@ const INGREDIENTS = JSON.stringify([
   {
     name: 'Enzyme + cellulose',
     description:
-      'The tube’s own pairing. Papaya fruit extract is the enzyme half. Cellulose is the half you feel. Both are in the formula. One of them is 3%.',
+      'Papaya fruit extract is the enzyme half. Cellulose is the half you feel. Both are in the formula. One of them is 3%.',
   },
   {
     name: 'Desert Complex 0.01%',
@@ -57,7 +57,7 @@ const INGREDIENTS = JSON.stringify([
   {
     name: 'Fragrance',
     description:
-      'Fragrance and Hexyl Cinnamal are in the gel and on the pack. This is not a fragrance-free peel.',
+      'Fragrance and Hexyl Cinnamal are in the gel. This is not a fragrance-free peel.',
   },
   {
     name: 'Full INCI',

@@ -435,7 +435,7 @@ Use 1-2x weekly. Leave 15-20 mins.
 - SNOW O2 CLEANSER {{id:4}} - Vitamin O2, gentle foam
 - DOUBLE EFFECT CLEANSER {{id:5}} - Oil-based for makeup
 - MICRO BUBBLE CLEANSER {{id:60}} - Deep cleansing bubbles
-- SNOW PEELING GEL {{id:12}} - Gentle exfoliation
+- EPI TURNOVER BOOSTING PEELING GEL {{id:12}} - Enzyme + cellulose rolling peel
 - Toners & Mists for pH balance
 
 ## 🧴 SPECIALTY CREAMS
@@ -1424,7 +1424,7 @@ Remember: Every response should educate, engage, and end with a question! Make s
 2. Problem Control Toner
 3. Problem Control Serum
 4. Light moisturizer
-5. Weekly: [EPI TURNOVER PEELING GEL](https://genosys.ae/products/12){{id:12}} 2-3x
+5. Weekly: [EPI TURNOVER PEELING GEL](https://genosys.ae/products/12){{id:12}} 1-2x
 
 **Key tips:** Don't over-cleanse (triggers more oil), never skip moisturizer, change pillowcase weekly
 

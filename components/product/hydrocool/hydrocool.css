@@ -1,0 +1,52 @@
+/**
+ * Palette override for the HYDRO COOL MODELING MASK page (product 35).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the ice-blue of the powder (CI 77007) sampled
+ * off the pouch and the dish of blue powder in HYDR.jpg. Deep teal ink
+ * keeps body text readable. Ice-blue itself fails WCAG as body text.
+ *
+ * Keep it clear of product 51's peach (the other modeling mask) and
+ * product 34's ballet-slipper pink.
+ *
+ * Scoped to `.cera-page.hc-page`.
+ */
+
+.cera-page.hc-page {
+  --cera-cream: #eef6f7;
+  --cera-cream-deep: #dceeee;
+  --cera-blush: #d4eef1;
+  --cera-blush-deep: #a8d4d9;
+  --cera-rose: #3a9aa4;
+  --cera-rose-ink: #1c5b62;
+  --cera-ink: #122326;
+  --cera-body: #334144;
+  --cera-muted: #5e7174;
+  --cera-line: #cfe3e6;
+  --cera-shot: #e8f3f4;
+}
+
+.hc-page .cera-stage {
+  background-color: #e8f3f4;
+  box-shadow: 0 24px 60px -34px rgba(28, 91, 98, 0.4);
+}
+
+@media (hover: hover) {
+  .hc-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(18, 35, 38, 0.04), 0 26px 48px -26px rgba(28, 91, 98, 0.3);
+  }
+}
+
+.hc-page .hc-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.hc-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.hc-page .hc-video {
+  border: 1px solid var(--cera-line);
+  background: #101617;
+}

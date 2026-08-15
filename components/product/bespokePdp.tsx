@@ -18,6 +18,7 @@ import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPa
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
 import OvernightProductPage from '@/components/product/overnight/OvernightProductPage'
+import HydroCoolProductPage from '@/components/product/hydrocool/HydroCoolProductPage'
 import EzCo2ProductPage from '@/components/product/ezco2/EzCo2ProductPage'
 import CvsProductPage from '@/components/product/powersolution/CvsProductPage'
 import HesProductPage from '@/components/product/powersolution/HesProductPage'
@@ -54,6 +55,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // figure on the card; oxygen and the growth-factor list print at 0%.
   // Four-week TEWL / erythema figures come from the DTS MG deck.
   '34': OvernightProductPage,
+  // 35 is the clinic-kilo cooling alginate. Diatomaceous earth 65% is
+  // the pouch. Mix 30g at 1 : 0.8, peel after 15-20 min. HA / ceramide
+  // / centella sit at 0.01%. No clinical deck on file.
+  '35': HydroCoolProductPage,
   // 24 is the daily EyeCell cream. Arbutin 2% is the figure on the card;
   // peptides sit at cosmetic trace. No clinical percentages.
   '24': EyeCreamProductPage,

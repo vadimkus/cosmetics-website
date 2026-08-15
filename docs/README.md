@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Product 35 Hydro Cool Modeling Mask page](./SESSION_CHANGES_2026-08-15_PRODUCT_35_HYDRO_COOL.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: clinic-kilo cooling alginate, diatomaceous earth 65%, mix 30g at 1 : 0.8, peel 15-20 min. Cut HA/ceramide-as-engine / collagen / pores / rub-then-rinse. Image rows in `~/Desktop/genosys-artwork-corrections.html`. |
 | 🟡 **Important** | [Product 34 Skin Rescue Overnight Cream Mask page](./SESSION_CHANGES_2026-08-15_PRODUCT_34_SKIN_RESCUE_OVERNIGHT.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: leave-on overnight cream mask, Niacinamide 2% + Adenosine 0.04%, last step, do not wash off. Cut oxygen-therapy / growth-factor-as-engine / morning rinse. Image rows in `~/Desktop/genosys-artwork-corrections.html`. |
 | 🟡 **Important** | [Al Roudha facial clinic price list PDF](./SESSION_CHANGES_2026-08-15_AL_ROUDHA_FACIAL_CLINIC_TABLE.md) | 4-page branded PDF for Al Roudha: clickable genosys.ae links + clinic AED from the 2026 clinic list. `~/Desktop/orders/GENOSYS_Al_Roudha_Facial_Clinic_Price_List.pdf`. |
 | 🟡 **Important** | [NOVA MEDICAL CENTER address + TRN](./SESSION_CHANGES_2026-08-15_NOVA_MEDICAL_CENTER_ADDRESS_TRN.md) | MoySklad customer Face Room layout: Al Noor Complex, Al Ain; VAT TRN **100255565200003** in `legalAddressFull.comment`. |

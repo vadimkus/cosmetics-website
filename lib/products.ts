@@ -474,7 +474,7 @@ export const products: Product[] = [
     id: '35',
     name: 'HYDRO COOL MODELING MASK',
     price: 300,
-    description: '1kg. Professional modeling mask that provides immediate cooling and soothing effect. It helps soothe skin after professional skin treatment and makes skin feel refreshed by providing sufficient moisture and immediate cooling sensation to the skin. Key ingredients: Hyaluronic Acid, Ceramide, Allantoin, Mentha Piperita (Peppermint) Extract, Chamaecyparis Obtusa Water, Centella Asiatica Extract. Dermatologically tested.',
+    description: '1kg. Professional cooling modeling mask. Mix 30g of powder with water at 1 : 0.8, leave 15-20 minutes, peel. Diatomaceous earth 65% is the pouch. Peppermint cool until it comes off. Dermatologically tested.',
     image: '/images/HYDR.jpg',
     images: null,
     category: 'Mask',

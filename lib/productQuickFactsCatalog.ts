@@ -71,6 +71,14 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('Everyday barrier care', 'Useful when skin feels tight, flaky or depleted by AC and heat.', 'Ежедневный уход за барьером', 'Полезно при стянутости, шелушении и сухости от кондиционера и жары.', 'عناية يومية بالحاجز', 'مفيد عند الشد أو التقشر أو الجفاف بسبب التكييف والحرارة.'),
     t('80 ml travel mist', 'Compact bottle for desk, bag and post-flight refresh.', '80 мл', 'Компактный формат для сумки, офиса и путешествий.', 'رذاذ 80 مل', 'عبوة مدمجة للمكتب والحقيبة وتجديد البشرة بعد السفر.'),
   ],
+  '35': [
+    t('Diatomaceous earth 65%', 'Most of the pouch. Fine mineral powder that takes water, sits, and peels off as a sheet.', 'Диатомовая земля 65%', 'Большая часть пакета. Тонкая минеральная пудра берёт воду, лежит и сходит пластом.', 'تراب الدياتوم ٦٥٪', 'معظم الكيس. بودرة معدنية ناعمة تأخذ الماء وتجلس وتُنزع كورقة.'),
+    t('Mix 30g at 1 : 0.8', 'Powder to water. Stir one to two minutes, apply, peel after 15-20 minutes.', 'Смесь 30 г 1 : 0,8', 'Пудра к воде. Мешай одну-две минуты, нанеси, сними через 15-20 минут.', 'اخلطي ٣٠ غ بنسبة ١ : ٠٫٨', 'بودرة إلى ماء. حرّكي دقيقة إلى دقيقتين، ضعي، انزعي بعد ١٥-٢٠ دقيقة.'),
+    t('Cool until you peel', 'Peppermint extract, peppermint oil and menthol. The cool is the wear.', 'Холод до снятия', 'Экстракт мяты, мятное масло и ментол. Холод - это ношение.', 'يبرّد حتى تنزعينه', 'مستخلص النعناع وزيت النعناع والمنثول. البرودة هي مدة الارتداء.'),
+    t('1kg clinic kilo', 'About thirty treatments at 30g. After a professional treatment.', 'Клинический килограмм 1 кг', 'Около тридцати процедур по 30 г. После профессиональной процедуры.', 'كيلو العيادة ١ كغ', 'نحو ثلاثين جلسة بـ ٣٠ غ. بعد علاج مهني.'),
+    t('Peel, then toner', 'Do not rub the residue in. Lift in one piece and wipe what is left with toner.', 'Снять, затем тоник', 'Не втирай остаток. Сними пластом и протри тоником.', 'انزعي ثم التونر', 'لا تدلكي البقايا. ارفعي قطعة واحدة وامسحي بالتونر.'),
+    t('HA and ceramide at 0.01%', 'Sodium Hyaluronate, Ceramide NP, Allantoin and Centella each sit at 0.01%. In the formula. Not the engine.', 'ГК и церамид по 0,01%', 'Гиалуронат натрия, церамид NP, аллантоин и центелла - каждый по 0,01%. В формуле. Не двигатель.', 'هيالورون وسيراميد عند ٠٫٠١٪', 'هيالورونات الصوديوم وسيراميد NP والألانتوين والقنطورية كلّ منها ٠٫٠١٪. في التركيبة. ليست المحرّك.'),
+  ],
   '34': [
     t('Niacinamide 2%', 'The brightening functional. This is the figure that belongs on a card.', 'Ниацинамид 2%', 'Осветляющий функциональный актив. Цифра, которой место на карточке.', 'نياسيناميد ٢٪', 'مكوّن التفتيح الوظيفي. هذا هو الرقم الذي يستحق بطاقة.'),
     t('Adenosine 0.04%', 'The wrinkle-care functional pair. Help the look of lines, not a lift story.', 'Аденозин 0,04%', 'Функциональная пара для морщин. Вид линий, не история про лифтинг.', 'أدينوسين ٠٫٠٤٪', 'شريك العناية الوظيفية بالتجاعيد. مساعدة مظهر الخطوط، لا قصة شد.'),

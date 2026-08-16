@@ -44,7 +44,7 @@ Moisturizing serum. Carton function is moisturizing. Hydrolyzed hyaluronic acid 
 
 ## Images
 
-Hero `hyaluron_serum/main.jpeg` stays. Studio slides `s1`–`s6` are back on the gallery (restored 16 Aug evening). Intertek carton flats under `/images/hsserum/` stay on disk only. Leftover 4-step / 78% lines on those slides stay in the desktop HTML worklist and get re-exported later. Do not pull studio slides off again.
+Hero `hyaluron_serum/main.jpeg` stays. Studio slides `s1`–`s6` are on the gallery and on the page: lookbook grid after the stats, s4 beside the dose, s5 beside how-to, s3 beside the one-use panel. Intertek carton flats under `/images/hsserum/` stay on disk only. Leftover 4-step / 78% lines on those slides stay in the desktop HTML worklist and get re-exported later. Do not pull studio slides off again.
 
 ## Page
 

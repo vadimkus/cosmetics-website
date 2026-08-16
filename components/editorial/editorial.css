@@ -1,0 +1,219 @@
+/**
+ * The GENOSYS editorial palette and the handful of components every
+ * brand-level page needs.
+ *
+ * cerabarrier.css supplies the structure (`cera-page`, `cera-serif`,
+ * `cera-eyebrow`, `cera-rule`, `cera-card`, `cera-numeral`). A bespoke product
+ * page then tints those tokens to its own colour. A brand page is not one
+ * product's story, so it takes the house red instead, which is what
+ * `.genosys-page` sets.
+ *
+ * Import this alongside cerabarrier.css and put both classes on the root:
+ *
+ *     <div className={`cera-page genosys-page ${ceraSerif.variable}`}>
+ *
+ * Page-specific pieces stay in that page's own stylesheet. Only things a
+ * second page would also want belong here.
+ */
+
+.cera-page.genosys-page {
+  --cera-cream: #faf8f7;
+  --cera-cream-deep: #f2eceb;
+  --cera-blush: #fbeceb;
+  --cera-blush-deep: #f0cfcd;
+  --cera-rose: #c0392f;
+  --cera-rose-ink: #97281f;
+  --cera-ink: #17140f;
+  --cera-body: #3c3733;
+  --cera-muted: #6a625d;
+  --cera-line: #e9e1de;
+}
+
+/* --- Actions ------------------------------------------------------------ */
+
+.ed-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  background: var(--cera-ink);
+  color: #fff;
+  font-weight: 600;
+  transition: background-color 240ms ease, box-shadow 260ms ease;
+}
+
+@media (hover: hover) {
+  .ed-cta:not(:disabled):hover {
+    background: #000;
+    box-shadow: 0 16px 34px -18px rgba(17, 20, 15, 0.8);
+  }
+}
+
+.ed-cta:disabled {
+  background: var(--cera-cream-deep);
+  color: var(--cera-muted);
+  cursor: not-allowed;
+}
+
+.ed-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--cera-line);
+  background: #fff;
+  color: var(--cera-ink);
+  font-weight: 600;
+  transition: border-color 200ms ease, box-shadow 260ms ease;
+}
+
+@media (hover: hover) {
+  .ed-ghost:hover {
+    border-color: var(--cera-blush-deep);
+    box-shadow: 0 14px 30px -22px rgba(23, 20, 15, 0.45);
+  }
+}
+
+/* --- Pills -------------------------------------------------------------- */
+
+.ed-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--cera-line);
+  background: #fff;
+  padding: 5px 12px;
+  font-size: 12.5px;
+  color: var(--cera-body);
+}
+
+.ed-pill--accent {
+  border-color: var(--cera-blush-deep);
+  background: var(--cera-blush);
+  color: var(--cera-rose-ink);
+}
+
+/* --- Rows ---------------------------------------------------------------
+   A bordered line item: a delivery option, a contact channel, an order. */
+
+.ed-row {
+  background: #fff;
+  border: 1px solid var(--cera-line);
+  border-radius: 18px;
+  transition: border-color 200ms ease, box-shadow 300ms ease, transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .ed-row--hover:hover {
+    transform: translateY(-2px);
+    border-color: var(--cera-blush-deep);
+    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 18px 36px -26px rgba(151, 40, 31, 0.32);
+  }
+}
+
+/* Icon or numeral badge at the head of a row or a step. */
+.ed-mark {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  border: 1px solid var(--cera-blush-deep);
+  background: var(--cera-blush);
+  color: var(--cera-rose-ink);
+}
+
+.ed-mark--solid {
+  border-color: transparent;
+  background: var(--cera-rose);
+  color: #fff;
+}
+
+.ed-mark--round {
+  border-radius: 999px;
+}
+
+/* --- Panel --------------------------------------------------------------
+   A tinted block for a closing note or a highlighted aside. */
+
+.ed-panel {
+  border: 1px solid var(--cera-blush-deep);
+  border-radius: 24px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--cera-blush) 70%, #fff), #fff 68%);
+}
+
+/* --- Form fields -------------------------------------------------------- */
+
+.ed-field {
+  width: 100%;
+  border: 1px solid var(--cera-line);
+  border-radius: 14px;
+  background: #fff;
+  padding: 11px 14px;
+  font-size: 15px;
+  color: var(--cera-ink);
+  transition: border-color 180ms ease, box-shadow 200ms ease;
+}
+
+.ed-field::placeholder {
+  color: color-mix(in srgb, var(--cera-muted) 70%, #fff);
+}
+
+.ed-field:focus {
+  outline: none;
+  border-color: var(--cera-rose);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cera-rose) 14%, transparent);
+}
+
+.ed-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cera-muted);
+}
+
+/* --- Disclosure ---------------------------------------------------------
+   Used by the FAQ. The panel animates on grid-template-rows so it does not
+   need a measured pixel height. */
+
+.ed-disclosure {
+  border-bottom: 1px solid var(--cera-line);
+}
+
+.ed-disclosure__body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ed-disclosure__body[data-open='true'] {
+  grid-template-rows: 1fr;
+}
+
+.ed-disclosure__inner {
+  overflow: hidden;
+}
+
+.ed-disclosure__chevron {
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ed-disclosure__chevron[data-open='true'] {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ed-row,
+  .ed-cta,
+  .ed-ghost,
+  .ed-disclosure__body,
+  .ed-disclosure__chevron {
+    transition: none;
+  }
+}

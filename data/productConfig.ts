@@ -189,15 +189,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     id: '13',
     pricing: {
       basePrice: 810
-    },
-    images: ['/images/SRS.jpg', '/images/Second/sss1.jpg', '/images/Second/sss2.jpg'],
-    documentation: [
-      {
-        title: 'Microneedling Protocols (Carboxy + Power Solutions)',
-        url: 'https://genosys.ae/documents/PPT/GENOSYS_Microneedling_Protocols.pdf',
-        type: 'pdf'
-      }
-    ]
+    }
   },
   '14': {
     id: '14',

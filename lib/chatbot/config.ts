@@ -566,7 +566,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 
 ### Peeling
 - [EPI TURNOVER BOOSTING PEELING GEL](https://genosys.ae/products/12){{id:12}} - AED 250 - Gentle exfoliation
-- [SKIN RENEWAL PEELING SYSTEM](https://genosys.ae/products/13){{id:13}} - AED 810 - Professional peel
+- [SKIN RENEWAL PEELING SYSTEM](https://genosys.ae/products/13){{id:13}} - AED 810 - Professional AHA peel, glycolic 15% + lactic 13.5% + mandelic 2%, sit 15-20 min then cold rinse. Not Epi. Not a neutralize step.
 
 ### Hair Care (HR³ Matrix Line)
 - [HR³ MATRIX HAIR TONIC α](https://genosys.ae/products/43){{id:43}} - AED 290 - Hair growth tonic

@@ -63,6 +63,14 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('Face and body', 'The same gel is used on knees, elbows and heels as well as the face.', 'Лицо и тело', 'Тот же гель — на колени, локти и пятки, не только на лицо.', 'الوجه والجسم', 'الجل نفسه للركبتين والمرفقين والكعبين كما للوجه.'),
     t('100g tube', 'Dermatologically tested rinse-off peeling gel.', 'Тюбик 100 г', 'Дерматологически протестированный смываемый пилинг-гель.', 'أنبوب ١٠٠ غ', 'جل تقشير يُشطف، مختبر جلدياً.'),
   ],
+  '13': [
+    t('Apply, sit, cold rinse', 'Professional AHA peel. Apply evenly, keep off lips and eyes, sit 15-20 minutes, rinse with cold water.', 'Нанести, подождать, смыть холодной', 'Профессиональный AHA-пилинг. Нанести равномерно, не на губы и глаза, 15-20 минут, смыть холодной водой.', 'ضعي، انتظري، اشطفي بارداً', 'تقشير AHA مهني. وزّعي بالتساوي، أبعدي عن الشفاه والعين، 15-20 دقيقة، اشطفي بماء بارد.'),
+    t('Glycolic 15%', 'With lactic 13.5% and mandelic 2%. That is 30.5% acids in a 2 ml vial.', 'Гликолевая 15%', 'С молочной 13,5% и миндальной 2%. Это 30,5% кислот в флаконе 2 мл.', 'جليكوليك 15%', 'مع لاكتيك 13.5% وماندليك 2%. ذلك 30.5% أحماض في فيال 2 مل.'),
+    t('Soft peeling', 'The carton function. High-AHA. The Korean carton says speak to a professional.', 'Мягкий пилинг', 'Функция на коробке. Высокая AHA. Корейская коробка говорит обратиться к специалисту.', 'تقشير خفيف', 'وظيفة العلبة. AHA عالٍ. العلبة الكورية تقول راجعي مختصاً.'),
+    t('Not Epi', 'Epi is the home cellulose roll. This is the clinic AHA. Do not use both in one visit.', 'Не Epi', 'Epi - домашний целлюлозный гоммаж. Это клиническая AHA. Не оба в один визит.', 'ليس Epi', 'Epi هو التدحرج المنزلي بالسليلوز. هذا AHA العيادة. لا تستخدمي الاثنين في زيارة واحدة.'),
+    t('Peptide at 0.1 ppb', 'sh-Polypeptide-7 is on the INCI. It is not the peel.', 'Пептид 0,1 ppb', 'sh-Polypeptide-7 в INCI. Он не пилинг.', 'الببتيد عند 0.1 جزء في البليون', 'sh-Polypeptide-7 على القائمة. ليس التقشير.'),
+    t('2 ml × 10', 'One vial, one face. Dermatologically tested. pH 3.02.', '2 мл × 10', 'Один флакон, одно лицо. Дерматологически протестировано. pH 3,02.', '2 مل × 10', 'فيال واحد، وجه واحد. مختبر جلدياً. الأس الهيدروجيني 3.02.'),
+  ],
   '14': [
     t('Microbiome mist', 'FENSEBIOME™ (Acetyl Heptapeptide-4) helps support a balanced skin microbiome.', 'Мист для микробиома', 'FENSEBIOME™ (Acetyl Heptapeptide-4) поддерживает баланс микробиома кожи.', 'رذاذ الميكروبيوم', 'FENSEBIOME™ (Acetyl Heptapeptide-4) يدعم توازن ميكروبيوم البشرة.'),
     t('HA multi-complex', 'Hyaluronan Multi-Complex helps replenish moisture at multiple depths.', 'Мульти-комплекс ГК', 'Мульти-комплекс ГК увлажняет на нескольких уровнях.', 'مركب هيالورون متعدد', 'مركب هيالورون متعدد يرطّب على مستويات متعددة.'),

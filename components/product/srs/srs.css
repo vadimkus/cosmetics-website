@@ -1,0 +1,54 @@
+/**
+ * Palette for the SKIN RENEWAL PEELING SYSTEM page (product 13).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The box is Pantone 187 C, which is already the Eye Kit
+ * accent, so the page does not take that crimson. It sits on cool bone
+ * with a steel accent, the colour of the cold-water rinse.
+ *
+ * Keep it clear of:
+ *   - product 10 ember / ice (snowo2-page)
+ *   - product 11 cream / dark-gold (dmr-page)
+ *   - product 12 mint / forest (epi-page)
+ *   - product 50 charcoal / crimson (ek-page)
+ *
+ * Scoped to `.cera-page.srs-page`.
+ */
+
+.cera-page.srs-page {
+  --cera-cream: #f2f3f1;
+  --cera-cream-deep: #e2e5e3;
+  --cera-blush: #dce3e4;
+  --cera-blush-deep: #b7c4c6;
+  --cera-rose: #4a6468;
+  --cera-rose-ink: #2f4448;
+  --cera-ink: #161c1e;
+  --cera-body: #3a4244;
+  --cera-muted: #6a7274;
+  --cera-line: #d4d8d6;
+  --cera-shot: #e8eceb;
+}
+
+.srs-page .cera-stage {
+  box-shadow: 0 20px 52px -34px rgba(47, 68, 72, 0.28);
+}
+
+@media (hover: hover) {
+  .srs-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(22, 28, 30, 0.04), 0 26px 48px -26px rgba(74, 100, 104, 0.3);
+  }
+}
+
+.srs-page .srs-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.srs-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.srs-page .srs-video {
+  border: 1px solid var(--cera-line);
+  background: #141618;
+}

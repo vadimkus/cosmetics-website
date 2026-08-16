@@ -105,19 +105,12 @@ interface Props {
   routineProducts?: Product[]
 }
 
-/** Studio slides go on the page, not only in the thumbs. s4 is the
+/** Section art, each slide paired with the section it illustrates. s4 is the
  *  two-view shot that shows the domed grip and the silicone head at once,
  *  so it stays beside the design section. s3 is the shelf shot, s2 the
  *  brush-then-tonic routine. s1 still prints +50% absorption and a
- *  circulation line this page does not claim, so it runs in the lookbook
- *  only and is queued for re-export. */
-const STUDIO_SLIDES = [
-  '/images/brush/s1.jpg',
-  '/images/brush/s2.jpg',
-  '/images/brush/s3.jpg',
-  '/images/brush/s4.jpg',
-] as const
-
+ *  circulation line this page does not claim, so it stays in the thumbnail
+ *  strip only and is queued for re-export. */
 const EFFECTS_IMAGE = '/images/brush/s3.jpg'
 const HOWTO_IMAGE = '/images/brush/s2.jpg'
 const DESIGN_IMAGE = '/images/brush/s4.jpg'
@@ -580,25 +573,6 @@ export default function ScalpBrushProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

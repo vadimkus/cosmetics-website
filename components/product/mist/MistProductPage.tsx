@@ -93,19 +93,10 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Studio slides go on the page, not only in the thumbs. S6 is the
+/** Section art, each slide paired with the section it illustrates. S6 is the
  *  dewy-balanced-luminous results slide, S4 the shake-spray-glow how-to.
  *  Leftover slide copy (FENSEBIOME-as-engine, HA10, pat-in) is queued for
  *  re-export; the editorial copy does not repeat it. */
-const STUDIO_SLIDES = [
-  '/images/mist/S1.jpeg',
-  '/images/mist/S2.jpeg',
-  '/images/mist/S3.jpeg',
-  '/images/mist/S4.jpeg',
-  '/images/mist/S5.jpeg',
-  '/images/mist/S6.jpeg',
-] as const
-
 const EFFECTS_IMAGE = '/images/mist/S6.jpeg'
 const HOWTO_IMAGE = '/images/mist/S4.jpeg'
 const ENGINE_IMAGE = '/images/mist/S1.jpeg'
@@ -632,25 +623,6 @@ export default function MistProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

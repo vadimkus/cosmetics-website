@@ -95,15 +95,6 @@ interface ActiveIngredient {
 
 /** Gallery slides on the page, not only in the thumbs. Main / s1 / s6 still
  *  print 10 Years Back on the bottle. s4 prints Arbutin 2% and Adenosine 0.04%. */
-const STUDIO_SLIDES = [
-  '/images/eye_cream/s1.jpeg',
-  '/images/eye_cream/s2.jpeg',
-  '/images/eye_cream/s3.jpeg',
-  '/images/eye_cream/s4.jpeg',
-  '/images/eye_cream/s5.jpeg',
-  '/images/eye_cream/s6.jpeg',
-] as const
-
 const ENGINE_IMAGE = '/images/eye_cream/s4.jpeg'
 const HOWTO_IMAGE = '/images/eye_cream/s5.jpeg'
 const EFFECTS_IMAGE = '/images/eye_cream/s2.jpeg'
@@ -586,25 +577,6 @@ export default function EyeCreamProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

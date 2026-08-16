@@ -15,52 +15,51 @@ This pass brought the rest of the range up to the same standard.
 
 ## The pattern
 
-1. `STUDIO_SLIDES` constant, built from the product's own gallery.
-2. Lookbook grid after the stats strip: 1 / 2 / 3 columns, `aspect-square`,
-   `object-contain`, staggered `CeraReveal`.
-3. Sticky figure beside "what it does" (`EFFECTS_IMAGE`).
-4. Sticky figure beside "how to use" (`HOWTO_IMAGE`), section widened from
+1. Sticky figure beside "what it does" (`EFFECTS_IMAGE`).
+2. Sticky figure beside "how to use" (`HOWTO_IMAGE`), section widened from
    `max-w-[900px]` to `max-w-[1200px]`.
-5. Engine figure left as the page already chose it. Where that figure is a
+3. Engine figure left as the page already chose it. Where that figure is a
    claim slide rather than a packshot, `object-cover` became `object-contain`
    so the headline printed inside the artwork is not cropped.
 
+A slide earns its place by illustrating a section. Anything without a section
+stays in the thumbnail strip under the hero.
+
+**Revised the same evening.** The first version of this pass also added a
+lookbook grid after the stats strip that listed the whole slide set. It was
+removed: it repeated what the section figures already show, and it turned
+every page into a slide dump. Only figures that sit beside the copy they
+illustrate remain.
+
 ## What each page got
 
-| # | Page | Lookbook | Beside what it does | Beside how to use |
-|---|---|---|---|---|
-| 4 | Power Solution HES | s1new–s7 | — | — |
-| 10 | Snow O₂ Cleanser | S1–S6 | S5 | S4 |
-| 11 | Skin Defender Remover | S1b–S6b | S5b | S4b |
-| 12 | EPI Peeling Gel | s1–s6 | s5 | s4 |
-| 13 | SRS | — | — | sss2 |
-| 14 | Microbiome Mist | S1–S6 | S6 | S4 |
-| 15 | Problem Control Toner | S1–S6 | S5 | S4 |
-| 33 | Eye Peptide Gel Patch | s1–s6 | s3 | s5 |
-| 34 | Overnight Cream Mask | S1–S5 | — | S5 |
-| 37 | Peptide Gel Mask | s1c–s5c | s4c | s3c |
-| 38 | EZ CO₂ Mask Kit | s1–s8 | s5 | s6 |
-| 51 | Bio-Ferment Powder Mask | — | — | bferment_model |
-| 53 | Collagen Mask | S1–S5 | S5 | S4 |
-| 60 | Bio-Meso 60000 | S1–S6 | — | — |
-| 61 | HR³ Scalp Brush | s1–s4 | s3 | s2 |
-| 63 | Revita Glow BB | s1–s4 | — | s4 |
-| 64 | Hair Stamp | s1–s4 | — | — |
-| 65 | Bio-Meso 5000 | s1–s4 | — | — |
-| 66 | Cerabarrier | S1–S3 | — | — |
+| # | Page | Beside what it does | Beside how to use |
+|---|---|---|---|
+| 10 | Snow O₂ Cleanser | S5 | S4 |
+| 11 | Skin Defender Remover | S5b | S4b |
+| 12 | EPI Peeling Gel | s5 | s4 |
+| 13 | SRS | — | sss2 |
+| 14 | Microbiome Mist | S6 | S4 |
+| 15 | Problem Control Toner | S5 | S4 |
+| 33 | Eye Peptide Gel Patch | s3 | s5 |
+| 34 | Overnight Cream Mask | — | S5 |
+| 37 | Peptide Gel Mask | s4c | s3c |
+| 38 | EZ CO₂ Mask Kit | s5 | s6 |
+| 51 | Bio-Ferment Powder Mask | — | bferment_model |
+| 53 | Collagen Mask | S5 | S4 |
+| 61 | HR³ Scalp Brush | s3 | s2 |
+| 63 | Revita Glow BB | — | s4 |
 
 Engine figure switched to `object-contain` on 14, 15, 33, 34, 38 and 53.
 
-Product 66 runs a three-slide lookbook because S4 and S5 already appear
-further down as the per-size spec figures. Products 60 and 65 render theirs
-through `BioMesoPageConfig.slides`, and the Power Solutions through
-`PowerSolutionVariant.studioSlides`, so the layout stays shared.
+Products 4, 60, 64, 65 and 66 already paired their art with the right
+sections and were left alone.
 
-## Slides that stay in the lookbook only
+## Slides that stay in the thumbnail strip
 
-Per the gallery rule, no studio slide was taken off a page. Slides carrying a
-claim the editorial copy does not make are still shown, but they were not
-promoted to a section figure, and they remain queued for re-export in
+Per the gallery rule, no studio slide was taken off a product. Slides carrying
+a claim the editorial copy does not make are still in the gallery, but they
+were not promoted to a section figure, and they remain queued for re-export in
 `~/Desktop/genosys-artwork-corrections.html`:
 
 - **34** S1 / S2 / S4 sell oxygen therapy and the growth-factor list

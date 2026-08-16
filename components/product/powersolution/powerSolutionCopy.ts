@@ -335,13 +335,6 @@ export interface PowerSolutionVariant {
    */
   blendGallerySlides: ReadonlySet<string>
   /**
-   * Studio slides shown as a lookbook after the stats, rather than left to the
-   * thumbnail strip. Only HES has a real slide set; the other five ampoules
-   * still run on two legacy packshots, so they leave this empty and the
-   * section does not render.
-   */
-  studioSlides: readonly string[]
-  /**
    * Whether the hero is on pure white, which decides how the closing band
    * carries it. A hero on a studio sweep must not be multiplied: the sweep
    * darkens into a grey block instead of dissolving.
@@ -1157,7 +1150,6 @@ export const CVS_VARIANT: PowerSolutionVariant = {
   // pure white. The two on white are blended down to the stage tint so the card
   // holds one colour across the rail.
   blendGallerySlides: new Set(['/images/Second/cvs_big1.jpg', '/images/Second/cvs_big2.jpg']),
-  studioSlides: [],
   // The hero is on that sweep, not on white, so it must never be multiplied.
   heroOnWhite: false,
 }

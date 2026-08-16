@@ -93,20 +93,11 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Studio slides go on the page, not only in the thumbs. s2 is the
+/** Section art, each slide paired with the section it illustrates. s2 is the
  *  sebum / texture / comfort slide, s3 the complex with the percentages,
  *  s4 the toner-serum-cream ritual and s5 the five no-additions. s3 still
  *  prints "non-comedogenic", which no test on file supports, so it is
  *  queued for re-export; the copy does not repeat it. */
-const STUDIO_SLIDES = [
-  '/images/problems_serum/s1.jpeg',
-  '/images/problems_serum/s2.jpeg',
-  '/images/problems_serum/s3.jpeg',
-  '/images/problems_serum/s4.jpeg',
-  '/images/problems_serum/s5.jpeg',
-  '/images/problems_serum/s6.jpeg',
-] as const
-
 const ENGINE_IMAGE = '/images/problems_serum/s3.jpeg'
 const HOWTO_IMAGE = '/images/problems_serum/s4.jpeg'
 const EFFECTS_IMAGE = '/images/problems_serum/s2.jpeg'
@@ -592,25 +583,6 @@ export default function PcserumProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

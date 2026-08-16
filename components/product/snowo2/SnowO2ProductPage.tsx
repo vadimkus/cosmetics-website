@@ -92,20 +92,11 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Studio slides go on the page, not only in the thumbs. S5 is the
+/** Section art, each slide paired with the section it illustrates. S5 is the
  *  fresh-and-clean results slide, S4 the four-step how-to. Leftover slide
  *  copy (paraben-free, sensitive, Phytolex-as-engine) is queued for
  *  re-export; the editorial copy does not repeat it. The engine figure
  *  stays on the two-pump packshot. */
-const STUDIO_SLIDES = [
-  '/images/cleanser/S1.jpg',
-  '/images/cleanser/S2.jpg',
-  '/images/cleanser/S3.jpg',
-  '/images/cleanser/S4.jpg',
-  '/images/cleanser/S5.jpg',
-  '/images/cleanser/S6.jpg',
-] as const
-
 const EFFECTS_IMAGE = '/images/cleanser/S5.jpg'
 const HOWTO_IMAGE = '/images/cleanser/S4.jpg'
 const ENGINE_IMAGE = '/images/cleanser/main_clean.jpeg'
@@ -632,25 +623,6 @@ export default function SnowO2ProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

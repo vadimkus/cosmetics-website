@@ -93,18 +93,9 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Gallery slides on the page, not only in the thumbs. s3 and s4 are the
- *  same file, so the lookbook skips s4. Main / s1 / s7 still print
- *  10 Years Back on the bottle. s6 prints Arbutin 2% and Adenosine 0.04%. */
-const STUDIO_SLIDES = [
-  '/images/eye_serum/s1.jpeg',
-  '/images/eye_serum/s2.jpeg',
-  '/images/eye_serum/s3.jpeg',
-  '/images/eye_serum/s5.jpeg',
-  '/images/eye_serum/s6.jpeg',
-  '/images/eye_serum/s7.jpeg',
-] as const
-
+/** Section art, each slide paired with the section it illustrates. Main / s1
+ *  / s7 still print 10 Years Back on the bottle and stay in the thumbnail
+ *  strip. s6 prints Arbutin 2% and Adenosine 0.04%. */
 const ENGINE_IMAGE = '/images/eye_serum/s6.jpeg'
 const HOWTO_IMAGE = '/images/eye_serum/s5.jpeg'
 const EFFECTS_IMAGE = '/images/eye_serum/s2.jpeg'
@@ -587,25 +578,6 @@ export default function EyeSerumProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

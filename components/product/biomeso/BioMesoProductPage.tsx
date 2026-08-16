@@ -90,9 +90,6 @@ export interface BioMesoPageConfig {
   mechanismImage: string
   /** Inline art for the application section. */
   ritualImage: string
-  /** The studio slides, shown as a lookbook after the stats rather than left
-   *  to the thumbnail strip. Includes the two used inline above. */
-  slides: readonly string[]
   /** Tailwind aspect class for the two inline figures. These are slide exports,
    *  not packshots, so the frame has to follow the artwork: cropping one to a
    *  square cuts the headline printed inside it. */
@@ -107,12 +104,6 @@ const HOMECARE_CONFIG: BioMesoPageConfig = {
   getCopy: getBioMesoCopy,
   mechanismImage: '/images/meso_5000/s2.jpeg',
   ritualImage: '/images/meso_5000/s3.jpeg',
-  slides: [
-    '/images/meso_5000/s1.jpeg',
-    '/images/meso_5000/s2.jpeg',
-    '/images/meso_5000/s3.jpeg',
-    '/images/meso_5000/s4.jpeg',
-  ],
   figureAspect: 'aspect-square',
   brochureUrl: '/documents/ppt/GENOSYS-Training%20manual-Bio-Meso%20PDRN%20line.pdf',
   logLabel: 'BioMeso',
@@ -603,25 +594,6 @@ export default function BioMesoProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {config.slides.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className={`relative ${config.figureAspect} overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white`}>
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

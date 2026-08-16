@@ -983,7 +983,6 @@ export const PCS_VARIANT: PowerSolutionVariant = {
   vialImage: '/images/Second/pcs_big2.jpg',
   boxImage: '/images/Second/pcs_big1.jpg',
   blendGallerySlides: new Set(['/images/Second/pcs_big1.jpg', '/images/Second/pcs_big2.jpg']),
-  studioSlides: [],
   heroOnWhite: false,
 }
 

@@ -93,19 +93,11 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Studio slides go on the page, not only in the thumbs. s4c is the
+/** Section art, each slide paired with the section it illustrates. s4c is the
  *  post-procedure cool-down slide, s3c the twenty-to-forty-minute how-to.
  *  s1c / s2c / s5c still print patented thermo-sensitive delivery, so they
- *  run in the lookbook only and are queued for re-export. The engine
+ *  stay in the thumbnail strip only and are queued for re-export. The engine
  *  figure stays on the pouch. */
-const STUDIO_SLIDES = [
-  '/images/peptide_mask/s1c.jpeg',
-  '/images/peptide_mask/s2c.jpeg',
-  '/images/peptide_mask/s3c.jpeg',
-  '/images/peptide_mask/s4c.jpeg',
-  '/images/peptide_mask/s5c.jpeg',
-] as const
-
 const EFFECTS_IMAGE = '/images/peptide_mask/s4c.jpeg'
 const HOWTO_IMAGE = '/images/peptide_mask/s3c.jpeg'
 const ENGINE_IMAGE = '/images/peptide_mask/main.jpeg'
@@ -588,25 +580,6 @@ export default function PeptideGelProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

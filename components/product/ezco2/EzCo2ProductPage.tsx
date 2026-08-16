@@ -92,20 +92,9 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Studio slides go on the page, not only in the thumbs. s5 is the
+/** Section art, each slide paired with the section it illustrates. s5 is the
  *  four-dimensions results slide, s6 the ten-minute ritual. s8 prints the
  *  official kit name and the spatula, so it stays beside the complex. */
-const STUDIO_SLIDES = [
-  '/images/ez_mask/s1.jpeg',
-  '/images/ez_mask/s2.jpeg',
-  '/images/ez_mask/s3.jpeg',
-  '/images/ez_mask/s4.jpeg',
-  '/images/ez_mask/s5.jpeg',
-  '/images/ez_mask/s6.jpeg',
-  '/images/ez_mask/s7.jpeg',
-  '/images/ez_mask/s8.jpeg',
-] as const
-
 const EFFECTS_IMAGE = '/images/ez_mask/s5.jpeg'
 const HOWTO_IMAGE = '/images/ez_mask/s6.jpeg'
 const ENGINE_IMAGE = '/images/ez_mask/s8.jpeg'
@@ -588,25 +577,6 @@ export default function EzCo2ProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

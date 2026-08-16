@@ -63,9 +63,9 @@ first then pat, AM and PM, plus the video → actives and full INCI → suited /
 (no acid, not for dry skin, not for diagnosed acne) → routine → spec (pH 5.62 in
 5.50 to 6.50, no lot) → FAQ → reviews.
 
-Studio slides are on the page from the start, per the 16 Aug standard: lookbook after
-the stats, s2 beside what it does, s3 beside the complex, s4 beside how-to, s5 beside
-the five no-additions.
+Studio slides sit beside the section each one illustrates, per the 16 Aug standard:
+s2 beside what it does, s3 beside the complex, s4 beside how-to, s5 beside the five
+no-additions. s1 and s6 stay in the thumbnail strip.
 
 The FAQ leads with "Is there salicylic acid in it?" because black willow bark is the
 single most likely wrong assumption a shopper makes about this bottle.

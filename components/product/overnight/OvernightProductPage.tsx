@@ -93,19 +93,11 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Studio slides go on the page, not only in the thumbs. S3 prints the
+/** Section art, each slide paired with the section it illustrates. S3 prints the
  *  documented four-week TEWL / erythema figures and stays beside the
  *  complex; S5 is the overnight ritual. S1 / S2 / S4 still sell oxygen
- *  therapy and the growth-factor list, so they run in the lookbook only
- *  and are queued for re-export. */
-const STUDIO_SLIDES = [
-  '/images/overnight/S1.jpeg',
-  '/images/overnight/S2.jpeg',
-  '/images/overnight/S3.jpeg',
-  '/images/overnight/S4.jpeg',
-  '/images/overnight/S5.jpeg',
-] as const
-
+ *  therapy and the growth-factor list, so they stay in the thumbnail strip
+ *  only and are queued for re-export. */
 const HOWTO_IMAGE = '/images/overnight/S5.jpeg'
 const ENGINE_IMAGE = '/images/overnight/S3.jpeg'
 
@@ -587,25 +579,6 @@ export default function OvernightProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

@@ -103,20 +103,12 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Studio slides go on the page, not only in the thumbs. S3 is the
+/** Section art, each slide paired with the section it illustrates. S3 is the
  *  ingredient breakdown and stays beside the essence section, S5 is the
  *  firm-hydrated-repaired results slide, S4 the fifteen-to-twenty-minute
  *  how-to. S2 still carries brightening and anti-ageing lines this page
- *  does not claim, so it runs in the lookbook only and is queued for
+ *  does not claim, so it stays in the thumbnail strip and is queued for
  *  re-export. */
-const STUDIO_SLIDES = [
-  '/images/collagen_mask/S1.jpeg',
-  '/images/collagen_mask/S2.jpeg',
-  '/images/collagen_mask/S3.jpeg',
-  '/images/collagen_mask/S4.jpeg',
-  '/images/collagen_mask/S5.jpeg',
-] as const
-
 const EFFECTS_IMAGE = '/images/collagen_mask/S5.jpeg'
 const HOWTO_IMAGE = '/images/collagen_mask/S4.jpeg'
 const ENGINE_IMAGE = '/images/collagen_mask/S3.jpeg'
@@ -595,25 +587,6 @@ export default function CollagenMaskProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

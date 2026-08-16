@@ -21,22 +21,14 @@ import type { Product } from '@/types'
  * S4 is the cross-section of spicules entering skin and S3 is the in-clinic
  * application, so they pair with the mechanism and protocol sections. S2 and S6
  * are title and closing cards and S5 is the clinical slide; those three carry
- * no section of their own, so they run in the lookbook after the stats, since
- * the page already states the same figures in text.
+ * no section of their own, so they stay in the thumbnail strip, since the
+ * page already states the same figures in text.
  */
 const EXPERT_CONFIG: BioMesoPageConfig = {
   productNumber: '60',
   getCopy: getBioMesoExpertCopy,
   mechanismImage: '/images/6000/S4.jpeg',
   ritualImage: '/images/6000/S3.jpeg',
-  slides: [
-    '/images/6000/S1.jpeg',
-    '/images/6000/S2.jpeg',
-    '/images/6000/S3.jpeg',
-    '/images/6000/S4.jpeg',
-    '/images/6000/S5.jpeg',
-    '/images/6000/S6.jpeg',
-  ],
   // This product's slides are 1200x896, unlike every other bespoke product's
   // square exports. A square frame cropped a quarter of the width, taking the
   // headline printed inside the artwork with it.

@@ -983,7 +983,6 @@ export const AWS_VARIANT: PowerSolutionVariant = {
   vialImage: '/images/Second/aws2.jpg',
   boxImage: '/images/Second/aws1.jpg',
   blendGallerySlides: new Set(['/images/Second/aws1.jpg', '/images/Second/aws2.jpg']),
-  studioSlides: [],
   heroOnWhite: false,
 }
 

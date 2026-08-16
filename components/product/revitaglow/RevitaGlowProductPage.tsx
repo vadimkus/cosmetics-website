@@ -93,16 +93,9 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Studio slides go on the page, not only in the thumbs. s2 is the two-shade
+/** Section art, each slide paired with the section it illustrates. s2 is the two-shade
  *  comparison and stays beside the shade section, s4 the glass-skin finish
  *  how-to. */
-const STUDIO_SLIDES = [
-  '/images/revita/s1.jpg',
-  '/images/revita/s2.jpg',
-  '/images/revita/s3.jpg',
-  '/images/revita/s4.jpg',
-] as const
-
 const SHADE_FIGURE = '/images/revita/s2.jpg'
 const HOWTO_IMAGE = '/images/revita/s4.jpg'
 const BROCHURE_URL = '/documents/ppt/GENOSYS_REVITA_GLOW_BB_CREAM.pdf'
@@ -680,25 +673,6 @@ export default function RevitaGlowProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
-            </CeraReveal>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-          {STUDIO_SLIDES.map((src, i) => (
-            <CeraReveal key={src} delay={i * 50}>
-              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
-                <Image
-                  src={src}
-                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
-                  fill
-                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
-                  quality={85}
-                  className="object-contain"
-                />
-              </div>
             </CeraReveal>
           ))}
         </div>

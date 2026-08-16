@@ -1,5 +1,5 @@
 /**
- * Palettes and structure for the POWER SOLUTION pages, products 4, 5, 8 and 9.
+ * Palettes and structure for the POWER SOLUTION pages, products 4, 5, 6, 8 and 9.
  *
  * The structural design system lives in cerabarrier.css - cards, reveals,
  * accordion, numerals, focus rings. That file is imported first and every rule
@@ -8,7 +8,7 @@
  *
  * Everything here is scoped to `.powersolution-page`, and each product's colour
  * to a second class on the same element (`.ps-cvs`, `.ps-hes`, `.ps-sws`,
- * `.ps-aws`), so importing this file cannot affect products 52, 53, 55 to 61,
+ * `.ps-aws`, `.ps-cts`), so importing this file cannot affect products 52, 53, 55 to 61,
  * 63, 64, 65 or 66, and the ampoules cannot bleed into each other.
  *
  * Two variables are declared per palette rather than hard-coded, because the
@@ -159,6 +159,36 @@
   --ps-figure-stage: #e0dee4;
   --ps-stage-shadow: rgba(34, 16, 22, 0.4);
   --ps-card-hover-glow: rgba(138, 18, 64, 0.26);
+}
+
+/* --- CTS, product 6 ------------------------------------------------------ */
+/* WHY TEAL. The CTS wordmark, the DNA mark above it and the PROFESSIONAL bar
+   are one teal, sampled off the vial at about #0097a7 / Pantone 320 C. The
+   hero sits on the same cool studio sweep as CVS, SWS and AWS, so the stage
+   stays cool-grey and the accent does the separation: CVS is a hard red
+   (#be0a14), SWS is burnt orange, HES is green, AWS is wine magenta, this
+   one is cyan-teal. Neutrals lean cool enough that the teal does not sit on
+   an identical HES page with a different badge.
+
+   Closest text pair (#006064 on #f3f7f7) clears WCAG AA. */
+.cera-page.powersolution-page.ps-cts {
+  --cera-cream: #f3f7f7;
+  --cera-cream-deep: #e4eeed;
+  --cera-blush: #e5f4f3;
+  --cera-blush-deep: #b8dcd8;
+  --cera-rose: #0097a7;
+  --cera-rose-ink: #006064;
+  --cera-ink: #102022;
+  --cera-body: #324246;
+  --cera-muted: #5c6e72;
+  --cera-line: #d4e4e4;
+  /* Sampled from the outer ring of cts-hero.jpg after the square pad, so the
+     closing-band column edge meets the shot's own sweep. */
+  --cera-shot: #d9d7dd;
+  --ps-stage: #d9d7dd;
+  --ps-figure-stage: #d9d7dd;
+  --ps-stage-shadow: rgba(16, 32, 34, 0.4);
+  --ps-card-hover-glow: rgba(0, 96, 100, 0.26);
 }
 
 .powersolution-page .cera-stage {

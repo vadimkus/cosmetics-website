@@ -508,7 +508,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 ### PRO Solutions (Professional Ampoules)
 - [POWER SOLUTION HES](https://genosys.ae/products/4){{id:4}} - AED 580 - Hydrating/moisturizing
 - [POWER SOLUTION CVS](https://genosys.ae/products/5){{id:5}} - AED 580 - Revitalizing
-- [POWER SOLUTION CTS](https://genosys.ae/products/6){{id:6}} - AED 580 - Remodeling/firming
+- [POWER SOLUTION CTS](https://genosys.ae/products/6){{id:6}} - AED 580 - Texture / elasticity / strength. Leave-on 2 ml × 10. Not a microneedling instruction from this carton.
 - [POWER SOLUTION PCS](https://genosys.ae/products/7){{id:7}} - AED 580 - Problem/acne control
 - [POWER SOLUTION SWS](https://genosys.ae/products/8){{id:8}} - AED 580 - Pigment / uneven tone. Arbutin 2%. Leave-on 2 ml × 10. Not a microneedling instruction from this carton.
 - [POWER SOLUTION AWS](https://genosys.ae/products/9){{id:9}} - AED 580 - Lines / loss of firmness. Adenosine 0.04%. Leave-on 2 ml × 10. Not a microneedling instruction from this carton.
@@ -1608,13 +1608,10 @@ Remember: Every response should educate, engage, and end with a question! Make s
 - Strengthens skin barrier
 - Key ingredient in "cica" products
 
-### COPPER PEPTIDES (GHK-Cu) - The Regenerator
-- Naturally occurring in body
-- Stimulates collagen and elastin
-- Promotes wound healing
-- Anti-inflammatory
-- One of the most researched anti-aging ingredients
-- Found in: [POWER SOLUTION CTS](https://genosys.ae/products/6){{id:6}}
+### COPPER PEPTIDES (GHK-Cu)
+- Skin-conditioning peptide (COSING)
+- In POWER SOLUTION CTS at a finished 0.0212% (212 ppm), the largest peptide dose in that six-vial range
+- Found in: [POWER SOLUTION CTS](https://genosys.ae/products/6){{id:6}} - texture vial, not a wound-healing claim from this carton
 
 ### GROWTH FACTORS (EGF, FGF, IGF) - The Cell Communicators
 - Proteins that regulate cell growth

@@ -69,9 +69,13 @@ export const products: Product[] = [
     id: '6',
     name: 'POWER SOLUTION CTS',
     price: 580,
-    description: '2ml x 10ea. Skin remodeling ampoule for microneedling treatment. Dermatologically tested. Features: It is a skin remodeling ampoule specially formulated for microneedling treatment that helps the skin retain its natural elasticity and increases the strength of skin with sh-polypeptide-7 (recombinant human peptide), copper tripeptide-1, hyaluronic acid and collagen. Skin-Friendly Formulation: Not containing harmful additives considering the increased skin permeability by microneedling (no-paraben, ethanol, artificial fragrance, artificial pigment, sulfate). Dermatologically tested. Key Ingredients: sh-polypeptide-7, Collagen, Hyaluronic Acid, Palmitoyl Tripeptide-1, Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Copper Tripeptide-1, Palmitoyl Hexapeptide-12. Manufactured in South Korea.',
-    image: '/images/CTS.jpg',
-    images: JSON.stringify(['/images/CTS.jpg', '/images/Second/cts_big.jpg', '/images/Second/cts_big2.jpg']),
+    description: 'CTS is Cytokine Concentrate Solution. The carton function is improvement of skin texture: it helps the skin retain its natural elasticity and increases the strength of skin. 2 ml × 10 sealed glass vials. 5-Free. Dermatologically tested. Made in Korea by DTS MG.',
+    // The squared hero, matching the database. CTS.jpg is the same shot at 956x662
+    // and leaves a hard-cornered band above and below it in the square gallery
+    // stage. The main image is deliberately not repeated in `images`: web and
+    // mobile both prepend it.
+    image: '/images/cts-hero.jpg',
+    images: JSON.stringify(['/images/Second/cts_big.jpg', '/images/Second/cts_big2.jpg']),
     category: 'PRO Solution',
     inStock: true,
   },

@@ -1,5 +1,10 @@
 'use client'
 
+import '@/components/product/cerabarrier/cerabarrier.css'
+import './skin-recommendation.css'
+
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+
 import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -640,7 +645,7 @@ export default function SkinRecommendationClient() {
   const isRTL = dir === 'rtl'
 
   return (
-    <div className={`min-h-[100dvh] bg-gradient-to-b from-gray-50 to-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir} data-pwa-light-header-page>
+    <div className={`cera-page skinrec-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir} data-pwa-light-header-page>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -652,7 +657,7 @@ export default function SkinRecommendationClient() {
           sticky top-0 z-20, bg-white/95 + backdrop-blur, border-b border-gray-200.
           Stays visible so user can always back out or jump to profile. */}
       {isAppLikeMode && (
-        <div className={`sticky top-0 z-20 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`sticky top-0 z-20 bg-[var(--cera-cream)]/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
             onClick={() => router.push(getLocalizedPath('/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
@@ -663,7 +668,7 @@ export default function SkinRecommendationClient() {
               {t('common.home') || 'Home'}
             </span>
           </button>
-          <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
+          <h1 className="cera-serif text-[17px] text-center flex-1 truncate px-2">
             {locale === 'ar' ? 'تحليل البشرة' : locale === 'ru' ? 'Анализ кожи' : 'Skin Analysis'}
           </h1>
           {/* Profile avatar — green dot only when logged in */}
@@ -690,16 +695,16 @@ export default function SkinRecommendationClient() {
         <div className="max-w-5xl mx-auto">
           {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
           {!isAppLikeMode && (
-            <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+            <nav className={`text-[13px] text-[var(--cera-muted)] mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+              <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose)]">{t('common.home')}</Link>
               <span> / </span>
-              <span className="text-gray-900 font-medium">{t('skinRecommendation.title')}</span>
+              <span className="text-[var(--cera-ink)]">{t('skinRecommendation.title')}</span>
             </nav>
           )}
           
           {/* Back to Home - Hide in PWA/Mobile Web */}
           {!isAppLikeMode && (
-            <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1.5 text-[13px] text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 mb-5 md:mb-10 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               <span>{t('common.backToHome')}</span>
             </Link>
@@ -734,19 +739,19 @@ export default function SkinRecommendationClient() {
         <div className="mb-8">
           {/* Report Header */}
           <div className="text-center mb-6">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-primary-600 mb-4 shadow-lg shadow-primary-200">
+            <div className="skinrec-scan__mark skinrec-scan__mark--round inline-flex items-center justify-center w-16 h-16 mb-5">
               <Sparkles className="w-8 h-8 text-white" />
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+            <h1 className="cera-serif text-[27px] md:text-[36px] leading-tight mb-2">
               {locale === 'ar' ? 'تقرير تحليل بشرتك' : locale === 'ru' ? 'Отчёт анализа кожи' : 'Your Skin Analysis Report'}
             </h1>
-            <p className="text-gray-600">
+            <p className="text-[15px] text-[var(--cera-muted)]">
               {locale === 'ar' ? 'نتائج تحليل بشرتك بالذكاء الاصطناعي' : locale === 'ru' ? 'Результаты AI-анализа вашей кожи' : 'AI-powered skin analysis results'}
             </p>
           </div>
 
           {/* Main Results Card */}
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-6">
+          <div className="cera-card overflow-hidden mb-6">
             {/* Skin Type Header */}
             <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-4 sm:px-6 py-4 sm:py-5 text-white">
               {/* Mobile: Stack vertically, Desktop: Row */}
@@ -1319,11 +1324,24 @@ export default function SkinRecommendationClient() {
               title ("Skin Analysis"), so the body lead is smaller and the
               description is clamped to 2 lines to preserve above-the-fold
               real estate. Desktop keeps the original large hero. */}
-          <div className={`text-center ${isAppLikeMode ? 'mb-4' : 'mb-6 md:mb-12'}`}>
-            <h2 className={`font-bold text-gray-900 ${isAppLikeMode ? 'text-lg mb-1' : 'text-2xl md:text-4xl lg:text-5xl mb-2 md:mb-4'}`}>
+          <div className={`text-center ${isAppLikeMode ? 'mb-5' : 'mb-8 md:mb-14'}`}>
+            {!isAppLikeMode && (
+              <p className="cera-eyebrow mb-3">
+                {locale === 'ar' ? 'أربعة أسئلة' : locale === 'ru' ? 'Четыре вопроса' : 'Four questions'}
+              </p>
+            )}
+            <h2
+              className={`cera-serif ${
+                isAppLikeMode ? 'text-[22px] leading-tight mb-1.5' : 'text-[32px] md:text-[48px] lg:text-[56px] leading-[1.08] mb-3 md:mb-5'
+              }`}
+            >
               {t('skinRecommendation.title')}
             </h2>
-            <p className={`text-gray-600 ${isAppLikeMode ? 'text-xs line-clamp-2 leading-relaxed' : 'text-sm md:text-lg lg:text-xl max-w-2xl mx-auto'}`}>
+            <p
+              className={`text-[var(--cera-muted)] ${
+                isAppLikeMode ? 'text-[13px] line-clamp-2 leading-relaxed' : 'text-[15.5px] md:text-[17px] max-w-[54ch] mx-auto leading-relaxed'
+              }`}
+            >
               {t('skinRecommendation.subtitle')}
             </p>
           </div>
@@ -1332,16 +1350,16 @@ export default function SkinRecommendationClient() {
               padding, single-line captions) so it takes less above-the-fold
               space before the form questions. */}
           <div className={isAppLikeMode ? 'mb-4' : 'mb-6 md:mb-10'}>
-              <div className={`bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl border border-primary-200 ${isAppLikeMode ? 'p-4' : 'p-5 md:p-6'}`}>
-                <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <div className={`rounded-2xl bg-primary-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary-200 ${isAppLikeMode ? 'w-11 h-11' : 'w-14 h-14 md:w-16 md:h-16'}`}>
-                    <Scan className={`text-white ${isAppLikeMode ? 'w-5 h-5' : 'w-7 h-7 md:w-8 md:h-8'}`} />
+              <div className={`skinrec-scan ${isAppLikeMode ? 'p-4' : 'p-6 md:p-7'}`}>
+                <div className={`flex items-center gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`skinrec-scan__mark flex items-center justify-center flex-shrink-0 ${isAppLikeMode ? 'w-11 h-11' : 'w-14 h-14 md:w-16 md:h-16'}`}>
+                    <Scan className={isAppLikeMode ? 'w-5 h-5' : 'w-7 h-7 md:w-8 md:h-8'} />
                   </div>
                   <div className={`flex-1 min-w-0 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <h3 className={`font-bold text-gray-900 ${isAppLikeMode ? 'text-base leading-tight' : 'text-lg md:text-xl mb-1'}`}>
+                    <h3 className={`cera-serif ${isAppLikeMode ? 'text-[17px] leading-tight' : 'text-[22px] md:text-[26px] leading-tight mb-1'}`}>
                       {locale === 'ar' ? 'تحليل البشرة بالكاميرا' : locale === 'ru' ? 'Анализ кожи камерой' : 'AI Skin Analysis'}
                     </h3>
-                    <p className={`text-gray-600 ${isAppLikeMode ? 'text-xs mt-0.5 line-clamp-1' : 'text-sm'}`}>
+                    <p className={`text-[var(--cera-muted)] ${isAppLikeMode ? 'text-xs mt-0.5 line-clamp-1' : 'text-[15px] leading-relaxed'}`}>
                       {locale === 'ar' ? 'التقط صورة سيلفي وسنحلل بشرتك' : locale === 'ru' ? 'Сделайте селфи, и мы проанализируем вашу кожу' : 'Take a selfie and we\'ll analyze your skin'}
                     </p>
                   </div>
@@ -1355,7 +1373,7 @@ export default function SkinRecommendationClient() {
                     <div className="flex-1 min-w-0">
                       <button
                         onClick={() => setShowPowerAnimal(true)}
-                        className={`w-full flex items-center justify-center gap-2 rounded-xl font-semibold transition-all border-2 border-amber-200 bg-gradient-to-r from-amber-50 to-orange-50 text-amber-700 hover:border-amber-400 hover:shadow-lg active:scale-[0.98] ${isAppLikeMode ? 'py-2.5 px-2 text-sm' : 'py-4 px-4 text-base'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`skinrec-ghost w-full flex items-center justify-center gap-2 font-semibold active:scale-[0.98] ${isAppLikeMode ? 'py-2.5 px-2 text-sm' : 'py-3.5 px-4 text-[15px]'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
                         <span className={isAppLikeMode ? 'text-base' : 'text-xl'}>🦁</span>
                         {locale === 'ar' ? 'حيوان القوة' : locale === 'ru' ? 'Тотем' : 'Power Animal'}
@@ -1372,7 +1390,7 @@ export default function SkinRecommendationClient() {
                     <div className="flex-1 min-w-0">
                       <button
                         onClick={() => setShowARCamera(true)}
-                        className={`w-full flex items-center justify-center gap-2 rounded-xl font-semibold transition-all border-2 border-primary-200 bg-gradient-to-r from-primary-50 to-red-50 text-primary-700 hover:border-primary-400 hover:shadow-lg active:scale-[0.98] ${isAppLikeMode ? 'py-2.5 px-2 text-sm' : 'py-4 px-4 text-base'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                        className={`skinrec-ghost w-full flex items-center justify-center gap-2 font-semibold active:scale-[0.98] ${isAppLikeMode ? 'py-2.5 px-2 text-sm' : 'py-3.5 px-4 text-[15px]'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       >
                         <Zap className={isAppLikeMode ? 'w-4 h-4' : 'w-5 h-5'} />
                         {locale === 'ar' ? 'تحليل AR' : locale === 'ru' ? 'AR Анализ' : 'Live AR'}
@@ -1411,12 +1429,12 @@ export default function SkinRecommendationClient() {
               </div>
 
               {/* Divider */}
-              <div className={`flex items-center gap-4 my-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                <div className="flex-1 border-t border-gray-200" />
-                <span className="text-sm text-gray-400 font-medium">
-                  {locale === 'ar' ? 'أو' : locale === 'ru' ? 'или' : 'or answer manually'}
+              <div className={`flex items-center gap-5 my-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className="cera-rule flex-1" />
+                <span className="cera-eyebrow whitespace-nowrap">
+                  {locale === 'ar' ? 'أو أجيبي بنفسك' : locale === 'ru' ? 'или ответьте сами' : 'or answer manually'}
                 </span>
-                <div className="flex-1 border-t border-gray-200" />
+                <div className="cera-rule flex-1" />
               </div>
             </div>
 
@@ -1424,30 +1442,31 @@ export default function SkinRecommendationClient() {
               sticky nav header (top-[60px] matches the ~60px header height)
               so the user always sees which step they're on while scrolling
               long option lists. Desktop keeps the original non-sticky layout. */}
-          <div className={`mb-4 md:mb-8 ${isAppLikeMode ? 'sticky top-[60px] z-10 -mx-3 px-3 py-2 bg-gray-50/95 backdrop-blur border-b border-gray-100' : ''}`}>
-            <div className={`flex items-center justify-between mb-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <span className="text-xs md:text-sm font-medium text-gray-700">{t('skinRecommendation.step')} {currentStep} {t('skinRecommendation.of')} 4</span>
-              <span className="text-xs md:text-sm text-gray-500">{Math.round((currentStep / 4) * 100)}% {t('skinRecommendation.complete')}</span>
+          <div className={`mb-5 md:mb-9 ${isAppLikeMode ? 'sticky top-[60px] z-10 -mx-3 px-3 py-2.5 bg-[var(--cera-cream)]/95 backdrop-blur border-b border-[var(--cera-line)]' : ''}`}>
+            <div className={`flex items-baseline justify-between mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <span className="cera-eyebrow">
+                {t('skinRecommendation.step')} {currentStep} {t('skinRecommendation.of')} 4
+              </span>
+              <span className="cera-numeral text-[13px] text-[var(--cera-muted)]">
+                {Math.round((currentStep / 4) * 100)}% {t('skinRecommendation.complete')}
+              </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-1.5 md:h-2">
-              <div
-                className="bg-primary-600 h-1.5 md:h-2 rounded-full transition-all duration-300"
-                style={{ width: `${(currentStep / 4) * 100}%` }}
-              />
+            <div className="skinrec-track">
+              <div className="skinrec-track__fill" style={{ width: `${(currentStep / 4) * 100}%` }} />
             </div>
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4 md:space-y-8">
             {/* Step 1: Skin Type */}
-            <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 lg:p-8 shadow-sm">
-              <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-                <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-primary-100 rounded-full text-primary-600 font-bold text-sm md:text-base">
+            <div className="cera-card p-5 md:p-7 lg:p-9">
+              <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-5">
+                <div className="skinrec-step-num cera-numeral text-[15px]" data-done={Boolean(selectedSkinType)}>
                   1
                 </div>
-                <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatsYourSkinType')}</h2>
+                <h2 className="cera-serif text-[21px] md:text-[30px] leading-tight">{t('skinRecommendation.whatsYourSkinType')}</h2>
               </div>
-              <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6">{t('skinRecommendation.selectBestDescribes')}</p>
+              <p className="text-[14px] md:text-[15.5px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.selectBestDescribes')}</p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                 {SKIN_TYPES.map((skinType) => (
                   <button
@@ -1457,22 +1476,20 @@ export default function SkinRecommendationClient() {
                       setSelectedSkinType(skinType.value)
                       setCurrentStep(2)
                     }}
-                    className={`p-4 md:p-6 rounded-lg md:rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} group min-h-[120px] md:min-h-[140px] ${
-                      selectedSkinType === skinType.value
-                        ? 'border-primary-500 bg-primary-50 shadow-md'
-                        : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 active:bg-gray-50'
-                    }`}
+                    className="skinrec-option p-4 md:p-5 min-h-[124px] md:min-h-[146px]"
+                    data-selected={selectedSkinType === skinType.value}
                   >
-                    <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-3">
-                      <span className="text-2xl md:text-3xl">{skinType.icon}</span>
-                      <div className="font-semibold text-base md:text-lg text-gray-900">{skinType.label}</div>
+                    <span className="skinrec-option__tick" aria-hidden="true"><Check className="w-3 h-3" strokeWidth={3} /></span>
+                    <div className="flex items-center gap-2.5 md:gap-3 mb-2 md:mb-2.5 pe-7">
+                      <span className="text-2xl md:text-[28px] leading-none">{skinType.icon}</span>
+                      <div className="cera-serif text-[16px] md:text-[19px] leading-tight">{skinType.label}</div>
                     </div>
-                    <p className="text-xs md:text-sm text-gray-600 mb-2 line-clamp-2">{skinType.description}</p>
+                    <p className="text-[12.5px] md:text-[13.5px] text-[var(--cera-muted)] leading-relaxed line-clamp-2">{skinType.description}</p>
                     {selectedSkinType === skinType.value && (
-                      <div className="mt-2 md:mt-3 pt-2 md:pt-3 border-t border-primary-200">
-                        <div className="flex items-start gap-1.5 md:gap-2">
-                          <Info className="w-3.5 h-3.5 md:w-4 md:h-4 text-primary-600 mt-0.5 flex-shrink-0" />
-                          <p className="text-[10px] md:text-xs text-primary-700 leading-relaxed">{skinType.tips}</p>
+                      <div className="mt-3 pt-3 border-t border-[var(--cera-blush-deep)]">
+                        <div className="flex items-start gap-2">
+                          <Info className="w-3.5 h-3.5 text-[var(--cera-rose)] mt-[3px] flex-shrink-0" />
+                          <p className="text-[11.5px] md:text-xs text-[var(--cera-rose-ink)] leading-relaxed">{skinType.tips}</p>
                         </div>
                       </div>
                     )}
@@ -1483,14 +1500,14 @@ export default function SkinRecommendationClient() {
 
             {/* Step 2: Age Group */}
             {selectedSkinType && (
-              <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 lg:p-8 shadow-sm">
-                <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-                  <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-primary-100 rounded-full text-primary-600 font-bold text-sm md:text-base">
+              <div className="cera-card p-5 md:p-7 lg:p-9">
+                <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-5">
+                  <div className="skinrec-step-num cera-numeral text-[15px]" data-done={Boolean(selectedAgeGroup)}>
                     2
                   </div>
-                  <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatsYourAgeGroup')}</h2>
+                  <h2 className="cera-serif text-[21px] md:text-[30px] leading-tight">{t('skinRecommendation.whatsYourAgeGroup')}</h2>
                 </div>
-                <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6">{t('skinRecommendation.helpsRecommendAgeAppropriate')}</p>
+                <p className="text-[14px] md:text-[15.5px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.helpsRecommendAgeAppropriate')}</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                   {AGE_GROUPS.map((ageGroup) => (
                     <button
@@ -1500,17 +1517,15 @@ export default function SkinRecommendationClient() {
                         setSelectedAgeGroup(ageGroup.value)
                         setCurrentStep(3)
                       }}
-                      className={`p-4 md:p-6 rounded-lg md:rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} min-h-[100px] md:min-h-[120px] ${
-                        selectedAgeGroup === ageGroup.value
-                          ? 'border-primary-500 bg-primary-50 shadow-md'
-                          : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 active:bg-gray-50'
-                      }`}
+                      className="skinrec-option p-4 md:p-5 min-h-[104px] md:min-h-[118px]"
+                      data-selected={selectedAgeGroup === ageGroup.value}
                     >
-                      <div className="flex items-center gap-2 md:gap-3 mb-2">
-                        <span className="text-xl md:text-2xl">{ageGroup.icon}</span>
-                        <div className="font-semibold text-base md:text-lg text-gray-900">{ageGroup.label}</div>
+                      <span className="skinrec-option__tick" aria-hidden="true"><Check className="w-3 h-3" strokeWidth={3} /></span>
+                      <div className="flex items-center gap-2.5 md:gap-3 mb-2 pe-7">
+                        <span className="text-xl md:text-2xl leading-none">{ageGroup.icon}</span>
+                        <div className="cera-serif text-[16px] md:text-[19px] leading-tight">{ageGroup.label}</div>
                       </div>
-                      <p className="text-xs md:text-sm text-gray-600">{ageGroup.focus}</p>
+                      <p className="text-[12.5px] md:text-[13.5px] text-[var(--cera-muted)] leading-relaxed">{ageGroup.focus}</p>
                     </button>
                   ))}
                 </div>
@@ -1519,14 +1534,14 @@ export default function SkinRecommendationClient() {
 
             {/* Step 3: Target Concerns */}
             {selectedAgeGroup && (
-              <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 lg:p-8 shadow-sm">
-                <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-                  <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-primary-100 rounded-full text-primary-600 font-bold text-sm md:text-base">
+              <div className="cera-card p-5 md:p-7 lg:p-9">
+                <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-5">
+                  <div className="skinrec-step-num cera-numeral text-[15px]" data-done={selectedTargetConcerns.length > 0}>
                     3
                   </div>
-                  <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900">{t('skinRecommendation.whatAreMainConcerns')}</h2>
+                  <h2 className="cera-serif text-[21px] md:text-[30px] leading-tight">{t('skinRecommendation.whatAreMainConcerns')}</h2>
                 </div>
-                <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6">{t('skinRecommendation.selectAllThatApply')}</p>
+                <p className="text-[14px] md:text-[15.5px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.selectAllThatApply')}</p>
                 <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4">
                   {TARGET_CONCERNS.map((concern) => (
                     <button
@@ -1536,20 +1551,18 @@ export default function SkinRecommendationClient() {
                         handleTargetConcernToggle(concern.value)
                         setCurrentStep(4)
                       }}
-                      className={`p-3 md:p-5 rounded-lg md:rounded-xl border-2 transition-all duration-200 ${dir === 'rtl' ? 'text-right' : 'text-left'} min-h-[100px] md:min-h-[120px] ${
-                        selectedTargetConcerns.includes(concern.value)
-                          ? 'border-primary-500 bg-primary-50 shadow-md'
-                          : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 active:bg-gray-50'
-                      }`}
+                      className="skinrec-option p-3.5 md:p-4 min-h-[104px] md:min-h-[122px]"
+                      data-selected={selectedTargetConcerns.includes(concern.value)}
                     >
-                      <div className="flex items-center gap-1.5 md:gap-2 mb-1.5 md:mb-2">
-                        <span className="text-lg md:text-2xl">{concern.icon}</span>
-                        <span className="font-semibold text-sm md:text-base text-gray-900 leading-tight">{concern.label}</span>
+                      <span className="skinrec-option__tick" aria-hidden="true"><Check className="w-3 h-3" strokeWidth={3} /></span>
+                      <div className="flex items-center gap-2 mb-1.5 md:mb-2 pe-7">
+                        <span className="text-lg md:text-[22px] leading-none">{concern.icon}</span>
+                        <span className="cera-serif text-[14px] md:text-[16px] leading-tight">{concern.label}</span>
                       </div>
-                      <p className="text-[10px] md:text-xs text-gray-600 mb-1 md:mb-2 line-clamp-2">{concern.description}</p>
+                      <p className="text-[11px] md:text-[12.5px] text-[var(--cera-muted)] leading-relaxed line-clamp-2">{concern.description}</p>
                       {selectedTargetConcerns.includes(concern.value) && concern.keyIngredients && (
-                        <div className="mt-1.5 md:mt-2 pt-1.5 md:pt-2 border-t border-primary-200">
-                          <p className="text-[10px] md:text-xs text-primary-700 font-medium">{t('skinRecommendation.keyIngredients')}: {concern.keyIngredients}</p>
+                        <div className="mt-2 pt-2 border-t border-[var(--cera-blush-deep)]">
+                          <p className="text-[11px] md:text-xs text-[var(--cera-rose-ink)]">{t('skinRecommendation.keyIngredients')}: {concern.keyIngredients}</p>
                         </div>
                       )}
                     </button>
@@ -1560,29 +1573,27 @@ export default function SkinRecommendationClient() {
 
             {/* Step 4: Usage Time */}
             {selectedTargetConcerns.length > 0 && (
-              <div className="bg-white rounded-xl md:rounded-2xl border border-gray-200 p-4 md:p-6 lg:p-8 shadow-sm">
-                <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-                  <div className="flex items-center justify-center w-8 h-8 md:w-10 md:h-10 bg-primary-100 rounded-full text-primary-600 font-bold text-sm md:text-base">
+              <div className="cera-card p-5 md:p-7 lg:p-9">
+                <div className="flex items-center gap-3 md:gap-4 mb-4 md:mb-5">
+                  <div className="skinrec-step-num cera-numeral text-[15px]" data-done={Boolean(selectedUsage)}>
                     4
                   </div>
-                  <h2 className="text-lg md:text-2xl lg:text-3xl font-bold text-gray-900">{t('skinRecommendation.whenPreferUseSkincare')}</h2>
+                  <h2 className="cera-serif text-[21px] md:text-[30px] leading-tight">{t('skinRecommendation.whenPreferUseSkincare')}</h2>
                 </div>
-                <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6">{t('skinRecommendation.helpsRecommendRoutine')}</p>
+                <p className="text-[14px] md:text-[15.5px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.helpsRecommendRoutine')}</p>
                 <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-2.5 md:gap-4">
                   {USAGE_OPTIONS.map((usage) => (
                     <button
                       key={usage.value}
                       type="button"
                       onClick={() => setSelectedUsage(usage.value)}
-                      className={`p-4 md:p-6 rounded-lg md:rounded-xl border-2 transition-all duration-200 text-center min-h-[100px] md:min-h-[120px] ${
-                        selectedUsage === usage.value
-                          ? 'border-primary-500 bg-primary-50 shadow-md'
-                          : 'border-gray-200 hover:border-primary-300 hover:bg-gray-50 active:bg-gray-50'
-                      }`}
+                      className="skinrec-option skinrec-option--center p-4 md:p-5 min-h-[104px] md:min-h-[122px]"
+                      data-selected={selectedUsage === usage.value}
                     >
-                      <div className="text-2xl md:text-4xl mb-2 md:mb-3">{usage.icon}</div>
-                      <div className="font-semibold text-sm md:text-lg text-gray-900 mb-1">{usage.label}</div>
-                      <p className="text-[10px] md:text-xs text-gray-600">{usage.description}</p>
+                      <span className="skinrec-option__tick" aria-hidden="true"><Check className="w-3 h-3" strokeWidth={3} /></span>
+                      <div className="text-2xl md:text-[34px] leading-none mb-2 md:mb-3">{usage.icon}</div>
+                      <div className="cera-serif text-[14px] md:text-[18px] leading-tight mb-1">{usage.label}</div>
+                      <p className="text-[11px] md:text-[12.5px] text-[var(--cera-muted)] leading-relaxed">{usage.description}</p>
                     </button>
                   ))}
                 </div>
@@ -1595,7 +1606,7 @@ export default function SkinRecommendationClient() {
                 <button
                   type="submit"
                   disabled={!selectedSkinType || isLoading}
-                  className="bg-primary-600 hover:bg-primary-700 disabled:bg-gray-400 text-white font-semibold py-3 md:py-4 px-6 md:px-12 rounded-lg md:rounded-xl transition-all duration-200 transform hover:scale-105 disabled:scale-100 disabled:cursor-not-allowed shadow-lg disabled:shadow-none flex items-center gap-2 mx-auto text-sm md:text-base min-h-[44px] md:min-h-[52px] touch-manipulation"
+                  className="skinrec-cta font-semibold py-3.5 md:py-4 px-8 md:px-12 disabled:cursor-not-allowed flex items-center gap-2.5 mx-auto text-[15px] md:text-base min-h-[48px] md:min-h-[54px] touch-manipulation"
                 >
                   {isLoading ? (
                     <>
@@ -1622,10 +1633,13 @@ export default function SkinRecommendationClient() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16">
           {/* Results Header - Apple Style */}
           <div className="text-center mb-12 md:mb-20">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-semibold text-gray-900 tracking-tight mb-4 md:mb-6">
+            <p className="cera-eyebrow mb-3">
+              {locale === 'ar' ? 'روتينك' : locale === 'ru' ? 'Ваш уход' : 'Your routine'}
+            </p>
+            <h1 className="cera-serif text-[34px] md:text-[54px] lg:text-[64px] leading-[1.05] mb-4 md:mb-6">
               {locale === 'ar' ? 'اخترنا لك' : locale === 'ru' ? 'Подобрано для вас' : 'Curated for You'}
             </h1>
-            <p className="text-lg md:text-xl text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
+            <p className="text-[16px] md:text-[18px] text-[var(--cera-muted)] max-w-[56ch] mx-auto leading-relaxed">
               {locale === 'ar' 
                 ? 'منتجات مختارة بعناية بناءً على تحليل بشرتك الشخصي'
                 : locale === 'ru'
@@ -1636,14 +1650,14 @@ export default function SkinRecommendationClient() {
             
             {/* Skin Profile Pills - Minimal */}
             <div className={`flex flex-wrap items-center justify-center gap-3 mt-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <span className="inline-flex items-center gap-2 bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-medium">
+              <span className="skinrec-pill inline-flex items-center gap-2 px-4 py-2 text-[13.5px]">
                 {SKIN_TYPES.find(type => type.value === selectedSkinType)?.icon}
                 {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label || selectedSkinType}
               </span>
               {selectedTargetConcerns.slice(0, 3).map(concern => {
                 const concernData = TARGET_CONCERNS.find(c => c.value === concern)
                 return concernData ? (
-                  <span key={concern} className="inline-flex items-center gap-1.5 bg-primary-50 text-primary-700 px-4 py-2 rounded-full text-sm font-medium">
+                  <span key={concern} className="skinrec-pill skinrec-pill--accent inline-flex items-center gap-1.5 px-4 py-2 text-[13.5px]">
                     {concernData.icon} {concernData.label}
                   </span>
                 ) : null
@@ -1655,17 +1669,17 @@ export default function SkinRecommendationClient() {
               )}
             </div>
             
-            <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 font-light">
+            <p className="cera-numeral text-[15px] md:text-[16px] text-[var(--cera-muted)] mt-8 mb-6 md:mb-8">
               {locale === 'ar' 
                 ? `وجدنا ${recommendations.length} منتج مثالي لبشرتك`
                 : locale === 'ru'
-                ? `Мы нашли ${recommendations.length} продуктов для вашей кожи`
-                : `We found ${recommendations.length} products perfect for your skin`
+                ? `Мы нашли ${recommendations.length} ${recommendations.length === 1 ? 'продукт' : 'продуктов'} для вашей кожи`
+                : `We found ${recommendations.length} ${recommendations.length === 1 ? 'product' : 'products'} perfect for your skin`
               }
             </p>
             <button
               onClick={resetForm}
-              className={`inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-medium text-sm md:text-base transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className={`skinrec-ghost inline-flex items-center gap-2 px-5 py-2.5 text-[14px] font-semibold ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
               <ArrowLeft className={`w-4 h-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               {locale === 'ar' ? 'تحليل جديد' : locale === 'ru' ? 'Новый анализ' : 'New Analysis'}
@@ -1680,16 +1694,25 @@ export default function SkinRecommendationClient() {
                 <section key={category}>
                   {/* Category Header - Apple Style */}
                   <div className="mb-8 md:mb-12">
-                    <h2 className={`text-2xl md:text-4xl font-semibold text-gray-900 tracking-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <h2 className={`cera-serif text-[26px] md:text-[38px] leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {category}
                     </h2>
-                    <p className={`text-gray-500 mt-2 text-base md:text-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      {products.length} {locale === 'ar' ? 'منتج مختار لك' : locale === 'ru' ? 'товаров подобрано для вас' : 'products curated for you'}
+                    <p className={`cera-numeral text-[var(--cera-muted)] mt-2 text-[14.5px] md:text-[16px] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      {products.length}{' '}
+                      {locale === 'ar'
+                        ? 'منتج مختار لك'
+                        : locale === 'ru'
+                          ? products.length === 1
+                            ? 'товар подобран для вас'
+                            : 'товаров подобрано для вас'
+                          : products.length === 1
+                            ? 'product curated for you'
+                            : 'products curated for you'}
                     </p>
                   </div>
                   
                   {/* Product Grid - Clean Apple Cards */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                     {products.map((product) => {
                       const pricing = getPricingDisplay(product, user)
                       const canSeePrice = canUserSeePrices(user)
@@ -1697,11 +1720,11 @@ export default function SkinRecommendationClient() {
                       return (
                         <article
                           key={product.id}
-                          className="group relative bg-white rounded-3xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-gray-200/50"
+                          className="cera-card cera-card-hover group relative overflow-hidden"
                         >
                           {/* Product Image */}
                           <Link href={getLocalizedPath(`/products/${product.id}`, locale)} className="block">
-                            <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
+                            <div className="relative aspect-square bg-[var(--cera-shot)] overflow-hidden">
                               <Image
                                 src={product.image}
                                 alt={product.name}
@@ -1751,13 +1774,13 @@ export default function SkinRecommendationClient() {
                           {/* Product Info - Spacious & Clean */}
                           <div className="p-5 md:p-6">
                             <Link href={getLocalizedPath(`/products/${product.id}`, locale)} className="block">
-                              <h3 className={`font-semibold text-gray-900 text-lg leading-snug mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors duration-300 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                              <h3 className={`cera-serif text-[18px] leading-snug mb-2 line-clamp-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                                 {product.name}
                               </h3>
                             </Link>
                             
                             {/* Subtle Description */}
-                            <p className={`text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                            <p className={`text-[var(--cera-muted)] text-[13.5px] leading-relaxed mb-4 line-clamp-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                               {product.description}
                             </p>
                             
@@ -1767,7 +1790,7 @@ export default function SkinRecommendationClient() {
                                 <div>
                                   {pricing.hasDiscount ? (
                                     <div className={`flex items-baseline gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                                      <span className="text-2xl font-semibold text-gray-900">
+                                      <span className="cera-numeral text-[22px] text-[var(--cera-ink)]">
                                         AED {pricing.displayPrice.toFixed(0)}
                                       </span>
                                       {pricing.originalPrice ? (
@@ -1777,7 +1800,7 @@ export default function SkinRecommendationClient() {
                                       ) : null}
                                     </div>
                                   ) : (
-                                    <span className="text-2xl font-semibold text-gray-900">
+                                    <span className="cera-numeral text-[22px] text-[var(--cera-ink)]">
                                       AED {pricing.displayPrice.toFixed(0)}
                                     </span>
                                   )}
@@ -1800,7 +1823,7 @@ export default function SkinRecommendationClient() {
                             <button
                               onClick={() => handleAddToCart(product)}
                               disabled={!product.inStock}
-                              className={`w-full bg-primary-600 hover:bg-primary-700 disabled:bg-gray-200 disabled:text-gray-400 text-white font-medium py-3.5 px-6 rounded-full transition-all duration-300 flex items-center justify-center gap-2 active:scale-[0.98] disabled:cursor-not-allowed shadow-sm hover:shadow-md ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                              className={`skinrec-cta w-full font-semibold py-3.5 px-6 flex items-center justify-center gap-2 active:scale-[0.98] disabled:cursor-not-allowed ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                             >
                               <ShoppingCart className="w-4 h-4" />
                               <span>{locale === 'ar' ? 'أضف للسلة' : locale === 'ru' ? 'В корзину' : 'Add to Bag'}</span>
@@ -1815,12 +1838,12 @@ export default function SkinRecommendationClient() {
             </div>
 
             {/* Browse by Skin Concern CTA */}
-            <div className="mt-12 rounded-2xl border border-gray-100 bg-gradient-to-br from-rose-50/60 to-white p-6 sm:p-8 text-center">
+            <div className="skinrec-scan mt-14 md:mt-20 p-7 sm:p-10 text-center">
               <span className="text-3xl mb-3 block">🌿</span>
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2">
+              <h3 className="cera-serif text-[22px] sm:text-[28px] leading-tight mb-2.5">
                 {locale === 'ar' ? 'استكشفي حسب مشكلة البشرة' : locale === 'ru' ? 'Подберите по проблеме кожи' : 'Browse by Skin Concern'}
               </h3>
-              <p className="text-sm text-gray-500 mb-5 max-w-md mx-auto">
+              <p className="text-[14.5px] text-[var(--cera-muted)] leading-relaxed mb-6 max-w-[46ch] mx-auto">
                 {locale === 'ar'
                   ? 'صفحات مخصصة لكل مشكلة جلدية مع منتجات مختارة وروتين يومي كامل'
                   : locale === 'ru'
@@ -1829,7 +1852,7 @@ export default function SkinRecommendationClient() {
               </p>
               <Link
                 href={getLocalizedPath('/products?categories=skin-concern', locale)}
-                className={`inline-flex items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-full transition-all duration-200 shadow-sm hover:shadow-md ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                className={`skinrec-cta inline-flex items-center gap-2 font-semibold py-3.5 px-7 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
               >
                 {locale === 'ar' ? 'اكتشفي المشاكل' : locale === 'ru' ? 'Смотреть проблемы' : 'Explore Concerns'}
                 {dir === 'rtl' ? <ArrowLeft className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
@@ -1848,13 +1871,13 @@ export default function SkinRecommendationClient() {
               <div className={`flex flex-col sm:flex-row gap-4 justify-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <button
                   onClick={resetForm}
-                  className="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors"
+                  className="skinrec-cta font-semibold py-3.5 px-7"
                 >
                   {t('skinRecommendation.adjustSelections')}
                 </button>
                 <Link
                   href={getLocalizedPath('/products', locale)}
-                  className={`bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold py-3 px-6 rounded-xl transition-colors inline-flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                  className={`skinrec-ghost font-semibold py-3.5 px-7 inline-flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                 >
                   {t('skinRecommendation.browseAllProducts')}
                   <ArrowRight className={`w-4 h-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />

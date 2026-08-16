@@ -1,0 +1,195 @@
+/**
+ * Page-scoped styling for /skin-recommendation.
+ *
+ * Brings the route onto the same editorial system as the bespoke product
+ * pages: cerabarrier.css supplies the structure (serif, eyebrow, card, rule,
+ * numeral) and this file restates the palette and adds the handful of
+ * components the quiz needs that a product page does not.
+ *
+ * The accent is GENOSYS red rather than a product colour, because this page
+ * is the brand's own front door into the range rather than one product's
+ * story. Everything is nested under `.skinrec-page` so it cannot leak.
+ */
+
+.cera-page.skinrec-page {
+  --cera-cream: #faf8f7;
+  --cera-cream-deep: #f2eceb;
+  --cera-blush: #fbeceb;
+  --cera-blush-deep: #f0cfcd;
+  --cera-rose: #c0392f;
+  --cera-rose-ink: #97281f;
+  --cera-ink: #17140f;
+  --cera-body: #3c3733;
+  --cera-muted: #6a625d;
+  --cera-line: #e9e1de;
+}
+
+/* --- Quiz option tiles -------------------------------------------------- */
+
+.skinrec-option {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--cera-line);
+  border-radius: 20px;
+  text-align: start;
+  transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 260ms ease,
+    border-color 200ms ease, background-color 200ms ease;
+}
+
+@media (hover: hover) {
+  .skinrec-option:hover {
+    transform: translateY(-2px);
+    border-color: var(--cera-blush-deep);
+    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 20px 40px -28px rgba(151, 40, 31, 0.3);
+  }
+}
+
+.skinrec-option:active {
+  transform: translateY(0);
+}
+
+.skinrec-option[data-selected='true'] {
+  border-color: var(--cera-rose);
+  background: color-mix(in srgb, var(--cera-blush) 55%, #fff);
+  box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 18px 38px -26px rgba(151, 40, 31, 0.42);
+}
+
+/* The tick that appears on a chosen tile. Absolute so selecting an option
+   never changes the tile's height and reflows the grid under the thumb. */
+.skinrec-option__tick {
+  position: absolute;
+  top: 14px;
+  inset-inline-end: 14px;
+  display: flex;
+  height: 22px;
+  width: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--cera-rose);
+  color: #fff;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 200ms ease, transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skinrec-option[data-selected='true'] .skinrec-option__tick {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* --- Step number -------------------------------------------------------- */
+
+.skinrec-step-num {
+  display: flex;
+  height: 34px;
+  width: 34px;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid var(--cera-blush-deep);
+  background: var(--cera-blush);
+  color: var(--cera-rose-ink);
+}
+
+.skinrec-step-num[data-done='true'] {
+  border-color: var(--cera-rose);
+  background: var(--cera-rose);
+  color: #fff;
+}
+
+/* --- Progress ----------------------------------------------------------- */
+
+.skinrec-track {
+  height: 3px;
+  width: 100%;
+  border-radius: 999px;
+  background: var(--cera-cream-deep);
+  overflow: hidden;
+}
+
+.skinrec-track__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--cera-rose);
+  transition: width 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* --- Primary action ----------------------------------------------------- */
+
+.skinrec-cta {
+  background: var(--cera-ink);
+  color: #fff;
+  border-radius: 999px;
+  transition: background-color 260ms ease, box-shadow 260ms ease, transform 200ms ease;
+}
+
+@media (hover: hover) {
+  .skinrec-cta:not(:disabled):hover {
+    background: #000;
+    box-shadow: 0 18px 38px -20px rgba(17, 20, 15, 0.8);
+  }
+}
+
+.skinrec-cta:disabled {
+  background: var(--cera-cream-deep);
+  color: var(--cera-muted);
+}
+
+/* --- Scan panel --------------------------------------------------------- */
+
+.skinrec-scan {
+  border: 1px solid var(--cera-blush-deep);
+  border-radius: 24px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--cera-blush) 70%, #fff), #fff 68%);
+}
+
+.skinrec-scan__mark {
+  background: var(--cera-rose);
+  color: #fff;
+  border-radius: 18px;
+  box-shadow: 0 14px 30px -16px rgba(151, 40, 31, 0.7);
+}
+
+.skinrec-ghost {
+  border: 1px solid var(--cera-line);
+  background: #fff;
+  border-radius: 999px;
+  color: var(--cera-ink);
+  transition: border-color 200ms ease, box-shadow 260ms ease, transform 200ms ease;
+}
+
+@media (hover: hover) {
+  .skinrec-ghost:hover {
+    border-color: var(--cera-blush-deep);
+    box-shadow: 0 14px 30px -22px rgba(23, 20, 15, 0.45);
+  }
+}
+
+/* --- Result pills ------------------------------------------------------- */
+
+.skinrec-pill {
+  border: 1px solid var(--cera-line);
+  background: #fff;
+  border-radius: 999px;
+  color: var(--cera-body);
+}
+
+.skinrec-pill--accent {
+  border-color: var(--cera-blush-deep);
+  background: var(--cera-blush);
+  color: var(--cera-rose-ink);
+}
+
+/* Step 4 tiles centre their icon and label rather than running a title row,
+   so the tick has no text to collide with and the content is centred. */
+.skinrec-option--center {
+  text-align: center;
+}
+
+/* The scan mark is a rounded square on the quiz panel and a circle on the
+   analysis report, so the report instance overrides the radius. */
+.skinrec-scan__mark--round {
+  border-radius: 999px;
+}

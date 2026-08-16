@@ -539,7 +539,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [ND Cell ANTI-WRINKLE CREAM](https://genosys.ae/products/23){{id:23}} - AED 370 - Premium anti-aging
 - [EyeCell EYE CONTOUR CREAM](https://genosys.ae/products/24){{id:24}} - AED 370 - Eye cream
 - [SOOTHING REPAIR POSTCREAM](https://genosys.ae/products/25){{id:25}} - AED 204 - Post-treatment
-- [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}} - AED 450 - Barrier repair
+- [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}} - AED 450 - Sensitive and dry skin. Ceramide NP 0.5%, printed on the carton as 5,000 ppm. Glycerin 17.5%, shea 3%. The richest of the three creams. Pat it in, AM/PM. Has a mild lavender scent.
 - [INTENSIVE HYDRO SOOTHING CREAM](https://genosys.ae/products/28){{id:28}} - AED 290 - Hydrating
 - [MOISTURE REPLENISHING HYALURON CREAM](https://genosys.ae/products/29){{id:29}} - AED 290 (50g) / 420 (250g) - Dry and dehydrated skin. Sodium hyaluronate 1,000.9 ppm, printed on the carton, high molecular weight so it seals. Glycerin 9%. +82% hydration, 72h hold. Massage in after the serum. Has a light geranium scent.
 - [INTENSIVE PROBLEM CONTROL CREAM](https://genosys.ae/products/30){{id:30}} - AED 290 (50g) / 420 (250g) - Oily and combination skin. A cream with no oil in it: 86.6% water thickened by 1.3% polymer. Zinc PCA 0.05%, same as the serum. Massage in as the last step, AM/PM.

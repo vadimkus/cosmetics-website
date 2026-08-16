@@ -24,6 +24,7 @@ import HsserumProductPage from '@/components/product/hsserum/HsserumProductPage'
 import PcserumProductPage from '@/components/product/pcserum/PcserumProductPage'
 import PccreamProductPage from '@/components/product/pccream/PccreamProductPage'
 import MhcreamProductPage from '@/components/product/mhcream/MhcreamProductPage'
+import SpcreamProductPage from '@/components/product/spcream/SpcreamProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -112,6 +113,11 @@ export const BESPOKE_PDP_LAYOUTS = {
   // seals where the serum's 2,000 ppm of hydrolyzed HA fills. Hyaluronan 11 is
   // a real manufacturer name; the deck maps its eleven grades to eight INCI.
   '29': MhcreamProductPage,
+  // 27 is the cream half of the pair whose serum is 19, and the richest of
+  // the three face creams: 49.9% water, glycerin 17.49%, shea 3%. Ceramide NP
+  // at 0.5% is the figure, and the Korean carton panel prints it as 5,000 ppm.
+  // MultiEx BSASM Plus is here at 0.0001%, not 1%: do not lead on it.
+  '27': SpcreamProductPage,
   // 50 is the registered four-piece EyeCell kit. Serum + 0.25mm eye
   // roller, patches 20-40 min, then cream. Not a beauty box. The roller
   // is not product 1.

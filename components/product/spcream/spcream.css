@@ -1,0 +1,50 @@
+/**
+ * Palette override for the SKIN BARRIER PROTECTING CREAM page (product 27).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is a warm sage taken from the pack, which prints in
+ * PANTONE 5773-family olive on a milk-white tube, and from the pale green
+ * botanicals running through the studio slides. Warmer and lighter than the
+ * sensitive serum's lime-charcoal (product 19), which is its partner rather
+ * than its twin, and nowhere near the two blue creams (29 and 30).
+ *
+ * Scoped to `.cera-page.spcream-page`.
+ */
+
+.cera-page.spcream-page {
+  --cera-cream: #f5f5ef;
+  --cera-cream-deep: #e8e9dd;
+  --cera-blush: #e6e9d8;
+  --cera-blush-deep: #c2c9a8;
+  --cera-rose: #6e7a4b;
+  --cera-rose-ink: #4c5533;
+  --cera-ink: #1a1c15;
+  --cera-body: #3b3f31;
+  --cera-muted: #646a54;
+  --cera-line: #dcdfcd;
+}
+
+.spcream-page .cera-stage {
+  background-color: #eef0e6;
+  box-shadow: 0 24px 60px -34px rgba(76, 85, 51, 0.38);
+}
+
+@media (hover: hover) {
+  .spcream-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(26, 28, 21, 0.04), 0 26px 48px -26px rgba(76, 85, 51, 0.3);
+  }
+}
+
+.spcream-page .spcream-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.spcream-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.spcream-page .spcream-video {
+  border: 1px solid var(--cera-line);
+  background: #14160f;
+}

@@ -40,7 +40,7 @@ Based on your analysis, recommend 3-5 GENOSYS products using EXACT format:
 - [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - AED 330 - Oily and combination skin. Zinc PCA 0.05%, neat. After toner, pat AM/PM. No salicylic acid.
 - [INTENSIVE PROBLEM CONTROL CREAM](https://genosys.ae/products/30){{id:30}} - AED 290 - Oil-free gel cream. Zinc PCA 0.05%, same as the serum. Massage in last, AM/PM.
 - [ALL FOR SENSITIVE SERUM](https://genosys.ae/products/19){{id:19}} - AED 330 - Sensitive skin care
-- [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}} - AED 450 - Barrier repair
+- [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}} - AED 450 - Sensitive and dry skin. Ceramide NP 0.5% (5,000 ppm on the carton). The richest of the three creams. Pat it in, AM/PM.
 - [MULTI FUNCTIONAL ANTI-WRINKLE SERUM](https://genosys.ae/products/22){{id:22}} - AED 330 - Anti-aging serum
 - [MULTI FUNCTIONAL ANTI-WRINKLE CREAM](https://genosys.ae/products/32){{id:32}} - AED 290 - Anti-aging cream
 - [ND Cell ANTI-WRINKLE CREAM](https://genosys.ae/products/23){{id:23}} - AED 370 - Premium anti-aging with peptides

@@ -216,6 +216,14 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('100% satisfaction panel', '21-woman panel: 100% reported even tone, no tightness and no irritation.', '100% удовлетворённость', 'Панель из 21 женщины: 100% отметили ровный тон, без стянутости и раздражения.', 'رضا 100%', 'لوحة من 21 امرأة: 100% أبلغن عن توحيد اللون بلا شد ولا تهيج.'),
     t('Daily radiance serum', 'Lightweight AM/PM layer under cream or sunscreen.', 'Ежедневная сыворотка сияния', 'Лёгкий слой утром и вечером под крем или SPF.', 'سيروم إشراقة يومي', 'طبقة خفيفة صباحاً ومساءً تحت الكريم أو الواقي.'),
   ],
+  '27': [
+    t('Ceramide NP 0.5%', 'Five thousand ppm, and the Korean panel prints the number on the carton.', 'Ceramide NP 0,5%', 'Пять тысяч ppm, и корейская панель печатает число на упаковке.', 'سيراميد NP ٠٫٥٪', 'خمسة آلاف جزء بالمليون، واللوحة الكورية تطبع الرقم على العلبة.'),
+    t('Glycerin 17.49%', 'Nearly a fifth of the tube, from two separate raw materials.', 'Глицерин 17,49%', 'Почти пятая часть тубы, из двух разных сырьевых материалов.', 'جلسرين ١٧٫٤٩٪', 'قرابة خُمس الأنبوب، من مادّتين خامّتين منفصلتين.'),
+    t('The richest of the three', '49.9% water, against 72.4% in the Hyaluron Cream and 86.6% in the Problem Control.', 'Самый насыщенный из трёх', '49,9% воды против 72,4% в Hyaluron и 86,6% в Problem Control.', 'أغنى الثلاثة', '٤٩٫٩٪ ماء مقابل ٧٢٫٤٪ في Hyaluron و٨٦٫٦٪ في Problem Control.'),
+    t('Shea butter 3%', 'The occlusive half, with a 13% ester blend behind it.', 'Масло ши 3%', 'Окклюзивная половина, с 13% эфирной базы за ней.', 'زبدة شيا ٣٪', 'النصف الحاجب، ومعه ١٣٪ من مزيج الإسترات.'),
+    t('Pat, do not rub', 'The carton asks for patting, which is unusual for a cream this rich.', 'Вбивать, не растирать', 'Коробка просит вбивание, что необычно для настолько насыщенного крема.', 'ربّتي، لا تفركي', 'العلبة تطلب التربيت، وهو غير معتاد لكريم بهذا الغنى.'),
+    t('Botanicals are a trace', 'MultiEx BSASM Plus is at 0.0001% here, against 1% in the sensitive serum.', 'Растения — след', 'MultiEx BSASM Plus здесь 0,0001% против 1% в сыворотке для чувствительной кожи.', 'النباتات أثرية', 'MultiEx BSASM Plus هنا ٠٫٠٠٠١٪ مقابل ١٪ في سيروم البشرة الحساسة.'),
+  ],
   '29': [
     t('+82% immediate hydration', 'Clinical hydration value rose 82% immediately after a single use.', '+82% увлажнения сразу', 'Клинически увлажнение выросло на 82% сразу после одного нанесения.', '+82% ترطيب فوري', 'ارتفعت قيمة الترطيب السريرية 82% فوراً بعد استخدام واحد.'),
     t('72-hour persistence', 'Still significantly above baseline three days after a single application.', 'Держится 72 часа', 'Через трое суток после одного нанесения всё ещё значимо выше исходного.', 'ثبات ٧٢ ساعة', 'ما زال أعلى بدلالة من خط الأساس بعد ثلاثة أيام من تطبيق واحد.'),

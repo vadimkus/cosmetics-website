@@ -401,7 +401,7 @@ export const products: Product[] = [
     id: '27',
     name: 'SKIN BARRIER PROTECTING CREAM',
     price: 450,
-    description: '100g. Skin barrier strengthening cream with enriched ceramide and amino acid complex. It encourages healthy and soft skin by promoting water retention and protecting skin barrier with ceramide NP, botanical extracts and amino acid (NMF) complex. Key ingredients: Ceramide NP, Amino Acid (NMF) Complex, Butyrospermum Parkii (Shea) Butter, Macadamia Integrifolia Seed Oil. Dermatologically tested. Efficacy test on improving skin restorative force.',
+    description: 'Ceramide NP at 0.5%, and the Korean panel on the carton prints the number in brackets: 5,000 ppm. Most creams that put ceramide on the front use it one or two orders of magnitude lower. Behind it, glycerin at 17.49% and shea butter at 3%, which makes this the richest of the three GENOSYS face creams and the one for skin that is sensitive and dry. The carton asks you to pat it in, not rub it. 100g, morning and night. Dermatologically tested.',
     image: '/images/skin_barr/main.jpeg',
     images: JSON.stringify([
       '/images/skin_barr/s1.jpeg',

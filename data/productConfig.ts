@@ -143,6 +143,14 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '10': {
     id: '10',
     videoUrl: '/videos/cleanser.mp4',
+    images: [
+      '/images/cleanser/S1.jpg',
+      '/images/cleanser/S2.jpg',
+      '/images/cleanser/S3.jpg',
+      '/images/cleanser/S4.jpg',
+      '/images/cleanser/S5.jpg',
+      '/images/cleanser/S6.jpg',
+    ],
     pricing: {
       basePrice: 330,
       sizeVariants: {

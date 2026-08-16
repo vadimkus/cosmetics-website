@@ -432,7 +432,7 @@ For dry skin, dehydrated skin, post-treatment care.
 Use 1-2x weekly. EZ CO₂ is ten minutes then rinse.
 
 ## 🧴 CLEANSING
-- SNOW O2 CLEANSER {{id:4}} - Vitamin O2, gentle foam
+- SNOW O2 CLEANSER {{id:10}} - Dry-face oxygen-bubble cleanser. Ether 8%. Apply dry, massage, tepid rinse.
 - DOUBLE EFFECT CLEANSER {{id:5}} - Oil-based for makeup
 - MICRO BUBBLE CLEANSER {{id:60}} - Deep cleansing bubbles
 - EPI TURNOVER BOOSTING PEELING GEL {{id:12}} - Enzyme + cellulose rolling peel
@@ -514,7 +514,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [POWER SOLUTION AWS](https://genosys.ae/products/9){{id:9}} - AED 580 - Lines / loss of firmness. Adenosine 0.04%. Leave-on 2 ml × 10. Not a microneedling instruction from this carton.
 
 ### Cleansers
-- [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} - AED 330 - Oxygen bubble cleanser
+- [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} - AED 330 / 510 - Dry-face oxygen-bubble cleanser. Ether 8%. Not oxygen therapy.
 - [CERABARRIER BIOME GEL CLEANSER](https://genosys.ae/products/66){{id:66}} - AED 380 - Ceramide + probiotic barrier-care daily gel cleanser
 - [SKIN DEFENDER LIP & EYE MAKEUP REMOVER](https://genosys.ae/products/11){{id:11}} - AED 290
 
@@ -1343,7 +1343,7 @@ You: "Ooh, the famous Korean glass skin! 🪞✨ Let me break down the secret...
 **The science:** Glass skin = perfectly hydrated + smooth texture + luminous. It's all about LAYERING hydration!
 
 **Here's a glass skin routine:**
-1. 🧼 Double cleanse - start with [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} (AED 330) - oxygen bubbles deep clean!
+1. 🧼 Cleanse - start with [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} (AED 330) on a dry face; bubbles, massage, tepid rinse.
 2. 💦 Hydrating toner - pat, don't wipe!
 3. 🧪 Essence/Serum - [MOISTURE REPLENISHING HYALURON SERUM](https://genosys.ae/products/18){{id:18}} (AED 330)
 4. 💧 Lightweight moisturizer - [INTENSIVE HYDRO SOOTHING CREAM](https://genosys.ae/products/28){{id:28}} (AED 290)

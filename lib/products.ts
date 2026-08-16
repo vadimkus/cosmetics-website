@@ -125,7 +125,7 @@ export const products: Product[] = [
     id: '10',
     name: 'SNOW O₂ CLEANSER',
     price: 330,
-    description: '180ml (Homecare) / 500ml (Professional). All in one gentle cleanser with oxygen bubbles. It is a gentle and effective cleanser which gives an excellent treatment sensation. Naturally generated oxygen bubbles clean make-up dirts and skin impurities without excessive cleansing movement and irritation to skin. Features oxygen therapy mechanism for deep cleansing and nutrifying. Key ingredients: Phytolex SC, MultiEx Phytrogen, Methyl Perfluoroisobutyl Ether. Apply the product to a dry face, avoiding the eyes, and wait for oxygen bubbles to come up. Wet your fingers to spread the product and let bubbles form again. After they fully develop, massage gently with wet hands, then rinse with lukewarm water. Dermatologically tested.',
+    description: '180 ml / 500 ml. Facial cleanser. Apply on a dry face, away from the eyes. Naturally generated oxygen bubbles lift make-up dirt and skin impurities; circular massage, then rinse with tepid water. The bubbles come from Methyl Perfluoroisobutyl Ether at 8%. Morning and evening. Dermatologically tested.',
     image: '/images/cleanser/main_clean.jpeg',
     images: JSON.stringify([
       '/images/cleanser/S1.jpg',

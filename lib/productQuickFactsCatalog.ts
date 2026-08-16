@@ -40,12 +40,12 @@ const t = (
 /** Catalog keyed by productNumber or legacy product id. */
 export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> = {
   '10': [
-    t('Oxygen bubble cleanse', 'Naturally generated O₂ bubbles lift makeup and impurities with less rubbing.', 'Кислородное очищение', 'Пузырьки O₂ мягко снимают макияж и загрязнения без сильного трения.', 'تنظيف بفقاعات الأكسجين', 'فقاعات الأكسجين تزيل المكياج والشوائب بلطف وبأقل فرك.'),
-    t('Dry-to-foam ritual', 'Apply on dry skin, activate bubbles, then massage with damp fingers and rinse.', 'Ритуал dry-to-foam', 'Нанесите на сухую кожу, активируйте пузырьки, затем массируйте влажными пальцами и смойте.', 'طقوس من الجاف إلى الرغوة', 'يُوضع على بشرة جافة ثم تُفعَّل الفقاعات ويُدلَّك بأصابع مبللة ويُشطف.'),
-    t('Gentle daily cleanser', 'Homecare 180 ml and professional 500 ml formats for AM/PM use.', 'Мягкое ежедневное очищение', 'Форматы 180 мл (дом) и 500 мл (про) для утра и вечера.', 'منظف يومي لطيف', 'عبوات 180 مل منزلية و500 مل مهنية للاستخدام صباحاً ومساءً.'),
-    t('Dermatologically tested', 'Formulated for comfortable cleansing, including sensitive-skin routines.', 'Дерматологически протестирован', 'Комфортное очищение, подходит для чувствительной кожи.', 'مختبر جلدياً', 'مصمم لتنظيف مريح حتى ضمن روتين البشرة الحساسة.'),
-    t('Phyto cleansing complex', 'Phytolex SC and MultiEx Phytrogen support a nourished after-cleanse feel.', 'Фито-комплекс очищения', 'Phytolex SC и MultiEx Phytrogen поддерживают комфорт после умывания.', 'مركب نباتي للتنظيف', 'Phytolex SC و MultiEx Phytrogen يدعمان شعوراً مغذياً بعد التنظيف.'),
-    t('Paraben-free formula', 'Labelled paraben-free for everyday facial cleansing.', 'Без парабенов', 'По этикетке — без парабенов для ежедневного очищения лица.', 'خالٍ من البارابين', 'موضَّح على الملصق أنه خالٍ من البارابين للاستخدام اليومي.'),
+    t('Dry-face wash', 'Apply on a dry face, away from the eyes. Water is the rinse, not the start.', 'Умывание на сухом лице', 'Наносят на сухое лицо, в стороне от глаз. Вода - смыв, не начало.', 'غسول على وجه جاف', 'يُوضع على وجه جاف، بعيداً عن العينين. الماء هو الشطف، لا البداية.'),
+    t('Oxygen bubbles', 'Naturally generated oxygen bubbles lift make-up dirt and skin impurities.', 'Кислородные пузырьки', 'Естественно образующиеся кислородные пузырьки поднимают макияж и загрязнения.', 'فقاعات أكسجين', 'فقاعات أكسجين تتولّد طبيعياً ترفع أوساخ المكياج وشوائب البشرة.'),
+    t('Ether 8%', 'Methyl Perfluoroisobutyl Ether is why the bubbles form on dry skin.', 'Эфир 8%', 'Methyl Perfluoroisobutyl Ether - причина пузырьков на сухой коже.', 'إيثر 8%', 'Methyl Perfluoroisobutyl Ether هو سبب الفقاعات على البشرة الجافة.'),
+    t('Four carton steps', 'Apply, wait for the bubbles, circular massage, rinse with tepid water.', 'Четыре шага с коробки', 'Нанести, дождаться пузырьков, круговой массаж, смыть тёплой водой.', 'أربع خطوات من العلبة', 'ضعي، انتظري الفقاعات، دلّكي دوائر، اشطفي بماء فاتر.'),
+    t('Two sizes', '180 ml at home, 500 ml on the clinic shelf. Same formula.', 'Два объёма', '180 мл дома, 500 мл на полке клиники. Одна формула.', 'حجمان', '180 مل في المنزل، 500 مل على رف العيادة. التركيبة نفسها.'),
+    t('Dermatologically tested', 'A daily rinse-off wash. Not fragrance-free and not sulfate-free.', 'Дерматологически протестировано', 'Ежедневное смываемое умывание. Не без отдушки и не без сульфатов.', 'مختبر جلدياً', 'غسول يومي يُشطف. ليس خالياً من العطر ولا من الكبريتات.'),
   ],
   '11': [
     t('Dual eye + lip remover', 'One biphasic formula for waterproof eye and lip makeup.', 'Снятие макияжа глаз и губ', 'Одна двухфазная формула для стойкого макияжа глаз и губ.', 'مزيل للعين والشفاه', 'تركيبة ثنائية الطور لمكياج العين والشفاه المقاوم للماء.'),

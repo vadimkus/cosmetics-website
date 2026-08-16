@@ -19,6 +19,7 @@ import RemoverProductPage from '@/components/product/remover/RemoverProductPage'
 import SrsProductPage from '@/components/product/srs/SrsProductPage'
 import MistProductPage from '@/components/product/mist/MistProductPage'
 import PctTonerProductPage from '@/components/product/pcttoner/PctTonerProductPage'
+import BoosterProductPage from '@/components/product/booster/BoosterProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -79,6 +80,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // card. Apply or spray AM/PM. 200 ml is the 360° back spray.
   // Salicylic acid is 0.001%. Copper peptide is not in the INCI.
   '15': PctTonerProductPage,
+  // 16 is the daily hydration toner. Betaine 3% is the figure on the
+  // card. Apply or spray AM/PM, over makeup. Phytolex is a 0.5%
+  // premix. Not the oil-control toner. Not the mist.
+  '16': BoosterProductPage,
   // 17 is the first-layer EyeCell serum. Arbutin 2% is the figure on the
   // card; peptides sit at cosmetic trace. No clinical percentages.
   '17': EyeSerumProductPage,

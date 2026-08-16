@@ -757,7 +757,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '16': {
     id: '16',
     videoUrl: '/videos/booster.mp4',
-    images: ['/images/Second/main_booster.jpg', '/images/Second/main_booster2.png'],
     pricing: {
       basePrice: 260,
       sizeVariants: {

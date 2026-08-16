@@ -240,6 +240,14 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('Sebum about 50% / 4 weeks', 'DTS MG deck figure. About half the sebum after four weeks.', 'Себум около 50% / 4 недели', 'Цифра с презентации DTS MG. Около половины себума через четыре недели.', 'الزهم نحو 50% / 4 أسابيع', 'رقم عرض DTS MG. نحو نصف الزهم بعد أربعة أسابيع.'),
     t('Non-comedogenic, QACS', 'DTS MG deck. Tested by QACS Ltd. Dermatologically tested on the carton.', 'Некомедогенно, QACS', 'Презентация DTS MG. Тест QACS Ltd. На коробке - дерматологически протестировано.', 'غير مسبب للانسداد، QACS', 'عرض DTS MG. اختبار QACS Ltd. على العلبة: مختبر جلدياً.'),
   ],
+  '16': [
+    t('Betaine 3%', 'The named active at a real dose. This is the daily moisture toner, not a peel.', 'Бетаин 3%', 'Названный актив в реальной дозе. Ежедневный тоник влаги, не пилинг.', 'بيتين 3%', 'المكوّن المسمّى بجرعة حقيقية. تونر الرطوبة اليومي، لا تقشير.'),
+    t('Apply or spray AM/PM', 'Enough to give moisture, morning and evening. The carton stops here.', 'Нанеси или распыли утро/вечер', 'Достаточно, чтобы дать влагу, утром и вечером. Коробка останавливается здесь.', 'ضعي أو رشي ص/م', 'بما يكفي لإعطاء رطوبة، صباحاً ومساءً. العلبة تتوقف هنا.'),
+    t('Even on makeup', 'The carton says it can go over make-up. Before makeup it is the moisture pass.', 'Даже поверх макияжа', 'Коробка говорит, что можно поверх макияжа. До макияжа это проход влаги.', 'حتى فوق المكياج', 'العلبة تقول يمكن فوق المكياج. قبله هو تمريرة الرطوبة.'),
+    t('Daily toner, all skin types', 'The line printed on the carton. Moisturizes and soothes, then refines after the cleanse.', 'Ежедневный тоник, все типы', 'Строка на коробке. Увлажняет и успокаивает, затем выравнивает после умывания.', 'تونر يومي لكل الأنواع', 'السطر على العلبة. يرطّب ويهدّئ ثم ينقّي بعد التنظيف.'),
+    t('Phytolex is a premix', '0.5% premix. Finished botanicals sit at 0.00765%. Not the engine.', 'Phytolex это премикс', 'Премикс 0,5%. Готовая ботаника 0,00765%. Не двигатель.', 'Phytolex خلطة', 'خلطة 0.5%. النباتات النهائية 0.00765%. ليست المحرّك.'),
+    t('200 ml / 1000 ml', 'Home spray or clinic pump. Same formula. Dermatologically tested.', '200 мл / 1000 мл', 'Домашний спрей или дозатор клиники. Та же формула. Дерматологически протестировано.', '200 مل / 1000 مل', 'رذاذ المنزل أو مضخة العيادة. التركيبة نفسها. مختبر جلدياً.'),
+  ],
   '31': [
     t('Multi Vita 12 Complex', 'Twelve-vitamin cream finish for dull, uneven-looking complexions.', 'Комплекс Multi Vita 12', 'Крем с 12 витаминами для тусклого и неровного тона.', 'مركب Multi Vita 12', 'كريم بمركب 12 فيتاميناً للبشرة الباهتة وغير المتجانسة.'),
     t('Melanin-care clinical', 'Clinical melanin-surface care supports a clearer-looking complexion.', 'Уход за меланином', 'Клинический уход за поверхностным меланином для более ясного тона.', 'عناية بالميلانين', 'عناية سريرية بميلانين السطح لدعم لون أوضح.'),

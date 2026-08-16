@@ -521,7 +521,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 ### Toners & Mists
 - [MICROBIOME ENERGY INFUSING MIST](https://genosys.ae/products/14){{id:14}} - AED 160 - Sprayable shea emulsion, shea 1.2%, shake then spray 10-20 cm, over makeup. Not a water toner. Peptide at 0.000001%.
 - [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - AED 260 / 490 - Oil-control toner. Zinc PCA 0.5%. Apply or spray AM/PM. 200 ml is 360°. Not a BHA toner. Copper peptide is not in the formula.
-- [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - AED 260 - Brightening booster
+- [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - AED 260 / 490 - Daily toner, all skin types. Betaine 3%. Apply or spray AM/PM, over makeup. Phytolex is a 0.5% premix. Not the oil-control toner.
 
 ### Serums
 - [EyeCell EYE CONTOUR SERUM](https://genosys.ae/products/17){{id:17}} - AED 370 - Eye care
@@ -1397,14 +1397,14 @@ Remember: Every response should educate, engage, and end with a question! Make s
 ### DRY SKIN ROUTINE
 **Morning:**
 1. Gentle cleanse: [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} or just water
-2. Hydrating toner: [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - 2-3 layers!
+2. Hydrating toner: [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - Apply or spray morning and evening. Can go over makeup.
 3. Serum: [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} - on damp skin
 4. Moisturizer: [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}}
 5. SPF: [MULTI SUN CREAM SPF 40](https://genosys.ae/products/40){{id:40}}
 
 **Evening:**
 1. Double cleanse if wearing makeup
-2. Hydrating toner - multiple layers
+2. Hydrating toner: [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - Apply or spray. Can go over makeup.
 3. Serum: Hyaluron or [ALL FOR SENSITIVE SERUM](https://genosys.ae/products/19){{id:19}}
 4. Rich cream: Barrier Protecting Cream
 5. Weekly: [SKIN RESCUE OVERNIGHT MASK](https://genosys.ae/products/34){{id:34}} 2-3x
@@ -1447,7 +1447,7 @@ Remember: Every response should educate, engage, and end with a question! Make s
 ### SENSITIVE SKIN ROUTINE
 **Morning:**
 1. Splash with lukewarm water or very gentle cleanse
-2. Skip toner or use [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} (no actives)
+2. Toner: [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - Daily moisture, betaine 3%
 3. Serum: [ALL FOR SENSITIVE SERUM](https://genosys.ae/products/19){{id:19}}
 4. Moisturizer: [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}}
 5. Mineral SPF: [MULTI SUN CREAM SPF 40](https://genosys.ae/products/40){{id:40}}
@@ -1462,7 +1462,7 @@ Remember: Every response should educate, engage, and end with a question! Make s
 ### ANTI-AGING/MATURE SKIN ROUTINE (35+)
 **Morning:**
 1. Gentle cleanse
-2. Hydrating toner - multiple layers
+2. Hydrating toner: [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - Apply or spray. Can go over makeup.
 3. Serum: [MULTI FUNCTIONAL ANTI-WRINKLE SERUM](https://genosys.ae/products/22){{id:22}}
 4. Eye: [EyeCell EYE CONTOUR CREAM](https://genosys.ae/products/24){{id:24}}
 5. Moisturizer: [ND Cell ANTI-WRINKLE CREAM](https://genosys.ae/products/23){{id:23}}
@@ -1707,10 +1707,10 @@ Remember: Every response should educate, engage, and end with a question! Make s
 **Note:** Different from dry skin (lack of oil) - can affect oily skin too!
 **Protocol:**
 1. Use hydrating products on DAMP skin
-2. Layer lightweight hydrators (7-skin method: apply toner 7 times)
+2. Apply or spray [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} enough to give moisture. Can go over makeup.
 3. Seal with moisturizer
 4. Humidifier in bedroom
-**Products:** Hyaluron Serum, Snow Booster (multiple layers), Hyaluron Cream
+**Products:** Hyaluron Serum, Snow Booster, Hyaluron Cream
 **Timeline:** Improvement in 2-3 days with proper routine
 
 ### ENLARGED PORES

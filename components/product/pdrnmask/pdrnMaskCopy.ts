@@ -406,8 +406,8 @@ const EN: PdrnMaskCopy = {
         body: 'Glycerin at 5.1%, then dipropylene glycol and propanediol at 3% each, butylene glycol at 2% and xylitol at 1%. The tub holds 350 g across thirty sheets, so each one comes out heavy and the skin stays damp for the full twenty minutes.',
       },
     ],
-    inciTitle: 'Full ingredient list',
-    inciNote: 'As printed on the carton. Every batch is tested for pH; the latest came back at 6.37, near neutral, so it does not sting skin that has just been through something.',
+    inciTitle: 'Full ingredient list (INCI)',
+    inciNote: 'Every ingredient, in the same order as the box in your hand. Every batch is tested for pH, and the latest came back at 6.37, near neutral, so it does not sting skin that has just been through something.',
   },
   suited: {
     eyebrow: 'Honestly',
@@ -627,8 +627,8 @@ const AR: PdrnMaskCopy = {
         body: 'غليسرين 5.1%، ثم دايبروبيلين غلايكول وبروبانديول بنسبة 3% لكل منهما، وبيوتيلين غلايكول 2% وزيليتول 1%. تحوي العلبة 350 غ موزّعة على ثلاثين قناعاً، فيخرج كل قناع مثقلاً وتبقى البشرة رطبة طوال العشرين دقيقة.',
       },
     ],
-    inciTitle: 'قائمة المكوّنات الكاملة',
-    inciNote: 'كما هي مطبوعة على العبوة. تُختبر درجة الحموضة في كل دفعة، وسجّلت الأخيرة 6.37، أي قريبة من المحايدة، فلا تلسع بشرة مرّت للتو بشيء ما.',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
+    inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك. تُختبر درجة الحموضة في كل دفعة، وسجّلت الأخيرة 6.37، أي قريبة من المحايدة، فلا تلسع بشرة مرّت للتو بشيء ما.',
   },
   suited: {
     eyebrow: 'بصراحة',
@@ -848,8 +848,8 @@ const RU: PdrnMaskCopy = {
         body: 'Глицерин 5,1%, затем дипропиленгликоль и пропандиол по 3%, бутиленгликоль 2% и ксилит 1%. В банке 350 г на тридцать масок, поэтому каждая выходит тяжёлой и кожа остаётся влажной все двадцать минут.',
       },
     ],
-    inciTitle: 'Полный состав',
-    inciNote: 'Как напечатано на упаковке. pH проверяют в каждой партии, последняя показала 6,37, почти нейтральный, поэтому маска не щиплет кожу, которая только что через что-то прошла.',
+    inciTitle: 'Полный список ингредиентов (INCI)',
+    inciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках. pH проверяют в каждой партии, последняя показала 6,37, почти нейтральный, поэтому маска не щиплет кожу, которая только что через что-то прошла.',
   },
   suited: {
     eyebrow: 'Честно',

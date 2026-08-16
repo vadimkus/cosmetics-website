@@ -368,8 +368,8 @@ const EN: MhcreamCopy = {
     title: 'The list, in full.',
     intro:
       'A long list, and worth reading, because it is one of the few that prints a dose beside the ingredient a shopper actually came for.',
-    inciTitle: 'Full INCI',
-    inciNote: 'The complete list, as printed on the carton, ppm and ppb figures included.',
+    inciTitle: 'Full ingredient list (INCI)',
+    inciNote: 'Every ingredient, in the same order as the box in your hand, ppm and ppb figures included.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -595,8 +595,8 @@ const AR: MhcreamCopy = {
     title: 'القائمة كاملة.',
     intro:
       'قائمة طويلة، وتستحق القراءة، لأنها من القوائم النادرة التي تطبع الجرعة بجانب المكوّن الذي جاءت المشترية لأجله.',
-    inciTitle: 'قائمة INCI الكاملة',
-    inciNote: 'القائمة الكاملة كما هي مطبوعة على العلبة، بأرقام الأجزاء بالمليون والمليار.',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
+    inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك، مع أرقام الأجزاء بالمليون والمليار.',
   },
   suited: {
     eyebrow: 'هل هو لك',
@@ -821,8 +821,8 @@ const RU: MhcreamCopy = {
     title: 'Состав целиком.',
     intro:
       'Список длинный, и его стоит прочитать: это один из немногих составов, где рядом с ингредиентом, ради которого покупку и делают, напечатана доза.',
-    inciTitle: 'Полный INCI',
-    inciNote: 'Полный список, как он напечатан на упаковке, включая значения в ppm и ppb.',
+    inciTitle: 'Полный список ингредиентов (INCI)',
+    inciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках, включая значения в ppm и ppb.',
   },
   suited: {
     eyebrow: 'Подойдёт ли вам',

@@ -324,9 +324,9 @@ const EN: BoosterCopy = {
     title: 'What is actually in it.',
     intro:
       'Every percentage here is a finished concentration in the bottle, not a guess from a trade name at the top of a list.',
-    inciTitle: 'Full INCI',
+    inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'The registered descending list. Some bottles print grapefruit as Citrus Paradisi fruit. The formula is Citrus Grandis seed. The list on this page is the formula.',
+      'Every ingredient, strongest first. Some bottles print the grapefruit as Citrus Paradisi fruit, where the formula is Citrus Grandis seed, and the formula is what this page follows.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -523,9 +523,9 @@ const AR: BoosterCopy = {
     eyebrow: 'داخل الزجاجة',
     title: 'ما فيها فعلاً.',
     intro: 'كل نسبة هنا تركيز نهائي في الزجاجة، لا تخمين من اسم تجاري في أعلى قائمة.',
-    inciTitle: 'قائمة INCI الكاملة',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'القائمة المسجّلة تنازلياً. بعض الزجاجات تطبع الجريب فروت كـ Citrus Paradisi. التركيبة Citrus Grandis seed. القائمة في هذه الصفحة هي التركيبة.',
+      'كل مكوّن، من الأعلى نسبةً إلى الأقل. بعض الزجاجات تطبع الجريب فروت باسم Citrus Paradisi، بينما التركيبة هي Citrus Grandis seed، وهي ما تتبعه هذه الصفحة.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -722,9 +722,9 @@ const RU: BoosterCopy = {
     eyebrow: 'Внутри флакона',
     title: 'Что в нём на самом деле.',
     intro: 'Каждый процент здесь - готовая концентрация во флаконе, не догадка по торговому имени сверху списка.',
-    inciTitle: 'Полный INCI',
+    inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Зарегистрированный список по убыванию. Некоторые флаконы печатают грейпфрут как Citrus Paradisi fruit. Формула - Citrus Grandis seed. Список на этой странице - формула.',
+      'Каждый ингредиент, от большего к меньшему. На некоторых флаконах грейпфрут напечатан как Citrus Paradisi fruit, тогда как в формуле стоит Citrus Grandis seed, и эта страница следует формуле.',
   },
   suited: {
     eyebrow: 'Тебе ли он',

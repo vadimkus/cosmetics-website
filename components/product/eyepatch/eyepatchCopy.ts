@@ -331,7 +331,7 @@ const EN: EyePatchCopy = {
       'The cards below are the parts of the mask that do the work. The complete registered INCI is under the list.',
     inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'Registered Formula_up list in descending order. The carton lifts Acetyl Hexapeptide-8 after Chondrus and prints 46.5ppb. This list is not claimed to match every language panel.',
+      'Every ingredient, strongest first. Your box prints Acetyl Hexapeptide-8 just after Chondrus, at 46.5 ppb, and this page follows the registered formula.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -537,7 +537,7 @@ const AR: EyePatchCopy = {
       'البطاقات أدناه هي أجزاء القناع التي تعمل. قائمة INCI المسجّلة الكاملة تحت القائمة.',
     inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'قائمة Formula_up المسجّلة بترتيب تنازلي. الكرتون يرفع Acetyl Hexapeptide-8 بعد Chondrus ويطبع 46.5ppb. لا ندّعي أن هذه القائمة تطابق كل لوحة لغة.',
+      'كل مكوّن، من الأعلى نسبةً إلى الأقل. علبتك تطبع Acetyl Hexapeptide-8 بعد Chondrus مباشرة عند 46.5 جزء في المليار، وهذه الصفحة تتبع التركيبة المسجّلة.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -743,7 +743,7 @@ const RU: EyePatchCopy = {
       'Карточки ниже - части маски, которые работают. Полный зарегистрированный INCI под списком.',
     inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Зарегистрированный список Formula_up в убывающем порядке. Картон поднимает Acetyl Hexapeptide-8 после Chondrus и печатает 46.5ppb. Мы не утверждаем, что список совпадает с каждой языковой панелью.',
+      'Каждый ингредиент, от большего к меньшему. На вашей коробке Acetyl Hexapeptide-8 стоит сразу после Chondrus, при 46,5 ppb, а эта страница следует зарегистрированной формуле.',
   },
   suited: {
     eyebrow: 'Вам ли она',

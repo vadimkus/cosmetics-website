@@ -308,7 +308,7 @@ const EN: EyeSerumCopy = {
       'The cards below are the parts of the serum that do the work. The complete registered INCI is under the list.',
     inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'Registered Formula_up list in descending order. The carton lifts some peptide names earlier. This list is not claimed to match every language panel.',
+      'Every ingredient, strongest first. Your box may print one or two of the peptide names higher up, and this page follows the registered formula.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -509,7 +509,7 @@ const AR: EyeSerumCopy = {
       'البطاقات أدناه هي أجزاء السيروم التي تعمل. قائمة INCI المسجّلة الكاملة تحت القائمة.',
     inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'قائمة Formula_up المسجّلة بترتيب تنازلي. الكرتون يرفع بعض أسماء الببتيدات أعلى. لا ندّعي أن هذه القائمة تطابق كل لوحة لغة.',
+      'كل مكوّن، من الأعلى نسبةً إلى الأقل. قد تطبع علبتك اسماً أو اسمين من الببتيدات في موضع أعلى، وهذه الصفحة تتبع التركيبة المسجّلة.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -710,7 +710,7 @@ const RU: EyeSerumCopy = {
       'Карточки ниже - части сыворотки, которые работают. Полный зарегистрированный INCI под списком.',
     inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Зарегистрированный список Formula_up в убывающем порядке. Картон поднимает часть пептидных имён выше. Мы не утверждаем, что список совпадает с каждой языковой панелью.',
+      'Каждый ингредиент, от большего к меньшему. На вашей коробке одно-два названия пептидов могут стоять выше, а эта страница следует зарегистрированной формуле.',
   },
   suited: {
     eyebrow: 'Вам ли она',

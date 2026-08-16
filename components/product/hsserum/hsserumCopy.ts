@@ -343,8 +343,8 @@ const EN: HsserumCopy = {
     title: 'What is actually in the bottle',
     intro:
       'The 2,000 ppm is hydrolyzed HA. PENTAVITIN is 0.615%. Coconut water is 0.80%. Glyceryl glucoside is 0.0005%. The mushrooms are traces. They are in the formula. They are not why you pick this bottle.',
-    inciTitle: 'Full INCI',
-    inciNote: 'As printed on the carton, in the same order as the registered formula.',
+    inciTitle: 'Full ingredient list (INCI)',
+    inciNote: 'Every ingredient, in the same order as the box in your hand, which is the order of the registered formula.',
   },
   suited: {
     eyebrow: 'Who it is for',
@@ -538,8 +538,8 @@ const AR: HsserumCopy = {
     title: 'ما في الزجاجة فعلاً',
     intro:
       'الـ 2,000 جزء في المليون هيالورونيك متحلّل. PENTAVITIN 0.615%. ماء جوز الهند 0.80%. غليسيريل غلوكوزيد 0.0005%. الفطر آثار. في التركيبة. ليست سبب اختيار الزجاجة.',
-    inciTitle: 'Full INCI',
-    inciNote: 'كما طُبع على العلبة، بنفس ترتيب التركيبة المسجّلة.',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
+    inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك، وهو ترتيب التركيبة المسجّلة.',
   },
   suited: {
     eyebrow: 'لمن',
@@ -733,8 +733,8 @@ const RU: HsserumCopy = {
     title: 'Что реально в флаконе',
     intro:
       '2 000 ppm - гидролизованная ГК. PENTAVITIN 0,615%. Кокосовая вода 0,80%. Глицерил глюкозид 0,0005%. Грибы - следы. Они в формуле. Они не причина выбрать этот флакон.',
-    inciTitle: 'Full INCI',
-    inciNote: 'Как на коробке, в том же порядке, что и зарегистрированная формула.',
+    inciTitle: 'Полный список ингредиентов (INCI)',
+    inciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках, а это порядок зарегистрированной формулы.',
   },
   suited: {
     eyebrow: 'Кому',

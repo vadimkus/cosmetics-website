@@ -340,7 +340,7 @@ const EN: PeptideGelCopy = {
       'The cards below are the parts of the sheet that do the work. The complete registered INCI is under the list.',
     inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'Registered Formula_up list in descending order. The carton lifts Acetyl Hexapeptide-8 after Chondrus and prints 0.05ppm. This list is not claimed to match every language panel.',
+      'Every ingredient, strongest first. Your box prints Acetyl Hexapeptide-8 just after Chondrus, at 0.05 ppm, and this page follows the registered formula.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -546,7 +546,7 @@ const AR: PeptideGelCopy = {
     intro: 'البطاقات أدناه هي أجزاء الورقة التي تعمل. قائمة INCI المسجّلة الكاملة تحت القائمة.',
     inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'قائمة Formula_up المسجّلة تنازلياً. الكرتون يرفع أسيتيل هكسا ببتيد-٨ بعد الشوندروس ويطبع 0.05ppm. لا ندّعي تطابق كل لغة على العلبة.',
+      'كل مكوّن، من الأعلى نسبةً إلى الأقل. علبتك تطبع أسيتيل هكسا ببتيد-٨ بعد الشوندروس مباشرة عند 0.05 جزء في المليون، وهذه الصفحة تتبع التركيبة المسجّلة.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -749,9 +749,9 @@ const RU: PeptideGelCopy = {
     eyebrow: 'Что внутри',
     title: 'Гель, с цифрами.',
     intro: 'Карточки ниже - части листа, которые работают. Полный зарегистрированный INCI под списком.',
-    inciTitle: 'Полный состав (INCI)',
+    inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Зарегистрированный список Formula_up по убыванию. Картон поднимает ацетилгексапептид-8 после хондруса и печатает 0.05ppm. Список не претендует совпадать с каждой языковой панелью.',
+      'Каждый ингредиент, от большего к меньшему. На вашей коробке ацетилгексапептид-8 стоит сразу после хондруса, при 0,05 ppm, а эта страница следует зарегистрированной формуле.',
   },
   suited: {
     eyebrow: 'Тебе подойдёт',

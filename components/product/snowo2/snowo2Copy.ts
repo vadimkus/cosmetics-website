@@ -329,9 +329,9 @@ const EN: SnowO2Copy = {
     title: 'What is actually in it.',
     intro:
       'Every percentage here is a finished concentration in the bottle, not a guess from a trade name at the top of a list.',
-    inciTitle: 'Full INCI',
+    inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'The registered descending list. The carton prints a shorter order and names grapefruit and triethanolamine that the finished formula does not carry at those places. The list on this page is the formula.',
+      'Every ingredient, strongest first. Your box prints a shorter order and names grapefruit and triethanolamine in places the finished formula does not carry them, so this page follows the formula.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -527,9 +527,9 @@ const AR: SnowO2Copy = {
     eyebrow: 'داخل المضخة',
     title: 'ما فيه فعلاً.',
     intro: 'كل نسبة هنا تركيز نهائي في الزجاجة، لا تخمين من اسم تجاري في رأس القائمة.',
-    inciTitle: 'المكوّنات الكاملة (INCI)',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'القائمة المسجّلة تنازلياً. العلبة تطبع ترتيباً أقصر وتسمّي الجريب فروت وتريإيثانولامين في مواضع لا تحملها التركيبة النهائية. القائمة في هذه الصفحة هي التركيبة.',
+      'كل مكوّن، من الأعلى نسبةً إلى الأقل. علبتك تطبع ترتيباً أقصر وتذكر الجريب فروت وتريإيثانولامين في مواضع لا تحملها التركيبة النهائية، وهذه الصفحة تتبع التركيبة.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -724,9 +724,9 @@ const RU: SnowO2Copy = {
     eyebrow: 'Внутри дозатора',
     title: 'Что в нём на самом деле.',
     intro: 'Каждый процент здесь - готовая концентрация во флаконе, а не догадка по торговому названию в начале списка.',
-    inciTitle: 'Полный состав (INCI)',
+    inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Зарегистрированный список по убыванию. На коробке более короткий порядок и названы грейпфрут и триэтаноламин там, где готовая формула их не несёт. Список на этой странице - формула.',
+      'Каждый ингредиент, от большего к меньшему. На вашей коробке порядок короче, а грейпфрут и триэтаноламин названы там, где готовая формула их не несёт, поэтому эта страница следует формуле.',
   },
   suited: {
     eyebrow: 'Вам ли это',

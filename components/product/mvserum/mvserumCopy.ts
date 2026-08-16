@@ -335,8 +335,8 @@ const EN: MvserumCopy = {
     title: 'The list, in full.',
     intro:
       'Fifty-five entries, and the useful thing about this one is that fifteen of them arrive with their dose attached.',
-    inciTitle: 'Full INCI',
-    inciNote: 'The complete list, as printed on the carton, with the ppm and ppb figures.',
+    inciTitle: 'Full ingredient list (INCI)',
+    inciNote: 'Every ingredient, in the same order as the box in your hand, ppm and ppb figures included.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -555,8 +555,8 @@ const AR: MvserumCopy = {
     title: 'القائمة كاملة.',
     intro:
       'خمسة وخمسون مدخلاً، والمفيد في هذه القائمة أن خمسة عشر منها تأتي وجرعتها مرفقة.',
-    inciTitle: 'قائمة INCI الكاملة',
-    inciNote: 'القائمة الكاملة كما هي مطبوعة على العلبة، بأرقام الأجزاء بالمليون والمليار.',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
+    inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك، مع أرقام الأجزاء بالمليون والمليار.',
   },
   suited: {
     eyebrow: 'هل هو لك',
@@ -774,8 +774,8 @@ const RU: MvserumCopy = {
     title: 'Состав целиком.',
     intro:
       'Пятьдесят пять позиций, и полезно в этом составе то, что пятнадцать из них приходят с указанной дозой.',
-    inciTitle: 'Полный INCI',
-    inciNote: 'Полный список, как он напечатан на упаковке, со значениями в ppm и ppb.',
+    inciTitle: 'Полный список ингредиентов (INCI)',
+    inciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках, включая значения в ppm и ppb.',
   },
   suited: {
     eyebrow: 'Подойдёт ли вам',

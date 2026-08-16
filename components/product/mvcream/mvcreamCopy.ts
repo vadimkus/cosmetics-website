@@ -261,8 +261,8 @@ const EN: MvcreamCopy = {
     title: 'The list, in full.',
     intro:
       'Forty-two entries. The top eleven account for almost the whole tube, and the tail is a long list of vitamins at parts per billion, which the page names rather than sells.',
-    inciTitle: 'Full INCI',
-    inciNote: 'The complete list, as printed on the carton.',
+    inciTitle: 'Full ingredient list (INCI)',
+    inciNote: 'Every ingredient, in the same order as the box in your hand.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -478,8 +478,8 @@ const AR: MvcreamCopy = {
     title: 'القائمة كاملة.',
     intro:
       'اثنان وأربعون مدخلاً. الأحد عشر الأوائل يشكّلون الأنبوب كله تقريباً، والذيل قائمة طويلة من الفيتامينات بالأجزاء بالمليار، تسمّيها الصفحة ولا تبيعها.',
-    inciTitle: 'قائمة INCI الكاملة',
-    inciNote: 'القائمة الكاملة كما هي مطبوعة على العلبة.',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
+    inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك.',
   },
   suited: {
     eyebrow: 'هل هو لك',
@@ -695,8 +695,8 @@ const RU: MvcreamCopy = {
     title: 'Состав целиком.',
     intro:
       'Сорок две позиции. Первые одиннадцать составляют почти всю тубу, а хвост — длинный список витаминов в частях на миллиард, которые страница называет, но не продаёт.',
-    inciTitle: 'Полный INCI',
-    inciNote: 'Полный список, как он напечатан на упаковке.',
+    inciTitle: 'Полный список ингредиентов (INCI)',
+    inciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках.',
   },
   suited: {
     eyebrow: 'Подойдёт ли вам',

@@ -168,8 +168,8 @@ const EN: BioMesoCopy = {
     eyebrow: 'The formula',
     title: 'Every active, and what it is doing',
     intro: 'The working ingredients in this ampoule, and the job each one has in the window the spicules open.',
-    fullInci: 'Full INCI list',
-    fullInciNote: 'The complete ingredient list, exactly as it appears on the carton.',
+    fullInci: 'Full ingredient list (INCI)',
+    fullInciNote: 'Every ingredient, in the same order as the box in your hand.',
   },
   lab: {
     eyebrow: 'Quality',
@@ -390,8 +390,8 @@ const AR: BioMesoCopy = {
     eyebrow: 'التركيبة',
     title: 'كل مكوّن فعال وما يفعله',
     intro: 'المكونات العاملة في هذه الأمبولة، ومهمة كل منها داخل النافذة التي تفتحها الـ spicules.',
-    fullInci: 'قائمة INCI الكاملة',
-    fullInciNote: 'قائمة المكونات الكاملة كما تظهر تماماً على العبوة.',
+    fullInci: 'قائمة المكوّنات الكاملة (INCI)',
+    fullInciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك.',
   },
   lab: {
     eyebrow: 'الجودة',
@@ -612,8 +612,8 @@ const RU: BioMesoCopy = {
     eyebrow: 'Состав',
     title: 'Каждый актив и его задача',
     intro: 'Рабочие компоненты этой ампулы и роль каждого в окне, которое открывают спикулы.',
-    fullInci: 'Полный состав INCI',
-    fullInciNote: 'Полный список ингредиентов ровно в том виде, в каком он приведён на упаковке.',
+    fullInci: 'Полный список ингредиентов (INCI)',
+    fullInciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках.',
   },
   lab: {
     eyebrow: 'Качество',

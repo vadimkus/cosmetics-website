@@ -328,9 +328,9 @@ const EN: PctTonerCopy = {
     title: 'What is actually in it.',
     intro:
       'Every percentage here is a finished concentration in the bottle, not a guess from a trade name at the top of a list.',
-    inciTitle: 'Full INCI',
+    inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'The registered descending list. The carton prints a shorter panel. The list on this page is the formula.',
+      'Every ingredient, strongest first. Your box prints a shorter panel, so this page gives you the full formula.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -541,9 +541,9 @@ const AR: PctTonerCopy = {
     title: 'ما فيها فعلاً.',
     intro:
       'كل نسبة هنا تركيز نهائي في الزجاجة، لا تخمين من اسم تجاري في أعلى قائمة.',
-    inciTitle: 'قائمة INCI الكاملة',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'القائمة المسجّلة تنازلياً. العلبة تطبع لوحة أقصر. القائمة في هذه الصفحة هي التركيبة.',
+      'كل مكوّن، من الأعلى نسبةً إلى الأقل. علبتك تطبع لوحة أقصر، وهذه الصفحة تعطيك التركيبة كاملة.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -754,9 +754,9 @@ const RU: PctTonerCopy = {
     title: 'Что в нём на самом деле.',
     intro:
       'Каждый процент здесь - готовая концентрация во флаконе, не догадка по торговому имени сверху списка.',
-    inciTitle: 'Полный INCI',
+    inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Зарегистрированный список по убыванию. Коробка печатает более короткую панель. Список на этой странице - формула.',
+      'Каждый ингредиент, от большего к меньшему. На вашей коробке панель короче, поэтому здесь формула целиком.',
   },
   suited: {
     eyebrow: 'Тебе ли он',

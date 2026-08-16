@@ -313,7 +313,7 @@ const EN: EzCo2Copy = {
     intro:
       'The cards below are the parts of the gel and the sheet that do the work. The complete registered INCI for both is under the list.',
     inciTitle: 'Full ingredient list (INCI)',
-    inciNote: 'The registered gel formula, then the registered mask formula.',
+    inciNote: 'Every ingredient in the gel first, then every ingredient in the mask.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -517,7 +517,7 @@ const AR: EzCo2Copy = {
     intro:
       'البطاقات أدناه هي أجزاء الجل والورقة التي تعمل. قائمة INCI المسجّلة للاثنين تحتها.',
     inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
-    inciNote: 'تركيبة الجل المسجّلة، ثم تركيبة القناع المسجّلة.',
+    inciNote: 'كل مكوّن في الجل أولاً، ثم كل مكوّن في القناع.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -721,7 +721,7 @@ const RU: EzCo2Copy = {
     intro:
       'Карточки ниже — те части геля и листа, которые работают. Полный зарегистрированный INCI обоих под списком.',
     inciTitle: 'Полный список ингредиентов (INCI)',
-    inciNote: 'Зарегистрированная формула геля, затем зарегистрированная формула маски.',
+    inciNote: 'Сначала каждый ингредиент геля, затем каждый ингредиент маски.',
   },
   suited: {
     eyebrow: 'Вам подойдёт?',

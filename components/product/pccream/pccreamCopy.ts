@@ -356,8 +356,8 @@ const EN: PccreamCopy = {
     title: 'The list, in full.',
     intro:
       'Twenty-four ingredients. The ones that matter are named with their percentage; the rest are the water, the two thickeners, the solvent pair and the chelator.',
-    inciTitle: 'Full INCI',
-    inciNote: 'The complete list, as printed on the carton.',
+    inciTitle: 'Full ingredient list (INCI)',
+    inciNote: 'Every ingredient, in the same order as the box in your hand.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -581,8 +581,8 @@ const AR: PccreamCopy = {
     title: 'القائمة كاملة.',
     intro:
       'أربعة وعشرون مكوّناً. المهم منها مذكور بنسبته، والباقي هو الماء والمكثّفان وثنائي المذيب والمخلّب.',
-    inciTitle: 'قائمة INCI الكاملة',
-    inciNote: 'القائمة الكاملة كما هي مطبوعة على العلبة.',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
+    inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك.',
   },
   suited: {
     eyebrow: 'هل هو لك',
@@ -805,8 +805,8 @@ const RU: PccreamCopy = {
     title: 'Состав целиком.',
     intro:
       'Двадцать четыре компонента. Значимые названы вместе с процентом, остальное — вода, два загустителя, пара растворителей и хелатор.',
-    inciTitle: 'Полный INCI',
-    inciNote: 'Полный список, как он напечатан на коробке.',
+    inciTitle: 'Полный список ингредиентов (INCI)',
+    inciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках.',
   },
   suited: {
     eyebrow: 'Подойдёт ли вам',

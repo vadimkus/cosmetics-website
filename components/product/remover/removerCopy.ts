@@ -334,7 +334,7 @@ const EN: RemoverCopy = {
       'The cards below are the parts of the formula that do the work. The complete registered INCI is under the list.',
     inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'The registered formula in descending concentration. The carton lifts some botanicals above their finished percentages.',
+      'Every ingredient, strongest first. Your box lifts some of the botanicals above the percentage they actually finish at, and this page follows the formula.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -533,8 +533,8 @@ const AR: RemoverCopy = {
     eyebrow: 'ماذا فيه',
     title: 'التركيبة، بالأرقام.',
     intro: 'البطاقات أدناه هي ما يعمل في التركيبة. القائمة المسجّلة الكاملة تحت القائمة.',
-    inciTitle: 'القائمة الكاملة للمكونات (INCI)',
-    inciNote: 'التركيبة المسجّلة بترتيب التركيز التنازلي. العلبة ترفع بعض النباتات فوق نسبها النهائية.',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
+    inciNote: 'كل مكوّن، من الأعلى نسبةً إلى الأقل. علبتك ترفع بعض النباتات فوق نسبتها النهائية، وهذه الصفحة تتبع التركيبة.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -735,9 +735,9 @@ const RU: RemoverCopy = {
     title: 'Формула, с цифрами.',
     intro:
       'Карточки ниже — те части формулы, которые делают работу. Полный зарегистрированный INCI под списком.',
-    inciTitle: 'Полный состав (INCI)',
+    inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Зарегистрированная формула по убыванию концентрации. Коробка поднимает часть растений выше их готовых процентов.',
+      'Каждый ингредиент, от большего к меньшему. На вашей коробке часть растений стоит выше своей реальной доли, а эта страница следует формуле.',
   },
   suited: {
     eyebrow: 'Вам ли это',

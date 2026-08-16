@@ -345,8 +345,8 @@ const EN: SpcreamCopy = {
     title: 'The list, in full.',
     intro:
       'Fifty entries, seventeen of them amino acids and seven of them the botanical complex. The four that matter by weight are at the top, where an ingredient list puts them.',
-    inciTitle: 'Full INCI',
-    inciNote: 'The complete list, as printed on the carton.',
+    inciTitle: 'Full ingredient list (INCI)',
+    inciNote: 'Every ingredient, in the same order as the box in your hand.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -565,8 +565,8 @@ const AR: SpcreamCopy = {
     title: 'القائمة كاملة.',
     intro:
       'خمسون مدخلاً، سبعة عشر منها أحماض أمينية وسبعة منها مركّب النباتات. الأربعة المهمة بالوزن في الأعلى، حيث تضعها قائمة المكوّنات.',
-    inciTitle: 'قائمة INCI الكاملة',
-    inciNote: 'القائمة الكاملة كما هي مطبوعة على العلبة.',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
+    inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك.',
   },
   suited: {
     eyebrow: 'هل هو لك',
@@ -784,8 +784,8 @@ const RU: SpcreamCopy = {
     title: 'Состав целиком.',
     intro:
       'Пятьдесят позиций, семнадцать из них аминокислоты и семь — растительный комплекс. Четыре значимых по весу стоят наверху, там, где их и ставит состав.',
-    inciTitle: 'Полный INCI',
-    inciNote: 'Полный список, как он напечатан на упаковке.',
+    inciTitle: 'Полный список ингредиентов (INCI)',
+    inciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках.',
   },
   suited: {
     eyebrow: 'Подойдёт ли вам',

@@ -306,7 +306,7 @@ const EN: AfsCopy = {
     intro:
       'The cards below are the actives that do the work. The complete INCI is under the list, as printed on the pack.',
     inciTitle: 'Full ingredient list (INCI)',
-    inciNote: 'As printed on the pack.',
+    inciNote: 'Every ingredient, in the same order as the box in your hand.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -504,7 +504,7 @@ const AR: AfsCopy = {
     intro:
       'البطاقات أدناه هي المكوّنات التي تقوم بالعمل. قائمة INCI الكاملة تحت القائمة، كما طُبعت على العبوة.',
     inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
-    inciNote: 'كما طُبعت على العبوة.',
+    inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -700,8 +700,8 @@ const RU: AfsCopy = {
     title: 'Полная формула, без умолчаний.',
     intro:
       'Карточки ниже — активы, которые делают работу. Полный INCI под списком, как на упаковке.',
-    inciTitle: 'Полный состав (INCI)',
-    inciNote: 'Так, как напечатано на упаковке.',
+    inciTitle: 'Полный список ингредиентов (INCI)',
+    inciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках.',
   },
   suited: {
     eyebrow: 'Подойдёт ли вам',

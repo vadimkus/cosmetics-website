@@ -207,8 +207,8 @@ const EN: CeraCopy = {
     eyebrow: 'Ingredients',
     title: 'What is doing the work',
     intro: 'Nine actives carry the formula, and the complete INCI list is below.',
-    fullInci: 'Full INCI list',
-    fullInciNote: 'The complete ingredient list, exactly as it appears on the carton.',
+    fullInci: 'Full ingredient list (INCI)',
+    fullInciNote: 'Every ingredient, in the same order as the box in your hand.',
   },
   proof: {
     eyebrow: 'Proof',
@@ -389,8 +389,8 @@ const AR: CeraCopy = {
     eyebrow: 'المكونات',
     title: 'ما الذي يقوم بالعمل',
     intro: 'تسعة مكونات فعّالة تحمل التركيبة، وقائمة INCI الكاملة أدناه.',
-    fullInci: 'قائمة INCI الكاملة',
-    fullInciNote: 'قائمة المكونات الكاملة كما هي على العبوة.',
+    fullInci: 'قائمة المكوّنات الكاملة (INCI)',
+    fullInciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك.',
   },
   proof: {
     eyebrow: 'الإثبات',
@@ -571,8 +571,8 @@ const RU: CeraCopy = {
     eyebrow: 'Состав',
     title: 'Что работает в формуле',
     intro: 'Девять активных компонентов держат формулу, а полный список INCI приведён ниже.',
-    fullInci: 'Полный список INCI',
-    fullInciNote: 'Полный состав в точности как на упаковке.',
+    fullInci: 'Полный список ингредиентов (INCI)',
+    fullInciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках.',
   },
   proof: {
     eyebrow: 'Доказательства',

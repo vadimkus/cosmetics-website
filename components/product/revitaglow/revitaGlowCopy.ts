@@ -383,9 +383,9 @@ const EN: RevitaGlowCopy = {
     title: 'Every active, and what it actually does',
     intro:
       'Every active in the formula, and what each one is doing while you wear it.',
-    fullInci: 'Full INCI list',
+    fullInci: 'Full ingredient list (INCI)',
     fullInciNote:
-      'The complete ingredient list as printed on the carton. Identical for #01 Bright and #02 Natural apart from the pigments.',
+      'Every ingredient, in the same order as the box in your hand. Identical for #01 Bright and #02 Natural apart from the pigments.',
     fragranceNote:
       'Lightly fragranced. Parfum is on the list along with lemon and bitter orange peel oils, and the allergens linalool, linalyl acetate, limonene, citronellol and hydroxycitronellal. Worth a look first if your skin reacts to fragrance.',
   },
@@ -630,9 +630,9 @@ const AR: RevitaGlowCopy = {
     title: 'كل مادة فعّالة وما تفعله حقاً',
     intro:
       'كل مادة فعّالة في التركيبة، وما تفعله كل واحدة منها بينما تضعينه.',
-    fullInci: 'قائمة INCI الكاملة',
+    fullInci: 'قائمة المكوّنات الكاملة (INCI)',
     fullInciNote:
-      'قائمة المكوّنات الكاملة كما هي مطبوعة على العبوة. متطابقة للدرجتين ٠١ Bright و٠٢ Natural باستثناء الصبغات.',
+      'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك. متطابقة للدرجتين ٠١ Bright و٠٢ Natural باستثناء الصبغات.',
     fragranceNote:
       'معطّر بخفّة. العطر (Parfum) مذكور في القائمة إلى جانب زيت قشر الليمون وزيت قشر البرتقال المرّ، ومسببات الحساسية: لينالول، ولينالايل أسيتات، وليمونين، وسيترونيلول، وهيدروكسي سيترونيلال. يستحق نظرة أولى إن كانت بشرتك تتفاعل مع العطور.',
   },
@@ -877,9 +877,9 @@ const RU: RevitaGlowCopy = {
     title: 'Каждый актив и что он на самом деле делает',
     intro:
       'Каждый актив в формуле и то, что он делает, пока средство на коже.',
-    fullInci: 'Полный состав INCI',
+    fullInci: 'Полный список ингредиентов (INCI)',
     fullInciNote:
-      'Полный список ингредиентов, как он напечатан на упаковке. Идентичен для #01 Bright и #02 Natural, кроме пигментов.',
+      'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках. Идентичен для #01 Bright и #02 Natural, кроме пигментов.',
     fragranceNote:
       'Лёгкая отдушка. В составе есть Parfum, масло кожуры лимона и горького апельсина, а также аллергены: линалоол, линалилацетат, лимонен, цитронеллол и гидроксицитронеллаль. Стоит посмотреть в первую очередь, если кожа реагирует на отдушки.',
   },

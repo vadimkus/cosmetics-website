@@ -405,7 +405,7 @@ const EN: PowerSolutionCopy = {
     ],
     inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'Exactly as printed on the carton, in the order the carton prints it. Ingredient lists stay in Latin script in every language because that is the regulatory form.',
+      'Every ingredient, in the same order as the box in your hand. Ingredient lists stay in Latin script in every language, because that is the form regulators require.',
   },
   suited: {
     eyebrow: 'Is this the right vial',
@@ -707,7 +707,7 @@ const AR: PowerSolutionCopy = {
     ],
     inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'كما هي مطبوعة على العلبة تماماً، وبالترتيب نفسه. وتبقى قوائم المكوّنات بالحرف اللاتيني في كل اللغات لأن هذا هو شكلها النظامي.',
+      'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك. وتبقى قوائم المكوّنات بالحرف اللاتيني في كل اللغات لأن هذا هو الشكل الذي تطلبه الجهات التنظيمية.',
   },
   suited: {
     eyebrow: 'هل هذه القارورة المناسبة',
@@ -1007,9 +1007,9 @@ const RU: PowerSolutionCopy = {
         body: 'Провитамин B5 в реальной дозе. Именно он оставляет поверхность комфортной в вечер профессиональной процедуры.',
       },
     ],
-    inciTitle: 'Полный состав (INCI)',
+    inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Точно как напечатано на упаковке и в том же порядке. Списки состава остаются в латинице на всех языках, потому что это их регуляторная форма.',
+      'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках. Списки состава остаются в латинице на всех языках, потому что этого требуют регуляторы.',
   },
   suited: {
     eyebrow: 'Тот ли это флакон',

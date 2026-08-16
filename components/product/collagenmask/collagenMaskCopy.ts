@@ -274,7 +274,7 @@ const EN: CollagenMaskCopy = {
     intro:
       'Twenty ingredients, and you can read every one of them below. The five botanicals sit alongside the humectants: centella asiatica, witch hazel, grapefruit, pomegranate and soybean.',
     inciTitle: 'Full ingredient list (INCI)',
-    inciNote: 'As printed on the pack.',
+    inciNote: 'Every ingredient, in the same order as the box in your hand.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -460,8 +460,8 @@ const AR: CollagenMaskCopy = {
     title: 'التركيبة كاملة، دون إخفاء.',
     intro:
       'عشرون مكوناً، ويمكنك قراءتها كلها أدناه. المستخلصات النباتية الخمسة تقف إلى جانب المرطبات: سنتيلا آسياتيكا، بندق الساحرة، الجريب فروت، الرمان وفول الصويا.',
-    inciTitle: 'قائمة المكونات الكاملة (INCI)',
-    inciNote: 'كما هي مطبوعة على العبوة.',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
+    inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -647,8 +647,8 @@ const RU: CollagenMaskCopy = {
     title: 'Полная формула, без умолчаний.',
     intro:
       'Двадцать ингредиентов, и все они перечислены ниже. Пять растительных экстрактов стоят рядом с увлажнителями: центелла азиатская, гамамелис, грейпфрут, гранат и соя.',
-    inciTitle: 'Полный состав (INCI)',
-    inciNote: 'Так, как напечатано на упаковке.',
+    inciTitle: 'Полный список ингредиентов (INCI)',
+    inciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках.',
   },
   suited: {
     eyebrow: 'Подойдёт ли вам',

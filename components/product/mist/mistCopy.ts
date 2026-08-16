@@ -336,9 +336,9 @@ const EN: MistCopy = {
     title: 'What is actually in it.',
     intro:
       'Every percentage here is a finished concentration in the bottle, not a guess from a trade name at the top of a list.',
-    inciTitle: 'Full INCI',
+    inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'The registered list, as printed on the carton. The carton also prints 879.5 ppm on the ferment, 800 ppm on inulin and 200 ppm on the oligosaccharide. Those are the same three figures as 0.08795%, 0.08% and 0.02%.',
+      'Every ingredient, in the same order as the box in your hand. The box also prints 879.5 ppm on the ferment, 800 ppm on inulin and 200 ppm on the oligosaccharide. Those are the same three figures as 0.08795%, 0.08% and 0.02%.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -529,9 +529,9 @@ const AR: MistCopy = {
     eyebrow: 'داخل الزجاجة',
     title: 'ما فيه فعلاً.',
     intro: 'كل نسبة هنا تركيز نهائي في الزجاجة، لا تخمين من اسم تجاري في رأس القائمة.',
-    inciTitle: 'القائمة الكاملة',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'القائمة المسجّلة، كما على العلبة. العلبة تطبع أيضاً 879.5 جزء في المليون على التخمير، و800 على الإينولين، و200 على السكر قليل التعدد. تلك الأرقام نفسها 0.08795% و0.08% و0.02%.',
+      'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك. وتطبع العلبة أيضاً 879.5 جزء في المليون على التخمير، و800 على الإينولين، و200 على السكر قليل التعدد. وهي الأرقام نفسها: 0.08795% و0.08% و0.02%.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -721,9 +721,9 @@ const RU: MistCopy = {
     eyebrow: 'Внутри флакона',
     title: 'Что в нём на самом деле.',
     intro: 'Каждый процент здесь - готовая концентрация во флаконе, не догадка по торговому имени вверху списка.',
-    inciTitle: 'Полный INCI',
+    inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Зарегистрированный список, как на коробке. Коробка также печатает 879,5 ppm на ферменте, 800 ppm на инулине и 200 ppm на олигосахариде. Это те же три цифры, что 0,08795%, 0,08% и 0,02%.',
+      'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках. Коробка также печатает 879,5 ppm на ферменте, 800 ppm на инулине и 200 ppm на олигосахариде. Это те же три цифры, что 0,08795%, 0,08% и 0,02%.',
   },
   suited: {
     eyebrow: 'Вам ли это',

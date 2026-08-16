@@ -319,7 +319,7 @@ const EN: HydroCoolCopy = {
     intro:
       'The cards below are the parts of the pouch that do the work. The complete carton INCI is under the list.',
     inciTitle: 'Full ingredient list (INCI)',
-    inciNote: 'As printed on the English carton.',
+    inciNote: 'Every ingredient, in the same order as the English box in your hand.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -524,7 +524,7 @@ const AR: HydroCoolCopy = {
     title: 'التركيبة، بالأرقام.',
     intro: 'البطاقات أدناه هي أجزاء الكيس التي تعمل. قائمة INCI الكاملة تحت القائمة.',
     inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
-    inciNote: 'كما طُبعت على الكرتون الإنجليزي.',
+    inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة الإنجليزية بين يديك.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -727,8 +727,8 @@ const RU: HydroCoolCopy = {
     eyebrow: 'Что внутри',
     title: 'Формула, с цифрами.',
     intro: 'Карточки ниже - части пакета, которые работают. Полный INCI с картона под списком.',
-    inciTitle: 'Полный состав (INCI)',
-    inciNote: 'Как напечатано на английском картоне.',
+    inciTitle: 'Полный список ингредиентов (INCI)',
+    inciNote: 'Каждый ингредиент, в том же порядке, что и на английской коробке у вас в руках.',
   },
   suited: {
     eyebrow: 'Тебе подойдёт',

@@ -322,7 +322,7 @@ const EN: SrsCopy = {
       'The cards below are the parts of the formula that do the work. The complete registered INCI is under the list.',
     inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'The registered formula in descending concentration, matching the carton list.',
+      'Every ingredient, strongest first, matching the box in your hand.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -512,8 +512,8 @@ const AR: SrsCopy = {
     eyebrow: 'ماذا فيه',
     title: 'التركيبة، بالأرقام.',
     intro: 'البطاقات أدناه هي ما يعمل في التركيبة. القائمة المسجّلة الكاملة تحت القائمة.',
-    inciTitle: 'القائمة الكاملة للمكونات (INCI)',
-    inciNote: 'التركيبة المسجّلة بترتيب التركيز التنازلي، مطابقة لقائمة العلبة.',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
+    inciNote: 'كل مكوّن، من الأعلى نسبةً إلى الأقل، مطابقاً للعلبة بين يديك.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -705,7 +705,7 @@ const RU: SrsCopy = {
     title: 'Формула, с цифрами.',
     intro: 'Карточки ниже - части формулы, которые работают. Полный зарегистрированный INCI под списком.',
     inciTitle: 'Полный список ингредиентов (INCI)',
-    inciNote: 'Зарегистрированная формула по убыванию концентрации, как на коробке.',
+    inciNote: 'Каждый ингредиент, от большего к меньшему, как на коробке у вас в руках.',
   },
   suited: {
     eyebrow: 'Вам подходит',

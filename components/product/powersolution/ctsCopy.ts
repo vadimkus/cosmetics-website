@@ -343,9 +343,9 @@ const EN: PowerSolutionCopy = {
           'Glycolic acid is in the formula as a pH adjuster, not as an acid peel. Beta-glucan conditions the surface at a small finished dose.',
       },
     ],
-    inciTitle: 'Full ingredient list',
+    inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'As printed on the carton. pH is tested on every batch, and the last came back at 7.61 against a 7.00 ± 1.00 specification.',
+      'Every ingredient, in the same order as the box in your hand. Every batch is tested for pH, and the last came back at 7.61 inside a 7.00 ± 1.00 specification.',
   },
   suited: {
     eyebrow: 'Honestly',
@@ -614,9 +614,9 @@ const AR: PowerSolutionCopy = {
           'حمض الجليكوليك في التركيبة كضابط للحموضة، لا كتقشير حمضي. وبيتا جلوكان يحسّن حالة السطح بجرعة نهائية صغيرة.',
       },
     ],
-    inciTitle: 'قائمة المكوّنات الكاملة',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'كما طُبعت على العلبة. تُختبر الحموضة في كل دفعة، وجاءت الأخيرة 7.61 مقابل مواصفة 7.00 ± 1.00.',
+      'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك. تُختبر الحموضة في كل دفعة، وجاءت الأخيرة 7.61 داخل مواصفة 7.00 ± 1.00.',
   },
   suited: {
     eyebrow: 'بصراحة',
@@ -885,9 +885,9 @@ const RU: PowerSolutionCopy = {
           'Гликолевая кислота в формуле как регулятор pH, не как кислотный пилинг. Бета-глюкан ухаживает за поверхностью в небольшой готовой дозе.',
       },
     ],
-    inciTitle: 'Полный состав',
+    inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Как напечатано на коробке. pH проверяют в каждой партии, последняя дала 7,61 при спецификации 7,00 ± 1,00.',
+      'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках. pH проверяют в каждой партии, последняя дала 7,61 внутри спецификации 7,00 ± 1,00.',
   },
   suited: {
     eyebrow: 'Честно',

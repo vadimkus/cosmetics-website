@@ -340,7 +340,7 @@ const EN: OvernightCopy = {
       'The cards below are the parts of the mask that work. The full carton INCI sits under the list.',
     inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'As printed on the English carton. Oxygen and the growth-factor names sit after Ceramide NP. The formula sheet prints those at 0%. We do not claim this list matches every language panel.',
+      'Every ingredient, in the same order as the English box in your hand. Oxygen and the growth-factor names sit after Ceramide NP, and the formula sheet prints every one of them at 0%.',
   },
   suited: {
     eyebrow: 'Is it for you',
@@ -546,7 +546,7 @@ const AR: OvernightCopy = {
       'البطاقات أدناه هي أجزاء القناع التي تعمل. قائمة INCI الكاملة على الكرتون تحت القائمة.',
     inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'كما طُبعت على الكرتون الإنجليزي. الأكسجين وأسماء عوامل النمو تجلس بعد سيراميد NP. ورقة التركيبة تطبعها عند ٠٪. لا ندّعي أن هذه القائمة تطابق كل لوحة لغة.',
+      'كل مكوّن، بالترتيب نفسه الذي على العلبة الإنجليزية بين يديك. الأكسجين وأسماء عوامل النمو تأتي بعد سيراميد NP، وورقة التركيبة تطبعها جميعاً عند ٠٪.',
   },
   suited: {
     eyebrow: 'هل يناسبك',
@@ -752,7 +752,7 @@ const RU: OvernightCopy = {
       'Карточки ниже - части маски, которые работают. Полный INCI с картона под списком.',
     inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Как напечатано на английском картоне. Кислород и имена факторов роста стоят после церамида NP. Лист формулы печатает их как 0%. Мы не утверждаем, что список совпадает с каждой языковой панелью.',
+      'Каждый ингредиент, в том же порядке, что и на английской коробке у вас в руках. Кислород и названия факторов роста стоят после церамида NP, и лист формулы печатает каждый из них как 0%.',
   },
   suited: {
     eyebrow: 'Вам ли она',

@@ -522,9 +522,9 @@ const EN: PowerSolutionCopy = {
           'Green tea, yuzu, mugwort, houttuynia, baicalensis root and hinoki cypress water. Each one named in full rather than folded into an invented complex name.',
       },
     ],
-    inciTitle: 'Full ingredient list',
+    inciTitle: 'Full ingredient list (INCI)',
     inciNote:
-      'As printed on the carton. pH is tested on every batch, and the last came back at 5.94 against a 6.00 ± 1.00 specification.',
+      'Every ingredient, in the same order as the box in your hand. Every batch is tested for pH, and the last came back at 5.94 inside a 6.00 ± 1.00 specification.',
   },
   suited: {
     eyebrow: 'Honestly',
@@ -785,9 +785,9 @@ const AR: PowerSolutionCopy = {
           'شاي أخضر ويوزو وشيح وهوتونيا وجذر القُبَّعية وماء السرو الياباني. كل واحد منها مذكور باسمه كاملاً لا مخبّأ خلف اسم مركّب مُبتكَر.',
       },
     ],
-    inciTitle: 'قائمة المكوّنات الكاملة',
+    inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
     inciNote:
-      'كما هي مطبوعة على العلبة. تُختبر الحموضة في كل تشغيلة، وسجّلت الأخيرة 5.94 مقابل مواصفة 6.00 ± 1.00.',
+      'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك. تُختبر الحموضة في كل تشغيلة، وجاءت الأخيرة 5.94 داخل مواصفة 6.00 ± 1.00.',
   },
   suited: {
     eyebrow: 'بصراحة',
@@ -1048,9 +1048,9 @@ const RU: PowerSolutionCopy = {
           'Зелёный чай, юдзу, полынь, хауттюйния, корень шлемника и вода хиноки. Каждое названо полностью, а не спрятано за придуманным названием комплекса.',
       },
     ],
-    inciTitle: 'Полный состав',
+    inciTitle: 'Полный список ингредиентов (INCI)',
     inciNote:
-      'Как напечатано на упаковке. pH проверяют в каждой партии; последняя показала 5,94 при спецификации 6,00 ± 1,00.',
+      'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках. pH проверяют в каждой партии, последняя дала 5,94 внутри спецификации 6,00 ± 1,00.',
   },
   suited: {
     eyebrow: 'Честно',

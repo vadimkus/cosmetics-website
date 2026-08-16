@@ -18,6 +18,7 @@ import SnowO2ProductPage from '@/components/product/snowo2/SnowO2ProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
+import EyeKitProductPage from '@/components/product/eyekit/EyeKitProductPage'
 import OvernightProductPage from '@/components/product/overnight/OvernightProductPage'
 import HydroCoolProductPage from '@/components/product/hydrocool/HydroCoolProductPage'
 import PeptideGelProductPage from '@/components/product/peptidegel/PeptideGelProductPage'
@@ -61,6 +62,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 17 is the first-layer EyeCell serum. Arbutin 2% is the figure on the
   // card; peptides sit at cosmetic trace. No clinical percentages.
   '17': EyeSerumProductPage,
+  // 50 is the registered four-piece EyeCell kit. Serum + 0.25mm eye
+  // roller, patches 20-40 min, then cream. Not a beauty box. The roller
+  // is not product 1.
+  '50': EyeKitProductPage,
   // 33 is the take-off EyeCell hydrogel mask. Niacinamide 2% is the
   // figure on the card; the peptide sits at 46.5 ppb. No clinical
   // percentages.
@@ -137,6 +142,9 @@ export function getBespokePdpLayout(
  * between the six vials IS the decision a buyer is making.
  */
 const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
+  // The three cosmetics inside the Eye Zone Care Kit. The 0.25mm eye
+  // roller has no retail PDP, so it is never fetched here.
+  '50': ['17', '24', '33'],
   // The other five Power Solutions, for the range table on each ampoule's page.
   '4': ['5', '6', '7', '8', '9'],
   '5': ['4', '6', '7', '8', '9'],

@@ -329,12 +329,12 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('Single-use intensive', 'Ready-to-use mask for targeted recovery nights.', 'Одноразовая маска', 'Готовая маска для целевых вечеров восстановления.', 'ماسك لمرة واحدة', 'ماسك جاهز لليالي التعافي المركّزة.'),
   ],
   '50': [
-    t('3-step eye system', 'Serum + cream + peptide gel patches for full eye-zone protocols.', 'Система из 3 шагов', 'Сыворотка + крем + пептидные патчи для зоны глаз.', 'نظام عناية ثلاثي', 'سيروم + كريم + لصقات ببتيدية لمنطقة العين.'),
-    t('Peptide dark-circle care', 'Haloxyl™ anti-dark-circle complex with multi-peptide support.', 'Уход от тёмных кругов', 'Комплекс Haloxyl™ и пептиды против тёмных кругов.', 'عناية بهالات داكنة', 'مركب Haloxyl™ مع دعم ببتيدات متعددة.'),
-    t('Eye roller delivery', 'Specialized roller increases absorption on curved under-eye zones.', 'Eye roller', 'Специальный роллер повышает впитывание на изогнутых зонах.', 'رولر العين', 'رولر متخصص يزيد الامتصاص في المناطق المنحنية.'),
-    t('Puff + wrinkle focus', 'Targets dehydration, bags, dark circles and crow’s feet together.', 'Отёки и морщины', 'Работает с обезвоживанием, мешками, кругами и гусиными лапками.', 'انتفاخ وتجاعيد', 'يستهدف الجفاف والانتفاخ والهالات وخطوط القدم.'),
-    t('Callus culture extracts', 'Botanical callus extracts support a smoother, younger-looking eye area.', 'Callus-экстракты', 'Ботанические callus-экстракты поддерживают более гладкий вид.', 'مستخلصات مزارع الخلايا', 'مستخلصات نباتية تدعم مظهراً أنعم وأصغر حول العين.'),
-    t('Clinic eye protocol kit', 'Professional kit format for systematic eye-contour treatments.', 'Клинический набор', 'Профессиональный набор для системного ухода за контуром глаз.', 'طقم بروتوكول عيادي', 'طقم مهني لعلاجات محيط العين المنهجية.'),
+    t('Four-piece eye sequence', 'Serum, 0.25mm eye roller, patches 20-40 min, then cream.', 'Последовательность из четырёх частей', 'Сыворотка, роллер 0,25 мм, патчи 20-40 мин, затем крем.', 'تسلسل من أربع قطع', 'السيروم، رولر 0.25 مم، لصقات 20-40 دقيقة، ثم الكريم.'),
+    t('Arbutin 2% on two leave-ons', 'Serum and cream share the Korean pair: arbutin 2% + adenosine 0.04%.', 'Арбутин 2% на двух leave-on', 'Сыворотка и крем: арбутин 2% + аденозин 0,04%.', 'أربوتين 2% على مستحضرين', 'السيروم والكريم: أربوتين 2% + أدينوزين 0.04%.'),
+    t('Niacinamide 2% on the patches', 'Take-off hydrogel. Niacinamide 2% + adenosine 0.04%. Then remove.', 'Ниацинамид 2% на патчах', 'Гидрогель. Ниацинамид 2% + аденозин 0,04%. Затем снять.', 'نياسيناميد 2% على اللصقات', 'هيدروجيل. نياسيناميد 2% + أدينوزين 0.04%. ثم تُرفع.'),
+    t('0.25mm eye roller, kit only', 'One-body, 60 needles. Not the 450-needle face roller.', 'Роллер 0,25 мм только в наборе', 'Цельный, 60 игл. Не лицевой роллер на 450 игл.', 'رولر 0.25 مم في الطقم فقط', 'قطعة واحدة، 60 إبرة. ليس رولر الوجه 450 إبرة.'),
+    t('Registered Korean kit', 'Own carton, own barcode. Not a UAE-assembled beauty box.', 'Зарегистрированный корейский набор', 'Своя коробка, свой штрихкод. Не собранный здесь бокс.', 'طقم كوري مسجّل', 'علبة وباركود خاصان. ليس صندوق جمال جُمع هنا.'),
+    t('Peanut oil in the cream', 'Skip the kit if peanut is an allergen, or buy serum and patches alone.', 'Арахисовое масло в креме', 'Не берите набор при аллергии на арахис, или сыворотка и патчи отдельно.', 'زيت الفول السوداني في الكريم', 'تجاوزي الطقم إن كان الفول السوداني محسّساً، أو السيروم واللصقات وحدهما.'),
   ],
 
 

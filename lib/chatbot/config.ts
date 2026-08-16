@@ -577,7 +577,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [HR³ MATRIX SCALP BRUSH](https://genosys.ae/products/61){{id:61}} - AED 50 - Scalp massage brush
 
 ### Eye Care Kit
-- [EyeCell EYE ZONE CARE KIT](https://genosys.ae/products/50){{id:50}} - AED 980 - Complete eye care set
+- [EyeCell EYE ZONE CARE KIT](https://genosys.ae/products/50){{id:50}} - AED 980 - Four-piece registered kit: serum, 0.25mm eye roller, patches, cream. Arbutin 2% + adenosine 0.04% on serum and cream; niacinamide 2% + adenosine 0.04% on the patches. The eye roller is kit-only, not the 450-needle face roller.
 
 ### Beauty Boxes (value sets, 15% bundle discount already included!)
 - [PROBLEM SKIN CARE BEAUTY BOX](https://genosys.ae/products/55){{id:55}} - AED 1,120.30 - For oily/acne-prone skin

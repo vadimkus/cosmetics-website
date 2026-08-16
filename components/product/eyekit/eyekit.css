@@ -1,0 +1,58 @@
+/**
+ * Palette for the EyeCell EYE ZONE CARE KIT page (product 50).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The carton is charcoal with a Pantone 187 C crimson bar, so the
+ * page sits on cool grey paper with that crimson as the accent.
+ *
+ * Keep it clear of:
+ *   - product 17 silver / lilac (eys-page)
+ *   - product 24 champagne / bronze (eye-page)
+ *   - product 33 burgundy / wine (egp-page)
+ *   - beauty-box garnet (bb-garnet)
+ *
+ * Scoped to `.cera-page.ek-page`.
+ */
+
+.cera-page.ek-page {
+  --cera-cream: #f4f4f5;
+  --cera-cream-deep: #e6e4e7;
+  --cera-blush: #f0e4e6;
+  --cera-blush-deep: #d9b8be;
+  --cera-rose: #a6192e;
+  --cera-rose-ink: #7d1224;
+  --cera-ink: #111214;
+  --cera-body: #353238;
+  --cera-muted: #6a656c;
+  --cera-line: #d8d4d7;
+  --cera-shot: #eceaed;
+}
+
+.ek-page .cera-stage {
+  box-shadow: 0 20px 52px -34px rgba(125, 18, 36, 0.28);
+}
+
+@media (hover: hover) {
+  .ek-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(17, 18, 20, 0.04), 0 26px 48px -26px rgba(166, 25, 46, 0.3);
+  }
+}
+
+.ek-page .ek-saving {
+  background: var(--cera-blush);
+  border-top: 2px solid var(--cera-blush-deep);
+}
+
+.ek-page .ek-notfor {
+  background: color-mix(in srgb, var(--cera-cream-deep) 60%, white);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.ek-page .ek-fact {
+  background: color-mix(in srgb, var(--cera-blush) 55%, white);
+  border: 1px solid color-mix(in srgb, var(--cera-blush-deep) 65%, white);
+}
+
+.ek-page .ek-video {
+  background: #111214;
+}

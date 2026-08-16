@@ -4,8 +4,18 @@ import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
 import Link from 'next/link'
-import { ArrowLeft, FileText, Globe, Mail, MapPin, Phone } from 'lucide-react'
-import { Facebook, IconOfficialDistributor, Instagram } from '@/components/icons/BrandIcons'
+import { ArrowLeft, Globe, Mail, MapPin } from 'lucide-react'
+import {
+  Facebook,
+  IconBusinessIdentifier,
+  IconOfficialDistributor,
+  IconRegistered,
+  IconTaxNumber,
+  IconTelecomApproval,
+  IconTradeLicence,
+  Instagram,
+  WhatsApp,
+} from '@/components/icons/BrandIcons'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
 import PWAPageWrapper from '@/components/pwa/PWAPageWrapper'
@@ -26,7 +36,7 @@ export default function ContactClient() {
   const channels = [
     {
       id: 'whatsapp',
-      icon: Phone,
+      icon: WhatsApp,
       name: 'WhatsApp',
       value: '+971 58 548 76 65',
       ltr: true,
@@ -88,10 +98,10 @@ export default function ContactClient() {
 
   /** The paperwork a clinic asks for before it opens an account. */
   const documents = [
-    { label: pick('Trade licence', 'الرخصة', 'Лицензия'), href: '/documents/Genosys_License.pdf', file: 'Genosys-Commercial-License-5023192.pdf' },
-    { label: 'TRN', href: '/documents/genosys-trn-104229886700003.pdf', file: 'GENOSYS-TRN-104229886700003.pdf' },
-    { label: 'Montaji', href: '/documents/Genosys_Product_Registration_Montaji.pdf', file: 'Genosys_Product_Registration_Montaji.pdf' },
-    { label: 'TDRA', href: '/documents/TDRA_NOC.pdf', file: 'GENOSYS-TDRA-NOC.pdf' },
+    { label: pick('Trade licence', 'الرخصة', 'Лицензия'), icon: IconTradeLicence, href: '/documents/Genosys_License.pdf', file: 'Genosys-Commercial-License-5023192.pdf' },
+    { label: 'TRN', icon: IconTaxNumber, href: '/documents/genosys-trn-104229886700003.pdf', file: 'GENOSYS-TRN-104229886700003.pdf' },
+    { label: 'Montaji', icon: IconRegistered, href: '/documents/Genosys_Product_Registration_Montaji.pdf', file: 'Genosys_Product_Registration_Montaji.pdf' },
+    { label: 'TDRA', icon: IconTelecomApproval, href: '/documents/TDRA_NOC.pdf', file: 'GENOSYS-TDRA-NOC.pdf' },
   ]
 
   return (
@@ -157,8 +167,8 @@ export default function ContactClient() {
                       isRTL ? 'flex-row-reverse text-right' : ''
                     }`}
                   >
-                    <span className="ed-mark h-11 w-11" aria-hidden="true">
-                      <Icon className="h-[18px] w-[18px]" />
+                    <span className="ed-mark ed-mark--tactile h-11 w-11" aria-hidden="true">
+                      <Icon className="h-[19px] w-[19px]" />
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="cera-serif block text-[16px] leading-tight text-[var(--cera-ink)]">
@@ -183,7 +193,7 @@ export default function ContactClient() {
           </ul>
 
           {/* ───────────────────────── Official distributor ───────────────── */}
-          <section className="ed-panel mt-12 p-6 md:mt-16 md:p-10">
+          <section className="ed-panel ed-panel--seal mt-12 p-6 md:mt-16 md:p-10">
             <div className={`md:flex md:items-start md:gap-10 ${isRTL ? 'md:flex-row-reverse md:text-right' : ''}`}>
               <div className="md:max-w-[34ch] md:flex-none">
                 <span className="ed-mark ed-mark--solid mb-4 h-12 w-12" aria-hidden="true">
@@ -212,25 +222,28 @@ export default function ContactClient() {
               >
                 <p className="cera-eyebrow mb-4">{pick('Official documents', 'الوثائق', 'Документы')}</p>
                 <div className={`flex flex-wrap gap-2.5 ${isRTL ? 'justify-end' : ''}`}>
-                  {documents.map((doc) => (
-                    <PDFLinkButton
-                      key={doc.label}
-                      href={doc.href}
-                      filename={doc.file}
-                      download={doc.file}
-                      className="ed-ghost touch-manipulation px-4 py-2 text-[13px]"
-                    >
-                      <FileText className="h-3.5 w-3.5" aria-hidden="true" />
-                      {doc.label}
-                    </PDFLinkButton>
-                  ))}
+                  {documents.map((doc) => {
+                    const DocIcon = doc.icon
+                    return (
+                      <PDFLinkButton
+                        key={doc.label}
+                        href={doc.href}
+                        filename={doc.file}
+                        download={doc.file}
+                        className="ed-ghost ed-doc touch-manipulation px-4 py-2 text-[13px]"
+                      >
+                        <DocIcon className="h-4 w-4" aria-hidden="true" />
+                        {doc.label}
+                      </PDFLinkButton>
+                    )
+                  })}
                   <a
                     href="https://dnbuae.com/duns-number/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ed-ghost touch-manipulation px-4 py-2 text-[13px]"
+                    className="ed-ghost ed-doc touch-manipulation px-4 py-2 text-[13px]"
                   >
-                    <FileText className="h-3.5 w-3.5" aria-hidden="true" />
+                    <IconBusinessIdentifier className="h-4 w-4" aria-hidden="true" />
                     <span dir="ltr">D-U-N-S® 850215607</span>
                   </a>
                 </div>

@@ -224,3 +224,83 @@
 .ed-field--flanked {
   padding-inline: 38px;
 }
+
+/* --- Tactile mark --------------------------------------------------------
+   The flat blush square reads as a placeholder at 44px. A one-pixel inner
+   highlight along the top edge and a soft drop below give it the same slight
+   lift the cards have, without introducing a second colour. */
+
+.ed-mark--tactile {
+  background: linear-gradient(160deg, #fff 0%, var(--cera-blush) 55%, var(--cera-blush-deep) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 1px 2px rgba(151, 40, 31, 0.06),
+    0 6px 14px -10px rgba(151, 40, 31, 0.4);
+}
+
+@media (hover: hover) {
+  .ed-row--hover:hover .ed-mark--tactile {
+    background: linear-gradient(160deg, #fff 0%, var(--cera-blush) 40%, var(--cera-blush-deep) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 2px 4px rgba(151, 40, 31, 0.08),
+      0 10px 20px -10px rgba(151, 40, 31, 0.5);
+  }
+}
+
+/* --- Document pill -------------------------------------------------------
+   The glyph carries the meaning here, so it gets a touch more weight than the
+   label and keeps the accent while the text stays ink. */
+
+.ed-doc svg {
+  color: var(--cera-rose);
+  flex: none;
+}
+
+/* --- Sealed panel --------------------------------------------------------
+   A flat blush gradient behind the distributor block looked unfinished. This
+   lays a faint guilloche of concentric rings behind it — the same motif as the
+   stamp/ribbon seal in the corner mark, at 3% so it reads as paper texture
+   rather than as a graphic. */
+
+.ed-panel--seal {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.ed-panel--seal::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset-inline-end: -80px;
+  top: -110px;
+  height: 340px;
+  width: 340px;
+  border-radius: 999px;
+  background:
+    repeating-radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--cera-rose) 9%, transparent) 0 1px,
+      transparent 1px 13px
+    );
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.ed-panel--seal::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset-inline-start: -60px;
+  bottom: -140px;
+  height: 260px;
+  width: 260px;
+  border-radius: 999px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--cera-rose) 7%, transparent), transparent 68%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ed-mark--tactile {
+    transition: none;
+  }
+}

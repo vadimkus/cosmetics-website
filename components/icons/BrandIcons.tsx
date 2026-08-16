@@ -276,3 +276,92 @@ export function Chrome(props: IconProps) {
     </Base>
   )
 }
+
+/* ── Contact channels ───────────────────────────────────────────────────────
+   /contact used a generic Lucide phone handset for WhatsApp, which reads as
+   "call us" rather than "message us" and is the one channel a customer
+   recognises by its silhouette. The rest of the channel row keeps its Lucide
+   glyphs, which are honest generics for email, a map pin and a globe. */
+
+export function WhatsApp(props: IconProps) {
+  return (
+    <Base {...props}>
+      {/* speech bubble with the tail bottom-left, the way the app draws it */}
+      <path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.5L3.5 20.5l1.4-4.3A8.5 8.5 0 1 1 20.5 11.6z" />
+      {/* handset inside the bubble */}
+      <path d="M9.3 8.6c.3-.1.6 0 .8.3l.8 1.3c.1.2.1.5 0 .7l-.5.7c.5 1 1.3 1.8 2.3 2.3l.7-.5c.2-.1.5-.2.7 0l1.3.8c.3.2.4.5.3.8-.2.7-.9 1.3-1.7 1.3-2.9 0-5.7-2.8-5.7-5.7 0-.8.5-1.6 1.3-1.8z" />
+    </Base>
+  )
+}
+
+/* ── Official documents ─────────────────────────────────────────────────────
+   All five document pills on /contact carried the same Lucide FileText glyph,
+   so the icon told the reader nothing and the row read as five identical
+   chips. Each document now has its own motif, built on the same 24×24 sheet
+   with a 1.6 px stroke as the rest of this file. */
+
+/** Trade licence — a sheet with a wax seal stamped clear of its edge.
+ *  The first draft overlapped the seal with the page border, which turned to
+ *  mush at 16 px; the sheet is shorter now so the seal sits in open space. */
+export function IconTradeLicence(props: IconProps) {
+  return (
+    <Base {...props}>
+      <path d="M5 3h7l4 4v7" />
+      <path d="M12 3v4h4" />
+      <path d="M16 14v4H5V3" />
+      <circle cx="17.2" cy="17.2" r="3.4" />
+      <path d="M17.2 15.6v3.2" />
+    </Base>
+  )
+}
+
+/** TRN — a tax sheet carrying a percent sign.
+ *  The percent is drawn large and the folded corner dropped, because at 16 px
+ *  the two together left no clear space between the strokes. */
+export function IconTaxNumber(props: IconProps) {
+  return (
+    <Base {...props}>
+      <rect x="4" y="2.6" width="16" height="18.8" rx="2.4" />
+      <path d="M8.6 15.4l6.8-6.8" />
+      <circle cx="9.1" cy="9.1" r="1.5" />
+      <circle cx="14.9" cy="14.9" r="1.5" />
+    </Base>
+  )
+}
+
+/** Montaji — Dubai Municipality product registration, so a shield and a tick. */
+export function IconRegistered(props: IconProps) {
+  return (
+    <Base {...props}>
+      <path d="M12 2.8l7 2.6v6c0 4.3-2.9 8.1-7 9.8-4.1-1.7-7-5.5-7-9.8v-6z" />
+      <path d="M8.8 11.9l2.2 2.2 4.2-4.4" />
+    </Base>
+  )
+}
+
+/** TDRA — the telecoms regulator, so a transmitter throwing two arcs. */
+export function IconTelecomApproval(props: IconProps) {
+  return (
+    <Base {...props}>
+      <circle cx="12" cy="9" r="1.8" />
+      <path d="M8.6 5.6a4.8 4.8 0 0 0 0 6.8" />
+      <path d="M15.4 5.6a4.8 4.8 0 0 1 0 6.8" />
+      <path d="M5.8 2.8a8.8 8.8 0 0 0 0 12.4" />
+      <path d="M18.2 2.8a8.8 8.8 0 0 1 0 12.4" />
+      <path d="M12 10.8V21" />
+      <path d="M9 21h6" />
+    </Base>
+  )
+}
+
+/** D-U-N-S — an international business identifier, so a globe with a tag. */
+export function IconBusinessIdentifier(props: IconProps) {
+  return (
+    <Base {...props}>
+      <circle cx="11" cy="11" r="8.2" />
+      <path d="M2.8 11h16.4" />
+      <path d="M11 2.8c2.1 2.3 3.3 5.2 3.3 8.2s-1.2 5.9-3.3 8.2c-2.1-2.3-3.3-5.2-3.3-8.2S8.9 5.1 11 2.8z" />
+      <path d="M15.4 17.6l2 2 3.8-3.8" />
+    </Base>
+  )
+}

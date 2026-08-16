@@ -40,12 +40,7 @@ Removed the Microneedling Protocols PDF from `productConfig` so the generic PDP 
 ## Images
 Hero stays `/images/SRS.jpg` (kit + box, already on the live page).
 
-Gallery (main not included):
-- `/images/srs/carton-vial.jpeg` - Intertek pics packshot, box + vial
-- `/images/srs/kit-open.jpeg` - open kit, ten vials
-- `/images/srs/vial.jpeg` - single vial
-
-`productConfig` no longer overrides the gallery. Claim-graphic lid text is on the real open box photo; that photo is a packshot of the product as sold.
+Studio gallery restored 16 Aug evening: `/images/Second/sss1.jpg`, `/images/Second/sss2.jpg`. Intertek carton flats under `/images/srs/` stay on disk only.
 
 ## Page
 `components/product/srs/` - Cerabarrier primitives + cool-bone / steel palette from the cold-water rinse (`#4a6468` on `#f2f3f1`). Kept clear of Snow O₂ ember, Remover gold, Epi mint, and Eye Kit crimson (the box is 187 C, already that accent).

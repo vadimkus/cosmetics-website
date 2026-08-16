@@ -51,7 +51,7 @@ Gallery (main not included):
 - `/images/remover/pack.jpeg` - Intertek Pics/2, carton front + bottle back (how-to)
 - `/images/remover/carton-side.jpeg` - Intertek Pics/3, multilingual carton
 
-Claim-graphic slides `S1b` to `S6b` stay on disk for orders already sent. They are not in the new gallery.
+Studio slides `S1b` to `S6b` are back on the gallery (restored 16 Aug evening). Intertek carton flats stay on disk only.
 
 Video stays `/videos/remover.mp4`.
 

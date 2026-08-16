@@ -89,7 +89,7 @@ interface ActiveIngredient {
 }
 
 /** Vial packshot for the engine section. Gallery stays packshots only. */
-const ENGINE_IMAGE = '/images/srs/vial.jpeg'
+const ENGINE_IMAGE = '/images/Second/sss1.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

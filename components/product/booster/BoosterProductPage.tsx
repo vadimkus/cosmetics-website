@@ -92,7 +92,7 @@ interface ActiveIngredient {
 }
 
 /** Intertek 200 ml front packshot. Gallery is packshots only. */
-const ENGINE_IMAGE = '/images/booster/bottle-200.jpeg'
+const ENGINE_IMAGE = '/images/Second/main_booster2.png'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

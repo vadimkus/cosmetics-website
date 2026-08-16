@@ -33,7 +33,7 @@ Sprayable shea emulsion, not a water toner. Carton function is moisturizing, nou
 
 ## Images
 
-Hero `main2.jpeg` stays (bottle already on the live page). New gallery is three Intertek packshots under `/images/mist/`: `bottle-front.jpeg`, `bottle-box.jpeg`, `carton-back.jpeg`. Claim-graphic slides S1-S6 stay on disk and are not in the gallery.
+Hero `main2.jpeg` stays. Studio gallery S1-S6 is back on the page (restored 16 Aug evening). Intertek carton flats stay on disk only.
 
 ## Page
 

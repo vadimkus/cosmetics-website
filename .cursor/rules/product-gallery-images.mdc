@@ -5,6 +5,21 @@ alwaysApply: true
 
 # Product Gallery Images — One Source of Truth
 
+## Hard rule: never pull studio slides off the page
+
+The customer gallery is the **studio / claim-slide set** (`s1`–`s6`, `S1b`–`S6b`,
+or the existing studio pair). Those files stay on the product page.
+
+- **Do not** replace a studio gallery with Intertek carton flats, dieline
+  scans, registration packshots, or bottle-plus-box photos from the Intertek
+  `Pics/` folder.
+- **Do not** take studio slides off "because leftover copy on the slide is
+  wrong." Log the leftover claim in `~/Desktop/genosys-artwork-corrections.html`
+  and re-export the slide under a **new filename**. Then repoint the gallery.
+- Intertek carton photos may live on disk for the worklist. They are not the
+  customer gallery unless Vadim explicitly asks for that one photo.
+- Hero studio packshots stay. Never drop a studio hero to "clean up" a page.
+
 Product galleries live in **one place: the database `images` field** (JSON string
 array of gallery paths, e.g. `'["/images/6000/S1.jpeg","/images/6000/S2.jpeg"]'`).
 

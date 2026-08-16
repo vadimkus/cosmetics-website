@@ -34,7 +34,7 @@ Daily toner for all skin types. Carton function is toner. Apply or spray suffici
 
 ## Images
 
-Hero `main_booster.jpg` stays (already on the live page). New gallery under `/images/booster/`: `bottle-200.jpeg`, `bottles-both.jpeg`, `carton-back.jpeg`. Config gallery on product 16 removed so the DB array wins.
+Hero `main_booster.jpg` stays. Studio second angle `main_booster2.png` is back on the gallery (restored 16 Aug evening). Intertek carton flats under `/images/booster/` stay on disk only.
 
 ## Page
 

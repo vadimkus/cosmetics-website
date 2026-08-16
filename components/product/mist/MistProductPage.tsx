@@ -96,7 +96,7 @@ interface ActiveIngredient {
 /** Bottle-and-box packshot for the engine section. Gallery S1-S6 still
  *  carry leftover slide copy (FENSEBIOME-as-engine, HA10, pat-in), so
  *  they stay off the page. */
-const ENGINE_IMAGE = '/images/mist/bottle-box.jpeg'
+const ENGINE_IMAGE = '/images/mist/S1.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

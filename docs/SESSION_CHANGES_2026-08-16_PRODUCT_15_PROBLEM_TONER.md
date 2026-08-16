@@ -34,7 +34,7 @@ Oil-control toner for blemish-prone skin. Carton function is oil control. Apply 
 
 ## Images
 
-Hero `Main.jpg` stays (already on the live page). New gallery is three Intertek packshots under `/images/problem/`: `bottle-200.jpeg`, `bottle-500.jpeg`, `bottle-500-front.jpeg`. Claim-graphic slides S1-S6 stay on disk and are not in the gallery.
+Hero `Main.jpg` stays. Studio gallery S1-S6 is back on the page (restored 16 Aug evening). Intertek carton flats stay on disk only.
 
 ## Page
 

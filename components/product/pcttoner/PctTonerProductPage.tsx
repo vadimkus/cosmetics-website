@@ -94,7 +94,7 @@ interface ActiveIngredient {
 
 /** Intertek 200 ml box-and-bottle packshot. Claim-graphic slides S1-S6
  *  stay off the gallery. */
-const ENGINE_IMAGE = '/images/problem/bottle-200.jpeg'
+const ENGINE_IMAGE = '/images/problem/S1.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

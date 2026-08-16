@@ -94,9 +94,22 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Bottle packshot for the engine section. Gallery S1b-S6b still carry
- *  leftover slide copy (peptides, waterproof, no sting), so the engine
- *  figure stays on the main. */
+/** Studio slides go on the page, not only in the thumbs. S5b is the
+ *  clean-not-greasy results slide, S4b the shake-and-wipe how-to. Leftover
+ *  slide copy (peptides, waterproof, no sting) is queued for re-export; the
+ *  editorial copy does not repeat it. The engine figure stays on the
+ *  bottle packshot. */
+const STUDIO_SLIDES = [
+  '/images/remover/S1b.jpg',
+  '/images/remover/S2b.jpg',
+  '/images/remover/S3b.jpg',
+  '/images/remover/S4b.jpg',
+  '/images/remover/S5b.jpg',
+  '/images/remover/S6b.jpg',
+] as const
+
+const EFFECTS_IMAGE = '/images/remover/S5b.jpg'
+const HOWTO_IMAGE = '/images/remover/S4b.jpg'
 const ENGINE_IMAGE = '/images/remover/Main2.jpg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
@@ -582,8 +595,41 @@ export default function RemoverProductPage({
         </div>
       </section>
 
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          {STUDIO_SLIDES.map((src, i) => (
+            <CeraReveal key={src} delay={i * 50}>
+              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
+                <Image
+                  src={src}
+                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
+                  quality={85}
+                  className="object-contain"
+                />
+              </div>
+            </CeraReveal>
+          ))}
+        </div>
+      </section>
+
       {/* ──────────────────────── What it does ──────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={EFFECTS_IMAGE}
+                alt={copy.effects.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
+          <div>
         <CeraSectionHeader
           eyebrow={copy.effects.eyebrow}
           title={copy.effects.title}
@@ -611,6 +657,8 @@ export default function RemoverProductPage({
             </CeraReveal>
           ))}
         </ol>
+          </div>
+        </div>
       </section>
 
       {/* ───────────────────────── The complex ──────────────────────────── */}
@@ -662,7 +710,20 @@ export default function RemoverProductPage({
       </section>
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={HOWTO_IMAGE}
+                alt={copy.howTo.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
         <div>
           <CeraReveal>
             <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
@@ -713,6 +774,7 @@ export default function RemoverProductPage({
               </div>
             </CeraReveal>
           ) : null}
+        </div>
         </div>
       </section>
 

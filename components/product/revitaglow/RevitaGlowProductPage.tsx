@@ -93,7 +93,18 @@ interface ActiveIngredient {
   description: string
 }
 
+/** Studio slides go on the page, not only in the thumbs. s2 is the two-shade
+ *  comparison and stays beside the shade section, s4 the glass-skin finish
+ *  how-to. */
+const STUDIO_SLIDES = [
+  '/images/revita/s1.jpg',
+  '/images/revita/s2.jpg',
+  '/images/revita/s3.jpg',
+  '/images/revita/s4.jpg',
+] as const
+
 const SHADE_FIGURE = '/images/revita/s2.jpg'
+const HOWTO_IMAGE = '/images/revita/s4.jpg'
 const BROCHURE_URL = '/documents/ppt/GENOSYS_REVITA_GLOW_BB_CREAM.pdf'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
@@ -674,6 +685,25 @@ export default function RevitaGlowProductPage({
         </div>
       </section>
 
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          {STUDIO_SLIDES.map((src, i) => (
+            <CeraReveal key={src} delay={i * 50}>
+              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
+                <Image
+                  src={src}
+                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
+                  quality={85}
+                  className="object-contain"
+                />
+              </div>
+            </CeraReveal>
+          ))}
+        </div>
+      </section>
+
       {/* ────────────────── Three registered functions ──────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader
@@ -905,7 +935,21 @@ export default function RevitaGlowProductPage({
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
       <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[900px] px-4 sm:px-6">
+        <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+            <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+              <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+                <Image
+                  src={HOWTO_IMAGE}
+                  alt={copy.howTo.title}
+                  fill
+                  sizes="(max-width: 1024px) 92vw, 44vw"
+                  quality={85}
+                  className="object-contain"
+                />
+              </div>
+            </CeraReveal>
+          <div>
           <CeraReveal>
             <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
             <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">{copy.howTo.title}</h2>
@@ -940,6 +984,8 @@ export default function RevitaGlowProductPage({
               <span>{copy.howTo.note}</span>
             </p>
           </CeraReveal>
+          </div>
+          </div>
         </div>
       </section>
 

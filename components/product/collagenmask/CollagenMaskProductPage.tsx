@@ -103,11 +103,22 @@ interface ActiveIngredient {
   description: string
 }
 
-/** S3 is the ingredient breakdown slide - sachet plus the four numbered actives
- *  against the botanical illustration - so it is the one gallery image that
- *  belongs beside the essence section rather than inside the carousel. S2 is not
- *  used inline: it still carries the brightening and anti-ageing lines that this
- *  page does not claim, and is queued for re-export. */
+/** Studio slides go on the page, not only in the thumbs. S3 is the
+ *  ingredient breakdown and stays beside the essence section, S5 is the
+ *  firm-hydrated-repaired results slide, S4 the fifteen-to-twenty-minute
+ *  how-to. S2 still carries brightening and anti-ageing lines this page
+ *  does not claim, so it runs in the lookbook only and is queued for
+ *  re-export. */
+const STUDIO_SLIDES = [
+  '/images/collagen_mask/S1.jpeg',
+  '/images/collagen_mask/S2.jpeg',
+  '/images/collagen_mask/S3.jpeg',
+  '/images/collagen_mask/S4.jpeg',
+  '/images/collagen_mask/S5.jpeg',
+] as const
+
+const EFFECTS_IMAGE = '/images/collagen_mask/S5.jpeg'
+const HOWTO_IMAGE = '/images/collagen_mask/S4.jpeg'
 const ENGINE_IMAGE = '/images/collagen_mask/S3.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
@@ -589,8 +600,41 @@ export default function CollagenMaskProductPage({
         </div>
       </section>
 
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          {STUDIO_SLIDES.map((src, i) => (
+            <CeraReveal key={src} delay={i * 50}>
+              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
+                <Image
+                  src={src}
+                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
+                  quality={85}
+                  className="object-contain"
+                />
+              </div>
+            </CeraReveal>
+          ))}
+        </div>
+      </section>
+
       {/* ──────────────────────── What it does ──────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={EFFECTS_IMAGE}
+                alt={copy.effects.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
+          <div>
         <CeraSectionHeader
           eyebrow={copy.effects.eyebrow}
           title={copy.effects.title}
@@ -618,6 +662,8 @@ export default function CollagenMaskProductPage({
             </CeraReveal>
           ))}
         </ol>
+          </div>
+        </div>
       </section>
 
       {/* ───────────────────────── The essence ───────────────────────────── */}
@@ -632,7 +678,7 @@ export default function CollagenMaskProductPage({
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
                   quality={85}
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             </CeraReveal>
@@ -669,7 +715,20 @@ export default function CollagenMaskProductPage({
       </section>
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={HOWTO_IMAGE}
+                alt={copy.howTo.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
         <div>
           <CeraReveal>
             <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
@@ -705,6 +764,7 @@ export default function CollagenMaskProductPage({
               <span>{copy.howTo.note}</span>
             </p>
           </CeraReveal>
+        </div>
         </div>
       </section>
 

@@ -92,9 +92,22 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Two-pump studio shot for the engine section. Gallery S1-S4 still carry
- *  leftover slide copy (paraben-free, sensitive, Phytolex-as-engine), so the
- *  engine figure stays on the main. */
+/** Studio slides go on the page, not only in the thumbs. S5 is the
+ *  fresh-and-clean results slide, S4 the four-step how-to. Leftover slide
+ *  copy (paraben-free, sensitive, Phytolex-as-engine) is queued for
+ *  re-export; the editorial copy does not repeat it. The engine figure
+ *  stays on the two-pump packshot. */
+const STUDIO_SLIDES = [
+  '/images/cleanser/S1.jpg',
+  '/images/cleanser/S2.jpg',
+  '/images/cleanser/S3.jpg',
+  '/images/cleanser/S4.jpg',
+  '/images/cleanser/S5.jpg',
+  '/images/cleanser/S6.jpg',
+] as const
+
+const EFFECTS_IMAGE = '/images/cleanser/S5.jpg'
+const HOWTO_IMAGE = '/images/cleanser/S4.jpg'
 const ENGINE_IMAGE = '/images/cleanser/main_clean.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
@@ -624,8 +637,41 @@ export default function SnowO2ProductPage({
         </div>
       </section>
 
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          {STUDIO_SLIDES.map((src, i) => (
+            <CeraReveal key={src} delay={i * 50}>
+              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
+                <Image
+                  src={src}
+                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
+                  quality={85}
+                  className="object-contain"
+                />
+              </div>
+            </CeraReveal>
+          ))}
+        </div>
+      </section>
+
       {/* ──────────────────────── What it does ──────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={EFFECTS_IMAGE}
+                alt={copy.effects.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
+          <div>
         <CeraSectionHeader
           eyebrow={copy.effects.eyebrow}
           title={copy.effects.title}
@@ -653,6 +699,8 @@ export default function SnowO2ProductPage({
             </CeraReveal>
           ))}
         </ol>
+          </div>
+        </div>
       </section>
 
       {/* ───────────────────────── The complex ──────────────────────────── */}
@@ -704,7 +752,20 @@ export default function SnowO2ProductPage({
       </section>
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={HOWTO_IMAGE}
+                alt={copy.howTo.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
         <div>
           <CeraReveal>
             <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
@@ -755,6 +816,7 @@ export default function SnowO2ProductPage({
               </div>
             </CeraReveal>
           ) : null}
+        </div>
         </div>
       </section>
 

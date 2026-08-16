@@ -87,7 +87,14 @@ interface Props {
 
 // Inline section art, each paired with the section it actually illustrates.
 // s2.jpg ("Why hair thins") is the odd one out: there is no problem-framing
-// section on this page, so it appears in the record-driven gallery only.
+// section on this page, so it runs in the lookbook after the stats.
+const STUDIO_SLIDES = [
+  '/images/needles/s1_new.jpeg',
+  '/images/needles/s2.jpg',
+  '/images/needles/s3_new.jpeg',
+  '/images/needles/s4.jpg',
+] as const
+
 const MECHANISM_IMAGE = '/images/needles/s3_new.jpeg'
 const PROTOCOL_IMAGE = '/images/needles/s4.jpg'
 const SPEC_IMAGE = '/images/needles/s1_new.jpeg'
@@ -549,6 +556,25 @@ export default function HairStampProductPage({
               <p className="mx-auto mt-2 max-w-[24ch] text-[13.5px] leading-snug text-[var(--cera-muted)]">
                 {stat.label}
               </p>
+            </CeraReveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          {STUDIO_SLIDES.map((src, i) => (
+            <CeraReveal key={src} delay={i * 50}>
+              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
+                <Image
+                  src={src}
+                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
+                  quality={85}
+                  className="object-contain"
+                />
+              </div>
             </CeraReveal>
           ))}
         </div>

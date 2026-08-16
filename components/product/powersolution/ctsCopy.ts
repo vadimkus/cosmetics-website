@@ -992,6 +992,7 @@ export const CTS_VARIANT: PowerSolutionVariant = {
   vialImage: '/images/Second/cts_big2.jpg',
   boxImage: '/images/Second/cts_big.jpg',
   blendGallerySlides: new Set(['/images/Second/cts_big.jpg', '/images/Second/cts_big2.jpg']),
+  studioSlides: [],
   heroOnWhite: false,
 }
 

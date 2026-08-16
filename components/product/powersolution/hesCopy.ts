@@ -1112,6 +1112,15 @@ export const HES_VARIANT: PowerSolutionVariant = {
   // them would change the card colour across the rail, so the stage is
   // near-white instead and nothing is multiplied. See .ps-hes in the CSS.
   blendGallerySlides: new Set<string>(),
+  studioSlides: [
+    '/images/hes_power/s1new.jpeg',
+    '/images/hes_power/s2.jpeg',
+    '/images/hes_power/s3.jpeg',
+    '/images/hes_power/s4.jpeg',
+    '/images/hes_power/s5.jpeg',
+    '/images/hes_power/s6new.jpeg',
+    '/images/hes_power/s7.jpeg',
+  ],
   heroOnWhite: true,
 }
 

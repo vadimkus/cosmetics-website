@@ -98,6 +98,12 @@ interface ActiveIngredient {
  *  being prepared rather than another packshot. */
 const ENGINE_IMAGE = '/images/BFAD.png'
 
+/** The model shot from the gallery, so the how-to shows the mask on a face
+ *  rather than describing it. ferment_high.jpeg leads on six growth-factor
+ *  peptides, which this page does not claim, so it stays in the thumbs and
+ *  is queued for re-export. */
+const HOWTO_IMAGE = '/images/bio_ferment/bferment_model.jpg'
+
 /** DTS MG deck: skin moisture 17.27 before, 48.513 after. Chart heights are
  *  scaled to the after reading so the lift is visible. */
 const HYDRATION = { before: 17.27, after: 48.513 }
@@ -722,7 +728,20 @@ export default function BioFermentProductPage({
       </section>
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={HOWTO_IMAGE}
+                alt={copy.howTo.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
         <div>
           <CeraReveal>
             <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
@@ -773,6 +792,7 @@ export default function BioFermentProductPage({
               </div>
             </CeraReveal>
           ) : null}
+        </div>
         </div>
       </section>
 

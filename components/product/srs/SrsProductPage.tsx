@@ -91,6 +91,9 @@ interface ActiveIngredient {
 /** Vial packshot for the engine section. Gallery stays packshots only. */
 const ENGINE_IMAGE = '/images/Second/sss1.jpg'
 
+/** The single-vial shot, so the how-to shows the vial that gets opened. */
+const HOWTO_IMAGE = '/images/Second/sss2.jpg'
+
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
   try {
@@ -559,7 +562,20 @@ export default function SrsProductPage({
       </section>
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={HOWTO_IMAGE}
+                alt={copy.howTo.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
         <div>
           <CeraReveal>
             <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
@@ -610,6 +626,7 @@ export default function SrsProductPage({
               </div>
             </CeraReveal>
           ) : null}
+        </div>
         </div>
       </section>
 

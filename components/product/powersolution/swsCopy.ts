@@ -973,6 +973,7 @@ export const SWS_VARIANT: PowerSolutionVariant = {
   // pure white. The two on white are blended down to the stage tint so the card
   // holds one colour across the rail.
   blendGallerySlides: new Set(['/images/Second/sws_big1.jpg', '/images/Second/sws_big2.jpg']),
+  studioSlides: [],
   // The hero is on that sweep, not on white, so it must never be multiplied.
   heroOnWhite: false,
 }

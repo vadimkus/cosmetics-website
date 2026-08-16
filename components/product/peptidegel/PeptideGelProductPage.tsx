@@ -93,8 +93,21 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Clean pouch shot. Gallery slides s1c / s2c / s5c still print patented
- *  thermo-sensitive delivery. The pouch itself is the product. */
+/** Studio slides go on the page, not only in the thumbs. s4c is the
+ *  post-procedure cool-down slide, s3c the twenty-to-forty-minute how-to.
+ *  s1c / s2c / s5c still print patented thermo-sensitive delivery, so they
+ *  run in the lookbook only and are queued for re-export. The engine
+ *  figure stays on the pouch. */
+const STUDIO_SLIDES = [
+  '/images/peptide_mask/s1c.jpeg',
+  '/images/peptide_mask/s2c.jpeg',
+  '/images/peptide_mask/s3c.jpeg',
+  '/images/peptide_mask/s4c.jpeg',
+  '/images/peptide_mask/s5c.jpeg',
+] as const
+
+const EFFECTS_IMAGE = '/images/peptide_mask/s4c.jpeg'
+const HOWTO_IMAGE = '/images/peptide_mask/s3c.jpeg'
 const ENGINE_IMAGE = '/images/peptide_mask/main.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
@@ -580,8 +593,41 @@ export default function PeptideGelProductPage({
         </div>
       </section>
 
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          {STUDIO_SLIDES.map((src, i) => (
+            <CeraReveal key={src} delay={i * 50}>
+              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
+                <Image
+                  src={src}
+                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
+                  quality={85}
+                  className="object-contain"
+                />
+              </div>
+            </CeraReveal>
+          ))}
+        </div>
+      </section>
+
       {/* ──────────────────────── What it does ──────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={EFFECTS_IMAGE}
+                alt={copy.effects.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
+          <div>
         <CeraSectionHeader
           eyebrow={copy.effects.eyebrow}
           title={copy.effects.title}
@@ -609,6 +655,8 @@ export default function PeptideGelProductPage({
             </CeraReveal>
           ))}
         </ol>
+          </div>
+        </div>
       </section>
 
       {/* ───────────────────────── The complex ──────────────────────────── */}
@@ -660,7 +708,20 @@ export default function PeptideGelProductPage({
       </section>
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={HOWTO_IMAGE}
+                alt={copy.howTo.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
         <div>
           <CeraReveal>
             <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
@@ -711,6 +772,7 @@ export default function PeptideGelProductPage({
               </div>
             </CeraReveal>
           ) : null}
+        </div>
         </div>
       </section>
 

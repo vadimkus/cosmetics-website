@@ -92,8 +92,22 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Tube packshot for the engine section. Gallery s1 still carries the old
- *  "without irritation" slide copy, so the engine figure stays on the main. */
+/** Studio slides go on the page, not only in the thumbs. s5 is the
+ *  smooth-not-stripped results slide, s4 the once-or-twice-weekly how-to.
+ *  s1 still carries the old "without irritation" line and is queued for
+ *  re-export; the editorial copy does not repeat it. The engine figure
+ *  stays on the tube packshot. */
+const STUDIO_SLIDES = [
+  '/images/epi/s1.jpeg',
+  '/images/epi/s2.jpeg',
+  '/images/epi/s3.jpeg',
+  '/images/epi/s4.jpeg',
+  '/images/epi/s5.jpeg',
+  '/images/epi/s6.jpeg',
+] as const
+
+const EFFECTS_IMAGE = '/images/epi/s5.jpeg'
+const HOWTO_IMAGE = '/images/epi/s4.jpeg'
 const ENGINE_IMAGE = '/images/epi/main.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
@@ -579,8 +593,41 @@ export default function EpiProductPage({
         </div>
       </section>
 
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          {STUDIO_SLIDES.map((src, i) => (
+            <CeraReveal key={src} delay={i * 50}>
+              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
+                <Image
+                  src={src}
+                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
+                  quality={85}
+                  className="object-contain"
+                />
+              </div>
+            </CeraReveal>
+          ))}
+        </div>
+      </section>
+
       {/* ──────────────────────── What it does ──────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={EFFECTS_IMAGE}
+                alt={copy.effects.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
+          <div>
         <CeraSectionHeader
           eyebrow={copy.effects.eyebrow}
           title={copy.effects.title}
@@ -608,6 +655,8 @@ export default function EpiProductPage({
             </CeraReveal>
           ))}
         </ol>
+          </div>
+        </div>
       </section>
 
       {/* ───────────────────────── The complex ──────────────────────────── */}
@@ -659,7 +708,20 @@ export default function EpiProductPage({
       </section>
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={HOWTO_IMAGE}
+                alt={copy.howTo.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
         <div>
           <CeraReveal>
             <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
@@ -710,6 +772,7 @@ export default function EpiProductPage({
               </div>
             </CeraReveal>
           ) : null}
+        </div>
         </div>
       </section>
 

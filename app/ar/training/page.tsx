@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
-import ArabicTrainingPageClient from './ArabicTrainingPageClient'
+import TrainingLibrary from '@/app/training/TrainingLibrary'
 
 export const metadata: Metadata = {
   title: 'التدريب المهني - تدريب GENOSYS للعناية بالبشرة',
@@ -66,7 +66,7 @@ export default function ArabicTrainingPage() {
           { name: 'التدريب', url: '/ar/training' },
         ]}
       />
-      <ArabicTrainingPageClient />
+      <TrainingLibrary />
     </>
   )
 }

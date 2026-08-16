@@ -1,5 +1,5 @@
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
-import TrainingClient from './TrainingClient'
+import TrainingLibrary from './TrainingLibrary'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -60,13 +60,13 @@ export const metadata: Metadata = {
 export default function TrainingPage() {
   return (
     <>
-      <BreadcrumbSchema 
+      <BreadcrumbSchema
         items={[
           { name: 'Home', url: '/' },
           { name: 'Training', url: '/training' }
         ]}
       />
-      <TrainingClient />
+      <TrainingLibrary />
     </>
   )
 }

@@ -18,6 +18,7 @@ import SnowO2ProductPage from '@/components/product/snowo2/SnowO2ProductPage'
 import RemoverProductPage from '@/components/product/remover/RemoverProductPage'
 import SrsProductPage from '@/components/product/srs/SrsProductPage'
 import MistProductPage from '@/components/product/mist/MistProductPage'
+import PctTonerProductPage from '@/components/product/pcttoner/PctTonerProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -74,6 +75,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // on the card. FENSEBIOME and the hyaluronan complex sit at
   // cosmetic trace. Shake, 10-20 cm, over makeup. Not a water toner.
   '14': MistProductPage,
+  // 15 is the oil-control toner. Zinc PCA 0.5% is the figure on the
+  // card. Apply or spray AM/PM. 200 ml is the 360° back spray.
+  // Salicylic acid is 0.001%. Copper peptide is not in the INCI.
+  '15': PctTonerProductPage,
   // 17 is the first-layer EyeCell serum. Arbutin 2% is the figure on the
   // card; peptides sit at cosmetic trace. No clinical percentages.
   '17': EyeSerumProductPage,

@@ -520,7 +520,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 
 ### Toners & Mists
 - [MICROBIOME ENERGY INFUSING MIST](https://genosys.ae/products/14){{id:14}} - AED 160 - Sprayable shea emulsion, shea 1.2%, shake then spray 10-20 cm, over makeup. Not a water toner. Peptide at 0.000001%.
-- [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - AED 260
+- [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - AED 260 / 490 - Oil-control toner. Zinc PCA 0.5%. Apply or spray AM/PM. 200 ml is 360°. Not a BHA toner. Copper peptide is not in the formula.
 - [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - AED 260 - Brightening booster
 
 ### Serums
@@ -1094,8 +1094,8 @@ You: "Let me help with that! 🔬 We have a complete acne treatment page with cu
 
 👉 [Acne & Blemish Treatment](https://genosys.ae/products/concern/acne-treatment)
 
-The page includes our Problem Control line with BHA + Niacinamide, plus a morning and evening routine. Here are my top picks:
-• [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} — BHA to unclog pores
+The page includes our Problem Control line, plus a morning and evening routine. Here are my top picks:
+• [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - Zinc PCA 0.5% for oil control
 • [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} — Niacinamide to calm inflammation
 
 Check the full routine on the page — it tells you exactly what order to apply everything! ✨"
@@ -1294,7 +1294,7 @@ You: "Oh, great question! Let me share something interesting... 🧪
 **Did you know?** In UAE's hot climate, your skin produces extra sebum as a protective mechanism - but we can balance that!
 
 I'd recommend starting with our Problem Control duo:
-• [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} (AED 260) - Contains Zinc PCA that regulates oil at the source!
+• [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} (AED 260 / 490) - Zinc PCA 0.5%. Apply or spray morning and evening.
 • [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} (AED 330) - Light, non-greasy formula
 
 💡 **Pro tip:** Don't skip moisturizer! Dehydrated skin actually produces MORE oil to compensate.

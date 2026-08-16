@@ -39,6 +39,8 @@ Peptides sit at cosmetic trace (Acetyl Hexapeptide-8 **0.0025%** finished). Halo
 
 Gallery main / s1 / s6 still print "10 Years Back" on the bottle. Gallery s4 still says "Intertek formula" and "NO INVENTED CLINICAL PERCENTAGES". Those are later image jobs, already logged in the desktop HTML. The editorial copy does not repeat them. Engine figure is `s4.jpeg` (Arbutin 2% + Adenosine 0.04%).
 
+16 Aug evening: studio slides are on the page, not only in the thumbs. Lookbook after the stats (s1–s6). s2 beside what it does. s4 beside the dose. s5 beside how-to. No proof section.
+
 ## Page
 `components/product/eyecream/` — Cerabarrier primitives, champagne / bronze palette from the EyeCell slides.
 

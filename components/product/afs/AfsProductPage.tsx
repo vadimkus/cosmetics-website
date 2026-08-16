@@ -95,10 +95,19 @@ interface ActiveIngredient {
   description: string
 }
 
-/** S4 is the ingredient breakdown — Centella, allantoin, betaine, HA and the
- *  botanicals — so it sits beside the MultiEx section rather than only in the
- *  carousel. */
+const STUDIO_SLIDES = [
+  '/images/sensitive_serum/s1.jpeg',
+  '/images/sensitive_serum/s2.jpeg',
+  '/images/sensitive_serum/s3.jpeg',
+  '/images/sensitive_serum/s4.jpeg',
+  '/images/sensitive_serum/s5.jpeg',
+  '/images/sensitive_serum/s6.jpeg',
+] as const
+
 const ENGINE_IMAGE = '/images/sensitive_serum/s4.jpeg'
+const HOWTO_IMAGE = '/images/sensitive_serum/s5.jpeg'
+const EFFECTS_IMAGE = '/images/sensitive_serum/s2.jpeg'
+const PROOF_IMAGE = '/images/sensitive_serum/s1.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []
@@ -585,8 +594,41 @@ export default function AfsProductPage({
         </div>
       </section>
 
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-20">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          {STUDIO_SLIDES.map((src, i) => (
+            <CeraReveal key={src} delay={i * 50}>
+              <div className="relative aspect-square overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-white">
+                <Image
+                  src={src}
+                  alt={`${product.name} - GENOSYS, slide ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 32vw"
+                  quality={85}
+                  className="object-contain"
+                />
+              </div>
+            </CeraReveal>
+          ))}
+        </div>
+      </section>
+
       {/* ──────────────────────── What it does ──────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={EFFECTS_IMAGE}
+                alt={copy.effects.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
+          <div>
         <CeraSectionHeader
           eyebrow={copy.effects.eyebrow}
           title={copy.effects.title}
@@ -614,6 +656,8 @@ export default function AfsProductPage({
             </CeraReveal>
           ))}
         </ol>
+          </div>
+        </div>
       </section>
 
       {/* ───────────────────────── The complex ──────────────────────────── */}
@@ -628,7 +672,7 @@ export default function AfsProductPage({
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
                   quality={85}
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             </CeraReveal>
@@ -665,7 +709,20 @@ export default function AfsProductPage({
       </section>
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
-      <section className="mx-auto max-w-[900px] px-4 py-16 sm:px-6 lg:py-24">
+      <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+          <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+              <Image
+                src={HOWTO_IMAGE}
+                alt={copy.howTo.title}
+                fill
+                sizes="(max-width: 1024px) 92vw, 44vw"
+                quality={85}
+                className="object-contain"
+              />
+            </div>
+          </CeraReveal>
         <div>
           <CeraReveal>
             <p className="cera-eyebrow">{copy.howTo.eyebrow}</p>
@@ -717,11 +774,26 @@ export default function AfsProductPage({
             </CeraReveal>
           ) : null}
         </div>
+        </div>
       </section>
 
       {/* ──────────────────────── Five no-additions ─────────────────────── */}
       <section className="bg-white py-16 lg:py-24">
-        <div className="mx-auto max-w-[900px] px-4 sm:px-6">
+        <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
+            <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
+              <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+                <Image
+                  src={PROOF_IMAGE}
+                  alt={copy.clean.title}
+                  fill
+                  sizes="(max-width: 1024px) 92vw, 44vw"
+                  quality={85}
+                  className="object-contain"
+                />
+              </div>
+            </CeraReveal>
+            <div>
           <CeraSectionHeader
             eyebrow={copy.clean.eyebrow}
             title={copy.clean.title}
@@ -742,6 +814,8 @@ export default function AfsProductPage({
           <CeraReveal>
             <p className="mt-6 text-[14px] leading-relaxed text-[var(--cera-muted)]">{copy.clean.note}</p>
           </CeraReveal>
+            </div>
+          </div>
         </div>
       </section>
 

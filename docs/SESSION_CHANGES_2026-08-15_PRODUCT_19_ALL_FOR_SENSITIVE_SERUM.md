@@ -46,5 +46,7 @@ Wired in `bespokePdp.tsx` and the EN / AR / RU product routes. `getBespokePdpLay
 - `lib/productsDb.ts` (cache key `product-by-id-v3`)
 - `scripts/update-product-19-afs-selling-copy-20260815.ts` (already applied)
 
+16 Aug evening: studio slides are on the page, not only in the thumbs. Lookbook after the stats (s1–s6). s2 beside what it does. s4 beside the MultiEx dose. s5 beside how-to. s1 beside the five no-additions.
+
 ## Pairing
 Cream 27 copy stays NMF amino acids. The serum now names MultiEx; the cream is not claimed to share it.

@@ -94,7 +94,7 @@ interface ActiveIngredient {
 /** S4 is the ingredient breakdown — Centella, allantoin, betaine, HA and the
  *  botanicals — so it sits beside the MultiEx section rather than only in the
  *  carousel. */
-const ENGINE_IMAGE = '/images/hsserum/bottle-box.jpeg'
+const ENGINE_IMAGE = '/images/hyaluron_serum/main.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

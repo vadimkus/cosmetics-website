@@ -260,11 +260,7 @@ export const products: Product[] = [
     price: 330,
     description: '30ml. Moisturizing serum. Hydrolyzed hyaluronic acid 2,000 ppm. Apply on the face and gently pat, morning and evening. Coconut-water serum with an HA complex and mushrooms. Coconut water is 0.80%. PENTAVITIN is 0.615%. Not the cream. Not a 4-step electrolyte story. Dermatologically tested.',
     image: '/images/hyaluron_serum/main.jpeg',
-    images: JSON.stringify([
-      '/images/hsserum/bottle-box.jpeg',
-      '/images/hsserum/carton-back.jpeg',
-      '/images/hsserum/carton-panels.jpeg',
-    ]),
+    images: null,
     category: 'Serum',
     inStock: true,
     videoUrl: '/videos/hs_cream_serum.mp4',

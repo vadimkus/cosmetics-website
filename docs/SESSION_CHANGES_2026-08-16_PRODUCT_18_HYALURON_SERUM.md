@@ -44,7 +44,7 @@ Moisturizing serum. Carton function is moisturizing. Hydrolyzed hyaluronic acid 
 
 ## Images
 
-Hero `hyaluron_serum/main.jpeg` stays (already on the live page). New gallery under `/images/hsserum/`: `bottle-box.jpeg`, `carton-back.jpeg`, `carton-panels.jpeg`. Claim slides s1-s6 stay on disk and are not in the gallery. Config gallery on product 18 removed so the DB array wins.
+Hero `hyaluron_serum/main.jpeg` stays (already on the live page). Intertek carton packshots under `/images/hsserum/` were put in the gallery on 16 Aug, then pulled off the same day: they are this serum, but they are registration shots on black and read as a second bottle in the thumbs. Claim slides s1-s6 stay on disk (4-step / 78% coconut water). Gallery is the studio bottle only. Config gallery on product 18 removed so the DB array wins.
 
 ## Page
 
@@ -52,4 +52,4 @@ Navy / sea-glass palette, distinct from Snow Booster cyan. Routine kept: gentle 
 
 ## Cache
 
-`product-by-id-v25` → `v26`.
+`product-by-id-v25` → `v26`. Gallery-only fix later the same day: `v26` → `v27`.

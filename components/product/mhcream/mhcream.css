@@ -1,0 +1,51 @@
+/**
+ * Palette override for the MOISTURE REPLENISHING HYALURON CREAM page (29).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is a glacier cyan, taken from the sky-blue watery
+ * cream itself and from the ice and water running through the studio slides.
+ * Deliberately cyan rather than blue, so it does not collide with the
+ * Problem Control Cream's navy (product 30) or the toner's pale ice
+ * (product 15), and cooler than the Hyaluron Serum's sea glass (product 18)
+ * while still reading as its sibling.
+ *
+ * Scoped to `.cera-page.mhcream-page`.
+ */
+
+.cera-page.mhcream-page {
+  --cera-cream: #eef5f7;
+  --cera-cream-deep: #dbe9ee;
+  --cera-blush: #d8ebf1;
+  --cera-blush-deep: #a6cbd8;
+  --cera-rose: #1f7a8c;
+  --cera-rose-ink: #145866;
+  --cera-ink: #101a1d;
+  --cera-body: #2f3f44;
+  --cera-muted: #57696f;
+  --cera-line: #ccdfe6;
+}
+
+.mhcream-page .cera-stage {
+  background-color: #e5f0f4;
+  box-shadow: 0 24px 60px -34px rgba(20, 88, 102, 0.38);
+}
+
+@media (hover: hover) {
+  .mhcream-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(16, 26, 29, 0.04), 0 26px 48px -26px rgba(20, 88, 102, 0.3);
+  }
+}
+
+.mhcream-page .mhcream-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.mhcream-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.mhcream-page .mhcream-video {
+  border: 1px solid var(--cera-line);
+  background: #0b1214;
+}

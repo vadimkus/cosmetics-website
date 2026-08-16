@@ -218,11 +218,11 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
   ],
   '29': [
     t('+82% immediate hydration', 'Clinical hydration value rose 82% immediately after a single use.', '+82% увлажнения сразу', 'Клинически увлажнение выросло на 82% сразу после одного нанесения.', '+82% ترطيب فوري', 'ارتفعت قيمة الترطيب السريرية 82% فوراً بعد استخدام واحد.'),
-    t('Long-lasting hydration', 'Multi-level hyaluronic complex with mushroom extracts for sustained moisture.', 'Стойкое увлажнение', 'Многоуровневый гиалуроновый комплекс с грибными экстрактами для длительного увлажнения.', 'ترطيب طويل الأمد', 'مركب هيالورون متعدد المستويات مع مستخلصات الفطر لترطيب مستمر.'),
-    t('HA + mushroom complex', 'Hyaluronic acid with Tremella and mushroom extracts for multi-depth moisture.', 'ГК + грибной комплекс', 'Гиалуроновая кислота с Tremella и грибами для многоуровневого увлажнения.', 'هيالورون ومركب فطر', 'حمض الهيالورونيك مع Tremella ومستخلصات الفطر لترطيب متعدد الأعماق.'),
-    t('Barrier cream seal', 'Helps form a moisture barrier so hydration lasts longer.', 'Кремовый барьер', 'Формирует влагобарьер, чтобы увлажнение держалось дольше.', 'ختم كريمي للحاجز', 'يساعد على تشكيل حاجز رطوبة ليدوم الترطيب أطول.'),
-    t('Cream after serum', 'Ideal final moisture step over hyaluron serum.', 'Финиш после сыворотки', 'Идеальный финальный шаг поверх гиалуроновой сыворотки.', 'كريم بعد السيروم', 'خطوة ترطيب نهائية مثالية فوق سيروم الهيالورون.'),
-    t('50 g daily cream', 'Rich but workable texture for morning and night.', '50 г', 'Питательная, но комфортная текстура для утра и вечера.', 'كريم 50 غ', 'قوام غني وعملي للصباح والليل.'),
+    t('72-hour persistence', 'Still significantly above baseline three days after a single application.', 'Держится 72 часа', 'Через трое суток после одного нанесения всё ещё значимо выше исходного.', 'ثبات ٧٢ ساعة', 'ما زال أعلى بدلالة من خط الأساس بعد ثلاثة أيام من تطبيق واحد.'),
+    t('1,000.9 ppm, on the box', 'The carton prints the dose of every hyaluronate beside its name.', '1 000,9 ppm на коробке', 'Упаковка печатает дозу каждого гиалуроната рядом с названием.', '١٬٠٠٠٫٩ ppm على العلبة', 'العلبة تطبع جرعة كل هيالورونات بجانب اسمه.'),
+    t('The heavy grade', 'High molecular weight hyaluronate films the surface. The serum carries the light one.', 'Тяжёлая градация', 'Высокомолекулярный гиалуронат даёт плёнку. Лёгкую форму несёт сыворотка.', 'الدرجة الثقيلة', 'الهيالورونات عالي الوزن يشكّل طبقة على السطح. السيروم يحمل الخفيف.'),
+    t('Glycerin 9%', 'Nearly a tenth of the tube, and more than every named complex combined.', 'Глицерин 9%', 'Почти десятая часть тубы, больше всех именованных комплексов вместе.', 'جلسرين ٩٪', 'قرابة عُشر الأنبوب، وأكثر من كل مركّب مُسمّى مجتمعاً.'),
+    t('Not the fridge', 'The manufacturer warns cold storage changes the viscosity and texture.', 'Не в холодильник', 'Производитель предупреждает: холод меняет вязкость и текстуру.', 'ليس الثلاجة', 'المصنّع يحذّر من أن البرودة تغيّر اللزوجة والقوام.'),
   ],
   '18': [
     t('Hydrolyzed HA 2,000 ppm', 'The named dose. This is the moisturizing serum, not the cream.', 'ГК 2 000 ppm', 'Названная доза. Увлажняющая сыворотка, не крем.', 'هيالورونيك 2,000 ppm', 'الجرعة المسمّاة. سيروم الترطيب، لا الكريم.'),

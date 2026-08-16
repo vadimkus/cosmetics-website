@@ -366,7 +366,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '250g', label: '250g', available: true }
     ],
     images: [
-      '/images/hyaluron/main.jpeg',
       '/images/hyaluron/s1.jpeg',
       '/images/hyaluron/s2.jpeg',
       '/images/hyaluron/s3.jpeg',

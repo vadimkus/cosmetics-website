@@ -23,6 +23,7 @@ import BoosterProductPage from '@/components/product/booster/BoosterProductPage'
 import HsserumProductPage from '@/components/product/hsserum/HsserumProductPage'
 import PcserumProductPage from '@/components/product/pcserum/PcserumProductPage'
 import PccreamProductPage from '@/components/product/pccream/PccreamProductPage'
+import MhcreamProductPage from '@/components/product/mhcream/MhcreamProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -105,6 +106,12 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 86.6% water thickened by 1.3% of polymer. Zinc PCA 0.05%, the same dose
   // as the serum. Massage, not pat. Two tubes, 50g and 250g.
   '30': PccreamProductPage,
+  // 29 is the cream half of the pair whose serum is 18. The carton prints the
+  // dose of every hyaluronate: 1,000.9 ppm for the first and 30 ppb for the
+  // other seven. That 1,000 ppm is the high molecular weight grade, so this
+  // seals where the serum's 2,000 ppm of hydrolyzed HA fills. Hyaluronan 11 is
+  // a real manufacturer name; the deck maps its eleven grades to eight INCI.
+  '29': MhcreamProductPage,
   // 50 is the registered four-piece EyeCell kit. Serum + 0.25mm eye
   // roller, patches 20-40 min, then cream. Not a beauty box. The roller
   // is not product 1.

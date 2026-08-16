@@ -1,5 +1,8 @@
 'use client'
 
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
+
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,6 +15,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 export default function BrandPageClient() {
   const { t, locale, dir } = useTranslation()
@@ -119,7 +123,7 @@ export default function BrandPageClient() {
   ]
 
   return (
-    <div className={`bg-white min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
         <div className={`flex items-center justify-between px-5 py-4 bg-white ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -127,20 +131,20 @@ export default function BrandPageClient() {
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className={`w-5 h-5 text-[var(--cera-rose)] ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="text-base text-red-600">
+            <span className="text-base text-[var(--cera-rose)]">
               {fromProfile ? (locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account') : (locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Продукты' : 'Products')}
             </span>
           </button>
-          <span className="text-base font-semibold text-gray-900">{copy.breadcrumb}</span>
+          <span className="text-base font-semibold text-[var(--cera-ink)]">{copy.breadcrumb}</span>
           <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
           >
             <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-full bg-[var(--cera-rose)] flex items-center justify-center">
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
@@ -156,17 +160,17 @@ export default function BrandPageClient() {
       <div className="container mx-auto px-4 py-4 md:py-12">
         <div className="max-w-6xl mx-auto">
           {!isAppLikeMode && (
-            <nav className={`text-xs md:text-sm text-gray-500 mb-2 md:mb-4 ${isRTL ? 'text-right' : ''}`} aria-label="Breadcrumb">
+            <nav className={`text-xs md:text-sm text-[var(--cera-muted)] mb-2 md:mb-4 ${isRTL ? 'text-right' : ''}`} aria-label="Breadcrumb">
               <Link href={getLocalizedPath('/', locale)} className="hover:text-gray-900 transition-colors">
                 {t('common.home') || 'Home'}
               </Link>
               <span className="mx-1.5">/</span>
-              <span className="text-gray-900">{copy.breadcrumb}</span>
+              <span className="text-[var(--cera-ink)]">{copy.breadcrumb}</span>
             </nav>
           )}
 
           {!isAppLikeMode && (
-            <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-[var(--cera-muted)] hover:text-gray-900 mb-6 md:mb-10 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${isRTL ? 'rotate-180' : ''}`} />
               <span>{t('common.backToHome') || 'Back to Home'}</span>
             </Link>
@@ -174,56 +178,56 @@ export default function BrandPageClient() {
 
           {/* ── Editorial hero ───────────────────────────────────────────── */}
           <header className="mb-12 md:mb-16">
-            <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-gray-500">
+            <p className="cera-eyebrow">
               {copy.kicker}
             </p>
-            <h1 className={`mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.05] tracking-tight text-gray-900 ${isRTL ? 'text-right' : ''}`}>
+            <h1 className={`cera-serif mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] leading-[1.05] text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>
               {copy.headline}
             </h1>
-            <p className={`mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-gray-600 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}>
               {copy.subhead}
             </p>
 
             {/* Stats strip */}
-            <dl className="mt-8 hidden md:grid md:grid-cols-4 gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200">
+            <dl className="mt-8 hidden md:grid md:grid-cols-4 gap-px overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-gray-200">
               <div className="bg-white px-6 py-5">
-                <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
-                  <Award className="h-3.5 w-3.5 text-red-600" />
+                <dt className="flex items-center gap-2 cera-eyebrow">
+                  <Award className="h-3.5 w-3.5 text-[var(--cera-rose)]" />
                   {copy.stats.worldFirst}
                 </dt>
-                <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-gray-900">
-                  <span>1<sup className="text-base font-medium text-gray-400">st</sup></span>
-                  <span className="text-sm font-medium text-gray-500">{copy.stats.worldFirstSub}</span>
+                <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-[var(--cera-ink)]">
+                  <span>1<sup className="text-base font-medium text-[var(--cera-muted)]">st</sup></span>
+                  <span className="text-sm font-medium text-[var(--cera-muted)]">{copy.stats.worldFirstSub}</span>
                 </dd>
               </div>
               <div className="bg-white px-6 py-5">
-                <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
-                  <Layers className="h-3.5 w-3.5 text-red-600" />
+                <dt className="flex items-center gap-2 cera-eyebrow">
+                  <Layers className="h-3.5 w-3.5 text-[var(--cera-rose)]" />
                   {copy.stats.lines}
                 </dt>
-                <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-gray-900">
+                <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-[var(--cera-ink)]">
                   <span>2</span>
-                  <span className="text-sm font-medium text-gray-500">{copy.stats.linesSub}</span>
+                  <span className="text-sm font-medium text-[var(--cera-muted)]">{copy.stats.linesSub}</span>
                 </dd>
               </div>
               <div className="bg-white px-6 py-5">
-                <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
-                  <ShieldCheck className="h-3.5 w-3.5 text-red-600" />
+                <dt className="flex items-center gap-2 cera-eyebrow">
+                  <ShieldCheck className="h-3.5 w-3.5 text-[var(--cera-rose)]" />
                   {copy.stats.tested}
                 </dt>
-                <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-gray-900">
+                <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-[var(--cera-ink)]">
                   <span>100%</span>
-                  <span className="text-sm font-medium text-gray-500">{copy.stats.testedSub}</span>
+                  <span className="text-sm font-medium text-[var(--cera-muted)]">{copy.stats.testedSub}</span>
                 </dd>
               </div>
               <div className="bg-white px-6 py-5">
-                <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-gray-500">
-                  <Sparkles className="h-3.5 w-3.5 text-red-600" />
+                <dt className="flex items-center gap-2 cera-eyebrow">
+                  <Sparkles className="h-3.5 w-3.5 text-[var(--cera-rose)]" />
                   {copy.stats.heritage}
                 </dt>
-                <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-gray-900">
+                <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-[var(--cera-ink)]">
                   <span className="text-2xl">🇰🇷</span>
-                  <span className="text-sm font-medium text-gray-500">{copy.stats.heritageSub}</span>
+                  <span className="text-sm font-medium text-[var(--cera-muted)]">{copy.stats.heritageSub}</span>
                 </dd>
               </div>
             </dl>
@@ -232,13 +236,13 @@ export default function BrandPageClient() {
           {/* ── G.R.S Concept + Brand video (asymmetric 5/7 split) ──────── */}
           <section className="mb-12 md:mb-20 grid gap-6 md:grid-cols-12 md:gap-10 md:items-center">
             <div className={`md:col-span-5 ${isRTL ? 'text-right' : ''}`}>
-              <p className="text-[11px] font-mono uppercase tracking-[0.28em] text-gray-500">
+              <p className="cera-eyebrow">
                 {copy.grsKicker}
               </p>
-              <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 leading-[1.15]">
+              <h2 className="cera-serif mt-2 text-2xl md:text-3xl text-[var(--cera-ink)] leading-[1.15]">
                 {copy.grsTitle}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-gray-700">
+              <p className="mt-4 text-base leading-relaxed text-[var(--cera-body)]">
                 {copy.grsBody}
               </p>
 
@@ -249,18 +253,18 @@ export default function BrandPageClient() {
                   { letter: 'R', label: locale === 'ar' ? 'إعادة الولادة' : locale === 'ru' ? 'Перерождение' : 'Re-birth' },
                   { letter: 'S', label: locale === 'ar' ? 'النظام' : locale === 'ru' ? 'Система' : 'System' },
                 ].map((b) => (
-                  <span key={b.letter} className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-sm">
-                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-red-600 text-[11px] font-mono font-bold text-white">{b.letter}</span>
-                    <span className="text-gray-700">{b.label}</span>
+                  <span key={b.letter} className="inline-flex items-center gap-2 rounded-full border border-[var(--cera-line)] bg-white px-3 py-1.5 text-sm">
+                    <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[var(--cera-rose)] text-[11px] cera-numeral font-bold text-white">{b.letter}</span>
+                    <span className="text-[var(--cera-body)]">{b.label}</span>
                   </span>
                 ))}
               </div>
             </div>
 
             <div className="md:col-span-7">
-              <figure className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gray-950 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.45)]">
-                <div className="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-white backdrop-blur">
-                  <PlayCircle className="h-3 w-3 text-red-400" />
+              <figure className="group relative overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-[var(--cera-ink)] shadow-[0_30px_80px_-40px_rgba(15,23,42,0.45)]">
+                <div className="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[10px] cera-eyebrow text-white backdrop-blur">
+                  <PlayCircle className="h-3 w-3 text-[var(--cera-blush-deep)]" />
                   {copy.watchBrand}
                 </div>
                 <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
@@ -280,30 +284,30 @@ export default function BrandPageClient() {
           {/* ── Three pillars ───────────────────────────────────────────── */}
           <section className="mb-12 md:mb-20">
             <div className={`mb-6 md:mb-8 ${isRTL ? 'text-right' : ''}`}>
-              <p className="text-[11px] font-mono uppercase tracking-[0.28em] text-gray-500">
+              <p className="cera-eyebrow">
                 {copy.pillarsKicker}
               </p>
-              <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight text-gray-900">
+              <h2 className="cera-serif mt-2 text-2xl md:text-3xl text-[var(--cera-ink)]">
                 {copy.pillarsTitle}
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-gray-200 bg-gray-200 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-gray-200 md:grid-cols-3">
               {pillars.map((p, idx) => {
                 const Icon = p.icon
                 return (
                   <article key={p.label} className={`group relative bg-white p-6 md:p-8 ${isRTL ? 'text-right' : ''}`}>
-                    <span aria-hidden className={`absolute top-0 ${isRTL ? 'right-0' : 'left-0'} h-0.5 w-12 bg-red-600`} />
-                    <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-gray-400">
+                    <span aria-hidden className={`absolute top-0 ${isRTL ? 'right-0' : 'left-0'} h-0.5 w-12 bg-[var(--cera-rose)]`} />
+                    <p className="cera-eyebrow">
                       {String(idx + 1).padStart(2, '0')}
                     </p>
                     <div className={`mt-3 flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gray-100 text-gray-900">
+                      <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--cera-cream-deep)] text-[var(--cera-ink)]">
                         <Icon className="h-5 w-5" strokeWidth={1.75} />
                       </span>
-                      <h3 className="text-lg md:text-xl font-semibold tracking-tight text-gray-900">{p.label}</h3>
+                      <h3 className="cera-serif text-lg md:text-xl text-[var(--cera-ink)]">{p.label}</h3>
                     </div>
-                    <p className="mt-4 text-sm md:text-[15px] leading-relaxed text-gray-600">
+                    <p className="mt-4 text-sm md:text-[15px] leading-relaxed text-[var(--cera-muted)]">
                       {p.body}
                     </p>
                   </article>
@@ -316,9 +320,9 @@ export default function BrandPageClient() {
           <section className="mb-12 md:mb-20">
             <div className={`grid gap-6 md:grid-cols-12 md:gap-10 md:items-center`}>
               <div className={`md:col-span-7 order-2 md:order-1`}>
-                <figure className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gray-950 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.45)]">
-                  <div className="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-white backdrop-blur">
-                    <PlayCircle className="h-3 w-3 text-red-400" />
+                <figure className="group relative overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-[var(--cera-ink)] shadow-[0_30px_80px_-40px_rgba(15,23,42,0.45)]">
+                  <div className="absolute top-3 left-3 z-10 inline-flex items-center gap-1.5 rounded-full bg-black/60 px-2.5 py-1 text-[10px] cera-eyebrow text-white backdrop-blur">
+                    <PlayCircle className="h-3 w-3 text-[var(--cera-blush-deep)]" />
                     {copy.watchTreatment}
                   </div>
                   <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
@@ -333,13 +337,13 @@ export default function BrandPageClient() {
                 </figure>
               </div>
               <div className={`md:col-span-5 order-1 md:order-2 ${isRTL ? 'text-right' : ''}`}>
-                <p className="text-[11px] font-mono uppercase tracking-[0.28em] text-gray-500">
+                <p className="cera-eyebrow">
                   {copy.proKicker}
                 </p>
-                <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight text-gray-900 leading-[1.15]">
+                <h2 className="cera-serif mt-2 text-2xl md:text-3xl text-[var(--cera-ink)] leading-[1.15]">
                   {copy.proTitle}
                 </h2>
-                <p className="mt-4 text-base leading-relaxed text-gray-700">
+                <p className="mt-4 text-base leading-relaxed text-[var(--cera-body)]">
                   {copy.proBody}
                 </p>
               </div>
@@ -350,26 +354,26 @@ export default function BrandPageClient() {
           <section className="mb-12 md:mb-20">
             <div className={`mb-6 md:mb-8 flex items-end justify-between gap-4 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
               <div className={isRTL ? 'text-right' : ''}>
-                <p className="text-[11px] font-mono uppercase tracking-[0.28em] text-gray-500">
+                <p className="cera-eyebrow">
                   {copy.catalogueKicker}
                 </p>
-                <h2 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight text-gray-900">
+                <h2 className="cera-serif mt-2 text-2xl md:text-3xl text-[var(--cera-ink)]">
                   {copy.catalogueTitle}
                 </h2>
-                <p className="mt-3 max-w-xl text-sm md:text-base leading-relaxed text-gray-600">
+                <p className="mt-3 max-w-xl text-sm md:text-base leading-relaxed text-[var(--cera-muted)]">
                   {copy.catalogueBody}
                 </p>
               </div>
               <Link
                 href={getLocalizedPath('/products', locale)}
-                className={`group hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-gray-900 hover:text-red-600 transition-colors flex-shrink-0 ${isRTL ? 'flex-row-reverse' : ''}`}
+                className={`group hidden md:inline-flex items-center gap-1.5 text-sm font-medium text-[var(--cera-ink)] hover:text-red-600 transition-colors flex-shrink-0 ${isRTL ? 'flex-row-reverse' : ''}`}
               >
                 {copy.productsCta}
                 <ArrowRight className={`h-4 w-4 transition-transform group-hover:translate-x-0.5 ${isRTL ? 'rotate-180 group-hover:-translate-x-0.5 group-hover:translate-x-0' : ''}`} />
               </Link>
             </div>
 
-            <div className="relative overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+            <div className="relative overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-[var(--cera-cream)]">
               <div className="relative aspect-[16/8] w-full">
                 <Image
                   src="/images/genosys-products.jpg"
@@ -392,7 +396,7 @@ export default function BrandPageClient() {
                         className="h-6 w-auto"
                       />
                     </div>
-                    <span className="hidden sm:inline-flex items-center rounded-full bg-white/90 backdrop-blur px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.18em] text-gray-700">
+                    <span className="hidden sm:inline-flex items-center rounded-full bg-white/90 backdrop-blur px-2.5 py-1 text-[10px] cera-eyebrow text-[var(--cera-body)]">
                       {locale === 'ar' ? 'مختبر سريرياً' : locale === 'ru' ? 'клин. тестировано' : 'dermatologically tested'}
                     </span>
                   </div>
@@ -402,16 +406,16 @@ export default function BrandPageClient() {
           </section>
 
           {/* ── Closing CTA — dark editorial panel ──────────────────────── */}
-          <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-gray-950 text-white">
-            <span aria-hidden className="pointer-events-none absolute -top-32 right-0 h-72 w-72 rounded-full bg-red-600/25 blur-3xl" />
-            <span aria-hidden className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-red-500/15 blur-3xl" />
+          <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-ink)] text-white">
+            <span aria-hidden className="pointer-events-none absolute -top-32 right-0 h-72 w-72 rounded-full bg-[var(--cera-rose)]/25 blur-3xl" />
+            <span aria-hidden className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-[var(--cera-rose)]/15 blur-3xl" />
 
             <div className="relative grid gap-8 p-6 md:grid-cols-[1.4fr_1fr] md:items-end md:gap-12 md:p-10">
               <div className={isRTL ? 'text-right' : ''}>
-                <p className="text-[11px] font-mono uppercase tracking-[0.32em] text-red-300/90">
+                <p className="text-[11px] cera-eyebrow text-[var(--cera-blush)]/90">
                   {copy.ctaKicker}
                 </p>
-                <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight leading-[1.1]">
+                <h2 className="cera-serif mt-3 text-2xl md:text-3xl lg:text-4xl leading-[1.1]">
                   {copy.ctaTitle}
                 </h2>
                 <p className="mt-3 max-w-md text-sm md:text-base leading-relaxed text-gray-300">
@@ -422,7 +426,7 @@ export default function BrandPageClient() {
               <div className={`flex flex-col gap-3 sm:flex-row md:flex-col ${isRTL ? 'md:items-end' : 'md:items-stretch'}`}>
                 <Link
                   href={getLocalizedPath('/products', locale)}
-                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 transition-all hover:bg-red-500 hover:text-white"
+                  className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[var(--cera-ink)] transition-all hover:bg-red-500 hover:text-white"
                 >
                   {copy.productsCta}
                   <ArrowRight className={`h-4 w-4 transition-transform group-hover:translate-x-0.5 ${isRTL ? 'rotate-180 group-hover:-translate-x-0.5 group-hover:translate-x-0' : ''}`} />

@@ -1,0 +1,52 @@
+/**
+ * Palette for the SKIN DEFENDER LIP & EYE MAKEUP REMOVER page (product 11).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The bottle is a yellow oil layer over clear water on a cream
+ * carton, so the page sits on warm paper with dark gold as the accent.
+ *
+ * Keep it clear of:
+ *   - product 10 ember / ice (snowo2-page)
+ *   - product 12 mint / forest (epi-page)
+ *   - product 50 charcoal / crimson (ek-page)
+ *
+ * Scoped to `.cera-page.dmr-page`.
+ */
+
+.cera-page.dmr-page {
+  --cera-cream: #f6f3ea;
+  --cera-cream-deep: #e6dfcc;
+  --cera-blush: #f3e6b0;
+  --cera-blush-deep: #d4bc5a;
+  --cera-rose: #8f7814;
+  --cera-rose-ink: #5c4c0c;
+  --cera-ink: #1a1c1f;
+  --cera-body: #3a3c40;
+  --cera-muted: #6a6c70;
+  --cera-line: #ddd6c4;
+  --cera-shot: #efe9d8;
+}
+
+.dmr-page .cera-stage {
+  box-shadow: 0 20px 52px -34px rgba(92, 76, 12, 0.28);
+}
+
+@media (hover: hover) {
+  .dmr-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(26, 28, 31, 0.04), 0 26px 48px -26px rgba(143, 120, 20, 0.3);
+  }
+}
+
+.dmr-page .dmr-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.dmr-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.dmr-page .dmr-video {
+  border: 1px solid var(--cera-line);
+  background: #141618;
+}

@@ -15,6 +15,7 @@ import AfsProductPage from '@/components/product/afs/AfsProductPage'
 import BioFermentProductPage from '@/components/product/bioferment/BioFermentProductPage'
 import EpiProductPage from '@/components/product/epi/EpiProductPage'
 import SnowO2ProductPage from '@/components/product/snowo2/SnowO2ProductPage'
+import RemoverProductPage from '@/components/product/remover/RemoverProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -54,6 +55,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // the card. Phytolex and MultiEx sit at cosmetic trace. No clinical
   // percentages. Not oxygen therapy.
   '10': SnowO2ProductPage,
+  // 11 is the biphasic lip-and-eye makeup remover. The oil layer is
+  // nearly half the bottle. Shake, hold a few seconds, wipe. Vitamins
+  // and peptides sit at cosmetic trace. Not a face wash.
+  '11': RemoverProductPage,
   // 19 is the sensitive-skin serum. Single SKU, no deck, no efficacy study;
   // the page is built on the artwork sentence and MultiEx BSASM Plus at 1%.
   // 12 is the enzyme + cellulose peeling gel. Cellulose 3% is the roll;

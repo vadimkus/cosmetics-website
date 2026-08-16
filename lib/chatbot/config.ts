@@ -516,7 +516,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 ### Cleansers
 - [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} - AED 330 / 510 - Dry-face oxygen-bubble cleanser. Ether 8%. Not oxygen therapy.
 - [CERABARRIER BIOME GEL CLEANSER](https://genosys.ae/products/66){{id:66}} - AED 380 - Ceramide + probiotic barrier-care daily gel cleanser
-- [SKIN DEFENDER LIP & EYE MAKEUP REMOVER](https://genosys.ae/products/11){{id:11}} - AED 290
+- [SKIN DEFENDER LIP & EYE MAKEUP REMOVER](https://genosys.ae/products/11){{id:11}} - AED 290 - Biphasic lip and eye makeup remover. Shake, hold a few seconds, wipe. Cetyl ethylhexanoate 27.8% + disiloxane 13% + isohexadecane 9%. Not a face wash. Vitamins and peptides sit at cosmetic trace.
 
 ### Toners & Mists
 - [MICROBIOME ENERGY INFUSING MIST](https://genosys.ae/products/14){{id:14}} - AED 160

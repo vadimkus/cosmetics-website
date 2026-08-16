@@ -17,6 +17,7 @@ import EpiProductPage from '@/components/product/epi/EpiProductPage'
 import SnowO2ProductPage from '@/components/product/snowo2/SnowO2ProductPage'
 import RemoverProductPage from '@/components/product/remover/RemoverProductPage'
 import SrsProductPage from '@/components/product/srs/SrsProductPage'
+import MistProductPage from '@/components/product/mist/MistProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -69,6 +70,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // mandelic 2%. Apply, 15-20 min, cold rinse. Peptide at 0.1 ppb.
   // No home routine. Not Epi.
   '13': SrsProductPage,
+  // 14 is the sprayable shea emulsion mist. Shea 1.2% is the figure
+  // on the card. FENSEBIOME and the hyaluronan complex sit at
+  // cosmetic trace. Shake, 10-20 cm, over makeup. Not a water toner.
+  '14': MistProductPage,
   // 17 is the first-layer EyeCell serum. Arbutin 2% is the figure on the
   // card; peptides sit at cosmetic trace. No clinical percentages.
   '17': EyeSerumProductPage,

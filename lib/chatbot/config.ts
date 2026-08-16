@@ -436,7 +436,7 @@ Use 1-2x weekly. EZ CO₂ is ten minutes then rinse.
 - DOUBLE EFFECT CLEANSER {{id:5}} - Oil-based for makeup
 - MICRO BUBBLE CLEANSER {{id:60}} - Deep cleansing bubbles
 - EPI TURNOVER BOOSTING PEELING GEL {{id:12}} - Enzyme + cellulose rolling peel
-- Toners & Mists for pH balance
+- MICROBIOME ENERGY INFUSING MIST {{id:14}} - Sprayable shea emulsion. Shea 1.2%. Shake, spray 10-20 cm, over makeup. Not a water toner.
 
 ## 🧴 SPECIALTY CREAMS
 - POST-TREATMENT CREAM {{id:22}} - After procedures
@@ -519,7 +519,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [SKIN DEFENDER LIP & EYE MAKEUP REMOVER](https://genosys.ae/products/11){{id:11}} - AED 290 - Biphasic lip and eye makeup remover. Shake, hold a few seconds, wipe. Cetyl ethylhexanoate 27.8% + disiloxane 13% + isohexadecane 9%. Not a face wash. Vitamins and peptides sit at cosmetic trace.
 
 ### Toners & Mists
-- [MICROBIOME ENERGY INFUSING MIST](https://genosys.ae/products/14){{id:14}} - AED 160
+- [MICROBIOME ENERGY INFUSING MIST](https://genosys.ae/products/14){{id:14}} - AED 160 - Sprayable shea emulsion, shea 1.2%, shake then spray 10-20 cm, over makeup. Not a water toner. Peptide at 0.000001%.
 - [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - AED 260
 - [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - AED 260 - Brightening booster
 

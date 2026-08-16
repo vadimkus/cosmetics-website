@@ -103,9 +103,13 @@ export const products: Product[] = [
     id: '9',
     name: 'POWER SOLUTION AWS',
     price: 580,
-    description: '2ml x 10ea. Anti-aging ampoule for microneedling treatment. Dermatologically tested. Efficacy test on improving wrinkles. Features: It is an anti-aging ampoule specially formulated for microneedling treatment that helps reduce the appearance of wrinkles and improve skin firmness with sh-polypeptide-7 (recombinant human peptide), firming peptide complex and adenosine. Skin-Friendly Formulation: Not containing harmful additives considering the increased skin permeability by microneedling (no-paraben, ethanol, artificial fragrance, artificial pigment, sulfate). Key Ingredients: sh-polypeptide-7, Acetyl Hexapeptide-8, Palmitoyl Tripeptide-1, Ceramide, Allantoin, Adenosine, Vitis Vinifera (Grape) Callus Culture Extract, Rosa Damascena Callus Culture Extract, Copper Tripeptide-1. Manufactured in South Korea.',
-    image: '/images/AWS.jpg',
-    images: null,
+    description: 'AWS is Anti-Wrinkle Solution. Korea registers it as a wrinkle-improving functional cosmetic with adenosine 0.04% as the principal ingredient. Reduces the appearance of wrinkles and improves skin firmness. 2 ml × 10 sealed glass vials. 5-Free. Dermatologically tested. Made in Korea by DTS MG.',
+    // The squared hero, matching the database. AWS.jpg is the same shot at 956x662
+    // and leaves a hard-cornered band above and below it in the square gallery
+    // stage. The main image is deliberately not repeated in `images`: web and
+    // mobile both prepend it.
+    image: '/images/aws-hero.jpg',
+    images: JSON.stringify(['/images/Second/aws1.jpg', '/images/Second/aws2.jpg']),
     category: 'PRO Solution',
     inStock: true,
   },

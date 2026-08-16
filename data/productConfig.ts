@@ -90,7 +90,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 580
     },
-    images: ['/images/AWS.jpg', '/images/Second/aws1.jpg', '/images/Second/aws2.jpg'],
+    images: ['/images/Second/aws1.jpg', '/images/Second/aws2.jpg'],
     documentation: [
       {
         title: 'Microneedling Protocols (Carboxy + Power Solutions)',

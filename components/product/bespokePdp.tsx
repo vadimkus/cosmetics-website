@@ -42,6 +42,7 @@ import AwsProductPage from '@/components/product/powersolution/AwsProductPage'
 import CtsProductPage from '@/components/product/powersolution/CtsProductPage'
 import PcsProductPage from '@/components/product/powersolution/PcsProductPage'
 import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowProductPage'
+import BbCushionProductPage from '@/components/product/bbcushion/BbCushionProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -175,6 +176,7 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 60 and 65 are the same Bio-Meso layout with different configuration.
   '60': BioMesoExpertProductPage,
   '61': ScalpBrushProductPage,
+  '41': BbCushionProductPage,
   '63': RevitaGlowProductPage,
   '64': HairStampProductPage,
   '65': BioMesoProductPage,

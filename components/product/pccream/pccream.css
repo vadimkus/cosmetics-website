@@ -1,0 +1,50 @@
+/**
+ * Palette override for the INTENSIVE PROBLEM CONTROL CREAM page (product 30).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the pack's own cool blue: the tube prints a
+ * mid-blue band and the studio slides run on water and ice. Deliberately
+ * distinct from the serum's eucalyptus green (product 20), so the two halves
+ * of the same routine read as siblings rather than duplicates, and darker
+ * than the toner's pale ice (product 15) so it does not collide there either.
+ *
+ * Scoped to `.cera-page.pccream-page`.
+ */
+
+.cera-page.pccream-page {
+  --cera-cream: #f0f4f8;
+  --cera-cream-deep: #dde6ef;
+  --cera-blush: #dbe7f2;
+  --cera-blush-deep: #adc4da;
+  --cera-rose: #2f5f8a;
+  --cera-rose-ink: #1f4463;
+  --cera-ink: #121820;
+  --cera-body: #313d49;
+  --cera-muted: #5a6874;
+  --cera-line: #cfdce8;
+}
+
+.pccream-page .cera-stage {
+  background-color: #e7eff7;
+  box-shadow: 0 24px 60px -34px rgba(31, 68, 99, 0.38);
+}
+
+@media (hover: hover) {
+  .pccream-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(18, 24, 32, 0.04), 0 26px 48px -26px rgba(31, 68, 99, 0.3);
+  }
+}
+
+.pccream-page .pccream-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.pccream-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.pccream-page .pccream-video {
+  border: 1px solid var(--cera-line);
+  background: #0d1116;
+}

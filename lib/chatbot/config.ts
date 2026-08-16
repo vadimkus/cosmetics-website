@@ -379,7 +379,7 @@ Always recommend professional consultation for microneedling.
 
 ## 💇 HR³ MATRIX HAIR LINE — [Full Hair Loss Page](https://genosys.ae/products/concern/hair-loss)
 Complete hair loss solution:
-- Shampoo {{id:29}}, Hair Tonic {{id:28}}, Scalp Peeling {{id:30}}, Hair Solution
+- Shampoo {{id:44}}, Hair Tonic {{id:43}}, Scalp Peeling {{id:46}}, Hair Solution {{id:45}}
 - Use shampoo daily, tonic 2x daily on damp scalp
 - Results in 4-12 weeks
 For professional devices: GENO-LED IR II, Hair-GENTRON, HairGen BOOSTER.
@@ -542,7 +542,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}} - AED 450 - Barrier repair
 - [INTENSIVE HYDRO SOOTHING CREAM](https://genosys.ae/products/28){{id:28}} - AED 290 - Hydrating
 - [MOISTURE REPLENISHING HYALURON CREAM](https://genosys.ae/products/29){{id:29}} - AED 290 - Hydrating
-- [INTENSIVE PROBLEM CONTROL CREAM](https://genosys.ae/products/30){{id:30}} - AED 290 - Acne/oily
+- [INTENSIVE PROBLEM CONTROL CREAM](https://genosys.ae/products/30){{id:30}} - AED 290 (50g) / 420 (250g) - Oily and combination skin. A cream with no oil in it: 86.6% water thickened by 1.3% polymer. Zinc PCA 0.05%, same as the serum. Massage in as the last step, AM/PM.
 - [MULTI VITA RADIANCE CREAM](https://genosys.ae/products/31){{id:31}} - AED 290 - Brightening
 - [MULTI FUNCTIONAL ANTI-WRINKLE CREAM](https://genosys.ae/products/32){{id:32}} - AED 290 - Anti-aging
 

@@ -22,6 +22,7 @@ import PctTonerProductPage from '@/components/product/pcttoner/PctTonerProductPa
 import BoosterProductPage from '@/components/product/booster/BoosterProductPage'
 import HsserumProductPage from '@/components/product/hsserum/HsserumProductPage'
 import PcserumProductPage from '@/components/product/pcserum/PcserumProductPage'
+import PccreamProductPage from '@/components/product/pccream/PccreamProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -99,6 +100,11 @@ export const BESPOKE_PDP_LAYOUTS = {
   // willow sits at 0.001% and there is no salicylic acid. Not the toner,
   // which runs zinc at ten times this.
   '20': PcserumProductPage,
+  // 30 is the last step of the same line. The distinctive fact is that there
+  // is no oil in it: no plant oil, no butter, no wax, no emulsifier, just
+  // 86.6% water thickened by 1.3% of polymer. Zinc PCA 0.05%, the same dose
+  // as the serum. Massage, not pat. Two tubes, 50g and 250g.
+  '30': PccreamProductPage,
   // 50 is the registered four-piece EyeCell kit. Serum + 0.25mm eye
   // roller, patches 20-40 min, then cream. Not a beauty box. The roller
   // is not product 1.

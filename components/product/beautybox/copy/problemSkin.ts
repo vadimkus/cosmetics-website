@@ -183,8 +183,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 4 - Seal it in',
         body:
-          'Sebum down 14% and marks down 9% over the same four weeks. This is the step that answers the usual complaint about acne routines, that they leave skin tight and peeling: xylitol and trehalose hold water in while the zinc keeps working, so oily skin ends up balanced rather than stripped.',
-        facts: ['Sebum -14%, marks -9% in 4 weeks', 'Zinc PCA with xylitol and trehalose', 'Beta-glucan and allantoin', '50g'],
+          'The step that answers the usual complaint about acne routines, that they leave skin tight and peeling. There is no oil in this cream at all, so it can close the routine without adding anything back: trehalose at 1.5% and xylitol at 0.5% hold water in while the same 0.05% of zinc PCA keeps working.',
+        facts: ['No oil, butter, wax or emulsifier', 'Zinc PCA 0.05%, as in the serum', 'Trehalose 1.5%, xylitol 0.5%', '50g'],
       },
     ],
     eanLabel: 'Barcode',
@@ -431,8 +431,8 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'الخطوة 4 - التثبيت',
         body:
-          'الدهون أقل بنسبة 14% والآثار أقل بنسبة 9% خلال الأسابيع الأربعة نفسها. هذه هي الخطوة التي ترد على الشكوى المعتادة من روتينات حب الشباب، أنها تترك البشرة مشدودة ومتقشرة: الزيليتول والتريهالوز يحبسان الماء بينما يواصل الزنك عمله، فتنتهي البشرة الدهنية متوازنة لا مجرّدة.',
-        facts: ['الدهون -14%، الآثار -9% خلال 4 أسابيع', 'زنك \u2066PCA\u2069 مع الزيليتول والتريهالوز', 'بيتا جلوكان وألانتوين', '50 غ'],
+          'الخطوة التي ترد على الشكوى المعتادة من روتينات حب الشباب، أنها تترك البشرة مشدودة ومتقشرة. لا زيت في هذا الكريم إطلاقاً، فيستطيع ختم الروتين دون أن يضيف شيئاً: تريهالوز 1.5% وزايليتول 0.5% يحبسان الماء بينما يواصل زنك \u2066PCA\u2069 نفسه بنسبة 0.05% عمله.',
+        facts: ['بلا زيت أو زبدة أو شمع أو مستحلب', 'زنك \u2066PCA\u2069 0.05%، كما في السيروم', 'تريهالوز 1.5%، زايليتول 0.5%', '50 غ'],
       },
     ],
     eanLabel: 'الباركود',
@@ -673,8 +673,8 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Шаг 4 - Закрепить',
         body:
-          'Себум на 14% меньше, следы на 9% меньше за те же четыре недели. Это шаг, который отвечает на обычную претензию к уходу от акне - что после него кожа стянута и шелушится: ксилит и трегалоза удерживают воду, пока цинк продолжает работу, и жирная кожа приходит к балансу, а не к сухости.',
-        facts: ['Себум -14%, следы -9% за 4 недели', 'Zinc PCA с ксилитом и трегалозой', 'Бета-глюкан и аллантоин', '50 г'],
+          'Шаг, который отвечает на обычную претензию к уходу от акне: что после него кожа стянута и шелушится. Масла в этом креме нет вообще, поэтому он закрывает уход, ничего не добавляя обратно: трегалоза 1,5% и ксилитол 0,5% удерживают воду, пока те же 0,05% цинка PCA продолжают работу.',
+        facts: ['Ни масел, ни баттеров, ни восков, ни эмульгаторов', 'Цинк PCA 0,05%, как в сыворотке', 'Трегалоза 1,5%, ксилитол 0,5%', '50 г'],
       },
     ],
     eanLabel: 'Штрихкод',

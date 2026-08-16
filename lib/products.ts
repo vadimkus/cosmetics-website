@@ -441,7 +441,7 @@ export const products: Product[] = [
     id: '30',
     name: 'INTENSIVE PROBLEM CONTROL CREAM',
     price: 290,
-    description: '50g (Homecare) / 250g (Professional). Anti-blemish cream for combination, oily acne-prone skin. It helps control blemish-prone skin by regulating excessive oil and sebum while keeping the skin hydrated with zinc PCA, xylitol and panthenol. Key ingredients: Zinc PCA, Xylitol, Trehalose, Panthenol, Phytolex SC, Allantoin, Beta-Glucan. Dermatologically tested. Efficacy test on improving excessive sebum production.',
+    description: 'A cream with no oil in it. No plant oil, no butter, no wax, no emulsifier: what makes it feel like a cream is 1.3% of thickener holding 86.6% water in a gel. Zinc PCA sits at 0.05%, the same dose as the Problem Control Serum, and Korea registers the cream for anti-blemishes and oil control. Massage it in as the last step, morning and night. 50g and 250g. No perfume of any kind. Dermatologically tested.',
     image: '/images/problem_cream/main.jpeg',
     images: null,
     category: 'Cream',

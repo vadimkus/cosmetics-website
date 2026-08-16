@@ -248,6 +248,14 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('Phytolex is a premix', '0.5% premix. Finished botanicals sit at 0.00765%. Not the engine.', 'Phytolex это премикс', 'Премикс 0,5%. Готовая ботаника 0,00765%. Не двигатель.', 'Phytolex خلطة', 'خلطة 0.5%. النباتات النهائية 0.00765%. ليست المحرّك.'),
     t('200 ml / 1000 ml', 'Home spray or clinic pump. Same formula. Dermatologically tested.', '200 мл / 1000 мл', 'Домашний спрей или дозатор клиники. Та же формула. Дерматологически протестировано.', '200 مل / 1000 مل', 'رذاذ المنزل أو مضخة العيادة. التركيبة نفسها. مختبر جلدياً.'),
   ],
+  '30': [
+    t('No oil in it', 'No plant oil, no butter, no wax, no emulsifier anywhere in the formula.', 'В нём нет масла', 'Ни растительного масла, ни баттера, ни воска, ни эмульгатора нигде в составе.', 'بلا زيت فيه', 'لا زيت نباتي ولا زبدة ولا شمع ولا مستحلب في أي مكان من التركيبة.'),
+    t('Zinc PCA 0.05%', 'The same dose as the Problem Control Serum, so the pair is genuinely matched.', 'Цинк PCA 0,05%', 'Та же доза, что в сыворотке Problem Control: пара действительно парная.', 'زنك PCA ٠٫٠٥٪', 'نفس جرعة سيروم Problem Control، فالثنائي متطابق فعلاً.'),
+    t('Water, thickened', '86.6% water held in a gel by 1.3% of polymer. No oil phase to emulsify.', 'Загущённая вода', '86,6% воды в геле, удержанной 1,3% полимера. Эмульгировать нечего.', 'ماء مكثّف', '٨٦٫٦٪ ماء في جل يحمله ١٫٣٪ من البوليمر. لا طور زيتي ليُستحلب.'),
+    t('Trehalose 1.5% · Xylitol 0.5%', 'Two grams of humectant in every hundred, more than every botanical combined.', 'Трегалоза 1,5% · Ксилитол 0,5%', 'Два грамма увлажнителя на сто, больше всех растительных экстрактов вместе.', 'تريهالوز ١٫٥٪ · زايليتول ٠٫٥٪', 'غرامان من المرطّب في كل مئة، أكثر من كل النباتات مجتمعة.'),
+    t('Massage, do not pat', 'The carton asks for massage here. Patting is what the serum wants.', 'Втирать, а не вбивать', 'Коробка просит здесь втирание. Вбивание — это про сыворотку.', 'دلّكي، لا تربّتي', 'العلبة تطلب التدليك هنا. التربيت هو ما يريده السيروم.'),
+    t('50g and 250g', 'Home tube and clinic tube. The formula inside is identical.', '50 г и 250 г', 'Домашняя туба и клиническая. Формула внутри одинаковая.', '٥٠ غ و٢٥٠ غ', 'أنبوب المنزل وأنبوب العيادة. التركيبة داخلهما متطابقة.'),
+  ],
   '31': [
     t('Multi Vita 12 Complex', 'Twelve-vitamin cream finish for dull, uneven-looking complexions.', 'Комплекс Multi Vita 12', 'Крем с 12 витаминами для тусклого и неровного тона.', 'مركب Multi Vita 12', 'كريم بمركب 12 فيتاميناً للبشرة الباهتة وغير المتجانسة.'),
     t('Melanin-care clinical', 'Clinical melanin-surface care supports a clearer-looking complexion.', 'Уход за меланином', 'Клинический уход за поверхностным меланином для более ясного тона.', 'عناية بالميلانين', 'عناية سريرية بميلانين السطح لدعم لون أوضح.'),

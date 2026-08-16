@@ -81,8 +81,23 @@ export default function BbCushionProductPage({ product }: Props) {
 
   const [shot, setShot] = useState(0)
 
-  const inci = (product as unknown as Record<string, unknown>).fullIngredients
-  const inciText = typeof inci === 'string' && inci.trim() ? inci : null
+  /* The INCI list is not its own column: it lives inside the ingredients JSON
+     as an entry named "Full INCI", the same place every other bespoke page
+     reads it from. The first draft of this page looked for a `fullIngredients`
+     field, which does not exist, so the section silently never rendered. */
+  const inciText = useMemo(() => {
+    try {
+      const raw = (product as unknown as Record<string, unknown>).ingredients
+      const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw
+      if (!Array.isArray(parsed)) return null
+      const entry = (parsed as Array<{ name?: string; description?: string }>).find(
+        (i) => i?.name === 'Full INCI',
+      )
+      return entry?.description?.trim() || null
+    } catch {
+      return null
+    }
+  }, [product])
 
   async function handleAdd() {
     if (!user) {

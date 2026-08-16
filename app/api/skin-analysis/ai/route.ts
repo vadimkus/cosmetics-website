@@ -44,7 +44,7 @@ Based on your analysis, recommend 3-5 GENOSYS products using EXACT format:
 - [MULTI FUNCTIONAL ANTI-WRINKLE SERUM](https://genosys.ae/products/22){{id:22}} - AED 330 - Anti-aging serum
 - [MULTI FUNCTIONAL ANTI-WRINKLE CREAM](https://genosys.ae/products/32){{id:32}} - AED 290 - Anti-aging cream
 - [ND Cell ANTI-WRINKLE CREAM](https://genosys.ae/products/23){{id:23}} - AED 370 - Premium anti-aging with peptides
-- [MULTI VITA RADIANCE SERUM](https://genosys.ae/products/21){{id:21}} - AED 330 - Brightening
+- [MULTI VITA RADIANCE SERUM](https://genosys.ae/products/21){{id:21}} - AED 330 - Dull and uneven tone. Niacinamide 20,000 ppm, the registered whitening active. Pat in AM/PM with SPF over it. Not in pregnancy.
 - [MULTI VITA RADIANCE CREAM](https://genosys.ae/products/31){{id:31}} - AED 290 - Brightening cream
 - [SNOW O₂ CLEANSER](https://genosys.ae/products/10){{id:10}} - AED 330 - Oxygen bubble cleanser
 - [SNOW BOOSTER](https://genosys.ae/products/16){{id:16}} - AED 260 - Brightening toner

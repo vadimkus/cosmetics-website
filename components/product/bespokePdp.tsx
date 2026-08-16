@@ -25,6 +25,7 @@ import PcserumProductPage from '@/components/product/pcserum/PcserumProductPage'
 import PccreamProductPage from '@/components/product/pccream/PccreamProductPage'
 import MhcreamProductPage from '@/components/product/mhcream/MhcreamProductPage'
 import SpcreamProductPage from '@/components/product/spcream/SpcreamProductPage'
+import MvserumProductPage from '@/components/product/mvserum/MvserumProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -118,6 +119,12 @@ export const BESPOKE_PDP_LAYOUTS = {
   // at 0.5% is the figure, and the Korean carton panel prints it as 5,000 ppm.
   // MultiEx BSASM Plus is here at 0.0001%, not 1%: do not lead on it.
   '27': SpcreamProductPage,
+  // 21 is the brightening serum. The carton prints the dose of every vitamin:
+  // niacinamide 20,000 ppm, panthenol 10,000, ethyl ascorbic acid 1,000,
+  // tocopherol 300, then eleven more in parts per billion. Niacinamide is the
+  // functional active on the Korean whitening registration. MELAZERO is real
+  // (loquat 0.04%, spearmint 0.01%); glutathione at 1 ppb is not.
+  '21': MvserumProductPage,
   // 50 is the registered four-piece EyeCell kit. Serum + 0.25mm eye
   // roller, patches 20-40 min, then cream. Not a beauty box. The roller
   // is not product 1.

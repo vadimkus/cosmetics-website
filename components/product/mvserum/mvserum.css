@@ -1,0 +1,50 @@
+/**
+ * Palette override for the MULTI VITA RADIANCE SERUM page (product 21).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is the amber and champagne of the serum itself, an
+ * oxidising vitamin formula in a dark glass dropper, which is exactly what
+ * the studio slides run on. Distinct from every other page in the range:
+ * the three creams are blue, cyan and sage, and the two Problem Control
+ * steps are eucalyptus and navy.
+ *
+ * Scoped to `.cera-page.mvserum-page`.
+ */
+
+.cera-page.mvserum-page {
+  --cera-cream: #faf5ec;
+  --cera-cream-deep: #f0e6d4;
+  --cera-blush: #f3e7d1;
+  --cera-blush-deep: #d8bd8e;
+  --cera-rose: #99702f;
+  --cera-rose-ink: #6f4f1d;
+  --cera-ink: #1e1810;
+  --cera-body: #453a2a;
+  --cera-muted: #6f6249;
+  --cera-line: #e6dac4;
+}
+
+.mvserum-page .cera-stage {
+  background-color: #f6ecda;
+  box-shadow: 0 24px 60px -34px rgba(111, 79, 29, 0.38);
+}
+
+@media (hover: hover) {
+  .mvserum-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(30, 24, 16, 0.04), 0 26px 48px -26px rgba(111, 79, 29, 0.3);
+  }
+}
+
+.mvserum-page .mvserum-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.mvserum-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.mvserum-page .mvserum-video {
+  border: 1px solid var(--cera-line);
+  background: #17120b;
+}

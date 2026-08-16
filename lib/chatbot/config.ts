@@ -439,11 +439,11 @@ Use 1-2x weekly. EZ CO₂ is ten minutes then rinse.
 - MICROBIOME ENERGY INFUSING MIST {{id:14}} - Sprayable shea emulsion. Shea 1.2%. Shake, spray 10-20 cm, over makeup. Not a water toner.
 
 ## 🧴 SPECIALTY CREAMS
-- POST-TREATMENT CREAM {{id:22}} - After procedures
-- INTENSIVE REPAIR CREAM {{id:21}} - Barrier repair
-- NECK LIFTING CREAM {{id:10}} - Neck/décolletage
-- EyeCell Contour Cream - Eye area
-- MULTI FUNCTIONAL ANTI-WRINKLE SERUM {{id:22}} - Anti-aging
+- SOOTHING REPAIR POSTCREAM {{id:25}} - After procedures
+- SKIN BARRIER PROTECTING CREAM {{id:27}} - Sensitive and dry skin. Ceramide NP 0.5%
+- ND Cell ANTI-WRINKLE CREAM {{id:23}} - Neck and décolletage
+- EyeCell EYE CONTOUR CREAM {{id:24}} - Eye area
+- MULTI FUNCTIONAL ANTI-WRINKLE CREAM {{id:32}} - Anti-aging
 
 ## 🎭 MORE MASKS
 Eye patches, overnight masks, sheet masks, collagen masks available. Check product catalog.
@@ -528,7 +528,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [MOISTURE REPLENISHING HYALURON SERUM](https://genosys.ae/products/18){{id:18}} - AED 330 - Moisturizing serum. Hydrolyzed HA 2,000 ppm. Apply and pat AM/PM. Coconut water 0.80%. Not the cream. Not +52%.
 - [ALL FOR SENSITIVE SERUM](https://genosys.ae/products/19){{id:19}} - AED 330 - For sensitive skin
 - [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - AED 330 - Oily and combination skin. Zinc PCA 0.05%, neat. Over 90% water. After toner, pat AM/PM. No salicylic acid. Not the toner, which runs zinc at 0.5%.
-- [MULTI VITA RADIANCE SERUM](https://genosys.ae/products/21){{id:21}} - AED 330 - Brightening
+- [MULTI VITA RADIANCE SERUM](https://genosys.ae/products/21){{id:21}} - AED 330 - Dull and uneven tone. Niacinamide 20,000 ppm, the registered whitening active in Korea, printed on the carton. MELAZERO from loquat and spearmint. Surface melanin -28.0% at two weeks. Pat in AM/PM, SPF over it. Not in pregnancy. Bergamot scent.
 - [MULTI FUNCTIONAL ANTI-WRINKLE SERUM](https://genosys.ae/products/22){{id:22}} - AED 330 - Anti-aging
 
 ### Bio-Meso PDRN (Regenerating Ampoules — very popular!)

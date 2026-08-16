@@ -598,7 +598,7 @@ export const products: Product[] = [
     id: '41',
     name: 'SKIN CARING BLEMISH BALM CUSHION [SPF 50+ PA++++]',
     price: 300,
-    description: 'Professional BB cushion for post-treatment use with natural coverage and skin protection.',
+    description: 'Coverage, sun protection and skincare in one press of the puff, and Korea licenses it for all three at once. Five UV filters to SPF50+ PA++++, niacinamide 2% and adenosine 0.04%, with a 15 g refill already in the box.',
     image: '/images/cushion_2/main.jpeg',
     images: JSON.stringify([
       '/images/cushion_2/s1.jpeg',

@@ -160,6 +160,50 @@ panel adds two the English one omits: **see a specialist if red spots, swelling
 or itching appear on the applied area after sun exposure**, and **avoid broken
 skin**. Both are worth recovering, as was done for product 21.
 
+## The DTS MG deck
+
+`~/Desktop/Drive/Genosys/Training Materials/GENOSYS SKIN CARING BLEMISH BALM CUSHION.pptx`,
+12 slides. Read per the Intertek source-of-truth rule, because branded complex
+names never appear in a registration dossier.
+
+### Real, and worth using
+
+- **Hybrid sunscreen, chemical plus mineral.** Accurate and a good plain line:
+  ethylhexyl methoxycinnamate, ethylhexyl salicylate and octocrylene are the
+  chemical side, titanium dioxide and zinc oxide the mineral side.
+- **"Repairing Pep9 Complex"** — the brand name for the nine peptides. A name is
+  fine; the ppb doses still rule out making them the engine.
+- **Triple fixing polymers.** Checks out: trimethylsiloxysilicate 1.90%,
+  acrylates/stearyl acrylate/dimethicone methacrylate copolymer 0.50%, and
+  acrylates/polytrimethylsiloxymethacrylate copolymer 0.40%.
+- **The puff is a real design detail.** Waterdrop-shaped rather than round so it
+  reaches the curve of the nose and the inner corner, and quadruple-layered with
+  a waterproof film that the usual three-layer puff lacks, so the essence does
+  not soak into the sponge. Concrete, physical, and nothing else in the range
+  has it — good material for a "how it is made" section.
+- **Positioning against product 63.** The deck is explicit: the BB cream is for
+  morning base and tone correction, the cushion is for long-wear coverage and
+  touching up during the day. Use it to separate the two pages.
+- **Refills.** Sold separately, and the box already contains one. Deck says
+  refill-only was available in Beige and Camel with Ivory "available in 2025",
+  which is now stale — confirm current availability before printing it.
+
+### Two claims to leave out
+
+**"More than 60% moisture essence" does not survive the formula.** The named
+ingredients in the Camel sheet sum to roughly 73.6%, which puts water at about
+a quarter of the product, not two thirds. The deck repeats the figure twice.
+Whatever it counts, it is not water content, so it cannot go on the page.
+
+**Volufiline™ cannot carry its claim here.** The deck names it as sarsasapogenin
+from Anemarrhena asphodeloides root and credits it with a "cosmetic
+lipofilling-like" volumising effect. That extract is in the formula at
+**0.000004%, forty parts per billion**. Volufiline is normally used percent-wise.
+At this dose it is a label ingredient, not a volumiser. Same for the deck's
+glutathione story: it is present, at 100 ppm, and the tyrosinase and cystic-acne
+claims are far beyond what that supports — niacinamide 2% is the registered
+whitening active and should carry that line instead.
+
 ## What to write, and what to cut
 
 **Lead with:** three licences in one press of the puff. Five filters to
@@ -177,14 +221,16 @@ refill already in the box.
 - the contract manufacturer's name
 - any suggestion that one shade protects or treats better than another; the only
   difference between them is pigment
+- "more than 60% moisture essence" — the formula puts water at about a quarter
+- Volufiline as a volumiser, or glutathione as a tyrosinase blocker, at 40 ppb
+  and 100 ppm respectively
 
 ## Still to do
 
 This audit is the foundation. The page itself is not built. Remaining:
 
-1. Check `~/Desktop/Glass_Skin/01-official-pdfs/` and any BB Cushion `.pptx` for
-   a branded complex name or clinical figure that appears in no dossier, per the
-   Intertek source-of-truth rule. Do this before calling anything unsupported.
+1. Confirm whether the Ivory refill is now sold separately; the deck's note is
+   from 2025 and is stale.
 2. Scaffold `components/product/bbcushion/` from an existing shade-selecting
    page — product 63 Revita Glow is the closest analogue, since it is the other
    BB with shades.

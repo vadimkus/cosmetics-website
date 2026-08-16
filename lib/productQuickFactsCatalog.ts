@@ -201,12 +201,12 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
   ],
 
   '20': [
-    t('ACZERO® sebum control', 'Patented ACZERO® helps regulate excess sebum and calm acne-prone inflammation.', 'ACZERO® контроль себума', 'Патентованный ACZERO® регулирует себум и успокаивает воспаление.', 'ACZERO® للتحكم بالدهون', 'مركب ACZERO® الحاصل على براءة يساعد على تنظيم الدهون وتهدئة الالتهاب.'),
-    t('PORE LASER™ refining', 'Patented PORE LASER™ complex supports pore appearance and skin renewal.', 'PORE LASER™', 'Патентованный PORE LASER™ помогает порам и обновлению кожи.', 'PORE LASER™', 'مركب PORE LASER™ الحاصل على براءة يدعم مظهر المسام وتجديد البشرة.'),
-    t('Redness −16.6%', 'Clinically proven soothing on acne-prone skin with about 16.6% improvement.', 'Краснота −16,6%', 'Клинически успокаивает проблемную кожу — улучшение около 16,6%.', 'احمرار −16.6%', 'تهدئة مثبتة سريرياً لبشرة حب الشباب بتحسّن نحو 16.6%.'),
-    t('Non-comedogenic certified', 'Clinically tested and certified as non-comedogenic (QACS Ltd.).', 'Некомедогенный', 'Клинически протестирован и сертифицирован как некомедогенный.', 'غير مسبب للرؤوس السوداء', 'مختبر ومُعتمد سريرياً كغير مسبب لانسداد المسام.'),
-    t('Tea tree + Zinc PCA', 'Tea Tree Complex with Zinc PCA and niacinamide for clearer-looking skin.', 'Чайное дерево + Zinc PCA', 'Tea Tree Complex с Zinc PCA и ниацинамидом для более чистого вида.', 'شجرة الشاي و Zinc PCA', 'مركب شجرة الشاي مع Zinc PCA والنياسيناميد لبشرة أوضح.'),
-    t('HydroFerment hydration', 'HydroFerment Complex helps keep hydration while controlling oil.', 'HydroFerment увлажнение', 'HydroFerment Complex поддерживает увлажнение при контроле жира.', 'ترطيب HydroFerment', 'مركب HydroFerment يحافظ على الترطيب مع التحكم بالدهون.'),
+    t('Zinc PCA 0.05%, neat', 'Goes in undiluted, so the figure on the card is the figure on your skin.', 'Цинк PCA 0,05% в чистом виде', 'Вводится неразбавленным, поэтому число на карточке — это число на коже.', 'زنك PCA ٠٫٠٥٪ صافياً', 'يدخل غير مخفّف، فالرقم على البطاقة هو الرقم على بشرتك.'),
+    t('Oil and sebum control', 'The registered function of the serum: anti-blemishes, oil and sebum control.', 'Контроль жирности и себума', 'Зарегистрированная функция сыворотки: контроль высыпаний, жирности и себума.', 'التحكم بالدهون والزهم', 'الوظيفة المسجّلة للسيروم: مقاومة العيوب والتحكم بالدهون والزهم.'),
+    t('Over 90% water', 'No oil and no silicone, so it absorbs and leaves nothing sitting on the surface.', 'Более 90% воды', 'Ни масел, ни силиконов: впитывается и ничего не оставляет на поверхности.', 'أكثر من ٩٠٪ ماء', 'بلا زيوت وبلا سيليكون، فيمتصّ ولا يترك شيئاً على السطح.'),
+    t('Comfort at readable doses', 'Panthenol 0.2%, allantoin 0.1%, trehalose 1% and xylitol 0.5%.', 'Комфорт в читаемых дозах', 'Пантенол 0,2%, аллантоин 0,1%, трегалоза 1% и ксилитол 0,5%.', 'راحة بجرعات مقروءة', 'بانثينول ٠٫٢٪، ألانتوين ٠٫١٪، تريهالوز ١٪ وزايليتول ٠٫٥٪.'),
+    t('No acid in it', 'No salicylic acid and no AHA. Black willow bark sits at 0.001%.', 'Без кислот', 'Ни салициловой кислоты, ни AHA. Кора чёрной ивы на уровне 0,001%.', 'بلا أحماض', 'لا حمض ساليسيليك ولا AHA. لحاء الصفصاف الأسود بنسبة ٠٫٠٠١٪.'),
+    t('No perfume at all', 'Not just no artificial fragrance: there is no perfume ingredient in the formula.', 'Совсем без отдушки', 'Не просто без синтетической отдушки: отдушки в формуле нет вообще.', 'بلا أي عطر', 'ليس فقط بلا عطر صناعي: لا يوجد مكوّن عطري في التركيبة.'),
   ],
   '21': [
     t('Multi Vita 12 Complex', 'Twelve-vitamin complex targets dullness and uneven tone for a brighter finish.', 'Комплекс Multi Vita 12', 'Комплекс из 12 витаминов для тусклого и неровного тона.', 'مركب Multi Vita 12', 'مركب من 12 فيتاميناً يستهدف البهتان وعدم تجانس اللون.'),

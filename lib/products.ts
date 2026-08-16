@@ -300,7 +300,7 @@ export const products: Product[] = [
     id: '20',
     name: 'PROBLEM CONTROL SERUM',
     price: 330,
-    description: '30ml. Anti-blemish serum for combination, oily acne-prone skin. It helps fight skin breakouts by regulating excessive oil and sebum and refines skin texture for a healthier-looking clear skin with a sebum regulating ingredient – zinc PCA and willow bark extract. Key ingredients: Zinc PCA, Salix Nigra (Willow) Bark Extract, Trehalose, Panthenol, Phytolex SC, Allantoin, Beta-Glucan. Dermatologically tested. Efficacy test on improving excessive sebum production.',
+    description: '30ml leave-on serum for oily and combination skin. Korea registers it for anti-blemishes, oil and sebum control, and zinc PCA at a full 0.05% is the ingredient carrying that. Nine tenths of the bottle is water, so it sinks in and leaves nothing sitting on the surface. Two or three drops after your toner, patted in, morning and night. No perfume of any kind. Dermatologically tested.',
     image: '/images/problems_serum/main.jpeg',
     images: JSON.stringify([
       '/images/problems_serum/s1.jpeg',

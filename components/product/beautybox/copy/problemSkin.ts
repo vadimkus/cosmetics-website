@@ -174,8 +174,8 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 3 - Treat, morning and night',
         body:
-          'Sebum down 17% and existing marks down 8% over four weeks. Zinc PCA works on the oil at its source by blocking the enzyme that drives the sebaceous gland, and black willow bark loosens the dead skin that would otherwise plug the pore behind it.',
-        facts: ['Sebum -17%, marks -8% in 4 weeks', 'Zinc PCA and black willow bark', 'Dermatologically tested', '30ml'],
+          'Zinc PCA at 0.05%, and it goes in neat rather than as a diluted premix. That is the ingredient Korea registers this serum on for anti-blemishes, oil and sebum control. Over 90% of the bottle is water, so it goes under the cream without adding anything to the surface.',
+        facts: ['Zinc PCA 0.05%, neat', 'Over 90% water', 'Dermatologically tested', '30ml'],
       },
       {
         titleKey: 'routineProblemControlCreamTitle',
@@ -422,8 +422,8 @@ const AR: BeautyBoxCopy = {
         quantity: 1,
         step: 'الخطوة 3 - العلاج، صباحاً ومساءً',
         body:
-          'الدهون أقل بنسبة 17% والآثار الموجودة أقل بنسبة 8% خلال أربعة أسابيع. زنك \u2066PCA\u2069 يعمل على الزيت من مصدره بتثبيط الإنزيم الذي يحرّك الغدة الدهنية، ومستخلص لحاء الصفصاف الأسود يفكك الخلايا الميتة التي كانت ستسد المسام بعده.',
-        facts: ['الدهون -17%، الآثار -8% خلال 4 أسابيع', 'زنك \u2066PCA\u2069 ولحاء الصفصاف الأسود', 'مختبر جلدياً', '30 مل'],
+          'زنك \u2066PCA\u2069 بنسبة 0.05%، ويدخل صافياً لا كخليط مخفّف. هذا هو المكوّن الذي تسجّل عليه كوريا هذا السيروم لمقاومة العيوب والتحكم بالدهون والزهم. أكثر من 90% من الزجاجة ماء، فيجلس تحت الكريم دون أن يضيف شيئاً على السطح.',
+        facts: ['زنك \u2066PCA\u2069 0.05% صافياً', 'أكثر من 90% ماء', 'مختبر جلدياً', '30 مل'],
       },
       {
         titleKey: 'routineProblemControlCreamTitle',
@@ -664,8 +664,8 @@ const RU: BeautyBoxCopy = {
         quantity: 1,
         step: 'Шаг 3 - Уход, утром и вечером',
         body:
-          'Себум на 17% меньше, имеющиеся следы на 8% меньше за четыре недели. Zinc PCA работает с жиром у источника, блокируя фермент, который разгоняет сальную железу, а экстракт коры чёрной ивы разрыхляет отмершие клетки, которые иначе закупорили бы пору следом.',
-        facts: ['Себум -17%, следы -8% за 4 недели', 'Zinc PCA и кора чёрной ивы', 'Дерматологически протестировано', '30 мл'],
+          'Цинк PCA в дозе 0,05%, причём в чистом виде, а не разбавленным премиксом. Именно на нём Корея регистрирует эту сыворотку: контроль высыпаний, жирности и себума. Более 90% флакона — вода, поэтому она уходит под крем, ничего не добавляя на поверхность.',
+        facts: ['Цинк PCA 0,05% в чистом виде', 'Более 90% воды', 'Дерматологически протестировано', '30 мл'],
       },
       {
         titleKey: 'routineProblemControlCreamTitle',

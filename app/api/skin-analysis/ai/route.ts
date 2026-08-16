@@ -37,7 +37,7 @@ Based on your analysis, recommend 3-5 GENOSYS products using EXACT format:
 - [MOISTURE REPLENISHING HYALURON SERUM](https://genosys.ae/products/18){{id:18}} - AED 330 - Multi-weight HA for deep hydration
 - [MOISTURE REPLENISHING HYALURON CREAM](https://genosys.ae/products/29){{id:29}} - AED 290 - Hydrating cream
 - [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - AED 260 - Zinc PCA for oily/acne skin
-- [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - AED 330 - Acne/oily skin treatment
+- [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - AED 330 - Oily and combination skin. Zinc PCA 0.05%, neat. After toner, pat AM/PM. No salicylic acid.
 - [INTENSIVE PROBLEM CONTROL CREAM](https://genosys.ae/products/30){{id:30}} - AED 290 - Oil control cream
 - [ALL FOR SENSITIVE SERUM](https://genosys.ae/products/19){{id:19}} - AED 330 - Sensitive skin care
 - [SKIN BARRIER PROTECTING CREAM](https://genosys.ae/products/27){{id:27}} - AED 450 - Barrier repair

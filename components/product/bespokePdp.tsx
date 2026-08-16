@@ -21,6 +21,7 @@ import MistProductPage from '@/components/product/mist/MistProductPage'
 import PctTonerProductPage from '@/components/product/pcttoner/PctTonerProductPage'
 import BoosterProductPage from '@/components/product/booster/BoosterProductPage'
 import HsserumProductPage from '@/components/product/hsserum/HsserumProductPage'
+import PcserumProductPage from '@/components/product/pcserum/PcserumProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -92,6 +93,12 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 17 is the first-layer EyeCell serum. Arbutin 2% is the figure on the
   // card; peptides sit at cosmetic trace. No clinical percentages.
   '17': EyeSerumProductPage,
+  // 20 is the leave-on oil-control serum. Zinc PCA 0.05%, neat, is the
+  // figure on the card, in a bottle that is 90% water. Toner first, then
+  // two or three drops, patted in, AM and PM. Not an acid step: black
+  // willow sits at 0.001% and there is no salicylic acid. Not the toner,
+  // which runs zinc at ten times this.
+  '20': PcserumProductPage,
   // 50 is the registered four-piece EyeCell kit. Serum + 0.25mm eye
   // roller, patches 20-40 min, then cream. Not a beauty box. The roller
   // is not product 1.

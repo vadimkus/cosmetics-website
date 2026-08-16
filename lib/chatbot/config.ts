@@ -527,7 +527,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [EyeCell EYE CONTOUR SERUM](https://genosys.ae/products/17){{id:17}} - AED 370 - Eye care
 - [MOISTURE REPLENISHING HYALURON SERUM](https://genosys.ae/products/18){{id:18}} - AED 330 - Moisturizing serum. Hydrolyzed HA 2,000 ppm. Apply and pat AM/PM. Coconut water 0.80%. Not the cream. Not +52%.
 - [ALL FOR SENSITIVE SERUM](https://genosys.ae/products/19){{id:19}} - AED 330 - For sensitive skin
-- [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - AED 330 - Acne/oily skin
+- [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - AED 330 - Oily and combination skin. Zinc PCA 0.05%, neat. Over 90% water. After toner, pat AM/PM. No salicylic acid. Not the toner, which runs zinc at 0.5%.
 - [MULTI VITA RADIANCE SERUM](https://genosys.ae/products/21){{id:21}} - AED 330 - Brightening
 - [MULTI FUNCTIONAL ANTI-WRINKLE SERUM](https://genosys.ae/products/22){{id:22}} - AED 330 - Anti-aging
 
@@ -1096,7 +1096,7 @@ You: "Let me help with that! 🔬 We have a complete acne treatment page with cu
 
 The page includes our Problem Control line, plus a morning and evening routine. Here are my top picks:
 • [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} - Zinc PCA 0.5% for oil control
-• [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} — Niacinamide to calm inflammation
+• [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} — Zinc PCA 0.05%, neat, patted in after the toner
 
 Check the full routine on the page — it tells you exactly what order to apply everything! ✨"
 
@@ -1295,7 +1295,7 @@ You: "Oh, great question! Let me share something interesting... 🧪
 
 I'd recommend starting with our Problem Control duo:
 • [INTENSIVE PROBLEM CONTROL TONER](https://genosys.ae/products/15){{id:15}} (AED 260 / 490) - Zinc PCA 0.5%. Apply or spray morning and evening.
-• [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} (AED 330) - Light, non-greasy formula
+• [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} (AED 330) - Zinc PCA 0.05%, over 90% water. Pat it in after the toner.
 
 💡 **Pro tip:** Don't skip moisturizer! Dehydrated skin actually produces MORE oil to compensate.
 

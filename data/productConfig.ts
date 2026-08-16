@@ -243,7 +243,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '20': {
     id: '20',
     images: [
-      '/images/problems_serum/main.jpeg',
       '/images/problems_serum/s1.jpeg',
       '/images/problems_serum/s2.jpeg',
       '/images/problems_serum/s3.jpeg',

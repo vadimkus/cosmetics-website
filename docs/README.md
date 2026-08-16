@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Product 20 Problem Control Serum page](./SESSION_CHANGES_2026-08-16_PRODUCT_20_PROBLEM_CONTROL_SERUM.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: zinc PCA 0.05% neat, 90% water, after toner, pat AM/PM. Cut ACZERO / PORE LASER / tea tree / niacinamide / −16.6% / non-comedogenic / sebum −17%. Restored 1,2-Hexanediol to the INCI. Cache `product-by-id-v30`. |
 | 🔴 **PDP consistency** | [Bespoke PDP slides audit](./SESSION_CHANGES_2026-08-16_BESPOKE_PDP_SLIDES_AUDIT.md) | Every bespoke page now runs its studio slides in the body, not only in the 80px thumbs: lookbook after the stats plus figures beside what-it-does and how-to. 19 pages. Also fixes four products that listed their main image inside the gallery array. Cache `product-by-id-v29`. |
 | 🔴 **Bugfix** | [Restore studio galleries](./SESSION_CHANGES_2026-08-16_RESTORE_STUDIO_GALLERIES.md) | Put studio / claim-slide sets back on products 11, 13, 14, 15, 16, 18. Intertek carton flats are not the customer gallery. Leftover slide claims stay in `~/Desktop/genosys-artwork-corrections.html` and get re-exported. |
 | 🔴 **Bugfix** | [Restore DTS MG decks on bespoke PDPs](./SESSION_CHANGES_2026-08-16_RESTORE_DTS_MG_DECKS.md) | Bespoke layouts dropped the product-guide download. PDF stayed on disk and in productConfig. Product 11 Skin Defender is back, plus every other bespoke page that had a config deck and no brochure link. |

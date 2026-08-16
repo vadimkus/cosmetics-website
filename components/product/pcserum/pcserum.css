@@ -1,0 +1,51 @@
+/**
+ * Palette override for the PROBLEM CONTROL SERUM page (product 20).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The accent is taken from the pack itself: black glass bottle,
+ * cool white label, and the eucalyptus leaves that run through the studio
+ * slides. A cool blue-green, deliberately apart from the warm lime-olive on
+ * the sensitive serum (product 19) and from the ice blue on the Problem
+ * Control toner (product 15), so the two Problem Control steps do not read
+ * as the same page twice.
+ *
+ * Scoped to `.cera-page.pcserum-page`.
+ */
+
+.cera-page.pcserum-page {
+  --cera-cream: #f1f5f4;
+  --cera-cream-deep: #e0e9e6;
+  --cera-blush: #dde9e5;
+  --cera-blush-deep: #b2c8c1;
+  --cera-rose: #3f6b60;
+  --cera-rose-ink: #2a4a42;
+  --cera-ink: #131a18;
+  --cera-body: #33403d;
+  --cera-muted: #5b6b67;
+  --cera-line: #d1ded9;
+}
+
+.pcserum-page .cera-stage {
+  background-color: #e9f0ee;
+  box-shadow: 0 24px 60px -34px rgba(42, 74, 66, 0.38);
+}
+
+@media (hover: hover) {
+  .pcserum-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(19, 26, 24, 0.04), 0 26px 48px -26px rgba(42, 74, 66, 0.3);
+  }
+}
+
+.pcserum-page .pcserum-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.pcserum-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.pcserum-page .pcserum-video {
+  border: 1px solid var(--cera-line);
+  background: #0e1211;
+}

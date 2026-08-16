@@ -1,8 +1,12 @@
 'use client'
 
+import '@/components/product/cerabarrier/cerabarrier.css'
+import './blog.css'
+
 import Link from 'next/link'
 import Image from 'next/image'
-import { Calendar, ArrowRight, ArrowLeft, Eye } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Calendar, Eye } from 'lucide-react'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
@@ -25,6 +29,7 @@ interface BlogPageClientProps {
   posts: BlogPostListItem[]
 }
 
+/** All three locales render this. The route files translate before passing in. */
 export default function BlogPageClient({ posts }: BlogPageClientProps) {
   const { t, locale, dir } = useTranslation()
   const { isMobileWeb, isPWA } = useIsMobileWeb()
@@ -36,265 +41,264 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
   const fromProfile = searchParams?.get('from') === 'profile'
   const isAppLikeMode = isPWA || isMobileWeb
 
+  const dateLocale = locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-AE'
+  const formatDate = (value: Date) =>
+    new Date(value).toLocaleDateString(dateLocale, { year: 'numeric', month: 'short', day: 'numeric' })
+
+  const label = {
+    blog: locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Journal',
+    title: locale === 'ar' ? 'مدونة GENOSYS' : locale === 'ru' ? 'Блог GENOSYS' : 'Notes from the lab',
+    lead:
+      locale === 'ar'
+        ? 'مقالات متخصصة حول العناية بالبشرة الكورية، والميزوثيرابي بالإبر الدقيقة، وتركيبات GENOSYS، يكتبها فريقنا في دبي والمختبر في سيول.'
+        : locale === 'ru'
+          ? 'Экспертные материалы о корейском уходе, микронидлинге и составах GENOSYS. Пишет наша команда в Дубае и лаборатория в Сеуле.'
+          : 'Expert notes on Korean skincare, microneedling and GENOSYS formulations, written by our Dubai team and the lab in Seoul.',
+    latest: locale === 'ar' ? 'المقالة الأحدث' : locale === 'ru' ? 'Свежая статья' : 'Latest article',
+    more: locale === 'ar' ? 'المزيد من المقالات' : locale === 'ru' ? 'Больше статей' : 'More articles',
+    read: locale === 'ar' ? 'اقرأ المقالة' : locale === 'ru' ? 'Читать статью' : 'Read the article',
+    views: locale === 'ar' ? 'مشاهدة' : locale === 'ru' ? 'просмотров' : 'views',
+    emptyTitle:
+      locale === 'ar'
+        ? 'المدونة في بدايتها.'
+        : locale === 'ru'
+          ? 'Блог только начинается.'
+          : 'The journal is just getting started.',
+    emptyLead:
+      locale === 'ar'
+        ? 'عُد قريباً للاطلاع على أدلة العناية بالبشرة وملاحظات المختبر من فريقنا.'
+        : locale === 'ru'
+          ? 'Загляните позже: здесь появятся руководства по уходу и заметки из лаборатории.'
+          : 'Check back soon for skincare guides and lab notes from our team.',
+  }
+
+  const articleCount = (count: number) => {
+    if (locale === 'ar') return `${count} مقالة`
+    if (locale === 'ru') return `${count} ${count === 1 ? 'статья' : 'статей'}`
+    return `${count} ${count === 1 ? 'article' : 'articles'}`
+  }
+
+  const [featured, ...rest] = posts
+
+  function Meta({ post }: { post: BlogPostListItem }) {
+    return (
+      <div className={`mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
+        {post.publishedAt && (
+          <span className="blog-meta">
+            <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
+            {formatDate(post.publishedAt)}
+          </span>
+        )}
+        {post.views > 0 && (
+          <span className="blog-meta">
+            <Eye className="h-3.5 w-3.5" aria-hidden="true" />
+            {post.views.toLocaleString(dateLocale)} {label.views}
+          </span>
+        )}
+      </div>
+    )
+  }
+
   return (
-    <div className={`bg-white min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`}>
-      {/* PWA / Mobile Web Simple Navigation Header */}
+    <div className={`cera-page blog-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+      {/* In the installed app and on mobile web the site chrome is hidden, so
+          the page carries its own back / title / profile bar. */}
       {isAppLikeMode && (
-        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
-          <button 
+        <div
+          className={`sticky top-0 z-20 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${
+            isRTL ? 'flex-row-reverse' : ''
+          }`}
+        >
+          <button
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
-            className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
+            className={`flex min-w-[80px] items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            <span className="text-base text-red-600">
-              {fromProfile ? (locale === 'ar' ? 'الحساب' : locale === 'ru' ? 'Аккаунт' : 'Account') : (locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Продукты' : 'Products')}
+            <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-[15px] text-[var(--cera-rose)]">
+              {fromProfile
+                ? locale === 'ar'
+                  ? 'الحساب'
+                  : locale === 'ru'
+                    ? 'Аккаунт'
+                    : 'Account'
+                : locale === 'ar'
+                  ? 'المنتجات'
+                  : locale === 'ru'
+                    ? 'Продукты'
+                    : 'Products'}
             </span>
           </button>
-          <span className="text-base font-semibold text-gray-900">
-            {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Blog'}
-          </span>
-          {/* Profile Icon with green dot */}
-          <button 
+          <span className="cera-serif text-[17px]">{label.blog}</span>
+          <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
-            className="min-w-[80px] flex justify-end"
+            className="flex min-w-[80px] justify-end"
+            aria-label="Profile"
           >
             <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-rose)]">
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
               </div>
               {user && (
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
+                <div className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-[1.5px] border-white bg-green-500" />
               )}
             </div>
           </button>
         </div>
       )}
 
-      <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
-        <div className="max-w-6xl mx-auto">
-          {/* Navigation Breadcrumb - Hide in PWA and mobile web */}
-          {!isAppLikeMode && (
-            <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
+      <div className="mx-auto max-w-[1120px] px-4 py-8 md:px-8 md:py-16">
+        {!isAppLikeMode && (
+          <>
+            <nav className="text-[13px] text-[var(--cera-muted)]" aria-label="Breadcrumb">
+              <Link
+                href={getLocalizedPath('/', locale)}
+                className="transition-colors hover:text-[var(--cera-rose)]"
+              >
                 {t('common.home') || 'Home'}
               </Link>
-              <span> / </span>
-              <span className="text-gray-900 font-medium">
-                {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Blog'}
-              </span>
+              <span className="px-1.5">/</span>
+              <span className="text-[var(--cera-ink)]">{label.blog}</span>
             </nav>
-          )}
-          
-          {/* Back to Home - Hide in PWA and mobile web */}
-          {!isAppLikeMode && (
-            <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${isRTL ? 'rotate-180' : ''}`} />
-              <span>{t('common.backToHome') || 'Back to Home'}</span>
+
+            <Link
+              href={getLocalizedPath('/', locale)}
+              className={`mt-3 inline-flex items-center gap-1.5 text-[13px] text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${
+                isRTL ? 'flex-row-reverse' : ''
+              }`}
+            >
+              <ArrowLeft className={`h-3.5 w-3.5 ${isRTL ? 'rotate-180' : ''}`} />
+              {t('common.backToHome') || 'Back to home'}
             </Link>
+          </>
+        )}
+
+        {/* ─────────────────────────────── Hero ───────────────────────────── */}
+        <header className={`mt-8 md:mt-16 ${isRTL ? 'text-right' : ''}`}>
+          <p className="cera-eyebrow mb-3">{label.blog}</p>
+          <h1 className="cera-serif text-[34px] leading-[1.05] md:text-[56px] lg:text-[64px]">{label.title}</h1>
+          <p className="mt-5 max-w-[62ch] text-[15.5px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
+            {label.lead}
+          </p>
+          {posts.length > 0 && (
+            <p className="cera-numeral mt-5 text-[13px] text-[var(--cera-muted)]">{articleCount(posts.length)}</p>
           )}
+        </header>
 
-          {/* Page Header — editorial asymmetric on desktop, compact on mobile */}
-          <div className="mb-8 md:mb-16">
-            {/* Mobile-only compact header */}
-            <div className="md:hidden text-center">
-              <h1 className="text-2xl font-bold text-gray-900 mb-2 font-display tracking-tight">
-                {locale === 'ar' ? 'مدونة GENOSYS' : locale === 'ru' ? 'Блог GENOSYS' : 'GENOSYS Journal'}
-              </h1>
-              <p className="text-sm text-gray-600 max-w-md mx-auto">
-                {locale === 'ar'
-                  ? 'مقالات متخصصة حول العناية بالبشرة الكورية وأحدث اتجاهات صناعة التجميل'
-                  : locale === 'ru'
-                    ? 'Экспертные статьи о корейском уходе за кожей и последних трендах индустрии красоты'
-                    : 'Expert insights on Korean skincare, dermacosmetics, and the GENOSYS lab.'}
-              </p>
-            </div>
+        <div className="cera-rule mt-10 md:mt-14" />
 
-            {/* Desktop editorial header — asymmetric grid */}
-            <div className={`hidden md:grid lg:grid-cols-12 gap-8 lg:gap-16 items-end ${isRTL ? 'text-right' : ''}`}>
-              <div className="lg:col-span-7">
-                <div className={`inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.22em] uppercase text-primary-600 mb-5 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span aria-hidden="true" className="h-px w-8 bg-primary-600" />
-                  {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Journal'}
-                </div>
-                <h1 className="text-4xl lg:text-[56px] lg:leading-[1.02] font-bold text-gray-900 font-display tracking-tight">
-                  {locale === 'ar' ? 'مدونة GENOSYS' : locale === 'ru' ? 'Блог GENOSYS' : 'Notes from the lab.'}
-                </h1>
-              </div>
-              <div className="lg:col-span-5">
-                <p className="text-[15px] lg:text-base text-gray-600 leading-relaxed lg:max-w-md lg:ml-auto">
-                  {locale === 'ar'
-                    ? 'مقالات متخصصة حول العناية بالبشرة الكورية، الميزوثيرابي بالإبر الدقيقة، ومنتجات GENOSYS — كتبها فريقنا في دبي.'
-                    : locale === 'ru'
-                    ? 'Экспертные материалы о корейском уходе, микронидлинге и продуктах GENOSYS — пишет наша команда в Дубае.'
-                    : 'Expert insights on Korean skincare, microneedling, and GENOSYS formulations — written by our Dubai team and the lab in Seoul.'}
-                </p>
-                {posts.length > 0 && (
-                  <p className={`mt-4 text-[12px] font-mono uppercase tracking-[0.18em] text-gray-400 lg:text-right ${isRTL ? 'lg:text-left' : ''}`}>
-                    {posts.length}{' '}
-                    {locale === 'ar'
-                      ? 'مقالة · يتم التحديث أسبوعياً'
-                      : locale === 'ru'
-                      ? 'статей · обновления еженедельно'
-                      : (posts.length === 1 ? 'article' : 'articles')}{' '}
-                    {locale === 'en' && '· updated weekly'}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Blog Posts */}
-          {posts.length > 0 ? (
-            <>
-              {/* ── Featured (latest) post — desktop only, asymmetric hero ─── */}
-              {posts[0] && (
-                <Link
-                  key={`featured-${posts[0].id}`}
-                  href={getLocalizedPath(`/blog/${posts[0].slug}`, locale)}
-                  className={`group hidden md:grid lg:grid-cols-12 gap-8 lg:gap-12 mb-14 lg:mb-20 ${isRTL ? 'text-right' : ''}`}
-                >
-                  {posts[0].featuredImage && (
-                    <div className={`lg:col-span-7 relative aspect-[16/10] overflow-hidden rounded-2xl bg-gray-100 ${isRTL ? 'lg:order-2' : ''}`}>
-                      <Image
-                        src={posts[0].featuredImage}
-                        alt={`${posts[0].title} - GENOSYS Featured Article`}
-                        fill
-                        priority
-                        sizes="(max-width: 1024px) 100vw, 58vw"
-                        className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
-                      />
-                    </div>
-                  )}
-                  <div className={`lg:col-span-5 flex flex-col justify-center ${posts[0].featuredImage ? '' : 'lg:col-span-12'}`}>
-                    <div className={`inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.22em] uppercase text-primary-600 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary-600 animate-pulse" aria-hidden="true" />
-                      {locale === 'ar' ? 'المقالة الأحدث' : locale === 'ru' ? 'Свежее' : 'Latest article'}
-                    </div>
-                    <h2 className="text-2xl lg:text-[34px] lg:leading-[1.15] font-bold text-gray-900 font-display tracking-tight transition-colors group-hover:text-primary-700">
-                      {posts[0].title}
-                    </h2>
-                    {posts[0].excerpt && (
-                      <p className="mt-4 text-[15px] lg:text-base text-gray-600 leading-relaxed line-clamp-3">
-                        {posts[0].excerpt}
-                      </p>
-                    )}
-                    <div className={`mt-6 flex items-center gap-4 text-[12px] text-gray-500 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      {posts[0].publishedAt && (
-                        <span className="inline-flex items-center gap-1.5">
-                          <Calendar className="h-3.5 w-3.5" aria-hidden="true" />
-                          {new Date(posts[0].publishedAt).toLocaleDateString(
-                            locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-AE',
-                            { year: 'numeric', month: 'short', day: 'numeric' }
-                          )}
-                        </span>
-                      )}
-                      {posts[0].views > 0 && (
-                        <span className="inline-flex items-center gap-1.5">
-                          <Eye className="h-3.5 w-3.5" aria-hidden="true" />
-                          {posts[0].views.toLocaleString()}{' '}
-                          {locale === 'ar' ? 'مشاهدة' : locale === 'ru' ? 'просмотров' : 'views'}
-                        </span>
-                      )}
-                    </div>
-                    <span className={`mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-600 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                      {locale === 'ar' ? 'اقرأ المقالة' : locale === 'ru' ? 'Читать статью' : 'Read the article'}
-                      <ArrowRight className={`h-4 w-4 transition-transform duration-300 group-hover:translate-x-1 ${isRTL ? 'rotate-180 group-hover:-translate-x-1' : ''}`} aria-hidden="true" />
-                    </span>
+        {posts.length > 0 ? (
+          <>
+            {/* ──────────────────── Latest, given the width ──────────────── */}
+            {featured && (
+              <Link
+                href={getLocalizedPath(`/blog/${featured.slug}`, locale)}
+                className={`blog-card group mt-10 grid gap-7 md:mt-14 lg:grid-cols-12 lg:gap-12 ${
+                  isRTL ? 'text-right' : ''
+                }`}
+              >
+                {/* No order override on the frame: the grid already mirrors in
+                    RTL, so the image leads on the right the way it leads on the
+                    left in English. Forcing it back was un-mirroring the one
+                    block on an otherwise mirrored page. */}
+                {featured.featuredImage && (
+                  <div className="blog-frame aspect-square lg:col-span-6">
+                    <Image
+                      src={featured.featuredImage}
+                      alt={featured.title}
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 58vw"
+                      className="object-contain"
+                    />
                   </div>
-                </Link>
-              )}
-
-              {/* ── Mobile: featured post is first card in the grid (no special layout) ── */}
-              {/* ── Desktop: divider before remaining posts ─────────────────── */}
-              {posts.length > 1 && (
-                <div className="hidden md:flex items-center gap-4 mb-10">
-                  <p className="text-[11px] font-mono tracking-[0.22em] uppercase text-gray-500">
-                    {locale === 'ar' ? 'المزيد من المقالات' : locale === 'ru' ? 'Больше статей' : 'More articles'}
-                  </p>
-                  <div className="flex-1 h-px bg-gray-200" />
+                )}
+                <div
+                  className={`flex flex-col justify-center ${
+                    featured.featuredImage ? 'lg:col-span-6' : 'lg:col-span-12'
+                  }`}
+                >
+                  <p className="cera-eyebrow mb-3">{label.latest}</p>
+                  <h2 className="blog-card__title cera-serif text-[26px] leading-[1.15] md:text-[34px]">
+                    {featured.title}
+                  </h2>
+                  {featured.excerpt && (
+                    <p className="mt-4 line-clamp-3 text-[15px] leading-relaxed text-[var(--cera-muted)] md:text-[16px]">
+                      {featured.excerpt}
+                    </p>
+                  )}
+                  <Meta post={featured} />
+                  <span className={`blog-read mt-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                    {label.read}
+                    <ArrowRight className={`h-4 w-4 ${isRTL ? 'rotate-180' : ''}`} aria-hidden="true" />
+                  </span>
                 </div>
-              )}
+              </Link>
+            )}
 
-              {/* Posts grid — mobile: all posts, desktop: posts after the featured one */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-12">
-                {posts.map((post, idx) => {
-                  // On desktop, skip the first post (it's the featured hero above).
-                  // On mobile, show every post in the grid for a simpler experience.
-                  const desktopHidden = idx === 0
-                  return (
+            {rest.length > 0 && (
+              <>
+                <div className={`mt-14 flex items-center gap-5 md:mt-20 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <p className="cera-eyebrow whitespace-nowrap">{label.more}</p>
+                  <div className="cera-rule flex-1" />
+                </div>
+
+                <div className="mt-9 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+                  {rest.map((post, idx) => (
                     <Link
                       key={post.id}
                       href={getLocalizedPath(`/blog/${post.slug}`, locale)}
-                      className={`group flex flex-col ${desktopHidden ? 'md:hidden' : ''}`}
+                      className={`blog-card group flex flex-col ${isRTL ? 'text-right' : ''}`}
                     >
                       {post.featuredImage && (
-                        <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-gray-100">
+                        <div className="blog-frame aspect-square w-full">
                           <Image
                             src={post.featuredImage}
-                            alt={`${post.title} - GENOSYS Korean Skincare Blog Article`}
+                            alt={post.title}
                             fill
                             loading={idx <= 2 ? 'eager' : 'lazy'}
                             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-contain transition-transform duration-500 group-hover:scale-[1.04]"
+                            className="object-contain"
                           />
                         </div>
                       )}
-                      <div className="mt-4 md:mt-5 flex flex-col flex-1">
+                      <div className="mt-5 flex flex-1 flex-col">
                         {post.publishedAt && (
-                          <p className="text-[11px] font-mono tracking-[0.18em] uppercase text-gray-400 mb-2">
-                            {new Date(post.publishedAt).toLocaleDateString(
-                              locale === 'ar' ? 'ar-AE' : locale === 'ru' ? 'ru-RU' : 'en-AE',
-                              { year: 'numeric', month: 'short', day: 'numeric' }
-                            )}
+                          <p className="cera-numeral mb-2 text-[12px] text-[var(--cera-muted)]">
+                            {formatDate(post.publishedAt)}
                           </p>
                         )}
-                        <h2 className="text-base md:text-[19px] lg:text-[20px] font-bold text-gray-900 font-display leading-[1.25] tracking-tight transition-colors group-hover:text-primary-700 line-clamp-2">
+                        <h2 className="blog-card__title cera-serif line-clamp-2 text-[19px] leading-[1.25] md:text-[21px]">
                           {post.title}
                         </h2>
                         {post.excerpt && (
-                          <p className="mt-2 text-sm md:text-[14px] text-gray-600 leading-relaxed line-clamp-2 md:line-clamp-3">
+                          <p className="mt-2.5 line-clamp-3 text-[14px] leading-relaxed text-[var(--cera-muted)]">
                             {post.excerpt}
                           </p>
                         )}
                         {post.views > 0 && (
-                          <p className={`mt-3 text-[12px] text-gray-400 inline-flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <p className={`blog-meta mt-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                             <Eye className="h-3.5 w-3.5" aria-hidden="true" />
-                            {post.views.toLocaleString()}{' '}
-                            {locale === 'ar' ? 'مشاهدة' : locale === 'ru' ? 'просмотров' : 'views'}
+                            {post.views.toLocaleString(dateLocale)} {label.views}
                           </p>
                         )}
                       </div>
                     </Link>
-                  )
-                })}
-              </div>
-            </>
-          ) : (
-            <div className="text-center py-16 md:py-24 max-w-md mx-auto">
-              <div className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-gray-100 mb-5">
-                <Calendar className="h-6 w-6 text-gray-400" aria-hidden="true" />
-              </div>
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 font-display tracking-tight">
-                {locale === 'ar'
-                  ? 'لا توجد مقالات متاحة بعد.'
-                  : locale === 'ru'
-                    ? 'Статьи пока недоступны.'
-                    : 'The journal is just getting started.'}
-              </h2>
-              <p className="text-sm md:text-base text-gray-600">
-                {locale === 'ar'
-                  ? 'تحقق قريبًا للحصول على نصائح متخصصة للعناية بالبشرة!'
-                  : locale === 'ru'
-                    ? 'Загляните позже за советами по уходу за кожей!'
-                    : 'Check back soon for expert skincare guides and lab notes from our team.'}
-              </p>
-            </div>
-          )}
-        </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </>
+        ) : (
+          <div className="mx-auto max-w-[46ch] py-20 text-center md:py-28">
+            <span className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full border border-[var(--cera-blush-deep)] bg-[var(--cera-blush)]">
+              <Calendar className="h-5 w-5 text-[var(--cera-rose)]" aria-hidden="true" />
+            </span>
+            <h2 className="cera-serif text-[24px] leading-tight md:text-[30px]">{label.emptyTitle}</h2>
+            <p className="mt-3 text-[15px] leading-relaxed text-[var(--cera-muted)]">{label.emptyLead}</p>
+          </div>
+        )}
       </div>
     </div>
   )

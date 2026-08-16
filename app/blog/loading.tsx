@@ -1,52 +1,54 @@
+import '@/components/product/cerabarrier/cerabarrier.css'
+import './blog.css'
+
 /**
- * Blog Page Loading State
- * 
- * Renders skeleton UI while blog posts are being fetched.
- * Uses Suspense boundary for streaming.
+ * Streamed while the post list is fetched.
+ *
+ * The shapes here mirror BlogPageClient exactly: hero, rule, the wide latest
+ * article, then the three-up grid. A skeleton that does not match the page it
+ * precedes reads as a layout shift rather than as loading.
  */
 export default function BlogLoading() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-8 md:py-16">
-      <div className="container mx-auto px-4">
-        {/* Header skeleton */}
-        <div className="text-center mb-8 md:mb-12">
-          <div className="h-10 bg-gray-200 rounded max-w-md mx-auto mb-4 animate-pulse" />
-          <div className="h-6 bg-gray-200 rounded max-w-lg mx-auto animate-pulse" />
+    <div className="cera-page blog-page min-h-[100dvh]">
+      <div className="mx-auto max-w-[1120px] px-4 py-8 md:px-8 md:py-16">
+        <div className="blog-skeleton blog-skeleton--line blog-skeleton--line h-3 w-40" />
+
+        <div className="mt-10 md:mt-16">
+          <div className="blog-skeleton blog-skeleton--line h-3 w-24" />
+          <div className="blog-skeleton mt-5 h-11 w-[min(100%,560px)] md:h-16" />
+          <div className="blog-skeleton blog-skeleton--line mt-5 h-4 w-[min(100%,620px)]" />
+          <div className="blog-skeleton blog-skeleton--line mt-2.5 h-4 w-[min(100%,480px)]" />
         </div>
 
-        {/* Blog posts grid skeleton */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="cera-rule mt-10 md:mt-14" />
+
+        <div className="mt-10 grid gap-7 md:mt-14 lg:grid-cols-12 lg:gap-12">
+          <div className="blog-skeleton aspect-square lg:col-span-6" />
+          <div className="flex flex-col justify-center lg:col-span-6">
+            <div className="blog-skeleton blog-skeleton--line h-3 w-28" />
+            <div className="blog-skeleton mt-4 h-8 w-full" />
+            <div className="blog-skeleton mt-2.5 h-8 w-3/4" />
+            <div className="blog-skeleton blog-skeleton--line mt-5 h-3.5 w-full" />
+            <div className="blog-skeleton blog-skeleton--line mt-2 h-3.5 w-5/6" />
+          </div>
+        </div>
+
+        <div className="mt-14 flex items-center gap-5 md:mt-20">
+          <div className="blog-skeleton blog-skeleton--line h-3 w-32" />
+          <div className="cera-rule flex-1" />
+        </div>
+
+        <div className="mt-9 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <article 
-              key={i} 
-              className="bg-white rounded-2xl shadow-sm overflow-hidden"
-            >
-              {/* Image skeleton */}
-              <div className="aspect-[16/9] bg-gray-200 animate-pulse" />
-              
-              {/* Content skeleton */}
-              <div className="p-6">
-                {/* Category badge */}
-                <div className="h-5 w-20 bg-gray-200 rounded-full mb-3 animate-pulse" />
-                
-                {/* Title */}
-                <div className="h-6 bg-gray-200 rounded mb-2 animate-pulse" />
-                <div className="h-6 bg-gray-200 rounded w-2/3 mb-4 animate-pulse" />
-                
-                {/* Excerpt */}
-                <div className="space-y-2 mb-4">
-                  <div className="h-4 bg-gray-100 rounded animate-pulse" />
-                  <div className="h-4 bg-gray-100 rounded animate-pulse" />
-                  <div className="h-4 bg-gray-100 rounded w-3/4 animate-pulse" />
-                </div>
-                
-                {/* Footer */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
-                  <div className="h-4 w-16 bg-gray-200 rounded animate-pulse" />
-                </div>
-              </div>
-            </article>
+            <div key={i}>
+              <div className="blog-skeleton aspect-square w-full" />
+              <div className="blog-skeleton blog-skeleton--line mt-5 h-3 w-24" />
+              <div className="blog-skeleton mt-3 h-5 w-full" />
+              <div className="blog-skeleton mt-2 h-5 w-2/3" />
+              <div className="blog-skeleton blog-skeleton--line mt-3.5 h-3.5 w-full" />
+              <div className="blog-skeleton blog-skeleton--line mt-2 h-3.5 w-4/5" />
+            </div>
           ))}
         </div>
       </div>

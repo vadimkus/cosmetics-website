@@ -1,0 +1,126 @@
+/**
+ * Page-scoped styling for the blog index in all three languages.
+ *
+ * cerabarrier.css supplies the structure (serif, eyebrow, rule, card);
+ * this file restates the palette and adds the two things an article index
+ * needs that a product page does not. Everything is nested under
+ * `.blog-page` so it cannot leak.
+ */
+
+.cera-page.blog-page {
+  --cera-cream: #faf8f7;
+  --cera-cream-deep: #f2eceb;
+  --cera-blush: #fbeceb;
+  --cera-blush-deep: #f0cfcd;
+  --cera-rose: #c0392f;
+  --cera-rose-ink: #97281f;
+  --cera-ink: #17140f;
+  --cera-body: #3c3733;
+  --cera-muted: #6a625d;
+  --cera-line: #e9e1de;
+}
+
+/* --- Article thumbnails -------------------------------------------------
+   Most posts announce a product and so carry its packshot, which is square.
+   A handful carry a genuine editorial photograph or a screenshot, at 3:2 or
+   taller than wide. The frame is square for that reason: it fits the common
+   case with no letterboxing at all, and the exceptions sit inside it on the
+   white the packshots were shot against, with a hairline to hold the edge
+   against the cream page. */
+
+.blog-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--cera-line);
+  background: #eee;
+}
+
+.blog-frame img {
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .blog-card:hover .blog-frame img {
+    transform: scale(1.03);
+  }
+}
+
+.blog-card__title {
+  transition: color 240ms ease;
+}
+
+@media (hover: hover) {
+  .blog-card:hover .blog-card__title {
+    color: var(--cera-rose-ink);
+  }
+}
+
+/* --- Meta line ---------------------------------------------------------- */
+
+.blog-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--cera-muted);
+}
+
+/* --- Read link ---------------------------------------------------------- */
+
+.blog-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cera-rose-ink);
+}
+
+.blog-read svg {
+  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (hover: hover) {
+  .blog-card:hover .blog-read svg {
+    transform: translateX(4px);
+  }
+
+  [dir='rtl'] .blog-card:hover .blog-read svg {
+    transform: translateX(-4px);
+  }
+}
+
+/* --- Loading skeleton --------------------------------------------------- */
+
+.blog-skeleton {
+  border-radius: 18px;
+  background: var(--cera-cream-deep, #f2eceb);
+  animation: blog-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes blog-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-skeleton {
+    animation: none;
+  }
+  .blog-frame img,
+  .blog-read svg {
+    transition: none;
+  }
+}
+
+/* Thin skeleton bars stand in for lines of text, so they take a pill radius
+   rather than the card radius the image blocks use. */
+.blog-skeleton--line {
+  border-radius: 999px;
+}

@@ -217,3 +217,10 @@
     transition: none;
   }
 }
+
+/* A field with an icon on both flanks. The base .ed-field sets its horizontal
+   padding as part of a shorthand, which outranks a Tailwind pl-10 utility and
+   left the search glyph sitting on top of the placeholder. */
+.ed-field--flanked {
+  padding-inline: 38px;
+}

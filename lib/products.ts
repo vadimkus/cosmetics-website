@@ -452,7 +452,7 @@ export const products: Product[] = [
     id: '31',
     name: 'MULTI VITA RADIANCE CREAM',
     price: 290,
-    description: '50g (Homecare) / 230g (Professional). GENOSYS MULTI VITA RADIANCE CREAM combines a complex of 12 vitamins with potent antioxidants like Astaxanthin to help protect against free radicals and support a more even, luminous look. This formula deeply nourishes and moisturizes the skin, helps even skin tone, and imparts noticeable radiance while supporting collagen feel and defending against everyday environmental stressors. Key ingredients: Astaxanthin, Ascorbic Acid, Multi Vita 12 Complex, Niacinamide, Gluconolactone (PHA), Licorice Root Extract, Ceramide NP, Squalane, Panthenol. Dermatologically tested. Efficacy test on improving skin surface melanin. Astaxanthin assists UV defense but does not replace sunscreen.',
+    description: 'A full 2% of niacinamide, and this is the one product in the range whose certificate actually tests for it rather than taking the recipe\'s word: the batch on file came back at 2.04%. Same active and same dose as the Multi Vita serum, carried here in 13% macadamia oil instead of water. The orange colour is the astaxanthin itself, with no pigment added. In the maker\'s two-week trial surface melanin fell 29.7%. 50g and 230g. Morning and night, with sunscreen over it by day.',
     image: '/images/radiance/main.jpeg',
     images: null,
     category: 'Cream',

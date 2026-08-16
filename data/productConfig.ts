@@ -410,7 +410,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '230g', label: '230g', available: true }
     ],
     images: [
-      '/images/radiance/main.jpeg',
       '/images/radiance/s1.jpeg',
       '/images/radiance/s2.jpeg',
       '/images/radiance/s3.jpeg',

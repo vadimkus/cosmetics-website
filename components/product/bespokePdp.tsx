@@ -26,6 +26,7 @@ import PccreamProductPage from '@/components/product/pccream/PccreamProductPage'
 import MhcreamProductPage from '@/components/product/mhcream/MhcreamProductPage'
 import SpcreamProductPage from '@/components/product/spcream/SpcreamProductPage'
 import MvserumProductPage from '@/components/product/mvserum/MvserumProductPage'
+import MvcreamProductPage from '@/components/product/mvcream/MvcreamProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -125,6 +126,11 @@ export const BESPOKE_PDP_LAYOUTS = {
   // functional active on the Korean whitening registration. MELAZERO is real
   // (loquat 0.04%, spearmint 0.01%); glutathione at 1 ppb is not.
   '21': MvserumProductPage,
+  // 31 is the cream half of that pair. Niacinamide 2% again, and this is the
+  // one certificate in the range that assays the active: found at 2.04%.
+  // Carried in 13% macadamia oil. The orange is the astaxanthin, not pigment,
+  // and at 10 ppm it is the colour rather than the engine.
+  '31': MvcreamProductPage,
   // 50 is the registered four-piece EyeCell kit. Serum + 0.25mm eye
   // roller, patches 20-40 min, then cream. Not a beauty box. The roller
   // is not product 1.

@@ -265,12 +265,12 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('50g and 250g', 'Home tube and clinic tube. The formula inside is identical.', '50 г и 250 г', 'Домашняя туба и клиническая. Формула внутри одинаковая.', '٥٠ غ و٢٥٠ غ', 'أنبوب المنزل وأنبوب العيادة. التركيبة داخلهما متطابقة.'),
   ],
   '31': [
-    t('Multi Vita 12 Complex', 'Twelve-vitamin cream finish for dull, uneven-looking complexions.', 'Комплекс Multi Vita 12', 'Крем с 12 витаминами для тусклого и неровного тона.', 'مركب Multi Vita 12', 'كريم بمركب 12 فيتاميناً للبشرة الباهتة وغير المتجانسة.'),
-    t('Melanin-care clinical', 'Clinical melanin-surface care supports a clearer-looking complexion.', 'Уход за меланином', 'Клинический уход за поверхностным меланином для более ясного тона.', 'عناية بالميلانين', 'عناية سريرية بميلانين السطح لدعم لون أوضح.'),
-    t('Astaxanthin defense', 'Antioxidant support helps defend against everyday environmental stress.', 'Астаксантин', 'Антиоксидантная поддержка против ежедневного стресса среды.', 'أستازانتين', 'دعم مضاد للأكسدة ضد إجهاد البيئة اليومي.'),
-    t('Barrier-reinforcing cream', 'Helps reinforce the protective barrier while locking in radiance serum.', 'Крем для барьера', 'Укрепляет защитный барьер и закрепляет сыворотку сияния.', 'كريم معزز للحاجز', 'يعزز الحاجز الواقي ويثبّت سيروم الإشراقة.'),
-    t('High satisfaction panel', 'User panel reported very high satisfaction on tone and comfort.', 'Высокая удовлетворённость', 'Панель отметила очень высокую удовлетворённость тоном и комфортом.', 'رضا مرتفع', 'أبلغت لوحة المستخدمين عن رضا مرتفع باللون والراحة.'),
-    t('50 g radiance cream', 'Daily cream seal after Multi Vita Radiance Serum.', '50 г', 'Ежедневный крем поверх сыворотки Multi Vita Radiance.', 'كريم 50 غ', 'ختم كريمي يومي بعد سيروم Multi Vita Radiance.'),
+    t('Niacinamide found at 2.04%', 'The certificate assays the active rather than repeating the recipe. Specified 2.00%.', 'Ниацинамид: найдено 2,04%', 'Сертификат анализирует актив, а не повторяет рецепт. Спецификация 2,00%.', 'نياسيناميد وُجد عند ٢٫٠٤٪', 'الشهادة تفحص الفعّال بدل تكرار الوصفة. المواصفة ٢٫٠٠٪.'),
+    t('Macadamia oil 13%', 'The second ingredient after water, and the character of the whole cream.', 'Масло макадамии 13%', 'Второй ингредиент после воды и характер всего крема.', 'زيت مكاداميا ١٣٪', 'المكوّن الثاني بعد الماء وشخصية الكريم كله.'),
+    t('−29.7% melanin / 2 weeks', 'Skin surface melanin 3.443 to 2.419 in the maker\'s two-week trial.', 'Меланин −29,7% за 2 недели', 'Поверхностный меланин 3,443 → 2,419 в двухнедельном исследовании производителя.', '−٢٩٫٧٪ ميلانين / أسبوعان', 'ميلانين السطح من ٣٫٤٤٣ إلى ٢٫٤١٩ في تجربة المصنّع لأسبوعين.'),
+    t('The orange is astaxanthin', 'No pigment added. The shade can shift with air without the cream changing.', 'Оранжевый — астаксантин', 'Пигмент не добавлен. Оттенок может меняться от воздуха, крем — нет.', 'البرتقالي أستازانتين', 'بلا صبغة مضافة. الدرجة قد تتغيّر مع الهواء دون أن يتغيّر الكريم.'),
+    t('95%, not 100%', 'On the tone question the panel came back at 95%. The serum was the one at 100%.', '95%, а не 100%', 'По вопросу о тоне панель дала 95%. Сто процентов было у сыворотки.', '٩٥٪ لا ١٠٠٪', 'في سؤال اللون جاءت اللوحة عند ٩٥٪. المئة بالمئة كانت للسيروم.'),
+    t('50g and 230g', 'Home tube and clinic tube. Same formula inside.', '50 г и 230 г', 'Домашняя и клиническая туба. Формула внутри одна.', '٥٠ غ و٢٣٠ غ', 'أنبوب المنزل وأنبوب العيادة. التركيبة نفسها.'),
   ],
   '17': [
     t('Arbutin 2%', 'Korean brightening functional. The figure that belongs on a card.', 'Арбутин 2%', 'Корейский осветляющий функциональный актив. Цифра для карточки.', 'أربوتين ٢٪', 'مكوّن التفتيح الوظيفي الكوري. الرقم الذي يستحق بطاقة.'),

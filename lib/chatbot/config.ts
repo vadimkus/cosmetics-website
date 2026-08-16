@@ -543,7 +543,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [INTENSIVE HYDRO SOOTHING CREAM](https://genosys.ae/products/28){{id:28}} - AED 290 - Hydrating
 - [MOISTURE REPLENISHING HYALURON CREAM](https://genosys.ae/products/29){{id:29}} - AED 290 (50g) / 420 (250g) - Dry and dehydrated skin. Sodium hyaluronate 1,000.9 ppm, printed on the carton, high molecular weight so it seals. Glycerin 9%. +82% hydration, 72h hold. Massage in after the serum. Has a light geranium scent.
 - [INTENSIVE PROBLEM CONTROL CREAM](https://genosys.ae/products/30){{id:30}} - AED 290 (50g) / 420 (250g) - Oily and combination skin. A cream with no oil in it: 86.6% water thickened by 1.3% polymer. Zinc PCA 0.05%, same as the serum. Massage in as the last step, AM/PM.
-- [MULTI VITA RADIANCE CREAM](https://genosys.ae/products/31){{id:31}} - AED 290 - Brightening
+- [MULTI VITA RADIANCE CREAM](https://genosys.ae/products/31){{id:31}} - AED 290 (50g) / 420 (230g) - Normal to dry skin, uneven tone. Niacinamide 2%, assayed at 2.04% on the certificate. 13% macadamia oil, so too rich for oily skin. Orange colour is astaxanthin, not pigment. SPF over it by day.
 - [MULTI FUNCTIONAL ANTI-WRINKLE CREAM](https://genosys.ae/products/32){{id:32}} - AED 290 - Anti-aging
 
 ### Sun Protection

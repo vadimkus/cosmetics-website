@@ -1,0 +1,48 @@
+/**
+ * Palette override for the MULTI VITA RADIANCE CREAM page (product 31).
+ *
+ * Structural rules live in cerabarrier.css. The accent is the cream's own
+ * colour: it is genuinely orange, because the astaxanthin is, and no pigment
+ * is added. A warmer, redder amber than the serum's champagne (product 21),
+ * so the pair reads as siblings without being the same page twice.
+ *
+ * Scoped to `.cera-page.mvcream-page`.
+ */
+
+.cera-page.mvcream-page {
+  --cera-cream: #fdf3ea;
+  --cera-cream-deep: #f7e3d0;
+  --cera-blush: #fae2cc;
+  --cera-blush-deep: #e2b184;
+  --cera-rose: #b56227;
+  --cera-rose-ink: #8a4718;
+  --cera-ink: #21170f;
+  --cera-body: #4a3728;
+  --cera-muted: #766049;
+  --cera-line: #efdcc7;
+}
+
+.mvcream-page .cera-stage {
+  background-color: #fbeada;
+  box-shadow: 0 24px 60px -34px rgba(138, 71, 24, 0.38);
+}
+
+@media (hover: hover) {
+  .mvcream-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(33, 23, 15, 0.04), 0 26px 48px -26px rgba(138, 71, 24, 0.3);
+  }
+}
+
+.mvcream-page .mvcream-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.mvcream-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.mvcream-page .mvcream-video {
+  border: 1px solid var(--cera-line);
+  background: #1a1109;
+}

@@ -1,8 +1,10 @@
 'use client'
 
 import { ReactNode, useEffect, useId, useRef, useState } from 'react'
-import { Plus } from 'lucide-react'
+import { Download, Plus } from 'lucide-react'
 import { getProductBarcodes } from '@/data/productBarcodes'
+import { getProductDocumentation } from '@/data/productConfig'
+import { useTranslation } from '@/hooks/useTranslation'
 
 /**
  * Small presentational primitives shared across the bespoke product pages
@@ -220,6 +222,39 @@ export function CeraBarcodeRows({
           </span>
         ))}
       </dd>
+    </div>
+  )
+}
+
+/**
+ * DTS MG product guide from productConfig. The generic PDP showed this
+ * via ProductContentDisplay. Bespoke pages replaced that layout and
+ * dropped the download unless they wired their own brochure link.
+ * Renders nothing when the SKU has no documentation entry.
+ */
+export function CeraBrochureLinks({
+  productNumber,
+}: {
+  productNumber: string | null | undefined
+}) {
+  const { locale } = useTranslation()
+  const docs = getProductDocumentation(productNumber || '', locale)
+  if (!docs.length) return null
+
+  return (
+    <div className="mt-4 flex flex-col gap-1">
+      {docs.map(doc => (
+        <a
+          key={doc.url}
+          href={doc.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex min-h-[44px] items-center gap-2 py-2 text-[13.5px] font-semibold text-[var(--cera-rose-ink)] underline-offset-4 hover:underline"
+        >
+          <Download className="h-4 w-4" />
+          {doc.title}
+        </a>
+      ))}
     </div>
   )
 }

@@ -464,7 +464,14 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     // Gallery migrated to DB `images` (2026-07-12) — do not re-add here.
     pricing: {
       basePrice: 340
-    }
+    },
+    documentation: [
+      {
+        title: 'SKIN RESCUE OVERNIGHT CREAM MASK Guide',
+        url: 'https://genosys.ae/documents/PPT/GENOSYS%20SKIN%20RESCUE%20OVERNIGHT%20CREAM%20MASK.pdf',
+        type: 'pdf'
+      }
+    ]
   },
   '35': {
     id: '35',
@@ -906,6 +913,7 @@ const documentationTitleTranslations: Record<string, string> = {
   'BIO-FERMENT AGE DEFYING POWDER MASK Guide': 'Руководство по BIO-FERMENT AGE DEFYING POWDER MASK',
   'SKIN REBOOT PDRN MASK PACK Guide': 'Руководство по SKIN REBOOT PDRN MASK PACK',
   'SKIN DEFENDER Product Guide': 'Руководство по продукту SKIN DEFENDER',
+  'SKIN RESCUE OVERNIGHT CREAM MASK Guide': 'Руководство по SKIN RESCUE OVERNIGHT CREAM MASK',
   'INTENSIVE PROBLEM CONTROL TONER': 'Руководство по INTENSIVE PROBLEM CONTROL TONER',
   'BIO MESO PDRN EXPERT AMPOULE 60000 Guide': 'Руководство по BIO MESO PDRN EXPERT AMPOULE 60000',
   'REVITA GLOW BLEMISH BALM CREAM Guide': 'Руководство по REVITA GLOW BLEMISH BALM CREAM',

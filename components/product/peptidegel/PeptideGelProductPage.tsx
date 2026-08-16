@@ -73,6 +73,7 @@ import CeraClosingCta from '../cerabarrier/CeraClosingCta'
 import {
   CeraAccordion,
   CeraBarcodeRows,
+  CeraBrochureLinks,
   CeraReveal,
   CeraSectionHeader,
   useCeraStickyBar,
@@ -976,6 +977,7 @@ export default function PeptideGelProductPage({
                 label={t('product.barcode')}
               />
             </dl>
+            <CeraBrochureLinks productNumber={product.productNumber ?? product.id} />
           </CeraReveal>
         </div>
       </section>

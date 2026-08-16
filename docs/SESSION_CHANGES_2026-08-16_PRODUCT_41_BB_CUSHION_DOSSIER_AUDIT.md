@@ -14,8 +14,10 @@ not from the current site copy.
 - Shade folders `Ivory/` (#01) and `Beige/` (#02) each hold their own ingredient
   list, COA and Free Sales certificate.
 
-Formula and COA are **per shade**. The figures below are #03 Camel. The Ivory
-and Beige lists must be read before any shade-specific claim is printed.
+Formula and COA are **per shade**. All three have now been read and diffed; see
+"The three shades" below. The percentages in the sections that follow are #03
+Camel, and every one of them except the pigments is identical in Ivory and
+Beige.
 
 ## The distinctive fact
 
@@ -86,6 +88,44 @@ Glutathione at 0.01% (100 ppm).
 
 `1,2-Hexanediol` is present at 0.012% and belongs in the INCI list.
 
+## The three shades
+
+Read `Ivory/Ingridients_...Ivory.pdf`, `Beige/Ingridients-...Biege.pdf` and the
+Camel formula side by side. **Only the iron oxides change.**
+
+| Pigment | #01 Ivory | #02 Beige | #03 Camel |
+|---|---|---|---|
+| CI 77492, yellow | 0.5820 | 1.1155 | 2.1340 |
+| CI 77491, red | 0.1843 | 0.4171 | 0.5820 |
+| CI 77499, black | 0.1261 | 0.2522 | 0.3395 |
+| **Total pigment** | **0.892** | **1.785** | **3.056** |
+
+Beige carries exactly twice Ivory's pigment; Camel about three and a half times.
+
+Everything that does the work is the same in all three: titanium dioxide
+9.00%, ethylhexyl methoxycinnamate 7.00%, ethylhexyl salicylate 4.50%,
+octocrylene 2.00%, zinc oxide 2.00%, niacinamide 2.00%, adenosine 0.04%,
+glutathione ~0.01%, and the nine peptides at identical doses.
+
+Three small knock-on differences, all of them consequences of carrying more
+pigment rather than changes anyone would feel:
+
+- Camel moves 1.99% from methylpropanediol to butylene glycol; the total polyol
+  is 5.08% in every shade.
+- Triethoxycaprylylsilane, which coats the pigment, scales with it: 0.189 /
+  0.216 / 0.256.
+- Dimethicone and its crosspolymer shift by a hundredth of a percent.
+
+**This is the honest shade line for the page:** the sun protection and the
+skincare are identical whichever shade you pick, and only the colour changes.
+Same construction as the Revita Glow note, which already says "identical for
+#01 Bright and #02 Natural apart from the pigments".
+
+One confirmation worth having: the Ivory and Beige sheets function Butyloctyl
+Salicylate explicitly as **Solvent**, where the Camel sheet says Skin
+Conditioning. Two independent sheets, neither calling it a UV filter. Five
+filters, settled.
+
 ## COA, #03 Camel, lot N03I08
 
 | Test | Specification | Result |
@@ -135,22 +175,21 @@ refill already in the box.
   only the formula, the COA, the free-sales certificate and the dermatological
   test mark
 - the contract manufacturer's name
-- shade-specific claims until the Ivory and Beige formulas have been read
+- any suggestion that one shade protects or treats better than another; the only
+  difference between them is pigment
 
 ## Still to do
 
-This audit is the foundation only. The page itself is not built. Remaining:
+This audit is the foundation. The page itself is not built. Remaining:
 
-1. Read the Ivory (#01) and Beige (#02) ingredient lists and diff against Camel
-   — pigment load will differ, and the filter percentages need confirming.
-2. Check `~/Desktop/Glass_Skin/01-official-pdfs/` and any BB Cushion `.pptx` for
+1. Check `~/Desktop/Glass_Skin/01-official-pdfs/` and any BB Cushion `.pptx` for
    a branded complex name or clinical figure that appears in no dossier, per the
-   Intertek source-of-truth rule.
-3. Scaffold `components/product/bbcushion/` from an existing shade-selecting
+   Intertek source-of-truth rule. Do this before calling anything unsupported.
+2. Scaffold `components/product/bbcushion/` from an existing shade-selecting
    page — product 63 Revita Glow is the closest analogue, since it is the other
    BB with shades.
-4. Copy in EN, AR and RU; register in `bespokePdp.tsx`; add `41` to the allowed
+3. Copy in EN, AR and RU; register in `bespokePdp.tsx`; add `41` to the allowed
    list in the three `products/[id]/page.tsx` routes.
-5. Update the DB record, `lib/products.ts`, `data/productConfig.ts`,
+4. Update the DB record, `lib/products.ts`, `data/productConfig.ts`,
    `lib/productQuickFactsCatalog.ts`, the chatbot, and `messages/*.json`.
-6. Bump the `product-by-id` cache key.
+5. Bump the `product-by-id` cache key.

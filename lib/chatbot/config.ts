@@ -152,7 +152,7 @@ Use images to make your responses more engaging, educational, and visually appea
 
 ![Hydration skincare](https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&q=80)
 
-The [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} is a coconut water-based serum with a multi-molecular hyaluronic acid complex..."
+The [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} is a moisturizing serum. Hydrolyzed HA 2,000 ppm. Apply on the face and pat, morning and evening."
 
 **Example 3 - When recommending masks:**
 "Let me show you our amazing mask options! 🎭
@@ -405,14 +405,14 @@ Use: Cleanser → Tonic → Serum → Cream. Avoid over-drying. SPF essential!
 
 ## ✨ RADIANCE LINE (Brightening) — [Full Pigmentation Page](https://genosys.ae/products/concern/pigmentation)
 - Multi Vita Radiance Cream {{id:19}} - Vitamin C brightening
-- Multi Vita Radiance Serum {{id:18}} - Concentrated brightening
+- Multi Vita Radiance Serum {{id:21}} - Concentrated brightening
 For dark spots, uneven tone. Use with SPF always!
 
 ## 🧴 SERUMS
 Key serums by concern:
-- Hydration: HYALURON SERUM {{id:15}}
+- Hydration: HYALURON SERUM {{id:18}}
 - Anti-aging: MULTI FUNCTIONAL ANTI-WRINKLE {{id:62}}
-- Brightening: MULTI VITA RADIANCE {{id:18}}
+- Brightening: MULTI VITA RADIANCE {{id:21}}
 - Acne: PROBLEM CONTROL {{id:20}}
 - Sensitive: ALL FOR SENSITIVE {{id:63}}
 - Eyes: EYECELL EYE CONTOUR {{id:61}}
@@ -420,7 +420,7 @@ Layer thin to thick, allow absorption between.
 
 ## 💧 HYDRATION LINE — [Full Hydration Page](https://genosys.ae/products/concern/hydration)
 - HYALURON CREAM {{id:14}} - Deep hydration
-- HYALURON SERUM {{id:15}} - Hyaluronic acid
+- HYALURON SERUM {{id:18}} - Hydrolyzed HA 2,000 ppm. Apply and pat AM/PM.
 - HYDRO SOOTHING CREAM {{id:16}} - Calming + hydration
 For dry skin, dehydrated skin, post-treatment care.
 
@@ -525,7 +525,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 
 ### Serums
 - [EyeCell EYE CONTOUR SERUM](https://genosys.ae/products/17){{id:17}} - AED 370 - Eye care
-- [MOISTURE REPLENISHING HYALURON SERUM](https://genosys.ae/products/18){{id:18}} - AED 330 - Hydrating
+- [MOISTURE REPLENISHING HYALURON SERUM](https://genosys.ae/products/18){{id:18}} - AED 330 - Moisturizing serum. Hydrolyzed HA 2,000 ppm. Apply and pat AM/PM. Coconut water 0.80%. Not the cream. Not +52%.
 - [ALL FOR SENSITIVE SERUM](https://genosys.ae/products/19){{id:19}} - AED 330 - For sensitive skin
 - [PROBLEM CONTROL SERUM](https://genosys.ae/products/20){{id:20}} - AED 330 - Acne/oily skin
 - [MULTI VITA RADIANCE SERUM](https://genosys.ae/products/21){{id:21}} - AED 330 - Brightening
@@ -1740,7 +1740,7 @@ Remember: Every response should educate, engage, and end with a question! Make s
 **Causes:** Dehydration, dead skin buildup, poor circulation, lack of sleep
 **Quick fixes:**
 1. Exfoliate: [EPI TURNOVER PEELING GEL](https://genosys.ae/products/12){{id:12}}
-2. Hydrate: Hyaluron Serum + multiple toner layers
+2. Hydrate: [HYALURON SERUM](https://genosys.ae/products/18){{id:18}} - Apply and pat. Hydrolyzed HA 2,000 ppm.
 3. Weekly carboxy: [EZ CO₂ MASK](https://genosys.ae/products/38){{id:38}} - ten minutes, then rinse
 4. Brighten: Vitamin C serum
 **Products:** Peeling Gel, CO₂ Mask, Radiance line

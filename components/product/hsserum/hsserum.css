@@ -1,0 +1,50 @@
+/**
+ * Palette override for the MOISTURE REPLENISHING HYALURON SERUM page
+ * (product 18).
+ *
+ * Structural rules live in cerabarrier.css. This file only restates the
+ * variables. The bottle is navy glass with a sky-blue fill. The accent is
+ * a deeper sea, not Snow Booster's PANTONE 306 cyan and not Problem
+ * Control's steel blue. Sea itself is weak as body text, so ink stays navy.
+ *
+ * Scoped to `.cera-page.hsserum-page`.
+ */
+
+.cera-page.hsserum-page {
+  --cera-cream: #eef3f6;
+  --cera-cream-deep: #d7e3ea;
+  --cera-blush: #c9dce6;
+  --cera-blush-deep: #8fb4c6;
+  --cera-rose: #2a6f8f;
+  --cera-rose-ink: #163e54;
+  --cera-ink: #0c1a28;
+  --cera-body: #2a3d4a;
+  --cera-muted: #5a7180;
+  --cera-line: #c5d5de;
+  --cera-shot: #e6eef3;
+}
+
+.hsserum-page .cera-stage {
+  background-color: #e8f0f5;
+  box-shadow: 0 24px 60px -34px rgba(22, 62, 84, 0.3);
+}
+
+@media (hover: hover) {
+  .hsserum-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(12, 26, 40, 0.04), 0 26px 48px -26px rgba(42, 111, 143, 0.24);
+  }
+}
+
+.hsserum-page .hsserum-not {
+  background: color-mix(in srgb, var(--cera-blush) 50%, transparent);
+  border-color: color-mix(in srgb, var(--cera-rose) 20%, var(--cera-line));
+}
+
+.hsserum-page .cera-stat-value {
+  color: var(--cera-rose-ink);
+}
+
+.hsserum-page .hsserum-video {
+  border: 1px solid var(--cera-line);
+  background: #0c1a28;
+}

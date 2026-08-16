@@ -20,6 +20,7 @@ import SrsProductPage from '@/components/product/srs/SrsProductPage'
 import MistProductPage from '@/components/product/mist/MistProductPage'
 import PctTonerProductPage from '@/components/product/pcttoner/PctTonerProductPage'
 import BoosterProductPage from '@/components/product/booster/BoosterProductPage'
+import HsserumProductPage from '@/components/product/hsserum/HsserumProductPage'
 import EyeCreamProductPage from '@/components/product/eyecream/EyeCreamProductPage'
 import EyePatchProductPage from '@/components/product/eyepatch/EyePatchProductPage'
 import EyeSerumProductPage from '@/components/product/eyeserum/EyeSerumProductPage'
@@ -84,6 +85,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // card. Apply or spray AM/PM, over makeup. Phytolex is a 0.5%
   // premix. Not the oil-control toner. Not the mist.
   '16': BoosterProductPage,
+  // 18 is the moisturizing hyaluron serum. Hydrolyzed HA 2,000 ppm is
+  // the figure on the card. Apply and pat AM/PM. Coconut water is 0.80%.
+  // Not the cream. Not a 4-step electrolyte story. Not +52%.
+  '18': HsserumProductPage,
   // 17 is the first-layer EyeCell serum. Arbutin 2% is the figure on the
   // card; peptides sit at cosmetic trace. No clinical percentages.
   '17': EyeSerumProductPage,

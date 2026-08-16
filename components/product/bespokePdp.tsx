@@ -26,6 +26,7 @@ import HesProductPage from '@/components/product/powersolution/HesProductPage'
 import SwsProductPage from '@/components/product/powersolution/SwsProductPage'
 import AwsProductPage from '@/components/product/powersolution/AwsProductPage'
 import CtsProductPage from '@/components/product/powersolution/CtsProductPage'
+import PcsProductPage from '@/components/product/powersolution/PcsProductPage'
 import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
@@ -39,11 +40,12 @@ import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushPro
  * and hand it the routine products.
  */
 export const BESPOKE_PDP_LAYOUTS = {
-  // 4, 5, 6, 8 and 9 are five of the six professional Power Solution ampoules.
+  // 4 to 9 are the six professional Power Solution ampoules.
   // They share one layout and differ only by variant; see powerSolutionCopy.ts.
   '4': HesProductPage,
   '5': CvsProductPage,
   '6': CtsProductPage,
+  '7': PcsProductPage,
   '8': SwsProductPage,
   '9': AwsProductPage,
   // 19 is the sensitive-skin serum. Single SKU, no deck, no efficacy study;
@@ -134,6 +136,7 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '4': ['5', '6', '7', '8', '9'],
   '5': ['4', '6', '7', '8', '9'],
   '6': ['4', '5', '7', '8', '9'],
+  '7': ['4', '5', '6', '8', '9'],
   '8': ['4', '5', '6', '7', '9'],
   '9': ['4', '5', '6', '7', '8'],
 }

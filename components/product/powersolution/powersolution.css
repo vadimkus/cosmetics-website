@@ -1,5 +1,5 @@
 /**
- * Palettes and structure for the POWER SOLUTION pages, products 4, 5, 6, 8 and 9.
+ * Palettes and structure for the POWER SOLUTION pages, products 4, 5, 6, 7, 8 and 9.
  *
  * The structural design system lives in cerabarrier.css - cards, reveals,
  * accordion, numerals, focus rings. That file is imported first and every rule
@@ -8,7 +8,7 @@
  *
  * Everything here is scoped to `.powersolution-page`, and each product's colour
  * to a second class on the same element (`.ps-cvs`, `.ps-hes`, `.ps-sws`,
- * `.ps-aws`, `.ps-cts`), so importing this file cannot affect products 52, 53, 55 to 61,
+ * `.ps-aws`, `.ps-cts`, `.ps-pcs`), so importing this file cannot affect products 52, 53, 55 to 61,
  * 63, 64, 65 or 66, and the ampoules cannot bleed into each other.
  *
  * Two variables are declared per palette rather than hard-coded, because the
@@ -189,6 +189,35 @@
   --ps-figure-stage: #d9d7dd;
   --ps-stage-shadow: rgba(16, 32, 34, 0.4);
   --ps-card-hover-glow: rgba(0, 96, 100, 0.26);
+}
+
+/* --- PCS, product 7 ------------------------------------------------------ */
+/* WHY VIOLET-BLUE. The PCS wordmark and the bottle silhouette on the carton
+   sit in Pantone 2738 C, a deep violet-blue sampled around #4527a0. The hero
+   is the same cool studio sweep as CTS / SWS / AWS, so the stage stays
+   cool-grey and the accent does the separation: CVS is a hard red
+   (#be0a14), SWS is burnt orange, HES is green, AWS is wine magenta, CTS
+   is teal (#0097a7), this one is violet-blue. Neutrals lean cool-lilac so
+   the accent does not sit on an identical CTS page with a different badge.
+
+   Closest text pair (#1a1040 on #f4f3f8) clears WCAG AA. */
+.cera-page.powersolution-page.ps-pcs {
+  --cera-cream: #f4f3f8;
+  --cera-cream-deep: #e8e6f0;
+  --cera-blush: #ece8f6;
+  --cera-blush-deep: #c5bce0;
+  --cera-rose: #4527a0;
+  --cera-rose-ink: #1a1040;
+  --cera-ink: #16122a;
+  --cera-body: #3a3550;
+  --cera-muted: #6a6580;
+  --cera-line: #ddd8e8;
+  /* Sampled from the outer ring of pcs-hero.jpg after the square pad. */
+  --cera-shot: #dcd9e2;
+  --ps-stage: #dcd9e2;
+  --ps-figure-stage: #dcd9e2;
+  --ps-stage-shadow: rgba(22, 18, 42, 0.4);
+  --ps-card-hover-glow: rgba(26, 16, 64, 0.26);
 }
 
 .powersolution-page .cera-stage {

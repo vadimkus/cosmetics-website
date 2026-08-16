@@ -1,12 +1,11 @@
 'use client'
 
 /**
- * Shared bespoke layout for the six POWER SOLUTION ampoules. Five products use
- * it so far: HES (4), CVS (5), CTS (6), SWS (8) and AWS (9), each through a
+ * Shared bespoke layout for the six POWER SOLUTION ampoules. All six use it:
+ * HES (4), CVS (5), CTS (6), PCS (7), SWS (8) and AWS (9), each through a
  * thin wrapper that hands over its variant. Everything product-specific - the
  * copy, the formula, the photography, the palette - comes in through
- * PowerSolutionVariant, so adding PCS is a copy module and a palette class,
- * not a new layout.
+ * PowerSolutionVariant.
  *
  * Shares the editorial design system built for product 66 - the primitives, the
  * gallery and the structural CSS all come from ../cerabarrier - and layers a
@@ -46,8 +45,8 @@
  * formula and the claims that must not come back without a document. Two rules
  * hold across all six: sh-Polypeptide-7 is a somatotropin-sequence peptide and
  * never an IGF-1 analogue, and the roller is only mentioned where that
- * product's own carton shows it. CVS, CTS, SWS and AWS cartons do not, so those
- * pages never say microneedling; HES's carton diagrams the roller across three
+ * product's own carton shows it. CVS, CTS, PCS, SWS and AWS cartons do not, so
+ * those pages never say microneedling; HES's carton diagrams the roller across three
  * panels, so its page leads on it.
  */
 

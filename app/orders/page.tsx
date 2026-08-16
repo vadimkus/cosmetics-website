@@ -1,9 +1,13 @@
 'use client'
 
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
+
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Package, X, Clock, CheckCircle, Truck, XCircle, RefreshCw, ShoppingBag, ChevronDown, MapPin } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Order, OrderItem } from '@prisma/client'
@@ -92,7 +96,7 @@ function OrderItemImage({
 
   return (
     <div 
-      className="w-12 h-12 rounded-lg bg-gray-100 border-2 border-white overflow-hidden flex-shrink-0"
+      className="w-12 h-12 rounded-lg bg-[var(--cera-cream-deep)] border-2 border-white overflow-hidden flex-shrink-0"
       style={{ zIndex }}
     >
       {imgSrc && !hasError ? (
@@ -105,7 +109,7 @@ function OrderItemImage({
           onError={handleImageError}
         />
       ) : (
-        <div className="w-full h-full flex items-center justify-center bg-red-50">
+        <div className="w-full h-full flex items-center justify-center bg-[var(--cera-blush)]">
           <Package className="w-5 h-5 text-red-400" />
         </div>
       )}
@@ -346,17 +350,17 @@ export default function OrdersPage() {
   // Loading state - wait for auth to finish loading before showing content
   if (!isClient || authLoading || !user) {
     return (
-      <div className="min-h-[100dvh] bg-white flex items-center justify-center">
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] flex items-center justify-center`}>
         <div className="flex flex-col items-center gap-3">
-          <div className="animate-spin rounded-full h-10 w-10 border-2 border-gray-200 border-t-red-600"></div>
-          <p className="text-sm text-gray-500">{authLoading ? 'Loading...' : 'Checking authentication...'}</p>
+          <div className="animate-spin rounded-full h-10 w-10 border-2 border-[var(--cera-line)] border-t-red-600"></div>
+          <p className="text-sm text-[var(--cera-muted)]">{authLoading ? 'Loading...' : 'Checking authentication...'}</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className={`min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`}>
       <BreadcrumbSchema 
         items={[
           { name: t('common.home'), url: getLocalizedPath('/', locale) },
@@ -371,14 +375,14 @@ export default function OrdersPage() {
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className={`w-5 h-5 text-[var(--cera-rose)] ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="text-base text-red-600">
+            <span className="text-base text-[var(--cera-rose)]">
               {fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')}
             </span>
           </button>
-          <span className="text-base font-semibold text-gray-900">
+          <span className="text-base font-semibold text-[var(--cera-ink)]">
             {t('navigation.orders') || 'Orders'}
           </span>
           {/* Profile Icon - green dot only when logged in */}
@@ -387,7 +391,7 @@ export default function OrdersPage() {
             className="min-w-[80px] flex justify-end"
           >
             <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-rose)]' : 'bg-gray-400'}`}>
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
@@ -403,7 +407,7 @@ export default function OrdersPage() {
       
       {/* Page Header - Only show on desktop (PWA and mobile web have their own header) */}
       {!isAppLikeMode && (
-        <div className="bg-white border-b border-gray-100 sticky top-0 z-10">
+        <div className="bg-white border-b border-[var(--cera-line)] sticky top-0 z-10">
           <div className="container mx-auto px-4 py-4">
             <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
               <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -411,11 +415,11 @@ export default function OrdersPage() {
                   href={getLocalizedPath('/products', locale)}
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                 >
-                  <ArrowLeft className={`h-5 w-5 text-gray-600 ${isRTL ? 'rotate-180' : ''}`} />
+                  <ArrowLeft className={`h-5 w-5 text-[var(--cera-muted)] ${isRTL ? 'rotate-180' : ''}`} />
                 </Link>
                 <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Package className="h-6 w-6 text-red-600" />
-                  <h1 className="text-xl font-bold text-gray-900">
+                  <Package className="h-6 w-6 text-[var(--cera-rose)]" />
+                  <h1 className="cera-serif text-xl text-[var(--cera-ink)]">
                     {t('navigation.orders') || 'My Orders'}
                   </h1>
                 </div>
@@ -430,14 +434,14 @@ export default function OrdersPage() {
         <div className="px-4 pt-4 pb-2">
           <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className={`flex items-center gap-2.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className="w-10 h-10 bg-red-50 rounded-xl flex items-center justify-center">
-                <Package className="h-5 w-5 text-red-600" />
+              <div className="w-10 h-10 bg-[var(--cera-blush)] rounded-xl flex items-center justify-center">
+                <Package className="h-5 w-5 text-[var(--cera-rose)]" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">
+                <h1 className="cera-serif text-xl text-[var(--cera-ink)]">
                   {t('navigation.orders') || 'My Orders'}
                 </h1>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-[var(--cera-muted)]">
                   {orders.length} {orders.length === 1 ? 'order' : 'orders'}
                 </p>
               </div>
@@ -448,7 +452,7 @@ export default function OrdersPage() {
               className="p-2.5 hover:bg-gray-100 rounded-full transition-colors disabled:opacity-50"
               aria-label="Refresh orders"
             >
-              <RefreshCw className={`h-5 w-5 text-gray-500 ${refreshing ? 'animate-spin' : ''}`} />
+              <RefreshCw className={`h-5 w-5 text-[var(--cera-muted)] ${refreshing ? 'animate-spin' : ''}`} />
             </button>
           </div>
         </div>
@@ -460,13 +464,13 @@ export default function OrdersPage() {
           // Loading skeleton
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-gray-50 rounded-2xl p-4 animate-pulse">
+              <div key={i} className="bg-[var(--cera-cream)] rounded-2xl p-4 animate-pulse">
                 <div className="flex justify-between mb-3">
-                  <div className="h-5 w-24 bg-gray-200 rounded"></div>
-                  <div className="h-5 w-20 bg-gray-200 rounded-full"></div>
+                  <div className="h-5 w-24 bg-[var(--cera-cream-deep)] rounded"></div>
+                  <div className="h-5 w-20 bg-[var(--cera-cream-deep)] rounded-full"></div>
                 </div>
-                <div className="h-4 w-32 bg-gray-200 rounded mb-2"></div>
-                <div className="h-4 w-24 bg-gray-200 rounded"></div>
+                <div className="h-4 w-32 bg-[var(--cera-cream-deep)] rounded mb-2"></div>
+                <div className="h-4 w-24 bg-[var(--cera-cream-deep)] rounded"></div>
               </div>
             ))}
           </div>
@@ -485,10 +489,10 @@ export default function OrdersPage() {
                 />
               </div>
               
-              <h2 className="text-lg md:text-2xl font-bold text-gray-900 mb-2">
+              <h2 className="cera-serif text-lg md:text-2xl text-[var(--cera-ink)] mb-2">
                 {locale === 'ar' ? 'لا توجد طلبات بعد' : locale === 'ru' ? 'Заказов пока нет' : 'No orders yet'}
               </h2>
-              <p className="text-sm md:text-base text-gray-500 mb-6">
+              <p className="text-sm md:text-base text-[var(--cera-muted)] mb-6">
                 {locale === 'ar' 
                   ? 'عندما تقوم بإجراء طلبات، ستظهر هنا' 
                   : locale === 'ru' 
@@ -498,7 +502,7 @@ export default function OrdersPage() {
               
               <Link
                 href={getLocalizedPath('/products', locale)}
-                className={`inline-flex items-center justify-center gap-2 bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 active:bg-red-800 transition-colors shadow-lg shadow-red-200 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                className={`inline-flex items-center justify-center gap-2 bg-[var(--cera-rose)] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[var(--cera-rose-ink)] active:bg-[var(--cera-rose-ink)] transition-colors shadow-lg shadow-[var(--cera-blush-deep)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
               >
                 <ShoppingBag className="w-5 h-5" />
                 {locale === 'ar' ? 'تصفح المنتجات' : locale === 'ru' ? 'Смотреть товары' : 'Browse Products'}
@@ -511,16 +515,16 @@ export default function OrdersPage() {
             {orders.map((order) => (
               <div 
                 key={order.id}
-                className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                className="bg-white border border-[var(--cera-line)] rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
                 {/* Order Header */}
-                <div className={`px-4 py-3 bg-gray-50 border-b border-gray-100 ${isRTL ? 'text-right' : ''}`}>
+                <div className={`px-4 py-3 bg-[var(--cera-cream)] border-b border-[var(--cera-line)] ${isRTL ? 'text-right' : ''}`}>
                   <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <div>
-                      <p className="text-sm font-semibold text-gray-900 mb-0.5">
+                      <p className="text-sm font-semibold text-[var(--cera-ink)] mb-0.5">
                         {order.orderNumber}
                       </p>
-                      <p className="text-xs text-gray-400">
+                      <p className="text-xs text-[var(--cera-muted)]">
                         {formatDate(order.createdAt)}
                       </p>
                     </div>
@@ -599,10 +603,10 @@ export default function OrdersPage() {
                         ))}
                         {order.items.length > 3 && (
                           <div 
-                            className="w-12 h-12 rounded-lg bg-gray-200 border-2 border-white flex items-center justify-center flex-shrink-0"
+                            className="w-12 h-12 rounded-lg bg-[var(--cera-cream-deep)] border-2 border-white flex items-center justify-center flex-shrink-0"
                             style={{ zIndex: 0 }}
                           >
-                            <span className="text-xs font-medium text-gray-600">
+                            <span className="text-xs font-medium text-[var(--cera-muted)]">
                               +{order.items.length - 3}
                             </span>
                           </div>
@@ -611,12 +615,12 @@ export default function OrdersPage() {
 
                       {/* Order Summary */}
                       <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : 'text-left'}`}>
-                        <p className="text-sm font-medium text-gray-900 truncate">
+                        <p className="text-sm font-medium text-[var(--cera-ink)] truncate">
                           {order.items.length} {order.items.length === 1 
                             ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item')
                             : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')}
                         </p>
-                        <p className="text-lg font-bold text-gray-900 mt-1">
+                        <p className="text-lg font-bold text-[var(--cera-ink)] mt-1">
                           {formatCurrency(Number(order.total))}
                         </p>
                       </div>
@@ -624,19 +628,19 @@ export default function OrdersPage() {
 
                     {/* Chevron */}
                     <ChevronDown 
-                      className={`w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0 ${isRTL ? 'mr-2' : 'ml-2'} ${expandedOrders.has(order.id) ? 'rotate-180' : ''}`}
+                      className={`w-5 h-5 text-[var(--cera-muted)] transition-transform duration-200 flex-shrink-0 ${isRTL ? 'mr-2' : 'ml-2'} ${expandedOrders.has(order.id) ? 'rotate-180' : ''}`}
                     />
                   </button>
 
                   {/* Expanded Order Details - Unified Format */}
                   <div className={`overflow-hidden transition-all duration-200 ${expandedOrders.has(order.id) ? 'max-h-[1200px] mt-4' : 'max-h-0'}`}>
-                    <div className="border-t border-gray-100 pt-4">
+                    <div className="border-t border-[var(--cera-line)] pt-4">
                       
                       {/* Order Card - Matches Email Template */}
-                      <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                      <div className="bg-white border border-[var(--cera-line)] rounded-2xl overflow-hidden shadow-sm">
                         
                         {/* Red Header with Order Number */}
-                        <div className="bg-red-600 px-4 py-3">
+                        <div className="bg-[var(--cera-rose)] px-4 py-3">
                           <p className="text-white font-mono font-semibold tracking-wide">
                             Order  #  {order.orderNumber}
                           </p>
@@ -647,7 +651,7 @@ export default function OrdersPage() {
                           
                           {/* ITEMS Section */}
                           <div>
-                            <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
+                            <p className="text-xs font-bold text-[var(--cera-muted)] uppercase tracking-wider mb-3">
                               {locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'ТОВАРЫ' : 'ITEMS:'}
                             </p>
                             
@@ -685,17 +689,17 @@ export default function OrdersPage() {
                                 return (
                                   <div key={idx} className={`flex justify-between items-start gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                                     <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
-                                      <p className="text-sm font-bold text-gray-900 uppercase tracking-wide leading-tight">
+                                      <p className="text-sm font-bold text-[var(--cera-ink)] uppercase tracking-wide leading-tight">
                                         {item.productName}
                                       </p>
-                                      <p className="text-xs text-gray-500 mt-1">
+                                      <p className="text-xs text-[var(--cera-muted)] mt-1">
                                         {locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {item.quantity}
                                         {discountLabel && (
                                           <span className="text-green-600 font-semibold ml-2">{discountLabel}</span>
                                         )}
                                       </p>
                                       {(item.size || item.color) && (
-                                        <p className="text-xs text-gray-400 mt-0.5">
+                                        <p className="text-xs text-[var(--cera-muted)] mt-0.5">
                                           {item.size && `${locale === 'ar' ? 'المقاس' : locale === 'ru' ? 'Размер' : 'Size'}: ${translateSize(item.size, locale)}`}
                                           {item.size && item.color && ' · '}
                                           {item.color && `${locale === 'ar' ? 'اللون' : locale === 'ru' ? 'Цвет' : 'Color'}: ${item.color}`}
@@ -706,7 +710,7 @@ export default function OrdersPage() {
                                       {isFreeItem ? (
                                         <span className="text-sm font-bold text-green-600">FREE</span>
                                       ) : (
-                                        <span className="text-sm font-medium text-gray-900">
+                                        <span className="text-sm font-medium text-[var(--cera-ink)]">
                                           AED {(Number(item.price) * item.quantity).toFixed(2)}
                                         </span>
                                       )}
@@ -718,7 +722,7 @@ export default function OrdersPage() {
                           </div>
 
                           {/* Divider */}
-                          <div className="h-px bg-gray-100" />
+                          <div className="h-px bg-[var(--cera-cream-deep)]" />
 
                           {/* Summary Section - Waterfall Discount Breakdown */}
                           <div className="space-y-2">
@@ -761,7 +765,7 @@ export default function OrdersPage() {
                                   {_hasAnyDiscount ? (
                                     <div className={`flex justify-between items-start ${isRTL ? 'flex-row-reverse' : ''}`}>
                                       <div className={isRTL ? 'text-right' : ''}>
-                                        <span className="text-sm text-gray-500">
+                                        <span className="text-sm text-[var(--cera-muted)]">
                                           {retailPriceLabel}: ({paidItemCount} {paidItemCount === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
                                         </span>
                                         {freeItemCount > 0 && (
@@ -770,12 +774,12 @@ export default function OrdersPage() {
                                           </p>
                                         )}
                                       </div>
-                                      <span className="text-sm font-medium text-gray-400 line-through">AED {_retailTotal.toFixed(2)}</span>
+                                      <span className="text-sm font-medium text-[var(--cera-muted)] line-through">AED {_retailTotal.toFixed(2)}</span>
                                     </div>
                                   ) : (
                                     <div className={`flex justify-between items-start ${isRTL ? 'flex-row-reverse' : ''}`}>
                                       <div className={isRTL ? 'text-right' : ''}>
-                                        <span className="text-sm text-gray-500">
+                                        <span className="text-sm text-[var(--cera-muted)]">
                                           {subtotalLabel}: ({paidItemCount} {paidItemCount === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
                                         </span>
                                         {freeItemCount > 0 && (
@@ -784,7 +788,7 @@ export default function OrdersPage() {
                                           </p>
                                         )}
                                       </div>
-                                      <span className="text-sm font-medium text-gray-900">AED {Number(order.subtotal).toFixed(2)}</span>
+                                      <span className="text-sm font-medium text-[var(--cera-ink)]">AED {Number(order.subtotal).toFixed(2)}</span>
                                     </div>
                                   )}
 
@@ -801,8 +805,8 @@ export default function OrdersPage() {
                                   {/* Intermediate Subtotal (when both discounts) */}
                                   {_hasUserDiscount && _hasBundleDiscount && (
                                     <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                                      <span className="text-xs text-gray-400">{subtotalLabel}</span>
-                                      <span className="text-xs text-gray-400">AED {_afterVipSubtotal.toFixed(2)}</span>
+                                      <span className="text-xs text-[var(--cera-muted)]">{subtotalLabel}</span>
+                                      <span className="text-xs text-[var(--cera-muted)]">AED {_afterVipSubtotal.toFixed(2)}</span>
                                     </div>
                                   )}
 
@@ -819,21 +823,21 @@ export default function OrdersPage() {
                                   {/* Net Subtotal separator */}
                                   {_hasAnyDiscount && (
                                     <>
-                                      <div className="h-px bg-gray-200" />
+                                      <div className="h-px bg-[var(--cera-cream-deep)]" />
                                       <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                                        <span className="text-sm font-semibold text-gray-900">{netSubtotalLabel}</span>
-                                        <span className="text-sm font-semibold text-gray-900">AED {Number(order.subtotal).toFixed(2)}</span>
+                                        <span className="text-sm font-semibold text-[var(--cera-ink)]">{netSubtotalLabel}</span>
+                                        <span className="text-sm font-semibold text-[var(--cera-ink)]">AED {Number(order.subtotal).toFixed(2)}</span>
                                       </div>
                                     </>
                                   )}
 
                                   {/* Shipping */}
                                   <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                                    <span className="text-sm text-gray-500 flex items-center gap-1">
+                                    <span className="text-sm text-[var(--cera-muted)] flex items-center gap-1">
                                       <Truck className="w-4 h-4 text-green-600" />
                                       {locale === 'ar' ? `الشحن إلى ${order.customerEmirate}` : locale === 'ru' ? `Доставка в ${order.customerEmirate}` : `Shipping to ${order.customerEmirate}`}
                                     </span>
-                                    <span className={`text-sm font-semibold ${Number(order.shipping) === 0 ? 'text-green-600' : 'text-gray-900'}`}>
+                                    <span className={`text-sm font-semibold ${Number(order.shipping) === 0 ? 'text-green-600' : 'text-[var(--cera-ink)]'}`}>
                                       {Number(order.shipping) === 0 ? 'FREE' : `AED ${Number(order.shipping).toFixed(2)}`}
                                     </span>
                                   </div>
@@ -850,10 +854,10 @@ export default function OrdersPage() {
 
                                   {/* VAT */}
                                   <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                                    <span className="text-sm text-gray-500">
+                                    <span className="text-sm text-[var(--cera-muted)]">
                                       {locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}
                                     </span>
-                                    <span className="text-sm font-medium text-gray-900">AED {Number(order.vat).toFixed(2)}</span>
+                                    <span className="text-sm font-medium text-[var(--cera-ink)]">AED {Number(order.vat).toFixed(2)}</span>
                                   </div>
 
                                   {/* VAT Notice Box */}
@@ -868,10 +872,10 @@ export default function OrdersPage() {
 
                                   {/* Total */}
                                   <div className={`flex justify-between items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
-                                    <span className="text-base font-bold text-gray-900">
+                                    <span className="text-base font-bold text-[var(--cera-ink)]">
                                       {locale === 'ar' ? 'الإجمالي:' : locale === 'ru' ? 'Итого:' : 'Total:'}
                                     </span>
-                                    <span className="text-lg font-bold text-red-600">
+                                    <span className="text-lg font-bold text-[var(--cera-rose)]">
                                       AED {Number(order.total).toFixed(2)}
                                     </span>
                                   </div>
@@ -894,24 +898,24 @@ export default function OrdersPage() {
                       {/* Delivery & Payment Info - Below the card */}
                       <div className="mt-4 space-y-3">
                         {/* Delivery Information */}
-                        <div className="bg-gray-50 rounded-xl p-3">
-                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                        <div className="bg-[var(--cera-cream)] rounded-xl p-3">
+                          <p className="text-xs font-semibold text-[var(--cera-muted)] uppercase tracking-wide mb-2">
                             {locale === 'ar' ? 'معلومات التوصيل' : locale === 'ru' ? 'Информация о доставке' : 'Delivery Information'}
                           </p>
                           <div className={`text-sm space-y-1 ${isRTL ? 'text-right' : ''}`}>
-                            <p className="text-gray-900 font-medium">{order.customerName}</p>
-                            <p className="text-gray-600">{order.customerPhone}</p>
-                            <p className="text-gray-600">{order.customerAddress}</p>
-                            <p className="text-gray-600">{order.customerEmirate}</p>
+                            <p className="text-[var(--cera-ink)] font-medium">{order.customerName}</p>
+                            <p className="text-[var(--cera-muted)]">{order.customerPhone}</p>
+                            <p className="text-[var(--cera-muted)]">{order.customerAddress}</p>
+                            <p className="text-[var(--cera-muted)]">{order.customerEmirate}</p>
                           </div>
                         </div>
 
                         {/* Payment Method */}
-                        <div className={`flex justify-between items-center text-sm bg-gray-50 rounded-xl p-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                          <span className="text-gray-500">
+                        <div className={`flex justify-between items-center text-sm bg-[var(--cera-cream)] rounded-xl p-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                          <span className="text-[var(--cera-muted)]">
                             {locale === 'ar' ? 'طريقة الدفع' : locale === 'ru' ? 'Способ оплаты' : 'Payment Method'}
                           </span>
-                          <span className="text-gray-900 font-medium">
+                          <span className="text-[var(--cera-ink)] font-medium">
                             {order.paymentMethod === 'cod' 
                               ? (locale === 'ar' ? '💵 الدفع عند الاستلام' : locale === 'ru' ? '💵 При получении' : '💵 Cash on Delivery')
                               : (locale === 'ar' ? '💳 بطاقة/Apple Pay' : locale === 'ru' ? '💳 Карта/Apple Pay' : '💳 Card/Apple Pay')
@@ -925,7 +929,7 @@ export default function OrdersPage() {
                             <p className="text-xs font-semibold text-blue-600 uppercase tracking-wide mb-1">
                               {locale === 'ar' ? 'ملاحظات' : locale === 'ru' ? 'Примечания' : 'Order Notes'}
                             </p>
-                            <p className={`text-sm text-gray-700 ${isRTL ? 'text-right' : ''}`}>{order.orderNotes}</p>
+                            <p className={`text-sm text-[var(--cera-body)] ${isRTL ? 'text-right' : ''}`}>{order.orderNotes}</p>
                           </div>
                         )}
                       </div>
@@ -933,12 +937,12 @@ export default function OrdersPage() {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className={`mt-4 pt-4 border-t border-gray-100 ${isRTL ? 'text-right' : ''}`}>
+                  <div className={`mt-4 pt-4 border-t border-[var(--cera-line)] ${isRTL ? 'text-right' : ''}`}>
                     <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                       {/* Track Order Link */}
                       <Link
                         href={`/track/${order.orderNumber}`}
-                        className={`inline-flex items-center gap-1.5 text-primary-600 hover:text-primary-700 text-sm font-medium transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                        className={`inline-flex items-center gap-1.5 text-[var(--cera-rose)] hover:text-primary-700 text-sm font-medium transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
                       >
                         <MapPin className="w-4 h-4" />
                         {locale === 'ar' ? 'تتبع الطلب' : locale === 'ru' ? 'Отследить' : 'Track Order'}
@@ -966,7 +970,7 @@ export default function OrdersPage() {
                       {order.status === 'pending' && (
                         <button
                           onClick={() => handleCancelOrderClick(order.id)}
-                          className="text-red-600 hover:text-red-700 text-sm font-medium transition-colors"
+                          className="text-[var(--cera-rose)] hover:text-red-700 text-sm font-medium transition-colors"
                         >
                           {t('orders.cancel') || 'Cancel Order'}
                         </button>
@@ -986,13 +990,13 @@ export default function OrdersPage() {
           <div className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6">
             <div className={`flex items-center gap-4 mb-5 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <div className="p-3 bg-red-100 rounded-xl flex-shrink-0">
-                <X className="h-6 w-6 text-red-600" />
+                <X className="h-6 w-6 text-[var(--cera-rose)]" />
               </div>
               <div className={isRTL ? 'text-right' : ''}>
-                <h3 className="text-lg font-bold text-gray-900">
+                <h3 className="cera-serif text-lg text-[var(--cera-ink)]">
                   {t('orders.cancelOrder') || 'Cancel Order?'}
                 </h3>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[var(--cera-muted)]">
                   {t('orders.cancelWarning') || 'This cannot be undone'}
                 </p>
               </div>
@@ -1004,13 +1008,13 @@ export default function OrdersPage() {
                   setShowCancelConfirm(false)
                   setOrderToCancel(null)
                 }}
-                className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-200 transition-colors"
+                className="flex-1 bg-[var(--cera-cream-deep)] text-[var(--cera-body)] py-3 px-4 rounded-xl font-medium hover:bg-gray-200 transition-colors"
               >
                 {t('common.no') || 'No, Keep'}
               </button>
               <button
                 onClick={cancelOrder}
-                className="flex-1 bg-red-600 text-white py-3 px-4 rounded-xl font-medium hover:bg-red-700 transition-colors"
+                className="flex-1 bg-[var(--cera-rose)] text-white py-3 px-4 rounded-xl font-medium hover:bg-[var(--cera-rose-ink)] transition-colors"
               >
                 {t('common.yes') || 'Yes, Cancel'}
               </button>
@@ -1036,12 +1040,12 @@ export default function OrdersPage() {
               </div>
 
               {/* Title */}
-              <h3 className={`text-lg font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>
+              <h3 className={`cera-serif text-lg text-[var(--cera-ink)] mb-2 ${isRTL ? 'text-right' : ''}`}>
                 {locale === 'ar' ? 'دعم واتساب' : locale === 'ru' ? 'Поддержка WhatsApp' : 'WhatsApp Support'}
               </h3>
 
               {/* Message */}
-              <p className={`text-gray-600 mb-2 ${isRTL ? 'text-right' : ''}`}>
+              <p className={`text-[var(--cera-muted)] mb-2 ${isRTL ? 'text-right' : ''}`}>
                 {locale === 'ar' 
                   ? 'اضغط مطولاً للتواصل مع الدعم حول هذا الطلب'
                   : locale === 'ru'
@@ -1050,15 +1054,15 @@ export default function OrdersPage() {
               </p>
 
               {/* Order number */}
-              <p className="text-sm text-gray-500 mb-5">
-                {locale === 'ar' ? 'رقم الطلب:' : locale === 'ru' ? 'Номер заказа:' : 'Order:'} <span className="font-semibold text-gray-900">{showWhatsAppHelp}</span>
+              <p className="text-sm text-[var(--cera-muted)] mb-5">
+                {locale === 'ar' ? 'رقم الطلب:' : locale === 'ru' ? 'Номер заказа:' : 'Order:'} <span className="font-semibold text-[var(--cera-ink)]">{showWhatsAppHelp}</span>
               </p>
 
               {/* Buttons */}
               <div className="flex gap-3 w-full">
                 <button
                   onClick={() => setShowWhatsAppHelp(null)}
-                  className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl font-medium hover:bg-gray-200 transition-colors"
+                  className="flex-1 bg-[var(--cera-cream-deep)] text-[var(--cera-body)] py-3 px-4 rounded-xl font-medium hover:bg-gray-200 transition-colors"
                 >
                   {locale === 'ar' ? 'فهمت' : locale === 'ru' ? 'Понятно' : 'Got it'}
                 </button>

@@ -40,6 +40,8 @@ No peanut oil and no retinyl palmitate in this serum. The pack still says avoid 
 
 Gallery main prints "Turn Years Back". s1 and s7 still print "10 Years Back" on the bottle. s3 and s4 are the same file. Gallery s6 still says "Intertek formula" and "No invented clinical percentages". Those are later image jobs, already logged in the desktop HTML. The editorial copy does not repeat them. Engine figure is `s6.jpeg` (Arbutin 2% + Adenosine 0.04%).
 
+16 Aug evening: studio slides are on the page, not only in the thumbs. Lookbook after the stats (s1, s2, s3, s5, s6, s7; s4 skipped as a duplicate of s3). s2 beside what it does. s6 beside the dose. s5 beside how-to.
+
 ## Page
 `components/product/eyeserum/` — Cerabarrier primitives, cool silver / lilac palette from the black syringe applicator.
 

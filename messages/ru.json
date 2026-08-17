@@ -229,7 +229,9 @@
     "skinConcern": "По проблемам кожи",
     "bundleDiscount": "Скидка на набор",
     "beautyBoxDiscount": "15% скидка на Бьюти-бокс",
-    "beautyBoxSavings": "Экономия {amount} AED на Бьюти-бокс"
+    "beautyBoxSavings": "Экономия {amount} AED на Бьюти-бокс",
+    "concernModeCount": "{count} задач кожи",
+    "concernModeExit": "Показать все продукты"
   },
   "cart": {
     "title": "Корзина покупок",

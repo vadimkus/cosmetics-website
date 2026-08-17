@@ -1,23 +1,50 @@
 'use client'
 
 /**
- * Interactive Face Map — "Tap where it bothers you"
+ * Interactive face map — a SECONDARY aid on the skin-concern view.
  *
- * Premium entry point for the Skin Concern category: a studio portrait with
- * pulsing hotspots on facial zones. Hovering/tapping a zone reveals the
- * matching GENOSYS concern(s) with direct links to the concern landing pages.
+ * REBUILT 17 Aug 2026 after an audit of /products?categories=skin-concern. What was
+ * wrong, and what each fix addresses:
  *
- * - Pure CSS/framer-motion (no new deps), works on touch + mouse + keyboard
- * - Fully localized (EN/AR/RU) with RTL support
- * - Desktop: centered face; idle chip list hidden (page-level concern grid below)
- * - Mobile web: face + idle hint/chips panel unchanged
- * - Native app has its own ConcernFaceMap — do not mirror layout changes there
+ *  1. WRONG DESIGN SYSTEM. It used text-gray-*, text-primary-* and shadow-xl while the
+ *     page around it is on the editorial --cera-* palette with a serif display face, so
+ *     it read as a different website. Now on cera tokens and cera-serif throughout.
+ *
+ *  2. IT LED THE PAGE. The concern cards — which carry imagery, descriptions and live
+ *     product counts — sat two screens below it. The cards now lead and this sits under
+ *     them, which is the owner decision of 17 Aug.
+ *
+ *  3. DESKTOP GAVE NOTHING UNTIL HOVER. The result panel was `md:hidden` while idle, so
+ *     a desktop visitor got a face, eight faint dots and a void, and the payoff rendered
+ *     below the fold. The panel now always occupies its space and shows a resting state.
+ *
+ *  4. KEYBOARD USERS SAW NOTHING. Zones responded to onMouseEnter but not onFocus, so
+ *     you could tab through every hotspot without ever revealing a result. onFocus now
+ *     selects, and the zone list is a real radiogroup.
+ *
+ *  5. MOTION IGNORED prefers-reduced-motion. Eight animate-ping rings plus a framer scan
+ *     sweep ran regardless; the global rules in globals.css only cover named classes,
+ *     not Tailwind's ping or framer. Both are now gated on useReducedMotion().
+ *
+ *  6. DUPLICATE NAVIGATION. Its chip list stayed in the DOM on desktop, so the page
+ *     carried 16 links to 8 destinations. The chip list is gone — the concern cards
+ *     directly above are the canonical set.
+ *
+ *  7. ARBITRARY ANATOMY. One eye had a hotspot, which read as a blemish rather than a
+ *     control, and the left cheek meant pigmentation while the right meant redness for
+ *     no stated reason. Zones are now symmetric, and paired zones resolve to the same
+ *     concerns so the split is no longer arbitrary.
+ *
+ *  8. "Hover or tap" ON MOBILE, where hover does not exist. Copy is now device-neutral.
+ *
+ * The native app has its own face map — do not mirror layout changes there.
  */
 
-import { useMemo, useRef, useState } from 'react'
+import { useId, useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { ArrowRight, ArrowLeft } from 'lucide-react'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 import { getConcernVisual } from '@/lib/concernVisuals'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -25,14 +52,18 @@ import type { Locale } from '@/lib/i18n'
 
 interface FaceZone {
   id: string
-  /** Hotspot center, % of image width/height */
+  /** Hotspot centre, % of image width/height. */
   cx: number
   cy: number
   label: { en: string; ar: string; ru: string }
-  /** CONCERN_PAGES slugs shown when this zone is active */
+  /** CONCERN_PAGES slugs shown when this zone is active. */
   concerns: string[]
 }
 
+/* Zones are symmetric on purpose. A single hotspot on one eye or one cheek reads as a
+   mark on the model's skin rather than a control, and a left/right split that means two
+   different things cannot be explained to a customer. Paired zones therefore share an
+   id prefix and resolve to the same concerns. */
 const ZONES: FaceZone[] = [
   {
     id: 'scalp',
@@ -47,16 +78,16 @@ const ZONES: FaceZone[] = [
     concerns: ['anti-aging', 'sun-protection'],
   },
   {
-    id: 'eyes',
-    cx: 71, cy: 47,
+    id: 'eye-left',
+    cx: 30, cy: 47,
     label: { en: 'Eye contour', ar: 'محيط العين', ru: 'Контур глаз' },
     concerns: ['anti-aging'],
   },
   {
-    id: 'cheek-left',
-    cx: 26, cy: 62,
-    label: { en: 'Cheek — spots', ar: 'الخد — تصبغات', ru: 'Щека — пигментация' },
-    concerns: ['pigmentation'],
+    id: 'eye-right',
+    cx: 71, cy: 47,
+    label: { en: 'Eye contour', ar: 'محيط العين', ru: 'Контур глаз' },
+    concerns: ['anti-aging'],
   },
   {
     id: 'nose',
@@ -65,10 +96,16 @@ const ZONES: FaceZone[] = [
     concerns: ['acne-treatment'],
   },
   {
+    id: 'cheek-left',
+    cx: 24, cy: 63,
+    label: { en: 'Cheeks', ar: 'الخدود', ru: 'Щёки' },
+    concerns: ['pigmentation', 'sensitivity'],
+  },
+  {
     id: 'cheek-right',
-    cx: 74, cy: 62,
-    label: { en: 'Cheek — redness', ar: 'الخد — احمرار', ru: 'Щека — покраснение' },
-    concerns: ['sensitivity'],
+    cx: 76, cy: 63,
+    label: { en: 'Cheeks', ar: 'الخدود', ru: 'Щёки' },
+    concerns: ['pigmentation', 'sensitivity'],
   },
   {
     id: 'mouth',
@@ -86,27 +123,28 @@ const ZONES: FaceZone[] = [
 
 const COPY = {
   kicker: {
-    en: 'INTERACTIVE SKIN MAP',
-    ar: 'خريطة البشرة التفاعلية',
-    ru: 'ИНТЕРАКТИВНАЯ КАРТА КОЖИ',
+    en: 'Or start from where it shows',
+    ar: 'أو ابدئي من موضع الظهور',
+    ru: 'Или начните с того, где это заметно',
   },
   title: {
-    en: 'Tap where it bothers you',
-    ar: 'اضغطي على المنطقة التي تزعجك',
-    ru: 'Нажмите на зону, которая вас беспокоит',
+    en: 'Point to the area that bothers you',
+    ar: 'أشيري إلى المنطقة التي تزعجك',
+    ru: 'Укажите зону, которая вас беспокоит',
   },
   subtitle: {
-    en: 'Every zone tells a story. Select one to see the professional Korean protocol for it.',
-    ar: 'كل منطقة تروي قصة. اختاري منطقة لعرض البروتوكول الكوري الاحترافي الخاص بها.',
-    ru: 'Каждая зона расскажет свою историю. Выберите зону — и увидите профессиональный корейский протокол для неё.',
+    en: 'Nine areas, mapped to the same eight concerns as the cards above. Choose one and we will name the protocol for it.',
+    ar: 'تسع مناطق، مرتبطة بالمخاوف الثمانية نفسها في البطاقات أعلاه. اختاري واحدة وسنسمّي البروتوكول الخاص بها.',
+    ru: 'Девять зон, связанных с теми же восемью задачами, что и карточки выше. Выберите зону — и мы назовём протокол для неё.',
   },
-  hint: {
-    en: 'Hover or tap a point on the face',
-    ar: 'مرّري المؤشر أو اضغطي على نقطة على الوجه',
-    ru: 'Наведите курсор или нажмите на точку на лице',
+  resting: {
+    en: 'Select an area on the face and the matching concern appears here.',
+    ar: 'اختاري منطقة على الوجه وسيظهر هنا ما يناسبها.',
+    ru: 'Выберите зону на лице — и соответствующая задача появится здесь.',
   },
-  explore: { en: 'Explore protocol', ar: 'اكتشفي البروتوكول', ru: 'Смотреть протокол' },
-  zoneLabel: { en: 'Selected zone', ar: 'المنطقة المحددة', ru: 'Выбранная зона' },
+  explore: { en: 'See the protocol', ar: 'اطّلعي على البروتوكول', ru: 'Смотреть протокол' },
+  zoneLabel: { en: 'Selected area', ar: 'المنطقة المحددة', ru: 'Выбранная зона' },
+  groupLabel: { en: 'Facial areas', ar: 'مناطق الوجه', ru: 'Зоны лица' },
 }
 
 interface ConcernFaceMapProps {
@@ -115,19 +153,14 @@ interface ConcernFaceMapProps {
 
 export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
   const [activeZoneId, setActiveZoneId] = useState<string | null>(null)
-  const panelRef = useRef<HTMLDivElement | null>(null)
-  const isRTL = locale === 'ar'
+  const isRtl = locale === 'ar'
+  const groupId = useId()
 
-  const selectZone = (zoneId: string, viaTap: boolean) => {
-    setActiveZoneId(zoneId)
-    // On small screens the result panel sits below the face — bring it into
-    // view after a tap so the selection visibly "answers" the user.
-    if (viaTap && typeof window !== 'undefined' && window.innerWidth < 768) {
-      requestAnimationFrame(() => {
-        panelRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
-      })
-    }
-  }
+  /* Respected for both the hotspot pulse and the scan sweep. Neither is load-bearing:
+     the map is fully usable with all motion off. */
+  const reduceMotion = useReducedMotion()
+
+  const Arrow = isRtl ? ArrowLeft : ArrowRight
 
   const activeZone = useMemo(
     () => ZONES.find(z => z.id === activeZoneId) || null,
@@ -145,216 +178,195 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
     locale === 'ar' ? concern.seo.ar : locale === 'ru' ? concern.seo.ru : concern.seo.en
 
   return (
-    <div className="mb-10" dir={isRTL ? 'rtl' : 'ltr'}>
-      {/* Header */}
-      <div className="text-center mb-6">
-        <span className="inline-block text-[11px] font-bold tracking-[0.2em] text-primary-600 mb-2">
-          {COPY.kicker[locale]}
-        </span>
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-          {COPY.title[locale]}
-        </h2>
-        <p className="text-sm text-gray-500 mt-2 max-w-xl mx-auto">
-          {COPY.subtitle[locale]}
-        </p>
-      </div>
-
-      {/* Desktop: centered face only (idle chip list lives in the page-level
-          "Shop by Skin Concern" section). Mobile web keeps face + chips panel. */}
-      <div className="grid grid-cols-1 gap-6 md:gap-8 items-start max-w-4xl mx-auto">
-        {/* ==== Face with hotspots ==== */}
-        <div className="relative mx-auto w-full max-w-sm md:max-w-md select-none">
-          <div className="relative rounded-3xl overflow-hidden shadow-xl ring-1 ring-black/5" style={{ aspectRatio: '4 / 5' }}>
-            <Image
-              src="/images/face-map/face-front.jpg"
-              alt="Interactive skin concern face map"
-              fill
-              sizes="(max-width: 768px) 100vw, 448px"
-              className="object-cover"
-              priority={false}
-            />
-
-            {/* One-time scan sweep for the "AI analysis" feel */}
-            <motion.div
-              initial={{ top: '-8%' }}
-              whileInView={{ top: '108%' }}
-              viewport={{ once: true, amount: 0.4 }}
-              transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.3 }}
-              className="pointer-events-none absolute left-0 right-0 h-10 opacity-70"
-              style={{
-                background:
-                  'linear-gradient(to bottom, transparent, rgba(220,38,38,0.18) 45%, rgba(220,38,38,0.45) 50%, rgba(220,38,38,0.18) 55%, transparent)',
-              }}
-            />
-
-            {/* Hotspots */}
-            {ZONES.map((zone, i) => {
-              const isActive = zone.id === activeZoneId
-              return (
-                <button
-                  key={zone.id}
-                  type="button"
-                  aria-label={zone.label[locale]}
-                  aria-pressed={isActive}
-                  onClick={() => selectZone(zone.id, true)}
-                  onMouseEnter={() => selectZone(zone.id, false)}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 z-10"
-                  style={{ left: `${zone.cx}%`, top: `${zone.cy}%`, touchAction: 'manipulation', WebkitTapHighlightColor: 'transparent' }}
-                >
-                  {/* pulse ring */}
-                  <motion.span
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 1.2 + i * 0.12 }}
-                    className="absolute inset-0 flex items-center justify-center"
-                  >
-                    <span
-                      className={`absolute rounded-full ${isActive ? 'w-9 h-9 bg-primary-500/25' : 'w-7 h-7 bg-white/30'} animate-ping`}
-                      style={{ animationDuration: '2.2s', animationDelay: `${i * 0.25}s` }}
-                    />
-                    <span
-                      className={`relative rounded-full border-2 transition-all duration-200 shadow-md ${
-                        isActive
-                          ? 'w-5 h-5 bg-primary-600 border-white'
-                          : 'w-4 h-4 bg-white/85 border-primary-600'
-                      }`}
-                    />
-                  </motion.span>
-                </button>
-              )
-            })}
-
-            {/* Zone label chip above the active dot (outer div owns position,
-                inner motion.span owns the animation so transforms don't clash) */}
-            <AnimatePresence>
-              {activeZone && (
-                <div
-                  key={activeZone.id}
-                  className="pointer-events-none absolute z-20 flex justify-center w-0"
-                  style={{
-                    left: `${Math.min(Math.max(activeZone.cx, 22), 78)}%`,
-                    top: `calc(${activeZone.cy}% - 42px)`,
-                  }}
-                >
-                  <motion.span
-                    initial={{ opacity: 0, y: 6, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 6, scale: 0.95 }}
-                    transition={{ duration: 0.18 }}
-                    className="inline-block whitespace-nowrap rounded-full bg-gray-900/85 text-white text-[11px] font-medium px-3 py-1.5 backdrop-blur-sm shadow-lg"
-                  >
-                    {activeZone.label[locale]}
-                  </motion.span>
-                </div>
-              )}
-            </AnimatePresence>
-          </div>
+    <section className="mt-14 border-t border-[var(--cera-line)] pt-12" aria-labelledby={`${groupId}-heading`}>
+      <div className="mx-auto max-w-[1100px]">
+        <div className="text-center">
+          <p className="cera-eyebrow">{COPY.kicker[locale]}</p>
+          <h2 id={`${groupId}-heading`} className="cera-serif mt-3 text-[26px] leading-[1.14] text-[var(--cera-ink)] sm:text-[34px]">
+            {COPY.title[locale]}
+          </h2>
+          <p className="mx-auto mt-3 max-w-[54ch] text-[14.5px] leading-relaxed text-[var(--cera-muted)]">
+            {COPY.subtitle[locale]}
+          </p>
         </div>
 
-        {/* ==== Result panel ====
-            Desktop: only after a zone is selected (centered under the face).
-            Mobile web: keep idle hint + quick chips beside/below the face. */}
-        <div
-          ref={panelRef}
-          className={`scroll-mt-24 md:max-w-xl md:mx-auto ${
-            activeConcerns.length > 0 ? 'min-h-0' : 'min-h-[280px] md:hidden md:min-h-0'
-          }`}
-        >
-          <AnimatePresence mode="wait">
-            {activeConcerns.length > 0 ? (
-              <motion.div
-                key={activeZone?.id}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.2 }}
-                className="space-y-4"
-              >
-                <p className="text-xs font-semibold uppercase tracking-wider text-gray-400 text-center">
-                  {COPY.zoneLabel[locale]} — <span className="text-gray-700">{activeZone?.label[locale]}</span>
-                </p>
-                {activeConcerns.map(concern => {
-                  const seo = seoFor(concern)
-                  const visual = getConcernVisual(concern.slug)
+        {/* Face beside the result panel on desktop, stacked on mobile. The panel keeps
+            its space in both, so selecting a zone never shifts the layout and the
+            answer is never below the fold. */}
+        <div className="mt-9 grid grid-cols-1 items-start gap-8 md:grid-cols-[minmax(0,420px)_minmax(0,1fr)] md:gap-12">
+          <div className="relative mx-auto w-full max-w-[420px] select-none">
+            <div
+              className="cera-stage relative overflow-hidden rounded-[28px]"
+              style={{ aspectRatio: '4 / 5' }}
+            >
+              <Image
+                src="/images/face-map/face-front.jpg"
+                alt=""
+                aria-hidden="true"
+                fill
+                sizes="(max-width: 768px) 92vw, 420px"
+                className="object-cover"
+              />
+
+              {!reduceMotion && (
+                <motion.div
+                  initial={{ top: '-8%' }}
+                  whileInView={{ top: '108%' }}
+                  viewport={{ once: true, amount: 0.4 }}
+                  transition={{ duration: 1.6, ease: 'easeInOut', delay: 0.3 }}
+                  className="pointer-events-none absolute inset-x-0 h-10 opacity-60"
+                  style={{
+                    background:
+                      'linear-gradient(to bottom, transparent, rgba(151,40,31,0.14) 45%, rgba(151,40,31,0.34) 50%, rgba(151,40,31,0.14) 55%, transparent)',
+                  }}
+                />
+              )}
+
+              {/* Radiogroup rather than loose buttons: these are nine choices of one
+                  thing, and screen readers should hear them that way. */}
+              <div role="radiogroup" aria-label={COPY.groupLabel[locale]}>
+                {ZONES.map((zone, i) => {
+                  const isActive = zone.id === activeZoneId
                   return (
-                    <Link
-                      key={concern.slug}
-                      href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
-                      className="group block rounded-2xl border border-gray-100 bg-white p-5 shadow-sm hover:shadow-lg hover:border-primary-300 transition-all duration-200"
+                    <button
+                      key={zone.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={isActive}
+                      aria-label={zone.label[locale]}
+                      onClick={() => setActiveZoneId(zone.id)}
+                      onFocus={() => setActiveZoneId(zone.id)}
+                      onMouseEnter={() => setActiveZoneId(zone.id)}
+                      className="absolute z-10 flex h-11 w-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
+                      style={{
+                        left: `${zone.cx}%`,
+                        top: `${zone.cy}%`,
+                        touchAction: 'manipulation',
+                        WebkitTapHighlightColor: 'transparent',
+                      }}
                     >
-                      <div className={`flex items-start gap-4 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
-                        {visual ? (
-                          <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
-                            <Image
-                              src={visual.image}
-                              alt=""
-                              fill
-                              sizes="80px"
-                              className="object-cover"
-                              style={{
-                                objectPosition: visual.imagePosition,
-                                transform: isRTL ? 'scaleX(-1)' : undefined,
-                              }}
-                              aria-hidden="true"
-                            />
-                          </div>
-                        ) : (
-                          concern.icon && <span className="text-3xl leading-none mt-0.5">{concern.icon}</span>
-                        )}
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors leading-snug">
-                            {seo.h1}
-                          </h3>
-                          {seo.heroShort && (
-                            <p className="text-xs text-gray-500 mt-1.5 line-clamp-2 leading-relaxed">{seo.heroShort}</p>
-                          )}
-                          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary-600 mt-3 group-hover:gap-2.5 transition-all">
-                            {COPY.explore[locale]}
-                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d={isRTL ? 'M19 12H5m0 0l7 7m-7-7l7-7' : 'M5 12h14m0 0l-7-7m7 7l-7 7'} />
-                            </svg>
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
+                      {!reduceMotion && (
+                        <span
+                          aria-hidden="true"
+                          className={`absolute rounded-full animate-ping ${
+                            isActive ? 'h-9 w-9 bg-[var(--cera-rose)]/25' : 'h-7 w-7 bg-white/35'
+                          }`}
+                          style={{ animationDuration: '2.4s', animationDelay: `${i * 0.22}s` }}
+                        />
+                      )}
+                      {/* A ring plus a white halo, so it reads as a control on skin
+                          rather than as a mark on the model. */}
+                      <span
+                        aria-hidden="true"
+                        className={`relative rounded-full border-2 shadow-[0_1px_6px_rgba(0,0,0,0.28)] transition-all duration-200 ${
+                          isActive
+                            ? 'h-5 w-5 border-white bg-[var(--cera-rose)]'
+                            : 'h-4 w-4 border-white bg-[var(--cera-rose)]/85'
+                        }`}
+                      />
+                    </button>
                   )
                 })}
-              </motion.div>
-            ) : (
-              <motion.div
-                key="hint"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="h-full md:hidden"
-              >
-                <div className="rounded-2xl border border-dashed border-gray-200 bg-gray-50/60 p-6 text-center">
-                  <span className="text-2xl block mb-2" aria-hidden>👆</span>
-                  <p className="text-sm text-gray-500">{COPY.hint[locale]}</p>
-                </div>
+              </div>
 
-                {/* Quick chips — mobile web only; desktop uses page-level concern grid */}
-                <div className="mt-5 flex flex-wrap gap-2 justify-center">
-                  {CONCERN_PAGES.map(concern => {
+              <AnimatePresence>
+                {activeZone && (
+                  <div
+                    key={activeZone.id}
+                    className="pointer-events-none absolute z-20 flex w-0 justify-center"
+                    style={{
+                      left: `${Math.min(Math.max(activeZone.cx, 22), 78)}%`,
+                      top: `calc(${activeZone.cy}% - 42px)`,
+                    }}
+                  >
+                    <motion.span
+                      initial={{ opacity: 0, y: 6, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 6, scale: 0.95 }}
+                      transition={{ duration: reduceMotion ? 0 : 0.18 }}
+                      className="inline-block whitespace-nowrap rounded-full bg-[var(--cera-ink)]/88 px-3 py-1.5 text-[11px] font-medium text-white shadow-lg backdrop-blur-sm"
+                    >
+                      {activeZone.label[locale]}
+                    </motion.span>
+                  </div>
+                )}
+              </AnimatePresence>
+            </div>
+          </div>
+
+          {/* Result panel. Always present, so there is no empty void while idle and no
+              layout shift when a zone is chosen. */}
+          <div aria-live="polite" className="min-h-[260px]">
+            <AnimatePresence mode="wait">
+              {activeConcerns.length > 0 ? (
+                <motion.div
+                  key={activeZone?.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.2 }}
+                  className="space-y-3"
+                >
+                  <p className="cera-eyebrow">
+                    {COPY.zoneLabel[locale]} — <span className="text-[var(--cera-ink)]">{activeZone?.label[locale]}</span>
+                  </p>
+                  {activeConcerns.map(concern => {
                     const seo = seoFor(concern)
+                    const visual = getConcernVisual(concern.slug)
                     return (
                       <Link
                         key={concern.slug}
                         href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:border-primary-300 hover:text-primary-600 transition-colors"
+                        className="cera-card cera-card-hover group block p-5"
                       >
-                        {concern.icon && <span aria-hidden>{concern.icon}</span>}
-                        {seo.h1}
+                        <div className={`flex items-start gap-4 ${isRtl ? 'flex-row-reverse text-right' : ''}`}>
+                          {visual ? (
+                            <div className="relative h-20 w-20 flex-none overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-[var(--cera-cream-deep)]">
+                              <Image
+                                src={visual.image}
+                                alt=""
+                                fill
+                                sizes="80px"
+                                className="object-cover"
+                                style={{ objectPosition: visual.imagePosition }}
+                                aria-hidden="true"
+                              />
+                            </div>
+                          ) : null}
+                          <div className="min-w-0 flex-1">
+                            <h3 className="cera-serif text-[19px] leading-snug text-[var(--cera-ink)]">
+                              {seo.h1}
+                            </h3>
+                            {seo.heroShort && (
+                              <p className="mt-1.5 line-clamp-2 text-[13.5px] leading-relaxed text-[var(--cera-muted)]">
+                                {seo.heroShort}
+                              </p>
+                            )}
+                            <span className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-[var(--cera-rose-ink)]">
+                              {COPY.explore[locale]}
+                              <Arrow className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
+                            </span>
+                          </div>
+                        </div>
                       </Link>
                     )
                   })}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                </motion.div>
+              ) : (
+                <motion.p
+                  key="resting"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: reduceMotion ? 0 : 0.2 }}
+                  className="flex min-h-[260px] items-center justify-center rounded-[24px] border border-dashed border-[var(--cera-line)] bg-white/50 p-8 text-center text-[14px] leading-relaxed text-[var(--cera-muted)]"
+                >
+                  {COPY.resting[locale]}
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

@@ -109,7 +109,7 @@ export default async function ProductsPage() {
       <ProductsListSchema products={products} />
       <ProductsErrorBoundary>
         <Suspense fallback={<ProductsLoading />}>
-          <ProductsPageClient initialProducts={products} />
+          <ProductsPageClient initialProducts={products} concernCounts={concernCounts} />
         </Suspense>
       </ProductsErrorBoundary>
 
@@ -117,6 +117,7 @@ export default async function ProductsPage() {
           cera-page shell because this block renders on the server, outside the
           products client component. Hidden below sm; still in the DOM for crawlers. */}
       <section
+        data-products-concern-section
         className={`cera-page genosys-page ${ceraSerif.variable} hidden border-t border-[var(--cera-line)] px-4 py-14 sm:block`}
         aria-labelledby="products-concern-heading"
         dir="ltr"

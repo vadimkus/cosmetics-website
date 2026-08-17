@@ -229,7 +229,9 @@
     "skinConcern": "Skin Concern",
     "bundleDiscount": "Bundle Discount",
     "beautyBoxDiscount": "15% OFF on Beauty Boxes",
-    "beautyBoxSavings": "You saved AED {amount} on Beauty Boxes"
+    "beautyBoxSavings": "You saved AED {amount} on Beauty Boxes",
+    "concernModeCount": "{count} skin concerns",
+    "concernModeExit": "Show all products"
   },
   "cart": {
     "title": "Shopping Cart",

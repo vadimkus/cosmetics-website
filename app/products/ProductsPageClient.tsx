@@ -30,6 +30,8 @@ import ProductSort, { SortOption } from '@/components/products/ProductSort'
 import BlackFridayMini from '@/components/BlackFridayMini'
 import BuildYourSetBanner from '@/components/products/BuildYourSetBanner'
 import ConcernFaceMap from '@/components/products/ConcernFaceMap'
+import ConcernShowcase from '@/components/concerns/ConcernShowcase'
+import { CONCERN_PAGES } from '@/lib/concernsData'
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { Product } from '@/types'
 import ProductsListSchema from '@/components/schema/ProductsListSchema'
@@ -81,9 +83,15 @@ interface FilterState {
 
 interface ProductsPageClientProps {
   initialProducts?: Product[]
+  /** Live per-concern product counts, so the concern cards can lead the
+   *  skin-concern view instead of being stranded below the fold. */
+  concernCounts?: Record<string, number> | undefined
 }
 
-export default function ProductsPageClient({ initialProducts = [] }: ProductsPageClientProps) {
+export default function ProductsPageClient({
+  initialProducts = [],
+  concernCounts,
+}: ProductsPageClientProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { t, locale } = useTranslation()
@@ -180,6 +188,22 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
 
     fetchProducts()
   }, [initialProducts.length])
+
+  /* The "Shop by skin concern" block is rendered by the server page as a sibling of
+     this component, so it cannot be reordered from here. In concern mode the cards are
+     rendered above instead, and this flag lets CSS hide the server copy rather than
+     showing the same eight cards twice. A body attribute rather than searchParams on
+     the page, because reading searchParams there would opt the whole listing out of
+     static rendering for the sake of one view. */
+  const inConcernMode = filters.categories.includes('skin-concern')
+  useEffect(() => {
+    const { body } = document
+    if (inConcernMode) body.dataset.productsConcernMode = 'true'
+    else delete body.dataset.productsConcernMode
+    return () => {
+      delete document.body.dataset.productsConcernMode
+    }
+  }, [inConcernMode])
 
   // Debounce timer ref to prevent URL updates from interrupting touch events
   const urlUpdateTimeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -502,10 +526,47 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
           {/* Products Section */}
           <div className="flex-1">
             {filters.categories.includes('skin-concern') ? (
-              /* Skin Concern — interactive face map (chips inside cover direct
-                 access; the site-wide "Shop by Skin Concern" section below the
-                 grid keeps the full card list for scrollers + SEO) */
-              <ConcernFaceMap locale={locale} />
+              /* Skin Concern view. The cards lead, because they carry imagery,
+                 a description and a live product count; the face map follows as a
+                 secondary way in. Audited 17 Aug: previously the face map led and
+                 the cards sat two screens below it.
+
+                 The header row is not decoration — selecting this "category"
+                 replaces the grid, which also removed the sort control, the result
+                 count and the clear-filters link, leaving no visible way back to
+                 the products. The exit below restores that. */
+              <>
+                <div className="products-header mb-6 flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
+                  <p className="text-[13.5px] text-[var(--cera-muted)]">
+                    {t('products.concernModeCount', { count: CONCERN_PAGES.length })}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSearchQuery('')
+                      setFilters({
+                        categories: [],
+                        priceRange: [priceRange.min, priceRange.max],
+                        minRating: 0,
+                        inStockOnly: false,
+                      })
+                    }}
+                    className="products-clear-filters font-semibold text-[var(--cera-rose-ink)] underline underline-offset-2 hover:opacity-70"
+                  >
+                    {t('products.concernModeExit')}
+                  </button>
+                </div>
+
+                <ConcernShowcase
+                  locale={locale}
+                  dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                  concernCounts={concernCounts}
+                  headingId="products-concern-heading"
+                  showCta={false}
+                />
+
+                <ConcernFaceMap locale={locale} />
+              </>
             ) : (
               /* Regular Products View */
               <>

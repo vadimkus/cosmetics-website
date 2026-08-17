@@ -1691,3 +1691,13 @@ html[dir="rtl"] {
     display: flex;
   }
 }
+
+/* Skin-concern view on /products.
+   The "Shop by skin concern" block is server-rendered as a sibling of the products
+   client component, so it cannot be reordered from React. In concern mode the cards
+   are rendered above the face map instead, and this hides the server copy so the same
+   eight cards do not appear twice on one page. Audited 17 Aug 2026: the page was
+   serving 16 links to 8 destinations. */
+body[data-products-concern-mode='true'] [data-products-concern-section] {
+  display: none;
+}

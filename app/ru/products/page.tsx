@@ -75,12 +75,13 @@ export default async function RussianProductsPage() {
           { name: 'Продукция', url: '/ru/products' }
         ]}
       />
-      <ProductsPageClient />
+      <ProductsPageClient concernCounts={concernCounts} />
 
       {/* Shop by Concern — the same showcase the homepage runs, wrapped in a
           cera-page shell because this block renders on the server, outside the
           products client component. Hidden below sm; still in the DOM for crawlers. */}
       <section
+        data-products-concern-section
         className={`cera-page genosys-page ${ceraSerif.variable} hidden border-t border-[var(--cera-line)] px-4 py-14 sm:block`}
         aria-labelledby="products-concern-heading"
         dir="ltr"

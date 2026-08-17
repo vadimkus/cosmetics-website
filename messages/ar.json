@@ -229,7 +229,9 @@
     "skinConcern": "مشاكل البشرة",
     "bundleDiscount": "خصم المجموعة",
     "beautyBoxDiscount": "خصم 15% على صناديق الجمال",
-    "beautyBoxSavings": "وفرت {amount} درهم على صناديق الجمال"
+    "beautyBoxSavings": "وفرت {amount} درهم على صناديق الجمال",
+    "concernModeCount": "{count} من مخاوف البشرة",
+    "concernModeExit": "عرض كل المنتجات"
   },
   "cart": {
     "title": "سلة التسوق",

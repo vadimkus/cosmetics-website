@@ -75,7 +75,7 @@ export default function CheckoutProgress({
           <LockKeyhole className="h-3.5 w-3.5" aria-hidden="true" />
           {text.secure}
         </span>
-        <span className="text-[11px] font-medium text-gray-500 md:text-xs">
+        <span className="text-[11px] font-medium text-[var(--cera-muted)] md:text-xs">
           {text.step(currentIndex + 1, stepOrder.length)}
         </span>
       </div>
@@ -92,24 +92,24 @@ export default function CheckoutProgress({
             <>
               <span
                 className={`block h-1.5 rounded-full transition-colors ${
-                  index <= currentIndex ? 'bg-emerald-600' : 'bg-gray-200'
+                  index <= currentIndex ? 'bg-[var(--cera-rose)]' : 'bg-[var(--cera-line)]'
                 }`}
                 aria-hidden="true"
               />
               <span
                 className={`mt-2 flex min-w-0 items-center gap-1.5 text-[10px] md:gap-2 md:text-sm ${
                   current
-                    ? 'font-bold text-emerald-800'
+                    ? 'font-semibold text-[var(--cera-ink)]'
                     : completed
-                      ? 'font-semibold text-emerald-700'
-                      : 'font-medium text-gray-400'
+                      ? 'font-medium text-[var(--cera-rose-ink)]'
+                      : 'font-medium text-[var(--cera-muted)]'
                 }`}
               >
                 <span
                   className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] md:h-6 md:w-6 md:text-xs ${
                     index <= currentIndex
-                      ? 'bg-emerald-100 text-emerald-700'
-                      : 'bg-gray-100 text-gray-400'
+                      ? 'bg-[var(--cera-blush)] text-[var(--cera-rose-ink)]'
+                      : 'bg-[var(--cera-cream-deep)] text-[var(--cera-muted)]'
                   }`}
                   aria-hidden="true"
                 >
@@ -126,7 +126,7 @@ export default function CheckoutProgress({
               {canReturnToCart ? (
                 <Link
                   href={getLocalizedPath('/cart', locale)}
-                  className="block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+                  className="block rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
                 >
                   {content}
                 </Link>

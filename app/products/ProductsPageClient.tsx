@@ -20,7 +20,6 @@ import '@/components/editorial/editorial.css'
 import { debugLog, errorLog } from '@/lib/logger'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import ProductCard from '@/components/ProductCard'
@@ -382,21 +381,15 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
         {/* "Back to Home" removed on desktop — breadcrumb above already provides the nav path.
            Kept breadcrumb as the single source of truth for going back. */}
 
-        {/* Header. The catalogue had no h1 at all before this — just a logo
-            image and a subtitle — so the page gets a real heading. */}
+        {/* Header. The catalogue had no h1 at all before the rework — just a
+            logo image and a subtitle.
+            The logo is gone now. `prd_logo.png` carries an alpha channel that
+            is filled opaque white, so on the cream page it painted a white
+            rectangle. Swapping in genosys-logo-transparent.png would have
+            fixed that, but it would still be the word GENOSYS three times in
+            three typefaces within 100px: the site header, the mark, and the
+            heading directly below it. */}
         <div className={`text-center ${isMobile ? 'mb-4' : 'mb-6 md:mb-10'}`}>
-          {!isMobile && (
-            <div className="mb-4 flex justify-center">
-              <Image
-                src="/images/prd_logo.png"
-                alt="GENOSYS Logo"
-                width={200}
-                height={80}
-                className="object-contain"
-                priority
-              />
-            </div>
-          )}
           <h1 className="cera-serif text-[28px] leading-[1.08] sm:text-[36px] md:text-[44px]">
             {t('products.title')}
           </h1>

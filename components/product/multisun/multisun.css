@@ -1,0 +1,65 @@
+/**
+ * Palette override for MULTI SUN CREAM (product 40).
+ *
+ * cerabarrier.css supplies the structure; this file only restates the tokens.
+ * Product 39 took violet from its carton keyline. This one is the warm daylight
+ * sibling — the carton and the studio set are amber on white — so it takes a
+ * burnt-amber accent that reads as related but not identical.
+ * Scoped to `.cera-page.msc-page`.
+ */
+
+.cera-page.msc-page {
+  --cera-cream: #fbf8f5;
+  --cera-cream-deep: #f3ece4;
+  --cera-blush: #fbeee1;
+  --cera-blush-deep: #ecd3b4;
+  --cera-rose: #b4622a;
+  --cera-rose-ink: #8c471b;
+  --cera-ink: #1e1813;
+  --cera-body: #443b33;
+  --cera-muted: #6f645b;
+  --cera-line: #ebe3da;
+}
+
+.msc-page .cera-stage {
+  background-color: #f7f1e9;
+  box-shadow: 0 24px 60px -34px rgba(140, 71, 27, 0.4);
+}
+
+@media (hover: hover) {
+  .msc-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(30, 24, 19, 0.04), 0 26px 48px -26px rgba(140, 71, 27, 0.3);
+  }
+}
+
+/* --- Tables --------------------------------------------------------------
+   Three tables carry this page: the filters with their legal caps, the batch
+   assay, and the specification. Banding lets each be read across. */
+
+.msc-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 42%, transparent);
+}
+
+.msc-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Disclosure blocks ---------------------------------------------------
+   The octinoxate section and the fragrance section both argue against the
+   product, so they are set apart rather than dropped into the flow. */
+
+.msc-note {
+  border: 1px solid var(--cera-line);
+  border-inline-start: 3px solid var(--cera-rose);
+  border-radius: 20px;
+  background: #fff;
+}
+
+/* --- The two-sunscreen chooser ------------------------------------------
+   The right-hand card is the one we send people to when octinoxate is the
+   dealbreaker, so it is tinted rather than plain. */
+
+.msc-pick--other {
+  background: linear-gradient(140deg, color-mix(in srgb, var(--cera-blush) 70%, #fff), #fff 65%);
+  border-color: var(--cera-blush-deep);
+}

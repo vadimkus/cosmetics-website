@@ -46,6 +46,7 @@ import BbCushionProductPage from '@/components/product/bbcushion/BbCushionProduc
 import GenoLedProductPage from '@/components/product/genoled/GenoLedProductPage'
 import SeaAlgaeProductPage from '@/components/product/sealgae/SeaAlgaeProductPage'
 import UltraShieldProductPage from '@/components/product/ultrashield/UltraShieldProductPage'
+import MultiSunProductPage from '@/components/product/multisun/MultiSunProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -186,6 +187,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 39 leads on its measured SPF and UVA numbers, which the old page never
   // mentioned. See the source audit.
   '39': UltraShieldProductPage,
+  // 40 explains why it carries more filter than 39 and rates lower, and states
+  // its octinoxate content. See the source audit.
+  '40': MultiSunProductPage,
   // 49 is the only device in the catalogue: no INCI, no routine, and a
   // dosimetry table where the cosmetics pages carry a formula.
   '49': GenoLedProductPage,
@@ -237,6 +241,8 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '36': ['16', '53', '13', '37'],
   // Multi Sun is the lighter sibling; the rest is the post-sun shelf.
   '39': ['40', '36', '16', '13'],
+  // Ultra Shield first: this page sends octinoxate-avoiders straight to it.
+  '40': ['39', '16', '36', '13'],
   // The other five Power Solutions, for the range table on each ampoule's page.
   '4': ['5', '6', '7', '8', '9'],
   '5': ['4', '6', '7', '8', '9'],

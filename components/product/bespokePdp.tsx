@@ -49,6 +49,7 @@ import UltraShieldProductPage from '@/components/product/ultrashield/UltraShield
 import MultiSunProductPage from '@/components/product/multisun/MultiSunProductPage'
 import BlemishBalmProductPage from '@/components/product/blemishbalm/BlemishBalmProductPage'
 import AntiWrinkleSerumProductPage from '@/components/product/antiwrinkle/AntiWrinkleSerumProductPage'
+import AntiWrinkleCreamProductPage from '@/components/product/antiwrinklecream/AntiWrinkleCreamProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -198,6 +199,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 22 leads on the glycerin at 25.45% rather than a peptide complex present at
   // about 1.4 ppm. See the source audit.
   '22': AntiWrinkleSerumProductPage,
+  // 32 is built on the comparison with 22: same actives, opposite bases, and two
+  // specific gravities either side of water. See the source audit.
+  '32': AntiWrinkleCreamProductPage,
   // 49 is the only device in the catalogue: no INCI, no routine, and a
   // dosimetry table where the cosmetics pages carry a formula.
   '49': GenoLedProductPage,
@@ -255,6 +259,8 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '42': ['41', '39', '13', '16'],
   // 32 is the cream sibling; 42 is the fragrance-free option the page names.
   '22': ['32', '16', '42', '13'],
+  // The serum first: this page argues the two belong together, in that order.
+  '32': ['22', '16', '42', '13'],
   // The other five Power Solutions, for the range table on each ampoule's page.
   '4': ['5', '6', '7', '8', '9'],
   '5': ['4', '6', '7', '8', '9'],

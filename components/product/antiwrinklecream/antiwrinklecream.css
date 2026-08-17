@@ -1,0 +1,80 @@
+/**
+ * Palette override for MULTI FUNCTIONAL ANTI-WRINKLE CREAM (product 32).
+ *
+ * cerabarrier.css supplies the structure; this file only restates the tokens.
+ * Deliberately a warmer, deeper reading of the serum's olive-gold, because the
+ * pair belongs together and the comparison table on this page is easier to
+ * follow when the two pages look related rather than identical.
+ * Scoped to `.cera-page.awc-page`.
+ */
+
+.cera-page.awc-page {
+  --cera-cream: #faf8f4;
+  --cera-cream-deep: #eee7d9;
+  --cera-blush: #f3ecdd;
+  --cera-blush-deep: #d9c9a4;
+  --cera-rose: #7a6636;
+  --cera-rose-ink: #5b4b25;
+  --cera-ink: #1b1913;
+  --cera-body: #403c31;
+  --cera-muted: #6a6455;
+  --cera-line: #e8e2d4;
+}
+
+.awc-page .cera-stage {
+  background-color: #f4f0e5;
+  box-shadow: 0 24px 60px -34px rgba(91, 75, 37, 0.4);
+}
+
+@media (hover: hover) {
+  .awc-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(27, 25, 19, 0.04), 0 26px 48px -26px rgba(91, 75, 37, 0.3);
+  }
+}
+
+/* --- Tables -------------------------------------------------------------- */
+
+.awc-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 42%, transparent);
+}
+
+.awc-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- The serum/cream comparison -----------------------------------------
+   Three rows carry the argument: glycerin, oil load and specific gravity.
+   They are marked rather than left for the reader to find. */
+
+.awc-table tbody tr[data-highlight='true'] {
+  background: color-mix(in srgb, var(--cera-blush) 82%, #fff);
+}
+
+.awc-table tbody tr[data-highlight='true'] th[scope='row'] {
+  color: var(--cera-rose-ink);
+  font-weight: 600;
+}
+
+/* The cream's own column, so the reader knows which side they are buying. */
+.awc-table td[data-self='true'] {
+  box-shadow: inset 2px 0 0 var(--cera-rose);
+  font-weight: 600;
+  color: var(--cera-ink);
+}
+
+/* --- Notes --------------------------------------------------------------- */
+
+.awc-note {
+  border: 1px solid var(--cera-line);
+  border-inline-start: 3px solid var(--cera-rose);
+  border-radius: 20px;
+  background: #fff;
+}
+
+/* --- The reformulation before/after ------------------------------------- */
+
+.awc-swap {
+  border: 1px solid var(--cera-line);
+  border-radius: 20px;
+  background: var(--cera-cream);
+}

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function SignupPage() {
   return (
-    <div className="bg-white">
+    <div>
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: '/' },

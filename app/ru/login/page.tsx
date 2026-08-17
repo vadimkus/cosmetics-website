@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 
 export default function RussianLoginPage() {
   return (
-    <div className="bg-white">
+    <div>
       <BreadcrumbSchema
         items={[
           { name: 'Главная', url: '/ru' },

@@ -56,7 +56,7 @@ export const metadata: Metadata = {
 
 export default function ArabicLoginPage() {
   return (
-    <div className="bg-white">
+    <div>
       <BreadcrumbSchema
         items={[
           { name: 'الرئيسية', url: '/ar' },

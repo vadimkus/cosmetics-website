@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function RussianSignupPage() {
   return (
-    <div className="bg-white">
+    <div>
       <BreadcrumbSchema
         items={[
           { name: 'Главная', url: '/ru' },

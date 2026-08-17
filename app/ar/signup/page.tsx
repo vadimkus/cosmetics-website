@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function ArabicSignupPage() {
   return (
-    <div className="bg-white">
+    <div>
       <BreadcrumbSchema
         items={[
           { name: 'الرئيسية', url: '/ar' },

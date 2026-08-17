@@ -10,6 +10,11 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Scalp brush write-off](./SESSION_CHANGES_2026-08-17_SCALP_BRUSH_WRITEOFF.md) | Loss **00008-00498** / **8.10 AED** buy — HR³ Matrix Scalp Brush `54471` ×1. |
+| 🟡 **Important** | [Ilmira Hairulina replenishment](./SESSION_CHANGES_2026-08-17_ILMIRA_HAIRULINA_REPLENISHMENT.md) | Demand **06695** / **550 AED** into agr. **00003** — sea algae ×10, collagen ×10, peptide ×5. Printed landscape. PDF `~/Desktop/orders/GENOSYS_Ilmira_Hairulina_Consignment_Stock_Note_06695.pdf`. |
+| 🟡 **Important** | [Ilmira Hairulina consignment sales](./SESSION_CHANGES_2026-08-17_ILMIRA_HAIRULINA_CONSIGNMENT_SALES.md) | Report **01436** / **898 AED** unpaid (IMFC 250g ×2, collagen ×8, sea algae ×8, peptide ×5). PDF `~/Desktop/orders/GENOSYS_Ilmira_Hairulina_Consignment_Sales_01436.pdf`. |
+| 🟡 **Important** | [Postcream 100g write-off](./SESSION_CHANGES_2026-08-17_POSTCREAM_100G_WRITEOFF.md) | Loss **00008-00497** / **52.52 AED** buy — Soothing Repair Post Cream 100g `54465` ×1. |
+| 🟡 **Important** | [Sales bonus 785 Sagatdinov](./SESSION_CHANGES_2026-08-17_SALES_BONUS_PAYMENTOUT_785.md) | Paymentout **00679** / **785 AED** → Vadim Sagatdinov (expense Sales Bonus). |
 | 🟡 **Important** | [CEIA 04927 collagen + pay 18](./SESSION_CHANGES_2026-08-17_CEIA_04927_COLLAGEN_PAY.md) | Cream **00034** out. Collagen **00063** ×1 @18. Paymentin **06088**. SO **Доставлен**. PDF `~/Desktop/orders/GENOSYS_CEIA_Clinic_04927.pdf`. |
 | 🟡 **Important** | [Milena JBR paymentin 04924](./SESSION_CHANGES_2026-08-17_MILENA_JBR_PAYMENTIN_04924.md) | Paymentin **06087** / **750 AED** @ INV **04924** / SHIP **06676**. SO **GENCardM260812MILJCAM5** → **Доставлен**. |
 | 🟡 **Important** | [Shakirovna Poly Clinic 04932](./SESSION_CHANGES_2026-08-17_SHAKIROVNA_POLY_CLINIC_04932.md) | **GENCardM260812MAR1912** / INV **04932** / SHIP **06685** moved to **SHAKIROVNA POLY CLINIC L.L.C**. Old 920 kept + catalogue adds → **2,640 AED** unpaid. PDF `~/Desktop/orders/GENOSYS_SHAKIROVNA_POLY_CLINIC_04932.pdf`. |
@@ -62,6 +67,7 @@
 | 🟡 **Important** | [Product 51 Bio-Ferment Powder Mask page](./SESSION_CHANGES_2026-08-15_PRODUCT_51_BIO_FERMENT.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: diatomaceous-earth modeling mask, mix 1:1.5, +218% hydration. Cut rice/soy/ginseng/HA and 1 ppb peptides as the engine. |
 | 🟡 **Important** | [Product 19 All For Sensitive Serum page](./SESSION_CHANGES_2026-08-15_PRODUCT_19_ALL_FOR_SENSITIVE_SERUM.md) | Intertek audit + selling-tone rewrite + bespoke EN/AR/RU page. Distinctive fact: MultiEx BSASM® Plus at 1%. Cut repair / anti-inflammatory / lot codes. |
 | 🟡 **Important** | [Product 10 Snow O₂ Cleanser main image](./SESSION_CHANGES_2026-08-15_PRODUCT_10_MAIN_IMAGE.md) | Main-only swap to cache-safe `cleanser/main_clean.jpeg`; gallery S1–S6 preserved; `Main.jpg` kept for emails already sent. |
+| 🟡 **Important** | [SWS marketing slides (HES system)](./SESSION_CHANGES_2026-08-17_SWS_SLIDES.md) | Product 8. HES layout, orange accent, real box + one vial. Desktop only: `~/Desktop/images/sws/s1.jpeg`–`s7.jpeg`. Not on the live gallery. |
 | 🟡 **Important** | [SRS marketing slides (HES system)](./SESSION_CHANGES_2026-08-17_SRS_SLIDES.md) | v3 rebuild after v1/v2 failed the HES test. Real box + one vial, empty plates, helix-above lockup. Desktop only: `~/Desktop/images/srs/s1.jpeg`–`s7.jpeg`. |
 | 🟡 **Important** | [SRS Instagram caption](./SESSION_CHANGES_2026-08-17_SRS_IG_CAPTION.md) | Ready-to-post + short caption for product 13. A REAL PEEL. Verified acids only. No price, no peptide, no neutralize. |
 | 🟡 **Important** | [Product 11 local main3 packshot](./SESSION_CHANGES_2026-08-17_PRODUCT_11_MAIN3.md) | 2048² Skin Defender hero from WhatsApp bottle shots + biphasic studio plate. Local only. Live still `Main2.jpg`. Not pushed. |

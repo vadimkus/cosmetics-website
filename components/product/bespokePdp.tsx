@@ -54,6 +54,7 @@ import NdCellProductPage from '@/components/product/ndcell/NdCellProductPage'
 import PostcreamProductPage from '@/components/product/postcream/PostcreamProductPage'
 import HydroSoothingProductPage from '@/components/product/hydrosoothing/HydroSoothingProductPage'
 import HairTonicProductPage from '@/components/product/hr3/HairTonicProductPage'
+import HairSolutionProductPage from '@/components/product/hr3/HairSolutionProductPage'
 import MediShampooProductPage from '@/components/product/hr3/MediShampooProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
@@ -211,6 +212,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 44 leads on caffeine 1%, which is 100x the tonic's, and refuses the carton's
   // dandruff claim outright.
   '44': MediShampooProductPage,
+  // 45 totals the four growth factors at 1.2 ppm rather than letting the box imply
+  // otherwise, and leads on the vehicle, which is what a needling ampoule really is.
+  '45': HairSolutionProductPage,
   // 28 leads with two measured findings that were sitting unused in the DTS MG
   // deck, and explains the supplier-premix error behind our old snail claim.
   '28': HydroSoothingProductPage,
@@ -291,6 +295,8 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '43': ['44', '46', '45', '48'],
   // The tonic it pairs with, the brush, then the rest of the scalp line.
   '44': ['43', '61', '46', '45'],
+  // The kit it ships inside, the tonic, the peeling that precedes it, then the shampoo.
+  '45': ['47', '43', '46', '44'],
   // The serum first: this page argues the two belong together, in that order.
   '32': ['22', '16', '42', '13'],
   // The other five Power Solutions, for the range table on each ampoule's page.

@@ -366,3 +366,93 @@ isolated slip when the DTS MG conversation eventually happens.
 
 Records and pages for 45 (HAIR SOLUTION α), 46 (SCALP PEELING α) and 47 (MESOPECIA
 KIT). Note 45's asset situation is poor — one gallery image — and 47 has none.
+
+---
+
+## Addendum — product 45, HAIR SOLUTION α
+
+Record corrected and page built. The full dossier exists for this one: signed formula,
+safety assessment (Amendment II, EN09_01_01 E3 21 06 00597), COA lot WNL122, **two**
+registered artworks (homecare and professional), and a DTS MG deck.
+
+### The claim problem is worse here, and it is in English
+
+The tonic's 5α-reductase claim was on a Russian panel. This product's is in **DTS MG's
+own English sales deck**, on three separate slides:
+
+- Concept slide: *"It helps to inhibit the formation of 5α-reductases, the key enzyme
+  which converts testosterone to dihydrotestosterone (DHT). The DHT is the leading
+  cause of male hair loss."*
+- Copper Tripeptide-1 slide: *"encourages hair growth by inhibiting the production of
+  5α-reductases"*, *"helps increase the number of anagen hair follicles"*,
+  *"stimulates dermal papilla cells"*, *"thickens hair by growing the size of hair
+  follicles"*
+- Saw Palmetto slide: *"prevents the conversion of testosterone into DHT by blocking
+  5α-reductases"* — for an ingredient present at **10 ppm**
+
+Plus angiogenesis, vasculogenesis and vasodilation on the VEGF and GF-complex slides,
+and Black Complex described as *"effective for anti-hair loss and hair regrowth"*.
+
+**That is four separate documents in this line asserting a prescription-drug
+mechanism.** It is no longer plausibly a translation slip; it is how the line is
+marketed at source. Worth raising with DTS MG as a pattern, not as three incidents.
+
+### Errors found in our own record
+
+| Problem | Reality |
+|---|---|
+| Size recorded as `5ml*8pcs` | **Both** registered cartons say **4 ml × 8**, and the Russian panel says "Объем 4мл * 8 шт." The deck says 5 ml and is outdated. A deck does not outrank registered artwork |
+| Benefits credited **Sophora japonica** with antioxidant effects | Sophora japonica is **not in this formula at all** — it is in the HAIR TONIC. Copy-paste between two products in the same line |
+| INCI list omitted **1,2-hexanediol** | It is the third ingredient at 2.04246500% and appears in that position on both cartons |
+| "Research papers on the improvement of hair loss" | SA records *"Other Tests: None presented"* and *"Literature Data: Not Applicable"*. No study exists |
+| Saw palmetto as "the formula's key anti-hair-loss botanical" | 10 ppm |
+| "Prevents Hair Loss", "Promotes Hair Regrowth — accelerates angiogenesis", "Enhances Blood Circulation" | Drug claims, all removed |
+
+### The formula, as finished concentrations
+
+Aqua 85.845%, **propylene glycol 9.995%**, 1,2-hexanediol 2.042%, PEG-40 hydrogenated
+castor oil 1.000%, **carbomer 0.450%**, **menthol 0.200%**, butylene glycol 0.111%,
+**niacinamide 0.100%**, **panthenol 0.100%**, triethanolamine 0.100%, glycerin 0.021%,
+**broccoli extract 0.010%**, lecithin 0.010%, dipropylene glycol 0.005%,
+**phenoxyethanol 0.003%** (only 30 ppm), polysorbate 60 0.003%, sodium citrate 0.0015%,
+saw palmetto 0.001%, **copper tripeptide-1 0.0005% (5 ppm)**, sh-Polypeptide-7 and
+sh-Polypeptide-9 0.5 ppm each, sh-Oligopeptide-1 0.15 ppm, sh-Polypeptide-71 0.05 ppm,
+biosaccharide gum-4 0.12 ppm, citric acid 0.0002%, eleven botanicals at 1 ppm each,
+houttuynia 0.1 ppm.
+
+**Growth factors total 1.2 ppm.** The page states each dose and then the sum, because a
+customer cannot derive it and the manufacturer's literature invites the opposite
+inference.
+
+### What the page is actually built on
+
+1. **The growth factors, totalled.** 1.2 ppm, said plainly.
+2. **The vehicle.** On a needling ampoule the carrier is the product: nearly 10%
+   propylene glycol, a solubiliser, and carbomer at 0.450% so it stays on treated skin
+   instead of running down the parting. This is the real, defensible reason to buy it.
+3. **The copper peptide comparison.** 5 ppm here, 1 ppm in the tonic, 0.01 ppm in the
+   shampoo. The one measure where this product genuinely leads the range, and invisible
+   from any label.
+
+### Other findings
+
+- **Registered category is "Leave-In Conditioner (Hair Care)"** — not a treatment.
+- **Pregnancy and lactation: avoid.** Printed on both cartons. The assessor attributes
+  it to the menthol and calls it a conservative scenario. Now on the page.
+- **Patch test non-irritant (QACS)** supports "dermatologically tested", but the
+  assessor notes *"the number of volunteers is not statistically significant"* — stated.
+- **Use a vial immediately once opened.** Phenoxyethanol is only 30 ppm; 1,2-hexanediol
+  does most of the preserving. Professional panel adds "shake well before using".
+- COA: opaque liquid, pH 6.65 (spec 6.00–7.00), viscosity **800** at the floor of an
+  800–1,600 spec, specific gravity 1.0101, <10 cfu/ml, three-year life.
+- Recovered from the Russian panel: **1–2 cm between partings**, absent from the English
+  one. Same pattern as the shampoo's three-minute dwell.
+- **Black Complex is a real branded name** — nine extracts (rice, sesame, soybean,
+  barley, blackberry, black currant, garlic, maca, nigella) at 1 ppm each. Named, not
+  credited with effects.
+- **Asset gap: one gallery image.** `/images/Second/hs.jpg` only. This page will look
+  thin next to 43 and 44 until there is more artwork.
+
+### Still to do
+
+Records and pages for 46 (SCALP PEELING α) and 47 (MESOPECIA KIT). 47 has no images.

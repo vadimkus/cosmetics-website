@@ -52,6 +52,7 @@ import AntiWrinkleSerumProductPage from '@/components/product/antiwrinkle/AntiWr
 import AntiWrinkleCreamProductPage from '@/components/product/antiwrinklecream/AntiWrinkleCreamProductPage'
 import NdCellProductPage from '@/components/product/ndcell/NdCellProductPage'
 import PostcreamProductPage from '@/components/product/postcream/PostcreamProductPage'
+import HydroSoothingProductPage from '@/components/product/hydrosoothing/HydroSoothingProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -200,6 +201,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   '42': BlemishBalmProductPage,
   // 22 leads on the glycerin at 25.45% rather than a peptide complex present at
   // about 1.4 ppm. See the source audit.
+  // 28 leads with two measured findings that were sitting unused in the DTS MG
+  // deck, and explains the supplier-premix error behind our old snail claim.
+  '28': HydroSoothingProductPage,
   // 25 re-attributes the soothing claim to the ingredients that carry it, and
   // prints our old inverted key-ingredient list against the real numbers.
   '25': PostcreamProductPage,
@@ -271,6 +275,8 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '23': ['24', '32', '22', '16'],
   // Post-procedure companions: the SPF BB cream, the booster, SRS and Snow O2.
   '25': ['42', '16', '13', '10'],
+  // The occlusive lid, the postcream, the hyaluron cream and the mist.
+  '28': ['32', '25', '29', '14'],
   // The serum first: this page argues the two belong together, in that order.
   '32': ['22', '16', '42', '13'],
   // The other five Power Solutions, for the range table on each ampoule's page.

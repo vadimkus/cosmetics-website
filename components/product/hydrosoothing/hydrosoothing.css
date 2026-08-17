@@ -1,0 +1,84 @@
+/**
+ * Palette override for INTENSIVE HYDRO SOOTHING CREAM (product 28).
+ *
+ * cerabarrier.css supplies the structure; this file only restates the tokens.
+ * A cool aqua, because this is the one product in the range with a measured
+ * cooling result and it should read that way at a glance.
+ * Scoped to `.cera-page.hsc-page`.
+ */
+
+.cera-page.hsc-page {
+  --cera-cream: #f6fafb;
+  --cera-cream-deep: #e0edf0;
+  --cera-blush: #e7f2f5;
+  --cera-blush-deep: #b3d2da;
+  --cera-rose: #2f6b78;
+  --cera-rose-ink: #1f4c56;
+  --cera-ink: #14201f;
+  --cera-body: #35474a;
+  --cera-muted: #5d7175;
+  --cera-line: #dbeaed;
+}
+
+.hsc-page .cera-stage {
+  background-color: #edf5f7;
+  box-shadow: 0 24px 60px -34px rgba(31, 76, 86, 0.42);
+}
+
+@media (hover: hover) {
+  .hsc-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(20, 32, 31, 0.04), 0 26px 48px -26px rgba(31, 76, 86, 0.32);
+  }
+}
+
+/* --- Tables -------------------------------------------------------------- */
+
+.hsc-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 45%, transparent);
+}
+
+.hsc-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- The premix comparison ----------------------------------------------
+   Two rows are ingredients whose supplier figure IS the real figure, which is
+   what makes the other five instructive. Mark them. */
+
+.hsc-table tbody tr[data-real='true'] {
+  background: color-mix(in srgb, var(--cera-blush) 85%, #fff);
+}
+
+.hsc-table tbody tr[data-real='true'] th[scope='row'],
+.hsc-table tbody tr[data-real='true'] td:last-child {
+  color: var(--cera-rose-ink);
+  font-weight: 600;
+}
+
+/* --- The two measured findings ------------------------------------------ */
+
+.hsc-finding {
+  border: 1px solid var(--cera-blush-deep);
+  border-radius: 22px;
+  background: #fff;
+}
+
+.hsc-finding__value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* --- Notes --------------------------------------------------------------- */
+
+.hsc-note {
+  border: 1px solid var(--cera-line);
+  border-inline-start: 3px solid var(--cera-rose);
+  border-radius: 20px;
+  background: #fff;
+}
+
+/* The caveat under the clinical numbers is deliberately quieter than they are. */
+.hsc-caveat {
+  border-top: 1px solid var(--cera-line);
+  color: var(--cera-muted);
+}

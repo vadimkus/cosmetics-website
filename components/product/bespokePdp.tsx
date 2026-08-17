@@ -47,6 +47,7 @@ import GenoLedProductPage from '@/components/product/genoled/GenoLedProductPage'
 import SeaAlgaeProductPage from '@/components/product/sealgae/SeaAlgaeProductPage'
 import UltraShieldProductPage from '@/components/product/ultrashield/UltraShieldProductPage'
 import MultiSunProductPage from '@/components/product/multisun/MultiSunProductPage'
+import BlemishBalmProductPage from '@/components/product/blemishbalm/BlemishBalmProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -190,6 +191,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 40 explains why it carries more filter than 39 and rates lower, and states
   // its octinoxate content. See the source audit.
   '40': MultiSunProductPage,
+  // 42 completes the inverted filter pattern across 39/40/42 and carries the
+  // mandatory Korean arbutin precaution. See the source audit.
+  '42': BlemishBalmProductPage,
   // 49 is the only device in the catalogue: no INCI, no routine, and a
   // dosimetry table where the cosmetics pages carry a formula.
   '49': GenoLedProductPage,
@@ -243,6 +247,8 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '39': ['40', '36', '16', '13'],
   // Ultra Shield first: this page sends octinoxate-avoiders straight to it.
   '40': ['39', '16', '36', '13'],
+  // The cushion is the shade-matched sibling; 39 is the stronger sun option.
+  '42': ['41', '39', '13', '16'],
   // The other five Power Solutions, for the range table on each ampoule's page.
   '4': ['5', '6', '7', '8', '9'],
   '5': ['4', '6', '7', '8', '9'],

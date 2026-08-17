@@ -1,0 +1,67 @@
+/**
+ * Palette override for INTENSIVE BLEMISH BALM CREAM (product 42).
+ *
+ * cerabarrier.css supplies the structure; this file only restates the tokens.
+ * The three SPF products now each have their own accent so the comparison table
+ * on this page reads as a family rather than a repetition: 39 violet, 40 burnt
+ * amber, 42 the clay-rose of the cream itself, which is iron-oxide tinted.
+ * Scoped to `.cera-page.bbc-page`.
+ */
+
+.cera-page.bbc-page {
+  --cera-cream: #faf7f5;
+  --cera-cream-deep: #f1e8e3;
+  --cera-blush: #f8ebe4;
+  --cera-blush-deep: #e3c4b4;
+  --cera-rose: #a2573f;
+  --cera-rose-ink: #7d3f2b;
+  --cera-ink: #1f1815;
+  --cera-body: #453a34;
+  --cera-muted: #6e625b;
+  --cera-line: #ece2dc;
+}
+
+.bbc-page .cera-stage {
+  background-color: #f6efea;
+  box-shadow: 0 24px 60px -34px rgba(125, 63, 43, 0.4);
+}
+
+@media (hover: hover) {
+  .bbc-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(31, 24, 21, 0.04), 0 26px 48px -26px rgba(125, 63, 43, 0.3);
+  }
+}
+
+/* --- Tables -------------------------------------------------------------- */
+
+.bbc-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 42%, transparent);
+}
+
+/* The row for this product in the three-way comparison. */
+.bbc-table tbody tr[data-self='true'] {
+  background: color-mix(in srgb, var(--cera-blush) 85%, #fff);
+  box-shadow: inset 3px 0 0 var(--cera-rose);
+}
+
+.bbc-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Notes ---------------------------------------------------------------
+   The arbutin warning, the silicone date and the trace-dose note all argue
+   against the product, so they are set apart from the flow. */
+
+.bbc-note {
+  border: 1px solid var(--cera-line);
+  border-inline-start: 3px solid var(--cera-rose);
+  border-radius: 20px;
+  background: #fff;
+}
+
+/* The regulatory quotation from the carton, set as a quotation. */
+.bbc-quote {
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--cera-blush) 70%, #fff);
+  border: 1px solid var(--cera-blush-deep);
+}

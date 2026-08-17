@@ -325,18 +325,19 @@ export default function CartClient() {
           </div>
         )}
         
-        <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16" dir={dir}>
-          {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
-          {!isAppLikeMode && (
-            <PageBreadcrumb
-        items={[
-          { name: t('common.home'), href: getLocalizedPath('/', locale) },
-          { name: t('common.products'), href: getLocalizedPath('/products', locale) },
-          { name: t('common.cart') },
-        ]}
-      />
-          )}
+        {/* Breadcrumb sits above the content container so the empty-cart branch
+            lands at the same offset as every other route. */}
+        {!isAppLikeMode && (
+          <PageBreadcrumb
+            items={[
+              { name: t('common.home'), href: getLocalizedPath('/', locale) },
+              { name: t('common.products'), href: getLocalizedPath('/products', locale) },
+              { name: t('common.cart') },
+            ]}
+          />
+        )}
 
+        <div className="container mx-auto px-4 pb-4 pt-3 md:pb-8 md:pt-4 lg:pb-16" dir={dir}>
           {/* Back to Products - Hide in PWA mode and mobile web */}
           {!isAppLikeMode && (
             <Link 

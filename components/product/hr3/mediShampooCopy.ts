@@ -139,10 +139,10 @@ const EN: MediShampooCopy = {
   eyebrow: 'HR³ MATRIX Medi Scalp Shampoo α · 300 ml',
   headline: 'The one in the range with caffeine at a real dose.',
   subheadline:
-    'A full 1.000% caffeine — a hundred times what is in the hair tonic from this same line. Menthol at 1.120% with menthyl lactate on top of it makes this the hardest-cooling thing GENOSYS makes. No sodium lauryl or laureth sulfate, glycerin at 2.753% so a thorough cleanse does not leave the scalp tight, and a batch pH of 5.6.',
+    'A full 1.000% caffeine — a hundred times what is in the hair tonic from this same line. Menthol at 1.120% with menthyl lactate on top of it is more menthol than anything else GENOSYS makes. No sodium lauryl or laureth sulfate, glycerin at 2.753% so a thorough cleanse does not leave the scalp tight, and a batch pH of 5.6.',
   heroBullets: [
     'Caffeine 1.000% — a hundred times the dose in the hair tonic',
-    'Menthol 1.120% plus menthyl lactate: the coldest in the range',
+    'Menthol 1.120% plus menthyl lactate: the most menthol in the range',
     'No SLS, no SLES — olefin sulfonate and coco-betaine instead',
     'Leave the lather on for three minutes, which the English panel forgets to tell you',
   ],
@@ -197,7 +197,7 @@ const EN: MediShampooCopy = {
       {
         name: 'Menthol, with menthyl lactate',
         dose: '1.120% + 0.080%',
-        body: 'The strongest cooling in the range — roughly three and a half times the menthol in the hair tonic. Menthol is the cold hit in the shower, menthyl lactate is what you still feel ten minutes after towelling off.',
+        body: 'The most menthol in the range — roughly three and a half times the hair tonic. Menthol is the cold hit in the shower, menthyl lactate is what you still feel ten minutes after towelling off.',
       },
       {
         name: 'Caffeine',
@@ -361,7 +361,7 @@ const EN: MediShampooCopy = {
       },
       {
         q: 'How cold is it?',
-        a: 'Very. Menthol at 1.120% plus menthyl lactate is the most cooling formula GENOSYS makes, roughly three and a half times the menthol in the hair tonic. Most people like it, especially in a Dubai summer. On a freshly shaved head, sunburn, or a scalp that is already irritated, it will be too much — rinse sooner, or start every other day.',
+        a: 'Very. At 1.120% this is more menthol than anything else GENOSYS makes, roughly three and a half times the hair tonic. Most people like it, especially in a Dubai summer. On a freshly shaved head, sunburn, or a scalp that is already irritated, it will be too much — rinse sooner, or start every other day.',
       },
       {
         q: 'Can I use it with the hair tonic?',
@@ -381,10 +381,10 @@ const AR: MediShampooCopy = {
   eyebrow: 'شامبو إتش آر³ ماتريكس ميدي للفروة α · 300 مل',
   headline: 'الوحيد في المجموعة بكافيين بجرعة حقيقية.',
   subheadline:
-    'كافيين بنسبة 1.000% كاملة — أي مئة ضعف ما في تونيك الشعر من المجموعة نفسها. ومنثول بنسبة 1.120% فوقه منثيل لاكتات يجعل هذا أقوى ما تصنعه جينوسيس تبريداً. ولا كبريتات لوريل أو لوريث الصوديوم، وجليسرين بنسبة 2.753% حتى لا يترك التنظيف الشامل الفروة مشدودة، وحموضة الدفعة 5.6.',
+    'كافيين بنسبة 1.000% كاملة — أي مئة ضعف ما في تونيك الشعر من المجموعة نفسها. ومنثول بنسبة 1.120% فوقه منثيل لاكتات، وهو منثول أكثر من أي شيء آخر تصنعه جينوسيس. ولا كبريتات لوريل أو لوريث الصوديوم، وجليسرين بنسبة 2.753% حتى لا يترك التنظيف الشامل الفروة مشدودة، وحموضة الدفعة 5.6.',
   heroBullets: [
     'كافيين 1.000% — مئة ضعف الجرعة في تونيك الشعر',
-    'منثول 1.120% مع منثيل لاكتات: الأبرد في المجموعة',
+    'منثول 1.120% مع منثيل لاكتات: أعلى منثول في المجموعة',
     'بلا SLS ولا SLES — أوليفين سلفونات وكوكو-بيتايين بدلاً منها',
     'اتركي الرغوة ثلاث دقائق، وهو ما تنسى اللوحة الإنجليزية ذكره',
   ],
@@ -439,7 +439,7 @@ const AR: MediShampooCopy = {
       {
         name: 'المنثول، مع منثيل لاكتات',
         dose: '1.120% + 0.080%',
-        body: 'أقوى تبريد في المجموعة — نحو ثلاثة أضعاف ونصف منثول تونيك الشعر. فالمنثول هو الضربة الباردة تحت الدوش، والمنثيل لاكتات هو ما تشعرين به بعد عشر دقائق من التنشيف.',
+        body: 'أعلى منثول في المجموعة — نحو ثلاثة أضعاف ونصف تونيك الشعر. فالمنثول هو الضربة الباردة تحت الدوش، والمنثيل لاكتات هو ما تشعرين به بعد عشر دقائق من التنشيف.',
       },
       {
         name: 'Caffeine',
@@ -603,7 +603,7 @@ const AR: MediShampooCopy = {
       },
       {
         q: 'كم هو بارد؟',
-        a: 'بارد جداً. فمنثول 1.120% مع منثيل لاكتات هو أقوى تركيبة تبريداً تصنعها جينوسيس، نحو ثلاثة أضعاف ونصف منثول تونيك الشعر. ويحبّه معظم الناس، خاصة في صيف دبي. وعلى رأس محلوق حديثاً أو حرق شمس أو فروة متهيّجة أصلاً سيكون أكثر من اللازم — فاشطفي أسرع، أو ابدئي كل يومين.',
+        a: 'بارد جداً. فعند 1.120% هذا منثول أكثر من أي شيء آخر تصنعه جينوسيس، نحو ثلاثة أضعاف ونصف تونيك الشعر. ويحبّه معظم الناس، خاصة في صيف دبي. وعلى رأس محلوق حديثاً أو حرق شمس أو فروة متهيّجة أصلاً سيكون أكثر من اللازم — فاشطفي أسرع، أو ابدئي كل يومين.',
       },
       {
         q: 'أيمكن استخدامه مع تونيك الشعر؟',
@@ -623,10 +623,10 @@ const RU: MediShampooCopy = {
   eyebrow: 'HR³ MATRIX MEDI шампунь для кожи головы α · 300 мл',
   headline: 'Единственный в линейке с кофеином в реальной дозе.',
   subheadline:
-    'Полный 1,000% кофеина — в сто раз больше, чем в тонике из этой же линии. Ментол 1,120% плюс ментил лактат сверху делают это самой сильно охлаждающей формулой GENOSYS. Ни лаурилсульфата, ни лауретсульфата натрия, глицерин 2,753%, чтобы тщательное очищение не оставляло кожу головы стянутой, и pH партии 5,6.',
+    'Полный 1,000% кофеина — в сто раз больше, чем в тонике из этой же линии. Ментол 1,120% плюс ментил лактат сверху — это больше ментола, чем в любом другом продукте GENOSYS. Ни лаурилсульфата, ни лауретсульфата натрия, глицерин 2,753%, чтобы тщательное очищение не оставляло кожу головы стянутой, и pH партии 5,6.',
   heroBullets: [
     'Кофеин 1,000% — в сто раз больше, чем в тонике',
-    'Ментол 1,120% плюс ментил лактат: самый холодный в линейке',
+    'Ментол 1,120% плюс ментил лактат: больше всего ментола в линейке',
     'Без SLS и SLES — олефинсульфонат и кокобетаин вместо них',
     'Оставьте пену на три минуты — англоязычная панель об этом забывает',
   ],
@@ -681,7 +681,7 @@ const RU: MediShampooCopy = {
       {
         name: 'Ментол с ментил лактатом',
         dose: '1.120% + 0.080%',
-        body: 'Самое сильное охлаждение в линейке — примерно в три с половиной раза больше ментола, чем в тонике. Ментол — холодный удар в душе, ментил лактат — то, что вы чувствуете и через десять минут после полотенца.',
+        body: 'Больше всего ментола в линейке — примерно в три с половиной раза больше, чем в тонике. Ментол — холодный удар в душе, ментил лактат — то, что вы чувствуете и через десять минут после полотенца.',
       },
       {
         name: 'Caffeine',
@@ -845,7 +845,7 @@ const RU: MediShampooCopy = {
       },
       {
         q: 'Насколько он холодный?',
-        a: 'Очень. Ментол 1,120% плюс ментил лактат — самая охлаждающая формула GENOSYS, примерно в три с половиной раза больше ментола, чем в тонике. Большинству это нравится, особенно в дубайское лето. На свежевыбритой голове, при солнечном ожоге или уже раздражённой коже головы будет слишком — смойте раньше или начните через день.',
+        a: 'Очень. При 1,120% это больше ментола, чем в любом другом продукте GENOSYS, примерно в три с половиной раза больше, чем в тонике. Большинству это нравится, особенно в дубайское лето. На свежевыбритой голове, при солнечном ожоге или уже раздражённой коже головы будет слишком — смойте раньше или начните через день.',
       },
       {
         q: 'Можно вместе с тоником?',

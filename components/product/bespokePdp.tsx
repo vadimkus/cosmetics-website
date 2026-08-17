@@ -56,6 +56,7 @@ import HydroSoothingProductPage from '@/components/product/hydrosoothing/HydroSo
 import HairTonicProductPage from '@/components/product/hr3/HairTonicProductPage'
 import HairSolutionProductPage from '@/components/product/hr3/HairSolutionProductPage'
 import MediShampooProductPage from '@/components/product/hr3/MediShampooProductPage'
+import ScalpPeelingProductPage from '@/components/product/hr3/ScalpPeelingProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -215,6 +216,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 45 totals the four growth factors at 1.2 ppm rather than letting the box imply
   // otherwise, and leads on the vehicle, which is what a needling ampoule really is.
   '45': HairSolutionProductPage,
+  // 46 opens by correcting our own copy, which called a third-alcohol swab solution
+  // gentle, and refuses the deck's disinfection claim outright.
+  '46': ScalpPeelingProductPage,
   // 28 leads with two measured findings that were sitting unused in the DTS MG
   // deck, and explains the supplier-premix error behind our old snail claim.
   '28': HydroSoothingProductPage,
@@ -297,6 +301,8 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '44': ['43', '61', '46', '45'],
   // The kit it ships inside, the tonic, the peeling that precedes it, then the shampoo.
   '45': ['47', '43', '46', '44'],
+  // The ampoule it precedes, the kit that pairs them, then the daily products.
+  '46': ['45', '47', '44', '43'],
   // The serum first: this page argues the two belong together, in that order.
   '32': ['22', '16', '42', '13'],
   // The other five Power Solutions, for the range table on each ampoule's page.

@@ -456,3 +456,99 @@ inference.
 ### Still to do
 
 Records and pages for 46 (SCALP PEELING α) and 47 (MESOPECIA KIT). 47 has no images.
+
+---
+
+## Addendum — product 46, SCALP PEELING α
+
+Record corrected and page built. Sources: signed formula, SA QACS 22 06 00966 (July
+2022), an older assessment filed under "CSP CLINICAL SCALP PEELING", COA lot WNL088,
+DTS MG deck. **The registered artwork PDF has no text layer**, so no panel wording could
+be read and nothing on the page is attributed to the carton — the safety section says so.
+
+### What this product actually is
+
+Not a peel. A **scalp prep solution**. A third of the bottle is denatured alcohol
+(33.600%) with propylene glycol at 11.994%; it is applied on a **cotton swab, rubbed in
+firmly** and **not rinsed off**. Its job is to strip oil and build-up so the Hair
+Solution ampoule that follows is needled into clean skin. The deck's own instruction is
+"drop 5 ml into the glass cylinder, dip swab, hold right under the swab head and rub
+rather powerfully."
+
+Understood that way it is a good product. Described as a gentle exfoliating peel — which
+is how our record described it — it is a misleading one.
+
+### The formula
+
+Aqua 50.131%, **alcohol denat. 33.600%**, propylene glycol 11.994%, PEG-60 hydrogenated
+castor oil 2.000%, **menthol 0.900%**, **menthyl lactate 0.800%**, phenoxyethanol
+0.200%, chlorphenesin 0.150%, betaine 0.100%, t-butyl alcohol 0.0875%, disodium EDTA
+0.020%, **salicylic acid 0.00990% (99 ppm)**, dipropylene glycol 0.006%, butylene glycol
+0.0007%, denatonium benzoate 0.00029%, 1,2-hexanediol 0.00008%, camellia sinensis
+0.5 ppm, sixteen botanicals at 0.1 ppm each, **copper tripeptide-1 0.0000005% (5 ppb)**.
+
+### Errors in our own record
+
+| Problem | Reality |
+|---|---|
+| Called **"gentle"** three times | 33.6% alcohol, 1.7% cooling agents, rubbed in with a swab |
+| Alcohol never disclosed | Second ingredient, a third of the bottle |
+| Salicylic acid presented as the lead exfoliant | **99 ppm** — a twenty-fifth of the tonic's 0.250%. The alcohol and glycol do the work |
+| **Copper tripeptide-1 listed as a key ingredient** | **5 parts per billion** — the lowest concentration of anything in the entire range |
+| Green tea listed as a key ingredient | 0.5 ppm |
+| **"Disinfecting Properties"** | Alcohol needs ~60–70% to act as an antiseptic; this is 33.6%. The page now states the opposite explicitly, because someone needling at home might otherwise rely on it |
+| "Enhanced Blood Circulation", "Anti-Inflammatory Action" | Physiological / therapeutic claims from the deck's camellia and Black Complex slides |
+| INCI omitted **1,2-hexanediol** | Sits between butylene glycol and menthyl lactate. Same omission class as product 45 |
+
+### Cooling totals across the line — and a correction to the shampoo page
+
+| Product | Menthol | Other agents | **Total** |
+|---|---|---|---|
+| **Scalp Peeling α** | 0.900% | menthyl lactate 0.800% | **1.700%** |
+| Medi Scalp Shampoo α | **1.120%** | menthyl lactate 0.080% | 1.200% |
+| Hair Tonic α | 0.300% | two agents at 0.040% | 0.380% |
+| Hair Solution α | 0.200% | — | 0.200% |
+
+The shampoo page had claimed to be "the hardest-cooling thing GENOSYS makes". It has the
+most **menthol**, but the peeling has more total cooling agent. **Twelve strings across
+EN/AR/RU in `mediShampooCopy.ts` were corrected to say "most menthol"** rather than
+"hardest-cooling" / "coldest in the range". Keep the two pages consistent if either
+figure changes.
+
+### Sixth document asserting the drug mechanism
+
+The deck's copper tripeptide slide repeats *"encourages hair growth by inhibiting the
+production of 5α-reductases"*, *"helps increase the number of anagen hair follicles"*,
+*"stimulates dermal papilla cells"* and *"thickens hair by growing the size of hair
+follicles"* — for an ingredient present at **five parts per billion**. Its saw palmetto
+slide repeats the DHT-blocking claim for an ingredient at **0.1 ppm**.
+
+Running total of documents in this line asserting 5α-reductase inhibition or equivalent:
+tonic Russian panel, Hair Solution deck (×3 slides), Scalp Peeling deck (×2 slides).
+
+### Other findings
+
+- **Registered category "Hair care"**, and the older assessment states plainly: *"The
+  product is applied on the scalp and hair and it is not rinsed off."* Assessed
+  toxicologically as a leave-on.
+- **20-subject use test exists** (QACS) — recorded in the SA as "Other Tests: Use Test
+  Panel Of 20 Subjects" with **no results**. Mentioned, no result claimed.
+- Patch test non-irritant, with the same assessor caveat about volunteer numbers.
+- **Denatonium benzoate** is in the formula: a bittering agent so the denatured alcohol
+  cannot be drunk. Worth stating rather than hiding.
+- **Flammable** at 33.6% alcohol — the page tells people to let the scalp dry before a
+  dryer or styling iron.
+- The older assessment describes a superseded formula preserved with **methylparaben and
+  iodopropynyl butylcarbamate**; the current formula contains neither. Third stale-SA
+  case in this line after the tonic and the shampoo generations.
+- COA: transparent liquid, pH 4.31 (spec 4.00–5.00), **passes stability at 50 °C**,
+  bacteria and moulds both <10 cfu/ml against 100 each, fill 100.33 ml, three-year life.
+- No pregnancy instruction could be read from the carton, so the page does not claim one.
+  It signposts that the sibling ampoule carries a pregnancy caution attributed to its
+  menthol and that this formula has 4.5× as much, then says to ask a doctor.
+- **Asset gap: one gallery image** (`/images/Second/pp.jpg`).
+
+### Still to do
+
+Product 47, MESOPECIA KIT — the bundle of 46 + 45 plus a stamp. **It has no images at
+all.**

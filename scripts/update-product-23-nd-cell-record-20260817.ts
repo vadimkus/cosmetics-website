@@ -199,7 +199,7 @@ async function main() {
   if (!product) throw new Error('product 23 not found')
 
   const details = JSON.parse(product.productDetails || '{}') as Record<string, string>
-  details.size = '50 g'
+  details.size = '50 g, pump bottle'
   details.appliedTo = 'Neck and décolleté. Do not use near the eyes'
   details.formulation =
     'Squalane 5.00%, dimethicone 3.00%, vitamin E 1.00%, phenyl trimethicone 1.00%, jojoba 0.500%, panthenol 0.300%, allantoin 0.200%, adenosine 0.040%, ceramide NP 0.020%'

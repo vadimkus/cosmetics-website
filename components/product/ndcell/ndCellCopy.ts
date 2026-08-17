@@ -333,11 +333,11 @@ const EN: NdCellCopy = {
 
   inci: {
     eyebrow: 'The formula',
-    title: 'Everything in the tube',
+    title: 'Everything in the bottle',
     intro: 'The named ingredients with their concentrations, then the complete list.',
     fullInci: 'Full ingredient list (INCI)',
     fullInciNote:
-      'Transcribed from the current signed manufacturing formula. If you compare it with an older carton you will find differences: the printed list still carries a few ingredients that have since been removed and omits tocopherol and linalool. The list here is the one that matches what is in the tube.',
+      'Transcribed from the current signed manufacturing formula. If you compare it with an older carton you will find differences: the printed list still carries a few ingredients that have since been removed and omits tocopherol and linalool. The list here is the one that matches what is in the bottle.',
   },
 
   safety: {
@@ -359,7 +359,7 @@ const EN: NdCellCopy = {
     eyebrow: 'The details',
     title: 'Specification',
     rows: [
-      { label: 'Size', value: '50 g' },
+      { label: 'Size', value: '50 g, pump bottle' },
       { label: 'For', value: 'Neck and décolleté' },
       { label: 'Texture', value: 'White cream, rich and sealing' },
       { label: 'Actives at dose', value: 'Squalane 5.00%, dimethicone 3.00%, vitamin E 1.00%, panthenol 0.300%, allantoin 0.200%, adenosine 0.040%' },
@@ -585,11 +585,11 @@ const AR: NdCellCopy = {
 
   inci: {
     eyebrow: 'التركيبة',
-    title: 'كل ما في الأنبوب',
+    title: 'كل ما في العبوة',
     intro: 'المكوّنات المذكورة بتراكيزها، ثم القائمة الكاملة.',
     fullInci: 'قائمة المكوّنات الكاملة (INCI)',
     fullInciNote:
-      'منقولة من تركيبة التصنيع الموقّعة الحالية. وإن قارنتِها بعلبة أقدم فستجدين فوارق: فالقائمة المطبوعة لا تزال تحمل مكوّنات أُزيلت لاحقاً وتُسقط التوكوفيرول واللينالول. والقائمة هنا هي المطابقة لما في الأنبوب.',
+      'منقولة من تركيبة التصنيع الموقّعة الحالية. وإن قارنتِها بعلبة أقدم فستجدين فوارق: فالقائمة المطبوعة لا تزال تحمل مكوّنات أُزيلت لاحقاً وتُسقط التوكوفيرول واللينالول. والقائمة هنا هي المطابقة لما في العبوة.',
   },
 
   safety: {
@@ -611,7 +611,7 @@ const AR: NdCellCopy = {
     eyebrow: 'التفاصيل',
     title: 'المواصفات',
     rows: [
-      { label: 'الحجم', value: '50 غ' },
+      { label: 'الحجم', value: '50 غ، عبوة بمضخّة' },
       { label: 'لأجل', value: 'الرقبة والصدر' },
       { label: 'الملمس', value: 'كريم أبيض، غنيّ وعازل' },
       { label: 'الفعّالات بجرعة', value: 'سكوالان 5.00%، دايميثيكون 3.00%، فيتامين E 1.00%، بانثينول 0.300%، ألانتوين 0.200%، أدينوزين 0.040%' },
@@ -837,11 +837,11 @@ const RU: NdCellCopy = {
 
   inci: {
     eyebrow: 'Состав',
-    title: 'Всё, что в тубе',
+    title: 'Всё, что во флаконе',
     intro: 'Названные ингредиенты с концентрациями, затем полный список.',
     fullInci: 'Полный список ингредиентов (INCI)',
     fullInciNote:
-      'Перенесено из текущей подписанной производственной формулы. Если сравните со старой коробкой, найдёте расхождения: печатный список всё ещё несёт несколько ингредиентов, которые с тех пор убрали, и не содержит токоферол и линалоол. Список здесь — тот, что соответствует содержимому тубы.',
+      'Перенесено из текущей подписанной производственной формулы. Если сравните со старой коробкой, найдёте расхождения: печатный список всё ещё несёт несколько ингредиентов, которые с тех пор убрали, и не содержит токоферол и линалоол. Список здесь — тот, что соответствует содержимому флакона.',
   },
 
   safety: {
@@ -863,7 +863,7 @@ const RU: NdCellCopy = {
     eyebrow: 'Детали',
     title: 'Характеристики',
     rows: [
-      { label: 'Объём', value: '50 г' },
+      { label: 'Объём', value: '50 г, флакон с помпой' },
       { label: 'Для', value: 'Шеи и декольте' },
       { label: 'Текстура', value: 'Белый крем, богатый и запечатывающий' },
       { label: 'Активы в дозе', value: 'Сквалан 5,00%, диметикон 3,00%, витамин E 1,00%, пантенол 0,300%, аллантоин 0,200%, аденозин 0,040%' },

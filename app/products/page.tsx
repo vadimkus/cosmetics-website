@@ -2,7 +2,9 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { unstable_cache } from 'next/cache'
 import ProductsPageClient from './ProductsPageClient'
-import ConcernLinkGrid from '@/components/products/ConcernLinkGrid'
+import ConcernShowcase from '@/components/concerns/ConcernShowcase'
+import { getConcernCounts } from '@/lib/concernCounts'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ProductsListSchema from '@/components/schema/ProductsListSchema'
 import { ProductsErrorBoundary } from '@/components/error-boundaries'
@@ -91,6 +93,7 @@ export const metadata: Metadata = {
 export default async function ProductsPage() {
   // Fetch products on the server (cached for 60 seconds)
   const products = await getProducts()
+  const concernCounts = await getConcernCounts()
 
   return (
     <>
@@ -110,13 +113,20 @@ export default async function ProductsPage() {
         </Suspense>
       </ProductsErrorBoundary>
 
-      {/* Shop by Concern - Hidden on mobile web, visible on desktop (still in DOM for crawlers) */}
-      <section className="hidden sm:block bg-primary-50 py-10 px-4 mt-8 border-t border-primary-100">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Shop by Skin Concern</h2>
-          <p className="text-gray-500 mb-6">Find the right products for your specific skin needs</p>
-          <ConcernLinkGrid locale="en" />
-        </div>
+      {/* Shop by Concern — the same showcase the homepage runs, wrapped in a
+          cera-page shell because this block renders on the server, outside the
+          products client component. Hidden below sm; still in the DOM for crawlers. */}
+      <section
+        className={`cera-page genosys-page ${ceraSerif.variable} hidden border-t border-[var(--cera-line)] px-4 py-14 sm:block`}
+        aria-labelledby="products-concern-heading"
+        dir="ltr"
+      >
+        <ConcernShowcase
+          locale="en"
+          dir="ltr"
+          concernCounts={concernCounts}
+          headingId="products-concern-heading"
+        />
       </section>
     </>
   )

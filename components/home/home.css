@@ -54,80 +54,6 @@
    Category and concern tiles: an image with copy beneath or beside it. The
    image scales on hover, the tile lifts, and both stop for reduced motion. */
 
-.genosys-home .home-tile {
-  background: #fff;
-  border: 1px solid var(--cera-line);
-  border-radius: 18px;
-  overflow: hidden;
-  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease,
-    border-color 320ms ease;
-}
-
-@media (hover: hover) {
-  .genosys-home .home-tile:hover {
-    transform: translateY(-3px);
-    border-color: var(--cera-blush-deep);
-    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 22px 44px -26px rgba(151, 40, 31, 0.3);
-  }
-
-  .genosys-home .home-tile:hover .home-tile__image {
-    transform: scale(1.035);
-  }
-}
-
-.genosys-home .home-tile__image {
-  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* The concern tiles lay copy over the photograph, so the image is mirrored in
-   Arabic to keep the subject away from the text column. */
-.genosys-home[dir='rtl'] .home-tile__image--mirrored {
-  transform: scaleX(-1);
-}
-
-@media (hover: hover) {
-  .genosys-home[dir='rtl'] .home-tile:hover .home-tile__image--mirrored {
-    transform: scaleX(-1.035) scaleY(1.035);
-  }
-}
-
-/* Copy sits in the first half of a concern tile and the photograph fills the
-   whole card behind it, so the text needs a wash to stay legible. */
-.genosys-home .home-tile__wash {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.94) 0%,
-    rgba(255, 255, 255, 0.72) 28%,
-    rgba(255, 255, 255, 0.22) 45%,
-    transparent 58%
-  );
-}
-
-.genosys-home[dir='rtl'] .home-tile__wash {
-  background: linear-gradient(
-    270deg,
-    rgba(255, 255, 255, 0.94) 0%,
-    rgba(255, 255, 255, 0.72) 28%,
-    rgba(255, 255, 255, 0.22) 45%,
-    transparent 58%
-  );
-}
-
-.genosys-home .home-concern-card {
-  min-height: 196px;
-}
-
-@media (min-width: 960px) {
-  .genosys-home .home-concern-card {
-    min-height: 176px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .genosys-home .home-concern-card {
-    min-height: 200px;
-  }
-}
 
 /* --- Newsletter field ----------------------------------------------------
    Input and submit share one pill, so the input drops its own border and the
@@ -167,10 +93,10 @@
   color: color-mix(in srgb, var(--cera-muted) 70%, #fff);
 }
 
+/* The tile entries moved to editorial.css alongside the tile rules, so the
+   /products showcase honours reduced motion too. */
 @media (prefers-reduced-motion: reduce) {
   .genosys-home .home-product-card,
-  .genosys-home .home-tile,
-  .genosys-home .home-tile__image,
   .genosys-home .home-subscribe {
     transition: none;
   }

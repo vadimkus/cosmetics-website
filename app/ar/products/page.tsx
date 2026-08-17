@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ProductsPageClient from '../../products/ProductsPageClient'
-import ConcernLinkGrid from '@/components/products/ConcernLinkGrid'
+import ConcernShowcase from '@/components/concerns/ConcernShowcase'
+import { getConcernCounts } from '@/lib/concernCounts'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 export const metadata: Metadata = {
   title: 'منتجات GENOSYS - مجموعة مستحضرات التجميل الكورية الاحترافية في الإمارات',
@@ -62,7 +64,9 @@ export const metadata: Metadata = {
   },
 }
 
-export default function ArabicProductsPage() {
+export default async function ArabicProductsPage() {
+  const concernCounts = await getConcernCounts()
+
   return (
     <>
       <BreadcrumbSchema
@@ -73,12 +77,20 @@ export default function ArabicProductsPage() {
       />
       <ProductsPageClient />
 
-      <section className="hidden sm:block bg-primary-50 py-10 px-4 mt-8 border-t border-primary-100" dir="rtl">
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">تسوق حسب مشكلة البشرة</h2>
-          <p className="text-gray-500 mb-6">اعثر على المنتجات المناسبة لاحتياجات بشرتك</p>
-          <ConcernLinkGrid locale="ar" />
-        </div>
+      {/* Shop by Concern — the same showcase the homepage runs, wrapped in a
+          cera-page shell because this block renders on the server, outside the
+          products client component. Hidden below sm; still in the DOM for crawlers. */}
+      <section
+        className={`cera-page genosys-page ${ceraSerif.variable} hidden border-t border-[var(--cera-line)] px-4 py-14 sm:block`}
+        aria-labelledby="products-concern-heading"
+        dir="rtl"
+      >
+        <ConcernShowcase
+          locale="ar"
+          dir="rtl"
+          concernCounts={concernCounts}
+          headingId="products-concern-heading"
+        />
       </section>
     </>
   )

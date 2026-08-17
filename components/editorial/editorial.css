@@ -304,3 +304,90 @@
     transition: none;
   }
 }
+
+/* --- Concern tiles -------------------------------------------------------
+   Shared by the homepage band and the /products showcase. Scoped to
+   .cera-page rather than .genosys-home so both routes pick them up; every
+   editorial route puts dir on that same element, which the RTL rules need. */
+
+.cera-page .home-tile {
+  background: #fff;
+  border: 1px solid var(--cera-line);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease,
+    border-color 320ms ease;
+}
+
+@media (hover: hover) {
+  .cera-page .home-tile:hover {
+    transform: translateY(-3px);
+    border-color: var(--cera-blush-deep);
+    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 22px 44px -26px rgba(151, 40, 31, 0.3);
+  }
+
+  .cera-page .home-tile:hover .home-tile__image {
+    transform: scale(1.035);
+  }
+}
+
+.cera-page .home-tile__image {
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The concern tiles lay copy over the photograph, so the image is mirrored in
+   Arabic to keep the subject away from the text column. */
+.cera-page[dir='rtl'] .home-tile__image--mirrored {
+  transform: scaleX(-1);
+}
+
+@media (hover: hover) {
+  .cera-page[dir='rtl'] .home-tile:hover .home-tile__image--mirrored {
+    transform: scaleX(-1.035) scaleY(1.035);
+  }
+}
+
+/* Copy sits in the first half of a concern tile and the photograph fills the
+   whole card behind it, so the text needs a wash to stay legible. */
+.cera-page .home-tile__wash {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(255, 255, 255, 0.72) 28%,
+    rgba(255, 255, 255, 0.22) 45%,
+    transparent 58%
+  );
+}
+
+.cera-page[dir='rtl'] .home-tile__wash {
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(255, 255, 255, 0.72) 28%,
+    rgba(255, 255, 255, 0.22) 45%,
+    transparent 58%
+  );
+}
+
+.cera-page .home-concern-card {
+  min-height: 196px;
+}
+
+@media (min-width: 960px) {
+  .cera-page .home-concern-card {
+    min-height: 176px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .cera-page .home-concern-card {
+    min-height: 200px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cera-page .home-tile,
+  .cera-page .home-tile__image {
+    transition: none;
+  }
+}

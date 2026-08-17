@@ -2,7 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { cleanup, render, screen } from '@testing-library/react'
 import ConcernHero from '@/components/ConcernHero'
-import ConcernLinkGrid from '@/components/products/ConcernLinkGrid'
+import ConcernShowcase from '@/components/concerns/ConcernShowcase'
 import { CONCERN_PAGES, getAllConcernSlugs } from '@/lib/concernsData'
 import { CONCERN_VISUALS, getConcernVisual } from '@/lib/concernVisuals'
 
@@ -57,14 +57,16 @@ describe('shared concern visuals', () => {
     }
   })
 
-  it('renders the same eight images in the products concern grid', () => {
-    const { container } = render(<ConcernLinkGrid locale="en" />)
+  it('renders the same eight images in the shared concern showcase', () => {
+    // /products and the homepage render this identical block, so one assertion
+    // covers both. Nine links: eight concerns plus the skin-analysis CTA.
+    const { container } = render(<ConcernShowcase locale="en" dir="ltr" />)
     const images = Array.from(container.querySelectorAll('img')).map(image =>
       image.getAttribute('src')
     )
 
     expect(images).toEqual(Object.values(EXPECTED_IMAGES))
-    expect(screen.getAllByRole('link')).toHaveLength(8)
+    expect(screen.getAllByRole('link')).toHaveLength(9)
   })
 
   it('mirrors the shared visual and preserves RTL Arabic composition', () => {

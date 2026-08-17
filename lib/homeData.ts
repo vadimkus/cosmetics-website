@@ -1,8 +1,9 @@
 import { unstable_cache } from 'next/cache'
-import { getAllProducts, filterProductsByConcern } from '@/lib/productsDb'
+import { getAllProducts } from '@/lib/productsDb'
+import { countProductsByConcern } from '@/lib/concernCounts'
 import { prisma } from '@/lib/prisma'
 import { warnLog } from '@/lib/logger'
-import { CONCERN_PAGES, CATEGORY_PAGES } from '@/lib/concernsData'
+import { CATEGORY_PAGES } from '@/lib/concernsData'
 import type { Product } from '@/types'
 
 /**
@@ -211,17 +212,9 @@ export const getHomeData = unstable_cache(
       }
     }
 
-    // Concern tile counts — same matching the concern landing pages use, so
-    // the number on the homepage card equals what the visitor finds after
-    // clicking through.
-    const concernCounts: Record<string, number> = {}
-    for (const concern of CONCERN_PAGES) {
-      concernCounts[concern.slug] = filterProductsByConcern(
-        visible,
-        concern.concernKeys,
-        concern.categoryFallbacks
-      ).length
-    }
+    // Concern tile counts — shared with /products, which renders the same
+    // showcase and must not print a different number for the same concern.
+    const concernCounts = countProductsByConcern(visible)
 
     // New arrivals — newest products added in the last NEW_ARRIVAL_WINDOW_DAYS,
     // excluding anything already on the bestsellers rail. Doubles as internal

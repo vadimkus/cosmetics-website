@@ -1,0 +1,104 @@
+/**
+ * Shared palette for the HR³ MATRIX scalp line (products 43–47).
+ *
+ * One stylesheet for the five products on purpose: they are sold as a system, two
+ * of them are components of a third, and the pages cross-reference each other
+ * constantly. A shared palette makes that read as one family instead of five
+ * unrelated pages.
+ *
+ * Cool mint, because the one thing every product in this line genuinely does is
+ * cool the scalp — menthol runs from 0.200% in the ampoule to 1.120% in the
+ * shampoo, and it is the only ingredient present at a working dose in all of them.
+ *
+ * cerabarrier.css supplies the structure; this only restates the tokens.
+ * Scoped to `.cera-page.hr3-page`.
+ */
+
+.cera-page.hr3-page {
+  --cera-cream: #f6faf8;
+  --cera-cream-deep: #e2efe9;
+  --cera-blush: #e8f3ee;
+  --cera-blush-deep: #b7d6c8;
+  --cera-rose: #2f6b55;
+  --cera-rose-ink: #1f4b3b;
+  --cera-ink: #131d19;
+  --cera-body: #354540;
+  --cera-muted: #5d6f68;
+  --cera-line: #dceae4;
+}
+
+.hr3-page .cera-stage {
+  background-color: #edf5f1;
+  box-shadow: 0 24px 60px -34px rgba(31, 75, 59, 0.42);
+}
+
+@media (hover: hover) {
+  .hr3-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(19, 29, 25, 0.04), 0 26px 48px -26px rgba(31, 75, 59, 0.32);
+  }
+}
+
+/* --- Tables -------------------------------------------------------------- */
+
+.hr3-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 45%, transparent);
+}
+
+.hr3-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+.hr3-table tbody tr[data-real='true'] {
+  background: color-mix(in srgb, var(--cera-blush) 85%, #fff);
+}
+
+.hr3-table tbody tr[data-real='true'] th[scope='row'],
+.hr3-table tbody tr[data-real='true'] td {
+  color: var(--cera-rose-ink);
+  font-weight: 600;
+}
+
+/* --- Contraindications ---------------------------------------------------
+   The tonic carries a real avoid-list off the Korean panel: salicylate
+   sensitivity, diabetes, circulatory disorders, renal impairment, pregnancy and
+   menstruation. That is a safety instruction, not a proportion note, so it gets
+   amber and a solid edge like the peanut block on product 23. */
+
+.hr3-alert {
+  border: 1px solid #e0c9a4;
+  border-inline-start: 4px solid #b4801f;
+  border-radius: 20px;
+  background: #fdf8ef;
+}
+
+.hr3-alert__title {
+  color: #6f4d0d;
+}
+
+.hr3-alert ul {
+  list-style: none;
+}
+
+/* --- The assayed actives -------------------------------------------------
+   Three functional actives measured on the batch, which no other product in the
+   range manages. Worth its own treatment. */
+
+.hr3-assay {
+  border: 1px solid var(--cera-blush-deep);
+  border-radius: 22px;
+  background: #fff;
+}
+
+.hr3-assay__value {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* --- Notes --------------------------------------------------------------- */
+
+.hr3-note {
+  border: 1px solid var(--cera-line);
+  border-inline-start: 3px solid var(--cera-rose);
+  border-radius: 20px;
+  background: #fff;
+}

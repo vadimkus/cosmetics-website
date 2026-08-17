@@ -1,0 +1,252 @@
+# HR³ MATRIX hair line (products 43–47) — source audit
+
+Audited as a set, because the five products share a claim framework and two of
+them are components of the third. **This audit found the most serious claim problem
+of the whole week, and it is printed on a carton rather than on our website.**
+
+Read this before building any of the five pages.
+
+## ★ Urgent: the Russian panel on the hair tonic makes a drug claim
+
+`Registration DOC/Artwork/[GENOSYS]HR3 MATRIX HAIR TONIC α.pdf`, Russian panel:
+
+> Профессиональный тоник борется с выпадением и стимулирует рост новых волос.
+> **Ингибирует активацию 5α-редуктазы, подавляет выработку дигидротестостерона.**
+> Активизирует выработку кератина…
+
+In English: *"fights hair loss and stimulates the growth of new hair. **Inhibits
+5α-reductase activation, suppresses dihydrotestosterone production.** Activates
+keratin production…"*
+
+**5α-reductase inhibition and DHT suppression is the mechanism of finasteride, a
+prescription medicine.** Stating it on a cosmetic is a drug claim, and it is on
+printed packaging in market. It also sits oddly beside the Korean panel of the same
+carton, which carries the legally required disclaimer that the product is *not* a
+medicine.
+
+This needs raising with DTS MG ahead of anything else in this audit, and it must
+never appear in GENOSYS UAE material.
+
+## ★ The mandatory Korean disclaimer is missing from our record
+
+Both the tonic and the shampoo cartons carry the Korean functional designation in
+this exact form:
+
+> **[탈모 증상 완화 기능성 화장품] (질병의 예방 및 치료를 위한 의약품이 아님)**
+>
+> "Functional cosmetic for the **alleviation of hair loss symptoms**
+> **(not a medicine for the prevention or treatment of disease)**"
+
+The parenthetical is **required by the Korean regulator** and travels with the
+claim. Our record says *"KFDA approved as a functional product for improving hair
+loss symptoms"* and drops the disclaimer entirely.
+
+Two further points of wording, both of which we currently overstate:
+
+- The licensed effect is **완화** — *alleviation of symptoms*. Our record says
+  "improves the conditions of hair loss" and claims an "Efficacy test on improving
+  hair loss". Alleviating a symptom and improving hair loss are not the same claim.
+- **The hair-loss claim is Korea-only.** The English panel of the tonic reads
+  *"Function: Scalp nourishing, hair conditioning"* and describes it as *"a scalp
+  toner supplying nutrients for healthy scalp and hair"*. French, German, Turkish,
+  Spanish and Portuguese all say conditioning or nourishing. The shampoo's English
+  panel says *"Function: Scalp & hair cleansing"*. Only the Korean, Russian and
+  Arabic panels mention hair loss at all.
+
+So the defensible position for the UAE is the English panel's: a scalp toner and a
+scalp shampoo. Anything stronger needs the Korean filing, which we do not hold.
+
+## ★ A contraindication list on the Korean panel that is nowhere on our site
+
+The tonic's Korean precautions run to seven numbered items, against the usual
+three. Two are material and appear on **no** other panel:
+
+> 6) 만 3세 이하 영유아에게는 사용하지 말 것
+> — **Do not use on infants under 3 years of age.** (This one *is* also on the
+> English panel.)
+>
+> 7) 살리실산에 과민증이 있거나 **당뇨병, 혈액순환장애, 신부전장애**, 감염, 발적 등이
+> 있는 사람, **생리 중, 임신 중 또는 임신할 가능성이 있는 사람**은 … 사용을 피할 것
+> — People with **salicylic acid hypersensitivity, diabetes, circulatory
+> disorders, renal failure**, infection or erythema, and those **menstruating,
+> pregnant or possibly pregnant**, should **avoid use**, because existing symptoms
+> may worsen.
+
+That list is driven by the **salicylic acid at 0.250%**. It is absent from the
+English panel and from our site. Given diabetes prevalence in the UAE, "people with
+diabetes should avoid this" is not a footnote.
+
+**Also: the tonic's period after opening is 3M — three months.** Printed twice on
+the carton, and the shortest in the range by a wide margin (the shampoo is 12M).
+Nowhere on our site.
+
+## Product 43 — HAIR TONIC α (70 ml, AED 290)
+
+`Registration DOC/Formula_up/Formula-GENOSYS HR3 MATRIX HAIR TONIC α.pdf`
+
+| Ingredient | Dose | |
+|---|---|---|
+| Aqua | 84.211% | |
+| **Alcohol Denat.** | **9.500%** | **Nearly a tenth of the bottle, and unmentioned on our site** |
+| Dipropylene glycol | 3.000% | |
+| Ethoxydiglycol | 1.000% | |
+| 1,2-Hexanediol | 0.530% | |
+| **Menthol** | **0.300%** | Exactly the concentration at which l-menthol is listed as a Korean hair-loss functional active |
+| Sodium citrate / PEG-60 HCO | 0.300% each | |
+| **Salicylic acid** | **0.250%** | The reason for the contraindication list |
+| **Panthenol** | **0.200%** | Exactly the listed dexpanthenol functional concentration |
+| **Allantoin** | **0.100%** | |
+| Methyl diisopropyl propionamide, menthyl lactate | 0.040% each | Additional cooling agents |
+| Acorus calamus root | 0.025% | 250 ppm |
+| Centella asiatica | 0.005% | 50 ppm |
+| Scutellaria, Polygonum cuspidatum | 0.002% each | 20 ppm |
+| **Caffeine** | **0.001%** | **10 ppm** |
+| Sophora japonica, licorice, camellia sinensis | 0.001% each | 10 ppm |
+| **Copper tripeptide-1** | **0.0001%** | **1 ppm** |
+
+**The proportion problem:** our record's key-ingredient list opens with **copper
+tripeptide-1 (1 ppm)**, then Sophora japonica (10 ppm), then **caffeine (10 ppm)**.
+The two ingredients that hit their regulated functional concentrations exactly —
+**panthenol at 0.200% and menthol at 0.300%** — are buried mid-list, and the
+**9.5% alcohol** is not mentioned at all.
+
+Application, also missing from our site: spray morning and evening, massage in
+circles, **do not wash off, leave at least 3–4 hours.**
+
+Manufactured by GENIC — the same contract manufacturer as product 32. Do not name.
+
+## Product 44 — MEDI SCALP SHAMPOO α (300 ml, AED 340)
+
+### ★ A document trap worth recording
+
+`Registration DOC/Formula_up/Formula-GENOSYS HR3 MATRIX SCALP SHAMPOO α.pdf` is
+**not this product.** It is an earlier "SCALP SHAMPOO α" — cocamidopropyl betaine,
+decyl glucoside 2.75%, salicylic acid 0.2%, and **no caffeine, copper tripeptide or
+saw palmetto at all.**
+
+The current product's formula is in a different folder:
+`MEDI SHAMPOO ALPHA/Formula-GENOSYS HR3 MATRIX MEDI SCALP SHAMPOO α.pdf`, and it
+matches the registered carton (Coco-Betaine, C12-13 Alketh-9).
+
+Reading `Formula_up` — which normally means "updated" — gives the **wrong
+product** here. I nearly recorded that three claimed ingredients were absent from
+the shampoo. They are present; I was reading the previous generation. Anyone
+auditing this product must use the MEDI folder.
+
+### The current formula
+
+| Ingredient | Dose | |
+|---|---|---|
+| Sodium C14-16 olefin sulfonate | 14.100% | Primary surfactant |
+| Coco-betaine | 5.250% | |
+| Glycerin | 2.753% | |
+| C12-13 alketh-9 | 1.500% | |
+| **Menthol** | **1.120%** | Nearly four times the listed functional concentration |
+| **Caffeine** | **1.000%** | **A genuinely substantial dose — a hundred times the tonic's** |
+| Potassium benzoate | 0.450% | Preservative |
+| Citric acid, parfum | 0.300% each | |
+| Piroctone olamine | 0.010% | 100 ppm — well below anti-dandruff use levels |
+| **Panthenol** | **0.0075%** | **75 ppm — about 27× below the listed functional concentration** |
+| **Biotin** | **0.0002%** | **2 ppm — about 500× below the listed functional concentration** |
+| Saw palmetto | 0.0001% | 1 ppm |
+| **Copper tripeptide-1** | **0.000001%** | **10 parts per billion** |
+
+**The headline nobody has used: caffeine at a full 1%.** That is the one ingredient
+in this line present at a dose the literature would recognise, and our record lists
+it third behind menthol. Meanwhile biotin — which we name as a key ingredient — is
+at 2 ppm, and copper tripeptide-1 is at 10 ppb.
+
+Note also that **there is no salicylic acid in the current shampoo**, so the
+tonic's contraindication list does not carry over.
+
+Period after opening: **12M**. Fragranced (parfum 0.300%).
+
+## Product 45 — HAIR SOLUTION α (4 ml ampoules, AED 740)
+
+`Registration DOC/Formula_up/Formula-GENOSYS HR3 MATRIX HAIR SOLUTION α.pdf`
+
+The most expensive product in the line, and its four named growth factors total
+**1.2 parts per million**:
+
+| Peptide | Dose | |
+|---|---|---|
+| sh-Polypeptide-7 (somatotropin sequence) | 0.00005% | 0.5 ppm |
+| **sh-Polypeptide-9 (VEGF)** | 0.00005% | 0.5 ppm |
+| sh-Oligopeptide-1 (EGF) | 0.000015% | 0.15 ppm |
+| **sh-Polypeptide-71 (VIP)** | 0.000005% | 0.05 ppm |
+| **Combined** | **0.00012%** | **1.2 ppm** |
+
+What is actually at dose: **propylene glycol 9.995%**, 1,2-hexanediol 2.042%,
+PEG-40 hydrogenated castor oil 1.000%, carbomer 0.450%, **menthol 0.200%**,
+**panthenol 0.100%**, **niacinamide 0.100%**, triethanolamine 0.100%.
+
+And the rest of the named list: **copper tripeptide-1 5 ppm**, broccoli extract
+100 ppm, **saw palmetto 10 ppm**, biosaccharide gum-4 0.12 ppm, and roughly ten
+botanicals at **1 ppm each** — black sesame, blackberry, blackcurrant, rice,
+nigella, maca, barley, two soybeans, garlic — which together are almost certainly
+the "Black Complex" our record names, totalling about 10 ppm.
+
+**Naming VEGF, EGF and a somatotropin sequence as active ingredients on a hair-loss
+product is the highest-risk copy in the range.** These are biologics; at 0.05–0.5
+ppm they cannot be presented as doing anything, and any growth or regrowth
+mechanism attached to them would be a drug claim.
+
+Our record also cites **"Research papers on the improvement of hair loss"** without
+identifying them. Not yet located; treat as unsupported until produced.
+
+## Products 46 and 47
+
+- **46 SCALP PEELING α** (100 ml, AED 290) — formula and safety assessment are
+  on file (`Registration DOC/Formula_up/`, `Registration DOC/SA/`, plus a
+  `Laborotary_test_HR3 MATRIX SCALP PEELING.pdf`, misspelled the same way product
+  28's was). Not yet read in detail.
+- **47 MESOPECIA KIT** (AED 1,100) — a bundle: SCALP PEELING α 100 ml + HAIR
+  SOLUTION α 4 ml × 6 + a stamp/roller. So it is **products 46 and 45 plus a
+  device**, and its page should defer to theirs rather than restate the chemistry.
+  Note the kit contains **six** ampoules where product 45 sold alone lists eight.
+
+## Recommended handling for the five pages
+
+1. **Lead each page on what is actually at dose:** panthenol and menthol at their
+   exact functional concentrations for the tonic, **caffeine at 1%** for the
+   shampoo, propylene glycol and menthol for the ampoule.
+2. **Use the English panel's function wording**, not the Korean one. We do not hold
+   the Korean functional filing, and the UAE carton claim is scalp nourishing and
+   hair conditioning.
+3. **If the Korean designation is mentioned at all, the mandatory disclaimer goes
+   with it in the same sentence.**
+4. **Never reproduce the Russian panel's 5α-reductase or DHT wording**, and never
+   attach a mechanism to the four growth-factor peptides.
+5. **Put the tonic's contraindications on its page**: under-3s, salicylic acid
+   sensitivity, diabetes, circulatory disorders, renal failure, pregnancy and
+   menstruation. And the **3-month** period after opening.
+6. **Disclose the 9.5% alcohol** in the tonic.
+
+## Errors and gaps for `~/Desktop/genosys-artwork-corrections.html`
+
+1. **★★ The tonic's Russian panel claims 5α-reductase inhibition and DHT
+   suppression** — a prescription-drug mechanism on a cosmetic pack. Highest
+   priority item found this week.
+2. **★ The mandatory Korean disclaimer** *(not a medicine for the prevention or
+   treatment of disease)* is missing from our record wherever we cite the KFDA
+   functional approval.
+3. **★ The tonic's salicylic-acid contraindications** — diabetes, circulatory
+   disorders, renal failure, pregnancy, menstruation, salicylic acid
+   hypersensitivity — appear on the Korean panel only, not the English one, and
+   nowhere on our site.
+4. **★ The tonic's 3-month period after opening** was not on our site. It is the
+   shortest in the range.
+5. **The 9.5% denatured alcohol** in the tonic was undisclosed.
+6. **Our record overstates the licensed effect**: "improves the conditions of hair
+   loss" and "efficacy test on improving hair loss" against a licence for the
+   *alleviation of symptoms*.
+7. **The proportion problem across the line**: copper tripeptide-1 at 1 ppm
+   (tonic) and 10 ppb (shampoo), biotin at 2 ppm, saw palmetto at 1–10 ppm, and
+   four growth factors totalling 1.2 ppm — all named as key ingredients, while
+   caffeine at 1% in the shampoo and the two functional actives at their exact
+   regulated concentrations in the tonic are buried.
+8. **Request the "research papers on the improvement of hair loss"** cited for
+   product 45, or drop the claim.
+9. **Filing trap:** `Formula_up/…SCALP SHAMPOO α.pdf` is a different, earlier
+   product from the current MEDI SCALP SHAMPOO α. Worth renaming or annotating so
+   the next audit does not read the wrong generation.

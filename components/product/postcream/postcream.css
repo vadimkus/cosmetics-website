@@ -1,0 +1,90 @@
+/**
+ * Palette override for SOOTHING REPAIR POSTCREAM (product 25).
+ *
+ * cerabarrier.css supplies the structure; this file only restates the tokens.
+ * A soft sage green, chosen because this is the calm-down product in the range
+ * and it should not read like any of the anti-wrinkle pages.
+ * Scoped to `.cera-page.pcr-page`.
+ */
+
+.cera-page.pcr-page {
+  --cera-cream: #f8faf7;
+  --cera-cream-deep: #e6ede2;
+  --cera-blush: #ebf1e7;
+  --cera-blush-deep: #c2d3b8;
+  --cera-rose: #52704a;
+  --cera-rose-ink: #3a5233;
+  --cera-ink: #1a2018;
+  --cera-body: #3b463a;
+  --cera-muted: #64715f;
+  --cera-line: #e0e9dc;
+}
+
+.pcr-page .cera-stage {
+  background-color: #f0f5ed;
+  box-shadow: 0 24px 60px -34px rgba(58, 82, 51, 0.4);
+}
+
+@media (hover: hover) {
+  .pcr-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(26, 32, 24, 0.04), 0 26px 48px -26px rgba(58, 82, 51, 0.3);
+  }
+}
+
+/* --- Tables -------------------------------------------------------------- */
+
+.pcr-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 45%, transparent);
+}
+
+.pcr-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- The reordered ingredient list ------------------------------------
+   Marks the two ingredients that are genuinely at an anti-irritant dose, so the
+   reader can see at a glance that they sat at positions 3 and 7. */
+
+.pcr-table tbody tr[data-real='true'] {
+  background: color-mix(in srgb, var(--cera-blush) 85%, #fff);
+}
+
+.pcr-table tbody tr[data-real='true'] th[scope='row'] {
+  color: var(--cera-rose-ink);
+  font-weight: 600;
+}
+
+.pcr-table tbody tr[data-real='true'] td:last-child {
+  color: var(--cera-rose-ink);
+  font-weight: 600;
+}
+
+/* The position column reads as a rank, so keep it quiet and monospaced. */
+.pcr-rank {
+  color: var(--cera-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- The broken-skin warning --------------------------------------------
+   A genuine safety instruction off the carton rather than a proportion note,
+   so it gets its own amber treatment like the peanut block on product 23. */
+
+.pcr-alert {
+  border: 1px solid #e0c9a4;
+  border-inline-start: 4px solid #b4801f;
+  border-radius: 20px;
+  background: #fdf8ef;
+}
+
+.pcr-alert__title {
+  color: #6f4d0d;
+}
+
+/* --- Notes --------------------------------------------------------------- */
+
+.pcr-note {
+  border: 1px solid var(--cera-line);
+  border-inline-start: 3px solid var(--cera-rose);
+  border-radius: 20px;
+  background: #fff;
+}

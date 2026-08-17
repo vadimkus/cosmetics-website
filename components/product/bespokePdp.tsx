@@ -51,6 +51,7 @@ import BlemishBalmProductPage from '@/components/product/blemishbalm/BlemishBalm
 import AntiWrinkleSerumProductPage from '@/components/product/antiwrinkle/AntiWrinkleSerumProductPage'
 import AntiWrinkleCreamProductPage from '@/components/product/antiwrinklecream/AntiWrinkleCreamProductPage'
 import NdCellProductPage from '@/components/product/ndcell/NdCellProductPage'
+import PostcreamProductPage from '@/components/product/postcream/PostcreamProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -199,6 +200,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   '42': BlemishBalmProductPage,
   // 22 leads on the glycerin at 25.45% rather than a peptide complex present at
   // about 1.4 ppm. See the source audit.
+  // 25 re-attributes the soothing claim to the ingredients that carry it, and
+  // prints our old inverted key-ingredient list against the real numbers.
+  '25': PostcreamProductPage,
   // 23 leads with a peanut oil disclosure that was missing from the site while
   // the sibling product 24 declared it. See the source audit.
   '23': NdCellProductPage,
@@ -265,6 +269,8 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '22': ['32', '16', '42', '13'],
   // EyeCell first: closest sibling, also a delicate area and also peanut oil.
   '23': ['24', '32', '22', '16'],
+  // Post-procedure companions: the SPF BB cream, the booster, SRS and Snow O2.
+  '25': ['42', '16', '13', '10'],
   // The serum first: this page argues the two belong together, in that order.
   '32': ['22', '16', '42', '13'],
   // The other five Power Solutions, for the range table on each ampoule's page.

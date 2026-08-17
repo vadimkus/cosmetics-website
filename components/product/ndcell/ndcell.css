@@ -1,0 +1,100 @@
+/**
+ * Palette override for ND Cell ANTI-WRINKLE CREAM (product 23).
+ *
+ * cerabarrier.css supplies the structure; this file only restates the tokens.
+ * A cool slate-teal, deliberately unlike the olive-gold of the two face
+ * anti-wrinkle products (22 and 32), because this one is for a different area of
+ * the body and should not be mistaken for the pair.
+ * Scoped to `.cera-page.ndc-page`.
+ */
+
+.cera-page.ndc-page {
+  --cera-cream: #f7f9f9;
+  --cera-cream-deep: #e2ebec;
+  --cera-blush: #e8f0f1;
+  --cera-blush-deep: #b8ced1;
+  --cera-rose: #3f6b70;
+  --cera-rose-ink: #2b4c50;
+  --cera-ink: #16211f;
+  --cera-body: #37474a;
+  --cera-muted: #5f7376;
+  --cera-line: #dde8e9;
+}
+
+.ndc-page .cera-stage {
+  background-color: #eef4f5;
+  box-shadow: 0 24px 60px -34px rgba(43, 76, 80, 0.42);
+}
+
+@media (hover: hover) {
+  .ndc-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(22, 33, 31, 0.04), 0 26px 48px -26px rgba(43, 76, 80, 0.32);
+  }
+}
+
+/* --- Tables -------------------------------------------------------------- */
+
+.ndc-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 45%, transparent);
+}
+
+.ndc-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+.ndc-table tbody tr[data-highlight='true'] {
+  background: color-mix(in srgb, var(--cera-blush) 85%, #fff);
+}
+
+.ndc-table tbody tr[data-highlight='true'] th[scope='row'] {
+  color: var(--cera-rose-ink);
+  font-weight: 600;
+}
+
+/* This product's own row in the three-way comparison. */
+.ndc-table tbody tr[data-highlight='true'] td:first-of-type {
+  box-shadow: inset 2px 0 0 var(--cera-rose);
+}
+
+/* --- The peanut warning -------------------------------------------------
+   The one block on any of these pages that is a genuine safety disclosure
+   rather than a proportion correction, so it gets amber and a solid edge
+   instead of the house palette. */
+
+.ndc-alert {
+  border: 1px solid #e0c9a4;
+  border-inline-start: 4px solid #b4801f;
+  border-radius: 20px;
+  background: #fdf8ef;
+}
+
+.ndc-alert__title {
+  color: #6f4d0d;
+}
+
+/* --- Notes --------------------------------------------------------------- */
+
+.ndc-note {
+  border: 1px solid var(--cera-line);
+  border-inline-start: 3px solid var(--cera-rose);
+  border-radius: 20px;
+  background: #fff;
+}
+
+/* --- Real versus token markers on the vitamin table -------------------- */
+
+.ndc-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  flex: none;
+}
+
+.ndc-dot[data-real='true'] {
+  background: var(--cera-rose);
+}
+
+.ndc-dot[data-real='false'] {
+  background: transparent;
+  border: 1px solid var(--cera-blush-deep);
+}

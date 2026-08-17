@@ -592,8 +592,11 @@ export default function CartClient() {
 
       <div className="max-w-6xl mx-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <div className={`flex flex-col lg:flex-row gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`} style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
-          {/* Cart Items */}
-          <div className="lg:w-2/3">
+          {/* Cart Items.
+              Products, promotions and delivery are three separate concerns, so
+              they are three separate cards rather than one long panel with
+              hairlines through it. */}
+          <div className="flex flex-col gap-4 lg:w-2/3">
             <div className="cera-card overflow-visible md:overflow-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               {isAppLikeMode ? (
                 // Compact inline counter on mobile/PWA — page title is already in the sticky header
@@ -664,37 +667,38 @@ export default function CartClient() {
                   ))}
                 </AnimatePresence>
               </motion.div>
+            </div>
 
-              {/* Bundle Discount Block - Shows when beauty boxes in cart */}
-              {user && hasBeautyBoxes && !blackFridayActive && (
-                <div className="px-3 md:px-6 pt-4 md:pt-6 pb-3 md:pb-4">
-                  <div className={`p-3 md:p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-400 rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className="mb-2 md:mb-3 text-center">
-                      <p className="text-sm md:text-lg font-bold text-purple-700">
+            {/* Bundle Discount Block - Shows when beauty boxes in cart */}
+            {user && hasBeautyBoxes && !blackFridayActive && (
+              <div className="cera-card p-4 md:p-6">
+                  <div className={`${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className="mb-3 text-center">
+                      <p className="cera-serif text-[19px] text-[var(--cera-ink)]">
                         {t('products.beautyBoxDiscount')}
                       </p>
                     </div>
                     
                     <div className={`flex items-center justify-center gap-2 md:gap-3 my-3 md:my-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <div className="flex flex-col items-center bg-white rounded-lg px-2 md:px-4 py-2 md:py-3 border border-purple-300 shadow-sm">
-                        <div className="text-lg md:text-2xl font-bold text-purple-600">15%</div>
-                        <div className="text-[10px] md:text-xs text-purple-500 font-medium">
+                      <div className="ed-row flex flex-col items-center px-4 py-3">
+                        <div className="cera-numeral text-[22px] text-[var(--cera-rose-ink)]">15%</div>
+                        <div className="text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--cera-muted)]">
                           {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'СКИДКА' : 'OFF'}
                         </div>
                       </div>
-                      <div className="text-purple-400 text-lg md:text-2xl">=</div>
-                      <div className="flex flex-col items-center bg-green-50 rounded-lg px-2 md:px-4 py-2 md:py-3 border border-green-300 shadow-sm">
-                        <div className="text-lg md:text-2xl font-bold text-green-600 whitespace-nowrap">
+                      <div className="text-[20px] text-[var(--cera-muted)]">=</div>
+                      <div className="flex flex-col items-center rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3">
+                        <div className="cera-numeral whitespace-nowrap text-[22px] text-emerald-700">
                           {beautyBoxSavings.toFixed(2)} {locale === 'ar' ? 'درهم' : locale === 'ru' ? 'AED' : 'AED'}
                         </div>
-                        <div className="text-[10px] md:text-xs text-green-500 font-medium whitespace-nowrap">
+                        <div className="whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.08em] text-emerald-600">
                           {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'СЭКОНОМЛЕНО' : 'SAVED'}
                         </div>
                       </div>
                     </div>
 
-                    <div className={`mt-2 md:mt-3 pt-2 md:pt-3 border-t border-purple-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      <p className={`text-xs md:text-sm font-semibold text-green-700 text-center`}>
+                    <div className={`mt-3 border-t border-[var(--cera-line)] pt-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <p className="text-center text-[13.5px] font-semibold text-emerald-700">
                         ✅ {t('products.beautyBoxSavings', { amount: beautyBoxSavings.toFixed(2) })}
                       </p>
                     </div>
@@ -702,9 +706,9 @@ export default function CartClient() {
                 </div>
               )}
 
-              {/* Black Friday Discount Block - Only shows when Black Friday is active */}
-              {user && blackFridayActive && (
-                <div className="px-6 pt-6 pb-4">
+            {/* Black Friday Discount Block - Only shows when Black Friday is active */}
+            {user && blackFridayActive && (
+              <div className="cera-card p-4 md:p-6">
                   <div className={`p-4 bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-500 rounded-lg shadow-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className={`mb-3 text-center md:text-left ${dir === 'rtl' ? 'md:text-right' : ''}`}>
                       <h3 className="text-lg md:text-xl font-bold text-red-700">
@@ -811,54 +815,53 @@ export default function CartClient() {
                 </div>
               )}
 
-              {/* Free Mask Promotion */}
-              {user && (
-                <div className={`px-6 ${blackFridayActive ? 'pb-6' : 'pt-6 pb-6'}`}>
-                  <FreeMaskPromotion subtotal={subtotal} />
-                  
-                  {/* Free Delivery Notice */}
-                  <div className="mt-6 border-t border-[var(--cera-line)] pt-6">
-                    <div className={`ed-row p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      <div className={`flex items-center gap-2 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <Truck className={`h-5 w-5 ${subtotal >= freeShippingThreshold ? 'text-emerald-600' : 'text-[var(--cera-rose)]'}`} />
-                        <span className="text-[14px] font-medium text-[var(--cera-ink)]">
-                          {t('cart.freeDelivery')}
-                        </span>
-                        {subtotal >= freeShippingThreshold ? (
-                          <span className="text-[12px] font-semibold text-emerald-600">
-                            {t('cart.unlocked')}
-                          </span>
-                        ) : (
-                          <span className="text-[12px] text-[var(--cera-muted)]">
-                            {subtotal < freeShippingThreshold ? `AED ${(freeShippingThreshold - subtotal).toFixed(2)} ${t('cart.more')}` : ''}
-                          </span>
-                        )}
-                      </div>
-                      
-                      {/* Progress Bar */}
-                      <div className="mb-2 h-2 w-full overflow-hidden rounded-full bg-[var(--cera-cream-deep)]">
-                        <div
-                          className={`h-full rounded-full transition-all duration-500 ${
-                            subtotal >= freeShippingThreshold ? 'bg-emerald-600' : 'bg-[var(--cera-rose)]'
-                          }`}
-                          style={{ width: `${Math.min(100, (subtotal / freeShippingThreshold) * 100)}%` }}
-                        />
-                      </div>
-                      
-                      <p className={`text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        {subtotal >= freeShippingThreshold ? (
-                          <span className="font-semibold text-emerald-600">
-                            {t('cart.qualifyForFreeDelivery')}
-                          </span>
-                        ) : (
-                          <span>{t('cart.spendForFreeDelivery')}</span>
-                        )}
-                      </p>
-                    </div>
-                  </div>
+            {/* Free Mask Promotion — its own block */}
+            {user && (
+              <div className="cera-card p-4 md:p-6">
+                <FreeMaskPromotion subtotal={subtotal} />
+              </div>
+            )}
+
+            {/* Free delivery meter — its own block */}
+            {user && (
+              <div className={`cera-card p-4 md:p-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <div className={`mb-2 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <Truck className={`h-5 w-5 ${subtotal >= freeShippingThreshold ? 'text-emerald-600' : 'text-[var(--cera-rose)]'}`} />
+                    <span className="text-[14px] font-medium text-[var(--cera-ink)]">
+                      {t('cart.freeDelivery')}
+                    </span>
+                    {subtotal >= freeShippingThreshold ? (
+                      <span className="text-[12px] font-semibold text-emerald-600">
+                        {t('cart.unlocked')}
+                      </span>
+                    ) : (
+                      <span className="text-[12px] text-[var(--cera-muted)]">
+                        {subtotal < freeShippingThreshold ? `AED ${(freeShippingThreshold - subtotal).toFixed(2)} ${t('cart.more')}` : ''}
+                      </span>
+                    )}
                 </div>
-              )}
-            </div>
+
+                {/* Progress Bar */}
+                <div className="mb-2 h-2 w-full overflow-hidden rounded-full bg-[var(--cera-cream-deep)]">
+                  <div
+                    className={`h-full rounded-full transition-all duration-500 ${
+                      subtotal >= freeShippingThreshold ? 'bg-emerald-600' : 'bg-[var(--cera-rose)]'
+                    }`}
+                    style={{ width: `${Math.min(100, (subtotal / freeShippingThreshold) * 100)}%` }}
+                  />
+                </div>
+
+                <p className={`text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  {subtotal >= freeShippingThreshold ? (
+                    <span className="font-semibold text-emerald-600">
+                      {t('cart.qualifyForFreeDelivery')}
+                    </span>
+                  ) : (
+                    <span>{t('cart.spendForFreeDelivery')}</span>
+                  )}
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Order Summary */}

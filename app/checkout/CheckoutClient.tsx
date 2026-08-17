@@ -1,5 +1,22 @@
 'use client'
 
+/**
+ * /checkout.
+ *
+ * Reworked onto the editorial system in Aug 2026, as a styling pass only. The
+ * Stripe flow, the order payload, the address and emirate handling, the free
+ * mask lines, the loyalty preview and every total are untouched — same
+ * reasoning as /cart: this page takes money, so the look moved and the
+ * arithmetic did not.
+ *
+ * The inline `style={{ color: '#111827', backgroundColor: '#ffffff' }}` on the
+ * inputs is left in place. It is there to survive browser autofill and forced
+ * dark mode, which is a different problem from the palette.
+ */
+
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
+
 import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useState, useEffect, useCallback, useRef } from 'react'
@@ -20,6 +37,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import dynamic from 'next/dynamic'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 // Lazy load heavy checkout components (Stripe SDK + BottomSheet only needed conditionally)
 const BottomSheet = dynamic(() => import('@/components/ui/BottomSheet'), { ssr: false })
@@ -640,7 +658,7 @@ export default function CheckoutClient() {
   // Show loading state while cart is hydrating from localStorage
   if (!_hasHydrated) {
     return (
-      <div className={`container mx-auto px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
         <div className="max-w-4xl mx-auto text-center py-16">
           <div className="animate-pulse">
             <div className="h-24 w-24 bg-gray-200 rounded-full mx-auto mb-4" />
@@ -654,19 +672,19 @@ export default function CheckoutClient() {
 
   if (items.length === 0) {
     return (
-      <div className={`container mx-auto px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
         <div className="max-w-4xl mx-auto text-center py-16">
           <div className="mb-8">
-            <CreditCard className="h-24 w-24 text-gray-300 mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('checkout.yourCartIsEmpty')}</h1>
-            <p className="text-gray-600 text-lg mb-8">
+            <CreditCard className="mx-auto mb-4 h-24 w-24 text-[var(--cera-blush-deep)]" />
+            <h1 className="cera-serif mb-4 text-[32px] leading-tight md:text-[40px]">{t('checkout.yourCartIsEmpty')}</h1>
+            <p className="mx-auto mb-8 max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-muted)]">
               {t('checkout.addItemsBeforeCheckout')}
             </p>
           </div>
           
           <Link
             href={getLocalizedPath('/products', locale)}
-            className={`inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`ed-cta px-7 py-3 text-[15px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
             <ArrowLeft className={`h-5 w-5 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
             {t('checkout.continueShopping')}
@@ -678,19 +696,19 @@ export default function CheckoutClient() {
 
   if (!user) {
     return (
-      <div className={`container mx-auto px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
         <div className="max-w-4xl mx-auto text-center py-16">
           <div className="mb-8">
-            <Lock className="h-24 w-24 text-gray-300 mx-auto mb-4" />
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('checkout.loginRequired')}</h1>
-            <p className="text-gray-600 text-lg mb-8">
+            <Lock className="mx-auto mb-4 h-24 w-24 text-[var(--cera-blush-deep)]" />
+            <h1 className="cera-serif mb-4 text-[32px] leading-tight md:text-[40px]">{t('checkout.loginRequired')}</h1>
+            <p className="mx-auto mb-8 max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-muted)]">
               {t('checkout.pleaseLoginToCompleteOrder')}
             </p>
           </div>
           
           <Link
             href={getLocalizedPath('/login', locale)}
-            className={`inline-flex items-center gap-2 bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`ed-cta px-7 py-3 text-[15px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
             <Lock className="h-5 w-5" />
             {t('checkout.login')}
@@ -703,7 +721,7 @@ export default function CheckoutClient() {
   const isAppLikeMode = (isPWAClient && isPWA) || isMobileWeb
 
   return (
-    <div className={`container mx-auto px-4 py-2 md:pb-8 md:pt-4 lg:pb-16 lg:pt-4 ${isAppLikeMode ? 'pb-[calc(96px+env(safe-area-inset-bottom))]' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] px-4 py-2 md:pb-8 md:pt-4 lg:pb-16 lg:pt-4 ${isAppLikeMode ? 'pb-[calc(96px+env(safe-area-inset-bottom))]' : ''}`} dir={dir}>
       <CheckoutHeader
         isPWA={isPWA}
         isPWAClient={isPWAClient}
@@ -729,7 +747,7 @@ export default function CheckoutClient() {
             <button
               type="button"
               onClick={() => setOrderSummaryExpanded(!orderSummaryExpanded)}
-              className={`w-full bg-white border border-gray-200 px-4 py-3 cursor-pointer shadow-sm text-left transition-colors hover:bg-gray-50 active:bg-gray-100 ${orderSummaryExpanded ? 'rounded-t-xl border-b-0' : 'rounded-xl'}`}
+              className={`w-full cursor-pointer border border-[var(--cera-line)] bg-white px-4 py-3 text-start transition-colors hover:bg-[var(--cera-cream)] ${orderSummaryExpanded ? 'rounded-t-2xl border-b-0' : 'rounded-2xl'}`}
               aria-expanded={orderSummaryExpanded}
               aria-controls="checkout-order-summary"
             >
@@ -739,12 +757,12 @@ export default function CheckoutClient() {
                     <ShoppingBag className="h-5 w-5" />
                   </span>
                   <div className={`min-w-0 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className="text-[11px] md:text-xs text-gray-500 font-medium uppercase tracking-wide truncate">
+                    <div className="truncate text-[11px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-muted)] md:text-[12px]">
                       {selectedPaymentMethod === 'cod'
                         ? `${t('checkout.orderNumber') || 'Order #'} ${codOrderNumber}`
                         : t('checkout.orderSummary') || 'Order Summary'}
                     </div>
-                    <div className="text-base md:text-lg font-bold text-gray-900">
+                    <div className="cera-serif cera-numeral text-[19px] text-[var(--cera-ink)] md:text-[21px]">
                       AED {total.toFixed(2)}
                     </div>
                   </div>
@@ -758,7 +776,7 @@ export default function CheckoutClient() {
             
             {/* Expandable Order Summary Content - Full Details */}
             {orderSummaryExpanded && (
-              <div id="checkout-order-summary" className="bg-white border border-t-0 border-gray-200 rounded-b-xl p-4 shadow-sm">
+              <div id="checkout-order-summary" className="rounded-b-2xl border border-t-0 border-[var(--cera-line)] bg-white p-4">
                 {/* Items with discount info */}
                 <div className="space-y-3 mb-4">
                   <h4 className={`text-xs font-semibold text-gray-500 uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>
@@ -775,9 +793,9 @@ export default function CheckoutClient() {
                       return (
                         <div key={`${item.product.id}-bundle`} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           <div className={`flex-1 min-w-0 ${dir === 'rtl' ? 'pl-2' : 'pr-2'}`}>
-                            <div className="text-sm font-medium text-gray-900">{item.product.name}</div>
+                            <div className="text-[14px] font-medium text-[var(--cera-ink)]">{item.product.name}</div>
                             <div className={`flex items-center gap-2 mt-0.5 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                              <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
+                              <span className="text-[12px] text-[var(--cera-muted)]">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
                               <span className="text-xs text-purple-600 font-medium">
                                 ✨ {discountText} {locale === 'ar' ? 'خصم المجموعة' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}
                               </span>
@@ -785,7 +803,7 @@ export default function CheckoutClient() {
                           </div>
                           <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
                             <span className="text-sm font-semibold text-purple-700">AED {linePricing.lineTotal.toFixed(2)}</span>
-                            <div className="text-xs text-gray-400 line-through">AED {linePricing.retailLineTotal.toFixed(2)}</div>
+                            <div className="text-[12px] text-[var(--cera-muted)] line-through">AED {linePricing.retailLineTotal.toFixed(2)}</div>
                           </div>
                         </div>
                       )
@@ -797,9 +815,9 @@ export default function CheckoutClient() {
                     return (
                       <div key={item.product.id} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <div className={`flex-1 min-w-0 ${dir === 'rtl' ? 'pl-2' : 'pr-2'}`}>
-                          <div className="text-sm font-medium text-gray-900">{item.product.name}</div>
+                          <div className="text-[14px] font-medium text-[var(--cera-ink)]">{item.product.name}</div>
                           <div className={`flex items-center gap-2 mt-0.5 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                            <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
+                            <span className="text-[12px] text-[var(--cera-muted)]">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
                             {hasDiscount && (
                               <span className="text-xs text-green-600 font-medium">
                                 ({linePricing.discountPercentage}% {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'OFF'}{isBeautyBox ? ` - ${locale === 'ar' ? 'خصم الطقم' : locale === 'ru' ? 'Скидка бокса' : 'Box Discount'}` : ''})
@@ -810,7 +828,7 @@ export default function CheckoutClient() {
                         <div className="shrink-0">
                           {hasDiscount ? (
                             <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                              <div className="text-xs text-gray-400 line-through">AED {linePricing.retailLineTotal.toFixed(2)}</div>
+                              <div className="text-[12px] text-[var(--cera-muted)] line-through">AED {linePricing.retailLineTotal.toFixed(2)}</div>
                               <div className="text-sm font-semibold text-green-600">AED {linePricing.lineTotal.toFixed(2)}</div>
                             </div>
                           ) : (
@@ -824,8 +842,8 @@ export default function CheckoutClient() {
                   {freeMasks.map((mask) => (
                     <div key={mask.id} className={`flex justify-between items-start ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <div className={`flex-1 min-w-0 ${dir === 'rtl' ? 'pl-2' : 'pr-2'}`}>
-                        <div className="text-sm font-medium text-gray-900">{mask.name}</div>
-                        <span className="text-xs text-gray-500">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {mask.quantity}</span>
+                        <div className="text-[14px] font-medium text-[var(--cera-ink)]">{mask.name}</div>
+                        <span className="text-[12px] text-[var(--cera-muted)]">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {mask.quantity}</span>
                       </div>
                       <span className="text-sm font-semibold text-green-600">{locale === 'ar' ? 'مجاني' : locale === 'ru' ? 'Бесплатно' : 'FREE'}</span>
                     </div>
@@ -833,11 +851,11 @@ export default function CheckoutClient() {
                 </div>
                 
                 {/* Totals - Waterfall Discount Breakdown */}
-                <div className="border-t border-gray-200 pt-3 space-y-2">
+                <div className="space-y-2 border-t border-[var(--cera-line)] pt-3">
                   {/* Retail Price or Subtotal */}
                   {hasAnyDiscount ? (
                     <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-gray-600">
+                      <span className="text-[var(--cera-muted)]">
                         {locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'}: ({totalItemCount} {totalItemCount === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
                         {freeMasks.length > 0 && <span className="block text-xs">+ {freeMasks.length} {locale === 'ar' ? 'هدايا مجانية' : locale === 'ru' ? 'бесплатных масок' : 'free masks'}</span>}
                       </span>
@@ -845,7 +863,7 @@ export default function CheckoutClient() {
                     </div>
                   ) : (
                     <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-gray-600">
+                      <span className="text-[var(--cera-muted)]">
                         {locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}: ({totalItemCount} {totalItemCount === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
                         {freeMasks.length > 0 && <span className="block text-xs">+ {freeMasks.length} {locale === 'ar' ? 'هدايا مجانية' : locale === 'ru' ? 'бесплатных масок' : 'free masks'}</span>}
                       </span>
@@ -861,7 +879,7 @@ export default function CheckoutClient() {
                   )}
                   {/* Intermediate Subtotal */}
                   {hasUserDiscount && hasBundleDiscount && (
-                    <div className={`flex justify-between text-xs text-gray-400 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex justify-between text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span>{locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}</span>
                       <span>AED {afterVipSubtotal.toFixed(2)}</span>
                     </div>
@@ -876,7 +894,7 @@ export default function CheckoutClient() {
                   {/* Net Subtotal */}
                   {hasAnyDiscount && (
                     <>
-                      <div className="h-px bg-gray-200" />
+                      <div className="h-px bg-[var(--cera-line)]" />
                       <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <span className="text-gray-900 font-semibold">{locale === 'ar' ? 'المجموع الفرعي الصافي' : locale === 'ru' ? 'Подытог' : 'Net Subtotal'}</span>
                         <span className="text-gray-900 font-semibold">AED {subtotal.toFixed(2)}</span>
@@ -904,19 +922,19 @@ export default function CheckoutClient() {
                     </div>
                   )}
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600">{locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}</span>
+                    <span className="text-[var(--cera-muted)]">{locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}</span>
                     <span className="text-gray-900">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   <div className={`text-xs text-red-600 py-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {locale === 'ar' ? 'جميع الأسعار شاملة 5% ضريبة القيمة المضافة' : locale === 'ru' ? 'Все цены включают 5% НДС' : 'All prices include 5% VAT'}
                   </div>
-                  <div className={`flex justify-between text-base font-bold pt-2 border-t border-gray-200 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex justify-between border-t border-[var(--cera-line)] pt-3 text-[16px] font-semibold ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span className="text-gray-900">{locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}:</span>
-                    <span className="text-primary-600">AED {total.toFixed(2)}</span>
+                    <span className="cera-serif cera-numeral text-[19px] text-[var(--cera-ink)]">AED {total.toFixed(2)}</span>
                   </div>
                   {earnPreviewPoints > 0 && (
-                    <div className={`flex items-center gap-1.5 text-[11px] text-gray-500 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Award className="h-3.5 w-3.5 text-primary-600 shrink-0" />
+                    <div className={`flex items-center gap-1.5 text-[11.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Award className="h-3.5 w-3.5 shrink-0 text-[var(--cera-rose)]" />
                       {t('rewards.earnPreview', { points: earnPreviewPoints.toLocaleString() })}
                     </div>
                   )}
@@ -937,10 +955,10 @@ export default function CheckoutClient() {
         <div className={`flex flex-col lg:flex-row gap-4 md:gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
           {/* Checkout Form */}
           <div className="lg:w-2/3">
-            <div className="bg-white rounded-lg md:rounded-xl shadow-sm border border-gray-200">
-              <div className="p-3 md:p-6 border-b border-gray-200">
-                <h1 className={`text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <CreditCard className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
+            <div className="cera-card">
+              <div className="border-b border-[var(--cera-line)] p-4 md:p-6">
+                <h1 className={`cera-serif flex items-center gap-2.5 text-[22px] md:text-[26px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <CreditCard className="h-5 w-5 text-[var(--cera-rose)] md:h-6 md:w-6" />
                   {t('checkout.title')}
                 </h1>
               </div>
@@ -949,14 +967,14 @@ export default function CheckoutClient() {
 
                 {/* Shipping Information */}
                 <div className="space-y-3 md:space-y-4">
-                  <h2 className={`text-base md:text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <MapPin className="h-4 w-4 md:h-5 md:w-5 text-red-600" />
+                  <h2 className={`cera-serif flex items-center gap-2.5 text-[19px] md:text-[21px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <MapPin className="h-4 w-4 text-[var(--cera-rose)] md:h-5 md:w-5" />
                     {t('checkout.shippingInfo')}
                   </h2>
 
                   <div className="grid grid-cols-2 gap-3 md:gap-4">
                     <div className="form-field">
-                      <label htmlFor="checkout-firstname" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label htmlFor="checkout-firstname" className={`ed-label ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.firstName')} *
                       </label>
                       <input
@@ -966,14 +984,14 @@ export default function CheckoutClient() {
                         required
                         autoComplete="given-name"
                         defaultValue={firstName}
-                        className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`ed-field !text-[16px] min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterFirstName')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
 
                     <div className="form-field">
-                      <label htmlFor="checkout-lastname" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label htmlFor="checkout-lastname" className={`ed-label ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.lastName')} *
                       </label>
                       <input
@@ -983,7 +1001,7 @@ export default function CheckoutClient() {
                         required
                         autoComplete="family-name"
                         defaultValue={lastName}
-                        className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`ed-field !text-[16px] min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterLastName')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
@@ -992,7 +1010,7 @@ export default function CheckoutClient() {
 
                   <div className="space-y-3 md:space-y-4">
                     <div className="form-field">
-                      <label htmlFor="checkout-email" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label htmlFor="checkout-email" className={`ed-label ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.emailAddress')} *
                       </label>
                       <input
@@ -1003,14 +1021,14 @@ export default function CheckoutClient() {
                         autoComplete="email"
                         inputMode="email"
                         defaultValue={checkoutEmail}
-                        className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`ed-field !text-[16px] min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterEmailAddress')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
                     </div>
 
                     <div className="form-field">
-                      <label htmlFor="checkout-phone" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <label htmlFor="checkout-phone" className={`ed-label ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('checkout.phoneNumber')} *
                       </label>
                       <input
@@ -1021,7 +1039,7 @@ export default function CheckoutClient() {
                         autoComplete="tel"
                         inputMode="tel"
                         defaultValue={user?.phone || ''}
-                        className={`w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
+                        className={`ed-field !text-[16px] min-h-[44px] ${dir === 'rtl' ? 'text-right' : ''}`}
                         placeholder={t('checkout.enterPhoneNumber')}
                         style={{ color: '#111827', backgroundColor: '#ffffff' }}
                       />
@@ -1029,7 +1047,7 @@ export default function CheckoutClient() {
                   </div>
 
                   <div className="form-field">
-                    <label htmlFor="checkout-address" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <label htmlFor="checkout-address" className={`ed-label ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.deliveryAddress')} *
                     </label>
                     <textarea
@@ -1039,7 +1057,7 @@ export default function CheckoutClient() {
                       rows={2}
                       autoComplete="street-address"
                       defaultValue={user?.address || ''}
-                      className={`auto-grow w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                      className={`ed-field auto-grow !text-[16px] ${dir === 'rtl' ? 'text-right' : ''}`}
                       placeholder={t('checkout.enterDeliveryAddress')}
                       style={{ color: '#111827', backgroundColor: '#ffffff' }}
                     />
@@ -1053,7 +1071,7 @@ export default function CheckoutClient() {
                     <button
                       type="button"
                       onClick={() => router.push(getLocalizedPath('/cart', locale))}
-                      className={`w-full flex items-center justify-between px-3 py-2.5 md:py-3 text-sm md:text-base border border-gray-300 rounded-lg bg-white text-gray-900 min-h-[44px] hover:bg-gray-50 active:bg-gray-100 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      className={`ed-field !text-[16px] flex min-h-[44px] w-full items-center justify-between transition-colors hover:bg-[var(--cera-cream)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                       aria-label={`${t('checkout.deliveryLocation')}: ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : 'Dubai'} — ${t('common.change') || 'Change'}`}
                     >
                       <span className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -1097,7 +1115,7 @@ export default function CheckoutClient() {
 
                 {/* Order Notes */}
                 <div className="form-field">
-                  <label htmlFor="checkout-notes" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <label htmlFor="checkout-notes" className={`ed-label ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('checkout.orderNotes')}
                   </label>
                   <textarea
@@ -1105,7 +1123,7 @@ export default function CheckoutClient() {
                     name="notes"
                     rows={2}
                     maxLength={500}
-                    className={`auto-grow w-full px-3 py-2.5 md:p-3 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}
+                    className={`ed-field auto-grow !text-[16px] ${dir === 'rtl' ? 'text-right' : ''}`}
                     placeholder={t('checkout.orderNotesPlaceholder')}
                     style={{ color: '#111827', backgroundColor: '#ffffff' }}
                   />
@@ -1116,7 +1134,7 @@ export default function CheckoutClient() {
                   <button
                     type="submit"
                     disabled={isProcessing}
-                    className={`w-full bg-primary-600 text-white py-3 md:py-4 rounded-lg text-sm md:text-base font-semibold hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`ed-cta w-full py-3.5 text-[15px] md:py-4 md:text-[16px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     {isProcessing ? (
                       <>
@@ -1193,11 +1211,11 @@ export default function CheckoutClient() {
                           return (
                             <div key={`${item.product.id}-bundle`} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                               <div className="flex-1 min-w-0">
-                                <h4 className={`text-xs md:text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
+                                <h4 className={`text-[13.5px] font-medium leading-tight text-[var(--cera-ink)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                                   {item.product.name}
                                 </h4>
                                 <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                                  <span className="text-[9px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
+                                  <span className="text-[10px] text-[var(--cera-muted)] md:text-[12px]">{t('checkout.qty')} {quantity}</span>
                                   {item.selectedColor && item.selectedColor.trim() && (
                                     <span className="text-[9px] md:text-xs text-purple-600 font-medium bg-purple-50 border border-purple-200 rounded px-1.5 py-0.5">
                                       {t('product.color')}: {item.selectedColor}
@@ -1226,11 +1244,11 @@ export default function CheckoutClient() {
                         return (
                           <div key={item.product.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                             <div className="flex-1 min-w-0">
-                              <h4 className={`text-xs md:text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
+                              <h4 className={`text-[13.5px] font-medium leading-tight text-[var(--cera-ink)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                                 {item.product.name}
                               </h4>
                               <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                                <span className="text-[9px] md:text-xs text-gray-500">{t('checkout.qty')} {quantity}</span>
+                                <span className="text-[10px] text-[var(--cera-muted)] md:text-[12px]">{t('checkout.qty')} {quantity}</span>
                                 {item.selectedColor && item.selectedColor.trim() && (
                                   <span className="text-[9px] md:text-xs text-purple-600 font-medium bg-purple-50 border border-purple-200 rounded px-1.5 py-0.5">
                                     {t('product.color')}: {item.selectedColor}
@@ -1265,11 +1283,11 @@ export default function CheckoutClient() {
                       {freeMasks.map((mask) => (
                         <div key={mask.id} className={`flex items-start justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                           <div className="flex-1 min-w-0">
-                            <h4 className={`text-xs md:text-sm font-medium text-gray-900 leading-tight ${dir === 'rtl' ? 'text-right' : ''}`}>
+                            <h4 className={`text-[13.5px] font-medium leading-tight text-[var(--cera-ink)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                               {mask.name}
                             </h4>
                             <div className={`flex items-center gap-1.5 md:gap-2 mt-0.5 md:mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                              <span className="text-[9px] md:text-xs text-gray-500">{t('checkout.qty')} {mask.quantity}</span>
+                              <span className="text-[10px] text-[var(--cera-muted)] md:text-[12px]">{t('checkout.qty')} {mask.quantity}</span>
                             </div>
                           </div>
                           <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
@@ -1288,7 +1306,7 @@ export default function CheckoutClient() {
                         </svg>
                       </div>
                       <p className="text-gray-500 mb-2">{t('checkout.yourCartIsEmpty')}</p>
-                      <Link href={getLocalizedPath('/products', locale)} className="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                      <Link href={getLocalizedPath('/products', locale)} className="text-[14px] font-semibold text-[var(--cera-rose-ink)] hover:opacity-70">
                         {t('checkout.continueShopping')}
                       </Link>
                     </div>
@@ -1301,11 +1319,11 @@ export default function CheckoutClient() {
                   {hasAnyDiscount ? (
                     <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <div className={`flex flex-col ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                           {locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'}: ({totalItemCount} {totalItemCount === 1 ? t('checkout.item') : t('checkout.items')})
                         </span>
                         {freeMasks.length > 0 && (
-                          <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                             + {freeMasks.length} {freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}
                           </span>
                         )}
@@ -1315,16 +1333,16 @@ export default function CheckoutClient() {
                   ) : (
                     <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <div className={`flex flex-col ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                           {t('checkout.subtotal')}: ({totalItemCount} {totalItemCount === 1 ? t('checkout.item') : t('checkout.items')})
                         </span>
                         {freeMasks.length > 0 && (
-                          <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                          <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                             + {freeMasks.length} {freeMasks.length === 1 ? t('checkout.freeMask') : t('checkout.freeMasks')}
                           </span>
                         )}
                       </div>
-                      <span className="text-[10px] md:text-sm font-medium text-gray-900">AED {subtotal.toFixed(2)}</span>
+                      <span className="text-[12px] font-medium text-[var(--cera-ink)] md:text-[14px]">AED {subtotal.toFixed(2)}</span>
                     </div>
                   )}
                   {/* VIP Discount */}
@@ -1351,7 +1369,7 @@ export default function CheckoutClient() {
                   {/* Net Subtotal */}
                   {hasAnyDiscount && (
                     <>
-                      <div className="h-px bg-gray-200" />
+                      <div className="h-px bg-[var(--cera-line)]" />
                       <div className={`flex justify-between items-center py-1 md:py-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <span className="text-[10px] md:text-sm font-semibold text-gray-900">{locale === 'ar' ? 'المجموع الفرعي الصافي' : locale === 'ru' ? 'Подытог' : 'Net Subtotal'}</span>
                         <span className="text-[10px] md:text-sm font-semibold text-gray-900">AED {subtotal.toFixed(2)}</span>
@@ -1362,9 +1380,9 @@ export default function CheckoutClient() {
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Truck className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
-                      <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}</span>
+                      <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}</span>
                     </div>
-                    <span className="text-[10px] md:text-sm font-medium text-gray-900">
+                    <span className="text-[12px] font-medium text-[var(--cera-ink)] md:text-[14px]">
                       {shippingCost === 0 ? <span className="text-[9px] md:text-xs text-green-600 font-semibold">{t('checkout.free')}</span> : `AED ${shippingCost}`}
                     </span>
                   </div>
@@ -1382,8 +1400,8 @@ export default function CheckoutClient() {
                   )}
                   
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className={`text-[10px] md:text-sm text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.vat')}</span>
-                    <span className="text-[10px] md:text-sm font-medium text-gray-900">AED {vatAmount.toFixed(2)}</span>
+                    <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.vat')}</span>
+                    <span className="text-[12px] font-medium text-[var(--cera-ink)] md:text-[14px]">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   
                   <div className={`text-[10px] md:text-xs text-red-600 py-1.5 md:py-2 px-2 bg-gray-50 rounded-lg ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
@@ -1393,11 +1411,11 @@ export default function CheckoutClient() {
                   <div className="border-t-2 border-gray-200 pt-3 md:pt-4">
                     <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className={`text-sm md:text-lg font-bold text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.total')}</span>
-                      <span className="text-base md:text-xl font-bold text-primary-600">AED {total.toFixed(2)}</span>
+                      <span className="cera-serif cera-numeral text-[19px] text-[var(--cera-ink)] md:text-[22px]">AED {total.toFixed(2)}</span>
                     </div>
                     {earnPreviewPoints > 0 && (
                       <div className={`flex items-center gap-1.5 text-[10px] md:text-xs text-gray-500 mt-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <Award className="h-3.5 w-3.5 text-primary-600 shrink-0" />
+                        <Award className="h-3.5 w-3.5 shrink-0 text-[var(--cera-rose)]" />
                         {t('rewards.earnPreview', { points: earnPreviewPoints.toLocaleString() })}
                       </div>
                     )}
@@ -1470,7 +1488,7 @@ export default function CheckoutClient() {
               type="submit"
               form="checkout-form"
               disabled={isProcessing}
-              className={`w-full bg-primary-600 text-white py-3.5 rounded-xl text-base font-semibold hover:bg-primary-700 active:bg-primary-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg touch-manipulation min-h-[48px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className={`ed-cta w-full min-h-[48px] py-3.5 text-[16px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
               aria-label={`${t('checkout.completeOrder')} - AED ${total.toFixed(2)}`}
             >
               {isProcessing ? (

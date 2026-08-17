@@ -80,6 +80,43 @@ the uncommitted Beauty Box work.
 `CheckoutProgress` is also unchanged; it is shared with the checkout flow and
 belongs to that job rather than this one.
 
+## Follow-up, same day — cart blocks split and /checkout
+
+### Three blocks instead of one panel
+
+Vadim's note on the first pass: products, the free-mask promotion and the free
+delivery meter were three different things stacked inside one white card with
+hairlines between them. They are now separate `cera-card` blocks in a
+`flex-col gap-4` column, so the page reads as products / promotion / delivery
+rather than as one long receipt. The beauty-box savings block and the dormant
+Black Friday block are separate cards too.
+
+The beauty-box block lost its purple-to-pink gradient and purple borders while
+it was being moved — it now uses the page tokens, with the savings figure
+staying green because a saving is information.
+
+### /checkout
+
+Same styling pass as `/cart`, for the same reason: the Stripe flow, the order
+payload, address handling, free-mask lines and every total are untouched.
+Panels became `cera-card`, the form fields `ed-field`, the labels `ed-label`,
+the two place-order buttons `ed-cta`, and the collapsible order summary picked
+up the token palette.
+
+**One real fix while converting the fields.** `.ed-field` sets `font-size: 15px`,
+and iOS Safari zooms the viewport whenever an input is focused below 16px. The
+checkout inputs were deliberately `text-base` (16px) before, alongside their
+`min-h-[44px]` touch targets, so converting them to `.ed-field` would have
+introduced zoom-on-focus across the whole checkout form on iPhone. Every field
+carries `!text-[16px]` to hold 16px, and the important flag is there because a
+plain utility and `.ed-field` have equal specificity, so which one wins would
+depend on stylesheet order.
+
+**Worth knowing:** the same 15px applies to `.ed-field` wherever else it is used
+— `/contact` and `/faq` picked it up in the six-page rework. Those are a search
+box and a contact form rather than a payment form, so the stakes are lower, but
+if anyone is doing an iOS pass that is the thing to look at.
+
 ## Verified
 
 - `tsc --noEmit` clean, no lint errors on any touched file.
@@ -89,3 +126,13 @@ belongs to that job rather than this one.
   mirrors correctly, including the quantity stepper and the summary column.
 - Clean-checkout build before pushing, in a detached worktree with hardlinked
   `node_modules`, which is what Vercel actually does.
+
+### Not visually verified
+
+**The signed-in states of `/cart` and `/checkout` were not seen rendered.** The
+free-mask promotion block, the free delivery meter and the entire checkout form
+are all behind `user`, and signed out the checkout route redirects to login.
+The markup compiles, the blocks are plain sibling cards, and every locale
+returns 200 — but the same caveat applies as to `/orders` in the six-page
+rework: somebody with an account should look at a real cart and a real checkout
+before this is trusted.

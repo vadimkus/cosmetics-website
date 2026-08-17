@@ -45,6 +45,7 @@ import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowPro
 import BbCushionProductPage from '@/components/product/bbcushion/BbCushionProductPage'
 import GenoLedProductPage from '@/components/product/genoled/GenoLedProductPage'
 import SeaAlgaeProductPage from '@/components/product/sealgae/SeaAlgaeProductPage'
+import UltraShieldProductPage from '@/components/product/ultrashield/UltraShieldProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -182,6 +183,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 36 is named after an ingredient dosed at 10 ppm, so its page is built on
   // the humectants and the sheet instead. See the source audit.
   '36': SeaAlgaeProductPage,
+  // 39 leads on its measured SPF and UVA numbers, which the old page never
+  // mentioned. See the source audit.
+  '39': UltraShieldProductPage,
   // 49 is the only device in the catalogue: no INCI, no routine, and a
   // dosimetry table where the cosmetics pages carry a formula.
   '49': GenoLedProductPage,
@@ -231,6 +235,8 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   // Snow Booster is the prep step the pouch names; the other three are the
   // masks and peels it is used alongside.
   '36': ['16', '53', '13', '37'],
+  // Multi Sun is the lighter sibling; the rest is the post-sun shelf.
+  '39': ['40', '36', '16', '13'],
   // The other five Power Solutions, for the range table on each ampoule's page.
   '4': ['5', '6', '7', '8', '9'],
   '5': ['4', '6', '7', '8', '9'],

@@ -1,0 +1,65 @@
+/**
+ * Palette override for ULTRA SHIELD SUN CREAM (product 39).
+ *
+ * cerabarrier.css supplies the structure; this file only restates the tokens.
+ * The carton is white with a violet keyline and the brand prints PANTONE 2603 C
+ * on the artwork, so the page takes violet rather than the house rose.
+ * Scoped to `.cera-page.usc-page`.
+ */
+
+.cera-page.usc-page {
+  --cera-cream: #f9f8fb;
+  --cera-cream-deep: #efebf4;
+  --cera-blush: #f1ecf8;
+  --cera-blush-deep: #d6c8e6;
+  --cera-rose: #6b4a9c;
+  --cera-rose-ink: #4e3277;
+  --cera-ink: #1b1723;
+  --cera-body: #3d3746;
+  --cera-muted: #676070;
+  --cera-line: #e3dfe9;
+}
+
+.usc-page .cera-stage {
+  background-color: #f3f0f8;
+  box-shadow: 0 24px 60px -34px rgba(78, 50, 119, 0.42);
+}
+
+@media (hover: hover) {
+  .usc-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(27, 23, 35, 0.04), 0 26px 48px -26px rgba(78, 50, 119, 0.32);
+  }
+}
+
+/* --- Tables --------------------------------------------------------------
+   Two tables carry this page: the six filters with their percentages and the
+   measured test results. Banding lets both be read across. */
+
+.usc-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 45%, transparent);
+}
+
+.usc-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Measured results ----------------------------------------------------
+   The SPF and UVA numbers are the reason to buy this product, so they get a
+   panel rather than a row in the flow. */
+
+.usc-measure {
+  border: 1px solid var(--cera-blush-deep);
+  border-radius: 24px;
+  background: linear-gradient(140deg, color-mix(in srgb, var(--cera-blush) 80%, #fff), #fff 62%);
+}
+
+/* --- Caution blocks ------------------------------------------------------
+   Homosalate and the missing water-resistance test. Neither is a warning in
+   the legal sense, so they read as notes rather than alarms. */
+
+.usc-note {
+  border: 1px solid var(--cera-line);
+  border-inline-start: 3px solid var(--cera-rose);
+  border-radius: 20px;
+  background: #fff;
+}

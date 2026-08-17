@@ -111,7 +111,7 @@ const getProductByIdFromDb = unstable_cache(
   // Bump when product rows are edited outside admin (admin already
   // revalidateTag('products')). Out-of-band image swaps otherwise keep
   // serving the previous path for up to 5 minutes.
-  ['product-by-id-v42'],
+  ['product-by-id-v43'],
   { revalidate: 300, tags: ['products'] }
 )
 

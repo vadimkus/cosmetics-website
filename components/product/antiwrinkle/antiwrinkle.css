@@ -1,0 +1,63 @@
+/**
+ * Palette override for MULTI FUNCTIONAL ANTI-WRINKLE SERUM (product 22).
+ *
+ * cerabarrier.css supplies the structure; this file only restates the tokens.
+ * The serum is an opaque light-yellow fluid and the box is a warm putty, so the
+ * page takes a muted olive-gold that reads as neither the sun range's ambers nor
+ * the BB range's clay. Scoped to `.cera-page.aws-page`.
+ */
+
+.cera-page.aws-page {
+  --cera-cream: #faf9f5;
+  --cera-cream-deep: #efeade;
+  --cera-blush: #f4efe1;
+  --cera-blush-deep: #ddd0ad;
+  --cera-rose: #8a7532;
+  --cera-rose-ink: #675724;
+  --cera-ink: #1c1a13;
+  --cera-body: #413d31;
+  --cera-muted: #6a6555;
+  --cera-line: #e9e4d7;
+}
+
+.aws-page .cera-stage {
+  background-color: #f4f1e7;
+  box-shadow: 0 24px 60px -34px rgba(103, 87, 36, 0.4);
+}
+
+@media (hover: hover) {
+  .aws-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(28, 26, 19, 0.04), 0 26px 48px -26px rgba(103, 87, 36, 0.3);
+  }
+}
+
+/* --- Tables -------------------------------------------------------------- */
+
+.aws-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 42%, transparent);
+}
+
+.aws-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- The glycerin headline ----------------------------------------------
+   A quarter of the bottle is one ingredient, and the page opens on it, so the
+   figure gets a panel rather than a stat cell. */
+
+.aws-hero-figure {
+  border: 1px solid var(--cera-blush-deep);
+  border-radius: 24px;
+  background: linear-gradient(140deg, color-mix(in srgb, var(--cera-blush) 80%, #fff), #fff 62%);
+}
+
+/* --- Notes ---------------------------------------------------------------
+   The bakuchiol dose comparison, the peptide numbers and the fragrance
+   disclosure all qualify the marketing, so they sit apart from the flow. */
+
+.aws-note {
+  border: 1px solid var(--cera-line);
+  border-inline-start: 3px solid var(--cera-rose);
+  border-radius: 20px;
+  background: #fff;
+}

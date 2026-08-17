@@ -1,34 +1,43 @@
 /**
- * Product 25 — SOOTHING REPAIR POSTCREAM: add the size-comparison image to the gallery.
+ * Product 25 — SOOTHING REPAIR POSTCREAM: put the real two-size photograph in the gallery.
  *
  * CONTEXT. This product is sold in two real sizes, each with its own MoySklad SKU:
  * 20 g (code 00038) at 204 AED and 100 g (code 54465) at 440 AED. Both were already
- * configured in data/productConfig.ts and in utils/productPricing.ts, and the generic
- * PDP rendered a selector for them. The bespoke page built for this product on 17 Aug
- * did not, so the 100 g tube could not be bought from the product page at all and the
- * price shown was always the 20 g one. That is fixed in PostcreamProductPage.tsx.
+ * configured in data/productConfig.ts and utils/productPricing.ts, and the generic PDP
+ * rendered a selector for them. The bespoke page built on 17 Aug did not, so the 100 g
+ * tube could not be bought from the product page and the price shown was always the
+ * 20 g one. Fixed in PostcreamProductPage.tsx.
  *
- * THE IMAGE. There is no photograph of the 100 g tube anywhere in the asset library or
- * the Intertek dossier — the only packshot we hold, /images/SRC.jpg, shows the 20 g tube
- * on its own. /images/postcream/two-sizes.jpeg is therefore a RENDERED MOCK-UP whose job
- * is to show the size difference, not to depict the carton artwork. It is accurate on
- * the things that matter — the product name, the two fill weights, and three ingredients
- * the formula genuinely contains at working doses — but the tube design is stylised and
- * does not match the real GENOSYS tube. It is added as a SECONDARY gallery image only;
- * the real photograph stays as the main image. Replace it with a real photograph of the
- * two tubes together as soon as one exists.
+ * THE IMAGE. `/images/Second/soothrep.png` is a real studio photograph of both tubes
+ * side by side, captioned 20g and 100g, and it has been in the repository since
+ * February 2026. It was already listed in this product's `data/productConfig.ts`
+ * gallery — but the DB `images` column was null, and the bespoke page builds its
+ * gallery from the DB (`product.image` plus `product.images`), not from the config. So
+ * the asset existed, was already wired for the generic page, and simply never reached
+ * the bespoke one.
  *
- * Note the gallery convention: product.image is prepended automatically by both web and
- * mobile, so it must not appear inside `images`. The pre-existing config entry for this
- * product breaks that rule by listing SRC.jpg in its own images array; the bespoke page
- * de-duplicates with a Set so it does not double up, and that legacy entry is left alone.
+ * This script puts it in the DB gallery, which is where galleries belong per
+ * .cursor/rules/product-gallery-images.mdc.
+ *
+ * A generated size-comparison mock-up was briefly added here and is now removed: the
+ * real photograph is better in every respect, and a rendered tube that does not match
+ * the real packaging has no business on a page that trades on authenticity.
+ *
+ * Gallery convention: product.image is prepended automatically by web and mobile, so it
+ * must not appear inside `images`. The legacy config entry for this product does list
+ * SRC.jpg in its own array; the bespoke page de-duplicates with a Set, so it does not
+ * double up, and that entry is left alone.
  *
  * Run: npx tsx --env-file=.env.local scripts/update-product-25-postcream-sizes-20260817.ts
  */
 
 import { prisma } from '../lib/prisma'
 
-const SIZE_IMAGE = '/images/postcream/two-sizes.jpeg'
+/** The real photograph of the 20 g and 100 g tubes together. */
+const SIZE_IMAGE = '/images/Second/soothrep.png'
+
+/** The generated mock-up this replaces. Removed wherever it appears. */
+const RETIRED_MOCKUP = '/images/postcream/two-sizes.jpeg'
 
 async function main() {
   const product = await prisma.product.findFirst({
@@ -45,9 +54,11 @@ async function main() {
     }
   })()
 
-  // Keep whatever is already there, drop the main image if it has crept in, and add ours.
   const next = Array.from(
-    new Set([...existing.filter(src => src !== product.image), SIZE_IMAGE])
+    new Set([
+      ...existing.filter(src => src !== product.image && src !== RETIRED_MOCKUP),
+      SIZE_IMAGE,
+    ])
   )
 
   console.log(`Updating id=${product.id} — ${product.name}`)

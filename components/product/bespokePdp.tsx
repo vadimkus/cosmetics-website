@@ -44,6 +44,7 @@ import PcsProductPage from '@/components/product/powersolution/PcsProductPage'
 import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowProductPage'
 import BbCushionProductPage from '@/components/product/bbcushion/BbCushionProductPage'
 import GenoLedProductPage from '@/components/product/genoled/GenoLedProductPage'
+import SeaAlgaeProductPage from '@/components/product/sealgae/SeaAlgaeProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -178,6 +179,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   '60': BioMesoExpertProductPage,
   '61': ScalpBrushProductPage,
   '41': BbCushionProductPage,
+  // 36 is named after an ingredient dosed at 10 ppm, so its page is built on
+  // the humectants and the sheet instead. See the source audit.
+  '36': SeaAlgaeProductPage,
   // 49 is the only device in the catalogue: no INCI, no routine, and a
   // dosimetry table where the cosmetics pages carry a formula.
   '49': GenoLedProductPage,
@@ -224,6 +228,9 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   // SRS, PCS, CTS, AWS and the Peptide Gel Mask. A device has no routine of its
   // own, but it is always run inside one of these.
   '49': ['13', '7', '6', '9', '37'],
+  // Snow Booster is the prep step the pouch names; the other three are the
+  // masks and peels it is used alongside.
+  '36': ['16', '53', '13', '37'],
   // The other five Power Solutions, for the range table on each ampoule's page.
   '4': ['5', '6', '7', '8', '9'],
   '5': ['4', '6', '7', '8', '9'],

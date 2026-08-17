@@ -1,0 +1,53 @@
+/**
+ * Palette override for the SOOTHING BOMB SEA ALGAE MASK page (product 36).
+ *
+ * cerabarrier.css supplies the structure; this file only restates the tokens.
+ * The pouch is deep sea green on white and the essence itself is green, so the
+ * page takes that rather than the house rose. Scoped to `.cera-page.sea-page`.
+ */
+
+.cera-page.sea-page {
+  --cera-cream: #f7f9f7;
+  --cera-cream-deep: #e9efea;
+  --cera-blush: #e8f1ea;
+  --cera-blush-deep: #c5dccb;
+  --cera-rose: #2f7d52;
+  --cera-rose-ink: #1f5c3b;
+  --cera-ink: #14201a;
+  --cera-body: #37423c;
+  --cera-muted: #5f6b64;
+  --cera-line: #dde5df;
+}
+
+.sea-page .cera-stage {
+  background-color: #eef3ef;
+  box-shadow: 0 24px 60px -34px rgba(31, 92, 59, 0.4);
+}
+
+@media (hover: hover) {
+  .sea-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(20, 32, 26, 0.04), 0 26px 48px -26px rgba(31, 92, 59, 0.3);
+  }
+}
+
+/* --- Formula table -------------------------------------------------------
+   The point of this page is that the percentages are visible, so the figure
+   column is tabular and the rows are banded to be read across. */
+
+.sea-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 45%, transparent);
+}
+
+.sea-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- The ppm note --------------------------------------------------------
+   The one block on the page that argues against the product's own name, so it
+   is set apart rather than dropped into the flow. */
+
+.sea-note {
+  border: 1px solid var(--cera-blush-deep);
+  border-radius: 24px;
+  background: linear-gradient(135deg, color-mix(in srgb, var(--cera-blush) 75%, #fff), #fff 70%);
+}

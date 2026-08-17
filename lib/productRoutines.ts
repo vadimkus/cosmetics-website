@@ -510,6 +510,11 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
       HYALURON_CREAM,
     ],
   },
+  /* The overnight cream mask joined this routine on 17 Aug 2026, when it replaced
+     the discontinued EGF Repair Oxymask in the Sensitive Skin box. It also has to
+     be here for the box page itself: BeautyBoxProductPage looks its six members up
+     through getRoutineProducts, so an item missing from this list would render
+     without a live price or stock state. */
   '62': {
     headingKey: 'recommendedSensitiveSkinRoutine',
     steps: [
@@ -518,6 +523,7 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
       step('routineSoothingBombMaskTitle', 'routineSoothingBombMaskDescSensitive'),
       step('routineAllForSensitiveSerumTitle', 'routineAllForSensitiveSerumDesc'),
       step('routineSkinBarrierCreamTitle', 'routineSkinBarrierCreamDesc'),
+      step('routineOvernightMaskTitle', 'routineOvernightMaskDesc'),
     ],
   },
 

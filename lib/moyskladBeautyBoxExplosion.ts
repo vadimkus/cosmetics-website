@@ -72,7 +72,10 @@ const BEAUTY_BOX_COMPONENTS: Record<string, BeautyBoxComponentSpec[]> = {
     { productName: 'SNOW BOOSTER', size: '200ml', qty: 1, retailPriceAed: 260 },
     { productName: 'ALL FOR SENSITIVE SERUM', qty: 1, retailPriceAed: 330 },
     { productName: 'SKIN BARRIER PROTECTING CREAM', qty: 1, retailPriceAed: 450 },
-    { productName: 'EGF REPAIR OXYMASK CREAM', qty: 1, retailPriceAed: 290 },
+    /* Replaced EGF REPAIR OXYMASK CREAM on 17 Aug 2026. That product is
+       discontinued and its record is out of stock and hidden, so this line was
+       raising picking requests for a unit that no longer exists. */
+    { productName: 'SKIN RESCUE OVERNIGHT CREAM MASK', qty: 1, retailPriceAed: 340 },
     { productName: 'SOOTHING BOMB SEA ALGAE MASK', qty: 1, retailPriceAed: 36 },
   ],
 }

@@ -17,6 +17,7 @@ import { ANTI_AGING_COPY } from './copy/antiAging'
 import { CHARMING_LOOK_COPY } from './copy/charmingLook'
 import { DEEP_MOISTURIZING_COPY } from './copy/deepMoisturizing'
 import { PROBLEM_SKIN_COPY } from './copy/problemSkin'
+import { SENSITIVE_SKIN_COPY } from './copy/sensitiveSkin'
 import { SKIN_BRIGHTENING_COPY } from './copy/skinBrightening'
 
 export interface BeautyBoxConfig {
@@ -33,6 +34,10 @@ export const BEAUTY_BOXES = {
   '57': { copy: CHARMING_LOOK_COPY, palette: 'bb-mauve' },
   '58': { copy: ANTI_AGING_COPY, palette: 'bb-garnet' },
   '59': { copy: DEEP_MOISTURIZING_COPY, palette: 'bb-water' },
+  /* 62 is the only box with six members rather than five, because its treatment
+     slot and its sheet mask are separate items. The layout maps over
+     contents.items, so nothing needed changing for that. */
+  '62': { copy: SENSITIVE_SKIN_COPY, palette: 'bb-oat' },
 } satisfies Record<string, BeautyBoxConfig>
 
 export type BeautyBoxNumber = keyof typeof BEAUTY_BOXES

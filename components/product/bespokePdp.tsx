@@ -186,6 +186,8 @@ export const BESPOKE_PDP_LAYOUTS = {
   '57': BeautyBoxProductPage,
   '58': BeautyBoxProductPage,
   '59': BeautyBoxProductPage,
+  // 62 is the sixth box: the same layout, six members rather than five.
+  '62': BeautyBoxProductPage,
   // 60 and 65 are the same Bio-Meso layout with different configuration.
   '60': BioMesoExpertProductPage,
   '61': ScalpBrushProductPage,

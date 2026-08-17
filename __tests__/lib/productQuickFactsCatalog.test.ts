@@ -81,7 +81,10 @@ describe('Beauty Box Quick Facts catalog', () => {
       '57': ['5 full-size products', 'Save AED 228'],
       '58': ['9 pieces inside', 'Save AED 208.50'],
       '59': ['7 pieces inside', 'Save AED 197.70'],
-      '62': ['6 products inside', 'Save AED 254'],
+      /* 304, not 254, since 17 Aug 2026: the discontinued 290 AED EGF Repair
+         Oxymask was replaced by the 340 AED Skin Rescue Overnight Cream Mask,
+         taking the parts total to 1,746 while the box price stayed at 1,442. */
+      '62': ['6 products inside', 'Save AED 304'],
     } as const
 
     for (const id of EXPECTED_IDS) {

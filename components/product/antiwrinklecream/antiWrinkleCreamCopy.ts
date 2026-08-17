@@ -52,6 +52,16 @@ export interface AntiWrinkleCreamCopy {
   viewBag: string
   outOfStock: string
   vatIncluded: string
+
+  /* Two sizes, 50 g and 250 g, both real SKUs with their own prices. A size has to
+     travel with every cart call — see the product page component. */
+  chooseSize: string
+  sizes: {
+    homecareLabel: string
+    homecareNote: string
+    proLabel: string
+    proNote: string
+  }
   freeDelivery: string
 
   stats: Array<{ value: string; label: string }>
@@ -165,6 +175,13 @@ const EN: AntiWrinkleCreamCopy = {
   viewBag: 'View bag',
   outOfStock: 'Out of stock',
   vatIncluded: 'VAT included',
+  chooseSize: 'Choose your size',
+  sizes: {
+    homecareLabel: 'Homecare',
+    homecareNote: 'The 50 g size, for a daily routine at home',
+    proLabel: 'Professional',
+    proNote: 'The 250 g size, for clinic use',
+  },
   freeDelivery: 'Free delivery over AED 1,000 · Dispatched from Dubai',
 
   stats: [
@@ -413,6 +430,13 @@ const AR: AntiWrinkleCreamCopy = {
   viewBag: 'عرض الحقيبة',
   outOfStock: 'غير متوفر',
   vatIncluded: 'شامل الضريبة',
+  chooseSize: 'اختاري الحجم',
+  sizes: {
+    homecareLabel: 'للاستخدام المنزلي',
+    homecareNote: 'حجم 50 غ، لروتين يومي في المنزل',
+    proLabel: 'للاستخدام الاحترافي',
+    proNote: 'حجم 250 غ، لاستخدام العيادة',
+  },
   freeDelivery: 'توصيل مجاني للطلبات فوق 1,000 درهم · يُشحن من دبي',
 
   stats: [
@@ -661,6 +685,13 @@ const RU: AntiWrinkleCreamCopy = {
   viewBag: 'Открыть корзину',
   outOfStock: 'Нет в наличии',
   vatIncluded: 'НДС включён',
+  chooseSize: 'Выберите объём',
+  sizes: {
+    homecareLabel: 'Домашний уход',
+    homecareNote: 'Объём 50 г, для ежедневного ухода дома',
+    proLabel: 'Профессиональный',
+    proNote: 'Объём 250 г, для работы в клинике',
+  },
   freeDelivery: 'Бесплатная доставка от 1 000 AED · Отправка из Дубая',
 
   stats: [

@@ -54,6 +54,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
+import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
@@ -98,13 +99,19 @@ export default function AntiWrinkleCreamProductPage({ product, unitsSold = 0, ro
   const copy = getAntiWrinkleCreamCopy(locale)
   const Chevron = isRtl ? ChevronLeft : ChevronRight
 
+  /* Two real SKUs, 50 g and 250 g. This page shipped without the selector, so the
+     professional size could not be bought here and the price shown was always the
+     50 g one. */
+  const sizeOptions = useMemo(() => getProductSizeOptions('32', product), [product])
+  const [selectedSize, setSelectedSize] = useState(sizeOptions[0]?.value || '')
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [justAdded, setJustAdded] = useState(false)
 
   const canSeePrices = canUserSeePrices(user)
-  const pricing = getPricingDisplay(product, user)
-  const cartLine = findSelectedStandardCartLine(cartItems, product.id, '', '')
+  const unitPrice = getPriceForSize(product, selectedSize)
+  const pricing = getPricingDisplay({ ...product, price: unitPrice }, user, { selectedSize })
+  const cartLine = findSelectedStandardCartLine(cartItems, product.id, '', selectedSize)
   const inCartQty = cartLine?.quantity || 0
 
   const fullInci = useMemo(() => {
@@ -148,19 +155,19 @@ export default function AntiWrinkleCreamProductPage({ product, unitsSold = 0, ro
   const { heroCta: ctaSentinel, closingCta, showStickyBar } = useCeraStickyBar()
 
   const addToCart = useCallback(
-    async (qty: number) => {
+    async (qty: number, size: string = selectedSize) => {
       if (!user) {
         router.push(getLocalizedPath('/login', locale))
         return
       }
       try {
-        await addItem(product, qty, undefined, undefined)
+        await addItem(product, qty, undefined, size || undefined)
         try {
           trackAddToCart({
             id: product.id,
             name: product.name,
             category: product.category || 'Cream',
-            price: product.price,
+            price: unitPrice,
             quantity: qty,
           })
         } catch { /* analytics is best-effort */ }
@@ -169,7 +176,7 @@ export default function AntiWrinkleCreamProductPage({ product, unitsSold = 0, ro
         throw error
       }
     },
-    [addItem, locale, product, router, user]
+    [addItem, locale, product, router, selectedSize, unitPrice, user]
   )
 
   const handleAdd = useCallback(async () => {
@@ -188,8 +195,8 @@ export default function AntiWrinkleCreamProductPage({ product, unitsSold = 0, ro
 
   const handleDecrement = useCallback(() => {
     if (inCartQty <= 0) return
-    updateQuantity(product.id, inCartQty - 1, '', '')
-  }, [inCartQty, product.id, updateQuantity])
+    updateQuantity(product.id, inCartQty - 1, '', selectedSize)
+  }, [inCartQty, product.id, selectedSize, updateQuantity])
 
   const handleShare = useCallback(async () => {
     const url = typeof window !== 'undefined' ? window.location.href : ''
@@ -294,6 +301,55 @@ export default function AntiWrinkleCreamProductPage({ product, unitsSold = 0, ro
                 </li>
               ))}
             </ul>
+
+            {/* Size. Two real SKUs, and the price below follows this choice. */}
+            {sizeOptions.length > 1 && (
+              <fieldset className="mt-7">
+                <legend className="cera-eyebrow mb-3">{copy.chooseSize}</legend>
+                <div className="grid grid-cols-2 gap-3">
+                  {sizeOptions.map((option, index) => {
+                    const isActive = option.value === selectedSize
+                    const optionPrice = getPriceForSize(product, option.value)
+                    const label = index === 0 ? copy.sizes.homecareLabel : copy.sizes.proLabel
+                    const note = index === 0 ? copy.sizes.homecareNote : copy.sizes.proNote
+                    return (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => setSelectedSize(option.value)}
+                        aria-pressed={isActive}
+                        className={`group relative overflow-hidden rounded-2xl border p-4 text-start transition-all duration-300 ${
+                          isActive
+                            ? 'border-[var(--cera-rose)] bg-white shadow-[0_16px_36px_-26px_rgba(122,102,54,0.6)]'
+                            : 'border-[var(--cera-line)] bg-white/60 hover:border-[var(--cera-blush-deep)] hover:bg-white'
+                        }`}
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`absolute top-3 flex h-4 w-4 items-center justify-center rounded-full border transition-colors ${
+                            isRtl ? 'left-3' : 'right-3'
+                          } ${isActive ? 'border-[var(--cera-rose)] bg-[var(--cera-rose)]' : 'border-[var(--cera-line)]'}`}
+                        >
+                          {isActive ? <Check className="h-2.5 w-2.5 text-white" strokeWidth={4} /> : null}
+                        </span>
+                        <span dir="ltr" className="cera-serif block text-[24px] leading-none text-[var(--cera-ink)]">
+                          {option.label}
+                        </span>
+                        <span className="mt-1.5 block text-[11.5px] font-semibold uppercase tracking-[0.12em] text-[var(--cera-rose-ink)]">
+                          {label}
+                        </span>
+                        <span className="mt-2 block text-[13.5px] leading-snug text-[var(--cera-body)]">{note}</span>
+                        {canSeePrices ? (
+                          <span dir="ltr" className="mt-3 block text-[15px] font-semibold tabular-nums text-[var(--cera-ink)]">
+                            {optionPrice.toFixed(2)} {isRtl ? 'درهم' : 'AED'}
+                          </span>
+                        ) : null}
+                      </button>
+                    )
+                  })}
+                </div>
+              </fieldset>
+            )}
 
             {/* Price + CTA */}
             <div ref={ctaSentinel} className="mt-7">

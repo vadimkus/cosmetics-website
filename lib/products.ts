@@ -187,7 +187,7 @@ export const products: Product[] = [
       '/images/srs_new/s1.jpeg',
       '/images/srs_new/s2.jpeg',
       '/images/srs_new/s3.jpeg',
-      '/images/srs_new/s4.jpeg',
+      '/images/srs_new/s4_new.jpeg',
       '/images/srs_new/s5.jpeg',
       '/images/srs_new/s6.jpeg',
       '/images/srs_new/s7.jpeg',

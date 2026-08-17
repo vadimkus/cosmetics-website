@@ -9,8 +9,9 @@ import { useState, useMemo, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSearchParams, useRouter } from 'next/navigation'
-import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Scan, Droplets, Target, Flame, Eye, Eye as EyeIcon, Palette, Clock, Zap, CircleDot, Sun, Moon, User, Brain, Loader2, ShoppingBag, Check } from 'lucide-react'
+import { ShoppingCart, Heart, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, Info, Star, Scan, Droplets, Target, Flame, Eye, Eye as EyeIcon, Palette, Clock, Zap, CircleDot, Sun, Moon, User, Brain, Loader2, ShoppingBag, Check, Wind, Contrast, Feather } from 'lucide-react'
 import type { SkinAnalysisResult } from '@/components/SkinAnalysisCamera'
+import { getSkinTypeVisual } from '@/lib/skinTypeVisuals'
 import dynamic from 'next/dynamic'
 
 // Lazy load heavy camera/analysis components (~1800 lines each, camera/AR/AI deps)
@@ -430,39 +431,44 @@ export default function SkinRecommendationClient() {
   }
 
   // Get translated data arrays
+  /**
+   * The five options carry a line icon rather than an emoji, matching the
+   * homepage concern tiles. Emoji rendered at 28px over a photograph read as
+   * clip art, and the cactus and scales in particular were doing no work.
+   */
   const SKIN_TYPES = [
     { 
       value: 'dry', 
       label: t('skinRecommendation.drySkin'), 
-      icon: '🌵',
+      Icon: Wind,
       description: t('skinRecommendation.drySkinDescription'),
       tips: t('skinRecommendation.drySkinTips')
     },
     { 
       value: 'oily', 
       label: t('skinRecommendation.oilySkin'), 
-      icon: '💧',
+      Icon: Droplets,
       description: t('skinRecommendation.oilySkinDescription'),
       tips: t('skinRecommendation.oilySkinTips')
     },
     { 
       value: 'combination', 
       label: t('skinRecommendation.combinationSkin'), 
-      icon: '⚖️',
+      Icon: Contrast,
       description: t('skinRecommendation.combinationSkinDescription'),
       tips: t('skinRecommendation.combinationSkinTips')
     },
     { 
       value: 'normal', 
       label: t('skinRecommendation.normalSkin'), 
-      icon: '✨',
+      Icon: Sparkles,
       description: t('skinRecommendation.normalSkinDescription'),
       tips: t('skinRecommendation.normalSkinTips')
     },
     { 
       value: 'sensitive', 
       label: t('skinRecommendation.sensitiveSkin'), 
-      icon: '🤲',
+      Icon: Feather,
       description: t('skinRecommendation.sensitiveSkinDescription'),
       tips: t('skinRecommendation.sensitiveSkinTips')
     }
@@ -762,7 +768,6 @@ export default function SkinRecommendationClient() {
                     {locale === 'ar' ? 'نوع بشرتك' : locale === 'ru' ? 'Тип вашей кожи' : 'Your Skin Type'}
                   </p>
                   <p className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
-                    {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.icon}{' '}
                     {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.label || cameraResult.skinType}
                   </p>
                 </div>
@@ -1417,7 +1422,6 @@ export default function SkinRecommendationClient() {
                     </div>
                     <div className={`flex items-center gap-3 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="bg-white px-3 py-1.5 rounded-full text-sm font-medium text-gray-900 shadow-sm">
-                        {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.icon}{' '}
                         {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.label}
                       </span>
                       <span className="text-xs text-gray-500">
@@ -1468,7 +1472,11 @@ export default function SkinRecommendationClient() {
               </div>
               <p className="text-[14px] md:text-[15.5px] text-[var(--cera-muted)] leading-relaxed mb-5 md:mb-7">{t('skinRecommendation.selectBestDescribes')}</p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-                {SKIN_TYPES.map((skinType) => (
+                {SKIN_TYPES.map((skinType) => {
+                  const Icon = skinType.Icon
+                  const visual = getSkinTypeVisual(skinType.value)
+
+                  return (
                   <button
                     key={skinType.value}
                     type="button"
@@ -1476,15 +1484,31 @@ export default function SkinRecommendationClient() {
                       setSelectedSkinType(skinType.value)
                       setCurrentStep(2)
                     }}
-                    className="skinrec-option p-4 md:p-5 min-h-[124px] md:min-h-[146px]"
+                    className="skinrec-option relative isolate overflow-hidden p-4 md:p-5 min-h-[124px] md:min-h-[146px]"
                     data-selected={selectedSkinType === skinType.value}
                   >
+                    {visual && (
+                      <>
+                        <Image
+                          src={visual.image}
+                          alt=""
+                          fill
+                          sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 300px"
+                          className="skinrec-option__image skinrec-option__image--mirrored pointer-events-none -z-20 object-cover"
+                          style={{ objectPosition: visual.imagePosition }}
+                          aria-hidden="true"
+                        />
+                        <span className="skinrec-option__wash pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
+                      </>
+                    )}
                     <span className="skinrec-option__tick" aria-hidden="true"><Check className="w-3 h-3" strokeWidth={3} /></span>
                     <div className="flex items-center gap-2.5 md:gap-3 mb-2 md:mb-2.5 pe-7">
-                      <span className="text-2xl md:text-[28px] leading-none">{skinType.icon}</span>
+                      <span className="ed-mark ed-mark--tactile ed-mark--round h-9 w-9 flex-none" aria-hidden="true">
+                        <Icon className="h-4 w-4" strokeWidth={1.65} />
+                      </span>
                       <div className="cera-serif text-[16px] md:text-[19px] leading-tight">{skinType.label}</div>
                     </div>
-                    <p className="text-[12.5px] md:text-[13.5px] text-[var(--cera-muted)] leading-relaxed line-clamp-2">{skinType.description}</p>
+                    <p className="max-w-[74%] text-[12.5px] md:text-[13.5px] text-[var(--cera-muted)] leading-relaxed line-clamp-2">{skinType.description}</p>
                     {selectedSkinType === skinType.value && (
                       <div className="mt-3 pt-3 border-t border-[var(--cera-blush-deep)]">
                         <div className="flex items-start gap-2">
@@ -1494,7 +1518,8 @@ export default function SkinRecommendationClient() {
                       </div>
                     )}
                   </button>
-                ))}
+                  )
+                })}
               </div>
             </div>
 
@@ -1650,8 +1675,9 @@ export default function SkinRecommendationClient() {
             
             {/* Skin Profile Pills - Minimal */}
             <div className={`flex flex-wrap items-center justify-center gap-3 mt-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              {/* Text only: the concern pills beside this one still carry emoji,
+                  so a line icon here would sit oddly next to them. */}
               <span className="skinrec-pill inline-flex items-center gap-2 px-4 py-2 text-[13.5px]">
-                {SKIN_TYPES.find(type => type.value === selectedSkinType)?.icon}
                 {SKIN_TYPES.find(type => type.value === selectedSkinType)?.label || selectedSkinType}
               </span>
               {selectedTargetConcerns.slice(0, 3).map(concern => {

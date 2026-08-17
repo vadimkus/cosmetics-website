@@ -50,12 +50,12 @@ export default function RewardsRedemptionCard({
 
   return (
     <section
-      className={`rounded-xl border border-blue-200 bg-blue-50/60 p-4 md:p-5 ${isRtl ? 'text-right' : ''}`}
+      className={`cera-card p-4 md:p-6 ${isRtl ? 'text-right' : ''}`}
       aria-labelledby="checkout-rewards-title"
     >
       <div className={`flex items-start justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
         <div className={`flex items-start gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-100">
+          <span className="ed-mark ed-mark--tactile ed-mark--round h-10 w-10 shrink-0">
             <Award className="h-5 w-5 text-blue-700" aria-hidden="true" />
           </span>
           <div>
@@ -89,7 +89,7 @@ export default function RewardsRedemptionCard({
       {canApply ? (
         <>
           {applied && (
-            <div className="mt-4 rounded-lg border border-blue-200 bg-white p-3">
+            <div className="mt-4 rounded-xl border border-[var(--cera-line)] bg-white p-3">
               <div className={`flex items-center justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <div>
                   <p className="text-sm font-semibold text-blue-800">

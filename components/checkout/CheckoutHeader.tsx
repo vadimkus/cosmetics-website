@@ -66,20 +66,20 @@ export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale
       {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
       {!(isPWAClient && isPWA) && !isMobileWeb && (
         <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-          <nav className={`inline-flex items-baseline gap-1.5 md:gap-2 text-xs md:text-base text-gray-600 mb-1.5 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
-            <span className="hover:text-primary-600 transition-colors">
+          <nav className={`mb-1.5 inline-flex items-baseline gap-1.5 text-[13px] text-[var(--cera-muted)] md:mb-4 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
+            <span className="transition-colors hover:text-[var(--cera-rose-ink)]">
               <Link href={getLocalizedPath('/', locale)}>{t('checkout.home')}</Link>
             </span>
             <span>/</span>
-            <span className="hover:text-primary-600 transition-colors">
+            <span className="transition-colors hover:text-[var(--cera-rose-ink)]">
               <Link href={getLocalizedPath('/products', locale)}>{t('checkout.products')}</Link>
             </span>
             <span>/</span>
-            <span className="hover:text-primary-600 transition-colors">
+            <span className="transition-colors hover:text-[var(--cera-rose-ink)]">
               <Link href={getLocalizedPath('/cart', locale)}>{t('checkout.cart')}</Link>
             </span>
             <span>/</span>
-            <span className="text-gray-900 font-medium">{t('checkout.checkout')}</span>
+            <span className="text-[var(--cera-ink)]">{t('checkout.checkout')}</span>
           </nav>
         </div>
       )}
@@ -89,7 +89,7 @@ export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale
         <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>
           <Link 
             href={getLocalizedPath('/cart', locale)} 
-            className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+            className={`inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
           >
             <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
             <span>{t('checkout.backToCart')}</span>

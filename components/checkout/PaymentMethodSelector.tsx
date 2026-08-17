@@ -22,8 +22,8 @@ export default function PaymentMethodSelector({
   if ((isPWAClient && isPWA) || isMobileWeb) {
     return (
       <div className="space-y-4">
-        <h2 className={`text-base font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <CreditCard className="h-5 w-5 text-red-600" />
+        <h2 className={`cera-serif flex items-center gap-2.5 text-[19px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <CreditCard className="h-5 w-5 text-[var(--cera-rose)]" />
           {t('checkout.paymentInformation') || 'Payment Method'}
         </h2>
         
@@ -91,8 +91,8 @@ export default function PaymentMethodSelector({
   // Desktop Browser Version
   return (
     <div className="space-y-3 md:space-y-4">
-      <h2 className={`text-base md:text-lg font-semibold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-        <CreditCard className="h-4 w-4 md:h-5 md:w-5 text-green-600" />
+      <h2 className={`cera-serif flex items-center gap-2.5 text-[19px] md:text-[21px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <CreditCard className="h-4 w-4 text-[var(--cera-rose)] md:h-5 md:w-5" />
         {t('checkout.paymentInformation')}
       </h2>
       

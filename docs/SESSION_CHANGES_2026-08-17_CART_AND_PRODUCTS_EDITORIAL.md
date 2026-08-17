@@ -117,6 +117,37 @@ depend on stylesheet order.
 box and a contact form rather than a payment form, so the stakes are lower, but
 if anyone is doing an iOS pass that is the thing to look at.
 
+## Second follow-up — checkout blocks, and a breadcrumb I broke
+
+### The breadcrumb was hanging off the left edge
+
+My fault, from the first checkout pass. The root `div` used to carry
+`container mx-auto`, which is what kept the breadcrumb and the back link in
+line with the form. I replaced it with a bare `px-4` and put the measure on an
+inner `max-w-6xl` wrapper — but `CheckoutHeader` renders *above* that wrapper,
+so the breadcrumb went full-bleed while the content stayed centred.
+
+`CheckoutHeader` is now inside its own `mx-auto max-w-6xl`. Measured after the
+fix: breadcrumb and first card both start at the same x.
+
+`/cart` had a milder version of the same thing, pre-existing rather than mine —
+its breadcrumb and back link sat outside the `max-w-6xl` wrapper too, so they
+hugged the container edge. Both are now inside it.
+
+### Checkout in blocks
+
+The left column was one panel with a header and a single form running the whole
+length of it. It is now a page heading plus four cards inside one `<form>`:
+shipping, rewards, payment, order notes. The form element still wraps all of
+them, which is what the submit handler needs.
+
+The right column was one panel with a red gradient cap and coloured sub-boxes
+inside it — green for delivery, blue for support. It is now three cards:
+order summary, delivery, support. The gradient header became a plain serif
+heading on a hairline, and the sub-boxes lost their tinted backgrounds since
+the card is now the frame. `RewardsRedemptionCard` came off blue onto the page
+tokens at the same time.
+
 ## Verified
 
 - `tsc --noEmit` clean, no lint errors on any touched file.

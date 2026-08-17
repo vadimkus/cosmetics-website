@@ -568,26 +568,26 @@ export default function CartClient() {
         </div>
       )}
       
-      {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
+      {/* Breadcrumb and back link share the content's measure, so they line up
+          with the cards below rather than sitting further out. */}
       {!isAppLikeMode && (
-        <nav className={`mb-2 text-[13px] text-[var(--cera-muted)] md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-          <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.home')}</Link>
-          <span aria-hidden="true"> / </span>
-          <Link href={getLocalizedPath('/products', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.products')}</Link>
-          <span aria-hidden="true"> / </span>
-          <span className="text-[var(--cera-ink)]">{t('common.cart')}</span>
-        </nav>
-      )}
-      
-      {/* Back to Products - Hide in PWA mode and mobile web */}
-      {!isAppLikeMode && (
-        <Link 
-          href={getLocalizedPath('/products', locale)} 
-          className={`mb-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-        >
-          <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-          <span>{t('cart.backToProducts') || 'Back to Products'}</span>
-        </Link>
+        <div className="mx-auto max-w-6xl">
+          <nav className={`mb-2 text-[13px] text-[var(--cera-muted)] md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+            <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.home')}</Link>
+            <span aria-hidden="true"> / </span>
+            <Link href={getLocalizedPath('/products', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.products')}</Link>
+            <span aria-hidden="true"> / </span>
+            <span className="text-[var(--cera-ink)]">{t('common.cart')}</span>
+          </nav>
+
+          <Link
+            href={getLocalizedPath('/products', locale)}
+            className={`mb-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          >
+            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span>{t('cart.backToProducts') || 'Back to Products'}</span>
+          </Link>
+        </div>
       )}
 
       <div className="max-w-6xl mx-auto" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>

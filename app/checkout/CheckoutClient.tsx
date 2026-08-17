@@ -722,22 +722,27 @@ export default function CheckoutClient() {
 
   return (
     <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] px-4 py-2 md:pb-8 md:pt-4 lg:pb-16 lg:pt-4 ${isAppLikeMode ? 'pb-[calc(96px+env(safe-area-inset-bottom))]' : ''}`} dir={dir}>
-      <CheckoutHeader
-        isPWA={isPWA}
-        isPWAClient={isPWAClient}
-        isMobileWeb={isMobileWeb}
-        locale={locale}
-        dir={dir}
-        t={t}
-        user={user}
-        progress={
-          <CheckoutProgress
-            currentStep="checkout"
-            locale={locale}
-            className="mb-4 md:mb-6"
-          />
-        }
-      />
+      {/* The header carries the breadcrumb and the back link, so it needs the
+          same measure as the content below it. Without this wrapper it sat
+          against the left edge of the viewport while the form stayed centred. */}
+      <div className="mx-auto max-w-6xl">
+        <CheckoutHeader
+          isPWA={isPWA}
+          isPWAClient={isPWAClient}
+          isMobileWeb={isMobileWeb}
+          locale={locale}
+          dir={dir}
+          t={t}
+          user={user}
+          progress={
+            <CheckoutProgress
+              currentStep="checkout"
+              locale={locale}
+              className="mb-4 md:mb-6"
+            />
+          }
+        />
+      </div>
 
       <div className="max-w-6xl mx-auto">
         {/* Order Number & Summary - PWA and Mobile Web (Above Form) */}
@@ -753,7 +758,7 @@ export default function CheckoutClient() {
             >
               <div className={`flex justify-between items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <div className={`flex items-center gap-3 min-w-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <span className="h-9 w-9 rounded-full bg-red-50 text-red-600 flex items-center justify-center flex-shrink-0" aria-hidden="true">
+                  <span className="ed-mark ed-mark--tactile ed-mark--round h-9 w-9 flex-shrink-0" aria-hidden="true">
                     <ShoppingBag className="h-5 w-5" />
                   </span>
                   <div className={`min-w-0 ${dir === 'rtl' ? 'text-right' : ''}`}>
@@ -925,7 +930,7 @@ export default function CheckoutClient() {
                     <span className="text-[var(--cera-muted)]">{locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}</span>
                     <span className="text-gray-900">AED {vatAmount.toFixed(2)}</span>
                   </div>
-                  <div className={`text-xs text-red-600 py-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`py-1 text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {locale === 'ar' ? 'جميع الأسعار شاملة 5% ضريبة القيمة المضافة' : locale === 'ru' ? 'Все цены включают 5% НДС' : 'All prices include 5% VAT'}
                   </div>
                   <div className={`flex justify-between border-t border-[var(--cera-line)] pt-3 text-[16px] font-semibold ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -955,18 +960,19 @@ export default function CheckoutClient() {
         <div className={`flex flex-col lg:flex-row gap-4 md:gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`}>
           {/* Checkout Form */}
           <div className="lg:w-2/3">
-            <div className="cera-card">
-              <div className="border-b border-[var(--cera-line)] p-4 md:p-6">
-                <h1 className={`cera-serif flex items-center gap-2.5 text-[22px] md:text-[26px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <CreditCard className="h-5 w-5 text-[var(--cera-rose)] md:h-6 md:w-6" />
-                  {t('checkout.title')}
-                </h1>
-              </div>
-              
-              <form id="checkout-form" onSubmit={handleSubmit} className="p-3 md:p-6 space-y-4 md:space-y-6 form-enhanced">
+            <h1 className={`cera-serif mb-4 flex items-center gap-2.5 text-[24px] md:text-[28px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <CreditCard className="h-5 w-5 text-[var(--cera-rose)] md:h-6 md:w-6" />
+              {t('checkout.title')}
+            </h1>
+
+            {/* Shipping, rewards, payment and notes are four separate concerns,
+                so they are four cards inside one form rather than one long
+                panel. The form element still wraps all of them, which is what
+                the submit handler needs. */}
+            <form id="checkout-form" onSubmit={handleSubmit} className="flex flex-col gap-4 form-enhanced">
 
                 {/* Shipping Information */}
-                <div className="space-y-3 md:space-y-4">
+                <div className="cera-card space-y-3 p-4 md:space-y-4 md:p-6">
                   <h2 className={`cera-serif flex items-center gap-2.5 text-[19px] md:text-[21px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <MapPin className="h-4 w-4 text-[var(--cera-rose)] md:h-5 md:w-5" />
                     {t('checkout.shippingInfo')}
@@ -1065,7 +1071,7 @@ export default function CheckoutClient() {
 
                   {/* Delivery Location - Display only (change on cart/bag page) */}
                   <div>
-                    <label className={`block text-xs md:text-sm font-medium text-gray-700 mb-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <label className={`ed-label ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.deliveryLocation')} *
                     </label>
                     <button
@@ -1075,12 +1081,12 @@ export default function CheckoutClient() {
                       aria-label={`${t('checkout.deliveryLocation')}: ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : 'Dubai'} — ${t('common.change') || 'Change'}`}
                     >
                       <span className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <MapPin className="h-4 w-4 text-red-600 flex-shrink-0" aria-hidden="true" />
+                        <MapPin className="h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" aria-hidden="true" />
                         <span className="font-medium">
                           {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : 'Dubai'}
                         </span>
                       </span>
-                      <span className={`flex items-center gap-1 text-xs text-red-600 font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className={`flex items-center gap-1 text-[12px] font-semibold text-[var(--cera-rose-ink)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
                         {t('common.change') || 'Change'}
                       </span>
@@ -1102,19 +1108,21 @@ export default function CheckoutClient() {
                   />
                 )}
 
-                <PaymentMethodSelector
-                  isPWA={isPWA}
-                  isPWAClient={isPWAClient}
-                  isMobileWeb={isMobileWeb}
-                  locale={locale}
-                  dir={dir}
-                  t={t}
-                  selectedPaymentMethod={selectedPaymentMethod}
-                  setSelectedPaymentMethod={setSelectedPaymentMethod}
-                />
+                <div className="cera-card p-4 md:p-6">
+                  <PaymentMethodSelector
+                    isPWA={isPWA}
+                    isPWAClient={isPWAClient}
+                    isMobileWeb={isMobileWeb}
+                    locale={locale}
+                    dir={dir}
+                    t={t}
+                    selectedPaymentMethod={selectedPaymentMethod}
+                    setSelectedPaymentMethod={setSelectedPaymentMethod}
+                  />
+                </div>
 
                 {/* Order Notes */}
-                <div className="form-field">
+                <div className="cera-card form-field p-4 md:p-6">
                   <label htmlFor="checkout-notes" className={`ed-label ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('checkout.orderNotes')}
                   </label>
@@ -1171,24 +1179,22 @@ export default function CheckoutClient() {
                     </div>
                   </>
                 )}
-              </form>
-            </div>
+            </form>
           </div>
 
           {/* Order Summary - Hidden on Mobile Web and PWA (already shown in chevron above) */}
           <div className={`lg:w-1/3 ${(isMobileWeb || (isPWAClient && isPWA)) ? 'hidden' : ''}`}>
-            <div className="bg-white rounded-lg md:rounded-xl shadow-md md:shadow-lg border border-gray-100 sticky top-4 order-summary-container" style={{ overflow: 'hidden', overflowY: 'hidden', overflowX: 'hidden' }}>
+            <div className="order-summary-container sticky top-4 flex flex-col gap-4">
+              <div className="cera-card overflow-hidden">
               {/* Header - Hidden in PWA (moved to top of page), shown on desktop */}
               {!(isPWAClient && isPWA) && (
-                <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-3 md:px-6 py-3 md:py-4">
-                  <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                      <div className="text-sm md:text-lg font-mono font-bold text-white">
-                        {selectedPaymentMethod === 'cod'
-                          ? `${t('checkout.orderNumber')} ${codOrderNumber}`
-                          : t('checkout.orderSummary')}
-                      </div>
-                    </div>
+                <div className="border-b border-[var(--cera-line)] px-4 py-4 md:px-6">
+                  <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <h2 className="cera-serif text-[21px] text-[var(--cera-ink)]">
+                      {selectedPaymentMethod === 'cod'
+                        ? `${t('checkout.orderNumber')} ${codOrderNumber}`
+                        : t('checkout.orderSummary')}
+                    </h2>
                   </div>
                 </div>
               )}
@@ -1404,7 +1410,7 @@ export default function CheckoutClient() {
                     <span className="text-[12px] font-medium text-[var(--cera-ink)] md:text-[14px]">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   
-                  <div className={`text-[10px] md:text-xs text-red-600 py-1.5 md:py-2 px-2 bg-gray-50 rounded-lg ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                  <div className={`rounded-xl bg-[var(--cera-cream)] px-2 py-2 text-[11.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                     {t('checkout.allPricesIncludeVat')}
                   </div>
                   
@@ -1431,14 +1437,17 @@ export default function CheckoutClient() {
                 </div>
 
 
+              </div>
+              </div>
+
                 {/* Delivery Info - Hidden in PWA (shown below Complete Order button instead) */}
                 {!(isPWAClient && isPWA) && (
-                  <div className="p-2.5 md:p-4 bg-green-50 border border-green-200 rounded-lg mb-3 md:mb-4">
-                    <div className={`flex items-center gap-1.5 md:gap-2 text-green-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Truck className="h-4 w-4 md:h-5 md:w-5" />
-                      <span className="font-semibold text-xs md:text-base">{t('checkout.deliveryInformation')}</span>
+                  <div className="cera-card p-4 md:p-5">
+                    <div className={`mb-2 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Truck className="h-4 w-4 text-emerald-600 md:h-5 md:w-5" />
+                      <span className="cera-serif text-[17px] text-[var(--cera-ink)]">{t('checkout.deliveryInformation')}</span>
                     </div>
-                    <p className={`text-[10px] md:text-sm text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`text-[13px] leading-relaxed text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {selectedEmirate === 'Dubai' 
                         ? t('checkout.deliveryTimeDubai')
                         : `${t('checkout.deliveryTimeOther')} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup')}.`}
@@ -1453,25 +1462,23 @@ export default function CheckoutClient() {
 
                 {/* WhatsApp Support - Hidden in PWA (shown below Delivery Info instead) */}
                 {!(isPWAClient && isPWA) && (
-                  <div className="p-2.5 md:p-4 bg-blue-50 border border-blue-200 rounded-lg mb-3 md:mb-4">
-                    <div className={`flex items-center gap-1.5 md:gap-2 text-blue-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <MessageCircle className="h-4 w-4 md:h-5 md:w-5" />
-                      <span className="font-semibold text-xs md:text-base">{t('checkout.needHelp')}</span>
+                  <div className="cera-card p-4 md:p-5">
+                    <div className={`mb-2 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <MessageCircle className="h-4 w-4 text-[var(--cera-rose)] md:h-5 md:w-5" />
+                      <span className="cera-serif text-[17px] text-[var(--cera-ink)]">{t('checkout.needHelp')}</span>
                     </div>
-                    <p className={`text-[10px] md:text-sm text-blue-700 mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`mb-3 text-[13px] leading-relaxed text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('checkout.haveQuestions')}
                     </p>
                     <button
                       onClick={contactWhatsApp}
-                      className={`w-full flex items-center justify-center gap-1.5 md:gap-2 px-3 md:px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors font-medium text-xs md:text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      className={`flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-[13.5px] font-semibold text-white transition-colors hover:bg-[#1da851] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
                       <MessageCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       {t('checkout.contactSupportViaWhatsApp')}
                     </button>
                   </div>
                 )}
-
-              </div>
             </div>
           </div>
         </div>

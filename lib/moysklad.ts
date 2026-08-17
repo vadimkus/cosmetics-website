@@ -221,6 +221,8 @@ const PRODUCT_MAP: Record<string, string> = {
   'MOISTURE REPLENISHING HYALURON CREAM': 'be705c7d-9808-11ee-0a80-02460037622e', // 50g
   'ND Cell ANTI-WRINKLE CREAM': '65bdc2ca-42ba-11ea-0a80-0096000bce23',       // 50ml
   'EyeCell EYE CONTOUR CREAM': '96d8a1a4-42bd-11ea-0a80-0693000bd7f8',        // 20ml
+  // Discontinued Jul 2026, page retired Aug 2026. Kept deliberately: back-office
+  // still needs it for historical demands, returns and consignment reports.
   'EGF REPAIR OXYMASK CREAM': 'e5c9eca4-42b9-11ea-0a80-0475000bb675',         // 50ml
   'INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]': '1e0d0700-42b9-11ea-0a80-0096000bc0d0', // 50g
   'SOOTHING REPAIR POSTCREAM': 'bc185527-42b8-11ea-0a80-0095000bf07a',         // 20g

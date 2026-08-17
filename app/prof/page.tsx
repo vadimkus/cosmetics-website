@@ -329,14 +329,6 @@ export default async function ProfPage() {
       procedures: 200
     },
     {
-      name: 'EGF REPAIR OXYMASK CREAM',
-      volume: '50 g',
-      productCost: 145,
-      expensePerProcedure: 0.5,
-      procedureCost: 1.45,
-      procedures: 100
-    },
-    {
       name: 'PEPTIDE GEL MASK',
       volume: '39g sheet x 5',
       productCost: 190,

@@ -400,7 +400,9 @@ export const products: Product[] = [
     images: null,
     category: 'Cream',
     inStock: false,
-    isHidden: true, // Discontinued Jul 2026
+    // Discontinued Jul 2026; the bespoke page was retired Aug 2026. The row itself
+    // stays so past orders can still resolve this product's name and image.
+    isHidden: true,
   },
   {
     id: '27',

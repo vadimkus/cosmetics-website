@@ -267,7 +267,6 @@ const GENOSYS_PRODUCT_CONCERNS: Record<string, string[]> = {
   'ND Cell ANTI-WRINKLE CREAM': ['anti-aging', 'page-anti-aging'],
   'EyeCell EYE CONTOUR CREAM': ['eye-care', 'anti-aging', 'brightening', 'page-anti-aging'],
   'SOOTHING REPAIR POSTCREAM': ['sensitivity', 'hydration', 'page-sensitivity', 'scar-repair'],
-  'EGF REPAIR OXYMASK CREAM': ['sensitivity', 'anti-aging', 'scar-repair'],
   'SKIN BARRIER PROTECTING CREAM': ['sensitivity', 'hydration', 'page-sensitivity', 'scar-repair'],
   'INTENSIVE HYDRO SOOTHING CREAM': ['hydration', 'sensitivity', 'page-hydration', 'page-sensitivity'],
   'MOISTURE REPLENISHING HYALURON CREAM': ['hydration', 'page-hydration'],

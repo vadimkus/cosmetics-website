@@ -19,6 +19,8 @@ export function getDefaultSizeForProduct(productName: string): string | undefine
   if (name.includes('CREAM')) {
     if (name.includes('MOISTURE REPLENISHING HYALURON')) return '50g'
     if (name.includes('MULTI FUNCTIONAL ANTI-WRINKLE')) return '50g'
+    // Discontinued Jul 2026, and its page was retired in Aug 2026. This line stays:
+    // past orders and invoices still carry the name and need a size to render.
     if (name.includes('EGF REPAIR OXYMASK')) return '50g'
     if (name.includes('SKIN BARRIER PROTECTING')) return '100g'
     if (name.includes('EYECELL EYE CONTOUR')) return '20g'

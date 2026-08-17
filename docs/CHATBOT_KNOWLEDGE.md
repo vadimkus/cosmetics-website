@@ -193,13 +193,12 @@ Complete reference of all knowledge embedded in the AI chatbot (Genie).
 | 21 | MULTI VITA RADIANCE SERUM | 330 | Brightening |
 | 22 | MULTI FUNCTIONAL ANTI-WRINKLE SERUM | 330 | Anti-aging |
 
-#### Creams (10 products)
+#### Creams (9 products)
 | ID | Product | Price (AED) | Target |
 |----|---------|-------------|--------|
 | 23 | ND Cell ANTI-WRINKLE CREAM | 370 | Premium anti-aging |
 | 24 | EyeCell EYE CONTOUR CREAM | 370 | Eye care |
 | 25 | SOOTHING REPAIR POSTCREAM | 204 | Post-treatment |
-| 26 | EGF REPAIR OXYMASK CREAM | 290 | Healing |
 | 27 | SKIN BARRIER PROTECTING CREAM | 450 | Barrier repair |
 | 28 | INTENSIVE HYDRO SOOTHING CREAM | 290 | Hydrating |
 | 29 | MOISTURE REPLENISHING HYALURON CREAM | 290 | Hydrating |

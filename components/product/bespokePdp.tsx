@@ -53,7 +53,6 @@ import AntiWrinkleCreamProductPage from '@/components/product/antiwrinklecream/A
 import NdCellProductPage from '@/components/product/ndcell/NdCellProductPage'
 import PostcreamProductPage from '@/components/product/postcream/PostcreamProductPage'
 import HydroSoothingProductPage from '@/components/product/hydrosoothing/HydroSoothingProductPage'
-import OxymaskProductPage from '@/components/product/oxymask/OxymaskProductPage'
 import HairTonicProductPage from '@/components/product/hr3/HairTonicProductPage'
 import MediShampooProductPage from '@/components/product/hr3/MediShampooProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
@@ -212,9 +211,6 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 44 leads on caffeine 1%, which is 100x the tonic's, and refuses the carton's
   // dandruff claim outright.
   '44': MediShampooProductPage,
-  // 26 leads with the four usage rules, because on a foaming product getting
-  // them wrong means it does not work. See the source audit.
-  '26': OxymaskProductPage,
   // 28 leads with two measured findings that were sitting unused in the DTS MG
   // deck, and explains the supplier-premix error behind our old snail claim.
   '28': HydroSoothingProductPage,
@@ -291,8 +287,6 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '25': ['42', '16', '13', '10'],
   // The occlusive lid, the postcream, the hyaluron cream and the mist.
   '28': ['32', '25', '29', '14'],
-  // The postcream it is compared against, then the soothing and hydrating creams.
-  '26': ['25', '28', '32', '16'],
   // The shampoo it points at for caffeine, then the rest of the scalp line.
   '43': ['44', '46', '45', '48'],
   // The tonic it pairs with, the brush, then the rest of the scalp line.

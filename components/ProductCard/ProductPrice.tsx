@@ -72,7 +72,7 @@ const ProductPrice = memo(function ProductPrice({
     return (
       <div className="mb-3" id={priceId}>
         <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center text-gray-500">
+          <div className="flex items-center text-[var(--cera-muted)]">
             <Lock className="h-4 w-4 mr-1" aria-hidden="true" />
             <span className="text-sm">{t('product.priceLocked')}</span>
           </div>
@@ -85,7 +85,7 @@ const ProductPrice = memo(function ProductPrice({
   return (
     <div className="mb-3" id={priceId}>
       <div className="flex items-center justify-between mb-2">
-        <span className="hidden md:inline text-xs md:text-base font-bold text-gray-500">
+        <span className="hidden text-[13px] font-semibold text-[var(--cera-muted)] md:inline md:text-[15px]">
           {t('product.loginToSeePrice')}
         </span>
       </div>
@@ -115,11 +115,11 @@ function PriceWithDiscount({ pricing, t }: PricingDisplayProps) {
   return (
     <div>
       <div className="flex items-center gap-1 md:gap-2 flex-wrap">
-        <span className="text-xs md:text-base font-bold text-primary-600">
+        <span className="cera-numeral text-[14px] font-semibold text-[var(--cera-ink)] md:text-[16px]">
           {pricing.displayPrice.toFixed(2)} AED
         </span>
         {pricing.originalPrice ? (
-          <span className="text-[10px] md:text-sm text-gray-500 line-through">
+          <span className="text-[11px] text-[var(--cera-muted)] line-through md:text-[13px]">
             {pricing.originalPrice.toFixed(2)} AED
           </span>
         ) : null}
@@ -128,7 +128,7 @@ function PriceWithDiscount({ pricing, t }: PricingDisplayProps) {
         <span className="text-[10px] md:text-xs text-green-600 font-medium">
           {pricing.discountPercentage}% {t('product.off')}
         </span>
-        <span className="text-[10px] md:text-xs text-gray-500">
+        <span className="text-[10.5px] text-[var(--cera-muted)] md:text-[12px]">
           {t('product.vatIncluded')}
         </span>
       </div>
@@ -145,10 +145,10 @@ function BeautyBoxPrice({ pricing, t }: PricingDisplayProps) {
   return (
     <div>
       <div className="flex items-center gap-1 md:gap-2 flex-wrap">
-        <span className="text-xs md:text-base font-bold text-primary-600">
+        <span className="cera-numeral text-[14px] font-semibold text-[var(--cera-ink)] md:text-[16px]">
           {pricing.displayPrice.toFixed(2)} AED
         </span>
-        <span className="text-[10px] md:text-sm text-gray-500 line-through">
+        <span className="text-[11px] text-[var(--cera-muted)] line-through md:text-[13px]">
           {originalBeforeDiscount.toFixed(2)} AED
         </span>
       </div>
@@ -157,7 +157,7 @@ function BeautyBoxPrice({ pricing, t }: PricingDisplayProps) {
           {pricing.discountPercentage}% {t('product.off')}
           {pricing.discountLabel && ` (${pricing.discountLabel})`}
         </span>
-        <span className="text-[10px] md:text-xs text-gray-500">
+        <span className="text-[10.5px] text-[var(--cera-muted)] md:text-[12px]">
           {t('product.vatIncluded')}
         </span>
       </div>
@@ -171,11 +171,11 @@ function BeautyBoxPrice({ pricing, t }: PricingDisplayProps) {
 function RegularPrice({ pricing, t }: PricingDisplayProps) {
   return (
     <div>
-      <span className="text-xs md:text-base font-bold text-primary-600">
+      <span className="cera-numeral text-[14px] font-semibold text-[var(--cera-ink)] md:text-[16px]">
         {pricing.displayPrice.toFixed(2)} AED
       </span>
       <div className="flex items-center gap-1 mt-1">
-        <span className="text-[10px] md:text-xs text-gray-500">
+        <span className="text-[10.5px] text-[var(--cera-muted)] md:text-[12px]">
           {t('product.vatIncluded')}
         </span>
       </div>

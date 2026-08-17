@@ -1,5 +1,24 @@
 'use client'
 
+/**
+ * /cart.
+ *
+ * Reworked onto the editorial system in Aug 2026. This is a styling pass and
+ * nothing else: the undo-remove timer, the free-mask and free-shipping
+ * thresholds, the emirate shipping rates, the loyalty earn preview, the beauty
+ * box and Black Friday blocks, the PWA/mobile-web branch and every total are
+ * untouched. On a page that takes money, a redesign that also moves the
+ * arithmetic is two changes to debug instead of one.
+ *
+ * Colour that carries meaning is kept off the palette, the same call /orders
+ * made for its status badges: green for savings and unlocked free shipping,
+ * amber for the login warning, red for destructive actions, and WhatsApp's own
+ * green on its button.
+ */
+
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
+
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { useCart } from '@/components/cart/CartProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
@@ -20,6 +39,7 @@ import { calculateVatIncluded, calculateMobileShipping, MOBILE_CHECKOUT_CONFIG }
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 
 export default function CartClient() {
@@ -241,12 +261,12 @@ export default function CartClient() {
   // Show loading state while cart is hydrating from localStorage
   if (!_hasHydrated) {
     return (
-      <div className={isAppLikeMode ? 'min-h-[100dvh] bg-white pb-8' : ''}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-8' : ''}`}>
         {/* PWA / Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
-          <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <div className={`sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className="min-w-[80px]" />
-            <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
+            <h1 className="cera-serif flex-1 truncate px-2 text-center text-[17px]">
               {t('pwaProfile.bag') || 'Bag'}
             </h1>
             <div className="min-w-[80px]" />
@@ -268,19 +288,19 @@ export default function CartClient() {
   if (items.length === 0) {
     const emptyBackLabel = fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')
     return (
-      <div className={isAppLikeMode ? 'min-h-[100dvh] bg-white pb-8' : ''}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-8' : ''}`}>
         {/* PWA / Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
-          <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <div className={`sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button
               onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
               className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
               aria-label={emptyBackLabel}
             >
-              <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-              <span className="text-base text-red-600">{emptyBackLabel}</span>
+              <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose)] ${isRTL ? 'rotate-180' : ''}`} />
+              <span className="text-[15px] text-[var(--cera-rose)]">{emptyBackLabel}</span>
             </button>
-            <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
+            <h1 className="cera-serif flex-1 truncate px-2 text-center text-[17px]">
               {t('pwaProfile.bag') || 'Bag'}
             </h1>
             {/* Profile Icon - green dot only when logged in */}
@@ -290,7 +310,7 @@ export default function CartClient() {
               aria-label="Profile"
             >
               <div className="relative">
-                <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
+                <div className={`flex h-9 w-9 items-center justify-center rounded-full ${user ? 'bg-[var(--cera-rose)]' : 'bg-[var(--cera-muted)]'}`}>
                   <span className="text-sm font-semibold text-white">
                     {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                   </span>
@@ -307,12 +327,12 @@ export default function CartClient() {
         <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16" dir={dir}>
           {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
           {!isAppLikeMode && (
-            <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+            <nav className={`mb-2 text-[13px] text-[var(--cera-muted)] md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+              <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.home')}</Link>
               <span aria-hidden="true"> / </span>
-              <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
+              <Link href={getLocalizedPath('/products', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.products')}</Link>
               <span aria-hidden="true"> / </span>
-              <span className="text-gray-900 font-medium">{t('common.cart')}</span>
+              <span className="text-[var(--cera-ink)]">{t('common.cart')}</span>
             </nav>
           )}
 
@@ -320,7 +340,7 @@ export default function CartClient() {
           {!isAppLikeMode && (
             <Link 
               href={getLocalizedPath('/products', locale)} 
-              className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className={`mb-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               <span>{t('cart.backToProducts') || 'Back to Products'}</span>
@@ -401,13 +421,13 @@ export default function CartClient() {
                 </>
               )}
             </div>
-            <h1 className={`text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.empty')}</h1>
-            <p className={`hidden md:block text-gray-600 text-lg mb-8 ${dir === 'rtl' ? 'text-right' : ''}`}>
+            <h1 className={`cera-serif mb-3 text-[30px] leading-tight md:mb-4 md:text-[38px] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.empty')}</h1>
+            <p className={`mb-8 hidden max-w-[46ch] text-[16px] leading-relaxed text-[var(--cera-muted)] md:block ${dir === 'rtl' ? 'text-right' : ''}`}>
               {t('cart.emptyMessage')}
             </p>
             <Link
               href={getLocalizedPath('/products', locale)}
-              className={`inline-flex items-center justify-center gap-2 bg-primary-600 text-white px-6 py-3 md:px-8 md:py-3 rounded-lg font-semibold hover:bg-primary-700 active:bg-primary-800 transition-colors touch-manipulation min-h-[44px] min-w-[44px] text-sm md:text-base ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className={`ed-cta min-h-[48px] px-7 py-3 text-[15px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
               <ArrowLeft className={`h-4 w-4 md:h-5 md:w-5 flex-shrink-0 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
               <span>{t('cart.continueShopping')}</span>
@@ -421,7 +441,7 @@ export default function CartClient() {
             initial={animationsEnabled ? { opacity: 0, y: 16 } : false}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className={`fixed z-[70] flex max-w-[calc(100vw-2rem)] items-center gap-4 rounded-xl bg-gray-950 px-4 py-3 text-white ${
+            className={`fixed z-[70] flex max-w-[calc(100vw-2rem)] items-center gap-4 rounded-full bg-[var(--cera-ink)] px-5 py-3 text-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)] ${
               isAppLikeMode ? 'bottom-24' : 'bottom-6'
             } ${isRTL ? 'left-4 flex-row-reverse' : 'right-4'}`}
             role="status"
@@ -431,7 +451,7 @@ export default function CartClient() {
             <button
               type="button"
               onClick={undoRemoveItem}
-              className="min-h-11 rounded-lg px-2 text-sm font-bold text-red-300 transition-colors hover:bg-white/10 hover:text-white"
+              className="min-h-11 rounded-full px-3 text-[14px] font-semibold text-[var(--cera-blush-deep)] transition-colors hover:bg-white/10 hover:text-white"
             >
               {t('cart.undo')}
             </button>
@@ -445,19 +465,19 @@ export default function CartClient() {
   const backLabel = fromProfile ? (t('pwaProfile.account') || 'Account') : (t('pwaProfile.home') || 'Home')
 
   return (
-    <div className={isAppLikeMode ? 'min-h-[100dvh] bg-white pb-32' : ''}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`}>
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
-        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
             aria-label={backLabel}
           >
-            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">{backLabel}</span>
+            <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-[15px] text-[var(--cera-rose)]">{backLabel}</span>
           </button>
-          <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
+          <h1 className="cera-serif flex-1 truncate px-2 text-center text-[17px]">
             {t('pwaProfile.bag') || 'Bag'}
           </h1>
           {/* Profile Icon - green dot only when logged in */}
@@ -467,7 +487,7 @@ export default function CartClient() {
             aria-label="Profile"
           >
             <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
+              <div className={`flex h-9 w-9 items-center justify-center rounded-full ${user ? 'bg-[var(--cera-rose)]' : 'bg-[var(--cera-muted)]'}`}>
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
@@ -550,12 +570,12 @@ export default function CartClient() {
       
       {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
       {!isAppLikeMode && (
-        <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
+        <nav className={`mb-2 text-[13px] text-[var(--cera-muted)] md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
+          <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.home')}</Link>
           <span aria-hidden="true"> / </span>
-          <Link href={getLocalizedPath('/products', locale)} className="hover:text-primary-600 transition-colors">{t('common.products')}</Link>
+          <Link href={getLocalizedPath('/products', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.products')}</Link>
           <span aria-hidden="true"> / </span>
-          <span className="text-gray-900 font-medium">{t('common.cart')}</span>
+          <span className="text-[var(--cera-ink)]">{t('common.cart')}</span>
         </nav>
       )}
       
@@ -563,7 +583,7 @@ export default function CartClient() {
       {!isAppLikeMode && (
         <Link 
           href={getLocalizedPath('/products', locale)} 
-          className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          className={`mb-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
           <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
           <span>{t('cart.backToProducts') || 'Back to Products'}</span>
@@ -574,12 +594,12 @@ export default function CartClient() {
         <div className={`flex flex-col lg:flex-row gap-8 ${dir === 'rtl' ? 'lg:flex-row-reverse' : ''}`} style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {/* Cart Items */}
           <div className="lg:w-2/3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-visible md:overflow-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+            <div className="cera-card overflow-visible md:overflow-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               {isAppLikeMode ? (
                 // Compact inline counter on mobile/PWA — page title is already in the sticky header
-                <div className={`px-3 py-2.5 border-b border-gray-100 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <ShoppingBag className="h-4 w-4 text-green-600" aria-hidden="true" />
-                  <span className="text-sm font-medium text-gray-700">
+                <div className={`flex items-center gap-2 border-b border-[var(--cera-line)] px-3 py-2.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <ShoppingBag className="h-4 w-4 text-[var(--cera-rose)]" aria-hidden="true" />
+                  <span className="text-[14px] font-medium text-[var(--cera-body)]">
                     {totalItemCount} {totalItemCount === 1 ? t('cart.item') : t('cart.items')}
                   </span>
                   <button
@@ -593,16 +613,16 @@ export default function CartClient() {
                   </button>
                 </div>
               ) : (
-                <div className={`p-3 md:p-6 border-b border-gray-200 flex items-center justify-between gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className={`flex items-center justify-between gap-4 border-b border-[var(--cera-line)] p-3 md:p-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <motion.h1
                     initial={animationsEnabled ? { opacity: 0, y: -10 } : {}}
                     animate={animationsEnabled ? { opacity: 1, y: 0 } : {}}
                     transition={animationsEnabled ? springPresets.default : {}}
-                    className={`text-lg md:text-2xl font-bold text-gray-900 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}
+                    className={`cera-serif flex items-center gap-2.5 text-[20px] md:text-[26px] ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}
                   >
-                    <ShoppingBag className="h-5 w-5 md:h-6 md:w-6 text-green-600" />
-                    <span className="text-sm md:text-base lg:text-lg">{t('cart.shoppingCart')}</span>{' '}
-                    <span className="text-sm md:text-base lg:text-lg">{totalItemCount} {totalItemCount === 1 ? t('cart.item') : t('cart.items')}</span>
+                    <ShoppingBag className="h-5 w-5 text-[var(--cera-rose)] md:h-6 md:w-6" />
+                    <span>{t('cart.shoppingCart')}</span>{' '}
+                    <span className="text-[var(--cera-muted)]">{totalItemCount} {totalItemCount === 1 ? t('cart.item') : t('cart.items')}</span>
                   </motion.h1>
                   <button
                     type="button"
@@ -797,37 +817,37 @@ export default function CartClient() {
                   <FreeMaskPromotion subtotal={subtotal} />
                   
                   {/* Free Delivery Notice */}
-                  <div className="mt-6 border-t border-gray-200 pt-6">
-                    <div className={`p-4 border border-gray-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className="mt-6 border-t border-[var(--cera-line)] pt-6">
+                    <div className={`ed-row p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       <div className={`flex items-center gap-2 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <Truck className={`h-5 w-5 ${subtotal >= freeShippingThreshold ? 'text-green-600' : 'text-primary-600'}`} />
-                        <span className="text-sm font-medium text-gray-900">
+                        <Truck className={`h-5 w-5 ${subtotal >= freeShippingThreshold ? 'text-emerald-600' : 'text-[var(--cera-rose)]'}`} />
+                        <span className="text-[14px] font-medium text-[var(--cera-ink)]">
                           {t('cart.freeDelivery')}
                         </span>
                         {subtotal >= freeShippingThreshold ? (
-                          <span className="text-xs font-semibold text-green-600">
+                          <span className="text-[12px] font-semibold text-emerald-600">
                             {t('cart.unlocked')}
                           </span>
                         ) : (
-                          <span className="text-xs text-gray-600">
+                          <span className="text-[12px] text-[var(--cera-muted)]">
                             {subtotal < freeShippingThreshold ? `AED ${(freeShippingThreshold - subtotal).toFixed(2)} ${t('cart.more')}` : ''}
                           </span>
                         )}
                       </div>
                       
                       {/* Progress Bar */}
-                      <div className="w-full bg-gray-200 rounded-full h-2 mb-2 overflow-hidden">
+                      <div className="mb-2 h-2 w-full overflow-hidden rounded-full bg-[var(--cera-cream-deep)]">
                         <div
                           className={`h-full rounded-full transition-all duration-500 ${
-                            subtotal >= freeShippingThreshold ? 'bg-green-600' : 'bg-gray-400'
+                            subtotal >= freeShippingThreshold ? 'bg-emerald-600' : 'bg-[var(--cera-rose)]'
                           }`}
                           style={{ width: `${Math.min(100, (subtotal / freeShippingThreshold) * 100)}%` }}
                         />
                       </div>
                       
-                      <p className={`text-xs text-gray-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <p className={`text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {subtotal >= freeShippingThreshold ? (
-                          <span className="font-medium text-green-600">
+                          <span className="font-semibold text-emerald-600">
                             {t('cart.qualifyForFreeDelivery')}
                           </span>
                         ) : (
@@ -843,13 +863,13 @@ export default function CartClient() {
 
           {/* Order Summary */}
           <div className="lg:w-1/3">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 lg:sticky lg:top-4 overflow-visible md:overflow-hidden">
+            <div className="cera-card overflow-visible md:overflow-hidden lg:sticky lg:top-4">
               <div className={`p-4 md:p-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                <h2 className={`text-lg md:text-xl font-bold text-gray-900 mb-4 md:mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.orderSummary')}</h2>
+                <h2 className={`cera-serif mb-4 text-[22px] md:mb-6 md:text-[26px] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('cart.orderSummary')}</h2>
                 
                 {/* User Status */}
                 {!user && (
-                  <div className={`mb-4 md:mb-6 p-3 md:p-4 bg-yellow-50 border border-yellow-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`mb-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className={`flex items-center gap-2 text-yellow-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Lock className="h-4 w-4 md:h-5 md:w-5" />
                       <span className="font-semibold text-sm md:text-base">{t('cart.loginRequired')}</span>
@@ -859,7 +879,7 @@ export default function CartClient() {
                     </p>
                     <Link
                       href={getLocalizedPath('/login', locale)}
-                      className={`inline-flex items-center gap-1.5 md:gap-2 bg-primary-600 text-white px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-xs md:text-sm font-medium hover:bg-primary-700 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      className={`ed-cta px-4 py-2 text-[13px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
                       <Lock className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       {t('common.login')}
@@ -869,14 +889,14 @@ export default function CartClient() {
 
                 {/* Shipping Location */}
                 <div className="mb-4 md:mb-6">
-                  <label htmlFor="cart-emirate" className={`block text-xs md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <label htmlFor="cart-emirate" className={`ed-label ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('cart.deliveryLocation')}
                   </label>
                   <select
                     id="cart-emirate"
                     value={selectedEmirate}
                     onChange={(e) => setSelectedEmirate(e.target.value)}
-                    className={`w-full p-2.5 md:p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 bg-white text-gray-900 text-sm md:text-base ${dir === 'rtl' ? 'text-right' : ''}`}
+                    className={`ed-field ${dir === 'rtl' ? 'text-right' : ''}`}
                     style={{ color: '#111827' }}
                     dir={dir}
                   >
@@ -886,7 +906,7 @@ export default function CartClient() {
                       </option>
                     ))}
                   </select>
-                  <p className={`text-[10px] md:text-xs text-gray-500 mt-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <p className={`mt-1.5 text-[11.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {t('cart.shippingCostsVary')}
                   </p>
                 </div>
@@ -913,44 +933,54 @@ export default function CartClient() {
 
                 {/* Price Breakdown */}
                 <div className={`space-y-2 md:space-y-3 mb-4 md:mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  <div className={`flex justify-between text-xs md:text-base text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex justify-between text-[14px] text-[var(--cera-body)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span>{t('cart.subtotal')} ({totalItemCount})</span>
                     {blackFridayActive && originalSubtotal > subtotal ? (
                       <div className={`flex items-center gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <span className="text-gray-900 font-semibold">{user ? `${subtotal.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
-                        <span className="text-[10px] md:text-sm text-gray-500 line-through">{user ? `${originalSubtotal.toFixed(2)}` : ''}</span>
+                        <span className="font-semibold text-[var(--cera-ink)]">{user ? `${subtotal.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
+                        <span className="text-[12px] text-[var(--cera-muted)] line-through">{user ? `${originalSubtotal.toFixed(2)}` : ''}</span>
                       </div>
                     ) : (
                       <span>{user ? `AED ${subtotal.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
                     )}
                   </div>
                   
-                  <div className={`flex justify-between text-xs md:text-base text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex justify-between text-[14px] text-[var(--cera-body)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span>{t('cart.shippingTo')} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}</span>
                     <span>{user ? (shippingCost === 0 ? <span className="text-green-600 font-semibold">{t('cart.freeDelivery')}</span> : `AED ${shippingCost}`) : t('cart.loginToSeePrice')}</span>
                   </div>
                   
-                  <div className={`flex justify-between text-xs md:text-base text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex justify-between text-[14px] text-[var(--cera-body)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span>{t('cart.vat')}</span>
                     <span>{user ? `AED ${calculateVatIncluded(subtotal + shippingCost).toFixed(2)}` : t('cart.loginToSeePrice')}</span>
                   </div>
                   
-                  <div className={`text-[10px] md:text-xs text-red-600 ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                  <div className={`text-[11.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                     {t('cart.allPricesIncludeVat')}
                   </div>
                   
-                  <div className="border-t border-gray-200 pt-2 md:pt-3">
-                    <div className={`flex justify-between text-base md:text-lg font-bold text-gray-900 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span>{t('cart.total')}</span>
-                      <span>{user ? `AED ${total.toFixed(2)}` : t('cart.loginToSeePrice')}</span>
+                  <div className="border-t border-[var(--cera-line)] pt-3">
+                    <div className={`flex items-baseline justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className="cera-serif text-[19px] text-[var(--cera-ink)]">{t('cart.total')}</span>
+                      {/* Only the figure gets display size. The signed-out
+                          string is a sentence, and at 22px serif it crowds the
+                          label it sits beside — worse in Arabic and Russian,
+                          where it is longer still. */}
+                      {user ? (
+                        <span className="cera-serif cera-numeral text-[22px] text-[var(--cera-ink)]">
+                          AED {total.toFixed(2)}
+                        </span>
+                      ) : (
+                        <span className="text-[13.5px] text-[var(--cera-muted)]">{t('cart.loginToSeePrice')}</span>
+                      )}
                     </div>
                   </div>
 
                   {/* GENOSYS Rewards — earn preview */}
                   {earnPreviewPoints > 0 && (
-                    <div className={`flex items-center gap-1.5 bg-gray-50 border border-gray-100 rounded-lg px-2.5 py-2 mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Award className="h-3.5 w-3.5 text-primary-600 shrink-0" />
-                      <span className={`text-[11px] md:text-xs text-gray-600 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`mt-2 flex items-center gap-2 rounded-xl border border-[var(--cera-line)] bg-[var(--cera-cream)] px-3 py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <Award className="h-3.5 w-3.5 shrink-0 text-[var(--cera-rose)]" />
+                      <span className={`text-[12px] text-[var(--cera-body)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('rewards.earnPreview', { points: earnPreviewPoints.toLocaleString() })}
                       </span>
                     </div>
@@ -989,7 +1019,7 @@ export default function CartClient() {
                 {user ? (
                   <Link
                     href={getLocalizedPath('/checkout', locale)}
-                    className="w-full bg-primary-600 text-white py-2.5 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center block text-sm md:text-base touch-manipulation min-h-[40px] md:min-h-[44px]"
+                    className="ed-cta w-full py-3.5 text-[15px] touch-manipulation md:py-4"
                   >
                     {t('cart.checkout')}
                   </Link>
@@ -997,7 +1027,7 @@ export default function CartClient() {
                   <div className="space-y-2 md:space-y-3">
                     <Link
                       href={getLocalizedPath('/login', locale)}
-                      className="w-full bg-primary-600 text-white py-2.5 md:py-4 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center block text-sm md:text-base touch-manipulation min-h-[40px] md:min-h-[44px]"
+                      className="ed-cta w-full py-3.5 text-[15px] touch-manipulation md:py-4"
                     >
                       {t('cart.loginToCheckout')}
                     </Link>
@@ -1006,7 +1036,7 @@ export default function CartClient() {
                       href={`https://wa.me/971585487665?text=${locale === 'ar' ? 'مرحباً، أنا مهتم بمنتجات مستحضرات التجميل الكورية الاحترافية. هل يمكنكم مساعدتي في الأسعار والطلب؟' : 'Hi, I\'m interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?'}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-full bg-green-600 text-white py-2.5 md:py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center block text-sm md:text-base touch-manipulation flex items-center justify-center gap-1.5 md:gap-2 min-h-[40px] md:min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      className={`flex w-full min-h-[44px] items-center justify-center gap-2 rounded-full bg-[#25D366] py-3.5 text-[15px] font-semibold text-white transition-colors touch-manipulation hover:bg-[#1da851] md:py-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
                       <MessageCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       {t('cart.contactSupport')}
@@ -1015,10 +1045,10 @@ export default function CartClient() {
                 )}
 
                 {/* Continue Shopping */}
-                <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200">
+                <div className="mt-5 border-t border-[var(--cera-line)] pt-5">
                   <Link
                     href={getLocalizedPath('/products', locale)}
-                    className={`flex items-center gap-1.5 md:gap-2 text-primary-600 hover:text-primary-700 transition-colors text-xs md:text-sm font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`flex items-center gap-2 text-[13.5px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     <ArrowLeft className={`h-3.5 w-3.5 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
                     {t('cart.continueShopping')}
@@ -1027,9 +1057,9 @@ export default function CartClient() {
 
                 {/* Contact Info */}
                 {!user && (
-                  <div className={`mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`mt-5 border-t border-[var(--cera-line)] pt-5 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className="text-center">
-                      <p className={`text-xs md:text-sm text-gray-600 mb-2 md:mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <p className={`mb-3 text-[13.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {t('cart.needHelp')}
                       </p>
                       <div className="space-y-2">
@@ -1037,7 +1067,7 @@ export default function CartClient() {
                           href={`https://wa.me/971585487665?text=${locale === 'ar' ? 'مرحباً، أنا مهتم بمنتجات مستحضرات التجميل الكورية الاحترافية. هل يمكنكم مساعدتي في الأسعار والطلب؟' : 'Hi, I\'m interested in your professional Korean dermacosmetics products. Can you help me with pricing and ordering?'}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`w-full bg-green-600 text-white py-2.5 md:py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-center block text-sm md:text-base touch-manipulation flex items-center justify-center gap-1.5 md:gap-2 min-h-[40px] md:min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                          className={`flex w-full min-h-[44px] items-center justify-center gap-2 rounded-full bg-[#25D366] py-3.5 text-[15px] font-semibold text-white transition-colors touch-manipulation hover:bg-[#1da851] md:py-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                         >
                           <MessageCircle className="h-3.5 w-3.5 md:h-4 md:w-4" />
                           {t('cart.contactSupport')}
@@ -1057,7 +1087,7 @@ export default function CartClient() {
             initial={animationsEnabled ? { opacity: 0, y: 16 } : false}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className={`fixed z-[70] flex max-w-[calc(100vw-2rem)] items-center gap-4 rounded-xl bg-gray-950 px-4 py-3 text-white ${
+            className={`fixed z-[70] flex max-w-[calc(100vw-2rem)] items-center gap-4 rounded-full bg-[var(--cera-ink)] px-5 py-3 text-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)] ${
               isAppLikeMode ? 'bottom-24' : 'bottom-6'
             } ${isRTL ? 'left-4 flex-row-reverse' : 'right-4'}`}
             role="status"
@@ -1069,7 +1099,7 @@ export default function CartClient() {
             <button
               type="button"
               onClick={undoRemoveItem}
-              className="min-h-11 rounded-lg px-2 text-sm font-bold text-red-300 transition-colors hover:bg-white/10 hover:text-white"
+              className="min-h-11 rounded-full px-3 text-[14px] font-semibold text-[var(--cera-blush-deep)] transition-colors hover:bg-white/10 hover:text-white"
             >
               {t('cart.undo')}
             </button>

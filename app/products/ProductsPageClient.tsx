@@ -1,4 +1,22 @@
 'use client'
+
+/**
+ * /products — the catalogue.
+ *
+ * Reworked onto the editorial system in Aug 2026. This is a restyle: the
+ * filtering, sorting, URL syncing, search analytics and PWA branches all behave
+ * exactly as before, and the class hooks other code keys on
+ * (`products-layout`, `products-header`, `products-clear-filters`,
+ * `products-breadcrumb`) are preserved.
+ *
+ * ProductCard itself is deliberately untouched. It is shared with /favorites
+ * and one of its files has unrelated uncommitted work in it, so it is a
+ * separate job rather than a passenger on this one.
+ */
+
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
+
 import { debugLog, errorLog } from '@/lib/logger'
 
 import Link from 'next/link'
@@ -30,6 +48,7 @@ import NewsletterSignup from '@/components/NewsletterSignup'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { isNewCategoryFilterId } from '@/lib/productBadges'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 // Catalog order: discovery tool first, then skincare routine flow, then specialty.
 // "New" badges are product-level only — see lib/productBadges.ts.
@@ -335,7 +354,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
     : { min: 0, max: 10000 }
 
   return (
-    <div className="bg-white min-h-[100dvh]" suppressHydrationWarning>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh]`} suppressHydrationWarning>
       <ProductsListSchema products={filteredAndSortedProducts} category="" />
       <BreadcrumbSchema 
         items={[
@@ -346,15 +365,15 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
       <div className="container mx-auto px-4 pt-4 pb-28 md:py-8 lg:py-16">
         {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
         {!isPWA && !isMobile && (
-          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4 products-breadcrumb" aria-label="Breadcrumb">
-            <Link 
+          <nav className="products-breadcrumb mb-2 text-[13px] text-[var(--cera-muted)] md:mb-4" aria-label="Breadcrumb">
+            <Link
               href={getLocalizedPath('/', locale)}
-              className="hover:text-primary-600 transition-colors"
+              className="transition-colors hover:text-[var(--cera-rose-ink)]"
             >
               {t('navigation.home')}
             </Link>
-            <span> / </span>
-            <span className="text-gray-900 font-medium">
+            <span aria-hidden="true"> / </span>
+            <span className="text-[var(--cera-ink)]">
               {t('navigation.products')}
             </span>
           </nav>
@@ -363,11 +382,11 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
         {/* "Back to Home" removed on desktop — breadcrumb above already provides the nav path.
            Kept breadcrumb as the single source of truth for going back. */}
 
-        {/* Header - Show logo on desktop only, hide company text on mobile web */}
-        <div className={`text-center ${isMobile ? 'mb-2' : 'mb-4 md:mb-8'}`}>
-          {/* Desktop only: show logo */}
+        {/* Header. The catalogue had no h1 at all before this — just a logo
+            image and a subtitle — so the page gets a real heading. */}
+        <div className={`text-center ${isMobile ? 'mb-4' : 'mb-6 md:mb-10'}`}>
           {!isMobile && (
-            <div className="flex justify-center mb-3">
+            <div className="mb-4 flex justify-center">
               <Image
                 src="/images/prd_logo.png"
                 alt="GENOSYS Logo"
@@ -378,15 +397,18 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
               />
             </div>
           )}
+          <h1 className="cera-serif text-[28px] leading-[1.08] sm:text-[36px] md:text-[44px]">
+            {t('products.title')}
+          </h1>
+          <p className="mx-auto mt-3 hidden max-w-[56ch] text-[15px] leading-relaxed text-[var(--cera-muted)] md:block md:text-[16px]">
+            {t('products.subtitle')}
+          </p>
           {/* Black Friday Mini Counter - hide on mobile */}
           {!isMobile && (
-            <div className="flex justify-center mb-2">
+            <div className="mt-4 flex justify-center">
               <BlackFridayMini />
             </div>
           )}
-          <p className="hidden md:block text-lg text-gray-600 max-w-2xl mx-auto">
-            {t('products.subtitle')}
-          </p>
         </div>
 
         {/* Search Bar */}
@@ -401,17 +423,17 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
             flex-wrap so long localisations (e.g. Russian "Оригинальная корейская
             космецевтика") wrap cleanly to a second line on 1024–1280px laptops
             instead of overflowing the container and hiding content. */}
-        <div className="mb-4 flex items-center justify-center gap-5 md:gap-10 md:flex-wrap gap-y-2 text-xs md:text-sm font-medium text-gray-800 border-y border-gray-200 bg-gray-50 py-3 overflow-x-auto md:overflow-visible scrollbar-hide">
+        <div className="scrollbar-hide mb-5 flex items-center justify-center gap-5 gap-y-2 overflow-x-auto border-y border-[var(--cera-line)] bg-white py-3 text-[12.5px] text-[var(--cera-body)] md:flex-wrap md:gap-10 md:overflow-visible md:text-[13.5px]">
           <span className="flex items-center gap-2 whitespace-nowrap">
-            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M3 7h13l4 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z" /></svg>
+            <svg className="h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M3 7h13l4 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z" /></svg>
             {t('products.trustShipping')}
           </span>
           <span className="flex items-center gap-2 whitespace-nowrap">
-            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <svg className="h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             {t('products.trustAuthentic')}
           </span>
           <span className="flex items-center gap-2 whitespace-nowrap">
-            <svg className="w-4 h-4 text-primary-600 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h4m-6 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+            <svg className="h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h4m-6 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
             {t('products.trustVat')}
           </span>
         </div>
@@ -451,10 +473,10 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                       })
                     }
                   }}
-                  className={`px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap min-h-[40px] min-w-[48px] flex items-center justify-center select-none transition-all duration-150 active:scale-95 relative flex-shrink-0 snap-start ${
+                  className={`relative flex min-h-[40px] min-w-[48px] flex-shrink-0 snap-start select-none items-center justify-center whitespace-nowrap rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all duration-150 active:scale-95 ${
                     isActive
-                      ? 'bg-primary-600 text-white shadow-sm'
-                      : 'bg-gray-100 text-gray-700 active:bg-gray-300'
+                      ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
+                      : 'border-[var(--cera-line)] bg-white text-[var(--cera-body)] active:bg-[var(--cera-cream-deep)]'
                   }`}
                   style={{ 
                     touchAction: 'manipulation',
@@ -463,10 +485,10 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                 >
                   {showNewBadge && (
                     <span
-                      className={`pointer-events-none absolute -top-2 left-1/2 -translate-x-1/2 text-[8px] font-bold leading-none px-1.5 py-0.5 rounded-full whitespace-nowrap uppercase tracking-wide shadow-sm ${
+                      className={`pointer-events-none absolute -top-2 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full px-1.5 py-0.5 text-[8px] font-bold uppercase leading-none tracking-wide shadow-sm ${
                         isActive
-                          ? 'bg-white text-primary-600'
-                          : 'bg-green-500 text-white'
+                          ? 'bg-white text-[var(--cera-rose-ink)]'
+                          : 'bg-[var(--cera-rose)] text-white'
                       }`}
                     >
                       {t('common.new')}
@@ -500,8 +522,8 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
               /* Regular Products View */
               <>
                 {/* Results Header with Sort */}
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 products-header">
-                  <div className="text-sm text-gray-600">
+                <div className="products-header mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+                  <div className="text-[13.5px] text-[var(--cera-muted)]">
                     {filteredAndSortedProducts.length === products.length ? (
                       <span>{t('products.showingAll', { count: filteredAndSortedProducts.length })}</span>
                     ) : (
@@ -518,7 +540,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                                 inStockOnly: false
                               })
                             }}
-                            className="ml-2 text-primary-600 hover:text-primary-700 underline products-clear-filters"
+                            className="products-clear-filters ms-2 font-semibold text-[var(--cera-rose-ink)] underline underline-offset-2 hover:opacity-70"
                           >
                             {t('products.clearFilters')}
                           </button>
@@ -592,7 +614,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                         a clear terminus + a quick way back to the filters. Hidden on
                         mobile web / PWA because those already have a scroll-to-top
                         gesture (and the mobile bottom nav). */}
-                    <div className="hidden md:flex items-center justify-between gap-4 mt-10 pt-6 border-t border-gray-100 text-sm text-gray-500">
+                    <div className="mt-10 hidden items-center justify-between gap-4 border-t border-[var(--cera-line)] pt-6 text-[13.5px] text-[var(--cera-muted)] md:flex">
                       <span>
                         {t('products.showing', { filtered: filteredAndSortedProducts.length, total: products.length })}
                       </span>
@@ -603,7 +625,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                             window.scrollTo({ top: 0, behavior: 'smooth' })
                           }
                         }}
-                        className="inline-flex items-center gap-1.5 text-gray-600 hover:text-primary-600 font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded px-1"
+                        className="inline-flex items-center gap-1.5 rounded px-1 font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70"
                       >
                         <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
@@ -613,9 +635,9 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                     </div>
                   </>
                 ) : (
-                  <div className="text-center py-12">
-                    <p className="text-gray-600 text-lg mb-2">{t('products.noProductsFound')}</p>
-                    <p className="text-gray-500 text-sm mb-4">
+                  <div className="cera-card px-6 py-14 text-center">
+                    <p className="cera-serif text-[22px] text-[var(--cera-ink)]">{t('products.noProductsFound')}</p>
+                    <p className="mx-auto mt-2 max-w-[44ch] text-[14px] text-[var(--cera-muted)]">
                       {t('products.tryAdjustingFilters')}
                     </p>
                     <button
@@ -628,7 +650,7 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
                           inStockOnly: false
                         })
                       }}
-                      className="text-primary-600 hover:text-primary-700 underline text-sm"
+                      className="ed-cta mt-5 px-6 py-2.5 text-[14px]"
                     >
                       {t('products.clearAllFilters')}
                     </button>

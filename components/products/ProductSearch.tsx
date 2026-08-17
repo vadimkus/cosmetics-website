@@ -117,7 +117,7 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
   return (
     <div ref={searchRef} className="relative w-full max-w-2xl mx-auto mb-6">
       <div className="relative">
-        <Search className={`absolute ${dir === 'rtl' ? 'right-4' : 'left-4'} top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400`} />
+        <Search className={`absolute ${dir === 'rtl' ? 'right-4' : 'left-4'} top-1/2 h-5 w-5 -translate-y-1/2 text-[var(--cera-muted)]`} />
         <input
           ref={inputRef}
           id="product-search"
@@ -127,7 +127,12 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
           value={searchQuery}
           onChange={handleInputChange}
           onFocus={() => setIsFocused(true)}
-          className={`w-full ${dir === 'rtl' ? 'pr-12 pl-24' : 'pl-12 pr-24'} py-3 border ${isListening ? 'border-red-400 ring-2 ring-red-200' : 'border-gray-300'} rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm md:text-base text-gray-900 bg-white placeholder:text-gray-400 transition-all duration-200`}
+          /* Deliberately not .ed-field: that class sets its horizontal padding
+             in a shorthand, which fights the asymmetric ps-12/pe-24 this input
+             needs for the icon on one flank and two buttons on the other. */
+          className={`w-full rounded-full border bg-white py-3 text-[15px] text-[var(--cera-ink)] transition-all duration-200 placeholder:text-[var(--cera-muted)]/70 focus:border-[var(--cera-rose)] focus:outline-none focus:ring-2 focus:ring-[var(--cera-rose)]/15 ${
+            dir === 'rtl' ? 'pe-12 ps-24' : 'ps-12 pe-24'
+          } ${isListening ? 'border-[var(--cera-rose)] ring-2 ring-[var(--cera-blush-deep)]' : 'border-[var(--cera-line)]'}`}
           aria-label={t('products.searchPlaceholder')}
           autoComplete="off"
         />
@@ -137,10 +142,10 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
           <button
             type="button"
             onClick={handleVoiceClick}
-            className={`absolute ${dir === 'rtl' ? 'left-12' : 'right-12'} top-1/2 transform -translate-y-1/2 p-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center rounded-full transition-all duration-200 select-none ${
-              isListening 
-                ? 'text-red-500 bg-red-50 animate-pulse' 
-                : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100 active:bg-gray-200'
+            className={`absolute ${dir === 'rtl' ? 'left-12' : 'right-12'} top-1/2 flex min-h-[44px] min-w-[44px] -translate-y-1/2 select-none items-center justify-center rounded-full p-2 transition-all duration-200 touch-manipulation ${
+              isListening
+                ? 'animate-pulse bg-[var(--cera-blush)] text-[var(--cera-rose)]'
+                : 'text-[var(--cera-muted)] hover:bg-[var(--cera-cream-deep)] hover:text-[var(--cera-ink)]'
             }`}
             aria-label={isListening ? t('voiceSearch.stopListening') : t('voiceSearch.startListening')}
             title={isListening ? t('voiceSearch.stopListening') : t('voiceSearch.startListening')}
@@ -157,7 +162,7 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
         {searchQuery && (
           <button
             onClick={clearSearch}
-            className={`absolute ${dir === 'rtl' ? 'left-2' : 'right-2'} top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 p-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center`}
+            className={`absolute ${dir === 'rtl' ? 'left-2' : 'right-2'} top-1/2 flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center p-2 text-[var(--cera-muted)] touch-manipulation hover:text-[var(--cera-ink)]`}
             aria-label={t('common.close')}
           >
             <X className="h-5 w-5" />
@@ -185,12 +190,12 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
 
       {/* Suggestions Dropdown */}
       {isFocused && suggestions.length > 0 && !isListening && (
-        <div className="absolute z-50 w-full mt-2 bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-y-auto">
+        <div className="absolute z-50 mt-2 max-h-64 w-full overflow-y-auto rounded-2xl border border-[var(--cera-line)] bg-white shadow-[0_18px_40px_-24px_rgba(23,20,15,0.45)]">
           {suggestions.map((product) => (
             <button
               key={product.id}
               onClick={() => handleSuggestionClick(product)}
-              className="w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-b-0 touch-manipulation min-h-[44px]"
+              className="min-h-[44px] w-full border-b border-[var(--cera-line)] px-4 py-3 text-start transition-colors last:border-b-0 touch-manipulation hover:bg-[var(--cera-cream)]"
             >
               <div className="flex items-center gap-3">
                 <Image
@@ -200,9 +205,9 @@ export default function ProductSearch({ products, onSearchChange, searchQuery }:
                   width={40}
                   height={40}
                 />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">{product.name}</p>
-                  <p className="text-xs text-gray-500">{translateCategory(product.category, messages)}</p>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[14px] font-medium text-[var(--cera-ink)]">{product.name}</p>
+                  <p className="text-[12px] text-[var(--cera-muted)]">{translateCategory(product.category, messages)}</p>
                 </div>
               </div>
             </button>

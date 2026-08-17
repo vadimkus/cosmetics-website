@@ -25,7 +25,7 @@ export default function ProductSort({ sortBy, onSortChange }: ProductSortProps) 
   
   return (
     <div className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-      <label htmlFor="sort" className="text-sm font-medium text-gray-700 whitespace-nowrap">
+      <label htmlFor="sort" className="whitespace-nowrap text-[13px] font-medium text-[var(--cera-muted)]">
         {t('products.sortBy')}
       </label>
       <div className="relative">
@@ -33,7 +33,7 @@ export default function ProductSort({ sortBy, onSortChange }: ProductSortProps) 
           id="sort"
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value as SortOption)}
-          className={`appearance-none bg-white border border-gray-300 rounded-md px-4 py-3 ${dir === 'rtl' ? 'pl-8 pr-4' : 'pr-8'} text-sm md:text-base text-gray-900 focus:ring-2 focus:ring-primary-500 focus:border-transparent cursor-pointer touch-manipulation min-h-[44px]`}
+          className={`ed-field min-h-[44px] cursor-pointer appearance-none touch-manipulation ${dir === 'rtl' ? 'ps-9' : 'pe-9'}`}
         >
           {sortOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -41,7 +41,7 @@ export default function ProductSort({ sortBy, onSortChange }: ProductSortProps) 
             </option>
           ))}
         </select>
-        <ChevronDown className={`absolute ${dir === 'rtl' ? 'left-2' : 'right-2'} top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none`} />
+        <ChevronDown className={`pointer-events-none absolute ${dir === 'rtl' ? 'left-3' : 'right-3'} top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--cera-muted)]`} />
       </div>
     </div>
   )

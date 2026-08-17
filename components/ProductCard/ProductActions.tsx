@@ -79,7 +79,7 @@ const ProductActions = memo(function ProductActions({
         <button
           type="button"
           onClick={onLoginClick}
-          className={`${baseButtonStyles} bg-white text-primary-700 border border-primary-600 hover:bg-primary-50`}
+          className={`${baseButtonStyles} border border-[var(--cera-line)] bg-white text-[var(--cera-ink)] hover:border-[var(--cera-blush-deep)] hover:bg-[var(--cera-cream)]`}
           aria-label={t('product.loginToSeePrice')}
           style={touchStyles}
         >
@@ -130,11 +130,11 @@ const ProductActions = memo(function ProductActions({
           <button
             type="button"
             onClick={onOpenCart}
-            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-3 text-body-xs font-semibold text-gray-800 transition-colors hover:border-primary-300 hover:bg-primary-50 active:bg-primary-100"
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-[var(--cera-line)] bg-white px-3 text-body-xs font-semibold text-[var(--cera-ink)] transition-colors hover:border-[var(--cera-blush-deep)] hover:bg-[var(--cera-cream)]"
             aria-label={`${t('product.viewBag')} — ${product.name}`}
             style={touchStyles}
           >
-            <ShoppingCart className="h-4 w-4 text-primary-600" aria-hidden="true" />
+            <ShoppingCart className="h-4 w-4 text-[var(--cera-rose)]" aria-hidden="true" />
             <span>{t('product.viewBag')} ({inCartQty})</span>
           </button>
         </div>

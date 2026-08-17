@@ -154,7 +154,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
   const renderPrice = (compact = false) => {
     if (!canSeePrices) {
       return (
-        <div className={`flex items-center text-gray-500 ${compact ? 'justify-end' : ''} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-center text-[var(--cera-muted)] ${compact ? 'justify-end' : ''} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <Lock className={`h-4 w-4 ${dir === 'rtl' ? 'ml-1' : 'mr-1'}`} />
           <span className="text-sm">{t('profile.priceAccessRequired')}</span>
         </div>
@@ -172,7 +172,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
             <p className={`${compact ? 'text-base' : 'text-sm'} font-bold whitespace-nowrap text-purple-700`}>
               {linePricing.lineTotal.toFixed(2)} AED
             </p>
-            <p className={`${compact ? 'text-[10px]' : 'text-xs'} text-gray-500 line-through whitespace-nowrap`}>
+            <p className={`${compact ? 'text-[10px]' : 'text-xs'} text-[var(--cera-muted)] line-through whitespace-nowrap`}>
               {linePricing.retailLineTotal.toFixed(2)} AED
             </p>
           </div>
@@ -181,7 +181,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
               <span className="font-medium text-purple-600">
                 {linePricing.discountPercentage}% {t('product.off')}
               </span>
-              <span className="text-red-600"> {t('product.vatIncluded')}</span>
+              <span className="text-[var(--cera-muted)]"> {t('product.vatIncluded')}</span>
             </span>
           </div>
         </div>
@@ -193,11 +193,11 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
     return (
       <div className={compact ? 'text-end' : ''}>
         <div className={`flex items-baseline gap-1.5 flex-nowrap ${compact ? 'justify-end' : ''} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <p className={`${compact ? 'text-base text-gray-900' : 'text-sm text-red-600'} font-bold whitespace-nowrap`}>
+          <p className={`${compact ? 'text-base' : 'text-sm'} cera-numeral font-semibold text-[var(--cera-ink)] whitespace-nowrap`}>
             {linePricing.lineTotal.toFixed(2)} AED
           </p>
           {hasDiscount && (
-            <p className={`${compact ? 'text-[10px]' : 'text-xs'} text-gray-500 line-through whitespace-nowrap`}>
+            <p className={`${compact ? 'text-[10px]' : 'text-xs'} text-[var(--cera-muted)] line-through whitespace-nowrap`}>
               {linePricing.retailLineTotal.toFixed(2)} AED
             </p>
           )}
@@ -223,8 +223,8 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
 
     return (
       <div className={`mt-1 flex items-center gap-1 ${compact ? 'justify-end' : ''} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-        <Award className="h-3 w-3 shrink-0 text-primary-600" />
-        <span className="text-[10px] text-gray-500">
+        <Award className="h-3 w-3 shrink-0 text-[var(--cera-rose)]" />
+        <span className="text-[10px] text-[var(--cera-muted)]">
           {t('rewards.earnItem', { points: earnPts.toLocaleString() })}
         </span>
       </div>
@@ -252,7 +252,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
         ...springPresets.default,
         layout: { ...springPresets.snappy }
       } : { duration: 0 }}
-      className="relative overflow-hidden rounded-lg shadow-sm border bg-white"
+      className="ed-row relative overflow-hidden"
       style={{ 
         viewTransitionName: `cart-item-${product.id}`,
       }}
@@ -292,7 +292,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
         onDragEnd={handleDragEnd}
         style={{ x }}
         whileTap={animationsEnabled ? { cursor: 'grabbing' } : {}}
-        className="relative bg-white p-3 md:p-4 z-10"
+        className="relative z-10 bg-white p-3 md:p-4"
       >
       <div className="grid grid-cols-[80px_minmax(0,1fr)] items-start gap-3 md:grid-cols-[96px_minmax(0,1fr)_auto] md:gap-4">
         {/* Left: Product Image + Size */}
@@ -311,7 +311,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
           </Link>
           {/* Size below image */}
           {displaySize && (
-            <span className="mt-2 text-center text-[10px] md:text-xs font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded px-1 py-0.5">
+            <span className="mt-2 rounded-full border border-[var(--cera-line)] bg-white px-2 py-0.5 text-center text-[10.5px] font-medium text-[var(--cera-muted)] md:text-[11.5px]">
               {t('product.size')}: {translateSize(displaySize, locale, product.category)}
             </span>
           )}
@@ -320,14 +320,14 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
         {/* Middle: Product Info */}
         <div className="flex-1 min-w-0">
           <Link href={`/products/${product.id}`}>
-            <h3 className="text-xs md:text-base font-bold text-gray-900 break-words hover:text-primary-600 transition-colors cursor-pointer leading-tight mb-1">{product.name}</h3>
+            <h3 className="cera-serif mb-1 cursor-pointer break-words text-[15px] leading-tight transition-colors hover:text-[var(--cera-rose-ink)] md:text-[17px]">{product.name}</h3>
           </Link>
-          <p className="text-xs md:text-sm text-red-600 mb-2">{translateCategory(product.category, messages)}</p>
+          <p className="mb-2 text-[11.5px] uppercase tracking-[0.1em] text-[var(--cera-muted)]">{translateCategory(product.category, messages)}</p>
           
           {/* Color Selector */}
           {showColorSelector && (
             <div className="mb-3 md:mb-4">
-              <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 whitespace-nowrap ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <label className={`ed-label whitespace-nowrap ${dir === 'rtl' ? 'text-right' : ''}`}>
                 {t('product.color')}:
               </label>
               <div className={`flex flex-wrap gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -339,8 +339,8 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
                       onClick={() => handleColorChange(color.value)}
                       className={`min-w-[44px] justify-center px-2 md:px-4 py-1 md:py-2 rounded border transition-all touch-manipulation min-h-[32px] md:min-h-[44px] text-[10px] md:text-sm font-medium flex-shrink-0 ${
                         isSelected
-                          ? 'border-primary-600 bg-primary-50 text-primary-700 shadow-sm'
-                          : 'border-gray-300 hover:border-gray-400 bg-white text-gray-700 hover:bg-gray-50'
+                          ? 'border-[var(--cera-rose)] bg-[var(--cera-blush)] text-[var(--cera-rose-ink)]'
+                          : 'border-[var(--cera-line)] bg-white text-[var(--cera-body)] hover:border-[var(--cera-blush-deep)]'
                       }`}
                       aria-label={`${t('product.color')}: ${color.label}`}
                       aria-pressed={isSelected}
@@ -365,7 +365,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
           {/* Size Selector */}
           {showSizeSelector && (
             <div className="mb-3 md:mb-4">
-              <label className={`block text-[10px] md:text-sm font-medium text-gray-700 mb-1.5 md:mb-2 whitespace-nowrap ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <label className={`ed-label whitespace-nowrap ${dir === 'rtl' ? 'text-right' : ''}`}>
                 {t('product.size')}:
               </label>
               <div className={`flex flex-nowrap gap-1 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -377,8 +377,8 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
                       onClick={() => handleSizeChange(size.value)}
                       className={`px-2 md:px-4 py-1 md:py-2 rounded border transition-all touch-manipulation min-h-[32px] md:min-h-[44px] text-[10px] md:text-sm font-medium flex-shrink-0 ${
                         isSelected
-                          ? 'border-blue-600 bg-blue-50 text-blue-700 shadow-sm'
-                          : 'border-gray-300 hover:border-gray-400 bg-white text-gray-700 hover:bg-gray-50'
+                          ? 'border-[var(--cera-rose)] bg-[var(--cera-blush)] text-[var(--cera-rose-ink)]'
+                          : 'border-[var(--cera-line)] bg-white text-[var(--cera-body)] hover:border-[var(--cera-blush-deep)]'
                       }`}
                       aria-label={`${t('product.size')}: ${size.label}`}
                       aria-pressed={isSelected}
@@ -401,14 +401,14 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
         
         {/* Quantity and removal stay below the content on small screens so
             product names/prices never compete with three cramped controls. */}
-        <div className="col-span-2 mt-1 flex items-center justify-between gap-3 border-t border-gray-100 pt-3 md:col-span-1 md:mt-0 md:flex-col md:items-end md:border-0 md:pt-0">
-          <div className="flex min-h-12 items-stretch overflow-hidden rounded-lg border border-gray-300 bg-white">
+        <div className="col-span-2 mt-1 flex items-center justify-between gap-3 border-t border-[var(--cera-line)] pt-3 md:col-span-1 md:mt-0 md:flex-col md:items-end md:border-0 md:pt-0">
+          <div className="flex min-h-12 items-stretch overflow-hidden rounded-full border border-[var(--cera-line)] bg-white">
             <motion.button
               onClick={() => handleQuantityChange(quantity - 1)}
               whileTap={animationsEnabled ? { scale: 0.9 } : {}}
               whileHover={animationsEnabled && quantity > 1 ? { scale: 1.05, backgroundColor: '#f3f4f6' } : {}}
               transition={animationsEnabled ? springPresets.snappy : {}}
-              className="flex min-h-12 min-w-12 touch-manipulation items-center justify-center border-e border-gray-200 text-gray-700 transition-colors hover:bg-gray-100 hover:text-gray-900 disabled:cursor-not-allowed disabled:text-gray-300"
+              className="flex min-h-12 min-w-12 touch-manipulation items-center justify-center border-e border-[var(--cera-line)] text-[var(--cera-body)] transition-colors hover:bg-[var(--cera-cream-deep)] hover:text-[var(--cera-ink)] disabled:cursor-not-allowed disabled:text-[var(--cera-line)]"
               disabled={quantity <= 1}
               aria-label={t('cart.decreaseQuantity')}
             >
@@ -429,7 +429,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
               whileTap={animationsEnabled ? { scale: 0.9 } : {}}
               whileHover={animationsEnabled ? { scale: 1.05, backgroundColor: '#f3f4f6' } : {}}
               transition={animationsEnabled ? springPresets.snappy : {}}
-              className="flex min-h-12 min-w-12 touch-manipulation items-center justify-center border-s border-gray-200 text-primary-600 transition-colors hover:bg-primary-50 active:bg-primary-100"
+              className="flex min-h-12 min-w-12 touch-manipulation items-center justify-center border-s border-[var(--cera-line)] text-[var(--cera-rose-ink)] transition-colors hover:bg-[var(--cera-blush)]"
               aria-label={t('cart.increaseQuantity')}
             >
               <Plus className="h-4 w-4 md:h-5 md:w-5" />

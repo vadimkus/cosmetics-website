@@ -99,14 +99,14 @@ const ProductFilters = memo(function ProductFilters({
       {/* Desktop Filter Sidebar */}
       <aside className="hidden md:block w-64 flex-shrink-0">
         <div className="sticky top-4">
-          <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
+          <div className="cera-card">
             {/* Header - Fixed */}
-            <div className={`flex items-center justify-between p-4 border-b border-gray-100 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <h2 className="text-lg font-semibold text-gray-900">{t('products.filters')}</h2>
+            <div className={`flex items-center justify-between p-4 border-b border-[var(--cera-line)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <h2 className="cera-serif text-[19px] text-[var(--cera-ink)]">{t('products.filters')}</h2>
               {hasActiveFilters && (
                 <button
                   onClick={clearAllFilters}
-                  className="text-sm text-primary-600 hover:text-primary-700 py-1 px-2"
+                  className="px-2 py-1 text-[13px] font-semibold text-[var(--cera-rose-ink)] hover:opacity-70"
                 >
                   {t('products.clear')}
                 </button>
@@ -118,12 +118,12 @@ const ProductFilters = memo(function ProductFilters({
               className="p-4 overflow-y-auto overscroll-contain"
               style={{ maxHeight: 'calc(100vh - 10rem)' }}
             >
-              <div className="space-y-4 text-gray-900">
+              <div className="space-y-4 text-[var(--cera-ink)]">
                 {/* Categories */}
-                <div className="border-b border-gray-200 pb-4">
+                <div className="border-b border-[var(--cera-line)] pb-4">
                   <button
                     onClick={() => toggleSection('category')}
-                    className={`w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3 py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`mb-3 flex w-full items-center justify-between py-2 text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     <span>{t('products.categories')}</span>
                     {expandedSections.category ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -135,18 +135,18 @@ const ProductFilters = memo(function ProductFilters({
                         return (
                           <label
                             key={category.id}
-                            className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer hover:text-primary-600"
+                            className="flex cursor-pointer items-center gap-2 text-[14px] text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)]"
                           >
                             <input
                               type="checkbox"
                               checked={activeFilters.categories.includes(category.id)}
                               onChange={() => handleCategoryToggle(category.id)}
-                              className="w-4 h-4 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 accent-primary-600 cursor-pointer"
+                              className="h-4 w-4 cursor-pointer rounded border-[var(--cera-line)] bg-white accent-[var(--cera-rose)]"
                             />
-                            <span className="text-gray-900 flex items-center gap-1.5">
+                            <span className="flex items-center gap-1.5 text-[var(--cera-ink)]">
                               {category.name}
                               {isNew && (
-                                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wide uppercase bg-green-500 text-white leading-none">
+                                <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-bold tracking-wide uppercase bg-[var(--cera-rose)] text-white leading-none">
                                   {t('common.new')}
                                 </span>
                               )}
@@ -159,10 +159,10 @@ const ProductFilters = memo(function ProductFilters({
                 </div>
 
                 {/* Price Range */}
-                <div className="border-b border-gray-200 pb-4">
+                <div className="border-b border-[var(--cera-line)] pb-4">
                   <button
                     onClick={() => toggleSection('price')}
-                    className={`w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3 py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`mb-3 flex w-full items-center justify-between py-2 text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     <span>{t('products.priceRange')}</span>
                     {expandedSections.price ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -178,10 +178,10 @@ const ProductFilters = memo(function ProductFilters({
                           max={priceRange.max}
                           value={activeFilters.priceRange[0]}
                           onChange={(e) => handlePriceChange(0, Number(e.target.value))}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 bg-white"
+                          className="w-full rounded-xl border border-[var(--cera-line)] bg-white px-3 py-2 text-[14px] text-[var(--cera-ink)] focus:border-[var(--cera-rose)] focus:outline-none"
                           placeholder={t('products.min')}
                         />
-                        <span className="text-gray-500">-</span>
+                        <span className="text-[var(--cera-muted)]">-</span>
                         <input
                           id="price-max"
                           name="price-max"
@@ -190,11 +190,11 @@ const ProductFilters = memo(function ProductFilters({
                           max={priceRange.max}
                           value={activeFilters.priceRange[1]}
                           onChange={(e) => handlePriceChange(1, Number(e.target.value))}
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm text-gray-900 bg-white"
+                          className="w-full rounded-xl border border-[var(--cera-line)] bg-white px-3 py-2 text-[14px] text-[var(--cera-ink)] focus:border-[var(--cera-rose)] focus:outline-none"
                           placeholder={t('products.max')}
                         />
                       </div>
-                      <div className="text-xs text-gray-500">
+                      <div className="text-[12px] text-[var(--cera-muted)]">
                         {t('products.range', { min: priceRange.min.toFixed(0), max: priceRange.max.toFixed(0) })}
                       </div>
                     </div>
@@ -202,10 +202,10 @@ const ProductFilters = memo(function ProductFilters({
                 </div>
 
                 {/* Rating */}
-                <div className="border-b border-gray-200 pb-4">
+                <div className="border-b border-[var(--cera-line)] pb-4">
                   <button
                     onClick={() => toggleSection('rating')}
-                    className={`w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3 py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`mb-3 flex w-full items-center justify-between py-2 text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     <span>{t('products.minimumRating')}</span>
                     {expandedSections.rating ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -215,16 +215,16 @@ const ProductFilters = memo(function ProductFilters({
                       {[4, 3, 2, 1, 0].map((rating) => (
                         <label
                           key={rating}
-                          className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer hover:text-primary-600"
+                          className="flex cursor-pointer items-center gap-2 text-[14px] text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)]"
                         >
                           <input
                             type="radio"
                             name="rating"
                             checked={activeFilters.minRating === rating}
                             onChange={() => handleRatingChange(rating)}
-                            className="w-4 h-4 text-primary-600 bg-white border-gray-300 focus:ring-primary-500 accent-primary-600 cursor-pointer"
+                            className="h-4 w-4 cursor-pointer border-[var(--cera-line)] bg-white accent-[var(--cera-rose)]"
                           />
-                          <span className="text-gray-900">
+                          <span className="text-[var(--cera-ink)]">
                             {rating === 0 ? t('products.anyRating') : t('products.stars', { rating })}
                             {rating > 0 && (
                               <span className={`${dir === 'rtl' ? 'mr-1' : 'ml-1'} text-yellow-500`}>
@@ -239,23 +239,23 @@ const ProductFilters = memo(function ProductFilters({
                 </div>
 
                 {/* Stock Status */}
-                <div className="border-b border-gray-200 pb-4">
+                <div className="border-b border-[var(--cera-line)] pb-4">
                   <button
                     onClick={() => toggleSection('stock')}
-                    className={`w-full flex items-center justify-between text-sm font-semibold text-gray-900 mb-3 py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`mb-3 flex w-full items-center justify-between py-2 text-[13px] font-semibold uppercase tracking-[0.08em] text-[var(--cera-muted)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     <span>{t('products.availability')}</span>
                     {expandedSections.stock ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                   </button>
                   {expandedSections.stock && (
-                    <label className="flex items-center gap-2 text-sm text-gray-700 cursor-pointer hover:text-primary-600">
+                    <label className="flex cursor-pointer items-center gap-2 text-[14px] text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)]">
                       <input
                         type="checkbox"
                         checked={activeFilters.inStockOnly}
                         onChange={handleStockToggle}
-                        className="w-4 h-4 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 accent-primary-600 cursor-pointer"
+                        className="h-4 w-4 cursor-pointer rounded border-[var(--cera-line)] bg-white accent-[var(--cera-rose)]"
                       />
-                      <span className="text-gray-900">{t('products.inStockOnly')}</span>
+                      <span className="text-[var(--cera-ink)]">{t('products.inStockOnly')}</span>
                     </label>
                   )}
                 </div>
@@ -264,7 +264,7 @@ const ProductFilters = memo(function ProductFilters({
                 {hasActiveFilters && (
                   <button
                     onClick={clearAllFilters}
-                    className="w-full py-3 px-4 text-sm font-medium text-primary-600 hover:text-primary-700 border border-primary-600 rounded-md hover:bg-primary-50 transition-colors"
+                    className="ed-ghost w-full px-4 py-3 text-[14px]"
                   >
                     {t('products.clearAllFilters')}
                   </button>

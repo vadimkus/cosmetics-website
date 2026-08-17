@@ -122,6 +122,14 @@ export default function ProductsPageClient({
   const { isMobile: isMobileClient, isClient: isMobileClientReady } = useIsMobile()
   const isMobile = !isMobileClientReady || isMobileClient
 
+  /* Set once the URL has been read into state. The effect below writes the URL from
+     state, and on locales where the page ships without server products it used to fire
+     first — 300 ms after mount, while /api/products was still in flight — replacing the
+     URL with one built from empty filters and destroying the very parameters this effect
+     was about to read. Any shared link carrying ?categories=, ?search=, ?rating= or
+     ?inStock= silently lost its filter on /ar/products and /ru/products. */
+  const filtersInitialisedFromUrlRef = useRef(false)
+
   // Initialize filters from URL params when products are available (server or client)
   useEffect(() => {
     if (products.length > 0) {
@@ -142,6 +150,7 @@ export default function ProductsPageClient({
         inStockOnly
       })
       setLoading(false)
+      filtersInitialisedFromUrlRef.current = true
     }
   }, [products, searchParams])
 
@@ -210,6 +219,10 @@ export default function ProductsPageClient({
   
   // Update URL when filters/search/sort change - debounced to not interrupt touch events
   useEffect(() => {
+    // Never write the URL before it has been read, or the read is destroyed. See
+    // filtersInitialisedFromUrlRef above.
+    if (!filtersInitialisedFromUrlRef.current) return
+
     // Clear any pending URL update
     if (urlUpdateTimeoutRef.current) {
       clearTimeout(urlUpdateTimeoutRef.current)

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { MapPin, ArrowLeft, ArrowRight } from 'lucide-react'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -144,21 +145,17 @@ export default function LocationsPageClient() {
         </div>
       )}
       
+      {!isAppLikeMode && (
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home') || 'Home', href: getLocalizedPath('/', locale) },
+            { name: locale === 'ar' ? 'المواقع' : locale === 'ru' ? 'Где купить' : 'Locations' },
+          ]}
+        />
+      )}
+
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-6xl mx-auto">
-          {/* Navigation Breadcrumb - Hide in PWA and mobile web */}
-          {!isAppLikeMode && (
-            <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
-                {t('common.home') || 'Home'}
-              </Link>
-              <span> / </span>
-              <span className="text-gray-900 font-medium">
-                {locale === 'ar' ? 'المواقع' : locale === 'ru' ? 'Где купить' : 'Locations'}
-              </span>
-            </nav>
-          )}
-          
           {/* Back to Home - Hide in PWA and mobile web */}
           {!isAppLikeMode && (
             <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${isRTL ? 'flex-row-reverse' : ''}`}>

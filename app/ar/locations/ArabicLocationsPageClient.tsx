@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { MapPin, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -69,47 +70,22 @@ export default function ArabicLocationsPageClient() {
         ]}
       />
       
+      <PageBreadcrumb
+        items={[
+          { name: t('navigation.home'), href: getLocalizedPath('/', locale) },
+          { name: t('common.locations') },
+        ]}
+      />
+
       <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-6xl mx-auto">
           {/* Navigation Breadcrumb */}
-          <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-            {/* Mobile Breadcrumb */}
-            <div className="md:hidden flex items-center gap-2">
-              <Link 
-                href={getLocalizedPath('/', locale)}
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                {t('navigation.home')}
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                {t('common.locations')}
-              </span>
-            </div>
-            
-            {/* Mobile Back Button */}
-            <Link 
-              href={getLocalizedPath('/', locale)}
-              className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4 rotate-180" />
-              <span className="font-medium">{t('common.backToHome')}</span>
-            </Link>
-            
-            {/* Desktop Breadcrumb */}
-            <div className="hidden md:flex items-center gap-2">
-              <Link 
-                href={getLocalizedPath('/', locale)}
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                {t('navigation.home')}
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                {t('common.locations')}
-              </span>
-            </div>
-          </nav>
+        {/* Mobile back link: it used to sit inside the <nav>, which is not a
+            breadcrumb item. */}
+        <Link href={getLocalizedPath('/', locale)} className="mb-6 flex items-center gap-2 text-primary-600 transition-colors hover:text-primary-700 md:hidden">
+          <ArrowLeft className="h-4 w-4 rotate-180" />
+          <span className="font-medium">{t('common.backToHome')}</span>
+        </Link>
 
           {/* Page Header */}
           <div className="text-center mb-12">

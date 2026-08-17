@@ -6,6 +6,7 @@ import '@/components/editorial/editorial.css'
 import Link from 'next/link'
 import { ArrowLeft, Clock, Gift, Mail, Phone, RotateCcw, Truck } from 'lucide-react'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
@@ -83,17 +84,18 @@ export default function DeliveryPageClient() {
         </div>
       )}
 
+      {!isAppLikeMode && (
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home') || 'Home', href: getLocalizedPath('/', locale) },
+            { name: pick('Delivery', 'التوصيل', 'Доставка') },
+          ]}
+        />
+      )}
+
       <div className="mx-auto max-w-[1120px] px-4 py-6 md:px-8 md:py-16">
         {!isAppLikeMode && (
           <>
-            <nav className={`text-[13px] text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`} aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose)]">
-                {t('common.home') || 'Home'}
-              </Link>
-              <span className="px-1.5">/</span>
-              <span className="text-[var(--cera-ink)]">{pick('Delivery', 'التوصيل', 'Доставка')}</span>
-            </nav>
-
             <Link
               href={getLocalizedPath('/', locale)}
               className={`mt-3 inline-flex items-center gap-1.5 text-[13px] text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${

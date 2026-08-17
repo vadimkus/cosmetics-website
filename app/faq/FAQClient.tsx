@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PWAPageWrapper from '@/components/pwa/PWAPageWrapper'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { sanitizeHtml } from '@/lib/sanitize'
@@ -223,16 +224,17 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
         }}
       />
       
+      {!isAppLikeMode && (
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home'), href: getLocalizedPath('/', locale) },
+            { name: t('faq.title') },
+          ]}
+        />
+      )}
+
       <div className={`container mx-auto px-3 md:px-4 ${isAppLikeMode ? 'py-4' : 'py-4 md:py-12'}`}>
         <div className={`mx-auto ${isAppLikeMode ? 'max-w-4xl' : 'max-w-5xl'}`}>
-          {!isAppLikeMode && (
-            <nav className="text-[13px] text-[var(--cera-muted)] mb-3" aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose)]">{t('common.home')}</Link>
-              <span className="px-1.5">/</span>
-              <span className="text-[var(--cera-ink)]">{t('faq.title')}</span>
-            </nav>
-          )}
-
           {!isAppLikeMode && (
             <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1.5 text-[13px] text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 mb-8 md:mb-12 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />

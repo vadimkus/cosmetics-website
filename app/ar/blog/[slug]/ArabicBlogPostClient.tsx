@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Calendar, User, ArrowLeft } from 'lucide-react'
 import BlogComments from '@/components/blog/BlogComments'
 import BlackFridayCountdown from '@/components/BlackFridayCountdown'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { sanitizeHtml } from '@/lib/sanitize'
@@ -45,17 +46,16 @@ export default function ArabicBlogPostClient({
   return (
     <article className="bg-gradient-to-b from-gray-50 to-white min-h-screen" dir={dir}>
       <ReadingProgress />
+      <PageBreadcrumb
+        items={[
+          { name: t('common.home'), href: getLocalizedPath('/', locale) },
+          { name: t('common.blog'), href: getLocalizedPath('/blog', locale) },
+          { name: post.title },
+        ]}
+      />
+
       <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
-          {/* Navigation Breadcrumb */}
-          <nav className={`text-xs md:text-sm text-gray-500 mb-3 md:mb-5 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-            <span className="mx-1.5">/</span>
-            <Link href={getLocalizedPath('/blog', locale)} className="hover:text-primary-600 transition-colors">{t('common.blog')}</Link>
-            <span className="mx-1.5">/</span>
-            <span className="text-gray-700 font-medium">{post.title}</span>
-          </nav>
-
           {/* Prominent back-to-articles link — visible on all viewports */}
           <Link
             href={getLocalizedPath('/blog', locale)}

@@ -10,6 +10,7 @@ import {
   ArrowLeft, ArrowRight, Sparkles, Microscope, Layers, ShieldCheck,
   PlayCircle, Award, FlaskConical, Stethoscope,
 } from 'lucide-react'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -157,18 +158,17 @@ export default function BrandPageClient() {
         </div>
       )}
 
+      {!isAppLikeMode && (
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home') || 'Home', href: getLocalizedPath('/', locale) },
+            { name: copy.breadcrumb },
+          ]}
+        />
+      )}
+
       <div className="container mx-auto px-4 py-4 md:py-12">
         <div className="max-w-6xl mx-auto">
-          {!isAppLikeMode && (
-            <nav className={`text-xs md:text-sm text-[var(--cera-muted)] mb-2 md:mb-4 ${isRTL ? 'text-right' : ''}`} aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="hover:text-gray-900 transition-colors">
-                {t('common.home') || 'Home'}
-              </Link>
-              <span className="mx-1.5">/</span>
-              <span className="text-[var(--cera-ink)]">{copy.breadcrumb}</span>
-            </nav>
-          )}
-
           {!isAppLikeMode && (
             <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-[var(--cera-muted)] hover:text-gray-900 mb-6 md:mb-10 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${isRTL ? 'rotate-180' : ''}`} />

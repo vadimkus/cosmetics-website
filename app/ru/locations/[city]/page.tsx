@@ -1,3 +1,4 @@
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import Link from 'next/link'
 import { MapPin, Phone, Mail, Truck, ArrowLeft, Globe, Award, FileText } from 'lucide-react'
 import { Instagram } from '@/components/icons/BrandIcons'
@@ -239,61 +240,22 @@ export default async function RussianLocationPage({ params }: LocationPageProps)
         }}
       />
 
+      <PageBreadcrumb
+        items={[
+          { name: 'Главная', href: '/ru' },
+          { name: 'Где купить', href: '/ru/locations' },
+          { name: location.name },
+        ]}
+      />
+
       <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
-          {/* Navigation Breadcrumb */}
-          <nav className="flex flex-col gap-2 text-sm md:text-base text-gray-600 mb-8" aria-label="Breadcrumb">
-            {/* Mobile Breadcrumb */}
-            <div className="md:hidden flex items-center gap-2">
-              <Link 
-                href="/ru"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Главная
-              </Link>
-              <span className="flex items-center">/</span>
-              <Link 
-                href="/ru/locations"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Где купить
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                {location.name}
-              </span>
-            </div>
-            
-            {/* Mobile Back Button */}
-            <Link 
-              href="/ru/locations"
-              className="md:hidden flex items-center gap-2 text-primary-600 hover:text-primary-700 transition-colors"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              <span className="font-medium">Назад к локациям</span>
-            </Link>
-            
-            {/* Desktop Breadcrumb */}
-            <div className="hidden md:flex items-center gap-2">
-              <Link 
-                href="/ru"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Главная
-              </Link>
-              <span className="flex items-center">/</span>
-              <Link 
-                href="/ru/locations"
-                className="hover:text-primary-600 transition-colors flex items-center"
-              >
-                Где купить
-              </Link>
-              <span className="flex items-center">/</span>
-              <span className="text-gray-900 font-medium flex items-center">
-                {location.name}
-              </span>
-            </div>
-          </nav>
+        {/* Mobile back link: it used to sit inside the <nav>, which is not a
+            breadcrumb item. */}
+        <Link href="/ru/locations" className="mb-6 flex items-center gap-2 text-primary-600 transition-colors hover:text-primary-700 md:hidden">
+          <ArrowLeft className="h-4 w-4" />
+          <span className="font-medium">Назад к локациям</span>
+        </Link>
 
           {/* Page Header */}
           <div className="text-center mb-12">

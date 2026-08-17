@@ -23,6 +23,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, CreditCard, Lock, MapPin, Truck, MessageCircle, ChevronDown, ShoppingBag, Pencil, Award } from 'lucide-react'
 import Link from 'next/link'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import CheckoutHeader from '@/components/checkout/CheckoutHeader'
 import CheckoutProgress from '@/components/checkout/CheckoutProgress'
 import PaymentMethodSelector from '@/components/checkout/PaymentMethodSelector'
@@ -725,6 +726,19 @@ export default function CheckoutClient() {
       {/* The header carries the breadcrumb and the back link, so it needs the
           same measure as the content below it. Without this wrapper it sat
           against the left edge of the viewport while the form stayed centred. */}
+      {/* Breadcrumb sits in the shared band above the content measure, so it
+          lands in the same place as every other route. */}
+      {!(isPWAClient && isPWA) && !isMobileWeb && (
+        <PageBreadcrumb
+          items={[
+            { name: t('checkout.home'), href: getLocalizedPath('/', locale) },
+            { name: t('checkout.products'), href: getLocalizedPath('/products', locale) },
+            { name: t('checkout.cart'), href: getLocalizedPath('/cart', locale) },
+            { name: t('checkout.checkout') },
+          ]}
+        />
+      )}
+
       <div className="mx-auto max-w-6xl">
         <CheckoutHeader
           isPWA={isPWA}

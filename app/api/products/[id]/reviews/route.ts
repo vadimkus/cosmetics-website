@@ -61,12 +61,32 @@ export async function GET(
       }
     })
 
+    // Star breakdown for the summary bars. Counted over every approved review,
+    // not just the page being returned, so the bars stay correct while the
+    // shopper pages through the list.
+    const byRating = await prisma.productReview.groupBy({
+      by: ['rating'],
+      where: {
+        productId: id,
+        approved: true
+      },
+      _count: {
+        rating: true
+      }
+    })
+
+    const distribution: Record<string, number> = { '1': 0, '2': 0, '3': 0, '4': 0, '5': 0 }
+    for (const row of byRating) {
+      distribution[String(row.rating)] = row._count.rating
+    }
+
     return NextResponse.json({
       reviews,
       totalCount,
       hasMore: offset + limit < totalCount,
       averageRating: ratingStats._avg.rating || null,
-      reviewCount: ratingStats._count.rating || 0
+      reviewCount: ratingStats._count.rating || 0,
+      distribution
     })
   } catch (error) {
     errorLog('Error fetching reviews:', error)

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, MapPin, ShieldCheck, Sparkles } from 'lucide-react'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -135,21 +136,17 @@ export default function PartnersPageClient() {
         </div>
       )}
 
+      {!isAppLikeMode && (
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home') || 'Home', href: getLocalizedPath('/', locale) },
+            { name: locale === 'ar' ? 'الشركاء' : locale === 'ru' ? 'Партнёры' : 'Partners' },
+          ]}
+        />
+      )}
+
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-12">
         <div className="max-w-6xl mx-auto">
-          {/* Breadcrumb */}
-          {!isAppLikeMode && (
-            <nav className="text-xs md:text-sm text-gray-500 mb-2 md:mb-4" aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="hover:text-gray-900 transition-colors">
-                {t('common.home') || 'Home'}
-              </Link>
-              <span className="mx-1.5">/</span>
-              <span className="text-gray-900">
-                {locale === 'ar' ? 'الشركاء' : locale === 'ru' ? 'Партнёры' : 'Partners'}
-              </span>
-            </nav>
-          )}
-
           {!isAppLikeMode && (
             <Link
               href={getLocalizedPath('/', locale)}

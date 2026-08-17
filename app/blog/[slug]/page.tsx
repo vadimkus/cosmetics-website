@@ -1,4 +1,5 @@
 import { cache } from 'react'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import Link from 'next/link'
 import { Calendar, User, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
@@ -242,17 +243,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         <ReadingProgress />
         <article className="bg-gradient-to-b from-gray-50 to-white min-h-screen">
+        <PageBreadcrumb
+          items={[
+            { name: 'Home', href: '/' },
+            { name: 'Journal', href: '/blog' },
+            { name: post.title },
+          ]}
+        />
+
         <div className="container mx-auto px-4 py-8 md:py-16">
           <div className="max-w-4xl mx-auto">
-          {/* Navigation Breadcrumb */}
-          <nav className="text-xs md:text-sm text-gray-500 mb-3 md:mb-5" aria-label="Breadcrumb">
-            <Link href="/" className="hover:text-primary-600 transition-colors">Home</Link>
-            <span className="mx-1.5">/</span>
-            <Link href="/blog" className="hover:text-primary-600 transition-colors">Blog</Link>
-            <span className="mx-1.5">/</span>
-            <span className="text-gray-700 font-medium">{post.title}</span>
-          </nav>
-
           {/* Prominent back-to-articles link — visible on all viewports */}
           <Link
             href="/blog"

@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { ArrowLeft, Download, FileText, PlayCircle } from 'lucide-react'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import PDFDownloadButton from '@/components/PDFDownloadButton'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -28,7 +29,7 @@ import {
  * Arabic 11. One component over one data file means that cannot happen again.
  */
 export default function TrainingLibrary() {
-  const { locale, dir } = useTranslation()
+  const { t, locale, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
 
   const copy = TRAINING_COPY[(locale as 'en' | 'ar' | 'ru') ?? 'en'] ?? TRAINING_COPY.en
@@ -95,15 +96,14 @@ export default function TrainingLibrary() {
 
   return (
     <div className={`cera-page training-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
-      <div className="mx-auto max-w-[1120px] px-4 py-8 md:px-8 md:py-16">
-        <nav className="text-[13px] text-[var(--cera-muted)]" aria-label="Breadcrumb">
-          <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose)]">
-            GENOSYS
-          </Link>
-          <span className="px-1.5">/</span>
-          <span className="text-[var(--cera-ink)]">{copy.breadcrumb}</span>
-        </nav>
+      <PageBreadcrumb
+        items={[
+          { name: t('common.home'), href: getLocalizedPath('/', locale) },
+          { name: copy.breadcrumb },
+        ]}
+      />
 
+      <div className="mx-auto max-w-[1120px] px-4 py-8 md:px-8 md:py-16">
         <Link
           href={getLocalizedPath('/', locale)}
           className={`mt-3 inline-flex items-center gap-1.5 text-[13px] text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${

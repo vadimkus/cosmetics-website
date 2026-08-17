@@ -7,6 +7,7 @@ import { Lock, ArrowLeft, CheckCircle2, XCircle, Eye, EyeOff, KeyRound } from 'l
 import { fetchCsrfToken, getCsrfHeaders, addCsrfToBody } from '@/lib/csrfClient'
 import { errorLog } from '@/lib/logger'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -173,18 +174,15 @@ export default function ResetPasswordClient() {
           ]}
         />
         
-        {/* Desktop breadcrumb */}
-        <nav className="hidden md:flex container mx-auto px-4 py-4 items-center gap-2 text-sm text-gray-600" aria-label="Breadcrumb">
-          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
-            {t('common.home')}
-          </Link>
-          <span>/</span>
-          <Link href={getLocalizedPath('/login', locale)} className="hover:text-primary-600 transition-colors">
-            {t('common.login')}
-          </Link>
-          <span>/</span>
-          <span className="text-gray-900 font-medium">{t('auth.resetPassword')}</span>
-        </nav>
+        <div className="hidden md:block">
+          <PageBreadcrumb
+            items={[
+              { name: t('common.home'), href: getLocalizedPath('/', locale) },
+              { name: t('common.login'), href: getLocalizedPath('/login', locale) },
+              { name: t('auth.resetPassword') },
+            ]}
+          />
+        </div>
 
         <div className="flex-1 flex items-center justify-center px-4 py-8">
           <div className="w-full max-w-md">
@@ -236,18 +234,15 @@ export default function ResetPasswordClient() {
           ]}
         />
         
-        {/* Desktop breadcrumb */}
-        <nav className="hidden md:flex container mx-auto px-4 py-4 items-center gap-2 text-sm text-gray-600" aria-label="Breadcrumb">
-          <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
-            {t('common.home')}
-          </Link>
-          <span>/</span>
-          <Link href={getLocalizedPath('/login', locale)} className="hover:text-primary-600 transition-colors">
-            {t('common.login')}
-          </Link>
-          <span>/</span>
-          <span className="text-gray-900 font-medium">{t('auth.resetPassword')}</span>
-        </nav>
+        <div className="hidden md:block">
+          <PageBreadcrumb
+            items={[
+              { name: t('common.home'), href: getLocalizedPath('/', locale) },
+              { name: t('common.login'), href: getLocalizedPath('/login', locale) },
+              { name: t('auth.resetPassword') },
+            ]}
+          />
+        </div>
 
         <div className="flex-1 flex items-center justify-center px-4 py-8">
           <div className="w-full max-w-md">
@@ -290,18 +285,15 @@ export default function ResetPasswordClient() {
         ]}
       />
       
-      {/* Desktop breadcrumb - hidden on mobile */}
-      <nav className="hidden md:flex container mx-auto px-4 py-4 items-center gap-2 text-sm text-gray-600" aria-label="Breadcrumb">
-        <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">
-          {t('common.home')}
-        </Link>
-        <span>/</span>
-        <Link href={getLocalizedPath('/login', locale)} className="hover:text-primary-600 transition-colors">
-          {t('common.login')}
-        </Link>
-        <span>/</span>
-        <span className="text-gray-900 font-medium">{t('auth.resetPassword')}</span>
-      </nav>
+        <div className="hidden md:block">
+          <PageBreadcrumb
+            items={[
+              { name: t('common.home'), href: getLocalizedPath('/', locale) },
+              { name: t('common.login'), href: getLocalizedPath('/login', locale) },
+              { name: t('auth.resetPassword') },
+            ]}
+          />
+        </div>
 
       <div className="flex-1 flex items-center justify-center px-4 py-8">
         <div className="w-full max-w-md">

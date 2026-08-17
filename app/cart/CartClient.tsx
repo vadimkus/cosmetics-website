@@ -31,6 +31,7 @@ import FreeMaskPromotion from '@/components/FreeMaskPromotion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag, Award, Trash2 } from 'lucide-react'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { isBlackFridaySaleActive } from '@/lib/blackFridayUtils'
@@ -327,13 +328,13 @@ export default function CartClient() {
         <div className="container mx-auto px-4 py-4 md:py-8 lg:py-16" dir={dir}>
           {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
           {!isAppLikeMode && (
-            <nav className={`mb-2 text-[13px] text-[var(--cera-muted)] md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.home')}</Link>
-              <span aria-hidden="true"> / </span>
-              <Link href={getLocalizedPath('/products', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.products')}</Link>
-              <span aria-hidden="true"> / </span>
-              <span className="text-[var(--cera-ink)]">{t('common.cart')}</span>
-            </nav>
+            <PageBreadcrumb
+        items={[
+          { name: t('common.home'), href: getLocalizedPath('/', locale) },
+          { name: t('common.products'), href: getLocalizedPath('/products', locale) },
+          { name: t('common.cart') },
+        ]}
+      />
           )}
 
           {/* Back to Products - Hide in PWA mode and mobile web */}
@@ -570,16 +571,16 @@ export default function CartClient() {
       
       {/* Breadcrumb and back link share the content's measure, so they line up
           with the cards below rather than sitting further out. */}
-      {!isAppLikeMode && (
-        <div className="mx-auto max-w-6xl">
-          <nav className={`mb-2 text-[13px] text-[var(--cera-muted)] md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-            <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.home')}</Link>
-            <span aria-hidden="true"> / </span>
-            <Link href={getLocalizedPath('/products', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">{t('common.products')}</Link>
-            <span aria-hidden="true"> / </span>
-            <span className="text-[var(--cera-ink)]">{t('common.cart')}</span>
-          </nav>
+      {!isAppLikeMode && <PageBreadcrumb
+        items={[
+          { name: t('common.home'), href: getLocalizedPath('/', locale) },
+          { name: t('common.products'), href: getLocalizedPath('/products', locale) },
+          { name: t('common.cart') },
+        ]}
+      />}
 
+      {!isAppLikeMode && (
+        <div className="mx-auto max-w-6xl px-4 pt-3 sm:px-6">
           <Link
             href={getLocalizedPath('/products', locale)}
             className={`mb-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}

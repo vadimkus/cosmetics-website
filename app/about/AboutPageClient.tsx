@@ -13,6 +13,7 @@ import { IconOfficialDistributor, Instagram } from '@/components/icons/BrandIcon
 import Logo from '@/components/Logo'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import PWAPageWrapper from '@/components/pwa/PWAPageWrapper'
@@ -198,13 +199,15 @@ export default function AboutPageClient() {
         </div>
       ) : (
         /* ── Desktop: editorial rework ──────────────────────────────────── */
+        <>
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home'), href: getLocalizedPath('/', locale) },
+            { name: t('common.about') },
+          ]}
+        />
         <div className="container mx-auto px-4 py-4 md:py-12">
         <div className="max-w-6xl mx-auto">
-          <nav className={`text-xs md:text-sm text-[var(--cera-muted)] mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-            <Link href={getLocalizedPath('/', locale)} className="hover:text-gray-900 transition-colors">{t('common.home')}</Link>
-            <span className="mx-1.5">/</span>
-            <span className="text-[var(--cera-ink)]">{t('common.about')}</span>
-          </nav>
           <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-[var(--cera-muted)] hover:text-gray-900 mb-6 md:mb-10 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
             <span>{t('common.backToHome')}</span>
@@ -485,6 +488,7 @@ export default function AboutPageClient() {
           </section>
         </div>
         </div>
+        </>
       )}
     </div>
     </PWAPageWrapper>

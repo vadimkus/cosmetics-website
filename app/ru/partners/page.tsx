@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, MapPin, ShieldCheck, Sparkles } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
@@ -80,15 +81,15 @@ export default function RussianPartnersPage() {
       />
       <PartnersSchema />
       <div className="bg-white min-h-screen">
+        <PageBreadcrumb
+          items={[
+            { name: 'Главная', href: '/ru' },
+            { name: 'Партнёры' },
+          ]}
+        />
+
         <div className="container mx-auto px-3 md:px-4 py-4 md:py-12">
           <div className="max-w-6xl mx-auto">
-            {/* Breadcrumb */}
-            <nav className="text-xs md:text-sm text-gray-500 mb-2 md:mb-4" aria-label="Breadcrumb">
-              <Link href="/ru" className="hover:text-gray-900 transition-colors">Главная</Link>
-              <span className="mx-1.5">/</span>
-              <span className="text-gray-900">Партнёры</span>
-            </nav>
-
             <Link href="/ru" className="inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10">
               <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
               <span>На главную</span>

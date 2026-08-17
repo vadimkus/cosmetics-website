@@ -29,9 +29,10 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useEffect, Suspense, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ShoppingBag, ArrowLeft, MessageCircle, Check, Gift, Mail, MapPin, Clock, Truck, Package, ChevronRight, ChevronLeft } from 'lucide-react'
+import { ShoppingBag, ArrowLeft, MessageCircle, Check, Gift, Mail, MapPin, Clock, Truck, Package } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { trackPurchase } from '@/lib/analytics'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
@@ -102,7 +103,6 @@ function SuccessContent() {
   const [loading, setLoading] = useState(true)
 
   const isRtl = dir === 'rtl'
-  const Chevron = isRtl ? ChevronLeft : ChevronRight
 
   // Detect mobile web (non-PWA mobile)
   useEffect(() => {
@@ -212,18 +212,17 @@ function SuccessContent() {
         colors={['#97281f', '#c0392f', '#e8c9c5', '#d8a24a', '#ffffff']}
       />
 
-      <div className="mx-auto max-w-3xl px-4 pb-24 pt-4 sm:px-6 md:pb-16 md:pt-8 lg:pt-12">
-        <CheckoutProgress currentStep="confirmed" locale={locale} className="mb-6 md:mb-9" />
+      {!isAppLikeMode && (
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home'), href: getLocalizedPath('/', locale) },
+            { name: t('success.title') || 'Confirmation' },
+          ]}
+        />
+      )}
 
-        {!isAppLikeMode && (
-          <nav aria-label="Breadcrumb" className="mb-5 flex items-center gap-1.5 text-[13px] text-[var(--cera-muted)]">
-            <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">
-              {t('common.home')}
-            </Link>
-            <Chevron className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
-            <span className="text-[var(--cera-ink)]">{t('success.title') || 'Confirmation'}</span>
-          </nav>
-        )}
+      <div className="mx-auto max-w-3xl px-4 pb-24 pt-6 sm:px-6 md:pb-16 md:pt-8">
+        <CheckoutProgress currentStep="confirmed" locale={locale} className="mb-6 md:mb-9" />
 
         {/* ─────────────────────────── Header ──────────────────────────── */}
         <header className="mb-8 text-center md:mb-10">

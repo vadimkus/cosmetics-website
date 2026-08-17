@@ -4,6 +4,7 @@ import { memo } from 'react'
 import Link from 'next/link'
 import { translateCategory } from '@/utils/categoryTranslations'
 import { translateSize } from '@/utils/sizeTranslations'
+import { formatProductDisplayName } from '@/utils/formatProductDisplayName'
 import { useTranslation } from '@/hooks/useTranslation'
 import { isNewLaunchProduct } from '@/lib/productBadges'
 import type { ProductInfoProps } from './types'
@@ -66,6 +67,8 @@ const ProductInfo = memo(function ProductInfo({
   // Recent launches get a "New" pill on the category row (kept off the
   // image so studio-style product shots stay clean). See lib/productBadges.ts.
   const isNewLaunch = isNewLaunchProduct(product.id, product.productNumber)
+  const displayName = formatProductDisplayName(product.name)
+  const isBeautyBoxTitle = /Beauty\s+Box$/i.test(product.name)
 
   return (
     <div className="p-3 md:p-4 flex flex-col">
@@ -92,14 +95,22 @@ const ProductInfo = memo(function ProductInfo({
             className="cursor-pointer active:opacity-70 transition-opacity"
             style={pwaStyles}
           >
-            <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors">
-              {product.name}
+            <h3
+              className={`text-sm md:text-lg font-semibold text-gray-800 hover:text-primary-600 transition-colors ${
+                isBeautyBoxTitle ? '' : 'line-clamp-2'
+              }`}
+            >
+              {displayName}
             </h3>
           </div>
         ) : (
           <Link href={productPath} {...prefetchProps}>
-            <h3 className="text-sm md:text-lg font-semibold text-gray-800 line-clamp-2 hover:text-primary-600 transition-colors cursor-pointer">
-              {product.name}
+            <h3
+              className={`text-sm md:text-lg font-semibold text-gray-800 hover:text-primary-600 transition-colors cursor-pointer ${
+                isBeautyBoxTitle ? '' : 'line-clamp-2'
+              }`}
+            >
+              {displayName}
             </h3>
           </Link>
         )}

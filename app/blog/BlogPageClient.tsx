@@ -7,6 +7,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft, ArrowRight, Calendar, Eye } from 'lucide-react'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
@@ -148,20 +149,18 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
         </div>
       )}
 
+      {!isAppLikeMode && (
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home') || 'Home', href: getLocalizedPath('/', locale) },
+            { name: label.blog },
+          ]}
+        />
+      )}
+
       <div className="mx-auto max-w-[1120px] px-4 py-8 md:px-8 md:py-16">
         {!isAppLikeMode && (
           <>
-            <nav className="text-[13px] text-[var(--cera-muted)]" aria-label="Breadcrumb">
-              <Link
-                href={getLocalizedPath('/', locale)}
-                className="transition-colors hover:text-[var(--cera-rose)]"
-              >
-                {t('common.home') || 'Home'}
-              </Link>
-              <span className="px-1.5">/</span>
-              <span className="text-[var(--cera-ink)]">{label.blog}</span>
-            </nav>
-
             <Link
               href={getLocalizedPath('/', locale)}
               className={`mt-3 inline-flex items-center gap-1.5 text-[13px] text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${

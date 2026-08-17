@@ -45,6 +45,7 @@ import { IconCertified, IconSecureCheckout, IconHeritage } from '@/components/ic
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { EMIRATES } from '@/lib/emirates'
@@ -568,13 +569,17 @@ export default function LoginClient() {
             the breadcrumb, back link and language switcher live here. */}
         <div className="mb-6 lg:hidden">
           <div className={`flex items-center justify-between gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[13px] text-[var(--cera-muted)]">
-              <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">
-                {t('common.home')}
-              </Link>
-              <span aria-hidden="true">/</span>
-              <span className="text-[var(--cera-ink)]">{t('common.login')}</span>
-            </nav>
+            {/* `bare` because this login is a full-bleed split layout with no
+                page band: the crumb shares a flex row with the language
+                switcher and only appears below lg, where the brand panel is
+                gone. Style is shared even though the position cannot be. */}
+            <PageBreadcrumb
+              bare
+              items={[
+                { name: t('common.home'), href: getLocalizedPath('/', locale) },
+                { name: t('common.login') },
+              ]}
+            />
 
             <div className="relative">
               <button

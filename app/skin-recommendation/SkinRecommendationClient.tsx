@@ -34,6 +34,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
 import type { Product } from '@/types'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 
@@ -697,17 +698,17 @@ export default function SkinRecommendationClient() {
         </div>
       )}
 
+      {!isAppLikeMode && (
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home'), href: getLocalizedPath('/', locale) },
+            { name: t('skinRecommendation.title') },
+          ]}
+        />
+      )}
+
       <div className={`container mx-auto px-3 md:px-4 ${isAppLikeMode ? 'py-4' : 'py-4 md:py-16'}`}>
         <div className="max-w-5xl mx-auto">
-          {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
-          {!isAppLikeMode && (
-            <nav className={`text-[13px] text-[var(--cera-muted)] mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose)]">{t('common.home')}</Link>
-              <span> / </span>
-              <span className="text-[var(--cera-ink)]">{t('skinRecommendation.title')}</span>
-            </nav>
-          )}
-          
           {/* Back to Home - Hide in PWA/Mobile Web */}
           {!isAppLikeMode && (
             <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1.5 text-[13px] text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 mb-5 md:mb-10 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

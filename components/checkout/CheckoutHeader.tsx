@@ -63,27 +63,6 @@ export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale
 
       {progress}
 
-      {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
-      {!(isPWAClient && isPWA) && !isMobileWeb && (
-        <div className={`${dir === 'rtl' ? 'flex justify-end' : ''}`}>
-          <nav className={`mb-1.5 inline-flex items-baseline gap-1.5 text-[13px] text-[var(--cera-muted)] md:mb-4 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} aria-label="Breadcrumb">
-            <span className="transition-colors hover:text-[var(--cera-rose-ink)]">
-              <Link href={getLocalizedPath('/', locale)}>{t('checkout.home')}</Link>
-            </span>
-            <span>/</span>
-            <span className="transition-colors hover:text-[var(--cera-rose-ink)]">
-              <Link href={getLocalizedPath('/products', locale)}>{t('checkout.products')}</Link>
-            </span>
-            <span>/</span>
-            <span className="transition-colors hover:text-[var(--cera-rose-ink)]">
-              <Link href={getLocalizedPath('/cart', locale)}>{t('checkout.cart')}</Link>
-            </span>
-            <span>/</span>
-            <span className="text-[var(--cera-ink)]">{t('checkout.checkout')}</span>
-          </nav>
-        </div>
-      )}
-      
       {/* Back to Cart - Hide in PWA mode and mobile web */}
       {!(isPWAClient && isPWA) && !isMobileWeb && (
         <div className={`mb-4 md:mb-8 ${dir === 'rtl' ? 'flex justify-end' : ''}`}>

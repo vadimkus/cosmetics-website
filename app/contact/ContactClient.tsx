@@ -20,6 +20,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PDFLinkButton from '@/components/PDFLinkButton'
 import PWAPageWrapper from '@/components/pwa/PWAPageWrapper'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
@@ -114,17 +115,18 @@ export default function ContactClient() {
           ]}
         />
 
+        {!isAppLikeMode && (
+          <PageBreadcrumb
+            items={[
+              { name: t('common.home'), href: getLocalizedPath('/', locale) },
+              { name: t('navigation.contact') },
+            ]}
+          />
+        )}
+
         <div className="mx-auto max-w-[1120px] px-4 py-6 md:px-8 md:py-16">
           {!isAppLikeMode && (
             <>
-              <nav className={`text-[13px] text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`} aria-label="Breadcrumb">
-                <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose)]">
-                  {t('common.home')}
-                </Link>
-                <span className="px-1.5">/</span>
-                <span className="text-[var(--cera-ink)]">{t('navigation.contact')}</span>
-              </nav>
-
               <Link
                 href={getLocalizedPath('/', locale)}
                 className={`mt-3 inline-flex items-center gap-1.5 text-[13px] text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${

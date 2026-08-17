@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import Link from 'next/link'
 import { MapPin, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
@@ -114,15 +115,15 @@ export default function RussianLocationsPage() {
         ]}
       />
       
+      <PageBreadcrumb
+        items={[
+          { name: 'Главная', href: '/ru' },
+          { name: 'Где купить' },
+        ]}
+      />
+
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-6xl mx-auto">
-          {/* Navigation Breadcrumb */}
-          <nav className="text-xs md:text-base text-gray-600 mb-2 md:mb-4" aria-label="Breadcrumb">
-            <Link href="/ru" className="hover:text-primary-600 transition-colors">Главная</Link>
-            <span> / </span>
-            <span className="text-gray-900 font-medium">Где купить</span>
-          </nav>
-          
           {/* Back to Home */}
           <Link href="/ru" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
             <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />

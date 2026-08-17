@@ -12,7 +12,7 @@ import ErrorPage from '@/components/ErrorPage'
 import { Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle, Share2, TrendingUp, Play } from 'lucide-react'
 import { useState, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
-import ProductBreadcrumb from '@/app/products/[id]/components/ProductBreadcrumb'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import ProductImageGallery from '@/components/product/ProductImageGallery'
 import ProductPriceDisplay from '@/components/product/ProductPriceDisplay'
 import ProductVariantSelector from '@/components/product/ProductVariantSelector'
@@ -28,6 +28,7 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { translateSize } from '@/utils/sizeTranslations'
 import { translateCategory } from '@/utils/categoryTranslations'
+import { formatProductDisplayName } from '@/utils/formatProductDisplayName'
 import { 
   getPriceForSize, 
   hasProductSizeVariants, 
@@ -82,6 +83,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   
   // Share state
   const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle')
+  const displayName = formatProductDisplayName(product.name)
 
   // Live review aggregate — source of truth for stars (seeded product.rating is not trusted)
   const [reviewAggregate, setReviewAggregate] = useState<{ averageRating: number | null; reviewCount: number } | null>(null)
@@ -352,13 +354,23 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
         </div>
       )}
 
-      <div className="container mx-auto px-3 md:px-4 py-1 md:py-8 lg:py-16">
+      <div className="mx-auto max-w-[1200px] px-4 py-1 sm:px-6 md:py-8 lg:py-16">
         {/* Breadcrumb - hidden in app-like mode (PWA/mobile web) which has its own header.
             Share lives next to the product title (desktop) / in the mobile row below,
             not stranded at the end of the breadcrumb. */}
         {!isAppLikeMode && (
           <div className={`flex items-center justify-between gap-3 pt-2 md:pt-0 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            <ProductBreadcrumb product={product} className="mb-0 flex-1 min-w-0" />
+            {/* `bare` because this crumb shares a flex row with the mobile share
+                button. The row itself sits in the standard band below. */}
+            <PageBreadcrumb
+              bare
+              className="min-w-0 flex-1"
+              items={[
+                { name: t('common.home'), href: getLocalizedPath('/', locale) },
+                { name: t('common.products'), href: getLocalizedPath('/products', locale) },
+                { name: product.name },
+              ]}
+            />
             <button
               onClick={handleShare}
               className={`md:hidden p-2 rounded-full flex-shrink-0 transition-colors ${
@@ -383,7 +395,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
           <div className="md:hidden mb-1.5">
             {/* Product Name - Centered */}
             <h1 className="text-sm lg:text-base md:text-lg font-bold text-gray-900 leading-tight text-center mb-0.5">
-              {product.name}
+              {displayName}
             </h1>
 
             {/* Category & Size Badges - Centered (Stock badge is on image) */}
@@ -447,7 +459,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                   Share sits inline after the title, standard PDP placement. */}
               <div className={`flex items-start gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <h1 className={`text-3xl xl:text-4xl font-bold text-gray-900 leading-tight tracking-tight ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
-                  {product.name}
+                  {displayName}
                 </h1>
                 <button
                   onClick={handleShare}
@@ -516,7 +528,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             {isAppLikeMode && (
               <div className="md:hidden mb-2 px-1">
                 <h1 className="text-lg font-bold text-gray-900 leading-tight text-center">
-                  {product.name}
+                  {displayName}
                 </h1>
               </div>
             )}

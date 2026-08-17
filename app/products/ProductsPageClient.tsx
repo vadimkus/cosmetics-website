@@ -19,7 +19,6 @@ import '@/components/editorial/editorial.css'
 
 import { debugLog, errorLog } from '@/lib/logger'
 
-import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { useAnimationStore } from '@/lib/animationStore'
 import ProductCard from '@/components/ProductCard'
@@ -34,6 +33,7 @@ import ConcernFaceMap from '@/components/products/ConcernFaceMap'
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import { Product } from '@/types'
 import ProductsListSchema from '@/components/schema/ProductsListSchema'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -361,22 +361,17 @@ export default function ProductsPageClient({ initialProducts = [] }: ProductsPag
           { name: t('navigation.products'), url: getLocalizedPath('/products', locale) }
         ]}
       />
+      {/* Breadcrumb sits above the content container so it lands at the same
+          place as every other route. Hidden in PWA and on mobile web. */}
+      {!isPWA && !isMobile && (
+        <PageBreadcrumb
+          items={[
+            { name: t('navigation.home'), href: getLocalizedPath('/', locale) },
+            { name: t('navigation.products') },
+          ]}
+        />
+      )}
       <div className="container mx-auto px-4 pt-4 pb-28 md:py-8 lg:py-16">
-        {/* Navigation Breadcrumb - Hide in PWA mode and mobile web */}
-        {!isPWA && !isMobile && (
-          <nav className="products-breadcrumb mb-2 text-[13px] text-[var(--cera-muted)] md:mb-4" aria-label="Breadcrumb">
-            <Link
-              href={getLocalizedPath('/', locale)}
-              className="transition-colors hover:text-[var(--cera-rose-ink)]"
-            >
-              {t('navigation.home')}
-            </Link>
-            <span aria-hidden="true"> / </span>
-            <span className="text-[var(--cera-ink)]">
-              {t('navigation.products')}
-            </span>
-          </nav>
-        )}
         
         {/* "Back to Home" removed on desktop — breadcrumb above already provides the nav path.
            Kept breadcrumb as the single source of truth for going back. */}

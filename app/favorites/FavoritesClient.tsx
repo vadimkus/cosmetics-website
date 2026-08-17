@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { ArrowLeft, ArrowRight, Heart, LogIn } from 'lucide-react'
 import { useFavorites } from '@/components/FavoritesProvider'
 import ProductCard from '@/components/ProductCard'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useEffect, useState } from 'react'
@@ -110,16 +111,25 @@ export default function FavoritesClient({ embedded = false }: FavoritesClientPro
           </div>
         )}
         
-        <div className={embedded ? 'py-0' : 'container mx-auto px-3 py-4 md:px-4 md:py-16'}>
-          {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
-          {!isAppLikeMode && !embedded && (
-            <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-              <span> / </span>
-              <span className="text-gray-900 font-medium">{t('common.favorites')}</span>
-            </nav>
-          )}
-          
+        {!isAppLikeMode && !embedded && (
+          <PageBreadcrumb
+            items={[
+              { name: t('common.home'), href: getLocalizedPath('/', locale) },
+              { name: t('common.favorites') },
+            ]}
+          />
+        )}
+
+        {!isAppLikeMode && !embedded && (
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home'), href: getLocalizedPath('/', locale) },
+            { name: t('common.favorites') },
+          ]}
+        />
+      )}
+
+      <div className={embedded ? 'py-0' : 'container mx-auto px-3 py-4 md:px-4 md:py-16'}>
           {/* Back to Home - Hide in PWA/Mobile Web */}
           {!isAppLikeMode && !embedded && (
             <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -254,15 +264,6 @@ export default function FavoritesClient({ embedded = false }: FavoritesClientPro
       )}
       
       <div className={embedded ? 'py-0' : 'container mx-auto px-3 py-4 md:px-4 md:py-16'}>
-        {/* Navigation Breadcrumb - Hide in PWA/Mobile Web */}
-        {!isAppLikeMode && !embedded && (
-          <nav className={`text-xs md:text-base text-gray-600 mb-2 md:mb-4 ${dir === 'rtl' ? 'text-right' : ''}`} aria-label="Breadcrumb">
-            <Link href={getLocalizedPath('/', locale)} className="hover:text-primary-600 transition-colors">{t('common.home')}</Link>
-            <span> / </span>
-            <span className="text-gray-900 font-medium">{t('common.favorites')}</span>
-          </nav>
-        )}
-        
         {/* Back to Home - Hide in PWA/Mobile Web */}
         {!isAppLikeMode && !embedded && (
           <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

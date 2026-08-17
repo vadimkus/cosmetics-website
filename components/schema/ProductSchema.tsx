@@ -7,6 +7,7 @@ import {
   getProductImageUrls,
   parseStringArray,
 } from '@/lib/seo'
+import { getProductBarcode } from '@/data/productBarcodes'
 
 interface ProductSchemaProps {
   product: Product
@@ -24,7 +25,7 @@ interface ProductSchemaProps {
  * - Removed hardcoded fake reviews (Google penalizes fabricated reviews)
  * - Added MerchantReturnPolicy schema
  * - Added countryOfOrigin (Korea) for cosmetics provenance
- * - Added gtin placeholder for future barcode support
+ * - gtin13 emitted from data/productBarcodes.ts where a manufacturer EAN-13 exists
  * - AggregateRating only included when real data exists
  * - audience: single PeopleAudience (Merchant Center / Search expects suggestedGender + age — not generic Audience or arrays)
  */
@@ -47,6 +48,7 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
     getLocalizedProductDescription(product, locale).trim() ||
     `${productName} — GENOSYS professional Korean dermacosmetics.`
   const targetConcerns = parseStringArray(product.targetConcerns)
+  const gtin13 = getProductBarcode(product.productNumber ?? product.id)
   const productImages = getProductImageUrls(product)
 
   // NOTE: aggregateRating is intentionally NOT emitted because we don't have
@@ -243,6 +245,10 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
     ],
     "sku": product.productNumber || product.id,
     "mpn": product.productNumber || product.id,
+    // Only emitted where we hold the manufacturer EAN-13. Google drops the
+    // whole offer if gtin13 is present but wrong, so a guess is worse than
+    // nothing and products without a documented barcode omit the field.
+    ...(gtin13 ? { "gtin13": gtin13 } : {}),
     // Multilingual product names (helps AI serve correct language)
     "alternateName": [product.name, product.nameAr, product.nameRu].filter(Boolean),
     "url": productUrl,

@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, MapPin, ShieldCheck, Sparkles } from 'lucide-rea
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PartnersList from '@/components/partners/PartnersList'
 import PartnersSchema from '@/components/schema/PartnersSchema'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { partnersData } from '@/lib/partners'
@@ -25,17 +26,15 @@ export default function ArabicPartnersPageClient() {
       />
       <PartnersSchema />
       <div className="bg-white min-h-screen" dir={dir}>
+        <PageBreadcrumb
+          items={[
+            { name: t('navigation.home'), href: getLocalizedPath('/', locale) },
+            { name: t('navigation.partners') },
+          ]}
+        />
+
         <div className="container mx-auto px-4 py-8 md:py-12">
           <div className="max-w-6xl mx-auto">
-            {/* Breadcrumb */}
-            <nav className="text-xs md:text-sm text-gray-500 mb-2 md:mb-4" aria-label="Breadcrumb">
-              <Link href={getLocalizedPath('/', locale)} className="hover:text-gray-900 transition-colors">
-                {t('navigation.home')}
-              </Link>
-              <span className="mx-1.5">/</span>
-              <span className="text-gray-900">{t('navigation.partners')}</span>
-            </nav>
-
             <Link
               href={getLocalizedPath('/', locale)}
               className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10 ${isRTL ? 'flex-row-reverse' : ''}`}

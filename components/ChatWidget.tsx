@@ -534,6 +534,13 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     return null
   }
 
+  // Desktop product pages carry a sticky purchase bar pinned to the bottom of
+  // the viewport, and its own add-to-bag button sits in the bottom-right corner
+  // - underneath this widget. At `bottom-6` the bubble lands on top of the one
+  // control the page exists to offer. Mobile web solves that by hiding Genie on
+  // PDPs entirely; on desktop there is room to simply sit above the bar.
+  const desktopBottomClass = isProductPage ? 'md:bottom-28' : 'md:bottom-6'
+
   const handleOpen = () => {
     setIsOpen(true)
     setIsMinimized(false)
@@ -665,9 +672,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
   // Floating button (when closed)
   if (!isOpen) {
     // Position higher on mobile to stay above the mobile web footer nav (80px).
-    // On product pages, also clear the sticky "Add to Bag" bar (~60px) above the footer.
-    const mobileBottomClass = isMobileWeb && isProductPage ? 'bottom-36' : 'bottom-24'
-    
+    // Mobile web PDPs return null above, so there is no product-page case here.
+    const mobileBottomClass = 'bottom-24'
+
     return (
       <button
         onClick={handleOpen}
@@ -678,7 +685,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
           text-white transition-all duration-300
           hover:scale-110 active:scale-95
           ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}
-          ${mobileBottomClass} md:bottom-6
+          ${mobileBottomClass} ${desktopBottomClass}
           ${className}
         `}
         aria-label={chatTitle}
@@ -698,9 +705,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
         flex flex-col overflow-hidden
         transition-all duration-300 ease-out
         ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}
-        ${isMinimized 
-          ? 'bottom-24 md:bottom-6 w-72 h-14' 
-          : 'bottom-24 md:bottom-6 w-[calc(100%-2rem)] md:w-96 h-[65vh] md:h-[500px] md:max-h-[70vh]'
+        ${isMinimized
+          ? `bottom-24 ${desktopBottomClass} w-72 h-14`
+          : `bottom-24 ${desktopBottomClass} w-[calc(100%-2rem)] md:w-96 h-[65vh] md:h-[500px] md:max-h-[70vh]`
         }
         ${className}
       `}

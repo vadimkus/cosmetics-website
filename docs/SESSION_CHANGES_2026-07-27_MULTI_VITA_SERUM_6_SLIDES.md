@@ -233,3 +233,8 @@ veo3 "Cinematic product closing shot, 1:1 square. A dark glass serum dropper bot
 Cream **31** = Astaxanthin + Vita 12 (no MELAZERO).  
 Serum **21** = MELAZERO® + Vita 12 + Ethyl Ascorbic Acid (no Astaxanthin).  
 Recommendation copy (`pc21Benefit1Text`) already separates the two.
+
+## Instagram caption
+- Delivered in chat 2026-07-28: long + short + optional hashtag block
+- Price omitted · PDF clinical (−28.0% / 27.997%, 6.190 → 4.457) · MELAZERO® · app mention without store URLs
+- No Astaxanthin · SPF by day · fridge tip in long form

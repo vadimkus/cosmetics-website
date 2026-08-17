@@ -34,6 +34,11 @@
 **Link:** https://online.moysklad.ru/app/#demand/edit?id=eccc4472-7b86-11f1-0a80-04c4001802ca  
 **PDF:** `~/Desktop/orders/GENOSYS_Viktoriia_Klymenko_Consignment_Stock_Note_06511.pdf`
 
+## Payment (2026-07-10)
+
+Consignment sales **515 AED** received — paymentin **05913** → report **01403** marked **Paid**.  
+See [SESSION_CHANGES_2026-07-10_VIKTORIIA_KLYMENKO_CONSIGNMENT_PAYMENT.md](./SESSION_CHANGES_2026-07-10_VIKTORIIA_KLYMENKO_CONSIGNMENT_PAYMENT.md).
+
 ## Notes
 
 - Replenishment lines mirror sold items (patches ×1, mist ×2, cleanser 180ml ×1).

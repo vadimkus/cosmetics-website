@@ -209,3 +209,25 @@ Approved reply position:
 > www.genosys.ae
 > sales@genosys.ae
 
+## 2026-08-03 — Rokle Cosmetics Oman wholesale inquiry
+
+Rokle Cosmetics (+968) asked catalog + wholesale + ship to Oman.
+Reply: GENOSYS ME = UAE only, no Oman wholesale/shipping; refer HQ Overseas Sales Mrs. Saem Kim export2@dtsmg.com; retail catalog https://genosys.ae
+
+## 2026-08-03 — Iran distributor inquiry (Marzieh Jafari)
+
+Email: marziehjafari1981@gmail.com — wants Iran distribution.
+Reply: GENOSYS ME = UAE only; Iran via HQ Mrs. Saem Kim export2@dtsmg.com.
+
+## 2026-08-06 — Mehrnaz (Canada) professional / devices
+
+WhatsApp via Beaute' Immortelle Genosys: Mehrnaz, aesthetician & scalp/hair specialist in Canada — wants pro products + clinic devices, official distributor / wholesale. Reply: GENOSYS ME = UAE only; Canada → HQ Overseas Sales Mrs. Saem Kim, export2@dtsmg.com.
+
+## 2026-08-06 — Instagram Shamim (shamim_skinbeauty)
+
+Beauty therapist, salon in Dubai — catalog + how to buy pro products. Reply drafted: genosys.ae + WhatsApp +971 56 124 1388 / sales@genosys.ae, clinic prices for salons.
+
+
+## 2026-08-08 — Dr. Omer / Dashmed Oman
+
+WhatsApp +968 7935 1161 — wants Oman distribution / HQ international sales contact. Reply: GENOSYS ME = UAE only; refer Mrs. Saem Kim, Overseas Sales DTS MG, export2@dtsmg.com.

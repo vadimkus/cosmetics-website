@@ -29,3 +29,9 @@
 ## Script
 
 `scripts/moysklad-create-olya-shipilova-hydrocool-order-invoice-demand-paymentin-20260707.js`
+
+## Re-export (2026-08-17)
+
+Original Desktop PDF was gone. Re-exported retail invoice **04777** (no print, no new MoySklad docs):
+
+`scripts/export-olya-shipilova-04777-pdf-20260817.js` → `~/Desktop/orders/GENOSYS_Olya_Shipilova_04777.pdf`

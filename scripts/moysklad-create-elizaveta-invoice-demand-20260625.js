@@ -269,7 +269,6 @@ async function main() {
     organization: href('organization', ORG_ID),
     agent: href('counterparty', agentId),
     store: href('store', STORE_ID),
-    customerOrder: href('customerorder', ORDER_ID),
     invoicesOut: [href('invoiceout', invoice.id)],
     state: stateHref('demand', DEMAND_STATE_SHIPPED_ID),
     shipmentAddressFull,

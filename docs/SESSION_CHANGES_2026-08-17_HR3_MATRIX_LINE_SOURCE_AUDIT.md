@@ -250,3 +250,119 @@ identifying them. Not yet located; treat as unsupported until produced.
 9. **Filing trap:** `Formula_up/…SCALP SHAMPOO α.pdf` is a different, earlier
    product from the current MEDI SCALP SHAMPOO α. Worth renaming or annotating so
    the next audit does not read the wrong generation.
+
+---
+
+## Addendum — 17 Aug, evening: products 43 and 44 built
+
+### Framing decision applied
+
+Per the owner decision, both pages follow the **English panel**. No hair-loss claim,
+and no mention of the Korean functional designation anywhere on our pages or in our
+records. The Korean-only DHT claim on the tonic is omitted, not escalated to DTS MG
+for now.
+
+### A database structure note worth recording
+
+Products 43–48 are stored with a **numeric string `id`** (`'43'`, `'44'`…) and a
+**null `productNumber`**. Lookups by `productNumber` return nothing for these rows and
+fail silently. Any future script touching this range must query by `id` or by name.
+This nearly caused the product 43 correction to be recorded as applied when it had not
+been; it did land, but only because the script matched on name.
+
+### Product 43 — HR³ MATRIX HAIR TONIC α
+
+The tonic's certificate turned out to be **the strongest quality document in the whole
+GENOSYS range**, and nothing on our site was using it. Lot NF002 assays all three
+functional actives against declaration rather than merely stating them:
+
+| Active | Declared | Specification | Measured |
+|---|---|---|---|
+| Dexpanthenol | 0.2% | ≥90% of declared | **103.40%** |
+| L-menthol | 0.3% | ≥90% of declared | **99.37%** |
+| Salicylic acid | 0.25% | ≥90% of declared | **101.28%** |
+
+Also on the certificate: pH 4.38 (spec 3.0–5.0), specific gravity 0.9711 (consistent
+with 9.5% alcohol), fill 71.31 ml against a 70 ml declaration, bacteria <10 cfu/ml
+against a permitted 100, and S. aureus, P. aeruginosa and C. albicans all not detected.
+
+The safety assessment is also better than average: the sensitisation study is a
+**Human Repeat Insult Patch Test** by BioScreen Testing Services, Inc, concluding "no
+identifiable signs or symptoms of primary irritation or sensitization (contact
+allergy)". An HRIPT tests for allergy developing across repeated exposure, which is
+more demanding than the single-application patch tests behind most "dermatologically
+tested" claims. A second **application test by Centrum Kosmetyków Dr Piotr Koziej** is
+named in the assessment but **no results are recorded**, so no claim is made from it.
+
+One stale-document finding: the assessment describes the preservative system as
+"Alcohol Denat., Salicylic Acid and **Methylparaben**". There is no methylparaben in
+the current signed formula, which preserves with alcohol, salicylic acid,
+1,2-hexanediol and ethylhexylglycerin. The assessment predates the current formula.
+
+Page leads with the salicylate avoid list in amber, then the three assayed actives,
+then the working formula. Live.
+
+### Product 44 — HR³ MATRIX MEDI SCALP SHAMPOO α
+
+Confirmed that the `Formula_up` file is a **superseded generation**. The current
+formula is in `Intertek/MEDI SHAMPOO ALPHA/` and the registered artwork's ingredient
+list matches it exactly, so the artwork is current too. Three generations exist in the
+archive: SCALP & HAIR SHAMPOO → SCALP SHAMPOO α → MEDI SCALP SHAMPOO α.
+
+**The headline finding, and the best selling point in the line:** caffeine is at a
+full **1.000%** here against **10 ppm** in the hair tonic. A hundredfold difference,
+same brand, same line, caffeine named on both cartons. No customer comparing
+ingredient lists could ever discover that, so the page opens with the comparison.
+
+Other current-formula figures: sodium C14-16 olefin sulfonate 14.100%, coco-betaine
+5.250%, glycerin 2.753%, **menthol 1.120%** with menthyl lactate 0.080% (the hardest
+cooling in the range, ~3.5× the tonic), citric acid 0.300%, parfum 0.300%, potassium
+benzoate 0.450%, polyquaternium-67 0.200%, mistletoe 0.050%, malt 0.028%, **piroctone
+olamine 0.010%**, panthenol 75 ppm, biotin 2 ppm, saw palmetto 1 ppm, ginseng 0.5 ppm,
+copper tripeptide-1 0.000001% (10 ppb). **No salicylic acid**, contrary to the
+superseded formula.
+
+COA lot I30Y001 (produced 2025-10-23, certified 2025-11-11): brown transparent liquid,
+pH 5.6 (spec 4.50–6.50), viscosity 5,740 (spec 3,000–9,000), total aerobic microbial
+count nil. Unlike the tonic's, this certificate does **not** assay the actives, and the
+page says so.
+
+Genuinely useful, and absent from the English panel: the manufacturer's Russian panel
+instructs working 3–5 ml into the scalp and **leaving it for three minutes** before
+rinsing. Without that, a shampoo gives caffeine and menthol no contact time at all. It
+is now the third step of the how-to.
+
+#### Second Russian-panel overclaim in this line
+
+The tonic's Russian panel claimed 5α-reductase inhibition. The shampoo's Russian panel
+claims the product:
+
+- "Обладает антибактериальным и противогрибковым действием" — has **antibacterial and
+  antifungal action**
+- "Эффективно борется с перхотью" — **effectively fights dandruff**
+- "уменьшает выпадение и ускоряет рост волос" — reduces loss and **accelerates hair
+  growth**
+
+The only antifungal in the formula is piroctone olamine at **0.010%**, roughly ten to a
+hundred times below an anti-dandruff working dose (typically 0.1–1.0%). At this level it
+is part of the preservative system. None of these claims are carried, and the page
+**explicitly refuses the dandruff claim** rather than staying silent, since the customer
+will be holding a carton that makes it.
+
+That is now two of two Russian panels in this line overclaiming into
+drug-mechanism or therapeutic territory. Worth treating as a pattern rather than an
+isolated slip when the DTS MG conversation eventually happens.
+
+#### Two smaller document errors logged
+
+1. The shampoo COA's fill row reads "weight(g)/volume(mL) — **More than 30mL** —
+   result 33.8" on a **300 ml** product. Either a decimal slip or a sub-sample
+   measurement; the figure is not used on the page.
+2. The English panel blurb reads "**CSS** helps remove impurities", an unexplained
+   acronym that appears nowhere else on the carton and looks like leftover text from
+   another product.
+
+### Still to do
+
+Records and pages for 45 (HAIR SOLUTION α), 46 (SCALP PEELING α) and 47 (MESOPECIA
+KIT). Note 45's asset situation is poor — one gallery image — and 47 has none.

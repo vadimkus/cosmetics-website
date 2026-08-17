@@ -122,6 +122,48 @@ Local until the bespoke set deploys:
 - `app/products/[id]/page.tsx` and the `ru` and `ar` equivalents
 - `lib/productRoutines.ts`
 
+## Artwork re-audit
+
+A second, character-level pass over `/images/bbbox_charming/main.jpeg` found two
+defects the first pass missed, and corrected one of its own calls. The worklist
+in `~/Desktop/genosys-artwork-corrections.html` now carries seven rows for 57.
+
+Newly found:
+
+- **The brand name is misspelled on four of the five items** in the small strip
+  above "is a compound word of Gene Re-birth System": `GENOSTS` on the pink tube,
+  `GENORTS` on the remover, `GENOSISS` on the cleanser, and an illegible smear on
+  the booster. The large wordmarks higher up each bottle are all correct, which
+  makes the error easier to spot, not harder. On the pink tube it is legible
+  without zooming. This is the worst defect in the file.
+- **The cushion pan reads as an insect.** The pressed powder carries a dense
+  irregular relief with radiating leg-like ridges, dead centre and well lit. On a
+  cosmetics page that reads as a contaminated product.
+- No volume or net weight appears on any of the five items, and the cushion
+  carries no product name at all.
+
+Verified against the cartons, having been called wrong once:
+
+- `SRT` on the booster **is** wrong. The Snow Booster label states "SBT IS A DAILY
+  TONER", and the #58 box render prints `SBT` correctly on the same bottle.
+- `DMR` is correct on the remover carton, appearing five times, so the render's
+  `DMS` is wrong.
+- `SOC` and `ROM` are both correct.
+- `LIP&EYE` with no spaces is **correct**; the carton prints it that way, so that
+  is not a defect.
+- The DERMATOLOGICALLY TESTED pill, garbled on three bottles, belongs on exactly
+  those three. The cleanser, booster and remover cartons carry the mark and the
+  overnight mask carton does not, which matches what the page says.
+
+Recommendation recorded in the worklist: regenerate this file rather than patch
+it. Two of five products carry a garbled name in large type readable at thumbnail
+size, and the brand name is wrong on four of five items.
+
+For scope, the #58 box render was checked at the same time and is materially
+better: four of five product names are correct and it prints `SBT` correctly. Its
+own defects are the garbled collagen mask name and the dermatological pills,
+already logged under 58.
+
 ## Artwork
 
 Five rows added to `~/Desktop/genosys-artwork-corrections.html` under product 57.
@@ -136,6 +178,28 @@ to fix first because the code is how a clinic reorders:
 toner product names are invented (`SWOW O2`, `SHOW SOOSTER`); the remover and
 mask names are correct. The cushion is shown without its refill, which
 contradicts the 15g + 15g the page states in three languages.
+
+## Verification after deploy
+
+The live English page served stale text for a while after the push. The database
+was checked directly and every fix was present, so it was ISR holding the old
+render, not a failed write. All three locales now serve the corrected copy.
+
+Two follow-ups came out of that check:
+
+- The Russian and Arabic overnight mask copy still spelled `PIGF`. English had
+  already been corrected to `PlGF` (sh-Polypeptide-16, placental growth factor).
+  Fixed in both locale files and pushed as `07a283c3`.
+- Product 34 keeps its oxygen capsule claims. Unlike the Snow O₂ cleanser, this
+  one is documented: `Oxygen` is a declared INCI on the ingredient sheet and the
+  manufacturer's own deck describes the dual formula with Italian oxygenated
+  water in the capsule. Nothing to remove.
+
+Arabic bidi was re-checked on the rendered page. The bespoke copy tokens all sit
+inside directional isolates and display correctly. The bare `SPF 50+ PA++++`
+tokens still present in `messages/ar.json` and product 41's Arabic fields render
+correctly where they are visible, because the bracket sits between strong Latin
+characters; the rest appear only in the data payload, not on screen.
 
 ## Open
 

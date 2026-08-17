@@ -7,7 +7,7 @@
 
 - Researched "Korean Glass Skin" online (GENOSYS UK, distributors, clinic facial protocols, international glow/hydrating kits)
 - Confirmed existing genosys.ae assets: PDF guide, `complete-glass-skin.html` brochure, training module, chatbot links
-- Created desktop prep folder: **`/Users/vadimkus/Desktop/Skin/`**
+- Created desktop prep folder: **`/Users/vadimkus/Desktop/Glass_Skin/`**
 
 ## Folder Contents
 
@@ -34,7 +34,7 @@
 | GS-02 | Korean Glass Skin Kit ★ | **1,849** | 2,160 | 311 |
 | GS-03 | Korean Glass Skin Complete | **2,799** | 3,310 | 511 |
 
-**Master doc:** `Desktop/Skin/05-bundle-spec/UAE_MARKET_PRICING.md` (competition, PDP copy, vs Deep Moisturizing Box).
+**Master doc:** `Desktop/Glass_Skin/05-bundle-spec/UAE_MARKET_PRICING.md` (competition, PDP copy, vs Deep Moisturizing Box).
 
 ## Corrections (2026-06-29 review)
 
@@ -62,7 +62,7 @@ Re-checked all docs against `lib/products.ts` + `lib/moysklad.ts`:
 - GENOSYS runs a real clinical "Korean Glass Skin Facial" (Autumn Harmony UK) — protocol mapping confirmed
 - UAE demand surging: **+60% QoQ** (Aster), Watsons doubled YoY, Dubai = 35–40% of UAE K-beauty (Khaleej Times)
 
-**Improvements applied to Desktop/Skin docs:**
+**Improvements applied to Desktop/Glass_Skin docs:**
 - Repositioned as **"Glass Skin 2.0 — barrier-first"**
 - **GS-06 "Glass Skin + PDRN"** added (GS-02 + Bio-Meso PDRN Homecare 5000) → **2,099 AED** (rides 2026 PDRN trend)
 - **GS-01 repriced 899 → 999** with 2 bonus algae masks = on-trend minimalist hero (fixes free-ship awkwardness)
@@ -73,7 +73,7 @@ Re-checked all docs against `lib/products.ts` + `lib/moysklad.ts`:
 
 ## Deep research refinements (2026-06-30, batch 2)
 
-Massive web investigation → refined base case (full detail in `Desktop/Skin/05-bundle-spec/UAE_MARKET_PRICING.md §9`):
+Massive web investigation → refined base case (full detail in `Desktop/Glass_Skin/05-bundle-spec/UAE_MARKET_PRICING.md §9`):
 
 - **SPF added to hero (biggest fix):** every dermatologist names SPF the #1 non-negotiable glass-skin step; our kits omitted it. GS-02/03/06 now include **Ultra Shield SPF50+** (id 39, 250). Mass kits skip SPF too → also a differentiator.
 - **3-tier good-better-best decoy:** GS-01 (Good 999) / **GS-02★ (Better, hero, 2,049, 8 items incl SPF)** / GS-03 (Best/anchor 3,299) + GS-06 PDRN featured (2,299). Retired GS-04 (SPF now standard); GS-05 → checkout add-on.
@@ -96,11 +96,11 @@ Decisions:
 - GS-01 = deliberate entry exception (~10%, +2 bonus masks) → display flat "Save AED 113" (badge hard-codes 15%), or reprice for clean badge (owner's call). *(Superseded by batch 3: honest-15% rebuild = **884** on 4-core list + masks as GWP — not 945.)*
 - ⚠️ **Tension:** Build-Your-Set gives 20% at 5+ items; curated kits give 15%. Protect kits with non-% value (bonus masks, protocol PDF, gift packaging, authorized-fresh stock), or cap the builder at 15% / exclude Glass Skin components.
 
-Full detail: `Desktop/Skin/05-bundle-spec/UAE_MARKET_PRICING.md §9B`.
+Full detail: `Desktop/Glass_Skin/05-bundle-spec/UAE_MARKET_PRICING.md §9B`.
 
 ## Deep refine — margin + profit-aware offers (2026-06-30, batch 3)
 
-Owner pushed "still not good enough." Stopped polishing copy; investigated the **business layer**. Full detail → `Desktop/Skin/05-bundle-spec/UAE_MARKET_PRICING.md §10`.
+Owner pushed "still not good enough." Stopped polishing copy; investigated the **business layer**. Full detail → `Desktop/Glass_Skin/05-bundle-spec/UAE_MARKET_PRICING.md §10`.
 
 - **Verified all 15 SKUs** exist in `lib/products.ts` (in stock, prices correct). Bio-Meso PDRN already has `productNumber: '65'`; Skin Defender is category `Cleanser` (supports oil-cleanse use).
 - **Found real COGS** = GENOSYS Export Orderform FOB Korea USD (`docs/GENOSYS_Export_Orderform_Codes_2026_normalized.csv`). Computed bundle margins:
@@ -114,9 +114,25 @@ Owner pushed "still not good enough." Stopped polishing copy; investigated the *
 - **Caveat (margin leaks):** opened-skincare returns are ~total write-offs → reserve 8–12%; model GWP/testers as COGS; score offers on **contribution dollars, not AOV**.
 - **GS-01 badge fix:** rebuild as 4 core (list 1,040) → **884 at honest 15% + 2 free masks (GWP)** so the Beauty Box "15%" badge is truthful (alt: keep 999 flat-saving — owner's call).
 
+## 5-check audit (2026-07-26)
+
+From-scratch loop: catalogue · doc sync · GENOSYS protocol · arithmetic · logic. Full report: `Desktop/Glass_Skin/05-bundle-spec/AUDIT_2026-07-26.md`.
+
+Key bugs fixed: stale `Desktop/Skin` path → `Glass_Skin`; GS-02 PDP AM missing SPF; Skin Defender overclaim as “oil cleanser”; GS-03 phase-2 vs same-drop; item-count/GWP/brochure Intensive mapping; GS-01 honesty vs Essential-4 protocol. Math (lists/discounts/margins) all PASS. Protocol PDF still wrongly says Hyaluron Cream has ceramides + “triple-weight HA” — flagged, not rewritten yet.
+
+## CERABARRIER cleanser swap (2026-07-26)
+
+Owner asked: Cerabarrier instead of Snow O₂? **Yes — kit default = CERABARRIER BIOME GEL CLEANSER (id 66, MS 54484).**
+
+**Price bug fixed same day:** first draft used **clinic 190 AED** as kit unit price. Correct **D2C retail = 380 AED** (200ml; 600ml = 620). Live API + blog confirm 380. Clinic list stays 190 (same 2× pattern as Snow O₂ 165→330).
+
+Why swap: GENOSYS PPT = barrier-first daily vs Snow O₂ oxygen deep-clean. Intertek: 5 ceramides + Lactobacillus/Bifida. +145.8% post-wash hydration. Perfect Pair 34↔66. FOB $7 vs Snow $11 → **better margin** even at +50 list.
+
+Repriced kits (retail BOM): GS-02 **2,089** (list 2,460) · GS-06 **2,345** (2,760) · GS-03 **3,315** (3,900). Snow O₂ = optional add-on. Detail: `Desktop/Glass_Skin/05-bundle-spec/UAE_MARKET_PRICING.md §3B`.
+
 ## Next Steps (website build)
 
 1. Add bundle SKU in `lib/products.ts` with component line items
-2. Hero flatlay from Desktop/Skin images
+2. Hero flatlay from Desktop/Glass_Skin images
 3. Cross-link training + PDF download on PDP
 4. EN/AR/RU copy from BUNDLE_BUILD_BRIEF routine section

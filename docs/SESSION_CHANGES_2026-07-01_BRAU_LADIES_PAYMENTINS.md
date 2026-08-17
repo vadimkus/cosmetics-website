@@ -35,4 +35,5 @@ Payment linked to each **shipment** (moment 2026-07-01). All orders set to **Д�
 
 - Clears the 8 orders that were in **Доставлен — Ждем оплату** from the Brau remittance list.
 - Prior bulk batch (2026-06-30): see `SESSION_CHANGES_2026-06-30_BRAU_LADIES_BULK_PAYMENTINS.md` (5,050 AED / payments 05840–05843).
-- Brau still has other unpaid invoices as of this run (not in this remittance): **04476** (1,200), **04739** (380), **04742** (760), **04743** (380).
+- Brau still has other unpaid invoices as of 2026-07-01 batch: **04476** (1,200), **04739** (380), **04742** (760), **04743** (380).
+- **2026-07-14:** **04742** + **04743** paid — see `SESSION_CHANGES_2026-07-14_BRAU_LADIES_PAYMENTINS.md` (payments **05935** / **05936**, 1,140 AED).

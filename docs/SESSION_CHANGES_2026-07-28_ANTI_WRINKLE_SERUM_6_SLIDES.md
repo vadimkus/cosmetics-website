@@ -1,5 +1,8 @@
 # MULTI FUNCTIONAL ANTI-WRINKLE SERUM — 6 Marketing Slides — 2026-07-28
 
+> **Updated re-verify 2026-08-01:** use  
+> [`SESSION_CHANGES_2026-08-01_MFS_SERUM_6_SLIDES.md`](./SESSION_CHANGES_2026-08-01_MFS_SERUM_6_SLIDES.md)
+
 ## Product (ID 22)
 **GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE SERUM** (MFS PROFESSIONAL)
 - Size: **30ml** (330 AED)
@@ -241,4 +244,7 @@ Do not confuse with Multi Vita serum **21** (MELAZERO®) or ND Cell neck cream *
 4. Softened absolute “clinically proven / without irritation” wording in DB keyFeatures/directions toward studied / typically gentler.
 
 ## Instagram caption
-- Not yet delivered for product 22 (ask when ready).
+- Delivered in chat 2026-07-28: long + short + optional hashtag block
+- Price omitted · no invented clinical % (cite P&K 2024 skin age index, n=24 only)
+- Bakuchiol + Peptide 6 · AM & PM · SPF by day · pair cream 32
+- App mention without store URLs · no pregnancy-safe claim

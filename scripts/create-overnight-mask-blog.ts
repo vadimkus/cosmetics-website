@@ -15,19 +15,24 @@ const SLUG = 'skin-rescue-overnight-cream-mask-night-ritual'
 const MAIN = '/images/overnight/main.jpeg'
 const VIDEO = '/videos/overnight.mp4'
 
+/* Same wrapper + video classes as ProductPageClientRefactored (/products/52) */
 const videoBlock = (label: string) => `
   <div>
     <h2 class="text-3xl font-bold">${label}</h2>
-    <video
-      src="${VIDEO}"
-      poster="${MAIN}"
-      controls="controls"
-      playsinline="playsinline"
-      preload="metadata"
-      class="mt-5 w-full rounded-2xl bg-gray-950 shadow-lg"
-      width="1080"
-      height="1920"
-    ></video>
+    <div class="mt-5 mx-auto max-w-sm">
+      <div class="flex justify-center rounded-xl overflow-hidden shadow-lg bg-black">
+        <video
+          src="${VIDEO}"
+          poster="${MAIN}"
+          controls="controls"
+          playsinline="playsinline"
+          preload="auto"
+          class="w-auto max-w-full max-h-[65vh]"
+          width="1080"
+          height="1920"
+        ></video>
+      </div>
+    </div>
   </div>`
 
 const contentEn = `<div class="max-w-4xl mx-auto space-y-10">
@@ -82,7 +87,7 @@ const contentEn = `<div class="max-w-4xl mx-auto space-y-10">
         <strong class="mt-3 block">Step 1 · CERABARRIER BIOME GEL CLEANSER</strong>
       </a>
       <a href="/products/34" class="block rounded-2xl border border-rose-100 bg-white p-4">
-        <img src="${MAIN}" alt="GENOSYS Skin Rescue Overnight Cream Mask" class="w-full h-auto rounded-xl" loading="lazy" />
+        <img src="/images/overnight/S1.jpeg" alt="GENOSYS Skin Rescue Overnight Cream Mask" class="w-full h-auto rounded-xl" loading="lazy" />
         <strong class="mt-3 block">Step 2 · Skin Rescue Overnight Cream Mask</strong>
       </a>
     </div>
@@ -147,7 +152,7 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
         <strong class="mt-3 block">Шаг 1 · CERABARRIER BIOME GEL CLEANSER</strong>
       </a>
       <a href="/ru/products/34" class="block rounded-2xl border border-rose-100 bg-white p-4">
-        <img src="${MAIN}" alt="GENOSYS Skin Rescue Overnight Cream Mask" class="w-full h-auto rounded-xl" loading="lazy" />
+        <img src="/images/overnight/S1.jpeg" alt="GENOSYS Skin Rescue Overnight Cream Mask" class="w-full h-auto rounded-xl" loading="lazy" />
         <strong class="mt-3 block">Шаг 2 · Skin Rescue Overnight Cream Mask</strong>
       </a>
     </div>
@@ -212,7 +217,7 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10" dir="rtl">
         <strong class="mt-3 block">الخطوة 1 · CERABARRIER BIOME GEL CLEANSER</strong>
       </a>
       <a href="/ar/products/34" class="block rounded-2xl border border-rose-100 bg-white p-4">
-        <img src="${MAIN}" alt="GENOSYS Skin Rescue Overnight Cream Mask" class="w-full h-auto rounded-xl" loading="lazy" />
+        <img src="/images/overnight/S1.jpeg" alt="GENOSYS Skin Rescue Overnight Cream Mask" class="w-full h-auto rounded-xl" loading="lazy" />
         <strong class="mt-3 block">الخطوة 2 · Skin Rescue Overnight Cream Mask</strong>
       </a>
     </div>

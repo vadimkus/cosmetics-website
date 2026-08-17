@@ -14,6 +14,11 @@ old ones.
   (config used to win over DB) and set the DB `images` field to the six
   S-slides (main is prepended automatically by web + app).
 - DB `image` → `/images/mist/main.jpeg`.
+  - **Update (same day, evening):** main replaced again with a new photo as
+    `/images/mist/main2.jpeg` (new filename per the immutable-cache rule; old
+    `main.jpeg` deleted). DB product image + 38 historical order items
+    repointed; code refs updated (lib/products, training pages EN/RU/AR,
+    mobile training API, DownloadsSection). Commit `79127efd`.
 - Code refs repointed from `/images/mist.jpg` to `/images/mist/main.jpeg`:
   `lib/products.ts`, `components/profile/DownloadsSection.tsx`,
   `app/training/TrainingClient.tsx`, `app/ru/training/page.tsx`,

@@ -28,14 +28,14 @@ const STATE_REPORT_NOT_PAID_ID = '3203736c-c43b-11eb-0a80-093a002b59a6'
 
 const CUSTOMER_EXACT_NAME = 'Shakirovna Ladies Beauty Saloon'
 const COMMISSION_PERIOD_START = '2026-06-10 00:00:00'
-const COMMISSION_PERIOD_END = '2026-07-08 23:59:59'
+const COMMISSION_PERIOD_END = '2026-07-09 23:59:59'
 const MARKER = `SHAKIROVNA-MARINA-CONSIGNMENT-SOLD-ALTEGIO-${uaeToday()}`
 
 /** [code, qty, label] — Altegio RTL-GEN → MoySklad */
 const LINES = [
   ['00035', 1, 'Problem Control Cream 50ml (RTL-GEN-008)'],
   ['00029', 1, 'Problem Control Serum 30ml (RTL-GEN-010)'],
-  ['54458', 2, 'Hyaluron Cream 50ml (RTL-GEN-034)'],
+  ['54458', 3, 'Hyaluron Cream 50ml (RTL-GEN-034)'],
   ['00012', 1, 'Peptide Gel Mask 39g (RTL-GEN-017)'],
   ['00055', 2, 'EyeCell Eye Contour Cream 20ml (RTL-GEN-023)'],
   ['00190', 2, 'Multi Functional Anti-Wrinkle Cream 50g (RTL-GEN-031)'],
@@ -52,7 +52,7 @@ const LINES = [
   ['00053', 1, 'EyeCell Eye Peptide Gel Patch box (RTL-GEN-019)'],
 ]
 
-const EXPECTED_TOTAL_QTY = LINES.reduce((s, [, q]) => s + q, 0)
+const EXPECTED_TOTAL_QTY = 35
 
 async function api(method, pathStr, body) {
   const res = await fetch(pathStr.startsWith('http') ? pathStr : API + pathStr, {

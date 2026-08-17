@@ -1,0 +1,187 @@
+@page {
+  size: A4;
+  margin: 14mm 16mm 16mm;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10.5pt;
+}
+
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  line-height: 1.55;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.doc-header {
+  margin: 0 0 4mm;
+  page-break-inside: avoid;
+}
+
+.doc-header img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+h1 {
+  font-size: 16pt;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.4px;
+  margin: 0 0 3mm;
+  color: #b91c1c;
+  page-break-after: avoid;
+}
+
+.doc-meta {
+  text-align: center;
+  font-size: 10pt;
+  color: #444;
+  margin: 0 0 5mm;
+  padding-bottom: 3mm;
+  border-bottom: 1px solid #ccc;
+}
+
+.parties-grid {
+  display: flex;
+  gap: 4mm;
+  margin: 0 0 4mm;
+  page-break-inside: avoid;
+}
+
+.party-box {
+  flex: 1;
+  border: 1px solid #d8d8d8;
+  border-radius: 2px;
+  padding: 3mm 3.5mm;
+  background: #fafafa;
+  font-size: 9pt;
+  line-height: 1.45;
+}
+
+.party-box h3 {
+  margin: 0 0 2mm;
+  font-size: 8pt;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.35px;
+  color: #666;
+}
+
+.party-box .name {
+  font-weight: 700;
+  font-size: 10pt;
+  margin: 0 0 2mm;
+  line-height: 1.35;
+}
+
+.party-box p {
+  margin: 0 0 1.5mm;
+}
+
+.intro {
+  margin: 0 0 4mm;
+  font-size: 9.5pt;
+  text-align: justify;
+}
+
+.clause {
+  margin: 0 0 3.5mm;
+  page-break-inside: avoid;
+}
+
+.clause h2 {
+  font-size: 10.5pt;
+  font-weight: 700;
+  margin: 0 0 1.5mm;
+  color: #1a1a1a;
+  page-break-after: avoid;
+}
+
+.clause p {
+  margin: 0;
+  font-size: 10pt;
+  text-align: justify;
+}
+
+.page-break {
+  page-break-before: always;
+  break-before: page;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.page-continued {
+  margin: 0 0 6mm;
+  padding-bottom: 3mm;
+  border-bottom: 1px solid #ddd;
+  font-size: 9.5pt;
+  color: #555;
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+
+.signatures {
+  display: flex;
+  gap: 8mm;
+  margin-top: 8mm;
+  page-break-inside: avoid;
+}
+
+.sigcol {
+  flex: 1;
+  font-size: 10pt;
+  line-height: 1.5;
+  border-top: 1px solid #ccc;
+  padding-top: 4mm;
+}
+
+.sigcol .sig-title {
+  font-weight: 700;
+  font-size: 10pt;
+  margin: 0 0 3mm;
+}
+
+.sig-line {
+  margin: 0 0 2.5mm;
+}
+
+.sig-line .label {
+  color: #555;
+}
+
+.stamp-wrap {
+  margin: 3mm 0 0;
+  page-break-inside: avoid;
+}
+
+.stamp {
+  width: 46mm;
+  height: auto;
+  display: block;
+}
+
+.doc-footer {
+  margin-top: 8mm;
+  padding-top: 3mm;
+  border-top: 1px solid #e0e0e0;
+  font-size: 8.5pt;
+  text-align: center;
+  color: #555;
+  font-style: normal;
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

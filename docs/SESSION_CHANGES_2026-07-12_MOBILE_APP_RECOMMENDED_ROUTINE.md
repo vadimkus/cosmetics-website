@@ -78,3 +78,33 @@ Full scan of `messages/{ru,ar}.json` (all keys, not just routines):
 - DB backfill: `nameRu`/`nameAr` were NULL for **Needle Pen-K (id 2,
   hidden)**, **Hair Stamp (64)** and **Cerabarrier Cleanser (66)** —
   filled in and verified live via `localizedName`.
+
+## Follow-up — routine step product thumbnails (same day)
+
+Each routine step now shows the step product's photo (52–56 px rounded
+thumbnail with the step number badged on the corner) instead of a bare
+numbered circle. Thumbnails deep-link to the product, same as titles.
+Falls back to the numbered circle when a step has no image.
+
+- **`lib/routineStepImages.ts`** (new): `titleKey → product main image`
+  resolver over the static catalog, with manual entries for DB-only
+  products **53** (`/images/collagen_mask/Main.jpeg`) and **66**
+  (`/images/cera/main2.jpeg`).
+- **Web PDP** (`ProductPageClientRefactored.tsx`): new `RoutineStepMarker`
+  component; replaced all ~41 numbered spans (data-driven card + 8 bespoke
+  blocks: beauty boxes 55–59, 62, Revita Glow 63, Cerabarrier 66).
+- **Mobile API**: `MobileRoutineStep` gained `image` (relative path);
+  resolver attaches it per step.
+- **App** (`RecommendedRoutineCard.js`): renders the thumbnail via
+  expo-image with ASSET_ORIGIN prefix, number badge overlay (RTL-aware),
+  numbered-circle fallback. API-driven — image changes need no app update.
+
+Deploys: website commits `59c4daa1` + `41932802` (53/66 backfill), verified
+live (API steps return images for products 34/44/66; PDP 34 SSR renders all
+4 thumbs; image URLs 200). App commit `f2e7e97`, EAS OTA to `production`,
+update group `ed4bbbb5-254b-4936-bdef-dddf8a47e364`.
+
+Design tweak (user feedback): step number moved OFF the thumbnail — the
+numbered circle now sits beside the image instead of badging its corner.
+Website commit `d933a710`, app commit `170a69d` + OTA update group
+`fa2dce3b-edb5-4fe1-9973-369384a02187`.

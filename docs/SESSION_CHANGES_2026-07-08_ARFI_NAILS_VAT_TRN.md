@@ -30,6 +30,8 @@ Reference: **FACE ROOM BEAUTY SALON CO** — license in email/fax, TRN in commen
 **Before:** TRN `104063223200003` (both)  
 **After:** TRN `104933797300003` (both)
 
+**Update 2026-07-10:** Jumeirah TRN **removed** (not VAT registered at that location) — see [SESSION_CHANGES_2026-07-10_ARFI_JUMEIRAH_TRN_REMOVED.md](./SESSION_CHANGES_2026-07-10_ARFI_JUMEIRAH_TRN_REMOVED.md). Barsha TRN unchanged.
+
 License fields unchanged (already `946792`).
 
 ## Script

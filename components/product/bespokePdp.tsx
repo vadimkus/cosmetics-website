@@ -55,6 +55,7 @@ import PostcreamProductPage from '@/components/product/postcream/PostcreamProduc
 import HydroSoothingProductPage from '@/components/product/hydrosoothing/HydroSoothingProductPage'
 import OxymaskProductPage from '@/components/product/oxymask/OxymaskProductPage'
 import HairTonicProductPage from '@/components/product/hr3/HairTonicProductPage'
+import MediShampooProductPage from '@/components/product/hr3/MediShampooProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -206,6 +207,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 43 is the first of the HR3 MATRIX scalp line. Framed as a scalp toner, with
   // no hair-loss claim, and it leads with the salicylate avoid list.
   '43': HairTonicProductPage,
+  // 44 leads on caffeine 1%, which is 100x the tonic's, and refuses the carton's
+  // dandruff claim outright.
+  '44': MediShampooProductPage,
   // 26 leads with the four usage rules, because on a foaming product getting
   // them wrong means it does not work. See the source audit.
   '26': OxymaskProductPage,
@@ -289,6 +293,8 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '26': ['25', '28', '32', '16'],
   // The shampoo it points at for caffeine, then the rest of the scalp line.
   '43': ['44', '46', '45', '48'],
+  // The tonic it pairs with, the brush, then the rest of the scalp line.
+  '44': ['43', '61', '46', '45'],
   // The serum first: this page argues the two belong together, in that order.
   '32': ['22', '16', '42', '13'],
   // The other five Power Solutions, for the range table on each ampoule's page.

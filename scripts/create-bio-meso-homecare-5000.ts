@@ -97,7 +97,7 @@ BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables dir
 
 Spread the ampoule on the face evenly, then press the treatment area using palms or fingers. Massage the face with a rolling motion for around 30 seconds.
 
-To calm the skin, apply the Skin Reboot PDRN Mask Pack and leave it for 10–15 minutes.`,
+To calm the skin, apply the Skin Reboot PDRN Mask and leave it for 10–15 minutes.`,
 
     skinType: 'all',
     targetConcerns: JSON.stringify(['anti-aging', 'regeneration', 'hydration', 'brightening']),

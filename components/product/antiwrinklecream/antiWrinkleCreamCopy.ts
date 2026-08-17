@@ -147,9 +147,9 @@ export interface AntiWrinkleCreamCopy {
 
 const EN: AntiWrinkleCreamCopy = {
   eyebrow: 'Multi Functional Anti-Wrinkle Cream · 50 g',
-  headline: 'The lid on the serum. Not the serum in a jar.',
+  headline: 'The lid on the serum. Not a thicker version of it.',
   subheadline:
-    'Around 13% of this jar is oils and butters — including mango seed butter at 0.8% — over glycerin at 8%, niacinamide at 2% and adenosine at the dose Korea licenses for wrinkle improvement. Where the serum draws water into skin, this holds it there. Different formula, different job, and the certificates show it.',
+    'Around 13% of this tube is oils and butters — including mango seed butter at 0.8% — over glycerin at 8%, niacinamide at 2% and adenosine at the dose Korea licenses for wrinkle improvement. Where the serum draws water into skin, this holds it there. Different formula, different job, and the certificates show it.',
   heroBullets: [
     'Niacinamide 2%, measured at 101.30% of declaration on the batch',
     'Adenosine 0.04%, measured at 95.50% — the licensed wrinkle dose',
@@ -225,7 +225,7 @@ const EN: AntiWrinkleCreamCopy = {
       {
         name: 'Adenosine',
         dose: '0.040%',
-        body: 'The exact dose Korea licenses for wrinkle improvement, assayed at 95.50%. The only anti-wrinkle active in the jar with a regulatory threshold behind it.',
+        body: 'The exact dose Korea licenses for wrinkle improvement, assayed at 95.50%. The only anti-wrinkle active in the tube with a regulatory threshold behind it.',
       },
       {
         name: 'Bakuchiol and allantoin',
@@ -239,14 +239,14 @@ const EN: AntiWrinkleCreamCopy = {
     eyebrow: 'A point in its favour',
     title: 'There are no peptides in here at all',
     body:
-      'The matching serum carries six peptides from genuinely premium materials, at between 0.05 and 1.1 parts per million, and its deck attributes a separate mechanism to each. This cream simply does not contain them — so there is nothing here being sold to you at a millionth of a gram. What remains at trace is smaller and we will name it anyway: the ceramide, cholesterol and phytosphingosine sold as a barrier liposome sit at 0.1 ppm each, hydrolyzed collagen at 0.1 ppm, elastin at 1 ppm and propolis at 10 ppm. Buy this jar for the 13% of emollients, the glycerin, the niacinamide and the adenosine.',
+      'The matching serum carries six peptides from genuinely premium materials, at between 0.05 and 1.1 parts per million, and its deck attributes a separate mechanism to each. This cream simply does not contain them — so there is nothing here being sold to you at a millionth of a gram. What remains at trace is smaller and we will name it anyway: the ceramide, cholesterol and phytosphingosine sold as a barrier liposome sit at 0.1 ppm each, hydrolyzed collagen at 0.1 ppm, elastin at 1 ppm and propolis at 10 ppm. Buy this tube for the 13% of emollients, the glycerin, the niacinamide and the adenosine.',
   },
 
   bakuchiol: {
     eyebrow: 'The same caveat as the serum',
     title: 'Bakuchiol at 0.1%',
     body:
-      'Identical to the serum: 0.100%, genuinely present, photostable and gentle in a way retinol is not. And identically, the study behind the retinol comparison — Dhaliwal and colleagues, British Journal of Dermatology 2019 — used bakuchiol at 0.5% applied twice daily, five times this concentration. Neither this cream nor the serum has its bakuchiol assayed on the certificate, unlike the niacinamide and the adenosine. Treat it as a welcome extra rather than a retinoid replacement, and buy the jar for the ingredients that were measured.',
+      'Identical to the serum: 0.100%, genuinely present, photostable and gentle in a way retinol is not. And identically, the study behind the retinol comparison — Dhaliwal and colleagues, British Journal of Dermatology 2019 — used bakuchiol at 0.5% applied twice daily, five times this concentration. Neither this cream nor the serum has its bakuchiol assayed on the certificate, unlike the niacinamide and the adenosine. Treat it as a welcome extra rather than a retinoid replacement, and buy the tube for the ingredients that were measured.',
   },
 
   quality: {
@@ -270,10 +270,10 @@ const EN: AntiWrinkleCreamCopy = {
   },
 
   reformulation: {
-    eyebrow: 'If you used the old jar',
+    eyebrow: 'If you used the old cream',
     title: 'What changed, and what stayed',
     body:
-      'This cream replaced an earlier product called Intensive Multi Functional Cream. The manufacturer\u2019s own documentation records the swap, and it is worth knowing if you are coming back to a jar you used years ago: the texture, the fragrance and the dual anti-wrinkle and brightening function were all deliberately kept.',
+      'This cream replaced an earlier product called Intensive Multi Functional Cream. The manufacturer\u2019s own documentation records the swap, and it is worth knowing if you are coming back to a cream you used years ago: the texture, the fragrance and the dual anti-wrinkle and brightening function were all deliberately kept.',
     before: {
       title: 'Dropped from the old formula',
       items: [
@@ -291,7 +291,7 @@ const EN: AntiWrinkleCreamCopy = {
     eyebrow: 'If you screen your ingredients',
     title: 'More scented than the serum',
     body:
-      'Lavender oil at 0.0413%, which is over twice the serum\u2019s 0.0186%, and two declared allergens rather than one: linalool at 0.0266% and limonene at 0.0021%. Both are named because European law requires it. It is essential oil rather than synthetic perfume and the amounts are small, but if you got on with the serum on fragrance grounds, know that this jar carries more of it. Our Blemish Balm Cream is the fragrance-free option in the range.',
+      'Lavender oil at 0.0413%, which is over twice the serum\u2019s 0.0186%, and two declared allergens rather than one: linalool at 0.0266% and limonene at 0.0021%. Both are named because European law requires it. It is essential oil rather than synthetic perfume and the amounts are small, but if you got on with the serum on fragrance grounds, know that this tube carries more of it. Our Blemish Balm Cream is the fragrance-free option in the range.',
   },
 
   howTo: {
@@ -322,7 +322,7 @@ const EN: AntiWrinkleCreamCopy = {
 
   inci: {
     eyebrow: 'The formula',
-    title: 'Everything in the jar',
+    title: 'Everything in the tube',
     intro: 'The named ingredients with their concentrations, then the complete list.',
     fullInci: 'Full ingredient list (INCI)',
     fullInciNote: 'Every ingredient, in the same order as the box in your hand.',
@@ -333,7 +333,7 @@ const EN: AntiWrinkleCreamCopy = {
     title: 'Precautions',
     points: [
       'Contains lavender oil with linalool and limonene declared. Patch test if you react to fragrance.',
-      'For external use only. Avoid the eyes and mucous membranes, and rinse thoroughly with cool water on contact.',
+      'For external use only. Do not use near the eyes. Avoid the eyes and mucous membranes, and rinse thoroughly with cool water on contact.',
       'Stop and see a doctor if redness, swelling or irritation appears.',
       'Assessed as safe under EC Regulation 1223/2009 and graded Non Irritant on patch test.',
       'If you are pregnant, ask your doctor before starting any new active — bakuchiol is not retinol, but that conversation is theirs to have with you.',
@@ -373,7 +373,7 @@ const EN: AntiWrinkleCreamCopy = {
       },
       {
         q: 'Why is having no peptides a good thing?',
-        a: 'It is not that peptides are bad — it is that the serum\u2019s six are present at between 0.05 and 1.1 parts per million while being sold as six separate mechanisms. This jar does not have that problem because it does not have them. What you are buying here is 13% emollients, 8% glycerin, 2% niacinamide and 0.04% adenosine, and all of those are real.',
+        a: 'It is not that peptides are bad — it is that the serum\u2019s six are present at between 0.05 and 1.1 parts per million while being sold as six separate mechanisms. This tube does not have that problem because it does not have them. What you are buying here is 13% emollients, 8% glycerin, 2% niacinamide and 0.04% adenosine, and all of those are real.',
       },
       {
         q: 'Is the bakuchiol enough to replace retinol?',
@@ -395,9 +395,9 @@ const EN: AntiWrinkleCreamCopy = {
 
 const AR: AntiWrinkleCreamCopy = {
   eyebrow: 'كريم متعدد الوظائف لمكافحة التجاعيد · 50 غ',
-  headline: 'الغطاء على السيروم. لا السيروم في عُلبة.',
+  headline: 'الغطاء على السيروم. لا نسخة أسمك منه.',
   subheadline:
-    'نحو 13% من هذه العلبة زيوت وزُبد — منها زبدة بذور المانجو بنسبة 0.8% — فوق غليسرين بنسبة 8% ونياسيناميد بنسبة 2% وأدينوزين بالجرعة التي ترخّصها كوريا لتحسين التجاعيد. وحيث يجذب السيروم الماء إلى البشرة، يحتفظ هذا به. تركيبة مختلفة ومهمّة مختلفة، والشهادات تُظهر ذلك.',
+    'نحو 13% من هذا الأنبوب زيوت وزُبد — منها زبدة بذور المانجو بنسبة 0.8% — فوق غليسرين بنسبة 8% ونياسيناميد بنسبة 2% وأدينوزين بالجرعة التي ترخّصها كوريا لتحسين التجاعيد. وحيث يجذب السيروم الماء إلى البشرة، يحتفظ هذا به. تركيبة مختلفة ومهمّة مختلفة، والشهادات تُظهر ذلك.',
   heroBullets: [
     'نياسيناميد 2%، مقيس عند 101.30% من المعلن على الدفعة',
     'أدينوزين 0.04%، مقيس عند 95.50% — جرعة التجاعيد المرخّصة',
@@ -473,7 +473,7 @@ const AR: AntiWrinkleCreamCopy = {
       {
         name: 'Adenosine',
         dose: '0.040%',
-        body: 'الجرعة التي ترخّصها كوريا لتحسين التجاعيد تحديداً، مقيسة عند 95.50%. وهي الفعّال الوحيد المضادّ للتجاعيد في العلبة الذي له عتبة تنظيمية خلفه.',
+        body: 'الجرعة التي ترخّصها كوريا لتحسين التجاعيد تحديداً، مقيسة عند 95.50%. وهي الفعّال الوحيد المضادّ للتجاعيد في الأنبوب الذي له عتبة تنظيمية خلفه.',
       },
       {
         name: 'Bakuchiol و Allantoin',
@@ -487,14 +487,14 @@ const AR: AntiWrinkleCreamCopy = {
     eyebrow: 'نقطة لصالحه',
     title: 'لا ببتيدات هنا إطلاقاً',
     body:
-      'السيروم المطابق يحمل ستة ببتيدات من مواد ممتازة فعلاً، بين 0.05 و1.1 جزء من المليون، وعرضه ينسب آلية منفصلة لكل منها. وهذا الكريم لا يحتويها ببساطة — فلا شيء هنا يُبَاع لك بجزء من مليون من الغرام. وما يبقى بجرعات أثرية أصغر وسنسمّيه على أي حال: السيراميد والكوليسترول والفيتوسفينغوزين المبيعة كليبوسوم للحاجز عند 0.1 جزء من المليون لكل منها، والكولاجين المتحلّل عند 0.1، والإيلاستين عند 1، والبروبوليس عند 10. اشتري هذه العلبة من أجل 13% من الملطّفات والغليسرين والنياسيناميد والأدينوزين.',
+      'السيروم المطابق يحمل ستة ببتيدات من مواد ممتازة فعلاً، بين 0.05 و1.1 جزء من المليون، وعرضه ينسب آلية منفصلة لكل منها. وهذا الكريم لا يحتويها ببساطة — فلا شيء هنا يُبَاع لك بجزء من مليون من الغرام. وما يبقى بجرعات أثرية أصغر وسنسمّيه على أي حال: السيراميد والكوليسترول والفيتوسفينغوزين المبيعة كليبوسوم للحاجز عند 0.1 جزء من المليون لكل منها، والكولاجين المتحلّل عند 0.1، والإيلاستين عند 1، والبروبوليس عند 10. اشتري هذا الأنبوب من أجل 13% من الملطّفات والغليسرين والنياسيناميد والأدينوزين.',
   },
 
   bakuchiol: {
     eyebrow: 'التحفّظ نفسه كالسيروم',
     title: 'الباكوتشيول بنسبة 0.1%',
     body:
-      'مطابق للسيروم: 0.100%، موجود فعلاً، وثابت ضوئياً ولطيف بطريقة لا يكون الريتينول عليها. وبالمثل تماماً، الدراسة التي تقف خلف مقارنة الريتينول — دالِيوال وزملاؤه، المجلة البريطانية للأمراض الجلدية 2019 — استخدمت الباكوتشيول بنسبة 0.5% مرتين يومياً، أي خمسة أضعاف هذا التركيز. ولا هذا الكريم ولا السيروم يقيس الباكوتشيول على الشهادة، بخلاف النياسيناميد والأدينوزين. اعتبريه إضافة مرحّباً بها لا بديلاً عن الريتينويد، واشتري العلبة من أجل المكوّنات التي قيست.',
+      'مطابق للسيروم: 0.100%، موجود فعلاً، وثابت ضوئياً ولطيف بطريقة لا يكون الريتينول عليها. وبالمثل تماماً، الدراسة التي تقف خلف مقارنة الريتينول — دالِيوال وزملاؤه، المجلة البريطانية للأمراض الجلدية 2019 — استخدمت الباكوتشيول بنسبة 0.5% مرتين يومياً، أي خمسة أضعاف هذا التركيز. ولا هذا الكريم ولا السيروم يقيس الباكوتشيول على الشهادة، بخلاف النياسيناميد والأدينوزين. اعتبريه إضافة مرحّباً بها لا بديلاً عن الريتينويد، واشتري الأنبوب من أجل المكوّنات التي قيست.',
   },
 
   quality: {
@@ -518,10 +518,10 @@ const AR: AntiWrinkleCreamCopy = {
   },
 
   reformulation: {
-    eyebrow: 'إن كنتِ تستخدمين العلبة القديمة',
+    eyebrow: 'إن كنتِ تستخدمين الكريم القديم',
     title: 'ما تغيّر وما بقي',
     body:
-      'حلّ هذا الكريم محلّ منتج أقدم اسمه Intensive Multi Functional Cream. ووثائق الشركة نفسها تسجّل التبديل، ويستحق الأمر المعرفة إن كنتِ عائدة إلى علبة استخدمتها قبل سنوات: فالملمس والعطر والوظيفة المزدوجة لمكافحة التجاعيد والتفتيح أُبقيت كلها عن قصد.',
+      'حلّ هذا الكريم محلّ منتج أقدم اسمه Intensive Multi Functional Cream. ووثائق الشركة نفسها تسجّل التبديل، ويستحق الأمر المعرفة إن كنتِ عائدة إلى كريم استخدمتِه قبل سنوات: فالملمس والعطر والوظيفة المزدوجة لمكافحة التجاعيد والتفتيح أُبقيت كلها عن قصد.',
     before: {
       title: 'حُذف من التركيبة القديمة',
       items: [
@@ -539,7 +539,7 @@ const AR: AntiWrinkleCreamCopy = {
     eyebrow: 'إن كنتِ تفحصين المكوّنات',
     title: 'أكثر عطراً من السيروم',
     body:
-      'زيت اللافندر بنسبة 0.0413%، أي أكثر من ضعف 0.0186% في السيروم، ومسبّبَا حساسية معلنان لا واحد: لينالول بنسبة 0.0266% وليمونين بنسبة 0.0021%. وكلاهما مذكور لأن القانون الأوروبي يوجب ذلك. وهو زيت عطري لا عطر صناعي والكميات صغيرة، لكن إن كنتِ قد وافقت السيروم من ناحية العطر، فاعلمي أن هذه العلبة تحمل منه أكثر. وكريم البلسم للعيوب لدينا هو الخيار الخالي من العطر في المجموعة.',
+      'زيت اللافندر بنسبة 0.0413%، أي أكثر من ضعف 0.0186% في السيروم، ومسبّبَا حساسية معلنان لا واحد: لينالول بنسبة 0.0266% وليمونين بنسبة 0.0021%. وكلاهما مذكور لأن القانون الأوروبي يوجب ذلك. وهو زيت عطري لا عطر صناعي والكميات صغيرة، لكن إن كنتِ قد وافقت السيروم من ناحية العطر، فاعلمي أن هذا الأنبوب يحمل منه أكثر. وكريم البلسم للعيوب لدينا هو الخيار الخالي من العطر في المجموعة.',
   },
 
   howTo: {
@@ -570,7 +570,7 @@ const AR: AntiWrinkleCreamCopy = {
 
   inci: {
     eyebrow: 'التركيبة',
-    title: 'كل ما في العلبة',
+    title: 'كل ما في الأنبوب',
     intro: 'المكوّنات المذكورة بتراكيزها، ثم القائمة الكاملة.',
     fullInci: 'قائمة المكوّنات الكاملة (INCI)',
     fullInciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك.',
@@ -581,7 +581,7 @@ const AR: AntiWrinkleCreamCopy = {
     title: 'احتياطات',
     points: [
       'يحتوي زيت اللافندر مع اللينالول والليمونين المعلنَين. اختبريه على بقعة إن كنتِ تتفاعلين مع العطر.',
-      'للاستعمال الخارجي فقط. تجنّبي العينين والأغشية المخاطية، واشطفي جيداً بالماء البارد عند الملامسة.',
+      'للاستعمال الخارجي فقط. لا يُستخدم قرب العينين. تجنّبي العينين والأغشية المخاطية، واشطفي جيداً بالماء البارد عند الملامسة.',
       'أوقفي الاستخدام واستشيري طبيباً عند ظهور احمرار أو تورّم أو تهيّج.',
       'قُيّم آمناً وفق اللائحة EC 1223/2009 وصُنّف «غير مهيّج» في اختبار اللصقة.',
       'إن كنتِ حاملاً فاستشيري طبيبك قبل بدء أي فعّال جديد — فالباكوتشيول ليس ريتينولاً، لكن ذلك الحديث حديثهم معك.',
@@ -621,7 +621,7 @@ const AR: AntiWrinkleCreamCopy = {
       },
       {
         q: 'ولماذا يكون غياب الببتيدات أمراً جيداً؟',
-        a: 'ليس أن الببتيدات سيئة — بل أن ستة ببتيدات السيروم موجودة بين 0.05 و1.1 جزء من المليون وتُبَاع كستّ آليات منفصلة. وهذه العلبة لا تعاني ذلك لأنها لا تحتويها. وما تشترينه هنا 13% ملطّفات و8% غليسرين و2% نياسيناميد و0.04% أدينوزين، وكلها حقيقية.',
+        a: 'ليس أن الببتيدات سيئة — بل أن ستة ببتيدات السيروم موجودة بين 0.05 و1.1 جزء من المليون وتُبَاع كستّ آليات منفصلة. وهذا الأنبوب لا يعاني ذلك لأنه لا يحتويها. وما تشترينه هنا 13% ملطّفات و8% غليسرين و2% نياسيناميد و0.04% أدينوزين، وكلها حقيقية.',
       },
       {
         q: 'هل الباكوتشيول كافٍ ليحلّ محلّ الريتينول؟',
@@ -643,9 +643,9 @@ const AR: AntiWrinkleCreamCopy = {
 
 const RU: AntiWrinkleCreamCopy = {
   eyebrow: 'Мультифункциональный крем против морщин · 50 г',
-  headline: 'Крышка для сыворотки. А не сыворотка в баночке.',
+  headline: 'Крышка для сыворотки. А не её загущённая версия.',
   subheadline:
-    'Около 13% этой баночки — масла и баттеры, включая масло семян манго 0,8%, поверх глицерина 8%, ниацинамида 2% и аденозина в дозе, под которую Корея лицензирует уменьшение морщин. Где сыворотка втягивает воду в кожу, этот крем её удерживает. Другая формула, другая задача, и сертификаты это показывают.',
+    'Около 13% этой тубы — масла и баттеры, включая масло семян манго 0,8%, поверх глицерина 8%, ниацинамида 2% и аденозина в дозе, под которую Корея лицензирует уменьшение морщин. Где сыворотка втягивает воду в кожу, этот крем её удерживает. Другая формула, другая задача, и сертификаты это показывают.',
   heroBullets: [
     'Ниацинамид 2%, измерено 101,30% от заявленного в партии',
     'Аденозин 0,04%, измерено 95,50% — лицензионная доза для морщин',
@@ -721,7 +721,7 @@ const RU: AntiWrinkleCreamCopy = {
       {
         name: 'Adenosine',
         dose: '0,040%',
-        body: 'Ровно та доза, которую Корея лицензирует для уменьшения морщин, измерено 95,50%. Единственный актив против морщин в баночке с регуляторным порогом за спиной.',
+        body: 'Ровно та доза, которую Корея лицензирует для уменьшения морщин, измерено 95,50%. Единственный актив против морщин в тубе с регуляторным порогом за спиной.',
       },
       {
         name: 'Bakuchiol и Allantoin',
@@ -735,14 +735,14 @@ const RU: AntiWrinkleCreamCopy = {
     eyebrow: 'Пункт в его пользу',
     title: 'Пептидов здесь нет совсем',
     body:
-      'Парная сыворотка несёт шесть пептидов из действительно премиальных материалов, в концентрациях от 0,05 до 1,1 части на миллион, и её презентация приписывает каждому отдельный механизм. Этот крем их просто не содержит — значит, здесь вам ничего не продают в миллионных долях грамма. Что остаётся следовым, меньше, и мы всё равно это назовём: церамид, холестерин и фитосфингозин, продаваемые как барьерная липосома, по 0,1 ppm каждый, гидролизованный коллаген 0,1 ppm, эластин 1 ppm, прополис 10 ppm. Покупайте эту баночку за 13% эмолентов, глицерин, ниацинамид и аденозин.',
+      'Парная сыворотка несёт шесть пептидов из действительно премиальных материалов, в концентрациях от 0,05 до 1,1 части на миллион, и её презентация приписывает каждому отдельный механизм. Этот крем их просто не содержит — значит, здесь вам ничего не продают в миллионных долях грамма. Что остаётся следовым, меньше, и мы всё равно это назовём: церамид, холестерин и фитосфингозин, продаваемые как барьерная липосома, по 0,1 ppm каждый, гидролизованный коллаген 0,1 ppm, эластин 1 ppm, прополис 10 ppm. Покупайте эту тубу за 13% эмолентов, глицерин, ниацинамид и аденозин.',
   },
 
   bakuchiol: {
     eyebrow: 'Та же оговорка, что у сыворотки',
     title: 'Бакучиол 0,1%',
     body:
-      'Идентично сыворотке: 0,100%, реально присутствует, фотостабилен и мягок так, как ретинол не бывает. И точно так же исследование, стоящее за сравнением с ретинолом, — Dhaliwal и соавторы, British Journal of Dermatology 2019 — использовало бакучиол 0,5% дважды в день, в пять раз больше этой концентрации. Ни в этом креме, ни в сыворотке бакучиол не измеряется в сертификате, в отличие от ниацинамида и аденозина. Считайте его приятным дополнением, а не заменой ретиноида, и покупайте баночку за те ингредиенты, которые измерили.',
+      'Идентично сыворотке: 0,100%, реально присутствует, фотостабилен и мягок так, как ретинол не бывает. И точно так же исследование, стоящее за сравнением с ретинолом, — Dhaliwal и соавторы, British Journal of Dermatology 2019 — использовало бакучиол 0,5% дважды в день, в пять раз больше этой концентрации. Ни в этом креме, ни в сыворотке бакучиол не измеряется в сертификате, в отличие от ниацинамида и аденозина. Считайте его приятным дополнением, а не заменой ретиноида, и покупайте тубу за те ингредиенты, которые измерили.',
   },
 
   quality: {
@@ -766,10 +766,10 @@ const RU: AntiWrinkleCreamCopy = {
   },
 
   reformulation: {
-    eyebrow: 'Если вы пользовались старой баночкой',
+    eyebrow: 'Если вы пользовались старым кремом',
     title: 'Что изменилось и что осталось',
     body:
-      'Этот крем заменил более раннее средство под названием Intensive Multi Functional Cream. Документы самого производителя фиксируют замену, и это стоит знать, если вы возвращаетесь к баночке, которой пользовались годы назад: текстуру, аромат и двойную функцию против морщин и осветления сохранили намеренно.',
+      'Этот крем заменил более раннее средство под названием Intensive Multi Functional Cream. Документы самого производителя фиксируют замену, и это стоит знать, если вы возвращаетесь к крему, которым пользовались годы назад: текстуру, аромат и двойную функцию против морщин и осветления сохранили намеренно.',
     before: {
       title: 'Убрали из старой формулы',
       items: [
@@ -787,7 +787,7 @@ const RU: AntiWrinkleCreamCopy = {
     eyebrow: 'Если вы читаете составы',
     title: 'Ароматизирован сильнее сыворотки',
     body:
-      'Лавандовое масло 0,0413%, что более чем вдвое больше 0,0186% у сыворотки, и два заявленных аллергена вместо одного: линалоол 0,0266% и лимонен 0,0021%. Оба названы, потому что европейский закон это требует. Это эфирное масло, а не синтетическая отдушка, и количества малы, но если с сывороткой у вас по аромату всё сложилось, знайте, что в этой баночке его больше. Наш Blemish Balm Cream — вариант линейки без отдушки.',
+      'Лавандовое масло 0,0413%, что более чем вдвое больше 0,0186% у сыворотки, и два заявленных аллергена вместо одного: линалоол 0,0266% и лимонен 0,0021%. Оба названы, потому что европейский закон это требует. Это эфирное масло, а не синтетическая отдушка, и количества малы, но если с сывороткой у вас по аромату всё сложилось, знайте, что в этой тубе его больше. Наш Blemish Balm Cream — вариант линейки без отдушки.',
   },
 
   howTo: {
@@ -818,7 +818,7 @@ const RU: AntiWrinkleCreamCopy = {
 
   inci: {
     eyebrow: 'Состав',
-    title: 'Всё, что в баночке',
+    title: 'Всё, что в тубе',
     intro: 'Названные ингредиенты с концентрациями, затем полный список.',
     fullInci: 'Полный список ингредиентов (INCI)',
     fullInciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках.',
@@ -829,7 +829,7 @@ const RU: AntiWrinkleCreamCopy = {
     title: 'Меры предосторожности',
     points: [
       'Содержит лавандовое масло с заявленными линалоолом и лимоненом. Сделайте пробу, если реагируете на ароматизаторы.',
-      'Только для наружного применения. Избегайте глаз и слизистых, при попадании тщательно промойте прохладной водой.',
+      'Только для наружного применения. Не наносите рядом с глазами. Избегайте глаз и слизистых, при попадании тщательно промойте прохладной водой.',
       'Прекратите использование и обратитесь к врачу при покраснении, отёке или раздражении.',
       'Оценено как безопасное по регламенту EC 1223/2009 и получило оценку «не раздражает» в патч-тесте.',
       'При беременности спросите врача перед началом любого нового актива — бакучиол не ретинол, но этот разговор им вести с вами.',
@@ -869,7 +869,7 @@ const RU: AntiWrinkleCreamCopy = {
       },
       {
         q: 'Почему отсутствие пептидов — это плюс?',
-        a: 'Дело не в том, что пептиды плохи, — а в том, что шесть пептидов сыворотки присутствуют в концентрациях от 0,05 до 1,1 части на миллион, а продаются как шесть отдельных механизмов. У этой баночки такой проблемы нет, потому что их в ней нет. Вы покупаете здесь 13% эмолентов, 8% глицерина, 2% ниацинамида и 0,04% аденозина, и всё это реально.',
+        a: 'Дело не в том, что пептиды плохи, — а в том, что шесть пептидов сыворотки присутствуют в концентрациях от 0,05 до 1,1 части на миллион, а продаются как шесть отдельных механизмов. У этой тубы такой проблемы нет, потому что их в ней нет. Вы покупаете здесь 13% эмолентов, 8% глицерина, 2% ниацинамида и 0,04% аденозина, и всё это реально.',
       },
       {
         q: 'Достаточно ли бакучиола, чтобы заменить ретинол?',

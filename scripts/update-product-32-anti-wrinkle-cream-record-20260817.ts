@@ -30,7 +30,7 @@
 import { prisma } from '../lib/prisma'
 
 const DESCRIPTION_EN =
-  'The occlusive half of a pair. Around 13% of this jar is oils and butters — ethylhexyl palmitate 4%, cetearyl ' +
+  'The occlusive half of a pair. Around 13% of this tube is oils and butters — ethylhexyl palmitate 4%, cetearyl ' +
   'alcohol 3%, caprylic/capric triglyceride 2.4%, butylene glycol dicaprylate 2%, dimethicone 0.8% and mango seed ' +
   'butter 0.8% — over glycerin at 8%, niacinamide at 2% and adenosine at 0.04%, the dose Korea licenses for wrinkle ' +
   'improvement. Both of those actives were assayed on the batch, at 101.30% and 95.50% of declaration. Where the ' +
@@ -41,7 +41,7 @@ const DESCRIPTION_EN =
   'Regulation 1223/2009 and graded Non Irritant on patch test.'
 
 const DESCRIPTION_RU =
-  'Окклюзивная половина пары. Около 13% этой баночки — масла и баттеры: этилгексил палмитат 4%, цетеарил спирт 3%, ' +
+  'Окклюзивная половина пары. Около 13% этой тубы — масла и баттеры: этилгексил палмитат 4%, цетеарил спирт 3%, ' +
   'каприловый/каприновый триглицерид 2,4%, бутиленгликоль дикаприлат 2%, диметикон 0,8% и масло семян манго 0,8% — ' +
   'поверх глицерина 8%, ниацинамида 2% и аденозина 0,04%, дозы, под которую Корея лицензирует уменьшение морщин. Оба ' +
   'этих актива измерены в партии: 101,30% и 95,50% от заявленного. Где парная сыворотка втягивает воду в кожу своими ' +
@@ -51,7 +51,7 @@ const DESCRIPTION_RU =
   'уменьшения морщин и осветления, оценено по регламенту EC 1223/2009, патч-тест — «не раздражает».'
 
 const DESCRIPTION_AR =
-  'النصف العازل من زوج. نحو 13% من هذه العلبة زيوت وزُبد — إيثيل هكسيل بالميتات 4%، وسيتيريل ألكوهول 3%، وثلاثي ' +
+  'النصف العازل من زوج. نحو 13% من هذا الأنبوب زيوت وزُبد — إيثيل هكسيل بالميتات 4%، وسيتيريل ألكوهول 3%، وثلاثي ' +
   'غليسريد الكابريليك/الكابريك 2.4%، وبيوتيلين غلايكول دايكابريليت 2%، ودايميثيكون 0.8%، وزبدة بذور المانجو 0.8% — ' +
   'فوق غليسرين بنسبة 8%، ونياسيناميد بنسبة 2%، وأدينوزين بنسبة 0.04%، وهي الجرعة التي ترخّصها كوريا لتحسين التجاعيد. ' +
   'وقد قيس هذان الفعّالان على الدفعة، عند 101.30% و95.50% من المعلن. وحيث يجذب السيروم المطابق الماء إلى البشرة ' +
@@ -84,12 +84,12 @@ const KEY_FEATURES = [
   {
     title: 'Adenosine 0.04%, Measured at 95.50%',
     description:
-      'The exact dose Korea licenses for wrinkle improvement, and the only anti-wrinkle active in the jar with a regulatory threshold behind it.',
+      'The exact dose Korea licenses for wrinkle improvement, and the only anti-wrinkle active in the tube with a regulatory threshold behind it.',
   },
   {
     title: 'No Peptides At All',
     description:
-      'Unlike the matching serum, which carries six at between 0.05 and 1.1 parts per million. Nothing in this jar is being sold to you at a millionth of a gram.',
+      'Unlike the matching serum, which carries six at between 0.05 and 1.1 parts per million. Nothing in this tube is being sold to you at a millionth of a gram.',
   },
 ]
 

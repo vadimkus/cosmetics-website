@@ -145,7 +145,7 @@ export const products: Product[] = [
     name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER',
     price: 290,
     description: '200ml. Fresh, non-greasy lip and eye makeup remover. Shake the yellow oil into the water, soak a cotton pad, hold a few seconds on the lips and the eye area, then wipe. Cetyl ethylhexanoate 27.8%, disiloxane 13%, isohexadecane 9%. The vitamins and peptides sit at cosmetic trace. Not a face wash. Dermatologically tested.',
-    image: '/images/remover/Main2.jpg',
+    image: '/images/remover/main4.jpeg',
     images: JSON.stringify([
       '/images/remover/S1b.jpg',
       '/images/remover/S2b.jpg',

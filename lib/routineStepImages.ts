@@ -14,7 +14,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '1': '/images/genosys-microneedling-devices.jpg',
   '3': '/images/Booster.jpg',
   '10': '/images/cleanser/main_clean.jpeg',
-  '11': '/images/remover/Main2.jpg',
+  '11': '/images/remover/main4.jpeg',
   '12': '/images/epi/main.jpeg',
   '14': '/images/mist/main2.jpeg',
   '15': '/images/problem/Main.jpg',

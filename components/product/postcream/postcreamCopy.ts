@@ -64,6 +64,17 @@ export interface PostcreamCopy {
   vatIncluded: string
   freeDelivery: string
 
+  /* Two tubes: the 20 g retail tube and the 100 g professional one. Both are real
+     SKUs with their own MoySklad codes (00038 and 54465), so a size has to travel
+     with every cart call — see PostcreamProductPage. */
+  chooseSize: string
+  sizes: {
+    homecareLabel: string
+    homecareNote: string
+    proLabel: string
+    proNote: string
+  }
+
   stats: Array<{ value: string; label: string }>
 
   working: {
@@ -168,6 +179,13 @@ const EN: PostcreamCopy = {
   outOfStock: 'Out of stock',
   vatIncluded: 'VAT included',
   freeDelivery: 'Free delivery over AED 1,000 · Dispatched from Dubai',
+  chooseSize: 'Choose your size',
+  sizes: {
+    homecareLabel: 'Homecare',
+    homecareNote: 'The 20 g tube, for one course of aftercare at home',
+    proLabel: 'Professional',
+    proNote: 'The 100 g tube, for clinic use across many clients',
+  },
 
   stats: [
     { value: '18.4%', label: 'Humectants — butylene glycol plus glycerin' },
@@ -401,6 +419,13 @@ const AR: PostcreamCopy = {
   outOfStock: 'غير متوفر',
   vatIncluded: 'شامل الضريبة',
   freeDelivery: 'توصيل مجاني للطلبات فوق 1,000 درهم · يُشحن من دبي',
+  chooseSize: 'اختاري الحجم',
+  sizes: {
+    homecareLabel: 'للاستخدام المنزلي',
+    homecareNote: 'أنبوب 20 غ، لدورة عناية لاحقة واحدة في المنزل',
+    proLabel: 'للاستخدام الاحترافي',
+    proNote: 'أنبوب 100 غ، لاستخدام العيادة مع عملاء كثيرين',
+  },
 
   stats: [
     { value: '18.4%', label: 'مرطّبات جاذبة — بيوتيلين غلايكول مع غليسرين' },
@@ -634,6 +659,13 @@ const RU: PostcreamCopy = {
   outOfStock: 'Нет в наличии',
   vatIncluded: 'НДС включён',
   freeDelivery: 'Бесплатная доставка от 1 000 AED · Отправка из Дубая',
+  chooseSize: 'Выберите объём',
+  sizes: {
+    homecareLabel: 'Домашний уход',
+    homecareNote: 'Туба 20 г, на один курс восстановления дома',
+    proLabel: 'Профессиональный',
+    proNote: 'Туба 100 г, для работы в клинике с многими клиентами',
+  },
 
   stats: [
     { value: '18,4%', label: 'Увлажнителей — бутиленгликоль плюс глицерин' },

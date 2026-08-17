@@ -1,19 +1,24 @@
 import { Cormorant_Garamond } from 'next/font/google'
 
 /**
- * Display serif used only on the CERABARRIER product page (product 66).
- * Self-hosted by next/font at build time — no extra network round trip and
- * no effect on any other route, since the variable is applied to that page's
- * root element only.
+ * The house display serif. Self-hosted by next/font at build time.
+ *
+ * It started as one product page's face (CERABARRIER, product 66) and is now
+ * the display face of the bespoke product pages, the brand pages and, since
+ * Aug 2026, the homepage. The variable is still applied per page root, so a
+ * route that does not opt in is unaffected.
  */
 export const ceraSerif = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   display: 'swap',
   variable: '--font-cera-serif',
-  // No <link rel="preload">: the /products/[id] route is shared by the whole
-  // catalog, and only product 66 renders this face. Without preload the font
-  // is fetched on demand, so other product pages pay nothing for it.
-  preload: false,
+  // Preloaded since the homepage adopted it. The face now sets the first
+  // heading a visitor reads on the site's most-visited route, and without a
+  // preload link that heading paints in the Georgia fallback and swaps a beat
+  // later. The original reason to skip it — that only product 66 rendered the
+  // face, while /products/[id] is shared by the whole catalog — no longer
+  // holds now that most of the catalog has a bespoke page.
+  preload: true,
   fallback: ['Iowan Old Style', 'Georgia', 'serif'],
 })

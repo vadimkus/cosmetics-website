@@ -7,6 +7,7 @@ import GeoFaqSchema, { GENOSYS_FAQ_AR } from '@/components/schema/GeoFaqSchema'
 import HomeItemListSchema from '@/components/schema/HomeItemListSchema'
 import MobileRedirect from '@/components/MobileRedirect'
 import { getHomeData, HOME_CATEGORY_SLUGS } from '@/lib/homeData'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import type { Metadata } from 'next'
 
 // Revalidate every 5 minutes — matches `/` so all three locale homepages
@@ -82,7 +83,7 @@ export default async function ArabicHome() {
 
   return (
     <MobileRedirect to="/ar/products">
-      <div className="bg-gradient-to-b from-white to-gray-50 flex-1 flex flex-col" dir="rtl">
+      <div className={`cera-page genosys-page genosys-home ${ceraSerif.variable} flex flex-1 flex-col`} dir="rtl">
         <BreadcrumbSchema
           items={[
             { name: 'الرئيسية', url: '/ar' }

@@ -1,361 +1,1064 @@
 /**
- * Copy for SKIN CARING BLEMISH BALM CUSHION (product 41), in the three
+ * Bespoke copy for SKIN CARING BLEMISH BALM CUSHION (product 41), in the three
  * languages the site ships.
  *
- * Every figure here is read from the Intertek dossier, not from the old site
- * copy or the DTS MG deck. See
- * docs/SESSION_CHANGES_2026-08-16_PRODUCT_41_BB_CUSHION_DOSSIER_AUDIT.md.
+ * Same self-contained per-locale pattern as revitaGlowCopy.ts, so the dedicated
+ * layout ships EN/AR/RU without adding ~150 keys to the shared bundles.
  *
- * The distinctive fact: Korea licenses this one product for three functions at
- * once — UV protection, whitening and wrinkle improvement. Nothing else in the
- * range carries all three.
+ * SOURCING RULE FOR THIS FILE — every figure traces to the dossier audit in
+ * docs/SESSION_CHANGES_2026-08-16_PRODUCT_41_BB_CUSHION_DOSSIER_AUDIT.md:
+ *   - Intertek formula sheets, all three shades: the five UV filters and their
+ *     percentages, Niacinamide 2.00%, Adenosine 0.04%, the nine peptides at
+ *     640 ppb down to 10 ppb, the three fixing polymers, and the iron oxide
+ *     loads that separate the shades (0.892 / 1.785 / 3.056).
+ *   - Intertek artwork: the Korean triple-functional panel, SPF50+ PA++++,
+ *     "dermatologically tested", NET WT 15 g × 2, PAO 12M, and the precautions.
+ *   - Intertek COA: pH 6.51 against a 6.5 ± 1.0 specification, microbial count
+ *     inside 500 CFU/g, three-year shelf life.
+ *   - Dubai Municipality Montaji: all three shades approved.
  *
- * Deliberately absent, and they must stay absent:
+ * TONE — read .cursor/rules/selling-tone.mdc before editing. The first draft of
+ * this file opened with "Korea licenses this one cushion for three things at
+ * once", which leads with the regulator instead of the buyer. The licence is
+ * the proof under the claim, never the claim itself.
+ *
+ * DELIBERATE OMISSIONS, AND THEY MUST STAY OUT:
  *   - "more than 60% moisture essence". The named ingredients sum to ~73.6%,
- *     which puts water at roughly a quarter.
+ *     which puts water at roughly a quarter. It is on slides s5 and s6, which
+ *     stay in the gallery per the gallery rule, and is logged for re-export.
  *   - Volufiline as a volumiser. The Anemarrhena extract is at 40 ppb.
- *   - the nine peptides as an engine. They run 640 ppb down to 10 ppb, so the
- *     count can be stated and no claim can hang off it.
- *   - a sixth UV filter. Butyloctyl Salicylate is a solvent on all three
- *     shade sheets.
+ *   - the nine peptides as an engine or an anti-ageing active. They run 640 ppb
+ *     down to 10 ppb, so the count can be stated and no claim can hang off it.
+ *   - glutathione as a tyrosinase blocker or an acne treatment. 100 ppm.
+ *   - a sixth UV filter. Butyloctyl Salicylate is a solvent on all three sheets.
+ *   - any percentage-improvement figure. There is no efficacy trial on file.
+ *   - the contract manufacturer's name, and any lot code.
  */
 
 export type Locale = 'en' | 'ar' | 'ru'
 
-export interface ShadeCopy {
-  /** #01, #02, #03 as printed. */
+export interface BbCushionShade {
+  /** Must match the `colors` values in data/productConfig.ts — the cart keys
+   *  its lines on this string. */
+  value: 'Ivory' | 'Beige' | 'Camel'
   code: string
   name: string
-  tone: string
-  undertone: string
-  /** Total iron oxide load, for the "only the pigment changes" section. */
-  pigment: string
-}
-
-export interface FeatureCopy {
-  title: string
+  /** Sampled from the draw-downs on /images/cushion_2/s1.jpeg. */
+  hex: string
+  tagline: string
   body: string
 }
 
 export interface BbCushionCopy {
   eyebrow: string
   headline: string
-  lead: string
+  subheadline: string
+  heroBullets: string[]
+  badges: string[]
 
-  /** The four figures under the hero. */
-  facts: { value: string; label: string }[]
+  shadeLabel: string
+  shadeHelp: string
+  shadeSelected: string
+  shadeRequired: string
+  shades: BbCushionShade[]
 
-  licenceEyebrow: string
-  licenceTitle: string
-  licenceLead: string
-  licences: FeatureCopy[]
+  addToBag: string
+  adding: string
+  added: string
+  inBag: string
+  viewBag: string
+  loginToShop: string
+  outOfStock: string
+  vatIncluded: string
+  freeDelivery: string
 
-  filtersEyebrow: string
-  filtersTitle: string
-  filtersLead: string
-  filters: { name: string; percent: string; kind: string }[]
-  filtersNote: string
+  stats: Array<{ value: string; label: string }>
 
-  shadesEyebrow: string
-  shadesTitle: string
-  shadesLead: string
-  shades: ShadeCopy[]
-  shadesNote: string
+  functions: {
+    eyebrow: string
+    title: string
+    intro: string
+    cards: Array<{ title: string; body: string }>
+  }
 
-  puffEyebrow: string
-  puffTitle: string
-  puffLead: string
-  puffPoints: FeatureCopy[]
+  wear: {
+    eyebrow: string
+    title: string
+    intro: string
+    steps: Array<{ step: string; title: string; body: string }>
+    note: string
+  }
 
-  howEyebrow: string
-  howTitle: string
-  howSteps: FeatureCopy[]
+  filters: {
+    eyebrow: string
+    title: string
+    intro: string
+    columns: { name: string; amount: string; role: string }
+    rows: Array<{ name: string; amount: string; role: string }>
+    note: string
+  }
 
-  inciTitle: string
-  inciNote: string
+  shadeSection: {
+    eyebrow: string
+    title: string
+    intro: string
+    sameFormula: string
+    figureAlt: string
+  }
 
-  cautionTitle: string
-  cautions: string[]
+  puff: {
+    eyebrow: string
+    title: string
+    intro: string
+    points: Array<{ title: string; body: string }>
+    figureAlt: string
+  }
+
+  howTo: {
+    eyebrow: string
+    title: string
+    frequency: string
+    steps: Array<{ title: string; body: string }>
+    note: string
+  }
+
+  video: {
+    title: string
+    body: string
+    unsupported: string
+  }
+
+  actives: {
+    eyebrow: string
+    title: string
+    intro: string
+    fullInci: string
+    fullInciNote: string
+  }
+
+  lab: {
+    eyebrow: string
+    title: string
+    intro: string
+    rows: Array<{ label: string; value: string }>
+    disclaimer: string
+  }
+
+  safety: {
+    eyebrow: string
+    title: string
+    points: string[]
+    note: string
+  }
+
+  routine: {
+    eyebrow: string
+    title: string
+    intro: string
+    thisProduct: string
+    viewProduct: string
+    chooseOptions: string
+    fromPrice: string
+  }
+
+  faq: {
+    eyebrow: string
+    title: string
+    items: Array<{ q: string; a: string }>
+  }
+
+  details: {
+    eyebrow: string
+    title: string
+    rows: Array<{ label: string; value: string }>
+    brochure: string
+  }
+
+  backToProducts: string
 }
 
 const EN: BbCushionCopy = {
-  eyebrow: 'Cushion · Three licences',
-  headline: 'Coverage, sun and skincare in one press.',
-  lead:
-    'Korea licenses this one cushion for three things at once: protection from UV, help with tone, and help with wrinkles. ' +
-    'Most base makeup is licensed for none of them.',
-
-  facts: [
-    { value: 'SPF50+', label: 'PA++++, on five filters' },
-    { value: '2%', label: 'Niacinamide, for tone' },
-    { value: '0.04%', label: 'Adenosine, for wrinkles' },
-    { value: '15 g × 2', label: 'Cushion and refill in the box' },
+  eyebrow: 'Skin Caring Blemish Balm Cushion · SPF50+ PA++++',
+  headline: 'One press covers you, shields you and treats you.',
+  subheadline:
+    'Press, pat, and you are done: even coverage that still reads as skin, the highest sun rating Korea awards, and two skincare actives working underneath it all day. Korea licenses this cushion for all three at once — sun, tone and wrinkles — which is a licence almost no base makeup holds.',
+  heroBullets: [
+    'SPF50+ PA++++, the top of both scales, from five filters',
+    'Niacinamide at a full 2% for tone, adenosine at 0.04% for fine lines',
+    'A second 15 g refill already in the box — twice the wear for one price',
+    'Light enough for post-treatment skin, buildable where you want more',
   ],
+  badges: ['Made in Korea', '15 g × 2 · 12M PAO', 'Dermatologically tested', 'Official UAE distributor'],
 
-  licenceEyebrow: 'What Korea granted',
-  licenceTitle: 'Three functions, one compact.',
-  licenceLead:
-    'The Korean panel registers it as a triple-function cosmetic and names the actives it granted each function on. ' +
-    'That is a regulatory status, not a marketing line.',
-  licences: [
-    {
-      title: 'Protection from UV',
-      body: 'SPF50+ PA++++, carried by five filters: titanium dioxide and zinc oxide on the mineral side, ethylhexyl methoxycinnamate, ethylhexyl salicylate and octocrylene on the chemical side.',
-    },
-    {
-      title: 'Help with tone',
-      body: 'Niacinamide at a full 2%, the standard Korean whitening dose and the same level as the Multi Vita serum and cream.',
-    },
-    {
-      title: 'Help with wrinkles',
-      body: 'Adenosine at 0.04%, the dose Korea licenses wrinkle-improvement claims on across the range.',
-    },
-  ],
-
-  filtersEyebrow: 'The sun protection',
-  filtersTitle: 'Five filters, hybrid by design.',
-  filtersLead:
-    'Two mineral filters sit on the skin and scatter light; three chemical filters absorb it. Running both is why a base this light reaches the top of the scale.',
-  filters: [
-    { name: 'Titanium Dioxide', percent: '9.00%', kind: 'Mineral' },
-    { name: 'Ethylhexyl Methoxycinnamate', percent: '7.00%', kind: 'Chemical' },
-    { name: 'Ethylhexyl Salicylate', percent: '4.50%', kind: 'Chemical' },
-    { name: 'Octocrylene', percent: '2.00%', kind: 'Chemical' },
-    { name: 'Zinc Oxide', percent: '2.00%', kind: 'Mineral' },
-  ],
-  filtersNote:
-    'Butyloctyl salicylate sits at 6% and looks like a sixth filter. It is not one: the formula sheets function it as a solvent that keeps the other five dissolved.',
-
-  shadesEyebrow: 'Three shades',
-  shadesTitle: 'Only the colour changes.',
-  shadesLead:
-    'The sun protection and the skincare are identical in all three. The formulas differ by their iron oxides and nothing else, so no shade protects or treats better than another.',
+  shadeLabel: 'Choose your shade',
+  shadeHelp: 'Same formula in all three. Only the colour changes.',
+  shadeSelected: 'Selected',
+  shadeRequired: 'Pick a shade before adding to the bag.',
   shades: [
-    { code: '#01', name: 'Ivory', tone: 'Fair skin', undertone: 'Cool undertones', pigment: '0.89% pigment' },
-    { code: '#02', name: 'Beige', tone: 'Light to medium', undertone: 'Neutral undertones', pigment: '1.78% pigment' },
-    { code: '#03', name: 'Camel', tone: 'Tan to warm', undertone: 'Warm undertones', pigment: '3.06% pigment' },
-  ],
-  shadesNote: 'Beige carries exactly twice Ivory’s pigment, and Camel about three and a half times.',
-
-  puffEyebrow: 'The puff',
-  puffTitle: 'Four layers, not three.',
-  puffLead: 'The applicator is engineered, which is unusual enough to be worth saying.',
-  puffPoints: [
     {
-      title: 'Waterdrop tip',
-      body: 'Pointed rather than round, so it reaches the curve beside the nose and the inner corner of the eye without folding.',
+      value: 'Ivory',
+      code: '#01',
+      name: 'Ivory',
+      hex: '#f1dcc4',
+      tagline: 'The lightest',
+      body: 'For fair skin that burns easily and rarely tans, with cool pink or bluish undertones. The lightest pigment load of the three, so it brightens rather than warms.',
     },
     {
-      title: 'A fourth waterproof layer',
-      body: 'An ordinary cushion puff has three layers and soaks up product. This one adds a waterproof film, so the formula stays in the cushion instead of in the sponge.',
+      value: 'Beige',
+      code: '#02',
+      name: 'Beige',
+      hex: '#e7bd95',
+      tagline: 'The one most people wear',
+      body: 'For light to medium skin with neutral undertones. Exactly twice the pigment of Ivory, which makes it the safe middle if you are between two shades. Our best seller.',
+    },
+    {
+      value: 'Camel',
+      code: '#03',
+      name: 'Camel',
+      hex: '#cf9d6d',
+      tagline: 'The deepest',
+      body: 'For medium to tan skin that holds colour, with warm golden or olive undertones. Around three and a half times the pigment of Ivory, so it covers without going ashy.',
     },
   ],
 
-  howEyebrow: 'How to use',
-  howTitle: 'Press, then pat.',
-  howSteps: [
-    { title: 'Press', body: 'Press the puff lightly onto the cushion. Lightly: it holds more than it looks.' },
-    { title: 'Pat', body: 'Pat evenly onto skin rather than sweeping, which is what keeps the coverage even.' },
-    { title: 'Build', body: 'Go back over anywhere you want more. Coverage is buildable, so a second pass costs nothing.' },
-    { title: 'Refill', body: 'When it runs out, push the used refill up from underneath and click the new one in. The box already contains one.' },
+  addToBag: 'Add to bag',
+  adding: 'Adding…',
+  added: 'Added to bag',
+  inBag: 'In bag',
+  viewBag: 'View bag',
+  loginToShop: 'Log in to shop',
+  outOfStock: 'Out of stock',
+  vatIncluded: 'VAT included',
+  freeDelivery: 'Free delivery over AED 1,000 · Dispatched from Dubai',
+
+  stats: [
+    { value: 'SPF50+', label: 'PA++++ — the highest rating on either scale' },
+    { value: '5', label: 'UV filters, two mineral and three chemical' },
+    { value: '2%', label: 'Niacinamide, the same dose as our Multi Vita serum' },
+    { value: '30 g', label: 'Cushion and refill, both in the box' },
   ],
 
-  inciTitle: 'Full ingredient list (INCI)',
-  inciNote: 'Every ingredient, in the same order as the box in your hand.',
+  functions: {
+    eyebrow: 'Three jobs, one compact',
+    title: 'It does not just sit there looking pretty',
+    intro:
+      'Korea will not let a cosmetic claim sun protection, tone or wrinkles unless a named active sits behind each one at a set dose. This cushion is licensed for all three, and the actives are printed on the carton.',
+    cards: [
+      {
+        title: 'It holds off the sun',
+        body: 'SPF50+ PA++++, carried by five filters. Titanium dioxide and zinc oxide scatter the light, three chemical filters absorb it, and running both is how a base this light gets to the top of the scale.',
+      },
+      {
+        title: 'It works on your tone',
+        body: 'Niacinamide at a full 2% — the same dose as our Multi Vita serum and cream, not a token sprinkle. It evens tone and supports the barrier for as long as you are wearing it.',
+      },
+      {
+        title: 'It softens fine lines',
+        body: 'Adenosine at 0.04%, the dose Korea licenses wrinkle claims on. So there is real treatment happening under the coverage, not just colour.',
+      },
+      {
+        title: 'It evens you out instantly',
+        body: 'Three iron oxides do the optical work the moment you pat it on. Coverage is buildable and deliberately natural, so it reads as good skin rather than makeup.',
+      },
+    ],
+  },
 
-  cautionTitle: 'Before you use it',
-  cautions: [
-    'For external use only. Avoid the eyes and mucous membranes, and rinse with cool water on contact.',
-    'Stop and ask a doctor if redness, swelling or irritation appears.',
-    'See a specialist if red spots, swelling or itching appear on the applied area after sun exposure.',
-    'Avoid broken skin.',
-  ],
+  wear: {
+    eyebrow: 'Why it lasts',
+    title: 'Built to survive a Dubai day',
+    intro:
+      'A cushion that slides off by lunchtime is not protecting anything. This one is built in three layers, and only the middle one is about colour.',
+    steps: [
+      {
+        step: '01',
+        title: 'An essence base that stays comfortable',
+        body: 'The formula goes on wet and light rather than thick, which is what keeps it from clinging to dry patches or settling into texture. It is why it works straight after a treatment.',
+      },
+      {
+        step: '02',
+        title: 'Pigment and filters together',
+        body: 'The colour and the sun protection travel in the same layer, so you are not choosing between wearing SPF and wearing a base. One press does both.',
+      },
+      {
+        step: '03',
+        title: 'Three polymers that lock it down',
+        body: 'A trio of fixing polymers sets a flexible film over the top. That film is what stops the finish moving in heat and humidity, and what keeps you from touching up every two hours.',
+      },
+    ],
+    note:
+      'Heat, air conditioning and a car window are the three things that break a base in the Gulf. The film layer is the answer to all of them — it sets instead of staying wet, so what you patted on in the morning is still where you left it.',
+  },
+
+  filters: {
+    eyebrow: 'The sun protection',
+    title: 'Five filters, mineral and chemical together',
+    intro:
+      'All-mineral bases leave a white cast and all-chemical ones can sting. Running both means you get the top rating without either problem — comfortable enough to wear every day, which is the only sunscreen that actually protects anyone.',
+    columns: { name: 'Filter', amount: 'Concentration', role: 'Type' },
+    rows: [
+      { name: 'Titanium Dioxide', amount: '9.00%', role: 'Mineral — scatters light' },
+      { name: 'Ethylhexyl Methoxycinnamate', amount: '7.00%', role: 'Chemical — absorbs UVB' },
+      { name: 'Ethylhexyl Salicylate', amount: '4.50%', role: 'Chemical — absorbs UVB' },
+      { name: 'Octocrylene', amount: '2.00%', role: 'Chemical — absorbs UVB and short UVA' },
+      { name: 'Zinc Oxide', amount: '2.00%', role: 'Mineral — broad spectrum' },
+    ],
+    note:
+      'Butyloctyl salicylate sits at 6% and looks like a sixth filter. It is not one — it is the solvent that keeps the other five dissolved and comfortable on skin. Five is the honest number, and five is enough for SPF50+ PA++++.',
+  },
+
+  shadeSection: {
+    eyebrow: 'Three shades',
+    title: 'Pick the colour, the rest is identical',
+    intro:
+      'Match your depth first, then your undertone. If you are between two, take the deeper one — it warms up on skin, where the lighter one can sit flat.',
+    sameFormula:
+      'Same sun protection, same niacinamide, same adenosine, same peptides. The only thing that changes between #01, #02 and #03 is the iron oxide, so no shade protects or treats you better than another.',
+    figureAlt: 'GENOSYS Skin Caring Blemish Balm Cushion — shade guide for #01 Ivory, #02 Beige and #03 Camel',
+  },
+
+  puff: {
+    eyebrow: 'The puff',
+    title: 'Four layers, where everyone else uses three',
+    intro:
+      'The applicator is the part nobody thinks about until it starts drinking your product. This one was engineered so it does not.',
+    points: [
+      {
+        title: 'A waterdrop tip, not a circle',
+        body: 'Pointed at one end, so it gets into the curve beside your nose and the inner corner of your eye without folding over. That is where most cushions leave a gap.',
+      },
+      {
+        title: 'A fourth, waterproof layer',
+        body: 'An ordinary cushion puff is three layers and soaks up whatever it touches. The waterproof film underneath keeps the formula in the cushion and on your face, so the compact lasts as long as it should.',
+      },
+      {
+        title: 'And a refill already in the box',
+        body: 'When the first 15 g runs out, push the used insert up from underneath and click the new one in. No second purchase, no waiting.',
+      },
+    ],
+    figureAlt: 'The quadruple-layered waterdrop puff, shown in cross-section',
+  },
+
+  howTo: {
+    eyebrow: 'How to use',
+    title: 'Press, pat, build',
+    frequency: 'Every morning · the last step before you leave',
+    steps: [
+      {
+        title: 'Press lightly',
+        body: 'Press the puff onto the cushion — lightly. It picks up far more than it looks like it does, and taking too much is the only way to make this product look heavy.',
+      },
+      {
+        title: 'Pat, do not sweep',
+        body: 'Tap it onto the skin rather than dragging it across. Patting is what settles the layer evenly and keeps it from streaking on dry areas.',
+      },
+      {
+        title: 'Build only where you need it',
+        body: 'Go back over redness, marks or shadows with a second thin pass. Thin layers stacked stay looking like skin; one thick layer never does.',
+      },
+      {
+        title: 'Refill and carry on',
+        body: 'Push the empty insert out from underneath, click the spare in, and you are back to a full compact. Keep the puff or use the fresh one.',
+      },
+    ],
+    note:
+      'SPF ratings are measured at a thicker layer than anyone wears a base, so for a normal day — the commute, the office, the school run — this does the job. For hours in direct sun, put a dedicated sunscreen underneath and top up. That is true of every tinted base, not just this one.',
+  },
+
+  video: {
+    title: 'See the finish',
+    body: 'How it picks up on the puff, how it sits once patted in, and how far one press actually goes.',
+    unsupported: 'Your browser does not support the video tag.',
+  },
+
+  actives: {
+    eyebrow: 'The formula',
+    title: 'What is actually in it',
+    intro:
+      'Two registered actives doing the work, nine peptides named on the carton, and the full list below with nothing left out.',
+    fullInci: 'Full ingredient list (INCI)',
+    fullInciNote:
+      'Every ingredient, in the same order as the box in your hand. Identical for all three shades apart from the pigments.',
+  },
+
+  lab: {
+    eyebrow: 'Quality',
+    title: 'Made and tested in Korea, cleared for the UAE',
+    intro:
+      'Nothing leaves the factory untested, and nothing reaches you here without being registered for sale in the UAE first.',
+    rows: [
+      { label: 'Skin testing', value: 'Dermatologically tested' },
+      { label: 'pH', value: '6.5 — the same range as healthy skin, so nothing to sting or tighten' },
+      { label: 'Purity', value: 'Every batch tested for microbial count and cleared well inside the limit' },
+      { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the box · 12 months after opening' },
+      { label: 'Cleared for the UAE', value: 'All three shades registered with Dubai Municipality, alongside the Korean certificate of free sale' },
+    ],
+    disclaimer:
+      'Daily sun protection is what keeps pigmentation from coming back. Stubborn melasma and post-inflammatory marks respond best when a dermatologist works alongside your routine.',
+  },
+
+  safety: {
+    eyebrow: 'Before you use it',
+    title: 'Precautions',
+    points: [
+      'For external use only. Avoid the eyes and mucous membranes, and rinse with cool water if it gets in.',
+      'Stop and see a doctor if redness, swelling or irritation appears.',
+      'See a specialist if red spots, swelling or itching appear on the applied area after sun exposure.',
+      'Avoid broken or damaged skin.',
+      'Store between 10 and 30 °C, out of direct sunlight, and keep out of reach of children.',
+    ],
+    note: 'Precautions as printed on the GENOSYS carton, including the two the Korean panel carries. Use within 12 months of opening.',
+  },
+
+  routine: {
+    eyebrow: 'Complete the routine',
+    title: 'What goes on before it',
+    intro:
+      'The cushion is the last step of the morning. Clean skin, a mist and a moisturiser underneath are what make it sit well and stay put.',
+    thisProduct: 'This product',
+    viewProduct: 'View product',
+    chooseOptions: 'Choose options',
+    fromPrice: 'From',
+  },
+
+  faq: {
+    eyebrow: 'Questions',
+    title: 'Before you buy',
+    items: [
+      {
+        q: 'Which shade should I choose?',
+        a: 'Match depth first: #01 Ivory for fair skin that burns easily, #02 Beige for light to medium, #03 Camel for medium to tan. Then undertone — cool for Ivory, neutral for Beige, warm for Camel. Between two? Take the deeper one, and test it along your jawline in daylight rather than on your hand.',
+      },
+      {
+        q: 'Is SPF50+ enough on its own?',
+        a: 'For a normal day, yes. Sun protection factors are measured at a heavier layer than anyone applies a base, so if you are going to be out in direct sun for hours, wear a dedicated sunscreen underneath and top it up. On a commute-and-office day the cushion is doing the job on its own.',
+      },
+      {
+        q: 'Can I wear it after a treatment?',
+        a: 'That is what it was built for. The texture is light, the formula is dermatologically tested, and the actives are the gentle registered pair rather than acids or retinol. Follow whatever waiting period your clinic gave you after needling, laser or peels — that instruction comes from them, not from us.',
+      },
+      {
+        q: 'How long does one compact last?',
+        a: 'You get 30 g in total: a 15 g cushion plus a 15 g refill in the same box. For most people wearing it daily that is several months, and there is no second purchase in between.',
+      },
+      {
+        q: 'How do I change the refill?',
+        a: 'Lift out the empty insert by pushing up from the hole underneath the case, drop the spare in and press until it clicks. It takes about ten seconds and the puff can be reused or swapped for the fresh one.',
+      },
+      {
+        q: 'Will it feel heavy or clog my skin?',
+        a: 'It is a cushion, not a full-coverage foundation: an essence-light texture with buildable pigment. Take less than you think on the first press, pat rather than drag, and add a second layer only where you want more.',
+      },
+    ],
+  },
+
+  details: {
+    eyebrow: 'The details',
+    title: 'Specification',
+    rows: [
+      { label: 'Size', value: '15 g cushion plus a 15 g refill — 30 g in total' },
+      { label: 'Sun protection', value: 'SPF50+ PA++++, from five filters' },
+      { label: 'Registered actives', value: 'Niacinamide 2% · Adenosine 0.04%' },
+      { label: 'Shades', value: '#01 Ivory · #02 Beige · #03 Camel' },
+      { label: 'Finish', value: 'Natural and luminous, buildable' },
+      { label: 'Skin', value: 'All types, including sensitive and post-treatment' },
+      { label: 'Origin', value: 'Made in Korea' },
+      { label: 'After opening', value: '12 months' },
+      { label: 'Storage', value: '10–30 °C, away from direct sunlight' },
+    ],
+    brochure: 'Download the product guide (PDF)',
+  },
+
+  backToProducts: 'Products',
 }
 
 const AR: BbCushionCopy = {
-  eyebrow: 'كوشن · ثلاث رخص',
-  headline: 'تغطية وحماية وعناية بضغطة واحدة.',
-  lead:
-    'ترخّص كوريا هذا الكوشن لثلاث وظائف معاً: الحماية من الأشعة، والمساعدة على توحيد اللون، والمساعدة على تحسين التجاعيد. ' +
-    'ومعظم مستحضرات الأساس لا تُرخَّص لأيٍّ منها.',
-
-  facts: [
-    { value: 'SPF50+', label: 'PA++++ بخمسة فلاتر' },
-    { value: '2%', label: 'نياسيناميد للون البشرة' },
-    { value: '0.04%', label: 'أدينوزين للتجاعيد' },
-    { value: '15 غ × 2', label: 'كوشن وعبوة احتياطية' },
+  eyebrow: 'كوشن سكين كيرينغ بليمش بالم · SPF50+ PA++++',
+  headline: 'ضغطة واحدة تغطّي وتحمي وتعتني.',
+  subheadline:
+    'اضغطي، ربّتي، وانتهى الأمر: تغطية متجانسة تبدو كبشرتك، وأعلى تصنيف حماية تمنحه كوريا، وفعّالان للعناية يعملان تحتها طوال اليوم. وترخّص كوريا هذا الكوشن للثلاثة معاً — الشمس واللون والتجاعيد — وهو ترخيص لا تكاد تحمله مستحضرات الأساس.',
+  heroBullets: [
+    'SPF50+ PA++++، أعلى درجة في المقياسين، بخمسة فلاتر',
+    'نياسيناميد بنسبة 2% كاملة للون، وأدينوزين 0.04% للخطوط الدقيقة',
+    'عبوة احتياطية 15 غ داخل العلبة — ضعف الاستعمال بسعر واحد',
+    'خفيف بما يكفي للبشرة بعد الجلسات، وقابل للتكثيف حيث تريدين',
   ],
+  badges: ['صُنع في كوريا', '15 غ × 2 · 12 شهراً بعد الفتح', 'مُختبر جلدياً', 'الموزّع الرسمي في الإمارات'],
 
-  licenceEyebrow: 'ما منحته كوريا',
-  licenceTitle: 'ثلاث وظائف في علبة واحدة.',
-  licenceLead:
-    'اللوحة الكورية تسجّله كمستحضر وظيفي ثلاثي، وتسمّي الفعّالات التي مُنحت كل وظيفة عليها. وهذه صفة تنظيمية لا عبارة تسويقية.',
-  licences: [
-    {
-      title: 'الحماية من الأشعة',
-      body: 'SPF50+ PA++++ بخمسة فلاتر: ثاني أكسيد التيتانيوم وأكسيد الزنك معدنياً، وإيثيل هكسيل ميثوكسي سيناميت وإيثيل هكسيل ساليسيلات وأوكتوكريلين كيميائياً.',
-    },
-    {
-      title: 'المساعدة على توحيد اللون',
-      body: 'نياسيناميد بنسبة 2% كاملة، وهي الجرعة الكورية المعيارية للتفتيح ونفس مستوى سيروم وكريم مالتي فيتا.',
-    },
-    {
-      title: 'المساعدة على التجاعيد',
-      body: 'أدينوزين بنسبة 0.04%، وهي الجرعة التي ترخّص عليها كوريا ادعاءات تحسين التجاعيد في كل المجموعة.',
-    },
-  ],
-
-  filtersEyebrow: 'الحماية من الشمس',
-  filtersTitle: 'خمسة فلاتر، هجينة بالتصميم.',
-  filtersLead:
-    'فلتران معدنيان يجلسان على البشرة ويشتّتان الضوء، وثلاثة فلاتر كيميائية تمتصّه. والجمع بينهما هو سبب وصول قاعدة بهذه الخفّة إلى أعلى المقياس.',
-  filters: [
-    { name: 'Titanium Dioxide', percent: '9.00%', kind: 'معدني' },
-    { name: 'Ethylhexyl Methoxycinnamate', percent: '7.00%', kind: 'كيميائي' },
-    { name: 'Ethylhexyl Salicylate', percent: '4.50%', kind: 'كيميائي' },
-    { name: 'Octocrylene', percent: '2.00%', kind: 'كيميائي' },
-    { name: 'Zinc Oxide', percent: '2.00%', kind: 'معدني' },
-  ],
-  filtersNote:
-    'بيوتيل أوكتيل ساليسيلات بنسبة 6% يبدو كفلتر سادس، لكنه ليس كذلك: أوراق التركيبة تصنّفه مذيباً يبقي الفلاتر الخمسة ذائبة.',
-
-  shadesEyebrow: 'ثلاث درجات',
-  shadesTitle: 'اللون وحده هو ما يتغيّر.',
-  shadesLead:
-    'الحماية من الشمس والعناية متطابقتان في الدرجات الثلاث. الفرق بين التركيبات هو أكاسيد الحديد فقط، فلا درجة تحمي أو تعالج أفضل من أخرى.',
+  shadeLabel: 'اختاري درجتك',
+  shadeHelp: 'التركيبة نفسها في الدرجات الثلاث. اللون وحده هو ما يتغيّر.',
+  shadeSelected: 'مختارة',
+  shadeRequired: 'اختاري درجة قبل الإضافة إلى الحقيبة.',
   shades: [
-    { code: '٠١', name: 'Ivory', tone: 'بشرة فاتحة', undertone: 'درجات باردة', pigment: 'صبغة 0.89%' },
-    { code: '٠٢', name: 'Beige', tone: 'فاتحة إلى متوسطة', undertone: 'درجات محايدة', pigment: 'صبغة 1.78%' },
-    { code: '٠٣', name: 'Camel', tone: 'قمحية إلى دافئة', undertone: 'درجات دافئة', pigment: 'صبغة 3.06%' },
-  ],
-  shadesNote: 'بيج يحمل ضعف صبغة آيفوري تماماً، وكاميل نحو ثلاثة أضعاف ونصف.',
-
-  puffEyebrow: 'الإسفنجة',
-  puffTitle: 'أربع طبقات لا ثلاث.',
-  puffLead: 'الإسفنجة نفسها مصمّمة هندسياً، وهذا نادر بما يكفي ليُقال.',
-  puffPoints: [
     {
-      title: 'طرف على شكل قطرة',
-      body: 'مدبّب لا دائري، فيصل إلى الانحناء بجانب الأنف وإلى الزاوية الداخلية للعين من دون أن ينثني.',
+      value: 'Ivory',
+      code: '#01',
+      name: 'Ivory',
+      hex: '#f1dcc4',
+      tagline: 'الأفتح',
+      body: 'للبشرة الفاتحة التي تحترق بسرعة ونادراً ما تسمرّ، بدرجات باردة وردية أو مزرقّة. أقل نسبة صبغة بين الثلاث، فتُضيء أكثر مما تُدفئ.',
     },
     {
-      title: 'طبقة رابعة مقاومة للماء',
-      body: 'إسفنجة الكوشن العادية ثلاث طبقات وتمتصّ المنتج. هذه تضيف طبقة مقاومة للماء، فتبقى التركيبة في الكوشن لا في الإسفنجة.',
+      value: 'Beige',
+      code: '#02',
+      name: 'Beige',
+      hex: '#e7bd95',
+      tagline: 'الأكثر اختياراً',
+      body: 'للبشرة الفاتحة إلى المتوسطة بدرجات محايدة. ضعف صبغة آيفوري تماماً، وهي الخيار الآمن إن كنتِ بين درجتين. الأكثر مبيعاً لدينا.',
+    },
+    {
+      value: 'Camel',
+      code: '#03',
+      name: 'Camel',
+      hex: '#cf9d6d',
+      tagline: 'الأعمق',
+      body: 'للبشرة المتوسطة إلى القمحية التي تحتفظ باللون، بدرجات دافئة ذهبية أو زيتونية. نحو ثلاثة أضعاف ونصف صبغة آيفوري، فتغطّي من دون أن تبهت.',
     },
   ],
 
-  howEyebrow: 'طريقة الاستخدام',
-  howTitle: 'اضغطي ثم ربّتي.',
-  howSteps: [
-    { title: 'اضغطي', body: 'اضغطي الإسفنجة برفق على الكوشن. برفق: فهي تحمل أكثر مما تبدو.' },
-    { title: 'ربّتي', body: 'ربّتي بالتساوي على البشرة بدل السحب، وهذا ما يبقي التغطية متجانسة.' },
-    { title: 'كثّفي', body: 'أعيدي المرور على ما تريدين تغطيته أكثر. التغطية قابلة للبناء، والمرور الثاني لا يكلّف شيئاً.' },
-    { title: 'استبدلي', body: 'عند النفاد ادفعي العبوة المستعملة من الأسفل وثبّتي الجديدة حتى تسمعي صوت التثبيت. العلبة تحوي واحدة أصلاً.' },
+  addToBag: 'أضيفي إلى الحقيبة',
+  adding: 'جارٍ الإضافة…',
+  added: 'أُضيف إلى الحقيبة',
+  inBag: 'في الحقيبة',
+  viewBag: 'عرض الحقيبة',
+  loginToShop: 'سجّلي الدخول للشراء',
+  outOfStock: 'غير متوفر',
+  vatIncluded: 'شامل الضريبة',
+  freeDelivery: 'توصيل مجاني للطلبات فوق 1,000 درهم · يُشحن من دبي',
+
+  stats: [
+    { value: 'SPF50+', label: 'PA++++ — أعلى تصنيف في المقياسين' },
+    { value: '5', label: 'فلاتر شمسية، اثنان معدنيان وثلاثة كيميائية' },
+    { value: '2%', label: 'نياسيناميد، الجرعة نفسها في سيروم مالتي فيتا' },
+    { value: '30 غ', label: 'كوشن وعبوة احتياطية، كلاهما في العلبة' },
   ],
 
-  inciTitle: 'قائمة المكوّنات الكاملة (INCI)',
-  inciNote: 'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك.',
+  functions: {
+    eyebrow: 'ثلاث وظائف في علبة واحدة',
+    title: 'لا يكتفي بأن يبدو جميلاً',
+    intro:
+      'لا تسمح كوريا لمستحضر بادّعاء الحماية من الشمس أو توحيد اللون أو تحسين التجاعيد ما لم يقف خلف كل واحدة منها فعّال مُسمّى بجرعة محدّدة. وهذا الكوشن مرخّص للثلاث، والفعّالات مطبوعة على العلبة.',
+    cards: [
+      {
+        title: 'يصدّ الشمس',
+        body: 'SPF50+ PA++++ بخمسة فلاتر. ثاني أكسيد التيتانيوم وأكسيد الزنك يشتّتان الضوء، وثلاثة فلاتر كيميائية تمتصّه، والجمع بينهما هو ما يوصل قاعدة بهذه الخفّة إلى قمة المقياس.',
+      },
+      {
+        title: 'يعمل على لون بشرتك',
+        body: 'نياسيناميد بنسبة 2% كاملة — الجرعة نفسها في سيروم وكريم مالتي فيتا، لا رشّة رمزية. يوحّد اللون ويدعم حاجز البشرة طوال ارتدائك له.',
+      },
+      {
+        title: 'يليّن الخطوط الدقيقة',
+        body: 'أدينوزين بنسبة 0.04%، وهي الجرعة التي ترخّص عليها كوريا ادعاءات التجاعيد. أي أن هناك عناية حقيقية تحت التغطية، لا مجرّد لون.',
+      },
+      {
+        title: 'يوحّد مظهرك فوراً',
+        body: 'ثلاثة أكاسيد حديد تؤدي العمل البصري لحظة التربيت. التغطية قابلة للبناء وطبيعية عن قصد، فتبدو كبشرة جيدة لا كمكياج.',
+      },
+    ],
+  },
 
-  cautionTitle: 'قبل الاستخدام',
-  cautions: [
-    'للاستعمال الخارجي فقط. تجنّبي العينين والأغشية المخاطية، واشطفي بالماء البارد عند الملامسة.',
-    'أوقفي الاستخدام واستشيري طبيباً عند ظهور احمرار أو تورّم أو تهيّج.',
-    'استشيري مختصاً إذا ظهرت بقع حمراء أو تورّم أو حكة على موضع الاستخدام بعد التعرّض للشمس.',
-    'تجنّبي المناطق المجروحة.',
-  ],
+  wear: {
+    eyebrow: 'لماذا يدوم',
+    title: 'مصمّم ليصمد في يوم دبي',
+    intro:
+      'الكوشن الذي يزول عند الظهيرة لا يحمي شيئاً. هذا مبني من ثلاث طبقات، والوسطى وحدها هي المعنيّة باللون.',
+    steps: [
+      {
+        step: '٠١',
+        title: 'قاعدة إسنس تبقى مريحة',
+        body: 'التركيبة تنزل رطبة وخفيفة لا ثقيلة، وهذا ما يمنعها من التعلّق بالمناطق الجافة أو الاستقرار في المسام. ولهذا تصلح مباشرة بعد الجلسات.',
+      },
+      {
+        step: '٠٢',
+        title: 'الصبغة والفلاتر معاً',
+        body: 'اللون والحماية من الشمس ينتقلان في الطبقة نفسها، فلا تختارين بين ارتداء واقٍ وارتداء أساس. ضغطة واحدة تفعل الاثنين.',
+      },
+      {
+        step: '٠٣',
+        title: 'ثلاثة بوليمرات تثبّت كل شيء',
+        body: 'ثلاثي من بوليمرات التثبيت يشكّل طبقة مرنة فوق السطح. هذه الطبقة هي ما يمنع النتيجة من التحرّك في الحرّ والرطوبة، وما يعفيك من التصحيح كل ساعتين.',
+      },
+    ],
+    note:
+      'الحرارة والتكييف ونافذة السيارة هي الثلاثة التي تفسد أي أساس في الخليج. طبقة التثبيت هي الجواب عليها جميعاً — تتماسك بدل أن تبقى رطبة، فيبقى ما ربّتِه صباحاً في مكانه.',
+  },
+
+  filters: {
+    eyebrow: 'الحماية من الشمس',
+    title: 'خمسة فلاتر، معدنية وكيميائية معاً',
+    intro:
+      'القواعد المعدنية بالكامل تترك أثراً أبيض، والكيميائية بالكامل قد تلسع. والجمع بينهما يمنحك أعلى تصنيف من دون أيٍّ من المشكلتين — مريح بما يكفي لارتدائه يومياً، وهذا وحده الواقي الذي يحمي فعلاً.',
+    columns: { name: 'الفلتر', amount: 'التركيز', role: 'النوع' },
+    rows: [
+      { name: 'Titanium Dioxide', amount: '9.00%', role: 'معدني — يشتّت الضوء' },
+      { name: 'Ethylhexyl Methoxycinnamate', amount: '7.00%', role: 'كيميائي — يمتصّ UVB' },
+      { name: 'Ethylhexyl Salicylate', amount: '4.50%', role: 'كيميائي — يمتصّ UVB' },
+      { name: 'Octocrylene', amount: '2.00%', role: 'كيميائي — يمتصّ UVB وقصير UVA' },
+      { name: 'Zinc Oxide', amount: '2.00%', role: 'معدني — طيف واسع' },
+    ],
+    note:
+      'بيوتيل أوكتيل ساليسيلات بنسبة 6% يبدو كفلتر سادس، لكنه ليس كذلك — إنه المذيب الذي يبقي الفلاتر الخمسة ذائبة ومريحة على البشرة. خمسة هو الرقم الصادق، وخمسة تكفي لـ SPF50+ PA++++.',
+  },
+
+  shadeSection: {
+    eyebrow: 'ثلاث درجات',
+    title: 'اختاري اللون، وما عداه متطابق',
+    intro:
+      'طابقي العمق أولاً ثم الدرجة الأساسية. وإن كنتِ بين اثنتين فخذي الأعمق — تدفأ على البشرة، بينما قد تبدو الأفتح باهتة.',
+    sameFormula:
+      'الحماية نفسها، والنياسيناميد نفسه، والأدينوزين نفسه، والببتيدات نفسها. الشيء الوحيد الذي يتغيّر بين #01 و#02 و#03 هو أكسيد الحديد، فلا درجة تحميك أو تعتني ببشرتك أفضل من أخرى.',
+    figureAlt: 'كوشن جينوسيس سكين كيرينغ بليمش بالم — دليل الدرجات #01 Ivory و#02 Beige و#03 Camel',
+  },
+
+  puff: {
+    eyebrow: 'الإسفنجة',
+    title: 'أربع طبقات، حيث يكتفي الجميع بثلاث',
+    intro:
+      'الإسفنجة هي الجزء الذي لا يفكّر فيه أحد حتى تبدأ بابتلاع المنتج. وهذه صُمّمت لئلّا تفعل.',
+    points: [
+      {
+        title: 'طرف على شكل قطرة لا دائرة',
+        body: 'مدبّب من طرف، فيصل إلى الانحناء بجانب الأنف وإلى الزاوية الداخلية للعين من دون أن ينثني. وهناك تحديداً تترك معظم الكوشنات فراغاً.',
+      },
+      {
+        title: 'طبقة رابعة مقاومة للماء',
+        body: 'إسفنجة الكوشن العادية ثلاث طبقات تمتصّ كل ما تلمسه. الطبقة المقاومة للماء تحتها تُبقي التركيبة في الكوشن وعلى وجهك، فتدوم العلبة كما ينبغي.',
+      },
+      {
+        title: 'وعبوة احتياطية جاهزة في العلبة',
+        body: 'حين تنفد الـ 15 غ الأولى، ادفعي العبوة المستعملة من الأسفل وثبّتي الجديدة حتى تسمعي الصوت. لا شراء ثانٍ ولا انتظار.',
+      },
+    ],
+    figureAlt: 'الإسفنجة الرباعية الطبقات على شكل قطرة، بمقطع عرضي',
+  },
+
+  howTo: {
+    eyebrow: 'طريقة الاستخدام',
+    title: 'اضغطي، ربّتي، كثّفي',
+    frequency: 'كل صباح · آخر خطوة قبل الخروج',
+    steps: [
+      {
+        title: 'اضغطي برفق',
+        body: 'اضغطي الإسفنجة على الكوشن — برفق. فهي تلتقط أكثر بكثير مما تبدو، وأخذ الكثير هو الطريقة الوحيدة لجعل هذا المنتج يبدو ثقيلاً.',
+      },
+      {
+        title: 'ربّتي ولا تسحبي',
+        body: 'انقري على البشرة بدل السحب عليها. التربيت هو ما يوزّع الطبقة بالتساوي ويمنع التخطيط على المناطق الجافة.',
+      },
+      {
+        title: 'كثّفي حيث تحتاجين فقط',
+        body: 'أعيدي المرور على الاحمرار أو الآثار أو الظلال بطبقة رقيقة ثانية. الطبقات الرقيقة المتراكمة تبقى كالبشرة، والطبقة السميكة الواحدة لا تفعل أبداً.',
+      },
+      {
+        title: 'بدّلي العبوة وتابعي',
+        body: 'ادفعي العبوة الفارغة من الأسفل، ثبّتي الاحتياطية، وعادت العلبة ممتلئة. احتفظي بالإسفنجة أو استخدمي الجديدة.',
+      },
+    ],
+    note:
+      'تُقاس معاملات الحماية بطبقة أسمك مما يضعه أحد من الأساس، فليومٍ عادي — الطريق والمكتب وتوصيل الأولاد — يؤدي هذا الغرض. أما لساعات تحت الشمس المباشرة فضعي واقياً مخصّصاً تحته وجدّديه. وهذا ينطبق على كل أساس ملوّن، لا على هذا وحده.',
+  },
+
+  video: {
+    title: 'شاهدي النتيجة',
+    body: 'كيف يلتقطه الإسفنج، وكيف يستقرّ بعد التربيت، وإلى أي مدى تكفي ضغطة واحدة.',
+    unsupported: 'متصفّحك لا يدعم تشغيل الفيديو.',
+  },
+
+  actives: {
+    eyebrow: 'التركيبة',
+    title: 'ما بداخله فعلاً',
+    intro:
+      'فعّالان مسجّلان يقومان بالعمل، وتسع ببتيدات مذكورة على العلبة، والقائمة الكاملة أدناه من دون حذف.',
+    fullInci: 'قائمة المكوّنات الكاملة (INCI)',
+    fullInciNote:
+      'كل مكوّن، بالترتيب نفسه الذي على العلبة بين يديك. متطابقة في الدرجات الثلاث باستثناء الصبغات.',
+  },
+
+  lab: {
+    eyebrow: 'الجودة',
+    title: 'صُنع واختُبر في كوريا، ومُعتمد في الإمارات',
+    intro: 'لا شيء يغادر المصنع دون اختبار، ولا شيء يصلك هنا قبل تسجيله للبيع في الإمارات.',
+    rows: [
+      { label: 'الاختبار الجلدي', value: 'مُختبر جلدياً' },
+      { label: 'درجة الحموضة', value: '6.5 — النطاق نفسه للبشرة السليمة، فلا لسع ولا شدّ' },
+      { label: 'النقاء', value: 'كل دفعة تُختبر ميكروبياً وتُعتمد ضمن الحدّ بمسافة مريحة' },
+      { label: 'مدة الصلاحية', value: 'ثلاث سنوات مغلقاً، وتاريخ الانتهاء على العلبة · 12 شهراً بعد الفتح' },
+      { label: 'معتمد في الإمارات', value: 'الدرجات الثلاث مسجّلة لدى بلدية دبي، إلى جانب شهادة البيع الحر الكورية' },
+    ],
+    disclaimer:
+      'الحماية اليومية من الشمس هي ما يمنع التصبّغ من العودة. والكلف العنيد وآثار ما بعد الالتهاب تستجيب أفضل حين يعمل طبيب الجلد إلى جانب روتينك.',
+  },
+
+  safety: {
+    eyebrow: 'قبل الاستخدام',
+    title: 'احتياطات',
+    points: [
+      'للاستعمال الخارجي فقط. تجنّبي العينين والأغشية المخاطية، واشطفي بالماء البارد عند الملامسة.',
+      'أوقفي الاستخدام واستشيري طبيباً عند ظهور احمرار أو تورّم أو تهيّج.',
+      'استشيري مختصاً إذا ظهرت بقع حمراء أو تورّم أو حكة على موضع الاستخدام بعد التعرّض للشمس.',
+      'تجنّبي البشرة المجروحة أو المتضرّرة.',
+      'يُحفظ بين 10 و30 درجة مئوية بعيداً عن الشمس المباشرة، وبعيداً عن متناول الأطفال.',
+    ],
+    note: 'الاحتياطات كما هي مطبوعة على علبة جينوسيس، بما فيها التحذيران اللذان تحملهما اللوحة الكورية. يُستخدم خلال 12 شهراً من الفتح.',
+  },
+
+  routine: {
+    eyebrow: 'أكملي الروتين',
+    title: 'ما يأتي قبله',
+    intro:
+      'الكوشن هو آخر خطوة في الصباح. البشرة النظيفة والميست والمرطّب تحته هي ما يجعله يستقرّ جيداً ويثبت.',
+    thisProduct: 'هذا المنتج',
+    viewProduct: 'عرض المنتج',
+    chooseOptions: 'اختاري الخيارات',
+    fromPrice: 'من',
+  },
+
+  faq: {
+    eyebrow: 'أسئلة',
+    title: 'قبل الشراء',
+    items: [
+      {
+        q: 'أي درجة أختار؟',
+        a: 'طابقي العمق أولاً: ‎#01 Ivory‎ للبشرة الفاتحة التي تحترق بسرعة، و‎#02 Beige‎ للفاتحة إلى المتوسطة، و‎#03 Camel‎ للمتوسطة إلى القمحية. ثم الدرجة الأساسية — باردة لآيفوري، محايدة لبيج، دافئة لكاميل. وإن كنتِ بين اثنتين فخذي الأعمق، وجرّبيها على خط الفكّ في ضوء النهار لا على يدك.',
+      },
+      {
+        q: 'هل SPF50+ كافٍ وحده؟',
+        a: 'ليومٍ عادي، نعم. تُقاس معاملات الحماية بطبقة أثقل مما يضعه أحد من الأساس، فإن كنتِ ستقضين ساعات تحت الشمس المباشرة فضعي واقياً مخصّصاً تحته وجدّديه. أما في يوم بين الطريق والمكتب فالكوشن يؤدي الغرض وحده.',
+      },
+      {
+        q: 'هل أستخدمه بعد الجلسات؟',
+        a: 'لهذا صُنع. القوام خفيف، والتركيبة مُختبرة جلدياً، والفعّالان هما الزوج المسجّل اللطيف لا الأحماض أو الريتينول. التزمي بمدة الانتظار التي حدّدتها عيادتك بعد الميكرونيدلنغ أو الليزر أو التقشير — تلك التعليمات منهم لا منّا.',
+      },
+      {
+        q: 'كم تدوم العلبة الواحدة؟',
+        a: 'تحصلين على 30 غ إجمالاً: كوشن 15 غ وعبوة احتياطية 15 غ في العلبة نفسها. للاستعمال اليومي تكفي معظم الناس عدة أشهر، من دون شراء ثانٍ بينهما.',
+      },
+      {
+        q: 'كيف أبدّل العبوة الاحتياطية؟',
+        a: 'ارفعي العبوة الفارغة بالدفع من الفتحة أسفل العلبة، ضعي الاحتياطية واضغطي حتى تسمعي صوت التثبيت. تستغرق نحو عشر ثوانٍ، ويمكن إعادة استخدام الإسفنجة أو استبدالها بالجديدة.',
+      },
+      {
+        q: 'هل يبدو ثقيلاً أو يسدّ المسام؟',
+        a: 'هو كوشن لا كريم أساس بتغطية كاملة: قوام خفيف كالإسنس بصبغة قابلة للبناء. خذي أقل مما تظنّين في الضغطة الأولى، وربّتي بدل السحب، وأضيفي طبقة ثانية حيث تريدين المزيد فقط.',
+      },
+    ],
+  },
+
+  details: {
+    eyebrow: 'التفاصيل',
+    title: 'المواصفات',
+    rows: [
+      { label: 'الحجم', value: 'كوشن 15 غ مع عبوة احتياطية 15 غ — 30 غ إجمالاً' },
+      { label: 'الحماية من الشمس', value: 'SPF50+ PA++++ بخمسة فلاتر' },
+      { label: 'الفعّالات المسجّلة', value: 'نياسيناميد 2% · أدينوزين 0.04%' },
+      { label: 'الدرجات', value: '‎#01 Ivory‎ · ‎#02 Beige‎ · ‎#03 Camel‎' },
+      { label: 'النهاية', value: 'طبيعية ومشرقة، قابلة للبناء' },
+      { label: 'البشرة', value: 'كل الأنواع، بما فيها الحسّاسة وما بعد الجلسات' },
+      { label: 'المنشأ', value: 'صُنع في كوريا' },
+      { label: 'بعد الفتح', value: '12 شهراً' },
+      { label: 'التخزين', value: '10–30 درجة مئوية بعيداً عن الشمس المباشرة' },
+    ],
+    brochure: 'حمّلي دليل المنتج (PDF)',
+  },
+
+  backToProducts: 'المنتجات',
 }
 
 const RU: BbCushionCopy = {
-  eyebrow: 'Кушон · Три лицензии',
-  headline: 'Покрытие, защита и уход за одно нажатие.',
-  lead:
-    'Корея лицензирует этот кушон сразу для трёх задач: защита от УФ, помощь тону и помощь с морщинами. ' +
-    'Большинство тональных средств не лицензировано ни для одной из них.',
-
-  facts: [
-    { value: 'SPF50+', label: 'PA++++ на пяти фильтрах' },
-    { value: '2%', label: 'Ниацинамид, для тона' },
-    { value: '0,04%', label: 'Аденозин, для морщин' },
-    { value: '15 г × 2', label: 'Кушон и сменный блок' },
+  eyebrow: 'Skin Caring Blemish Balm Cushion · SPF50+ PA++++',
+  headline: 'Одно нажатие: покрытие, защита и уход.',
+  subheadline:
+    'Нажали, похлопали — готово: ровное покрытие, которое выглядит как кожа, высшая солнцезащитная оценка Кореи и два ухаживающих актива, работающих под ним весь день. Корея лицензирует этот кушон сразу для всех трёх задач — солнце, тон и морщины, — а такой лицензии у тональных средств почти не бывает.',
+  heroBullets: [
+    'SPF50+ PA++++ — максимум по обеим шкалам, на пяти фильтрах',
+    'Ниацинамид на полных 2% для тона, аденозин 0,04% для мелких морщин',
+    'Сменный блок 15 г уже в коробке — вдвое дольше за ту же цену',
+    'Достаточно лёгкий для кожи после процедур, наращиваемый там, где нужно',
   ],
+  badges: ['Сделано в Корее', '15 г × 2 · 12 месяцев после вскрытия', 'Дерматологически протестировано', 'Официальный дистрибьютор в ОАЭ'],
 
-  licenceEyebrow: 'Что выдала Корея',
-  licenceTitle: 'Три функции в одной пудренице.',
-  licenceLead:
-    'Корейская панель регистрирует его как функциональное средство тройного действия и называет активы, на которые выдана каждая функция. Это регуляторный статус, а не маркетинг.',
-  licences: [
-    {
-      title: 'Защита от УФ',
-      body: 'SPF50+ PA++++ на пяти фильтрах: диоксид титана и оксид цинка с минеральной стороны, этилгексилметоксициннамат, этилгексилсалицилат и октокрилен с химической.',
-    },
-    {
-      title: 'Помощь тону',
-      body: 'Ниацинамид на полных 2% — стандартная корейская осветляющая доза и тот же уровень, что в сыворотке и креме Multi Vita.',
-    },
-    {
-      title: 'Помощь с морщинами',
-      body: 'Аденозин 0,04% — доза, на которой Корея лицензирует заявления о коррекции морщин по всей линейке.',
-    },
-  ],
-
-  filtersEyebrow: 'Защита от солнца',
-  filtersTitle: 'Пять фильтров, гибрид по замыслу.',
-  filtersLead:
-    'Два минеральных фильтра лежат на коже и рассеивают свет, три химических его поглощают. Именно сочетание позволяет такой лёгкой базе дойти до верха шкалы.',
-  filters: [
-    { name: 'Titanium Dioxide', percent: '9,00%', kind: 'Минеральный' },
-    { name: 'Ethylhexyl Methoxycinnamate', percent: '7,00%', kind: 'Химический' },
-    { name: 'Ethylhexyl Salicylate', percent: '4,50%', kind: 'Химический' },
-    { name: 'Octocrylene', percent: '2,00%', kind: 'Химический' },
-    { name: 'Zinc Oxide', percent: '2,00%', kind: 'Минеральный' },
-  ],
-  filtersNote:
-    'Бутилоктилсалицилат стоит на 6% и выглядит шестым фильтром. Это не так: во всех листах формулы он проходит как растворитель, удерживающий остальные пять в растворе.',
-
-  shadesEyebrow: 'Три оттенка',
-  shadesTitle: 'Меняется только цвет.',
-  shadesLead:
-    'Защита от солнца и уход одинаковы во всех трёх. Формулы отличаются только оксидами железа, поэтому ни один оттенок не защищает и не ухаживает лучше другого.',
+  shadeLabel: 'Выберите оттенок',
+  shadeHelp: 'Формула во всех трёх одинакова. Меняется только цвет.',
+  shadeSelected: 'Выбрано',
+  shadeRequired: 'Выберите оттенок перед добавлением в корзину.',
   shades: [
-    { code: '#01', name: 'Ivory', tone: 'Светлая кожа', undertone: 'Холодный подтон', pigment: 'пигмент 0,89%' },
-    { code: '#02', name: 'Beige', tone: 'Светлая и средняя', undertone: 'Нейтральный подтон', pigment: 'пигмент 1,78%' },
-    { code: '#03', name: 'Camel', tone: 'Смуглая и тёплая', undertone: 'Тёплый подтон', pigment: 'пигмент 3,06%' },
-  ],
-  shadesNote: 'В Beige ровно вдвое больше пигмента, чем в Ivory, в Camel — примерно в три с половиной раза.',
-
-  puffEyebrow: 'Спонж',
-  puffTitle: 'Четыре слоя, а не три.',
-  puffLead: 'Сам аппликатор спроектирован, и это достаточно редко, чтобы сказать об этом.',
-  puffPoints: [
     {
-      title: 'Кончик-капля',
-      body: 'Заострённый, а не круглый, поэтому достаёт до изгиба у носа и внутреннего уголка глаза, не сминаясь.',
+      value: 'Ivory',
+      code: '#01',
+      name: 'Ivory',
+      hex: '#f1dcc4',
+      tagline: 'Самый светлый',
+      body: 'Для светлой кожи, которая быстро обгорает и почти не загорает, с холодным розовым или голубоватым подтоном. Наименьшая доля пигмента из трёх — скорее высветляет, чем согревает.',
     },
     {
-      title: 'Четвёртый водонепроницаемый слой',
-      body: 'Обычный спонж для кушона имеет три слоя и впитывает средство. Здесь добавлена водонепроницаемая плёнка, и формула остаётся в кушоне, а не в губке.',
+      value: 'Beige',
+      code: '#02',
+      name: 'Beige',
+      hex: '#e7bd95',
+      tagline: 'Выбирают чаще всего',
+      body: 'Для светлой и средней кожи с нейтральным подтоном. Ровно вдвое больше пигмента, чем в Ivory, — безопасный средний вариант, если вы между двумя. Наш бестселлер.',
+    },
+    {
+      value: 'Camel',
+      code: '#03',
+      name: 'Camel',
+      hex: '#cf9d6d',
+      tagline: 'Самый глубокий',
+      body: 'Для средней и смуглой кожи, которая держит загар, с тёплым золотистым или оливковым подтоном. Примерно в три с половиной раза больше пигмента, чем в Ivory: перекрывает, не уходя в серость.',
     },
   ],
 
-  howEyebrow: 'Как пользоваться',
-  howTitle: 'Нажать, потом похлопать.',
-  howSteps: [
-    { title: 'Нажмите', body: 'Слегка прижмите спонж к подушечке. Слегка: он набирает больше, чем кажется.' },
-    { title: 'Похлопайте', body: 'Наносите похлопыванием, а не растиранием — именно это держит покрытие ровным.' },
-    { title: 'Добавьте', body: 'Пройдите ещё раз там, где нужно плотнее. Покрытие наращиваемое, второй проход ничего не стоит.' },
-    { title: 'Замените', body: 'Когда закончится, вытолкните использованный блок снизу и вставьте новый до щелчка. Один уже лежит в коробке.' },
+  addToBag: 'В корзину',
+  adding: 'Добавляем…',
+  added: 'Добавлено',
+  inBag: 'В корзине',
+  viewBag: 'Открыть корзину',
+  loginToShop: 'Войдите, чтобы купить',
+  outOfStock: 'Нет в наличии',
+  vatIncluded: 'НДС включён',
+  freeDelivery: 'Бесплатная доставка от 1 000 AED · Отправка из Дубая',
+
+  stats: [
+    { value: 'SPF50+', label: 'PA++++ — максимум по обеим шкалам' },
+    { value: '5', label: 'UV-фильтров: два минеральных и три химических' },
+    { value: '2%', label: 'Ниацинамид — та же доза, что в сыворотке Multi Vita' },
+    { value: '30 г', label: 'Кушон и сменный блок, оба в коробке' },
   ],
 
-  inciTitle: 'Полный список ингредиентов (INCI)',
-  inciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках.',
+  functions: {
+    eyebrow: 'Три задачи, одна пудреница',
+    title: 'Он не просто лежит и красиво выглядит',
+    intro:
+      'Корея не разрешает заявлять защиту от солнца, работу с тоном и коррекцию морщин, пока за каждой заявкой не стоит названный актив в установленной дозе. Этот кушон лицензирован сразу для трёх, и активы напечатаны на коробке.',
+    cards: [
+      {
+        title: 'Он держит солнце',
+        body: 'SPF50+ PA++++ на пяти фильтрах. Диоксид титана и оксид цинка рассеивают свет, три химических фильтра его поглощают, и именно сочетание позволяет такой лёгкой базе дойти до верха шкалы.',
+      },
+      {
+        title: 'Он работает с тоном',
+        body: 'Ниацинамид на полных 2% — та же доза, что в сыворотке и креме Multi Vita, а не символическая щепотка. Выравнивает тон и поддерживает барьер всё время, пока вы его носите.',
+      },
+      {
+        title: 'Он смягчает мелкие морщины',
+        body: 'Аденозин 0,04% — доза, на которой Корея лицензирует заявления о морщинах. То есть под покрытием идёт настоящий уход, а не только цвет.',
+      },
+      {
+        title: 'Он выравнивает сразу',
+        body: 'Три оксида железа делают оптическую работу в момент нанесения. Покрытие наращиваемое и намеренно естественное: читается как хорошая кожа, а не как макияж.',
+      },
+    ],
+  },
 
-  cautionTitle: 'Перед применением',
-  cautions: [
-    'Только для наружного применения. Избегайте глаз и слизистых, при попадании промойте прохладной водой.',
-    'Прекратите использование и обратитесь к врачу при покраснении, отёке или раздражении.',
-    'Обратитесь к специалисту, если после солнца на обработанном участке появились красные пятна, отёк или зуд.',
-    'Не наносите на повреждённую кожу.',
-  ],
+  wear: {
+    eyebrow: 'Почему держится',
+    title: 'Рассчитан на день в Дубае',
+    intro:
+      'Кушон, который сползает к обеду, ничего не защищает. Этот построен из трёх слоёв, и только средний отвечает за цвет.',
+    steps: [
+      {
+        step: '01',
+        title: 'Эссенс-основа, которой комфортно',
+        body: 'Формула ложится влажно и легко, а не плотно, — поэтому не цепляется за сухие участки и не забивается в рельеф. Именно за это её можно наносить сразу после процедур.',
+      },
+      {
+        step: '02',
+        title: 'Пигмент и фильтры вместе',
+        body: 'Цвет и защита идут одним слоем, так что не нужно выбирать между SPF и тоном. Одно нажатие делает и то и другое.',
+      },
+      {
+        step: '03',
+        title: 'Три полимера, которые фиксируют',
+        body: 'Тройка фиксирующих полимеров образует сверху эластичную плёнку. Она и не даёт покрытию плыть в жару и влажность, и избавляет от подправок каждые два часа.',
+      },
+    ],
+    note:
+      'Жара, кондиционер и окно машины — три вещи, которые убивают любую базу в Заливе. Фиксирующая плёнка отвечает сразу на все: она схватывается, а не остаётся влажной, поэтому то, что вы нанесли утром, остаётся на месте.',
+  },
+
+  filters: {
+    eyebrow: 'Защита от солнца',
+    title: 'Пять фильтров: минеральные и химические вместе',
+    intro:
+      'Полностью минеральные базы дают белый налёт, полностью химические могут пощипывать. Сочетание даёт высшую оценку без обеих проблем — достаточно комфортно, чтобы носить каждый день, а только такой санскрин и защищает.',
+    columns: { name: 'Фильтр', amount: 'Концентрация', role: 'Тип' },
+    rows: [
+      { name: 'Titanium Dioxide', amount: '9,00%', role: 'Минеральный — рассеивает свет' },
+      { name: 'Ethylhexyl Methoxycinnamate', amount: '7,00%', role: 'Химический — поглощает UVB' },
+      { name: 'Ethylhexyl Salicylate', amount: '4,50%', role: 'Химический — поглощает UVB' },
+      { name: 'Octocrylene', amount: '2,00%', role: 'Химический — UVB и короткий UVA' },
+      { name: 'Zinc Oxide', amount: '2,00%', role: 'Минеральный — широкий спектр' },
+    ],
+    note:
+      'Бутилоктилсалицилат стоит на 6% и выглядит шестым фильтром. Это не так — он растворитель, который удерживает остальные пять в растворе и делает их комфортными на коже. Пять — честное число, и пяти достаточно для SPF50+ PA++++.',
+  },
+
+  shadeSection: {
+    eyebrow: 'Три оттенка',
+    title: 'Выбираете цвет, всё остальное одинаково',
+    intro:
+      'Сначала глубина, потом подтон. Если вы между двумя — берите тот, что темнее: он согревается на коже, а более светлый может лечь плоско.',
+    sameFormula:
+      'Одинаковая защита, одинаковый ниацинамид, одинаковый аденозин, одинаковые пептиды. Между #01, #02 и #03 меняется только оксид железа, поэтому ни один оттенок не защищает и не ухаживает лучше другого.',
+    figureAlt: 'GENOSYS Skin Caring Blemish Balm Cushion — гид по оттенкам #01 Ivory, #02 Beige и #03 Camel',
+  },
+
+  puff: {
+    eyebrow: 'Спонж',
+    title: 'Четыре слоя там, где у всех три',
+    intro:
+      'О спонже никто не думает, пока он не начинает выпивать средство. Этот спроектирован так, чтобы не начинал.',
+    points: [
+      {
+        title: 'Кончик-капля, а не круг',
+        body: 'Заострён с одной стороны, поэтому достаёт до изгиба у носа и внутреннего уголка глаза, не сминаясь. Именно там большинство кушонов оставляют пробел.',
+      },
+      {
+        title: 'Четвёртый, водонепроницаемый слой',
+        body: 'Обычный спонж — три слоя, и он впитывает всё, чего касается. Водонепроницаемая плёнка снизу оставляет формулу в кушоне и на лице, поэтому пудреницы хватает настолько, насколько должно.',
+      },
+      {
+        title: 'И сменный блок уже в коробке',
+        body: 'Когда первые 15 г закончатся, вытолкните использованный блок снизу и вставьте новый до щелчка. Ни второй покупки, ни ожидания.',
+      },
+    ],
+    figureAlt: 'Четырёхслойный спонж-капля в разрезе',
+  },
+
+  howTo: {
+    eyebrow: 'Как пользоваться',
+    title: 'Нажать, похлопать, добавить',
+    frequency: 'Каждое утро · последний шаг перед выходом',
+    steps: [
+      {
+        title: 'Нажмите слегка',
+        body: 'Прижмите спонж к подушечке — слегка. Он набирает гораздо больше, чем кажется, а взять лишнее — единственный способ сделать это средство тяжёлым.',
+      },
+      {
+        title: 'Похлопывайте, а не растирайте',
+        body: 'Наносите постукиванием, а не протягиванием. Именно похлопывание кладёт слой ровно и не даёт полосить на сухих участках.',
+      },
+      {
+        title: 'Добавляйте только там, где нужно',
+        body: 'Пройдите вторым тонким слоем по покраснениям, следам и теням. Тонкие слои друг на друге остаются похожими на кожу, один толстый — никогда.',
+      },
+      {
+        title: 'Замените блок и продолжайте',
+        body: 'Вытолкните пустой блок снизу, вставьте запасной — и пудреница снова полная. Спонж можно оставить прежний или взять новый.',
+      },
+    ],
+    note:
+      'SPF измеряют на более толстом слое, чем кто-либо наносит тональное средство, поэтому для обычного дня — дорога, офис, школа — этого хватает. Для нескольких часов на прямом солнце нанесите отдельный санскрин под низ и обновляйте его. Это верно для любой тональной базы, не только для этой.',
+  },
+
+  video: {
+    title: 'Посмотрите, как ложится',
+    body: 'Как средство набирается на спонж, как выглядит после похлопывания и на сколько хватает одного нажатия.',
+    unsupported: 'Ваш браузер не поддерживает воспроизведение видео.',
+  },
+
+  actives: {
+    eyebrow: 'Состав',
+    title: 'Что внутри на самом деле',
+    intro:
+      'Два зарегистрированных актива делают работу, девять пептидов названы на коробке, а полный список ниже — без сокращений.',
+    fullInci: 'Полный список ингредиентов (INCI)',
+    fullInciNote:
+      'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках. Одинаково для всех трёх оттенков, кроме пигментов.',
+  },
+
+  lab: {
+    eyebrow: 'Качество',
+    title: 'Сделано и проверено в Корее, допущено в ОАЭ',
+    intro: 'Ничего не уходит с завода без проверки и ничего не попадает к вам без регистрации для продажи в ОАЭ.',
+    rows: [
+      { label: 'Тестирование', value: 'Дерматологически протестировано' },
+      { label: 'pH', value: '6,5 — тот же диапазон, что у здоровой кожи: ничего не щиплет и не стягивает' },
+      { label: 'Чистота', value: 'Каждая партия проверяется на микробиологию и проходит с большим запасом' },
+      { label: 'Срок годности', value: 'Три года закрытым, дата на коробке · 12 месяцев после вскрытия' },
+      { label: 'Допуск в ОАЭ', value: 'Все три оттенка зарегистрированы в муниципалитете Дубая, плюс корейский сертификат свободной продажи' },
+    ],
+    disclaimer:
+      'Ежедневная защита от солнца — это то, что не даёт пигментации вернуться. Стойкая мелазма и постакне-пятна отвечают лучше, когда рядом с вашим уходом работает дерматолог.',
+  },
+
+  safety: {
+    eyebrow: 'Перед применением',
+    title: 'Меры предосторожности',
+    points: [
+      'Только для наружного применения. Избегайте глаз и слизистых, при попадании промойте прохладной водой.',
+      'Прекратите использование и обратитесь к врачу при покраснении, отёке или раздражении.',
+      'Обратитесь к специалисту, если после солнца на обработанном участке появились красные пятна, отёк или зуд.',
+      'Не наносите на повреждённую кожу.',
+      'Храните при 10–30 °C вдали от прямого солнца и в недоступном для детей месте.',
+    ],
+    note: 'Предостережения как напечатаны на коробке GENOSYS, включая два, которые есть на корейской панели. Использовать в течение 12 месяцев после вскрытия.',
+  },
+
+  routine: {
+    eyebrow: 'Дополните уход',
+    title: 'Что идёт до него',
+    intro:
+      'Кушон — последний шаг утра. Чистая кожа, мист и крем под ним — это то, из-за чего он ложится ровно и держится.',
+    thisProduct: 'Этот продукт',
+    viewProduct: 'Открыть продукт',
+    chooseOptions: 'Выбрать опции',
+    fromPrice: 'от',
+  },
+
+  faq: {
+    eyebrow: 'Вопросы',
+    title: 'Перед покупкой',
+    items: [
+      {
+        q: 'Какой оттенок выбрать?',
+        a: 'Сначала глубина: #01 Ivory — светлая кожа, которая быстро обгорает, #02 Beige — светлая и средняя, #03 Camel — средняя и смуглая. Затем подтон: холодный для Ivory, нейтральный для Beige, тёплый для Camel. Между двумя — берите тот, что темнее, и проверяйте по линии челюсти при дневном свете, а не на руке.',
+      },
+      {
+        q: 'Достаточно ли SPF50+ самого по себе?',
+        a: 'Для обычного дня — да. SPF измеряют на более плотном слое, чем кто-либо наносит базу, поэтому для нескольких часов на прямом солнце нужен отдельный санскрин под низ и его обновление. В режиме «дорога и офис» кушон справляется сам.',
+      },
+      {
+        q: 'Можно ли после процедур?',
+        a: 'Для этого он и сделан. Текстура лёгкая, формула дерматологически протестирована, а активы — мягкая зарегистрированная пара, а не кислоты или ретинол. Соблюдайте паузу, которую назначила ваша клиника после микронидлинга, лазера или пилинга: это их инструкция, не наша.',
+      },
+      {
+        q: 'Насколько хватает одной пудреницы?',
+        a: 'Всего 30 г: кушон 15 г плюс сменный блок 15 г в той же коробке. При ежедневном использовании большинству хватает на несколько месяцев, и докупать между ними ничего не нужно.',
+      },
+      {
+        q: 'Как поменять сменный блок?',
+        a: 'Вытолкните пустой блок через отверстие снизу корпуса, вложите запасной и прижмите до щелчка. Занимает секунд десять, спонж можно оставить прежний или взять новый.',
+      },
+      {
+        q: 'Не будет ли тяжело и не забьёт ли поры?',
+        a: 'Это кушон, а не плотный тональный крем: лёгкая эссенс-текстура с наращиваемым пигментом. Возьмите меньше, чем кажется нужным, на первом нажатии, похлопывайте вместо растирания и добавляйте второй слой только там, где хотите плотнее.',
+      },
+    ],
+  },
+
+  details: {
+    eyebrow: 'Детали',
+    title: 'Характеристики',
+    rows: [
+      { label: 'Объём', value: 'Кушон 15 г плюс сменный блок 15 г — 30 г всего' },
+      { label: 'Защита от солнца', value: 'SPF50+ PA++++ на пяти фильтрах' },
+      { label: 'Зарегистрированные активы', value: 'Ниацинамид 2% · Аденозин 0,04%' },
+      { label: 'Оттенки', value: '#01 Ivory · #02 Beige · #03 Camel' },
+      { label: 'Финиш', value: 'Естественный, сияющий, наращиваемый' },
+      { label: 'Кожа', value: 'Все типы, включая чувствительную и после процедур' },
+      { label: 'Происхождение', value: 'Сделано в Корее' },
+      { label: 'После вскрытия', value: '12 месяцев' },
+      { label: 'Хранение', value: '10–30 °C, вдали от прямого солнца' },
+    ],
+    brochure: 'Скачать гид по продукту (PDF)',
+  },
+
+  backToProducts: 'Продукты',
 }
 
 export const BB_CUSHION_COPY: Record<Locale, BbCushionCopy> = { en: EN, ar: AR, ru: RU }
+
+export function getBbCushionCopy(locale: string | undefined): BbCushionCopy {
+  return BB_CUSHION_COPY[(locale as Locale) ?? 'en'] ?? BB_CUSHION_COPY.en
+}

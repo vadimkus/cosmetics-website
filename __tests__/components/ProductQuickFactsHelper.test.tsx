@@ -56,10 +56,15 @@ describe('ProductQuickFactsHelper', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Quick facts' }))
     const region = screen.getByRole('region')
     expect(region).toHaveTextContent('SPF 50+ / PA++++')
-    expect(region).toHaveTextContent('>60% moisture essence')
-    expect(region).toHaveTextContent('9 regenerating peptides')
+    expect(region).toHaveTextContent('Niacinamide 2%, adenosine 0.04%')
+    expect(region).toHaveTextContent('Cushion + refill (15 g × 2)')
     expect(region).not.toHaveTextContent(/40% peptide/i)
     expect(region).not.toHaveTextContent(/popular with customers/i)
+    // Both claims the dossier audit ruled out: the named ingredients sum to
+    // ~73.6%, which puts water at about a quarter, and the nine peptides run
+    // 640 ppb down to 10 ppb, so nothing can be "regenerating" at that dose.
+    expect(region).not.toHaveTextContent(/moisture essence/i)
+    expect(region).not.toHaveTextContent(/regenerating peptides/i)
   })
 
   it('does not recycle on-page benefits when catalog exists', () => {

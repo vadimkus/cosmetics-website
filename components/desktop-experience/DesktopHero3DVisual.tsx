@@ -148,7 +148,7 @@ export default function DesktopHero3DVisual() {
 
   return (
     <div
-      className={`relative aspect-video w-full max-w-4xl overflow-hidden rounded-2xl border border-rose-100 bg-gradient-to-br from-white via-rose-50 to-slate-100 shadow-2xl shadow-rose-100/70 ${
+      className={`cera-stage relative aspect-video w-full max-w-4xl overflow-hidden rounded-[24px] ${
         isReplayable ? 'cursor-pointer' : ''
       }`}
       onClick={onContainerClick}
@@ -186,7 +186,7 @@ export default function DesktopHero3DVisual() {
       ) : null}
 
       {/* Soft side vignette so the floating atoms read against the photo / video */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-rose-50/25 via-transparent to-rose-50/30" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[var(--cera-blush)]/25 via-transparent to-[var(--cera-blush)]/30" />
 
       {/* Layer 3: R3F atom field — cursor parallax, floats on top of both.
           Clicks bubble up through the canvas to the container's onClick. */}

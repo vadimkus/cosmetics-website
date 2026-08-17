@@ -7,6 +7,7 @@ import GeoFaqSchema, { GENOSYS_FAQ_EN } from '@/components/schema/GeoFaqSchema'
 import HomeItemListSchema from '@/components/schema/HomeItemListSchema'
 import MobileRedirect from '@/components/MobileRedirect'
 import { getHomeData, HOME_CATEGORY_SLUGS } from '@/lib/homeData'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import type { Metadata } from 'next'
 
 // Revalidate homepage data every 5 minutes. Featured products rarely change
@@ -84,7 +85,7 @@ export default async function Home() {
 
   return (
     <MobileRedirect to="/products">
-      <div className="bg-gradient-to-b from-white to-gray-50 flex-1 flex flex-col" dir="ltr">
+      <div className={`cera-page genosys-page genosys-home ${ceraSerif.variable} flex flex-1 flex-col`} dir="ltr">
         <BreadcrumbSchema
           items={[
             { name: 'Home', url: '/' }

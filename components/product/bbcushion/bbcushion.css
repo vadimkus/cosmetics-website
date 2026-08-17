@@ -1,9 +1,14 @@
 /**
- * Palette for SKIN CARING BLEMISH BALM CUSHION (product 41).
+ * Palette override for the SKIN CARING BLEMISH BALM CUSHION page (product 41).
  *
- * The compact is black and gold, and the product itself is a warm beige, so
+ * The structural design system lives in cerabarrier.css — cards, reveals,
+ * accordion, numerals, focus rings. That file is imported first and every rule
+ * in it reads from CSS variables, so this file only has to restate the
+ * variables to re-skin the whole page.
+ *
+ * The compact is black and gold and the product itself is a warm beige, so
  * this page tints the shared tokens toward camel rather than taking the house
- * red. Scoped to `.bbc-page`.
+ * rose. Scoped to `.cera-page.bbc-page`, so it cannot reach the sibling pages.
  */
 
 .cera-page.bbc-page {
@@ -11,7 +16,6 @@
   --cera-cream-deep: #f1e9e0;
   --cera-blush: #f7eee2;
   --cera-blush-deep: #e6d3ba;
-  --cera-rose: #a97c451;
   --cera-rose: #a97c45;
   --cera-rose-ink: #7d5a30;
   --cera-ink: #1a1613;
@@ -20,85 +24,40 @@
   --cera-line: #e8ded1;
 }
 
-/* --- Shade swatches -----------------------------------------------------
-   The three shades are the product's only real variable, so the selector is
-   the swatch itself rather than a dropdown. Colours are eyeballed from the
-   pigment loads: 0.89%, 1.78% and 3.06% total iron oxide. */
-
-.bbc-shade {
-  position: relative;
-  display: flex;
-  width: 100%;
-  align-items: center;
-  gap: 12px;
-  border: 1px solid var(--cera-line);
-  border-radius: 18px;
-  background: #fff;
-  padding: 12px 14px;
-  text-align: start;
-  transition: border-color 200ms ease, box-shadow 280ms ease, transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+/* The hero stage shadow is tinted per page; restate it for the camel theme. */
+.bbc-page .cera-stage {
+  background-color: #f4f0e9;
+  box-shadow: 0 24px 60px -34px rgba(125, 90, 48, 0.4);
 }
 
 @media (hover: hover) {
-  .bbc-shade:hover {
-    transform: translateY(-2px);
-    border-color: var(--cera-blush-deep);
-    box-shadow: 0 2px 4px rgba(26, 22, 19, 0.04), 0 16px 32px -24px rgba(125, 90, 48, 0.45);
+  .bbc-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(26, 22, 19, 0.04), 0 26px 48px -26px rgba(125, 90, 48, 0.32);
   }
 }
 
-.bbc-shade[data-selected='true'] {
-  border-color: var(--cera-rose);
-  background: color-mix(in srgb, var(--cera-blush) 55%, #fff);
-  box-shadow: 0 2px 4px rgba(26, 22, 19, 0.05), 0 16px 34px -24px rgba(125, 90, 48, 0.55);
-}
+/* --- Shade swatch -------------------------------------------------------
+   The colour is passed inline as --swatch from the copy file, sampled off the
+   draw-downs on the manufacturer's shade card, so adding a fourth shade needs
+   no CSS change. The inner ring keeps a pale swatch legible on a white card. */
 
 .bbc-swatch {
-  height: 38px;
-  width: 38px;
-  flex: none;
-  border-radius: 999px;
-  border: 1px solid rgba(26, 22, 19, 0.1);
-  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.7);
+  background: var(--swatch, #e7bd95);
+  box-shadow: inset 0 0 0 1px rgba(26, 22, 19, 0.12);
 }
 
-.bbc-swatch--01 { background: linear-gradient(150deg, #f6e2cf, #edcfae); }
-.bbc-swatch--02 { background: linear-gradient(150deg, #edcfae, #dcb388); }
-.bbc-swatch--03 { background: linear-gradient(150deg, #dcb388, #c2915f); }
-
-/* --- Filter table -------------------------------------------------------- */
-
-.bbc-filter {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 11px 0;
-  border-bottom: 1px solid var(--cera-line);
+.bbc-shade-button {
+  transition: border-color 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
 }
 
-.bbc-filter:last-child {
-  border-bottom: 0;
+.bbc-shade-button[aria-checked='true'] {
+  border-color: var(--cera-rose);
+  background-color: color-mix(in srgb, var(--cera-blush) 70%, white);
+  box-shadow: 0 10px 26px -18px rgba(125, 90, 48, 0.7);
 }
 
-.bbc-kind {
-  display: inline-flex;
-  align-items: center;
-  border-radius: 999px;
-  border: 1px solid var(--cera-line);
-  padding: 2px 9px;
-  font-size: 11px;
-  color: var(--cera-muted);
-}
+/* --- Filter and specification tables ------------------------------------ */
 
-.bbc-kind[data-mineral='true'] {
-  border-color: var(--cera-blush-deep);
-  background: var(--cera-blush);
-  color: var(--cera-rose-ink);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bbc-shade {
-    transition: none;
-  }
+.bbc-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 42%, transparent);
 }

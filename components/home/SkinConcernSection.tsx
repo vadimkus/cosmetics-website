@@ -26,6 +26,13 @@ export interface SkinConcernCard {
   benefit: LocalizedCopy
   count: number
   icon: LucideIcon
+  /**
+   * Kept on the type because the concern pages read it, but no longer used on
+   * the homepage tile. Eight concerns each carried their own colour — gold,
+   * green, purple, blue, teal, pink — with no rule a reader could infer from
+   * them, the same problem /contact had with its six channel tiles. The icon
+   * already distinguishes the concerns; the colour was only noise.
+   */
   accent: string
 }
 
@@ -208,43 +215,36 @@ export default function SkinConcernSection({
 
   return (
     <section
-      className="reveal-on-view border-y border-[#eeeae3] bg-[#fffefa] py-14 lg:py-[74px]"
+      className="reveal-on-view home-band px-4"
       aria-labelledby="skin-concern-heading"
       data-testid="skin-concern-section"
       dir={dir}
     >
-      <div className="mx-auto max-w-[1180px] px-5 sm:px-8 lg:px-[42px]">
+      <div className="mx-auto max-w-[1200px]">
         <div
-          className={`concern-header mb-9 grid items-end gap-7 ${
+          className={`mb-9 grid items-end gap-7 lg:mb-11 lg:grid-cols-12 ${
             isRtl ? 'text-right' : 'text-left'
           }`}
         >
-          <div className="concern-title-column">
-            <p className="mb-2.5 text-[9px] font-semibold uppercase tracking-[0.23em] text-[#9c742e]">
-              {copy.eyebrow}
-            </p>
+          <div className="lg:col-span-7">
+            <p className="cera-eyebrow mb-2.5">{copy.eyebrow}</p>
             <h2
               id="skin-concern-heading"
-              className="concern-title max-w-[390px] text-[39px] font-normal leading-[0.99] tracking-[-0.032em] text-[#181714]"
-              style={{ fontFamily: 'Georgia, "Times New Roman", ui-serif, serif' }}
+              className="cera-serif max-w-[16ch] text-[30px] leading-[1.05] sm:text-[38px] lg:text-[46px]"
             >
               {copy.heading}
             </h2>
-            <span
-              className={`mt-3.5 block h-px w-10 bg-[#b59457] ${isRtl ? 'mr-0' : 'ml-0'}`}
-              aria-hidden="true"
-            />
           </div>
           <p
-            className={`concern-support max-w-[410px] text-[13px] leading-[1.6] text-[#5e5a54] ${
-              isRtl ? 'concern-support-rtl' : 'concern-support-ltr'
+            className={`max-w-[44ch] text-[14px] leading-relaxed text-[var(--cera-muted)] lg:col-span-5 ${
+              isRtl ? 'lg:me-auto' : 'lg:ms-auto'
             }`}
           >
             {copy.support}
           </p>
         </div>
 
-        <div className="concern-grid grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {SKIN_CONCERN_CARDS.map((concern) => {
             const Icon = concern.icon
             const count = concernCounts?.[concern.slug] ?? concern.count
@@ -256,7 +256,7 @@ export default function SkinConcernSection({
                 key={concern.slug}
                 href={getLocalizedPath(`/products/concern/${concern.slug}`, locale)}
                 aria-label={`${concern.label[locale]}, ${formatProductCount(count, locale)}`}
-                className={`concern-card group relative isolate flex overflow-hidden rounded-[13px] border border-[#e5e2dc] bg-white p-4 shadow-[0_2px_9px_rgba(44,38,29,0.035)] transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1 hover:border-[#d8d1c5] hover:shadow-[0_15px_30px_-19px_rgba(45,37,26,0.3)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a77a2d] focus-visible:ring-offset-3 motion-reduce:transform-none motion-reduce:transition-none ${
+                className={`home-tile home-concern-card group relative isolate flex p-4 ${
                   isRtl ? 'text-right' : 'text-left'
                 }`}
               >
@@ -265,54 +265,31 @@ export default function SkinConcernSection({
                   alt=""
                   fill
                   sizes="(max-width: 639px) 100vw, (max-width: 959px) 50vw, 320px"
-                  className={`pointer-events-none -z-20 object-cover transition-transform duration-700 motion-reduce:transition-none ${
-                    isRtl ? 'concern-image-rtl' : 'group-hover:scale-[1.035]'
-                  }`}
+                  className="home-tile__image home-tile__image--mirrored pointer-events-none -z-20 object-cover"
                   style={{ objectPosition: visual.imagePosition }}
                   aria-hidden="true"
                 />
-                <span
-                  className={`pointer-events-none absolute inset-0 -z-10 ${
-                    isRtl
-                      ? 'bg-[linear-gradient(270deg,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.68)_27%,rgba(255,255,255,0.2)_43%,transparent_56%)]'
-                      : 'bg-[linear-gradient(90deg,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.68)_27%,rgba(255,255,255,0.2)_43%,transparent_56%)]'
-                  }`}
-                  aria-hidden="true"
-                />
-                <span
-                  className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[28%] bg-[linear-gradient(0deg,rgba(255,255,255,0.2)_0%,transparent_100%)]"
-                  aria-hidden="true"
-                />
+                <span className="home-tile__wash pointer-events-none absolute inset-0 -z-10" aria-hidden="true" />
 
                 <div className="flex w-full flex-col">
-                  <div
-                    className={`flex items-start justify-between gap-3 ${
-                      isRtl ? 'flex-row-reverse' : ''
-                    }`}
-                  >
-                    <span
-                      className={`inline-flex h-8 w-8 items-center justify-center rounded-full border shadow-[0_1px_4px_rgba(39,34,26,0.035)] ${concern.accent}`}
-                      aria-hidden="true"
-                    >
-                      <Icon className="h-[15px] w-[15px]" strokeWidth={1.65} />
+                  <div className={`flex items-start justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                    <span className="ed-mark ed-mark--tactile ed-mark--round h-9 w-9" aria-hidden="true">
+                      <Icon className="h-4 w-4" strokeWidth={1.65} />
                     </span>
-                    <span className="rounded-full border border-[#e9e5dd] bg-white/90 px-2 py-0.5 text-[9px] font-medium text-[#68635c] shadow-[0_1px_4px_rgba(30,25,18,0.04)]">
+                    <span className="rounded-full border border-[var(--cera-line)] bg-white/90 px-2.5 py-0.5 text-[10px] font-medium text-[var(--cera-muted)]">
                       {formatProductCount(count, locale)}
                     </span>
                   </div>
 
-                  <h3
-                    className="mt-3 max-w-[76%] text-[17px] font-semibold leading-tight tracking-[-0.012em] text-[#1d1b18] lg:text-[18px]"
-                    style={{ fontFamily: 'Georgia, "Times New Roman", ui-serif, serif' }}
-                  >
+                  <h3 className="cera-serif mt-3.5 max-w-[76%] text-[18px] leading-tight text-[var(--cera-ink)] lg:text-[19px]">
                     {concern.label[locale]}
                   </h3>
-                  <p className="mt-1 max-w-[69%] text-[11px] leading-[1.42] text-[#5f5a53] lg:text-[12px]">
+                  <p className="mt-1.5 max-w-[70%] text-[12px] leading-[1.45] text-[var(--cera-muted)]">
                     {concern.benefit[locale]}
                   </p>
 
                   <span
-                    className={`mt-auto flex items-center gap-1.5 pt-3 text-[10px] font-semibold text-[#98712d] ${
+                    className={`mt-auto flex items-center gap-1.5 pt-3 text-[11px] font-semibold text-[var(--cera-rose-ink)] ${
                       isRtl ? 'flex-row-reverse justify-end' : ''
                     }`}
                   >
@@ -330,103 +307,33 @@ export default function SkinConcernSection({
           })}
         </div>
 
-        <div className="mt-4 rounded-[13px] border border-[#e5e1d9] bg-white p-3 shadow-[0_3px_12px_rgba(52,42,25,0.03)] sm:px-4 sm:py-3.5">
+        <div className="ed-row mt-3 p-4 sm:px-5 sm:py-4">
           <div
             className={`flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:justify-between ${
               isRtl ? 'sm:flex-row-reverse' : ''
             }`}
           >
-            <div
-              className={`flex items-center gap-3.5 px-1 ${
-                isRtl ? 'flex-row-reverse text-right' : 'text-left'
-              }`}
-            >
-              <span
-                className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#e7dcc6] bg-[#fffdf8] text-[#a77a2d]"
-                aria-hidden="true"
-              >
-                <Sparkles className="h-4 w-4" strokeWidth={1.5} />
+            <div className={`flex items-center gap-3.5 ${isRtl ? 'flex-row-reverse text-right' : 'text-left'}`}>
+              <span className="ed-mark ed-mark--tactile ed-mark--round h-11 w-11" aria-hidden="true">
+                <Sparkles className="h-[18px] w-[18px]" strokeWidth={1.5} />
               </span>
               <span>
-                <span
-                  className="block text-[16px] font-medium text-[#24211d]"
-                  style={{ fontFamily: 'Georgia, "Times New Roman", ui-serif, serif' }}
-                >
+                <span className="cera-serif block text-[18px] leading-tight text-[var(--cera-ink)]">
                   {copy.ctaTitle}
                 </span>
-                <span className="mt-0.5 block text-[11px] text-[#6b665e] sm:text-[12px]">
-                  {copy.ctaBody}
-                </span>
+                <span className="mt-1 block text-[12.5px] text-[var(--cera-muted)]">{copy.ctaBody}</span>
               </span>
             </div>
             <Link
               href={getLocalizedPath('/skin-recommendation', locale)}
               aria-label={copy.ctaAria}
-              className={`inline-flex min-h-11 items-center justify-center gap-4 rounded-[5px] bg-[#171614] px-7 py-2.5 text-[10px] font-semibold uppercase tracking-[0.13em] text-[#f0dfbd] shadow-[0_4px_12px_rgba(20,18,15,0.14)] transition-[background-color,transform,box-shadow] hover:-translate-y-0.5 hover:bg-black hover:shadow-[0_7px_18px_rgba(20,18,15,0.2)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a77a2d] focus-visible:ring-offset-2 motion-reduce:transform-none motion-reduce:transition-none sm:min-w-[286px] ${
-                isRtl ? 'flex-row-reverse' : ''
-              }`}
+              className={`ed-cta min-h-11 px-7 py-3 text-[14px] sm:min-w-[286px] ${isRtl ? 'flex-row-reverse' : ''}`}
             >
               {copy.ctaButton}
               <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
             </Link>
           </div>
         </div>
-        <style>{`
-          [data-testid='skin-concern-section'] .concern-card {
-            min-height: 198px;
-          }
-
-          [data-testid='skin-concern-section'] .concern-image-rtl {
-            transform: scaleX(-1);
-          }
-
-          [data-testid='skin-concern-section'] .group:hover .concern-image-rtl {
-            transform: scaleX(-1.035) scaleY(1.035);
-          }
-
-          @media (min-width: 960px) {
-            [data-testid='skin-concern-section'] .concern-header {
-              grid-template-columns: repeat(12, minmax(0, 1fr));
-              margin-bottom: 2.5rem;
-            }
-
-            [data-testid='skin-concern-section'] .concern-title-column {
-              grid-column: span 7 / span 7;
-            }
-
-            [data-testid='skin-concern-section'] .concern-title {
-              font-size: 48px;
-            }
-
-            [data-testid='skin-concern-section'] .concern-support {
-              grid-column: span 5 / span 5;
-              font-size: 14px;
-            }
-
-            [data-testid='skin-concern-section'] .concern-support-ltr {
-              margin-left: auto;
-            }
-
-            [data-testid='skin-concern-section'] .concern-support-rtl {
-              margin-right: auto;
-            }
-
-            [data-testid='skin-concern-section'] .concern-grid {
-              grid-template-columns: repeat(4, minmax(0, 1fr));
-              gap: 13px;
-            }
-
-            [data-testid='skin-concern-section'] .concern-card {
-              min-height: 174px;
-            }
-          }
-
-          @media (min-width: 1024px) {
-            [data-testid='skin-concern-section'] .concern-card {
-              min-height: 198px;
-            }
-          }
-        `}</style>
       </div>
     </section>
   )

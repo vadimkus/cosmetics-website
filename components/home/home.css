@@ -1,0 +1,177 @@
+/**
+ * The few pieces the homepage needs on top of editorial.css.
+ *
+ * cerabarrier.css supplies the structure and editorial.css the house palette
+ * and the shared components. Everything here is either a homepage-only
+ * composition or a rule that cannot be expressed as a utility — nothing that a
+ * second page would want.
+ *
+ * Scoped under `.genosys-home` so importing this file cannot reach another
+ * route.
+ */
+
+/* --- Section rhythm ------------------------------------------------------
+   The page alternates cream and white bands. Stating it once here keeps the
+   six sections from each inventing their own padding and border. */
+
+.genosys-home .home-band {
+  border-top: 1px solid var(--cera-line);
+  padding-block: 64px;
+}
+
+@media (min-width: 1024px) {
+  .genosys-home .home-band {
+    padding-block: 88px;
+  }
+}
+
+.genosys-home .home-band--white {
+  background: #fff;
+}
+
+/* --- Product rail card ---------------------------------------------------
+   A shorter card than .cera-card: four across a 1200px rail, so the radius and
+   the lift are scaled down to match. */
+
+.genosys-home .home-product-card {
+  background: #fff;
+  border: 1px solid var(--cera-line);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease,
+    border-color 320ms ease;
+}
+
+@media (hover: hover) {
+  .genosys-home .home-product-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--cera-blush-deep);
+    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 22px 44px -26px rgba(151, 40, 31, 0.3);
+  }
+}
+
+/* --- Tile ----------------------------------------------------------------
+   Category and concern tiles: an image with copy beneath or beside it. The
+   image scales on hover, the tile lifts, and both stop for reduced motion. */
+
+.genosys-home .home-tile {
+  background: #fff;
+  border: 1px solid var(--cera-line);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 320ms ease,
+    border-color 320ms ease;
+}
+
+@media (hover: hover) {
+  .genosys-home .home-tile:hover {
+    transform: translateY(-3px);
+    border-color: var(--cera-blush-deep);
+    box-shadow: 0 2px 4px rgba(23, 20, 15, 0.04), 0 22px 44px -26px rgba(151, 40, 31, 0.3);
+  }
+
+  .genosys-home .home-tile:hover .home-tile__image {
+    transform: scale(1.035);
+  }
+}
+
+.genosys-home .home-tile__image {
+  transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The concern tiles lay copy over the photograph, so the image is mirrored in
+   Arabic to keep the subject away from the text column. */
+.genosys-home[dir='rtl'] .home-tile__image--mirrored {
+  transform: scaleX(-1);
+}
+
+@media (hover: hover) {
+  .genosys-home[dir='rtl'] .home-tile:hover .home-tile__image--mirrored {
+    transform: scaleX(-1.035) scaleY(1.035);
+  }
+}
+
+/* Copy sits in the first half of a concern tile and the photograph fills the
+   whole card behind it, so the text needs a wash to stay legible. */
+.genosys-home .home-tile__wash {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(255, 255, 255, 0.72) 28%,
+    rgba(255, 255, 255, 0.22) 45%,
+    transparent 58%
+  );
+}
+
+.genosys-home[dir='rtl'] .home-tile__wash {
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0.94) 0%,
+    rgba(255, 255, 255, 0.72) 28%,
+    rgba(255, 255, 255, 0.22) 45%,
+    transparent 58%
+  );
+}
+
+.genosys-home .home-concern-card {
+  min-height: 196px;
+}
+
+@media (min-width: 960px) {
+  .genosys-home .home-concern-card {
+    min-height: 176px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .genosys-home .home-concern-card {
+    min-height: 200px;
+  }
+}
+
+/* --- Newsletter field ----------------------------------------------------
+   Input and submit share one pill, so the input drops its own border and the
+   wrapper carries the focus ring instead. */
+
+.genosys-home .home-subscribe {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px;
+  border: 1px solid var(--cera-line);
+  border-radius: 999px;
+  background: #fff;
+  transition: border-color 180ms ease, box-shadow 200ms ease;
+}
+
+.genosys-home .home-subscribe:focus-within {
+  border-color: var(--cera-rose);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cera-rose) 14%, transparent);
+}
+
+.genosys-home .home-subscribe input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  padding: 10px 16px;
+  font-size: 15px;
+  color: var(--cera-ink);
+}
+
+.genosys-home .home-subscribe input:focus {
+  outline: none;
+}
+
+.genosys-home .home-subscribe input::placeholder {
+  color: color-mix(in srgb, var(--cera-muted) 70%, #fff);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .genosys-home .home-product-card,
+  .genosys-home .home-tile,
+  .genosys-home .home-tile__image,
+  .genosys-home .home-subscribe {
+    transition: none;
+  }
+}

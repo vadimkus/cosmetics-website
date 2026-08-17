@@ -14,7 +14,17 @@
  *  4. Shop-by-concern grid    — 8 concerns + product counts + analysis CTA
  *  5. Why GENOSYS 3-up        — brand credibility
  *  6. Newsletter CTA          — email capture → /api/newsletter/subscribe (live)
+ *
+ * Reworked onto the editorial system in Aug 2026. Before that these six
+ * sections carried three serif stacks (Georgia inline, Times New Roman inline
+ * and font-display), five accent colours and four different creams between
+ * them; the palette now comes from editorial.css and the page-specific pieces
+ * from home.css.
  */
+
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
+import './home.css'
 
 import Link from 'next/link'
 import Image from 'next/image'
@@ -30,6 +40,7 @@ import type { Locale } from '@/lib/i18n'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateCategory } from '@/utils/categoryTranslations'
+import { formatProductDisplayName } from '@/utils/formatProductDisplayName'
 import { CATEGORY_PAGES } from '@/lib/concernsData'
 import SkinConcernSection from '@/components/home/SkinConcernSection'
 import WhyGenosysSection from '@/components/home/WhyGenosysSection'
@@ -206,48 +217,58 @@ function RailProductCard({
   // Product names are never translated (brand identity) — English everywhere.
   // Categories ARE translated (they're UI labels, not brand names).
   const name = product.name
+  const displayName = formatProductDisplayName(name)
+  const isBeautyBoxTitle = /Beauty\s+Box$/i.test(name)
   const categoryLabel = translateCategory(product.category, messages)
   return (
     <Link
       href={getLocalizedPath(`/products/${product.productNumber || product.id}`, locale)}
-      className="group block rounded-2xl border border-gray-200 bg-white overflow-hidden hover:shadow-lg hover:border-primary-200 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+      className="home-product-card group block"
     >
-      <div className="relative aspect-square bg-white overflow-hidden">
+      <div className="relative aspect-square overflow-hidden bg-white">
         <Image
           src={imgSrc}
           alt={name}
           width={400}
           height={400}
           sizes="(max-width: 768px) 50vw, (max-width: 1280px) 25vw, 400px"
-          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
+          className="home-tile__image h-full w-full object-contain"
           quality={80}
         />
         {/* Badges live on the category line below, never over the image —
             the studio-style product shots must stay clean. */}
       </div>
       <div className={`p-4 ${isRtl ? 'text-right' : ''}`}>
-        <p className={`flex items-center gap-2 mb-1 ${isRtl ? 'flex-row-reverse' : ''}`}>
+        <p className={`mb-2 flex items-center gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
           {badge === 'new' ? (
-            <span className="inline-flex items-center rounded-full bg-gray-900 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-white">
+            <span className="inline-flex items-center rounded-full bg-[var(--cera-ink)] px-2.5 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-white">
               {locale === 'ar' ? 'جديد' : locale === 'ru' ? 'Новинка' : 'New'}
             </span>
           ) : (
             product.inStock && (
-              <span className={`inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wide text-emerald-700 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
+              <span
+                className={`inline-flex items-center gap-1.5 rounded-full border border-[var(--cera-line)] bg-white px-2.5 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-muted)] ${
+                  isRtl ? 'flex-row-reverse' : ''
+                }`}
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" aria-hidden="true" />
                 {locale === 'ar' ? 'متوفر' : locale === 'ru' ? 'В наличии' : 'In stock'}
               </span>
             )
           )}
-          <span className="text-[10px] tracking-wide font-semibold text-gray-500 uppercase line-clamp-1">
+          <span className="line-clamp-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-[var(--cera-muted)]">
             {categoryLabel}
           </span>
         </p>
-        <h3 className="text-sm lg:text-base font-semibold text-gray-900 leading-tight line-clamp-2 mb-2 group-hover:text-primary-700 transition-colors">
-          {name}
+        <h3
+          className={`cera-serif mb-2 text-[16px] leading-tight text-[var(--cera-ink)] transition-colors group-hover:text-[var(--cera-rose-ink)] lg:text-[18px] ${
+            isBeautyBoxTitle ? '' : 'line-clamp-2'
+          }`}
+        >
+          {displayName}
         </h3>
         {product.isPriceOnRequest ? (
-          <p className="text-sm font-semibold text-amber-600">
+          <p className="text-[13.5px] font-semibold text-[var(--cera-rose-ink)]">
             {locale === 'ar'
               ? 'السعر عند الطلب'
               : locale === 'ru'
@@ -260,31 +281,36 @@ function RailProductCard({
             if (pricing.hasDiscount) {
               return (
                 <div>
-                  <div className={`flex items-center gap-2 flex-wrap ${isRtl ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-sm font-bold text-primary-600">
-                      AED {pricing.displayPrice.toFixed(2)}
+                  <div className={`flex flex-wrap items-center gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                    <span className="cera-numeral text-[16px] text-[var(--cera-ink)]">
+                      {pricing.displayPrice.toFixed(2)}
+                      <span className="ms-1 text-[11px] text-[var(--cera-muted)]">AED</span>
                     </span>
                     {pricing.originalPrice ? (
-                      <span className="text-xs text-gray-500 line-through">
-                        AED {pricing.originalPrice.toFixed(2)}
+                      <span className="text-[12px] tabular-nums text-[var(--cera-muted)] line-through">
+                        {pricing.originalPrice.toFixed(2)}
                       </span>
                     ) : null}
                   </div>
-                  <span className="mt-0.5 inline-block text-[10px] font-semibold text-green-600">
-                    {pricing.discountPercentage}%{' '}
+                  {/* Green is the one colour kept off the palette here: a saving
+                      is information, not decoration, the same call /orders made
+                      for its status badges. */}
+                  <span dir="ltr" className="mt-1 inline-block text-[10.5px] font-semibold text-emerald-700">
+                    −{pricing.discountPercentage}%{' '}
                     {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'off'}
                   </span>
                 </div>
               )
             }
             return (
-              <p className="text-sm font-semibold text-gray-900">
-                AED {pricing.displayPrice.toFixed(2)}
+              <p className="cera-numeral text-[16px] text-[var(--cera-ink)]">
+                {pricing.displayPrice.toFixed(2)}
+                <span className="ms-1 text-[11px] text-[var(--cera-muted)]">AED</span>
               </p>
             )
           })()
         ) : user ? (
-          <p className="inline-flex items-center gap-1 text-sm font-semibold text-gray-500">
+          <p className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[var(--cera-muted)]">
             <Lock className="h-3.5 w-3.5" aria-hidden="true" />
             {locale === 'ar'
               ? 'السعر مقفل'
@@ -293,9 +319,7 @@ function RailProductCard({
               : 'Price locked'}
           </p>
         ) : (
-          <span
-            className={`inline-flex items-center gap-1.5 text-xs font-semibold text-primary-700 border border-primary-200 bg-primary-50 rounded-full px-2.5 py-1 ${isRtl ? 'flex-row-reverse' : ''}`}
-          >
+          <span className={`ed-pill ed-pill--accent ${isRtl ? 'flex-row-reverse' : ''}`}>
             <Lock className="h-3 w-3" aria-hidden="true" />
             {locale === 'ar'
               ? 'سجّل الدخول لرؤية السعر'
@@ -364,40 +388,40 @@ export default function HomeDesktopSections({
       <HomeScrollReveals />
       {/* ── 1. Bestsellers rail — driven by real sales data (homeData) ───── */}
       {featuredProducts.length > 0 && (
-        <section className="reveal-on-view bg-white py-16 lg:py-20 border-t border-gray-100">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className={`mb-10 flex items-end justify-between gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                <div className={isRtl ? 'text-right' : ''}>
-                  <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-2">
-                    {locale === 'ar' ? 'الأكثر مبيعاً' : locale === 'ru' ? 'Бестселлеры' : 'Bestsellers'}
-                  </p>
-                  <h2 className="text-3xl lg:text-[40px] lg:leading-[1.1] font-bold text-gray-900 font-display tracking-tight">
-                    {locale === 'ar' ? 'الأكثر مبيعاً هذا الموسم' : locale === 'ru' ? 'Хиты продаж' : 'What\u2019s popular right now'}
-                  </h2>
-                </div>
-                <Link
-                  href={getLocalizedPath('/products', locale)}
-                  className="hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-primary-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded px-1"
-                >
-                  {locale === 'ar' ? 'عرض الكل' : locale === 'ru' ? 'Все продукты' : 'View all'}
-                  <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
-                </Link>
+        <section className="reveal-on-view home-band home-band--white px-4">
+          <div className="mx-auto max-w-[1200px]">
+            <div className={`mb-9 flex items-end justify-between gap-4 lg:mb-11 ${isRtl ? 'flex-row-reverse' : ''}`}>
+              <div className={isRtl ? 'text-right' : ''}>
+                <p className="cera-eyebrow mb-2.5">
+                  {locale === 'ar' ? 'الأكثر مبيعاً' : locale === 'ru' ? 'Бестселлеры' : 'Bestsellers'}
+                </p>
+                <h2 className="cera-serif text-[30px] leading-[1.08] sm:text-[38px] lg:text-[44px]">
+                  {locale === 'ar' ? 'الأكثر مبيعاً هذا الموسم' : locale === 'ru' ? 'Хиты продаж' : 'What\u2019s popular right now'}
+                </h2>
               </div>
+              <Link
+                href={getLocalizedPath('/products', locale)}
+                className={`hidden items-center gap-1.5 text-[14px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 lg:inline-flex ${
+                  isRtl ? 'flex-row-reverse' : ''
+                }`}
+              >
+                {locale === 'ar' ? 'عرض الكل' : locale === 'ru' ? 'Все продукты' : 'View all'}
+                <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
+              </Link>
+            </div>
 
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                {featuredProducts.slice(0, 4).map(product => (
-                  <RailProductCard
-                    key={product.id}
-                    product={product}
-                    locale={locale}
-                    isRtl={isRtl}
-                    user={user}
-                    userCanSeePrices={userCanSeePrices}
-                    badge="inStock"
-                  />
-                ))}
-              </div>
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+              {featuredProducts.slice(0, 4).map(product => (
+                <RailProductCard
+                  key={product.id}
+                  product={product}
+                  locale={locale}
+                  isRtl={isRtl}
+                  user={user}
+                  userCanSeePrices={userCanSeePrices}
+                  badge="inStock"
+                />
+              ))}
             </div>
           </div>
         </section>
@@ -406,44 +430,44 @@ export default function HomeDesktopSections({
       {/* ── 2. New arrivals rail — newest products, also feeds Google fresh
              internal links so new PDPs get crawled and indexed quickly ───── */}
       {newArrivals && newArrivals.length > 0 && (
-        <section className="reveal-on-view bg-gray-50 py-16 lg:py-20 border-t border-gray-100">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <div className={`mb-10 flex items-end justify-between gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                <div className={isRtl ? 'text-right' : ''}>
-                  <p className="text-[11px] tracking-[0.18em] font-semibold text-primary-600 uppercase mb-2">
-                    {locale === 'ar' ? 'وصل حديثاً' : locale === 'ru' ? 'Новинки' : 'Just landed'}
-                  </p>
-                  <h2 className="text-3xl lg:text-[40px] lg:leading-[1.1] font-bold text-gray-900 font-display tracking-tight">
-                    {locale === 'ar'
-                      ? 'أحدث منتجات GENOSYS'
-                      : locale === 'ru'
-                      ? 'Последние поступления GENOSYS'
-                      : 'New arrivals from GENOSYS Korea'}
-                  </h2>
-                </div>
-                <Link
-                  href={getLocalizedPath('/products', locale)}
-                  className="hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold text-gray-700 hover:text-primary-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded px-1"
-                >
-                  {locale === 'ar' ? 'عرض الكل' : locale === 'ru' ? 'Все продукты' : 'View all'}
-                  <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
-                </Link>
+        <section className="reveal-on-view home-band px-4">
+          <div className="mx-auto max-w-[1200px]">
+            <div className={`mb-9 flex items-end justify-between gap-4 lg:mb-11 ${isRtl ? 'flex-row-reverse' : ''}`}>
+              <div className={isRtl ? 'text-right' : ''}>
+                <p className="cera-eyebrow mb-2.5">
+                  {locale === 'ar' ? 'وصل حديثاً' : locale === 'ru' ? 'Новинки' : 'Just landed'}
+                </p>
+                <h2 className="cera-serif text-[30px] leading-[1.08] sm:text-[38px] lg:text-[44px]">
+                  {locale === 'ar'
+                    ? 'أحدث منتجات GENOSYS'
+                    : locale === 'ru'
+                    ? 'Последние поступления GENOSYS'
+                    : 'New arrivals from GENOSYS Korea'}
+                </h2>
               </div>
+              <Link
+                href={getLocalizedPath('/products', locale)}
+                className={`hidden items-center gap-1.5 text-[14px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 lg:inline-flex ${
+                  isRtl ? 'flex-row-reverse' : ''
+                }`}
+              >
+                {locale === 'ar' ? 'عرض الكل' : locale === 'ru' ? 'Все продукты' : 'View all'}
+                <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
+              </Link>
+            </div>
 
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
-                {newArrivals.slice(0, 4).map(product => (
-                  <RailProductCard
-                    key={product.id}
-                    product={product}
-                    locale={locale}
-                    isRtl={isRtl}
-                    user={user}
-                    userCanSeePrices={userCanSeePrices}
-                    badge="new"
-                  />
-                ))}
-              </div>
+            <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+              {newArrivals.slice(0, 4).map(product => (
+                <RailProductCard
+                  key={product.id}
+                  product={product}
+                  locale={locale}
+                  isRtl={isRtl}
+                  user={user}
+                  userCanSeePrices={userCanSeePrices}
+                  badge="new"
+                />
+              ))}
             </div>
           </div>
         </section>
@@ -451,121 +475,124 @@ export default function HomeDesktopSections({
 
       {/* ── 3. Category rail ─────────────────────────────────────────────── */}
       <section
-        className="reveal-on-view border-t border-[#e8ded2] bg-[#f8f3ec] px-4 py-16 lg:py-20"
+        className="reveal-on-view home-band home-band--white px-4"
         data-testid="professional-range-section"
       >
-        <div className="mx-auto max-w-[1240px]">
-          <div className="mx-auto max-w-[1160px]">
-            <div className="mb-10 text-center lg:mb-12">
-              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#a52f35]">
-                {locale === 'ar' ? 'تسوق حسب الفئة' : locale === 'ru' ? 'Категории' : 'Shop by category'}
-              </p>
-              <h2
-                className={`text-[32px] font-semibold leading-[1.08] tracking-[-0.025em] text-[#17171a] sm:text-[38px] lg:text-[46px] ${isRtl ? 'font-display' : ''}`}
-                style={isRtl ? undefined : { fontFamily: 'Georgia, "Times New Roman", serif' }}
-              >
-                {locale === 'ar'
-                  ? 'مجموعة GENOSYS الاحترافية'
-                  : locale === 'ru'
-                  ? 'Профессиональная коллекция GENOSYS'
-                  : 'The GENOSYS professional range'}
-              </h2>
-              <p className="mx-auto mt-3 max-w-xl text-[14px] leading-relaxed text-[#5f5a54] sm:text-[15px]">
-                {locale === 'ar'
-                  ? 'من بروتوكولات العيادة إلى العناية اليومية — مصنوعة في كوريا ومعتمدة في الإمارات'
-                  : locale === 'ru'
-                  ? 'От клинических процедур до ежедневного ухода — сделано в Корее, сертифицировано в ОАЭ'
-                  : 'From in-clinic treatments to everyday essentials — made in Korea, certified in the UAE.'}
-              </p>
-              <div className="mx-auto mt-5 flex w-16 items-center justify-center" aria-hidden="true">
-                <span className="h-px flex-1 bg-[#d99a9d]" />
-                <span className="mx-1.5 h-2 w-2 rotate-45 bg-[#b5252e]" />
-                <span className="h-px flex-1 bg-[#d99a9d]" />
-              </div>
-            </div>
+        <div className="mx-auto max-w-[1200px]">
+          <div className="text-center">
+            <p className="cera-eyebrow mb-2.5">
+              {locale === 'ar' ? 'تسوق حسب الفئة' : locale === 'ru' ? 'Категории' : 'Shop by category'}
+            </p>
+            <h2 className="cera-serif text-[30px] leading-[1.08] sm:text-[38px] lg:text-[46px]">
+              {locale === 'ar'
+                ? 'مجموعة GENOSYS الاحترافية'
+                : locale === 'ru'
+                ? 'Профессиональная коллекция GENOSYS'
+                : 'The GENOSYS professional range'}
+            </h2>
+            <p className="mx-auto mt-4 max-w-[56ch] text-[15px] leading-relaxed text-[var(--cera-muted)]">
+              {locale === 'ar'
+                ? 'من بروتوكولات العيادة إلى العناية اليومية — مصنوعة في كوريا ومعتمدة في الإمارات'
+                : locale === 'ru'
+                ? 'От клинических процедур до ежедневного ухода — сделано в Корее, сертифицировано в ОАЭ'
+                : 'From in-clinic treatments to everyday essentials — made in Korea, certified in the UAE.'}
+            </p>
+          </div>
 
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {featuredCategories.map((cat, idx) => {
-                const imageSrc = categoryImageBySlug[cat.slug]
-                const count = categoryCounts?.[cat.slug]
-                const title =
-                  CATEGORY_RAIL_TITLES[cat.slug]?.[locale as 'en' | 'ar' | 'ru'] ??
-                  (locale === 'ar'
-                    ? cat.seo.ar.h1
-                    : locale === 'ru'
-                    ? cat.seo.ru.h1
-                    : cat.seo.en.h1)
-                const descriptor =
-                  CATEGORY_DESCRIPTORS[cat.slug]?.[locale as 'en' | 'ar' | 'ru']
-                const shopLabel =
-                  locale === 'ar' ? 'تسوق' : locale === 'ru' ? 'Смотреть' : 'Shop'
-                return (
-                  <Link
-                    key={cat.slug}
-                    href={getLocalizedPath(`/products/category/${cat.slug}`, locale)}
-                    className="group flex flex-col overflow-hidden rounded-[14px] border border-[#ded5ca] bg-[#fbf8f3] shadow-[0_8px_24px_-20px_rgba(54,38,24,0.7)] transition-all duration-300 hover:-translate-y-1 hover:border-[#cdbeb0] hover:shadow-[0_18px_35px_-22px_rgba(54,38,24,0.6)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#b5252e]/45 focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8f3ec]"
-                  >
-                    {/* Full-bleed editorial category artwork, matching the supplied template. */}
-                    <div className="relative aspect-[1.62/1] overflow-hidden bg-[#eee8df]">
-                      {imageSrc && (
-                        <Image
-                          src={imageSrc}
-                          alt=""
-                          fill
-                          sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) 50vw, 380px"
-                          className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-                          aria-hidden="true"
-                        />
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 lg:gap-5">
+            {featuredCategories.map((cat, idx) => {
+              const imageSrc = categoryImageBySlug[cat.slug]
+              const count = categoryCounts?.[cat.slug]
+              const title =
+                CATEGORY_RAIL_TITLES[cat.slug]?.[locale as 'en' | 'ar' | 'ru'] ??
+                (locale === 'ar'
+                  ? cat.seo.ar.h1
+                  : locale === 'ru'
+                  ? cat.seo.ru.h1
+                  : cat.seo.en.h1)
+              const descriptor = CATEGORY_DESCRIPTORS[cat.slug]?.[locale as 'en' | 'ar' | 'ru']
+              const shopLabel = locale === 'ar' ? 'تسوق' : locale === 'ru' ? 'Смотреть' : 'Shop'
+              return (
+                <Link
+                  key={cat.slug}
+                  href={getLocalizedPath(`/products/category/${cat.slug}`, locale)}
+                  className="home-tile group flex flex-col"
+                >
+                  {/* Full-bleed editorial category artwork, matching the supplied template. */}
+                  <div className="relative aspect-[1.62/1] overflow-hidden bg-[var(--cera-cream-deep)]">
+                    {imageSrc && (
+                      <Image
+                        src={imageSrc}
+                        alt=""
+                        fill
+                        sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 1024px) 50vw, 380px"
+                        className="home-tile__image object-cover"
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span
+                      dir="ltr"
+                      className={`cera-numeral absolute top-4 text-[12px] text-[var(--cera-rose-ink)] drop-shadow-[0_1px_8px_rgba(255,255,255,0.95)] ${
+                        isRtl ? 'right-4' : 'left-4'
+                      }`}
+                      aria-hidden="true"
+                    >
+                      {String(idx + 1).padStart(2, '0')}/{String(featuredCategories.length).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  {/* Copy */}
+                  <div className={`flex flex-1 flex-col px-5 pb-4 pt-4 ${isRtl ? 'text-right' : ''}`}>
+                    <h3 className="cera-serif text-[19px] leading-tight text-[var(--cera-ink)] lg:text-[21px]">
+                      {title}
+                    </h3>
+                    {descriptor && (
+                      <p className="mt-1.5 line-clamp-2 min-h-[38px] text-[13.5px] leading-[1.45] text-[var(--cera-muted)]">
+                        {descriptor}
+                      </p>
+                    )}
+                    <div
+                      className={`mt-4 flex items-center justify-between gap-3 border-t border-[var(--cera-line)] pt-3 ${
+                        isRtl ? 'flex-row-reverse' : ''
+                      }`}
+                    >
+                      {typeof count === 'number' && count > 0 ? (
+                        <span className="text-[12px] text-[var(--cera-muted)]">
+                          {formatProductCount(count, locale)}
+                        </span>
+                      ) : (
+                        <span aria-hidden="true" />
                       )}
                       <span
-                        className={`absolute top-4 text-[12px] font-semibold tracking-[0.06em] text-[#b5252e] drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)] ${isRtl ? 'right-4' : 'left-4'}`}
-                        aria-hidden="true"
+                        className={`flex items-center gap-1.5 text-[13px] font-semibold text-[var(--cera-rose-ink)] ${
+                          isRtl ? 'flex-row-reverse' : ''
+                        }`}
                       >
-                        {String(idx + 1).padStart(2, '0')}/{String(featuredCategories.length).padStart(2, '0')}
+                        {shopLabel}
+                        <ArrowRight
+                          className={`h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 ${
+                            isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''
+                          }`}
+                          aria-hidden="true"
+                        />
                       </span>
                     </div>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
 
-                    {/* Copy */}
-                    <div className={`flex flex-1 flex-col px-5 pb-4 pt-4 sm:px-5 ${isRtl ? 'text-right' : ''}`}>
-                      <h3
-                        className={`text-[18px] font-semibold leading-tight tracking-[-0.015em] text-[#1c1a18] lg:text-[20px] ${isRtl ? 'font-display' : ''}`}
-                        style={isRtl ? undefined : { fontFamily: 'Georgia, "Times New Roman", serif' }}
-                      >
-                        {title}
-                      </h3>
-                      {descriptor && (
-                        <p className="mt-1.5 min-h-[38px] text-[13px] leading-[1.45] text-[#5f5a54] line-clamp-2">
-                          {descriptor}
-                        </p>
-                      )}
-                      <div className={`mt-4 flex items-center justify-between gap-3 border-t border-[#e2dad0] pt-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                        {typeof count === 'number' && count > 0 ? (
-                          <span className="text-[12px] text-[#6f6860]">
-                            {formatProductCount(count, locale)}
-                          </span>
-                        ) : (
-                          <span aria-hidden="true" />
-                        )}
-                        <span className={`flex items-center gap-1.5 text-[13px] font-semibold text-[#b5252e] transition-colors group-hover:text-[#8f171f] ${isRtl ? 'flex-row-reverse' : ''}`}>
-                          {shopLabel}
-                          <ArrowRight className={`h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1 ${isRtl ? 'rotate-180 group-hover:-translate-x-1' : ''}`} aria-hidden="true" />
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                )
-              })}
-            </div>
-
-            <div className="mt-9 text-center">
-              <Link
-                href={getLocalizedPath('/products', locale)}
-                className="inline-flex items-center gap-2 rounded px-2 py-1 text-sm font-semibold text-[#3f3a35] transition-colors hover:text-[#a21e27] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#b5252e]/40"
-              >
-                {locale === 'ar' ? 'استعرض جميع المنتجات' : locale === 'ru' ? 'Посмотреть все продукты' : 'Browse all products'}
-                <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
-              </Link>
-            </div>
+          <div className="mt-9 text-center">
+            <Link
+              href={getLocalizedPath('/products', locale)}
+              className={`inline-flex items-center gap-2 text-[14px] font-semibold text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${
+                isRtl ? 'flex-row-reverse' : ''
+              }`}
+            >
+              {locale === 'ar' ? 'استعرض جميع المنتجات' : locale === 'ru' ? 'Посмотреть все продукты' : 'Browse all products'}
+              <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
@@ -711,147 +738,132 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
   }
 
   return (
-    <section className="reveal-on-view relative overflow-hidden bg-gray-950 text-white py-20 lg:py-28">
-      {/* Subtle radial highlight + grain to add depth to the dark band */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 60% at 50% 0%, rgba(180, 70, 100, 0.22), rgba(2, 6, 23, 0) 70%)',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent"
-      />
-      <div className="relative container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className={`grid lg:grid-cols-12 gap-10 lg:gap-16 items-start ${isRtl ? 'text-right' : ''}`}>
-            {/* ── LEFT: kicker, headline, copy, form ─────────────────────── */}
-            <div className="lg:col-span-7">
-              <div className={`inline-flex items-center gap-2 text-[11px] font-mono tracking-[0.2em] uppercase text-gray-400 mb-5 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                <span aria-hidden="true" className="h-px w-8 bg-gray-600" />
-                {kicker}
+    <section className="reveal-on-view home-band home-band--white px-4">
+      <div className={`ed-panel ed-panel--seal mx-auto max-w-[1200px] p-7 sm:p-10 lg:p-14 ${isRtl ? 'text-right' : ''}`}>
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-16">
+          {/* ── LEFT: kicker, headline, copy, form ─────────────────────── */}
+          <div className="lg:col-span-7">
+            <p className="cera-eyebrow mb-3">{kicker}</p>
+            <h2 className="cera-serif text-[30px] leading-[1.08] sm:text-[38px] lg:text-[44px]">{headline}</h2>
+            <p className="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-[var(--cera-muted)] lg:text-base">
+              {description}
+            </p>
+
+            {status === 'success' || status === 'already' ? (
+              <div
+                className={`mt-8 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-3 text-emerald-700 ${
+                  isRtl ? 'flex-row-reverse' : ''
+                }`}
+              >
+                <Check className="h-4 w-4 flex-none" aria-hidden="true" />
+                <span className="text-[14px] font-semibold">
+                  {status === 'already' ? alreadySubscribedMsg : successMsg}
+                </span>
               </div>
-              <h2 className="text-3xl lg:text-[44px] lg:leading-[1.05] font-bold font-display tracking-tight">
-                {headline}
-              </h2>
-              <p className="mt-4 text-gray-300 text-[15px] lg:text-base leading-relaxed max-w-lg">
-                {description}
-              </p>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="mt-8 max-w-lg">
+                <label htmlFor="home-newsletter-email" className="sr-only">
+                  {locale === 'ar' ? 'البريد الإلكتروني' : locale === 'ru' ? 'Email' : 'Email address'}
+                </label>
+                {/* One pill: the input flows into the button and the wrapper
+                    carries the focus ring for both. */}
+                <div className={`home-subscribe ${isRtl ? 'flex-row-reverse' : ''}`}>
+                  <input
+                    id="home-newsletter-email"
+                    type="email"
+                    required
+                    value={email}
+                    onChange={e => setEmail(e.target.value)}
+                    placeholder={
+                      locale === 'ar' ? 'أدخل بريدك الإلكتروني' : locale === 'ru' ? 'Введите email' : 'Enter your email'
+                    }
+                    className={isRtl ? 'text-right' : ''}
+                    autoComplete="email"
+                    disabled={status === 'loading'}
+                    aria-invalid={status === 'error'}
+                    aria-describedby={status === 'error' ? 'home-newsletter-error' : undefined}
+                  />
 
-              {status === 'success' || status === 'already' ? (
-                <div className={`mt-8 inline-flex items-center gap-2 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-200 px-5 py-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                  <Check className="h-4 w-4" aria-hidden="true" />
-                  <span className="text-sm font-semibold">
-                    {status === 'already' ? alreadySubscribedMsg : successMsg}
-                  </span>
+                  {/* Honeypot — hidden from a11y tree; only bots fill it. */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={website}
+                    onChange={e => setWebsite(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="hidden"
+                  />
+
+                  <button type="submit" disabled={status === 'loading'} className="ed-cta whitespace-nowrap px-6 py-2.5 text-[14px]">
+                    {status === 'loading'
+                      ? locale === 'ar'
+                        ? 'جارٍ الإرسال…'
+                        : locale === 'ru'
+                          ? 'Отправляем…'
+                          : 'Subscribing…'
+                      : locale === 'ar'
+                        ? 'اشترك'
+                        : locale === 'ru'
+                          ? 'Подписаться'
+                          : 'Subscribe'}
+                    {status !== 'loading' && (
+                      <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
+                    )}
+                  </button>
                 </div>
-              ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  noValidate
-                  className={`mt-8 max-w-lg ${isRtl ? '' : ''}`}
-                >
-                  <label htmlFor="home-newsletter-email" className="sr-only">
-                    {locale === 'ar' ? 'البريد الإلكتروني' : locale === 'ru' ? 'Email' : 'Email address'}
-                  </label>
-                  {/* Unified pill: input flows into the button. White ring on focus, soft border at rest. */}
-                  <div className={`flex items-center gap-1 p-1 rounded-full bg-white/[0.07] border border-white/15 backdrop-blur-sm transition-colors focus-within:bg-white/[0.1] focus-within:border-white/30 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                    <input
-                      id="home-newsletter-email"
-                      type="email"
-                      required
-                      value={email}
-                      onChange={e => setEmail(e.target.value)}
-                      placeholder={
-                        locale === 'ar' ? 'أدخل بريدك الإلكتروني' : locale === 'ru' ? 'Введите email' : 'Enter your email'
-                      }
-                      className={`flex-1 min-w-0 bg-transparent border-0 px-5 py-2.5 text-sm text-white placeholder:text-gray-400 focus:outline-none disabled:opacity-60 ${isRtl ? 'text-right' : ''}`}
-                      autoComplete="email"
-                      disabled={status === 'loading'}
-                      aria-invalid={status === 'error'}
-                      aria-describedby={status === 'error' ? 'home-newsletter-error' : undefined}
-                    />
+              </form>
+            )}
 
-                    {/* Honeypot — hidden from a11y tree; only bots fill it. */}
-                    <input
-                      type="text"
-                      name="website"
-                      value={website}
-                      onChange={e => setWebsite(e.target.value)}
-                      tabIndex={-1}
-                      autoComplete="off"
-                      aria-hidden="true"
-                      className="hidden"
-                    />
+            {status === 'error' && (
+              <p id="home-newsletter-error" className="mt-4 text-[14px] font-semibold text-[var(--cera-rose-ink)]" role="alert">
+                {errorMsg || genericError}
+              </p>
+            )}
 
-                    <button
-                      type="submit"
-                      disabled={status === 'loading'}
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-white text-gray-900 px-6 py-2.5 font-semibold text-sm hover:bg-gray-100 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
-                    >
-                      {status === 'loading'
-                        ? (locale === 'ar' ? 'جارٍ الإرسال…' : locale === 'ru' ? 'Отправляем…' : 'Subscribing…')
-                        : (locale === 'ar' ? 'اشترك' : locale === 'ru' ? 'Подписаться' : 'Subscribe')}
-                      {status !== 'loading' && (
-                        <ArrowRight className={`h-4 w-4 ${isRtl ? 'rotate-180' : ''}`} aria-hidden="true" />
-                      )}
-                    </button>
-                  </div>
-                </form>
-              )}
+            <p className={`mt-4 flex items-center gap-2 text-[12.5px] text-[var(--cera-muted)] ${isRtl ? 'flex-row-reverse' : ''}`}>
+              <Check className="h-3.5 w-3.5 flex-none" aria-hidden="true" />
+              {locale === 'ar'
+                ? 'إلغاء الاشتراك بنقرة واحدة. نحن نحترم خصوصيتك.'
+                : locale === 'ru'
+                ? 'Отписка в один клик. Мы уважаем вашу приватность.'
+                : 'Unsubscribe in one click. We respect your privacy.'}
+            </p>
+          </div>
 
-              {status === 'error' && (
-                <p id="home-newsletter-error" className="mt-4 text-sm text-red-300" role="alert">
-                  {errorMsg || genericError}
+          {/* ── RIGHT: benefits card ──────────────────────────────────── */}
+          <div className="lg:col-span-5">
+            <div className="cera-card p-6 lg:p-8">
+              <div className={`mb-5 flex items-center gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                <span className="ed-mark ed-mark--tactile ed-mark--round h-10 w-10" aria-hidden="true">
+                  <Mail className="h-[17px] w-[17px]" />
+                </span>
+                <p className="cera-eyebrow">{benefitsTitle}</p>
+              </div>
+              <ul className="space-y-3">
+                {benefits.map(benefit => (
+                  <li
+                    key={benefit}
+                    className={`flex items-start gap-3 text-[14.5px] leading-relaxed text-[var(--cera-body)] ${
+                      isRtl ? 'flex-row-reverse text-right' : ''
+                    }`}
+                  >
+                    <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" aria-hidden="true" />
+                    <span>{benefit}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Frequency promise — handles the #1 objection */}
+              <div className="mt-6 border-t border-[var(--cera-line)] pt-5">
+                <p className="text-[12.5px] leading-relaxed text-[var(--cera-muted)]">
+                  {locale === 'ar'
+                    ? 'نرسل بريداً إلكترونياً واحداً في الشهر فقط — لا رسائل غير مرغوب فيها، ولا مشاركة بياناتك مع أي طرف ثالث.'
+                    : locale === 'ru'
+                    ? 'Только одно письмо в месяц. Без спама. Не передаём ваши данные третьим лицам.'
+                    : 'One email a month. No spam. We never share your data with third parties.'}
                 </p>
-              )}
-
-              <p className={`mt-4 text-xs text-gray-500 flex items-center gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                <Check className="h-3.5 w-3.5 text-gray-500" aria-hidden="true" />
-                {locale === 'ar'
-                  ? 'إلغاء الاشتراك بنقرة واحدة. نحن نحترم خصوصيتك.'
-                  : locale === 'ru'
-                  ? 'Отписка в один клик. Мы уважаем вашу приватность.'
-                  : 'Unsubscribe in one click. We respect your privacy.'}
-              </p>
-            </div>
-
-            {/* ── RIGHT: benefits card ──────────────────────────────────── */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm p-6 lg:p-8">
-                <div className={`flex items-center gap-3 mb-5 ${isRtl ? 'flex-row-reverse' : ''}`}>
-                  <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/10 border border-white/15">
-                    <Mail className="h-4 w-4 text-white" aria-hidden="true" />
-                  </span>
-                  <p className="text-[11px] font-mono tracking-[0.18em] uppercase text-gray-400">
-                    {benefitsTitle}
-                  </p>
-                </div>
-                <ul className="space-y-3">
-                  {benefits.map(benefit => (
-                    <li
-                      key={benefit}
-                      className={`flex items-start gap-3 text-[14px] text-gray-200 leading-relaxed ${isRtl ? 'flex-row-reverse text-right' : ''}`}
-                    >
-                      <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-primary-400" aria-hidden="true" />
-                      <span>{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Frequency promise — handles the #1 objection */}
-                <div className="mt-6 pt-5 border-t border-white/10">
-                  <p className={`text-[12px] text-gray-400 leading-relaxed ${isRtl ? 'text-right' : ''}`}>
-                    {locale === 'ar'
-                      ? 'نرسل بريداً إلكترونياً واحداً في الشهر فقط — لا رسائل غير مرغوب فيها، ولا مشاركة بياناتك مع أي طرف ثالث.'
-                      : locale === 'ru'
-                      ? 'Только одно письмо в месяц. Без спама. Не передаём ваши данные третьим лицам.'
-                      : 'One email a month. No spam. We never share your data with third parties.'}
-                  </p>
-                </div>
               </div>
             </div>
           </div>

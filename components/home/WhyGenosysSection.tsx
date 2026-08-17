@@ -94,102 +94,77 @@ export default function WhyGenosysSection({
 
   return (
     <section
-      className="reveal-on-view border-t border-[#e9e1d6] bg-[#f4efe8] px-4 py-16 lg:py-24"
+      className="reveal-on-view home-band home-band--white px-4"
       data-testid="why-genosys-section"
       dir={dir}
     >
-      <div className="relative isolate mx-auto max-w-6xl overflow-hidden rounded-[24px] border border-[#e4ddd2] bg-[#f3eee7] px-6 py-10 shadow-[0_24px_55px_-45px_rgba(58,44,27,0.55)] sm:px-9 sm:py-12 lg:px-14 lg:py-12">
-          <div
-            className={`pointer-events-none absolute inset-y-0 -z-20 w-[76%] sm:w-[68%] ${
-              isRtl ? 'left-0' : 'right-0'
-            }`}
-            aria-hidden="true"
-          >
-            <Image
-              src={BACKGROUND_IMAGE}
-              alt=""
-              fill
-              sizes="(max-width: 767px) 76vw, 780px"
-              className="object-cover"
-              style={{
-                objectPosition: '76% 68%',
-                opacity: 0.34,
-                filter: 'saturate(0.2) sepia(0.16) contrast(0.84) brightness(1.12)',
-                transform: isRtl ? 'scaleX(-1)' : undefined,
-              }}
-            />
-          </div>
-          <span
-            className={`pointer-events-none absolute inset-0 -z-10 ${
-              isRtl
-                ? 'bg-[linear-gradient(270deg,rgba(247,242,235,0.98)_0%,rgba(247,242,235,0.91)_35%,rgba(247,242,235,0.45)_62%,rgba(247,242,235,0.1)_100%)]'
-                : 'bg-[linear-gradient(90deg,rgba(247,242,235,0.98)_0%,rgba(247,242,235,0.91)_35%,rgba(247,242,235,0.45)_62%,rgba(247,242,235,0.1)_100%)]'
-            }`}
-            aria-hidden="true"
+      <div className="relative isolate mx-auto max-w-[1200px] overflow-hidden rounded-[24px] border border-[var(--cera-line)] bg-[var(--cera-cream)] px-6 py-10 sm:px-9 sm:py-12 lg:px-14 lg:py-14">
+        {/* The portrait bleeds in from the trailing edge at low opacity and is
+            mirrored in Arabic, so the face never lands under the copy column. */}
+        <div
+          className={`pointer-events-none absolute inset-y-0 -z-20 w-[76%] sm:w-[68%] ${
+            isRtl ? 'left-0' : 'right-0'
+          }`}
+          aria-hidden="true"
+        >
+          <Image
+            src={BACKGROUND_IMAGE}
+            alt=""
+            fill
+            sizes="(max-width: 767px) 76vw, 780px"
+            className="object-cover"
+            style={{
+              objectPosition: '76% 68%',
+              opacity: 0.3,
+              filter: 'saturate(0.2) sepia(0.16) contrast(0.84) brightness(1.12)',
+              transform: isRtl ? 'scaleX(-1)' : undefined,
+            }}
           />
+        </div>
+        <span
+          className={`pointer-events-none absolute inset-0 -z-10 ${
+            isRtl
+              ? 'bg-[linear-gradient(270deg,var(--cera-cream)_0%,color-mix(in_srgb,var(--cera-cream)_91%,transparent)_35%,color-mix(in_srgb,var(--cera-cream)_45%,transparent)_62%,transparent_100%)]'
+              : 'bg-[linear-gradient(90deg,var(--cera-cream)_0%,color-mix(in_srgb,var(--cera-cream)_91%,transparent)_35%,color-mix(in_srgb,var(--cera-cream)_45%,transparent)_62%,transparent_100%)]'
+          }`}
+          aria-hidden="true"
+        />
 
-          <div
-            className={`grid items-center gap-7 md:grid-cols-12 md:gap-10 ${
-              isRtl ? 'text-right' : 'text-left'
+        <div className={`grid items-center gap-7 md:grid-cols-12 md:gap-10 ${isRtl ? 'text-right' : 'text-left'}`}>
+          <div className="md:col-span-7">
+            <p className="cera-eyebrow">{copy.eyebrow}</p>
+            <h2 className="cera-serif mt-3 text-[34px] leading-[1.04] sm:text-[42px] lg:text-[50px]">
+              <span className="block">{copy.headline[0]}</span>
+              <span className="block">{copy.headline[1]}</span>
+            </h2>
+          </div>
+          <p
+            className={`max-w-[44ch] text-[14.5px] leading-relaxed text-[var(--cera-body)] md:col-span-5 ${
+              isRtl ? 'md:me-auto' : 'md:ms-auto'
             }`}
           >
-            <div className="md:col-span-7">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#9c343b]">
-                {copy.eyebrow}
-              </p>
-              <h2
-                className="mt-3 text-[35px] font-medium leading-[1.02] tracking-[-0.025em] text-[#171a20] sm:text-[42px] lg:text-[48px]"
-                style={{
-                  fontFamily: isRtl
-                    ? 'var(--font-arabic, "Noto Sans Arabic"), Tahoma, Arial, sans-serif'
-                    : '"Times New Roman", Times, serif',
-                  fontWeight: 700,
-                }}
-              >
-                <span className="block" style={{ fontFamily: 'inherit' }}>
-                  {copy.headline[0]}
-                </span>
-                <span className="block" style={{ fontFamily: 'inherit' }}>
-                  {copy.headline[1]}
-                </span>
-              </h2>
-            </div>
-            <p
-              className={`max-w-md text-[14px] leading-[1.65] text-[#34363b] md:col-span-5 ${
-                isRtl ? 'md:mr-auto' : 'md:ml-auto'
-              }`}
-            >
-              {copy.support}
-            </p>
-          </div>
+            {copy.support}
+          </p>
+        </div>
 
-          <div className="mt-9 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mt-10">
-            {copy.cards.map((card, index) => {
-              const Icon = ICONS[index] ?? IconClinical
-              return (
-                <article
-                  key={card.label}
-                  className={`rounded-[14px] border border-white/80 bg-[rgba(255,254,252,0.93)] p-6 shadow-[0_16px_28px_-20px_rgba(43,35,26,0.4)] backdrop-blur-[2px] sm:p-7 ${
-                    isRtl ? 'text-right' : 'text-left'
-                  }`}
-                >
-                  <Icon
-                    className={`h-5 w-5 text-[#171a20] ${isRtl ? 'mr-0' : ''}`}
-                    strokeWidth={1.55}
-                  />
-                  <p className="mt-5 text-[9px] font-semibold uppercase tracking-[0.23em] text-[#9c343b]">
-                    {card.label}
-                  </p>
-                  <h3 className="mt-2 text-[18px] font-semibold leading-[1.18] tracking-[-0.02em] text-[#171a20] lg:text-[19px]">
-                    {card.title}
-                  </h3>
-                  <p className="mt-3 text-[12px] leading-[1.65] text-[#44464b] sm:text-[13px]">
-                    {card.body}
-                  </p>
-                </article>
-              )
-            })}
-          </div>
+        <div className="mt-9 grid grid-cols-1 gap-4 md:grid-cols-3 lg:mt-11">
+          {copy.cards.map((card, index) => {
+            const Icon = ICONS[index] ?? IconClinical
+            return (
+              <article
+                key={card.label}
+                className={`cera-card p-6 sm:p-7 ${isRtl ? 'text-right' : 'text-left'}`}
+              >
+                <span className="ed-mark ed-mark--tactile h-11 w-11" aria-hidden="true">
+                  <Icon className="h-[18px] w-[18px]" strokeWidth={1.55} />
+                </span>
+                <p className="cera-eyebrow mt-5 text-[10px]">{card.label}</p>
+                <h3 className="cera-serif mt-2 text-[19px] leading-tight lg:text-[20px]">{card.title}</h3>
+                <p className="mt-3 text-[13.5px] leading-relaxed text-[var(--cera-muted)]">{card.body}</p>
+              </article>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

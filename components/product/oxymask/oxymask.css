@@ -1,0 +1,90 @@
+/**
+ * Palette override for EGF REPAIR OXYMASK CREAM (product 26).
+ *
+ * cerabarrier.css supplies the structure; this file only restates the tokens.
+ * A cool oxygen blue, because the product's whole character is a foaming
+ * oxygen-release reaction and nothing else in the range looks like it.
+ * Scoped to `.cera-page.eoc-page`.
+ */
+
+.cera-page.eoc-page {
+  --cera-cream: #f7f9fb;
+  --cera-cream-deep: #e4ecf2;
+  --cera-blush: #eaf1f7;
+  --cera-blush-deep: #bcd2e2;
+  --cera-rose: #2d5f86;
+  --cera-rose-ink: #1e4260;
+  --cera-ink: #141b21;
+  --cera-body: #35424c;
+  --cera-muted: #5e6d78;
+  --cera-line: #dde7ee;
+}
+
+.eoc-page .cera-stage {
+  background-color: #eef4f9;
+  box-shadow: 0 24px 60px -34px rgba(30, 66, 96, 0.42);
+}
+
+@media (hover: hover) {
+  .eoc-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(20, 27, 33, 0.04), 0 26px 48px -26px rgba(30, 66, 96, 0.32);
+  }
+}
+
+/* --- Tables -------------------------------------------------------------- */
+
+.eoc-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-blush) 45%, transparent);
+}
+
+.eoc-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+/* The one row in the carton table that is a working dose. */
+.eoc-table tbody tr[data-real='true'] {
+  background: color-mix(in srgb, var(--cera-blush) 85%, #fff);
+}
+
+.eoc-table tbody tr[data-real='true'] th[scope='row'],
+.eoc-table tbody tr[data-real='true'] td {
+  color: var(--cera-rose-ink);
+  font-weight: 600;
+}
+
+/* --- The four usage rules -----------------------------------------------
+   These are functional, not decorative: on a foaming product, getting them
+   wrong means it does not work. Numbered and given real weight. */
+
+.eoc-rule {
+  border: 1px solid var(--cera-blush-deep);
+  border-radius: 20px;
+  background: #fff;
+}
+
+.eoc-rule__n {
+  font-variant-numeric: tabular-nums;
+  color: var(--cera-rose);
+}
+
+/* --- The postcream comparison ------------------------------------------- */
+
+.eoc-versus {
+  border: 1px solid var(--cera-line);
+  border-radius: 22px;
+  background: #fff;
+}
+
+.eoc-versus--self {
+  border-color: var(--cera-blush-deep);
+  background: color-mix(in srgb, var(--cera-blush) 55%, #fff);
+}
+
+/* --- Notes --------------------------------------------------------------- */
+
+.eoc-note {
+  border: 1px solid var(--cera-line);
+  border-inline-start: 3px solid var(--cera-rose);
+  border-radius: 20px;
+  background: #fff;
+}

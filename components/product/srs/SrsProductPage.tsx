@@ -88,11 +88,11 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Vial packshot for the engine section. Gallery stays packshots only. */
-const ENGINE_IMAGE = '/images/Second/sss1.jpg'
+/** The formula-in-numbers slide: 15 / 13.5 / 2, glycerin 25%, pH 3.02. */
+const ENGINE_IMAGE = '/images/srs_new/s3.jpeg'
 
-/** The single-vial shot, so the how-to shows the vial that gets opened. */
-const HOWTO_IMAGE = '/images/Second/sss2.jpg'
+/** The apply / sit / cold-rinse slide, beside the protocol steps. */
+const HOWTO_IMAGE = '/images/srs_new/s5.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

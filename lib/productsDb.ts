@@ -116,6 +116,26 @@ const getProductByIdFromDb = unstable_cache(
 )
 
 /**
+ * The product list behind every /products listing page, in all three locales.
+ *
+ * This used to be declared inline in app/products/page.tsx, so only the English route
+ * had it: /ar/products and /ru/products rendered the client component with no products
+ * and let it fetch /api/products from the browser instead. That cost those two locales a
+ * round trip and a visible delay, and it caused a real bug — the client writes the URL
+ * from filter state on a 300ms debounce, which fired while the request was still in
+ * flight and wiped any ?categories=, ?search=, ?rating= or ?inStock= the visitor
+ * arrived with. See filtersInitialisedFromUrlRef in ProductsPageClient.
+ *
+ * Shared here on the same cache key so all three routes hit one entry rather than
+ * three, and so the next locale added cannot forget it.
+ */
+export const getProductsListCached = unstable_cache(
+  async (): Promise<Product[]> => getAllProducts(),
+  ['products-list'],
+  { revalidate: 60, tags: ['products'] }
+)
+
+/**
  * Preferred product fetch for page.tsx + generateMetadata + opengraph-image +
  * twitter-image. Composes two cache layers:
  *   1. `unstable_cache` — cross-request ISR with tag revalidation

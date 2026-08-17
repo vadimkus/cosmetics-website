@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
-import { unstable_cache } from 'next/cache'
 import ProductsPageClient from './ProductsPageClient'
 import ConcernShowcase from '@/components/concerns/ConcernShowcase'
 import { getConcernCounts } from '@/lib/concernCounts'
@@ -8,21 +7,11 @@ import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ProductsListSchema from '@/components/schema/ProductsListSchema'
 import { ProductsErrorBoundary } from '@/components/error-boundaries'
-import { getAllProducts } from '@/lib/productsDb'
-import type { Product } from '@/types'
+import { getProductsListCached } from '@/lib/productsDb'
 import ProductsLoading from './loading'
 
 // Revalidate products every 60 seconds
 export const revalidate = 60
-
-// Cached products fetch - revalidates every 60 seconds
-const getProducts = unstable_cache(
-  async (): Promise<Product[]> => {
-    return getAllProducts()
-  },
-  ['products-list'],
-  { revalidate: 60, tags: ['products'] }
-)
 
 export const metadata: Metadata = {
   title: 'GENOSYS Products - Professional Korean Dermacosmetics Collection UAE',
@@ -92,7 +81,7 @@ export const metadata: Metadata = {
  */
 export default async function ProductsPage() {
   // Fetch products on the server (cached for 60 seconds)
-  const products = await getProducts()
+  const products = await getProductsListCached()
   const concernCounts = await getConcernCounts()
 
   return (

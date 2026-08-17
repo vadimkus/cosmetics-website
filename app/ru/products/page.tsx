@@ -3,7 +3,11 @@ import ProductsPageClient from '../../products/ProductsPageClient'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import ConcernShowcase from '@/components/concerns/ConcernShowcase'
 import { getConcernCounts } from '@/lib/concernCounts'
+import { getProductsListCached } from '@/lib/productsDb'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+
+// Match the English route's ISR window.
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Продукция GENOSYS - Профессиональная корейская дерматокосметика ОАЭ',
@@ -65,6 +69,9 @@ export const metadata: Metadata = {
 }
 
 export default async function RussianProductsPage() {
+  // Fetched on the server, exactly as the English route does. Leaving this to the
+  // browser cost this locale a round trip and broke inbound filter links.
+  const products = await getProductsListCached()
   const concernCounts = await getConcernCounts()
 
   return (
@@ -75,7 +82,7 @@ export default async function RussianProductsPage() {
           { name: 'Продукция', url: '/ru/products' }
         ]}
       />
-      <ProductsPageClient concernCounts={concernCounts} />
+      <ProductsPageClient initialProducts={products} concernCounts={concernCounts} />
 
       {/* Shop by Concern — the same showcase the homepage runs, wrapped in a
           cera-page shell because this block renders on the server, outside the

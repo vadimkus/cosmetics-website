@@ -43,6 +43,7 @@ import CtsProductPage from '@/components/product/powersolution/CtsProductPage'
 import PcsProductPage from '@/components/product/powersolution/PcsProductPage'
 import RevitaGlowProductPage from '@/components/product/revitaglow/RevitaGlowProductPage'
 import BbCushionProductPage from '@/components/product/bbcushion/BbCushionProductPage'
+import GenoLedProductPage from '@/components/product/genoled/GenoLedProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -177,6 +178,9 @@ export const BESPOKE_PDP_LAYOUTS = {
   '60': BioMesoExpertProductPage,
   '61': ScalpBrushProductPage,
   '41': BbCushionProductPage,
+  // 49 is the only device in the catalogue: no INCI, no routine, and a
+  // dosimetry table where the cosmetics pages carry a formula.
+  '49': GenoLedProductPage,
   '63': RevitaGlowProductPage,
   '64': HairStampProductPage,
   '65': BioMesoProductPage,
@@ -216,6 +220,10 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   // The three cosmetics inside the Eye Zone Care Kit. The 0.25mm eye
   // roller has no retail PDP, so it is never fetched here.
   '50': ['17', '24', '33'],
+  // The products named in the GENO-LED protocols the manufacturer documents:
+  // SRS, PCS, CTS, AWS and the Peptide Gel Mask. A device has no routine of its
+  // own, but it is always run inside one of these.
+  '49': ['13', '7', '6', '9', '37'],
   // The other five Power Solutions, for the range table on each ampoule's page.
   '4': ['5', '6', '7', '8', '9'],
   '5': ['4', '6', '7', '8', '9'],

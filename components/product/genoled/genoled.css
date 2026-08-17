@@ -1,0 +1,93 @@
+/**
+ * Palette override for the GENO-LED IR II page (product 49).
+ *
+ * The structural design system lives in cerabarrier.css — cards, reveals,
+ * accordion, numerals, focus rings. That file is imported first and every rule
+ * in it reads from CSS variables, so this file only has to restate the
+ * variables to re-skin the whole page.
+ *
+ * This is the one device page in the catalogue and the most expensive thing on
+ * the site, so it takes a cooler, more instrument-like palette than the
+ * cosmetics: near-black ink on a grey-white paper, with a single deep red
+ * accent carried over from the house colour. Scoped to `.cera-page.led-page`.
+ */
+
+.cera-page.led-page {
+  --cera-cream: #f7f7f8;
+  --cera-cream-deep: #ecedef;
+  --cera-blush: #f4eeee;
+  --cera-blush-deep: #e0d2d2;
+  --cera-rose: #b23a34;
+  --cera-rose-ink: #8d2b26;
+  --cera-ink: #14161a;
+  --cera-body: #383c42;
+  --cera-muted: #63686f;
+  --cera-line: #e2e4e7;
+}
+
+.led-page .cera-stage {
+  background-color: #eef0f2;
+  box-shadow: 0 24px 60px -34px rgba(20, 22, 26, 0.45);
+}
+
+@media (hover: hover) {
+  .led-page .cera-card-hover:hover {
+    box-shadow: 0 2px 4px rgba(20, 22, 26, 0.05), 0 26px 48px -26px rgba(20, 22, 26, 0.32);
+  }
+}
+
+/* --- Wavelength swatch ---------------------------------------------------
+   The dot is the wavelength's own colour, passed inline. A soft glow rather
+   than a flat disc, because the thing being represented is emitted light. */
+
+.led-wave {
+  position: relative;
+  border-radius: 999px;
+  background: var(--wave, #d0453f);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+    0 0 0 4px color-mix(in srgb, var(--wave, #d0453f) 14%, transparent),
+    0 6px 18px -6px color-mix(in srgb, var(--wave, #d0453f) 60%, transparent);
+}
+
+/* The five swatches in a row above the dosimetry table, as a spectrum. */
+.led-spectrum {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    #3f63c4 0%,
+    #3f9a68 26%,
+    #d5a137 48%,
+    #d0453f 72%,
+    #8a5a4a 100%
+  );
+}
+
+[dir='rtl'] .led-spectrum {
+  transform: scaleX(-1);
+}
+
+/* --- Tables --------------------------------------------------------------
+   The dosimetry table is the substance of this page, so it gets a little more
+   structure than the cosmetics spec tables: zebra rows and a tabular figure
+   column that stays aligned across locales. */
+
+.led-table tbody tr:nth-child(odd) {
+  background: color-mix(in srgb, var(--cera-cream-deep) 55%, transparent);
+}
+
+.led-table td,
+.led-table th {
+  vertical-align: top;
+}
+
+.led-figure {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .led-page * {
+    transition: none;
+  }
+}

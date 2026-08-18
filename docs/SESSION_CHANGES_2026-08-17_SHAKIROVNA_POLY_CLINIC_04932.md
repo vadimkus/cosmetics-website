@@ -12,7 +12,7 @@ Add catalogue ticks to existing SO **GENCardM260812MAR1912**, keep old lines, ch
 | SO | **GENCardM260812MAR1912** |
 | Invoice | **04932** |
 | Shipment | **06685** |
-| Sum | **2,640 AED** (was 920) |
+| Sum | **2,395 AED** (was 2,640 after catalogue add; Snow Booster dropped 18 Aug) |
 | Status | Доставлен - Ждем оплату — unpaid |
 | Address | Wharf 1, Marina Promenade, Shop S8, Dubai Marina |
 | PDF | `~/Desktop/orders/GENOSYS_SHAKIROVNA_POLY_CLINIC_04932.pdf` |
@@ -47,3 +47,11 @@ Not added: Cerabarrier 600ml (not ticked). Snow Booster 1000 was already on the 
 
 ## Script
 `scripts/moysklad-amend-shakirovna-1912-poly-clinic-20260817.js --commit`
+
+## 2026-08-18 — dropped Snow Booster
+
+Removed **00025** Snow Booster Toner 1000ml ×1 @ 245 from SO / INV / SHIP.
+
+New sum: **2,395 AED** unpaid.
+
+Script: `scripts/moysklad-amend-shakirovna-04932-drop-snow-booster-20260818.js --commit`

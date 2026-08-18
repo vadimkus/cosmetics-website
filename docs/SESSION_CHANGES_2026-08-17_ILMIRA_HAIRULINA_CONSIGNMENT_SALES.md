@@ -26,3 +26,7 @@ PDF: `~/Desktop/orders/GENOSYS_Ilmira_Hairulina_Consignment_Sales_01436.pdf`
 ## Follow-up — replenishment 06695
 
 Sea algae ×10, collagen ×10, peptide ×5 / **550 AED**. Printed landscape. See `docs/SESSION_CHANGES_2026-08-17_ILMIRA_HAIRULINA_REPLENISHMENT.md`.
+
+## Follow-up — paymentin 06090 (2026-08-18)
+
+Report **01436** paid in full **898 AED**. See `docs/SESSION_CHANGES_2026-08-18_ILMIRA_HAIRULINA_PAYMENTIN_01436.md`.

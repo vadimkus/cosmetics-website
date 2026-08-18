@@ -9,6 +9,9 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
 import { sanitizeHtml } from '@/lib/sanitizeHtml'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 interface Promo {
   id: string
@@ -174,10 +177,10 @@ export default function PromoPage() {
   }
 
   return (
-    <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-32' : ''}`}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`}>
       {/* Unified nav header */}
       <div
-        className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-gray-200"
+        className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-[var(--cera-line)]"
         style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
       >
         <div className={`flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -185,15 +188,15 @@ export default function PromoPage() {
             onClick={handleBack}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">{t.back}</span>
+            <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-[var(--cera-rose-ink)]">{t.back}</span>
           </button>
-          <h1 className="text-base font-semibold text-gray-900">{t.title}</h1>
+          <h1 className="text-base font-semibold text-[var(--cera-ink)]">{t.title}</h1>
           <div className="min-w-[80px] flex justify-end">
             <button
               onClick={handleRefresh}
               disabled={refreshing}
-              className="p-2 text-gray-600 hover:text-gray-900"
+              className="p-2 text-[var(--cera-body)] hover:text-[var(--cera-ink)]"
               aria-label="Refresh"
             >
               <RefreshCw className={`h-5 w-5 ${refreshing ? 'animate-spin' : ''}`} />
@@ -206,19 +209,19 @@ export default function PromoPage() {
       <div className="p-5 space-y-5">
         {/* Push Notifications Section */}
         {user && notifications.length > 0 && (
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+          <div className="bg-white rounded-2xl border border-[var(--cera-line)] shadow-sm p-5">
             <div className={`flex items-center justify-between mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 flex items-center justify-center relative">
                   <Bell className="w-5 h-5 text-blue-600" />
                   {unreadCount > 0 && (
-                    <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center">
+                    <span className="absolute -top-1 -right-1 bg-[var(--cera-blush)]0 text-white text-xs font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center">
                       {unreadCount}
                     </span>
                   )}
                 </div>
                 <div className={isRTL ? 'text-right' : ''}>
-                  <h2 className="text-base font-bold text-gray-900">{t.notifications}</h2>
+                  <h2 className="text-base font-bold text-[var(--cera-ink)]">{t.notifications}</h2>
                 </div>
               </div>
               {unreadCount > 0 && (
@@ -235,13 +238,13 @@ export default function PromoPage() {
               {notifications.map(notification => (
                 <div 
                   key={notification.id}
-                  className={`p-3 rounded-lg border ${notification.isRead ? 'bg-gray-50 border-gray-100' : 'bg-blue-50 border-blue-100'}`}
+                  className={`p-3 rounded-lg border ${notification.isRead ? 'bg-[var(--cera-cream-deep)] border-[var(--cera-line)]' : 'bg-blue-50 border-blue-100'}`}
                   onClick={() => !notification.isRead && markAsRead(notification.id)}
                 >
                   <div className={`flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <div className="flex-1 min-w-0">
                       <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                        <h3 className={`font-semibold text-gray-900 ${isRTL ? 'text-right' : ''}`}>
+                        <h3 className={`font-semibold text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>
                           {notification.title}
                         </h3>
                         {notification.isRead ? (
@@ -250,10 +253,10 @@ export default function PromoPage() {
                           <Check className="w-4 h-4 text-blue-500 flex-shrink-0" />
                         )}
                       </div>
-                      <p className={`text-sm text-gray-600 mt-1 ${isRTL ? 'text-right' : ''}`}>
+                      <p className={`text-sm text-[var(--cera-body)] mt-1 ${isRTL ? 'text-right' : ''}`}>
                         {notification.body}
                       </p>
-                      <p className={`text-xs text-gray-400 mt-2 ${isRTL ? 'text-right' : ''}`}>
+                      <p className={`text-xs text-[var(--cera-muted)] mt-2 ${isRTL ? 'text-right' : ''}`}>
                         {formatDate(notification.sentAt)}
                       </p>
                     </div>
@@ -265,39 +268,39 @@ export default function PromoPage() {
         )}
 
         {/* Current Promotion */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+        <div className="bg-white rounded-2xl border border-[var(--cera-line)] shadow-sm p-5">
           {/* Card Header */}
           <div className={`flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center">
-              <Megaphone className="w-5 h-5 text-red-600" />
+            <div className="w-10 h-10 rounded-xl bg-[var(--cera-blush)] border border-[var(--cera-blush-deep)] flex items-center justify-center">
+              <Megaphone className="w-5 h-5 text-[var(--cera-rose-ink)]" />
             </div>
             <div className={`flex-1 ${isRTL ? 'text-right' : ''}`}>
-              <h2 className="text-base font-bold text-gray-900">{t.infoTitle}</h2>
-              <p className="text-sm text-gray-500">{t.infoSubtitle}</p>
+              <h2 className="text-base font-bold text-[var(--cera-ink)]">{t.infoTitle}</h2>
+              <p className="text-sm text-[var(--cera-muted)]">{t.infoSubtitle}</p>
             </div>
           </div>
 
           {/* Loading State */}
           {loading && (
             <div className={`flex items-center gap-3 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <Loader2 className="w-5 h-5 text-gray-400 animate-spin" />
-              <span className="text-sm text-gray-500">{t.loading}</span>
+              <Loader2 className="w-5 h-5 text-[var(--cera-muted)] animate-spin" />
+              <span className="text-sm text-[var(--cera-muted)]">{t.loading}</span>
             </div>
           )}
 
           {/* Promo Content */}
           {!loading && promo ? (
             <div className={isRTL ? 'text-right' : ''}>
-              <p className="text-xs text-gray-500 mb-3">
+              <p className="text-xs text-[var(--cera-muted)] mb-3">
                 {t.dateLabel}: {formatDate(promo.date)}
               </p>
               <div 
-                className="prose prose-sm max-w-none text-gray-700"
+                className="prose prose-sm max-w-none text-[var(--cera-body)]"
                 dangerouslySetInnerHTML={{ __html: sanitizeHtml(promo.text) }}
               />
             </div>
           ) : !loading && (
-            <p className={`text-sm text-gray-500 py-4 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-sm text-[var(--cera-muted)] py-4 ${isRTL ? 'text-right' : ''}`}>
               {t.empty}
             </p>
           )}
@@ -306,8 +309,8 @@ export default function PromoPage() {
         {/* Empty state for notifications */}
         {user && notifications.length === 0 && !loading && (
           <div className="text-center py-8">
-            <Bell className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-            <p className="text-sm text-gray-500">{t.noNotifications}</p>
+            <Bell className="w-12 h-12 text-[var(--cera-blush-deep)] mx-auto mb-3" />
+            <p className="text-sm text-[var(--cera-muted)]">{t.noNotifications}</p>
           </div>
         )}
       </div>

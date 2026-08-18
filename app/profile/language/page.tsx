@@ -7,6 +7,9 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export default function LanguagePage() {
   const router = useRouter()
@@ -90,25 +93,25 @@ export default function LanguagePage() {
   const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
 
   return (
-    <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* Unified nav header */}
-      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button
           onClick={handleBack}
           className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
         >
-          <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-          <span className="text-base text-red-600">
+          <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+          <span className="text-base text-[var(--cera-rose-ink)]">
             {translations.back}
           </span>
         </button>
-        <h1 className="text-base font-semibold text-gray-900">
+        <h1 className="text-base font-semibold text-[var(--cera-ink)]">
           {translations.title}
         </h1>
         {/* Profile Icon with green dot */}
         <div className="min-w-[80px] flex justify-end">
           <div className="relative">
-            <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-[var(--cera-rose)] flex items-center justify-center">
               <span className="text-sm font-semibold text-white">
                 {userInitial.toUpperCase()}
               </span>
@@ -121,13 +124,13 @@ export default function LanguagePage() {
 
       {/* Content */}
       <div className="px-5 py-6">
-        <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+        <div className="bg-white rounded-2xl p-5 shadow-sm border border-[var(--cera-line)]">
           {/* Section Header */}
           <div className={`flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <div className="w-10 h-10 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
-              <Globe className="w-5 h-5 text-red-600" />
+            <div className="w-10 h-10 rounded-full bg-[var(--cera-blush)] border border-[var(--cera-blush-deep)] flex items-center justify-center">
+              <Globe className="w-5 h-5 text-[var(--cera-rose-ink)]" />
             </div>
-            <h2 className={`text-lg font-semibold text-gray-900 ${isRTL ? 'text-right' : ''}`}>
+            <h2 className={`text-lg font-semibold text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>
               {translations.selectLanguage}
             </h2>
           </div>
@@ -144,14 +147,14 @@ export default function LanguagePage() {
                   onClick={() => handleLanguageChange(option.code)}
                   disabled={isBusy}
                   aria-current={isActive ? 'true' : undefined}
-                  className={`w-full flex items-center justify-between px-4 py-4 rounded-xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 active:scale-[0.99] ${
+                  className={`w-full flex items-center justify-between px-4 py-4 rounded-xl transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2 active:scale-[0.99] ${
                     isActive
-                      ? 'bg-red-50 border-2 border-red-500'
-                      : 'bg-gray-50 border-2 border-transparent hover:bg-gray-100'
+                      ? 'bg-[var(--cera-blush)] border-2 border-[var(--cera-rose)]'
+                      : 'bg-[var(--cera-cream-deep)] border-2 border-transparent hover:bg-[var(--cera-cream-deep)]'
                   } ${isBusy && !isSwitchingThis ? 'opacity-60' : ''} ${isRTL ? 'flex-row-reverse' : ''}`}
                 >
                   <span
-                    className={`text-base font-medium ${isActive ? 'text-red-600' : 'text-gray-900'}`}
+                    className={`text-base font-medium ${isActive ? 'text-[var(--cera-rose-ink)]' : 'text-[var(--cera-ink)]'}`}
                     // Each label is rendered in its own script's natural
                     // direction so the Arabic glyphs read RTL even inside
                     // an LTR container, and vice-versa.
@@ -160,7 +163,7 @@ export default function LanguagePage() {
                     {option.nativeLabel}
                   </span>
                   {isSwitchingThis ? (
-                    <Loader2 className="w-6 h-6 text-red-600 animate-spin" aria-hidden="true" />
+                    <Loader2 className="w-6 h-6 text-[var(--cera-rose-ink)] animate-spin" aria-hidden="true" />
                   ) : isActive ? (
                     <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center" aria-hidden="true">
                       <Check className="w-4 h-4 text-white" />
@@ -175,7 +178,7 @@ export default function LanguagePage() {
           </div>
 
           {/* Note */}
-          <p className={`mt-4 text-sm text-gray-500 ${isRTL ? 'text-right' : ''}`}>
+          <p className={`mt-4 text-sm text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}>
             {translations.note}
           </p>
         </div>

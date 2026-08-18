@@ -7,6 +7,9 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 const EMIRATES = [
   { value: 'Dubai', key: 'dubai' },
@@ -219,16 +222,16 @@ export function AddressEditorContent({
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <p className="text-gray-500">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center`}>
+        <p className="text-[var(--cera-muted)]">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
       </div>
     )
   }
 
   if (isLoading) {
     return (
-      <div className={`${embedded ? 'min-h-64 rounded-3xl border border-gray-200 bg-white' : 'min-h-screen bg-white'} flex items-center justify-center`}>
-        <Loader2 className="w-8 h-8 text-red-600 animate-spin" />
+      <div className={`${embedded ? 'min-h-64 rounded-3xl border border-[var(--cera-line)] bg-white' : `cera-page genosys-page ${ceraSerif.variable} min-h-screen`} flex items-center justify-center`}>
+        <Loader2 className="w-8 h-8 text-[var(--cera-rose-ink)] animate-spin" />
       </div>
     )
   }
@@ -237,24 +240,24 @@ export function AddressEditorContent({
     <div
       className={
         embedded
-          ? 'overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_14px_40px_rgba(17,24,39,0.04)]'
-          : `min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`
+          ? 'overflow-hidden rounded-3xl border border-[var(--cera-line)] bg-white shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)]'
+          : `cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`
       }
       dir={dir}
     >
       {/* Unified nav header */}
-      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
         <div className="min-w-[80px]">
-          <button onClick={handleCancel} className="text-base text-red-600">
+          <button onClick={handleCancel} className="text-base text-[var(--cera-rose-ink)]">
             {t.cancel}
           </button>
         </div>
-        <h1 className="text-base font-semibold text-gray-900">{t.title}</h1>
+        <h1 className="text-base font-semibold text-[var(--cera-ink)]">{t.title}</h1>
         <div className="min-w-[80px] flex justify-end">
           <button
             onClick={handleSave}
             disabled={isSaving}
-            className={`text-base font-semibold ${isSaving ? 'text-gray-400' : 'text-red-600'}`}
+            className={`text-base font-semibold ${isSaving ? 'text-[var(--cera-muted)]' : 'text-[var(--cera-rose-ink)]'}`}
           >
             {isSaving ? t.saving : t.save}
           </button>
@@ -263,7 +266,7 @@ export function AddressEditorContent({
 
       {/* Error Message */}
       {error && (
-        <div className="mx-5 mt-4 p-3 bg-red-50 border border-red-200 rounded-xl">
+        <div className="mx-5 mt-4 p-3 bg-[var(--cera-blush)] border border-[var(--cera-blush-deep)] rounded-xl">
           <p className={`text-sm text-red-600 ${isRTL ? 'text-right' : ''}`}>{error}</p>
         </div>
       )}
@@ -271,8 +274,8 @@ export function AddressEditorContent({
       {/* Form */}
       <div className="overflow-y-auto">
         {/* Address Type */}
-        <div className="py-6 border-b border-gray-100">
-          <h2 className={`text-lg font-bold text-gray-900 mb-4 px-5 ${isRTL ? 'text-right' : ''}`}>{t.addressType}</h2>
+        <div className="py-6 border-b border-[var(--cera-line)]">
+          <h2 className={`text-lg font-bold text-[var(--cera-ink)] mb-4 px-5 ${isRTL ? 'text-right' : ''}`}>{t.addressType}</h2>
           <div className={`flex gap-3 px-5 ${isRTL ? 'flex-row-reverse' : ''}`}>
             {(['home', 'work', 'other'] as const).map(type => (
               <button
@@ -280,8 +283,8 @@ export function AddressEditorContent({
                 onClick={() => updateField('type', type)}
                 className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl border-2 transition-colors ${
                   formData.type === type 
-                    ? 'bg-red-600 border-red-600 text-white' 
-                    : 'bg-white border-gray-200 text-gray-700'
+                    ? 'bg-[var(--cera-rose)] border-[var(--cera-rose)] text-white' 
+                    : 'bg-white border-[var(--cera-line)] text-[var(--cera-body)]'
                 } ${isRTL ? 'flex-row-reverse' : ''}`}
               >
                 {type === 'home' ? <Home className="w-5 h-5" /> : type === 'work' ? <Briefcase className="w-5 h-5" /> : <MapPin className="w-5 h-5" />}
@@ -292,30 +295,30 @@ export function AddressEditorContent({
         </div>
 
         {/* Contact Information */}
-        <div className="py-6 border-b border-gray-100">
-          <h2 className={`text-lg font-bold text-gray-900 mb-4 px-5 ${isRTL ? 'text-right' : ''}`}>{t.contactInfo}</h2>
-          <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
-            <div className="px-4 py-3 border-b border-gray-200">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+        <div className="py-6 border-b border-[var(--cera-line)]">
+          <h2 className={`text-lg font-bold text-[var(--cera-ink)] mb-4 px-5 ${isRTL ? 'text-right' : ''}`}>{t.contactInfo}</h2>
+          <div className="mx-5 bg-[var(--cera-cream-deep)] rounded-xl overflow-hidden">
+            <div className="px-4 py-3 border-b border-[var(--cera-line)]">
+              <label className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                 {t.fullName}<span className="text-red-600"> {t.required}</span>
               </label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={(e) => updateField('name', e.target.value)}
-                className={`w-full text-base text-gray-900 bg-white border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-red-500 ${isRTL ? 'text-right' : ''}`}
+                className={`w-full text-base text-[var(--cera-ink)] bg-white border border-[var(--cera-line)] rounded-lg px-3 py-2 outline-none focus:border-[var(--cera-rose)] ${isRTL ? 'text-right' : ''}`}
                 placeholder={t.fullName}
               />
             </div>
             <div className="px-4 py-3">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+              <label className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                 {t.phoneNumber}<span className="text-red-600"> {t.required}</span>
               </label>
               <input
                 type="tel"
                 value={formData.phone}
                 onChange={(e) => updateField('phone', e.target.value)}
-                className="w-full text-base text-gray-900 bg-white border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-red-500"
+                className="w-full text-base text-[var(--cera-ink)] bg-white border border-[var(--cera-line)] rounded-lg px-3 py-2 outline-none focus:border-[var(--cera-rose)]"
                 placeholder="+971 XX XXX XXXX"
                 dir="ltr"
               />
@@ -324,46 +327,46 @@ export function AddressEditorContent({
         </div>
 
         {/* Address Details */}
-        <div className="py-6 border-b border-gray-100">
-          <h2 className={`text-lg font-bold text-gray-900 mb-4 px-5 ${isRTL ? 'text-right' : ''}`}>{t.addressDetails}</h2>
-          <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
-            <div className="px-4 py-3 border-b border-gray-200">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+        <div className="py-6 border-b border-[var(--cera-line)]">
+          <h2 className={`text-lg font-bold text-[var(--cera-ink)] mb-4 px-5 ${isRTL ? 'text-right' : ''}`}>{t.addressDetails}</h2>
+          <div className="mx-5 bg-[var(--cera-cream-deep)] rounded-xl overflow-hidden">
+            <div className="px-4 py-3 border-b border-[var(--cera-line)]">
+              <label className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                 {t.streetAddress}<span className="text-red-600"> {t.required}</span>
               </label>
               <textarea
                 value={formData.addressLine1}
                 onChange={(e) => updateField('addressLine1', e.target.value)}
                 rows={2}
-                className={`w-full text-base text-gray-900 bg-white border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-red-500 resize-none ${isRTL ? 'text-right' : ''}`}
+                className={`w-full text-base text-[var(--cera-ink)] bg-white border border-[var(--cera-line)] rounded-lg px-3 py-2 outline-none focus:border-[var(--cera-rose)] resize-none ${isRTL ? 'text-right' : ''}`}
                 placeholder={t.streetPlaceholder}
               />
             </div>
-            <div className="px-4 py-3 border-b border-gray-200">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+            <div className="px-4 py-3 border-b border-[var(--cera-line)]">
+              <label className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                 {t.aptUnit}
               </label>
               <input
                 type="text"
                 value={formData.addressLine2}
                 onChange={(e) => updateField('addressLine2', e.target.value)}
-                className={`w-full text-base text-gray-900 bg-white border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-red-500 ${isRTL ? 'text-right' : ''}`}
+                className={`w-full text-base text-[var(--cera-ink)] bg-white border border-[var(--cera-line)] rounded-lg px-3 py-2 outline-none focus:border-[var(--cera-rose)] ${isRTL ? 'text-right' : ''}`}
                 placeholder={t.aptPlaceholder}
               />
             </div>
-            <div className="px-4 py-3 border-b border-gray-200">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+            <div className="px-4 py-3 border-b border-[var(--cera-line)]">
+              <label className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                 {t.city}
               </label>
               <input
                 type="text"
                 value={formData.city}
                 onChange={(e) => updateField('city', e.target.value)}
-                className={`w-full text-base text-gray-900 bg-white border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-red-500 ${isRTL ? 'text-right' : ''}`}
+                className={`w-full text-base text-[var(--cera-ink)] bg-white border border-[var(--cera-line)] rounded-lg px-3 py-2 outline-none focus:border-[var(--cera-rose)] ${isRTL ? 'text-right' : ''}`}
               />
             </div>
-            <div className="px-4 py-3 border-b border-gray-200">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+            <div className="px-4 py-3 border-b border-[var(--cera-line)]">
+              <label className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                 {t.emirate}
               </label>
               <div className={`flex flex-wrap gap-2 mt-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -373,8 +376,8 @@ export function AddressEditorContent({
                     onClick={() => updateField('emirate', emirate.value)}
                     className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                       formData.emirate === emirate.value
-                        ? 'bg-red-600 text-white'
-                        : 'bg-white border border-gray-200 text-gray-700'
+                        ? 'bg-[var(--cera-rose)] text-white'
+                        : 'bg-white border border-[var(--cera-line)] text-[var(--cera-body)]'
                     }`}
                   >
                     {emirateLabels[emirate.value] || emirate.value}
@@ -383,31 +386,31 @@ export function AddressEditorContent({
               </div>
             </div>
             <div className="px-4 py-3">
-              <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+              <label className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                 {t.country}
               </label>
               <input
                 type="text"
                 value={formData.country}
                 onChange={(e) => updateField('country', e.target.value)}
-                className={`w-full text-base text-gray-900 bg-white border border-gray-200 rounded-lg px-3 py-2 outline-none focus:border-red-500 ${isRTL ? 'text-right' : ''}`}
+                className={`w-full text-base text-[var(--cera-ink)] bg-white border border-[var(--cera-line)] rounded-lg px-3 py-2 outline-none focus:border-[var(--cera-rose)] ${isRTL ? 'text-right' : ''}`}
               />
             </div>
           </div>
         </div>
 
         {/* Preferences */}
-        <div className="py-6 border-b border-gray-100">
-          <h2 className={`text-lg font-bold text-gray-900 mb-4 px-5 ${isRTL ? 'text-right' : ''}`}>{t.preferences}</h2>
-          <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
+        <div className="py-6 border-b border-[var(--cera-line)]">
+          <h2 className={`text-lg font-bold text-[var(--cera-ink)] mb-4 px-5 ${isRTL ? 'text-right' : ''}`}>{t.preferences}</h2>
+          <div className="mx-5 bg-[var(--cera-cream-deep)] rounded-xl overflow-hidden">
             <div className={`flex items-center justify-between px-4 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <div className={isRTL ? 'text-right' : ''}>
-                <p className="text-base font-medium text-gray-900">{t.setAsDefault}</p>
-                <p className="text-sm text-gray-500 mt-0.5">{t.defaultHint}</p>
+                <p className="text-base font-medium text-[var(--cera-ink)]">{t.setAsDefault}</p>
+                <p className="text-sm text-[var(--cera-muted)] mt-0.5">{t.defaultHint}</p>
               </div>
               <button
                 onClick={() => updateField('isDefault', !formData.isDefault)}
-                className={`relative w-12 h-7 rounded-full transition-colors ${formData.isDefault ? 'bg-red-600' : 'bg-gray-300'}`}
+                className={`relative w-12 h-7 rounded-full transition-colors ${formData.isDefault ? 'bg-[var(--cera-rose)]' : 'bg-[var(--cera-blush-deep)]'}`}
               >
                 <div className={`absolute top-0.5 w-6 h-6 bg-white rounded-full shadow transition-transform ${formData.isDefault ? 'translate-x-5' : 'translate-x-0.5'}`} />
               </button>
@@ -417,9 +420,9 @@ export function AddressEditorContent({
 
         {/* Delivery Note */}
         <div className="px-5 py-6">
-          <div className={`flex items-start gap-2 p-4 bg-gray-50 rounded-xl ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <Info className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
-            <p className={`text-sm text-gray-500 ${isRTL ? 'text-right' : ''}`}>{t.deliveryNote}</p>
+          <div className={`flex items-start gap-2 p-4 bg-[var(--cera-cream-deep)] rounded-xl ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <Info className="w-4 h-4 text-[var(--cera-muted)] flex-shrink-0 mt-0.5" />
+            <p className={`text-sm text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}>{t.deliveryNote}</p>
           </div>
         </div>
       </div>

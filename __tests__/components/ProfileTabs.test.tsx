@@ -28,25 +28,25 @@ describe('ProfileTabs', () => {
     render(<ProfileTabs activeTab="orders" setActiveTab={mockSetActiveTab} />)
     
     const ordersTab = screen.getByText('Orders').closest('button')
-    expect(ordersTab).toHaveClass('border-primary-500', 'text-primary-600')
+    expect(ordersTab).toHaveClass('border-[var(--cera-rose)]', 'text-[var(--cera-rose-ink)]')
   })
 
   it('applies inactive styles to non-active tabs', () => {
     render(<ProfileTabs activeTab="profile" setActiveTab={mockSetActiveTab} />)
     
     const ordersTab = screen.getByText('Orders').closest('button')
-    expect(ordersTab).toHaveClass('border-transparent', 'text-gray-500')
+    expect(ordersTab).toHaveClass('border-transparent', 'text-[var(--cera-muted)]')
   })
 
   it('handles tab switching correctly', () => {
     const { rerender } = render(<ProfileTabs activeTab="profile" setActiveTab={mockSetActiveTab} />)
     
     // Initially profile should be active
-    expect(screen.getByText('Profile').closest('button')).toHaveClass('border-primary-500')
+    expect(screen.getByText('Profile').closest('button')).toHaveClass('border-[var(--cera-rose)]')
     
     // Switch to orders
     rerender(<ProfileTabs activeTab="orders" setActiveTab={mockSetActiveTab} />)
-    expect(screen.getByText('Orders').closest('button')).toHaveClass('border-primary-500')
+    expect(screen.getByText('Orders').closest('button')).toHaveClass('border-[var(--cera-rose)]')
   })
 })
 

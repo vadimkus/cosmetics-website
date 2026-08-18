@@ -6,6 +6,9 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import PasskeySettings from '@/components/profile/PasskeySettings'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export default function PasskeysPage() {
   const router = useRouter()
@@ -18,8 +21,8 @@ export default function PasskeysPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-red-600 border-t-transparent rounded-full animate-spin" />
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center`}>
+        <div className="w-8 h-8 border-4 border-[var(--cera-rose)] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -30,10 +33,10 @@ export default function PasskeysPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50" dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
       {/* Unified nav header */}
       <div
-        className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-gray-200"
+        className="sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-[var(--cera-line)]"
         style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
       >
         <div className={`flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -42,20 +45,20 @@ export default function PasskeysPage() {
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             {isRTL ? (
-              <ArrowRight className="w-5 h-5 text-red-600" />
+              <ArrowRight className="w-5 h-5 text-[var(--cera-rose-ink)]" />
             ) : (
-              <ArrowLeft className="w-5 h-5 text-red-600" />
+              <ArrowLeft className="w-5 h-5 text-[var(--cera-rose-ink)]" />
             )}
-            <span className="text-base text-red-600">{t('common.back') || 'Back'}</span>
+            <span className="text-base text-[var(--cera-rose-ink)]">{t('common.back') || 'Back'}</span>
           </button>
 
-          <h1 className="text-base font-semibold text-gray-900">
+          <h1 className="text-base font-semibold text-[var(--cera-ink)]">
             {t('login.managePasskeys') || 'Passkeys'}
           </h1>
 
           <div className="min-w-[80px] flex justify-end">
             <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-full bg-[var(--cera-rose)] flex items-center justify-center">
                 <span className="text-sm font-semibold text-white">
                   {userInitial.toUpperCase()}
                 </span>

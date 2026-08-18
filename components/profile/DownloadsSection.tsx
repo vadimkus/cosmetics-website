@@ -11,7 +11,7 @@ export default function DownloadsSection() {
       
       {/* Training Documents Section */}
       <div className="mb-8">
-        <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center justify-center gap-2">
+        <h3 className="text-xl font-semibold text-[var(--cera-ink)] mb-6 flex items-center justify-center gap-2">
           <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
             <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -20,16 +20,16 @@ export default function DownloadsSection() {
           Training Documents
         </h3>
         <div className="space-y-2">
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                 <Download className="h-5 w-5 text-green-600" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   Product Catalogue 2026
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   39.9 MB
                 </p>
               </div>
@@ -45,16 +45,16 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                 <Download className="h-5 w-5 text-green-600" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   Home Care Guide 2026
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   9.8 MB
                 </p>
               </div>
@@ -70,16 +70,16 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                 <Download className="h-5 w-5 text-green-600" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   Professional Manual 2026
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   10.4 MB
                 </p>
               </div>
@@ -95,16 +95,16 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                 <Download className="h-5 w-5 text-green-600" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   Facial Treatment Homecare 2026
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   8.2 MB
                 </p>
               </div>
@@ -120,16 +120,16 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                 <Download className="h-5 w-5 text-green-600" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   Facial Treatment Professional 2026
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   8.2 MB
                 </p>
               </div>
@@ -145,16 +145,16 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                 <Download className="h-5 w-5 text-green-600" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   Achieve Korean Glass Skin with GENOSYS approach
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   10 MB
                 </p>
               </div>
@@ -170,16 +170,16 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
                 <Download className="h-5 w-5 text-green-600" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   Bio-Meso PDRN Expert Treatment Guide
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   8.9 MB
                 </p>
               </div>
@@ -199,18 +199,18 @@ export default function DownloadsSection() {
       
       {/* Product Documentation Section */}
       <div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-6 flex items-center justify-center gap-2">
+        <h3 className="text-xl font-semibold text-[var(--cera-ink)] mb-6 flex items-center justify-center gap-2">
           <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
-            <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-[var(--cera-rose-ink)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
             </svg>
           </div>
           Product Documentation
         </h3>
         <div className="space-y-2">
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/31">
                   <Image
                     src="/images/radiance/main.jpeg"
@@ -222,10 +222,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   MULTI VITA RADIANCE CREAM
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   2.1 MB
                 </p>
               </div>
@@ -241,9 +241,9 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/50">
                   <Image
                     src="/images/eye_kit/main.jpeg"
@@ -255,10 +255,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   EyeCell EYE ZONE CARE SYSTEM
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.8 MB
                 </p>
               </div>
@@ -275,9 +275,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* EPI TURNOVER BOOSTING PEELING GEL */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/12">
                   <Image
                     src="/images/epi/main.jpeg"
@@ -289,10 +289,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   EPI TURNOVER BOOSTING PEELING GEL
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   3.8 MB
                 </p>
               </div>
@@ -309,9 +309,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* MULTI VITA RADIANCE SERUM */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/21">
                   <Image
                     src="/images/radiance_serum/main.jpeg"
@@ -323,10 +323,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   MULTI VITA RADIANCE SERUM
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.5 MB
                 </p>
               </div>
@@ -343,9 +343,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* SKIN DEFENDER LIP & EYE MAKEUP REMOVER */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/11">
                   <Image
                     src="/images/remover/main4.jpeg"
@@ -357,10 +357,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   SKIN DEFENDER LIP & EYE MAKEUP REMOVER
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   0.7 MB
                 </p>
               </div>
@@ -377,9 +377,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* MICROBIOME ENERGY INFUSING MIST */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/14">
                   <Image
                     src="/images/mist/main2.jpeg"
@@ -391,10 +391,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   MICROBIOME ENERGY INFUSING MIST
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   0.8 MB
                 </p>
               </div>
@@ -411,9 +411,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* SKIN RESCUE OVERNIGHT CREAM MASK */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/34">
                   <Image
                     src="/images/overnight/main.jpeg"
@@ -425,10 +425,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   SKIN RESCUE OVERNIGHT CREAM MASK
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.3 MB
                 </p>
               </div>
@@ -445,9 +445,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* INTENSIVE PROBLEM CONTROL TONER */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/15">
                   <Image
                     src="/images/problem/Main.jpg"
@@ -459,10 +459,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   INTENSIVE PROBLEM CONTROL TONER
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.0 MB
                 </p>
               </div>
@@ -479,9 +479,9 @@ export default function DownloadsSection() {
           </div>
 
           {/* PROBLEM CONTROL SERUM */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/20">
                   <Image
                     src="/images/problems_serum/main.jpeg"
@@ -493,10 +493,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   PROBLEM CONTROL SERUM
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   2.2 MB
                 </p>
               </div>
@@ -513,9 +513,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* ULTRA SHIELD SUN CREAM */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/39">
                   <Image
                     src="/images/ultra/main.jpeg"
@@ -527,10 +527,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   ULTRA SHIELD SUN CREAM
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   0.6 MB
                 </p>
               </div>
@@ -547,9 +547,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* HR³ MATRIX SCALP SHAMPOO α */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/44">
                   <Image
                     src="/images/Sham.jpg"
@@ -561,10 +561,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   HR³ MATRIX SCALP SHAMPOO α
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   2.3 MB
                 </p>
               </div>
@@ -581,9 +581,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* MOISTURE REPLENISHING HYALURON SERUM */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/18">
                   <Image
                     src="/images/hyaluron_serum/main.jpeg"
@@ -595,10 +595,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   MOISTURE REPLENISHING HYALURON SERUM
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.9 MB
                 </p>
               </div>
@@ -615,9 +615,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* MOISTURE REPLENISHING HYALURON CREAM */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/29">
                   <Image
                     src="/images/hyaluron/main.jpeg"
@@ -629,10 +629,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   MOISTURE REPLENISHING HYALURON CREAM
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   2.0 MB
                 </p>
               </div>
@@ -649,9 +649,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* SKIN CARING BLEMISH BALM CUSHION */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/41">
                   <Image
                     src="/images/cushion_2/main.jpeg"
@@ -663,10 +663,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   SKIN CARING BLEMISH BALM CUSHION
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.2 MB
                 </p>
               </div>
@@ -683,9 +683,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* EyeCell EYE PEPTIDE GEL PATCH */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/33">
                   <Image
                     src="/images/patch/main.jpeg"
@@ -697,10 +697,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   EyeCell EYE PEPTIDE GEL PATCH
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.4 MB
                 </p>
               </div>
@@ -717,9 +717,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* BIO-FERMENT AGE DEFYING POWDER MASK */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/51">
                   <Image
                     src="/images/BFAD.png"
@@ -731,10 +731,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   BIO-FERMENT AGE DEFYING POWDER MASK
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   2.1 MB
                 </p>
               </div>
@@ -751,9 +751,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* HAIR GENTRON */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/48">
                   <Image
                     src="/images/gen.jpg"
@@ -765,10 +765,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   HAIR GENTRON
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.8 MB
                 </p>
               </div>
@@ -785,9 +785,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* HR³ MATRIX HAIR SOLUTION α */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/45">
                   <Image
                     src="/images/HHR.jpg"
@@ -799,10 +799,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   HR³ MATRIX HAIR SOLUTION α
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   2.3 MB
                 </p>
               </div>
@@ -819,9 +819,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* HR³ MATRIX HAIR TONIC α */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/43">
                   <Image
                     src="/images/hair_tonic/main-v2.jpeg"
@@ -833,10 +833,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   HR³ MATRIX HAIR TONIC α
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.9 MB
                 </p>
               </div>
@@ -853,9 +853,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* HR³ MATRIX SCALP PEELING α */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/46">
                   <Image
                     src="/images/scal.jpg"
@@ -867,10 +867,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   HR³ MATRIX SCALP PEELING α
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   2.1 MB
                 </p>
               </div>
@@ -887,9 +887,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* GENO-LED IR II */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/49">
                   <Image
                     src="/images/LEDD.jpg"
@@ -901,10 +901,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   GENO-LED IR II
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   4.6 MB
                 </p>
               </div>
@@ -921,9 +921,9 @@ export default function DownloadsSection() {
           </div>
 
           {/* SKIN REBOOT PDRN MASK PACK */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/52">
                   <Image
                     src="/images/PDRN.png"
@@ -935,10 +935,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   SKIN REBOOT PDRN MASK PACK
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.2 MB
                 </p>
               </div>
@@ -955,9 +955,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* EZ CO₂ MASK KIT */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/38">
                   <Image
                     src="/images/ez_mask/main.jpeg"
@@ -969,10 +969,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   EZ CO₂ MASK KIT
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   0.5 MB
                 </p>
               </div>
@@ -989,9 +989,9 @@ export default function DownloadsSection() {
           </div>
           
           {/* Microneedle Roller */}
-          <div className="group border border-gray-200 rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-red-300 hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/1">
                   <Image
                     src="/images/genosys-microneedling-devices.jpg"
@@ -1003,10 +1003,10 @@ export default function DownloadsSection() {
                 </Link>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-gray-900 truncate">
+                <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
                   Microneedle Roller
                 </h4>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-[var(--cera-muted)]">
                   1.5 MB
                 </p>
               </div>

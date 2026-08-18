@@ -33,11 +33,11 @@ export default function SettingsPanel({
           <div className="p-2 md:p-3 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-lg md:rounded-xl">
             <Sun className="h-4 w-4 md:h-6 md:w-6 text-purple-600" />
           </div>
-          <h2 className="text-lg md:text-2xl font-bold text-gray-800">{t('theme.appearance') || 'Appearance'}</h2>
+          <h2 className="text-lg md:text-2xl font-bold text-[var(--cera-ink)]">{t('theme.appearance') || 'Appearance'}</h2>
         </div>
 
         <div className={`${dir === 'rtl' ? 'text-right' : ''}`}>
-          <p className="text-sm md:text-base text-gray-600 mb-4">
+          <p className="text-sm md:text-base text-[var(--cera-body)] mb-4">
             {t('theme.chooseTheme') || 'Choose your preferred color scheme'}
           </p>
           <ThemeToggle variant="buttons" showLabels={true} />
@@ -48,9 +48,9 @@ export default function SettingsPanel({
       <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 sm:p-6 lg:p-8">
         <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
           <div className="p-2 md:p-3 bg-gradient-to-r from-gray-100 to-gray-200 rounded-lg md:rounded-xl">
-            <Settings className="h-4 w-4 md:h-6 md:w-6 text-gray-600" />
+            <Settings className="h-4 w-4 md:h-6 md:w-6 text-[var(--cera-body)]" />
           </div>
-          <h2 className="text-lg md:text-2xl font-bold text-gray-800">{t('profile.accountActions')}</h2>
+          <h2 className="text-lg md:text-2xl font-bold text-[var(--cera-ink)]">{t('profile.accountActions')}</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-6">
@@ -64,8 +64,8 @@ export default function SettingsPanel({
               <ArrowLeft className={`h-4 w-4 md:h-6 md:w-6 text-red-700 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
             </div>
             <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
-              <h3 className="text-sm md:text-base font-semibold text-gray-800">{t('common.logout')}</h3>
-              <p className="text-xs md:text-sm text-gray-600">{t('profile.signOutOfYourAccount')}</p>
+              <h3 className="text-sm md:text-base font-semibold text-[var(--cera-ink)]">{t('common.logout')}</h3>
+              <p className="text-xs md:text-sm text-[var(--cera-body)]">{t('profile.signOutOfYourAccount')}</p>
             </div>
           </button>
 
@@ -78,8 +78,8 @@ export default function SettingsPanel({
               <Trash2 className="h-4 w-4 md:h-6 md:w-6 text-red-700" />
             </div>
             <div className={dir === 'rtl' ? 'text-right' : 'text-left'}>
-              <h3 className="text-sm md:text-base font-semibold text-gray-800">{t('profile.deleteAccount')}</h3>
-              <p className="text-xs md:text-sm text-gray-600">{t('profile.permanentlyDeleteYourAccount')}</p>
+              <h3 className="text-sm md:text-base font-semibold text-[var(--cera-ink)]">{t('profile.deleteAccount')}</h3>
+              <p className="text-xs md:text-sm text-[var(--cera-body)]">{t('profile.permanentlyDeleteYourAccount')}</p>
             </div>
           </button>
         </div>
@@ -89,9 +89,9 @@ export default function SettingsPanel({
       <div className="bg-white/70 backdrop-blur-sm rounded-xl md:rounded-2xl shadow-lg border border-white/20 p-3 sm:p-6 lg:p-8">
         <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
           <div className="p-2 md:p-3 bg-gradient-to-r from-red-100 to-pink-100 rounded-lg md:rounded-xl">
-            <Zap className="h-4 w-4 md:h-6 md:w-6 text-red-600" />
+            <Zap className="h-4 w-4 md:h-6 md:w-6 text-[var(--cera-rose-ink)]" />
           </div>
-          <h2 className="text-lg md:text-2xl font-bold text-gray-800">{t('profile.quickActions')}</h2>
+          <h2 className="text-lg md:text-2xl font-bold text-[var(--cera-ink)]">{t('profile.quickActions')}</h2>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-4">
@@ -104,8 +104,8 @@ export default function SettingsPanel({
               <ShoppingBag className="h-4 w-4 md:h-6 md:w-6 text-emerald-700" />
             </div>
             <div className="text-center">
-              <h3 className="text-xs md:text-base font-semibold text-gray-800">{t('profile.browseProducts')}</h3>
-              <p className="text-[10px] md:text-sm text-gray-600 hidden md:block">{t('profile.shopOurCollection')}</p>
+              <h3 className="text-xs md:text-base font-semibold text-[var(--cera-ink)]">{t('profile.browseProducts')}</h3>
+              <p className="text-[10px] md:text-sm text-[var(--cera-body)] hidden md:block">{t('profile.shopOurCollection')}</p>
             </div>
           </Link>
 
@@ -117,8 +117,8 @@ export default function SettingsPanel({
               <Heart className="h-4 w-4 md:h-6 md:w-6 text-pink-700" />
             </div>
             <div className="text-center">
-              <h3 className="text-xs md:text-base font-semibold text-gray-800">{t('common.favorites')}</h3>
-              <p className="text-[10px] md:text-sm text-gray-600 hidden md:block">{t('profile.yourSavedItems')}</p>
+              <h3 className="text-xs md:text-base font-semibold text-[var(--cera-ink)]">{t('common.favorites')}</h3>
+              <p className="text-[10px] md:text-sm text-[var(--cera-body)] hidden md:block">{t('profile.yourSavedItems')}</p>
             </div>
           </Link>
 
@@ -132,8 +132,8 @@ export default function SettingsPanel({
               <MessageCircle className="h-4 w-4 md:h-6 md:w-6 text-green-700" />
             </div>
             <div className="text-center">
-              <h3 className="text-xs md:text-base font-semibold text-gray-800">{t('common.contact')}</h3>
-              <p className="text-[10px] md:text-sm text-gray-600 hidden md:block">{t('profile.getHelpViaWhatsApp')}</p>
+              <h3 className="text-xs md:text-base font-semibold text-[var(--cera-ink)]">{t('common.contact')}</h3>
+              <p className="text-[10px] md:text-sm text-[var(--cera-body)] hidden md:block">{t('profile.getHelpViaWhatsApp')}</p>
             </div>
           </a>
 
@@ -146,8 +146,8 @@ export default function SettingsPanel({
               <RefreshCw className={`h-4 w-4 md:h-6 md:w-6 text-green-700 ${isRefreshing ? 'animate-spin' : ''}`} />
             </div>
             <div className="text-center">
-              <h3 className="text-xs md:text-base font-semibold text-gray-800">{t('profile.refresh')}</h3>
-              <p className="text-[10px] md:text-sm text-gray-600 hidden md:block">{t('profile.updateProfileData')}</p>
+              <h3 className="text-xs md:text-base font-semibold text-[var(--cera-ink)]">{t('profile.refresh')}</h3>
+              <p className="text-[10px] md:text-sm text-[var(--cera-body)] hidden md:block">{t('profile.updateProfileData')}</p>
             </div>
           </button>
         </div>

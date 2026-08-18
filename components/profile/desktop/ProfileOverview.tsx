@@ -110,7 +110,10 @@ export default function ProfileOverview({
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">
               {t('profile.accountSummary')}
             </p>
-            <h2 className="cera-serif mt-1.5 text-[26px] leading-tight lg:text-[32px]">{user.name}</h2>
+            {/* cerabarrier.css sets `.cera-page :where(h1,h2,h3) { color: ink }` outside
+                any layer, so it beats the inherited white and paints this ink-on-ink
+                against the dark card. Same bang as the login hero. */}
+            <h2 className="cera-serif mt-1.5 !text-white text-[26px] leading-tight lg:text-[32px]">{user.name}</h2>
           </div>
           <div className={`flex shrink-0 flex-col gap-2 ${isRTL ? 'items-start' : 'items-end'}`}>
             <Image

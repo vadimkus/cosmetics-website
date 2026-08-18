@@ -177,22 +177,22 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       return <Fish className="h-4 w-4 md:h-5 md:w-5 text-blue-600" />
     }
     // Default Package icon for other orders
-    return <Package className="h-4 w-4 md:h-5 md:w-5 text-gray-600" />
+    return <Package className="h-4 w-4 md:h-5 md:w-5 text-[var(--cera-body)]" />
   }
 
   return (
-    <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.05)] sm:p-6 lg:p-8">
+    <div className="rounded-3xl border border-[var(--cera-line)] bg-white p-5 shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)] sm:p-6 lg:p-8">
       <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-        <div className="rounded-xl bg-gray-100 p-2 md:p-3">
-          <Package className="h-4 w-4 text-gray-700 md:h-6 md:w-6" />
+        <div className="rounded-xl bg-[var(--cera-cream-deep)] p-2 md:p-3">
+          <Package className="h-4 w-4 text-[var(--cera-body)] md:h-6 md:w-6" />
         </div>
-        <h2 className="text-lg font-semibold tracking-tight text-gray-950 md:text-2xl">{t('profile.orderHistory')}</h2>
+        <h2 className="text-lg font-semibold tracking-tight text-[var(--cera-ink)] md:text-2xl">{t('profile.orderHistory')}</h2>
       </div>
       
       {loadingOrders ? (
         <div className="text-center py-8 md:py-12">
           <div className="animate-spin rounded-full h-8 w-8 md:h-12 md:w-12 border-b-2 border-red-600 mx-auto mb-3 md:mb-4"></div>
-          <p className="text-gray-500 text-sm md:text-base">{t('profile.loadingYourOrders')}</p>
+          <p className="text-[var(--cera-muted)] text-sm md:text-base">{t('profile.loadingYourOrders')}</p>
         </div>
       ) : orders.length === 0 ? (
         <EmptyState
@@ -237,7 +237,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                         ease: "easeInOut"
                       }}
                     >
-                      <ShoppingBag className="w-5 h-5 text-primary-400 opacity-60" />
+                      <ShoppingBag className="w-5 h-5 text-[var(--cera-blush-deep)] opacity-60" />
                     </motion.div>
                     <motion.div
                       className="absolute top-2 -left-3"
@@ -253,7 +253,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                         ease: "easeInOut"
                       }}
                     >
-                      <Package className="w-4 h-4 text-primary-300 opacity-50" />
+                      <Package className="w-4 h-4 text-[var(--cera-blush-deep)] opacity-50" />
                     </motion.div>
                   </>
                 )}
@@ -266,14 +266,14 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
             href: getLocalizedPath('/products', locale),
             onClick: () => {}
           }}
-          buttonClassName="bg-red-600 text-white hover:bg-red-700 active:bg-red-800 font-semibold"
+          buttonClassName="bg-[var(--cera-rose)] text-white hover:bg-[var(--cera-rose-ink)] active:bg-red-800 font-semibold"
         />
       ) : (
         <div className="space-y-3 md:space-y-4">
           {orders.map((order) => (
-            <div key={order.id} className="bg-white rounded-xl md:rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
+            <div key={order.id} className="bg-white rounded-xl md:rounded-2xl border border-[var(--cera-line)] shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden">
               {/* Order Header */}
-              <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-3 md:px-6 py-3 md:py-4 border-b border-gray-200">
+              <div className="bg-gradient-to-r from-gray-50 to-gray-100 px-3 md:px-6 py-3 md:py-4 border-b border-[var(--cera-line)]">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 md:gap-3">
                   <div className="flex items-center gap-2 md:gap-4">
                     <div className="flex items-center gap-2 md:gap-3">
@@ -285,8 +285,8 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                         {getOrderIcon(order.orderNumber)}
                       </div>
                       <div>
-                        <h3 className="text-sm md:text-lg font-bold text-gray-900">{t('profile.order')} #{order.orderNumber || order.id}</h3>
-                        <p className="text-xs md:text-sm text-gray-600">
+                        <h3 className="text-sm md:text-lg font-bold text-[var(--cera-ink)]">{t('profile.order')} #{order.orderNumber || order.id}</h3>
+                        <p className="text-xs md:text-sm text-[var(--cera-body)]">
                           {new Date(order.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', {
                             year: 'numeric',
                             month: 'short',
@@ -305,8 +305,8 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                       className="px-2 md:px-4 py-1.5 md:py-2 text-xs md:text-sm border"
                     />
                     <div className="text-right">
-                      <p className="text-base md:text-xl font-bold text-gray-900">{formatCurrency(order.total)}</p>
-                      <p className="text-[10px] md:text-xs text-gray-500">
+                      <p className="text-base md:text-xl font-bold text-[var(--cera-ink)]">{formatCurrency(order.total)}</p>
+                      <p className="text-[10px] md:text-xs text-[var(--cera-muted)]">
                         {order.items.reduce((sum, item) => sum + item.quantity, 0)} {t('profile.items')}
                       </p>
                     </div>
@@ -317,7 +317,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
               {/* Order Content */}
               <div className="p-3 md:p-6">
                 <div className="mb-3 md:mb-4">
-                  <h4 className="text-xs md:text-sm font-semibold text-gray-700 mb-2 md:mb-3 flex items-center gap-1.5 md:gap-2">
+                  <h4 className="text-xs md:text-sm font-semibold text-[var(--cera-body)] mb-2 md:mb-3 flex items-center gap-1.5 md:gap-2">
                     <ShoppingBag className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     {t('profile.productsOrdered')}
                   </h4>
@@ -326,8 +326,8 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                       // Use item.image if available, otherwise fallback to getProductImage
                       const imageSrc = item.image || getProductImage(item.productName);
                       return (
-                      <div key={index} className="flex items-center gap-2 md:gap-3 bg-gray-50 rounded-lg md:rounded-xl p-2 md:p-3 border border-gray-100 hover:bg-gray-100 transition-colors">
-                        <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-md md:rounded-lg flex items-center justify-center overflow-hidden shadow-sm border border-gray-200 flex-shrink-0">
+                      <div key={index} className="flex items-center gap-2 md:gap-3 bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl p-2 md:p-3 border border-[var(--cera-line)] hover:bg-[var(--cera-cream-deep)] transition-colors">
+                        <div className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-md md:rounded-lg flex items-center justify-center overflow-hidden shadow-sm border border-[var(--cera-line)] flex-shrink-0">
                           <Image
                             src={imageSrc}
                             alt={item.productName}
@@ -340,21 +340,21 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                           />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-xs md:text-sm font-medium text-gray-900 truncate">
+                          <p className="text-xs md:text-sm font-medium text-[var(--cera-ink)] truncate">
                             {item.productName}
                           </p>
-                          <div className="flex items-center gap-1.5 md:gap-2 text-[10px] md:text-xs text-gray-600">
+                          <div className="flex items-center gap-1.5 md:gap-2 text-[10px] md:text-xs text-[var(--cera-body)]">
                             <span>Qty: {item.quantity}</span>
                             <span>•</span>
-                            <span className="font-medium text-gray-800">{formatCurrency(item.price * item.quantity)}</span>
+                            <span className="font-medium text-[var(--cera-ink)]">{formatCurrency(item.price * item.quantity)}</span>
                           </div>
                         </div>
                       </div>
                       );
                     })}
                     {order.items.length > 6 && (
-                      <div className="flex items-center justify-center bg-gray-50 rounded-lg md:rounded-xl p-2 md:p-3 border border-gray-100">
-                        <span className="text-xs md:text-sm text-gray-600 font-medium">
+                      <div className="flex items-center justify-center bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl p-2 md:p-3 border border-[var(--cera-line)]">
+                        <span className="text-xs md:text-sm text-[var(--cera-body)] font-medium">
                           +{order.items.length - 6} {t('common.products')}
                         </span>
                       </div>
@@ -363,8 +363,8 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                 </div>
 
                 {/* Order Actions */}
-                <div className="flex flex-col md:flex-row items-start md:items-center justify-between pt-3 md:pt-4 border-t border-gray-200 gap-2 md:gap-3">
-                  <div className={`flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-gray-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between pt-3 md:pt-4 border-t border-[var(--cera-line)] gap-2 md:gap-3">
+                  <div className={`flex items-center gap-1.5 md:gap-2 text-xs md:text-sm text-[var(--cera-body)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <Calendar className="h-3.5 w-3.5 md:h-4 md:w-4" />
                     <span>{t('profile.orderedOn')} {new Date(order.createdAt).toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', { 
                       year: 'numeric',
@@ -376,7 +376,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                     {/* Track Order link */}
                     <Link
                       href={`/track/${order.orderNumber || order.id}`}
-                      className={`inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-primary-50 text-primary-700 text-xs md:text-sm rounded-lg hover:bg-primary-100 transition-colors font-medium border border-primary-200 min-h-[36px] md:min-h-[44px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                      className={`inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 bg-[var(--cera-blush)] text-[var(--cera-rose-ink)] text-xs md:text-sm rounded-lg hover:bg-[var(--cera-blush)] transition-colors font-medium border border-[var(--cera-blush-deep)] min-h-[36px] md:min-h-[44px] touch-manipulation ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                     >
                       <MapPin className="h-3.5 w-3.5 md:h-4 md:w-4" />
                       {locale === 'ar' ? 'تتبع الطلب' : locale === 'ru' ? 'Отследить' : 'Track Order'}

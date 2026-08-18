@@ -42,7 +42,7 @@ export default function OrderCard({
       return <Fish className="h-5 w-5 text-blue-600" />
     }
     // Default Package icon for other orders
-    return <Package className="h-5 w-5 text-gray-600" />
+    return <Package className="h-5 w-5 text-[var(--cera-body)]" />
   }
   
   return (
@@ -57,8 +57,8 @@ export default function OrderCard({
             {getOrderIcon(order.orderNumber)}
           </div>
           <div>
-            <h3 className="font-semibold text-gray-800">Order #{order.orderNumber || order.id.slice(-8)}</h3>
-            <p className="text-sm text-gray-600">
+            <h3 className="font-semibold text-[var(--cera-ink)]">Order #{order.orderNumber || order.id.slice(-8)}</h3>
+            <p className="text-sm text-[var(--cera-body)]">
               {new Date(order.createdAt).toLocaleDateString('en-AE', {
                 year: 'numeric',
                 month: 'long',
@@ -70,8 +70,8 @@ export default function OrderCard({
           </div>
         </div>
         <div className="text-right">
-          <p className="font-bold text-lg text-gray-800">{formatCurrency(order.total)}</p>
-          <p className="text-sm text-gray-600">{order.items.length} item{order.items.length !== 1 ? 's' : ''}</p>
+          <p className="font-bold text-lg text-[var(--cera-ink)]">{formatCurrency(order.total)}</p>
+          <p className="text-sm text-[var(--cera-body)]">{order.items.length} item{order.items.length !== 1 ? 's' : ''}</p>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export default function OrderCard({
           const imageSrc = item.image || getProductImage(item.productName);
           return (
             <div key={index} className="flex items-center gap-3 p-3 bg-white/50 backdrop-blur-sm rounded-lg">
-              <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
+              <div className="w-12 h-12 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Image
                   src={imageSrc}
                   alt={item.productName}
@@ -95,25 +95,25 @@ export default function OrderCard({
                     target.style.display = 'none';
                     const parent = target.parentElement;
                     if (parent) {
-                      parent.innerHTML = '<div class="w-full h-full flex items-center justify-center text-gray-400 text-xs">📦</div>';
+                      parent.innerHTML = '<div class="w-full h-full flex items-center justify-center text-[var(--cera-muted)] text-xs">📦</div>';
                     }
                   }}
                 />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-gray-800 truncate">{item.productName}</h4>
-                <p className="text-sm text-gray-600">
+                <h4 className="font-medium text-[var(--cera-ink)] truncate">{item.productName}</h4>
+                <p className="text-sm text-[var(--cera-body)]">
                   {item.quantity} × {formatCurrency(item.price)}
                 </p>
                 {(itemWithOptional.size || itemWithOptional.selectedSize) && (
-                  <p className="text-xs text-gray-500">{t('product.size')}: {itemWithOptional.size || itemWithOptional.selectedSize}</p>
+                  <p className="text-xs text-[var(--cera-muted)]">{t('product.size')}: {itemWithOptional.size || itemWithOptional.selectedSize}</p>
                 )}
                 {(itemWithOptional.color || itemWithOptional.selectedColor) && (
-                  <p className="text-xs text-gray-500">{t('product.color')}: {itemWithOptional.color || itemWithOptional.selectedColor}</p>
+                  <p className="text-xs text-[var(--cera-muted)]">{t('product.color')}: {itemWithOptional.color || itemWithOptional.selectedColor}</p>
                 )}
               </div>
               <div className="text-right">
-                <p className="font-semibold text-gray-800">
+                <p className="font-semibold text-[var(--cera-ink)]">
                   {formatCurrency(item.price * item.quantity)}
                 </p>
               </div>
@@ -122,10 +122,10 @@ export default function OrderCard({
         })}
       </div>
 
-      <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-200">
+      <div className="flex items-center justify-between mt-4 pt-4 border-t border-[var(--cera-line)]">
         <div className={`flex items-center gap-2 p-2 rounded-lg ${getStatusColor(order.status)}`}>
           {getStatusIcon(order.status)}
-          <span className="text-sm font-medium text-gray-700 capitalize">
+          <span className="text-sm font-medium text-[var(--cera-body)] capitalize">
             {order.status.replace('_', ' ')}
           </span>
         </div>
@@ -133,7 +133,7 @@ export default function OrderCard({
           {order.status === 'pending' && (
             <button
               onClick={() => onCancel(order.id)}
-              className="px-3 py-1 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+              className="px-3 py-1 text-sm text-[var(--cera-rose-ink)] hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
             >
               Cancel
             </button>

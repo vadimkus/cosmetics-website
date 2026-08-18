@@ -41,14 +41,14 @@ export default function ProductRecommendations({}: ProductRecommendationsProps) 
           <div className="p-3 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl">
             <Sparkles className="h-6 w-6 text-purple-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800">Recommended for You</h2>
+          <h2 className="text-2xl font-bold text-[var(--cera-ink)]">Recommended for You</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
-            <div key={product.id} className="group bg-white/50 backdrop-blur-sm rounded-xl border border-gray-200 hover:border-red-300 hover:shadow-lg transition-all duration-200">
+            <div key={product.id} className="group bg-white/50 backdrop-blur-sm rounded-xl border border-[var(--cera-line)] hover:border-red-300 hover:shadow-lg transition-all duration-200">
               <div className="p-4">
-                <div className="aspect-square bg-gray-100 rounded-lg mb-4 overflow-hidden">
+                <div className="aspect-square bg-[var(--cera-cream-deep)] rounded-lg mb-4 overflow-hidden">
                   <Image
                     src={product.image}
                     alt={product.name}
@@ -58,11 +58,11 @@ export default function ProductRecommendations({}: ProductRecommendationsProps) 
                   />
                 </div>
                 
-                <h3 className="font-semibold text-gray-800 mb-2 line-clamp-2">
+                <h3 className="font-semibold text-[var(--cera-ink)] mb-2 line-clamp-2">
                   {product.name}
                 </h3>
                 
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                <p className="text-sm text-[var(--cera-body)] mb-3 line-clamp-2">
                   {product.description}
                 </p>
                 
@@ -78,16 +78,16 @@ export default function ProductRecommendations({}: ProductRecommendationsProps) 
                 </div>
                 
                 <div className="flex items-center justify-between">
-                  <span className="text-lg font-bold text-gray-800">
+                  <span className="text-lg font-bold text-[var(--cera-ink)]">
                     ${product.price}
                   </span>
                   <div className="flex items-center gap-2">
-                    <button className="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                    <button className="p-2 text-[var(--cera-muted)] hover:text-red-500 transition-colors">
                       <Heart className="h-4 w-4" />
                     </button>
                     <Link
                       href={`/products/${product.id}`}
-                      className="p-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                      className="p-2 bg-[var(--cera-rose)] text-white rounded-lg hover:bg-[var(--cera-rose-ink)] transition-colors"
                     >
                       <ShoppingCart className="h-4 w-4" />
                     </Link>

@@ -46,12 +46,12 @@ export default function ProfileForm({
     <div className="space-y-3 md:space-y-8">
       
       {/* Personal Information */}
-      <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] md:p-6 lg:p-8">
+      <div className="rounded-3xl border border-[var(--cera-line)] bg-white p-5 shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)] md:p-6 lg:p-8">
         <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-6">
-          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-gray-900 flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-[var(--cera-ink)] flex items-center justify-center shrink-0">
             <User className="h-4 w-4 md:h-5 md:w-5 text-white" />
           </div>
-          <h2 className="text-sm md:text-xl font-semibold text-gray-900 tracking-tight">{t('profile.personalInformation')}</h2>
+          <h2 className="text-sm md:text-xl font-semibold text-[var(--cera-ink)] tracking-tight">{t('profile.personalInformation')}</h2>
         </div>
 
         {isEditing && (
@@ -72,7 +72,7 @@ export default function ProfileForm({
           
           {/* Name */}
           <div className="space-y-1 md:space-y-2">
-            <label htmlFor="profile-name" className="text-xs md:text-sm font-medium text-gray-700">
+            <label htmlFor="profile-name" className="text-xs md:text-sm font-medium text-[var(--cera-body)]">
               {t('profile.fullName')}
             </label>
             {isEditing ? (
@@ -82,7 +82,7 @@ export default function ProfileForm({
                   type="text"
                   value={editData.name}
                   onChange={(e) => handleInputChange('name', e.target.value)}
-                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-[var(--cera-line)] rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
                   aria-describedby="name-hint"
                   autoComplete="name"
                 />
@@ -91,17 +91,17 @@ export default function ProfileForm({
                 </p>
               </>
             ) : (
-              <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
-                <p className="text-sm md:text-base text-gray-800">{user.name}</p>
+              <div className="px-3 md:px-4 py-2 md:py-3 bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl border border-[var(--cera-line)]">
+                <p className="text-sm md:text-base text-[var(--cera-ink)]">{user.name}</p>
               </div>
             )}
           </div>
 
           {/* Email */}
           <div className="space-y-1 md:space-y-2">
-            <label className="text-xs md:text-sm font-medium text-gray-700">{t('profile.email')}</label>
-            <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
-              <p className="text-sm md:text-base text-gray-800 break-all">
+            <label className="text-xs md:text-sm font-medium text-[var(--cera-body)]">{t('profile.email')}</label>
+            <div className="px-3 md:px-4 py-2 md:py-3 bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl border border-[var(--cera-line)]">
+              <p className="text-sm md:text-base text-[var(--cera-ink)] break-all">
                 {isApplePrivateRelay ? t('profile.hidden') : user.email}
               </p>
             </div>
@@ -126,10 +126,10 @@ export default function ProfileForm({
           {/* Contact Email (for Apple Private Relay users and anonymized accounts) - Full Width */}
           {isApplePrivateRelay && (
             <div className="space-y-1 md:space-y-2 md:col-span-2">
-              <label className="text-xs md:text-sm font-medium text-gray-700 flex items-center gap-2">
+              <label className="text-xs md:text-sm font-medium text-[var(--cera-body)] flex items-center gap-2">
                 <Mail className="h-4 w-4 text-green-600" />
                 Contact Email
-                <span className="text-xs text-gray-500">(for order confirmation)</span>
+                <span className="text-xs text-[var(--cera-muted)]">(for order confirmation)</span>
               </label>
               {isEditing ? (
                 <input
@@ -137,13 +137,13 @@ export default function ProfileForm({
                   value={editData.contactEmail}
                   onChange={(e) => handleInputChange('contactEmail', e.target.value)}
                   placeholder="your.real.email@example.com"
-                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white"
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-[var(--cera-line)] rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent bg-white"
                 />
               ) : (
-                <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
-                  <p className="text-sm md:text-base text-gray-800">
+                <div className="px-3 md:px-4 py-2 md:py-3 bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl border border-[var(--cera-line)]">
+                  <p className="text-sm md:text-base text-[var(--cera-ink)]">
                     {user.contactEmail || (
-                      <span className="text-gray-500 italic">Not provided</span>
+                      <span className="text-[var(--cera-muted)] italic">Not provided</span>
                     )}
                   </p>
                 </div>
@@ -161,7 +161,7 @@ export default function ProfileForm({
 
           {/* Phone */}
           <div className="space-y-1 md:space-y-2">
-            <label htmlFor="profile-phone" className="text-xs md:text-sm font-medium text-gray-700">
+            <label htmlFor="profile-phone" className="text-xs md:text-sm font-medium text-[var(--cera-body)]">
               {t('profile.phone')}
             </label>
             {isEditing ? (
@@ -171,25 +171,25 @@ export default function ProfileForm({
                   type="tel"
                   value={editData.phone}
                   onChange={(e) => handleInputChange('phone', e.target.value)}
-                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-[var(--cera-line)] rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
                   aria-describedby="phone-hint"
                   autoComplete="tel"
                   placeholder="+971 XX XXX XXXX"
                 />
-                <p id="phone-hint" className="text-[10px] md:text-xs text-gray-500 mt-1">
+                <p id="phone-hint" className="text-[10px] md:text-xs text-[var(--cera-muted)] mt-1">
                   {t('profile.phoneHint') || 'Enter your UAE phone number for delivery updates'}
                 </p>
               </>
             ) : (
-              <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
-                <p className="text-sm md:text-base text-gray-800">{user.phone || t('profile.notProvided')}</p>
+              <div className="px-3 md:px-4 py-2 md:py-3 bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl border border-[var(--cera-line)]">
+                <p className="text-sm md:text-base text-[var(--cera-ink)]">{user.phone || t('profile.notProvided')}</p>
               </div>
             )}
           </div>
 
           {/* Birthday */}
           <div className="space-y-1 md:space-y-2">
-            <label htmlFor="profile-birthday" className="text-xs md:text-sm font-medium text-gray-700">
+            <label htmlFor="profile-birthday" className="text-xs md:text-sm font-medium text-[var(--cera-body)]">
               {t('profile.birthday')}
             </label>
             {isEditing ? (
@@ -200,17 +200,17 @@ export default function ProfileForm({
                   value={editData.birthday}
                   onChange={(e) => handleInputChange('birthday', e.target.value)}
                   max={maxBirthday}
-                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-[var(--cera-line)] rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white"
                   aria-describedby="birthday-hint"
                   autoComplete="bday"
                 />
-                <p id="birthday-hint" className="text-[10px] md:text-xs text-gray-500 mt-1">
+                <p id="birthday-hint" className="text-[10px] md:text-xs text-[var(--cera-muted)] mt-1">
                   {t('profile.birthdayHint') || 'Get special offers on your birthday'}
                 </p>
               </>
             ) : (
-              <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
-                <p className="text-sm md:text-base text-gray-800">
+              <div className="px-3 md:px-4 py-2 md:py-3 bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl border border-[var(--cera-line)]">
+                <p className="text-sm md:text-base text-[var(--cera-ink)]">
                   {user.birthday ? new Date(user.birthday).toLocaleDateString(locale === 'ar' ? 'ar-AE' : 'en-AE', {
                     year: 'numeric',
                     month: 'long',
@@ -223,7 +223,7 @@ export default function ProfileForm({
 
           {/* Address */}
           <div className="space-y-1 md:space-y-2 md:col-span-2">
-            <label htmlFor="profile-address" className="text-xs md:text-sm font-medium text-gray-700">
+            <label htmlFor="profile-address" className="text-xs md:text-sm font-medium text-[var(--cera-body)]">
               {t('profile.address')}
             </label>
             {isEditing ? (
@@ -233,35 +233,35 @@ export default function ProfileForm({
                   value={editData.address}
                   onChange={(e) => handleInputChange('address', e.target.value)}
                   rows={2}
-                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-gray-200 rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white resize-none"
+                  className="w-full px-3 md:px-4 py-2 md:py-3 text-sm md:text-base border border-[var(--cera-line)] rounded-lg md:rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white resize-none"
                   placeholder={t('profile.enterYourAddress')}
                   aria-describedby="address-hint"
                   autoComplete="street-address"
                 />
-                <p id="address-hint" className="text-[10px] md:text-xs text-gray-500 mt-1">
+                <p id="address-hint" className="text-[10px] md:text-xs text-[var(--cera-muted)] mt-1">
                   {t('profile.addressHint') || 'Include building name, apartment number, and area for faster delivery'}
                 </p>
               </>
             ) : (
-              <div className="px-3 md:px-4 py-2 md:py-3 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
-                <p className="text-sm md:text-base text-gray-800">{user.address || t('profile.notProvided')}</p>
+              <div className="px-3 md:px-4 py-2 md:py-3 bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl border border-[var(--cera-line)]">
+                <p className="text-sm md:text-base text-[var(--cera-ink)]">{user.address || t('profile.notProvided')}</p>
               </div>
             )}
           </div>
         </div>
 
         {isEditing && (
-          <div className="flex gap-2 md:gap-3 mt-4 md:mt-8 pt-3 md:pt-6 border-t border-gray-100">
+          <div className="flex gap-2 md:gap-3 mt-4 md:mt-8 pt-3 md:pt-6 border-t border-[var(--cera-line)]">
             <button
               onClick={onSave}
-              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-8 py-2.5 md:py-3 bg-gray-900 text-white rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-gray-800 active:scale-[0.99] transition-all min-h-[40px] md:min-h-[44px] touch-manipulation shadow-sm"
+              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-8 py-2.5 md:py-3 bg-[var(--cera-ink)] text-white rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-[var(--cera-rose-ink)] active:scale-[0.99] transition-all min-h-[40px] md:min-h-[44px] touch-manipulation shadow-sm"
             >
               <CheckCircle className="h-4 w-4 md:h-5 md:w-5" />
               {t('profile.saveChanges')}
             </button>
             <button
               onClick={onCancel}
-              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-6 py-2.5 md:py-3 bg-white text-gray-700 border border-gray-200 rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-gray-50 hover:border-gray-300 transition-all min-h-[40px] md:min-h-[44px] touch-manipulation"
+              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-6 py-2.5 md:py-3 bg-white text-[var(--cera-body)] border border-[var(--cera-line)] rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-[var(--cera-cream-deep)] hover:border-[var(--cera-line)] transition-all min-h-[40px] md:min-h-[44px] touch-manipulation"
             >
               <X className="h-4 w-4 md:h-5 md:w-5" />
               {t('common.cancel')}
@@ -271,20 +271,20 @@ export default function ProfileForm({
       </div>
 
       {/* Account Status */}
-      <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] md:p-6 lg:p-8">
+      <div className="rounded-3xl border border-[var(--cera-line)] bg-white p-5 shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)] md:p-6 lg:p-8">
         <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-6">
-          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-gray-900 flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-[var(--cera-ink)] flex items-center justify-center shrink-0">
             <Shield className="h-4 w-4 md:h-5 md:w-5 text-white" />
           </div>
-          <h2 className="text-sm md:text-xl font-semibold text-gray-900 tracking-tight">{t('profile.accountStatus')}</h2>
+          <h2 className="text-sm md:text-xl font-semibold text-[var(--cera-ink)] tracking-tight">{t('profile.accountStatus')}</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
           {/* Price Access */}
-          <div className="flex items-center justify-between p-3 md:p-5 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
+          <div className="flex items-center justify-between p-3 md:p-5 bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl border border-[var(--cera-line)]">
             <div className="flex items-center gap-2.5">
-              <Eye className="h-4 w-4 md:h-5 md:w-5 text-gray-400" />
-              <h3 className="text-xs md:text-sm font-medium text-gray-700">{t('profile.priceAccess')}</h3>
+              <Eye className="h-4 w-4 md:h-5 md:w-5 text-[var(--cera-muted)]" />
+              <h3 className="text-xs md:text-sm font-medium text-[var(--cera-body)]">{t('profile.priceAccess')}</h3>
             </div>
             {user.canSeePrices ? (
               <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full text-[10px] md:text-xs font-semibold">
@@ -301,27 +301,27 @@ export default function ProfileForm({
 
           {/* Discount Level */}
           {user.discountType ? (
-            <div className="flex items-center justify-between p-3 md:p-5 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
+            <div className="flex items-center justify-between p-3 md:p-5 bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl border border-[var(--cera-line)]">
               <div className="flex items-center gap-2.5">
-                <CheckCircle className="h-4 w-4 md:h-5 md:w-5 text-gray-400" aria-hidden="true" />
-                <h3 className="text-xs md:text-sm font-medium text-gray-700">{t('profile.discountLevel')}</h3>
+                <CheckCircle className="h-4 w-4 md:h-5 md:w-5 text-[var(--cera-muted)]" aria-hidden="true" />
+                <h3 className="text-xs md:text-sm font-medium text-[var(--cera-body)]">{t('profile.discountLevel')}</h3>
               </div>
-              <span className="inline-flex items-center px-2.5 py-1 bg-gray-900 text-white rounded-full text-[10px] md:text-xs font-semibold">
+              <span className="inline-flex items-center px-2.5 py-1 bg-[var(--cera-ink)] text-white rounded-full text-[10px] md:text-xs font-semibold">
                 {user.discountPercentage}% {t('product.off')}
               </span>
             </div>
           ) : (
-            <div className="flex items-center justify-between p-3 md:p-5 bg-gray-50 rounded-lg md:rounded-xl border border-gray-100">
+            <div className="flex items-center justify-between p-3 md:p-5 bg-[var(--cera-cream-deep)] rounded-lg md:rounded-xl border border-[var(--cera-line)]">
               <div className="flex items-center gap-2.5 min-w-0">
-                <Shield className="h-4 w-4 md:h-5 md:w-5 text-gray-400 shrink-0" aria-hidden="true" />
+                <Shield className="h-4 w-4 md:h-5 md:w-5 text-[var(--cera-muted)] shrink-0" aria-hidden="true" />
                 <div className="min-w-0">
-                  <h3 className="text-xs md:text-sm font-medium text-gray-700">{t('profile.accountType') || 'Account type'}</h3>
-                  <p className="hidden md:block text-[11px] text-gray-400 truncate">
+                  <h3 className="text-xs md:text-sm font-medium text-[var(--cera-body)]">{t('profile.accountType') || 'Account type'}</h3>
+                  <p className="hidden md:block text-[11px] text-[var(--cera-muted)] truncate">
                     {t('profile.standardAccountHint') || 'Contact us to apply for clinic-partner pricing.'}
                   </p>
                 </div>
               </div>
-              <span className="inline-flex items-center px-2.5 py-1 bg-white text-gray-600 border border-gray-200 rounded-full text-[10px] md:text-xs font-semibold shrink-0">
+              <span className="inline-flex items-center px-2.5 py-1 bg-white text-[var(--cera-body)] border border-[var(--cera-line)] rounded-full text-[10px] md:text-xs font-semibold shrink-0">
                 {t('profile.standardAccount') || 'Standard'}
               </span>
             </div>

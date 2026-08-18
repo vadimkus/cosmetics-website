@@ -22,7 +22,7 @@ export default function DesktopSecurityPanel({
       <PasskeySettings />
       <PrivacySettings />
 
-      <section className={`rounded-3xl border border-[var(--cera-line)] bg-white p-6 shadow-[0_14px_40px_rgba(17,24,39,0.04)] lg:p-8 ${isRTL ? 'text-right' : ''}`}>
+      <section className={`rounded-3xl border border-[var(--cera-line)] bg-white p-6 shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)] lg:p-8 ${isRTL ? 'text-right' : ''}`}>
         <h2 className="text-xl font-semibold tracking-tight text-[var(--cera-ink)]">{t('profile.accountActions')}</h2>
         <p className="mt-1 text-sm leading-6 text-[var(--cera-muted)]">{t('profile.accountActionsDescription')}</p>
 

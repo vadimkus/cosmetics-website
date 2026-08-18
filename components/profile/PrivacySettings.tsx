@@ -16,16 +16,16 @@ function AccordionItem({ title, icon, children, defaultOpen = false, badge }: Ac
   const [isOpen, setIsOpen] = useState(defaultOpen)
   
   return (
-    <div className="border border-gray-200 rounded-lg md:rounded-xl overflow-hidden">
+    <div className="border border-[var(--cera-line)] rounded-lg md:rounded-xl overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between p-3 md:p-4 bg-white hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center justify-between p-3 md:p-4 bg-white hover:bg-[var(--cera-cream-deep)] transition-colors"
       >
         <div className="flex items-center gap-2 md:gap-3">
-          <div className="p-1.5 md:p-2 bg-gray-100 rounded-md md:rounded-lg text-gray-600">
+          <div className="p-1.5 md:p-2 bg-[var(--cera-cream-deep)] rounded-md md:rounded-lg text-[var(--cera-body)]">
             {icon}
           </div>
-          <span className="text-sm md:text-base font-medium text-gray-800">{title}</span>
+          <span className="text-sm md:text-base font-medium text-[var(--cera-ink)]">{title}</span>
           {badge && (
             <span className="px-1.5 py-0.5 bg-blue-100 text-blue-700 text-[10px] md:text-xs rounded-full font-medium">
               {badge}
@@ -33,14 +33,14 @@ function AccordionItem({ title, icon, children, defaultOpen = false, badge }: Ac
           )}
         </div>
         {isOpen ? (
-          <ChevronUp className="h-4 w-4 md:h-5 md:w-5 text-gray-500" />
+          <ChevronUp className="h-4 w-4 md:h-5 md:w-5 text-[var(--cera-muted)]" />
         ) : (
-          <ChevronDown className="h-4 w-4 md:h-5 md:w-5 text-gray-500" />
+          <ChevronDown className="h-4 w-4 md:h-5 md:w-5 text-[var(--cera-muted)]" />
         )}
       </button>
       {isOpen && (
         <div className="p-3 md:p-4 pt-0 bg-white">
-          <div className="pt-3 md:pt-4 border-t border-gray-100">
+          <div className="pt-3 md:pt-4 border-t border-[var(--cera-line)]">
             {children}
           </div>
         </div>
@@ -53,25 +53,25 @@ export default function PrivacySettings() {
   const { t } = useTranslation()
   
   return (
-    <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] md:p-6 lg:p-8">
+    <div className="rounded-3xl border border-[var(--cera-line)] bg-white p-5 shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)] md:p-6 lg:p-8">
       {/* Header */}
       <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
-        <div className="rounded-xl bg-gray-100 p-2 text-gray-700 md:p-3">
+        <div className="rounded-xl bg-[var(--cera-cream-deep)] p-2 text-[var(--cera-body)] md:p-3">
           <Shield className="h-4 w-4 md:h-6 md:w-6" />
         </div>
         <div>
-          <h2 className="text-lg font-semibold tracking-tight text-gray-950 md:text-2xl">{t('profile.privacyPolicyHeader')}</h2>
-          <p className="text-[10px] md:text-xs text-gray-500">{t('profile.yourDataYourRights')}</p>
+          <h2 className="text-lg font-semibold tracking-tight text-[var(--cera-ink)] md:text-2xl">{t('profile.privacyPolicyHeader')}</h2>
+          <p className="text-[10px] md:text-xs text-[var(--cera-muted)]">{t('profile.yourDataYourRights')}</p>
         </div>
       </div>
 
       {/* Quick Summary Card */}
-      <div className="mb-4 rounded-xl border border-gray-200 bg-gray-50 p-3 md:mb-6 md:p-4">
+      <div className="mb-4 rounded-xl border border-[var(--cera-line)] bg-[var(--cera-cream-deep)] p-3 md:mb-6 md:p-4">
         <div className="flex items-start gap-2 md:gap-3">
-          <UserCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-700 md:h-5 md:w-5" />
+          <UserCheck className="mt-0.5 h-4 w-4 flex-shrink-0 text-[var(--cera-body)] md:h-5 md:w-5" />
           <div>
-            <h3 className="mb-1 text-xs font-semibold text-gray-900 md:text-sm">{t('profile.yourPrivacyRights')}</h3>
-            <p className="text-[10px] leading-relaxed text-gray-600 md:text-xs">
+            <h3 className="mb-1 text-xs font-semibold text-[var(--cera-ink)] md:text-sm">{t('profile.yourPrivacyRights')}</h3>
+            <p className="text-[10px] leading-relaxed text-[var(--cera-body)] md:text-xs">
               {t('profile.privacyRightsShort')}
             </p>
           </div>
@@ -91,7 +91,7 @@ export default function PrivacySettings() {
           <p className="text-[10px] md:text-xs text-green-600 mt-0.5">{t('profile.editInfo')}</p>
         </div>
         <div className="bg-red-50 rounded-lg p-2.5 md:p-4 border border-red-100">
-          <Trash2 className="h-4 w-4 md:h-5 md:w-5 text-red-600 mb-1.5 md:mb-2" />
+          <Trash2 className="h-4 w-4 md:h-5 md:w-5 text-[var(--cera-rose-ink)] mb-1.5 md:mb-2" />
           <h4 className="text-xs md:text-sm font-semibold text-red-800">{t('profile.deletion')}</h4>
           <p className="text-[10px] md:text-xs text-red-600 mt-0.5">{t('profile.removeData')}</p>
         </div>
@@ -109,22 +109,22 @@ export default function PrivacySettings() {
           icon={<Database className="h-3.5 w-3.5 md:h-4 md:w-4" />}
           defaultOpen={false}
         >
-          <ul className="space-y-2 text-xs md:text-sm text-gray-600">
+          <ul className="space-y-2 text-xs md:text-sm text-[var(--cera-body)]">
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">•</span>
-              <span><strong className="text-gray-700">{t('profile.accountLabel')}</strong> {t('profile.accountDataShort')}</span>
+              <span><strong className="text-[var(--cera-body)]">{t('profile.accountLabel')}</strong> {t('profile.accountDataShort')}</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">•</span>
-              <span><strong className="text-gray-700">{t('profile.profileLabel')}</strong> {t('profile.profileDataShort')}</span>
+              <span><strong className="text-[var(--cera-body)]">{t('profile.profileLabel')}</strong> {t('profile.profileDataShort')}</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">•</span>
-              <span><strong className="text-gray-700">{t('profile.ordersLabel')}</strong> {t('profile.ordersDataShort')}</span>
+              <span><strong className="text-[var(--cera-body)]">{t('profile.ordersLabel')}</strong> {t('profile.ordersDataShort')}</span>
             </li>
             <li className="flex items-start gap-2">
               <span className="text-blue-500 mt-0.5">•</span>
-              <span><strong className="text-gray-700">{t('profile.usageLabel')}</strong> {t('profile.usageDataShort')}</span>
+              <span><strong className="text-[var(--cera-body)]">{t('profile.usageLabel')}</strong> {t('profile.usageDataShort')}</span>
             </li>
           </ul>
         </AccordionItem>
@@ -133,7 +133,7 @@ export default function PrivacySettings() {
           title={t('profile.howWeUseData')} 
           icon={<Eye className="h-3.5 w-3.5 md:h-4 md:w-4" />}
         >
-          <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm text-gray-600">
+          <ul className="space-y-1.5 md:space-y-2 text-xs md:text-sm text-[var(--cera-body)]">
             {[
               t('profile.processAndFulfillOrders'),
               t('profile.provideCustomerSupport'),
@@ -153,20 +153,20 @@ export default function PrivacySettings() {
           title={t('profile.dataRetention')} 
           icon={<Clock className="h-3.5 w-3.5 md:h-4 md:w-4" />}
         >
-          <div className="space-y-2 text-xs md:text-sm text-gray-600">
-            <p className="text-gray-700 font-medium mb-2">{t('profile.retentionPeriodsPerUaeRegulations')}</p>
+          <div className="space-y-2 text-xs md:text-sm text-[var(--cera-body)]">
+            <p className="text-[var(--cera-body)] font-medium mb-2">{t('profile.retentionPeriodsPerUaeRegulations')}</p>
             <div className="space-y-1.5">
-              <div className="flex justify-between items-center py-1.5 border-b border-gray-100">
+              <div className="flex justify-between items-center py-1.5 border-b border-[var(--cera-line)]">
                 <span>{t('profile.accountData')}</span>
-                <span className="text-gray-500 text-[10px] md:text-xs">{t('profile.untilDeletion')}</span>
+                <span className="text-[var(--cera-muted)] text-[10px] md:text-xs">{t('profile.untilDeletion')}</span>
               </div>
-              <div className="flex justify-between items-center py-1.5 border-b border-gray-100">
+              <div className="flex justify-between items-center py-1.5 border-b border-[var(--cera-line)]">
                 <span>{t('profile.orderHistoryRetention')}</span>
-                <span className="text-gray-500 text-[10px] md:text-xs">{t('profile.legalCompliance')}</span>
+                <span className="text-[var(--cera-muted)] text-[10px] md:text-xs">{t('profile.legalCompliance')}</span>
               </div>
               <div className="flex justify-between items-center py-1.5">
                 <span>{t('profile.afterDeletion')}</span>
-                <span className="text-gray-500 text-[10px] md:text-xs">{t('profile.permanentlyRemoved')}</span>
+                <span className="text-[var(--cera-muted)] text-[10px] md:text-xs">{t('profile.permanentlyRemoved')}</span>
               </div>
             </div>
           </div>
@@ -184,9 +184,9 @@ export default function PrivacySettings() {
               { icon: '🔄', text: t('profile.regularBackups') },
               { icon: '🔐', text: t('profile.accessControls') }
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-2 bg-gray-50 rounded-md p-2">
+              <div key={i} className="flex items-center gap-2 bg-[var(--cera-cream-deep)] rounded-md p-2">
                 <span>{item.icon}</span>
-                <span className="text-gray-700">{item.text}</span>
+                <span className="text-[var(--cera-body)]">{item.text}</span>
               </div>
             ))}
           </div>
@@ -222,7 +222,7 @@ export default function PrivacySettings() {
       </div>
 
       {/* Footer Note */}
-      <p className="mt-3 md:mt-4 text-[10px] md:text-xs text-gray-400 text-center">
+      <p className="mt-3 md:mt-4 text-[10px] md:text-xs text-[var(--cera-muted)] text-center">
         {t('profile.lastUpdated')} March 2026 • GENOSYS MIDDLE EAST FZ-LLC
       </p>
     </div>

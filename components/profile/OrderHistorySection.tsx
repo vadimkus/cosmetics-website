@@ -35,10 +35,10 @@ export default function OrderHistorySection({
             <div className="p-3 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl">
               <Package className="h-6 w-6 text-blue-600" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-800">{t('common.orderHistoryTitle')}</h2>
+            <h2 className="text-2xl font-bold text-[var(--cera-ink)]">{t('common.orderHistoryTitle')}</h2>
           </div>
           <div className="flex items-center justify-center py-12">
-            <div className="flex items-center gap-3 text-gray-600">
+            <div className="flex items-center gap-3 text-[var(--cera-body)]">
               <RefreshCw className="h-5 w-5 animate-spin" />
               <span>{t('common.loadingOrders')}</span>
             </div>
@@ -55,12 +55,12 @@ export default function OrderHistorySection({
           <div className="p-3 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-xl">
             <Package className="h-6 w-6 text-blue-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800">{t('common.orderHistoryTitle')}</h2>
+          <h2 className="text-2xl font-bold text-[var(--cera-ink)]">{t('common.orderHistoryTitle')}</h2>
         </div>
 
         {orders.length === 0 ? (
           <EmptyState
-            icon={<Package className="h-12 w-12 text-gray-300" />}
+            icon={<Package className="h-12 w-12 text-[var(--cera-blush-deep)]" />}
             title={t('common.noOrdersYetTitle')}
             description={t('common.noOrdersYetDescription')}
             action={{

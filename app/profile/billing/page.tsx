@@ -8,6 +8,9 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 interface BillingPageProps {
   embedded?: boolean
@@ -150,8 +153,8 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <p className="text-gray-500">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center`}>
+        <p className="text-[var(--cera-muted)]">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
       </div>
     )
   }
@@ -160,45 +163,45 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
     <div
       className={
         embedded
-          ? 'overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_14px_40px_rgba(17,24,39,0.04)]'
-          : `min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`
+          ? 'overflow-hidden rounded-3xl border border-[var(--cera-line)] bg-white shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)]'
+          : `cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`
       }
       dir={dir}
     >
       {/* Unified nav header */}
       {!embedded && (
-        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
             type="button"
             onClick={handleBack}
-            className={`flex items-center gap-1 min-w-[80px] px-1 py-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 ${isRTL ? 'flex-row-reverse' : ''}`}
+            className={`flex items-center gap-1 min-w-[80px] px-1 py-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">{translations.back}</span>
+            <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-[var(--cera-rose-ink)]">{translations.back}</span>
           </button>
-          <h1 className="text-base font-semibold text-gray-900">{translations.title}</h1>
+          <h1 className="text-base font-semibold text-[var(--cera-ink)]">{translations.title}</h1>
           <div className="min-w-[80px]" />
         </div>
       )}
 
       {loading ? (
         <div className="flex flex-col items-center justify-center py-16">
-          <Loader2 className="w-8 h-8 text-red-600 animate-spin" />
-          <p className="text-gray-500 mt-3">{translations.loading}</p>
+          <Loader2 className="w-8 h-8 text-[var(--cera-rose-ink)] animate-spin" />
+          <p className="text-[var(--cera-muted)] mt-3">{translations.loading}</p>
         </div>
       ) : (
         <form onSubmit={handleSave} noValidate className="max-w-xl mx-auto p-5 space-y-6">
           <div>
             <div className={`flex items-center gap-3 mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
-                <Building className="w-4 h-4 text-red-600" />
+              <div className="w-8 h-8 rounded-full bg-[var(--cera-blush)] border border-[var(--cera-blush-deep)] flex items-center justify-center">
+                <Building className="w-4 h-4 text-[var(--cera-rose-ink)]" />
               </div>
-              <label htmlFor="billingAddress" className={`text-base font-semibold text-gray-900 ${isRTL ? 'text-right' : ''}`}>
+              <label htmlFor="billingAddress" className={`text-base font-semibold text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>
                 {translations.billingAddress}{' '}
-                <span className="text-gray-400 font-normal">{translations.optional}</span>
+                <span className="text-[var(--cera-muted)] font-normal">{translations.optional}</span>
               </label>
             </div>
-            <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
+            <div className="bg-[var(--cera-cream-deep)] rounded-xl p-4 border border-[var(--cera-line)] focus-within:bg-white focus-within:ring-1 focus-within:ring-[var(--cera-rose)] transition-colors">
               <textarea
                 id="billingAddress"
                 name="billingAddress"
@@ -207,25 +210,25 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
                 placeholder={translations.billingAddressPlaceholder}
                 rows={4}
                 autoComplete="street-address"
-                className={`w-full bg-transparent text-base text-gray-900 placeholder:text-gray-400 outline-none resize-none ${isRTL ? 'text-right' : ''}`}
+                className={`w-full bg-transparent text-base text-[var(--cera-ink)] placeholder:text-[var(--cera-muted)] outline-none resize-none ${isRTL ? 'text-right' : ''}`}
               />
             </div>
-            <p className={`text-xs text-gray-500 mt-2 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-xs text-[var(--cera-muted)] mt-2 ${isRTL ? 'text-right' : ''}`}>
               {translations.billingAddressHint}
             </p>
           </div>
 
           <div>
             <div className={`flex items-center gap-3 mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
-                <FileText className="w-4 h-4 text-red-600" />
+              <div className="w-8 h-8 rounded-full bg-[var(--cera-blush)] border border-[var(--cera-blush-deep)] flex items-center justify-center">
+                <FileText className="w-4 h-4 text-[var(--cera-rose-ink)]" />
               </div>
-              <label htmlFor="vatNumber" className={`text-base font-semibold text-gray-900 ${isRTL ? 'text-right' : ''}`}>
+              <label htmlFor="vatNumber" className={`text-base font-semibold text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>
                 {translations.vatNumber}{' '}
-                <span className="text-gray-400 font-normal">{translations.optional}</span>
+                <span className="text-[var(--cera-muted)] font-normal">{translations.optional}</span>
               </label>
             </div>
-            <div className={`bg-gray-50 rounded-xl p-4 border transition-colors focus-within:bg-white focus-within:ring-1 ${vatInvalid ? 'border-red-300 focus-within:ring-red-400' : 'border-gray-200 focus-within:ring-red-300'}`}>
+            <div className={`bg-[var(--cera-cream-deep)] rounded-xl p-4 border transition-colors focus-within:bg-white focus-within:ring-1 ${vatInvalid ? 'border-red-300 focus-within:ring-red-400' : 'border-[var(--cera-line)] focus-within:ring-[var(--cera-rose)]'}`}>
               <input
                 id="vatNumber"
                 name="vatNumber"
@@ -239,13 +242,13 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
                 autoComplete="off"
                 aria-invalid={vatInvalid}
                 aria-describedby="vatNumber-hint"
-                className="w-full bg-transparent text-base text-gray-900 placeholder:text-gray-400 outline-none tracking-wider"
+                className="w-full bg-transparent text-base text-[var(--cera-ink)] placeholder:text-[var(--cera-muted)] outline-none tracking-wider"
                 dir="ltr"
               />
             </div>
             <p
               id="vatNumber-hint"
-              className={`text-xs mt-2 flex items-center gap-1 ${vatInvalid ? 'text-red-600' : 'text-gray-500'} ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+              className={`text-xs mt-2 flex items-center gap-1 ${vatInvalid ? 'text-red-600' : 'text-[var(--cera-muted)]'} ${isRTL ? 'flex-row-reverse text-right' : ''}`}
             >
               {vatInvalid && <AlertCircle className="w-3.5 h-3.5 flex-shrink-0" />}
               {vatInvalid ? translations.vatInvalid : translations.vatNumberHint}
@@ -254,23 +257,23 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
 
           <div>
             <div className={`flex items-center gap-3 mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center">
-                <CreditCard className="w-4 h-4 text-gray-600" />
+              <div className="w-8 h-8 rounded-full bg-[var(--cera-cream-deep)] border border-[var(--cera-line)] flex items-center justify-center">
+                <CreditCard className="w-4 h-4 text-[var(--cera-body)]" />
               </div>
-              <h2 className={`text-base font-semibold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.paymentMethods}</h2>
+              <h2 className={`text-base font-semibold text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>{translations.paymentMethods}</h2>
             </div>
-            <div className="bg-gray-50 rounded-xl p-4 border border-gray-200 space-y-3">
-              <div className={`flex items-center gap-2 text-sm text-gray-600 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <Lock className="w-3.5 h-3.5 text-gray-500 flex-shrink-0" />
+            <div className="bg-[var(--cera-cream-deep)] rounded-xl p-4 border border-[var(--cera-line)] space-y-3">
+              <div className={`flex items-center gap-2 text-sm text-[var(--cera-body)] ${isRTL ? 'flex-row-reverse' : ''}`}>
+                <Lock className="w-3.5 h-3.5 text-[var(--cera-muted)] flex-shrink-0" />
                 <span>{translations.secureByStripe}</span>
               </div>
               <div className={`flex items-center gap-2 flex-wrap ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <span className="px-2.5 py-1 bg-white rounded-md text-xs font-semibold text-gray-700 border border-gray-200">Visa</span>
-                <span className="px-2.5 py-1 bg-white rounded-md text-xs font-semibold text-gray-700 border border-gray-200">Mastercard</span>
-                <span className="px-2.5 py-1 bg-white rounded-md text-xs font-semibold text-gray-700 border border-gray-200">Apple Pay</span>
-                <span className="px-2.5 py-1 bg-white rounded-md text-xs font-semibold text-gray-700 border border-gray-200">Google Pay</span>
+                <span className="px-2.5 py-1 bg-white rounded-md text-xs font-semibold text-[var(--cera-body)] border border-[var(--cera-line)]">Visa</span>
+                <span className="px-2.5 py-1 bg-white rounded-md text-xs font-semibold text-[var(--cera-body)] border border-[var(--cera-line)]">Mastercard</span>
+                <span className="px-2.5 py-1 bg-white rounded-md text-xs font-semibold text-[var(--cera-body)] border border-[var(--cera-line)]">Apple Pay</span>
+                <span className="px-2.5 py-1 bg-white rounded-md text-xs font-semibold text-[var(--cera-body)] border border-[var(--cera-line)]">Google Pay</span>
               </div>
-              <div className={`flex items-center gap-2 text-sm text-gray-700 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex items-center gap-2 text-sm text-[var(--cera-body)] ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
                 <span>{translations.cashOnDelivery}</span>
               </div>
@@ -280,8 +283,8 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
           <button
             type="submit"
             disabled={saving || !isDirty || vatInvalid}
-            className={`w-full py-4 rounded-xl font-semibold text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 ${
-              saving || !isDirty || vatInvalid ? 'bg-gray-300 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700 active:scale-[0.99]'
+            className={`w-full py-4 rounded-xl font-semibold text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2 ${
+              saving || !isDirty || vatInvalid ? 'bg-[var(--cera-blush-deep)] cursor-not-allowed' : 'bg-[var(--cera-rose)] hover:bg-[var(--cera-rose-ink)] active:scale-[0.99]'
             }`}
           >
             {saving ? (
@@ -307,7 +310,7 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
         >
           <div
             className={`flex items-center gap-2 px-4 py-3 rounded-full shadow-lg text-sm font-medium text-white ${
-              toast.type === 'success' ? 'bg-gray-900' : 'bg-red-600'
+              toast.type === 'success' ? 'bg-[var(--cera-ink)]' : 'bg-red-600'
             }`}
           >
             {toast.type === 'success' ? (

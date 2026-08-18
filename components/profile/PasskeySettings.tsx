@@ -68,7 +68,7 @@ export default function PasskeySettings() {
     if (deviceType === 'platform') {
       return <Smartphone className="h-5 w-5 text-blue-600" />
     }
-    return <Laptop className="h-5 w-5 text-gray-600" />
+    return <Laptop className="h-5 w-5 text-[var(--cera-body)]" />
   }
 
   // Don't show if passkeys are not supported
@@ -77,17 +77,17 @@ export default function PasskeySettings() {
   }
 
   return (
-    <div className="rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] sm:p-6 lg:p-8">
+    <div className="rounded-3xl border border-[var(--cera-line)] bg-white p-5 shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)] sm:p-6 lg:p-8">
       {/* Header */}
       <div className={`flex items-center gap-2 md:gap-3 mb-4 md:mb-6 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-        <div className="rounded-xl bg-gray-100 p-2 text-gray-700 md:p-3">
+        <div className="rounded-xl bg-[var(--cera-cream-deep)] p-2 text-[var(--cera-body)] md:p-3">
           <Fingerprint className="h-4 w-4 md:h-6 md:w-6" />
         </div>
         <div className={dir === 'rtl' ? 'text-right' : ''}>
-          <h2 className="text-lg font-semibold tracking-tight text-gray-950 md:text-2xl">
+          <h2 className="text-lg font-semibold tracking-tight text-[var(--cera-ink)] md:text-2xl">
             {t('login.managePasskeys') || 'Manage Passkeys'}
           </h2>
-          <p className="text-xs md:text-sm text-gray-500">
+          <p className="text-xs md:text-sm text-[var(--cera-muted)]">
             Face ID / Touch ID
           </p>
         </div>
@@ -104,13 +104,13 @@ export default function PasskeySettings() {
       {/* Error Message */}
       {error && (
         <div className={`mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0" />
+          <AlertCircle className="h-5 w-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
           <span className="text-sm text-red-700">{error}</span>
         </div>
       )}
 
       {/* Description */}
-      <p className={`text-sm text-gray-600 mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+      <p className={`text-sm text-[var(--cera-body)] mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
         {t('profile.passkeyDescription') || 'Use Face ID or Touch ID to sign in quickly and securely without a password.'}
       </p>
 
@@ -120,15 +120,15 @@ export default function PasskeySettings() {
           {passkeys.map((passkey: Passkey) => (
             <div
               key={passkey.id}
-              className={`flex items-center justify-between p-3 md:p-4 bg-gray-50 rounded-lg border border-gray-200 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+              className={`flex items-center justify-between p-3 md:p-4 bg-[var(--cera-cream-deep)] rounded-lg border border-[var(--cera-line)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             >
               <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 {getDeviceIcon(passkey.deviceType)}
                 <div className={dir === 'rtl' ? 'text-right' : ''}>
-                  <p className="font-medium text-gray-800 text-sm md:text-base">
+                  <p className="font-medium text-[var(--cera-ink)] text-sm md:text-base">
                     {passkey.deviceName || 'Unknown Device'}
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-[var(--cera-muted)]">
                     {passkey.lastUsedAt 
                       ? `Last used: ${formatDate(passkey.lastUsedAt)}`
                       : `Added: ${formatDate(passkey.createdAt)}`
@@ -148,13 +148,13 @@ export default function PasskeySettings() {
                   <button
                     onClick={() => handleDeletePasskey(passkey.id)}
                     disabled={isLoading}
-                    className="px-3 py-1.5 text-xs font-medium bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
+                    className="px-3 py-1.5 text-xs font-medium bg-[var(--cera-rose)] text-white rounded-lg hover:bg-[var(--cera-rose-ink)] transition-colors disabled:opacity-50"
                   >
                     {t('common.confirm') || 'Confirm'}
                   </button>
                   <button
                     onClick={() => setShowConfirmDelete(null)}
-                    className="px-3 py-1.5 text-xs font-medium bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors"
+                    className="px-3 py-1.5 text-xs font-medium bg-[var(--cera-cream-deep)] text-[var(--cera-body)] rounded-lg hover:bg-[var(--cera-blush-deep)] transition-colors"
                   >
                     {t('common.cancel') || 'Cancel'}
                   </button>
@@ -162,7 +162,7 @@ export default function PasskeySettings() {
               ) : (
                 <button
                   onClick={() => setShowConfirmDelete(passkey.id)}
-                  className="p-2 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
+                  className="p-2 text-[var(--cera-rose-ink)] hover:bg-red-100 rounded-lg transition-colors"
                   title={t('login.deletePasskey') || 'Delete Passkey'}
                 >
                   <Trash2 className="h-5 w-5" />
@@ -172,12 +172,12 @@ export default function PasskeySettings() {
           ))}
         </div>
       ) : (
-        <div className={`p-4 md:p-6 bg-gray-50 rounded-lg border border-gray-200 text-center mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
-          <Fingerprint className="h-10 w-10 text-gray-400 mx-auto mb-2" />
-          <p className="text-sm text-gray-600">
+        <div className={`p-4 md:p-6 bg-[var(--cera-cream-deep)] rounded-lg border border-[var(--cera-line)] text-center mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+          <Fingerprint className="h-10 w-10 text-[var(--cera-muted)] mx-auto mb-2" />
+          <p className="text-sm text-[var(--cera-body)]">
             {t('login.noPasskeysRegistered') || 'No passkeys registered'}
           </p>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-[var(--cera-muted)] mt-1">
             Add a passkey to enable quick sign-in with Face ID or Touch ID
           </p>
         </div>
@@ -188,7 +188,7 @@ export default function PasskeySettings() {
         <button
           onClick={handleAddPasskey}
           disabled={isLoading}
-          className={`flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-gray-950 py-3 font-semibold text-white transition-colors hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-50 md:gap-3 md:py-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          className={`flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] py-3 font-semibold text-white transition-colors hover:bg-[var(--cera-rose-ink)] disabled:cursor-not-allowed disabled:opacity-50 md:gap-3 md:py-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
           {isLoading ? (
             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

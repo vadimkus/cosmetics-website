@@ -24,6 +24,8 @@ import FavoritesClient from '@/app/favorites/FavoritesClient'
 import { AddressesContent } from '@/app/profile/addresses/page'
 import { AddressEditorContent } from '@/app/profile/addresses/add/page'
 import { BillingContent } from '@/app/profile/billing/page'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 // Constants
 const LOCAL_STORAGE_KEYS = {

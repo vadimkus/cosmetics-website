@@ -10,6 +10,9 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
 import { isApplePrivateRelayEmail } from '@/lib/emailHelpers'
 import { getLocalTodayYmd } from '@/lib/validation'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 // Toast notification type
 type ToastType = 'success' | 'error'
@@ -356,9 +359,9 @@ export default function EditProfilePage() {
   // Show loading state while auth is loading
   if (authLoading) {
     return (
-      <div className="min-h-[100dvh] bg-white flex flex-col items-center justify-center">
-        <div className="w-8 h-8 border-2 border-gray-200 border-t-red-600 rounded-full animate-spin mb-3" />
-        <p className="text-gray-500 text-sm">
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] flex flex-col items-center justify-center`}>
+        <div className="w-8 h-8 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)] rounded-full animate-spin mb-3" />
+        <p className="text-[var(--cera-muted)] text-sm">
           {locale === 'ar' ? 'جارٍ التحميل...' : locale === 'ru' ? 'Загрузка...' : 'Loading...'}
         </p>
       </div>
@@ -368,11 +371,11 @@ export default function EditProfilePage() {
   // Show sign in message if not authenticated
   if (!user) {
     return (
-      <div className="min-h-[100dvh] bg-white flex flex-col items-center justify-center">
-        <p className="text-gray-500 mb-4">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] flex flex-col items-center justify-center`}>
+        <p className="text-[var(--cera-muted)] mb-4">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
         <button
           onClick={() => router.push(getLocalizedPath('/login', locale))}
-          className="px-6 py-2 bg-red-600 text-white rounded-lg font-medium active:opacity-80"
+          className="px-6 py-2 bg-[var(--cera-rose)] text-white rounded-lg font-medium active:opacity-80"
         >
           {locale === 'ar' ? 'تسجيل الدخول' : locale === 'ru' ? 'Войти' : 'Sign In'}
         </button>
@@ -383,9 +386,9 @@ export default function EditProfilePage() {
   // Show loading state while form data is loading
   if (!isFormLoaded) {
     return (
-      <div className="min-h-[100dvh] bg-white flex flex-col items-center justify-center">
-        <div className="w-8 h-8 border-2 border-gray-200 border-t-red-600 rounded-full animate-spin mb-3" />
-        <p className="text-gray-500 text-sm">
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] flex flex-col items-center justify-center`}>
+        <div className="w-8 h-8 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)] rounded-full animate-spin mb-3" />
+        <p className="text-[var(--cera-muted)] text-sm">
           {locale === 'ar' ? 'جارٍ تحميل الملف الشخصي...' : locale === 'ru' ? 'Загрузка профиля...' : 'Loading profile...'}
         </p>
       </div>
@@ -393,7 +396,7 @@ export default function EditProfilePage() {
   }
 
   return (
-    <div className={`min-h-[100dvh] bg-white ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* Toast Notifications */}
       <div className="fixed top-4 left-4 right-4 z-[60] flex flex-col gap-2 pointer-events-none safe-area-top">
         {toasts.map(toast => (
@@ -409,7 +412,7 @@ export default function EditProfilePage() {
             {toast.type === 'success' ? (
               <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
             ) : (
-              <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0" />
+              <AlertCircle className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
             )}
             <span className={`text-sm font-medium ${toast.type === 'success' ? 'text-green-800' : 'text-red-800'}`}>
               {toast.message}
@@ -426,21 +429,21 @@ export default function EditProfilePage() {
        * container below still has safe-area-top (it's `fixed`, so it needs
        * to clear the status bar independently).
        */}
-      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-gray-200 flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-[var(--cera-line)] flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button
           onClick={handleBack}
           className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
         >
-          <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-          <span className="text-base text-red-600">{translations.back}</span>
+          <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+          <span className="text-base text-[var(--cera-rose-ink)]">{translations.back}</span>
         </button>
-        <h1 className="text-base font-semibold text-gray-900">{translations.title}</h1>
+        <h1 className="text-base font-semibold text-[var(--cera-ink)]">{translations.title}</h1>
         <div className="min-w-[80px] flex justify-end">
           <button
             type="button"
             onClick={handleSave}
             disabled={isSaving || !isDirty()}
-            className={`text-base font-semibold ${isSaving || !isDirty() ? 'text-gray-400' : 'text-red-600 active:opacity-70'}`}
+            className={`text-base font-semibold ${isSaving || !isDirty() ? 'text-[var(--cera-muted)]' : 'text-[var(--cera-rose-ink)] active:opacity-70'}`}
           >
             {isSaving ? translations.saving : translations.save}
           </button>
@@ -451,12 +454,12 @@ export default function EditProfilePage() {
            don't stretch to an uncomfortable line length. */}
       <div className="max-w-xl mx-auto">
         {/* Profile Picture Section */}
-        <div className="py-6 border-b border-gray-100">
+        <div className="py-6 border-b border-[var(--cera-line)]">
           <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
-              <Camera className="w-4 h-4 text-red-600" />
+            <div className="w-8 h-8 rounded-full bg-[var(--cera-blush)] border border-[var(--cera-blush-deep)] flex items-center justify-center">
+              <Camera className="w-4 h-4 text-[var(--cera-rose-ink)]" />
             </div>
-            <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.profilePicture}</h2>
+            <h2 className={`text-lg font-bold text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>{translations.profilePicture}</h2>
           </div>
           {/* Hidden file input */}
           <input
@@ -470,13 +473,13 @@ export default function EditProfilePage() {
             type="button"
             onClick={handlePhotoClick}
             disabled={isUploadingPhoto}
-            className="w-full flex flex-col items-center py-4 mx-5 bg-gray-50 rounded-xl active:bg-gray-100 transition-colors disabled:opacity-50"
+            className="w-full flex flex-col items-center py-4 mx-5 bg-[var(--cera-cream-deep)] rounded-xl active:bg-[var(--cera-cream-deep)] transition-colors disabled:opacity-50"
             style={{ width: 'calc(100% - 40px)', marginLeft: '20px', marginRight: '20px' }}
           >
             <div className="relative mb-3">
               {isUploadingPhoto ? (
-                <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
-                  <div className="w-8 h-8 border-2 border-gray-300 border-t-red-600 rounded-full animate-spin" />
+                <div className="w-24 h-24 rounded-full bg-[var(--cera-cream-deep)] flex items-center justify-center">
+                  <div className="w-8 h-8 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)] rounded-full animate-spin" />
                 </div>
               ) : profilePicture ? (
                 // eslint-disable-next-line @next/next/no-img-element -- base64 data URL avatar, optimizer can't process it
@@ -486,15 +489,15 @@ export default function EditProfilePage() {
                   className="w-24 h-24 rounded-full object-cover"
                 />
               ) : (
-                <div className="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center">
-                  <User className="w-10 h-10 text-gray-400" />
+                <div className="w-24 h-24 rounded-full bg-[var(--cera-cream-deep)] flex items-center justify-center">
+                  <User className="w-10 h-10 text-[var(--cera-muted)]" />
                 </div>
               )}
-              <div className="absolute bottom-1 right-1 w-7 h-7 rounded-full bg-red-600 flex items-center justify-center border-2 border-white">
+              <div className="absolute bottom-1 right-1 w-7 h-7 rounded-full bg-[var(--cera-rose)] flex items-center justify-center border-2 border-white">
                 <Camera className="w-3.5 h-3.5 text-white" />
               </div>
             </div>
-            <span className="text-sm text-red-600 font-medium">
+            <span className="text-sm text-[var(--cera-rose-ink)] font-medium">
               {isUploadingPhoto 
                 ? (locale === 'ar' ? 'جارٍ الرفع...' : locale === 'ru' ? 'Загрузка...' : 'Uploading...') 
                 : translations.tapToChange}
@@ -514,17 +517,17 @@ export default function EditProfilePage() {
           noValidate
         >
           {/* Name & Contact Section */}
-          <div className="py-6 border-b border-gray-100">
+          <div className="py-6 border-b border-[var(--cera-line)]">
             <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
-                <User className="w-4 h-4 text-red-600" />
+              <div className="w-8 h-8 rounded-full bg-[var(--cera-blush)] border border-[var(--cera-blush-deep)] flex items-center justify-center">
+                <User className="w-4 h-4 text-[var(--cera-rose-ink)]" />
               </div>
-              <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.personalInfo}</h2>
+              <h2 className={`text-lg font-bold text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>{translations.personalInfo}</h2>
             </div>
-            <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
+            <div className="mx-5 bg-[var(--cera-cream-deep)] rounded-xl overflow-hidden">
               {/* First Name */}
-              <div className="px-4 py-3 border-b border-gray-200 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
-                <label htmlFor="firstName" className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+              <div className="px-4 py-3 border-b border-[var(--cera-line)] focus-within:bg-white focus-within:ring-1 focus-within:ring-[var(--cera-rose)] transition-colors">
+                <label htmlFor="firstName" className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                   {translations.firstName}
                 </label>
                 <input
@@ -534,13 +537,13 @@ export default function EditProfilePage() {
                   autoComplete="given-name"
                   value={formData.firstName}
                   onChange={(e) => updateField('firstName', e.target.value)}
-                  className={`w-full text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
+                  className={`w-full text-base text-[var(--cera-ink)] bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
                   placeholder={translations.firstName}
                 />
               </div>
               {/* Last Name */}
-              <div className="px-4 py-3 border-b border-gray-200 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
-                <label htmlFor="lastName" className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+              <div className="px-4 py-3 border-b border-[var(--cera-line)] focus-within:bg-white focus-within:ring-1 focus-within:ring-[var(--cera-rose)] transition-colors">
+                <label htmlFor="lastName" className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                   {translations.lastName}
                 </label>
                 <input
@@ -550,14 +553,14 @@ export default function EditProfilePage() {
                   autoComplete="family-name"
                   value={formData.lastName}
                   onChange={(e) => updateField('lastName', e.target.value)}
-                  className={`w-full text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
+                  className={`w-full text-base text-[var(--cera-ink)] bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
                   placeholder={translations.lastName}
                 />
               </div>
               {/* Email (read-only) — lock icon + hint tells users why it's
                    shown but not editable, clarifying the two-email UX. */}
-              <div className="px-4 py-3 border-b border-gray-200">
-                <label htmlFor="email" className={`text-sm font-medium text-gray-600 mb-1 flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+              <div className="px-4 py-3 border-b border-[var(--cera-line)]">
+                <label htmlFor="email" className={`text-sm font-medium text-[var(--cera-body)] mb-1 flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                   <Lock className="w-3 h-3" aria-hidden="true" />
                   {translations.email}
                 </label>
@@ -568,16 +571,16 @@ export default function EditProfilePage() {
                   readOnly
                   aria-readonly="true"
                   tabIndex={-1}
-                  className="w-full text-base text-gray-500 bg-transparent outline-none cursor-default"
+                  className="w-full text-base text-[var(--cera-muted)] bg-transparent outline-none cursor-default"
                   dir="ltr"
                 />
-                <p className={`text-xs text-gray-500 mt-1 ${isRTL ? 'text-right' : ''}`}>
+                <p className={`text-xs text-[var(--cera-muted)] mt-1 ${isRTL ? 'text-right' : ''}`}>
                   {translations.emailHint}
                 </p>
               </div>
               {/* Contact Email */}
-              <div className="px-4 py-3 border-b border-gray-200 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
-                <label htmlFor="contactEmail" className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+              <div className="px-4 py-3 border-b border-[var(--cera-line)] focus-within:bg-white focus-within:ring-1 focus-within:ring-[var(--cera-rose)] transition-colors">
+                <label htmlFor="contactEmail" className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                   {translations.contactEmail}
                 </label>
                 <input
@@ -588,20 +591,20 @@ export default function EditProfilePage() {
                   inputMode="email"
                   value={formData.contactEmail}
                   onChange={(e) => updateField('contactEmail', e.target.value)}
-                  className="w-full text-base text-gray-900 bg-transparent outline-none"
+                  className="w-full text-base text-[var(--cera-ink)] bg-transparent outline-none"
                   placeholder={translations.contactEmail}
                   dir="ltr"
                 />
                 {/* Neutral gray hint — previous amber pill read as a warning
                      when it's just informational. */}
-                <p className={`text-xs text-gray-500 mt-1 flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                <p className={`text-xs text-[var(--cera-muted)] mt-1 flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                   <Mail className="w-3 h-3" aria-hidden="true" />
                   {translations.contactEmailHint}
                 </p>
               </div>
               {/* Phone */}
-              <div className="px-4 py-3 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
-                <label htmlFor="phone" className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
+              <div className="px-4 py-3 focus-within:bg-white focus-within:ring-1 focus-within:ring-[var(--cera-rose)] transition-colors">
+                <label htmlFor="phone" className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
                   {translations.phone}
                 </label>
                 <input
@@ -612,7 +615,7 @@ export default function EditProfilePage() {
                   inputMode="tel"
                   value={formData.phone}
                   onChange={(e) => updateField('phone', e.target.value)}
-                  className="w-full text-base text-gray-900 bg-transparent outline-none"
+                  className="w-full text-base text-[var(--cera-ink)] bg-transparent outline-none"
                   placeholder="+971 XX XXX XXXX"
                   dir="ltr"
                 />
@@ -621,18 +624,18 @@ export default function EditProfilePage() {
           </div>
 
           {/* About You Section */}
-          <div className="py-6 border-b border-gray-100">
+          <div className="py-6 border-b border-[var(--cera-line)]">
             <div className={`px-5 flex items-center gap-3 mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <div className="w-8 h-8 rounded-full bg-red-50 border border-red-200 flex items-center justify-center">
-                <Calendar className="w-4 h-4 text-red-600" />
+              <div className="w-8 h-8 rounded-full bg-[var(--cera-blush)] border border-[var(--cera-blush-deep)] flex items-center justify-center">
+                <Calendar className="w-4 h-4 text-[var(--cera-rose-ink)]" />
               </div>
-              <h2 className={`text-lg font-bold text-gray-900 ${isRTL ? 'text-right' : ''}`}>{translations.additionalInfo}</h2>
+              <h2 className={`text-lg font-bold text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>{translations.additionalInfo}</h2>
             </div>
-            <div className="mx-5 bg-gray-50 rounded-xl overflow-hidden">
+            <div className="mx-5 bg-[var(--cera-cream-deep)] rounded-xl overflow-hidden">
               {/* Date of Birth */}
-              <div className="px-4 py-3 border-b border-gray-200 focus-within:bg-white focus-within:ring-1 focus-within:ring-red-300 transition-colors">
-                <label htmlFor="birthday" className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
-                  {translations.dateOfBirth} <span className="text-gray-400 font-normal">{translations.optional}</span>
+              <div className="px-4 py-3 border-b border-[var(--cera-line)] focus-within:bg-white focus-within:ring-1 focus-within:ring-[var(--cera-rose)] transition-colors">
+                <label htmlFor="birthday" className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                  {translations.dateOfBirth} <span className="text-[var(--cera-muted)] font-normal">{translations.optional}</span>
                 </label>
                 <div className={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <input
@@ -643,22 +646,22 @@ export default function EditProfilePage() {
                     value={formData.birthday}
                     onChange={(e) => updateField('birthday', e.target.value)}
                     max={maxBirthday}
-                    className={`flex-1 text-base text-gray-900 bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
+                    className={`flex-1 text-base text-[var(--cera-ink)] bg-transparent outline-none ${isRTL ? 'text-right' : ''}`}
                   />
                 </div>
               </div>
               {/* Gender */}
               <div className="px-4 py-3">
-                <label className={`text-sm font-medium text-gray-900 mb-1 block ${isRTL ? 'text-right' : ''}`}>
-                  {translations.gender} <span className="text-gray-400 font-normal">{translations.optional}</span>
+                <label className={`text-sm font-medium text-[var(--cera-ink)] mb-1 block ${isRTL ? 'text-right' : ''}`}>
+                  {translations.gender} <span className="text-[var(--cera-muted)] font-normal">{translations.optional}</span>
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowGenderModal(true)}
                   className={`w-full flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}
                 >
-                  <span className="text-base text-gray-900">{getGenderLabel(formData.gender)}</span>
-                  <ChevronDown className="w-5 h-5 text-gray-400" />
+                  <span className="text-base text-[var(--cera-ink)]">{getGenderLabel(formData.gender)}</span>
+                  <ChevronDown className="w-5 h-5 text-[var(--cera-muted)]" />
                 </button>
               </div>
             </div>
@@ -668,8 +671,8 @@ export default function EditProfilePage() {
         {/* Privacy Note */}
         <div className="px-5 py-6">
           <div className={`flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <AlertTriangle className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" />
-            <p className={`text-sm text-gray-500 text-center flex-1 ${isRTL ? 'text-right' : ''}`}>
+            <AlertTriangle className="w-4 h-4 text-[var(--cera-muted)] mt-0.5 flex-shrink-0" />
+            <p className={`text-sm text-[var(--cera-muted)] text-center flex-1 ${isRTL ? 'text-right' : ''}`}>
               {translations.privacyNote}
             </p>
           </div>
@@ -680,7 +683,7 @@ export default function EditProfilePage() {
           <button
             type="button"
             onClick={() => setShowDeleteModal(true)}
-            className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl border-2 border-red-200 bg-red-50 text-red-600 font-semibold ${isRTL ? 'flex-row-reverse' : ''}`}
+            className={`w-full flex items-center justify-center gap-2 py-4 rounded-xl border-2 border-[var(--cera-blush-deep)] bg-[var(--cera-blush)] text-[var(--cera-rose-ink)] font-semibold ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <Trash2 className="w-5 h-5" />
             <span>{translations.deleteAccount}</span>
@@ -692,10 +695,10 @@ export default function EditProfilePage() {
       {showGenderModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-5">
           <div className="bg-white rounded-2xl w-full max-w-sm overflow-hidden">
-            <div className={`flex items-center justify-between p-5 border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <h3 className="text-lg font-semibold text-gray-900">{translations.selectGender}</h3>
+            <div className={`flex items-center justify-between p-5 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <h3 className="text-lg font-semibold text-[var(--cera-ink)]">{translations.selectGender}</h3>
               <button onClick={() => setShowGenderModal(false)}>
-                <X className="w-6 h-6 text-gray-500" />
+                <X className="w-6 h-6 text-[var(--cera-muted)]" />
               </button>
             </div>
             <div className="py-2">
@@ -706,15 +709,15 @@ export default function EditProfilePage() {
                     updateField('gender', option.value)
                     setShowGenderModal(false)
                   }}
-                  className={`w-full px-5 py-4 flex items-center justify-between border-b border-gray-50 ${
-                    formData.gender === option.value ? 'bg-red-50' : ''
+                  className={`w-full px-5 py-4 flex items-center justify-between border-b border-[var(--cera-line)] ${
+                    formData.gender === option.value ? 'bg-[var(--cera-blush)]' : ''
                   } ${isRTL ? 'flex-row-reverse' : ''}`}
                 >
-                  <span className={`text-base ${formData.gender === option.value ? 'text-red-600 font-medium' : 'text-gray-900'}`}>
+                  <span className={`text-base ${formData.gender === option.value ? 'text-[var(--cera-rose-ink)] font-medium' : 'text-[var(--cera-ink)]'}`}>
                     {option.label}
                   </span>
                   {formData.gender === option.value && (
-                    <div className="w-5 h-5 rounded-full bg-red-600 flex items-center justify-center">
+                    <div className="w-5 h-5 rounded-full bg-[var(--cera-rose)] flex items-center justify-center">
                       <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                       </svg>
@@ -734,18 +737,18 @@ export default function EditProfilePage() {
             <div className="p-6">
               {/* Warning Icon */}
               <div className="flex justify-center mb-4">
-                <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
-                  <Trash2 className="w-8 h-8 text-red-600" />
+                <div className="w-16 h-16 rounded-full bg-[var(--cera-blush)] flex items-center justify-center">
+                  <Trash2 className="w-8 h-8 text-[var(--cera-rose-ink)]" />
                 </div>
               </div>
               
               {/* Title */}
-              <h3 className={`text-xl font-bold text-gray-900 text-center mb-3 ${isRTL ? 'text-right' : ''}`}>
+              <h3 className={`text-xl font-bold text-[var(--cera-ink)] text-center mb-3 ${isRTL ? 'text-right' : ''}`}>
                 {translations.deleteAccountTitle}
               </h3>
               
               {/* Message */}
-              <p className={`text-gray-600 text-center mb-6 leading-relaxed ${isRTL ? 'text-right' : ''}`}>
+              <p className={`text-[var(--cera-body)] text-center mb-6 leading-relaxed ${isRTL ? 'text-right' : ''}`}>
                 {translations.deleteAccountMessage}
               </p>
               
@@ -756,8 +759,8 @@ export default function EditProfilePage() {
                   disabled={isDeleting}
                   className={`w-full py-3.5 rounded-xl font-semibold transition-colors ${
                     isDeleting 
-                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
-                      : 'bg-red-600 text-white active:bg-red-700'
+                      ? 'bg-[var(--cera-blush-deep)] text-[var(--cera-muted)] cursor-not-allowed' 
+                      : 'bg-[var(--cera-rose)] text-white active:bg-[var(--cera-rose-ink)]'
                   }`}
                 >
                   {isDeleting ? translations.deleting : translations.deleteAccountConfirm}
@@ -765,7 +768,7 @@ export default function EditProfilePage() {
                 <button
                   onClick={() => setShowDeleteModal(false)}
                   disabled={isDeleting}
-                  className="w-full py-3.5 rounded-xl font-semibold bg-gray-100 text-gray-700 active:bg-gray-200 transition-colors"
+                  className="w-full py-3.5 rounded-xl font-semibold bg-[var(--cera-cream-deep)] text-[var(--cera-body)] active:bg-[var(--cera-cream-deep)] transition-colors"
                 >
                   {translations.cancel}
                 </button>

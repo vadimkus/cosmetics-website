@@ -8,6 +8,9 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { errorLog } from '@/lib/logger'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 // UAE phone display formatter. Accepts raw user input (with or without
 // country code, with or without spaces) and outputs canonical "+971 XX XXX XXXX".
@@ -200,11 +203,11 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
     switch (type?.toLowerCase()) {
       case 'work':
       case 'office':
-        return <Briefcase className="w-5 h-5 text-red-600" />
+        return <Briefcase className="w-5 h-5 text-[var(--cera-rose-ink)]" />
       case 'other':
-        return <MapPin className="w-5 h-5 text-red-600" />
+        return <MapPin className="w-5 h-5 text-[var(--cera-rose-ink)]" />
       default:
-        return <Home className="w-5 h-5 text-red-600" />
+        return <Home className="w-5 h-5 text-[var(--cera-rose-ink)]" />
     }
   }
 
@@ -263,8 +266,8 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <p className="text-gray-500">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center`}>
+        <p className="text-[var(--cera-muted)]">{locale === 'ar' ? 'يرجى تسجيل الدخول' : locale === 'ru' ? 'Пожалуйста, войдите' : 'Please sign in'}</p>
       </div>
     )
   }
@@ -273,25 +276,25 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
     <div
       className={
         embedded
-          ? 'overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_14px_40px_rgba(17,24,39,0.04)]'
-          : `min-h-screen bg-white ${isAppLikeMode ? 'pb-32' : ''}`
+          ? 'overflow-hidden rounded-3xl border border-[var(--cera-line)] bg-white shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)]'
+          : `cera-page genosys-page ${ceraSerif.variable} min-h-screen ${isAppLikeMode ? 'pb-32' : ''}`
       }
       dir={dir}
     >
       {/* Unified nav header */}
       {!embedded && (
-        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
             onClick={handleBack}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">{t.back}</span>
+            <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-[var(--cera-rose-ink)]">{t.back}</span>
           </button>
-          <h1 className="text-base font-semibold text-gray-900">{t.title}</h1>
+          <h1 className="text-base font-semibold text-[var(--cera-ink)]">{t.title}</h1>
           <div className="min-w-[80px] flex justify-end">
             <button onClick={handleAddAddress} className="p-1" aria-label="Add address">
-              <Plus className="w-6 h-6 text-red-600" />
+              <Plus className="w-6 h-6 text-[var(--cera-rose-ink)]" />
             </button>
           </div>
         </div>
@@ -301,8 +304,8 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
       <div className="overflow-y-auto" ref={listRef}>
         {loading ? (
           <div className="flex flex-col items-center justify-center py-16">
-            <Loader2 className="w-8 h-8 text-red-600 animate-spin" />
-            <p className="text-gray-500 mt-3">{t.loading}</p>
+            <Loader2 className="w-8 h-8 text-[var(--cera-rose-ink)] animate-spin" />
+            <p className="text-[var(--cera-muted)] mt-3">{t.loading}</p>
           </div>
         ) : addresses.length > 0 ? (
           <div className="px-5 pt-5 pb-2 space-y-4">
@@ -314,12 +317,12 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
               <div
                 key={address.id}
                 data-address-card
-                className="bg-gray-50 rounded-xl p-4 transition-colors active:bg-gray-100"
+                className="bg-[var(--cera-cream-deep)] rounded-xl p-4 transition-colors active:bg-[var(--cera-cream-deep)]"
               >
                 <div className={`flex items-center justify-between mb-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                   <div className={`flex items-center gap-2 min-w-0 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     {getTypeIcon(address.type)}
-                    <span className="text-base font-semibold text-gray-900">{getTypeLabel(address.type)}</span>
+                    <span className="text-base font-semibold text-[var(--cera-ink)]">{getTypeLabel(address.type)}</span>
                     {address.isDefault && (
                       <span className={`px-2 py-0.5 bg-green-500 text-white text-xs font-semibold rounded-full ${isRTL ? 'mr-2' : 'ml-2'}`}>
                         {t.default}
@@ -335,42 +338,42 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
                       setConfirmingDeleteFor(null)
                       setShowOptionsFor(isMenuOpen ? null : address.id)
                     }}
-                    className={`flex items-center justify-center w-10 h-10 rounded-full hover:bg-gray-200 active:bg-gray-200 transition-colors ${isRTL ? '-ml-2' : '-mr-2'}`}
+                    className={`flex items-center justify-center w-10 h-10 rounded-full hover:bg-[var(--cera-cream-deep)] active:bg-[var(--cera-cream-deep)] transition-colors ${isRTL ? '-ml-2' : '-mr-2'}`}
                     aria-label={isMenuOpen ? t.closeMenu : t.removeOptions}
                     aria-expanded={isMenuOpen}
                   >
                     {isMenuOpen ? (
-                      <X className="w-5 h-5 text-gray-500" />
+                      <X className="w-5 h-5 text-[var(--cera-muted)]" />
                     ) : (
-                      <MoreHorizontal className="w-5 h-5 text-gray-400" />
+                      <MoreHorizontal className="w-5 h-5 text-[var(--cera-muted)]" />
                     )}
                   </button>
                 </div>
                 <div className={`space-y-1 ${isRTL ? 'text-right pr-7' : 'pl-7'}`}>
-                  <p className="text-base font-medium text-gray-900">{address.name}</p>
-                  <p className="text-sm text-gray-500">{address.addressLine1}</p>
+                  <p className="text-base font-medium text-[var(--cera-ink)]">{address.name}</p>
+                  <p className="text-sm text-[var(--cera-muted)]">{address.addressLine1}</p>
                   {address.addressLine2 && (
-                    <p className="text-sm text-gray-500">{address.addressLine2}</p>
+                    <p className="text-sm text-[var(--cera-muted)]">{address.addressLine2}</p>
                   )}
-                  <p className="text-sm text-gray-500">{address.city}, {formatEmirate(address.emirate)}</p>
-                  <p className="text-sm text-gray-500">{t.country}</p>
-                  <p className="text-sm text-gray-500 mt-1" dir="ltr">{formatUAEPhoneForDisplay(address.phone)}</p>
+                  <p className="text-sm text-[var(--cera-muted)]">{address.city}, {formatEmirate(address.emirate)}</p>
+                  <p className="text-sm text-[var(--cera-muted)]">{t.country}</p>
+                  <p className="text-sm text-[var(--cera-muted)] mt-1" dir="ltr">{formatUAEPhoneForDisplay(address.phone)}</p>
                 </div>
 
                 {/* Inline delete confirmation — replaces native confirm()
                     dialog which looked like a Safari error popup on mobile. */}
                 {isConfirmingDelete && (
-                  <div className="mt-4 pt-4 border-t border-gray-200">
+                  <div className="mt-4 pt-4 border-t border-[var(--cera-line)]">
                     <div className={`flex items-start gap-2 mb-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
-                      <AlertTriangle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
-                      <p className="text-sm font-medium text-gray-900">{t.removeThisAddress}</p>
+                      <AlertTriangle className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0 mt-0.5" aria-hidden="true" />
+                      <p className="text-sm font-medium text-[var(--cera-ink)]">{t.removeThisAddress}</p>
                     </div>
                     <div className={`flex gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <button
                         type="button"
                         onClick={() => setConfirmingDeleteFor(null)}
                         disabled={isDeleting}
-                        className="flex-1 py-2.5 bg-white rounded-lg text-sm font-medium text-gray-700 border border-gray-200 active:bg-gray-100"
+                        className="flex-1 py-2.5 bg-white rounded-lg text-sm font-medium text-[var(--cera-body)] border border-[var(--cera-line)] active:bg-[var(--cera-cream-deep)]"
                       >
                         {t.keep}
                       </button>
@@ -378,7 +381,7 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
                         type="button"
                         onClick={() => handleConfirmDelete(address.id)}
                         disabled={isDeleting}
-                        className={`flex-1 py-2.5 bg-red-600 rounded-lg text-sm font-semibold text-white active:bg-red-700 inline-flex items-center justify-center gap-1.5 ${isDeleting ? 'opacity-60' : ''}`}
+                        className={`flex-1 py-2.5 bg-[var(--cera-rose)] rounded-lg text-sm font-semibold text-white active:bg-[var(--cera-rose-ink)] inline-flex items-center justify-center gap-1.5 ${isDeleting ? 'opacity-60' : ''}`}
                       >
                         {isDeleting ? (
                           <>
@@ -401,38 +404,38 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
                     screens; now each action is full-width with a 44px tap
                     target and dividers between them. */}
                 {isMenuOpen && !isConfirmingDelete && (
-                  <div className="mt-4 pt-2 border-t border-gray-200 bg-white rounded-lg overflow-hidden -mx-1">
+                  <div className="mt-4 pt-2 border-t border-[var(--cera-line)] bg-white rounded-lg overflow-hidden -mx-1">
                     <button
                       type="button"
                       onClick={() => handleEditAddress(address.id)}
-                      className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-900 active:bg-gray-100 ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+                      className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-[var(--cera-ink)] active:bg-[var(--cera-cream-deep)] ${isRTL ? 'flex-row-reverse text-right' : ''}`}
                     >
-                      <Edit className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                      <Edit className="w-4 h-4 text-[var(--cera-muted)] flex-shrink-0" />
                       <span className="flex-1 text-start">{t.edit}</span>
                     </button>
                     {!address.isDefault && (
                       <>
-                        <div className={`border-t border-gray-100 ${isRTL ? 'mr-11' : 'ml-11'}`} />
+                        <div className={`border-t border-[var(--cera-line)] ${isRTL ? 'mr-11' : 'ml-11'}`} />
                         <button
                           type="button"
                           onClick={() => handleSetDefault(address.id)}
                           disabled={settingDefaultId === address.id}
-                          className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-900 active:bg-gray-100 ${isRTL ? 'flex-row-reverse text-right' : ''} ${settingDefaultId === address.id ? 'opacity-60' : ''}`}
+                          className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-[var(--cera-ink)] active:bg-[var(--cera-cream-deep)] ${isRTL ? 'flex-row-reverse text-right' : ''} ${settingDefaultId === address.id ? 'opacity-60' : ''}`}
                         >
                           {settingDefaultId === address.id ? (
-                            <Loader2 className="w-4 h-4 text-gray-500 animate-spin flex-shrink-0" />
+                            <Loader2 className="w-4 h-4 text-[var(--cera-muted)] animate-spin flex-shrink-0" />
                           ) : (
-                            <Check className="w-4 h-4 text-gray-500 flex-shrink-0" />
+                            <Check className="w-4 h-4 text-[var(--cera-muted)] flex-shrink-0" />
                           )}
                           <span className="flex-1 text-start">{settingDefaultId === address.id ? t.setting : t.setAsDefault}</span>
                         </button>
                       </>
                     )}
-                    <div className={`border-t border-gray-100 ${isRTL ? 'mr-11' : 'ml-11'}`} />
+                    <div className={`border-t border-[var(--cera-line)] ${isRTL ? 'mr-11' : 'ml-11'}`} />
                     <button
                       type="button"
                       onClick={() => handleRequestDelete(address.id)}
-                      className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-red-600 active:bg-red-50 ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+                      className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-medium text-[var(--cera-rose-ink)] active:bg-[var(--cera-blush)] ${isRTL ? 'flex-row-reverse text-right' : ''}`}
                     >
                       <Trash2 className="w-4 h-4 flex-shrink-0" />
                       <span className="flex-1 text-start">{t.delete}</span>
@@ -445,12 +448,12 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
           </div>
         ) : (
           <div className="px-5 py-8">
-            <div className="bg-gray-50 rounded-xl p-6 text-center">
-              <MapPin className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-              <h3 className={`text-base font-semibold text-gray-900 mb-1 ${isRTL ? 'text-right' : ''}`}>
+            <div className="bg-[var(--cera-cream-deep)] rounded-xl p-6 text-center">
+              <MapPin className="w-12 h-12 text-[var(--cera-blush-deep)] mx-auto mb-3" />
+              <h3 className={`text-base font-semibold text-[var(--cera-ink)] mb-1 ${isRTL ? 'text-right' : ''}`}>
                 {t.emptyTitle}
               </h3>
-              <p className={`text-sm text-gray-500 ${isRTL ? 'text-right' : ''}`}>
+              <p className={`text-sm text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}>
                 {t.emptySubtitle}
               </p>
             </div>
@@ -461,27 +464,27 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
         <div className="px-5 py-4">
           <button 
             onClick={handleAddAddress}
-            className="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl py-5"
+            className="w-full bg-[var(--cera-cream-deep)] border-2 border-dashed border-[var(--cera-line)] rounded-xl py-5"
           >
             <div className={`flex items-center justify-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
               <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                <Plus className="w-6 h-6 text-red-600" />
+                <Plus className="w-6 h-6 text-[var(--cera-rose-ink)]" />
               </div>
-              <span className="text-base font-medium text-red-600">{t.addNew}</span>
+              <span className="text-base font-medium text-[var(--cera-rose-ink)]">{t.addNew}</span>
             </div>
           </button>
         </div>
 
         {/* Tips Section */}
-        <div className="px-5 py-6 bg-gray-50 mt-4">
-          <h3 className={`text-lg font-semibold text-gray-900 mb-3 ${isRTL ? 'text-right' : ''}`}>
+        <div className="px-5 py-6 bg-[var(--cera-cream-deep)] mt-4">
+          <h3 className={`text-lg font-semibold text-[var(--cera-ink)] mb-3 ${isRTL ? 'text-right' : ''}`}>
             {t.deliveryTips}
           </h3>
           <div className="space-y-2">
             {[t.tipDefault, t.tipApt, t.tipPhone].map((tip, index) => (
               <div key={index} className={`flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <Check className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                <p className={`text-sm text-gray-500 ${isRTL ? 'text-right' : ''}`}>{tip}</p>
+                <p className={`text-sm text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}>{tip}</p>
               </div>
             ))}
           </div>

@@ -87,9 +87,8 @@ export default function MobileFooterNav() {
     return null
   }
 
-  const activeColor = 'text-[#dc2626]'
-  const inactiveColor = 'text-[#8E8E93]'
-  const greenColor = 'text-[#10b981]'
+  const activeColor = 'text-[#17140f]' // --cera-ink
+  const inactiveColor = 'text-[#6a625d]' // --cera-muted
   
   return (
     <>
@@ -98,11 +97,10 @@ export default function MobileFooterNav() {
       
       {/* Mobile Footer Navigation - PWA Only */}
       <nav 
-        className="fixed bottom-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm md:hidden"
+        className="fixed bottom-0 left-0 right-0 z-50 bg-[#faf8f7]/95 backdrop-blur-sm md:hidden"
         style={{ 
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-          borderTop: '0.5px solid rgba(0, 0, 0, 0.1)',
-          boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.1)'
+          borderTop: '1px solid #e9e1de'
         }}
         dir={dir}
         role="navigation"
@@ -114,7 +112,7 @@ export default function MobileFooterNav() {
             type="button"
             onClick={() => handleNavigation(getLocalizedPath('/products', locale))}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full min-h-[44px] px-2 transition-colors select-none active:scale-95 touch-target-exempt ${
+            className={`relative flex flex-col items-center justify-center flex-1 h-full min-h-[44px] px-2 transition-colors select-none active:scale-95 touch-target-exempt ${
               activeTab === 'home' ? activeColor : inactiveColor
             } ${isNavigating ? 'opacity-70' : ''}`}
             style={{ 
@@ -123,11 +121,14 @@ export default function MobileFooterNav() {
             }}
             aria-current={activeTab === 'home' ? 'page' : undefined}
           >
+            {activeTab === 'home' && (
+              <span aria-hidden="true" className="absolute top-0 h-[2px] w-[26px] rounded-full bg-[#17140f]" />
+            )}
             <HomeIcon 
               filled={activeTab === 'home'} 
               className="w-8 h-8"
             />
-            <span className={`text-xs mt-1 font-medium`}>
+            <span className="mt-1 text-[9.5px] font-semibold uppercase tracking-[0.1em]">
               {t('tabs.home') || 'Home'}
             </span>
           </button>
@@ -137,7 +138,7 @@ export default function MobileFooterNav() {
             type="button"
             onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full min-h-[44px] px-2 transition-colors select-none active:scale-95 touch-target-exempt ${
+            className={`relative flex flex-col items-center justify-center flex-1 h-full min-h-[44px] px-2 transition-colors select-none active:scale-95 touch-target-exempt ${
               activeTab === 'orders' ? activeColor : inactiveColor
             } ${isNavigating ? 'opacity-70' : ''}`}
             style={{ 
@@ -146,11 +147,14 @@ export default function MobileFooterNav() {
             }}
             aria-current={activeTab === 'orders' ? 'page' : undefined}
           >
+            {activeTab === 'orders' && (
+              <span aria-hidden="true" className="absolute top-0 h-[2px] w-[26px] rounded-full bg-[#17140f]" />
+            )}
             <ListIcon 
               filled={activeTab === 'orders'} 
               className="w-8 h-8"
             />
-            <span className={`text-xs mt-1 font-medium`}>
+            <span className="mt-1 text-[9.5px] font-semibold uppercase tracking-[0.1em]">
               {t('tabs.orders') || 'Orders'}
             </span>
           </button>
@@ -160,12 +164,8 @@ export default function MobileFooterNav() {
             type="button"
             onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}
             disabled={!isReady || isNavigating}
-            className={`flex flex-col items-center justify-center flex-1 h-full min-h-[44px] px-2 transition-colors select-none active:scale-95 touch-target-exempt ${
-              hasItemsInCart 
-                ? greenColor 
-                : activeTab === 'bag' 
-                  ? activeColor 
-                  : inactiveColor
+            className={`relative flex flex-col items-center justify-center flex-1 h-full min-h-[44px] px-2 transition-colors select-none active:scale-95 touch-target-exempt ${
+              activeTab === 'bag' ? activeColor : inactiveColor
             } ${isNavigating ? 'opacity-70' : ''}`}
             style={{ 
               WebkitTapHighlightColor: 'transparent',
@@ -173,22 +173,25 @@ export default function MobileFooterNav() {
             }}
             aria-current={activeTab === 'bag' ? 'page' : undefined}
           >
+            {activeTab === 'bag' && (
+              <span aria-hidden="true" className="absolute top-0 h-[2px] w-[26px] rounded-full bg-[#17140f]" />
+            )}
             <div className="relative">
               <BagIcon 
-                filled={activeTab === 'bag' || hasItemsInCart} 
+                filled={activeTab === 'bag'} 
                 className="w-8 h-8"
               />
               {/* Badge for cart count */}
               {hasItemsInCart && (
                 <span 
-                  className="absolute -top-1.5 -right-2.5 bg-[#dc2626] text-white text-[10px] font-semibold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-white"
+                  className="absolute -top-1.5 -right-2.5 bg-[#c0392f] text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-[#faf8f7]"
                   aria-label={`${cartCount} items in cart`}
                 >
                   {cartCount > 99 ? '99+' : cartCount}
                 </span>
               )}
             </div>
-            <span className={`text-xs mt-1 font-medium`}>
+            <span className="mt-1 text-[9.5px] font-semibold uppercase tracking-[0.1em]">
               {t('tabs.bag') || 'Bag'}
             </span>
           </button>

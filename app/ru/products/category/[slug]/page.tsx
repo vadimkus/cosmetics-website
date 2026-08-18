@@ -8,6 +8,9 @@ import ConcernProductGrid from '@/components/ConcernProductGrid'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import CollectionPageSchema from '@/components/schema/CollectionPageSchema'
 import type { Product } from '@/types'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export const revalidate = 3600
 // Unknown slugs return a genuine 404 (not a soft 404) — matches the EN route.
@@ -75,7 +78,7 @@ export default async function RussianCategoryPage({ params }: { params: Promise<
   const seo = category.seo.ru
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
       <BreadcrumbSchema
         items={[
           { name: 'Главная', url: '/ru' },
@@ -92,23 +95,23 @@ export default async function RussianCategoryPage({ params }: { params: Promise<
         />
       )}
 
-      <section className="bg-gradient-to-b from-gray-50 to-white py-12 sm:py-16 px-4">
+      <section className="px-4 py-12 sm:py-16">
         <div className="max-w-6xl mx-auto text-center">
-          <nav className="text-sm text-gray-500 mb-4">
-            <Link href="/ru" className="hover:text-gray-700">Главная</Link>
+          <nav className="text-sm text-[var(--cera-muted)] mb-4">
+            <Link href="/ru" className="hover:text-[var(--cera-body)]">Главная</Link>
             <span className="mx-2">/</span>
-            <Link href="/ru/products" className="hover:text-gray-700">Продукция</Link>
+            <Link href="/ru/products" className="hover:text-[var(--cera-body)]">Продукция</Link>
             <span className="mx-2">/</span>
-            <span className="text-gray-900">{seo.h1}</span>
+            <span className="text-[var(--cera-ink)]">{seo.h1}</span>
           </nav>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">{seo.h1}</h1>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">{seo.description}</p>
+          <h1 className="cera-serif mb-4 text-[34px] leading-[1.08] text-[var(--cera-ink)] sm:text-[42px] lg:text-[52px]">{seo.h1}</h1>
+          <p className="text-lg text-[var(--cera-body)] max-w-3xl mx-auto leading-relaxed">{seo.description}</p>
         </div>
       </section>
 
       <section className="py-8 sm:py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-6">{seo.h1} ({products.length})</h2>
+          <h2 className="cera-serif mb-6 text-[24px] leading-tight text-[var(--cera-ink)] sm:text-[30px]">{seo.h1} ({products.length})</h2>
           <ConcernProductGrid products={products} locale="ru" />
         </div>
       </section>

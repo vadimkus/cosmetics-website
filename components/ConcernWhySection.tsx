@@ -25,19 +25,19 @@ export default function ConcernWhySection({ title, items }: ConcernWhySectionPro
           onClick={() => setOpen(!open)}
           className="w-full flex items-center justify-between py-2"
         >
-          <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+          <h2 className="cera-serif text-[20px] leading-tight text-[var(--cera-ink)]">{title}</h2>
           <ChevronDown
-            className={`w-5 h-5 text-gray-400 transition-transform ${open ? 'rotate-180' : ''}`}
+            className={`w-5 h-5 text-[var(--cera-muted)] transition-transform ${open ? 'rotate-180' : ''}`}
           />
         </button>
         {open && (
           <div className="mt-3">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               {items.map((item, i) => (
-                <div key={i} className="rounded-xl bg-gray-50 border border-gray-100 p-4 text-center">
+                <div key={i} className="rounded-xl bg-[var(--cera-cream-deep)] border border-[var(--cera-line)] p-4 text-center">
                   <span className="text-2xl mb-2 block">{item.icon}</span>
-                  <p className="font-semibold text-gray-900 text-sm mb-1">{item.label}</p>
-                  <p className="text-xs text-gray-500 leading-relaxed">{item.detail}</p>
+                  <p className="font-semibold text-[var(--cera-ink)] text-sm mb-1">{item.label}</p>
+                  <p className="text-xs text-[var(--cera-muted)] leading-relaxed">{item.detail}</p>
                 </div>
               ))}
             </div>

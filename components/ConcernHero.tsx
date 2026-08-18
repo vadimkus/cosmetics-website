@@ -43,12 +43,12 @@ export default function ConcernHero({
 
   return (
     <section
-      className="bg-[#fffefa] px-4 py-8 sm:py-10"
+      className="bg-[var(--cera-cream)] px-4 py-8 sm:py-10"
       data-testid="concern-hero"
       data-concern-slug={concern.slug}
       dir={isRtl ? 'rtl' : 'ltr'}
     >
-      <div className="relative isolate mx-auto min-h-[340px] max-w-6xl overflow-hidden rounded-[18px] border border-[#e5e1d9] bg-white shadow-[0_8px_28px_-22px_rgba(43,35,24,0.3)] sm:min-h-[360px]">
+      <div className="relative isolate mx-auto min-h-[340px] max-w-6xl overflow-hidden rounded-[18px] border border-[var(--cera-line)] bg-white shadow-[0_8px_28px_-22px_rgba(43,35,24,0.3)] sm:min-h-[360px]">
         <Image
           src={visual.image}
           alt=""
@@ -76,34 +76,31 @@ export default function ConcernHero({
             isRtl ? 'mr-auto items-end text-right' : 'items-start text-left'
           }`}
         >
-          <nav className="hidden text-xs text-[#766f65] sm:flex sm:items-center sm:gap-2">
-            <Link href={getLocalizedPath('/', locale)} className="hover:text-[#9c742e]">
+          <nav className="hidden text-xs text-[var(--cera-muted)] sm:flex sm:items-center sm:gap-2">
+            <Link href={getLocalizedPath('/', locale)} className="hover:text-[var(--cera-rose-ink)]">
               {copy.home}
             </Link>
             <span aria-hidden="true">/</span>
-            <Link href={getLocalizedPath('/products', locale)} className="hover:text-[#9c742e]">
+            <Link href={getLocalizedPath('/products', locale)} className="hover:text-[var(--cera-rose-ink)]">
               {copy.products}
             </Link>
             <span aria-hidden="true">/</span>
-            <span className="text-[#29251f]">{seo.h1}</span>
+            <span className="text-[var(--cera-ink)]">{seo.h1}</span>
           </nav>
 
-          <p className="mt-0 text-[10px] font-semibold uppercase tracking-[0.2em] text-[#9c742e] sm:mt-6">
+          <p className="mt-0 text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--cera-rose-ink)] sm:mt-6">
             {copy.concerns}
           </p>
-          <h1
-            className="mt-3 max-w-[640px] text-[34px] font-semibold leading-[1.02] tracking-[-0.03em] text-[#1c1915] sm:text-[44px] lg:text-[52px]"
-            style={{ fontFamily: 'Georgia, "Times New Roman", ui-serif, serif' }}
-          >
+          <h1 className="cera-serif mt-3 max-w-[640px] text-[34px] leading-[1.02] text-[var(--cera-ink)] sm:text-[44px] lg:text-[52px]">
             {seo.h1}
           </h1>
-          <span className="mt-4 block h-px w-10 bg-[#b59457]" aria-hidden="true" />
-          <p className="mt-4 max-w-[82%] text-[14px] leading-relaxed text-[#5f5a53] sm:max-w-[620px] sm:text-[16px]">
+          <span className="mt-4 block h-px w-10 bg-[var(--cera-blush-deep)]" aria-hidden="true" />
+          <p className="mt-4 max-w-[82%] text-[14px] leading-relaxed text-[var(--cera-body)] sm:max-w-[620px] sm:text-[16px]">
             {seo.heroShort || seo.intro}
           </p>
           <Link
             href={getLocalizedPath('/products?categories=skin-concern', locale)}
-            className="mt-5 inline-flex min-h-11 items-center text-[12px] font-semibold text-[#98712d] transition-colors hover:text-[#6f501c] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#a77a2d] focus-visible:ring-offset-2"
+            className="mt-5 inline-flex min-h-11 items-center text-[12px] font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
           >
             {copy.allConcerns}
           </Link>

@@ -167,11 +167,11 @@ function ChatProductCard({
   // Loading state - compact skeleton
   if (loading) {
     return (
-      <div className="inline-flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-lg animate-pulse my-1">
-        <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-md" />
+      <div className="inline-flex items-center gap-2 p-2 bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-800 rounded-lg animate-pulse my-1">
+        <div className="w-12 h-12 bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-700 rounded-md" />
         <div className="flex flex-col gap-1">
-          <div className="w-24 h-3 bg-gray-200 dark:bg-gray-700 rounded" />
-          <div className="w-16 h-2 bg-gray-200 dark:bg-gray-700 rounded" />
+          <div className="w-24 h-3 bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-700 rounded" />
+          <div className="w-16 h-2 bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-700 rounded" />
         </div>
       </div>
     )
@@ -194,7 +194,7 @@ function ChatProductCard({
   
   // Product card - compact inline design
   return (
-    <div className="flex items-center gap-2 p-2 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-750 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm my-1.5 max-w-[280px] hover:shadow-md transition-shadow">
+    <div className="flex items-center gap-2 p-2 bg-gradient-to-r from-gray-50 to-white dark:from-gray-800 dark:to-gray-750 rounded-xl border border-[var(--cera-line,#e9e1de)] dark:border-gray-700 shadow-sm my-1.5 max-w-[280px] hover:shadow-md transition-shadow">
       {/* Product Image */}
       <a 
         href={productUrl}
@@ -206,7 +206,7 @@ function ChatProductCard({
           alt={product.name}
           width={56}
           height={56}
-          className="w-14 h-14 object-cover rounded-lg border border-gray-100 dark:border-gray-600 hover:scale-105 transition-transform"
+          className="w-14 h-14 object-cover rounded-lg border border-[var(--cera-line,#e9e1de)] dark:border-gray-600 hover:scale-105 transition-transform"
         />
       </a>
       
@@ -217,7 +217,7 @@ function ChatProductCard({
           onClick={(e) => { e.preventDefault(); handleCardClick() }}
           className="block"
         >
-          <p className="text-xs font-medium text-gray-800 dark:text-gray-200 line-clamp-2 hover:text-red-600 dark:hover:text-red-400 transition-colors leading-tight">
+          <p className="text-xs font-medium text-[var(--cera-ink,#17140f)] dark:text-gray-200 line-clamp-2 hover:text-red-600 dark:hover:text-red-400 transition-colors leading-tight">
             {product.name}
           </p>
         </a>
@@ -227,7 +227,7 @@ function ChatProductCard({
               {text.aed} {product.price}
             </p>
             {product.size && (
-              <p className="text-[10px] text-gray-400">{product.size}</p>
+              <p className="text-[10px] text-[var(--cera-muted,#6a625d)]">{product.size}</p>
             )}
           </div>
           <button
@@ -389,7 +389,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
             <img 
               src={url}
               alt={innerText || 'Skincare image'}
-              className="max-w-full w-auto max-h-48 rounded-xl shadow-md border border-gray-100 dark:border-gray-700 object-cover"
+              className="max-w-full w-auto max-h-48 rounded-xl shadow-md border border-[var(--cera-line,#e9e1de)] dark:border-gray-700 object-cover"
               loading="lazy"
               onError={(e) => {
                 // Hide broken images
@@ -397,7 +397,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
               }}
             />
             {innerText && (
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 italic">{innerText}</p>
+              <p className="text-xs text-[var(--cera-muted,#6a625d)] dark:text-gray-400 mt-1 italic">{innerText}</p>
             )}
           </div>
         )
@@ -742,7 +742,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       {!isMinimized && (
         <>
           {/* Messages area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 dark:bg-gray-800">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-800">
             {/* Welcome message */}
             {showWelcome && messages.length === 0 && (
               <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -750,7 +750,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                   <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400" />
                 </div>
                 <div className="flex-1 bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
-                  <p className="text-sm text-gray-700 dark:text-gray-200">{chatWelcome}</p>
+                  <p className="text-sm text-[var(--cera-body,#3c3733)] dark:text-gray-200">{chatWelcome}</p>
                   {/* Quick action buttons - row 1: skin types */}
                   <div className="mt-3 flex flex-wrap gap-2">
                     <QuickActionButton
@@ -878,18 +878,18 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                 >
                   <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
                     message.role === 'user' 
-                      ? 'bg-gray-200 dark:bg-gray-600' 
+                      ? 'bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-600' 
                       : 'bg-red-100 dark:bg-red-900'
                   }`}>
                     {message.role === 'user' 
-                      ? <User className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                      ? <User className="w-4 h-4 text-[var(--cera-body,#3c3733)] dark:text-gray-300" />
                       : <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400" />
                     }
                   </div>
                   <div className={`flex-1 max-w-[80%] rounded-2xl px-4 py-3 shadow-sm ${
                     message.role === 'user'
                       ? 'bg-red-600 text-white rounded-tr-none'
-                      : 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-tl-none'
+                      : 'bg-white dark:bg-gray-700 text-[var(--cera-body,#3c3733)] dark:text-gray-200 rounded-tl-none'
                   }`}>
                     <div className="text-sm whitespace-pre-wrap">
                       {message.role === 'assistant' ? renderMessageWithLinks(messageText) : messageText}
@@ -906,7 +906,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                   <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400" />
                 </div>
                 <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
-                  <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                  <div className="flex items-center gap-2 text-sm text-[var(--cera-muted,#6a625d)] dark:text-gray-400">
                     <Loader2 className="w-4 h-4 animate-spin" />
                     {chatTyping}
                   </div>
@@ -925,7 +925,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
           </div>
 
           {/* Input area */}
-          <div className="p-4 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+          <div className="p-4 bg-white dark:bg-gray-900 border-t border-[var(--cera-line,#e9e1de)] dark:border-gray-700">
             <form onSubmit={onSubmit} className="flex gap-2">
               <input
                 ref={inputRef}
@@ -936,9 +936,9 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                 disabled={isLoading}
                 className={`
                   flex-1 px-4 py-2.5 rounded-full
-                  bg-gray-100 dark:bg-gray-800
-                  border border-gray-200 dark:border-gray-700
-                  text-sm text-gray-900 dark:text-gray-100
+                  bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-800
+                  border border-[var(--cera-line,#e9e1de)] dark:border-gray-700
+                  text-sm text-[var(--cera-ink,#17140f)] dark:text-gray-100
                   placeholder-gray-500 dark:placeholder-gray-400
                   focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent
                   disabled:opacity-50 disabled:cursor-not-allowed
@@ -971,7 +971,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
             {messages.length > 0 && (
               <button
                 onClick={handleClearChat}
-                className="w-full mt-2 text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+                className="w-full mt-2 text-xs text-[var(--cera-muted,#6a625d)] hover:text-[var(--cera-body,#3c3733)] dark:hover:text-[var(--cera-blush-deep,#f0cfcd)] transition-colors"
               >
                 {chatClear}
               </button>
@@ -1007,7 +1007,7 @@ function QuickActionButton({
         flex items-center gap-1
         ${highlight 
           ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-md hover:from-red-600 hover:to-red-700 border border-red-400'
-          : 'bg-gray-100 dark:bg-gray-600 text-gray-600 dark:text-gray-200 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 dark:hover:text-red-400 border border-transparent hover:border-red-200 dark:hover:border-red-700'
+          : 'bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-600 text-[var(--cera-body,#3c3733)] dark:text-gray-200 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 dark:hover:text-red-400 border border-transparent hover:border-red-200 dark:hover:border-red-700'
         }
       `}
     >

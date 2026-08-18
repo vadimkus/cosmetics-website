@@ -21,6 +21,8 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useTranslation } from '@/hooks/useTranslation'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 const footerCopy = {
   en: {
@@ -167,24 +169,24 @@ export default function Footer() {
 
   if (usesMinimalFooter) {
     return (
-      <footer role="contentinfo" className="bg-white border-t border-gray-200 mt-6" suppressHydrationWarning>
+      <footer role="contentinfo" className="cera-page genosys-page border-t border-[var(--cera-line)] mt-6" suppressHydrationWarning>
         <div className="container mx-auto px-4 py-5">
           {/* Compact trust row */}
-          <div className="hidden md:flex flex-wrap items-center justify-center gap-x-8 gap-y-2 pb-4 border-b border-gray-100">
-            <span className="inline-flex items-center gap-2 text-xs text-gray-600">
-              <IconAuthentic className="h-4 w-4 text-emerald-600" aria-hidden="true" />
+          <div className="hidden md:flex flex-wrap items-center justify-center gap-x-8 gap-y-2 pb-4 border-b border-[var(--cera-line)]">
+            <span className="inline-flex items-center gap-2 text-xs text-[var(--cera-body)]">
+              <IconAuthentic className="h-4 w-4 text-[var(--cera-rose-ink)]" aria-hidden="true" />
               {copy.trust.authenticTitle}
             </span>
-            <span className="inline-flex items-center gap-2 text-xs text-gray-600">
-              <IconShipping className="h-4 w-4 text-primary-600" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-xs text-[var(--cera-body)]">
+              <IconShipping className="h-4 w-4 text-[var(--cera-rose-ink)]" aria-hidden="true" />
               {copy.trust.shippingTitle}
             </span>
-            <span className="inline-flex items-center gap-2 text-xs text-gray-600">
-              <IconSecureCheckout className="h-4 w-4 text-blue-600" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-xs text-[var(--cera-body)]">
+              <IconSecureCheckout className="h-4 w-4 text-[var(--cera-rose-ink)]" aria-hidden="true" />
               {copy.trust.checkoutTitle}
             </span>
-            <span className="inline-flex items-center gap-2 text-xs text-gray-600">
-              <IconCertified className="h-4 w-4 text-amber-600" aria-hidden="true" />
+            <span className="inline-flex items-center gap-2 text-xs text-[var(--cera-body)]">
+              <IconCertified className="h-4 w-4 text-[var(--cera-rose-ink)]" aria-hidden="true" />
               {copy.trust.certifiedTitle}
             </span>
           </div>
@@ -192,35 +194,35 @@ export default function Footer() {
           {/* Payments + legal + copyright */}
           <div className="flex flex-wrap items-center justify-center md:justify-between gap-x-6 gap-y-3 pt-4">
             <div className="flex items-center gap-2" aria-label="Accepted payment methods">
-              <span className="inline-flex items-center justify-center h-6 w-10 rounded border border-gray-200 bg-white px-1" aria-label="Visa" title="Visa">
+              <span className="inline-flex items-center justify-center h-6 w-10 rounded border border-[var(--cera-line)] bg-white px-1" aria-label="Visa" title="Visa">
                 <svg viewBox="0 0 48 16" className="h-3 w-auto" aria-hidden="true">
                   <text x="0" y="12" fontFamily="'Helvetica Neue', Arial, sans-serif" fontWeight="900" fontSize="13" fontStyle="italic" fill="#1A1F71" letterSpacing="0.5">VISA</text>
                 </svg>
               </span>
-              <span className="inline-flex items-center justify-center h-6 w-10 rounded border border-gray-200 bg-white px-1" aria-label="Mastercard" title="Mastercard">
+              <span className="inline-flex items-center justify-center h-6 w-10 rounded border border-[var(--cera-line)] bg-white px-1" aria-label="Mastercard" title="Mastercard">
                 <svg viewBox="0 0 32 20" className="h-4 w-auto" aria-hidden="true">
                   <circle cx="12" cy="10" r="7" fill="#EB001B" />
                   <circle cx="20" cy="10" r="7" fill="#F79E1B" />
                   <path d="M16 4.4A7 7 0 0 0 13 10a7 7 0 0 0 3 5.6A7 7 0 0 0 19 10a7 7 0 0 0-3-5.6z" fill="#FF5F00" />
                 </svg>
               </span>
-              <span className="inline-flex items-center justify-center h-6 w-10 rounded border border-gray-200 bg-white px-1" aria-label="Apple Pay" title="Apple Pay">
+              <span className="inline-flex items-center justify-center h-6 w-10 rounded border border-[var(--cera-line)] bg-white px-1" aria-label="Apple Pay" title="Apple Pay">
                 <svg viewBox="0 0 40 16" className="h-3.5 w-auto" aria-hidden="true" fill="#000">
                   <path d="M6.7 3.2c-.4.5-1.1.9-1.7.8-.1-.7.2-1.4.6-1.8.4-.5 1.2-.8 1.8-.9.1.7-.2 1.4-.7 1.9zm.7.9c-1 0-1.8.6-2.3.6s-1.2-.5-2-.5c-1 0-2 .6-2.5 1.6-1.1 1.9-.3 4.6.8 6.1.5.7 1.2 1.5 2 1.5s1.1-.5 2-.5 1.2.5 2 .5 1.4-.7 1.9-1.5c.6-.8.8-1.6.8-1.7 0 0-1.6-.6-1.6-2.5 0-1.6 1.3-2.3 1.3-2.3-.7-1.1-1.9-1.2-2.4-1.3z"/>
                   <text x="14" y="12" fontFamily="'Helvetica Neue', Arial, sans-serif" fontWeight="600" fontSize="10">Pay</text>
                 </svg>
               </span>
-              <span className={`inline-flex items-center gap-1.5 text-[11px] text-gray-500 ${locale === 'ar' ? 'border-r pr-3 mr-1' : 'border-l pl-3 ml-1'} border-gray-200`}>
-                <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" aria-hidden="true" />
+              <span className={`inline-flex items-center gap-1.5 text-[11px] text-[var(--cera-muted)] ${locale === 'ar' ? 'border-r pr-3 mr-1' : 'border-l pl-3 ml-1'} border-[var(--cera-line)]`}>
+                <ShieldCheck className="h-3.5 w-3.5 text-[var(--cera-rose-ink)]" aria-hidden="true" />
                 {copy.links.stripe}
               </span>
             </div>
 
-            <div className="flex items-center gap-4 text-[11px] text-gray-500">
-              <Link href={getLocalizedPath('/privacy-policy', locale)} className="hover:text-gray-700 transition-colors">
+            <div className="flex items-center gap-4 text-[11px] text-[var(--cera-muted)]">
+              <Link href={getLocalizedPath('/privacy-policy', locale)} className="hover:text-[var(--cera-body)] transition-colors">
                 {t('navigation.privacyPolicy')}
               </Link>
-              <Link href={getLocalizedPath('/terms', locale)} className="hover:text-gray-700 transition-colors">
+              <Link href={getLocalizedPath('/terms', locale)} className="hover:text-[var(--cera-body)] transition-colors">
                 {copy.links.terms}
               </Link>
               <span suppressHydrationWarning>{t('footer.copyright')}</span>
@@ -233,63 +235,63 @@ export default function Footer() {
 
   // Reusable class for column link items — consistent hit area and focus ring.
   const colLinkClass =
-    'text-sm text-gray-600 hover:text-primary-700 transition-colors py-1 inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded'
+    'text-sm text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors py-1 inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded'
 
   return (
-    <footer role="contentinfo" className="bg-white border-t border-gray-200 pt-10" suppressHydrationWarning>
+    <footer role="contentinfo" className="cera-page genosys-page border-t border-[var(--cera-line)] pt-10" suppressHydrationWarning>
       <div className="container mx-auto px-4">
         {/* ── Trust badges strip ───────────────────────────────────────
             Custom GENOSYS pictograms — see components/icons/BrandIcons. */}
-        <div className="hidden md:block border-b border-gray-100 pb-8 mb-10">
+        <div className="hidden md:block border-b border-[var(--cera-line)] pb-8 mb-10">
           <div className="grid grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-6 max-w-6xl mx-auto">
             <div className="flex items-start gap-3 min-w-0">
-              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50">
-                <IconAuthentic className="h-5 w-5 text-emerald-600" />
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--cera-blush)]">
+                <IconAuthentic className="h-5 w-5 text-[var(--cera-rose-ink)]" />
               </span>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-900 leading-tight">
+                <p className="text-sm font-semibold text-[var(--cera-ink)] leading-tight">
                   {copy.trust.authenticTitle}
                 </p>
-                <p className="text-xs text-gray-500 leading-snug mt-1">
+                <p className="text-xs text-[var(--cera-muted)] leading-snug mt-1">
                   {copy.trust.authenticBody}
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3 min-w-0">
-              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-primary-50">
-                <IconShipping className="h-5 w-5 text-primary-600" />
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--cera-blush)]">
+                <IconShipping className="h-5 w-5 text-[var(--cera-rose-ink)]" />
               </span>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-900 leading-tight">
+                <p className="text-sm font-semibold text-[var(--cera-ink)] leading-tight">
                   {copy.trust.shippingTitle}
                 </p>
-                <p className="text-xs text-gray-500 leading-snug mt-1">
+                <p className="text-xs text-[var(--cera-muted)] leading-snug mt-1">
                   {copy.trust.shippingBody}
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3 min-w-0">
-              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-blue-50">
-                <IconSecureCheckout className="h-5 w-5 text-blue-600" />
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--cera-blush)]">
+                <IconSecureCheckout className="h-5 w-5 text-[var(--cera-rose-ink)]" />
               </span>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-900 leading-tight">
+                <p className="text-sm font-semibold text-[var(--cera-ink)] leading-tight">
                   {copy.trust.checkoutTitle}
                 </p>
-                <p className="text-xs text-gray-500 leading-snug mt-1">
+                <p className="text-xs text-[var(--cera-muted)] leading-snug mt-1">
                   {copy.trust.checkoutBody}
                 </p>
               </div>
             </div>
             <div className="flex items-start gap-3 min-w-0">
-              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-amber-50">
-                <IconCertified className="h-5 w-5 text-amber-600" />
+              <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--cera-blush)]">
+                <IconCertified className="h-5 w-5 text-[var(--cera-rose-ink)]" />
               </span>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-900 leading-tight">
+                <p className="text-sm font-semibold text-[var(--cera-ink)] leading-tight">
                   {copy.trust.certifiedTitle}
                 </p>
-                <p className="text-xs text-gray-500 leading-snug mt-1">
+                <p className="text-xs text-[var(--cera-muted)] leading-snug mt-1">
                   {copy.trust.certifiedBody}
                 </p>
               </div>
@@ -318,26 +320,26 @@ export default function Footer() {
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
               />
             </Link>
-            <p className="text-sm text-gray-600 leading-relaxed mb-5 max-w-xs">
+            <p className="text-sm text-[var(--cera-body)] leading-relaxed mb-5 max-w-xs">
               {copy.brandBody}
             </p>
 
             {/* Contact block */}
             <ul className="space-y-2 mb-5">
-              <li className="flex items-center gap-2 text-sm text-gray-600">
-                <Phone className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
-                <a href="tel:+971585487665" className="hover:text-primary-700 transition-colors">
+              <li className="flex items-center gap-2 text-sm text-[var(--cera-body)]">
+                <Phone className="h-4 w-4 text-[var(--cera-muted)] flex-shrink-0" aria-hidden="true" />
+                <a href="tel:+971585487665" className="hover:text-[var(--cera-rose-ink)] transition-colors">
                   +971 58 548 76 65
                 </a>
               </li>
-              <li className="flex items-center gap-2 text-sm text-gray-600">
-                <Mail className="h-4 w-4 text-gray-400 flex-shrink-0" aria-hidden="true" />
-                <a href="mailto:sales@genosys.ae" className="hover:text-primary-700 transition-colors">
+              <li className="flex items-center gap-2 text-sm text-[var(--cera-body)]">
+                <Mail className="h-4 w-4 text-[var(--cera-muted)] flex-shrink-0" aria-hidden="true" />
+                <a href="mailto:sales@genosys.ae" className="hover:text-[var(--cera-rose-ink)] transition-colors">
                   sales@genosys.ae
                 </a>
               </li>
-              <li className="flex items-start gap-2 text-sm text-gray-600">
-                <MapPin className="h-4 w-4 text-gray-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+              <li className="flex items-start gap-2 text-sm text-[var(--cera-body)]">
+                <MapPin className="h-4 w-4 text-[var(--cera-muted)] flex-shrink-0 mt-0.5" aria-hidden="true" />
                 <span>{copy.address}</span>
               </li>
             </ul>
@@ -348,7 +350,7 @@ export default function Footer() {
                 href="https://www.instagram.com/genosys.uae/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-10 w-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:text-pink-600 hover:border-pink-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="h-10 w-10 rounded-full border border-[var(--cera-line)] flex items-center justify-center text-[var(--cera-body)] hover:text-pink-600 hover:border-pink-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                 aria-label={copy.instagramLabel}
               >
                 <Instagram className="h-5 w-5" aria-hidden="true" />
@@ -357,7 +359,7 @@ export default function Footer() {
                 href="https://www.facebook.com/genosys.ae"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="h-10 w-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:text-blue-600 hover:border-blue-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="h-10 w-10 rounded-full border border-[var(--cera-line)] flex items-center justify-center text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] hover:border-blue-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                 aria-label={copy.facebookLabel}
               >
                 <Facebook className="h-5 w-5" aria-hidden="true" />
@@ -367,7 +369,7 @@ export default function Footer() {
 
           {/* Shop column */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold tracking-[0.14em] text-gray-500 uppercase mb-4">
+            <h3 className="cera-eyebrow mb-4">
               {copy.headings.shop}
             </h3>
             <ul className="space-y-1">
@@ -406,7 +408,7 @@ export default function Footer() {
 
           {/* Help column */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold tracking-[0.14em] text-gray-500 uppercase mb-4">
+            <h3 className="cera-eyebrow mb-4">
               {copy.headings.help}
             </h3>
             <ul className="space-y-1">
@@ -435,7 +437,7 @@ export default function Footer() {
 
           {/* Company column */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold tracking-[0.14em] text-gray-500 uppercase mb-4">
+            <h3 className="cera-eyebrow mb-4">
               {copy.headings.company}
             </h3>
             <ul className="space-y-1">
@@ -469,7 +471,7 @@ export default function Footer() {
 
           {/* Legal column */}
           <div className="md:col-span-2">
-            <h3 className="text-xs font-semibold tracking-[0.14em] text-gray-500 uppercase mb-4">
+            <h3 className="cera-eyebrow mb-4">
               {copy.headings.legal}
             </h3>
             <ul className="space-y-1">
@@ -507,7 +509,7 @@ export default function Footer() {
 
             {/* App download pair — condensed */}
             <div className="mt-6">
-              <p className="text-[11px] tracking-[0.14em] font-semibold text-gray-500 uppercase mb-2">
+              <p className="text-[11px] tracking-[0.14em] font-semibold text-[var(--cera-muted)] uppercase mb-2">
                 {copy.links.app}
               </p>
               <div className="flex flex-col gap-2">
@@ -515,7 +517,7 @@ export default function Footer() {
                   href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-black text-white px-3 py-1.5 rounded-md hover:bg-gray-800 transition-colors text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                  className="inline-flex items-center gap-2 bg-black text-white px-3 py-1.5 rounded-md hover:bg-[#333] transition-colors text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                   aria-label="Download on the App Store"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -527,7 +529,7 @@ export default function Footer() {
                   href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-black text-white px-3 py-1.5 rounded-md hover:bg-gray-800 transition-colors text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                  className="inline-flex items-center gap-2 bg-black text-white px-3 py-1.5 rounded-md hover:bg-[#333] transition-colors text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                   aria-label="Get it on Google Play"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -541,12 +543,12 @@ export default function Footer() {
         </div>
 
         {/* ── Bottom strip: payments + copyright ─────────────────────── */}
-        <div className="hidden md:flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-gray-100 pb-8">
+        <div className="hidden md:flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-[var(--cera-line)] pb-8">
           {/* Payment methods — accepted cards + wallets. Checkout is powered
               by Stripe; we surface the Stripe trust mark on the right. */}
           <div className={`flex flex-wrap items-center gap-x-3 gap-y-2 ${locale === 'ar' ? 'flex-row-reverse' : ''}`}>
             <div className="flex items-center gap-2" aria-label="Accepted payment methods">
-              <span className={`text-[11px] text-gray-500 uppercase tracking-wider ${locale === 'ar' ? 'ml-1' : 'mr-1'}`}>
+              <span className={`text-[11px] text-[var(--cera-muted)] uppercase tracking-wider ${locale === 'ar' ? 'ml-1' : 'mr-1'}`}>
                 {copy.links.payment}
               </span>
               {/* Payment-method chips. Shared base class for symmetry; each
@@ -556,7 +558,7 @@ export default function Footer() {
                   the OS-level setting. */}
               {/* Visa */}
               <span
-                className="group/pay inline-flex items-center justify-center h-7 w-11 rounded-md border border-gray-200 bg-white px-1.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-105 hover:shadow-md hover:shadow-gray-200/70 hover:border-gray-300 hover:bg-blue-50/40 motion-reduce:transition-none motion-reduce:hover:transform-none"
+                className="group/pay inline-flex items-center justify-center h-7 w-11 rounded-md border border-[var(--cera-line)] bg-white px-1.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-105 hover:shadow-md hover:shadow-gray-200/70 hover:border-[var(--cera-line)] hover:bg-[var(--cera-blush)]/40 motion-reduce:transition-none motion-reduce:hover:transform-none"
                 aria-label="Visa"
                 title="Visa"
               >
@@ -566,7 +568,7 @@ export default function Footer() {
               </span>
               {/* Mastercard */}
               <span
-                className="group/pay inline-flex items-center justify-center h-7 w-11 rounded-md border border-gray-200 bg-white px-1.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-105 hover:shadow-md hover:shadow-gray-200/70 hover:border-gray-300 hover:bg-gradient-to-br hover:from-red-50/60 hover:to-orange-50/60 motion-reduce:transition-none motion-reduce:hover:transform-none"
+                className="group/pay inline-flex items-center justify-center h-7 w-11 rounded-md border border-[var(--cera-line)] bg-white px-1.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-105 hover:shadow-md hover:shadow-gray-200/70 hover:border-[var(--cera-line)] hover:bg-gradient-to-br hover:from-red-50/60 hover:to-orange-50/60 motion-reduce:transition-none motion-reduce:hover:transform-none"
                 aria-label="Mastercard"
                 title="Mastercard"
               >
@@ -578,7 +580,7 @@ export default function Footer() {
               </span>
               {/* Apple Pay */}
               <span
-                className="group/pay inline-flex items-center justify-center h-7 w-11 rounded-md border border-gray-200 bg-white px-1.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-105 hover:shadow-md hover:shadow-gray-200/70 hover:border-gray-300 hover:bg-gray-50 motion-reduce:transition-none motion-reduce:hover:transform-none"
+                className="group/pay inline-flex items-center justify-center h-7 w-11 rounded-md border border-[var(--cera-line)] bg-white px-1.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-105 hover:shadow-md hover:shadow-gray-200/70 hover:border-[var(--cera-line)] hover:bg-[var(--cera-cream-deep)] motion-reduce:transition-none motion-reduce:hover:transform-none"
                 aria-label="Apple Pay"
                 title="Apple Pay"
               >
@@ -589,7 +591,7 @@ export default function Footer() {
               </span>
               {/* Google Pay */}
               <span
-                className="group/pay inline-flex items-center justify-center h-7 w-11 rounded-md border border-gray-200 bg-white px-1.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-105 hover:shadow-md hover:shadow-gray-200/70 hover:border-gray-300 hover:bg-blue-50/40 motion-reduce:transition-none motion-reduce:hover:transform-none"
+                className="group/pay inline-flex items-center justify-center h-7 w-11 rounded-md border border-[var(--cera-line)] bg-white px-1.5 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-105 hover:shadow-md hover:shadow-gray-200/70 hover:border-[var(--cera-line)] hover:bg-[var(--cera-blush)]/40 motion-reduce:transition-none motion-reduce:hover:transform-none"
                 aria-label="Google Pay"
                 title="Google Pay"
               >
@@ -606,9 +608,9 @@ export default function Footer() {
                 hairline underline grows in from the start side. Uses a
                 named group so it doesn't conflict with the per-chip
                 `group/pay` above. */}
-            <span className={`group/stripe inline-flex items-center gap-1.5 text-[11px] text-gray-500 ${locale === 'ar' ? 'border-r pr-3 mr-1' : 'border-l pl-3 ml-1'} border-gray-200 transition-colors duration-300 hover:text-gray-700 cursor-default`}>
+            <span className={`group/stripe inline-flex items-center gap-1.5 text-[11px] text-[var(--cera-muted)] ${locale === 'ar' ? 'border-r pr-3 mr-1' : 'border-l pl-3 ml-1'} border-[var(--cera-line)] transition-colors duration-300 hover:text-[var(--cera-body)] cursor-default`}>
               <ShieldCheck
-                className="h-3.5 w-3.5 text-emerald-600 transition-transform duration-300 ease-out group-hover/stripe:scale-125 group-hover/stripe:text-emerald-500 motion-reduce:group-hover/stripe:scale-100"
+                className="h-3.5 w-3.5 text-[var(--cera-rose-ink)] transition-transform duration-300 ease-out group-hover/stripe:scale-125 group-hover/stripe:text-emerald-500 motion-reduce:group-hover/stripe:scale-100"
                 aria-hidden="true"
               />
               <span className="relative">
@@ -622,7 +624,7 @@ export default function Footer() {
           </div>
 
           {/* Copyright */}
-          <p className="text-xs text-gray-500" suppressHydrationWarning>
+          <p className="text-xs text-[var(--cera-muted)]" suppressHydrationWarning>
             {t('footer.copyright')}
           </p>
         </div>
@@ -630,8 +632,8 @@ export default function Footer() {
         {/* Mobile fallback (in case mobile detection hasn't resolved yet).
             This keeps pre-existing behavior for crawlers and SSR. */}
         <div className="md:hidden text-center py-4">
-          {/* text-gray-600 for WCAG AA contrast at this tiny size */}
-          <p className="text-[10px] text-gray-600" suppressHydrationWarning>
+          {/* text-[var(--cera-body)] for WCAG AA contrast at this tiny size */}
+          <p className="text-[10px] text-[var(--cera-body)]" suppressHydrationWarning>
             {t('footer.copyright')}
           </p>
         </div>

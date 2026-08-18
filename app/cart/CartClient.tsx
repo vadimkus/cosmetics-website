@@ -30,7 +30,7 @@ import { springPresets } from '@/lib/appleAnimations'
 import FreeMaskPromotion from '@/components/FreeMaskPromotion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag, Award, Trash2 } from 'lucide-react'
+import { ArrowLeft, Lock, MessageCircle, Truck, Gift, ShoppingBag, Award, Trash2, Check } from 'lucide-react'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -276,9 +276,9 @@ export default function CartClient() {
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto text-center py-8">
             <div className="animate-pulse">
-              <div className="h-16 w-16 bg-gray-200 rounded-full mx-auto mb-4" />
-              <div className="h-6 bg-gray-200 rounded w-32 mx-auto mb-2" />
-              <div className="h-4 bg-gray-200 rounded w-48 mx-auto" />
+              <div className="h-16 w-16 bg-[var(--cera-cream-deep)] rounded-full mx-auto mb-4" />
+              <div className="h-6 bg-[var(--cera-cream-deep)] rounded w-32 mx-auto mb-2" />
+              <div className="h-4 bg-[var(--cera-cream-deep)] rounded w-48 mx-auto" />
             </div>
           </div>
         </div>
@@ -379,7 +379,7 @@ export default function CartClient() {
               {animationsEnabled && (
                 <>
                   <motion.div
-                    className="absolute top-4 right-4 w-2 h-2 bg-primary-400 rounded-full opacity-60"
+                    className="absolute top-4 right-4 w-2 h-2 bg-[var(--cera-rose)] rounded-full opacity-60"
                     animate={{
                       y: [0, -20, 0],
                       x: [0, 10, 0],
@@ -393,7 +393,7 @@ export default function CartClient() {
                     }}
                   />
                   <motion.div
-                    className="absolute top-8 left-6 w-1.5 h-1.5 bg-primary-300 rounded-full opacity-50"
+                    className="absolute top-8 left-6 w-1.5 h-1.5 bg-[var(--cera-blush-deep)] rounded-full opacity-50"
                     animate={{
                       y: [0, -15, 0],
                       x: [0, -8, 0],
@@ -407,7 +407,7 @@ export default function CartClient() {
                     }}
                   />
                   <motion.div
-                    className="absolute bottom-6 right-8 w-1 h-1 bg-primary-500 rounded-full opacity-70"
+                    className="absolute bottom-6 right-8 w-1 h-1 bg-[var(--cera-rose)] rounded-full opacity-70"
                     animate={{
                       y: [0, -12, 0],
                       x: [0, 6, 0],
@@ -512,7 +512,7 @@ export default function CartClient() {
 
       {/* Mobile-only Uni Image/Video - Only show when cart is empty */}
       {items.length === 0 && (
-        <div className="md:hidden w-full max-w-xs mx-auto aspect-square bg-gray-100 rounded-lg overflow-hidden relative mb-4">
+        <div className="md:hidden w-full max-w-xs mx-auto aspect-square bg-[var(--cera-cream-deep)] rounded-lg overflow-hidden relative mb-4">
           {/* Video behind the image */}
           {showUniVideo && (
             <video
@@ -689,18 +689,18 @@ export default function CartClient() {
                         </div>
                       </div>
                       <div className="text-[20px] text-[var(--cera-muted)]">=</div>
-                      <div className="flex flex-col items-center rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3">
-                        <div className="cera-numeral whitespace-nowrap text-[22px] text-emerald-700">
+                      <div className="flex flex-col items-center rounded-2xl border border-green-200 bg-green-50 px-4 py-3">
+                        <div className="cera-numeral whitespace-nowrap text-[22px] text-green-700">
                           {beautyBoxSavings.toFixed(2)} {locale === 'ar' ? 'درهم' : locale === 'ru' ? 'AED' : 'AED'}
                         </div>
-                        <div className="whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.08em] text-emerald-600">
+                        <div className="whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.08em] text-green-700">
                           {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'СЭКОНОМЛЕНО' : 'SAVED'}
                         </div>
                       </div>
                     </div>
 
                     <div className={`mt-3 border-t border-[var(--cera-line)] pt-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      <p className="text-center text-[13.5px] font-semibold text-emerald-700">
+                      <p className="text-center text-[13.5px] font-semibold text-green-700">
                         ✅ {t('products.beautyBoxSavings', { amount: beautyBoxSavings.toFixed(2) })}
                       </p>
                     </div>
@@ -799,7 +799,7 @@ export default function CartClient() {
                       </div>
                     )}
 
-                    <div className={`text-xs text-gray-700 mt-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`text-xs text-[var(--cera-body)] mt-2 ${dir === 'rtl' ? 'text-right' : ''}`}>
                       <span className="font-medium">
                         {locale === 'ar' ? 'الفترة: 26-28 نوفمبر' : 'Period: 26-28/11'}
                       </span>
@@ -828,16 +828,17 @@ export default function CartClient() {
             {user && (
               <div className={`cera-card p-4 md:p-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
                 <div className={`mb-2 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <Truck className={`h-5 w-5 ${subtotal >= freeShippingThreshold ? 'text-emerald-600' : 'text-[var(--cera-rose)]'}`} />
-                    <span className="text-[14px] font-medium text-[var(--cera-ink)]">
+                  <Truck className="h-5 w-5 text-[var(--cera-rose)]" aria-hidden="true" />
+                    <h3 className="cera-serif text-[20px] leading-tight text-[var(--cera-ink)]">
                       {t('cart.freeDelivery')}
-                    </span>
+                    </h3>
                     {subtotal >= freeShippingThreshold ? (
-                      <span className="text-[12px] font-semibold text-emerald-600">
+                      <span className={`flex items-center gap-1 text-[12px] font-semibold text-green-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                        <Check className="h-3.5 w-3.5" aria-hidden="true" />
                         {t('cart.unlocked')}
                       </span>
                     ) : (
-                      <span className="text-[12px] text-[var(--cera-muted)]">
+                      <span dir="ltr" className="cera-numeral whitespace-nowrap text-[12px] text-[var(--cera-muted)]">
                         {subtotal < freeShippingThreshold ? `AED ${(freeShippingThreshold - subtotal).toFixed(2)} ${t('cart.more')}` : ''}
                       </span>
                     )}
@@ -847,7 +848,7 @@ export default function CartClient() {
                 <div className="mb-2 h-2 w-full overflow-hidden rounded-full bg-[var(--cera-cream-deep)]">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
-                      subtotal >= freeShippingThreshold ? 'bg-emerald-600' : 'bg-[var(--cera-rose)]'
+                      subtotal >= freeShippingThreshold ? 'bg-green-600' : 'bg-[var(--cera-rose)]'
                     }`}
                     style={{ width: `${Math.min(100, (subtotal / freeShippingThreshold) * 100)}%` }}
                   />
@@ -855,7 +856,7 @@ export default function CartClient() {
 
                 <p className={`text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                   {subtotal >= freeShippingThreshold ? (
-                    <span className="font-semibold text-emerald-600">
+                    <span className="font-semibold text-[var(--cera-ink)]">
                       {t('cart.qualifyForFreeDelivery')}
                     </span>
                   ) : (
@@ -997,7 +998,7 @@ export default function CartClient() {
                   <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-green-50 border border-green-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
-                      <span className="text-xs md:text-sm font-semibold text-green-800">
+                      <span className="text-xs md:text-sm font-semibold text-green-700">
                         {t('cart.twoFreeMasksAdded')}
                       </span>
                     </div>
@@ -1010,7 +1011,7 @@ export default function CartClient() {
                   <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-green-50 border border-green-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
-                      <span className="text-xs md:text-sm font-semibold text-green-800">
+                      <span className="text-xs md:text-sm font-semibold text-green-700">
                         {t('cart.oneFreeMaskAdded')}
                       </span>
                     </div>

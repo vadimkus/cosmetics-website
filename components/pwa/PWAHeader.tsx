@@ -224,11 +224,11 @@ export default function PWAHeader() {
           <div className={`flex items-center gap-0.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <Link href={getLocalizedPath('/products', locale)} className="flex items-center">
               <Image
-                src="/Logo/upLOGO.png"
+                src="/Logo/upLOGO-transparent.png"
                 alt="GENOSYS"
-                width={260}
-                height={75}
-                className="h-[50px] w-auto"
+                width={1009}
+                height={203}
+                className="h-[22px] w-auto"
                 priority
               />
             </Link>

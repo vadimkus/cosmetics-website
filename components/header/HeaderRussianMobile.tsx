@@ -66,11 +66,11 @@ export default function HeaderRussianMobile({ showMobileMenu, setShowMobileMenu 
           aria-label="Перейти к продукции"
         >
           <Image
-            src="/Logo/upLOGO.png"
+            src="/Logo/upLOGO-transparent.png"
             alt="Логотип GENOSYS"
-            width={120}
-            height={36}
-            className="w-[120px] h-auto"
+            width={1009}
+            height={203}
+            className="w-[110px] h-auto"
             priority
           />
         </Link>

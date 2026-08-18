@@ -89,11 +89,11 @@ export default function HeaderMobileIcons({
       aria-label={t('navigation.goToProducts')}
     >
       <Image
-        src="/Logo/upLOGO.png"
+        src="/Logo/upLOGO-transparent.png"
         alt="GENOSYS Logo"
-        width={120}
-        height={36}
-        className="w-[120px] h-auto"
+        width={1009}
+        height={203}
+        className="w-[110px] h-auto"
         priority
       />
     </Link>

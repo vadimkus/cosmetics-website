@@ -308,16 +308,20 @@ export default function Footer() {
               className="inline-block mb-4 hover:opacity-80 transition-opacity"
               aria-label={t('navigation.goToProducts')}
             >
+              {/* Transparent, tightly-cropped wordmark. upLOGO.png is fully opaque with
+                  pure white corners, and 58% of its height is dead padding, so on the
+                  cream footer it read as a white sticker rather than a logo. Same mark,
+                  white keyed out — see scripts/make-logo-transparent-20260818.py.
+                  No blur placeholder: it renders a solid rectangle behind the image while
+                  loading, which is the white box again for the moment it is on screen. */}
               <Image
-                src="/Logo/upLOGO.png"
+                src="/Logo/upLOGO-transparent.png"
                 alt="GENOSYS"
-                width={180}
-                height={54}
-                className="w-[160px] h-auto"
+                width={1009}
+                height={203}
+                className="w-[150px] h-auto"
                 loading="lazy"
                 quality={75}
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
               />
             </Link>
             <p className="text-sm text-[var(--cera-body)] leading-relaxed mb-5 max-w-xs">

@@ -21,10 +21,32 @@ import { useEffect, useMemo, useState } from 'react'
 import { useCartStore } from '@/lib/cartStore'
 import { isProductDetailPage } from '@/lib/simpleHeaderPages'
 
+/**
+ * PWA tab bar colours. The installed app deliberately keeps the iOS-native register
+ * (red active, system grey inactive), so this is left alone by the editorial rework.
+ */
 export const MOBILE_BOTTOM_NAV_COLORS = {
   active: '#dc2626', // red-600
   inactive: '#8E8E93', // iOS gray
   withItems: '#10b981', // emerald-500 (cart has items)
+} as const
+
+/**
+ * Mobile-web tab bar colours, on the editorial palette.
+ *
+ * Ink rather than red for the active tab, matching how the editorial system marks
+ * selection everywhere else (the products filter pills, the account sidebar). Rose is
+ * reserved for the cart count, which leaves the bar with two tones instead of three:
+ * the old scheme also turned the bag icon green whenever the cart had items, which the
+ * count badge already says.
+ *
+ * Literal hex rather than var(--cera-*) because these are passed to an SVG `stroke`
+ * attribute, not a CSS property, so a custom property would not resolve.
+ */
+export const MOBILE_WEB_NAV_COLORS = {
+  active: '#17140f', // --cera-ink
+  inactive: '#6a625d', // --cera-muted
+  badge: '#c0392f', // --cera-rose
 } as const
 
 /**

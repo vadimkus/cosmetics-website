@@ -12,15 +12,22 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { getLocalizedPath, switchLocaleHardNav, type Locale } from '@/lib/i18n'
 import { isSimpleHeaderPage } from '@/lib/simpleHeaderPages'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 /**
  * Mobile Web Header - PWA-like design for mobile web (non-PWA)
  * 
  * Only shows in mobile web mode (not PWA, not desktop).
- * Layout:
+ * Layout is a three-column grid so the wordmark is optically centred regardless of what
+ * the flanks weigh:
  * - Left: Hamburger menu + Language switcher
- * - Center: Logo + Heart (favorites)
- * - Right: User avatar
+ * - Center: Logo
+ * - Right: Favorites heart + User avatar
+ *
+ * Every control is a 44px target, per Apple's HIG minimum and WCAG 2.5.5. The brand line
+ * moved into the menu panel: it is a one-off statement, not something worth a permanent
+ * row on every screen of a 390px-wide phone.
  */
 export default function MobileWebHeader() {
   const { user, logout } = useAuth()
@@ -180,19 +187,22 @@ export default function MobileWebHeader() {
   
   return (
     <>
-      {/* Fixed Mobile Web Header */}
+      {/* Fixed Mobile Web Header.
+
+          Laid out as a three-column grid with the wordmark in the centre column, so it is
+          optically centred whatever the flanks weigh. The previous flex row grouped the
+          logo with the heart and left it 22px right of centre. */}
       <header 
-        className="fixed top-0 left-0 right-0 z-50 bg-white md:hidden"
+        className="cera-page genosys-page fixed top-0 left-0 right-0 z-50 md:hidden"
         style={{ 
           paddingTop: 'env(safe-area-inset-top, 0px)',
-          borderBottom: '0.5px solid rgba(0, 0, 0, 0.12)',
-          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)'
+          borderBottom: '1px solid var(--cera-line)'
         }}
         dir={dir}
       >
-        <div className={`flex items-center justify-between h-14 px-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className="grid h-14 grid-cols-[1fr_auto_1fr] items-center px-2.5">
           {/* Left Side: Hamburger + Language */}
-          <div className={`flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <div className={`flex items-center justify-self-start ${isRTL ? 'flex-row-reverse' : ''}`}>
             {/* Hamburger Menu */}
             <button
               ref={menuButtonRef}
@@ -201,7 +211,7 @@ export default function MobileWebHeader() {
                 e.preventDefault()
                 if (isReady) toggleMobileMenu()
               }}
-              className="p-2.5 -m-1 text-gray-700 hover:text-gray-900 active:bg-gray-100 rounded-lg touch-manipulation select-none"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-[var(--cera-ink)] transition-colors active:bg-[var(--cera-cream-deep)] touch-manipulation select-none"
               style={{ 
                 WebkitTapHighlightColor: 'transparent',
                 touchAction: 'manipulation'
@@ -211,7 +221,7 @@ export default function MobileWebHeader() {
               disabled={!isReady}
             >
               {showMobileMenu ? (
-                <X className="w-5 h-5 text-green-600" />
+                <X className="w-5 h-5" />
               ) : (
                 <Menu className="w-5 h-5" />
               )}
@@ -226,7 +236,9 @@ export default function MobileWebHeader() {
                   if (isReady) setShowLangMenu(prev => !prev)
                 }}
                 disabled={!isReady}
-                className="flex items-center gap-0.5 text-green-600 font-semibold text-sm px-2 py-1.5 touch-manipulation select-none active:bg-green-50 rounded-md transition-colors"
+                aria-label={t('common.language') || 'Language'}
+                aria-expanded={showLangMenu}
+                className="flex h-11 min-w-11 items-center justify-center gap-0.5 rounded-full px-2 text-[13px] font-semibold tracking-[0.06em] text-[var(--cera-muted)] transition-colors active:bg-[var(--cera-cream-deep)] touch-manipulation select-none"
                 style={{ 
                   WebkitTapHighlightColor: 'transparent',
                   touchAction: 'manipulation'
@@ -247,7 +259,7 @@ export default function MobileWebHeader() {
                     className="fixed inset-0 z-40" 
                     onClick={() => setShowLangMenu(false)}
                   />
-                  <div className={`absolute top-full mt-2 bg-white rounded-lg shadow-lg border border-gray-100 py-1 z-50 min-w-[100px] ${isRTL ? 'right-0' : 'left-0'}`}>
+                  <div className={`absolute top-full z-50 mt-1 min-w-[132px] overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-white py-1 shadow-[0_20px_44px_-28px_rgba(23,20,15,0.45)] ${isRTL ? 'right-0' : 'left-0'}`}>
                     {(['en', 'ru', 'ar'] as Locale[]).map((l) => {
                       const label = l === 'en' ? 'English' : l === 'ru' ? 'Русский' : 'العربية'
                       const handleSelect = () => {
@@ -266,7 +278,7 @@ export default function MobileWebHeader() {
                             e.preventDefault()
                             handleSelect()
                           }}
-                          className={`block w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 active:bg-gray-100 touch-manipulation ${locale === l ? 'text-green-600 font-semibold bg-green-50' : 'text-gray-700'}`}
+                          className={`block w-full px-4 py-3 text-start text-sm touch-manipulation transition-colors active:bg-[var(--cera-cream-deep)] ${locale === l ? 'bg-[var(--cera-blush)] font-semibold text-[var(--cera-rose-ink)]' : 'text-[var(--cera-body)]'}`}
                           style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
                         >
                           {label}
@@ -278,83 +290,78 @@ export default function MobileWebHeader() {
               )}
             </div>
             
-            {/* AI Link */}
-            <Link
-              href={getLocalizedPath('/skin-recommendation', locale)}
-              className="px-2 py-1 rounded hover:bg-gray-100 transition-colors"
-              aria-label={t('navigation.aiSkinAnalysis') || 'AI Skin Analysis'}
-            >
-              <span className="text-sm font-bold text-red-600">AI</span>
-            </Link>
+            {/* The bare red "AI" that used to sit here was a duplicate: the hamburger
+                already carries the same destination as a labelled "AI Skin Analysis" CTA,
+                which is legible where two red letters were not. */}
           </div>
           
-          {/* Center: Logo + Heart */}
-          <div className={`flex items-center gap-0.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <Link href={getLocalizedPath('/products', locale)} className="flex items-center">
-              <Image
-                src="/Logo/upLOGO.png"
-                alt="GENOSYS"
-                width={260}
-                height={75}
-                className="h-[50px] w-auto"
-                priority
-              />
-            </Link>
-            
+          {/* Center: Logo.
+
+              upLOGO.png carries an opaque white rectangle and a band of dead padding, which
+              read as a white sticker once the header became cream. This is the same
+              wordmark on a genuinely transparent ground, so it sits on the surface
+              instead of on a patch of its own. */}
+          <Link href={getLocalizedPath('/products', locale)} className="flex items-center justify-self-center">
+            <Image
+              src="/images/genosys-wordmark-transparent.png"
+              alt="GENOSYS"
+              width={977}
+              height={210}
+              className="h-[22px] w-auto"
+              priority
+            />
+          </Link>
+          
+          {/* Right Side: Favorites + Avatar */}
+          <div className={`flex items-center justify-self-end ${isRTL ? 'flex-row-reverse' : ''}`}>
             {/* Favorites Heart */}
             <Link 
               href={getLocalizedPath('/favorites', locale)}
-              className="relative p-1"
+              className="relative flex h-11 w-11 items-center justify-center rounded-full transition-colors active:bg-[var(--cera-cream-deep)]"
+              aria-label={t('navigation.favorites') || 'Favorites'}
             >
               <Heart 
-                className={`w-6 h-6 text-red-600 transition-all ${favoritesCount > 0 ? 'fill-red-600' : ''}`}
+                className={`w-[21px] h-[21px] transition-all ${favoritesCount > 0 ? 'fill-[var(--cera-rose)] text-[var(--cera-rose)]' : 'text-[var(--cera-ink)]'}`}
               />
               {favoritesCount > 0 && (
-                <span className="absolute -top-0.5 -right-1 bg-red-600 text-white text-[9px] font-bold rounded-full min-w-[16px] h-[16px] flex items-center justify-center border-2 border-white">
+                <span className="absolute right-1 top-1 flex h-[17px] min-w-[17px] items-center justify-center rounded-full border-2 border-[var(--cera-cream)] bg-[var(--cera-rose)] text-[9px] font-bold text-white">
                   {favoritesCount > 99 ? '99+' : favoritesCount}
                 </span>
               )}
             </Link>
+            
+            <button 
+              onClick={handleProfileClick}
+              onTouchEnd={(e) => {
+                e.preventDefault()
+                if (isReady && !isNavigating) handleProfileClick()
+              }}
+              disabled={isNavigating || !isReady}
+              className={`flex h-11 w-11 items-center justify-center touch-manipulation select-none transition-all ${isNavigating ? 'scale-95 opacity-50' : 'active:scale-95'}`}
+              style={{ 
+                WebkitTapHighlightColor: 'transparent',
+                touchAction: 'manipulation'
+              }}
+              aria-label={isOnProfilePage ? 'Go back' : 'Open profile'}
+            >
+              {user ? (
+                <div className={`relative flex h-[34px] w-[34px] items-center justify-center rounded-full transition-colors ${isOnProfilePage ? 'bg-[var(--cera-muted)]' : 'bg-[var(--cera-ink)]'}`}>
+                  <span className="text-[13px] font-semibold text-white">
+                    {userInitial.toUpperCase()}
+                  </span>
+                  {/* Signed-in indicator. Green is kept: it reports status rather than
+                      carrying brand, the same call made across the account area. */}
+                  <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-[1.5px] border-[var(--cera-cream)] bg-green-500" />
+                </div>
+              ) : (
+                <div className={`flex h-[34px] w-[34px] items-center justify-center rounded-full border border-[var(--cera-line)] transition-colors ${isOnProfilePage ? 'bg-[var(--cera-cream-deep)]' : 'bg-white'}`}>
+                  <svg className="h-[19px] w-[19px] text-[var(--cera-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+              )}
+            </button>
           </div>
-          
-          {/* Right Side: User Avatar */}
-          <button 
-            onClick={handleProfileClick}
-            onTouchEnd={(e) => {
-              e.preventDefault()
-              if (isReady && !isNavigating) handleProfileClick()
-            }}
-            disabled={isNavigating || !isReady}
-            className={`flex items-center p-2.5 -m-1 touch-manipulation transition-all select-none ${isNavigating ? 'opacity-50 scale-95' : 'active:scale-95'}`}
-            style={{ 
-              WebkitTapHighlightColor: 'transparent',
-              touchAction: 'manipulation'
-            }}
-            aria-label={isOnProfilePage ? 'Go back' : 'Open profile'}
-          >
-            {user ? (
-              <div className={`relative w-9 h-9 rounded-full flex items-center justify-center transition-colors ${isOnProfilePage ? 'bg-gray-600' : 'bg-red-600'}`}>
-                <span className="text-white text-sm font-semibold">
-                  {userInitial.toUpperCase()}
-                </span>
-                {/* Online indicator - positioned inside the circle */}
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
-              </div>
-            ) : (
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors ${isOnProfilePage ? 'bg-gray-200' : 'bg-gray-100'}`}>
-                <svg className="w-5 h-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </div>
-            )}
-          </button>
-        </div>
-        
-        {/* Subtitle */}
-        <div className="text-center pb-1.5">
-          <p className="text-[10px] text-gray-500 tracking-wide font-medium">
-            {locale === 'ar' ? 'العناية بالبشرة الفاخرة والجمال' : locale === 'ru' ? 'Премиальный уход за кожей и красота' : 'Premium Skincare & Beauty'}
-          </p>
         </div>
       </header>
 
@@ -373,7 +380,7 @@ export default function MobileWebHeader() {
           {/* Menu Content - Slide from top, swipe up to close */}
           <div 
             ref={menuPanelRef}
-            className={`relative bg-white rounded-b-2xl shadow-2xl max-h-[70vh] overflow-y-auto ${isRTL ? 'text-right' : 'text-left'}`}
+            className={`cera-page genosys-page relative max-h-[70vh] overflow-y-auto rounded-b-[24px] shadow-[0_28px_60px_-24px_rgba(23,20,15,0.5)] ${isRTL ? 'text-right' : 'text-left'}`}
             dir={dir}
             style={{ 
               animation: !isSwiping && swipeOffset === 0 ? 'slideDown 0.2s ease-out' : undefined,
@@ -386,9 +393,13 @@ export default function MobileWebHeader() {
             onTouchEnd={handleMenuTouchEnd}
           >
             {/* Swipe indicator handle - hints at swipe-up-to-close */}
-            <div className="flex justify-center pt-2 pb-1">
-              <div className="w-10 h-1 bg-gray-300 rounded-full" />
+            <div className="flex justify-center pb-1 pt-2">
+              <div className="h-1 w-10 rounded-full bg-[var(--cera-blush-deep)]" />
             </div>
+
+            <p className="cera-eyebrow px-4 pb-2 pt-1 text-center">
+              {locale === 'ar' ? 'العناية بالبشرة الفاخرة والجمال' : locale === 'ru' ? 'Премиальный уход за кожей и красота' : 'Premium Skincare & Beauty'}
+            </p>
             
             {/* Sectioned Navigation.
                 Note: Orders / Favorites / Profile / Home are intentionally NOT
@@ -401,7 +412,7 @@ export default function MobileWebHeader() {
               <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                 <Link
                   href={getLocalizedPath('/products', locale)}
-                  className={`py-2.5 text-gray-900 hover:text-red-600 transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
+                  className={`py-2.5 text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)] transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.products')}
@@ -409,7 +420,7 @@ export default function MobileWebHeader() {
 
                 <Link
                   href={getLocalizedPath('/bundle-builder', locale)}
-                  className={`py-2.5 text-red-600 hover:text-red-700 transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
+                  className={`py-2.5 text-[var(--cera-rose-ink)] transition-colors text-[15px] font-semibold ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   🎁 {t('bundleBuilder.title')}
@@ -420,7 +431,7 @@ export default function MobileWebHeader() {
               <Link
                 href={getLocalizedPath('/skin-recommendation', locale)}
                 onClick={() => setShowMobileMenu(false)}
-                className={`mt-3 flex items-center gap-2.5 w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-red-50 to-pink-50 border border-red-100 text-red-600 hover:from-red-100 hover:to-pink-100 transition-colors ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+                className={`mt-3 flex items-center gap-2.5 w-full py-2.5 px-3 rounded-xl ed-panel text-[var(--cera-rose-ink)] transition-colors ${isRTL ? 'flex-row-reverse text-right' : ''}`}
               >
                 <Sparkles className="w-4 h-4 flex-shrink-0" />
                 <span className="text-sm font-semibold">
@@ -430,16 +441,16 @@ export default function MobileWebHeader() {
 
               {/* Section: Explore */}
               <div className="mt-4 mb-1.5 flex items-center gap-2 px-1">
-                <span className={`text-[10px] uppercase tracking-widest font-semibold text-gray-400 ${isRTL ? 'order-2' : ''}`}>
+                <span className={`cera-eyebrow ${isRTL ? 'order-2' : ''}`}>
                   {locale === 'ar' ? 'استكشف' : locale === 'ru' ? 'Разделы' : 'Explore'}
                 </span>
-                <div className="flex-1 h-px bg-gray-200" />
+                <div className="flex-1 h-px bg-[var(--cera-line)]" />
               </div>
 
               <div className="grid grid-cols-2 gap-x-4 gap-y-0.5">
                 <Link
                   href={getLocalizedPath('/about', locale)}
-                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  className={`py-1.5 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.about')}
@@ -447,7 +458,7 @@ export default function MobileWebHeader() {
 
                 <Link
                   href={getLocalizedPath('/brand', locale)}
-                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  className={`py-1.5 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.brand')}
@@ -455,7 +466,7 @@ export default function MobileWebHeader() {
 
                 <Link
                   href={getLocalizedPath('/delivery', locale)}
-                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  className={`py-1.5 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.delivery')}
@@ -463,7 +474,7 @@ export default function MobileWebHeader() {
 
                 <Link
                   href={getLocalizedPath('/contact', locale)}
-                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  className={`py-1.5 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.contact')}
@@ -471,7 +482,7 @@ export default function MobileWebHeader() {
 
                 <Link
                   href={getLocalizedPath('/faq', locale)}
-                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  className={`py-1.5 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.faq')}
@@ -479,7 +490,7 @@ export default function MobileWebHeader() {
 
                 <Link
                   href={getLocalizedPath('/locations', locale)}
-                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  className={`py-1.5 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('common.locations')}
@@ -487,7 +498,7 @@ export default function MobileWebHeader() {
 
                 <Link
                   href={getLocalizedPath('/partners', locale)}
-                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  className={`py-1.5 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {t('navigation.partners')}
@@ -495,7 +506,7 @@ export default function MobileWebHeader() {
 
                 <Link
                   href={getLocalizedPath('/blog', locale)}
-                  className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                  className={`py-1.5 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Blog'}
@@ -504,7 +515,7 @@ export default function MobileWebHeader() {
                 {user && (
                   <Link
                     href={getLocalizedPath('/training', locale)}
-                    className={`py-1.5 text-gray-600 hover:text-red-600 transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
+                    className={`py-1.5 text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors text-sm ${isRTL ? 'text-right' : ''}`}
                     onClick={() => setShowMobileMenu(false)}
                   >
                     {t('navigation.training')}
@@ -514,10 +525,10 @@ export default function MobileWebHeader() {
 
               {/* Section: Get the app */}
               <div className="mt-4 mb-2 flex items-center gap-2 px-1">
-                <span className={`text-[10px] uppercase tracking-widest font-semibold text-gray-400 ${isRTL ? 'order-2' : ''}`}>
+                <span className={`cera-eyebrow ${isRTL ? 'order-2' : ''}`}>
                   {locale === 'ar' ? 'حمّل التطبيق' : locale === 'ru' ? 'Скачать приложение' : 'Get the app'}
                 </span>
-                <div className="flex-1 h-px bg-gray-200" />
+                <div className="flex-1 h-px bg-[var(--cera-line)]" />
               </div>
 
               <div className="grid grid-cols-2 gap-2">
@@ -526,7 +537,7 @@ export default function MobileWebHeader() {
                   href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center justify-center gap-2 py-2 px-3 bg-black text-white rounded-lg transition-colors active:bg-gray-800 ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`flex items-center justify-center gap-2 py-2 px-3 bg-black text-white rounded-lg transition-colors active:bg-[#333] ${isRTL ? 'flex-row-reverse' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                   aria-label={locale === 'ar' ? 'حمّل من App Store' : locale === 'ru' ? 'Загрузите в App Store' : 'Download on the App Store'}
                 >
@@ -546,7 +557,7 @@ export default function MobileWebHeader() {
                   href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center justify-center gap-2 py-2 px-3 bg-black text-white rounded-lg transition-colors active:bg-gray-800 ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`flex items-center justify-center gap-2 py-2 px-3 bg-black text-white rounded-lg transition-colors active:bg-[#333] ${isRTL ? 'flex-row-reverse' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                   aria-label={locale === 'ar' ? 'احصل عليه من Google Play' : locale === 'ru' ? 'Доступно в Google Play' : 'Get it on Google Play'}
                 >
@@ -563,14 +574,14 @@ export default function MobileWebHeader() {
               </div>
 
               {/* Account Actions */}
-              <div className="mt-4 pt-3 border-t border-gray-200">
+              <div className="mt-4 pt-3 border-t border-[var(--cera-line)]">
                 {user ? (
                   <button
                     onClick={() => {
                       logout()
                       setShowMobileMenu(false)
                     }}
-                    className={`w-full flex items-center gap-2 py-2.5 px-3 rounded-lg text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors text-sm font-semibold ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
+                    className={`w-full flex items-center gap-2 py-2.5 px-3 rounded-lg text-[var(--cera-rose-ink)] active:bg-[var(--cera-blush)] transition-colors text-sm font-semibold ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
                   >
                     <LogOut className="w-4 h-4 flex-shrink-0" />
                     <span>{t('common.logout')}</span>
@@ -579,7 +590,7 @@ export default function MobileWebHeader() {
                   <Link
                     href={getLocalizedPath('/login', locale)}
                     onClick={() => setShowMobileMenu(false)}
-                    className={`w-full flex items-center gap-2 py-2.5 px-3 rounded-lg text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors text-sm font-semibold ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
+                    className={`w-full flex items-center gap-2 py-2.5 px-3 rounded-lg text-[var(--cera-rose-ink)] active:bg-[var(--cera-blush)] transition-colors text-sm font-semibold ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
                   >
                     <LogIn className="w-4 h-4 flex-shrink-0" />
                     <span>{t('common.login')}</span>
@@ -612,7 +623,7 @@ export default function MobileWebHeader() {
       {/* Spacer to prevent content from being hidden behind fixed header */}
       <div 
         className="md:hidden" 
-        style={{ height: 'calc(env(safe-area-inset-top, 0px) + 80px)' }}
+        style={{ height: 'calc(env(safe-area-inset-top, 0px) + 56px)' }}
         aria-hidden="true" 
       />
     </>

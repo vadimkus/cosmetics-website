@@ -10,7 +10,7 @@ import {
   HomeIcon,
   ListIcon,
   BagIcon,
-  MOBILE_BOTTOM_NAV_COLORS,
+  MOBILE_WEB_NAV_COLORS,
   useCartCount,
   useHideBottomNav,
   getActiveTab,
@@ -60,17 +60,12 @@ export default function MobileWebFooterNav() {
 
   if (!isClient || isPWA || !isMobile || shouldHide) return null
 
-  const RED = MOBILE_BOTTOM_NAV_COLORS.active
-  const GRAY = MOBILE_BOTTOM_NAV_COLORS.inactive
-  const GREEN = MOBILE_BOTTOM_NAV_COLORS.withItems
+  const { active: INK, inactive: MUTED, badge: ROSE } = MOBILE_WEB_NAV_COLORS
 
-  const getColor = (tab: string) => {
-    if (tab === 'bag' && hasItems) return GREEN
-    if (activeTab === tab) return RED
-    return GRAY
-  }
+  const getColor = (tab: string) => (activeTab === tab ? INK : MUTED)
 
   const buttonStyle: React.CSSProperties = {
+    position: 'relative',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -81,7 +76,30 @@ export default function MobileWebFooterNav() {
     background: 'none',
     border: 'none',
     cursor: 'pointer',
+    WebkitTapHighlightColor: 'transparent',
   }
+
+  const labelStyle = (tab: string): React.CSSProperties => ({
+    marginTop: 5,
+    fontSize: 9.5,
+    fontWeight: 600,
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    color: getColor(tab),
+  })
+
+  /**
+   * A rule above the active tab. Colour alone was the only cue before, which WCAG 1.4.1
+   * does not accept and which disappears for anyone with a red-green deficiency — the old
+   * palette leaned on exactly that pair.
+   */
+  const marker = (tab: string) =>
+    activeTab === tab ? (
+      <span
+        aria-hidden="true"
+        style={{ position: 'absolute', top: 0, width: 26, height: 2, borderRadius: 2, backgroundColor: INK }}
+      />
+    ) : null
 
   return (
     <nav 
@@ -89,47 +107,56 @@ export default function MobileWebFooterNav() {
       dir={dir}
       aria-label="Mobile navigation"
     >
-      <button style={buttonStyle} onClick={() => handleNavigation(getLocalizedPath('/products', locale))}>
+      <button
+        style={buttonStyle}
+        aria-current={activeTab === 'home' ? 'page' : undefined}
+        onClick={() => handleNavigation(getLocalizedPath('/products', locale))}
+      >
+        {marker('home')}
         <HomeIcon filled={activeTab === 'home'} color={getColor('home')} />
-        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('home') }}>
-          {t('tabs.home') || 'Home'}
-        </span>
+        <span style={labelStyle('home')}>{t('tabs.home') || 'Home'}</span>
       </button>
 
-      <button style={buttonStyle} onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}>
+      <button
+        style={buttonStyle}
+        aria-current={activeTab === 'orders' ? 'page' : undefined}
+        onClick={() => handleNavigation(getLocalizedPath('/orders', locale))}
+      >
+        {marker('orders')}
         <ListIcon filled={activeTab === 'orders'} color={getColor('orders')} />
-        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('orders') }}>
-          {t('tabs.orders') || 'Orders'}
-        </span>
+        <span style={labelStyle('orders')}>{t('tabs.orders') || 'Orders'}</span>
       </button>
 
-      <button style={buttonStyle} onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}>
+      <button
+        style={buttonStyle}
+        aria-current={activeTab === 'bag' ? 'page' : undefined}
+        onClick={() => handleNavigation(getLocalizedPath('/cart', locale))}
+      >
+        {marker('bag')}
         <div style={{ position: 'relative' }}>
-          <BagIcon filled={activeTab === 'bag' || hasItems} color={getColor('bag')} />
+          <BagIcon filled={activeTab === 'bag'} color={getColor('bag')} />
           {hasItems && (
             <span style={{
               position: 'absolute',
-              top: -6,
-              right: -10,
-              backgroundColor: RED,
+              top: -5,
+              right: -9,
+              backgroundColor: ROSE,
               color: '#fff',
               fontSize: 10,
-              fontWeight: 600,
+              fontWeight: 700,
               borderRadius: '50%',
-              minWidth: 18,
-              height: 18,
+              minWidth: 17,
+              height: 17,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '2px solid #fff',
+              border: '2px solid #faf8f7',
             }}>
               {cartCount > 99 ? '99+' : cartCount}
             </span>
           )}
         </div>
-        <span style={{ fontSize: 12, marginTop: 4, fontWeight: 500, color: getColor('bag') }}>
-          {t('tabs.bag') || 'Bag'}
-        </span>
+        <span style={labelStyle('bag')}>{t('tabs.bag') || 'Bag'}</span>
       </button>
     </nav>
   )

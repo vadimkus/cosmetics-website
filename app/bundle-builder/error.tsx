@@ -23,17 +23,17 @@ export default function BundleBuilderError({
         </svg>
       </div>
 
-      <h2 className="text-xl font-semibold text-gray-900 mb-2 text-center">
+      <h2 className="text-xl font-semibold text-[var(--cera-ink)] mb-2 text-center">
         Something went wrong
       </h2>
-      <p className="text-gray-500 text-sm text-center mb-8 max-w-sm">
+      <p className="text-[var(--cera-muted)] text-sm text-center mb-8 max-w-sm">
         We couldn&apos;t load the Bundle Builder. This is usually temporary — please try again.
       </p>
 
       <div className="flex flex-col gap-3 w-full max-w-xs">
         <button
           onClick={() => reset()}
-          className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-medium text-sm hover:bg-gray-800 active:scale-[0.98] transition-all"
+          className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[var(--cera-ink)] text-white rounded-xl font-medium text-sm hover:bg-[var(--cera-rose-ink)] active:scale-[0.98] transition-all"
         >
           <RefreshCw className="w-4 h-4" />
           Try Again
@@ -41,7 +41,7 @@ export default function BundleBuilderError({
 
         <Link
           href="/products?categories=beauty-boxes"
-          className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-gray-200 text-gray-700 rounded-xl font-medium text-sm hover:bg-gray-50 transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-[var(--cera-line)] text-[var(--cera-body)] rounded-xl font-medium text-sm hover:bg-[var(--cera-cream-deep)] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Products

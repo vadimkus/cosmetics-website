@@ -1307,9 +1307,8 @@ html[dir="rtl"] {
   left: 0;
   right: 0;
   width: 100%;
-  background-color: #fff;
-  border-top: 1px solid #e5e7eb;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  background-color: #faf8f7;
+  border-top: 1px solid #e9e1de;
   z-index: 40;
   padding: 12px 16px;
   padding-bottom: calc(12px + env(safe-area-inset-bottom));

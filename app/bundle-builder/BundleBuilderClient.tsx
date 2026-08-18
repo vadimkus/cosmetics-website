@@ -17,6 +17,9 @@ import { getCartLinePricing } from '@/lib/cartPricing'
 import { Product } from '@/types'
 import type { ApiUser, User } from '@/types/user'
 import BottomSheet from '@/components/ui/BottomSheet'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 interface BundleBuilderClientProps {
   products: Product[]
@@ -60,12 +63,12 @@ function StepIndicator({
               flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-full text-xs sm:text-sm font-medium
               transition-all duration-300 whitespace-nowrap min-w-fit
               ${isActive 
-                ? 'bg-gray-900 text-white shadow-lg scale-105' 
+                ? 'bg-[var(--cera-ink)] text-white shadow-lg scale-105' 
                 : hasItem 
                   ? 'bg-green-50 text-green-700 border border-green-200' 
                   : isPast
-                    ? 'bg-gray-100 text-gray-500'
-                    : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
+                    ? 'bg-[var(--cera-cream-deep)] text-[var(--cera-muted)]'
+                    : 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)]'
               }
             `}
           >
@@ -196,14 +199,14 @@ function BundleProductCard({
         relative cursor-pointer rounded-2xl overflow-hidden
         transition-all duration-300 select-none
         ${isSelected 
-          ? 'ring-2 ring-gray-900 shadow-lg bg-gray-50' 
-          : 'bg-white hover:shadow-md border border-gray-100'
+          ? 'ring-2 ring-[var(--cera-ink)] shadow-lg bg-[var(--cera-cream-deep)]' 
+          : 'bg-white hover:shadow-md border border-[var(--cera-line)]'
         }
       `}
     >
       {/* Selection Badge */}
       {isSelected && (
-        <div className="absolute top-3 right-3 z-10 bg-gray-900 text-white rounded-full p-1.5">
+        <div className="absolute top-3 right-3 z-10 bg-[var(--cera-ink)] text-white rounded-full p-1.5">
           <Check className="w-3 h-3" />
         </div>
       )}
@@ -226,18 +229,18 @@ function BundleProductCard({
       
       {/* Product Info */}
       <div className="p-3 sm:p-4">
-        <h3 className="text-sm font-medium text-gray-900 line-clamp-2 min-h-[2.5rem]">
+        <h3 className="text-sm font-medium text-[var(--cera-ink)] line-clamp-2 min-h-[2.5rem]">
           {product.name}
         </h3>
         {/* Product Size */}
         {product.size && (
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-[var(--cera-muted)] mt-1">
             {product.size}
           </p>
         )}
         {/* Product Description */}
         {getLocalizedDescription(product, locale) && (
-          <p className="text-[11px] text-gray-400 mt-1.5 line-clamp-2 leading-relaxed">
+          <p className="text-[11px] text-[var(--cera-muted)] mt-1.5 line-clamp-2 leading-relaxed">
             {getLocalizedDescription(product, locale)}
           </p>
         )}
@@ -246,16 +249,16 @@ function BundleProductCard({
             <div className="flex flex-col">
               {/* Bundle builder: show retail price only — no VIP discount */}
               {(
-                <span className="text-base font-semibold text-gray-900">
+                <span className="text-base font-semibold text-[var(--cera-ink)]">
                   {getBundleRetailPrice(product).toFixed(2)} {t('common.aed')}
                 </span>
               )}
-              <span className="text-[10px] text-gray-400 mt-0.5">
+              <span className="text-[10px] text-[var(--cera-muted)] mt-0.5">
                 5% {t('product.vatIncluded')}
               </span>
             </div>
           ) : (
-            <span className="text-xs text-gray-500">
+            <span className="text-xs text-[var(--cera-muted)]">
               {t('product.loginToSeePrice')}
             </span>
           )}
@@ -267,7 +270,7 @@ function BundleProductCard({
                 e.stopPropagation()
                 onSelect()
               }}
-              className="text-xs text-gray-500 hover:text-gray-700 flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-gray-100 active:bg-gray-200 transition-colors"
+              className="text-xs text-[var(--cera-muted)] hover:text-[var(--cera-body)] flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-[var(--cera-cream-deep)] active:bg-[var(--cera-cream-deep)] transition-colors"
             >
               <Plus className="w-3 h-3" />
               {t('bundleBuilder.add')}
@@ -301,10 +304,10 @@ function BundleSummary({
   if (items.length === 0) {
     return (
       <div className="text-center py-8 px-4">
-        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gray-100 flex items-center justify-center">
-          <ShoppingBag className="w-8 h-8 text-gray-400" />
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--cera-cream-deep)] flex items-center justify-center">
+          <ShoppingBag className="w-8 h-8 text-[var(--cera-muted)]" />
         </div>
-        <p className="text-gray-500 text-sm">
+        <p className="text-[var(--cera-muted)] text-sm">
           {t('bundleBuilder.emptyBundle')}
         </p>
       </div>
@@ -327,7 +330,7 @@ function BundleSummary({
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ delay: index * 0.05 }}
-              className="flex items-center gap-3 bg-gray-50 rounded-xl p-3"
+              className="flex items-center gap-3 bg-[var(--cera-cream-deep)] rounded-xl p-3"
             >
               {/* Image with size below */}
               <div className="flex flex-col items-center flex-shrink-0">
@@ -340,21 +343,21 @@ function BundleSummary({
                   />
                 </div>
                 {item.product.size && (
-                  <p className="text-[9px] text-gray-400 mt-0.5 text-center">
+                  <p className="text-[9px] text-[var(--cera-muted)] mt-0.5 text-center">
                     {item.product.size}
                   </p>
                 )}
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
+                <p className="text-sm font-medium text-[var(--cera-ink)] truncate">
                   {item.product.name}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-[var(--cera-muted)]">
                   {t(`bundleBuilder.steps.${item.step}`)}
                 </p>
                 {/* Bundle discount badge per item */}
                 {showPrices && hasDiscount && (
-                  <span className="inline-flex items-center gap-1 text-[10px] text-green-600 font-medium mt-0.5">
+                  <span className="inline-flex items-center gap-1 text-[10px] text-green-700 font-medium mt-0.5">
                     <Sparkles className="w-2.5 h-2.5" />
                     -{linePricing.discountPercentage}%
                   </span>
@@ -363,11 +366,11 @@ function BundleSummary({
               <div className="flex flex-col items-end gap-1">
                 {showPrices && (
                   <div className="text-right">
-                    <span className="text-sm font-medium text-gray-900 whitespace-nowrap">
+                    <span className="text-sm font-medium text-[var(--cera-ink)] whitespace-nowrap">
                       {t('common.aed')} {displayPrice.toFixed(2)}
                     </span>
                     {hasDiscount && (
-                      <p className="text-[10px] text-gray-400 line-through">
+                      <p className="text-[10px] text-[var(--cera-muted)] line-through">
                         {t('common.aed')} {retailPrice.toFixed(2)}
                       </p>
                     )}
@@ -375,10 +378,10 @@ function BundleSummary({
                 )}
                 <button
                   onClick={() => removeItem(item.product.id)}
-                  className="p-1.5 rounded-full hover:bg-gray-200 transition-colors"
+                  className="p-1.5 rounded-full hover:bg-[var(--cera-cream-deep)] transition-colors"
                   aria-label={t('common.delete')}
                 >
-                  <X className="w-4 h-4 text-gray-400" />
+                  <X className="w-4 h-4 text-[var(--cera-muted)]" />
                 </button>
               </div>
             </motion.div>
@@ -388,7 +391,7 @@ function BundleSummary({
       
       {/* Pricing Summary - Only show if user can see prices */}
       {showPrices ? (
-        <div className="border-t border-gray-200 pt-4 space-y-2">
+        <div className="border-t border-[var(--cera-line)] pt-4 space-y-2">
           {(() => {
             // Bundle builder: no VIP discount — only bundle tier discount on retail price
             const totalSavings = pricing.subtotal - pricing.total
@@ -398,28 +401,28 @@ function BundleSummary({
                 {/* Retail Subtotal */}
                 {pricing.discountPercent > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">{t('bundleBuilder.subtotal')}</span>
-                    <span className="text-gray-400 line-through">{pricing.subtotal.toFixed(2)} {t('common.aed')}</span>
+                    <span className="text-[var(--cera-muted)]">{t('bundleBuilder.subtotal')}</span>
+                    <span className="text-[var(--cera-muted)] line-through">{pricing.subtotal.toFixed(2)} {t('common.aed')}</span>
                   </div>
                 )}
                 {pricing.discountPercent === 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">{t('bundleBuilder.subtotal')}</span>
-                    <span className="text-gray-900">{pricing.subtotal.toFixed(2)} {t('common.aed')}</span>
+                    <span className="text-[var(--cera-muted)]">{t('bundleBuilder.subtotal')}</span>
+                    <span className="text-[var(--cera-ink)]">{pricing.subtotal.toFixed(2)} {t('common.aed')}</span>
                   </div>
                 )}
                 
                 {/* Discount row — label follows the discount that actually won (bundle vs VIP) */}
                 {pricing.discountPercent > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-green-600">
+                    <span className="text-green-700">
                       {(pricing.appliedDiscountType === 'user' || pricing.appliedDiscountType === 'black_friday')
                         ? t('bundleBuilder.vipDiscount')
                         : pricing.appliedDiscountType === 'mixed'
                           ? t('bundleBuilder.discountApplied')
                           : t('bundleBuilder.discount')} ({pricing.discountPercent}%)
                     </span>
-                    <span className="text-green-600">-{pricing.discountAmount.toFixed(2)} {t('common.aed')}</span>
+                    <span className="text-green-700">-{pricing.discountAmount.toFixed(2)} {t('common.aed')}</span>
                   </div>
                 )}
                 
@@ -435,14 +438,14 @@ function BundleSummary({
                 )}
                 
                 {/* Total */}
-                <div className="flex justify-between items-center pt-3 mt-2 border-t border-gray-100">
+                <div className="flex justify-between items-center pt-3 mt-2 border-t border-[var(--cera-line)]">
                   <div>
-                    <span className="text-base font-semibold text-gray-900">
+                    <span className="text-base font-semibold text-[var(--cera-ink)]">
                       {t('bundleBuilder.total')}
                     </span>
-                    <p className="text-[10px] text-gray-400">5% {t('product.vatIncluded')}</p>
+                    <p className="text-[10px] text-[var(--cera-muted)]">5% {t('product.vatIncluded')}</p>
                   </div>
-                  <span className="text-xl font-bold text-gray-900">
+                  <span className="text-xl font-bold text-[var(--cera-ink)]">
                     {pricing.total.toFixed(2)} {t('common.aed')}
                   </span>
                 </div>
@@ -468,8 +471,8 @@ function BundleSummary({
                 w-full py-3.5 rounded-xl font-medium text-sm
                 transition-all duration-200
                 ${canAddToCart()
-                  ? 'bg-primary-600 text-white hover:bg-primary-700 active:scale-[0.98]'
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  ? 'bg-[var(--cera-rose)] text-white hover:bg-[var(--cera-rose-ink)] active:scale-[0.98]'
+                  : 'bg-[var(--cera-cream-deep)] text-[var(--cera-muted)] cursor-not-allowed'
                 }
               `}
             >
@@ -482,7 +485,7 @@ function BundleSummary({
             {items.length > 0 && (
               <button
                 onClick={onClear}
-                className="w-full py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                className="w-full py-2 text-sm text-[var(--cera-muted)] hover:text-[var(--cera-body)] transition-colors"
               >
                 {t('bundleBuilder.clearAll')}
               </button>
@@ -491,12 +494,12 @@ function BundleSummary({
         </div>
       ) : (
         /* Login to see prices message */
-        <div className="border-t border-gray-200 pt-4 space-y-3">
+        <div className="border-t border-[var(--cera-line)] pt-4 space-y-3">
           <div className="text-center py-4">
-            <p className="text-sm text-gray-500 mb-3">
+            <p className="text-sm text-[var(--cera-muted)] mb-3">
               {t('product.loginToSeePrice')}
             </p>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-[var(--cera-muted)]">
               {items.length} {t('bundleBuilder.items')} {t('bundleBuilder.selected')}
             </p>
           </div>
@@ -505,7 +508,7 @@ function BundleSummary({
           {items.length > 0 && (
             <button
               onClick={onClear}
-              className="w-full py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              className="w-full py-2 text-sm text-[var(--cera-muted)] hover:text-[var(--cera-body)] transition-colors"
             >
               {t('bundleBuilder.clearAll')}
             </button>
@@ -700,15 +703,15 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
   }
   
   return (
-    <div className="bg-white">
+    <div className={`cera-page genosys-page ${ceraSerif.variable}`}>
       {/* Header */}
-      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-gray-100">
+      <header className="sticky top-0 z-40 border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/90 backdrop-blur-lg">
         <div className="container mx-auto px-4">
           <div className="relative flex items-center justify-between h-14 sm:h-16">
             {/* Back Button */}
             <Link
               href={getLocalizedPath('/products?categories=beauty-boxes', locale)}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors z-10"
+              className="flex items-center gap-2 text-[var(--cera-body)] hover:text-[var(--cera-ink)] transition-colors z-10"
             >
               <ArrowLeft className="w-5 h-5" />
               <span className="hidden sm:inline text-sm font-medium">
@@ -717,18 +720,18 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             </Link>
             
             {/* Title - Centered absolutely */}
-            <h1 className="absolute left-1/2 -translate-x-1/2 text-base sm:text-lg font-semibold text-gray-900">
+            <h1 className="cera-serif absolute left-1/2 -translate-x-1/2 text-[19px] sm:text-[22px] text-[var(--cera-ink)]">
               {t('bundleBuilder.title')}
             </h1>
             
             {/* Cart Preview (Mobile) */}
             <button
               onClick={() => setShowMobileSummary(true)}
-              className="lg:hidden relative flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors z-10"
+              className="lg:hidden relative flex items-center gap-1 text-[var(--cera-body)] hover:text-[var(--cera-ink)] transition-colors z-10"
             >
               <ShoppingBag className="w-5 h-5" />
               {items.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 bg-gray-900 text-white text-[10px] font-medium rounded-full flex items-center justify-center">
+                <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 bg-[var(--cera-ink)] text-white text-[10px] font-medium rounded-full flex items-center justify-center">
                   {items.length}
                 </span>
               )}
@@ -738,7 +741,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
       </header>
       
       {/* Progress Indicator - Sticky below header */}
-      <div className="sticky top-14 sm:top-16 z-30 bg-gray-50 border-b border-gray-100">
+      <div className="sticky top-14 sm:top-16 z-30 bg-[var(--cera-cream-deep)] border-b border-[var(--cera-line)]">
         <div className="container mx-auto">
           <StepIndicator
             steps={ROUTINE_STEPS}
@@ -752,7 +755,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
         <div className="container mx-auto px-4 pb-3">
           <div className="relative">
             {/* Progress Track */}
-            <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <div className="h-1.5 bg-[var(--cera-cream-deep)] rounded-full overflow-hidden">
               {/* Progress Fill - animate to current discount level */}
               <motion.div 
                 className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full"
@@ -776,7 +779,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     className={`w-2 h-2 rounded-full border-2 transition-colors duration-300 ${
                       items.length >= milestone 
                         ? 'bg-green-500 border-green-500' 
-                        : 'bg-white border-gray-300'
+                        : 'bg-white border-[var(--cera-line)]'
                     }`}
                   />
                 </div>
@@ -785,7 +788,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             
             {/* Labels */}
             <div className="flex justify-between mt-2 text-[10px] sm:text-xs">
-              <span className="text-gray-400">0</span>
+              <span className="text-[var(--cera-muted)]">0</span>
               <div className="flex-1 flex justify-between px-2">
                 {[
                   { items: 2, discount: 5 },
@@ -797,8 +800,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     key={tier.items}
                     className={`transition-colors duration-300 ${
                       items.length >= tier.items 
-                        ? 'text-green-600 font-medium' 
-                        : 'text-gray-400'
+                        ? 'text-green-700 font-medium' 
+                        : 'text-[var(--cera-muted)]'
                     }`}
                     style={{ 
                       position: 'relative',
@@ -817,11 +820,11 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full ${
                   (pricing.bundleDiscountPercent ?? 0) > 0 
                     ? 'bg-green-100 text-green-700' 
-                    : 'bg-gray-100 text-gray-600'
+                    : 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)]'
                 }`}>
                   {items.length} {items.length === 1 ? 'item' : 'items'}
                   {(pricing.bundleDiscountPercent ?? 0) > 0 && (
-                    <span className="text-green-600">• {pricing.bundleDiscountPercent}% off</span>
+                    <span className="text-green-700">• {pricing.bundleDiscountPercent}% off</span>
                   )}
                 </span>
               </div>
@@ -839,7 +842,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             <div className="mb-6">
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-2xl">{currentStepData?.icon}</span>
-                <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">
+                <h2 className="cera-serif text-[24px] leading-tight text-[var(--cera-ink)] sm:text-[30px]">
                   {t(`bundleBuilder.steps.${currentStepData?.id}`) || currentStepData?.name}
                 </h2>
                 {currentStepData?.required && (
@@ -848,7 +851,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   </span>
                 )}
               </div>
-              <p className="text-gray-500 text-sm sm:text-base">
+              <p className="text-[var(--cera-muted)] text-sm sm:text-base">
                 {t(`bundleBuilder.stepDescriptions.${currentStepData?.id}`) || currentStepData?.description}
               </p>
             </div>
@@ -869,15 +872,15 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-2xl">
-                <p className="text-gray-500">
+              <div className="text-center py-12 bg-[var(--cera-cream-deep)] rounded-2xl">
+                <p className="text-[var(--cera-muted)]">
                   {t('bundleBuilder.noProductsInCategory')}
                 </p>
               </div>
             )}
             
             {/* Navigation Buttons - Desktop Only */}
-            <div className="hidden lg:flex items-center justify-between mt-8 pt-6 border-t border-gray-100">
+            <div className="hidden lg:flex items-center justify-between mt-8 pt-6 border-t border-[var(--cera-line)]">
               <button
                 onClick={handlePrevStep}
                 disabled={currentStep === 0}
@@ -885,8 +888,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm
                   transition-all duration-200
                   ${currentStep === 0
-                    ? 'text-gray-300 cursor-not-allowed'
-                    : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
+                    ? 'text-[var(--cera-blush-deep)] cursor-not-allowed'
+                    : 'text-[var(--cera-body)] hover:text-[var(--cera-ink)] hover:bg-[var(--cera-cream-deep)]'
                   }
                 `}
               >
@@ -898,7 +901,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               {!hasItemForStep(currentStepData?.id || '') && (
                 <button
                   onClick={handleNextStep}
-                  className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+                  className="text-sm text-[var(--cera-muted)] hover:text-[var(--cera-body)] transition-colors"
                 >
                   {t('bundleBuilder.skip')}
                 </button>
@@ -911,8 +914,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm
                   transition-all duration-200
                   ${currentStep === ROUTINE_STEPS.length - 1
-                    ? 'text-gray-300 cursor-not-allowed'
-                    : 'bg-gray-900 text-white hover:bg-gray-800 active:scale-[0.98]'
+                    ? 'text-[var(--cera-blush-deep)] cursor-not-allowed'
+                    : 'bg-[var(--cera-ink)] text-white hover:bg-[var(--cera-rose-ink)] active:scale-[0.98]'
                   }
                 `}
               >
@@ -924,8 +927,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
           
           {/* Desktop Sidebar Summary */}
           <aside className="hidden lg:block w-80 flex-shrink-0">
-            <div className="sticky top-24 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <div className="sticky top-24 bg-white border border-[var(--cera-line)] rounded-2xl p-5 shadow-sm">
+              <h3 className="cera-serif mb-4 text-[20px] leading-tight text-[var(--cera-ink)]">
                 {t('bundleBuilder.yourBundle')}
               </h3>
               <BundleSummary
@@ -948,15 +951,15 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
         <div className="bundle-builder-mobile-bar">
           {/* Summary Line */}
           {items.length > 0 && (
-            <div className="flex items-center justify-between mb-3 pb-3 border-b border-gray-100">
+            <div className="flex items-center justify-between mb-3 pb-3 border-b border-[var(--cera-line)]">
               <button
                 onClick={() => setShowMobileSummary(true)}
-                className="flex flex-col items-start text-sm text-gray-600"
+                className="flex flex-col items-start text-sm text-[var(--cera-body)]"
               >
                 <div className="flex items-center gap-2">
                   <span className="font-medium">{items.length} {t('bundleBuilder.items')}</span>
                   {showPrices && (pricing.bundleDiscountPercent ?? 0) > 0 && (
-                    <span className="text-xs text-green-600 font-medium">
+                    <span className="text-xs text-green-700 font-medium">
                       {pricing.bundleDiscountPercent}% {t('bundleBuilder.off')}
                     </span>
                   )}
@@ -967,7 +970,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   const totalSavings = originalRetailTotal - pricing.total
                   if (totalSavings > 0.01) {
                     return (
-                      <span className="text-[10px] text-green-600">
+                      <span className="text-[10px] text-green-700">
                         {t('bundleBuilder.youSave', { amount: totalSavings.toFixed(0) })}
                       </span>
                     )
@@ -980,13 +983,13 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   onClick={() => setShowMobileSummary(true)}
                   className="text-right"
                 >
-                  <span className="text-base font-bold text-gray-900">
+                  <span className="text-base font-bold text-[var(--cera-ink)]">
                     {pricing.total.toFixed(2)} {t('common.aed')}
                   </span>
-                  <p className="text-[10px] text-gray-400">5% {t('product.vatIncluded')}</p>
+                  <p className="text-[10px] text-[var(--cera-muted)]">5% {t('product.vatIncluded')}</p>
                 </button>
               ) : (
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-[var(--cera-muted)]">
                   {t('product.loginToSeePrice')}
                 </span>
               )}
@@ -1003,8 +1006,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 flex items-center gap-1.5 px-3 py-2.5 rounded-xl font-medium text-sm
                 transition-all duration-200
                 ${currentStep === 0
-                  ? 'text-gray-300 cursor-not-allowed'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100 active:scale-[0.98]'
+                  ? 'text-[var(--cera-blush-deep)] cursor-not-allowed'
+                  : 'text-[var(--cera-body)] hover:text-[var(--cera-ink)] hover:bg-[var(--cera-cream-deep)] active:scale-[0.98]'
                 }
               `}
             >
@@ -1016,7 +1019,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             {!hasItemForStep(currentStepData?.id || '') && currentStep < ROUTINE_STEPS.length - 1 && (
               <button
                 onClick={handleNextStep}
-                className="text-sm text-gray-400 hover:text-gray-600 transition-colors px-3 py-2.5"
+                className="text-sm text-[var(--cera-muted)] hover:text-[var(--cera-body)] transition-colors px-3 py-2.5"
               >
                 {t('bundleBuilder.skip')}
               </button>
@@ -1026,7 +1029,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             {currentStep < ROUTINE_STEPS.length - 1 ? (
               <button
                 onClick={handleNextStep}
-                className="flex items-center gap-1.5 px-4 py-2.5 bg-primary-600 text-white rounded-xl font-medium text-sm active:scale-[0.98] transition-all hover:bg-primary-700"
+                className="flex items-center gap-1.5 px-4 py-2.5 bg-[var(--cera-rose)] text-white rounded-xl font-medium text-sm active:scale-[0.98] transition-all hover:bg-[var(--cera-rose-ink)]"
               >
                 {t('bundleBuilder.next')}
                 <ChevronRight className="w-4 h-4" />
@@ -1034,7 +1037,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             ) : (
               <button
                 onClick={() => setShowMobileSummary(true)}
-                className="flex items-center gap-1.5 px-4 py-2.5 bg-primary-600 text-white rounded-xl font-medium text-sm active:scale-[0.98] transition-all hover:bg-primary-700"
+                className="flex items-center gap-1.5 px-4 py-2.5 bg-[var(--cera-rose)] text-white rounded-xl font-medium text-sm active:scale-[0.98] transition-all hover:bg-[var(--cera-rose-ink)]"
               >
                 {t('bundleBuilder.viewBundle')}
                 <ChevronRight className="w-4 h-4" />
@@ -1067,19 +1070,19 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             >
               {/* Handle */}
               <div className="flex justify-center py-3">
-                <div className="w-10 h-1 bg-gray-300 rounded-full" />
+                <div className="w-10 h-1 bg-[var(--cera-blush-deep)] rounded-full" />
               </div>
               
               {/* Header */}
-              <div className="flex items-center justify-between px-5 pb-4 border-b border-gray-100">
-                <h3 className="text-lg font-semibold text-gray-900">
+              <div className="flex items-center justify-between px-5 pb-4 border-b border-[var(--cera-line)]">
+                <h3 className="cera-serif text-[20px] leading-tight text-[var(--cera-ink)]">
                   {t('bundleBuilder.yourBundle')}
                 </h3>
                 <button
                   onClick={() => setShowMobileSummary(false)}
-                  className="p-2 rounded-full hover:bg-gray-100 transition-colors"
+                  className="p-2 rounded-full hover:bg-[var(--cera-cream-deep)] transition-colors"
                 >
-                  <X className="w-5 h-5 text-gray-500" />
+                  <X className="w-5 h-5 text-[var(--cera-muted)]" />
                 </button>
               </div>
               
@@ -1127,9 +1130,9 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 {/* Close Button */}
                 <button
                   onClick={() => setDetailProduct(null)}
-                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-[var(--cera-cream-deep)] hover:bg-[var(--cera-cream-deep)] transition-colors"
                 >
-                  <X className="w-5 h-5 text-gray-500" />
+                  <X className="w-5 h-5 text-[var(--cera-muted)]" />
                 </button>
                 
                 {/* Content */}
@@ -1143,7 +1146,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     return (
                       <div className="flex flex-col h-full">
                         {/* Product Image */}
-                        <div className="relative w-[250px] h-[250px] bg-white rounded-2xl overflow-hidden mx-auto mb-4 border border-gray-100">
+                        <div className="relative w-[250px] h-[250px] bg-white rounded-2xl overflow-hidden mx-auto mb-4 border border-[var(--cera-line)]">
                           <Image
                             src={detailProduct.image}
                             alt={detailProduct.name}
@@ -1152,17 +1155,17 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                             sizes="250px"
                           />
                           {isProductSelected && (
-                            <div className="absolute top-3 right-3 bg-gray-900 text-white rounded-full p-1.5">
+                            <div className="absolute top-3 right-3 bg-[var(--cera-ink)] text-white rounded-full p-1.5">
                               <Check className="w-4 h-4" />
                             </div>
                           )}
                         </div>
                         
                         {detailProduct.size && (
-                          <p className="text-sm text-gray-500 text-center mb-2">{detailProduct.size}</p>
+                          <p className="text-sm text-[var(--cera-muted)] text-center mb-2">{detailProduct.size}</p>
                         )}
                         
-                        <h3 className="text-xl font-semibold text-gray-900 mb-2 text-center">
+                        <h3 className="cera-serif mb-2 text-center text-[22px] leading-tight text-[var(--cera-ink)]">
                           {detailProduct.name}
                         </h3>
                         
@@ -1173,7 +1176,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                               {bundleDiscountForItem}% {t('bundleBuilder.discount')}
                             </span>
                             {!isProductSelected && currentItemCount >= 1 && (
-                              <span className="text-xs text-gray-400">
+                              <span className="text-xs text-[var(--cera-muted)]">
                                 {locale === 'ru' ? 'при добавлении' : locale === 'ar' ? 'عند الإضافة' : 'when added'}
                               </span>
                             )}
@@ -1182,7 +1185,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                         
                         {getLocalizedDescription(detailProduct, locale) && (
                           <div className="mb-4 flex-1 overflow-y-auto">
-                            <p className="text-sm text-gray-600 leading-relaxed">
+                            <p className="text-sm text-[var(--cera-body)] leading-relaxed">
                               {getLocalizedDescription(detailProduct, locale)}
                             </p>
                           </div>
@@ -1191,17 +1194,17 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                         <div className="mb-4 text-center">
                           {showPrices ? (
                             <div className="flex flex-col items-center">
-                              <span className="text-2xl font-bold text-gray-900">
+                              <span className="text-2xl font-bold text-[var(--cera-ink)]">
                                 {getBundleRetailPrice(detailProduct).toFixed(2)} {t('common.aed')}
                               </span>
-                              <span className="text-xs text-gray-400 mt-1">5% {t('product.vatIncluded')}</span>
+                              <span className="text-xs text-[var(--cera-muted)] mt-1">5% {t('product.vatIncluded')}</span>
                             </div>
                           ) : (
-                            <span className="text-sm text-gray-500">{t('product.loginToSeePrice')}</span>
+                            <span className="text-sm text-[var(--cera-muted)]">{t('product.loginToSeePrice')}</span>
                           )}
                         </div>
                         
-                        <div className="flex flex-col gap-2 pt-4 border-t border-gray-100">
+                        <div className="flex flex-col gap-2 pt-4 border-t border-[var(--cera-line)]">
                           <button
                             onClick={() => {
                               handleProductSelect(detailProduct)
@@ -1210,8 +1213,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                             className={`
                               w-full py-3.5 rounded-xl font-medium text-sm transition-all hover:scale-[1.02] active:scale-[0.98]
                               ${isProductSelected
-                                ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                : 'bg-gray-900 text-white hover:bg-gray-800'
+                                ? 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)]'
+                                : 'bg-[var(--cera-ink)] text-white hover:bg-[var(--cera-rose-ink)]'
                               }
                             `}
                           >
@@ -1229,7 +1232,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                           </button>
                           <button
                             onClick={() => setDetailProduct(null)}
-                            className="w-full py-2.5 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                            className="w-full py-2.5 text-sm text-[var(--cera-muted)] hover:text-[var(--cera-body)] transition-colors"
                           >
                             {t('bundleBuilder.continueBrowsing')}
                           </button>
@@ -1261,7 +1264,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             return (
               <div className="flex flex-col h-full">
                 {/* Product Image */}
-                <div className="relative w-[200px] h-[200px] bg-white rounded-2xl overflow-hidden mx-auto border border-gray-100">
+                <div className="relative w-[200px] h-[200px] bg-white rounded-2xl overflow-hidden mx-auto border border-[var(--cera-line)]">
                   <Image
                     src={detailProduct.image}
                     alt={detailProduct.name}
@@ -1271,7 +1274,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   />
                   {/* Selected Badge */}
                   {isProductSelected && (
-                    <div className="absolute top-3 right-3 bg-gray-900 text-white rounded-full p-1.5">
+                    <div className="absolute top-3 right-3 bg-[var(--cera-ink)] text-white rounded-full p-1.5">
                       <Check className="w-4 h-4" />
                     </div>
                   )}
@@ -1279,13 +1282,13 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 
                 {/* Product Size - Under Image */}
                 {detailProduct.size && (
-                  <p className="text-xs text-gray-500 text-center mt-2 mb-2">
+                  <p className="text-xs text-[var(--cera-muted)] text-center mt-2 mb-2">
                     {detailProduct.size}
                   </p>
                 )}
                 
                 {/* Product Name */}
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                <h3 className="cera-serif mb-1 text-[20px] leading-tight text-[var(--cera-ink)]">
                   {detailProduct.name}
                 </h3>
                 
@@ -1297,7 +1300,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                       {bundleDiscountForItem}% {t('bundleBuilder.discount')}
                     </span>
                     {!isProductSelected && currentItemCount >= 1 && (
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-[var(--cera-muted)]">
                         {locale === 'ru' ? 'при добавлении' : locale === 'ar' ? 'عند الإضافة' : 'when added'}
                       </span>
                     )}
@@ -1307,7 +1310,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 {/* Full Description */}
                 {getLocalizedDescription(detailProduct, locale) && (
                   <div className="mb-4 flex-1 overflow-y-auto">
-                    <p className="text-sm text-gray-600 leading-relaxed">
+                    <p className="text-sm text-[var(--cera-body)] leading-relaxed">
                       {getLocalizedDescription(detailProduct, locale)}
                     </p>
                   </div>
@@ -1317,22 +1320,22 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 <div className="mb-4">
                   {showPrices ? (
                     <div className="flex flex-col">
-                      <span className="text-xl font-bold text-gray-900">
+                      <span className="text-xl font-bold text-[var(--cera-ink)]">
                         {getBundleRetailPrice(detailProduct).toFixed(2)} {t('common.aed')}
                       </span>
-                      <span className="text-xs text-gray-400 mt-0.5">
+                      <span className="text-xs text-[var(--cera-muted)] mt-0.5">
                         5% {t('product.vatIncluded')}
                       </span>
                     </div>
                   ) : (
-                    <span className="text-sm text-gray-500">
+                    <span className="text-sm text-[var(--cera-muted)]">
                       {t('product.loginToSeePrice')}
                     </span>
                   )}
                 </div>
                 
                 {/* Action Buttons */}
-                <div className="flex flex-col gap-2 mt-auto pt-4 border-t border-gray-100">
+                <div className="flex flex-col gap-2 mt-auto pt-4 border-t border-[var(--cera-line)]">
                   <button
                     onClick={() => {
                       handleProductSelect(detailProduct)
@@ -1341,8 +1344,8 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     className={`
                       w-full py-3.5 rounded-xl font-medium text-sm transition-all active:scale-[0.98]
                       ${isProductSelected
-                        ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        : 'bg-gray-900 text-white hover:bg-gray-800'
+                        ? 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)]'
+                        : 'bg-[var(--cera-ink)] text-white hover:bg-[var(--cera-rose-ink)]'
                       }
                     `}
                   >
@@ -1360,7 +1363,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   </button>
                   <button
                     onClick={() => setDetailProduct(null)}
-                    className="w-full py-2.5 text-sm text-gray-500 hover:text-gray-700 transition-colors"
+                    className="w-full py-2.5 text-sm text-[var(--cera-muted)] hover:text-[var(--cera-body)] transition-colors"
                   >
                     {t('bundleBuilder.continueBrowsing')}
                   </button>
@@ -1382,13 +1385,13 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             exit={{ opacity: 0, y: 20 }}
             className="fixed bottom-24 left-4 right-4 z-40 mx-auto max-w-sm"
           >
-            <div className="bg-gray-900 text-white rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3">
+            <div className="bg-[var(--cera-ink)] text-white rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3">
               <div className="flex-shrink-0 bg-white/20 rounded-full p-2">
                 <Info className="w-4 h-4" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-medium">{t('bundleBuilder.doubleTapHint')}</p>
-                <p className="text-xs text-gray-300 mt-0.5">{t('bundleBuilder.tapToViewDetails')}</p>
+                <p className="text-xs text-[var(--cera-blush-deep)] mt-0.5">{t('bundleBuilder.tapToViewDetails')}</p>
               </div>
               <button
                 onClick={() => {

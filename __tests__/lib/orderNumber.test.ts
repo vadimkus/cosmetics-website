@@ -108,18 +108,31 @@ describe('orderNumber', () => {
 
     describe('uniqueness', () => {
       it('generates unique order numbers on subsequent calls', async () => {
+        // This test used to fail about one run in fifty. The suffix is four digits, so twenty
+        // draws from 10,000 values collide 1.88% of the time by the birthday problem — and the
+        // default mock returns null for every lookup, which switches off the retry loop that
+        // actually guarantees uniqueness. The assertion was left to the dice.
+        //
+        // Standing in a fake unique index instead means a repeat is reported the way Postgres
+        // would report it, the generator retries, and twenty calls yield twenty distinct
+        // numbers. That also makes this exercise the real mechanism rather than the RNG.
+        const issued = new Set<string>()
+        mockFindUnique.mockImplementation((async (args: { where: { orderNumber: string } }) =>
+          issued.has(args.where.orderNumber) ? { id: 'existing-order' } : null
+        ) as never)
+
         const numbers = new Set<string>()
-        
+
         for (let i = 0; i < 20; i++) {
           const orderNumber = await generateUniqueOrderNumber({
             channel: 'M',
             payment: 'COD',
             date: new Date('2025-12-16')
           })
+          issued.add(orderNumber)
           numbers.add(orderNumber)
         }
-        
-        // All 20 should be unique (with high probability)
+
         expect(numbers.size).toBe(20)
       })
 

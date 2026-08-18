@@ -9,7 +9,8 @@ import type { Messages } from '@/types/translations'
 
 const optionSheetKeys = [
   'product.chooseOptions',
-  'accessibility.required',
+  'product.selectSizeRequired',
+  'product.selectColorRequired',
   'product.size',
   'product.color',
   'product.quantity',
@@ -38,7 +39,8 @@ const localeMessages = {
 const coreLabels = {
   en: {
     'product.chooseOptions': 'Choose options',
-    'accessibility.required': 'Required field',
+    'product.selectSizeRequired': 'Select size',
+    'product.selectColorRequired': 'Select color',
     'product.size': 'Size',
     'product.color': 'Color',
     'product.quantity': 'Quantity',
@@ -47,7 +49,8 @@ const coreLabels = {
   },
   ru: {
     'product.chooseOptions': 'Выбрать вариант',
-    'accessibility.required': 'Обязательное поле',
+    'product.selectSizeRequired': 'Выберите размер',
+    'product.selectColorRequired': 'Выберите цвет',
     'product.size': 'Размер',
     'product.color': 'Цвет',
     'product.quantity': 'Количество',
@@ -56,7 +59,8 @@ const coreLabels = {
   },
   ar: {
     'product.chooseOptions': 'اختر الخيارات',
-    'accessibility.required': 'حقل مطلوب',
+    'product.selectSizeRequired': 'اختر الحجم',
+    'product.selectColorRequired': 'اختر اللون',
     'product.size': 'الحجم',
     'product.color': 'اللون',
     'product.quantity': 'الكمية',

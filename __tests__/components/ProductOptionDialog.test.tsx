@@ -17,7 +17,8 @@ const labelsByLocale = {
     refreshing: 'Checking current options…',
     refreshError: 'We could not refresh these options. Retry to check the latest availability.',
     unavailable: 'Unavailable',
-    required: 'Required field',
+    selectSizeRequired: 'Select size',
+    selectColorRequired: 'Select color',
     tryAgain: 'Try Again',
     off: 'OFF',
     adding: 'Adding...',
@@ -38,7 +39,8 @@ const labelsByLocale = {
     refreshing: 'Проверяем доступные варианты…',
     refreshError: 'Не удалось обновить варианты. Повторите попытку, чтобы проверить наличие.',
     unavailable: 'Нет в наличии',
-    required: 'Обязательное поле',
+    selectSizeRequired: 'Выберите размер',
+    selectColorRequired: 'Выберите цвет',
     tryAgain: 'Попробовать снова',
     off: 'СКИДКА',
     adding: 'Добавление...',
@@ -59,7 +61,8 @@ const labelsByLocale = {
     refreshing: 'جارٍ التحقق من الخيارات الحالية…',
     refreshError: 'تعذر تحديث الخيارات. حاول مرة أخرى للتحقق من أحدث توفر.',
     unavailable: 'غير متوفر',
-    required: 'حقل مطلوب',
+    selectSizeRequired: 'اختر الحجم',
+    selectColorRequired: 'اختر اللون',
     tryAgain: 'حاول مرة أخرى',
     off: 'خصم',
     adding: 'جاري الإضافة...',
@@ -91,7 +94,8 @@ const mockTranslate = (key: string) => {
     'product.decreaseQuantity': labels.decrease,
     'product.increaseQuantity': labels.increase,
     'common.cancel': labels.cancel,
-    'accessibility.required': labels.required,
+    'product.selectSizeRequired': labels.selectSizeRequired,
+    'product.selectColorRequired': labels.selectColorRequired,
     'common.tryAgain': labels.tryAgain,
   }
   return translations[key] || key
@@ -123,7 +127,7 @@ const cerabarrier: Product = {
   nameRu: 'Гель для умывания CERABARRIER',
   nameAr: 'جل التنظيف سيرابارير',
   description: 'Test',
-  image: '/images/cera/main2.jpeg',
+  image: '/images/cera/main3.jpeg',
   category: 'Cleanser',
   price: 380,
   inStock: true,
@@ -241,7 +245,7 @@ describe('ProductOptionDialog', () => {
     const labels = labelsByLocale[locale as keyof typeof labelsByLocale]
     expect(screen.getByText(labels.choose)).toBeInTheDocument()
     expect(screen.getByText(labels.quantity)).toBeInTheDocument()
-    expect(screen.getByText(labels.required)).toBeInTheDocument()
+    expect(screen.getByText(labels.selectSizeRequired)).toBeInTheDocument()
     expect(screen.getByTestId('product-option-overlay')).toHaveAttribute('dir', direction)
     expect(screen.getByRole('dialog').textContent).not.toMatch(
       /\b(?:common|product|accessibility)\.[A-Za-z][\w.-]*\b/i,

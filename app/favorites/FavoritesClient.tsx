@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowLeft, ArrowRight, Heart, LogIn } from 'lucide-react'
+import { ArrowRight, Heart, LogIn } from 'lucide-react'
 import { useFavorites } from '@/components/FavoritesProvider'
 import ProductCard from '@/components/ProductCard'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
@@ -76,8 +76,10 @@ export default function FavoritesClient({ embedded = false }: FavoritesClientPro
   }, [isClient, isPWA, prefersReducedMotion])
 
   if (favorites.length === 0) {
+    // min-h on desktop too: the empty state is short, and without it the cream stops
+    // mid-page and a band of body white shows between the content and the footer.
     return (
-      <div className={`cera-page genosys-page ${ceraSerif.variable} ${isAppLikeMode ? 'min-h-[100dvh] pb-32' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} ${isAppLikeMode ? 'min-h-[100dvh] pb-32' : 'min-h-[72vh]'}`} dir={dir}>
         {/* PWA/Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
           <div className={`flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -125,97 +127,94 @@ export default function FavoritesClient({ embedded = false }: FavoritesClientPro
           />
         )}
 
-      <div className={embedded ? 'py-0' : 'container mx-auto px-3 py-4 md:px-4 md:py-16'}>
-          {/* Back to Home - Hide in PWA/Mobile Web */}
-          {!isAppLikeMode && !embedded && (
-            <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose)] mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-              <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-              <span>{t('common.backToHome')}</span>
-            </Link>
-          )}
-
-          <div className="max-w-md mx-auto text-center pt-4 pb-6 md:py-12">
-            <div className="bg-white rounded-xl px-4 pt-2 pb-6 md:p-8">
-              {/* Uni — gently floating. Animations respect animation store,
-                  PWA mode, AND prefers-reduced-motion. */}
-              <div className="mb-3 md:mb-5 relative">
-                <motion.div
-                  animate={shouldAnimate ? {
-                    y: [0, -8, 0],
-                    scale: [1, 1.02, 1],
-                    rotate: [0, 1, -1, 0]
-                  } : {}}
-                  transition={shouldAnimate ? {
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    times: [0, 0.5, 1]
-                  } : {}}
-                  className="mx-auto"
-                >
-                  <Image
-                    src="/images/avatar/uni.png"
-                    alt=""
-                    aria-hidden="true"
-                    width={180}
-                    height={180}
-                    className="mx-auto"
-                  />
-                </motion.div>
-
-                {shouldAnimate && (
-                  <>
-                    <motion.div
-                      className="absolute top-4 right-4 w-2 h-2 bg-[var(--cera-rose)] rounded-full opacity-60"
-                      animate={{ y: [0, -20, 0], x: [0, 10, 0], opacity: [0.6, 1, 0.6] }}
-                      transition={{ duration: 3, repeat: Infinity, delay: 0.5, ease: "easeInOut" }}
-                    />
-                    <motion.div
-                      className="absolute top-8 left-6 w-1.5 h-1.5 bg-[var(--cera-blush-deep)] rounded-full opacity-50"
-                      animate={{ y: [0, -15, 0], x: [0, -8, 0], opacity: [0.5, 0.8, 0.5] }}
-                      transition={{ duration: 2.5, repeat: Infinity, delay: 1, ease: "easeInOut" }}
-                    />
-                    <motion.div
-                      className="absolute bottom-6 right-8 w-1 h-1 bg-[var(--cera-rose)] rounded-full opacity-70"
-                      animate={{ y: [0, -12, 0], x: [0, 6, 0], opacity: [0.7, 1, 0.7] }}
-                      transition={{ duration: 2.8, repeat: Infinity, delay: 1.5, ease: "easeInOut" }}
-                    />
-                  </>
-                )}
-              </div>
-
-              <h1 className="cera-serif mb-1.5 text-[24px] leading-tight text-[var(--cera-ink)] md:mb-2 md:text-[34px]">
-                {t('favorites.heroTitle') || 'Save What You Love'}
-              </h1>
-              <p className="text-sm md:text-base text-[var(--cera-body)] mb-5 md:mb-6 leading-relaxed px-2">
-                {t('favorites.heroSubtitle') || 'Tap the heart on any product to keep it close.'}
-              </p>
-
-              <Link
-                href={getLocalizedPath('/products', locale)}
-                className={`inline-flex items-center gap-2 bg-[var(--cera-rose)] text-white px-6 py-3 md:px-7 md:py-3 rounded-xl text-sm md:text-base font-semibold shadow-sm hover:bg-[var(--cera-rose-ink)] active:scale-[0.98] transition-all ${isRTL ? 'flex-row-reverse' : ''}`}
+      {/* No "Back to Home" link here. The breadcrumb above already carries Home, and two
+          controls to the same destination stacked on top of each other is noise. */}
+      <div className={embedded ? 'py-0' : 'container mx-auto px-4 pb-16 pt-2 md:pb-24 md:pt-6'}>
+          <div className="mx-auto max-w-[560px] text-center">
+            {/* Uni — gently floating, and now on a transparent ground so she sits on the
+                page instead of on a white card. Animations respect the animation store,
+                PWA mode AND prefers-reduced-motion. */}
+            <div className="relative mx-auto w-full max-w-[300px] md:max-w-[380px]">
+              <motion.div
+                animate={shouldAnimate ? {
+                  y: [0, -8, 0],
+                  scale: [1, 1.02, 1],
+                  rotate: [0, 1, -1, 0]
+                } : {}}
+                transition={shouldAnimate ? {
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  times: [0, 0.5, 1]
+                } : {}}
+                className="mx-auto"
               >
-                <span>{t('favorites.browseProducts') || 'Browse Products'}</span>
-                <ArrowRight className={`h-4 w-4 md:h-5 md:w-5 ${isRTL ? 'rotate-180' : ''}`} />
-              </Link>
+                <Image
+                  src="/images/avatar/uni-transparent.png"
+                  alt=""
+                  aria-hidden="true"
+                  width={1420}
+                  height={1277}
+                  className="mx-auto h-auto w-full"
+                  priority
+                />
+              </motion.div>
 
-              {/* Login nudge — only when logged out. Favorites live locally
-                  for guests; signing in syncs them across devices. */}
-              {!user && (
-                <div className={`mt-5 md:mt-6 flex items-center justify-center gap-2 text-xs md:text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span className="text-[var(--cera-muted)]">{t('favorites.signInToSync')}</span>
-                  <Link
-                    href={`${getLocalizedPath('/login', locale)}?redirect=${encodeURIComponent(getLocalizedPath('/favorites', locale))}`}
-                    className={`inline-flex items-center gap-1 font-semibold text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose)] transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
-                  >
-                    <LogIn className="h-3.5 w-3.5" />
-                    <span>{t('favorites.signIn')}</span>
-                  </Link>
-                </div>
+              {shouldAnimate && (
+                <>
+                  <motion.div
+                    className="absolute top-4 right-4 w-2 h-2 bg-[var(--cera-rose)] rounded-full opacity-60"
+                    animate={{ y: [0, -20, 0], x: [0, 10, 0], opacity: [0.6, 1, 0.6] }}
+                    transition={{ duration: 3, repeat: Infinity, delay: 0.5, ease: "easeInOut" }}
+                  />
+                  <motion.div
+                    className="absolute top-8 left-6 w-1.5 h-1.5 bg-[var(--cera-blush-deep)] rounded-full opacity-50"
+                    animate={{ y: [0, -15, 0], x: [0, -8, 0], opacity: [0.5, 0.8, 0.5] }}
+                    transition={{ duration: 2.5, repeat: Infinity, delay: 1, ease: "easeInOut" }}
+                  />
+                  <motion.div
+                    className="absolute bottom-6 right-8 w-1 h-1 bg-[var(--cera-rose)] rounded-full opacity-70"
+                    animate={{ y: [0, -12, 0], x: [0, 6, 0], opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 2.8, repeat: Infinity, delay: 1.5, ease: "easeInOut" }}
+                  />
+                </>
               )}
             </div>
-          </div>
 
+            <p className="cera-eyebrow mt-6 md:mt-8">{t('common.favorites') || 'Favorites'}</p>
+            <h1 className="cera-serif mt-3 text-[30px] leading-[1.1] text-[var(--cera-ink)] sm:text-[38px] md:text-[46px]">
+              {t('favorites.heroTitle') || 'Save What You Love'}
+            </h1>
+            <p className="mx-auto mt-4 max-w-[42ch] text-[15px] leading-relaxed text-[var(--cera-body)] md:text-base">
+              {t('favorites.heroSubtitle') || 'Tap the heart on any product to keep it close.'}
+            </p>
+
+            <div className={`mt-8 flex flex-wrap items-center justify-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <Link
+                href={getLocalizedPath('/products', locale)}
+                className={`ed-cta h-[52px] px-7 text-[15px] ${isRTL ? 'flex-row-reverse' : ''}`}
+              >
+                <span>{t('favorites.browseProducts') || 'Browse Products'}</span>
+                <ArrowRight className={`h-[18px] w-[18px] ${isRTL ? 'rotate-180' : ''}`} />
+              </Link>
+
+              {/* Favourites live in local storage for guests, so signing in is the only
+                  way they survive a new device. Offered, not demanded. */}
+              {!user && (
+                <Link
+                  href={`${getLocalizedPath('/login', locale)}?redirect=${encodeURIComponent(getLocalizedPath('/favorites', locale))}`}
+                  className={`ed-ghost h-[52px] px-6 text-[15px] ${isRTL ? 'flex-row-reverse' : ''}`}
+                >
+                  <LogIn className="h-[17px] w-[17px]" />
+                  <span>{t('favorites.signIn')}</span>
+                </Link>
+              )}
+            </div>
+
+            {!user && (
+              <p className="mt-4 text-[13px] text-[var(--cera-muted)]">{t('favorites.signInToSync')}</p>
+            )}
+          </div>
         </div>
       </div>
     )
@@ -259,15 +258,8 @@ export default function FavoritesClient({ embedded = false }: FavoritesClientPro
         </div>
       )}
       
+      {/* No "Back to Home" link: the breadcrumb above already carries Home. */}
       <div className={embedded ? 'py-0' : 'container mx-auto px-3 py-4 md:px-4 md:py-16'}>
-        {/* Back to Home - Hide in PWA/Mobile Web */}
-        {!isAppLikeMode && !embedded && (
-          <Link href={getLocalizedPath('/', locale)} className={`inline-flex items-center gap-1 text-xs md:text-sm text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose)] mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-            <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-            <span>{t('common.backToHome')}</span>
-          </Link>
-        )}
-
         <div className="max-w-6xl mx-auto">
           {/* PWA/Mobile Web Title Section */}
           {isAppLikeMode && (
@@ -310,62 +302,38 @@ export default function FavoritesClient({ embedded = false }: FavoritesClientPro
             ))}
           </div>
         ) : (
-          <div className="max-w-md mx-auto text-center py-6 md:py-16">
-            <div className="bg-[var(--cera-cream-deep)] rounded-xl p-4 md:p-8">
-              {/* Mobile: Custom image, Desktop: Heart icon */}
-              <div className="md:hidden mb-2 relative">
-                <motion.div
-                  animate={shouldAnimate ? {
-                    rotate: [0, 5, -5, 0],
-                    scale: [1, 1.1, 1]
-                  } : {}}
-                  transition={shouldAnimate ? {
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  } : {}}
-                  className="mx-auto relative"
-                >
-                  <Image
-                    src="/images/avatar/uni.png"
-                    alt="No products"
-                    width={60}
-                    height={60}
-                    className="mx-auto"
-                  />
-                  
-                  {/* Small sparkle effect */}
-                  {shouldAnimate && (
-                    <motion.div
-                      className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full"
-                      animate={{
-                        scale: [0, 1, 0],
-                        rotate: [0, 180, 360],
-                        opacity: [0, 1, 0]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        delay: 1,
-                        ease: "easeInOut"
-                      }}
-                    />
-                  )}
-                </motion.div>
-              </div>
-              <Heart className="hidden md:block h-16 w-16 text-[var(--cera-blush-deep)] mx-auto mb-4" />
-              <h2 className="text-base md:text-2xl font-bold text-[var(--cera-ink)] mb-1 md:mb-3">{t('favorites.noProductsFound')}</h2>
-              <p className="text-[11px] md:text-sm text-[var(--cera-muted)] mb-3 md:mb-6 leading-relaxed">
-                {t('favorites.productsMayNoLongerBeAvailable')}
-              </p>
-              <Link
-                href={getLocalizedPath('/products', locale)}
-                className={`inline-flex items-center gap-2 bg-[var(--cera-rose)] text-white px-5 md:px-6 py-2.5 md:py-3 rounded-xl text-sm md:text-base font-semibold shadow-sm hover:bg-[var(--cera-rose-ink)] active:scale-[0.98] transition-all ${isRTL ? 'flex-row-reverse' : ''}`}
-              >
-                <span>{t('favorites.browseProducts') || 'Browse Products'}</span>
-                <ArrowRight className={`h-4 w-4 md:h-5 md:w-5 ${isRTL ? 'rotate-180' : ''}`} />
-              </Link>
-            </div>
+          /* Reached when every saved product has since been delisted, so the count is
+             non-zero but nothing resolves. Same editorial treatment as the empty state
+             above, one size down. */
+          <div className="mx-auto max-w-[520px] py-10 text-center md:py-16">
+            <motion.div
+              animate={shouldAnimate ? { y: [0, -6, 0], rotate: [0, 1, -1, 0] } : {}}
+              transition={shouldAnimate ? { duration: 4, repeat: Infinity, ease: 'easeInOut' } : {}}
+              className="mx-auto w-full max-w-[220px]"
+            >
+              <Image
+                src="/images/avatar/uni-transparent.png"
+                alt=""
+                aria-hidden="true"
+                width={1420}
+                height={1277}
+                className="mx-auto h-auto w-full"
+              />
+            </motion.div>
+
+            <h2 className="cera-serif mt-5 text-[24px] leading-tight text-[var(--cera-ink)] md:text-[32px]">
+              {t('favorites.noProductsFound')}
+            </h2>
+            <p className="mx-auto mt-3 max-w-[40ch] text-sm leading-relaxed text-[var(--cera-muted)] md:text-[15px]">
+              {t('favorites.productsMayNoLongerBeAvailable')}
+            </p>
+            <Link
+              href={getLocalizedPath('/products', locale)}
+              className={`ed-cta mt-6 h-[48px] px-6 text-[15px] ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <span>{t('favorites.browseProducts') || 'Browse Products'}</span>
+              <ArrowRight className={`h-[18px] w-[18px] ${isRTL ? 'rotate-180' : ''}`} />
+            </Link>
           </div>
         )}
         </div>

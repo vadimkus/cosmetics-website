@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import { ArrowLeft, Mail, Phone, MapPin, Clock, ArrowUp } from 'lucide-react'
+import { ArrowLeft, Mail, Phone, MapPin, Clock } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
@@ -35,7 +35,6 @@ export default function TermsClient() {
   const fromProfile = searchParams?.get('from') === 'profile'
   const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'
   const [isMobileWeb, setIsMobileWeb] = useState(false)
-  const [showBackToTop, setShowBackToTop] = useState(false)
 
   // Detect mobile web (non-PWA mobile). Mirrors Privacy Policy / FAQ detection.
   useEffect(() => {
@@ -47,13 +46,6 @@ export default function TermsClient() {
     window.addEventListener('resize', checkMobileWeb)
     return () => window.removeEventListener('resize', checkMobileWeb)
   }, [isPWA])
-
-  // Back-to-top visibility on long scroll — same threshold as Privacy Policy.
-  useEffect(() => {
-    const onScroll = () => setShowBackToTop(window.scrollY > 600)
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
 
   const isAppLikeMode = (isClient && isPWA) || isMobileWeb
 
@@ -336,17 +328,6 @@ export default function TermsClient() {
           </div>
         </div>
 
-        {/* Floating back-to-top — only after the user has scrolled through the
-            long document (>600px). Sits above the footer nav (bottom-24). */}
-        {showBackToTop && (
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            aria-label={locale === 'ar' ? 'العودة إلى الأعلى' : locale === 'ru' ? 'Наверх' : 'Back to top'}
-            className={`fixed bottom-24 ${isRTL ? 'left-4' : 'right-4'} z-40 w-11 h-11 rounded-full bg-gray-900/90 text-white shadow-lg backdrop-blur flex items-center justify-center active:scale-95 transition-transform`}
-          >
-            <ArrowUp className="w-5 h-5" />
-          </button>
-        )}
       </div>
     )
   }

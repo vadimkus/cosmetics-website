@@ -62,6 +62,7 @@ import SkipToContent from '@/components/SkipToContent'
 import ChatWidgetLazy from '@/components/ChatWidgetLazy'
 import CookieConsentBanner from '@/components/CookieConsentBanner'
 import { getSiteUrl } from '@/lib/siteConfig'
+import ScrollToTop from '@/components/ScrollToTop'
 
 const inter = Inter({ 
   subsets: ['latin', 'latin-ext', 'cyrillic'],
@@ -355,6 +356,7 @@ export default async function RootLayout({
                       <SyncStatusIndicator />
                       <NetworkStatus />
                       <ChatWidgetLazy />
+        <ScrollToTop />
                       <CookieConsentBanner />
                     </ServiceWorkerProvider>
                   </CartProvider>

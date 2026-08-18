@@ -1258,6 +1258,13 @@ html[dir="rtl"] {
 }
 
 /* Mobile web footer navigation - sticky at bottom */
+/* Height of the mobile web tab bar, declared once so anything that has to sit above it
+   (the return-to-top control) tracks it instead of restating the number. 58px of content
+   plus whatever the home indicator needs. */
+:root {
+  --mobile-nav-height: calc(58px + env(safe-area-inset-bottom, 0px));
+}
+
 .mobile-web-footer-nav {
   position: -webkit-sticky;
   position: sticky;
@@ -1265,10 +1272,8 @@ html[dir="rtl"] {
   left: 0;
   right: 0;
   width: 100%;
-  /* 58px of content plus whatever the home indicator needs. The previous rule was a hard
-     80px with a flat 10px of bottom padding, which ignored the inset entirely. */
-  height: calc(58px + env(safe-area-inset-bottom, 0px));
-  min-height: calc(58px + env(safe-area-inset-bottom, 0px));
+  height: var(--mobile-nav-height);
+  min-height: var(--mobile-nav-height);
   padding-bottom: env(safe-area-inset-bottom, 0px);
   flex-shrink: 0;
   background-color: #faf8f7;

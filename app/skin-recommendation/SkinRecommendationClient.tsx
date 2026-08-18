@@ -661,7 +661,7 @@ export default function SkinRecommendationClient() {
       />
 
       {/* Unified sticky nav header — matches /profile stack + Privacy/Terms/About:
-          sticky top-0 z-20, bg-white/95 + backdrop-blur, border-b border-gray-200.
+          sticky top-0 z-20, bg-white/95 + backdrop-blur, border-b border-[var(--cera-line)].
           Stays visible so user can always back out or jump to profile. */}
       {isAppLikeMode && (
         <div className={`sticky top-0 z-20 bg-[var(--cera-cream)]/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -685,7 +685,7 @@ export default function SkinRecommendationClient() {
             aria-label="Profile"
           >
             <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-[var(--cera-blush-deep)]'}`}>
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
@@ -760,12 +760,12 @@ export default function SkinRecommendationClient() {
           {/* Main Results Card */}
           <div className="cera-card overflow-hidden mb-6">
             {/* Skin Type Header */}
-            <div className="bg-gradient-to-r from-primary-500 to-primary-600 px-4 sm:px-6 py-4 sm:py-5 text-white">
+            <div className="bg-[var(--cera-ink)] px-4 sm:px-6 py-4 sm:py-5 text-white">
               {/* Mobile: Stack vertically, Desktop: Row */}
               <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 ${dir === 'rtl' ? 'sm:flex-row-reverse' : ''}`}>
                 {/* Skin Type - Always on top/first */}
                 <div className={`${dir === 'rtl' ? 'text-right' : ''}`}>
-                  <p className="text-primary-100 text-xs sm:text-sm mb-1">
+                  <p className="text-white/70 text-xs sm:text-sm mb-1">
                     {locale === 'ar' ? 'نوع بشرتك' : locale === 'ru' ? 'Тип вашей кожи' : 'Your Skin Type'}
                   </p>
                   <p className="text-xl sm:text-2xl md:text-3xl font-bold leading-tight">
@@ -778,7 +778,7 @@ export default function SkinRecommendationClient() {
                   {/* Gender */}
                   {cameraResult.gender && cameraResult.gender !== 'unknown' && (
                     <div className={`${dir === 'rtl' ? 'text-right' : ''}`}>
-                      <p className="text-primary-100 text-xs sm:text-sm mb-0.5 sm:mb-1">
+                      <p className="text-white/70 text-xs sm:text-sm mb-0.5 sm:mb-1">
                         {locale === 'ar' ? 'الجنس' : locale === 'ru' ? 'Пол' : 'Gender'}
                       </p>
                       <p className={`text-lg sm:text-xl font-bold ${cameraResult.gender === 'male' ? 'text-blue-200' : 'text-pink-200'}`}>
@@ -791,7 +791,7 @@ export default function SkinRecommendationClient() {
                   )}
                   {/* Confidence */}
                   <div className={`${dir === 'rtl' ? 'text-right' : 'text-right'}`}>
-                    <p className="text-primary-100 text-xs sm:text-sm mb-0.5 sm:mb-1">
+                    <p className="text-white/70 text-xs sm:text-sm mb-0.5 sm:mb-1">
                       {locale === 'ar' ? 'الدقة' : locale === 'ru' ? 'Точность' : 'Confidence'}
                     </p>
                     <p className="text-lg sm:text-xl font-bold">{cameraResult.confidence}%</p>
@@ -802,7 +802,7 @@ export default function SkinRecommendationClient() {
 
             {/* Metrics Grid */}
             <div className="p-6">
-              <h3 className={`text-lg font-semibold text-gray-900 mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <h3 className={`text-lg font-semibold text-[var(--cera-ink)] mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
                 {locale === 'ar' ? 'مقاييس البشرة' : locale === 'ru' ? 'Показатели кожи' : 'Skin Metrics'}
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -896,7 +896,7 @@ export default function SkinRecommendationClient() {
             {(cameraResult.poreAnalysis || cameraResult.underEyeAnalysis || cameraResult.firmnessAnalysis || 
               cameraResult.sunDamageAnalysis || cameraResult.lipAnalysis || cameraResult.fitzpatrickType) && (
               <div className="px-6 pb-6">
-                <h3 className={`text-lg font-semibold text-gray-900 mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <h3 className={`text-lg font-semibold text-[var(--cera-ink)] mb-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   {locale === 'ar' ? 'التحليل المتقدم' : locale === 'ru' ? 'Расширенный анализ' : 'Advanced Analysis'}
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -1008,14 +1008,14 @@ export default function SkinRecommendationClient() {
             {/* Concerns */}
             {cameraResult.concerns.length > 0 && (
               <div className="px-6 pb-6">
-                <h3 className={`text-lg font-semibold text-gray-900 mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                <h3 className={`text-lg font-semibold text-[var(--cera-ink)] mb-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
                   {locale === 'ar' ? 'مخاوف البشرة المكتشفة' : locale === 'ru' ? 'Выявленные проблемы' : 'Detected Skin Concerns'}
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {cameraResult.concerns.map((concern) => (
                     <span 
                       key={concern}
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-100 text-primary-700 rounded-full text-sm font-medium"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--cera-blush)] text-[var(--cera-rose-ink)] rounded-full text-sm font-medium"
                     >
                       <CheckCircle2 className="w-4 h-4" />
                       {TARGET_CONCERNS.find(tc => tc.value === concern)?.label || concern}
@@ -1028,16 +1028,16 @@ export default function SkinRecommendationClient() {
 
           {/* AI Expert Analysis Section */}
           {capturedImage && !showAiAnalysis && (
-            <div className="mb-8 bg-gradient-to-br from-primary-50 to-red-100 rounded-2xl p-6 border border-primary-200">
+            <div className="mb-8 ed-panel rounded-2xl p-6 border border-[var(--cera-blush-deep)]">
               <div className={`flex items-start gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary-200">
+                <div className="w-14 h-14 rounded-2xl bg-[var(--cera-rose)] flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary-200">
                   <Brain className="w-7 h-7 text-white" />
                 </div>
                 <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  <h3 className="text-lg font-bold text-gray-900 mb-1">
+                  <h3 className="text-lg font-bold text-[var(--cera-ink)] mb-1">
                     {locale === 'ar' ? '🧬 تحليل خبير الذكاء الاصطناعي' : locale === 'ru' ? '🧬 Экспертный AI-анализ' : '🧬 AI Expert Analysis'}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-4">
+                  <p className="text-sm text-[var(--cera-body)] mb-4">
                     {locale === 'ar' 
                       ? 'احصل على تحليل احترافي للبشرة مع توصيات منتجات مخصصة من خبيرنا الذكي'
                       : locale === 'ru'
@@ -1047,7 +1047,7 @@ export default function SkinRecommendationClient() {
                   <button
                     onClick={handleAIExpertAnalysis}
                     disabled={aiAnalysisLoading}
-                    className={`inline-flex items-center gap-2 bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg shadow-primary-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-wait ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`inline-flex items-center gap-2 bg-[var(--cera-ink)] hover:bg-[var(--cera-rose-ink)] text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg shadow-primary-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-wait ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     {aiAnalysisLoading ? (
                       <>
@@ -1068,9 +1068,9 @@ export default function SkinRecommendationClient() {
 
           {/* AI Expert Analysis Results */}
           {showAiAnalysis && aiAnalysisResult && (
-            <div className="mb-8 bg-gradient-to-br from-primary-50 to-red-100 rounded-2xl overflow-hidden border border-primary-200">
+            <div className="mb-8 ed-panel rounded-2xl overflow-hidden border border-[var(--cera-blush-deep)]">
               {/* Header */}
-              <div className="bg-gradient-to-r from-primary-600 to-primary-700 px-6 py-4 text-white">
+              <div className="bg-[var(--cera-ink)] px-6 py-4 text-white">
                 <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <Brain className="w-6 h-6" />
@@ -1078,14 +1078,14 @@ export default function SkinRecommendationClient() {
                       <h3 className="font-bold text-lg">
                         {locale === 'ar' ? 'تحليل خبير الذكاء الاصطناعي' : locale === 'ru' ? 'Экспертный AI-анализ' : 'AI Expert Analysis'}
                       </h3>
-                      <p className="text-primary-100 text-sm">
+                      <p className="text-white/70 text-sm">
                         {locale === 'ar' ? 'تحليل احترافي لبشرتك' : locale === 'ru' ? 'Профессиональный анализ вашей кожи' : 'Professional analysis of your skin'}
                       </p>
                     </div>
                   </div>
                   {aiAnalysisResult.healthScore && (
                     <div className="text-center">
-                      <p className="text-primary-100 text-xs">
+                      <p className="text-white/70 text-xs">
                         {locale === 'ar' ? 'صحة البشرة' : locale === 'ru' ? 'Здоровье' : 'Health Score'}
                       </p>
                       <p className="text-2xl font-bold">{aiAnalysisResult.healthScore}/10</p>
@@ -1097,16 +1097,16 @@ export default function SkinRecommendationClient() {
               <div className="p-6">
                 {/* Analysis Text */}
                 <div className={`mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                  <h4 className="font-semibold text-gray-900 mb-2">
+                  <h4 className="font-semibold text-[var(--cera-ink)] mb-2">
                     {locale === 'ar' ? '📋 التحليل' : locale === 'ru' ? '📋 Анализ' : '📋 Analysis'}
                   </h4>
-                  <p className="text-gray-700 leading-relaxed">{aiAnalysisResult.analysis}</p>
+                  <p className="text-[var(--cera-body)] leading-relaxed">{aiAnalysisResult.analysis}</p>
                 </div>
 
                 {/* Concerns */}
                 {aiAnalysisResult.concerns && aiAnalysisResult.concerns.length > 0 && (
                   <div className={`mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <h4 className="font-semibold text-gray-900 mb-2">
+                    <h4 className="font-semibold text-[var(--cera-ink)] mb-2">
                       {locale === 'ar' ? '⚠️ المخاوف الرئيسية' : locale === 'ru' ? '⚠️ Основные проблемы' : '⚠️ Key Concerns'}
                     </h4>
                     <div className={`flex flex-wrap gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -1122,7 +1122,7 @@ export default function SkinRecommendationClient() {
                 {/* Product Recommendations */}
                 {aiAnalysisResult.recommendations && aiAnalysisResult.recommendations.length > 0 && (
                   <div className={`mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <h4 className="font-semibold text-gray-900 mb-3">
+                    <h4 className="font-semibold text-[var(--cera-ink)] mb-3">
                       {locale === 'ar' ? '✨ المنتجات الموصى بها' : locale === 'ru' ? '✨ Рекомендуемые продукты' : '✨ Recommended Products'}
                     </h4>
                     <div className="space-y-4">
@@ -1143,11 +1143,11 @@ export default function SkinRecommendationClient() {
                         const productDetails = productId ? aiProductDetails.get(productId) : null
                         
                         return (
-                          <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-sm border border-primary-100">
+                          <div key={idx} className="bg-white rounded-xl overflow-hidden shadow-sm border border-[var(--cera-blush-deep)]">
                             <div className={`flex ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                               {/* Product Image & Size */}
                               <div className="flex-shrink-0 flex flex-col">
-                                <div className="w-24 h-24 sm:w-28 sm:h-28 bg-gray-50">
+                                <div className="w-24 h-24 sm:w-28 sm:h-28 bg-[var(--cera-cream-deep)]">
                                   {productDetails?.image ? (
                                     <Image
                                       src={productDetails.image}
@@ -1157,15 +1157,15 @@ export default function SkinRecommendationClient() {
                                       className="w-full h-full object-cover"
                                     />
                                   ) : (
-                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-100 to-red-100">
-                                      <Sparkles className="w-8 h-8 text-primary-400" />
+                                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[var(--cera-blush)] to-red-100">
+                                      <Sparkles className="w-8 h-8 text-[var(--cera-blush-deep)]" />
                                     </div>
                                   )}
                                 </div>
                                 {/* Product Size */}
                                 {productDetails?.size && (
-                                  <div className="bg-gray-100 px-2 py-1 text-center">
-                                    <span className="text-xs text-gray-600">{productDetails.size}</span>
+                                  <div className="bg-[var(--cera-cream-deep)] px-2 py-1 text-center">
+                                    <span className="text-xs text-[var(--cera-body)]">{productDetails.size}</span>
                                   </div>
                                 )}
                               </div>
@@ -1176,12 +1176,12 @@ export default function SkinRecommendationClient() {
                                 {productUrl ? (
                                   <Link 
                                     href={productUrl}
-                                    className="font-semibold text-primary-700 hover:text-primary-900 hover:underline text-sm sm:text-base line-clamp-2"
+                                    className="font-semibold text-[var(--cera-rose-ink)] hover:text-[var(--cera-ink)] hover:underline text-sm sm:text-base line-clamp-2"
                                   >
                                     {productDetails?.name || productName}
                                   </Link>
                                 ) : (
-                                  <span className="font-semibold text-gray-900 text-sm sm:text-base line-clamp-2">
+                                  <span className="font-semibold text-[var(--cera-ink)] text-sm sm:text-base line-clamp-2">
                                     {productName}
                                   </span>
                                 )}
@@ -1191,24 +1191,24 @@ export default function SkinRecommendationClient() {
                                   const pricing = getPricingDisplay(productDetails as Product, user)
                                   return pricing.hasDiscount ? (
                                     <div className="flex items-baseline gap-1.5 mt-1">
-                                      <span className="text-primary-600 font-bold text-base sm:text-lg">
+                                      <span className="text-[var(--cera-rose-ink)] font-bold text-base sm:text-lg">
                                         AED {pricing.displayPrice.toFixed(0)}
                                       </span>
                                       {pricing.originalPrice ? (
-                                        <span className="text-gray-400 line-through text-xs">
+                                        <span className="text-[var(--cera-muted)] line-through text-xs">
                                           {pricing.originalPrice.toFixed(0)}
                                         </span>
                                       ) : null}
                                     </div>
                                   ) : (
-                                    <p className="text-primary-600 font-bold text-base sm:text-lg mt-1">
+                                    <p className="text-[var(--cera-rose-ink)] font-bold text-base sm:text-lg mt-1">
                                       AED {pricing.displayPrice.toFixed(0)}
                                     </p>
                                   )
                                 })()}
                                 
                                 {/* Reason */}
-                                <p className="text-xs sm:text-sm text-gray-600 mt-1 line-clamp-2">{rec.reason}</p>
+                                <p className="text-xs sm:text-sm text-[var(--cera-body)] mt-1 line-clamp-2">{rec.reason}</p>
                                 
                                 {/* Add to Bag Button */}
                                 {productId && productDetails && (
@@ -1217,7 +1217,7 @@ export default function SkinRecommendationClient() {
                                       addItem(productDetails, 1)
                                       alert(locale === 'ar' ? 'تمت الإضافة إلى السلة! 🛍️' : locale === 'ru' ? 'Добавлено в корзину! 🛍️' : 'Added to bag! 🛍️')
                                     }}
-                                    className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-600 hover:bg-primary-700 text-white text-xs font-medium rounded-lg transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                                    className={`mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[var(--cera-rose)] hover:bg-[var(--cera-rose-ink)] text-white text-xs font-medium rounded-lg transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                                   >
                                     <ShoppingBag className="w-3.5 h-3.5" />
                                     {locale === 'ar' ? 'أضف إلى السلة' : locale === 'ru' ? 'В корзину' : 'Add to Bag'}
@@ -1235,7 +1235,7 @@ export default function SkinRecommendationClient() {
                 {/* Daily Routine */}
                 {aiAnalysisResult.routine && (
                   <div className={`mb-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <h4 className="font-semibold text-gray-900 mb-3">
+                    <h4 className="font-semibold text-[var(--cera-ink)] mb-3">
                       {locale === 'ar' ? '🌅 روتينك اليومي' : locale === 'ru' ? '🌅 Ваш ежедневный уход' : '🌅 Your Daily Routine'}
                     </h4>
                     <div className="grid md:grid-cols-2 gap-4">
@@ -1258,7 +1258,7 @@ export default function SkinRecommendationClient() {
                                 <span className="flex-shrink-0 w-5 h-5 rounded-full bg-amber-200 text-amber-800 text-xs font-bold flex items-center justify-center">
                                   {idx + 1}
                                 </span>
-                                <span className="text-sm text-gray-700">{cleanStep}</span>
+                                <span className="text-sm text-[var(--cera-body)]">{cleanStep}</span>
                               </li>
                             )
                           })}
@@ -1283,7 +1283,7 @@ export default function SkinRecommendationClient() {
                                 <span className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-200 text-indigo-800 text-xs font-bold flex items-center justify-center">
                                   {idx + 1}
                                 </span>
-                                <span className="text-sm text-gray-700">{cleanStep}</span>
+                                <span className="text-sm text-[var(--cera-body)]">{cleanStep}</span>
                               </li>
                             )
                           })}
@@ -1296,12 +1296,12 @@ export default function SkinRecommendationClient() {
                 {/* Tips */}
                 {aiAnalysisResult.tips && aiAnalysisResult.tips.length > 0 && (
                   <div className={dir === 'rtl' ? 'text-right' : ''}>
-                    <h4 className="font-semibold text-gray-900 mb-2">
+                    <h4 className="font-semibold text-[var(--cera-ink)] mb-2">
                       {locale === 'ar' ? '💡 نصائح مخصصة' : locale === 'ru' ? '💡 Персональные советы' : '💡 Personalized Tips'}
                     </h4>
                     <ul className="space-y-2">
                       {aiAnalysisResult.tips.map((tip, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-sm text-gray-700">
+                        <li key={idx} className="flex items-start gap-2 text-sm text-[var(--cera-body)]">
                           <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
                           {tip}
                         </li>
@@ -1311,10 +1311,10 @@ export default function SkinRecommendationClient() {
                 )}
 
                 {/* Close AI Analysis */}
-                <div className="mt-6 pt-4 border-t border-primary-200 text-center">
+                <div className="mt-6 pt-4 border-t border-[var(--cera-blush-deep)] text-center">
                   <button
                     onClick={() => setShowAiAnalysis(false)}
-                    className="text-primary-600 hover:text-primary-800 font-medium text-sm"
+                    className="text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] font-medium text-sm"
                   >
                     {locale === 'ar' ? '← العودة إلى التقرير' : locale === 'ru' ? '← Назад к отчёту' : '← Back to Report'}
                   </button>
@@ -1384,7 +1384,7 @@ export default function SkinRecommendationClient() {
                         <span className={isAppLikeMode ? 'text-base' : 'text-xl'}>🦁</span>
                         {locale === 'ar' ? 'حيوان القوة' : locale === 'ru' ? 'Тотем' : 'Power Animal'}
                       </button>
-                      <p className={`text-gray-500 text-center ${isAppLikeMode ? 'mt-1.5 text-[10px] leading-tight line-clamp-2' : 'mt-2 text-xs leading-relaxed'}`}>
+                      <p className={`text-[var(--cera-muted)] text-center ${isAppLikeMode ? 'mt-1.5 text-[10px] leading-tight line-clamp-2' : 'mt-2 text-xs leading-relaxed'}`}>
                         {locale === 'ar'
                           ? 'اكتشف حيوانك الروحي مع روتين العناية المضحك!'
                           : locale === 'ru'
@@ -1401,7 +1401,7 @@ export default function SkinRecommendationClient() {
                         <Zap className={isAppLikeMode ? 'w-4 h-4' : 'w-5 h-5'} />
                         {locale === 'ar' ? 'تحليل AR' : locale === 'ru' ? 'AR Анализ' : 'Live AR'}
                       </button>
-                      <p className={`text-gray-500 text-center ${isAppLikeMode ? 'mt-1.5 text-[10px] leading-tight line-clamp-2' : 'mt-2 text-xs leading-relaxed'}`}>
+                      <p className={`text-[var(--cera-muted)] text-center ${isAppLikeMode ? 'mt-1.5 text-[10px] leading-tight line-clamp-2' : 'mt-2 text-xs leading-relaxed'}`}>
                         {locale === 'ar'
                           ? 'تحليل فوري للبشرة بالذكاء الاصطناعي في الوقت الفعلي'
                           : locale === 'ru'
@@ -1414,18 +1414,18 @@ export default function SkinRecommendationClient() {
                 
                 {/* Camera Analysis Result Banner */}
                 {cameraResult && (
-                  <div className={`mt-4 pt-4 border-t border-primary-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                    <div className={`flex items-center gap-2 text-sm text-primary-700 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <div className={`mt-4 pt-4 border-t border-[var(--cera-blush-deep)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <div className={`flex items-center gap-2 text-sm text-[var(--cera-rose-ink)] mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <CheckCircle2 className="w-4 h-4" />
                       <span className="font-medium">
                         {locale === 'ar' ? 'تم تحليل بشرتك' : locale === 'ru' ? 'Ваша кожа проанализирована' : 'Your skin has been analyzed'}
                       </span>
                     </div>
                     <div className={`flex items-center gap-3 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className="bg-white px-3 py-1.5 rounded-full text-sm font-medium text-gray-900 shadow-sm">
+                      <span className="bg-white px-3 py-1.5 rounded-full text-sm font-medium text-[var(--cera-ink)] shadow-sm">
                         {SKIN_TYPES.find(st => st.value === cameraResult.skinType)?.label}
                       </span>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-[var(--cera-muted)]">
                         {cameraResult.confidence}% {locale === 'ar' ? 'ثقة' : locale === 'ru' ? 'уверенность' : 'confidence'}
                       </span>
                     </div>
@@ -1647,7 +1647,7 @@ export default function SkinRecommendationClient() {
                   )}
                 </button>
                 {!selectedTargetConcerns.length && selectedSkinType && (
-                  <p className="text-xs md:text-sm text-gray-500 mt-3 md:mt-4 px-4">
+                  <p className="text-xs md:text-sm text-[var(--cera-muted)] mt-3 md:mt-4 px-4">
                     {t('skinRecommendation.tipSelectingConcerns')}
                   </p>
                 )}
@@ -1690,7 +1690,7 @@ export default function SkinRecommendationClient() {
                 ) : null
               })}
               {selectedTargetConcerns.length > 3 && (
-                <span className="text-sm text-gray-400">
+                <span className="text-sm text-[var(--cera-muted)]">
                   +{selectedTargetConcerns.length - 3} {locale === 'ar' ? 'أخرى' : locale === 'ru' ? 'ещё' : 'more'}
                 </span>
               )}
@@ -1775,8 +1775,8 @@ export default function SkinRecommendationClient() {
                                 <Heart
                                   className={`w-5 h-5 transition-colors ${
                                     isFavorite(product.id)
-                                      ? 'text-primary-600 fill-primary-600'
-                                      : 'text-gray-400 group-hover:text-gray-600'
+                                      ? 'text-[var(--cera-rose-ink)] fill-primary-600'
+                                      : 'text-[var(--cera-muted)] group-hover:text-[var(--cera-body)]'
                                   }`}
                                 />
                               </button>
@@ -1785,13 +1785,13 @@ export default function SkinRecommendationClient() {
                               {product.rating && product.rating >= 4.5 && (
                                 <div className={`absolute bottom-4 ${dir === 'rtl' ? 'right-4' : 'left-4'} flex items-center gap-1.5 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm`}>
                                   <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-                                  <span className="text-xs font-medium text-gray-900">{product.rating.toFixed(1)}</span>
+                                  <span className="text-xs font-medium text-[var(--cera-ink)]">{product.rating.toFixed(1)}</span>
                                 </div>
                               )}
                               
                               {/* Discount Badge */}
                               {pricing.hasDiscount && (
-                                <div className={`absolute top-4 ${dir === 'rtl' ? 'right-4' : 'left-4'} bg-primary-600 text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg`}>
+                                <div className={`absolute top-4 ${dir === 'rtl' ? 'right-4' : 'left-4'} bg-[var(--cera-rose)] text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg`}>
                                   {Math.round(pricing.discountPercentage)}% OFF
                                 </div>
                               )}
@@ -1821,7 +1821,7 @@ export default function SkinRecommendationClient() {
                                         AED {pricing.displayPrice.toFixed(0)}
                                       </span>
                                       {pricing.originalPrice ? (
-                                        <span className="text-sm text-gray-400 line-through">
+                                        <span className="text-sm text-[var(--cera-muted)] line-through">
                                           {pricing.originalPrice.toFixed(0)}
                                         </span>
                                       ) : null}
@@ -1833,14 +1833,14 @@ export default function SkinRecommendationClient() {
                                   )}
                                 </div>
                               ) : (
-                                <span className="text-sm text-gray-500">
+                                <span className="text-sm text-[var(--cera-muted)]">
                                   {locale === 'ar' ? 'سجل لعرض السعر' : locale === 'ru' ? 'Войдите для цены' : 'Sign in for price'}
                                 </span>
                               )}
                               
                               {/* Stock Indicator - Minimal */}
                               {!product.inStock && (
-                                <span className="text-xs font-medium text-gray-400">
+                                <span className="text-xs font-medium text-[var(--cera-muted)]">
                                   {locale === 'ar' ? 'غير متوفر' : locale === 'ru' ? 'Нет в наличии' : 'Out of stock'}
                                 </span>
                               )}
@@ -1888,11 +1888,11 @@ export default function SkinRecommendationClient() {
             </>
           ) : (
             <div className="text-center py-20">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gray-100 flex items-center justify-center">
-                <Sparkles className="w-10 h-10 text-gray-300" />
+              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-[var(--cera-cream-deep)] flex items-center justify-center">
+                <Sparkles className="w-10 h-10 text-[var(--cera-blush-deep)]" />
               </div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-3">{t('skinRecommendation.noProductsFound')}</h3>
-              <p className={`text-gray-500 mb-8 max-w-md mx-auto ${dir === 'rtl' ? 'text-right' : 'text-center'}`}>
+              <h3 className="text-2xl font-semibold text-[var(--cera-ink)] mb-3">{t('skinRecommendation.noProductsFound')}</h3>
+              <p className={`text-[var(--cera-muted)] mb-8 max-w-md mx-auto ${dir === 'rtl' ? 'text-right' : 'text-center'}`}>
                 {t('skinRecommendation.couldntFindProducts')}
               </p>
               <div className={`flex flex-col sm:flex-row gap-4 justify-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

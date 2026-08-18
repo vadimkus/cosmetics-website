@@ -662,9 +662,9 @@ export default function CheckoutClient() {
       <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] px-4 py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`} dir={dir}>
         <div className="max-w-4xl mx-auto text-center py-16">
           <div className="animate-pulse">
-            <div className="h-24 w-24 bg-gray-200 rounded-full mx-auto mb-4" />
-            <div className="h-8 bg-gray-200 rounded w-48 mx-auto mb-4" />
-            <div className="h-4 bg-gray-200 rounded w-64 mx-auto" />
+            <div className="h-24 w-24 bg-[var(--cera-cream-deep)] rounded-full mx-auto mb-4" />
+            <div className="h-8 bg-[var(--cera-cream-deep)] rounded w-48 mx-auto mb-4" />
+            <div className="h-4 bg-[var(--cera-cream-deep)] rounded w-64 mx-auto" />
           </div>
         </div>
       </div>
@@ -787,7 +787,7 @@ export default function CheckoutClient() {
                   </div>
                 </div>
                 <ChevronDown
-                  className={`w-5 h-5 text-gray-400 transition-transform duration-200 flex-shrink-0 ${orderSummaryExpanded ? 'rotate-180' : ''}`}
+                  className={`w-5 h-5 text-[var(--cera-muted)] transition-transform duration-200 flex-shrink-0 ${orderSummaryExpanded ? 'rotate-180' : ''}`}
                   aria-hidden="true"
                 />
               </div>
@@ -798,7 +798,7 @@ export default function CheckoutClient() {
               <div id="checkout-order-summary" className="rounded-b-2xl border border-t-0 border-[var(--cera-line)] bg-white p-4">
                 {/* Items with discount info */}
                 <div className="space-y-3 mb-4">
-                  <h4 className={`text-xs font-semibold text-gray-500 uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <h4 className={`text-xs font-semibold text-[var(--cera-muted)] uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {locale === 'ar' ? 'المنتجات' : locale === 'ru' ? 'Товары' : 'ITEMS'}:
                   </h4>
                   {items.map((item) => {
@@ -851,7 +851,7 @@ export default function CheckoutClient() {
                               <div className="text-sm font-semibold text-green-600">AED {linePricing.lineTotal.toFixed(2)}</div>
                             </div>
                           ) : (
-                            <span className="text-sm font-semibold text-gray-900">AED {linePricing.lineTotal.toFixed(2)}</span>
+                            <span className="text-sm font-semibold text-[var(--cera-ink)]">AED {linePricing.lineTotal.toFixed(2)}</span>
                           )}
                         </div>
                       </div>
@@ -878,7 +878,7 @@ export default function CheckoutClient() {
                         {locale === 'ar' ? 'سعر التجزئة' : locale === 'ru' ? 'Розничная цена' : 'Retail Price'}: ({totalItemCount} {totalItemCount === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
                         {freeMasks.length > 0 && <span className="block text-xs">+ {freeMasks.length} {locale === 'ar' ? 'هدايا مجانية' : locale === 'ru' ? 'бесплатных масок' : 'free masks'}</span>}
                       </span>
-                      <span className="text-gray-400 line-through">AED {retailTotal.toFixed(2)}</span>
+                      <span className="text-[var(--cera-muted)] line-through">AED {retailTotal.toFixed(2)}</span>
                     </div>
                   ) : (
                     <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -886,7 +886,7 @@ export default function CheckoutClient() {
                         {locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}: ({totalItemCount} {totalItemCount === 1 ? (locale === 'ar' ? 'منتج' : locale === 'ru' ? 'товар' : 'item') : (locale === 'ar' ? 'منتجات' : locale === 'ru' ? 'товаров' : 'items')})
                         {freeMasks.length > 0 && <span className="block text-xs">+ {freeMasks.length} {locale === 'ar' ? 'هدايا مجانية' : locale === 'ru' ? 'бесплатных масок' : 'free masks'}</span>}
                       </span>
-                      <span className="text-gray-900 font-medium">AED {subtotal.toFixed(2)}</span>
+                      <span className="text-[var(--cera-ink)] font-medium">AED {subtotal.toFixed(2)}</span>
                     </div>
                   )}
                   {/* VIP Discount */}
@@ -915,17 +915,17 @@ export default function CheckoutClient() {
                     <>
                       <div className="h-px bg-[var(--cera-line)]" />
                       <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <span className="text-gray-900 font-semibold">{locale === 'ar' ? 'المجموع الفرعي الصافي' : locale === 'ru' ? 'Подытог' : 'Net Subtotal'}</span>
-                        <span className="text-gray-900 font-semibold">AED {subtotal.toFixed(2)}</span>
+                        <span className="text-[var(--cera-ink)] font-semibold">{locale === 'ar' ? 'المجموع الفرعي الصافي' : locale === 'ru' ? 'Подытог' : 'Net Subtotal'}</span>
+                        <span className="text-[var(--cera-ink)] font-semibold">AED {subtotal.toFixed(2)}</span>
                       </div>
                     </>
                   )}
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-600 flex items-center gap-1">
+                    <span className="text-[var(--cera-body)] flex items-center gap-1">
                       <Truck className="h-3.5 w-3.5 text-green-600" />
                       {locale === 'ar' ? 'الشحن إلى' : locale === 'ru' ? 'Доставка в' : 'Shipping to'} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}
                     </span>
-                    <span className={shippingCost === 0 ? 'text-green-600 font-semibold' : 'text-gray-900'}>
+                    <span className={shippingCost === 0 ? 'text-green-600 font-semibold' : 'text-[var(--cera-ink)]'}>
                       {shippingCost === 0 ? (locale === 'ar' ? 'مجاني' : locale === 'ru' ? 'Бесплатно' : 'FREE') : `AED ${shippingCost}`}
                     </span>
                   </div>
@@ -942,13 +942,13 @@ export default function CheckoutClient() {
                   )}
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span className="text-[var(--cera-muted)]">{locale === 'ar' ? 'ضريبة القيمة المضافة (5%)' : locale === 'ru' ? 'НДС (5%)' : 'VAT (5%)'}</span>
-                    <span className="text-gray-900">AED {vatAmount.toFixed(2)}</span>
+                    <span className="text-[var(--cera-ink)]">AED {vatAmount.toFixed(2)}</span>
                   </div>
                   <div className={`py-1 text-[12px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                     {locale === 'ar' ? 'جميع الأسعار شاملة 5% ضريبة القيمة المضافة' : locale === 'ru' ? 'Все цены включают 5% НДС' : 'All prices include 5% VAT'}
                   </div>
                   <div className={`flex justify-between border-t border-[var(--cera-line)] pt-3 text-[16px] font-semibold ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                    <span className="text-gray-900">{locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}:</span>
+                    <span className="text-[var(--cera-ink)]">{locale === 'ar' ? 'الإجمالي' : locale === 'ru' ? 'Итого' : 'Total'}:</span>
                     <span className="cera-serif cera-numeral text-[19px] text-[var(--cera-ink)]">AED {total.toFixed(2)}</span>
                   </div>
                   {earnPreviewPoints > 0 && (
@@ -1217,7 +1217,7 @@ export default function CheckoutClient() {
               <div className={`p-3 md:p-6 ${isPWAClient && isPWA && !orderSummaryExpanded ? 'hidden' : ''}`}>
                 {/* Items List */}
                 <div className="mb-4 md:mb-6">
-                  <h3 className={`text-xs md:text-sm font-semibold text-gray-700 mb-3 md:mb-4 uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.itemsLabel')}</h3>
+                  <h3 className={`text-xs md:text-sm font-semibold text-[var(--cera-body)] mb-3 md:mb-4 uppercase tracking-wide ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.itemsLabel')}</h3>
                   {items.length > 0 || freeMasks.length > 0 ? (
                     <div className="space-y-3 md:space-y-4">
                       {items.map((item) => {
@@ -1250,7 +1250,7 @@ export default function CheckoutClient() {
                                 <div className="text-xs md:text-sm font-semibold text-purple-700">
                                   AED {linePricing.lineTotal.toFixed(2)}
                                 </div>
-                                <div className="text-[9px] md:text-xs text-gray-400 line-through">
+                                <div className="text-[9px] md:text-xs text-[var(--cera-muted)] line-through">
                                   AED {linePricing.retailLineTotal.toFixed(2)}
                                 </div>
                               </div>
@@ -1284,7 +1284,7 @@ export default function CheckoutClient() {
                             <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
                               {hasDiscount ? (
                                 <div>
-                                  <div className="text-[10px] md:text-xs text-gray-400 line-through">
+                                  <div className="text-[10px] md:text-xs text-[var(--cera-muted)] line-through">
                                     AED {linePricing.retailLineTotal.toFixed(2)}
                                   </div>
                                   <div className="text-xs md:text-sm font-semibold text-green-600">
@@ -1292,7 +1292,7 @@ export default function CheckoutClient() {
                                   </div>
                                 </div>
                               ) : (
-                                <div className="text-xs md:text-sm font-semibold text-gray-900">
+                                <div className="text-xs md:text-sm font-semibold text-[var(--cera-ink)]">
                                   AED {linePricing.lineTotal.toFixed(2)}
                                 </div>
                               )}
@@ -1320,12 +1320,12 @@ export default function CheckoutClient() {
                     </div>
                   ) : (
                     <div className="text-center py-8 flex flex-col items-center">
-                      <div className="w-16 h-16 mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                        <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-16 h-16 mb-4 bg-[var(--cera-cream-deep)] rounded-full flex items-center justify-center">
+                        <svg className="w-8 h-8 text-[var(--cera-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                         </svg>
                       </div>
-                      <p className="text-gray-500 mb-2">{t('checkout.yourCartIsEmpty')}</p>
+                      <p className="text-[var(--cera-muted)] mb-2">{t('checkout.yourCartIsEmpty')}</p>
                       <Link href={getLocalizedPath('/products', locale)} className="text-[14px] font-semibold text-[var(--cera-rose-ink)] hover:opacity-70">
                         {t('checkout.continueShopping')}
                       </Link>
@@ -1348,7 +1348,7 @@ export default function CheckoutClient() {
                           </span>
                         )}
                       </div>
-                      <span className="text-[10px] md:text-sm font-medium text-gray-400 line-through">AED {retailTotal.toFixed(2)}</span>
+                      <span className="text-[10px] md:text-sm font-medium text-[var(--cera-muted)] line-through">AED {retailTotal.toFixed(2)}</span>
                     </div>
                   ) : (
                     <div className={`flex justify-between items-start py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -1375,8 +1375,8 @@ export default function CheckoutClient() {
                   {/* Intermediate Subtotal */}
                   {hasUserDiscount && hasBundleDiscount && (
                     <div className={`flex justify-between items-center py-0.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-[9px] md:text-xs text-gray-400">{locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}</span>
-                      <span className="text-[9px] md:text-xs text-gray-400">AED {afterVipSubtotal.toFixed(2)}</span>
+                      <span className="text-[9px] md:text-xs text-[var(--cera-muted)]">{locale === 'ar' ? 'المجموع الفرعي' : locale === 'ru' ? 'Подытог' : 'Subtotal'}</span>
+                      <span className="text-[9px] md:text-xs text-[var(--cera-muted)]">AED {afterVipSubtotal.toFixed(2)}</span>
                     </div>
                   )}
                   {/* Bundle Discount */}
@@ -1391,8 +1391,8 @@ export default function CheckoutClient() {
                     <>
                       <div className="h-px bg-[var(--cera-line)]" />
                       <div className={`flex justify-between items-center py-1 md:py-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                        <span className="text-[10px] md:text-sm font-semibold text-gray-900">{locale === 'ar' ? 'المجموع الفرعي الصافي' : locale === 'ru' ? 'Подытог' : 'Net Subtotal'}</span>
-                        <span className="text-[10px] md:text-sm font-semibold text-gray-900">AED {subtotal.toFixed(2)}</span>
+                        <span className="text-[10px] md:text-sm font-semibold text-[var(--cera-ink)]">{locale === 'ar' ? 'المجموع الفرعي الصافي' : locale === 'ru' ? 'Подытог' : 'Net Subtotal'}</span>
+                        <span className="text-[10px] md:text-sm font-semibold text-[var(--cera-ink)]">AED {subtotal.toFixed(2)}</span>
                       </div>
                     </>
                   )}
@@ -1428,13 +1428,13 @@ export default function CheckoutClient() {
                     {t('checkout.allPricesIncludeVat')}
                   </div>
                   
-                  <div className="border-t-2 border-gray-200 pt-3 md:pt-4">
+                  <div className="border-t-2 border-[var(--cera-line)] pt-3 md:pt-4">
                     <div className={`flex justify-between items-center ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className={`text-sm md:text-lg font-bold text-gray-900 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.total')}</span>
+                      <span className={`text-sm md:text-lg font-bold text-[var(--cera-ink)] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.total')}</span>
                       <span className="cera-serif cera-numeral text-[19px] text-[var(--cera-ink)] md:text-[22px]">AED {total.toFixed(2)}</span>
                     </div>
                     {earnPreviewPoints > 0 && (
-                      <div className={`flex items-center gap-1.5 text-[10px] md:text-xs text-gray-500 mt-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <div className={`flex items-center gap-1.5 text-[10px] md:text-xs text-[var(--cera-muted)] mt-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <Award className="h-3.5 w-3.5 shrink-0 text-[var(--cera-rose)]" />
                         {t('rewards.earnPreview', { points: earnPreviewPoints.toLocaleString() })}
                       </div>
@@ -1501,7 +1501,7 @@ export default function CheckoutClient() {
       {/* Sticky Bottom CTA — mobile + PWA */}
       {isAppLikeMode && !isPaymentSheetOpen && (
         <div
-          className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur border-t border-gray-200"
+          className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur border-t border-[var(--cera-line)]"
           style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
         >
           <div className="px-4 py-3">

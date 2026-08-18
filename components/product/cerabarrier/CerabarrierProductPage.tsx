@@ -64,13 +64,28 @@ interface ActiveIngredient {
   description: string
 }
 
+/**
+ * The Aug 2026 studio set, `/images/cera_o/`. Each slide sits beside the section it
+ * actually illustrates rather than being left to the gallery thumbs, per the bespoke-PDP
+ * slides audit. Every claim printed on these slides is already in cerabarrierCopy.ts —
+ * +145.8%, 2.4×, the five ceramides, the pro/prebiotic list, and the "clinical testing on
+ * a single use, individual results vary" footnote — so nothing here introduces a claim the
+ * page does not already make.
+ */
+const TEXTURE_IMAGE = '/images/cera_o/s3.jpeg' // GEL. WATER. FOAM.
+const COMPLEX_IMAGE = '/images/cera_o/s1.jpeg' // Barrier Lipid × Microbiome Complex
+const RITUAL_IMAGE = '/images/cera_o/s6.jpeg' // NO TIGHTNESS.
+const FORMULA_IMAGE = '/images/cera_o/s5.jpeg' // MORE THAN CERAMIDES.
+const PROOF_IMAGE = '/images/cera_o/s4.jpeg' // CLINICAL PROOF +145.8% / 2.4×
+
+/**
+ * The size cards stay on the older set: they need one bottle per card, and the 2026 set
+ * photographs the two sizes together (s7) rather than separately. s7 is in the gallery.
+ */
 const SIZE_SPEC_IMAGE: Record<string, string> = {
   '200ml': '/images/cera/S4.jpeg',
   '600ml': '/images/cera/S5.jpeg',
 }
-
-const FOAM_IMAGE = '/images/cera/cera.jpeg'
-const RITUAL_IMAGE = '/images/cera/cerabar_how.jpeg'
 const BROCHURE_URL = '/documents/ppt/GENOSYS%20CERABARRIER%20BIOME%20GEL%20CLEANSER.pdf'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
@@ -634,8 +649,8 @@ export default function CerabarrierProductPage({
           <CeraReveal>
             <div className="cera-glow relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)]">
               <Image
-                src={FOAM_IMAGE}
-                alt={`${product.name} - dense creamy foam`}
+                src={TEXTURE_IMAGE}
+                alt={`${product.name} - gel, water and foam side by side`}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
                 quality={85}
@@ -681,8 +696,8 @@ export default function CerabarrierProductPage({
           <CeraReveal className="order-2 lg:order-1">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-cream)]">
               <Image
-                src="/images/cera/S3.jpeg"
-                alt="CERABARRIER BIOME Complex - Pink Ceramide and microbiome"
+                src={COMPLEX_IMAGE}
+                alt="CERABARRIER BIOME - barrier lipids with five ceramides, cholesterol and phytosphingosine, beside the pro- and prebiotic microbiome complex"
                 fill
                 sizes="(max-width: 1024px) 92vw, 46vw"
                 quality={85}
@@ -763,7 +778,7 @@ export default function CerabarrierProductPage({
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
                 src={RITUAL_IMAGE}
-                alt={`${product.name} - how to use`}
+                alt={`${product.name} - clean, comfortable skin with no tight feeling after washing`}
                 fill
                 sizes="(max-width: 1024px) 92vw, 40vw"
                 quality={85}
@@ -782,6 +797,22 @@ export default function CerabarrierProductPage({
             title={copy.actives.title}
             intro={copy.actives.intro}
           />
+
+          {/* The section used to open straight into the ingredient list. This slide is the
+              same list drawn as an architecture — lipids, ceramides, microbiome complex,
+              cholesterol and phytosphingosine — so it earns the space above it. */}
+          <CeraReveal className="mx-auto mt-10 max-w-[540px] lg:mt-12">
+            <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-cream)]">
+              <Image
+                src={FORMULA_IMAGE}
+                alt="More than ceramides - barrier lipids, five ceramides, the microbiome complex, and cholesterol with phytosphingosine"
+                fill
+                sizes="(max-width: 640px) 92vw, 540px"
+                quality={85}
+                className="object-cover"
+              />
+            </div>
+          </CeraReveal>
 
           <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-px sm:grid-cols-2 lg:mt-14 lg:gap-x-16">
             {actives.map((active, i) => (
@@ -818,8 +849,8 @@ export default function CerabarrierProductPage({
           <CeraReveal>
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src="/images/cera/S2.jpeg"
-                alt={`${product.name} - gel-to-foam lather in use`}
+                src={PROOF_IMAGE}
+                alt={`${product.name} - clinical proof: +145.8% immediate hydration and a 2.4x increase in skin hydration`}
                 fill
                 sizes="(max-width: 1024px) 92vw, 46vw"
                 quality={85}

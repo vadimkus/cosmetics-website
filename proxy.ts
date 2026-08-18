@@ -209,7 +209,6 @@ export function proxy(request: NextRequest) {
   // Don't redirect root path - it's already English (default)
   // Only redirect if path doesn't have locale and is not root
   // Exclude static assets (videos, images, icons, service worker, etc.) from locale routing
-  // Also exclude development/testing routes like /phone and /pwa-demo
   const staticAssets = [
     '/manifest.json',
     '/ar/manifest.json',
@@ -228,8 +227,7 @@ export function proxy(request: NextRequest) {
     '/sitemap-index.xml',
     '/opensearch.xml',
   ]
-  const excludedRoutes = ['/phone', '/phone2', '/phone3', '/pwa-demo', '/test-analytics']
-  if (pathname !== '/' && !pathnameHasLocale && !pathname.startsWith('/api') && !pathname.startsWith('/_next') && !pathname.startsWith('/videos') && !pathname.startsWith('/images') && !pathname.startsWith('/Logo') && !pathname.startsWith('/guides') && !staticAssets.includes(pathname) && !excludedRoutes.includes(pathname)) {
+  if (pathname !== '/' && !pathnameHasLocale && !pathname.startsWith('/api') && !pathname.startsWith('/_next') && !pathname.startsWith('/videos') && !pathname.startsWith('/images') && !pathname.startsWith('/Logo') && !pathname.startsWith('/guides') && !staticAssets.includes(pathname)) {
     // Check for user's language preference cookie first (set by language switcher)
     const localeCookie = request.cookies.get('NEXT_LOCALE')?.value
     

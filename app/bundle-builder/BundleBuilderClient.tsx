@@ -39,7 +39,13 @@ function StepIndicator({
   const { t } = useTranslation()
   
   return (
-    <div className="flex items-center justify-center gap-1 sm:gap-2 overflow-x-auto py-2 px-4 -mx-4 scrollbar-hide">
+    // The scroll container centres its content with `w-max mx-auto` on the inner row rather
+    // than `justify-center` on the scroller itself. Centring content that overflows leaves
+    // the first steps unreachable — the overflow spills both ways and browsers will not
+    // scroll back past the start edge. This keeps the row centred while it fits and lets it
+    // scroll from the first step once it does not.
+    <div className="overflow-x-auto py-2 px-4 -mx-4 scrollbar-hide">
+      <div className="mx-auto flex w-max items-center gap-1 sm:gap-2">
       {steps.map((step, index) => {
         const isActive = index === currentStep
         const itemCount = getItemCountForStep(step.id)
@@ -76,6 +82,7 @@ function StepIndicator({
           </button>
         )
       })}
+      </div>
     </div>
   )
 }

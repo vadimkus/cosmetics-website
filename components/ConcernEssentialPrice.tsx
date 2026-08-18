@@ -24,7 +24,7 @@ export default function ConcernEssentialPrice({
 
   if (!product || product.isPriceOnRequest) {
     return (
-      <span className="text-xs text-primary-600 font-medium mt-1 inline-block">
+      <span className="text-xs text-[var(--cera-rose-ink)] font-medium mt-1 inline-block">
         {fallbackPrice} {arrow}
       </span>
     )
@@ -35,11 +35,11 @@ export default function ConcernEssentialPrice({
   if (pricing.hasDiscount) {
     return (
       <span className="text-xs font-medium mt-1 inline-flex items-center gap-1.5 flex-wrap">
-        <span className="text-primary-600">
+        <span className="text-[var(--cera-rose-ink)]">
           {currencyLabel} {pricing.displayPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })} {arrow}
         </span>
         {pricing.originalPrice ? (
-          <span className="text-gray-400 line-through text-[10px]">
+          <span className="text-[var(--cera-muted)] line-through text-[10px]">
             {pricing.originalPrice.toLocaleString()}
           </span>
         ) : null}
@@ -48,7 +48,7 @@ export default function ConcernEssentialPrice({
   }
 
   return (
-    <span className="text-xs text-primary-600 font-medium mt-1 inline-block">
+    <span className="text-xs text-[var(--cera-rose-ink)] font-medium mt-1 inline-block">
       {currencyLabel} {pricing.displayPrice.toLocaleString()} {arrow}
     </span>
   )

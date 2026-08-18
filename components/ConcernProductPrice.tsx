@@ -32,7 +32,7 @@ export default function ConcernProductPrice({
   if (product.isPriceOnRequest) {
     return (
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium text-gray-600">{priceOnRequestLabel}</span>
+        <span className="text-sm font-medium text-[var(--cera-body)]">{priceOnRequestLabel}</span>
         {product.inStock && (
           <span className="text-xs text-green-600">{inStockLabel}</span>
         )}
@@ -48,11 +48,11 @@ export default function ConcernProductPrice({
       return (
         <div>
           <div className="flex items-center gap-1.5 flex-wrap">
-            <span className="text-sm sm:text-base font-bold text-primary-600">
+            <span className="text-sm sm:text-base font-bold text-[var(--cera-rose-ink)]">
               {aedLabel} {pricing.displayPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
             </span>
             {pricing.originalPrice ? (
-              <span className="text-xs text-gray-400 line-through">
+              <span className="text-xs text-[var(--cera-muted)] line-through">
                 {aedLabel} {pricing.originalPrice.toLocaleString()}
               </span>
             ) : null}
@@ -72,7 +72,7 @@ export default function ConcernProductPrice({
     // No discount, but user can see prices
     return (
       <div className="flex items-center justify-between">
-        <span className="text-sm sm:text-base font-bold text-gray-900">
+        <span className="text-sm sm:text-base font-bold text-[var(--cera-ink)]">
           {aedLabel} {pricing.displayPrice.toLocaleString()}
         </span>
         {product.inStock && (
@@ -85,7 +85,7 @@ export default function ConcernProductPrice({
   // Guest / not logged in - show base price
   return (
     <div className="flex items-center justify-between">
-      <span className="text-sm sm:text-base font-bold text-gray-900">
+      <span className="text-sm sm:text-base font-bold text-[var(--cera-ink)]">
         {aedLabel} {product.price.toLocaleString()}
       </span>
       {product.inStock && (

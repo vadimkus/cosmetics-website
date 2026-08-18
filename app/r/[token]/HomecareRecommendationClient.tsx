@@ -6,6 +6,9 @@ import { useRouter } from 'next/navigation'
 import { Check, Loader2, LockKeyhole, ShoppingBag, Stethoscope } from 'lucide-react'
 import { useCartStore } from '@/lib/cartStore'
 import type { Product } from '@/types'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 interface PublicItem {
   id: string
@@ -82,19 +85,19 @@ export default function HomecareRecommendationClient({ token }: { token: string 
   }
 
   if (loading) {
-    return <main className="min-h-screen bg-gray-50 flex items-center justify-center"><Loader2 className="w-7 h-7 animate-spin text-gray-400" /></main>
+    return <main className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] flex items-center justify-center`}><Loader2 className="w-7 h-7 animate-spin text-[var(--cera-muted)]" /></main>
   }
 
   if (error || !script) {
     return (
-      <main className="min-h-screen bg-gray-50 flex items-center justify-center p-5">
-        <div className="max-w-md w-full rounded-2xl bg-white border border-gray-100 shadow-sm p-8 text-center">
-          <LockKeyhole className="w-10 h-10 text-gray-300 mx-auto mb-4" />
-          <h1 className="text-xl font-bold text-gray-950">Recommendation unavailable</h1>
-          <p className="text-sm text-gray-500 mt-2">{error || 'This private link is invalid.'}</p>
+      <main className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] flex items-center justify-center p-5`}>
+        <div className="max-w-md w-full rounded-2xl bg-white border border-[var(--cera-line)] shadow-sm p-8 text-center">
+          <LockKeyhole className="w-10 h-10 text-[var(--cera-blush-deep)] mx-auto mb-4" />
+          <h1 className="cera-serif text-xl text-[var(--cera-ink)]">Recommendation unavailable</h1>
+          <p className="text-sm text-[var(--cera-muted)] mt-2">{error || 'This private link is invalid.'}</p>
           <button
             onClick={() => router.push('/products')}
-            className="mt-6 rounded-xl bg-gray-950 px-5 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-600 hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+            className="mt-6 rounded-xl bg-[var(--cera-ink)] px-5 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-ink)] hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
           >
             Browse GENOSYS
           </button>
@@ -106,23 +109,23 @@ export default function HomecareRecommendationClient({ token }: { token: string 
   const inactive = script.status !== 'ACTIVE'
 
   return (
-    <main className="min-h-screen bg-gray-50 pb-28">
-      <header className="bg-gray-950 text-white">
+    <main className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] pb-28`}>
+      <header className="bg-[var(--cera-ink)] text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-7 sm:py-9">
           <div className="flex items-center justify-between gap-4 mb-7">
             <Image src="/images/genosys-wordmark-transparent.png" alt="GENOSYS" width={977} height={210} className="h-6 w-auto brightness-0 invert" />
-            <span className="inline-flex items-center gap-1.5 text-xs text-gray-400">
+            <span className="inline-flex items-center gap-1.5 text-xs text-[var(--cera-muted)]">
               <LockKeyhole className="w-3.5 h-3.5" /> Private link
             </span>
           </div>
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-xl bg-red-600 flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 rounded-xl bg-[var(--cera-ink)] flex items-center justify-center flex-shrink-0">
               <Stethoscope className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-sm text-gray-400">Recommended by</p>
-              <h1 className="text-2xl sm:text-3xl font-bold">{script.clinicName || 'Your GENOSYS clinic'}</h1>
-              <p className="text-sm text-gray-400 mt-2">Your personalised homecare product selection</p>
+              <p className="text-sm text-[var(--cera-muted)]">Recommended by</p>
+              <h1 className="cera-serif text-2xl sm:text-3xl ">{script.clinicName || 'Your GENOSYS clinic'}</h1>
+              <p className="text-sm text-[var(--cera-muted)] mt-2">Your personalised homecare product selection</p>
             </div>
           </div>
         </div>
@@ -136,13 +139,13 @@ export default function HomecareRecommendationClient({ token }: { token: string 
         )}
 
         {script.version?.careInstructions && (
-          <section className="rounded-2xl bg-white border border-gray-100 shadow-sm p-5 mb-5">
-            <h2 className="font-bold text-gray-950 mb-2">How to use your routine</h2>
-            <p className="text-sm text-gray-600 whitespace-pre-wrap leading-relaxed">{script.version.careInstructions}</p>
+          <section className="rounded-2xl bg-white border border-[var(--cera-line)] shadow-sm p-5 mb-5">
+            <h2 className="cera-serif  text-[var(--cera-ink)] mb-2">How to use your routine</h2>
+            <p className="text-sm text-[var(--cera-body)] whitespace-pre-wrap leading-relaxed">{script.version.careInstructions}</p>
           </section>
         )}
 
-        <h2 className="font-bold text-gray-950 mb-3">Recommended products</h2>
+        <h2 className="cera-serif  text-[var(--cera-ink)] mb-3">Recommended products</h2>
         <div className="space-y-3">
           {(script.version?.items || []).map(item => {
             const variant = item.size
@@ -151,21 +154,21 @@ export default function HomecareRecommendationClient({ token }: { token: string 
             const price = variant?.price ?? item.product.price
             const isAdded = added.has(item.id)
             return (
-              <article key={item.id} className={`rounded-2xl bg-white border shadow-sm p-4 flex gap-4 ${item.available ? 'border-gray-100' : 'border-gray-100 opacity-60'}`}>
-                <Image src={item.product.image || '/images/genosys-logo-transparent.png'} alt={item.product.name} width={96} height={96} className="w-24 h-24 object-cover rounded-xl bg-gray-100 flex-shrink-0" />
+              <article key={item.id} className={`rounded-2xl bg-white border shadow-sm p-4 flex gap-4 ${item.available ? 'border-[var(--cera-line)]' : 'border-[var(--cera-line)] opacity-60'}`}>
+                <Image src={item.product.image || '/images/genosys-logo-transparent.png'} alt={item.product.name} width={96} height={96} className="w-24 h-24 object-cover rounded-xl bg-[var(--cera-cream-deep)] flex-shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="font-bold text-gray-950 leading-snug">{item.product.name}</p>
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="font-bold text-[var(--cera-ink)] leading-snug">{item.product.name}</p>
+                  <p className="text-xs text-[var(--cera-muted)] mt-1">
                     {item.size ? `${item.size} · ` : ''}{Number(price).toFixed(2)} AED
                     {item.quantity > 1 ? ` · Qty ${item.quantity}` : ''}
                   </p>
                   <button
                     disabled={!item.available || inactive || isAdded}
                     onClick={() => addRecommendedItem(item)}
-                    className={`mt-3 inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold shadow-sm transition-all duration-200 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2 disabled:translate-y-0 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-400 disabled:shadow-none ${
+                    className={`mt-3 inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold shadow-sm transition-all duration-200 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2 disabled:translate-y-0 disabled:cursor-not-allowed disabled:bg-[var(--cera-cream-deep)] disabled:text-[var(--cera-muted)] disabled:shadow-none ${
                       isAdded
                         ? 'bg-green-50 text-green-700'
-                        : 'bg-gray-950 text-white hover:-translate-y-0.5 hover:bg-red-600 hover:shadow-lg hover:shadow-red-600/20'
+                        : 'bg-[var(--cera-ink)] text-white hover:-translate-y-0.5 hover:bg-[var(--cera-ink)] hover:shadow-lg hover:shadow-red-600/20'
                     }`}
                   >
                     {isAdded ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
@@ -177,17 +180,17 @@ export default function HomecareRecommendationClient({ token }: { token: string 
           })}
         </div>
 
-        <p className="text-xs text-gray-400 mt-6 leading-relaxed">
+        <p className="text-xs text-[var(--cera-muted)] mt-6 leading-relaxed">
           Product availability and prices are confirmed at checkout. This private recommendation link does not contain your medical record.
         </p>
       </div>
 
       {!inactive && availableItems.length > 0 && (
-        <div className="fixed inset-x-0 bottom-0 bg-white/95 backdrop-blur border-t border-gray-200 p-4 z-40">
+        <div className="fixed inset-x-0 bottom-0 bg-white/95 backdrop-blur border-t border-[var(--cera-line)] p-4 z-40">
           <div className="max-w-3xl mx-auto">
             <button
               onClick={addAll}
-              className="group w-full inline-flex items-center justify-center gap-2 rounded-xl bg-red-600 py-3.5 font-bold text-white shadow-lg shadow-red-600/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-700 hover:shadow-xl hover:shadow-red-600/30 active:translate-y-0 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500 focus-visible:ring-offset-2"
+              className="group w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] py-3.5 font-bold text-white shadow-lg shadow-red-600/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-rose-ink)] hover:shadow-xl hover:shadow-red-600/30 active:translate-y-0 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
             >
               <ShoppingBag className="w-5 h-5" /> Add routine and view cart
             </button>

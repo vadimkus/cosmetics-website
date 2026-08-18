@@ -17,6 +17,9 @@ import BottomSheet from '@/components/ui/BottomSheet'
 import StripeProvider from '@/components/stripe/StripeProvider'
 import PaymentForm from '@/components/stripe/PaymentForm'
 import type { Product } from '@/types'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 // Order lines are keyed by product id, or `id||size` when a size variant is
 // selected — one product can have several lines (e.g. 200ml and 600ml).
@@ -325,14 +328,14 @@ function PartnerOrderInner() {
   if (placed) {
     return (
       <div className="min-h-[100dvh] bg-white flex items-center justify-center px-6" dir={dir}>
-        <div className="max-w-sm w-full text-center bg-white border border-gray-100 rounded-2xl p-8 shadow-sm">
+        <div className="max-w-sm w-full text-center bg-white border border-[var(--cera-line)] rounded-2xl p-8 shadow-sm">
           <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-green-500 flex items-center justify-center">
             <Check className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-lg font-bold text-gray-900 mb-1">{t('Order sent', 'Заказ отправлен', 'تم إرسال الطلب')}</h1>
-          <p className="text-sm text-gray-500 mb-1">{t('We received your order', 'Мы получили ваш заказ', 'لقد استلمنا طلبك')}</p>
-          <p className="text-sm font-semibold text-gray-900 mb-1">{placed.orderNumber}</p>
-          <p className="text-base font-bold text-red-600 mb-3">{placed.total.toFixed(2)} AED</p>
+          <h1 className="cera-serif text-lg text-[var(--cera-ink)] mb-1">{t('Order sent', 'Заказ отправлен', 'تم إرسال الطلب')}</h1>
+          <p className="text-sm text-[var(--cera-muted)] mb-1">{t('We received your order', 'Мы получили ваш заказ', 'لقد استلمنا طلبك')}</p>
+          <p className="text-sm font-semibold text-[var(--cera-ink)] mb-1">{placed.orderNumber}</p>
+          <p className="text-base font-bold text-[var(--cera-rose-ink)] mb-3">{placed.total.toFixed(2)} AED</p>
           {placed.paymentOption === 'consignment' && (
             <span className="inline-block text-[11px] font-bold uppercase tracking-wide bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full mb-3">
               {t('Consignment stock', 'Консигнация', 'بضاعة أمانة')}
@@ -348,7 +351,7 @@ function PartnerOrderInner() {
               {t('Paid', 'Оплачено', 'مدفوع')}
             </span>
           )}
-          <p className="text-xs text-gray-500 mb-6">
+          <p className="text-xs text-[var(--cera-muted)] mb-6">
             {placed.paymentOption === 'consignment'
               ? t(
                   'Added to your consignment stock — priority same-day delivery. Settlement via your monthly sales report.',
@@ -381,7 +384,7 @@ function PartnerOrderInner() {
           </p>
           <button
             onClick={() => router.push(getLocalizedPath('/partner-portal', locale))}
-            className="w-full bg-red-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-red-700 transition-colors"
+            className="w-full bg-[var(--cera-ink)] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors"
           >
             {t('Back to Partner Portal', 'В портал партнёра', 'العودة إلى بوابة الشركاء')}
           </button>
@@ -391,32 +394,32 @@ function PartnerOrderInner() {
   }
 
   return (
-    <div className={`min-h-screen bg-gray-50 ${isAppLikeMode ? 'pb-36' : 'pb-28'}`} dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] ${isAppLikeMode ? 'pb-36' : 'pb-28'}`} dir={dir}>
       {/* Header (content constrained to the same column as the list) */}
-      <div className={`sticky top-0 z-20 bg-white border-b border-gray-100`}>
+      <div className={`sticky top-0 z-20 bg-white border-b border-[var(--cera-line)]`}>
         <div className={isAppLikeMode ? '' : 'container mx-auto max-w-3xl'}>
           <div className={`flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button
               onClick={() => router.push(getLocalizedPath('/partner-portal', locale))}
-              className={`flex items-center gap-1 text-red-600 ${isRTL ? 'flex-row-reverse' : ''}`}
+              className={`flex items-center gap-1 text-[var(--cera-rose-ink)] ${isRTL ? 'flex-row-reverse' : ''}`}
             >
               <svg className={`w-5 h-5 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
               <span className="text-base">{t('Portal', 'Портал', 'البوابة')}</span>
             </button>
-            <span className="text-base font-semibold text-gray-900">{t('New Order', 'Новый заказ', 'طلب جديد')}</span>
+            <span className="text-base font-semibold text-[var(--cera-ink)]">{t('New Order', 'Новый заказ', 'طلب جديد')}</span>
             <span className="min-w-[60px]" />
           </div>
           {/* Search */}
           <div className="px-4 pb-3">
             <div className="relative">
-              <Search className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 ${isRTL ? 'right-3' : 'left-3'}`} />
+              <Search className={`absolute top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--cera-muted)] ${isRTL ? 'right-3' : 'left-3'}`} />
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 placeholder={t('Search products…', 'Поиск товаров…', 'ابحث عن المنتجات…')}
-                className={`w-full ${isRTL ? 'pr-9 pl-3 text-right' : 'pl-9 pr-3'} py-2.5 rounded-xl bg-gray-100 text-sm focus:outline-none focus:ring-2 focus:ring-red-200`}
+                className={`w-full ${isRTL ? 'pr-9 pl-3 text-right' : 'pl-9 pr-3'} py-2.5 rounded-xl bg-[var(--cera-cream-deep)] text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cera-blush-deep)]`}
               />
             </div>
           </div>
@@ -426,7 +429,7 @@ function PartnerOrderInner() {
       {/* Product list */}
       <div className={`${isAppLikeMode ? 'px-4 py-3' : 'container mx-auto px-4 py-4 max-w-3xl'}`}>
         {reorderLoaded > 0 && (
-          <div className={`flex items-center gap-2 bg-gray-900 text-white rounded-xl px-4 py-3 mb-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+          <div className={`flex items-center gap-2 bg-[var(--cera-ink)] text-white rounded-xl px-4 py-3 mb-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
             <RefreshCw className="w-4 h-4 flex-shrink-0" />
             <p className="text-sm flex-1">
               {t(
@@ -439,12 +442,12 @@ function PartnerOrderInner() {
         )}
         {!loading && itemCount > 0 && (
           <div className="flex items-center justify-between mb-2">
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-[var(--cera-muted)]">
               {itemCount} {itemCount === 1 ? t('item selected', 'товар выбран', 'منتج محدد') : t('items selected', 'товаров выбрано', 'منتجات محددة')}
             </p>
             <button
               onClick={clearAll}
-              className="flex items-center gap-1 text-xs font-semibold text-gray-400 hover:text-red-600 transition-colors py-1"
+              className="flex items-center gap-1 text-xs font-semibold text-[var(--cera-muted)] hover:text-[var(--cera-rose-ink)] transition-colors py-1"
             >
               <Trash2 className="w-3.5 h-3.5" />
               {t('Clear all', 'Очистить всё', 'مسح الكل')}
@@ -454,11 +457,11 @@ function PartnerOrderInner() {
         {loading ? (
           <div className="space-y-3">
             {[1, 2, 3, 4, 5].map(i => (
-              <div key={i} className="h-20 bg-white rounded-2xl animate-pulse border border-gray-100" />
+              <div key={i} className="h-20 bg-white rounded-2xl animate-pulse border border-[var(--cera-line)]" />
             ))}
           </div>
         ) : filtered.length === 0 ? (
-          <p className="text-center text-sm text-gray-500 py-12">{t('No products found', 'Товары не найдены', 'لم يتم العثور على منتجات')}</p>
+          <p className="text-center text-sm text-[var(--cera-muted)] py-12">{t('No products found', 'Товары не найдены', 'لم يتم العثور على منتجات')}</p>
         ) : (() => {
             const renderProductCard = (product: Product) => {
               const sizes = sizesOf(product)
@@ -482,7 +485,7 @@ function PartnerOrderInner() {
               return (
                 <div
                   key={product.id}
-                  className={`bg-white border rounded-2xl ${soldOut ? 'opacity-60' : ''} ${productQty > 0 ? 'border-red-200 ring-1 ring-red-100' : 'border-gray-100'}`}
+                  className={`bg-white border rounded-2xl ${soldOut ? 'opacity-60' : ''} ${productQty > 0 ? 'border-[var(--cera-blush-deep)] ring-1 ring-[var(--cera-blush)]' : 'border-[var(--cera-line)]'}`}
                 >
                   <div className={`flex items-center gap-3 p-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                     {/* Tapping the image/name expands the card (description + sizes) */}
@@ -490,11 +493,11 @@ function PartnerOrderInner() {
                       onClick={() => toggleCard(product.id)}
                       className={`flex items-center gap-3 flex-1 min-w-0 ${isRTL ? 'flex-row-reverse text-right' : 'text-left'}`}
                     >
-                      <div className="w-14 h-14 rounded-xl bg-gray-100 overflow-hidden flex-shrink-0 relative flex items-center justify-center">
+                      <div className="w-14 h-14 rounded-xl bg-[var(--cera-cream-deep)] overflow-hidden flex-shrink-0 relative flex items-center justify-center">
                         {product.image ? (
                           <Image src={product.image} alt={product.name} width={56} height={56} className="w-full h-full object-cover" />
                         ) : (
-                          <Package className="w-5 h-5 text-gray-300" />
+                          <Package className="w-5 h-5 text-[var(--cera-blush-deep)]" />
                         )}
                         {soldOut && (
                           <span className="absolute inset-x-0 bottom-0 bg-black/60 text-white text-[8px] font-bold text-center uppercase py-0.5">
@@ -503,58 +506,58 @@ function PartnerOrderInner() {
                         )}
                       </div>
                       <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
-                        <p className="text-sm font-semibold text-gray-900 leading-tight line-clamp-2">{product.name}</p>
+                        <p className="text-sm font-semibold text-[var(--cera-ink)] leading-tight line-clamp-2">{product.name}</p>
                         <div className={`flex items-center gap-2 mt-1 flex-wrap ${isRTL ? 'flex-row-reverse' : ''}`}>
                           {multiSize ? (
                             <>
-                              <span className="text-sm font-bold text-red-600">
+                              <span className="text-sm font-bold text-[var(--cera-rose-ink)]">
                                 {t('from', 'от', 'من')}{' '}
                                 {Math.min(...sizes.map(v => linePricing(product, v.size).discountedPrice)).toFixed(2)} AED
                               </span>
-                              <span className="text-[10px] font-bold text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">
+                              <span className="text-[10px] font-bold text-[var(--cera-muted)] bg-[var(--cera-cream-deep)] px-1.5 py-0.5 rounded">
                                 {sizes.length} {t('sizes', 'объёма', 'أحجام')}
                               </span>
                             </>
                           ) : (
                             <>
-                              <span className="text-sm font-bold text-red-600">{price.toFixed(2)} AED</span>
+                              <span className="text-sm font-bold text-[var(--cera-rose-ink)]">{price.toFixed(2)} AED</span>
                               {info.hasDiscount && (
                                 <>
-                                  <span className="text-xs text-gray-400 line-through">{info.originalPrice.toFixed(2)}</span>
+                                  <span className="text-xs text-[var(--cera-muted)] line-through">{info.originalPrice.toFixed(2)}</span>
                                   <span className="text-[10px] font-bold text-green-700 bg-green-50 px-1.5 py-0.5 rounded">−{Math.round(info.discountPercentage)}%</span>
                                 </>
                               )}
                             </>
                           )}
                           {productClass === 'professional' && (
-                            <span className="text-[9px] font-bold text-white bg-blue-600 px-1.5 py-0.5 rounded uppercase tracking-wide">PRO</span>
+                            <span className="text-[9px] font-bold text-white bg-[var(--cera-ink)] px-1.5 py-0.5 rounded uppercase tracking-wide">PRO</span>
                           )}
                           {productClass === 'equipment' && (
-                            <span className="text-[9px] font-bold text-white bg-gray-800 px-1.5 py-0.5 rounded uppercase tracking-wide">
+                            <span className="text-[9px] font-bold text-white bg-[var(--cera-ink)] px-1.5 py-0.5 rounded uppercase tracking-wide">
                               {t('Equipment', 'Оборудование', 'أجهزة')}
                             </span>
                           )}
-                          <ChevronDown className={`w-3.5 h-3.5 text-gray-300 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+                          <ChevronDown className={`w-3.5 h-3.5 text-[var(--cera-blush-deep)] transition-transform ${isOpen ? 'rotate-180' : ''}`} />
                         </div>
                       </div>
                     </button>
                     {/* Right-side control */}
                     {soldOut ? (
-                      <span className="px-3 h-8 flex items-center rounded-full bg-gray-100 text-gray-400 text-sm font-semibold flex-shrink-0">
+                      <span className="px-3 h-8 flex items-center rounded-full bg-[var(--cera-cream-deep)] text-[var(--cera-muted)] text-sm font-semibold flex-shrink-0">
                         {t('Sold out', 'Нет в наличии', 'نفدت')}
                       </span>
                     ) : multiSize ? (
                       productQty > 0 ? (
                         <button
                           onClick={() => toggleCard(product.id)}
-                          className="px-3 h-8 rounded-full bg-red-600 text-white text-sm font-bold flex-shrink-0"
+                          className="px-3 h-8 rounded-full bg-[var(--cera-ink)] text-white text-sm font-bold flex-shrink-0"
                         >
                           ×{productQty}
                         </button>
                       ) : (
                         <button
                           onClick={() => toggleCard(product.id)}
-                          className="px-3 h-8 rounded-full bg-red-50 text-red-600 text-sm font-semibold active:bg-red-100 flex-shrink-0"
+                          className="px-3 h-8 rounded-full bg-[var(--cera-blush)] text-[var(--cera-rose-ink)] text-sm font-semibold active:bg-[var(--cera-blush)] flex-shrink-0"
                         >
                           {t('Select size', 'Выбрать объём', 'اختر الحجم')}
                         </button>
@@ -563,15 +566,15 @@ function PartnerOrderInner() {
                       <div className={`flex items-center gap-2 flex-shrink-0 ${isRTL ? 'flex-row-reverse' : ''}`}>
                         <button
                           onClick={() => setLineQty(baseKey, q - 1)}
-                          className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center active:bg-gray-200"
+                          className="w-8 h-8 rounded-full bg-[var(--cera-cream-deep)] flex items-center justify-center active:bg-[var(--cera-cream-deep)]"
                           aria-label="decrease"
                         >
-                          <Minus className="w-4 h-4 text-gray-700" />
+                          <Minus className="w-4 h-4 text-[var(--cera-body)]" />
                         </button>
-                        <span className="w-6 text-center text-sm font-bold text-gray-900">{q}</span>
+                        <span className="w-6 text-center text-sm font-bold text-[var(--cera-ink)]">{q}</span>
                         <button
                           onClick={() => setLineQty(baseKey, q + 1)}
-                          className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center active:bg-red-700"
+                          className="w-8 h-8 rounded-full bg-[var(--cera-ink)] flex items-center justify-center active:bg-[var(--cera-rose-ink)]"
                           aria-label="increase"
                         >
                           <Plus className="w-4 h-4 text-white" />
@@ -579,7 +582,7 @@ function PartnerOrderInner() {
                       </div>
                     ) : productBlocked ? (
                       <span
-                        className="px-3 h-8 flex items-center rounded-full bg-gray-100 text-gray-400 text-xs font-semibold flex-shrink-0"
+                        className="px-3 h-8 flex items-center rounded-full bg-[var(--cera-cream-deep)] text-[var(--cera-muted)] text-xs font-semibold flex-shrink-0"
                         title={t('Not available for consignment stock', 'Недоступно для консигнации', 'غير متاح لمخزون الأمانة')}
                       >
                         {t('Not for consignment', 'Не для консигнации', 'ليس للأمانة')}
@@ -587,7 +590,7 @@ function PartnerOrderInner() {
                     ) : (
                       <button
                         onClick={() => setLineQty(baseKey, 1)}
-                        className="px-3 h-8 rounded-full bg-red-50 text-red-600 text-sm font-semibold active:bg-red-100 flex-shrink-0"
+                        className="px-3 h-8 rounded-full bg-[var(--cera-blush)] text-[var(--cera-rose-ink)] text-sm font-semibold active:bg-[var(--cera-blush)] flex-shrink-0"
                       >
                         {t('Add', 'Добавить', 'إضافة')}
                       </button>
@@ -596,9 +599,9 @@ function PartnerOrderInner() {
 
                   {/* Expanded: description + size lines */}
                   {isOpen && (
-                    <div className={`px-3 pb-3 border-t border-gray-50 pt-2.5 ${isRTL ? 'text-right' : ''}`}>
+                    <div className={`px-3 pb-3 border-t border-[var(--cera-line)] pt-2.5 ${isRTL ? 'text-right' : ''}`}>
                       {description && (
-                        <p className="text-xs text-gray-500 leading-relaxed line-clamp-4 mb-2.5">{description}</p>
+                        <p className="text-xs text-[var(--cera-muted)] leading-relaxed line-clamp-4 mb-2.5">{description}</p>
                       )}
                       {sizes.length > 0 && (
                         <div className="space-y-2">
@@ -612,25 +615,25 @@ function PartnerOrderInner() {
                             return (
                               <div
                                 key={lineKey}
-                                className={`flex items-center gap-3 rounded-xl bg-gray-50 px-3 py-2 ${unavailable ? 'opacity-50' : ''} ${isRTL ? 'flex-row-reverse' : ''}`}
+                                className={`flex items-center gap-3 rounded-xl bg-[var(--cera-cream-deep)] px-3 py-2 ${unavailable ? 'opacity-50' : ''} ${isRTL ? 'flex-row-reverse' : ''}`}
                               >
                                 <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
-                                  <span className="text-sm font-semibold text-gray-900">{v.size}</span>
+                                  <span className="text-sm font-semibold text-[var(--cera-ink)]">{v.size}</span>
                                   {rowClass === 'professional' && (
-                                    <span className={`text-[9px] font-bold text-white bg-blue-600 px-1.5 py-0.5 rounded uppercase tracking-wide ${isRTL ? 'mr-1.5' : 'ml-1.5'}`}>PRO</span>
+                                    <span className={`text-[9px] font-bold text-white bg-[var(--cera-ink)] px-1.5 py-0.5 rounded uppercase tracking-wide ${isRTL ? 'mr-1.5' : 'ml-1.5'}`}>PRO</span>
                                   )}
                                   <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                                    <span className="text-sm font-bold text-red-600">{vInfo.discountedPrice.toFixed(2)} AED</span>
+                                    <span className="text-sm font-bold text-[var(--cera-rose-ink)]">{vInfo.discountedPrice.toFixed(2)} AED</span>
                                     {vInfo.hasDiscount && (
-                                      <span className="text-xs text-gray-400 line-through">{vInfo.originalPrice.toFixed(2)}</span>
+                                      <span className="text-xs text-[var(--cera-muted)] line-through">{vInfo.originalPrice.toFixed(2)}</span>
                                     )}
                                   </div>
                                 </div>
                                 {unavailable ? (
-                                  <span className="text-xs font-semibold text-gray-400">{t('Unavailable', 'Недоступно', 'غير متاح')}</span>
+                                  <span className="text-xs font-semibold text-[var(--cera-muted)]">{t('Unavailable', 'Недоступно', 'غير متاح')}</span>
                                 ) : rowBlocked && lq === 0 ? (
                                   <span
-                                    className="px-3 h-7 flex items-center rounded-full bg-gray-100 text-gray-400 text-[11px] font-semibold flex-shrink-0"
+                                    className="px-3 h-7 flex items-center rounded-full bg-[var(--cera-cream-deep)] text-[var(--cera-muted)] text-[11px] font-semibold flex-shrink-0"
                                     title={t('Not available for consignment stock', 'Недоступно для консигнации', 'غير متاح لمخزون الأمانة')}
                                   >
                                     {t('Not for consignment', 'Не для консигнации', 'ليس للأمانة')}
@@ -639,15 +642,15 @@ function PartnerOrderInner() {
                                   <div className={`flex items-center gap-2 flex-shrink-0 ${isRTL ? 'flex-row-reverse' : ''}`}>
                                     <button
                                       onClick={() => setLineQty(lineKey, lq - 1)}
-                                      className="w-7 h-7 rounded-full bg-white border border-gray-200 flex items-center justify-center active:bg-gray-100"
+                                      className="w-7 h-7 rounded-full bg-white border border-[var(--cera-line)] flex items-center justify-center active:bg-[var(--cera-cream-deep)]"
                                       aria-label="decrease"
                                     >
-                                      <Minus className="w-3.5 h-3.5 text-gray-700" />
+                                      <Minus className="w-3.5 h-3.5 text-[var(--cera-body)]" />
                                     </button>
-                                    <span className="w-5 text-center text-sm font-bold text-gray-900">{lq}</span>
+                                    <span className="w-5 text-center text-sm font-bold text-[var(--cera-ink)]">{lq}</span>
                                     <button
                                       onClick={() => setLineQty(lineKey, lq + 1)}
-                                      className="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center active:bg-red-700"
+                                      className="w-7 h-7 rounded-full bg-[var(--cera-ink)] flex items-center justify-center active:bg-[var(--cera-rose-ink)]"
                                       aria-label="increase"
                                     >
                                       <Plus className="w-3.5 h-3.5 text-white" />
@@ -656,7 +659,7 @@ function PartnerOrderInner() {
                                 ) : (
                                   <button
                                     onClick={() => setLineQty(lineKey, 1)}
-                                    className="px-3 h-7 rounded-full bg-red-50 text-red-600 text-xs font-semibold active:bg-red-100 flex-shrink-0"
+                                    className="px-3 h-7 rounded-full bg-[var(--cera-blush)] text-[var(--cera-rose-ink)] text-xs font-semibold active:bg-[var(--cera-blush)] flex-shrink-0"
                                   >
                                     {t('Add', 'Добавить', 'إضافة')}
                                   </button>
@@ -689,19 +692,19 @@ function PartnerOrderInner() {
                     0
                   )
                   return (
-                    <div key={group.key} className={`bg-white border rounded-2xl ${selectedInGroup > 0 ? 'border-red-200' : 'border-gray-100'}`}>
+                    <div key={group.key} className={`bg-white border rounded-2xl ${selectedInGroup > 0 ? 'border-[var(--cera-blush-deep)]' : 'border-[var(--cera-line)]'}`}>
                       <button
                         onClick={() => toggleGroup(group.key)}
                         className={`w-full flex items-center justify-between px-4 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}
                       >
                         <span className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                          <span className="text-sm font-bold text-gray-900">{label}</span>
-                          <span className="text-[11px] font-semibold text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{items.length}</span>
+                          <span className="text-sm font-bold text-[var(--cera-ink)]">{label}</span>
+                          <span className="text-[11px] font-semibold text-[var(--cera-muted)] bg-[var(--cera-cream-deep)] px-2 py-0.5 rounded-full">{items.length}</span>
                           {selectedInGroup > 0 && (
-                            <span className="text-[11px] font-bold text-white bg-red-600 px-2 py-0.5 rounded-full">×{selectedInGroup}</span>
+                            <span className="text-[11px] font-bold text-white bg-[var(--cera-ink)] px-2 py-0.5 rounded-full">×{selectedInGroup}</span>
                           )}
                         </span>
-                        <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${isOpenGroup ? 'rotate-180' : ''}`} />
+                        <ChevronDown className={`w-4 h-4 text-[var(--cera-muted)] transition-transform ${isOpenGroup ? 'rotate-180' : ''}`} />
                       </button>
                       {isOpenGroup && (
                         <div className="px-2.5 pb-2.5 space-y-2.5">
@@ -718,7 +721,7 @@ function PartnerOrderInner() {
         {/* Notes */}
         {itemCount > 0 && (
           <div className="mt-4">
-            <label className={`block text-xs font-semibold text-gray-500 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+            <label className={`block text-xs font-semibold text-[var(--cera-muted)] mb-1.5 ${isRTL ? 'text-right' : ''}`}>
               {t('Notes (optional)', 'Примечание (необязательно)', 'ملاحظات (اختياري)')}
             </label>
             <textarea
@@ -727,7 +730,7 @@ function PartnerOrderInner() {
               rows={2}
               maxLength={1000}
               placeholder={t('Delivery date, special requests…', 'Дата доставки, пожелания…', 'تاريخ التسليم، طلبات خاصة…')}
-              className={`w-full rounded-xl bg-white border border-gray-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-200 ${isRTL ? 'text-right' : ''}`}
+              className={`w-full rounded-xl bg-white border border-[var(--cera-line)] p-3 text-sm focus:outline-none focus:ring-2 focus:ring-[var(--cera-blush-deep)] ${isRTL ? 'text-right' : ''}`}
             />
           </div>
         )}
@@ -736,7 +739,7 @@ function PartnerOrderInner() {
 
       {/* Sticky submit bar (settlement selector always visible here) */}
       {itemCount > 0 && (
-        <div className={`fixed left-0 right-0 ${isAppLikeMode ? 'bottom-20' : 'bottom-0'} z-30 bg-white border-t border-gray-100 px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]`}>
+        <div className={`fixed left-0 right-0 ${isAppLikeMode ? 'bottom-20' : 'bottom-0'} z-30 bg-white border-t border-[var(--cera-line)] px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.06)]`}>
           <div className="container mx-auto max-w-3xl">
             {availableClinicPoints > 0 && (
               <label className={`mb-2 flex items-center justify-between gap-3 rounded-xl bg-amber-50 px-3 py-2 text-xs ${payOption === 'consignment' ? 'opacity-50' : ''}`}>
@@ -777,7 +780,7 @@ function PartnerOrderInner() {
                   className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                     payOption === 'consignment'
                       ? 'bg-amber-500 border-amber-500 text-white'
-                      : 'bg-white border-gray-200 text-gray-600 hover:border-amber-300'
+                      : 'bg-white border-[var(--cera-line)] text-[var(--cera-body)] hover:border-amber-300'
                   }`}
                 >
                   {t('Consignment stock', 'Консигнация', 'مخزون أمانة')}
@@ -788,8 +791,8 @@ function PartnerOrderInner() {
                   onClick={() => setPayOption('credit')}
                   className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                     payOption === 'credit'
-                      ? 'bg-blue-600 border-blue-600 text-white'
-                      : 'bg-white border-gray-200 text-gray-600 hover:border-blue-300'
+                      ? 'bg-[var(--cera-ink)] border-[var(--cera-ink)] text-white'
+                      : 'bg-white border-[var(--cera-line)] text-[var(--cera-body)] hover:border-[var(--cera-blush-deep)]'
                   }`}
                 >
                   {t(`Credit ${creditDays} days`, `Кредит ${creditDays} дн.`, `أجل ${creditDays} يومًا`)}
@@ -799,8 +802,8 @@ function PartnerOrderInner() {
                 onClick={() => setPayOption('online')}
                 className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                   payOption === 'online'
-                    ? 'bg-gray-900 border-gray-900 text-white'
-                    : 'bg-white border-gray-200 text-gray-600 hover:border-gray-400'
+                    ? 'bg-[var(--cera-ink)] border-[var(--cera-ink)] text-white'
+                    : 'bg-white border-[var(--cera-line)] text-[var(--cera-body)] hover:border-[var(--cera-blush-deep)]'
                 }`}
               >
                 {t('Pay online', 'Оплатить онлайн', 'دفع أونلاين')}
@@ -809,14 +812,14 @@ function PartnerOrderInner() {
                 onClick={() => setPayOption('cod')}
                 className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                   payOption === 'cod'
-                    ? 'bg-gray-900 border-gray-900 text-white'
-                    : 'bg-white border-gray-200 text-gray-600 hover:border-gray-400'
+                    ? 'bg-[var(--cera-ink)] border-[var(--cera-ink)] text-white'
+                    : 'bg-white border-[var(--cera-line)] text-[var(--cera-body)] hover:border-[var(--cera-blush-deep)]'
                 }`}
               >
                 {t('Cash on delivery', 'При получении', 'عند الاستلام')}
               </button>
             </div>
-            <p className={`text-[11px] text-gray-400 mb-2 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[11px] text-[var(--cera-muted)] mb-2 ${isRTL ? 'text-right' : ''}`}>
               {payOption === 'consignment'
                 ? t('Retail products only — settle via monthly sales report, no payment now', 'Только розничные продукты — расчёт по ежемесячному отчёту, без оплаты сейчас', 'منتجات التجزئة فقط — التسوية عبر التقرير الشهري، بدون دفع الآن')
                 : payOption === 'credit'
@@ -827,18 +830,18 @@ function PartnerOrderInner() {
             </p>
             <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className={isRTL ? 'text-right' : ''}>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-[var(--cera-muted)]">
                 {itemCount} {itemCount === 1 ? t('item', 'товар', 'منتج') : t('items', 'товаров', 'منتجات')}
               </p>
               {clinicPointsToRedeem > 0 && (
                 <p className="text-[11px] text-amber-700">−{clinicPointsToRedeem.toFixed(2)} Clinic Points</p>
               )}
-              <p className="text-lg font-bold text-gray-900">{payableTotal.toFixed(2)} AED</p>
+              <p className="text-lg font-bold text-[var(--cera-ink)]">{payableTotal.toFixed(2)} AED</p>
             </div>
             <button
               onClick={submit}
               disabled={submitting}
-              className={`flex-1 flex items-center justify-center gap-2 bg-red-600 text-white py-3.5 rounded-xl font-semibold hover:bg-red-700 active:bg-red-800 transition-colors disabled:opacity-60 ${isRTL ? 'flex-row-reverse' : ''}`}
+              className={`flex-1 flex items-center justify-center gap-2 bg-[var(--cera-ink)] text-white py-3.5 rounded-xl font-semibold hover:bg-[var(--cera-rose-ink)] active:bg-[var(--cera-rose-ink)] transition-colors disabled:opacity-60 ${isRTL ? 'flex-row-reverse' : ''}`}
             >
               {submitting ? (
                 <>

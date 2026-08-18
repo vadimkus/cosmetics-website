@@ -39,7 +39,7 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
 
   if (products.length === 0) {
     return (
-      <div className="text-center py-12 text-gray-500">
+      <div className="text-center py-12 text-[var(--cera-muted)]">
         <p>{t.noProducts}</p>
       </div>
     )
@@ -68,7 +68,7 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
         <Link
           key={product.id}
           href={`${prefix}/products/${product.id}`}
-          className="group block bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+          className="group block bg-white rounded-xl border border-[var(--cera-line)] overflow-hidden hover:shadow-lg transition-shadow duration-300"
         >
           {/* Product Image */}
           <div className="relative aspect-square bg-white overflow-hidden">
@@ -86,7 +86,7 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
               </div>
             )}
             {!product.inStock && (
-              <div className="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">
+              <div className="absolute top-2 left-2 bg-[var(--cera-ink)] text-white text-xs px-2 py-1 rounded">
                 {t.outOfStock}
               </div>
             )}
@@ -95,18 +95,18 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
           {/* Product Info */}
           <div className="p-3 sm:p-4">
             {product.category && (
-              <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">
+              <p className="text-xs text-[var(--cera-muted)] uppercase tracking-wider mb-1">
                 {translateCategory(product.category, MESSAGES_BY_LOCALE[locale] as never)}
               </p>
             )}
-            <h3 className="text-sm sm:text-base font-medium text-gray-900 line-clamp-2 mb-1 group-hover:text-primary-600 transition-colors">
+            <h3 className="text-sm sm:text-base font-medium text-[var(--cera-ink)] line-clamp-2 mb-1 group-hover:text-[var(--cera-rose-ink)] transition-colors">
               {getName(product)}
             </h3>
-            <p className="text-xs text-gray-500 line-clamp-2 mb-2">
+            <p className="text-xs text-[var(--cera-muted)] line-clamp-2 mb-2">
               {getDescription(product)}
             </p>
             {product.size && (
-              <p className="text-xs text-gray-400 mb-2">{product.size}</p>
+              <p className="text-xs text-[var(--cera-muted)] mb-2">{product.size}</p>
             )}
             <ConcernProductPrice
               product={product}

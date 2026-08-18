@@ -46,10 +46,10 @@ export default function ConcernCTA({ locale = 'en' }: ConcernCTAProps) {
   return (
     <section className="py-8 sm:py-10 px-4">
       <div className="max-w-2xl mx-auto text-center">
-        <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">
+        <h2 className="text-lg sm:text-xl font-semibold text-[var(--cera-ink)] mb-2">
           {t.title}
         </h2>
-        <p className="text-sm text-gray-500 mb-6">
+        <p className="text-sm text-[var(--cera-muted)] mb-6">
           {t.subtitle}
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -59,8 +59,8 @@ export default function ConcernCTA({ locale = 'en' }: ConcernCTAProps) {
             disabled={totalItems === 0}
             className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all ${
               totalItems > 0
-                ? 'bg-gray-900 text-white hover:bg-gray-800 active:scale-95'
-                : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                ? 'bg-[var(--cera-ink)] text-white hover:bg-[var(--cera-rose-ink)] active:scale-95'
+                : 'bg-[var(--cera-cream-deep)] text-[var(--cera-muted)] cursor-not-allowed'
             }`}
           >
             <ShoppingBag className="w-4 h-4" />
@@ -69,7 +69,7 @@ export default function ConcernCTA({ locale = 'en' }: ConcernCTAProps) {
           <button
             type="button"
             onClick={() => router.push(getLocalizedPath('/skin-recommendation', locale))}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium border border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 active:scale-95 transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium border border-[var(--cera-line)] text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)] hover:border-[var(--cera-blush-deep)] active:scale-95 transition-all"
           >
             <Sparkles className="w-4 h-4" />
             {t.skinAnalysis}

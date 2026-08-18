@@ -48,7 +48,7 @@ export default function ConcernAddToCart({
   if (!product.inStock) {
     return (
       <div className="mt-2 text-center">
-        <span className="text-[10px] sm:text-xs text-gray-400">{soldOutLabel}</span>
+        <span className="text-[10px] sm:text-xs text-[var(--cera-muted)]">{soldOutLabel}</span>
       </div>
     )
   }
@@ -62,7 +62,7 @@ export default function ConcernAddToCart({
       className={`mt-2 w-full flex items-center justify-center gap-1 py-1.5 rounded-lg text-[10px] sm:text-xs font-medium transition-all duration-200 ${
         added
           ? 'bg-green-50 text-green-600 border border-green-200'
-          : 'bg-gray-50 text-gray-700 border border-gray-200 hover:bg-primary-50 hover:text-primary-600 hover:border-primary-200 active:scale-95'
+          : 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)] border border-[var(--cera-line)] hover:bg-[var(--cera-blush)] hover:text-[var(--cera-rose)] hover:border-[var(--cera-blush-deep)] active:scale-95'
       }`}
     >
       {added ? (

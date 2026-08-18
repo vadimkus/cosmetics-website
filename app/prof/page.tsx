@@ -2,6 +2,9 @@ import Link from 'next/link'
 import { getAllProducts } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
 import type { Product } from '@/types'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 interface TableProduct {
   name: string
@@ -424,42 +427,42 @@ export default async function ProfPage() {
   })
 
   return (
-    <div className="min-h-screen bg-white py-3 px-2 md:py-8 md:px-6">
+    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-white py-3 px-2 md:py-8 md:px-6`}>
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-base md:text-xl font-bold text-primary-600 mb-3 md:mb-4 text-center">
+        <h1 className="cera-serif mb-3 text-center text-[19px] text-[var(--cera-ink)] md:mb-4 md:text-[24px]">
           Basic Microneedling Treatment: Roller
         </h1>
         
         <div className="overflow-x-auto -mx-3 md:mx-0">
           <div className="inline-block min-w-full align-middle">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg border-2 border-gray-300">
-              <table className="min-w-full divide-y divide-gray-300 text-[9px] md:text-xs border-collapse border border-gray-300">
-                <thead className="bg-gray-50">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg border-2 border-[var(--cera-line)]">
+              <table className="min-w-full divide-y divide-[var(--cera-line)] text-[9px] md:text-xs border-collapse border border-[var(--cera-line)]">
+                <thead className="bg-[var(--cera-cream-deep)]">
                   <tr>
-                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-left text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-left text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider border-r border-[var(--cera-line)]">
                       Product Name
                     </th>
-                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider border-r border-[var(--cera-line)]">
                       Volume
                     </th>
-                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider border-r border-[var(--cera-line)]">
                       Product Cost, AED
                     </th>
-                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider border-r border-[var(--cera-line)]">
                       Product per 1 treatment
                     </th>
-                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider border-r border-[var(--cera-line)]">
                       1 treatment cost
                     </th>
-                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th className="px-1.5 py-1.5 md:px-2 md:py-2 text-center text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider">
                       Treatments
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white divide-y divide-[var(--cera-line)]">
                   {productsWithLinks.map((product, index) => (
-                    <tr key={index} className="hover:bg-gray-50">
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 font-medium border-r border-gray-200 text-left uppercase">
+                    <tr key={index} className="hover:bg-[var(--cera-cream-deep)]">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-ink)] font-medium border-r border-[var(--cera-line)] text-left uppercase">
                         {product.productIds && product.productIds.length > 0 ? (
                           <span>
                             PRO Solutions (
@@ -468,7 +471,7 @@ export default async function ProfPage() {
                                 {idx > 0 && ' / '}
                                 <Link 
                                   href={`/products/${p.id}`}
-                                  className="text-gray-900 underline hover:text-gray-700 transition-colors"
+                                  className="text-[var(--cera-ink)] underline hover:text-[var(--cera-body)] transition-colors"
                                 >
                                   {p.code}
                                 </Link>
@@ -479,7 +482,7 @@ export default async function ProfPage() {
                         ) : product.productId ? (
                           <Link 
                             href={`/products/${product.productId}`}
-                            className="text-gray-900 underline hover:text-gray-700 transition-colors"
+                            className="text-[var(--cera-ink)] underline hover:text-[var(--cera-body)] transition-colors"
                           >
                             {product.name}
                           </Link>
@@ -487,44 +490,44 @@ export default async function ProfPage() {
                           product.name
                         )}
                       </td>
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-600 border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-body)] border-r border-[var(--cera-line)] text-center">
                         {product.volume}
                       </td>
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-ink)] border-r border-[var(--cera-line)] text-center">
                         {product.productCost.toFixed(2)}
                       </td>
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-600 border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-body)] border-r border-[var(--cera-line)] text-center">
                         {typeof product.expensePerProcedure === 'number' 
                           ? <span className="whitespace-nowrap">{product.expensePerProcedure.toFixed(1)}g</span>
                           : product.expensePerProcedure}
                       </td>
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 font-medium border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-ink)] font-medium border-r border-[var(--cera-line)] text-center">
                         {product.procedureCost.toFixed(2)}
                       </td>
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[10px] sm:text-xs md:text-sm text-gray-600 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[10px] sm:text-xs md:text-sm text-[var(--cera-body)] text-center">
                         {product.procedures}
                       </td>
                     </tr>
                   ))}
-                  <tr className="bg-primary-50">
-                    <td colSpan={2} className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                  <tr className="bg-[var(--cera-blush)]">
+                    <td colSpan={2} className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-[var(--cera-rose-ink)] border-r border-[var(--cera-line)]">
                       
                     </td>
-                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-[var(--cera-rose-ink)] border-r border-[var(--cera-line)]">
                       {totalProductCost.toFixed(2)} AED
                     </td>
-                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-primary-600 border-r border-gray-200 text-center">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-rose-ink)] border-r border-[var(--cera-line)] text-center">
                       -
                     </td>
-                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-[var(--cera-rose-ink)] border-r border-[var(--cera-line)]">
                       {totalTreatmentCost.toFixed(2)} AED
                     </td>
-                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-[var(--cera-rose-ink)]">
                       
                     </td>
                   </tr>
-                  <tr className="bg-gray-50 border-t-2 border-gray-300">
-                    <td colSpan={6} className="px-2 py-2.5 sm:px-3 sm:py-3 md:px-4 md:py-3.5 text-[9px] md:text-xs text-gray-900">
+                  <tr className="bg-[var(--cera-cream-deep)] border-t-2 border-[var(--cera-line)]">
+                    <td colSpan={6} className="px-2 py-2.5 sm:px-3 sm:py-3 md:px-4 md:py-3.5 text-[9px] md:text-xs text-[var(--cera-ink)]">
                       <div className="space-y-1">
                         <div>
                           1. Full product set: <span className="font-semibold">{totalProductCost.toFixed(2)} AED</span>
@@ -541,40 +544,40 @@ export default async function ProfPage() {
           </div>
         </div>
 
-        <h2 className="text-base md:text-xl font-bold text-primary-600 mb-3 md:mb-4 mt-6 md:mt-8 text-center">
+        <h2 className="cera-serif mb-3 mt-6 text-center text-[19px] text-[var(--cera-ink)] md:mb-4 md:mt-8 md:text-[24px]">
           Genosys Product Calculation
         </h2>
         
         <div className="overflow-x-auto -mx-2 md:mx-0">
           <div className="inline-block min-w-full align-middle">
-            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg border-2 border-gray-300">
-              <table className="min-w-full divide-y divide-gray-300 text-[9px] md:text-xs border-collapse border border-gray-300">
-                <thead className="bg-gray-50">
+            <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 rounded-lg border-2 border-[var(--cera-line)]">
+              <table className="min-w-full divide-y divide-[var(--cera-line)] text-[9px] md:text-xs border-collapse border border-[var(--cera-line)]">
+                <thead className="bg-[var(--cera-cream-deep)]">
                   <tr>
-                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-left text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-left text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider border-r border-[var(--cera-line)]">
                       Product Name
                     </th>
-                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider border-r border-[var(--cera-line)]">
                       Volume
                     </th>
-                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider border-r border-[var(--cera-line)]">
                       Product Cost, AED
                     </th>
-                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider border-r border-[var(--cera-line)]">
                       Product per 1 treatment
                     </th>
-                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider border-r border-gray-300">
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider border-r border-[var(--cera-line)]">
                       1 treatment cost
                     </th>
-                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-gray-700 uppercase tracking-wider">
+                    <th className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-semibold text-[var(--cera-body)] uppercase tracking-wider">
                       Treatments
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white divide-y divide-[var(--cera-line)]">
                   {genosysProductsWithLinks.map((product, index) => (
-                    <tr key={index} className="hover:bg-gray-50">
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 font-medium border-r border-gray-200 text-left uppercase">
+                    <tr key={index} className="hover:bg-[var(--cera-cream-deep)]">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-ink)] font-medium border-r border-[var(--cera-line)] text-left uppercase">
                         {product.productIds && product.productIds.length > 0 ? (
                           <span>
                             PRO Solutions (
@@ -583,7 +586,7 @@ export default async function ProfPage() {
                                 {idx > 0 && ' / '}
                                 <Link 
                                   href={`/products/${p.id}`}
-                                  className="text-gray-900 underline hover:text-gray-700 transition-colors"
+                                  className="text-[var(--cera-ink)] underline hover:text-[var(--cera-body)] transition-colors"
                                 >
                                   {p.code}
                                 </Link>
@@ -594,7 +597,7 @@ export default async function ProfPage() {
                         ) : product.productId ? (
                           <Link 
                             href={`/products/${product.productId}`}
-                            className="text-gray-900 underline hover:text-gray-700 transition-colors"
+                            className="text-[var(--cera-ink)] underline hover:text-[var(--cera-body)] transition-colors"
                           >
                             {product.name}
                           </Link>
@@ -602,44 +605,44 @@ export default async function ProfPage() {
                           product.name
                         )}
                       </td>
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-600 border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-body)] border-r border-[var(--cera-line)] text-center">
                         {product.volume}
                       </td>
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-ink)] border-r border-[var(--cera-line)] text-center">
                         {product.productCost.toFixed(2)}
                       </td>
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-600 border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-body)] border-r border-[var(--cera-line)] text-center">
                         {typeof product.expensePerProcedure === 'number' 
                           ? <span className="whitespace-nowrap">{product.expensePerProcedure.toFixed(1)}g</span>
                           : product.expensePerProcedure}
                       </td>
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-gray-900 font-medium border-r border-gray-200 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-ink)] font-medium border-r border-[var(--cera-line)] text-center">
                         {product.procedureCost.toFixed(2)}
                       </td>
-                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[10px] sm:text-xs md:text-sm text-gray-600 text-center">
+                      <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[10px] sm:text-xs md:text-sm text-[var(--cera-body)] text-center">
                         {product.procedures}
                       </td>
                     </tr>
                   ))}
-                  <tr className="bg-primary-50">
-                    <td colSpan={2} className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                  <tr className="bg-[var(--cera-blush)]">
+                    <td colSpan={2} className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-[var(--cera-rose-ink)] border-r border-[var(--cera-line)]">
                       
                     </td>
-                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-[var(--cera-rose-ink)] border-r border-[var(--cera-line)]">
                       
                     </td>
-                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-primary-600 border-r border-gray-200 text-center">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-[9px] md:text-xs text-[var(--cera-rose-ink)] border-r border-[var(--cera-line)] text-center">
                       -
                     </td>
-                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600 border-r border-gray-200">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-[var(--cera-rose-ink)] border-r border-[var(--cera-line)]">
                       
                     </td>
-                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-primary-600">
+                    <td className="px-2 py-2 sm:px-3 sm:py-2.5 md:px-4 md:py-3 text-center text-[9px] md:text-xs font-bold text-[var(--cera-rose-ink)]">
                       
                     </td>
                   </tr>
-                  <tr className="bg-gray-50 border-t-2 border-gray-300">
-                    <td colSpan={6} className="px-2 py-2.5 sm:px-3 sm:py-3 md:px-4 md:py-3.5 text-[9px] md:text-xs text-gray-900">
+                  <tr className="bg-[var(--cera-cream-deep)] border-t-2 border-[var(--cera-line)]">
+                    <td colSpan={6} className="px-2 py-2.5 sm:px-3 sm:py-3 md:px-4 md:py-3.5 text-[9px] md:text-xs text-[var(--cera-ink)]">
                       You can calculate any Genosys product cost per 1 treatment.
                     </td>
                   </tr>

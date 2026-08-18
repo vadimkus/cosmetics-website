@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function CheckoutCancelledPage() {
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen">
+    <div className="min-h-screen">
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: '/' },

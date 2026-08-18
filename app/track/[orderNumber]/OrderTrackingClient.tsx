@@ -8,6 +8,9 @@ import { Package, Truck, CheckCircle, XCircle, Clock, ArrowLeft, RefreshCw, Cred
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 import { translateSize } from '@/utils/sizeTranslations'
 
 interface TrackingData {
@@ -138,71 +141,71 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
     const statusMap: Record<string, { icon: React.ReactNode; color: string; bgColor: string; label: string }> = {
       'PENDING': { 
         icon: <Clock className="w-5 h-5" />, 
-        color: 'text-yellow-600', 
-        bgColor: 'bg-yellow-50',
+        color: 'text-[var(--cera-rose-ink)]',
+        bgColor: 'bg-[var(--cera-blush)]',
         label: t('orders.statusPending') || 'Order Pending'
       },
       'CONFIRMED': { 
         icon: <CheckCircle className="w-5 h-5" />, 
-        color: 'text-blue-600', 
-        bgColor: 'bg-blue-50',
+        color: 'text-[var(--cera-rose-ink)]',
+        bgColor: 'bg-[var(--cera-blush)]',
         label: t('orders.statusConfirmed') || 'Order Confirmed'
       },
       'PROCESSING': { 
         icon: <Package className="w-5 h-5" />, 
-        color: 'text-indigo-600', 
-        bgColor: 'bg-indigo-50',
+        color: 'text-[var(--cera-rose-ink)]',
+        bgColor: 'bg-[var(--cera-blush)]',
         label: t('orders.statusProcessing') || 'Processing'
       },
       'SHIPPED': { 
         icon: <Truck className="w-5 h-5" />, 
-        color: 'text-purple-600', 
-        bgColor: 'bg-purple-50',
+        color: 'text-[var(--cera-rose-ink)]',
+        bgColor: 'bg-[var(--cera-blush)]',
         label: t('orders.statusShipped') || 'Shipped'
       },
       'OUT_FOR_DELIVERY': { 
         icon: <Truck className="w-5 h-5" />, 
-        color: 'text-orange-600', 
-        bgColor: 'bg-orange-50',
+        color: 'text-[var(--cera-rose-ink)]',
+        bgColor: 'bg-[var(--cera-blush)]',
         label: t('orders.statusOutForDelivery') || 'Out for Delivery'
       },
       'DELIVERED': { 
         icon: <CheckCircle className="w-5 h-5" />, 
-        color: 'text-green-600', 
+        color: 'text-green-700',
         bgColor: 'bg-green-50',
         label: t('orders.statusDelivered') || 'Delivered'
       },
       'CANCELLED': { 
         icon: <XCircle className="w-5 h-5" />, 
-        color: 'text-red-600', 
+        color: 'text-red-600',
         bgColor: 'bg-red-50',
         label: t('orders.statusCancelled') || 'Cancelled'
       }
     }
     return statusMap[status] ?? {
       icon: <Clock className="w-5 h-5" />,
-      color: 'text-yellow-600',
-      bgColor: 'bg-yellow-50',
+      color: 'text-[var(--cera-rose-ink)]',
+      bgColor: 'bg-[var(--cera-blush)]',
       label: t('orders.statusUnknown') || 'Unknown Status'
     }
   }
 
   if (loading) {
     return (
-      <div className={`min-h-[100dvh] bg-gray-50 ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
         {/* Mobile Header for Loading State */}
         {isMobileWeb && (
-          <div className={`sticky top-0 z-40 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <div className={`sticky top-0 z-40 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button
               onClick={() => router.push(getLocalizedPath('/profile?tab=orders', locale))}
               className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
             >
-              <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-              <span className="text-base text-red-600">
+              <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+              <span className="text-base text-[var(--cera-rose-ink)]">
                 {t('orders.title')}
               </span>
             </button>
-            <span className="text-base font-semibold text-gray-900">
+            <span className="text-base font-semibold text-[var(--cera-ink)]">
               {t('orders.trackOrder')}
             </span>
             <button
@@ -210,7 +213,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
               className="min-w-[80px] flex justify-end"
             >
               <div className="relative">
-                <div className="w-9 h-9 rounded-full bg-gray-400 flex items-center justify-center">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-muted)]">
                   <span className="text-sm font-semibold text-white">G</span>
                 </div>
               </div>
@@ -220,8 +223,8 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
         
         <div className={`flex items-center justify-center p-4 ${isMobileWeb ? 'min-h-[calc(100dvh-180px)]' : 'min-h-[100dvh]'}`}>
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">{t('common.loading') || 'Loading tracking information...'}</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)] mx-auto mb-4"></div>
+            <p className="text-[var(--cera-muted)]">{t('common.loading') || 'Loading tracking information...'}</p>
           </div>
         </div>
       </div>
@@ -230,20 +233,20 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
 
   if (error) {
     return (
-      <div className={`min-h-[100dvh] bg-gray-50 ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isMobileWeb ? 'pb-32' : ''}`} dir={dir}>
         {/* Mobile Header for Error State */}
         {isMobileWeb && (
-          <div className={`sticky top-0 z-40 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <div className={`sticky top-0 z-40 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button
               onClick={() => router.push(getLocalizedPath('/profile?tab=orders', locale))}
               className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
             >
-              <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-              <span className="text-base text-red-600">
+              <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+              <span className="text-base text-[var(--cera-rose-ink)]">
                 {t('orders.title')}
               </span>
             </button>
-            <span className="text-base font-semibold text-gray-900">
+            <span className="text-base font-semibold text-[var(--cera-ink)]">
               {t('orders.trackOrder')}
             </span>
             <button
@@ -251,7 +254,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
               className="min-w-[80px] flex justify-end"
             >
               <div className="relative">
-                <div className="w-9 h-9 rounded-full bg-gray-400 flex items-center justify-center">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-muted)]">
                   <span className="text-sm font-semibold text-white">G</span>
                 </div>
               </div>
@@ -260,23 +263,26 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
         )}
         
         <div className={`flex items-center justify-center p-4 ${isMobileWeb ? 'min-h-[calc(100dvh-180px)]' : 'min-h-[100dvh]'}`}>
-          <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
-            <XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
-            <h1 className="text-xl font-semibold text-gray-900 mb-2">{t('orders.orderNotFound') || 'Order Not Found'}</h1>
-            <p className="text-gray-600 mb-6">{error}</p>
-            <div className="space-y-3">
+          <div className="w-full max-w-md rounded-[28px] border border-[var(--cera-line)] bg-white p-8 text-center shadow-[0_24px_60px_-40px_rgba(23,20,15,0.45)]">
+            {/* Red stays: the order could not be found. */}
+            <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-red-200 bg-red-50 text-red-600">
+              <XCircle className="h-7 w-7" aria-hidden="true" />
+            </span>
+            <h1 className="cera-serif mt-6 text-[24px] leading-tight text-[var(--cera-ink)]">{t('orders.orderNotFound') || 'Order Not Found'}</h1>
+            <p className="mt-3 text-[15px] leading-relaxed text-[var(--cera-body)]">{error}</p>
+            <div className="mt-7 space-y-3">
               <button
                 onClick={fetchTrackingData}
-                className={`w-full py-2 px-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
+                className={`ed-cta w-full py-3.5 text-[15px] ${isRTL ? 'flex-row-reverse' : ''}`}
               >
-                <RefreshCw className="w-4 h-4" />
+                <RefreshCw className="h-4 w-4" />
                 {t('common.tryAgain') || 'Try Again'}
               </button>
               <Link
                 href={getLocalizedPath('/', locale)}
-                className={`w-full py-2 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}
+                className={`ed-ghost w-full py-3.5 text-[15px] ${isRTL ? 'flex-row-reverse' : ''}`}
               >
-                <ArrowLeft className={`w-4 h-4 ${isRTL ? 'rotate-180' : ''}`} />
+                <ArrowLeft className={`h-4 w-4 ${isRTL ? 'rotate-180' : ''}`} />
                 {t('common.backHome') || 'Back to Home'}
               </Link>
             </div>
@@ -288,10 +294,10 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
 
   if (!trackingData) {
     return (
-      <div className={`min-h-[100dvh] bg-gray-50 flex items-center justify-center`} dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] flex items-center justify-center`} dir={dir}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">{t('common.loading') || 'Loading tracking information...'}</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)] mx-auto mb-4"></div>
+          <p className="text-[var(--cera-muted)]">{t('common.loading') || 'Loading tracking information...'}</p>
         </div>
       </div>
     )
@@ -300,20 +306,20 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
   const statusDisplay = getStatusDisplay(trackingData.status)
 
   return (
-    <div className={`min-h-[100dvh] bg-gray-50 ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {/* Mobile Header */}
       {isAppLikeMode && (
-        <div className={`sticky top-0 z-40 flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`sticky top-0 z-40 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
             onClick={handleBack}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">
+            <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-[var(--cera-rose-ink)]">
               {t('orders.title')}
             </span>
           </button>
-          <span className="text-base font-semibold text-gray-900">
+          <span className="text-base font-semibold text-[var(--cera-ink)]">
             {t('orders.trackOrder')}
           </span>
           <button
@@ -321,14 +327,14 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
             className="min-w-[80px] flex justify-end"
           >
             <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-ink)]">
                 <span className="text-sm font-semibold text-white">
                   {trackingData?.customerFirstName?.charAt(0) || 'G'}
                 </span>
               </div>
               {/* Green online dot - only when tracking data exists (implies logged in order) */}
               {trackingData && (
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-[var(--cera-cream)]" />
               )}
             </div>
           </button>
@@ -341,16 +347,16 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
           <div className="mb-6">
             <Link 
               href={getLocalizedPath('/profile?tab=orders', locale)}
-              className={`inline-flex items-center text-gray-600 hover:text-primary-600 transition-colors mb-4 ${isRTL ? 'flex-row-reverse' : ''}`}
+              className={`mb-4 inline-flex items-center text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] ${isRTL ? 'flex-row-reverse' : ''}`}
             >
-              <ArrowLeft className={`w-4 h-4 ${isRTL ? 'ml-2 rotate-180' : 'mr-2'}`} />
+              <ArrowLeft className={`h-4 w-4 ${isRTL ? 'ml-2 rotate-180' : 'mr-2'}`} />
               {t('orders.backToOrders') || 'Back to Orders'}
             </Link>
             <div className="flex items-center justify-between">
-              <h1 className="text-2xl font-bold text-gray-900">{t('orders.orderTracking') || 'Order Tracking'}</h1>
+              <h1 className="cera-serif text-[30px] leading-tight text-[var(--cera-ink)]">{t('orders.orderTracking') || 'Order Tracking'}</h1>
               <button
                 onClick={fetchTrackingData}
-                className="p-2 text-gray-500 hover:text-primary-600 transition-colors"
+                className="flex h-11 w-11 items-center justify-center rounded-full text-[var(--cera-muted)] transition-colors hover:bg-[var(--cera-cream-deep)] hover:text-[var(--cera-ink)]"
                 title="Refresh"
               >
                 <RefreshCw className="w-5 h-5" />
@@ -360,22 +366,22 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
         )}
 
         {/* Status Card */}
-        <div className={`rounded-xl p-6 mb-6 ${statusDisplay.bgColor}`}>
-          <div className="flex items-center gap-4">
-            <div className={`p-3 rounded-full bg-white ${statusDisplay.color}`}>
+        <div className={`mb-6 rounded-[24px] border border-[var(--cera-line)] p-6 ${statusDisplay.bgColor}`}>
+          <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className={`rounded-full bg-white p-3 ${statusDisplay.color}`}>
               {statusDisplay.icon}
             </div>
             <div className="flex-1">
-              <p className={`font-semibold text-lg ${statusDisplay.color}`}>
+              <p className={`cera-serif text-[21px] leading-tight ${statusDisplay.color}`}>
                 {statusDisplay.label}
               </p>
-              <p className="text-gray-600 text-sm">
+              <p className="mt-0.5 text-sm text-[var(--cera-muted)]" dir="ltr">
                 {t('orders.orderNumber') || 'Order'} #{trackingData.orderNumber}
               </p>
             </div>
             <div className={isRTL ? 'text-left' : 'text-right'}>
-              <p className="text-sm text-gray-500">{t('orders.total') || 'Total'}</p>
-              <p className="font-bold text-lg text-gray-900">
+              <p className="cera-eyebrow">{t('orders.total') || 'Total'}</p>
+              <p dir="ltr" className="cera-serif cera-numeral mt-1 text-[21px] leading-none text-[var(--cera-ink)]">
                 {trackingData.total.toFixed(2)} AED
               </p>
             </div>
@@ -383,19 +389,19 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
           
           {/* Estimated Delivery */}
           {trackingData.estimatedDelivery && (
-            <div className="mt-4 pt-4 border-t border-gray-200">
-              <div className={`flex items-center gap-2 text-gray-700 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            <div className="mt-4 border-t border-[var(--cera-line)] pt-4">
+              <div className={`flex flex-wrap items-center gap-2 text-[var(--cera-body)] ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <MapPin className="w-4 h-4" />
                 <span className="font-medium">{(t('orders.estimatedDeliveryTo') || 'Estimated Delivery to {emirate}').replace('{emirate}', trackingData.emirate)}:</span>
                 <span>
                   {trackingData.estimatedDelivery.type === 'hours' ? (
                     <>
                       {trackingData.estimatedDelivery.minHours === trackingData.estimatedDelivery.maxHours ? (
-                        <span className="text-green-600 font-semibold">
+                        <span className="font-semibold text-green-700">
                           {trackingData.estimatedDelivery.minHours === 0.5 ? `30 ${t('orders.minutes') || 'minutes'}` : `${trackingData.estimatedDelivery.minHours} ${trackingData.estimatedDelivery.minHours !== 1 ? (t('orders.hours') || 'hours') : (t('orders.hour') || 'hour')}`}
                         </span>
                       ) : (
-                        <span className="text-green-600 font-semibold">
+                        <span className="font-semibold text-green-700">
                           {trackingData.estimatedDelivery.minHours === 0.5 ? '30 min' : `${trackingData.estimatedDelivery.minHours}`}-{trackingData.estimatedDelivery.maxHours} {t('orders.hours') || 'hours'}
                         </span>
                       )}
@@ -421,8 +427,8 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
         </div>
 
         {/* Timeline */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">{t('orders.orderTimeline') || 'Order Timeline'}</h2>
+        <div className="mb-6 rounded-[24px] border border-[var(--cera-line)] bg-white p-6 shadow-[0_18px_50px_-38px_rgba(23,20,15,0.4)]">
+          <h2 className="cera-serif mb-4 text-[19px] leading-tight text-[var(--cera-ink)]">{t('orders.orderTimeline') || 'Order Timeline'}</h2>
           <div className="space-y-4">
             {trackingData.timeline.map((step, index) => {
               const isLast = index === trackingData.timeline.length - 1
@@ -430,20 +436,20 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
                 <div key={step.status} className="flex gap-4">
                   {/* Timeline dot and line */}
                   <div className="flex flex-col items-center">
-                    <div className={`w-4 h-4 rounded-full border-2 ${
+                    <div className={`h-4 w-4 rounded-full border-2 ${
                       step.completed 
-                        ? 'bg-green-500 border-green-500' 
+                        ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)]' 
                         : step.current 
-                          ? 'bg-primary-600 border-primary-600 animate-pulse' 
-                          : 'bg-white border-gray-300'
+                          ? 'animate-pulse border-[var(--cera-rose)] bg-[var(--cera-rose)]' 
+                          : 'border-[var(--cera-blush-deep)] bg-white'
                     }`}>
                       {step.completed && (
                         <CheckCircle className="w-3 h-3 text-white -mt-0.5 -ml-0.5" />
                       )}
                     </div>
                     {!isLast && (
-                      <div className={`w-0.5 h-8 ${
-                        step.completed ? 'bg-green-500' : 'bg-gray-200'
+                      <div className={`h-8 w-0.5 ${
+                        step.completed ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-line)]'
                       }`} />
                     )}
                   </div>
@@ -451,12 +457,12 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
                   {/* Step content */}
                   <div className="flex-1 pb-4">
                     <p className={`font-medium ${
-                      step.current ? 'text-primary-600' : step.completed ? 'text-gray-900' : 'text-gray-400'
+                      step.current ? 'text-[var(--cera-rose-ink)]' : step.completed ? 'text-[var(--cera-ink)]' : 'text-[var(--cera-muted)]'
                     }`}>
                       {translateTimelineLabel(step.label)}
                     </p>
                     {step.timestamp && (
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-[var(--cera-muted)]">
                         {formatDate(step.timestamp)}
                       </p>
                     )}
@@ -468,48 +474,48 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
         </div>
 
         {/* Payment Info */}
-        <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-          <h2 className={`font-semibold text-gray-900 mb-4 flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className="mb-6 rounded-[24px] border border-[var(--cera-line)] bg-white p-6 shadow-[0_18px_50px_-38px_rgba(23,20,15,0.4)]">
+          <h2 className={`cera-serif mb-4 flex items-center gap-2 text-[19px] leading-tight text-[var(--cera-ink)] ${isRTL ? 'flex-row-reverse' : ''}`}>
             <CreditCard className="w-5 h-5" />
             {t('orders.paymentInformation') || 'Payment Information'}
           </h2>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <p className="text-gray-500">{t('orders.paymentMethod') || 'Payment Method'}</p>
-              <p className="font-medium text-gray-900 capitalize">
+              <p className="cera-eyebrow">{t('orders.paymentMethod') || 'Payment Method'}</p>
+              <p className="mt-1 font-medium capitalize text-[var(--cera-ink)]">
                 {trackingData.paymentMethod === 'cod' ? (t('orders.cashOnDelivery') || 'Cash on Delivery') : trackingData.paymentMethod}
               </p>
             </div>
             <div>
-              <p className="text-gray-500">{t('orders.paymentStatus') || 'Payment Status'}</p>
-              <p className={`font-medium capitalize ${
-                trackingData.paymentStatus === 'paid' ? 'text-green-600' :
-                trackingData.paymentStatus === 'pending' ? 'text-yellow-600' :
-                'text-gray-900'
+              <p className="cera-eyebrow">{t('orders.paymentStatus') || 'Payment Status'}</p>
+              <p className={`mt-1 font-medium capitalize ${
+                trackingData.paymentStatus === 'paid' ? 'text-green-700' :
+                trackingData.paymentStatus === 'pending' ? 'text-amber-700' :
+                'text-[var(--cera-ink)]'
               }`}>
                 {trackingData.paymentStatus}
               </p>
             </div>
             {trackingData.paidAt && (
               <div className="col-span-2">
-                <p className="text-gray-500">{t('orders.paidAt') || 'Paid At'}</p>
-                <p className="font-medium text-gray-900">{formatDate(trackingData.paidAt)}</p>
+                <p className="cera-eyebrow">{t('orders.paidAt') || 'Paid At'}</p>
+                <p className="mt-1 font-medium text-[var(--cera-ink)]">{formatDate(trackingData.paidAt)}</p>
               </div>
             )}
           </div>
         </div>
 
         {/* Order Items */}
-        <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">
+        <div className="rounded-[24px] border border-[var(--cera-line)] bg-white p-6 shadow-[0_18px_50px_-38px_rgba(23,20,15,0.4)]">
+          <h2 className="cera-serif mb-4 text-[19px] leading-tight text-[var(--cera-ink)]">
             {t('orders.orderItems') || 'Order Items'} ({trackingData.itemCount} {t('orders.items') || 'items'})
           </h2>
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-[var(--cera-line)]">
             {trackingData.items.map((item, index) => (
               <div key={index} className="flex gap-4 py-4 first:pt-0 last:pb-0">
-                <div className="relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
+                <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-xl border border-[var(--cera-line)] bg-[var(--cera-cream-deep)]">
                   <Image
-                    src={item.image || '/images/placeholder.png'}
+                    src={item.image || '/images/genosys-logo-transparent.png'}
                     alt={item.name}
                     fill
                     className="object-cover"
@@ -517,8 +523,8 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
                   />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-gray-900 truncate">{item.name}</p>
-                  <div className={`flex items-center gap-3 text-sm text-gray-500 mt-1 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <p className="truncate font-medium text-[var(--cera-ink)]">{item.name}</p>
+                  <div className={`flex items-center gap-3 mt-1 text-sm text-[var(--cera-muted)] ${isRTL ? 'flex-row-reverse' : ''}`}>
                     <span>{t('orders.qty') || 'Qty'}: {item.quantity}</span>
                     {item.size && <span>{t('orders.size') || 'Size'}: {translateSize(item.size, locale)}</span>}
                     {item.color && <span>{t('orders.color') || 'Color'}: {item.color}</span>}
@@ -531,7 +537,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
 
         {/* Contact Support via WhatsApp */}
         <div className="mt-6 text-center">
-          <p className="text-gray-600 text-sm mb-2">
+          <p className="mb-2 text-sm text-[var(--cera-body)]">
             {t('orders.needHelp') || 'Need help with your order?'}
           </p>
           <a 

@@ -7,6 +7,9 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useRouter } from 'next/navigation'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export default function CheckoutCancelledClient() {
   const { t, locale, dir } = useTranslation()
@@ -16,20 +19,20 @@ export default function CheckoutCancelledClient() {
   const isRTL = dir === 'rtl'
 
   return (
-    <div className={`min-h-[100dvh] bg-white ${isMobile ? '' : 'py-12'}`} dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isMobile ? '' : 'py-12'}`} dir={dir}>
       {/* Mobile Header */}
       {isClient && isMobile && (
-        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 sticky top-0 z-10 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)] px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath('/cart', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="text-base text-red-600">{t('checkout.cart') || 'Cart'}</span>
+            <span className="text-base text-[var(--cera-rose-ink)]">{t('checkout.cart') || 'Cart'}</span>
           </button>
-          <span className="text-base font-semibold text-gray-900">
+          <span className="text-base font-semibold text-[var(--cera-ink)]">
             {t('checkout.paymentCancelled') || 'Payment Cancelled'}
           </span>
           {/* Profile Icon - green dot only when logged in */}
@@ -38,13 +41,13 @@ export default function CheckoutCancelledClient() {
             className="min-w-[80px] flex justify-end"
           >
             <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
               </div>
               {user && (
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-[var(--cera-cream)]" />
               )}
             </div>
           </button>
@@ -54,54 +57,52 @@ export default function CheckoutCancelledClient() {
       <div className={`container mx-auto px-4 max-w-2xl ${isMobile ? 'py-6' : ''}`}>
         {/* Cancelled Header */}
         <div className="text-center mb-8">
-          <div className={`${isMobile ? 'w-16 h-16' : 'w-20 h-20'} bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6`}>
-            <XCircle className={`${isMobile ? 'w-10 h-10' : 'w-12 h-12'} text-red-600`} />
+          <div className={`${isMobile ? 'h-14 w-14' : 'h-16 w-16'} mx-auto mb-6 flex items-center justify-center rounded-full border border-red-200 bg-red-50`}>
+            <XCircle className={`${isMobile ? 'h-7 w-7' : 'h-8 w-8'} text-red-600`} />
           </div>
           
-          <h1 className={`${isMobile ? 'text-2xl' : 'text-3xl'} font-bold text-red-900 mb-4`}>
+          <h1 className={`cera-serif ${isMobile ? 'text-[27px]' : 'text-[34px]'} leading-tight text-[var(--cera-ink)]`}>
             {t('checkout.paymentCancelled')}
           </h1>
           
-          <p className={`${isMobile ? 'text-base' : 'text-lg'} text-gray-600 mb-2`}>
+          <p className={`mt-4 ${isMobile ? 'text-[15px]' : 'text-base'} leading-relaxed text-[var(--cera-body)]`}>
             {t('checkout.noCharges')}
           </p>
           
-          <p className="text-gray-500 text-sm">
+          <p className="mt-2 text-sm text-[var(--cera-muted)]">
             {t('checkout.canReturnAnytime')}
           </p>
         </div>
 
         {/* Information Card */}
-        <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+        <div className="mb-8 rounded-[24px] border border-[var(--cera-line)] bg-white p-6 shadow-[0_18px_50px_-38px_rgba(23,20,15,0.4)]">
+          <h2 className="cera-serif mb-4 text-[21px] leading-tight text-[var(--cera-ink)]">
             {t('checkout.whatHappened')}
           </h2>
           
-          <div className="space-y-3 text-gray-600">
+          <div className="space-y-3 text-[var(--cera-body)]">
             <div className="flex items-start">
-              <div className="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div className="mt-[9px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--cera-blush-deep)] mr-3"></div>
               <p>{t('checkout.cancelledExplanation1')}</p>
             </div>
             <div className="flex items-start">
-              <div className="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div className="mt-[9px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--cera-blush-deep)] mr-3"></div>
               <p>{t('checkout.cancelledExplanation2')}</p>
             </div>
             <div className="flex items-start">
-              <div className="w-2 h-2 bg-gray-400 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+              <div className="mt-[9px] h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--cera-blush-deep)] mr-3"></div>
               <p>{t('checkout.cancelledExplanation3')}</p>
             </div>
           </div>
         </div>
 
         {/* Alternative Payment Methods */}
-        <div className="bg-blue-50 rounded-xl p-6 mb-8">
-          <h3 className="font-semibold text-blue-900 mb-3">
-            {t('checkout.alternativeOptions')}
-          </h3>
-          <div className="text-sm text-blue-800 space-y-2">
-            <p>💳 {t('checkout.tryDifferentCard')}</p>
-            <p>🚚 {t('checkout.cashOnDeliveryAvailable')}</p>
-            <p>💬 {t('checkout.contactSupportForHelp')}</p>
+        <div className="ed-panel mb-8 p-6">
+          <p className="cera-eyebrow">{t('checkout.alternativeOptions')}</p>
+          <div className="mt-3 space-y-2 text-sm leading-relaxed text-[var(--cera-body)]">
+            <p>{t('checkout.tryDifferentCard')}</p>
+            <p>{t('checkout.cashOnDeliveryAvailable')}</p>
+            <p>{t('checkout.contactSupportForHelp')}</p>
           </div>
         </div>
 
@@ -110,19 +111,19 @@ export default function CheckoutCancelledClient() {
           {/* Primary Actions */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
-              href={getLocalizedPath('/cart', locale)}
-              className={`flex-1 inline-flex items-center justify-center px-6 ${isMobile ? 'py-4' : 'py-3'} bg-primary-600 text-white rounded-xl hover:bg-primary-700 transition-colors font-semibold ${isRTL ? 'flex-row-reverse' : ''}`}
-            >
-              <ShoppingCart className={`w-5 h-5 ${isRTL ? 'ml-2' : 'mr-2'}`} />
-              {t('checkout.reviewCart')}
-            </Link>
-            
-            <Link
               href={getLocalizedPath('/checkout', locale)}
-              className={`flex-1 inline-flex items-center justify-center px-6 ${isMobile ? 'py-4' : 'py-3'} bg-green-600 text-white rounded-xl hover:bg-green-700 transition-colors font-semibold ${isRTL ? 'flex-row-reverse' : ''}`}
+              className={`ed-cta flex-1 px-6 ${isMobile ? 'py-4' : 'py-3.5'} text-[15px] ${isRTL ? 'flex-row-reverse' : ''}`}
             >
-              <ArrowLeft className={`w-5 h-5 ${isRTL ? 'ml-2 rotate-180' : 'mr-2'}`} />
+              <ArrowLeft className={`h-4 w-4 ${isRTL ? 'rotate-180' : ''}`} />
               {t('checkout.tryAgainCheckout')}
+            </Link>
+
+            <Link
+              href={getLocalizedPath('/cart', locale)}
+              className={`ed-ghost flex-1 px-6 ${isMobile ? 'py-4' : 'py-3.5'} text-[15px] ${isRTL ? 'flex-row-reverse' : ''}`}
+            >
+              <ShoppingCart className="h-4 w-4" />
+              {t('checkout.reviewCart')}
             </Link>
           </div>
 
@@ -130,7 +131,7 @@ export default function CheckoutCancelledClient() {
           <div className={`flex flex-col gap-3 ${isMobile ? '' : 'sm:flex-row'} justify-center items-center`}>
             <Link
               href={getLocalizedPath('/products', locale)}
-              className="inline-flex items-center justify-center px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors"
+              className="inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)]"
             >
               {t('common.continueShopping')}
             </Link>
@@ -138,10 +139,10 @@ export default function CheckoutCancelledClient() {
             {/* Back to Home - hide on mobile (header has navigation) */}
             {!isMobile && (
               <>
-                <span className="hidden sm:inline text-gray-300">|</span>
+                <span className="hidden text-[var(--cera-blush-deep)] sm:inline">|</span>
                 <Link
                   href={getLocalizedPath('/', locale)}
-                  className={`inline-flex items-center justify-center px-4 py-2 text-gray-600 hover:text-gray-900 transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`inline-flex items-center justify-center px-4 py-2 text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] ${isRTL ? 'flex-row-reverse' : ''}`}
                 >
                   <Home className={`w-4 h-4 ${isRTL ? 'ml-1' : 'mr-1'}`} />
                   {t('common.backHome')}
@@ -152,8 +153,8 @@ export default function CheckoutCancelledClient() {
         </div>
 
         {/* WhatsApp Support - Single clean section */}
-        <div className="text-center mt-8 p-4 bg-gray-50 rounded-xl">
-          <p className={`text-sm text-gray-600 mb-3 ${isRTL ? 'text-right' : ''}`}>
+        <div className="mt-8 rounded-[24px] border border-[var(--cera-line)] bg-[var(--cera-cream-deep)] p-5 text-center">
+          <p className={`mb-3 text-sm text-[var(--cera-body)] ${isRTL ? 'text-right' : ''}`}>
             {t('checkout.needHelp')}
           </p>
           <button

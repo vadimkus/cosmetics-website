@@ -2,6 +2,9 @@ import { Suspense } from 'react'
 import StripeSuccessClient from './StripeSuccessClient'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export const metadata: Metadata = {
   title: 'Payment Successful - GENOSYS Professional Korean Dermacosmetics',
@@ -25,8 +28,8 @@ export default function CheckoutSuccessPage() {
       />
       
       <Suspense fallback={
-        <div className="min-h-screen flex items-center justify-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600"></div>
+        <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-screen items-center justify-center`}>
+          <div className="animate-spin rounded-full h-32 w-32 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)]"></div>
         </div>
       }>
         <StripeSuccessClient />

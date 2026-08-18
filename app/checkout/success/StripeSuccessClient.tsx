@@ -9,6 +9,9 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { useCartStore } from '@/lib/cartStore'
 import { debugLog, errorLog } from '@/lib/logger'
 import ConfettiCelebration from '@/components/ConfettiCelebration'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 // Helper to safely call gtag (avoids type conflicts with global Window declarations)
 function trackGtagEvent(eventName: string, params: Record<string, unknown>) {
@@ -135,13 +138,13 @@ export default function StripeSuccessClient() {
 
   if (loading) {
     return (
-      <div className="min-h-[100dvh] flex items-center justify-center" dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[100dvh] items-center justify-center`} dir={dir}>
         <div className="text-center p-8">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          <div className="animate-spin rounded-full h-16 w-16 border-2 border-[var(--cera-line)] border-t-[var(--cera-rose)] mx-auto mb-4"></div>
+          <h2 className="cera-serif mb-2 text-[22px] leading-tight text-[var(--cera-ink)]">
             {t('checkout.verifyingPayment')}
           </h2>
-          <p className="text-gray-600">
+          <p className="text-[var(--cera-body)]">
             {t('checkout.pleaseWait')}
           </p>
         </div>
@@ -151,27 +154,27 @@ export default function StripeSuccessClient() {
 
   if (error || !orderDetails) {
     return (
-      <div className="min-h-[100dvh] flex items-center justify-center" dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[100dvh] items-center justify-center`} dir={dir}>
         <div className="text-center p-8 max-w-md mx-auto">
-          <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <RefreshCw className="w-8 h-8 text-red-600" />
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full border border-red-200 bg-red-50">
+            <RefreshCw className="h-7 w-7 text-red-600" />
           </div>
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          <h2 className="cera-serif mb-2 text-[22px] leading-tight text-[var(--cera-ink)]">
             {t('checkout.verificationFailed')}
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-[var(--cera-body)] mb-6">
             {error || t('checkout.verificationError')}
           </p>
           <div className="space-y-3">
             <Link
               href={getLocalizedPath('/checkout', locale)}
-              className="block w-full px-6 py-3 bg-primary-600 text-white text-center rounded-lg hover:bg-primary-700 transition-colors"
+              className="block w-full px-6 py-3 bg-[var(--cera-rose)] text-white text-center rounded-lg hover:bg-[var(--cera-rose-ink)] transition-colors"
             >
               {t('common.tryAgain')}
             </Link>
             <Link
               href={getLocalizedPath('/', locale)}
-              className="block w-full px-6 py-3 border border-gray-300 text-gray-700 text-center rounded-lg hover:bg-gray-50 transition-colors"
+              className="block w-full px-6 py-3 border border-[var(--cera-line)] text-[var(--cera-body)] text-center rounded-lg hover:bg-[var(--cera-cream-deep)] transition-colors"
             >
               {t('common.backHome')}
             </Link>
@@ -184,7 +187,7 @@ export default function StripeSuccessClient() {
   const isPaymentSuccessful = orderDetails.paymentStatus === 'paid'
 
   return (
-    <div className="min-h-[100dvh] py-12" dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] py-12`} dir={dir}>
       {/* Confetti Celebration */}
       <ConfettiCelebration 
         trigger={showConfetti}
@@ -197,17 +200,17 @@ export default function StripeSuccessClient() {
         {/* Success Header */}
         <div className="text-center mb-8">
           <div className={`w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center ${
-            isPaymentSuccessful ? 'bg-green-100' : 'bg-yellow-100'
+            isPaymentSuccessful ? 'border border-green-200 bg-green-50' : 'border border-amber-200 bg-amber-50'
           }`}>
             {isPaymentSuccessful ? (
-              <CheckCircle className="w-12 h-12 text-green-600" />
+              <CheckCircle className="h-10 w-10 text-green-700" />
             ) : (
-              <RefreshCw className="w-12 h-12 text-yellow-600" />
+              <RefreshCw className="h-10 w-10 text-amber-700" />
             )}
           </div>
           
-          <h1 className={`text-3xl font-bold mb-4 ${
-            isPaymentSuccessful ? 'text-green-900' : 'text-yellow-900'
+          <h1 className={`cera-serif mb-4 text-[34px] leading-tight text-[var(--cera-ink)] ${
+            isPaymentSuccessful ? '' : ''
           }`}>
             {isPaymentSuccessful 
               ? t('checkout.paymentSuccessful') 
@@ -215,22 +218,22 @@ export default function StripeSuccessClient() {
             }
           </h1>
           
-          <p className="text-lg text-gray-600 mb-2">
+          <p className="text-lg text-[var(--cera-body)] mb-2">
             {isPaymentSuccessful 
               ? t('checkout.orderConfirmed')
               : t('checkout.processingPayment')
             }
           </p>
           
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-[var(--cera-muted)]">
             {t('checkout.orderNumber')}: <span className="font-mono font-semibold">{orderDetails.order.orderNumber}</span>
           </p>
         </div>
 
         {/* Order Summary Card */}
-        <div className="bg-white rounded-xl shadow-lg border border-gray-200 mb-8">
-          <div className="p-6 border-b border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900 flex items-center">
+        <div className="bg-white rounded-xl shadow-lg border border-[var(--cera-line)] mb-8">
+          <div className="p-6 border-b border-[var(--cera-line)]">
+            <h2 className="cera-serif flex items-center text-[22px] leading-tight text-[var(--cera-ink)]">
               <Package className="w-5 h-5 mr-2" />
               {t('checkout.orderSummary')}
             </h2>
@@ -239,8 +242,8 @@ export default function StripeSuccessClient() {
           <div className="p-6 space-y-6">
             {/* Customer Information */}
             <div>
-              <h3 className="font-medium text-gray-900 mb-2">{t('checkout.customerInfo')}</h3>
-              <div className="text-sm text-gray-600 space-y-1">
+              <h3 className="font-medium text-[var(--cera-ink)] mb-2">{t('checkout.customerInfo')}</h3>
+              <div className="text-sm text-[var(--cera-body)] space-y-1">
                 <p><strong>{t('checkout.name')}:</strong> {orderDetails.order.customerName}</p>
                 <p><strong>{t('checkout.email')}:</strong> {orderDetails.order.customerEmail}</p>
               </div>
@@ -248,22 +251,22 @@ export default function StripeSuccessClient() {
 
             {/* Order Items */}
             <div>
-              <h3 className="font-medium text-gray-900 mb-3">{t('checkout.items')}</h3>
+              <h3 className="font-medium text-[var(--cera-ink)] mb-3">{t('checkout.items')}</h3>
               <div className="space-y-3">
                 {orderDetails.order.items.map((item, index) => (
-                  <div key={index} className="flex justify-between items-start py-2 border-b border-gray-100 last:border-0">
+                  <div key={index} className="flex justify-between items-start py-2 border-b border-[var(--cera-line)] last:border-0">
                     <div className="flex-1">
-                      <p className="font-medium text-gray-900">{item.productName}</p>
-                      <div className="text-sm text-gray-500 space-x-4">
+                      <p className="font-medium text-[var(--cera-ink)]">{item.productName}</p>
+                      <div className="text-sm text-[var(--cera-muted)] space-x-4">
                         <span>{t('checkout.quantity')}: {item.quantity}</span>
                         {item.color && <span>{t('checkout.color')}: {item.color}</span>}
                         {item.size && <span>{t('checkout.size')}: {item.size}</span>}
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-gray-900">{item.price} {t('common.aed')}</p>
+                      <p className="font-medium text-[var(--cera-ink)]">{item.price} {t('common.aed')}</p>
                       {item.quantity > 1 && (
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-[var(--cera-muted)]">
                           {item.quantity} × {item.price} = {item.quantity * item.price} {t('common.aed')}
                         </p>
                       )}
@@ -274,10 +277,10 @@ export default function StripeSuccessClient() {
             </div>
 
             {/* Total */}
-            <div className="border-t border-gray-200 pt-4">
+            <div className="border-t border-[var(--cera-line)] pt-4">
               <div className="flex justify-between items-center">
-                <span className="text-lg font-semibold text-gray-900">{t('checkout.total')}</span>
-                <span className="text-lg font-bold text-primary-600">
+                <span className="text-lg font-semibold text-[var(--cera-ink)]">{t('checkout.total')}</span>
+                <span className="text-lg font-bold text-[var(--cera-rose-ink)]">
                   {orderDetails.order.total} {t('common.aed')}
                 </span>
               </div>
@@ -303,7 +306,7 @@ export default function StripeSuccessClient() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href={getLocalizedPath('/products', locale)}
-            className="inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 bg-[var(--cera-rose)] text-white rounded-lg hover:bg-[var(--cera-rose-ink)] transition-colors"
           >
             {t('common.continueShopping')}
             <ArrowRight className={`w-4 h-4 ${dir === 'rtl' ? 'mr-2 rotate-180' : 'ml-2'}`} />
@@ -311,7 +314,7 @@ export default function StripeSuccessClient() {
           
           <Link
             href={getLocalizedPath('/', locale)}
-            className="inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center justify-center px-6 py-3 border border-[var(--cera-line)] text-[var(--cera-body)] rounded-lg hover:bg-[var(--cera-cream-deep)] transition-colors"
           >
             <Home className={`w-4 h-4 ${dir === 'rtl' ? 'ml-2' : 'mr-2'}`} />
             {t('common.backHome')}

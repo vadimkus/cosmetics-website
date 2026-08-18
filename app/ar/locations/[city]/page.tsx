@@ -6,6 +6,9 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import type { Metadata } from 'next'
 import { LocationPageProps } from '@/types/common'
 import { notFound } from 'next/navigation'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 interface AuthorizedReseller {
   name: string
@@ -205,7 +208,7 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
   }
 
   return (
-    <div className="bg-white min-h-screen" dir="rtl">
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir="rtl">
       <BreadcrumbSchema 
         items={[
           { name: 'الرئيسية', url: '/ar' },
@@ -252,44 +255,44 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
         <div className="max-w-4xl mx-auto">
         {/* Mobile back link: it used to sit inside the <nav>, which is not a
             breadcrumb item. */}
-        <Link href="/ar/locations" className="mb-6 flex items-center gap-2 text-primary-600 transition-colors hover:text-primary-700 md:hidden">
+        <Link href="/ar/locations" className="mb-6 flex items-center gap-2 text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose-ink)] md:hidden">
           <ArrowLeft className="h-4 w-4 rotate-180" />
           <span className="font-medium">العودة إلى المواقع</span>
         </Link>
 
           {/* Page Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+            <h1 className="cera-serif text-4xl md:text-5xl text-[var(--cera-ink)] mb-4">
               GENOSYS {location.name}
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-[var(--cera-body)] max-w-2xl mx-auto">
               {location.description}
             </p>
           </div>
 
           {/* Authorized Reseller Section */}
           {location.authorizedReseller && (
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-6 md:p-8 mb-12 shadow-sm">
+            <div className="ed-panel border border-[var(--cera-blush-deep)] rounded-xl p-6 md:p-8 mb-12 shadow-sm">
               <div className="flex items-center gap-3 mb-6">
-                <div className="bg-amber-100 rounded-full p-3">
-                  <Award className="h-7 w-7 text-amber-600" />
+                <div className="rounded-full bg-[var(--cera-blush)] p-3">
+                  <Award className="h-7 w-7 text-[var(--cera-rose-ink)]" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-gray-800">
+                  <h2 className="cera-serif text-2xl text-[var(--cera-ink)]">
                     الموزع المعتمد الحصري الرسمي
                   </h2>
-                  <p className="text-amber-700 font-medium">{location.authorizedReseller.territory}</p>
+                  <p className="text-[var(--cera-rose-ink)] font-medium">{location.authorizedReseller.territory}</p>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg p-6 border border-amber-100">
+              <div className="bg-white rounded-lg p-6 border border-[var(--cera-line)]">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
                   <div className="space-y-3">
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900">
+                      <h3 className="text-xl font-bold text-[var(--cera-ink)]">
                         {location.authorizedReseller.company}
                       </h3>
-                      <p className="text-gray-600 mt-1">
+                      <p className="text-[var(--cera-body)] mt-1">
                         متخصص معتمد من GENOSYS • صالح حتى {location.authorizedReseller.validUntil}
                       </p>
                     </div>
@@ -297,7 +300,7 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
                     <div className="flex flex-col sm:flex-row gap-4">
                       <a 
                         href={`tel:${location.authorizedReseller.phone.replace(/\s/g, '')}`}
-                        className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 font-semibold text-lg"
+                        className="inline-flex items-center gap-2 text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] font-semibold text-lg"
                       >
                         <Phone className="h-5 w-5" />
                         {location.authorizedReseller.phone}
@@ -321,7 +324,7 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
                       href={location.authorizedReseller.certificateUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 bg-amber-600 text-white px-5 py-3 rounded-lg hover:bg-amber-700 transition-colors font-semibold shadow-md"
+                      className="inline-flex items-center gap-2 bg-[var(--cera-rose)] text-white px-5 py-3 rounded-lg hover:bg-[var(--cera-rose-ink)] transition-colors font-semibold shadow-md"
                     >
                       <FileText className="h-5 w-5" />
                       عرض الشهادة
@@ -330,7 +333,7 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
                 </div>
               </div>
               
-              <p className="text-sm text-amber-800 mt-4 text-center">
+              <p className="text-sm text-[var(--cera-muted)] mt-4 text-center">
                 هذا الموزع مخول رسمياً من Genosys لتوزيع منتجات GENOSYS حصرياً في {location.authorizedReseller.territory}.
               </p>
             </div>
@@ -339,27 +342,27 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
           {/* Location Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {/* Contact Information */}
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                <MapPin className="h-6 w-6 text-primary-600" />
+            <div className="bg-[var(--cera-cream-deep)] rounded-lg p-6">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-6 flex items-center gap-2">
+                <MapPin className="h-6 w-6 text-[var(--cera-rose-ink)]" />
                 {location.authorizedReseller ? 'Genosys (الموزع)' : 'معلومات الاتصال'}
               </h2>
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">العنوان</h3>
-                  <p className="text-gray-600">{location.address}</p>
+                  <h3 className="font-semibold text-[var(--cera-ink)] mb-2">العنوان</h3>
+                  <p className="text-[var(--cera-body)]">{location.address}</p>
                 </div>
                 <div>
                   <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                     <div className="flex items-center gap-2">
-                      <Phone className="h-5 w-5 text-primary-600" />
-                      <a href={`tel:${location.phone.replace(/\s/g, '')}`} className="text-primary-600 hover:text-primary-700 font-medium">
+                      <Phone className="h-5 w-5 text-[var(--cera-rose-ink)]" />
+                      <a href={`tel:${location.phone.replace(/\s/g, '')}`} className="text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] font-medium">
                         {location.phone}
                       </a>
                     </div>
                     <div className="flex items-center gap-2">
-                      <Mail className="h-5 w-5 text-primary-600" />
-                      <a href={`mailto:${location.email}`} className="text-primary-600 hover:text-primary-700 font-medium">
+                      <Mail className="h-5 w-5 text-[var(--cera-rose-ink)]" />
+                      <a href={`mailto:${location.email}`} className="text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] font-medium">
                         {location.email}
                       </a>
                     </div>
@@ -370,12 +373,12 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
                     <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                       {location.instagram && (
                         <div className="flex items-center gap-2">
-                          <Instagram className="h-5 w-5 text-primary-600" />
+                          <Instagram className="h-5 w-5 text-[var(--cera-rose-ink)]" />
                           <a 
                             href={location.instagram} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
+                            className="text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] font-medium flex items-center gap-1"
                           >
                             {location.instagram.replace('https://www.instagram.com/', '@').replace('https://instagram.com/', '@')}
                             <span className="text-xs">↗</span>
@@ -384,12 +387,12 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
                       )}
                       {location.website && (
                         <div className="flex items-center gap-2">
-                          <Globe className="h-5 w-5 text-primary-600" />
+                          <Globe className="h-5 w-5 text-[var(--cera-rose-ink)]" />
                           <a 
                             href={location.website} 
                             target="_blank" 
                             rel="noopener noreferrer"
-                            className="text-primary-600 hover:text-primary-700 font-medium flex items-center gap-1"
+                            className="text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] font-medium flex items-center gap-1"
                           >
                             {location.website.replace('https://', '').replace('http://', '')}
                             <span className="text-xs">↗</span>
@@ -403,23 +406,23 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
             </div>
 
             {/* Shipping Information */}
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h2 className="text-2xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
-                <Truck className="h-6 w-6 text-primary-600" />
+            <div className="bg-[var(--cera-cream-deep)] rounded-lg p-6">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-6 flex items-center gap-2">
+                <Truck className="h-6 w-6 text-[var(--cera-rose-ink)]" />
                 معلومات الشحن
               </h2>
               <div className="space-y-4">
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">مناطق التوصيل</h3>
-                  <p className="text-gray-600">{location.shippingInfo}</p>
+                  <h3 className="font-semibold text-[var(--cera-ink)] mb-2">مناطق التوصيل</h3>
+                  <p className="text-[var(--cera-body)]">{location.shippingInfo}</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">تكلفة الشحن</h3>
-                  <p className="text-gray-600">{location.shippingCost}</p>
+                  <h3 className="font-semibold text-[var(--cera-ink)] mb-2">تكلفة الشحن</h3>
+                  <p className="text-[var(--cera-body)]">{location.shippingCost}</p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-gray-800 mb-2">وقت التوصيل</h3>
-                  <p className="text-gray-600">{location.deliveryTime}</p>
+                  <h3 className="font-semibold text-[var(--cera-ink)] mb-2">وقت التوصيل</h3>
+                  <p className="text-[var(--cera-body)]">{location.deliveryTime}</p>
                 </div>
               </div>
             </div>
@@ -432,7 +435,7 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
                 href={`https://maps.google.com/?q=${location.coordinates.lat},${location.coordinates.lng}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block bg-primary-600 text-white p-4 rounded-lg hover:bg-primary-700 transition-colors text-center font-semibold"
+                className="block bg-[var(--cera-rose)] text-white p-4 rounded-lg hover:bg-[var(--cera-rose-ink)] transition-colors text-center font-semibold"
               >
                 عرض على خرائط جوجل
               </a>
@@ -440,23 +443,23 @@ export default async function ArabicLocationPage({ params }: LocationPageProps) 
           )}
 
           {/* Call to Action */}
-          <div className="bg-primary-50 rounded-lg p-8 text-center">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          <div className="bg-[var(--cera-blush)] rounded-lg p-8 text-center">
+            <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4">
               هل أنت مستعد للطلب؟
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-[var(--cera-body)] mb-6">
               تصفح مجموعتنا الكاملة من منتجات مستحضرات التجميل الكورية الاحترافية.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/ar/products"
-                className="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
+                className="bg-[var(--cera-rose)] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors"
               >
                 عرض المنتجات
               </Link>
               <Link
                 href="/ar/contact"
-                className="border border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors"
+                className="border border-[var(--cera-rose)] text-[var(--cera-rose-ink)] px-8 py-3 rounded-lg font-semibold hover:bg-[var(--cera-blush)] transition-colors"
               >
                 اتصل بنا
               </Link>

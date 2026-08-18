@@ -3,6 +3,9 @@ import PageBreadcrumb from '@/components/PageBreadcrumb'
 import Link from 'next/link'
 import { MapPin, ArrowLeft } from 'lucide-react'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export const metadata: Metadata = {
   title: 'GENOSYS в ОАЭ — доставка по всем эмиратам',
@@ -107,7 +110,7 @@ const locations = [
 
 export default function RussianLocationsPage() {
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen">
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
       <BreadcrumbSchema 
         items={[
           { name: 'Главная', url: '/ru' },
@@ -125,20 +128,20 @@ export default function RussianLocationsPage() {
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-6xl mx-auto">
           {/* Back to Home */}
-          <Link href="/ru" className="inline-flex items-center gap-1 text-xs md:text-sm text-primary-600 hover:text-primary-700 mb-4 md:mb-8">
+          <Link href="/ru" className="inline-flex items-center gap-1 text-xs md:text-sm text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] mb-4 md:mb-8">
             <ArrowLeft className="h-3 w-3 md:h-4 md:w-4" />
             <span>На главную</span>
           </Link>
 
           {/* Page Header */}
           <div className="text-center mb-6 md:mb-12">
-            <div className="hidden md:inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
-              <MapPin className="h-8 w-8 text-primary-600" />
+            <div className="hidden md:inline-flex items-center justify-center w-16 h-16 bg-[var(--cera-blush)] rounded-full mb-6">
+              <MapPin className="h-8 w-8 text-[var(--cera-rose-ink)]" />
             </div>
-            <h1 className="text-2xl md:text-5xl font-bold text-gray-800 mb-2 md:mb-4">
+            <h1 className="cera-serif text-2xl md:text-5xl text-[var(--cera-ink)] mb-2 md:mb-4">
               Наши локации
             </h1>
-            <p className="text-xs md:text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xs md:text-lg text-[var(--cera-body)] max-w-2xl mx-auto">
               Доставка во все 7 эмиратов ОАЭ
             </p>
           </div>
@@ -149,25 +152,25 @@ export default function RussianLocationsPage() {
               <Link
                 key={location.slug}
                 href={`/ru/locations/${location.slug}`}
-                className="bg-white border border-gray-200 rounded-lg md:rounded-xl p-3 md:p-6 hover:shadow-md transition-all duration-200 group"
+                className="bg-white border border-[var(--cera-line)] rounded-lg md:rounded-xl p-3 md:p-6 hover:shadow-md transition-all duration-200 group"
               >
                 <div className="flex flex-col md:flex-row md:items-start gap-2 md:gap-4">
-                  <div className="hidden md:flex bg-primary-100 rounded-full p-3 group-hover:bg-primary-600 transition-colors">
-                    <MapPin className="h-6 w-6 text-primary-600 group-hover:text-white transition-colors" />
+                  <div className="hidden md:flex bg-[var(--cera-blush)] rounded-full p-3 group-hover:bg-[var(--cera-rose)] transition-colors">
+                    <MapPin className="h-6 w-6 text-[var(--cera-rose-ink)] group-hover:text-white transition-colors" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-1.5 mb-1 md:mb-2">
-                      <MapPin className="h-3 w-3 md:hidden text-primary-600" />
-                      <h2 className="text-sm md:text-xl font-semibold text-gray-800 group-hover:text-primary-600 transition-colors">
+                      <MapPin className="h-3 w-3 md:hidden text-[var(--cera-rose-ink)]" />
+                      <h2 className="text-sm md:text-xl font-semibold text-[var(--cera-ink)] group-hover:text-[var(--cera-rose-ink)] transition-colors">
                         {location.name}
                       </h2>
                     </div>
-                    <p className="hidden md:block text-gray-600 text-sm mb-3">
+                    <p className="hidden md:block text-[var(--cera-body)] text-sm mb-3">
                       {location.description}
                     </p>
-                    <div className="flex flex-col gap-0.5 md:gap-1 text-[10px] md:text-xs text-gray-500">
-                      <span className="font-medium"><span className="text-gray-700">{location.shippingCost}</span></span>
-                      <span className="text-gray-600 line-clamp-1">{location.deliveryTime}</span>
+                    <div className="flex flex-col gap-0.5 md:gap-1 text-[10px] md:text-xs text-[var(--cera-muted)]">
+                      <span className="font-medium"><span className="text-[var(--cera-body)]">{location.shippingCost}</span></span>
+                      <span className="text-[var(--cera-body)] line-clamp-1">{location.deliveryTime}</span>
                     </div>
                   </div>
                 </div>
@@ -176,24 +179,24 @@ export default function RussianLocationsPage() {
           </div>
 
           {/* General Information */}
-          <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-lg md:rounded-xl p-4 md:p-8 border border-primary-100 shadow-sm">
+          <div className="bg-gradient-to-r from-[var(--cera-blush)] to-red-50 rounded-lg md:rounded-xl p-4 md:p-8 border border-[var(--cera-blush-deep)] shadow-sm">
             <div className="text-center">
-              <h2 className="text-lg md:text-2xl font-bold text-gray-800 mb-2 md:mb-3">
+              <h2 className="cera-serif text-lg md:text-2xl text-[var(--cera-ink)] mb-2 md:mb-3">
                 Доступна бесплатная доставка
               </h2>
-              <p className="text-xs md:text-base text-gray-600 mb-4 md:mb-6 max-w-xl mx-auto">
+              <p className="text-xs md:text-base text-[var(--cera-body)] mb-4 md:mb-6 max-w-xl mx-auto">
                 Заказы свыше 1000 дирхамов мы доставляем бесплатно по всем эмиратам ОАЭ.
               </p>
               <div className="flex flex-row gap-3 justify-center">
                 <Link
                   href="/ru/products"
-                  className="bg-primary-600 text-white px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-primary-700 transition-colors text-center shadow-md flex items-center justify-center"
+                  className="bg-[var(--cera-rose)] text-white px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors text-center shadow-md flex items-center justify-center"
                 >
                   Продукция
                 </Link>
                 <Link
                   href="/ru/contact"
-                  className="border border-primary-600 text-primary-600 px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-white transition-colors text-center shadow-md flex items-center justify-center"
+                  className="border border-[var(--cera-rose)] text-[var(--cera-rose-ink)] px-4 md:px-8 py-2 md:py-3 rounded-lg text-xs md:text-base font-semibold hover:bg-white transition-colors text-center shadow-md flex items-center justify-center"
                 >
                   Контакты
                 </Link>

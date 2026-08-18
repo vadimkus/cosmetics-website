@@ -13,6 +13,9 @@ import { useMemo } from 'react'
 import ReadingProgress from '@/components/ui/ReadingProgressV3'
 import BlogContentHtml from '@/components/blog/BlogContentHtml'
 import BlogFeaturedImage from '@/components/blog/BlogFeaturedImage'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 type BlogPostWithComments = {
   id: string
@@ -44,7 +47,7 @@ export default function RussianBlogPostClient({
   const { t, locale, dir } = useTranslation()
 
   return (
-    <article className="bg-gradient-to-b from-gray-50 to-white min-h-screen" dir={dir}>
+    <article className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
       <ReadingProgress />
       <PageBreadcrumb
         items={[
@@ -59,7 +62,7 @@ export default function RussianBlogPostClient({
           {/* Prominent back-to-articles link — visible on all viewports */}
           <Link
             href={getLocalizedPath('/blog', locale)}
-            className="group inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 mb-6 md:mb-8 transition-colors"
+            className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] mb-6 md:mb-8 transition-colors"
           >
             <ArrowLeft className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-1" />
             <span>Все статьи</span>
@@ -67,20 +70,20 @@ export default function RussianBlogPostClient({
 
           {/* Article Header */}
           <header className="mb-10 md:mb-12">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight tracking-tight">
+            <h1 className="cera-serif text-3xl md:text-4xl lg:text-5xl text-[var(--cera-ink)] mb-6 leading-tight tracking-tight">
               {post.title}
             </h1>
             
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-gray-600 mb-8 pb-6 border-b border-gray-200">
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-[var(--cera-body)] mb-8 pb-6 border-b border-[var(--cera-line)]">
               {post.authorName && (
                 <div className="flex items-center gap-2">
-                  <User className="h-4 w-4 text-green-600" />
+                  <User className="h-4 w-4 text-[var(--cera-rose-ink)]" />
                   <span className="font-medium">{post.authorName}</span>
                 </div>
               )}
               {post.publishedAt && (
                 <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4 text-gray-400" />
+                  <Calendar className="h-4 w-4 text-[var(--cera-muted)]" />
                   <time dateTime={post.publishedAt.toISOString()} className="font-medium">
                     {new Date(post.publishedAt).toLocaleDateString('ru-AE', {
                       year: 'numeric',
@@ -92,7 +95,7 @@ export default function RussianBlogPostClient({
               )}
               {post.views > 0 && (
                 <div className="flex items-center gap-2">
-                  <span className="text-gray-400">•</span>
+                  <span className="text-[var(--cera-muted)]">•</span>
                   <span>{post.views} {post.views === 1 ? t('blog.view') : t('blog.views')}</span>
                 </div>
               )}
@@ -116,20 +119,20 @@ export default function RussianBlogPostClient({
 
           {/* Article Content */}
           <BlogContentHtml
-            className="blog-content prose prose-lg prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3 prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base md:prose-p:text-lg prose-strong:text-gray-900 prose-strong:font-semibold prose-a:text-primary-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-ul:text-gray-700 prose-li:text-gray-700 prose-li:leading-relaxed prose-li:mb-2 max-w-none mb-12 break-words"
+            className="blog-content prose prose-lg prose-headings:text-[var(--cera-ink)] prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3 prose-p:text-[var(--cera-body)] prose-p:leading-relaxed prose-p:mb-6 prose-p:text-base md:prose-p:text-lg prose-strong:text-[var(--cera-ink)] prose-strong:font-semibold prose-a:text-[var(--cera-rose-ink)] prose-a:no-underline hover:prose-a:underline prose-a:font-medium prose-ul:text-[var(--cera-body)] prose-li:text-[var(--cera-body)] prose-li:leading-relaxed prose-li:mb-2 max-w-none mb-12 break-words"
             html={useMemo(() => optimizeBlogContentImages(sanitizeHtml(post.content)), [post.content])}
           />
 
           {/* End-of-article: back to articles + meta */}
-          <div className="border-t border-gray-200 pt-8 mb-16 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="border-t border-[var(--cera-line)] pt-8 mb-16 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <Link
               href={getLocalizedPath('/blog', locale)}
-              className="group inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] transition-colors"
             >
               <ArrowLeft className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-1" />
               <span>Назад ко всем статьям</span>
             </Link>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-[var(--cera-muted)]">
               {post.publishedAt
                 ? `Опубликовано ${new Date(post.publishedAt).toLocaleDateString('ru-RU', {
                     year: 'numeric',
@@ -142,13 +145,13 @@ export default function RussianBlogPostClient({
           </div>
 
           {/* Comments Section */}
-          <div className="border-t border-gray-200 pt-12 mt-16">
+          <div className="border-t border-[var(--cera-line)] pt-12 mt-16">
             <div className="flex items-center gap-3 mb-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+              <h2 className="cera-serif text-2xl md:text-3xl text-[var(--cera-ink)]">
                 {t('blog.comments')}
               </h2>
               {post.comments.length > 0 && (
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold">
+                <span className="px-3 py-1 bg-[var(--cera-blush)] text-[var(--cera-rose-ink)] rounded-full text-sm font-semibold">
                   {post.comments.length}
                 </span>
               )}

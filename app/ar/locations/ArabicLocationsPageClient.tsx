@@ -6,6 +6,9 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 const locations = [
   {
@@ -62,7 +65,7 @@ const locations = [
 export default function ArabicLocationsPageClient() {
   const { t, locale, dir } = useTranslation()
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white min-h-screen" dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
       <BreadcrumbSchema 
         items={[
           { name: t('navigation.home'), url: getLocalizedPath('/', locale) },
@@ -82,20 +85,20 @@ export default function ArabicLocationsPageClient() {
           {/* Navigation Breadcrumb */}
         {/* Mobile back link: it used to sit inside the <nav>, which is not a
             breadcrumb item. */}
-        <Link href={getLocalizedPath('/', locale)} className="mb-6 flex items-center gap-2 text-primary-600 transition-colors hover:text-primary-700 md:hidden">
+        <Link href={getLocalizedPath('/', locale)} className="mb-6 flex items-center gap-2 text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose-ink)] md:hidden">
           <ArrowLeft className="h-4 w-4 rotate-180" />
           <span className="font-medium">{t('common.backToHome')}</span>
         </Link>
 
           {/* Page Header */}
           <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
-              <MapPin className="h-8 w-8 text-primary-600" />
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-[var(--cera-blush)] rounded-full mb-6">
+              <MapPin className="h-8 w-8 text-[var(--cera-rose-ink)]" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+            <h1 className="cera-serif text-4xl md:text-5xl text-[var(--cera-ink)] mb-4">
               مواقعنا
             </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-[var(--cera-body)] max-w-2xl mx-auto">
               GENOSYS الشرق الأوسط يقدم مستحضرات التجميل الكورية الاحترافية إلى الإمارات السبع
             </p>
           </div>
@@ -106,22 +109,22 @@ export default function ArabicLocationsPageClient() {
               <Link
                 key={location.slug}
                 href={getLocalizedPath(`/locations/${location.slug}`, locale)}
-                className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-all duration-200 group"
+                className="bg-white border border-[var(--cera-line)] rounded-xl p-6 hover:shadow-md transition-all duration-200 group"
               >
                 <div className="flex items-start gap-4">
-                  <div className="bg-primary-100 rounded-full p-3 group-hover:bg-primary-600 transition-colors">
-                    <MapPin className="h-6 w-6 text-primary-600 group-hover:text-white transition-colors" />
+                  <div className="bg-[var(--cera-blush)] rounded-full p-3 group-hover:bg-[var(--cera-rose)] transition-colors">
+                    <MapPin className="h-6 w-6 text-[var(--cera-rose-ink)] group-hover:text-white transition-colors" />
                   </div>
                   <div className="flex-1">
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-primary-600 transition-colors">
+                    <h2 className="cera-serif text-xl text-[var(--cera-ink)] mb-2 group-hover:text-[var(--cera-rose-ink)] transition-colors">
                       {location.name}
                     </h2>
-                    <p className="text-gray-600 text-sm mb-3">
+                    <p className="text-[var(--cera-body)] text-sm mb-3">
                       {location.description}
                     </p>
-                    <div className="flex flex-col gap-1 text-xs text-gray-500">
-                      <span className="font-medium">الشحن: <span className="text-gray-700">{location.shippingCost}</span></span>
-                      <span className="font-medium">التوصيل: <span className="text-gray-700">{location.deliveryTime}</span></span>
+                    <div className="flex flex-col gap-1 text-xs text-[var(--cera-muted)]">
+                      <span className="font-medium">الشحن: <span className="text-[var(--cera-body)]">{location.shippingCost}</span></span>
+                      <span className="font-medium">التوصيل: <span className="text-[var(--cera-body)]">{location.deliveryTime}</span></span>
                     </div>
                   </div>
                 </div>
@@ -130,25 +133,25 @@ export default function ArabicLocationsPageClient() {
           </div>
 
           {/* General Information */}
-          <div className="bg-gradient-to-r from-primary-50 to-red-50 rounded-xl p-8 border border-primary-100 shadow-sm">
+          <div className="bg-gradient-to-r from-[var(--cera-blush)] to-red-50 rounded-xl p-8 border border-[var(--cera-blush-deep)] shadow-sm">
             <div className="text-center">
-              <h2 className="text-2xl font-bold text-gray-800 mb-3">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-3">
                 الشحن المجاني متاح
               </h2>
-              <p className="text-gray-600 mb-6 max-w-xl mx-auto">
+              <p className="text-[var(--cera-body)] mb-6 max-w-xl mx-auto">
                 جميع الطلبات التي تزيد عن 1000 درهم مؤهلة للشحن المجاني في جميع الإمارات.
                 نقدم منتجات مستحضرات التجميل الكورية الاحترافية مع خدمة موثوقة وسريعة عبر كريم وكويك أب.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <Link
                   href={getLocalizedPath('/products', locale)}
-                  className="bg-primary-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors text-center shadow-md hover:shadow-lg"
+                  className="bg-[var(--cera-rose)] text-white px-8 py-3 rounded-lg font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors text-center shadow-md hover:shadow-lg"
                 >
                   تصفح المنتجات
                 </Link>
                 <Link
                   href={getLocalizedPath('/contact', locale)}
-                  className="border border-primary-600 text-primary-600 px-8 py-3 rounded-lg font-semibold hover:bg-white transition-colors text-center shadow-md hover:shadow-lg"
+                  className="border border-[var(--cera-rose)] text-[var(--cera-rose-ink)] px-8 py-3 rounded-lg font-semibold hover:bg-white transition-colors text-center shadow-md hover:shadow-lg"
                 >
                   {t('common.contact')}
                 </Link>

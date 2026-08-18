@@ -5,6 +5,9 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 interface BlogPostClientProps {
   children: React.ReactNode
@@ -24,24 +27,24 @@ export default function BlogPostClient({ children }: BlogPostClientProps) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
       {/* Mobile Header */}
       <div 
-        className={`sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}
+        className={`sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-white border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}
         style={{ paddingTop: 'max(env(safe-area-inset-top), 12px)' }}
       >
         <button 
           onClick={() => router.push(getLocalizedPath('/blog', locale))}
           className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
         >
-          <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          <span className="text-base text-red-600">
+          <span className="text-base text-[var(--cera-rose-ink)]">
             {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Blog'}
           </span>
         </button>
-        <span className="text-base font-semibold text-gray-900 truncate max-w-[180px]">
+        <span className="text-base font-semibold text-[var(--cera-ink)] truncate max-w-[180px]">
           {locale === 'ar' ? 'المقال' : locale === 'ru' ? 'Статья' : 'Article'}
         </span>
         {/* Profile Icon with green dot */}
@@ -50,7 +53,7 @@ export default function BlogPostClient({ children }: BlogPostClientProps) {
           className={`min-w-[80px] flex ${isRTL ? 'justify-start' : 'justify-end'}`}
         >
           <div className="relative">
-            <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-[var(--cera-ink)] flex items-center justify-center">
               <span className="text-sm font-semibold text-white">
                 {user?.name?.charAt(0)?.toUpperCase() || 'G'}
               </span>

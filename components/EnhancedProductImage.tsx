@@ -221,7 +221,7 @@ export default function EnhancedProductImage({
 
       {/* Main Image */}
       <Image
-        src={currentImageVariants?.[variant] || currentImageVariants?.original || product.image || '/images/placeholder.png'}
+        src={currentImageVariants?.[variant] || currentImageVariants?.original || product.image || '/images/genosys-logo-transparent.png'}
         alt={`${product.name} - GENOSYS Korean dermacosmetics product image`}
         {...(fill 
           ? { fill: true } 

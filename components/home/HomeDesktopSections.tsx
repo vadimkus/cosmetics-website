@@ -190,7 +190,7 @@ function pickFirstImage(product: Product): string {
       /* noop */
     }
   }
-  return '/images/placeholder.png'
+  return '/images/genosys-logo-transparent.png'
 }
 
 /**

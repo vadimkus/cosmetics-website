@@ -178,7 +178,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
                 <Image
                   src={(() => {
                     const imageSrc = productImages[selectedImage] || product.image
-                    if (!imageSrc) return '/images/placeholder.png'
+                    if (!imageSrc) return '/images/genosys-logo-transparent.png'
                     // For product 57 (Charming Look), add timestamp-based cache busting
                     // This ensures the new image loads on mobile devices
                     const separator = imageSrc.includes('?') ? '&' : '?'
@@ -295,7 +295,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
                 <Image
                   src={(() => {
                     const imageSrc = img || product.image
-                    if (!imageSrc) return '/images/placeholder.png'
+                    if (!imageSrc) return '/images/genosys-logo-transparent.png'
                     const separator = imageSrc.includes('?') ? '&' : '?'
                     const version = `${product.id}-${imageSrc.split('/').pop()?.replace(/[^a-zA-Z0-9]/g, '') || 'img'}`
                     return `${imageSrc}${separator}v=${version}`
@@ -365,7 +365,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
             <Image
               src={(() => {
                 const imageSrc = productImages[lightboxIndex] || product.image
-                if (!imageSrc) return '/images/placeholder.png'
+                if (!imageSrc) return '/images/genosys-logo-transparent.png'
                 return imageSrc
               })()}
               alt={`${product.name} - Full size view ${lightboxIndex + 1}`}

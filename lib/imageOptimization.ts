@@ -19,7 +19,7 @@ export const imageOptimization = {
       format?: 'webp' | 'avif' | 'auto'
     } = {}
   ): string => {
-    if (!src) return '/images/placeholder.png'
+    if (!src) return '/images/genosys-logo-transparent.png'
     
     const { width = 800, height, quality = 85, format = 'auto' } = options
     
@@ -306,7 +306,7 @@ export const productImageOptimization = {
     }
     
     if (!imageSrc) {
-      return '/images/placeholder.png'
+      return '/images/genosys-logo-transparent.png'
     }
     
     return imageOptimization.generateProductImageVariants(imageSrc, product.id)[variant]

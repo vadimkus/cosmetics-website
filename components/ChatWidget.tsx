@@ -202,7 +202,7 @@ function ChatProductCard({
         className="flex-shrink-0"
       >
         <Image
-          src={product.image || '/images/placeholder.jpg'}
+          src={product.image || '/images/genosys-logo-transparent.png'}
           alt={product.name}
           width={56}
           height={56}
@@ -671,9 +671,10 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
 
   // Floating button (when closed)
   if (!isOpen) {
-    // Position higher on mobile to stay above the mobile web footer nav (80px).
-    // Mobile web PDPs return null above, so there is no product-page case here.
-    const mobileBottomClass = 'bottom-24'
+    // Sits one gutter above the mobile web tab bar, whose height is published as
+    // --mobile-nav-height in globals.css. Mobile web PDPs return null above, so there is no
+    // product-page case here.
+    const mobileBottomClass = 'bottom-[calc(var(--mobile-nav-height,58px)+16px)]'
 
     return (
       <button
@@ -706,8 +707,8 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
         transition-all duration-300 ease-out
         ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}
         ${isMinimized
-          ? `bottom-24 ${desktopBottomClass} w-72 h-14`
-          : `bottom-24 ${desktopBottomClass} w-[calc(100%-2rem)] md:w-96 h-[65vh] md:h-[500px] md:max-h-[70vh]`
+          ? `bottom-[calc(var(--mobile-nav-height,58px)+16px)] ${desktopBottomClass} w-72 h-14`
+          : `bottom-[calc(var(--mobile-nav-height,58px)+16px)] ${desktopBottomClass} w-[calc(100%-2rem)] md:w-96 h-[65vh] md:h-[500px] md:max-h-[70vh]`
         }
         ${className}
       `}

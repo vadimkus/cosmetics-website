@@ -8,7 +8,7 @@ import { Eye, EyeOff, ChevronDown, Heart } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { getLocalizedPath } from '@/lib/i18n'
+import { getLocalizedPath, switchLocaleHardNav } from '@/lib/i18n'
 import { EMIRATES } from '@/lib/emirates'
 import { safeSessionStorageRemoveItem } from '@/lib/browserStorage'
 import EmailDomainSuggestion from '@/components/auth/EmailDomainSuggestion'
@@ -171,10 +171,12 @@ export default function PWALoginPage() {
     }
   }
 
-  const handleLanguageChange = (newLocale: string) => {
+  // Hard navigation for the same reason as PWAHeader: the root layout owns
+  // MessagesProvider and is not re-rendered on a soft nav between locales, so
+  // router.push leaves the page in the previous language.
+  const handleLanguageChange = (newLocale: 'en' | 'ar' | 'ru') => {
     setShowLangDropdown(false)
-    const newPath = newLocale === 'en' ? '/pwa-login' : `/${newLocale}/pwa-login`
-    router.push(newPath)
+    switchLocaleHardNav(newLocale, '/pwa-login')
   }
 
   const currentLangCode = locale === 'ar' ? 'AR' : locale === 'ru' ? 'RU' : 'EN'

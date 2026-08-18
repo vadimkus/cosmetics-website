@@ -47,7 +47,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
-import { getLocalizedPath } from '@/lib/i18n'
+import { getLocalizedPath, switchLocaleHardNav } from '@/lib/i18n'
 import { EMIRATES } from '@/lib/emirates'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import EmailDomainSuggestion from '@/components/auth/EmailDomainSuggestion'
@@ -257,9 +257,15 @@ export default function LoginClient() {
     setShowPrivacyPolicy(false)
   }
 
+  // Must be a hard navigation, not router.push. MessagesProvider is populated by the
+  // root layout, which App Router does not re-render when navigating between routes
+  // that share it — so a soft nav to /ru/login leaves the page holding the previous
+  // locale's messages. iOS Safari swallows the navigation outright. Same reason the
+  // mobile web and PWA headers use this helper; it also sets NEXT_LOCALE so the
+  // preference survives.
   const handleLanguageChange = (newLocale: 'en' | 'ar' | 'ru') => {
     setShowLangDropdown(false)
-    router.push(getLocalizedPath('/login', newLocale))
+    switchLocaleHardNav(newLocale, '/login')
   }
 
   const currentLangCode = locale === 'ar' ? 'AR' : locale === 'ru' ? 'RU' : 'EN'

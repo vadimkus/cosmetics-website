@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { ArrowLeft, Check, Globe, Loader2 } from 'lucide-react'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useTranslation } from '@/hooks/useTranslation'
-import { getLocalizedPath } from '@/lib/i18n'
+import { getLocalizedPath, switchLocaleHardNav } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
@@ -50,7 +50,7 @@ export default function LanguagePage() {
     { code: 'en', nativeLabel: 'English' },
     { code: 'ru', nativeLabel: 'Русский' },
     { code: 'ar', nativeLabel: 'العربية' },
-  ]
+  ] as const
 
   const translations = {
     title: locale === 'ar' ? 'اللغة' : locale === 'ru' ? 'Язык' : 'Language',
@@ -71,23 +71,18 @@ export default function LanguagePage() {
     }
   }
 
-  const handleLanguageChange = async (newLocale: string) => {
+  // Hard navigation, not router.replace. MessagesProvider is populated by the root
+  // layout, which App Router does not re-render when navigating between routes that
+  // share it, so a soft nav leaves this page rendering the previous locale — the very
+  // thing the page exists to change. The helper also writes NEXT_LOCALE so the choice
+  // persists, which the old implementation never did.
+  const handleLanguageChange = async (newLocale: 'en' | 'ar' | 'ru') => {
     if (newLocale === locale || switchingTo) return
 
     setSwitchingTo(newLocale)
-    try {
-      // Navigate to the same page but with new locale
-      // Use getLocalizedPath to handle EN (no prefix) vs AR/RU (with prefix)
-      const basePath = getLocalizedPath('/profile/language', newLocale as 'en' | 'ar' | 'ru')
-      const newPath = `${basePath}?from=profile`
-      // Use replace instead of push to avoid history issues when switching languages
-      router.replace(newPath)
-    } finally {
-      // Locale change triggers a navigation/remount so setSwitchingTo
-      // cleanup is mostly cosmetic, but keeps the reset in case the
-      // replace() is intercepted.
-      setSwitchingTo(null)
-    }
+    // No cleanup: the page is about to be replaced by a full navigation, and clearing
+    // the flag first would let a second tap fire another one.
+    switchLocaleHardNav(newLocale, '/profile/language', 'from=profile')
   }
 
   const userInitial = user?.name?.charAt(0) || user?.email?.charAt(0) || 'U'

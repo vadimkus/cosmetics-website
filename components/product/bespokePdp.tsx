@@ -57,6 +57,9 @@ import HairTonicProductPage from '@/components/product/hr3/HairTonicProductPage'
 import HairSolutionProductPage from '@/components/product/hr3/HairSolutionProductPage'
 import MediShampooProductPage from '@/components/product/hr3/MediShampooProductPage'
 import ScalpPeelingProductPage from '@/components/product/hr3/ScalpPeelingProductPage'
+import MesopeciaKitProductPage from '@/components/product/hr3/MesopeciaKitProductPage'
+import HairGenBoosterProductPage from '@/components/product/hr3/HairGenBoosterProductPage'
+import HairGentronProductPage from '@/components/product/hr3/HairGentronProductPage'
 import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushProductPage'
 
 /**
@@ -69,6 +72,10 @@ import ScalpBrushProductPage from '@/components/product/scalpbrush/ScalpBrushPro
  * and hand it the routine products.
  */
 export const BESPOKE_PDP_LAYOUTS = {
+  // 3 is the powered device the HR³ MATRIX hair system is built around. A device page:
+  // the specification does the job the formula table does elsewhere, and it refuses the
+  // manufacturer leaflet's alopecia-treatment claims out loud.
+  '3': HairGenBoosterProductPage,
   // 4 to 9 are the six professional Power Solution ampoules.
   // They share one layout and differ only by variant; see powerSolutionCopy.ts.
   '4': HesProductPage,
@@ -219,6 +226,10 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 46 opens by correcting our own copy, which called a third-alcohol swab solution
   // gentle, and refuses the deck's disinfection claim outright.
   '46': ScalpPeelingProductPage,
+  // 47 is 46 and 45 in a box with a 0.5mm stamp, so its page defers to theirs for the
+  // chemistry and spends itself on the stamp, the shorter course, and the arithmetic
+  // showing that the kit is not a saving.
+  '47': MesopeciaKitProductPage,
   // 28 leads with two measured findings that were sitting unused in the DTS MG
   // deck, and explains the supplier-premix error behind our old snail claim.
   '28': HydroSoothingProductPage,
@@ -232,8 +243,12 @@ export const BESPOKE_PDP_LAYOUTS = {
   // 32 is built on the comparison with 22: same actives, opposite bases, and two
   // specific gravities either side of water. See the source audit.
   '32': AntiWrinkleCreamProductPage,
-  // 49 is the only device in the catalogue: no INCI, no routine, and a
-  // dosimetry table where the cosmetics pages carry a formula.
+  // 48 is the LED helmet. Same device shape as 3, but the running-cost table is
+  // inverted — this is the one with no consumable — and there is no dosimetry to
+  // publish: wavelengths appear on a sales slide only, irradiance nowhere.
+  '48': HairGentronProductPage,
+  // 49 is the canopy LED: no INCI, no routine, and a dosimetry table where the
+  // cosmetics pages carry a formula.
   '49': GenoLedProductPage,
   '63': RevitaGlowProductPage,
   '64': HairStampProductPage,
@@ -303,6 +318,15 @@ const BESPOKE_COMPANIONS: Record<string, readonly string[]> = {
   '45': ['47', '43', '46', '44'],
   // The ampoule it precedes, the kit that pairs them, then the daily products.
   '46': ['45', '47', '44', '43'],
+  // The two liquids inside the box first: this page argues that anyone wanting a full
+  // course should buy 45 standalone, since the kit holds six vials against its eight.
+  '47': ['45', '46', '43', '44'],
+  // The two consumables the device cannot run without come first, because its page is
+  // built on the running cost. Then the manual alternative, then the prep step.
+  '3': ['45', '64', '47', '46'],
+  // The manufacturer brochure pairs the helmet with the Mesopecia Kit, so that leads.
+  // Then the other hair device, then the two liquids.
+  '48': ['47', '3', '45', '46'],
   // The serum first: this page argues the two belong together, in that order.
   '32': ['22', '16', '42', '13'],
   // The other five Power Solutions, for the range table on each ampoule's page.

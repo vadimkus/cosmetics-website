@@ -550,5 +550,43 @@ tonic Russian panel, Hair Solution deck (×3 slides), Scalp Peeling deck (×2 sl
 
 ### Still to do
 
-Product 47, MESOPECIA KIT — the bundle of 46 + 45 plus a stamp. **It has no images at
-all.**
+Product 47, MESOPECIA KIT — the bundle of 46 + 45 plus a roller.
+
+---
+
+## Addendum — product 47, MESOPECIA KIT. Line complete.
+
+Record corrected and page built; full write-up in
+`SESSION_CHANGES_2026-08-18_PRODUCT_47_MESOPECIA_KIT_PAGE.md`. Four findings belong in
+this audit rather than only in the session note.
+
+1. **The applicator is a roller, not a stamp.** The carton says `GENOSYS STAMP(ROLLER)`
+   in its contents line and "roll (stamp)" in its instructions; French and German say
+   roller only; the product photograph shows a drum roller. Our record said stamp and
+   told the customer to press it.
+
+2. **The kit's English panel asserts the drug mechanism.** *"…invented to prevent hair
+   loss and promote hair regrowth and restoration by inhibiting the fundamental causes of
+   hair loss."* This is where the claim on our record came from — the box, in English,
+   not a translation. The Russian panel additionally titles the kit a hair-loss kit,
+   calls the peeling gentle and disinfecting (both already refused on product 46's page),
+   and credits the ampoule with angiogenesis. **That takes the running total to seven
+   documents in this line**, and it is now two in English rather than one.
+
+3. **The 0.5 mm needle depth is on the Russian panel only.** The English panel gives no
+   depth. Third instance in this line of a materially useful instruction living only on a
+   translated panel, after the shampoo's three-minute dwell and the ampoule's 1–2 cm
+   partings. The Arabic panel adds a fourth: dry two to five minutes, and the sequence
+   may be repeated after ten minutes.
+
+4. **Products 45 and 46 shipped yesterday with their full INCI invisible.** Both stored
+   it under `Full ingredient list (INCI)` while every bespoke layout looks up `Full INCI`.
+   A catalogue-wide check found these two and no others; both fixed and verified.
+   **Product 44 still has no INCI entry at all** — its list has never been transcribed,
+   and that is the one outstanding item in this line.
+
+### Assets across the five pages
+
+43 and 44 have six gallery images each. 45, 46 and 47 have one apiece
+(`/images/Second/hs.jpg`, `/images/Second/pp.jpg`, `/images/meso.jpg`). The kit's single
+image is at least a good one — carton, roller, bottle and all six vials in frame.

@@ -694,7 +694,7 @@ export const products: Product[] = [
     id: '48',
     name: 'Hair-GENTRON',
     price: 3300,
-    description: 'LED helmet with massaging and heating functions to treat hair loss. Patent No. 10-2151442. Bronze medal winner of 2020 Korea invention patent competition. It is a LED helmet with massaging and heating functions patented as a scalp massager for promoting hair growth using air pressure and LED lights. Features: Infrared light + Red light + Blue light + Massaging + Heating function. Advantages: Non-invasive light therapy, Safe & painless therapy, Available for both professional & home care, Infrared light, red light and blue light can be irradiated at the same time, Proper distance from the source of the light energy and scalp is guaranteed which leads to the optimal emission effect, Massaging function can be done while lights are irradiated, Music mode helps the user feel relaxed, Heating function can be added during treatment. Effects: Improve blood circulation in scalp → Provide more nutrients & oxygen to hair follicles, Relieve stress and tension.',
+    description: 'An LED helmet for the scalp with air-pressure massage and a heating function, on a separate controller. Four light modes — red with infrared, blue, off, or all three together — and a timer set to ten, twenty or thirty minutes; the helmet switches itself off at the end. It weighs 1.0 kg and runs from the USB-C adaptor in the box or from four AA batteries, which are not included. Korea and the EU certify it as a household massage appliance under IEC/EN 60335-2-32; it is not a medical or phototherapy device, and it is not registered to treat hair loss. No efficacy study for this device is held, and the sales brochure\'s claims about the hair cycle are not carried. Model HGHY01, DTS MG Co., Ltd., made in Korea.',
     image: '/images/gen.jpg',
     images: null,
     videoUrl: '/videos/gentron.mp4',
@@ -794,11 +794,11 @@ The ampoule functions as a spicule peeling or bio-meso peeling treatment, induci
     productNumber: '64',
     name: 'Hair Stamp For HAIRGEN BOOSTER',
     price: 600,
-    description: `The GENOSYS HR³ MATRIX HAIR STAMP is a precision microneedle applicator developed for the GENOSYS HairGen Booster scalp treatment system. Each stamp head is fitted with an array of ultra-fine microneedles that create temporary microchannels in the scalp, dramatically increasing skin permeability so the active ingredients of HR³ MATRIX HAIR SOLUTION α are delivered directly to the hair follicles and surrounding tissue.
+    description: `The applicator the GENOSYS HairGen Booster runs on. Each stamp head carries 52 ultra-fine microneedles that open temporary micro-channels in the scalp, and it screws onto a sealed HR³ MATRIX HAIR SOLUTION α vial so the solution feeds through the head while the device works — the liquid goes in as the needles open the way, rather than being rubbed on afterwards.
 
-When mounted on the HairGen Booster, the stamp performs automatic microneedling — a gentle, massaging action that creates far more microchannels than manual stamping or rolling while minimizing discomfort. The micro-injuries also trigger the skin's natural wound-healing response, supporting scalp regeneration, improved blood circulation and a healthier environment for hair growth.
+Mounted on the Booster it stamps automatically, at a rate you set rather than one your hand drifts into, which is the practical difference between a powered handpiece and a hand roller.
 
-Supplied as 1 box containing 8 hair stamps. A fresh stamp is used together with a new dose of HR³ MATRIX HAIR SOLUTION α for every treatment to ensure hygienic, contamination-free application. Manufactured in South Korea.`,
+Eight stamps per box. One stamp and one fresh ampoule per treatment — it is single use, it is not a cleanable part, and it is personal. Made in South Korea.`,
     image: '/images/needles/main.jpeg',
     images: JSON.stringify(['/images/needles/s1.jpg', '/images/needles/s2.jpg', '/images/needles/s3.jpg', '/images/needles/s4.jpg']),
     category: 'Scalp/Hair',

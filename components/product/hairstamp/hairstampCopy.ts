@@ -12,28 +12,44 @@
  *     Massaging sensation instead of needling sensation", "Hair solutionα is
  *     absorbed within 10 mins", "Each treatment, a new set of solution +
  *     applicator should be installed", "Non-stop operating time: 10 minutes",
- *     "Speed: Level 1- 280 RPM / Level 2- 330 RPM / Level 3- 400 RPM", and the
- *     transdermal-delivery / wound-healing / angiogenesis mechanism text.
+ *     "Speed: Level 1- 280 RPM / Level 2- 330 RPM / Level 3- 400 RPM",
+ *     "Microneedles 52EA".
  *   - HairGen Booster user's manual, same folder: the seven usage steps and the
  *     four contraindications (a-d) quoted almost verbatim in `safety`.
  *   - Official labels (Desktop/Drive/Genosys/Artwork/Label/): DTS MG Co., Ltd.,
  *     Seoul; Made in Korea.
- *   - The product record in the database: 8 stamps per box, single use,
+ *   - The product record (corrected 18 Aug 2026): 8 stamps per box, single use,
  *     compatibility, external scalp use only, storage.
+ *
+ * ★ THE LEAFLET'S MECHANISM SECTION IS NOT CARRIED. The same 2021 leaflet that
+ *   documents the speeds and the 52 needles also claims a wound-healing response
+ *   (collagen and elastin) and angiogenesis / vasodilation / improved
+ *   circulation. That text was stripped from the product record on 18 Aug 2026.
+ *   This page used to print it as "A wound-healing response starts" plus a
+ *   circulation card. It no longer does. What we sell is the physical delivery:
+ *   the needles open channels, the solution goes in during the ten-minute
+ *   session.
  *
  * RESOLVED — NEEDLE COUNT is 52. The 2021 DTS MG leaflet specifies "Microneedles
  * 52EA" for the GENOSYS HAIR STAMP. The product record said 140, inherited from
  * the older manual HR³ Matrix home stamp; it was corrected to 52 in Aug 2026 and
  * the gallery graphics were re-cut to match. This copy states 52.
  *
- * NEEDLE DEPTH (0.3 mm) and NEEDLE MATERIAL (medical-grade) are stated here on
- * the distributor's instruction, to match the product artwork. Neither figure
- * appears in the DTS MG leaflet, the user's manual or the official labels — the
- * only depth in manufacturer artwork is 0.5 mm and it belongs to the flat derma
- * stamp in the MESOPECIA kit. Ask DTS MG to confirm both in writing, and correct
- * the page and the artwork together if their answer differs.
+ * NEEDLE DEPTH (0.3 mm) is stated on the distributor's instruction to match the
+ * product artwork. It does not appear in the DTS MG leaflet, the user's manual
+ * or the official labels — the only depth in manufacturer artwork is 0.5 mm and
+ * it belongs to the roller in the MESOPECIA kit. Confirmation requested from
+ * DTS MG in writing; if the answer differs, this page and product 3 change
+ * together.
+ *
+ * NEEDLE MATERIAL is not stated. "Medical-grade" is in no manufacturer
+ * document. The Korean registration for the device this stamp fits is
+ * 두피관리기기 (scalp care device), not a medical device. Do not add it back.
  *
  * DELIBERATE OMISSIONS — do not add these back without a manufacturer document:
+ *   - Wound healing, collagen, elastin, angiogenesis, vasodilation, circulation,
+ *     hair growth, scalp regeneration.
+ *   - "Medical-grade" needle material.
  *   - CLINICAL FIGURES. The leaflet's clinical section is before/after photos
  *     only. No hair count, density or subject numbers exist, so this page
  *     carries no efficacy percentages.
@@ -155,29 +171,21 @@ const EN: HairStampCopy = {
   ],
   science: {
     eyebrow: 'How it works',
-    title: 'Four things happen in ten minutes.',
+    title: 'The stamp opens the way. The solution goes in.',
     intro:
-      'Skin is built to keep things out, which is the problem with anything applied to the scalp topically. The stamp changes the delivery route - and the micro-injury itself starts a repair response.',
+      'Skin is built to keep things out, which is the problem with anything applied to the scalp topically. The stamp changes the delivery route: it opens temporary channels, and HR³ MATRIX HAIR SOLUTION α goes in behind them during the ten-minute session.',
     cards: [
       {
         title: 'Microchannels open',
-        body: 'The microneedles create physical pathways through the skin, raising permeability so active ingredients can pass through rather than sit on the surface.',
+        body: 'The microneedles create physical pathways through the skin, so the solution can pass through rather than sit on the surface.',
       },
       {
         title: 'The solution goes in',
-        body: 'HR³ MATRIX HAIR SOLUTION α travels those pathways to the follicle and the tissue around it. The solution is absorbed within the ten-minute session.',
-      },
-      {
-        title: 'A wound-healing response starts',
-        body: 'The punctures are minute and mainly subcutaneous, but the skin still answers as it would to a wound - stepping up its natural collagen and elastin production.',
-      },
-      {
-        title: 'Circulation improves',
-        body: 'The same response drives angiogenesis and vasodilation: new vessel formation, and with it more oxygen and nutrients reaching the hair follicle.',
+        body: 'The stamp screws onto a sealed vial, so the liquid feeds through the head while the needles work. The solution is absorbed within the ten-minute session.',
       },
     ],
     figureAlt:
-      'Cross-section diagram of the four stages - microchannels, direct delivery, wound healing and regeneration',
+      'The Hair Stamp on the HairGen Booster, the applicator that opens the way for the solution',
   },
   automatic: {
     eyebrow: 'Automatic, not manual',
@@ -241,8 +249,8 @@ const EN: HairStampCopy = {
       'The stamp is a consumable for the HairGen Booster. It is not a standalone device - it needs the Booster to drive it and the solution to deliver.',
     rows: [
       { label: 'Contents', value: '1 box - 8 hair stamps' },
-      { label: 'Microneedles', value: '52 per stamp - ultra-fine, medical-grade' },
-      { label: 'Needle depth', value: '0.3 mm' },
+      { label: 'Microneedles', value: '52 per stamp' },
+      { label: 'Needle depth', value: '0.3 mm, per the product artwork' },
       { label: 'Use', value: 'Single use, one stamp per treatment' },
       { label: 'Fits', value: 'GENOSYS HairGen Booster' },
       { label: 'Pairs with', value: 'HR³ MATRIX HAIR SOLUTION α' },
@@ -252,7 +260,7 @@ const EN: HairStampCopy = {
       { label: 'Origin', value: 'Made in Korea' },
     ],
     disclaimer:
-      'Specification for the HairGen Booster system.',
+      'Needle depth is 0.3 mm on the product artwork. It does not appear in the manufacturer\u2019s leaflet or the user manual, and we have asked DTS MG to confirm it in writing. This is not the 0.5 mm roller in the Mesopecia Kit.',
     figureAlt: 'The HR³ MATRIX HAIR STAMP box with the eight single-use stamps it contains',
   },
   safety: {
@@ -310,7 +318,7 @@ const EN: HairStampCopy = {
     rows: [
       { label: 'Form', value: 'Disposable microneedle stamp applicator' },
       { label: 'Contents', value: '1 box - 8 hair stamps' },
-      { label: 'Needles', value: '52 medical-grade microneedles, 0.3 mm' },
+      { label: 'Needles', value: '52 microneedles, 0.3 mm' },
       { label: 'Category', value: 'Scalp and hair' },
       { label: 'Compatibility', value: 'HairGen Booster · HR³ MATRIX HAIR SOLUTION α' },
       { label: 'Origin', value: 'Made in Korea' },
@@ -351,28 +359,20 @@ const AR: HairStampCopy = {
   ],
   science: {
     eyebrow: 'آلية العمل',
-    title: 'أربعة أمور تحدث خلال عشر دقائق.',
+    title: 'الختم يفتح الطريق. والتركيبة تدخل.',
     intro:
-      'الجلد مصمَّم ليمنع دخول ما هو خارجه، وهذه هي مشكلة أي مستحضر يُوضع على فروة الرأس موضعيًا. الختم يغيّر مسار التوصيل - كما أن الإصابة الدقيقة نفسها تُطلق استجابة إصلاح.',
+      'الجلد مصمَّم ليمنع دخول ما هو خارجه، وهذه هي مشكلة أي مستحضر يُوضع على فروة الرأس موضعيًا. الختم يغيّر مسار التوصيل: يفتح قنوات مؤقتة، وتدخل تركيبة HR³ MATRIX HAIR SOLUTION α خلفها خلال جلسة العشر دقائق.',
     cards: [
       {
         title: 'فتح القنوات الدقيقة',
-        body: 'تصنع الإبر الدقيقة مسارات فيزيائية عبر الجلد، فترتفع نفاذيته وتتمكّن المكوّنات الفعّالة من العبور بدل أن تبقى على السطح.',
+        body: 'تصنع الإبر الدقيقة مسارات فيزيائية عبر الجلد، فتتمكّن التركيبة من العبور بدل أن تبقى على السطح.',
       },
       {
         title: 'دخول التركيبة',
-        body: 'تسلك تركيبة HR³ MATRIX HAIR SOLUTION α هذه المسارات إلى البصيلة والنسيج المحيط بها. وتُمتصّ التركيبة خلال جلسة العشر دقائق.',
-      },
-      {
-        title: 'بدء استجابة الالتئام',
-        body: 'الثقوب دقيقة وتقع في معظمها تحت الجلد، ومع ذلك يتعامل الجلد معها كما يتعامل مع أي جرح - فيرفع إنتاجه الطبيعي من الكولاجين والإيلاستين.',
-      },
-      {
-        title: 'تحسّن الدورة الدموية',
-        body: 'الاستجابة نفسها تدفع تكوّن الأوعية الدموية الجديدة وتوسّعها، ومعها يصل مزيد من الأكسجين والعناصر المغذّية إلى بصيلة الشعر.',
+        body: 'يُركَّب الختم على قارورة مختومة، فيتدفّق السائل عبر الرأس أثناء عمل الإبر. وتُمتصّ التركيبة خلال جلسة العشر دقائق.',
       },
     ],
-    figureAlt: 'رسم مقطعي للمراحل الأربع - القنوات الدقيقة، التوصيل المباشر، الالتئام، والتجدد',
+    figureAlt: 'ختم الشعر على جهاز HairGen Booster، الأداة التي تفتح الطريق للتركيبة',
   },
   automatic: {
     eyebrow: 'آلي لا يدوي',
@@ -436,8 +436,8 @@ const AR: HairStampCopy = {
       'الختم مادة مستهلكة لجهاز HairGen Booster، وليس جهازًا مستقلًا - فهو يحتاج إلى الجهاز ليحرّكه وإلى التركيبة ليوصلها.',
     rows: [
       { label: 'المحتويات', value: 'علبة واحدة - ٨ أختام' },
-      { label: 'الإبر الدقيقة', value: '٥٢ لكل ختم - فائقة الدقة، درجة طبية' },
-      { label: 'عمق الإبرة', value: '٠٫٣ مم' },
+      { label: 'الإبر الدقيقة', value: '٥٢ لكل ختم' },
+      { label: 'عمق الإبرة', value: '٠٫٣ مم، بحسب العمل الفني للمنتج' },
       { label: 'الاستخدام', value: 'استخدام واحد، ختم لكل جلسة' },
       { label: 'يتوافق مع', value: 'جهاز GENOSYS HairGen Booster' },
       { label: 'يُستخدم مع', value: 'HR³ MATRIX HAIR SOLUTION α' },
@@ -446,7 +446,8 @@ const AR: HairStampCopy = {
       { label: 'العلامة', value: 'DTS MG Co., Ltd.، سيول' },
       { label: 'بلد المنشأ', value: 'صُنع في كوريا' },
     ],
-    disclaimer: 'مواصفات نظام HairGen Booster.',
+    disclaimer:
+      'عمق الإبرة ٠٫٣ مم على العمل الفني للمنتج. الرقم لا يظهر في نشرة الشركة المصنّعة ولا في دليل الاستخدام، وقد طلبنا من DTS MG تأكيده كتابة. وهذا غير رولر الـ ٠٫٥ مم في Mesopecia Kit.',
     figureAlt: 'علبة HR³ MATRIX HAIR STAMP مع الأختام الثمانية أحادية الاستخدام التي تحتويها',
   },
   safety: {
@@ -504,7 +505,7 @@ const AR: HairStampCopy = {
     rows: [
       { label: 'الشكل', value: 'أداة ختم بإبر دقيقة تُستخدم مرة واحدة' },
       { label: 'المحتويات', value: 'علبة واحدة - ٨ أختام' },
-      { label: 'الإبر', value: '٥٢ إبرة دقيقة بدرجة طبية، ٠٫٣ مم' },
+      { label: 'الإبر', value: '٥٢ إبرة دقيقة، ٠٫٣ مم' },
       { label: 'الفئة', value: 'فروة الرأس والشعر' },
       { label: 'التوافق', value: 'HairGen Booster · HR³ MATRIX HAIR SOLUTION α' },
       { label: 'بلد المنشأ', value: 'صُنع في كوريا' },
@@ -545,29 +546,21 @@ const RU: HairStampCopy = {
   ],
   science: {
     eyebrow: 'Как это работает',
-    title: 'За десять минут происходит четыре вещи.',
+    title: 'Штамп открывает путь. Средство входит.',
     intro:
-      'Кожа устроена так, чтобы не пропускать вещества внутрь, — и в этом проблема любого средства, нанесённого на кожу головы сверху. Штамп меняет путь доставки, а сама микротравма запускает восстановительный ответ.',
+      'Кожа устроена так, чтобы не пропускать вещества внутрь, — и в этом проблема любого средства, нанесённого на кожу головы сверху. Штамп меняет путь доставки: открывает временные каналы, и HR³ MATRIX HAIR SOLUTION α входит за ними в течение десятиминутной процедуры.',
     cards: [
       {
         title: 'Открываются микроканалы',
-        body: 'Микроиглы создают физические пути сквозь кожу, повышая её проницаемость: активные вещества проходят внутрь, а не остаются на поверхности.',
+        body: 'Микроиглы создают физические пути сквозь кожу, чтобы средство прошло внутрь, а не осталось на поверхности.',
       },
       {
         title: 'Средство проходит внутрь',
-        body: 'HR³ MATRIX HAIR SOLUTION α идёт по этим путям к фолликулу и окружающей ткани. Средство впитывается в течение десятиминутной процедуры.',
-      },
-      {
-        title: 'Запускается заживление',
-        body: 'Проколы крошечные и находятся в основном под поверхностью кожи, но кожа всё равно отвечает на них как на рану — усиливает собственную выработку коллагена и эластина.',
-      },
-      {
-        title: 'Улучшается кровоснабжение',
-        body: 'Тот же ответ запускает образование новых сосудов и их расширение, а вместе с этим к фолликулу поступает больше кислорода и питательных веществ.',
+        body: 'Штамп накручивается на запечатанный флакон, поэтому жидкость поступает через головку, пока работают иглы. Средство впитывается в течение десятиминутной процедуры.',
       },
     ],
     figureAlt:
-      'Схема в разрезе с четырьмя стадиями — микроканалы, прямая доставка, заживление и восстановление',
+      'Штамп на HairGen Booster — насадка, которая открывает путь для средства',
   },
   automatic: {
     eyebrow: 'Автоматически, а не вручную',
@@ -631,8 +624,8 @@ const RU: HairStampCopy = {
       'Штамп — расходник для HairGen Booster, а не самостоятельный прибор: ему нужен аппарат, который приводит его в движение, и средство, которое он доставляет.',
     rows: [
       { label: 'Комплектация', value: '1 коробка — 8 штампов' },
-      { label: 'Микроиглы', value: '52 на штамп — ультратонкие, медицинского класса' },
-      { label: 'Глубина иглы', value: '0,3 мм' },
+      { label: 'Микроиглы', value: '52 на штамп' },
+      { label: 'Глубина иглы', value: '0,3 мм, по изображению на упаковке' },
       { label: 'Применение', value: 'Одноразовое, один штамп на процедуру' },
       { label: 'Совместимость', value: 'GENOSYS HairGen Booster' },
       { label: 'Используется с', value: 'HR³ MATRIX HAIR SOLUTION α' },
@@ -641,7 +634,8 @@ const RU: HairStampCopy = {
       { label: 'Бренд', value: 'DTS MG Co., Ltd., Сеул' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
     ],
-    disclaimer: 'Характеристики системы HairGen Booster.',
+    disclaimer:
+      'Глубина иглы 0,3 мм указана на изображении продукта. В буклете производителя и в руководстве её нет, и мы попросили DTS MG подтвердить её письменно. Это не роллер 0,5 мм из Mesopecia Kit.',
     figureAlt: 'Коробка HR³ MATRIX HAIR STAMP с восемью одноразовыми штампами внутри',
   },
   safety: {
@@ -699,7 +693,7 @@ const RU: HairStampCopy = {
     rows: [
       { label: 'Форма', value: 'Одноразовая насадка-штамп с микроиглами' },
       { label: 'Комплектация', value: '1 коробка — 8 штампов' },
-      { label: 'Иглы', value: '52 микроиглы медицинского класса, 0,3 мм' },
+      { label: 'Иглы', value: '52 микроиглы, 0,3 мм' },
       { label: 'Категория', value: 'Кожа головы и волосы' },
       { label: 'Совместимость', value: 'HairGen Booster · HR³ MATRIX HAIR SOLUTION α' },
       { label: 'Происхождение', value: 'Сделано в Корее' },

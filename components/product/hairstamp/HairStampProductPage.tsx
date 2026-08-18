@@ -20,8 +20,10 @@
  *     without the Booster and the solution, so the cross-sell is genuinely
  *     informative rather than an upsell.
  *
- * See hairstampCopy.ts for the sourcing rules. Needle count, needle depth and
- * needle material are deliberately absent — the sources conflict.
+ * See hairstampCopy.ts for the sourcing rules. Needle count is 52 (leaflet).
+ * Needle depth is 0.3 mm per the product artwork, with the same caveat as
+ * product 3. Needle material is not stated — "medical-grade" is in no
+ * manufacturer document.
  */
 
 import '../cerabarrier/cerabarrier.css'

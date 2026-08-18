@@ -53,6 +53,17 @@ import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 // Catalog order: discovery tool first, then skincare routine flow, then specialty.
 // "New" badges are product-level only — see lib/productBadges.ts.
+/**
+ * The three brand claims. Rendered twice with different layouts — a wrapping row under the
+ * search field on desktop, a stacked block below the grid on mobile — so they are declared
+ * once here rather than as two copies of the same markup.
+ */
+const TRUST_ITEMS = [
+  { key: 'products.trustShipping', path: 'M3 7h13l4 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z' },
+  { key: 'products.trustAuthentic', path: 'M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z' },
+  { key: 'products.trustVat', path: 'M3 10h18M7 15h4m-6 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
+] as const
+
 const getCategories = (t: (key: string) => string): Array<{ id: string; name: string }> => [
   { id: 'all', name: t('products.allProducts') },
   { id: 'skin-concern', name: t('products.skinConcern') },
@@ -94,7 +105,8 @@ export default function ProductsPageClient({
 }: ProductsPageClientProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { t, locale } = useTranslation()
+  const { t, locale, dir } = useTranslation()
+  const isRTL = dir === 'rtl'
   const { enabled: animationsEnabled } = useAnimationStore()
   const { isPWA } = usePWAMode()
   
@@ -443,24 +455,28 @@ export default function ProductsPageClient({
           searchQuery={searchQuery}
         />
 
-        {/* Trust strip — brand promise line under search. Below md the items scroll
-            horizontally (3 pills on one line with no wrap); at md+ we switch to
-            flex-wrap so long localisations (e.g. Russian "Оригинальная корейская
-            космецевтика") wrap cleanly to a second line on 1024–1280px laptops
-            instead of overflowing the container and hiding content. */}
-        <div className="scrollbar-hide mb-5 flex items-center justify-center gap-5 gap-y-2 overflow-x-auto border-y border-[var(--cera-line)] bg-white py-3 text-[12.5px] text-[var(--cera-body)] md:flex-wrap md:gap-10 md:overflow-visible md:text-[13.5px]">
-          <span className="flex items-center gap-2 whitespace-nowrap">
-            <svg className="h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M3 7h13l4 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z" /></svg>
-            {t('products.trustShipping')}
-          </span>
-          <span className="flex items-center gap-2 whitespace-nowrap">
-            <svg className="h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            {t('products.trustAuthentic')}
-          </span>
-          <span className="flex items-center gap-2 whitespace-nowrap">
-            <svg className="h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h4m-6 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-            {t('products.trustVat')}
-          </span>
+        {/* Trust strip, desktop only.
+     
+            On a phone this used to sit right here, between the search field and the
+            category filters, as a single non-wrapping row inside overflow-x-auto with the
+            scrollbar hidden. Three problems: it put a row of static brand claims inside the
+            browse task, where the job is search then filter then scan; centring content that
+            overflows makes the start of it unreachable by scrolling in several browsers; and
+            with no scrollbar there was no cue anything was scrollable, so the third item
+            simply read as text chopped mid-word.
+     
+            The claims still matter on mobile — the site footer is suppressed below 768px, so
+            this is their only appearance — so they moved below the grid, where they close the
+            page instead of interrupting it. See the block after the product grid. */}
+        <div className="mb-5 hidden flex-wrap items-center justify-center gap-x-10 gap-y-2 border-y border-[var(--cera-line)] bg-white py-3 text-[13.5px] text-[var(--cera-body)] md:flex">
+          {TRUST_ITEMS.map(item => (
+            <span key={item.key} className="flex items-center gap-2">
+              <svg className="h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d={item.path} />
+              </svg>
+              {t(item.key)}
+            </span>
+          ))}
         </div>
 
         {/* Mobile Categories - Below Search. Horizontal scroll keeps it to ONE row. */}
@@ -671,6 +687,25 @@ export default function ProductsPageClient({
                         ))}
                       </motion.div>
                     )}
+
+                    {/* Trust marks, mobile only — the same three claims that sit under the
+                        search field on desktop. Placed after the grid so they read as
+                        closing reassurance rather than an obstacle between the search field
+                        and the filters, and stacked so the copy is never truncated. They
+                        cannot simply be dropped on mobile: the site footer returns null
+                        below 768px, so this is the only place a phone visitor sees them. */}
+                    <ul className="mt-8 space-y-3 rounded-[22px] border border-[var(--cera-line)] bg-white p-5 md:hidden">
+                      {TRUST_ITEMS.map(item => (
+                        <li key={item.key} className={`flex items-start gap-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+                          <span className="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-[var(--cera-blush)]">
+                            <svg className="h-4 w-4 text-[var(--cera-rose-ink)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true">
+                              <path strokeLinecap="round" strokeLinejoin="round" d={item.path} />
+                            </svg>
+                          </span>
+                          <span className="pt-[6px] text-[13.5px] leading-snug text-[var(--cera-body)]">{t(item.key)}</span>
+                        </li>
+                      ))}
+                    </ul>
 
                     {/* End-of-grid footer — desktop only. Gives long lists (50+ items)
                         a clear terminus + a quick way back to the filters. Hidden on

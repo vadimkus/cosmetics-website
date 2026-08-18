@@ -6,6 +6,9 @@ import Link from 'next/link'
 import { Share2, ExternalLink, Copy, Check, Home } from 'lucide-react'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 function ShareContent() {
   const searchParams = useSearchParams()
@@ -45,18 +48,18 @@ function ShareContent() {
 
   if (!hasContent) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center px-4`}>
         <div className="text-center max-w-md">
-          <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Share2 className="w-8 h-8 text-gray-400" />
+          <div className="w-16 h-16 bg-[var(--cera-cream-deep)] rounded-full flex items-center justify-center mx-auto mb-4">
+            <Share2 className="w-8 h-8 text-[var(--cera-muted)]" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">{t('share.noContentTitle')}</h1>
-          <p className="text-gray-600 mb-6">
+          <h1 className="cera-serif text-2xl text-[var(--cera-ink)] mb-2">{t('share.noContentTitle')}</h1>
+          <p className="text-[var(--cera-body)] mb-6">
             {t('share.noContentDescription')}
           </p>
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-full hover:bg-gray-800 transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--cera-ink)] text-white rounded-full hover:bg-[var(--cera-rose-ink)] transition-colors"
           >
             <Home className="w-5 h-5" />
             {t('share.goToHomepage')}
@@ -67,41 +70,41 @@ function ShareContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12 px-4">
+    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen py-12 px-4`}>
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-[var(--cera-ink)] rounded-full flex items-center justify-center mx-auto mb-4">
             <Share2 className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">{t('share.sharedWithGenosys')}</h1>
-          <p className="text-gray-600 mt-2">{t('share.sharedContent')}</p>
+          <h1 className="cera-serif text-2xl text-[var(--cera-ink)]">{t('share.sharedWithGenosys')}</h1>
+          <p className="text-[var(--cera-body)] mt-2">{t('share.sharedContent')}</p>
         </div>
 
         {/* Shared Content Card */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
           {title && (
             <div className="mb-4">
-              <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">{t('share.labelTitle')}</label>
-              <p className="text-lg font-semibold text-gray-900 mt-1">{title}</p>
+              <label className="text-sm font-medium text-[var(--cera-muted)] uppercase tracking-wide">{t('share.labelTitle')}</label>
+              <p className="text-lg font-semibold text-[var(--cera-ink)] mt-1">{title}</p>
             </div>
           )}
           
           {text && (
             <div className="mb-4">
-              <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">{t('share.labelText')}</label>
-              <p className="text-gray-700 mt-1 whitespace-pre-wrap">{text}</p>
+              <label className="text-sm font-medium text-[var(--cera-muted)] uppercase tracking-wide">{t('share.labelText')}</label>
+              <p className="text-[var(--cera-body)] mt-1 whitespace-pre-wrap">{text}</p>
             </div>
           )}
           
           {url && (
             <div className="mb-4">
-              <label className="text-sm font-medium text-gray-500 uppercase tracking-wide">{t('share.labelUrl')}</label>
+              <label className="text-sm font-medium text-[var(--cera-muted)] uppercase tracking-wide">{t('share.labelUrl')}</label>
               <a 
                 href={url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-blue-600 hover:text-blue-800 mt-1 break-all"
+                className="flex items-center gap-2 text-[var(--cera-rose-ink)] hover:text-[var(--cera-ink)] mt-1 break-all"
               >
                 {url}
                 <ExternalLink className="w-4 h-4 flex-shrink-0" />
@@ -110,10 +113,10 @@ function ShareContent() {
           )}
           
           {/* Actions */}
-          <div className="flex gap-3 mt-6 pt-6 border-t border-gray-100">
+          <div className="flex gap-3 mt-6 pt-6 border-t border-[var(--cera-line)]">
             <button
               onClick={handleCopy}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[var(--cera-cream-deep)] text-[var(--cera-body)] rounded-lg hover:bg-[var(--cera-cream-deep)] transition-colors"
             >
               {copied ? (
                 <>
@@ -130,7 +133,7 @@ function ShareContent() {
             
             <Link 
               href="/products"
-              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[var(--cera-ink)] text-white rounded-lg hover:bg-[var(--cera-rose-ink)] transition-colors"
             >
               {t('share.browseProducts')}
             </Link>
@@ -141,7 +144,7 @@ function ShareContent() {
         <div className="text-center">
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
+            className="inline-flex items-center gap-2 text-[var(--cera-body)] hover:text-[var(--cera-ink)] transition-colors"
           >
             <Home className="w-5 h-5" />
             {t('share.backToHomepage')}
@@ -156,10 +159,10 @@ export default function ShareClient() {
   const { t } = useTranslation()
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen flex items-center justify-center bg-[var(--cera-cream-deep)]`}>
         <div className="text-center">
-          <div className="w-8 h-8 border-4 border-gray-300 border-t-gray-900 rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">{t('share.loadingSharedContent')}</p>
+          <div className="w-8 h-8 border-4 border-[var(--cera-line)] border-t-gray-900 rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-[var(--cera-body)]">{t('share.loadingSharedContent')}</p>
         </div>
       </div>
     }>

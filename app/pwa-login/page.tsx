@@ -17,6 +17,9 @@ import {
   normalizeEmailAddress,
   suggestEmailAddressCorrection,
 } from '@/lib/emailAddressValidation'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export default function PWALoginPage() {
   const router = useRouter()
@@ -177,7 +180,7 @@ export default function PWALoginPage() {
   const currentLangCode = locale === 'ar' ? 'AR' : locale === 'ru' ? 'RU' : 'EN'
 
   return (
-    <div className={`min-h-screen bg-white flex flex-col ${isRTL ? 'rtl' : 'ltr'}`} dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen flex flex-col ${isRTL ? 'rtl' : 'ltr'}`} dir={dir}>
       {/* Language Selector */}
       <div className={`pt-12 px-6 ${isRTL ? 'text-right' : 'text-left'}`}>
         <div className="relative inline-block">
@@ -193,19 +196,19 @@ export default function PWALoginPage() {
             <div className={`absolute top-full mt-1 bg-white shadow-lg rounded-lg border overflow-hidden z-50 ${isRTL ? 'right-0' : 'left-0'}`}>
               <button
                 onClick={() => handleLanguageChange('en')}
-                className={`w-full px-4 py-2 text-sm hover:bg-gray-50 ${locale === 'en' ? 'bg-green-50 text-green-600' : ''}`}
+                className={`w-full px-4 py-2 text-sm hover:bg-[var(--cera-cream-deep)] ${locale === 'en' ? 'bg-green-50 text-green-600' : ''}`}
               >
                 EN
               </button>
               <button
                 onClick={() => handleLanguageChange('ar')}
-                className={`w-full px-4 py-2 text-sm hover:bg-gray-50 ${locale === 'ar' ? 'bg-green-50 text-green-600' : ''}`}
+                className={`w-full px-4 py-2 text-sm hover:bg-[var(--cera-cream-deep)] ${locale === 'ar' ? 'bg-green-50 text-green-600' : ''}`}
               >
                 AR
               </button>
               <button
                 onClick={() => handleLanguageChange('ru')}
-                className={`w-full px-4 py-2 text-sm hover:bg-gray-50 ${locale === 'ru' ? 'bg-green-50 text-green-600' : ''}`}
+                className={`w-full px-4 py-2 text-sm hover:bg-[var(--cera-cream-deep)] ${locale === 'ru' ? 'bg-green-50 text-green-600' : ''}`}
               >
                 RU
               </button>
@@ -226,7 +229,7 @@ export default function PWALoginPage() {
         />
         <div className={`flex items-center gap-1.5 mt-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <span className="text-lg">🇦🇪</span>
-          <span className="text-gray-600 text-sm">{t('authScreen.uaeLine')}</span>
+          <span className="text-[var(--cera-body)] text-sm">{t('authScreen.uaeLine')}</span>
           <Heart className="w-3 h-3 text-red-500 fill-red-500" />
         </div>
       </div>
@@ -239,19 +242,19 @@ export default function PWALoginPage() {
           <button
             onClick={handleGoogleLogin}
             disabled={isLoading || !privacyConsent}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 border border-gray-200 rounded-xl ${!privacyConsent ? 'opacity-50' : 'hover:bg-gray-50'} transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 border border-[var(--cera-line)] rounded-xl ${!privacyConsent ? 'opacity-50' : 'hover:bg-[var(--cera-cream-deep)]'} transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <div className="w-5 h-5 flex items-center justify-center">
               <span className="text-lg font-bold bg-gradient-to-r from-blue-500 via-green-500 via-yellow-500 to-red-500 bg-clip-text text-transparent">G</span>
             </div>
-            <span className="text-gray-700 font-medium">{t('authScreen.googleShort')}</span>
+            <span className="text-[var(--cera-body)] font-medium">{t('authScreen.googleShort')}</span>
           </button>
 
           {/* Apple Button */}
           <button
             onClick={handleAppleLogin}
             disabled={isLoading || !privacyConsent}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 bg-black text-white rounded-xl ${!privacyConsent ? 'opacity-50' : 'hover:bg-gray-900'} transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+            className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 bg-black text-white rounded-xl ${!privacyConsent ? 'opacity-50' : 'hover:bg-[var(--cera-ink)]'} transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09l.01-.01zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
@@ -262,14 +265,14 @@ export default function PWALoginPage() {
 
         {/* Divider */}
         <div className="flex items-center gap-4 mb-6">
-          <div className="flex-1 h-px bg-gray-200" />
-          <span className="text-gray-400 text-sm">{t('authScreen.or')}</span>
-          <div className="flex-1 h-px bg-gray-200" />
+          <div className="flex-1 h-px bg-[var(--cera-cream-deep)]" />
+          <span className="text-[var(--cera-muted)] text-sm">{t('authScreen.or')}</span>
+          <div className="flex-1 h-px bg-[var(--cera-cream-deep)]" />
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-xl text-red-600 text-sm text-center">
+          <div className="mb-4 p-3 bg-[var(--cera-blush)] border border-[var(--cera-blush-deep)] rounded-xl text-[var(--cera-rose-ink)] text-sm text-center">
             {error}
           </div>
         )}
@@ -279,7 +282,7 @@ export default function PWALoginPage() {
           {/* Name field (only for registration) */}
           {!isLoginMode && (
             <div>
-              <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+              <label className={`block text-sm font-medium text-[var(--cera-body)] mb-1.5 ${isRTL ? 'text-right' : ''}`}>
                 {t('authScreen.fullNameLabel')}
               </label>
               <input
@@ -287,7 +290,7 @@ export default function PWALoginPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={t('authScreen.fullNamePlaceholder')}
-                className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+                className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
                 style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
                 dir={dir}
               />
@@ -296,7 +299,7 @@ export default function PWALoginPage() {
 
           {/* Email */}
           <div>
-            <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+            <label className={`block text-sm font-medium text-[var(--cera-body)] mb-1.5 ${isRTL ? 'text-right' : ''}`}>
               {t('authScreen.emailLabel')}
             </label>
             <input
@@ -308,7 +311,7 @@ export default function PWALoginPage() {
                 setError('')
               }}
               placeholder={t('authScreen.emailPlaceholder')}
-              className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+              className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
               style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
               dir="ltr"
             />
@@ -333,7 +336,7 @@ export default function PWALoginPage() {
           {!isLoginMode && (
             <>
               <div>
-                <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                <label className={`block text-sm font-medium text-[var(--cera-body)] mb-1.5 ${isRTL ? 'text-right' : ''}`}>
                   {t('login.uaePhoneNumber')} *
                 </label>
                 <input
@@ -341,14 +344,14 @@ export default function PWALoginPage() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder={t('login.uaePhoneNumberPlaceholder')}
-                  className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+                  className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
                   style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
                   dir="ltr"
                   required
                 />
               </div>
               <div>
-                <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                <label className={`block text-sm font-medium text-[var(--cera-body)] mb-1.5 ${isRTL ? 'text-right' : ''}`}>
                   {t('login.uaeAddress')} *
                 </label>
                 <input
@@ -356,20 +359,20 @@ export default function PWALoginPage() {
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder={t('login.uaeAddressPlaceholder')}
-                  className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right' : ''}`}
+                  className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
                   style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
                   dir={dir}
                   required
                 />
               </div>
               <div>
-                <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+                <label className={`block text-sm font-medium text-[var(--cera-body)] mb-1.5 ${isRTL ? 'text-right' : ''}`}>
                   {t('login.selectEmirate')} *
                 </label>
                 <select
                   value={emirate}
                   onChange={(e) => setEmirate(e.target.value)}
-                  className={`w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all ${emirate ? 'text-gray-900' : 'text-gray-400'} ${isRTL ? 'text-right' : ''}`}
+                  className={`w-full px-4 py-3 bg-white border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all ${emirate ? 'text-[var(--cera-ink)]' : 'text-[var(--cera-muted)]'} ${isRTL ? 'text-right' : ''}`}
                   required
                 >
                   <option value="">{t('login.selectEmirate')}</option>
@@ -385,7 +388,7 @@ export default function PWALoginPage() {
 
           {/* Password */}
           <div>
-            <label className={`block text-sm font-medium text-gray-700 mb-1.5 ${isRTL ? 'text-right' : ''}`}>
+            <label className={`block text-sm font-medium text-[var(--cera-body)] mb-1.5 ${isRTL ? 'text-right' : ''}`}>
               {t('authScreen.passwordLabel')}
             </label>
             <div className="relative">
@@ -394,14 +397,14 @@ export default function PWALoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={t('authScreen.passwordPlaceholder')}
-                className={`w-full px-4 py-3 bg-white text-gray-900 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-gray-400 ${isRTL ? 'text-right pr-4 pl-12' : 'pr-12'}`}
+                className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right pr-4 pl-12' : 'pr-12'}`}
                 style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
                 dir="ltr"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className={`absolute top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 ${isRTL ? 'left-4' : 'right-4'}`}
+                className={`absolute top-1/2 -translate-y-1/2 text-[var(--cera-muted)] hover:text-[var(--cera-body)] ${isRTL ? 'left-4' : 'right-4'}`}
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
@@ -415,8 +418,8 @@ export default function PWALoginPage() {
               onClick={() => setPrivacyConsent(!privacyConsent)}
               className={`touch-target-exempt flex-shrink-0 mt-0.5 w-[22px] h-[22px] rounded border-[1.5px] flex items-center justify-center transition-all duration-200 ${
                 privacyConsent 
-                  ? 'bg-red-600 border-red-600' 
-                  : 'bg-white border-gray-300 active:border-gray-400'
+                  ? 'bg-[var(--cera-ink)] border-red-600' 
+                  : 'bg-white border-[var(--cera-line)] active:border-[var(--cera-blush-deep)]'
               }`}
             >
               {privacyConsent && (
@@ -425,11 +428,11 @@ export default function PWALoginPage() {
                 </svg>
               )}
             </button>
-            <p className={`text-[13px] text-gray-500 flex-1 leading-snug ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[13px] text-[var(--cera-muted)] flex-1 leading-snug ${isRTL ? 'text-right' : ''}`}>
               {t('authScreen.privacyConsentPrefix')}{' '}
               <Link 
                 href={getLocalizedPath('/privacy-policy', locale)} 
-                className="text-red-600 underline font-medium"
+                className="text-[var(--cera-rose-ink)] underline font-medium"
               >
                 {t('authScreen.privacyPolicyLink')}
               </Link>{' '}
@@ -441,7 +444,7 @@ export default function PWALoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-4 bg-red-600 text-white font-semibold rounded-xl hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full py-4 bg-[var(--cera-ink)] text-white font-semibold rounded-xl hover:bg-[var(--cera-rose-ink)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto" />
@@ -456,7 +459,7 @@ export default function PWALoginPage() {
           <div className="text-center mt-4">
             <Link
               href={getLocalizedPath('/forgot-password', locale)}
-              className="text-red-600 text-sm font-medium"
+              className="text-[var(--cera-rose-ink)] text-sm font-medium"
             >
               {t('login.forgotPassword')}
             </Link>
@@ -465,7 +468,7 @@ export default function PWALoginPage() {
 
         {/* Toggle Login/Register */}
         <div className="text-center mt-6">
-          <span className="text-gray-500 text-sm block">
+          <span className="text-[var(--cera-muted)] text-sm block">
             {isLoginMode ? t('authScreen.dontHaveAccount') : t('authScreen.alreadyHaveAccount')}
           </span>
           <button
@@ -475,7 +478,7 @@ export default function PWALoginPage() {
               setError('')
               setConfirmedEmail(null)
             }}
-            className="text-red-600 font-semibold text-sm mt-1"
+            className="text-[var(--cera-rose-ink)] font-semibold text-sm mt-1"
           >
             {isLoginMode ? t('authScreen.signUp') : t('authScreen.signIn')}
           </button>

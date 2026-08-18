@@ -40,7 +40,7 @@ export default function ProductVariants({
       {/* Color Selection */}
       {hasColorVariants && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-[var(--cera-body)] mb-2">
             Color: {selectedColor}
           </label>
           <div className="flex gap-2">
@@ -50,8 +50,8 @@ export default function ProductVariants({
                 onClick={() => handleColorChange(color.value)}
                 className={`w-8 h-8 rounded-full border-2 transition-colors ${
                   selectedColor === color.value
-                    ? 'border-primary-600'
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-[var(--cera-rose)]'
+                    : 'border-[var(--cera-line)] hover:border-[var(--cera-line)]'
                 }`}
                 style={{ backgroundColor: color.hex }}
                 title={color.label}
@@ -64,7 +64,7 @@ export default function ProductVariants({
       {/* Size Selection */}
       {hasSizeVariants && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-[var(--cera-body)] mb-2">
             Size: {selectedSize}
           </label>
           <div className="flex flex-wrap gap-2">
@@ -74,8 +74,8 @@ export default function ProductVariants({
                 onClick={() => handleSizeChange(size.value)}
                 className={`px-4 py-2 rounded-lg border-2 transition-colors ${
                   selectedSize === size.value
-                    ? 'border-primary-600 bg-primary-50 text-primary-700'
-                    : 'border-gray-200 hover:border-gray-300 text-gray-700'
+                    ? 'border-[var(--cera-rose)] bg-[var(--cera-blush)] text-[var(--cera-rose-ink)]'
+                    : 'border-[var(--cera-line)] hover:border-[var(--cera-line)] text-[var(--cera-body)]'
                 }`}
               >
                 {size.label}

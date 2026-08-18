@@ -12,7 +12,7 @@ export default function ProductBackButton() {
     <div className={`flex items-center mb-4 md:mb-8 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
       <Link 
         href={getLocalizedPath('/products', locale)}
-        className={`flex items-center text-gray-600 hover:text-primary-600 transition-colors text-sm md:text-sm ${dir === 'rtl' ? 'flex-row-reverse ml-4' : 'mr-4'}`}
+        className={`flex items-center text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors text-sm md:text-sm ${dir === 'rtl' ? 'flex-row-reverse ml-4' : 'mr-4'}`}
       >
         <ArrowLeft className={`h-4 w-4 md:h-5 md:w-5 ${dir === 'rtl' ? 'ml-2 rotate-180' : 'mr-2'}`} />
         {t('cart.backToProducts')}

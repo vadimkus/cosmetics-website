@@ -3,6 +3,9 @@ import Image from 'next/image'
 import { prisma } from '@/lib/prisma'
 import { unsubscribeAction, resubscribeAction } from './actions'
 import { errorLog } from '@/lib/logger'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export const dynamic = 'force-dynamic'
 export const metadata = {
@@ -95,9 +98,9 @@ export default async function UnsubscribePage({
   return (
     <main
       dir={dir}
-      className="min-h-[calc(100vh-0px)] bg-gradient-to-b from-gray-50 to-white flex items-center justify-center px-4 py-20"
+      className={`cera-page genosys-page ${ceraSerif.variable} min-h-[calc(100vh-0px)] bg-gradient-to-b from-[var(--cera-cream-deep)] to-white flex items-center justify-center px-4 py-20`}
     >
-      <div className="w-full max-w-lg bg-white rounded-3xl shadow-sm border border-gray-200 p-8 md:p-10">
+      <div className="w-full max-w-lg bg-white rounded-3xl shadow-sm border border-[var(--cera-line)] p-8 md:p-10">
         <div className="flex justify-center mb-8">
           <Image
             src="/images/genosys-wordmark-transparent.png"
@@ -111,28 +114,28 @@ export default async function UnsubscribePage({
 
         {invalid ? (
           <>
-            <h1 className="text-2xl md:text-3xl font-bold font-display text-gray-900 text-center tracking-tight">
+            <h1 className="cera-serif text-2xl md:text-3xl font-display text-[var(--cera-ink)] text-center tracking-tight">
               {t.invalidTitle}
             </h1>
-            <p className="mt-4 text-sm md:text-base text-gray-600 leading-relaxed text-center">
+            <p className="mt-4 text-sm md:text-base text-[var(--cera-body)] leading-relaxed text-center">
               {t.invalidBody}
             </p>
           </>
         ) : done || !subscriber!.isActive ? (
           <>
             <div className="flex justify-center mb-4">
-              <span className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-emerald-50 text-emerald-600">
+              <span className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-green-50 text-green-700">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 6 9 17l-5-5" />
                 </svg>
               </span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-bold font-display text-gray-900 text-center tracking-tight">
+            <h1 className="cera-serif text-2xl md:text-3xl font-display text-[var(--cera-ink)] text-center tracking-tight">
               {resubscribed ? COPY[locale].heading : t.unsubscribed}
             </h1>
             {!resubscribed && (
               <>
-                <p className="mt-4 text-sm md:text-base text-gray-600 leading-relaxed text-center">
+                <p className="mt-4 text-sm md:text-base text-[var(--cera-body)] leading-relaxed text-center">
                   {t.unsubscribedBody}
                 </p>
                 <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
@@ -140,14 +143,14 @@ export default async function UnsubscribePage({
                     <input type="hidden" name="token" value={token} />
                     <button
                       type="submit"
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-gray-300 bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 transition-colors"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-[var(--cera-line)] bg-white px-5 py-2.5 text-sm font-semibold text-[var(--cera-ink)] hover:bg-[var(--cera-cream-deep)] transition-colors"
                     >
                       {t.resubscribe}
                     </button>
                   </form>
                   <Link
                     href="/"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition-colors"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] transition-colors"
                   >
                     {t.backHome}
                   </Link>
@@ -156,13 +159,13 @@ export default async function UnsubscribePage({
             )}
             {resubscribed && (
               <>
-                <p className="mt-4 text-sm md:text-base text-gray-600 leading-relaxed text-center">
+                <p className="mt-4 text-sm md:text-base text-[var(--cera-body)] leading-relaxed text-center">
                   {subscriber!.email}
                 </p>
                 <div className="mt-8 flex justify-center">
                   <Link
                     href="/"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-gray-800 transition-colors"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] transition-colors"
                   >
                     {t.backHome}
                   </Link>
@@ -172,19 +175,19 @@ export default async function UnsubscribePage({
           </>
         ) : (
           <>
-            <h1 className="text-2xl md:text-3xl font-bold font-display text-gray-900 text-center tracking-tight">
+            <h1 className="cera-serif text-2xl md:text-3xl font-display text-[var(--cera-ink)] text-center tracking-tight">
               {t.heading}
             </h1>
-            <p className="mt-4 text-sm md:text-base text-gray-600 leading-relaxed text-center">
+            <p className="mt-4 text-sm md:text-base text-[var(--cera-body)] leading-relaxed text-center">
               {t.subheading}
               <br />
-              <span className="font-semibold text-gray-900 break-all">{subscriber!.email}</span>
+              <span className="font-semibold text-[var(--cera-ink)] break-all">{subscriber!.email}</span>
             </p>
             <form action={unsubscribeAction} className="mt-8 flex justify-center">
               <input type="hidden" name="token" value={token} />
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-gray-900 px-6 py-3 text-sm font-semibold text-white hover:bg-gray-800 transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] px-6 py-3 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] transition-colors"
               >
                 {t.confirm}
               </button>
@@ -192,7 +195,7 @@ export default async function UnsubscribePage({
           </>
         )}
 
-        <p className="mt-10 pt-6 border-t border-gray-100 text-[11px] md:text-xs text-gray-500 text-center leading-relaxed">
+        <p className="mt-10 pt-6 border-t border-[var(--cera-line)] text-[11px] md:text-xs text-[var(--cera-muted)] text-center leading-relaxed">
           {t.tagline}
         </p>
       </div>

@@ -104,6 +104,6 @@ describe('ProductVariants', () => {
     )
 
     const selectedSizeButton = screen.getByText('50g')
-    expect(selectedSizeButton).toHaveClass('border-primary-600')
+    expect(selectedSizeButton).toHaveClass('border-[var(--cera-rose)]')
   })
 })

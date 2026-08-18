@@ -42,6 +42,9 @@ import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import ProductRoutineCard from '@/components/product/ProductRoutineCard'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 interface ProductPageClientProps {
   product: Product
@@ -211,7 +214,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
     return (
       <Link
         href={getLocalizedPath(`/products/${pid}`, locale)}
-        className="underline decoration-gray-300 underline-offset-2 transition-colors hover:text-primary-700 hover:decoration-primary-400"
+        className="underline decoration-gray-300 underline-offset-2 transition-colors hover:text-[var(--cera-rose-ink)] hover:decoration-primary-400"
       >
         {label}
       </Link>
@@ -224,7 +227,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   const RoutineStepMarker = ({ n, titleKey }: { n: number; titleKey: string }) => {
     const img = getRoutineStepImage(titleKey)
     const numberCircle = (
-      <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">{n}</span>
+      <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-[var(--cera-ink)] text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">{n}</span>
     )
     if (!img) return numberCircle
     const pid = ROUTINE_STEP_PRODUCT_IDS[titleKey]
@@ -235,7 +238,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
         alt=""
         width={56}
         height={56}
-        className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border border-gray-200 bg-white"
+        className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg object-cover border border-[var(--cera-line)] bg-white"
       />
     )
     return (
@@ -305,18 +308,18 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   const availableColors = colorOptions
 
   return (
-    <div className="bg-white min-h-[100dvh] pb-24 md:pb-0" dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] pb-24 md:pb-0`} dir={dir}>
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
-        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-gray-100 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath('/products', locale))}
             className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <svg className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="text-base text-red-600">
+            <span className="text-base text-[var(--cera-rose-ink)]">
               {t('navigation.products') || 'Products'}
             </span>
           </button>
@@ -325,7 +328,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             {/* Share Button */}
             <button
               onClick={handleShare}
-              className="w-9 h-9 rounded-full flex items-center justify-center text-gray-700 hover:bg-gray-100 active:bg-gray-200 transition-colors"
+              className="w-9 h-9 rounded-full flex items-center justify-center text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)] active:bg-[var(--cera-cream-deep)] transition-colors"
               aria-label={t('product.shareProduct') || 'Share'}
             >
               {shareStatus === 'copied' ? (
@@ -339,7 +342,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               onClick={() => router.push(getLocalizedPath('/profile', locale))}
             >
             <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-blush-deep)]'}`}>
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>
@@ -376,7 +379,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               className={`md:hidden p-2 rounded-full flex-shrink-0 transition-colors ${
                 shareStatus === 'copied'
                   ? 'text-green-600 bg-green-50'
-                  : 'text-gray-500 hover:text-primary-600 hover:bg-gray-50'
+                  : 'text-[var(--cera-muted)] hover:text-[var(--cera-rose-ink)] hover:bg-[var(--cera-cream-deep)]'
               }`}
               aria-label={t('product.shareProduct') || 'Share'}
               title={shareStatus === 'copied' ? (t('product.linkCopied') || 'Link copied!') : (t('product.shareProduct') || 'Share')}
@@ -394,17 +397,19 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
         {!isAppLikeMode && (
           <div className="md:hidden mb-1.5">
             {/* Product Name - Centered */}
-            <h1 className="text-sm lg:text-base md:text-lg font-bold text-gray-900 leading-tight text-center mb-0.5">
+            {/* Same mobile product name as the app-like branch below, so it takes the same
+                serif treatment. The two had drifted apart. */}
+            <h1 className="cera-serif mb-0.5 text-center text-[17px] leading-tight text-[var(--cera-ink)] md:text-lg">
               {displayName}
             </h1>
 
             {/* Category & Size Badges - Centered (Stock badge is on image) */}
             <div className="flex items-center justify-center gap-1 mt-1">
-              <span className="inline-block bg-primary-50 text-primary-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
+              <span className="inline-block bg-[var(--cera-blush)] text-[var(--cera-rose-ink)] px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
                 {product.category.split(',').map(cat => translateCategory(cat.trim(), messages)).join(' · ')}
               </span>
               {product.size && (
-                <span className="inline-block bg-gray-100 text-gray-700 px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
+                <span className="inline-block bg-[var(--cera-cream-deep)] text-[var(--cera-body)] px-1.5 py-0.5 text-[10px] lg:text-xs rounded-full font-medium">
                   {t('product.size')}: {product.size}
                 </span>
               )}
@@ -418,18 +423,18 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        className={`h-3 w-3 lg:h-3.5 lg:w-3.5 ${i < Math.round(displayRating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`}
+                        className={`h-3 w-3 lg:h-3.5 lg:w-3.5 ${i < Math.round(displayRating) ? 'fill-amber-400 text-[var(--cera-rose)]' : 'text-[var(--cera-blush-deep)]'}`}
                       />
                     ))}
                   </div>
-                  <a href="#reviews" className="text-[10px] lg:text-xs text-gray-600 font-medium hover:text-primary-600 transition-colors">
+                  <a href="#reviews" className="text-[10px] lg:text-xs text-[var(--cera-body)] font-medium hover:text-[var(--cera-rose-ink)] transition-colors">
                     {displayRating.toFixed(1)} ({displayReviewCount})
                   </a>
                 </>
               ) : (
                 <a
                   href="#reviews"
-                  className="text-[11px] lg:text-xs text-gray-500 hover:text-primary-600 font-medium transition-colors"
+                  className="text-[11px] lg:text-xs text-[var(--cera-muted)] hover:text-[var(--cera-rose-ink)] font-medium transition-colors"
                 >
                   {t('product.beTheFirstToReview')}
                 </a>
@@ -450,7 +455,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             <div className="hidden md:block mb-4">
               {/* Category Badge */}
               <div className={`flex items-center flex-wrap gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse justify-end' : 'justify-start'}`}>
-                <span className="inline-block bg-gradient-to-r from-primary-100 to-primary-50 text-primary-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                <span className="inline-block bg-gradient-to-r from-[var(--cera-blush)] to-[var(--cera-blush)] text-[var(--cera-rose-ink)] px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
                   {product.category.split(',').map(cat => translateCategory(cat.trim(), messages)).join(' · ')}
                 </span>
               </div>
@@ -458,7 +463,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               {/* Product Name — larger at lg+, tracking-tight for tighter line economy.
                   Share sits inline after the title, standard PDP placement. */}
               <div className={`flex items-start gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                <h1 className={`text-3xl xl:text-4xl font-bold text-gray-900 leading-tight tracking-tight ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
+                <h1 className={`cera-serif text-3xl xl:text-4xl text-[var(--cera-ink)] leading-tight tracking-tight ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
                   {displayName}
                 </h1>
                 <button
@@ -466,7 +471,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                   className={`p-2 mt-1 rounded-full flex-shrink-0 transition-colors ${
                     shareStatus === 'copied'
                       ? 'text-green-600 bg-green-50'
-                      : 'text-gray-400 hover:text-primary-600 hover:bg-gray-50'
+                      : 'text-[var(--cera-muted)] hover:text-[var(--cera-rose-ink)] hover:bg-[var(--cera-cream-deep)]'
                   }`}
                   aria-label={t('product.shareProduct') || 'Share'}
                   title={shareStatus === 'copied' ? (t('product.linkCopied') || 'Link copied!') : (t('product.shareProduct') || 'Share')}
@@ -482,31 +487,31 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               {/* Rating & Size (honest: driven by real review count) */}
               <div className={`flex items-center flex-wrap gap-3 text-sm ${dir === 'rtl' ? 'flex-row-reverse justify-end' : 'justify-start'}`}>
                 {displayRating && displayRating > 0 ? (
-                  <a href="#reviews" className={`flex items-center gap-1.5 hover:text-primary-600 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                  <a href="#reviews" className={`flex items-center gap-1.5 hover:text-[var(--cera-rose-ink)] transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className="flex">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`h-4 w-4 ${i < Math.round(displayRating) ? 'fill-amber-400 text-amber-400' : 'text-gray-300'}`}
+                          className={`h-4 w-4 ${i < Math.round(displayRating) ? 'fill-amber-400 text-[var(--cera-rose)]' : 'text-[var(--cera-blush-deep)]'}`}
                         />
                       ))}
                     </div>
-                    <span className="text-gray-700 font-medium">
-                      {displayRating.toFixed(1)} <span className="text-gray-500 font-normal">({displayReviewCount})</span>
+                    <span className="text-[var(--cera-body)] font-medium">
+                      {displayRating.toFixed(1)} <span className="text-[var(--cera-muted)] font-normal">({displayReviewCount})</span>
                     </span>
                   </a>
                 ) : (
                   <a
                     href="#reviews"
-                    className="text-gray-500 hover:text-primary-600 font-medium transition-colors"
+                    className="text-[var(--cera-muted)] hover:text-[var(--cera-rose-ink)] font-medium transition-colors"
                   >
                     {t('product.beTheFirstToReview')}
                   </a>
                 )}
                 {product.size && (
                   <>
-                    <span className="text-gray-300">|</span>
-                    <span className={`text-gray-600 ${dir === 'rtl' ? 'flex flex-row-reverse gap-1' : ''}`}>
+                    <span className="text-[var(--cera-blush-deep)]">|</span>
+                    <span className={`text-[var(--cera-body)] ${dir === 'rtl' ? 'flex flex-row-reverse gap-1' : ''}`}>
                       <span className="font-medium">{t('product.size')}:</span> {translateSize(product.size, locale, product.category)}
                     </span>
                   </>
@@ -514,9 +519,9 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 {/* Social proof from real order data (see lib/salesStats.ts) */}
                 {unitsSold >= UNITS_SOLD_DISPLAY_THRESHOLD && (
                   <>
-                    <span className="text-gray-300">|</span>
-                    <span className={`inline-flex items-center gap-1 text-gray-700 font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <TrendingUp className="h-3.5 w-3.5 text-primary-600" aria-hidden="true" />
+                    <span className="text-[var(--cera-blush-deep)]">|</span>
+                    <span className={`inline-flex items-center gap-1 text-[var(--cera-body)] font-medium ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <TrendingUp className="h-3.5 w-3.5 text-[var(--cera-rose-ink)]" aria-hidden="true" />
                       {t('product.unitsSold', { count: roundUnitsSold(unitsSold).toLocaleString() })}
                     </span>
                   </>
@@ -527,7 +532,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             {/* Mobile Product Name - Above Image (PWA and Mobile Web) */}
             {isAppLikeMode && (
               <div className="md:hidden mb-2 px-1">
-                <h1 className="text-lg font-bold text-gray-900 leading-tight text-center">
+                <h1 className="cera-serif text-lg text-[var(--cera-ink)] leading-tight text-center">
                   {displayName}
                 </h1>
               </div>
@@ -562,10 +567,10 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                     aria-label={t('product.watchVideo') || 'Watch product video'}
                     className="group mx-auto flex flex-col items-center gap-2 py-2 focus:outline-none"
                   >
-                    <span className="flex h-16 w-16 items-center justify-center rounded-full bg-gray-200 text-gray-700 shadow-md transition-all group-hover:bg-gray-300 group-hover:scale-105 group-active:scale-95">
+                    <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--cera-cream-deep)] text-[var(--cera-body)] shadow-md transition-all group-hover:bg-[var(--cera-blush-deep)] group-hover:scale-105 group-active:scale-95">
                       <Play className="h-7 w-7 ml-0.5 fill-current" />
                     </span>
-                    <span className="text-xs font-medium text-gray-500 group-hover:text-gray-700 transition-colors">
+                    <span className="text-xs font-medium text-[var(--cera-muted)] group-hover:text-[var(--cera-body)] transition-colors">
                       {t('product.watchVideo') || 'Watch product video'}
                     </span>
                   </button>
@@ -653,45 +658,45 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
 
             {/* Skincare Routine Block - Only for Problem Skin Care Beauty Box (product 55) - Desktop only */}
             {useLegacyBeautyBoxRoutine && (product.id === '55' || product.productNumber === '55') && (
-              <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-white border border-[var(--cera-line)] rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedProblemSkinRoutine')}</h3>
+                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-[var(--cera-rose-ink)] flex-shrink-0" />
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-[var(--cera-ink)] leading-tight">{t('product.recommendedProblemSkinRoutine')}</h3>
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={2} titleKey="routineProblemControlTonerTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineProblemControlTonerTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineProblemControlTonerDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineProblemControlTonerTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineProblemControlTonerDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={3} titleKey="routineProblemControlSerumTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineProblemControlSerumTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineProblemControlSerumDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineProblemControlSerumTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineProblemControlSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={4} titleKey="routineProblemControlCreamTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineProblemControlCreamTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineProblemControlCreamDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineProblemControlCreamTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineProblemControlCreamDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={5} titleKey="routineSoothingBombMaskTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSoothingBombMaskTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSoothingBombMaskDescProblem')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSoothingBombMaskTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSoothingBombMaskDescProblem')}</p>
                     </div>
                   </div>
                 </div>
@@ -700,52 +705,52 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
 
             {/* Skincare Routine Block - Only for Skin Brightening Beauty Box (product 56) - Desktop only */}
             {useLegacyBeautyBoxRoutine && (product.id === '56' || product.productNumber === '56') && (
-              <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-white border border-[var(--cera-line)] rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedSkinBrighteningRoutine')}</h3>
+                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-[var(--cera-rose-ink)] flex-shrink-0" />
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-[var(--cera-ink)] leading-tight">{t('product.recommendedSkinBrighteningRoutine')}</h3>
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescBrightening')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescBrightening')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={3} titleKey="routineMultiVitaSerumTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiVitaSerumTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiVitaSerumDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiVitaSerumTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiVitaSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={4} titleKey="routineMultiVitaCreamTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiVitaCreamTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiVitaCreamDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMultiVitaCreamTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMultiVitaCreamDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={5} titleKey="routinePeelingGelTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routinePeelingGelTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routinePeelingGelDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routinePeelingGelTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routinePeelingGelDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={6} titleKey="routineSoothingBombMaskTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSoothingBombMaskTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSoothingBombMaskDescBrightening')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSoothingBombMaskTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSoothingBombMaskDescBrightening')}</p>
                     </div>
                   </div>
                 </div>
@@ -754,45 +759,45 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
 
             {/* Skincare Routine Block - Only for Charming Look Beauty Box (product 57) - Desktop only */}
             {useLegacyBeautyBoxRoutine && (product.id === '57' || product.productNumber === '57') && (
-              <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-white border border-[var(--cera-line)] rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedSkincareMakeupRoutine')}</h3>
+                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-[var(--cera-rose-ink)] flex-shrink-0" />
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-[var(--cera-ink)] leading-tight">{t('product.recommendedSkincareMakeupRoutine')}</h3>
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescMakeup')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescMakeup')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={3} titleKey="routineBBCushionTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineBBCushionTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineBBCushionDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineBBCushionTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineBBCushionDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={4} titleKey="routineMakeupRemoverTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMakeupRemoverTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMakeupRemoverDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineMakeupRemoverTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineMakeupRemoverDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={5} titleKey="routineOvernightMaskTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineOvernightMaskTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineOvernightMaskDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineOvernightMaskTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineOvernightMaskDesc')}</p>
                     </div>
                   </div>
                 </div>
@@ -801,45 +806,45 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
 
             {/* Skincare Routine Block - Only for Anti-Aging Beauty Box (product 58) - Desktop only */}
             {useLegacyBeautyBoxRoutine && (product.id === '58' || product.productNumber === '58') && (
-              <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-white border border-[var(--cera-line)] rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedAntiAgingRoutine')}</h3>
+                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-[var(--cera-rose-ink)] flex-shrink-0" />
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-[var(--cera-ink)] leading-tight">{t('product.recommendedAntiAgingRoutine')}</h3>
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescAntiAging')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescAntiAging')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={3} titleKey="routineAntiWrinkleSerumTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineAntiWrinkleSerumTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineAntiWrinkleSerumDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineAntiWrinkleSerumTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineAntiWrinkleSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={4} titleKey="routineAntiWrinkleCreamTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineAntiWrinkleCreamTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineAntiWrinkleCreamDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineAntiWrinkleCreamTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineAntiWrinkleCreamDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={5} titleKey="routineCollagenMaskTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineCollagenMaskTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineCollagenMaskDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineCollagenMaskTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineCollagenMaskDesc')}</p>
                     </div>
                   </div>
                 </div>
@@ -848,45 +853,45 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
 
             {/* Skincare Routine Block - Only for Deep Moisturizing Beauty Box (product 59) - Desktop only */}
             {useLegacyBeautyBoxRoutine && (product.id === '59' || product.productNumber === '59') && (
-              <div className="hidden md:block bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
+              <div className="hidden md:block bg-white border border-[var(--cera-line)] rounded-xl p-3 sm:p-4 md:p-6 shadow-md mt-4">
                 <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">{t('product.recommendedDeepMoisturizingRoutine')}</h3>
+                  <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-[var(--cera-rose-ink)] flex-shrink-0" />
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-[var(--cera-ink)] leading-tight">{t('product.recommendedDeepMoisturizingRoutine')}</h3>
                 </div>
                 <div className="space-y-2.5 sm:space-y-3 md:space-y-4">
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={1} titleKey="routineSnowO2Title" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowO2Title')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowO2Desc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={2} titleKey="routineSnowBoosterTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescMoisturizing')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSnowBoosterTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSnowBoosterDescMoisturizing')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={3} titleKey="routineHyaluronSerumTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineHyaluronSerumTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineHyaluronSerumDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineHyaluronSerumTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineHyaluronSerumDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={4} titleKey="routineHyaluronCreamTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineHyaluronCreamTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineHyaluronCreamDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineHyaluronCreamTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineHyaluronCreamDesc')}</p>
                     </div>
                   </div>
                   <div className={`flex items-start gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
                     <RoutineStepMarker n={5} titleKey="routineSoothingBombMaskTitle" />
                     <div className="flex-1 min-w-0">
-                      <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSoothingBombMaskTitle')}</h4>
-                      <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSoothingBombMaskDesc')}</p>
+                      <h4 className="font-semibold text-[var(--cera-ink)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">{routineTitle('routineSoothingBombMaskTitle')}</h4>
+                      <p className="text-[var(--cera-body)] text-xs sm:text-sm leading-relaxed break-words">{t('product.routineSoothingBombMaskDesc')}</p>
                     </div>
                   </div>
                 </div>
@@ -1537,7 +1542,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
 
       {/* Sticky Mobile Footer - Add to Cart or Request Quote */}
       <div 
-        className="md:hidden sticky bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50"
+        className="md:hidden sticky bottom-0 left-0 right-0 bg-white border-t border-[var(--cera-line)] shadow-lg z-50"
         style={{
           paddingBottom: `calc(env(safe-area-inset-bottom, 0px) + 3%)`,
         }}
@@ -1547,23 +1552,23 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             {/* Quantity Controls - hidden for price-on-request products and
                 once the item is in the cart (the stepper takes over). */}
             {!product.isPriceOnRequest && !(inCartQty > 0 && product.inStock && user) && (
-              <div className={`flex items-center border border-gray-300 rounded-lg bg-gray-50 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex items-center border border-[var(--cera-line)] rounded-lg bg-[var(--cera-cream-deep)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <button
                   onClick={() => setMobileQuantity(prev => prev > 1 ? prev - 1 : 1)}
-                  className="p-2.5 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="p-2.5 hover:bg-[var(--cera-cream-deep)] active:bg-[var(--cera-cream-deep)] transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label={t('product.decreaseQuantity')}
                 >
-                  <Minus className="h-4 w-4 text-gray-600" />
+                  <Minus className="h-4 w-4 text-[var(--cera-body)]" />
                 </button>
-                <span className="px-3 py-1.5 text-center min-w-[2.5rem] font-semibold text-gray-900">
+                <span className="px-3 py-1.5 text-center min-w-[2.5rem] font-semibold text-[var(--cera-ink)]">
                   {mobileQuantity}
                 </span>
                 <button
                   onClick={() => setMobileQuantity(prev => Math.min(prev + 1, 99))}
-                  className="p-2.5 hover:bg-gray-100 active:bg-gray-200 transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
+                  className="p-2.5 hover:bg-[var(--cera-cream-deep)] active:bg-[var(--cera-cream-deep)] transition-colors touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label={t('product.increaseQuantity')}
                 >
-                  <Plus className="h-4 w-4 text-gray-600" />
+                  <Plus className="h-4 w-4 text-[var(--cera-body)]" />
                 </button>
               </div>
             )}
@@ -1632,8 +1637,8 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                   isAddedMobile
                     ? 'bg-green-500 text-white'
                     : !product.inStock || isAddingMobile
-                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                      : 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800'
+                      ? 'bg-[var(--cera-blush-deep)] text-[var(--cera-muted)] cursor-not-allowed'
+                      : 'bg-[var(--cera-rose)] text-white hover:bg-[var(--cera-rose-ink)] active:bg-[var(--cera-rose-ink)]'
                 }`}
                 style={{ touchAction: 'manipulation' }}
               >
@@ -1659,8 +1664,8 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               disabled={!user}
               className={`p-3 rounded-lg transition-colors border-2 touch-manipulation min-h-[44px] min-w-[44px] flex items-center justify-center ${
                 isFavorite(product.id)
-                  ? 'bg-red-50 border-red-500 text-red-600 active:bg-red-100'
-                  : 'border-gray-300 text-gray-600 hover:border-gray-400 active:bg-gray-50'
+                  ? 'bg-[var(--cera-blush)] border-red-500 text-[var(--cera-rose-ink)] active:bg-red-100'
+                  : 'border-[var(--cera-line)] text-[var(--cera-body)] hover:border-[var(--cera-blush-deep)] active:bg-[var(--cera-cream-deep)]'
               } disabled:opacity-50 disabled:cursor-not-allowed`}
               aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
             >

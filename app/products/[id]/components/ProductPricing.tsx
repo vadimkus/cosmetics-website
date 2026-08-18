@@ -22,7 +22,7 @@ export default function ProductPricing({
 
   if (!user) {
     return (
-      <div className="flex items-center text-gray-500">
+      <div className="flex items-center text-[var(--cera-muted)]">
         <span className="text-sm">{t('errors.loginToViewPricing')}</span>
       </div>
     )
@@ -30,10 +30,10 @@ export default function ProductPricing({
 
   return (
     <div className="flex items-center gap-2">
-      <div className="text-2xl font-bold text-gray-900">
+      <div className="text-2xl font-bold text-[var(--cera-ink)]">
         {currentPrice.toFixed(2)} AED
       </div>
-      <div className="text-sm font-normal text-gray-600">(VAT included)</div>
+      <div className="text-sm font-normal text-[var(--cera-body)]">(VAT included)</div>
     </div>
   )
 }

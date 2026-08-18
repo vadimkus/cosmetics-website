@@ -101,7 +101,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ar: 'روتين العناية بالبشرة خطوة بخطوة صباحي ومسائي مصمم لمناخ الإمارات — مع توصيات المنتجات وجدول إعادة التطبيق ونصائح المتخصصين.',
         ru: 'Пошаговый утренний и вечерний уход за кожей для климата ОАЭ — с рекомендациями продуктов, графиком повторного нанесения и советами специалистов.',
       },
-      fileSize: '190 KB',
+      fileSize: '257 KB',
     },
     routine: {
       en: [
@@ -462,7 +462,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ar: 'روتين صباحي ومسائي كامل للبشرة المعرضة لحب الشباب — نظام التحكم في المشاكل، جدول التقشير، مجموعات المنتجات حسب الشدة، ونصائح خاصة بالإمارات.',
         ru: 'Полный утренний и вечерний уход для кожи, склонной к акне — система Problem Control, график пилинга, наборы по степени тяжести и советы для климата ОАЭ.',
       },
-      fileSize: '160 KB',
+      fileSize: '282 KB',
     },
     why: {
       en: {
@@ -804,7 +804,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ar: 'روتين صباحي ومسائي كامل للتصبغات — نظام Radiance للتفتيح، خطوات تثبيط التيروزيناز، مجموعات منتجات حسب نوع التصبغ، ونصائح للتعرض للشمس في الإمارات.',
         ru: 'Полный утренний и вечерний уход при пигментации — система Radiance, подавление тирозиназы, наборы по типу пигментации и советы по защите от солнца в ОАЭ.',
       },
-      fileSize: '167 KB',
+      fileSize: '270 KB',
     },
     why: {
       en: {
@@ -1149,7 +1149,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ar: 'روتين صباحي ومسائي كامل لعلاج الندبات — تجديد EGF، جدول التقشير الدقيق، مجموعات منتجات حسب نوع الندبة، ونصائح العناية بعد الإجراءات.',
         ru: 'Полный утренний и вечерний уход при рубцах — EGF-регенерация, график микроэксфолиации, наборы по типу рубца и уход после процедур.',
       },
-      fileSize: '163 KB',
+      fileSize: '263 KB',
     },
     why: {
       en: {
@@ -1451,17 +1451,20 @@ export const CONCERN_PAGES: ConcernPage[] = [
     relatedConcerns: ['sensitivity', 'anti-aging'],
     protocolPdf: {
       url: '/documents/PPT/Protocol_Hair_Loss.pdf',
+      // Revised 18 Aug 2026. The previous wording promised "growth-boosting steps" and
+      // "product sets by hair loss stage", which the products are not registered to do
+      // and which the rewritten PDF no longer claims. Source: scripts/protocols/.
       title: {
-        en: 'Hair Loss & Scalp Care Home Protocol',
-        ar: 'بروتوكول العناية المنزلية بتساقط الشعر وفروة الرأس',
-        ru: 'Протокол домашнего ухода при выпадении волос',
+        en: 'Scalp & Hair Home Protocol',
+        ar: 'بروتوكول العناية المنزلية بفروة الرأس والشعر',
+        ru: 'Протокол домашнего ухода за кожей головы и волосами',
       },
       description: {
-        en: 'Complete scalp care routine with HR³ Matrix system — peptide scalp treatment, growth-boosting steps, product sets by hair loss stage, and UAE climate tips.',
-        ar: 'روتين كامل للعناية بفروة الرأس مع نظام HR³ Matrix — علاج فروة الرأس بالببتيدات، خطوات تعزيز النمو، مجموعات منتجات حسب مرحلة التساقط، ونصائح لمناخ الإمارات.',
-        ru: 'Полный уход за кожей головы с системой HR³ Matrix — пептидное лечение, этапы стимуляции роста, наборы по стадии выпадения и советы для климата ОАЭ.',
+        en: 'The HR³ MATRIX routine with the measured concentration behind every named ingredient, how each product is actually used, the salicylate avoid-list, and an honest account of what a scalp routine can and cannot do.',
+        ar: 'روتين HR³ MATRIX مع التركيز المقيس خلف كل مكوّن مذكور، وكيف يُستعمل كل منتج فعلاً، وقائمة موانع الساليسيلات، وقول صريح لما يستطيعه روتين فروة الرأس وما لا يستطيعه.',
+        ru: 'Схема HR³ MATRIX с измеренной концентрацией за каждым названным ингредиентом, как на самом деле применяется каждый продукт, список противопоказаний по салицилатам и честный разбор того, что уход за кожей головы может и чего не может.',
       },
-      fileSize: '163 KB',
+      fileSize: '307 KB',
     },
     why: {
       en: {
@@ -1493,29 +1496,35 @@ export const CONCERN_PAGES: ConcernPage[] = [
       },
     },
     seo: {
+      // Revised 18 Aug 2026. The previous copy called the range a hair-loss treatment,
+      // said it "reactivates follicles and reduces hair loss from the first month", and
+      // claimed it was "recommended by Dubai trichologists". None of the HR³ MATRIX
+      // products is registered to treat hair loss, no efficacy study exists behind any
+      // of them, and no trichologist endorsement is on file. The page still targets the
+      // concern — someone searching for it should find us — without claiming to treat it.
       en: {
-        title: 'Hair Loss Treatment UAE | Scalp Care & Hair Growth Dubai | GENOSYS',
-        description: 'Professional Korean hair loss treatment solutions in UAE. GENOSYS scalp care products & microneedling devices for hair growth stimulation. Used by Dubai trichologists. Free shipping over 1000 AED.',
-        h1: 'Hair Loss Treatment & Scalp Care',
-        heroShort: 'Professional Korean scalp care system — HR3 MATRIX shampoo, tonic & solution that reactivate follicles and reduce hair loss from the first month.',
-        intro: 'Hair loss is a significant concern in the UAE, affecting both men and women due to stress, vitamin D deficiency from indoor lifestyles, heat exposure, and hard water. GENOSYS offers a professional scalp and hair care range that combines Korean trichology research with clinical-grade ingredients to strengthen hair follicles, stimulate growth, and improve scalp health. Our microneedling devices can also be used on the scalp to enhance product absorption and stimulate dormant follicles — a technique increasingly recommended by Dubai trichologists.',
-        keywords: ['hair loss treatment UAE', 'hair growth Dubai', 'scalp care UAE', 'Korean hair loss products', 'hair thinning Dubai', 'trichology UAE', 'microneedling hair growth'],
+        title: 'Hair Loss & Scalp Care UAE | Korean Scalp Range Dubai | GENOSYS',
+        description: 'Professional Korean scalp care in the UAE. The GENOSYS HR³ MATRIX range — shampoo, tonic, ampoule and scalp peeling — with the measured concentration behind every ingredient we name. Free shipping over 1000 AED.',
+        h1: 'Hair Loss & Scalp Care',
+        heroShort: 'Professional Korean scalp care — the HR³ MATRIX shampoo, tonic and ampoule, registered for scalp cleansing, scalp nourishing and hair conditioning.',
+        intro: 'Thinning and shedding are common concerns in the UAE, where stress, vitamin D deficiency from indoor lifestyles, heat and hard water all work against the scalp. GENOSYS offers a professional Korean scalp range that cleanses, cools and conditions the skin your hair grows out of, and we publish the measured concentration behind every ingredient we name. What we do not do is call it a treatment: none of these products is registered to treat hair loss, and if you are losing hair the first step is a doctor, because several causes are treatable with things a cosmetic cannot replace.',
+        keywords: ['hair loss UAE', 'scalp care UAE', 'Korean scalp products', 'hair thinning Dubai', 'scalp shampoo Dubai', 'HR3 MATRIX'],
       },
       ar: {
-        title: 'علاج تساقط الشعر الإمارات | العناية بفروة الرأس ونمو الشعر دبي | GENOSYS',
-        description: 'حلول احترافية كورية لعلاج تساقط الشعر في الإمارات. منتجات العناية بفروة الرأس وأجهزة التحفيز من GENOSYS. توصيل مجاني فوق 1000 درهم.',
-        h1: 'علاج تساقط الشعر والعناية بفروة الرأس',
-        heroShort: 'نظام كوري احترافي للعناية بفروة الرأس — شامبو وتونيك ومحلول HR3 MATRIX يعيدون تنشيط البصيلات ويقللون تساقط الشعر من الشهر الأول.',
-        intro: 'تساقط الشعر مشكلة شائعة في الإمارات تؤثر على الرجال والنساء بسبب الإجهاد ونقص فيتامين د والتعرض للحرارة والمياه العسرة. تقدم GENOSYS مجموعة احترافية للعناية بفروة الرأس والشعر تجمع بين أبحاث علم الشعر الكورية ومكونات طبية.',
-        keywords: ['علاج تساقط الشعر الإمارات', 'نمو الشعر دبي', 'العناية بفروة الرأس', 'منتجات كورية للشعر'],
+        title: 'تساقط الشعر والعناية بفروة الرأس الإمارات | مجموعة كورية لفروة الرأس دبي | GENOSYS',
+        description: 'عناية كورية احترافية بفروة الرأس في الإمارات. مجموعة GENOSYS HR³ MATRIX — شامبو وتونر وأمبولة ومقشّر — مع التركيز المقيس خلف كل مكوّن نذكره. توصيل مجاني فوق 1000 درهم.',
+        h1: 'تساقط الشعر والعناية بفروة الرأس',
+        heroShort: 'عناية كورية احترافية بفروة الرأس — شامبو وتونر وأمبولة HR³ MATRIX، مسجّلة لتنظيف فروة الرأس وتغذيتها وتكييف الشعر.',
+        intro: 'الخفة والتساقط من الهموم الشائعة في الإمارات، حيث يعمل الإجهاد ونقص فيتامين د والحرارة والمياه العسرة كلها ضد فروة الرأس. تقدّم GENOSYS مجموعة كورية احترافية تنظّف وتبرّد وتكيّف البشرة التي ينمو منها شعرك، وننشر التركيز المقيس خلف كل مكوّن نذكره. وما لا نفعله هو تسميتها علاجاً: فلا أحد من هذه المنتجات مسجّل لعلاج تساقط الشعر، وإن كنت تفقدين شعرك فالخطوة الأولى طبيب، لأن عدة أسباب تُعالج بأشياء لا يستطيع مستحضر التجميل أن يحلّ محلها.',
+        keywords: ['تساقط الشعر الإمارات', 'العناية بفروة الرأس', 'منتجات كورية لفروة الرأس', 'خفة الشعر دبي'],
       },
       ru: {
-        title: 'Лечение выпадения волос ОАЭ | Уход за кожей головы Дубай | GENOSYS',
-        description: 'Профессиональные корейские средства от выпадения волос в ОАЭ. Продукты GENOSYS для ухода за кожей головы и стимуляции роста волос. Бесплатная доставка от 1000 дирхамов.',
-        h1: 'Лечение выпадения волос и уход за кожей головы',
-        heroShort: 'Профессиональная корейская система для кожи головы — шампунь, тоник и раствор HR3 MATRIX реактивируют фолликулы и уменьшают выпадение волос с первого месяца.',
-        intro: 'Выпадение волос — серьёзная проблема в ОАЭ, затрагивающая мужчин и женщин из-за стресса, дефицита витамина D, воздействия жары и жёсткой воды. GENOSYS предлагает профессиональную линейку для ухода за кожей головы и волосами, сочетающую корейские исследования в трихологии с клиническими ингредиентами.',
-        keywords: ['выпадение волос ОАЭ', 'рост волос Дубай', 'уход за кожей головы ОАЭ', 'корейские средства для волос'],
+        title: 'Выпадение волос и уход за кожей головы ОАЭ | Корейская линия Дубай | GENOSYS',
+        description: 'Профессиональный корейский уход за кожей головы в ОАЭ. Линия GENOSYS HR³ MATRIX — шампунь, тоник, ампула и пилинг — с измеренной концентрацией за каждым названным ингредиентом. Бесплатная доставка от 1000 дирхамов.',
+        h1: 'Выпадение волос и уход за кожей головы',
+        heroShort: 'Профессиональный корейский уход за кожей головы — шампунь, тоник и ампула HR³ MATRIX, зарегистрированные для очищения и питания кожи головы и кондиционирования волос.',
+        intro: 'Истончение и повышенное выпадение — частые поводы для беспокойства в ОАЭ, где против кожи головы работают стресс, дефицит витамина D при домашне-офисном образе жизни, жара и жёсткая вода. GENOSYS предлагает профессиональную корейскую линию, которая очищает, охлаждает и кондиционирует кожу, из которой растут волосы, и мы публикуем измеренную концентрацию за каждым названным ингредиентом. Чего мы не делаем — так это не называем это лечением: ни один из этих продуктов не зарегистрирован для лечения выпадения волос, и если волосы выпадают, первый шаг — врач, потому что часть причин лечится тем, что косметика заменить не может.',
+        keywords: ['выпадение волос ОАЭ', 'уход за кожей головы ОАЭ', 'корейские средства для кожи головы', 'истончение волос Дубай'],
       },
     },
     routine: {
@@ -1758,7 +1767,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ar: 'روتين صباحي ومسائي كامل لمكافحة الشيخوخة — نظام EGF + الببتيدات، خطوات إعادة بناء الكولاجين، مجموعات المنتجات حسب الفئة العمرية، ونصائح لمناخ الإمارات.',
         ru: 'Полный утренний и вечерний уход для антивозрастной программы — система EGF + пептиды, восстановление коллагена, наборы по возрастным группам и советы для климата ОАЭ.',
       },
-      fileSize: '164 KB',
+      fileSize: '261 KB',
     },
     why: {
       en: {
@@ -2106,7 +2115,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ar: 'روتين ترطيب صباحي ومسائي كامل — طبقات حمض الهيالورونيك، إصلاح حاجز الرطوبة، مجموعات منتجات حسب مستوى الجفاف، ونصائح لمناخ الإمارات.',
         ru: 'Полный утренний и вечерний уход для увлажнения — послойное нанесение гиалуроновой кислоты, восстановление барьера, наборы по степени обезвоженности и советы для климата ОАЭ.',
       },
-      fileSize: '164 KB',
+      fileSize: '264 KB',
     },
     seo: {
       en: {
@@ -2430,7 +2439,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ar: 'روتين صباحي ومسائي كامل للبشرة الحساسة — إصلاح الحاجز، مكونات مهدئة، مجموعات منتجات حسب مستوى الحساسية، ونصائح للحماية في مناخ الإمارات.',
         ru: 'Полный утренний и вечерний уход для чувствительной кожи — восстановление барьера, успокаивающие компоненты, наборы по степени чувствительности и защита в климате ОАЭ.',
       },
-      fileSize: '164 KB',
+      fileSize: '267 KB',
     },
     why: {
       en: {

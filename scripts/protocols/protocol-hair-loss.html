@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<!--
+  Source for public/documents/PPT/Protocol_Hair_Loss.pdf.
+
+  WHY THIS FILE EXISTS: the previous PDF had no source anywhere in the repo, which is
+  how it came to promise month-by-month regrowth, credit saw palmetto with blocking DHT,
+  and name three ingredients in products that do not contain them. Regenerate with
+  `npx tsx scripts/build-protocol-pdf.ts hair-loss` and review the diff here.
+
+  EVERY FIGURE IS FROM THE AUDITED FORMULAS. See
+  docs/SESSION_CHANGES_2026-08-17_HR3_MATRIX_LINE_SOURCE_AUDIT.md.
+
+  MUST NEVER BE ADDED — all of these were in the previous version:
+    - "Hair Loss Treatment" as the title, or "treatment" of hair loss anywhere.
+    - "Stimulate growth", "prevent further loss", "promote growth".
+    - Saw palmetto "blocks DHT". It is 1 ppm in the shampoo and 10 ppm in the solution.
+    - "High-concentration Copper Peptides". The solution runs 5 ppm.
+    - Biotin or caffeine attributed to the HAIR SOLUTION. Neither is in its formula.
+    - Niacinamide attributed to the TONIC. It is not in the tonic; it is in the solution.
+    - Salicylic acid as the peeling's exfoliant. It is 99 ppm.
+    - Rinsing the SCALP PEELING. It is a leave-on, applied on a swab.
+    - A month-by-month growth timeline.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>GENOSYS Scalp &amp; Hair Home Protocol</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 18mm; }
+
+  :root {
+    --ink: #1c1c1c;
+    --body: #3a3a3a;
+    --muted: #767676;
+    --rule: #e3dedb;
+    --crimson: #a4123f;
+    --crimson-deep: #7d0e30;
+    --tint: #f7f4f2;
+    --amber-bg: #fdf8ef;
+    --amber-edge: #b4801f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    color: var(--body);
+    font: 10.2pt/1.49 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Letterhead ─────────────────────────────────────────────── */
+  .letterhead {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18mm;
+    padding-bottom: 7px;
+    border-bottom: 2px solid var(--crimson);
+  }
+  .letterhead img { width: 42mm; height: auto; }
+  .entity {
+    text-align: right;
+    font-size: 7.4pt;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+  .entity b { color: var(--ink); font-weight: 600; }
+
+  h1 {
+    margin: 16px 0 0;
+    font-size: 20pt;
+    line-height: 1.18;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .standfirst {
+    margin: 7px 0 0;
+    font-size: 10.6pt;
+    line-height: 1.5;
+    color: var(--crimson-deep);
+  }
+
+  h2 {
+    margin: 20px 0 8px;
+    font-size: 12.6pt;
+    font-weight: 700;
+    color: var(--crimson);
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--rule);
+    break-after: avoid;
+  }
+  h3 {
+    margin: 15px 0 5px;
+    font-size: 10.4pt;
+    font-weight: 700;
+    color: var(--ink);
+    break-after: avoid;
+  }
+  p { margin: 0 0 7px; }
+  b, strong { color: var(--ink); font-weight: 600; }
+
+  /* ── Blocks ─────────────────────────────────────────────────── */
+  .scope {
+    break-inside: avoid;
+    margin-top: 14px;
+    padding: 12px 15px;
+    background: var(--tint);
+    border-left: 3px solid var(--crimson);
+  }
+  .scope p { margin: 0 0 5px; font-size: 9.6pt; }
+  .scope p:last-child { margin-bottom: 0; }
+
+  .warn {
+    margin: 12px 0;
+    padding: 12px 15px;
+    background: var(--amber-bg);
+    border: 1px solid #e0c9a4;
+    border-left: 3px solid var(--amber-edge);
+    break-inside: avoid;
+  }
+  .warn .title {
+    font-weight: 700;
+    color: #6f4d0d;
+    font-size: 9.6pt;
+    margin-bottom: 5px;
+  }
+  .warn p, .warn li { font-size: 9.4pt; }
+  .warn p:last-child { margin-bottom: 0; }
+
+  .step {
+    margin: 12px 0;
+    padding-left: 13px;
+    border-left: 2px solid var(--rule);
+    break-inside: avoid;
+  }
+  .step .meta {
+    font-size: 8.8pt;
+    color: var(--muted);
+    margin: 0 0 5px;
+  }
+  .step .meta b { color: var(--crimson-deep); }
+
+  ul, ol { margin: 0 0 8px; padding-left: 17px; }
+  li { margin-bottom: 3.5px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 9px 0 10px;
+    font-size: 9.2pt;
+    break-inside: avoid;
+  }
+  th {
+    text-align: left;
+    font-size: 7.6pt;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--rule);
+    padding: 0 8px 5px 0;
+  }
+  td {
+    padding: 5px 8px 5px 0;
+    border-bottom: 1px solid #f0ecea;
+    vertical-align: top;
+  }
+  td.num, th.num { text-align: right; padding-right: 0; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  tr.total td { font-weight: 700; color: var(--ink); border-bottom: none; border-top: 1.5px solid var(--rule); }
+  .dose { font-variant-numeric: tabular-nums; color: var(--crimson-deep); font-weight: 600; }
+
+  .page-break { break-before: page; }
+  .avoid-break { break-inside: avoid; }
+
+  footer.sig {
+    break-before: avoid;
+    margin-top: 14px;
+    padding-top: 8px;
+    border-top: 1px solid var(--rule);
+    font-size: 8pt;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header class="letterhead">
+  <img src="LOGO_SRC" alt="GENOSYS">
+  <div class="entity">
+    <b>Genosys Middle East FZ-LLC</b><br>
+    VUET0209, Compass Building &ndash; Al Hulaila<br>
+    Al Hulaila Industrial Zone-FZ, Ras Al Khaimah, UAE<br>
+    +971 58 548 76 65 &nbsp;|&nbsp; sales@genosys.ae &nbsp;|&nbsp; genosys.ae
+  </div>
+</header>
+
+<h1>Scalp &amp; Hair Home Protocol</h1>
+<p class="standfirst">The HR&sup3; MATRIX range, what each product is actually for, and how to use it properly.</p>
+
+<div class="scope">
+  <p><b>Who this is for:</b> anyone who wants a considered scalp routine &mdash; including people who have noticed thinning or more shedding than usual.</p>
+  <p><b>What these products are:</b> registered scalp and hair cosmetics. The shampoo is registered for scalp and hair cleansing, the tonic for scalp nourishing and hair conditioning, the peeling as a scalp refresher, and the ampoule for nutrition supply and hair conditioning.</p>
+  <p><b>What they are not:</b> none of them is registered or licensed to treat hair loss, and this document does not claim they do. <b>If you are losing hair, see a doctor.</b> Hair loss has many causes &mdash; hormonal, autoimmune, nutritional, thyroid, medication, stress &mdash; and several of them are treatable with things a cosmetic cannot replace. A good scalp routine sits alongside that diagnosis; it does not substitute for it.</p>
+</div>
+
+<h2>Why the UAE is hard on a scalp</h2>
+
+<p>None of this is about hair loss specifically. It is about the conditions a scalp has to cope with here, which are genuinely tougher than in most climates, and which a routine can do something about.</p>
+
+<ul>
+  <li><b>Hard water.</b> Gulf tap water is mineral-heavy, and those minerals deposit on the scalp and hair. It is the single most practical thing on this list, and a shower filter fixes it.</li>
+  <li><b>Heat and sun.</b> Part lines burn. Most people never think to protect a parting, and it is exposed skin like any other.</li>
+  <li><b>Air conditioning.</b> Continuous dry air pulls moisture out of skin and hair, indoors, all year.</li>
+  <li><b>Dust and pollution.</b> Fine particulate settles on the scalp between washes and mixes with sebum and styling product.</li>
+  <li><b>Stress and sleep.</b> Well documented as a trigger for temporary shedding &mdash; a doctor can tell you whether that is what is happening.</li>
+</ul>
+
+<h2>Daily &mdash; morning</h2>
+
+<div class="step">
+  <h3>1. Wash, and leave it on for three minutes</h3>
+  <p class="meta"><b>HR&sup3; MATRIX MEDI SCALP SHAMPOO &alpha;</b> &middot; 300 ml &middot; AED 340</p>
+  <p>Work 3&ndash;5 ml into the <b>scalp</b>, not just the lengths, with fingertips rather than nails. Then leave it for <b>three minutes before rinsing</b>. That instruction is on the manufacturer's Russian panel and nowhere on the English one, and it matters: without dwell time a shampoo gives its actives no contact at all.</p>
+  <p>This is the one product in the range with an ingredient at a dose the literature would recognise &mdash; <span class="dose">caffeine at 1.000%</span>. For scale, the tonic below runs caffeine at <span class="dose">10 ppm</span>, about a hundredth of it. It is also the coldest-feeling wash you are likely to own: <span class="dose">menthol 1.120%</span>.</p>
+  <p>Rinse with lukewarm water, not hot. If your water is hard, a final rinse with filtered water is worth the trouble.</p>
+</div>
+
+<div class="step">
+  <h3>2. Tonic, and leave it alone</h3>
+  <p class="meta"><b>HR&sup3; MATRIX HAIR TONIC &alpha;</b> &middot; 70 ml &middot; AED 290</p>
+  <p>Part the hair and apply to the scalp &mdash; crown, hairline, part lines &mdash; then massage in circles for half a minute. <b>Do not wash it off, and leave it at least three to four hours.</b> Morning and evening.</p>
+  <p>Two of its ingredients sit at exactly the concentrations that make them functional actives: <span class="dose">panthenol 0.200%</span> and <span class="dose">menthol 0.300%</span>. Its certificate is the strongest in the GENOSYS range, and it measures them rather than merely declaring them &mdash; panthenol came back at 103.40% of declared, menthol at 99.37%, salicylic acid at 101.28%.</p>
+  <p>It is also <span class="dose">9.5% alcohol</span>, which is worth knowing before you put it near a freshly shaved neckline. <b>Period after opening: three months</b> &mdash; the shortest in the range, so buy it to use, not to store.</p>
+</div>
+
+<div class="warn">
+  <div class="title">The tonic has a real avoid-list, and it is on the Korean panel only</div>
+  <p>It carries <b>salicylic acid at 0.250%</b>. The manufacturer advises avoiding it if you have <b>salicylic acid sensitivity, diabetes, a circulatory disorder or impaired kidney function</b>, and while <b>pregnant, possibly pregnant, or menstruating</b>. Not for children under three.</p>
+  <p>Given how common diabetes is in the UAE, this is not a footnote. It appears on no English panel. If any of it applies to you, use the shampoo and skip the tonic, or ask your doctor first.</p>
+</div>
+
+<h2>Daily &mdash; evening</h2>
+
+<div class="step">
+  <h3>3. Brush the scalp</h3>
+  <p class="meta"><b>HR&sup3; MATRIX SCALP BRUSH</b> &middot; AED 50</p>
+  <p>Gentle circular passes from the hairline back, a couple of minutes. It lifts flakes and product build-up and spreads whatever you have applied. Mechanical, cheap and entirely honest about what it does.</p>
+</div>
+
+<h2>Weekly &mdash; before a treatment</h2>
+
+<div class="step">
+  <h3>4. Clear the scalp</h3>
+  <p class="meta"><b>HR&sup3; MATRIX SCALP PEELING &alpha;</b> &middot; 100 ml &middot; AED 290</p>
+  <p>Despite the name this is <b>not an exfoliating peel</b>. It is a prep solution: <span class="dose">33.6% denatured alcohol</span> with <span class="dose">12% propylene glycol</span>, which strips sebum and product build-up in seconds. The salicylic acid in it is <span class="dose">99 ppm</span> &mdash; a twenty-fifth of the tonic's dose, and nowhere near an exfoliating concentration. The alcohol and the glycol do the work.</p>
+  <p>Decant about 5 ml, soak a cotton swab, and rub it firmly along each parting. <b>It is not rinsed off, and it does not go in the shower.</b> Its purpose is to leave the scalp clean and dry for whatever follows.</p>
+  <p>Expect it to be cold and sharp &mdash; it carries <span class="dose">1.7% cooling agents</span>, the most of anything GENOSYS makes. It stings broken skin, it is flammable while wet, and it is <b>not a disinfectant</b>: alcohol needs roughly 60&ndash;70% to work that way.</p>
+</div>
+
+<h2>Course treatment &mdash; not a nightly step</h2>
+
+<div class="step">
+  <h3>5. The ampoule</h3>
+  <p class="meta"><b>HR&sup3; MATRIX HAIR SOLUTION &alpha;</b> &middot; 4 ml &times; 8 vials &middot; AED 740</p>
+  <p>This is a <b>session product, one sealed 4 ml vial at a time</b>, and the vial must be used immediately once opened &mdash; it is preserved with only 30 ppm of phenoxyethanol and is not built to sit half-used. Eight vials is eight sessions, not a bottle you dispense from nightly.</p>
+  <p>Apply along partings roughly 1&ndash;2 cm apart, on a clean dry scalp, and massage in. It is designed to be driven in with a roller or stamp rather than rubbed on, which is what the Mesopecia Kit and the HairGen BOOSTER below are for.</p>
+  <p>What is in it, plainly: the four growth-factor peptides the box names total <span class="dose">1.2 parts per million</span> between them. What is present at a working dose is the carrier &mdash; <span class="dose">propylene glycol 9.995%</span> with <span class="dose">carbomer 0.450%</span> so it stays on the parting instead of running off &mdash; plus <span class="dose">niacinamide 0.100%</span> and <span class="dose">panthenol 0.100%</span>. Its copper tripeptide-1 at <span class="dose">5 ppm</span> is the highest in the range.</p>
+  <p><b>Avoid during pregnancy and breastfeeding.</b> Printed on both registered cartons.</p>
+</div>
+
+<h2>What is actually in these products</h2>
+
+<p>Ingredient lists on cartons run in the manufacturer's own order, not by quantity, so an ingredient can head a list and still be present in parts per billion. These are the measured concentrations from the signed formulas.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:26%">Ingredient</th>
+      <th style="width:41%">Where it actually is, and how much</th>
+      <th style="width:33%">Worth knowing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b>Caffeine</b></td>
+      <td>Shampoo <span class="dose">1.000%</span> &middot; Tonic <span class="dose">10 ppm</span><br>Not in the solution or the peeling</td>
+      <td>The one substantial dose in the range, and it is in the cheapest daily product</td>
+    </tr>
+    <tr>
+      <td><b>Menthol</b></td>
+      <td>Peeling <span class="dose">0.900%</span> &middot; Shampoo <span class="dose">1.120%</span><br>Tonic <span class="dose">0.300%</span> &middot; Solution <span class="dose">0.200%</span></td>
+      <td>The cold. The peeling carries the most cooling agent overall at 1.7% combined</td>
+    </tr>
+    <tr>
+      <td><b>Panthenol</b></td>
+      <td>Tonic <span class="dose">0.200%</span> &middot; Solution <span class="dose">0.100%</span><br>Shampoo <span class="dose">75 ppm</span></td>
+      <td>At its listed functional concentration in the tonic; far below it in the shampoo</td>
+    </tr>
+    <tr>
+      <td><b>Copper tripeptide-1</b></td>
+      <td>Solution <span class="dose">5 ppm</span> &middot; Tonic <span class="dose">1 ppm</span><br>Shampoo <span class="dose">10 ppb</span> &middot; Peeling <span class="dose">5 ppb</span></td>
+      <td>Named on all four cartons; a thousandfold spread between them</td>
+    </tr>
+    <tr>
+      <td><b>Niacinamide</b></td>
+      <td>Solution <span class="dose">0.100%</span> only</td>
+      <td>Not in the tonic, whatever you may have read from us before</td>
+    </tr>
+    <tr>
+      <td><b>Biotin</b></td>
+      <td>Shampoo <span class="dose">2 ppm</span> only</td>
+      <td>Not in the solution. Named on the shampoo carton, present at trace</td>
+    </tr>
+    <tr>
+      <td><b>Saw palmetto</b></td>
+      <td>Solution <span class="dose">10 ppm</span> &middot; Shampoo <span class="dose">1 ppm</span></td>
+      <td>Present, and far too little to be credited with anything</td>
+    </tr>
+    <tr>
+      <td><b>Salicylic acid</b></td>
+      <td>Tonic <span class="dose">0.250%</span> &middot; Peeling <span class="dose">99 ppm</span><br>None in the shampoo</td>
+      <td>Only the tonic's is a working dose &mdash; and it is the reason for the avoid-list</td>
+    </tr>
+    <tr>
+      <td><b>Growth-factor peptides</b></td>
+      <td>Solution, <span class="dose">1.2 ppm</span> for all four combined</td>
+      <td>Named individually on the box, so the total is worth stating</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="warn">
+  <div class="title">A correction to our own earlier advice</div>
+  <p>An earlier version of this protocol stated that the solution contained biotin and caffeine, that the tonic contained niacinamide, that its copper peptides were "high-concentration", and that saw palmetto blocks DHT. <b>None of that was right.</b> It also told you to rinse the scalp peeling off, which is the opposite of how it is meant to be used. The table above is taken from the signed formulas, and this document will not carry a claim we cannot show you the number for.</p>
+</div>
+
+<h2>Adding needling</h2>
+
+<p>Both options below put the ampoule <em>into</em> the scalp rather than on it. They are optional, and neither is necessary for the daily routine to be worth doing.</p>
+
+<div class="step">
+  <h3>HR&sup3; MATRIX MESOPECIA KIT &mdash; AED 1,100</h3>
+  <p class="meta">Scalp Peeling &alpha; 100 ml &middot; Hair Solution &alpha; 4 ml &times; 6 &middot; GENOSYS roller 0.5 mm</p>
+  <p>The peeling and the ampoule you already know, boxed with a <b>0.5 mm roller</b>. Rolled along each parting with the solution released from the dropper as you go, then a light massage. Worth being straight about the maths: bought separately those two liquids come to AED 845, so the roller accounts for AED 255 &mdash; and if what you want is a longer course, the standalone eight-vial box gives you more product for less money without the roller.</p>
+</div>
+
+<div class="step">
+  <h3>HairGen BOOSTER &mdash; AED 1,800</h3>
+  <p class="meta">Auto-microneedling LED device &middot; takes one 4 ml vial and one single-use 52-needle stamp per session</p>
+  <p>A powered handpiece that stamps automatically while the solution feeds through it. Three speeds &mdash; 280, 330 and 400 RPM &mdash; and it stops itself after ten minutes. A fresh stamp and a fresh vial go on each time; replacement stamps are <b>AED 600 for a box of eight</b>.</p>
+</div>
+
+<div class="warn">
+  <div class="title">Do not use a roller, stamp or needling device if&hellip;</div>
+  <ul style="margin-bottom:0">
+    <li>you have a <b>metal allergy</b> &mdash; the needles are steel;</li>
+    <li>your skin is <b>keloid-prone</b>;</li>
+    <li>you have <b>progressive acne, eczema or any active dermatitis</b>;</li>
+    <li>the area is <b>inflamed, broken, sunburned, freshly shaved or at risk of infection</b>;</li>
+    <li>you have <b>complications of diabetes or another serious illness</b> &mdash; ask your doctor first.</li>
+  </ul>
+</div>
+
+<h2>Sets</h2>
+
+<table>
+  <thead>
+    <tr><th>Daily essentials</th><th class="num">Price</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>HR&sup3; MATRIX MEDI SCALP SHAMPOO &alpha; &middot; 300 ml</td><td class="num">340</td></tr>
+    <tr><td>HR&sup3; MATRIX HAIR TONIC &alpha; &middot; 70 ml</td><td class="num">290</td></tr>
+    <tr><td>HR&sup3; MATRIX SCALP BRUSH</td><td class="num">50</td></tr>
+    <tr class="total"><td>Total</td><td class="num">AED 680</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr><th>Full routine &mdash; adds the weekly prep and a course of ampoules</th><th class="num">Price</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>HR&sup3; MATRIX MEDI SCALP SHAMPOO &alpha; &middot; 300 ml</td><td class="num">340</td></tr>
+    <tr><td>HR&sup3; MATRIX HAIR TONIC &alpha; &middot; 70 ml</td><td class="num">290</td></tr>
+    <tr><td>HR&sup3; MATRIX SCALP PEELING &alpha; &middot; 100 ml</td><td class="num">290</td></tr>
+    <tr><td>HR&sup3; MATRIX HAIR SOLUTION &alpha; &middot; 4 ml &times; 8</td><td class="num">740</td></tr>
+    <tr><td>HR&sup3; MATRIX SCALP BRUSH</td><td class="num">50</td></tr>
+    <tr class="total"><td>Total</td><td class="num">AED 1,710</td></tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr><th>With needling &mdash; professional or supervised use</th><th class="num">Price</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Everything in the full routine above</td><td class="num">1,710</td></tr>
+    <tr><td>HR&sup3; MATRIX MESOPECIA KIT &middot; includes a 0.5 mm roller</td><td class="num">1,100</td></tr>
+    <tr><td>HairGen BOOSTER &middot; auto-microneedling LED device</td><td class="num">1,800</td></tr>
+    <tr><td>Hair-GENTRON &middot; LED helmet, for clinic use</td><td class="num">3,300</td></tr>
+    <tr class="total"><td>Total</td><td class="num">AED 7,910</td></tr>
+  </tbody>
+</table>
+
+<p style="font-size:9pt;color:var(--muted)">Prices include VAT. Orders over AED 1,000 ship free within the UAE.</p>
+
+<h2>Getting more out of the routine</h2>
+
+<div class="avoid-break">
+<h3>Things that reliably go wrong</h3>
+<ol>
+  <li><b>Treating the hair instead of the scalp.</b> Every product here works on skin. The lengths are downstream.</li>
+  <li><b>No dwell time.</b> A shampoo rinsed out immediately has done nothing but clean.</li>
+  <li><b>Hot water.</b> Lukewarm. Hot water strips a scalp you are trying to look after.</li>
+  <li><b>Nails instead of fingertips.</b> Scratching a scalp is not stimulating it.</li>
+  <li><b>Ignoring hard water.</b> A shower filter is the cheapest useful thing on this page.</li>
+  <li><b>Washing the tonic off.</b> It needs three to four hours on the scalp.</li>
+  <li><b>Opening an ampoule and saving half.</b> Use it or lose it.</li>
+  <li><b>Tight styles.</b> Ponytails, tight braids and buns pull on follicles all day.</li>
+</ol>
+</div>
+
+<div class="avoid-break">
+<h3>Worth doing in this climate</h3>
+<ul>
+  <li>Fit a <b>shower filter</b> for hard-water minerals.</li>
+  <li>Cover your <b>part line</b> in the sun, or use a scalp-safe SPF spray on it.</li>
+  <li><b>Humidify</b> heavily air-conditioned rooms.</li>
+  <li>Wash the day's <b>dust</b> out rather than letting it sit overnight.</li>
+  <li>Drink properly and sleep properly. Dull advice; it holds.</li>
+  <li>For <b>sudden, patchy or rapid</b> shedding, see a dermatologist rather than a routine.</li>
+</ul>
+</div>
+
+<div class="scope">
+  <p><b>What to expect, honestly.</b> A scalp routine cleans and conditions the skin your hair grows out of, in a climate that works against it. That is a real benefit, and it is the one we will put in writing. What we will not give you is a month-by-month regrowth schedule &mdash; an earlier version of this document did, and it should not have. Judge these products on how your scalp feels. Judge hair loss with a doctor.</p>
+</div>
+
+<footer class="sig">
+  GENOSYS Middle East FZ-LLC &middot; official UAE distributor of GENOSYS Korean dermacosmetics since 2019 &middot; genosys.ae<br>
+  Concentrations quoted are from the manufacturer's signed formulas and certificates of analysis. Revised August 2026.
+</footer>
+
+</body>
+</html>

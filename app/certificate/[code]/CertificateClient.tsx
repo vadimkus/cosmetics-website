@@ -3,6 +3,9 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Gift, Calendar, Phone, Mail, Globe, Sparkles, Award, QrCode } from 'lucide-react'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 interface CertificateClientProps {
   code: string
@@ -153,12 +156,12 @@ export default function CertificateClient({
         }
       `}</style>
 
-      <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 py-8 px-4 sm:py-12 sm:px-6 lg:px-8">
+      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)] py-8 px-4 sm:py-12 sm:px-6 lg:px-8`}>
         {/* No Print - Action Buttons */}
         <div className="no-print max-w-4xl mx-auto mb-6 flex justify-between items-center">
           <button
             onClick={() => window.history.back()}
-            className="px-4 py-2 bg-white text-gray-700 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-medium"
+            className="px-4 py-2 bg-white text-[var(--cera-body)] rounded-lg shadow-md hover:shadow-lg transition-all duration-300 font-medium"
           >
             ← Back
           </button>
@@ -219,12 +222,12 @@ export default function CertificateClient({
             <div className="text-center mb-8 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
               <div className="inline-flex items-center justify-center gap-3 mb-4">
                 <Gift className="text-rose-500" size={32} />
-                <h1 className="text-4xl sm:text-5xl font-serif text-gray-800 tracking-wide">
+                <h1 className="text-4xl sm:text-5xl font-serif text-[var(--cera-ink)] tracking-wide">
                   Gift Certificate
                 </h1>
                 <Gift className="text-rose-500" size={32} />
               </div>
-              <div className="flex items-center justify-center gap-2 text-gray-600">
+              <div className="flex items-center justify-center gap-2 text-[var(--cera-body)]">
                 <Award size={20} className="text-gold-500" />
                 <p className="text-lg font-light italic">Professional Korean Dermacosmetics</p>
               </div>
@@ -239,11 +242,11 @@ export default function CertificateClient({
 
             {/* Certificate Number */}
             <div className="text-center mb-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-              <p className="text-sm text-gray-500 uppercase tracking-widest mb-2 font-medium">
+              <p className="text-sm text-[var(--cera-muted)] uppercase tracking-widest mb-2 font-medium">
                 Certificate Number
               </p>
               <div className="inline-block px-8 py-4 bg-gradient-to-r from-gold-50 to-yellow-50 rounded-lg border-2 border-gold-300 shadow-lg">
-                <p className="text-3xl sm:text-4xl font-bold text-gray-800 tracking-wider font-mono">
+                <p className="text-3xl sm:text-4xl font-bold text-[var(--cera-ink)] tracking-wider font-mono">
                   {code}
                 </p>
               </div>
@@ -263,17 +266,17 @@ export default function CertificateClient({
 
             {/* Description */}
             <div className="max-w-2xl mx-auto text-center mb-10 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-              <p className="text-lg text-gray-700 leading-relaxed mb-6 font-light">
+              <p className="text-lg text-[var(--cera-body)] leading-relaxed mb-6 font-light">
                 This certificate entitles the bearer to products or services worth{' '}
                 <span className="font-semibold text-rose-600">{amount} {currency}</span> from{' '}
                 <span className="font-semibold">GENOSYS Middle East</span>.
               </p>
               
               <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-xl p-6 border border-rose-200 shadow-sm">
-                <p className="text-sm text-gray-700 font-medium mb-3">
+                <p className="text-sm text-[var(--cera-body)] font-medium mb-3">
                   🎁 How to Redeem
                 </p>
-                <p className="text-sm text-gray-600 leading-relaxed">
+                <p className="text-sm text-[var(--cera-body)] leading-relaxed">
                   Share this certificate or code with GENOSYS while placing your order to deduct the amount from your order total. Valid for professional Korean dermacosmetics and beauty treatments.
                 </p>
               </div>
@@ -284,11 +287,11 @@ export default function CertificateClient({
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Validity */}
                 <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg p-6 border border-purple-200">
-                  <div className="flex items-start gap-3 text-sm text-gray-700">
+                  <div className="flex items-start gap-3 text-sm text-[var(--cera-body)]">
                     <Calendar className="text-purple-500 flex-shrink-0 mt-0.5" size={20} />
                     <div>
                       <p className="font-medium mb-1">Validity Period</p>
-                      <p className="text-gray-600">
+                      <p className="text-[var(--cera-body)]">
                         Valid for <span className="font-semibold text-purple-600">{validityMonths} months</span> from date of issue.
                         <br />
                         <span className="text-xs">
@@ -303,7 +306,7 @@ export default function CertificateClient({
                 <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg p-6 border border-rose-200 flex flex-col items-center justify-center">
                   <div className="flex items-center gap-2 mb-3">
                     <QrCode className="text-rose-500" size={20} />
-                    <p className="font-medium text-sm text-gray-700">Scan to View</p>
+                    <p className="font-medium text-sm text-[var(--cera-body)]">Scan to View</p>
                   </div>
                   {qrCodeUrl && (
                     <div className="bg-white p-2 rounded-lg shadow-sm">
@@ -327,8 +330,8 @@ export default function CertificateClient({
             </div>
 
             {/* Footer - Contact Information */}
-            <div className="text-center text-sm text-gray-600 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
-              <p className="font-semibold text-gray-800 mb-4 text-base">
+            <div className="text-center text-sm text-[var(--cera-body)] animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
+              <p className="font-semibold text-[var(--cera-ink)] mb-4 text-base">
                 GENOSYS
               </p>
               
@@ -360,7 +363,7 @@ export default function CertificateClient({
                 </div>
               </div>
 
-              <p className="text-xs text-gray-500 italic">
+              <p className="text-xs text-[var(--cera-muted)] italic">
                 Thank you for choosing GENOSYS - Your trusted partner in professional Korean dermacosmetics
               </p>
             </div>
@@ -373,10 +376,10 @@ export default function CertificateClient({
         {/* Additional Info (No Print) */}
         <div className="no-print max-w-4xl mx-auto mt-8 text-center">
           <div className="bg-white rounded-lg shadow-md p-6">
-            <p className="text-sm text-gray-600 mb-4">
+            <p className="text-sm text-[var(--cera-body)] mb-4">
               📱 <strong>Share this certificate:</strong> You can share this page URL or take a screenshot to send via WhatsApp, email, or social media.
             </p>
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-[var(--cera-muted)]">
               Certificate URL: {typeof window !== 'undefined' ? window.location.href : ''}
             </p>
           </div>

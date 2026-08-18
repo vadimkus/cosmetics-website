@@ -9,6 +9,9 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useAuth } from '@/components/auth/AuthProvider'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export default function PrivacyPolicyClient() {
   const { locale, dir } = useTranslation()
@@ -270,18 +273,18 @@ export default function PrivacyPolicyClient() {
   }
 
   const renderContent = (compact: boolean) => {
-    const headingClass = compact ? 'text-lg font-bold text-gray-900 mb-3' : 'text-2xl font-bold text-gray-900 mb-4'
-    const textClass = compact ? 'text-sm text-gray-700 leading-relaxed' : 'text-gray-700 leading-relaxed'
-    const sectionClass = compact ? 'mb-5' : 'border-t border-gray-200 pt-8'
-    const listClass = compact ? 'text-sm text-gray-700' : 'text-gray-700'
+    const headingClass = compact ? 'text-lg font-bold text-[var(--cera-ink)] mb-3' : 'text-2xl font-bold text-[var(--cera-ink)] mb-4'
+    const textClass = compact ? 'text-sm text-[var(--cera-body)] leading-relaxed' : 'text-[var(--cera-body)] leading-relaxed'
+    const sectionClass = compact ? 'mb-5' : 'border-t border-[var(--cera-line)] pt-8'
+    const listClass = compact ? 'text-sm text-[var(--cera-body)]' : 'text-[var(--cera-body)]'
     const rtl = isRTL ? 'text-right' : ''
     const calloutPad = compact ? 'p-4' : 'p-6'
     const calloutMb = compact ? 'mb-5' : 'mb-6'
 
     // Renders a label/description pair as a clearly separated row (divided list)
     const LabelRow = ({ label, text, divider }: { label: string; text: string; divider: boolean }) => (
-      <div className={`${divider ? (isRTL ? 'border-t border-gray-200 pt-3 mt-3' : 'border-t border-gray-200 pt-3 mt-3') : ''} ${rtl}`}>
-        <div className="font-semibold text-gray-900 mb-0.5">{label}</div>
+      <div className={`${divider ? (isRTL ? 'border-t border-[var(--cera-line)] pt-3 mt-3' : 'border-t border-[var(--cera-line)] pt-3 mt-3') : ''} ${rtl}`}>
+        <div className="font-semibold text-[var(--cera-ink)] mb-0.5">{label}</div>
         <div className={textClass}>{text}</div>
       </div>
     )
@@ -293,7 +296,7 @@ export default function PrivacyPolicyClient() {
         {compact && (
           <div className={`flex ${isRTL ? 'justify-end' : 'justify-start'} mb-4`}>
             <span
-              className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[var(--cera-cream-deep)] text-[var(--cera-body)] px-2.5 py-1 text-xs font-medium"
               title={`${t.lastUpdatedLabel} ${lastUpdated}`}
             >
               <Clock className="w-3.5 h-3.5" aria-hidden="true" />
@@ -305,18 +308,18 @@ export default function PrivacyPolicyClient() {
 
         {/* Rights Highlight — uses side-specific full classes (avoid template-literal JIT pitfall) */}
         <div
-          className={`bg-red-50 ${calloutPad} rounded-xl ${calloutMb} ${rtl} ${
+          className={`bg-[var(--cera-blush)] ${calloutPad} rounded-xl ${calloutMb} ${rtl} ${
             isRTL ? 'border-r-4 border-red-600' : 'border-l-4 border-red-600'
           }`}
         >
-          <h2 className={`${compact ? 'text-lg' : 'text-xl'} font-bold text-red-700 mb-2`}>{t.rightsTitle}</h2>
+          <h2 className={`cera-serif ${compact ? 'text-lg' : 'text-xl'} text-[var(--cera-rose-ink)] mb-2`}>{t.rightsTitle}</h2>
           <p className={textClass}>{t.rightsText}</p>
         </div>
 
         {/* 1. Personal Information — divided rows for scannability */}
         <div className={sectionClass}>
           <h2 className={`${headingClass} ${rtl}`}>{t.s1Title}</h2>
-          <div className={`bg-gray-50 rounded-lg p-4 ${listClass}`}>
+          <div className={`bg-[var(--cera-cream-deep)] rounded-lg p-4 ${listClass}`}>
             <LabelRow label={t.accountLabel} text={t.accountText} divider={false} />
             <LabelRow label={t.profileLabel} text={t.profileText} divider={true} />
             <LabelRow label={t.orderLabel} text={t.orderText} divider={true} />
@@ -344,10 +347,10 @@ export default function PrivacyPolicyClient() {
             <LabelRow label={t.s3CameraLabel} text={t.s3CameraText} divider={true} />
           </div>
           <div className={`mt-3 flex flex-wrap gap-3 ${rtl}`}>
-            <a href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary-600 hover:underline">
+            <a href="https://apps.apple.com/ae/app/genosys-uae/id6756648064" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[var(--cera-rose-ink)] hover:underline">
               <ExternalLink className="w-4 h-4" /> App Store (iOS)
             </a>
-            <a href="https://play.google.com/store/apps/details?id=ae.genosys.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-primary-600 hover:underline">
+            <a href="https://play.google.com/store/apps/details?id=ae.genosys.app" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-[var(--cera-rose-ink)] hover:underline">
               <ExternalLink className="w-4 h-4" /> Google Play (Android)
             </a>
           </div>
@@ -370,8 +373,8 @@ export default function PrivacyPolicyClient() {
             <LabelRow label={t.googleSignInLabel} text={t.googleSignInText} divider={false} />
             <LabelRow label={t.googleDataLabel} text={t.googleDataText} divider={true} />
             <div className={`mt-3 pt-3 border-t border-purple-200 flex items-center gap-2 text-sm ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
-              <ExternalLink className="w-4 h-4 text-primary-600" />
-              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Google Privacy Policy</a>
+              <ExternalLink className="w-4 h-4 text-[var(--cera-rose-ink)]" />
+              <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-rose-ink)] hover:underline">Google Privacy Policy</a>
             </div>
           </div>
         </div>
@@ -379,11 +382,11 @@ export default function PrivacyPolicyClient() {
         {/* 6. Apple Auth */}
         <div className={sectionClass}>
           <h2 className={`${headingClass} ${rtl}`}>{t.s6Title}</h2>
-          <div className={`bg-gray-50 border border-gray-200 rounded-lg p-4 ${listClass}`}>
+          <div className={`bg-[var(--cera-cream-deep)] border border-[var(--cera-line)] rounded-lg p-4 ${listClass}`}>
             <LabelRow label={t.appleSignInLabel} text={t.appleSignInText} divider={false} />
-            <div className={`mt-3 pt-3 border-t border-gray-200 flex items-center gap-2 text-sm ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
-              <ExternalLink className="w-4 h-4 text-primary-600" />
-              <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">Apple Privacy Policy</a>
+            <div className={`mt-3 pt-3 border-t border-[var(--cera-line)] flex items-center gap-2 text-sm ${isRTL ? 'flex-row-reverse justify-end' : ''}`}>
+              <ExternalLink className="w-4 h-4 text-[var(--cera-rose-ink)]" />
+              <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-rose-ink)] hover:underline">Apple Privacy Policy</a>
             </div>
           </div>
         </div>
@@ -441,16 +444,16 @@ export default function PrivacyPolicyClient() {
         <div className={sectionClass}>
           <h2 className={`${headingClass} ${rtl}`}>{t.s14Title}</h2>
           <p className={`${textClass} mb-3 ${rtl}`}>{t.contactText}</p>
-          <div className={`bg-gradient-to-r from-primary-50 to-purple-50 rounded-xl p-${compact ? '4' : '6'} space-y-3`}>
-            <h3 className="font-bold text-gray-900">GENOSYS Middle East FZ-LLC</h3>
+          <div className={`bg-[var(--cera-blush)] from-[var(--cera-blush)] to-purple-50 rounded-xl p-${compact ? '4' : '6'} space-y-3`}>
+            <h3 className="cera-serif  text-[var(--cera-ink)]">GENOSYS Middle East FZ-LLC</h3>
             <div className="space-y-2">
               <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <Mail className="w-5 h-5 text-primary-600 flex-shrink-0" />
-                <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:underline">sales@genosys.ae</a>
+                <Mail className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
+                <a href="mailto:sales@genosys.ae" className="text-[var(--cera-rose-ink)] hover:underline">sales@genosys.ae</a>
               </div>
               <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <Phone className="w-5 h-5 text-primary-600 flex-shrink-0" />
-                <a href="tel:+971585487665" className="text-primary-600 hover:underline" dir="ltr">+971 58 548 76 65</a>
+                <Phone className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
+                <a href="tel:+971585487665" className="text-[var(--cera-rose-ink)] hover:underline" dir="ltr">+971 58 548 76 65</a>
               </div>
             </div>
           </div>
@@ -461,17 +464,17 @@ export default function PrivacyPolicyClient() {
 
   if (isAppLikeMode) {
     return (
-      <div className="min-h-screen bg-gray-50 pb-32" dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] pb-32`} dir={dir}>
         {/* Unified nav header */}
-        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button onClick={handleBack} className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">{t.back}</span>
+            <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-[var(--cera-rose-ink)]">{t.back}</span>
           </button>
-          <h1 className="text-base font-semibold text-gray-900">{t.title}</h1>
+          <h1 className="text-base font-semibold text-[var(--cera-ink)]">{t.title}</h1>
           <button onClick={() => router.push(getLocalizedPath('/profile', locale))} className="min-w-[80px] flex justify-end" aria-label="Profile">
             <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-full bg-[var(--cera-ink)] flex items-center justify-center">
                 <span className="text-sm font-semibold text-white">{userInitial.toUpperCase()}</span>
               </div>
               <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
@@ -479,10 +482,10 @@ export default function PrivacyPolicyClient() {
           </button>
         </div>
         <div className="px-5 py-6">
-          <div className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-2xl p-5 shadow-sm border border-[var(--cera-line)]">
             {renderContent(true)}
           </div>
-          <div className="text-center mt-4 text-sm text-gray-400">
+          <div className="text-center mt-4 text-sm text-[var(--cera-muted)]">
             <p>&copy; 2026 GENOSYS Middle East FZ-LLC</p>
           </div>
         </div>
@@ -492,7 +495,7 @@ export default function PrivacyPolicyClient() {
   }
 
   return (
-    <div className="min-h-screen bg-white" dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-white`} dir={dir}>
       <BreadcrumbSchema
         items={[
           { name: t.home, url: getLocalizedPath('/', locale) },
@@ -502,7 +505,7 @@ export default function PrivacyPolicyClient() {
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
         <Link
           href={getLocalizedPath('/', locale)}
-          className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`inline-flex items-center gap-1 text-xs md:text-sm text-[var(--cera-body)] hover:text-[var(--cera-ink)] mb-6 md:mb-10 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
         >
           <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 group-hover:-translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
           <span>{t.backToHome}</span>
@@ -511,18 +514,18 @@ export default function PrivacyPolicyClient() {
         {/* Editorial header — kicker → headline → subhead → last-updated pill,
             consistent with About / Delivery / Contact / Terms / FAQ. */}
         <header className={`mb-8 md:mb-12 ${isRTL ? 'text-right' : ''}`}>
-          <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-gray-500">
+          <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-[var(--cera-muted)]">
             {locale === 'ar' ? 'الخصوصية · GENOSYS الإمارات' : locale === 'ru' ? 'КОНФИДЕНЦИАЛЬНОСТЬ · GENOSYS ОАЭ' : 'PRIVACY · GENOSYS UAE'}
           </p>
-          <h1 className="mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.05] tracking-tight text-gray-900">
+          <h1 className="cera-serif mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] leading-[1.05] tracking-tight text-[var(--cera-ink)]">
             {t.title}
           </h1>
-          <p className={`mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-gray-600 ${isRTL ? 'text-right' : ''}`}>
+          <p className={`mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-[var(--cera-body)] ${isRTL ? 'text-right' : ''}`}>
             {t.subtitle}
           </p>
           <div className={`mt-5 flex ${isRTL ? 'justify-end' : 'justify-start'}`}>
             <span
-              className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[var(--cera-cream-deep)] text-[var(--cera-body)] px-2.5 py-1 text-xs font-medium"
               title={`${t.lastUpdatedLabel} ${lastUpdated}`}
             >
               <Clock className="w-3.5 h-3.5" aria-hidden="true" />
@@ -532,11 +535,11 @@ export default function PrivacyPolicyClient() {
           </div>
         </header>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-6 md:p-10 space-y-8">
+        <div className="rounded-2xl border border-[var(--cera-line)] bg-white p-6 md:p-10 space-y-8">
           {renderContent(false)}
         </div>
 
-        <div className="mt-8 text-center text-sm text-gray-500">
+        <div className="mt-8 text-center text-sm text-[var(--cera-muted)]">
           <p>&copy; 2026 GENOSYS Middle East FZ-LLC. {locale === 'ar' ? 'جميع الحقوق محفوظة.' : locale === 'ru' ? 'Все права защищены.' : 'All rights reserved.'}</p>
         </div>
       </div>

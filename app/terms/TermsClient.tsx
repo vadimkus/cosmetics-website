@@ -9,6 +9,9 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { useAuth } from '@/components/auth/AuthProvider'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 interface SectionProps {
   title: string
@@ -18,8 +21,8 @@ interface SectionProps {
 
 function Section({ title, children, isRTL }: SectionProps) {
   return (
-    <div className="border-b border-gray-100 py-6">
-      <h2 className={`text-xl font-bold text-gray-900 mb-4 ${isRTL ? 'text-right' : ''}`}>{title}</h2>
+    <div className="border-b border-[var(--cera-line)] py-6">
+      <h2 className={`cera-serif text-xl text-[var(--cera-ink)] mb-4 ${isRTL ? 'text-right' : ''}`}>{title}</h2>
       {children}
     </div>
   )
@@ -189,18 +192,18 @@ export default function TermsClient() {
     bullets,
     isLast = false,
   }: { title: string; text?: string; bullets?: string[]; isLast?: boolean }) => (
-    <div className={`py-5 ${isLast ? '' : 'border-b border-gray-100'}`}>
-      <h2 className={`text-base font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{title}</h2>
+    <div className={`py-5 ${isLast ? '' : 'border-b border-[var(--cera-line)]'}`}>
+      <h2 className={`text-base font-bold text-[var(--cera-ink)] mb-2 ${isRTL ? 'text-right' : ''}`}>{title}</h2>
       {text && (
-        <p className={`text-sm text-gray-700 leading-relaxed ${bullets ? 'mb-2' : ''} ${isRTL ? 'text-right' : ''}`}>
+        <p className={`text-sm text-[var(--cera-body)] leading-relaxed ${bullets ? 'mb-2' : ''} ${isRTL ? 'text-right' : ''}`}>
           {text}
         </p>
       )}
       {bullets && (
         <ul className={`space-y-1.5 ${isRTL ? 'text-right' : ''}`}>
           {bullets.map((b, i) => (
-            <li key={i} className={`text-sm text-gray-700 flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              <span className="text-red-600 font-bold leading-tight mt-0.5">•</span>
+            <li key={i} className={`text-sm text-[var(--cera-body)] flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <span className="text-[var(--cera-rose-ink)] font-bold leading-tight mt-0.5">•</span>
               <span className="flex-1">{b}</span>
             </li>
           ))}
@@ -212,25 +215,25 @@ export default function TermsClient() {
   // Mobile Web + PWA — unified app-like layout
   if (isAppLikeMode) {
     return (
-      <div className="min-h-screen bg-gray-50 pb-32" dir={dir}>
+      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] pb-32`} dir={dir}>
         {/* Unified nav header — matches /profile and Privacy Policy exactly:
-            sticky, z-10, bg-white/95 + backdrop-blur, border-b border-gray-200. */}
-        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-gray-200 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            sticky, z-10, bg-white/95 + backdrop-blur, border-b border-[var(--cera-line)]. */}
+        <div className={`sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
             onClick={handleBack}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">{translations.back}</span>
+            <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-base text-[var(--cera-rose-ink)]">{translations.back}</span>
           </button>
-          <h1 className="text-base font-semibold text-gray-900">{translations.title}</h1>
+          <h1 className="text-base font-semibold text-[var(--cera-ink)]">{translations.title}</h1>
           <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
             aria-label="Profile"
           >
             <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-full bg-[var(--cera-ink)] flex items-center justify-center">
                 <span className="text-sm font-semibold text-white">{userInitial.toUpperCase()}</span>
               </div>
               <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
@@ -239,11 +242,11 @@ export default function TermsClient() {
         </div>
 
         <div className="px-4 py-4">
-          <div className="bg-white rounded-2xl px-5 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-2xl px-5 shadow-sm border border-[var(--cera-line)]">
             {/* Last Updated — tight pill badge (same treatment as Privacy Policy). */}
             <div className={`flex pt-4 ${isRTL ? 'justify-end' : 'justify-start'}`}>
               <span
-                className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium"
+                className="inline-flex items-center gap-1.5 rounded-full bg-[var(--cera-cream-deep)] text-[var(--cera-body)] px-2.5 py-1 text-xs font-medium"
                 title={`${translations.lastUpdatedLabel} ${lastUpdated}`}
               >
                 <Clock className="w-3.5 h-3.5" aria-hidden="true" />
@@ -289,9 +292,9 @@ export default function TermsClient() {
             />
             {/* Disclaimers — first paragraph then amber callout for the
                 health/skin safety note (same highlight treatment as desktop). */}
-            <div className="py-5 border-b border-gray-100">
-              <h2 className={`text-base font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.disclaimersTitle}</h2>
-              <p className={`text-sm text-gray-700 leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>{translations.disclaimersP1}</p>
+            <div className="py-5 border-b border-[var(--cera-line)]">
+              <h2 className={`text-base font-bold text-[var(--cera-ink)] mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.disclaimersTitle}</h2>
+              <p className={`text-sm text-[var(--cera-body)] leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>{translations.disclaimersP1}</p>
               <div className={`bg-amber-50 border border-amber-200 rounded-lg p-3 ${isRTL ? 'text-right' : ''}`}>
                 <p className="text-xs text-amber-800 leading-relaxed">{translations.disclaimersP2}</p>
               </div>
@@ -304,26 +307,26 @@ export default function TermsClient() {
             {/* Contact — with mail, phone, address in a grouped gray box
                 (parity with desktop and Privacy Policy). */}
             <div className="py-5">
-              <h2 className={`text-base font-bold text-gray-900 mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.contactTitle}</h2>
-              <p className={`text-sm text-gray-700 mb-3 ${isRTL ? 'text-right' : ''}`}>{translations.contactText}</p>
-              <div className="bg-gray-50 rounded-xl p-3 space-y-2.5">
+              <h2 className={`text-base font-bold text-[var(--cera-ink)] mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.contactTitle}</h2>
+              <p className={`text-sm text-[var(--cera-body)] mb-3 ${isRTL ? 'text-right' : ''}`}>{translations.contactText}</p>
+              <div className="bg-[var(--cera-cream-deep)] rounded-xl p-3 space-y-2.5">
                 <a href="mailto:sales@genosys.ae" className={`flex items-center gap-2.5 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Mail className="w-4 h-4 text-red-600 flex-shrink-0" />
-                  <span className="text-red-600 font-medium" dir="ltr">sales@genosys.ae</span>
+                  <Mail className="w-4 h-4 text-[var(--cera-rose-ink)] flex-shrink-0" />
+                  <span className="text-[var(--cera-rose-ink)] font-medium" dir="ltr">sales@genosys.ae</span>
                 </a>
                 <a href="tel:+971585487665" className={`flex items-center gap-2.5 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <Phone className="w-4 h-4 text-red-600 flex-shrink-0" />
-                  <span className="text-red-600 font-medium" dir="ltr">+971 58 548 76 65</span>
+                  <Phone className="w-4 h-4 text-[var(--cera-rose-ink)] flex-shrink-0" />
+                  <span className="text-[var(--cera-rose-ink)] font-medium" dir="ltr">+971 58 548 76 65</span>
                 </a>
                 <div className={`flex items-center gap-2.5 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <MapPin className="w-4 h-4 text-red-600 flex-shrink-0" />
-                  <span className="text-gray-700">{translations.addressValue}</span>
+                  <MapPin className="w-4 h-4 text-[var(--cera-rose-ink)] flex-shrink-0" />
+                  <span className="text-[var(--cera-body)]">{translations.addressValue}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="text-center mt-4 text-xs text-gray-400">
+          <div className="text-center mt-4 text-xs text-[var(--cera-muted)]">
             <p>&copy; 2026 GENOSYS Middle East FZ-LLC</p>
           </div>
         </div>
@@ -334,7 +337,7 @@ export default function TermsClient() {
 
   // Non-PWA Mode - Full page
   return (
-    <div className="min-h-screen bg-white" dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-white`} dir={dir}>
       <BreadcrumbSchema
         items={[
           { name: translations.home, url: getLocalizedPath('/', locale) },
@@ -346,7 +349,7 @@ export default function TermsClient() {
         {/* Back to home — gray editorial style, matching About / FAQ. */}
         <Link 
           href={getLocalizedPath('/', locale)}
-          className={`inline-flex items-center gap-1 text-xs md:text-sm text-gray-600 hover:text-gray-900 mb-6 md:mb-10 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
+          className={`inline-flex items-center gap-1 text-xs md:text-sm text-[var(--cera-body)] hover:text-[var(--cera-ink)] mb-6 md:mb-10 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
         >
           <ArrowLeft className={`h-3 w-3 md:h-4 md:w-4 group-hover:-translate-x-1 transition-transform ${isRTL ? 'rotate-180' : ''}`} />
           <span>{translations.backToHome}</span>
@@ -355,15 +358,15 @@ export default function TermsClient() {
         {/* Editorial header — kicker → headline → last-updated pill, consistent
             with About / Delivery / Contact / FAQ. */}
         <header className={`mb-8 md:mb-12 ${isRTL ? 'text-right' : ''}`}>
-          <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-gray-500">
+          <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-[var(--cera-muted)]">
             {locale === 'ar' ? 'قانوني · GENOSYS الإمارات' : locale === 'ru' ? 'ПРАВОВАЯ ИНФОРМАЦИЯ · GENOSYS ОАЭ' : 'LEGAL · GENOSYS UAE'}
           </p>
-          <h1 className="mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] font-semibold leading-[1.05] tracking-tight text-gray-900">
+          <h1 className="cera-serif mt-3 max-w-4xl text-3xl md:text-5xl lg:text-[3.4rem] leading-[1.05] tracking-tight text-[var(--cera-ink)]">
             {translations.title}
           </h1>
           <div className={`mt-4 flex ${isRTL ? 'justify-end' : 'justify-start'}`}>
             <span
-              className="inline-flex items-center gap-1.5 rounded-full bg-gray-100 text-gray-600 px-2.5 py-1 text-xs font-medium"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[var(--cera-cream-deep)] text-[var(--cera-body)] px-2.5 py-1 text-xs font-medium"
               title={`${translations.lastUpdatedLabel} ${lastUpdated}`}
             >
               <Clock className="w-3.5 h-3.5" aria-hidden="true" />
@@ -377,20 +380,20 @@ export default function TermsClient() {
         <div className="space-y-0">
           {/* Agreement to Terms */}
           <Section title={translations.agreementTitle} isRTL={isRTL}>
-            <p className={`text-gray-700 leading-relaxed ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[var(--cera-body)] leading-relaxed ${isRTL ? 'text-right' : ''}`}>
               {translations.agreementText}
             </p>
           </Section>
 
           {/* Use License */}
           <Section title={translations.useLicenseTitle} isRTL={isRTL}>
-            <p className={`text-gray-700 leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[var(--cera-body)] leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
               {translations.useLicenseText}
             </p>
             <ul className={`space-y-2 ${isRTL ? 'text-right' : ''}`}>
               {[translations.useLicenseB1, translations.useLicenseB2, translations.useLicenseB3, translations.useLicenseB4].map((item, i) => (
-                <li key={i} className={`text-gray-700 flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span className="text-red-600 font-bold">•</span>
+                <li key={i} className={`text-[var(--cera-body)] flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <span className="text-[var(--cera-rose-ink)] font-bold">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -399,13 +402,13 @@ export default function TermsClient() {
 
           {/* Account Terms */}
           <Section title={translations.accountTitle} isRTL={isRTL}>
-            <p className={`text-gray-700 leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[var(--cera-body)] leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
               {translations.accountText}
             </p>
             <ul className={`space-y-2 ${isRTL ? 'text-right' : ''}`}>
               {[translations.accountB1, translations.accountB2, translations.accountB3, translations.accountB4].map((item, i) => (
-                <li key={i} className={`text-gray-700 flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span className="text-red-600 font-bold">•</span>
+                <li key={i} className={`text-[var(--cera-body)] flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <span className="text-[var(--cera-rose-ink)] font-bold">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -414,13 +417,13 @@ export default function TermsClient() {
 
           {/* Products and Services */}
           <Section title={translations.productsTitle} isRTL={isRTL}>
-            <p className={`text-gray-700 leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[var(--cera-body)] leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
               {translations.productsText}
             </p>
             <ul className={`space-y-2 ${isRTL ? 'text-right' : ''}`}>
               {[translations.productsB1, translations.productsB2, translations.productsB3, translations.productsB4].map((item, i) => (
-                <li key={i} className={`text-gray-700 flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span className="text-red-600 font-bold">•</span>
+                <li key={i} className={`text-[var(--cera-body)] flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <span className="text-[var(--cera-rose-ink)] font-bold">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -429,13 +432,13 @@ export default function TermsClient() {
 
           {/* Orders and Payment */}
           <Section title={translations.ordersTitle} isRTL={isRTL}>
-            <p className={`text-gray-700 leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[var(--cera-body)] leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
               {translations.ordersText}
             </p>
             <ul className={`space-y-2 ${isRTL ? 'text-right' : ''}`}>
               {[translations.ordersB1, translations.ordersB2, translations.ordersB3, translations.ordersB4, translations.ordersB5].map((item, i) => (
-                <li key={i} className={`text-gray-700 flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span className="text-red-600 font-bold">•</span>
+                <li key={i} className={`text-[var(--cera-body)] flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <span className="text-[var(--cera-rose-ink)] font-bold">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -444,13 +447,13 @@ export default function TermsClient() {
 
           {/* Shipping and Delivery */}
           <Section title={translations.shippingTitle} isRTL={isRTL}>
-            <p className={`text-gray-700 leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[var(--cera-body)] leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
               {translations.shippingText}
             </p>
             <ul className={`space-y-2 ${isRTL ? 'text-right' : ''}`}>
               {[translations.shippingB1, translations.shippingB2, translations.shippingB3, translations.shippingB4].map((item, i) => (
-                <li key={i} className={`text-gray-700 flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                  <span className="text-red-600 font-bold">•</span>
+                <li key={i} className={`text-[var(--cera-body)] flex items-start gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+                  <span className="text-[var(--cera-rose-ink)] font-bold">•</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -459,14 +462,14 @@ export default function TermsClient() {
 
           {/* Returns and Exchanges */}
           <Section title={translations.returnsTitle} isRTL={isRTL}>
-            <p className={`text-gray-700 leading-relaxed ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[var(--cera-body)] leading-relaxed ${isRTL ? 'text-right' : ''}`}>
               {translations.returnsText}
             </p>
           </Section>
 
           {/* Disclaimers */}
           <Section title={translations.disclaimersTitle} isRTL={isRTL}>
-            <p className={`text-gray-700 leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[var(--cera-body)] leading-relaxed mb-3 ${isRTL ? 'text-right' : ''}`}>
               {translations.disclaimersP1}
             </p>
             <div className={`bg-amber-50 border border-amber-200 rounded-lg p-4 ${isRTL ? 'text-right' : ''}`}>
@@ -478,40 +481,40 @@ export default function TermsClient() {
 
           {/* Governing Law */}
           <Section title={translations.governingLawTitle} isRTL={isRTL}>
-            <p className={`text-gray-700 leading-relaxed ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[var(--cera-body)] leading-relaxed ${isRTL ? 'text-right' : ''}`}>
               {translations.governingLawText}
             </p>
           </Section>
 
           {/* Contact Us */}
           <Section title={translations.contactTitle} isRTL={isRTL}>
-            <p className={`text-gray-700 leading-relaxed mb-4 ${isRTL ? 'text-right' : ''}`}>
+            <p className={`text-[var(--cera-body)] leading-relaxed mb-4 ${isRTL ? 'text-right' : ''}`}>
               {translations.contactText}
             </p>
-            <div className="bg-gray-50 rounded-xl p-4 space-y-3">
+            <div className="bg-[var(--cera-cream-deep)] rounded-xl p-4 space-y-3">
               <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <Mail className="w-5 h-5 text-red-600 flex-shrink-0" />
+                <Mail className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
                 <div className={isRTL ? 'text-right' : ''}>
-                  <span className="text-sm text-gray-500">{translations.emailLabel}:</span>{' '}
-                  <a href="mailto:sales@genosys.ae" className="text-red-600 hover:underline font-medium">
+                  <span className="text-sm text-[var(--cera-muted)]">{translations.emailLabel}:</span>{' '}
+                  <a href="mailto:sales@genosys.ae" className="text-[var(--cera-rose-ink)] hover:underline font-medium">
                     sales@genosys.ae
                   </a>
                 </div>
               </div>
               <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <Phone className="w-5 h-5 text-red-600 flex-shrink-0" />
+                <Phone className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
                 <div className={isRTL ? 'text-right' : ''}>
-                  <span className="text-sm text-gray-500">{translations.whatsappLabel}:</span>{' '}
-                  <a href="tel:+971585487665" className="text-red-600 hover:underline font-medium" dir="ltr">
+                  <span className="text-sm text-[var(--cera-muted)]">{translations.whatsappLabel}:</span>{' '}
+                  <a href="tel:+971585487665" className="text-[var(--cera-rose-ink)] hover:underline font-medium" dir="ltr">
                     +971 58 548 76 65
                   </a>
                 </div>
               </div>
               <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <MapPin className="w-5 h-5 text-red-600 flex-shrink-0" />
+                <MapPin className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
                 <div className={isRTL ? 'text-right' : ''}>
-                  <span className="text-sm text-gray-500">{translations.addressLabel}:</span>{' '}
-                  <span className="text-gray-700 font-medium">{translations.addressValue}</span>
+                  <span className="text-sm text-[var(--cera-muted)]">{translations.addressLabel}:</span>{' '}
+                  <span className="text-[var(--cera-body)] font-medium">{translations.addressValue}</span>
                 </div>
               </div>
             </div>
@@ -519,7 +522,7 @@ export default function TermsClient() {
         </div>
 
         {/* Footer */}
-        <div className={`mt-8 text-center text-sm text-gray-500 ${isRTL ? 'text-center' : ''}`}>
+        <div className={`mt-8 text-center text-sm text-[var(--cera-muted)] ${isRTL ? 'text-center' : ''}`}>
           <p>© 2026 GENOSYS Middle East FZ-LLC</p>
         </div>
       </div>

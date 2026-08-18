@@ -2,6 +2,9 @@ import Link from 'next/link'
 import { ArrowLeft, Shield, Mail, Phone } from 'lucide-react'
 import type { Metadata } from 'next'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export const metadata: Metadata = {
   title: 'Политика конфиденциальности - GENOSYS Middle East FZ-LLC | Защита данных и ваши права',
@@ -46,12 +49,12 @@ export default function PrivacyPolicyPageRussian() {
         ]}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)]`}>
         <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
           {/* Back Button */}
           <Link 
             href="/ru"
-            className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-6 transition-colors group"
+            className="inline-flex items-center gap-2 text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] mb-6 transition-colors group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span>Назад на главную</span>
@@ -60,15 +63,15 @@ export default function PrivacyPolicyPageRussian() {
           {/* Header */}
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-8">
             <div className="flex items-center gap-4 mb-6">
-              <div className="bg-primary-100 p-4 rounded-xl">
-                <Shield className="w-8 h-8 text-primary-600" />
+              <div className="bg-[var(--cera-blush)] p-4 rounded-xl">
+                <Shield className="w-8 h-8 text-[var(--cera-rose-ink)]" />
               </div>
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">Политика конфиденциальности</h1>
-                <p className="text-gray-600 mt-1">Ваши данные, ваши права</p>
+                <h1 className="cera-serif text-3xl md:text-4xl text-[var(--cera-ink)]">Политика конфиденциальности</h1>
+                <p className="text-[var(--cera-body)] mt-1">Ваши данные, ваши права</p>
               </div>
             </div>
-            <p className="text-gray-600 text-lg">
+            <p className="text-[var(--cera-body)] text-lg">
               Последнее обновление: <span className="font-semibold">14 декабря 2024</span>
             </p>
           </div>
@@ -77,18 +80,18 @@ export default function PrivacyPolicyPageRussian() {
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 space-y-8">
             {/* Introduction */}
             <section>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                В <strong className="text-primary-600">GENOSYS Middle East FZ-LLC</strong> (далее именуемая «Компания») мы привержены защите вашей конфиденциальности и обеспечению безопасности вашей личной информации. Настоящая Политика конфиденциальности объясняет, как мы собираем, используем, храним и защищаем ваши данные при использовании нашего веб-сайта и услуг.
+              <p className="text-lg text-[var(--cera-body)] leading-relaxed">
+                В <strong className="text-[var(--cera-rose-ink)]">GENOSYS Middle East FZ-LLC</strong> (далее именуемая «Компания») мы привержены защите вашей конфиденциальности и обеспечению безопасности вашей личной информации. Настоящая Политика конфиденциальности объясняет, как мы собираем, используем, храним и защищаем ваши данные при использовании нашего веб-сайта и услуг.
               </p>
             </section>
 
             {/* Section 1 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
                 Личная информация, которую мы собираем
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p>
                   Мы собираем и обрабатываем следующие типы личной информации для предоставления вам наших услуг:
                 </p>
@@ -101,8 +104,8 @@ export default function PrivacyPolicyPageRussian() {
                   <li><strong>Технические данные:</strong> IP-адрес, тип браузера, информация об устройстве, файлы cookie и аналитика использования</li>
                 </ul>
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
-                  <h3 className="font-bold text-gray-900 mb-2">1.1. Методы аутентификации</h3>
+                <div className="ed-panel border border-[var(--cera-blush-deep)] rounded-lg p-4 mt-6">
+                  <h3 className="cera-serif  text-[var(--cera-ink)] mb-2">1.1. Методы аутентификации</h3>
                   <p className="mb-2">Мы предлагаем три безопасных метода аутентификации:</p>
                   <ul className="list-disc list-inside space-y-1 ml-4">
                     <li><strong>Аутентификация Email/Пароль:</strong> Ваш пароль зашифрован и надёжно хранится</li>
@@ -112,7 +115,7 @@ export default function PrivacyPolicyPageRussian() {
                 </div>
 
                 <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mt-4">
-                  <h3 className="font-bold text-gray-900 mb-2">1.2. Аутентификация Google</h3>
+                  <h3 className="cera-serif  text-[var(--cera-ink)] mb-2">1.2. Аутентификация Google</h3>
                   <p className="mb-2">Когда вы выбираете вход через Google, мы собираем:</p>
                   <ul className="list-disc list-inside space-y-1 ml-4">
                     <li>Адрес электронной почты вашей учётной записи Google</li>
@@ -121,7 +124,7 @@ export default function PrivacyPolicyPageRussian() {
                   </ul>
                   <p className="mt-3 text-sm">
                     <strong>Важно:</strong> Мы не храним ваш пароль Google. Аутентификация обрабатывается безопасно Google. Вы можете ознакомиться с Политикой конфиденциальности Google на{' '}
-                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-rose-ink)] hover:underline">
                       https://policies.google.com/privacy
                     </a>
                   </p>
@@ -130,8 +133,8 @@ export default function PrivacyPolicyPageRussian() {
                   </p>
                 </div>
 
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
-                  <h3 className="font-bold text-gray-900 mb-2">1.3. Вход через Apple</h3>
+                <div className="bg-[var(--cera-cream-deep)] border border-[var(--cera-line)] rounded-lg p-4 mt-4">
+                  <h3 className="cera-serif  text-[var(--cera-ink)] mb-2">1.3. Вход через Apple</h3>
                   <p className="mb-2">Когда вы используете Вход через Apple, мы собираем:</p>
                   <ul className="list-disc list-inside space-y-1 ml-4">
                     <li>Адрес электронной почты вашего Apple ID (или приватный email, если вы выбрали скрыть свою почту)</li>
@@ -139,7 +142,7 @@ export default function PrivacyPolicyPageRussian() {
                   </ul>
                   <p className="mt-3 text-sm">
                     <strong>Важно:</strong> Мы не храним ваш пароль Apple ID. Аутентификация обрабатывается безопасно Apple. Вход через Apple предоставляет дополнительные функции конфиденциальности, включая возможность скрыть ваш адрес электронной почты с помощью сервиса приватной почтовой ретрансляции Apple. Вы можете ознакомиться с Политикой конфиденциальности Apple на{' '}
-                    <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
+                    <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-rose-ink)] hover:underline">
                       https://www.apple.com/legal/privacy/
                     </a>
                   </p>
@@ -151,12 +154,12 @@ export default function PrivacyPolicyPageRussian() {
             </section>
 
             {/* Section 2 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
                 Как мы используем вашу информацию
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p>Мы обрабатываем вашу личную информацию для следующих целей:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
                   <li><strong>Управление учётной записью:</strong> Создание и управление вашей учётной записью клиента, аутентификация и профиль</li>
@@ -171,12 +174,12 @@ export default function PrivacyPolicyPageRussian() {
             </section>
 
             {/* Section 3 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
                 Хранение данных и безопасность
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p>Мы серьёзно относимся к безопасности данных и применяем отраслевые стандарты безопасности:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
                   <li><strong>Шифрование:</strong> Все конфиденциальные данные шифруются с использованием технологии SSL/TLS</li>
@@ -189,12 +192,12 @@ export default function PrivacyPolicyPageRussian() {
             </section>
 
             {/* Section 4 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
                 Хранение данных
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p>Мы храним вашу личную информацию в течение следующих периодов:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
                   <li><strong>Данные учётной записи:</strong> Хранятся, пока ваша учётная запись активна, плюс 3 года после удаления учётной записи (для соблюдения законодательства)</li>
@@ -209,12 +212,12 @@ export default function PrivacyPolicyPageRussian() {
             </section>
 
             {/* Section 5 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">5</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">5</span>
                 Ваши права на конфиденциальность
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p>У вас есть следующие права в отношении ваших личных данных:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
                   <li><strong>Право на доступ:</strong> Запросить копию ваших личных данных</li>
@@ -229,12 +232,12 @@ export default function PrivacyPolicyPageRussian() {
             </section>
 
             {/* Section 6 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">6</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">6</span>
                 Файлы cookie и отслеживание
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p>Мы используем файлы cookie и аналогичные технологии для:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
                   <li>Запоминания вашего статуса входа и предпочтений</li>
@@ -249,12 +252,12 @@ export default function PrivacyPolicyPageRussian() {
             </section>
 
             {/* Section 7 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">7</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">7</span>
                 Сторонние сервисы
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p>Мы работаем с надёжными сторонними поставщиками услуг:</p>
                 <ul className="list-disc list-inside space-y-2 ml-4">
                   <li><strong>Stripe:</strong> Обработка платежей (соответствует PCI DSS)</li>
@@ -270,12 +273,12 @@ export default function PrivacyPolicyPageRussian() {
             </section>
 
             {/* Section 8 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">8</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">8</span>
                 Право на отказ от согласия
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p>
                   У вас есть право отказать или отозвать согласие на сбор и обработку вашей личной информации. Однако обратите внимание:
                 </p>
@@ -289,12 +292,12 @@ export default function PrivacyPolicyPageRussian() {
             </section>
 
             {/* Section 9 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">9</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">9</span>
                 Конфиденциальность детей
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p>
                   Наши услуги не предназначены для лиц младше 18 лет. Мы сознательно не собираем личную информацию от детей. Если вы являетесь родителем или опекуном и считаете, что ваш ребёнок предоставил нам личную информацию, пожалуйста, свяжитесь с нами немедленно.
                 </p>
@@ -302,12 +305,12 @@ export default function PrivacyPolicyPageRussian() {
             </section>
 
             {/* Section 10 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">10</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">10</span>
                 Изменения в этой политике
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p>
                   Мы можем обновлять эту Политику конфиденциальности время от времени, чтобы отразить изменения в наших практиках или юридических требованиях. Мы уведомим вас о любых существенных изменениях:
                 </p>
@@ -323,41 +326,41 @@ export default function PrivacyPolicyPageRussian() {
             </section>
 
             {/* Contact Section */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">11</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">11</span>
                 Свяжитесь с нами
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed ml-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed ml-10">
                 <p className="mb-4">
                   Если у вас есть вопросы, опасения или запросы относительно этой Политики конфиденциальности или ваших личных данных, пожалуйста, свяжитесь с нами:
                 </p>
                 
-                <div className="bg-gradient-to-r from-primary-50 to-purple-50 rounded-xl p-6 space-y-4">
+                <div className="bg-[var(--cera-blush)] from-[var(--cera-blush)] to-purple-50 rounded-xl p-6 space-y-4">
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-3">GENOSYS Middle East FZ-LLC</h3>
+                    <h3 className="cera-serif  text-[var(--cera-ink)] mb-3">GENOSYS Middle East FZ-LLC</h3>
                     <div className="space-y-2">
                       <div className="flex items-center gap-3">
-                        <Mail className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                        <Mail className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-gray-900">Email:</p>
-                          <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:underline">
+                          <p className="font-semibold text-[var(--cera-ink)]">Email:</p>
+                          <a href="mailto:sales@genosys.ae" className="text-[var(--cera-rose-ink)] hover:underline">
                             sales@genosys.ae
                           </a>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
-                        <Phone className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                        <Phone className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-gray-900">Телефон / WhatsApp:</p>
-                          <a href="tel:+971585487665" className="text-primary-600 hover:underline">
+                          <p className="font-semibold text-[var(--cera-ink)]">Телефон / WhatsApp:</p>
+                          <a href="tel:+971585487665" className="text-[var(--cera-rose-ink)] hover:underline">
                             +971 58 548 76 65
                           </a>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mt-4">
+                  <p className="text-sm text-[var(--cera-body)] mt-4">
                     Мы стремимся отвечать на все запросы, связанные с конфиденциальностью, в течение 1 рабочего дня.
                   </p>
                 </div>
@@ -366,7 +369,7 @@ export default function PrivacyPolicyPageRussian() {
           </div>
 
           {/* Footer Note */}
-          <div className="mt-8 text-center text-sm text-gray-500">
+          <div className="mt-8 text-center text-sm text-[var(--cera-muted)]">
             <p>Эта Политика конфиденциальности вступает в силу с 14 декабря 2024 года</p>
             <p className="mt-2">© 2026 GENOSYS Middle East FZ-LLC. Все права защищены.</p>
           </div>

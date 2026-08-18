@@ -2,6 +2,9 @@ import Link from 'next/link'
 import { ArrowRight, Shield, Mail, Phone } from 'lucide-react'
 import type { Metadata } from 'next'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export const metadata: Metadata = {
   title: 'سياسة الخصوصية - GENOSYS Middle East FZ-LLC | حماية البيانات وحقوقك',
@@ -46,12 +49,12 @@ export default function PrivacyPolicyPageArabic() {
         ]}
       />
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50" dir="rtl">
+      <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)]`} dir="rtl">
         <div className="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
           {/* Back Button */}
           <Link 
             href="/ar"
-            className="inline-flex items-center gap-2 text-primary-600 hover:text-primary-700 mb-6 transition-colors group"
+            className="inline-flex items-center gap-2 text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] mb-6 transition-colors group"
           >
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             <span>العودة إلى الرئيسية</span>
@@ -60,15 +63,15 @@ export default function PrivacyPolicyPageArabic() {
           {/* Header */}
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-8">
             <div className="flex items-center gap-4 mb-6">
-              <div className="bg-primary-100 p-4 rounded-xl">
-                <Shield className="w-8 h-8 text-primary-600" />
+              <div className="bg-[var(--cera-blush)] p-4 rounded-xl">
+                <Shield className="w-8 h-8 text-[var(--cera-rose-ink)]" />
               </div>
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold text-gray-900">سياسة الخصوصية</h1>
-                <p className="text-gray-600 mt-1">بياناتك، حقوقك</p>
+                <h1 className="cera-serif text-3xl md:text-4xl text-[var(--cera-ink)]">سياسة الخصوصية</h1>
+                <p className="text-[var(--cera-body)] mt-1">بياناتك، حقوقك</p>
               </div>
             </div>
-            <p className="text-gray-600 text-lg">
+            <p className="text-[var(--cera-body)] text-lg">
               آخر تحديث: <span className="font-semibold">14 ديسمبر 2024</span>
             </p>
           </div>
@@ -77,18 +80,18 @@ export default function PrivacyPolicyPageArabic() {
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 space-y-8">
             {/* Introduction */}
             <section>
-              <p className="text-lg text-gray-700 leading-relaxed">
-                في <strong className="text-primary-600">GENOSYS Middle East FZ-LLC</strong> (المشار إليها فيما يلي باسم "الشركة")، نحن ملتزمون بحماية خصوصيتك وضمان أمن معلوماتك الشخصية. توضح سياسة الخصوصية هذه كيفية جمع واستخدام وتخزين وحماية بياناتك عند استخدام موقعنا الإلكتروني وخدماتنا.
+              <p className="text-lg text-[var(--cera-body)] leading-relaxed">
+                في <strong className="text-[var(--cera-rose-ink)]">GENOSYS Middle East FZ-LLC</strong> (المشار إليها فيما يلي باسم "الشركة")، نحن ملتزمون بحماية خصوصيتك وضمان أمن معلوماتك الشخصية. توضح سياسة الخصوصية هذه كيفية جمع واستخدام وتخزين وحماية بياناتك عند استخدام موقعنا الإلكتروني وخدماتنا.
               </p>
             </section>
 
             {/* Section 1 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">1</span>
                 المعلومات الشخصية التي نجمعها
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p>
                   نقوم بجمع ومعالجة الأنواع التالية من المعلومات الشخصية لتزويدك بخدماتنا:
                 </p>
@@ -101,8 +104,8 @@ export default function PrivacyPolicyPageArabic() {
                   <li><strong>البيانات التقنية:</strong> عنوان IP ونوع المتصفح ومعلومات الجهاز وملفات تعريف الارتباط وتحليلات الاستخدام</li>
                 </ul>
 
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
-                  <h3 className="font-bold text-gray-900 mb-2">1.1. طرق المصادقة</h3>
+                <div className="ed-panel border border-[var(--cera-blush-deep)] rounded-lg p-4 mt-6">
+                  <h3 className="cera-serif  text-[var(--cera-ink)] mb-2">1.1. طرق المصادقة</h3>
                   <p className="mb-2">نقدم ثلاث طرق آمنة للمصادقة:</p>
                   <ul className="list-disc list-inside space-y-1 mr-4">
                     <li><strong>مصادقة البريد الإلكتروني/كلمة المرور:</strong> يتم تشفير كلمة المرور الخاصة بك وتخزينها بشكل آمن</li>
@@ -112,7 +115,7 @@ export default function PrivacyPolicyPageArabic() {
                 </div>
 
                 <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mt-4">
-                  <h3 className="font-bold text-gray-900 mb-2">1.2. مصادقة Google</h3>
+                  <h3 className="cera-serif  text-[var(--cera-ink)] mb-2">1.2. مصادقة Google</h3>
                   <p className="mb-2">عندما تختار تسجيل الدخول باستخدام Google، نقوم بجمع:</p>
                   <ul className="list-disc list-inside space-y-1 mr-4">
                     <li>عنوان بريدك الإلكتروني في حساب Google</li>
@@ -121,7 +124,7 @@ export default function PrivacyPolicyPageArabic() {
                   </ul>
                   <p className="mt-3 text-sm">
                     <strong>مهم:</strong> لا نقوم بتخزين كلمة مرور Google الخاصة بك. تتم معالجة المصادقة بشكل آمن بواسطة Google. يمكنك مراجعة سياسة الخصوصية الخاصة بـ Google على{' '}
-                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
+                    <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-rose-ink)] hover:underline">
                       https://policies.google.com/privacy
                     </a>
                   </p>
@@ -130,8 +133,8 @@ export default function PrivacyPolicyPageArabic() {
                   </p>
                 </div>
 
-                <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
-                  <h3 className="font-bold text-gray-900 mb-2">1.3. تسجيل الدخول باستخدام Apple</h3>
+                <div className="bg-[var(--cera-cream-deep)] border border-[var(--cera-line)] rounded-lg p-4 mt-4">
+                  <h3 className="cera-serif  text-[var(--cera-ink)] mb-2">1.3. تسجيل الدخول باستخدام Apple</h3>
                   <p className="mb-2">عندما تستخدم تسجيل الدخول باستخدام Apple، نقوم بجمع:</p>
                   <ul className="list-disc list-inside space-y-1 mr-4">
                     <li>عنوان بريدك الإلكتروني في Apple ID (أو بريد إلكتروني خاص إذا اخترت إخفاء بريدك الإلكتروني)</li>
@@ -139,7 +142,7 @@ export default function PrivacyPolicyPageArabic() {
                   </ul>
                   <p className="mt-3 text-sm">
                     <strong>مهم:</strong> لا نقوم بتخزين كلمة مرور Apple ID الخاصة بك. تتم معالجة المصادقة بشكل آمن بواسطة Apple. يوفر تسجيل الدخول باستخدام Apple من Apple ميزات خصوصية إضافية، بما في ذلك خيار إخفاء عنوان بريدك الإلكتروني باستخدام خدمة ترحيل البريد الإلكتروني الخاصة من Apple. يمكنك مراجعة سياسة الخصوصية الخاصة بـ Apple على{' '}
-                    <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-primary-600 hover:underline">
+                    <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-rose-ink)] hover:underline">
                       https://www.apple.com/legal/privacy/
                     </a>
                   </p>
@@ -151,12 +154,12 @@ export default function PrivacyPolicyPageArabic() {
             </section>
 
             {/* Section 2 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">2</span>
                 كيفية استخدام معلوماتك
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p>نقوم بمعالجة معلوماتك الشخصية للأغراض التالية:</p>
                 <ul className="list-disc list-inside space-y-2 mr-4">
                   <li><strong>إدارة الحساب:</strong> إنشاء وإدارة حساب العميل الخاص بك والمصادقة والملف الشخصي</li>
@@ -171,12 +174,12 @@ export default function PrivacyPolicyPageArabic() {
             </section>
 
             {/* Section 3 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">3</span>
                 تخزين البيانات والأمان
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p>نحن نأخذ أمن البيانات على محمل الجد ونطبق تدابير أمنية متوافقة مع معايير الصناعة:</p>
                 <ul className="list-disc list-inside space-y-2 mr-4">
                   <li><strong>التشفير:</strong> يتم تشفير جميع البيانات الحساسة باستخدام تقنية SSL/TLS</li>
@@ -189,12 +192,12 @@ export default function PrivacyPolicyPageArabic() {
             </section>
 
             {/* Section 4 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">4</span>
                 الاحتفاظ بالبيانات
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p>نحتفظ بمعلوماتك الشخصية للفترات التالية:</p>
                 <ul className="list-disc list-inside space-y-2 mr-4">
                   <li><strong>بيانات الحساب:</strong> يتم الاحتفاظ بها طالما كان حسابك نشطاً، بالإضافة إلى 3 سنوات بعد حذف الحساب (للامتثال القانوني)</li>
@@ -209,12 +212,12 @@ export default function PrivacyPolicyPageArabic() {
             </section>
 
             {/* Section 5 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">5</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">5</span>
                 حقوق الخصوصية الخاصة بك
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p>لديك الحقوق التالية فيما يتعلق ببياناتك الشخصية:</p>
                 <ul className="list-disc list-inside space-y-2 mr-4">
                   <li><strong>الحق في الوصول:</strong> طلب نسخة من بياناتك الشخصية</li>
@@ -229,12 +232,12 @@ export default function PrivacyPolicyPageArabic() {
             </section>
 
             {/* Section 6 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">6</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">6</span>
                 ملفات تعريف الارتباط والتتبع
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p>نستخدم ملفات تعريف الارتباط والتقنيات المماثلة من أجل:</p>
                 <ul className="list-disc list-inside space-y-2 mr-4">
                   <li>تذكر حالة تسجيل الدخول والتفضيلات الخاصة بك</li>
@@ -249,12 +252,12 @@ export default function PrivacyPolicyPageArabic() {
             </section>
 
             {/* Section 7 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">7</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">7</span>
                 خدمات الطرف الثالث
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p>نعمل مع مقدمي خدمات موثوقين من الطرف الثالث:</p>
                 <ul className="list-disc list-inside space-y-2 mr-4">
                   <li><strong>Stripe:</strong> معالجة الدفع (متوافق مع PCI DSS)</li>
@@ -270,12 +273,12 @@ export default function PrivacyPolicyPageArabic() {
             </section>
 
             {/* Section 8 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">8</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">8</span>
                 الحق في رفض الموافقة
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p>
                   لديك الحق في رفض أو سحب الموافقة على جمع ومعالجة معلوماتك الشخصية. ومع ذلك، يرجى ملاحظة:
                 </p>
@@ -289,12 +292,12 @@ export default function PrivacyPolicyPageArabic() {
             </section>
 
             {/* Section 9 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">9</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">9</span>
                 خصوصية الأطفال
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p>
                   خدماتنا ليست موجهة للأفراد دون سن 18 عاماً. نحن لا نجمع معلومات شخصية من الأطفال عن علم. إذا كنت والداً أو وصياً وتعتقد أن طفلك قد قدم لنا معلومات شخصية، فيرجى الاتصال بنا على الفور.
                 </p>
@@ -302,12 +305,12 @@ export default function PrivacyPolicyPageArabic() {
             </section>
 
             {/* Section 10 */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">10</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">10</span>
                 التغييرات على هذه السياسة
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p>
                   قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر لتعكس التغييرات في ممارساتنا أو المتطلبات القانونية. سنخطرك بأي تغييرات جوهرية عن طريق:
                 </p>
@@ -323,41 +326,41 @@ export default function PrivacyPolicyPageArabic() {
             </section>
 
             {/* Contact Section */}
-            <section className="border-t border-gray-200 pt-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <span className="bg-primary-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">11</span>
+            <section className="border-t border-[var(--cera-line)] pt-8">
+              <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 flex items-center gap-2">
+                <span className="bg-[var(--cera-rose)] text-white w-8 h-8 rounded-full flex items-center justify-center text-sm">11</span>
                 اتصل بنا
               </h2>
-              <div className="space-y-4 text-gray-700 leading-relaxed mr-10">
+              <div className="space-y-4 text-[var(--cera-body)] leading-relaxed mr-10">
                 <p className="mb-4">
                   إذا كان لديك أي أسئلة أو مخاوف أو طلبات بخصوص سياسة الخصوصية هذه أو بياناتك الشخصية، يرجى الاتصال بنا:
                 </p>
                 
-                <div className="bg-gradient-to-r from-primary-50 to-purple-50 rounded-xl p-6 space-y-4">
+                <div className="bg-[var(--cera-blush)] from-[var(--cera-blush)] to-purple-50 rounded-xl p-6 space-y-4">
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-3">GENOSYS Middle East FZ-LLC</h3>
+                    <h3 className="cera-serif  text-[var(--cera-ink)] mb-3">GENOSYS Middle East FZ-LLC</h3>
                     <div className="space-y-2">
                       <div className="flex items-center gap-3">
-                        <Mail className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                        <Mail className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-gray-900">البريد الإلكتروني:</p>
-                          <a href="mailto:sales@genosys.ae" className="text-primary-600 hover:underline">
+                          <p className="font-semibold text-[var(--cera-ink)]">البريد الإلكتروني:</p>
+                          <a href="mailto:sales@genosys.ae" className="text-[var(--cera-rose-ink)] hover:underline">
                             sales@genosys.ae
                           </a>
                         </div>
                       </div>
                       <div className="flex items-center gap-3">
-                        <Phone className="w-5 h-5 text-primary-600 flex-shrink-0" />
+                        <Phone className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
                         <div>
-                          <p className="font-semibold text-gray-900">الهاتف / واتساب:</p>
-                          <a href="tel:+971585487665" className="text-primary-600 hover:underline" dir="ltr">
+                          <p className="font-semibold text-[var(--cera-ink)]">الهاتف / واتساب:</p>
+                          <a href="tel:+971585487665" className="text-[var(--cera-rose-ink)] hover:underline" dir="ltr">
                             +971 58 548 76 65
                           </a>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <p className="text-sm text-gray-600 mt-4">
+                  <p className="text-sm text-[var(--cera-body)] mt-4">
                     نهدف إلى الرد على جميع الاستفسارات المتعلقة بالخصوصية في غضون يوم عمل واحد.
                   </p>
                 </div>
@@ -366,7 +369,7 @@ export default function PrivacyPolicyPageArabic() {
           </div>
 
           {/* Footer Note */}
-          <div className="mt-8 text-center text-sm text-gray-500">
+          <div className="mt-8 text-center text-sm text-[var(--cera-muted)]">
             <p>تسري سياسة الخصوصية هذه اعتباراً من 14 ديسمبر 2024</p>
             <p className="mt-2">© 2026 GENOSYS Middle East FZ-LLC. جميع الحقوق محفوظة.</p>
           </div>

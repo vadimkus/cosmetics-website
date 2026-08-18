@@ -1,4 +1,7 @@
 import { Metadata } from 'next'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export const metadata: Metadata = {
   title: 'Gift Certificates | GENOSYS',
@@ -7,13 +10,13 @@ export const metadata: Metadata = {
 
 export default function CertificatesIndexPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-purple-50 py-12 px-4">
+    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)] py-12 px-4`}>
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="cera-serif text-5xl text-[var(--cera-ink)] mb-4">
             GENOSYS Gift Certificates
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-[var(--cera-body)]">
             Give the gift of beautiful skin with premium Korean dermacosmetics
           </p>
         </div>
@@ -22,24 +25,24 @@ export default function CertificatesIndexPage() {
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white rounded-xl p-6 shadow-lg text-center">
             <div className="text-4xl mb-3">🎁</div>
-            <h3 className="font-semibold text-lg mb-2">Perfect Gift</h3>
-            <p className="text-sm text-gray-600">
+            <h3 className="cera-serif  text-lg mb-2">Perfect Gift</h3>
+            <p className="text-sm text-[var(--cera-body)]">
               Ideal for birthdays, holidays, or any special occasion
             </p>
           </div>
           
           <div className="bg-white rounded-xl p-6 shadow-lg text-center">
             <div className="text-4xl mb-3">💎</div>
-            <h3 className="font-semibold text-lg mb-2">Premium Products</h3>
-            <p className="text-sm text-gray-600">
+            <h3 className="cera-serif  text-lg mb-2">Premium Products</h3>
+            <p className="text-sm text-[var(--cera-body)]">
               Valid for all professional Korean dermacosmetics
             </p>
           </div>
           
           <div className="bg-white rounded-xl p-6 shadow-lg text-center">
             <div className="text-4xl mb-3">⏱️</div>
-            <h3 className="font-semibold text-lg mb-2">Valid 6 Months</h3>
-            <p className="text-sm text-gray-600">
+            <h3 className="cera-serif  text-lg mb-2">Valid 6 Months</h3>
+            <p className="text-sm text-[var(--cera-body)]">
               Plenty of time to choose the perfect products
             </p>
           </div>
@@ -47,7 +50,7 @@ export default function CertificatesIndexPage() {
 
         {/* How it Works */}
         <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">How It Works</h2>
+          <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-6">How It Works</h2>
           
           <div className="space-y-6">
             <div className="flex gap-4">
@@ -55,8 +58,8 @@ export default function CertificatesIndexPage() {
                 1
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Purchase Certificate</h3>
-                <p className="text-gray-600 text-sm">
+                <h3 className="cera-serif  mb-1">Purchase Certificate</h3>
+                <p className="text-[var(--cera-body)] text-sm">
                   Contact us at sales@genosys.ae or +971 58 548 76 65 to purchase a gift certificate
                 </p>
               </div>
@@ -67,8 +70,8 @@ export default function CertificatesIndexPage() {
                 2
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Receive Your Certificate</h3>
-                <p className="text-gray-600 text-sm">
+                <h3 className="cera-serif  mb-1">Receive Your Certificate</h3>
+                <p className="text-[var(--cera-body)] text-sm">
                   Get a unique certificate code and beautiful digital certificate via email
                 </p>
               </div>
@@ -79,8 +82,8 @@ export default function CertificatesIndexPage() {
                 3
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Share the Gift</h3>
-                <p className="text-gray-600 text-sm">
+                <h3 className="cera-serif  mb-1">Share the Gift</h3>
+                <p className="text-[var(--cera-body)] text-sm">
                   Send the certificate URL or code to your recipient via email, WhatsApp, or print it
                 </p>
               </div>
@@ -91,8 +94,8 @@ export default function CertificatesIndexPage() {
                 4
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Redeem</h3>
-                <p className="text-gray-600 text-sm">
+                <h3 className="cera-serif  mb-1">Redeem</h3>
+                <p className="text-[var(--cera-body)] text-sm">
                   Present the certificate code at checkout to apply the credit to any order
                 </p>
               </div>
@@ -102,10 +105,10 @@ export default function CertificatesIndexPage() {
 
         {/* Example Certificate */}
         <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-8 border-2 border-purple-200 mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center">
+          <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 text-center">
             View Sample Certificate
           </h2>
-          <p className="text-center text-gray-600 mb-6">
+          <p className="text-center text-[var(--cera-body)] mb-6">
             See what your gift certificate will look like
           </p>
           <div className="text-center">
@@ -121,10 +124,10 @@ export default function CertificatesIndexPage() {
 
         {/* Contact CTA */}
         <div className="bg-white rounded-xl p-8 shadow-lg text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+          <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4">
             Ready to Give the Gift of Beauty?
           </h2>
-          <p className="text-gray-600 mb-6">
+          <p className="text-[var(--cera-body)] mb-6">
             Contact us to purchase a gift certificate in any amount
           </p>
           
@@ -137,7 +140,7 @@ export default function CertificatesIndexPage() {
             </a>
             <a
               href="tel:+971585487665"
-              className="bg-gray-800 text-white px-6 py-3 rounded-lg font-semibold hover:bg-gray-900 transition-colors"
+              className="bg-[var(--cera-ink)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors"
             >
               📞 Call Us
             </a>
@@ -153,8 +156,8 @@ export default function CertificatesIndexPage() {
         </div>
 
         {/* FAQ */}
-        <div className="mt-12 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        <div className="mt-12 bg-gradient-to-r from-[var(--cera-cream-deep)] to-[var(--cera-cream-deep)] rounded-xl p-8">
+          <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-6">
             Frequently Asked Questions
           </h2>
           
@@ -163,7 +166,7 @@ export default function CertificatesIndexPage() {
               <summary className="font-semibold cursor-pointer">
                 Can I purchase any amount?
               </summary>
-              <p className="mt-2 text-gray-600 text-sm">
+              <p className="mt-2 text-[var(--cera-body)] text-sm">
                 Yes! Gift certificates can be purchased in any amount starting from 100 AED.
               </p>
             </details>
@@ -172,7 +175,7 @@ export default function CertificatesIndexPage() {
               <summary className="font-semibold cursor-pointer">
                 How long is the certificate valid?
               </summary>
-              <p className="mt-2 text-gray-600 text-sm">
+              <p className="mt-2 text-[var(--cera-body)] text-sm">
                 All certificates are valid for 6 months from the date of issue.
               </p>
             </details>
@@ -181,7 +184,7 @@ export default function CertificatesIndexPage() {
               <summary className="font-semibold cursor-pointer">
                 Can I use multiple certificates?
               </summary>
-              <p className="mt-2 text-gray-600 text-sm">
+              <p className="mt-2 text-[var(--cera-body)] text-sm">
                 Yes, you can use multiple certificate codes on a single order.
               </p>
             </details>
@@ -190,7 +193,7 @@ export default function CertificatesIndexPage() {
               <summary className="font-semibold cursor-pointer">
                 Are certificates refundable?
               </summary>
-              <p className="mt-2 text-gray-600 text-sm">
+              <p className="mt-2 text-[var(--cera-body)] text-sm">
                 Gift certificates are non-refundable but can be transferred to another person.
               </p>
             </details>

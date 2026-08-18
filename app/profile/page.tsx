@@ -454,7 +454,7 @@ export default function ProfilePageRefactored() {
   }
 
   return (
-    <div className="min-h-[100dvh] bg-[#f7f7f5]">
+    <div className="min-h-[100dvh]">
       <DesktopProfileShell
         user={user}
         activeTab={activeTab}
@@ -503,7 +503,7 @@ export default function ProfilePageRefactored() {
                 type="button"
                 onClick={handleRefresh}
                 disabled={isRefreshing}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 text-sm font-semibold text-gray-700 hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-50"
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--cera-line)] bg-white px-4 text-sm font-semibold text-[var(--cera-body)] transition-colors hover:border-[var(--cera-blush-deep)] hover:bg-[var(--cera-cream-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] disabled:opacity-50"
               >
                 <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} aria-hidden="true" />
                 {t('profileActions.refresh')}
@@ -512,7 +512,7 @@ export default function ProfilePageRefactored() {
                 type="button"
                 onClick={() => (isEditing ? handleCancel() : setIsEditing(true))}
                 aria-pressed={isEditing}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-gray-950 px-4 text-sm font-semibold text-white hover:bg-primary-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--cera-ink)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--cera-rose-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
               >
                 <Edit3 className="h-4 w-4" aria-hidden="true" />
                 {isEditing ? t('profileActions.cancel') : t('profileActions.edit')}
@@ -554,11 +554,11 @@ export default function ProfilePageRefactored() {
               <div className="p-3 bg-red-100 rounded-xl">
                 <Trash2 className="h-8 w-8 text-red-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800">{t('profileActions.deleteAccountTitle')}</h3>
+              <h3 className="cera-serif text-[22px] leading-tight text-[var(--cera-ink)]">{t('profileActions.deleteAccountTitle')}</h3>
             </div>
             
             <div className="mb-8">
-              <p className="text-gray-600 mb-4">
+              <p className="mb-4 text-[15px] leading-relaxed text-[var(--cera-body)]">
                 {t('profileActions.deleteAccountConfirm')}
               </p>
               <div className="bg-red-50 border border-red-200 rounded-xl p-4">
@@ -585,7 +585,7 @@ export default function ProfilePageRefactored() {
               </button>
               <button
                 onClick={() => setShowDeleteConfirm(false)}
-                className="flex-1 bg-gray-200 text-gray-800 py-3 px-6 rounded-xl font-semibold hover:bg-gray-300 transition-colors min-h-[44px] touch-manipulation"
+                className="min-h-[44px] flex-1 touch-manipulation rounded-xl border border-[var(--cera-line)] bg-white px-6 py-3 font-semibold text-[var(--cera-body)] transition-colors hover:bg-[var(--cera-cream-deep)]"
               >
                 {t('profileActions.cancel')}
               </button>
@@ -602,11 +602,11 @@ export default function ProfilePageRefactored() {
               <div className="p-3 bg-red-100 rounded-xl">
                 <X className="h-8 w-8 text-red-600" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800">{t('profileActions.cancelOrderTitle')}</h3>
+              <h3 className="cera-serif text-[22px] leading-tight text-[var(--cera-ink)]">{t('profileActions.cancelOrderTitle')}</h3>
             </div>
             
             <div className="mb-8">
-              <p className="text-gray-600 mb-4">
+              <p className="mb-4 text-[15px] leading-relaxed text-[var(--cera-body)]">
                 {t('profileActions.cancelOrderConfirm')}
               </p>
               <div className="bg-red-50 border border-red-200 rounded-xl p-4">
@@ -632,7 +632,7 @@ export default function ProfilePageRefactored() {
                   setShowCancelOrderConfirm(false)
                   setOrderToCancel(null)
                 }}
-                className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-semibold hover:bg-gray-300 transition-colors min-h-[44px] touch-manipulation"
+                className="min-h-[44px] touch-manipulation rounded-xl border border-[var(--cera-line)] bg-white px-6 py-3 font-semibold text-[var(--cera-body)] transition-colors hover:bg-[var(--cera-cream-deep)]"
               >
                 {t('profileActions.cancel')}
               </button>
@@ -666,7 +666,7 @@ export default function ProfilePageRefactored() {
             
             <button
               onClick={() => removeToast(toast.id)}
-              className="text-gray-400 hover:text-gray-600 transition-colors flex-shrink-0"
+              className="flex-shrink-0 text-[var(--cera-muted)] transition-colors hover:text-[var(--cera-ink)]"
             >
               <X className="h-4 w-4" />
             </button>

@@ -20,6 +20,7 @@ import type { User } from '@/types/user'
 import { useTranslation } from '@/hooks/useTranslation'
 import { useMembershipData } from '@/hooks/useMembershipData'
 import { getLocalizedPath } from '@/lib/i18n'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 export type DesktopProfileTab =
   | 'overview'
@@ -76,20 +77,20 @@ export default function DesktopProfileShell({
   const activeCopy = sectionCopy[activeTab]
 
   const navClass = (active = false) =>
-    `group flex min-h-11 w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
+    `group flex min-h-11 w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2 ${
       active
-        ? 'bg-gray-950 text-white shadow-sm'
-        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-950'
+        ? 'bg-[var(--cera-ink)] text-white shadow-sm'
+        : 'text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)] hover:text-[var(--cera-ink)]'
     } ${isRTL ? 'flex-row-reverse text-right' : ''}`
 
   return (
-    <div className="min-h-[100dvh] bg-[#f7f7f5]" dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
       <div className="mx-auto max-w-[1440px] px-6 py-8 lg:px-10 lg:py-10">
         <div className="grid grid-cols-[260px_minmax(0,1fr)] items-start gap-8 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-10">
-          <aside className="sticky top-24 overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_18px_50px_rgba(17,24,39,0.06)]">
-            <div className="border-b border-gray-100 p-5">
+          <aside className="sticky top-24 overflow-hidden rounded-3xl border border-[var(--cera-line)] bg-white shadow-[0_18px_50px_-30px_rgba(23,20,15,0.18)]">
+            <div className="border-b border-[var(--cera-line)] p-5">
               <div className={`flex items-center gap-3.5 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <div className="h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-gray-200 bg-gray-100">
+                <div className="h-14 w-14 shrink-0 overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-[var(--cera-cream-deep)]">
                   <Image
                     src={user.profilePicture || '/images/avatar/avatar.png'}
                     alt=""
@@ -99,10 +100,10 @@ export default function DesktopProfileShell({
                   />
                 </div>
                 <div className={`min-w-0 ${isRTL ? 'text-right' : ''}`}>
-                  <p className="truncate text-base font-semibold tracking-tight text-gray-950">{user.name}</p>
-                  <p className="truncate text-xs text-gray-500" dir="ltr">{displayEmail}</p>
+                  <p className="truncate text-base font-semibold tracking-tight text-[var(--cera-ink)]">{user.name}</p>
+                  <p className="truncate text-xs text-[var(--cera-muted)]" dir="ltr">{displayEmail}</p>
                   {membership?.memberNumber && (
-                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-primary-600">
+                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--cera-rose-ink)]">
                       {membership.memberNumber}
                     </p>
                   )}
@@ -111,7 +112,7 @@ export default function DesktopProfileShell({
             </div>
 
             <nav aria-label={t('profile.accountNavigation')} className="p-3">
-              <p className={`px-3 pb-2 pt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-400 ${isRTL ? 'text-right' : ''}`}>
+              <p className={`px-3 pb-2 pt-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}>
                 {t('profile.myAccount')}
               </p>
               <div className="space-y-1">
@@ -128,7 +129,7 @@ export default function DesktopProfileShell({
                       <Icon className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
                       <span className="flex-1">{t(`profile.${item.labelKey}`)}</span>
                       {'count' in item && (
-                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${active ? 'bg-white/15 text-white' : 'bg-gray-100 text-gray-600'}`}>
+                        <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold ${active ? 'bg-white/15 text-white' : 'bg-[var(--cera-blush)] text-[var(--cera-rose-ink)]'}`}>
                           {item.count === 'orders' ? orderCount : favoritesCount}
                         </span>
                       )}
@@ -148,23 +149,23 @@ export default function DesktopProfileShell({
                 <Link href={getLocalizedPath('/training', locale)} className={navClass()}>
                   <BookOpen className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
                   <span className="flex-1">{t('profile.documents')}</span>
-                  <ChevronRight className={`h-4 w-4 text-gray-300 ${isRTL ? 'rotate-180' : ''}`} aria-hidden="true" />
+                  <ChevronRight className={`h-4 w-4 text-[var(--cera-blush-deep)] ${isRTL ? 'rotate-180' : ''}`} aria-hidden="true" />
                 </Link>
               </div>
 
               {(user.partnerPortalAccess || ['CLINIC', 'VIP'].includes(String(user.discountType || '').toUpperCase())) && (
-                <div className="mt-3 border-t border-gray-100 pt-3">
+                <div className="mt-3 border-t border-[var(--cera-line)] pt-3">
                   <Link href={getLocalizedPath('/partner-portal', locale)} className={navClass()}>
-                    <Handshake className="h-[18px] w-[18px] shrink-0 text-primary-600" aria-hidden="true" />
+                    <Handshake className="h-[18px] w-[18px] shrink-0 text-[var(--cera-rose-ink)]" aria-hidden="true" />
                     <span className="flex-1">{t('profile.partnerPortal')}</span>
-                    <ChevronRight className={`h-4 w-4 text-gray-300 ${isRTL ? 'rotate-180' : ''}`} aria-hidden="true" />
+                    <ChevronRight className={`h-4 w-4 text-[var(--cera-blush-deep)] ${isRTL ? 'rotate-180' : ''}`} aria-hidden="true" />
                   </Link>
                 </div>
               )}
 
-              <div className="mt-3 border-t border-gray-100 pt-3">
+              <div className="mt-3 border-t border-[var(--cera-line)] pt-3">
                 <button type="button" onClick={onLogout} className={navClass()}>
-                  <LogOut className={`h-[18px] w-[18px] shrink-0 text-gray-400 ${isRTL ? 'rotate-180' : ''}`} aria-hidden="true" />
+                  <LogOut className={`h-[18px] w-[18px] shrink-0 text-[var(--cera-muted)] ${isRTL ? 'rotate-180' : ''}`} aria-hidden="true" />
                   <span className="flex-1">{t('profile.signOut')}</span>
                 </button>
               </div>
@@ -173,13 +174,11 @@ export default function DesktopProfileShell({
 
           <main id="profile-content" className="min-w-0">
             <header className={`mb-7 ${isRTL ? 'text-right' : ''}`}>
-              <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary-600">
-                {t('profile.myAccount')}
-              </p>
-              <h1 className="text-3xl font-semibold tracking-[-0.035em] text-gray-950 lg:text-4xl">
+              <p className="cera-eyebrow mb-2">{t('profile.myAccount')}</p>
+              <h1 className="cera-serif text-[30px] leading-[1.1] text-[var(--cera-ink)] lg:text-[40px]">
                 {t(`profile.${activeCopy.title}`)}
               </h1>
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-500 lg:text-base">
+              <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[var(--cera-muted)]">
                 {t(`profile.${activeCopy.description}`)}
               </p>
             </header>

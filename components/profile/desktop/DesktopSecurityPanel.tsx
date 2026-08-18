@@ -22,22 +22,22 @@ export default function DesktopSecurityPanel({
       <PasskeySettings />
       <PrivacySettings />
 
-      <section className={`rounded-3xl border border-gray-200 bg-white p-6 shadow-[0_14px_40px_rgba(17,24,39,0.04)] lg:p-8 ${isRTL ? 'text-right' : ''}`}>
-        <h2 className="text-xl font-semibold tracking-tight text-gray-950">{t('profile.accountActions')}</h2>
-        <p className="mt-1 text-sm leading-6 text-gray-500">{t('profile.accountActionsDescription')}</p>
+      <section className={`rounded-3xl border border-[var(--cera-line)] bg-white p-6 shadow-[0_14px_40px_rgba(17,24,39,0.04)] lg:p-8 ${isRTL ? 'text-right' : ''}`}>
+        <h2 className="text-xl font-semibold tracking-tight text-[var(--cera-ink)]">{t('profile.accountActions')}</h2>
+        <p className="mt-1 text-sm leading-6 text-[var(--cera-muted)]">{t('profile.accountActionsDescription')}</p>
 
         <div className="mt-6 grid grid-cols-1 gap-3 lg:grid-cols-2">
           <button
             type="button"
             onClick={onLogout}
-            className={`flex min-h-20 items-center gap-4 rounded-2xl border border-gray-200 p-4 text-left transition-colors hover:bg-gray-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+            className={`flex min-h-20 items-center gap-4 rounded-2xl border border-[var(--cera-line)] p-4 text-left transition-colors hover:bg-[var(--cera-cream-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] ${isRTL ? 'flex-row-reverse text-right' : ''}`}
           >
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100 text-gray-700">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--cera-cream-deep)] text-[var(--cera-body)]">
               <LogOut className={`h-5 w-5 ${isRTL ? 'rotate-180' : ''}`} aria-hidden="true" />
             </span>
             <span>
-              <span className="block text-sm font-semibold text-gray-950">{t('profile.signOut')}</span>
-              <span className="mt-1 block text-xs text-gray-500">{t('profile.signOutOfYourAccount')}</span>
+              <span className="block text-sm font-semibold text-[var(--cera-ink)]">{t('profile.signOut')}</span>
+              <span className="mt-1 block text-xs text-[var(--cera-muted)]">{t('profile.signOutOfYourAccount')}</span>
             </span>
           </button>
 

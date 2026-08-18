@@ -6,10 +6,10 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { MembershipTier, useMembershipData } from '@/hooks/useMembershipData'
 
 const TIER_STYLES: Record<MembershipTier, { badge: string; bar: string }> = {
-  MEMBER: { badge: 'bg-gray-100 text-gray-700', bar: 'bg-gray-400' },
+  MEMBER: { badge: 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)]', bar: 'bg-[var(--cera-blush-deep)]' },
   SILVER: { badge: 'bg-slate-200 text-slate-700', bar: 'bg-slate-400' },
   GOLD: { badge: 'bg-amber-100 text-amber-800', bar: 'bg-amber-400' },
-  PLATINUM: { badge: 'bg-gray-900 text-white', bar: 'bg-gray-900' },
+  PLATINUM: { badge: 'bg-[var(--cera-ink)] text-white', bar: 'bg-[var(--cera-ink)]' },
 }
 
 const TIERS: MembershipTier[] = ['MEMBER', 'SILVER', 'GOLD', 'PLATINUM']
@@ -21,9 +21,9 @@ export default function MembershipCard() {
 
   if (loading) {
     return (
-      <div className="animate-pulse rounded-3xl border border-gray-200/80 bg-white p-5 shadow-[0_14px_40px_rgba(17,24,39,0.04)] md:p-6">
-        <div className="h-4 bg-gray-100 rounded w-1/3 mb-3" />
-        <div className="h-8 bg-gray-100 rounded w-1/2" />
+      <div className="animate-pulse rounded-3xl border border-[var(--cera-line)] bg-white p-5 shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)] md:p-6">
+        <div className="h-4 bg-[var(--cera-cream-deep)] rounded w-1/3 mb-3" />
+        <div className="h-8 bg-[var(--cera-cream-deep)] rounded w-1/2" />
       </div>
     )
   }
@@ -33,7 +33,7 @@ export default function MembershipCard() {
   // Professional Partner track
   if (data.track === 'PARTNER') {
     return (
-      <div className="overflow-hidden rounded-3xl bg-gray-950 text-white shadow-[0_14px_40px_rgba(17,24,39,0.08)]">
+      <div className="overflow-hidden rounded-3xl bg-[var(--cera-ink)] text-white shadow-[0_14px_40px_-26px_rgba(23,20,15,0.5)]">
         <button
           type="button"
           onClick={() => setExpanded(v => !v)}
@@ -47,29 +47,29 @@ export default function MembershipCard() {
               </div>
               <div>
                 <p className="text-sm font-semibold">{t('rewards.professionalPartner')}</p>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-white/55">
                   {data.partner?.discountPercentage}% {t('rewards.partnerPricing')}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-2">
               {data.memberNumber && (
-                <span className="text-[10px] md:text-xs text-gray-400 tracking-widest">{data.memberNumber}</span>
+                <span className="text-[10px] md:text-xs text-white/55 tracking-widest">{data.memberNumber}</span>
               )}
-              <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`h-4 w-4 text-white/55 transition-transform ${expanded ? 'rotate-180' : ''}`} />
             </div>
           </div>
         </button>
 
         {expanded && (
           <div className="px-4 md:px-6 pb-5 md:pb-6 border-t border-white/10">
-            <p className="text-xs uppercase tracking-widest text-gray-400 mt-4 mb-3">{t('rewards.partnerStatusTitle')}</p>
+            <p className="text-xs uppercase tracking-widest text-white/55 mt-4 mb-3">{t('rewards.partnerStatusTitle')}</p>
             <div className="bg-white/5 rounded-xl p-4 text-center mb-4">
-              <p className="text-xs text-gray-400">{t('rewards.partnerPricingLabel')}</p>
+              <p className="text-xs text-white/55">{t('rewards.partnerPricingLabel')}</p>
               <p className="text-3xl font-bold mt-1">{data.partner?.discountPercentage}% {t('rewards.off')}</p>
-              <p className="text-xs text-gray-400 mt-1">{t('rewards.partnerAppliedAuto')}</p>
+              <p className="text-xs text-white/55 mt-1">{t('rewards.partnerAppliedAuto')}</p>
             </div>
-            <p className="text-xs md:text-sm text-gray-300 leading-relaxed">{t('rewards.partnerThanks')}</p>
+            <p className="text-xs md:text-sm text-white/70 leading-relaxed">{t('rewards.partnerThanks')}</p>
           </div>
         )}
       </div>
@@ -81,7 +81,7 @@ export default function MembershipCard() {
   const progress = data.tierProgress
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-gray-200/80 bg-white shadow-[0_14px_40px_rgba(17,24,39,0.04)]">
+    <div className="overflow-hidden rounded-3xl border border-[var(--cera-line)] bg-white shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)]">
       <button
         type="button"
         onClick={() => setExpanded(v => !v)}
@@ -91,35 +91,35 @@ export default function MembershipCard() {
         {/* Header row */}
         <div className="flex items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-2">
-            <Award className="h-5 w-5 text-primary-600" />
-            <h3 className="text-sm md:text-base font-semibold text-gray-900">{t('rewards.title')}</h3>
+            <Award className="h-5 w-5 text-[var(--cera-rose-ink)]" />
+            <h3 className="text-sm font-semibold text-[var(--cera-ink)] md:text-base">{t('rewards.title')}</h3>
           </div>
           <div className="flex items-center gap-2">
             <span className={`px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide ${style.badge}`}>
               {t(`rewards.tier.${tier.toLowerCase()}`)}
             </span>
-            <ChevronDown className={`h-4 w-4 text-gray-400 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+            <ChevronDown className={`h-4 w-4 text-[var(--cera-muted)] transition-transform ${expanded ? 'rotate-180' : ''}`} />
           </div>
         </div>
 
         {/* Points balance */}
         <div className="flex items-end justify-between gap-4 mb-4">
           <div>
-            <p className="text-3xl md:text-4xl font-bold text-gray-900">
+            <p className="cera-serif cera-numeral text-[32px] leading-none text-[var(--cera-ink)] md:text-[38px]">
               {(data.points?.balance ?? 0).toLocaleString()}
-              <span className="text-sm md:text-base font-medium text-gray-500 ml-1.5">{t('rewards.points')}</span>
+              <span className="text-sm md:text-base font-medium text-[var(--cera-muted)] ml-1.5">{t('rewards.points')}</span>
             </p>
-            <p className="text-xs md:text-sm text-gray-500 mt-0.5">
+            <p className="text-xs md:text-sm text-[var(--cera-muted)] mt-0.5">
               ≈ AED {(data.points?.valueAed ?? 0).toLocaleString()} {t('rewards.inValue')}
             </p>
           </div>
           <div className="text-right">
-            <p className="text-xs text-gray-500 flex items-center gap-1 justify-end">
+            <p className="text-xs text-[var(--cera-muted)] flex items-center gap-1 justify-end">
               <TrendingUp className="h-3.5 w-3.5" />
               {data.multiplier}x {t('rewards.earnRate')}
             </p>
             {data.memberNumber && (
-              <p className="text-[10px] md:text-xs text-gray-400 tracking-widest mt-1">{data.memberNumber}</p>
+              <p className="text-[10px] md:text-xs text-[var(--cera-muted)] tracking-widest mt-1">{data.memberNumber}</p>
             )}
           </div>
         </div>
@@ -127,7 +127,7 @@ export default function MembershipCard() {
         {/* Progress to next tier */}
         {progress?.nextTier ? (
           <div>
-            <div className="flex justify-between text-xs text-gray-500 mb-1.5">
+            <div className="flex justify-between text-xs text-[var(--cera-muted)] mb-1.5">
               <span>
                 AED {progress.currentSpent.toLocaleString()} {t('rewards.spent')}
               </span>
@@ -136,7 +136,7 @@ export default function MembershipCard() {
                 {progress.nextTierAt.toLocaleString()}
               </span>
             </div>
-            <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-[var(--cera-cream-deep)] rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full ${style.bar} transition-all`}
                 style={{ width: `${Math.min(progress.progressPercent, 100)}%` }}
@@ -144,7 +144,7 @@ export default function MembershipCard() {
             </div>
           </div>
         ) : (
-          <p className="text-xs text-gray-500 flex items-center gap-1">
+          <p className="text-xs text-[var(--cera-muted)] flex items-center gap-1">
             <Gift className="h-3.5 w-3.5" />
             {t('rewards.topTier')}
           </p>
@@ -153,20 +153,20 @@ export default function MembershipCard() {
 
       {/* Expanded: how it works + tier table */}
       {expanded && (
-        <div className="px-4 md:px-6 pb-5 md:pb-6 border-t border-gray-100">
-          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mt-4 mb-2">
+        <div className="px-4 md:px-6 pb-5 md:pb-6 border-t border-[var(--cera-line)]">
+          <p className="text-xs font-semibold uppercase tracking-widest text-[var(--cera-muted)] mt-4 mb-2">
             {t('rewards.howItWorksTitle')}
           </p>
-          <p className="text-xs md:text-sm text-gray-600 leading-relaxed mb-4">{t('rewards.howItWorksBody')}</p>
+          <p className="text-xs md:text-sm text-[var(--cera-body)] leading-relaxed mb-4">{t('rewards.howItWorksBody')}</p>
 
-          <div className="rounded-xl border border-gray-100 overflow-hidden">
+          <div className="rounded-xl border border-[var(--cera-line)] overflow-hidden">
             {TIERS.map((tr, i) => {
               const isCurrent = tr === tier
               return (
                 <div
                   key={tr}
-                  className={`flex items-start gap-3 px-3 py-2.5 ${i > 0 ? 'border-t border-gray-100' : ''} ${
-                    isCurrent ? 'bg-primary-50' : 'bg-white'
+                  className={`flex items-start gap-3 px-3 py-2.5 ${i > 0 ? 'border-t border-[var(--cera-line)]' : ''} ${
+                    isCurrent ? 'bg-[var(--cera-blush)]' : 'bg-white'
                   }`}
                 >
                   <span
@@ -175,11 +175,11 @@ export default function MembershipCard() {
                     {t(`rewards.tier.${tr.toLowerCase()}`)}
                   </span>
                   <div className="min-w-0">
-                    <p className="text-[11px] md:text-xs text-gray-500">{t(`rewards.tierReq.${tr.toLowerCase()}`)}</p>
-                    <p className="text-[11px] md:text-xs text-gray-800 font-medium">
+                    <p className="text-[11px] md:text-xs text-[var(--cera-muted)]">{t(`rewards.tierReq.${tr.toLowerCase()}`)}</p>
+                    <p className="text-[11px] md:text-xs text-[var(--cera-ink)] font-medium">
                       {t(`rewards.tierPerk.${tr.toLowerCase()}`)}
                       {isCurrent && (
-                        <span className="ml-1.5 text-primary-600 font-semibold">• {t('rewards.yourTier')}</span>
+                        <span className="ml-1.5 text-[var(--cera-rose-ink)] font-semibold">• {t('rewards.yourTier')}</span>
                       )}
                     </p>
                   </div>

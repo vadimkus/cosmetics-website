@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export const metadata: Metadata = {
   title: 'Страница не найдена - 404 | GENOSYS',
@@ -13,11 +16,11 @@ export const metadata: Metadata = {
 
 export default function RussianNotFound() {
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
+    <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[70vh] items-center justify-center px-4 py-16`}>
       <div className="max-w-2xl w-full text-center">
         {/* «Конец дороги» — отсылка к Матрице: две кнопки ниже образуют
             выбор (главная = вернуться, каталог = пойти дальше). */}
-        <p className="text-xs font-mono uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-3">
+        <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--cera-muted)]">
           Ошибка · 404
         </p>
         <div className="mb-8">
@@ -26,55 +29,55 @@ export default function RussianNotFound() {
             alt="Конец дороги — путь обрывается"
             width={1698}
             height={838}
-            className="mx-auto w-full max-w-2xl rounded-xl"
+            className="mx-auto w-full max-w-2xl rounded-[20px] border border-[var(--cera-line)] shadow-[0_24px_60px_-40px_rgba(23,20,15,0.5)]"
             sizes="(max-width: 672px) 100vw, 672px"
           />
         </div>
-        <h1 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-snug tracking-tight">
+        <h1 className="cera-serif mb-2 text-[26px] leading-tight text-[var(--cera-ink)] md:text-[34px]">
           Это конец дороги — теперь нужно сделать выбор&hellip;
         </h1>
-        <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-10">
+        <p className="mb-10 text-[15.5px] leading-relaxed text-[var(--cera-body)] md:text-base">
           &hellip;что делать дальше.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Link
             href="/ru"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+            className="ed-cta px-6 py-3.5 text-[15px]"
           >
             На главную
           </Link>
           <Link
             href="/ru/products"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-lg border-2 border-gray-900 dark:border-white text-gray-900 dark:text-white font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="ed-ghost px-6 py-3.5 text-[15px]"
           >
             Каталог продукции
           </Link>
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
-          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+        <div className="border-t border-[var(--cera-line)] pt-8">
+          <h3 className="cera-eyebrow mb-4">
             Популярные страницы
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <Link href="/ru/products" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Вся продукция</Link>
-            <Link href="/ru/blog" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Блог</Link>
-            <Link href="/ru/about" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">О нас</Link>
-            <Link href="/ru/training" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Обучение</Link>
-            <Link href="/ru/locations" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Где купить в ОАЭ</Link>
-            <Link href="/ru/contact" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Контакты</Link>
-            <Link href="/ru/faq" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Вопросы и ответы</Link>
-            <Link href="/ru/brand" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Бренд GENOSYS</Link>
-            <Link href="/ru/delivery" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">Доставка</Link>
+            <Link href="/ru/products" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">Вся продукция</Link>
+            <Link href="/ru/blog" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">Блог</Link>
+            <Link href="/ru/about" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">О нас</Link>
+            <Link href="/ru/training" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">Обучение</Link>
+            <Link href="/ru/locations" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">Где купить в ОАЭ</Link>
+            <Link href="/ru/contact" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">Контакты</Link>
+            <Link href="/ru/faq" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">Вопросы и ответы</Link>
+            <Link href="/ru/brand" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">Бренд GENOSYS</Link>
+            <Link href="/ru/delivery" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">Доставка</Link>
           </div>
         </div>
 
         {/* Get the app — App Store + Google Play */}
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-8 mt-2">
-          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+        <div className="mt-2 border-t border-[var(--cera-line)] pt-8">
+          <h3 className="cera-eyebrow mb-1">
             Установите приложение GENOSYS UAE
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mb-6">
+          <p className="mb-6 text-sm text-[var(--cera-muted)]">
             Отсканируйте QR-код для загрузки — или нажмите на бейдж со смартфона.
           </p>
           <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
@@ -84,7 +87,7 @@ export default function RussianNotFound() {
                 href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="Скачать Genosys UAE в App Store (QR-код)"
               >
                 <Image
@@ -100,7 +103,7 @@ export default function RussianNotFound() {
                 href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md transition-colors hover:bg-[#333] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="Загрузите в App Store"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -115,7 +118,7 @@ export default function RussianNotFound() {
                 href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="Скачать Genosys UAE в Google Play (QR-код)"
               >
                 <Image
@@ -131,7 +134,7 @@ export default function RussianNotFound() {
                 href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md transition-colors hover:bg-[#333] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="Доступно в Google Play"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -143,14 +146,14 @@ export default function RussianNotFound() {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+        <div className="mt-6 border-t border-[var(--cera-line)] pt-6">
+          <p className="mb-3 text-sm text-[var(--cera-muted)]">
             Ищете другой язык?
           </p>
           <div className="flex gap-4 justify-center">
-            <Link href="/" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:underline">English</Link>
-            <Link href="/ar" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:underline" dir="rtl">العربية</Link>
-            <Link href="/ru" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:underline">Русский</Link>
+            <Link href="/" className="text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] hover:underline">English</Link>
+            <Link href="/ar" className="text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] hover:underline" dir="rtl">العربية</Link>
+            <Link href="/ru" className="text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] hover:underline">Русский</Link>
           </div>
         </div>
       </div>

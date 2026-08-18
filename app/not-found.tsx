@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export const metadata: Metadata = {
   title: 'Page Not Found - GENOSYS',
@@ -21,13 +24,13 @@ export const metadata: Metadata = {
  */
 export default function NotFound() {
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
+    <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[70vh] items-center justify-center px-4 py-16`}>
       <div className="max-w-2xl w-full text-center">
         {/* Matrix-style "Road End" — the user is at the fork; the two CTAs
             below are the choice (homepage = the way back, products = the
             rabbit hole). The "ERROR · 404" kicker preserves the SEO/a11y
             signal that this is a 404 page without competing with the image. */}
-        <p className="text-xs font-mono uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-3">
+        <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--cera-muted)]">
           Error · 404
         </p>
         <div className="mb-8">
@@ -36,14 +39,14 @@ export default function NotFound() {
             alt="Road End — the path stops here"
             width={1698}
             height={838}
-            className="mx-auto w-full max-w-2xl rounded-xl"
+            className="mx-auto w-full max-w-2xl rounded-[20px] border border-[var(--cera-line)] shadow-[0_24px_60px_-40px_rgba(23,20,15,0.5)]"
             sizes="(max-width: 672px) 100vw, 672px"
           />
         </div>
-        <h1 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-snug tracking-tight">
+        <h1 className="cera-serif mb-2 text-[26px] leading-tight text-[var(--cera-ink)] md:text-[34px]">
           This is Road End, now you have to make a choice&hellip;
         </h1>
-        <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-10">
+        <p className="mb-10 text-[15.5px] leading-relaxed text-[var(--cera-body)] md:text-base">
           &hellip;what to do next.
         </p>
 
@@ -51,49 +54,49 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Link
             href="/"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+            className="ed-cta px-6 py-3.5 text-[15px]"
           >
             Go to Homepage
           </Link>
           <Link
             href="/products"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-lg border-2 border-gray-900 dark:border-white text-gray-900 dark:text-white font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="ed-ghost px-6 py-3.5 text-[15px]"
           >
             Browse Products
           </Link>
         </div>
 
         {/* Popular Pages - Internal links for SEO equity */}
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
-          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+        <div className="border-t border-[var(--cera-line)] pt-8">
+          <h3 className="cera-eyebrow mb-4">
             Popular Pages
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <Link href="/products" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">
+            <Link href="/products" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               All Products
             </Link>
-            <Link href="/blog" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">
+            <Link href="/blog" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               Skincare Blog
             </Link>
-            <Link href="/about" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">
+            <Link href="/about" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               About Us
             </Link>
-            <Link href="/training" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">
+            <Link href="/training" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               Professional Training
             </Link>
-            <Link href="/locations" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">
+            <Link href="/locations" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               UAE Locations
             </Link>
-            <Link href="/contact" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">
+            <Link href="/contact" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               Contact Us
             </Link>
-            <Link href="/faq" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">
+            <Link href="/faq" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               FAQ
             </Link>
-            <Link href="/brand" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">
+            <Link href="/brand" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               GENOSYS Brand
             </Link>
-            <Link href="/delivery" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">
+            <Link href="/delivery" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               Delivery Info
             </Link>
           </div>
@@ -103,11 +106,11 @@ export default function NotFound() {
             Two-platform block. QR codes only show on >=sm because you can't
             scan a QR with the same phone you're holding; mobile users get
             tappable badges instead. */}
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-8 mt-2">
-          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+        <div className="mt-2 border-t border-[var(--cera-line)] pt-8">
+          <h3 className="cera-eyebrow mb-1">
             Get the GENOSYS UAE app
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mb-6">
+          <p className="mb-6 text-sm text-[var(--cera-muted)]">
             Scan a code to download — or tap a badge if you&apos;re on mobile.
           </p>
           <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
@@ -117,7 +120,7 @@ export default function NotFound() {
                 href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="Download Genosys UAE on the App Store (QR code)"
               >
                 <Image
@@ -133,7 +136,7 @@ export default function NotFound() {
                 href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md transition-colors hover:bg-[#333] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="Download on the App Store"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -148,7 +151,7 @@ export default function NotFound() {
                 href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="Get Genosys UAE on Google Play (QR code)"
               >
                 <Image
@@ -164,7 +167,7 @@ export default function NotFound() {
                 href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md transition-colors hover:bg-[#333] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="Get it on Google Play"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -177,18 +180,18 @@ export default function NotFound() {
         </div>
 
         {/* Language options - helps multilingual users who hit 404 */}
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+        <div className="mt-6 border-t border-[var(--cera-line)] pt-6">
+          <p className="mb-3 text-sm text-[var(--cera-muted)]">
             Looking for a different language?
           </p>
           <div className="flex gap-4 justify-center">
-            <Link href="/" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:underline">
+            <Link href="/" className="text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] hover:underline">
               English
             </Link>
-            <Link href="/ar" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:underline" dir="rtl">
+            <Link href="/ar" className="text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] hover:underline" dir="rtl">
               العربية
             </Link>
-            <Link href="/ru" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:underline">
+            <Link href="/ru" className="text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] hover:underline">
               Русский
             </Link>
           </div>

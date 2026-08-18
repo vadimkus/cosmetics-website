@@ -1,6 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import '@/components/product/cerabarrier/cerabarrier.css'
+import '@/components/editorial/editorial.css'
 
 export const metadata: Metadata = {
   title: 'الصفحة غير موجودة - 404 | GENOSYS',
@@ -13,10 +16,10 @@ export const metadata: Metadata = {
 
 export default function ArabicNotFound() {
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4 py-16" dir="rtl">
+    <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[70vh] items-center justify-center px-4 py-16`} dir="rtl">
       <div className="max-w-2xl w-full text-center">
         {/* "نهاية الطريق" — رمز ماتريكس للاختيار بين زرّي الإجراء بالأسفل */}
-        <p className="text-xs font-mono uppercase tracking-[0.3em] text-gray-400 dark:text-gray-500 mb-3">
+        <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--cera-muted)]">
           خطأ · 404
         </p>
         <div className="mb-8">
@@ -25,55 +28,55 @@ export default function ArabicNotFound() {
             alt="نهاية الطريق — هنا ينتهي المسار"
             width={1698}
             height={838}
-            className="mx-auto w-full max-w-2xl rounded-xl"
+            className="mx-auto w-full max-w-2xl rounded-[20px] border border-[var(--cera-line)] shadow-[0_24px_60px_-40px_rgba(23,20,15,0.5)]"
             sizes="(max-width: 672px) 100vw, 672px"
           />
         </div>
-        <h1 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-gray-100 mb-2 leading-snug tracking-tight">
+        <h1 className="cera-serif mb-2 text-[26px] leading-tight text-[var(--cera-ink)] md:text-[34px]">
           هذه نهاية الطريق، عليك الآن أن تختار&hellip;
         </h1>
-        <p className="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-10">
+        <p className="mb-10 text-[15.5px] leading-relaxed text-[var(--cera-body)] md:text-base">
           &hellip;ماذا ستفعل بعد ذلك.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <Link
             href="/ar"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-semibold hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors"
+            className="ed-cta px-6 py-3.5 text-[15px]"
           >
             الصفحة الرئيسية
           </Link>
           <Link
             href="/ar/products"
-            className="inline-flex items-center justify-center px-6 py-3 rounded-lg border-2 border-gray-900 dark:border-white text-gray-900 dark:text-white font-semibold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            className="ed-ghost px-6 py-3.5 text-[15px]"
           >
             تصفح المنتجات
           </Link>
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-8">
-          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
+        <div className="border-t border-[var(--cera-line)] pt-8">
+          <h3 className="cera-eyebrow mb-4">
             الصفحات الشائعة
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <Link href="/ar/products" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">جميع المنتجات</Link>
-            <Link href="/ar/blog" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">المدونة</Link>
-            <Link href="/ar/about" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">من نحن</Link>
-            <Link href="/ar/training" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">التدريب المهني</Link>
-            <Link href="/ar/locations" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">المواقع في الإمارات</Link>
-            <Link href="/ar/contact" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">اتصل بنا</Link>
-            <Link href="/ar/faq" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">الأسئلة الشائعة</Link>
-            <Link href="/ar/brand" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">علامة GENOSYS</Link>
-            <Link href="/ar/delivery" className="text-sm text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:underline py-2">معلومات التوصيل</Link>
+            <Link href="/ar/products" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">جميع المنتجات</Link>
+            <Link href="/ar/blog" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">المدونة</Link>
+            <Link href="/ar/about" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">من نحن</Link>
+            <Link href="/ar/training" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">التدريب المهني</Link>
+            <Link href="/ar/locations" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">المواقع في الإمارات</Link>
+            <Link href="/ar/contact" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">اتصل بنا</Link>
+            <Link href="/ar/faq" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">الأسئلة الشائعة</Link>
+            <Link href="/ar/brand" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">علامة GENOSYS</Link>
+            <Link href="/ar/delivery" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">معلومات التوصيل</Link>
           </div>
         </div>
 
         {/* Get the app — App Store + Google Play (RTL) */}
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-8 mt-2">
-          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-1">
+        <div className="mt-2 border-t border-[var(--cera-line)] pt-8">
+          <h3 className="cera-eyebrow mb-1">
             حمّل تطبيق GENOSYS UAE
           </h3>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mb-6">
+          <p className="mb-6 text-sm text-[var(--cera-muted)]">
             امسح أحد الرموز للتحميل — أو اضغط على شارة المتجر إذا كنت على الجوال.
           </p>
           <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
@@ -83,7 +86,7 @@ export default function ArabicNotFound() {
                 href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="حمّل Genosys UAE من App Store (رمز QR)"
               >
                 <Image
@@ -99,7 +102,7 @@ export default function ArabicNotFound() {
                 href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md transition-colors hover:bg-[#333] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="حمّل من App Store"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -114,7 +117,7 @@ export default function ArabicNotFound() {
                 href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="hidden sm:inline-block rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="احصل على Genosys UAE من Google Play (رمز QR)"
               >
                 <Image
@@ -130,7 +133,7 @@ export default function ArabicNotFound() {
                 href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md transition-colors hover:bg-[#333] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="احصل عليه من Google Play"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -142,14 +145,14 @@ export default function ArabicNotFound() {
           </div>
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-6 mt-6">
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">
+        <div className="mt-6 border-t border-[var(--cera-line)] pt-6">
+          <p className="mb-3 text-sm text-[var(--cera-muted)]">
             هل تبحث عن لغة مختلفة؟
           </p>
           <div className="flex gap-4 justify-center">
-            <Link href="/" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:underline">English</Link>
-            <Link href="/ar" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:underline">العربية</Link>
-            <Link href="/ru" className="text-sm font-medium text-gray-700 dark:text-gray-300 hover:underline">Русский</Link>
+            <Link href="/" className="text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] hover:underline">English</Link>
+            <Link href="/ar" className="text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] hover:underline">العربية</Link>
+            <Link href="/ru" className="text-sm font-semibold text-[var(--cera-rose-ink)] transition-colors hover:text-[var(--cera-rose)] hover:underline">Русский</Link>
           </div>
         </div>
       </div>

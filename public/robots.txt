@@ -60,25 +60,42 @@ Allow: /feed/products.xml
 Allow: /feed/blog.xml
 Allow: /feed/blog.atom
 
-# Disallow admin and private areas
+# Disallow admin and private areas.
+# Each localized path is listed twice: robots.txt matches on prefix, so `/cart/`
+# does not cover `/ar/cart/` or `/ru/cart/`. The `/*/cart/` form catches those and
+# any locale added later. Pages we want dropped from the index are deliberately NOT
+# listed here — a crawler blocked from fetching them can never see their noindex.
 Disallow: /admin/
 Disallow: /api/
 Disallow: /_next/
 Disallow: /private/
 Disallow: /temp/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 Disallow: /pwa-login/
+Disallow: /*/pwa-login/
 Disallow: /pdf-viewer/
+Disallow: /*/pdf-viewer/
 Disallow: /track/
+Disallow: /*/track/
 Disallow: /share/
+Disallow: /*/share/
 Disallow: /certificate/
+Disallow: /*/certificate/
 
 # Newsletter unsubscribe pages — token-gated, noindex in page metadata,
 # but add an explicit Disallow here as well so we don't burn crawl budget
@@ -97,13 +114,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 Disallow: /newsletter/unsubscribe
 Disallow: /ar/newsletter/unsubscribe
 Disallow: /ru/newsletter/unsubscribe
@@ -115,13 +140,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 
 User-agent: GoogleOther
 Allow: /
@@ -129,13 +162,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 
 User-agent: Bingbot
 Allow: /
@@ -143,13 +184,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 Crawl-delay: 1
 
 User-agent: Yandex
@@ -158,13 +207,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 Crawl-delay: 1
 
 User-agent: Slurp
@@ -173,13 +230,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 Crawl-delay: 1
 
 # Brave Search
@@ -189,13 +254,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 
 # ============================================================
 # AI SEARCH & ASSISTANTS (drive citations and referral traffic)
@@ -207,8 +280,11 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /checkout/
+Disallow: /*/checkout/
 
 # ChatGPT user-triggered browsing
 User-agent: ChatGPT-User
@@ -216,8 +292,11 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /checkout/
+Disallow: /*/checkout/
 
 # Perplexity AI search
 User-agent: PerplexityBot
@@ -225,8 +304,11 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /checkout/
+Disallow: /*/checkout/
 
 # Anthropic (Claude)
 User-agent: ClaudeBot
@@ -234,16 +316,22 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /checkout/
+Disallow: /*/checkout/
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /checkout/
+Disallow: /*/checkout/
 
 # Apple (Siri, Apple Intelligence, Safari suggestions)
 User-agent: Applebot
@@ -252,13 +340,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 
 User-agent: Applebot-Extended
 Allow: /
@@ -266,13 +362,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 
 # Amazon (Alexa, product recommendations)
 User-agent: Amazonbot
@@ -280,8 +384,11 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /checkout/
+Disallow: /*/checkout/
 
 # Meta AI
 User-agent: Meta-ExternalAgent
@@ -289,8 +396,11 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /checkout/
+Disallow: /*/checkout/
 
 # Common Crawl (used by many AI systems)
 User-agent: CCBot
@@ -298,8 +408,11 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /checkout/
+Disallow: /*/checkout/
 
 # DeepSeek AI
 User-agent: DeepSeekBot
@@ -308,10 +421,15 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 
 # Cohere AI
 User-agent: cohere-ai
@@ -320,10 +438,15 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 
 # ============================================================
 # SEO MONITORING TOOLS
@@ -335,13 +458,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 Crawl-delay: 2
 
 User-agent: SemrushBot
@@ -350,13 +481,21 @@ Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 Disallow: /profile/
+Disallow: /*/profile/
 Disallow: /cart/
+Disallow: /*/cart/
 Disallow: /favorites/
+Disallow: /*/favorites/
 Disallow: /checkout/
+Disallow: /*/checkout/
 Disallow: /success/
+Disallow: /*/success/
 Disallow: /login/
+Disallow: /*/login/
 Disallow: /signup/
+Disallow: /*/signup/
 Disallow: /offline/
+Disallow: /*/offline/
 Crawl-delay: 2
 
 # ============================================================

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import PrivacyPolicyClient from './PrivacyPolicyClient'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - GENOSYS Middle East FZ-LLC | Data Protection & Your Rights',
+  title: 'Privacy Policy - GENOSYS Middle East FZ-LLC',
   description: 'Read our comprehensive privacy policy. Learn how GENOSYS Middle East FZ-LLC protects your personal data, processes information, and respects your privacy rights in the UAE.',
   keywords: [
     'privacy policy',
@@ -30,6 +30,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/privacy-policy',
       'ar': 'https://genosys.ae/ar/privacy-policy',
       'ru': 'https://genosys.ae/ru/privacy-policy',
+      'x-default': 'https://genosys.ae/privacy-policy',
     },
   },
 }

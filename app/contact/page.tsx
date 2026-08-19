@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import ContactClient from './ContactClient'
 
 export const metadata: Metadata = {
-  title: 'Contact GENOSYS Middle East FZ-LLC - Get in Touch | Genosys.ae',
+  title: 'Contact GENOSYS Middle East FZ-LLC - UAE Distributor',
   description: 'Contact GENOSYS Middle East FZ-LLC for professional Korean dermacosmetics. Phone: +971 58 548 76 65, Email: sales@genosys.ae. Located in Dubai, UAE.',
   keywords: 'contact GENOSYS, UAE cosmetics contact, Korean dermacosmetics UAE, Dubai skincare distributor, GENOSYS phone number',
   openGraph: {
@@ -46,6 +46,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/contact',
       'ar': 'https://genosys.ae/ar/contact',
       'ru': 'https://genosys.ae/ru/contact',
+      'x-default': 'https://genosys.ae/contact',
     },
   },
 }

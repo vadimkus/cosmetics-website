@@ -97,7 +97,11 @@ const notoSansArabic = Noto_Sans_Arabic({
 
 export const metadata: Metadata = {
   metadataBase: getSiteUrl(),
-  title: 'GENOSYS - Professional Korean Dermacosmetics & Microneedling Devices UAE',
+  // 48 characters. The previous version ran to 72 and was cut off in results, and it is
+  // the fallback every page without its own title inherits, so it has to stand alone.
+  // Deliberately NOT a `title.template`: 236 page titles across the three locales already
+  // contain "GENOSYS", so a template would brand them twice.
+  title: 'GENOSYS - Professional Korean Dermacosmetics UAE',
   description: 'Official distributor of GENOSYS Korean dermacosmetics in UAE. Professional microneedling devices, skincare products, and beauty treatments. Free shipping over 1000 AED. Licensed practitioners only.',
   keywords: [
     'Korean dermacosmetics UAE',
@@ -182,7 +186,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'GENOSYS',
-    title: 'GENOSYS - Professional Korean Dermacosmetics & Microneedling Devices UAE',
+    title: 'GENOSYS - Professional Korean Dermacosmetics UAE',
     description: 'Official distributor of GENOSYS Korean dermacosmetics in UAE. Professional microneedling devices, skincare products, and beauty treatments. Free shipping over 1000 AED.',
     url: 'https://genosys.ae',
     images: [

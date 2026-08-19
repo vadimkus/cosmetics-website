@@ -14,7 +14,7 @@ import ProductsLoading from './loading'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'GENOSYS Products - Professional Korean Dermacosmetics Collection UAE',
+  title: 'GENOSYS Products - Korean Dermacosmetics UAE',
   description: 'Shop GENOSYS professional Korean dermacosmetics. Complete collection of microneedling devices, serums, creams, masks & skincare solutions. Official distributor in UAE. Free shipping over 1000 AED.',
   keywords: [
     'GENOSYS products',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'GENOSYS Products - Professional Korean Dermacosmetics Collection UAE',
+    title: 'GENOSYS Products - Korean Dermacosmetics UAE',
     description: 'Shop GENOSYS professional Korean dermacosmetics. Complete collection of microneedling devices, serums, creams, masks & skincare solutions.',
     type: 'website',
     url: 'https://genosys.ae/products',
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'GENOSYS Products - Professional Korean Dermacosmetics Collection UAE',
+    title: 'GENOSYS Products - Korean Dermacosmetics UAE',
     description: 'Shop GENOSYS professional Korean dermacosmetics. Complete collection of microneedling devices, serums, creams, and more.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },

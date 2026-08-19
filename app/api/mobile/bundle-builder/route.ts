@@ -16,6 +16,7 @@ import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { errorLog } from '@/lib/logger'
 import { buildPricingContract } from '@/lib/pricingContract'
 import { Product } from '@/types'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 
 type ProductTranslation = { name?: string; description?: string } | null
 
@@ -163,8 +164,16 @@ export async function GET(request: NextRequest) {
         productNumber: p.productNumber,
         name,
         description,
-        image: p.image ? (p.image.startsWith('http') ? p.image : `https://genosys.ae${p.image}`) : null,
-        images: p.images ? JSON.parse(p.images).map((img: string) => img.startsWith('http') ? img : `https://genosys.ae${img}`) : [],
+        // Localized first, then made absolute: slides carry their claims as printed text,
+        // so a translated set is served where one exists.
+        image: p.image
+          ? (p.image.startsWith('http') ? p.image : `https://genosys.ae${localizeProductImage(p.image, locale)}`)
+          : null,
+        images: p.images
+          ? (JSON.parse(p.images) as string[]).map(img =>
+              img.startsWith('http') ? img : `https://genosys.ae${localizeProductImage(img, locale)}`
+            )
+          : [],
         category: p.category,
         size: p.size,
         price: p.price,

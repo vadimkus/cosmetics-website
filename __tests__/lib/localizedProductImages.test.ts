@@ -2,6 +2,7 @@ import {
   getLocalizedSlideManifest,
   localizeProductImage,
   localizeProductImages,
+  localizeProductImagesJson,
 } from '@/lib/localizedProductImages'
 import { existsSync } from 'fs'
 import { join } from 'path'
@@ -41,6 +42,39 @@ describe('localizeProductImage', () => {
       '/images/cera_o/Main.jpeg',
       '/images/cera_o/ru/s7.jpeg',
     ])
+  })
+})
+
+describe('locale tags from the mobile app', () => {
+  // The website sends 'ru'; the app's x-locale header can be a full tag.
+  it.each(['ru', 'ru-RU', 'RU', 'ru_RU'])('treats %s as Russian', tag => {
+    expect(localizeProductImage('/images/cera_o/s1.jpeg', tag)).toBe('/images/cera_o/ru/s1.jpeg')
+  })
+
+  it('ignores a locale with no registered set', () => {
+    expect(localizeProductImage('/images/cera_o/s1.jpeg', 'ar-AE')).toBe('/images/cera_o/s1.jpeg')
+    expect(localizeProductImage('/images/cera_o/s1.jpeg', 'en-GB')).toBe('/images/cera_o/s1.jpeg')
+  })
+})
+
+describe('localizeProductImagesJson', () => {
+  it('maps the JSON column and returns JSON', () => {
+    const json = JSON.stringify(['/images/cera_o/s1.jpeg', '/images/cera_o/Main.jpeg'])
+    expect(JSON.parse(localizeProductImagesJson(json, 'ru-RU')!)).toEqual([
+      '/images/cera_o/ru/s1.jpeg',
+      '/images/cera_o/Main.jpeg',
+    ])
+  })
+
+  it('passes null and English straight through', () => {
+    const json = JSON.stringify(['/images/cera_o/s1.jpeg'])
+    expect(localizeProductImagesJson(null, 'ru')).toBeNull()
+    expect(localizeProductImagesJson(json, 'en')).toBe(json)
+  })
+
+  it('does not turn a malformed column into a crash', () => {
+    expect(localizeProductImagesJson('not json', 'ru')).toBe('not json')
+    expect(localizeProductImagesJson('{"a":1}', 'ru')).toBe('{"a":1}')
   })
 })
 

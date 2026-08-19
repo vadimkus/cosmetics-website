@@ -10,6 +10,7 @@ import { withFullInciFallback } from '@/lib/localizedIngredients'
 import { getProductDocumentation } from '@/data/productConfig'
 import { getMobileRoutine } from '@/lib/mobileProductRoutines'
 import { getCatalogQuickFacts, getQuickFactLocale } from '@/lib/productQuickFactsCatalog'
+import { localizeProductImage, localizeProductImagesJson } from '@/lib/localizedProductImages'
 
 /**
  * Database product type - matches Prisma query select fields
@@ -307,6 +308,10 @@ export async function GET(
       ...enhancedProduct,
       localizedName,
       localizedDescription,
+      // Studio slides carry their claims as printed text, so a translated set is served
+      // where one exists. Same mapping the website uses; see lib/localizedProductImages.
+      image: localizeProductImage(enhancedProduct.image, locale),
+      images: localizeProductImagesJson(enhancedProduct.images, locale),
       // Localize rich content fields using the same translation maps as the website.
       productDetails: fileTranslations?.productDetails ?? enhancedProduct.productDetails,
       keyFeatures: fileTranslations?.keyFeatures ?? enhancedProduct.keyFeatures,

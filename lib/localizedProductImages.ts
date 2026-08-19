@@ -40,11 +40,24 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>
 }
 
 /**
+ * Web passes a bare 'ru'; the mobile app sends an `x-locale` header that may be a full
+ * tag such as 'ru-RU'. Both have to resolve to the same folder.
+ */
+function normalizeLocale(locale: string | undefined): Locale | null {
+  if (!locale) return null
+  const base = locale.toLowerCase().split(/[-_]/)[0]
+  return base === 'ru' || base === 'ar' ? base : null
+}
+
+/**
  * The localized variant of `src` for `locale`, or `src` unchanged when no translated file
  * is registered. Safe to call on every image path, including ones with no localization.
  */
 export function localizeProductImage(src: string, locale: string | undefined): string {
-  if (!src || !locale || locale === 'en') return src
+  if (!src) return src
+
+  const normalized = normalizeLocale(locale)
+  if (!normalized) return src
 
   const lastSlash = src.lastIndexOf('/')
   if (lastSlash < 0) return src
@@ -52,10 +65,34 @@ export function localizeProductImage(src: string, locale: string | undefined): s
   const folder = src.slice(0, lastSlash)
   const file = src.slice(lastSlash + 1)
 
-  const files = LOCALIZED_SLIDES[folder]?.[locale as Locale]
+  const files = LOCALIZED_SLIDES[folder]?.[normalized]
   if (!files || !files.includes(file)) return src
 
-  return `${folder}/${locale}/${file}`
+  return `${folder}/${normalized}/${file}`
+}
+
+/**
+ * Same mapping over a JSON-encoded `images` column, returned in the same shape. The
+ * mobile routes hand this column through untouched, so they can localize without having
+ * to parse and re-encode it themselves.
+ */
+export function localizeProductImagesJson(
+  imagesJson: string | null | undefined,
+  locale: string | undefined
+): string | null {
+  if (!imagesJson) return imagesJson ?? null
+  if (!normalizeLocale(locale)) return imagesJson
+
+  try {
+    const parsed = JSON.parse(imagesJson)
+    if (!Array.isArray(parsed)) return imagesJson
+    return JSON.stringify(parsed.map((src: unknown) =>
+      typeof src === 'string' ? localizeProductImage(src, locale) : src
+    ))
+  } catch {
+    // A malformed column is a pre-existing problem; do not turn it into a new one.
+    return imagesJson
+  }
 }
 
 /** Convenience for galleries. Preserves order and length. */

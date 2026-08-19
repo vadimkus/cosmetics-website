@@ -9,6 +9,7 @@ import { getProductsByConcern } from '@/lib/productsDb'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { ApiUser } from '@/types/user'
+import { localizeProductImage, localizeProductImagesJson } from '@/lib/localizedProductImages'
 
 const ROUTINE_ESSENTIALS = [
   { productId: '10', name: 'SNOW O₂ CLEANSER', icon: '🫧', description: { en: 'Oxygen bubble cleanser — gentle yet thorough. Use morning & evening.', ar: 'غسول فقاعات الأكسجين — لطيف وعميق. للاستخدام صباحاً ومساءً.', ru: 'Кислородная пенка — мягкое и тщательное очищение. Утром и вечером.' }, price: '330 AED' },
@@ -140,6 +141,10 @@ export async function GET(
         productNumber: pNum,
         localizedName,
         localizedDescription,
+        // Studio slides carry their claims as printed text; serve the translated set
+        // where one exists, as the website does.
+        image: localizeProductImage(p.image, validLocale),
+        images: localizeProductImagesJson(p.images, validLocale),
         videoUrl: db?.videoUrl || null,
         isPriceOnRequest: db?.isPriceOnRequest ?? false,
         ...(db ? { pricing: buildPricingContract(db, user) } : {}),

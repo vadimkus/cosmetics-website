@@ -27,6 +27,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
@@ -143,15 +144,24 @@ export default function CerabarrierProductPage({
 
   // The DB `images` field is the single source of truth for the gallery; the
   // main image is prepended here (it is never stored inside `images`).
+  // Slides carry their claims as printed text, so they are swapped for the
+  // translated file where one exists — see lib/localizedProductImages.ts.
   const galleryImages: CeraGalleryImage[] = useMemo(() => {
     const list = Array.from(
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [locale, product.image, product.images, product.name])
+
+  // The five inline figures follow the same rule as the gallery.
+  const textureImage = localizeProductImage(TEXTURE_IMAGE, locale)
+  const complexImage = localizeProductImage(COMPLEX_IMAGE, locale)
+  const ritualImage = localizeProductImage(RITUAL_IMAGE, locale)
+  const formulaImage = localizeProductImage(FORMULA_IMAGE, locale)
+  const proofImage = localizeProductImage(PROOF_IMAGE, locale)
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -649,7 +659,7 @@ export default function CerabarrierProductPage({
           <CeraReveal>
             <div className="cera-glow relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)]">
               <Image
-                src={TEXTURE_IMAGE}
+                src={textureImage}
                 alt={`${product.name} - gel, water and foam side by side`}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -696,7 +706,7 @@ export default function CerabarrierProductPage({
           <CeraReveal className="order-2 lg:order-1">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-cream)]">
               <Image
-                src={COMPLEX_IMAGE}
+                src={complexImage}
                 alt="CERABARRIER BIOME - barrier lipids with five ceramides, cholesterol and phytosphingosine, beside the pro- and prebiotic microbiome complex"
                 fill
                 sizes="(max-width: 1024px) 92vw, 46vw"
@@ -777,7 +787,7 @@ export default function CerabarrierProductPage({
           <CeraReveal className="lg:pt-4">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={RITUAL_IMAGE}
+                src={ritualImage}
                 alt={`${product.name} - clean, comfortable skin with no tight feeling after washing`}
                 fill
                 sizes="(max-width: 1024px) 92vw, 40vw"
@@ -804,7 +814,7 @@ export default function CerabarrierProductPage({
           <CeraReveal className="mx-auto mt-10 max-w-[540px] lg:mt-12">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-cream)]">
               <Image
-                src={FORMULA_IMAGE}
+                src={formulaImage}
                 alt="More than ceramides - barrier lipids, five ceramides, the microbiome complex, and cholesterol with phytosphingosine"
                 fill
                 sizes="(max-width: 640px) 92vw, 540px"
@@ -849,7 +859,7 @@ export default function CerabarrierProductPage({
           <CeraReveal>
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={PROOF_IMAGE}
+                src={proofImage}
                 alt={`${product.name} - clinical proof: +145.8% immediate hydration and a 2.4x increase in skin hydration`}
                 fill
                 sizes="(max-width: 1024px) 92vw, 46vw"

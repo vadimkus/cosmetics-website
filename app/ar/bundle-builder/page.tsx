@@ -18,6 +18,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/bundle-builder',
       'ar': 'https://genosys.ae/ar/bundle-builder',
       'ru': 'https://genosys.ae/ru/bundle-builder',
+      'x-default': 'https://genosys.ae/bundle-builder',
     },
   },
 }

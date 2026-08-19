@@ -53,6 +53,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/about',
       'ar': 'https://genosys.ae/ar/about',
       'ru': 'https://genosys.ae/ru/about',
+      'x-default': 'https://genosys.ae/about',
     },
   },
 }

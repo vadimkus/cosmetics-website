@@ -36,6 +36,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/skin-recommendation',
       'ar': 'https://genosys.ae/ar/skin-recommendation',
       'ru': 'https://genosys.ae/ru/skin-recommendation',
+      'x-default': 'https://genosys.ae/skin-recommendation',
     },
   },
 }

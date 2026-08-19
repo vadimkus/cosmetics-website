@@ -66,6 +66,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/partners',
       'ar': 'https://genosys.ae/ar/partners',
       'ru': 'https://genosys.ae/ru/partners',
+      'x-default': 'https://genosys.ae/partners',
     },
   },
 }

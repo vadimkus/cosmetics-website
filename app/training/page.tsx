@@ -53,6 +53,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/training',
       'ar': 'https://genosys.ae/ar/training',
       'ru': 'https://genosys.ae/ru/training',
+      'x-default': 'https://genosys.ae/training',
     },
   },
 }

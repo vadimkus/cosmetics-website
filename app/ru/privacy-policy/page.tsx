@@ -35,6 +35,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/privacy-policy',
       'ar': 'https://genosys.ae/ar/privacy-policy',
       'ru': 'https://genosys.ae/ru/privacy-policy',
+      'x-default': 'https://genosys.ae/privacy-policy',
     },
   },
 }

@@ -45,6 +45,7 @@ export const metadata: Metadata = {
       'ar': 'https://genosys.ae/ar/contact',
       'en': 'https://genosys.ae/contact',
       'ru': 'https://genosys.ae/ru/contact',
+      'x-default': 'https://genosys.ae/contact',
     },
   },
 }

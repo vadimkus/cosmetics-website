@@ -182,6 +182,7 @@ export async function generateMetadata({ params }: LocationPageProps): Promise<M
         'en': `https://genosys.ae/locations/${city}`,
         'ar': `https://genosys.ae/ar/locations/${city}`,
         'ru': `https://genosys.ae/ru/locations/${city}`,
+        'x-default': `https://genosys.ae/locations/${city}`,
       },
     },
   }

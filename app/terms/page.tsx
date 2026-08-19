@@ -28,6 +28,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/terms',
       'ar': 'https://genosys.ae/ar/terms',
       'ru': 'https://genosys.ae/ru/terms',
+      'x-default': 'https://genosys.ae/terms',
     },
   },
 }

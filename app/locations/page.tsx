@@ -53,6 +53,7 @@ export const metadata: Metadata = {
       'en': 'https://genosys.ae/locations',
       'ar': 'https://genosys.ae/ar/locations',
       'ru': 'https://genosys.ae/ru/locations',
+      'x-default': 'https://genosys.ae/locations',
     },
   },
 }

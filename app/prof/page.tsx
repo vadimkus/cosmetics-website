@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getAllProducts } from '@/lib/productsDb'
 import { errorLog } from '@/lib/logger'
@@ -5,6 +6,20 @@ import type { Product } from '@/types'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
+
+/**
+ * The professional treatment-cost table: per-procedure cost, expense per procedure and
+ * how many procedures a unit yields. That is clinic margin structure, and it was being
+ * served to crawlers under the homepage title because the route had no metadata at all.
+ *
+ * Kept out of the index deliberately. If this is ever wanted as a public B2B landing page,
+ * flip `index` and give it a real title and description first.
+ */
+export const metadata: Metadata = {
+  title: 'Professional treatment costs - GENOSYS',
+  description: 'Per-procedure cost reference for GENOSYS professional treatments.',
+  robots: { index: false, follow: false },
+}
 
 interface TableProduct {
   name: string

@@ -90,6 +90,12 @@ export interface BioMesoPageConfig {
   mechanismImage: string
   /** Inline art for the application section. */
   ritualImage: string
+  /** The three below are optional because only the Homecare 5000 has a slide set
+   *  wide enough to fill them. Each section renders its figure only when the
+   *  config supplies one, so the Expert page is unchanged by their existence. */
+  timelineImage?: string
+  complexImage?: string
+  activesImage?: string
   /** Tailwind aspect class for the two inline figures. These are slide exports,
    *  not packshots, so the frame has to follow the artwork: cropping one to a
    *  square cuts the headline printed inside it. */
@@ -99,11 +105,26 @@ export interface BioMesoPageConfig {
   logLabel: string
 }
 
+/**
+ * The Aug 2026 slide set, `/images/pdrn_5000_new/`. It was drawn from this page's own
+ * copy, so the pairings are titles matching titles rather than a judgement call: S3 is
+ * headed "Four things. Happen at once." against a section of the same name, S4 "What the
+ * 5,000 is made of", S6 "Six days. One renewal cycle.", S7 "Once a week. In the evening."
+ * Every figure printed on them - 0.25 mm needle equivalence, 5,000 / 1,010 / 10,000 ppm,
+ * nine peptides, five ceramides, the six-day sequence, 3 ml, the roller warning - is
+ * already in biomesoCopy.ts, so none of them introduces a claim the page does not make.
+ *
+ * S1 and S2 and Close carry no section of their own and stay in the thumbnail strip.
+ * Insta.jpeg is a portrait social export and is deliberately not referenced here.
+ */
 const HOMECARE_CONFIG: BioMesoPageConfig = {
   productNumber: '65',
   getCopy: getBioMesoCopy,
-  mechanismImage: '/images/meso_5000/s2.jpeg',
-  ritualImage: '/images/meso_5000/s3.jpeg',
+  mechanismImage: '/images/pdrn_5000_new/S3.jpeg',
+  ritualImage: '/images/pdrn_5000_new/S7.jpeg',
+  timelineImage: '/images/pdrn_5000_new/S6.jpeg',
+  complexImage: '/images/pdrn_5000_new/S4.jpeg',
+  activesImage: '/images/pdrn_5000_new/S8.jpeg',
   figureAspect: 'aspect-square',
   brochureUrl: '/documents/ppt/GENOSYS-Training%20manual-Bio-Meso%20PDRN%20line.pdf',
   logLabel: 'BioMeso',
@@ -651,6 +672,21 @@ export default function BioMesoProductPage({
             intro={copy.timeline.intro}
           />
 
+          {config.timelineImage ? (
+            <CeraReveal className="mx-auto mt-10 max-w-[520px] lg:mt-12">
+              <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white`}>
+                <Image
+                  src={config.timelineImage}
+                  alt={`${product.name} - the six-day renewal cycle, from tingling on day one to a renewed surface on day six`}
+                  fill
+                  sizes="(max-width: 640px) 92vw, 520px"
+                  quality={85}
+                  className="object-cover"
+                />
+              </div>
+            </CeraReveal>
+          ) : null}
+
           <ol className="biomeso-rail mt-10 space-y-3 lg:mt-14">
             {copy.timeline.days.map((day, i) => (
               <CeraReveal key={day.day} as="li" delay={i * 60}>
@@ -746,6 +782,22 @@ export default function BioMesoProductPage({
       {/* ─────────────────────── Inside the ampoule ─────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader eyebrow={copy.complex.eyebrow} title={copy.complex.title} intro={copy.complex.body} />
+
+        {config.complexImage ? (
+          <CeraReveal className="mx-auto mt-10 max-w-[520px] lg:mt-12">
+            <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white`}>
+              <Image
+                src={config.complexImage}
+                alt={`${product.name} - what the 5,000 is made of: PDRN complex, Sodium DNA, panthenol, nine peptides and five ceramides`}
+                fill
+                sizes="(max-width: 640px) 92vw, 520px"
+                quality={85}
+                className="object-cover"
+              />
+            </div>
+          </CeraReveal>
+        ) : null}
+
         <div className="mx-auto mt-10 grid max-w-[1040px] grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-14 lg:gap-6">
           {copy.complex.points.map((point, i) => (
             <CeraReveal
@@ -859,6 +911,21 @@ export default function BioMesoProductPage({
             title={copy.actives.title}
             intro={copy.actives.intro}
           />
+
+          {config.activesImage ? (
+            <CeraReveal className="mx-auto mt-10 max-w-[520px] lg:mt-12">
+              <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-cream)]`}>
+                <Image
+                  src={config.activesImage}
+                  alt={`${product.name} - what your skin gets from it: a renewed surface, collagen and elastin support, and a stronger barrier`}
+                  fill
+                  sizes="(max-width: 640px) 92vw, 520px"
+                  quality={85}
+                  className="object-cover"
+                />
+              </div>
+            </CeraReveal>
+          ) : null}
 
           <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-px sm:grid-cols-2 lg:mt-14 lg:gap-x-16">
             {actives.map((active, i) => (

@@ -32,10 +32,11 @@ import type { Locale } from '@/lib/i18n'
  */
 const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>>> = {
   // Product 66, CERABARRIER BIOME GEL CLEANSER. Main.jpeg is a packshot with no text on
-  // it, so it is deliberately absent: there is nothing to translate and shipping a second
-  // identical file would only cost a download.
+  // it, so it is deliberately absent from both languages: there is nothing to translate
+  // and shipping a second identical file would only cost a download.
   '/images/cera_o': {
     ru: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg'],
+    ar: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg'],
   },
 }
 

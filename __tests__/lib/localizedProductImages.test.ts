@@ -16,8 +16,12 @@ describe('localizeProductImage', () => {
     expect(localizeProductImage('/images/cera_o/s1.jpeg', 'en')).toBe('/images/cera_o/s1.jpeg')
   })
 
+  it('swaps Arabic too', () => {
+    expect(localizeProductImage('/images/cera_o/s1.jpeg', 'ar')).toBe('/images/cera_o/ar/s1.jpeg')
+  })
+
   it('leaves a locale with no translated set alone', () => {
-    expect(localizeProductImage('/images/cera_o/s1.jpeg', 'ar')).toBe('/images/cera_o/s1.jpeg')
+    expect(localizeProductImage('/images/cera_o/s1.jpeg', 'de')).toBe('/images/cera_o/s1.jpeg')
   })
 
   it('leaves an unregistered file in a registered folder alone', () => {
@@ -51,9 +55,13 @@ describe('locale tags from the mobile app', () => {
     expect(localizeProductImage('/images/cera_o/s1.jpeg', tag)).toBe('/images/cera_o/ru/s1.jpeg')
   })
 
+  it.each(['ar', 'ar-AE', 'AR'])('treats %s as Arabic', tag => {
+    expect(localizeProductImage('/images/cera_o/s1.jpeg', tag)).toBe('/images/cera_o/ar/s1.jpeg')
+  })
+
   it('ignores a locale with no registered set', () => {
-    expect(localizeProductImage('/images/cera_o/s1.jpeg', 'ar-AE')).toBe('/images/cera_o/s1.jpeg')
     expect(localizeProductImage('/images/cera_o/s1.jpeg', 'en-GB')).toBe('/images/cera_o/s1.jpeg')
+    expect(localizeProductImage('/images/cera_o/s1.jpeg', 'fr-FR')).toBe('/images/cera_o/s1.jpeg')
   })
 })
 

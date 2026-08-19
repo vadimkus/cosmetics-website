@@ -96,8 +96,25 @@ interface ActiveIngredient {
 /** Section art, each slide paired with the section it illustrates. s2 is the two-shade
  *  comparison and stays beside the shade section, s4 the glass-skin finish
  *  how-to. */
-const SHADE_FIGURE = '/images/revita/s2.jpg'
-const HOWTO_IMAGE = '/images/revita/s4.jpg'
+/**
+ * The Aug 2026 studio set, `/images/revita_o/`. Each slide sits beside the section it
+ * illustrates rather than being left to the gallery thumbs, per the bespoke-PDP slides
+ * audit: s2 carries the SPF figure next to the filter table, s3 the formula summary next
+ * to the layering steps, s4 the three actives next to the actives list, s5 the two shades
+ * next to the shade picker, and s6 the application next to the ritual.
+ *
+ * Every figure printed on them is already in revitaGlowCopy.ts: SPF 38 PA+++, niacinamide
+ * 2%, adenosine, erythritol, the eight botanical extracts, #01 Bright and #02 Natural,
+ * 50 g and dermatologically tested. s3's "8 botanical extracts" matches how this file
+ * counts them; do not relabel it seven unless you are printing the branded complex name.
+ *
+ * s1 and s7 and closing.jpg carry no section of their own and stay in the thumbnail strip.
+ */
+const SHADE_FIGURE = '/images/revita_o/s5.jpg'
+const HOWTO_IMAGE = '/images/revita_o/s6.jpg'
+const FILTER_IMAGE = '/images/revita_o/s2.jpg'
+const FORMULA_IMAGE = '/images/revita_o/s3.jpg'
+const ACTIVES_IMAGE = '/images/revita_o/s4.jpg'
 const BROCHURE_URL = '/documents/ppt/GENOSYS_REVITA_GLOW_BB_CREAM.pdf'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
@@ -716,6 +733,19 @@ export default function RevitaGlowProductPage({
           title={copy.mechanism.title}
           intro={copy.mechanism.intro}
         />
+        <CeraReveal className="mx-auto mt-10 max-w-[520px] lg:mt-12">
+          <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+            <Image
+              src={FORMULA_IMAGE}
+              alt={`${product.name} - more than makeup: a ten-vitamin complex, eight botanical extracts and niacinamide at 2%`}
+              fill
+              sizes="(max-width: 640px) 92vw, 520px"
+              quality={85}
+              className="object-cover"
+            />
+          </div>
+        </CeraReveal>
+
         <ol className="mx-auto mt-10 grid max-w-[1040px] grid-cols-1 gap-4 lg:mt-14 lg:grid-cols-3 lg:gap-6">
           {copy.mechanism.steps.map((step, i) => (
             <CeraReveal
@@ -759,6 +789,20 @@ export default function RevitaGlowProductPage({
                 <p className="mt-6 max-w-[46ch] text-[13px] leading-relaxed text-[var(--cera-muted)]">
                   {copy.filters.note}
                 </p>
+              </CeraReveal>
+
+              {/* The SPF figure the table adds up to, stated once as a headline. */}
+              <CeraReveal delay={90}>
+                <div className="relative mt-8 aspect-square max-w-[420px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+                  <Image
+                    src={FILTER_IMAGE}
+                    alt={`${product.name} - SPF 38 PA+++, UV protection with radiant complexion coverage`}
+                    fill
+                    sizes="(max-width: 1024px) 92vw, 420px"
+                    quality={85}
+                    className="object-cover"
+                  />
+                </div>
               </CeraReveal>
             </div>
 
@@ -970,6 +1014,21 @@ export default function RevitaGlowProductPage({
           title={copy.actives.title}
           intro={copy.actives.intro}
         />
+
+        {/* The three actives the list below opens with, drawn at the top so the section
+            does not start straight into a two-column ingredient list. */}
+        <CeraReveal className="mx-auto mt-10 max-w-[520px] lg:mt-12">
+          <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+            <Image
+              src={ACTIVES_IMAGE}
+              alt={`${product.name} - niacinamide at 2%, adenosine and erythritol`}
+              fill
+              sizes="(max-width: 640px) 92vw, 520px"
+              quality={85}
+              className="object-cover"
+            />
+          </div>
+        </CeraReveal>
 
         {actives.length > 0 ? (
           <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-px sm:grid-cols-2 lg:mt-14 lg:gap-x-16">

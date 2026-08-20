@@ -51,6 +51,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 import { ROUTINE_STEP_PRODUCT_IDS } from '@/lib/routineStepLinks'
@@ -197,16 +198,31 @@ export default function BioMesoProductPage({
   )
 
   // The DB `images` field is the single source of truth for the gallery; the
-  // main image is prepended, matching the product-gallery-images rule.
+  // main image is prepended, matching the product-gallery-images rule. Printed
+  // claim slides follow the active language where a verified export exists.
   const galleryImages: CeraGalleryImage[] = useMemo(() => {
     const list = Array.from(
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [locale, product.image, product.images, product.name])
+
+  // Inline figures use the same manifest as the gallery and mobile API. Product
+  // 60 has no translated set, so these calls leave its paths untouched.
+  const mechanismImage = localizeProductImage(config.mechanismImage, locale)
+  const ritualImage = localizeProductImage(config.ritualImage, locale)
+  const timelineImage = config.timelineImage
+    ? localizeProductImage(config.timelineImage, locale)
+    : undefined
+  const complexImage = config.complexImage
+    ? localizeProductImage(config.complexImage, locale)
+    : undefined
+  const activesImage = config.activesImage
+    ? localizeProductImage(config.activesImage, locale)
+    : undefined
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -628,7 +644,7 @@ export default function BioMesoProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white`}>
               <Image
-                src={config.mechanismImage}
+                src={mechanismImage}
                 alt={copy.science.figureAlt}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -672,11 +688,11 @@ export default function BioMesoProductPage({
             intro={copy.timeline.intro}
           />
 
-          {config.timelineImage ? (
+          {timelineImage ? (
             <CeraReveal className="mx-auto mt-10 max-w-[520px] lg:mt-12">
               <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white`}>
                 <Image
-                  src={config.timelineImage}
+                  src={timelineImage}
                   alt={`${product.name} - the six-day renewal cycle, from tingling on day one to a renewed surface on day six`}
                   fill
                   sizes="(max-width: 640px) 92vw, 520px"
@@ -783,11 +799,11 @@ export default function BioMesoProductPage({
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
         <CeraSectionHeader eyebrow={copy.complex.eyebrow} title={copy.complex.title} intro={copy.complex.body} />
 
-        {config.complexImage ? (
+        {complexImage ? (
           <CeraReveal className="mx-auto mt-10 max-w-[520px] lg:mt-12">
             <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white`}>
               <Image
-                src={config.complexImage}
+                src={complexImage}
                 alt={`${product.name} - what the 5,000 is made of: PDRN complex, Sodium DNA, panthenol, nine peptides and five ceramides`}
                 fill
                 sizes="(max-width: 640px) 92vw, 520px"
@@ -861,7 +877,7 @@ export default function BioMesoProductPage({
             <CeraReveal className="lg:pt-4">
               <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white`}>
                 <Image
-                  src={config.ritualImage}
+                  src={ritualImage}
                   alt={`${product.name} - how to use`}
                   fill
                   sizes="(max-width: 1024px) 92vw, 40vw"
@@ -912,11 +928,11 @@ export default function BioMesoProductPage({
             intro={copy.actives.intro}
           />
 
-          {config.activesImage ? (
+          {activesImage ? (
             <CeraReveal className="mx-auto mt-10 max-w-[520px] lg:mt-12">
               <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-cream)]`}>
                 <Image
-                  src={config.activesImage}
+                  src={activesImage}
                   alt={`${product.name} - what your skin gets from it: a renewed surface, collagen and elastin support, and a stronger barrier`}
                   fill
                   sizes="(max-width: 640px) 92vw, 520px"

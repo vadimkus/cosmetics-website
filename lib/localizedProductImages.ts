@@ -26,9 +26,8 @@ import type { Locale } from '@/lib/i18n'
  * add the locale here. There is no database work and no cache key to bump, because the
  * record never mentions the localized path.
  *
- * NOT COVERED: the mobile app reads `images` straight from the API, which returns the
- * canonical paths, so the app still shows the English slides. Fixing that means running
- * the same mapping in the mobile product routes.
+ * The mobile product routes run the same mapping against the `x-locale` header, so the
+ * website and app share this manifest.
  */
 const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>>> = {
   // Product 66, CERABARRIER BIOME GEL CLEANSER. Main.jpeg is a packshot with no text on
@@ -37,6 +36,16 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>
   '/images/cera_o': {
     ru: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg'],
     ar: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg'],
+  },
+  // Product 65, BIO-MESO PDRN HOMECARE AMPOULE 5000. The supplied translated
+  // exports were numbered by sequence rather than by their English counterparts;
+  // the files on disk have been aligned by content to the canonical names below.
+  // Russian S4 is deliberately omitted because that artwork prints panthenol as
+  // 1,010 ppm; the verified figure is 10,000 ppm. That one slot safely keeps the
+  // correct English slide until corrected Russian artwork is available.
+  '/images/pdrn_5000_new': {
+    ru: ['S1.jpeg', 'S2.jpeg', 'S3.jpeg', 'S6.jpeg', 'S7.jpeg', 'S8.jpeg', 'Close.jpeg'],
+    ar: ['S1.jpeg', 'S2.jpeg', 'S3.jpeg', 'S4.jpeg', 'S6.jpeg', 'S7.jpeg', 'S8.jpeg', 'Close.jpeg'],
   },
 }
 

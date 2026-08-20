@@ -29,8 +29,26 @@ describe('localizeProductImage', () => {
     expect(localizeProductImage('/images/cera_o/Main.jpeg', 'ru')).toBe('/images/cera_o/Main.jpeg')
   })
 
+  it('localizes the PDRN slide set by its content-aligned filename', () => {
+    expect(localizeProductImage('/images/pdrn_5000_new/S3.jpeg', 'ru')).toBe(
+      '/images/pdrn_5000_new/ru/S3.jpeg'
+    )
+    expect(localizeProductImage('/images/pdrn_5000_new/S8.jpeg', 'ar')).toBe(
+      '/images/pdrn_5000_new/ar/S8.jpeg'
+    )
+  })
+
+  it('keeps the correct English PDRN composition slide when Russian artwork is wrong', () => {
+    expect(localizeProductImage('/images/pdrn_5000_new/S4.jpeg', 'ru')).toBe(
+      '/images/pdrn_5000_new/S4.jpeg'
+    )
+    expect(localizeProductImage('/images/pdrn_5000_new/S4.jpeg', 'ar')).toBe(
+      '/images/pdrn_5000_new/ar/S4.jpeg'
+    )
+  })
+
   it('leaves folders with no localization alone', () => {
-    expect(localizeProductImage('/images/pdrn_5000_new/S1.jpeg', 'ru')).toBe('/images/pdrn_5000_new/S1.jpeg')
+    expect(localizeProductImage('/images/revita_o/s1.jpg', 'ru')).toBe('/images/revita_o/s1.jpg')
   })
 
   it('survives empty and malformed input', () => {

@@ -44,13 +44,12 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>
     ru: ['S1.jpeg', 'S2.jpeg', 'S3.jpeg', 'S4.jpeg', 'S6.jpeg', 'S7.jpeg', 'S8.jpeg', 'Close.jpeg'],
     ar: ['S1.jpeg', 'S2.jpeg', 'S3.jpeg', 'S4.jpeg', 'S6.jpeg', 'S7.jpeg', 'S8.jpeg', 'Close.jpeg'],
   },
-  // Product 63, REVITA GLOW BB CREAM. The five inline editorial figures and the
-  // remaining approved gallery slides localize on both web and mobile. Russian
-  // s7 and Arabic s1 deliberately fall back to English: those supplied exports
-  // add unsupported claims that are absent from the canonical artwork.
+  // Product 63, REVITA GLOW BB CREAM. The five inline editorial figures and
+  // full gallery localize on both web and mobile. Russian s7 and Arabic s1 were
+  // initially withheld until corrected exports removed unsupported claims.
   '/images/revita_o': {
-    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 'closing.jpg'],
-    ar: ['s2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 'closing.jpg'],
+    ru: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 'closing.jpg'],
+    ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 'closing.jpg'],
   },
 }
 

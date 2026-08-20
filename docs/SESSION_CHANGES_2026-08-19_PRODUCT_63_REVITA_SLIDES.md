@@ -67,3 +67,10 @@ All other translated files were content-aligned to `s1`–`s7` and `closing`, vi
 checked, and recompressed below 500 KB before deployment. No database update was needed:
 the canonical gallery paths remain the single source of truth and localization happens
 at render/API response time.
+
+### Corrected exports
+
+Later on 20 Aug, corrected versions of `ru/s7.jpg` and `ar/s1.jpg` were supplied. The
+unsupported additions were removed, both slides now match the canonical English claims,
+and both were registered for locale swapping. Revita Glow therefore has a complete
+eight-slide localized gallery in Arabic and Russian.

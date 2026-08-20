@@ -54,17 +54,14 @@ describe('localizeProductImage', () => {
     expect(localizeProductImage('/images/revita_o/s7.jpg', 'ar')).toBe(
       '/images/revita_o/ar/s7.jpg'
     )
-    expect(localizeProductImage('/images/revita_o/closing.jpg', 'ru-RU')).toBe(
-      '/images/revita_o/ru/closing.jpg'
-    )
-  })
-
-  it('falls back from Revita Glow exports that add unsupported claims', () => {
     expect(localizeProductImage('/images/revita_o/s7.jpg', 'ru')).toBe(
-      '/images/revita_o/s7.jpg'
+      '/images/revita_o/ru/s7.jpg'
     )
     expect(localizeProductImage('/images/revita_o/s1.jpg', 'ar')).toBe(
-      '/images/revita_o/s1.jpg'
+      '/images/revita_o/ar/s1.jpg'
+    )
+    expect(localizeProductImage('/images/revita_o/closing.jpg', 'ru-RU')).toBe(
+      '/images/revita_o/ru/closing.jpg'
     )
   })
 

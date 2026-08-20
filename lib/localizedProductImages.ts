@@ -40,11 +40,8 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>
   // Product 65, BIO-MESO PDRN HOMECARE AMPOULE 5000. The supplied translated
   // exports were numbered by sequence rather than by their English counterparts;
   // the files on disk have been aligned by content to the canonical names below.
-  // Russian S4 is deliberately omitted because that artwork prints panthenol as
-  // 1,010 ppm; the verified figure is 10,000 ppm. That one slot safely keeps the
-  // correct English slide until corrected Russian artwork is available.
   '/images/pdrn_5000_new': {
-    ru: ['S1.jpeg', 'S2.jpeg', 'S3.jpeg', 'S6.jpeg', 'S7.jpeg', 'S8.jpeg', 'Close.jpeg'],
+    ru: ['S1.jpeg', 'S2.jpeg', 'S3.jpeg', 'S4.jpeg', 'S6.jpeg', 'S7.jpeg', 'S8.jpeg', 'Close.jpeg'],
     ar: ['S1.jpeg', 'S2.jpeg', 'S3.jpeg', 'S4.jpeg', 'S6.jpeg', 'S7.jpeg', 'S8.jpeg', 'Close.jpeg'],
   },
 }

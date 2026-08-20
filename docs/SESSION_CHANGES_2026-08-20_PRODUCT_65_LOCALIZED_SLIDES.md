@@ -23,13 +23,13 @@ AMPOULE 5000, across the localized website and locale-aware mobile API.
   use the active locale. The existing mobile routes use the same manifest
   through the `x-locale` header.
 
-## Russian composition-slide exception
+## Russian composition-slide correction
 
-The supplied Russian composition artwork prints panthenol as **1,010 ppm**.
-The verified figure, also printed on the English and Arabic artwork, is
-**10,000 ppm**. That Russian file was not published. Russian pages and the app
-therefore keep the correct English `S4.jpeg` for this one gallery/section slot;
-the other seven customer-facing assets are Russian.
+The first supplied Russian composition artwork assigned **1,010 ppm** to
+panthenol. It was withheld because the verified split is **1,010 ppm Sodium
+DNA** and **10,000 ppm panthenol**. Corrected Russian artwork was received later
+on 20 August, verified against the English and Arabic slides, compressed to
+146 KB, and published as `ru/S4.jpeg`. The complete Russian set is now localized.
 
 ## Verification
 

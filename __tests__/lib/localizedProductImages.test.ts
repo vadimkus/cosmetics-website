@@ -38,9 +38,9 @@ describe('localizeProductImage', () => {
     )
   })
 
-  it('keeps the correct English PDRN composition slide when Russian artwork is wrong', () => {
+  it('localizes the corrected PDRN composition slide in both languages', () => {
     expect(localizeProductImage('/images/pdrn_5000_new/S4.jpeg', 'ru')).toBe(
-      '/images/pdrn_5000_new/S4.jpeg'
+      '/images/pdrn_5000_new/ru/S4.jpeg'
     )
     expect(localizeProductImage('/images/pdrn_5000_new/S4.jpeg', 'ar')).toBe(
       '/images/pdrn_5000_new/ar/S4.jpeg'

@@ -130,6 +130,12 @@ export default function MhcreamProductPage({
 
   const isRtl = dir === 'rtl'
   const copy = getMhcreamCopy(locale)
+  const displayName =
+    locale === 'ru'
+      ? product.nameRu || product.name
+      : locale === 'ar'
+        ? product.nameAr || product.name
+        : product.name
   const Chevron = isRtl ? ChevronLeft : ChevronRight
 
   // Two tubes, 50g and 250g, so a size travels with every cart call.
@@ -178,9 +184,9 @@ export default function MhcreamProductPage({
     )
     return list.map((src, i) => ({
       src,
-      alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
+      alt: `${displayName} · ${i + 1}/${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [displayName, product.image, product.images])
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -344,13 +350,13 @@ export default function MhcreamProductPage({
 
   const handleShare = useCallback(async () => {
     const url = typeof window !== 'undefined' ? window.location.href : ''
-    const data = { title: product.name, text: copy.headline, url }
+    const data = { title: displayName, text: copy.headline, url }
     if (typeof navigator !== 'undefined' && navigator.share && navigator.canShare?.(data)) {
       try { await navigator.share(data) } catch { /* user cancelled */ }
       return
     }
     try { await navigator.clipboard.writeText(url) } catch { /* clipboard blocked */ }
-  }, [copy.headline, product.name])
+  }, [copy.headline, displayName])
 
   const priceLabel = canSeePrices ? `${pricing.displayPrice.toFixed(2)} ${isRtl ? 'درهم' : 'AED'}` : null
 
@@ -380,7 +386,7 @@ export default function MhcreamProductPage({
             {copy.backToProducts}
           </Link>
           <Chevron className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
-          <span className="truncate text-[var(--cera-ink)]">{product.name}</span>
+          <span className="truncate text-[var(--cera-ink)]">{displayName}</span>
         </nav>
 
         <div className="mt-5 grid grid-cols-1 gap-8 lg:mt-9 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-12 xl:gap-16">
@@ -407,7 +413,7 @@ export default function MhcreamProductPage({
             </div>
 
             <h1 className="cera-serif mt-3 text-[34px] leading-[1.06] sm:text-[46px] lg:text-[54px]">
-              {product.name}
+              {displayName}
             </h1>
             <p className="cera-serif mt-2 text-[21px] leading-snug text-[var(--cera-rose-ink)] sm:text-[25px]">
               {copy.headline}
@@ -1139,7 +1145,7 @@ export default function MhcreamProductPage({
       {/* ────────────────────────── Closing band ───────────────────────── */}
       <CeraClosingCta
         image={product.image}
-        name={product.name}
+        name={displayName}
         headline={copy.closing.title}
         note={copy.closing.body}
         priceLabel={priceLabel}
@@ -1179,7 +1185,7 @@ export default function MhcreamProductPage({
               <Image src={product.image} alt="" fill sizes="44px" className="object-contain p-1" />
             </div>
             <div className="min-w-0">
-              <p className="cera-serif truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
+              <p className="cera-serif truncate text-[16px] text-[var(--cera-ink)]">{displayName}</p>
               <p className="truncate text-[11px] text-[var(--cera-muted)]">
                 {copy.packSize} · {copy.usageNote}
               </p>

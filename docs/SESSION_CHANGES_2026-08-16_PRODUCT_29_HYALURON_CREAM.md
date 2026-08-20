@@ -103,3 +103,20 @@ Both in `~/Desktop/genosys-artwork-corrections.html`. Neither line is repeated i
 - `lib/products.ts`, `lib/productsDb.ts`
 - `scripts/update-product-29-mhcream-selling-copy-20260816.ts` (applied)
 - `scripts/apply-product-29-locale-files-20260816.py`, `scripts/scaffold-mhcream-page-20260816.py`
+
+## Russian copy correction — 20 Aug 2026
+
+The first Russian version was accurate but read like a literal translation of the English
+draft. Phrases such as «крем везёт одна форма», «где на самом деле вес», «втирайте как
+плёнку» and «вода внутрь» were not acceptable customer Russian.
+
+The complete Russian PDP was rewritten in natural retail language while preserving the
+verified figures: 1 000,9 ppm high-molecular-weight sodium hyaluronate, glycerin 9%,
+PENTAVITIN 0.615%, +82% hydration after one application and a statistically significant
+effect at 72 hours. The rewrite covers the hero, mechanism, clinical section, routine,
+ingredient cards, suitability guidance, FAQ, specifications, static translation payload,
+database description and localized product name.
+
+`MhcreamProductPage` now displays `nameRu` on the Russian bespoke page instead of the raw
+English product name. Regression tests reject the known machine-translated phrases and
+validate every JSON-encoded Russian product field.

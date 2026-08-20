@@ -96,3 +96,39 @@ and mobile both prepend `product.image` themselves.
 The mobile app is API-driven, so this needs no OTA — the gallery change is live for the app
 as soon as the DB row is written. The image files still have to be committed and deployed
 before they serve on genosys.ae.
+
+## 20 Aug follow-up: product video
+
+Added the supplied ten-second portrait clip as `/videos/cerab.mp4` and set product 66's
+`videoUrl` to that path. `CerabarrierProductPage` now renders it after the how-to section
+with localized EN/AR/RU copy:
+
+- **EN:** “Two sizes. One barrier-first cleanse.”
+- **AR:** “حجمان. تنظيف واحد يراعي الحاجز.”
+- **RU:** “Два объёма. Одно бережное очищение.”
+
+The wording describes what the clip shows — the 200 ml homecare and 600 ml professional
+bottles together — without adding an efficacy claim. The player uses the current product
+image as its poster, native controls, `playsInline`, and metadata-only preload.
+
+The mobile app needs no release or OTA. Product 66 has no static `videoUrl` override, the
+mobile product APIs already select the database field, and the app's
+`getProductVideoUrl()` resolves the relative path against `https://genosys.ae` before
+rendering `ProductVideo`.
+
+Deployment followed the safe shared-database order:
+
+1. Commit and push the MP4, page, localized copy, and update script.
+2. Wait until `/videos/cerab.mp4` returns 200.
+3. Write the path to the database.
+4. Verify all three localized pages and the authenticated mobile API.
+
+Verified:
+
+- Commit `6d3290a7` pushed to `main`.
+- TypeScript passed.
+- EN, AR and RU product pages all contain `/videos/cerab.mp4`.
+- The live mobile API returns `videoUrl: /videos/cerab.mp4`.
+- The MP4 supports native streaming and seeking: HTTP 206, `accept-ranges: bytes`, and
+  `content-type: video/mp4`.
+- Product cache key bumped from `product-by-id-v62` to `v63`.

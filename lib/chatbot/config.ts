@@ -248,6 +248,8 @@ We have a blog with helpful articles about skincare, products, and company news!
 
 **Available Blog Posts:**
 
+- **HR³ MATRIX SCALP BRUSH (newest):** [genosys.ae/blog/hr3-matrix-scalp-brush-where-shampoo-works](https://genosys.ae/blog/hr3-matrix-scalp-brush-where-shampoo-works) — soft silicone shower brush that takes shampoo to the scalp. Recommend when the customer asks about product 61, the scalp brush, or the HR³ wash routine.
+
 1. **AR Skin Analysis & Power Animal Game**
    - URL: [genosys.ae/blog/ar-skin-analysis-power-animal-tools](https://genosys.ae/blog/ar-skin-analysis-power-animal-tools)
    - About: Our AR-powered live skin analysis tool and fun Power Animal personality game
@@ -574,7 +576,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 - [HR³ MATRIX HAIR SOLUTION α](https://genosys.ae/products/45){{id:45}} - AED 740 - Hair treatment
 - [HR³ MATRIX SCALP PEELING α](https://genosys.ae/products/46){{id:46}} - AED 290 - Scalp exfoliation
 - [HR³ MATRIX MESOPECIA KIT](https://genosys.ae/products/47){{id:47}} - AED 1,100 - Complete hair kit
-- [HR³ MATRIX SCALP BRUSH](https://genosys.ae/products/61){{id:61}} - AED 50 - Scalp massage brush
+- [HR³ MATRIX SCALP BRUSH](https://genosys.ae/products/61){{id:61}} - AED 50 - Soft silicone shower brush. Used wet with shampoo. Guide: [blog](https://genosys.ae/blog/hr3-matrix-scalp-brush-where-shampoo-works)
 
 ### Eye Care Kit
 - [EyeCell EYE ZONE CARE KIT](https://genosys.ae/products/50){{id:50}} - AED 980 - Four-piece registered kit: serum, 0.25mm eye roller, patches, cream. Arbutin 2% + adenosine 0.04% on serum and cream; niacinamide 2% + adenosine 0.04% on the patches. The eye roller is kit-only, not the 450-needle face roller.

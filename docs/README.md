@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [HR³ scalp brush blog](./SESSION_CHANGES_2026-08-20_HR3_SCALP_BRUSH_BLOG.md) | Published EN/RU/AR article for product 61. Slug `hr3-matrix-scalp-brush-where-shampoo-works`. New `brush_o` stills + `brush.mp4`. |
 | 🟡 **Important** | [Product 61 new studio set](./SESSION_CHANGES_2026-08-20_PRODUCT_61_BRUSH_SLIDES.md) | `/images/brush_o/` — new packshot + 7 slides. Set drops the invented +50% absorption figure and the misattributed KFDA badge. The four slides still printing absorption, the tonic pairing or a 2-3 min duration stay gallery-only. Cache `product-by-id-v61`. |
 | 🟡 **Important** | [Product 65 localized slides](./SESSION_CHANGES_2026-08-20_PRODUCT_65_LOCALIZED_SLIDES.md) | Added complete content-aligned AR/RU studio slides across web and mobile API. Corrected RU composition artwork now shows 1,010 ppm Sodium DNA and 10,000 ppm panthenol. |
 | 🟡 **Important** | [Product 66 new studio set](./SESSION_CHANGES_2026-08-18_PRODUCT_66_CERA_O_SLIDES.md) | `/images/cera_o/` — new main packshot + 7 slides. Each placed beside the section it illustrates (texture, complex, proof, how-to) rather than left to the gallery; the ingredients section gained an image slot. Every claim already in `cerabarrierCopy.ts`. Size cards stay on the July per-size shots. Cache `product-by-id-v57`. |

@@ -87,3 +87,21 @@ pricing, shade variants, video and documentation remain in config. The mobile en
 combines the current DB main image with the eight `revita_o` gallery paths, after which the
 shared locale mapper supplies the matching `ru/` or `ar/` files. No app release or OTA is
 required because the correction is entirely server-side.
+
+### Follow-up gallery ownership audit
+
+The same override pattern was checked across every remaining `productConfig` gallery.
+Eighteen matched the DB. Product 45 was a real stale conflict, while products 1, 23 and 28
+had no DB gallery and therefore depended entirely on config.
+
+All four were migrated to DB-only ownership:
+
+- Product 1: `roller1.jpg`, `roller_stamp2.jpg`
+- Product 23: `nd_big1.jpg`
+- Product 28: `hydro_second.jpg`
+- Product 45: preserved canonical DB slide `hs.jpg`; stale `hair_alpha.jpg` override removed
+
+The database was populated and verified before config removal, so production retained a
+gallery throughout the migration. Pricing, size variants, videos and documentation remain
+in `productConfig`; only `images` moved. The idempotent migration script is
+`scripts/migrate-product-galleries-to-db-20260820.ts`.

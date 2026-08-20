@@ -101,7 +101,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '1': {
     id: '1',
-    images: ['/images/genosys-microneedling-devices.jpg', '/images/Second/roller1.jpg', '/images/Second/roller_stamp2.jpg'],
     pricing: {
       basePrice: 230,
       sizeVariants: {
@@ -301,7 +300,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '23': {
     id: '23',
-    images: ['/images/ND.jpg', '/images/Second/nd_big1.jpg'],
     pricing: {
       basePrice: 370
     }
@@ -348,7 +346,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       { value: '50g', label: '50g', available: true },
       { value: '250g', label: '250g', available: true }
     ],
-    images: ['/images/HSC.jpg', '/images/Second/hydro_second.jpg'],
     videoUrl: '/videos/hydrocream.mp4'
   },
   '29': {
@@ -609,7 +606,6 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 740
     },
-    images: ['/images/HHR.jpg', '/images/Second/hair_alpha.jpg'],
     documentation: [
       {
         title: 'HR³ MATRIX HAIR SOLUTION α Guide',

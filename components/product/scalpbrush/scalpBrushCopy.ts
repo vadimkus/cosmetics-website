@@ -112,6 +112,14 @@ export interface ScalpBrushCopy {
     steps: Array<{ title: string; body: string }>
     note: string
   }
+  /** Renders only when the record carries a videoUrl. The clip shows the brush
+   *  itself, so the copy describes the object and not an effect. */
+  video: {
+    eyebrow: string
+    title: string
+    body: string
+    unsupported: string
+  }
   care: {
     eyebrow: string
     title: string
@@ -236,6 +244,12 @@ const EN: ScalpBrushCopy = {
       },
     ],
     note: 'Press lightly. More pressure does not clean better, and the point of a soft silicone head is that it does not need any.',
+  },
+  video: {
+    eyebrow: 'In motion',
+    title: 'The head, up close',
+    body: 'Soft silicone cones on a domed head, with the handle sitting in the middle. Watch how far the tips give when they meet a surface: that flex is the whole reason this cleans the scalp without scratching it.',
+    unsupported: 'Your browser cannot play this video.',
   },
   care: {
     eyebrow: 'Care and cautions',
@@ -405,6 +419,12 @@ const AR: ScalpBrushCopy = {
       },
     ],
     note: 'اضغطي بلطف. الضغط الأقوى لا ينظّف أفضل، وميزة رأس السيليكون الناعم أنه لا يحتاج إليه.',
+  },
+  video: {
+    eyebrow: 'في الحركة',
+    title: 'الرأس عن قرب',
+    body: 'أسنان سيليكون ناعمة على رأس مقبّب، والمقبض في المنتصف. لاحظي مقدار انثناء الأطراف عند ملامستها لأي سطح: هذه المرونة هي سبب تنظيفها لفروة الرأس دون خدشها.',
+    unsupported: 'متصفحك لا يدعم تشغيل هذا الفيديو.',
   },
   care: {
     eyebrow: 'العناية والتنبيهات',
@@ -577,6 +597,12 @@ const RU: ScalpBrushCopy = {
       },
     ],
     note: 'Нажимайте легко. Сильнее не значит чище, а смысл мягкой силиконовой насадки как раз в том, что нажим не нужен.',
+  },
+  video: {
+    eyebrow: 'В движении',
+    title: 'Насадка вблизи',
+    body: 'Мягкие силиконовые зубцы на куполообразной насадке, ручка по центру. Обратите внимание, насколько кончики поддаются при контакте с поверхностью: именно эта гибкость и позволяет очищать кожу головы, не царапая её.',
+    unsupported: 'Ваш браузер не может воспроизвести это видео.',
   },
   care: {
     eyebrow: 'Уход и предостережения',

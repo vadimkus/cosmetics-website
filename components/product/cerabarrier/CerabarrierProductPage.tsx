@@ -799,6 +799,39 @@ export default function CerabarrierProductPage({
         </div>
       </section>
 
+      {/* ─────────────────────────── Video ──────────────────────────────── */}
+      {product.videoUrl ? (
+        <section className="border-t border-[var(--cera-line)] py-16 lg:py-24">
+          <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+              <CeraReveal>
+                <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+                  <video
+                    className="h-full w-full object-cover"
+                    src={product.videoUrl}
+                    poster={product.image}
+                    controls
+                    playsInline
+                    preload="metadata"
+                  >
+                    {copy.video.unsupported}
+                  </video>
+                </div>
+              </CeraReveal>
+              <CeraReveal>
+                <p className="cera-eyebrow">{copy.video.eyebrow}</p>
+                <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">
+                  {copy.video.title}
+                </h2>
+                <p className="mt-4 max-w-[46ch] text-[15.5px] leading-relaxed text-[var(--cera-body)]">
+                  {copy.video.body}
+                </p>
+              </CeraReveal>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {/* ──────────────────────── Actives + INCI ────────────────────────── */}
       <section className="bg-white py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6">

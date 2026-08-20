@@ -60,6 +60,12 @@ export interface CeraCopy {
     steps: Array<{ title: string; body: string }>
     note: string
   }
+  video: {
+    eyebrow: string
+    title: string
+    body: string
+    unsupported: string
+  }
   actives: {
     eyebrow: string
     title: string
@@ -202,6 +208,12 @@ const EN: CeraCopy = {
       { title: 'Rinse', body: 'Rinse thoroughly with lukewarm water.' },
     ],
     note: 'Skin feels comfortable and hydrated after every wash - no tightness, no slippery or greasy residue. Suitable as the first step of every homecare routine (200 ml) and professional treatment protocol (600 ml).',
+  },
+  video: {
+    eyebrow: 'In motion',
+    title: 'Two sizes. One barrier-first cleanse.',
+    body: 'The 200 ml homecare bottle and 600 ml professional format, shown together. Same gel-to-foam formula, sized for your bathroom or the treatment room.',
+    unsupported: 'Your browser cannot play this video.',
   },
   actives: {
     eyebrow: 'Ingredients',
@@ -385,6 +397,12 @@ const AR: CeraCopy = {
     ],
     note: 'تشعر البشرة بالراحة والترطيب بعد كل غسلة - بلا شدّ وبلا بقايا زلقة أو دهنية. مناسب كخطوة أولى في كل روتين منزلي (200 مل) وفي بروتوكولات العلاج الاحترافية (600 مل).',
   },
+  video: {
+    eyebrow: 'في الحركة',
+    title: 'حجمان. تنظيف واحد يراعي الحاجز.',
+    body: 'عبوة العناية المنزلية 200 مل والحجم الاحترافي 600 مل معاً. التركيبة الجلّية نفسها التي تتحول إلى رغوة، بحجم مناسب للمنزل أو غرفة العلاج.',
+    unsupported: 'متصفحك لا يدعم تشغيل هذا الفيديو.',
+  },
   actives: {
     eyebrow: 'المكونات',
     title: 'ما الذي يقوم بالعمل',
@@ -566,6 +584,12 @@ const RU: CeraCopy = {
       { title: 'Смойте', body: 'Тщательно смойте тёплой водой.' },
     ],
     note: 'После каждого умывания кожа ощущается комфортной и увлажнённой — без стянутости, без скользкой или жирной плёнки. Подходит как первый шаг домашнего ухода (200 мл) и профессионального протокола (600 мл).',
+  },
+  video: {
+    eyebrow: 'В движении',
+    title: 'Два объёма. Одно бережное очищение.',
+    body: 'Домашний флакон 200 мл и профессиональный формат 600 мл вместе. Одна и та же гель-пена, в объёме для ванной комнаты или процедурного кабинета.',
+    unsupported: 'Ваш браузер не может воспроизвести это видео.',
   },
   actives: {
     eyebrow: 'Состав',

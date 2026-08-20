@@ -31,21 +31,29 @@
  * Everything else on the page is either the product record (price, 1 pc, Korea)
  * or the curated barcode in data/productBarcodes.ts.
  *
- * THE ARTWORK DISAGREES WITH THIS PAGE, ON PURPOSE. `s1.jpg` and `s2.jpg` in the
- * gallery still read "+50% Product Absorption", "Soft Medical-Grade Silicone",
- * "Daily Use - Wet or Dry" and "PERFECT PAIR -> HR³ MATRIX HAIR TONIC α /
- * KFDA-Approved for Hair Loss". Keeping those images was a considered decision
- * (Aug 2026); repeating their claims in text was not. Do not "re-sync" this copy
- * to the artwork - the artwork is the unsupported side:
- *   - "+50% absorption" has no study, no manufacturer mention, no source at all.
+ * THE ARTWORK DISAGREES WITH THIS PAGE, ON PURPOSE. The Aug 2026 set in
+ * `/images/brush_o/` dropped the two worst lines the previous set carried - the
+ * invented "+50% Product Absorption" figure and the "KFDA-Approved for Hair
+ * Loss" badge - along with "Medical-Grade Silicone" and "Daily Use - Wet or
+ * Dry". What survives in `s3`-`s6` is a softer absorption benefit ("helps
+ * scalp-care products absorb more effectively"), the HAIR TONIC α pairing and a
+ * 2-3 minute daily duration. Shipping those slides was a considered decision,
+ * because every one of them is milder than the slide it replaced; repeating
+ * their claims in text was not. Do not "re-sync" this copy to the artwork - the
+ * artwork is still the unsupported side:
+ *   - ABSORPTION, at any strength of wording, has no study, no manufacturer
+ *     mention and no source at all. Dropping the percentage did not source it.
  *   - "Medical-grade" and "hypoallergenic" are not in the deck, which says only
  *     "soft silicone brush".
  *   - The KFDA functional approval in this line belongs to MEDI SCALP SHAMPOO α
  *     (product 44, whose own record states it), not to the tonic.
  *   - The tonic pairing is not in any DTS MG material. The deck names the
  *     SHAMPOO, at wash time, which is what this page says.
+ *   - The 2-3 minute duration is not specified anywhere.
  * The same claims were removed from the product record and both translation
  * files in Aug 2026 - see scripts/fix-product-61-scalp-brush-claims-20260813.ts.
+ * Only slides clear of all of the above may headline a section; see the section
+ * art block in ScalpBrushProductPage.tsx.
  *
  * DELIBERATE OMISSIONS - do not add these back without a manufacturer document:
  *   - DRY USE. The deck's only instruction is wet, with shampoo. Dry brushing is
@@ -82,10 +90,7 @@ export interface ScalpBrushCopy {
   vatIncluded: string
   freeDelivery: string
   stats: Array<{ value: string; label: string }>
-  /** The four documented feature bullets, which are the entire product argument.
-   *  Rendered as a plain card grid with no figure: of the five gallery images
-   *  only `main.jpg` and `s4.jpg` are usable as large inline art, `s4` is spent
-   *  on the design section, and repeating the packshot here would add nothing. */
+  /** The four documented feature bullets, which are the entire product argument. */
   effects: {
     eyebrow: string
     title: string

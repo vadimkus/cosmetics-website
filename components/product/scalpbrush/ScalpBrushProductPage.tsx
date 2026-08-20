@@ -105,15 +105,23 @@ interface Props {
   routineProducts?: Product[]
 }
 
-/** Section art, each slide paired with the section it illustrates. s4 is the
- *  two-view shot that shows the domed grip and the silicone head at once,
- *  so it stays beside the design section. s3 is the shelf shot, s2 the
- *  brush-then-tonic routine. s1 still prints +50% absorption and a
- *  circulation line this page does not claim, so it stays in the thumbnail
- *  strip only and is queued for re-export. */
-const EFFECTS_IMAGE = '/images/brush/s3.jpg'
-const HOWTO_IMAGE = '/images/brush/s2.jpg'
-const DESIGN_IMAGE = '/images/brush/s4.jpg'
+/** Section art from the Aug 2026 set, `/images/brush_o/`. Only the three slides
+ *  that stay inside the documented claim set are promoted to large inline art:
+ *
+ *    s1  "Soft on scalp"      gentle silicone contact -> the how-to section
+ *    s2  "Healthy hair"       lifestyle, claims nothing -> the effects section
+ *    s7  "Designed to move"   flexible tips + ergonomic grip -> the design
+ *                             section, the two lines the DTS MG deck documents
+ *
+ *  s3, s4, s5 and s6 print an absorption benefit, and s5 and s6 also name the
+ *  HAIR TONIC α pairing and a 2-3 minute duration. None of those has a
+ *  manufacturer source, so they stay in the record-driven thumbnail strip and
+ *  are never given a section to headline. This is the same rule the previous
+ *  set was held to; see scalpBrushCopy.ts for why the artwork is the
+ *  unsupported side. */
+const EFFECTS_IMAGE = '/images/brush_o/s2.jpeg'
+const HOWTO_IMAGE = '/images/brush_o/s1.jpeg'
+const DESIGN_IMAGE = '/images/brush_o/s7.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

@@ -54,6 +54,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
@@ -141,6 +142,11 @@ export default function RevitaGlowProductPage({
   const isRtl = dir === 'rtl'
   const copy = getRevitaGlowCopy(locale)
   const Chevron = isRtl ? ChevronLeft : ChevronRight
+  const shadeFigure = localizeProductImage(SHADE_FIGURE, locale)
+  const howToImage = localizeProductImage(HOWTO_IMAGE, locale)
+  const filterImage = localizeProductImage(FILTER_IMAGE, locale)
+  const formulaImage = localizeProductImage(FORMULA_IMAGE, locale)
+  const activesImage = localizeProductImage(ACTIVES_IMAGE, locale)
 
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
@@ -184,10 +190,10 @@ export default function RevitaGlowProductPage({
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [locale, product.image, product.images, product.name])
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -736,7 +742,7 @@ export default function RevitaGlowProductPage({
         <CeraReveal className="mx-auto mt-10 max-w-[520px] lg:mt-12">
           <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
             <Image
-              src={FORMULA_IMAGE}
+              src={formulaImage}
               alt={`${product.name} - more than makeup: a ten-vitamin complex, eight botanical extracts and niacinamide at 2%`}
               fill
               sizes="(max-width: 640px) 92vw, 520px"
@@ -795,7 +801,7 @@ export default function RevitaGlowProductPage({
               <CeraReveal delay={90}>
                 <div className="relative mt-8 aspect-square max-w-[420px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                   <Image
-                    src={FILTER_IMAGE}
+                    src={filterImage}
                     alt={`${product.name} - SPF 38 PA+++, UV protection with radiant complexion coverage`}
                     fill
                     sizes="(max-width: 1024px) 92vw, 420px"
@@ -914,7 +920,7 @@ export default function RevitaGlowProductPage({
                   <video
                     className="h-full w-full object-cover"
                     src={product.videoUrl}
-                    poster={SHADE_FIGURE}
+                    poster={shadeFigure}
                     controls
                     playsInline
                     muted
@@ -930,7 +936,7 @@ export default function RevitaGlowProductPage({
             ) : (
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={SHADE_FIGURE}
+                  src={shadeFigure}
                   alt={copy.shadeSection.figureAlt}
                   fill
                   sizes="(max-width: 1024px) 92vw, 40vw"
@@ -958,7 +964,7 @@ export default function RevitaGlowProductPage({
             <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
               <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                 <Image
-                  src={HOWTO_IMAGE}
+                  src={howToImage}
                   alt={copy.howTo.title}
                   fill
                   sizes="(max-width: 1024px) 92vw, 44vw"
@@ -1020,7 +1026,7 @@ export default function RevitaGlowProductPage({
         <CeraReveal className="mx-auto mt-10 max-w-[520px] lg:mt-12">
           <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
             <Image
-              src={ACTIVES_IMAGE}
+              src={activesImage}
               alt={`${product.name} - niacinamide at 2%, adenosine and erythritol`}
               fill
               sizes="(max-width: 640px) 92vw, 520px"

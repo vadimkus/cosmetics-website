@@ -47,8 +47,25 @@ describe('localizeProductImage', () => {
     )
   })
 
-  it('leaves folders with no localization alone', () => {
-    expect(localizeProductImage('/images/revita_o/s1.jpg', 'ru')).toBe('/images/revita_o/s1.jpg')
+  it('localizes approved Revita Glow slides', () => {
+    expect(localizeProductImage('/images/revita_o/s1.jpg', 'ru')).toBe(
+      '/images/revita_o/ru/s1.jpg'
+    )
+    expect(localizeProductImage('/images/revita_o/s7.jpg', 'ar')).toBe(
+      '/images/revita_o/ar/s7.jpg'
+    )
+    expect(localizeProductImage('/images/revita_o/closing.jpg', 'ru-RU')).toBe(
+      '/images/revita_o/ru/closing.jpg'
+    )
+  })
+
+  it('falls back from Revita Glow exports that add unsupported claims', () => {
+    expect(localizeProductImage('/images/revita_o/s7.jpg', 'ru')).toBe(
+      '/images/revita_o/s7.jpg'
+    )
+    expect(localizeProductImage('/images/revita_o/s1.jpg', 'ar')).toBe(
+      '/images/revita_o/s1.jpg'
+    )
   })
 
   it('survives empty and malformed input', () => {

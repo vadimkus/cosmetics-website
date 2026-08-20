@@ -48,3 +48,22 @@ was written, because the database is shared with production. Cache key bumped to
 
 The previous set in `/images/revita/` stays on disk — order emails already sent reference
 the old main image.
+
+## Arabic and Russian slides — 20 Aug 2026
+
+Localized exports were added under `revita_o/ar/` and `revita_o/ru/` using the canonical
+English filenames. `lib/localizedProductImages.ts` now swaps approved files for the active
+locale in the web gallery, the five bespoke inline figures, and all mobile product APIs.
+The main packshot stays shared because it has no overlaid copy.
+
+Two supplied exports were deliberately not registered and therefore fall back to English:
+
+- `ru/s7.jpg` adds "clinically proven results" and "cellular-level cleansing". Neither
+  claim is present in the canonical English slide or supported by the product dossier.
+- `ar/s1.jpg` adds "developed by beauty experts, scientifically backed", which is also
+  absent from the canonical artwork and source record.
+
+All other translated files were content-aligned to `s1`–`s7` and `closing`, visually
+checked, and recompressed below 500 KB before deployment. No database update was needed:
+the canonical gallery paths remain the single source of truth and localization happens
+at render/API response time.

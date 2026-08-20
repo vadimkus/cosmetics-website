@@ -44,7 +44,7 @@ export function streetForMoySklad(
   if (!s) return ''
 
   s = s.replace(/\s*,\s*/g, ', ').replace(/^,+|,+$/g, '').trim()
-  let parts = s.split(',').map((p) => p.trim()).filter(Boolean)
+  const parts = s.split(',').map((p) => p.trim()).filter(Boolean)
 
   // Drop trailing country / emirate tokens (and postal 00000 noise).
   while (parts.length) {

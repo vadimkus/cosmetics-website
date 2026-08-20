@@ -74,3 +74,16 @@ Later on 20 Aug, corrected versions of `ru/s7.jpg` and `ar/s1.jpg` were supplied
 unsupported additions were removed, both slides now match the canonical English claims,
 and both were registered for locale swapping. Revita Glow therefore has a complete
 eight-slide localized gallery in Arabic and Russian.
+
+### Native iPhone gallery correction
+
+The native app still showed the previous four `/images/revita/` slides after localization
+shipped. This was not an iOS image cache: the live mobile product endpoint was returning
+those paths because product 63 still had a legacy `images` array in `data/productConfig.ts`,
+and `generateEnhancedProductData()` intentionally lets config galleries override the DB.
+
+The legacy array was removed, migrating product 63 to DB-only gallery ownership. Its
+pricing, shade variants, video and documentation remain in config. The mobile endpoint now
+combines the current DB main image with the eight `revita_o` gallery paths, after which the
+shared locale mapper supplies the matching `ru/` or `ar/` files. No app release or OTA is
+required because the correction is entirely server-side.

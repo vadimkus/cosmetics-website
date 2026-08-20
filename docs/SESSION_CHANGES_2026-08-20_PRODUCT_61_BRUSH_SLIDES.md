@@ -12,7 +12,7 @@ slides, replacing a main packshot and four slides.
 
 | Slide | Headline | Placement |
 |---|---|---|
-| `Main.jpeg` | Brush on white, no text | Main image |
+| `Main2.jpeg` | Brush on white, no text | Main image |
 | `s1.jpeg` | Soft on scalp. Serious about care. | Gallery + how-to section |
 | `s2.jpeg` | Healthy hair starts with the scalp. | Gallery + effects section |
 | `s3.jpeg` | Three actions. One scalp tool. | Gallery only |
@@ -51,17 +51,52 @@ fabricated percentage and the misattributed KFDA badge live. No page text
 changed; the sourcing rules in `scalpBrushCopy.ts` were updated to describe the
 new artwork rather than the old.
 
-## Not shipped
+## Second pass — main image and video
 
-- `brush.mp4` was in the supplied folder but was not published. Videos live in
-  `/public/videos/`, the record's `videoUrl` is null, and `ScalpBrushProductPage`
-  has no video section, so using it needs a code change and EN/AR/RU copy.
+`Main.jpeg` shipped first and was replaced within the hour by `Main2.jpeg`: the
+same brush shot square and evenly lit, with the HR³ MATRIX mark legible. The
+first packshot was portrait, so the square grid on listing pages letterboxed it.
+`Main.jpeg` stays on disk because it was live briefly and may appear in an order
+email sent in that window.
+
+`brush.mp4` was published to `/public/videos/` and attached to the record, and
+`ScalpBrushProductPage` gained a video section with EN/AR/RU copy. The clip shows
+the head and the flex in the silicone tips, so the copy describes the object
+rather than claiming an effect.
+
+The section keeps the page's default background with a top rule instead of taking
+the white slot. Sections on this page alternate default/white, and a white video
+block would have collided with the care section and forced a cascade of
+background flips down the rest of the page.
+
+### Why the app needs no release
+
+Product 61 has no `videoUrl` override in `data/productConfig.ts`, so the record is
+the only source and `pricingEngine`'s `configVideoUrl || product.videoUrl` merge
+resolves to it. The chain is already dynamic on both sides:
+
+| Step | Where |
+|---|---|
+| Record holds `/videos/brush.mp4` | database |
+| `videoUrl` selected | `app/api/mobile/products/[id]/route.ts`, `app/api/mobile/products/route.ts` |
+| Merged and returned | `lib/pricingEngine.ts` |
+| Read from the API response | `getProductVideoUrl()` in the app's `data/productConfig.js` |
+| Made absolute against `https://genosys.ae` | `toAssetUrl()` in the same file |
+| Rendered | `<ProductVideo>` in the app's `app/product/[id].js` |
+
+No app release and no OTA. Verified against the live mobile API with
+`x-api-key`: it returns `image: /images/brush_o/Main2.jpeg` and
+`videoUrl: /videos/brush.mp4`.
+
+The video also serves correctly for native playback: `206 Partial Content` with
+`accept-ranges: bytes` and `content-type: video/mp4`, which is what the player
+needs to stream and seek.
 
 ## Order of operations
 
 Assets and code were committed, pushed and confirmed serving 200 on genosys.ae
-**before** the record was updated, because the database is shared with
-production. Commit `78ec5def`.
+**before** the record was updated, in both passes, because the database is shared
+with production. Commits `78ec5def` (slides) and `5ecfebed` (main image, video).
 
 The July set in `/images/brush/` stays on disk: sent order emails reference the
 old main image, and per `.cursor/rules/product-gallery-images.mdc` it only comes
@@ -71,8 +106,9 @@ how product 63 was handled.
 
 ## Verification
 
-- `npx tsc --noEmit` passed.
-- All eight assets return 200 on the CDN.
-- `/products/61`, `/ru/products/61` and `/ar/products/61` all reference the eight
-  new paths and none of the old ones.
-- ISR cache key bumped `product-by-id-v60` → `product-by-id-v61`.
+- `npx tsc --noEmit` passed on both passes.
+- All nine assets and the video return 200 on the CDN.
+- `/products/61`, `/ru/products/61` and `/ar/products/61` all reference the new
+  paths, `Main2.jpeg` and `/videos/brush.mp4`, and none of the old ones.
+- The live mobile API returns the new main image and the video.
+- ISR cache key bumped `product-by-id-v60` → `v61` → `v62`.

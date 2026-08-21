@@ -737,6 +737,24 @@ export default function CollagenMaskProductPage({
               <span>{copy.howTo.note}</span>
             </p>
           </CeraReveal>
+
+          {product.videoUrl ? (
+            <CeraReveal className="mt-10">
+              <p className="cera-eyebrow">{t('product.watchHowToUse')}</p>
+              <div className="mx-auto mt-4 aspect-[9/16] w-full max-w-[420px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-ink)]">
+                <video
+                  src={product.videoUrl}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={t('product.watchVideo')}
+                  className="h-full w-full object-cover"
+                >
+                  {t('product.videoNotSupported')}
+                </video>
+              </div>
+            </CeraReveal>
+          ) : null}
         </div>
         </div>
       </section>

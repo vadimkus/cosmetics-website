@@ -9,6 +9,10 @@
 - Product 53 database `videoUrl`: `/videos/redmask.mp4`
 - The database field supplies both the website product page and the native
   mobile product API, so no app OTA is required.
+- Added the missing player to product 53's bespoke collagen-mask page. The
+  generic PDP already rendered `videoUrl`, but this bespoke renderer did not.
+- The vertical clip now appears in the How to use section at its native 9:16
+  ratio with browser controls and localized accessible text.
 
 ## Media verification
 
@@ -20,4 +24,4 @@
 - Full decode check: passed.
 - Live asset returns HTTP 200 with `video/mp4`.
 - Product API returns `/videos/redmask.mp4`.
-- Russian product page references the deployed video.
+- Regression test requires the bespoke product page to render `product.videoUrl`.

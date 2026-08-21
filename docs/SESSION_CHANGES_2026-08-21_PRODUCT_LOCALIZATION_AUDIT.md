@@ -253,6 +253,69 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 31 — MULTI VITA RADIANCE CREAM
+
+### Catalog identity
+
+- Repository product number: `31`
+- Catalog name: `MULTI VITA RADIANCE CREAM`
+- Bespoke route: `/products/31`, rendered with `components/product/mvcream/`
+
+### Sources checked
+
+- `Multi_vita/Ingredient list-GENOSYS MULTI VITA RADIANCE CREAM.pdf`
+- `Registration DOC/Formula_up/Formula-GENOSYS MULTI VITA RADIANCE CREAM .pdf`
+- `Registration DOC/SA/SA-GENOSYS MULTI VITA RADIANCE CREAM.pdf`
+- `Multi_vita/COA-GENOSYS MULTI VITA RADIANCE CREAM.pdf`
+- `Registration DOC/Artwork/[GENOSYS]MULTI VITA RADIANCE CREAM(50g).pdf`
+- `public/documents/PPT/GENOSYS MULTI VITA RADIANCE CREAM.pdf`
+
+The signed formula is the source for finished percentages. The Safety Assessment was used
+to reconcile the raw-material trade names with INCI. The COA provides the measured
+niacinamide content and physical specifications. Artwork provides directions and
+precautions. The DTS MG deck provides the two-week melanin measurement, satisfaction panel
+and the explanation for the natural orange colour.
+
+### Corrections
+
+- Rewrote all live Russian and Arabic central fields and the complete bespoke page in
+  idiomatic Russian and polished neutral MSA.
+- Preserved niacinamide at 2% and its measured finished-product content of 2.04%.
+- Preserved the principal formula concentrations: macadamia oil 13%, squalane 1%, betaine
+  0.5%, erythritol 0.5%, licorice 0.01%, ascorbic acid 0.01%, astaxanthin 0.001% or 10 ppm,
+  and ceramide NP 0.001%.
+- Preserved measured pH 6.48 inside the 6.00–7.00 range.
+- Preserved the two-week change in skin-surface melanin from 3.443 to 2.419, exactly
+  29.742%, plus the 21-woman panel result that 95% noticed more even tone and 100% reported
+  neither dryness/internal tightness nor irritation.
+- Reframed the product around its true performance engine: niacinamide 2% in a rich base of
+  macadamia oil 13% and squalane 1%.
+- Removed the `VITA 12` performance narrative. The vitamin tail is present only at trace
+  levels and is not presented as the reason the cream works.
+- Removed astaxanthin antioxidant multiples and sunscreen language. At 0.001%, astaxanthin
+  is presented accurately as the source of the orange colour.
+- Removed ceramide-barrier, panthenol, exfoliating-acid, collagen-synthesis,
+  anti-inflammatory and drug-style claims that are not supported at the finished
+  concentrations.
+- Removed dossier, certificate, batch and manufacturer-attribution language from customer
+  copy while retaining the verified numbers.
+- Preserved the 50 g home and 230 g professional sizes, dermatological testing, Korean
+  origin, bergamot/limonene/linalool disclosure, pregnancy and lactation avoidance, eye-area
+  precautions, storage guidance and daily SPF advice.
+
+### Implementation
+
+- Canonical RU/AR fields: `data/product31LocalizedCopy.ts`, registered in
+  `data/productLocalizedCopyAudit.ts`
+- Runtime overrides: `data/productTranslationsRu.ts` and `data/productTranslations.ts`
+- Complete bespoke runtime copy: `components/product/mvcream/mvcreamLocalizedCopy.ts`
+- Recommendation and routine messages: `messages/ru.json`, `messages/ar.json`
+- Concern routine: `lib/concernsData.ts`
+- Skin Brightening Beauty Box: `components/product/beautybox/copy/skinBrightening.ts`
+- Quick facts: `lib/productQuickFactsCatalog.ts`
+- Regression coverage: `__tests__/data/productLocalizedCopyAudit.test.ts`
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 30 — INTENSIVE PROBLEM CONTROL CREAM
 
 ### Identity and sources checked

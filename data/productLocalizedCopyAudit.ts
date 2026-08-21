@@ -6,6 +6,7 @@ import { product26Ar, product26Ru } from './product26LocalizedCopy'
 import { product27Ar, product27Ru } from './product27LocalizedCopy'
 import { product28Ar, product28Ru } from './product28LocalizedCopy'
 import { product30Ar, product30Ru } from './product30LocalizedCopy'
+import { product31Ar, product31Ru } from './product31LocalizedCopy'
 
 const product1Ru = {
   description:
@@ -4032,6 +4033,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Гель-крем INTENSIVE PROBLEM CONTROL',
       ...product30Ru,
     },
+    '31': {
+      name: 'Крем для сияния MULTI VITA RADIANCE',
+      ...product31Ru,
+    },
   },
   ar: {
     '1': {
@@ -4153,6 +4158,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '30': {
       name: 'كريم الجل INTENSIVE PROBLEM CONTROL',
       ...product30Ar,
+    },
+    '31': {
+      name: 'كريم الإشراق MULTI VITA RADIANCE',
+      ...product31Ar,
     },
   },
 } as const

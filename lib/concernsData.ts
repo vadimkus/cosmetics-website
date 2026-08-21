@@ -970,9 +970,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
               products: [{ name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' }],
             },
             {
-              step: 4, title: 'كريم التفتيح', duration: '30 ثانية',
-              summary: 'حبس المكونات المفتحة وتوفير ترطيب دائم مع معززات إشراق إضافية.',
-              detail: 'ضعي كمية بحجم حبة البازلاء من كريم Multi Vita Radiance فوق السيروم. للترطيب الإضافي، ضعي كريم الهيالورون تحته على المناطق الجافة.',
+              step: 4, title: 'كريم الإشراق المغذي', duration: '30 ثانية',
+              summary: 'نياسيناميد 2% مع زيت المكاداميا 13% لتوحيد مظهر اللون وراحة البشرة العادية والجافة.',
+              detail: 'وزعي كمية صغيرة من كريم Multi Vita Radiance فوق السيروم بحركات لطيفة. استخدميه كخطوة ختامية مساءً، وطبقي واقي الشمس فوقه صباحاً.',
               products: [
                 { name: 'MULTI VITA RADIANCE CREAM', url: '/products/31', price: '290 AED' },
                 { name: 'MOISTURE REPLENISHING HYALURON CREAM', url: '/products/29', price: '290 AED' },
@@ -1051,9 +1051,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
               products: [{ name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' }],
             },
             {
-              step: 4, title: 'Осветляющий крем', duration: '30 сек',
-              summary: 'Зафиксируйте осветляющие активы и обеспечьте длительное увлажнение с дополнительными компонентами для сияния.',
-              detail: 'Нанесите количество размером с горошину крема Multi Vita Radiance поверх сыворотки. Для дополнительного увлажнения нанесите гиалуроновый крем под низ на сухие участки.',
+              step: 4, title: 'Питательный крем для сияния', duration: '30 сек',
+              summary: 'Ниацинамид 2% и масло макадамии 13% помогают выровнять тон и вернуть комфорт нормальной и сухой коже.',
+              detail: 'Распределите небольшое количество Multi Vita Radiance Cream поверх сыворотки. Вечером используйте как завершающий этап, утром нанесите сверху SPF.',
               products: [
                 { name: 'MULTI VITA RADIANCE CREAM', url: '/products/31', price: '290 AED' },
                 { name: 'MOISTURE REPLENISHING HYALURON CREAM', url: '/products/29', price: '290 AED' },

@@ -93,6 +93,8 @@
  *   - LOT CODES, and never the contract manufacturer. DTS MG only.
  */
 
+import { MVCREAM_AR, MVCREAM_RU } from './mvcreamLocalizedCopy'
+
 export type MvcreamLocale = 'en' | 'ar' | 'ru'
 
 export interface MvcreamCopy {
@@ -784,7 +786,11 @@ const RU: MvcreamCopy = {
   backToProducts: 'Все продукты',
 }
 
-const BY_LOCALE: Record<MvcreamLocale, MvcreamCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<MvcreamLocale, MvcreamCopy> = {
+  en: EN,
+  ar: { ...AR, ...MVCREAM_AR },
+  ru: { ...RU, ...MVCREAM_RU },
+}
 
 export function getMvcreamCopy(locale: string): MvcreamCopy {
   return BY_LOCALE[(locale as MvcreamLocale) in BY_LOCALE ? (locale as MvcreamLocale) : 'en']

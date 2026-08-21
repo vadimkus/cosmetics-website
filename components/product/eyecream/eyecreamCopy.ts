@@ -1,3 +1,5 @@
+import { EYE_CREAM_AR_COPY, EYE_CREAM_RU_COPY } from './eyecreamLocalizedCopy'
+
 /**
  * Bespoke copy for the EyeCell EYE CONTOUR CREAM page (product 24).
  *
@@ -417,7 +419,7 @@ const EN: EyeCreamCopy = {
   backToProducts: 'All products',
 }
 
-const AR: EyeCreamCopy = {
+const _AR: EyeCreamCopy = {
   eyebrow: 'EyeCell · كريم العين اليومي',
   headline: 'أمتن. أسطع. أوضح ملامح.',
   subheadline:
@@ -619,7 +621,7 @@ const AR: EyeCreamCopy = {
   backToProducts: 'كل المنتجات',
 }
 
-const RU: EyeCreamCopy = {
+const _RU: EyeCreamCopy = {
   eyebrow: 'EyeCell · Ежедневный крем для глаз',
   headline: 'Упруже. Светлее. Выразительнее.',
   subheadline:
@@ -821,7 +823,14 @@ const RU: EyeCreamCopy = {
   backToProducts: 'Все продукты',
 }
 
-const COPY: Record<EyeCreamLocale, EyeCreamCopy> = { en: EN, ar: AR, ru: RU }
+void _AR
+void _RU
+
+const COPY: Record<EyeCreamLocale, EyeCreamCopy> = {
+  en: EN,
+  ar: EYE_CREAM_AR_COPY,
+  ru: EYE_CREAM_RU_COPY,
+}
 
 export function getEyeCreamCopy(locale: string): EyeCreamCopy {
   if (locale === 'ar' || locale === 'ru') return COPY[locale]

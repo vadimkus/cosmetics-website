@@ -253,6 +253,66 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 24 — EyeCell EYE CONTOUR CREAM
+
+### Catalog identity
+
+- Prisma/code identity: `productNumber: 24`, `id: "24"`, English catalog name
+  `EyeCell EYE CONTOUR CREAM`, 20 g leave-on eye-contour cream.
+- The dedicated runtime is `components/product/eyecream/`; product 24 is also referenced by
+  the EyeCell recommendation pair, product 50 Eye Zone Care Kit and the quick-facts catalog.
+
+### Sources checked
+
+- `Registration DOC/Formula_up/Formula-GENOSYS EyeCell EYE CONTOUR CREAM.pdf`
+- `Registration DOC/SA/SA-GENOSYS EyeCell EYE CONTOUR CREAM.pdf`
+- `Registration DOC/COA/COA-GENOSYS EyeCell EYE CONTOUR CREAM(L1236B).pdf`
+- `Registration DOC/Artwork/[GENOSYS]EYECELL EYE CREAM.pdf`
+- `Intertek_folder/Quali-quanti Ingredients/EyeCell EYE CONTOUR CREAM.pdf`
+
+The current finished formula and Safety Assessment were used for concentrations and premix
+reconciliation. The older quali-quanti sheet was used only as a cross-check because its high
+premix solution percentages are not finished active concentrations. Artwork supplied the
+customer-facing indication, morning/evening use and pregnancy/lactation warning. The COA
+supplied measured physical values.
+
+### Corrections
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field in idiomatic
+  Russian and polished neutral MSA. The main story is now the verified functional pair:
+  arbutin 2% for a brighter, more even appearance and adenosine 0.04% for wrinkle care.
+- Preserved squalane 2.5%, jojoba oil 2%, hydrolyzed collagen 0.05%, sodium hyaluronate
+  0.01002%, Acetyl Hexapeptide-8 0.0025%, Copper Tripeptide-1 0.001% and Palmitoyl
+  Hexapeptide-12 0.0003%.
+- Reconciled HALOXYL correctly as a 0.05% supplied premix rather than an individual active
+  at 0.05%. Removed the old peptide-led recommendation story and unsupported promises of
+  synergy, deeper penetration, optimal delivery and round-the-clock protection.
+- Preserved measured pH 6.64 within its 6.30 ± 1.00 specification, the light-yellow cream
+  appearance, dermatological testing, Korean origin and 20 g size. Lot codes were not exposed.
+- Preserved the explicit pregnancy/lactation avoidance and peanut-oil warning. Clarified that
+  the formula is not fully fragrance-free because orange peel oil and limonene are present,
+  even though `Parfum` is absent.
+- Removed self-defeating dossier language, manufacturer attribution, the unmeasured
+  `10 Years Back` line and clinical-result implications not supported for the finished cream.
+- Rewrote product 24 recommendation strings, quick facts and its component copy inside the
+  Eye Zone Care Kit. No product-specific concern routine or UAE Beauty Box entry exists, so
+  no such surface required modification.
+
+### Implementation
+
+- Canonical RU/AR fields: `data/product24LocalizedCopy.ts`, owned through
+  `data/productLocalizedCopyAudit.ts`
+- Runtime central overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/eyecream/eyecreamLocalizedCopy.ts`, consumed by `eyecreamCopy.ts`
+- Recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Related customer surfaces: `lib/productQuickFactsCatalog.ts` and
+  `components/product/eyekit/eyekitCopy.ts`
+- Focused regression coverage checks runtime ownership, structured JSON, exact source values,
+  related surfaces and prohibited claim language
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 23 — ND Cell ANTI-WRINKLE CREAM
 
 ### Catalog identity

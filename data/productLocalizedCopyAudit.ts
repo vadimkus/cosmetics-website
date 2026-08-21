@@ -1,5 +1,6 @@
 import { product22Ar, product22Ru } from './product22LocalizedCopy'
 import { product23Ar, product23Ru } from './product23LocalizedCopy'
+import { product24Ar, product24Ru } from './product24LocalizedCopy'
 
 const product1Ru = {
   description:
@@ -3801,6 +3802,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Крем для шеи и декольте ND Cell',
       ...product23Ru,
     },
+    '24': {
+      name: 'Крем для контура глаз EyeCell',
+      ...product24Ru,
+    },
   },
   ar: {
     '1': {
@@ -3894,6 +3899,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '23': {
       name: 'كريم ND Cell للرقبة وأعلى الصدر',
       ...product23Ar,
+    },
+    '24': {
+      name: 'كريم EyeCell لمحيط العين',
+      ...product24Ar,
     },
   },
 } as const

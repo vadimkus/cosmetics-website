@@ -23,6 +23,7 @@ import { getPcserumCopy } from '@/components/product/pcserum/pcserumCopy'
 import { getMvserumCopy } from '@/components/product/mvserum/mvserumCopy'
 import { getAntiWrinkleCopy } from '@/components/product/antiwrinkle/antiWrinkleCopy'
 import { getNdCellCopy } from '@/components/product/ndcell/ndCellCopy'
+import { getEyeCreamCopy } from '@/components/product/eyecream/eyecreamCopy'
 import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
 import { SENSITIVE_SKIN_COPY } from '@/components/product/beautybox/copy/sensitiveSkin'
 import { PROBLEM_SKIN_COPY } from '@/components/product/beautybox/copy/problemSkin'
@@ -1663,6 +1664,72 @@ describe('audited product localization copy', () => {
     )
     expect(JSON.parse(getProductTranslations('23')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it('serves the rewritten product 24 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('24')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['24'])
+    expect(getProductTranslations('24')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['24'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 24 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['24']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps EyeCell Eye Contour Cream facts and safety consistent across localized surfaces', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('24'),
+      centralAr: getProductTranslations('24'),
+      bespokeRu: getEyeCreamCopy('ru'),
+      bespokeAr: getEyeCreamCopy('ar'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['24'],
+      kitRu: getEyeKitCopy('ru').contents.items.find(item => item.productNumber === '24'),
+      kitAr: getEyeKitCopy('ar').contents.items.find(item => item.productNumber === '24'),
+      recommendationRu: Object.fromEntries(
+        Object.entries(ruMessages.product).filter(([key]) => key.startsWith('pc24'))
+      ),
+      recommendationAr: Object.fromEntries(
+        Object.entries(arMessages.product).filter(([key]) => key.startsWith('pc24'))
+      ),
+    })
+
+    for (const required of [
+      'Арбутин 2%',
+      'أربوتين 2%',
+      'Аденозин 0,04%',
+      'أدينوزين 0.04%',
+      'Сквалан 2,5%',
+      'السكوالان 2.5%',
+      'арахисовое масло',
+      'زيت الفول السوداني',
+      '6,64',
+      '6.64',
+    ]) {
+      expect(text.toLocaleLowerCase()).toContain(required.toLocaleLowerCase())
+    }
+
+    for (const unsupported of [
+      'более глубокого проникновения',
+      'اختراق أعمق',
+      'круглосуточная защита',
+      'حماية العين على مدار الساعة',
+      'синергетический пептидный комплекс',
+      'مجمع الببتيد التآزري',
+      '10 Years Back',
+      'цифра для карточки',
+      'الرقم الذي يستحق بطاقة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(JSON.parse(getProductTranslationsRu('24')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Полный состав (INCI)' })])
+    )
+    expect(JSON.parse(getProductTranslations('24')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'قائمة المكوّنات الكاملة (INCI)' })])
     )
   })
 })

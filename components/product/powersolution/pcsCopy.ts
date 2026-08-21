@@ -132,6 +132,7 @@
  */
 
 import { RANGE, type PowerSolutionCopy, type PowerSolutionLocale, type PowerSolutionVariant } from './powerSolutionCopy'
+import { PCS_AR_COPY, PCS_RU_COPY } from './pcsLocalizedCopy'
 
 export const PCS_FORMULA_BASE = [
   { pct: 12.9935 },
@@ -968,7 +969,11 @@ const RU: PowerSolutionCopy = {
   backToProducts: 'Продукты',
 }
 
-const BY_LOCALE: Record<PowerSolutionLocale, PowerSolutionCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<PowerSolutionLocale, PowerSolutionCopy> = {
+  en: EN,
+  ar: { ...AR, ...PCS_AR_COPY },
+  ru: { ...RU, ...PCS_RU_COPY },
+}
 
 export function getPcsCopy(locale: string): PowerSolutionCopy {
   return BY_LOCALE[(locale as PowerSolutionLocale) in BY_LOCALE ? (locale as PowerSolutionLocale) : 'en']

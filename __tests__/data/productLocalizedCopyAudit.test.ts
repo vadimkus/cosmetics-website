@@ -5,6 +5,7 @@ import { HAIRGEN_BOOSTER_COPY } from '@/components/product/hr3/hairGenBoosterCop
 import { getHesCopy } from '@/components/product/powersolution/hesCopy'
 import { getPowerSolutionCopy } from '@/components/product/powersolution/powerSolutionCopy'
 import { getCtsCopy } from '@/components/product/powersolution/ctsCopy'
+import { getPcsCopy } from '@/components/product/powersolution/pcsCopy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -290,6 +291,70 @@ describe('audited product localization copy', () => {
       'تجديد الخلايا',
       'إعادة تشكيل',
       'ندب',
+      'هرمون النمو',
+      'искусственн.*пав',
+      'искусственн.*поверхностно',
+      'خافضات التوتر السطحي الصناعية',
+      '5-Free',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+  })
+
+  it('serves the rewritten product 7 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('7')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['7'])
+    expect(getProductTranslations('7')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['7'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 7 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['7']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps PCS source facts and removes contradicted or medical claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('7'),
+      centralAr: getProductTranslations('7'),
+      bespokeRu: getPcsCopy('ru'),
+      bespokeAr: getPcsCopy('ar'),
+    })
+
+    for (const required of [
+      '22,98%',
+      '22.98%',
+      '12,9935%',
+      '12.9935%',
+      '9,9857%',
+      '9.9857%',
+      '1,5%',
+      '1.5%',
+      '0,1002%',
+      '0.1002%',
+      '7,98',
+      '7.98',
+      '1,031',
+      '1.031',
+      '2,08 мл',
+      '2.08 مل',
+      '5 ppm',
+      '5 أجزاء في المليون',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'заживлен',
+      'регенерац',
+      'акне',
+      'лечение',
+      'IGF-1',
+      'гормон роста',
+      'التئام',
+      'تجديد الخلايا',
+      'حب الشباب',
+      'علاج',
       'هرمون النمو',
       'искусственн.*пав',
       'искусственн.*поверхностно',

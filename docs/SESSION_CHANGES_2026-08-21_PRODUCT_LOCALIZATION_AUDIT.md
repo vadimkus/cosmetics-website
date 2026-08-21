@@ -175,6 +175,75 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 7 — POWER SOLUTION PCS
+
+### Sources reviewed
+
+- `Ingredient lists_old/GENOSYS POWER SOLUTION PCS.pdf` — exact matching legacy source
+  reviewed first for the original PCS identity and INCI. Its older composition does not
+  override current finished concentrations.
+- `Registration DOC/SA/SA-GENOSYS POWER SOLUTION PCS.pdf` — adult leave-on face serum;
+  oil-and-sebum-control function; raw-material reconciliation; dermatological test and
+  pregnancy/lactation guidance.
+- `Registration DOC/Formula_up/Formula-GENOSYS POWER SOLUTION PCS.pdf` — current finished
+  formula: butylene glycol 12.9935%, glycerin 9.9857%, Lactobacillus/Soymilk Ferment Filtrate
+  1.5%, panthenol 0.5%, arginine 0.15%, sodium hyaluronate 0.1002%, allantoin 0.05%,
+  Hamamelis Virginiana leaf extract 0.045%, sh-Polypeptide-7 and Acetyl Hexapeptide-8 at
+  5 ppm each, Palmitoyl Hexapeptide-12 at 2 ppm and Palmitoyl Tripeptide-1 at 1 ppm.
+- `Registration DOC/COA/COA-GENOSYS POWER SOLUTION PCS(L0136B).pdf` — red-brown viscous
+  liquid; pH 7.98 inside 7.70 ± 1.00; specific gravity 1.031 inside 1.000–1.050; measured
+  fill 2.08 ml for the nominal 2 ml vial; passing microbial result with no detected specified
+  microorganisms.
+- `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION PCS.pdf` — Problem Control Solution
+  identity, oil/sebum function, ten 2 ml vials, four-step leave-on method, precautions,
+  printed exclusion panel and full INCI.
+- `Artwork/Art_Work/Catalogue/GENOSYS CATALOG.pdf` — DTS MG range positioning reviewed for
+  consistency; no catalogue wording was allowed to override current registration sources.
+
+### Corrections and copy decisions
+
+- Rewrote every live bespoke Russian and Arabic section, including commerce labels, hero,
+  solution positioning, quantitative formula, exclusions, range comparison, method,
+  ingredient cards, suitability, FAQ, specifications and safety guidance.
+- Rewrote the central product fields and recommendation panel in both locales. Russian now
+  reads as professional cosmetology copy; Arabic is polished neutral MSA for UAE retail,
+  with neutral instructions wherever practical.
+- Kept the cosmetic boundary: PCS helps control excess oil and sebum and reduce the
+  appearance of blemishes. Removed acne treatment, wound-healing, regeneration and other
+  medical implications.
+- Preserved the exact 22.9792% humectant calculation in source analysis and presents it as
+  22.98% customer-facing: butylene glycol 12.9935% plus glycerin 9.9857%. Preserved all
+  verified active, peptide and measured-specification figures listed above.
+- Reconciled `sh-Polypeptide-7` through the Safety Assessment within its documented
+  somatotropin-sequence and skin-protecting cosmetic boundary. It is never described as an
+  IGF-1 analogue or given a drug-style efficacy claim.
+- Challenged the printed `no artificial surfactants` claim against the current formula.
+  Lecithin at 0.005% is amphiphilic and may function as an emulsifier/surfactant, while its
+  origin and processing are not documented. The categorical fifth exclusion and `5-Free`
+  shorthand were removed. Copy retains only four directly verifiable exclusions: parabens,
+  ethanol, artificial colour and artificial fragrance.
+- Clarified that absence of artificial fragrance is not the same as fragrance-free:
+  Chamaecyparis Obtusa water is recorded with a fragrance function, so a faint raw-material
+  scent remains possible.
+- Kept the verified standalone leave-on method. Roller use is optional and practitioner-led,
+  never presented as required by the product instructions.
+- Removed dossier language, lot codes, contract-manufacturer attribution and self-defeating
+  audit commentary from all customer-facing copy.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/powersolution/pcsLocalizedCopy.ts`, consumed by `pcsCopy.ts`
+- Product 7 recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Focused regression coverage checks runtime ownership, structured JSON, exact source values
+  and prohibited medical or contradicted claim language
+- The existing audited-localization update script discovers product 7 automatically through
+  `AUDITED_PRODUCT_LOCALIZED_COPY`; database `productNumber`, localized names and localized
+  descriptions were updated
+
 ## Product 6 — POWER SOLUTION CTS
 
 ### Sources reviewed

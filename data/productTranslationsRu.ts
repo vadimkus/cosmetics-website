@@ -579,6 +579,7 @@ export const productTranslationsRu: Record<string, ProductTranslation> = {
   "17": AUDITED_PRODUCT_LOCALIZED_COPY.ru["17"],
   "18": AUDITED_PRODUCT_LOCALIZED_COPY.ru["18"],
   "19": AUDITED_PRODUCT_LOCALIZED_COPY.ru["19"],
+  "20": AUDITED_PRODUCT_LOCALIZED_COPY.ru["20"],
 }
 
 /**

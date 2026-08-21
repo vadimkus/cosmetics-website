@@ -19,8 +19,10 @@ import { getEyeSerumCopy } from '@/components/product/eyeserum/eyeserumCopy'
 import { getEyeKitCopy } from '@/components/product/eyekit/eyekitCopy'
 import { getHsserumCopy } from '@/components/product/hsserum/hsserumCopy'
 import { getAfsCopy } from '@/components/product/afs/afsCopy'
+import { getPcserumCopy } from '@/components/product/pcserum/pcserumCopy'
 import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
 import { SENSITIVE_SKIN_COPY } from '@/components/product/beautybox/copy/sensitiveSkin'
+import { PROBLEM_SKIN_COPY } from '@/components/product/beautybox/copy/problemSkin'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 import { PRODUCT_QUICK_FACTS_CATALOG } from '@/lib/productQuickFactsCatalog'
 
@@ -1312,6 +1314,93 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
     expect(JSON.parse(getProductTranslations('19')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it('serves the rewritten product 20 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('20')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['20'])
+    expect(getProductTranslations('20')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['20'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 20 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['20']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps Problem Control Serum facts and removes invented or dossier-style claims', () => {
+    const quickFacts = (PRODUCT_QUICK_FACTS_CATALOG['20'] || []).flatMap(fact => [
+      fact.title.ru,
+      fact.text.ru,
+      fact.title.ar,
+      fact.text.ar,
+    ])
+    const beautyBoxReferences = (['ru', 'ar'] as const).map(locale =>
+      PROBLEM_SKIN_COPY[locale].contents.items.find(item => item.productNumber === '20')
+    )
+    const acneConcern = CONCERN_PAGES.find(page => page.slug === 'acne-treatment')
+    const concernRu = acneConcern?.routine?.ru
+      .flatMap(block => block.steps)
+      .filter(step => step.products.some(product => product.url === '/products/20'))
+    const concernAr = acneConcern?.routine?.ar
+      .flatMap(block => block.steps)
+      .filter(step => step.products.some(product => product.url === '/products/20'))
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('20'),
+      centralAr: getProductTranslations('20'),
+      bespokeRu: getPcserumCopy('ru'),
+      bespokeAr: getPcserumCopy('ar'),
+      quickFacts,
+      beautyBoxReferences,
+      concernRu,
+      concernAr,
+    })
+
+    for (const required of [
+      'Цинк PCA',
+      'زنك PCA',
+      '0,05%',
+      '0.05%',
+      'Трегалоза 1%',
+      'تريهالوز 1%',
+      'Ксилитол 0,5%',
+      'زيليتول 0.5%',
+      'Пантенол 0,2%',
+      'بانثينول 0.2%',
+      'Аллантоин 0,1%',
+      'ألانتوين 0.1%',
+      '5,62',
+      '5.62',
+      'Phytolex SC',
+    ]) {
+      expect(text.toLocaleLowerCase()).toContain(required.toLocaleLowerCase())
+    }
+
+    for (const unsupported of [
+      'ACZERO',
+      'PORE LASER',
+      'ниацинамид',
+      'نياسيناميد',
+      'лечит акне',
+      'يعالج حب الشباب',
+      'проникает глубже',
+      'يخترق أعمق',
+      'вдвое эффективнее',
+      'بضعف الفعالية',
+      'регистрирует эту сыворотку',
+      'تسجّل عليه كوريا',
+      'номер партии',
+      'رقم الدفعة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(JSON.parse(getProductTranslationsRu('20')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('20')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
   })

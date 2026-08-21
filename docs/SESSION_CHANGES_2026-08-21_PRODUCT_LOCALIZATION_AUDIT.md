@@ -253,6 +253,71 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 20 — PROBLEM CONTROL SERUM
+
+### Catalog identity
+
+- Prisma/code identity: repository product number `20`
+- Customer name: `INTENSIVE PROBLEM CONTROL SERUM`
+- Size: 30 ml leave-on facial serum
+- Dedicated runtime: `components/product/pcserum/`
+
+### Sources checked
+
+- `Ingredient lists_old/GENOSYS PROBLEM CONTROL SERUM.pdf`
+- `Registration DOC/SA/SA-GENOSYS PROBLEM CONTROL SERUM.pdf`
+- `Registration DOC/Formula_up/Formula-GENOSYS PROBLEM CONTROL SERUM.pdf`
+- `Registration DOC/COA/COA-GENOSYS PROBLEM CONTROL SERUM 30ml.pdf`
+- `Registration DOC/Artwork/[GENOSYS]PROBLEM CONTROL SERUM.pdf`
+- `Label/[GENOSYS]PROBLEM CONTROL SERUM.pdf`
+- `public/documents/PPT/GENOSYS INTENSIVE PROBLEM CONTROL SERUM.pdf`
+
+The ingredient list supplies the finished percentages. The Safety Assessment confirms the
+ZINCIDONE trade-name mapping and Phytolex SC composition. The current formula and artwork
+confirm the INCI and directions. The COA supplies measured pH 5.62 inside the 5.50–6.50
+specification and the three-year unopened shelf life. The DTS MG deck was used only where its
+claims could be reconciled with the formula and registration documents.
+
+### Corrections
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field in idiomatic
+  Russian and polished neutral MSA.
+- Preserved zinc PCA 0.05%; trehalose 1%; xylitol 0.5%; panthenol 0.2%; allantoin 0.1%;
+  beta-glucan 0.08%; polyglutamic acid 0.01%; Phytolex SC 0.5%; and black willow bark
+  extract 0.001%.
+- Restored the complete 22-entry INCI, including 1,2-Hexanediol as the third ingredient.
+- Kept the precise positioning: a lightweight, water-based, oil-free, silicone-free and
+  fragrance-free serum for oily and combination skin, used as 2–3 drops after toner
+  morning and evening.
+- Removed ACZERO®, PORE LASER™, HydroFerment Complex, Tea Tree Complex and niacinamide;
+  none belongs to this formula.
+- Removed unsupported non-comedogenic certification, invented visible-result timelines,
+  medical acne-treatment language, deeper-penetration language and claims that actives work
+  twice as effectively at night.
+- Removed the unsupported serum results `sebum −17%` and `colour-blemishes −8%` from the
+  Russian and Arabic Problem Skin Beauty Box. The kit now presents product 20 through its
+  verified formula instead.
+- Corrected the sunscreen note in the kit: the toner contains BHA, but the serum is not an
+  acid exfoliant. Trace willow bark at 0.001% does not justify saying the serum itself
+  increases sun sensitivity.
+- Kept black willow bark in proportion and states plainly that the formula contains no
+  salicylic acid or other AHA/BHA acids.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy: `components/product/pcserum/pcserumCopy.ts`
+- Recommendation and routine strings: `messages/ru.json` and `messages/ar.json`
+- Concern routine and FAQ: `lib/concernsData.ts`
+- Product quick facts: `lib/productQuickFactsCatalog.ts`
+- Product 20 references in the Problem Skin Beauty Box:
+  `components/product/beautybox/copy/problemSkin.ts`
+- Focused regression coverage verifies runtime ownership, structured JSON, exact formula
+  values, related RU/AR surfaces and prohibited claims
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 19 — ALL FOR SENSITIVE SERUM
 
 ### Identity and sources checked

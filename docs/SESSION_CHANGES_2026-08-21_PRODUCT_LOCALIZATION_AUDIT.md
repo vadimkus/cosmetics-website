@@ -45,3 +45,33 @@ with clear clinical phrasing and no mixed English words.
 - Database `nameRu`, `nameAr`, `descriptionRu`, `descriptionAr` updated
 - Database `productNumber` repaired from null to `1`
 - Regression tests verify structured JSON, runtime map ownership and banned claims
+
+## Product 2 — Needle Pen-K
+
+### Sources checked
+
+- `Intertek/Rollers/Certificate of Free Sales.pdf`
+- `Intertek/Rollers/DTSMG-ISO13485.pdf`
+- `public/documents/PPT/Overview of Microneedling_S.pdf`
+- Existing audit note that Needle Pen-K is hidden and no longer offered by GENOSYS ME
+
+### Corrections
+
+- Removed the unsupported 300% absorption figure and the unsourced `clinical-quality results
+  at home` positioning.
+- Corrected the audience from professional-and-home use to qualified professional use.
+- Replaced broad marketing language with the documented specifications: 16 disk needles,
+  0.20 mm thickness, SUS 304(H), 0.25–2.0 mm depth and 5,500–7,500 rpm.
+- Added the documented ethylene-oxide sterilisation, five speed settings, glue-free needle
+  construction and automatic pause when placed in the holder.
+- Rewrote the technique around the manufacturer's distinction between one-direction
+  gliding at 0.25–0.5 mm and stamping in deeper professional protocols.
+- Replaced generic disinfection instructions with a new sterile cartridge for every client
+  and proper sharps disposal.
+
+### Language
+
+Russian now uses established professional cosmetology terminology without literal
+`transdermal nutrient delivery` or wound-healing language. Arabic uses natural clinical
+phrasing, replaces repeated loanword transliteration with `الوخز الدقيق`, and reads as
+guidance for a trained practitioner.

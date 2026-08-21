@@ -8,6 +8,11 @@ describe('audited product localization copy', () => {
     expect(getProductTranslations('1')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['1'])
   })
 
+  it('serves the rewritten product 2 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('2')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['2'])
+    expect(getProductTranslations('2')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['2'])
+  })
+
   it('removes unsupported and unsafe roller claims from customer copy', () => {
     const text = JSON.stringify({
       ru: getProductTranslationsRu('1'),
@@ -33,5 +38,25 @@ describe('audited product localization copy', () => {
     for (const key of ['productDetails', 'keyFeatures', 'benefits', 'howToUse'] as const) {
       expect(() => JSON.parse(copy[key])).not.toThrow()
     }
+  })
+
+  it('removes unsupported Needle Pen-K claims and home-use guidance', () => {
+    const text = JSON.stringify({
+      ru: getProductTranslationsRu('2'),
+      ar: getProductTranslations('2'),
+    })
+
+    for (const unsupported of [
+      '300%',
+      'профессиональное и домашнее использование',
+      'للاستخدام الاحترافي والمنزلي',
+      'оптимального заживления',
+      'شفاء أمثل',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(text).toContain('0,25 до 2,0 мм')
+    expect(text).toContain('0.25 إلى 2.0 مم')
   })
 })

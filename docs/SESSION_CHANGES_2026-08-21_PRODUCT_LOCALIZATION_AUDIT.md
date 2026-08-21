@@ -253,6 +253,80 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 17 — EyeCell EYE CONTOUR SERUM
+
+### Catalog identity
+
+- Repository code confirms `id: "17"` and the exact catalog name
+  `EyeCell EYE CONTOUR SERUM`; `data/productConfig.ts` supplies the product-17 configuration,
+  `lib/products.ts` supplies the 10 ml catalog record at 370 AED, and `/products/17` renders
+  `components/product/eyeserum/EyeSerumProductPage.tsx`.
+- The customer product is an intensive leave-on serum for the eye contour, used morning and
+  evening before EyeCell cream when the pair is used.
+
+### Sources checked
+
+- `Registration DOC/Formula_up/Formula-GENOSYS EyeCell EYE CONTOUR SERUM.pdf`
+  — controlling finished concentrations: arbutin 2%; sodium hyaluronate 0.20002%; panthenol
+  0.15%; allantoin 0.15%; adenosine 0.04%; Vitis and Rosa callus extracts 0.003% each;
+  Acetyl Hexapeptide-8 0.0025%; Copper Tripeptide-1 0.001%; Palmitoyl Hexapeptide-12
+  0.0003%; N-Hydroxysuccinimide 0.0002%; Palmitoyl Tripeptide-1 0.00011%; Chrysin 0.00001%;
+  and Palmitoyl Tetrapeptide-7 0.000005%.
+- `Registration DOC/SA/SA-GENOSYS EyeCell EYE CONTOUR SERUM.pdf`
+  — leave-on eye-serum identity; arbutin 2% and adenosine 0.04%; HALOXYL as a 0.10%
+  raw-material premix rather than a 0.10% finished active; AHP-5 as a 5% carrier premix;
+  pH range; and no documented PAO.
+- `Registration DOC/Artwork/[GENOSYS]EYECELL EYE SERUM.pdf`
+  — intensive serum positioning; deep wrinkles, dark circles and the appearance of eye
+  puffs; morning/evening patting method; 10 ml; dermatological testing; pregnancy/lactation
+  avoidance; precautions; and Korean origin. Its Russian panel incorrectly says 20 ml and
+  was not followed.
+- `Registration DOC/COA/COA-GENOSYS EyeCell EYE CONTOUR SERUM(L0614B).pdf`
+  — light-yellow viscous appearance; measured pH 5.37 within the accepted 5.00–7.00 range;
+  and passing arbutin and adenosine assays. The lot code and expiry date were not copied.
+- `Intertek_folder/Quali-quanti Ingredients/EyeCell EYE CONTOUR SERUM.pdf`
+  — older cross-check only. Its higher peptide figures describe premix solutions and were
+  not presented as finished active concentrations.
+- `public/documents/PPT/GENOSYS EyeCell EYE ZONE CARE SYSTEM.pdf`
+  — EyeCell line context. Its 14-volunteer/28-day peptide material is not a study of this
+  finished serum, so no clinical percentage was transferred.
+
+### Corrections and copy decisions
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field. Russian now
+  reads as premium professional skincare copy; Arabic is polished neutral MSA for UAE retail.
+- Leads with the verified functional pair: arbutin 2% for the look of uneven under-eye tone
+  and adenosine 0.04% for wrinkle care. Sodium hyaluronate 0.20002%, panthenol 0.15% and
+  allantoin 0.15% provide the supporting hydration story.
+- Reconciled the peptide and Haloxyl figures to finished concentrations. They remain
+  transparent secondary formula facts and are no longer sold as the principal engine.
+- Removed the unsupported `10 Years Back`, Botox-like, muscle-relaxation, wound-healing,
+  microcirculation, haemoglobin-clearance, callus-regeneration and SKU-specific
+  14-volunteer/28-day clinical narratives.
+- Corrected the drifted Russian 20 ml claim to the verified 10 ml. Preserved measured pH
+  5.37, light-yellow viscous appearance, dermatological testing, Korean origin,
+  pregnancy/lactation avoidance and practical eye-area precautions.
+- Rewrote the shared RU/AR recommendation strings, product-17 quick facts and the product-17
+  references inside the EyeCell EYE ZONE CARE KIT. `lib/concernsData.ts` contains no
+  product-17 routine entry, and product 17 is not part of the Beauty Box SKU family, so no
+  unrelated concern or Beauty Box copy was changed.
+- Removed contract-manufacturer attribution, lot codes, dossier phrasing and public arguments
+  with legacy copy from the localized customer surfaces.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke RU/AR runtime copy:
+  `components/product/eyeserum/eyeserumCopy.ts`
+- Shared recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Product-17 quick facts and EyeCell kit references:
+  `lib/productQuickFactsCatalog.ts` and `components/product/eyekit/eyekitCopy.ts`
+- Focused regression coverage checks runtime ownership, structured JSON, exact concentrations,
+  required product facts, unsupported claims and EyeCell kit references.
+- Database `productNumber`, localized names and localized descriptions were updated.
+
 ## Product 16 — SNOW BOOSTER
 
 ### Catalog identity

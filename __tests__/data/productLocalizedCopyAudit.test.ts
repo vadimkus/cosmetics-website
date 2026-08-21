@@ -15,7 +15,10 @@ import { getSrsCopy } from '@/components/product/srs/srsCopy'
 import { getMistCopy } from '@/components/product/mist/mistCopy'
 import { getPctTonerCopy } from '@/components/product/pcttoner/pctTonerCopy'
 import { getBoosterCopy } from '@/components/product/booster/boosterCopy'
+import { getEyeSerumCopy } from '@/components/product/eyeserum/eyeserumCopy'
+import { getEyeKitCopy } from '@/components/product/eyekit/eyekitCopy'
 import { CONCERN_PAGES } from '@/lib/concernsData'
+import { PRODUCT_QUICK_FACTS_CATALOG } from '@/lib/productQuickFactsCatalog'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -1036,6 +1039,93 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
     expect(JSON.parse(getProductTranslations('16')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it('serves the rewritten product 17 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('17')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['17'])
+    expect(getProductTranslations('17')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['17'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 17 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['17']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps EyeCell serum facts and removes unsupported or dossier-style claims', () => {
+    const quickFacts = (PRODUCT_QUICK_FACTS_CATALOG['17'] || []).flatMap(fact => [
+      fact.title.ru,
+      fact.text.ru,
+      fact.title.ar,
+      fact.text.ar,
+    ])
+    const eyeKitReferences = (['ru', 'ar'] as const).flatMap(locale => {
+      const copy = getEyeKitCopy(locale)
+      return [
+        copy.contents.items.find(item => item.productNumber === '17'),
+        copy.suited.alternatives.find(item => item.productNumber === '17'),
+        copy.evidence.cards.find(card => card.title === (locale === 'ru' ? 'Сыворотка и крем' : 'السيروم والكريم')),
+        copy.evidence.footnote,
+      ]
+    })
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('17'),
+      centralAr: getProductTranslations('17'),
+      bespokeRu: getEyeSerumCopy('ru'),
+      bespokeAr: getEyeSerumCopy('ar'),
+      quickFacts,
+      eyeKitReferences,
+    })
+
+    for (const required of [
+      'Арбутин · 2%',
+      'أربوتين · 2%',
+      'Аденозин · 0,04%',
+      'أدينوسين · 0.04%',
+      '0,20002%',
+      '0.20002%',
+      '0,0025%',
+      '٠٫٠٠٢٥٪',
+      '5,37',
+      '٥٫٣٧',
+      '10 мл',
+      '١٠ مل',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      '20 мл',
+      '٢٠ مل',
+      'ботокс',
+      'البوتوكس',
+      '10 Years Back',
+      'Turn Years Back',
+      'заживлен',
+      'التئام',
+      'микроциркуляц',
+      'الدورة الدموية',
+      '14 добровольц',
+      '14 متطوع',
+      'номер партии',
+      'رقم الدفعة',
+      'производитель',
+      'الشركة المصنّعة',
+      'цифра для карточки',
+      'الرقم الذي يستحق بطاقة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(getEyeSerumCopy('ru').faq.items).toHaveLength(7)
+    expect(getEyeSerumCopy('ar').faq.items).toHaveLength(7)
+    expect(JSON.parse(getProductTranslationsRu('17')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('17')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
   })

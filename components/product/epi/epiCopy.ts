@@ -115,6 +115,8 @@
  *     pack does not print one. Do not invent it.
  */
 
+import { EPI_AR_COPY, EPI_RU_COPY } from './epiLocalizedCopy'
+
 export type EpiLocale = 'en' | 'ar' | 'ru'
 
 export interface EpiCopy {
@@ -832,7 +834,11 @@ const RU: EpiCopy = {
   backToProducts: 'Все продукты',
 }
 
-const COPY: Record<EpiLocale, EpiCopy> = { en: EN, ar: AR, ru: RU }
+const COPY: Record<EpiLocale, EpiCopy> = {
+  en: EN,
+  ar: Object.assign({}, AR, EPI_AR_COPY),
+  ru: Object.assign({}, RU, EPI_RU_COPY),
+}
 
 export function getEpiCopy(locale: string): EpiCopy {
   if (locale === 'ar' || locale === 'ru') return COPY[locale]

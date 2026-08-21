@@ -175,6 +175,78 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 12 — EPI TURNOVER BOOSTING PEELING GEL
+
+### Catalog identity
+
+- Repository product number: `12`
+- Exact catalog name: `EPI TURNOVER BOOSTING PEELING GEL`
+- Live route: `/products/12`
+- Product type: 100 g rinse-off cellulose gommage for the face and rough body areas
+
+### Sources checked
+
+- `Intertek_folder/Quali-quanti Ingredients/Ingredient list-EPI TURNOVER BOOSTING PEELING GEL.pdf`
+  — controlling finished formula: cellulose 3%; PEG-8 10%; Alcohol Denat. 4.75%;
+  propylene glycol 3.5%; Quaternium-60 3.5%; carbomer 2.2%; 1,2-hexanediol 1.0023%;
+  caprylyl glycol 0.3%; fragrance 0.199972%; allantoin 0.1%; sodium hyaluronate and jojoba
+  oil 0.001% each; papaya extract 0.000150%; and moringa seed extract 0.000020%.
+- `Registration DOC/SA/SA-GENOSYS EPI TURNOVER BOOSTING PEELING GEL.pdf` — current
+  raw-material mapping and branded-complex reconciliation; Desert Complex is a 0.01%
+  premix; GRC-E1 is a separate 0.01% premix; pH 3.0 ± 0.5; white-to-pale-yellow opaque
+  gel; adult rinse-off use; satisfactory patch test supporting `dermatologically tested`.
+- `Registration DOC/Formula/Formula-GENOSYS EPI TURNOVER BOOSTING PEELING GEL.pdf` —
+  current registered INCI and confirmation that the alcohol is `Alcohol Denat.`.
+- `Registration DOC/Artwork/[GENOSYS]EPI TURNOVER BOOSTING PEELING GEL.pdf` — 100 g;
+  mild peeling; enzyme + cellulose positioning; clean dry skin; 30–60 second circular
+  massage; tepid-water rinse; eye and mouth avoidance; customer precautions; Korean origin.
+- `public/documents/PPT/GENOSYS EPI TURNOVER BOOSTING PEELING GEL.pdf` — official DTS MG
+  deck: gommage without rough particles, 1–2 uses per week, and use on knees, elbows and
+  heels. The deck contains before/after photographs but no quantified clinical result.
+
+No separate older ingredient-list PDF for EPI was found under `Ingredient lists_old`; the
+product-specific quali-quanti sheet above is the earliest and controlling quantitative source.
+No product-specific COA with additional measured batch values was found or used.
+
+### Corrections and copy decisions
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field. Russian now
+  reads as premium professional cosmetology copy; Arabic is polished neutral MSA for UAE
+  retail and avoids unnecessary gendered imperatives where practical.
+- Leads with the verified customer ritual: apply to clean, dry skin; massage gently for
+  30–60 seconds; rinse the cellulose rolls with tepid water; repeat 1–2 times weekly.
+- Preserved cellulose 3% as the gommage engine. PEG-8 10%, propylene glycol 3.5% and
+  allantoin 0.1% are presented as the comfortable gel base, not as treatment claims.
+- Reconciled the branded Desert Complex through the Safety Assessment. It is a real 0.01%
+  premix, but its finished botanical fractions are too low to support the deck's hydration
+  engine story.
+- Challenged the printed papaya, moringa, sodium hyaluronate and jojoba headlines against
+  the formula. Papaya is 0.000150%, moringa 0.000020%, and sodium hyaluronate and jojoba
+  0.001% each. They remain transparent formula facts, not the reason to buy the peel.
+- Removed no-irritation guarantees, pore-purifying, anti-inflammatory, antiseptic,
+  wound-healing, sebum-normalising, breakout-treatment, firming and clinic-results-at-home
+  claims. No quantified clinical result was invented from before/after photographs.
+- Removed all-skin-types and sensitive-skin promises. The formula contains Alcohol Denat.
+  4.75%, fragrance 0.199972%, Hexyl Cinnamal and has pH 3.0; suitability guidance now
+  excludes damaged, irritated and freshly treated skin.
+- Preserved pH 3.0 inside the 2.5–3.5 specification, six-month PAO, dermatological testing,
+  Korean origin and the verified face/body areas.
+- Removed dossier language, packaging attribution, lot codes, contract-manufacturer names
+  and self-defeating audit commentary from customer-facing copy.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke RU/AR runtime copy: `components/product/epi/epiLocalizedCopy.ts`,
+  consumed by `epiCopy.ts`
+- Product 12 recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Product 12 RU/AR quick facts: `lib/productQuickFactsCatalog.ts`
+- Regression coverage checks runtime ownership, structured JSON, exact source values and
+  prohibited medical, unsupported or dossier-style claims
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 11 — SKIN DEFENDER LIP & EYE MAKEUP REMOVER
 
 ### Catalog identity

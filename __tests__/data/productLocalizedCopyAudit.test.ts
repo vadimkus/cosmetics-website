@@ -10,6 +10,7 @@ import { getSwsCopy } from '@/components/product/powersolution/swsCopy'
 import { getAwsCopy } from '@/components/product/powersolution/awsCopy'
 import { getSnowO2Copy } from '@/components/product/snowo2/snowo2Copy'
 import { getRemoverCopy } from '@/components/product/remover/removerCopy'
+import { getEpiCopy } from '@/components/product/epi/epiCopy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -639,5 +640,85 @@ describe('audited product localization copy', () => {
 
     expect(getRemoverCopy('ru').howTo.steps).toHaveLength(4)
     expect(getRemoverCopy('ar').howTo.steps).toHaveLength(4)
+  })
+
+  it('serves the rewritten product 12 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('12')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['12'])
+    expect(getProductTranslations('12')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['12'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 12 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['12']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps EPI source facts and removes contradicted, medical and dossier-style claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('12'),
+      centralAr: getProductTranslations('12'),
+      bespokeRu: getEpiCopy('ru'),
+      bespokeAr: getEpiCopy('ar'),
+    })
+
+    for (const required of [
+      'Целлюлоза · 3%',
+      'السليلوز · 3%',
+      'PEG-8 · 10%',
+      'Пропиленгликоль · 3,5%',
+      'البروبيلين غليكول · 3.5%',
+      'Аллантоин · 0,1%',
+      'الألانتوين · 0.1%',
+      '0,000150%',
+      '0.000150%',
+      '0,000020%',
+      '0.000020%',
+      '4,75%',
+      '4.75%',
+      '0,199972%',
+      '0.199972%',
+      '2,5–3,5',
+      '2.5–3.5',
+      '100 г',
+      '100 غ',
+      '6 месяцев',
+      '6 أشهر',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'без раздражения',
+      'من دون تهيج',
+      'чудо-дерево',
+      'شجرة المعجزات',
+      'противовоспал',
+      'مضاد للالتهاب',
+      'антисептич',
+      'مطهر',
+      'заживлен',
+      'التئام',
+      'все типы кожи',
+      'جميع أنواع البشرة',
+      'клинические результаты дома',
+      'نتائج العيادة في المنزل',
+      'партия',
+      'دفعة',
+      'производитель',
+      'الشركة المصنّعة',
+      'Green Cos',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(getEpiCopy('ru').howTo.steps).toHaveLength(4)
+    expect(getEpiCopy('ar').howTo.steps).toHaveLength(4)
+    expect(JSON.parse(getProductTranslationsRu('12')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('12')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
   })
 })

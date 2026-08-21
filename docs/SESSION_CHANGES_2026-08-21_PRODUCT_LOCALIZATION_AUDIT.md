@@ -253,6 +253,85 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 21 — MULTI VITA RADIANCE SERUM
+
+### Catalog identity
+
+- Prisma/code product number: `21`
+- Exact catalog name: `MULTI VITA RADIANCE SERUM`
+- Live routes: `/products/21`, `/ru/products/21`, `/ar/products/21`
+- Product format: 30 ml leave-on facial serum in a dropper bottle
+- Bespoke runtime: `components/product/mvserum/MvserumProductPage.tsx`, with locale copy
+  selected by `getMvserumCopy()`
+
+### Sources checked
+
+- `Ingredient lists_old/` was checked first. No product-21 legacy ingredient sheet is
+  present, so it does not override the current product-specific formula.
+- No serum-specific Safety Assessment is present in the archive. The available Multi Vita
+  Safety Assessment belongs to the cream, product 31, and was not used as serum evidence.
+- `Multi Vita Radiance Serum/Formula-GENOSYS MULTI VITA RADIANCE SERUM.pdf` — controlling
+  quantitative formula and full INCI. It confirms niacinamide 2% / 20,000 ppm; panthenol 1%
+  / 10,000 ppm; Eriobotrya Japonica Leaf Extract 0.04%; Mentha Viridis Extract 0.01%;
+  3-O-Ethyl Ascorbic Acid 0.1% / 1,000 ppm; tocopherol 0.03% / 300 ppm; the remaining
+  vitamin components at 50 ppb down to 0.01 ppb; bergamot oil, limonene and linalool.
+- `Multi Vita Radiance Serum/COA-GENOSYS MULTI VITA RADIANCE SERUM 30ml.pdf` — measured pH
+  5.94 inside the 5.60–6.60 specification. Lot and expiry identifiers were not carried into
+  customer copy.
+- `Multi Vita Radiance Serum/Pics/Artwork-MULTI VITA RADIANCE SERUM 30ml.pdf` — 30 ml
+  identity, morning/evening patting method, dermatological testing, pregnancy restriction,
+  eye/damaged-skin precautions, Korean origin and the warning that colour may darken after
+  air exposure without changing product properties.
+- `public/documents/PPT/GENOSYS MULTI VITA RADIANCE SERUM.pdf` — official DTS MG product
+  deck. It reconciles patented MELAZERO® as loquat leaf 0.04% plus spearmint 0.01%, and
+  records the two-week skin-surface melanin result from 6.190 to 4.457, a 28.0% decrease,
+  plus the 21-woman consumer panel and gradual-start guidance for possible stinging.
+- `Multi Vita Radiance Serum/GENOSYS training manual-GENOSYS MULTI VITA RADIANCE SERUM.docx`
+  was identified but was not required as evidence because the controlling formula, artwork,
+  COA and official deck already provide the relevant composition, method and study data.
+
+### Corrections and copy decisions
+
+- Rewrote the complete central and bespoke Russian and Arabic customer copy. Russian now
+  reads as experienced premium cosmetology guidance; Arabic is polished neutral MSA for UAE
+  retail, with direct safety and application language.
+- Reframed the product around verified working concentrations rather than the vague
+  `12-vitamin complex`: niacinamide 2%, panthenol 1%, stable vitamin C 0.1%, MELAZERO®
+  0.05% and tocopherol 0.03%. Trace vitamins remain visible in the full ingredient story but
+  are not presented as equal to the main actives.
+- Preserved the exact MELAZERO® composition and the measured two-week result: surface
+  melanin index 6.190 to 4.457, equal to 28.0%. Preserved the panel size and age range
+  without turning participant feedback into a universal promise.
+- Removed arbutin from all product-21 recommendation and pigmentation-routine language.
+  Arbutin is not present in the serum formula; the old concern page incorrectly treated the
+  whole Multi Vita Radiance line as a vitamin C + niacinamide + arbutin system.
+- Removed medical and drug-style pigmentation-treatment, tyrosinase-inhibition,
+  anti-inflammatory and all-skin-types claims. Replaced them with cosmetic language about
+  the visible contrast of dark spots, even-looking tone and radiance.
+- Removed dossier tone, manufacturer attribution, lot codes and self-defeating copy.
+  Product guidance now states facts directly: 2–3 drops, pat rather than rub, introduce
+  gradually on sensitive skin, stop if persistent stinging/irritation occurs, use SPF in
+  the morning, avoid during pregnancy and store tightly closed in a cool dark place.
+- Updated the Skin Brightening Beauty Box references, hyperpigmentation concern content,
+  product recommendation messages and quick facts so every live RU/AR surface uses the same
+  concentrations, study result and safety boundary.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/mvserum/mvserumLocalizedCopy.ts`, consumed by `mvserumCopy.ts`
+- Product recommendation and routine copy: `messages/ru.json` and `messages/ar.json`
+- Concern-page copy: `lib/concernsData.ts`
+- Skin Brightening Beauty Box product-21 references:
+  `components/product/beautybox/copy/skinBrightening.ts`
+- Product-21 quick facts: `lib/productQuickFactsCatalog.ts`
+- Focused regression coverage checks runtime ownership, structured JSON, exact formula and
+  study values, cross-surface consistency and prohibited unsupported language
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 20 — PROBLEM CONTROL SERUM
 
 ### Catalog identity

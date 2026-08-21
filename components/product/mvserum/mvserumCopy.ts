@@ -114,6 +114,8 @@
  *   - LOT CODES, and never the contract manufacturer. DTS MG only.
  */
 
+import { MVSERUM_AR_COPY, MVSERUM_RU_COPY } from './mvserumLocalizedCopy'
+
 export type MvserumLocale = 'en' | 'ar' | 'ru'
 
 export interface MvserumCopy {
@@ -430,7 +432,7 @@ const EN: MvserumCopy = {
   backToProducts: 'All products',
 }
 
-const AR: MvserumCopy = {
+const _AR: MvserumCopy = {
   eyebrow: 'سيروم · للبشرة الباهتة وغير المتجانسة',
   headline: 'اثنا عشر فيتاميناً. أربعة منها بجرعة.',
   subheadline:
@@ -649,7 +651,7 @@ const AR: MvserumCopy = {
   backToProducts: 'كل المنتجات',
 }
 
-const RU: MvserumCopy = {
+const _RU: MvserumCopy = {
   eyebrow: 'Сыворотка · Тусклый и неровный тон',
   headline: 'Двенадцать витаминов. Четыре из них в дозе.',
   subheadline:
@@ -869,7 +871,11 @@ const RU: MvserumCopy = {
   backToProducts: 'Все продукты',
 }
 
-const BY_LOCALE: Record<MvserumLocale, MvserumCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<MvserumLocale, MvserumCopy> = {
+  en: EN,
+  ar: { ..._AR, ...MVSERUM_AR_COPY },
+  ru: { ..._RU, ...MVSERUM_RU_COPY },
+}
 
 export function getMvserumCopy(locale: string): MvserumCopy {
   return BY_LOCALE[(locale as MvserumLocale) in BY_LOCALE ? (locale as MvserumLocale) : 'en']

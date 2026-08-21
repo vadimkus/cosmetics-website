@@ -3482,6 +3482,228 @@ const product20Ar = {
     'يُستخدم صباحاً ومساءً بعد التونر. للاستخدام الخارجي فقط. يجب تجنب ملامسة العينين والأغشية المخاطية، والشطف جيداً بالماء البارد عند الملامسة. لا يُستخدم على بشرة متضررة. عند ظهور احمرار أو تورم أو حكة أو تهيج مستمر، يُوقف الاستخدام وتُطلب المشورة الطبية. يُحفظ في مكان بارد وجاف بعيداً عن أشعة الشمس المباشرة وعن متناول الأطفال. يُستخدم خلال 6 أشهر من الفتح.',
 } as const
 
+const product21Ru = {
+  description:
+    'Сыворотка для более ровного, чистого и сияющего тона кожи. В центре формулы — ниацинамид 2% (20 000 ppm), дополненный пантенолом 1%, стабильным производным витамина C 0,1% и запатентованным комплексом MELAZERO® из экстрактов листа мушмулы 0,04% и мяты колосистой 0,01%. Через две недели применения показатель поверхностного меланина снизился с 6,190 до 4,457, то есть на 28,0%. Лёгкую сыворотку наносят утром и вечером мягкими похлопывающими движениями, а днём обязательно завершают уход солнцезащитным средством. Объём 30 мл. Дерматологически протестировано. Сделано в Корее.',
+  productDetails: JSON.stringify({
+    type: 'Несмываемая сыворотка для сияния и выравнивания тона',
+    size: '30 мл',
+    target: 'Тусклость, неровный тон и видимые тёмные пятна',
+    keyActive: 'Ниацинамид 2% (20 000 ppm)',
+    brighteningComplex: 'MELAZERO®: экстракт листа мушмулы 0,04% + экстракт мяты колосистой 0,01%',
+    vitaminSupport: 'Пантенол 1% + 3-O-Ethyl Ascorbic Acid 0,1% + токоферол 0,03%',
+    clinicalResult: 'Показатель поверхностного меланина: 6,190 → 4,457 за 2 недели (−28,0%)',
+    application: '2–3 капли утром и вечером после тоника; мягко вбить, не растирая',
+    measuredPh: '5,94 при диапазоне 5,60–6,60',
+    fragrance: 'Содержит масло бергамота, лимонен и линалоол',
+    testing: 'Дерматологически протестировано',
+    origin: 'Сделано в Южной Корее',
+  }),
+  keyFeatures: JSON.stringify([
+    {
+      title: 'Ниацинамид · 2%',
+      description:
+        'Главный осветляющий компонент формулы помогает сделать тон визуально ровнее и уменьшить заметность тёмных пятен.',
+    },
+    {
+      title: 'MELAZERO® · 0,05%',
+      description:
+        'Запатентованный комплекс сочетает экстракт листа мушмулы 0,04% и экстракт мяты колосистой 0,01% для целенаправленного ухода за неровным тоном.',
+    },
+    {
+      title: 'Стабильный витамин C · 0,1%',
+      description:
+        '3-O-Ethyl Ascorbic Acid дополняет ниацинамид и поддерживает более свежий, сияющий вид кожи.',
+    },
+    {
+      title: '−28,0% за две недели',
+      description:
+        'В двухнедельной оценке показатель поверхностного меланина снизился с 6,190 до 4,457.',
+    },
+  ]),
+  benefits: JSON.stringify([
+    'Помогает сделать тон кожи более ровным и сияющим',
+    'Уменьшает видимую выраженность тёмных пятен и следов постакне',
+    'Содержит ниацинамид 2% и стабильное производное витамина C 0,1%',
+    'Пантенол 1% поддерживает мягкость и комфорт кожи',
+    'Клинически оценённый результат: показатель поверхностного меланина ниже на 28,0% через две недели',
+    'Подходит для утреннего и вечернего ухода',
+  ]),
+  ingredients: JSON.stringify([
+    {
+      name: 'Ниацинамид · 2% (20 000 ppm)',
+      description:
+        'Главный осветляющий компонент сыворотки для ухода за неровным тоном и заметными тёмными пятнами.',
+    },
+    {
+      name: 'MELAZERO® · 0,05%',
+      description:
+        'Запатентованный комплекс из экстракта листа мушмулы 0,04% и экстракта мяты колосистой 0,01%.',
+    },
+    {
+      name: 'Пантенол · 1% (10 000 ppm)',
+      description:
+        'Провитамин B5 помогает сохранять мягкость, увлажнённость и комфорт кожи.',
+    },
+    {
+      name: '3-O-Ethyl Ascorbic Acid · 0,1% (1 000 ppm)',
+      description:
+        'Стабильное производное витамина C поддерживает сияние и более однородный вид тона.',
+    },
+    {
+      name: 'Токоферол · 0,03% (300 ppm)',
+      description:
+        'Витамин E дополняет антиоксидантную поддержку формулы.',
+    },
+    {
+      name: 'Витаминные компоненты в следовых концентрациях',
+      description:
+        'Sodium Ascorbyl Phosphate 50 ppb; Glutathione, Biotin, Folic Acid и Pyridoxine по 1 ppb; Cyanocobalamin 0,1 ppb; Linoleic Acid, Riboflavin, Beta-Carotene, Inositol и Thiamine HCl по 0,01 ppb.',
+    },
+    {
+      name: 'Full INCI',
+      description:
+        'Aqua (Water), Butylene Glycol, Glycerin, 1,2-Hexanediol, Niacinamide (20,000 ppm), Dipropylene Glycol, Sorbitol, Methyl Gluceth-10, Panthenol (10,000 ppm), Eriobotrya Japonica Leaf Extract, Mentha Viridis (Spearmint) Extract, 3-O-Ethyl Ascorbic Acid (1,000 ppm), Tocopherol (300 ppm), Sodium Ascorbyl Phosphate (50 ppb), Glutathione (1 ppb), Biotin (1 ppb), Folic Acid (1 ppb), Pyridoxine (1 ppb), Cyanocobalamin (0.1 ppb), Linoleic Acid (0.01 ppb), Riboflavin (0.01 ppb), Beta-Carotene (0.01 ppb), Inositol (0.01 ppb), Thiamine HCl (0.01 ppb), Glycyrrhiza Uralensis (Licorice) Root Extract, Centella Asiatica Extract, Andrographis Paniculata Extract, Propolis Extract, Forsythia Suspensa Fruit Extract, Aloe Barbadensis Leaf Extract, Nelumbo Nucifera Seed Extract, Arctium Lappa Seed Extract, Lonicera Japonica (Honeysuckle) Flower Extract, Anemarrhena Asphodeloides Root Extract, Coptis Chinensis Root Extract, Psidium Guajava Leaf Extract, Sasa Quelpaertensis Extract, Opuntia Ficus-Indica Stem Extract, Gluconolactone, Brassica Campestris (Rapeseed) Sterols, Cholesterol, Ethylhexylglycerin, Macadamia Ternifolia Seed Oil, Citrus Aurantium Bergamia (Bergamot) Fruit Oil, Hydrogenated Lecithin, Carbomer, Xanthan Gum, Propanediol, Disodium EDTA, Tromethamine, Potassium Cetyl Phosphate, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Phytosteryl/Behenyl/Octyldodecyl Lauroyl Glutamate, Polyglyceryl-10 Oleate, Polyglyceryl-10 Stearate, Polyglyceryl-10 Laurate, C12-14 Pareth-7, Limonene, Linalool.',
+    },
+  ]),
+  howToUse: JSON.stringify([
+    { step: 'Подготовьте кожу', instruction: 'Очистите лицо и нанесите тоник.' },
+    {
+      step: 'Нанесите сыворотку',
+      instruction: 'Распределите 2–3 капли по лицу, избегая области вокруг глаз.',
+    },
+    {
+      step: 'Мягко вбейте',
+      instruction: 'Впитайте сыворотку лёгкими похлопывающими движениями, не растирая кожу.',
+    },
+    {
+      step: 'Начинайте постепенно',
+      instruction: 'При чувствительной коже начните с небольшого количества. Если пощипывание или раздражение не проходит, прекратите применение.',
+    },
+    {
+      step: 'Завершите уход',
+      instruction: 'Нанесите крем, а утром обязательно используйте солнцезащитное средство.',
+    },
+    {
+      step: 'Храните правильно',
+      instruction: 'Плотно закрывайте флакон и держите его в прохладном тёмном месте. При контакте с воздухом оттенок сыворотки может стать темнее без изменения её свойств.',
+    },
+  ]),
+  directions:
+    'Используйте утром и вечером. Не применять во время беременности. Только для наружного применения. Избегайте попадания в глаза и на слизистые; при контакте тщательно промойте прохладной водой. Не наносите на повреждённую кожу. При покраснении, отёке, зуде или стойком раздражении прекратите использование и обратитесь к врачу. Содержит масло бергамота, лимонен и линалоол. Храните в прохладном сухом месте вдали от прямого солнца и в недоступном для детей месте.',
+} as const
+
+const product21Ar = {
+  description:
+    'سيروم يمنح البشرة مظهراً أكثر تجانساً وصفاءً وإشراقاً. ترتكز تركيبته على النياسيناميد 2% (20,000 جزء في المليون)، مع البانثينول 1%، ومشتق ثابت من فيتامين C بتركيز 0.1%، ومركب MELAZERO® الحاصل على براءة من مستخلص أوراق الأسكدنيا 0.04% والنعناع السنبلي 0.01%. بعد أسبوعين من الاستخدام، انخفض مؤشر الميلانين السطحي من 6.190 إلى 4.457، أي بنسبة 28.0%. يُربت السيروم صباحاً ومساءً، ويُستكمل الروتين النهاري بواقي الشمس. الحجم 30 مل. مختبر جلدياً. صُنع في كوريا.',
+  productDetails: JSON.stringify({
+    type: 'سيروم يُترك على البشرة لتعزيز الإشراق وتوحيد مظهر اللون',
+    size: '30 مل',
+    target: 'البهتان وعدم تجانس اللون ومظهر البقع الداكنة',
+    keyActive: 'نياسيناميد 2% (20,000 جزء في المليون)',
+    brighteningComplex: 'MELAZERO®: مستخلص أوراق الأسكدنيا 0.04% + مستخلص النعناع السنبلي 0.01%',
+    vitaminSupport: 'بانثينول 1% + 3-O-Ethyl Ascorbic Acid بتركيز 0.1% + توكوفيرول 0.03%',
+    clinicalResult: 'مؤشر الميلانين السطحي: من 6.190 إلى 4.457 خلال أسبوعين (−28.0%)',
+    application: 'تُربت قطرتان إلى ثلاث بعد التونر صباحاً ومساءً من دون فرك',
+    measuredPh: '5.94 ضمن نطاق 5.60–6.60',
+    fragrance: 'تحتوي على زيت البرغموت والليمونين واللينالول',
+    testing: 'مختبر جلدياً',
+    origin: 'صُنع في كوريا الجنوبية',
+  }),
+  keyFeatures: JSON.stringify([
+    {
+      title: 'نياسيناميد · 2%',
+      description:
+        'المكوّن الأساسي للعناية بالإشراق، ويساعد على منح البشرة مظهراً أكثر تجانساً وتقليل وضوح البقع الداكنة.',
+    },
+    {
+      title: 'MELAZERO® · 0.05%',
+      description:
+        'مركب حاصل على براءة يجمع مستخلص أوراق الأسكدنيا 0.04% ومستخلص النعناع السنبلي 0.01% للعناية المستهدفة بعدم تجانس اللون.',
+    },
+    {
+      title: 'فيتامين C ثابت · 0.1%',
+      description:
+        'يكمل 3-O-Ethyl Ascorbic Acid عمل النياسيناميد ويدعم مظهراً أكثر نضارة وإشراقاً.',
+    },
+    {
+      title: '−28.0% خلال أسبوعين',
+      description:
+        'في تقييم استمر أسبوعين، انخفض مؤشر الميلانين السطحي من 6.190 إلى 4.457.',
+    },
+  ]),
+  benefits: JSON.stringify([
+    'يساعد على منح البشرة مظهراً أكثر تجانساً وإشراقاً',
+    'يقلل مظهر البقع الداكنة وآثار الحبوب',
+    'يحتوي على النياسيناميد 2% ومشتق ثابت من فيتامين C بتركيز 0.1%',
+    'يدعم البانثينول 1% نعومة البشرة وراحتها',
+    'نتيجة مقاسة: انخفاض مؤشر الميلانين السطحي بنسبة 28.0% خلال أسبوعين',
+    'ملائم للروتين الصباحي والمسائي',
+  ]),
+  ingredients: JSON.stringify([
+    {
+      name: 'نياسيناميد · 2% (20,000 جزء في المليون)',
+      description:
+        'المكوّن الأساسي في السيروم للعناية بعدم تجانس اللون ومظهر البقع الداكنة.',
+    },
+    {
+      name: 'MELAZERO® · 0.05%',
+      description:
+        'مركب حاصل على براءة من مستخلص أوراق الأسكدنيا 0.04% ومستخلص النعناع السنبلي 0.01%.',
+    },
+    {
+      name: 'بانثينول · 1% (10,000 جزء في المليون)',
+      description:
+        'بروفيتامين B5 يساعد على الحفاظ على نعومة البشرة وترطيبها وراحتها.',
+    },
+    {
+      name: '3-O-Ethyl Ascorbic Acid · 0.1% (1,000 جزء في المليون)',
+      description:
+        'مشتق ثابت من فيتامين C يدعم الإشراق ومظهراً أكثر تجانساً للون البشرة.',
+    },
+    {
+      name: 'توكوفيرول · 0.03% (300 جزء في المليون)',
+      description:
+        'فيتامين E يكمل الدعم المضاد للأكسدة في التركيبة.',
+    },
+    {
+      name: 'مكونات فيتامينية بتراكيز أثرية',
+      description:
+        'Sodium Ascorbyl Phosphate بتركيز 50 جزءاً في المليار؛ وGlutathione وBiotin وFolic Acid وPyridoxine بتركيز جزء واحد في المليار لكل منها؛ وCyanocobalamin بتركيز 0.1 جزء؛ وLinoleic Acid وRiboflavin وBeta-Carotene وInositol وThiamine HCl بتركيز 0.01 جزء لكل منها.',
+    },
+    {
+      name: 'Full INCI',
+      description:
+        'Aqua (Water), Butylene Glycol, Glycerin, 1,2-Hexanediol, Niacinamide (20,000 ppm), Dipropylene Glycol, Sorbitol, Methyl Gluceth-10, Panthenol (10,000 ppm), Eriobotrya Japonica Leaf Extract, Mentha Viridis (Spearmint) Extract, 3-O-Ethyl Ascorbic Acid (1,000 ppm), Tocopherol (300 ppm), Sodium Ascorbyl Phosphate (50 ppb), Glutathione (1 ppb), Biotin (1 ppb), Folic Acid (1 ppb), Pyridoxine (1 ppb), Cyanocobalamin (0.1 ppb), Linoleic Acid (0.01 ppb), Riboflavin (0.01 ppb), Beta-Carotene (0.01 ppb), Inositol (0.01 ppb), Thiamine HCl (0.01 ppb), Glycyrrhiza Uralensis (Licorice) Root Extract, Centella Asiatica Extract, Andrographis Paniculata Extract, Propolis Extract, Forsythia Suspensa Fruit Extract, Aloe Barbadensis Leaf Extract, Nelumbo Nucifera Seed Extract, Arctium Lappa Seed Extract, Lonicera Japonica (Honeysuckle) Flower Extract, Anemarrhena Asphodeloides Root Extract, Coptis Chinensis Root Extract, Psidium Guajava Leaf Extract, Sasa Quelpaertensis Extract, Opuntia Ficus-Indica Stem Extract, Gluconolactone, Brassica Campestris (Rapeseed) Sterols, Cholesterol, Ethylhexylglycerin, Macadamia Ternifolia Seed Oil, Citrus Aurantium Bergamia (Bergamot) Fruit Oil, Hydrogenated Lecithin, Carbomer, Xanthan Gum, Propanediol, Disodium EDTA, Tromethamine, Potassium Cetyl Phosphate, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Phytosteryl/Behenyl/Octyldodecyl Lauroyl Glutamate, Polyglyceryl-10 Oleate, Polyglyceryl-10 Stearate, Polyglyceryl-10 Laurate, C12-14 Pareth-7, Limonene, Linalool.',
+    },
+  ]),
+  howToUse: JSON.stringify([
+    { step: 'تحضير البشرة', instruction: 'يُنظف الوجه ويوضع التونر.' },
+    {
+      step: 'تطبيق السيروم',
+      instruction: 'تُوزع قطرتان إلى ثلاث على الوجه مع تجنب المنطقة المحيطة بالعينين.',
+    },
+    {
+      step: 'التربيت بلطف',
+      instruction: 'يُربت السيروم بأطراف الأصابع حتى الامتصاص من دون فرك البشرة.',
+    },
+    {
+      step: 'البدء تدريجياً',
+      instruction: 'للبشرة الحساسة، يُبدأ بكمية صغيرة. إذا استمر الوخز أو التهيج، يجب إيقاف الاستخدام.',
+    },
+    {
+      step: 'استكمال الروتين',
+      instruction: 'يوضع الكريم بعد السيروم، ويُختتم الروتين الصباحي بواقي الشمس.',
+    },
+    {
+      step: 'التخزين الصحيح',
+      instruction: 'تُغلق العبوة بإحكام وتُحفظ في مكان بارد ومظلم. قد يصبح لون السيروم أغمق عند تعرضه للهواء من دون تغير خصائصه.',
+    },
+  ]),
+  directions:
+    'يُستخدم صباحاً ومساءً. لا يُستخدم أثناء الحمل. للاستخدام الخارجي فقط. يجب تجنب ملامسة العينين والأغشية المخاطية، والشطف جيداً بالماء البارد عند الملامسة. لا يُطبق على بشرة متضررة. عند ظهور احمرار أو تورم أو حكة أو تهيج مستمر، يُوقف الاستخدام وتُطلب المشورة الطبية. تحتوي التركيبة على زيت البرغموت والليمونين واللينالول. تُحفظ في مكان بارد وجاف بعيداً عن أشعة الشمس المباشرة وعن متناول الأطفال.',
+} as const
+
 export const AUDITED_PRODUCT_LOCALIZED_COPY = {
   ru: {
     '1': {
@@ -3564,6 +3786,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Сыворотка INTENSIVE PROBLEM CONTROL',
       ...product20Ru,
     },
+    '21': {
+      name: 'Сыворотка для сияния MULTI VITA RADIANCE',
+      ...product21Ru,
+    },
   },
   ar: {
     '1': {
@@ -3645,6 +3871,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '20': {
       name: 'سيروم INTENSIVE PROBLEM CONTROL',
       ...product20Ar,
+    },
+    '21': {
+      name: 'سيروم الإشراق MULTI VITA RADIANCE',
+      ...product21Ar,
     },
   },
 } as const

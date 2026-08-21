@@ -20,11 +20,15 @@ import { getEyeKitCopy } from '@/components/product/eyekit/eyekitCopy'
 import { getHsserumCopy } from '@/components/product/hsserum/hsserumCopy'
 import { getAfsCopy } from '@/components/product/afs/afsCopy'
 import { getPcserumCopy } from '@/components/product/pcserum/pcserumCopy'
+import { getMvserumCopy } from '@/components/product/mvserum/mvserumCopy'
 import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
 import { SENSITIVE_SKIN_COPY } from '@/components/product/beautybox/copy/sensitiveSkin'
 import { PROBLEM_SKIN_COPY } from '@/components/product/beautybox/copy/problemSkin'
+import { SKIN_BRIGHTENING_COPY } from '@/components/product/beautybox/copy/skinBrightening'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 import { PRODUCT_QUICK_FACTS_CATALOG } from '@/lib/productQuickFactsCatalog'
+import ruMessages from '@/messages/ru.json'
+import arMessages from '@/messages/ar.json'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -1401,6 +1405,105 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
     expect(JSON.parse(getProductTranslations('20')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it('serves the rewritten product 21 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('21')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['21'])
+    expect(getProductTranslations('21')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['21'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 21 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['21']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps Multi Vita Radiance Serum facts consistent across localized surfaces', () => {
+    const quickFacts = (PRODUCT_QUICK_FACTS_CATALOG['21'] || []).flatMap(fact => [
+      fact.title.ru,
+      fact.text.ru,
+      fact.title.ar,
+      fact.text.ar,
+    ])
+    const beautyBoxReferences = (['ru', 'ar'] as const).map(locale =>
+      SKIN_BRIGHTENING_COPY[locale].contents.items.find(item => item.productNumber === '21')
+    )
+    const pigmentationConcern = CONCERN_PAGES.find(page => page.slug === 'pigmentation')
+    const recommendationMessages = {
+      ru: {
+        routine: ruMessages.product.routineMultiVitaSerumDesc,
+        intro: ruMessages.product.pc21Intro,
+        benefit1: ruMessages.product.pc21Benefit1Text,
+        benefit2: ruMessages.product.pc21Benefit2Text,
+        benefit3: ruMessages.product.pc21Benefit3Text,
+        benefit4: ruMessages.product.pc21Benefit4Text,
+      },
+      ar: {
+        routine: arMessages.product.routineMultiVitaSerumDesc,
+        intro: arMessages.product.pc21Intro,
+        benefit1: arMessages.product.pc21Benefit1Text,
+        benefit2: arMessages.product.pc21Benefit2Text,
+        benefit3: arMessages.product.pc21Benefit3Text,
+        benefit4: arMessages.product.pc21Benefit4Text,
+      },
+    }
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('21'),
+      centralAr: getProductTranslations('21'),
+      bespokeRu: getMvserumCopy('ru'),
+      bespokeAr: getMvserumCopy('ar'),
+      quickFacts,
+      beautyBoxReferences,
+      concernRu: pigmentationConcern?.why?.ru,
+      concernAr: pigmentationConcern?.why?.ar,
+      recommendationMessages,
+    })
+
+    for (const required of [
+      'Ниацинамид 2%',
+      'نياسيناميد 2%',
+      'Пантенол 1%',
+      'بانثينول 1%',
+      'MELAZERO®',
+      '0,04%',
+      '0.04%',
+      '0,01%',
+      '0.01%',
+      '3-O-Ethyl Ascorbic Acid',
+      '6,190',
+      '6.190',
+      '4,457',
+      '4.457',
+      '28,0%',
+      '28.0%',
+      '5,94',
+      '5.94',
+    ]) {
+      expect(text.toLocaleLowerCase()).toContain(required.toLocaleLowerCase())
+    }
+
+    for (const unsupported of [
+      'арбутин',
+      'أربوتين',
+      'производитель',
+      'المصنّع',
+      'номер партии',
+      'رقم الدفعة',
+      'лечит пигментацию',
+      'يعالج التصبغات',
+      'подавляет тирозиназу',
+      'يثبط التيروزيناز',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(JSON.parse(getProductTranslationsRu('21')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('21')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
   })

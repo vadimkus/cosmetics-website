@@ -253,6 +253,71 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 16 — SNOW BOOSTER
+
+### Catalog identity
+
+- Read-only Prisma lookup confirmed `id: "16"`, `productNumber: "16"`,
+  `name: "SNOW BOOSTER"`, category `Toner/Mist`, default size `200ml`, price `260 AED`
+  and main image `/images/Second/main_booster.jpg`.
+- Product configuration also provides a 1000 ml professional size and the dedicated
+  `/products/16` route renders `components/product/booster/BoosterProductPage.tsx`.
+
+### Sources checked
+
+- `Ingredient lists_old/GENOSYS SNOW BOOSTER.pdf`
+- `Registration DOC/Formula_up/Formula-GENOSYS SNOW BOOSTER.pdf`
+- `Registration DOC/SA/SA-GENOSYS SNOW BOOSTER.pdf`
+- `Registration DOC/COA/COA-GENOSYS SNOW BOOSTER 200ml(WNL025).pdf`
+- `Registration DOC/COA/COA-GENOSYS SNOW BOOSTER 1000ml(WOB047).pdf`
+- `Registration DOC/Artwork/[GENOSYS]SNOW BOOSTER(200ml).pdf`
+- `Registration DOC/Artwork/[GENOSYS]SNOW BOOSTER(1000ml).pdf`
+- `docs/SESSION_CHANGES_2026-08-16_PRODUCT_16_SNOW_BOOSTER.md`
+
+The legacy ingredient sheet was checked first but not used for current percentages: it is an
+older formula with pumpkin ferment at 1% and ingredients absent from the current formula.
+The current `Formula_up` sheet is the quantitative source. The Safety Assessment confirms
+leave-on face and décolleté use, pH range 5.0–7.0 and the Phytolex SC trade-name mapping.
+The artwork supplies toner identity, daily use for all skin types, morning/evening
+application, use over makeup, PAO and precautions. The COAs supply measured pH and physical
+specifications. No DTS MG deck with a quantified clinical result was found, so no hydration,
+brightening or sebum percentage was introduced.
+
+### Corrections
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field. Russian is
+  idiomatic professional skincare copy; Arabic is polished neutral MSA for UAE retail.
+- Positioned SNOW BOOSTER accurately as a lightweight daily leave-on toner for all skin
+  types, used by hand or as a spray morning and evening, including over makeup.
+- Preserved exact finished concentrations: betaine 3%; glycerin 5.7815%; butylene glycol
+  4.55%; dipropylene glycol 3.99745%; propylene glycol 0.50015%; sodium lactate 0.3%;
+  pumpkin ferment 0.1%; lotus flower extract 0.0475%; and combined Phytolex botanical
+  extracts 0.00765%.
+- Reconciled Phytolex SC correctly: it is a 0.5% raw-material premix, not 0.5% finished
+  botanical extract and not the principal reason to buy the formula.
+- Preserved measured pH 6.14 for 200 ml and 6.17 for 1000 ml inside the 5.00–7.00
+  specification, translucent aqueous appearance, dermatological testing, 6-month PAO,
+  three-year unopened shelf life and Korean origin.
+- Removed unsupported brightening, probiotic, pore-tightening, sebum-control, pH-restoration,
+  cotton-pad mask and deeper-penetration claims. Product 16 concern routines now describe
+  hydration and comfort without implying drug delivery or action inside scar tissue.
+- Rewrote Russian and Arabic recommendation strings and quick facts to remove packaging and
+  dossier language while keeping exact percentages and practical application guidance.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/booster/boosterLocalizedCopy.ts`, consumed by `boosterCopy.ts`
+- Recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Concern routines and quick facts: `lib/concernsData.ts` and
+  `lib/productQuickFactsCatalog.ts`
+- Focused regression coverage checks runtime ownership, structured JSON, exact source values,
+  forbidden claim language and bespoke FAQ completeness
+- Database `productNumber`, localized names and localized descriptions were updated.
+
 ## Product 15 — INTENSIVE PROBLEM CONTROL TONER
 
 ### Catalog identity

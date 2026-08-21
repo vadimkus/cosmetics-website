@@ -146,8 +146,8 @@ export const MIST_RU_COPY: MistCopy = {
         a: 'Да. Распыляйте с расстояния 10–20 см при закрытых глазах, чтобы освежить внешний вид без растирания.',
       },
       {
-        q: 'Чем он отличается от Snow Booster?',
-        a: 'Snow Booster — водный ежедневный тоник. Microbiome Energy Infusing Mist — лёгкая эмульсия с маслом ши 1,2% в формате спрея.',
+        q: 'Чем он отличается от SNOW BOOSTER?',
+        a: 'SNOW BOOSTER — водный ежедневный тоник. MICROBIOME ENERGY INFUSING MIST — лёгкая эмульсия с маслом ши 1,2% в формате спрея.',
       },
       {
         q: 'Что такое CUREBIOME?',
@@ -332,8 +332,8 @@ export const MIST_AR_COPY: MistCopy = {
         a: 'نعم. يُرش من مسافة 10–20 سم مع إغلاق العينين لتجديد المظهر من دون فرك.',
       },
       {
-        q: 'ما الفرق بينه وبين Snow Booster؟',
-        a: 'Snow Booster تونر مائي يومي، أما Microbiome Energy Infusing Mist فهو مستحلب خفيف بزبدة الشيا 1.2% في عبوة رذاذ.',
+        q: 'ما الفرق بينه وبين SNOW BOOSTER؟',
+        a: 'SNOW BOOSTER تونر مائي يومي، أما MICROBIOME ENERGY INFUSING MIST فهو مستحلب خفيف بزبدة الشيا 1.2% في عبوة رذاذ.',
       },
       {
         q: 'ما هو CUREBIOME؟',

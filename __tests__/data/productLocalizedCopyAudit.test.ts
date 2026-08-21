@@ -14,6 +14,7 @@ import { getEpiCopy } from '@/components/product/epi/epiCopy'
 import { getSrsCopy } from '@/components/product/srs/srsCopy'
 import { getMistCopy } from '@/components/product/mist/mistCopy'
 import { getPctTonerCopy } from '@/components/product/pcttoner/pctTonerCopy'
+import { getBoosterCopy } from '@/components/product/booster/boosterCopy'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 
 describe('audited product localization copy', () => {
@@ -955,6 +956,86 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
     expect(JSON.parse(getProductTranslations('15')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it('serves the rewritten product 16 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('16')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['16'])
+    expect(getProductTranslations('16')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['16'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 16 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['16']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps SNOW BOOSTER facts and removes medical, dossier and contradicted claims', () => {
+    const concernSteps = CONCERN_PAGES.flatMap(page => [
+      ...(page.routine?.ru.flatMap(group => group.steps) || []),
+      ...(page.routine?.ar.flatMap(group => group.steps) || []),
+    ]).filter(step => step.products.some(product => product.url === '/products/16'))
+
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('16'),
+      centralAr: getProductTranslations('16'),
+      bespokeRu: getBoosterCopy('ru'),
+      bespokeAr: getBoosterCopy('ar'),
+      concernSteps,
+    })
+
+    for (const required of [
+      'Бетаин · 3%',
+      'بيتين · 3%',
+      '5,7815%',
+      '5.7815%',
+      '4,55%',
+      '4.55%',
+      '3,99745%',
+      '3.99745%',
+      '0,00765%',
+      '0.00765%',
+      '6,14',
+      '6.14',
+      '6,17',
+      '6.17',
+      '200 мл',
+      '200 مل',
+      '1000 мл',
+      '1000 مل',
+      '6 месяцев',
+      '6 أشهر',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'пробиотик',
+      'суж.*пор',
+      'проникать глубже',
+      'рубцовую ткань',
+      'коробка',
+      'партия',
+      'производитель',
+      'بروبيوتيك',
+      'تضييق.*المسام',
+      'التغلغل بفعالية أكبر',
+      'أنسجة الندبات',
+      'العلبة',
+      'رقم الدفعة',
+      'الشركة المصنّعة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+
+    expect(getBoosterCopy('ru').faq.items).toHaveLength(8)
+    expect(getBoosterCopy('ar').faq.items).toHaveLength(8)
+    expect(JSON.parse(getProductTranslationsRu('16')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('16')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
   })

@@ -124,7 +124,7 @@ export const SNOW_O2_RU_COPY: SnowO2Copy = {
   routine: {
     eyebrow: 'Продолжение ухода',
     title: 'Очищение, затем сияние и защита.',
-    intro: 'После SNOW O₂ нанесите Snow Booster, сыворотку и крем Multi Vita, а утром завершите уход солнцезащитным средством.',
+    intro: 'После SNOW O₂ нанесите SNOW BOOSTER, сыворотку и крем Multi Vita, а утром завершите уход солнцезащитным средством.',
     thisProduct: 'Шаг очищения',
     viewProduct: 'Подробнее',
     chooseOptions: 'Выбрать объём',
@@ -290,7 +290,7 @@ export const SNOW_O2_AR_COPY: SnowO2Copy = {
   routine: {
     eyebrow: 'استكمال الروتين',
     title: 'تنظيف، ثم إشراقة وحماية.',
-    intro: 'بعد SNOW O₂، يُستخدم Snow Booster ثم سيروم وكريم Multi Vita، ويُختتم الروتين الصباحي بواقي الشمس.',
+    intro: 'بعد SNOW O₂، يُستخدم SNOW BOOSTER ثم سيروم وكريم Multi Vita، ويُختتم الروتين الصباحي بواقي الشمس.',
     thisProduct: 'خطوة التنظيف',
     viewProduct: 'التفاصيل',
     chooseOptions: 'اختيار الحجم',

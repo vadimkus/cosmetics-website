@@ -113,6 +113,8 @@
  *   - THE SA LAB ID.
  */
 
+import { BOOSTER_COPY_AR, BOOSTER_COPY_RU } from './boosterLocalizedCopy'
+
 export type BoosterLocale = 'en' | 'ar' | 'ru'
 
 export interface BoosterCopy {
@@ -823,7 +825,11 @@ const RU: BoosterCopy = {
   backToProducts: 'Продукты',
 }
 
-const BY_LOCALE: Record<BoosterLocale, BoosterCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<BoosterLocale, BoosterCopy> = {
+  en: EN,
+  ar: { ...AR, ...BOOSTER_COPY_AR },
+  ru: { ...RU, ...BOOSTER_COPY_RU },
+}
 
 export function getBoosterCopy(locale: string): BoosterCopy {
   return BY_LOCALE[(locale as BoosterLocale) in BY_LOCALE ? (locale as BoosterLocale) : 'en']

@@ -28,6 +28,7 @@ import { getPostcreamCopy } from '@/components/product/postcream/postcreamCopy'
 import { getSpcreamCopy } from '@/components/product/spcream/spcreamCopy'
 import { getHydroSoothingCopy } from '@/components/product/hydrosoothing/hydroSoothingCopy'
 import { getMhcreamCopy } from '@/components/product/mhcream/mhcreamCopy'
+import { getPccreamCopy } from '@/components/product/pccream/pccreamCopy'
 import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
 import { SENSITIVE_SKIN_COPY } from '@/components/product/beautybox/copy/sensitiveSkin'
 import { PROBLEM_SKIN_COPY } from '@/components/product/beautybox/copy/problemSkin'
@@ -2103,6 +2104,83 @@ describe('audited product localization copy', () => {
       'المصنع',
       'досье',
       'сертификат',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+  })
+
+  it('serves the rewritten product 30 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('30')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['30'])
+    expect(getProductTranslations('30')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['30'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 30 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['30']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps product 30 source facts consistent across customer-facing surfaces', () => {
+    const concernSteps = CONCERN_PAGES.flatMap(page => [
+      ...(page.routine?.ru.flatMap(group => group.steps) || []),
+      ...(page.routine?.ar.flatMap(group => group.steps) || []),
+    ]).filter(step => step.products.some(product => product.url === '/products/30'))
+    const product30BoxItems = [
+      ...PROBLEM_SKIN_COPY.ru.contents.items,
+      ...PROBLEM_SKIN_COPY.ar.contents.items,
+    ].filter(item => item.productNumber === '30')
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('30'),
+      centralAr: getProductTranslations('30'),
+      bespokeRu: getPccreamCopy('ru'),
+      bespokeAr: getPccreamCopy('ar'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['30'],
+      concernSteps,
+      product30BoxItems,
+      recommendationRu: {
+        title: ruMessages.product.routineProblemControlCreamTitle,
+        description: ruMessages.product.routineProblemControlCreamDesc,
+      },
+      recommendationAr: {
+        title: arMessages.product.routineProblemControlCreamTitle,
+        description: arMessages.product.routineProblemControlCreamDesc,
+      },
+    })
+
+    for (const required of [
+      '86,595%',
+      '86.595%',
+      '1,3%',
+      '1.3%',
+      '0,05%',
+      '0.05%',
+      '1,5%',
+      '1.5%',
+      '0,5%',
+      '0.5%',
+      '5,87',
+      '5.87',
+      '50 г',
+      '50 غ',
+      '250 г',
+      '250 غ',
+    ]) {
+      expect(text.toLocaleLowerCase()).toContain(required.toLocaleLowerCase())
+    }
+
+    for (const unsupported of [
+      'некомедоген',
+      'غير مسبب لانسداد المسام',
+      'лечит акне',
+      'يعالج حب الشباب',
+      'лечебные активы',
+      'المكونات العلاجية',
+      'нет масла вообще',
+      'لا زيت فيه إطلاقاً',
+      'ни эмульгатор',
+      'لا مستحلب',
+      '5-Free',
     ]) {
       expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
     }

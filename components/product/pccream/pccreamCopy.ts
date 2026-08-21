@@ -126,6 +126,8 @@
  *     the page uses.
  */
 
+import { PCCREAM_AR_COPY, PCCREAM_RU_COPY } from './pccreamLocalizedCopy'
+
 export type PccreamLocale = 'en' | 'ar' | 'ru'
 
 export interface PccreamCopy {
@@ -900,7 +902,16 @@ const RU: PccreamCopy = {
   backToProducts: 'Все продукты',
 }
 
-const BY_LOCALE: Record<PccreamLocale, PccreamCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<PccreamLocale, PccreamCopy> = {
+  en: EN,
+  ar: PCCREAM_AR_COPY,
+  ru: PCCREAM_RU_COPY,
+}
+
+// Keep the former inline dictionaries type-checked until they are removed in a
+// dedicated structural cleanup; audited runtime ownership lives above.
+void AR
+void RU
 
 export function getPccreamCopy(locale: string): PccreamCopy {
   return BY_LOCALE[(locale as PccreamLocale) in BY_LOCALE ? (locale as PccreamLocale) : 'en']

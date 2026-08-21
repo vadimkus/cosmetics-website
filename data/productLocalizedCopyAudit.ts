@@ -5,6 +5,7 @@ import { product25Ar, product25Ru } from './product25LocalizedCopy'
 import { product26Ar, product26Ru } from './product26LocalizedCopy'
 import { product27Ar, product27Ru } from './product27LocalizedCopy'
 import { product28Ar, product28Ru } from './product28LocalizedCopy'
+import { product30Ar, product30Ru } from './product30LocalizedCopy'
 
 const product1Ru = {
   description:
@@ -4027,6 +4028,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Увлажняющий крем MOISTURE REPLENISHING HYALURON',
       ...product29Ru,
     },
+    '30': {
+      name: 'Гель-крем INTENSIVE PROBLEM CONTROL',
+      ...product30Ru,
+    },
   },
   ar: {
     '1': {
@@ -4144,6 +4149,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '29': {
       name: 'كريم الترطيب بالهيالورون MOISTURE REPLENISHING',
       ...product29Ar,
+    },
+    '30': {
+      name: 'كريم الجل INTENSIVE PROBLEM CONTROL',
+      ...product30Ar,
     },
   },
 } as const

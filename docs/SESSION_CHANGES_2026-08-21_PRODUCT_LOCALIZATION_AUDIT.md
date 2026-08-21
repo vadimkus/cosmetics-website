@@ -253,6 +253,71 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 30 — INTENSIVE PROBLEM CONTROL CREAM
+
+### Identity and sources checked
+
+- Repository identity: `productNumber: "30"` / `INTENSIVE PROBLEM CONTROL CREAM`, with the
+  bespoke route handled by `components/product/pccream/PccreamProductPage.tsx`
+- `Ingredient lists_old/GENOSYS INTENSIVE PROBLEM CONTROL CREAM.pdf`
+- `Registration DOC/SA/SA-GENOSYS INTENSIVE PROBLEM CONTROL CREAM.pdf`
+- `Registration DOC/Formula_up/Formula-GENOSYS INTENSIVE PROBLEM CONTROL CREAM.pdf`
+- `Registration DOC/COA/COA-GENOSYS INTENSIVE PROBLEM CONTROL CREAM 50g(WNL081).pdf`
+- `Registration DOC/COA/COA-GENOSYS INTENSIVE PROBLEM CONTROL CREAM 250g(WNL081).pdf`
+- `Registration DOC/Artwork/[GENOSYS]PROBLEM CONTROL CREAM.pdf`
+- `Registration DOC/Artwork/[GENOSYS]PROBLEM CONTROL CREAM(250g).pdf`
+- The product-specific homecare/deck material and catalogue references available in the
+  Intertek archive were checked for branded names and efficacy figures
+
+The current `Formula_up` sheet is the quantitative source because the historical ingredient
+sheet and 2014 Safety Assessment contain earlier percentages. The Safety Assessment remains
+the source for supplier-complex reconciliation and dermatological testing; artwork supplies
+the leave-on method and public precautions; COA supplies measured pH and physical
+specification. No lot code or dated expiry was carried into customer copy.
+
+### Corrections
+
+- Rewrote every central and bespoke Russian and Arabic field in idiomatic premium retail
+  language, including product facts, ingredient cards, use instructions, suitability, FAQ,
+  concern routines, Beauty Box copy, quick facts and recommendation labels.
+- Preserved the current formula values: water 86.595%; dipropylene glycol 7%;
+  1,2-hexanediol 2%; trehalose 1.5%; acrylates crosspolymer 0.7%; sodium polyacrylate 0.6%;
+  xylitol 0.5%; Zinc PCA 0.05%; and panthenol, allantoin, beta-glucan, the two ferments,
+  three plant extracts and polyglutamic acid at 0.1% each.
+- Preserved measured pH 5.87 inside the 5.50–6.50 specification, the opaque gel-cream
+  appearance, dermatological testing, Korean origin, three-year unopened life and 50 g /
+  250 g formats.
+- Reframed the categorical `no oil at all` claim. The formula has no plant oil, butter, wax
+  or traditional oil phase, and its cream structure comes from 0.7% acrylates crosspolymer
+  plus 0.6% sodium polyacrylate. It nevertheless contains dimethicone and hydrogenated
+  lecithin at 0.005% each, so absolute `nothing oil-like` wording was removed.
+- Removed `no emulsifier` and `no artificial surfactant` language. Hydrogenated lecithin is
+  amphiphilic and can function as an emulsifier; the available documents do not establish a
+  clean categorical exclusion.
+- Removed unsupported `non-comedogenic`, pore-unclogging, guaranteed all-day shine control,
+  treatment, healing, regeneration and barrier-repair promises.
+- Did not use the historical 14% sebum and 9% colour-blemish figures because the available
+  deck reference does not provide enough study design or current-formula linkage to present
+  them as robust efficacy results.
+- Corrected application language to a leave-on cream massaged gently morning and evening,
+  after serum and before morning sunscreen.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/product30LocalizedCopy.ts`, consumed by
+  `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/pccream/pccreamLocalizedCopy.ts`, consumed by `pccreamCopy.ts`
+- Shared customer surfaces: `messages/ru.json`, `messages/ar.json`,
+  `lib/concernsData.ts`, `lib/productQuickFactsCatalog.ts` and
+  `components/product/beautybox/copy/problemSkin.ts`
+- Regression coverage checks runtime ownership, structured JSON, exact current-formula
+  values and removal of unsupported medical, comedogenicity and categorical oil/emulsifier
+  claims
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 29 — MOISTURE REPLENISHING HYALURON CREAM
 
 ### Identity and sources checked

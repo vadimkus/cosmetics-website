@@ -6,6 +6,7 @@ import { getHesCopy } from '@/components/product/powersolution/hesCopy'
 import { getPowerSolutionCopy } from '@/components/product/powersolution/powerSolutionCopy'
 import { getCtsCopy } from '@/components/product/powersolution/ctsCopy'
 import { getPcsCopy } from '@/components/product/powersolution/pcsCopy'
+import { getSwsCopy } from '@/components/product/powersolution/swsCopy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -363,5 +364,70 @@ describe('audited product localization copy', () => {
     ]) {
       expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
     }
+  })
+
+  it('serves the rewritten product 8 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('8')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['8'])
+    expect(getProductTranslations('8')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['8'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 8 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['8']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps SWS source facts and removes contradicted or medical claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('8'),
+      centralAr: getProductTranslations('8'),
+      bespokeRu: getSwsCopy('ru'),
+      bespokeAr: getSwsCopy('ar'),
+    })
+
+    for (const required of [
+      '17,71%',
+      '17.71%',
+      '10,224%',
+      '10.224%',
+      '7,486%',
+      '7.486%',
+      'Арбутин 2%',
+      'أربوتين 2%',
+      '0,2002%',
+      '0.2002%',
+      '6,6 ppm',
+      '6.6 أجزاء في المليون',
+      '0,5 ppm',
+      '0.5 جزء في المليون',
+      '7,72',
+      '7.72',
+      '1,032',
+      '1.032',
+      '2,09 мл',
+      '2.09 مل',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'заживлен',
+      'регенерац',
+      'лечение',
+      'гормон роста',
+      'التئام',
+      'تجديد الخلايا',
+      'علاج التصبغات',
+      'هرمون النمو',
+      'искусственн.*пав',
+      'искусственн.*поверхностно',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+
+    expect(getSwsCopy('ru').freeFrom.items).not.toContain('ПАВ')
+    expect(getSwsCopy('ar').freeFrom.items).not.toContain('المواد الخافضة للتوتر السطحي')
+    expect(text).toContain('Polysorbate 60')
   })
 })

@@ -118,6 +118,7 @@
  */
 
 import { RANGE, type PowerSolutionCopy, type PowerSolutionLocale, type PowerSolutionVariant } from './powerSolutionCopy'
+import { SWS_AR_COPY, SWS_RU_COPY } from './swsLocalizedCopy'
 
 export const SWS_FORMULA_BASE = [
   { pct: 10.224 },
@@ -418,7 +419,7 @@ const EN: PowerSolutionCopy = {
   backToProducts: 'Products',
 }
 
-const AR: PowerSolutionCopy = {
+const AR: PowerSolutionCopy = Object.assign({}, {
   eyebrow: 'أمبولة احترافية · عشر قوارير مُحكمة',
   headline: 'القارورة التي تلجأ إليها حين يكون الهمّ هو التصبّغ.',
   subheadline:
@@ -684,9 +685,9 @@ const AR: PowerSolutionCopy = {
     body: 'قارورة التصبّغ في مجموعة Power Solution، بأربوتين 2% وكل نسبة أخرى مطبوعة أعلاه، بلا إخفاء.',
   },
   backToProducts: 'المنتجات',
-}
+}, SWS_AR_COPY)
 
-const RU: PowerSolutionCopy = {
+const RU: PowerSolutionCopy = Object.assign({}, {
   eyebrow: 'Профессиональная ампула · Десять запаянных флаконов',
   headline: 'Флакон, к которому тянутся, когда вопрос в пигменте.',
   subheadline:
@@ -953,7 +954,7 @@ const RU: PowerSolutionCopy = {
     body: 'Пигментный флакон линии Power Solution: арбутин 2% и все остальные проценты выше, без умолчаний.',
   },
   backToProducts: 'Продукты',
-}
+}, SWS_RU_COPY)
 
 const BY_LOCALE: Record<PowerSolutionLocale, PowerSolutionCopy> = { en: EN, ar: AR, ru: RU }
 

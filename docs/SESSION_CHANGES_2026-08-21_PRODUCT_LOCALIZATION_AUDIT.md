@@ -175,6 +175,66 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 8 — POWER SOLUTION SWS
+
+### Sources read
+
+- `Ingredient lists_old/GENOSYS POWER SOLUTION SWS.pdf` — mandatory first source and legacy
+  INCI baseline
+- `Registration DOC/Formula_up/Formula-GENOSYS POWER SOLUTION SWS.pdf` — current finished
+  formula and exact percentages
+- `Registration DOC/SA/SA-GENOSYS POWER SOLUTION SWS.pdf` — ingredient functions, safety
+  boundary, pregnancy/lactation precaution and sh-Polypeptide-7 identity
+- `Registration DOC/COA/COA-GENOSYS POWER SOLUTION SWS(L0767A).pdf` — pH, specific gravity,
+  appearance and measured fill
+- `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION SWS.pdf` — current public INCI,
+  directions, pack format, functional-cosmetic wording and printed `5-Free` panel
+- `~/Desktop/Glass_Skin/01-official-pdfs/` was checked for the required DTS MG material.
+  No SWS-specific deck was present there, so no branded complex or clinical figure was
+  introduced from a secondary source.
+
+### Corrections
+
+- Rewrote every central, recommendation and bespoke Russian and Arabic customer-facing
+  field. Russian now reads as natural professional cosmetology copy; Arabic is polished,
+  neutral MSA suitable for UAE retail.
+- Kept arbutin 2% as the single lead story. Kojic acid 0.05% and licorice root extract
+  0.001% are not presented as co-leads.
+- Preserved the exact current formula values: butylene glycol 10.224%; glycerin 7.486%;
+  combined humectant base 17.71%; sodium hyaluronate 0.2002%; safflower 0.15%; kojic acid
+  0.05%; allantoin 0.05%; adenosine 0.04%; grape and rose callus culture extracts 0.03%
+  each; sh-Polypeptide-7 6.6 ppm; and Palmitoyl Tripeptide-1 0.5 ppm.
+- Preserved the measured COA values: pH 7.72 inside the 8.00 ± 1.00 range, specific gravity
+  1.032 inside the 1.000–1.040 range, 2.09 ml measured fill for a nominal 2 ml vial and
+  light-yellow viscous appearance.
+- Removed medical language around treatment, regeneration, healing and growth hormone.
+  sh-Polypeptide-7 is identified only as a recombinant somatotropin-sequence peptide with
+  the documented cosmetic skin-protecting function.
+- Removed microneedling and roller use as a product instruction. The verified carton method
+  is cleanse, open, apply and absorb; any professional technique is left to a qualified
+  specialist.
+- Challenged the printed `5-Free` panel against the current formula. Polysorbate 60 is
+  present and is documented as a surfactant, so the copy does not promise `no artificial
+  surfactants`. The customer-facing free-from list is limited to four supportable
+  exclusions: parabens, ethanol, added colorants and `Parfum`.
+- Avoided the unqualified `fragrance-free` claim. The formula has no `Parfum`, but
+  Chamaecyparis obtusa water is an aromatic botanical ingredient, so the copy transparently
+  allows for a faint natural raw-material scent.
+- Preserved dermatological testing, Korean origin, ten sealed 2 ml glass vials, three-year
+  unopened shelf life and the pregnancy/lactation precaution.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy: `components/product/powersolution/swsLocalizedCopy.ts`,
+  consumed by `components/product/powersolution/swsCopy.ts`
+- Product 8 recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Regression coverage checks runtime ownership, structured JSON, exact source figures,
+  contradicted free-from language and prohibited medical claims
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 7 — POWER SOLUTION PCS
 
 ### Sources reviewed

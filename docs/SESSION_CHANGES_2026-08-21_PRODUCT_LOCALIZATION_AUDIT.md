@@ -253,6 +253,68 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 25 — SOOTHING REPAIR POSTCREAM
+
+### Catalog identity
+
+- Prisma/code identity: `productNumber: 25`, repository route id `"25"`, English catalog name
+  `SOOTHING REPAIR POSTCREAM`.
+- Two sizes share the same formula: 20 g homecare and 100 g professional. The dedicated
+  customer runtime is `components/product/postcream/`, and product 25 is also used in
+  recommendation copy, scar and sensitivity routines, and quick facts.
+- No product 25 UAE Beauty Box or kit-specific copy was found.
+
+### Sources checked
+
+- `Registration DOC/Formula_up/Formula-GENOSYS SOOTHING REPAIR POSTCREAM.pdf`
+- `Registration DOC/SA/SA-GENOSYS SOOTHING REPAIR POSTCREAM.pdf`
+- `Intertek_folder/Safety Assessment Report/19 SOOTHING REPAIR POSTCREAM.pdf`
+- `Registration DOC/COA/COA-GENOSYS SOOTHING REPAIR POSTCREAM 100g(L0302B).pdf`
+- `Registration DOC/COA/COA-GENOSYS SOOTHING REPAIR POSTCREAM 100g(L1233B).pdf`
+- `Registration DOC/Artwork/[GENOSYS]SOOTHING REPAIR POSTCREAM(20g).pdf`
+- `Soothing repair post cream 100g/` artwork files
+
+The current finished formula controls percentages and INCI order; both Safety Assessments
+were used to reconcile raw materials, the patch test, lavender/linalool and beeswax. The two
+COAs supplied measured pH, specific gravity, hardness and microbiological results. Artwork
+supplied customer directions, PAO and the explicit damaged-skin and pregnancy/lactation
+precautions. No product-specific DTS MG deck with a finished-product clinical efficacy result
+was found, so no clinical percentage was introduced.
+
+### Corrections
+
+- Rewrote all central and bespoke Russian and Arabic customer copy in idiomatic Russian and
+  polished neutral MSA. The customer story now leads with the verified 18.39% hydration base:
+  butylene glycol 12% plus glycerin 6.39%.
+- Re-attributed calming support to dipotassium glycyrrhizate, Scutellaria baicalensis root
+  extract and allantoin at 0.2% each, with bisabolol 0.05%.
+- Reconciled the Centella triterpenes accurately: asiaticoside 0.008%, madecassic acid
+  0.006% and asiatic acid 0.006%, or 0.02% / 200 ppm combined. sh-Polypeptide-7 is present
+  only at 10 parts per billion and is no longer presented as the formula's lead technology.
+- Removed scar-remodelling, EGF, cell-regeneration, wound-healing, oedema, inflammation,
+  oxygen-therapy, optimal-absorption and rapid-recovery claims from RU/AR customer surfaces.
+- Preserved the 20 g / 100 g formats, morning/evening and repeat-as-needed use, Korean origin,
+  dermatological testing, six-month PAO, light-yellow medium cream and measured pH values
+  6.65 and 6.67 within the 6.80 ± 1.00 specification.
+- Preserved the key safety boundary: apply only to intact skin when the practitioner says to
+  begin; do not use on wounded, open or weeping skin. Kept pregnancy/lactation avoidance and
+  disclosed beeswax, lavender oil and linalool.
+- Reframed the bespoke concentration comparison as transparent product education rather than
+  self-defeating criticism, dossier language or manufacturer attribution.
+
+### Implementation
+
+- Canonical RU/AR fields: `data/product25LocalizedCopy.ts`, owned through
+  `data/productLocalizedCopyAudit.ts`
+- Runtime central overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Bespoke runtime: `components/product/postcream/postcreamCopy.ts`
+- Recommendation and routine strings: `messages/ru.json` and `messages/ar.json`
+- Related customer surfaces: `lib/concernsData.ts` and `lib/productQuickFactsCatalog.ts`
+- Focused regression coverage checks runtime ownership, structured JSON, verified
+  concentrations, safety language and prohibited claim language
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 24 — EyeCell EYE CONTOUR CREAM
 
 ### Catalog identity

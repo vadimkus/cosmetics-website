@@ -1122,6 +1122,7 @@ export const productTranslations: Record<string, ProductTranslation> = {
   '22': AUDITED_PRODUCT_LOCALIZED_COPY.ar['22'],
   '23': AUDITED_PRODUCT_LOCALIZED_COPY.ar['23'],
   '24': AUDITED_PRODUCT_LOCALIZED_COPY.ar['24'],
+  '25': AUDITED_PRODUCT_LOCALIZED_COPY.ar['25'],
 }
 
 /**

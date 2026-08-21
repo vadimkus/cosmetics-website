@@ -57,6 +57,7 @@ next-env.d.ts
 !/data/productTranslationsRu.ts
 !/data/productConfig.ts
 !/data/productBarcodes.ts
+!/data/product1LocalizedCopy.ts
 !/data/product22LocalizedCopy.ts
 !/data/product23LocalizedCopy.ts
 !/data/product24LocalizedCopy.ts
@@ -69,6 +70,10 @@ next-env.d.ts
 !/data/product32LocalizedCopy.ts
 !/data/product33LocalizedCopy.ts
 !/data/product34LocalizedCopy.ts
+!/data/product35LocalizedCopy.ts
+!/data/product36LocalizedCopy.ts
+!/data/product37LocalizedCopy.ts
+!/data/product38LocalizedCopy.ts
 !/data/product39LocalizedCopy.ts
 !/data/product40LocalizedCopy.ts
 !/data/product41LocalizedCopy.ts

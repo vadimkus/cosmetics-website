@@ -2842,6 +2842,218 @@ const product17Ar = {
     'يُستخدم صباحاً ومساءً. للاستخدام الخارجي فقط. لا يُستخدم أثناء الحمل أو الرضاعة. يجب تجنب ملامسة العينين والأغشية المخاطية، والشطف جيداً بالماء البارد عند الملامسة. لا يُستخدم على بشرة متضررة أو متهيجة. عند ظهور احمرار أو تورم أو حكة أو تهيج مستمر، يُوقف الاستخدام وتُطلب المشورة الطبية. يُحفظ في مكان بارد وجاف بعيداً عن أشعة الشمس المباشرة وعن متناول الأطفال. يُرجع إلى تاريخ الانتهاء المدون على العبوة.',
 } as const
 
+const product18Ru = {
+  description:
+    'Лёгкая увлажняющая сыворотка для сухой и обезвоженной кожи. Гидролизованная гиалуроновая кислота 2 000 ppm помогает быстро восполнить влагу, а сахарид изомерат PENTAVITIN 0,615% поддерживает её удержание. В состав также входят комплекс Hyaluronan 11 и кокосовая вода 0,79595%. Наносите на лицо утром и вечером после тоника и мягко вбивайте кончиками пальцев. Объём 30 мл. Дерматологически протестировано. Сделано в Корее.',
+  productDetails: JSON.stringify({
+    type: 'Лёгкая несмываемая увлажняющая сыворотка',
+    size: '30 мл',
+    target: 'Сухость, обезвоженность и ощущение стянутости',
+    keyActives: 'Гидролизованная гиалуроновая кислота 2 000 ppm + PENTAVITIN 0,615%',
+    hydrationBase: 'Бутиленгликоль 7,02% + глицерин 5% + Glycereth-26 4%',
+    application: 'Утром и вечером после тоника; нанести на лицо и мягко вбить',
+    measuredPh: '5,08; допустимый диапазон 4,8–5,8',
+    viscosity: '400 при допустимом диапазоне 380–580',
+    texture: 'Лёгкая сыворотка небесно-голубого оттенка без добавленного пигмента',
+    afterOpening: '12 месяцев',
+    testing: 'Дерматологически протестировано',
+    origin: 'Сделано в Южной Корее',
+  }),
+  keyFeatures: JSON.stringify([
+    {
+      title: 'Гидролизованная гиалуроновая кислота · 2 000 ppm',
+      description:
+        'Основная гиалуроновая форма в формуле помогает быстро восполнить влагу и вернуть обезвоженной коже более гладкий, свежий вид.',
+    },
+    {
+      title: 'PENTAVITIN · 0,615%',
+      description:
+        'Сахарид изомерат связывается с кератином рогового слоя и помогает коже дольше удерживать влагу.',
+    },
+    {
+      title: 'Увлажняющая база · 16,02%',
+      description:
+        'Бутиленгликоль 7,02%, глицерин 5% и Glycereth-26 4% поддерживают мягкость и комфорт без плотной кремовой текстуры.',
+    },
+    {
+      title: 'Hyaluronan 11 Multi-Complex',
+      description:
+        'Фирменное название комплекса разных молекулярных форм. В списке INCI представлены восемь гиалуроновых ингредиентов, включая гидролизованную форму 2 000 ppm.',
+    },
+  ]),
+  benefits: JSON.stringify([
+    'Быстро восполняет влагу в сухой и обезвоженной коже',
+    'Помогает уменьшить ощущение стянутости',
+    'Поддерживает более гладкий и наполненный влагой вид кожи',
+    'Лёгко наслаивается под крем, SPF и макияж',
+    'Подходит для утреннего и вечернего ухода',
+    'После одного применения измеренное внутреннее увлажнение выросло с 50,81 до 52,238',
+  ]),
+  ingredients: JSON.stringify([
+    {
+      name: 'Гидролизованная гиалуроновая кислота · 2 000 ppm',
+      description:
+        'Главная гиалуроновая форма сыворотки, представленная в концентрации 0,200003%.',
+    },
+    {
+      name: 'PENTAVITIN · 0,615%',
+      description:
+        'Сахарид изомерат помогает притягивать и удерживать влагу в роговом слое.',
+    },
+    {
+      name: 'Бутиленгликоль · 7,02% + глицерин · 5% + Glycereth-26 · 4%',
+      description:
+        'Многокомпонентная увлажняющая база общей концентрацией 16,02% поддерживает мягкость и комфорт кожи.',
+    },
+    {
+      name: 'Кокосовая вода · 0,79595%',
+      description:
+        'Дополняет водную основу сыворотки и её лёгкую освежающую текстуру.',
+    },
+    {
+      name: 'Hyaluronan 11 Multi-Complex',
+      description:
+        'Фирменный комплекс включает восемь гиалуроновых INCI-ингредиентов; семь дополнительных форм присутствуют в малых концентрациях рядом с гидролизованной гиалуроновой кислотой 2 000 ppm.',
+    },
+    {
+      name: 'Грибной комплекс',
+      description:
+        'Экстракты Trametes, Sparassis, Ganoderma, Phellinus и Tremella присутствуют по 0,000017% каждый и дополняют формулу.',
+    },
+    {
+      name: 'Full INCI',
+      description:
+        'Aqua (Water), Butylene Glycol, Glycerin, Glycereth-26, 1,2-Hexanediol, Isopentyldiol, Dipropylene Glycol, Cocos Nucifera (Coconut) Water, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Sodium Hyaluronate Crosspolymer, Potassium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Hydrolyzed Sodium Hyaluronate, Hyaluronic Acid, Sodium Acetylated Hyaluronate, Saccharide Isomerate, Glyceryl Glucoside, Tremella Fuciformis Polysaccharide, Saccharomyces Ferment Filtrate, Trametes Versicolor Extract, Sparassis Crispa Extract, Ganoderma Lucidum (Mushroom) Extract, Phellinus Linteus Extract, Tremella Fuciformis (Mushroom) Extract, Solanum Melongena (Eggplant) Fruit Extract, Ocimum Sanctum Leaf Extract, Curcuma Longa (Turmeric) Root Extract, Corallina Officinalis Extract, Annona Cherimolia Fruit Extract, Coccinia Indica Fruit Extract, Melia Azadirachta Leaf Extract, Melia Azadirachta Flower Extract, Panthenol, Ethylhexylglycerin, Carbomer, Xanthan Gum, Pelargonium Graveolens Flower Oil, Citric Acid, Sodium Citrate, Polyglutamic Acid, Disodium EDTA, Polyglyceryl-10 Laurate, Tromethamine, Sodium Dehydroacetate, Phenylpropanol, Pentylene Glycol, Citronellol.',
+    },
+  ]),
+  howToUse: JSON.stringify([
+    {
+      step: 'Подготовьте кожу',
+      instruction: 'Очистите лицо и при желании нанесите тоник.',
+    },
+    {
+      step: 'Нанесите сыворотку',
+      instruction: 'Распределите достаточное количество средства по лицу, избегая области вокруг глаз.',
+    },
+    {
+      step: 'Мягко вбейте',
+      instruction: 'Лёгкими похлопывающими движениями помогите сыворотке впитаться, не растирая кожу.',
+    },
+    {
+      step: 'Завершите уход',
+      instruction: 'Используйте утром и вечером. При необходимости нанесите сверху увлажняющий крем, а утром завершите уход SPF.',
+    },
+  ]),
+  directions:
+    'Только для наружного применения. Избегайте попадания в глаза и на слизистые; при контакте тщательно промойте прохладной водой. Не наносите на повреждённую или раздражённую кожу. При покраснении, отёке или стойком раздражении прекратите использование и обратитесь к врачу. Формула содержит масло цветков герани и цитронеллол. Храните в прохладном сухом месте вдали от прямого солнца и в недоступном для детей месте. Используйте в течение 12 месяцев после вскрытия.',
+} as const
+
+const product18Ar = {
+  description:
+    'سيروم مرطب خفيف للبشرة الجافة أو المفتقرة إلى الماء. يساعد حمض الهيالورونيك المتحلل بتركيز 2,000 جزء في المليون على تعويض الرطوبة سريعاً، بينما يدعم PENTAVITIN، وهو سكاريد أيزوميرات بتركيز 0.615%، الاحتفاظ بها. وتكتمل التركيبة بمركب Hyaluronan 11 وماء جوز الهند بتركيز 0.79595%. يُطبق على الوجه صباحاً ومساءً بعد التونر ويُربت بلطف بأطراف الأصابع. الحجم 30 مل. مختبر جلدياً. صُنع في كوريا.',
+  productDetails: JSON.stringify({
+    type: 'سيروم ترطيب خفيف يُترك على البشرة',
+    size: '30 مل',
+    target: 'الجفاف ونقص الماء والإحساس بالشد',
+    keyActives: 'حمض الهيالورونيك المتحلل 2,000 جزء في المليون + PENTAVITIN بنسبة 0.615%',
+    hydrationBase: 'بيوتلين غليكول 7.02% + غليسرين 5% + Glycereth-26 بنسبة 4%',
+    application: 'صباحاً ومساءً بعد التونر؛ يُوزع على الوجه ويُربت بلطف',
+    measuredPh: '5.08 ضمن نطاق 4.8–5.8',
+    viscosity: '400 ضمن نطاق 380–580',
+    texture: 'سيروم خفيف بلون أزرق سماوي من دون صبغة مضافة',
+    afterOpening: '12 شهراً',
+    testing: 'مختبر جلدياً',
+    origin: 'صُنع في كوريا الجنوبية',
+  }),
+  keyFeatures: JSON.stringify([
+    {
+      title: 'حمض الهيالورونيك المتحلل · 2,000 جزء في المليون',
+      description:
+        'الشكل الهيالوروني الرئيسي في التركيبة يساعد على تعويض الرطوبة سريعاً ومنح البشرة المفتقرة إلى الماء مظهراً أكثر نعومة وانتعاشاً.',
+    },
+    {
+      title: 'PENTAVITIN · 0.615%',
+      description:
+        'يساعد سكاريد أيزوميرات على الارتباط بكيراتين الطبقة القرنية ودعم احتفاظ البشرة بالرطوبة لمدة أطول.',
+    },
+    {
+      title: 'قاعدة ترطيب · 16.02%',
+      description:
+        'يدعم بيوتلين غليكول 7.02% والغليسرين 5% وGlycereth-26 بنسبة 4% نعومة البشرة وراحتها من دون قوام كريمي كثيف.',
+    },
+    {
+      title: 'Hyaluronan 11 Multi-Complex',
+      description:
+        'اسم تجاري لمركب من درجات جزيئية مختلفة. تضم قائمة INCI ثمانية مكونات هيالورونية، من بينها الشكل المتحلل بتركيز 2,000 جزء في المليون.',
+    },
+  ]),
+  benefits: JSON.stringify([
+    'يعوض الرطوبة سريعاً في البشرة الجافة أو المفتقرة إلى الماء',
+    'يساعد على تخفيف الإحساس بالشد',
+    'يدعم مظهراً أكثر نعومة وامتلاءً بالرطوبة',
+    'ينسجم بسهولة تحت الكريم وواقي الشمس والمكياج',
+    'مناسب للروتين الصباحي والمسائي',
+    'بعد استخدام واحد ارتفع قياس الترطيب الداخلي من 50.81 إلى 52.238',
+  ]),
+  ingredients: JSON.stringify([
+    {
+      name: 'حمض الهيالورونيك المتحلل · 2,000 جزء في المليون',
+      description:
+        'الشكل الهيالوروني الرئيسي في السيروم، ويوجد بتركيز 0.200003%.',
+    },
+    {
+      name: 'PENTAVITIN · 0.615%',
+      description:
+        'سكاريد أيزوميرات يساعد على جذب الرطوبة والاحتفاظ بها في الطبقة القرنية.',
+    },
+    {
+      name: 'بيوتلين غليكول · 7.02% + غليسرين · 5% + Glycereth-26 · 4%',
+      description:
+        'قاعدة ترطيب متعددة المكونات بتركيز إجمالي 16.02% تدعم نعومة البشرة وراحتها.',
+    },
+    {
+      name: 'ماء جوز الهند · 0.79595%',
+      description:
+        'يكمل القاعدة المائية للسيروم ويسهم في قوامه الخفيف والمنعش.',
+    },
+    {
+      name: 'Hyaluronan 11 Multi-Complex',
+      description:
+        'يضم المركب التجاري ثمانية مكونات هيالورونية في قائمة INCI؛ وتوجد سبعة أشكال إضافية بتركيزات منخفضة إلى جانب حمض الهيالورونيك المتحلل 2,000 جزء في المليون.',
+    },
+    {
+      name: 'مركب الفطر',
+      description:
+        'توجد مستخلصات Trametes وSparassis وGanoderma وPhellinus وTremella بتركيز 0.000017% لكل منها لتكمل التركيبة.',
+    },
+    {
+      name: 'Full INCI',
+      description:
+        'Aqua (Water), Butylene Glycol, Glycerin, Glycereth-26, 1,2-Hexanediol, Isopentyldiol, Dipropylene Glycol, Cocos Nucifera (Coconut) Water, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Sodium Hyaluronate Crosspolymer, Potassium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Hydrolyzed Sodium Hyaluronate, Hyaluronic Acid, Sodium Acetylated Hyaluronate, Saccharide Isomerate, Glyceryl Glucoside, Tremella Fuciformis Polysaccharide, Saccharomyces Ferment Filtrate, Trametes Versicolor Extract, Sparassis Crispa Extract, Ganoderma Lucidum (Mushroom) Extract, Phellinus Linteus Extract, Tremella Fuciformis (Mushroom) Extract, Solanum Melongena (Eggplant) Fruit Extract, Ocimum Sanctum Leaf Extract, Curcuma Longa (Turmeric) Root Extract, Corallina Officinalis Extract, Annona Cherimolia Fruit Extract, Coccinia Indica Fruit Extract, Melia Azadirachta Leaf Extract, Melia Azadirachta Flower Extract, Panthenol, Ethylhexylglycerin, Carbomer, Xanthan Gum, Pelargonium Graveolens Flower Oil, Citric Acid, Sodium Citrate, Polyglutamic Acid, Disodium EDTA, Polyglyceryl-10 Laurate, Tromethamine, Sodium Dehydroacetate, Phenylpropanol, Pentylene Glycol, Citronellol.',
+    },
+  ]),
+  howToUse: JSON.stringify([
+    {
+      step: 'تهيئة البشرة',
+      instruction: 'يُنظف الوجه، ويمكن وضع التونر أولاً عند استخدامه ضمن الروتين.',
+    },
+    {
+      step: 'تطبيق السيروم',
+      instruction: 'تُوزع كمية كافية على الوجه مع تجنب المنطقة المحيطة بالعينين.',
+    },
+    {
+      step: 'التربيت بلطف',
+      instruction: 'يُربت بأطراف الأصابع حتى يمتص السيروم من دون فرك البشرة.',
+    },
+    {
+      step: 'استكمال الروتين',
+      instruction: 'يُستخدم صباحاً ومساءً. يمكن وضع كريم مرطب بعده، ويُختتم الروتين الصباحي بواقي الشمس.',
+    },
+  ]),
+  directions:
+    'للاستخدام الخارجي فقط. يجب تجنب ملامسة العينين والأغشية المخاطية، والشطف جيداً بالماء البارد عند الملامسة. لا يُستخدم على بشرة متضررة أو متهيجة. عند ظهور احمرار أو تورم أو تهيج مستمر، يُوقف الاستخدام وتُطلب المشورة الطبية. تحتوي التركيبة على زيت زهور الجيرانيوم والسيترونيلول. يُحفظ في مكان بارد وجاف بعيداً عن أشعة الشمس المباشرة وعن متناول الأطفال. يُستخدم خلال 12 شهراً من الفتح.',
+} as const
+
 export const AUDITED_PRODUCT_LOCALIZED_COPY = {
   ru: {
     '1': {
@@ -2912,6 +3124,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Интенсивная сыворотка для контура глаз EyeCell',
       ...product17Ru,
     },
+    '18': {
+      name: 'Увлажняющая гиалуроновая сыворотка MOISTURE REPLENISHING',
+      ...product18Ru,
+    },
   },
   ar: {
     '1': {
@@ -2981,6 +3197,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '17': {
       name: 'سيروم EyeCell المكثف لمحيط العين',
       ...product17Ar,
+    },
+    '18': {
+      name: 'سيروم الترطيب بالهيالورون MOISTURE REPLENISHING',
+      ...product18Ar,
     },
   },
 } as const

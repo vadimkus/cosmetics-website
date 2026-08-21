@@ -17,6 +17,8 @@ import { getPctTonerCopy } from '@/components/product/pcttoner/pctTonerCopy'
 import { getBoosterCopy } from '@/components/product/booster/boosterCopy'
 import { getEyeSerumCopy } from '@/components/product/eyeserum/eyeserumCopy'
 import { getEyeKitCopy } from '@/components/product/eyekit/eyekitCopy'
+import { getHsserumCopy } from '@/components/product/hsserum/hsserumCopy'
+import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 import { PRODUCT_QUICK_FACTS_CATALOG } from '@/lib/productQuickFactsCatalog'
 
@@ -1126,6 +1128,103 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
     expect(JSON.parse(getProductTranslations('17')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it('serves the rewritten product 18 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('18')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['18'])
+    expect(getProductTranslations('18')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['18'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 18 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['18']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps Hyaluron Serum facts and removes unsupported or dossier-style claims', () => {
+    const quickFacts = (PRODUCT_QUICK_FACTS_CATALOG['18'] || []).flatMap(fact => [
+      fact.title.ru,
+      fact.text.ru,
+      fact.title.ar,
+      fact.text.ar,
+    ])
+    const beautyBoxReferences = (['ru', 'ar'] as const).map(locale =>
+      DEEP_MOISTURIZING_COPY[locale].contents.items.find(item => item.productNumber === '18')
+    )
+    const hydrationConcern = CONCERN_PAGES.find(page => page.slug === 'hydration')
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('18'),
+      centralAr: getProductTranslations('18'),
+      bespokeRu: getHsserumCopy('ru'),
+      bespokeAr: getHsserumCopy('ar'),
+      quickFacts,
+      beautyBoxReferences,
+      hydrationConcernRu: {
+        seo: hydrationConcern?.seo.ru,
+        why: hydrationConcern?.why?.ru,
+        routine: hydrationConcern?.routine?.ru,
+        faq: hydrationConcern?.faq.ru,
+      },
+      hydrationConcernAr: {
+        seo: hydrationConcern?.seo.ar,
+        why: hydrationConcern?.why?.ar,
+        routine: hydrationConcern?.routine?.ar,
+        faq: hydrationConcern?.faq.ar,
+      },
+    })
+
+    for (const required of [
+      '2 000 ppm',
+      '2,000 جزء في المليون',
+      '0,615%',
+      '0.615%',
+      '16,02%',
+      '16.02%',
+      '0,79595%',
+      '0.79595%',
+      '50,81',
+      '50.81',
+      '52,238',
+      '52.238',
+      '30 мл',
+      '30 مل',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      '4-ступенчат',
+      '4 خطوات',
+      '78% кокос',
+      '78% ماء',
+      '+52%',
+      'производитель',
+      'الشركة المصنّعة',
+      'номер партии',
+      'رقم الدفعة',
+      'зарегистрированн',
+      'المسجّلة',
+      'документ',
+      'الوثائق',
+      'коробка говорит',
+      'العلبة تقول',
+      'тройная гиалуроновая',
+      'ثلاثي الوزن',
+      'проникает глубоко в дерму',
+      'يخترق عمق الأدمة',
+      'работать непрерывно 8 часов',
+      'العمل دون انقطاع لمدة 8 ساعات',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(JSON.parse(getProductTranslationsRu('18')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('18')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
   })

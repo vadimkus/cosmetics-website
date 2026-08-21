@@ -253,6 +253,76 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 18 — MOISTURE REPLENISHING HYALURON SERUM
+
+### Identity and sources checked
+
+- Prisma/code identity: repository product number `18`, `MOISTURE REPLENISHING HYALURON
+  SERUM`, 30 ml; bespoke route and runtime are
+  `components/product/hsserum/HsserumProductPage.tsx` and
+  `components/product/hsserum/hsserumCopy.ts`
+- `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/MOISTURE REPLENISHING HYALURON SERUMCREAM/MOISTURE REPLENISHING HYALURON SERUM/Formula_updated22062024.pdf`
+- `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/MOISTURE REPLENISHING HYALURON SERUMCREAM/MOISTURE REPLENISHING HYALURON SERUM/Artwork_updated22062024.pdf`
+- `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/MOISTURE REPLENISHING HYALURON SERUMCREAM/MOISTURE REPLENISHING HYALURON SERUM/COA_updated22062024.pdf`
+- `/Users/vadimkus/Desktop/Glass_Skin/01-official-pdfs/GENOSYS MOISTURE REPLENISHING HYALURON SERUM.pdf`
+
+The current formula is the source for finished concentrations and INCI order. The artwork
+confirms moisturizing function, AM/PM application by applying to the face and patting,
+dermatological testing, 30 ml size, 12-month PAO and precautions. The COA supplies measured
+pH, viscosity and three-year unopened shelf life. The DTS MG deck supplies the branded
+`Hyaluronan 11 Multi-Complex` name and the one-use hydration study; those marketing names
+and figures were reconciled against the current finished formula rather than inferred from
+the INCI alone.
+
+### Corrections
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field in idiomatic
+  professional Russian and polished neutral MSA. Removed the terse audit voice, carton
+  commentary and self-defeating phrases such as `not the cream`, `not the engine` and
+  `the carton stops here`.
+- Preserved hydrolyzed hyaluronic acid at `0.2000030%`, presented as `2,000 ppm`, and
+  PENTAVITIN / saccharide isomerate at `0.615%`.
+- Added the formula's meaningful hydration base: butylene glycol `7.02%`, glycerin `5%`
+  and Glycereth-26 `4%`, totaling `16.02%`.
+- Corrected coconut water to its exact finished concentration, `0.79595%`. Removed the old
+  `78% coconut water` story; purified water remains the formula base.
+- Reconciled `Hyaluronan 11 Multi-Complex` as a branded molecular-grade count with the
+  eight hyaluronic INCI ingredients. The copy no longer implies eleven finished
+  hyaluronic ingredients at the headline 2,000 ppm concentration.
+- Preserved the measured one-use result accurately: inner hydration rose from `50.81` to
+  `52.238` immediately after use in a 21-woman panel aged 20–59. Removed the false
+  interpretation of `52.238` as a `+52%` improvement.
+- Removed unsupported four-step electrolyte and aquaporin-mechanism claims. Glyceryl
+  glucoside is present at `0.0005%`, and the five mushroom extracts are present at
+  `0.000017%` each; neither is presented as the formula's primary performance driver.
+- Preserved measured pH `5.08` inside the `5.3 ± 0.5` specification and viscosity `400`
+  inside the `380–580` range, without turning laboratory specifications into the sales
+  headline.
+- Preserved the sky-blue appearance with no added pigment, 12-month PAO, three-year
+  unopened shelf life, dermatological testing and South Korean origin.
+- Kept the fragrance disclosure precise: the formula contains Pelargonium Graveolens
+  Flower Oil and Citronellol, so the serum is not presented as fragrance-free.
+- Rewrote product-pair recommendations for products 18 and 29, the deep-moisturizing
+  Beauty Box step, quick facts, concern routines and microneedling recommendation. Removed
+  scar-filling, tissue-healing and other medical promises from product 18 references.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke RU/AR runtime copy:
+  `components/product/hsserum/hsserumCopy.ts`
+- Product 18 and reciprocal product 29 recommendations:
+  `messages/ru.json` and `messages/ar.json`
+- Concern-routine references: `lib/concernsData.ts`
+- Deep Moisturizing Beauty Box copy:
+  `components/product/beautybox/copy/deepMoisturizing.ts`
+- Product 18 quick facts: `lib/productQuickFactsCatalog.ts`
+- Regression coverage checks runtime ownership, structured JSON, exact source values,
+  Beauty Box references and prohibited contradicted or dossier-style language
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 17 — EyeCell EYE CONTOUR SERUM
 
 ### Catalog identity

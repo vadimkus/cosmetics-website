@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
-import { validateCsrfToken } from '@/lib/csrf'
 import { findUserByEmail } from '@/lib/userStorageDb'
 import { awardReviewBonus } from '@/lib/loyalty'
+import { validateReviewMutationAuth } from '@/lib/reviewMutationAuth'
 
 // GET - Fetch reviews for a product
 export async function GET(
@@ -105,17 +105,19 @@ export async function POST(
   try {
     const { id: productId } = await params
 
-    // CSRF protection
-    const csrfCheck = await validateCsrfToken(request)
-    if (!csrfCheck.valid) {
+    const mutationAuth = await validateReviewMutationAuth(request)
+    if (!mutationAuth.valid) {
       return NextResponse.json(
-        { error: csrfCheck.error || 'Invalid CSRF token' },
-        { status: 403 }
+        { error: mutationAuth.error },
+        { status: mutationAuth.status }
       )
     }
 
     const body = await request.json()
-    const { email, rating, title, comment } = body
+    const { email: submittedEmail, rating, title, comment } = body
+    // The native app identity comes from its signed JWT. Never trust an email
+    // supplied in a mobile request body.
+    const email = mutationAuth.mobileEmail || submittedEmail
 
     // Validate input
     if (!email || !rating || !comment) {

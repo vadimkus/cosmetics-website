@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { errorLog } from '@/lib/logger'
-import { validateCsrfToken } from '@/lib/csrf'
 import { findUserByEmail } from '@/lib/userStorageDb'
+import { validateReviewMutationAuth } from '@/lib/reviewMutationAuth'
 
 // PUT - Update review
 export async function PUT(
@@ -12,16 +12,17 @@ export async function PUT(
   try {
     const { id: productId, reviewId } = await params
 
-    const csrfCheck = await validateCsrfToken(request)
-    if (!csrfCheck.valid) {
+    const mutationAuth = await validateReviewMutationAuth(request)
+    if (!mutationAuth.valid) {
       return NextResponse.json(
-        { error: csrfCheck.error || 'Invalid CSRF token' },
-        { status: 403 }
+        { error: mutationAuth.error },
+        { status: mutationAuth.status }
       )
     }
 
     const body = await request.json()
-    const { email, rating, title, comment } = body
+    const { email: submittedEmail, rating, title, comment } = body
+    const email = mutationAuth.mobileEmail || submittedEmail
 
     const user = await findUserByEmail(email)
     if (!user) {
@@ -105,16 +106,16 @@ export async function DELETE(
   try {
     const { id: productId, reviewId } = await params
 
-    const csrfCheck = await validateCsrfToken(request)
-    if (!csrfCheck.valid) {
+    const mutationAuth = await validateReviewMutationAuth(request)
+    if (!mutationAuth.valid) {
       return NextResponse.json(
-        { error: csrfCheck.error || 'Invalid CSRF token' },
-        { status: 403 }
+        { error: mutationAuth.error },
+        { status: mutationAuth.status }
       )
     }
 
     const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
+    const email = mutationAuth.mobileEmail || searchParams.get('email')
 
     if (!email) {
       return NextResponse.json(

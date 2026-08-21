@@ -175,6 +175,68 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 9 — POWER SOLUTION AWS
+
+### Sources checked
+
+- `Ingredient lists_old/GENOSYS POWER SOLUTION AWS.pdf`
+- `Registration DOC/SA/SA-GENOSYS POWER SOLUTION AWS.pdf`
+- `Registration DOC/Formula_up/Formula-GENOSYS POWER SOLUTION AWS.pdf`
+- `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION AWS.pdf`
+- `Registration DOC/COA/COA-GENOSYS POWER SOLUTION AWS(L1031A).pdf`
+
+The old ingredient list was reviewed first as required, but its arbutin 2% formula is
+historical and does not match the current quantitative formula, current artwork INCI or
+Safety Assessment. It was not carried into the live copy. The current formula is the source
+for finished concentrations, the Safety Assessment for product type and precautions, the
+artwork for the leave-on method and Korean functional positioning, and the COA for measured
+physical values.
+
+### Corrections
+
+- Confirmed repository product 9 from the Prisma-backed product number and bespoke routing
+  as `POWER SOLUTION AWS`, the anti-wrinkle Power Solution in ten sealed 2 ml glass vials.
+- Rewrote every central and bespoke Russian and Arabic customer-facing field in idiomatic
+  professional Russian and polished neutral MSA.
+- Preserved the exact current formula facts: butylene glycol 12.515%; glycerin 9.0858%;
+  combined humectant base 21.6008% (displayed as 21.60%); soy-milk ferment filtrate 2.5%;
+  sodium hyaluronate 0.1002%; allantoin 0.1%; adenosine 0.04%; Copper Tripeptide-1 10 ppm;
+  sh-Polypeptide-7 6.6 ppm; Acetyl Hexapeptide-8 2.5 ppm; Palmitoyl Tripeptide-1 2 ppm; and
+  Ceramide NP 0.4 ppm.
+- Preserved measured pH 4.93 within 4.80 ± 1.00, specific gravity 1.028 within
+  1.000–1.050, measured fill 2.12 ml for a nominal 2 ml vial, and the light-yellow viscous
+  appearance.
+- Removed arbutin 2% from the current product story. It appears only in the older ingredient
+  sheet and is absent from the current formula, artwork INCI and Safety Assessment.
+- Removed Botox, muscle-relaxation, growth-hormone/IGF-1, tissue-repair, wound-healing,
+  regeneration, reverse-ageing and drug-like claims. The trace peptides are identified only
+  at their exact concentrations and within documented cosmetic functions.
+- Removed the claim that microneedling or a roller is the product's purpose. AWS is a
+  leave-on face serum; roller pairing is optional and practitioner-led.
+- Challenged the printed `5-Free` panel against the formula. PEG-40 Hydrogenated Castor Oil
+  is present and documented as a surfactant, so `no artificial surfactants` and the
+  `5-Free` shorthand were removed.
+- Corrected `fragrance-free` to the exact verifiable boundary: no `Parfum` and no artificial
+  fragrance. Chamaecyparis obtusa water is documented as a fragrance ingredient, so the
+  product is not described as fragrance-free.
+- Preserved pregnancy/lactation avoidance from the Safety Assessment, dermatological
+  testing, Korean origin, single-use handling and the verified leave-on application method.
+- Rewrote recommendation strings so the roller is optional, AWS remains useful on its own,
+  and the customer-facing rationale leads with adenosine 0.04%, wrinkle appearance and
+  skin firmness rather than packaging commentary.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/powersolution/awsLocalizedCopy.ts`, consumed by `awsCopy.ts`
+- Product 9 recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Regression coverage checks runtime ownership, structured JSON, exact source values and
+  prohibited contradicted or medical claim language
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 8 — POWER SOLUTION SWS
 
 ### Sources read

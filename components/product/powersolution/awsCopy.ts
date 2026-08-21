@@ -128,6 +128,7 @@
  */
 
 import { RANGE, type PowerSolutionCopy, type PowerSolutionLocale, type PowerSolutionVariant } from './powerSolutionCopy'
+import { AWS_AR_COPY, AWS_RU_COPY } from './awsLocalizedCopy'
 
 export const AWS_FORMULA_BASE = [
   { pct: 12.515 },
@@ -968,7 +969,11 @@ const RU: PowerSolutionCopy = {
   backToProducts: 'Продукты',
 }
 
-const BY_LOCALE: Record<PowerSolutionLocale, PowerSolutionCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<PowerSolutionLocale, PowerSolutionCopy> = {
+  en: EN,
+  ar: Object.assign({}, AR, AWS_AR_COPY),
+  ru: Object.assign({}, RU, AWS_RU_COPY),
+}
 
 export function getAwsCopy(locale: string): PowerSolutionCopy {
   return BY_LOCALE[(locale as PowerSolutionLocale) in BY_LOCALE ? (locale as PowerSolutionLocale) : 'en']

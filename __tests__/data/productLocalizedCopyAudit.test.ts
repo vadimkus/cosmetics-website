@@ -7,6 +7,7 @@ import { getPowerSolutionCopy } from '@/components/product/powersolution/powerSo
 import { getCtsCopy } from '@/components/product/powersolution/ctsCopy'
 import { getPcsCopy } from '@/components/product/powersolution/pcsCopy'
 import { getSwsCopy } from '@/components/product/powersolution/swsCopy'
+import { getAwsCopy } from '@/components/product/powersolution/awsCopy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -429,5 +430,81 @@ describe('audited product localization copy', () => {
     expect(getSwsCopy('ru').freeFrom.items).not.toContain('ПАВ')
     expect(getSwsCopy('ar').freeFrom.items).not.toContain('المواد الخافضة للتوتر السطحي')
     expect(text).toContain('Polysorbate 60')
+  })
+
+  it('serves the rewritten product 9 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('9')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['9'])
+    expect(getProductTranslations('9')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['9'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 9 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['9']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps AWS source facts and removes contradicted or medical claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('9'),
+      centralAr: getProductTranslations('9'),
+      bespokeRu: getAwsCopy('ru'),
+      bespokeAr: getAwsCopy('ar'),
+    })
+
+    for (const required of [
+      '21,60%',
+      '21.60%',
+      '12,515%',
+      '12.515%',
+      '9,0858%',
+      '9.0858%',
+      'Аденозин 0,04%',
+      'أدينوزين 0.04%',
+      '2,5%',
+      '2.5%',
+      '0,1002%',
+      '0.1002%',
+      '10 ppm',
+      '10 أجزاء في المليون',
+      '6,6 ppm',
+      '6.6 أجزاء في المليون',
+      '0,4 ppm',
+      '0.4 جزء في المليون',
+      '4,93',
+      '4.93',
+      '1,028',
+      '1.028',
+      '2,12 мл',
+      '2.12 مل',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'арбутин 2%',
+      'أربوتين 2%',
+      'ботокс',
+      'релаксац.*мышц',
+      'гормон роста',
+      'игф-1',
+      'заживлен',
+      'регенерац',
+      'علاج',
+      'بوتوكس',
+      'إرخاء العضلات',
+      'هرمون النمو',
+      'التئام',
+      'تجديد الخلايا',
+      '5-Free',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+
+    expect(getAwsCopy('ru').freeFrom.items).not.toContain('ПАВ')
+    expect(getAwsCopy('ar').freeFrom.items).not.toContain('المواد الخافضة للتوتر السطحي')
+    expect(text).toContain('PEG-40 Hydrogenated Castor Oil')
+    expect(text).toContain('вода кипариса хиноки')
+    expect(text).toContain('ماء سرو الهينوكي')
   })
 })

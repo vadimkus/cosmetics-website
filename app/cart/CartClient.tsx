@@ -351,7 +351,7 @@ export default function CartClient() {
 
         <div className={`max-w-4xl mx-auto text-center py-8 md:py-16 ${dir === 'rtl' ? 'text-right' : ''}`}>
           <div className="flex flex-col items-center">
-            <div className="mb-6 md:mb-4 relative">
+            <div className="relative mx-auto mb-6 w-full max-w-[300px] md:mb-4 md:max-w-[380px]">
               <motion.div
                 animate={animationsEnabled && !isAppLikeMode ? {
                   y: [0, -8, 0],
@@ -366,11 +366,12 @@ export default function CartClient() {
                 } : {}}
               >
                 <Image
-                  src="/images/avatar/uni.png"
-                  alt="Empty cart"
-                  width={200}
-                  height={200}
-                  className="w-auto h-auto max-w-[200px] md:max-w-[250px]"
+                  src="/images/avatar/uni-transparent.png"
+                  alt=""
+                  aria-hidden="true"
+                  width={1420}
+                  height={1277}
+                  className="mx-auto h-auto w-full"
                   priority
                 />
               </motion.div>

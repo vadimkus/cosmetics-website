@@ -123,3 +123,54 @@ for UAE beauty retail, avoiding gendered second-person forms wherever practical.
 - Database `productNumber`, localized names and localized descriptions were updated
 - Regression coverage checks runtime ownership, structured JSON, required specifications
   and prohibited claim language
+
+## Product 4 — POWER SOLUTION HES
+
+### Sources checked
+
+- `Ingredient lists_old/GENOSYS HA VOLUME ENHANCING SOLUTION.pdf`
+- `Registration DOC/SA/SA-GENOSYS POWER SOLUTION HES.pdf`
+- `Registration DOC/Formula/Formula-GENOSYS POWER SOLUTION HES.pdf`
+- `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION HES.pdf`
+- `Registration DOC/COA/COA-GENOSYS POWER SOLUTION HES(WNL053).pdf`
+- `Artwork/Art_Work/Catalogue/GENOSYS CATALOG.pdf`
+
+### Corrections
+
+- Rewrote the complete central Russian and Arabic localization and audited every bespoke
+  HES page section, including commerce labels, hero, molecular-weight comparison, formula,
+  method, suitability, FAQ, specifications and safety guidance.
+- Corrected the ingredient name to `Sodium Hyaluronate`, not generic `Hyaluronic Acid`, and
+  preserved the documented 1% concentration and 1.65 ± 0.35 million-dalton molecular weight.
+- Preserved the quantitative formula: glycerin 10%, niacinamide 2%, 1,2-hexanediol 2%,
+  betaine 2%, BIOPHYTEX 3%, panthenol 0.3%, phytosphingosine 0.1%, adenosine 0.04%, and
+  four peptides at 1 ppm each.
+- Reconciled BIOPHYTEX and MATRIXYL 3000 against the Safety Assessment instead of treating
+  their trade names as unsupported. `sh-Polypeptide-7` is described within the documented
+  somatotropin-sequence boundary, never as an IGF-1 analogue.
+- Removed healing, regeneration, inflammation, maximum-penetration, filler-equivalence and
+  unsupported sulfate-free language. The roller remains a qualified-professional protocol;
+  straightforward leave-on use remains available without it.
+- Replaced dossier language, batch references and contract-manufacturer naming with
+  customer-facing facts. Preserved the measured pH 5.75, specific gravity 1.0272,
+  microbial count below 10 CFU/ml, three-year unopened shelf life and Korean origin.
+- Corrected the five no-additions claim to the artwork: formaldehyde, artificial fragrance,
+  artificial colorant, ethanol and artificial pigment.
+
+### Language
+
+Russian now reads as confident professional cosmetology copy rather than a literal
+translation. Arabic is polished Modern Standard Arabic for UAE retail, with neutral
+instructions that avoid repeated gendered second-person forms. Both versions lead with
+hydration and a fuller-looking complexion while keeping safety guidance direct.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy: `components/product/powersolution/hesCopy.ts`
+- The existing audited-localization update script picks up product 4 through the canonical
+  map; database `productNumber`, localized names and localized descriptions were updated
+- Regression coverage checks runtime ownership, structured JSON, exact source figures and
+  prohibited claim language

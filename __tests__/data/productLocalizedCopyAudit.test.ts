@@ -2,6 +2,7 @@ import { AUDITED_PRODUCT_LOCALIZED_COPY } from '@/data/productLocalizedCopyAudit
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { HAIRGEN_BOOSTER_COPY } from '@/components/product/hr3/hairGenBoosterCopy'
+import { getHesCopy } from '@/components/product/powersolution/hesCopy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -17,6 +18,11 @@ describe('audited product localization copy', () => {
   it('serves the rewritten product 3 copy in Russian and Arabic', () => {
     expect(getProductTranslationsRu('3')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['3'])
     expect(getProductTranslations('3')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['3'])
+  })
+
+  it('serves the rewritten product 4 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('4')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['4'])
+    expect(getProductTranslations('4')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['4'])
   })
 
   it('removes unsupported and unsafe roller claims from customer copy', () => {
@@ -108,5 +114,52 @@ describe('audited product localization copy', () => {
     expect(text).toContain('24 شهراً')
     expect(text).toContain('не заменяет диагностику или лечение')
     expect(text).toContain('لا يحل محل التشخيص أو العلاج')
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 4 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['4']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps HES source facts and removes unsafe or self-defeating claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('4'),
+      centralAr: getProductTranslations('4'),
+      bespokeRu: getHesCopy('ru'),
+      bespokeAr: getHesCopy('ar'),
+    })
+
+    for (const required of [
+      '1,65 ± 0,35 млн',
+      '1.65 ± 0.35 مليون',
+      'Ниацинамид 2%',
+      'نياسيناميد 2%',
+      'BIOPHYTEX',
+      'MATRIXYL 3000',
+      '1,2-гександиол 2%',
+      '1,2-هيكسانيديول 2%',
+      '5,75',
+      '5.75',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'заживлен',
+      'регенерац',
+      'воспалени',
+      'максимальн.*проникнов',
+      'التئام',
+      'تجديد الخلايا',
+      'الالتهاب',
+      'أقصى اختراق',
+      'IGF-1',
+      'сульфат',
+      'كبريتات',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
   })
 })

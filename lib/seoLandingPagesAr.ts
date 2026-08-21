@@ -20,7 +20,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       'اشتري من مورد مسؤول في الإمارات للتحقق من هوية المنتج والتخزين والصلاحية والحصول على دعم محلي.',
     ],
     featuredProducts: [
-      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera/main3.jpeg', imageAlt: 'منظف GENOSYS Cerabarrier Biome Gel Cleanser', description: 'منظف يومي قليل الرغوة لروتين يراعي حاجز البشرة.' },
+      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'منظف GENOSYS Cerabarrier Biome Gel Cleanser', description: 'جل يتحول إلى رغوة بثلاث مواد منظفة، وpH ‏6.37، وعطر 0.5%.' },
       { name: 'Multi Vita Radiance Serum', href: '/ar/products/21', image: '/images/radiance_serum/main.jpeg', imageAlt: 'سيروم GENOSYS Multi Vita Radiance Serum', description: 'خطوة تفتيح موجّهة لمظهر اللون غير المتجانس والبهتان.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'كريم GENOSYS Skin Barrier Protecting Cream', description: 'دعم للبشرة الجافة أو المجهدة بالسيراميد والأحماض الأمينية.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'واقي GENOSYS Ultra Shield SPF 50+', description: 'حماية يومية عالية من الأشعة بتركيبة كريم غير دهنية.' },
@@ -159,9 +159,9 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'نظام الوخز الدقيق GENOSYS', href: '/ar/products/1', image: '/images/genosys-microneedling-devices.jpg', imageAlt: 'نظام GENOSYS الاحترافي للوخز الدقيق', description: 'معدات احترافية ينبغي أن تعمل ضمن ممارسة مدرّبة وبروتوكول واضح.' },
-      { name: 'Bio Meso PDRN Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main.jpg', imageAlt: 'GENOSYS Bio Meso PDRN Ampoule 60000', description: 'منتج Bio Meso مكثف ومحدد بوضوح للاستخدام الاحترافي.' },
+      { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main.jpg', imageAlt: 'أمبولة GENOSYS BIO-MESO PDRN Expert 60000 الاحترافية', description: 'أمبولة سبكيولية احترافية تحتوي على Hydrolyzed Sponge بنسبة 5.72022% وSodium DNA بتركيز 1,120 جزءاً في المليون، وتستخدم وفق بروتوكول مختص مدرّب.' },
       { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/SRC.jpg', imageAlt: 'كريم GENOSYS Soothing Repair Postcream', description: 'دعم لما بعد العلاج بأحجام احترافية ومنزلية.' },
-      { name: 'Skin Reboot PDRN Mask Pack', href: '/ar/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'أقنعة GENOSYS Skin Reboot PDRN', description: 'أقنعة صفائحية احترافية ضمن بروتوكولات منظمة.' },
+      { name: 'Skin Reboot PDRN Mask Pack', href: '/ar/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'أقنعة GENOSYS Skin Reboot PDRN', description: '30 قناع ليوسيل فائق الرقة مع نياسيناميد 2% وSodium DNA بتركيز 1,000 جزء في المليون.' },
     ],
     sections: [
       {
@@ -213,9 +213,10 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'كريم عالي الحماية من الأشعة للاستخدام اليومي.' },
-      { name: 'Multi Sun Cream SPF 40', href: '/ar/products/40', image: '/images/sun/main.jpeg', imageAlt: 'GENOSYS Multi Sun Cream SPF 40', description: 'واقي يومي لطيف بقوام كريم خفيف.' },
-      { name: 'Skin Caring BB Cushion SPF 50+', href: '/ar/products/41', image: '/images/cushion_2/main.jpeg', imageAlt: 'كوشن GENOSYS Skin Caring BB Cushion SPF 50+', description: 'تغطية محمولة للتجديد وتقليل مظهر الاحمرار.' },
-      { name: 'Intensive Blemish Balm SPF 30', href: '/ar/products/42', image: '/images/BLEM.jpg', imageAlt: 'GENOSYS Intensive Blemish Balm SPF 30', description: 'منتج تغطية يجمع تصحيح اللون مع SPF معلن.' },
+      { name: 'MULTI SUN SPF 40 PA++', href: '/ar/products/40', image: '/images/sun/main.jpeg', imageAlt: 'كريم GENOSYS MULTI SUN الواقي من الشمس SPF 40 PA++', description: 'واقي يومي خفيف بحماية متوسطة من UVA.' },
+      { name: 'كوشن Skin Caring BB بعامل SPF 50+ PA++++', href: '/ar/products/41', image: '/images/cushion_2/main.jpeg', imageAlt: 'كوشن GENOSYS Skin Caring BB بعامل SPF 50+ PA++++', description: 'تغطية قابلة للبناء بخمسة مرشحات وعبوة إعادة تعبئة 15 غ ضمن العلبة.' },
+      { name: 'كريم Intensive Blemish Balm الملون SPF 30 PA++', href: '/ar/products/42', image: '/images/BLEM.jpg', imageAlt: 'كريم GENOSYS Intensive Blemish Balm الملون SPF 30 PA++', description: 'تغطية طبيعية مع ثلاثة مرشحات وأربوتين 2% بدرجة واحدة؛ من دون ادعاء مقاومة الماء.' },
+      { name: 'مجموعة CHARMING LOOK BEAUTY BOX', href: '/ar/products/57', image: '/images/bbbox_charming/main.jpeg', imageAlt: 'مجموعة GENOSYS CHARMING LOOK BEAUTY BOX', description: 'كوشن بدرجة Ivory أو Beige أو Camel مع عبوة إعادة تعبئة 15 غ، ومنظف وتونر ومزيل وقناع ليلي؛ ويحسب التوفير وفق الأسعار الحالية.' },
     ],
     sections: [
       {
@@ -309,14 +310,14 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       'الإجراءات بالسبكيول أو الوخز أو الحقن تتطلب تقييماً وتدريباً ونظافة وعناية لاحقة.',
     ],
     featuredProducts: [
-      { name: 'Bio Meso PDRN Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main.jpg', imageAlt: 'GENOSYS Bio Meso PDRN Ampoule 60000', description: 'منتج Bio Meso سبكيولي مكثف للاستخدام الاحترافي فقط.' },
-      { name: 'Bio-Meso PDRN Homecare Ampoule 5000', href: '/ar/products/65', image: '/images/meso_5000/main.jpg', imageAlt: 'GENOSYS Bio-Meso PDRN Homecare Ampoule 5000', description: 'صيغة منزلية أقل كثافة للمحافظة المنظمة.' },
-      { name: 'Skin Reboot PDRN Mask Pack', href: '/ar/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'قناع صفائحي احترافي يجمع تموضع PDRN مع دعم الترطيب.' },
+      { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main.jpg', imageAlt: 'أمبولة GENOSYS BIO-MESO PDRN Expert 60000 الاحترافية', description: 'تركيبة احترافية مع Hydrolyzed Sponge بنسبة 5.72022%؛ يشير 60000 إلى المركب كاملاً، بينما يبلغ Sodium DNA ‏1,120 جزءاً في المليون.' },
+      { name: 'Bio-Meso PDRN Homecare Ampoule 5000', href: '/ar/products/65', image: '/images/pdrn_5000_new/Main.jpeg', imageAlt: 'GENOSYS Bio-Meso PDRN Homecare Ampoule 5000', description: 'أمبولة منزلية بحجم 50 ml: مركب BIO-MESO™ PDRN الكامل 5,000 جزء في المليون، وSodium DNA بتركيز 1,010 أجزاء في المليون، وHydrolyzed Sponge بنسبة 0.476685%؛ تستخدم مرة أسبوعياً مساءً وفق دليل التدريب.' },
+      { name: 'Skin Reboot PDRN Mask Pack', href: '/ar/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'عبوة من 30 قناع ليوسيل مرطب مع ملقط مدمج؛ يترك كل قناع لمدة 10–20 دقيقة.' },
       { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم تعافٍ مكمل وليس علاج PDRN.' },
     ],
     sections: [
       { heading: 'ماذا يعني PDRN', body: 'يشير Polydeoxyribonucleotide إلى شظايا DNA منقاة بأحجام مختلفة. تصف المراجعات نشاطاً حيوياً مرتبطاً بإصلاح الأنسجة ومستقبلات الأدينوزين ومسارات إعادة تدوير النيوكليوتيدات، لكنها تشير أيضاً إلى خلط بين PDRN والبولينيوكليوتيدات الأطول. الاسم وحده لا يوضح الجرعة أو الحجم أو النقاء أو التوصيل.' },
-      { heading: 'الموضعي والسبكيولي والحقن مختلفة', body: 'يبقى الكريم أو القناع أساساً على السطح، بينما تغير السبكيولات التوصيل وتسبب تقشراً، والحقن يضع المادة داخل النسيج وهو إجراء طبي. لذلك تختلف السلامة والأدلة والأثر المتوقع ومتطلبات الممارس، ولا تثبت دراسة الحقن فعالية أي منتج موضعي.' },
+      { heading: 'الموضعي والسبكيولي والحقن فئات مختلفة', body: 'الكريم والأمبولة السبكيولية والحقن فئات مختلفة بتعليمات ومخاطر وأدلة مختلفة. وجود السبكيولات لا يثبت عمق الاختراق أو توصيل PDRN، ولا يجوز مساواة المستحضر التجميلي بالإجراء الطبي.' },
       { heading: 'الفوائد التي يمكن مناقشتها واقعياً', body: 'تدعم الأبحاث مواصلة دراسة PDRN للإصلاح وتنظيم الالتهاب وجودة البشرة. في التجميل نستخدم توقعات متحفظة: ترطيب ومظهر أكثر نعومة ودعم الروتين. ادعاءات علاج الجروح أو الندبات أو الأمراض تحتاج دليلاً خاصاً بالمنتج وتصنيفاً تنظيمياً مناسباً.' },
       { heading: 'من يحتاج إلى استشارة', body: 'اطلبي المشورة عند التهاب أو عدوى أو إجراء حديث أو حساسية شديدة، وخلال الحمل أو الرضاعة أو وجود مرض جلدي مشخص أو قلق من المصدر السمكي. التزمي بقيود المنتجات الاحترافية وأوقفي الاستخدام عند التهيج المهم.' },
     ],
@@ -328,7 +329,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     faq: [
       { question: 'هل PDRN هو «حيوانات منوية السلمون»؟', answer: 'PDRN المستخدم في العناية مادة DNA منقاة غالباً من مصادر سلمونية. العبارة الشائعة غير دقيقة ولا تصف النقاء والحجم الجزيئي أو جودة التركيبة.' },
       { question: 'هل PDRN الموضعي يعمل مثل الحقن؟', answer: 'لا يمكن افتراض ذلك؛ فعمق التوصيل والجرعة والتركيبة والتنظيم والأدلة مختلفة، ويجب تقييم مستحضرات التجميل وفق بياناتها الخاصة.' },
-      { question: 'هل Bio Meso PDRN هو وخز دقيق؟', answer: 'لا. تستخدم GENOSYS Bio Meso سبكيولات مجهرية وتصفها كنظام بلا إبر تقليدية. منتج Expert 60000 للاستخدام الاحترافي فقط.' },
+      { question: 'هل Bio Meso PDRN هو وخز دقيق؟', answer: 'لا. Expert 60000 مستحضر تجميلي سبكيولي موضعي، وليس جهاز وخز دقيق ولا حقناً. تصفه المواد الرسمية للاستخدام الاحترافي لدى مختص مدرّب.' },
       { question: 'هل يستبدل PDRN علاج طبيب الجلد؟', answer: 'لا. مستحضرات التجميل لا تستبدل تشخيص أو علاج الجروح أو التهاب الجلد أو حب الشباب أو اضطرابات التصبغ.' },
     ],
     sources: [
@@ -351,7 +352,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       'الحرقان أو التشقق أو الحكة أو الطفح أو النوبات المتكررة قد تشير إلى حالة تحتاج تشخيصاً.',
     ],
     featuredProducts: [
-      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera/main3.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'منظف جل يراعي الميكروبيوم وحاجز البشرة.' },
+      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ar/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'جل يُشطف؛ توجد خمسة سيراميدات ومحللات تخمر بتراكيز ضئيلة.' },
       { name: 'Microbiome Energy Infusing Mist', href: '/ar/products/14', image: '/images/mist/main2.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'ترطيب خفيف يكمل المرطب ولا يستبدله.' },
       { name: 'All For Sensitive Serum', href: '/ar/products/19', image: '/images/sensitive_serum/main.jpeg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'سيروم دعم للرطوبة للبشرة الحساسة المظهر.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'كريم يترك على البشرة مع السيراميد والأحماض الأمينية والزيوت الملينة.' },
@@ -382,19 +383,19 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
   },
   {
     slug: 'acne-treatment-products-uae',
-    title: 'منتجات علاج حب الشباب في الإمارات | GENOSYS للتحكم في مشاكل البشرة',
-    description: 'منتجات GENOSYS لحب الشباب والشوائب لعملاء الإمارات، مع روتينات للتحكم في الإفرازات الدهنية والترطيب ودعم حاجز البشرة وآثار ما بعد الحبوب.',
-    h1: 'منتجات علاج حب الشباب في الإمارات',
-    eyebrow: 'التحكم في المشاكل ودعم حاجز البشرة',
-    intro: 'تركّز روتينات GENOSYS لحب الشباب على تنقية البشرة دون تدمير حاجزها، وهو أمر مهم في حر الإمارات والتعرق وجفاف التكييف والاستخدام المتكرر لواقي الشمس.',
+    title: 'العناية بالبشرة المعرّضة للشوائب في الإمارات | GENOSYS',
+    description: 'عناية تجميلية من GENOSYS للبشرة الدهنية أو المختلطة أو المعرّضة للشوائب في الإمارات، مع تنظيف وخطوات خفيفة وترطيب وواقي شمس.',
+    h1: 'العناية بالبشرة الدهنية والمُعرّضة للشوائب',
+    eyebrow: 'روتين خفيف ومتدرج',
+    intro: 'يجمع روتين GENOSYS التجميلي بين التنظيف والخطوات الخفيفة التي تترك على البشرة والترطيب وواقي الشمس اليومي. وهو لا يحل محل تشخيص حب الشباب أو علاجه طبياً.',
     sections: [
       {
-        heading: 'روتين عملي لحب الشباب',
-        body: 'تعتمد العناية الجيدة بحب الشباب على التوازن بين التنظيف والتحكم في الدهون والتهدئة والترطيب والحماية من الشمس. التجفيف المفرط قد يزيد التهيّج والإفراز الدهني الارتدادي، خاصة في المناخات الحارة.',
+        heading: 'روتين عملي للبشرة الدهنية',
+        body: 'يجمع الروتين بين التنظيف والتونر الخفيف والسيروم والكريم وواقي الشمس. أدخلي المنتجات واحداً بعد الآخر، خصوصاً عند التحسس من العطور أو الزيوت العطرية أو حمض الساليسيليك.',
       },
       {
-        heading: 'آثار ما بعد الحبوب تحتاج SPF',
-        body: 'البقع الداكنة بعد البثور شائعة في الإمارات لأن الأشعة فوق البنفسجية تكثّف التصبغات. ينبغي أن تجمع روتينات حب الشباب بين منتجات العلاج وحماية شمسية يومية منتظمة.',
+        heading: 'واقي الشمس خطوة صباحية',
+        body: 'قد تجعل الأشعة فوق البنفسجية تفاوت اللون أكثر وضوحاً، لذلك يختتم روتين الصباح بواقي شمس مناسب.',
       },
     ],
     links: [
@@ -403,31 +404,32 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { label: 'دعم التصبغات', href: '/ar/products/concern/pigmentation', description: 'دعم آثار ما بعد الحبوب وتفاوت لون البشرة.' },
     ],
     faq: [
-      { question: 'ما منتجات GENOSYS المناسبة للبشرة المعرضة لحب الشباب؟', answer: 'ابدئي بصفحة علاج حب الشباب لدى GENOSYS، التي تجمع منتجات التنظيف والتحكم في الدهون والتهدئة والترطيب ودعم ما بعد الحبوب.' },
+      { question: 'ما منتجات GENOSYS المناسبة للبشرة المعرّضة للشوائب؟', answer: 'ابدئي بروتين بسيط من التنظيف والتونر والسيروم والكريم، وأضيفي المنتجات واحداً بعد الآخر. هذه عناية تجميلية وليست علاجاً لحب الشباب.' },
       { question: 'هل تحتاج البشرة المعرضة لحب الشباب إلى مرطب وواقي شمس؟', answer: 'نعم. تظل البشرة المعرضة لحب الشباب بحاجة إلى دعم الحاجز وSPF يومي، خاصة في الإمارات حيث قد تزيد الأشعة فوق البنفسجية آثار ما بعد الحبوب سوءاً.' },
     ],
     keywords: ['منتجات علاج حب الشباب الإمارات', 'عناية بالبشرة لحب الشباب دبي', 'GENOSYS حب الشباب'],
   },
   {
     slug: 'pigmentation-serum-dubai',
-    title: 'سيروم التصبغات في دبي | GENOSYS لتفتيح البشرة في الإمارات',
-    description: 'روتينات GENOSYS للتصبغات وتفتيح البشرة في دبي، تشمل سيرومات غنية بالفيتامينات وتنسيق الحماية الشمسية وإرشادات العناية المنزلية.',
-    h1: 'سيروم التصبغات وعناية التفتيح في دبي',
+    title: 'سيروم لعدم تجانس اللون في دبي | عناية GENOSYS في الإمارات',
+    description: 'عناية GENOSYS بمظهر اللون غير المتجانس والبهتان في دبي مع نياسيناميد 2% ومشتق ثابت من فيتامين C ومجموعة جاهزة وواقي شمس يومي.',
+    h1: 'سيروم وروتين لمظهر اللون غير المتجانس في دبي',
     eyebrow: 'التفتيح يتطلب انتظاماً',
-    intro: 'تحتاج العناية بالتصبغات في دبي إلى أمرين: مكوّنات تفتيح فعالة وحماية منضبطة من الأشعة فوق البنفسجية. تربط روتينات GENOSYS بينهما حتى لا يُهدر تأثير علاج البقع الداكنة بالتعرض اليومي للشمس.',
+    intro: 'تعتمد العناية بمظهر اللون غير المتجانس في دبي على الانتظام والحماية من الشمس. يحتوي Multi Vita Radiance Serum على نياسيناميد 2% ومشتق ثابت من فيتامين C بنسبة 0.1% وبانثينول 1%، ويختتم روتين الصباح بواقي شمس مناسب.',
     sections: [
       {
-        heading: 'عالجي السبب واحمي النتيجة',
-        body: 'يمكن لسيرومات التفتيح دعم تفاوت اللون، لكن أشعة دبي فوق البنفسجية قد تواصل تحفيز الميلانين. الحماية الشمسية وإعادة تطبيقها جزء من بروتوكول التصبغات، وليست خطوة أخيرة اختيارية.',
+        heading: 'ادعمي تجانس اللون واحمي النتيجة',
+        body: 'يدعم السيروم والكريم مظهراً أكثر تجانساً وإشراقاً، ويساعد واقي الشمس اليومي على عدم زيادة تباين البقع الداكنة تحت شمس الإمارات.',
       },
       {
-        heading: 'تنسيق بين العيادة والعناية المنزلية',
-        body: 'بالنسبة للعيادات، يمكن لروتينات GENOSYS للتصبغات دعم التقشير والوخز الدقيق بالإبر وغيرها من علاجات التفتيح بعناية منزلية مهدئة ومرطّبة ومحمية بواقي الشمس.',
+        heading: 'مجموعة منزلية جاهزة',
+        body: 'تجمع SKIN BRIGHTENING BEAUTY BOX المنظف والمعزز والسيروم والكريم للروتين اليومي، مع جل تقشير وقناع يستخدمان في مساءين منفصلين.',
       },
     ],
     links: [
       { label: 'صفحة التصبغات', href: '/ar/products/concern/pigmentation', description: 'روتين التفتيح وتوصيات المنتجات.' },
       { label: 'فئة السيروم', href: '/ar/products/category/serum', description: 'تصفّحي سيرومات GENOSYS العلاجية.' },
+      { label: 'مجموعة SKIN BRIGHTENING', href: '/ar/products/56', description: 'ستة منتجات مع حساب التوفير وفق الأسعار الحالية.' },
       { label: 'الحماية من الشمس', href: '/ar/products/concern/sun-protection', description: 'احمي تقدم التفتيح بواقي شمس يومي.' },
     ],
     faq: [

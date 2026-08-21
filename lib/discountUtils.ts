@@ -13,18 +13,17 @@ export interface DiscountedPrice {
   isBeautyBox?: boolean
 }
 
-// Beauty box regular prices (before 15% bundle discount)
-// These are the prices displayed in the product descriptions
+// Beauty box component values used by legacy/mobile pricing surfaces.
+// Product 62 intentionally remains AED 1,442 after its component value rose,
+// so its actual saving is 304 / 1,746 = 17.41% (rounded to 17% at runtime).
 const BEAUTY_BOX_REGULAR_PRICES: { [key: string]: number } = {
   '55': 1318,    // PROBLEM SKIN CARE BEAUTY BOX
   '56': 1496,    // SKIN BRIGHTENING BEAUTY BOX
   '57': 1520,    // CHARMING LOOK BEAUTY BOX (1519 rounded)
   '58': 1390,    // ANTI-AGING BEAUTY BOX (1390 rounded)
   '59': 1318,    // DEEP MOISTURIZING BEAUTY BOX
-  '62': 1696,    // SENSITIVE SKIN BEAUTY BOX
+  '62': 1746,    // SENSITIVE SKIN BEAUTY BOX
 }
-
-const BEAUTY_BOX_DISCOUNT_PERCENTAGE = 15
 
 /**
  * Calculates discounted price for a product based on multiple discount sources.
@@ -62,7 +61,7 @@ export function calculateDiscountedPrice(product: Product, user: ApiUser | User 
   const isBeautyBoxProduct = product.category === 'Beauty Boxes' || 
     (product.productNumber && BLACK_FRIDAY_EXCLUDED_PRODUCT_NUMBERS.includes(product.productNumber))
   
-  // If it's a beauty box, show the built-in 15% discount
+  // If it's a beauty box, derive the percentage from its real component value.
   if (isBeautyBoxProduct && product.productNumber) {
     const regularPrice = BEAUTY_BOX_REGULAR_PRICES[product.productNumber]
     if (regularPrice !== undefined) {
@@ -70,7 +69,7 @@ export function calculateDiscountedPrice(product: Product, user: ApiUser | User 
         originalPrice: regularPrice,
         discountedPrice: product.price, // The stored price is already the bundle price
         discountAmount: Math.round((regularPrice - product.price) * 100) / 100,
-        discountPercentage: BEAUTY_BOX_DISCOUNT_PERCENTAGE,
+        discountPercentage: Math.round(((regularPrice - product.price) / regularPrice) * 100),
         hasDiscount: true,
         isBlackFriday: false,
         isBeautyBox: true

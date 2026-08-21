@@ -113,6 +113,8 @@
  *   - THE CONTRACT MANUFACTURER. DTS MG only.
  */
 
+import { HYDRO_COOL_AR, HYDRO_COOL_RU } from './hydroCoolLocalizedCopy'
+
 export type HydroCoolLocale = 'en' | 'ar' | 'ru'
 
 export interface HydroCoolCopy {
@@ -413,7 +415,7 @@ const EN: HydroCoolCopy = {
   backToProducts: 'All products',
 }
 
-const AR: HydroCoolCopy = {
+const _AR: HydroCoolCopy = {
   eyebrow: 'ماسك قولبة · بودرة',
   headline: 'يبرّد حتى تنزعينه.',
   subheadline:
@@ -617,7 +619,7 @@ const AR: HydroCoolCopy = {
   backToProducts: 'كل المنتجات',
 }
 
-const RU: HydroCoolCopy = {
+const _RU: HydroCoolCopy = {
   eyebrow: 'Моделирующая маска · Пудра',
   headline: 'Холод, пока не снимешь.',
   subheadline:
@@ -822,7 +824,16 @@ const RU: HydroCoolCopy = {
   backToProducts: 'Все продукты',
 }
 
-const COPY: Record<HydroCoolLocale, HydroCoolCopy> = { en: EN, ar: AR, ru: RU }
+// Kept temporarily as a review reference while the audited locale objects are
+// isolated in hydroCoolLocalizedCopy.ts. Runtime ownership is exclusively below.
+void _AR
+void _RU
+
+const COPY: Record<HydroCoolLocale, HydroCoolCopy> = {
+  en: EN,
+  ar: HYDRO_COOL_AR,
+  ru: HYDRO_COOL_RU,
+}
 
 export function getHydroCoolCopy(locale: string): HydroCoolCopy {
   if (locale === 'ar' || locale === 'ru') return COPY[locale]

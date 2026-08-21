@@ -17,7 +17,10 @@ completes a genuinely surprising pattern across the range.
   nine languages, including the Korean functional declaration and precautions.
 - `Intertek_folder/Quali-quanti Ingredients/`, `Ingredient lists_old/`.
 
-No safety assessment for this product, same as product 40.
+The product-specific EU Safety Assessment was subsequently located at
+`Registration DOC/SA/SA-GENOSYS INTENSIVE BLEMISH BALM CREAM.pdf`. It supports
+adult leave-on use and records dermatological testing, but does not support a
+universal sensitive-skin claim or immediate use after a procedure.
 
 ## The pattern this product completes
 

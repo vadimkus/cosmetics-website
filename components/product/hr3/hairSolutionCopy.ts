@@ -59,6 +59,11 @@
  * says so.
  */
 
+import {
+  hairSolutionArAudited,
+  hairSolutionRuAudited,
+} from './hairSolutionLocalizedCopy'
+
 export type Locale = 'en' | 'ar' | 'ru'
 
 export interface HairSolutionCopy {
@@ -389,7 +394,7 @@ const EN: HairSolutionCopy = {
   backToProducts: 'Products',
 }
 
-const AR: HairSolutionCopy = {
+const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
   eyebrow: 'محلول الشعر إتش آر³ ماتريكس α · 4 مل × 8 أمبولات',
   headline: 'المنتج المصمَّم ليُدخَل بالإبر الدقيقة.',
   subheadline:
@@ -625,7 +630,7 @@ const AR: HairSolutionCopy = {
   backToProducts: 'المنتجات',
 }
 
-const RU: HairSolutionCopy = {
+const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
   eyebrow: 'HR³ MATRIX Hair Solution α · 4 мл × 8 ампул',
   headline: 'Тот, что создан вводиться иглами.',
   subheadline:
@@ -861,7 +866,15 @@ const RU: HairSolutionCopy = {
   backToProducts: 'Продукты',
 }
 
-export const HAIR_SOLUTION_COPY: Record<Locale, HairSolutionCopy> = { en: EN, ar: AR, ru: RU }
+export const HAIR_SOLUTION_COPY: Record<Locale, HairSolutionCopy> = {
+  en: EN,
+  ar: hairSolutionArAudited,
+  ru: hairSolutionRuAudited,
+}
+
+// Retained temporarily for source-history comparison; neither object is served.
+void LEGACY_HAIR_SOLUTION_AR
+void LEGACY_HAIR_SOLUTION_RU
 
 export function getHairSolutionCopy(locale: string | undefined): HairSolutionCopy {
   return HAIR_SOLUTION_COPY[(locale as Locale) ?? 'en'] ?? HAIR_SOLUTION_COPY.en

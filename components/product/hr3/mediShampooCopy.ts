@@ -40,6 +40,11 @@
  * carton and mean nothing — say so.
  */
 
+import {
+  MEDI_SHAMPOO_AR_COPY,
+  MEDI_SHAMPOO_RU_COPY,
+} from './mediShampooLocalizedCopy'
+
 export type Locale = 'en' | 'ar' | 'ru'
 
 export interface MediShampooCopy {
@@ -377,7 +382,7 @@ const EN: MediShampooCopy = {
   backToProducts: 'Products',
 }
 
-const AR: MediShampooCopy = {
+export const LEGACY_MEDI_SHAMPOO_AR_COPY: MediShampooCopy = {
   eyebrow: 'شامبو إتش آر³ ماتريكس ميدي للفروة α · 300 مل',
   headline: 'الوحيد في المجموعة بكافيين بجرعة حقيقية.',
   subheadline:
@@ -619,7 +624,7 @@ const AR: MediShampooCopy = {
   backToProducts: 'المنتجات',
 }
 
-const RU: MediShampooCopy = {
+export const LEGACY_MEDI_SHAMPOO_RU_COPY: MediShampooCopy = {
   eyebrow: 'HR³ MATRIX MEDI шампунь для кожи головы α · 300 мл',
   headline: 'Единственный в линейке с кофеином в реальной дозе.',
   subheadline:
@@ -861,7 +866,11 @@ const RU: MediShampooCopy = {
   backToProducts: 'Продукты',
 }
 
-export const MEDI_SHAMPOO_COPY: Record<Locale, MediShampooCopy> = { en: EN, ar: AR, ru: RU }
+export const MEDI_SHAMPOO_COPY: Record<Locale, MediShampooCopy> = {
+  en: EN,
+  ar: MEDI_SHAMPOO_AR_COPY,
+  ru: MEDI_SHAMPOO_RU_COPY,
+}
 
 export function getMediShampooCopy(locale: string | undefined): MediShampooCopy {
   return MEDI_SHAMPOO_COPY[(locale as Locale) ?? 'en'] ?? MEDI_SHAMPOO_COPY.en

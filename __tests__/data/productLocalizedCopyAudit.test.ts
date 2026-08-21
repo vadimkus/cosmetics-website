@@ -32,11 +32,19 @@ import { getMhcreamCopy } from '@/components/product/mhcream/mhcreamCopy'
 import { getPccreamCopy } from '@/components/product/pccream/pccreamCopy'
 import { getMvcreamCopy } from '@/components/product/mvcream/mvcreamCopy'
 import { getAntiWrinkleCreamCopy } from '@/components/product/antiwrinklecream/antiWrinkleCreamCopy'
+import { getOvernightCopy } from '@/components/product/overnight/overnightCopy'
+import { getHydroCoolCopy } from '@/components/product/hydrocool/hydroCoolCopy'
+import { getPeptideGelCopy } from '@/components/product/peptidegel/peptideGelCopy'
+import { getEzCo2Copy } from '@/components/product/ezco2/ezco2Copy'
+import { getUltraShieldCopy } from '@/components/product/ultrashield/ultraShieldCopy'
+import { getMultiSunCopy } from '@/components/product/multisun/multiSunCopy'
+import { BLEMISH_BALM_COPY } from '@/components/product/blemishbalm/blemishBalmCopy'
 import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
 import { SENSITIVE_SKIN_COPY } from '@/components/product/beautybox/copy/sensitiveSkin'
 import { PROBLEM_SKIN_COPY } from '@/components/product/beautybox/copy/problemSkin'
 import { SKIN_BRIGHTENING_COPY } from '@/components/product/beautybox/copy/skinBrightening'
 import { ANTI_AGING_COPY } from '@/components/product/beautybox/copy/antiAging'
+import { CHARMING_LOOK_COPY } from '@/components/product/beautybox/copy/charmingLook'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 import { PRODUCT_QUICK_FACTS_CATALOG } from '@/lib/productQuickFactsCatalog'
 import ruMessages from '@/messages/ru.json'
@@ -2407,6 +2415,418 @@ describe('audited product localization copy', () => {
       'المصنّع', 'сертификат', 'شهادة التحليل', 'номер партии', 'رقم التشغيلة',
     ]) {
       expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+  })
+
+  it('serves the rewritten product 34 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('34')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['34'])
+    expect(getProductTranslations('34')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['34'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 34 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['34']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps product 34 facts consistent across localized customer-facing surfaces', () => {
+    const concernSteps = CONCERN_PAGES.flatMap(page => [
+      ...(page.routine?.ru.flatMap(group => group.steps) || []),
+      ...(page.routine?.ar.flatMap(group => group.steps) || []),
+    ]).filter(step => step.products.some(product => product.url === '/products/34'))
+    const boxItems = [
+      ...SENSITIVE_SKIN_COPY.ru.contents.items,
+      ...SENSITIVE_SKIN_COPY.ar.contents.items,
+      ...CHARMING_LOOK_COPY.ru.contents.items,
+      ...CHARMING_LOOK_COPY.ar.contents.items,
+    ].filter(item => item.productNumber === '34')
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('34'),
+      centralAr: getProductTranslations('34'),
+      bespokeRu: getOvernightCopy('ru'),
+      bespokeAr: getOvernightCopy('ar'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['34'],
+      concernSteps,
+      boxItems,
+      recommendationRu: {
+        title: ruMessages.product.routineOvernightMaskTitle,
+        description: ruMessages.product.routineOvernightMaskDesc,
+        intro: ruMessages.product.pc34Intro,
+        second: ruMessages.product.pc34Benefit2Text,
+        third: ruMessages.product.pc34Benefit3Text,
+      },
+      recommendationAr: {
+        title: arMessages.product.routineOvernightMaskTitle,
+        description: arMessages.product.routineOvernightMaskDesc,
+        intro: arMessages.product.pc34Intro,
+        second: arMessages.product.pc34Benefit2Text,
+        third: arMessages.product.pc34Benefit3Text,
+      },
+    })
+
+    for (const required of [
+      '2%', '0,04%', '0.04%', '6%', '2%', '5,71', '5.71',
+      '15%', '26%', '100 г', '100 غ', '1–2', 'مرة أو مرتين',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'кислородная терапия', 'العلاج بالأكسجين', 'фактор роста', 'عامل نمو',
+      'pink ceramide', 'розовый церамид', 'السيراميد الوردي',
+      'для всех типов кожи', 'لجميع أنواع البشرة', 'fragrance-free',
+      'без отдушки', 'خالٍ من العطر', 'смыть утром', 'اشطفيه صباحاً',
+      'производител', 'المصنّع', 'номер партии', 'رقم التشغيلة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+  })
+
+  it('serves the rewritten product 35 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('35')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['35'])
+    expect(getProductTranslations('35')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['35'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 35 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['35']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps product 35 facts and tone consistent across localized surfaces', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('35'),
+      centralAr: getProductTranslations('35'),
+      bespokeRu: getHydroCoolCopy('ru'),
+      bespokeAr: getHydroCoolCopy('ar'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['35'],
+      recommendationRu: {
+        title: ruMessages.product.routineHydroCoolMaskTitle,
+        description: ruMessages.product.routineHydroCoolMaskDesc,
+      },
+      recommendationAr: {
+        title: arMessages.product.routineHydroCoolMaskTitle,
+        description: arMessages.product.routineHydroCoolMaskDesc,
+      },
+    })
+
+    for (const required of [
+      '65,165%', '65.165%', '12%', '9%', '6%', '0,1%', '0.1%',
+      '1 : 0,8', '1 : 0.8', '30 г', '30 غ', '15–20',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'синтез коллагена', 'تحفيز الكولاجين', 'сужение пор', 'تقليص المسام',
+      'для всех типов кожи', 'لجميع أنواع البشرة', '+218%', '1 : 1,5', '1 : 1.5',
+      'это и есть продукт', 'не двигатель', 'هذا هو المنتج', 'ليست المحرّك',
+      'картон', 'العبوة الإنجليزية', 'мешай одну', 'смешай 30', 'تخلطيه بعلامة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+  })
+
+  it('serves the rewritten product 36 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('36')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['36'])
+    expect(getProductTranslations('36')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['36'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 36 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['36']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps product 36 claims accurate in both locales', () => {
+    const text = JSON.stringify({
+      ru: getProductTranslationsRu('36'),
+      ar: getProductTranslations('36'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['36'],
+      messagesRu: {
+        base: ruMessages.product.routineSoothingBombMaskDesc,
+        problem: ruMessages.product.routineSoothingBombMaskDescProblem,
+        brightening: ruMessages.product.routineSoothingBombMaskDescBrightening,
+        sensitive: ruMessages.product.routineSoothingBombMaskDescSensitive,
+      },
+      messagesAr: {
+        base: arMessages.product.routineSoothingBombMaskDesc,
+        problem: arMessages.product.routineSoothingBombMaskDescProblem,
+        brightening: arMessages.product.routineSoothingBombMaskDescBrightening,
+        sensitive: arMessages.product.routineSoothingBombMaskDescSensitive,
+      },
+      boxItems: [
+        ...SENSITIVE_SKIN_COPY.ru.contents.items,
+        ...SENSITIVE_SKIN_COPY.ar.contents.items,
+        ...SKIN_BRIGHTENING_COPY.ru.contents.items,
+        ...SKIN_BRIGHTENING_COPY.ar.contents.items,
+        ...PROBLEM_SKIN_COPY.ru.contents.items,
+        ...PROBLEM_SKIN_COPY.ar.contents.items,
+        ...DEEP_MOISTURIZING_COPY.ru.contents.items,
+        ...DEEP_MOISTURIZING_COPY.ar.contents.items,
+      ].filter(item => item.productNumber === '36'),
+    })
+
+    for (const required of ['10%', '5,035%', '5.035%', '0,5%', '0.5%', '0,1%', '0.1%', '25 г', '25 غ', '15–20', '5,69', '5.69']) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'целебная сила океана', 'قوة الشفاء للمحيط', 'заживление кожи', 'شفاء البشرة',
+      'противовоспалитель', 'مضادة للالتهابات', 'всех типов кожи', 'جميع أنواع البشرة',
+      'дерматологически протестировано', 'مختبر جلدياً', '23г', '23 غ',
+      '2-3 раза', '2-3 مرات',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+  })
+
+  it('serves the rewritten product 37 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('37')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['37'])
+    expect(getProductTranslations('37')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['37'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 37 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['37']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps product 37 facts and premium tone consistent across localized surfaces', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('37'),
+      centralAr: getProductTranslations('37'),
+      bespokeRu: getPeptideGelCopy('ru'),
+      bespokeAr: getPeptideGelCopy('ar'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['37'],
+      recommendationRu: {
+        title: ruMessages.product.routinePeptideGelMaskTitle,
+        description: ruMessages.product.routinePeptideGelMaskDesc,
+        intro: ruMessages.product.pc37Intro,
+        second: ruMessages.product.pc37Benefit2Text,
+      },
+      recommendationAr: {
+        title: arMessages.product.routinePeptideGelMaskTitle,
+        description: arMessages.product.routinePeptideGelMaskDesc,
+        intro: arMessages.product.pc37Intro,
+        second: arMessages.product.pc37Benefit2Text,
+      },
+    })
+
+    for (const required of [
+      '19,921%', '19.921%', '2,2%', '2.2%', '0,8%', '0.8%',
+      '0,10%', '0.10%', '0,05 ppm', '0.05 جزء في المليون',
+      '0,002%', '0.002%', '0,0005%', '0.0005%', '38 г', '38 غ', '20–40',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'цифра, которой место на карточке', 'الرقم الذي يستحق بطاقة',
+      'не двигатель', 'ليست المحرّك', 'ботокс', 'بوتوكس', 'лифтинг', 'رفعاً',
+      'заживлен', 'التئام', 'выработк.*коллаген', 'إنتاج الكولاجين',
+      'трансдермаль', 'عبر الجلد', 'глубок.*достав', 'التوصيل العميق',
+      'для всех типов кожи', 'لجميع أنواع البشرة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+
+    expect(getPeptideGelCopy('ru').faq.items).toHaveLength(8)
+    expect(getPeptideGelCopy('ar').faq.items).toHaveLength(8)
+  })
+
+  it('serves the rewritten product 38 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('38')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['38'])
+    expect(getProductTranslations('38')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['38'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 38 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['38']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('serves the rewritten product 39 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('39')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['39'])
+    expect(getProductTranslations('39')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['39'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 39 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['39']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('serves the rewritten product 40 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('40')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['40'])
+    expect(getProductTranslations('40')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['40'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 40 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['40']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps product 40 facts and claims consistent across localized surfaces', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('40'),
+      centralAr: getProductTranslations('40'),
+      bespokeRu: getMultiSunCopy('ru'),
+      bespokeAr: getMultiSunCopy('ar'),
+      facts: PRODUCT_QUICK_FACTS_CATALOG['40'],
+      messagesRu: ruMessages.product.routineMultiSunCreamDesc,
+      messagesAr: arMessages.product.routineMultiSunCreamDesc,
+      concerns: CONCERN_PAGES,
+    })
+
+    expect(text).toContain('18,50%')
+    expect(text).toContain('18.50%')
+    expect(text).toContain('7,21%')
+    expect(text).toContain('7.21%')
+    expect(text).toContain('6,71')
+    expect(text).toContain('6.71')
+    expect(text).toContain('не реже чем каждые два часа')
+    expect(text).toContain('كل ساعتين على الأقل')
+  })
+
+  it('keeps product 39 verified values consistent across localized surfaces', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('39'),
+      centralAr: getProductTranslations('39'),
+      bespokeRu: getUltraShieldCopy('ru'),
+      bespokeAr: getUltraShieldCopy('ar'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['39'],
+      recommendationRu: ruMessages.product.routineUltraShieldSunDesc,
+      recommendationAr: arMessages.product.routineUltraShieldSunDesc,
+    })
+
+    expect(text).toContain('65,9')
+    expect(text).toContain('65.9')
+    expect(text).toContain('17,10%')
+    expect(text).toContain('17.10%')
+    expect(text).toContain('не реже чем каждые два часа')
+    expect(text).toContain('كل ساعتين على الأقل')
+  })
+
+  it('keeps product 38 facts and premium tone consistent across localized surfaces', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('38'),
+      centralAr: getProductTranslations('38'),
+      bespokeRu: getEzCo2Copy('ru'),
+      bespokeAr: getEzCo2Copy('ar'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['38'],
+      recommendationRu: {
+        title: ruMessages.product.routineEZCO2MaskTitle,
+        description: ruMessages.product.routineEZCO2MaskDesc,
+      },
+      recommendationAr: {
+        title: arMessages.product.routineEZCO2MaskTitle,
+        description: arMessages.product.routineEZCO2MaskDesc,
+      },
+    })
+
+    for (const required of [
+      'Гидрокарбонат натрия 9%',
+      'بيكربونات الصوديوم 9%',
+      'Карбомер 3,94%',
+      'كاربومر 3.94%',
+      'Молочная кислота · 0,33%',
+      'حمض اللاكتيك · 0.33%',
+      'Ромашка · 0,3%',
+      'البابونج · 0.3%',
+      '20 г × 5',
+      '20 غ × 5',
+      '12 г × 5',
+      '12 غ × 5',
+      '20–30 секунд',
+      '20–30 ثانية',
+      '10 минут',
+      '10 دقائق',
+      'Дерматологически протестировано',
+      'مختبر جلدياً',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'доставка кислорода', 'توصيل الأكسجين',
+      'оксигенация тканей', 'أكسجة الأنسجة',
+      'ботокс', 'بوتوكس', 'лифтинг', 'شد الوجه',
+      'лечение пятен', 'علاج البقع',
+      'проникновен', 'اختراق', 'впитыван', 'امتصاص',
+      'заживлен', 'التئام', 'восстановлен', 'إصلاح',
+      'противовоспал', 'مضاد للالتهاب',
+      'клинически доказ', 'مثبت سريرياً',
+      'цифра для карточки', 'رقم يستحق بطاقة',
+      'не двигатель', 'ليست المحرك',
+      'вся химия', 'هذه هي الكيمياء',
+      'пептидная маска', 'قناع ببتيد',
+      'для всех типов кожи', 'لجميع أنواع البشرة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(getEzCo2Copy('ru').faq.items).toHaveLength(6)
+    expect(getEzCo2Copy('ar').faq.items).toHaveLength(6)
+  })
+
+  it('serves the rewritten product 42 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('42')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['42'])
+    expect(getProductTranslations('42')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['42'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 42 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['42']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps product 42 facts and claim limits consistent across localized surfaces', () => {
+    const cushionCategory = CONCERN_PAGES.find(page => page.slug === 'cushion-bb')
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('42'),
+      centralAr: getProductTranslations('42'),
+      bespokeRu: BLEMISH_BALM_COPY.ru,
+      bespokeAr: BLEMISH_BALM_COPY.ar,
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['42'],
+      routineRu: ruMessages.product.routineIntensiveBBDesc,
+      routineAr: arMessages.product.routineIntensiveBBDesc,
+      category: cushionCategory?.seo,
+    })
+
+    for (const required of [
+      '50 г', '50 غ', '19,70%', '19.70%', '7,70%', '7.70%',
+      '6,31%', '6.31%', '4,50%', '4.50%', '1,81%', '1.81%',
+      '0,04%', '0.04%', '0,10%', '0.10%', '7,44', '7.44',
+      'Один оттенок', 'درجة واحدة', 'Пчелиный воск 2%', 'شمع العسل 2%',
+      'Водостойкость не заявлена', 'لا يدّعي المنتج مقاومة الماء',
+      'папул и лёгкого зуда', 'حطاطات وحكة خفيفة',
+      'не реже чем каждые два часа', 'كل ساعتين على الأقل',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'для всех типов кожи', 'لجميع أنواع البشرة',
+      'безопасен для чувствительной', 'آمن للبشرة الحساسة',
+      'заживлен', 'التئام',
+      'регенерац', 'تجديد الخلايا',
+      'глубок.*проник', 'اختراق عميق',
+      'восстанавливает барьер', 'إصلاح الحاجز',
+      'лечит пигментац', 'يعالج التصبغ',
+      'защита от загрязнен', 'الحماية من التلوث',
+      'широкий спектр', 'واسع الطيف',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
     }
   })
 })

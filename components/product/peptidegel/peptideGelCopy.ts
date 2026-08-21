@@ -1,3 +1,5 @@
+import { PEPTIDE_GEL_AR_COPY, PEPTIDE_GEL_RU_COPY } from './peptideGelLocalizedCopy'
+
 /**
  * Bespoke copy for the PEPTIDE GEL MASK page (product 37).
  *
@@ -432,7 +434,7 @@ const EN: PeptideGelCopy = {
   backToProducts: 'All products',
 }
 
-const AR: PeptideGelCopy = {
+export const LEGACY_AR: PeptideGelCopy = {
   eyebrow: 'هيدروجيل للوجه · بعد إجراء',
   headline: 'عشرون إلى أربعون دقيقة. ثم تُنزع الورقة.',
   subheadline:
@@ -637,7 +639,7 @@ const AR: PeptideGelCopy = {
   backToProducts: 'كل المنتجات',
 }
 
-const RU: PeptideGelCopy = {
+export const LEGACY_RU: PeptideGelCopy = {
   eyebrow: 'Гидрогель для лица · После процедуры',
   headline: 'Двадцать-сорок минут. Затем лист снимается.',
   subheadline:
@@ -844,8 +846,8 @@ const RU: PeptideGelCopy = {
 
 const COPY: Record<PeptideGelLocale, PeptideGelCopy> = {
   en: EN,
-  ar: AR,
-  ru: RU,
+  ar: PEPTIDE_GEL_AR_COPY,
+  ru: PEPTIDE_GEL_RU_COPY,
 }
 
 export function getPeptideGelCopy(locale: string): PeptideGelCopy {

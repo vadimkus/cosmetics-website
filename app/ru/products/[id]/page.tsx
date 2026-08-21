@@ -56,7 +56,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   const productUrl = getLocalizedProductUrl(canonicalSlug, 'ru')
   
   const productTitle = `${productName} | GENOSYS ОАЭ`
-  const productDescription = `${truncateText(productDescriptionText, 150)} Профессиональная корейская дерматокосметика от GENOSYS. Официальный дистрибьютор в ОАЭ. Бесплатная доставка от 1000 AED.`
+  const productDescription = canonicalSlug === '54'
+    ? 'Снятый с продажи сезонный набор GENOSYS: Snow O₂ Cleanser 180 мл, Multi Vita Radiance Serum 30 мл, Multi Vita Radiance Cream 50 г и зеркало. Сейчас отсутствует в наличии.'
+    : `${truncateText(productDescriptionText, 150)} Профессиональная корейская дерматокосметика от GENOSYS. Официальный дистрибьютор в ОАЭ. Бесплатная доставка от 1000 AED.`
   const productKeywords = [
     productName,
     `GENOSYS ${product.category}`,

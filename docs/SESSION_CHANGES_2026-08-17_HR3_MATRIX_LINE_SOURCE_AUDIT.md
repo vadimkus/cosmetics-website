@@ -485,7 +485,7 @@ castor oil 2.000%, **menthol 0.900%**, **menthyl lactate 0.800%**, phenoxyethano
 0.200%, chlorphenesin 0.150%, betaine 0.100%, t-butyl alcohol 0.0875%, disodium EDTA
 0.020%, **salicylic acid 0.00990% (99 ppm)**, dipropylene glycol 0.006%, butylene glycol
 0.0007%, denatonium benzoate 0.00029%, 1,2-hexanediol 0.00008%, camellia sinensis
-0.5 ppm, sixteen botanicals at 0.1 ppm each, **copper tripeptide-1 0.0000005% (5 ppb)**.
+0.5 ppm, fifteen other botanicals at 0.1 ppm each, **copper tripeptide-1 0.0000005% (5 ppb)**.
 
 ### Errors in our own record
 

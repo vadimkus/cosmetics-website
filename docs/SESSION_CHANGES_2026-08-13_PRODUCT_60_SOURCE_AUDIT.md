@@ -261,3 +261,88 @@ shopper gets after clicking.
 
 If a future product ships non-square art, `figureAspect` is the knob. The gallery
 needs no further change.
+
+## 21 August 2026 RU/AR high-rigor localization pass
+
+The Russian and Arabic customer copy was re-audited against the primary-source
+set rather than inheriting every mechanism statement in the training deck.
+Where the deck makes a stronger training or analogy claim than the registered
+artwork and quantitative formula can support as cosmetic page copy, the RU/AR
+site now uses the narrower statement.
+
+### Final source conclusions
+
+- The registered pack is **4 × 3 ml**. The old Russian `2 ml × 5` value is not
+  retained.
+- **60000 means 60,000 ppm of the complete BIO-MESO™ PDRN complex.** It is not
+  the Sodium DNA concentration and not a spicule count.
+- The quantitative formula gives **Hydrolyzed Sponge 5.72022%**. The raw-material
+  origin file identifies freshwater sponge from Russia. The formula itself does
+  not publish a separate spicule count, so RU/AR customer copy does not use the
+  deck's 300,000–360,000-per-ml estimate as a formula fact.
+- **Sodium DNA is 0.112% / 1,120 ppm**, and the origin file identifies salmon
+  milt from Japan.
+- **Niacinamide 2%, Panthenol 1% / 10,000 ppm and Adenosine 0.04%** are
+  quantitatively supported.
+- Seventeen peptides and five ceramides are present, but most peptide and
+  ceramide levels are trace. RU/AR lists their presence without assigning a
+  working dose, growth-factor effect, collagen effect or barrier-repair result.
+- The exact-product clinical material is usable with qualification: KC Skin
+  Research Center, 20 women aged 48 ± 8, one application, readings at weeks 1,
+  2 and 4. At week four the report records changes from baseline of **-7.446%
+  periorbital wrinkles, +19.858% elasticity and +52.247% moisture**. The RU/AR
+  copy no longer implies that all three longitudinal endpoints were treatment
+  versus untreated-control comparisons.
+- The official material supports **professional / trained-practitioner use**.
+  It does not establish that UAE law reserves the product specifically to
+  licensed aestheticians or dermatologists, so those professional titles are
+  not asserted.
+
+### Claims deliberately removed from live RU/AR
+
+The page, quick facts, recommendation card, routine text, SEO/category copy,
+chatbot prompt and skin-analysis fallback no longer positively claim:
+
+- temporary microchannels or epidermal penetration
+- deep delivery of PDRN or other actives
+- equivalence to a 1.0 mm needle or needle-free microneedling
+- collagen or elastin stimulation
+- cell regeneration, cytokine control, healing or barrier repair
+- turnover, bio-peeling or exfoliation as a product benefit
+- an obligatory monthly cadence or a two-way 60000/5000 system
+
+The training material's possible mild irritation up to three days and possible
+flaking around days two to three are described only as possible responses.
+Severe pain, swelling or worsening irritation is never normalised.
+
+### Directions and safety boundary
+
+The live RU/AR directions follow the artwork sequence: avoid eyes and lips,
+spread evenly, press gently, perform rolling, apply Intensive Hydro Soothing
+Cream, and roll again until the ampoule is absorbed. The artwork does not state
+a numeric facial dose, contact time, rinse step, treatment interval or course,
+so none was invented.
+
+The carton and extended official material support excluding pustular acne,
+rosacea, open wounds, active infection, pronounced hypersensitivity,
+autoimmune skin disease, recent dermatological procedures, skin cancer or
+precancerous lesions, and recent sunburn/tanning. The old fixed retinoid and
+isotretinoin timelines are not retained as customer instructions because the
+registered artwork does not set them; the treating clinician or practitioner
+must make that decision for the specific medicine and skin condition.
+
+### Implementation
+
+- Canonical RU/AR payload: `data/product60LocalizedCopy.ts`
+- Canonical map wiring: `data/productTranslations.ts`,
+  `data/productTranslationsRu.ts`, `data/productLocalizedCopyAudit.ts`
+- Bespoke runtime: audited RU/AR overlays in
+  `components/product/biomeso/biomesoExpertCopy.ts`
+- Idempotent production updater:
+  `scripts/update-product-60-localized-copy-20260821.ts`
+- Focused regression tests:
+  `__tests__/data/product60LocalizedCopy.test.ts`
+
+The updater enforces `productNumber = 60`, `size = 3 ml × 4 ampoules`, exact
+RU/AR parity and `null` for unsupported `skinType`, `targetConcerns`, `usage`
+and `ageGroup`.

@@ -68,6 +68,10 @@ import { errorLog } from '@/lib/logger'
 import ProductReviews from '@/components/product/ProductReviews'
 import ProductOptionDialog from '@/components/product/ProductOptionDialog'
 import type { ProductOptionSelection } from '@/lib/productOptions'
+import {
+  PRODUCT_63_AR_TRANSLATION,
+  PRODUCT_63_RU_TRANSLATION,
+} from '@/data/product63LocalizedCopy'
 
 import { ceraSerif } from '../cerabarrier/ceraFont'
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
@@ -170,20 +174,27 @@ export default function RevitaGlowProductPage({
   const cartLine = findSelectedStandardCartLine(cartItems, product.id, shade, '')
   const inCartQty = cartLine?.quantity || 0
 
-  // ── Content parsed from the product record ────────────────────────────
+  // RU/AR ingredient cards come from the audited canonical payload. The raw
+  // database record remains the English source for the EN page.
+  const localizedIngredients =
+    locale === 'ru'
+      ? PRODUCT_63_RU_TRANSLATION.ingredients
+      : locale === 'ar'
+        ? PRODUCT_63_AR_TRANSLATION.ingredients
+        : product.ingredients
   const parsedIngredients = useMemo(
-    () => parseJsonArray<ActiveIngredient>(product.ingredients),
-    [product.ingredients]
+    () => parseJsonArray<ActiveIngredient>(localizedIngredients),
+    [localizedIngredients]
   )
   const actives = useMemo(
-    () => parsedIngredients.filter(i => i.name !== 'Full INCI'),
+    () => parsedIngredients.filter(i => !i.name.includes('INCI')),
     [parsedIngredients]
   )
   // The stored declaration was corrected in Aug 2026 to add 1,2-Hexanediol and
   // the fragrance allergen block, so it now matches the Intertek artwork and is
   // the single source of truth. getRevitaGlowFullInci is the fallback.
   const fullInci =
-    parsedIngredients.find(i => i.name === 'Full INCI')?.description ?? getRevitaGlowFullInci()
+    parsedIngredients.find(i => i.name.includes('INCI'))?.description ?? getRevitaGlowFullInci()
 
   const galleryImages: CeraGalleryImage[] = useMemo(() => {
     const list = Array.from(

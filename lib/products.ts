@@ -737,6 +737,7 @@ export const products: Product[] = [
   },
   {
     id: '52',
+    productNumber: '52',
     name: 'SKIN REBOOT PDRN MASK PACK',
     price: 400,
     description: 'Professional PDRN mask pack with salmon DNA technology for skin regeneration and repair. Ultra-slim fit sheets with 30 masks per container.',
@@ -747,14 +748,51 @@ export const products: Product[] = [
     size: '30 sheets',
   },
   {
+    id: '53',
+    productNumber: '53',
+    name: 'INTENSIVE REPAIR COLLAGEN MASK',
+    price: 36,
+    description:
+      'One 23g single-use non-woven sheet with a moisture-focused essence. Glycerin 10.052% and butylene glycol 8.010% form an 18.062% humectant base, supported by betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2%. Apply for 15–20 minutes. Dermatologically tested. Contains Alcohol 0.1%, Parfum (Fragrance) 0.01% and soybean extract.',
+    image: '/images/collagen_mask/Main.jpeg',
+    images: null,
+    category: 'Mask',
+    inStock: true,
+    size: '23 g / 1 sheet',
+  },
+  {
+    id: '54',
+    productNumber: '54',
+    name: 'HOLIDAY KIT',
+    price: 650,
+    description:
+      'Discontinued seasonal GENOSYS gift box with Snow O₂ Cleanser 180 ml, Multi Vita Radiance Serum 30 ml, Multi Vita Radiance Cream 50 g and a GENOSYS mirror. Use cleanser, then serum, then cream; the mirror is an accessory. The three skincare products are individually dermatologically tested. Currently out of stock.',
+    image: '/images/Hol_kit_v2.jpg',
+    images: null,
+    category: 'kits',
+    inStock: false,
+    size: '1 box',
+  },
+  {
     id: '61',
+    productNumber: '61',
     name: 'HR³ MATRIX SCALP BRUSH',
     price: 50,
     description: '1 pc. Specialized scalp care brush for daily massage and treatment preparation. It is a gentle, non-invasive scalp brush designed primarily for scalp care, stimulation, and supporting hair health. The Scalp Brush promotes better circulation, exfoliation, and product absorption on the scalp. Features: Ergonomic design with soft, flexible silicone bristles optimized for scalp use without causing irritation. Dual Use - Wet use: Apply shampoo, then gently massage in circular motions to deeply cleanse, remove buildup, and stimulate blood flow. Dry use: On clean, dry hair/scalp for invigorating massage to boost circulation and relax the scalp. Integration with HR³ MATRIX Line: Pairs excellently with HR³ MATRIX Clinical Hair Tonic, Scalp Peeling, and Hair Solution α to enhance nutrient delivery and overall scalp health. Benefits: Improves blood circulation to nourish follicles, helps reduce dandruff and excess sebum, stimulates scalp for healthier hair growth environment, prepares scalp for microneedling treatments. Manufactured in South Korea.',
-    image: '/images/brush/main.jpg',
-    images: JSON.stringify(['/images/brush/s1.jpg', '/images/brush/s2.jpg', '/images/brush/s3.jpg', '/images/brush/s4.jpg']),
+    image: '/images/brush_o/Main2.jpeg',
+    images: JSON.stringify([
+      '/images/brush_o/s1.jpeg',
+      '/images/brush_o/s2.jpeg',
+      '/images/brush_o/s3.jpeg',
+      '/images/brush_o/s4.jpeg',
+      '/images/brush_o/s5.jpeg',
+      '/images/brush_o/s6.jpeg',
+      '/images/brush_o/s7.jpeg',
+    ]),
     category: 'Scalp/Hair',
     inStock: true,
+    size: '1 pc',
+    videoUrl: '/videos/brush.mp4',
   },
   {
     id: '63',
@@ -773,7 +811,8 @@ export const products: Product[] = [
     productNumber: '60',
     name: 'Bio Meso PDRN Ampoule 60000',
     price: 600,
-    description: `The Genosys Bio Meso PDRN Expert Ampoule 60000 is a specialized skincare treatment ampoule designed for bio-meso therapy, a no-needle microneedling approach. It utilizes microscopic spicules (needle-like components extracted from freshwater sponges) to create temporary microchannels in the skin, enhancing the absorption of active ingredients without the need for actual needles. This product is enriched with the uniquely formulated BIO-MESO™ PDRN (Polydeoxyribonucleotide), panthenol, and an anti-aging complex to regenerate skin and strengthen the skin barrier.
+    description:
+      `The Genosys Bio Meso PDRN Expert Ampoule 60000 is a specialized skincare treatment ampoule designed for bio-meso therapy, a no-needle microneedling approach. It utilizes microscopic spicules (needle-like components extracted from freshwater sponges) to create temporary microchannels in the skin, enhancing the absorption of active ingredients without the need for actual needles. This product is enriched with the uniquely formulated BIO-MESO™ PDRN (Polydeoxyribonucleotide), panthenol, and an anti-aging complex to regenerate skin and strengthen the skin barrier.
 
 It features a 2-way system for customizable care:
 • Professional Use (Expert Ampoule 60000): Higher concentration for clinic-based treatments.
@@ -799,8 +838,8 @@ The ampoule functions as a spicule peeling or bio-meso peeling treatment, induci
 Mounted on the Booster it stamps automatically, at a rate you set rather than one your hand drifts into, which is the practical difference between a powered handpiece and a hand roller.
 
 Eight stamps per box. One stamp and one fresh ampoule per treatment — it is single use, it is not a cleanable part, and it is personal. Made in South Korea.`,
-    image: '/images/needles/main.jpeg',
-    images: JSON.stringify(['/images/needles/s1.jpg', '/images/needles/s2.jpg', '/images/needles/s3.jpg', '/images/needles/s4.jpg']),
+    image: '/images/needles/main_new.jpeg',
+    images: JSON.stringify(['/images/needles/s1_new.jpeg', '/images/needles/s2.jpg', '/images/needles/s3_new.jpeg', '/images/needles/s4.jpg']),
     category: 'Scalp/Hair',
     inStock: true,
     size: '1 box - 8 pcs of hair stamp',
@@ -814,7 +853,7 @@ Eight stamps per box. One stamp and one fresh ampoule per treatment — it is si
     description: `A specialized homecare treatment ampoule, enriched with the uniquely formulated BIO-MESO™ PDRN, panthenol, and an anti-aging complex to regenerate skin and strengthen the skin barrier.
 
 BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables direct skin penetration, providing a bio-peeling effect that promotes skin turnover and delivers excellent skin regeneration benefits — all without classic needles. Designed for ongoing, gentle home care to maintain and reinforce results between professional treatments.`,
-    image: '/images/meso_5000/main.jpg',
+    image: '/images/pdrn_5000_new/Main.jpeg',
     images: null,
     category: 'Bio Meso',
     inStock: true,

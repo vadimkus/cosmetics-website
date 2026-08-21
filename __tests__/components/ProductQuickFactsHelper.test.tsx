@@ -109,7 +109,7 @@ describe('ProductQuickFactsHelper', () => {
   it('falls back to ingredient actives when no catalog exists', () => {
     render(
       <ProductQuickFactsHelper
-        product={product('19', 'ALL FOR SENSITIVE SERUM', {
+        product={product('999', 'UNCATALOGUED TEST PRODUCT', {
           ingredients: JSON.stringify([
             {
               name: 'Centella Complex',

@@ -43,6 +43,12 @@
  */
 
 import { prisma } from '../lib/prisma'
+import {
+  PRODUCT_43_AR_NAME,
+  PRODUCT_43_AR_TRANSLATION,
+  PRODUCT_43_RU_NAME,
+  PRODUCT_43_RU_TRANSLATION,
+} from '../data/product43LocalizedCopy'
 
 const DESCRIPTION_EN =
   '70 ml scalp toner. Nearly a tenth of the bottle is denatured alcohol at 9.500%, which is what makes it dry down ' +
@@ -55,29 +61,6 @@ const DESCRIPTION_EN =
   'pregnancy or possible pregnancy. Not for children under 3. Use within three months of opening. The remaining ' +
   'named ingredients are at trace: caffeine and Sophora japonica at 10 ppm each, copper tripeptide-1 at 1 ppm. ' +
   'Dermatologically tested.'
-
-const DESCRIPTION_RU =
-  'Тоник для кожи головы, 70 мл. Почти десятая часть флакона — денатурированный спирт, 9,500%, и именно он даёт ' +
-  'быстрое высыхание и ощущение чистоты вместо утяжеления волос. Поверх: ментол 0,300% с двумя дополнительными ' +
-  'охлаждающими агентами, пантенол 0,200%, салициловая кислота 0,250% и аллантоин 0,100%. Распылите на кожу головы ' +
-  'утром и вечером, вмассируйте круговыми движениями и оставьте — не смывать, и дайте средству минимум три-четыре ' +
-  'часа. Зарегистрированная функция вне Кореи — питание кожи головы и кондиционирование волос. ВАЖНО: из-за ' +
-  'салициловой кислоты производитель рекомендует избегать этого средства при чувствительности к салициловой ' +
-  'кислоте, диабете, нарушениях кровообращения, почечной недостаточности, активной инфекции или покраснении кожи ' +
-  'головы, а также при менструации, беременности и возможной беременности. Не для детей до 3 лет. Использовать в ' +
-  'течение трёх месяцев после вскрытия. Остальные названные ингредиенты — следовые: кофеин и софора японская по ' +
-  '10 ppm, медный трипептид-1 — 1 ppm. Дерматологически протестировано.'
-
-const DESCRIPTION_AR =
-  'تونيك لفروة الرأس، 70 مل. نحو عُشر العبوة كحول مُمَوَّه بنسبة 9.500%، وهو ما يجعله يجفّ سريعاً ويمنح إحساساً ' +
-  'بالنظافة بدل أن يجلس على الشعر. وفوق ذلك: منثول بنسبة 0.300% مع عاملَي تبريد مساندين، وبانثينول بنسبة 0.200%، ' +
-  'وحمض الساليسيليك بنسبة 0.250%، وألانتوين بنسبة 0.100%. رشّيه على فروة الرأس صباحاً ومساءً، ودلّكيه بحركات ' +
-  'دائرية، واتركيه — لا يُغسل، وامنحيه ثلاث إلى أربع ساعات على الأقل. ووظيفته المسجّلة خارج كوريا هي تغذية فروة ' +
-  'الرأس وتكييف الشعر. مهم: بسبب حمض الساليسيليك، تنصح الشركة بتجنّب هذا المنتج إن كانت لديك حساسية لحمض ' +
-  'الساليسيليك، أو سكّري، أو اضطراب في الدورة الدموية، أو قصور كلوي، أو عدوى نشطة أو احمرار في فروة الرأس، وكذلك ' +
-  'أثناء الحيض والحمل أو احتمال الحمل. وليس للأطفال تحت سن الثالثة. يُستخدم خلال ثلاثة أشهر من الفتح. أما بقية ' +
-  'المكوّنات المذكورة فهي بجرعات أثرية: الكافيين والصفير الياباني بعشرة أجزاء من المليون لكل منهما، والكوبر ' +
-  'ترايببتايد-1 بجزء واحد من المليون. مختبر جلدياً.'
 
 /** From the registered carton, matching the signed formula order. */
 const FULL_INCI =
@@ -171,33 +154,43 @@ async function main() {
   })
   if (!product) throw new Error('product 43 not found')
 
-  const details = JSON.parse(product.productDetails || '{}') as Record<string, string>
-  details.size = '70 ml, spray'
-  details.registeredFunction =
-    'Scalp nourishing, hair conditioning (English panel). No hair-loss claim is made outside Korea'
-  details.alcohol = 'Alcohol denat. 9.500% — nearly a tenth of the bottle'
-  details.cooling = 'Menthol 0.300%, menthyl lactate 0.040%, methyl diisopropyl propionamide 0.040%'
-  details.workingActives = 'Salicylic acid 0.250%, panthenol 0.200%, allantoin 0.100%'
-  details.traceIngredients = 'Caffeine 10 ppm, Sophora japonica 10 ppm, copper tripeptide-1 1 ppm'
-  details.usage =
-    'Spray onto the scalp morning and evening. Massage in with circular movements. Do not wash off; leave at least 3-4 hours'
-  details.avoidIf =
-    'Salicylic acid sensitivity, diabetes, circulatory disorders, renal impairment, active infection or reddened scalp, menstruation, pregnancy or possible pregnancy'
-  details.notFor = 'Children under 3 years of age. Keep away from the eyes'
-  details.periodAfterOpening = 'Three months — the shortest in the range'
-  details.origin = 'South Korea'
-  details.keyBenefits = 'Scalp conditioning and a strong cooling finish'
+  const details = {
+    form: 'Leave-on scalp tonic spray',
+    size: '70 ml, spray',
+    registeredFunction: 'Scalp nourishing and hair conditioning',
+    alcohol: 'Alcohol denat. 9.500%',
+    cooling: 'Menthol 0.300%, menthyl lactate 0.040%, methyl diisopropyl propionamide 0.040%',
+    care: 'Salicylic acid 0.250%, panthenol 0.200%, allantoin 0.100%',
+    traceIngredients: 'Caffeine 10 ppm, Sophora japonica 10 ppm, copper tripeptide-1 1 ppm',
+    usage: 'Morning and evening; circular massage; leave for at least 3-4 hours without rinsing',
+    periodAfterOpening: 'Three months',
+    testing: 'Dermatologically tested by HRIPT',
+    origin: 'Made in Korea',
+  }
 
   await prisma.product.update({
     where: { id: product.id },
     data: {
+      productNumber: '43',
+      nameRu: PRODUCT_43_RU_NAME,
+      nameAr: PRODUCT_43_AR_NAME,
       description: DESCRIPTION_EN,
-      descriptionRu: DESCRIPTION_RU,
-      descriptionAr: DESCRIPTION_AR,
+      descriptionRu: PRODUCT_43_RU_TRANSLATION.description,
+      descriptionAr: PRODUCT_43_AR_TRANSLATION.description,
       productDetails: JSON.stringify(details),
       keyFeatures: JSON.stringify(KEY_FEATURES),
       benefits: JSON.stringify(BENEFITS),
       ingredients: JSON.stringify([...ACTIVES, { name: 'Full INCI', description: FULL_INCI }]),
+      howToUse: JSON.stringify([
+        { step: 'Spray', instruction: 'Part the hair and spray a small amount directly onto the scalp.' },
+        { step: 'Massage', instruction: 'Distribute gently with circular fingertip movements.' },
+        { step: 'Leave on', instruction: 'Do not rinse for at least 3-4 hours.' },
+        { step: 'Repeat', instruction: 'Apply morning and evening. Use within three months of opening.' },
+      ]),
+      directions:
+        'For external use only. Not for children under 3. Avoid with salicylic acid sensitivity, diabetes, circulatory disorders, renal impairment, scalp infection or redness, during menstruation, pregnancy or possible pregnancy. Do not use on damaged skin. Avoid eyes and mucous membranes. Stop use and seek medical advice if redness, swelling, itching or irritation occurs.',
+      usage: 'morning-evening',
+      targetConcerns: JSON.stringify(['hair', 'scalp-care']),
     },
   })
 

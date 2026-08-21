@@ -25,74 +25,52 @@
  */
 
 import { prisma } from '../lib/prisma'
+import {
+  PRODUCT_42_AR_DESCRIPTION,
+  PRODUCT_42_AR_NAME,
+  PRODUCT_42_FULL_INCI,
+  PRODUCT_42_RU_DESCRIPTION,
+  PRODUCT_42_RU_NAME,
+} from '../data/product42LocalizedCopy'
 
 const DESCRIPTION_EN =
-  'The tinted cream built for the hour after a treatment, when the redness is still visible and you have to be seen. ' +
-  'Three UV filters make up 19.70% of the tube for SPF30 / PA++, over a single universal shade from iron oxides and ' +
-  'titanium dioxide. Underneath sit arbutin at 2% and adenosine at 0.04%, the two doses Korea licenses the ' +
-  'brightening and wrinkle functions against, plus allantoin at 0.1%. Fragrance-free with no parabens, mineral oil, ' +
-  'ethanol or phenoxyethanol — the only one of our three SPF products with no perfume at all. Contains arbutin at ' +
-  '2%, which carries a Korean precaution about papules and mild itching, so patch test first. Contains beeswax. ' +
-  'One shade only, and no water-resistance claim.'
+  'A tinted BB cream with natural coverage and SPF 30 PA++. Three UV filters make up 19.70% of the formula: ' +
+  'Titanium Dioxide 7.70%, Octinoxate 7% and Octocrylene 5%. Arbutin 2% supports a more even-looking tone, ' +
+  'adenosine 0.04% cares for the appearance of wrinkles, and glycerin 5% with butylene glycol 5.5% helps maintain ' +
+  'comfort. One shade. No parabens, artificial fragrance, mineral oil, ethanol or phenoxyethanol. The product is ' +
+  'not claimed water-resistant and contains beeswax.'
 
-const DESCRIPTION_RU =
-  'Тонирующий крем, созданный для часа после процедуры, когда краснота ещё видна, а показаться на людях всё равно ' +
-  'надо. Три УФ-фильтра составляют 19,70% тюбика и дают SPF30 / PA++ поверх единственного универсального оттенка из ' +
-  'оксидов железа и диоксида титана. Под ними — арбутин 2% и аденозин 0,04%, две дозы, под которые Корея лицензирует ' +
-  'осветление и уменьшение морщин, плюс аллантоин 0,1%. Без отдушки, парабенов, минерального масла, этанола и ' +
-  'феноксиэтанола — единственное из трёх наших SPF-средств совсем без парфюма. Содержит арбутин 2%, к которому идёт ' +
-  'корейское предостережение о папулах и легком зуде, поэтому сначала сделайте пробу. Содержит пчелиный воск. Один ' +
-  'оттенок, водостойкость не заявлена.'
-
-const DESCRIPTION_AR =
-  'الكريم الملوّن المصنوع للساعة التي تلي الإجراء، حين يبقى الاحمرار مرئياً ويجب أن تظهري بين الناس. ثلاثة مرشحات ' +
-  'تشكّل 19.70% من الأنبوب وتمنح SPF30 / PA++ فوق درجة لون واحدة شاملة من أكاسيد الحديد وثاني أكسيد التيتانيوم. ' +
-  'وتحتها أربوتين بنسبة 2% وأدينوزين بنسبة 0.04%، وهما الجرعتان اللتان ترخّص عليهما كوريا وظيفتي التفتيح وتحسين ' +
-  'التجاعيد، مع ألانتوين بنسبة 0.1%. خالٍ من العطر والبارابين والزيوت المعدنية والإيثانول والفينوكسي إيثانول — ' +
-  'وهو الوحيد بين واقياتنا الثلاثة بلا أي عطر. يحتوي أربوتين بنسبة 2%، ويرافقه احتياط كوري بشأن حبيبات جلدية وحكة ' +
-  'خفيفة، فاختبريه على بقعة أولاً. ويحتوي شمع العسل. درجة واحدة فقط، ولا ادعاء لمقاومة الماء.'
-
-/** Transcribed from the registered carton. The record previously had none. */
-const FULL_INCI =
-  'Aqua (Water), Titanium Dioxide, Ethylhexyl Methoxycinnamate, Cetyl Ethylhexanoate, Butylene Glycol, Glycerin, ' +
-  'Octocrylene, Cyclopentasiloxane, Cetyl PEG/PPG-10/1 Dimethicone, Cyclohexasiloxane, Cera Alba, Arbutin, ' +
-  'Diisopropyl Dimer Dilinoleate, Sodium Chloride, Sorbitan Olivate, Iron Oxides (CI 77492), Silica Dimethyl ' +
-  'Silylate, Mica, Iron Oxides (CI 77491), Caprylyl Glycol, Magnesium Stearate, Triethoxycaprylylsilane, Iron ' +
-  'Oxides (CI 77499), Aluminum Hydroxide, 1,2-Hexanediol, Allantoin, Glyceryl Caprylate, Adenosine, ' +
-  'Caprylhydroxamic Acid, Disodium EDTA, Glyceryl Laurate, Origanum Vulgare Leaf Extract, Eucalyptus Globulus ' +
-  'Leaf Oil, Perilla Ocymoides Seed Oil, Tropolone, Phaseolus Radiatus Extract, Betula Platyphylla Japonica Bark ' +
-  'Extract, Rumex Crispus Root Extract'
 
 const KEY_FEATURES = [
   {
-    title: 'Built for Post-Procedure Redness',
+    title: 'Natural tinted coverage',
     description:
-      'The registered carton is specific: it covers redness and blemishes after a dermatological treatment. That is what the pigment load, the SPF and the absence of fragrance are all for.',
+      'One shade visually softens the look of redness and imperfections, including redness that may remain after a dermatological treatment. Use after a procedure only with specialist approval and on intact skin.',
   },
   {
     title: 'Arbutin 2% and Adenosine 0.04%',
     description:
-      'The two doses Korea licenses the brightening and wrinkle-improvement functions against, which is why this is registered as a triple-function cosmetic rather than base makeup with an SPF.',
+      'Functional ingredients for a more even-looking tone and care for the appearance of wrinkles.',
   },
   {
-    title: 'Fragrance-Free, Five Ways Clean',
+    title: 'No artificial fragrance',
     description:
-      'No parabens, artificial fragrance, mineral oil, ethanol or phenoxyethanol, all verified against the quantitative formula. It is the only one of the three GENOSYS SPF products with no perfume in it.',
+      'Also made without parabens, mineral oil, ethanol or phenoxyethanol.',
   },
   {
-    title: 'Every Active Assayed, Hydroquinone Included',
+    title: 'Five key components measured',
     description:
-      'The certificate reports titanium dioxide at 7.09%, octinoxate 6.31%, octocrylene 4.50%, arbutin 1.81% and adenosine 0.04% — plus hydroquinone under 1 ppm, which is the test that matters when a product carries arbutin.',
+      'The finished cream measured Titanium Dioxide at 7.09%, Octinoxate 6.31%, Octocrylene 4.50%, arbutin 1.81% and adenosine 0.04%.',
   },
 ]
 
 const BENEFITS = [
-  'Post-treatment coverage - covers redness and blemishes after a dermatological procedure',
-  'SPF30 / PA++ - three filters at 19.70%, though with no long-UVA filter in the set',
-  'Arbutin 2% - at the concentration the Korean brightening function is granted on',
-  'Adenosine 0.04% - the licensed dose for wrinkle improvement',
-  'Fragrance-free - no perfume, ethanol, phenoxyethanol, parabens or mineral oil',
-  'Tested for hydroquinone, lead and arsenic - the checks a pigmented arbutin product should show',
+  'Natural tinted coverage that visually softens redness and imperfections',
+  'SPF 30 PA++ from three UV filters at 19.70% total',
+  'Arbutin 2% for a more even-looking tone',
+  'Adenosine 0.04% for the appearance of wrinkles',
+  'Glycerin 5% and butylene glycol 5.5% for moisturizing comfort',
+  'No parabens, artificial fragrance, mineral oil, ethanol or phenoxyethanol',
 ]
 
 /** Real doses first, then everything the page must not build on. */
@@ -100,31 +78,21 @@ const ACTIVES = [
   {
     name: 'Arbutin 2.00%',
     description:
-      'The Korean brightening function, measured at 1.81% on the batch against a 2.00% declaration. Korea requires a precaution at this level: human application data for products with arbutin at 2% or more has reported papules and mild itching. Patch test before first full use.',
+      'Supports a more even-looking tone; measured at 1.81% in the finished cream. Human application data for products containing arbutin at 2% or more has reported papules and mild itching.',
   },
   {
     name: 'Adenosine 0.04%',
     description:
-      'The licensed dose for wrinkle improvement, assayed on the batch at exactly 0.04%. The same figure appears in every functional anti-ageing product registered in Korea.',
+      'Cares for the appearance of wrinkles; measured at 0.04% in the finished cream.',
   },
   {
     name: 'Three UV filters, 19.70%',
     description:
-      'Titanium dioxide 7.70%, ethylhexyl methoxycinnamate 7.00% and octocrylene 5.00%. Note the titanium dioxide is also the coverage pigment, so it is not all optically available as protection — which is why 19.70% of filter still reads SPF30.',
+      'Titanium Dioxide 7.70%, Ethylhexyl Methoxycinnamate 7.00% and Octocrylene 5.00% deliver the labelled SPF 30 PA++.',
   },
   {
     name: 'Allantoin 0.10%',
-    description: 'Soothing and anti-irritant at a dose that works, alongside glycerin at 5% and butylene glycol at 5.5%.',
-  },
-  {
-    name: 'Cyclopentasiloxane 3.50% and cyclohexasiloxane 2.50%',
-    description:
-      'D5 and D6. They are what let a cream holding nearly 20% mineral filter spread like a light base. European law caps both at 0.1% in leave-on cosmetics from 6 June 2027, on environmental persistence grounds rather than skin safety.',
-  },
-  {
-    name: 'The botanicals, at trace level',
-    description:
-      'Eucalyptus globulus leaf oil and perilla ocymoides seed oil at 50 ppm each, oregano leaf at 50 ppm, and the Phaseolus radiatus, betula bark and Rumex crispus trio at 10 ppm each. Named because they are in the formula; nothing rests on them.',
+    description: 'Helps maintain skin comfort alongside glycerin at 5% and butylene glycol at 5.5%.',
   },
 ]
 
@@ -135,33 +103,68 @@ async function main() {
   if (!product) throw new Error('product 42 not found')
 
   const details = JSON.parse(product.productDetails || '{}') as Record<string, string>
-  details.spfRating = 'SPF30 / PA++ — three filters, 19.70% combined, no long-UVA filter'
-  details.coverage = 'Buildable, from sheer to medium. One universal shade only.'
-  details.shade = 'Single shade from iron oxides and titanium dioxide — the cushion ships three'
+  details.form = 'Tinted BB cream with a natural finish'
+  details.size = '50 g'
+  details.spfRating = 'SPF 30 PA++ · three UV filters · 19.70% declared total'
+  details.filters = 'Titanium Dioxide 7.70% · Octinoxate 7% · Octocrylene 5%'
+  details.shade = 'One shade from iron oxides and titanium dioxide'
   details.actives = 'Arbutin 2.00%, adenosine 0.04%, allantoin 0.10%'
+  details.hydrationBase = 'Butylene glycol 5.5% · glycerin 5%'
   details.precaution =
-    'Contains arbutin at 2%. Korean human-application data at this level reports papules and mild itching — patch test first.'
+    'Human application data for products containing arbutin at 2% or more has reported papules and mild itching.'
   details.freeFrom = 'Parabens, artificial fragrance, mineral oil, ethanol, phenoxyethanol'
-  details.contains = 'Beeswax 2% (not vegan); D5 and D6 silicones at 6% combined'
-  details.waterResistance = 'None claimed — reapply after swimming, sweating or towelling'
-  details.ph = '5.50–7.50 (7.44 on the batch tested)'
+  details.contains = 'Beeswax 2% · not vegan'
+  details.waterResistance = 'The product is not claimed water-resistant'
+  details.ph = 'Measured pH 7.44 · specification 5.50–7.50'
   details.licence = 'Korean triple-function: whitening, wrinkle improvement, UV protection'
-  details.keyBenefits = 'Post-procedure coverage, UV protection, brightening, wrinkle improvement'
-  // Replaced by `precaution` above: the old value claimed the product was
-  // "especially" for sensitive skin, which the arbutin warning contradicts.
+  details.testing = 'Dermatologically tested'
+  details.origin = 'Made in Korea'
   delete details.skinType
   delete details.type
+  delete details.coverage
 
   await prisma.product.update({
     where: { id: product.id },
     data: {
+      productNumber: '42',
+      name: 'INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]',
+      nameRu: PRODUCT_42_RU_NAME,
+      nameAr: PRODUCT_42_AR_NAME,
       description: DESCRIPTION_EN,
-      descriptionRu: DESCRIPTION_RU,
-      descriptionAr: DESCRIPTION_AR,
+      descriptionRu: PRODUCT_42_RU_DESCRIPTION,
+      descriptionAr: PRODUCT_42_AR_DESCRIPTION,
+      size: '50 g',
       productDetails: JSON.stringify(details),
       keyFeatures: JSON.stringify(KEY_FEATURES),
       benefits: JSON.stringify(BENEFITS),
-      ingredients: JSON.stringify([...ACTIVES, { name: 'Full INCI', description: FULL_INCI }]),
+      ingredients: JSON.stringify([...ACTIVES, { name: 'Full INCI', description: PRODUCT_42_FULL_INCI }]),
+      howToUse: JSON.stringify([
+        {
+          step: 'Patch test',
+          instruction:
+            'Because the formula contains arbutin at 2%, test a small amount on a limited area first if your skin is prone to reactions.',
+        },
+        {
+          step: 'Apply as the final morning step',
+          instruction:
+            'Spread an even layer over the face and neck 15 minutes before going outdoors. Spot application will not deliver the labelled SPF.',
+        },
+        {
+          step: 'Build only where needed',
+          instruction:
+            'Let the first thin layer settle, then add a second thin layer where more coverage is wanted.',
+        },
+        {
+          step: 'Reapply protection',
+          instruction:
+            'Reapply at least every two hours outdoors and after swimming, heavy sweating or towelling. The product is not claimed water-resistant.',
+        },
+      ]),
+      directions:
+        'For external use only. Do not apply to damaged skin. Avoid the eyes and mucous membranes; rinse thoroughly with cool water after contact. Human application data for products containing arbutin at 2% or more has reported papules and mild itching. Stop use and seek medical advice if redness, swelling, itching or irritation occurs. After a dermatological procedure, use only when a specialist confirms the skin is intact and ready for makeup. Store in a cool, dry place away from direct sunlight and children.',
+      skinType: null,
+      targetConcerns: JSON.stringify(['sun-protection', 'uneven-tone', 'wrinkles']),
+      usage: 'morning',
     },
   })
 
@@ -169,7 +172,7 @@ async function main() {
   console.log('  arbutin warning -> now on the record, was on the box only')
   console.log('  INCI            -> added; the record previously had none at all')
   console.log('  filters         -> three, 19.70%, with the batch assay')
-  console.log('  disclosed       -> one shade, beeswax, D5/D6, no water resistance')
+  console.log('  disclosed       -> one shade, beeswax, no water resistance')
   console.log('  dropped         -> "especially sensitive skin" claim')
 }
 

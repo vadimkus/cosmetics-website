@@ -1,3 +1,5 @@
+import { EZ_CO2_AR_COPY, EZ_CO2_RU_COPY } from './ezco2LocalizedCopy'
+
 /**
  * Bespoke copy for the EZ CO₂ MASK KIT page (product 38).
  *
@@ -815,7 +817,11 @@ const RU: EzCo2Copy = {
   backToProducts: 'Все продукты',
 }
 
-const COPY: Record<EzCo2Locale, EzCo2Copy> = { en: EN, ar: AR, ru: RU }
+const COPY: Record<EzCo2Locale, EzCo2Copy> = {
+  en: EN,
+  ar: { ...AR, ...EZ_CO2_AR_COPY },
+  ru: { ...RU, ...EZ_CO2_RU_COPY },
+}
 
 export function getEzCo2Copy(locale: string): EzCo2Copy {
   if (locale === 'ar' || locale === 'ru') return COPY[locale]

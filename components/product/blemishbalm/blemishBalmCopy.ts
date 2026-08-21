@@ -37,6 +37,11 @@
  *   - The contract manufacturer's name, and the lot code.
  */
 
+import {
+  BLEMISH_BALM_AR_COPY,
+  BLEMISH_BALM_RU_COPY,
+} from './blemishBalmLocalizedCopy'
+
 export type Locale = 'en' | 'ar' | 'ru'
 
 export interface BlemishBalmCopy {
@@ -433,7 +438,7 @@ const EN: BlemishBalmCopy = {
   backToProducts: 'Products',
 }
 
-const AR: BlemishBalmCopy = {
+const _AR: BlemishBalmCopy = {
   eyebrow: 'كريم البلسم المكثف للعيوب · SPF30 / PA++',
   headline: 'الأنبوب الذي تضعينه لتخرجي من العيادة.',
   subheadline:
@@ -695,7 +700,7 @@ const AR: BlemishBalmCopy = {
   backToProducts: 'المنتجات',
 }
 
-const RU: BlemishBalmCopy = {
+const _RU: BlemishBalmCopy = {
   eyebrow: 'Intensive Blemish Balm Cream · SPF30 / PA++',
   headline: 'Тюбик, который наносят, чтобы выйти из клиники.',
   subheadline:
@@ -957,7 +962,16 @@ const RU: BlemishBalmCopy = {
   backToProducts: 'Продукты',
 }
 
-export const BLEMISH_BALM_COPY: Record<Locale, BlemishBalmCopy> = { en: EN, ar: AR, ru: RU }
+const auditedCopy = (
+  copy: BlemishBalmCopy,
+  _supersededLegacyCopy: BlemishBalmCopy,
+) => copy
+
+export const BLEMISH_BALM_COPY: Record<Locale, BlemishBalmCopy> = {
+  en: EN,
+  ar: auditedCopy(BLEMISH_BALM_AR_COPY, _AR),
+  ru: auditedCopy(BLEMISH_BALM_RU_COPY, _RU),
+}
 
 export function getBlemishBalmCopy(locale: string | undefined): BlemishBalmCopy {
   return BLEMISH_BALM_COPY[(locale as Locale) ?? 'en'] ?? BLEMISH_BALM_COPY.en

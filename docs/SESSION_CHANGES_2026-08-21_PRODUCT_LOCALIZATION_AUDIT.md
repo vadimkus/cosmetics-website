@@ -7,6 +7,136 @@ The audit rewrites every customer-facing localized field in natural premium lang
 checking the underlying claims against the local registration archive and official DTS MG
 material. A translation is not preserved merely because it is present in English.
 
+## Product 66 — CERABARRIER BIOME GEL CLEANSER
+
+- Complete implementation record:
+  `docs/SESSION_CHANGES_2026-08-21_PRODUCT_66_LOCALIZATION_AUDIT.md`
+- Canonical Russian and Arabic copy now owns the runtime translation maps and
+  the live bespoke page.
+- Shared quick facts, routines, SEO cards, skin-analysis fallback and chatbot
+  facts were aligned to the same source boundary.
+- The updater normalizes size to `200 ml` and clears unsupported targeting fields.
+- Verified facts retained: three-surfactant base, humectant percentages, pH 6.37,
+  fragrance 0.5%, two sizes, dermatological testing.
+- The DTS deck +145.8% / 2.4× headline is kept only as a qualified unreproducible
+  source note. Catalog RU/AR audit is now complete through product 66.
+
+## Product 54 — Holiday Kit
+
+- Complete implementation record:
+  `docs/SESSION_CHANGES_2026-08-21_PRODUCT_54_HOLIDAY_KIT_LOCALIZATION_AUDIT.md`
+- Verified the current physical set against the production row and hero asset: Multi Vita
+  Radiance Serum 30 ml, Multi Vita Radiance Cream 50 g, Snow O₂ Cleanser 180 ml and a
+  GENOSYS mirror.
+- Reused the completed source audits for products 21, 31 and 10 rather than the unsupported
+  legacy kit descriptions.
+- Added canonical RU/AR payloads by product number and CUID, exact quick facts, a
+  cleanser → serum → cream routine, public fallback, seasonal-category language and a
+  chatbot availability/claim boundary.
+- States that all three skincare products are individually dermatologically tested and
+  explicitly excludes the mirror from that statement.
+- Removes complete/all-skin, barrier, twelve-vitamin, free-radical, ageing, collagen,
+  shielding, oxygen-delivery and irritation-free kit claims.
+- Keeps the discontinued public listing explicitly out of stock and normalizes the database
+  size to `1 box`, with unsupported targeting fields cleared.
+
+## Product 42 — INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]
+
+- Complete implementation record:
+  `docs/SESSION_CHANGES_2026-08-21_PRODUCT_42_LOCALIZATION_AUDIT.md`
+- Canonical Russian and Arabic copy now owns the runtime translation maps and
+  the full bespoke page.
+- Shared quick facts, routine messages, BB-category SEO, sunscreen landing
+  cards and chatbot facts were aligned to the same source boundary.
+- The updater repairs `productNumber` to `"42"` and clears unsupported
+  `skinType`.
+- Verified facts retained: 50 g, one shade, three filters at 19.70%, exact
+  declaration/measurement pairs, arbutin 2% with its Korean warning, adenosine
+  0.04%, allantoin 0.10%, glycerin 5%, butylene glycol 5.5%, pH 7.44,
+  five exclusions, beeswax 2% and no water-resistance claim.
+- Removed universal sensitive-skin or all-types safety, healing, regeneration,
+  deep absorption, barrier repair, pigmentation/blemish treatment, pollution,
+  broad-spectrum/full-UVA and trace-botanical benefit claims.
+
+## Product 40 — MULTI SUN CREAM [SPF 40 PA++]
+
+### Sources checked
+
+- `Registration DOC/Formula_up/Formula-GENOSYS MULTI SUN CREAM.pdf` — controlling
+  signed formula: four UV filters totalling 18.50%; Ethylhexyl Methoxycinnamate 7.50%,
+  Ethylhexyl Salicylate 5.00%, Titanium Dioxide 3.00% and Isoamyl
+  p-Methoxycinnamate 3.00%; butylene glycol 5.0182%, dimethicone 2.30%, glycerin
+  1.00%; fragrance 0.25% and the five declared fragrance allergens.
+- `Registration DOC/Artwork/[GENOSYS]MULTI SUN CREAM.pdf` — SPF 40 PA++;
+  40 g; daily use on face, neck and body; light under-makeup positioning;
+  dermatological testing; no parabens, alcohol or colourants; two-hour reapplication
+  during continued sun exposure; precautions and Korean origin. No water-resistance
+  claim appears.
+- `Registration DOC/COA/COA-GENOSYS MULTI SUN CREAM 40g(WOB053).pdf` — measured
+  pH 6.71 inside 5.00–7.00; 41.07 g fill; passing stability and microbial results;
+  and measured UV-filter contents of 7.21%, 4.96%, 2.75% and 2.98%, each meeting
+  the requirement of at least 90% of its declaration.
+- `Ultra Shield Sun Cream/GENOSYS ULTRA SHIELD SUN CREAM.pptx`, comparison slide
+  — daily, lightweight, under-makeup positioning for Multi Sun and the SPF 40 PA++
+  comparison with Ultra Shield SPF 50+ PA++++. Trace-ingredient benefit stories from
+  this slide were not retained.
+- Both safety-assessment locations were checked:
+  `Registration DOC/SA/` and `Intertek_folder/Safety Assessment Report/`. Neither
+  contains a safety assessment for Multi Sun Cream. Customer copy therefore does not
+  claim that this product has an EU safety assessment.
+
+### Corrections
+
+- Rewrote the complete central and bespoke Russian and Arabic copy in natural
+  professional Russian and polished neutral MSA.
+- Repositioned the product as a light daily sunscreen for city, office and under
+  make-up. PA++ is described consistently as moderate UVA protection, never as
+  comprehensive, complete, high or full UVA coverage.
+- Preserved the exact four-filter system and all declaration/measurement pairs:
+  7.50%/7.21%, 5.00%/4.96%, 3.00%/2.75% and 3.00%/2.98%.
+- States octinoxate at 7.50%, with the measured 7.21% and the European 10% limit
+  only where it helps an ingredient-led purchase decision.
+- Preserved 40 g, measured pH 6.71 inside 5.00–7.00, dermatological testing,
+  fragrance 0.25% with five declared allergens, and the formula-backed absence of
+  parabens, drying alcohol and colourants.
+- Removed all-skin-types and sensitive-skin positioning, strong/maximum/comprehensive
+  protection language, healing, repair, anti-ageing and sunburn-treatment claims,
+  reef-safe implications and benefit stories assigned to trace peptide, hyaluronate,
+  botanicals or ferment.
+- Standardised use across central copy, the bespoke page, quick facts, routine messages
+  and concern recommendations: apply generously and evenly at least 15 minutes before
+  going outdoors, reapply at least every two hours outside, and reapply after swimming,
+  heavy sweating or towel drying. Water resistance is explicitly not claimed.
+- Removed Multi Sun from the sensitive-skin recommendation tag. Sensitive Beauty Box
+  copy does not recommend product 40.
+
+### Implementation
+
+- Isolated canonical RU/AR module: `data/product40LocalizedCopy.ts`
+- Canonical audit ownership: `data/productLocalizedCopyAudit.ts`
+- Runtime maps: `data/productTranslationsRu.ts` and `data/productTranslations.ts`
+- Complete bespoke override:
+  `components/product/multisun/multiSunLocalizedCopy.ts`, consumed by
+  `components/product/multisun/multiSunCopy.ts`
+- Shared surfaces: `lib/productQuickFactsCatalog.ts`, `messages/ru.json`,
+  `messages/ar.json`, `lib/concernsData.ts`, `lib/productsDb.ts`,
+  `lib/seoLandingPagesRu.ts` and `lib/seoLandingPagesAr.ts`
+- Idempotent production update:
+  `scripts/update-product-40-localized-copy-20260821.ts`
+- Regression coverage:
+  `__tests__/data/product40LocalizedCopy.test.ts` and
+  `__tests__/data/productLocalizedCopyAudit.test.ts`
+
+### Verification
+
+- `npx tsc --noEmit` passed.
+- Targeted ESLint passed with zero errors and zero warnings.
+- Targeted Jest regression run: 3 suites, 181 tests passed, 0 failed.
+- Production record `id = 40` was updated from `productNumber = null` to
+  `productNumber = "40"` with exact canonical RU/AR names and descriptions.
+- The localized update was run a second time: all five change flags were `false`,
+  confirming database parity and idempotence.
+
 ## Product 13 — SKIN RENEWAL PEELING SYSTEM (SRS)
 
 ### Catalog identity
@@ -252,6 +382,470 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
   map; database `productNumber`, localized names and localized descriptions were updated
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
+
+## English baseline restoration and release verification
+
+The localization scope was corrected after the audit: only Russian and Arabic customer copy
+may change. Opus 5's bespoke English pages and shared English content are the protected
+baseline.
+
+### Restoration completed
+
+- Restored protected English code from Git baselines while retaining the audited RU/AR
+  payloads.
+- A second independent validation pass, which resolves each locale map to the object `en`
+  actually renders and compares every rendered string against its baseline, found four
+  Beauty Box modules still carrying rewritten English: `antiAging.ts` (58),
+  `charmingLook.ts` (57), `sensitiveSkin.ts` (62) and `skinBrightening.ts` (56). The first
+  restoration pass had matched only files ending in `Copy.ts`, so these were skipped. Their
+  `EN` objects are now restored and their RU/AR copy is unchanged.
+- Restored production English and neutral fields for products 41–66 from the last available
+  pre-localization product scripts, creation scripts, source-audit fixes and dated backups.
+- The production update used one verified Prisma transaction and an allowlist limited to
+  English/neutral product fields.
+- RU/AR fields, prices, images, galleries, videos, variants, discounts and inventory were
+  asserted unchanged.
+- Exact evidence remained unavailable only for `ageGroup` on products 41–59 and 64; those
+  values were deliberately left untouched rather than guessed.
+- The final forensic pass confirmed that products 53–59 had no pre-localization
+  `productDetails` payload. The Aug 21 objects were therefore cleared back to `null`.
+- Pre-write production backup:
+  `backups/opus-english-db-products-41-66-before-2026-08-21T19-51-03-208Z.json`
+- Final product-details cleanup backup:
+  `backups/opus-english-db-products-41-66-before-2026-08-21T20-00-31-586Z.json`
+
+### Verification
+
+- Production restoration dry run after the transaction: `productsChanged: 0`
+- English code restoration dry run: `changed: []`
+- Independent rendered-English comparison against both baselines: no remaining drift
+
+### New English added where none existed
+
+The audit also added English where no earlier copy existed. These were additions rather than
+rewrites, so no bespoke English was lost, but they were reviewed against the selling-tone
+rule before being kept.
+
+Removed, because each existed only to argue against its own product:
+
+- Product 61: `No efficacy claim`
+- Product 53: `Collagen 1 ppm`, on a product named INTENSIVE REPAIR COLLAGEN MASK
+- Product 64: `Depth still unconfirmed`
+- Product 47: `Roller, not stamp`, an internal artwork-inconsistency note
+- Product 64: the trailing `not an absorption claim` disclaimer was dropped from the
+  ten-minute bullet; the auto-stop specification itself was kept
+- Product 47: the `0.5 mm roller depth` bullet no longer cites the carton panel as its
+  source and simply states the depth, in all three languages
+
+Kept, as concrete and useful: the Hair-GENTRON device specifications (48), the kit contents
+and sequence for the Mesopecia Kit (47), the sheet, humectant and timing facts for the
+Collagen Mask (53), the Holiday Kit contents and discontinued status (54), the brush
+handling steps (61), and the needle count and fit for the Hair Stamp (64).
+
+Kept in `lib/products.ts`: new static fallback entries for products 53 and 54, plus a `size`
+value for product 61. These are used only when the database is unreachable, and products 53
+and 54 previously had no fallback entry at all.
+
+The accuracy behind every removed bullet is preserved in the per-product audit sections of
+this document.
+- Localization regression suite: 32 suites, 216 tests, all passed
+- Full repository Jest suite: 106 suites, 868 passed, 3 skipped
+- TypeScript: `npx tsc --noEmit` passed
+- Targeted ESLint checks passed
+
+### Reusable safeguards
+
+- `scripts/restore-opus-english-code-20260821.ts`
+- `scripts/restore-opus-english-db-20260821.ts`
+
+Both restoration scripts default to dry-run mode. The database script requires explicit
+`--apply`, creates a timestamped backup and verifies protected and unrelated-field parity.
+
+## Product 44 — HR³ MATRIX MEDI SCALP SHAMPOO α
+
+### Sources checked
+
+- `MEDI SHAMPOO ALPHA/Formula-GENOSYS HR3 MATRIX MEDI SCALP SHAMPOO α.pdf`
+- `MEDI SHAMPOO ALPHA/Artwork-GENOSYS HR3 MATRIX MEDI SCALP SHAMPOO α(300ml).pdf`
+- `MEDI SHAMPOO ALPHA/COA-GENOSYS HR3 MATRIX MEDI SCALP SHAMPOO α.pdf`
+- `Ingredient lists_old/HR3 MATRIX SCALP & HAIR SHAMPOO.pdf`
+- `Intertek_folder/Safety Assessment Report/24 HR3 MATRIX SCALP & HAIR SHAMPOO.pdf`
+- `public/documents/PPT/GENOSYS HR3 MATRIX SCALP SHAMPOO ALPHA.pdf`
+
+The old ingredient sheet and safety assessment describe an earlier shampoo and were retained
+only as historical and safety context. The current α formula, artwork and COA control the
+customer copy. Korea-specific KFDA and hair-loss language in training was not transferred to
+the UAE claim frame.
+
+### Corrections
+
+- Rewrote canonical and bespoke RU/AR copy around the registered function outside Korea:
+  scalp and hair cleansing.
+- Preserved 300 ml; caffeine 1.000%; menthol 1.120%; menthyl lactate 0.080%; the four-part
+  cleansing system at 14.100%, 5.250%, 0.240% and 0.160%; glycerin 2.753%; sorbitol 0.210%;
+  fragrance 0.300%; piroctone olamine 0.010%; measured pH 5.6 inside 4.50–6.50; and
+  dermatological testing.
+- Preserved panthenol 75 ppm, biotin 2 ppm, saw palmetto 1 ppm and copper tripeptide-1
+  10 ppb without functional attribution.
+- States the technically precise exclusion: no SLS or SLES; sodium C14-16 olefin sulfonate is
+  a sulfonate, not a sulfate.
+- Preserved 3–5 ml and about three minutes of lather contact, with no invented universal
+  frequency.
+- Restored the under-three restriction and exact eye-area, eye-contact, mucous-membrane and
+  cool-water precautions.
+- Removed KFDA approval, hair-loss prevention or improvement, hair-growth environment, sebum
+  control, circulation, patented-technology, all-scalp, daily-use, antifungal and
+  dandruff-treatment claims.
+- Aligned quick facts, routines, pairings, concern/category SEO, scalp-brush copy and chatbot
+  guidance with the same boundary.
+
+### Implementation
+
+- Canonical RU/AR: `data/product44LocalizedCopy.ts`
+- Bespoke PDP: `components/product/hr3/mediShampooLocalizedCopy.ts`
+- Runtime maps, quick facts, messages, concern/category SEO, brush copy and chatbot updated
+- Focused localization regression suite added
+- Idempotent product-specific updater sets `productNumber: "44"`, clears unsupported generic
+  usage/skin targeting and verifies exact post-write parity
+- Detailed session record:
+  `docs/SESSION_CHANGES_2026-08-21_PRODUCT_44_MEDI_SHAMPOO_LOCALIZATION_AUDIT.md`
+
+## Product 41: SKIN CARING BLEMISH BALM CUSHION
+
+### Source verification
+
+- Read the Ivory, Beige and Camel formula sheets and COAs, plus the Camel artwork and the
+  product-specific source/page audit notes. The registration safety-assessment directory
+  contains no product 41 safety assessment, so no safety-report result is attributed to it.
+- Confirmed five UV filters: Titanium Dioxide 9.00208%, Ethylhexyl Methoxycinnamate 7%,
+  Ethylhexyl Salicylate 4.5%, Octocrylene 2% and Zinc Oxide 2%. Butyloctyl Salicylate 6%
+  is recorded as a solvent, not a sixth filter.
+- Confirmed niacinamide 2%, adenosine 0.04%, SPF 50+ PA++++, Korean triple-function
+  registration, the carton dermatological-test mark, 15 g cushion plus 15 g refill,
+  PAO 12M and the Waterdrop puff construction.
+- Corrected the prior shade statement. Ivory and Beige differ only in iron-oxide ratios, but
+  Camel also changes methylpropanediol and butylene glycol by two percentage points. The
+  safe shared statement is that all three use the same five filters, niacinamide 2% and
+  adenosine 0.04%; the formulas must not be described as differing only by pigment.
+- COA pH results are Ivory 6.44, Beige 6.49 and Camel 6.51. All three passed the listed
+  microbial limit of less than 500 CFU/g.
+- No Parfum appears in any of the three formula sheets, so `no added fragrance` is supported.
+  Product water resistance is not documented. The waterproof statement belongs only to the
+  puff's internal layer.
+
+### Copy and implementation
+
+- Added the isolated canonical payload in `data/product41LocalizedCopy.ts` and registered it
+  in `data/productLocalizedCopyAudit.ts`.
+- Replaced effective RU/AR bespoke-page copy with audited customer-facing copy in
+  `components/product/bbcushion/bbCushionCopy.ts`.
+- Rewrote product 41 quick facts, Charming Look Beauty Box copy, RU/AR routine messages,
+  localized sunscreen SEO cards and chatbot catalogue guidance.
+- Removed 60% essence, Volufiline/lipofilling, peptide collagen/regeneration, all-skin-types,
+  barrier-repair, blemish-treatment, formula-waterproof and immediate post-procedure claims.
+- Added `scripts/update-product-41-localized-audit-20260821.ts`, which finds the row by
+  `id` or `productNumber`, assigns `productNumber: "41"` and idempotently rewrites the
+  audited database fields.
+- Added targeted localization coverage in
+  `__tests__/data/product41LocalizedCopy.test.ts`.
+
+## Product 39 · ULTRA SHIELD SUN CREAM SPF 50+ PA++++
+
+### Sources rechecked
+
+- Renewed Intertek quali-quanti formula for ULTRA SHIELD SUN CREAM
+- EU Safety Assessment under EC Regulation 1223/2009, including the SPF, UVA-PF,
+  dermatological-test and homosalate safety records
+- Registered carton artwork and Korean functional declaration
+- COA for the 50 g product, including pH, fill and microbiology
+- DTS MG technical presentation, used only where it agrees with the registration set
+- FDA and American Academy of Dermatology public sunscreen instructions for the application
+  interval: at least 15 minutes before sun exposure, at least every two hours outdoors, and
+  again after swimming, sweating or towel drying
+
+### Corrections
+
+- Rewrote the complete central and bespoke Russian and Arabic copy in professional Russian
+  and neutral MSA for UAE retail.
+- Corrected the filter count to six, totalling 17.10%:
+  Homosalate 4.00%, Ethylhexyl Salicylate 3.50%, Terephthalylidene Dicamphor Sulfonic Acid
+  3.069%, Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine 3.00%, Ethylhexyl Triazone 2.00%
+  and Titanium Dioxide 1.533%.
+- Butyloctyl Salicylate 5.00% is now described as a solvent and photostabiliser, not a
+  seventh UV filter.
+- Preserved the measured protection: SPF 65.9 in vivo, UVA-PF 23.13 and 24.3, the one-third
+  UVA threshold of 22.0, and the consumer label SPF 50+ PA++++.
+- Preserved niacinamide 2.00%, adenosine 0.04%, 50 g, measured pH 7.23 inside the
+  7.20 ± 1.00 range, dermatological testing and the EU safety assessment.
+- Replaced the unregulated `reef-safe` wording with the precise formula statement:
+  no oxybenzone and no octinoxate.
+- Removed `all skin types`, superior/maximum-protection language, sunburn-treatment wording
+  and barrier, recovery or deep-hydration benefits assigned to trace Ceramide NP,
+  hydrolysed sodium hyaluronate and Lactobacillus ferment lysate.
+- States plainly that water resistance is not claimed. Instructions now say to apply
+  generously and evenly at least 15 minutes before going outdoors, reapply at least every
+  two hours outside, and apply again after swimming, heavy sweating or towel drying.
+
+### Implementation
+
+- Isolated canonical RU/AR module: `data/product39LocalizedCopy.ts`
+- Canonical audit ownership: `data/productLocalizedCopyAudit.ts`
+- Runtime maps: `data/productTranslationsRu.ts` and `data/productTranslations.ts`
+- Complete bespoke page: `components/product/ultrashield/ultraShieldCopy.ts`
+- Shared surfaces: `lib/productQuickFactsCatalog.ts`, `messages/ru.json`,
+  `messages/ar.json`, `lib/concernsData.ts` and
+  `components/product/beautybox/copy/skinBrightening.ts`
+- Idempotent production update:
+  `scripts/update-product-39-localized-copy-20260821.ts`
+- Regression coverage:
+  `__tests__/data/product39LocalizedCopy.test.ts` and
+  `__tests__/data/productLocalizedCopyAudit.test.ts`
+
+## Product 38 — EZ CO₂ MASK KIT
+
+### Sources checked
+
+- `Registration DOC/Artwork/[GENOSYS]EZ CO2 MASK.pdf` — five gels at 20 g, five
+  masks at 12 g, one spatula; clean and dry skin; gel first; mask with the coated side
+  outward; 10-minute exposure; 20–30-second initial reaction; once-weekly standard and
+  twice-weekly intensive programmes; immediate use after opening; precautions; Korean
+  origin and dermatological testing.
+- `Registration DOC/SA/SA-GENOSYS EZ CO2 MASK KIT (GEL+MASK).pdf` — two-part
+  rinse-off identity, 10-minute method, gel pH specification 2.0–3.0, mask pH
+  specification 7.7–8.7 and satisfactory dermatological patch testing. No PAO is
+  documented.
+- `Intertek_folder/Quali-quanti Ingredients/GENOSYS EZ CO2 GEL.pdf` — carbomer
+  3.94% and chamomile 0.3% in the gel.
+- `Intertek_folder/Quali-quanti Ingredients/GENOSYS EZ CO2 MASK.pdf` — sodium
+  bicarbonate 9% and lactic acid 0.33% in the mask, not the gel.
+- Current formula sheets and COAs — controlling INCI order, DTS MG identity, measured gel
+  pH 2.2 inside 2.0–3.0 and measured mask pH 8.16 inside 7.7–8.7.
+- `public/documents/PPT/Genosys Ez Co2 Mask.pdf` — five-treatment format and
+  unquantified visual material. Its 5–10-minute range was not retained because the Safety
+  Assessment and artwork both specify 10 minutes.
+
+### Corrections and copy decisions
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field in natural
+  professional Russian and polished neutral MSA for UAE retail.
+- Preserved the verified two-component mechanism without extending it into oxygen-delivery
+  or tissue-oxygenation claims: the acidic gel contacts sodium bicarbonate 9% in the mask
+  and forms CO₂.
+- Corrected component placement throughout: carbomer 3.94% and chamomile 0.3% are in the
+  gel; lactic acid 0.33% and sodium bicarbonate 9% are in the mask.
+- Standardised the protocol to clean, fully dry skin; gel first; sheet with coated side
+  outward; 10 minutes; remove and rinse thoroughly. The documented once-weekly standard and
+  twice-weekly intensive frequencies were retained.
+- Preserved the documented initial 20–30-second reaction, dermatological testing, five
+  treatments, exact pack contents and measured gel pH 2.2.
+- Removed oxygen-delivery, tissue-oxygenation, Botox/lifting, blemish-treatment,
+  penetration/absorption, repair/healing, anti-inflammatory and unsupported clinical-result
+  language. Public copy no longer argues with old copy or uses audit-style phrasing.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/product38LocalizedCopy.ts`, exposed through
+  `data/productLocalizedCopyAudit.ts`
+- Runtime overrides: `data/productTranslationsRu.ts` and `data/productTranslations.ts`
+- Complete bespoke runtime copy: `components/product/ezco2/ezco2LocalizedCopy.ts`,
+  consumed by `components/product/ezco2/ezco2Copy.ts`
+- Product 38 quick facts: `lib/productQuickFactsCatalog.ts`
+- Product 38 routine strings: `messages/ru.json` and `messages/ar.json`
+- Idempotent localized database update:
+  `scripts/update-product-38-localized-copy-20260821.ts`
+- Regression coverage verifies runtime ownership, valid structured JSON, exact source facts
+  and absence of prohibited medical, unsupported or audit-style language
+
+## Product 37 — PEPTIDE GEL MASK
+
+### Sources checked
+
+- `Registration DOC/Formula_up/Formula-GENOSYS PEPTIDE GEL MASK.pdf` — controlling
+  finished formula: glycerin 19.921%; Ceratonia Siliqua Gum 2.2%; Chondrus Crispus
+  Extract 0.8%; Dipotassium Glycyrrhizate 0.10%; hydrolyzed collagen 0.002%; sodium
+  hyaluronate 0.0005%; and Acetyl Hexapeptide-8 0.0000054%, equivalent to 0.05 ppm.
+- `Registration DOC/SA/SA-GENOSYS PEPTIDE GEL MASK.pdf` — face-mask identity;
+  moisturizing and soothing functions; leave-on essence after the removable sheet;
+  pH 5.0–7.0; satisfactory non-irritant patch test supporting `dermatologically tested`;
+  and no documented PAO.
+- `Registration DOC/Artwork/[GENOSYS]PEPTIDE GEL MASK.pdf` — 38 g including mesh ×
+  five masks; use after dermatological procedures; cleanse and tone; remove the protective
+  film; apply for 20–40 minutes; remove and massage the remaining essence; optional
+  refrigeration for a stronger cooling sensation; immediate use after opening; eye and
+  mucous-membrane avoidance; and caution for bandage or compress allergy.
+- `Registration DOC/COA/COA-GENOSYS PEPTIDE GEL MASK(OF001).pdf` — translucent gel,
+  measured pH 5.62 within the 5.0–7.0 specification and measured fill 40.12 g against the
+  nominal minimum of 38 g. Lot and contract-manufacturer details were not exposed.
+
+### Corrections and copy decisions
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field. Russian now
+  reads as premium professional skincare copy; Arabic uses polished neutral MSA suitable
+  for UAE retail and neutral instruction forms where practical.
+- Repositioned the product accurately as a removable face hydrogel for moisturizing and
+  soothing care after dermatological procedures. The customer ritual is now consistent:
+  20–40 minutes, remove the sheet, then massage in the remaining essence.
+- Leads with glycerin 19.921% as the moisturizing base. Ceratonia Siliqua Gum 2.2% and
+  Chondrus Crispus Extract 0.8% are presented as the elastic gel-forming pair, with
+  Dipotassium Glycyrrhizate 0.10% as supporting soothing care.
+- Preserved Acetyl Hexapeptide-8 at 0.05 ppm, hydrolyzed collagen at 0.002% and sodium
+  hyaluronate at 0.0005% as transparent secondary formula facts without presenting them as
+  the principal reason to buy the mask.
+- Removed literal audit language such as `this number belongs on a card`, `not the engine`,
+  public arguments with the packaging and informal imperatives.
+- Removed Botox-like, lifting, muscle-relaxation, healing, collagen-production,
+  transdermal-delivery, deep-delivery, all-skin-types and treatment claims. No clinical
+  percentage was invented.
+- Preserved the verified five-mask pack, 38 g including mesh, dermatological testing,
+  immediate use after opening, optional refrigeration and bandage/ compress allergy caution.
+- The product is not positioned for the eye contour. Product 33 remains the dedicated
+  EyeCell hydrogel patch.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/product37LocalizedCopy.ts`, owned at runtime by
+  `data/productLocalizedCopyAudit.ts`
+- Complete bespoke RU/AR runtime copy:
+  `components/product/peptidegel/peptideGelLocalizedCopy.ts`, consumed by
+  `components/product/peptidegel/peptideGelCopy.ts`
+- Product 37 RU/AR quick facts: `lib/productQuickFactsCatalog.ts`
+- Product 37 routine and recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Idempotent localized DB update:
+  `scripts/update-product-37-localized-copy-20260821.ts`
+- Regression coverage verifies runtime ownership, valid structured JSON, exact source
+  concentrations and absence of unsupported or audit-style language
+
+## Product 35 — HYDRO COOL MODELING MASK
+
+### Sources checked
+
+- `Registration DOC/Formula_up/Formula-GENOSYS HYDRO COOL MODELING MASK.pdf`
+- `Registration DOC/Artwork/[GENOSYS]HYDRO COOL MODELING MASK.pdf`
+- `Registration DOC/COA/COA-GENOSYS HYDRO COOL MODELING MASK(230807AD007G4).pdf`
+- `Intertek_folder/Quali-quanti Ingredients/GENOSYS HYDRO COOL MODELING MASK.pdf`
+- `docs/SESSION_CHANGES_2026-08-15_PRODUCT_35_HYDRO_COOL.md`
+
+### Corrections and language
+
+- Rewrote every central and bespoke Russian and Arabic field in premium professional
+  cosmetology language. Removed blunt audit commentary, literal imperatives and awkward
+  phrases such as “this is the product”, “not the engine” and “clinic kilo”.
+- Leads with the customer result supported by the artwork: cooling, hydration and soothing
+  care after a professional procedure.
+- Preserved the exact ritual: 30 g per application, powder-to-water ratio 1 : 0.8, mix for
+  1–2 minutes, leave for 15–20 minutes, remove in one piece and wipe residue with toner.
+- Preserved the quantitative formula: diatomaceous earth 65.165%, glucose 12%, algin 9%,
+  calcium sulfate 6%, magnesium oxide 2%, peppermint extract 0.1% and menthol 0.01%.
+- Kept Sodium Hyaluronate, Ceramide NP, Allantoin and Centella at their documented 0.01%
+  concentrations without presenting them as the principal reason the mask works.
+- Kept the fragrance disclosure. The formula contains Parfum, peppermint oil and limonene.
+- Removed unsupported collagen, pore, barrier-repair, all-skin-types, clinical-percentage,
+  weekly-frequency and fragrance-free claims.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/product35LocalizedCopy.ts`
+- Complete bespoke RU/AR page: `components/product/hydrocool/hydroCoolLocalizedCopy.ts`
+- Runtime ownership: `data/productLocalizedCopyAudit.ts`, `data/productTranslationsRu.ts`,
+  `data/productTranslations.ts` and `components/product/hydrocool/hydroCoolCopy.ts`
+- Related quick facts and routine strings updated in both languages
+- Regression coverage checks runtime ownership, structured JSON, exact source values and
+  prohibited claims or audit-style language
+
+## Product 36 — SOOTHING BOMB SEA ALGAE MASK
+
+### Sources checked
+
+- `Soothing Bomb Sea Mask/Ingredient_Report_GENOSYS SOOTHING BOMB SEA ALGAE MASK.pdf`
+- `Soothing Bomb Sea Mask/COA-GENOSYS SOOTHING BOMB SEA ALGAE MASK.pdf`
+- `Registration DOC/Artwork/[GENOSYS]SOOTHING BOMB SEA ALGAE MASK.pdf`
+- `docs/SESSION_CHANGES_2026-08-17_PRODUCT_36_SEA_ALGAE_SOURCE_AUDIT.md`
+
+### Corrections and language
+
+- Rewrote all central RU/AR fields, quick facts, routine strings and every localized beauty-box
+  reference in natural premium language.
+- Corrected the net weight from 23 g to the registered 25 g.
+- Leads with the real hydration system: methylpropanediol 10%, glycerin 5.035% and betaine
+  0.5%, with allantoin and panthenol at 0.1% each for soothing care.
+- Preserved Eucalace® eucalyptus spunlace as the material story: fine, dense, adhesive and
+  breathable.
+- Kept the algae at their documented 10 ppm and the botanical extracts at 1 ppm without
+  attaching healing, anti-inflammatory, sebum or pore claims to trace doses.
+- Removed unsupported dermatological-testing, all-skin-types, ocean-healing,
+  anti-ageing, wound-healing and invented 2–3-times-weekly claims.
+- Preserved the verified method and safety: use immediately after opening, leave for
+  15–20 minutes, single use, and caution for people who react to bandages or compresses.
+
+## Product 34 — SKIN RESCUE OVERNIGHT CREAM MASK
+
+### Catalog identity
+
+- Repository `productNumber`: `34`
+- Canonical catalog name: `SKIN RESCUE OVERNIGHT CREAM MASK`
+- Customer route: `/products/34`
+- Bespoke runtime page: `components/product/overnight/OvernightProductPage.tsx`
+- The identity is confirmed by the bespoke route/component mapping, training catalog and
+  existing product update script. No database read or mutation was performed in this pass.
+
+### Sources checked
+
+- `GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK/Ingredients-GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pdf`
+- `GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK/Artwork-GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pdf`
+- `GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK/COA-GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK(M30A15B).pdf`
+- DTS MG deck:
+  `public/documents/PPT/GENOSYS SKIN RESCUE OVERNIGHT CREAM MASK.pdf`
+- The Intertek archive has no matching Skin Rescue Safety Assessment or current
+  formula/quali-quanti sheet. The similarly named
+  `Registration DOC/Formula_up/Formula-GENOSYS EGF REPAIR OXYMASK CREAM.pdf` belongs to a
+  different product and was not used.
+
+The ingredient sheet is the quantitative source: niacinamide 2%, adenosine 0.04%, glycerin
+6%, trehalose 2%, methyl trimethicone 6%, Oxygen 0%, six named growth factors at 0%, and
+Ceramide NP at 0.000005%. The artwork supplies the 100 g size, leave-on method, face-only
+application, eye-area restriction, dermatological testing and Korean dual functional
+positioning. The COA supplies measured pH 5.71 within the 5.3–6.3 specification. The DTS MG
+deck supplies the once-or-twice-weekly frequency and four-week results: transepidermal water
+loss −15% and erythema −26%.
+
+### Corrections
+
+- Completely rewrote central and bespoke Russian and Arabic copy in idiomatic Russian and
+  polished neutral MSA. The page now leads with overnight comfort, hydration, a more even
+  look and smoother-looking skin.
+- Preserved the verified functional pair, exact humectant concentrations, 100 g size,
+  measured pH, four-week results and leave-on method.
+- Replaced product 34 recommendation strings, concern-routine steps, Charming Look and
+  Sensitive Skin Beauty Box references, and quick facts with consistent native copy.
+- Corrected concern guidance from two-to-three times weekly to once or twice weekly and from
+  layering a thick occlusive coat over cream to using the mask as the final step instead of
+  night cream.
+- Removed oxygen-therapy and growth-factor marketing. Finished Oxygen and every named growth
+  factor are 0%; capsule melt remains a texture/use detail only.
+- Removed Pink Ceramide as a headline dose. Ceramide NP is present at only 0.000005%.
+- Removed `all skin types`, `fragrance-free`, morning-rinse instructions, neck application,
+  invented pregnancy positioning, lot codes, contract-manufacturer attribution and dossier
+  voice.
+- Kept essential buying guidance: the formula contains aromatic plant oils and the declared
+  fragrance allergens citral, geraniol and limonene; it is not the right choice when those
+  are known triggers.
+
+### Implementation
+
+- Canonical central RU/AR fields:
+  `data/product34LocalizedCopy.ts` and `data/productLocalizedCopyAudit.ts`
+- Runtime central overrides:
+  `data/productTranslationsRu.ts` and `data/productTranslations.ts`
+- Complete bespoke runtime RU/AR copy:
+  `components/product/overnight/overnightLocalizedCopy.ts`, consumed by
+  `components/product/overnight/overnightCopy.ts`
+- Recommendations: `messages/ru.json` and `messages/ar.json`
+- Linked customer surfaces: `lib/concernsData.ts`,
+  `components/product/beautybox/copy/charmingLook.ts`,
+  `components/product/beautybox/copy/sensitiveSkin.ts` and
+  `lib/productQuickFactsCatalog.ts`
+- Regression coverage verifies runtime ownership, structured JSON, source figures and
+  prohibited or contradicted claims.
 
 ## Product 33 — EyeCell EYE PEPTIDE GEL PATCH
 

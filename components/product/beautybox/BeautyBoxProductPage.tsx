@@ -34,9 +34,9 @@
  *   - No barcode row in the details table. A box is assembled in the UAE and has
  *     no EAN of its own (see the note in data/productBarcodes.ts); the five real
  *     barcodes are printed against the items they belong to instead.
- *   - No size selector, and no option dialog. One kit, one SKU, and the member
- *     items link out rather than adding individually - a shopper on this page
- *     is deciding between the box and the pieces, not filling a basket.
+ *   - No size selector or member-product option dialog. Product 57 still asks
+ *     for the cushion shade because that choice must travel on the box cart
+ *     line; the other boxes remain one-click, one-SKU purchases.
  *   - The closing band uses `blend`, because a box shot is a group photo on pure
  *     white where every item matters, so it can be neither cropped nor framed.
  *
@@ -50,7 +50,7 @@ import './beautybox.css'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Check,
   ChevronRight,
@@ -80,6 +80,7 @@ import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay
 import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
 import ProductReviews from '@/components/product/ProductReviews'
+import { getBbCushionCopy } from '@/components/product/bbcushion/bbCushionCopy'
 
 import { ceraSerif } from '../cerabarrier/ceraFont'
 import CeraGallery, { CeraGalleryImage } from '../cerabarrier/CeraGallery'
@@ -134,15 +135,23 @@ export default function BeautyBoxProductPage({
   const Chevron = isRtl ? ChevronLeft : ChevronRight
   const currency = isRtl ? 'درهم' : 'AED'
 
-  // One kit, one SKU, so no size or shade is ever passed to the cart.
+  // Every box is one SKU. Product 57 is the exception on colour: its physical
+  // cushion must be packed in the shade selected here, so the cart line carries
+  // Ivory, Beige or Camel even though the box itself has no size variant.
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [justAdded, setJustAdded] = useState(false)
+  const [shade, setShade] = useState('')
+  const [shadeMissing, setShadeMissing] = useState(false)
+  const shadeGroupRef = useRef<HTMLDivElement | null>(null)
+  const requiresShade = boxNumber === '57'
+  const cushionCopy = getBbCushionCopy(locale)
+  const selectedShade = cushionCopy.shades.find(option => option.value === shade) ?? null
 
   const canSeePrices = canUserSeePrices(user)
   const pricing = getPricingDisplay(product, user)
 
-  const cartLine = findSelectedStandardCartLine(cartItems, product.id, '', '')
+  const cartLine = findSelectedStandardCartLine(cartItems, product.id, requiresShade ? shade : '', '')
   const inCartQty = cartLine?.quantity || 0
 
   const memberByNumber = useMemo(() => {
@@ -248,18 +257,27 @@ export default function BeautyBoxProductPage({
   const { heroCta: ctaSentinel, closingCta, showStickyBar } = useCeraStickyBar()
 
   // ── Cart actions ──────────────────────────────────────────────────────
+  const promptForShade = useCallback(() => {
+    setShadeMissing(true)
+    shadeGroupRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  }, [])
+
   const addToCart = useCallback(
     async (qty: number) => {
       if (!user) {
         router.push(getLocalizedPath('/login', locale))
         return
       }
+      if (requiresShade && !shade) {
+        promptForShade()
+        return
+      }
       try {
-        await addItem(product, qty)
+        await addItem(product, qty, requiresShade ? shade : '', '')
         try {
           trackAddToCart({
             id: product.id,
-            name: product.name,
+            name: requiresShade ? `${product.name} - ${shade}` : product.name,
             category: product.category || 'Cosmetics',
             price: product.price,
             quantity: qty,
@@ -270,27 +288,31 @@ export default function BeautyBoxProductPage({
         throw error
       }
     },
-    [addItem, locale, product, router, user]
+    [addItem, locale, product, promptForShade, requiresShade, router, shade, user]
   )
 
   const handleAdd = useCallback(async () => {
     if (isAdding) return
+    if (user && requiresShade && !shade) {
+      promptForShade()
+      return
+    }
     setIsAdding(true)
     try {
       await addToCart(quantity)
-      if (user) {
+      if (user && (!requiresShade || shade)) {
         setJustAdded(true)
         setTimeout(() => setJustAdded(false), 2200)
       }
     } catch { /* surfaced by the cart provider */ } finally {
       setIsAdding(false)
     }
-  }, [addToCart, isAdding, quantity, user])
+  }, [addToCart, isAdding, promptForShade, quantity, requiresShade, shade, user])
 
   const handleDecrement = useCallback(() => {
     if (inCartQty <= 0) return
-    updateQuantity(product.id, inCartQty - 1, '', '')
-  }, [inCartQty, product.id, updateQuantity])
+    updateQuantity(product.id, inCartQty - 1, requiresShade ? shade : '', '')
+  }, [inCartQty, product.id, requiresShade, shade, updateQuantity])
 
   const handleShare = useCallback(async () => {
     const url = typeof window !== 'undefined' ? window.location.href : ''
@@ -308,6 +330,8 @@ export default function BeautyBoxProductPage({
     ? copy.outOfStock
     : !user
       ? copy.loginToShop
+      : requiresShade && !shade
+        ? cushionCopy.shadeLabel
       : isAdding
         ? copy.adding
         : justAdded
@@ -402,6 +426,66 @@ export default function BeautyBoxProductPage({
                 </li>
               ))}
             </ul>
+
+            {requiresShade ? (
+              <div ref={shadeGroupRef} className="mt-7 scroll-mt-28">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <p className="text-[12.5px] font-semibold uppercase tracking-[0.12em] text-[var(--cera-ink)]">
+                    {cushionCopy.shadeLabel}
+                  </p>
+                  <p className="text-[13px] text-[var(--cera-muted)]">{cushionCopy.shadeHelp}</p>
+                </div>
+                <div
+                  role="radiogroup"
+                  aria-label={cushionCopy.shadeLabel}
+                  aria-required="true"
+                  className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3"
+                >
+                  {cushionCopy.shades.map(option => {
+                    const selected = option.value === shade
+                    return (
+                      <button
+                        key={option.value}
+                        type="button"
+                        role="radio"
+                        aria-checked={selected}
+                        onClick={() => {
+                          setShade(option.value)
+                          setShadeMissing(false)
+                        }}
+                        className={`flex items-center gap-3 rounded-2xl border bg-white p-3 text-start transition-colors ${
+                          selected
+                            ? 'border-[var(--cera-rose)]'
+                            : shadeMissing
+                              ? 'border-[var(--cera-rose)]/50'
+                              : 'border-[var(--cera-line)] hover:border-[var(--cera-blush-deep)]'
+                        }`}
+                      >
+                        <span
+                          className="h-8 w-8 flex-none rounded-full border border-black/10"
+                          style={{ backgroundColor: option.hex }}
+                          aria-hidden="true"
+                        />
+                        <span className="min-w-0 flex-1">
+                          <span dir="ltr" className="block text-[13px] font-semibold text-[var(--cera-ink)]">
+                            {option.code} {option.name}
+                          </span>
+                          <span className="mt-0.5 block text-[11.5px] leading-snug text-[var(--cera-muted)]">
+                            {option.tagline}
+                          </span>
+                        </span>
+                        {selected ? <Check className="h-4 w-4 flex-none text-[var(--cera-rose-ink)]" /> : null}
+                      </button>
+                    )
+                  })}
+                </div>
+                {shadeMissing && !shade ? (
+                  <p role="alert" className="mt-2.5 text-[13px] font-semibold text-[var(--cera-rose-ink)]">
+                    {cushionCopy.shadeRequired}
+                  </p>
+                ) : null}
+              </div>
+            ) : null}
 
             {/* One kit, so the contents are stated rather than selected. The
                 full-size note sits beside it because "is this a sample set?" is
@@ -514,7 +598,13 @@ export default function BeautyBoxProductPage({
               {inCartQty > 0 ? (
                 <div className="mt-3 flex items-center gap-2 text-[13px] text-emerald-700">
                   <Check className="h-4 w-4" />
-                  <span>{copy.inBag} · {inCartQty}</span>
+                  <span>
+                    {copy.inBag}
+                    {requiresShade && selectedShade ? (
+                      <> · <span dir="ltr">{selectedShade.code} {selectedShade.name}</span></>
+                    ) : null}
+                    {' '}· {inCartQty}
+                  </span>
                   <button
                     type="button"
                     onClick={() => router.push(getLocalizedPath('/cart', locale))}

@@ -115,6 +115,8 @@
  *   - THE CONTRACT MANUFACTURER. DTS MG only.
  */
 
+import { OVERNIGHT_AR, OVERNIGHT_RU } from './overnightLocalizedCopy'
+
 export type OvernightLocale = 'en' | 'ar' | 'ru'
 
 export interface OvernightCopy {
@@ -435,7 +437,7 @@ const EN: OvernightCopy = {
   backToProducts: 'All products',
 }
 
-const AR: OvernightCopy = {
+export const LEGACY_OVERNIGHT_AR: OvernightCopy = {
   eyebrow: 'Skin Rescue · قناع كريمي ليلي',
   headline: 'آخر خطوة. اتركيه.',
   subheadline:
@@ -641,7 +643,7 @@ const AR: OvernightCopy = {
   backToProducts: 'كل المنتجات',
 }
 
-const RU: OvernightCopy = {
+export const LEGACY_OVERNIGHT_RU: OvernightCopy = {
   eyebrow: 'Skin Rescue · Ночная крем-маска',
   headline: 'Последний шаг. Оставить.',
   subheadline:
@@ -847,7 +849,11 @@ const RU: OvernightCopy = {
   backToProducts: 'Все продукты',
 }
 
-const COPY: Record<OvernightLocale, OvernightCopy> = { en: EN, ar: AR, ru: RU }
+const COPY: Record<OvernightLocale, OvernightCopy> = {
+  en: EN,
+  ar: OVERNIGHT_AR,
+  ru: OVERNIGHT_RU,
+}
 
 export function getOvernightCopy(locale: string): OvernightCopy {
   if (locale === 'ar' || locale === 'ru') return COPY[locale]

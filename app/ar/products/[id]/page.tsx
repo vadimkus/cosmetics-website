@@ -57,7 +57,9 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
   
   // Enhanced product-specific meta tags in Arabic
   const productTitle = `${productName} | GENOSYS الإمارات`
-  const productDescription = `${truncateText(productDescriptionText, 150)} مستحضرات تجميل كورية احترافية من GENOSYS. الموزع الرسمي في الإمارات. شحن مجاني للطلبات فوق 1000 درهم.`
+  const productDescription = canonicalSlug === '54'
+    ? 'مجموعة GENOSYS موسمية متوقفة: غسول Snow O₂ بحجم 180 مل، وسيروم Multi Vita Radiance بحجم 30 مل، وكريم بوزن 50 غ، ومرآة. غير متوفرة حالياً.'
+    : `${truncateText(productDescriptionText, 150)} مستحضرات تجميل كورية احترافية من GENOSYS. الموزع الرسمي في الإمارات. شحن مجاني للطلبات فوق 1000 درهم.`
   const productKeywords = [
     productName,
     `GENOSYS ${product.category}`,

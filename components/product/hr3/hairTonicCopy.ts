@@ -48,6 +48,8 @@
  *   - The contract manufacturer, and the lot code.
  */
 
+import { HAIR_TONIC_AR, HAIR_TONIC_RU } from './hairTonicLocalizedCopy'
+
 export type Locale = 'en' | 'ar' | 'ru'
 
 export interface HairTonicCopy {
@@ -375,7 +377,7 @@ const EN: HairTonicCopy = {
   backToProducts: 'Products',
 }
 
-const AR: HairTonicCopy = {
+const _AR: HairTonicCopy = {
   eyebrow: 'تونيك الشعر إتش آر³ ماتريكس α · 70 مل',
   headline: 'ثلاثة فعّالات، وثلاثتها مقيسة على الدفعة.',
   subheadline:
@@ -607,7 +609,7 @@ const AR: HairTonicCopy = {
   backToProducts: 'المنتجات',
 }
 
-const RU: HairTonicCopy = {
+const _RU: HairTonicCopy = {
   eyebrow: 'HR³ MATRIX тоник для кожи головы α · 70 мл',
   headline: 'Три актива, и все три измерены в партии.',
   subheadline:
@@ -839,7 +841,16 @@ const RU: HairTonicCopy = {
   backToProducts: 'Продукты',
 }
 
-export const HAIR_TONIC_COPY: Record<Locale, HairTonicCopy> = { en: EN, ar: AR, ru: RU }
+// Keep the former blocks temporarily as a diffable source reference while the
+// runtime is pinned to the calmer, source-checked localized modules above.
+void _AR
+void _RU
+
+export const HAIR_TONIC_COPY: Record<Locale, HairTonicCopy> = {
+  en: EN,
+  ar: HAIR_TONIC_AR,
+  ru: HAIR_TONIC_RU,
+}
 
 export function getHairTonicCopy(locale: string | undefined): HairTonicCopy {
   return HAIR_TONIC_COPY[(locale as Locale) ?? 'en'] ?? HAIR_TONIC_COPY.en

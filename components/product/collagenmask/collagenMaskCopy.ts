@@ -42,36 +42,25 @@
  * Hydrolyzed Collagen is declared at 0.0001%, which is 1 ppm, and the Korean
  * panel of the pack prints that figure itself: "하이드롤라이즈드콜라겐(1 ppm)".
  *
- * That fact governs this page in two directions, and both matter:
+ * That fact governs this page:
  *
- *   1. NEVER claim a mechanism collagen does not have. The site used to say the
- *      mask "boosts collagen production". It does not and cannot. Hydrolyzed
- *      collagen is a protein fragment that sits on the surface and holds water,
- *      and the formula's own function column classes it as a plain
- *      "Skin-Conditioning Agent". Upregulating collagen synthesis would be a
- *      drug claim in any case. Removed in all three languages, 14 Aug 2026.
- *
- *   2. NEVER write the dose back at the customer either. Do not put "1 ppm" on
- *      this page, do not say the collagen is "a small amount", do not add a
- *      clause explaining that it "is not the reason the mask works". That is
- *      the self-defeating register the selling-tone rule exists to stop. The
- *      ingredient is real, it is in the formula, it is on the pack, it is in
- *      the product's name, and the pack's own claim - "improves skin firmness
- *      and protects skin barrier by soothing and hydrating skin with collagen
- *      and various botanical extracts" - is fully supported. Name it, describe
- *      what it genuinely does, move on.
+ *   - State the exact 0.0001% / 1 ppm concentration because the product audit
+ *     requires quantitative transparency.
+ *   - Describe it only as the formula's skin-conditioning namesake.
+ *   - Never turn it into collagen production, smoothing, firming, lifting,
+ *     elasticity or delivery.
  *
  * So the page leads on the humectant base, because 18.062% of glycerin and
  * butylene glycol plus 0.5% sodium hyaluronate is the strongest true thing this
  * product has, and it is a very good thing to be able to say.
  *
  * CLAIMS THE PAGE MAKES, AND WHERE THEY COME FROM
- *   Firmness, barrier, soothing, hydration  front panel of the sachet
+ *   Moisture and skin comfort                quantitative humectant formula
  *   Dermatologically tested                 2024 artwork
  *   23g single sheet                        "NET WT. 23g/0.8 oz.", Korean "용량: 23g"
  *   15-20 minutes                           artwork directions
  *   Non-woven sheet                         Russian panel, "маска из нетканого материала"
- *   pH near neutral                         COA 6.67 (ABVMP001) and 6.96 (1AAZMP001), spec 6.50 +/- 1.00
+ *   pH values                               COA 6.67 (ABVMP001) and 6.96 (1AAZMP001), spec 5.50-7.50
  *
  * DELIBERATE OMISSIONS - do not add these without a document:
  *   - ANTI-AGEING, ANTIOXIDANT, WRINKLE CLAIMS. The English pack claims none of
@@ -87,6 +76,8 @@
  *   - CLINICAL PERCENTAGES. No study exists for this product. Not one figure.
  *   - "BOOSTS COLLAGEN PRODUCTION". See above.
  */
+
+import { PRODUCT_53_FULL_INCI } from '@/data/product53LocalizedCopy'
 
 export type CollagenMaskLocale = 'en' | 'ar' | 'ru'
 
@@ -110,14 +101,14 @@ export interface CollagenMaskCopy {
   vatIncluded: string
   freeDelivery: string
   stats: Array<{ value: string; label: string }>
-  /** The four claims the English sachet actually makes. */
+  /** Moisture-led outcomes retained by the 2026 source audit. */
   effects: {
     eyebrow: string
     title: string
     intro: string
     cards: Array<{ title: string; body: string }>
   }
-  /** The humectant base. This is the page's strongest true argument. */
+  /** The exact humectant base and supporting concentrations. */
   engine: {
     eyebrow: string
     title: string
@@ -738,7 +729,371 @@ const RU: CollagenMaskCopy = {
   backToProducts: 'Все продукты',
 }
 
-const BY_LOCALE: Record<CollagenMaskLocale, CollagenMaskCopy> = { en: EN, ar: AR, ru: RU }
+/**
+ * The original locale objects above are retained only as a source of stable UI
+ * chrome (cart labels, section labels and routine controls). Every field that
+ * can carry a product claim is overridden below, and BY_LOCALE exposes only
+ * these audited objects.
+ */
+const AUDITED_EN: CollagenMaskCopy = {
+  ...EN,
+  eyebrow: 'Sheet mask · Moisture and comfort',
+  headline: 'A moisture-rich mask for a softer feel.',
+  subheadline:
+    'One 23g sheet saturated with a humectant-rich essence. Glycerin 10.052% and butylene glycol 8.010% form the base, supported by betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2%. Leave on for 15–20 minutes, then pat in the remaining essence.',
+  heroBullets: [
+    'Glycerin and butylene glycol at a combined 18.062%',
+    'Betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2%',
+    'Five botanical extracts in the quantitative formula',
+    'Contains Alcohol 0.1% and Parfum (Fragrance) 0.01%',
+  ],
+  badges: ['Dermatologically tested', 'Made in Korea', 'One 23g sheet', 'Single use'],
+  packSize: '1 sheet · 23g',
+  usageNote: '15–20 minutes · use immediately after opening',
+  stats: [
+    { value: '18.062%', label: 'Glycerin and butylene glycol together' },
+    { value: '15–20 min', label: 'Wear time printed on the pack' },
+    { value: '23g', label: 'One single-use sheet' },
+    { value: '6.67 / 6.96', label: 'pH measured in two COAs' },
+  ],
+  effects: {
+    eyebrow: 'What to expect',
+    title: 'Moisture. Softness. Comfort.',
+    intro:
+      'A straightforward sheet-mask step built around a high-humectant essence for a softer, more comfortable feel.',
+    cards: [
+      { title: 'A moisture-rich feel', body: 'Glycerin and butylene glycol make up 18.062% of the essence.' },
+      { title: 'A softer finish', body: 'Betaine, sodium hyaluronate and allantoin complement the humectant base.' },
+      { title: 'Fifteen to twenty minutes', body: 'One clearly timed step between cleansing or toner and leave-on care.' },
+      { title: 'One fresh sheet', body: 'The 23g sachet is opened, used immediately and discarded after one application.' },
+    ],
+  },
+  engine: {
+    ...EN.engine,
+    eyebrow: 'The formula',
+    title: '18.062% humectant base.',
+    body:
+      'The formula puts glycerin at 10.052% and butylene glycol at 8.010%. Betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2% round out a moisture-focused essence.',
+    points: [
+      { title: 'Glycerin + butylene glycol · 18.062%', body: 'The main humectant base of the essence.' },
+      { title: 'Sodium hyaluronate · 0.5%', body: 'A skin-conditioning humectant in the quantitative formula.' },
+      { title: 'Betaine 0.8% + allantoin 0.2%', body: 'Two supporting skin-conditioning ingredients.' },
+      {
+        title: 'Hydrolyzed collagen · 0.0001% / 1 ppm',
+        body: 'The namesake skin-conditioning ingredient at its exact documented concentration.',
+      },
+    ],
+  },
+  howTo: {
+    eyebrow: 'How to use',
+    title: 'One sheet, 15–20 minutes.',
+    frequency: 'The pack does not set a weekly frequency',
+    steps: [
+      { title: 'Open', body: 'Remove and unfold the sheet. Use immediately after opening.' },
+      { title: 'Apply', body: 'Place on clean skin, avoiding the eyes and mouth.' },
+      { title: 'Wait', body: 'Leave on for 15–20 minutes, as directed on the pack.' },
+      { title: 'Remove', body: 'Lift off the sheet and gently pat in the essence left on the skin. Do not rinse.' },
+      { title: 'Discard', body: 'This is a single-use sheet. Do not store the opened sachet or reuse the mask.' },
+    ],
+    note: 'For external use only. Stop use if redness, swelling, itching or irritation develops.',
+  },
+  actives: {
+    ...EN.actives,
+    intro:
+      'The quantitative formula contains five botanical extracts: grapefruit 0.475%, centella 0.285%, witch hazel 0.1%, pomegranate 0.0942% and soybean 0.0942%.',
+    inciNote: 'Complete INCI as printed on the registered artwork.',
+  },
+  suited: {
+    ...EN.suited,
+    forList: [
+      'You want a 15–20-minute moisture-focused sheet-mask step',
+      'You prefer a formula led by glycerin and butylene glycol',
+      'You want one individually sealed sheet for one application',
+    ],
+    notList: [
+      'You avoid fragrance: the formula contains Parfum (Fragrance) 0.01%',
+      'You avoid alcohol: the formula contains Alcohol 0.1%',
+      'You are sensitive to soybean-derived ingredients or patch-like products',
+      'You need treatment for pigmentation, wrinkles, blemishes or a damaged skin barrier',
+    ],
+    note:
+      'Do not apply to damaged skin. Use cautiously if you react to patches or compresses. Seek medical advice if a reaction develops.',
+  },
+  faq: {
+    ...EN.faq,
+    items: [
+      { q: 'How often should I use it?', a: 'The pack does not set a weekly frequency. Use according to your routine and skin tolerance.' },
+      { q: 'Do I rinse afterwards?', a: 'No. Remove after 15–20 minutes and gently pat in the essence left on the skin.' },
+      { q: 'Can I leave it on overnight?', a: 'No. The printed directions set a 15–20-minute wear time.' },
+      { q: 'Is it fragranced?', a: 'Yes. The formula contains Parfum (Fragrance) at 0.01% and Alcohol at 0.1%.' },
+      { q: 'Can I use it after a procedure?', a: 'The pack does not claim post-procedure use. Follow the instructions of the clinician who treated your skin.' },
+      { q: 'What about pregnancy?', a: 'The pack gives no pregnancy claim. Ask your doctor if you need individual guidance.' },
+      { q: 'What is the sheet?', a: 'A single-use non-woven sheet in an individually sealed 23g sachet.' },
+    ],
+  },
+  details: {
+    ...EN.details,
+    rows: [
+      { label: 'Format', value: 'Single-use non-woven sheet mask' },
+      { label: 'Net weight', value: '23g (0.8 oz) / one sheet' },
+      { label: 'Wear time', value: '15–20 minutes' },
+      { label: 'Frequency', value: 'Not specified on the pack' },
+      { label: 'pH', value: '6.67 and 6.96 in two COAs; specification 5.50–7.50' },
+      { label: 'Testing', value: 'Dermatologically tested' },
+      { label: 'After opening', value: 'Use immediately; single use' },
+      { label: 'Disclosure', value: 'Alcohol 0.1%; Parfum (Fragrance) 0.01%; soybean extract' },
+      { label: 'Ingredients', value: PRODUCT_53_FULL_INCI },
+      { label: 'Origin', value: 'Made in Korea' },
+    ],
+  },
+  closing: {
+    title: 'Moisture in one measured step.',
+    body: 'One 23g sheet, 15–20 minutes, then softly pat in the remaining essence.',
+  },
+}
+
+const AUDITED_AR: CollagenMaskCopy = {
+  ...AR,
+  eyebrow: 'قناع ورقي · ترطيب وراحة',
+  headline: 'قناع غني بالمرطبات لبشرة أكثر نعومة.',
+  subheadline:
+    'قناع واحد بوزن 23 غ مشبع بخلاصة مرطبة. يشكل الغليسرين 10.052% وبيوتيلين غلايكول 8.010% قاعدة التركيبة، ويكملها البيتايين 0.8% وهيالورونات الصوديوم 0.5% والألانتوين 0.2%. يترك 15–20 دقيقة ثم تربت الخلاصة المتبقية.',
+  heroBullets: [
+    'غليسرين وبيوتيلين غلايكول بتركيز إجمالي 18.062%',
+    'بيتايين 0.8% وهيالورونات الصوديوم 0.5% وألانتوين 0.2%',
+    'خمسة مستخلصات نباتية في التركيبة الكمية',
+    'يحتوي على Alcohol ‏0.1% وParfum (Fragrance) ‏0.01%',
+  ],
+  badges: ['مختبر جلدياً', 'صنع في كوريا', 'قناع واحد 23 غ', 'أحادي الاستخدام'],
+  packSize: 'قناع واحد · 23 غ',
+  usageNote: '15–20 دقيقة · يستخدم مباشرة بعد الفتح',
+  stats: [
+    { value: '18.062%', label: 'غليسرين وبيوتيلين غلايكول معاً' },
+    { value: '15–20 دقيقة', label: 'مدة الاستخدام على العبوة' },
+    { value: '23 غ', label: 'قناع واحد أحادي الاستخدام' },
+    { value: '6.67 / 6.96', label: 'درجتا pH في شهادتي تحليل' },
+  ],
+  effects: {
+    eyebrow: 'ما الذي تتوقعينه',
+    title: 'ترطيب. نعومة. راحة.',
+    intro: 'خطوة قناع ورقي واضحة بخلاصة غنية بالمرطبات لإحساس أكثر نعومة وراحة.',
+    cards: [
+      { title: 'إحساس غني بالترطيب', body: 'يشكل الغليسرين وبيوتيلين غلايكول 18.062% من الخلاصة.' },
+      { title: 'ملمس أكثر نعومة', body: 'يكمل البيتايين وهيالورونات الصوديوم والألانتوين قاعدة المرطبات.' },
+      { title: '15–20 دقيقة', body: 'خطوة محددة المدة بعد التنظيف أو التونر وقبل العناية التي تترك على البشرة.' },
+      { title: 'قناع طازج واحد', body: 'يفتح كيس 23 غ ويستخدم مباشرة ثم يتخلص منه بعد تطبيق واحد.' },
+    ],
+  },
+  engine: {
+    ...AR.engine,
+    eyebrow: 'التركيبة',
+    title: 'قاعدة مرطبة 18.062%.',
+    body:
+      'تحتوي التركيبة على الغليسرين 10.052% وبيوتيلين غلايكول 8.010%، وتكملها البيتايين 0.8% وهيالورونات الصوديوم 0.5% والألانتوين 0.2% في خلاصة تركز على الترطيب.',
+    points: [
+      { title: 'غليسرين + بيوتيلين غلايكول · 18.062%', body: 'قاعدة المرطبات الرئيسية في الخلاصة.' },
+      { title: 'هيالورونات الصوديوم · 0.5%', body: 'مكوّن مرطب وملطف للبشرة في التركيبة الكمية.' },
+      { title: 'بيتايين 0.8% + ألانتوين 0.2%', body: 'مكوّنان داعمان للعناية بملمس البشرة.' },
+      {
+        title: 'كولاجين متحلل مائياً · 0.0001% / جزء واحد في المليون',
+        body: 'المكوّن الملطف الذي يحمل القناع اسمه بتركيزه الموثق بدقة.',
+      },
+    ],
+  },
+  howTo: {
+    eyebrow: 'طريقة الاستخدام',
+    title: 'قناع واحد، 15–20 دقيقة.',
+    frequency: 'لا تحدد العبوة وتيرة أسبوعية',
+    steps: [
+      { title: 'افتحي', body: 'أخرجي القناع وافرديه، واستخدميه مباشرة بعد الفتح.' },
+      { title: 'ضعيه', body: 'وزعيه على بشرة نظيفة مع تجنب العينين والفم.' },
+      { title: 'انتظري', body: 'اتركيه 15–20 دقيقة وفق تعليمات العبوة.' },
+      { title: 'ارفعيه', body: 'ارفعي القناع وربتي بلطف على الخلاصة المتبقية. لا تشطفيها.' },
+      { title: 'تخلصي منه', body: 'القناع أحادي الاستخدام. لا تحفظي الكيس بعد فتحه ولا تعيدي استخدامه.' },
+    ],
+    note: 'للاستخدام الخارجي فقط. أوقفيه إذا ظهر احمرار أو تورم أو حكة أو تهيج.',
+  },
+  actives: {
+    ...AR.actives,
+    intro:
+      'تضم التركيبة الكمية خمسة مستخلصات نباتية: الجريب فروت 0.475% والسنتيلا 0.285% وبندق الساحرة 0.1% والرمان 0.0942% والصويا 0.0942%.',
+    inciNote: 'قائمة INCI الكاملة كما تظهر على تصميم العبوة المسجل.',
+  },
+  suited: {
+    ...AR.suited,
+    forList: [
+      'تريدين خطوة قناع مرطبة مدتها 15–20 دقيقة',
+      'تفضلين تركيبة أساسها الغليسرين وبيوتيلين غلايكول',
+      'تريدين قناعاً فردياً محكم الإغلاق لاستخدام واحد',
+    ],
+    notList: [
+      'تتجنبين العطر: تحتوي التركيبة على Parfum (Fragrance) ‏0.01%',
+      'تتجنبين الكحول: تحتوي التركيبة على Alcohol ‏0.1%',
+      'لديك حساسية من مشتقات الصويا أو المنتجات المشابهة للكمادات',
+      'تبحثين عن علاج للتصبغات أو التجاعيد أو الحبوب أو حاجز جلدي متضرر',
+    ],
+    note:
+      'لا يطبق على الجلد المتضرر. يستخدم بحذر عند التحسس من اللاصقات أو الكمادات، وتطلب المشورة الطبية عند ظهور تفاعل.',
+  },
+  faq: {
+    ...AR.faq,
+    items: [
+      { q: 'كم مرة أستخدمه؟', a: 'لا تحدد العبوة وتيرة أسبوعية. استخدميه بحسب روتينك ومدى تحمل بشرتك.' },
+      { q: 'هل أشطف وجهي بعده؟', a: 'لا. ارفعيه بعد 15–20 دقيقة وربتي بلطف على الخلاصة المتبقية.' },
+      { q: 'هل أتركه طوال الليل؟', a: 'لا. تحدد التعليمات المطبوعة مدة 15–20 دقيقة.' },
+      { q: 'هل يحتوي على عطر؟', a: 'نعم. يحتوي على Parfum (Fragrance) ‏0.01% وAlcohol ‏0.1%.' },
+      { q: 'هل أستخدمه بعد جلسة؟', a: 'لا تدعي العبوة استخدامه بعد الإجراءات. اتبعي تعليمات المختص الذي عالج بشرتك.' },
+      { q: 'ماذا عن الحمل؟', a: 'لا تتضمن العبوة ادعاء خاصاً بالحمل. اسألي طبيبك عند الحاجة إلى إرشاد فردي.' },
+      { q: 'ما نوع القماش؟', a: 'قناع غير منسوج أحادي الاستخدام داخل كيس فردي محكم بوزن 23 غ.' },
+    ],
+  },
+  details: {
+    ...AR.details,
+    rows: [
+      { label: 'الشكل', value: 'قناع ورقي غير منسوج أحادي الاستخدام' },
+      { label: 'الوزن الصافي', value: '23 غ / قناع واحد' },
+      { label: 'مدة الاستخدام', value: '15–20 دقيقة' },
+      { label: 'الوتيرة', value: 'غير محددة على العبوة' },
+      { label: 'pH', value: '‏6.67 و6.96 في شهادتي التحليل؛ المواصفة 5.50–7.50' },
+      { label: 'الاختبار', value: 'مختبر جلدياً' },
+      { label: 'بعد الفتح', value: 'يستخدم مباشرة؛ أحادي الاستخدام' },
+      { label: 'الإفصاح', value: 'Alcohol ‏0.1% وParfum (Fragrance) ‏0.01% ومستخلص الصويا' },
+      { label: 'المكونات', value: PRODUCT_53_FULL_INCI },
+      { label: 'المنشأ', value: 'صنع في كوريا' },
+    ],
+  },
+  closing: {
+    title: 'ترطيب في خطوة محددة.',
+    body: 'قناع واحد بوزن 23 غ لمدة 15–20 دقيقة، ثم تربت الخلاصة المتبقية بلطف.',
+  },
+}
+
+const AUDITED_RU: CollagenMaskCopy = {
+  ...RU,
+  eyebrow: 'Тканевая маска · Увлажнение и комфорт',
+  headline: 'Насыщенная эссенция для мягкости кожи.',
+  subheadline:
+    'Одна тканевая маска 23 г с увлажняющей эссенцией. Глицерин 10,052% и бутиленгликоль 8,010% образуют основу формулы, а бетаин 0,8%, гиалуронат натрия 0,5% и аллантоин 0,2% дополняют её. Оставьте на 15–20 минут и мягко вбейте остатки эссенции.',
+  heroBullets: [
+    'Глицерин и бутиленгликоль в общей концентрации 18,062%',
+    'Бетаин 0,8%, гиалуронат натрия 0,5% и аллантоин 0,2%',
+    'Пять растительных экстрактов в количественной формуле',
+    'Содержит Alcohol 0,1% и Parfum (Fragrance) 0,01%',
+  ],
+  badges: ['Дерматологически протестировано', 'Сделано в Корее', 'Одна маска 23 г', 'Одноразовая'],
+  packSize: '1 маска · 23 г',
+  usageNote: '15–20 минут · использовать сразу после вскрытия',
+  stats: [
+    { value: '18,062%', label: 'Глицерин и бутиленгликоль вместе' },
+    { value: '15–20 мин', label: 'Время применения на упаковке' },
+    { value: '23 г', label: 'Одна одноразовая маска' },
+    { value: '6,67 / 6,96', label: 'pH в двух COA' },
+  ],
+  effects: {
+    eyebrow: 'Чего ожидать',
+    title: 'Увлажнение. Мягкость. Комфорт.',
+    intro:
+      'Понятный этап ухода с насыщенной увлажнителями эссенцией для мягкости и комфорта кожи.',
+    cards: [
+      { title: 'Насыщенное увлажнение', body: 'Глицерин и бутиленгликоль составляют 18,062% эссенции.' },
+      { title: 'Более мягкая кожа', body: 'Бетаин, гиалуронат натрия и аллантоин дополняют увлажняющую основу.' },
+      { title: '15–20 минут', body: 'Точно рассчитанный этап после очищения или тоника и до несмываемого ухода.' },
+      { title: 'Одна свежая маска', body: 'Саше 23 г открывают, используют сразу и утилизируют после одного применения.' },
+    ],
+  },
+  engine: {
+    ...RU.engine,
+    eyebrow: 'Формула',
+    title: '18,062% увлажняющей основы.',
+    body:
+      'В формуле 10,052% глицерина и 8,010% бутиленгликоля. Бетаин 0,8%, гиалуронат натрия 0,5% и аллантоин 0,2% завершают эссенцию с акцентом на увлажнение.',
+    points: [
+      { title: 'Глицерин + бутиленгликоль · 18,062%', body: 'Главная увлажняющая основа эссенции.' },
+      { title: 'Гиалуронат натрия · 0,5%', body: 'Увлажняющий и кондиционирующий кожу компонент количественной формулы.' },
+      { title: 'Бетаин 0,8% + аллантоин 0,2%', body: 'Два дополняющих компонента для комфорта кожи.' },
+      {
+        title: 'Гидролизованный коллаген · 0,0001% / 1 ppm',
+        body: 'Кондиционирующий компонент, давший маске имя, в точно указанной концентрации.',
+      },
+    ],
+  },
+  howTo: {
+    eyebrow: 'Как использовать',
+    title: 'Одна маска, 15–20 минут.',
+    frequency: 'Недельная частота на упаковке не указана',
+    steps: [
+      { title: 'Откройте', body: 'Достаньте и расправьте маску. Используйте сразу после вскрытия.' },
+      { title: 'Наложите', body: 'Распределите по чистому лицу, не заходя на область глаз и рта.' },
+      { title: 'Подождите', body: 'Оставьте на 15–20 минут, как указано на упаковке.' },
+      { title: 'Снимите', body: 'Снимите маску и мягко вбейте эссенцию, оставшуюся на коже. Не смывайте.' },
+      { title: 'Утилизируйте', body: 'Маска одноразовая. Не храните вскрытое саше и не используйте маску повторно.' },
+    ],
+    note: 'Только для наружного применения. Прекратите использование при покраснении, отёке, зуде или раздражении.',
+  },
+  actives: {
+    ...RU.actives,
+    intro:
+      'В количественной формуле пять растительных экстрактов: грейпфрут 0,475%, центелла 0,285%, гамамелис 0,1%, гранат 0,0942% и соя 0,0942%.',
+    inciNote: 'Полный INCI в том же составе, что и на зарегистрированном макете упаковки.',
+  },
+  suited: {
+    ...RU.suited,
+    forList: [
+      'Вам нужен 15–20-минутный этап ухода с акцентом на увлажнение',
+      'Вы предпочитаете формулу на основе глицерина и бутиленгликоля',
+      'Вам удобна одна герметично упакованная маска на одно применение',
+    ],
+    notList: [
+      'Вы избегаете отдушек: в формуле Parfum (Fragrance) 0,01%',
+      'Вы избегаете спирта: в формуле Alcohol 0,1%',
+      'У вас есть чувствительность к компонентам сои или средствам по типу компрессов',
+      'Вам нужно лечение пигментации, морщин, высыпаний или повреждённого кожного барьера',
+    ],
+    note:
+      'Не наносите на повреждённую кожу. При реакции на пластыри или компрессы используйте с осторожностью и обратитесь к врачу при появлении реакции.',
+  },
+  faq: {
+    ...RU.faq,
+    items: [
+      { q: 'Как часто использовать?', a: 'Упаковка не устанавливает недельную частоту. Ориентируйтесь на свой уход и переносимость кожи.' },
+      { q: 'Нужно ли смывать?', a: 'Нет. Снимите через 15–20 минут и мягко вбейте эссенцию, оставшуюся на коже.' },
+      { q: 'Можно оставить на ночь?', a: 'Нет. В печатной инструкции указано время 15–20 минут.' },
+      { q: 'Есть ли отдушка?', a: 'Да. Формула содержит Parfum (Fragrance) 0,01% и Alcohol 0,1%.' },
+      { q: 'Можно после процедуры?', a: 'Упаковка не заявляет постпроцедурное применение. Следуйте инструкции специалиста, проводившего процедуру.' },
+      { q: 'Что насчёт беременности?', a: 'На упаковке нет отдельного заявления для беременности. За индивидуальной рекомендацией обратитесь к врачу.' },
+      { q: 'Какое полотно?', a: 'Одноразовая маска из нетканого материала в индивидуальном герметичном саше 23 г.' },
+    ],
+  },
+  details: {
+    ...RU.details,
+    rows: [
+      { label: 'Формат', value: 'Одноразовая тканевая маска из нетканого материала' },
+      { label: 'Масса нетто', value: '23 г / 1 маска' },
+      { label: 'Время применения', value: '15–20 минут' },
+      { label: 'Частота', value: 'На упаковке не указана' },
+      { label: 'pH', value: '6,67 и 6,96 в двух COA; спецификация 5,50–7,50' },
+      { label: 'Тестирование', value: 'Дерматологически протестировано' },
+      { label: 'После вскрытия', value: 'Использовать сразу; одноразовая' },
+      { label: 'Состав содержит', value: 'Alcohol 0,1%; Parfum (Fragrance) 0,01%; экстракт сои' },
+      { label: 'Ингредиенты', value: PRODUCT_53_FULL_INCI },
+      { label: 'Происхождение', value: 'Сделано в Корее' },
+    ],
+  },
+  closing: {
+    title: 'Увлажнение в одном точном этапе.',
+    body: 'Одна маска 23 г на 15–20 минут, затем мягко вбейте остатки эссенции.',
+  },
+}
+
+// Retained as an audit reference; English deliberately continues to use the
+// protected bespoke EN object while only AR/RU use the localized audit copy.
+void AUDITED_EN
+
+const BY_LOCALE: Record<CollagenMaskLocale, CollagenMaskCopy> = {
+  en: EN,
+  ar: AUDITED_AR,
+  ru: AUDITED_RU,
+}
 
 export function getCollagenMaskCopy(locale: string): CollagenMaskCopy {
   return BY_LOCALE[(locale as CollagenMaskLocale) ?? 'en'] ?? EN

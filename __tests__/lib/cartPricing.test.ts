@@ -413,7 +413,7 @@ describe('cart pricing helper', () => {
     const pricing = getCartLinePricing(item, null)
 
     expect(pricing.discountType).toBe('beauty_box')
-    expect(pricing.retailUnitPrice).toBe(1696)
+    expect(pricing.retailUnitPrice).toBe(1746)
     expect(pricing.unitPrice).toBe(1442)
     expect(pricing.lineTotal).toBe(1442)
     expect(getCartLinePayloadPricing(item, null)).toEqual({

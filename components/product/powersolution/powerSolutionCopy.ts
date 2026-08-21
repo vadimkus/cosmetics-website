@@ -352,10 +352,10 @@ const EN: PowerSolutionCopy = {
   heroBullets: [
     'Nearly a quarter humectant, so a full 2 ml stays comfortable on treated skin',
     'Soy ferment at 2.5% and panthenol at 0.5%, both real working doses',
-    'No parabens, ethanol, artificial pigment or artificial fragrance',
+    '5-Free and fragrance-free, at a near-neutral pH of 5.94',
     'Ten sealed glass vials, so nothing oxidises between one face and the next',
   ],
-  badges: ['Dermatologically tested', 'Made in Korea', 'No parabens', 'No added fragrance'],
+  badges: ['Dermatologically tested', 'Made in Korea', '5-Free', 'Fragrance-free'],
   packSize: '10 vials · 2 ml each',
   usageNote: 'One vial per treatment',
   addToBag: 'Add to bag',
@@ -371,7 +371,7 @@ const EN: PowerSolutionCopy = {
   stats: [
     { value: '24%', label: 'Of the vial is humectant, before a single active is counted' },
     { value: '2.5%', label: 'Soy ferment, the largest active in the formula' },
-    { value: '4', label: 'Excluded additives: parabens, ethanol, artificial pigment and fragrance' },
+    { value: '5-Free', label: 'No parabens, ethanol, pigment, fragrance or synthetic surfactant' },
     { value: '10 × 2 ml', label: 'Sealed glass vials, opened one at a time' },
   ],
   solution: {
@@ -425,19 +425,20 @@ const EN: PowerSolutionCopy = {
       'These are the two ingredients the Power Solution name is built on: sh-Polypeptide-7 at 1 ppm and palmitoyl tripeptide-1 at 0.5 ppm. Peptides work at parts per million by design, and the CIR expert panel puts typical cosmetic use of the palmitoyl tripeptide family under 10 ppm.',
   },
   freeFrom: {
-    eyebrow: 'A considered formula',
-    title: 'Four additives left out.',
+    eyebrow: '5-Free',
+    title: 'Five things that are not in it.',
     body:
-      'The formula leaves out four common additives, each checked directly against the current ingredient list.',
+      'GENOSYS prints the 5-Free mark twice on the pack, on the front face and again inside the lid, and names all five exclusions rather than leaving you to guess. Every one of them holds up against the ingredient list further down this page.',
     items: [
       'Parabens',
       'Ethanol',
       'Artificial pigment',
       'Artificial fragrance',
+      'Artificial surfactant',
     ],
     note:
       'Ethanol is the one worth pausing on. A great many professional ampoules use alcohol to thin the solution and speed the dry-down, and on skin that has just been treated it is exactly what stings.',
-    figureAlt: 'The POWER SOLUTION CVS box open, showing ten sealed vials inside the lid',
+    figureAlt: 'The POWER SOLUTION CVS box open, showing ten sealed vials and the 5-Free panel inside the lid',
   },
   range: {
     eyebrow: 'The range',
@@ -594,7 +595,7 @@ const EN: PowerSolutionCopy = {
       { label: 'Key actives', value: 'Soy ferment 2.5%, panthenol 0.5%, allantoin 0.1%, sodium hyaluronate 0.1%, marine collagen 0.1%' },
       { label: 'Peptides', value: 'sh-Polypeptide-7 1 ppm, palmitoyl tripeptide-1 0.5 ppm' },
       { label: 'pH', value: '5.94, inside a 6.00 ± 1.00 specification' },
-      { label: 'Free from', value: 'Parabens, ethanol, artificial pigment and artificial fragrance' },
+      { label: 'Free from', value: 'Parabens, ethanol, artificial pigment, artificial fragrance, artificial surfactant' },
       { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the box' },
       { label: 'Tested', value: 'Dermatologically tested, and every batch tested for pH, gravity and microbial count' },
       { label: 'Made by', value: 'DTS MG Co., Ltd., South Korea' },

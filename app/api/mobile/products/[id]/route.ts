@@ -93,6 +93,7 @@ function getRecommendedProductId(currentIdRaw: unknown): string | null {
     '43': '44',
     '45': '43',
     '46': '44',
+    '61': '44',
   }
   return map[idStr] || null
 }
@@ -306,6 +307,7 @@ export async function GET(
       ''
     const enhancedProductWithLocale = {
       ...enhancedProduct,
+      productNumber: typedProduct.productNumber || typedProduct.id,
       localizedName,
       localizedDescription,
       // Studio slides carry their claims as printed text, so a translated set is served

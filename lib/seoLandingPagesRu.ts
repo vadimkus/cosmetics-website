@@ -20,7 +20,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       'Покупайте у ответственного поставщика в ОАЭ, где можно проверить происхождение, хранение, срок годности и получить локальную поддержку.',
     ],
     featuredProducts: [
-      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera/main3.jpeg', imageAlt: 'Гель для умывания GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Мягкое ежедневное очищение с акцентом на сохранение кожного барьера.' },
+      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'Гель для умывания GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Гель-в-пену с тремя очищающими компонентами, pH 6,37 и отдушкой 0,5%.' },
       { name: 'Multi Vita Radiance Serum', href: '/ru/products/21', image: '/images/radiance_serum/main.jpeg', imageAlt: 'Сыворотка GENOSYS Multi Vita Radiance Serum', description: 'Целевой осветляющий этап при неровном тоне и тусклости.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'Крем GENOSYS Skin Barrier Protecting Cream', description: 'Поддержка сухой и перегруженной кожи с церамидами и аминокислотами.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'Солнцезащитный крем GENOSYS Ultra Shield SPF 50+', description: 'Высокая ежедневная защита от ультрафиолета в нежирной кремовой текстуре.' },
@@ -159,9 +159,9 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Система микронидлинга GENOSYS', href: '/ru/products/1', image: '/images/genosys-microneedling-devices.jpg', imageAlt: 'Профессиональная система микронидлинга GENOSYS', description: 'Профессиональное оборудование для работы обученных специалистов по протоколу.' },
-      { name: 'Bio Meso PDRN Ampoule 60000', href: '/ru/products/60', image: '/images/6000/main.jpg', imageAlt: 'GENOSYS Bio Meso PDRN Ampoule 60000', description: 'Интенсивный профессиональный продукт Bio Meso с ограничением для клиник.' },
+      { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ru/products/60', image: '/images/6000/main.jpg', imageAlt: 'Профессиональная ампула GENOSYS BIO-MESO PDRN Expert 60000', description: 'Профессиональная спикульная ампула: Hydrolyzed Sponge 5,72022% и Sodium DNA 1 120 ppm; по протоколу обученного специалиста.' },
       { name: 'Soothing Repair Postcream', href: '/ru/products/25', image: '/images/SRC.jpg', imageAlt: 'Восстанавливающий крем GENOSYS Soothing Repair Postcream', description: 'Поддержка после процедур в профессиональном и домашнем объёме.' },
-      { name: 'Skin Reboot PDRN Mask Pack', href: '/ru/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'Маски GENOSYS Skin Reboot PDRN Mask Pack', description: 'Профессиональный формат листовых масок для структурированных протоколов.' },
+      { name: 'Skin Reboot PDRN Mask Pack', href: '/ru/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'Маски GENOSYS Skin Reboot PDRN Mask Pack', description: '30 ультратонких лиоцелловых масок с ниацинамидом 2% и Sodium DNA 1 000 ppm.' },
     ],
     sections: [
       {
@@ -213,9 +213,10 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'Крем с высокой степенью защиты для ежедневного использования.' },
-      { name: 'Multi Sun Cream SPF 40', href: '/ru/products/40', image: '/images/sun/main.jpeg', imageAlt: 'GENOSYS Multi Sun Cream SPF 40', description: 'Мягкий ежедневный санскрин в лёгкой кремовой текстуре.' },
-      { name: 'Skin Caring BB Cushion SPF 50+', href: '/ru/products/41', image: '/images/cushion_2/main.jpeg', imageAlt: 'Кушон GENOSYS Skin Caring BB Cushion SPF 50+', description: 'Переносной формат покрытия для обновления и коррекции покраснения.' },
-      { name: 'Intensive Blemish Balm SPF 30', href: '/ru/products/42', image: '/images/BLEM.jpg', imageAlt: 'GENOSYS Intensive Blemish Balm Cream SPF 30', description: 'Тональное средство с коррекцией цвета и заявленным SPF.' },
+      { name: 'MULTI SUN SPF 40 PA++', href: '/ru/products/40', image: '/images/sun/main.jpeg', imageAlt: 'Солнцезащитный крем GENOSYS MULTI SUN SPF 40 PA++', description: 'Лёгкий ежедневный санскрин с умеренной защитой от UVA.' },
+      { name: 'BB-кушон Skin Caring SPF 50+ PA++++', href: '/ru/products/41', image: '/images/cushion_2/main.jpeg', imageAlt: 'BB-кушон GENOSYS Skin Caring SPF 50+ PA++++', description: 'Регулируемое покрытие, пять УФ-фильтров и сменный блок 15 г в комплекте.' },
+      { name: 'Тонирующий крем Intensive Blemish Balm SPF 30 PA++', href: '/ru/products/42', image: '/images/BLEM.jpg', imageAlt: 'Тонирующий крем GENOSYS Intensive Blemish Balm SPF 30 PA++', description: 'Естественное покрытие, три УФ-фильтра, арбутин 2% и один оттенок; водостойкость не заявлена.' },
+      { name: 'Набор CHARMING LOOK BEAUTY BOX', href: '/ru/products/57', image: '/images/bbbox_charming/main.jpeg', imageAlt: 'Набор GENOSYS CHARMING LOOK BEAUTY BOX', description: 'Кушон в оттенке Ivory, Beige или Camel с рефиллом 15 г, очищением, тоником, ремувером и ночной маской; выгода рассчитывается по актуальным ценам.' },
     ],
     sections: [
       {
@@ -309,14 +310,14 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       'Спикульные, микронидлинговые и инъекционные процедуры требуют оценки, обучения, гигиены и постухода.',
     ],
     featuredProducts: [
-      { name: 'Bio Meso PDRN Ampoule 60000', href: '/ru/products/60', image: '/images/6000/main.jpg', imageAlt: 'GENOSYS Bio Meso PDRN Ampoule 60000', description: 'Интенсивный профессиональный спикульный продукт Bio Meso.' },
-      { name: 'Bio-Meso PDRN Homecare Ampoule 5000', href: '/ru/products/65', image: '/images/meso_5000/main.jpg', imageAlt: 'GENOSYS Bio-Meso PDRN Homecare Ampoule 5000', description: 'Менее интенсивный домашний формат Bio Meso для системного поддерживающего ухода.' },
-      { name: 'Skin Reboot PDRN Mask Pack', href: '/ru/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'Профессиональный формат листовой маски с акцентом на PDRN и увлажнение.' },
+      { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ru/products/60', image: '/images/6000/main.jpg', imageAlt: 'Профессиональная ампула GENOSYS BIO-MESO PDRN Expert 60000', description: 'Профессиональная формула с Hydrolyzed Sponge 5,72022%; число 60000 относится ко всему комплексу, а Sodium DNA содержится в концентрации 1 120 ppm.' },
+      { name: 'Bio-Meso PDRN Homecare Ampoule 5000', href: '/ru/products/65', image: '/images/pdrn_5000_new/Main.jpeg', imageAlt: 'GENOSYS Bio-Meso PDRN Homecare Ampoule 5000', description: 'Домашняя ампула 50 ml: полный комплекс BIO-MESO™ PDRN 5 000 ppm, Sodium DNA 1 010 ppm и Hydrolyzed Sponge 0,476685%; раз в неделю вечером по учебному протоколу.' },
+      { name: 'Skin Reboot PDRN Mask Pack', href: '/ru/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'Банка на 30 увлажняющих лиоцелловых масок со встроенным пинцетом; время применения 10–20 минут.' },
       { name: 'Soothing Repair Postcream', href: '/ru/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'Дополняющий восстановительный уход, а не PDRN-процедура.' },
     ],
     sections: [
       { heading: 'Что означает PDRN', body: 'Polydeoxyribonucleotide — очищенные фрагменты ДНК разного молекулярного размера. Обзоры описывают механизмы, связанные с репарацией тканей, аденозиновыми рецепторами и утилизацией нуклеотидов, но также отмечают путаницу между PDRN и более длинными полинуклеотидами. Одно название не раскрывает дозу, размер, чистоту, доставку и эффект.' },
-      { heading: 'Наружный, спикульный и инъекционный — разные форматы', body: 'Крем или маска работают преимущественно на поверхности; спикульная система меняет доставку и вызывает шелушение; инъекция вводит материал в ткань и является медицинской процедурой. Поэтому отличаются безопасность, доказательность, ожидаемый эффект и требования к специалисту.' },
+      { heading: 'Наружный, спикульный и инъекционный — разные форматы', body: 'Крем, спикульная ампула и инъекция — разные категории с разными инструкциями, рисками и доказательствами. Наличие спикул не доказывает глубину проникновения или доставку PDRN, а косметическое средство нельзя приравнивать к медицинской процедуре.' },
       { heading: 'Какие ожидания разумны', body: 'Исследования поддерживают дальнейшее изучение PDRN для репарации, регуляции воспаления и качества кожи. В косметике корректны сдержанные ожидания: увлажнение, более гладкий внешний вид и поддержка в регулярном уходе. Лечение ран, рубцов или заболеваний требует доказательств для конкретного продукта и соответствующей регистрации.' },
       { heading: 'Кому нужна консультация', body: 'Обратитесь за профессиональным советом при воспалённой, инфицированной, недавно обработанной или очень реактивной коже, беременности, грудном вскармливании, установленном диагнозе или опасениях по поводу рыбного сырья. Соблюдайте ограничения профессиональных продуктов.' },
     ],
@@ -328,7 +329,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
     faq: [
       { question: 'PDRN — это «сперма лосося»?', answer: 'PDRN в косметике — очищенный материал на основе фрагментов ДНК, часто получаемый из лососевых. Бытовая фраза неточна и ничего не говорит о чистоте, размере молекул и качестве формулы.' },
       { question: 'Наружный PDRN работает как инъекции?', answer: 'Так считать нельзя. Отличаются глубина доставки, доза, формула, регулирование и доказательства. Косметику следует оценивать по собственным данным продукта.' },
-      { question: 'Bio Meso PDRN — это микронидлинг?', answer: 'Нет. GENOSYS Bio Meso использует микроскопические спикулы и позиционируется как система без классических игл. Expert 60000 предназначен только для профессионального применения.' },
+      { question: 'Bio Meso PDRN — это микронидлинг?', answer: 'Нет. Expert 60000 — наружное спикульное косметическое средство, а не аппарат микронидлинга и не инъекция. Официальные материалы относят его к профессиональному применению обученным специалистом.' },
       { question: 'Можно ли заменить PDRN-продуктом лечение у дерматолога?', answer: 'Нет. Косметика не заменяет диагностику и лечение ран, дерматита, акне, пигментных или других заболеваний кожи.' },
     ],
     sources: [
@@ -351,7 +352,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       'Стойкое жжение, трещины, зуд, сыпь или повторные обострения могут требовать диагностики дерматолога.',
     ],
     featuredProducts: [
-      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera/main3.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Гелевое очищение с акцентом на микробиом и кожный барьер.' },
+      { name: 'Cerabarrier Biome Gel Cleanser', href: '/ru/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'Смываемый гель-в-пену; пять керамидов и ферментные лизаты присутствуют в следовых концентрациях.' },
       { name: 'Microbiome Energy Infusing Mist', href: '/ru/products/14', image: '/images/mist/main2.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'Лёгкий этап увлажнения, который дополняет, но не заменяет крем.' },
       { name: 'All For Sensitive Serum', href: '/ru/products/19', image: '/images/sensitive_serum/main.jpeg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'Сыворотка для поддержки увлажнения чувствительной кожи.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Несмываемый крем с церамидами, аминокислотами и эмолентами.' },
@@ -382,19 +383,19 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
   },
   {
     slug: 'acne-treatment-products-uae',
-    title: 'Средства от акне в ОАЭ | GENOSYS уход для проблемной кожи',
-    description: 'Продукты GENOSYS от акне и несовершенств для клиентов в ОАЭ: контроль жирности, увлажнение, восстановление барьера и уход за постакне.',
-    h1: 'Средства от акне в ОАЭ',
-    eyebrow: 'Контроль высыпаний и поддержка барьера',
-    intro: 'Программы GENOSYS при акне направлены на очищение кожи без разрушения её барьера — это важно в жару ОАЭ, при потоотделении, сухости от кондиционеров и ежедневном использовании санскрина.',
+    title: 'Уход за склонной к несовершенствам кожей в ОАЭ | GENOSYS',
+    description: 'Косметический уход GENOSYS для жирной, комбинированной и склонной к несовершенствам кожи в ОАЭ: очищение, лёгкие несмываемые этапы, увлажнение и SPF.',
+    h1: 'Уход за жирной и склонной к несовершенствам кожей',
+    eyebrow: 'Лёгкий последовательный уход',
+    intro: 'Косметический уход GENOSYS сочетает очищение, лёгкие несмываемые этапы, увлажнение и ежедневный SPF. Он не заменяет медицинскую диагностику и лечение акне.',
     sections: [
       {
-        heading: 'Практичная программа при акне',
-        body: 'Грамотный уход при акне балансирует очищение, контроль жирности, успокаивание, увлажнение и SPF. Пересушивание усиливает раздражение и ответную жирность, особенно в жарком климате.',
+        heading: 'Практичная программа для жирной кожи',
+        body: 'Последовательный уход сочетает очищение, лёгкий тоник, сыворотку, крем и SPF. Вводите продукты по одному, особенно при чувствительности к отдушкам, эфирным маслам или салициловой кислоте.',
       },
       {
-        heading: 'Постакне требует SPF',
-        body: 'Тёмные следы после высыпаний — частая проблема в ОАЭ: ультрафиолет усиливает пигментацию. Программы при акне должны сочетать лечебные продукты с регулярной ежедневной защитой от солнца.',
+        heading: 'Утром нужен SPF',
+        body: 'Ультрафиолет может делать неровный тон заметнее, поэтому завершайте утренний уход подходящим солнцезащитным средством.',
       },
     ],
     links: [
@@ -410,24 +411,25 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
   },
   {
     slug: 'pigmentation-serum-dubai',
-    title: 'Сыворотка от пигментации в Дубае | Осветляющий уход GENOSYS в ОАЭ',
-    description: 'Программы GENOSYS против пигментации и для осветления кожи в Дубае: витаминные сыворотки, сочетание с SPF и рекомендации по домашнему уходу.',
-    h1: 'Сыворотка от пигментации и осветляющий уход в Дубае',
+    title: 'Сыворотка для неровного тона в Дубае | Уход GENOSYS в ОАЭ',
+    description: 'Уход GENOSYS за неровным тоном и тусклостью в Дубае: ниацинамид 2%, стабильное производное витамина C, готовый набор и ежедневный SPF.',
+    h1: 'Сыворотка и уход за неровным тоном в Дубае',
     eyebrow: 'Осветление требует регулярности',
-    intro: 'Уходу за кожей с пигментацией в Дубае нужны две вещи: осветляющие активы и дисциплинированная защита от ультрафиолета. Программы GENOSYS связывают и то и другое, чтобы результат не разрушался ежедневным солнцем.',
+    intro: 'Для ухода за неровным тоном в Дубае важны последовательность и защита от солнца. Multi Vita Radiance Serum содержит ниацинамид 2%, стабильное производное витамина C 0,1% и пантенол 1%; утром уход завершают подходящим SPF.',
     sections: [
       {
-        heading: 'Лечите причину и защищайте результат',
-        body: 'Осветляющие сыворотки помогают выровнять тон, но ультрафиолет Дубая продолжает стимулировать меланин. SPF и его обновление в течение дня — часть протокола против пигментации, а не необязательный финальный шаг.',
+        heading: 'Поддерживайте ровный тон и защищайте результат',
+        body: 'Сыворотка и крем поддерживают более ровный и сияющий вид тона, а ежедневный SPF помогает не усиливать контраст тёмных пятен под солнцем ОАЭ.',
       },
       {
-        heading: 'Связка «клиника + домашний уход»',
-        body: 'Для клиник программы GENOSYS против пигментации поддерживают пилинги, микронидлинг и другие осветляющие процедуры спокойным, увлажняющим домашним уходом под защитой SPF.',
+        heading: 'Готовый домашний набор',
+        body: 'SKIN BRIGHTENING BEAUTY BOX объединяет очищение, бустер, сыворотку и крем для ежедневного ухода, а пилинг-гель и маску оставляет для разных вечеров.',
       },
     ],
     links: [
       { label: 'Страница «Пигментация»', href: '/ru/products/concern/pigmentation', description: 'Осветляющая программа и рекомендации по продуктам.' },
       { label: 'Категория сывороток', href: '/ru/products/category/serum', description: 'Лечебные сыворотки GENOSYS.' },
+      { label: 'Набор SKIN BRIGHTENING', href: '/ru/products/56', description: 'Шесть средств с актуальным расчётом выгоды по текущим ценам.' },
       { label: 'Защита от солнца', href: '/ru/products/concern/sun-protection', description: 'Защитите прогресс осветления ежедневным SPF.' },
     ],
     faq: [

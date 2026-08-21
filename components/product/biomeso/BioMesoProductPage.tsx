@@ -933,7 +933,7 @@ export default function BioMesoProductPage({
               <div className={`relative ${config.figureAspect} overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-cream)]`}>
                 <Image
                   src={activesImage}
-                  alt={`${product.name} - what your skin gets from it: a renewed surface, collagen and elastin support, and a stronger barrier`}
+                  alt={`${product.name} - formula composition and documented concentrations`}
                   fill
                   sizes="(max-width: 640px) 92vw, 520px"
                   quality={85}

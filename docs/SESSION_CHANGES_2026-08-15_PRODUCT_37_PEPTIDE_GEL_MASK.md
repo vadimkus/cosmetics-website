@@ -56,3 +56,25 @@ Wired in `bespokePdp.tsx` and the EN / AR / RU product routes. DB row now has `p
 - `components/product/peptidegel/PeptideGelProductPage.tsx`
 - `scripts/update-product-37-peptide-gel-mask-selling-copy-20260815.ts`
 - DB + AR/RU translations + quick facts + `lib/products.ts` fallback + routine strings + `pc37` pairing copy
+
+## 2026-08-21 Russian and Arabic localization pass
+
+The original audit correctly removed unsupported claims but left deliberately literal,
+customer-unfriendly phrasing in Russian and Arabic. Every live RU/AR central and bespoke
+field was rewritten into natural premium Russian and neutral MSA suitable for UAE retail.
+
+- Glycerin 19.921% now leads the moisturizing story.
+- Carob gum 2.2% and Chondrus 0.8% explain the elastic hydrogel texture.
+- Dipotassium Glycyrrhizate 0.10% remains supporting soothing care.
+- Acetyl Hexapeptide-8 0.05 ppm, hydrolyzed collagen 0.002% and sodium hyaluronate
+  0.0005% remain exact secondary formula facts.
+- The 38 g including mesh × five format, 20–40-minute use, immediate use after opening,
+  dermatological testing and bandage/compress allergy caution remain intact.
+- Audit phrases, informal imperatives and public arguments with old packaging copy were
+  removed, together with Botox, lifting, healing, collagen-production, deep-delivery,
+  all-skin-types and treatment implications.
+
+Runtime sources are now `data/product37LocalizedCopy.ts` for canonical fields and
+`components/product/peptidegel/peptideGelLocalizedCopy.ts` for the complete bespoke page.
+The RU/AR routine and product-37 recommendation strings, quick facts, database-localization
+script and regression coverage were updated in the same pass.

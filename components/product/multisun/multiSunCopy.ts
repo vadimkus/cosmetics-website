@@ -1,3 +1,5 @@
+import { MULTI_SUN_AR_COPY, MULTI_SUN_RU_COPY } from './multiSunLocalizedCopy'
+
 /**
  * Bespoke copy for MULTI SUN CREAM [SPF40 / PA++] (product 40).
  *
@@ -911,7 +913,11 @@ const RU: MultiSunCopy = {
   backToProducts: 'Продукты',
 }
 
-export const MULTI_SUN_COPY: Record<Locale, MultiSunCopy> = { en: EN, ar: AR, ru: RU }
+export const MULTI_SUN_COPY: Record<Locale, MultiSunCopy> = {
+  en: EN,
+  ar: { ...AR, ...MULTI_SUN_AR_COPY },
+  ru: { ...RU, ...MULTI_SUN_RU_COPY },
+}
 
 export function getMultiSunCopy(locale: string | undefined): MultiSunCopy {
   return MULTI_SUN_COPY[(locale as Locale) ?? 'en'] ?? MULTI_SUN_COPY.en

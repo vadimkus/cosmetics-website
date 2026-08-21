@@ -206,3 +206,75 @@ characters; the rest appear only in the data payload, not on screen.
 - The P&K skin age index study for box 58 is still unsourced. Ask DTS MG.
 - Arabic PDPs print sizes as `200ml` and `100g` rather than Arabic units. This is
   catalogue-wide and predates this work.
+
+## 2026-08-21 RU/AR localization re-audit
+
+This pass supersedes the older component summaries above wherever later
+product-level audits narrowed a claim. It used the completed source audits for
+products 10, 16, 41, 11 and 34 rather than inheriting claims from this box's old
+marketing copy.
+
+### Canonical content and live surfaces
+
+- Added `data/product57LocalizedCopy.ts` as the canonical RU/AR catalogue
+  payload and connected both runtime translation maps and the audited-copy
+  overlay to it.
+- Rewrote the served RU/AR `CHARMING_LOOK_COPY` payload, quick facts, routine
+  descriptions, chatbot context, RU/AR sun-protection discovery pages and
+  cushion/BB category metadata.
+- Product 57 now states five full-size products but six physical pieces:
+  the 15 g cushion and its separate 15 g refill account for two pieces.
+- The routine is explicit: remover only when makeup was worn; cleanser follows
+  it in the evening; cleanser and toner precede the cushion in the morning;
+  cushion is the final morning step; the leave-on mask is final once or twice
+  weekly.
+- Removed the inherited oxygen mechanism, irritation-free/all-in-one wording,
+  outdated cushion post-treatment, environmental-protection, Repairing Pep9,
+  glutathione and barrier claims, remover vitamin/firming/strong-cleansing
+  engines, and overnight-mask oxygen capsule, Pink Ceramide, growth-factor,
+  revitalizing and fatigued-skin claims.
+- Preserved the verified cushion facts: three shades differ through pigments
+  and minor excipients only; every shade has five UV filters, niacinamide 2%,
+  adenosine 0.04% and SPF 50+ PA++++. The waterproof film belongs to the puff,
+  not the cushion formula.
+- Added the relevant fragrance/aromatic-oil and eye-area cautions. The toner and
+  three cushion formulas have no added fragrance; the remover has no Parfum in
+  its current INCI but can have a botanical scent; the mask contains aromatic
+  plant oils, citral, geraniol and limonene.
+
+### Functional shade selection
+
+The bespoke beauty-box PDP previously added product 57 without a cushion shade.
+It now renders a localized Ivory/Beige/Camel radio group, blocks cart addition
+until one is selected, stores the selection on the box cart line and uses the
+same variant key for quantity updates. Other beauty boxes keep their existing
+one-click behavior.
+
+### Production DB parity
+
+The idempotent updater is
+`scripts/update-product-57-localized-copy-20260821.ts`.
+
+- record: `cmhoyw7d500008o9tdprqkkhb`
+- `productNumber`: `57`
+- normalized size: `1 set · 5 products · 6 pieces`
+- unsupported generic fields: `ingredients`, `skinType`, `targetConcerns`,
+  `usage` and `ageGroup` are `null`
+- live component prices: 330 + 260 + 300 + 290 + 340 = 1,520 AED
+- live box price: 1,292 AED
+- saving: 228 AED, exactly 15%
+- second updater run reported every audited field unchanged
+
+### Verification
+
+- `npx tsc --noEmit`: passed
+- `npm run lint`: passed with 0 errors; 171 pre-existing repository warnings
+- focused Jest suite: 6 suites, 226 tests passed
+  - product 57 canonical/localized/shade regression
+  - localization audit map
+  - beauty-box quick facts
+  - routine and native mobile routine resolver
+  - mobile pricing
+  - cart variant selection
+
+No commit or push was made.

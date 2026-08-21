@@ -670,8 +670,10 @@ export default function BioFermentProductPage({
         </div>
       </section>
 
-      {/* ─────────────────────────── The study ──────────────────────────── */}
-      <section className="bg-white py-16 lg:py-24">
+      {/* The available DTS deck does not identify a study report, method,
+          endpoint, timing or denominator for its percentages. Keep that
+          presentation-only evidence off the audited RU/AR pages. */}
+      {locale === 'en' && <section className="bg-white py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
           <CeraSectionHeader
             eyebrow={copy.proof.eyebrow}
@@ -725,7 +727,7 @@ export default function BioFermentProductPage({
             </div>
           </div>
         </div>
-      </section>
+      </section>}
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">

@@ -52,11 +52,12 @@ next-env.d.ts
 # directory is excluded, so with /data/ the four exceptions below are silently
 # ignored. That is how data/productBarcodes.ts went missing and broke the build.
 /data/*
-# Exception: productTranslations.ts, productTranslationsRu.ts, and productConfig.ts are needed for the build
+# Exceptions below are needed for the build
 !/data/productTranslations.ts
 !/data/productTranslationsRu.ts
 !/data/productConfig.ts
 !/data/productBarcodes.ts
+!/data/product22LocalizedCopy.ts
 
 # Customer-specific protocols / PII (keep in ~/Documents/genosys-customer-protocols/)
 /docs/customers/

@@ -21,10 +21,12 @@ import { getHsserumCopy } from '@/components/product/hsserum/hsserumCopy'
 import { getAfsCopy } from '@/components/product/afs/afsCopy'
 import { getPcserumCopy } from '@/components/product/pcserum/pcserumCopy'
 import { getMvserumCopy } from '@/components/product/mvserum/mvserumCopy'
+import { getAntiWrinkleCopy } from '@/components/product/antiwrinkle/antiWrinkleCopy'
 import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
 import { SENSITIVE_SKIN_COPY } from '@/components/product/beautybox/copy/sensitiveSkin'
 import { PROBLEM_SKIN_COPY } from '@/components/product/beautybox/copy/problemSkin'
 import { SKIN_BRIGHTENING_COPY } from '@/components/product/beautybox/copy/skinBrightening'
+import { ANTI_AGING_COPY } from '@/components/product/beautybox/copy/antiAging'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 import { PRODUCT_QUICK_FACTS_CATALOG } from '@/lib/productQuickFactsCatalog'
 import ruMessages from '@/messages/ru.json'
@@ -1504,6 +1506,90 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
     expect(JSON.parse(getProductTranslations('21')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 22 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['22']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps Anti-Wrinkle Serum facts consistent across localized surfaces', () => {
+    const quickFacts = (PRODUCT_QUICK_FACTS_CATALOG['22'] || []).flatMap(fact => [
+      fact.title.ru,
+      fact.text.ru,
+      fact.title.ar,
+      fact.text.ar,
+    ])
+    const beautyBoxReferences = (['ru', 'ar'] as const).map(locale =>
+      ANTI_AGING_COPY[locale].contents.items.find(item => item.productNumber === '22')
+    )
+    const wrinklesConcern = CONCERN_PAGES.find(page => page.slug === 'anti-aging')
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('22'),
+      centralAr: getProductTranslations('22'),
+      bespokeRu: getAntiWrinkleCopy('ru'),
+      bespokeAr: getAntiWrinkleCopy('ar'),
+      quickFacts,
+      beautyBoxReferences,
+      concernRu: wrinklesConcern?.routine?.ru.flatMap(section =>
+        section.steps.filter(step => step.products.some(product => product.url === '/products/22'))
+      ),
+      concernAr: wrinklesConcern?.routine?.ar.flatMap(section =>
+        section.steps.filter(step => step.products.some(product => product.url === '/products/22'))
+      ),
+      recommendationRu: [
+        ruMessages.product.routineAntiWrinkleSerumDesc,
+        ruMessages.product.pc22Intro,
+        ruMessages.product.pc32Intro,
+        ruMessages.product.pc51Intro,
+      ],
+      recommendationAr: [
+        arMessages.product.routineAntiWrinkleSerumDesc,
+        arMessages.product.pc22Intro,
+        arMessages.product.pc32Intro,
+        arMessages.product.pc51Intro,
+      ],
+    })
+
+    for (const required of [
+      '25,45%',
+      '25.45%',
+      'Ниацинамид 2%',
+      'نياسيناميد 2%',
+      'Аденозин 0,04%',
+      'أدينوزين 0.04%',
+      'Бакучиол 0,1%',
+      'باكوتشيول 0.1%',
+      '1,4 ppm',
+      '1.4 جزء في المليون',
+      '6,78',
+      '6.78',
+    ]) {
+      expect(text.toLocaleLowerCase()).toContain(required.toLocaleLowerCase())
+    }
+
+    for (const unsupported of [
+      'egf',
+      'стимулируют выработку коллагена',
+      'تحفز إنتاج الكولاجين',
+      'глубокого проникновения',
+      'الاختراق الأعمق',
+      'все признаки старения',
+      'جميع علامات الشيخوخة',
+      'индекс возраста кожи',
+      'مؤشر عمر البشرة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(JSON.parse(getProductTranslationsRu('22')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('22')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
   })

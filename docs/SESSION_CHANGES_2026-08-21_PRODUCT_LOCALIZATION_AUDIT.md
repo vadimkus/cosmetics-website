@@ -253,6 +253,60 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 22 — MULTI FUNCTIONAL ANTI-WRINKLE SERUM
+
+### Catalog identity
+
+- Repository product number: `22`
+- Prisma/code identity: `MULTI FUNCTIONAL ANTI-WRINKLE SERUM`
+- Bespoke route: `/products/22`, rendered by
+  `components/product/antiwrinkle/AntiWrinkleSerumProductPage.tsx`
+
+### Sources checked
+
+- `Registration DOC/MULTI FUNCTIONAL ANTI-WRINKLE SERUM/SA-GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE SERUM.pdf`
+- `Registration DOC/MULTI FUNCTIONAL ANTI-WRINKLE SERUM/Formula-GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE SERUM.pdf`
+- `Registration DOC/MULTI FUNCTIONAL ANTI-WRINKLE SERUM/COA-GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE SERUM 30ml(OE002).pdf`
+- `Registration DOC/MULTI FUNCTIONAL ANTI-WRINKLE SERUM/Artwork-GENOSYS MULTI FUNCTIONAL ANTI-WIRINKLE SERUM.pdf`
+- `MULTI FUNCTIONAL ANTI-WRINKLE SERUM/GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE SERUM.pptx`
+
+The Safety Assessment was used to reconcile supplier complexes with finished-formula INCI
+and percentages. The signed quantitative formula was used for exact concentrations, the
+newer OE002 COA for measured specifications, the artwork for directions and precautions,
+and the DTS MG deck for product positioning. No separate supported product clinical study
+was found, so no product-specific wrinkle percentage or four-to-six-week result was retained.
+
+### Corrections
+
+- Rewrote the canonical and bespoke Russian and Arabic product copy in idiomatic Russian
+  and polished neutral MSA.
+- Repositioned the serum around its actual formula: glycerin 25.45%, niacinamide 2%,
+  adenosine 0.04%, bakuchiol 0.1%, betaine 0.5%, panthenol 0.1% and allantoin 0.1%.
+- Preserved the six named peptides but stated their combined finished-product concentration
+  accurately at about 1.4 ppm instead of presenting them as the main engine of the serum.
+- Preserved the newer measured values: pH 6.78 inside the 5.60–7.60 range; 30.17 ml fill
+  for the nominal 30 ml; niacinamide 96.72% and adenosine 101% of target.
+- Preserved the Korean dual functional identity for brightening and wrinkle care, the
+  dermatological patch-test result `Non Irritant`, Korean origin, lavender oil 0.0186% and
+  the separate linalool disclosure.
+- Removed or rewrote unsupported EGF, collagen-production, cell-renewal, deep-penetration,
+  all-signs-of-ageing, skin-age-index and guaranteed-result claims.
+- Kept the published 0.5% bakuchiol comparison only as ingredient context and did not apply
+  its results to this 0.1% formula.
+
+### Implementation
+
+- Canonical RU/AR fields: `data/product22LocalizedCopy.ts`, registered by
+  `data/productLocalizedCopyAudit.ts`
+- Runtime overrides: `data/productTranslationsRu.ts` and `data/productTranslations.ts`
+- Bespoke PDP: `components/product/antiwrinkle/antiWrinkleCopy.ts`
+- Recommendation and routine strings: `messages/ru.json`, `messages/ar.json` and
+  `lib/concernsData.ts`
+- Beauty Box reference: `components/product/beautybox/copy/antiAging.ts`
+- Quick facts: `lib/productQuickFactsCatalog.ts`
+- Regression coverage: `__tests__/data/productLocalizedCopyAudit.test.ts`
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 21 — MULTI VITA RADIANCE SERUM
 
 ### Catalog identity

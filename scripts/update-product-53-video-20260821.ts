@@ -1,5 +1,5 @@
 /**
- * Product 53 (SKIN CARING COLLAGEN MASK) — attach the supplied 10-second
+ * Product 53 (INTENSIVE REPAIR COLLAGEN MASK) — attach the supplied 10-second
  * vertical product video after `/videos/redmask.mp4` is deployed and serving.
  *
  * The database videoUrl feeds both the website PDP and the mobile product API.

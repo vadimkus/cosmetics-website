@@ -175,6 +175,73 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 10 — SNOW O₂ CLEANSER
+
+### Catalog identity
+
+- Repository product number: `10`
+- Catalog name: `SNOW O₂ CLEANSER`
+- Live route: `/products/10`
+- Product type: rinse-off oxygen-bubble facial cleanser applied to dry skin
+
+### Sources reviewed
+
+- `Registration DOC/Formula_up/Formula-GENOSYS SNOW O2.pdf` — current finished formula:
+  Methyl Perfluoroisobutyl Ether 8%; Cocamide DEA 6%; butylene glycol 4.1089%;
+  glycerin 4%; isopropyl myristate 3.92%; Sodium Laureth Sulfate 2.4%; propanediol
+  1.834%; Decyl Glucoside 0.822%; Parfum 0.15%; hinoki water 0.108%; limonene 0.108%;
+  and Phaseolus radiatus extract 0.003%. The older 2015 ingredient/quali-quanti sheet
+  contains a superseded silicone formula with 3% ether and was not used for current values.
+- `Registration DOC/SA/SA-GENOSYS SNOW O2.pdf` — adult rinse-off face cleanser, opaque
+  viscous liquid, pH specification 5.3–6.3 and premix reconciliation: NF 38 supplies the
+  8% ether; Phytolex SC is 0.2%; MultiEx Phytrogen is 0.01%. The patch-test result supports
+  `dermatologically tested`, not a no-irritation guarantee.
+- `Registration DOC/Artwork/[GENOSYS]SNOW O2(180ml).pdf` — dry-face application, eye-area
+  avoidance, bubble formation, circular massage and tepid-water rinse; pregnancy and
+  lactation precaution. Contract-manufacturer attribution was excluded.
+- `Registration DOC/COA/COA-GENOSYS SNOW O2 180ml(WOB052).pdf` — measured pH 5.67 inside
+  5.30–6.30, opaque viscous appearance, nominal 180 ml size and approximately three years
+  unopened. The lot code and measured batch fill were not used in customer copy.
+- No product-specific DTS MG deck with a quantified clinical result was found. No clinical
+  percentage, sebum result, sensitive-skin trial or oxygen-therapy result was invented.
+
+### Corrections and copy decisions
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field. Russian now
+  reads as natural professional cosmetology copy; Arabic is polished neutral MSA for UAE
+  retail, with neutral instructions wherever practical.
+- Positioned the verified ritual clearly: apply to dry skin, allow the air foam to form,
+  massage gently in circles and rinse with tepid water. Removed the unsupported wet-finger
+  second cycle.
+- Preserved the formula's actual engine, Methyl Perfluoroisobutyl Ether at 8%, and the
+  9.94% humectant base: butylene glycol 4.1089%, glycerin 4% and propanediol 1.834%.
+- Preserved Cocamide DEA 6%, Sodium Laureth Sulfate 2.4%, Decyl Glucoside 0.822% and the
+  measured pH 5.67 inside 5.30–6.30.
+- Kept Phytolex SC and MultiEx Phytrogen as secondary premixes rather than co-leads. Their
+  trace finished botanical components are not presented as the reason for the bubbles.
+- Removed oxygen therapy, nutrifying and spa-treatment positioning; medical language;
+  all-skin-types and sensitive-skin promises; no-irritation guarantees; Korean functional
+  cosmetic implications; and unsupported clinical figures.
+- Removed fragrance-free and sulfate-free claims because the current formula contains
+  Parfum 0.15%, limonene and Sodium Laureth Sulfate 2.4%.
+- Removed dossier vocabulary, lot codes, contract-manufacturer attribution and
+  self-defeating audit commentary from customer-facing copy.
+- Rewrote the RU/AR recommendation panel and routine label so both describe the verified
+  dry-face ritual and position Snow Booster as the following toner step without implying
+  oxygen therapy.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/snowo2/snowo2LocalizedCopy.ts`, consumed by `snowo2Copy.ts`
+- Product 10 recommendation and routine strings: `messages/ru.json` and `messages/ar.json`
+- Focused regression coverage checks runtime ownership, structured JSON, exact source values
+  and prohibited medical or contradicted claim language
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 9 — POWER SOLUTION AWS
 
 ### Sources checked

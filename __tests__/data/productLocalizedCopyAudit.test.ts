@@ -8,6 +8,7 @@ import { getCtsCopy } from '@/components/product/powersolution/ctsCopy'
 import { getPcsCopy } from '@/components/product/powersolution/pcsCopy'
 import { getSwsCopy } from '@/components/product/powersolution/swsCopy'
 import { getAwsCopy } from '@/components/product/powersolution/awsCopy'
+import { getSnowO2Copy } from '@/components/product/snowo2/snowo2Copy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -506,5 +507,70 @@ describe('audited product localization copy', () => {
     expect(text).toContain('PEG-40 Hydrogenated Castor Oil')
     expect(text).toContain('вода кипариса хиноки')
     expect(text).toContain('ماء سرو الهينوكي')
+  })
+
+  it('serves the rewritten product 10 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('10')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['10'])
+    expect(getProductTranslations('10')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['10'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 10 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['10']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps SNOW O2 source facts and removes medical, dossier and contradicted claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('10'),
+      centralAr: getProductTranslations('10'),
+      bespokeRu: getSnowO2Copy('ru'),
+      bespokeAr: getSnowO2Copy('ar'),
+    })
+
+    for (const required of [
+      'Methyl Perfluoroisobutyl Ether',
+      '8%',
+      '9,94%',
+      '9.94%',
+      '4,1089%',
+      '4.1089%',
+      '2,4%',
+      '2.4%',
+      '0,822%',
+      '0.822%',
+      '5,67',
+      '5.67',
+      '5,30–6,30',
+      '5.30–6.30',
+      '180 мл',
+      '180 مل',
+      '500 мл',
+      '500 مل',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'кислородная терапия',
+      'علاج بالأكسجين',
+      'заживлен',
+      'التئام',
+      'открывает поры',
+      'يفتح المسام',
+      'все типы кожи',
+      'جميع أنواع البشرة',
+      'партия',
+      'دفعة',
+      'производитель',
+      'الشركة المصنّعة',
+      'WINNOVA',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(getSnowO2Copy('ru').howTo.steps).toHaveLength(4)
+    expect(getSnowO2Copy('ar').howTo.steps).toHaveLength(4)
   })
 })

@@ -110,6 +110,8 @@
  *   - THE CONTRACT MANUFACTURER. DTS MG only. Never WINNOVA.
  */
 
+import { SNOW_O2_AR_COPY, SNOW_O2_RU_COPY } from './snowo2LocalizedCopy'
+
 export type SnowO2Locale = 'en' | 'ar' | 'ru'
 
 export interface SnowO2Copy {
@@ -429,7 +431,7 @@ const EN: SnowO2Copy = {
   backToProducts: 'Products',
 }
 
-const AR: SnowO2Copy = {
+const _AR: SnowO2Copy = {
   eyebrow: 'منظف وجه · فقاعات أكسجين',
   headline: 'وجه جاف. ثم الفقاعات.',
   subheadline:
@@ -626,7 +628,7 @@ const AR: SnowO2Copy = {
   backToProducts: 'المنتجات',
 }
 
-const RU: SnowO2Copy = {
+const _RU: SnowO2Copy = {
   eyebrow: 'Очищение лица · Кислородные пузырьки',
   headline: 'Сухое лицо. Потом пузырьки.',
   subheadline:
@@ -823,7 +825,11 @@ const RU: SnowO2Copy = {
   backToProducts: 'Продукты',
 }
 
-const BY_LOCALE: Record<SnowO2Locale, SnowO2Copy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<SnowO2Locale, SnowO2Copy> = {
+  en: EN,
+  ar: { ..._AR, ...SNOW_O2_AR_COPY },
+  ru: { ..._RU, ...SNOW_O2_RU_COPY },
+}
 
 export function getSnowO2Copy(locale: string): SnowO2Copy {
   return BY_LOCALE[(locale as SnowO2Locale) in BY_LOCALE ? (locale as SnowO2Locale) : 'en']

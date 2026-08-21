@@ -132,6 +132,7 @@
  */
 
 import { RANGE, type PowerSolutionCopy, type PowerSolutionLocale, type PowerSolutionVariant } from './powerSolutionCopy'
+import { CTS_AR_COPY, CTS_RU_COPY } from './ctsLocalizedCopy'
 
 export const CTS_FORMULA_BASE = [
   { pct: 14.5798 },
@@ -435,7 +436,7 @@ const EN: PowerSolutionCopy = {
   backToProducts: 'Products',
 }
 
-const AR: PowerSolutionCopy = {
+export const LEGACY_CTS_AR_COPY: PowerSolutionCopy = {
   eyebrow: 'أمبولة احترافية · عشر قوارير مُحكمة',
   headline: 'القارورة التي تلجأ إليها حين يكون الهمّ هو الملمس.',
   subheadline:
@@ -706,7 +707,7 @@ const AR: PowerSolutionCopy = {
   backToProducts: 'المنتجات',
 }
 
-const RU: PowerSolutionCopy = {
+export const LEGACY_CTS_RU_COPY: PowerSolutionCopy = {
   eyebrow: 'Профессиональная ампула · Десять запаянных флаконов',
   headline: 'Флакон, к которому тянешься, когда вопрос в рельефе.',
   subheadline:
@@ -977,7 +978,11 @@ const RU: PowerSolutionCopy = {
   backToProducts: 'Продукты',
 }
 
-const BY_LOCALE: Record<PowerSolutionLocale, PowerSolutionCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<PowerSolutionLocale, PowerSolutionCopy> = {
+  en: EN,
+  ar: CTS_AR_COPY,
+  ru: CTS_RU_COPY,
+}
 
 export function getCtsCopy(locale: string): PowerSolutionCopy {
   return BY_LOCALE[(locale as PowerSolutionLocale) in BY_LOCALE ? (locale as PowerSolutionLocale) : 'en']

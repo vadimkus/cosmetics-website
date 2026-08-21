@@ -175,6 +175,65 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 6 — POWER SOLUTION CTS
+
+### Sources reviewed
+
+- `Ingredient lists_old/GENOSYS POWER SOLUTION CTS.pdf` and the matching copy under
+  `Intertek_folder/Quali-quanti Ingredients/` — mandatory 2011 source reviewed first. It
+  establishes the original CTS identity and INCI, but its percentages are superseded by the
+  current formula.
+- `Registration DOC/Formula_up/Formula-GENOSYS POWER SOLUTION CTS.pdf` — current finished
+  formula: glycerin 14.5798%, butylene glycol 13.485%, Lactobacillus/Soymilk Ferment Filtrate
+  2.5%, sodium hyaluronate 0.1002%, hydrolyzed collagen 0.1%, Copper Tripeptide-1 0.0212%
+  (212 ppm), and sh-Polypeptide-7, Palmitoyl Tripeptide-1 and Palmitoyl Hexapeptide-12 at
+  1 ppm each.
+- `Registration DOC/SA/SA-GENOSYS POWER SOLUTION CTS.pdf` — adult leave-on face serum;
+  current raw-material reconciliation; hydrolyzed collagen is fish-derived; dermatological
+  patch test passed; pregnancy/lactation avoidance retained.
+- `Registration DOC/COA/COA-GENOSYS POWER SOLUTION CTS(L1133A).pdf` — light-blue viscous
+  liquid; pH 7.61 inside 7.00 ± 1.00; specific gravity 1.041 inside 1.000–1.050; measured
+  fill 2.06 ml for the nominal 2 ml vial; passing microbial result and no detected specified
+  microorganisms.
+- `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION CTS.pdf` — CTS expansion, texture
+  function, ten 2 ml vials, four application steps, precautions and multilingual panels.
+  The Russian artwork's wound-healing, scar, tissue-remodelling, neocollagenesis and
+  dermaroller claims were treated as artwork corrections, not as source claims.
+
+### Corrections and copy decisions
+
+- Rewrote every live bespoke Russian and Arabic string in a dedicated CTS localization
+  module. Both locales now lead with texture, smoothness, elasticity and the 28.0648%
+  humectant base rather than medical or dossier language.
+- Preserved the exact current-formula concentrations and measured specifications. The
+  legacy 2011 sheet is documented but does not override the current Formula_up values.
+- Removed wound healing, tissue repair, regeneration, scar smoothing, neocollagenesis,
+  growth-hormone mechanisms and any implication that microneedling is required.
+- Kept roller pairing only as an optional professional protocol. The verified standalone
+  method remains cleanse, open, apply and absorb.
+- Removed the printed `no artificial surfactants` claim because the current formula contains
+  Polysorbate 60 at 0.0005%, explicitly classified as a surfactant. `5-Free` was therefore
+  removed. Russian and Arabic retain only the four verifiable exclusions: parabens, ethanol,
+  artificial colour and artificial fragrance.
+- Preserved the fish-allergy warning, pregnancy/lactation avoidance, dermatological testing,
+  Korean origin and the ten sealed single-use 2 ml vials.
+- Rewrote product 6 recommendation copy so a roller is presented as optional and
+  practitioner-led, not as a requirement or carton instruction.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/powersolution/ctsLocalizedCopy.ts`, consumed by `ctsCopy.ts`
+- Product 6 recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Focused regression coverage checks runtime ownership, structured JSON, exact source values
+  and prohibited medical or contradicted claim language
+- The existing audited-localization update script picks up product 6 automatically through
+  `AUDITED_PRODUCT_LOCALIZED_COPY`; database `productNumber`, localized names and localized
+  descriptions were updated
+
 ## Product 5 — POWER SOLUTION CVS
 
 ### Sources checked

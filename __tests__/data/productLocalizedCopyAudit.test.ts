@@ -4,6 +4,7 @@ import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { HAIRGEN_BOOSTER_COPY } from '@/components/product/hr3/hairGenBoosterCopy'
 import { getHesCopy } from '@/components/product/powersolution/hesCopy'
 import { getPowerSolutionCopy } from '@/components/product/powersolution/powerSolutionCopy'
+import { getCtsCopy } from '@/components/product/powersolution/ctsCopy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -226,6 +227,73 @@ describe('audited product localization copy', () => {
       'ПАВ',
       'خافض',
       'التوتر السطحي',
+      '5-Free',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+  })
+
+  it('serves the rewritten product 6 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('6')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['6'])
+    expect(getProductTranslations('6')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['6'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 6 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['6']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps CTS source facts and removes contradicted or medical claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('6'),
+      centralAr: getProductTranslations('6'),
+      bespokeRu: getCtsCopy('ru'),
+      bespokeAr: getCtsCopy('ar'),
+    })
+
+    for (const required of [
+      '28,0648%',
+      '28.0648%',
+      '14,5798%',
+      '14.5798%',
+      '13,485%',
+      '13.485%',
+      '2,5%',
+      '2.5%',
+      '0,1002%',
+      '0.1002%',
+      '0,0212%',
+      '0.0212%',
+      '212 ppm',
+      '212 جزءاً في المليون',
+      '7,61',
+      '7.61',
+      '1,041',
+      '1.041',
+      '2,06 мл',
+      '2.06 مل',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'заживлен',
+      'регенерац',
+      'неоколлаген',
+      'ремоделирован',
+      'шрам',
+      'growth hormone',
+      'гормон роста',
+      'التئام',
+      'تجديد الخلايا',
+      'إعادة تشكيل',
+      'ندب',
+      'هرمون النمو',
+      'искусственн.*пав',
+      'искусственн.*поверхностно',
+      'خافضات التوتر السطحي الصناعية',
       '5-Free',
     ]) {
       expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))

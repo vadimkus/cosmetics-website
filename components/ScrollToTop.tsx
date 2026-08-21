@@ -3,17 +3,16 @@
 import { useCallback, useEffect, useState } from 'react'
 import { ArrowUp } from 'lucide-react'
 import { usePWAMode } from '@/hooks/usePWAMode'
-import { useIsMobile } from '@/hooks/useIsMobile'
 import { useTranslation } from '@/hooks/useTranslation'
 import { prefersReducedMotion } from '@/hooks/useReducedMotion'
 
 /**
- * Return-to-top control for mobile web.
+ * Return-to-top control for the website.
  *
- * Product pages, the catalogue and the guides run long enough on a phone that reaching the
- * end left no way back up except repeated swiping. iOS Safari can scroll to top when you
- * tap the status bar, but it is undiscoverable and does nothing in Chrome or in the
- * installed app, so a visible control is the only thing that works for everyone.
+ * Product pages, the catalogue and the guides run long enough that reaching the end leaves
+ * no quick way back up. iOS Safari can scroll to top when you tap the status bar, but it is
+ * undiscoverable and does nothing in Chrome or on desktop, so a visible control is the only
+ * thing that works for every website visitor.
  *
  * Placement is the whole problem here. The chat bubble already owns the bottom trailing
  * corner at 96px, and it mirrors to the leading corner in Arabic, so this sits on the
@@ -22,12 +21,12 @@ import { prefersReducedMotion } from '@/hooks/useReducedMotion'
  * the bubble at a lower z-index — present in the DOM, impossible to tap. Those are removed
  * in favour of this.
  *
- * Vertical offset comes from --mobile-nav-height so it tracks the tab bar rather than
- * restating its height as a second magic number.
+ * On mobile, the vertical offset comes from --mobile-nav-height so it tracks the tab bar
+ * rather than restating its height as a second magic number. Desktop has no bottom nav, so
+ * the control uses the same 24px edge spacing as the chat widget.
  */
 export default function ScrollToTop() {
   const { isPWA, isClient } = usePWAMode()
-  const { isMobile } = useIsMobile()
   const { t, dir } = useTranslation()
   const isRTL = dir === 'rtl'
   const [visible, setVisible] = useState(false)
@@ -52,7 +51,7 @@ export default function ScrollToTop() {
     window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' })
   }, [])
 
-  if (!isClient || isPWA || !isMobile) return null
+  if (!isClient || isPWA) return null
 
   return (
     <button
@@ -63,11 +62,10 @@ export default function ScrollToTop() {
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
       aria-label={t('common.backToTop') || 'Back to top'}
-      className={`fixed z-50 flex h-11 w-11 items-center justify-center rounded-full border border-[var(--cera-line)] bg-white/95 text-[var(--cera-ink)] shadow-[0_10px_28px_-14px_rgba(23,20,15,0.5)] backdrop-blur transition-all duration-300 md:hidden ${
+      className={`fixed bottom-[calc(var(--mobile-nav-height,58px)+16px)] z-50 flex h-11 w-11 items-center justify-center rounded-full border border-[var(--cera-line)] bg-white/95 text-[var(--cera-ink)] shadow-[0_10px_28px_-14px_rgba(23,20,15,0.5)] backdrop-blur transition-all duration-300 md:bottom-6 ${
         visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0'
-      } ${isRTL ? 'right-4' : 'left-4'}`}
+      } ${isRTL ? 'right-4 md:right-6' : 'left-4 md:left-6'}`}
       style={{
-        bottom: 'calc(var(--mobile-nav-height, 58px) + 16px)',
         WebkitTapHighlightColor: 'transparent',
       }}
     >

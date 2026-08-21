@@ -1,3 +1,8 @@
+import {
+  HAIRGEN_BOOSTER_AR,
+  HAIRGEN_BOOSTER_RU,
+} from './hairGenBoosterLocalizedCopy'
+
 /**
  * Bespoke copy for the HairGen BOOSTER (product 3), the powered device the HR³ MATRIX
  * hair system is built around.
@@ -365,7 +370,8 @@ const EN: HairGenBoosterCopy = {
   backToProducts: 'Products',
 }
 
-const AR: HairGenBoosterCopy = {
+/** @deprecated Retained temporarily for comparison; not used by the storefront. */
+export const LEGACY_HAIRGEN_BOOSTER_AR: HairGenBoosterCopy = {
   eyebrow: 'هيرجين بوستر · قبضة وخز دقيق آلية مع LED',
   headline: 'يختم عنك، وتدخل الأمبولة مع عمل الإبر.',
   subheadline:
@@ -588,7 +594,8 @@ const AR: HairGenBoosterCopy = {
   backToProducts: 'المنتجات',
 }
 
-const RU: HairGenBoosterCopy = {
+/** @deprecated Retained temporarily for comparison; not used by the storefront. */
+export const LEGACY_HAIRGEN_BOOSTER_RU: HairGenBoosterCopy = {
   eyebrow: 'HairGen BOOSTER · моторизованная насадка для микронидлинга с LED',
   headline: 'Он штампует за вас, и ампула входит по ходу работы игл.',
   subheadline:
@@ -812,7 +819,11 @@ const RU: HairGenBoosterCopy = {
   backToProducts: 'Продукты',
 }
 
-export const HAIRGEN_BOOSTER_COPY: Record<Locale, HairGenBoosterCopy> = { en: EN, ar: AR, ru: RU }
+export const HAIRGEN_BOOSTER_COPY: Record<Locale, HairGenBoosterCopy> = {
+  en: EN,
+  ar: HAIRGEN_BOOSTER_AR,
+  ru: HAIRGEN_BOOSTER_RU,
+}
 
 export function getHairGenBoosterCopy(locale: string | undefined): HairGenBoosterCopy {
   return HAIRGEN_BOOSTER_COPY[(locale as Locale) ?? 'en'] ?? HAIRGEN_BOOSTER_COPY.en

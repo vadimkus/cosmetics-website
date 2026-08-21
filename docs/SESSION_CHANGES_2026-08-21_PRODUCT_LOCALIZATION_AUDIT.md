@@ -75,3 +75,51 @@ Russian now uses established professional cosmetology terminology without litera
 `transdermal nutrient delivery` or wound-healing language. Arabic uses natural clinical
 phrasing, replaces repeated loanword transliteration with `الوخز الدقيق`, and reads as
 guidance for a trained practitioner.
+
+## Product 3 — HairGen BOOSTER
+
+### Sources checked
+
+- `Training Materials/HairGen_Booster/210617_Hairgen Booster leaflet-small.pdf`
+- `Training Materials/HairGen_Booster/User's manual-Hairgen Booster.pdf`
+- `docs/SESSION_CHANGES_2026-08-18_PRODUCT_3_HAIRGEN_BOOSTER_AUDIT.md`
+- `docs/SESSION_CHANGES_2026-08-18_PRODUCT_3_HAIRGEN_BOOSTER_PAGE.md`
+
+### Corrections
+
+- Rewrote the complete bespoke Russian and Arabic page objects, including commerce labels,
+  hero copy, specifications, method, safety, FAQ and consumable-cost sections.
+- Removed the long public argument with the old sales leaflet. The medical boundary is now
+  brief and useful: this is scalp care, not hair-loss treatment, and hair loss should be
+  assessed by a doctor.
+- Removed literal and uncomfortable phrasing about liquid entering while needles open a
+  route, devices lying dead in drawers, and the brand refusing to carry claims.
+- Preserved the documented hardware facts: 52 needles per disposable stamp; one fresh 4 ml
+  HR³ MATRIX HAIR SOLUTION α ampoule and one fresh stamp per session; 280/330/400 movements
+  per minute; ten-minute automatic stop; 14 blue/red LEDs through 48 light bumps; 5 V / 2 A;
+  24-month warranty; and Korean origin.
+- Kept 0.3 mm as the fitted Hair Stamp depth and made clear that depth belongs to the
+  consumable, not the handpiece. The Mesopecia Kit's 0.5 mm belongs to its separate roller.
+- Kept LED information strictly descriptive, with no efficacy claim. No alopecia,
+  angiogenesis, circulation, wound-healing, collagen, DHT, hair-cycle or regrowth claims are
+  carried.
+- Consolidated the contraindications from the multilingual manual and retained the
+  single-use and compatible-product safety requirements.
+
+### Language
+
+Russian now reads as polished professional scalp-care retail copy rather than a literal
+translation or an audit note. Arabic is neutral, polished Modern Standard Arabic suitable
+for UAE beauty retail, avoiding gendered second-person forms wherever practical.
+
+### Implementation
+
+- Complete bespoke RU/AR copy: `components/product/hr3/hairGenBoosterLocalizedCopy.ts`
+- `hairGenBoosterCopy.ts` now serves the audited objects at runtime
+- Canonical central RU/AR fields added to `data/productLocalizedCopyAudit.ts`
+- Russian and Arabic runtime maps override the old generated product 3 blocks
+- `scripts/update-audited-product-localizations-20260821.ts` now includes product 3 through
+  the canonical map and will update `productNumber`, localized names and descriptions
+- Database `productNumber`, localized names and localized descriptions were updated
+- Regression coverage checks runtime ownership, structured JSON, required specifications
+  and prohibited claim language

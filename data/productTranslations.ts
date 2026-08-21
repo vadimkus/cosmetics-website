@@ -12,6 +12,8 @@
  * - directions: Arabic directions
  */
 
+import { AUDITED_PRODUCT_LOCALIZED_COPY } from './productLocalizedCopyAudit'
+
 export interface ProductTranslation {
   description?: string
   productDetails?: string
@@ -22,7 +24,7 @@ export interface ProductTranslation {
   directions?: string
 }
 
-export const productTranslations: Record<string, ProductTranslation> = {
+const legacyProductTranslations: Record<string, ProductTranslation> = {
   '1': {
     description: "جهاز Microneedle Roller احترافي بجودة طبية مع نظام Diskneedle Therapy System (DTS) المبتكر لتعزيز تجديد البشرة. يتميز بـ 450 إبرة فائقة النحافة (أرفع بنسبة 25% من المنافسين) لامتصاص منتج فائق وصدمة جلدية minimal. يحفز إنتاج الكولاجين الطبيعي ويحسن ملمس البشرة. مصنوع في كوريا الجنوبية.",
     productDetails: '{"type":"جهاز ميكرونيدلينج احترافي","needleCount":"450 إبرة فائقة النحافة","needleThickness":"أرفع بنسبة 25% من المنافسين","technology":"نظام Diskneedle Therapy System (DTS) المبتكر","target":"تجديد البشرة وتعزيز امتصاص المنتج","keyBenefits":"امتصاص منتج محسن، صدمة جلدية مخفضة، نتائج احترافية","usage":"علاجات احترافية من قبل ممارسين مرخصين","treatmentAreas":"الوجه، الجسم، فروة الرأس","professionalUse":"للممارسين المرخصين فقط","safety":"إبر فولاذية طبية الجودة","origin":"كوريا الجنوبية"}',
@@ -1092,6 +1094,11 @@ export const productTranslations: Record<string, ProductTranslation> = {
 التكرار: وفقاً للبروتوكول الذي يضعه المختص، لا وفقاً لرقم من موقع.`,
     directions: `للاستخدام الخارجي على فروة الرأس فقط. استخدم أداة جديدة لكل جلسة ولا تشاركها. لا تستخدمها على فروة رأس ملتهبة أو مصابة بعدوى. أوقف الاستخدام إذا استمر التهيّج. يُحفظ بعيداً عن متناول الأطفال. يُحفظ في مكان بارد وجاف بعيداً عن أشعة الشمس المباشرة.`
   },
+}
+
+export const productTranslations: Record<string, ProductTranslation> = {
+  ...legacyProductTranslations,
+  '1': AUDITED_PRODUCT_LOCALIZED_COPY.ar['1'],
 }
 
 /**

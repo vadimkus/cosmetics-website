@@ -6,6 +6,7 @@
  */
 
 import { PRODUCT_29_RU_TRANSLATION } from './product29RussianCopy'
+import { AUDITED_PRODUCT_LOCALIZED_COPY } from './productLocalizedCopyAudit'
 
 export interface ProductTranslation {
   description?: string
@@ -17,7 +18,7 @@ export interface ProductTranslation {
   directions?: string
 }
 
-export const productTranslationsRu: Record<string, ProductTranslation> = {
+const legacyProductTranslationsRu: Record<string, ProductTranslation> = {
   "1": {
     "description": "Профессиональное устройство для микронидлинга с запатентованной системой Diskneedle Therapy System (DTS) для улучшенного омоложения кожи. Оснащено 450 сверхтонкими иглами (на 25% тоньше, чем у конкурентов) для превосходного впитывания продуктов и минимальной травматизации кожи. Стимулирует естественную выработку коллагена и улучшает текстуру кожи. Произведено в Южной Корее.",
     "productDetails": "{\n  \"type\": \"Профессиональное устройство для микронидлинга\",\n  \"needleCount\": \"450 сверхтонких игл\",\n  \"needleThickness\": \"На 25% тоньше, чем у конкурентов\",\n  \"technology\": \"Запатентованная система Diskneedle Therapy System (DTS)\",\n  \"target\": \"Омоложение кожи и улучшение впитывания продуктов\",\n  \"keyBenefits\": \"Улучшенное впитывание продуктов, сниженная травматизация кожи, профессиональные результаты\",\n  \"usage\": \"Профессиональные процедуры лицензированными специалистами\",\n  \"treatmentAreas\": \"Лицо, тело, кожа головы\",\n  \"professionalUse\": \"Только для лицензированных специалистов\",\n  \"safety\": \"Медицинские иглы из нержавеющей стали\",\n  \"origin\": \"Южная Корея\"\n}",
@@ -555,6 +556,11 @@ export const productTranslationsRu: Record<string, ProductTranslation> = {
     "howToUse": "1. Очистите и высушите кожу головы (при желании предварительно используйте HR³ MATRIX SCALP PEELING α или шампунь).\n2. Наденьте новую насадку HR³ MATRIX HAIR STAMP на флакон HR³ MATRIX HAIR SOLUTION α и вставьте флакон в HairGen Booster.\n3. Включите устройство и ведите штамп по пробору; через десять минут прибор выключится сам.\n4. После сеанса утилизируйте насадку — для каждой процедуры новый штамп и новый раствор.\n\nПериодичность задаёт специалист, а не число с сайта.",
     "directions": "Только для наружного применения на кожу головы. Используйте новую насадку для каждой процедуры и не передавайте её другому человеку. Не используйте на воспалённой или инфицированной коже головы. Прекратите использование при стойком раздражении. Храните в недоступном для детей месте, в прохладном сухом месте вдали от прямых солнечных лучей."
   }
+}
+
+export const productTranslationsRu: Record<string, ProductTranslation> = {
+  ...legacyProductTranslationsRu,
+  "1": AUDITED_PRODUCT_LOCALIZED_COPY.ru["1"],
 }
 
 /**

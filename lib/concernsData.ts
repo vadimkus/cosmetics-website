@@ -2273,7 +2273,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 4, title: 'كريم مرطب', duration: '30 ثانية',
               summary: 'إغلاق طبقات السيروم وتوفير ترطيب مستدام من الكريم طوال اليوم.',
-              detail: 'ضعي MOISTURE REPLENISHING HYALURON CREAM للترطيب اليومي الخفيف. للبشرة الجافة جداً أو الحساسة، استبدلي بـ INTENSIVE HYDRO SOOTHING CREAM بقوام أغنى ومهدئات إضافية.',
+              detail: 'ضعي MOISTURE REPLENISHING HYALURON CREAM لترطيب يومي مع طبقة كريمية تحافظ على الرطوبة. اختاري INTENSIVE HYDRO SOOTHING CREAM عندما تفضلين جل كريم أخف من دون عطر، بقاعدة مرطبة 21.7% وإحساس منعش بالتبريد. وللبشرة شديدة الجفاف، ضعي فوقه كريماً أكثر غنى.',
               products: [
                 { name: 'MOISTURE REPLENISHING HYALURON CREAM', url: '/products/29', price: '290 AED' },
                 { name: 'INTENSIVE HYDRO SOOTHING CREAM', url: '/products/28', price: '290 AED' },
@@ -2347,7 +2347,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 4, title: 'Увлажняющий крем', duration: '30 сек',
               summary: 'Запечатайте слои сыворотки и обеспечьте устойчивое кремовое увлажнение на весь день.',
-              detail: 'Нанесите MOISTURE REPLENISHING HYALURON CREAM для лёгкого ежедневного увлажнения — он продлевает эффект сыворотки за счёт обогащённой церамидами базы. Для очень сухой или чувствительной кожи замените на INTENSIVE HYDRO SOOTHING CREAM с более плотной текстурой и успокаивающими компонентами. В любом случае наносите восходящими движениями, включая шею.',
+              detail: 'Нанесите MOISTURE REPLENISHING HYALURON CREAM для ежедневного увлажнения и кремового слоя, удерживающего влагу. INTENSIVE HYDRO SOOTHING CREAM выбирайте, когда нужен более лёгкий гель-крем без отдушки с увлажняющей базой 21,7% и освежающим охлаждающим эффектом. При выраженной сухости нанесите сверху более насыщенный крем.',
               products: [
                 { name: 'MOISTURE REPLENISHING HYALURON CREAM', url: '/products/29', price: '290 AED' },
                 { name: 'INTENSIVE HYDRO SOOTHING CREAM', url: '/products/28', price: '290 AED' },

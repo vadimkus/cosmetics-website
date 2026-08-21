@@ -253,6 +253,63 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 28 — INTENSIVE HYDRO SOOTHING CREAM
+
+### Catalog identity
+
+- Repository product number: `28`
+- Product name: `INTENSIVE HYDRO SOOTHING CREAM`
+- Runtime route: `/products/28`, rendered by the bespoke Hydro Soothing product page
+- Sizes: 50 g homecare and 250 g professional
+
+### Sources checked
+
+- `Intertek_folder/Quali-quanti Ingredients/16 INTENSIVE HYDRO SOOTHING CREAM.pdf`
+- `Intertek_folder/Quali-quanti Ingredients/GENOSYS INTENSIVE HYDRO SOOTHING CREAM_Ingridients.pdf`
+- `Intertek_folder/Safety Assessment Report/Laboratory_tests_INTENSIVE HYDRO SOOTHING CREAM.pdf`
+- `Registration DOC/Artwork/[GENOSYS]INTENSIVE HYDRO SOOTHING CREAM.pdf`
+- `Registration DOC/COA/COA-GENOSYS INTENSIVE HYDRO SOOTHING CREAM(WML008).pdf`
+- `Intertek_folder/Certififcate of Analysis/16 INTENSIVE HYDRO SOOTHING CREAM - COA-GENOSYS.pdf`
+- `Intertek_folder/Certififcate of Analysis/COA-GENOSYS INTENSIVE HYDRO SOOTHING CREAM 250g(WID131).pdf`
+- DTS MG homecare clinical deck and UAE hydration protocol, as reconciled in
+  `SESSION_CHANGES_2026-08-17_PRODUCT_28_HYDRO_SOOTHING_SOURCE_AUDIT.md`
+
+### Corrections
+
+- Rewrote the canonical central Russian and Arabic product fields in natural premium retail
+  language and connected both runtime translation maps to that canonical copy.
+- Preserved the finished-formula concentrations: butylene glycol 10.555%, glycerin 6.175%,
+  betaine 5%, Lactobacillus/pumpkin ferment 0.1%, aloe 0.05%, sodium hyaluronate 0.05%,
+  Phytolex SC components about 76 ppm combined and snail secretion filtrate 0.001% (10 ppm).
+- Preserved the measured results without inflating them: skin temperature about −1 °C after
+  20 minutes and hydration +12% after four weeks.
+- Preserved measured pH 6.39 within the 6.00–7.00 specification, transparent gel-cream
+  texture, six-month period after opening, Korean origin and both retail sizes.
+- Corrected the Arabic bespoke copy from `مرشّح المحار` (oyster filtrate) to
+  `مرشّح إفراز الحلزون` (snail secretion filtrate).
+- Removed self-referential audit language, supplier-sheet narration and manufacturer
+  attribution from the key Russian and Arabic sales sections. The copy now leads with the
+  buyer benefit and uses the concentrations as proof.
+- Corrected hydration-routine copy that had described product 28 as richer and more
+  occlusive. It is a light, nearly oil-free gel-cream; very dry skin should layer a richer
+  cream over it.
+- Kept the non-vegan disclosure because the finished formula contains snail secretion
+  filtrate, despite the low concentration.
+- Added localized quick facts, recommendation strings and regression coverage across the
+  central copy, bespoke page, concern routines and quick-facts surface.
+
+### Implementation
+
+- Canonical RU/AR fields: `data/product28LocalizedCopy.ts`, registered by
+  `data/productLocalizedCopyAudit.ts`
+- Runtime overrides: `data/productTranslationsRu.ts` and `data/productTranslations.ts`
+- Bespoke runtime copy: `components/product/hydrosoothing/hydroSoothingCopy.ts`
+- Recommendation copy: `messages/ru.json` and `messages/ar.json`
+- Concern routines: `lib/concernsData.ts`
+- Quick facts: `lib/productQuickFactsCatalog.ts`
+- Regression tests: `__tests__/data/productLocalizedCopyAudit.test.ts`
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 27 — SKIN BARRIER PROTECTING CREAM
 
 ### Catalog identity

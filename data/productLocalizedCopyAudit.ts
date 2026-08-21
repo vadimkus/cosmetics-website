@@ -4,6 +4,7 @@ import { product24Ar, product24Ru } from './product24LocalizedCopy'
 import { product25Ar, product25Ru } from './product25LocalizedCopy'
 import { product26Ar, product26Ru } from './product26LocalizedCopy'
 import { product27Ar, product27Ru } from './product27LocalizedCopy'
+import { product28Ar, product28Ru } from './product28LocalizedCopy'
 
 const product1Ru = {
   description:
@@ -3821,6 +3822,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Крем для защиты кожного барьера SKIN BARRIER PROTECTING',
       ...product27Ru,
     },
+    '28': {
+      name: 'Интенсивный увлажняющий крем-гель INTENSIVE HYDRO SOOTHING',
+      ...product28Ru,
+    },
   },
   ar: {
     '1': {
@@ -3930,6 +3935,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '27': {
       name: 'كريم SKIN BARRIER PROTECTING لحماية حاجز البشرة',
       ...product27Ar,
+    },
+    '28': {
+      name: 'كريم الجل المرطب INTENSIVE HYDRO SOOTHING',
+      ...product28Ar,
     },
   },
 } as const

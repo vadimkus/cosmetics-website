@@ -26,6 +26,7 @@ import { getNdCellCopy } from '@/components/product/ndcell/ndCellCopy'
 import { getEyeCreamCopy } from '@/components/product/eyecream/eyecreamCopy'
 import { getPostcreamCopy } from '@/components/product/postcream/postcreamCopy'
 import { getSpcreamCopy } from '@/components/product/spcream/spcreamCopy'
+import { getHydroSoothingCopy } from '@/components/product/hydrosoothing/hydroSoothingCopy'
 import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
 import { SENSITIVE_SKIN_COPY } from '@/components/product/beautybox/copy/sensitiveSkin'
 import { PROBLEM_SKIN_COPY } from '@/components/product/beautybox/copy/problemSkin'
@@ -1966,5 +1967,65 @@ describe('audited product localization copy', () => {
     expect(JSON.parse(getProductTranslations('27')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'قائمة المكوّنات الكاملة (INCI)' })])
     )
+  })
+
+  it('serves the rewritten product 28 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('28')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['28'])
+    expect(getProductTranslations('28')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['28'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 28 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['28']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps product 28 source facts consistent across customer-facing surfaces', () => {
+    const concernSteps = CONCERN_PAGES.flatMap(page => [
+      ...(page.routine?.ru.flatMap(group => group.steps) || []),
+      ...(page.routine?.ar.flatMap(group => group.steps) || []),
+    ]).filter(step => step.products.some(product => product.url === '/products/28'))
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('28'),
+      centralAr: getProductTranslations('28'),
+      bespokeRu: getHydroSoothingCopy('ru'),
+      bespokeAr: getHydroSoothingCopy('ar'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['28'],
+      concernSteps,
+      recommendationRu: ruMessages.product.routineHydroSoothingCreamDesc,
+      recommendationAr: arMessages.product.routineHydroSoothingCreamDesc,
+    })
+
+    for (const required of [
+      '21,7%',
+      '21.7%',
+      '10,555%',
+      '10.555%',
+      '6,175%',
+      '6.175%',
+      '+12%',
+      '−1 °C',
+      '10 ppm',
+      '10 أجزاء في المليون',
+      '6,39',
+      '6.39',
+    ]) {
+      expect(text.toLocaleLowerCase()).toContain(required.toLocaleLowerCase())
+    }
+
+    for (const unsupported of [
+      'регенерац',
+      'коллаген',
+      'заживлен',
+      'المحار',
+      'تجديد الخلايا',
+      'الكولاجين',
+      'التئام',
+      'более плотной текстурой',
+      'بقوام أغنى ومهدئات',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
   })
 })

@@ -253,6 +253,76 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 29 — MOISTURE REPLENISHING HYALURON CREAM
+
+### Identity and sources checked
+
+- Prisma/code identity: legacy repository `id: "29"` and catalog name `MOISTURE
+  REPLENISHING HYALURON CREAM`, code `MHC`, 50 g homecare and 250 g professional
+  formats; bespoke runtime:
+  `components/product/mhcream/MhcreamProductPage.tsx` and
+  `components/product/mhcream/mhcreamCopy.ts`
+- `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/MOISTURE REPLENISHING HYALURON SERUMCREAM/MOISTURE REPLENISHING HYALURON CREAM/Formula_updated_22062025.pdf`
+- `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/MOISTURE REPLENISHING HYALURON SERUMCREAM/MOISTURE REPLENISHING HYALURON CREAM/Artwork_updated_22062024.pdf`
+- `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/MOISTURE REPLENISHING HYALURON SERUMCREAM/MOISTURE REPLENISHING HYALURON CREAM/COA_updated_22062024.pdf`
+- `/Users/vadimkus/Desktop/Glass_Skin/01-official-pdfs/GENOSYS MOISTURE REPLENISHING HYALURON CREAM.pdf`
+
+No product-specific Safety Assessment is present in the cream folder. The signed current
+formula controls finished percentages and the INCI composition. The artwork controls the
+moisturizing function, AM/PM massage method, precautions, dermatological-test mark and the
+ppm/ppb values printed beside every hyaluronate. The COA confirms pH `6.00` within
+`6.0 ± 1.0`, viscosity `10,000` within `11,500 ± 2,500` and a three-year unopened span.
+The DTS MG deck confirms the `Hyaluronan 11 Multi-Complex` name, eleven molecular-weight
+grades represented by eight hyaluronic INCI names, high-molecular-weight positioning for
+the approximately `1,000 ppm` fraction, the 72-hour hydration study and the 21-woman
+satisfaction panel.
+
+### Corrections
+
+- Added product 29 to the canonical RU/AR audit map and registered both runtime overrides.
+  `data/product29RussianCopy.ts` is now a compatibility re-export from the canonical map,
+  so the earlier Russian work is reconciled rather than duplicated.
+- Rewrote all central Arabic fields in polished neutral MSA and refined the Russian fields
+  into natural premium retail copy. Preserved sodium hyaluronate `0.10009%` as
+  `1,000.9 ppm`, glycerin `9%`, PENTAVITIN / saccharide isomerate `0.615%`,
+  1,2-hexanediol `1.0008%` and the complete carton-order INCI.
+- Reconciled `Hyaluronan 11`: eleven molecular-weight grades are represented by eight
+  hyaluronic INCI ingredients. The carton prints the principal sodium hyaluronate at
+  `1,000.9 ppm`, six additional forms at `30 ppb`, and sodium acetylated hyaluronate at
+  `1 ppb`. Copy no longer implies eleven equal working doses.
+- Preserved the measured hydration result accurately: `+82%` immediately after one
+  application and still significantly above baseline after `72 hours`; the satisfaction
+  panel included 21 women aged 20–59. Firmness, wrinkle and elasticity claims remain
+  excluded because the available study measured hydration, not those outcomes.
+- Rejected the deck's aquaporin mechanism because glyceryl glucoside is only `5 ppm`.
+  Rejected anti-inflammatory, antioxidant, collagen and barrier-repair stories for the
+  mushroom complex because the five extracts are only about `0.17 ppm` each and Tremella
+  polysaccharide is `0.6 ppm`.
+- Removed the Beauty Box claim of an immediate measured cooling-temperature drop. Xylitol
+  is `0.012%` and erythritol `0.010%`; the deck markets a cooling sensation, but no
+  finished-product temperature result is supplied for this cream.
+- Preserved the fragrance disclosure: Pelargonium Graveolens Flower Oil, citronellol and
+  geraniol are present, so the cream is not fragrance-free. Preserved the instruction not
+  to refrigerate because cold may alter viscosity and texture.
+- Rewrote reciprocal product recommendations, Deep Moisturizing Beauty Box references,
+  hydration concern routines and quick facts. Removed customer-facing dossier language,
+  supplier attribution and self-defeating audit commentary.
+
+### Implementation
+
+- Canonical RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Compatibility export: `data/product29RussianCopy.ts`
+- Runtime overrides: `data/productTranslationsRu.ts` and `data/productTranslations.ts`
+- Bespoke RU/AR page: `components/product/mhcream/mhcreamCopy.ts`
+- Recommendations: `messages/ru.json` and `messages/ar.json`
+- Beauty Box references:
+  `components/product/beautybox/copy/deepMoisturizing.ts` and product 59 static locale copy
+- Concern routines: `lib/concernsData.ts`
+- Quick facts: `lib/productQuickFactsCatalog.ts`
+- Focused regression coverage validates runtime ownership, structured JSON, exact source
+  values, full INCI, cross-surface consistency and prohibited claim language
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 28 — INTENSIVE HYDRO SOOTHING CREAM
 
 ### Catalog identity

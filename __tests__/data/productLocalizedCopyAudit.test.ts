@@ -27,6 +27,7 @@ import { getEyeCreamCopy } from '@/components/product/eyecream/eyecreamCopy'
 import { getPostcreamCopy } from '@/components/product/postcream/postcreamCopy'
 import { getSpcreamCopy } from '@/components/product/spcream/spcreamCopy'
 import { getHydroSoothingCopy } from '@/components/product/hydrosoothing/hydroSoothingCopy'
+import { getMhcreamCopy } from '@/components/product/mhcream/mhcreamCopy'
 import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
 import { SENSITIVE_SKIN_COPY } from '@/components/product/beautybox/copy/sensitiveSkin'
 import { PROBLEM_SKIN_COPY } from '@/components/product/beautybox/copy/problemSkin'
@@ -2024,6 +2025,84 @@ describe('audited product localization copy', () => {
       'التئام',
       'более плотной текстурой',
       'بقوام أغنى ومهدئات',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+  })
+
+  it('serves the rewritten product 29 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('29')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['29'])
+    expect(getProductTranslations('29')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['29'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 29 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['29']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps product 29 source facts consistent across customer-facing surfaces', () => {
+    const concernSteps = CONCERN_PAGES.flatMap(page => [
+      ...(page.routine?.ru.flatMap(group => group.steps) || []),
+      ...(page.routine?.ar.flatMap(group => group.steps) || []),
+    ]).filter(step => step.products.some(product => product.url === '/products/29'))
+    const product29BoxItems = [
+      ...DEEP_MOISTURIZING_COPY.ru.contents.items,
+      ...DEEP_MOISTURIZING_COPY.ar.contents.items,
+    ].filter(item => item.productNumber === '29')
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('29'),
+      centralAr: getProductTranslations('29'),
+      bespokeRu: getMhcreamCopy('ru'),
+      bespokeAr: getMhcreamCopy('ar'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['29'],
+      concernSteps,
+      product29BoxItems,
+      legacyBoxRu: getProductTranslationsRu('59')?.description,
+      legacyBoxAr: getProductTranslations('59')?.description,
+      recommendationRu: {
+        intro: ruMessages.product.pc29Intro,
+        benefit2: ruMessages.product.pc29Benefit2Text,
+        benefit4: ruMessages.product.pc29Benefit4Text,
+      },
+      recommendationAr: {
+        intro: arMessages.product.pc29Intro,
+        benefit2: arMessages.product.pc29Benefit2Text,
+        benefit4: arMessages.product.pc29Benefit4Text,
+      },
+    })
+
+    for (const required of [
+      '1 000,9',
+      '1,000.9',
+      '9%',
+      '0,615%',
+      '0.615%',
+      '82%',
+      '72',
+      'Hyaluronan 11',
+      '6,00',
+      '6.00',
+      '1,2-Hexanediol',
+    ]) {
+      expect(text.toLocaleLowerCase()).toContain(required.toLocaleLowerCase())
+    }
+
+    for (const unsupported of [
+      'четырёхступенчат',
+      'رباعية',
+      'аквапорин',
+      'aquaporin',
+      'مضاد للالتهاب',
+      'противовоспалительн',
+      'мгновенного ощущения прохлады',
+      'إحساس فوري بالبرودة',
+      'производител',
+      'المصنّع',
+      'المصنع',
+      'досье',
+      'сертификат',
     ]) {
       expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
     }

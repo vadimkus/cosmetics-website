@@ -18,7 +18,9 @@ import { getBoosterCopy } from '@/components/product/booster/boosterCopy'
 import { getEyeSerumCopy } from '@/components/product/eyeserum/eyeserumCopy'
 import { getEyeKitCopy } from '@/components/product/eyekit/eyekitCopy'
 import { getHsserumCopy } from '@/components/product/hsserum/hsserumCopy'
+import { getAfsCopy } from '@/components/product/afs/afsCopy'
 import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
+import { SENSITIVE_SKIN_COPY } from '@/components/product/beautybox/copy/sensitiveSkin'
 import { CONCERN_PAGES } from '@/lib/concernsData'
 import { PRODUCT_QUICK_FACTS_CATALOG } from '@/lib/productQuickFactsCatalog'
 
@@ -1225,6 +1227,91 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
     expect(JSON.parse(getProductTranslations('18')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it('serves the rewritten product 19 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('19')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['19'])
+    expect(getProductTranslations('19')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['19'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 19 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['19']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps All For Sensitive Serum facts and removes invented or medical claims', () => {
+    const quickFacts = (PRODUCT_QUICK_FACTS_CATALOG['19'] || []).flatMap(fact => [
+      fact.title.ru,
+      fact.text.ru,
+      fact.title.ar,
+      fact.text.ar,
+    ])
+    const beautyBoxReferences = (['ru', 'ar'] as const).map(locale =>
+      SENSITIVE_SKIN_COPY[locale].contents.items.find(item => item.productNumber === '19')
+    )
+    const sensitiveConcern = CONCERN_PAGES.find(page => page.slug === 'sensitivity')
+    const concernRu = sensitiveConcern?.routine?.ru
+      .flatMap(block => block.steps)
+      .filter(step => step.products.some(product => product.url === '/products/19'))
+    const concernAr = sensitiveConcern?.routine?.ar
+      .flatMap(block => block.steps)
+      .filter(step => step.products.some(product => product.url === '/products/19'))
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('19'),
+      centralAr: getProductTranslations('19'),
+      bespokeRu: getAfsCopy('ru'),
+      bespokeAr: getAfsCopy('ar'),
+      quickFacts,
+      beautyBoxReferences,
+      concernRu,
+      concernAr,
+    })
+
+    for (const required of [
+      'MultiEx BSASM® Plus',
+      '1%',
+      '0,5%',
+      '0.5%',
+      '0,1%',
+      '0.1%',
+      '0,01%',
+      '0.01%',
+      '5,77',
+      '5.77',
+      'масло апельсиновой цедры',
+      'زيت قشر البرتقال',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'пантенол',
+      'بانثينول',
+      'мадекассосид',
+      'ماديكاسوسايد',
+      'лечит',
+      'يعالج',
+      'снимает воспаление',
+      'يهدئان الالتهاب',
+      'запускает восстановление',
+      'يبدآن إصلاح',
+      'fragrance-free',
+      'производство DTS MG',
+      'من إنتاج DTS MG',
+      'номер партии',
+      'رقم الدفعة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(JSON.parse(getProductTranslationsRu('19')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('19')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
   })

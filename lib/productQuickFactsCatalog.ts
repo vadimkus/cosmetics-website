@@ -203,6 +203,14 @@ export const PRODUCT_QUICK_FACTS_CATALOG: Record<string, LocalizedQuickFact[]> =
     t('200 ml / 600 ml sizes', 'Homecare 200 ml and professional 600 ml for daily barrier-first cleansing.', '200 / 600 мл', '200 мл для дома и 600 мл для профессионального использования.', 'أحجام 200 / 600 مل', '200 مل منزلية و600 مل مهنية للتنظيف اليومي المعزز للحاجز.'),
   ],
 
+  '19': [
+    t('MultiEx BSASM® Plus 1%', 'Seven-botanical complex for the serum’s soothing, comfort-first formula.', 'MultiEx BSASM® Plus 1%', 'Комплекс из семи растительных экстрактов для мягкого успокаивающего ухода.', 'MultiEx BSASM® Plus بتركيز 1%', 'مركب من سبعة مستخلصات نباتية لعناية مهدئة تركز على راحة البشرة.'),
+    t('Betaine 0.5%', 'Supports moisture retention and helps ease the feeling of tightness.', 'Бетаин 0,5%', 'Помогает удерживать влагу и уменьшать ощущение стянутости.', 'بيتين 0.5%', 'يدعم احتفاظ البشرة بالرطوبة ويساعد على تخفيف الإحساس بالشد.'),
+    t('Allantoin 0.1%', 'A daily comfort ingredient for sensitive and reactive skin.', 'Аллантоин 0,1%', 'Поддерживает мягкость и комфорт чувствительной и реактивной кожи.', 'ألانتوين 0.1%', 'يدعم نعومة البشرة الحساسة والمتفاعلة وراحتها اليومية.'),
+    t('Sodium hyaluronate 0.01%', 'Light hydration support that layers easily under cream and SPF.', 'Гиалуронат натрия 0,01%', 'Лёгкое увлажнение, которое удобно наслаивать под крем и SPF.', 'هيالورونات الصوديوم 0.01%', 'دعم خفيف للترطيب ينسجم بسهولة تحت الكريم وواقي الشمس.'),
+    t('Measured pH 5.77', 'Inside the specified 5.20–6.20 range.', 'Измеренный pH 5,77', 'В пределах установленного диапазона 5,20–6,20.', 'أس هيدروجيني مقاس 5.77', 'ضمن النطاق المحدد 5.20–6.20.'),
+    t('Not fragrance-free', 'Contains orange peel oil and limonene; no artificial fragrance is added.', 'Не без отдушки', 'Содержит масло апельсиновой цедры и лимонен; искусственная отдушка не добавлена.', 'ليس خالياً من العطر', 'يحتوي على زيت قشر البرتقال والليمونين، من دون إضافة عطر اصطناعي.'),
+  ],
   '20': [
     t('Zinc PCA 0.05%, neat', 'Goes in undiluted, so the figure on the card is the figure on your skin.', 'Цинк PCA 0,05% в чистом виде', 'Вводится неразбавленным, поэтому число на карточке — это число на коже.', 'زنك PCA ٠٫٠٥٪ صافياً', 'يدخل غير مخفّف، فالرقم على البطاقة هو الرقم على بشرتك.'),
     t('Oil and sebum control', 'The registered function of the serum: anti-blemishes, oil and sebum control.', 'Контроль жирности и себума', 'Зарегистрированная функция сыворотки: контроль высыпаний, жирности и себума.', 'التحكم بالدهون والزهم', 'الوظيفة المسجّلة للسيروم: مقاومة العيوب والتحكم بالدهون والزهم.'),

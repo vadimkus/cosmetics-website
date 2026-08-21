@@ -3054,6 +3054,216 @@ const product18Ar = {
     'للاستخدام الخارجي فقط. يجب تجنب ملامسة العينين والأغشية المخاطية، والشطف جيداً بالماء البارد عند الملامسة. لا يُستخدم على بشرة متضررة أو متهيجة. عند ظهور احمرار أو تورم أو تهيج مستمر، يُوقف الاستخدام وتُطلب المشورة الطبية. تحتوي التركيبة على زيت زهور الجيرانيوم والسيترونيلول. يُحفظ في مكان بارد وجاف بعيداً عن أشعة الشمس المباشرة وعن متناول الأطفال. يُستخدم خلال 12 شهراً من الفتح.',
 } as const
 
+const product19Ru = {
+  description:
+    'Лёгкая успокаивающая сыворотка для чувствительной и реактивной кожи. MultiEx BSASM® Plus 1% объединяет центеллу, горец, шлемник, зелёный чай, солодку, ромашку и розмарин; бетаин 0,5%, аллантоин 0,1% и гиалуронат натрия 0,01% поддерживают увлажнение и комфорт без тяжёлой плёнки. Наносите утром и вечером по 2–3 капли и мягко вбивайте. Объём 30 мл. Дерматологически протестировано. Сделано в Корее.',
+  productDetails: JSON.stringify({
+    type: 'Лёгкая несмываемая успокаивающая сыворотка',
+    size: '30 мл',
+    target: 'Чувствительная, реактивная и склонная к покраснению кожа',
+    keyComplex: 'MultiEx BSASM® Plus 1%',
+    moistureSupport: 'Бетаин 0,5% + аллантоин 0,1% + гиалуронат натрия 0,01%',
+    application: '2–3 капли утром и вечером; мягко вбить, не растирая',
+    measuredPh: '5,77; допустимый диапазон 5,20–6,20',
+    texture: 'Полупрозрачная слегка вязкая сыворотка',
+    fragrance: 'Содержит масло апельсиновой цедры и лимонен',
+    testing: 'Дерматологически протестировано',
+    origin: 'Сделано в Южной Корее',
+  }),
+  keyFeatures: JSON.stringify([
+    {
+      title: 'MultiEx BSASM® Plus · 1%',
+      description:
+        'Комплекс из семи растительных экстрактов помогает вернуть комфорт чувствительной коже и смягчить ощущение реактивности.',
+    },
+    {
+      title: 'Бетаин · 0,5%',
+      description:
+        'Увлажняющий компонент помогает удерживать воду и уменьшать ощущение стянутости.',
+    },
+    {
+      title: 'Аллантоин · 0,1%',
+      description:
+        'Поддерживает мягкость и спокойное ощущение кожи в ежедневном уходе.',
+    },
+    {
+      title: 'Гиалуронат натрия · 0,01%',
+      description:
+        'Лёгкая форма гиалуроновой кислоты дополняет увлажнение и комфортно наслаивается под крем и SPF.',
+    },
+  ]),
+  benefits: JSON.stringify([
+    'Помогает успокоить чувствительную и реактивную кожу',
+    'Поддерживает увлажнение без плотной или липкой плёнки',
+    'Смягчает ощущение стянутости и дискомфорта',
+    'Легко наслаивается под крем, SPF и макияж',
+    'Подходит для утреннего и вечернего ухода',
+    'MultiEx BSASM® Plus представлен в формуле в концентрации 1%',
+  ]),
+  ingredients: JSON.stringify([
+    {
+      name: 'MultiEx BSASM® Plus · 1%',
+      description:
+        'Растительный комплекс объединяет центеллу азиатскую, горец японский, шлемник байкальский, зелёный чай, солодку, ромашку и розмарин.',
+    },
+    {
+      name: 'Бетаин · 0,5%',
+      description:
+        'Помогает коже удерживать влагу и сохранять мягкость в течение дня.',
+    },
+    {
+      name: 'Аллантоин · 0,1%',
+      description:
+        'Дополняет успокаивающее действие формулы и поддерживает комфорт реактивной кожи.',
+    },
+    {
+      name: 'Гиалуронат натрия · 0,01%',
+      description:
+        'Удерживает влагу и помогает коже выглядеть более гладкой и свежей.',
+    },
+    {
+      name: 'Центелла · 0,05% + горец · 0,02% + шлемник · 0,02%',
+      description:
+        'Три растительных экстракта комплекса MultiEx BSASM® Plus с точными концентрациями в сыворотке.',
+    },
+    {
+      name: 'Ароматическая композиция',
+      description:
+        'Формула содержит масло апельсиновой цедры 0,0024% и лимонен 0,0176%, поэтому сыворотка не является средством без отдушки.',
+    },
+    {
+      name: 'Full INCI',
+      description:
+        'Aqua (Water), Glycerin, 1,2-Hexanediol, PEG/PPG-17/6 Copolymer, Butylene Glycol, Betaine, Sodium Hyaluronate, Phytosphingosine, Aloe Barbadensis Leaf Extract, Nelumbo Nucifera Flower Extract, Hamamelis Virginiana (Witch Hazel) Water, Allantoin, Polyglyceryl-10 Laurate, Centella Asiatica Extract, Cellulose Gum, Polyglyceryl-10 Myristate, Potassium Hydroxide, Glyceryl Acrylate/Acrylic Acid Copolymer, Polygonum Cuspidatum Root Extract, Scutellaria Baicalensis Root Extract, Citrus Aurantium Dulcis (Orange) Peel Oil, Hydrogenated Lecithin, Camellia Sinensis Leaf Extract, Glycyrrhiza Glabra (Licorice) Root Extract, Chamomilla Recutita (Matricaria) Flower Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Beta-Glucan, Lactobacillus/Pumpkin Ferment Extract, Lecithin, Phaseolus Radiatus Extract, Lactic Acid, Prunus Mume Fruit Extract, Betula Platyphylla Japonica Bark Extract, Rumex Crispus Root Extract, Hydroxyethylcellulose, Carbomer, Dimethicone, Citric Acid, Disodium EDTA, Polysorbate 60, Disodium Phosphate, Sodium Phosphate, Sodium Glycolate, Sodium Chloride, Isopropyl Alcohol, Methyl Alcohol, Limonene.',
+    },
+  ]),
+  howToUse: JSON.stringify([
+    {
+      step: 'Подготовьте кожу',
+      instruction: 'Очистите лицо и при желании нанесите мягкий тоник.',
+    },
+    {
+      step: 'Нанесите сыворотку',
+      instruction: 'Распределите 2–3 капли по лицу, избегая области вокруг глаз.',
+    },
+    {
+      step: 'Мягко вбейте',
+      instruction: 'Впитайте средство лёгкими похлопывающими движениями, не растирая реактивную кожу.',
+    },
+    {
+      step: 'Завершите уход',
+      instruction: 'Нанесите крем. Утром завершите уход солнцезащитным средством.',
+    },
+  ]),
+  directions:
+    'Используйте утром и вечером. Только для наружного применения. Избегайте попадания в глаза и на слизистые; при контакте тщательно промойте прохладной водой. Не наносите на повреждённую кожу. При покраснении, отёке, зуде или стойком раздражении прекратите использование и обратитесь к врачу. Формула содержит масло апельсиновой цедры и лимонен. Храните в прохладном сухом месте вдали от прямого солнца и в недоступном для детей месте.',
+} as const
+
+const product19Ar = {
+  description:
+    'سيروم خفيف مهدئ للبشرة الحساسة والمتفاعلة. يجمع MultiEx BSASM® Plus بتركيز 1% بين السنتيلا والبوليجونوم والسكوتيلاريا والشاي الأخضر وعرق السوس والبابونج وإكليل الجبل، بينما يدعم البيتين 0.5% والألانتوين 0.1% وهيالورونات الصوديوم 0.01% الترطيب والراحة من دون طبقة ثقيلة. تُستخدم قطرتان إلى ثلاث صباحاً ومساءً مع التربيت بلطف. الحجم 30 مل. مختبر جلدياً. صُنع في كوريا.',
+  productDetails: JSON.stringify({
+    type: 'سيروم مهدئ خفيف يُترك على البشرة',
+    size: '30 مل',
+    target: 'البشرة الحساسة والمتفاعلة والمعرضة للاحمرار',
+    keyComplex: 'MultiEx BSASM® Plus بتركيز 1%',
+    moistureSupport: 'بيتين 0.5% + ألانتوين 0.1% + هيالورونات الصوديوم 0.01%',
+    application: 'قطرتان إلى ثلاث صباحاً ومساءً؛ تربيت لطيف من دون فرك',
+    measuredPh: '5.77 ضمن نطاق 5.20–6.20',
+    texture: 'سيروم شبه شفاف بقوام لزج خفيف',
+    fragrance: 'يحتوي على زيت قشر البرتقال والليمونين',
+    testing: 'مختبر جلدياً',
+    origin: 'صُنع في كوريا الجنوبية',
+  }),
+  keyFeatures: JSON.stringify([
+    {
+      title: 'MultiEx BSASM® Plus · 1%',
+      description:
+        'مركب من سبعة مستخلصات نباتية يساعد على إعادة الراحة إلى البشرة الحساسة وتخفيف الإحساس بالتفاعل.',
+    },
+    {
+      title: 'بيتين · 0.5%',
+      description:
+        'مكوّن مرطب يساعد البشرة على الاحتفاظ بالماء وتخفيف الإحساس بالشد.',
+    },
+    {
+      title: 'ألانتوين · 0.1%',
+      description:
+        'يدعم نعومة البشرة وراحتها ضمن العناية اليومية.',
+    },
+    {
+      title: 'هيالورونات الصوديوم · 0.01%',
+      description:
+        'شكل خفيف من حمض الهيالورونيك يكمل الترطيب وينسجم بسهولة تحت الكريم وواقي الشمس.',
+    },
+  ]),
+  benefits: JSON.stringify([
+    'يساعد على تهدئة البشرة الحساسة والمتفاعلة',
+    'يدعم الترطيب من دون طبقة كثيفة أو لزجة',
+    'يساعد على تخفيف الإحساس بالشد وعدم الراحة',
+    'ينسجم بسهولة تحت الكريم وواقي الشمس والمكياج',
+    'مناسب للروتين الصباحي والمسائي',
+    'يحتوي على MultiEx BSASM® Plus بتركيز 1%',
+  ]),
+  ingredients: JSON.stringify([
+    {
+      name: 'MultiEx BSASM® Plus · 1%',
+      description:
+        'مركب نباتي يجمع السنتيلا الآسيوية والبوليجونوم والسكوتيلاريا والشاي الأخضر وعرق السوس والبابونج وإكليل الجبل.',
+    },
+    {
+      name: 'بيتين · 0.5%',
+      description:
+        'يساعد البشرة على الاحتفاظ بالرطوبة والحفاظ على نعومتها طوال اليوم.',
+    },
+    {
+      name: 'ألانتوين · 0.1%',
+      description:
+        'يكمل التأثير المهدئ للتركيبة ويدعم راحة البشرة المتفاعلة.',
+    },
+    {
+      name: 'هيالورونات الصوديوم · 0.01%',
+      description:
+        'يساعد على الاحتفاظ بالرطوبة ومنح البشرة مظهراً أكثر نعومة وانتعاشاً.',
+    },
+    {
+      name: 'سنتيلا · 0.05% + بوليجونوم · 0.02% + سكوتيلاريا · 0.02%',
+      description:
+        'ثلاثة مستخلصات نباتية من MultiEx BSASM® Plus مع تركيزاتها الدقيقة في السيروم.',
+    },
+    {
+      name: 'المكونات العطرية',
+      description:
+        'تحتوي التركيبة على زيت قشر البرتقال 0.0024% والليمونين 0.0176%، لذلك لا يُقدّم السيروم على أنه خالٍ من العطر.',
+    },
+    {
+      name: 'Full INCI',
+      description:
+        'Aqua (Water), Glycerin, 1,2-Hexanediol, PEG/PPG-17/6 Copolymer, Butylene Glycol, Betaine, Sodium Hyaluronate, Phytosphingosine, Aloe Barbadensis Leaf Extract, Nelumbo Nucifera Flower Extract, Hamamelis Virginiana (Witch Hazel) Water, Allantoin, Polyglyceryl-10 Laurate, Centella Asiatica Extract, Cellulose Gum, Polyglyceryl-10 Myristate, Potassium Hydroxide, Glyceryl Acrylate/Acrylic Acid Copolymer, Polygonum Cuspidatum Root Extract, Scutellaria Baicalensis Root Extract, Citrus Aurantium Dulcis (Orange) Peel Oil, Hydrogenated Lecithin, Camellia Sinensis Leaf Extract, Glycyrrhiza Glabra (Licorice) Root Extract, Chamomilla Recutita (Matricaria) Flower Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Beta-Glucan, Lactobacillus/Pumpkin Ferment Extract, Lecithin, Phaseolus Radiatus Extract, Lactic Acid, Prunus Mume Fruit Extract, Betula Platyphylla Japonica Bark Extract, Rumex Crispus Root Extract, Hydroxyethylcellulose, Carbomer, Dimethicone, Citric Acid, Disodium EDTA, Polysorbate 60, Disodium Phosphate, Sodium Phosphate, Sodium Glycolate, Sodium Chloride, Isopropyl Alcohol, Methyl Alcohol, Limonene.',
+    },
+  ]),
+  howToUse: JSON.stringify([
+    {
+      step: 'تهيئة البشرة',
+      instruction: 'يُنظف الوجه، ويمكن استخدام تونر لطيف عند الرغبة.',
+    },
+    {
+      step: 'تطبيق السيروم',
+      instruction: 'تُوزع قطرتان إلى ثلاث على الوجه مع تجنب المنطقة المحيطة بالعينين.',
+    },
+    {
+      step: 'التربيت بلطف',
+      instruction: 'يُربت بأطراف الأصابع حتى الامتصاص من دون فرك البشرة المتفاعلة.',
+    },
+    {
+      step: 'استكمال الروتين',
+      instruction: 'يوضع الكريم بعد السيروم، ويُختتم الروتين الصباحي بواقي الشمس.',
+    },
+  ]),
+  directions:
+    'يُستخدم صباحاً ومساءً. للاستخدام الخارجي فقط. يجب تجنب ملامسة العينين والأغشية المخاطية، والشطف جيداً بالماء البارد عند الملامسة. لا يُستخدم على بشرة متضررة. عند ظهور احمرار أو تورم أو حكة أو تهيج مستمر، يُوقف الاستخدام وتُطلب المشورة الطبية. تحتوي التركيبة على زيت قشر البرتقال والليمونين. يُحفظ في مكان بارد وجاف بعيداً عن أشعة الشمس المباشرة وعن متناول الأطفال.',
+} as const
+
 export const AUDITED_PRODUCT_LOCALIZED_COPY = {
   ru: {
     '1': {
@@ -3128,6 +3338,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Увлажняющая гиалуроновая сыворотка MOISTURE REPLENISHING',
       ...product18Ru,
     },
+    '19': {
+      name: 'Успокаивающая сыворотка ALL FOR SENSITIVE',
+      ...product19Ru,
+    },
   },
   ar: {
     '1': {
@@ -3201,6 +3415,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '18': {
       name: 'سيروم الترطيب بالهيالورون MOISTURE REPLENISHING',
       ...product18Ar,
+    },
+    '19': {
+      name: 'سيروم التهدئة ALL FOR SENSITIVE',
+      ...product19Ar,
     },
   },
 } as const

@@ -253,6 +253,68 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 19 — ALL FOR SENSITIVE SERUM
+
+### Identity and sources checked
+
+- Repository identity: `productNumber: "19"`, `ALL FOR SENSITIVE SERUM`, 30 ml leave-on
+  serum, bespoke route implemented under `components/product/afs/`
+- `Ingredient lists_old/GENOSYS ALL FOR SENSITIVE SERUM.pdf`
+- `Registration DOC/SA/SA-GENOSYS ALL FOR SENSITIVE SERUM.pdf`
+- `Registration DOC/Formula_up/Formula-GENOSYS ALL FOR SENSITIVE SERUM.pdf`
+- `Registration DOC/Artwork/[GENOSYS]ALL FOR SENSITIVE SERUM.pdf`
+- `Registration DOC/COA/COA-GENOSYS ALL FOR SENSITIVE SERUM 30ml(WOC056).pdf`
+
+The historical ingredient sheet was checked first, then reconciled to the newer
+`Formula_up` composition. The current formula controls finished concentrations; the Safety
+Assessment maps the named supplier complexes to INCI and confirms MultiEx BSASM® Plus at
+1.0000%. Artwork supplies the soothing/moisturising function, morning-and-evening use,
+dermatological testing, 30 ml size, Korean origin and precautions. The COA supplies measured
+pH and physical specification. No dedicated DTS MG efficacy deck or clinical efficacy study
+was found for this product.
+
+### Corrections
+
+- Completely rewrote central and bespoke Russian and Arabic customer copy in idiomatic
+  professional Russian and polished neutral MSA.
+- Restored the documented branded complex that an earlier INCI-only audit had removed:
+  MultiEx BSASM® Plus is 1% of the finished batch and carries seven botanicals: Centella
+  Asiatica, Polygonum Cuspidatum, Scutellaria Baicalensis, Camellia Sinensis, Glycyrrhiza
+  Glabra, Chamomilla Recutita and Rosmarinus Officinalis.
+- Preserved finished concentrations from the current formula: betaine 0.5%, allantoin 0.1%,
+  Centella 0.05%, Polygonum 0.02%, Scutellaria 0.02%, sodium hyaluronate 0.01%, green tea
+  0.01%, licorice 0.01%, chamomile 0.005% and rosemary 0.005%.
+- Preserved measured pH 5.77 inside the 5.20–6.20 specification, the translucent slightly
+  viscous appearance, dermatological testing, 30 ml size, morning-and-evening use and Korean
+  origin.
+- Corrected fragrance positioning. The finished formula contains orange peel oil 0.0024%
+  and limonene 0.0176%; customer copy therefore says no artificial fragrance is added but
+  never calls the serum fragrance-free.
+- Removed invented panthenol and madecassoside. Centella extract is present, but no isolated
+  madecassoside is documented.
+- Removed healing, repair, regeneration, anti-inflammatory, immune-boosting, treatment and
+  guaranteed redness/reactivity-reduction claims. No efficacy study supports percentages or
+  timelines for this serum.
+- Kept Phytolex SC out of the lead story. It is real and mapped by the Safety Assessment,
+  but is present as a 0.001% premix and has no product-specific effect credited here.
+- Kept aloe, witch hazel and beta-glucan in the full INCI without presenting their trace
+  premixes as lead actives.
+- Removed contract-manufacturer attribution and all lot identifiers from customer copy.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke RU/AR runtime page: `components/product/afs/afsCopy.ts`
+- Recommendation and Beauty Box routine strings: `messages/ru.json`, `messages/ar.json` and
+  `components/product/beautybox/copy/sensitiveSkin.ts`
+- Sensitivity concern routines: `lib/concernsData.ts`
+- Source-based PDP facts: `lib/productQuickFactsCatalog.ts`
+- Focused regression coverage validates runtime ownership, structured JSON, verified
+  concentrations, pH, fragrance disclosure and prohibited invented or medical claims
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 18 — MOISTURE REPLENISHING HYALURON SERUM
 
 ### Identity and sources checked

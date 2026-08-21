@@ -740,7 +740,7 @@ export default function CollagenMaskProductPage({
 
           {product.videoUrl ? (
             <CeraReveal className="mt-10">
-              <p className="cera-eyebrow">{t('product.watchHowToUse')}</p>
+              <p className="cera-eyebrow">{t('product.watchVideo')}</p>
               <div className="mx-auto mt-4 aspect-[9/16] w-full max-w-[420px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-ink)]">
                 <video
                   src={product.videoUrl}

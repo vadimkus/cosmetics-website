@@ -11,5 +11,7 @@ describe('Collagen mask bespoke product video', () => {
     expect(source).toContain('{product.videoUrl ? (')
     expect(source).toContain('<video')
     expect(source).toContain('src={product.videoUrl}')
+    expect(source).toContain("t('product.watchVideo')")
+    expect(source).not.toContain("t('product.watchHowToUse')")
   })
 })

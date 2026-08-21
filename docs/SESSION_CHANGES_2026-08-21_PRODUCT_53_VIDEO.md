@@ -11,8 +11,9 @@
   mobile product API, so no app OTA is required.
 - Added the missing player to product 53's bespoke collagen-mask page. The
   generic PDP already rendered `videoUrl`, but this bespoke renderer did not.
-- The vertical clip now appears in the How to use section at its native 9:16
-  ratio with browser controls and localized accessible text.
+- The vertical promotional clip now appears below the How to use section at
+  its native 9:16 ratio with browser controls and the localized "Watch product
+  video" label.
 
 ## Media verification
 

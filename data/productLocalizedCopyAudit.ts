@@ -7,6 +7,7 @@ import { product27Ar, product27Ru } from './product27LocalizedCopy'
 import { product28Ar, product28Ru } from './product28LocalizedCopy'
 import { product30Ar, product30Ru } from './product30LocalizedCopy'
 import { product31Ar, product31Ru } from './product31LocalizedCopy'
+import { product32Ar, product32Ru } from './product32LocalizedCopy'
 
 const product1Ru = {
   description:
@@ -4037,6 +4038,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Крем для сияния MULTI VITA RADIANCE',
       ...product31Ru,
     },
+    '32': {
+      name: 'Многофункциональный крем против морщин',
+      ...product32Ru,
+    },
   },
   ar: {
     '1': {
@@ -4162,6 +4167,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '31': {
       name: 'كريم الإشراق MULTI VITA RADIANCE',
       ...product31Ar,
+    },
+    '32': {
+      name: 'كريم متعدد الوظائف للعناية بالتجاعيد',
+      ...product32Ar,
     },
   },
 } as const

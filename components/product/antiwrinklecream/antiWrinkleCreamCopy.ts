@@ -36,6 +36,8 @@
  *   - The contract manufacturer's name, and the lot code.
  */
 
+import { ANTI_WRINKLE_CREAM_LOCALIZED_COPY } from './antiWrinkleCreamLocalizedCopy'
+
 export type Locale = 'en' | 'ar' | 'ru'
 
 export interface AntiWrinkleCreamCopy {
@@ -410,7 +412,7 @@ const EN: AntiWrinkleCreamCopy = {
   backToProducts: 'Products',
 }
 
-const AR: AntiWrinkleCreamCopy = {
+export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
   eyebrow: 'كريم متعدد الوظائف لمكافحة التجاعيد · 50 غ',
   headline: 'الغطاء على السيروم. لا نسخة أسمك منه.',
   subheadline:
@@ -665,7 +667,7 @@ const AR: AntiWrinkleCreamCopy = {
   backToProducts: 'المنتجات',
 }
 
-const RU: AntiWrinkleCreamCopy = {
+export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
   eyebrow: 'Мультифункциональный крем против морщин · 50 г',
   headline: 'Крышка для сыворотки. А не её загущённая версия.',
   subheadline:
@@ -920,7 +922,11 @@ const RU: AntiWrinkleCreamCopy = {
   backToProducts: 'Продукты',
 }
 
-export const ANTI_WRINKLE_CREAM_COPY: Record<Locale, AntiWrinkleCreamCopy> = { en: EN, ar: AR, ru: RU }
+export const ANTI_WRINKLE_CREAM_COPY: Record<Locale, AntiWrinkleCreamCopy> = {
+  en: EN,
+  ar: ANTI_WRINKLE_CREAM_LOCALIZED_COPY.ar,
+  ru: ANTI_WRINKLE_CREAM_LOCALIZED_COPY.ru,
+}
 
 export function getAntiWrinkleCreamCopy(locale: string | undefined): AntiWrinkleCreamCopy {
   return ANTI_WRINKLE_CREAM_COPY[(locale as Locale) ?? 'en'] ?? ANTI_WRINKLE_CREAM_COPY.en

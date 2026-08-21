@@ -253,6 +253,75 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 32 — MULTI FUNCTIONAL ANTI-WRINKLE CREAM
+
+### Catalog identity
+
+- Repository `productNumber`: `32`
+- Catalog name: `MULTI FUNCTIONAL ANTI-WRINKLE CREAM`
+- Formats: `50 g` homecare and `250 g` professional
+- EAN: `8809579274537`
+- Bespoke route/runtime:
+  `components/product/antiwrinklecream/AntiWrinkleCreamProductPage.tsx` and
+  `components/product/antiwrinklecream/antiWrinkleCreamCopy.ts`
+
+### Sources checked
+
+Under `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/`:
+
+- `Ingredient lists_old/` was searched first; no product-32-specific sheet is present there.
+- `MULTI FUNCTIONAL ANTI-WRINKLE CREAM/Ingridients-GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE CREAM.pdf`
+  — legacy ingredient source checked first.
+- `Registration DOC/MULTI FUNCTIONAL ANTI-WRINKLE CREAM/SA-GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE CREAM.pdf`
+  — current Safety Assessment, formula reconciliation, patch-test result and fragrance allergens.
+- `Registration DOC/Formula_up/Formula-GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE CREAM.pdf`
+  — controlling signed quantitative formula and INCI.
+- `Registration DOC/MULTI FUNCTIONAL ANTI-WRINKLE CREAM/COA-GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE CREAM 50g(PB001).pdf`
+  and the matching `250g(PB002)` COA — physical specifications, microbial results and
+  niacinamide/adenosine assays. Lot codes and dated expiry were not copied into customer text.
+- `Registration DOC/MULTI FUNCTIONAL ANTI-WRINKLE CREAM/Artwork-GENOSYS MULTI FUNCTIONAL ANTI WRINKLE CREAM(50g).pdf`
+  and the matching `250g` artwork — formats, use, precautions, Korean dual-function identity
+  and full label INCI.
+- `MULTI FUNCTIONAL ANTI-WRINKLE CREAM/GENOSYS MULTI FUNCTIONAL ANTI-WRINKLE CREAM.pptx`
+  — DTS MG reformulation history and serum/cream positioning, checked against the formula
+  before any claim was retained.
+
+### Corrections
+
+- Rewrote every central and bespoke Russian and Arabic field in idiomatic professional
+  Russian and polished neutral MSA, including commerce controls, comparison, formula,
+  directions, safety, specifications and FAQ.
+- Preserved the verified working formula: glycerin 8%; an emollient/structure phase of
+  approximately 13%; niacinamide 2%; mango seed butter 0.8%; dimethicone 0.8%;
+  hydroxyacetophenone 0.5%; bakuchiol 0.1%; allantoin 0.1%; and adenosine 0.04%.
+- Preserved the fragrance disclosure: lavender oil 0.0413%, linalool 0.0266% and limonene
+  0.0021%. Added practical patch-test guidance for fragrance-sensitive skin.
+- Preserved measured pH 6.23 inside 5.00–7.00, specific gravity 0.9860 inside 0.970–0.990,
+  the non-irritant patch-test classification and the niacinamide/adenosine assay results of
+  101.30% and 95.50% of target.
+- Kept the honest serum/cream distinction: product 22 is the glycerin-rich first layer
+  (25.45%), while product 32 adds the larger emollient phase. Product 32 contains no peptides.
+- Removed the unsubstantiated P&K clinical-result citation because no study report is held.
+  Removed acne prevention, side-effect-free bakuchiol, retinol-equivalence, collagen
+  stimulation and trace-ingredient barrier/dermal-structure stories.
+- Rewrote product 32 recommendation messages, anti-ageing concern-routine references,
+  Anti-Aging Beauty Box copy and added source-grounded quick facts.
+
+### Implementation
+
+- Canonical central RU/AR: `data/product32LocalizedCopy.ts`, registered by
+  `data/productLocalizedCopyAudit.ts`
+- Runtime translation overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke RU/AR runtime:
+  `components/product/antiwrinklecream/antiWrinkleCreamLocalizedCopy.ts`, consumed by
+  `antiWrinkleCreamCopy.ts`
+- Supporting surfaces: `messages/ru.json`, `messages/ar.json`, `lib/concernsData.ts`,
+  `components/product/beautybox/copy/antiAging.ts` and `lib/productQuickFactsCatalog.ts`
+- Focused regression coverage verifies runtime ownership, structured JSON, exact source
+  figures and prohibited unsupported language.
+- Database `productNumber`, localized names and localized descriptions were updated.
+
 ## Product 31 — MULTI VITA RADIANCE CREAM
 
 ### Catalog identity

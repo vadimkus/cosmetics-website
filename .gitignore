@@ -49,7 +49,7 @@ next-env.d.ts
 
 # User data storage (contains sensitive information)
 # Must be /data/* and not /data/ — git will not re-include a file whose parent
-# directory is excluded, so with /data/ the four exceptions below are silently
+# directory is excluded, so with /data/ the exceptions below are silently
 # ignored. That is how data/productBarcodes.ts went missing and broke the build.
 /data/*
 # Exceptions below are needed for the build
@@ -58,6 +58,7 @@ next-env.d.ts
 !/data/productConfig.ts
 !/data/productBarcodes.ts
 !/data/product22LocalizedCopy.ts
+!/data/product23LocalizedCopy.ts
 
 # Customer-specific protocols / PII (keep in ~/Documents/genosys-customer-protocols/)
 /docs/customers/

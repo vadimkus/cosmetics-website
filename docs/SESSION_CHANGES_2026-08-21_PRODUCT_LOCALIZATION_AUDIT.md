@@ -253,6 +253,83 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 23 — ND Cell ANTI-WRINKLE CREAM
+
+### Catalog identity
+
+- Repository product number: `23`
+- Prisma/code identity: `ND Cell ANTI-WRINKLE CREAM`
+- Bespoke route: `/products/23`, rendered by
+  `components/product/ndcell/NdCellProductPage.tsx`
+- Customer position: rich leave-on cream for the neck and décolleté, 50 g
+
+### Sources reviewed
+
+- `Registration DOC/Formula_up/Formula-GENOSYS ND Cell ANTI-WRINKLE CREAM.pdf`
+  — current signed quantitative formula. It establishes squalane 5.000%, dimethicone
+  3.000%, tocopheryl acetate 1.000%, phenyl trimethicone 1.000%, jojoba oil 0.500%,
+  panthenol 0.300%, allantoin 0.200%, adenosine 0.040%, Ceramide NP 0.020%, glycerin
+  0.700%, retinyl palmitate 0.0111%, peanut oil 0.0087%, lavender oil 0.0265% and
+  linalool 0.0235%.
+- `Registration DOC/SA/SA-GENOSYS ND CELL ANTI-WRINKLE CREAM.pdf` — current EU
+  Safety Assessment. It confirms adult leave-on use, the Non Irritant patch result,
+  the raw-material reconciliation, peanut-oil carrier disclosure and required linalool
+  declaration. It does not substantiate a finished-product wrinkle-efficacy study.
+- `Registration DOC/COA/COA-GENOSYS ND Cell ANTI-WRINKLE CREAM(L1109B).pdf` —
+  measured pH 6.32 inside 5.00–7.00, specific gravity 0.981 inside 0.970–1.010,
+  fill 50.3 g for the nominal 50 g, hardness 35 inside 30 ± 10, adenosine assay
+  92.60% of declared content, passing microbial count and no detected specified
+  microorganisms. Lot identity is retained only in this source record, never in copy.
+- `Label/[GENOSYS]NDCELL ANTI-WRINKLE CREAM.pdf` — registered use area, size,
+  application, precautions, Korean wrinkle-care function and printed ingredient panel.
+  Its depigmentation wording and superlative wrinkle language were not carried forward.
+- `docs/SESSION_CHANGES_2026-08-17_PRODUCT_23_ND_CELL_SOURCE_AUDIT.md` and
+  `docs/SESSION_CHANGES_2026-08-17_PRODUCT_23_ND_CELL_PAGE.md` — repository audit
+  trail used to reconcile the earlier bespoke page with the source set above.
+
+### Corrections and copy decisions
+
+- Rewrote every live central and bespoke Russian and Arabic field. Russian is idiomatic,
+  premium professional-cosmetology copy; Arabic is polished neutral MSA for UAE retail.
+- Repositioned ND Cell accurately as a rich neck-and-décolleté cream. It is no longer
+  described as a stronger face cream, a `35+` treatment or an intensive overnight
+  delivery system.
+- Preserved the exact core concentrations and the measured specifications above. The
+  five-peptide profile is stated accurately at about 51.5 ppm in total, with Copper
+  Tripeptide-1 at 50 ppm, approximately 97% of that blend.
+- Removed claims of elevated growth-factor concentration, EGF-led action, collagen
+  synthesis, accelerated cell renewal, deep-wrinkle targeting, depigmentation and a
+  finished-product wrinkle-efficacy test. The supported wrinkle-care statement is tied
+  to adenosine 0.04% and the Korean functional registration.
+- Corrected the product comparison: ND Cell has glycerin 0.70% and a rich
+  emollient/occlusive base; Multi Functional Anti-Wrinkle Cream is the lighter face
+  option with glycerin 8.00%. The two are positioned by area and texture, not by an
+  unsupported hierarchy of `strength`.
+- Preserved the customer-critical peanut disclosure: Arachis Hypogaea (Peanut) Oil
+  0.0087%, with explicit avoidance for peanut allergy. Preserved lavender oil 0.0265%
+  and linalool 0.0235% so fragrance-sensitive customers can make an informed choice.
+- The full current INCI includes both Tocopherol and Linalool. Copy notes that these may
+  not appear on an older pack, without turning the customer page into an audit report.
+- Rewrote the anti-aging concern routines and FAQs in both locales. ND Cell is now applied
+  to the neck and décolleté, while the face cream remains on the face.
+- Updated the recommendation messages in `messages/ru.json` and `messages/ar.json`.
+  No product 23 quick-fact or Beauty Box entry exists, so no unrelated catalog content
+  was added.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/product23LocalizedCopy.ts`, registered by
+  `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/ndcell/ndCellLocalizedCopy.ts`, consumed by `ndCellCopy.ts`
+- Product 23 recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Product 23 concern-routine and FAQ references: `lib/concernsData.ts`
+- Focused regression coverage checks central runtime ownership, structured JSON,
+  bespoke locale ownership, exact concentrations, safety notices and prohibited claims
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 22 — MULTI FUNCTIONAL ANTI-WRINKLE SERUM
 
 ### Catalog identity

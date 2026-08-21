@@ -45,6 +45,8 @@
  * linalool. The note says so.
  */
 
+import { ND_CELL_LOCALIZED_COPY } from './ndCellLocalizedCopy'
+
 export type Locale = 'en' | 'ar' | 'ru'
 
 export interface NdCellCopy {
@@ -408,7 +410,7 @@ const EN: NdCellCopy = {
   backToProducts: 'Products',
 }
 
-const AR: NdCellCopy = {
+const _AR: NdCellCopy = {
   eyebrow: 'كريم إن دي سيل المضادّ للتجاعيد · الرقبة والصدر · 50 غ',
   headline: 'مصمّم للبشرة التي يتوقّف الناس عن ترطيبها عند خط الفكّ.',
   subheadline:
@@ -660,7 +662,7 @@ const AR: NdCellCopy = {
   backToProducts: 'المنتجات',
 }
 
-const RU: NdCellCopy = {
+const _RU: NdCellCopy = {
   eyebrow: 'ND Cell крем против морщин · Шея и декольте · 50 г',
   headline: 'Для кожи, которую перестают увлажнять на линии челюсти.',
   subheadline:
@@ -912,7 +914,15 @@ const RU: NdCellCopy = {
   backToProducts: 'Продукты',
 }
 
-export const ND_CELL_COPY: Record<Locale, NdCellCopy> = { en: EN, ar: AR, ru: RU }
+// Retained temporarily as the pre-audit reference; neither locale is served at runtime.
+void _AR
+void _RU
+
+export const ND_CELL_COPY: Record<Locale, NdCellCopy> = {
+  en: EN,
+  ar: ND_CELL_LOCALIZED_COPY.ar,
+  ru: ND_CELL_LOCALIZED_COPY.ru,
+}
 
 export function getNdCellCopy(locale: string | undefined): NdCellCopy {
   return ND_CELL_COPY[(locale as Locale) ?? 'en'] ?? ND_CELL_COPY.en

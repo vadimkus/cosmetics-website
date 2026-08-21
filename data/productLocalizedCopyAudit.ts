@@ -1,4 +1,5 @@
 import { product22Ar, product22Ru } from './product22LocalizedCopy'
+import { product23Ar, product23Ru } from './product23LocalizedCopy'
 
 const product1Ru = {
   description:
@@ -3796,6 +3797,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Многофункциональная сыворотка против морщин',
       ...product22Ru,
     },
+    '23': {
+      name: 'Крем для шеи и декольте ND Cell',
+      ...product23Ru,
+    },
   },
   ar: {
     '1': {
@@ -3885,6 +3890,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '22': {
       name: 'سيروم متعدد الوظائف للعناية بالتجاعيد',
       ...product22Ar,
+    },
+    '23': {
+      name: 'كريم ND Cell للرقبة وأعلى الصدر',
+      ...product23Ar,
     },
   },
 } as const

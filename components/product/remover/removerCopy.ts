@@ -120,6 +120,8 @@
  *   - PREGNANCY / LACTATION. This carton does not print it.
  */
 
+import { REMOVER_AR_COPY, REMOVER_RU_COPY } from './removerLocalizedCopy'
+
 export type RemoverLocale = 'en' | 'ar' | 'ru'
 
 export interface RemoverCopy {
@@ -834,7 +836,11 @@ const RU: RemoverCopy = {
   backToProducts: 'Все продукты',
 }
 
-const BY_LOCALE: Record<RemoverLocale, RemoverCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<RemoverLocale, RemoverCopy> = {
+  en: EN,
+  ar: { ...AR, ...REMOVER_AR_COPY },
+  ru: { ...RU, ...REMOVER_RU_COPY },
+}
 
 export function getRemoverCopy(locale: string): RemoverCopy {
   return BY_LOCALE[(locale as RemoverLocale) in BY_LOCALE ? (locale as RemoverLocale) : 'en']

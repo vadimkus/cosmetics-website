@@ -9,6 +9,7 @@ import { getPcsCopy } from '@/components/product/powersolution/pcsCopy'
 import { getSwsCopy } from '@/components/product/powersolution/swsCopy'
 import { getAwsCopy } from '@/components/product/powersolution/awsCopy'
 import { getSnowO2Copy } from '@/components/product/snowo2/snowo2Copy'
+import { getRemoverCopy } from '@/components/product/remover/removerCopy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -572,5 +573,71 @@ describe('audited product localization copy', () => {
 
     expect(getSnowO2Copy('ru').howTo.steps).toHaveLength(4)
     expect(getSnowO2Copy('ar').howTo.steps).toHaveLength(4)
+  })
+
+  it('serves the rewritten product 11 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('11')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['11'])
+    expect(getProductTranslations('11')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['11'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 11 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['11']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps SKIN DEFENDER source facts and removes unsupported treatment claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('11'),
+      centralAr: getProductTranslations('11'),
+      bespokeRu: getRemoverCopy('ru'),
+      bespokeAr: getRemoverCopy('ar'),
+    })
+
+    for (const required of [
+      '27,845%',
+      '27.845%',
+      '13%',
+      '9%',
+      '49,845%',
+      '49.845%',
+      '0,5%',
+      '0.5%',
+      '0,65 ppb',
+      '0.65 جزء في البليون',
+      '200 мл',
+      '200 مل',
+      '12 месяцев',
+      '12 شهراً',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'без раздражения',
+      'دون تهيج',
+      'эффективно снимает водостойкий',
+      'يزيل المكياج المقاوم للماء بفعالية',
+      'офтальмологически протестировано',
+      'مختبر عيونياً',
+      'все типы кожи',
+      'جميع أنواع البشرة',
+      'укрепляющ.*пептид',
+      'ببتيدات مشددة',
+      'лечени',
+      'علاج',
+      'партия',
+      'دفعة',
+      'производитель',
+      'الشركة المصنّعة',
+      'WINNOVA',
+      'Green Cos',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+
+    expect(getRemoverCopy('ru').howTo.steps).toHaveLength(4)
+    expect(getRemoverCopy('ar').howTo.steps).toHaveLength(4)
   })
 })

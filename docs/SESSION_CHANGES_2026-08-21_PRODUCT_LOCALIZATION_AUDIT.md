@@ -175,6 +175,79 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 11 — SKIN DEFENDER LIP & EYE MAKEUP REMOVER
+
+### Catalog identity
+
+- Repository product number: `11`
+- Exact catalog name: `SKIN DEFENDER LIP & EYE MAKEUP REMOVER`
+- Live route: `/products/11`
+- Product type: 200 ml biphasic wipe-off makeup remover for the lips and eye area
+
+### Sources reviewed
+
+- `GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER/Formula-GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER.pdf`
+  — current finished formula and controlling quantitative source: Cetyl Ethylhexanoate
+  27.845%, Disiloxane 13%, Isohexadecane 9%, Lactobacillus Ferment 0.5%, sodium
+  chloride 0.4%, sea-buckthorn oil 0.05%, benzalkonium chloride 0.05%, raspberry leaf
+  extract 0.045% and rose water 0.019%. Palmitoyl Tripeptide-5 is 0.65 ppb and Acetyl
+  Tetrapeptide-5 is 0.5 ppb; every vitamin is below 0.00003%.
+- `GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER/Artwork-GENOSYS SKIN DEFENDER LIP & EYE MAKEUP REMOVER.pdf`
+  — makeup-remover function; 200 ml; shake, cotton pad, hold for a few seconds and wipe;
+  fresh non-greasy positioning; dermatological testing; 12-month PAO; Korean origin and
+  customer precautions.
+- `Ingredient lists_old/GENOSYS PROFESSIONAL BIPHASIC MAKEUP REMOVER.pdf` — mandatory
+  historical source checked first. Its WINNOVA formula uses cyclopentasiloxane 39.4653%,
+  cyclohexasiloxane 16.9137%, lavender and different peptides. It is a superseded predecessor
+  and does not describe the current SKIN DEFENDER bottle.
+- `Intertek_folder/Safety Assessment Report/11 PROFESSIONAL BIPHASIC MAKEUP REMOVER.pdf`
+  — August 2017 predecessor assessment. It confirms the older product category and wipe-off
+  use but its formula, pH 6–7, allergen discussion and raw-material mapping were not carried
+  into the current product copy.
+- The current product-folder COA is a non-extractable scan; the older COA belongs to the
+  predecessor SKU. No pH or measured batch specification is printed in customer copy.
+- No product-specific DTS MG deck or catalogue clinical figure was found. No waterproof,
+  no-sting, ophthalmological or eye-comfort performance claim was invented.
+
+### Corrections and copy decisions
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field. Russian now
+  reads as premium professional cosmetology copy; Arabic is polished neutral MSA for UAE
+  retail, with neutral instruction forms wherever practical.
+- Leads with the customer benefit and the verified ritual: shake the two phases, saturate a
+  cotton pad, hold on the lips or closed eyelid for a few seconds and wipe gently.
+- Preserved the exact removal system: Cetyl Ethylhexanoate 27.845% + Disiloxane 13% +
+  Isohexadecane 9% = 49.845%. Customer-facing summaries round this to 49.8% only where the
+  shorter figure reads more naturally.
+- Reframed the fresh, non-greasy finish in natural language without turning a volatile
+  silicone into a treatment claim.
+- Kept Lactobacillus Ferment 0.5% as a secondary water-phase care component. It is not
+  presented as the makeup-removal engine.
+- Challenged the printed multivitamin and firming-peptide headline against the formula.
+  Palmitoyl Tripeptide-5 at 0.65 ppb, Acetyl Tetrapeptide-5 at 0.5 ppb and vitamins below
+  0.00003% remain transparent formula facts, not reasons to buy the product.
+- Removed unsupported waterproof, irritation-free, ophthalmological, all-skin-types,
+  sensitive-skin and fragrance-free claims. The current INCI has no `Parfum`, but includes
+  vanilla, banana and raspberry extracts, so the copy does not promise a scent-free formula.
+- Kept the product within its verified role: it removes makeup from lips and the eye area.
+  It is not sold as a face wash, vitamin treatment, peptide treatment or Korean functional
+  cosmetic. The separate face cleanser remains the next routine step.
+- Removed dossier language, packaging attribution, lot codes, contract-manufacturer names
+  and self-defeating caveats from customer-facing copy.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/remover/removerLocalizedCopy.ts`, consumed by `removerCopy.ts`
+- Product 11 recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Product 11 RU/AR quick facts: `lib/productQuickFactsCatalog.ts`
+- Focused regression coverage checks runtime ownership, structured JSON, exact source values
+  and prohibited medical, unsupported or dossier-style claims
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 10 — SNOW O₂ CLEANSER
 
 ### Catalog identity

@@ -11,6 +11,7 @@ import { getAwsCopy } from '@/components/product/powersolution/awsCopy'
 import { getSnowO2Copy } from '@/components/product/snowo2/snowo2Copy'
 import { getRemoverCopy } from '@/components/product/remover/removerCopy'
 import { getEpiCopy } from '@/components/product/epi/epiCopy'
+import { getSrsCopy } from '@/components/product/srs/srsCopy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -718,6 +719,81 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
     expect(JSON.parse(getProductTranslations('12')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it('serves the rewritten product 13 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('13')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['13'])
+    expect(getProductTranslations('13')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['13'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 13 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['13']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps SRS source facts and removes medical, dossier and contradicted claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('13'),
+      centralAr: getProductTranslations('13'),
+      bespokeRu: getSrsCopy('ru'),
+      bespokeAr: getSrsCopy('ar'),
+    })
+
+    for (const required of [
+      'Гликолевая кислота · 15%',
+      'حمض الجليكوليك · 15%',
+      'Молочная кислота · 13,5%',
+      'حمض اللاكتيك · 13.5%',
+      'Миндальная кислота · 2%',
+      'حمض الماندليك · 2%',
+      'Глицерин · 25%',
+      'الغليسرين · 25%',
+      '30,5%',
+      '30.5%',
+      '3,02',
+      '3.02',
+      '1,173',
+      '1.173',
+      '2,05 мл',
+      '2.05 مل',
+      '2 мл × 10',
+      '2 مل × 10',
+      '0,1 ppb',
+      '0.1 جزء في البليون',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'регенерац',
+      'стимулирует коллаген',
+      'лечени',
+      'антибактери',
+      'مضاد للبكتيريا',
+      'تحفيز الكولاجين',
+      'علاج',
+      'партия',
+      'دفعة',
+      'производитель',
+      'الشركة المصنّعة',
+      'нейтрализатор обязателен',
+      'المعادل ضروري',
+      'для всех типов кожи',
+      'لجميع أنواع البشرة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+
+    expect(getSrsCopy('ru').howTo.steps).toHaveLength(4)
+    expect(getSrsCopy('ar').howTo.steps).toHaveLength(4)
+    expect(JSON.parse(getProductTranslationsRu('13')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('13')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
   })

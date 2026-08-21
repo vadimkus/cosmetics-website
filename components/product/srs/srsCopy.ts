@@ -128,6 +128,8 @@
  *   - THE CONTRACT MANUFACTURER. DTS MG only. Never COTDE.
  */
 
+import { SRS_AR_COPY, SRS_RU_COPY } from './srsLocalizedCopy'
+
 export type SrsLocale = 'en' | 'ar' | 'ru'
 
 export interface SrsCopy {
@@ -792,7 +794,11 @@ const RU: SrsCopy = {
   backToProducts: 'Все продукты',
 }
 
-const COPY: Record<SrsLocale, SrsCopy> = { en: EN, ar: AR, ru: RU }
+const COPY: Record<SrsLocale, SrsCopy> = {
+  en: EN,
+  ar: Object.assign({}, AR, SRS_AR_COPY),
+  ru: Object.assign({}, RU, SRS_RU_COPY),
+}
 
 export function getSrsCopy(locale: string): SrsCopy {
   if (locale === 'ar' || locale === 'ru') return COPY[locale]

@@ -1110,6 +1110,7 @@ export const productTranslations: Record<string, ProductTranslation> = {
   '10': AUDITED_PRODUCT_LOCALIZED_COPY.ar['10'],
   '11': AUDITED_PRODUCT_LOCALIZED_COPY.ar['11'],
   '12': AUDITED_PRODUCT_LOCALIZED_COPY.ar['12'],
+  '13': AUDITED_PRODUCT_LOCALIZED_COPY.ar['13'],
 }
 
 /**

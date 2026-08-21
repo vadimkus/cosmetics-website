@@ -7,6 +7,84 @@ The audit rewrites every customer-facing localized field in natural premium lang
 checking the underlying claims against the local registration archive and official DTS MG
 material. A translation is not preserved merely because it is present in English.
 
+## Product 13 — SKIN RENEWAL PEELING SYSTEM (SRS)
+
+### Catalog identity
+
+- Repository product number: `13`
+- Exact catalog name: `SKIN RENEWAL PEELING SYSTEM (SRS)`
+- Live route: `/products/13`
+- Product type: professional rinse-off AHA peel in ten single-use 2 ml vials
+
+### Sources checked
+
+- `Intertek_folder/Quali-quanti Ingredients/GENOSYS SKIN RENEWAL PEELING SYSTEM.pdf`
+  — controlling finished formula: water 41.69499903%; glycerin 25%; glycolic acid 15%;
+  lactic acid 13.5%; sodium hydroxide 2.7%; mandelic acid 2%; hydroxyethylcellulose 0.1%;
+  phytic acid 0.005%; and sh-Polypeptide-7 0.0000000100%, equal to 0.1 ppb. The botanical
+  extracts and hinoki water are present at nano-trace levels.
+- `Registration DOC/Formula/Formula-GENOSYS SKIN RENEWAL PEELING SYSTEM(SRS).pdf`
+  — current registered INCI in the same order as the quantitative sheet.
+- `Registration DOC/Artwork/[GENOSYS]SKIN RENEWAL PEELIGN SYSTEM(SRS).pdf`
+  — exact SRS identity; soft-peeling function; smoother, brighter and more even-looking
+  skin; even facial application away from lips and the eye area; 15–20 minute exposure;
+  cold-water rinse; ten 2 ml vials; dermatological testing; patch test, sunscreen and
+  damaged-skin precautions; Korean origin. The English method contains no neutralisation
+  step. The Korean panel identifies a high-AHA product and advises consultation with a
+  professional.
+- `Registration DOC/COA/COA-GENOSYS SKIN RENEWAL PEELING SYSTEM(L1037B).pdf`
+  — transparent liquid; measured pH 3.02 inside 3.00–5.00; specific gravity 1.173 inside
+  1.150–1.190; measured fill 2.05 ml for the nominal 2 ml vial; passing microbial results.
+  The lot code and expiry date were not carried into customer copy.
+- `Intertek_folder/Certififcate of Analysis/28 SKIN RENEWAL PEELING SYSTEM (SRS) - COA-GENOSYS (L0907U).pdf`
+  — older COA cross-check with the same pH 3.02. Its lot code was not used.
+- `Registration DOC/SA/` and `Intertek_folder/Safety Assessment Report/` were checked; no
+  SRS-specific Safety Assessment was found.
+- `Ingredient lists_old/` was searched first; no SRS-specific legacy ingredient sheet was
+  present. The product-specific quali-quanti sheet above is the controlling quantitative
+  source.
+- The expected DTS MG deck archive `~/Desktop/Glass_Skin/01-official-pdfs/` and catalogue
+  path `Artwork/Art_Work/Catalogue/GENOSYS CATALOG.pdf` were searched but are not present in
+  the current local archive. No branded-complex or quantified clinical claim was introduced.
+
+### Corrections and copy decisions
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field. Russian now
+  reads as premium professional cosmetology copy; Arabic is polished neutral MSA suitable
+  for UAE retail and uses neutral instruction forms where practical.
+- Leads with the verified customer result and professional ritual: smoother, fresher,
+  more even-looking skin; even application; 15–20 minutes; thorough cold-water rinse.
+- Preserved the exact formula story: glycolic acid 15% + lactic acid 13.5% + mandelic acid
+  2% = 30.5% AHA, supported by glycerin 25%. Preserved pH 3.02, specific gravity 1.173,
+  transparent-liquid appearance and ten single-use 2 ml vials.
+- Kept phytic acid 0.005% and sh-Polypeptide-7 0.1 ppb as transparent secondary formula
+  facts. They are not presented as the peeling engine.
+- Challenged the printed collagen, elastin, antibacterial, pigmentation-treatment,
+  tyrosinase, inflammatory-condition and regeneration language against the formula and
+  available evidence. These medical or unmeasured claims were removed.
+- Removed the Russian artwork's microneedling recommendation as the product's purpose.
+  The verified primary protocol is a standalone rinse-off professional peel.
+- Removed the invented neutralisation step, licensed-only wording, pregnancy/lactation ban,
+  all-skin-types promise and unqualified fragrance-free claim. Hinoki water is explicitly
+  classified as a fragrance ingredient at trace level.
+- Removed packaging attribution, dossier language, lot codes, contract-manufacturer names
+  and public arguments with previous copy.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke RU/AR runtime copy:
+  `components/product/srs/srsLocalizedCopy.ts`, consumed by `srsCopy.ts`
+- Product 13 RU/AR quick facts: `lib/productQuickFactsCatalog.ts`
+- No product-13-specific recommendation key exists in `messages/ru.json` or
+  `messages/ar.json`; SRS has no retail routine, and the generic companion panels do not
+  contain product-13 copy, so no unrelated message string was changed.
+- Regression coverage checks runtime ownership, structured JSON, exact source values and
+  prohibited medical, contradicted or dossier-style claims.
+- Database `productNumber`, localized names and localized descriptions were updated.
+
 ## Product 1 — Microneedle Roller
 
 ### Sources checked

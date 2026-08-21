@@ -253,6 +253,78 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 27 — SKIN BARRIER PROTECTING CREAM
+
+### Catalog identity
+
+- Repository product number: `27`
+- Exact catalog name: `SKIN BARRIER PROTECTING CREAM`
+- Live route: `/products/27`
+- Bespoke runtime: `components/product/spcream/SpcreamProductPage.tsx`
+- Product type: 100 g leave-on face cream for sensitive and dry skin
+
+### Sources reviewed
+
+- `Registration DOC/Formula_up/Formula-GENOSYS SKIN BARRIER PROTECTING CREAM.pdf` —
+  controlling current finished formula: Aqua 49.870738%, glycerin 17.49%,
+  hydrogenated polydecene 7.175%, caprylic/capric/myristic/stearic triglyceride 6%,
+  propanediol 5%, shea butter 3%, hydrogenated lecithin 2%, dimethicone 1% and
+  Ceramide NP 0.5%.
+- `Registration DOC/SA/SA-GENOSYS SKIN BARRIER PROTECTING CREAM.pdf` — adult leave-on
+  face cream; supplier-premix reconciliation for CERACARE H5, AMINO ACID COMPLEX (B)
+  and MultiEx BSASM Plus; fragrance allergens linalool and coumarin; assessed pH range
+  5.0–7.0.
+- `Registration DOC/COA/COA-GENOSYS SKIN BARRIER PROTECTING CREAM.pdf` — measured pH
+  6.07 inside the 6.00–7.00 specification, milk-white cream appearance and three-year
+  unopened shelf life. No lot code is exposed in customer copy.
+- `Registration DOC/Artwork/[GENOSYS]SKIN BARRIER PROTECTING CREAM.pdf` — 100 g size,
+  soothing and hydrating function, sensitive/dry-skin positioning, morning/evening
+  application with gentle patting, dermatological testing, Korean origin and the printed
+  Ceramide NP concentration of 5,000 ppm.
+- No product-specific efficacy study or quantified DTS MG clinical result was found.
+  No clinical improvement percentage or results timeline was invented.
+
+### Corrections and copy decisions
+
+- Rewrote all central and bespoke Russian and Arabic customer-facing copy. Russian is
+  idiomatic professional cosmetology copy; Arabic is polished neutral MSA and uses neutral
+  instruction forms where practical.
+- Leads with the verified formula strengths: Ceramide NP 0.5% (5,000 ppm), glycerin
+  17.49%, shea butter 3%, hydrogenated polydecene 7.175%, triglyceride 6% and
+  dimethicone 1%.
+- Reconciled the two low-dose stories instead of allowing them to dominate. The 17-amino
+  acid blend totals 0.00093% (9.3 ppm), while MultiEx BSASM Plus totals 0.0001% (1 ppm).
+  Both are described as supporting components; ceramide, glycerin and the lipid base carry
+  the product positioning.
+- Corrected the full INCI against the current Intertek formula. Removed the stale
+  `C18-C21 Alkane` entry and restored stearyl alcohol, cetyl alcohol, myristyl alcohol,
+  lauryl alcohol and the complete current ordering.
+- Removed unsupported all-skin-types, barrier-repair, external-irritant shield, scar-healing,
+  treatment-recovery and wrinkle/brightening claims. The product remains correctly
+  positioned for sensitive and dry skin.
+- Preserved measured pH 6.07 inside the 6.00–7.00 specification, dermatological testing,
+  three-year unopened shelf life, Korean origin and the fragrance disclosure for parfum,
+  linalool and coumarin.
+- Removed dossier language, manufacturer attribution, lot codes, packaging-as-source prose
+  and self-defeating audit commentary from customer-facing RU/AR copy.
+
+### Implementation
+
+- Canonical central copy: `data/product27LocalizedCopy.ts`, registered through
+  `data/productLocalizedCopyAudit.ts`
+- Runtime overrides: `data/productTranslationsRu.ts` and `data/productTranslations.ts`
+- Complete bespoke RU/AR runtime copy: `components/product/spcream/spcreamCopy.ts`
+- `SpcreamProductPage.tsx` now recognises localized Full INCI labels instead of treating
+  them as ordinary active-ingredient cards
+- Product recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Product 27 concern-routine references: `lib/concernsData.ts`
+- Product 27 RU/AR quick facts: `lib/productQuickFactsCatalog.ts`
+- Sensitive Skin Beauty Box product 27 references:
+  `components/product/beautybox/copy/sensitiveSkin.ts`
+- Regression coverage checks runtime ownership, structured JSON, source values and
+  prohibited claim language
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 26 — EGF REPAIR OXYMASK CREAM
 
 ### Catalog identity

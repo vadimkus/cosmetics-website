@@ -271,8 +271,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'كريم الليل', duration: '30 ثانية',
-              summary: 'حبس المكونات النشطة وحماية بشرتك المتجددة طوال الليل.',
-              detail: 'اختاري حسب نوع بشرتك: كريم حماية الحاجز لجميع الأنواع، كريم الهيالورون للبشرة الجافة، كريم الإشراق للبشرة الباهتة والمصبوغة.',
+              summary: 'اختتام الروتين بطبقة كريمية تحافظ على الرطوبة طوال الليل.',
+              detail: 'يُختار الكريم حسب احتياج البشرة: SKIN BARRIER PROTECTING للبشرة الحساسة والجافة، وHyaluron للبشرة التي ينقصها الماء، وRadiance للبشرة الباهتة أو غير المتجانسة.',
               products: [
                 { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
                 { name: 'MOISTURE REPLENISHING HYALURON CREAM', url: '/products/29', price: '290 AED' },
@@ -360,8 +360,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'Ночной крем', duration: '30 сек',
-              summary: 'Запечатайте активные ингредиенты и защитите обновлённую кожу на ночь.',
-              detail: 'Выбирайте по типу кожи: Крем для защиты барьера для всех типов, Гиалуроновый крем для сухой/обезвоженной, Крем для сияния для тусклой/пигментированной кожи.',
+              summary: 'Завершите уход кремом, который поможет сохранить влагу в течение ночи.',
+              detail: 'Выбирайте по потребностям кожи: SKIN BARRIER PROTECTING для чувствительной и сухой, Hyaluron для обезвоженной, Radiance для тусклой кожи и неровного тона.',
               products: [
                 { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
                 { name: 'MOISTURE REPLENISHING HYALURON CREAM', url: '/products/29', price: '290 AED' },
@@ -1013,8 +1013,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'كريم الليل', duration: '30 ثانية',
-              summary: 'حبس المكونات النشطة ودعم إصلاح حاجز البشرة طوال الليل.',
-              detail: 'اختاري حسب نوع بشرتك: كريم حماية الحاجز لجميع الأنواع، كريم الإشراق للبشرة الباهتة والمصبوغة، كريم الهيالورون للبشرة الجافة.',
+              summary: 'اختتام الروتين المسائي بطبقة كريمية تحافظ على الرطوبة.',
+              detail: 'يُختار الكريم حسب احتياج البشرة: SKIN BARRIER PROTECTING للبشرة الحساسة والجافة، وRadiance للبشرة الباهتة أو غير المتجانسة، وHyaluron للبشرة التي ينقصها الماء.',
               products: [
                 { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
                 { name: 'MULTI VITA RADIANCE CREAM', url: '/products/31', price: '290 AED' },
@@ -1094,8 +1094,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'Ночной крем', duration: '30 сек',
-              summary: 'Зафиксируйте активные ингредиенты и поддержите восстановление барьера кожи ночью.',
-              detail: 'Выбирайте по типу кожи: Barrier Protecting Cream для всех типов (максимальная поддержка барьера), Radiance Cream для тусклой/пигментированной кожи, Hyaluron Cream для сухой/обезвоженной.',
+              summary: 'Завершите вечерний уход кремом, который поможет сохранить влагу.',
+              detail: 'Выбирайте по потребностям кожи: SKIN BARRIER PROTECTING для чувствительной и сухой, Radiance для тусклой кожи и неровного тона, Hyaluron для обезвоженной.',
               products: [
                 { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
                 { name: 'MULTI VITA RADIANCE CREAM', url: '/products/31', price: '290 AED' },
@@ -1342,8 +1342,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'كريم الحاجز', duration: '30 ثانية',
-              summary: 'حبس المكونات الإصلاحية وحماية حاجز البشرة طوال الليل.',
-              detail: 'ضعي كريم حماية حاجز البشرة لقفل المكونات الإصلاحية ومنع فقدان الماء أثناء النوم. حاجز قوي ضروري لالتئام الندبات.',
+              summary: 'الحفاظ على الرطوبة بطبقة كريمية غنية طوال الليل.',
+              detail: 'يُطبق SKIN BARRIER PROTECTING CREAM كخطوة أخيرة. يساعد سيراميد NP بتركيز ٠٫٥٪ والغليسرين ١٧٫٤٩٪ على دعم حاجز البشرة وتقليل فقدان الرطوبة.',
               products: [{ name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' }],
             },
           ],
@@ -1413,8 +1413,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'Барьерный крем', duration: '30 сек',
-              summary: 'Запечатайте восстанавливающие активы и защитите барьер кожи на ночь.',
-              detail: 'Нанесите SKIN BARRIER PROTECTING CREAM для фиксации восстанавливающих активов и предотвращения трансэпидермальной потери воды. Крепкий барьер необходим для заживления рубцов.',
+              summary: 'Сохраните влагу под насыщенным кремовым слоем в течение ночи.',
+              detail: 'Нанесите SKIN BARRIER PROTECTING CREAM завершающим шагом. Церамид NP 0,5% и глицерин 17,49% помогают поддерживать защитный барьер и уменьшать потерю влаги.',
               products: [{ name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' }],
             },
           ],
@@ -2308,8 +2308,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 3, title: 'كريم الحاجز', duration: '30 ثانية',
-              summary: 'القفل الليلي — كريم حاجز غني يمنع الرطوبة من التسرب في هواء غرفة النوم الجاف.',
-              detail: 'ضعي SKIN BARRIER PROTECTING CREAM بطبقة سخية. هذا أغنى كريم في الروتين وهذا مقصود — ليلاً لا يوجد SPF أو مكياج فوقه، فكريم الحاجز هو الشيء الوحيد بين بشرتك المرطبة والهواء المكيف الجاف في غرفة النوم.',
+              summary: 'طبقة ليلية غنية تساعد البشرة على الاحتفاظ بالرطوبة في الهواء المكيف الجاف.',
+              detail: 'يُوزع SKIN BARRIER PROTECTING CREAM كخطوة أخيرة. يمكن إضافة كمية صغيرة فوق المناطق الأكثر جفافاً، مع التربيت اللطيف بأطراف الأصابع.',
               products: [{ name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' }],
             },
             {
@@ -2382,8 +2382,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 3, title: 'Барьерный крем', duration: '30 сек',
-              summary: 'Ночной замок — плотный барьерный крем не даёт влаге испаряться в сухой воздух спальни.',
-              detail: 'Нанесите SKIN BARRIER PROTECTING CREAM щедрым слоем. Это самый плотный крем в рутине, и это намеренно — ночью нет SPF или макияжа сверху, поэтому барьерный крем — единственное, что стоит между вашей увлажнённой кожей и сухим кондиционированным воздухом спальни. Его липидовосполняющий комплекс восстанавливает кожный барьер во время сна.',
+              summary: 'Насыщенный ночной слой помогает коже сохранять влагу в сухом кондиционированном воздухе.',
+              detail: 'Нанесите SKIN BARRIER PROTECTING CREAM завершающим шагом. На самые сухие участки можно добавить ещё немного и мягко прижать крем подушечками пальцев.',
               products: [{ name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' }],
             },
             {
@@ -2571,7 +2571,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 4, title: 'كريم النهار', duration: '30 ثانية',
               summary: 'حبس المكونات النشطة وتوفير ترطيب طوال اليوم.',
-              detail: 'اختاري حسب التفضيل: كريم الترطيب المكثف المهدئ لملمس أخف نهاراً، أو كريم حماية الحاجز لأقصى دفاع إذا كانت بشرتك شديدة التفاعل. ضعي بحركات تربيت لطيفة.',
+              detail: 'يُختار القوام حسب الحاجة: Intensive Hydro Soothing لإحساس أخف نهاراً، أو SKIN BARRIER PROTECTING للبشرة الحساسة والجافة التي تحتاج إلى طبقة أغنى. يُطبق بالتربيت اللطيف.',
               products: [
                 { name: 'INTENSIVE HYDRO SOOTHING CREAM', url: '/products/28', price: '290 AED' },
                 { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
@@ -2609,8 +2609,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'كريم الحاجز', duration: '30 ثانية',
-              summary: 'حبس كل شيء بطبقة حماية غنية للتعافي الليلي.',
-              detail: 'استخدمي كريم حماية الحاجز للليالي التي تكون فيها البشرة شديدة التفاعل. للليالي الأخف، استبدلي بكريم الترطيب المكثف المهدئ. هذه الطبقة الأخيرة تمنع فقدان الماء عبر البشرة أثناء النوم.',
+              summary: 'اختتام الروتين المسائي بطبقة غنية تحافظ على الرطوبة.',
+              detail: 'يُستخدم SKIN BARRIER PROTECTING عندما تحتاج البشرة الحساسة والجافة إلى قوام أغنى، أو Intensive Hydro Soothing عند تفضيل قوام أخف. يساعد الكريم كخطوة أخيرة على تقليل فقدان الرطوبة.',
               products: [
                 { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
                 { name: 'INTENSIVE HYDRO SOOTHING CREAM', url: '/products/28', price: '290 AED' },
@@ -2645,7 +2645,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 4, title: 'Дневной крем', duration: '30 сек',
               summary: 'Запечатайте активы и обеспечьте увлажнение на весь день.',
-              detail: 'Выбирайте по предпочтению: Интенсивный увлажняющий крем для более лёгкой дневной текстуры, или Крем для защиты барьера для максимальной защиты, если кожа очень реактивна. Наносите похлопывающими движениями.',
+              detail: 'Выбирайте текстуру по потребностям кожи: Intensive Hydro Soothing для более лёгкого дневного ощущения или SKIN BARRIER PROTECTING для чувствительной и сухой кожи, которой нужен насыщенный слой. Наносите мягкими прижимающими движениями.',
               products: [
                 { name: 'INTENSIVE HYDRO SOOTHING CREAM', url: '/products/28', price: '290 AED' },
                 { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
@@ -2683,8 +2683,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'Барьерный крем', duration: '30 сек',
-              summary: 'Запечатайте всё богатым защитным слоем для ночного восстановления.',
-              detail: 'Используйте Крем для защиты барьера в ночи, когда кожа особенно реактивна или стянута. Для более лёгких ночей замените на Интенсивный увлажняющий крем. Финальный слой создаёт окклюзивную защиту, предотвращая трансэпидермальную потерю воды.',
+              summary: 'Завершите вечерний уход насыщенным слоем, который помогает удерживать влагу.',
+              detail: 'Используйте SKIN BARRIER PROTECTING, когда чувствительной и сухой коже нужна более насыщенная текстура, или Intensive Hydro Soothing, если предпочитаете лёгкий крем. Финальный слой помогает уменьшать потерю влаги.',
               products: [
                 { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
                 { name: 'INTENSIVE HYDRO SOOTHING CREAM', url: '/products/28', price: '290 AED' },

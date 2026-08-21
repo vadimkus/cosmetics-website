@@ -60,7 +60,7 @@ import { getRoutineStepImage } from '@/lib/routineStepImages'
 import { PRODUCT_ROUTINES } from '@/lib/productRoutines'
 import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
-import { withFullInciFallback } from '@/lib/localizedIngredients'
+import { isFullInciEntry, withFullInciFallback } from '@/lib/localizedIngredients'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { trackAddToCart } from '@/lib/analytics'
 import { errorLog } from '@/lib/logger'
@@ -157,11 +157,11 @@ export default function SpcreamProductPage({
     )
   }, [locale, product.id, product.ingredients, product.productNumber])
   const actives = useMemo(
-    () => allIngredients.filter(i => i.name !== 'Full INCI'),
+    () => allIngredients.filter(i => !isFullInciEntry(i.name)),
     [allIngredients]
   )
   const fullInci = useMemo(
-    () => allIngredients.find(i => i.name === 'Full INCI')?.description ?? '',
+    () => allIngredients.find(i => isFullInciEntry(i.name))?.description ?? '',
     [allIngredients]
   )
 

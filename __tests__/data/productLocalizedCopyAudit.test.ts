@@ -25,6 +25,7 @@ import { getAntiWrinkleCopy } from '@/components/product/antiwrinkle/antiWrinkle
 import { getNdCellCopy } from '@/components/product/ndcell/ndCellCopy'
 import { getEyeCreamCopy } from '@/components/product/eyecream/eyecreamCopy'
 import { getPostcreamCopy } from '@/components/product/postcream/postcreamCopy'
+import { getSpcreamCopy } from '@/components/product/spcream/spcreamCopy'
 import { DEEP_MOISTURIZING_COPY } from '@/components/product/beautybox/copy/deepMoisturizing'
 import { SENSITIVE_SKIN_COPY } from '@/components/product/beautybox/copy/sensitiveSkin'
 import { PROBLEM_SKIN_COPY } from '@/components/product/beautybox/copy/problemSkin'
@@ -1873,6 +1874,96 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Полный состав (INCI)' })])
     )
     expect(JSON.parse(getProductTranslations('26')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'قائمة المكوّنات الكاملة (INCI)' })])
+    )
+  })
+
+  it('serves the rewritten product 27 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('27')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['27'])
+    expect(getProductTranslations('27')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['27'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 27 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['27']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps Skin Barrier Protecting Cream facts and positioning consistent', () => {
+    const quickFacts = (PRODUCT_QUICK_FACTS_CATALOG['27'] || []).flatMap(fact => [
+      fact.title.ru,
+      fact.text.ru,
+      fact.title.ar,
+      fact.text.ar,
+    ])
+    const beautyBoxItems = [
+      SENSITIVE_SKIN_COPY.ru.contents.items.find(item => item.productNumber === '27'),
+      SENSITIVE_SKIN_COPY.ar.contents.items.find(item => item.productNumber === '27'),
+    ]
+    const concernSteps = CONCERN_PAGES.flatMap(page => [
+      ...(page.routine?.ru.flatMap(group => group.steps) || []),
+      ...(page.routine?.ar.flatMap(group => group.steps) || []),
+    ]).filter(step => step.products.some(product => product.url === '/products/27'))
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('27'),
+      centralAr: getProductTranslations('27'),
+      bespokeRu: getSpcreamCopy('ru'),
+      bespokeAr: getSpcreamCopy('ar'),
+      quickFacts,
+      beautyBoxItems,
+      concernSteps,
+      recommendationRu: {
+        title: ruMessages.product.routineSkinBarrierCreamTitle,
+        description: ruMessages.product.routineSkinBarrierCreamDesc,
+        intro: ruMessages.product.pc19Intro,
+      },
+      recommendationAr: {
+        title: arMessages.product.routineSkinBarrierCreamTitle,
+        description: arMessages.product.routineSkinBarrierCreamDesc,
+        intro: arMessages.product.pc19Intro,
+      },
+    })
+
+    for (const required of [
+      'Церамид NP 0,5%',
+      'سيراميد NP بتركيز 0.5%',
+      '5 000 ppm',
+      '5,000 جزء في المليون',
+      'Глицерин 17,49%',
+      'الغليسرين 17.49%',
+      'Масло ши 3%',
+      'زبدة الشيا 3%',
+      '6,07',
+      '6.07',
+      '9,3 ppm',
+      '9.3 أجزاء في المليون',
+      '1 ppm',
+      'جزء واحد في المليون',
+    ]) {
+      expect(text.toLocaleLowerCase()).toContain(required.toLocaleLowerCase())
+    }
+
+    for (const unsupported of [
+      'для всех типов кожи',
+      'لجميع أنواع البشرة',
+      'восстанавливает кожный барьер',
+      'إصلاح حاجز البشرة',
+      'заживлен',
+      'التئام الندبات',
+      'партия',
+      'دفعة',
+      'производитель',
+      'الشركة المصنّعة',
+      'DTS MG',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(JSON.parse(getProductTranslationsRu('27')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Полный состав (INCI)' })])
+    )
+    expect(JSON.parse(getProductTranslations('27')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'قائمة المكوّنات الكاملة (INCI)' })])
     )
   })

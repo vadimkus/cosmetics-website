@@ -3,6 +3,7 @@ import { product23Ar, product23Ru } from './product23LocalizedCopy'
 import { product24Ar, product24Ru } from './product24LocalizedCopy'
 import { product25Ar, product25Ru } from './product25LocalizedCopy'
 import { product26Ar, product26Ru } from './product26LocalizedCopy'
+import { product27Ar, product27Ru } from './product27LocalizedCopy'
 
 const product1Ru = {
   description:
@@ -3816,6 +3817,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Пузырьковая крем-маска EGF REPAIR OXYMASK',
       ...product26Ru,
     },
+    '27': {
+      name: 'Крем для защиты кожного барьера SKIN BARRIER PROTECTING',
+      ...product27Ru,
+    },
   },
   ar: {
     '1': {
@@ -3921,6 +3926,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '26': {
       name: 'قناع EGF REPAIR OXYMASK الكريمي الفقاعي',
       ...product26Ar,
+    },
+    '27': {
+      name: 'كريم SKIN BARRIER PROTECTING لحماية حاجز البشرة',
+      ...product27Ar,
     },
   },
 } as const

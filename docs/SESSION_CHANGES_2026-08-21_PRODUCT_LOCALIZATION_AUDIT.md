@@ -174,3 +174,81 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
   map; database `productNumber`, localized names and localized descriptions were updated
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
+
+## Product 5 — POWER SOLUTION CVS
+
+### Sources checked
+
+- `Ingredient lists_old/GENOSYS POWER SOLUTION CVS.pdf`
+- `Registration DOC/SA/SA-GENOSYS POWER SOLUTION CVS.pdf`
+- `Registration DOC/Formula/Formula-GENOSYS POWER SOLUTION CVS.pdf`
+- `Registration DOC/Artwork/[GENOSYS]POWER SOLUTION CVS.pdf`
+- `Registration DOC/COA/COA-GENOSYS POWER SOLUTION CVS(L1036B).pdf`
+
+The 2011 ingredient sheet was reviewed as historical context but not used for current
+percentages because it is an older formula. The January 2021 Safety Assessment aggregated
+finished-composition table is the quantitative source used by the page. The formula sheet
+confirms the current INCI order; the artwork supplies the leave-on method, skin-nourishment
+function and precautions; the COA supplies the measured physical values. Printed exclusion
+claims were checked independently against the formula instead of being accepted from the
+artwork.
+
+### Corrections
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field. Russian now
+  reads as experienced professional cosmetology copy; Arabic is polished neutral MSA for UAE
+  retail, with neutral instructions wherever practical.
+- Preserved the exact finished formula: water 70.5259%; butylene glycol 12.485%; glycerin
+  11.48%; combined humectant base 23.965%; soy-milk ferment filtrate 2.5%; panthenol 0.5%;
+  sodium hyaluronate 0.1002%; allantoin 0.1%; hydrolyzed fish collagen 0.1%; grape and rose
+  callus culture extracts 0.03% each; beta-glucan 0.02%; sh-Polypeptide-7 1 ppm; and
+  Palmitoyl Tripeptide-1 0.5 ppm.
+- Corrected sodium hyaluronate from the rounded 0.1% to the verified 0.1002%.
+- Corrected pH language. The measured pH is 5.94 inside a 6.00 ± 1.00 range; it is mildly
+  acidic, not `near-neutral`. Preserved specific gravity 1.032 inside a 1.000–1.050 range,
+  measured fill 2.05 ml for the nominal 2 ml vial, a passing total microbial count and no
+  detected specified microorganisms.
+- Removed the unsupported claim that panthenol 0.5% and allantoin 0.1% sit at the top of
+  their normal cosmetic-use ranges.
+- Removed unsupported promises around tissue repair, regeneration, wound healing,
+  neocollagenesis, vascular strengthening, rejuvenation, maximum absorption and deeper
+  penetration.
+- Removed unsupported statements that CVS is the range's most-used vial, that nothing
+  oxidises `between faces`, and that the carton itself instructs roller use. The verified
+  carton method is cleanse, open, apply and absorb; any roller protocol is now explicitly
+  left to a qualified professional.
+- Kept the documented identity of sh-Polypeptide-7 within the somatotropin-sequence boundary
+  and never describes it as an IGF-1 analogue or turns its identity into a drug claim.
+- Corrected `fragrance-free` to the precise claim: no `Parfum` and no artificial/additional
+  fragrance. The Safety Assessment identifies Chamaecyparis obtusa water as a fragrance
+  ingredient, so the copy allows for a faint raw-material scent.
+- Re-audited the printed `no artificial surfactants` exclusion against every composition
+  source. PEG-40 Hydrogenated Castor Oil and Polysorbate 20 are absent from the January 2021
+  raw-material table, its aggregated finished formula, the current formula sheet, the
+  artwork INCI and the 2011 legacy ingredient sheet. The current finished formula does,
+  however, contain lecithin at 0.005%. Lecithin is amphiphilic and can function as an
+  emulsifier/surfactant, while the dossier records it only as skin-conditioning and does not
+  document its origin or processing. Therefore the categorical `no artificial surfactants`
+  claim cannot be verified cleanly and was removed rather than preserved from the artwork.
+- Removed the `5-Free` shorthand with that fifth exclusion. Russian and Arabic now state
+  only the four exclusions that remain directly verifiable: parabens, ethanol, artificial
+  pigment/colorant and artificial fragrance.
+- Preserved dermatological testing, Korean origin, ten sealed 2 ml glass vials, three-year
+  unopened shelf life, pregnancy/lactation avoidance and the fish-allergy warning from the
+  hydrolyzed marine collagen source.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy: `components/product/powersolution/cvsLocalizedCopy.ts`,
+  consumed by `powerSolutionCopy.ts`
+- Product 5 recommendation strings in `messages/ru.json` and `messages/ar.json` were
+  rewritten to remove healing, rejuvenation, maximum-absorption and unqualified
+  deeper-penetration claims
+- The existing audited-localization update script picks up product 5 automatically through
+  the canonical map; database `productNumber`, localized names and localized descriptions
+  were updated
+- Regression coverage checks runtime ownership, structured JSON, exact source figures and
+  prohibited claim language

@@ -3,6 +3,7 @@ import { getProductTranslations } from '@/data/productTranslations'
 import { getProductTranslationsRu } from '@/data/productTranslationsRu'
 import { HAIRGEN_BOOSTER_COPY } from '@/components/product/hr3/hairGenBoosterCopy'
 import { getHesCopy } from '@/components/product/powersolution/hesCopy'
+import { getPowerSolutionCopy } from '@/components/product/powersolution/powerSolutionCopy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -23,6 +24,11 @@ describe('audited product localization copy', () => {
   it('serves the rewritten product 4 copy in Russian and Arabic', () => {
     expect(getProductTranslationsRu('4')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['4'])
     expect(getProductTranslations('4')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['4'])
+  })
+
+  it('serves the rewritten product 5 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('5')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['5'])
+    expect(getProductTranslations('5')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['5'])
   })
 
   it('removes unsupported and unsafe roller claims from customer copy', () => {
@@ -158,6 +164,69 @@ describe('audited product localization copy', () => {
       'IGF-1',
       'сульфат',
       'كبريتات',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 5 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['5']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps CVS source facts and removes unsupported treatment claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('5'),
+      centralAr: getProductTranslations('5'),
+      bespokeRu: getPowerSolutionCopy('ru'),
+      bespokeAr: getPowerSolutionCopy('ar'),
+    })
+
+    for (const required of [
+      '23,965%',
+      '23.965%',
+      '12,485%',
+      '12.485%',
+      '11,48%',
+      '11.48%',
+      '0,1002%',
+      '0.1002%',
+      '2,5%',
+      '2.5%',
+      '5,94',
+      '5.94',
+      '1,032',
+      '1.032',
+      '2,05 мл',
+      '2.05 مل',
+      '1 ppm',
+      'جزء واحد في المليون',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'заживлен',
+      'регенерац',
+      'неоколлаген',
+      'сосудоукреп',
+      'омолож',
+      'заживление',
+      'التئام',
+      'تجديد الخلايا',
+      'تحفيز الكولاجين',
+      'اختراق أعمق',
+      'максимальн.*впитыван',
+      'أقصى امتصاص',
+      'IGF-1',
+      'почти нейтраль',
+      'قريبة من المحايدة',
+      'ПАВ',
+      'خافض',
+      'التوتر السطحي',
+      '5-Free',
     ]) {
       expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
     }

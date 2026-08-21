@@ -65,7 +65,7 @@
  * CLAIMS THE PAGE MAKES, AND WHERE THEY COME FROM
  *   Skin nourishment                       carton, "Function Skin nourishment"
  *   Concentrated Vitality Solution         carton front panel and vial label
- *   5-Free, and the five named exclusions  carton, inner lid and front face
+ *   Four verified exclusions               carton, checked against current INCI
  *   23.97% humectant, and every %          safety assessment, aggregated table
  *   pH 5.94, SG 1.032                      COA lot L1036B
  *   Three-year shelf life                  COA, made Dec 2024 / exp Nov 2027
@@ -105,8 +105,8 @@
  *                            pipette on a cool lilac-grey studio sweep. NOT on
  *                            white, so it must never carry .ps-figure - the
  *                            multiply rule would darken the sweep into a block.
- *   Second/cvs_big1.jpg      the open box, 2000px, pure white. The 5-Free panel
- *                            and its five exclusions are legible on the lid.
+ *   Second/cvs_big1.jpg      the open box, 2000px, pure white. The printed
+ *                            exclusions panel is legible on the lid.
  *   Second/cvs_big2.jpg      a single vial, 2000px, pure white.
  *
  * The two on white carry the inline figures and multiply into the stage tint.
@@ -120,6 +120,8 @@
  * to be square for the same reason. CVS.jpg is kept on disk for historical order
  * emails.
  */
+
+import { CVS_AR_COPY, CVS_RU_COPY } from './cvsLocalizedCopy'
 
 export type PowerSolutionLocale = 'en' | 'ar' | 'ru'
 
@@ -212,7 +214,7 @@ export interface PowerSolutionCopy {
     traceTitle: string
     traceBody: string
   }
-  /** The 5-Free panel from the box lid. */
+  /** Exclusions retained only when verified against the current INCI. */
   freeFrom: {
     eyebrow: string
     title: string
@@ -302,7 +304,7 @@ export interface PowerSolutionCopy {
 /**
  * What differs between one Power Solution page and the next.
  *
- * The six ampoules share a carton design, a range table, a 5-Free panel and a
+ * The six ampoules share a carton design, a range table, an exclusions panel and a
  * formula worth charting, so they share a layout. What they do not share is the
  * formula itself, the photography, the accent colour off the vial label, or
  * whether there is a molecular-weight story to tell. Those go here, and
@@ -350,10 +352,10 @@ const EN: PowerSolutionCopy = {
   heroBullets: [
     'Nearly a quarter humectant, so a full 2 ml stays comfortable on treated skin',
     'Soy ferment at 2.5% and panthenol at 0.5%, both real working doses',
-    '5-Free and fragrance-free, at a near-neutral pH of 5.94',
+    'No parabens, ethanol, artificial pigment or artificial fragrance',
     'Ten sealed glass vials, so nothing oxidises between one face and the next',
   ],
-  badges: ['Dermatologically tested', 'Made in Korea', '5-Free', 'Fragrance-free'],
+  badges: ['Dermatologically tested', 'Made in Korea', 'No parabens', 'No added fragrance'],
   packSize: '10 vials · 2 ml each',
   usageNote: 'One vial per treatment',
   addToBag: 'Add to bag',
@@ -369,7 +371,7 @@ const EN: PowerSolutionCopy = {
   stats: [
     { value: '24%', label: 'Of the vial is humectant, before a single active is counted' },
     { value: '2.5%', label: 'Soy ferment, the largest active in the formula' },
-    { value: '5-Free', label: 'No parabens, ethanol, pigment, fragrance or synthetic surfactant' },
+    { value: '4', label: 'Excluded additives: parabens, ethanol, artificial pigment and fragrance' },
     { value: '10 × 2 ml', label: 'Sealed glass vials, opened one at a time' },
   ],
   solution: {
@@ -423,20 +425,19 @@ const EN: PowerSolutionCopy = {
       'These are the two ingredients the Power Solution name is built on: sh-Polypeptide-7 at 1 ppm and palmitoyl tripeptide-1 at 0.5 ppm. Peptides work at parts per million by design, and the CIR expert panel puts typical cosmetic use of the palmitoyl tripeptide family under 10 ppm.',
   },
   freeFrom: {
-    eyebrow: '5-Free',
-    title: 'Five things that are not in it.',
+    eyebrow: 'A considered formula',
+    title: 'Four additives left out.',
     body:
-      'GENOSYS prints the 5-Free mark twice on the pack, on the front face and again inside the lid, and names all five exclusions rather than leaving you to guess. Every one of them holds up against the ingredient list further down this page.',
+      'The formula leaves out four common additives, each checked directly against the current ingredient list.',
     items: [
       'Parabens',
       'Ethanol',
       'Artificial pigment',
       'Artificial fragrance',
-      'Artificial surfactant',
     ],
     note:
       'Ethanol is the one worth pausing on. A great many professional ampoules use alcohol to thin the solution and speed the dry-down, and on skin that has just been treated it is exactly what stings.',
-    figureAlt: 'The POWER SOLUTION CVS box open, showing ten sealed vials and the 5-Free panel inside the lid',
+    figureAlt: 'The POWER SOLUTION CVS box open, showing ten sealed vials inside the lid',
   },
   range: {
     eyebrow: 'The range',
@@ -593,7 +594,7 @@ const EN: PowerSolutionCopy = {
       { label: 'Key actives', value: 'Soy ferment 2.5%, panthenol 0.5%, allantoin 0.1%, sodium hyaluronate 0.1%, marine collagen 0.1%' },
       { label: 'Peptides', value: 'sh-Polypeptide-7 1 ppm, palmitoyl tripeptide-1 0.5 ppm' },
       { label: 'pH', value: '5.94, inside a 6.00 ± 1.00 specification' },
-      { label: 'Free from', value: 'Parabens, ethanol, artificial pigment, artificial fragrance, artificial surfactant' },
+      { label: 'Free from', value: 'Parabens, ethanol, artificial pigment and artificial fragrance' },
       { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the box' },
       { label: 'Tested', value: 'Dermatologically tested, and every batch tested for pH, gravity and microbial count' },
       { label: 'Made by', value: 'DTS MG Co., Ltd., South Korea' },
@@ -614,10 +615,10 @@ const AR: PowerSolutionCopy = {
   heroBullets: [
     'ما يقارب الربع مرطِّبات، فتبقى 2 مل كاملة مريحة على بشرة معالَجة',
     'خميرة صويا 2.5% وبانثينول 0.5%، وكلاهما بجرعة فعّالة حقيقية',
-    'تركيبة 5-Free وخالية من العطور، بحموضة 5.94 قريبة من المحايدة',
+    'من دون بارابين أو إيثانول أو أصباغ أو عطور صناعية',
     'عشر قوارير زجاجية مُحكمة، فلا شيء يتأكسد بين وجه وآخر',
   ],
-  badges: ['مختبر جلدياً', 'صنع في كوريا', 'تركيبة 5-Free', 'خالٍ من العطور'],
+  badges: ['مختبر جلدياً', 'صنع في كوريا', 'من دون بارابين', 'من دون عطر مضاف'],
   packSize: '10 قوارير · 2 مل لكل واحدة',
   usageNote: 'قارورة واحدة لكل جلسة',
   addToBag: 'أضف إلى الحقيبة',
@@ -633,7 +634,7 @@ const AR: PowerSolutionCopy = {
   stats: [
     { value: '24%', label: 'من القارورة مرطِّبات، قبل حساب أي مادة فعّالة' },
     { value: '2.5%', label: 'خميرة صويا، أكبر مادة فعّالة في التركيبة' },
-    { value: '5-Free', label: 'بلا بارابين أو إيثانول أو أصباغ أو عطور أو مواد خافضة للتوتر صناعية' },
+    { value: '4', label: 'إضافات مستبعدة: البارابين والإيثانول والأصباغ والعطور الصناعية' },
     { value: '10 × 2 مل', label: 'قوارير زجاجية مُحكمة، تُفتح واحدة تلو الأخرى' },
   ],
   solution: {
@@ -687,20 +688,19 @@ const AR: PowerSolutionCopy = {
       'هما المكوّنان اللذان بُني عليهما اسم Power Solution: sh-Polypeptide-7 بجزء واحد في المليون، وpalmitoyl tripeptide-1 بنصف جزء في المليون. تعمل الببتيدات بأجزاء من المليون بحكم تصميمها، وتضع لجنة خبراء CIR الاستخدام المعتاد لعائلة palmitoyl tripeptide دون 10 أجزاء في المليون.',
   },
   freeFrom: {
-    eyebrow: 'تركيبة 5-Free',
-    title: 'خمسة أشياء ليست فيه.',
+    eyebrow: 'تركيبة مدروسة',
+    title: 'أربع إضافات ليست فيها.',
     body:
-      'تطبع GENOSYS علامة 5-Free مرتين على العبوة، على الواجهة الأمامية ومرة أخرى داخل الغطاء، وتسمّي الاستثناءات الخمسة كلها بدل أن تتركك تخمّن. وكل واحد منها يصمد أمام قائمة المكوّنات أسفل هذه الصفحة.',
+      'تخلو التركيبة من أربع إضافات شائعة، وقد حُققت هذه الاستثناءات مباشرة مقابل قائمة المكونات الحالية.',
     items: [
       'البارابين',
       'الإيثانول',
       'الأصباغ الصناعية',
       'العطور الصناعية',
-      'المواد الخافضة للتوتر السطحي الصناعية',
     ],
     note:
       'الإيثانول هو ما يستحق التوقف عنده. كثير من الأمبولات الاحترافية تستعمل الكحول لتخفيف المحلول وتسريع جفافه، وهو تحديداً ما يلسع بشرة خرجت للتو من جلسة.',
-    figureAlt: 'علبة POWER SOLUTION CVS مفتوحة، وتظهر عشر قوارير مُحكمة ولوحة 5-Free داخل الغطاء',
+    figureAlt: 'علبة POWER SOLUTION CVS مفتوحة، وتظهر عشر قوارير مُحكمة داخل الغطاء',
   },
   range: {
     eyebrow: 'المجموعة',
@@ -856,7 +856,7 @@ const AR: PowerSolutionCopy = {
       { label: 'المواد الفعالة', value: 'خميرة صويا 2.5%، بانثينول 0.5%، ألانتوين 0.1%، هيالورونات الصوديوم 0.1%، كولاجين بحري 0.1%' },
       { label: 'الببتيدات', value: 'sh-Polypeptide-7 جزء واحد في المليون، palmitoyl tripeptide-1 نصف جزء في المليون' },
       { label: 'الحموضة', value: '5.94، داخل مواصفة 6.00 ± 1.00' },
-      { label: 'خالٍ من', value: 'البارابين، الإيثانول، الأصباغ الصناعية، العطور الصناعية، المواد الخافضة للتوتر السطحي الصناعية' },
+      { label: 'خالٍ من', value: 'البارابين، الإيثانول، الأصباغ الصناعية والعطور الصناعية' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات غير مفتوحة، وتاريخ انتهاء الصلاحية مطبوع على العلبة' },
       { label: 'الاختبارات', value: 'مختبر جلدياً، وكل دفعة تُختبَر للحموضة والكثافة والعدّ الميكروبي' },
       { label: 'الصانع', value: 'DTS MG Co., Ltd.، كوريا الجنوبية' },
@@ -877,10 +877,10 @@ const RU: PowerSolutionCopy = {
   heroBullets: [
     'Почти четверть — увлажнители, поэтому полные 2 мл остаются комфортными на обработанной коже',
     'Соевый фермент 2,5% и пантенол 0,5%, оба в реальной рабочей дозировке',
-    'Формула 5-Free и без отдушки, pH 5,94, почти нейтральный',
+    'Без парабенов, этанола, искусственных красителей и отдушки',
     'Десять запаянных стеклянных флаконов, поэтому между лицами ничего не окисляется',
   ],
-  badges: ['Дерматологически протестировано', 'Сделано в Корее', 'Формула 5-Free', 'Без отдушки'],
+  badges: ['Дерматологически протестировано', 'Сделано в Корее', 'Без парабенов', 'Без добавленной отдушки'],
   packSize: '10 флаконов · по 2 мл',
   usageNote: 'Один флакон на процедуру',
   addToBag: 'В корзину',
@@ -896,7 +896,7 @@ const RU: PowerSolutionCopy = {
   stats: [
     { value: '24%', label: 'Флакона — увлажнители, ещё до подсчёта активных веществ' },
     { value: '2,5%', label: 'Соевый фермент, самый крупный актив состава' },
-    { value: '5-Free', label: 'Без парабенов, этанола, красителей, отдушки и синтетических ПАВ' },
+    { value: '4', label: 'Исключённые добавки: парабены, этанол, искусственные красители и отдушка' },
     { value: '10 × 2 мл', label: 'Запаянные стеклянные флаконы, вскрываются по одному' },
   ],
   solution: {
@@ -950,20 +950,19 @@ const RU: PowerSolutionCopy = {
       'Именно на них построено само название Power Solution: sh-Polypeptide-7 в концентрации 1 ppm и palmitoyl tripeptide-1 в концентрации 0,5 ppm. Пептиды работают в частях на миллион по самой своей природе, и экспертная панель CIR указывает типичное косметическое применение семейства palmitoyl tripeptide ниже 10 ppm.',
   },
   freeFrom: {
-    eyebrow: 'Формула 5-Free',
-    title: 'Пять вещей, которых здесь нет.',
+    eyebrow: 'Продуманная формула',
+    title: 'Четыре добавки, которых здесь нет.',
     body:
-      'GENOSYS печатает отметку 5-Free на упаковке дважды, на лицевой стороне и ещё раз с внутренней стороны крышки, и называет все пять исключений, а не оставляет вас гадать. И каждое из них подтверждается составом ниже на этой странице.',
+      'В формуле нет четырёх распространённых добавок; каждое исключение проверено непосредственно по актуальному составу.',
     items: [
       'Парабены',
       'Этанол',
       'Искусственные красители',
       'Искусственная отдушка',
-      'Искусственные ПАВ',
     ],
     note:
       'Остановиться стоит на этаноле. Очень многие профессиональные ампулы используют спирт, чтобы разжижить раствор и ускорить высыхание, и именно он щиплет кожу сразу после процедуры.',
-    figureAlt: 'Открытая коробка POWER SOLUTION CVS: десять запаянных флаконов и панель 5-Free с внутренней стороны крышки',
+    figureAlt: 'Открытая коробка POWER SOLUTION CVS с десятью запаянными флаконами',
   },
   range: {
     eyebrow: 'Линия',
@@ -1119,7 +1118,7 @@ const RU: PowerSolutionCopy = {
       { label: 'Активы', value: 'Соевый фермент 2,5%, пантенол 0,5%, аллантоин 0,1%, гиалуронат натрия 0,1%, морской коллаген 0,1%' },
       { label: 'Пептиды', value: 'sh-Polypeptide-7 1 ppm, palmitoyl tripeptide-1 0,5 ppm' },
       { label: 'pH', value: '5,94, в пределах спецификации 6,00 ± 1,00' },
-      { label: 'Без', value: 'Парабенов, этанола, искусственных красителей, искусственной отдушки, искусственных ПАВ' },
+      { label: 'Без', value: 'Парабенов, этанола, искусственных красителей и искусственной отдушки' },
       { label: 'Срок годности', value: 'Три года невскрытым, срок годности напечатан на коробке' },
       { label: 'Тестирование', value: 'Дерматологически протестировано, и каждая партия проверяется по pH, плотности и микробиологии' },
       { label: 'Производитель', value: 'DTS MG Co., Ltd., Южная Корея' },
@@ -1132,7 +1131,11 @@ const RU: PowerSolutionCopy = {
   backToProducts: 'Продукты',
 }
 
-const BY_LOCALE: Record<PowerSolutionLocale, PowerSolutionCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<PowerSolutionLocale, PowerSolutionCopy> = {
+  en: EN,
+  ar: { ...AR, ...CVS_AR_COPY },
+  ru: { ...RU, ...CVS_RU_COPY },
+}
 
 export function getPowerSolutionCopy(locale: string): PowerSolutionCopy {
   return BY_LOCALE[(locale as PowerSolutionLocale) in BY_LOCALE ? (locale as PowerSolutionLocale) : 'en']

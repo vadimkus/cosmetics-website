@@ -136,7 +136,7 @@ with clear clinical phrasing and no mixed English words.
 ### Corrections
 
 - Removed the unsupported 300% absorption figure and the unsourced `clinical-quality results
-  at home` positioning.
+at home` positioning.
 - Corrected the audience from professional-and-home use to qualified professional use.
 - Replaced broad marketing language with the documented specifications: 16 disk needles,
   0.20 mm thickness, SUS 304(H), 0.25–2.0 mm depth and 5,500–7,500 rpm.
@@ -252,6 +252,76 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
   map; database `productNumber`, localized names and localized descriptions were updated
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
+
+## Product 33 — EyeCell EYE PEPTIDE GEL PATCH
+
+### Catalog identity
+
+- Repository product number: `33`
+- Exact catalog name: `EyeCell EYE PEPTIDE GEL PATCH`
+- Live route: `/products/33`
+- Product type: removable hydrogel eye patches, 101 g / 60 patches / 30 applications
+
+### Sources checked
+
+- `Ingredient lists_old/EyeCell EYE PEPTIDE GEL PATCH.pdf` — checked first as required.
+  This is a 2018 legacy formula with a materially different base and actives, so it was used
+  only as a historical cross-check and not as the current source of truth.
+- `Registration DOC/SA/SA-GENOSYS EyeCell EYE PEPTIDE GEL PATCH.pdf` — confirms the
+  take-off eye-mask classification, pH specification 5.50–7.50, functional niacinamide
+  2.0000%, the premix identities, the bandage/compress caution and the absence of a
+  documented PAO.
+- `Registration DOC/Formula_up/Formula-GENOSYS EyeCell EYE PEPTIDE GEL PATCH .pdf` —
+  controlling current finished formula: glycerin 9.96302970%, niacinamide 2.0000%,
+  Chondrus crispus 1.54262370%, panthenol 0.11386140%, allantoin 0.1000%, adenosine
+  0.0400%, fragrance 0.00207920%, madecassoside 0.00009310% and acetyl hexapeptide-8
+  0.00000470%, equivalent to 46.5 ppb.
+- `Registration DOC/COA/COA-GENOSYS EyeCell EYE PEPTIDE GEL PATCH(NL009).pdf` —
+  colorless transparent gel / transparent yellow, pH 6.85 inside 5.5–7.5, niacinamide and
+  adenosine passing their specifications, net weight above 101 g and passing microbiology.
+  The lot code and contract manufacturer were not carried into customer copy.
+- `Registration DOC/Artwork/[GENOSYS]EYECELL EYE PEPTIDE GEL PATCH.pdf` — exact identity,
+  101 g / 60 pieces / 30 applications, under-eye and/or brow-bone placement, 20–40 minutes
+  then removal, dermatological testing and Korean origin. The Arabic one-minute instruction
+  and the Russian instant/collagen/anti-ageing claims conflict with the controlling English
+  and Korean panels and were not retained.
+- `public/documents/PPT/GENOSYS EyeCell EYE PEPTIDE GEL PATCH.pdf` — checked for branded
+  names and positioning. Patented/transdermal, muscle-relaxation, tissue-repair, eye-bag,
+  anti-inflammatory and collagen-synthesis claims were challenged against the current
+  formula and available finished-product evidence and were removed.
+
+### Corrections and copy decisions
+
+- Rewrote the complete central and bespoke Russian and Arabic customer copy in natural,
+  premium language. Russian now reads as experienced cosmetologist guidance; Arabic is
+  polished neutral MSA suitable for UAE retail.
+- Leads with the verified consumer result: sustained hydration, comfort, a fresher-looking
+  tone and smoother-looking eye contour during a 20–40-minute removable hydrogel ritual.
+- Preserved the functional pair exactly: niacinamide 2% for brightening and adenosine 0.04%
+  for wrinkle care. Preserved glycerin 9.96%, Chondrus 1.54%, panthenol 0.114%, allantoin
+  0.10%, acetyl hexapeptide-8 at 46.5 ppb and measured pH 6.85.
+- Kept the peptide transparent but secondary. It is not presented as the formula engine.
+- Removed literal audit language such as “the figure that belongs on a card”, “not the
+  engine”, “the pack sells”, “the manufacturer’s name” and public arguments with old copy.
+- Removed instant, Botox-like, lifting, muscle-relaxation, transdermal-delivery, tissue
+  repair, collagen-synthesis and ten-years-back implications.
+- Kept the fragrance disclosure, bandage/compress sensitivity caution, eye-contact guidance
+  and damaged-skin boundary. No pregnancy claim or invented PAO was added.
+
+### Customer-facing surfaces audited
+
+- Canonical central RU/AR fields: `data/product33LocalizedCopy.ts`, exported through
+  `data/productLocalizedCopyAudit.ts`
+- Runtime overrides: `data/productTranslationsRu.ts` and `data/productTranslations.ts`
+- Complete bespoke RU/AR PDP: `components/product/eyepatch/eyepatchCopy.ts`
+- Product 33 quick facts: `lib/productQuickFactsCatalog.ts`
+- Product 33 + Eye Contour Serum recommendation: `messages/ru.json` and `messages/ar.json`
+- Eye Zone Care Kit references: `components/product/eyekit/eyekitCopy.ts`
+- `lib/concernsData.ts` and all Beauty Box copy modules were searched; product 33 is not
+  referenced there, so no unrelated routine or Beauty Box text was changed.
+- Regression tests cover runtime ownership, structured JSON, exact source values, kit and
+  recommendation surfaces, and prohibited claims.
+- Database `productNumber`, localized names and localized descriptions were updated.
 
 ## Product 32 — MULTI FUNCTIONAL ANTI-WRINKLE CREAM
 
@@ -455,7 +525,7 @@ specification. No lot code or dated expiry was carried into customer copy.
 ### Identity and sources checked
 
 - Prisma/code identity: legacy repository `id: "29"` and catalog name `MOISTURE
-  REPLENISHING HYALURON CREAM`, code `MHC`, 50 g homecare and 250 g professional
+REPLENISHING HYALURON CREAM`, code `MHC`, 50 g homecare and 250 g professional
   formats; bespoke runtime:
   `components/product/mhcream/MhcreamProductPage.tsx` and
   `components/product/mhcream/mhcreamCopy.ts`
@@ -1184,7 +1254,7 @@ was found for this product.
 ### Identity and sources checked
 
 - Prisma/code identity: repository product number `18`, `MOISTURE REPLENISHING HYALURON
-  SERUM`, 30 ml; bespoke route and runtime are
+SERUM`, 30 ml; bespoke route and runtime are
   `components/product/hsserum/HsserumProductPage.tsx` and
   `components/product/hsserum/hsserumCopy.ts`
 - `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/MOISTURE REPLENISHING HYALURON SERUMCREAM/MOISTURE REPLENISHING HYALURON SERUM/Formula_updated22062024.pdf`
@@ -1475,17 +1545,17 @@ finished-product study and application evidence.
 - `Ingredient lists_old/` was searched first; no product-14 legacy ingredient sheet was
   present.
 - `Genosys Microbiome Energy Infusing Mist/Ingredients_GENOSYS MICROBIOME ENERGY INFUSING
-  MIST.pdf` — controlling signed finished formula: butylene glycol 4.01%; glycerin 3.245%;
+MIST.pdf` — controlling signed finished formula: butylene glycol 4.01%; glycerin 3.245%;
   1,2-hexanediol 2.009%; shea butter 1.2%; Lactobacillus Ferment 0.08795%; inulin 0.08%;
   Alpha-Glucan Oligosaccharide 0.02%; four plant oils at 0.015% each; Centella asiatica
   0.005%; seven hyaluronan INCI entries totalling 0.000951%; and Acetyl Heptapeptide-4
   0.000001%. The sheet also confirms bergamot oil 0.024%, limonene 0.027% and linalool
   0.009%.
 - `Genosys Microbiome Energy Infusing Mist/Formula-GENOSYS MICROBIOME ENERGY INFUSING
-  MIST.xlsx` — current product-specific formula workbook, reconciled with the signed
+MIST.xlsx` — current product-specific formula workbook, reconciled with the signed
   ingredient PDF above.
 - `Genosys Microbiome Energy Infusing Mist/COA-GENOSYS MICROBIOME ENERGY INFUSING
-  MIST(MJ001).pdf` — opaque viscous white liquid; pH 5.48 inside 5.00–6.00; specific gravity
+MIST(MJ001).pdf` — opaque viscous white liquid; pH 5.48 inside 5.00–6.00; specific gravity
   1.0106 inside 1.004–1.014; measured fill 80.63 ml for the nominal 80 ml bottle; total
   aerobic microbial count below 10 CFU/ml and no detected specified microorganisms. Lot,
   dates and contract-manufacturer identity were not carried into customer copy.
@@ -1855,7 +1925,7 @@ physical values.
   specialist.
 - Challenged the printed `5-Free` panel against the current formula. Polysorbate 60 is
   present and is documented as a surfactant, so the copy does not promise `no artificial
-  surfactants`. The customer-facing free-from list is limited to four supportable
+surfactants`. The customer-facing free-from list is limited to four supportable
   exclusions: parabens, ethanol, added colorants and `Parfum`.
 - Avoided the unqualified `fragrance-free` claim. The formula has no `Parfum`, but
   Chamaecyparis obtusa water is an aromatic botanical ingredient, so the copy transparently

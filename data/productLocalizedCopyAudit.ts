@@ -8,6 +8,7 @@ import { product28Ar, product28Ru } from './product28LocalizedCopy'
 import { product30Ar, product30Ru } from './product30LocalizedCopy'
 import { product31Ar, product31Ru } from './product31LocalizedCopy'
 import { product32Ar, product32Ru } from './product32LocalizedCopy'
+import { product33Ar, product33Ru } from './product33LocalizedCopy'
 
 const product1Ru = {
   description:
@@ -4042,6 +4043,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Многофункциональный крем против морщин',
       ...product32Ru,
     },
+    '33': {
+      name: 'Гидрогелевые патчи для глаз EyeCell',
+      ...product33Ru,
+    },
   },
   ar: {
     '1': {
@@ -4171,6 +4176,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '32': {
       name: 'كريم متعدد الوظائف للعناية بالتجاعيد',
       ...product32Ar,
+    },
+    '33': {
+      name: 'لصقات هيدروجيل للعين EyeCell',
+      ...product33Ar,
     },
   },
 } as const

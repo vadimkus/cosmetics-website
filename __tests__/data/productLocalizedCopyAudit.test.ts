@@ -17,6 +17,7 @@ import { getPctTonerCopy } from '@/components/product/pcttoner/pctTonerCopy'
 import { getBoosterCopy } from '@/components/product/booster/boosterCopy'
 import { getEyeSerumCopy } from '@/components/product/eyeserum/eyeserumCopy'
 import { getEyeKitCopy } from '@/components/product/eyekit/eyekitCopy'
+import { getEyePatchCopy } from '@/components/product/eyepatch/eyepatchCopy'
 import { getHsserumCopy } from '@/components/product/hsserum/hsserumCopy'
 import { getAfsCopy } from '@/components/product/afs/afsCopy'
 import { getPcserumCopy } from '@/components/product/pcserum/pcserumCopy'
@@ -2351,6 +2352,59 @@ describe('audited product localization copy', () => {
       'المصنّع',
       'номер партии',
       'رقم التشغيلة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+  })
+
+  it('serves the rewritten product 33 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('33')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['33'])
+    expect(getProductTranslations('33')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['33'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 33 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['33']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps product 33 facts consistent across localized customer-facing surfaces', () => {
+    const eyeKitItems = [...getEyeKitCopy('ru').contents.items, ...getEyeKitCopy('ar').contents.items]
+      .filter(item => item.productNumber === '33')
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('33'),
+      centralAr: getProductTranslations('33'),
+      bespokeRu: getEyePatchCopy('ru'),
+      bespokeAr: getEyePatchCopy('ar'),
+      quickFacts: PRODUCT_QUICK_FACTS_CATALOG['33'],
+      eyeKitItems,
+      recommendationRu: {
+        intro: ruMessages.product.pc33Intro,
+        first: ruMessages.product.pc33Benefit1Text,
+        third: ruMessages.product.pc33Benefit3Text,
+      },
+      recommendationAr: {
+        intro: arMessages.product.pc33Intro,
+        first: arMessages.product.pc33Benefit1Text,
+        third: arMessages.product.pc33Benefit3Text,
+      },
+    })
+
+    for (const required of [
+      '101 г', '101 غ', '60 патч', '60 لصقة', '30 примен', '30 استخدام',
+      '2%', '0,04%', '0.04%', '9,96%', '9.96%', '1,54%', '1.54%',
+      '0,114%', '0.114%', '46,5 ppb', '٤٦٫٥ جزءاً في المليار',
+      '6,85', '٦٫٨٥', '20–40', '٢٠–٤٠',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'мгновенный эффект', 'تأثير فوري', 'ботокс', 'بوتوكس',
+      'расслабляет мышцы', 'يرخي العضلات', 'трансдермаль', 'عبر الجلد',
+      'патентован', 'حاصل على براءة', '10 Years Back', 'производител',
+      'المصنّع', 'сертификат', 'شهادة التحليل', 'номер партии', 'رقم التشغيلة',
     ]) {
       expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
     }

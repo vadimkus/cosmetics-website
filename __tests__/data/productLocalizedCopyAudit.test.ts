@@ -1797,4 +1797,83 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'قائمة المكوّنات الكاملة (INCI)' })])
     )
   })
+
+  it('serves the rewritten product 26 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('26')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['26'])
+    expect(getProductTranslations('26')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['26'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 26 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['26']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps EGF Repair Oxymask facts and safety consistent across localized surfaces', () => {
+    const sensitiveBoxFaq = {
+      ru: SENSITIVE_SKIN_COPY.ru.faq.items.find(item => item.q.includes('EGF Repair Oxymask')),
+      ar: SENSITIVE_SKIN_COPY.ar.faq.items.find(item => item.q.includes('EGF Repair Oxymask')),
+    }
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('26'),
+      centralAr: getProductTranslations('26'),
+      sensitiveBoxFaq,
+    })
+
+    for (const required of [
+      'Methyl Perfluoroisobutyl Ether',
+      '5%',
+      'Decyl Glucoside',
+      '2,75%',
+      '2.75%',
+      '3,996%',
+      '3.996%',
+      '2,9979%',
+      '2.9979%',
+      'Аденозин 0,04%',
+      'أدينوزين 0.04%',
+      '0,043%',
+      '0.043%',
+      '0,1 ppm',
+      '0.1 جزء في المليون',
+      '0,05 ppm',
+      '0.05 جزء في المليون',
+      '100 ppm',
+      '100 جزء في المليون',
+      '6,18',
+      '6.18',
+      '3–5',
+      'Не смывайте',
+      'لا يُشطف',
+    ]) {
+      expect(text.toLocaleLowerCase()).toContain(required.toLocaleLowerCase())
+    }
+
+    for (const unsupported of [
+      'кислородная терапия',
+      'العلاج بالأكسجين',
+      'стимуляция коллагена',
+      'تحفيز الكولاجين',
+      'заживлен',
+      'التئام الجروح',
+      'регенерация клеток',
+      'تجديد الخلايا',
+      'клинически доказано',
+      'مثبت سريرياً',
+      'номер партии',
+      'رقم الدفعة',
+      'производитель',
+      'الشركة المصنّعة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toContain(unsupported.toLocaleLowerCase())
+    }
+
+    expect(JSON.parse(getProductTranslationsRu('26')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Полный состав (INCI)' })])
+    )
+    expect(JSON.parse(getProductTranslations('26')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'قائمة المكوّنات الكاملة (INCI)' })])
+    )
+  })
 })

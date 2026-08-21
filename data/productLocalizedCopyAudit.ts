@@ -2,6 +2,7 @@ import { product22Ar, product22Ru } from './product22LocalizedCopy'
 import { product23Ar, product23Ru } from './product23LocalizedCopy'
 import { product24Ar, product24Ru } from './product24LocalizedCopy'
 import { product25Ar, product25Ru } from './product25LocalizedCopy'
+import { product26Ar, product26Ru } from './product26LocalizedCopy'
 
 const product1Ru = {
   description:
@@ -3811,6 +3812,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Успокаивающий крем после процедур Soothing Repair Postcream',
       ...product25Ru,
     },
+    '26': {
+      name: 'Пузырьковая крем-маска EGF REPAIR OXYMASK',
+      ...product26Ru,
+    },
   },
   ar: {
     '1': {
@@ -3912,6 +3917,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '25': {
       name: 'كريم Soothing Repair Postcream المهدئ بعد الإجراءات',
       ...product25Ar,
+    },
+    '26': {
+      name: 'قناع EGF REPAIR OXYMASK الكريمي الفقاعي',
+      ...product26Ar,
     },
   },
 } as const

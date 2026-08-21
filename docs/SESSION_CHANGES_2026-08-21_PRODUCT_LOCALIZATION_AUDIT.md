@@ -253,6 +253,77 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 26 — EGF REPAIR OXYMASK CREAM
+
+### Catalog identity
+
+- Prisma/code identity: `productNumber: 26`, repository fallback id `"26"`, English catalog
+  name `EGF REPAIR OXYMASK CREAM`, 50 g leave-on bubbling cream mask.
+- The product was permanently discontinued and remains `inStock: false` / `isHidden: true`
+  so historical orders can still resolve its identity and image. Its bespoke PDP and
+  recommendation keys were retired on 17 August 2026.
+- No product 26 recommendation message, concern routine or quick-facts entry remains at
+  runtime. The only related live customer copy is the Sensitive Skin Beauty Box FAQ explaining
+  its replacement by product 34.
+
+### Sources checked
+
+- No product-specific file was present in `Ingredient lists_old/`.
+- `Registration DOC/Formula_up/Formula-GENOSYS EGF REPAIR OXYMASK CREAM.pdf` — signed
+  44-line finished formula and exact percentages.
+- `Registration DOC/SA/SA-GENOSYS EGF REPAIR OXYMASK CREAM.pdf` — current Safety
+  Assessment, raw-material trade-name reconciliation, patch-test result, leave-on use and
+  pregnancy/lactation guidance.
+- `Registration DOC/COA/COA-GENOSYS EGF REPAIR OXYMASK CREAM(WML112).pdf` — white cream;
+  measured pH 6.18 within 5.10–7.10; 50.28 g measured fill; adenosine identity pass and
+  0.043% assay against the 0.04% specification; passing microbial results.
+- `Registration DOC/Artwork/[GENOSYS]EGF REPAIR OXYMASK CREAM.pdf` — registered
+  multilingual directions, full INCI, 50 g pack, Korean wrinkle-function wording, 3–5-pump
+  dose and the printed `sh-Oligopeptide-1 (0.1 ppm)` concentration.
+- `~/Desktop/Glass_Skin/01-official-pdfs/GENOSYS FACIAL TREATMENT_Homecare_2025.pdf` —
+  DTS MG positioning, daily routine placement and the unquantified soothing-study title.
+
+### Corrections
+
+- Rewrote every remaining central Russian and Arabic field as natural professional
+  cosmetology copy. Russian is idiomatic and premium; Arabic is polished neutral MSA for UAE
+  retail.
+- Put the actual bubble system first: Methyl Perfluoroisobutyl Ether 5% plus Decyl Glucoside
+  2.75%. Removed oxygen-therapy, cellular-metabolism, deeper-penetration and treatment framing.
+- Preserved the complete hydration and emollient structure: glycerin 3.996%, diglycerin 3%,
+  dipropylene glycol 2.9979%, shea butter 1% and jojoba oil 1%.
+- Preserved adenosine at 0.04% and its measured 0.043% result without customer-facing dossier
+  language. Preserved measured pH 6.18 within the 5.10–7.10 range.
+- Reconciled the named trace materials without turning them into headline actives:
+  sh-Oligopeptide-1 0.1 ppm, madecassoside 1 ppm, Copper Tripeptide-1 0.05 ppm and Sepitonic
+  M3 minerals at about 10 ppm combined.
+- Disclosed salmon oil 0.01% / 100 ppm as fish- and animal-derived, so the cream is not vegan.
+  Disclosed eucalyptus oil 0.0184% and limonene 0.0016%; there is no separate `Parfum`.
+- Restored the functional method from the artwork: apply 3–5 pumps to dry skin, do not rub,
+  wait for the bubbles, massage and pat in, and do not rinse. Preserved morning/evening use.
+- Preserved pregnancy/lactation avoidance, eye and mucous-membrane precautions, and the
+  instruction not to apply to damaged skin.
+- Removed collagen stimulation, wound healing, regeneration, inflammation, clinical-proof and
+  quantified soothing-result claims. The deck confirms that a soothing study existed but does
+  not provide a readable result, so no customer efficacy figure was introduced.
+- Rewrote the Sensitive Skin Beauty Box RU/AR replacement FAQ to remove the false implication
+  that product 34 uses the same oxygen system and the argumentative claim that the set is
+  categorically “better”. It now states the permanent discontinuation, replacement method and
+  product 34's verified four-week results.
+
+### Implementation
+
+- Canonical RU/AR fields: `data/product26LocalizedCopy.ts`, owned through
+  `data/productLocalizedCopyAudit.ts`
+- Runtime central overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Related Beauty Box copy: `components/product/beautybox/copy/sensitiveSkin.ts`
+- No message, concern-routine, quick-facts or bespoke-runtime change was applicable because
+  those product 26 surfaces had already been removed
+- Focused regression coverage checks runtime ownership, structured JSON, exact source values,
+  full INCI, replacement FAQ and prohibited medical or dossier-style claims
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 25 — SOOTHING REPAIR POSTCREAM
 
 ### Catalog identity

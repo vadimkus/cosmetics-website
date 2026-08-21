@@ -253,6 +253,86 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 14 — MICROBIOME ENERGY INFUSING MIST
+
+### Catalog identity
+
+- Repository product number: `14`
+- Exact catalog name: `MICROBIOME ENERGY INFUSING MIST`
+- Live route: `/products/14`
+- Product type: 80 ml leave-on sprayable emulsion mist
+
+### Sources checked
+
+- `Ingredient lists_old/` was searched first; no product-14 legacy ingredient sheet was
+  present.
+- `Genosys Microbiome Energy Infusing Mist/Ingredients_GENOSYS MICROBIOME ENERGY INFUSING
+  MIST.pdf` — controlling signed finished formula: butylene glycol 4.01%; glycerin 3.245%;
+  1,2-hexanediol 2.009%; shea butter 1.2%; Lactobacillus Ferment 0.08795%; inulin 0.08%;
+  Alpha-Glucan Oligosaccharide 0.02%; four plant oils at 0.015% each; Centella asiatica
+  0.005%; seven hyaluronan INCI entries totalling 0.000951%; and Acetyl Heptapeptide-4
+  0.000001%. The sheet also confirms bergamot oil 0.024%, limonene 0.027% and linalool
+  0.009%.
+- `Genosys Microbiome Energy Infusing Mist/Formula-GENOSYS MICROBIOME ENERGY INFUSING
+  MIST.xlsx` — current product-specific formula workbook, reconciled with the signed
+  ingredient PDF above.
+- `Genosys Microbiome Energy Infusing Mist/COA-GENOSYS MICROBIOME ENERGY INFUSING
+  MIST(MJ001).pdf` — opaque viscous white liquid; pH 5.48 inside 5.00–6.00; specific gravity
+  1.0106 inside 1.004–1.014; measured fill 80.63 ml for the nominal 80 ml bottle; total
+  aerobic microbial count below 10 CFU/ml and no detected specified microorganisms. Lot,
+  dates and contract-manufacturer identity were not carried into customer copy.
+- `Genosys Microbiome Energy Infusing Mist/Pics/image1.jpeg` and `Pics/image3.jpeg` —
+  exact identity; moisturizing and nourishing function; shake well; spray over the face
+  with eyes closed from 10–20 cm throughout the day; over-makeup use; 80 ml; 12-month PAO;
+  Korean origin; precautions; and carton INCI.
+- The product-specific archive and both Safety Assessment locations were searched; no Safety
+  Assessment exists for this exact formula. The similarly named REVITALIZING HYDRO MIST
+  dossier is a predecessor and was not used.
+- DTS MG training/deck material was used only to reconcile the branded names CUREBIOME,
+  Hyaluronan 10 Multi-Complex and FENSEBIOME, plus before-makeup and over-makeup use. No
+  quantified clinical result is present.
+- The expected `~/Desktop/Glass_Skin/01-official-pdfs/` deck archive and
+  `Artwork/Art_Work/Catalogue/GENOSYS CATALOG.pdf` catalogue path are not present in the
+  current local archive.
+
+### Corrections and copy decisions
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field. Russian now
+  reads as premium cosmetologist-led retail copy; Arabic is polished neutral MSA for UAE
+  retail and uses neutral instruction forms.
+- Leads with the useful customer distinction: this is a finely sprayed emulsion with shea
+  butter 1.2%, not a water toner. It moisturizes, nourishes, softens and refreshes the look
+  of skin before makeup or over it.
+- Preserved the exact humectant base: butylene glycol 4.01% + glycerin 3.245% = 7.255%.
+  Preserved the four plant oils at 0.015% each and the complete registered INCI.
+- Reconciled CUREBIOME to Lactobacillus Ferment 0.08795%, inulin 0.08% and Alpha-Glucan
+  Oligosaccharide 0.02%. Reconciled Hyaluronan 10 as a branded molecular-grade count against
+  seven INCI entries totalling 0.000951%. Preserved FENSEBIOME / Acetyl Heptapeptide-4 at
+  0.000001% without presenting these trace components as the formula's engine.
+- Preserved measured pH 5.48, specific gravity 1.0106, measured fill 80.63 ml, 12-month PAO
+  and Korean origin.
+- Removed microbiome-repair, pH-rebalancing, wound-healing, collagen, antibacterial, acne,
+  psoriasis and unquantified clinical-hydration claims. Removed all-skin-types, sensitive-skin,
+  fragrance-free and dermatologically-tested claims because the available exact-product
+  documents do not support them.
+- Removed packaging attribution, dossier language, lot codes, contract-manufacturer names,
+  public arguments with old copy and self-defeating `not the engine` phrasing from runtime
+  customer copy.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke RU/AR runtime copy:
+  `components/product/mist/mistLocalizedCopy.ts`, consumed by `mistCopy.ts`
+- Product 14 recommendation strings: `messages/ru.json` and `messages/ar.json`
+- Product 14 RU/AR quick facts: `lib/productQuickFactsCatalog.ts`
+- Regression coverage checks runtime ownership, structured JSON, exact source values,
+  branded-complex reconciliation and prohibited medical, contradicted or dossier-style
+  claims.
+- Database `productNumber`, localized names and localized descriptions were updated.
+
 ## Product 12 — EPI TURNOVER BOOSTING PEELING GEL
 
 ### Catalog identity

@@ -12,6 +12,7 @@ import { getSnowO2Copy } from '@/components/product/snowo2/snowo2Copy'
 import { getRemoverCopy } from '@/components/product/remover/removerCopy'
 import { getEpiCopy } from '@/components/product/epi/epiCopy'
 import { getSrsCopy } from '@/components/product/srs/srsCopy'
+import { getMistCopy } from '@/components/product/mist/mistCopy'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -794,6 +795,85 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
     expect(JSON.parse(getProductTranslations('13')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it('serves the rewritten product 14 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('14')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['14'])
+    expect(getProductTranslations('14')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['14'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 14 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['14']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps mist source facts and removes medical, dossier and contradicted claims', () => {
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('14'),
+      centralAr: getProductTranslations('14'),
+      bespokeRu: getMistCopy('ru'),
+      bespokeAr: getMistCopy('ar'),
+    })
+
+    for (const required of [
+      'Масло ши · 1,2%',
+      'زبدة الشيا · 1.2%',
+      '7,255%',
+      '7.255%',
+      '4,01%',
+      '4.01%',
+      '3,245%',
+      '3.245%',
+      '0,08795%',
+      '0.08795%',
+      '0,000001%',
+      '0.000001%',
+      '5,48',
+      '5.48',
+      '1,0106',
+      '1.0106',
+      '80,63 мл',
+      '80.63 مل',
+      '10–20 см',
+      '12 месяцев',
+      '12 شهراً',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'заживлен',
+      'лечени',
+      'антибактери',
+      'псориаз',
+      'угревая болезнь',
+      'дерматологически протестирован',
+      'для всех типов кожи',
+      'партия',
+      'производитель',
+      'التئام',
+      'علاج',
+      'مضاد للبكتيريا',
+      'الصدفية',
+      'حب الشباب',
+      'مختبر جلدياً',
+      'جميع أنواع البشرة',
+      'رقم الدفعة',
+      'الشركة المصنّعة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+
+    expect(getMistCopy('ru').faq.items).toHaveLength(6)
+    expect(getMistCopy('ar').faq.items).toHaveLength(6)
+    expect(JSON.parse(getProductTranslationsRu('14')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('14')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
   })

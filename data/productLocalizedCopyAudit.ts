@@ -2063,6 +2063,196 @@ const product13Ar = {
     'للاستخدام الاحترافي. للاستعمال الخارجي فقط. لا يُستخدم على بشرة متضررة أو مخدوشة أو مفتوحة أو متهيجة. يجب تجنب العينين والشفاه والأغشية المخاطية، والشطف جيداً بالماء البارد عند الملامسة. يُجرى اختبار رقعة قبل الاستخدام، ويُستخدم واقي الشمس بعد الجلسة. عند ظهور احمرار أو تورم أو تهيج، يُوقف الاستخدام وتُطلب المشورة الطبية. يُحفظ في مكان بارد وجاف بعيداً عن متناول الأطفال.',
 } as const
 
+const product14Ru = {
+  description:
+    'Мелкодисперсный эмульсионный мист для мгновенного комфорта, мягкости и ухоженного сияния кожи. Масло ши 1,2% дополняют глицерин 3,245%, бутиленгликоль 4,01% и масла оливы, винограда, жожоба и макадамии. Хорошо встряхните флакон, закройте глаза и распылите средство с расстояния 10–20 см. Используйте в течение дня, в том числе поверх макияжа. 80 мл. Сделано в Корее.',
+  productDetails: JSON.stringify({
+    type: 'Несмываемый эмульсионный мист для лица',
+    size: '80 мл / 2,7 fl. oz.',
+    function: 'Увлажнение, питание и свежее сияние кожи',
+    texture: 'Непрозрачная белая эмульсия с мелкодисперсным распылением',
+    keyActives: 'Масло ши 1,2%; бутиленгликоль 4,01%; глицерин 3,245%',
+    microbiomeComplex: 'Lactobacillus Ferment 0,08795%; инулин 0,08%; альфа-глюкан олигосахарид 0,02%',
+    application: 'Встряхнуть и распылить с расстояния 10–20 см при закрытых глазах',
+    makeup: 'Можно наносить до макияжа и поверх него',
+    ph: '5,48; спецификация 5,00–6,00',
+    specificGravity: '1,0106; спецификация 1,004–1,014',
+    measuredFill: '80,63 мл при номинальном объёме 80 мл',
+    afterOpening: '12 месяцев',
+    origin: 'Сделано в Корее',
+  }),
+  keyFeatures: JSON.stringify([
+    {
+      title: 'Эмульсионный мист с маслом ши 1,2%',
+      description:
+        'Невесомое распыление сочетает удобство миста с более питательным ощущением эмульсии, помогая смягчить кожу без тяжёлой плёнки.',
+    },
+    {
+      title: 'Увлажняющая база 7,255%',
+      description:
+        'Бутиленгликоль 4,01% и глицерин 3,245% помогают удерживать влагу и возвращают коже ощущение комфорта.',
+    },
+    {
+      title: 'До и поверх макияжа',
+      description:
+        'Перед макияжем мист придаёт коже свежее сияние, а в течение дня помогает освежить покрытие без растирания.',
+    },
+    {
+      title: 'Уход в одно распыление',
+      description:
+        'Хорошо встряхните, держите флакон на расстоянии 10–20 см и распылите средство при закрытых глазах.',
+    },
+  ]),
+  benefits: JSON.stringify([
+    'Мгновенно увлажняет и смягчает кожу',
+    'Помогает уменьшить ощущение сухости и стянутости',
+    'Придаёт лицу свежее, ухоженное сияние',
+    'Лёгкая эмульсия сочетает масло ши с увлажняющей базой 7,255%',
+    'Подходит для использования до макияжа и поверх него',
+    'Удобен для повторного нанесения в течение дня',
+  ]),
+  ingredients: JSON.stringify([
+    {
+      name: 'Масло ши · 1,2%',
+      description:
+        'Главный смягчающий компонент эмульсии помогает удерживать влагу и поддерживает мягкость кожи.',
+    },
+    {
+      name: 'Бутиленгликоль · 4,01% + глицерин · 3,245%',
+      description:
+        'Увлажняющая база общей концентрацией 7,255% помогает коже сохранять комфорт в течение дня.',
+    },
+    {
+      name: 'CUREBIOME',
+      description:
+        'Lactobacillus Ferment 0,08795%, инулин 0,08% и альфа-глюкан олигосахарид 0,02% составляют фирменный комплекс.',
+    },
+    {
+      name: 'Четыре растительных масла · по 0,015%',
+      description:
+        'Масла оливы, виноградных косточек, жожоба и макадамии дополняют смягчающую фазу миста.',
+    },
+    {
+      name: 'Hyaluronan 10 Multi-Complex',
+      description:
+        'Фирменное название объединяет молекулярные градации семи гиалуроновых компонентов; их суммарная концентрация в INCI составляет около 0,001%.',
+    },
+    {
+      name: 'FENSEBIOME · 0,000001%',
+      description:
+        'Acetyl Heptapeptide-4 присутствует в следовой концентрации; основное увлажняющее и смягчающее действие формулы обеспечивают увлажняющая база и масло ши.',
+    },
+    {
+      name: 'Full INCI',
+      description:
+        'Aqua (Water), Butylene Glycol, Glycerin, 1,2-Hexanediol, Butyrospermum Parkii (Shea) Butter, Lactobacillus Ferment, Sodium Hyaluronate, Hyaluronic Acid, Sodium Hyaluronate Crosspolymer, Potassium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Hydrolyzed Hyaluronic Acid, Sodium Acetylated Hyaluronate, Acetyl Heptapeptide-4, Alpha-Glucan Oligosaccharide, Inulin, Centella Asiatica Extract, Bambusa Vulgaris Leaf Extract, Olea Europaea (Olive) Fruit Oil, Vitis Vinifera (Grape) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Macadamia Integrifolia Seed Oil, Tocopherol, Hydrogenated Lecithin, Sucrose Palmitate, Ethylhexylglycerin, Polyglycerin-3, Polyglyceryl-10 Laurate, Caprylyl Glycol, Citric Acid, Sodium Citrate, Disodium EDTA, Polyglyceryl-10 Oleate, Inulin Lauryl Carbamate, Citrus Aurantium Bergamia (Bergamot) Fruit Oil, Limonene, Linalool.',
+    },
+  ]),
+  howToUse: JSON.stringify([
+    { step: 'Встряхните', instruction: 'Хорошо встряхните флакон перед каждым применением, чтобы соединить эмульсию.' },
+    { step: 'Закройте глаза', instruction: 'Держите флакон вертикально на расстоянии 10–20 см от лица.' },
+    { step: 'Распылите', instruction: 'Равномерно распылите мист по лицу, избегая прямого попадания в глаза.' },
+    { step: 'Повторяйте по желанию', instruction: 'Используйте утром, вечером или в течение дня, в том числе поверх макияжа.' },
+  ]),
+  directions:
+    'Только для наружного применения. Избегайте попадания в глаза и на слизистые; при контакте промойте прохладной водой. При покраснении, отёке или раздражении прекратите использование и обратитесь к врачу. Формула содержит масло бергамота, лимонен и линалоол. Храните в прохладном сухом месте вдали от прямого солнца и в недоступном для детей месте. Используйте в течение 12 месяцев после вскрытия.',
+} as const
+
+const product14Ar = {
+  description:
+    'رذاذ مستحلب ناعم يمنح البشرة ترطيباً فورياً ونعومة وإشراقة منعشة. تجمع تركيبته زبدة الشيا 1.2% مع الغليسرين 3.245% وبيوتيلين غليكول 4.01% وزيوت الزيتون وبذور العنب والجوجوبا والمكاديميا. تُرج العبوة جيداً، وتُغلق العينان، ثم يُرش من مسافة 10–20 سم. يمكن استخدامه طوال اليوم، بما في ذلك فوق المكياج. 80 مل. صُنع في كوريا.',
+  productDetails: JSON.stringify({
+    type: 'رذاذ مستحلب للوجه يُترك على البشرة',
+    size: '80 مل / 2.7 أونصة سائلة',
+    function: 'ترطيب وتغذية ومنح البشرة إشراقة منعشة',
+    texture: 'مستحلب أبيض معتم برذاذ ناعم',
+    keyActives: 'زبدة الشيا 1.2%، بيوتلين غليكول 4.01%، غليسرين 3.245%',
+    microbiomeComplex: 'Lactobacillus Ferment بنسبة 0.08795%، إينولين 0.08%، Alpha-Glucan Oligosaccharide بنسبة 0.02%',
+    application: 'تُرج العبوة ويُرش من مسافة 10–20 سم مع إغلاق العينين',
+    makeup: 'يمكن استخدامه قبل المكياج وفوقه',
+    ph: '5.48 ضمن نطاق 5.00–6.00',
+    specificGravity: '1.0106 ضمن نطاق 1.004–1.014',
+    measuredFill: '80.63 مل للحجم الاسمي 80 مل',
+    afterOpening: '12 شهراً',
+    origin: 'صُنع في كوريا',
+  }),
+  keyFeatures: JSON.stringify([
+    {
+      title: 'مستحلب برذاذ ناعم وزبدة شيا 1.2%',
+      description:
+        'يجمع سهولة الرذاذ مع إحساس المستحلب المغذي، ليساعد على تنعيم البشرة من دون طبقة ثقيلة.',
+    },
+    {
+      title: 'قاعدة ترطيب 7.255%',
+      description:
+        'يساعد بيوتلين غليكول 4.01% والغليسرين 3.245% على الاحتفاظ بالرطوبة واستعادة راحة البشرة.',
+    },
+    {
+      title: 'قبل المكياج وفوقه',
+      description:
+        'يمنح البشرة إشراقة منعشة قبل المكياج، ويساعد على تجديد مظهره خلال اليوم من دون فرك.',
+    },
+    {
+      title: 'عناية بخطوة واحدة',
+      description:
+        'تُرج العبوة جيداً، وتُمسك على مسافة 10–20 سم، ثم يُرش المستحضر مع إغلاق العينين.',
+    },
+  ]),
+  benefits: JSON.stringify([
+    'يرطب البشرة ويلطف ملمسها فوراً',
+    'يساعد على تخفيف الإحساس بالجفاف والشد',
+    'يمنح الوجه إشراقة منعشة ومظهراً أكثر عناية',
+    'يجمع مستحلباً خفيفاً من زبدة الشيا مع قاعدة ترطيب 7.255%',
+    'يناسب الاستخدام قبل المكياج وفوقه',
+    'عملي لإعادة الاستخدام خلال اليوم',
+  ]),
+  ingredients: JSON.stringify([
+    {
+      name: 'زبدة الشيا · 1.2%',
+      description:
+        'المكوّن الملطف الرئيسي في المستحلب، يساعد على الاحتفاظ بالرطوبة ودعم نعومة البشرة.',
+    },
+    {
+      name: 'بيوتيلين غليكول · 4.01% + غليسرين · 3.245%',
+      description:
+        'قاعدة ترطيب بتركيز إجمالي 7.255% تساعد البشرة على الحفاظ على الراحة طوال اليوم.',
+    },
+    {
+      name: 'CUREBIOME',
+      description:
+        'يتكون المركب من Lactobacillus Ferment بنسبة 0.08795%، وإينولين 0.08%، وAlpha-Glucan Oligosaccharide بنسبة 0.02%.',
+    },
+    {
+      name: 'أربعة زيوت نباتية · 0.015% لكل منها',
+      description:
+        'تكمل زيوت الزيتون وبذور العنب والجوجوبا والمكاديميا الطور الملطف في الرذاذ.',
+    },
+    {
+      name: 'Hyaluronan 10 Multi-Complex',
+      description:
+        'اسم تجاري يجمع درجات جزيئية من سبعة مكونات هيالورونية؛ ويبلغ مجموع تركيزها في قائمة INCI نحو 0.001%.',
+    },
+    {
+      name: 'FENSEBIOME · 0.000001%',
+      description:
+        'يوجد Acetyl Heptapeptide-4 بتركيز أثري، بينما تعتمد العناية المرطبة والملطفة أساساً على قاعدة الترطيب وزبدة الشيا.',
+    },
+    {
+      name: 'Full INCI',
+      description:
+        'Aqua (Water), Butylene Glycol, Glycerin, 1,2-Hexanediol, Butyrospermum Parkii (Shea) Butter, Lactobacillus Ferment, Sodium Hyaluronate, Hyaluronic Acid, Sodium Hyaluronate Crosspolymer, Potassium Hyaluronate, Hydroxypropyltrimonium Hyaluronate, Hydrolyzed Hyaluronic Acid, Sodium Acetylated Hyaluronate, Acetyl Heptapeptide-4, Alpha-Glucan Oligosaccharide, Inulin, Centella Asiatica Extract, Bambusa Vulgaris Leaf Extract, Olea Europaea (Olive) Fruit Oil, Vitis Vinifera (Grape) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Macadamia Integrifolia Seed Oil, Tocopherol, Hydrogenated Lecithin, Sucrose Palmitate, Ethylhexylglycerin, Polyglycerin-3, Polyglyceryl-10 Laurate, Caprylyl Glycol, Citric Acid, Sodium Citrate, Disodium EDTA, Polyglyceryl-10 Oleate, Inulin Lauryl Carbamate, Citrus Aurantium Bergamia (Bergamot) Fruit Oil, Limonene, Linalool.',
+    },
+  ]),
+  howToUse: JSON.stringify([
+    { step: 'رج العبوة', instruction: 'تُرج العبوة جيداً قبل كل استخدام لإعادة تجانس المستحلب.' },
+    { step: 'إغلاق العينين', instruction: 'تُمسك العبوة عمودياً على مسافة 10–20 سم من الوجه.' },
+    { step: 'الرش', instruction: 'يُرش المستحضر بالتساوي على الوجه مع تجنب ملامسة العينين مباشرة.' },
+    { step: 'التكرار عند الحاجة', instruction: 'يُستخدم صباحاً أو مساءً أو خلال اليوم، بما في ذلك فوق المكياج.' },
+  ]),
+  directions:
+    'للاستخدام الخارجي فقط. يجب تجنب ملامسة العينين والأغشية المخاطية، والشطف بالماء البارد عند الملامسة. عند ظهور احمرار أو تورم أو تهيج، يُوقف الاستخدام وتُطلب المشورة الطبية. تحتوي التركيبة على زيت البرغموت والليمونين واللينالول. يُحفظ في مكان بارد وجاف بعيداً عن أشعة الشمس المباشرة وعن متناول الأطفال. يُستخدم خلال 12 شهراً من الفتح.',
+} as const
+
 export const AUDITED_PRODUCT_LOCALIZED_COPY = {
   ru: {
     '1': {
@@ -2117,6 +2307,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
       name: 'Профессиональный AHA-пилинг SKIN RENEWAL SRS',
       ...product13Ru,
     },
+    '14': {
+      name: 'Эмульсионный мист MICROBIOME ENERGY INFUSING',
+      ...product14Ru,
+    },
   },
   ar: {
     '1': {
@@ -2170,6 +2364,10 @@ export const AUDITED_PRODUCT_LOCALIZED_COPY = {
     '13': {
       name: 'نظام التقشير الاحترافي SKIN RENEWAL SRS',
       ...product13Ar,
+    },
+    '14': {
+      name: 'رذاذ المستحلب MICROBIOME ENERGY INFUSING',
+      ...product14Ar,
     },
   },
 } as const

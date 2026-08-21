@@ -118,6 +118,8 @@
  *   - THE CONTRACT MANUFACTURER on the COA. DTS MG only.
  */
 
+import { MIST_AR_COPY, MIST_RU_COPY } from './mistLocalizedCopy'
+
 export type MistLocale = 'en' | 'ar' | 'ru'
 
 export interface MistCopy {
@@ -431,7 +433,7 @@ const EN: MistCopy = {
   backToProducts: 'Products',
 }
 
-const AR: MistCopy = {
+export const LEGACY_MIST_AR_COPY: MistCopy = {
   eyebrow: 'رذاذ وجه · ترطيب وتغذية',
   headline: 'رجّي. ثم رشي.',
   subheadline:
@@ -623,7 +625,7 @@ const AR: MistCopy = {
   backToProducts: 'المنتجات',
 }
 
-const RU: MistCopy = {
+export const LEGACY_MIST_RU_COPY: MistCopy = {
   eyebrow: 'Мист для лица · Увлажнение и питание',
   headline: 'Встряхните. Потом спрей.',
   subheadline:
@@ -815,7 +817,11 @@ const RU: MistCopy = {
   backToProducts: 'Продукты',
 }
 
-const BY_LOCALE: Record<MistLocale, MistCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<MistLocale, MistCopy> = {
+  en: EN,
+  ar: MIST_AR_COPY,
+  ru: MIST_RU_COPY,
+}
 
 export function getMistCopy(locale: string): MistCopy {
   return BY_LOCALE[(locale as MistLocale) in BY_LOCALE ? (locale as MistLocale) : 'en']

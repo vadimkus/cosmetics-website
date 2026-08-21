@@ -115,6 +115,8 @@
  *   - THE CONTRACT MANUFACTURER. DTS MG only.
  */
 
+import { PCT_TONER_LOCALIZED_COPY } from './pctTonerLocalizedCopy'
+
 export type PctTonerLocale = 'en' | 'ar' | 'ru'
 
 export interface PctTonerCopy {
@@ -856,7 +858,11 @@ const RU: PctTonerCopy = {
   backToProducts: 'Продукты',
 }
 
-const BY_LOCALE: Record<PctTonerLocale, PctTonerCopy> = { en: EN, ar: AR, ru: RU }
+const BY_LOCALE: Record<PctTonerLocale, PctTonerCopy> = {
+  en: EN,
+  ar: { ...AR, ...PCT_TONER_LOCALIZED_COPY.ar },
+  ru: { ...RU, ...PCT_TONER_LOCALIZED_COPY.ru },
+}
 
 export function getPctTonerCopy(locale: string): PctTonerCopy {
   return BY_LOCALE[(locale as PctTonerLocale) in BY_LOCALE ? (locale as PctTonerLocale) : 'en']

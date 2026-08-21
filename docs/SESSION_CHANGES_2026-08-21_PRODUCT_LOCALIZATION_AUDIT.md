@@ -253,6 +253,79 @@ hydration and a fuller-looking complexion while keeping safety guidance direct.
 - Regression coverage checks runtime ownership, structured JSON, exact source figures and
   prohibited claim language
 
+## Product 15 — INTENSIVE PROBLEM CONTROL TONER
+
+### Catalog identity
+
+- Repository product number: `15`
+- Customer-facing product: `GENOSYS INTENSIVE PROBLEM CONTROL TONER`
+- Formats: 200 ml home spray and 500 ml professional bottle
+- The bespoke route is rendered by
+  `components/product/pcttoner/PctTonerProductPage.tsx`.
+
+### Sources reviewed
+
+- `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/Genosys Intensive Problem Control Toner/Formula-GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf`
+  — current finished formula and exact percentages: butylene glycol 5.423%, glycerin 4.975%,
+  dipropylene glycol 3%, zinc PCA 0.5%, trehalose/panthenol/allantoin 0.1% each,
+  Anti Sebum P botanical extracts 0.005% combined, salicylic acid 0.001%, and the complete
+  INCI order.
+- `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/Genosys Intensive Problem Control Toner/Artwork-GENOSYS INTENSIVE PROBLEM CONTROL TONER(200ml).pdf`
+  — leave-on toner identity, morning/evening application, cotton-pad and spray methods,
+  360-degree bottle use, 200 ml format, precautions, 12-month period after opening and
+  Korean origin.
+- `/Users/vadimkus/Desktop/Drive/Genosys/Registration/Intertek/Genosys Intensive Problem Control Toner/COA-GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf`
+  — transparent light-yellow liquid; pH 4.81 inside 4.30–5.50; specific gravity 1.0200
+  inside 1.000–1.030; measured fill 201.50 ml for the nominal 200 ml bottle.
+- `/Users/vadimkus/cosmetics-website/public/documents/PPT/GENOSYS INTENSIVE PROBLEM CONTROL TONER.pdf`
+  — DTS MG product deck reviewed for the finished-product sebum study (approximately 50%
+  reduction after four weeks), non-comedogenic testing by QACS Ltd., application formats
+  and the historical Copper Tripeptide-1 claim.
+
+No matching product-specific Safety Assessment or separate legacy ingredient-list sheet was
+located in the reviewed product folder. The current formula, COA and artwork therefore remain
+the controlling registration sources; the DTS MG deck is used only for the identified
+finished-product study and application evidence.
+
+### Corrections and copy decisions
+
+- Rewrote every central and bespoke Russian and Arabic customer-facing field. Russian is
+  idiomatic professional skincare copy; Arabic is polished neutral MSA for UAE retail.
+- Reframed the product as a daily leave-on sebum-control toner, not an acne treatment or an
+  acid peel. Salicylic acid is only 0.001%; zinc PCA 0.5% is the formula's meaningful
+  sebum-control active.
+- Preserved the exact 13.398% humectant base: butylene glycol 5.423%, glycerin 4.975% and
+  dipropylene glycol 3%.
+- Reconciled `Anti Sebum P` to four botanical extracts in the current formula: Ulmus
+  davidiana root, Pueraria lobata root, Oenothera biennis flower and Pinus palustris leaf,
+  at 0.005% combined. It is described as a supporting complex, not the engine.
+- Removed Copper Tripeptide-1 as a product ingredient. It appears in an older deck but is
+  absent from both the current finished formula and the current INCI.
+- Preserved the finished-product result as approximately 50% lower sebum after four weeks,
+  without converting that cosmetic study into prevention or treatment language.
+- Preserved the verified 360-degree spray behaviour for the 200 ml bottle and clearly
+  separated it from the 500 ml professional format.
+- Preserved measured pH, specific gravity and fill without lot codes or dossier wording.
+- Removed prevention, antibacterial, healing and acne-treatment claims. The customer copy
+  directs persistent or severe breakouts to a dermatologist.
+- Corrected fragrance positioning: `Parfum` is absent, but tea-tree oil and cooling amides
+  have aromatic functions, so the product is not described as fragrance-free or odourless.
+
+### Implementation
+
+- Canonical central RU/AR fields: `data/productLocalizedCopyAudit.ts`
+- Runtime translation-map overrides: `data/productTranslationsRu.ts` and
+  `data/productTranslations.ts`
+- Complete bespoke runtime copy:
+  `components/product/pcttoner/pctTonerLocalizedCopy.ts`, consumed by `pctTonerCopy.ts`
+- Product 15 recommendation and routine strings: `messages/ru.json` and `messages/ar.json`
+- Product 15 verified facts: `lib/productQuickFactsCatalog.ts`
+- Product 15 morning/evening concern-routine steps: `lib/concernsData.ts`; removed the false
+  niacinamide, pore-dissolving BHA, cystic-spot compress and night-only efficacy language
+- Focused regression coverage checks runtime ownership, structured JSON, exact source
+  figures and prohibited medical or contradicted claim language
+- Database `productNumber`, localized names and localized descriptions were updated
+
 ## Product 14 — MICROBIOME ENERGY INFUSING MIST
 
 ### Catalog identity

@@ -13,6 +13,8 @@ import { getRemoverCopy } from '@/components/product/remover/removerCopy'
 import { getEpiCopy } from '@/components/product/epi/epiCopy'
 import { getSrsCopy } from '@/components/product/srs/srsCopy'
 import { getMistCopy } from '@/components/product/mist/mistCopy'
+import { getPctTonerCopy } from '@/components/product/pcttoner/pctTonerCopy'
+import { CONCERN_PAGES } from '@/lib/concernsData'
 
 describe('audited product localization copy', () => {
   it('serves the rewritten product 1 copy in Russian and Arabic', () => {
@@ -874,6 +876,85 @@ describe('audited product localization copy', () => {
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
     expect(JSON.parse(getProductTranslations('14')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+  })
+
+  it('serves the rewritten product 15 copy in Russian and Arabic', () => {
+    expect(getProductTranslationsRu('15')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ru['15'])
+    expect(getProductTranslations('15')).toEqual(AUDITED_PRODUCT_LOCALIZED_COPY.ar['15'])
+  })
+
+  it.each(['ru', 'ar'] as const)('keeps product 15 %s structured fields valid JSON', locale => {
+    const copy = AUDITED_PRODUCT_LOCALIZED_COPY[locale]['15']
+    for (const key of ['productDetails', 'keyFeatures', 'benefits', 'ingredients', 'howToUse'] as const) {
+      expect(() => JSON.parse(copy[key])).not.toThrow()
+    }
+  })
+
+  it('keeps toner source facts and removes medical, dossier and contradicted claims', () => {
+    const concernPage = CONCERN_PAGES.find(page => page.slug === 'acne-treatment')
+    const concernSteps = {
+      ru: [concernPage?.routine?.ru[0]?.steps[1], concernPage?.routine?.ru[1]?.steps[2]],
+      ar: [concernPage?.routine?.ar[0]?.steps[1], concernPage?.routine?.ar[1]?.steps[2]],
+    }
+    const text = JSON.stringify({
+      centralRu: getProductTranslationsRu('15'),
+      centralAr: getProductTranslations('15'),
+      bespokeRu: getPctTonerCopy('ru'),
+      bespokeAr: getPctTonerCopy('ar'),
+      concernSteps,
+    })
+
+    for (const required of [
+      'Цинк PCA · 0,5%',
+      'زنك PCA · 0.5%',
+      '13,398%',
+      '13.398%',
+      '5,423%',
+      '5.423%',
+      '4,975%',
+      '4.975%',
+      '0,001%',
+      '0.001%',
+      '4,81',
+      '4.81',
+      '1,0200',
+      '1.0200',
+      '201,50 мл',
+      '201.50 مل',
+      '360°',
+      '≈50%',
+      '12 месяцев',
+      '12 شهراً',
+    ]) {
+      expect(text).toContain(required)
+    }
+
+    for (const unsupported of [
+      'лечит акне',
+      'лечение акне',
+      'предотвращение высыпаний',
+      'антибактери',
+      'заживлен',
+      'партия',
+      'производитель',
+      'علاج حب الشباب',
+      'منع العيوب',
+      'مضاد للبكتيريا',
+      'التئام',
+      'رقم الدفعة',
+      'الشركة المصنّعة',
+    ]) {
+      expect(text.toLocaleLowerCase()).not.toMatch(new RegExp(unsupported, 'iu'))
+    }
+
+    expect(getPctTonerCopy('ru').faq.items).toHaveLength(9)
+    expect(getPctTonerCopy('ar').faq.items).toHaveLength(9)
+    expect(JSON.parse(getProductTranslationsRu('15')?.ingredients || '[]')).toEqual(
+      expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
+    )
+    expect(JSON.parse(getProductTranslations('15')?.ingredients || '[]')).toEqual(
       expect.arrayContaining([expect.objectContaining({ name: 'Full INCI' })])
     )
   })

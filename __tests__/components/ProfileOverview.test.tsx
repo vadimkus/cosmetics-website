@@ -113,6 +113,7 @@ describe('ProfileOverview', () => {
     expect(screen.getByRole('link', { name: /favorites/i })).toHaveAttribute('href', '/profile?tab=favorites')
     expect(screen.getByRole('link', { name: /shipping/i })).toHaveAttribute('href', '/profile?tab=addresses')
     expect(screen.getByRole('link', { name: /billing/i })).toHaveAttribute('href', '/profile?tab=billing')
+    expect(screen.getByRole('link', { name: /documents/i })).toHaveAttribute('href', '/profile?tab=documents')
     expect(screen.getByTestId('membership-card')).toBeInTheDocument()
   })
 

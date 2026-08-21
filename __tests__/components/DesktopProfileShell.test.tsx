@@ -77,7 +77,19 @@ describe('DesktopProfileShell', () => {
     expect(screen.getByRole('link', { name: /favorites/i })).toHaveAttribute('href', '/profile?tab=favorites')
     expect(screen.getByRole('link', { name: /shipping addresses/i })).toHaveAttribute('href', '/profile?tab=addresses')
     expect(screen.getByRole('link', { name: /^billing$/i })).toHaveAttribute('href', '/profile?tab=billing')
+    expect(screen.getByRole('link', { name: /^documents$/i })).toHaveAttribute('href', '/profile?tab=documents')
     expect(screen.getByText('Order content')).toBeInTheDocument()
+  })
+
+  it('keeps documents inside the profile shell and marks the tab active', () => {
+    render(
+      <DesktopProfileShell user={user} activeTab="documents" orderCount={0} favoritesCount={0} onLogout={jest.fn()}>
+        <p>Document library</p>
+      </DesktopProfileShell>
+    )
+
+    expect(screen.getByRole('link', { name: /^documents$/i })).toHaveAttribute('aria-current', 'page')
+    expect(screen.getByText('Document library')).toBeInTheDocument()
   })
 
   it('shows the real membership number and no device-local counter', () => {

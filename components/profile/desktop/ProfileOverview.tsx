@@ -323,7 +323,7 @@ export default function ProfileOverview({
           <Arrow rtl={isRTL} />
         </a>
         <Link
-          href={getLocalizedPath('/training', locale)}
+          href={`${getLocalizedPath('/profile', locale)}?tab=documents`}
           className={`flex min-h-28 items-center justify-between gap-4 rounded-3xl border border-[var(--cera-line)] bg-white p-5 transition-colors hover:bg-[var(--cera-cream-deep)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] ${isRTL ? 'flex-row-reverse text-right' : ''}`}
         >
           <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>

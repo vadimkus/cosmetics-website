@@ -24,6 +24,7 @@ import FavoritesClient from '@/app/favorites/FavoritesClient'
 import { AddressesContent } from '@/app/profile/addresses/page'
 import { AddressEditorContent } from '@/app/profile/addresses/add/page'
 import { BillingContent } from '@/app/profile/billing/page'
+import TrainingLibrary from '@/app/training/TrainingLibrary'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -128,6 +129,7 @@ export default function ProfilePageRefactored() {
       settings: 'security',
       privacy: 'security',
       security: 'security',
+      documents: 'documents',
     }
     setActiveTab((tab && normalized[tab]) || 'overview')
   }, [searchParams])
@@ -497,6 +499,8 @@ export default function ProfilePageRefactored() {
         ) : null}
 
         {activeTab === 'billing' && <BillingContent embedded />}
+
+        {activeTab === 'documents' && <TrainingLibrary embedded />}
 
         {activeTab === 'details' && (
           <div className="space-y-5">

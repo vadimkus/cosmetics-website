@@ -28,7 +28,7 @@ import {
  * library and they had drifted: English showed 6 video lessons, Russian 7 and
  * Arabic 11. One component over one data file means that cannot happen again.
  */
-export default function TrainingLibrary() {
+export default function TrainingLibrary({ embedded = false }: { embedded?: boolean }) {
   const { t, locale, dir } = useTranslation()
   const { isPWA, isClient } = usePWAMode()
 
@@ -95,34 +95,55 @@ export default function TrainingLibrary() {
   }
 
   return (
-    <div className={`cera-page training-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
-      <PageBreadcrumb
-        items={[
-          { name: t('common.home'), href: getLocalizedPath('/', locale) },
-          { name: copy.breadcrumb },
-        ]}
-      />
+    <div className={`cera-page training-page ${ceraSerif.variable} ${embedded ? '' : 'min-h-[100dvh]'}`} dir={dir}>
+      {!embedded && (
+        <PageBreadcrumb
+          items={[
+            { name: t('common.home'), href: getLocalizedPath('/', locale) },
+            { name: copy.breadcrumb },
+          ]}
+        />
+      )}
 
-      <div className="mx-auto max-w-[1120px] px-4 py-8 md:px-8 md:py-16">
-        <Link
-          href={getLocalizedPath('/', locale)}
-          className={`mt-3 inline-flex items-center gap-1.5 text-[13px] text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${
-            rtl ? 'flex-row-reverse' : ''
-          }`}
-        >
-          <ArrowLeft className={`h-3.5 w-3.5 ${rtl ? 'rotate-180' : ''}`} />
-          {copy.backHome}
-        </Link>
+      <div className={embedded ? 'mx-auto max-w-[1120px]' : 'mx-auto max-w-[1120px] px-4 py-8 md:px-8 md:py-16'}>
+        {!embedded ? (
+          <>
+            <Link
+              href={getLocalizedPath('/', locale)}
+              className={`mt-3 inline-flex items-center gap-1.5 text-[13px] text-[var(--cera-rose-ink)] transition-opacity hover:opacity-70 ${
+                rtl ? 'flex-row-reverse' : ''
+              }`}
+            >
+              <ArrowLeft className={`h-3.5 w-3.5 ${rtl ? 'rotate-180' : ''}`} />
+              {copy.backHome}
+            </Link>
 
-        {/* ─────────────────────────────── Hero ─────────────────────────── */}
-        <header className="mt-10 text-center md:mt-16">
-          <p className="cera-eyebrow mb-3">{copy.eyebrow}</p>
-          <h1 className="cera-serif text-[36px] leading-[1.05] md:text-[58px] lg:text-[68px]">{copy.title}</h1>
-          <p className="mx-auto mt-5 max-w-[60ch] text-[15.5px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
-            {copy.lead}
-          </p>
+            {/* ─────────────────────────────── Hero ─────────────────────────── */}
+            <header className="mt-10 text-center md:mt-16">
+              <p className="cera-eyebrow mb-3">{copy.eyebrow}</p>
+              <h1 className="cera-serif text-[36px] leading-[1.05] md:text-[58px] lg:text-[68px]">{copy.title}</h1>
+              <p className="mx-auto mt-5 max-w-[60ch] text-[15.5px] leading-relaxed text-[var(--cera-muted)] md:text-[17px]">
+                {copy.lead}
+              </p>
 
-          <dl className="mt-10 flex items-start justify-center md:mt-12">
+              <dl className="mt-10 flex items-start justify-center md:mt-12">
+                {counts.map((count) => (
+                  <div key={count.label} className="training-count text-center">
+                    <dd className="cera-numeral text-[28px] leading-none text-[var(--cera-ink)] md:text-[36px]">
+                      {count.value}
+                    </dd>
+                    <dt className="mt-2 text-[11.5px] leading-tight text-[var(--cera-muted)] md:text-[13px]">
+                      {count.label}
+                    </dt>
+                  </div>
+                ))}
+              </dl>
+            </header>
+
+            <div className="cera-rule mt-12 md:mt-16" />
+          </>
+        ) : (
+          <dl className="flex items-start justify-center rounded-3xl border border-[var(--cera-line)] bg-white px-3 py-6 shadow-[0_12px_32px_-24px_rgba(23,20,15,0.22)]">
             {counts.map((count) => (
               <div key={count.label} className="training-count text-center">
                 <dd className="cera-numeral text-[28px] leading-none text-[var(--cera-ink)] md:text-[36px]">
@@ -134,12 +155,10 @@ export default function TrainingLibrary() {
               </div>
             ))}
           </dl>
-        </header>
-
-        <div className="cera-rule mt-12 md:mt-16" />
+        )}
 
         {/* ───────────────────────── Protocols and guides ─────────────────── */}
-        <section className="mt-12 md:mt-16">
+        <section className={embedded ? 'mt-10' : 'mt-12 md:mt-16'}>
           <SectionHead eyebrow={copy.guidesEyebrow} title={copy.guidesTitle} lead={copy.guidesLead} />
           <ul className="grid gap-2.5 md:grid-cols-2 md:gap-3">
             {TRAINING_GUIDES.map((doc) => (

@@ -30,6 +30,7 @@ export type DesktopProfileTab =
   | 'addresses'
   | 'billing'
   | 'security'
+  | 'documents'
 
 interface DesktopProfileShellProps {
   user: User
@@ -47,6 +48,7 @@ const tabItems = [
   { id: 'details', labelKey: 'personalDetails', icon: UserRound },
   { id: 'addresses', labelKey: 'shippingAddresses', icon: MapPin },
   { id: 'billing', labelKey: 'billing', icon: CreditCard },
+  { id: 'documents', labelKey: 'documents', icon: BookOpen },
 ] as const
 
 const sectionCopy: Record<DesktopProfileTab, { title: string; description: string }> = {
@@ -57,6 +59,7 @@ const sectionCopy: Record<DesktopProfileTab, { title: string; description: strin
   addresses: { title: 'shippingAddresses', description: 'manageAddresses' },
   billing: { title: 'billing', description: 'manageBilling' },
   security: { title: 'securityAndPrivacy', description: 'securityDescription' },
+  documents: { title: 'documents', description: 'documentsDescription' },
 }
 
 export default function DesktopProfileShell({
@@ -146,11 +149,6 @@ export default function DesktopProfileShell({
                   <span className="flex-1">{t('profile.securityAndPrivacy')}</span>
                 </Link>
 
-                <Link href={getLocalizedPath('/training', locale)} className={navClass()}>
-                  <BookOpen className="h-[18px] w-[18px] shrink-0" aria-hidden="true" />
-                  <span className="flex-1">{t('profile.documents')}</span>
-                  <ChevronRight className={`h-4 w-4 text-[var(--cera-blush-deep)] ${isRTL ? 'rotate-180' : ''}`} aria-hidden="true" />
-                </Link>
               </div>
 
               {(user.partnerPortalAccess || ['CLINIC', 'VIP'].includes(String(user.discountType || '').toUpperCase())) && (

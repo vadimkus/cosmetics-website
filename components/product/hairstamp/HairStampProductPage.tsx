@@ -749,14 +749,16 @@ export default function HairStampProductPage({
           <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
             <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
               <CeraReveal>
-                {/* Square frame with a cover crop, matching the other product
-                    videos: every clip in /public/videos is a 720x1280 social
-                    export, so the page never lets one set its own shape. */}
-                <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+                {/* The frame matches the source rather than the square used
+                    elsewhere. This clip is a 720x1280 export with type across
+                    the top, and a square cover crop cut about 44% of the
+                    height, taking the caption with it. Held to 9:16 nothing is
+                    lost and no letterbox appears. Width is capped so a portrait
+                    clip cannot outgrow the column beside it. */}
+                <div className="relative mx-auto aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                   <video
                     className="h-full w-full object-cover"
                     src={product.videoUrl}
-                    poster={product.image}
                     controls
                     playsInline
                     preload="metadata"

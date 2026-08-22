@@ -52,11 +52,10 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>
     ar: ['s1.jpg', 's2.jpg', 's3.jpg', 's4.jpg', 's5.jpg', 's6.jpg', 's7.jpg', 'closing.jpg'],
   },
   // Product 64, HR3 MATRIX HAIR STAMP. Main.jpeg is a plain packshot and is not
-  // translated. Russian s1 is on disk but deliberately unregistered: that export
-  // renders the three product names with a missing glyph (a tofu box) after each
-  // one, so Russian falls back to the English s1 until a corrected file arrives.
+  // translated. The first Russian s1 was withheld for a missing glyph after each
+  // product name; the corrected export landed the same day and is registered here.
   '/images/needles2': {
-    ru: ['s2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],
+    ru: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],
     ar: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],
   },
 }

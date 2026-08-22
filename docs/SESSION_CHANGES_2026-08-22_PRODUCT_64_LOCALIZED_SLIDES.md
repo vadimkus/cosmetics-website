@@ -23,15 +23,16 @@ the localized website and the locale-aware mobile API.
 - `HairStampProductPage` now localizes both the gallery and the four inline
   figures (mechanism `s3`, protocol `s4`, spec `s1`, closing band).
 
-## Russian s1 withheld
+## Russian s1 correction
 
-The supplied Russian `s1` renders a missing-glyph box after each of the three
-product names — `HAIR STAMP ⊠`, `HAIRGEN BOOSTER ⊠`, `HR³ MATRIX HAIR SOLUTION
-α ⊠` — where a trademark symbol failed to embed. The file is on disk but is not
-listed in the manifest, so Russian keeps the English `s1` in both the gallery
-and the spec section until a corrected export arrives. That is the manifest's
-intended safe failure: an unregistered slide silently stays English rather than
-404ing.
+The first supplied Russian `s1` rendered a missing-glyph box after each of the
+three product names — `HAIR STAMP ⊠`, `HAIRGEN BOOSTER ⊠`, `HR³ MATRIX HAIR
+SOLUTION α ⊠` — where a trademark symbol failed to embed. It shipped to disk
+unregistered, so Russian fell back to the English `s1` in both the gallery and
+the spec section, which is the manifest's intended safe failure. A corrected
+export arrived the same afternoon, was checked against the English original,
+compressed to 141 KB, and registered. The complete Russian set is now
+localized.
 
 The remaining eleven slides were reviewed against the English originals and are
 clean. The garbled small print on the carton in `closing` is pre-existing in the

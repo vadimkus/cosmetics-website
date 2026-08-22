@@ -48,7 +48,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '44': '/images/shampoo/Main.jpg',
   '45': '/images/HHR.jpg',
   '46': '/images/scal.jpg',
-  '51': '/images/bio_ferment/bferment_main.jpg',
+  '51': '/images/bio_ferment2/main.jpeg',
   '52': '/images/pdrn_mask/main.jpeg',
   '53': '/images/collagen_mask/Main.jpeg',
   '60': '/images/6000/main.jpg',

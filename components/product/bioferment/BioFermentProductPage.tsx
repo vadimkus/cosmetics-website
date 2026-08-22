@@ -94,15 +94,13 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Jar + bowl scene from the gallery, so the engine section shows the powder
- *  being prepared rather than another packshot. */
-const ENGINE_IMAGE = '/images/BFAD.png'
+/** The composition slide, so the engine section shows the percentages it is
+ *  describing rather than another packshot. */
+const ENGINE_IMAGE = '/images/bio_ferment2/s5.jpeg'
 
-/** The model shot from the gallery, so the how-to shows the mask on a face
- *  rather than describing it. ferment_high.jpeg leads on six growth-factor
- *  peptides, which this page does not claim, so it stays in the thumbs and
- *  is queued for re-export. */
-const HOWTO_IMAGE = '/images/bio_ferment/bferment_model.jpg'
+/** The mixing slide, so the how-to shows the scoops and the bowl alongside
+ *  the written steps. */
+const HOWTO_IMAGE = '/images/bio_ferment2/s7.jpeg'
 
 /** DTS MG deck: skin moisture 17.27 before, 48.513 after. Chart heights are
  *  scaled to the after reading so the lift is visible. */

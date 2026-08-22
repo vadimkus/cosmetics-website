@@ -1,0 +1,62 @@
+# Product 51 studio slides
+
+Date: 22 August 2026
+
+## Scope
+
+New studio set for product 51, BIO-FERMENT AGE DEFYING POWDER MASK, replacing a
+three-image gallery that had never been a proper slide deck.
+
+## What shipped
+
+`public/images/bio_ferment2/`, resized to 1024 px and compressed to 73–185 KB:
+
+| File | Slide |
+|---|---|
+| `main.jpeg` | Packshot, no overlaid text |
+| `s1.jpeg` | Mix it fresh. Peel it off. |
+| `s2.jpeg` | 2.8x skin moisture, 17.27 → 48.513 |
+| `s3.jpeg` | Powder : water 1 : 1.5 |
+| `s4.jpeg` | Hydrate. Cool. Peel. |
+| `s5.jpeg` | 41.79% diatomaceous earth, 15% algin, 6% calcium sulfate |
+| `s6.jpeg` | 35% glucose, 0.2% collagen, 0.1% allantoin, four ferments |
+| `s7.jpeg` | Three scoops, water, 15–20 min |
+| `Closing.jpeg` | Spec card, 300 g, about 7 treatments |
+
+Gallery order is `s1`–`s7` then `Closing`; the main image is prepended by both
+the web gallery and the mobile payload, so it is not listed in `images`.
+
+## s8 not published
+
+The delivered `s8` is a cropped duplicate of `s4`: same artwork, headline
+clipped at the top, case-study footnote cut off at the bottom, and 1260×1020
+rather than square. It was not committed.
+
+## Claim check
+
+Every figure on the slides matches the verified page copy in
+`components/product/bioferment/bioFermentCopy.ts`, including the composition
+percentages, the 5–10 minute set from the COA, and the −10 to −11 °C cooling
+with its two-case-study footnote. `s2` states the hydration lift as **2.8x,
+17.27 → 48.513**, which is the corrected framing from the same day's
+`SESSION_CHANGES_2026-08-22_PRODUCT_51_HYDRATION_CLAIM.md`; the withdrawn
+218% figure appears nowhere in the set.
+
+The retired `ferment_high.jpeg` led on six growth-factor peptides, a claim this
+page does not make. Dropping it from the gallery closes the note left in
+`BioFermentProductPage`.
+
+## Other changes
+
+- Inline figures repointed: the complex section now shows the composition slide
+  (`s5`) and the how-to shows the mixing slide (`s7`).
+- `lib/products.ts` static fallback and `lib/routineStepImages.ts` follow the new
+  packshot.
+- Database updated with
+  `scripts/update-product-51-bio-ferment2-images-20260822.ts`, run after the
+  assets were confirmed serving on genosys.ae.
+
+## Verification
+
+- `npx tsc --noEmit` passed.
+- Assets confirmed 200 before the database write.

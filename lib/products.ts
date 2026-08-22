@@ -728,7 +728,7 @@ export const products: Product[] = [
     id: '51',
     name: 'BIO-FERMENT AGE DEFYING POWDER MASK',
     price: 250,
-    description: '300g. Professional modeling mask. Mix 40g of powder with water at 1 : 1.5, leave 15–20 minutes, peel. Diatomaceous earth base that holds moisture instead of drying out. Hydration rose 218% in the DTS MG clinical trial. Dermatologically tested.',
+    description: '300g. Professional modeling mask. Mix 40g of powder with water at 1 : 1.5, leave 15–20 minutes, peel. Diatomaceous earth base that holds moisture instead of drying out. Skin moisture nearly tripled in the DTS MG clinical trial, from 17.27 to 48.513. Dermatologically tested.',
     image: '/images/bio_ferment/bferment_main.jpg',
     images: null,
     category: 'Mask',

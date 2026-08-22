@@ -287,7 +287,7 @@ We have a blog with helpful articles about skincare, products, and company news!
 
 8. **BIO-FERMENT AGE DEFYING POWDER MASK** 🎭
    - URL: [genosys.ae/blog/bio-ferment-age-defying-powder-mask-launch](https://genosys.ae/blog/bio-ferment-age-defying-powder-mask-launch)
-   - About: Diatomaceous-earth modeling mask. Mix 1:1.5 with water, peel after 15–20 min. +218% hydration in the DTS MG trial.
+   - About: Diatomaceous-earth modeling mask. Mix 1:1.5 with water, peel after 15–20 min. Skin moisture nearly tripled in the DTS MG trial, 17.27 to 48.513. Never quote "218%" for this product: it cannot be derived from those two values.
    - Recommend when: Customer asks about masks, anti-aging, fermented skincare
 
 9. **PDRN Mask Pack Launch** 💎

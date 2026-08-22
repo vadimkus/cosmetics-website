@@ -31,6 +31,20 @@
  *       found: endpoint, instrument, timing, sample, comparator and percentage
  *       denominator are absent. These figures are excluded from audited RU/AR.
  *
+ *       DO NOT REINSTATE "218%". Audited 22 Aug 2026: it cannot be derived
+ *       from the two values printed beside it. 17.27 → 48.513 is a 180.9%
+ *       increase, or 2.81x the starting reading; 218% would need an after
+ *       value of 54.92 or 37.65. The deck's own figure appears to be a
+ *       transposition of 281%. This page states the measured values instead.
+ *
+ *       The cooling slides DO carry a comparator: "Product not-applied area"
+ *       against "Product applied area", read before heating the face, after
+ *       heating, and after application. The -10C and -11C readings are two
+ *       individual case studies, and the deck labels them as such. The
+ *       21-woman panel aged 30 to 59 belongs to a separate Product
+ *       Satisfaction Survey slide, not to the hydration trial, which states
+ *       no sample size at all.
+ *
  * THE FORMULA, as finished concentrations that matter on this page:
  *
  *   Diatomaceous Earth                         41.7900%
@@ -218,10 +232,10 @@ const EN: BioFermentCopy = {
   eyebrow: 'Modeling mask · Powder',
   headline: 'Mix it fresh. Peel it off.',
   subheadline:
-    'A diatomaceous-earth modeling mask that locks moisture in instead of drying out. Three scoops of powder, water, fifteen minutes, and hydration that rose 218% in the clinical trial.',
+    'A diatomaceous-earth modeling mask that locks moisture in instead of drying out. Three scoops of powder, water, fifteen minutes, and skin moisture that came back nearly tripled in the clinical trial.',
   heroBullets: [
     'Mixes 1 to 1.5 with water, sets, and peels away in one piece',
-    'Hydration rose 218% in the DTS MG clinical trial',
+    'Skin moisture nearly tripled in the DTS MG clinical trial, 17.27 to 48.513',
     'Diatomaceous earth base that holds moisture instead of drying out',
     '300g jar — about seven treatments at 40g, scoop in the pack',
   ],
@@ -238,7 +252,7 @@ const EN: BioFermentCopy = {
   vatIncluded: 'VAT included',
   freeDelivery: 'Free delivery over 1,000 AED · Ships from Dubai',
   stats: [
-    { value: '218%', label: 'Hydration lift in the clinical trial' },
+    { value: '2.8×', label: 'Skin moisture in the clinical trial, 17.27 to 48.513' },
     { value: '1 : 1.5', label: 'Powder to water, mixed fresh each time' },
     { value: '15–20 min', label: 'On the face, then peel' },
     { value: '300g', label: 'About seven treatments at 40g' },
@@ -251,11 +265,11 @@ const EN: BioFermentCopy = {
     cards: [
       {
         title: 'Hydrate',
-        body: 'The earth-and-algin set holds moisture against the skin instead of tightening as it dries. In the clinical trial, hydration rose from 17.27 to 48.513 — 218%.',
+        body: 'The earth-and-algin set holds moisture against the skin instead of tightening as it dries. In the clinical trial, skin moisture rose from 17.27 to 48.513 — nearly triple the reading it started from.',
       },
       {
         title: 'Cool',
-        body: 'Menthol and cypress water take the temperature down while the mask sits. On heated skin in the trial, the treated side fell about 10 to 11°C.',
+        body: 'Menthol and cypress water take the temperature down while the mask sits. In two case studies on deliberately heated skin, the masked area read 10°C and 11°C below the bare skin beside it.',
       },
       {
         title: 'Peel',
@@ -296,11 +310,11 @@ const EN: BioFermentCopy = {
     chartTitle: 'Skin moisture content',
     beforeLabel: 'Before',
     afterLabel: 'After',
-    headline: { value: '218%', label: 'Rise in skin hydration after one treatment' },
+    headline: { value: '2.8×', label: 'Skin moisture after one treatment, 17.27 to 48.513' },
     cooling: { value: '−10 to −11°C', label: 'Drop on heated skin in the two published cases' },
-    attribution: 'DTS MG clinical trial. Satisfaction panel: 21 women aged 30 to 59.',
+    attribution: 'DTS MG clinical trial. A separate satisfaction survey covered 21 women aged 30 to 59.',
     note:
-      'Moisture moved from 17.27 to 48.513. Two women in the same trial, one in her late forties with dry skin and one in her mid-fifties with normal-to-dry skin, read +327% and +323%. Cooling was measured after the face was heated: −10°C on oily skin in the late thirties, −11°C on normal-to-dry skin in the mid-fifties.',
+      'Moisture moved from 17.27 to 48.513, nearly three times the starting reading. Two case studies in the same deck, one woman in her late forties with dry skin and one in her mid-fifties with normal-to-dry skin, read 327% and 323%. Cooling was read after the face was heated, masked area against bare skin: −10°C on oily skin in the late thirties, −11°C on normal-to-dry skin in the mid-fifties.',
   },
   howTo: {
     eyebrow: 'How to use',

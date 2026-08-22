@@ -11,7 +11,7 @@
  *
  *   effects  Hydrate · Cool · Peel
  *   engine   diatomaceous earth + algin + calcium sulfate, the real mask
- *   proof    DTS MG hydration 218% and the cooling cases
+ *   proof    DTS MG hydration 17.27 to 48.513 and the cooling cases
  *   howTo    pack mix ratio 1 : 1.5, peel, plus the product video
  *   actives  ingredient cards from the product record, plus the full INCI
  *   suited   who it is for and who should buy something else

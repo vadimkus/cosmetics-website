@@ -53,6 +53,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import { localizeProductImage } from '@/lib/localizedProductImages'
 import { canUserSeePrices } from '@/lib/discountUtils'
 import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { getPriceForSize, getProductSizeOptions } from '@/utils/productPricing'
@@ -125,6 +126,13 @@ export default function HairStampProductPage({
   const copy = getHairStampCopy(locale)
   const Chevron = isRtl ? ChevronLeft : ChevronRight
 
+  // Arabic and Russian have their own studio slides; anything without a
+  // translated file comes back unchanged and stays English.
+  const mechanismImage = localizeProductImage(MECHANISM_IMAGE, locale)
+  const protocolImage = localizeProductImage(PROTOCOL_IMAGE, locale)
+  const specImage = localizeProductImage(SPEC_IMAGE, locale)
+  const closingImage = localizeProductImage(CLOSING_IMAGE, locale)
+
   // Single SKU — one box of eight — so no size is ever passed to the cart.
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
@@ -143,10 +151,10 @@ export default function HairStampProductPage({
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
     )
     return list.map((src, i) => ({
-      src,
+      src: localizeProductImage(src, locale),
       alt: `${product.name} - GENOSYS Korean dermacosmetics, image ${i + 1} of ${list.length}`,
     }))
-  }, [product.image, product.images, product.name])
+  }, [locale, product.image, product.images, product.name])
 
   // Legacy records carry the catalogue number in `id` with `productNumber` null,
   // newer ones the other way round; index on whichever is present.
@@ -567,7 +575,7 @@ export default function HairStampProductPage({
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
               <Image
-                src={MECHANISM_IMAGE}
+                src={mechanismImage}
                 alt={copy.science.figureAlt}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
@@ -673,7 +681,7 @@ export default function HairStampProductPage({
           <CeraReveal className="lg:pt-4">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white lg:sticky lg:top-24">
               <Image
-                src={PROTOCOL_IMAGE}
+                src={protocolImage}
                 alt={`${product.name} - how to use`}
                 fill
                 sizes="(max-width: 1024px) 92vw, 40vw"
@@ -704,7 +712,7 @@ export default function HairStampProductPage({
               <CeraReveal delay={90}>
                 <div className="relative mt-8 aspect-square max-w-[420px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                   <Image
-                    src={SPEC_IMAGE}
+                    src={specImage}
                     alt={copy.spec.figureAlt}
                     fill
                     sizes="(max-width: 1024px) 92vw, 36vw"
@@ -1023,7 +1031,7 @@ export default function HairStampProductPage({
 
       {/* ────────────────────────── Closing band ───────────────────────── */}
       <CeraClosingCta
-        image={CLOSING_IMAGE}
+        image={closingImage}
         name={product.name}
         headline={copy.headline}
         note={copy.freeDelivery}

@@ -781,7 +781,13 @@ export default function BioFermentProductPage({
           {product.videoUrl ? (
             <CeraReveal className="mt-10">
               <p className="cera-eyebrow">{copy.howTo.videoTitle}</p>
-              <div className="bf-video relative mt-4 aspect-square overflow-hidden rounded-[28px] sm:aspect-video">
+              {/* The frame matches the source rather than the square and
+                  widescreen pair used before. The clip is a 720x1280 portrait
+                  export, so a cover crop to those ratios threw away most of
+                  the height. Held to 9:16 nothing is lost and no letterbox
+                  appears, and the width is capped so it cannot outgrow the
+                  column of steps above it. */}
+              <div className="bf-video relative mx-auto mt-4 aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px]">
                 <video
                   src={product.videoUrl}
                   controls

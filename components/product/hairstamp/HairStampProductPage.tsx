@@ -93,7 +93,7 @@ interface Props {
 // section on this page, so it appears in the thumbnail strip only.
 const MECHANISM_IMAGE = '/images/needles2/s3.jpeg'
 const PROTOCOL_IMAGE = '/images/needles2/s4.jpeg'
-const SPEC_IMAGE = '/images/needles2/s1.jpeg'
+const SPEC_IMAGE = '/images/needles2/s1b.jpeg'
 // The closing band has its own shot rather than reusing the packshot, so the
 // last thing on the page is not the same image as the first.
 const CLOSING_IMAGE = '/images/needles2/closing.jpeg'

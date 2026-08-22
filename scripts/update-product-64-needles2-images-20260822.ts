@@ -22,7 +22,7 @@ const APPLY = process.argv.includes('--apply')
 
 const MAIN = '/images/needles2/Main.jpeg'
 const GALLERY = [
-  '/images/needles2/s1.jpeg',
+  '/images/needles2/s1b.jpeg',
   '/images/needles2/s2.jpeg',
   '/images/needles2/s3.jpeg',
   '/images/needles2/s4.jpeg',

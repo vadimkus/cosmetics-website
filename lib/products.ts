@@ -840,7 +840,7 @@ Mounted on the Booster it stamps automatically, at a rate you set rather than on
 Eight stamps per box. One stamp and one fresh ampoule per treatment — it is single use, it is not a cleanable part, and it is personal. Made in South Korea.`,
     image: '/images/needles2/Main.jpeg',
     images: JSON.stringify([
-      '/images/needles2/s1.jpeg',
+      '/images/needles2/s1b.jpeg',
       '/images/needles2/s2.jpeg',
       '/images/needles2/s3.jpeg',
       '/images/needles2/s4.jpeg',

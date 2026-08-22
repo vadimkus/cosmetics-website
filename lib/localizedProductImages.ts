@@ -54,9 +54,11 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>
   // Product 64, HR3 MATRIX HAIR STAMP. Main.jpeg is a plain packshot and is not
   // translated. The first Russian s1 was withheld for a missing glyph after each
   // product name; the corrected export landed the same day and is registered here.
+  // s1b is the refreshed opening slide: /images is served immutable for a year,
+  // so the reissued artwork had to take a new name rather than replace s1.jpeg.
   '/images/needles2': {
-    ru: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],
-    ar: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],
+    ru: ['s1b.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],
+    ar: ['s1b.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],
   },
 }
 

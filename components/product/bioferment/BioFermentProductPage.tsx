@@ -670,10 +670,10 @@ export default function BioFermentProductPage({
         </div>
       </section>
 
-      {/* The available DTS deck does not identify a study report, method,
-          endpoint, timing or denominator for its percentages. Keep that
-          presentation-only evidence off the audited RU/AR pages. */}
-      {locale === 'en' && <section className="bg-white py-16 lg:py-24">
+      {/* The study runs in all three languages. The figures shown are the ones
+          DTS MG actually measured, 17.27 to 48.513, never the "218%" printed
+          beside them, which those two values do not produce. */}
+      <section className="bg-white py-16 lg:py-24">
         <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
           <CeraSectionHeader
             eyebrow={copy.proof.eyebrow}
@@ -727,7 +727,7 @@ export default function BioFermentProductPage({
             </div>
           </div>
         </div>
-      </section>}
+      </section>
 
       {/* ───────────────────────── How to use ───────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">

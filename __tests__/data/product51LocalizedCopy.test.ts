@@ -9,7 +9,6 @@ import { getCatalogQuickFacts } from '@/lib/productQuickFactsCatalog'
 
 const unsupported = [
   /218%|٢١٨٪/,
-  /10[–-]11|١٠[–-]١١|١٠ إلى ١١/,
   /не сохнет|не сушит|لا يجف|يحبس الرطوبة/i,
   /все типы кожи|جميع أنواع البشرة/i,
   /перегрет|منهكة من الحر/i,
@@ -47,6 +46,18 @@ describe('product 51 audited localized copy', () => {
       getCatalogQuickFacts('51', 'ar'),
     ])
     for (const pattern of unsupported) expect(liveRuAr).not.toMatch(pattern)
+  })
+
+  /* The study runs in all three languages, so each one must carry the values
+     DTS MG measured rather than the 218% printed beside them, which those two
+     values do not produce. */
+  it('shows the same measured study figures in every language', () => {
+    for (const locale of ['en', 'ru', 'ar'] as const) {
+      const proof = JSON.stringify(getBioFermentCopy(locale).proof)
+      expect(proof).toMatch(/17[.,٫]27|١٧٫٢٧/)
+      expect(proof).toMatch(/48[.,٫]513|٤٨٫٥١٣/)
+      expect(proof).not.toMatch(/218/)
+    }
   })
 
   it('states the evidence boundary around fragrance explicitly', () => {

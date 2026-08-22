@@ -73,8 +73,22 @@ do carry a comparator, **"Product not-applied area"** against **"Product applied
 read before heating the face, after heating, and after application. The page's description
 of treated against untreated skin is accurate and was left unchanged.
 
-## Open item
+## Resolved: the study now runs in all three languages
 
-The whole proof section is gated to `locale === 'en'` in `BioFermentProductPage.tsx`, so
-Russian and Arabic customers do not see these figures at all. English and the other two
-languages therefore make different claims for the same product. Worth a decision.
+The proof section had been gated to `locale === 'en'`, so the same product made different
+claims depending on the language. That gate is removed.
+
+Russian and Arabic previously carried an "evidence boundary" block that printed em-dashes in
+place of the figures. Both now state what was measured, matching English:
+
+- Skin moisture 17.27 to 48.513, presented as nearly triple the starting reading
+- The two cooling case studies at −10°C and −11°C, masked area against bare skin
+- The 21-woman satisfaction survey named as a separate survey, not as the trial's sample
+
+Arabic keeps its Arabic-Indic digit convention (١٧٫٢٧ to ٤٨٫٥١٣). The hydration result also
+now appears in the Russian and Arabic subheadline, hero bullets and stats strip, replacing a
+"40 g per treatment" stat that duplicated the mix ratio already shown beside it.
+
+`__tests__/data/product51LocalizedCopy.test.ts` previously listed the cooling range as
+forbidden in RU/AR. That rule is replaced by its opposite: every language must carry 17.27
+and 48.513, and no language may contain 218.

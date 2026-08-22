@@ -27,6 +27,9 @@ const GALLERY = [
   '/images/needles2/s3.jpeg',
   '/images/needles2/s4.jpeg',
   '/images/needles2/s5.jpeg',
+  // Also the closing-band shot. It earns a gallery slot as well, so the
+  // thumbnail strip ends on it rather than on the last claim slide.
+  '/images/needles2/closing.jpeg',
 ]
 
 async function main() {

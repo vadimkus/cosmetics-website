@@ -845,6 +845,7 @@ Eight stamps per box. One stamp and one fresh ampoule per treatment — it is si
       '/images/needles2/s3.jpeg',
       '/images/needles2/s4.jpeg',
       '/images/needles2/s5.jpeg',
+      '/images/needles2/closing.jpeg',
     ]),
     category: 'Scalp/Hair',
     inStock: true,

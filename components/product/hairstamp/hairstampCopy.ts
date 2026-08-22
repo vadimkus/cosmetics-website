@@ -110,6 +110,12 @@ export interface HairStampCopy {
     disclaimer: string
     figureAlt: string
   }
+  video: {
+    eyebrow: string
+    title: string
+    body: string
+    unsupported: string
+  }
   safety: {
     eyebrow: string
     title: string
@@ -262,6 +268,12 @@ const EN: HairStampCopy = {
     disclaimer:
       'Needle depth is 0.3 mm on the product artwork. It does not appear in the manufacturer\u2019s leaflet or the user manual, and we have asked DTS MG to confirm it in writing. This is not the 0.5 mm roller in the Mesopecia Kit.',
     figureAlt: 'The HR³ MATRIX HAIR STAMP box with the eight single-use stamps it contains',
+  },
+  video: {
+    eyebrow: 'In motion',
+    title: 'Eight heads, one box.',
+    body: 'A closer look at the box you actually receive: eight stamp heads, each one carrying 52 microneedles, each one used a single time. A head screws onto a fresh HR³ MATRIX HAIR SOLUTION α vial and mounts straight onto the HairGen Booster.',
+    unsupported: 'Your browser cannot play this video.',
   },
   safety: {
     eyebrow: 'Before you treat',
@@ -450,6 +462,12 @@ const AR: HairStampCopy = {
       'عمق الإبرة ٠٫٣ مم على العمل الفني للمنتج. الرقم لا يظهر في نشرة الشركة المصنّعة ولا في دليل الاستخدام، وقد طلبنا من DTS MG تأكيده كتابة. وهذا غير رولر الـ ٠٫٥ مم في Mesopecia Kit.',
     figureAlt: 'علبة HR³ MATRIX HAIR STAMP مع الأختام الثمانية أحادية الاستخدام التي تحتويها',
   },
+  video: {
+    eyebrow: 'في الحركة',
+    title: 'ثمانية رؤوس في علبة واحدة.',
+    body: 'نظرة قريبة على العلبة كما تصل إليك: ثمانية رؤوس، يحمل كل رأس ٥٢ إبرة دقيقة، ويستخدم مرة واحدة فقط. يركّب الرأس على قارورة HR³ MATRIX HAIR SOLUTION α جديدة، ثم يثبت مباشرة على جهاز HairGen Booster.',
+    unsupported: 'متصفحك لا يدعم تشغيل هذا الفيديو.',
+  },
   safety: {
     eyebrow: 'قبل الجلسة',
     title: 'متى لا يُستخدم.',
@@ -637,6 +655,12 @@ const RU: HairStampCopy = {
     disclaimer:
       'Глубина иглы 0,3 мм указана на изображении продукта. В буклете производителя и в руководстве её нет, и мы попросили DTS MG подтвердить её письменно. Это не роллер 0,5 мм из Mesopecia Kit.',
     figureAlt: 'Коробка HR³ MATRIX HAIR STAMP с восемью одноразовыми штампами внутри',
+  },
+  video: {
+    eyebrow: 'В движении',
+    title: 'Восемь насадок в одной коробке.',
+    body: 'Крупный план коробки, которую вы получаете: восемь насадок, в каждой 52 микроиглы, каждая рассчитана на одно применение. Насадка устанавливается на новый флакон HR³ MATRIX HAIR SOLUTION α и крепится прямо на аппарат HairGen Booster.',
+    unsupported: 'Ваш браузер не может воспроизвести это видео.',
   },
   safety: {
     eyebrow: 'Перед процедурой',

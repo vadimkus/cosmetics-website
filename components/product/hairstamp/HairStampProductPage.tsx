@@ -88,11 +88,14 @@ interface Props {
 }
 
 // Inline section art, each paired with the section it actually illustrates.
-// s2.jpg ("Why hair thins") is the odd one out: there is no problem-framing
+// s2 ("Why hair thins") is the odd one out: there is no problem-framing
 // section on this page, so it appears in the thumbnail strip only.
-const MECHANISM_IMAGE = '/images/needles/s3_new.jpeg'
-const PROTOCOL_IMAGE = '/images/needles/s4.jpg'
-const SPEC_IMAGE = '/images/needles/s1_new.jpeg'
+const MECHANISM_IMAGE = '/images/needles2/s3.jpeg'
+const PROTOCOL_IMAGE = '/images/needles2/s4.jpeg'
+const SPEC_IMAGE = '/images/needles2/s1.jpeg'
+// The closing band has its own shot rather than reusing the packshot, so the
+// last thing on the page is not the same image as the first.
+const CLOSING_IMAGE = '/images/needles2/closing.jpeg'
 // The in-app PDF viewer route, not the raw asset: /documents/ppt/[filename]
 // resolves against public/documents/PPT/.
 const BROCHURE_URL = '/documents/ppt/Protocol_Hair_Loss.pdf'
@@ -980,7 +983,7 @@ export default function HairStampProductPage({
 
       {/* ────────────────────────── Closing band ───────────────────────── */}
       <CeraClosingCta
-        image={product.image}
+        image={CLOSING_IMAGE}
         name={product.name}
         headline={copy.headline}
         note={copy.freeDelivery}

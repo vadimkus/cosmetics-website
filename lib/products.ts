@@ -838,8 +838,14 @@ The ampoule functions as a spicule peeling or bio-meso peeling treatment, induci
 Mounted on the Booster it stamps automatically, at a rate you set rather than one your hand drifts into, which is the practical difference between a powered handpiece and a hand roller.
 
 Eight stamps per box. One stamp and one fresh ampoule per treatment — it is single use, it is not a cleanable part, and it is personal. Made in South Korea.`,
-    image: '/images/needles/main_new.jpeg',
-    images: JSON.stringify(['/images/needles/s1_new.jpeg', '/images/needles/s2.jpg', '/images/needles/s3_new.jpeg', '/images/needles/s4.jpg']),
+    image: '/images/needles2/Main.jpeg',
+    images: JSON.stringify([
+      '/images/needles2/s1.jpeg',
+      '/images/needles2/s2.jpeg',
+      '/images/needles2/s3.jpeg',
+      '/images/needles2/s4.jpeg',
+      '/images/needles2/s5.jpeg',
+    ]),
     category: 'Scalp/Hair',
     inStock: true,
     size: '1 box - 8 pcs of hair stamp',

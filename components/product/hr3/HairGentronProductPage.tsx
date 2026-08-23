@@ -20,7 +20,7 @@
  * appliance. The page states that difference rather than staying silent.
  *
  * THE RUNNING-COST TABLE inverts product 3's: the helmet is the device with NO
- * consumable, which is its commercial argument against a handpiece that costs ~AED 167
+ * consumable, which is its commercial argument against a handpiece that costs AED 150
  * every session. Gated behind canSeePrices like every other price on the site.
  *
  * THE "NUMBERS WE WILL NOT INVENT" SECTION replaces product 3's needle-depth block.

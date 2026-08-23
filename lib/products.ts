@@ -841,7 +841,7 @@ The ampoule functions as a spicule peeling or bio-meso peeling treatment, induci
     id: '64',
     productNumber: '64',
     name: 'Hair Stamp For HAIRGEN BOOSTER',
-    price: 600,
+    price: 460,
     description: `The applicator the GENOSYS HairGen Booster runs on. Each stamp head carries 52 ultra-fine microneedles that open temporary micro-channels in the scalp, and it screws onto a sealed HR³ MATRIX HAIR SOLUTION α vial so the solution feeds through the head while the device works — the liquid goes in as the needles open the way, rather than being rubbed on afterwards.
 
 Mounted on the Booster it stamps automatically, at a rate you set rather than one your hand drifts into, which is the practical difference between a powered handpiece and a hand roller.

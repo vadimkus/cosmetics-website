@@ -238,8 +238,8 @@ const EN: HairGenBoosterCopy = {
       'Every treatment needs a fresh stamp and a fresh ampoule. That is not a detail to find out later, so here it is up front.',
     rows: [
       { label: 'HR³ MATRIX HAIR SOLUTION α — one 4 ml vial', value: '92.50', note: 'AED 740 for eight' },
-      { label: 'HR³ MATRIX HAIR STAMP — one stamp', value: '75', note: 'AED 600 for eight' },
-      { label: 'Per session', value: '167.50', note: 'consumables only', here: true },
+      { label: 'HR³ MATRIX HAIR STAMP — one stamp', value: '57.50', note: 'AED 460 for eight' },
+      { label: 'Per session', value: '150', note: 'consumables only', here: true },
       { label: 'The device itself', value: '1,800', note: 'once' },
     ],
     body:
@@ -343,7 +343,7 @@ const EN: HairGenBoosterCopy = {
       },
       {
         q: 'What does it cost to run?',
-        a: 'A fresh 4 ml ampoule and a fresh stamp every session — AED 92.50 and AED 75 at list prices, so about AED 167.50 a treatment on top of the device. Both come in boxes of eight, which is a tidy eight sessions if you buy them in pairs.',
+        a: 'A fresh 4 ml ampoule and a fresh stamp every session — AED 92.50 and AED 57.50 at list prices, so AED 150 a treatment on top of the device. Both come in boxes of eight, which is a tidy eight sessions if you buy them in pairs.',
         needsPrices: true,
       },
       {

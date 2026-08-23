@@ -127,7 +127,7 @@ const EN: HairGenBoosterCopy = {
       'Hair-GENTRON is AED 3,300 once. Nothing is replaced between sessions. HairGen BOOSTER is cheaper to buy and then costs a fresh ampoule and a fresh stamp every time you switch it on.',
     rows: [
       { label: 'Hair-GENTRON', value: 'AED 3,300', note: 'once · no consumable', here: true },
-      { label: 'HairGen BOOSTER', value: 'AED 1,800', note: 'then ~AED 167 a session' },
+      { label: 'HairGen BOOSTER', value: 'AED 1,800', note: 'then AED 150 a session' },
       { label: 'Mesopecia Kit', value: 'AED 1,100', note: 'roller + peeling + six vials' },
     ],
     body:
@@ -233,7 +233,7 @@ const EN: HairGenBoosterCopy = {
       },
       {
         q: 'What does a session cost after I have bought it?',
-        a: 'Electricity, or four AA batteries when you are away from a socket. There is no ampoule and no stamp to replace. That is the commercial difference from HairGen BOOSTER, which needs about AED 167 of consumables every time it is switched on.',
+        a: 'Electricity, or four AA batteries when you are away from a socket. There is no ampoule and no stamp to replace. That is the commercial difference from HairGen BOOSTER, which needs AED 150 of consumables every time it is switched on.',
         needsPrices: true,
       },
       {
@@ -343,7 +343,7 @@ const AR: HairGenBoosterCopy = {
       'Hair-GENTRON جهاز قابل لإعادة الاستخدام ولا يحتاج إلى أمبولة أو رأس جديد لكل جلسة. اختاريه إذا كنت تفضلين صيغة الخوذة الموقوتة ووظائف المساج والدفء.',
     rows: [
       { label: 'Hair-GENTRON', value: '3,300 درهم', note: 'مرة · بلا مستهلك', here: true },
-      { label: 'HairGen BOOSTER', value: '1,800 درهم', note: 'ثم نحو 167 درهماً للجلسة' },
+      { label: 'HairGen BOOSTER', value: '1,800 درهم', note: 'ثم 150 درهماً للجلسة' },
       { label: 'Mesopecia Kit', value: '1,100 درهم', note: 'رولر + تقشير + ست قارورات' },
     ],
     body:
@@ -448,7 +448,7 @@ const AR: HairGenBoosterCopy = {
       },
       {
         q: 'ماذا تكلّف الجلسة بعد الشراء؟',
-        a: 'الكهرباء، أو أربع بطاريات AA بعيداً عن المقبس. لا أمبولة ولا ختم يُستبدل. وهذا هو الفرق التجاري عن HairGen BOOSTER، الذي يحتاج نحو 167 درهماً من المستهلكات في كل تشغيل.',
+        a: 'الكهرباء، أو أربع بطاريات AA بعيداً عن المقبس. لا أمبولة ولا ختم يُستبدل. وهذا هو الفرق التجاري عن HairGen BOOSTER، الذي يحتاج 150 درهماً من المستهلكات في كل تشغيل.',
         needsPrices: true,
       },
       {
@@ -558,7 +558,7 @@ const RU: HairGenBoosterCopy = {
       'Hair-GENTRON рассчитан на многократное использование и не требует новой ампулы или насадки для каждого сеанса. Выбирайте его, если вам подходит формат шлема с таймером, массажем и нагревом.',
     rows: [
       { label: 'Hair-GENTRON', value: 'AED 3,300', note: 'один раз · без расходника', here: true },
-      { label: 'HairGen BOOSTER', value: 'AED 1,800', note: 'затем ~AED 167 за сеанс' },
+      { label: 'HairGen BOOSTER', value: 'AED 1,800', note: 'затем AED 150 за сеанс' },
       { label: 'Mesopecia Kit', value: 'AED 1,100', note: 'роллер + пилинг + шесть флаконов' },
     ],
     body:
@@ -663,7 +663,7 @@ const RU: HairGenBoosterCopy = {
       },
       {
         q: 'Сколько стоит сеанс после покупки?',
-        a: 'Электричество или четыре батарейки AA вдали от розетки. Ампулу и штамп менять не нужно. В этом коммерческая разница с HairGen BOOSTER, которому нужно около 167 AED расходников при каждом включении.',
+        a: 'Электричество или четыре батарейки AA вдали от розетки. Ампулу и штамп менять не нужно. В этом коммерческая разница с HairGen BOOSTER, которому нужно 150 AED расходников при каждом включении.',
         needsPrices: true,
       },
       {

@@ -503,7 +503,7 @@ The {{id:NUMBER}} part enables customers to add products directly to cart from c
 ### Devices & Microneedling
 - [Microneedle Roller](https://genosys.ae/products/1){{id:1}} - AED 230 - 450 ultra-thin needles for better product absorption
 - [HairGen BOOSTER](https://genosys.ae/products/3){{id:3}} - AED 1,800 - Professional hair growth device
-- [Hair Stamp For HAIRGEN BOOSTER](https://genosys.ae/products/64){{id:64}} - AED 600 - Microneedle stamp refills (8 pcs) for HairGen Booster
+- [Hair Stamp For HAIRGEN BOOSTER](https://genosys.ae/products/64){{id:64}} - AED 460 - Microneedle stamp refills (8 pcs) for HairGen Booster
 - [Hair-GENTRON](https://genosys.ae/products/48){{id:48}} - AED 3,300 - Advanced hair device
 - [GENO-LED IR II](https://genosys.ae/products/49){{id:49}} - AED 5,500 - LED therapy device
 

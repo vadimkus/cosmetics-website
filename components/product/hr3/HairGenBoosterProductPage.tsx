@@ -17,7 +17,7 @@
  *
  * THE RUNNING-COST SECTION is the commercially honest part and the reason the page
  * exists in this shape: the device is AED 1,800 once, and then every single session needs
- * a fresh AED 92.50 ampoule and a fresh AED 75 stamp. Gated behind canSeePrices like every
+ * a fresh AED 92.50 ampoule and a fresh AED 57.50 stamp. Gated behind canSeePrices like every
  * other price on the site, and the FAQ answers that quote figures are gated with it.
  *
  * NEEDLE DEPTH HAS ITS OWN SECTION SAYING WE DO NOT KNOW IT. Neither manufacturer

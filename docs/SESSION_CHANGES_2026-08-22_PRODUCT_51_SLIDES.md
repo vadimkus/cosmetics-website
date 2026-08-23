@@ -56,6 +56,31 @@ page does not make. Dropping it from the gallery closes the note left in
   `scripts/update-product-51-bio-ferment2-images-20260822.ts`, run after the
   assets were confirmed serving on genosys.ae.
 
+## Arabic and Russian slides (23 August)
+
+Translated exports added under `public/images/bio_ferment2/ar/` and `ru/`,
+resized to 1024 px and compressed to 113–212 KB, and registered in
+`lib/localizedProductImages.ts`. The database is untouched: the swap happens at
+render, and the mobile routes read the same manifest through `x-locale`.
+`BioFermentProductPage` now localizes the gallery and both inline figures.
+
+`main.jpeg` has no text on it and is not translated.
+
+Four files are on disk but deliberately unregistered, so those slots fall back
+to English:
+
+- `ru/s7` and `ar/s7` — the headline is garbled in both. Russian strands
+  "ВОДА." mid-sentence inside an unrelated line, and Arabic repeats "قشري"
+  twice where the English reads "THREE SCOOPS. WATER. PEEL." The Russian export
+  also adds "создавая окклюзию", a claim the English slide does not make.
+- `ru/Closing` and `ar/Closing` — both render the jar label as nonsense Latin
+  ("BEIMATOLEISGICALLY TB1ED", "Gene Re-hinth System") where the English
+  original is legible. The jar is the subject of that slide.
+
+Everything else was checked figure by figure against the English set: the
+composition percentages, 1 : 1.5, 5–10 minute set, −10 to −11 °C with the
+two-case-study footnote, and 2.8x / 17.27 → 48.513 all carry over intact.
+
 ## Verification
 
 - `npx tsc --noEmit` passed.

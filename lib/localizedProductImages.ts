@@ -56,6 +56,16 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>
   // product name; the corrected export landed the same day and is registered here.
   // s1b is the refreshed opening slide: /images is served immutable for a year,
   // so the reissued artwork had to take a new name rather than replace s1.jpeg.
+  // Product 51, BIO-FERMENT AGE DEFYING POWDER MASK. main.jpeg is a plain
+  // packshot and is not translated. s7 and Closing are on disk but deliberately
+  // unregistered in both languages, so they fall back to English: the s7 headline
+  // is garbled in both exports (Russian strands "ВОДА." mid-sentence, Arabic
+  // repeats "قشري"), and both Closing shots render the jar label as nonsense Latin
+  // where the English original is legible.
+  '/images/bio_ferment2': {
+    ru: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg'],
+    ar: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg'],
+  },
   '/images/needles2': {
     ru: ['s1b.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],
     ar: ['s1b.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 'closing.jpeg'],

@@ -73,7 +73,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '8': {
     id: '8',
-    images: ['/images/Second/sws_big1.jpg', '/images/Second/sws_big2.jpg'],
+    // Gallery migrated to the DB `images` field, which mobile falls back to.
     pricing: {
       basePrice: 580
     },

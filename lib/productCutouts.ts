@@ -35,7 +35,7 @@ const CUTOUTS: Record<string, string> = {
   // 7 POWER SOLUTION PCS
   '/images/pcs-hero.jpg': '/images/cutout/7.webp',
   // 8 POWER SOLUTION SWS
-  '/images/sws-hero.jpg': '/images/cutout/8.webp',
+  '/images/sws_0/Main.jpeg': '/images/cutout/8.webp',
   // 9 POWER SOLUTION AWS
   '/images/aws-hero.jpg': '/images/cutout/9.webp',
   // 10 SNOW O₂ CLEANSER

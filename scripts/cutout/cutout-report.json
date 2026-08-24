@@ -578,10 +578,10 @@
   {
     "product": "8",
     "status": "ok",
-    "source": "/images/sws-hero.jpg",
+    "source": "/images/sws_0/Main.jpeg",
     "name": "POWER SOLUTION SWS",
-    "coverage": 0.205,
-    "bytes": 26314,
+    "coverage": 0.3,
+    "bytes": 38048,
     "review": false
   },
   {

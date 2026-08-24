@@ -98,12 +98,21 @@ export const products: Product[] = [
     name: 'POWER SOLUTION SWS',
     price: 580,
     description: 'SWS is Skin Depigmenting & Whitening Solution. Korea registers it as a whitening functional cosmetic with arbutin 2% as the principal ingredient. Helps improve pigmentation, even skin tone and brighten the skin surface. 2 ml × 10 sealed glass vials. 5-Free. Dermatologically tested. Made in Korea by DTS MG.',
-    // The squared hero, matching the database. SWS.jpg is the same shot at 956x662
-    // and leaves a hard-cornered band above and below it in the square gallery
-    // stage. The main image is deliberately not repeated in `images`: web and
-    // mobile both prepend it.
-    image: '/images/sws-hero.jpg',
-    images: JSON.stringify(['/images/Second/sws_big1.jpg', '/images/Second/sws_big2.jpg']),
+    // The main image is deliberately not repeated in `images`: web and mobile
+    // both prepend it.
+    image: '/images/sws_0/Main.jpeg',
+    images: JSON.stringify([
+      '/images/sws_0/S1.jpeg',
+      '/images/sws_0/S2.jpeg',
+      '/images/sws_0/S3.jpeg',
+      '/images/sws_0/S4.jpeg',
+      '/images/sws_0/S5.jpeg',
+      '/images/sws_0/S9.jpeg',
+      '/images/sws_0/S6.jpeg',
+      '/images/sws_0/S7.jpeg',
+      '/images/sws_0/S8.jpeg',
+      '/images/sws_0/Closing.jpeg',
+    ]),
     category: 'PRO Solution',
     inStock: true,
   },

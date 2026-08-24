@@ -122,10 +122,16 @@
   --cera-body: #4a3d32;
   --cera-muted: #7a6b5c;
   --cera-line: #e8ddd2;
-  /* Sampled from the outer ring of sws-hero.jpg after the square pad, so the
-     closing-band column edge meets the shot's own sweep. */
-  --cera-shot: #e2e1e6;
-  --ps-stage: #e2e1e6;
+  /* The hero is on white and the closing band blends it, so the band tone only
+     has to be near enough to white that the dissolve leaves no edge. */
+  --cera-shot: #faf9f8;
+  /* Near-white, because nothing in this gallery is blended. All eleven slides are
+     square and fill the stage; nine are on white and two are full-bleed
+     portraits, so multiplying the white ones would change the card colour as
+     the shopper clicks through. A near-white stage meets them invisibly. */
+  --ps-stage: #fbfaf9;
+  /* The inline figures do not fill their stage and both are on pure white, so
+     here the tint is worth having: multiply dissolves their surround into it. */
   --ps-figure-stage: #e2e1e6;
   --ps-stage-shadow: rgba(34, 25, 16, 0.4);
   --ps-card-hover-glow: rgba(163, 72, 12, 0.26);

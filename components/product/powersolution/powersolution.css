@@ -125,8 +125,8 @@
   /* The hero is on white and the closing band blends it, so the band tone only
      has to be near enough to white that the dissolve leaves no edge. */
   --cera-shot: #faf9f8;
-  /* Near-white, because nothing in this gallery is blended. All eleven slides are
-     square and fill the stage; nine are on white and two are full-bleed
+  /* Near-white, because nothing in this gallery is blended. All ten slides are
+     square and fill the stage; eight are on white and two are full-bleed
      portraits, so multiplying the white ones would change the card colour as
      the shopper clicks through. A near-white stage meets them invisibly. */
   --ps-stage: #fbfaf9;

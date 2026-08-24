@@ -970,7 +970,7 @@ export const SWS_VARIANT: PowerSolutionVariant = {
   fullInci: SWS_FULL_INCI,
   vialImage: '/images/Second/sws_big2.jpg',
   boxImage: '/images/Second/sws_big1.jpg',
-  // Eleven square slides, nine on white and two full-bleed portraits. Blending the
+  // Ten square slides, eight on white and two full-bleed portraits. Blending the
   // white ones would change the card colour across the rail, so the stage is
   // near-white instead and nothing is multiplied. See .ps-sws in the CSS.
   blendGallerySlides: new Set<string>(),

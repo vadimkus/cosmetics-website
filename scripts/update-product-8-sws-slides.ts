@@ -8,19 +8,19 @@
 import { prisma } from '../lib/prisma'
 
 const MAIN = '/images/sws_0/Main.jpeg'
-// Not filename order: S9 is the second active, so it sits with the first one
-// rather than after the how-to-use card.
+// Narrative order, not filename order: concern, positioning, actives, format,
+// exclusions, protocol, then the shop card and the peptide note. S1, the
+// open-box shot, is deliberately not in the rail.
 const GALLERY = [
-  '/images/sws_0/S1.jpeg',
-  '/images/sws_0/S2.jpeg',
-  '/images/sws_0/S3.jpeg',
-  '/images/sws_0/S4.jpeg',
-  '/images/sws_0/S5.jpeg',
-  '/images/sws_0/S9.jpeg',
-  '/images/sws_0/S6.jpeg',
-  '/images/sws_0/S7.jpeg',
-  '/images/sws_0/S8.jpeg',
-  '/images/sws_0/Closing.jpeg',
+  '/images/sws_0/S4.jpeg', // pigmentation, uneven tone
+  '/images/sws_0/S2.jpeg', // the vial for pigment
+  '/images/sws_0/S5.jpeg', // 2% arbutin
+  '/images/sws_0/S6.jpeg', // 17.71% humectant base
+  '/images/sws_0/S3.jpeg', // one vial, one treatment
+  '/images/sws_0/S7.jpeg', // 5-Free
+  '/images/sws_0/S8.jpeg', // cleanse, open, apply, absorb
+  '/images/sws_0/Closing.jpeg', // POWER SOLUTION SWS shop card
+  '/images/sws_0/S9.jpeg', // sh-Polypeptide-7
 ]
 
 async function main() {

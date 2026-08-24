@@ -5,25 +5,29 @@ Date: 2026-08-24
 ## What changed
 
 The page ran on three slides (`sws-hero.jpg` plus two `Second/sws_big*.jpg`
-packshots). It now runs the full `public/images/sws_0/` set: a hero, nine claim
-slides and a closing card, eleven square slides in the rail.
+packshots). It now runs the `public/images/sws_0/` set: a hero plus nine slides,
+ten square slides in the rail.
 
-Rail order, which is not filename order — `S9` is the second active, so it sits
-with the first one rather than after the how-to-use card.
+Rail order is the narrative order Vadim set, not filename order: concern,
+positioning, actives, format, exclusions, protocol, then the shop card and the
+peptide note.
 
-| Slide | Content |
-|---|---|
-| `Main.jpeg` | Box and vial with the ×10 mark (hero) |
-| `S1.jpeg` | Open box, ten vials, sh-Polypeptide-7 panel and application steps |
-| `S2.jpeg` | "The vial for pigment" |
-| `S3.jpeg` | One vial, one treatment — 2 ml, 10 per box |
-| `S4.jpeg` | The concern: pigmentation, uneven tone |
-| `S5.jpeg` | 2% arbutin, principal ingredient |
-| `S9.jpeg` | sh-Polypeptide-7 |
-| `S6.jpeg` | 17.71% humectant base |
-| `S7.jpeg` | 5-Free |
-| `S8.jpeg` | Cleanse, open, apply, absorb |
-| `Closing.jpeg` | Spec row and shop marks |
+| # | Slide | Content |
+|---|---|---|
+| — | `Main.jpeg` | Box and vial with the ×10 mark (hero) |
+| 1 | `S4.jpeg` | The concern: pigmentation, uneven tone |
+| 2 | `S2.jpeg` | "The vial for pigment" |
+| 3 | `S5.jpeg` | 2% arbutin, principal ingredient |
+| 4 | `S6.jpeg` | 17.71% humectant base |
+| 5 | `S3.jpeg` | One vial, one treatment — 2 ml, 10 per box |
+| 6 | `S7.jpeg` | 5-Free |
+| 7 | `S8.jpeg` | Cleanse, open, apply, absorb |
+| 8 | `Closing.jpeg` | POWER SOLUTION SWS, spec row and shop marks |
+| 9 | `S9.jpeg` | sh-Polypeptide-7 |
+
+`S1.jpeg`, the open box with the ten vials, is on disk but deliberately not in
+the rail: the hero already shows the box, and the peptide panel it photographs
+is covered by `S9`.
 
 ## Claim verification
 

@@ -65,6 +65,14 @@ Individual channels can be picked with `--mobile`, `--web`, `--newsletter`;
 naming none sends to all. `--force` re-announces a post that already carries a
 stamp.
 
+To test a push against one device without pushing the whole list a second time:
+
+```bash
+npx tsx --env-file=.env.local scripts/announce-blog-post.ts <slug> --force --only you@example.com
+```
+
+`--only` implies `--mobile` and is ignored by the other channels.
+
 ## Checking the email before a send
 
 ```bash

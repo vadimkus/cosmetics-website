@@ -30,12 +30,22 @@ async function main() {
   const dryRun = args.includes('--dry-run')
   const force = args.includes('--force')
 
+  // Test a payload against one device without pushing the whole list again.
+  const onlyIdx = args.indexOf('--only')
+  const onlyEmail = onlyIdx === -1 ? undefined : args[onlyIdx + 1]
+  if (onlyIdx !== -1 && !onlyEmail) {
+    console.error('--only needs an email address')
+    process.exit(1)
+  }
+
   // Naming any channel flag opts into exactly those; naming none sends to all.
   const picked = {
     mobile: args.includes('--mobile'),
     web: args.includes('--web'),
     newsletter: args.includes('--newsletter'),
   }
+  // `--only` targets a single mobile device, so it implies the mobile channel.
+  if (onlyEmail) picked.mobile = true
   const channels = Object.values(picked).some(Boolean) ? picked : undefined
 
   const post = await prisma.blogPost.findUnique({
@@ -69,7 +79,7 @@ async function main() {
   console.log(`\n${post.title}`)
   console.log(`  published    : ${post.published}`)
   console.log(`  announcedAt  : ${post.announcedAt?.toISOString() ?? 'never'}`)
-  console.log(`  audience     : ${mobile} mobile · ${web} web push · ${subs.map(s => `${s.locale}=${s._count}`).join(' ')} email`)
+  console.log(`  audience     : ${onlyEmail ? `${onlyEmail} only` : `${mobile} mobile · ${web} web push · ${subs.map(s => `${s.locale}=${s._count}`).join(' ')} email`}`)
   console.log(`  channels     : ${channels ? Object.entries(channels).filter(([, v]) => v).map(([k]) => k).join(', ') : 'all'}\n`)
 
   for (const locale of LOCALES) {
@@ -93,6 +103,7 @@ async function main() {
     sentBy: 'script',
     force,
     ...(channels ? { channels } : {}),
+    ...(onlyEmail ? { onlyEmail } : {}),
   })
 
   if (result.skipped) {

@@ -114,9 +114,12 @@ async function resolveUserLocales(userIds: string[]): Promise<Map<string, Locale
 }
 
 /** Expo push to every mobile app user who registered a token. */
-async function announceToMobile(post: PostRow, result: AnnounceResult): Promise<void> {
+async function announceToMobile(post: PostRow, result: AnnounceResult, onlyEmail?: string): Promise<void> {
   const users = await prisma.user.findMany({
-    where: { expoPushToken: { not: null } },
+    where: {
+      expoPushToken: { not: null },
+      ...(onlyEmail ? { email: { equals: onlyEmail, mode: 'insensitive' as const } } : {}),
+    },
     select: { id: true, expoPushToken: true },
   })
   if (users.length === 0) return
@@ -310,8 +313,13 @@ export async function announceBlogPost(opts: {
   /** Re-announce a post that already carries an `announcedAt` stamp. */
   force?: boolean
   channels?: Partial<AnnounceChannels>
+  /**
+   * Restrict the mobile push to one account, for testing a payload without
+   * pushing the whole list a second time. Ignored by the other channels.
+   */
+  onlyEmail?: string
 }): Promise<AnnounceResult> {
-  const { slug, sentBy = 'system', force = false } = opts
+  const { slug, sentBy = 'system', force = false, onlyEmail } = opts
   const channels = { ...ALL_CHANNELS, ...opts.channels }
   const result = emptyResult(slug)
 
@@ -360,7 +368,7 @@ export async function announceBlogPost(opts: {
 
   // Each channel is independent: a dead SMTP box must not cost us the push send.
   if (channels.mobile) {
-    await announceToMobile(post, result).catch(e => errorLog('[BLOG_ANNOUNCE] mobile failed:', e))
+    await announceToMobile(post, result, onlyEmail).catch(e => errorLog('[BLOG_ANNOUNCE] mobile failed:', e))
   }
   if (channels.web) {
     await announceToWeb(post, sentBy, result).catch(e => errorLog('[BLOG_ANNOUNCE] web push failed:', e))

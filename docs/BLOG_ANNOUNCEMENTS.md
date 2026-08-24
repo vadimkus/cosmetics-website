@@ -73,6 +73,40 @@ npx tsx --env-file=.env.local scripts/announce-blog-post.ts <slug> --force --onl
 
 `--only` implies `--mobile` and is ignored by the other channels.
 
+## Reaching customers who never subscribed
+
+The newsletter list is small because almost nobody ticks the box: 973 registered
+accounts against 12 subscribers. Most of those accounts were created to check
+out, not to hear from us.
+
+`scripts/send-blog-to-customers.ts` targets the middle ground — the addresses
+that have actually placed an order:
+
+```bash
+npx tsx --env-file=.env.local scripts/send-blog-to-customers.ts <slug> --dry-run
+npx tsx --env-file=.env.local scripts/send-blog-to-customers.ts <slug>
+```
+
+It creates a `newsletter_subscribers` row for each recipient before sending.
+That is not bookkeeping: the campaign template needs an unsubscribe token, so
+without a row there is no working opt-out link. Anyone already on the list is
+skipped in either state — active subscribers were sent the post by
+`announce-blog-post.ts` already, and anyone who opted out stays out.
+
+Locale comes from each customer's most recent order.
+
+Two guards worth knowing about. `MAX_RECIPIENTS` is 600 per run, well under the
+Workspace daily cap, because the same Google account also sends order
+confirmations, invoices and password resets — a burst that draws spam complaints
+would take transactional mail down with it. And running this converts customers
+into a standing mailing list, which is a one-way door; they will receive future
+campaigns unless they unsubscribe.
+
+Registered accounts with no order history are deliberately not reachable by any
+script here. Emailing ~727 people who signed up and never bought is the
+highest-complaint, lowest-return segment, and doing it needs a decision rather
+than a flag.
+
 ## Checking the email before a send
 
 ```bash
@@ -104,6 +138,10 @@ without a database (`__tests__/lib/blogAnnounce.test.ts`).
 | Email EN | 10 sent |
 | Email RU | 1 sent |
 | Email AR | 1 sent |
+
+Followed the same day by a send to ordering customers
+(`send-blog-to-customers.ts`): 233 EN, 10 RU, 1 AR, zero failures. That took the
+active newsletter list from 12 to 256.
 
 ## What still does not fire
 

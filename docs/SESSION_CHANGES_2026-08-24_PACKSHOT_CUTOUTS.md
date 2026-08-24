@@ -56,9 +56,10 @@ floating, and it stays adjustable.
   older strategies, `cover` matching the band to the sweep and `blend`
   multiplying a white sweep away; each only worked for the shot it was picked
   for. Pages still pass `imageFit`, which now applies only as a fallback.
-- `CeraGallery` — hero stage and thumbnail rail. The lightbox deliberately keeps
-  the original photograph: it sits on near-black, where a cut-out of a black kit
-  would disappear, and it is where a shopper goes to look closely.
+That band only. The hero gallery was wired up in the first pass and reverted at
+Vadim's instruction: the stage, the thumbnail rail and the lightbox all keep the
+original photograph on its own background. The hero is the shot a shopper
+studies, and it stays as photographed.
 
 Infographic slides are not in the manifest and come back unchanged, so a claim
 card can never have its headline masked off.
@@ -87,6 +88,6 @@ commit of the generated `.webp`.
 
 - `npx tsc --noEmit` passed.
 - `productCutouts` and `localizedProductImages` suites passed, 27 tests.
-- Pages 51 and 13 rendered locally: the white block is gone from both the hero
-  stage and the closing band, and the products sit on the tint with a silhouette
-  shadow.
+- Pages 51 and 13 rendered locally and confirmed on genosys.ae: the white block
+  is gone from the closing band and the product sits on the tint with a
+  silhouette shadow, while the hero gallery is unchanged.

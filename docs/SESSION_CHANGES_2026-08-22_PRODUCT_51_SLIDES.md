@@ -74,8 +74,12 @@ Latin.
 
 ## Corrected s7 and Closing (24 August)
 
-Reissued exports replaced all four files and the full set is now registered in
-both languages. The headlines read correctly, the invented Russian occlusion
+Reissued exports cover all four slots and the full set is now registered in
+both languages. They ship as `s7b.jpeg` and `Closingb.jpeg`: the original names
+were already cached at the edge under a one-year immutable header, so replacing
+them in place left the old artwork on the page. The manifest now accepts a
+`[default, localized]` tuple for exactly this case, which keeps the English
+filenames in the product record unchanged. The headlines read correctly, the invented Russian occlusion
 claim is gone, and the jar label is legible.
 
 One deviation remains in `ar/Closing`: the spec line reads

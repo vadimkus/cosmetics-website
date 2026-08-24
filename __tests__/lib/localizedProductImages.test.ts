@@ -127,7 +127,8 @@ describe('the manifest matches what is on disk', () => {
 
     for (const [folder, byLocale] of Object.entries(manifest)) {
       for (const [locale, files] of Object.entries(byLocale)) {
-        for (const file of files ?? []) {
+        for (const entry of files ?? []) {
+          const file = typeof entry === 'string' ? entry : entry[1]
           const path = join(process.cwd(), 'public', folder, locale, file)
           if (!existsSync(path)) missing.push(`${folder}/${locale}/${file}`)
         }

@@ -29,7 +29,16 @@ import type { Locale } from '@/lib/i18n'
  * The mobile product routes run the same mapping against the `x-locale` header, so the
  * website and app share this manifest.
  */
-const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>>> = {
+/**
+ * A registered slide is normally the same filename inside the locale folder. A tuple
+ * `[default, localized]` covers the case where a corrected export had to take a new
+ * name: `/images` is served immutable for a year, so replacing a file that the CDN has
+ * already cached would leave the old artwork on the page. The default name is what the
+ * product record holds; the second name is the file that actually gets served.
+ */
+type LocalizedSlide = string | readonly [defaultFile: string, localizedFile: string]
+
+const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly LocalizedSlide[]>>> = {
   // Product 66, CERABARRIER BIOME GEL CLEANSER. Main.jpeg is a packshot with no text on
   // it, so it is deliberately absent from both languages: there is nothing to translate
   // and shipping a second identical file would only cost a download.
@@ -53,11 +62,14 @@ const LOCALIZED_SLIDES: Record<string, Partial<Record<Locale, readonly string[]>
   },
   // Product 51, BIO-FERMENT AGE DEFYING POWDER MASK. main.jpeg is a plain
   // packshot and is not translated. s7 and Closing were held back on the first
-  // pass over a garbled headline and an unreadable jar label; the corrected
-  // exports replaced both files and the full set is registered.
+  // pass over a garbled headline and an unreadable jar label, by which point the
+  // original files were already cached at the edge, so the corrected exports
+  // ship as s7b and Closingb.
   '/images/bio_ferment2': {
-    ru: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg', 'Closing.jpeg'],
-    ar: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg', 's7.jpeg', 'Closing.jpeg'],
+    ru: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg',
+      ['s7.jpeg', 's7b.jpeg'], ['Closing.jpeg', 'Closingb.jpeg']],
+    ar: ['s1.jpeg', 's2.jpeg', 's3.jpeg', 's4.jpeg', 's5.jpeg', 's6.jpeg',
+      ['s7.jpeg', 's7b.jpeg'], ['Closing.jpeg', 'Closingb.jpeg']],
   },
   // Product 64, HR3 MATRIX HAIR STAMP. Main.jpeg is a plain packshot and is not
   // translated. The first Russian s1 was withheld for a missing glyph after each
@@ -97,9 +109,12 @@ export function localizeProductImage(src: string, locale: string | undefined): s
   const file = src.slice(lastSlash + 1)
 
   const files = LOCALIZED_SLIDES[folder]?.[normalized]
-  if (!files || !files.includes(file)) return src
+  if (!files) return src
 
-  return `${folder}/${normalized}/${file}`
+  const match = files.find(entry => (typeof entry === 'string' ? entry : entry[0]) === file)
+  if (!match) return src
+
+  return `${folder}/${normalized}/${typeof match === 'string' ? match : match[1]}`
 }
 
 /**

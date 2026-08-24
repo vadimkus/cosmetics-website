@@ -131,8 +131,11 @@
      the shopper clicks through. A near-white stage meets them invisibly. */
   --ps-stage: #fbfaf9;
   /* The inline figures do not fill their stage and both are on pure white, so
-     here the tint is worth having: multiply dissolves their surround into it. */
-  --ps-figure-stage: #e2e1e6;
+     they still need a tint for multiply to dissolve their surround into. Warm
+     and barely-there rather than the cool grey sampled off the old hero sweep:
+     that grey now reads as a grey box on a cream page, and the shots it was
+     matched to are no longer the ones on the stage. */
+  --ps-figure-stage: #f4f1ed;
   --ps-stage-shadow: rgba(34, 25, 16, 0.4);
   --ps-card-hover-glow: rgba(163, 72, 12, 0.26);
 }

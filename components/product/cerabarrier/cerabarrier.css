@@ -88,6 +88,17 @@
   z-index: 2;
 }
 
+/* A packshot with the studio sweep cut off, so the file has a real silhouette
+   instead of a rectangle of background. drop-shadow follows that silhouette:
+   a bottle casts a bottle-shaped shadow, which is what stops the product
+   reading as a sticker laid on the panel. Two passes, a tight dark one for
+   contact with the surface and a wide soft one for lift. */
+.cera-cutout {
+  filter:
+    drop-shadow(0 5px 8px rgba(28, 22, 20, 0.13))
+    drop-shadow(0 20px 32px rgba(28, 22, 20, 0.11));
+}
+
 /* Soft radial glow behind the hero packshot */
 .cera-glow {
   background:

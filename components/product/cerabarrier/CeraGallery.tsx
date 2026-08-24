@@ -5,6 +5,8 @@ import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
 
+import { cutoutImage, hasCutout } from '@/lib/productCutouts'
+
 export interface CeraGalleryImage {
   src: string
   alt: string
@@ -90,9 +92,12 @@ export default function CeraGallery({
               {/* Matches the stage, so the thumbnail previews the framing the
                   shopper actually gets when they click it. Thumbnails sit on
                   white rather than the stage tint, so a blended slide has
-                  nothing to multiply into and is left alone. */}
+                  nothing to multiply into and is left alone; a cut-out needs
+                  nothing either way and is used here for the same reason it is
+                  used on the stage, which is that a grey sweep shrunk to 80px
+                  reads as a dirty tile. */}
               <Image
-                src={img.src}
+                src={cutoutImage(img.src)}
                 alt=""
                 fill
                 sizes="80px"
@@ -134,7 +139,7 @@ export default function CeraGallery({
           >
             <Image
               key={current.src}
-              src={current.src}
+              src={cutoutImage(current.src)}
               alt={current.alt}
               fill
               priority={active === 0}
@@ -144,7 +149,7 @@ export default function CeraGallery({
                  either way, but product 60's infographics are 4:3 and cover was
                  slicing their headline off. The stage tint fills the gap. */
               className={`object-contain transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04] ${
-                current.blend ? 'mix-blend-multiply' : ''
+                hasCutout(current.src) ? 'cera-cutout p-[6%]' : current.blend ? 'mix-blend-multiply' : ''
               }`}
             />
             <span
@@ -200,6 +205,9 @@ export default function CeraGallery({
             </>
           )}
 
+          {/* The original photograph, not the cut-out: the lightbox is where a
+              shopper goes to look closely, and it sits on near-black, where a
+              cut-out of a black kit would simply disappear. */}
           <div
             className="relative h-[78vh] w-full max-w-4xl"
             onClick={e => e.stopPropagation()}

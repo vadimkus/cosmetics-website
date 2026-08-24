@@ -3,6 +3,8 @@
 import Image from 'next/image'
 import type { ReactNode, RefObject } from 'react'
 
+import { cutoutImage, hasCutout } from '@/lib/productCutouts'
+
 import { ceraSerif } from './ceraFont'
 
 /**
@@ -59,7 +61,14 @@ export default function CeraClosingCta({
    */
   imageFit?: 'cover' | 'blend'
 }) {
-  const blend = imageFit === 'blend'
+  // A cut-out has no background to reconcile with the band, so it supersedes
+  // both older strategies: `cover` matched the band to the sweep and `blend`
+  // multiplied a white sweep away, and each only worked on the kind of shot it
+  // was chosen for. Pages still pass imageFit, which now applies only where a
+  // cut-out is missing.
+  const cutout = hasCutout(image)
+  const shot = cutoutImage(image)
+  const blend = !cutout && imageFit === 'blend'
   return (
     <section
       className={`border-t border-[var(--cera-line)] ${blend ? '' : 'bg-[var(--cera-shot)]'}`}
@@ -84,17 +93,22 @@ export default function CeraClosingCta({
             surround becomes the band and only the products remain. */}
         <div
           className={`relative w-full flex-none overflow-hidden ${
-            blend
+            blend || cutout
               ? 'aspect-[4/5] p-5 lg:h-auto lg:w-[290px] lg:self-center lg:p-6'
               : 'aspect-square lg:aspect-auto lg:h-auto lg:w-[300px]'
           }`}
         >
           <Image
-            src={image}
+            src={shot}
             alt=""
             fill
             sizes="(min-width: 1024px) 300px, 100vw"
-            className={`object-contain ${blend ? 'mix-blend-multiply' : ''}`}
+            /* The shadow follows the silhouette rather than sitting under a
+               box, which is the whole point of cutting the sweep off: a jar
+               casts a jar-shaped shadow and stops floating on the band. */
+            className={`object-contain ${blend ? 'mix-blend-multiply' : ''} ${
+              cutout ? 'cera-cutout' : ''
+            }`}
           />
         </div>
 

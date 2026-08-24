@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { errorLog } from '@/lib/logger'
 import { sanitizeForStorage } from '@/lib/sanitize'
+import { announceBlogPost } from '@/lib/blogAnnounce'
 
 export async function PUT(
   request: NextRequest,
@@ -55,6 +56,17 @@ export async function PUT(
         tags: tagsValue,
       },
     })
+
+    // A draft going live is the trigger. Editing a post that has already been
+    // announced is a no-op: `announceBlogPost` refuses on the `announcedAt` claim.
+    if (post.published) {
+      const sentBy = auth.user?.email || 'admin'
+      after(async () => {
+        await announceBlogPost({ slug: post.slug, sentBy }).catch(e =>
+          errorLog('[blog/posts PUT] announce failed:', e)
+        )
+      })
+    }
 
     return NextResponse.json({
       success: true,

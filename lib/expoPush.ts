@@ -275,6 +275,73 @@ export async function sendBatchPushNotifications(
 }
 
 /**
+ * Send to many tokens at once and report which tokens are dead.
+ *
+ * `sendBatchPushNotifications` above counts successes but throws the mapping
+ * back to tokens away, so a caller cannot prune stale rows. This one keeps the
+ * positional link between a chunk and its tickets — Expo returns tickets in
+ * request order — and hands back every token the service rejected as
+ * `DeviceNotRegistered` so the caller can clear it.
+ */
+export async function sendExpoPushToTokens(
+  messages: Array<{
+    token: string
+    title: string
+    body: string
+    data?: Record<string, unknown>
+    channelId?: string
+  }>
+): Promise<{ sent: number; failed: number; invalidTokens: string[] }> {
+  const result = { sent: 0, failed: 0, invalidTokens: [] as string[] }
+
+  const valid = messages.filter(m => {
+    if (isValidExpoPushToken(m.token)) return true
+    result.failed++
+    return false
+  })
+  if (valid.length === 0) return result
+
+  const chunks = expo.chunkPushNotifications(
+    valid.map(m => ({
+      to: m.token,
+      sound: 'default',
+      title: m.title,
+      body: m.body,
+      data: m.data ?? {},
+      priority: 'normal',
+      channelId: m.channelId ?? 'default',
+    })) as ExpoPushMessage[]
+  )
+
+  // chunkPushNotifications preserves order, so walking a cursor through the
+  // original array keeps each ticket aligned with the token that produced it.
+  let cursor = 0
+  for (const chunk of chunks) {
+    const slice = valid.slice(cursor, cursor + chunk.length)
+    cursor += chunk.length
+    try {
+      const tickets = await expo.sendPushNotificationsAsync(chunk)
+      tickets.forEach((ticket, i) => {
+        if (ticket.status === 'ok') {
+          result.sent++
+          return
+        }
+        result.failed++
+        const token = slice[i]?.token
+        const err = (ticket as { details?: { error?: string } }).details?.error
+        if (token && err === 'DeviceNotRegistered') result.invalidTokens.push(token)
+      })
+    } catch (error) {
+      result.failed += chunk.length
+      errorLog('[EXPO_PUSH] Chunk send failed:', error)
+    }
+  }
+
+  debugLog(`[EXPO_PUSH] Token batch: ${result.sent} sent, ${result.failed} failed, ${result.invalidTokens.length} dead`)
+  return result
+}
+
+/**
  * Check receipts for sent notifications (for debugging delivery issues)
  * Call this after a delay (e.g., 15 minutes) to verify delivery
  */

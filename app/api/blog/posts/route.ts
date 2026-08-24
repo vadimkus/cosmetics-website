@@ -1,8 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest, NextResponse, after } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { requireAdminAuth } from '@/lib/adminAuth'
 import { errorLog } from '@/lib/logger'
 import { sanitizeForStorage } from '@/lib/sanitize'
+import { announceBlogPost } from '@/lib/blogAnnounce'
 
 export async function GET(request: NextRequest) {
   try {
@@ -84,6 +85,17 @@ export async function POST(request: NextRequest) {
         tags: tags ? JSON.stringify(tags) : null,
       },
     })
+
+    // Notify subscribers after the response is flushed. Idempotent via the
+    // post's `announcedAt` claim, so a re-publish never sends twice.
+    if (post.published) {
+      const sentBy = auth.user?.email || 'admin'
+      after(async () => {
+        await announceBlogPost({ slug: post.slug, sentBy }).catch(e =>
+          errorLog('[blog/posts POST] announce failed:', e)
+        )
+      })
+    }
 
     return NextResponse.json({
       success: true,

@@ -249,7 +249,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <PageBreadcrumb
           items={[
             { name: 'Home', href: '/' },
-            { name: 'Journal', href: '/blog' },
+            { name: 'Blog', href: '/blog' },
             { name: post.title },
           ]}
         />

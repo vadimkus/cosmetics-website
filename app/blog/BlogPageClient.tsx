@@ -48,7 +48,10 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
     new Date(value).toLocaleDateString(dateLocale, { year: 'numeric', month: 'short', day: 'numeric' })
 
   const label = {
-    blog: locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Journal',
+    // "Blog" everywhere in English, to match the nav item, the URL and the
+    // Russian and Arabic labels. "Notes from the lab" below is the page's
+    // title; it does not rename the section.
+    blog: locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Blog',
     title: locale === 'ar' ? 'مدونة GENOSYS' : locale === 'ru' ? 'Блог GENOSYS' : 'Notes from the lab',
     lead:
       locale === 'ar'
@@ -65,7 +68,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
         ? 'المدونة في بدايتها.'
         : locale === 'ru'
           ? 'Блог только начинается.'
-          : 'The journal is just getting started.',
+          : 'The blog is just getting started.',
     emptyLead:
       locale === 'ar'
         ? 'عُد قريباً للاطلاع على أدلة العناية بالبشرة وملاحظات المختبر من فريقنا.'

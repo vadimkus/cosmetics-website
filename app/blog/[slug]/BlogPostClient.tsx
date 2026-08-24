@@ -5,6 +5,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
+import LocaleSwitchInline from '@/components/LocaleSwitchInline'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
@@ -17,10 +18,13 @@ export default function BlogPostClient({ children }: BlogPostClientProps) {
   const { locale, dir } = useTranslation()
   const router = useRouter()
   const { user } = useAuth()
-  const { isMobileWeb } = useIsMobileWeb()
+  const { isMobile, isClient } = useIsMobileWeb()
 
   const isRTL = dir === 'rtl'
-  const isAppLikeMode = isMobileWeb
+  // Was `isMobileWeb`, which excludes the installed PWA. `PWAHeader` also hides
+  // itself on /blog, so PWA readers were getting no bar at all: no way back to
+  // the blog, and no language control. Any narrow viewport gets it now.
+  const isAppLikeMode = isClient && isMobile
 
   if (!isAppLikeMode) {
     return <>{children}</>
@@ -44,13 +48,14 @@ export default function BlogPostClient({ children }: BlogPostClientProps) {
             {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Blog'}
           </span>
         </button>
-        <span className="text-base font-semibold text-[var(--cera-ink)] truncate max-w-[180px]">
-          {locale === 'ar' ? 'المقال' : locale === 'ru' ? 'Статья' : 'Article'}
-        </span>
+        {/* The "Article" label that sat here told the reader nothing they could
+            not see. The language control is what this bar was missing. */}
+        <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <LocaleSwitchInline />
         {/* Profile Icon with green dot */}
         <button 
           onClick={() => router.push(getLocalizedPath('/profile', locale))}
-          className={`min-w-[80px] flex ${isRTL ? 'justify-start' : 'justify-end'}`}
+          className="flex"
         >
           <div className="relative">
             <div className="w-9 h-9 rounded-full bg-[var(--cera-ink)] flex items-center justify-center">
@@ -63,6 +68,7 @@ export default function BlogPostClient({ children }: BlogPostClientProps) {
             )}
           </div>
         </button>
+        </div>
       </div>
       
       {/* Content */}

@@ -9,6 +9,7 @@ import { useCart } from '@/components/cart/CartProvider'
 import { useFavorites } from '@/components/FavoritesProvider'
 import { useAuth } from '@/components/auth/AuthProvider'
 import ErrorPage from '@/components/ErrorPage'
+import LocaleSwitchInline from '@/components/LocaleSwitchInline'
 import { Sparkles, Star, Minus, Plus, ShoppingCart, Heart, Check, MessageCircle, Share2, TrendingUp, Play } from 'lucide-react'
 import { useState, useCallback, useEffect } from 'react'
 import { Product } from '@/types'
@@ -324,7 +325,10 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             </span>
           </button>
 
-          <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+            {/* The site headers hide on product routes, so this bar is the only
+                place a phone can change language without leaving the product. */}
+            <LocaleSwitchInline />
             {/* Share Button */}
             <button
               onClick={handleShare}

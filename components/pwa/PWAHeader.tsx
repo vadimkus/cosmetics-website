@@ -171,8 +171,10 @@ export default function PWAHeader() {
                   NEXT_LOCALE cookie + hard-navigate. iOS Safari PWA was
                   swallowing client-side <Link> navigations for locale
                   switches, leaving users on the previous locale.
-                  PWA always lands on the home of the chosen locale (matches
-                  the previous behaviour where the Link href was '/'). */}
+                  This used to hard-code '/' and drop the reader on the
+                  homepage, losing whatever they were looking at. Every
+                  localized route exists at the same path, so switching now
+                  keeps them where they are, matching MobileWebHeader. */}
               {showLangMenu && (
                 <>
                   <div 
@@ -184,7 +186,7 @@ export default function PWAHeader() {
                       const label = l === 'en' ? 'English' : l === 'ru' ? 'Русский' : 'العربية'
                       const handleSelect = () => {
                         setShowLangMenu(false)
-                        switchLocaleHardNav(l, '/')
+                        switchLocaleHardNav(l, pathname || '/')
                       }
                       return (
                         <button

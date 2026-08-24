@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { ArrowLeft, ArrowRight, Calendar, Eye } from 'lucide-react'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
+import LocaleSwitchInline from '@/components/LocaleSwitchInline'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
@@ -130,9 +131,11 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
             </span>
           </button>
           <span className="cera-serif text-[17px]">{label.blog}</span>
+          <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <LocaleSwitchInline />
           <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
-            className="flex min-w-[80px] justify-end"
+            className="flex"
             aria-label="Profile"
           >
             <div className="relative">
@@ -146,6 +149,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
               )}
             </div>
           </button>
+          </div>
         </div>
       )}
 

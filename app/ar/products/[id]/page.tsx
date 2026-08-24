@@ -3,6 +3,7 @@ import { Product } from '@/types'
 import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from '@/app/products/[id]/ProductPageClientRefactored'
 import { getBespokePdpLayout, getRoutineProducts } from '@/components/product/bespokePdp'
+import PdpLocaleBar from '@/components/product/PdpLocaleBar'
 import { getUnitsSold } from '@/lib/salesStats'
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
@@ -144,7 +145,11 @@ export default async function ArabicProductPage({ params }: ProductPageProps) {
       getRoutineProducts(product.productNumber || product.id),
     ])
     return (
-      <BespokeLayout product={product} unitsSold={unitsSold} routineProducts={routineProducts} />
+      <>
+        {/* See the English route: bespoke layouts ship no header of their own. */}
+        <PdpLocaleBar />
+        <BespokeLayout product={product} unitsSold={unitsSold} routineProducts={routineProducts} />
+      </>
     )
   }
 

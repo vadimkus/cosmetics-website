@@ -3,6 +3,7 @@ import { Product } from '@/types'
 import { ProductPageProps } from '@/types/common'
 import ProductPageClientRefactored from './ProductPageClientPhaseA'
 import { getBespokePdpLayout, getRoutineProducts } from '@/components/product/bespokePdp'
+import PdpLocaleBar from '@/components/product/PdpLocaleBar'
 import type { Metadata } from 'next'
 import { getProductByIdCached } from '@/lib/productsDb'
 import { getUnitsSold } from '@/lib/salesStats'
@@ -149,11 +150,17 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const BespokeLayout = getBespokePdpLayout(product, ['3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '25', '28', '24', '27', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '55', '56', '57', '58', '59', '62', '60', '61', '63', '64', '65', '66'])
   if (BespokeLayout) {
     return (
-      <BespokeLayout
-        product={product}
-        unitsSold={unitsSold}
-        routineProducts={await getRoutineProducts(product.productNumber || product.id)}
-      />
+      <>
+        {/* Bespoke layouts open on artwork rather than a header, and all three
+            site headers hide on this route, so phones get no back button and no
+            language control without this. Desktop keeps the site header. */}
+        <PdpLocaleBar />
+        <BespokeLayout
+          product={product}
+          unitsSold={unitsSold}
+          routineProducts={await getRoutineProducts(product.productNumber || product.id)}
+        />
+      </>
     )
   }
 

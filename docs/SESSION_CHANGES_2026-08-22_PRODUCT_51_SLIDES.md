@@ -66,16 +66,22 @@ render, and the mobile routes read the same manifest through `x-locale`.
 
 `main.jpeg` has no text on it and is not translated.
 
-Four files are on disk but deliberately unregistered, so those slots fall back
-to English:
+Four files were held back on the first pass and fell back to English: `ru/s7`
+and `ar/s7` had garbled headlines (Russian stranded "ВОДА." mid-sentence and
+added "создавая окклюзию", a claim the English slide does not make; Arabic
+repeated "قشري"), and both `Closing` shots rendered the jar label as nonsense
+Latin.
 
-- `ru/s7` and `ar/s7` — the headline is garbled in both. Russian strands
-  "ВОДА." mid-sentence inside an unrelated line, and Arabic repeats "قشري"
-  twice where the English reads "THREE SCOOPS. WATER. PEEL." The Russian export
-  also adds "создавая окклюзию", a claim the English slide does not make.
-- `ru/Closing` and `ar/Closing` — both render the jar label as nonsense Latin
-  ("BEIMATOLEISGICALLY TB1ED", "Gene Re-hinth System") where the English
-  original is legible. The jar is the subject of that slide.
+## Corrected s7 and Closing (24 August)
+
+Reissued exports replaced all four files and the full set is now registered in
+both languages. The headlines read correctly, the invented Russian occlusion
+claim is gone, and the jar label is legible.
+
+One deviation remains in `ar/Closing`: the spec line reads
+"مُختبر من قبل أطباء الجلدية", tested by dermatologists, where the pack claim and
+the English card say dermatologically tested. Published at Vadim's instruction;
+worth correcting on the next export.
 
 Everything else was checked figure by figure against the English set: the
 composition percentages, 1 : 1.5, 5–10 minute set, −10 to −11 °C with the

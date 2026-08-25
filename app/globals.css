@@ -98,30 +98,62 @@
   --touch-target-comfortable: 48px;
   --touch-target-spacious: 56px;
   
-  /* Primary color palette (red) */
-  --color-primary-50: #fef2f2;
-  --color-primary-100: #fee2e2;
-  --color-primary-200: #fecaca;
-  --color-primary-300: #fca5a5;
-  --color-primary-400: #f87171;
-  --color-primary-500: #ef4444;
-  --color-primary-600: #dc2626;
-  --color-primary-700: #b91c1c;
-  --color-primary-800: #991b1b;
-  --color-primary-900: #7f1d1d;
+  /* ========================================================================
+     CERA - the palette the bespoke product pages are built on, promoted to
+     site-wide tokens.
+     ========================================================================
+     Fifty-eight of the sixty-six products already have a hand-written page in
+     these colours, and the mobile app was rebuilt in them. Everything else on
+     the site was red on white, so a shopper met one brand on a product page and
+     a different one in the cart. These are the same values, to the digit, as
+     cerabarrier.css and the app's utils/theme.js. */
+  --cera-cream: #faf7f5;
+  --cera-cream-deep: #f3ece8;
+  --cera-blush: #f7ecec;
+  --cera-blush-deep: #efd9d9;
+  --cera-rose: #c98b8b;
+  --cera-rose-ink: #8f5a5a;
+  --cera-ink: #191716;
+  --cera-body: #3d3734;
+  --cera-muted: #665e59;
+  --cera-line: #e8e0db;
+
+  /* Primary palette: the cera rose, ramped.
+     `primary-600` is rose-ink, the colour the product pages set links, prices
+     and active icons in — 5.56:1 on white, and the same value the app calls
+     `accent`. The upper steps run toward ink rather than toward a darker red,
+     so a hover state lands in the palette instead of leaving it. */
+  --color-primary-50: #f7ecec;
+  --color-primary-100: #efd9d9;
+  --color-primary-200: #deb6b6;
+  --color-primary-300: #d19c9c;
+  --color-primary-400: #c98b8b;
+  --color-primary-500: #ac7373;
+  --color-primary-600: #8f5a5a;
+  --color-primary-700: #6e4747;
+  --color-primary-800: #4e3535;
+  --color-primary-900: #332625;
 
   /* ========================================================================
-     BRAND RED - Semantic tokens (single source of truth for GENOSYS red)
+     BRAND CTA - Semantic tokens for the primary action
      ========================================================================
-     Use these in new code instead of raw #dc2626 / bg-red-600 / bg-primary-600
-     so future palette adjustments only need to change this block. Tailwind's
-     bg-primary-600 still works for existing code; the two stay in sync. */
-  --brand-red: #dc2626;           /* default solid CTA */
-  --brand-red-hover: #b91c1c;     /* hover state */
-  --brand-red-active: #991b1b;    /* pressed state */
-  --brand-red-soft: #fee2e2;      /* tinted backgrounds / badges */
-  --brand-red-ink: #7f1d1d;       /* text on soft */
-  --brand-red-ring: rgba(220, 38, 38, 0.2); /* focus ring tint */
+     Ink, not red. This is what the product pages put on "Add to bag" and what
+     the app uses for every filled button, so the cart and the product page now
+     agree. The `--brand-red-*` names are kept as aliases because a stylesheet
+     and the shared Button still reach for them; they no longer hold a red. */
+  --brand-cta: #191716;            /* default solid CTA, cera ink */
+  --brand-cta-hover: #332e2b;      /* hover state */
+  --brand-cta-active: #4a423e;     /* pressed state */
+  --brand-cta-soft: #f7ecec;       /* tinted backgrounds / badges, cera blush */
+  --brand-cta-ink: #8f5a5a;        /* text on soft, cera rose-ink */
+  --brand-cta-ring: rgba(143, 90, 90, 0.24); /* focus ring tint */
+
+  --brand-red: var(--brand-cta);
+  --brand-red-hover: var(--brand-cta-hover);
+  --brand-red-active: var(--brand-cta-active);
+  --brand-red-soft: var(--brand-cta-soft);
+  --brand-red-ink: var(--brand-cta-ink);
+  --brand-red-ring: var(--brand-cta-ring);
   /* OKLCH mirrors (enhanced below via @supports color-mix) — hex stays source of truth for Tailwind */
   
   /* Rose color palette */
@@ -177,7 +209,7 @@
   --color-border-primary: #e5e7eb;
   --color-border-secondary: #d1d5db;
   --color-border-tertiary: #f3f4f6;
-  --color-border-focus: #dc2626;
+  --color-border-focus: var(--cera-rose-ink);
   
   /* Fill colors - for icons, indicators */
   --color-fill-primary: #374151;
@@ -210,8 +242,8 @@
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
   
   /* Colored shadows for branded elements */
-  --shadow-primary: 0 4px 14px 0 rgba(220, 38, 38, 0.25);
-  --shadow-primary-lg: 0 10px 25px 0 rgba(220, 38, 38, 0.3);
+  --shadow-primary: 0 4px 14px 0 rgba(25, 23, 22, 0.16);
+  --shadow-primary-lg: 0 10px 25px 0 rgba(25, 23, 22, 0.2);
   
   /* Inner shadows for pressed states */
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
@@ -312,7 +344,7 @@
     --color-border-primary: #38383a;
     --color-border-secondary: #48484a;
     --color-border-tertiary: #2c2c2e;
-    --color-border-focus: #ef4444;
+    --color-border-focus: var(--cera-rose);
     
     /* Fill colors - Dark Mode */
     --color-fill-primary: #ffffff;
@@ -361,7 +393,7 @@
   --color-border-primary: #38383a;
   --color-border-secondary: #48484a;
   --color-border-tertiary: #2c2c2e;
-  --color-border-focus: #ef4444;
+  --color-border-focus: var(--cera-rose);
   --color-fill-primary: #ffffff;
   --color-fill-secondary: #ebebf5;
   --color-fill-tertiary: #ebebf599;
@@ -612,7 +644,7 @@
 
 .input-surface:focus {
   border-color: var(--color-border-focus);
-  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+  box-shadow: 0 0 0 3px var(--brand-cta-ring);
   outline: none;
 }
 
@@ -1001,7 +1033,7 @@ input[type="radio"] {
 
 input[type="radio"]:checked {
   background-color: white;
-  border-color: #dc2626;
+  border-color: var(--cera-rose-ink);
   position: relative;
 }
 
@@ -1014,7 +1046,7 @@ input[type="radio"]:checked::after {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: #dc2626;
+  background-color: var(--cera-rose-ink);
 }
 
 input[type="radio"]:disabled {
@@ -1400,7 +1432,7 @@ html[dir="rtl"] {
   right: 0;
   bottom: 0;
   width: 100px;
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  background: linear-gradient(135deg, var(--cera-rose) 0%, var(--cera-rose-ink) 100%);
   display: flex;
   align-items: center;
   justify-content: center;

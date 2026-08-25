@@ -32,8 +32,8 @@ h1, h2, h3, h4, h5, h6,
   transform-origin: left center;
   background: linear-gradient(
     90deg,
-    var(--brand-red, #dc2626),
-    color-mix(in srgb, var(--brand-red, #dc2626) 70%, #f59e0b)
+    var(--cera-rose-ink),
+    var(--cera-rose)
   );
   transform: scaleX(0);
   opacity: 1;
@@ -97,8 +97,8 @@ h1, h2, h3, h4, h5, h6,
 .form-field:has(:focus-within) input,
 .form-field:has(:focus-within) textarea,
 .form-field:has(:focus-within) select {
-  border-color: var(--color-primary-500, #ef4444);
-  box-shadow: 0 0 0 3px var(--brand-red-ring, rgba(220, 38, 38, 0.2));
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px var(--brand-cta-ring);
 }
 
 .form-enhanced:has(input:invalid:not(:placeholder-shown):not(:focus)),
@@ -114,8 +114,8 @@ h1, h2, h3, h4, h5, h6,
 
 /* Newsletter pill row (div.form-enhanced wrapping inputs) */
 div.form-enhanced:has(input:focus) {
-  border-color: var(--color-primary-400, #f87171);
-  box-shadow: 0 0 0 3px var(--brand-red-ring, rgba(220, 38, 38, 0.2));
+  border-color: var(--color-primary-400);
+  box-shadow: 0 0 0 3px var(--brand-cta-ring);
 }
 
 /* Login / checkout forms: soft valid/invalid borders without JS */
@@ -182,12 +182,9 @@ form.form-enhanced input[type='email']:valid:not(:placeholder-shown):not(:focus)
 }
 
 /* --- OKLCH / color-mix brand soft tokens (hex remains fallback) --- */
-@supports (color: color-mix(in oklch, red, white)) {
-  :root {
-    --brand-red-soft: color-mix(in oklch, var(--brand-red, #dc2626) 14%, white);
-    --brand-red-ring: color-mix(in oklch, var(--brand-red, #dc2626) 22%, transparent);
-  }
-}
+/* The soft and ring tints are set from the cera rose in globals.css. They used
+   to be mixed from the CTA colour here, which now holds ink, and would have
+   washed the blush out to grey. */
 
 /* --- Reduced motion: kill polish animations --- */
 @media (prefers-reduced-motion: reduce) {

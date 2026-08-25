@@ -232,7 +232,7 @@ export default function PWALoginPage() {
         <div className={`flex items-center gap-1.5 mt-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <span className="text-lg">🇦🇪</span>
           <span className="text-[var(--cera-body)] text-sm">{t('authScreen.uaeLine')}</span>
-          <Heart className="w-3 h-3 text-red-500 fill-red-500" />
+          <Heart className="w-3 h-3 text-[var(--cera-rose-ink)] fill-[var(--cera-rose-ink)]" />
         </div>
       </div>
 
@@ -292,7 +292,7 @@ export default function PWALoginPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder={t('authScreen.fullNamePlaceholder')}
-                className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
+                className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-[var(--cera-rose)] focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
                 style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
                 dir={dir}
               />
@@ -313,7 +313,7 @@ export default function PWALoginPage() {
                 setError('')
               }}
               placeholder={t('authScreen.emailPlaceholder')}
-              className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
+              className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-[var(--cera-rose)] focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
               style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
               dir="ltr"
             />
@@ -346,7 +346,7 @@ export default function PWALoginPage() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder={t('login.uaePhoneNumberPlaceholder')}
-                  className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
+                  className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-[var(--cera-rose)] focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
                   style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
                   dir="ltr"
                   required
@@ -361,7 +361,7 @@ export default function PWALoginPage() {
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder={t('login.uaeAddressPlaceholder')}
-                  className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
+                  className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-[var(--cera-rose)] focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right' : ''}`}
                   style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
                   dir={dir}
                   required
@@ -374,7 +374,7 @@ export default function PWALoginPage() {
                 <select
                   value={emirate}
                   onChange={(e) => setEmirate(e.target.value)}
-                  className={`w-full px-4 py-3 bg-white border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all ${emirate ? 'text-[var(--cera-ink)]' : 'text-[var(--cera-muted)]'} ${isRTL ? 'text-right' : ''}`}
+                  className={`w-full px-4 py-3 bg-white border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-[var(--cera-rose)] focus:border-transparent outline-none transition-all ${emirate ? 'text-[var(--cera-ink)]' : 'text-[var(--cera-muted)]'} ${isRTL ? 'text-right' : ''}`}
                   required
                 >
                   <option value="">{t('login.selectEmirate')}</option>
@@ -399,7 +399,7 @@ export default function PWALoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={t('authScreen.passwordPlaceholder')}
-                className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right pr-4 pl-12' : 'pr-12'}`}
+                className={`w-full px-4 py-3 bg-white text-[var(--cera-ink)] border border-[var(--cera-line)] rounded-xl focus:ring-2 focus:ring-[var(--cera-rose)] focus:border-transparent outline-none transition-all placeholder:text-[var(--cera-muted)] ${isRTL ? 'text-right pr-4 pl-12' : 'pr-12'}`}
                 style={{ WebkitTextFillColor: '#111827', opacity: 1 }}
                 dir="ltr"
               />

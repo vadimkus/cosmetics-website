@@ -148,6 +148,24 @@
   --brand-cta-ink: #8f5a5a;        /* text on soft, cera rose-ink */
   --brand-cta-ring: rgba(143, 90, 90, 0.24); /* focus ring tint */
 
+  /* Danger. Tailwind's own red still carries almost every error, delete and
+     cancelled state on the site — some four hundred of them — and that is the
+     right meaning for it, so the scale keeps its job and changes its tone: a
+     warmer, deeper red that belongs on cream instead of the cold vivid default.
+     600 is the same value the app uses for destructive actions, 4.8:1 on cream
+     and 5.1:1 under white text. The pale end is the app's `redBg` and `redLine`,
+     so a warning panel is a wash of the page rather than a pink patch on it. */
+  --color-red-50: #f6eae8;
+  --color-red-100: #ead1cd;
+  --color-red-200: #e0bdb7;
+  --color-red-300: #d9746b;
+  --color-red-400: #d54b40;
+  --color-red-500: #d74439;
+  --color-red-600: #d22b1e;
+  --color-red-700: #9b251c;
+  --color-red-800: #6c201a;
+  --color-red-900: #421b18;
+
   --brand-red: var(--brand-cta);
   --brand-red-hover: var(--brand-cta-hover);
   --brand-red-active: var(--brand-cta-active);
@@ -185,24 +203,30 @@
      Based on Apple Human Interface Guidelines
      ======================================================================== */
   
-  /* Background colors - Light Mode */
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f9fafb;
-  --color-bg-tertiary: #f3f4f6;
+  /* Background colors - Light Mode
+     The page is cream, the way the product pages and the app are. Cards stay
+     white: on cream a white card reads as paper on a surface, which is the
+     whole reason the product pages look the way they do. The greys that used to
+     sit between the two are now the cera creams, so a nested row is a deeper
+     shade of the same paper rather than a colder one. */
+  --color-bg-primary: #faf7f5;
+  --color-bg-secondary: #f3ece8;
+  --color-bg-tertiary: #f3ece8;
   --color-bg-elevated: #ffffff;
-  --color-bg-grouped: #f2f2f7;
+  --color-bg-grouped: #faf7f5;
   
   /* Surface colors - for cards, modals, overlays */
   --color-surface: #ffffff;
-  --color-surface-secondary: #f9fafb;
-  --color-surface-tertiary: #f3f4f6;
+  --color-surface-secondary: #faf7f5;
+  --color-surface-tertiary: #f3ece8;
   --color-surface-overlay: rgba(255, 255, 255, 0.9);
   
-  /* Text colors - Light Mode */
-  --color-text-primary: #111827;
-  --color-text-secondary: #4b5563;
-  --color-text-tertiary: #9ca3af;
-  --color-text-quaternary: #d1d5db;
+  /* Text colors - Light Mode, warmed onto the cera scale so type on cream does
+     not read blue-grey against it. */
+  --color-text-primary: #191716;
+  --color-text-secondary: #3d3734;
+  --color-text-tertiary: #665e59;
+  --color-text-quaternary: #968981;
   --color-text-inverse: #ffffff;
   
   /* Border colors - Light Mode */

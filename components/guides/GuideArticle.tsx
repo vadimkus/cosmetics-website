@@ -35,7 +35,7 @@ export default function GuideArticle({
   const featured = page.featuredProducts || []
 
   return (
-    <div className="min-h-screen bg-white" dir={dir}>
+    <div className="min-h-screen bg-[var(--cera-cream)]" dir={dir}>
       <ReadingProgress />
       <article className="mx-auto max-w-6xl px-4 py-12 md:py-20">
         <header className={`grid items-center gap-10 ${featured.length > 0 ? 'lg:grid-cols-[1.1fr_0.9fr]' : ''}`}>

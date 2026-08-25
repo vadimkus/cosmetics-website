@@ -495,7 +495,7 @@ export default function PrivacyPolicyClient() {
   }
 
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-white`} dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)]`} dir={dir}>
       <BreadcrumbSchema
         items={[
           { name: t.home, url: getLocalizedPath('/', locale) },

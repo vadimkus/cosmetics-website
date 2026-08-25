@@ -74,7 +74,7 @@ export default function PWAPageWrapper({
   }
   
   return (
-    <div className="min-h-screen bg-white pb-32">
+    <div className="min-h-screen bg-[var(--cera-cream)] pb-32">
       {/* Unified sticky nav header — matches the profile stack
           (addresses, language, billing, privacy-policy, terms). Sticky
           so the title + back button stay visible while scrolling long

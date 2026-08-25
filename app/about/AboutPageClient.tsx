@@ -186,7 +186,7 @@ export default function AboutPageClient() {
               </Link>
               <Link
                 href={getLocalizedPath('/contact', locale)}
-                className="border border-red-600 text-[var(--cera-rose)] w-full py-3 rounded-xl text-sm font-semibold active:bg-red-50 transition-colors"
+                className="border border-[var(--cera-rose)] text-[var(--cera-rose)] w-full py-3 rounded-xl text-sm font-semibold active:bg-[var(--cera-blush)] transition-colors"
               >
                 {t('common.contact')}
               </Link>
@@ -294,7 +294,7 @@ export default function AboutPageClient() {
                 <p>{t('about.aboutUsDescription')}</p>
                 <p>
                   {t('about.productsCertifiedDescription')}{' '}
-                  <a href="https://www.dm.gov.ae/" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-rose)] underline underline-offset-4 decoration-red-300 hover:decoration-red-600 transition-colors">
+                  <a href="https://www.dm.gov.ae/" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-rose)] underline underline-offset-4 decoration-[var(--cera-rose)] hover:decoration-[var(--cera-rose-ink)] transition-colors">
                     {t('about.dubaiMunicipality')}
                   </a>.
                 </p>
@@ -351,13 +351,13 @@ export default function AboutPageClient() {
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <dt className="text-[var(--cera-muted)] flex-shrink-0">{locale === 'ru' ? 'Лицензия' : locale === 'ar' ? 'الترخيص' : 'License'}</dt>
                     <dd className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                      <PDFLinkButton href="/documents/Genosys_License.pdf" filename="Genosys-Commercial-License-5023192.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-[var(--cera-rose)] underline underline-offset-2 decoration-red-300 hover:decoration-red-600 font-medium transition-colors">5023192</PDFLinkButton>
+                      <PDFLinkButton href="/documents/Genosys_License.pdf" filename="Genosys-Commercial-License-5023192.pdf" download="Genosys-Commercial-License-5023192.pdf" className="text-[var(--cera-rose)] underline underline-offset-2 decoration-[var(--cera-rose)] hover:decoration-[var(--cera-rose-ink)] font-medium transition-colors">5023192</PDFLinkButton>
                     </dd>
                   </div>
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <dt className="text-[var(--cera-muted)] flex-shrink-0">TRN</dt>
                     <dd className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                      <PDFLinkButton href="/documents/genosys-trn-104229886700003.pdf" filename="GENOSYS-TRN-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-[var(--cera-rose)] underline underline-offset-2 decoration-red-300 hover:decoration-red-600 font-medium transition-colors">104229886700003</PDFLinkButton>
+                      <PDFLinkButton href="/documents/genosys-trn-104229886700003.pdf" filename="GENOSYS-TRN-104229886700003.pdf" download="GENOSYS-TRN-104229886700003.pdf" className="text-[var(--cera-rose)] underline underline-offset-2 decoration-[var(--cera-rose)] hover:decoration-[var(--cera-rose-ink)] font-medium transition-colors">104229886700003</PDFLinkButton>
                     </dd>
                   </div>
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -383,25 +383,25 @@ export default function AboutPageClient() {
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <dt className="text-[var(--cera-muted)] flex-shrink-0">{t('contact.phoneWhatsapp')}</dt>
                     <dd className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                      <a href="tel:+971585487665" className="text-[var(--cera-ink)] hover:text-red-600 font-medium transition-colors" dir="ltr">+971 58 548 76 65</a>
+                      <a href="tel:+971585487665" className="text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)] font-medium transition-colors" dir="ltr">+971 58 548 76 65</a>
                     </dd>
                   </div>
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <dt className="text-[var(--cera-muted)] flex-shrink-0 inline-flex items-center gap-1.5"><Mail className="h-3.5 w-3.5" />{t('about.email')}</dt>
                     <dd className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                      <a href="mailto:sales@genosys.ae" className="text-[var(--cera-ink)] hover:text-red-600 font-medium transition-colors" dir="ltr">sales@genosys.ae</a>
+                      <a href="mailto:sales@genosys.ae" className="text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)] font-medium transition-colors" dir="ltr">sales@genosys.ae</a>
                     </dd>
                   </div>
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <dt className="text-[var(--cera-muted)] flex-shrink-0 inline-flex items-center gap-1.5"><Globe2 className="h-3.5 w-3.5" />{t('about.website')}</dt>
                     <dd className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                      <a href="https://genosys.ae" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-ink)] hover:text-red-600 font-medium transition-colors" dir="ltr">genosys.ae</a>
+                      <a href="https://genosys.ae" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)] font-medium transition-colors" dir="ltr">genosys.ae</a>
                     </dd>
                   </div>
                   <div className={`flex items-baseline justify-between gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <dt className="text-[var(--cera-muted)] flex-shrink-0 inline-flex items-center gap-1.5"><Instagram className="h-3.5 w-3.5" />{t('about.instagram')}</dt>
                     <dd className={dir === 'rtl' ? 'text-left' : 'text-right'}>
-                      <a href="https://www.instagram.com/genosys.uae/" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-ink)] hover:text-red-600 font-medium transition-colors" dir="ltr">@genosys.uae</a>
+                      <a href="https://www.instagram.com/genosys.uae/" target="_blank" rel="noopener noreferrer" className="text-[var(--cera-ink)] hover:text-[var(--cera-rose-ink)] font-medium transition-colors" dir="ltr">@genosys.uae</a>
                     </dd>
                   </div>
                 </dl>

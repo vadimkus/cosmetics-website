@@ -337,7 +337,7 @@ export default function TermsClient() {
 
   // Non-PWA Mode - Full page
   return (
-    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-white`} dir={dir}>
+    <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream)]`} dir={dir}>
       <BreadcrumbSchema
         items={[
           { name: translations.home, url: getLocalizedPath('/', locale) },

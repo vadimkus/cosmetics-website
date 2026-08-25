@@ -95,11 +95,11 @@ export default function BlackFridayCountdown() {
         <div className="text-center mb-3 sm:mb-4">
           <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-black mb-1.5 sm:mb-2 break-words">
             {locale === 'ar' ? (
-              <>عرض الجمعة السوداء — <span className="text-red-500">خصم 20%</span></>
+              <>عرض الجمعة السوداء — <span className="text-[var(--cera-rose-ink)]">خصم 20%</span></>
             ) : locale === 'ru' ? (
               <>{t('common.blackFriday20Off')}</>
             ) : (
-              <>Black Friday <span className="text-red-500">20% OFF</span></>
+              <>Black Friday <span className="text-[var(--cera-rose-ink)]">20% OFF</span></>
             )}
           </h3>
           <p className="text-xs sm:text-sm md:text-base text-gray-700 font-semibold break-words">
@@ -111,7 +111,7 @@ export default function BlackFridayCountdown() {
         <div className="flex items-center justify-center gap-1.5 sm:gap-2 md:gap-4 mb-3 sm:mb-4 flex-wrap">
           {/* Days */}
           <div className="flex flex-col items-center bg-gray-100 rounded-lg p-2 sm:p-3 md:p-4 border border-gray-300 min-w-[55px] sm:min-w-[60px] md:min-w-[80px] flex-shrink-0">
-            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-500 tabular-nums leading-tight">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--cera-rose-ink)] tabular-nums leading-tight">
               {timeLeft.days.toString().padStart(2, '0')}
             </div>
             <div className="text-[10px] sm:text-xs md:text-sm text-gray-600 mt-0.5 sm:mt-1">
@@ -120,11 +120,11 @@ export default function BlackFridayCountdown() {
           </div>
 
           {/* Separator */}
-          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-500 leading-none">:</div>
+          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--cera-rose-ink)] leading-none">:</div>
 
           {/* Hours */}
           <div className="flex flex-col items-center bg-gray-100 rounded-lg p-2 sm:p-3 md:p-4 border border-gray-300 min-w-[55px] sm:min-w-[60px] md:min-w-[80px] flex-shrink-0">
-            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-500 tabular-nums leading-tight">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--cera-rose-ink)] tabular-nums leading-tight">
               {timeLeft.hours.toString().padStart(2, '0')}
             </div>
             <div className="text-[10px] sm:text-xs md:text-sm text-gray-600 mt-0.5 sm:mt-1">
@@ -133,11 +133,11 @@ export default function BlackFridayCountdown() {
           </div>
 
           {/* Separator */}
-          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-500 leading-none">:</div>
+          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--cera-rose-ink)] leading-none">:</div>
 
           {/* Minutes */}
           <div className="flex flex-col items-center bg-gray-100 rounded-lg p-2 sm:p-3 md:p-4 border border-gray-300 min-w-[55px] sm:min-w-[60px] md:min-w-[80px] flex-shrink-0">
-            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-500 tabular-nums leading-tight">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--cera-rose-ink)] tabular-nums leading-tight">
               {timeLeft.minutes.toString().padStart(2, '0')}
             </div>
             <div className="text-[10px] sm:text-xs md:text-sm text-gray-600 mt-0.5 sm:mt-1">
@@ -146,11 +146,11 @@ export default function BlackFridayCountdown() {
           </div>
 
           {/* Separator */}
-          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-500 leading-none">:</div>
+          <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--cera-rose-ink)] leading-none">:</div>
 
           {/* Seconds */}
           <div className="flex flex-col items-center bg-gray-100 rounded-lg p-2 sm:p-3 md:p-4 border border-gray-300 min-w-[55px] sm:min-w-[60px] md:min-w-[80px] flex-shrink-0">
-            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-red-500 tabular-nums leading-tight">
+            <div className="text-xl sm:text-2xl md:text-3xl font-bold text-[var(--cera-rose-ink)] tabular-nums leading-tight">
               {timeLeft.seconds.toString().padStart(2, '0')}
             </div>
             <div className="text-[10px] sm:text-xs md:text-sm text-gray-600 mt-0.5 sm:mt-1">
@@ -163,15 +163,15 @@ export default function BlackFridayCountdown() {
         <p className="text-center text-xs sm:text-sm md:text-base text-gray-700 break-words px-2">
           {isSaleActive 
             ? (locale === 'ar' 
-                ? <>العرض جاري! لا يوجد حد أدنى للإنفاق. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">جميع الطلبات مؤهلة.</Link></>
+                ? <>العرض جاري! لا يوجد حد أدنى للإنفاق. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-[var(--cera-rose-ink)] transition-colors">جميع الطلبات مؤهلة.</Link></>
                 : locale === 'ru' 
-                ? <>{t('common.saleIsOn')} <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">{t('common.allOrdersQualify')}</Link></>
-                : <>Sale is on! No minimum spend. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">All orders qualify.</Link></>)
+                ? <>{t('common.saleIsOn')} <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-[var(--cera-rose-ink)] transition-colors">{t('common.allOrdersQualify')}</Link></>
+                : <>Sale is on! No minimum spend. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-[var(--cera-rose-ink)] transition-colors">All orders qualify.</Link></>)
             : (locale === 'ar' 
-                ? <>لا يوجد حد أدنى للإنفاق. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">جميع الطلبات مؤهلة.</Link></>
+                ? <>لا يوجد حد أدنى للإنفاق. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-[var(--cera-rose-ink)] transition-colors">جميع الطلبات مؤهلة.</Link></>
                 : locale === 'ru'
-                ? <>{t('common.noMinimumSpend')} <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">{t('common.allOrdersQualify')}</Link></>
-                : <>No minimum spend. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-red-500 transition-colors">All orders qualify.</Link></>)}
+                ? <>{t('common.noMinimumSpend')} <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-[var(--cera-rose-ink)] transition-colors">{t('common.allOrdersQualify')}</Link></>
+                : <>No minimum spend. <Link href={getLocalizedPath('/blog/black-friday-sale-20-off', locale)} className="underline hover:text-[var(--cera-rose-ink)] transition-colors">All orders qualify.</Link></>)}
         </p>
       </div>
     </div>

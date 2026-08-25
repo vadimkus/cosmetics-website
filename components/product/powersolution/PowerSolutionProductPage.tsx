@@ -931,6 +931,27 @@ export default function PowerSolutionProductPage({
               <span>{copy.howTo.note}</span>
             </p>
           </CeraReveal>
+
+          {/* Only some of the six ampoules have a clip. The frame is held to
+              9:16 because the exports are 1080x1920 portrait, so a square or
+              widescreen cover crop would throw away most of the height. */}
+          {product.videoUrl ? (
+            <CeraReveal className="mt-10">
+              <p className="cera-eyebrow">{t('product.watchVideo')}</p>
+              <div className="mx-auto mt-4 aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-ink)]">
+                <video
+                  src={product.videoUrl}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={t('product.watchVideo')}
+                  className="h-full w-full object-cover"
+                >
+                  {t('product.videoNotSupported')}
+                </video>
+              </div>
+            </CeraReveal>
+          ) : null}
         </div>
       </section>
 

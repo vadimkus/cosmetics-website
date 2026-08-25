@@ -11,6 +11,7 @@ import { getProductDocumentation } from '@/data/productConfig'
 import { getMobileRoutine } from '@/lib/mobileProductRoutines'
 import { getCatalogQuickFacts, getQuickFactLocale } from '@/lib/productQuickFactsCatalog'
 import { localizeProductImage, localizeProductImagesJson } from '@/lib/localizedProductImages'
+import { getBespokeContent } from '@/lib/bespokeContent'
 
 /**
  * Database product type - matches Prisma query select fields
@@ -335,6 +336,11 @@ export async function GET(
       routine: getMobileRoutine(productIdForTranslation, locale),
       // Localized PDP Quick Facts from the same curated catalog as web/PWA.
       quickFacts: getCatalogQuickFacts(productIdForTranslation, getQuickFactLocale(locale)),
+      // The editorial copy the website's bespoke pages render — the checked
+      // claims, the ingredient figures, the FAQ — flattened into blocks the app
+      // can draw. Read from the same modules the pages use, so there is nothing
+      // to keep in sync. null for products without a bespoke page.
+      bespokeContent: getBespokeContent(productIdForTranslation, locale),
     }
     const enhancementDuration = Date.now() - enhancementStartTime
     

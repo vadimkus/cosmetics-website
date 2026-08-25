@@ -97,9 +97,13 @@ interface ActiveIngredient {
  *  dewy-balanced-luminous results slide, S4 the shake-spray-glow how-to.
  *  Leftover slide copy (FENSEBIOME-as-engine, HA10, pat-in) is queued for
  *  re-export; the editorial copy does not repeat it. */
-const EFFECTS_IMAGE = '/images/mist/S6.jpeg'
-const HOWTO_IMAGE = '/images/mist/S4.jpeg'
-const ENGINE_IMAGE = '/images/mist/S1.jpeg'
+/* The in-body figures, from the same set as the gallery. The slides they used
+   to point at are still on disk under mist/, but two of them carry garbled
+   lettering on the bottle — an artefact of how they were made — which is part
+   of why the set was reshot. */
+const EFFECTS_IMAGE = '/images/mist_0/S8.jpeg' // "Shake. Spray. Over makeup."
+const HOWTO_IMAGE = '/images/mist_0/S7.jpeg' // "Shake. Then spray."
+const ENGINE_IMAGE = '/images/mist_0/S3.jpeg' // "Shea is why you shake." — the slide says it too
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

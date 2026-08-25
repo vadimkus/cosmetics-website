@@ -47,7 +47,7 @@ const CUTOUTS: Record<string, string> = {
   // 13 SKIN RENEWAL PEELING SYSTEM (SRS)
   '/images/srs_2_new/main.jpeg': '/images/cutout/13.webp',
   // 14 MICROBIOME ENERGY INFUSING MIST
-  '/images/mist/main2.jpeg': '/images/cutout/14.webp',
+  '/images/mist_0/Main.jpeg': '/images/cutout/14.webp',
   // 15 INTENSIVE PROBLEM CONTROL TONER
   '/images/problem/Main.jpg': '/images/cutout/15.webp',
   // 16 SNOW BOOSTER

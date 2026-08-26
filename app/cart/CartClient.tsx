@@ -318,7 +318,7 @@ export default function CartClient() {
                 </div>
                 {/* Green online dot - only when logged in */}
                 {user && (
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[var(--status-green-deep)] rounded-full border-[1.5px] border-white" />
                 )}
               </div>
             </button>
@@ -497,7 +497,7 @@ export default function CartClient() {
               </div>
               {/* Green online dot - only when logged in */}
               {user && (
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[var(--status-green-deep)] rounded-full border-[1.5px] border-white" />
               )}
             </div>
           </button>
@@ -690,18 +690,18 @@ export default function CartClient() {
                         </div>
                       </div>
                       <div className="text-[20px] text-[var(--cera-muted)]">=</div>
-                      <div className="flex flex-col items-center rounded-2xl border border-green-200 bg-green-50 px-4 py-3">
-                        <div className="cera-numeral whitespace-nowrap text-[22px] text-green-700">
+                      <div className="flex flex-col items-center rounded-2xl border border-[var(--status-green-line)] bg-[var(--status-green-bg)] px-4 py-3">
+                        <div className="cera-numeral whitespace-nowrap text-[22px] text-[var(--status-green-deep)]">
                           {beautyBoxSavings.toFixed(2)} {locale === 'ar' ? 'درهم' : locale === 'ru' ? 'AED' : 'AED'}
                         </div>
-                        <div className="whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.08em] text-green-700">
+                        <div className="whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--status-green-deep)]">
                           {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'СЭКОНОМЛЕНО' : 'SAVED'}
                         </div>
                       </div>
                     </div>
 
                     <div className={`mt-3 border-t border-[var(--cera-line)] pt-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      <p className="text-center text-[13.5px] font-semibold text-green-700">
+                      <p className="text-center text-[13.5px] font-semibold text-[var(--status-green-deep)]">
                         ✅ {t('products.beautyBoxSavings', { amount: beautyBoxSavings.toFixed(2) })}
                       </p>
                     </div>
@@ -807,7 +807,7 @@ export default function CartClient() {
                     </div>
                     {originalSubtotal > subtotal && (
                       <div className={`mt-3 pt-3 border-t border-red-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <p className={`text-sm font-semibold text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <p className={`text-sm font-semibold text-[var(--status-green-deep)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                           {locale === 'ar' 
                             ? `✅ وفرت ${(originalSubtotal - subtotal).toFixed(2)} درهم`
                             : `✅ You saved AED ${(originalSubtotal - subtotal).toFixed(2)}`}
@@ -834,7 +834,7 @@ export default function CartClient() {
                       {t('cart.freeDelivery')}
                     </h3>
                     {subtotal >= freeShippingThreshold ? (
-                      <span className={`flex items-center gap-1 text-[12px] font-semibold text-green-700 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className={`flex items-center gap-1 text-[12px] font-semibold text-[var(--status-green-deep)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <Check className="h-3.5 w-3.5" aria-hidden="true" />
                         {t('cart.unlocked')}
                       </span>
@@ -849,7 +849,7 @@ export default function CartClient() {
                 <div className="mb-2 h-2 w-full overflow-hidden rounded-full bg-[var(--cera-cream-deep)]">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
-                      subtotal >= freeShippingThreshold ? 'bg-green-600' : 'bg-[var(--cera-rose)]'
+                      subtotal >= freeShippingThreshold ? 'bg-[var(--status-green-deep)]' : 'bg-[var(--cera-rose)]'
                     }`}
                     style={{ width: `${Math.min(100, (subtotal / freeShippingThreshold) * 100)}%` }}
                   />
@@ -876,7 +876,7 @@ export default function CartClient() {
                 
                 {/* User Status */}
                 {!user && (
-                  <div className={`mb-5 rounded-2xl border border-amber-200 bg-amber-50 p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`mb-5 rounded-2xl border border-[var(--status-orange-line)] bg-[var(--status-orange-bg)] p-4 ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className={`flex items-center gap-2 text-yellow-800 mb-1.5 md:mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Lock className="h-4 w-4 md:h-5 md:w-5" />
                       <span className="font-semibold text-sm md:text-base">{t('cart.loginRequired')}</span>
@@ -927,7 +927,7 @@ export default function CartClient() {
                         <span className="ml-1 bg-red-600 text-white px-2 py-0.5 rounded text-xs md:text-sm">-20%</span>
                       </div>
                       {originalSubtotal > subtotal && (
-                        <div className="text-xs md:text-sm text-green-700 font-medium">
+                        <div className="text-xs md:text-sm text-[var(--status-green-deep)] font-medium">
                           {locale === 'ar' 
                             ? `✓ وفرت ${(originalSubtotal - subtotal).toFixed(2)} درهم`
                             : `✓ You saved AED ${(originalSubtotal - subtotal).toFixed(2)}`}
@@ -954,7 +954,7 @@ export default function CartClient() {
                   
                   <div className={`flex justify-between text-[14px] text-[var(--cera-body)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span>{t('cart.shippingTo')} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}</span>
-                    <span>{user ? (shippingCost === 0 ? <span className="text-green-600 font-semibold">{t('cart.freeDelivery')}</span> : `AED ${shippingCost}`) : t('cart.loginToSeePrice')}</span>
+                    <span>{user ? (shippingCost === 0 ? <span className="text-[var(--status-green-deep)] font-semibold">{t('cart.freeDelivery')}</span> : `AED ${shippingCost}`) : t('cart.loginToSeePrice')}</span>
                   </div>
                   
                   <div className={`flex justify-between text-[14px] text-[var(--cera-body)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -996,27 +996,27 @@ export default function CartClient() {
 
                 {/* Free Masks Notice */}
                 {user && subtotal >= 700 && (
-                  <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-green-50 border border-green-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-[var(--status-green-bg)] border border-[var(--status-green-line)] rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
-                      <span className="text-xs md:text-sm font-semibold text-green-700">
+                      <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-[var(--status-green-deep)]" />
+                      <span className="text-xs md:text-sm font-semibold text-[var(--status-green-deep)]">
                         {t('cart.twoFreeMasksAdded')}
                       </span>
                     </div>
-                    <p className={`text-[10px] md:text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`text-[10px] md:text-xs text-[var(--status-green-deep)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('cart.seaAlgaeCollagenMasks')}
                     </p>
                   </div>
                 )}
                 {user && subtotal >= 500 && subtotal < 700 && (
-                  <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-green-50 border border-green-200 rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-[var(--status-green-bg)] border border-[var(--status-green-line)] rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
-                      <span className="text-xs md:text-sm font-semibold text-green-700">
+                      <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-[var(--status-green-deep)]" />
+                      <span className="text-xs md:text-sm font-semibold text-[var(--status-green-deep)]">
                         {t('cart.oneFreeMaskAdded')}
                       </span>
                     </div>
-                    <p className={`text-[10px] md:text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`text-[10px] md:text-xs text-[var(--status-green-deep)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('cart.collagenMaskAdded')}
                     </p>
                   </div>

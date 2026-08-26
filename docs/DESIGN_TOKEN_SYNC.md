@@ -55,23 +55,37 @@ The checks are wired in where they cannot be skipped:
 **Colour:** all eleven cera tokens — cream, creamDeep, blush, blushDeep, rose,
 roseInk, ink, body, muted, line, shot.
 
+**Status:** green, blue, orange and red, each with its washed panel (`-bg`) and
+border (`-line`) tone. The app arrived at these first, deepening every stock iOS
+and Tailwind status colour until it clears 4.5:1 on cream. The website had no
+named status colours at all, which is how `text-green-600` (3.09:1 on cream) and
+a `green-500` Add to Bag button (2.28:1 under white) shipped.
+
+**Brand:** the WhatsApp marks, kept apart from `status` because they are not
+ours to retune. The recognised `#25d366` only reaches 1.98:1 under white so it
+cannot back a filled button; `whatsappDeep` is the official dark variant.
+
 **Typography:** the eyebrow, because it appears on product pages on every
 surface and so a mismatch is directly visible when comparing them side by side.
 The web expresses tracking in `em` and React Native takes px, so the JSON stores
 `letterSpacingEm` and the app-side check resolves it against the shared font
 size (12 × 0.16 = 1.92).
 
+Also the section title's **phone** size. Only the phone-width result is shared,
+because the website sizes fluidly above that and the app does not size at all.
+
 ## What it deliberately does not cover yet
 
-- **Status colours** (`green`, `blue`, `orange`, and their bg/line pairs) exist
-  only in the app. The website has no named equivalents, which is why the chat
-  widget had to have them read out of `ChatButton.js` by hand. Promoting these
-  is the obvious next extension.
+- **The remaining ~750 raw Tailwind status classes** outside the shopping path.
+  The 115 on product card, cart and checkout were migrated; admin and partner
+  portal were deliberately left, being internal tools where the risk-to-value
+  ratio is poor. Yellow was left everywhere: on this site it is star ratings and
+  decorative sparkle, not a status, and mapping it to the orange token would
+  turn the stars brown.
 - **The radius scale.** The website has eight named steps; the app has none and
   uses literals. The 16px card radius matching on both sides is a coincidence.
 - **Shadows.** Same warm-cast intent, different numbers, and the two platforms
   express elevation differently enough that a shared token needs thought.
-- **The sans type scale.** The web sizes fluidly with `clamp()`; the app is
-  fixed. The app's 20px section title against the web's 24px minimum is a real
-  difference, but it may be correct — 24px section titles on a phone are heavy.
-  This needs a design decision, not a sync mechanism.
+- **The rest of the sans type scale.** The section title is now shared at phone
+  width; body and caption steps are not. They sit within a pixel of each other
+  and the web's are fluid, so there is little to gain.

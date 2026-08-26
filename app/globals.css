@@ -60,7 +60,10 @@
   
   /* Heading sizes */
   --text-h1: clamp(1.75rem, 2.5vw + 0.5rem, 2.25rem);
-  --text-h2: clamp(1.5rem, 2vw + 0.375rem, 1.875rem);
+  /* Floor is 20px, matching the app's T.sectionTitle. It was 24px, but the
+     fluid part yields 13.8px at a 390px viewport, so the floor was doing all
+     the work on phones and had never been chosen for them. */
+  --text-h2: clamp(1.25rem, 2vw + 0.375rem, 1.875rem);
   --text-h3: clamp(1.25rem, 1.5vw + 0.25rem, 1.5rem);
   --text-h4: clamp(1.125rem, 1vw + 0.25rem, 1.25rem);
   --text-h5: clamp(1rem, 0.75vw + 0.25rem, 1.125rem);
@@ -124,6 +127,34 @@
   /* Packshot stage. Lived only in cerabarrier.css and the app until now, so the
      rest of the site had no name for the grey a product shot sits on. */
   --cera-shot: #eeeeee;
+
+  /* Status colours. The site had no named ones and reached for raw Tailwind
+     utilities, which is how a green-500 Add to Bag button shipped at 2.28:1
+     under white and text-green-600 at 3.09:1 on cream. These are the app's
+     values, each deepened until it clears 4.5:1 on cream and takes white at
+     5:1 or better. The -bg tones are each colour mixed a tenth into the page
+     so a panel whispers rather than boxes; -line is the same mix pushed on,
+     because a background that pale disappears as a border. */
+  --status-green: #2e7d4f;
+  --status-green-deep: #256a42;
+  --status-green-bg: #e8ece6;
+  --status-green-line: #c5d7ca;
+  --status-blue: #2a5da8;
+  --status-blue-bg: #e7e9ee;
+  --status-blue-line: #c4cfe1;
+  --status-orange: #9a5a00;
+  --status-orange-bg: #f1e9df;
+  --status-orange-line: #e1ceb5;
+  --status-red: #d22b1e;
+  --status-red-bg: #f6eae8;
+  --status-red-line: #e0bdb7;
+
+  /* Third-party marks. Not ours to retune, so kept apart from the status set.
+     The recognised WhatsApp green only reaches 1.98:1 under white and cannot
+     back a filled button; the deep variant is the official answer to that. */
+  --brand-whatsapp: #25d366;
+  --brand-whatsapp-deep: #075e54;
+  --brand-whatsapp-hover: #054840;
 
   /* Primary palette: the cera rose, ramped.
      `primary-600` is rose-ink, the colour the product pages set links, prices

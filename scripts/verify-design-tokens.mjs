@@ -42,6 +42,40 @@ for (const [name, expected] of Object.entries(tokens.color)) {
   }
 }
 
+/* ── Status colours, as --status-* custom properties in globals.css ───── */
+
+const statusVarFor = (name) => `--status-${name.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}`;
+
+for (const [name, expected] of Object.entries(tokens.status)) {
+  if (name.startsWith('$')) continue;
+  const varName = statusVarFor(name);
+  const match = globals.match(new RegExp(`${varName}:\\s*([^;]+);`));
+  if (!match) {
+    failures.push(`${varName} is missing from app/globals.css`);
+    continue;
+  }
+  const actual = match[1].trim().toLowerCase();
+  if (actual !== expected.toLowerCase()) {
+    failures.push(`${varName} is ${actual} in globals.css but ${expected} in design-tokens.json`);
+  }
+}
+
+/* ── Third-party brand marks, as --brand-* in globals.css ─────────────── */
+
+for (const [name, expected] of Object.entries(tokens.brand)) {
+  if (name.startsWith('$')) continue;
+  const varName = `--brand-${name.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}`;
+  const match = globals.match(new RegExp(`${varName}:\\s*([^;]+);`));
+  if (!match) {
+    failures.push(`${varName} is missing from app/globals.css`);
+    continue;
+  }
+  const actual = match[1].trim().toLowerCase();
+  if (actual !== expected.toLowerCase()) {
+    failures.push(`${varName} is ${actual} in globals.css but ${expected} in design-tokens.json`);
+  }
+}
+
 /* ── The eyebrow, in cerabarrier.css ──────────────────────────────────── */
 
 const cera = read('components/product/cerabarrier/cerabarrier.css');
@@ -70,6 +104,22 @@ if (!eyebrowBlock) {
   }
 }
 
+/* ── Section title: the clamp floor is what phones actually get ───────── */
+
+const h2 = globals.match(/--text-h2:\s*clamp\(([^,]+),/);
+if (!h2) {
+  failures.push('--text-h2 clamp not found in app/globals.css');
+} else {
+  const floor = h2[1].trim();
+  const expectedPx = tokens.typography.sectionTitle.phoneFontSize;
+  const floorPx = floor.endsWith('rem') ? parseFloat(floor) * 16 : parseFloat(floor);
+  if (floorPx !== expectedPx) {
+    failures.push(
+      `--text-h2 floor is ${floor} (${floorPx}px) but design-tokens.json says phones get ${expectedPx}px`
+    );
+  }
+}
+
 /* ── Checksum, so the app repo can prove it holds the same file ───────── */
 
 const checksum = createHash('sha256').update(read('design-tokens.json')).digest('hex');
@@ -84,7 +134,8 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-const count = Object.keys(tokens.color).filter((k) => !k.startsWith('$')).length;
+const countOf = (group) => Object.keys(group).filter((k) => !k.startsWith('$')).length;
+const count = countOf(tokens.color) + countOf(tokens.status) + countOf(tokens.brand);
 console.log(`[design-tokens] ${count} colours and the eyebrow match design-tokens.json`);
 console.log(`[design-tokens] v${tokens.version} sha256 ${checksum.slice(0, 16)}`);
 console.log('[design-tokens] genosys-mobile-app must report the same version and sha256');

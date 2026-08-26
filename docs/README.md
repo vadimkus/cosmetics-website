@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Aniskina mist replenish 06744](./SESSION_CHANGES_2026-08-26_ANISKINA_MIST_DEMAND.md) | Demand into agr. **00025** / **400 AED** clinic — Microbiome mist `00188` ×5. Stock note in `~/Desktop/orders/`. |
 | 🟡 **Important** | [Aqua Face PDRN masks 04978](./SESSION_CHANGES_2026-08-26_AQUA_FACE_PDRN_MASKS.md) | Unpaid clinic SO **GENCardM2608266594** / INV **04978** / SHIP **06743** / **445 AED**. PDRN mask ×2 @200 + delivery 45. PDF in `~/Desktop/orders/`. |
 | 🟡 **Important** | [CP World V14095 freight](./SESSION_CHANGES_2026-08-26_CP_WORLD_V14095_PAYMENTOUT.md) | Paymentout **00686** / **6,901.34 AED** → CP World. Invoice **V14095** / job AIGN-V00305 / DM GME 260810 AWB **176-2056-4025**. |
 | 🟡 **Important** | [PDRN 5000 write-off](./SESSION_CHANGES_2026-08-25_PDRN_5000_WRITEOFF.md) | Loss **00008-00505** / **34.15 AED** buy — homecare PDRN 5000 `54475` ×1. |

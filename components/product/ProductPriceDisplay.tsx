@@ -27,7 +27,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
   if (product.isPriceOnRequest) {
     return (
       <div className="w-full flex flex-col items-center justify-center" dir={dir}>
-        <div className={`flex items-center gap-2 text-amber-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-center gap-2 text-[var(--status-orange)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <MessageCircle className="h-5 w-5" />
           <span className="text-lg md:text-xl font-semibold">{t('products.priceOnRequest')}</span>
         </div>
@@ -63,7 +63,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
                       ) : null}
                     </div>
                     <div className={`w-full flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-xs md:text-sm text-green-600 font-medium">
+                      <span className="text-xs md:text-sm text-[var(--status-green-deep)] font-medium">
                         {pricing.discountPercentage}% {t('product.off')}
                         {pricing.discountLabel && ` (${pricing.discountLabel})`}
                       </span>

@@ -32,7 +32,7 @@ const ProductPrice = memo(function ProductPrice({
     return (
       <div className="mb-3" id={priceId}>
         <div className="flex items-center justify-between mb-2">
-          <div className="flex items-center gap-1 text-amber-600">
+          <div className="flex items-center gap-1 text-[var(--status-orange)]">
             <MessageCircle className="h-3 w-3 md:h-4 md:w-4" aria-hidden="true" />
             <span className="text-xs md:text-sm font-semibold">
               {t('products.priceOnRequest')}
@@ -125,7 +125,7 @@ function PriceWithDiscount({ pricing, t }: PricingDisplayProps) {
         ) : null}
       </div>
       <div className="flex items-center gap-1 mt-1">
-        <span className="text-[10px] md:text-xs text-green-600 font-medium">
+        <span className="text-[10px] md:text-xs text-[var(--status-green-deep)] font-medium">
           {pricing.discountPercentage}% {t('product.off')}
         </span>
         <span className="text-[10.5px] text-[var(--cera-muted)] md:text-[12px]">
@@ -153,7 +153,7 @@ function BeautyBoxPrice({ pricing, t }: PricingDisplayProps) {
         </span>
       </div>
       <div className="flex items-center gap-1 mt-1">
-        <span className="text-[10px] md:text-xs text-green-600 font-medium">
+        <span className="text-[10px] md:text-xs text-[var(--status-green-deep)] font-medium">
           {pricing.discountPercentage}% {t('product.off')}
           {pricing.discountLabel && ` (${pricing.discountLabel})`}
         </span>

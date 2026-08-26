@@ -54,7 +54,7 @@ export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale
               </div>
               {/* Green online dot - only when logged in */}
               {user && (
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
+                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[var(--status-green-deep)] rounded-full border-[1.5px] border-white" />
               )}
             </div>
           </button>

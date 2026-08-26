@@ -82,7 +82,7 @@ export default function ProductQuantityCart({
             href={`https://wa.me/971585487665?text=${encodeURIComponent(`Hi, I'm interested in ${productName}. Could you please provide pricing information?`)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-sm md:text-base font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation bg-green-500 text-white hover:bg-green-600"
+            className="flex-1 px-4 md:px-6 py-2.5 md:py-3 rounded-lg text-sm md:text-base font-medium transition-colors flex items-center justify-center gap-2 touch-manipulation bg-[var(--brand-whatsapp-deep)] text-white hover:bg-[var(--brand-whatsapp-hover)]"
           >
             <MessageCircle className="h-4 w-4 md:h-5 md:w-5" />
             {t('products.requestQuote') || 'Request Quote'}
@@ -143,7 +143,7 @@ export default function ProductQuantityCart({
              line directly — same pattern as the product-grid cards and the
              mobile app. */
           <div
-            className="flex-1 flex items-center justify-between gap-2 rounded-lg font-medium min-h-[44px] px-1.5 py-1 bg-green-600 text-white transition-colors"
+            className="flex-1 flex items-center justify-between gap-2 rounded-lg font-medium min-h-[44px] px-1.5 py-1 bg-[var(--status-green-deep)] text-white transition-colors"
             role="group"
             aria-label={`${useBagText ? t('product.inBag') : t('product.inCart')} (${inCartQty}) — ${productName}`}
           >

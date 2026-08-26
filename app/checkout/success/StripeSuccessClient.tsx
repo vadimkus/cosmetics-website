@@ -200,12 +200,12 @@ export default function StripeSuccessClient() {
         {/* Success Header */}
         <div className="text-center mb-8">
           <div className={`w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center ${
-            isPaymentSuccessful ? 'border border-green-200 bg-green-50' : 'border border-amber-200 bg-amber-50'
+            isPaymentSuccessful ? 'border border-[var(--status-green-line)] bg-[var(--status-green-bg)]' : 'border border-[var(--status-orange-line)] bg-[var(--status-orange-bg)]'
           }`}>
             {isPaymentSuccessful ? (
-              <CheckCircle className="h-10 w-10 text-green-700" />
+              <CheckCircle className="h-10 w-10 text-[var(--status-green-deep)]" />
             ) : (
-              <RefreshCw className="h-10 w-10 text-amber-700" />
+              <RefreshCw className="h-10 w-10 text-[var(--status-orange)]" />
             )}
           </div>
           
@@ -289,12 +289,12 @@ export default function StripeSuccessClient() {
         </div>
 
         {/* Next Steps */}
-        <div className="bg-blue-50 rounded-xl p-6 mb-8">
-          <h3 className="font-semibold text-blue-900 mb-3 flex items-center">
+        <div className="bg-[var(--status-blue-bg)] rounded-xl p-6 mb-8">
+          <h3 className="font-semibold text-[var(--status-blue)] mb-3 flex items-center">
             <Mail className="w-5 h-5 mr-2" />
             {t('checkout.nextSteps')}
           </h3>
-          <div className="text-sm text-blue-800 space-y-2">
+          <div className="text-sm text-[var(--status-blue)] space-y-2">
             <p>✅ {t('checkout.confirmationEmailSent')}</p>
             <p>✅ {t('checkout.orderBeingProcessed')}</p>
             <p>✅ {t('checkout.trackingInfoSent')}</p>

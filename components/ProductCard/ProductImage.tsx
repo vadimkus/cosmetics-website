@@ -190,7 +190,7 @@ const ProductImage = memo(function ProductImage({
           the top-right corner, so the badge must not share it. */}
       {!product.inStock && (
         <div className="absolute top-2 left-2 z-30">
-          <span className={`inline-flex items-center px-3 py-1.5 rounded-md font-bold text-xs md:text-sm shadow-lg uppercase tracking-wide ${restock ? 'bg-amber-500 text-white' : 'bg-red-600 text-white'}`}>
+          <span className={`inline-flex items-center px-3 py-1.5 rounded-md font-bold text-xs md:text-sm shadow-lg uppercase tracking-wide ${restock ? 'bg-[var(--status-orange)] text-white' : 'bg-red-600 text-white'}`}>
             {restock || t('product.soldOut')}
           </span>
         </div>

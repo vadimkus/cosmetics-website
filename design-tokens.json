@@ -20,7 +20,7 @@
     "To change a token: edit here, run the generator note in each repo's check",
     "output, update both repos, bump `version`."
   ],
-  "version": 1,
+  "version": 3,
 
   "color": {
     "$comment": "The cera palette. Website: --cera-* in app/globals.css. App: `cera` export in utils/theme.js.",
@@ -37,6 +37,50 @@
     "shot": "#eeeeee"
   },
 
+  "status": {
+    "$comment": [
+      "Success / info / warning / destructive, and the washed panel and border",
+      "tones behind each. The app arrived at these first: the stock iOS and",
+      "Tailwind status colours read cold against cream and several failed",
+      "contrast outright, so each was deepened until it clears 4.5:1 on cream",
+      "and takes white at 5:1 or better where it backs a filled control.",
+      "",
+      "The website had no named status colours at all and used raw Tailwind",
+      "utilities, which is how text-green-600 (3.09:1 on cream) and a green-500",
+      "Add to Bag button (2.28:1 under white) shipped. Website: --status-* in",
+      "app/globals.css. App: the matching keys on `colors` in utils/theme.js.",
+      "",
+      "`red` is listed here for completeness; both surfaces already agreed on it."
+    ],
+    "green": "#2E7D4F",
+    "greenDeep": "#256A42",
+    "greenBg": "#e8ece6",
+    "greenLine": "#c5d7ca",
+    "blue": "#2A5DA8",
+    "blueBg": "#e7e9ee",
+    "blueLine": "#c4cfe1",
+    "orange": "#9A5A00",
+    "orangeBg": "#f1e9df",
+    "orangeLine": "#e1ceb5",
+    "red": "#d22b1e",
+    "redBg": "#f6eae8",
+    "redLine": "#e0bdb7"
+  },
+
+  "brand": {
+    "$comment": [
+      "Third-party marks, kept out of `status` because they are not ours to",
+      "retune. WhatsApp's #25D366 is the recognised mark and belongs on its own",
+      "tile, but it only reaches 1.98:1 under white so it cannot back a filled",
+      "button; `whatsappDeep` is the official dark variant and clears 7.67:1.",
+      "`whatsappHover` is one step darker again, so these buttons keep a hover",
+      "state instead of collapsing to a single flat colour."
+    ],
+    "whatsapp": "#25d366",
+    "whatsappDeep": "#075e54",
+    "whatsappHover": "#054840"
+  },
+
   "typography": {
     "eyebrow": {
       "$comment": "Uppercase kicker above section titles. Appears on product pages on both surfaces, so a mismatch here is directly visible when comparing them side by side.",
@@ -45,6 +89,19 @@
       "letterSpacingEm": 0.16,
       "textTransform": "uppercase",
       "color": "roseInk"
+    },
+    "sectionTitle": {
+      "$comment": [
+        "Sans section heading. The website sizes it fluidly and the app fixes it,",
+        "so only the phone-width result is shared here. The web's clamp yields a",
+        "preferred 13.8px at a 390px viewport, meaning its 24px floor was doing",
+        "all the work and had never been tuned for phones; the app's 20px was a",
+        "deliberate choice. The web now comes down to meet it under 640px.",
+        "",
+        "Above 640px the website is free to grow this fluidly to 30px; that is",
+        "out of scope for a phone-shared token."
+      ],
+      "phoneFontSize": 20
     }
   }
 }

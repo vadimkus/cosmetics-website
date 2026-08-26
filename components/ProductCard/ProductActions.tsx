@@ -57,7 +57,7 @@ const ProductActions = memo(function ProductActions({
           href={`https://wa.me/971585487665?text=${whatsAppMessage}`}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${baseButtonStyles} bg-green-500 text-white hover:bg-green-600`}
+          className={`${baseButtonStyles} bg-[var(--brand-whatsapp-deep)] text-white hover:bg-[var(--brand-whatsapp-hover)]`}
           style={touchStyles}
         >
           <MessageCircle 
@@ -113,7 +113,7 @@ const ProductActions = memo(function ProductActions({
       return (
         <div className="mt-2">
           <div
-            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 text-body-xs font-semibold text-green-700"
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-[var(--status-green-line)] bg-[var(--status-green-bg)] px-3 text-body-xs font-semibold text-[var(--status-green-deep)]"
             role="status"
             aria-live="polite"
           >
@@ -144,7 +144,7 @@ const ProductActions = memo(function ProductActions({
     return (
       <div className="mt-2">
         <div
-          className="flex min-h-12 w-full items-stretch overflow-hidden rounded-lg border border-green-700 bg-green-600 font-medium text-white shadow-sm"
+          className="flex min-h-12 w-full items-stretch overflow-hidden rounded-lg border border-[var(--status-green-deep)] bg-[var(--status-green-deep)] font-medium text-white shadow-sm"
           role="group"
           aria-label={`${inStateLabel} (${inCartQty}) — ${product.name}`}
           style={touchStyles}

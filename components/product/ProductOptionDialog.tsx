@@ -376,7 +376,7 @@ export default function ProductOptionDialog({
                   {formatAed(pricing.displayPrice)}
                 </span>
                 {pricing.discountPercentage > 0 ? (
-                  <span className="rounded-full bg-green-50 px-2 py-0.5 text-[10px] font-bold text-green-700">
+                  <span className="rounded-full bg-[var(--status-green-bg)] px-2 py-0.5 text-[10px] font-bold text-[var(--status-green-deep)]">
                     {Math.round(pricing.discountPercentage)}% {t('product.off')}
                   </span>
                 ) : null}
@@ -402,7 +402,7 @@ export default function ProductOptionDialog({
         <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 md:px-6">
           {isRefreshing ? (
             <div
-              className="mb-4 flex items-center gap-2 rounded-xl bg-blue-50 px-3 py-2.5 text-xs text-blue-900"
+              className="mb-4 flex items-center gap-2 rounded-xl bg-[var(--status-blue-bg)] px-3 py-2.5 text-xs text-[var(--status-blue)]"
               role="status"
             >
               <LoaderCircle className="h-4 w-4 animate-spin text-primary-600" aria-hidden="true" />
@@ -411,9 +411,9 @@ export default function ProductOptionDialog({
           ) : null}
 
           {refreshError && !isRefreshing ? (
-            <div className="mb-4 rounded-2xl bg-orange-50 p-4 text-center" role="alert">
-              <AlertTriangle className="mx-auto mb-2 h-6 w-6 text-orange-600" aria-hidden="true" />
-              <p className="text-sm text-orange-900">{refreshError}</p>
+            <div className="mb-4 rounded-2xl bg-[var(--status-orange-bg)] p-4 text-center" role="alert">
+              <AlertTriangle className="mx-auto mb-2 h-6 w-6 text-[var(--status-orange)]" aria-hidden="true" />
+              <p className="text-sm text-[var(--status-orange)]">{refreshError}</p>
               <button
                 type="button"
                 onClick={() => setRefreshNonce((value) => value + 1)}
@@ -426,9 +426,9 @@ export default function ProductOptionDialog({
           ) : null}
 
           {model.missingOptionData ? (
-            <div className="mb-4 rounded-2xl bg-orange-50 p-4 text-center" role="alert">
-              <AlertTriangle className="mx-auto mb-2 h-6 w-6 text-orange-600" aria-hidden="true" />
-              <p className="text-sm text-orange-900">{t('product.optionsUnavailable')}</p>
+            <div className="mb-4 rounded-2xl bg-[var(--status-orange-bg)] p-4 text-center" role="alert">
+              <AlertTriangle className="mx-auto mb-2 h-6 w-6 text-[var(--status-orange)]" aria-hidden="true" />
+              <p className="text-sm text-[var(--status-orange)]">{t('product.optionsUnavailable')}</p>
             </div>
           ) : null}
 

@@ -186,7 +186,7 @@ export default function ProductInfo({
                         ) : null}
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-green-600 font-medium">
+                        <span className="text-sm text-[var(--status-green-deep)] font-medium">
                           {pricing.discountPercentage}% {t('product.off')}
                         </span>
                         <span className="text-sm text-gray-600">({t('product.vatIncluded')})</span>
@@ -372,10 +372,10 @@ export default function ProductInfo({
 
       {/* Disclaimer for professional products */}
       {product.disclaimer && (
-        <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+        <div className="mt-6 p-4 bg-[var(--status-orange-bg)] border border-[var(--status-orange-line)] rounded-lg">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-amber-800 font-medium">{product.disclaimer}</p>
+            <AlertTriangle className="h-5 w-5 text-[var(--status-orange)] flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-[var(--status-orange)] font-medium">{product.disclaimer}</p>
           </div>
         </div>
       )}
@@ -387,7 +387,7 @@ export default function ProductInfo({
             href={`https://wa.me/971585487665?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 bg-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-600 transition-colors flex items-center justify-center gap-2"
+            className="flex-1 bg-[var(--brand-whatsapp-deep)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--brand-whatsapp-hover)] transition-colors flex items-center justify-center gap-2"
           >
             <MessageCircle className="h-5 w-5" aria-hidden="true" />
             {t('products.requestQuote')}
@@ -429,7 +429,7 @@ export default function ProductInfo({
           onClick={handleShare}
           className={`p-3 rounded-lg border transition-colors flex items-center justify-center ${
             shareStatus === 'copied'
-              ? 'border-green-500 bg-green-50 text-green-600'
+              ? 'border-[var(--status-green-deep)] bg-[var(--status-green-bg)] text-[var(--status-green-deep)]'
               : 'border-gray-300 text-gray-600 hover:border-gray-400'
           }`}
           aria-label={t('product.shareProduct')}

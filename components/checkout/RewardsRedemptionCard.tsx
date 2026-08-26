@@ -56,7 +56,7 @@ export default function RewardsRedemptionCard({
       <div className={`flex items-start justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
         <div className={`flex items-start gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
           <span className="ed-mark ed-mark--tactile ed-mark--round h-10 w-10 shrink-0">
-            <Award className="h-5 w-5 text-blue-700" aria-hidden="true" />
+            <Award className="h-5 w-5 text-[var(--status-blue)]" aria-hidden="true" />
           </span>
           <div>
             <h2 id="checkout-rewards-title" className="font-semibold text-gray-950">
@@ -77,9 +77,9 @@ export default function RewardsRedemptionCard({
               type="checkbox"
               checked={applied}
               onChange={toggle}
-              className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              className="h-5 w-5 rounded border-gray-300 text-[var(--status-blue)] focus:ring-blue-500"
             />
-            <span className="text-sm font-semibold text-blue-700">
+            <span className="text-sm font-semibold text-[var(--status-blue)]">
               {t('rewards.apply')}
             </span>
           </label>
@@ -92,7 +92,7 @@ export default function RewardsRedemptionCard({
             <div className="mt-4 rounded-xl border border-[var(--cera-line)] bg-white p-3">
               <div className={`flex items-center justify-between gap-3 ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <div>
-                  <p className="text-sm font-semibold text-blue-800">
+                  <p className="text-sm font-semibold text-[var(--status-blue)]">
                     {selectedPoints.toLocaleString()} {t('rewards.points')}
                   </p>
                   <p className="text-xs text-gray-500">
@@ -139,7 +139,7 @@ export default function RewardsRedemptionCard({
                 <button
                   type="button"
                   onClick={() => onChange(maxPoints)}
-                  className="font-semibold text-blue-700 hover:text-blue-800"
+                  className="font-semibold text-[var(--status-blue)] hover:text-[var(--status-blue)]"
                 >
                   {t('rewards.useMaximum')} ({maxPoints.toLocaleString()} {t('rewards.points')})
                 </button>

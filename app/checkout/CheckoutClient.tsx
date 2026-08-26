@@ -838,7 +838,7 @@ export default function CheckoutClient() {
                           <div className={`flex items-center gap-2 mt-0.5 flex-wrap ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                             <span className="text-[12px] text-[var(--cera-muted)]">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {quantity}</span>
                             {hasDiscount && (
-                              <span className="text-xs text-green-600 font-medium">
+                              <span className="text-xs text-[var(--status-green-deep)] font-medium">
                                 ({linePricing.discountPercentage}% {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'OFF'}{isBeautyBox ? ` - ${locale === 'ar' ? 'خصم الطقم' : locale === 'ru' ? 'Скидка бокса' : 'Box Discount'}` : ''})
                               </span>
                             )}
@@ -848,7 +848,7 @@ export default function CheckoutClient() {
                           {hasDiscount ? (
                             <div className={dir === 'rtl' ? 'text-left' : 'text-right'}>
                               <div className="text-[12px] text-[var(--cera-muted)] line-through">AED {linePricing.retailLineTotal.toFixed(2)}</div>
-                              <div className="text-sm font-semibold text-green-600">AED {linePricing.lineTotal.toFixed(2)}</div>
+                              <div className="text-sm font-semibold text-[var(--status-green-deep)]">AED {linePricing.lineTotal.toFixed(2)}</div>
                             </div>
                           ) : (
                             <span className="text-sm font-semibold text-[var(--cera-ink)]">AED {linePricing.lineTotal.toFixed(2)}</span>
@@ -864,7 +864,7 @@ export default function CheckoutClient() {
                         <div className="text-[14px] font-medium text-[var(--cera-ink)]">{mask.name}</div>
                         <span className="text-[12px] text-[var(--cera-muted)]">{locale === 'ar' ? 'الكمية' : locale === 'ru' ? 'Кол-во' : 'Qty'}: {mask.quantity}</span>
                       </div>
-                      <span className="text-sm font-semibold text-green-600">{locale === 'ar' ? 'مجاني' : locale === 'ru' ? 'Бесплатно' : 'FREE'}</span>
+                      <span className="text-sm font-semibold text-[var(--status-green-deep)]">{locale === 'ar' ? 'مجاني' : locale === 'ru' ? 'Бесплатно' : 'FREE'}</span>
                     </div>
                   ))}
                 </div>
@@ -905,7 +905,7 @@ export default function CheckoutClient() {
                   )}
                   {/* Bundle Discount */}
                   {hasBundleDiscount && (
-                    <div className={`flex justify-between text-sm text-green-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex justify-between text-sm text-[var(--status-green-deep)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="font-medium">📦 {locale === 'ar' ? 'خصم الباقة' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}{bundleDiscountPct > 0 ? ` (${bundleDiscountPct}%)` : ''}</span>
                       <span className="font-medium">-AED {bundleDiscountTotal.toFixed(2)}</span>
                     </div>
@@ -922,16 +922,16 @@ export default function CheckoutClient() {
                   )}
                   <div className={`flex justify-between text-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span className="text-[var(--cera-body)] flex items-center gap-1">
-                      <Truck className="h-3.5 w-3.5 text-green-600" />
+                      <Truck className="h-3.5 w-3.5 text-[var(--status-green-deep)]" />
                       {locale === 'ar' ? 'الشحن إلى' : locale === 'ru' ? 'Доставка в' : 'Shipping to'} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}
                     </span>
-                    <span className={shippingCost === 0 ? 'text-green-600 font-semibold' : 'text-[var(--cera-ink)]'}>
+                    <span className={shippingCost === 0 ? 'text-[var(--status-green-deep)] font-semibold' : 'text-[var(--cera-ink)]'}>
                       {shippingCost === 0 ? (locale === 'ar' ? 'مجاني' : locale === 'ru' ? 'Бесплатно' : 'FREE') : `AED ${shippingCost}`}
                     </span>
                   </div>
                   {/* GENOSYS Rewards redemption */}
                   {loyaltyDiscount > 0 && (
-                    <div className={`flex justify-between items-center text-sm text-blue-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex justify-between items-center text-sm text-[var(--status-blue)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="font-medium">
                         ★ GENOSYS Rewards ({appliedRedeemPoints.toLocaleString()} {t('rewards.points')})
                       </span>
@@ -959,8 +959,8 @@ export default function CheckoutClient() {
                   )}
                   {/* You Saved */}
                   {hasAnySavings && (
-                    <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-1.5 text-center">
-                      <span className="text-xs text-green-700 font-semibold">
+                    <div className="bg-[var(--status-green-bg)] border border-[var(--status-green-line)] rounded-lg px-3 py-1.5 text-center">
+                      <span className="text-xs text-[var(--status-green-deep)] font-semibold">
                         💰 {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'Вы сэкономили' : 'You saved'}: AED {totalSavingsIncludingRewards.toFixed(2)}
                       </span>
                     </div>
@@ -1175,12 +1175,12 @@ export default function CheckoutClient() {
                 {/* PWA Delivery Info - Below Complete Order button */}
                 {isPWAClient && isPWA && (
                   <>
-                    <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-xl">
-                      <div className={`flex items-center gap-2 text-green-800 mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className="mt-4 p-3 bg-[var(--status-green-bg)] border border-[var(--status-green-line)] rounded-xl">
+                      <div className={`flex items-center gap-2 text-[var(--status-green-deep)] mb-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <Truck className="h-5 w-5" />
                         <span className="font-semibold text-sm">{t('checkout.deliveryInformation') || 'Delivery Information'}</span>
                       </div>
-                      <p className={`text-xs text-green-700 ${dir === 'rtl' ? 'text-right' : ''}`}>
+                      <p className={`text-xs text-[var(--status-green-deep)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                         {selectedEmirate === 'Dubai' 
                           ? (t('checkout.deliveryTimeDubai') || 'Your order will be delivered by Careem within 1-2 hours.')
                           : `${t('checkout.deliveryTimeOther') || 'Delivery within 2-3 business days to'} ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''} ${t('checkout.byQuiqup') || 'via Quiqup'}.`}
@@ -1275,7 +1275,7 @@ export default function CheckoutClient() {
                                   </span>
                                 )}
                                 {hasDiscount && (
-                                  <span className="text-[10px] md:text-xs text-green-600 font-medium">
+                                  <span className="text-[10px] md:text-xs text-[var(--status-green-deep)] font-medium">
                                     ({linePricing.discountPercentage}% {t('product.off')}{isBeautyBox ? ` - ${locale === 'ar' ? 'خصم الطقم' : locale === 'ru' ? 'Скидка бокса' : 'Box Discount'}` : ''})
                                   </span>
                                 )}
@@ -1287,7 +1287,7 @@ export default function CheckoutClient() {
                                   <div className="text-[10px] md:text-xs text-[var(--cera-muted)] line-through">
                                     AED {linePricing.retailLineTotal.toFixed(2)}
                                   </div>
-                                  <div className="text-xs md:text-sm font-semibold text-green-600">
+                                  <div className="text-xs md:text-sm font-semibold text-[var(--status-green-deep)]">
                                     AED {linePricing.lineTotal.toFixed(2)}
                                   </div>
                                 </div>
@@ -1311,7 +1311,7 @@ export default function CheckoutClient() {
                             </div>
                           </div>
                           <div className={dir === 'rtl' ? 'text-left mr-2 md:mr-3' : 'text-right ml-2 md:ml-3'}>
-                            <div className="text-[9px] md:text-xs font-semibold text-green-600">
+                            <div className="text-[9px] md:text-xs font-semibold text-[var(--status-green-deep)]">
                               {t('checkout.free')}
                             </div>
                           </div>
@@ -1382,8 +1382,8 @@ export default function CheckoutClient() {
                   {/* Bundle Discount */}
                   {hasBundleDiscount && (
                     <div className={`flex justify-between items-center py-1 md:py-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-[10px] md:text-sm text-green-600 font-medium">📦 {locale === 'ar' ? 'خصم الباقة' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}{bundleDiscountPct > 0 ? ` (${bundleDiscountPct}%)` : ''}</span>
-                      <span className="text-[10px] md:text-sm text-green-600 font-medium">-AED {bundleDiscountTotal.toFixed(2)}</span>
+                      <span className="text-[10px] md:text-sm text-[var(--status-green-deep)] font-medium">📦 {locale === 'ar' ? 'خصم الباقة' : locale === 'ru' ? 'Скидка набора' : 'Bundle Discount'}{bundleDiscountPct > 0 ? ` (${bundleDiscountPct}%)` : ''}</span>
+                      <span className="text-[10px] md:text-sm text-[var(--status-green-deep)] font-medium">-AED {bundleDiscountTotal.toFixed(2)}</span>
                     </div>
                   )}
                   {/* Net Subtotal */}
@@ -1399,17 +1399,17 @@ export default function CheckoutClient() {
                   
                   <div className={`flex justify-between items-center py-1.5 md:py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Truck className="h-3.5 w-3.5 md:h-4 md:w-4 text-green-600" />
+                      <Truck className="h-3.5 w-3.5 md:h-4 md:w-4 text-[var(--status-green-deep)]" />
                       <span className={`text-[12.5px] text-[var(--cera-muted)] ${dir === 'rtl' ? 'text-right' : ''}`}>{t('checkout.shippingTo')} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}</span>
                     </div>
                     <span className="text-[12px] font-medium text-[var(--cera-ink)] md:text-[14px]">
-                      {shippingCost === 0 ? <span className="text-[9px] md:text-xs text-green-600 font-semibold">{t('checkout.free')}</span> : `AED ${shippingCost}`}
+                      {shippingCost === 0 ? <span className="text-[9px] md:text-xs text-[var(--status-green-deep)] font-semibold">{t('checkout.free')}</span> : `AED ${shippingCost}`}
                     </span>
                   </div>
 
                   {/* GENOSYS Rewards redemption */}
                   {loyaltyDiscount > 0 && (
-                    <div className={`flex justify-between items-center py-1.5 md:py-2 text-blue-600 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                    <div className={`flex justify-between items-center py-1.5 md:py-2 text-[var(--status-blue)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <span className="text-[10px] md:text-sm font-medium">
                         ★ GENOSYS Rewards ({appliedRedeemPoints.toLocaleString()} {t('rewards.points')})
                       </span>
@@ -1442,8 +1442,8 @@ export default function CheckoutClient() {
                   </div>
                   {/* You Saved */}
                   {hasAnySavings && (
-                    <div className="bg-green-50 border border-green-200 rounded-lg px-3 py-1.5 text-center mt-1">
-                      <span className="text-[10px] md:text-xs text-green-700 font-semibold">
+                    <div className="bg-[var(--status-green-bg)] border border-[var(--status-green-line)] rounded-lg px-3 py-1.5 text-center mt-1">
+                      <span className="text-[10px] md:text-xs text-[var(--status-green-deep)] font-semibold">
                         💰 {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'Вы сэкономили' : 'You saved'}: AED {totalSavingsIncludingRewards.toFixed(2)}
                       </span>
                     </div>

@@ -17,7 +17,7 @@ export default function HeaderDesktopBranding({ isRTL, isHeartBeating }: HeaderD
 
   const heartIcon = (
     <Heart 
-      className={`h-3 w-3 text-primary-600 fill-current transition-transform duration-300 ${
+      className={`h-3 w-3 text-[var(--brand-wordmark)] fill-current transition-transform duration-300 ${
         isHeartBeating ? 'animate-pulse' : ''
       }`} 
       style={isHeartBeating ? {
@@ -28,7 +28,7 @@ export default function HeaderDesktopBranding({ isRTL, isHeartBeating }: HeaderD
 
   return (
     <div className="hidden md:flex flex-col items-center">
-      <span className="text-lg md:text-2xl font-bold text-primary-600 tracking-tight whitespace-nowrap">
+      <span className="text-lg md:text-2xl font-bold text-[var(--brand-wordmark)] tracking-tight whitespace-nowrap">
         GENOSYS MIDDLE EAST
       </span>
       <div className="flex w-full justify-center items-center gap-1 text-sm text-gray-600 header-margin">

@@ -134,6 +134,10 @@
   --color-primary-800: #4e3535;
   --color-primary-900: #332625;
 
+  /* Logo identity, not a palette colour. Stays corporate red while the rest of
+     the site sits on cera, the same way the emirate flags keep their own red. */
+  --brand-wordmark: #dc2626;
+
   /* ========================================================================
      BRAND CTA - Semantic tokens for the primary action
      ========================================================================

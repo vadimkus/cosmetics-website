@@ -33,6 +33,21 @@ describe('product cut-outs', () => {
     expect(missing).toEqual([])
   })
 
+  // Rebuilding a subset used to overwrite the build report with only the
+  // products named on the command line, and the manifest is written from that
+  // report. It shipped once holding a single product, which silently returns
+  // every other packshot uncut. A gap in the numbering is the tell.
+  it('covers every product with no gaps', () => {
+    const numbers = Object.values(getCutoutManifest())
+      .map(path => Number(path.replace(/^.*\/(\d+)(?:-v\d+)?\.webp$/, '$1')))
+      .sort((a, b) => a - b)
+
+    expect(numbers.length).toBeGreaterThan(0)
+    expect(new Set(numbers).size).toBe(numbers.length)
+    expect(numbers[0]).toBe(1)
+    expect(numbers[numbers.length - 1]).toBe(numbers.length)
+  })
+
   it('every cut-out points into the generated folder', () => {
     const stray = Object.values(getCutoutManifest()).filter(
       path => !path.startsWith('/images/cutout/')

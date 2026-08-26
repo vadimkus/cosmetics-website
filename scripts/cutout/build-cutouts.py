@@ -47,6 +47,51 @@ MARGIN = 0.07
 MAX_EDGE = 1200
 WEBP_QUALITY = 86
 
+# Where the product meets the floor, as a share of the source image height.
+#
+# A few packshots are lit on a glossy surface, so the product has a mirror
+# reflection under it. Vision reads that reflection as more product and keeps a
+# torn piece of it, which renders as debris hanging off the bottom of the
+# packshot. Worse, the frame is trimmed to the silhouette afterwards, so the
+# debris drags the bounding box down and pushes the product off-centre.
+#
+# The reflection cannot be told from the product by shape - it is the product -
+# so this is measured per photograph rather than detected. Read it off the shot
+# with a horizontal rule at the contact edge; everything below is reflection.
+FLOOR = {
+    # Box and tube stand on the same glossy floor at 88.8% of frame height.
+    "65": 0.888,
+}
+
+# Regions Vision drops that are part of the product, as fractions of the source
+# frame: (x0, y0, x1, y1).
+#
+# Only for shapes we can reconstruct exactly rather than guess at. A straight
+# carton edge qualifies; a bottle's curve does not.
+REPAIR = {
+    # The carton's lower panel. White board against a white floor leaves almost
+    # no gradient to find - contrast across the box edge falls from 89 to 33
+    # between 75% and 88% of frame height - so Vision tears the bottom off the
+    # box. The carton is square-on with vertical sides, measured in the
+    # photograph at x=0.185 and x=0.473 and holding to within a pixel all the
+    # way down to the floor, so the missing panel is restored, not invented.
+    "65": [(0.1850, 0.7400, 0.4737, 0.8880)],
+}
+
+# Bumped whenever a cut-out's pixels change.
+#
+# public/images is served with a one-year immutable cache, so a file rewritten
+# under its old name never reaches anyone who has already loaded the page. A new
+# revision means a new URL.
+REVISION = {
+    "65": 2,
+}
+
+
+def output_name(number):
+    revision = REVISION.get(number, 1)
+    return f"{number}.webp" if revision == 1 else f"{number}-v{revision}.webp"
+
 
 def ensure_tool():
     if os.path.exists(CUTOUT_TOOL):
@@ -57,9 +102,45 @@ def ensure_tool():
     )
 
 
-def normalize(png_path):
-    """Trim to the silhouette, then centre it on a square with a fixed margin."""
+def assemble(png_path, source_path, rects):
+    """Vision's cut-out with any `rects` restored from the original photograph.
+
+    Vision writes transparent black, not transparent colour, so a torn region
+    has no pixels left to re-expose. The patch is taken from the source frame.
+    """
     im = Image.open(png_path).convert("RGBA")
+    if not rects:
+        return im
+
+    source = Image.open(source_path).convert("RGB")
+    if source.size != im.size:
+        source = source.resize(im.size, Image.LANCZOS)
+
+    for x0, y0, x1, y1 in rects:
+        box = (
+            int(round(im.width * x0)),
+            int(round(im.height * y0)),
+            int(round(im.width * x1)),
+            int(round(im.height * y1)),
+        )
+        patch = source.crop(box).convert("RGBA")
+        im.paste(patch, box[:2])
+    return im
+
+
+def normalize(im, floor=None):
+    """Trim to the silhouette, then centre it on a square with a fixed margin.
+
+    `floor` clears the mask below the contact line before trimming, so a kept
+    reflection is gone before it can influence the crop.
+    """
+    im = im.copy()
+
+    if floor is not None:
+        cut = int(round(im.height * floor))
+        below = Image.new("RGBA", (im.width, im.height - cut), (0, 0, 0, 0))
+        im.paste(below, (0, cut))
+
     bbox = im.getbbox()
     if not bbox:
         raise ValueError("cut-out is fully transparent")
@@ -97,11 +178,21 @@ def main():
         products = json.load(handle)
 
     wanted = set(sys.argv[1:])
+
+    # Building a subset must not drop the rest of the catalogue from the report,
+    # or the manifest written from it shrinks to whatever was rebuilt last.
+    previous = {}
+    if wanted and os.path.exists(MANIFEST):
+        with open(MANIFEST) as handle:
+            previous = {row["product"]: row for row in json.load(handle)}
+
     report = []
 
     for row in products:
         number = str(row["productNumber"])
         if wanted and number not in wanted:
+            if number in previous:
+                report.append(previous[number])
             continue
 
         source = row.get("image") or ""
@@ -125,15 +216,20 @@ def main():
                 })
                 continue
 
-            canvas = normalize(raw)
+            canvas = normalize(
+                assemble(raw, disk, REPAIR.get(number)),
+                FLOOR.get(number),
+            )
             share = coverage(canvas)
-            out = os.path.join(OUT_DIR, f"{number}.webp")
+            filename = output_name(number)
+            out = os.path.join(OUT_DIR, filename)
             canvas.save(out, "WEBP", quality=WEBP_QUALITY, method=6)
 
             report.append({
                 "product": number,
                 "status": "ok",
                 "source": source,
+                "file": f"/images/cutout/{filename}",
                 "name": row.get("name"),
                 "coverage": round(share, 3),
                 "bytes": os.path.getsize(out),

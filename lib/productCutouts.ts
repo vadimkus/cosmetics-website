@@ -149,7 +149,7 @@ const CUTOUTS: Record<string, string> = {
   // 64 Hair Stamp For HAIRGEN BOOSTER
   '/images/needles2/Main.jpeg': '/images/cutout/64.webp',
   // 65 Bio-Meso PDRN Homecare Ampoule 5000
-  '/images/pdrn_5000_new/Main.jpeg': '/images/cutout/65.webp',
+  '/images/pdrn_5000_new/Main.jpeg': '/images/cutout/65-v2.webp',
   // 66 CERABARRIER BIOME GEL CLEANSER
   '/images/cera_o/Main.jpeg': '/images/cutout/66.webp',
 }

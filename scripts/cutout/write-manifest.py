@@ -77,7 +77,8 @@ def main():
     for row in rows:
         name = (row.get("name") or "").replace("*/", "")
         lines.append(f"  // {row['product']} {name}")
-        lines.append(f"  '{row['source']}': '/images/cutout/{row['product']}.webp',")
+        target = row.get("file") or f"/images/cutout/{row['product']}.webp"
+        lines.append(f"  '{row['source']}': '{target}',")
 
     with open(TARGET, "w") as handle:
         handle.write(HEADER + "\n".join(lines) + "\n" + FOOTER)

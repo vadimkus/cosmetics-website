@@ -86,7 +86,7 @@ export default function ProductImmersiveMedia({
                 'inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition',
                 activeTab === tab
                   ? 'border-primary-600 bg-primary-600 text-white shadow-sm'
-                  : 'border-gray-200 bg-white text-gray-700 hover:border-primary-200 hover:bg-primary-50 hover:text-primary-700'
+                  : 'border-[var(--color-border-primary)] bg-white text-[var(--color-text-secondary)] hover:border-primary-200 hover:bg-primary-50 hover:text-primary-700'
               )}
             >
               <Icon className="h-4 w-4" />
@@ -106,7 +106,7 @@ export default function ProductImmersiveMedia({
 
       {activeTab === 'photos' && selectedImage && (
         <div className="space-y-3">
-          <div className="relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-sm">
+          <div className="relative aspect-square overflow-hidden rounded-2xl bg-[var(--color-bg-secondary)] shadow-sm">
             <Image
               src={selectedImage}
               alt={`${productName} product photo ${selectedPhotoIndex + 1}`}
@@ -125,8 +125,8 @@ export default function ProductImmersiveMedia({
                   type="button"
                   onClick={() => setSelectedPhotoIndex(index)}
                   className={cn(
-                    'relative h-14 w-14 overflow-hidden rounded-lg border-2 bg-gray-100 transition',
-                    selectedPhotoIndex === index ? 'border-primary-600' : 'border-gray-200 hover:border-gray-300'
+                    'relative h-14 w-14 overflow-hidden rounded-lg border-2 bg-[var(--color-bg-secondary)] transition',
+                    selectedPhotoIndex === index ? 'border-primary-600' : 'border-[var(--color-border-primary)] hover:border-[var(--color-border-secondary)]'
                   )}
                   aria-label={`Show ${productName} photo ${index + 1}`}
                 >
@@ -160,7 +160,7 @@ export default function ProductImmersiveMedia({
       )}
 
       {activeTab === 'model3d' && (
-        <div className="aspect-square rounded-2xl border border-dashed border-gray-300 bg-gray-50 p-8 text-center text-sm text-gray-500">
+        <div className="aspect-square rounded-2xl border border-dashed border-[var(--color-border-secondary)] bg-[var(--color-bg-primary)] p-8 text-center text-sm text-[var(--color-text-tertiary)]">
           3D model slot is ready. Add GLB/USDZ assets and register the model viewer runtime during activation.
         </div>
       )}

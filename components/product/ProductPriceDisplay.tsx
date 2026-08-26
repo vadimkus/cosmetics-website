@@ -31,7 +31,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
           <MessageCircle className="h-5 w-5" />
           <span className="text-lg md:text-xl font-semibold">{t('products.priceOnRequest')}</span>
         </div>
-        <span className="text-xs md:text-sm text-gray-500 mt-1">{t('products.contactForPricing')}</span>
+        <span className="text-xs md:text-sm text-[var(--color-text-tertiary)] mt-1">{t('products.contactForPricing')}</span>
       </div>
     )
   }
@@ -57,7 +57,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
                         {pricing.displayPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                       </span>
                       {pricing.originalPrice ? (
-                        <span className="text-sm md:text-lg text-gray-400 line-through">
+                        <span className="text-sm md:text-lg text-[var(--color-text-quaternary)] line-through">
                           {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                         </span>
                       ) : null}
@@ -67,7 +67,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
                         {pricing.discountPercentage}% {t('product.off')}
                         {pricing.discountLabel && ` (${pricing.discountLabel})`}
                       </span>
-                      <span className="text-xs md:text-sm text-gray-500">({t('product.vatIncluded')})</span>
+                      <span className="text-xs md:text-sm text-[var(--color-text-tertiary)]">({t('product.vatIncluded')})</span>
                     </div>
                   </div>
                 ) : (
@@ -75,7 +75,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
                     <div className="text-xl md:text-3xl font-bold text-primary-600">
                       {pricing.displayPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                     </div>
-                    <div className="text-xs md:text-sm font-normal text-gray-500">({t('product.vatIncluded')})</div>
+                    <div className="text-xs md:text-sm font-normal text-[var(--color-text-tertiary)]">({t('product.vatIncluded')})</div>
                   </div>
                 )}
               </div>
@@ -83,7 +83,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
           })()}
         </>
       ) : user ? (
-        <div className={`flex items-center justify-center text-gray-500 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <div className={`flex items-center justify-center text-[var(--color-text-tertiary)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <Lock className={`h-4 w-4 md:h-5 md:w-5 ${dir === 'rtl' ? 'ml-2' : 'mr-2'}`} />
           <span className="text-base md:text-lg">{t('product.priceLocked')}</span>
         </div>

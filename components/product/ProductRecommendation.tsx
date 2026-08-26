@@ -88,8 +88,8 @@ export default function ProductRecommendation({
 
   if (loading) {
     return (
-      <div className="mt-8 border-t-2 border-gray-200 pt-8">
-        <div className="text-center py-4 text-gray-500">{t('common.loadingRecommendation')}</div>
+      <div className="mt-8 border-t-2 border-[var(--color-border-primary)] pt-8">
+        <div className="text-center py-4 text-[var(--color-text-tertiary)]">{t('common.loadingRecommendation')}</div>
       </div>
     )
   }
@@ -528,15 +528,15 @@ export default function ProductRecommendation({
   const description = getDescription()
 
   return (
-    <div className="mt-3 lg:mt-6 border-t-2 border-gray-200 pt-3 lg:pt-6" dir={dir}>
+    <div className="mt-3 lg:mt-6 border-t-2 border-[var(--color-border-primary)] pt-3 lg:pt-6" dir={dir}>
       {/* Product Recommendation Section */}
       <div className="bg-white border-2 border-red-200 rounded-xl p-2 lg:p-4 shadow-lg">
         <div className="flex items-center gap-1.5 lg:gap-2 mb-2 lg:mb-3" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
           <Sparkles className="h-4 w-4 lg:h-5 lg:w-5 text-red-600 flex-shrink-0" />
-          <h3 className="text-sm lg:text-lg font-bold text-gray-900" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.perfectCombination')}</h3>
+          <h3 className="text-sm lg:text-lg font-bold text-[var(--color-text-primary)]" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.perfectCombination')}</h3>
         </div>
         
-        <p className="text-gray-700 mb-2 lg:mb-4 text-[10px] lg:text-xs leading-relaxed" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(description.intro || '') }} />
+        <p className="text-[var(--color-text-secondary)] mb-2 lg:mb-4 text-[10px] lg:text-xs leading-relaxed" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }} dangerouslySetInnerHTML={{ __html: sanitizeHtml(description.intro || '') }} />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-4">
           {/* Recommended Product Preview */}
@@ -553,14 +553,14 @@ export default function ProductRecommendation({
                 sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
-            <h4 className="font-semibold text-xs lg:text-sm mb-0.5 lg:mb-1 text-gray-900 group-hover:text-red-600 transition-colors break-words">
+            <h4 className="font-semibold text-xs lg:text-sm mb-0.5 lg:mb-1 text-[var(--color-text-primary)] group-hover:text-red-600 transition-colors break-words">
               {recommendedProduct.name}
             </h4>
             {recommendedProduct.size && (
-              <p className="text-[10px] lg:text-xs mb-0.5 lg:mb-1 text-gray-600">{t('product.size')}: {translateSize(recommendedProduct.size, locale, recommendedProduct.category)}</p>
+              <p className="text-[10px] lg:text-xs mb-0.5 lg:mb-1 text-[var(--color-text-secondary)]">{t('product.size')}: {translateSize(recommendedProduct.size, locale, recommendedProduct.category)}</p>
             )}
             {!recommendedProduct.size && recommendedProduct.id === '32' && (
-              <p className="text-[10px] lg:text-xs mb-0.5 lg:mb-1 text-gray-600">{t('product.size')}: 50g</p>
+              <p className="text-[10px] lg:text-xs mb-0.5 lg:mb-1 text-[var(--color-text-secondary)]">{t('product.size')}: 50g</p>
             )}
             {canSeePrice ? (
               <div className="flex flex-wrap items-center gap-0.5 lg:gap-1" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
@@ -570,7 +570,7 @@ export default function ProductRecommendation({
                       {pricing.displayPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                     </span>
                     {pricing.originalPrice ? (
-                      <span className="text-[10px] lg:text-xs text-gray-500 line-through">
+                      <span className="text-[10px] lg:text-xs text-[var(--color-text-tertiary)] line-through">
                         {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                       </span>
                     ) : null}
@@ -585,20 +585,20 @@ export default function ProductRecommendation({
                 )}
               </div>
             ) : (
-              <p className="text-[10px] lg:text-xs text-gray-500" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.loginToSeePrice')}</p>
+              <p className="text-[10px] lg:text-xs text-[var(--color-text-tertiary)]" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>{t('product.loginToSeePrice')}</p>
             )}
-            <p className="text-[10px] lg:text-xs mt-0.5 lg:mt-1 text-gray-600" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
+            <p className="text-[10px] lg:text-xs mt-0.5 lg:mt-1 text-[var(--color-text-secondary)]" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
               {dir === 'rtl' ? '← اضغط لعرض التفاصيل' : t('product.clickToViewDetails')}
             </p>
           </Link>
 
           {/* Benefits of Combination */}
           <div className="bg-white rounded-lg p-2 lg:p-3 border-2 border-red-300">
-            <h4 className="font-semibold text-xs lg:text-sm mb-1.5 lg:mb-2 text-gray-900 flex items-center gap-1.5 lg:gap-2" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
+            <h4 className="font-semibold text-xs lg:text-sm mb-1.5 lg:mb-2 text-[var(--color-text-primary)] flex items-center gap-1.5 lg:gap-2" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
               <Sparkles className="h-2.5 w-2.5 lg:h-3 lg:w-3 text-red-600 flex-shrink-0" />
               <span>{t('product.whyCombineTheseProducts')}</span>
             </h4>
-            <ul className="space-y-1 lg:space-y-1.5 text-[10px] lg:text-xs text-gray-700" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
+            <ul className="space-y-1 lg:space-y-1.5 text-[10px] lg:text-xs text-[var(--color-text-secondary)]" dir={dir} style={{ textAlign: dir === 'rtl' ? 'right' : 'left' }}>
               {description.benefits.map((benefit, index) => (
                 <li key={index} className="flex items-start gap-1.5 lg:gap-2" dir={dir} style={{ flexDirection: dir === 'rtl' ? 'row-reverse' : 'row' }}>
                   <span className="text-red-600 mt-0.5 lg:mt-0.5 flex-shrink-0">✓</span>

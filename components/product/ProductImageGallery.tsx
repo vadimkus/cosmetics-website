@@ -167,8 +167,8 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
         ) : (
           <>
             {imageError ? (
-              <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                <div className="text-center text-gray-500">
+              <div className="w-full h-full flex items-center justify-center bg-[var(--color-border-primary)]">
+                <div className="text-center text-[var(--color-text-tertiary)]">
                   <div className="text-4xl mb-2">📷</div>
                   <div className="text-sm">Image not available</div>
                 </div>
@@ -284,12 +284,12 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
               className={`w-11 h-11 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-md md:rounded-lg overflow-hidden border-2 transition-colors flex-shrink-0 bg-white ${
                 selectedImage === index
                   ? 'border-primary-600'
-                  : 'border-gray-200 hover:border-gray-300'
+                  : 'border-[var(--color-border-primary)] hover:border-[var(--color-border-secondary)]'
               }`}
             >
               {thumbnailErrors[index] ? (
-                <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                  <span className="text-xs text-gray-400">📷</span>
+                <div className="w-full h-full flex items-center justify-center bg-[var(--color-border-primary)]">
+                  <span className="text-xs text-[var(--color-text-quaternary)]">📷</span>
                 </div>
               ) : (
                 <Image

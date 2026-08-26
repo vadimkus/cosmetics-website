@@ -43,7 +43,7 @@ export const metadata: Metadata = {
 
 export default function CheckoutPage() {
   return (
-    <div className="bg-gray-50 md:bg-white min-h-[100dvh] checkout-page">
+    <div className="bg-[var(--color-bg-primary)] md:bg-white min-h-[100dvh] checkout-page">
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: '/' },

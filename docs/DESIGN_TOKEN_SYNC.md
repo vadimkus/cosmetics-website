@@ -76,6 +76,11 @@ because the website sizes fluidly above that and the app does not size at all.
 
 ## What it deliberately does not cover yet
 
+- **The remaining ~1,950 raw Tailwind greys** outside the shopping path. The
+  384 on product card, cart and checkout were migrated onto the semantic text
+  and border tokens the site already defined. Three `text-gray-300` are left
+  deliberately: they are disabled states and empty stars, and the lightest warm
+  token is darker, which would make a disabled control look enabled.
 - **The remaining ~750 raw Tailwind status classes** outside the shopping path.
   The 115 on product card, cart and checkout were migrated; admin and partner
   portal were deliberately left, being internal tools where the risk-to-value

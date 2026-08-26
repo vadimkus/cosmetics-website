@@ -59,10 +59,10 @@ export default function RewardsRedemptionCard({
             <Award className="h-5 w-5 text-[var(--status-blue)]" aria-hidden="true" />
           </span>
           <div>
-            <h2 id="checkout-rewards-title" className="font-semibold text-gray-950">
+            <h2 id="checkout-rewards-title" className="font-semibold text-[var(--color-text-primary)]">
               {t('rewards.title')}
             </h2>
-            <p className="mt-0.5 text-xs md:text-sm text-gray-600">
+            <p className="mt-0.5 text-xs md:text-sm text-[var(--color-text-secondary)]">
               {t('rewards.availableBalance', {
                 points: balance.toLocaleString(),
                 value: balanceValueAed.toFixed(2),
@@ -77,7 +77,7 @@ export default function RewardsRedemptionCard({
               type="checkbox"
               checked={applied}
               onChange={toggle}
-              className="h-5 w-5 rounded border-gray-300 text-[var(--status-blue)] focus:ring-blue-500"
+              className="h-5 w-5 rounded border-[var(--color-border-secondary)] text-[var(--status-blue)] focus:ring-blue-500"
             />
             <span className="text-sm font-semibold text-[var(--status-blue)]">
               {t('rewards.apply')}
@@ -95,7 +95,7 @@ export default function RewardsRedemptionCard({
                   <p className="text-sm font-semibold text-[var(--status-blue)]">
                     {selectedPoints.toLocaleString()} {t('rewards.points')}
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-[var(--color-text-tertiary)]">
                     {t('rewards.redemptionValue', { value: selectedAed.toFixed(2) })}
                   </p>
                 </div>
@@ -104,7 +104,7 @@ export default function RewardsRedemptionCard({
                     type="button"
                     onClick={() => clamp(selectedPoints - blockPoints)}
                     disabled={selectedPoints <= blockPoints}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 text-gray-700 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border-secondary)] text-[var(--color-text-secondary)] disabled:cursor-not-allowed disabled:opacity-40"
                     aria-label={t('rewards.decreaseRedemption')}
                   >
                     <Minus className="h-4 w-4" aria-hidden="true" />
@@ -113,7 +113,7 @@ export default function RewardsRedemptionCard({
                     type="button"
                     onClick={() => clamp(selectedPoints + blockPoints)}
                     disabled={selectedPoints >= maxPoints}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 text-gray-700 disabled:cursor-not-allowed disabled:opacity-40"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-border-secondary)] text-[var(--color-text-secondary)] disabled:cursor-not-allowed disabled:opacity-40"
                     aria-label={t('rewards.increaseRedemption')}
                   >
                     <Plus className="h-4 w-4" aria-hidden="true" />
@@ -134,12 +134,12 @@ export default function RewardsRedemptionCard({
                 />
               )}
 
-              <div className={`mt-2 flex justify-between text-[11px] text-gray-500 ${isRtl ? 'flex-row-reverse' : ''}`}>
+              <div className={`mt-2 flex justify-between text-[11px] text-[var(--color-text-tertiary)] ${isRtl ? 'flex-row-reverse' : ''}`}>
                 <span>{blockPoints.toLocaleString()} {t('rewards.points')}</span>
                 <button
                   type="button"
                   onClick={() => onChange(maxPoints)}
-                  className="font-semibold text-[var(--status-blue)] hover:text-[var(--status-blue)]"
+                  className="font-semibold text-[var(--status-blue)] hover:text-[var(--cera-ink)]"
                 >
                   {t('rewards.useMaximum')} ({maxPoints.toLocaleString()} {t('rewards.points')})
                 </button>
@@ -147,7 +147,7 @@ export default function RewardsRedemptionCard({
             </div>
           )}
 
-          <p className="mt-3 text-xs leading-5 text-gray-600">
+          <p className="mt-3 text-xs leading-5 text-[var(--color-text-secondary)]">
             {t('rewards.redemptionRules', {
               points: blockPoints.toLocaleString(),
               value: blockAed.toFixed(0),
@@ -156,7 +156,7 @@ export default function RewardsRedemptionCard({
           </p>
         </>
       ) : (
-        <p className="mt-3 rounded-lg bg-white px-3 py-2 text-xs leading-5 text-gray-600">
+        <p className="mt-3 rounded-lg bg-white px-3 py-2 text-xs leading-5 text-[var(--color-text-secondary)]">
           {unavailableMessage}
         </p>
       )}

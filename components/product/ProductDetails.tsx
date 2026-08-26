@@ -18,7 +18,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
     <div className="space-y-6" dir={dir}>
       {/* Product Header */}
       <div>
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-2">
           {product.name}
         </h1>
         
@@ -29,13 +29,13 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
             ))}
           </div>
-          <span className="text-sm text-gray-600">({(product.rating || 5.0).toFixed(1)}/5)</span>
+          <span className="text-sm text-[var(--color-text-secondary)]">({(product.rating || 5.0).toFixed(1)}/5)</span>
         </div>
       </div>
 
       {/* Size Display (if applicable) */}
       {(product.size || product.id === '37') && (
-        <div className="text-sm font-medium text-gray-700">
+        <div className="text-sm font-medium text-[var(--color-text-secondary)]">
           {t('product.size')}: {product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : translateSize(product.size, locale, product.category)}
         </div>
       )}

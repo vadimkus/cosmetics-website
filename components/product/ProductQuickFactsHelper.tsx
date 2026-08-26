@@ -241,7 +241,7 @@ export default function ProductQuickFactsHelper({
         className={`group flex min-h-16 w-full items-center gap-3 rounded-2xl border px-3.5 py-3 text-start shadow-sm transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 ${
           open
             ? 'border-primary-300 bg-gradient-to-r from-primary-50 via-white to-rose-50 shadow-md shadow-primary-100/60'
-            : 'border-gray-200 bg-white hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-md'
+            : 'border-[var(--color-border-primary)] bg-white hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-md'
         } ${isRtl ? 'flex-row-reverse' : ''}`}
       >
         <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-rose-600 text-white shadow-sm shadow-primary-200">
@@ -251,15 +251,15 @@ export default function ProductQuickFactsHelper({
           <span className="block text-[10px] font-bold uppercase tracking-[0.14em] text-primary-600">
             {text.eyebrow}
           </span>
-          <span className="mt-0.5 block text-sm font-bold text-gray-950 md:text-base">
+          <span className="mt-0.5 block text-sm font-bold text-[var(--color-text-primary)] md:text-base">
             {text.button}
           </span>
-          <span className="mt-0.5 block truncate text-xs text-gray-500">
+          <span className="mt-0.5 block truncate text-xs text-[var(--color-text-tertiary)]">
             {text.itemCount(content.facts.length)} · {content.productName}
           </span>
         </span>
         <span
-          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-600 transition-transform duration-300 group-hover:border-primary-200 group-hover:text-primary-600 ${
+          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[var(--color-border-primary)] bg-white text-[var(--color-text-secondary)] transition-transform duration-300 group-hover:border-primary-200 group-hover:text-primary-600 ${
             open ? 'rotate-180' : ''
           }`}
           aria-hidden="true"
@@ -274,19 +274,19 @@ export default function ProductQuickFactsHelper({
             id={panelId}
             role="region"
             aria-labelledby={triggerId}
-            className="mt-2 overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50/80 p-3 shadow-lg shadow-gray-200/50 md:p-4"
+            className="mt-2 overflow-hidden rounded-2xl border border-[var(--color-border-primary)] bg-gradient-to-b from-white to-gray-50/80 p-3 shadow-lg shadow-gray-200/50 md:p-4"
             dir={dir}
           >
             <div className={`mb-3 flex items-center gap-2 px-1 ${isRtl ? 'flex-row-reverse' : ''}`}>
               <span className="h-1.5 w-1.5 rounded-full bg-primary-500" aria-hidden="true" />
-              <h3 className="text-sm font-bold text-gray-950 md:text-base">{text.title}</h3>
+              <h3 className="text-sm font-bold text-[var(--color-text-primary)] md:text-base">{text.title}</h3>
             </div>
 
             <div className="grid gap-2 sm:grid-cols-2">
               {content.facts.map((fact, index) => (
                 <div
                   key={`${fact.title || 'fact'}-${index}`}
-                  className="group/fact relative overflow-hidden rounded-xl border border-gray-200/80 bg-white p-3 transition-all duration-200 hover:border-primary-200 hover:shadow-sm"
+                  className="group/fact relative overflow-hidden rounded-xl border border-[var(--color-border-primary)]/80 bg-white p-3 transition-all duration-200 hover:border-primary-200 hover:shadow-sm"
                 >
                   <div className={`flex items-start gap-2.5 ${isRtl ? 'flex-row-reverse' : ''}`}>
                     <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary-50 text-primary-600 transition-colors group-hover/fact:bg-primary-100">
@@ -297,11 +297,11 @@ export default function ProductQuickFactsHelper({
                     </span>
                     <div className="min-w-0">
                       {fact.title && (
-                        <h4 className="text-xs font-bold leading-5 text-gray-950 md:text-sm">
+                        <h4 className="text-xs font-bold leading-5 text-[var(--color-text-primary)] md:text-sm">
                           {fact.title}
                         </h4>
                       )}
-                      <p className={`${fact.title ? 'mt-0.5' : ''} text-xs leading-5 text-gray-600 md:text-sm`}>
+                      <p className={`${fact.title ? 'mt-0.5' : ''} text-xs leading-5 text-[var(--color-text-secondary)] md:text-sm`}>
                         {fact.text}
                       </p>
                     </div>
@@ -310,7 +310,7 @@ export default function ProductQuickFactsHelper({
               ))}
             </div>
 
-            <div className={`mt-3 flex items-center gap-2 rounded-xl bg-gray-100/80 px-3 py-2 text-xs text-gray-500 ${isRtl ? 'flex-row-reverse' : ''}`}>
+            <div className={`mt-3 flex items-center gap-2 rounded-xl bg-[var(--color-bg-secondary)]/80 px-3 py-2 text-xs text-[var(--color-text-tertiary)] ${isRtl ? 'flex-row-reverse' : ''}`}>
               <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
               <p>{isBeautyBox ? text.boxSource : text.source}</p>
             </div>

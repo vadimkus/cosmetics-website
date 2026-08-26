@@ -45,7 +45,7 @@ export default function TrustBadges({ layout = 'horizontal' }: Props) {
     // rather than the previous plain gray strip.
     return (
       <div
-        className="rounded-2xl border border-gray-200 bg-white px-4 py-4 shadow-sm"
+        className="rounded-2xl border border-[var(--color-border-primary)] bg-white px-4 py-4 shadow-sm"
         dir={dir}
         role="region"
         aria-label="Trust signals"
@@ -57,7 +57,7 @@ export default function TrustBadges({ layout = 'horizontal' }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 7h13l4 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3V7z" />
               </svg>
             </span>
-            <span className="text-sm font-medium text-gray-800 leading-snug pt-1.5">{copy.shipping}</span>
+            <span className="text-sm font-medium text-[var(--color-text-primary)] leading-snug pt-1.5">{copy.shipping}</span>
           </li>
           <li className="flex items-start gap-3">
             <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50">
@@ -65,7 +65,7 @@ export default function TrustBadges({ layout = 'horizontal' }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </span>
-            <span className="text-sm font-medium text-gray-800 leading-snug pt-1.5">{copy.authentic}</span>
+            <span className="text-sm font-medium text-[var(--color-text-primary)] leading-snug pt-1.5">{copy.authentic}</span>
           </li>
           <li className="flex items-start gap-3">
             <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--status-blue-bg)]">
@@ -73,7 +73,7 @@ export default function TrustBadges({ layout = 'horizontal' }: Props) {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h4m-6 4h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </span>
-            <span className="text-sm font-medium text-gray-800 leading-snug pt-1.5">{copy.vat}</span>
+            <span className="text-sm font-medium text-[var(--color-text-primary)] leading-snug pt-1.5">{copy.vat}</span>
           </li>
         </ul>
       </div>
@@ -81,7 +81,7 @@ export default function TrustBadges({ layout = 'horizontal' }: Props) {
   }
 
   const containerClass =
-    'flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:gap-x-8 text-xs md:text-sm font-medium text-gray-800 border-y border-gray-200 bg-gray-50 px-3 py-3'
+    'flex flex-wrap items-center justify-center gap-x-5 gap-y-2 md:gap-x-8 text-xs md:text-sm font-medium text-[var(--color-text-primary)] border-y border-[var(--color-border-primary)] bg-[var(--color-bg-primary)] px-3 py-3'
   const itemClass = 'flex items-center gap-2 whitespace-nowrap'
 
   return (

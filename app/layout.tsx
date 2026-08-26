@@ -226,11 +226,11 @@ export const viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
-    { media: '(prefers-color-scheme: dark)', color: '#1c1c1e' }
-  ],
-  colorScheme: 'light dark',
+  // Light only, matching the app's userInterfaceStyle. The dark palette below
+  // was never finished: every content surface is a hardcoded bg-white, so a
+  // dark-set phone got a black body behind light cards and nothing else.
+  themeColor: '#ffffff',
+  colorScheme: 'light',
 }
 
 export default async function RootLayout({
@@ -274,10 +274,14 @@ export default async function RootLayout({
             __html: `(function(){try{var p=location.pathname,a=p.startsWith('/ar'),r=p.startsWith('/ru'),l=a?'ar':r?'ru':'en',d=a?'rtl':'ltr',h=document.documentElement;h.lang=l;h.dir=d;h.setAttribute('data-locale',l);h.setAttribute('data-dir',d);h.style.setProperty('direction',d,'important');window.__GENOSYS_DIR__=d;window.__GENOSYS_LANG__=l;if(document.body){document.body.dir=d;document.body.setAttribute('data-dir',d);document.body.style.setProperty('direction',d,'important')}else{new MutationObserver(function(m,o){if(document.body){document.body.dir=d;document.body.setAttribute('data-dir',d);document.body.style.setProperty('direction',d,'important');o.disconnect()}}).observe(h,{childList:true})}}catch(e){}})()`,
           }}
         />
-        {/* Theme initialization - prevents flash of wrong theme (minified for LCP) */}
+        {/* Pins the theme to light. This used to read prefers-color-scheme and
+            set data-theme="dark", but nothing in the UI ever wrote the
+            genosys-theme key it also checked, so there was no way to opt out of
+            a dark theme that had never been finished. Kept as an attribute
+            rather than dropped so [data-theme] selectors still resolve. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var s=localStorage.getItem('genosys-theme'),d=window.matchMedia('(prefers-color-scheme:dark)').matches,t=s==='dark'?'dark':s==='light'?'light':d?'dark':'light';document.documentElement.setAttribute('data-theme',t);document.documentElement.classList.add(t)}catch(e){}})()`,
+            __html: `(function(){try{var h=document.documentElement;h.setAttribute('data-theme','light');h.classList.add('light')}catch(e){}})()`,
           }}
         />
         {/* Google Analytics with Consent Mode v2.

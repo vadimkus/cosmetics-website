@@ -169,7 +169,7 @@ const ProductImage = memo(function ProductImage({
         type="button"
         onClick={onFavorite}
         disabled={isTogglingFavorite}
-        className={`absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition-colors z-20 min-h-[44px] min-w-[44px] flex items-center justify-center active:scale-95 ${
+        className={`absolute top-2 right-2 p-2 bg-white rounded-full shadow-md hover:bg-[var(--color-bg-primary)] transition-colors z-20 min-h-[44px] min-w-[44px] flex items-center justify-center active:scale-95 ${
           isTogglingFavorite ? 'opacity-50' : ''
         }`}
         title={isFavorite ? t('product.removeFromFavorites') : t('product.addToFavorites')}
@@ -180,7 +180,7 @@ const ProductImage = memo(function ProductImage({
           className={`h-4 w-4 transition-colors ${
             isFavorite 
               ? 'text-red-500 fill-current' 
-              : 'text-gray-600 hover:text-red-500'
+              : 'text-[var(--color-text-secondary)] hover:text-red-500'
           }`}
           aria-hidden="true"
         />

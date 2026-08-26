@@ -75,7 +75,7 @@ const ProductInfo = memo(function ProductInfo({
       {/* Category (+ New pill for recent launches) */}
       <div className="mb-2 flex items-center gap-2">
         {isNewLaunch && (
-          <span className="inline-flex items-center rounded-full bg-gray-900 px-2 py-0.5 text-[9px] md:text-[10px] font-semibold uppercase tracking-wide text-white">
+          <span className="inline-flex items-center rounded-full bg-[var(--color-text-primary)] px-2 py-0.5 text-[9px] md:text-[10px] font-semibold uppercase tracking-wide text-white">
             {t('common.new')}
           </span>
         )}
@@ -96,7 +96,7 @@ const ProductInfo = memo(function ProductInfo({
             style={pwaStyles}
           >
             <h3
-              className={`text-sm md:text-lg font-semibold text-gray-800 hover:text-primary-600 transition-colors ${
+              className={`text-sm md:text-lg font-semibold text-[var(--color-text-primary)] hover:text-primary-600 transition-colors ${
                 isBeautyBoxTitle ? '' : 'line-clamp-2'
               }`}
             >
@@ -106,7 +106,7 @@ const ProductInfo = memo(function ProductInfo({
         ) : (
           <Link href={productPath} {...prefetchProps}>
             <h3
-              className={`text-sm md:text-lg font-semibold text-gray-800 hover:text-primary-600 transition-colors cursor-pointer ${
+              className={`text-sm md:text-lg font-semibold text-[var(--color-text-primary)] hover:text-primary-600 transition-colors cursor-pointer ${
                 isBeautyBoxTitle ? '' : 'line-clamp-2'
               }`}
             >
@@ -120,7 +120,7 @@ const ProductInfo = memo(function ProductInfo({
       <div className="product-card__meta flex items-center gap-2 mb-2 flex-wrap">
         {/* Size Badge */}
         {(product.size || product.id === '37') && (
-          <span className="inline-flex items-center px-2 py-1 rounded-md text-[10px] md:text-xs font-medium bg-gray-100 text-gray-700">
+          <span className="inline-flex items-center px-2 py-1 rounded-md text-[10px] md:text-xs font-medium bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)]">
             {t('product.size')}: {displaySize}
           </span>
         )}
@@ -140,7 +140,7 @@ const ProductInfo = memo(function ProductInfo({
       {/* Description — clamped to 2 lines on all breakpoints (was 4 on mobile, too noisy) */}
       <p 
         id={descriptionId}
-        className="product-card__desc text-gray-600 text-xs md:text-sm mb-3 md:mb-4 line-clamp-2"
+        className="product-card__desc text-[var(--color-text-secondary)] text-xs md:text-sm mb-3 md:mb-4 line-clamp-2"
       >
         {cleanDescription}
       </p>

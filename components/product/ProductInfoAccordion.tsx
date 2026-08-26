@@ -30,7 +30,7 @@ export default function ProductInfoAccordion({
   const panelId = `${accordionId}-panel`
 
   return (
-    <div className="border-b border-gray-200 first:border-t">
+    <div className="border-b border-[var(--color-border-primary)] first:border-t">
       <button
         id={triggerId}
         type="button"
@@ -39,12 +39,12 @@ export default function ProductInfoAccordion({
         aria-controls={panelId}
         className={`w-full flex items-center ${isRtl ? 'flex-row-reverse' : ''} justify-between gap-3 py-3.5 lg:py-4 text-left group min-h-[44px]`}
       >
-        <span className={`flex items-center gap-2 ${isRtl ? 'flex-row-reverse' : ''} text-sm lg:text-base font-semibold text-gray-900 group-hover:text-primary-700 transition-colors`}>
+        <span className={`flex items-center gap-2 ${isRtl ? 'flex-row-reverse' : ''} text-sm lg:text-base font-semibold text-[var(--color-text-primary)] group-hover:text-primary-700 transition-colors`}>
           {icon}
           {title}
         </span>
         <ChevronDown
-          className={`h-4 w-4 lg:h-5 lg:w-5 text-gray-500 group-hover:text-primary-600 transition-transform duration-200 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
+          className={`h-4 w-4 lg:h-5 lg:w-5 text-[var(--color-text-tertiary)] group-hover:text-primary-600 transition-transform duration-200 flex-shrink-0 ${isOpen ? 'rotate-180' : ''}`}
           aria-hidden="true"
         />
       </button>
@@ -58,7 +58,7 @@ export default function ProductInfoAccordion({
         data-open={isOpen ? 'true' : 'false'}
       >
         <div className="accordion-panel__inner">
-          <div className="pb-4 lg:pb-5 text-sm lg:text-[15px] text-gray-700 leading-relaxed">
+          <div className="pb-4 lg:pb-5 text-sm lg:text-[15px] text-[var(--color-text-secondary)] leading-relaxed">
             {children}
           </div>
         </div>

@@ -108,7 +108,7 @@ export default function Product360Spin({
 
   if (totalFrames === 0) {
     return (
-      <div className={cn('aspect-square rounded-2xl bg-gray-100 flex items-center justify-center text-sm text-gray-500', className)}>
+      <div className={cn('aspect-square rounded-2xl bg-[var(--color-bg-secondary)] flex items-center justify-center text-sm text-[var(--color-text-tertiary)]', className)}>
         360 view assets pending
       </div>
     )
@@ -140,7 +140,7 @@ export default function Product360Spin({
           draggable={false}
         />
 
-        <div className="pointer-events-none absolute left-3 top-3 rounded-full bg-white/85 px-3 py-1 text-xs font-medium text-gray-700 shadow-sm backdrop-blur">
+        <div className="pointer-events-none absolute left-3 top-3 rounded-full bg-white/85 px-3 py-1 text-xs font-medium text-[var(--color-text-secondary)] shadow-sm backdrop-blur">
           360 view
         </div>
 
@@ -149,14 +149,14 @@ export default function Product360Spin({
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-3 text-xs text-gray-500">
+      <div className="flex items-center justify-between gap-3 text-xs text-[var(--color-text-tertiary)]">
         <span>
           Frame {frameIndex + 1} / {totalFrames}
         </span>
         <button
           type="button"
           onClick={() => setFrameIndex(getWrappedFrameIndex(initialFrame, totalFrames))}
-          className="inline-flex items-center gap-1 rounded-full border border-gray-200 px-3 py-1.5 font-medium text-gray-700 transition hover:border-primary-200 hover:bg-primary-50 hover:text-primary-700"
+          className="inline-flex items-center gap-1 rounded-full border border-[var(--color-border-primary)] px-3 py-1.5 font-medium text-[var(--color-text-secondary)] transition hover:border-primary-200 hover:bg-primary-50 hover:text-primary-700"
         >
           <RotateCcw className="h-3.5 w-3.5" />
           Reset

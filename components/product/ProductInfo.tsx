@@ -144,8 +144,8 @@ export default function ProductInfo({
 
   return (
     <div className="lg:col-span-1">
-      <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-      <p className="text-sm text-gray-500 mb-4">Category: {product.category}</p>
+      <h1 className="text-2xl md:text-3xl font-bold text-[var(--color-text-primary)] mb-2">{product.name}</h1>
+      <p className="text-sm text-[var(--color-text-tertiary)] mb-4">Category: {product.category}</p>
 
       {/* Rating */}
       <div className="flex items-center mb-4">
@@ -154,13 +154,13 @@ export default function ProductInfo({
             <Star key={i} className="h-5 w-5 fill-current" />
           ))}
         </div>
-        <span className={`text-gray-600 text-sm ${locale === 'ar' ? 'mr-2' : 'ml-2'}`}>({(product.rating || 5.0).toFixed(1)}/5)</span>
+        <span className={`text-[var(--color-text-secondary)] text-sm ${locale === 'ar' ? 'mr-2' : 'ml-2'}`}>({(product.rating || 5.0).toFixed(1)}/5)</span>
       </div>
 
       {/* Price and Size */}
       <div className="flex items-center gap-4 mt-12 pt-4">
         {(product.size || product.id === '1' || product.id === '41' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '24' || product.id === '16' || product.id === '25' || product.id === '37') && (
-          <div className="text-sm font-medium text-gray-700">
+          <div className="text-sm font-medium text-[var(--color-text-secondary)]">
             {t('product.size')}: {product.id === '1' ? '0.25mm/0.5mm/0.1mm/0.15mm/0.2mm' : product.id === '41' ? '15g' : product.id === '10' ? '180ml/500ml' : product.id === '31' ? '50g/230g' : (product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28') ? '50g/250g' : product.id === '15' ? '200ml/500ml' : product.id === '16' ? '200ml/1000ml' : product.id === '25' ? '20g/100g' : product.id === '24' ? '20g' : product.id === '37' ? '38g x 5ea (5 masks, 1 box)' : translateSize(product.size, locale, product.category)}
           </div>
         )}
@@ -180,7 +180,7 @@ export default function ProductInfo({
                           {pricing.displayPrice.toFixed(2)} AED
                         </span>
                         {pricing.originalPrice ? (
-                          <span className="text-lg text-gray-500 line-through">
+                          <span className="text-lg text-[var(--color-text-tertiary)] line-through">
                             {pricing.originalPrice.toFixed(2)} AED
                           </span>
                         ) : null}
@@ -189,7 +189,7 @@ export default function ProductInfo({
                         <span className="text-sm text-[var(--status-green-deep)] font-medium">
                           {pricing.discountPercentage}% {t('product.off')}
                         </span>
-                        <span className="text-sm text-gray-600">({t('product.vatIncluded')})</span>
+                        <span className="text-sm text-[var(--color-text-secondary)]">({t('product.vatIncluded')})</span>
                       </div>
                     </div>
                   ) : (
@@ -197,7 +197,7 @@ export default function ProductInfo({
                       <div className="text-2xl md:text-3xl font-bold text-primary-600">
                         {pricing.displayPrice.toFixed(2)} AED
                       </div>
-                      <div className="text-sm font-normal text-gray-600">({t('product.vatIncluded')})</div>
+                      <div className="text-sm font-normal text-[var(--color-text-secondary)]">({t('product.vatIncluded')})</div>
                     </div>
                   )}
                 </div>
@@ -205,7 +205,7 @@ export default function ProductInfo({
             })()}
           </>
         ) : user ? (
-          <div className="flex items-center text-gray-500">
+          <div className="flex items-center text-[var(--color-text-tertiary)]">
             <Lock className={`h-5 w-5 ${locale === 'ar' ? 'ml-2' : 'mr-2'}`} />
             <span className="text-lg">{t('product.priceLocked')}</span>
           </div>
@@ -222,7 +222,7 @@ export default function ProductInfo({
       {/* Size Options */}
       {(product.id === '1' || product.id === '10' || product.id === '30' || product.id === '29' || product.id === '32' || product.id === '28' || product.id === '31' || product.id === '15' || product.id === '16' || product.id === '25') && (
         <div className="mt-6">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">{t('product.selectSize')}</h4>
+          <h4 className="text-sm font-medium text-[var(--color-text-secondary)] mb-2">{t('product.selectSize')}</h4>
           <div className="flex flex-wrap gap-3">
             {product.id === '1' && (
               <>
@@ -232,16 +232,16 @@ export default function ProductInfo({
                     className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
                       selectedSize === option.size
                         ? 'border-primary-600 bg-primary-50 text-primary-800'
-                        : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                        : 'border-[var(--color-border-secondary)] bg-white text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)]'
                     }`}
                     onClick={() => setSelectedSize(option.size)}
                   >
                     <div className="text-center">
                       <div className="font-medium">{option.size}</div>
                       {user ? (
-                        <div className="text-sm text-gray-500">{option.price} AED</div>
+                        <div className="text-sm text-[var(--color-text-tertiary)]">{option.price} AED</div>
                       ) : (
-                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
+                        <div className="text-sm text-[var(--color-text-quaternary)]">{t('product.loginToSeePrice')}</div>
                       )}
                     </div>
                   </button>
@@ -256,16 +256,16 @@ export default function ProductInfo({
                     className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
                       selectedSize === option.size
                         ? 'border-primary-600 bg-primary-50 text-primary-800'
-                        : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                        : 'border-[var(--color-border-secondary)] bg-white text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)]'
                     }`}
                     onClick={() => setSelectedSize(option.size)}
                   >
                     <div className="text-center">
                       <div className="font-medium">{option.size}</div>
                       {user ? (
-                        <div className="text-sm text-gray-500">{option.price} AED</div>
+                        <div className="text-sm text-[var(--color-text-tertiary)]">{option.price} AED</div>
                       ) : (
-                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
+                        <div className="text-sm text-[var(--color-text-quaternary)]">{t('product.loginToSeePrice')}</div>
                       )}
                     </div>
                   </button>
@@ -280,16 +280,16 @@ export default function ProductInfo({
                     className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
                       selectedSize === option.size
                         ? 'border-primary-600 bg-primary-50 text-primary-800'
-                        : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                        : 'border-[var(--color-border-secondary)] bg-white text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)]'
                     }`}
                     onClick={() => setSelectedSize(option.size)}
                   >
                     <div className="text-center">
                       <div className="font-medium">{option.size}</div>
                       {user ? (
-                        <div className="text-sm text-gray-500">{option.price} AED</div>
+                        <div className="text-sm text-[var(--color-text-tertiary)]">{option.price} AED</div>
                       ) : (
-                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
+                        <div className="text-sm text-[var(--color-text-quaternary)]">{t('product.loginToSeePrice')}</div>
                       )}
                     </div>
                   </button>
@@ -304,16 +304,16 @@ export default function ProductInfo({
                     className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
                       selectedSize === option.size
                         ? 'border-primary-600 bg-primary-50 text-primary-800'
-                        : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                        : 'border-[var(--color-border-secondary)] bg-white text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)]'
                     }`}
                     onClick={() => setSelectedSize(option.size)}
                   >
                     <div className="text-center">
                       <div className="font-medium">{option.size}</div>
                       {user ? (
-                        <div className="text-sm text-gray-500">{option.price} AED</div>
+                        <div className="text-sm text-[var(--color-text-tertiary)]">{option.price} AED</div>
                       ) : (
-                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
+                        <div className="text-sm text-[var(--color-text-quaternary)]">{t('product.loginToSeePrice')}</div>
                       )}
                     </div>
                   </button>
@@ -328,16 +328,16 @@ export default function ProductInfo({
                     className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
                       selectedSize === option.size
                         ? 'border-primary-600 bg-primary-50 text-primary-800'
-                        : 'border-gray-300 bg-white text-gray-700 hover:border-gray-400'
+                        : 'border-[var(--color-border-secondary)] bg-white text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)]'
                     }`}
                     onClick={() => setSelectedSize(option.size)}
                   >
                     <div className="text-center">
                       <div className="font-medium">{option.size}</div>
                       {user ? (
-                        <div className="text-sm text-gray-500">{option.price} AED</div>
+                        <div className="text-sm text-[var(--color-text-tertiary)]">{option.price} AED</div>
                       ) : (
-                        <div className="text-sm text-gray-400">{t('product.loginToSeePrice')}</div>
+                        <div className="text-sm text-[var(--color-text-quaternary)]">{t('product.loginToSeePrice')}</div>
                       )}
                     </div>
                   </button>
@@ -350,19 +350,19 @@ export default function ProductInfo({
 
       {/* Quantity Selector */}
       <div className="flex items-center mt-6">
-        <h4 className={`text-sm font-medium text-gray-700 ${locale === 'ar' ? 'ml-4' : 'mr-4'}`}>{t('product.quantity')}:</h4>
-        <div className="flex items-center border border-gray-300 rounded-lg">
+        <h4 className={`text-sm font-medium text-[var(--color-text-secondary)] ${locale === 'ar' ? 'ml-4' : 'mr-4'}`}>{t('product.quantity')}:</h4>
+        <div className="flex items-center border border-[var(--color-border-secondary)] rounded-lg">
           <button
             onClick={() => setQuantity((prev: number) => Math.max(1, prev - 1))}
-            className="p-2 text-gray-600 hover:bg-gray-100 rounded-l-lg transition-colors"
+            className="p-2 text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] rounded-l-lg transition-colors"
             aria-label="Decrease quantity"
           >
             <Minus className="h-4 w-4" />
           </button>
-          <span className="px-4 py-2 text-gray-800 font-medium">{quantity}</span>
+          <span className="px-4 py-2 text-[var(--color-text-primary)] font-medium">{quantity}</span>
           <button
             onClick={() => setQuantity((prev: number) => prev + 1)}
-            className="p-2 text-gray-600 hover:bg-gray-100 rounded-r-lg transition-colors"
+            className="p-2 text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)] rounded-r-lg transition-colors"
             aria-label="Increase quantity"
           >
             <Plus className="h-4 w-4" />
@@ -396,7 +396,7 @@ export default function ProductInfo({
           <button
             onClick={handleAddToCart}
             disabled={!product.inStock || isAdding}
-            className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            className="flex-1 bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors disabled:bg-[var(--color-text-quaternary)] disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {isAdding ? (
               <>
@@ -419,7 +419,7 @@ export default function ProductInfo({
           className={`p-3 rounded-lg border ${
             isFavorite(product.id)
               ? 'border-red-500 bg-red-50 text-red-600'
-              : 'border-gray-300 text-gray-600 hover:border-gray-400'
+              : 'border-[var(--color-border-secondary)] text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)]'
           } transition-colors flex items-center justify-center`}
           aria-label={isFavorite(product.id) ? t('product.removeFromFavorites') : t('product.addToFavorites')}
         >
@@ -430,7 +430,7 @@ export default function ProductInfo({
           className={`p-3 rounded-lg border transition-colors flex items-center justify-center ${
             shareStatus === 'copied'
               ? 'border-[var(--status-green-deep)] bg-[var(--status-green-bg)] text-[var(--status-green-deep)]'
-              : 'border-gray-300 text-gray-600 hover:border-gray-400'
+              : 'border-[var(--color-border-secondary)] text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)]'
           }`}
           aria-label={t('product.shareProduct')}
           title={shareStatus === 'copied' ? t('product.linkCopied') : t('product.shareProduct')}

@@ -28,7 +28,7 @@ export default function PaymentMethodSelector({
         </h2>
         
         {/* Payment Toggle Buttons - 2 Horizontal Buttons */}
-        <div className="bg-gray-100 p-1.5 rounded-2xl">
+        <div className="bg-[var(--color-bg-secondary)] p-1.5 rounded-2xl">
           <div className={`flex gap-1.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             {/* Cash on Delivery */}
             <button
@@ -37,7 +37,7 @@ export default function PaymentMethodSelector({
               className={`flex-1 py-3.5 px-2 rounded-xl font-semibold text-xs transition-all touch-manipulation ${
                 selectedPaymentMethod === 'cod'
                   ? 'bg-red-600 text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  : 'bg-white text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-primary)]'
               }`}
             >
               <div className="flex flex-col items-center gap-1.5">
@@ -56,7 +56,7 @@ export default function PaymentMethodSelector({
               className={`flex-1 py-3.5 px-2 rounded-xl font-semibold text-xs transition-all touch-manipulation ${
                 selectedPaymentMethod === 'stripe'
                   ? 'bg-red-600 text-white shadow-lg'
-                  : 'bg-white text-gray-600 hover:bg-gray-50'
+                  : 'bg-white text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-primary)]'
               }`}
             >
               <div className="flex flex-col items-center gap-1.5">
@@ -68,7 +68,7 @@ export default function PaymentMethodSelector({
         </div>
 
         {/* Payment method description */}
-        <div className="text-center text-xs text-gray-500 min-h-[32px]">
+        <div className="text-center text-xs text-[var(--color-text-tertiary)] min-h-[32px]">
           {selectedPaymentMethod === 'cod' && (
             <span>{locale === 'ar' ? 'ادفع نقداً عند استلام طلبك' : locale === 'ru' ? 'Оплата наличными при получении' : 'Pay cash when your order arrives'}</span>
           )}
@@ -79,7 +79,7 @@ export default function PaymentMethodSelector({
 
         {/* Security Note - Only show for card payments, not cash */}
         {selectedPaymentMethod === 'stripe' && (
-          <div className={`flex items-center justify-center gap-2 text-xs text-gray-400 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <div className={`flex items-center justify-center gap-2 text-xs text-[var(--color-text-quaternary)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
             <Lock className="w-3.5 h-3.5" />
             <span>{locale === 'ar' ? 'دفع آمن ومشفر' : locale === 'ru' ? 'Безопасная оплата' : 'Secure & encrypted'}</span>
           </div>
@@ -97,7 +97,7 @@ export default function PaymentMethodSelector({
       </h2>
       
       <div className="space-y-2 md:space-y-3">
-        <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'stripe' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'stripe' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-[var(--color-border-secondary)] hover:bg-[var(--color-bg-primary)]'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <input
             type="radio"
             name="payment"
@@ -107,18 +107,18 @@ export default function PaymentMethodSelector({
             className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
           />
           <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-            <div className="font-medium text-gray-900 text-[10px] md:text-base flex items-center">
+            <div className="font-medium text-[var(--color-text-primary)] text-[10px] md:text-base flex items-center">
               <CreditCard className="w-3 h-3 md:w-4 md:h-4 mr-1.5 text-primary-600" />
               {t('checkout.cardPayment')}
             </div>
-            <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.secureCardPayment')}</div>
-            <div className="text-[8px] md:text-xs text-gray-500 mt-1">
+            <div className="text-[9px] md:text-sm text-[var(--color-text-secondary)]">{t('checkout.secureCardPayment')}</div>
+            <div className="text-[8px] md:text-xs text-[var(--color-text-tertiary)] mt-1">
               {t('checkout.payOnlineWith') || 'Pay online with'}: Visa, Mastercard, Apple Pay, Google Pay.
             </div>
           </div>
         </label>
         
-        <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'cod' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-gray-300 hover:bg-gray-50'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <label className={`flex items-start gap-2.5 md:gap-3 p-2.5 md:p-4 rounded-lg cursor-pointer transition-colors ${selectedPaymentMethod === 'cod' ? 'border-2 border-primary-400 hover:bg-primary-50 bg-primary-50/50' : 'border border-[var(--color-border-secondary)] hover:bg-[var(--color-bg-primary)]'} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <input
             type="radio"
             name="payment"
@@ -128,8 +128,8 @@ export default function PaymentMethodSelector({
             className="focus:ring-primary-500 mt-0.5 flex-shrink-0 w-4 h-4"
           />
           <div className={`flex-1 ${dir === 'rtl' ? 'text-right' : ''}`}>
-            <div className="font-medium text-gray-900 text-[10px] md:text-base">{t('checkout.cod')}</div>
-            <div className="text-[9px] md:text-sm text-gray-600">{t('checkout.payWhenDelivered')}</div>
+            <div className="font-medium text-[var(--color-text-primary)] text-[10px] md:text-base">{t('checkout.cod')}</div>
+            <div className="text-[9px] md:text-sm text-[var(--color-text-secondary)]">{t('checkout.payWhenDelivered')}</div>
           </div>
         </label>
       </div>

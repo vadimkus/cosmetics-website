@@ -277,6 +277,11 @@
   --color-border-primary: #e8e0db;   /* = --cera-line, app colors.separator */
   --color-border-secondary: #d9cec7; /* app colors.separatorStrong */
   --color-border-tertiary: #f3ece8;  /* = --cera-cream-deep, app colors.fill */
+  /* Hover emphasis on option and variant borders. The scale stopped at
+     `secondary`, so a hover that used to step gray-300 -> gray-400 had nowhere
+     warm to land and would have flattened onto its own resting colour. Matches
+     gray-400 for lightness so the emphasis is as strong as before. */
+  --color-border-strong: #968981;
   --color-border-focus: var(--cera-rose-ink);
   
   /* Fill colors - for icons, indicators */
@@ -383,63 +388,25 @@
 
 /* ============================================================================
    DARK MODE - Semantic Color Overrides
-   Automatically activates based on user's system preference
+
+   The prefers-color-scheme block that used to live here has been removed. It
+   only ever repainted the semantic tokens, and roughly 1,800 hardcoded
+   bg-white surfaces sat on top of them, so a dark-set phone got a black body
+   showing as a band behind the floating header and light cards everywhere
+   else. Nothing in the UI wrote the genosys-theme key the init script also
+   checked, so there was no way to opt out of it either.
+
+   The [data-theme="dark"] block below is kept and is now unreachable, so the
+   palette survives for whoever finishes the job. The app is light-only too
+   (userInterfaceStyle: "light"), so there is no dark design to match yet.
    ============================================================================ */
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    /* Background colors - Dark Mode */
-    --color-bg-primary: #000000;
-    --color-bg-secondary: #1c1c1e;
-    --color-bg-tertiary: #2c2c2e;
-    --color-bg-elevated: #1c1c1e;
-    --color-bg-grouped: #000000;
-    
-    /* Surface colors - Dark Mode */
-    --color-surface: #1c1c1e;
-    --color-surface-secondary: #2c2c2e;
-    --color-surface-tertiary: #3a3a3c;
-    --color-surface-overlay: rgba(28, 28, 30, 0.9);
-    
-    /* Text colors - Dark Mode */
-    --color-text-primary: #ffffff;
-    --color-text-secondary: #ebebf5;
-    --color-text-tertiary: #ebebf599;
-    --color-text-quaternary: #ebebf54d;
-    --color-text-inverse: #000000;
-    
-    /* Border colors - Dark Mode */
-    --color-border-primary: #38383a;
-    --color-border-secondary: #48484a;
-    --color-border-tertiary: #2c2c2e;
-    --color-border-focus: var(--cera-rose);
-    
-    /* Fill colors - Dark Mode */
-    --color-fill-primary: #ffffff;
-    --color-fill-secondary: #ebebf5;
-    --color-fill-tertiary: #ebebf599;
-    
-    /* Shadow adjustments for dark mode */
-    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -4px rgba(0, 0, 0, 0.4);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
-    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-    
-    /* Vibrancy backgrounds - Dark Mode */
-    --vibrancy-ultra-thin-light: rgba(30, 30, 30, 0.3);
-    --vibrancy-thin-light: rgba(30, 30, 30, 0.5);
-    --vibrancy-light: rgba(30, 30, 30, 0.7);
-    --vibrancy-thick-light: rgba(30, 30, 30, 0.85);
-    --vibrancy-chrome: rgba(30, 30, 30, 0.9);
-    
-    /* Overlay backgrounds - Dark Mode */
-    --overlay-light: rgba(0, 0, 0, 0.5);
-    --overlay-medium: rgba(0, 0, 0, 0.6);
-    --overlay-heavy: rgba(0, 0, 0, 0.75);
-    --overlay-ultra: rgba(0, 0, 0, 0.85);
-  }
+/* Light only. Without this a dark-set phone still renders native controls,
+   scrollbars and autofill backgrounds dark, against a page that is now
+   unconditionally light. Lives here rather than in @theme, which Tailwind
+   restricts to custom properties. */
+:root {
+  color-scheme: light;
 }
 
 /* Manual dark mode toggle support via data attribute */

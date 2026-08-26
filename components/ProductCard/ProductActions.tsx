@@ -189,7 +189,7 @@ const ProductActions = memo(function ProductActions({
 
   let buttonColorClasses: string
   if (!product.inStock) {
-    buttonColorClasses = 'bg-gray-300 text-gray-500 cursor-not-allowed'
+    buttonColorClasses = 'bg-[var(--color-border-secondary)] text-[var(--color-text-tertiary)] cursor-not-allowed'
   } else if (isAdding) {
     buttonColorClasses = 'bg-primary-600 text-white cursor-wait opacity-90'
   } else {

@@ -63,7 +63,7 @@ export default function ProductRoutineCard({ product, className = '' }: ProductR
         alt=""
         width={56}
         height={56}
-        className="h-14 w-14 rounded-xl border border-gray-200 bg-white object-cover shadow-sm sm:h-16 sm:w-16"
+        className="h-14 w-14 rounded-xl border border-[var(--color-border-primary)] bg-white object-cover shadow-sm sm:h-16 sm:w-16"
       />
     )
     return (
@@ -87,10 +87,10 @@ export default function ProductRoutineCard({ product, className = '' }: ProductR
   }
 
   return (
-    <div className={`bg-white border border-gray-200 rounded-xl p-3 sm:p-4 md:p-6 shadow-md ${className}`.trim()}>
+    <div className={`bg-white border border-[var(--color-border-primary)] rounded-xl p-3 sm:p-4 md:p-6 shadow-md ${className}`.trim()}>
       <div className={`flex items-center gap-2 mb-3 md:mb-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
         <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 md:h-6 md:w-6 text-primary-600 flex-shrink-0" />
-        <h3 className="text-base sm:text-lg md:text-xl font-bold text-gray-900 leading-tight">
+        <h3 className="text-base sm:text-lg md:text-xl font-bold text-[var(--color-text-primary)] leading-tight">
           {t(`product.${routine.headingKey}`)}
         </h3>
       </div>
@@ -102,10 +102,10 @@ export default function ProductRoutineCard({ product, className = '' }: ProductR
           >
             <RoutineStepMarker n={idx + 1} titleKey={routineStep.titleKey} />
             <div className="flex-1 min-w-0">
-              <h4 className="font-semibold text-gray-900 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">
+              <h4 className="font-semibold text-[var(--color-text-primary)] text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1 leading-tight">
                 {routineTitle(routineStep.titleKey)}
               </h4>
-              <p className="text-gray-700 text-xs sm:text-sm leading-relaxed break-words">
+              <p className="text-[var(--color-text-secondary)] text-xs sm:text-sm leading-relaxed break-words">
                 {t(`product.${routineStep.descKey}`)}
               </p>
             </div>

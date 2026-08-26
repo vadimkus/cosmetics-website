@@ -339,11 +339,11 @@ export default function ProductOptionDialog({
           onPointerCancel={handleDragEnd}
           aria-hidden="true"
         >
-          <span className="h-1.5 w-10 rounded-full bg-gray-300" />
+          <span className="h-1.5 w-10 rounded-full bg-[var(--color-border-secondary)]" />
         </div>
 
-        <div className="flex items-start gap-3 border-b border-gray-100 px-4 pb-4 md:px-6 md:pt-6">
-          <div className="relative h-[76px] w-[76px] shrink-0 overflow-hidden rounded-2xl border border-gray-100 bg-white">
+        <div className="flex items-start gap-3 border-b border-[var(--color-border-tertiary)] px-4 pb-4 md:px-6 md:pt-6">
+          <div className="relative h-[76px] w-[76px] shrink-0 overflow-hidden rounded-2xl border border-[var(--color-border-tertiary)] bg-white">
             <Image
               src={canonicalProduct.image || '/images/genosys-logo-transparent.png'}
               alt={localizedName}
@@ -361,14 +361,14 @@ export default function ProductOptionDialog({
             </p>
             <h2
               id="product-option-name"
-              className="line-clamp-3 text-sm font-semibold leading-5 text-gray-950"
+              className="line-clamp-3 text-sm font-semibold leading-5 text-[var(--color-text-primary)]"
             >
               {localizedName}
             </h2>
             {pricing.canSeePrice ? (
               <div className="mt-1.5 flex flex-wrap items-baseline gap-2">
                 {pricing.originalPrice ? (
-                  <span className="text-xs text-gray-400 line-through">
+                  <span className="text-xs text-[var(--color-text-quaternary)] line-through">
                     {formatAed(pricing.originalPrice)}
                   </span>
                 ) : null}
@@ -382,7 +382,7 @@ export default function ProductOptionDialog({
                 ) : null}
               </div>
             ) : (
-              <p className="mt-1.5 text-sm font-semibold text-gray-600">
+              <p className="mt-1.5 text-sm font-semibold text-[var(--color-text-secondary)]">
                 {t('product.priceLocked')}
               </p>
             )}
@@ -392,7 +392,7 @@ export default function ProductOptionDialog({
             type="button"
             onClick={close}
             disabled={isAdding}
-            className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition-colors hover:bg-gray-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-50"
+            className="inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded-full bg-[var(--color-bg-secondary)] text-[var(--color-text-secondary)] transition-colors hover:bg-[var(--color-border-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-50"
             aria-label={t('product.closeOptions')}
           >
             <X className="h-5 w-5" aria-hidden="true" />
@@ -434,7 +434,7 @@ export default function ProductOptionDialog({
 
           {model.sizes.length > 0 ? (
             <fieldset className="mb-6">
-              <legend className="mb-2.5 flex w-full items-center justify-between gap-3 text-sm font-bold text-gray-900">
+              <legend className="mb-2.5 flex w-full items-center justify-between gap-3 text-sm font-bold text-[var(--color-text-primary)]">
                 <span>{t('product.size')}</span>
                 {model.required.size && !selection.selectedSize ? (
                   <span className="text-[10px] font-bold uppercase tracking-wide text-primary-600">
@@ -459,8 +459,8 @@ export default function ProductOptionDialog({
                         selected
                           ? 'border-primary-600 bg-primary-50 text-primary-700'
                           : available
-                            ? 'border-gray-200 bg-white text-gray-800 hover:border-gray-400'
-                            : 'cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400 line-through'
+                            ? 'border-[var(--color-border-primary)] bg-white text-[var(--color-text-primary)] hover:border-[var(--color-border-strong)]'
+                            : 'cursor-not-allowed border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] text-[var(--color-text-quaternary)] line-through'
                       }`}
                     >
                       <span className="block">{option.label}</span>
@@ -478,7 +478,7 @@ export default function ProductOptionDialog({
 
           {model.colors.length > 0 ? (
             <fieldset className="mb-6">
-              <legend className="mb-2.5 flex w-full items-center justify-between gap-3 text-sm font-bold text-gray-900">
+              <legend className="mb-2.5 flex w-full items-center justify-between gap-3 text-sm font-bold text-[var(--color-text-primary)]">
                 <span>{t('product.color')}</span>
                 {model.required.color && !selection.selectedColor ? (
                   <span className="text-[10px] font-bold uppercase tracking-wide text-primary-600">
@@ -503,12 +503,12 @@ export default function ProductOptionDialog({
                         selected
                           ? 'border-primary-600 bg-primary-50 text-primary-700'
                           : available
-                            ? 'border-gray-200 bg-white text-gray-800 hover:border-gray-400'
-                            : 'cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400'
+                            ? 'border-[var(--color-border-primary)] bg-white text-[var(--color-text-primary)] hover:border-[var(--color-border-strong)]'
+                            : 'cursor-not-allowed border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] text-[var(--color-text-quaternary)]'
                       }`}
                     >
                       <span
-                        className="mx-auto mb-1.5 block h-6 w-6 rounded-full border border-gray-300 shadow-sm"
+                        className="mx-auto mb-1.5 block h-6 w-6 rounded-full border border-[var(--color-border-secondary)] shadow-sm"
                         style={{ backgroundColor: option.hex || '#F3F4F6' }}
                         aria-hidden="true"
                       />
@@ -526,21 +526,21 @@ export default function ProductOptionDialog({
           ) : null}
 
           <div>
-            <p className="mb-2.5 text-sm font-bold text-gray-900">
+            <p className="mb-2.5 text-sm font-bold text-[var(--color-text-primary)]">
               {t('product.quantity')}
             </p>
-            <div className="inline-flex items-center rounded-2xl border border-gray-200 bg-gray-100 p-1">
+            <div className="inline-flex items-center rounded-2xl border border-[var(--color-border-primary)] bg-[var(--color-bg-secondary)] p-1">
               <button
                 type="button"
                 onClick={() => setQuantity((current) => Math.max(1, current - 1))}
                 disabled={quantity <= 1 || isAdding}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-gray-900 shadow-sm disabled:bg-gray-50 disabled:text-gray-300"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-[var(--color-text-primary)] shadow-sm disabled:bg-[var(--color-bg-primary)] disabled:text-gray-300"
                 aria-label={t('product.decreaseQuantity')}
               >
                 <Minus className="h-5 w-5" aria-hidden="true" />
               </button>
               <span
-                className="min-w-12 text-center text-base font-semibold tabular-nums text-gray-900"
+                className="min-w-12 text-center text-base font-semibold tabular-nums text-[var(--color-text-primary)]"
                 aria-live="polite"
               >
                 {quantity}
@@ -551,7 +551,7 @@ export default function ProductOptionDialog({
                   setQuantity((current) => Math.min(MAX_LINE_QUANTITY, current + 1))
                 }
                 disabled={quantity >= MAX_LINE_QUANTITY || isAdding}
-                className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-gray-900 shadow-sm disabled:bg-gray-50 disabled:text-gray-300"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-white text-[var(--color-text-primary)] shadow-sm disabled:bg-[var(--color-bg-primary)] disabled:text-gray-300"
                 aria-label={t('product.increaseQuantity')}
               >
                 <Plus className="h-5 w-5" aria-hidden="true" />
@@ -560,12 +560,12 @@ export default function ProductOptionDialog({
           </div>
         </div>
 
-        <div className="flex gap-2.5 border-t border-gray-100 bg-white px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] md:px-6 md:pb-6">
+        <div className="flex gap-2.5 border-t border-[var(--color-border-tertiary)] bg-white px-4 pt-3 pb-[max(1rem,env(safe-area-inset-bottom))] md:px-6 md:pb-6">
           <button
             type="button"
             onClick={close}
             disabled={isAdding}
-            className="min-h-[52px] rounded-2xl bg-gray-100 px-5 text-sm font-bold text-gray-900 transition-colors hover:bg-gray-200 disabled:opacity-50"
+            className="min-h-[52px] rounded-2xl bg-[var(--color-bg-secondary)] px-5 text-sm font-bold text-[var(--color-text-primary)] transition-colors hover:bg-[var(--color-border-primary)] disabled:opacity-50"
           >
             {t('common.cancel')}
           </button>
@@ -573,7 +573,7 @@ export default function ProductOptionDialog({
             type="button"
             onClick={handleConfirm}
             disabled={!canConfirm}
-            className="inline-flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-2xl bg-primary-600 px-4 text-sm font-bold text-white shadow-lg shadow-primary-600/20 transition-colors hover:bg-primary-700 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:shadow-none"
+            className="inline-flex min-h-[52px] flex-1 items-center justify-center gap-2 rounded-2xl bg-primary-600 px-4 text-sm font-bold text-white shadow-lg shadow-primary-600/20 transition-colors hover:bg-primary-700 disabled:cursor-not-allowed disabled:bg-[var(--color-border-secondary)] disabled:shadow-none"
             aria-label={`${t('product.addToBag')} — ${localizedName}`}
           >
             {isAdding ? (

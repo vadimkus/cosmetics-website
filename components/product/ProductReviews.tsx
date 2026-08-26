@@ -43,26 +43,26 @@ const SKINS = {
   default: {
     wrapper: 'mt-12 border-t pt-6 md:pt-8',
     eyebrow: 'hidden',
-    heading: 'text-xl md:text-2xl font-bold text-gray-900',
-    bigScore: 'text-4xl font-bold text-gray-900',
-    panel: 'rounded-xl border border-gray-200 bg-gray-50 p-5 md:p-6',
-    card: 'border-b border-gray-200 pb-4 md:pb-6 last:border-b-0',
-    avatar: 'bg-gray-200 text-gray-700',
-    name: 'font-semibold text-gray-900',
-    meta: 'text-gray-500',
-    body: 'text-gray-700',
+    heading: 'text-xl md:text-2xl font-bold text-[var(--color-text-primary)]',
+    bigScore: 'text-4xl font-bold text-[var(--color-text-primary)]',
+    panel: 'rounded-xl border border-[var(--color-border-primary)] bg-[var(--color-bg-primary)] p-5 md:p-6',
+    card: 'border-b border-[var(--color-border-primary)] pb-4 md:pb-6 last:border-b-0',
+    avatar: 'bg-[var(--color-border-primary)] text-[var(--color-text-secondary)]',
+    name: 'font-semibold text-[var(--color-text-primary)]',
+    meta: 'text-[var(--color-text-tertiary)]',
+    body: 'text-[var(--color-text-secondary)]',
     star: 'text-yellow-400',
     starEmpty: 'text-gray-300',
     bar: 'bg-yellow-400',
-    barTrack: 'bg-gray-200',
+    barTrack: 'bg-[var(--color-border-primary)]',
     accent: 'text-primary-700',
-    iconBtn: 'text-gray-500 hover:text-primary-600',
-    divider: 'sm:border-gray-200',
+    iconBtn: 'text-[var(--color-text-tertiary)] hover:text-primary-600',
+    divider: 'sm:border-[var(--color-border-primary)]',
     cta: 'bg-primary-600 text-white hover:bg-primary-700',
-    ctaGhost: 'border border-gray-300 text-gray-700 hover:bg-gray-100',
-    input: 'rounded-md border border-gray-300 bg-white text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-primary-500',
-    formPanel: 'rounded-lg bg-gray-50 p-4 md:p-6',
-    skeleton: 'bg-gray-200',
+    ctaGhost: 'border border-[var(--color-border-secondary)] text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-secondary)]',
+    input: 'rounded-md border border-[var(--color-border-secondary)] bg-white text-[var(--color-text-primary)] placeholder:text-[var(--color-text-tertiary)] focus:ring-2 focus:ring-primary-500',
+    formPanel: 'rounded-lg bg-[var(--color-bg-primary)] p-4 md:p-6',
+    skeleton: 'bg-[var(--color-border-primary)]',
   },
   editorial: {
     // No top rule or margin: the bespoke pages already wrap this in a padded
@@ -515,7 +515,7 @@ export default function ProductReviews({ productId, variant = 'default' }: Produ
           >
             <PenLine className="h-5 w-5" />
           </span>
-          <p className={`mt-4 ${editorial ? 'cera-serif text-[22px] sm:text-[26px]' : 'font-semibold text-gray-900'}`}>
+          <p className={`mt-4 ${editorial ? 'cera-serif text-[22px] sm:text-[26px]' : 'font-semibold text-[var(--color-text-primary)]'}`}>
             {t('product.noReviewsYet')}
           </p>
           <p className={`mx-auto mt-2 max-w-[42ch] text-sm ${s.meta}`}>{t('product.beFirstToReview')}</p>
@@ -555,7 +555,7 @@ export default function ProductReviews({ productId, variant = 'default' }: Produ
                         <span className={`text-xs ${s.meta}`}>{formatDate(review.createdAt)}</span>
                       </div>
                       {review.title ? (
-                        <h4 className={`mt-1.5 ${editorial ? 'cera-serif text-[18px]' : 'font-medium text-gray-900'}`}>
+                        <h4 className={`mt-1.5 ${editorial ? 'cera-serif text-[18px]' : 'font-medium text-[var(--color-text-primary)]'}`}>
                           {review.title}
                         </h4>
                       ) : null}

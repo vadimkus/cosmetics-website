@@ -760,7 +760,7 @@ export const products: Product[] = [
     name: 'SKIN REBOOT PDRN MASK PACK',
     price: 400,
     description: 'Professional PDRN mask pack with salmon DNA technology for skin regeneration and repair. Ultra-slim fit sheets with 30 masks per container.',
-    image: '/images/pdrn_mask/main.jpeg',
+    image: '/images/pdrn_mask_new/Main.jpeg',
     images: null,
     category: 'Mask',
     inStock: true,

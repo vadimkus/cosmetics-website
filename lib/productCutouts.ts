@@ -123,7 +123,7 @@ const CUTOUTS: Record<string, string> = {
   // 51 BIO-FERMENT AGE DEFYING POWDER MASK
   '/images/bio_ferment2/main.jpeg': '/images/cutout/51.webp',
   // 52 SKIN REBOOT PDRN MASK PACK
-  '/images/Second/pdrnnn.jpg': '/images/cutout/52.webp',
+  '/images/pdrn_mask_new/Main.jpeg': '/images/cutout/52.webp',
   // 53 INTENSIVE REPAIR COLLAGEN MASK
   '/images/collagen_mask/Main.jpeg': '/images/cutout/53.webp',
   // 54 Holiday Kit

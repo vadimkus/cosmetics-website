@@ -839,7 +839,7 @@ export default function HydroSoothingProductPage({ product, unitsSold = 0, routi
               <p className="truncate text-[11px] text-[var(--cera-muted)]">{product.size}</p>
             </div>
           </div>
-          <div className="w-full min-w-0 md:w-auto md:flex-none">
+          <div className="flex min-w-0 flex-1 items-end justify-between gap-3 md:w-auto md:flex-none md:justify-start">
             {canSeePrices ? (
               <div>
                 {(inCartQty || quantity) > 1 ? (
@@ -867,6 +867,8 @@ export default function HydroSoothingProductPage({ product, unitsSold = 0, routi
               label={t('product.quantity')}
             />
           ) : null}
+
+          <div aria-hidden="true" className="w-full md:hidden" />
 
           {inCartQty > 0 && product.inStock && user ? (
             <div className="flex h-12 flex-1 items-center justify-between rounded-full bg-emerald-600 px-1.5 text-white md:w-[280px] md:flex-none">

@@ -945,7 +945,7 @@ export default function EyeKitProductPage({
               </p>
             </div>
           </div>
-          <div className="w-full min-w-0 md:w-auto md:flex-none">
+          <div className="flex min-w-0 flex-1 items-end justify-between gap-3 md:w-auto md:flex-none md:justify-start">
             {canSeePrices ? (
               <div>
                 {(inCartQty || quantity) > 1 ? (
@@ -962,7 +962,7 @@ export default function EyeKitProductPage({
                 </p>
               </div>
             ) : null}
-            <p className="mt-1 text-[11px] text-[var(--cera-muted)] md:hidden">{copy.kitSize}</p>
+            <p className="min-w-0 max-w-[52%] shrink truncate text-[11px] text-[var(--cera-muted)] md:hidden">{copy.kitSize}</p>
           </div>
 
           {inCartQty === 0 && product.inStock && user ? (
@@ -974,6 +974,8 @@ export default function EyeKitProductPage({
               label={t('product.quantity')}
             />
           ) : null}
+
+          <div aria-hidden="true" className="w-full md:hidden" />
 
           {inCartQty > 0 && product.inStock && user ? (
             <div className="flex h-12 flex-1 items-center justify-between rounded-full bg-emerald-600 px-1.5 text-white md:w-[280px] md:flex-none">

@@ -71,8 +71,8 @@ export const metadata: Metadata = {
   },
 }
 
-async function getBlogPosts(): Promise<BlogPostListItem[]> {
-  try {
+async function fetchPublishedPosts(): Promise<BlogPostListItem[]> {
+  {
     // First check if Russian columns exist
     let hasRussianColumns = false
     try {
@@ -144,9 +144,22 @@ async function getBlogPosts(): Promise<BlogPostListItem[]> {
         excerptRu: null,
       }))
     }
+  }
+}
+
+// Retried rather than swallowed. A single failure used to return [], which a
+// reader cannot tell apart from having published nothing.
+async function getBlogPosts(): Promise<BlogPostListItem[]> {
+  try {
+    return await fetchPublishedPosts()
   } catch (error) {
-    errorLog('Error fetching blog posts:', error)
-    return []
+    errorLog('Blog fetch failed, retrying once:', error)
+    try {
+      return await fetchPublishedPosts()
+    } catch (retryError) {
+      errorLog('Error fetching blog posts:', retryError)
+      return []
+    }
   }
 }
 

@@ -78,58 +78,44 @@ export const metadata: Metadata = {
   },
 }
 
+// Split so the query itself can be retried. The single catch that used to wrap
+// it turned any transient database error into an empty blog, which is
+// indistinguishable to a reader from having published nothing.
+const fetchPublishedPosts = (): Promise<BlogPostListItem[]> =>
+  prisma.blogPost.findMany({
+    where: {
+      published: true,
+    },
+    orderBy: {
+      publishedAt: 'desc',
+    },
+    take: 20,
+    select: {
+      id: true,
+      title: true,
+      titleAr: true,
+      slug: true,
+      excerpt: true,
+      excerptAr: true,
+      featuredImage: true,
+      authorName: true,
+      publishedAt: true,
+      views: true,
+      createdAt: true,
+    },
+  })
+
 async function getBlogPosts(): Promise<BlogPostListItem[]> {
   try {
-    // Type-safe Prisma query with fallback for type checking
-    type PrismaClientWithBlogPost = typeof prisma & {
-      blogPost?: {
-        findMany: (args: {
-          where: { published: boolean }
-          orderBy: { publishedAt: 'desc' }
-          take: number
-          select: {
-            id: true
-            title: true
-            titleAr: true
-            slug: true
-            excerpt: true
-            excerptAr: true
-            featuredImage: true
-            authorName: true
-            publishedAt: true
-            views: true
-            createdAt: true
-          }
-        }) => Promise<BlogPostListItem[]>
-      }
-    }
-    const typedPrisma = prisma as PrismaClientWithBlogPost
-    const posts = await typedPrisma.blogPost?.findMany({
-      where: {
-        published: true,
-      },
-      orderBy: {
-        publishedAt: 'desc',
-      },
-      take: 20,
-      select: {
-        id: true,
-        title: true,
-        titleAr: true,
-        slug: true,
-        excerpt: true,
-        excerptAr: true,
-        featuredImage: true,
-        authorName: true,
-        publishedAt: true,
-        views: true,
-        createdAt: true,
-      },
-    }) || []
-    return posts
+    return await fetchPublishedPosts()
   } catch (error) {
-    errorLog('Error fetching blog posts:', error)
-    return []
+    errorLog('Blog fetch failed, retrying once:', error)
+    try {
+      return await fetchPublishedPosts()
+    } catch (retryError) {
+      errorLog('Error fetching blog posts:', retryError)
+      return []
+    }
   }
 }
 

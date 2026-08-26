@@ -102,13 +102,17 @@ interface Props {
   routineProducts?: Product[]
 }
 
-/** The two shots used inline. Both verified at full resolution: four of the
- *  seven images this product had on file are AI renders with mangled pack text,
- *  two of them spelling "PDRN" as "PORN". Nothing under /images/pdrn_mask/ and
- *  nothing named pdrn_big2 goes on this page. See the image note in
- *  pdrnMaskCopy.ts before adding anything. */
-const LICENCE_IMAGE = '/images/PDRN.png'
-const SHEET_IMAGE = '/images/Second/pdrn22.jpg'
+/** The two shots used inline, taken from the 2026 campaign set so the page and
+ *  the gallery tell one story. These are finished compositions on their own
+ *  near-white ground rather than packshots on pure white, so they are covered
+ *  full-bleed and carry .pdrnmask-slide to opt out of the multiply rule; see
+ *  the note above it in pdrnmask.css.
+ *
+ *  Nothing from the older set goes back on this page: four of the seven images
+ *  this product had on file are AI renders with mangled pack text, two of them
+ *  spelling "PDRN" as "PORN". See the image note in pdrnMaskCopy.ts. */
+const LICENCE_IMAGE = '/images/pdrn_mask_new/S3.jpeg'
+const SHEET_IMAGE = '/images/pdrn_mask_new/S5.jpeg'
 
 /** Bars are drawn as a share of the highest reading in the study, so the chart
  *  is the data rather than an illustration of it. */
@@ -608,20 +612,17 @@ export default function PdrnMaskProductPage({
             </div>
           </div>
 
-          {/* Contained on the tint rather than cropped inside a white card. All
-              three surviving shots are on pure white, which the multiply rule in
-              pdrnmask.css turns into the tint, so the pack sits on the page with
-              no inner edge. Cropping is not an option here either: this is the
-              two-tub shot and both packs carry the claim text. */}
+          {/* Full-bleed: the slide is composed square with its own margins, so
+              padding it inside the stage would frame an already-framed image. */}
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
-            <div className="cera-stage relative aspect-[4/3] overflow-hidden rounded-[28px]">
+            <div className="cera-stage pdrnmask-slide relative aspect-square overflow-hidden rounded-[28px]">
               <Image
                 src={LICENCE_IMAGE}
                 alt={copy.licence.figureAlt}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
                 quality={90}
-                className="object-contain p-6"
+                className="object-cover"
               />
             </div>
           </CeraReveal>
@@ -708,14 +709,14 @@ export default function PdrnMaskProductPage({
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1fr)] lg:gap-16">
           <CeraReveal className="lg:sticky lg:top-24 lg:self-start">
-            <div className="cera-stage relative aspect-square overflow-hidden rounded-[28px]">
+            <div className="cera-stage pdrnmask-slide relative aspect-square overflow-hidden rounded-[28px]">
               <Image
                 src={SHEET_IMAGE}
                 alt={copy.sheet.figureAlt}
                 fill
                 sizes="(max-width: 1024px) 92vw, 44vw"
                 quality={90}
-                className="object-contain p-4"
+                className="object-cover"
               />
             </div>
           </CeraReveal>

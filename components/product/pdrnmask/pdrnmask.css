@@ -62,6 +62,19 @@
   mix-blend-mode: multiply;
 }
 
+/* The campaign slides are the exception. They are finished square compositions
+   laid on their own near-white ground, measured at rgb(246-251) rather than
+   #ffffff, so multiplying them would pull the whole slide toward the clay and
+   dim its type. They also bleed photography to the edge, so there is no white
+   surround to dissolve in the first place: they fill the stage instead. */
+.pdrnmask-page .pdrnmask-slide {
+  background-color: transparent;
+}
+
+.pdrnmask-page .pdrnmask-slide img {
+  mix-blend-mode: normal;
+}
+
 @media (hover: hover) {
   .pdrnmask-page .cera-card-hover:hover {
     box-shadow: 0 2px 4px rgba(26, 20, 18, 0.04), 0 26px 48px -26px rgba(124, 79, 62, 0.3);

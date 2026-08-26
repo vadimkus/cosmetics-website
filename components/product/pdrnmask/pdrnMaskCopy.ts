@@ -134,14 +134,21 @@
  * photograph at thumbnail size. It is only legible as a render when opened at
  * 2000px. Check every candidate at full resolution, not at gallery size.
  *
- * The three that pass, all verified at full resolution:
+ * Superseded in Aug 2026 by the campaign set under /images/pdrn_mask_new/: a
+ * clean packshot hero plus eight slides, shot rather than rendered, so the
+ * render problem above does not apply to them. The gallery runs all eight and
+ * the page uses two inline, S3 for the licence and S5 for the sheet.
  *
- *   Second/pdrnnn.jpg   main. Single tub straight on, 2000px, every line right
+ * Those slides are NOT on pure white. They sit on their own near-white ground
+ * and bleed photography to the edge, so they opt out of the multiply rule via
+ * .pdrnmask-slide and fill their stage instead of being contained on the tint.
+ *
+ * The older shots that pass, kept on disk and still used off this page:
+ *
+ *   Second/pdrnnn.jpg   single tub straight on, 2000px, every line right
  *   PDRN.png            two tubs at an angle, 998px, every line right
+ *                       (still the training-catalogue thumbnail)
  *   Second/pdrn22.jpg   the sheet in the hands, no pack text on it at all
- *
- * All three are on pure white, which is what lets the multiply rule in
- * pdrnmask.css drop the white surround into the page tint.
  */
 
 export type PdrnMaskLocale = 'en' | 'ar' | 'ru'
@@ -323,7 +330,7 @@ const EN: PdrnMaskCopy = {
           'Anyone can print "anti-ageing" on a carton. A functional registration is granted by a regulator against a submitted formula, and it can be checked. Ours is Korea Cosmetic Association certificate 2025-12072, issued for export to the UAE.',
       },
     ],
-    figureAlt: 'SKIN REBOOT PDRN MASK PACK tub, showing the pack claims and the 350 g / 30 sheet count',
+    figureAlt: 'Two claims licensed in Korea: 2% niacinamide for brightening and 0.04% adenosine for wrinkle improvement',
   },
   proof: {
     eyebrow: 'The study',
@@ -359,7 +366,7 @@ const EN: PdrnMaskCopy = {
         body: 'Close to invisible on the skin and light enough to forget you are wearing it. The essence is watery rather than tacky, so nothing runs.',
       },
     ],
-    figureAlt: 'The ultra-thin lyocell sheet being smoothed between the hands, showing its translucency',
+    figureAlt: 'The ultra-thin lyocell sheet lifted away from the face, translucent enough to read through',
   },
   howTo: {
     eyebrow: 'How to use',
@@ -545,7 +552,7 @@ const AR: PdrnMaskCopy = {
           'بإمكان أي أحد أن يطبع «مضاد للشيخوخة» على عبوة. أما التسجيل الوظيفي فتمنحه جهة تنظيمية مقابل تركيبة مقدَّمة، ويمكن التحقق منه. تسجيلنا هو شهادة جمعية مستحضرات التجميل الكورية رقم 2025-12072، الصادرة للتصدير إلى الإمارات.',
       },
     ],
-    figureAlt: 'علبة SKIN REBOOT PDRN MASK PACK، وعليها بيانات العبوة و350 غ / 30 قناعاً',
+    figureAlt: 'وظيفتان مرخّصتان في كوريا: نياسيناميد 2% للتفتيح وأدينوزين 0.04% لتحسين مظهر التجاعيد',
   },
   proof: {
     eyebrow: 'الدراسة',
@@ -581,7 +588,7 @@ const AR: PdrnMaskCopy = {
         body: 'يكاد يكون غير مرئي على البشرة وخفيف إلى حد نسيان وجوده. والإسنس مائي لا لزج، فلا شيء يسيل.',
       },
     ],
-    figureAlt: 'قماش الليوسيل فائق الرقة بين اليدين، ويظهر مدى شفافيته',
+    figureAlt: 'قماش الليوسيل فائق الرقة مرفوعاً عن الوجه، شفاف إلى حدّ يمكن القراءة من خلاله',
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',
@@ -766,7 +773,7 @@ const RU: PdrnMaskCopy = {
           'Написать «антивозрастной» на упаковке может кто угодно. Функциональную регистрацию выдаёт регулятор под поданный состав, и её можно проверить. Наша это сертификат Корейской косметической ассоциации 2025-12072, выданный на экспорт в ОАЭ.',
       },
     ],
-    figureAlt: 'Банка SKIN REBOOT PDRN MASK PACK с заявлениями на упаковке и объёмом 350 г / 30 масок',
+    figureAlt: 'Два заявления, лицензированные в Корее: ниацинамид 2% для осветления и аденозин 0,04% для коррекции морщин',
   },
   proof: {
     eyebrow: 'Исследование',
@@ -802,7 +809,7 @@ const RU: PdrnMaskCopy = {
         body: 'Почти незаметно на коже и достаточно лёгкое, чтобы о нём забыть. Эссенция водянистая, а не липкая, поэтому ничего не течёт.',
       },
     ],
-    figureAlt: 'Ультратонкое лиоцелловое полотно между ладонями, видна его прозрачность',
+    figureAlt: 'Ультратонкое лиоцелловое полотно, снятое с лица, — настолько прозрачное, что сквозь него можно читать',
   },
   howTo: {
     eyebrow: 'Как использовать',
@@ -966,7 +973,7 @@ Object.assign(AR, {
         body: 'الادعاءان يخصان مظهر البشرة. لا نقدّم القناع كعلاج ولا ننسب إليه تجديد الخلايا أو إصلاح الأنسجة.',
       },
     ],
-    figureAlt: 'عبوتان من SKIN REBOOT PDRN MASK PACK بحجم 350 غ و30 قناعاً',
+    figureAlt: 'وظيفتان مرخّصتان في كوريا: نياسيناميد 2% للتفتيح وأدينوزين 0.04% لتحسين مظهر التجاعيد',
   },
   proof: {
     eyebrow: 'قياس TEWL',
@@ -993,7 +1000,7 @@ Object.assign(AR, {
       { title: 'مظهر شفاف', body: 'القماش الرقيق يبدو شبه شفاف عند وضعه على البشرة.' },
       { title: 'ملامسة متقاربة', body: 'نعّمي القناع من الوسط إلى الأطراف للحصول على ملامسة متساوية قدر الإمكان.' },
     ],
-    figureAlt: 'قناع الليوسيل الرقيق ممسوكاً بين اليدين',
+    figureAlt: 'قماش الليوسيل فائق الرقة مرفوعاً عن الوجه، شفاف إلى حدّ يمكن القراءة من خلاله',
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',
@@ -1130,7 +1137,7 @@ Object.assign(RU, {
         body: 'Эти заявления относятся к внешнему виду кожи. Маска не заявляется как средство для регенерации клеток или восстановления тканей.',
       },
     ],
-    figureAlt: 'Две банки SKIN REBOOT PDRN MASK PACK объёмом 350 г на 30 масок',
+    figureAlt: 'Два заявления, лицензированные в Корее: ниацинамид 2% для осветления и аденозин 0,04% для коррекции морщин',
   },
   proof: {
     eyebrow: 'Измерение TEWL',
@@ -1157,7 +1164,7 @@ Object.assign(RU, {
       { title: 'Прозрачный финиш', body: 'Тонкое полотно становится почти прозрачным на коже.' },
       { title: 'Плотный контакт', body: 'Разглаживайте маску от центра к краям, чтобы она легла максимально ровно.' },
     ],
-    figureAlt: 'Тонкое лиоцелловое полотно маски между ладонями',
+    figureAlt: 'Ультратонкое лиоцелловое полотно, снятое с лица, — настолько прозрачное, что сквозь него можно читать',
   },
   howTo: {
     eyebrow: 'Как использовать',

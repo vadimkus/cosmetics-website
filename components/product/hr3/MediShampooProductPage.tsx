@@ -78,6 +78,7 @@ import {
   CeraBarcodeRows,
   CeraReveal,
   CeraSectionHeader,
+  CeraStickyQuantity,
   useCeraStickyBar,
 } from '../cerabarrier/CeraPrimitives'
 import { COMPANION_PRODUCT_IDS, getMediShampooCopy } from './mediShampooCopy'
@@ -756,7 +757,7 @@ export default function MediShampooProductPage({ product, unitsSold = 0, routine
         aria-hidden={!showStickyBar}
         inert={!showStickyBar}
       >
-        <div className="mx-auto flex max-w-[1200px] items-center gap-3 px-4 pt-3 sm:gap-4 sm:px-6">
+        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center gap-x-3 gap-y-1.5 px-4 pt-3 sm:gap-x-4 sm:px-6 md:flex-nowrap">
           <div className="hidden min-w-0 flex-1 items-center gap-3 md:flex">
             <div className="relative h-11 w-11 flex-none overflow-hidden rounded-xl border border-[var(--cera-line)] bg-white">
               <Image src={product.image} alt="" fill sizes="44px" className="object-contain p-1" />
@@ -766,14 +767,34 @@ export default function MediShampooProductPage({ product, unitsSold = 0, routine
               <p className="truncate text-[11px] text-[var(--cera-muted)]">{product.size}</p>
             </div>
           </div>
-          <div className="min-w-0 flex-none">
+          <div className="w-full min-w-0 md:w-auto md:flex-none">
             {canSeePrices ? (
-              <p className="cera-serif cera-numeral text-[20px] text-[var(--cera-ink)]">
-                {pricing.displayPrice.toFixed(2)}
-                <span className="ms-1 text-[12px] text-[var(--cera-muted)]">{isRtl ? 'درهم' : 'AED'}</span>
-              </p>
+              <div>
+                {(inCartQty || quantity) > 1 ? (
+                  <p className="text-[11px] leading-none text-[var(--cera-muted)]">
+                    {t('product.pricePerUnit', {
+                      count: inCartQty || quantity,
+                      price: pricing.displayPrice.toFixed(2),
+                    })}
+                  </p>
+                ) : null}
+                <p className="cera-serif cera-numeral text-[20px] text-[var(--cera-ink)]">
+                  {(pricing.displayPrice * Math.max(1, inCartQty || quantity)).toFixed(2)}
+                  <span className="ms-1 text-[12px] text-[var(--cera-muted)]">{isRtl ? 'درهم' : 'AED'}</span>
+                </p>
+              </div>
             ) : null}
           </div>
+
+          {inCartQty === 0 && product.inStock && user ? (
+            <CeraStickyQuantity
+              value={quantity}
+              onChange={setQuantity}
+              decreaseLabel={t('product.decreaseQuantity')}
+              increaseLabel={t('product.increaseQuantity')}
+              label={t('product.quantity')}
+            />
+          ) : null}
 
           {inCartQty > 0 && product.inStock && user ? (
             <div className="flex h-12 flex-1 items-center justify-between rounded-full bg-emerald-600 px-1.5 text-white md:w-[280px] md:flex-none">

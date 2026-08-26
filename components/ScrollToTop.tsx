@@ -24,12 +24,18 @@ import { prefersReducedMotion } from '@/hooks/useReducedMotion'
  * On mobile, the vertical offset comes from --mobile-nav-height so it tracks the tab bar
  * rather than restating its height as a second magic number. Desktop has no bottom nav, so
  * the control uses the same 24px edge spacing as the chat widget.
+ *
+ * Product pages add a second floating bar of their own, and its height is not fixed — it
+ * grew when the buy controls gained a quantity stepper. Rather than encode that height here
+ * as a third magic number that would go stale the next time the bar changes, the control
+ * measures whatever floating bar is currently on screen and sits above it.
  */
 export default function ScrollToTop() {
   const { isPWA, isClient } = usePWAMode()
   const { t, dir } = useTranslation()
   const isRTL = dir === 'rtl'
   const [visible, setVisible] = useState(false)
+  const [barHeight, setBarHeight] = useState(0)
 
   useEffect(() => {
     // A viewport-relative threshold rather than a fixed pixel count: on a short phone
@@ -37,6 +43,17 @@ export default function ScrollToTop() {
     // control only turns up once scrolling back by hand has actually become a chore.
     const onScroll = () => {
       setVisible(window.scrollY > window.innerHeight * 1.5)
+
+      // The bar stays mounted and slides out of view, so presence in the DOM is not
+      // the question — how much of it is actually on screen is.
+      const bar = document.querySelector('.mweb-float-bottom')
+      if (!bar) {
+        setBarHeight(0)
+        return
+      }
+      const rect = bar.getBoundingClientRect()
+      const showing = Math.max(0, window.innerHeight - rect.top)
+      setBarHeight(Math.round(Math.min(showing, rect.height)))
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -67,6 +84,8 @@ export default function ScrollToTop() {
       } ${isRTL ? 'right-4 md:right-6' : 'left-4 md:left-6'}`}
       style={{
         WebkitTapHighlightColor: 'transparent',
+        // Only override the class-based offset while a floating bar is actually showing.
+        ...(barHeight > 0 ? { bottom: `${barHeight + 16}px` } : {}),
       }}
     >
       <ArrowUp className="h-[19px] w-[19px]" aria-hidden="true" />

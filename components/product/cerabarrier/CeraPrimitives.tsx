@@ -1,7 +1,7 @@
 'use client'
 
 import { ReactNode, useEffect, useId, useRef, useState } from 'react'
-import { Download, Plus } from 'lucide-react'
+import { Download, Minus, Plus } from 'lucide-react'
 import { getProductBarcodes } from '@/data/productBarcodes'
 import { getProductDocumentation } from '@/data/productConfig'
 import { useTranslation } from '@/hooks/useTranslation'
@@ -47,6 +47,65 @@ export function useCeraStickyBar() {
   }, [])
 
   return { heroCta, closingCta, showStickyBar }
+}
+
+/**
+ * Quantity stepper for the floating bar.
+ *
+ * The hero has one of these, but once the reader scrolls past it the floating
+ * bar was the only buy control left and it could only ever add one. Ordering six
+ * meant scrolling back up. The bar already showed a stepper *after* the first
+ * add, which is too late to be discoverable and does not let the price preview
+ * the real total.
+ *
+ * Deliberately shorter than the hero's 54px so the bar keeps its height, but the
+ * two tap targets stay 44px wide.
+ */
+export function CeraStickyQuantity({
+  value,
+  onChange,
+  decreaseLabel,
+  increaseLabel,
+  label,
+}: {
+  value: number
+  onChange: (next: number) => void
+  decreaseLabel: string
+  increaseLabel: string
+  label: string
+}) {
+  return (
+    <div
+      role="group"
+      aria-label={label}
+      className="flex h-12 flex-none items-center rounded-full border border-[var(--cera-line)] bg-white"
+    >
+      <button
+        type="button"
+        onClick={() => onChange(Math.max(1, value - 1))}
+        disabled={value <= 1}
+        className="flex h-12 w-11 items-center justify-center rounded-s-full text-[var(--cera-muted)] transition-colors disabled:opacity-35 hover:text-[var(--cera-ink)]"
+        aria-label={decreaseLabel}
+      >
+        <Minus className="h-4 w-4" />
+      </button>
+      <span
+        aria-live="polite"
+        className="w-7 text-center text-[15px] font-semibold tabular-nums text-[var(--cera-ink)]"
+      >
+        {value}
+      </span>
+      <button
+        type="button"
+        onClick={() => onChange(Math.min(99, value + 1))}
+        disabled={value >= 99}
+        className="flex h-12 w-11 items-center justify-center rounded-e-full text-[var(--cera-muted)] transition-colors disabled:opacity-35 hover:text-[var(--cera-ink)]"
+        aria-label={increaseLabel}
+      >
+        <Plus className="h-4 w-4" />
+      </button>
+    </div>
+  )
 }
 
 /** Fades + lifts children into view once, then stops observing. */

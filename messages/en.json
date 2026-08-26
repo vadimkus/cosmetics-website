@@ -1557,7 +1557,8 @@
     "pc9Benefit3Text": "Cleanse, open, apply, absorb. Keep it off the eyes. One 2 ml vial per treatment.",
     "pc9Benefit4Title": "Then a moisturiser:",
     "pc9Benefit4Text": "Or whatever your practitioner has set. An opened vial does not reseal.",
-    "addedToCart": "Added to cart"
+    "addedToCart": "Added to cart",
+    "pricePerUnit": "{count} × {price}"
   },
   "trustBadges": {
     "freeShipping": "Free Shipping",

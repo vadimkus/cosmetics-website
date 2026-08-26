@@ -94,14 +94,13 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Section art, each slide paired with the section it illustrates. S5b is the
- *  clean-not-greasy results slide, S4b the shake-and-wipe how-to. Leftover
- *  slide copy (peptides, waterproof, no sting) is queued for re-export; the
- *  editorial copy does not repeat it. The engine figure stays on the
- *  bottle packshot. */
-const EFFECTS_IMAGE = '/images/remover/S5b.jpg'
-const HOWTO_IMAGE = '/images/remover/S4b.jpg'
-const ENGINE_IMAGE = '/images/remover/main4.jpeg'
+/** Section art, each slide paired with the section it illustrates. S2 is the
+ *  effective-removal slide that carries the non-greasy line, S6 the
+ *  shake-and-wipe how-to, and S3 the two-layer diagram that the engine
+ *  section describes in words. */
+const EFFECTS_IMAGE = '/images/defender_0/S2.jpeg'
+const HOWTO_IMAGE = '/images/defender_0/S6.jpeg'
+const ENGINE_IMAGE = '/images/defender_0/S3.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

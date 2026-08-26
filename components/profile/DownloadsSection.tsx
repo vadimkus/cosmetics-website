@@ -348,7 +348,7 @@ export default function DownloadsSection() {
               <div className="w-10 h-10 bg-[var(--cera-cream-deep)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0">
                 <Link href="/products/11">
                   <Image
-                    src="/images/remover/main4.jpeg"
+                    src="/images/defender_0/Main.jpeg"
                     alt="SKIN DEFENDER LIP & EYE MAKEUP REMOVER"
                     width={500}
                     height={300} 

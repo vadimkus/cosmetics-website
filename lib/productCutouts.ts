@@ -41,7 +41,7 @@ const CUTOUTS: Record<string, string> = {
   // 10 SNOW O₂ CLEANSER
   '/images/cleanser/main_clean.jpeg': '/images/cutout/10.webp',
   // 11 SKIN DEFENDER LIP & EYE MAKEUP REMOVER
-  '/images/remover/main4.jpeg': '/images/cutout/11.webp',
+  '/images/defender_0/Main.jpeg': '/images/cutout/11.webp',
   // 12 EPI TURNOVER BOOSTING PEELING GEL
   '/images/epi/main.jpeg': '/images/cutout/12.webp',
   // 13 SKIN RENEWAL PEELING SYSTEM (SRS)

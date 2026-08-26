@@ -26,7 +26,8 @@ Cr  Partners' Current Account     (Due to Vadim — owner-funded)
 | 00601 | 2026-05-20 | 14,208.30  |
 | 00613 | 2026-06-12 | 14,208.30  |
 | 00666 | 2026-07-28 | 14,208.30  |
-| **YTD through Jul 2026** | | **96,873.50** |
+| 00689 | 2026-08-26 | 14,208.30  |
+| **YTD through Aug 2026** | | **111,081.80** |
 
 - H1 2026 subtotal (Jan–Jun): **82,665.20**
 - Rent stepped up 12,916.00 → 14,208.30 from March 2026.
@@ -50,4 +51,5 @@ Cr  Partners' Current Account     (Due to Vadim — owner-funded)
 
 - [SESSION_CHANGES_2026-06-14_PARTNERS_CURRENT_ACCOUNT_RENT_H1.md](./SESSION_CHANGES_2026-06-14_PARTNERS_CURRENT_ACCOUNT_RENT_H1.md) — original H1 write-up
 - [SESSION_CHANGES_2026-07-28_CORDOBA_OFFICE_RENT.md](./SESSION_CHANGES_2026-07-28_CORDOBA_OFFICE_RENT.md) — July paymentout 00666
+- [SESSION_CHANGES_2026-08-26_CORDOBA_OFFICE_RENT.md](./SESSION_CHANGES_2026-08-26_CORDOBA_OFFICE_RENT.md) — August paymentout 00689
 - Script pattern: `scripts/moysklad-create-cordoba-office-rent-paymentout-*.js`

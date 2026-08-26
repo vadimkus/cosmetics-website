@@ -10,6 +10,13 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Sagatdinov Aug salary + bonus](./SESSION_CHANGES_2026-08-26_SAGATDINOV_AUG_PAY_TOTAL.md) | Live MS: salary **30,000** + bonus cash in Aug **44,949.80** = **74,949.80**. Includes July bonus **00671** / 7,600 paid 7 Aug. August-period bonus **37,349.80**. |
+| 🟡 **Important** | [Sales bonus 6,000 Sagatdinov](./SESSION_CHANGES_2026-08-26_SALES_BONUS_PAYMENTOUT_6000.md) | Paymentout **00690** / **6,000 AED** → Vadim Sagatdinov (expense Sales Bonus). |
+| 🟡 **Important** | [Cordoba rent August 00689](./SESSION_CHANGES_2026-08-26_CORDOBA_OFFICE_RENT.md) | Paymentout **00689** / **14,208.30 AED** → Cordoba. Same as July **00666**. No company bank. YTD rent due to owner **111,081.80**. |
+| 🟡 **Important** | [Madalina PS + SRS protocol](./SESSION_CHANGES_2026-08-26_MADALINA_PS_SRS_PROTOCOL.md) | Chair protocol for ToneTrendz. PDF `~/Desktop/orders/GENOSYS_Madalina_Power_Solutions_SRS_Protocol.pdf`. Carton method. Clinic box 290 / 405. Not printed. |
+| 🟡 **Important** | [Aniskina mist sales 01439 paid](./SESSION_CHANGES_2026-08-26_ANISKINA_MIST_SALES.md) | Report **01439** + paymentin **06128** / **400 AED**. Mist `00188` ×5 @80. Agr. **00025**. Demand **06744** still unpaid. PDF in `~/Desktop/orders/`. |
+| 🟡 **Important** | [Aqua Face 04978 paid](./SESSION_CHANGES_2026-08-26_AQUA_FACE_04978_PAY.md) | Paymentin **06127** / **445 AED** on SHIP **06743**. INV **04978** paid. SO **GENCardM2608266594** → **Доставлен**. |
+| 🟡 **Important** | [Bianco Cedre 5,495.85 received](./SESSION_CHANGES_2026-08-26_BIANCO_CEDRE_549585_PAYMENT.md) | RAK **000207887348**. Gross settlement **5,499 AED**: reports **00931 01055 01300 01301 01324 01335** (4,459) + INV **04780** / SHIP **06492** (1,040). Paymentin **06126** less bank fee paymentout **00687** / 3.15 = exact net receipt **5,495.85**. |
 | 🟡 **Important** | [Aniskina mist replenish 06744](./SESSION_CHANGES_2026-08-26_ANISKINA_MIST_DEMAND.md) | Demand into agr. **00025** / **400 AED** clinic — Microbiome mist `00188` ×5. Stock note in `~/Desktop/orders/`. |
 | 🟡 **Important** | [Aqua Face PDRN masks 04978](./SESSION_CHANGES_2026-08-26_AQUA_FACE_PDRN_MASKS.md) | Unpaid clinic SO **GENCardM2608266594** / INV **04978** / SHIP **06743** / **445 AED**. PDRN mask ×2 @200 + delivery 45. PDF in `~/Desktop/orders/`. |
 | 🟡 **Important** | [CP World V14095 freight](./SESSION_CHANGES_2026-08-26_CP_WORLD_V14095_PAYMENTOUT.md) | Paymentout **00686** / **6,901.34 AED** → CP World. Invoice **V14095** / job AIGN-V00305 / DM GME 260810 AWB **176-2056-4025**. |

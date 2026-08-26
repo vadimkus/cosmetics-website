@@ -47,11 +47,12 @@ rather than discovered at year-end.
 | 00613 | 2026-06-12 | 14,208.30  |
 | **H1 subtotal** | | **82,665.20** |
 | 00666 | 2026-07-28 | 14,208.30  |
-| **YTD through Jul** | | **96,873.50** |
+| 00689 | 2026-08-26 | 14,208.30  |
+| **YTD through Aug** | | **111,081.80** |
 
 Rent stepped up from AED 12,916.00/mo to 14,208.30/mo in March 2026.
 
-July **00666** booked 28 Jul 2026 (same Cordoba / Office monthly rent pattern). See [SESSION_CHANGES_2026-07-28_CORDOBA_OFFICE_RENT.md](./SESSION_CHANGES_2026-07-28_CORDOBA_OFFICE_RENT.md).
+July **00666** booked 28 Jul 2026. August **00689** booked 26 Aug 2026. Same Cordoba / Office monthly rent pattern.
 
 ## Rules to keep books clean going forward
 
@@ -69,6 +70,7 @@ July **00666** booked 28 Jul 2026 (same Cordoba / Office monthly rent pattern). 
 
 - Rent reconciling item: **RESOLVED — explained, no statement to ingest, not an error.**
 - Partners' Current Account (rent, H1 2026): **AED 82,665.20 due to owner.**
-- Partners' Current Account (rent, YTD through Jul 2026): **AED 96,873.50 due to owner.**
-- July add: paymentout **00666** / 14,208.30 AED (schedule update 2026-07-28).
+- Partners' Current Account (rent, YTD through Aug 2026): **AED 111,081.80 due to owner.**
+- July add: paymentout **00666** / 14,208.30 AED.
+- August add: paymentout **00689** / 14,208.30 AED.
 - Original 14 Jun step: no MoySklad records changed (advisory + documentation only).

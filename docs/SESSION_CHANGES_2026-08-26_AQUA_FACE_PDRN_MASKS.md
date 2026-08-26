@@ -1,7 +1,7 @@
 # Aqua Face Facialbar — PDRN masks ×2 — 2026-08-26
 
 **Customer:** Aqua Face Facialbar Ltd `1404a0d3-3a3a-11f1-0a80-07a600082120`  
-**Clinic list.** Unpaid. SO → INV → SHIP (invoice-only demand). No paymentin. No print.
+**Clinic list.** Paid 26 Aug via paymentin **06127** on SHIP **06743**. SO now **Доставлен**. No print.
 
 | | |
 |---|---|

@@ -22,6 +22,10 @@ model User {
   billingAddress         String?   @db.Text
   vatNumber              String?   @db.Text
   expoPushToken          String?   @db.Text
+  // ActivityKit's app-wide push-to-start token. Not the Expo push token and not a device
+  // token: it is the only thing that can raise a Live Activity while the app is not
+  // running, and it goes to a topic of its own. See lib/apnsLiveActivity.ts.
+  liveActivityStartToken String?   @db.Text
   isAdmin                Boolean   @default(false)
   canSeePrices           Boolean   @default(true)
   discountType           String?
@@ -250,6 +254,10 @@ model Order {
   clinicPointsRedeemed     Float     @default(0) // Clinic Points spent by a partner on this order
   clinicPointsDiscountAmount Float   @default(0) // AED discount; 1 Clinic Point = AED 1
   deliveredAt              DateTime? // first transition to DELIVERED (drives review-request timing)
+  // The per-activity ActivityKit token for this order's Lock Screen card. Distinct from
+  // the user's push-to-start token: that one raises a card, this one updates the card it
+  // raised. Cleared when the card ends.
+  liveActivityToken        String?   @db.Text
   reviewRequestSentAt      DateTime? // post-delivery review-request email sent (idempotency)
   shipping                 Float     @default(0)
   vat                      Float

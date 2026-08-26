@@ -55,6 +55,7 @@ describe('useProfileState', () => {
     moySkladOrderId: null,
     moySkladSyncedAt: null,
     deliveredAt: null,
+    liveActivityToken: null,
     reviewRequestSentAt: null,
     createdAt: new Date(),
     updatedAt: new Date(),

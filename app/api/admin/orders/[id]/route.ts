@@ -10,6 +10,7 @@ import { requireCsrfToken } from '@/lib/csrf'
 import { isTwilioConfigured } from '@/lib/twilio'
 import { sendOrderStatusPushNotification, isValidExpoPushToken, OrderStatus, Locale } from '@/lib/expoPush'
 import { awardPointsForDeliveredOrder, reverseRedemptionForOrder } from '@/lib/loyalty'
+import { syncOrderLiveActivity } from '@/lib/orderLiveActivity'
 import { sendLoyaltyPointsEarnedEmail, sendLoyaltyTierUpgradeEmail } from '@/lib/email'
 import {
   awardClinicPointsForOrder,
@@ -247,6 +248,18 @@ export async function PUT(
         errorLog('❌ Exception sending WhatsApp notification:', whatsappError)
         // Don't fail the status update if WhatsApp fails
       }
+    }
+
+    // Move the Lock Screen card along with the order (non-blocking).
+    //
+    // Separate from the Expo push below and not a substitute for it: a Live Activity is
+    // addressed to an ActivityKit token on its own APNs topic, which Expo's service
+    // cannot carry. The notification tells the customer; the card shows them.
+    try {
+      await syncOrderLiveActivity({ orderId: id, status })
+    } catch (activityError) {
+      // A card that fails to move must never fail the status change itself.
+      errorLog('❌ Live Activity sync failed:', activityError)
     }
 
     // Send Expo Push Notification to mobile app (non-blocking)

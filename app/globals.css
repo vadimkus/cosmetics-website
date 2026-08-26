@@ -1412,19 +1412,26 @@ html[dir="rtl"] {
    the block below so the mobile web override wins on equal specificity. */
 .pdp-locale-bar {
   padding-top: max(env(safe-area-inset-top), 10px);
-  transition: transform 220ms ease;
+}
+
+/* Movement for any bar that steps aside on the way down and returns on the way
+   up. Timings are the app's, from CollapsibleHeader: leaving is quicker than
+   arriving, so getting out of the way feels immediate while coming back does
+   not snap. Easing is quad-out, the same curve. */
+.mweb-hide-on-scroll {
+  transition: transform 220ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
   will-change: transform;
 }
 
-/* Stepped aside on the way down, so the artwork underneath is never behind it.
-   On the top edge the bar's own height is the whole journey; floating, it has
-   its gap to clear as well, which the mobile web block below adds. */
-.pdp-locale-bar-hidden {
+/* On the top edge a bar's own height is the whole journey; floating, it has its
+   inset and the notch to clear as well, which the mobile web block below adds. */
+.mweb-hide-on-scroll[data-hidden='true'] {
+  transition-duration: 180ms;
   transform: translateY(-100%);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pdp-locale-bar {
+  .mweb-hide-on-scroll {
     transition: none;
   }
 }
@@ -1474,9 +1481,9 @@ html[dir="rtl"] {
     padding-top: 0.625rem;
   }
 
-  /* Floating, the bar has to clear its own inset and the notch above it as
-     well as its height, or it parks half on screen. */
-  .pdp-locale-bar-hidden {
+  /* Floating, a bar has to clear its own inset and the notch above it as well
+     as its height, or it parks half on screen. */
+  .mweb-hide-on-scroll[data-hidden='true'] {
     transform: translateY(
       calc(-100% - env(safe-area-inset-top, 0px) - var(--mweb-chrome-inset))
     );

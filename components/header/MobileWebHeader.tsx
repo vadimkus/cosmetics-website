@@ -12,6 +12,7 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { getLocalizedPath, switchLocaleHardNav, type Locale } from '@/lib/i18n'
 import { isSimpleHeaderPage } from '@/lib/simpleHeaderPages'
+import { useHideOnScroll } from '@/hooks/useHideOnScroll'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -41,6 +42,12 @@ export default function MobileWebHeader() {
   const [isNavigating, setIsNavigating] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const { isMobile } = useIsMobile()
+  // Steps aside on the way down and returns on the way up, the same rule the
+  // app applies on every scrolling screen. Held open while either menu is out,
+  // since both are anchored to this bar and would be left behind by it.
+  const { ref: headerRef, hidden: headerHidden } = useHideOnScroll<HTMLElement>({
+    enabled: !showMobileMenu && !showLangMenu,
+  })
   const lastClickTime = useRef(0)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const menuPanelRef = useRef<HTMLDivElement>(null)
@@ -199,7 +206,9 @@ export default function MobileWebHeader() {
           inside it. Deliberately no overflow-hidden: the language menu hangs off
           the bottom of this element and would be clipped by the radius. */}
       <header 
-        className="cera-page genosys-page mobile-web-header fixed z-50 md:hidden"
+        ref={headerRef}
+        data-hidden={headerHidden}
+        className="cera-page genosys-page mobile-web-header mweb-hide-on-scroll fixed z-50 md:hidden"
         style={{ 
           top: 'calc(env(safe-area-inset-top, 0px) + var(--mweb-chrome-inset))',
           left: 'var(--mweb-chrome-inset)',

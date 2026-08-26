@@ -83,7 +83,7 @@ function ChatLink({
       onClick={handleClick}
       target={isInternal ? undefined : '_blank'}
       rel={isInternal ? undefined : 'noopener noreferrer'}
-      className="text-red-600 dark:text-red-400 underline hover:text-red-700 dark:hover:text-red-300 font-medium cursor-pointer"
+      className="text-[var(--cera-rose-ink)] dark:text-[var(--cera-rose)] underline hover:text-[var(--cera-ink)] dark:hover:text-[var(--cera-blush)] font-medium cursor-pointer"
     >
       {children}
     </a>
@@ -184,7 +184,7 @@ function ChatProductCard({
         <a 
           href={productUrl}
           onClick={(e) => { e.preventDefault(); handleCardClick() }}
-          className="text-red-600 hover:text-red-700 underline"
+          className="text-[var(--cera-rose-ink)] hover:text-[var(--cera-ink)] underline"
         >
           {productName}
         </a>
@@ -217,13 +217,13 @@ function ChatProductCard({
           onClick={(e) => { e.preventDefault(); handleCardClick() }}
           className="block"
         >
-          <p className="text-xs font-medium text-[var(--cera-ink,#17140f)] dark:text-gray-200 line-clamp-2 hover:text-red-600 dark:hover:text-red-400 transition-colors leading-tight">
+          <p className="text-xs font-medium text-[var(--cera-ink,#17140f)] dark:text-gray-200 line-clamp-2 hover:text-[var(--cera-rose-ink)] dark:hover:text-[var(--cera-rose)] transition-colors leading-tight">
             {product.name}
           </p>
         </a>
         <div className="flex items-center justify-between mt-1 gap-2">
           <div>
-            <p className="text-xs font-bold text-red-600 dark:text-red-400">
+            <p className="text-xs font-bold text-[var(--cera-rose-ink)] dark:text-[var(--cera-rose)]">
               {text.aed} {product.price}
             </p>
             {product.size && (
@@ -238,7 +238,7 @@ function ChatProductCard({
               transition-all duration-200 whitespace-nowrap
               ${added 
                 ? 'bg-green-500 text-white' 
-                : 'bg-red-600 text-white hover:bg-red-700'
+                : 'bg-[var(--cera-ink)] text-white hover:bg-[var(--cera-body)]'
               }
             `}
           >
@@ -714,7 +714,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       dir={dir}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-red-600 to-red-500 text-white">
+      <div className="flex items-center justify-between px-4 py-3 bg-[var(--cera-ink)] text-white">
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5" />
           <span className="font-semibold text-sm">{chatTitle}</span>
@@ -745,8 +745,8 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
             {/* Welcome message */}
             {showWelcome && messages.length === 0 && (
               <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400" />
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--cera-blush)] dark:bg-gray-700 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-[var(--cera-rose-ink)] dark:text-[var(--cera-rose)]" />
                 </div>
                 <div className="flex-1 bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
                   <p className="text-sm text-[var(--cera-body,#3c3733)] dark:text-gray-200">{chatWelcome}</p>
@@ -878,16 +878,16 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                   <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
                     message.role === 'user' 
                       ? 'bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-600' 
-                      : 'bg-red-100 dark:bg-red-900'
+                      : 'bg-[var(--cera-blush)] dark:bg-gray-700'
                   }`}>
                     {message.role === 'user' 
                       ? <User className="w-4 h-4 text-[var(--cera-body,#3c3733)] dark:text-gray-300" />
-                      : <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400" />
+                      : <Sparkles className="w-4 h-4 text-[var(--cera-rose-ink)] dark:text-[var(--cera-rose)]" />
                     }
                   </div>
                   <div className={`flex-1 max-w-[80%] rounded-2xl px-4 py-3 shadow-sm ${
                     message.role === 'user'
-                      ? 'bg-red-600 text-white rounded-tr-none'
+                      ? 'bg-[var(--cera-ink)] text-white rounded-tr-none'
                       : 'bg-white dark:bg-gray-700 text-[var(--cera-body,#3c3733)] dark:text-gray-200 rounded-tl-none'
                   }`}>
                     <div className="text-sm whitespace-pre-wrap">
@@ -901,8 +901,8 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
             {/* Loading indicator */}
             {isLoading && (
               <div className={`flex gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-red-100 dark:bg-red-900 flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-red-600 dark:text-red-400" />
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-[var(--cera-blush)] dark:bg-gray-700 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-[var(--cera-rose-ink)] dark:text-[var(--cera-rose)]" />
                 </div>
                 <div className="bg-white dark:bg-gray-700 rounded-2xl rounded-tl-none px-4 py-3 shadow-sm">
                   <div className="flex items-center gap-2 text-sm text-[var(--cera-muted,#6a625d)] dark:text-gray-400">
@@ -939,7 +939,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                   border border-[var(--cera-line,#e9e1de)] dark:border-gray-700
                   text-sm text-[var(--cera-ink,#17140f)] dark:text-gray-100
                   placeholder-gray-500 dark:placeholder-gray-400
-                  focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent
+                  focus:outline-none focus:ring-2 focus:ring-[var(--cera-ink)] focus:border-transparent
                   disabled:opacity-50 disabled:cursor-not-allowed
                   ${isRTL ? 'text-right' : 'text-left'}
                 `}
@@ -950,7 +950,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                 disabled={isLoading || !inputValue.trim()}
                 className="
                   p-2.5 rounded-full
-                  bg-red-600 hover:bg-red-700
+                  bg-[var(--cera-ink)] hover:bg-[var(--cera-body)]
                   text-white
                   transition-colors
                   disabled:opacity-50 disabled:cursor-not-allowed
@@ -1005,8 +1005,8 @@ function QuickActionButton({
         hover:scale-105 active:scale-95
         flex items-center gap-1
         ${highlight 
-          ? 'bg-gradient-to-r from-red-500 to-red-600 text-white shadow-md hover:from-red-600 hover:to-red-700 border border-red-400'
-          : 'bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-600 text-[var(--cera-body,#3c3733)] dark:text-gray-200 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 dark:hover:text-red-400 border border-transparent hover:border-red-200 dark:hover:border-red-700'
+          ? 'bg-[var(--cera-ink)] text-white shadow-md hover:bg-[var(--cera-body)] border border-[var(--cera-ink)]'
+          : 'bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-600 text-[var(--cera-body,#3c3733)] dark:text-gray-200 hover:bg-[var(--cera-blush)] hover:text-[var(--cera-rose-ink)] dark:hover:bg-gray-700 dark:hover:text-[var(--cera-rose)] border border-transparent hover:border-[var(--cera-blush-deep)] dark:hover:border-gray-600'
         }
       `}
     >

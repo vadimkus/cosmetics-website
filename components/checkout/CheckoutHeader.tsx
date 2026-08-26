@@ -31,12 +31,12 @@ export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale
             className={`flex items-center gap-1 min-w-[80px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
             aria-label={t('common.bag') || 'Bag'}
           >
-            <ArrowLeft className={`w-5 h-5 text-red-600 ${dir === 'rtl' ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">{t('common.bag') || 'Bag'}</span>
+            <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${dir === 'rtl' ? 'rotate-180' : ''}`} />
+            <span className="text-[15px] text-[var(--cera-rose-ink)]">{t('common.bag') || 'Bag'}</span>
           </Link>
 
           {/* Page Title */}
-          <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
+          <h1 className="text-[17px] font-semibold text-[var(--cera-ink)] text-center flex-1 truncate px-2">
             {t('checkout.checkout')}
           </h1>
 
@@ -47,7 +47,7 @@ export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale
             aria-label="Profile"
           >
             <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-gray-400'}`}>
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>

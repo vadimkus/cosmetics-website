@@ -252,7 +252,7 @@ export function AddressEditorContent({
             {t.cancel}
           </button>
         </div>
-        <h1 className="text-base font-semibold text-[var(--cera-ink)]">{t.title}</h1>
+        <h1 className="text-[17px] font-semibold text-[var(--cera-ink)]">{t.title}</h1>
         <div className="min-w-[80px] flex justify-end">
           <button
             onClick={handleSave}

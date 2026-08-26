@@ -86,16 +86,16 @@ export default function PWAPageWrapper({
           aria-label={backLabel}
         >
           {isRTL ? (
-            <ArrowRight className="w-5 h-5 text-red-600" />
+            <ArrowRight className="w-5 h-5 text-[var(--cera-rose-ink)]" />
           ) : (
-            <ArrowLeft className="w-5 h-5 text-red-600" />
+            <ArrowLeft className="w-5 h-5 text-[var(--cera-rose-ink)]" />
           )}
-          <span className="text-base text-red-600">
+          <span className="text-[15px] text-[var(--cera-rose-ink)]">
             {backLabel}
           </span>
         </button>
         
-        <h1 className="text-base font-semibold text-gray-900 text-center flex-1 truncate px-2">
+        <h1 className="text-[17px] font-semibold text-[var(--cera-ink)] text-center flex-1 truncate px-2">
           {title}
         </h1>
         
@@ -106,7 +106,7 @@ export default function PWAPageWrapper({
           aria-label="Profile"
         >
           <div className="relative">
-            <div className="w-9 h-9 rounded-full bg-red-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-[var(--cera-ink)] flex items-center justify-center">
               <span className="text-sm font-semibold text-white">
                 {user?.name?.charAt(0)?.toUpperCase() || 'U'}
               </span>

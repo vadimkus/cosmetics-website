@@ -118,8 +118,8 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex min-w-[80px] items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose)] ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-[15px] text-[var(--cera-rose)]">
+            <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-[15px] text-[var(--cera-rose-ink)]">
               {fromProfile
                 ? locale === 'ar'
                   ? 'الحساب'

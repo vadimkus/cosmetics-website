@@ -267,7 +267,7 @@ export default function CartClient() {
         {isAppLikeMode && (
           <div className={`mweb-float-sticky-top sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className="min-w-[80px]" />
-            <h1 className="cera-serif flex-1 truncate px-2 text-center text-[17px]">
+            <h1 className="flex-1 truncate px-2 text-center text-[17px] font-semibold text-[var(--cera-ink)]">
               {t('pwaProfile.bag') || 'Bag'}
             </h1>
             <div className="min-w-[80px]" />
@@ -298,10 +298,10 @@ export default function CartClient() {
               className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
               aria-label={emptyBackLabel}
             >
-              <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose)] ${isRTL ? 'rotate-180' : ''}`} />
-              <span className="text-[15px] text-[var(--cera-rose)]">{emptyBackLabel}</span>
+              <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+              <span className="text-[15px] text-[var(--cera-rose-ink)]">{emptyBackLabel}</span>
             </button>
-            <h1 className="cera-serif flex-1 truncate px-2 text-center text-[17px]">
+            <h1 className="flex-1 truncate px-2 text-center text-[17px] font-semibold text-[var(--cera-ink)]">
               {t('pwaProfile.bag') || 'Bag'}
             </h1>
             {/* Profile Icon - green dot only when logged in */}
@@ -311,7 +311,7 @@ export default function CartClient() {
               aria-label="Profile"
             >
               <div className="relative">
-                <div className={`flex h-9 w-9 items-center justify-center rounded-full ${user ? 'bg-[var(--cera-rose)]' : 'bg-[var(--cera-muted)]'}`}>
+                <div className={`flex h-9 w-9 items-center justify-center rounded-full ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
                   <span className="text-sm font-semibold text-white">
                     {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                   </span>
@@ -477,10 +477,10 @@ export default function CartClient() {
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
             aria-label={backLabel}
           >
-            <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose)] ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-[15px] text-[var(--cera-rose)]">{backLabel}</span>
+            <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-[15px] text-[var(--cera-rose-ink)]">{backLabel}</span>
           </button>
-          <h1 className="cera-serif flex-1 truncate px-2 text-center text-[17px]">
+          <h1 className="flex-1 truncate px-2 text-center text-[17px] font-semibold text-[var(--cera-ink)]">
             {t('pwaProfile.bag') || 'Bag'}
           </h1>
           {/* Profile Icon - green dot only when logged in */}
@@ -490,7 +490,7 @@ export default function CartClient() {
             aria-label="Profile"
           >
             <div className="relative">
-              <div className={`flex h-9 w-9 items-center justify-center rounded-full ${user ? 'bg-[var(--cera-rose)]' : 'bg-[var(--cera-muted)]'}`}>
+              <div className={`flex h-9 w-9 items-center justify-center rounded-full ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>

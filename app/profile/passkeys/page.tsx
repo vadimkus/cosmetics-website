@@ -49,16 +49,16 @@ export default function PasskeysPage() {
             ) : (
               <ArrowLeft className="w-5 h-5 text-[var(--cera-rose-ink)]" />
             )}
-            <span className="text-base text-[var(--cera-rose-ink)]">{t('common.back') || 'Back'}</span>
+            <span className="text-[15px] text-[var(--cera-rose-ink)]">{t('common.back') || 'Back'}</span>
           </button>
 
-          <h1 className="text-base font-semibold text-[var(--cera-ink)]">
+          <h1 className="text-[17px] font-semibold text-[var(--cera-ink)]">
             {t('login.managePasskeys') || 'Passkeys'}
           </h1>
 
           <div className="min-w-[80px] flex justify-end">
             <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-[var(--cera-rose)] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-full bg-[var(--cera-ink)] flex items-center justify-center">
                 <span className="text-sm font-semibold text-white">
                   {userInitial.toUpperCase()}
                 </span>

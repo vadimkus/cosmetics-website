@@ -177,9 +177,9 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
             className={`flex items-center gap-1 min-w-[80px] px-1 py-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-[var(--cera-rose-ink)]">{translations.back}</span>
+            <span className="text-[15px] text-[var(--cera-rose-ink)]">{translations.back}</span>
           </button>
-          <h1 className="text-base font-semibold text-[var(--cera-ink)]">{translations.title}</h1>
+          <h1 className="text-[17px] font-semibold text-[var(--cera-ink)]">{translations.title}</h1>
           <div className="min-w-[80px]" />
         </div>
       )}
@@ -196,7 +196,7 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
               <div className="w-8 h-8 rounded-full bg-[var(--cera-blush)] border border-[var(--cera-blush-deep)] flex items-center justify-center">
                 <Building className="w-4 h-4 text-[var(--cera-rose-ink)]" />
               </div>
-              <label htmlFor="billingAddress" className={`text-base font-semibold text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>
+              <label htmlFor="billingAddress" className={`text-[17px] font-semibold text-[var(--cera-ink)] ${isRTL ? 'text-right' : ''}`}>
                 {translations.billingAddress}{' '}
                 <span className="text-[var(--cera-muted)] font-normal">{translations.optional}</span>
               </label>

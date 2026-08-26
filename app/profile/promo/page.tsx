@@ -189,9 +189,9 @@ export default function PromoPage() {
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-[var(--cera-rose-ink)]">{t.back}</span>
+            <span className="text-[15px] text-[var(--cera-rose-ink)]">{t.back}</span>
           </button>
-          <h1 className="text-base font-semibold text-[var(--cera-ink)]">{t.title}</h1>
+          <h1 className="text-[17px] font-semibold text-[var(--cera-ink)]">{t.title}</h1>
           <div className="min-w-[80px] flex justify-end">
             <button
               onClick={handleRefresh}

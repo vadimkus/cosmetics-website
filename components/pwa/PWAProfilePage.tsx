@@ -457,17 +457,17 @@ export default function PWAProfilePage() {
           <svg className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          <span className="text-base text-[var(--cera-rose-ink)]">
+          <span className="text-[15px] text-[var(--cera-rose-ink)]">
             {t('pwaProfile.home')}
           </span>
         </button>
-        <h1 className="text-base font-semibold text-[var(--cera-ink)]">
+        <h1 className="text-[17px] font-semibold text-[var(--cera-ink)]">
           {t('pwaProfile.account')}
         </h1>
         {/* Profile Icon with green dot */}
         <div className="min-w-[80px] flex justify-end">
           <div className="relative">
-            <div className="w-9 h-9 rounded-full bg-[var(--cera-rose)] flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-[var(--cera-ink)] flex items-center justify-center">
               <span className="text-sm font-semibold text-white">
                 {userInitial.toUpperCase()}
               </span>

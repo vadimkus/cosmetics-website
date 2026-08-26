@@ -322,7 +322,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             <svg className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            <span className="text-base text-[var(--cera-rose-ink)]">
+            <span className="text-[15px] text-[var(--cera-rose-ink)]">
               {t('navigation.products') || 'Products'}
             </span>
           </button>

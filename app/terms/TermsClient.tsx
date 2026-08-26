@@ -224,19 +224,21 @@ export default function TermsClient() {
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
           >
             <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-[var(--cera-rose-ink)]">{translations.back}</span>
+            <span className="text-[15px] text-[var(--cera-rose-ink)]">{translations.back}</span>
           </button>
-          <h1 className="text-base font-semibold text-[var(--cera-ink)]">{translations.title}</h1>
+          <h1 className="text-[17px] font-semibold text-[var(--cera-ink)]">{translations.title}</h1>
           <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
             aria-label="Profile"
           >
             <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-[var(--cera-ink)] flex items-center justify-center">
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
                 <span className="text-sm font-semibold text-white">{userInitial.toUpperCase()}</span>
               </div>
-              <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
+              {user && (
+                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
+              )}
             </div>
           </button>
         </div>

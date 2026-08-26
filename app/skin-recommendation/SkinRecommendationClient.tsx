@@ -670,12 +670,12 @@ export default function SkinRecommendationClient() {
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
             aria-label={t('common.home') || 'Home'}
           >
-            <ArrowLeft className={`w-5 h-5 text-red-600 ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-base text-red-600">
+            <ArrowLeft className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-[15px] text-[var(--cera-rose-ink)]">
               {t('common.home') || 'Home'}
             </span>
           </button>
-          <h1 className="cera-serif text-[17px] text-center flex-1 truncate px-2">
+          <h1 className="text-[17px] font-semibold text-[var(--cera-ink)] text-center flex-1 truncate px-2">
             {locale === 'ar' ? 'تحليل البشرة' : locale === 'ru' ? 'Анализ кожи' : 'Skin Analysis'}
           </h1>
           {/* Profile avatar — green dot only when logged in */}
@@ -685,7 +685,7 @@ export default function SkinRecommendationClient() {
             aria-label="Profile"
           >
             <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-red-600' : 'bg-[var(--cera-blush-deep)]'}`}>
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
                 <span className="text-sm font-semibold text-white">
                   {user?.name?.charAt(0)?.toUpperCase() || 'G'}
                 </span>

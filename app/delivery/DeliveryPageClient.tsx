@@ -61,8 +61,8 @@ export default function DeliveryPageClient() {
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex min-w-[80px] items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
           >
-            <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose)] ${isRTL ? 'rotate-180' : ''}`} />
-            <span className="text-[15px] text-[var(--cera-rose)]">
+            <ArrowLeft className={`h-5 w-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} />
+            <span className="text-[15px] text-[var(--cera-rose-ink)]">
               {fromProfile ? pick('Account', 'الحساب', 'Аккаунт') : pick('Products', 'المنتجات', 'Продукты')}
             </span>
           </button>
@@ -73,7 +73,7 @@ export default function DeliveryPageClient() {
             aria-label="Profile"
           >
             <div className="relative">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-rose)]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-ink)]">
                 <span className="text-sm font-semibold text-white">{user?.name?.charAt(0)?.toUpperCase() || 'G'}</span>
               </div>
               {user && (

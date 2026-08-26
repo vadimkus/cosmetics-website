@@ -449,7 +449,7 @@ export default function PWAProfilePage() {
     <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
       {/* Unified nav header (matches all profile sub-pages):
           sticky + border-b, px-5 py-4, text-base title, red back without bold */}
-      <div className={`sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-[var(--cera-line)] flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div className={`mweb-float-sticky-top sticky top-0 z-30 bg-white/95 backdrop-blur border-b border-[var(--cera-line)] flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button 
           onClick={() => router.push(getLocalizedPath('/products', locale))}
           className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}

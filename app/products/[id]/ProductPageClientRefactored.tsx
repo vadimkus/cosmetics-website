@@ -310,9 +310,11 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
 
   return (
     <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] pb-24 md:pb-0`} dir={dir}>
-      {/* PWA / Mobile Web Simple Navigation Header */}
+      {/* PWA / Mobile Web Simple Navigation Header.
+          mweb-float-sticky-top is what makes this stick and float, and only on
+          mobile web. In the PWA the bar stays static in flow as before. */}
       {isAppLikeMode && (
-        <div className={`flex items-center justify-between px-5 py-4 bg-white border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`mweb-float-sticky-top z-40 flex items-center justify-between px-5 py-4 bg-white border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button 
             onClick={() => router.push(getLocalizedPath('/products', locale))}
             className={`flex items-center gap-1 ${isRTL ? 'flex-row-reverse' : ''}`}
@@ -1546,10 +1548,9 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
 
       {/* Sticky Mobile Footer - Add to Cart or Request Quote */}
       <div 
-        className="md:hidden sticky bottom-0 left-0 right-0 bg-white border-t border-[var(--cera-line)] shadow-lg z-50"
-        style={{
-          paddingBottom: `calc(env(safe-area-inset-bottom, 0px) + 3%)`,
-        }}
+        // The home indicator sits in the bar's own padding here, and moves out
+        // into the gap beneath it once mweb-float-sticky-bottom applies.
+        className="pdp-buy-bar mweb-float-sticky-bottom md:hidden sticky bottom-0 left-0 right-0 bg-white border-t border-[var(--cera-line)] shadow-lg z-50"
       >
         <div className="container mx-auto px-3 pt-3 pb-1">
           <div className={`flex items-center gap-2 sm:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

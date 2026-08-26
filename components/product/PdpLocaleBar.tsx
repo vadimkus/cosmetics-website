@@ -33,10 +33,12 @@ export default function PdpLocaleBar({ backTo = 'products' }: { backTo?: 'produc
   return (
     <div
       dir={isRTL ? 'rtl' : 'ltr'}
-      className={`sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-4 py-2.5 backdrop-blur md:hidden ${
+      // mweb-float-sticky-top lifts the notch out of the bar's own padding and
+      // into the gap above it on mobile web, which is what makes it read as a
+      // floating bar rather than a strip pinned to the edge.
+      className={`pdp-locale-bar mweb-float-sticky-top sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-4 py-2.5 backdrop-blur md:hidden ${
         isRTL ? 'flex-row-reverse' : ''
       }`}
-      style={{ paddingTop: 'max(env(safe-area-inset-top), 10px)' }}
     >
       <button
         type="button"

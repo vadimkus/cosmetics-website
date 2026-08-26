@@ -1064,12 +1064,11 @@ export default function EyePatchProductPage({
 
       {/* ─────────────────────── Sticky add to bag ─────────────────────── */}
       <div
-        className={`fixed inset-x-0 bottom-0 z-50 border-t border-[var(--cera-line)] bg-white/95 backdrop-blur-xl transition-transform duration-300 ${
-          showStickyBar ? 'translate-y-0' : 'translate-y-full'
+        className={`mweb-float-bottom fixed inset-x-0 bottom-0 z-50 border-t border-[var(--cera-line)] bg-white/95 pb-3 backdrop-blur-xl transition-transform duration-300 ${
+          showStickyBar ? 'translate-y-0' : 'translate-y-full mweb-float-bottom-hidden'
         }`}
         aria-hidden={!showStickyBar}
         inert={!showStickyBar}
-        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 10px)' }}
       >
         <div className="mx-auto flex max-w-[1200px] items-center gap-3 px-4 pt-3 sm:gap-4 sm:px-6">
           {/* Desktop only: at full width a lone price and button read as a

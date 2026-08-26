@@ -1371,6 +1371,84 @@ html[dir="rtl"] {
   /* Note: margin-top:auto removed - was causing whitespace at bottom of long pages */
 }
 
+/* Floating bars that individual PAGES own, as opposed to the layout's header
+   and tab bar above: the product page's locale bar, its buy bar, and the
+   profile header.
+
+   Written as classes rather than utilities because the buy bar's markup is
+   restated in every one of the 52 bespoke product files, so this keeps the
+   geometry in one place instead of 52. Unlayered on purpose: Tailwind v4 puts
+   its utilities in @layer, and unlayered rules beat layered ones, which is what
+   lets these override the inset-x-0 / bottom-0 the same elements still need at
+   desktop width.
+
+   Mobile web only, gated in CSS rather than JS: above 767px these pages keep
+   their full-width chrome, and `display-mode: browser` excludes the installed
+   PWA, which is already a full-screen app and wants its bars on the edge.
+   Doing it here rather than through usePWAMode also avoids a hydration flash
+   on nine separate headers. */
+/* Notch padding for the product locale bar in every other mode: installed as a
+   PWA it sits on the top edge and has to carry the notch itself. Stated before
+   the block below so the mobile web override wins on equal specificity. */
+.pdp-locale-bar {
+  padding-top: max(env(safe-area-inset-top), 10px);
+}
+
+/* Same pairing at the foot of the generic product page. */
+.pdp-buy-bar {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 3%);
+}
+
+@media (max-width: 767px) and (display-mode: browser) {
+  .mweb-float-bottom,
+  .mweb-float-sticky-top,
+  .mweb-float-sticky-bottom {
+    border: 1px solid var(--cera-line);
+    border-radius: var(--mweb-chrome-radius);
+    box-shadow: var(--mweb-chrome-shadow);
+  }
+
+  /* Fixed variant: the bar is lifted out of flow, so the inset is an offset. */
+  .mweb-float-bottom {
+    left: var(--mweb-chrome-inset);
+    right: var(--mweb-chrome-inset);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mweb-chrome-inset));
+  }
+
+  /* Sticky variants: the bar keeps its place in flow, so the inset is a margin
+     and the page below needs no spacer. The matching margin on the far side
+     preserves the gap once the bar reaches the end of its scroll. */
+  .mweb-float-sticky-top {
+    position: sticky;
+    top: calc(env(safe-area-inset-top, 0px) + var(--mweb-chrome-inset));
+    margin: calc(env(safe-area-inset-top, 0px) + var(--mweb-chrome-inset))
+      var(--mweb-chrome-inset) 0;
+  }
+
+  .mweb-float-sticky-bottom {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + var(--mweb-chrome-inset));
+    margin: 0 var(--mweb-chrome-inset)
+      calc(env(safe-area-inset-bottom, 0px) + var(--mweb-chrome-inset));
+    padding-bottom: 0.5rem;
+  }
+
+  /* The product locale bar carries the notch inside itself when it sits on the
+     top edge. Floating, the notch is already in the gap above it, so the
+     padding returns to the symmetric py-2.5 the rest of the bar uses. */
+  .pdp-locale-bar {
+    padding-top: 0.625rem;
+  }
+
+  /* The buy bar's off-screen state. Tailwind's translate-y-full shifts the bar
+     by its own height, which was enough when it sat on the bottom edge but now
+     leaves its inset and the home indicator still showing. */
+  .mweb-float-bottom-hidden {
+    transform: translateY(
+      calc(100% + var(--mweb-chrome-inset) + env(safe-area-inset-bottom, 0px))
+    );
+  }
+}
+
 /* Make body flex container for sticky footer on mobile */
 @media (max-width: 767px) {
   body {

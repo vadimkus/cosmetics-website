@@ -46,13 +46,33 @@ interface PageBreadcrumbProps {
    * that sit inside an existing flex header row (checkout and login).
    */
   bare?: boolean
+  /**
+   * Drop the trail below `md`, keeping it on desktop.
+   *
+   * For pages that already float a back bar over the artwork on a phone
+   * (`PdpLocaleBar`, on product pages and translated articles). There the trail
+   * offers no destination the bar does not, its last crumb is an unlinked,
+   * truncated copy of the heading a few hundred pixels below, and it costs a
+   * line above the fold. Search is unaffected: the trail Google reads comes from
+   * `BreadcrumbSchema`, which is separate markup and stays on every viewport.
+   *
+   * Opt-in rather than the default because pages without that bar do use the
+   * trail on a phone — login renders it below `lg` as the only wayfinding beside
+   * the language switcher.
+   */
+  hideOnMobile?: boolean
 }
 
 const MUTED = 'text-[color:var(--cera-muted,#6a625d)]'
 const INK = 'text-[color:var(--cera-ink,#17140f)]'
 const HOVER = 'hover:text-[color:var(--cera-rose-ink,#97281f)]'
 
-export default function PageBreadcrumb({ items, className = '', bare = false }: PageBreadcrumbProps) {
+export default function PageBreadcrumb({
+  items,
+  className = '',
+  bare = false,
+  hideOnMobile = false,
+}: PageBreadcrumbProps) {
   const { dir } = useTranslation()
   const isRtl = dir === 'rtl'
   const Separator = isRtl ? ChevronLeft : ChevronRight
@@ -61,7 +81,7 @@ export default function PageBreadcrumb({ items, className = '', bare = false }: 
     <nav
       aria-label="Breadcrumb"
       dir={dir}
-      className={`flex flex-wrap items-center gap-1.5 text-[13px] ${MUTED} ${bare ? className : ''}`}
+      className={`${hideOnMobile ? 'hidden md:flex' : 'flex'} flex-wrap items-center gap-1.5 text-[13px] ${MUTED} ${bare ? className : ''}`}
     >
       {items.map((item, i) => {
         const isLast = i === items.length - 1
@@ -85,7 +105,15 @@ export default function PageBreadcrumb({ items, className = '', bare = false }: 
 
   if (bare) return nav
 
+  // The band carries the top padding, so it has to go too — otherwise hiding the
+  // trail leaves its whitespace behind.
   return (
-    <div className={`mx-auto w-full max-w-[1200px] px-4 pt-4 sm:px-6 md:pt-8 lg:pt-12 ${className}`}>{nav}</div>
+    <div
+      className={`mx-auto w-full max-w-[1200px] px-4 pt-4 sm:px-6 md:pt-8 lg:pt-12 ${
+        hideOnMobile ? 'hidden md:block' : ''
+      } ${className}`}
+    >
+      {nav}
+    </div>
   )
 }

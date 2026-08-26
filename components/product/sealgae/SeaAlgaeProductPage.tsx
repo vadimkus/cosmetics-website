@@ -22,6 +22,7 @@
  */
 
 import '../cerabarrier/cerabarrier.css'
+import PageBreadcrumb from '@/components/PageBreadcrumb'
 import './sealgae.css'
 
 import Image from 'next/image'
@@ -31,8 +32,6 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   AlertTriangle,
   Check,
-  ChevronLeft,
-  ChevronRight,
   Heart,
   Minus,
   Plus,
@@ -98,7 +97,6 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
 
   const isRtl = dir === 'rtl'
   const copy = getSeaAlgaeCopy(locale)
-  const Chevron = isRtl ? ChevronLeft : ChevronRight
 
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
@@ -224,17 +222,15 @@ export default function SeaAlgaeProductPage({ product, unitsSold = 0, routinePro
     <div className={`cera-page sea-page ${ceraSerif.variable} min-h-[100dvh]`} dir={dir}>
       {/* ───────────────────────────── Hero ─────────────────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 md:pt-8 lg:pt-12">
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-[13px] text-[var(--cera-muted)]">
-          <Link href={getLocalizedPath('/', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">
-            {t('common.home')}
-          </Link>
-          <Chevron className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
-          <Link href={getLocalizedPath('/products', locale)} className="transition-colors hover:text-[var(--cera-rose-ink)]">
-            {copy.backToProducts}
-          </Link>
-          <Chevron className="h-3.5 w-3.5 opacity-60" aria-hidden="true" />
-          <span className="truncate text-[var(--cera-ink)]">{product.name}</span>
-        </nav>
+        <PageBreadcrumb
+          bare
+          hideOnMobile
+          items={[
+            { name: t('common.home'), href: getLocalizedPath('/', locale) },
+            { name: copy.backToProducts, href: getLocalizedPath('/products', locale) },
+            { name: product.name },
+          ]}
+        />
 
         <div className="mt-5 grid grid-cols-1 gap-8 lg:mt-9 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] lg:gap-12 xl:gap-16">
           <div className="lg:sticky lg:top-24 lg:self-start">

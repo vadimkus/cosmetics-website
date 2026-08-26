@@ -71,3 +71,54 @@ runtime 1.11.0, both platforms.
 - GOLD membership badge text `#8A6D1D` on `#FAF3E3` is 4.05:1, just under AA.
 - Remaining hard-coded colour literals (~49) with direct token mappings; a
   handful need a judgment call (star amber, partners pink).
+
+## Unification: shared token source of truth
+
+Audited how far the website and app tokens had drifted. Result was better than
+expected and worse than expected in different places.
+
+**Better:** all ten core cera colours were already identical to the digit.
+
+**Worse:** nothing was keeping them that way. The sync mechanism was a developer
+reading a comment in `theme.js` and retyping hex values. It had already failed
+silently — the app's input border moved to warm `#d9cec7` while the website's
+`--color-border-secondary` stayed on cool Tailwind `#d1d5db`.
+
+### Architecture
+
+`design-tokens.json`, committed identically to both repos, is now the source of
+truth. Each repo has `npm run verify:tokens` which reads its own native
+definition and fails if it disagrees, and prints the file's sha256 so the two
+repos can be shown to hold the same tokens. Both currently print
+`10d2f3b90175c0fb`.
+
+Wired so it cannot be skipped: first step of the website's `build`, last step of
+the app's `verify:release`. Both checks were tested against deliberate drift and
+exit non-zero.
+
+Full write-up in `docs/DESIGN_TOKEN_SYNC.md` (copied to both repos).
+
+### Fixes
+
+- **Eyebrow** — the one visible divergence. App was 11px/700/1.2px against the
+  site's 12px/600/0.16em. Now identical; tracking resolved from em against the
+  shared size. Affects 10+ app screens including product pages.
+- **`--cera-shot`** promoted into `globals.css`; it existed only in
+  `cerabarrier.css` and the app.
+- **Three border tokens** warmed onto the app's separator tones. No real
+  consumers, so correctness rather than a visible change.
+
+Commits `d071ec6b` (web), `25432c5` (app). OTA group
+`e908febd-baee-4c0e-8a1c-90e4b9b50ae3`.
+
+### Known remaining divergence
+
+- Status colours (green/blue/orange + bg/line pairs) are app-only; the website
+  has no named equivalents, which is why the chat widget needed them read out of
+  `ChatButton.js` by hand. Obvious next extension to the token file.
+- Radius scale: web has eight named steps, app has none.
+- Shadows: same intent, different numbers, platforms express elevation
+  differently.
+- Sans section title: web 24px minimum, app 20px. Left alone deliberately —
+  24px section titles on a phone are heavy, so this needs a design decision
+  rather than a sync mechanism.

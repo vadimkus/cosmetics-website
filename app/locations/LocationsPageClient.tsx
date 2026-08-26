@@ -10,6 +10,7 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import AccountAvatar from '@/components/AccountAvatar'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -134,16 +135,7 @@ export default function LocationsPageClient() {
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
           >
-            <div className="relative">
-              <div className="w-9 h-9 rounded-full bg-[var(--cera-ink)] flex items-center justify-center">
-                <span className="text-sm font-semibold text-white">
-                  {user?.name?.charAt(0)?.toUpperCase() || 'G'}
-                </span>
-              </div>
-              {user && (
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
-              )}
-            </div>
+            <AccountAvatar name={user?.name} signedIn={!!user} />
           </button>
         </div>
       )}

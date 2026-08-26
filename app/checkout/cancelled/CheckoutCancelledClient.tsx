@@ -8,6 +8,7 @@ import { useIsMobile } from '@/hooks/useIsMobile'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useRouter } from 'next/navigation'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import AccountAvatar from '@/components/AccountAvatar'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -40,16 +41,7 @@ export default function CheckoutCancelledClient() {
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
           >
-            <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
-                <span className="text-sm font-semibold text-white">
-                  {user?.name?.charAt(0)?.toUpperCase() || 'G'}
-                </span>
-              </div>
-              {user && (
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[var(--status-green-deep)] rounded-full border-[1.5px] border-[var(--cera-cream)]" />
-              )}
-            </div>
+            <AccountAvatar name={user?.name} signedIn={!!user} />
           </button>
         </div>
       )}

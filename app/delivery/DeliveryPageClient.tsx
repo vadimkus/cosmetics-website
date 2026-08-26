@@ -12,6 +12,7 @@ import { getLocalizedPath } from '@/lib/i18n'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
+import AccountAvatar from '@/components/AccountAvatar'
 
 /**
  * /delivery, /ru/delivery and /ar/delivery all render this.
@@ -72,14 +73,7 @@ export default function DeliveryPageClient() {
             className="flex min-w-[80px] justify-end"
             aria-label="Profile"
           >
-            <div className="relative">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-ink)]">
-                <span className="text-sm font-semibold text-white">{user?.name?.charAt(0)?.toUpperCase() || 'G'}</span>
-              </div>
-              {user && (
-                <div className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-[1.5px] border-white bg-green-500" />
-              )}
-            </div>
+            <AccountAvatar name={user?.name} signedIn={!!user} />
           </button>
         </div>
       )}

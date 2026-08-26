@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import { getLocalizedPath } from '@/lib/i18n'
 import type { ReactNode } from 'react'
+import AccountAvatar from '@/components/AccountAvatar'
 
 interface CheckoutHeaderProps {
   isPWA: boolean
@@ -46,17 +47,7 @@ export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale
             className="min-w-[80px] flex justify-end"
             aria-label="Profile"
           >
-            <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
-                <span className="text-sm font-semibold text-white">
-                  {user?.name?.charAt(0)?.toUpperCase() || 'G'}
-                </span>
-              </div>
-              {/* Green online dot - only when logged in */}
-              {user && (
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[var(--status-green-deep)] rounded-full border-[1.5px] border-white" />
-              )}
-            </div>
+            <AccountAvatar name={user?.name} signedIn={!!user} />
           </button>
         </div>
       ) : null}

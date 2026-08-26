@@ -19,6 +19,7 @@ import { translateSize } from '@/utils/sizeTranslations'
 import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 import { usePWAMode } from '@/hooks/usePWAMode'
 import { QuickReorderButton } from '@/components/QuickReorderButton'
+import AccountAvatar from '@/components/AccountAvatar'
 
 // Custom type that includes the items relation and discount fields
 type OrderWithItems = Order & {
@@ -390,17 +391,7 @@ export default function OrdersPage() {
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
           >
-            <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-rose)]' : 'bg-gray-400'}`}>
-                <span className="text-sm font-semibold text-white">
-                  {user?.name?.charAt(0)?.toUpperCase() || 'G'}
-                </span>
-              </div>
-              {/* Green online dot - only when logged in */}
-              {user && (
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
-              )}
-            </div>
+            <AccountAvatar name={user?.name} signedIn={!!user} />
           </button>
         </div>
       )}

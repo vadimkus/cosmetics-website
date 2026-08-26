@@ -41,6 +41,7 @@ import { usePWAMode } from '@/hooks/usePWAMode'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import AccountAvatar from '@/components/AccountAvatar'
 
 
 export default function CartClient() {
@@ -310,17 +311,7 @@ export default function CartClient() {
               className="min-w-[80px] flex justify-end"
               aria-label="Profile"
             >
-              <div className="relative">
-                <div className={`flex h-9 w-9 items-center justify-center rounded-full ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
-                  <span className="text-sm font-semibold text-white">
-                    {user?.name?.charAt(0)?.toUpperCase() || 'G'}
-                  </span>
-                </div>
-                {/* Green online dot - only when logged in */}
-                {user && (
-                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[var(--status-green-deep)] rounded-full border-[1.5px] border-white" />
-                )}
-              </div>
+              <AccountAvatar name={user?.name} signedIn={!!user} />
             </button>
           </div>
         )}
@@ -489,17 +480,7 @@ export default function CartClient() {
             className="min-w-[80px] flex justify-end"
             aria-label="Profile"
           >
-            <div className="relative">
-              <div className={`flex h-9 w-9 items-center justify-center rounded-full ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
-                <span className="text-sm font-semibold text-white">
-                  {user?.name?.charAt(0)?.toUpperCase() || 'G'}
-                </span>
-              </div>
-              {/* Green online dot - only when logged in */}
-              {user && (
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[var(--status-green-deep)] rounded-full border-[1.5px] border-white" />
-              )}
-            </div>
+            <AccountAvatar name={user?.name} signedIn={!!user} />
           </button>
         </div>
       )}

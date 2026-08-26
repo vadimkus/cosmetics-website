@@ -37,6 +37,7 @@ import type { Product } from '@/types'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
+import AccountAvatar from '@/components/AccountAvatar'
 
 // Product type from @/types now includes skinType, targetConcerns, usage, and ageGroup fields
 type SkinRecommendationProduct = Product
@@ -684,16 +685,7 @@ export default function SkinRecommendationClient() {
             className="min-w-[80px] flex justify-end"
             aria-label="Profile"
           >
-            <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
-                <span className="text-sm font-semibold text-white">
-                  {user?.name?.charAt(0)?.toUpperCase() || 'G'}
-                </span>
-              </div>
-              {user && (
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
-              )}
-            </div>
+            <AccountAvatar name={user?.name} signedIn={!!user} />
           </button>
         </div>
       )}

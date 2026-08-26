@@ -44,6 +44,7 @@ import ProductRoutineCard from '@/components/product/ProductRoutineCard'
 import { UNITS_SOLD_DISPLAY_THRESHOLD, roundUnitsSold } from '@/lib/salesDisplay'
 import { findSelectedStandardCartLine } from '@/lib/cartVariantSelection'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
+import AccountAvatar from '@/components/AccountAvatar'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -347,17 +348,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
             <button 
               onClick={() => router.push(getLocalizedPath('/profile', locale))}
             >
-            <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-blush-deep)]'}`}>
-                <span className="text-sm font-semibold text-white">
-                  {user?.name?.charAt(0)?.toUpperCase() || 'G'}
-                </span>
-              </div>
-              {/* Green online dot - only when logged in */}
-              {user && (
-                <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-[1.5px] border-white" />
-              )}
-            </div>
+            <AccountAvatar name={user?.name} signedIn={!!user} />
             </button>
           </div>
         </div>

@@ -154,14 +154,14 @@ const contentEn = `<div class="max-w-4xl mx-auto space-y-10">
 const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
   <div>
     <p class="text-lg text-gray-700">Большинство людей моют волосы. Кожу головы — уже гораздо реже. Разница в том, куда попадает шампунь. Пальцы разносят пену по длине. Щётка доводит её до кожи — а именно там шампунь для кожи головы и должен работать.</p>
-    <p class="text-gray-700 mt-3"><strong>HR³ MATRIX SCALP BRUSH</strong> рассчитана на те две минуты, которые вы и так проводите в душе: мягкий силикон, хват, который не выскальзывает из мокрых рук, и более густая пена с <a href="/ru/products/44" class="text-primary-600 font-semibold hover:underline">HR³ MATRIX MEDI SCALP SHAMPOO α</a>.</p>
+    <p class="text-gray-700 mt-3"><strong>HR³ MATRIX SCALP BRUSH</strong> — ручная щётка с мягкими силиконовыми зубцами и устойчивым центральным хватом. Она используется во время мытья после вспенивания шампуня; <a href="/ru/products/44" class="text-primary-600 font-semibold hover:underline">HR³ MATRIX MEDI SCALP SHAMPOO α</a> можно выбрать как часть этого порядка ухода, без отдельного заявления об эффективности.</p>
   </div>
 
   <div>
     <h2 class="text-3xl font-bold">Здоровые волосы начинаются с кожи головы</h2>
     <img src="${IMG}/s2.jpeg" alt="Здоровые волосы начинаются с кожи головы — ежедневный уход GENOSYS HR³ MATRIX" class="w-full h-auto rounded-2xl my-5" loading="lazy" />
-    <p class="text-gray-700"><a href="https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips" target="_blank" rel="noopener noreferrer" class="text-primary-600 underline">Американская академия дерматологии</a> формулирует это прямо: шампунь наносят на кожу головы, а не по всей длине волос. Так вы смываете остатки средств, отшелушенные клетки и лишний себум, не пересушивая сам волос.</p>
-    <p class="text-gray-700 mt-3">Одна эта инструкция — весь смысл щётки. Волосы впитывают пену. Кожа — то место, где пене и нужно работать. Мягкие силиконовые зубцы доходят до кожи головы так, как пальцы редко умеют, и массируют, не царапая.</p>
+    <p class="text-gray-700"><a href="https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips" target="_blank" rel="noopener noreferrer" class="text-primary-600 underline">Американская академия дерматологии</a> рекомендует наносить шампунь прежде всего на кожу головы, а не растирать по всей длине.</p>
+    <p class="text-gray-700 mt-3">Щётка остаётся внутри этого этапа. Мягкие силиконовые зубцы и центральная ручка помогают распределять вспененный шампунь с контролируемым нажимом, после чего всё тщательно смывается.</p>
   </div>
 
   <div class="rounded-3xl bg-gradient-to-br from-teal-50 to-slate-50 p-6 md:p-8">
@@ -169,20 +169,20 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
     <p class="text-gray-700 mt-3">Пальцы распределяют средство по волосам. Щётка доводит его до кожи. Одно это различие стоит за каждым эффектом ниже.</p>
     <div class="grid gap-4 sm:grid-cols-2 mt-5">
       <div class="rounded-2xl border border-teal-100 bg-white p-5 shadow-sm">
-        <p class="font-bold text-teal-900">Более густая пена</p>
-        <p class="text-gray-700 text-sm mt-1">С HR³ MATRIX MEDI SCALP SHAMPOO α она помогает создать густую пену, поэтому небольшого количества шампуня хватает на всю кожу головы — он не уходит в волосы.</p>
+        <p class="font-bold text-teal-900">Мягкий силикон</p>
+        <p class="text-gray-700 text-sm mt-1">Гибкие конусные зубцы обеспечивают мягкий контакт при лёгком нажиме.</p>
       </div>
       <div class="rounded-2xl border border-teal-100 bg-white p-5 shadow-sm">
-        <p class="font-bold text-teal-900">Более глубокое очищение</p>
-        <p class="text-gray-700 text-sm mt-1">Помогает удалить себум, отшелушенные клетки и следы стайлинга и сухого шампуня — без раздражения.</p>
+        <p class="font-bold text-teal-900">Документированный способ</p>
+        <p class="text-gray-700 text-sm mt-1">Намочите волосы, вспеньте шампунь, мягко используйте щётку и тщательно смойте.</p>
       </div>
       <div class="rounded-2xl border border-teal-100 bg-white p-5 shadow-sm">
-        <p class="font-bold text-teal-900">Лучший кровоток</p>
-        <p class="text-gray-700 text-sm mt-1">Массаж во время мытья помогает усилить приток крови к коже головы, что может помочь предотвратить истончение волос.</p>
+        <p class="font-bold text-teal-900">Контролируемый нажим</p>
+        <p class="text-gray-700 text-sm mt-1">Устойчивая центральная ручка помогает управлять движением и нажимом мокрой рукой.</p>
       </div>
       <div class="rounded-2xl border border-teal-100 bg-white p-5 shadow-sm">
-        <p class="font-bold text-teal-900">Больше объёма</p>
-        <p class="text-gray-700 text-sm mt-1">Действительно чистые у корня волосы приподнимаются, а не лежат плоско, поэтому более глубокое очищение помогает увеличить объём.</p>
+        <p class="font-bold text-teal-900">Несмываемый уход отдельно</p>
+        <p class="text-gray-700 text-sm mt-1">Тоники и растворы наносите после мытья кончиками пальцев, не щёткой.</p>
       </div>
     </div>
   </div>
@@ -194,7 +194,7 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
     <div class="grid gap-4 sm:grid-cols-2 mt-5">
       <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <p class="font-bold text-slate-900">Мягкая силиконовая насадка</p>
-        <p class="text-gray-700 text-sm mt-1">Гибкие зубцы для комфортного глубокого очищения и массажа — без царапин.</p>
+        <p class="text-gray-700 text-sm mt-1">Гибкие зубцы для мягкого контакта при лёгком контролируемом нажиме.</p>
       </div>
       <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <p class="font-bold text-slate-900">Устойчивая ручка</p>
@@ -205,7 +205,7 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
   </div>
 
   ${videoBlock('Насадка вблизи')}
-  <p class="text-gray-700">Мягкие силиконовые зубцы на куполообразной насадке, ручка по центру. Обратите внимание, насколько кончики поддаются при контакте с поверхностью: именно эта гибкость и позволяет очищать кожу головы, не царапая её.</p>
+  <p class="text-gray-700">Мягкие силиконовые зубцы расположены вокруг куполообразной насадки, ручка находится по центру. Крупный план показывает гибкость кончиков и управляемую рукой конструкцию.</p>
 
   <div>
     <h2 class="text-3xl font-bold">Четыре шага внутри обычного мытья</h2>
@@ -244,12 +244,12 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
       <li>Храните в сухом месте, а не в закрытом влажном мешке.</li>
       <li>Замените, если силикон порвался или потерял форму.</li>
     </ul>
-    <p class="text-sm text-gray-600 mt-4">Это личный предмет. Делить щётку для кожи головы — примерно как делить бритву. Работает с любым шампунем; эффект густой пены лучше всего раскрывается с MEDI SCALP SHAMPOO α.</p>
+    <p class="text-sm text-gray-600 mt-4">Лучше оставить щётку личным аксессуаром. MEDI SCALP SHAMPOO α — предложение внутри одного этапа мытья, а не обещание особого эффекта.</p>
   </div>
 
   <div class="rounded-2xl bg-slate-950 p-8 text-center text-white">
     <h3 class="text-2xl font-bold">Ваш шампунь наконец работает там, где нужно.</h3>
-    <p class="text-slate-300 mt-3 mb-6">HR³ MATRIX SCALP BRUSH · 1 щётка · мягкий силикон · для душа · сделано в Корее</p>
+    <p class="text-slate-300 mt-3 mb-6">HR³ MATRIX SCALP BRUSH · 1 щётка · мягкий силикон · использование с шампунем · контролируемый нажим</p>
     <a href="/ru/products/61" class="inline-block rounded-full bg-white px-8 py-3 font-semibold text-slate-950">Смотреть HR³ MATRIX SCALP BRUSH</a>
   </div>
 </div>`
@@ -257,14 +257,14 @@ const contentRu = `<div class="max-w-4xl mx-auto space-y-10">
 const contentAr = `<div class="max-w-4xl mx-auto space-y-10" dir="rtl">
   <div>
     <p class="text-lg text-gray-700">معظم الناس يغسلون الشعر. أما فروة الرأس فنادراً ما تصل إليها الغسلة. الفرق هو المكان الذي يصل إليه الشامبو فعلاً. أطراف الأصابع تحرّك الرغوة على الأطوال. أما الفرشاة فتوصّلها إلى الجلد، وهو المكان الوحيد الذي يُفترض أن يعمل فيه شامبو فروة الرأس.</p>
-    <p class="text-gray-700 mt-3"><strong>HR³ MATRIX SCALP BRUSH</strong> مصمّمة للدقيقتين اللتين تمضينهما أصلاً في الحمّام: أسنان سيليكون ناعمة، ومقبض يثبت في اليد المبللة، ورغوة أغنى مع <a href="/ar/products/44" class="text-primary-600 font-semibold hover:underline">HR³ MATRIX MEDI SCALP SHAMPOO α</a>.</p>
+    <p class="text-gray-700 mt-3"><strong>HR³ MATRIX SCALP BRUSH</strong> فرشاة يدوية بأسنان من السيليكون الناعم ومقبض مركزي ثابت. تستخدم أثناء الغسل بعد تكوين رغوة الشامبو، ويمكن اختيار <a href="/ar/products/44" class="text-primary-600 font-semibold hover:underline">HR³ MATRIX MEDI SCALP SHAMPOO α</a> ضمن هذا الترتيب من دون ادعاء فعالية خاص.</p>
   </div>
 
   <div>
     <h2 class="text-3xl font-bold">الشعر الصحي يبدأ من فروة الرأس</h2>
     <img src="${IMG}/s2.jpeg" alt="الشعر الصحي يبدأ من فروة الرأس: العناية اليومية GENOSYS HR³ MATRIX" class="w-full h-auto rounded-2xl my-5" loading="lazy" />
-    <p class="text-gray-700">تقول <a href="https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips" target="_blank" rel="noopener noreferrer" class="text-primary-600 underline">الأكاديمية الأمريكية للأمراض الجلدية</a> ذلك بوضوح: ضعي الشامبو على فروة الرأس، لا على طول الشعر كله. هكذا تزيلين تراكم المنتجات والخلايا الميتة والزيوت الزائدة من دون تجفيف الشعرة.</p>
-    <p class="text-gray-700 mt-3">هذه التعليمات وحدها هي حجة الفرشاة كلها. الشعر يمتص الرغوة. والجلد هو المكان الذي يُفترض أن تعمل فيه. أسنان السيليكون الناعمة تصل إلى الفروة كما نادراً ما تفعل الأصابع، ثم تدلّك من دون خدش.</p>
+    <p class="text-gray-700">تنصح <a href="https://www.aad.org/public/everyday-care/hair-scalp-care/hair/healthy-hair-tips" target="_blank" rel="noopener noreferrer" class="text-primary-600 underline">الأكاديمية الأمريكية للأمراض الجلدية</a> بوضع الشامبو أساساً على فروة الرأس بدلاً من فركه على كامل طول الشعر.</p>
+    <p class="text-gray-700 mt-3">تبقى الفرشاة داخل هذه الخطوة. تساعد أسنان السيليكون الناعمة والمقبض المركزي على توزيع الشامبو بعد تكوين رغوته بضغط متحكم فيه، ثم يشطف جيداً.</p>
   </div>
 
   <div class="rounded-3xl bg-gradient-to-br from-teal-50 to-slate-50 p-6 md:p-8">
@@ -272,20 +272,20 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10" dir="rtl">
     <p class="text-gray-700 mt-3">أطراف الأصابع توزّع المنتج على الشعر. أما الفرشاة فتوصله إلى الجلد. هذا الفرق وحده يقف وراء كل نتيجة أدناه.</p>
     <div class="grid gap-4 sm:grid-cols-2 mt-5">
       <div class="rounded-2xl border border-teal-100 bg-white p-5 shadow-sm">
-        <p class="font-bold text-teal-900">رغوة أغنى</p>
-        <p class="text-gray-700 text-sm mt-1">مع HR³ MATRIX MEDI SCALP SHAMPOO α تساعد على تكوين رغوة غنية، فتكفي كمية صغيرة من الشامبو لتغطية فروة الرأس كلها بدل أن يمتصها الشعر.</p>
+        <p class="font-bold text-teal-900">سيليكون ناعم</p>
+        <p class="text-gray-700 text-sm mt-1">توفر الأسنان المخروطية المرنة تلامساً لطيفاً عند إبقاء الضغط خفيفاً.</p>
       </div>
       <div class="rounded-2xl border border-teal-100 bg-white p-5 shadow-sm">
-        <p class="font-bold text-teal-900">تنظيف أعمق</p>
-        <p class="text-gray-700 text-sm mt-1">تساعد على إزالة زيوت فروة الرأس والخلايا الميتة وما تتركه منتجات التصفيف والشامبو الجاف من بقايا، دون تهيج.</p>
+        <p class="font-bold text-teal-900">طريقة موثقة</p>
+        <p class="text-gray-700 text-sm mt-1">يبلل الشعر وتكوّن رغوة الشامبو، ثم تستخدم الفرشاة بلطف ويشطف الشعر جيداً.</p>
       </div>
       <div class="rounded-2xl border border-teal-100 bg-white p-5 shadow-sm">
-        <p class="font-bold text-teal-900">تدفق دم أفضل</p>
-        <p class="text-gray-700 text-sm mt-1">التدليك أثناء الغسل يساعد على زيادة تدفق الدم إلى فروة الرأس، ما يمكن أن يساعد في الوقاية من ترقق الشعر.</p>
+        <p class="font-bold text-teal-900">ضغط متحكم فيه</p>
+        <p class="text-gray-700 text-sm mt-1">يساعد المقبض المركزي الثابت على التحكم في الحركة والضغط باليد المبللة.</p>
       </div>
       <div class="rounded-2xl border border-teal-100 bg-white p-5 shadow-sm">
-        <p class="font-bold text-teal-900">كثافة أكبر</p>
-        <p class="text-gray-700 text-sm mt-1">الشعر النظيف فعلاً من الجذر ينتفخ بدل أن يتسطّح، لذلك يساعد التنظيف الأعمق على زيادة كثافة الشعر.</p>
+        <p class="font-bold text-teal-900">العناية التي تترك على الفروة منفصلة</p>
+        <p class="text-gray-700 text-sm mt-1">يوضع التونيك والمحاليل بعد الغسل بأطراف الأصابع، لا بالفرشاة.</p>
       </div>
     </div>
   </div>
@@ -297,7 +297,7 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10" dir="rtl">
     <div class="grid gap-4 sm:grid-cols-2 mt-5">
       <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <p class="font-bold text-slate-900">رأس من السيليكون الناعم</p>
-        <p class="text-gray-700 text-sm mt-1">أسنان مرنة للتنظيف العميق والتدليك بارتياح، من دون خدش.</p>
+        <p class="text-gray-700 text-sm mt-1">أسنان مرنة لتلامس لطيف عند استخدام ضغط خفيف ومتحكم فيه.</p>
       </div>
       <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
         <p class="font-bold text-slate-900">مقبض ثابت</p>
@@ -308,7 +308,7 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10" dir="rtl">
   </div>
 
   ${videoBlock('الرأس عن قرب')}
-  <p class="text-gray-700">أسنان سيليكون ناعمة على رأس مقبّب، والمقبض في المنتصف. لاحظي مقدار انثناء الأطراف عند ملامستها لأي سطح: هذه المرونة هي سبب تنظيفها لفروة الرأس دون خدشها.</p>
+  <p class="text-gray-700">أسنان سيليكون ناعمة حول رأس مقبب، والمقبض في المنتصف. يوضح المشهد القريب مرونة الأطراف وتصميماً تتحكم فيه اليد.</p>
 
   <div>
     <h2 class="text-3xl font-bold">أربع خطوات، داخل غسلتك المعتادة</h2>
@@ -347,12 +347,12 @@ const contentAr = `<div class="max-w-4xl mx-auto space-y-10" dir="rtl">
       <li>احفظيها في مكان جاف، لا في كيس مغلق ورطب.</li>
       <li>استبدليها إذا تمزق السيليكون أو فقد شكله.</li>
     </ul>
-    <p class="text-sm text-gray-600 mt-4">إنها أداة شخصية. مشاركة فرشاة فروة الرأس مثل مشاركة شفرة الحلاقة. تعمل مع أي شامبو؛ ويبلغ تأثير الرغوة الغنية ذروته مع MEDI SCALP SHAMPOO α.</p>
+    <p class="text-sm text-gray-600 mt-4">يفضل إبقاؤها أداة شخصية. MEDI SCALP SHAMPOO α اقتراح ضمن خطوة الغسل نفسها، وليس وعداً بتأثير خاص.</p>
   </div>
 
   <div class="rounded-2xl bg-slate-950 p-8 text-center text-white">
     <h3 class="text-2xl font-bold">شامبوكِ، يعمل حيث يجب أن يعمل.</h3>
-    <p class="text-slate-300 mt-3 mb-6">HR³ MATRIX SCALP BRUSH · فرشاة واحدة · سيليكون ناعم · للاستخدام في الحمّام · صنع في كوريا</p>
+    <p class="text-slate-300 mt-3 mb-6">HR³ MATRIX SCALP BRUSH · فرشاة واحدة · سيليكون ناعم · استخدام مع الشامبو · ضغط متحكم فيه</p>
     <a href="/ar/products/61" class="inline-block rounded-full bg-white px-8 py-3 font-semibold text-slate-950">عرض HR³ MATRIX SCALP BRUSH</a>
   </div>
 </div>`
@@ -367,11 +367,11 @@ async function main() {
     featuredImage: MAIN,
     titleRu: 'Ваш шампунь наконец работает там, где нужно: HR³ MATRIX SCALP BRUSH',
     excerptRu:
-      'Мягкая силиконовая щётка для тех двух минут, которые вы и так тратите на мытьё головы. Она доводит пену до кожи, снимает себум, отшелушенные клетки и остатки средств и массирует, не царапая.',
+      'Ручная щётка с мягкими силиконовыми зубцами и устойчивым центральным хватом. Используется на влажных волосах после вспенивания шампуня, с лёгким контролируемым нажимом.',
     contentRu,
     titleAr: 'شامبوكِ يعمل حيث يجب أن يعمل: HR³ MATRIX SCALP BRUSH',
     excerptAr:
-      'فرشاة سيليكون ناعمة للدقيقتين اللتين تمضينهما أصلاً في غسل شعرك. توصل الرغوة إلى فروة الرأس، وترفع الزيوت والخلايا الميتة وتراكم المنتجات، وتدلّك من دون خدش.',
+      'فرشاة يدوية بأسنان من السيليكون الناعم ومقبض مركزي ثابت، تستخدم على شعر مبلل بعد تكوين رغوة الشامبو بضغط خفيف ومتحكم فيه.',
     contentAr,
     authorName: 'GENOSYS Team',
     published: true,

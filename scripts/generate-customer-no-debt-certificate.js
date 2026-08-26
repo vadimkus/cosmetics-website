@@ -307,7 +307,7 @@ async function main() {
     </div>
     <div class="sig-text">
       <strong>Vadim Sagatdinov</strong><br />
-      Director · ${esc(org.legalTitle || org.name)}<br />
+      Manager · ${esc(org.legalTitle || org.name)}<br />
       ${esc(fmtHumanDate(issueDate))}
     </div>
   </div>

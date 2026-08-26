@@ -1,0 +1,50 @@
+{
+  "$comment": [
+    "Canonical GENOSYS design tokens. This file is the source of truth for the",
+    "values shared by the website (cosmetics-website) and the mobile app",
+    "(genosys-mobile-app).",
+    "",
+    "The two live in separate git repositories, so there is no build-time import",
+    "between them. Instead an identical copy of this file is committed to each,",
+    "and each repo has a check that asserts its own native token definition still",
+    "matches this file:",
+    "",
+    "  website    npm run verify:tokens   ->  scripts/verify-design-tokens.mjs",
+    "  mobile app npm run verify:tokens   ->  scripts/verify-design-tokens.mjs",
+    "",
+    "Both checks also compare `version` and the sha256 in `.tokens-checksum`, so a",
+    "change made in one repo and not carried to the other is caught rather than",
+    "silently drifting. Before this file existed the palette was kept in sync by",
+    "hand, which had already let one border grey drift apart unnoticed.",
+    "",
+    "To change a token: edit here, run the generator note in each repo's check",
+    "output, update both repos, bump `version`."
+  ],
+  "version": 1,
+
+  "color": {
+    "$comment": "The cera palette. Website: --cera-* in app/globals.css. App: `cera` export in utils/theme.js.",
+    "cream": "#faf7f5",
+    "creamDeep": "#f3ece8",
+    "blush": "#f7ecec",
+    "blushDeep": "#efd9d9",
+    "rose": "#c98b8b",
+    "roseInk": "#8f5a5a",
+    "ink": "#191716",
+    "body": "#3d3734",
+    "muted": "#665e59",
+    "line": "#e8e0db",
+    "shot": "#eeeeee"
+  },
+
+  "typography": {
+    "eyebrow": {
+      "$comment": "Uppercase kicker above section titles. Appears on product pages on both surfaces, so a mismatch here is directly visible when comparing them side by side.",
+      "fontSize": 12,
+      "fontWeight": 600,
+      "letterSpacingEm": 0.16,
+      "textTransform": "uppercase",
+      "color": "roseInk"
+    }
+  }
+}

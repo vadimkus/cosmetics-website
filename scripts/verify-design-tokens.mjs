@@ -1,0 +1,90 @@
+/**
+ * Fails if this repo's design tokens have drifted from design-tokens.json.
+ *
+ * The website and the mobile app are separate repositories, so neither can
+ * import the other's tokens at build time. Instead both carry an identical
+ * copy of design-tokens.json and both run a check like this one against their
+ * own native definition — CSS custom properties here, a JS object in the app.
+ *
+ * Run: npm run verify:tokens
+ */
+
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const read = (p) => readFileSync(join(root, p), 'utf8');
+
+const tokens = JSON.parse(read('design-tokens.json'));
+const failures = [];
+
+/* ── The cera palette, as --cera-* custom properties in globals.css ───── */
+
+const globals = read('app/globals.css');
+
+// JSON uses camelCase (creamDeep); CSS uses kebab (--cera-cream-deep).
+const cssVarFor = (name) => `--cera-${name.replace(/[A-Z]/g, (c) => `-${c.toLowerCase()}`)}`;
+
+for (const [name, expected] of Object.entries(tokens.color)) {
+  if (name.startsWith('$')) continue;
+  const varName = cssVarFor(name);
+  // Only the declaration in the light-theme block, not later dark-mode overrides.
+  const match = globals.match(new RegExp(`${varName}:\\s*([^;]+);`));
+  if (!match) {
+    failures.push(`${varName} is missing from app/globals.css`);
+    continue;
+  }
+  const actual = match[1].trim().toLowerCase();
+  if (actual !== expected.toLowerCase()) {
+    failures.push(`${varName} is ${actual} in globals.css but ${expected} in design-tokens.json`);
+  }
+}
+
+/* ── The eyebrow, in cerabarrier.css ──────────────────────────────────── */
+
+const cera = read('components/product/cerabarrier/cerabarrier.css');
+const eyebrowBlock = cera.match(/\.cera-eyebrow\s*\{([^}]+)\}/);
+
+if (!eyebrowBlock) {
+  failures.push('.cera-eyebrow rule not found in cerabarrier.css');
+} else {
+  const body = eyebrowBlock[1];
+  const prop = (name) => {
+    const m = body.match(new RegExp(`${name}:\\s*([^;]+);`));
+    return m ? m[1].trim() : null;
+  };
+  const eyebrow = tokens.typography.eyebrow;
+  const checks = [
+    ['font-size', `${eyebrow.fontSize}px`],
+    ['font-weight', String(eyebrow.fontWeight)],
+    ['letter-spacing', `${eyebrow.letterSpacingEm}em`],
+    ['text-transform', eyebrow.textTransform],
+  ];
+  for (const [name, expected] of checks) {
+    const actual = prop(name);
+    if (actual !== expected) {
+      failures.push(`.cera-eyebrow ${name} is ${actual ?? 'unset'} but design-tokens.json says ${expected}`);
+    }
+  }
+}
+
+/* ── Checksum, so the app repo can prove it holds the same file ───────── */
+
+const checksum = createHash('sha256').update(read('design-tokens.json')).digest('hex');
+
+/* ── Report ───────────────────────────────────────────────────────────── */
+
+if (failures.length > 0) {
+  console.error('\n[design-tokens] this repo has drifted from design-tokens.json:\n');
+  for (const f of failures) console.error(`  - ${f}`);
+  console.error('\nEither correct the value above, or change design-tokens.json and');
+  console.error('carry the same change to genosys-mobile-app.\n');
+  process.exit(1);
+}
+
+const count = Object.keys(tokens.color).filter((k) => !k.startsWith('$')).length;
+console.log(`[design-tokens] ${count} colours and the eyebrow match design-tokens.json`);
+console.log(`[design-tokens] v${tokens.version} sha256 ${checksum.slice(0, 16)}`);
+console.log('[design-tokens] genosys-mobile-app must report the same version and sha256');

@@ -55,3 +55,9 @@ Removed **00025** Snow Booster Toner 1000ml ×1 @ 245 from SO / INV / SHIP.
 New sum: **2,395 AED** unpaid.
 
 Script: `scripts/moysklad-amend-shakirovna-04932-drop-snow-booster-20260818.js --commit`
+
+## 2026-08-24 — HSC instead of Hyaluron, drop Power Solutions
+
+WhatsApp markup: **54460** Hyaluron Cream 250g → **00032** HSC 250g @ 210; removed SWS/PCS/HES/CVS. Snow O₂ kept. Total back to **2,395 AED** unpaid.
+
+See `docs/SESSION_CHANGES_2026-08-24_SHAKIROVNA_04932_HSC_DROP_PS.md`.

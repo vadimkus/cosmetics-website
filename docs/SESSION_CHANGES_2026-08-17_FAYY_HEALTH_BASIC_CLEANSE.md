@@ -3,6 +3,8 @@
 **Customer:** Fayy Health FZCO (`ee20d7e3-d46d-11ed-0a80-0df400228557`)  
 **Phone:** +971 50 634 7171  
 **Ship:** One Central, The Offices 2, 6th Floor, Unit 6.02, Dubai  
+
+Address on this chain was duplicated in MoySklad (`street` also in `addInfo`). Cleaned 21 Aug — see `SESSION_CHANGES_2026-08-21_FAYY_HEALTH_PEPTIDE_X100.md`.  
 **Pricing:** Clinic list. Hydro Cool excluded. Unpaid.
 
 | Doc | № | Sum |

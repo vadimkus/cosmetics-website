@@ -51,3 +51,9 @@ First commit briefly attached SO to Skinova (false substring match). Fixed: new 
 Face Room layout applied: `legalAddressFull.comment` is now **TRN 100255565200003** (was Unified Reg). Address → **Al Noor Complex, Al Muwaiji, Saed Bin Tahnon Al Awal St, Al Ain**. SO shipment address updated.
 
 See `docs/SESSION_CHANGES_2026-08-15_NOVA_MEDICAL_CENTER_ADDRESS_TRN.md`.
+
+## Update 2026-08-19 — cheque receipt
+
+Invoice **04931** / shipment **06687** now **2,700 AED** (EPI **00129** ×2 added). FAB cheque **248360** received. Official receipt PDF with header + stamp: `~/Desktop/orders/GENOSYS_Nova_Medical_Center_Receipt_04931.pdf`. Paymentin **06094** posted; SO **Доставлен**.
+
+See `docs/SESSION_CHANGES_2026-08-19_NOVA_MEDICAL_CENTER_CHEQUE_RECEIPT.md`.

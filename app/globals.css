@@ -106,7 +106,11 @@
      these colours, and the mobile app was rebuilt in them. Everything else on
      the site was red on white, so a shopper met one brand on a product page and
      a different one in the cart. These are the same values, to the digit, as
-     cerabarrier.css and the app's utils/theme.js. */
+     cerabarrier.css and the app's utils/theme.js.
+
+     Source of truth is design-tokens.json at the repo root, which the app repo
+     carries an identical copy of. `npm run verify:tokens` fails if this block
+     and that file disagree, so the two surfaces can no longer drift silently. */
   --cera-cream: #faf7f5;
   --cera-cream-deep: #f3ece8;
   --cera-blush: #f7ecec;
@@ -117,6 +121,9 @@
   --cera-body: #3d3734;
   --cera-muted: #665e59;
   --cera-line: #e8e0db;
+  /* Packshot stage. Lived only in cerabarrier.css and the app until now, so the
+     rest of the site had no name for the grey a product shot sits on. */
+  --cera-shot: #eeeeee;
 
   /* Primary palette: the cera rose, ramped.
      `primary-600` is rose-ink, the colour the product pages set links, prices
@@ -233,10 +240,12 @@
   --color-text-quaternary: #968981;
   --color-text-inverse: #ffffff;
   
-  /* Border colors - Light Mode */
-  --color-border-primary: #e5e7eb;
-  --color-border-secondary: #d1d5db;
-  --color-border-tertiary: #f3f4f6;
+  /* Border colors - Light Mode. Warmed onto the cera scale for the same reason
+     the text colours above were: these were cool Tailwind greys, which read
+     blue against cream. They now match the app's separator tones exactly. */
+  --color-border-primary: #e8e0db;   /* = --cera-line, app colors.separator */
+  --color-border-secondary: #d9cec7; /* app colors.separatorStrong */
+  --color-border-tertiary: #f3ece8;  /* = --cera-cream-deep, app colors.fill */
   --color-border-focus: var(--cera-rose-ink);
   
   /* Fill colors - for icons, indicators */

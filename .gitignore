@@ -122,6 +122,9 @@ next-env.d.ts
 *.bak
 
 # Temporary files
+# /tmp/ is a scratch area for generated invoices, receipts, signoffs and
+# customer contact extracts. Nothing in it belongs in the repository.
+/tmp/
 *.tmp
 *.temp
 test.php

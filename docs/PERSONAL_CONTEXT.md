@@ -184,7 +184,7 @@ Enterprise support for US corporate customers; complex environments; global dist
 
 | Name | What it is |
 |------|------------|
-| **GENOSYS Professional** | Cosmetics e‑commerce (`genosys.ae`), Next.js stack — **this repo** |
+| **GENOSYS Professional** | Cosmetics e‑commerce (`genosys.ae`), Next.js stack — **this repo**. Official docs: sign as **Manager**, not Director. |
 | **VisionDrive** | Practice OS / clinic operations software (UAE); separate codebase under VisionDrive |
 
 ---
@@ -194,6 +194,7 @@ Enterprise support for US corporate customers; complex environments; global dist
 - **Straight talk:** honest judgment over cheerleading; push back when an idea is weak.
 - **Execution:** prefer running commands / implementing changes over handing me a checklist when the environment supports it.
 - **MoySklad PDFs:** save to `~/Desktop/orders/` by default — **do not** `lp`/print unless I explicitly ask.
+- **GENOSYS letterhead:** Vadim Sagatdinov signs as **Manager**, not Director.
 - **Code:** small, focused diffs; match existing patterns; no drive-by refactors.
 - **Citations:** when discussing code in this repo, use proper file citations with line ranges when helpful.
 

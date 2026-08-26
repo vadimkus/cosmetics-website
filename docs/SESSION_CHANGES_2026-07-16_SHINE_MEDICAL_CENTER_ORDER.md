@@ -38,4 +38,17 @@ Delivery date: **Friday 18 July 2026** · Dibba Al Fujairah · payment due **17 
 node --import dotenv/config scripts/moysklad-create-shine-medical-center-order-invoice-demand-20260716.js --commit
 ```
 
-No paymentin posted (clinic invoice — payment TBD).
+## Update — paymentin 22 Aug 2026
+
+Full bank paymentin **06109** / **1,195 AED** linked to SHIP **06549**. SO → **Доставлен**.
+
+| Doc | Number | Sum | Status |
+|-----|--------|----:|--------|
+| Paymentin | **06109** | 1,195 | posted |
+| Order | **GENCardM2607165371** | 1,195 | **Доставлен** |
+| Invoice | **04826** | 1,195 | paid |
+| Shipment | **06549** | 1,195 | paid |
+
+https://online.moysklad.ru/app/#paymentin/edit?id=37f728dc-9e1c-11f1-0a80-1a6700600efa
+
+Script: `scripts/moysklad-create-shine-paymentin-04826-20260822.js --commit`

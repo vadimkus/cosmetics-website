@@ -1,0 +1,54 @@
+---
+description: MoySklad sales orders must complete SO → invoice → shipment → payment in
+alwaysApply: true
+---
+
+# MoySklad Order Chain (Mandatory)
+
+When creating **paid retail / clinic sales** in MoySklad (not consignment reports, not SO-only drafts), always complete the full chain in this order:
+
+1. **SO** — `customerorder`
+2. **INV** — `invoiceout`, linked to SO via `customerOrder`
+3. **SHIP** — `demand`, linked to **invoice only** via `invoicesOut` (do **not** set `demand.customerOrder` — that creates a wrong direct SO↔SHIP link)
+4. **PAYMENT IN** — only when Vadim says paid / payment in / bank ref. Link to shipment; then SO → **Доставлен**
+
+## Document links (critical)
+
+Correct related-docs tree:
+
+`SO → INV → SHIP`
+
+Wrong:
+
+- SHIP linked directly to SO (`demand.customerOrder`) while also on invoice
+- Payment present when he said not paid yet
+
+When Vadim says **"fix"** / **"connected incorrectly"** on a chain screenshot → fix **links**, not invent payment. Remove stray paymentin if unpaid. Recreate demand without `customerOrder` if needed (API cannot null that field).
+
+## Defaults
+
+- Create order / SO inv ship → **SO → INV → SHIP**, unpaid unless he asks for payment.
+- "Fully paid" / payment in / bank slip → then add paymentin.
+- Export Legal_TAX (clinic) or retail invoice PDF to `~/Desktop/orders/` when an invoice exists.
+- Consignment sales reports + matching agreement demands are a **separate** flow.
+- Do **not** set or mass-backfill `demand.customerOrder` unless Vadim asks.
+
+## Payment in payload
+
+- Link `paymentin.operations` to the **demand** (shipment), not only the invoice
+- `linkedSum` = full shipment sum (unless partial payment is specified)
+- Use org bank account; moment after shipment
+- After paymentin: PUT customerorder → state **Доставлен**
+
+## Do not auto-pay these states
+
+- **Доставлен - Ждем оплату** — waiting for bank / customer payment
+- **Ждет доставки - Наличные** / COD — wait for cash
+- Consignment agreement replenishment demands
+
+## Exceptions (only when stated)
+
+- **SO only** — proforma PDF from customerorder; no inv/ship/pay
+- **Consignment** — commissioner report ± matching demand into agreement
+- **Bank-ref paymentin later** — create SO→INV→SHIP first, then paymentin when bank slip arrives
+---

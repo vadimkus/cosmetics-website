@@ -14,12 +14,14 @@
 
 ## Outstanding debt
 
-**Total due: 5,700.00 AED**
+**Update 2026-08-24:** Stripe **3,800 AED** booked as paymentin **06116** on May invoice **04511** / shipment **06153**. July **04795** was already paid. Still open: **04938** (1,220) and **04960** (3,800).
 
-| Invoice | Date | Balance |
+**Total due at 10 Jul SOA (historical):** 5,700.00 AED
+
+| Invoice | Date | Balance (10 Jul) |
 |---------|------|---------|
-| 04511 | 14/05/2026 | 3,800.00 |
-| 04795 | 09/07/2026 | 1,900.00 |
+| 04511 | 14/05/2026 | 3,800.00 — **paid 24 Aug** |
+| 04795 | 09/07/2026 | 1,900.00 — **paid later** |
 
 ## Templates
 

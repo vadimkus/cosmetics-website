@@ -78,5 +78,12 @@ Open:
 - `build-cutouts.py` reads `/tmp/imgs.json`, which is a stale dump. Run
   `scripts/cutout/dump-product-images.ts > /tmp/imgs.json` first or it silently
   rebuilds from the previous hero. It did exactly that on the first attempt here.
-- Old `/images/remover/` assets are removed in a follow-up pass, after the new
-  files are live, per the order-email image rule.
+- `public/images/remover/` is deleted, all twelve files, once the new set was
+  confirmed live. 27 order-item rows still pointed at `remover/Main2.jpg` and
+  were repointed to `defender_0/Main.jpeg` by
+  `scripts/repair-dead-order-item-images.ts --apply`; the confirmation pass
+  reports zero repairable and zero unresolved. Without that pass those 27 past
+  orders would have rendered a broken image in their emails.
+- The one-off scripts under `scripts/` that still name the old paths
+  (`update-product-11-*`, `restore-studio-galleries-*`, `add-studio-slides-*`)
+  are archival records of what was run on the day and were left alone.

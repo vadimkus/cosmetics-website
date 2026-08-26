@@ -40,8 +40,7 @@ export default function BlogPostClient({ children }: BlogPostClientProps) {
       <div 
         ref={barRef}
         data-hidden={barHidden}
-        className={`mweb-hide-on-scroll sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-white border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}
-        style={{ paddingTop: 'max(env(safe-area-inset-top), 12px)' }}
+        className={`blog-article-bar mweb-hide-on-scroll mweb-float-sticky-top sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-[var(--cera-cream)]/95 border-b border-[var(--cera-line)] backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}
       >
         <button 
           onClick={() => router.push(getLocalizedPath('/blog', locale))}

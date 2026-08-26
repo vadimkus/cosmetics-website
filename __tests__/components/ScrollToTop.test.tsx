@@ -43,6 +43,51 @@ describe('ScrollToTop', () => {
     expect(window.scrollTo).toHaveBeenCalledWith({ top: 0, behavior: 'smooth' })
   })
 
+  /**
+   * Both kinds of bottom bar have to be accounted for. The bespoke product pages use a
+   * fixed one; the four products that fall through to the generic page use a sticky one,
+   * and only knowing about the fixed one put this control on top of it.
+   */
+  it.each([
+    ['fixed, on the bespoke pages', 'mweb-float-bottom'],
+    ['sticky, on the generic page', 'mweb-float-sticky-bottom'],
+  ])('sits above a bottom bar that is %s', async (_name, className) => {
+    const bar = document.createElement('div')
+    bar.className = className
+    // A bar resting on the edge, inset by 10px: 800 - 10 - 100 = 690.
+    bar.getBoundingClientRect = () => ({ top: 690, bottom: 790, height: 100 }) as DOMRect
+    document.body.appendChild(bar)
+
+    render(<ScrollToTop />)
+    const button = screen.getByRole('button', { hidden: true })
+
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 1300 })
+    fireEvent.scroll(window)
+
+    // Measured from the bar's top, so the inset below it counts: 800 - 690 + 16.
+    await waitFor(() => expect(button).toHaveStyle({ bottom: '126px' }))
+    document.body.removeChild(bar)
+  })
+
+  it('ignores a bar that has left the bottom edge', async () => {
+    const bar = document.createElement('div')
+    bar.className = 'mweb-float-sticky-bottom'
+    // A sticky bar at the end of the page, travelling up with the content.
+    bar.getBoundingClientRect = () => ({ top: 300, bottom: 400, height: 100 }) as DOMRect
+    document.body.appendChild(bar)
+
+    render(<ScrollToTop />)
+    const button = screen.getByRole('button', { hidden: true })
+
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 1300 })
+    fireEvent.scroll(window)
+
+    await waitFor(() => expect(button).toHaveAttribute('aria-hidden', 'false'))
+    // No inline override: the class-based offset stands.
+    expect(button.style.bottom).toBe('')
+    document.body.removeChild(bar)
+  })
+
   it('stays hidden in the installed PWA', () => {
     mockUsePWAMode.mockReturnValue({ isPWA: true, isClient: true })
 

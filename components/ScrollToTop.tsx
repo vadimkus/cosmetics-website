@@ -30,37 +30,71 @@ import { prefersReducedMotion } from '@/hooks/useReducedMotion'
  * as a third magic number that would go stale the next time the bar changes, the control
  * measures whatever floating bar is currently on screen and sits above it.
  */
+
+/**
+ * Every kind of bar that parks itself on the bottom edge of a phone screen.
+ *
+ * There are two, and only knowing about one is what put this control on top of the buy bar
+ * on the four products that fall through to the generic page: those use a sticky bar,
+ * `mweb-float-sticky-bottom`, where the bespoke pages use a fixed one.
+ */
+const BOTTOM_BARS = '.mweb-float-bottom, .mweb-float-sticky-bottom'
+
+/** Clearance between this control and whatever it is sitting above. */
+const GAP = 16
+
+/**
+ * How much of the bottom edge is currently spoken for.
+ *
+ * Measured from the bar's top rather than its height, because a floating bar is inset from
+ * the edge and that gap counts too — taking the height alone left six pixels of clearance
+ * where sixteen were intended.
+ */
+function bottomBarInset(): number {
+  let inset = 0
+  for (const bar of Array.from(document.querySelectorAll(BOTTOM_BARS))) {
+    const rect = bar.getBoundingClientRect()
+    // Bars slide out of view rather than unmounting, so presence in the DOM is not the
+    // question. A sticky bar that has reached the end of the page also travels up with the
+    // content, at which point it is no longer on the edge and no longer in the way.
+    if (rect.bottom < window.innerHeight - 24) continue
+    inset = Math.max(inset, window.innerHeight - rect.top)
+  }
+  return Math.max(0, Math.round(inset))
+}
+
 export default function ScrollToTop() {
   const { isPWA, isClient } = usePWAMode()
   const { t, dir } = useTranslation()
   const isRTL = dir === 'rtl'
   const [visible, setVisible] = useState(false)
-  const [barHeight, setBarHeight] = useState(0)
+  const [barInset, setBarInset] = useState(0)
 
   useEffect(() => {
     // A viewport-relative threshold rather than a fixed pixel count: on a short phone
     // 600px is most of a screen, on a tall one it is barely half. 1.5 screens means the
     // control only turns up once scrolling back by hand has actually become a chore.
-    const onScroll = () => {
+    const measure = () => {
       setVisible(window.scrollY > window.innerHeight * 1.5)
-
-      // The bar stays mounted and slides out of view, so presence in the DOM is not
-      // the question — how much of it is actually on screen is.
-      const bar = document.querySelector('.mweb-float-bottom')
-      if (!bar) {
-        setBarHeight(0)
-        return
-      }
-      const rect = bar.getBoundingClientRect()
-      const showing = Math.max(0, window.innerHeight - rect.top)
-      setBarHeight(Math.round(Math.min(showing, rect.height)))
+      setBarInset(bottomBarInset())
     }
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
+
+    // A bar reaches its resting place after the scroll that triggered it has stopped, so
+    // measuring on scroll alone can read it mid-slide and leave this control at a height
+    // that was only ever true in passing.
+    const onTransitionEnd = (event: TransitionEvent) => {
+      const target = event.target as HTMLElement | null
+      if (event.propertyName === 'transform' && target?.matches?.(BOTTOM_BARS)) measure()
+    }
+
+    measure()
+    window.addEventListener('scroll', measure, { passive: true })
+    window.addEventListener('resize', measure)
+    document.addEventListener('transitionend', onTransitionEnd, true)
     return () => {
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
+      window.removeEventListener('scroll', measure)
+      window.removeEventListener('resize', measure)
+      document.removeEventListener('transitionend', onTransitionEnd, true)
     }
   }, [])
 
@@ -84,8 +118,8 @@ export default function ScrollToTop() {
       } ${isRTL ? 'right-4 md:right-6' : 'left-4 md:left-6'}`}
       style={{
         WebkitTapHighlightColor: 'transparent',
-        // Only override the class-based offset while a floating bar is actually showing.
-        ...(barHeight > 0 ? { bottom: `${barHeight + 16}px` } : {}),
+        // Only override the class-based offset while a bottom bar is actually showing.
+        ...(barInset > 0 ? { bottom: `${barInset + GAP}px` } : {}),
       }}
     >
       <ArrowUp className="h-[19px] w-[19px]" aria-hidden="true" />

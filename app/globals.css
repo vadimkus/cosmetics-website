@@ -1414,6 +1414,13 @@ html[dir="rtl"] {
   padding-top: max(env(safe-area-inset-top), 10px);
 }
 
+/* Installed, the article bar sits flush on the top edge and carries the notch in its own
+   padding. Floating in the browser it clears the notch by its inset instead, so the
+   mobile web block below hands the padding back. */
+.blog-article-bar {
+  padding-top: max(env(safe-area-inset-top), 12px);
+}
+
 /* Movement for any bar that steps aside on the way down and returns on the way
    up. Timings are the app's, from CollapsibleHeader: leaving is quicker than
    arriving, so getting out of the way feels immediate while coming back does
@@ -1479,6 +1486,11 @@ html[dir="rtl"] {
      padding returns to the symmetric py-2.5 the rest of the bar uses. */
   .pdp-locale-bar {
     padding-top: 0.625rem;
+  }
+
+  /* Same for the article bar, back to its symmetric py-3. */
+  .blog-article-bar {
+    padding-top: 0.75rem;
   }
 
   /* Floating, a bar has to clear its own inset and the notch above it as well

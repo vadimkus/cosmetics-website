@@ -319,7 +319,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
           {/* Sticky filter bar (mobile web/PWA): search + tabs stay in view while
               scrolling. Background is solid (not fading to transparent) so
               content doesn't show through the pinned bar. */}
-          <div className={isAppLikeMode ? 'sticky top-0 z-20 bg-[var(--cera-cream)]/95 backdrop-blur-md pt-2 pb-2 -mx-3 px-3 border-b border-[var(--cera-line)]' : ''}>
+          <div className={isAppLikeMode ? 'mweb-float-sticky-top sticky top-0 z-20 bg-[var(--cera-cream)]/95 backdrop-blur-md pt-2 pb-2 -mx-3 px-3 border-b border-[var(--cera-line)]' : ''}>
             {/* Search Bar */}
             <div className="relative mb-3 md:mb-6">
               <div className={`absolute inset-y-0 ${dir === 'rtl' ? 'right-0 pr-3' : 'left-0 pl-3'} flex items-center pointer-events-none`}>

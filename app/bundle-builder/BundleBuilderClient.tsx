@@ -705,7 +705,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
   return (
     <div className={`cera-page genosys-page ${ceraSerif.variable}`}>
       {/* Header */}
-      <header className="sticky top-0 z-40 border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/90 backdrop-blur-lg">
+      <header className="mweb-float-sticky-top sticky top-0 z-40 border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/90 backdrop-blur-lg">
         <div className="container mx-auto px-4">
           <div className="relative flex items-center justify-between h-14 sm:h-16">
             {/* Back Button */}

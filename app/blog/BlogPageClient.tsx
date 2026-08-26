@@ -110,7 +110,7 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
           the page carries its own back / title / profile bar. */}
       {isAppLikeMode && (
         <div
-          className={`sticky top-0 z-20 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${
+          className={`mweb-float-sticky-top sticky top-0 z-20 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${
             isRTL ? 'flex-row-reverse' : ''
           }`}
         >

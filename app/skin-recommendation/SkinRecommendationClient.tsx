@@ -660,11 +660,11 @@ export default function SkinRecommendationClient() {
         ]}
       />
 
-      {/* Unified sticky nav header — matches /profile stack + Privacy/Terms/About:
-          sticky top-0 z-20, bg-white/95 + backdrop-blur, border-b border-[var(--cera-line)].
-          Stays visible so user can always back out or jump to profile. */}
+      {/* Unified sticky nav header — matches the /profile stack and
+          Privacy/Terms/About. Stays visible so the reader can always back out
+          or jump to profile. */}
       {isAppLikeMode && (
-        <div className={`sticky top-0 z-20 bg-[var(--cera-cream)]/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`mweb-float-sticky-top sticky top-0 z-20 bg-[var(--cera-cream)]/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
             onClick={() => router.push(getLocalizedPath('/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}

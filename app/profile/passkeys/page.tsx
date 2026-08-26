@@ -36,7 +36,7 @@ export default function PasskeysPage() {
     <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
       {/* Unified nav header */}
       <div
-        className="mweb-float-sticky-top sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-[var(--cera-line)]"
+        className="mweb-float-sticky-top sticky top-0 z-10 bg-[var(--cera-cream)]/95 backdrop-blur border-b border-[var(--cera-line)]"
         style={{ paddingTop: 'env(safe-area-inset-top, 0px)' }}
       >
         <div className={`flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>

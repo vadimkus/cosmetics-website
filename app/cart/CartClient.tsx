@@ -265,7 +265,7 @@ export default function CartClient() {
       <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-8' : ''}`}>
         {/* PWA / Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
-          <div className={`sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <div className={`mweb-float-sticky-top sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className="min-w-[80px]" />
             <h1 className="cera-serif flex-1 truncate px-2 text-center text-[17px]">
               {t('pwaProfile.bag') || 'Bag'}
@@ -292,7 +292,7 @@ export default function CartClient() {
       <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-8' : ''}`}>
         {/* PWA / Mobile Web Simple Navigation Header */}
         {isAppLikeMode && (
-          <div className={`sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
+          <div className={`mweb-float-sticky-top sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
             <button
               onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
               className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
@@ -471,7 +471,7 @@ export default function CartClient() {
     <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`}>
       {/* PWA / Mobile Web Simple Navigation Header */}
       {isAppLikeMode && (
-        <div className={`sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`mweb-float-sticky-top sticky top-0 z-10 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
             onClick={() => router.push(getLocalizedPath(fromProfile ? '/profile' : '/products', locale))}
             className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}

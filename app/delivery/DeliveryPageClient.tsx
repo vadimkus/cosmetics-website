@@ -53,7 +53,7 @@ export default function DeliveryPageClient() {
     <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-[100dvh] ${isAppLikeMode ? 'pb-32' : ''}`} dir={dir}>
       {isAppLikeMode && (
         <div
-          className={`sticky top-0 z-20 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${
+          className={`mweb-float-sticky-top sticky top-0 z-20 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${
             isRTL ? 'flex-row-reverse' : ''
           }`}
         >

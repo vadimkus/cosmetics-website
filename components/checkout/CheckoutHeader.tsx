@@ -24,7 +24,7 @@ export default function CheckoutHeader({ isPWA, isPWAClient, isMobileWeb, locale
     <>
       {/* PWA / Mobile Web Light Header */}
       {(isPWAClient && isPWA) || isMobileWeb ? (
-        <div className={`sticky top-0 z-10 -mx-4 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 mb-4 border-b border-gray-200 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+        <div className={`mweb-float-sticky-top sticky top-0 z-10 -mx-4 bg-[var(--cera-cream)]/95 backdrop-blur flex items-center justify-between px-5 py-4 mb-4 border-b border-[var(--cera-line)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           {/* Back to Bag */}
           <Link
             href={getLocalizedPath('/cart', locale)}

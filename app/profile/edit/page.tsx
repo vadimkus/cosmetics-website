@@ -429,7 +429,7 @@ export default function EditProfilePage() {
        * container below still has safe-area-top (it's `fixed`, so it needs
        * to clear the status bar independently).
        */}
-      <div className={`mweb-float-sticky-top sticky top-0 z-10 bg-white/95 backdrop-blur border-b border-[var(--cera-line)] flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div className={`mweb-float-sticky-top sticky top-0 z-10 bg-[var(--cera-cream)]/95 backdrop-blur border-b border-[var(--cera-line)] flex items-center justify-between px-5 py-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
         <button
           onClick={handleBack}
           className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}

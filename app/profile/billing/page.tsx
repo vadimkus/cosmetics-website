@@ -170,7 +170,7 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
     >
       {/* Unified nav header */}
       {!embedded && (
-        <div className={`mweb-float-sticky-top sticky top-0 z-10 bg-white/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <div className={`mweb-float-sticky-top sticky top-0 z-10 bg-[var(--cera-cream)]/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
             type="button"
             onClick={handleBack}

@@ -1346,6 +1346,19 @@ html[dir="rtl"] {
   );
 }
 
+/* 100vh on iOS Safari is the *large* viewport: the height the page would have
+   if the browser toolbars were retracted. With the toolbars showing, a page
+   floored at 100vh is always taller than what you can actually see, and since
+   the tab bar sits in flow at the end of that page you can scroll past it into
+   a dead band of background. svh is the toolbar-visible height, which is what
+   "at least one screen" is meant to mean here. Applies to <body>, which is
+   min-h-screen, and to the ~100 page containers that are too. */
+@supports (min-height: 100svh) {
+  .min-h-screen {
+    min-height: 100svh;
+  }
+}
+
 .mobile-web-footer-nav {
   position: -webkit-sticky;
   position: sticky;

@@ -20,12 +20,14 @@ in its own component, which is how the two drifted apart.
 
 ## What changed
 
-One hook, `hooks/useHideOnScroll.ts`, now owns the rule, and both bars use it:
+One hook, `hooks/useHideOnScroll.ts`, now owns the rule, and every bar uses it:
 
 - `components/header/MobileWebHeader.tsx` — the products list and every other
   standard page.
 - `components/product/PdpLocaleBar.tsx` — product pages and articles. Its local
   copy of the logic moved into the hook unchanged.
+- `app/blog/BlogPageClient.tsx` and `app/blog/[slug]/BlogPostClient.tsx` — the
+  blog index and articles, which the app also hides.
 
 Movement lives in one CSS class, `.mweb-hide-on-scroll`, with the app's timings:
 180ms to leave, 220ms to come back, quad-out easing. Leaving is quicker than
@@ -66,13 +68,21 @@ In a real browser at 390px, dragging six pixels a frame rather than jumping:
 | products list | `10` | `-58` | `10` | `10` |
 | product page | `10` | `-58` | `10` | `10` |
 | home | `10` | `-58` | — | — |
+| blog index | `10` | `-70` | `10` | `10` |
+| blog article | `0` | `-61` | `0` | `0` |
 
-Identical numbers on both, and the header held at `10` through a 600px scroll
-with the language menu open. Jest (1,323 passed), eslint and a production build
-are clean.
+Every bar clears the screen completely and comes back to where it started, and
+the header held at `10` through a 600px scroll with the language menu open.
+Jest, eslint and a production build are clean.
+
+The floating bars rest 10px down and hide by their height plus that offset; the
+article bar sits flush on the edge and hides by its height alone. That is why
+the extra offset in the CSS is scoped to `.mobile-web-header` and
+`.mweb-float-sticky-top` rather than applied to everything that hides.
 
 ## Not changed
 
-The blog index keeps its own sticky bar and does not hide, so mobile web is
-consistent on the shopping path but not yet everywhere. The app hides its blog
-header too; that one is still outstanding.
+The article bar is still a flat white band with a bottom border, where the blog
+index, the product bar and the site header are floating cream bars with rounded
+corners. It hides correctly now, but it is the one piece of mobile web chrome
+that never got the floating treatment.

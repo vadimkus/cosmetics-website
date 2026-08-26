@@ -12,6 +12,7 @@ import LocaleSwitchInline from '@/components/LocaleSwitchInline'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
+import { useHideOnScroll } from '@/hooks/useHideOnScroll'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAuth } from '@/components/auth/AuthProvider'
 
@@ -38,6 +39,9 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
   const { user } = useAuth()
+  // Steps aside on the way down and returns on the way up, as the app's blog
+  // header does and as the rest of the mobile web chrome now does.
+  const { ref: barRef, hidden: barHidden } = useHideOnScroll<HTMLDivElement>()
 
   const isRTL = dir === 'rtl'
   const fromProfile = searchParams?.get('from') === 'profile'
@@ -110,7 +114,9 @@ export default function BlogPageClient({ posts }: BlogPageClientProps) {
           the page carries its own back / title / profile bar. */}
       {isAppLikeMode && (
         <div
-          className={`mweb-float-sticky-top sticky top-0 z-20 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${
+          ref={barRef}
+          data-hidden={barHidden}
+          className={`mweb-hide-on-scroll mweb-float-sticky-top sticky top-0 z-20 flex items-center justify-between border-b border-[var(--cera-line)] bg-[var(--cera-cream)]/95 px-5 py-4 backdrop-blur ${
             isRTL ? 'flex-row-reverse' : ''
           }`}
         >

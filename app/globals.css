@@ -1482,8 +1482,11 @@ html[dir="rtl"] {
   }
 
   /* Floating, a bar has to clear its own inset and the notch above it as well
-     as its height, or it parks half on screen. */
-  .mweb-hide-on-scroll[data-hidden='true'] {
+     as its height, or it parks half on screen. Scoped to the bars that actually
+     float: the article header sits flush on the edge and carries the notch in
+     its own padding, so its height is already the whole journey. */
+  .mobile-web-header.mweb-hide-on-scroll[data-hidden='true'],
+  .mweb-float-sticky-top.mweb-hide-on-scroll[data-hidden='true'] {
     transform: translateY(
       calc(-100% - env(safe-area-inset-top, 0px) - var(--mweb-chrome-inset))
     );

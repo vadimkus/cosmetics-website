@@ -5,6 +5,7 @@ import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
+import { useHideOnScroll } from '@/hooks/useHideOnScroll'
 import LocaleSwitchInline from '@/components/LocaleSwitchInline'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import '@/components/product/cerabarrier/cerabarrier.css'
@@ -19,6 +20,9 @@ export default function BlogPostClient({ children }: BlogPostClientProps) {
   const router = useRouter()
   const { user } = useAuth()
   const { isMobile, isClient } = useIsMobileWeb()
+  // Steps aside on the way down and returns on the way up, matching the app's
+  // article header. Long-form reading is where a permanent bar costs most.
+  const { ref: barRef, hidden: barHidden } = useHideOnScroll<HTMLDivElement>()
 
   const isRTL = dir === 'rtl'
   // Was `isMobileWeb`, which excludes the installed PWA. `PWAHeader` also hides
@@ -34,7 +38,9 @@ export default function BlogPostClient({ children }: BlogPostClientProps) {
     <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
       {/* Mobile Header */}
       <div 
-        className={`sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-white border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}
+        ref={barRef}
+        data-hidden={barHidden}
+        className={`mweb-hide-on-scroll sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-white border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}
         style={{ paddingTop: 'max(env(safe-area-inset-top), 12px)' }}
       >
         <button 

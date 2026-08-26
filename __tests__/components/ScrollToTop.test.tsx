@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import ScrollToTop from '@/components/ScrollToTop'
 
 const mockUsePWAMode = jest.fn()
@@ -85,6 +85,47 @@ describe('ScrollToTop', () => {
     await waitFor(() => expect(button).toHaveAttribute('aria-hidden', 'false'))
     // No inline override: the class-based offset stands.
     expect(button.style.bottom).toBe('')
+    document.body.removeChild(bar)
+  })
+
+  /**
+   * The bug this was reported for: the buy bar grew after the last scroll — prices
+   * resolving for a signed-in customer, or the quantity passing one and adding a per-unit
+   * line — and the control stayed where a shorter bar had put it, on top of the price.
+   */
+  it('re-measures when the bar changes height without a scroll', async () => {
+    const observed: Element[] = []
+    let fire: (() => void) | undefined
+    // @ts-expect-error - jsdom has no ResizeObserver
+    global.ResizeObserver = class {
+      constructor(cb: () => void) {
+        fire = cb
+      }
+      observe(el: Element) {
+        observed.push(el)
+      }
+      disconnect() {}
+    }
+
+    const bar = document.createElement('div')
+    bar.className = 'mweb-float-bottom'
+    let height = 80
+    bar.getBoundingClientRect = () => ({ top: 800 - height, bottom: 790, height }) as DOMRect
+    document.body.appendChild(bar)
+
+    render(<ScrollToTop />)
+    const button = screen.getByRole('button', { hidden: true })
+
+    Object.defineProperty(window, 'scrollY', { configurable: true, value: 1300 })
+    fireEvent.scroll(window)
+    await waitFor(() => expect(button).toHaveStyle({ bottom: '96px' }))
+    expect(observed).toContain(bar)
+
+    // The bar grows. No scroll, no resize — only the observer can catch this.
+    height = 130
+    act(() => fire?.())
+
+    await waitFor(() => expect(button).toHaveStyle({ bottom: '146px' }))
     document.body.removeChild(bar)
   })
 

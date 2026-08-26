@@ -87,7 +87,34 @@ export default function ScrollToTop() {
       if (event.propertyName === 'transform' && target?.matches?.(BOTTOM_BARS)) measure()
     }
 
-    measure()
+    /**
+     * The buy bar's height is not fixed, and it can change without anybody scrolling.
+     *
+     * It grows when prices resolve for a signed-in customer, when the quantity passes one
+     * and a per-unit line appears, and when a longer translation wraps the button. Scroll,
+     * resize and transitionend all miss those, which leaves this control sitting at a
+     * height that stopped being true — on top of the bar, over the price.
+     */
+    const sizes = new ResizeObserver(measure)
+    const observeBars = () => {
+      sizes.disconnect()
+      document.querySelectorAll(BOTTOM_BARS).forEach(bar => sizes.observe(bar))
+      measure()
+    }
+
+    // The bar mounts with the page rather than with this control, so wait for it, and pick
+    // up a later one when navigating between a product page and anything else.
+    let pending = 0
+    const tree = new MutationObserver(() => {
+      if (pending) return
+      pending = window.requestAnimationFrame(() => {
+        pending = 0
+        observeBars()
+      })
+    })
+
+    observeBars()
+    tree.observe(document.body, { childList: true, subtree: true })
     window.addEventListener('scroll', measure, { passive: true })
     window.addEventListener('resize', measure)
     document.addEventListener('transitionend', onTransitionEnd, true)
@@ -95,6 +122,9 @@ export default function ScrollToTop() {
       window.removeEventListener('scroll', measure)
       window.removeEventListener('resize', measure)
       document.removeEventListener('transitionend', onTransitionEnd, true)
+      if (pending) window.cancelAnimationFrame(pending)
+      tree.disconnect()
+      sizes.disconnect()
     }
   }, [])
 

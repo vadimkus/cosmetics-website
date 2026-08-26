@@ -1317,31 +1317,57 @@ html[dir="rtl"] {
   }
 }
 
-/* Mobile web footer navigation - sticky at bottom */
-/* Height of the mobile web tab bar, declared once so anything that has to sit above it
-   (the return-to-top control) tracks it instead of restating the number. 58px of content
-   plus whatever the home indicator needs. */
+/* Mobile web chrome. The header and the tab bar float clear of the edges as
+   rounded bars rather than spanning the full width, so the page reads as a
+   sheet the chrome sits on top of. Both use the same inset and radius.
+
+   --mobile-nav-height stays the *total* space the tab bar occupies, inset and
+   home indicator included, because ScrollToTop and ChatWidget position
+   themselves off it and only care how far up from the bottom edge to sit. */
 :root {
-  --mobile-nav-height: calc(58px + env(safe-area-inset-bottom, 0px));
+  --mweb-chrome-inset: 10px;
+  --mweb-chrome-radius: 22px;
+  /* Soft and ink-tinted, matching .cera-card so the bars belong to the same
+     surface family as the page's own cards. */
+  --mweb-chrome-shadow: 0 1px 2px rgba(25, 23, 22, 0.04), 0 14px 34px -20px rgba(25, 23, 22, 0.3);
+
+  --mweb-nav-bar: 58px;
+  --mobile-nav-height: calc(
+    var(--mweb-nav-bar) + var(--mweb-chrome-inset) + env(safe-area-inset-bottom, 0px)
+  );
+
+  /* Everything the floating header occupies: the notch, the gap above the bar,
+     the bar itself, and a matching gap below it. The spacer under the header and
+     the menu panel's top padding both read this. */
+  --mweb-header-bar: 56px;
+  --mweb-header-space: calc(
+    env(safe-area-inset-top, 0px) + var(--mweb-chrome-inset) + var(--mweb-header-bar) +
+      var(--mweb-chrome-inset)
+  );
 }
 
 .mobile-web-footer-nav {
   position: -webkit-sticky;
   position: sticky;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: var(--mobile-nav-height);
-  min-height: var(--mobile-nav-height);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  /* Sticky rather than fixed for Chrome iOS. The bottom offset carries the home
+     indicator so the bar floats above it instead of padding itself around it. */
+  bottom: calc(var(--mweb-chrome-inset) + env(safe-area-inset-bottom, 0px));
+  /* Matching bottom margin, so the gap survives when the sticky element reaches
+     the end of the document and drops back into flow. */
+  margin: 0 var(--mweb-chrome-inset)
+    calc(var(--mweb-chrome-inset) + env(safe-area-inset-bottom, 0px));
+  height: var(--mweb-nav-bar);
+  min-height: var(--mweb-nav-bar);
   flex-shrink: 0;
   background-color: #faf8f7;
-  border-top: 1px solid #e9e1de;
+  border: 1px solid #e9e1de;
+  border-radius: var(--mweb-chrome-radius);
+  box-shadow: var(--mweb-chrome-shadow);
   z-index: 9999;
   display: flex;
   align-items: stretch;
   justify-content: space-around;
+  overflow: hidden;
   /* Note: margin-top:auto removed - was causing whitespace at bottom of long pages */
 }
 

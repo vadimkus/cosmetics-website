@@ -43,12 +43,15 @@ export default function CookieConsentBanner() {
     setVisible(false)
   }
 
+  /* On mobile the tab bar floats clear of the bottom edge, so this sits above
+     it as a matching inset card rather than running under it. From md up the
+     tab bar is gone and this returns to a full-width strip. */
   return (
     <div
       role="dialog"
       aria-label={t.privacy}
       dir={dir}
-      className="fixed inset-x-0 bottom-0 z-[60] border-t border-[var(--cera-line,#e9e1de)] bg-white/95 backdrop-blur px-4 py-3 shadow-[0_-4px_20px_-8px_rgba(0,0,0,0.15)] print:hidden"
+      className="fixed z-[60] inset-x-[var(--mweb-chrome-inset)] bottom-[var(--mobile-nav-height)] rounded-[var(--mweb-chrome-radius)] border border-[var(--cera-line,#e9e1de)] bg-white/95 backdrop-blur px-4 py-3 shadow-[var(--mweb-chrome-shadow)] print:hidden md:inset-x-0 md:bottom-0 md:rounded-none md:border-0 md:border-t md:shadow-[0_-4px_20px_-8px_rgba(0,0,0,0.15)]"
     >
       <div
         className={`container mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between ${isRtl ? 'sm:flex-row-reverse text-right' : ''}`}

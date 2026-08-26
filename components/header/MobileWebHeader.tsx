@@ -191,12 +191,22 @@ export default function MobileWebHeader() {
 
           Laid out as a three-column grid with the wordmark in the centre column, so it is
           optically centred whatever the flanks weigh. The previous flex row grouped the
-          logo with the heart and left it 22px right of centre. */}
+          logo with the heart and left it 22px right of centre.
+
+          Floats clear of the edges as a rounded bar, matching the tab bar at the
+          foot of the page. The notch inset moves out of the bar and into its top
+          offset, so the safe area becomes the gap above it rather than padding
+          inside it. Deliberately no overflow-hidden: the language menu hangs off
+          the bottom of this element and would be clipped by the radius. */}
       <header 
-        className="cera-page genosys-page fixed top-0 left-0 right-0 z-50 md:hidden"
+        className="cera-page genosys-page mobile-web-header fixed z-50 md:hidden"
         style={{ 
-          paddingTop: 'env(safe-area-inset-top, 0px)',
-          borderBottom: '1px solid var(--cera-line)'
+          top: 'calc(env(safe-area-inset-top, 0px) + var(--mweb-chrome-inset))',
+          left: 'var(--mweb-chrome-inset)',
+          right: 'var(--mweb-chrome-inset)',
+          border: '1px solid var(--cera-line)',
+          borderRadius: 'var(--mweb-chrome-radius)',
+          boxShadow: 'var(--mweb-chrome-shadow)'
         }}
         dir={dir}
       >
@@ -369,7 +379,7 @@ export default function MobileWebHeader() {
       {showMobileMenu && (
         <div 
           className="fixed inset-0 z-40 md:hidden"
-          style={{ paddingTop: 'calc(env(safe-area-inset-top, 0px) + 56px)' }}
+          style={{ paddingTop: 'var(--mweb-header-space)' }}
         >
           {/* Backdrop with blur */}
           <div 
@@ -620,10 +630,12 @@ export default function MobileWebHeader() {
       `}</style>
 
 
-      {/* Spacer to prevent content from being hidden behind fixed header */}
+      {/* Spacer to prevent content from being hidden behind fixed header.
+          Tracks --mweb-header-space so the inset, the bar and the gap below it
+          are stated once rather than restated here and in the menu panel. */}
       <div 
         className="md:hidden" 
-        style={{ height: 'calc(env(safe-area-inset-top, 0px) + 56px)' }}
+        style={{ height: 'var(--mweb-header-space)' }}
         aria-hidden="true" 
       />
     </>

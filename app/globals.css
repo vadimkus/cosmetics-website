@@ -1412,6 +1412,21 @@ html[dir="rtl"] {
    the block below so the mobile web override wins on equal specificity. */
 .pdp-locale-bar {
   padding-top: max(env(safe-area-inset-top), 10px);
+  transition: transform 220ms ease;
+  will-change: transform;
+}
+
+/* Stepped aside on the way down, so the artwork underneath is never behind it.
+   On the top edge the bar's own height is the whole journey; floating, it has
+   its gap to clear as well, which the mobile web block below adds. */
+.pdp-locale-bar-hidden {
+  transform: translateY(-100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdp-locale-bar {
+    transition: none;
+  }
 }
 
 /* Same pairing at the foot of the generic product page. */
@@ -1457,6 +1472,14 @@ html[dir="rtl"] {
      padding returns to the symmetric py-2.5 the rest of the bar uses. */
   .pdp-locale-bar {
     padding-top: 0.625rem;
+  }
+
+  /* Floating, the bar has to clear its own inset and the notch above it as
+     well as its height, or it parks half on screen. */
+  .pdp-locale-bar-hidden {
+    transform: translateY(
+      calc(-100% - env(safe-area-inset-top, 0px) - var(--mweb-chrome-inset))
+    );
   }
 
   /* The buy bar's off-screen state. Tailwind's translate-y-full shifts the bar

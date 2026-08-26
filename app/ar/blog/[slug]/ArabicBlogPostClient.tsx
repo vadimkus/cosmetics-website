@@ -5,7 +5,7 @@ import { Calendar, User, ArrowLeft } from 'lucide-react'
 import BlogComments from '@/components/blog/BlogComments'
 import BlackFridayCountdown from '@/components/BlackFridayCountdown'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
-import PdpLocaleBar from '@/components/product/PdpLocaleBar'
+import BlogArticleBar from '@/components/blog/BlogArticleBar'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { sanitizeHtml } from '@/lib/sanitize'
@@ -50,11 +50,10 @@ export default function ArabicBlogPostClient({
   return (
     <article className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
       <ReadingProgress />
-      {/* This route renders its own body rather than going through
-          BlogPostClient, so it never got that component's mobile bar. All three
-          site headers hide on /blog, which left phones with no language
-          control. Mobile only — desktop still has the site header. */}
-      <PdpLocaleBar backTo="blog" />
+      {/* The same bar the English route uses. This route renders its own body rather
+          than going through BlogPostClient, which is why it reached for the product
+          locale bar instead and ended up without an account control. */}
+      <BlogArticleBar />
       <PageBreadcrumb
         items={[
           { name: t('common.home'), href: getLocalizedPath('/', locale) },

@@ -1,14 +1,8 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { useTranslation } from '@/hooks/useTranslation'
-import { getLocalizedPath } from '@/lib/i18n'
-import { useAuth } from '@/components/auth/AuthProvider'
 import { useIsMobileWeb } from '@/hooks/useIsMobile'
-import { useHideOnScroll } from '@/hooks/useHideOnScroll'
-import LocaleSwitchInline from '@/components/LocaleSwitchInline'
+import BlogArticleBar from '@/components/blog/BlogArticleBar'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
-import AccountAvatar from '@/components/AccountAvatar'
 import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
@@ -16,59 +10,20 @@ interface BlogPostClientProps {
   children: React.ReactNode
 }
 
+/**
+ * The English article route's body wrapper. The bar itself now lives in
+ * `BlogArticleBar`, so `/ar` and `/ru` can use the same one.
+ */
 export default function BlogPostClient({ children }: BlogPostClientProps) {
-  const { locale, dir } = useTranslation()
-  const router = useRouter()
-  const { user } = useAuth()
   const { isMobile, isClient } = useIsMobileWeb()
-  // Steps aside on the way down and returns on the way up, matching the app's
-  // article header. Long-form reading is where a permanent bar costs most.
-  const { ref: barRef, hidden: barHidden } = useHideOnScroll<HTMLDivElement>()
 
-  const isRTL = dir === 'rtl'
-  // Was `isMobileWeb`, which excludes the installed PWA. `PWAHeader` also hides
-  // itself on /blog, so PWA readers were getting no bar at all: no way back to
-  // the blog, and no language control. Any narrow viewport gets it now.
-  const isAppLikeMode = isClient && isMobile
-
-  if (!isAppLikeMode) {
+  if (!(isClient && isMobile)) {
     return <>{children}</>
   }
 
   return (
     <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
-      {/* Mobile Header */}
-      <div 
-        ref={barRef}
-        data-hidden={barHidden}
-        className={`blog-article-bar mweb-hide-on-scroll mweb-float-sticky-top sticky top-0 z-50 flex items-center justify-between px-4 py-3 bg-[var(--cera-cream)]/95 border-b border-[var(--cera-line)] backdrop-blur ${isRTL ? 'flex-row-reverse' : ''}`}
-      >
-        <button 
-          onClick={() => router.push(getLocalizedPath('/blog', locale))}
-          className={`flex items-center gap-1 min-w-[80px] ${isRTL ? 'flex-row-reverse' : ''}`}
-        >
-          <svg className={`w-5 h-5 text-[var(--cera-rose-ink)] ${isRTL ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          <span className="text-base text-[var(--cera-rose-ink)]">
-            {locale === 'ar' ? 'المدونة' : locale === 'ru' ? 'Блог' : 'Blog'}
-          </span>
-        </button>
-        {/* The "Article" label that sat here told the reader nothing they could
-            not see. The language control is what this bar was missing. */}
-        <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
-        <LocaleSwitchInline />
-        {/* Profile Icon with green dot */}
-        <button 
-          onClick={() => router.push(getLocalizedPath('/profile', locale))}
-          className="flex"
-        >
-          <AccountAvatar name={user?.name} signedIn={!!user} />
-        </button>
-        </div>
-      </div>
-      
-      {/* Content */}
+      <BlogArticleBar />
       {children}
     </div>
   )

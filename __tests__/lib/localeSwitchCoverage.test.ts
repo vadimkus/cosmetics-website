@@ -27,14 +27,27 @@ describe('language control on header-less routes', () => {
     ['app/products/[id]/page.tsx', 'PdpLocaleBar'],
     ['app/ru/products/[id]/page.tsx', 'PdpLocaleBar'],
     ['app/ar/products/[id]/page.tsx', 'PdpLocaleBar'],
-    ['app/ar/blog/[slug]/ArabicBlogPostClient.tsx', 'PdpLocaleBar'],
-    ['app/ru/blog/[slug]/RussianBlogPostClient.tsx', 'PdpLocaleBar'],
     ['app/products/[id]/ProductPageClientRefactored.tsx', 'LocaleSwitchInline'],
-    ['app/blog/[slug]/BlogPostClient.tsx', 'LocaleSwitchInline'],
     ['app/blog/BlogPageClient.tsx', 'LocaleSwitchInline'],
+    ['components/blog/BlogArticleBar.tsx', 'LocaleSwitchInline'],
   ])('%s renders %s', (file, control) => {
     const src = read(file)
     expect(src).toContain(`<${control}`)
+  })
+
+  /**
+   * All three article routes have their own client, and the other two used to reach for
+   * the product locale bar, so the same page had one bar in English and a different one
+   * in Arabic and Russian — the latter with no account control. They share one bar now.
+   */
+  it.each([
+    'app/blog/[slug]/BlogPostClient.tsx',
+    'app/ar/blog/[slug]/ArabicBlogPostClient.tsx',
+    'app/ru/blog/[slug]/RussianBlogPostClient.tsx',
+  ])('%s renders the shared article bar', file => {
+    const src = read(file)
+    expect(src).toContain('<BlogArticleBar')
+    expect(src).not.toContain('<PdpLocaleBar')
   })
 
   it('the PWA header keeps the reader on the current page', () => {

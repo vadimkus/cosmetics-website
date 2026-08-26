@@ -5,7 +5,7 @@ import { Calendar, User, ArrowLeft } from 'lucide-react'
 import BlogComments from '@/components/blog/BlogComments'
 import BlackFridayCountdown from '@/components/BlackFridayCountdown'
 import PageBreadcrumb from '@/components/PageBreadcrumb'
-import PdpLocaleBar from '@/components/product/PdpLocaleBar'
+import BlogArticleBar from '@/components/blog/BlogArticleBar'
 import { useTranslation } from '@/hooks/useTranslation'
 import { getLocalizedPath } from '@/lib/i18n'
 import { sanitizeHtml } from '@/lib/sanitize'
@@ -50,9 +50,8 @@ export default function RussianBlogPostClient({
   return (
     <article className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`} dir={dir}>
       <ReadingProgress />
-      {/* See the Arabic route: this page bypasses BlogPostClient, so it needs
-          its own mobile bar to carry the language control. */}
-      <PdpLocaleBar backTo="blog" />
+      {/* The same bar the English route uses. See the Arabic route. */}
+      <BlogArticleBar />
       <PageBreadcrumb
         items={[
           { name: t('navigation.home'), href: getLocalizedPath('/', locale) },

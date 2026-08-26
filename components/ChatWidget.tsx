@@ -681,8 +681,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
         onClick={handleOpen}
         className={`
           fixed z-50 p-4 rounded-full shadow-lg
-          bg-gradient-to-r from-red-600 to-red-500
-          hover:from-red-700 hover:to-red-600
+          bg-[var(--cera-ink)] hover:bg-[var(--cera-body)]
           text-white transition-all duration-300
           hover:scale-110 active:scale-95
           ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}

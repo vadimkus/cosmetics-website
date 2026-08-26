@@ -151,7 +151,7 @@ const CUTOUTS: Record<string, string> = {
   // 65 Bio-Meso PDRN Homecare Ampoule 5000
   '/images/pdrn_5000_new/Main.jpeg': '/images/cutout/65-v2.webp',
   // 66 CERABARRIER BIOME GEL CLEANSER
-  '/images/cera_o/Main.jpeg': '/images/cutout/66.webp',
+  '/images/cera_o/Main.jpeg': '/images/cutout/66-v2.webp',
 }
 
 /**

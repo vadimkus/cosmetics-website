@@ -61,6 +61,11 @@ WEBP_QUALITY = 86
 FLOOR = {
     # Box and tube stand on the same glossy floor at 88.8% of frame height.
     "65": 0.888,
+    # Both bottles stand on the same glossy floor; their contact edges read as a
+    # dark hairline at 86.44% and 86.36% of frame height. Vision tore the large
+    # bottle's reflection away but kept the small one's whole, which rendered as
+    # a second, upside-down bottle hanging under it.
+    "66": 0.866,
 }
 
 # Regions Vision drops that are part of the product, as fractions of the source
@@ -85,6 +90,7 @@ REPAIR = {
 # revision means a new URL.
 REVISION = {
     "65": 2,
+    "66": 2,
 }
 
 

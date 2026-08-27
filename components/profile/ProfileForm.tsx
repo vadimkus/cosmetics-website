@@ -48,7 +48,7 @@ export default function ProfileForm({
       {/* Personal Information */}
       <div className="rounded-3xl border border-[var(--cera-line)] bg-white p-5 shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)] md:p-6 lg:p-8">
         <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-6">
-          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-[var(--cera-ink)] flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-[var(--cera-cta)] flex items-center justify-center shrink-0">
             <User className="h-4 w-4 md:h-5 md:w-5 text-white" />
           </div>
           <h2 className="text-sm md:text-xl font-semibold text-[var(--cera-ink)] tracking-tight">{t('profile.personalInformation')}</h2>
@@ -273,7 +273,7 @@ export default function ProfileForm({
       {/* Account Status */}
       <div className="rounded-3xl border border-[var(--cera-line)] bg-white p-5 shadow-[0_14px_40px_-28px_rgba(23,20,15,0.26)] md:p-6 lg:p-8">
         <div className="flex items-center gap-2.5 md:gap-3.5 mb-3 md:mb-6">
-          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-[var(--cera-ink)] flex items-center justify-center shrink-0">
+          <div className="w-9 h-9 md:w-11 md:h-11 rounded-lg md:rounded-xl bg-[var(--cera-cta)] flex items-center justify-center shrink-0">
             <Shield className="h-4 w-4 md:h-5 md:w-5 text-white" />
           </div>
           <h2 className="text-sm md:text-xl font-semibold text-[var(--cera-ink)] tracking-tight">{t('profile.accountStatus')}</h2>

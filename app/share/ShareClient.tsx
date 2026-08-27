@@ -74,7 +74,7 @@ function ShareContent() {
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-[var(--cera-ink)] rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-[var(--cera-cta)] rounded-full flex items-center justify-center mx-auto mb-4">
             <Share2 className="w-8 h-8 text-white" />
           </div>
           <h1 className="cera-serif text-2xl text-[var(--cera-ink)]">{t('share.sharedWithGenosys')}</h1>

@@ -327,7 +327,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
             className="min-w-[80px] flex justify-end"
           >
             <div className="relative">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-ink)]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-cta)]">
                 <span className="text-sm font-semibold text-white">
                   {trackingData?.customerFirstName?.charAt(0) || 'G'}
                 </span>
@@ -436,11 +436,15 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
                 <div key={step.status} className="flex gap-4">
                   {/* Timeline dot and line */}
                   <div className="flex flex-col items-center">
+                    {/* The same three states as the Lock Screen order card, in the same
+                        colours: green behind us, amber for the step in hand, quiet ahead.
+                        This tracker and that card describe one journey, and until now
+                        they described it in two different palettes. */}
                     <div className={`h-4 w-4 rounded-full border-2 ${
                       step.completed 
-                        ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)]' 
+                        ? 'border-[var(--status-green)] bg-[var(--status-green)]' 
                         : step.current 
-                          ? 'animate-pulse border-[var(--cera-rose)] bg-[var(--cera-rose)]' 
+                          ? 'animate-pulse border-[var(--status-orange)] bg-[var(--status-orange)]' 
                           : 'border-[var(--cera-blush-deep)] bg-white'
                     }`}>
                       {step.completed && (
@@ -449,7 +453,7 @@ export default function OrderTrackingClient({ orderNumber }: OrderTrackingClient
                     </div>
                     {!isLast && (
                       <div className={`h-8 w-0.5 ${
-                        step.completed ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-line)]'
+                        step.completed ? 'bg-[var(--status-green)]' : 'bg-[var(--cera-line)]'
                       }`} />
                     )}
                   </div>

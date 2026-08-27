@@ -38,7 +38,7 @@ export default function AccountAvatar({
 
   return (
     <div className="relative">
-      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-ink)]">
+      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--cera-cta)]">
         <span className="text-sm font-semibold text-white">
           {name?.charAt(0)?.toUpperCase() || 'G'}
         </span>

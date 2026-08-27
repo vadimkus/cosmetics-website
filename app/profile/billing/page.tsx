@@ -310,7 +310,7 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
         >
           <div
             className={`flex items-center gap-2 px-4 py-3 rounded-full shadow-lg text-sm font-medium text-white ${
-              toast.type === 'success' ? 'bg-[var(--cera-ink)]' : 'bg-red-600'
+              toast.type === 'success' ? 'bg-[var(--status-green)]' : 'bg-[var(--status-red)]'
             }`}
           >
             {toast.type === 'success' ? (

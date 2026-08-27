@@ -272,7 +272,7 @@ function PartnerDashboardInner() {
           <div className="bg-[var(--cera-cta)] text-white rounded-2xl px-6 py-5 mb-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4 min-w-0">
-                <div className="w-12 h-12 rounded-xl bg-[var(--cera-ink)] flex items-center justify-center flex-shrink-0">
+                <div className="w-12 h-12 rounded-xl bg-[var(--cera-cta)] flex items-center justify-center flex-shrink-0">
                   <span className="text-xl font-bold">{initial}</span>
                 </div>
                 <div className="min-w-0">
@@ -549,7 +549,7 @@ function PartnerDashboardInner() {
           </div>
 
           <div className={`flex items-center gap-4 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <div className="w-14 h-14 rounded-2xl bg-[var(--cera-ink)] flex items-center justify-center flex-shrink-0">
+            <div className="w-14 h-14 rounded-2xl bg-[var(--cera-cta)] flex items-center justify-center flex-shrink-0">
               <span className="text-2xl font-bold">{initial}</span>
             </div>
             <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
@@ -658,7 +658,7 @@ function PartnerDashboardInner() {
           className={`w-full flex items-center justify-between gap-3 bg-[var(--cera-cta)] text-white rounded-2xl p-5 mb-3 shadow-lg hover:bg-[var(--cera-rose-ink)] active:bg-[var(--cera-rose-ink)] transition-colors ${isRTL ? 'flex-row-reverse text-right' : ''}`}
         >
           <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-            <div className="w-11 h-11 rounded-xl bg-[var(--cera-ink)] flex items-center justify-center">
+            <div className="w-11 h-11 rounded-xl bg-[var(--cera-cta)] flex items-center justify-center">
               <Send className="w-5 h-5" />
             </div>
             <div className={isRTL ? 'text-right' : 'text-left'}>

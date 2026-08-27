@@ -474,7 +474,7 @@ export default function PrivacyPolicyClient() {
           <h1 className="text-[17px] font-semibold text-[var(--cera-ink)]">{t.title}</h1>
           <button onClick={() => router.push(getLocalizedPath('/profile', locale))} className="min-w-[80px] flex justify-end" aria-label="Profile">
             <div className="relative">
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-muted)]'}`}>
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${user ? 'bg-[var(--cera-cta)]' : 'bg-[var(--cera-muted)]'}`}>
                 <span className="text-sm font-semibold text-white">{userInitial.toUpperCase()}</span>
               </div>
               {user && (

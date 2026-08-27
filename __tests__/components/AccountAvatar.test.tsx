@@ -2,11 +2,15 @@ import { render, screen } from '@testing-library/react'
 import AccountAvatar from '@/components/AccountAvatar'
 
 describe('AccountAvatar', () => {
-  it('shows the initial on ink with a presence dot when signed in', () => {
+  /**
+   * The circle is the CTA rose, not ink. The app's avatar has been rose since the
+   * accent moved off ink, and this was the last place the two surfaces disagreed.
+   */
+  it('shows the initial on the accent with a presence dot when signed in', () => {
     const { container } = render(<AccountAvatar name="Vadim" signedIn />)
 
     expect(screen.getByText('V')).toBeInTheDocument()
-    expect(container.querySelector('.bg-\\[var\\(--cera-ink\\)\\]')).toBeInTheDocument()
+    expect(container.querySelector('.bg-\\[var\\(--cera-cta\\)\\]')).toBeInTheDocument()
     expect(container.querySelector('.bg-\\[var\\(--status-green\\)\\]')).toBeInTheDocument()
   })
 

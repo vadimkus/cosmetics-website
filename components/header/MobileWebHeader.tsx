@@ -364,7 +364,7 @@ export default function MobileWebHeader() {
               aria-label={isOnProfilePage ? 'Go back' : 'Open profile'}
             >
               {user ? (
-                <div className={`relative flex h-[34px] w-[34px] items-center justify-center rounded-full transition-colors ${isOnProfilePage ? 'bg-[var(--cera-muted)]' : 'bg-[var(--cera-ink)]'}`}>
+                <div className={`relative flex h-[34px] w-[34px] items-center justify-center rounded-full transition-colors ${isOnProfilePage ? 'bg-[var(--cera-muted)]' : 'bg-[var(--cera-cta)]'}`}>
                   <span className="text-[13px] font-semibold text-white">
                     {userInitial.toUpperCase()}
                   </span>

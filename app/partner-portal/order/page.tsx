@@ -574,7 +574,7 @@ function PartnerOrderInner() {
                         <span className="w-6 text-center text-sm font-bold text-[var(--cera-ink)]">{q}</span>
                         <button
                           onClick={() => setLineQty(baseKey, q + 1)}
-                          className="w-8 h-8 rounded-full bg-[var(--cera-ink)] flex items-center justify-center active:bg-[var(--cera-rose-ink)]"
+                          className="w-8 h-8 rounded-full bg-[var(--cera-cta)] flex items-center justify-center active:bg-[var(--cera-rose-ink)]"
                           aria-label="increase"
                         >
                           <Plus className="w-4 h-4 text-white" />
@@ -650,7 +650,7 @@ function PartnerOrderInner() {
                                     <span className="w-5 text-center text-sm font-bold text-[var(--cera-ink)]">{lq}</span>
                                     <button
                                       onClick={() => setLineQty(lineKey, lq + 1)}
-                                      className="w-7 h-7 rounded-full bg-[var(--cera-ink)] flex items-center justify-center active:bg-[var(--cera-rose-ink)]"
+                                      className="w-7 h-7 rounded-full bg-[var(--cera-cta)] flex items-center justify-center active:bg-[var(--cera-rose-ink)]"
                                       aria-label="increase"
                                     >
                                       <Plus className="w-3.5 h-3.5 text-white" />

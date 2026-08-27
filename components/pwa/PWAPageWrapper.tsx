@@ -106,7 +106,7 @@ export default function PWAPageWrapper({
           aria-label="Profile"
         >
           <div className="relative">
-            <div className="w-9 h-9 rounded-full bg-[var(--cera-ink)] flex items-center justify-center">
+            <div className="w-9 h-9 rounded-full bg-[var(--cera-cta)] flex items-center justify-center">
               <span className="text-sm font-semibold text-white">
                 {user?.name?.charAt(0)?.toUpperCase() || 'U'}
               </span>

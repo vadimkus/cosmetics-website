@@ -259,7 +259,7 @@ export default function LocationsPageClient() {
 
           {/* Free-shipping CTA - editorial dark panel, matching About / Delivery
               / Contact / FAQ (replaces the old pink-gradient block). */}
-          <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-ink)] text-white">
+          <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-cta)] text-white">
             <span aria-hidden className="pointer-events-none absolute -top-32 -left-20 h-72 w-72 rounded-full bg-[var(--cera-ink)]/25 blur-3xl" />
             <span aria-hidden className="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[var(--cera-blush)]0/15 blur-3xl" />
 

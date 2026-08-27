@@ -600,7 +600,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
               Mobile keeps the centered layout; desktop uses an asymmetric
               two-column composition (kicker → headline → CTAs left,
               decorative phone glyph right) to feel less like a generic banner. */}
-          <section className="relative mb-6 md:mb-10 overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-ink)] text-white">
+          <section className="relative mb-6 md:mb-10 overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-cta)] text-white">
             {/* Brand accent blurs */}
             <span aria-hidden className="pointer-events-none absolute -top-32 -left-32 h-72 w-72 rounded-full bg-[var(--cera-rose)]/35 blur-3xl" />
             <span aria-hidden className="pointer-events-none absolute -bottom-40 -right-32 h-80 w-80 rounded-full bg-[var(--cera-rose)]/20 blur-3xl" />
@@ -692,7 +692,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
 
           {/* Contact CTA - editorial dark panel matching /partners "Become a
               partner" style. Replaces the previous pink-gradient block. */}
-          <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-ink)] text-white">
+          <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-cta)] text-white">
             <span aria-hidden className="pointer-events-none absolute -top-32 right-0 h-72 w-72 rounded-full bg-[var(--cera-rose)]/28 blur-3xl" />
             <span aria-hidden className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-[var(--cera-rose)]/16 blur-3xl" />
 

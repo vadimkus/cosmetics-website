@@ -33,7 +33,7 @@ export default function MembershipCard() {
   // Professional Partner track
   if (data.track === 'PARTNER') {
     return (
-      <div className="overflow-hidden rounded-3xl bg-[var(--cera-ink)] text-white shadow-[0_14px_40px_-26px_rgba(23,20,15,0.5)]">
+      <div className="overflow-hidden rounded-3xl bg-[var(--cera-cta)] text-white shadow-[0_14px_40px_-26px_rgba(23,20,15,0.5)]">
         <button
           type="button"
           onClick={() => setExpanded(v => !v)}

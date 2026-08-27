@@ -104,7 +104,7 @@ export default function ProfileOverview({
 
   return (
     <div className="space-y-5">
-      <section className={`rounded-3xl bg-[var(--cera-ink)] px-6 py-7 text-white lg:px-8 lg:py-8 ${isRTL ? 'text-right' : ''}`}>
+      <section className={`rounded-3xl bg-[var(--cera-cta)] px-6 py-7 text-white lg:px-8 lg:py-8 ${isRTL ? 'text-right' : ''}`}>
         <div className={`flex items-start justify-between gap-8 ${isRTL ? 'flex-row-reverse' : ''}`}>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">

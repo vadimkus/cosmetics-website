@@ -168,7 +168,7 @@ export default function RussianPartnersPage() {
             <PartnersList />
 
             {/* Become a partner CTA */}
-            <section className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white">
+            <section className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-[var(--cera-cta)] bg-[var(--cera-cta)] text-white">
               <div aria-hidden className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[var(--cera-rose)]/30 blur-3xl" />
               <div aria-hidden className="pointer-events-none absolute -bottom-20 -left-20 h-72 w-72 rounded-full bg-[var(--cera-ink)]/20 blur-3xl" />
               <div className="relative grid gap-6 px-6 py-8 md:grid-cols-[1.4fr_1fr] md:items-center md:gap-10 md:px-12 md:py-14">

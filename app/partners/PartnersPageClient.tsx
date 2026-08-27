@@ -237,7 +237,7 @@ export default function PartnersPageClient() {
           <PartnersList />
 
           {/* Become a partner CTA - editorial */}
-          <section className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white">
+          <section className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-[var(--cera-cta)] bg-[var(--cera-cta)] text-white">
             <div
               aria-hidden
               className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-[var(--cera-rose)]/30 blur-3xl"

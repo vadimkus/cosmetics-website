@@ -1385,7 +1385,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             exit={{ opacity: 0, y: 20 }}
             className="fixed bottom-24 left-4 right-4 z-40 mx-auto max-w-sm"
           >
-            <div className="bg-[var(--cera-ink)] text-white rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3">
+            <div className="bg-[var(--cera-cta)] text-white rounded-2xl px-4 py-3 shadow-xl flex items-center gap-3">
               <div className="flex-shrink-0 bg-white/20 rounded-full p-2">
                 <Info className="w-4 h-4" />
               </div>

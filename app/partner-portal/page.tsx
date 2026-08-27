@@ -269,7 +269,7 @@ function PartnerDashboardInner() {
 
         <div className="container mx-auto px-6 py-8 max-w-6xl">
           {/* Header bar */}
-          <div className="bg-[var(--cera-ink)] text-white rounded-2xl px-6 py-5 mb-6">
+          <div className="bg-[var(--cera-cta)] text-white rounded-2xl px-6 py-5 mb-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4 min-w-0">
                 <div className="w-12 h-12 rounded-xl bg-[var(--cera-ink)] flex items-center justify-center flex-shrink-0">
@@ -655,7 +655,7 @@ function PartnerDashboardInner() {
         {/* Primary action */}
         <button
           onClick={() => router.push(getLocalizedPath('/partner-portal/homecare', locale))}
-          className={`w-full flex items-center justify-between gap-3 bg-[var(--cera-ink)] text-white rounded-2xl p-5 mb-3 shadow-lg hover:bg-black active:bg-black transition-colors ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+          className={`w-full flex items-center justify-between gap-3 bg-[var(--cera-cta)] text-white rounded-2xl p-5 mb-3 shadow-lg hover:bg-[var(--cera-rose-ink)] active:bg-[var(--cera-rose-ink)] transition-colors ${isRTL ? 'flex-row-reverse text-right' : ''}`}
         >
           <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className="w-11 h-11 rounded-xl bg-[var(--cera-ink)] flex items-center justify-center">
@@ -670,7 +670,7 @@ function PartnerDashboardInner() {
         </button>
         <button
           onClick={() => router.push(getLocalizedPath('/partner-portal/order', locale))}
-          className={`w-full flex items-center justify-between gap-3 bg-[var(--cera-ink)] text-white rounded-2xl p-5 mb-5 shadow-lg shadow-red-600/20 hover:bg-[var(--cera-rose-ink)] active:bg-[var(--cera-rose-ink)] transition-colors ${isRTL ? 'flex-row-reverse text-right' : ''}`}
+          className={`w-full flex items-center justify-between gap-3 bg-[var(--cera-cta)] text-white rounded-2xl p-5 mb-5 shadow-lg shadow-red-600/20 hover:bg-[var(--cera-rose-ink)] active:bg-[var(--cera-rose-ink)] transition-colors ${isRTL ? 'flex-row-reverse text-right' : ''}`}
         >
           <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className="w-11 h-11 rounded-xl bg-white/20 flex items-center justify-center">

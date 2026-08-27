@@ -25,6 +25,7 @@ describe('the wire format', () => {
     expect(typeof state.props).toBe('string')
     expect(JSON.parse(state.props)).toEqual({
       orderNumber: '46125502',
+      orderLabel: 'Order #46125502',
       done: 2,
       status: 'On its way to you',
       steps: ['Confirmed', 'Shipped', 'Delivered'],
@@ -148,35 +149,35 @@ describe('the delivery promise', () => {
     })
 
   it('gives Dubai the hours it is actually promised', () => {
-    expect(at('Dubai', 'CONFIRMED').eta).toBe('Arriving within 1–2 hours')
-    expect(at('dubai', 'SHIPPED').eta).toBe('Arriving within 1–2 hours')
-  })
-
-  it('does not promise the rest of the country a Dubai courier', () => {
-    expect(at('Abu Dhabi', 'CONFIRMED').eta).toBe('Arriving within 24–36 hours')
-    expect(at('Sharjah', 'SHIPPED').eta).toBe('Arriving within 24–36 hours')
-    expect(at('Fujairah', 'CONFIRMED').eta).toBe('Arriving within 24–36 hours')
+    expect(at('Dubai', 'CONFIRMED').eta).toBe('Arriving in Dubai within 1–2 hours')
+    expect(at('dubai', 'SHIPPED').eta).toBe('Arriving in Dubai within 1–2 hours')
   })
 
   /**
    * Naming the destination is what makes two different windows read as fair rather than
    * arbitrary. A customer in Ajman should see why theirs says a day and a half.
    */
-  it('names the destination', () => {
-    expect(at('Ajman', 'CONFIRMED').place).toBe('Ajman')
-    expect(at('Ras Al-Khaimah', 'CONFIRMED').place).toBe('Ras Al Khaimah')
-    expect(at('umm al quwain', 'CONFIRMED').place).toBe('Umm Al Quwain')
-    expect(at('abudhabi', 'CONFIRMED').place).toBe('Abu Dhabi')
+  it('does not promise the rest of the country a Dubai courier', () => {
+    expect(at('Abu Dhabi', 'CONFIRMED').eta).toBe('Arriving in Abu Dhabi within 24–36 hours')
+    expect(at('Sharjah', 'SHIPPED').eta).toBe('Arriving in Sharjah within 24–36 hours')
+    expect(at('Ras Al-Khaimah', 'CONFIRMED').eta).toBe(
+      'Arriving in Ras Al Khaimah within 24–36 hours'
+    )
+    expect(at('umm al quwain', 'CONFIRMED').eta).toBe(
+      'Arriving in Umm Al Quwain within 24–36 hours'
+    )
   })
 
   it('falls back to what was entered for a place we do not translate', () => {
-    expect(at('Al Ain', 'CONFIRMED').place).toBe('Al Ain')
-    expect(at('Al Ain', 'CONFIRMED').eta).toBe('Arriving within 24–36 hours')
+    expect(at('Al Ain', 'CONFIRMED').eta).toBe('Arriving in Al Ain within 24–36 hours')
   })
 
-  it('sends the place only alongside a window, never on its own', () => {
-    expect(at('Dubai', 'PENDING').place).toBeUndefined()
-    expect(at('Dubai', 'DELIVERED').place).toBeUndefined()
+  it('leaves no placeholder unfilled', () => {
+    for (const emirate of ['Dubai', 'Sharjah', 'Al Ain']) {
+      for (const locale of ['en', 'ru', 'ar']) {
+        expect(at(emirate, 'CONFIRMED', locale).eta).not.toContain('{place}')
+      }
+    }
   })
 
   it.each([
@@ -192,20 +193,16 @@ describe('the delivery promise', () => {
     expect(at('   ', 'CONFIRMED').eta).toBeUndefined()
   })
 
+  /**
+   * Each language phrases this its own way. Russian leads with the place and a colon
+   * rather than "в {place}", which would need the accusative — Шарджа becomes Шарджу —
+   * and a format string cannot decline a noun.
+   */
   it('translates the place as well as the window', () => {
-    expect(at('Dubai', 'CONFIRMED', 'ru')).toMatchObject({
-      eta: 'Доставим за 1–2 часа',
-      place: 'Дубай',
-    })
-    expect(at('Dubai', 'CONFIRMED', 'ar')).toMatchObject({
-      eta: 'يصل خلال 1–2 ساعة',
-      place: 'دبي',
-    })
-    expect(at('Sharjah', 'CONFIRMED', 'ru')).toMatchObject({
-      eta: 'Доставим за 24–36 часов',
-      place: 'Шарджа',
-    })
-    expect(at('Sharjah', 'CONFIRMED', 'ar').place).toBe('الشارقة')
+    expect(at('Dubai', 'CONFIRMED', 'ru').eta).toBe('Дубай: доставим за 1–2 часа')
+    expect(at('Dubai', 'CONFIRMED', 'ar').eta).toBe('دبي: يصل خلال 1–2 ساعة')
+    expect(at('Sharjah', 'CONFIRMED', 'ru').eta).toBe('Шарджа: доставим за 24–36 часов')
+    expect(at('Sharjah', 'CONFIRMED', 'ar').eta).toBe('الشارقة: يصل خلال 24–36 ساعة')
   })
 
   it('is left out of the payload rather than sent empty', () => {
@@ -219,6 +216,26 @@ describe('the delivery promise', () => {
     status,
     paymentMethod: 'cod',
     customerEmirate: 'Dubai',
+  })
+})
+
+describe('the order number', () => {
+  const at = (locale: string) =>
+    buildOrderActivityProps({ orderNumber: '46125502', status: 'CONFIRMED', locale })
+
+  it('reads as a sentence rather than a bare code', () => {
+    expect(at('en').orderLabel).toBe('Order #46125502')
+    expect(at('ru').orderLabel).toBe('Заказ №46125502')
+  })
+
+  /** A leading # in right-to-left text lands on the wrong end of the digits. */
+  it('takes neither a hash nor a № in Arabic', () => {
+    expect(at('ar').orderLabel).toBe('الطلب 46125502')
+    expect(at('ar').orderLabel).not.toContain('#')
+  })
+
+  it('keeps the raw number too, for the push alert', () => {
+    expect(at('en').orderNumber).toBe('46125502')
   })
 })
 

@@ -24,17 +24,17 @@ export const ATTRIBUTES_TYPE = 'LiveActivityAttributes'
 /** Mirrors `OrderActivityProps` in the app's `widgets/OrderActivity.tsx`. */
 export type OrderActivityProps = {
   orderNumber: string
+  /** The number as a sentence, already translated, e.g. "Order #46125502". */
+  orderLabel: string
   done: number
   status: string
   steps: [string, string, string]
   cancelled?: boolean
   /**
-   * The delivery promise, already translated. Absent before the order is accepted and
-   * once it is delivered or cancelled — see `etaFor`.
+   * The delivery promise, already translated and naming the destination. Absent before
+   * the order is accepted and once it is delivered or cancelled — see `etaFor`.
    */
   eta?: string
-  /** Where it is going, already translated. Travels with `eta` and hangs opposite it. */
-  place?: string
 }
 
 export type ActivityLocale = 'en' | 'ar' | 'ru'
@@ -58,6 +58,7 @@ type StringKey =
   | 'cancelled'
   | 'etaDubai'
   | 'etaOther'
+  | 'orderLabel'
 
 const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
   en: {
@@ -70,8 +71,9 @@ const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
     onItsWay: 'On its way to you',
     complete: 'Delivered — thank you',
     cancelled: 'This order was cancelled',
-    etaDubai: 'Arriving within 1–2 hours',
-    etaOther: 'Arriving within 24–36 hours',
+    etaDubai: 'Arriving in {place} within 1–2 hours',
+    etaOther: 'Arriving in {place} within 24–36 hours',
+    orderLabel: 'Order #{orderNumber}',
   },
   ru: {
     paid: 'Оплачено',
@@ -83,8 +85,12 @@ const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
     onItsWay: 'В пути к вам',
     complete: 'Доставлен — спасибо',
     cancelled: 'Заказ отменён',
-    etaDubai: 'Доставим за 1–2 часа',
-    etaOther: 'Доставим за 24–36 часов',
+    // Russian leads with the place and a colon rather than "в {place}", which would need
+    // the accusative: Шарджа becomes Шарджу, Фуджейра becomes Фуджейру. Three of the seven
+    // decline, and a format string cannot do grammar.
+    etaDubai: '{place}: доставим за 1–2 часа',
+    etaOther: '{place}: доставим за 24–36 часов',
+    orderLabel: 'Заказ №{orderNumber}',
   },
   ar: {
     paid: 'تم الدفع',
@@ -96,8 +102,11 @@ const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
     onItsWay: 'في طريقه إليك',
     complete: 'تم التوصيل — شكرًا لك',
     cancelled: 'تم إلغاء هذا الطلب',
-    etaDubai: 'يصل خلال 1–2 ساعة',
-    etaOther: 'يصل خلال 24–36 ساعة',
+    etaDubai: '{place}: يصل خلال 1–2 ساعة',
+    etaOther: '{place}: يصل خلال 24–36 ساعة',
+    // No hash and no №: a leading # in right-to-left text lands on the wrong end of the
+    // digits. Same rule the order push notifications follow.
+    orderLabel: 'الطلب {orderNumber}',
   },
 }
 
@@ -206,13 +215,9 @@ function emirateKey(value: string | null | undefined): EmirateKey | '' {
  *    promise made by a form, not by us.
  * 3. **Nothing once it is over.** Delivered or cancelled, an estimate is noise.
  *
- * The destination is named for the same reason the window is split at all: two customers
- * get two different promises, and the one reading the card should be able to see which
- * applies rather than wondering why theirs says a day and a half.
- *
- * Returned as two fields rather than one joined string so the card can hang the place on
- * the opposite edge. "Umm Al Quwain · Arriving within 24–36 hours" on one line runs into
- * the edge of the card in every language.
+ * The destination is named in the sentence for the same reason the window is split at all:
+ * two customers get two different promises, and the one reading the card should be able to
+ * see which applies rather than wondering why theirs says a day and a half.
  *
  * The wording matches what the customer already read at checkout, deliberately: the card
  * restates the promise, it does not invent a second one.
@@ -223,20 +228,26 @@ function etaFor(
   cancelled: boolean,
   locale: ActivityLocale,
   s: Record<StringKey, string>
-): { eta: string; place: string } | undefined {
+): string | undefined {
   if (cancelled || done < 1 || done >= 3) return undefined
 
   const raw = String(emirate || '').trim()
   if (!raw) return undefined
 
   const key = emirateKey(raw)
+  // An emirate we carry no translation for falls back to what was entered at checkout,
+  // which is still the truth about where the order is going.
+  const place = key ? EMIRATES[locale][key] : raw
 
-  return {
-    eta: key === 'dubai' ? s.etaDubai : s.etaOther,
-    // An emirate we carry no translation for falls back to what was entered at checkout,
-    // which is still the truth about where the order is going.
-    place: key ? EMIRATES[locale][key] : raw,
-  }
+  return fill(key === 'dubai' ? s.etaDubai : s.etaOther, { place })
+}
+
+/** The same `{name}` substitution the app's translator does. */
+function fill(template: string, values: Record<string, string>): string {
+  return Object.entries(values).reduce(
+    (out, [name, value]) => out.split(`{${name}}`).join(value),
+    template
+  )
 }
 
 const isCod = (order: OrderForActivity) => {
@@ -280,16 +291,18 @@ export function buildOrderActivityProps(order: OrderForActivity): OrderActivityP
   const running = open === 0 ? s.awaiting : open === 1 ? s.preparing : s.onItsWay
   const status = cancelled ? s.cancelled : done === 3 ? s.complete : running
 
-  const promise = etaFor(order.customerEmirate, done, cancelled, locale, s)
+  const orderNumber = String(order.orderNumber)
+  const eta = etaFor(order.customerEmirate, done, cancelled, locale, s)
 
   return {
-    orderNumber: String(order.orderNumber),
+    orderNumber,
+    orderLabel: fill(s.orderLabel, { orderNumber }),
     done,
     status,
     steps: [cod ? s.confirmed : s.paid, s.shipped, s.delivered],
     cancelled,
-    // Omitted rather than sent empty: the widget hides the line when the keys are absent.
-    ...(promise ? { eta: promise.eta, place: promise.place } : {}),
+    // Omitted rather than sent empty: the widget hides the line when the key is absent.
+    ...(eta ? { eta } : {}),
   }
 }
 

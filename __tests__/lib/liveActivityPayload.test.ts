@@ -158,6 +158,27 @@ describe('the delivery promise', () => {
     expect(at('Fujairah', 'CONFIRMED').eta).toBe('Arriving within 24–36 hours')
   })
 
+  /**
+   * Naming the destination is what makes two different windows read as fair rather than
+   * arbitrary. A customer in Ajman should see why theirs says a day and a half.
+   */
+  it('names the destination', () => {
+    expect(at('Ajman', 'CONFIRMED').place).toBe('Ajman')
+    expect(at('Ras Al-Khaimah', 'CONFIRMED').place).toBe('Ras Al Khaimah')
+    expect(at('umm al quwain', 'CONFIRMED').place).toBe('Umm Al Quwain')
+    expect(at('abudhabi', 'CONFIRMED').place).toBe('Abu Dhabi')
+  })
+
+  it('falls back to what was entered for a place we do not translate', () => {
+    expect(at('Al Ain', 'CONFIRMED').place).toBe('Al Ain')
+    expect(at('Al Ain', 'CONFIRMED').eta).toBe('Arriving within 24–36 hours')
+  })
+
+  it('sends the place only alongside a window, never on its own', () => {
+    expect(at('Dubai', 'PENDING').place).toBeUndefined()
+    expect(at('Dubai', 'DELIVERED').place).toBeUndefined()
+  })
+
   it.each([
     ['before we have accepted it', 'PENDING'],
     ['once it has arrived', 'DELIVERED'],
@@ -171,9 +192,20 @@ describe('the delivery promise', () => {
     expect(at('   ', 'CONFIRMED').eta).toBeUndefined()
   })
 
-  it('translates', () => {
-    expect(at('Dubai', 'CONFIRMED', 'ru').eta).toBe('Доставим за 1–2 часа')
-    expect(at('Dubai', 'CONFIRMED', 'ar').eta).toBe('يصل خلال 1–2 ساعة')
+  it('translates the place as well as the window', () => {
+    expect(at('Dubai', 'CONFIRMED', 'ru')).toMatchObject({
+      eta: 'Доставим за 1–2 часа',
+      place: 'Дубай',
+    })
+    expect(at('Dubai', 'CONFIRMED', 'ar')).toMatchObject({
+      eta: 'يصل خلال 1–2 ساعة',
+      place: 'دبي',
+    })
+    expect(at('Sharjah', 'CONFIRMED', 'ru')).toMatchObject({
+      eta: 'Доставим за 24–36 часов',
+      place: 'Шарджа',
+    })
+    expect(at('Sharjah', 'CONFIRMED', 'ar').place).toBe('الشارقة')
   })
 
   it('is left out of the payload rather than sent empty', () => {

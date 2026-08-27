@@ -33,6 +33,8 @@ export type OrderActivityProps = {
    * once it is delivered or cancelled — see `etaFor`.
    */
   eta?: string
+  /** Where it is going, already translated. Travels with `eta` and hangs opposite it. */
+  place?: string
 }
 
 export type ActivityLocale = 'en' | 'ar' | 'ru'
@@ -127,6 +129,70 @@ export type OrderForActivity = {
 }
 
 /**
+ * Emirate names, mirroring `i18n/messages/*.json` → `addAddress.emirates` in the app.
+ *
+ * Duplicated for the same reason the status strings are: the two repositories cannot
+ * share a catalogue, and the card must read identically whichever side last touched it.
+ */
+type EmirateKey =
+  | 'abuDhabi'
+  | 'dubai'
+  | 'sharjah'
+  | 'ajman'
+  | 'ummAlQuwain'
+  | 'rasAlKhaimah'
+  | 'fujairah'
+
+const EMIRATES: Record<ActivityLocale, Record<EmirateKey, string>> = {
+  en: {
+    abuDhabi: 'Abu Dhabi',
+    dubai: 'Dubai',
+    sharjah: 'Sharjah',
+    ajman: 'Ajman',
+    ummAlQuwain: 'Umm Al Quwain',
+    rasAlKhaimah: 'Ras Al Khaimah',
+    fujairah: 'Fujairah',
+  },
+  ru: {
+    abuDhabi: 'Абу-Даби',
+    dubai: 'Дубай',
+    sharjah: 'Шарджа',
+    ajman: 'Аджман',
+    ummAlQuwain: 'Умм-эль-Кайвайн',
+    rasAlKhaimah: 'Рас-эль-Хайма',
+    fujairah: 'Фуджейра',
+  },
+  ar: {
+    abuDhabi: 'أبوظبي',
+    dubai: 'دبي',
+    sharjah: 'الشارقة',
+    ajman: 'عجمان',
+    ummAlQuwain: 'أم القيوين',
+    rasAlKhaimah: 'رأس الخيمة',
+    fujairah: 'الفجيرة',
+  },
+}
+
+/** Mirrors `canonicalEmirateKey` in the app's `utils/emirateUtils.js`. */
+function emirateKey(value: string | null | undefined): EmirateKey | '' {
+  const cleaned = String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[.,]/g, '')
+    .replace(/\s+/g, ' ')
+  if (cleaned === 'abu dhabi' || cleaned === 'abudhabi') return 'abuDhabi'
+  if (cleaned === 'dubai') return 'dubai'
+  if (cleaned === 'sharjah') return 'sharjah'
+  if (cleaned === 'ajman') return 'ajman'
+  if (cleaned === 'umm al quwain' || cleaned === 'umm al-quwain' || cleaned === 'ummalquwain')
+    return 'ummAlQuwain'
+  if (cleaned === 'ras al khaimah' || cleaned === 'ras al-khaimah' || cleaned === 'rasalkhaimah')
+    return 'rasAlKhaimah'
+  if (cleaned === 'fujairah') return 'fujairah'
+  return ''
+}
+
+/**
  * The delivery promise, or nothing.
  *
  * Three rules, and each one is there to stop the card saying something we have not
@@ -140,6 +206,14 @@ export type OrderForActivity = {
  *    promise made by a form, not by us.
  * 3. **Nothing once it is over.** Delivered or cancelled, an estimate is noise.
  *
+ * The destination is named for the same reason the window is split at all: two customers
+ * get two different promises, and the one reading the card should be able to see which
+ * applies rather than wondering why theirs says a day and a half.
+ *
+ * Returned as two fields rather than one joined string so the card can hang the place on
+ * the opposite edge. "Umm Al Quwain · Arriving within 24–36 hours" on one line runs into
+ * the edge of the card in every language.
+ *
  * The wording matches what the customer already read at checkout, deliberately: the card
  * restates the promise, it does not invent a second one.
  */
@@ -147,12 +221,22 @@ function etaFor(
   emirate: string | null | undefined,
   done: number,
   cancelled: boolean,
+  locale: ActivityLocale,
   s: Record<StringKey, string>
-): string | undefined {
+): { eta: string; place: string } | undefined {
   if (cancelled || done < 1 || done >= 3) return undefined
-  const name = String(emirate || '').trim().toLowerCase()
-  if (!name) return undefined
-  return name === 'dubai' ? s.etaDubai : s.etaOther
+
+  const raw = String(emirate || '').trim()
+  if (!raw) return undefined
+
+  const key = emirateKey(raw)
+
+  return {
+    eta: key === 'dubai' ? s.etaDubai : s.etaOther,
+    // An emirate we carry no translation for falls back to what was entered at checkout,
+    // which is still the truth about where the order is going.
+    place: key ? EMIRATES[locale][key] : raw,
+  }
 }
 
 const isCod = (order: OrderForActivity) => {
@@ -196,7 +280,7 @@ export function buildOrderActivityProps(order: OrderForActivity): OrderActivityP
   const running = open === 0 ? s.awaiting : open === 1 ? s.preparing : s.onItsWay
   const status = cancelled ? s.cancelled : done === 3 ? s.complete : running
 
-  const eta = etaFor(order.customerEmirate, done, cancelled, s)
+  const promise = etaFor(order.customerEmirate, done, cancelled, locale, s)
 
   return {
     orderNumber: String(order.orderNumber),
@@ -204,8 +288,8 @@ export function buildOrderActivityProps(order: OrderForActivity): OrderActivityP
     status,
     steps: [cod ? s.confirmed : s.paid, s.shipped, s.delivered],
     cancelled,
-    // Omitted rather than sent empty: the widget hides the line when the key is absent.
-    ...(eta ? { eta } : {}),
+    // Omitted rather than sent empty: the widget hides the line when the keys are absent.
+    ...(promise ? { eta: promise.eta, place: promise.place } : {}),
   }
 }
 

@@ -5,10 +5,10 @@
  * biomesoCopy.ts, so the dedicated layout ships EN/AR/RU without adding ~100
  * keys to the shared messages bundles.
  *
- * SOURCING RULE FOR THIS FILE — every factual claim traces to one of:
+ * SOURCING RULE FOR THIS FILE - every factual claim traces to one of:
  *   - HairGen Booster leaflet, DTS MG, 17 Jun 2021
  *     (Desktop/Drive/Genosys/Training Materials/HairGen_Booster/
- *      210617_Hairgen Booster leaflet-small.pdf): "No pain during treatment –
+ *      210617_Hairgen Booster leaflet-small.pdf): "No pain during treatment -
  *     Massaging sensation instead of needling sensation", "Hair solutionα is
  *     absorbed within 10 mins", "Each treatment, a new set of solution +
  *     applicator should be installed", "Non-stop operating time: 10 minutes",
@@ -30,14 +30,14 @@
  *   circulation card. It no longer does. This page is limited to documented
  *   compatibility, assembly, operating time and single-use handling.
  *
- * RESOLVED — NEEDLE COUNT is 52. The 2021 DTS MG leaflet specifies "Microneedles
+ * RESOLVED - NEEDLE COUNT is 52. The 2021 DTS MG leaflet specifies "Microneedles
  * 52EA" for the GENOSYS HAIR STAMP. The product record said 140, inherited from
  * the older manual HR³ Matrix home stamp; it was corrected to 52 in Aug 2026 and
  * the gallery graphics were re-cut to match. This copy states 52.
  *
  * NEEDLE DEPTH (0.3 mm) is stated on the distributor's instruction to match the
  * product artwork. It does not appear in the DTS MG leaflet, the user's manual
- * or the official labels — the only depth in manufacturer artwork is 0.5 mm and
+ * or the official labels - the only depth in manufacturer artwork is 0.5 mm and
  * it belongs to the roller in the MESOPECIA kit. Confirmation requested from
  * DTS MG in writing; if the answer differs, this page and product 3 change
  * together.
@@ -46,7 +46,7 @@
  * document. The Korean registration for the device this stamp fits is
  * 두피관리기기 (scalp care device), not a medical device. Do not add it back.
  *
- * DELIBERATE OMISSIONS — do not add these back without a manufacturer document:
+ * DELIBERATE OMISSIONS - do not add these back without a manufacturer document:
  *   - Wound healing, collagen, elastin, angiogenesis, vasodilation, circulation,
  *     hair growth, scalp regeneration.
  *   - "Medical-grade" needle material.
@@ -537,7 +537,7 @@ const RU: HairStampCopy = {
   eyebrow: 'HR³ Matrix · расходник для HairGen Booster',
   headline: 'Оригинальный штамп для HairGen Booster.',
   subheadline:
-    'Одноразовая насадка-штамп с микроиглами для аппарата GENOSYS HairGen Booster и нового флакона HR³ MATRIX HAIR SOLUTION α. В коробке восемь штампов — по одному на процедуру.',
+    'Одноразовая насадка-штамп с микроиглами для аппарата GENOSYS HairGen Booster и нового флакона HR³ MATRIX HAIR SOLUTION α. В коробке восемь штампов - по одному на процедуру.',
   heroBullets: [
     'Подходит к HairGen Booster и HR³ MATRIX HAIR SOLUTION α',
     'Моторизованное штампование с тремя скоростями',
@@ -557,10 +557,10 @@ const RU: HairStampCopy = {
   vatIncluded: 'НДС включён',
   freeDelivery: 'Бесплатная доставка от 1,000 AED · Отправка из Дубая',
   stats: [
-    { value: '8', label: 'Штампов в коробке — по одному на процедуру' },
+    { value: '8', label: 'Штампов в коробке - по одному на процедуру' },
     { value: '10 мин', label: 'Длительность процедуры, затем аппарат выключается сам' },
-    { value: '3', label: 'Скорости работы — 280, 330 и 400 об/мин' },
-    { value: '1', label: 'Одноразовый — новый штамп на каждую процедуру' },
+    { value: '3', label: 'Скорости работы - 280, 330 и 400 об/мин' },
+    { value: '1', label: 'Одноразовый - новый штамп на каждую процедуру' },
   ],
   science: {
     eyebrow: 'Как это работает',
@@ -591,7 +591,7 @@ const RU: HairStampCopy = {
       },
       {
         title: 'Три скорости',
-        body: 'Первый уровень — 280 об/мин, второй — 330, третий — 400. Короткое нажатие кнопки питания переключает их прямо во время процедуры.',
+        body: 'Первый уровень - 280 об/мин, второй - 330, третий - 400. Короткое нажатие кнопки питания переключает их прямо во время процедуры.',
       },
       {
         title: 'Для работы по проборам',
@@ -630,7 +630,7 @@ const RU: HairStampCopy = {
       },
       {
         title: 'Снимите и выбросьте',
-        body: 'Снова поверните LED-крышку и извлеките флакон со штампом. Штамп выбросьте — следующая процедура начинается с нового.',
+        body: 'Снова поверните LED-крышку и извлеките флакон со штампом. Штамп выбросьте - следующая процедура начинается с нового.',
       },
     ],
     note: 'Не используйте штамп повторно и не передавайте его другому человеку. Каждая процедура начинается с нового средства и новой насадки.',
@@ -639,15 +639,15 @@ const RU: HairStampCopy = {
     eyebrow: 'Характеристики',
     title: 'Что в коробке.',
     intro:
-      'Штамп — расходник для HairGen Booster, а не самостоятельный прибор: он соединяет аппарат с новым флаконом HR³ MATRIX HAIR SOLUTION α.',
+      'Штамп - расходник для HairGen Booster, а не самостоятельный прибор: он соединяет аппарат с новым флаконом HR³ MATRIX HAIR SOLUTION α.',
     rows: [
-      { label: 'Комплектация', value: '1 коробка — 8 штампов' },
+      { label: 'Комплектация', value: '1 коробка - 8 штампов' },
       { label: 'Микроиглы', value: '52 на штамп' },
       { label: 'Глубина иглы', value: '0,3 мм, по изображению на упаковке' },
       { label: 'Применение', value: 'Одноразовое, один штамп на процедуру' },
       { label: 'Совместимость', value: 'GENOSYS HairGen Booster' },
       { label: 'Используется с', value: 'HR³ MATRIX HAIR SOLUTION α' },
-      { label: 'Процедура', value: '10 минут — аппарат выключается автоматически' },
+      { label: 'Процедура', value: '10 минут - аппарат выключается автоматически' },
       { label: 'Скорость', value: 'Уровень 1 · 280 об/мин / Уровень 2 · 330 / Уровень 3 · 400' },
       { label: 'Бренд', value: 'DTS MG Co., Ltd., Сеул' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
@@ -679,7 +679,7 @@ const RU: HairStampCopy = {
     eyebrow: 'Соберите протокол',
     title: 'Четыре составляющие процедуры HairGen.',
     intro:
-      'Штамп — одна часть системы. На каждую процедуру нужны аппарат и новый флакон HR³ MATRIX HAIR SOLUTION α.',
+      'Штамп - одна часть системы. На каждую процедуру нужны аппарат и новый флакон HR³ MATRIX HAIR SOLUTION α.',
     thisProduct: 'Вы здесь',
     viewProduct: 'Открыть',
     chooseOptions: 'Выбрать объём',
@@ -699,7 +699,7 @@ const RU: HairStampCopy = {
       },
       {
         q: 'На сколько процедур хватает коробки?',
-        a: 'На восемь. В коробке восемь штампов, на каждую процедуру уходит один — вместе со свежей дозой HR³ MATRIX HAIR SOLUTION α.',
+        a: 'На восемь. В коробке восемь штампов, на каждую процедуру уходит один - вместе со свежей дозой HR³ MATRIX HAIR SOLUTION α.',
       },
       {
         q: 'Можно ли использовать без HairGen Booster?',
@@ -707,7 +707,7 @@ const RU: HairStampCopy = {
       },
       {
         q: 'Как часто проводить процедуру?',
-        a: 'Периодичность для связки аппарата и штампа задаёт ваш специалист — исходя из состояния кожи головы и того, на каком этапе курса вы находитесь. Следуйте его протоколу, а не числу с сайта.',
+        a: 'Периодичность для связки аппарата и штампа задаёт ваш специалист - исходя из состояния кожи головы и того, на каком этапе курса вы находитесь. Следуйте его протоколу, а не числу с сайта.',
       },
     ],
   },
@@ -716,7 +716,7 @@ const RU: HairStampCopy = {
     title: 'Информация о продукте',
     rows: [
       { label: 'Форма', value: 'Одноразовая насадка-штамп с микроиглами' },
-      { label: 'Комплектация', value: '1 коробка — 8 штампов' },
+      { label: 'Комплектация', value: '1 коробка - 8 штампов' },
       { label: 'Иглы', value: '52 микроиглы на каждой насадке' },
       { label: 'Категория', value: 'Кожа головы и волосы' },
       { label: 'Совместимость', value: 'HairGen Booster · HR³ MATRIX HAIR SOLUTION α' },

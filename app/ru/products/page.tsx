@@ -85,7 +85,7 @@ export default async function RussianProductsPage() {
       />
       <ProductsPageClient initialProducts={products} concernCounts={concernCounts} />
 
-      {/* Shop by Concern — the same showcase the homepage runs, wrapped in a
+      {/* Shop by Concern - the same showcase the homepage runs, wrapped in a
           cera-page shell because this block renders on the server, outside the
           products client component. Hidden below sm; still in the DOM for crawlers. */}
       <section

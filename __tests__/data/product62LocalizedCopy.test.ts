@@ -62,8 +62,8 @@ describe('product 62 audited RU/AR copy', () => {
       'routineOvernightMaskTitle',
     ])
     const combined = JSON.stringify([PRODUCT_62_RU_TRANSLATION, PRODUCT_62_AR_TRANSLATION, SENSITIVE_SKIN_COPY.ru, SENSITIVE_SKIN_COPY.ar])
-    expect(combined).toMatch(/1–2|один-два|مرة أو مرتين/)
-    expect(combined).toContain('15–20')
+    expect(combined).toMatch(/1-2|один-два|مرة أو مرتين/)
+    expect(combined).toContain('15-20')
     expect(combined).not.toMatch(/перв\w+ недел|أسبوع البداية|الأسبوع الأول/i)
   })
 

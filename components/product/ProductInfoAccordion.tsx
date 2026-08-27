@@ -13,7 +13,7 @@ interface AccordionItemProps {
 
 /**
  * Lightweight accordion item for product info sections.
- * Clean white/gray design — no colored boxes.
+ * Clean white/gray design - no colored boxes.
  * Height animates via CSS grid 0fr→1fr (progressive; reduced-motion friendly).
  */
 export default function ProductInfoAccordion({

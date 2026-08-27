@@ -38,7 +38,7 @@ describe('language control on header-less routes', () => {
   /**
    * All three article routes have their own client, and the other two used to reach for
    * the product locale bar, so the same page had one bar in English and a different one
-   * in Arabic and Russian — the latter with no account control. They share one bar now.
+   * in Arabic and Russian - the latter with no account control. They share one bar now.
    */
   it.each([
     'app/blog/[slug]/BlogPostClient.tsx',

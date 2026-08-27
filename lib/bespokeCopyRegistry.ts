@@ -1,9 +1,9 @@
 /**
  * Which copy module speaks for which product.
  *
- * The bespoke product pages hold the catalogue's best writing — the claims
+ * The bespoke product pages hold the catalogue's best writing - the claims
  * checked against the Intertek dossier, the ingredient reconciliations, the
- * clinical figures — and it existed only inside React components, so the mobile
+ * clinical figures - and it existed only inside React components, so the mobile
  * app showed a far thinner product than the website did.
  *
  * Rather than copy that text into the database and then have to keep two
@@ -75,8 +75,8 @@ import { getUltraShieldCopy } from '@/components/product/ultrashield/ultraShield
 
 /**
  * Each copy module returns its own interface, and those interfaces carry no
- * index signature, so the registry is typed by what it is used for — an object
- * to be read by name — rather than by any one product's shape.
+ * index signature, so the registry is typed by what it is used for - an object
+ * to be read by name - rather than by any one product's shape.
  */
 export type BespokeCopyGetter = (locale: string) => object
 

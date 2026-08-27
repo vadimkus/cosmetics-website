@@ -110,7 +110,7 @@ export default function PaymentCancelPage() {
               {t('payCancel.needHelp')}
             </p>
             <div className={`mt-2 flex items-center justify-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
-              {/* This linked to 971528860018, which appears nowhere else on the site — the
+              {/* This linked to 971528860018, which appears nowhere else on the site - the
                   other 31 support links all use 971585487665. A dead number on the page a
                   customer reaches when their payment failed. */}
               <a

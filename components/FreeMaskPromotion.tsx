@@ -14,8 +14,8 @@ interface FreeMaskPromotionProps {
  * The two free-mask thresholds in the cart.
  *
  * Colour is deliberately rationed here. Every earned element used to be saturated green at
- * once — the icon, both "Unlocked" labels, both full-width bars, both mask captions and a
- * green-on-green summary panel — which left nothing standing out and no sense of what to do
+ * once - the icon, both "Unlocked" labels, both full-width bars, both mask captions and a
+ * green-on-green summary panel - which left nothing standing out and no sense of what to do
  * next. Rose now marks a bar you are still working toward, because that is the actionable
  * state, and green is kept for the fact of having earned a tier: the small Unlocked label,
  * the finished bar and the confirmation. Earned captions read in ink rather than a third

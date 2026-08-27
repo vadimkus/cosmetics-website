@@ -100,7 +100,7 @@ export async function POST(request: NextRequest) {
  * Reconciliation safeguard: verify the amount Stripe actually charged matches
  * the order total we recorded. The charged amount is already authoritative
  * (we create the intent/session server-side with the recomputed total), so a
- * mismatch signals something to investigate — a Stripe promo code applied at
+ * mismatch signals something to investigate - a Stripe promo code applied at
  * hosted checkout, a partial capture, a currency issue, or a bug. Log-only:
  * we NEVER block a genuinely paid order (that would be worse than a discrepancy),
  * but finance gets a loud, greppable signal to reconcile.
@@ -113,7 +113,7 @@ function reconcilePaidAmount(
   if (paidFils == null) return
   const expectedFils = aedToFils(order.total)
   if (Math.abs(expectedFils - paidFils) > 1) {
-    errorLog('⚠️ PAYMENT AMOUNT MISMATCH — reconcile:', {
+    errorLog('⚠️ PAYMENT AMOUNT MISMATCH - reconcile:', {
       context,
       orderNumber: order.orderNumber,
       orderTotalAed: order.total,

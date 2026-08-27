@@ -53,7 +53,7 @@ export function parseStringArray(value?: string | null): string[] {
 }
 
 export function getLocalizedProductName(product: Product, _locale: Locale): string {
-  // Brand decision (2026-07-08): product names are NEVER translated — the
+  // Brand decision (2026-07-08): product names are NEVER translated - the
   // English name is the product's identity across EN/AR/RU (packaging,
   // invoices, and support all reference the same name). Translated names
   // remain available as SEO alternates (ProductSchema.alternateName) and

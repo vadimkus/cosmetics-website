@@ -78,7 +78,7 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
   const [settingDefaultId, setSettingDefaultId] = useState<string | null>(null)
 
   // Dismiss the inline action menu when the user taps anywhere outside a
-  // card, or presses Escape — prevents the "trapped open" state where the
+  // card, or presses Escape - prevents the "trapped open" state where the
   // only way to close it is re-tapping the ••• icon.
   const listRef = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -329,7 +329,7 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
                       </span>
                     )}
                   </div>
-                  {/* 40×40 tap target — previously 28×28 which sat below the
+                  {/* 40×40 tap target - previously 28×28 which sat below the
                       44px iOS HIG minimum. -mr-2 keeps the icon optically
                       aligned to the card edge. */}
                   <button
@@ -360,7 +360,7 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
                   <p className="text-sm text-[var(--cera-muted)] mt-1" dir="ltr">{formatUAEPhoneForDisplay(address.phone)}</p>
                 </div>
 
-                {/* Inline delete confirmation — replaces native confirm()
+                {/* Inline delete confirmation - replaces native confirm()
                     dialog which looked like a Safari error popup on mobile. */}
                 {isConfirmingDelete && (
                   <div className="mt-4 pt-4 border-t border-[var(--cera-line)]">
@@ -399,7 +399,7 @@ export function AddressesContent({ embedded = false }: AddressesPageProps) {
                   </div>
                 )}
 
-                {/* Action menu — inline iOS-style action list. Previously
+                {/* Action menu - inline iOS-style action list. Previously
                     a cramped 3-button horizontal row that wrapped on small
                     screens; now each action is full-width with a 44px tap
                     target and dividers between them. */}

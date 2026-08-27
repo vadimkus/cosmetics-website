@@ -123,7 +123,7 @@ export default function FavoritesClient({ embedded = false }: FavoritesClientPro
           controls to the same destination stacked on top of each other is noise. */}
       <div className={embedded ? 'py-0' : 'container mx-auto px-4 pb-16 pt-2 md:pb-24 md:pt-6'}>
           <div className="mx-auto max-w-[560px] text-center">
-            {/* Uni — gently floating, and now on a transparent ground so she sits on the
+            {/* Uni - gently floating, and now on a transparent ground so she sits on the
                 page instead of on a white card. Animations respect the animation store,
                 PWA mode AND prefers-reduced-motion. */}
             <div className="relative mx-auto w-full max-w-[300px] md:max-w-[380px]">

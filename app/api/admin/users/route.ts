@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
     
     debugLog('📊 Where clause:', JSON.stringify(whereClause))
     
-    // Exclude profilePicture from list query — base64 images cause the response
+    // Exclude profilePicture from list query - base64 images cause the response
     // to exceed Prisma Accelerate's 5MB limit at scale (515+ users).
     // profilePicture is fetched separately in the single-user [id] route.
     const selectFields = {

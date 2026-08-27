@@ -189,7 +189,7 @@ export default function ProductQuickFactsHelper({
     }))
 
     // Manual-sourced catalog first. If a SKU has no catalog yet, fall back to
-    // ingredient actives — never recycle on-page benefits/keyFeatures copy.
+    // ingredient actives - never recycle on-page benefits/keyFeatures copy.
     if (facts.length < 3) {
       const ingredients = parseArray<IngredientItem>(
         translations?.ingredients || product.ingredients

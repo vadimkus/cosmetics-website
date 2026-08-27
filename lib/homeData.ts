@@ -7,7 +7,7 @@ import { CATEGORY_PAGES } from '@/lib/concernsData'
 import type { Product } from '@/types'
 
 /**
- * Homepage data — bestsellers + category tile imagery + tile product counts.
+ * Homepage data - bestsellers + category tile imagery + tile product counts.
  *
  * Used by all three locale homepages (/, /ar, /ru) so the tile art and the
  * bestsellers rail stay in lockstep across languages and everyone hits the
@@ -18,7 +18,7 @@ import type { Product } from '@/types'
 const BESTSELLER_WINDOW_DAYS = 180
 
 // A product counts as a "new arrival" if it was added within this window.
-// Keeps the rail genuinely fresh and self-expiring — no manual curation.
+// Keeps the rail genuinely fresh and self-expiring - no manual curation.
 const NEW_ARRIVAL_WINDOW_DAYS = 120
 const NEW_ARRIVAL_MAX = 4
 
@@ -41,18 +41,18 @@ export const HOME_CATEGORY_SLUGS = [
   'sun',
 ] as const
 
-// Hand-picked product IDs per category — chosen for the best possible tile
+// Hand-picked product IDs per category - chosen for the best possible tile
 // imagery (big hero shots over small pack shots, and real category hero
 // products, e.g. an actual cream jar for the Cream tile rather than a kit
 // or duo). If a preferred ID is out of stock / hidden we fall back to the
 // first visible product in that category.
 const CATEGORY_PREFERRED_PRODUCT_IDS: Record<string, string> = {
   microneedling: '1', // Microneedle Roller
-  'pro-solution': '4', // POWER SOLUTION HES — hes_power/main.jpeg
-  serum: '21', // MULTI VITA RADIANCE SERUM — radiance_serum/main.jpeg
-  cream: '32', // MULTI FUNCTIONAL ANTI-WRINKLE CREAM — clearer Cream tile product
-  mask: '36', // SOOTHING BOMB SEA ALGAE MASK — has a large shot
-  sun: '39', // ULTRA SHIELD SUN CREAM SPF 50+ — has large shot
+  'pro-solution': '4', // POWER SOLUTION HES - hes_power/main.jpeg
+  serum: '21', // MULTI VITA RADIANCE SERUM - radiance_serum/main.jpeg
+  cream: '32', // MULTI FUNCTIONAL ANTI-WRINKLE CREAM - clearer Cream tile product
+  mask: '36', // SOOTHING BOMB SEA ALGAE MASK - has a large shot
+  sun: '39', // ULTRA SHIELD SUN CREAM SPF 50+ - has large shot
 }
 
 /**
@@ -160,7 +160,7 @@ export const getHomeData = unstable_cache(
     const all = await getAllProducts()
     const visible = all.filter(p => p.inStock && !p.isHidden)
 
-    // Bestsellers rail — real sales data first, curated fallback on failure.
+    // Bestsellers rail - real sales data first, curated fallback on failure.
     let featured: Product[] = []
     try {
       featured = (await computeBestsellers(visible)).slice(0, 4)
@@ -186,7 +186,7 @@ export const getHomeData = unstable_cache(
       }
     }
 
-    // Category backdrops — prefer the curated product for each slug, fall
+    // Category backdrops - prefer the curated product for each slug, fall
     // back to the first visible product in that category. Explicit overrides
     // (CATEGORY_IMAGE_OVERRIDES) win over everything when set.
     const categoryImages: Record<string, string> = {}
@@ -212,11 +212,11 @@ export const getHomeData = unstable_cache(
       }
     }
 
-    // Concern tile counts — shared with /products, which renders the same
+    // Concern tile counts - shared with /products, which renders the same
     // showcase and must not print a different number for the same concern.
     const concernCounts = countProductsByConcern(visible)
 
-    // New arrivals — newest products added in the last NEW_ARRIVAL_WINDOW_DAYS,
+    // New arrivals - newest products added in the last NEW_ARRIVAL_WINDOW_DAYS,
     // excluding anything already on the bestsellers rail. Doubles as internal
     // linking from the homepage so Google discovers/indexes new PDPs quickly.
     const featuredIds = new Set(featured.map(p => p.id))

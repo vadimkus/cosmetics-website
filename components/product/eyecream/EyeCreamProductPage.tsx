@@ -3,8 +3,8 @@
 /**
  * Bespoke product page for EyeCell EYE CONTOUR CREAM (product 24).
  *
- * Shares the editorial design system built for product 66 — the primitives, the
- * gallery and the structural CSS all come from ../cerabarrier — and layers a
+ * Shares the editorial design system built for product 66 - the primitives, the
+ * gallery and the structural CSS all come from ../cerabarrier - and layers a
  * champagne / bronze palette on top via eyecream.css, taken from the EyeCell
  * slides and the silver collar on the black pump.
  *

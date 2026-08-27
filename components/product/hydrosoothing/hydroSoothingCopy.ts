@@ -1,7 +1,7 @@
 /**
  * Bespoke copy for INTENSIVE HYDRO SOOTHING CREAM (product 28).
  *
- * SOURCING — every figure traces to the audit in
+ * SOURCING - every figure traces to the audit in
  * docs/SESSION_CHANGES_2026-08-17_PRODUCT_28_HYDRO_SOOTHING_SOURCE_AUDIT.md:
  *   - DTS MG signed Formula_up (finished concentrations, matches the carton INCI
  *     exactly): butylene glycol 10.555%, glycerin 6.175%, BETAINE 5.000%,
@@ -64,7 +64,7 @@ export interface HydroSoothingCopy {
   vatIncluded: string
 
   /* Two sizes, 50 g and 250 g, both real SKUs with their own prices. A size has to
-     travel with every cart call — see the product page component. */
+     travel with every cart call - see the product page component. */
   chooseSize: string
   sizes: {
     homecareLabel: string
@@ -162,12 +162,12 @@ const EN: HydroSoothingCopy = {
   eyebrow: 'Intensive Hydro Soothing Cream · 50 g homecare · 250 g professional',
   headline: 'It measurably cools skin by a degree.',
   subheadline:
-    'A transparent gel-cream that is 21.7% humectant — butylene glycol at 10.6%, glycerin at 6.2% and betaine at a full 5%. The manufacturer\u2019s clinical work records skin temperature down about 1 °C twenty minutes after application, and hydration up 12% after four weeks. In a country where indoor air is drier than the outdoors, the first of those is the more interesting number.',
+    'A transparent gel-cream that is 21.7% humectant - butylene glycol at 10.6%, glycerin at 6.2% and betaine at a full 5%. The manufacturer\u2019s clinical work records skin temperature down about 1 °C twenty minutes after application, and hydration up 12% after four weeks. In a country where indoor air is drier than the outdoors, the first of those is the more interesting number.',
   heroBullets: [
     '21.7% humectants, including betaine at a full 5%',
     'Skin temperature down about 1 °C, twenty minutes after applying',
     'Hydration up 12% after four weeks of use',
-    'No preservative beyond the glycols. Not vegan — contains snail filtrate',
+    'No preservative beyond the glycols. Not vegan - contains snail filtrate',
   ],
   badges: ['Made in Korea', '50 g / 250 g', 'EU safety assessed', 'Graded Non Irritant'],
 
@@ -231,7 +231,7 @@ const EN: HydroSoothingCopy = {
       {
         name: 'Betaine',
         dose: '5.000%',
-        body: 'The standout, and a high dose — typical cosmetic use is between 0.5 and 2%. An osmolyte, meaning it helps skin cells hold their own water rather than just sitting on the surface. The manufacturer\u2019s own material credits it with both hydration and calming redness, and it appeared in none of our copy until this page.',
+        body: 'The standout, and a high dose - typical cosmetic use is between 0.5 and 2%. An osmolyte, meaning it helps skin cells hold their own water rather than just sitting on the surface. The manufacturer\u2019s own material credits it with both hydration and calming redness, and it appeared in none of our copy until this page.',
       },
       {
         name: 'Butylene glycol and glycerin',
@@ -274,10 +274,10 @@ const EN: HydroSoothingCopy = {
       { name: 'Birch bark extract', sheet: '0.100%', actual: '1 ppm' },
       { name: 'Curled dock root extract', sheet: '0.100%', actual: '0.5 ppm' },
       { name: 'Lactobacillus / pumpkin ferment', sheet: '1.000%', actual: '1,000 ppm', real: true },
-      { name: 'Betaine', sheet: '5.000%', actual: '5.000% — unchanged', real: true },
+      { name: 'Betaine', sheet: '5.000%', actual: '5.000% - unchanged', real: true },
     ],
     body:
-      'The supplier sheet lists what goes into the mixing tank, not what ends up in the tube. Snail secretion filtrate arrives as a pre-diluted material that is 1% filtrate and 99% water and glycols, so adding 0.1% of it puts 10 parts per million of filtrate in the finished cream — a hundred times less than the sheet appears to say. Beta-glucan works the same way and lands at 4 ppm. Betaine, by contrast, is added neat, so its 5% is 5%. Read a supplier sheet as a shopping list and you will overstate a trace ingredient by two orders of magnitude, which is exactly what happened to us.',
+      'The supplier sheet lists what goes into the mixing tank, not what ends up in the tube. Snail secretion filtrate arrives as a pre-diluted material that is 1% filtrate and 99% water and glycols, so adding 0.1% of it puts 10 parts per million of filtrate in the finished cream - a hundred times less than the sheet appears to say. Beta-glucan works the same way and lands at 4 ppm. Betaine, by contrast, is added neat, so its 5% is 5%. Read a supplier sheet as a shopping list and you will overstate a trace ingredient by two orders of magnitude, which is exactly what happened to us.',
   },
 
   quality: {
@@ -287,13 +287,13 @@ const EN: HydroSoothingCopy = {
       'Made in Korea, released against a written specification, and assessed under European cosmetics law with a clean conclusion and no restrictions attached.',
     rows: [
       { label: 'Appearance', value: 'Transparent gel-cream' },
-      { label: 'pH', value: '6.39 at 25 °C, inside a 6.00–7.00 specification' },
+      { label: 'pH', value: '6.39 at 25 °C, inside a 6.00-7.00 specification' },
       { label: 'Fill', value: '50.95 g against a 50 g declaration' },
       { label: 'Stability', value: 'Passed at 50 °C' },
       { label: 'Purity', value: 'Bacteria and molds both under 10 cfu/ml, against a permitted 100' },
       { label: 'Challenge test', value: 'Performed against E. coli, S. aureus, P. aeruginosa, C. albicans and A. niger, with satisfactory results' },
       { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the box' },
-      { label: 'After opening', value: 'Six months — the 6M symbol is on the carton' },
+      { label: 'After opening', value: 'Six months - the 6M symbol is on the carton' },
       { label: 'Assay', value: 'None, because there is no functional active to assay. The registered function is hydrating and soothing' },
     ],
     patch:
@@ -304,7 +304,7 @@ const EN: HydroSoothingCopy = {
     eyebrow: 'If you screen your ingredients',
     title: 'No conventional preservative, and not vegan',
     body:
-      'There is no paraben and no phenoxyethanol in here. Protection comes from the glycols instead — 1,2-hexanediol at 2%, with pentylene and caprylyl glycol — which is why the ingredient list has no recognisable preservative on it. It is also fragrance-free, with no perfume in the formula at all and no declared allergens. What it does contain is snail secretion filtrate at 10 parts per million, so it is not vegan, and we would rather you knew that for ten parts per million than found out later.',
+      'There is no paraben and no phenoxyethanol in here. Protection comes from the glycols instead - 1,2-hexanediol at 2%, with pentylene and caprylyl glycol - which is why the ingredient list has no recognisable preservative on it. It is also fragrance-free, with no perfume in the formula at all and no declared allergens. What it does contain is snail secretion filtrate at 10 parts per million, so it is not vegan, and we would rather you knew that for ten parts per million than found out later.',
   },
 
   howTo: {
@@ -314,7 +314,7 @@ const EN: HydroSoothingCopy = {
     steps: [
       {
         title: 'Onto clean skin, morning and night',
-        body: 'The carton asks for a gentle massage until absorbed. It is a transparent gel-cream, so it goes in quickly and leaves no film — that is the humectant load rather than oils doing the work.',
+        body: 'The carton asks for a gentle massage until absorbed. It is a transparent gel-cream, so it goes in quickly and leaves no film - that is the humectant load rather than oils doing the work.',
       },
       {
         title: 'Reach for it when skin feels warm',
@@ -322,7 +322,7 @@ const EN: HydroSoothingCopy = {
       },
       {
         title: 'Layer it under something richer if you are dry',
-        body: 'Almost nothing in here is oil, so on genuinely dry skin it draws water in but does not seal it. Put an occlusive cream over the top in that case — our Multi Functional or ND Cell creams are built for exactly that half of the job.',
+        body: 'Almost nothing in here is oil, so on genuinely dry skin it draws water in but does not seal it. Put an occlusive cream over the top in that case - our Multi Functional or ND Cell creams are built for exactly that half of the job.',
       },
       {
         title: 'Sunscreen over it in the morning',
@@ -330,7 +330,7 @@ const EN: HydroSoothingCopy = {
       },
     ],
     note:
-      'Keep it away from the eyes, and do not use it on broken or wounded skin — that instruction is on the carton. The 250 g size is the professional one for treatment rooms; the 50 g tube is the homecare one. Once opened, use either within six months.',
+      'Keep it away from the eyes, and do not use it on broken or wounded skin - that instruction is on the carton. The 250 g size is the professional one for treatment rooms; the 50 g tube is the homecare one. Once opened, use either within six months.',
   },
 
   inci: {
@@ -346,7 +346,7 @@ const EN: HydroSoothingCopy = {
     title: 'Precautions',
     points: [
       'Contains snail secretion filtrate, so it is not suitable if you avoid animal-derived ingredients.',
-      'Do not use on wounded or broken skin — this instruction is on the carton.',
+      'Do not use on wounded or broken skin - this instruction is on the carton.',
       'For external use only. Do not use near the eyes, and rinse thoroughly with cool water on contact.',
       'Stop and see a doctor if redness, swelling or itching develops.',
       'No perfume in the formula and no declared allergens.',
@@ -363,14 +363,14 @@ const EN: HydroSoothingCopy = {
       { label: 'Size', value: '50 g homecare tube · 250 g professional' },
       { label: 'Texture', value: 'Transparent gel-cream, light' },
       { label: 'Registered function', value: 'Hydrating and soothing. No Korean functional licence, and none claimed' },
-      { label: 'Humectants', value: 'Butylene glycol 10.555%, glycerin 6.175%, betaine 5.000% — 21.7% combined' },
+      { label: 'Humectants', value: 'Butylene glycol 10.555%, glycerin 6.175%, betaine 5.000% - 21.7% combined' },
       { label: 'Measured', value: 'Skin temperature about −1 °C at twenty minutes; hydration +12% at four weeks' },
       { label: 'Also contains', value: 'Lactobacillus/pumpkin ferment 0.1000%, aloe 0.0500%, sodium hyaluronate 0.0500%' },
-      { label: 'Snail secretion filtrate', value: '0.0010% — 10 ppm' },
-      { label: 'Preservative', value: 'Glycols only — 1,2-hexanediol 2%, pentylene and caprylyl glycol. No paraben, no phenoxyethanol' },
+      { label: 'Snail secretion filtrate', value: '0.0010% - 10 ppm' },
+      { label: 'Preservative', value: 'Glycols only - 1,2-hexanediol 2%, pentylene and caprylyl glycol. No paraben, no phenoxyethanol' },
       { label: 'Fragrance', value: 'None. No perfume in the formula, no declared allergens' },
       { label: 'Not vegan', value: 'Contains snail secretion filtrate' },
-      { label: 'pH', value: '6.00–7.00 (6.39 on the batch tested)' },
+      { label: 'pH', value: '6.00-7.00 (6.39 on the batch tested)' },
       { label: 'After opening', value: 'Six months' },
       { label: 'Assessment', value: 'EU safety assessment; patch test graded Non Irritant' },
       { label: 'Origin', value: 'Made in Korea' },
@@ -383,7 +383,7 @@ const EN: HydroSoothingCopy = {
     items: [
       {
         q: 'Does it really cool skin?',
-        a: 'The manufacturer\u2019s clinical documentation records skin temperature down by an average of about 1 °C twenty minutes after application. We are giving you that figure with its limits attached: it names no laboratory, no subject count and no method, so it is a manufacturer measurement rather than a published trial. It is also consistent with the formula — a 21.7% humectant gel with almost no oil in it behaves that way on warm skin.',
+        a: 'The manufacturer\u2019s clinical documentation records skin temperature down by an average of about 1 °C twenty minutes after application. We are giving you that figure with its limits attached: it names no laboratory, no subject count and no method, so it is a manufacturer measurement rather than a published trial. It is also consistent with the formula - a 21.7% humectant gel with almost no oil in it behaves that way on warm skin.',
       },
       {
         q: 'Is this a snail cream?',
@@ -391,19 +391,19 @@ const EN: HydroSoothingCopy = {
       },
       {
         q: 'What is betaine and why does it matter?',
-        a: 'An osmolyte — it helps skin cells hold their own water rather than simply coating the surface. At 5% this is a high dose; typical cosmetic use is between 0.5 and 2%. It is the largest active in the formula and the manufacturer\u2019s own material credits it with hydration and with calming redness. It was missing from every line of copy we had written about this product.',
+        a: 'An osmolyte - it helps skin cells hold their own water rather than simply coating the surface. At 5% this is a high dose; typical cosmetic use is between 0.5 and 2%. It is the largest active in the formula and the manufacturer\u2019s own material credits it with hydration and with calming redness. It was missing from every line of copy we had written about this product.',
       },
       {
         q: 'Is it enough on its own for dry skin?',
-        a: 'On dehydrated skin, yes. On genuinely dry skin, not by itself — there is almost no oil in here, so it draws water in but does not seal it. Layer an occlusive cream over the top in that case. Think of this as the water half and something like our Multi Functional cream as the lid.',
+        a: 'On dehydrated skin, yes. On genuinely dry skin, not by itself - there is almost no oil in here, so it draws water in but does not seal it. Layer an occlusive cream over the top in that case. Think of this as the water half and something like our Multi Functional cream as the lid.',
       },
       {
         q: 'Does it have a fragrance or a preservative?',
-        a: 'No perfume at all, and no declared allergens, which is unusual in this range. There is also no paraben or phenoxyethanol — the formula is held by glycols instead, mainly 1,2-hexanediol at 2%. That combination makes it one of the plainer formulas we sell, which is the point on irritated skin.',
+        a: 'No perfume at all, and no declared allergens, which is unusual in this range. There is also no paraben or phenoxyethanol - the formula is held by glycols instead, mainly 1,2-hexanediol at 2%. That combination makes it one of the plainer formulas we sell, which is the point on irritated skin.',
       },
       {
         q: 'Why buy the 250 g?',
-        a: 'That is the professional size for treatment rooms, where it is used across many clients. The 50 g tube is the homecare one. Same formula in both. Whichever you have, six months after opening is the limit — the 6M symbol is on the carton.',
+        a: 'That is the professional size for treatment rooms, where it is used across many clients. The 50 g tube is the homecare one. Same formula in both. Whichever you have, six months after opening is the limit - the 6M symbol is on the carton.',
       },
     ],
   },
@@ -420,7 +420,7 @@ const AR: HydroSoothingCopy = {
     '21.7% مرطّبات جاذبة، منها البيتايين بنسبة 5% كاملة',
     'انخفاض حرارة البشرة نحو درجة مئوية، بعد عشرين دقيقة من التطبيق',
     'ارتفاع الترطيب 12% بعد أربعة أسابيع من الاستخدام',
-    'من دون عطر أو بارابين أو فينوكسي إيثانول. غير نباتي — يحتوي على مرشّح إفراز الحلزون',
+    'من دون عطر أو بارابين أو فينوكسي إيثانول. غير نباتي - يحتوي على مرشّح إفراز الحلزون',
   ],
   badges: ['صُنع في كوريا', '50 غ / 250 غ', 'تقييم سلامة أوروبي', 'مصنّف غير مهيّج'],
 
@@ -527,7 +527,7 @@ const AR: HydroSoothingCopy = {
       { name: 'مستخلص لحاء البتولا', sheet: '0.100%', actual: '1 ppm' },
       { name: 'مستخلص جذر الحُمّاض', sheet: '0.100%', actual: '0.5 ppm' },
       { name: 'تخمّر اللاكتوباسيلوس/القرع', sheet: '1.000%', actual: '1,000 ppm', real: true },
-      { name: 'بيتايين', sheet: '5.000%', actual: '5.000% — بلا تغيير', real: true },
+      { name: 'بيتايين', sheet: '5.000%', actual: '5.000% - بلا تغيير', real: true },
     ],
     body:
       'مرشّح إفراز الحلزون والبيتا-غلوكان يدخلان ضمن مزيجين مخففين، لذلك يصل تركيزهما النهائي إلى 10 و4 أجزاء في المليون. أما البيتين فيبقى عند 5% كاملة، ولذلك يشكل مع بيوتلين غليكول والغليسرين أساس الترطيب في الكريم.',
@@ -540,13 +540,13 @@ const AR: HydroSoothingCopy = {
       'صُنع في كوريا وأُفرج عنه مقابل مواصفة مكتوبة، وقُيّم وفق قانون مستحضرات التجميل الأوروبي بخلاصة نظيفة بلا قيود مرفقة.',
     rows: [
       { label: 'المظهر', value: 'كريم جيلي شفّاف' },
-      { label: 'الحموضة', value: '6.39 عند 25 درجة، ضمن مواصفة 6.00–7.00' },
+      { label: 'الحموضة', value: '6.39 عند 25 درجة، ضمن مواصفة 6.00-7.00' },
       { label: 'التعبئة', value: '50.95 غ مقابل 50 غ معلنة' },
       { label: 'الثبات', value: 'ناجح عند 50 درجة' },
       { label: 'النقاء', value: 'البكتيريا والعفن كلاهما أقل من 10 وحدات/مل، مقابل 100 مسموحة' },
       { label: 'اختبار التحدّي', value: 'أُجري ضد الإشريكية القولونية والعنقودية والزائفة والمبيضّات والرشاشية السوداء، بنتائج مُرضية' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات مغلقاً، وتاريخ الانتهاء على العلبة' },
-      { label: 'بعد الفتح', value: 'ستة أشهر — ورمز 6M على العلبة' },
+      { label: 'بعد الفتح', value: 'ستة أشهر - ورمز 6M على العلبة' },
       { label: 'العناية الأساسية', value: 'الترطيب والراحة المهدئة' },
     ],
     patch:
@@ -567,7 +567,7 @@ const AR: HydroSoothingCopy = {
     steps: [
       {
         title: 'على بشرة نظيفة، صباحاً ومساءً',
-        body: 'تطلب العلبة تدليكاً لطيفاً حتى الامتصاص. وهو كريم جيلي شفّاف فيدخل بسرعة ولا يترك طبقة — وذلك حمل المرطّبات لا الزيوت هو ما يعمل.',
+        body: 'تطلب العلبة تدليكاً لطيفاً حتى الامتصاص. وهو كريم جيلي شفّاف فيدخل بسرعة ولا يترك طبقة - وذلك حمل المرطّبات لا الزيوت هو ما يعمل.',
       },
       {
         title: 'امتدّي إليه عندما تشعر البشرة بالدفء',
@@ -575,7 +575,7 @@ const AR: HydroSoothingCopy = {
       },
       {
         title: 'ضعيه تحت شيء أغنى إن كنتِ جافة',
-        body: 'فلا شيء هنا تقريباً زيت، فعلى بشرة جافة فعلاً يجذب الماء لكنه لا يُحكم إغلاقه. ضعي كريماً عازلاً فوقه في تلك الحالة — فكريمانا متعدد الوظائف وإن دي سيل مبنيّان لذلك النصف من المهمّة تحديداً.',
+        body: 'فلا شيء هنا تقريباً زيت، فعلى بشرة جافة فعلاً يجذب الماء لكنه لا يُحكم إغلاقه. ضعي كريماً عازلاً فوقه في تلك الحالة - فكريمانا متعدد الوظائف وإن دي سيل مبنيّان لذلك النصف من المهمّة تحديداً.',
       },
       {
         title: 'واقي الشمس فوقه صباحاً',
@@ -583,7 +583,7 @@ const AR: HydroSoothingCopy = {
       },
     ],
     note:
-      'أبعديه عن العينين، ولا تستخدميه على بشرة مجروحة أو مفتوحة — وهذه التعليمة على العلبة. أما حجم 250 غ فهو الاحترافي لغرف العلاج؛ وأنبوب 50 غ هو المنزلي. وبعد الفتح، استخدمي أيّهما خلال ستة أشهر.',
+      'أبعديه عن العينين، ولا تستخدميه على بشرة مجروحة أو مفتوحة - وهذه التعليمة على العلبة. أما حجم 250 غ فهو الاحترافي لغرف العلاج؛ وأنبوب 50 غ هو المنزلي. وبعد الفتح، استخدمي أيّهما خلال ستة أشهر.',
   },
 
   inci: {
@@ -599,7 +599,7 @@ const AR: HydroSoothingCopy = {
     title: 'احتياطات',
     points: [
       'يحتوي على مرشّح إفراز الحلزون، لذلك لا يناسب من يتجنبون المكونات الحيوانية.',
-      'لا يُستخدم على بشرة مجروحة أو مفتوحة — وهذه التعليمة على العلبة.',
+      'لا يُستخدم على بشرة مجروحة أو مفتوحة - وهذه التعليمة على العلبة.',
       'للاستعمال الخارجي فقط. لا يُستخدم قرب العينين، واشطفي جيداً بالماء البارد عند الملامسة.',
       'أوقفي الاستخدام واستشيري طبيباً عند ظهور احمرار أو تورّم أو حكّة.',
       'لا عطر في التركيبة ولا مسبّبات حساسية معلنة.',
@@ -616,14 +616,14 @@ const AR: HydroSoothingCopy = {
       { label: 'الحجم', value: 'أنبوب منزلي 50 غ · واحترافي 250 غ' },
       { label: 'الملمس', value: 'كريم جيلي شفّاف، خفيف' },
       { label: 'الوظيفة', value: 'الترطيب والراحة المهدئة' },
-      { label: 'المرطّبات الجاذبة', value: 'بيوتيلين غلايكول 10.555%، غليسرين 6.175%، بيتايين 5.000% — 21.7% مجتمعةً' },
+      { label: 'المرطّبات الجاذبة', value: 'بيوتيلين غلايكول 10.555%، غليسرين 6.175%، بيتايين 5.000% - 21.7% مجتمعةً' },
       { label: 'المقيس', value: 'حرارة البشرة نحو −1 °C عند عشرين دقيقة؛ الترطيب +12% عند أربعة أسابيع' },
       { label: 'ويحتوي أيضاً', value: 'تخمّر لاكتوباسيلوس/قرع 0.1000%، ألوة 0.0500%، صوديوم هيالورونات 0.0500%' },
-      { label: 'مرشّح إفراز الحلزون', value: '0.0010% — 10 أجزاء في المليون' },
-      { label: 'الحافظ', value: 'غلايكولات فقط — 1,2-هكسانديول 2%، وبنتيلين وكابريليل غلايكول. لا بارابين ولا فينوكسي إيثانول' },
+      { label: 'مرشّح إفراز الحلزون', value: '0.0010% - 10 أجزاء في المليون' },
+      { label: 'الحافظ', value: 'غلايكولات فقط - 1,2-هكسانديول 2%، وبنتيلين وكابريليل غلايكول. لا بارابين ولا فينوكسي إيثانول' },
       { label: 'العطر', value: 'لا يوجد. لا عطر في التركيبة ولا مسبّبات حساسية معلنة' },
       { label: 'غير نباتي', value: 'يحتوي على مرشّح إفراز الحلزون' },
-      { label: 'الحموضة', value: '6.00–7.00، والقيمة المقاسة 6.39' },
+      { label: 'الحموضة', value: '6.00-7.00، والقيمة المقاسة 6.39' },
       { label: 'بعد الفتح', value: 'ستة أشهر' },
       { label: 'التقييم', value: 'تقييم سلامة أوروبي؛ اختبار لصقة مصنّف غير مهيّج' },
       { label: 'المنشأ', value: 'صُنع في كوريا' },
@@ -648,15 +648,15 @@ const AR: HydroSoothingCopy = {
       },
       {
         q: 'هل يكفي وحده للبشرة الجافة؟',
-        a: 'للبشرة المجفّفة، نعم. أما للبشرة الجافة فعلاً فلا وحده — فلا زيت هنا تقريباً، فهو يجذب الماء لكنه لا يُحكم إغلاقه. ضعي كريماً عازلاً فوقه في تلك الحالة. اعتبري هذا نصف الماء وشيئاً ككريمنا متعدد الوظائف هو الغطاء.',
+        a: 'للبشرة المجفّفة، نعم. أما للبشرة الجافة فعلاً فلا وحده - فلا زيت هنا تقريباً، فهو يجذب الماء لكنه لا يُحكم إغلاقه. ضعي كريماً عازلاً فوقه في تلك الحالة. اعتبري هذا نصف الماء وشيئاً ككريمنا متعدد الوظائف هو الغطاء.',
       },
       {
         q: 'هل له عطر أو حافظ؟',
-        a: 'لا عطر إطلاقاً، ولا مسبّبات حساسية معلنة، وهذا غير معتاد في هذه المجموعة. ولا بارابين ولا فينوكسي إيثانول — بل تحمله الغلايكولات، وأساساً 1,2-هكسانديول بنسبة 2%. وذلك المزيج يجعله من أبسط التركيبات التي نبيعها، وهو المقصود على بشرة متهيّجة.',
+        a: 'لا عطر إطلاقاً، ولا مسبّبات حساسية معلنة، وهذا غير معتاد في هذه المجموعة. ولا بارابين ولا فينوكسي إيثانول - بل تحمله الغلايكولات، وأساساً 1,2-هكسانديول بنسبة 2%. وذلك المزيج يجعله من أبسط التركيبات التي نبيعها، وهو المقصود على بشرة متهيّجة.',
       },
       {
         q: 'لماذا أشتري حجم 250 غ؟',
-        a: 'هذا هو الحجم الاحترافي لغرف العلاج، حيث يُستخدم على عملاء كثيرين. أما أنبوب 50 غ فهو المنزلي. والتركيبة واحدة في الاثنين. وأياً كان ما لديك، فستة أشهر بعد الفتح هي الحدّ — ورمز 6M على العلبة.',
+        a: 'هذا هو الحجم الاحترافي لغرف العلاج، حيث يُستخدم على عملاء كثيرين. أما أنبوب 50 غ فهو المنزلي. والتركيبة واحدة في الاثنين. وأياً كان ما لديك، فستة أشهر بعد الفتح هي الحدّ - ورمز 6M على العلبة.',
       },
     ],
   },
@@ -673,7 +673,7 @@ const RU: HydroSoothingCopy = {
     '21,7% увлажнителей, включая бетаин в полные 5%',
     'Температура кожи ниже примерно на 1 °C через двадцать минут',
     'Увлажнённость выше на 12% через четыре недели',
-    'Без отдушки, парабенов и феноксиэтанола. Не веганский — содержит фильтрат улитки',
+    'Без отдушки, парабенов и феноксиэтанола. Не веганский - содержит фильтрат улитки',
   ],
   badges: ['Сделано в Корее', '50 г / 250 г', 'Оценка безопасности ЕС', 'Оценка: не раздражает'],
 
@@ -725,7 +725,7 @@ const RU: HydroSoothingCopy = {
     eyebrow: 'Почему охлаждение здесь важно',
     title: 'В Залив проблема обезвоживания приходит и внутрь помещений',
     body:
-      'На улице кожу испытывают жара и солнце, а в помещении — постоянный поток сухого кондиционированного воздуха. В обоих случаях она быстрее теряет воду. Лёгкий гель-крем с увлажняющей базой 21,7% помогает вернуть комфорт без тяжести, а охлаждающий эффект особенно приятен после перехода с жары в помещение.',
+      'На улице кожу испытывают жара и солнце, а в помещении - постоянный поток сухого кондиционированного воздуха. В обоих случаях она быстрее теряет воду. Лёгкий гель-крем с увлажняющей базой 21,7% помогает вернуть комфорт без тяжести, а охлаждающий эффект особенно приятен после перехода с жары в помещение.',
   },
 
   working: {
@@ -742,7 +742,7 @@ const RU: HydroSoothingCopy = {
       {
         name: 'Butylene Glycol и Glycerin',
         dose: '10.555% + 6.175%',
-        body: 'Вместе с бетаином это 21,7% увлажнителей — в этом весь замысел продукта. Поэтому же это прозрачный гель-крем, а не богатый: масла здесь почти нет.',
+        body: 'Вместе с бетаином это 21,7% увлажнителей - в этом весь замысел продукта. Поэтому же это прозрачный гель-крем, а не богатый: масла здесь почти нет.',
       },
       {
         name: 'Экстракт ферментации лактобактерий и тыквы',
@@ -780,7 +780,7 @@ const RU: HydroSoothingCopy = {
       { name: 'Экстракт берёзовой коры', sheet: '0,100%', actual: '1 ppm' },
       { name: 'Экстракт корня щавеля', sheet: '0,100%', actual: '0,5 ppm' },
       { name: 'Фермент лактобактерий и тыквы', sheet: '1,000%', actual: '1 000 ppm', real: true },
-      { name: 'Бетаин', sheet: '5,000%', actual: '5,000% — без изменений', real: true },
+      { name: 'Бетаин', sheet: '5,000%', actual: '5,000% - без изменений', real: true },
     ],
     body:
       'Фильтрат секрета улитки и бета-глюкан входят в состав предварительно разведённых смесей, поэтому их финальные концентрации составляют 10 и 4 ppm. Бетаин остаётся в полной концентрации 5% и вместе с бутиленгликолем и глицерином создаёт увлажняющую основу крема.',
@@ -793,13 +793,13 @@ const RU: HydroSoothingCopy = {
       'Сделано в Корее, выпущено против письменной спецификации и оценено по европейскому косметическому закону с чистым заключением без каких-либо ограничений.',
     rows: [
       { label: 'Внешний вид', value: 'Прозрачный гель-крем' },
-      { label: 'pH', value: '6,39 при 25 °C, в пределах спецификации 6,00–7,00' },
+      { label: 'pH', value: '6,39 при 25 °C, в пределах спецификации 6,00-7,00' },
       { label: 'Наполнение', value: '50,95 г при заявленных 50 г' },
       { label: 'Стабильность', value: 'Пройдена при 50 °C' },
-      { label: 'Чистота', value: 'Бактерии и плесень — обе менее 10 КОЕ/мл при допустимых 100' },
+      { label: 'Чистота', value: 'Бактерии и плесень - обе менее 10 КОЕ/мл при допустимых 100' },
       { label: 'Челлендж-тест', value: 'Проведён против E. coli, S. aureus, P. aeruginosa, C. albicans и A. niger с удовлетворительным результатом' },
       { label: 'Срок годности', value: 'Три года закрытым, дата на коробке' },
-      { label: 'После вскрытия', value: 'Шесть месяцев — символ 6M есть на коробке' },
+      { label: 'После вскрытия', value: 'Шесть месяцев - символ 6M есть на коробке' },
       { label: 'Основной уход', value: 'Увлажнение и успокаивающий комфорт' },
     ],
     patch:
@@ -820,7 +820,7 @@ const RU: HydroSoothingCopy = {
     steps: [
       {
         title: 'На чистую кожу, утром и вечером',
-        body: 'Коробка просит мягко массировать до впитывания. Это прозрачный гель-крем, поэтому он уходит быстро и не оставляет плёнки — работает загрузка увлажнителями, а не масла.',
+        body: 'Коробка просит мягко массировать до впитывания. Это прозрачный гель-крем, поэтому он уходит быстро и не оставляет плёнки - работает загрузка увлажнителями, а не масла.',
       },
       {
         title: 'Берите его, когда коже жарко',
@@ -828,15 +828,15 @@ const RU: HydroSoothingCopy = {
       },
       {
         title: 'Слоями под что-то более богатое, если вы сухая',
-        body: 'Масла здесь почти нет, поэтому на действительно сухой коже он втягивает воду, но не запечатывает её. В этом случае нанесите сверху окклюзивный крем — наши Multi Functional и ND Cell построены именно под эту половину задачи.',
+        body: 'Масла здесь почти нет, поэтому на действительно сухой коже он втягивает воду, но не запечатывает её. В этом случае нанесите сверху окклюзивный крем - наши Multi Functional и ND Cell построены именно под эту половину задачи.',
       },
       {
         title: 'Утром сверху санскрин',
-        body: 'В формуле нет ничего фотосенсибилизирующего, но увлажнённая кожа — не защищённая кожа, а климат, который делает этот крем полезным, тот же, что делает санскрин обязательным.',
+        body: 'В формуле нет ничего фотосенсибилизирующего, но увлажнённая кожа - не защищённая кожа, а климат, который делает этот крем полезным, тот же, что делает санскрин обязательным.',
       },
     ],
     note:
-      'Держите его подальше от глаз и не наносите на повреждённую или открытую кожу — это указание есть на коробке. Размер 250 г — профессиональный, для кабинета; туба 50 г — домашняя. После вскрытия используйте любую в течение шести месяцев.',
+      'Держите его подальше от глаз и не наносите на повреждённую или открытую кожу - это указание есть на коробке. Размер 250 г - профессиональный, для кабинета; туба 50 г - домашняя. После вскрытия используйте любую в течение шести месяцев.',
   },
 
   inci: {
@@ -852,11 +852,11 @@ const RU: HydroSoothingCopy = {
     title: 'Меры предосторожности',
     points: [
       'Содержит фильтрат секрета улитки, поэтому не подходит, если вы избегаете ингредиентов животного происхождения.',
-      'Не наносите на повреждённую или открытую кожу — это указание есть на коробке.',
+      'Не наносите на повреждённую или открытую кожу - это указание есть на коробке.',
       'Только для наружного применения. Не наносите рядом с глазами, при попадании тщательно промойте прохладной водой.',
       'Прекратите использование и обратитесь к врачу при покраснении, отёке или зуде.',
       'Отдушки в формуле нет, заявленных аллергенов нет.',
-      'Оценено как безопасное для здоровья человека по регламенту EC 1223/2009, патч-тест — «не раздражает».',
+      'Оценено как безопасное для здоровья человека по регламенту EC 1223/2009, патч-тест - «не раздражает».',
       'Использовать в течение шести месяцев после вскрытия. Хранить в прохладном сухом месте, вне прямого солнца и вне доступа детей.',
     ],
     note: 'Предостережения как напечатаны на коробке GENOSYS, включая корейскую панель.',
@@ -869,14 +869,14 @@ const RU: HydroSoothingCopy = {
       { label: 'Объём', value: 'Домашняя туба 50 г · профессиональный 250 г' },
       { label: 'Текстура', value: 'Прозрачный гель-крем, лёгкий' },
       { label: 'Зарегистрированная функция', value: 'Увлажнение и успокоение. Корейской функциональной лицензии нет, и она не заявляется' },
-      { label: 'Увлажнители', value: 'Бутиленгликоль 10,555%, глицерин 6,175%, бетаин 5,000% — суммарно 21,7%' },
+      { label: 'Увлажнители', value: 'Бутиленгликоль 10,555%, глицерин 6,175%, бетаин 5,000% - суммарно 21,7%' },
       { label: 'Измерено', value: 'Температура кожи около −1 °C на двадцатой минуте; увлажнённость +12% на четвёртой неделе' },
       { label: 'Также содержит', value: 'Фермент лактобактерий и тыквы 0,1000%, алоэ 0,0500%, гиалуронат натрия 0,0500%' },
-      { label: 'Фильтрат секрета улитки', value: '0,0010% — 10 ppm' },
-      { label: 'Консервант', value: 'Только гликоли — 1,2-гександиол 2%, пентилен- и каприлилгликоль. Без парабена и феноксиэтанола' },
+      { label: 'Фильтрат секрета улитки', value: '0,0010% - 10 ppm' },
+      { label: 'Консервант', value: 'Только гликоли - 1,2-гександиол 2%, пентилен- и каприлилгликоль. Без парабена и феноксиэтанола' },
       { label: 'Отдушка', value: 'Нет. Отдушки в формуле нет, заявленных аллергенов нет' },
       { label: 'Не веганский', value: 'Содержит фильтрат секрета улитки' },
-      { label: 'pH', value: '6,00–7,00 (6,39 в измеренной партии)' },
+      { label: 'pH', value: '6,00-7,00 (6,39 в измеренной партии)' },
       { label: 'После вскрытия', value: 'Шесть месяцев' },
       { label: 'Оценка', value: 'Оценка безопасности ЕС; патч-тест «не раздражает»' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
@@ -897,19 +897,19 @@ const RU: HydroSoothingCopy = {
       },
       {
         q: 'Что такое бетаин и почему это важно?',
-        a: 'Бетаин — осмолит, который помогает коже поддерживать водный баланс и ощущение комфорта. Здесь его 5%: это крупнейший актив формулы и важная часть увлажняющей базы.',
+        a: 'Бетаин - осмолит, который помогает коже поддерживать водный баланс и ощущение комфорта. Здесь его 5%: это крупнейший актив формулы и важная часть увлажняющей базы.',
       },
       {
         q: 'Хватит ли его одного для сухой кожи?',
-        a: 'Для обезвоженной — да. Для действительно сухой — сам по себе нет: масла здесь почти нет, поэтому он втягивает воду, но не запечатывает её. В этом случае нанесите сверху окклюзивный крем. Считайте это водной половиной, а что-то вроде нашего Multi Functional — крышкой.',
+        a: 'Для обезвоженной - да. Для действительно сухой - сам по себе нет: масла здесь почти нет, поэтому он втягивает воду, но не запечатывает её. В этом случае нанесите сверху окклюзивный крем. Считайте это водной половиной, а что-то вроде нашего Multi Functional - крышкой.',
       },
       {
         q: 'Есть ли отдушка или консервант?',
-        a: 'Отдушки нет совсем, заявленных аллергенов нет — для этой линейки необычно. Парабена и феноксиэтанола тоже нет: формулу держат гликоли, прежде всего 1,2-гександиол 2%. Такое сочетание делает его одной из самых простых формул, что мы продаём, и на раздражённой коже в этом и смысл.',
+        a: 'Отдушки нет совсем, заявленных аллергенов нет - для этой линейки необычно. Парабена и феноксиэтанола тоже нет: формулу держат гликоли, прежде всего 1,2-гександиол 2%. Такое сочетание делает его одной из самых простых формул, что мы продаём, и на раздражённой коже в этом и смысл.',
       },
       {
         q: 'Зачем брать 250 г?',
-        a: 'Это профессиональный размер для кабинетов, где им пользуются на многих клиентах. Туба 50 г — домашняя. Формула в обоих одна. В любом случае предел — шесть месяцев после вскрытия, символ 6M есть на коробке.',
+        a: 'Это профессиональный размер для кабинетов, где им пользуются на многих клиентах. Туба 50 г - домашняя. Формула в обоих одна. В любом случае предел - шесть месяцев после вскрытия, символ 6M есть на коробке.',
       },
     ],
   },

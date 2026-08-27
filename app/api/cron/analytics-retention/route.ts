@@ -15,7 +15,7 @@ export const maxDuration = 60
  * Orders / PDF downloads are business records and are NOT touched.
  *
  * Runs daily via Vercel Cron (see vercel.json). Deletes in bounded batches so
- * a large backlog can never lock the table or blow the function timeout —
+ * a large backlog can never lock the table or blow the function timeout -
  * whatever doesn't fit in one run is picked up the next day.
  */
 const RETENTION_DAYS = 365

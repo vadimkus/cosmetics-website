@@ -124,7 +124,7 @@ describe('progress, matching the app', () => {
     expect(ru.status).toBe('В пути к вам')
 
     const ar = buildOrderActivityProps({ ...cod('DELIVERED'), locale: 'ar' })
-    expect(ar.status).toBe('تم التوصيل — شكرًا لك')
+    expect(ar.status).toBe('تم التوصيل - شكرًا لك')
   })
 
   it('falls back to English for a locale we do not carry', () => {
@@ -149,8 +149,8 @@ describe('the delivery promise', () => {
     })
 
   it('gives Dubai the hours it is actually promised', () => {
-    expect(at('Dubai', 'CONFIRMED').eta).toBe('Arriving in Dubai within 1–2 hours')
-    expect(at('dubai', 'SHIPPED').eta).toBe('Arriving in Dubai within 1–2 hours')
+    expect(at('Dubai', 'CONFIRMED').eta).toBe('Arriving in Dubai within 1-2 hours')
+    expect(at('dubai', 'SHIPPED').eta).toBe('Arriving in Dubai within 1-2 hours')
   })
 
   /**
@@ -158,18 +158,18 @@ describe('the delivery promise', () => {
    * arbitrary. A customer in Ajman should see why theirs says a day and a half.
    */
   it('does not promise the rest of the country a Dubai courier', () => {
-    expect(at('Abu Dhabi', 'CONFIRMED').eta).toBe('Arriving in Abu Dhabi within 24–36 hours')
-    expect(at('Sharjah', 'SHIPPED').eta).toBe('Arriving in Sharjah within 24–36 hours')
+    expect(at('Abu Dhabi', 'CONFIRMED').eta).toBe('Arriving in Abu Dhabi within 24-36 hours')
+    expect(at('Sharjah', 'SHIPPED').eta).toBe('Arriving in Sharjah within 24-36 hours')
     expect(at('Ras Al-Khaimah', 'CONFIRMED').eta).toBe(
-      'Arriving in Ras Al Khaimah within 24–36 hours'
+      'Arriving in Ras Al Khaimah within 24-36 hours'
     )
     expect(at('umm al quwain', 'CONFIRMED').eta).toBe(
-      'Arriving in Umm Al Quwain within 24–36 hours'
+      'Arriving in Umm Al Quwain within 24-36 hours'
     )
   })
 
   it('falls back to what was entered for a place we do not translate', () => {
-    expect(at('Al Ain', 'CONFIRMED').eta).toBe('Arriving in Al Ain within 24–36 hours')
+    expect(at('Al Ain', 'CONFIRMED').eta).toBe('Arriving in Al Ain within 24-36 hours')
   })
 
   it('leaves no placeholder unfilled', () => {
@@ -195,14 +195,14 @@ describe('the delivery promise', () => {
 
   /**
    * Each language phrases this its own way. Russian leads with the place and a colon
-   * rather than "в {place}", which would need the accusative — Шарджа becomes Шарджу —
+   * rather than "в {place}", which would need the accusative - Шарджа becomes Шарджу -
    * and a format string cannot decline a noun.
    */
   it('translates the place as well as the window', () => {
-    expect(at('Dubai', 'CONFIRMED', 'ru').eta).toBe('Дубай: доставим за 1–2 часа')
-    expect(at('Dubai', 'CONFIRMED', 'ar').eta).toBe('دبي: يصل خلال 1–2 ساعة')
-    expect(at('Sharjah', 'CONFIRMED', 'ru').eta).toBe('Шарджа: доставим за 24–36 часов')
-    expect(at('Sharjah', 'CONFIRMED', 'ar').eta).toBe('الشارقة: يصل خلال 24–36 ساعة')
+    expect(at('Dubai', 'CONFIRMED', 'ru').eta).toBe('Дубай: доставим за 1-2 часа')
+    expect(at('Dubai', 'CONFIRMED', 'ar').eta).toBe('دبي: يصل خلال 1-2 ساعة')
+    expect(at('Sharjah', 'CONFIRMED', 'ru').eta).toBe('Шарджа: доставим за 24-36 часов')
+    expect(at('Sharjah', 'CONFIRMED', 'ar').eta).toBe('الشارقة: يصل خلال 24-36 ساعة')
   })
 
   it('is left out of the payload rather than sent empty', () => {

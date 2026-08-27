@@ -118,7 +118,7 @@ export async function POST(request: NextRequest) {
  */
 export async function DELETE(request: NextRequest) {
   try {
-    // Same session gate as POST — otherwise anyone who learns an endpoint
+    // Same session gate as POST - otherwise anyone who learns an endpoint
     // URL could silently unsubscribe another user.
     const user = await getUserFromSession(request)
     if (!user) {

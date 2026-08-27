@@ -22,7 +22,7 @@ import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
 // Order lines are keyed by product id, or `id||size` when a size variant is
-// selected — one product can have several lines (e.g. 200ml and 600ml).
+// selected - one product can have several lines (e.g. 200ml and 600ml).
 const keyOf = (id: string, size?: string | null) => (size ? `${id}||${size}` : id)
 const parseKey = (key: string): { id: string; size?: string } => {
   const i = key.indexOf('||')
@@ -51,7 +51,7 @@ function PartnerOrderInner() {
   // Collapsible category sections (Creams, Serums, Masks…). Collapsed by
   // default; searching shows a flat filtered list instead.
   const [openGroups, setOpenGroups] = useState<Set<string>>(new Set())
-  // Embedded Stripe payment (bottom sheet on this page — no redirect).
+  // Embedded Stripe payment (bottom sheet on this page - no redirect).
   const [paySheet, setPaySheet] = useState<{ clientSecret: string; orderNumber: string; total: number } | null>(null)
   const [availableClinicPoints, setAvailableClinicPoints] = useState(0)
   const [useClinicPoints, setUseClinicPoints] = useState(false)
@@ -201,7 +201,7 @@ function PartnerOrderInner() {
   }, [products])
 
   // Partner price for a line: size variant price (if selected) with the
-  // account discount applied on top — mirrors the server calculation.
+  // account discount applied on top - mirrors the server calculation.
   const linePricing = useMemo(() => {
     return (product: Product, size?: string | null) => {
       if (size) {
@@ -255,7 +255,7 @@ function PartnerOrderInner() {
       alert(
         t(
           'These items are professional/equipment and cannot go to consignment stock:\n\n',
-          'Эти позиции — профессиональные/оборудование, их нельзя добавить на консигнацию:\n\n',
+          'Эти позиции - профессиональные/оборудование, их нельзя добавить на консигнацию:\n\n',
           'هذه المنتجات مهنية/أجهزة ولا يمكن إضافتها إلى مخزون الأمانة:\n\n'
         ) + nonConsignableInCart.join('\n')
       )
@@ -354,32 +354,32 @@ function PartnerOrderInner() {
           <p className="text-xs text-[var(--cera-muted)] mb-6">
             {placed.paymentOption === 'consignment'
               ? t(
-                  'Added to your consignment stock — priority same-day delivery. Settlement via your monthly sales report.',
-                  'Добавлено на ваш консигнационный склад — приоритетная доставка в тот же день. Расчёт по ежемесячному отчёту о продажах.',
-                  'أُضيف إلى مخزون الأمانة — توصيل في نفس اليوم. التسوية عبر تقرير المبيعات الشهري.'
+                  'Added to your consignment stock - priority same-day delivery. Settlement via your monthly sales report.',
+                  'Добавлено на ваш консигнационный склад - приоритетная доставка в тот же день. Расчёт по ежемесячному отчёту о продажах.',
+                  'أُضيف إلى مخزون الأمانة - توصيل في نفس اليوم. التسوية عبر تقرير المبيعات الشهري.'
                 )
               : placed.paymentOption === 'credit'
               ? t(
-                  `Professional order on ${creditDays}-day credit terms — priority same-day delivery. Payment due within ${creditDays} days of delivery.`,
-                  `Профессиональный заказ с отсрочкой ${creditDays} дней — приоритетная доставка в тот же день. Оплата в течение ${creditDays} дней после доставки.`,
-                  `طلب مهني بأجل ${creditDays} يومًا — توصيل في نفس اليوم. الدفع خلال ${creditDays} يومًا من التسليم.`
+                  `Professional order on ${creditDays}-day credit terms - priority same-day delivery. Payment due within ${creditDays} days of delivery.`,
+                  `Профессиональный заказ с отсрочкой ${creditDays} дней - приоритетная доставка в тот же день. Оплата в течение ${creditDays} дней после доставки.`,
+                  `طلب مهني بأجل ${creditDays} يومًا - توصيل في نفس اليوم. الدفع خلال ${creditDays} يومًا من التسليم.`
                 )
               : placed.paymentOption === 'online'
                 ? placed.paid
                   ? t(
-                      'Payment received — we will confirm and arrange same-day delivery.',
-                      'Оплата получена — подтвердим и организуем доставку в тот же день.',
-                      'تم استلام الدفعة — سنؤكد ونرتب التوصيل في نفس اليوم.'
+                      'Payment received - we will confirm and arrange same-day delivery.',
+                      'Оплата получена - подтвердим и организуем доставку в тот же день.',
+                      'تم استلام الدفعة - سنؤكد ونرتب التوصيل في نفس اليوم.'
                     )
                   : t(
-                      'Order recorded — payment not completed. Reopen it any time from your orders to pay, or we will send you a payment link.',
-                      'Заказ записан — оплата не завершена. Откройте его в своих заказах, чтобы оплатить, или мы пришлём ссылку на оплату.',
-                      'تم تسجيل الطلب — لم يكتمل الدفع. افتحه من طلباتك للدفع، أو سنرسل لك رابط دفع.'
+                      'Order recorded - payment not completed. Reopen it any time from your orders to pay, or we will send you a payment link.',
+                      'Заказ записан - оплата не завершена. Откройте его в своих заказах, чтобы оплатить, или мы пришлём ссылку на оплату.',
+                      'تم تسجيل الطلب - لم يكتمل الدفع. افتحه من طلباتك للدفع، أو سنرسل لك رابط دفع.'
                     )
                 : t(
-                    'Priority partner order — we will confirm and arrange same-day delivery. Payment on delivery.',
-                    'Приоритетный партнёрский заказ — подтвердим и организуем доставку в тот же день. Оплата при получении.',
-                    'طلب شريك ذو أولوية — سنؤكد ونرتب التوصيل في نفس اليوم. الدفع عند الاستلام.'
+                    'Priority partner order - we will confirm and arrange same-day delivery. Payment on delivery.',
+                    'Приоритетный партнёрский заказ - подтвердим и организуем доставку в тот же день. Оплата при получении.',
+                    'طلب شريك ذو أولوية - سنؤكد ونرتب التوصيل في نفس اليوم. الدفع عند الاستلام.'
                   )}
           </p>
           <button
@@ -433,9 +433,9 @@ function PartnerOrderInner() {
             <RefreshCw className="w-4 h-4 flex-shrink-0" />
             <p className="text-sm flex-1">
               {t(
-                `Loaded ${reorderLoaded} item${reorderLoaded === 1 ? '' : 's'} from a previous order — adjust and place.`,
-                `Загружено ${reorderLoaded} поз. из прошлого заказа — измените и оформите.`,
-                `تم تحميل ${reorderLoaded} من طلب سابق — عدّل ثم قدّم.`
+                `Loaded ${reorderLoaded} item${reorderLoaded === 1 ? '' : 's'} from a previous order - adjust and place.`,
+                `Загружено ${reorderLoaded} поз. из прошлого заказа - измените и оформите.`,
+                `تم تحميل ${reorderLoaded} من طلب سابق - عدّل ثم قدّم.`
               )}
             </p>
           </div>
@@ -768,9 +768,9 @@ function PartnerOrderInner() {
                     if (nonConsignableInCart.length > 0) {
                       alert(
                         t(
-                          'Remove professional/equipment items first — consignment stock is retail products only:\n\n',
-                          'Сначала уберите профессиональные позиции/оборудование — на консигнацию идут только розничные продукты:\n\n',
-                          'أزل المنتجات المهنية/الأجهزة أولًا — مخزون الأمانة للمنتجات التجزئة فقط:\n\n'
+                          'Remove professional/equipment items first - consignment stock is retail products only:\n\n',
+                          'Сначала уберите профессиональные позиции/оборудование - на консигнацию идут только розничные продукты:\n\n',
+                          'أزل المنتجات المهنية/الأجهزة أولًا - مخزون الأمانة للمنتجات التجزئة فقط:\n\n'
                         ) + nonConsignableInCart.join('\n')
                       )
                       return
@@ -821,11 +821,11 @@ function PartnerOrderInner() {
             </div>
             <p className={`text-[11px] text-[var(--cera-muted)] mb-2 ${isRTL ? 'text-right' : ''}`}>
               {payOption === 'consignment'
-                ? t('Retail products only — settle via monthly sales report, no payment now', 'Только розничные продукты — расчёт по ежемесячному отчёту, без оплаты сейчас', 'منتجات التجزئة فقط — التسوية عبر التقرير الشهري، بدون دفع الآن')
+                ? t('Retail products only - settle via monthly sales report, no payment now', 'Только розничные продукты - расчёт по ежемесячному отчёту, без оплаты сейчас', 'منتجات التجزئة فقط - التسوية عبر التقرير الشهري، بدون دفع الآن')
                 : payOption === 'credit'
-                  ? t(`Professional order — payment due within ${creditDays} days of delivery`, `Профессиональный заказ — оплата в течение ${creditDays} дней после доставки`, `طلب مهني — الدفع خلال ${creditDays} يومًا من التسليم`)
+                  ? t(`Professional order - payment due within ${creditDays} days of delivery`, `Профессиональный заказ - оплата в течение ${creditDays} дней после доставки`, `طلب مهني - الدفع خلال ${creditDays} يومًا من التسليم`)
                 : payOption === 'online'
-                  ? t('Card / Apple Pay — secure Stripe checkout', 'Карта / Apple Pay — безопасная оплата Stripe', 'بطاقة / Apple Pay — دفع آمن عبر Stripe')
+                  ? t('Card / Apple Pay - secure Stripe checkout', 'Карта / Apple Pay - безопасная оплата Stripe', 'بطاقة / Apple Pay - دفع آمن عبر Stripe')
                   : t('Pay when your order arrives', 'Оплатите при доставке заказа', 'ادفع عند وصول طلبك')}
             </p>
             <div className={`flex items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -853,7 +853,7 @@ function PartnerOrderInner() {
               ) : payOption === 'consignment' ? (
                 t('Add to consignment stock', 'На консигнационный склад', 'إضافة إلى مخزون الأمانة')
               ) : payOption === 'credit' ? (
-                t(`Place order — ${creditDays} day credit`, `Оформить с отсрочкой ${creditDays} дн.`, `تقديم الطلب — أجل ${creditDays} يومًا`)
+                t(`Place order - ${creditDays} day credit`, `Оформить с отсрочкой ${creditDays} дн.`, `تقديم الطلب - أجل ${creditDays} يومًا`)
               ) : (
                 t('Place order', 'Оформить заказ', 'تقديم الطلب')
               )}
@@ -863,7 +863,7 @@ function PartnerOrderInner() {
         </div>
       )}
 
-      {/* Embedded Stripe payment — slides up from below, stays on this page */}
+      {/* Embedded Stripe payment - slides up from below, stays on this page */}
       <BottomSheet
         isOpen={paySheet !== null}
         onClose={() => finishPayment(false)}
@@ -879,7 +879,7 @@ function PartnerOrderInner() {
               returnUrl={`${process.env.NEXT_PUBLIC_BASE_URL || 'https://genosys.ae'}/pay/success?orderNumber=${paySheet.orderNumber}`}
               onSuccess={() => finishPayment(true)}
               onError={() => {
-                /* keep the sheet open — the form shows the error inline */
+                /* keep the sheet open - the form shows the error inline */
               }}
             />
           </StripeProvider>

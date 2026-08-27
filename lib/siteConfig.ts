@@ -5,7 +5,7 @@
  * NOTE: This file is imported by client components (e.g. BreadcrumbSchema).
  * It must NOT import from envValidation.ts, which triggers server-only
  * validation (DATABASE_URL etc.) that crashes on the client.
- * Instead, read NEXT_PUBLIC_* env vars directly — they are inlined into
+ * Instead, read NEXT_PUBLIC_* env vars directly - they are inlined into
  * client bundles by Next.js.
  */
 
@@ -39,7 +39,7 @@ export const SITE_NAME = 'GENOSYS'
 export const SITE_LEGAL_NAME = 'Genosys Middle East FZ-LLC'
 export const SITE_DESCRIPTION = 'Official distributor of GENOSYS Korean dermacosmetics in UAE'
 
-// Social media and contact — canonical set (matches /contact page, emails, chatbot).
+// Social media and contact - canonical set (matches /contact page, emails, chatbot).
 // Do not diverge these; other surfaces should import from here.
 export const SOCIAL_LINKS = {
   instagram: 'https://instagram.com/genosys.uae',
@@ -52,7 +52,7 @@ export const SOCIAL_LINKS = {
 
 // Legal / tax identity for transactional emails and receipts.
 // TRN/address/bank per the official MoySklad tax-invoice template (2026-07);
-// trade license 5023192 — renewed PDF 2026-07-27 (expiry 08-11-2026);
+// trade license 5023192 - renewed PDF 2026-07-27 (expiry 08-11-2026);
 // unit VUET0209 Al Hulaila (was MBAM0014 Al Hamra). I14330AT is the old
 // number still printed on the MoySklad template.
 export const LEGAL_INFO = {
@@ -69,7 +69,7 @@ export const LEGAL_INFO = {
 // Push notifications VAPID key
 export const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || ''
 
-// App / PWA version — single source of truth for the Profile footer and any
+// App / PWA version - single source of truth for the Profile footer and any
 // other user-visible "version" string. Keep in sync with `public/manifest.json`.
 // Bump this + manifest.json whenever you ship a release.
 export const APP_VERSION = '3.3.0'

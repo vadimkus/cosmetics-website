@@ -10,7 +10,7 @@ import { verifySessionToken } from '@/lib/jwt'
 /**
  * Self-service profile update (session-authenticated).
  *
- * The target user is ALWAYS the session user — any `userId` in the body is
+ * The target user is ALWAYS the session user - any `userId` in the body is
  * ignored. Only the allowlisted self-editable fields below are applied;
  * everything else (email, isAdmin, discount fields, canSeePrices, ...) is
  * stripped before reaching updateUser.
@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    // Authenticate via session cookie — the body's userId is never trusted.
+    // Authenticate via session cookie - the body's userId is never trusted.
     const cookieStore = await cookies()
     const sessionCookie = cookieStore.get('genosys_session')
     const session = sessionCookie?.value ? verifySessionToken(sessionCookie.value) : null

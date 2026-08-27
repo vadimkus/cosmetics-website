@@ -24,7 +24,7 @@ export async function GET(
   { params }: { params: Promise<{ orderNumber: string }> }
 ) {
   try {
-    // Rate limiting (fail closed) — anti-enumeration
+    // Rate limiting (fail closed) - anti-enumeration
     let clientId = 'unknown'
     try {
       clientId = getClientIdentifierFromNextRequest(request)

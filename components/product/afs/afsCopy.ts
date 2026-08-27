@@ -202,10 +202,10 @@ const EN: AfsCopy = {
   eyebrow: 'Serum · Sensitive skin',
   headline: 'When skin says enough.',
   subheadline:
-    'Built for the days skin will not take more. It settles what is reactive, shields against the day, and puts moisture back — two or three drops, morning and night.',
+    'Built for the days skin will not take more. It settles what is reactive, shields against the day, and puts moisture back - two or three drops, morning and night.',
   heroBullets: [
     'Designed for sensitive, reactive, easily irritated skin',
-    'MultiEx BSASM® Plus at 1% — seven calming botanicals in one complex',
+    'MultiEx BSASM® Plus at 1% - seven calming botanicals in one complex',
     'Betaine, allantoin and hyaluronic acid for daily moisture',
     'Dermatologically tested · morning and night',
   ],
@@ -251,7 +251,7 @@ const EN: AfsCopy = {
     eyebrow: 'The complex',
     title: 'One percent MultiEx BSASM® Plus. That is the serum.',
     body:
-      'Seven botanicals travel together in one named complex, at one percent of everything in the bottle: Centella Asiatica, knotweed, skullcap, green tea, licorice, chamomile and rosemary. Around them sit the moisture pair — betaine and hyaluronic acid — and allantoin for comfort. Nothing else on this page is trying to be the story.',
+      'Seven botanicals travel together in one named complex, at one percent of everything in the bottle: Centella Asiatica, knotweed, skullcap, green tea, licorice, chamomile and rosemary. Around them sit the moisture pair - betaine and hyaluronic acid - and allantoin for comfort. Nothing else on this page is trying to be the story.',
     points: [
       {
         title: 'MultiEx BSASM® Plus · 1%',
@@ -297,7 +297,7 @@ const EN: AfsCopy = {
       { title: 'Pat', body: 'Press in with your fingers until it disappears. Do not rub reactive skin.' },
       { title: 'Seal', body: 'Follow with Skin Barrier Protecting Cream so the moisture stays. In the morning, finish with SPF.' },
     ],
-    note: 'The cream that belongs with this serum is Skin Barrier Protecting Cream — NMF amino acids over the top, so the comfort lasts.',
+    note: 'The cream that belongs with this serum is Skin Barrier Protecting Cream - NMF amino acids over the top, so the comfort lasts.',
     videoTitle: 'See it on skin',
   },
   actives: {
@@ -321,9 +321,9 @@ const EN: AfsCopy = {
     ],
     notTitle: 'Look elsewhere if',
     notList: [
-      'You avoid fragrance entirely — this serum has a light orange-peel note',
+      'You avoid fragrance entirely - this serum has a light orange-peel note',
       'You need a blemish or oil-control treatment, which this is not',
-      'You want a brightening or anti-wrinkle serum — those are different bottles',
+      'You want a brightening or anti-wrinkle serum - those are different bottles',
       'You are looking for a peel or an acid step',
     ],
     note: 'For external use only, and keep it clear of the eye area. Stop and speak to a doctor if redness, swelling or irritation appears.',
@@ -404,7 +404,7 @@ const AR: AfsCopy = {
     'سيروم خفيف يساعد على تهدئة البشرة المتفاعلة ودعم ترطيبها من دون إحساس ثقيل. قطرتان إلى ثلاث صباحاً ومساءً لروتين أكثر لطفاً وراحة.',
   heroBullets: [
     'مناسب للبشرة الحساسة والمتفاعلة والمعرضة للاحمرار',
-    'MultiEx BSASM® Plus بتركيز 1% — سبعة مستخلصات نباتية في مركّب واحد',
+    'MultiEx BSASM® Plus بتركيز 1% - سبعة مستخلصات نباتية في مركّب واحد',
     'بيتين 0.5% وألانتوين 0.1% وهيالورونات الصوديوم 0.01%',
     'مختبر جلدياً · صباحاً ومساءً',
   ],
@@ -495,7 +495,7 @@ const AR: AfsCopy = {
       { title: 'ربتي بلطف', body: 'ربتي بأطراف الأصابع حتى الامتصاص من دون فرك البشرة المتفاعلة.' },
       { title: 'أكملي الروتين', body: 'اتبعيه بكريم Skin Barrier Protecting، واختتمي الروتين الصباحي بواقي الشمس.' },
     ],
-    note: 'الكريم الذي يناسب هذا السيروم هو Skin Barrier Protecting Cream — أحماض أمينية من العامل المرطّب الطبيعي فوقه، فتدوم الراحة.',
+    note: 'الكريم الذي يناسب هذا السيروم هو Skin Barrier Protecting Cream - أحماض أمينية من العامل المرطّب الطبيعي فوقه، فتدوم الراحة.',
     videoTitle: 'شاهديه على البشرة',
   },
   actives: {
@@ -519,7 +519,7 @@ const AR: AfsCopy = {
     ],
     notTitle: 'ابحثي عن غيره إذا',
     notList: [
-      'تتجنّبين العطر تماماً — في هذا السيروم نفحة خفيفة من قشر البرتقال',
+      'تتجنّبين العطر تماماً - في هذا السيروم نفحة خفيفة من قشر البرتقال',
       'كان هدفك الأساسي التحكم بالدهون أو العناية بالبثور',
       'كنت تبحثين عن سيروم مخصص للإشراق أو مظهر التجاعيد',
       'تبحثين عن تقشير أو خطوة أحماض',
@@ -578,7 +578,7 @@ const AR: AfsCopy = {
       { label: 'الوظيفة', value: 'تهدئة وترطيب' },
       { label: 'الوقت', value: 'صباحاً ومساءً' },
       { label: 'أنواع البشرة', value: 'حساسة، تفاعلية، سريعة التهيّج' },
-      { label: 'الأس الهيدروجيني', value: '5.77 ضمن نطاق 5.20–6.20' },
+      { label: 'الأس الهيدروجيني', value: '5.77 ضمن نطاق 5.20-6.20' },
       { label: 'المظهر', value: 'سائل شبه شفاف بقوام لزج' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات دون فتح، وتاريخ الانتهاء على العلبة' },
       { label: 'الاختبار', value: 'مختبر جلدياً' },
@@ -598,10 +598,10 @@ const RU: AfsCopy = {
   eyebrow: 'Сыворотка · Чувствительная кожа',
   headline: 'Ежедневный комфорт для чувствительной кожи.',
   subheadline:
-    'Лёгкая сыворотка помогает успокоить реактивную кожу и поддержать увлажнение без ощущения тяжести. Две-три капли утром и вечером — для мягкого и комфортного ухода.',
+    'Лёгкая сыворотка помогает успокоить реактивную кожу и поддержать увлажнение без ощущения тяжести. Две-три капли утром и вечером - для мягкого и комфортного ухода.',
   heroBullets: [
     'Для чувствительной, реактивной и склонной к покраснению кожи',
-    'MultiEx BSASM® Plus 1% — семь растительных экстрактов в одном комплексе',
+    'MultiEx BSASM® Plus 1% - семь растительных экстрактов в одном комплексе',
     'Бетаин 0,5%, аллантоин 0,1% и гиалуронат натрия 0,01%',
     'Дерматологически протестировано · утро и вечер',
   ],
@@ -692,7 +692,7 @@ const RU: AfsCopy = {
       { title: 'Мягко вбейте', body: 'Впитайте средство лёгкими похлопывающими движениями, не растирая реактивную кожу.' },
       { title: 'Завершите уход', body: 'Нанесите Skin Barrier Protecting Cream, а утром завершите уход SPF.' },
     ],
-    note: 'Крем к этой сыворотке — Skin Barrier Protecting Cream: аминокислоты NMF сверху, и комфорт держится.',
+    note: 'Крем к этой сыворотке - Skin Barrier Protecting Cream: аминокислоты NMF сверху, и комфорт держится.',
     videoTitle: 'Как это выглядит на коже',
   },
   actives: {
@@ -716,8 +716,8 @@ const RU: AfsCopy = {
     ],
     notTitle: 'Посмотрите другое, если',
     notList: [
-      'Вы полностью избегаете отдушек — в этой сыворотке лёгкая нота апельсиновой цедры',
-      'Основная задача — контроль жирности или уход за высыпаниями',
+      'Вы полностью избегаете отдушек - в этой сыворотке лёгкая нота апельсиновой цедры',
+      'Основная задача - контроль жирности или уход за высыпаниями',
       'Вы ищете сыворотку именно для сияния или коррекции видимых морщин',
       'Вы ищете пилинг или кислотный шаг',
     ],
@@ -726,7 +726,7 @@ const RU: AfsCopy = {
   routine: {
     eyebrow: 'Дополните уход',
     title: 'Мягкий и последовательный ритуал.',
-    intro: 'Наносите сыворотку после очищения и тоника, затем используйте крем, а утром — солнцезащитное средство.',
+    intro: 'Наносите сыворотку после очищения и тоника, затем используйте крем, а утром - солнцезащитное средство.',
     thisProduct: 'Этот продукт',
     viewProduct: 'Открыть продукт',
     chooseOptions: 'Выбрать вариант',
@@ -750,7 +750,7 @@ const RU: AfsCopy = {
       },
       {
         q: 'Что наносить сверху?',
-        a: 'Skin Barrier Protecting Cream. Сыворотка успокаивает и увлажняет; аминокислоты NMF крема удерживают этот комфорт. Утром после крема — SPF.',
+        a: 'Skin Barrier Protecting Cream. Сыворотка успокаивает и увлажняет; аминокислоты NMF крема удерживают этот комфорт. Утром после крема - SPF.',
       },
       {
         q: 'Можно после процедуры или пилинга?',
@@ -775,7 +775,7 @@ const RU: AfsCopy = {
       { label: 'Функция', value: 'Успокаивающая, увлажняющая' },
       { label: 'Когда', value: 'Утро и вечер' },
       { label: 'Типы кожи', value: 'Чувствительная, реактивная, легко раздражаемая' },
-      { label: 'pH', value: '5,77, в пределах спецификации 5,20–6,20' },
+      { label: 'pH', value: '5,77, в пределах спецификации 5,20-6,20' },
       { label: 'Вид', value: 'Полупрозрачная вязкая жидкость' },
       { label: 'Срок', value: 'Три года невскрытой, срок годности на коробке' },
       { label: 'Тестирование', value: 'Дерматологически протестировано' },

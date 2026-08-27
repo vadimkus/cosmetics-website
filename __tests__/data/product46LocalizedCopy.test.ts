@@ -101,8 +101,8 @@ describe('product 46 RU/AR localized copy', () => {
       '100 مل',
       '4,31',
       '4.31',
-      '4,00–5,00',
-      '4.00–5.00',
+      '4,00-5,00',
+      '4.00-5.00',
       '5 минут',
       '5 دقائق',
       'Не смывайте',
@@ -149,8 +149,8 @@ describe('product 46 RU/AR localized copy', () => {
 
     expect(standalone).toContain('Не наносить после микронидлинга')
     expect(standalone).toContain('لا يوضع بعد الميكرونيدلينغ')
-    expect(kit).toContain('2–5 минут')
-    expect(kit).toContain('2–5 دقائق')
+    expect(kit).toContain('2-5 минут')
+    expect(kit).toContain('2-5 دقائق')
     expect(kit).toContain('Не наносите Scalp Peeling после роллера')
     expect(kit).toContain('لا تضعي Scalp Peeling بعد الرولر')
   })

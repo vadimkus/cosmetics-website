@@ -33,7 +33,7 @@ function sendPageView(pathname: string) {
     //
     // `keepalive: true` lets the request complete even if the user taps a link
     // and the page navigates away mid-flight. Without it, Safari aborts the
-    // fetch and surfaces `TypeError: Load failed` on `window.onerror` — that's
+    // fetch and surfaces `TypeError: Load failed` on `window.onerror` - that's
     // exactly the noise filtered in `instrumentation-client.ts` and first seen
     // in Sentry event 350fb357… (2026-04-23). Fixing the source here means
     // fewer dropped page views + one less class of non-bug errors reaching

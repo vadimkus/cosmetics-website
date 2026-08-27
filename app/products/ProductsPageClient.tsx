@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * /products — the catalogue.
+ * /products - the catalogue.
  *
  * Reworked onto the editorial system in Aug 2026. This is a restyle: the
  * filtering, sorting, URL syncing, search analytics and PWA branches all behave
@@ -52,10 +52,10 @@ import { isNewCategoryFilterId } from '@/lib/productBadges'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 
 // Catalog order: discovery tool first, then skincare routine flow, then specialty.
-// "New" badges are product-level only — see lib/productBadges.ts.
+// "New" badges are product-level only - see lib/productBadges.ts.
 /**
- * The three brand claims. Rendered twice with different layouts — a wrapping row under the
- * search field on desktop, a stacked block below the grid on mobile — so they are declared
+ * The three brand claims. Rendered twice with different layouts - a wrapping row under the
+ * search field on desktop, a stacked block below the grid on mobile - so they are declared
  * once here rather than as two copies of the same markup.
  */
 const TRUST_ITEMS = [
@@ -136,7 +136,7 @@ export default function ProductsPageClient({
 
   /* Set once the URL has been read into state. The effect below writes the URL from
      state, and on locales where the page ships without server products it used to fire
-     first — 300 ms after mount, while /api/products was still in flight — replacing the
+     first - 300 ms after mount, while /api/products was still in flight - replacing the
      URL with one built from empty filters and destroying the very parameters this effect
      was about to read. Any shared link carrying ?categories=, ?search=, ?rating= or
      ?inStock= silently lost its filter on /ar/products and /ru/products. */
@@ -270,7 +270,7 @@ export default function ProductsPageClient({
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = [...products]
 
-    // Search filter (tokenized, locale-agnostic — see lib/productSearch.ts)
+    // Search filter (tokenized, locale-agnostic - see lib/productSearch.ts)
     if (searchQuery) {
       filtered = filterProductsBySearch(filtered, searchQuery)
     }
@@ -422,10 +422,10 @@ export default function ProductsPageClient({
       )}
       <div className="container mx-auto px-4 pt-4 pb-28 md:py-8 lg:py-16">
         
-        {/* "Back to Home" removed on desktop — breadcrumb above already provides the nav path.
+        {/* "Back to Home" removed on desktop - breadcrumb above already provides the nav path.
            Kept breadcrumb as the single source of truth for going back. */}
 
-        {/* Header. The catalogue had no h1 at all before the rework — just a
+        {/* Header. The catalogue had no h1 at all before the rework - just a
             logo image and a subtitle.
             The logo is gone now. `prd_logo.png` carries an alpha channel that
             is filled opaque white, so on the cream page it painted a white
@@ -465,8 +465,8 @@ export default function ProductsPageClient({
             with no scrollbar there was no cue anything was scrollable, so the third item
             simply read as text chopped mid-word.
      
-            The claims still matter on mobile — the site footer is suppressed below 768px, so
-            this is their only appearance — so they moved below the grid, where they close the
+            The claims still matter on mobile - the site footer is suppressed below 768px, so
+            this is their only appearance - so they moved below the grid, where they close the
             page instead of interrupting it. See the block after the product grid. */}
         <div className="mb-5 hidden flex-wrap items-center justify-center gap-x-10 gap-y-2 border-y border-[var(--cera-line)] bg-white py-3 text-[13.5px] text-[var(--cera-body)] md:flex">
           {TRUST_ITEMS.map(item => (
@@ -560,7 +560,7 @@ export default function ProductsPageClient({
                  secondary way in. Audited 17 Aug: previously the face map led and
                  the cards sat two screens below it.
 
-                 The header row is not decoration — selecting this "category"
+                 The header row is not decoration - selecting this "category"
                  replaces the grid, which also removed the sort control, the result
                  count and the clear-filters link, leaving no visible way back to
                  the products. The exit below restores that. */
@@ -626,7 +626,7 @@ export default function ProductsPageClient({
                       </span>
                     )}
                   </div>
-                  {/* Sort — now visible on mobile too (was hidden md:block) */}
+                  {/* Sort - now visible on mobile too (was hidden md:block) */}
                   <div className="w-full sm:w-auto">
                     <ProductSort sortBy={sortBy} onSortChange={handleSortChange} />
                   </div>
@@ -688,7 +688,7 @@ export default function ProductsPageClient({
                       </motion.div>
                     )}
 
-                    {/* Trust marks, mobile only — the same three claims that sit under the
+                    {/* Trust marks, mobile only - the same three claims that sit under the
                         search field on desktop. Placed after the grid so they read as
                         closing reassurance rather than an obstacle between the search field
                         and the filters, and stacked so the copy is never truncated. They
@@ -707,7 +707,7 @@ export default function ProductsPageClient({
                       ))}
                     </ul>
 
-                    {/* End-of-grid footer — desktop only. Gives long lists (50+ items)
+                    {/* End-of-grid footer - desktop only. Gives long lists (50+ items)
                         a clear terminus + a quick way back to the filters. Hidden on
                         mobile web / PWA because those already have a scroll-to-top
                         gesture (and the mobile bottom nav). */}
@@ -758,7 +758,7 @@ export default function ProductsPageClient({
           </div>
         </div>
 
-        {/* Newsletter signup — this is the page mobile/PWA visitors land on
+        {/* Newsletter signup - this is the page mobile/PWA visitors land on
             (the homepage redirects them here and the content footer is hidden
             on mobile), so it's the primary email-capture surface off desktop. */}
         {!loading && (

@@ -186,7 +186,7 @@ describe('ProductOptionDialog', () => {
     const large = await screen.findByRole('radio', { name: '600ml' })
     expect(large).toHaveAttribute('aria-checked', 'false')
     const add = screen.getByRole('button', {
-      name: `Add to Bag — ${cerabarrier.name}`,
+      name: `Add to Bag - ${cerabarrier.name}`,
     })
     expect(add).toBeDisabled()
 
@@ -303,7 +303,7 @@ describe('ProductOptionDialog', () => {
     await waitFor(() => expect(screen.queryByText(labelsByLocale.en.refreshing)).not.toBeInTheDocument())
     fireEvent.click(screen.getByRole('radio', { name: '200ml' }))
     const add = screen.getByRole('button', {
-      name: `Add to Bag — ${cerabarrier.name}`,
+      name: `Add to Bag - ${cerabarrier.name}`,
     })
 
     fireEvent.click(add)

@@ -3,7 +3,7 @@
  *
  * Each bespoke page keeps its own copy shape, because each page has its own
  * layout: a sunscreen has a UV filter table, a cushion has shades, a peel has a
- * day-by-day timeline. But the vocabulary underneath is strikingly consistent —
+ * day-by-day timeline. But the vocabulary underneath is strikingly consistent -
  * a section carries some combination of eyebrow, title, intro, a list of
  * title/body cards, a table of label/value rows, a set of bullets and a closing
  * note. Sixty-two products, and effectively eight shapes.
@@ -118,7 +118,7 @@ const entries = (value: unknown): BespokeEntry[] | undefined => {
 
 /**
  * label/value pairs. Spec tables use label/value, stats use value/label, and the
- * UV filter tables use name/amount/role — the third column folds into the value
+ * UV filter tables use name/amount/role - the third column folds into the value
  * rather than being lost.
  */
 const rows = (value: unknown): BespokeRow[] | undefined => {

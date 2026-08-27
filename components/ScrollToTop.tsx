@@ -18,14 +18,14 @@ import { prefersReducedMotion } from '@/hooks/useReducedMotion'
  * corner at 96px, and it mirrors to the leading corner in Arabic, so this sits on the
  * opposite side in each direction. Two page-local back-to-top buttons used to live on
  * /privacy-policy and /terms at exactly the chat's coordinates, which put them underneath
- * the bubble at a lower z-index — present in the DOM, impossible to tap. Those are removed
+ * the bubble at a lower z-index - present in the DOM, impossible to tap. Those are removed
  * in favour of this.
  *
  * On mobile, the vertical offset comes from --mobile-nav-height so it tracks the tab bar
  * rather than restating its height as a second magic number. Desktop has no bottom nav, so
  * the control uses the same 24px edge spacing as the chat widget.
  *
- * Product pages add a second floating bar of their own, and its height is not fixed — it
+ * Product pages add a second floating bar of their own, and its height is not fixed - it
  * grew when the buy controls gained a quantity stepper. Rather than encode that height here
  * as a third magic number that would go stale the next time the bar changes, the control
  * measures whatever floating bar is currently on screen and sits above it.
@@ -47,7 +47,7 @@ const GAP = 16
  * How much of the bottom edge is currently spoken for.
  *
  * Measured from the bar's top rather than its height, because a floating bar is inset from
- * the edge and that gap counts too — taking the height alone left six pixels of clearance
+ * the edge and that gap counts too - taking the height alone left six pixels of clearance
  * where sixteen were intended.
  */
 function bottomBarInset(): number {
@@ -93,7 +93,7 @@ export default function ScrollToTop() {
      * It grows when prices resolve for a signed-in customer, when the quantity passes one
      * and a per-unit line appears, and when a longer translation wraps the button. Scroll,
      * resize and transitionend all miss those, which leaves this control sitting at a
-     * height that stopped being true — on top of the bar, over the price.
+     * height that stopped being true - on top of the bar, over the price.
      */
     const sizes = new ResizeObserver(measure)
     const observeBars = () => {

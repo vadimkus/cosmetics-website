@@ -1,10 +1,10 @@
 /**
  * Regression tests for previously unguarded routes (audit Tasks 1.2/1.4):
  *
- * - POST /api/admin/create-payment-blog  — wrote a blog post with NO auth
- * - GET/POST /api/init-db                — leaked user/order/product counts with NO auth
- * - POST /api/admin/ping-search-engines  — accepted ANY "Bearer x" token
- * - POST /api/auth/register              — had no rate limiting (bulk signup spam)
+ * - POST /api/admin/create-payment-blog  - wrote a blog post with NO auth
+ * - GET/POST /api/init-db                - leaked user/order/product counts with NO auth
+ * - POST /api/admin/ping-search-engines  - accepted ANY "Bearer x" token
+ * - POST /api/auth/register              - had no rate limiting (bulk signup spam)
  *
  * These tests assert that unauthenticated requests are rejected with 401
  * before touching the database, that a valid signed admin session is still
@@ -64,7 +64,7 @@ jest.mock('@/lib/prisma', () => ({
   },
 }))
 
-// register route dependencies — only what runs before/after the rate limiter
+// register route dependencies - only what runs before/after the rate limiter
 jest.mock('@/lib/csrf', () => ({
   requireCsrfToken: jest.fn(async () => ({ valid: true })),
 }))
@@ -208,7 +208,7 @@ describe('POST /api/auth/admin-verify', () => {
       createMockRequest({ body: { email: ADMIN_EMAIL } })
     )
     expect(res.status).toBe(401)
-    // The route must not even look the email up — no oracle behavior
+    // The route must not even look the email up - no oracle behavior
     expect(mockFindUserByEmail).not.toHaveBeenCalledWith(ADMIN_EMAIL)
   })
 

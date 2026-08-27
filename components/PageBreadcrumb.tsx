@@ -17,7 +17,7 @@ import { useTranslation } from '@/hooks/useTranslation'
  *   nav   13px, --cera-muted, chevron separator, current crumb in --cera-ink
  *
  * The band is part of the component on purpose. Position is the thing that kept
- * drifting, so callers should not be able to set it — place this as the first
+ * drifting, so callers should not be able to set it - place this as the first
  * child of the page root, above the page's own (often narrower) content
  * container, and the trail lands in the same place on every route.
  *
@@ -57,7 +57,7 @@ interface PageBreadcrumbProps {
    * `BreadcrumbSchema`, which is separate markup and stays on every viewport.
    *
    * Opt-in rather than the default because pages without that bar do use the
-   * trail on a phone — login renders it below `lg` as the only wayfinding beside
+   * trail on a phone - login renders it below `lg` as the only wayfinding beside
    * the language switcher.
    */
   hideOnMobile?: boolean
@@ -105,7 +105,7 @@ export default function PageBreadcrumb({
 
   if (bare) return nav
 
-  // The band carries the top padding, so it has to go too — otherwise hiding the
+  // The band carries the top padding, so it has to go too - otherwise hiding the
   // trail leaves its whitespace behind.
   return (
     <div

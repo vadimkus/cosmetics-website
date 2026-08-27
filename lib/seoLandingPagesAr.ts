@@ -55,8 +55,8 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { question: 'هل أستخدم الروتين نفسه بعد إجراء احترافي؟', answer: 'ليس تلقائياً. اتبعي خطة المختص لأن البشرة المعالجة قد تتفاعل بشكل مختلف مع الأحماض والريتينويدات والعطر والواقي والمكياج.' },
     ],
     sources: [
-      { label: 'الأكاديمية الأمريكية للأمراض الجلدية — اختيار واقي الشمس', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen' },
-      { label: 'الأكاديمية الأمريكية للأمراض الجلدية — طريقة تطبيق واقي الشمس', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen' },
+      { label: 'الأكاديمية الأمريكية للأمراض الجلدية - اختيار واقي الشمس', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen' },
+      { label: 'الأكاديمية الأمريكية للأمراض الجلدية - طريقة تطبيق واقي الشمس', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen' },
     ],
     keywords: ['العناية الكورية بالبشرة دبي', 'مستحضرات تجميل كورية الإمارات', 'GENOSYS دبي'],
   },
@@ -193,8 +193,8 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { question: 'هل تدريب المنتج بديل عن الترخيص؟', answer: 'لا. تعليم العلامة يشرح المنتج والبروتوكول لكنه لا يستبدل التأهيل أو تدريب الجهاز أو الترخيص المحلي أو الإشراف الطبي أو تعليمات المصنّع.' },
     ],
     sources: [
-      { label: 'هيئة الغذاء والدواء الأمريكية — فوائد ومخاطر وسلامة الوخز الدقيق', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
-      { label: 'الأكاديمية الأمريكية للأمراض الجلدية — الوخز الدقيق والعناية اللاحقة', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
+      { label: 'هيئة الغذاء والدواء الأمريكية - فوائد ومخاطر وسلامة الوخز الدقيق', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
+      { label: 'الأكاديمية الأمريكية للأمراض الجلدية - الوخز الدقيق والعناية اللاحقة', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
     ],
     keywords: ['مستحضرات تجميل علاجية للعيادات الإمارات', 'عناية بالبشرة للعيادات الإمارات', 'مستحضرات تجميل احترافية دبي'],
   },
@@ -248,8 +248,8 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { question: 'هل أحتاج الواقي أثناء القيادة أو قرب النافذة؟', answer: 'يمكن لـ UVA المرور بدرجات مختلفة عبر الزجاج العادي. راعي قربك من النافذة ووقت القيادة والخروج وإرشاد طبيب الجلد.' },
     ],
     sources: [
-      { label: 'الأكاديمية الأمريكية للأمراض الجلدية — اختيار واقي الشمس', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen' },
-      { label: 'الأكاديمية الأمريكية للأمراض الجلدية — تطبيق واقي الشمس', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen' },
+      { label: 'الأكاديمية الأمريكية للأمراض الجلدية - اختيار واقي الشمس', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen' },
+      { label: 'الأكاديمية الأمريكية للأمراض الجلدية - تطبيق واقي الشمس', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen' },
     ],
     keywords: ['واقي شمس كوري الإمارات', 'واقي شمس دبي', 'SPF الإمارات'],
   },
@@ -290,9 +290,9 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { question: 'أي واقي أستخدم بعد الإجراء؟', answer: 'التزمي بالنوع والتوقيت اللذين يحددهما المختص، لأن البشرة المعالجة قد تتحسس حتى من الواقي المعتاد.' },
     ],
     sources: [
-      { label: 'FDA — فوائد ومخاطر وسلامة أجهزة الوخز الدقيق', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
-      { label: 'الأكاديمية الأمريكية للأمراض الجلدية — الوخز والعناية اللاحقة', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
-      { label: 'الأكاديمية الأمريكية للأمراض الجلدية — العناية بعد علاج الندبات', href: 'https://www.aad.org/public/diseases/acne/derm-treat/scars/self-care' },
+      { label: 'FDA - فوائد ومخاطر وسلامة أجهزة الوخز الدقيق', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
+      { label: 'الأكاديمية الأمريكية للأمراض الجلدية - الوخز والعناية اللاحقة', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
+      { label: 'الأكاديمية الأمريكية للأمراض الجلدية - العناية بعد علاج الندبات', href: 'https://www.aad.org/public/diseases/acne/derm-treat/scars/self-care' },
     ],
     keywords: ['العناية بعد الوخز الدقيق', 'ما بعد الميكرونيدلينغ الإمارات', 'كريم بعد الوخز'],
   },
@@ -312,7 +312,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     featuredProducts: [
       { name: 'BIO-MESO PDRN Expert Ampoule 60000', href: '/ar/products/60', image: '/images/6000/main.jpg', imageAlt: 'أمبولة GENOSYS BIO-MESO PDRN Expert 60000 الاحترافية', description: 'تركيبة احترافية مع Hydrolyzed Sponge بنسبة 5.72022%؛ يشير 60000 إلى المركب كاملاً، بينما يبلغ Sodium DNA ‏1,120 جزءاً في المليون.' },
       { name: 'Bio-Meso PDRN Homecare Ampoule 5000', href: '/ar/products/65', image: '/images/pdrn_5000_new/Main.jpeg', imageAlt: 'GENOSYS Bio-Meso PDRN Homecare Ampoule 5000', description: 'أمبولة منزلية بحجم 50 ml: مركب BIO-MESO™ PDRN الكامل 5,000 جزء في المليون، وSodium DNA بتركيز 1,010 أجزاء في المليون، وHydrolyzed Sponge بنسبة 0.476685%؛ تستخدم مرة أسبوعياً مساءً وفق دليل التدريب.' },
-      { name: 'Skin Reboot PDRN Mask Pack', href: '/ar/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'عبوة من 30 قناع ليوسيل مرطب مع ملقط مدمج؛ يترك كل قناع لمدة 10–20 دقيقة.' },
+      { name: 'Skin Reboot PDRN Mask Pack', href: '/ar/products/52', image: '/images/pdrn_mask/main.jpeg', imageAlt: 'GENOSYS Skin Reboot PDRN Mask Pack', description: 'عبوة من 30 قناع ليوسيل مرطب مع ملقط مدمج؛ يترك كل قناع لمدة 10-20 دقيقة.' },
       { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم تعافٍ مكمل وليس علاج PDRN.' },
     ],
     sections: [
@@ -333,8 +333,8 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { question: 'هل يستبدل PDRN علاج طبيب الجلد؟', answer: 'لا. مستحضرات التجميل لا تستبدل تشخيص أو علاج الجروح أو التهاب الجلد أو حب الشباب أو اضطرابات التصبغ.' },
     ],
     sources: [
-      { label: 'PubMed — من PDRN إلى PN: التعريفات والتطبيقات السريرية', href: 'https://pubmed.ncbi.nlm.nih.gov/39858543/' },
-      { label: 'PMC — مقارنة PN وPDRN في طب الجلد', href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12388916/' },
+      { label: 'PubMed - من PDRN إلى PN: التعريفات والتطبيقات السريرية', href: 'https://pubmed.ncbi.nlm.nih.gov/39858543/' },
+      { label: 'PMC - مقارنة PN وPDRN في طب الجلد', href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12388916/' },
     ],
     keywords: ['فوائد PDRN للبشرة', 'سيروم PDRN الإمارات', 'PDRN دبي'],
   },
@@ -375,9 +375,9 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { question: 'هل تناسب السيراميدات البشرة المعرضة للحبوب؟', answer: 'السيراميدات دهون طبيعية في البشرة، لكن الملاءمة تعتمد على كامل التركيبة والاستجابة الفردية وخطة علاج حب الشباب.' },
     ],
     sources: [
-      { label: 'PubMed — تجربة عشوائية لكريم ومنظف غنيين بالسيراميدات', href: 'https://pubmed.ncbi.nlm.nih.gov/33984185/' },
-      { label: 'International Journal of Cosmetic Science — السيراميدات ووظيفة الحاجز', href: 'https://onlinelibrary.wiley.com/doi/10.1111/ics.12972' },
-      { label: 'PMC — الدهون الموضعية وحاجز البشرة', href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC9321633/' },
+      { label: 'PubMed - تجربة عشوائية لكريم ومنظف غنيين بالسيراميدات', href: 'https://pubmed.ncbi.nlm.nih.gov/33984185/' },
+      { label: 'International Journal of Cosmetic Science - السيراميدات ووظيفة الحاجز', href: 'https://onlinelibrary.wiley.com/doi/10.1111/ics.12972' },
+      { label: 'PMC - الدهون الموضعية وحاجز البشرة', href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC9321633/' },
     ],
     keywords: ['منظف سيراميد حاجز البشرة', 'إصلاح حاجز البشرة الإمارات', 'سيراميد دبي'],
   },

@@ -12,7 +12,7 @@ import { toJsonLd } from '@/lib/jsonLd'
 import { getBlogImageDimensions } from '@/lib/blogImageDimensions.server'
 import { stripOpeningFeaturedImage } from '@/lib/blogContentImages'
 
-// Match the EN blog slug page — ISR every 60 seconds so edits propagate quickly.
+// Match the EN blog slug page - ISR every 60 seconds so edits propagate quickly.
 export const revalidate = 60
 
 type BlogPostWithComments = {

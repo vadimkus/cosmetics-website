@@ -16,12 +16,12 @@ import { sendNewsletterWelcomeEmail } from '@/lib/email'
 
 /**
  * POST /api/newsletter/subscribe
- * Public endpoint — anyone (logged-in or guest) can subscribe from the homepage/footer.
+ * Public endpoint - anyone (logged-in or guest) can subscribe from the homepage/footer.
  *
  * Protections:
  *  - IP + UA rate-limit (generous, but stops bulk-signup abuse)
  *  - Body size cap
- *  - Honeypot field (`website`) — bots auto-fill it, humans don't see it
+ *  - Honeypot field (`website`) - bots auto-fill it, humans don't see it
  *  - Idempotent: same email twice just resubscribes without error
  *
  * No CSRF: this is a write-only, non-destructive endpoint with no auth state.
@@ -81,10 +81,10 @@ export async function POST(request: NextRequest) {
 
     if (existing) {
       if (existing.isActive) {
-        // Already active — idempotent success, no second welcome email.
+        // Already active - idempotent success, no second welcome email.
         return NextResponse.json({ ok: true, alreadySubscribed: true })
       }
-      // Previously unsubscribed — reactivate with a fresh token so any old
+      // Previously unsubscribed - reactivate with a fresh token so any old
       // forwarded unsubscribe link stops working.
       const newToken = generateUnsubscribeToken()
       const updated = await prisma.newsletterSubscriber.update({
@@ -104,7 +104,7 @@ export async function POST(request: NextRequest) {
       // Send the welcome email AFTER the response is returned. We use Next 16's
       // `after()` so the SMTP call survives the serverless function lifecycle
       // (a plain fire-and-forget promise gets killed when NextResponse returns
-      // on Vercel — that's why subscribers stopped seeing the email).
+      // on Vercel - that's why subscribers stopped seeing the email).
       after(async () => {
         try {
           const result = await sendNewsletterWelcomeEmail({

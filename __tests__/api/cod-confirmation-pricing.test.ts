@@ -54,7 +54,7 @@ jest.mock('@/lib/mobileCheckoutConfig', () => ({
   calculateVatIncluded: jest.fn(() => 0),
 }))
 
-// Loyalty engine pulls in the real Prisma client — mock the whole module
+// Loyalty engine pulls in the real Prisma client - mock the whole module
 jest.mock('@/lib/loyalty', () => ({
   estimateOrderPoints: jest.fn(() => 0),
   resolveRedemptionForCheckout: jest.fn(async () => ({ points: 0, amountAed: 0 })),

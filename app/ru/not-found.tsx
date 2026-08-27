@@ -18,7 +18,7 @@ export default function RussianNotFound() {
   return (
     <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[70vh] items-center justify-center px-4 py-16`}>
       <div className="max-w-2xl w-full text-center">
-        {/* «Конец дороги» — отсылка к Матрице: две кнопки ниже образуют
+        {/* «Конец дороги» - отсылка к Матрице: две кнопки ниже образуют
             выбор (главная = вернуться, каталог = пойти дальше). */}
         <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--cera-muted)]">
           Ошибка · 404
@@ -26,7 +26,7 @@ export default function RussianNotFound() {
         <div className="mb-8">
           <Image
             src="/images/Wrong/roadend.png"
-            alt="Конец дороги — путь обрывается"
+            alt="Конец дороги - путь обрывается"
             width={1698}
             height={838}
             className="mx-auto w-full max-w-2xl rounded-[20px] border border-[var(--cera-line)] shadow-[0_24px_60px_-40px_rgba(23,20,15,0.5)]"
@@ -34,7 +34,7 @@ export default function RussianNotFound() {
           />
         </div>
         <h1 className="cera-serif mb-2 text-[26px] leading-tight text-[var(--cera-ink)] md:text-[34px]">
-          Это конец дороги — теперь нужно сделать выбор&hellip;
+          Это конец дороги - теперь нужно сделать выбор&hellip;
         </h1>
         <p className="mb-10 text-[15.5px] leading-relaxed text-[var(--cera-body)] md:text-base">
           &hellip;что делать дальше.
@@ -72,13 +72,13 @@ export default function RussianNotFound() {
           </div>
         </div>
 
-        {/* Get the app — App Store + Google Play */}
+        {/* Get the app - App Store + Google Play */}
         <div className="mt-2 border-t border-[var(--cera-line)] pt-8">
           <h3 className="cera-eyebrow mb-1">
             Установите приложение GENOSYS UAE
           </h3>
           <p className="mb-6 text-sm text-[var(--cera-muted)]">
-            Отсканируйте QR-код для загрузки — или нажмите на бейдж со смартфона.
+            Отсканируйте QR-код для загрузки - или нажмите на бейдж со смартфона.
           </p>
           <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
             {/* App Store */}
@@ -92,7 +92,7 @@ export default function RussianNotFound() {
               >
                 <Image
                   src="/images/qr-appstore.svg"
-                  alt="QR-код — Genosys UAE в App Store"
+                  alt="QR-код - Genosys UAE в App Store"
                   width={140}
                   height={140}
                   className="rounded-lg"
@@ -123,7 +123,7 @@ export default function RussianNotFound() {
               >
                 <Image
                   src="/images/qr-playstore.svg"
-                  alt="QR-код — Genosys UAE в Google Play"
+                  alt="QR-код - Genosys UAE в Google Play"
                   width={140}
                   height={140}
                   className="rounded-lg"

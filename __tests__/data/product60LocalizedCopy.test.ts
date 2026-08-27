@@ -23,7 +23,7 @@ const forbidden = [
   /barrier (?:repair|strengthen)|(?:восстанавлив|укрепля).{0,20}барьер|(?:إصلاح|تقوية).{0,20}الحاجز/i,
   /bio-?peel|био-?пилинг|تقشير حيوي/i,
   /once a month|раз в месяц|مرة شهرياً/i,
-  /7\s*(?:to|–|-)\s*10 days|14 days|six months|7\s*(?:–|-)\s*10 дней|14 дней|шесть месяцев/i,
+  /7\s*(?:to| - |-)\s*10 days|14 days|six months|7\s*(?: - |-)\s*10 дней|14 дней|шесть месяцев/i,
   /licensed aestheticians?|licensed dermatologists?|лицензированн\w+ (?:косметолог|дерматолог)|خبير تجميل مرخص|طبيب جلدية مرخص/i,
 ]
 

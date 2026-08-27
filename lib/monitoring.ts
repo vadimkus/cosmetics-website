@@ -11,7 +11,7 @@ import { debugLog, errorLog } from '@/lib/logger'
  * knowing whether Sentry is configured (it silently no-ops when no DSN is
  * present).
  *
- * LogRocket was dropped in April 2026 — bundle cost outweighed the value of
+ * LogRocket was dropped in April 2026 - bundle cost outweighed the value of
  * session replay for a small e-commerce surface. Reintroduce Sentry's
  * `replayIntegration()` if that need returns.
  */

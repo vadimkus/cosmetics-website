@@ -4,8 +4,8 @@
  * own language.
  *
  * The post is claimed atomically through `blog_posts.announcedAt` before a single
- * message goes out, so editing a live post — or two deploys racing on the same
- * `after()` hook — cannot notify the same person twice.
+ * message goes out, so editing a live post - or two deploys racing on the same
+ * `after()` hook - cannot notify the same person twice.
  *
  * Neither `User` nor `PushSubscription` stores a language, so locale is inferred:
  * the locale on the person's most recent order first, then their newsletter
@@ -247,7 +247,7 @@ async function announceToNewsletter(post: PostRow, sentBy: string, result: Annou
         subject: copy.title,
         // The composer stores its markdown source here; this send is generated,
         // so record what it was generated from instead.
-        bodyMarkdown: `[auto] blog announcement — ${post.slug} (${locale})`,
+        bodyMarkdown: `[auto] blog announcement - ${post.slug} (${locale})`,
         bodyHtml,
         localeFilter: locale,
         totalRecipients: subscribers.length,

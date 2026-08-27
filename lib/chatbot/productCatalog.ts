@@ -71,7 +71,7 @@ export async function getDynamicCatalogSection(): Promise<string | null> {
       orderBy: { name: 'asc' },
     })
 
-    // A tiny result means something is wrong upstream — keep the static list.
+    // A tiny result means something is wrong upstream - keep the static list.
     if (products.length < 10) return null
 
     const groups = new Map<string, string[]>()
@@ -96,7 +96,7 @@ export async function getDynamicCatalogSection(): Promise<string | null> {
     const sections = orderedKeys.map((k) => `### ${k}\n${groups.get(k)!.join('\n')}`)
 
     const text = `${CATALOG_SECTION_START}
-**IMPORTANT: Only recommend products from this list — it is LIVE from our database, so prices and availability are current. Use the EXACT format with product ID for the Add to Cart feature.**
+**IMPORTANT: Only recommend products from this list - it is LIVE from our database, so prices and availability are current. Use the EXACT format with product ID for the Add to Cart feature.**
 
 **FORMAT: [Product Name](url){{id:NUMBER}} - PRICE**
 The {{id:NUMBER}} part enables customers to add products directly to cart from chat!

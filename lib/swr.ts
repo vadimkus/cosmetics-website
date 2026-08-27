@@ -44,7 +44,7 @@ export async function fetcher<T>(url: string): Promise<T> {
       message = body?.error ?? body?.message ?? message
       info = body
     } catch {
-      // Non-JSON error body – use statusText
+      // Non-JSON error body - use statusText
       info = { message: res.statusText }
     }
     const error = new Error(message) as FetchError

@@ -1,7 +1,7 @@
 /**
  * Bespoke copy for INTENSIVE BLEMISH BALM CREAM [SPF30 / PA++] (product 42).
  *
- * SOURCING — every figure traces to the audit in
+ * SOURCING - every figure traces to the audit in
  * docs/SESSION_CHANGES_2026-08-17_PRODUCT_42_BLEMISH_BALM_SOURCE_AUDIT.md:
  *   - DTS MG signed formula: three filters totalling 19.70%, arbutin 2.00%,
  *     adenosine 0.04%, allantoin 0.10%, D5 3.50% + D6 2.50%, beeswax 2.00%,
@@ -23,13 +23,13 @@
  *      page. It sits next to the brightening benefit, because the 2% is what
  *      earns that claim.
  *   2. One shade only. The BB Cushion ships three.
- *   3. D5 at 3.50% and D6 at 2.50%, and the EU date of 6 June 2027 — on
+ *   3. D5 at 3.50% and D6 at 2.50%, and the EU date of 6 June 2027 - on
  *      environmental persistence grounds, not skin safety.
  *
  * MUST STAY OUT:
  *   - Eucalyptus oil, perilla seed oil and Rumex Crispus as actives. 50, 50 and
  *     10 ppm.
- *   - An unqualified "especially good for sensitive skin" — the arbutin warning
+ *   - An unqualified "especially good for sensitive skin" - the arbutin warning
  *     exists, even though this is the only fragrance-free one of the three.
  *   - Any water-resistance claim. No test.
  *   - Reading 7.70% titanium dioxide as 7.70% of UV protection; here it is also
@@ -183,7 +183,7 @@ const EN: BlemishBalmCopy = {
     'A tinted cream built to cover the redness a treatment leaves behind, with SPF30 over the top and two actives at licensed doses: arbutin at 2% and adenosine at 0.04%. Fragrance-free, no phenoxyethanol, and Korea registers it for three functions at once.',
   heroBullets: [
     'Made for post-procedure redness, which is what the carton actually says',
-    'Arbutin 2% and adenosine 0.04% — both at their licensed doses',
+    'Arbutin 2% and adenosine 0.04% - both at their licensed doses',
     'Fragrance-free: the only one of our three SPF products with no perfume',
     'One universal shade, and it contains beeswax',
   ],
@@ -209,12 +209,12 @@ const EN: BlemishBalmCopy = {
     eyebrow: 'What it is actually for',
     title: 'Cover, not correction',
     body:
-      'The registered carton is unusually specific: this covers redness and blemishes after a dermatological treatment and helps express natural skin tone. That is a narrower and more useful promise than most base makeup makes, and it explains the whole formula — the pigment load, the SPF, the absence of fragrance, and the arbutin sitting underneath it all.',
+      'The registered carton is unusually specific: this covers redness and blemishes after a dermatological treatment and helps express natural skin tone. That is a narrower and more useful promise than most base makeup makes, and it explains the whole formula - the pigment load, the SPF, the absence of fragrance, and the arbutin sitting underneath it all.',
     items: [
       'The hour after microneedling, a peel or a laser, when you still have to leave',
       'Over post-acne marks while they fade, rather than instead of treating them',
       'Days when SPF and coverage need to be one step, not two',
-      'Under nothing — it is the last step, and it is enough on its own',
+      'Under nothing - it is the last step, and it is enough on its own',
     ],
   },
 
@@ -230,7 +230,7 @@ const EN: BlemishBalmCopy = {
       { name: 'Blemish Balm Cream', filters: '3', load: '19.70%', grade: 'SPF30 / PA++', self: true },
     ],
     body:
-      'Two reasons, and both are real. There is no long-UVA filter in this tube — the titanium dioxide reaches short UVA and stops, and the other two are UVB absorbers. And the titanium dioxide at 7.70% is doing two jobs at once: it is the largest filter and it is the white pigment that gives the cream its coverage. Pigment dispersed for opacity is not fully available as UV protection, so you cannot read 7.70% as 7.70% of shielding.',
+      'Two reasons, and both are real. There is no long-UVA filter in this tube - the titanium dioxide reaches short UVA and stops, and the other two are UVB absorbers. And the titanium dioxide at 7.70% is doing two jobs at once: it is the largest filter and it is the white pigment that gives the cream its coverage. Pigment dispersed for opacity is not fully available as UV protection, so you cannot read 7.70% as 7.70% of shielding.',
     aside:
       'Which is the honest way of saying: a tinted base is a compromise. You get coverage, colour and a real SPF30 in one step. If the day calls for maximum protection, wear the Ultra Shield and put this over it or leave it in the drawer.',
   },
@@ -239,7 +239,7 @@ const EN: BlemishBalmCopy = {
     eyebrow: 'The licensed three',
     title: 'What Korea registers it for',
     intro:
-      'The carton declares a triple-function cosmetic — whitening, wrinkle improvement and UV protection — and each function has an ingredient behind it at the concentration the licence requires.',
+      'The carton declares a triple-function cosmetic - whitening, wrinkle improvement and UV protection - and each function has an ingredient behind it at the concentration the licence requires.',
     items: [
       {
         name: 'Arbutin',
@@ -267,7 +267,7 @@ const EN: BlemishBalmCopy = {
     quote:
       'In human application test data for products containing the same ingredient (arbutin at 2% or more), there have been reported cases of papules and mild itching.',
     verdict:
-      'In practice: patch test on your jaw for a couple of days before you wear it over a whole face, and especially before you wear it over skin that has just had a procedure. If you react, stop. This is the same guidance a clinic would give you, and it is not a reason to avoid arbutin — it is a reason to introduce it the way you would any active.',
+      'In practice: patch test on your jaw for a couple of days before you wear it over a whole face, and especially before you wear it over skin that has just had a procedure. If you react, stop. This is the same guidance a clinic would give you, and it is not a reason to avoid arbutin - it is a reason to introduce it the way you would any active.',
   },
 
   assay: {
@@ -294,14 +294,14 @@ const EN: BlemishBalmCopy = {
       'The carton carries a five-no-additions mark, and every one of them holds up against the quantitative formula. Preservation is handled by caprylyl glycol, glyceryl caprylate, caprylhydroxamic acid, tropolone and hexanediol instead.',
     items: ['No parabens', 'No artificial fragrance', 'No mineral oil', 'No ethanol', 'No phenoxyethanol'],
     note:
-      'Worth knowing across the range: this is the only one of our three SPF products with no perfume in it at all. The Multi Sun is fragranced at 0.25% with five declared allergens and the Ultra Shield at 0.5%. If fragrance is your problem, this is the tube — read the arbutin section above and patch test anyway.',
+      'Worth knowing across the range: this is the only one of our three SPF products with no perfume in it at all. The Multi Sun is fragranced at 0.25% with five declared allergens and the Ultra Shield at 0.5%. If fragrance is your problem, this is the tube - read the arbutin section above and patch test anyway.',
   },
 
   silicone: {
     eyebrow: 'Worth knowing',
     title: 'On the silicones, and a date',
     body:
-      'Cyclopentasiloxane at 3.50% and cyclohexasiloxane at 2.50% — D5 and D6. They are the reason a cream carrying nearly 20% mineral filter spreads like a light base rather than a paste. European law is phasing them down: Regulation (EU) 2024/1328 caps both at 0.1% in leave-on cosmetics from 6 June 2027. The grounds are environmental rather than skin safety — both were classed as very persistent and very bioaccumulative, and leave-on cosmetics are the largest source of release. Nothing here is restricted where this product is sold, and we would rather you heard the date from us.',
+      'Cyclopentasiloxane at 3.50% and cyclohexasiloxane at 2.50% - D5 and D6. They are the reason a cream carrying nearly 20% mineral filter spreads like a light base rather than a paste. European law is phasing them down: Regulation (EU) 2024/1328 caps both at 0.1% in leave-on cosmetics from 6 June 2027. The grounds are environmental rather than skin safety - both were classed as very persistent and very bioaccumulative, and leave-on cosmetics are the largest source of release. Nothing here is restricted where this product is sold, and we would rather you heard the date from us.',
   },
 
   limits: {
@@ -362,11 +362,11 @@ const EN: BlemishBalmCopy = {
     title: 'What the certificate says',
     intro: 'Made in Korea and released against a written specification, with heavy metals and degradation both checked.',
     rows: [
-      { label: 'pH', value: '7.44 at 25 °C, inside a 5.50–7.50 specification — high for skincare, normal for a mineral-loaded base' },
+      { label: 'pH', value: '7.44 at 25 °C, inside a 5.50-7.50 specification - high for skincare, normal for a mineral-loaded base' },
       { label: 'Fill', value: '50.1 g against a 50 g declaration' },
       { label: 'Purity', value: 'Zero colony-forming units per ml, for both bacteria and moulds, against a permitted 100' },
-      { label: 'Heavy metals', value: 'Lead under 20 ppm and arsenic under 10 ppm — checked because the shade comes from iron oxides' },
-      { label: 'Hydroquinone', value: 'Under 1 ppm — the arbutin degradation product, tested for and not found' },
+      { label: 'Heavy metals', value: 'Lead under 20 ppm and arsenic under 10 ppm - checked because the shade comes from iron oxides' },
+      { label: 'Hydroquinone', value: 'Under 1 ppm - the arbutin degradation product, tested for and not found' },
       { label: 'Stability', value: 'Passed cycling at 4 °C, 25 °C and 45 °C' },
       { label: 'Licence', value: 'Korean triple-function: whitening, wrinkle improvement, UV protection' },
     ],
@@ -393,12 +393,12 @@ const EN: BlemishBalmCopy = {
     title: 'Specification',
     rows: [
       { label: 'Size', value: '50 g' },
-      { label: 'Grade', value: 'SPF30 / PA++ — three filters, 19.70% combined' },
+      { label: 'Grade', value: 'SPF30 / PA++ - three filters, 19.70% combined' },
       { label: 'Shade', value: 'One universal shade, from iron oxides and titanium dioxide' },
       { label: 'Actives', value: 'Arbutin 2.00%, adenosine 0.04%, allantoin 0.10%' },
       { label: 'Free from', value: 'Parabens, artificial fragrance, mineral oil, ethanol, phenoxyethanol' },
       { label: 'Contains', value: 'Beeswax 2%, and D5 and D6 silicones at 6% combined' },
-      { label: 'Water resistance', value: 'None claimed — reapply after water or sweat' },
+      { label: 'Water resistance', value: 'None claimed - reapply after water or sweat' },
       { label: 'Licence', value: 'Korean triple-function cosmetic' },
       { label: 'Origin', value: 'Made in Korea' },
     ],
@@ -410,11 +410,11 @@ const EN: BlemishBalmCopy = {
     items: [
       {
         q: 'Why is this SPF30 when it has more filter than your SPF50+?',
-        a: 'Because grade depends on which wavelengths the filters cover and how available they are. This tube is 19.7% filter against the Ultra Shield\u2019s 17.1%, but it has no long-UVA filter, and its titanium dioxide is doing double duty as the coverage pigment — pigment dispersed for opacity is not fully available as UV protection. A tinted base is a compromise, and SPF30 in one step is a good one.',
+        a: 'Because grade depends on which wavelengths the filters cover and how available they are. This tube is 19.7% filter against the Ultra Shield\u2019s 17.1%, but it has no long-UVA filter, and its titanium dioxide is doing double duty as the coverage pigment - pigment dispersed for opacity is not fully available as UV protection. A tinted base is a compromise, and SPF30 in one step is a good one.',
       },
       {
         q: 'What is this warning about arbutin?',
-        a: 'Korea requires it on any product with arbutin at 2% or more: human application data has reported papules and mild itching. It is printed on the carton. It is not a reason to avoid the product — it is a reason to patch test on your jaw for two days first, particularly before wearing it over skin that has just had a treatment.',
+        a: 'Korea requires it on any product with arbutin at 2% or more: human application data has reported papules and mild itching. It is printed on the carton. It is not a reason to avoid the product - it is a reason to patch test on your jaw for two days first, particularly before wearing it over skin that has just had a treatment.',
       },
       {
         q: 'How many shades does it come in?',
@@ -426,7 +426,7 @@ const EN: BlemishBalmCopy = {
       },
       {
         q: 'Can I put it on straight after microneedling?',
-        a: 'Ask your clinic — that timing is their call, not ours, and it depends on the depth and what else went on your skin. What the product is designed for is the period after that waiting window, when the redness is still visible and you need to be seen in public.',
+        a: 'Ask your clinic - that timing is their call, not ours, and it depends on the depth and what else went on your skin. What the product is designed for is the period after that waiting window, when the redness is still visible and you need to be seen in public.',
       },
       {
         q: 'Is it vegan?',
@@ -445,7 +445,7 @@ const _AR: BlemishBalmCopy = {
     'كريم ملوّن صُنع لتغطية الاحمرار الذي يتركه الإجراء، مع حماية SPF30 فوقه وفعّالين بجرعتين مرخّصتين: أربوتين بنسبة 2% وأدينوزين بنسبة 0.04%. خالٍ من العطر ومن الفينوكسي إيثانول، وكوريا تسجّله لثلاث وظائف في وقت واحد.',
   heroBullets: [
     'مصنوع لاحمرار ما بعد الإجراءات، وهذا ما تقوله العلبة فعلاً',
-    'أربوتين 2% وأدينوزين 0.04% — كلاهما بجرعته المرخّصة',
+    'أربوتين 2% وأدينوزين 0.04% - كلاهما بجرعته المرخّصة',
     'خالٍ من العطر: الوحيد بين واقياتنا الثلاثة بلا أي عطر',
     'درجة لون واحدة، ويحتوي على شمع العسل',
   ],
@@ -471,12 +471,12 @@ const _AR: BlemishBalmCopy = {
     eyebrow: 'ما هو فعلاً من أجله',
     title: 'تغطية، لا تصحيح',
     body:
-      'العلبة المسجّلة محدّدة بشكل غير معتاد: يغطّي الاحمرار والعيوب بعد الإجراء الجلدي ويساعد على إظهار لون البشرة الطبيعي. وهذا وعد أضيق وأنفع من معظم ما يقدّمه مكياج الأساس، وهو يفسّر التركيبة كلها — حمل الصباغ، والـ SPF، وغياب العطر، والأربوتين الجالس تحت ذلك كله.',
+      'العلبة المسجّلة محدّدة بشكل غير معتاد: يغطّي الاحمرار والعيوب بعد الإجراء الجلدي ويساعد على إظهار لون البشرة الطبيعي. وهذا وعد أضيق وأنفع من معظم ما يقدّمه مكياج الأساس، وهو يفسّر التركيبة كلها - حمل الصباغ، والـ SPF، وغياب العطر، والأربوتين الجالس تحت ذلك كله.',
     items: [
       'الساعة التي تلي الوخز الدقيق أو التقشير أو الليزر، حين يبقى عليك الخروج',
       'فوق آثار حب الشباب أثناء تلاشيها، لا بدلاً من معالجتها',
       'الأيام التي يجب أن تكون فيها الحماية والتغطية خطوة واحدة لا خطوتين',
-      'وتحت لا شيء — فهو الخطوة الأخيرة، ويكفي وحده',
+      'وتحت لا شيء - فهو الخطوة الأخيرة، ويكفي وحده',
     ],
   },
 
@@ -492,7 +492,7 @@ const _AR: BlemishBalmCopy = {
       { name: 'Blemish Balm Cream', filters: '3', load: '19.70%', grade: 'SPF30 / PA++', self: true },
     ],
     body:
-      'سببان، وكلاهما حقيقي. لا يوجد في هذا الأنبوب مرشّح لـ UVA الطويل — فثاني أكسيد التيتانيوم يصل إلى UVA القصير ويتوقف، والآخران يمتصّان UVB. وثاني أكسيد التيتانيوم بنسبة 7.70% يؤدي مهمتين في وقت واحد: فهو أكبر مرشّح، وهو أيضاً الصباغ الأبيض الذي يمنح الكريم تغطيته. والصباغ الموزّع للتعتيم ليس متاحاً بالكامل كحماية من الأشعة، فلا يمكن قراءة 7.70% كـ 7.70% من الحجب.',
+      'سببان، وكلاهما حقيقي. لا يوجد في هذا الأنبوب مرشّح لـ UVA الطويل - فثاني أكسيد التيتانيوم يصل إلى UVA القصير ويتوقف، والآخران يمتصّان UVB. وثاني أكسيد التيتانيوم بنسبة 7.70% يؤدي مهمتين في وقت واحد: فهو أكبر مرشّح، وهو أيضاً الصباغ الأبيض الذي يمنح الكريم تغطيته. والصباغ الموزّع للتعتيم ليس متاحاً بالكامل كحماية من الأشعة، فلا يمكن قراءة 7.70% كـ 7.70% من الحجب.',
     aside:
       'وهذه هي الطريقة الصريحة للقول إن الأساس الملوّن حلٌّ وسط. تحصلين على تغطية ولون وSPF30 حقيقي في خطوة واحدة. وإن كان اليوم يستدعي أقصى حماية، فارتدي ألترا شيلد وضعي هذا فوقه أو اتركيه في الدرج.',
   },
@@ -501,7 +501,7 @@ const _AR: BlemishBalmCopy = {
     eyebrow: 'الثلاثة المرخّصة',
     title: 'ما تسجّله كوريا له',
     intro:
-      'العلبة تعلن مستحضراً ثلاثي الوظيفة — تفتيح وتحسين تجاعيد وحماية من الأشعة — ولكل وظيفة مكوّن خلفها بالتركيز الذي يشترطه الترخيص.',
+      'العلبة تعلن مستحضراً ثلاثي الوظيفة - تفتيح وتحسين تجاعيد وحماية من الأشعة - ولكل وظيفة مكوّن خلفها بالتركيز الذي يشترطه الترخيص.',
     items: [
       {
         name: 'Arbutin',
@@ -529,7 +529,7 @@ const _AR: BlemishBalmCopy = {
     quote:
       'في بيانات الاستخدام البشري لمنتجات تحتوي المكوّن نفسه (أربوتين بنسبة 2% أو أكثر)، سُجّلت حالات من الحبيبات الجلدية والحكة الخفيفة.',
     verdict:
-      'عملياً: اختبريه على بقعة عند الفكّ ليومين قبل ارتدائه على كامل الوجه، وخصوصاً قبل ارتدائه فوق بشرة خرجت لتوّها من إجراء. وإن حدث تفاعل فأوقفيه. هذه هي التوجيهات نفسها التي ستعطيها لك العيادة، وهي ليست سبباً لتجنّب الأربوتين — بل سبب لإدخاله كما تُدخل أي فعّال.',
+      'عملياً: اختبريه على بقعة عند الفكّ ليومين قبل ارتدائه على كامل الوجه، وخصوصاً قبل ارتدائه فوق بشرة خرجت لتوّها من إجراء. وإن حدث تفاعل فأوقفيه. هذه هي التوجيهات نفسها التي ستعطيها لك العيادة، وهي ليست سبباً لتجنّب الأربوتين - بل سبب لإدخاله كما تُدخل أي فعّال.',
   },
 
   assay: {
@@ -556,14 +556,14 @@ const _AR: BlemishBalmCopy = {
       'العلبة تحمل علامة «خمسة بلا إضافات»، وكل واحدة منها تثبت أمام التركيبة الكمّية. والحفظ يتولّاه الكابريليل غلايكول والغليسريل كابريليت وحمض الكابريل هيدروكساميك والتروبولون والهكسانديول بدلاً من ذلك.',
     items: ['بلا بارابين', 'بلا عطر صناعي', 'بلا زيوت معدنية', 'بلا إيثانول', 'بلا فينوكسي إيثانول'],
     note:
-      'ويستحق المعرفة عبر المجموعة: هذا هو الوحيد بين واقياتنا الثلاثة الذي لا عطر فيه إطلاقاً. فمالتي صن معطّر بنسبة 0.25% بخمسة مسبّبات حساسية معلنة، وألترا شيلد بنسبة 0.5%. فإن كان العطر هو مشكلتك فهذا هو الأنبوب — واقرئي قسم الأربوتين أعلاه واختبريه على بقعة رغم ذلك.',
+      'ويستحق المعرفة عبر المجموعة: هذا هو الوحيد بين واقياتنا الثلاثة الذي لا عطر فيه إطلاقاً. فمالتي صن معطّر بنسبة 0.25% بخمسة مسبّبات حساسية معلنة، وألترا شيلد بنسبة 0.5%. فإن كان العطر هو مشكلتك فهذا هو الأنبوب - واقرئي قسم الأربوتين أعلاه واختبريه على بقعة رغم ذلك.',
   },
 
   silicone: {
     eyebrow: 'يستحق المعرفة',
     title: 'عن السيليكونات، وعن تاريخ',
     body:
-      'سايكلوبنتاسيلوكسين بنسبة 3.50% وسايكلوهكساسيلوكسين بنسبة 2.50% — أي D5 وD6. وهما سبب انتشار كريم يحمل قرابة 20% من المرشحات المعدنية كأساس خفيف لا كمعجون. والقانون الأوروبي يخفّضهما تدريجياً: فاللائحة (EU) 2024/1328 تحدّدهما عند 0.1% في المستحضرات التي تبقى على البشرة من 6 يونيو 2027. والأسباب بيئية لا متعلّقة بسلامة البشرة — فقد صُنّف كلاهما شديد الثبات وشديد التراكم الحيوي، والمستحضرات الباقية على البشرة هي أكبر مصدر للانبعاث. ولا شيء هنا مقيّد حيث يُبَاع هذا المنتج، ونفضّل أن يأتيك التاريخ منّا.',
+      'سايكلوبنتاسيلوكسين بنسبة 3.50% وسايكلوهكساسيلوكسين بنسبة 2.50% - أي D5 وD6. وهما سبب انتشار كريم يحمل قرابة 20% من المرشحات المعدنية كأساس خفيف لا كمعجون. والقانون الأوروبي يخفّضهما تدريجياً: فاللائحة (EU) 2024/1328 تحدّدهما عند 0.1% في المستحضرات التي تبقى على البشرة من 6 يونيو 2027. والأسباب بيئية لا متعلّقة بسلامة البشرة - فقد صُنّف كلاهما شديد الثبات وشديد التراكم الحيوي، والمستحضرات الباقية على البشرة هي أكبر مصدر للانبعاث. ولا شيء هنا مقيّد حيث يُبَاع هذا المنتج، ونفضّل أن يأتيك التاريخ منّا.',
   },
 
   limits: {
@@ -624,11 +624,11 @@ const _AR: BlemishBalmCopy = {
     title: 'ما تقوله الشهادة',
     intro: 'صُنع في كوريا وأُفرج عنه مقابل مواصفة مكتوبة، مع فحص المعادن الثقيلة والتحلّل معاً.',
     rows: [
-      { label: 'الحموضة', value: '7.44 عند 25 درجة، ضمن مواصفة 5.50–7.50 — مرتفعة لمستحضر عناية، وعادية لأساس محمّل بالمعادن' },
+      { label: 'الحموضة', value: '7.44 عند 25 درجة، ضمن مواصفة 5.50-7.50 - مرتفعة لمستحضر عناية، وعادية لأساس محمّل بالمعادن' },
       { label: 'التعبئة', value: '50.1 غ مقابل 50 غ معلنة' },
       { label: 'النقاء', value: 'صفر وحدة مستعمرة لكل مل، للبكتيريا والعفن معاً، مقابل 100 مسموحة' },
-      { label: 'المعادن الثقيلة', value: 'الرصاص أقل من 20 جزءاً من المليون والزرنيخ أقل من 10 — فُحصا لأن الدرجة من أكاسيد الحديد' },
-      { label: 'الهيدروكينون', value: 'أقل من جزء واحد من المليون — ناتج تحلّل الأربوتين، فُحص ولم يوجد' },
+      { label: 'المعادن الثقيلة', value: 'الرصاص أقل من 20 جزءاً من المليون والزرنيخ أقل من 10 - فُحصا لأن الدرجة من أكاسيد الحديد' },
+      { label: 'الهيدروكينون', value: 'أقل من جزء واحد من المليون - ناتج تحلّل الأربوتين، فُحص ولم يوجد' },
       { label: 'الثبات', value: 'اجتاز التدوير عند 4 و25 و45 درجة مئوية' },
       { label: 'الترخيص', value: 'ثلاثي الوظيفة الكوري: تفتيح، تحسين تجاعيد، حماية من الأشعة' },
     ],
@@ -655,12 +655,12 @@ const _AR: BlemishBalmCopy = {
     title: 'المواصفات',
     rows: [
       { label: 'الحجم', value: '50 غ' },
-      { label: 'الدرجة', value: 'SPF30 / PA++ — ثلاثة مرشحات، 19.70% مجتمعة' },
+      { label: 'الدرجة', value: 'SPF30 / PA++ - ثلاثة مرشحات، 19.70% مجتمعة' },
       { label: 'اللون', value: 'درجة واحدة شاملة، من أكاسيد الحديد وثاني أكسيد التيتانيوم' },
       { label: 'الفعّالات', value: 'أربوتين 2.00%، أدينوزين 0.04%، ألانتوين 0.10%' },
       { label: 'خالٍ من', value: 'البارابين والعطر الصناعي والزيوت المعدنية والإيثانول والفينوكسي إيثانول' },
       { label: 'يحتوي', value: 'شمع العسل 2%، وسيليكونَي D5 وD6 بنسبة 6% مجتمعة' },
-      { label: 'مقاومة الماء', value: 'غير مُدّعاة — أعيدي الوضع بعد الماء أو العرق' },
+      { label: 'مقاومة الماء', value: 'غير مُدّعاة - أعيدي الوضع بعد الماء أو العرق' },
       { label: 'الترخيص', value: 'مستحضر كوري ثلاثي الوظيفة' },
       { label: 'المنشأ', value: 'صُنع في كوريا' },
     ],
@@ -672,11 +672,11 @@ const _AR: BlemishBalmCopy = {
     items: [
       {
         q: 'لماذا هذا SPF30 وفيه مرشحات أكثر من واقيكم SPF50+؟',
-        a: 'لأن الدرجة تعتمد على الأطوال الموجية التي تغطّيها المرشحات وعلى مدى توفّرها. فهذا الأنبوب 19.7% مرشحات مقابل 17.1% في ألترا شيلد، لكن لا مرشّح لـ UVA الطويل فيه، وثاني أكسيد التيتانيوم فيه يؤدي مهمّة مزدوجة كصباغ التغطية — والصباغ الموزّع للتعتيم ليس متاحاً بالكامل كحماية. الأساس الملوّن حلٌّ وسط، وSPF30 في خطوة واحدة حلٌّ جيد.',
+        a: 'لأن الدرجة تعتمد على الأطوال الموجية التي تغطّيها المرشحات وعلى مدى توفّرها. فهذا الأنبوب 19.7% مرشحات مقابل 17.1% في ألترا شيلد، لكن لا مرشّح لـ UVA الطويل فيه، وثاني أكسيد التيتانيوم فيه يؤدي مهمّة مزدوجة كصباغ التغطية - والصباغ الموزّع للتعتيم ليس متاحاً بالكامل كحماية. الأساس الملوّن حلٌّ وسط، وSPF30 في خطوة واحدة حلٌّ جيد.',
       },
       {
         q: 'ما هذا التحذير بشأن الأربوتين؟',
-        a: 'تشترطه كوريا على أي منتج بأربوتين 2% أو أكثر: فبيانات الاستخدام البشري سجّلت حبيبات جلدية وحكة خفيفة. وهو مطبوع على العلبة. وليس سبباً لتجنّب المنتج — بل سبب لاختباره على بقعة عند الفكّ ليومين أولاً، خصوصاً قبل ارتدائه فوق بشرة خرجت لتوّها من إجراء.',
+        a: 'تشترطه كوريا على أي منتج بأربوتين 2% أو أكثر: فبيانات الاستخدام البشري سجّلت حبيبات جلدية وحكة خفيفة. وهو مطبوع على العلبة. وليس سبباً لتجنّب المنتج - بل سبب لاختباره على بقعة عند الفكّ ليومين أولاً، خصوصاً قبل ارتدائه فوق بشرة خرجت لتوّها من إجراء.',
       },
       {
         q: 'بكم درجة لون يأتي؟',
@@ -688,7 +688,7 @@ const _AR: BlemishBalmCopy = {
       },
       {
         q: 'هل أضعه مباشرة بعد الوخز الدقيق؟',
-        a: 'اسألي عيادتك — فذلك التوقيت قرارهم لا قرارنا، ويعتمد على العمق وعلى ما وُضع على بشرتك. وما صُمّم المنتج له هو الفترة التي تلي نافذة الانتظار تلك، حين يبقى الاحمرار مرئياً وتحتاجين إلى الظهور بين الناس.',
+        a: 'اسألي عيادتك - فذلك التوقيت قرارهم لا قرارنا، ويعتمد على العمق وعلى ما وُضع على بشرتك. وما صُمّم المنتج له هو الفترة التي تلي نافذة الانتظار تلك، حين يبقى الاحمرار مرئياً وتحتاجين إلى الظهور بين الناس.',
       },
       {
         q: 'هل هو نباتي؟',
@@ -706,8 +706,8 @@ const _RU: BlemishBalmCopy = {
   subheadline:
     'Тонирующий крем, созданный закрывать красноту, оставшуюся после процедуры, с SPF30 сверху и двумя активами в лицензионных дозах: арбутин 2% и аденозин 0,04%. Без отдушки, без феноксиэтанола, и Корея регистрирует его сразу под три функции.',
   heroBullets: [
-    'Сделан под красноту после процедур — именно так и говорит коробка',
-    'Арбутин 2% и аденозин 0,04% — оба в лицензионных дозах',
+    'Сделан под красноту после процедур - именно так и говорит коробка',
+    'Арбутин 2% и аденозин 0,04% - оба в лицензионных дозах',
     'Без отдушки: единственный из трёх наших SPF-средств совсем без парфюма',
     'Один универсальный оттенок, и в составе есть пчелиный воск',
   ],
@@ -725,7 +725,7 @@ const _RU: BlemishBalmCopy = {
   stats: [
     { value: 'SPF30', label: 'PA++ поверх плотного покрытия' },
     { value: '2%', label: 'Арбутина, измерено 1,81%' },
-    { value: '19,7%', label: 'Тюбика — это УФ-фильтры' },
+    { value: '19,7%', label: 'Тюбика - это УФ-фильтры' },
     { value: '0', label: 'КОЕ на партии' },
   ],
 
@@ -733,12 +733,12 @@ const _RU: BlemishBalmCopy = {
     eyebrow: 'Для чего он на самом деле',
     title: 'Прикрыть, а не исправить',
     body:
-      'Зарегистрированная коробка необычно конкретна: закрывает красноту и несовершенства после дерматологической процедуры и помогает выразить естественный тон кожи. Это более узкое и более полезное обещание, чем даёт большинство базы под макияж, и оно объясняет всю формулу — пигментную нагрузку, SPF, отсутствие отдушки и арбутин под всем этим.',
+      'Зарегистрированная коробка необычно конкретна: закрывает красноту и несовершенства после дерматологической процедуры и помогает выразить естественный тон кожи. Это более узкое и более полезное обещание, чем даёт большинство базы под макияж, и оно объясняет всю формулу - пигментную нагрузку, SPF, отсутствие отдушки и арбутин под всем этим.',
     items: [
       'Час после микронидлинга, пилинга или лазера, когда всё равно надо выйти',
-      'Поверх постакне, пока следы бледнеют, — а не вместо их лечения',
+      'Поверх постакне, пока следы бледнеют, - а не вместо их лечения',
       'Дни, когда защита и покрытие должны быть одним шагом, а не двумя',
-      'И под ничего — это финальный шаг, и его достаточно самого по себе',
+      'И под ничего - это финальный шаг, и его достаточно самого по себе',
     ],
   },
 
@@ -754,21 +754,21 @@ const _RU: BlemishBalmCopy = {
       { name: 'Blemish Balm Cream', filters: '3', load: '19,70%', grade: 'SPF30 / PA++', self: true },
     ],
     body:
-      'Две причины, и обе настоящие. В этом тюбике нет фильтра длинного UVA — диоксид титана дотягивается до короткого UVA и останавливается, а два других поглощают UVB. И диоксид титана при 7,70% выполняет сразу две задачи: он и самый крупный фильтр, и белый пигмент, который даёт крему покрытие. Пигмент, распределённый ради плотности, не полностью доступен как УФ-защита, поэтому 7,70% нельзя читать как 7,70% экранирования.',
+      'Две причины, и обе настоящие. В этом тюбике нет фильтра длинного UVA - диоксид титана дотягивается до короткого UVA и останавливается, а два других поглощают UVB. И диоксид титана при 7,70% выполняет сразу две задачи: он и самый крупный фильтр, и белый пигмент, который даёт крему покрытие. Пигмент, распределённый ради плотности, не полностью доступен как УФ-защита, поэтому 7,70% нельзя читать как 7,70% экранирования.',
     aside:
-      'Что и есть честный способ сказать: тонирующая база — это компромисс. Вы получаете покрытие, цвет и настоящий SPF30 за один шаг. А если день требует максимальной защиты, наденьте Ultra Shield и нанесите это поверх или оставьте в ящике.',
+      'Что и есть честный способ сказать: тонирующая база - это компромисс. Вы получаете покрытие, цвет и настоящий SPF30 за один шаг. А если день требует максимальной защиты, наденьте Ultra Shield и нанесите это поверх или оставьте в ящике.',
   },
 
   actives: {
     eyebrow: 'Три лицензионных',
     title: 'Под что его регистрирует Корея',
     intro:
-      'Коробка заявляет средство тройного действия — осветление, уменьшение морщин и защита от УФ — и за каждой функцией стоит ингредиент в той концентрации, которой требует лицензия.',
+      'Коробка заявляет средство тройного действия - осветление, уменьшение морщин и защита от УФ - и за каждой функцией стоит ингредиент в той концентрации, которой требует лицензия.',
     items: [
       {
         name: 'Arbutin',
         dose: '2,00%',
-        body: 'Функция осветления. Работает с неровным тоном медленно и ровно, а на этом уровне ещё и вызывает обязательное корейское предупреждение — это следующий раздел, а не сноска.',
+        body: 'Функция осветления. Работает с неровным тоном медленно и ровно, а на этом уровне ещё и вызывает обязательное корейское предупреждение - это следующий раздел, а не сноска.',
       },
       {
         name: 'Adenosine',
@@ -787,11 +787,11 @@ const _RU: BlemishBalmCopy = {
     eyebrow: 'На коробке, а теперь и на этой странице',
     title: 'Предупреждение, идущее с арбутином при 2%',
     body:
-      'Корея требует конкретного предостережения на любом средстве с арбутином 2% и выше, и на этой коробке оно напечатано. На страницах большинства магазинов его нет, и до сих пор не было на нашей — что неправильно: именно эти 2% и дают право на заявление об осветлении, так что компромисс должен стоять рядом с выгодой.',
+      'Корея требует конкретного предостережения на любом средстве с арбутином 2% и выше, и на этой коробке оно напечатано. На страницах большинства магазинов его нет, и до сих пор не было на нашей - что неправильно: именно эти 2% и дают право на заявление об осветлении, так что компромисс должен стоять рядом с выгодой.',
     quote:
       'В данных испытаний на людях для средств с тем же ингредиентом (арбутин 2% и выше) отмечались случаи папул и легкого зуда.',
     verdict:
-      'На практике: сделайте пробу на линии челюсти в течение двух дней, прежде чем наносить на всё лицо, и особенно прежде чем наносить на кожу, только что прошедшую процедуру. Появилась реакция — прекратите. Это та же рекомендация, которую дала бы клиника, и это не повод избегать арбутина, а повод вводить его так, как вводят любой актив.',
+      'На практике: сделайте пробу на линии челюсти в течение двух дней, прежде чем наносить на всё лицо, и особенно прежде чем наносить на кожу, только что прошедшую процедуру. Появилась реакция - прекратите. Это та же рекомендация, которую дала бы клиника, и это не повод избегать арбутина, а повод вводить его так, как вводят любой актив.',
   },
 
   assay: {
@@ -808,7 +808,7 @@ const _RU: BlemishBalmCopy = {
       { name: 'Adenosine', declared: '0,04%', found: '0,04%' },
     ],
     purity:
-      'И главное: гидрохинон менее 1 ppm. Арбутин распадается до гидрохинона, запрещённого в косметике, поэтому бренду, продающему арбутин при 2%, следует проверять на него готовый продукт. Здесь проверяют. Свинец оказался ниже 20 ppm, арсен ниже 10 — это важно для крема, окрашенного оксидами железа.',
+      'И главное: гидрохинон менее 1 ppm. Арбутин распадается до гидрохинона, запрещённого в косметике, поэтому бренду, продающему арбутин при 2%, следует проверять на него готовый продукт. Здесь проверяют. Свинец оказался ниже 20 ppm, арсен ниже 10 - это важно для крема, окрашенного оксидами железа.',
   },
 
   clean: {
@@ -818,14 +818,14 @@ const _RU: BlemishBalmCopy = {
       'На коробке стоит знак «пять без добавок», и каждый пункт выдерживает проверку количественной формулой. Консервирование берут на себя каприлилгликоль, глицерил каприлат, каприлгидроксамовая кислота, трополон и гександиол.',
     items: ['Без парабенов', 'Без искусственной отдушки', 'Без минерального масла', 'Без этанола', 'Без феноксиэтанола'],
     note:
-      'Что стоит знать по линейке: это единственное из трёх наших SPF-средств, в котором парфюма нет вовсе. Multi Sun — отдушка 0,25% с пятью заявленными аллергенами, Ultra Shield — 0,5%. Если ваша проблема именно отдушка, это тот тюбик — прочитайте раздел про арбутин выше и всё равно сделайте пробу.',
+      'Что стоит знать по линейке: это единственное из трёх наших SPF-средств, в котором парфюма нет вовсе. Multi Sun - отдушка 0,25% с пятью заявленными аллергенами, Ultra Shield - 0,5%. Если ваша проблема именно отдушка, это тот тюбик - прочитайте раздел про арбутин выше и всё равно сделайте пробу.',
   },
 
   silicone: {
     eyebrow: 'Стоит знать',
     title: 'О силиконах и об одной дате',
     body:
-      'Циклопентасилоксан 3,50% и циклогексасилоксан 2,50% — D5 и D6. Именно из-за них крем с почти 20% минеральных фильтров распределяется как лёгкая база, а не как паста. Европейский закон их сворачивает: регламент (EU) 2024/1328 ограничивает оба до 0,1% в несмываемой косметике с 6 июня 2027 года. Основания экологические, а не про безопасность для кожи: оба отнесены к очень стойким и очень биоаккумулятивным, а несмываемая косметика — крупнейший источник выброса. Там, где продаётся это средство, ограничений нет, и пусть дату вы лучше услышите от нас.',
+      'Циклопентасилоксан 3,50% и циклогексасилоксан 2,50% - D5 и D6. Именно из-за них крем с почти 20% минеральных фильтров распределяется как лёгкая база, а не как паста. Европейский закон их сворачивает: регламент (EU) 2024/1328 ограничивает оба до 0,1% в несмываемой косметике с 6 июня 2027 года. Основания экологические, а не про безопасность для кожи: оба отнесены к очень стойким и очень биоаккумулятивным, а несмываемая косметика - крупнейший источник выброса. Там, где продаётся это средство, ограничений нет, и пусть дату вы лучше услышите от нас.',
   },
 
   limits: {
@@ -842,7 +842,7 @@ const _RU: BlemishBalmCopy = {
 
   honesty: {
     eyebrow: 'О растительных компонентах',
-    title: 'Три из названных ингредиентов — следовые',
+    title: 'Три из названных ингредиентов - следовые',
     body:
       'Старый список ингредиентов начинался с масла листьев эвкалипта, масла семян периллы и экстракта корня щавеля. В количественной формуле производителя первые два стоят на 50 ppm, третий на 10, рядом с листом орегано и парой из бобов и берёзовой коры того же порядка. Они в списке; работает продукт не из-за них. А из-за арбутина, аденозина, аллантоина при 0,1% и фильтров.',
   },
@@ -854,7 +854,7 @@ const _RU: BlemishBalmCopy = {
     steps: [
       {
         title: 'Сначала проба, на линии челюсти',
-        body: 'Два дня на небольшом участке до полного лица — из-за арбутина. Сделайте это до того, как планируете носить его на только что обработанной коже, а не после.',
+        body: 'Два дня на небольшом участке до полного лица - из-за арбутина. Сделайте это до того, как планируете носить его на только что обработанной коже, а не после.',
       },
       {
         title: 'После ухода, и под ничего',
@@ -886,11 +886,11 @@ const _RU: BlemishBalmCopy = {
     title: 'Что говорит сертификат',
     intro: 'Сделано в Корее и выпущено против письменной спецификации, с проверкой и тяжёлых металлов, и продукта распада.',
     rows: [
-      { label: 'pH', value: '7,44 при 25 °C, в пределах спецификации 5,50–7,50 — высоко для ухода, нормально для базы с минеральной загрузкой' },
+      { label: 'pH', value: '7,44 при 25 °C, в пределах спецификации 5,50-7,50 - высоко для ухода, нормально для базы с минеральной загрузкой' },
       { label: 'Наполнение', value: '50,1 г при заявленных 50 г' },
-      { label: 'Чистота', value: 'Ноль КОЕ на мл — и для бактерий, и для плесеней, при допустимых 100' },
-      { label: 'Тяжёлые металлы', value: 'Свинец ниже 20 ppm, арсен ниже 10 — проверены, потому что оттенок даётся оксидами железа' },
-      { label: 'Гидрохинон', value: 'Менее 1 ppm — продукт распада арбутина, искали и не нашли' },
+      { label: 'Чистота', value: 'Ноль КОЕ на мл - и для бактерий, и для плесеней, при допустимых 100' },
+      { label: 'Тяжёлые металлы', value: 'Свинец ниже 20 ppm, арсен ниже 10 - проверены, потому что оттенок даётся оксидами железа' },
+      { label: 'Гидрохинон', value: 'Менее 1 ppm - продукт распада арбутина, искали и не нашли' },
       { label: 'Стабильность', value: 'Пройдено циклирование при 4, 25 и 45 °C' },
       { label: 'Лицензия', value: 'Корейское тройное действие: осветление, уменьшение морщин, защита от УФ' },
     ],
@@ -917,12 +917,12 @@ const _RU: BlemishBalmCopy = {
     title: 'Характеристики',
     rows: [
       { label: 'Объём', value: '50 г' },
-      { label: 'Степень', value: 'SPF30 / PA++ — три фильтра, 19,70% суммарно' },
+      { label: 'Степень', value: 'SPF30 / PA++ - три фильтра, 19,70% суммарно' },
       { label: 'Оттенок', value: 'Один универсальный, из оксидов железа и диоксида титана' },
       { label: 'Активы', value: 'Арбутин 2,00%, аденозин 0,04%, аллантоин 0,10%' },
       { label: 'Без', value: 'Парабенов, искусственной отдушки, минерального масла, этанола, феноксиэтанола' },
       { label: 'Содержит', value: 'Пчелиный воск 2% и силиконы D5 и D6, 6% суммарно' },
-      { label: 'Водостойкость', value: 'Не заявлена — наносите заново после воды или пота' },
+      { label: 'Водостойкость', value: 'Не заявлена - наносите заново после воды или пота' },
       { label: 'Лицензия', value: 'Корейское средство тройного действия' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
     ],
@@ -934,11 +934,11 @@ const _RU: BlemishBalmCopy = {
     items: [
       {
         q: 'Почему это SPF30, если фильтров тут больше, чем в вашем SPF50+?',
-        a: 'Потому что степень зависит от того, какие длины волн закрывают фильтры и насколько они доступны. Здесь 19,7% фильтров против 17,1% у Ultra Shield, но фильтра длинного UVA нет, а диоксид титана выполняет двойную работу как пигмент покрытия — пигмент, распределённый ради плотности, не полностью доступен как защита. Тонирующая база — компромисс, и SPF30 за один шаг — хороший.',
+        a: 'Потому что степень зависит от того, какие длины волн закрывают фильтры и насколько они доступны. Здесь 19,7% фильтров против 17,1% у Ultra Shield, но фильтра длинного UVA нет, а диоксид титана выполняет двойную работу как пигмент покрытия - пигмент, распределённый ради плотности, не полностью доступен как защита. Тонирующая база - компромисс, и SPF30 за один шаг - хороший.',
       },
       {
         q: 'Что это за предупреждение про арбутин?',
-        a: 'Корея требует его на любом средстве с арбутином 2% и выше: в данных испытаний на людях отмечались папулы и легкий зуд. Оно напечатано на коробке. Это не повод избегать средства, а повод сначала два дня подержать пробу на линии челюсти — особенно перед нанесением на кожу, только что прошедшую процедуру.',
+        a: 'Корея требует его на любом средстве с арбутином 2% и выше: в данных испытаний на людях отмечались папулы и легкий зуд. Оно напечатано на коробке. Это не повод избегать средства, а повод сначала два дня подержать пробу на линии челюсти - особенно перед нанесением на кожу, только что прошедшую процедуру.',
       },
       {
         q: 'Сколько оттенков?',
@@ -946,11 +946,11 @@ const _RU: BlemishBalmCopy = {
       },
       {
         q: 'Подойдёт ли для чувствительной кожи?',
-        a: 'По одной оси — лучше всего, что мы продаём в солнцезащите: без отдушки, этанола, феноксиэтанола, парабенов и минерального масла, и всё это проверено по формуле. По другой оси — арбутин 2% с предупреждением выше. Верно и то, и другое одновременно, так что прочитайте оба и сделайте пробу. Это полезнее, чем «да».',
+        a: 'По одной оси - лучше всего, что мы продаём в солнцезащите: без отдушки, этанола, феноксиэтанола, парабенов и минерального масла, и всё это проверено по формуле. По другой оси - арбутин 2% с предупреждением выше. Верно и то, и другое одновременно, так что прочитайте оба и сделайте пробу. Это полезнее, чем «да».',
       },
       {
         q: 'Можно нанести сразу после микронидлинга?',
-        a: 'Спросите клинику — это их решение, не наше, и зависит от глубины и от того, что ещё было на коже. Средство создано для периода после этого окна ожидания, когда краснота ещё видна, а показаться на людях всё равно надо.',
+        a: 'Спросите клинику - это их решение, не наше, и зависит от глубины и от того, что ещё было на коже. Средство создано для периода после этого окна ожидания, когда краснота ещё видна, а показаться на людях всё равно надо.',
       },
       {
         q: 'Он веганский?',

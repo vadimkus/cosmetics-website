@@ -2,7 +2,7 @@
 
 /**
  * Bespoke product page for the HairGen BOOSTER (product 3), the powered device the HR³
- * MATRIX hair system is built around. Shares hr3.css with products 43–47.
+ * MATRIX hair system is built around. Shares hr3.css with products 43-47.
  *
  * A DEVICE PAGE, NOT A COSMETIC ONE. There is no INCI, no formula and no certificate,
  * because it is hardware. The specification does the job the formula table does on the
@@ -11,7 +11,7 @@
  *
  * THE AMBER BLOCK LEADS and it quotes the manufacturer, as on products 44, 46 and 47. The
  * 2021 leaflet is subtitled "Automicroneedling LED Device for Alopecia Treatment" and
- * opens with before/after photographs captioned alopecia areata — an autoimmune disease.
+ * opens with before/after photographs captioned alopecia areata - an autoimmune disease.
  * The page refuses that out loud rather than staying silent, because a buyer who searches
  * the product name will find the leaflet.
  *
@@ -21,7 +21,7 @@
  * other price on the site, and the FAQ answers that quote figures are gated with it.
  *
  * NEEDLE DEPTH HAS ITS OWN SECTION SAYING WE DO NOT KNOW IT. Neither manufacturer
- * document states one. Do not fill it in from the Mesopecia Kit's 0.5 mm — that is the
+ * document states one. Do not fill it in from the Mesopecia Kit's 0.5 mm - that is the
  * roller in that box, a different applicator. See the corrections log entry for 64.
  *
  * MUST NEVER BE ADDED: alopecia in any form, angiogenesis, vasodilation, blood

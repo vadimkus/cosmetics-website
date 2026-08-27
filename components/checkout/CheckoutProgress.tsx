@@ -116,7 +116,7 @@ export default function CheckoutProgress({
                   {completed ? <Check className="h-3 w-3 md:h-3.5 md:w-3.5" /> : index + 1}
                 </span>
                 <span className="truncate">{label}</span>
-                <span className="sr-only">— {status}</span>
+                <span className="sr-only">- {status}</span>
               </span>
             </>
           )

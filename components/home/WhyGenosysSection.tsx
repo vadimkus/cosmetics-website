@@ -18,12 +18,12 @@ const COPY = {
       {
         label: 'Clinical-grade',
         title: 'Used by dermatologists across Korea',
-        body: 'The same formulas applied in Korean dermatology clinics — now available to UAE consumers and professionals.',
+        body: 'The same formulas applied in Korean dermatology clinics - now available to UAE consumers and professionals.',
       },
       {
         label: 'In the UAE since 2019',
         title: 'Official UAE distributor',
-        body: 'Certified by Dubai Municipality and VAT-registered. Every product is sourced directly from GENOSYS Korea — never gray-market.',
+        body: 'Certified by Dubai Municipality and VAT-registered. Every product is sourced directly from GENOSYS Korea - never gray-market.',
       },
       {
         label: 'Seoul, Korea',
@@ -36,22 +36,22 @@ const COPY = {
     eyebrow: 'Почему GENOSYS',
     headline: ['Корейская наука.', 'Сертифицировано в ОАЭ.'],
     support:
-      'GENOSYS — профессиональная корейская дерматокосметика. Мы официальный дистрибьютор в ОАЭ с 2019 года.',
+      'GENOSYS - профессиональная корейская дерматокосметика. Мы официальный дистрибьютор в ОАЭ с 2019 года.',
     cards: [
       {
         label: 'Клинический класс',
         title: 'Применяется дерматологами в Корее',
-        body: 'Те же формулы, что применяются в дерматологических клиниках Кореи — теперь доступны в ОАЭ.',
+        body: 'Те же формулы, что применяются в дерматологических клиниках Кореи - теперь доступны в ОАЭ.',
       },
       {
         label: 'В ОАЭ с 2019',
         title: 'Официальный дистрибьютор в ОАЭ',
-        body: 'Сертифицировано муниципалитетом Дубая, регистрация НДС. Каждый продукт поставляется напрямую от GENOSYS Korea — никакого серого импорта.',
+        body: 'Сертифицировано муниципалитетом Дубая, регистрация НДС. Каждый продукт поставляется напрямую от GENOSYS Korea - никакого серого импорта.',
       },
       {
         label: 'Сеул, Корея',
         title: 'Разработано и произведено в лабораториях GENOSYS',
-        body: 'Каждый продукт производится на собственной фабрике в Сеуле — исследования в области микронидлинга и факторов роста.',
+        body: 'Каждый продукт производится на собственной фабрике в Сеуле - исследования в области микронидлинга и факторов роста.',
       },
     ],
   },
@@ -64,12 +64,12 @@ const COPY = {
       {
         label: 'بجودة عيادية',
         title: 'يستخدمها أطباء الجلدية في كوريا',
-        body: 'نفس التركيبات المستخدمة في عيادات الجلدية الكورية — متاحة الآن للعملاء والمختصين في الإمارات.',
+        body: 'نفس التركيبات المستخدمة في عيادات الجلدية الكورية - متاحة الآن للعملاء والمختصين في الإمارات.',
       },
       {
         label: 'في الإمارات منذ 2019',
         title: 'الموزع الرسمي في الإمارات',
-        body: 'معتمد من بلدية دبي ومسجّل في ضريبة القيمة المضافة. كل منتج مورّد مباشرة من GENOSYS كوريا — وليس من السوق الموازي.',
+        body: 'معتمد من بلدية دبي ومسجّل في ضريبة القيمة المضافة. كل منتج مورّد مباشرة من GENOSYS كوريا - وليس من السوق الموازي.',
       },
       {
         label: 'سيول، كوريا',

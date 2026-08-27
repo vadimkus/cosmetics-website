@@ -4,7 +4,7 @@ import { generateText } from 'ai'
 import { rateLimitSimple, getClientIdentifierFromNextRequest } from '@/lib/rateLimitSimple'
 
 // Hybrid (in-memory + DB) rate limiter so the cap survives serverless cold
-// starts — the previous in-memory Map reset per instance, letting the OpenAI
+// starts - the previous in-memory Map reset per instance, letting the OpenAI
 // call be hammered under load. 10 analyses / hour / IP.
 const aiAnalysisLimiter = rateLimitSimple({ windowMs: 60 * 60 * 1000, max: 10 })
 

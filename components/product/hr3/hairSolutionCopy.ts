@@ -1,7 +1,7 @@
 /**
  * Bespoke copy for HR³ MATRIX HAIR SOLUTION α (product 45), third of the scalp line.
  *
- * SOURCING — signed DTS MG formula, SA EN09_01_01 E3 21 06 00597 Amendment II, COA
+ * SOURCING - signed DTS MG formula, SA EN09_01_01 E3 21 06 00597 Amendment II, COA
  * lot WNL122, both registered artworks, and the DTS MG deck:
  *   Aqua 85.845%, propylene glycol 9.995%, 1,2-hexanediol 2.042%, PEG-40 hydrogenated
  *   castor oil 1.000%, carbomer 0.450%, MENTHOL 0.200%, butylene glycol 0.111%,
@@ -16,7 +16,7 @@
  *   COA: opaque liquid, pH 6.65 (spec 6.00-7.00), viscosity 800 (spec 800-1,600),
  *   specific gravity 1.0101, under 10 cfu/ml against 100, three-year life.
  *   SA: category "Leave-In Conditioner (Hair Care)". Patch test satisfactory, NON
- *   IRRITANT, by QACS Ltd — the assessor adds that the number of volunteers is not
+ *   IRRITANT, by QACS Ltd - the assessor adds that the number of volunteers is not
  *   statistically significant. "Other Tests: None presented." "Literature Data: Not
  *   Applicable." The pregnancy/lactation warning is assessor-recommended because of
  *   the menthol.
@@ -165,7 +165,7 @@ const EN: HairSolutionCopy = {
     'Every other product in this range is smoothed on. This one is rolled or stamped into the scalp, and that changes what matters: the carrier is most of the formula. Propylene glycol at 9.995%, a solubiliser and carbomer at 0.450% make a thin opaque gel that stays where you put it on treated skin instead of running off. Menthol at 0.200% for the cooling, and copper tripeptide-1 at the highest concentration anywhere in the range.',
   heroBullets: [
     'Formulated as a microneedling vehicle, not a leave-on serum',
-    'Copper tripeptide-1 at 5 ppm — five times the hair tonic, five hundred times the shampoo',
+    'Copper tripeptide-1 at 5 ppm - five times the hair tonic, five hundred times the shampoo',
     'The four growth factors on the box total 1.2 parts per million. That is the real number',
     'Single-use 4 ml vials · avoid during pregnancy and lactation',
   ],
@@ -259,7 +259,7 @@ const EN: HairSolutionCopy = {
     intro:
       'Copper tripeptide-1 is named on three cartons in this line. The concentrations are nothing like each other, and an ingredient list will never tell you that. If copper peptide is what you came to this range for, it is worth seeing the three together.',
     rows: [
-      { product: 'Hair Solution α — this one', dose: '5 ppm', note: '0.0005%', here: true },
+      { product: 'Hair Solution α - this one', dose: '5 ppm', note: '0.0005%', here: true },
       { product: 'Hair Tonic α', dose: '1 ppm', note: '0.0001%' },
       { product: 'Medi Scalp Shampoo α', dose: '0.01 ppm', note: '0.000001%' },
     ],
@@ -282,12 +282,12 @@ const EN: HairSolutionCopy = {
     homeSteps: [
       'Push the cap up in the direction of the arrow to remove the cap and the metallic lid.',
       'Fit the applicator to the mouth of the vial.',
-      'Tap vertically with steady, even pressure — do not drag it sideways.',
+      'Tap vertically with steady, even pressure - do not drag it sideways.',
       'Lift one side to detach the applicator, rinse it under running water, then soak the sponge in the disinfecting jar with alcohol and stamp the head into it.',
       'Let it dry, then store it with the cap on.',
     ],
     note:
-      'Use a vial immediately once it is open: there is almost no preservative in it, which is the trade-off for a formula this clean going into needled skin. Keep it away from the eyes. And read the precautions before you buy — the carton says to avoid this product during pregnancy and lactation.',
+      'Use a vial immediately once it is open: there is almost no preservative in it, which is the trade-off for a formula this clean going into needled skin. Keep it away from the eyes. And read the precautions before you buy - the carton says to avoid this product during pregnancy and lactation.',
   },
 
   quality: {
@@ -297,9 +297,9 @@ const EN: HairSolutionCopy = {
       'Made in Korea and released against a written specification. Registered not as a treatment but as a leave-in hair conditioner, which is worth knowing before you read anyone\u2019s marketing.',
     rows: [
       { label: 'Appearance', value: 'Opaque liquid' },
-      { label: 'pH', value: '6.65 at 25 °C, inside a 6.00–7.00 specification' },
-      { label: 'Viscosity', value: '800, at the floor of an 800–1,600 specification' },
-      { label: 'Specific gravity', value: '1.0101, inside 0.9900–1.0300' },
+      { label: 'pH', value: '6.65 at 25 °C, inside a 6.00-7.00 specification' },
+      { label: 'Viscosity', value: '800, at the floor of an 800-1,600 specification' },
+      { label: 'Specific gravity', value: '1.0101, inside 0.9900-1.0300' },
       { label: 'Purity', value: 'Under 10 cfu/ml, against a permitted 100' },
       { label: 'Shelf life', value: 'Three years unopened, with the date on the carton' },
       { label: 'After opening', value: 'Use immediately' },
@@ -307,7 +307,7 @@ const EN: HairSolutionCopy = {
       { label: 'Function', value: 'Nutrition supply and hair conditioning' },
     ],
     patch:
-      'The test on file is a cutaneous irritancy patch test, carried out by an independent laboratory, and it came back non-irritant, which is what supports the "dermatologically tested" line on the carton. The assessor adds a caveat worth passing on: the number of volunteers was not statistically significant. Beyond that, the assessment records "other tests: none presented" and "literature data: not applicable" — so there is no efficacy study behind this product, and we are not going to imply there is one.',
+      'The test on file is a cutaneous irritancy patch test, carried out by an independent laboratory, and it came back non-irritant, which is what supports the "dermatologically tested" line on the carton. The assessor adds a caveat worth passing on: the number of volunteers was not statistically significant. Beyond that, the assessment records "other tests: none presented" and "literature data: not applicable" - so there is no efficacy study behind this product, and we are not going to imply there is one.',
   },
 
   inci: {
@@ -343,10 +343,10 @@ const EN: HairSolutionCopy = {
       { label: 'Function', value: 'Nutrition supply and hair conditioning' },
       { label: 'Vehicle', value: 'Propylene glycol 9.995%, 1,2-hexanediol 2.042%, PEG-40 hydrogenated castor oil 1.000%, carbomer 0.450%' },
       { label: 'At dose', value: 'Menthol 0.200%, niacinamide 0.100%, panthenol 0.100%' },
-      { label: 'Copper tripeptide-1', value: '0.0005% (5 ppm) — the most in the range' },
+      { label: 'Copper tripeptide-1', value: '0.0005% (5 ppm) - the most in the range' },
       { label: 'Growth factors', value: 'sh-Polypeptide-9 and -7 at 0.5 ppm each, sh-Oligopeptide-1 0.15 ppm, sh-Polypeptide-71 0.05 ppm. Total 1.2 ppm' },
       { label: 'Botanicals', value: 'Broccoli 100 ppm, saw palmetto 10 ppm, nine Black Complex extracts at 1 ppm each' },
-      { label: 'pH', value: '6.00–7.00 (6.65 on the batch tested)' },
+      { label: 'pH', value: '6.00-7.00 (6.65 on the batch tested)' },
       { label: 'Testing', value: 'Patch tested, non-irritant. No efficacy study exists' },
       { label: 'Frequency', value: 'Once or twice a week' },
       { label: 'Not for', value: 'Pregnancy and lactation. Not near the eyes' },
@@ -362,7 +362,7 @@ const EN: HairSolutionCopy = {
     items: [
       {
         q: 'Will this regrow my hair?',
-        a: 'No, and anyone telling you a cosmetic ampoule will is selling you something. Outside Korea this is registered as a leave-in hair conditioner and the carton function line reads "nutrition supply and hair conditioning". What it does well is cool and condition a scalp that has just been microneedled, in a vehicle built to stay on treated skin. If you are losing hair, see a doctor — there are actual medicines for this and they work by a mechanism no cosmetic is allowed to claim.',
+        a: 'No, and anyone telling you a cosmetic ampoule will is selling you something. Outside Korea this is registered as a leave-in hair conditioner and the carton function line reads "nutrition supply and hair conditioning". What it does well is cool and condition a scalp that has just been microneedled, in a vehicle built to stay on treated skin. If you are losing hair, see a doctor - there are actual medicines for this and they work by a mechanism no cosmetic is allowed to claim.',
       },
       {
         q: 'So why are the growth factors on the front of the box?',
@@ -374,7 +374,7 @@ const EN: HairSolutionCopy = {
       },
       {
         q: 'Why does a vial have to be used straight away?',
-        a: 'Because there is almost no preservative in it — phenoxyethanol at 30 parts per million, with the 1,2-hexanediol doing most of the work. That is deliberate for something going into needled skin, and the trade-off is that an opened vial does not keep. In clinic you can refrigerate a half-used vial until the next session; at home, finish it.',
+        a: 'Because there is almost no preservative in it - phenoxyethanol at 30 parts per million, with the 1,2-hexanediol doing most of the work. That is deliberate for something going into needled skin, and the trade-off is that an opened vial does not keep. In clinic you can refrigerate a half-used vial until the next session; at home, finish it.',
       },
       {
         q: 'Can I use it while pregnant?',
@@ -382,7 +382,7 @@ const EN: HairSolutionCopy = {
       },
       {
         q: 'How does it differ from the Hair Tonic?',
-        a: 'Different jobs. The tonic is a daily 70 ml leave-on spray with all three of its actives measured on the batch, including salicylic acid at 0.25% — but it carries a real avoid list. This is a weekly ampoule with five times the copper peptide, built to be needled in. Most people who use both do the tonic daily and this once or twice a week. If you can only have one and you are not microneedling, buy the tonic.',
+        a: 'Different jobs. The tonic is a daily 70 ml leave-on spray with all three of its actives measured on the batch, including salicylic acid at 0.25% - but it carries a real avoid list. This is a weekly ampoule with five times the copper peptide, built to be needled in. Most people who use both do the tonic daily and this once or twice a week. If you can only have one and you are not microneedling, buy the tonic.',
       },
       {
         q: 'Is 4 ml or 5 ml in a vial?',
@@ -401,7 +401,7 @@ const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
     'كل منتج آخر في هذه المجموعة يُوزَّع على البشرة. أما هذا فيُدحرج أو يُختم في فروة الرأس، وذلك يغيّر ما يهمّ: فالحامل هو معظم التركيبة. بروبيلين جليكول بنسبة 9.995%، ومُذيب، وكاربومر بنسبة 0.450% تصنع جِلّاً شفّافاً رقيقاً يبقى حيث تضعينه على بشرة معالَجة بدل أن يسيل. ومنثول بنسبة 0.200% للتبريد، وكوبر ترايببتايد-1 بأعلى تركيز في المجموعة كلها.',
   heroBullets: [
     'مصوغ كحامل للإبر الدقيقة، لا كسيروم يُترك',
-    'كوبر ترايببتايد-1 بـ 5 أجزاء من المليون — خمسة أضعاف التونيك، وخمسمئة ضعف الشامبو',
+    'كوبر ترايببتايد-1 بـ 5 أجزاء من المليون - خمسة أضعاف التونيك، وخمسمئة ضعف الشامبو',
     'عوامل النموّ الأربعة على العلبة مجموعها 1.2 جزء من المليون. وهذا هو الرقم الحقيقي',
     'أمبولات 4 مل للاستخدام مرة واحدة · يُتجنّب أثناء الحمل والإرضاع',
   ],
@@ -495,7 +495,7 @@ const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
     intro:
       'الكوبر ترايببتايد-1 مذكور على ثلاث علب في هذه المجموعة. والتراكيز لا تشبه بعضها إطلاقاً، ولن تخبرك قائمة مكوّنات بذلك أبداً. فإن كان الببتيد النحاسي هو ما جاء بك إلى هذه المجموعة، فيستحق أن ترى الثلاثة معاً.',
     rows: [
-      { product: 'محلول الشعر α — هذا', dose: '5 ppm', note: '0.0005%', here: true },
+      { product: 'محلول الشعر α - هذا', dose: '5 ppm', note: '0.0005%', here: true },
       { product: 'تونيك الشعر α', dose: '1 ppm', note: '0.0001%' },
       { product: 'شامبو ميدي للفروة α', dose: '0.01 ppm', note: '0.000001%' },
     ],
@@ -518,12 +518,12 @@ const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
     homeSteps: [
       'ادفعي الغطاء للأعلى باتجاه السهم لإزالة الغطاء والغلاف المعدني.',
       'ثبّتي المُطبّق على فم الأمبولة.',
-      'اطبعي عمودياً بضغط ثابت متساوٍ — ولا تجرّيه جانبياً.',
+      'اطبعي عمودياً بضغط ثابت متساوٍ - ولا تجرّيه جانبياً.',
       'ارفعي جانباً واحداً لفصل المُطبّق، واشطفيه تحت ماء جارٍ، ثم اغمسي الإسفنجة في وعاء التطهير بالكحول واطبعي الرأس فيها.',
       'اتركيه يجفّ ثم احفظيه بالغطاء.',
     ],
     note:
-      'استخدمي الأمبولة فوراً عند فتحها: فلا حافظ فيها تقريباً، وذلك مقابل تركيبة بهذه النقاء تدخل بشرة مُبرّة. وأبعديها عن العينين. واقرئي الاحتياطات قبل الشراء — فالعلبة تقول بتجنّب هذا المنتج أثناء الحمل والإرضاع.',
+      'استخدمي الأمبولة فوراً عند فتحها: فلا حافظ فيها تقريباً، وذلك مقابل تركيبة بهذه النقاء تدخل بشرة مُبرّة. وأبعديها عن العينين. واقرئي الاحتياطات قبل الشراء - فالعلبة تقول بتجنّب هذا المنتج أثناء الحمل والإرضاع.',
   },
 
   quality: {
@@ -533,9 +533,9 @@ const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
       'صُنع في كوريا وأُفرج عنه مقابل مواصفة مكتوبة. ومسجّل ليس كعلاج بل كمكيّف شعر يُترك، وهذا يستحق المعرفة قبل قراءة تسويق أي أحد.',
     rows: [
       { label: 'المظهر', value: 'سائل غير شفّاف' },
-      { label: 'الحموضة', value: '6.65 عند 25 درجة، ضمن مواصفة 6.00–7.00' },
-      { label: 'اللزوجة', value: '800، عند حدّ مواصفة 800–1,600 الأدنى' },
-      { label: 'الكثافة النوعية', value: '1.0101، ضمن 0.9900–1.0300' },
+      { label: 'الحموضة', value: '6.65 عند 25 درجة، ضمن مواصفة 6.00-7.00' },
+      { label: 'اللزوجة', value: '800، عند حدّ مواصفة 800-1,600 الأدنى' },
+      { label: 'الكثافة النوعية', value: '1.0101، ضمن 0.9900-1.0300' },
       { label: 'النقاء', value: 'أقل من 10 وحدات/مل، مقابل 100 مسموحة' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات غير مفتوح، والتاريخ على العلبة' },
       { label: 'بعد الفتح', value: 'يُستخدم فوراً' },
@@ -543,7 +543,7 @@ const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
       { label: 'الوظيفة', value: 'إمداد بالتغذية وتكييف الشعر' },
     ],
     patch:
-      'الاختبار المتوفّر هو اختبار لصقة لتهيّج الجلد، أجراه مختبر مستقل، وعاد غير مهيّج، وهو ما يدعم سطر «مختبر جلدياً» على العلبة. ويضيف المُقيّم تحفّظاً يستحق النقل: عدد المتطوّعين لم يكن ذا دلالة إحصائية. وفيما عدا ذلك يسجّل التقييم «اختبارات أخرى: لا شيء مقدّم» و«بيانات المراجع: غير منطبقة» — فلا دراسة فعالية خلف هذا المنتج، ولن نوحي بوجود واحدة.',
+      'الاختبار المتوفّر هو اختبار لصقة لتهيّج الجلد، أجراه مختبر مستقل، وعاد غير مهيّج، وهو ما يدعم سطر «مختبر جلدياً» على العلبة. ويضيف المُقيّم تحفّظاً يستحق النقل: عدد المتطوّعين لم يكن ذا دلالة إحصائية. وفيما عدا ذلك يسجّل التقييم «اختبارات أخرى: لا شيء مقدّم» و«بيانات المراجع: غير منطبقة» - فلا دراسة فعالية خلف هذا المنتج، ولن نوحي بوجود واحدة.',
   },
 
   inci: {
@@ -579,10 +579,10 @@ const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
       { label: 'الوظيفة', value: 'إمداد بالتغذية وتكييف الشعر' },
       { label: 'الحامل', value: 'بروبيلين جليكول 9.995%، 1,2-هكسانديول 2.042%، PEG-40 زيت خروع مهدرج 1.000%، كاربومر 0.450%' },
       { label: 'بجرعة', value: 'منثول 0.200%، نياسيناميد 0.100%، بانثينول 0.100%' },
-      { label: 'كوبر ترايببتايد-1', value: '0.0005% (5 ppm) — الأعلى في المجموعة' },
+      { label: 'كوبر ترايببتايد-1', value: '0.0005% (5 ppm) - الأعلى في المجموعة' },
       { label: 'عوامل النموّ', value: 'sh-Polypeptide-9 و-7 بـ 0.5 ppm لكل، sh-Oligopeptide-1 0.15 ppm، sh-Polypeptide-71 0.05 ppm. المجموع 1.2 ppm' },
       { label: 'النباتات', value: 'بروكلي 100 ppm، نخيل المنشار 10 ppm، تسعة مستخلصات Black Complex بـ 1 ppm لكل' },
-      { label: 'الحموضة', value: '6.00–7.00 (6.65 على الدفعة المختبرة)' },
+      { label: 'الحموضة', value: '6.00-7.00 (6.65 على الدفعة المختبرة)' },
       { label: 'الاختبار', value: 'اختبار لصقة، غير مهيّج. ولا توجد دراسة فعالية' },
       { label: 'التكرار', value: 'مرة أو مرتين أسبوعياً' },
       { label: 'ليس لأجل', value: 'الحمل والإرضاع. ولا قرب العينين' },
@@ -598,7 +598,7 @@ const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
     items: [
       {
         q: 'هل سيُعيد هذا نموّ شعري؟',
-        a: 'لا، ومن يقول لك إن أمبولة تجميلية ستفعل ذلك فهو يبيعك شيئاً. فخارج كوريا هذا مسجّل كمكيّف شعر يُترك، وسطر الوظيفة على العلبة يقول «إمداد بالتغذية وتكييف الشعر». وما يُحسنه هو تبريد وتكييف فروة عُولجت للتوّ بالإبر الدقيقة، في حامل مبني للبقاء على بشرة معالَجة. وإن كنتِ تفقدين شعراً فراجعي طبيباً — فهناك أدوية فعلية لهذا وتعمل بآلية لا يُسمح لأي مستحضر تجميلي بادّعائها.',
+        a: 'لا، ومن يقول لك إن أمبولة تجميلية ستفعل ذلك فهو يبيعك شيئاً. فخارج كوريا هذا مسجّل كمكيّف شعر يُترك، وسطر الوظيفة على العلبة يقول «إمداد بالتغذية وتكييف الشعر». وما يُحسنه هو تبريد وتكييف فروة عُولجت للتوّ بالإبر الدقيقة، في حامل مبني للبقاء على بشرة معالَجة. وإن كنتِ تفقدين شعراً فراجعي طبيباً - فهناك أدوية فعلية لهذا وتعمل بآلية لا يُسمح لأي مستحضر تجميلي بادّعائها.',
       },
       {
         q: 'فلماذا عوامل النموّ على مقدّمة العلبة؟',
@@ -610,7 +610,7 @@ const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
       },
       {
         q: 'لماذا يجب استخدام الأمبولة فوراً؟',
-        a: 'لأن الحافظ فيها يكاد لا يوجد — فينوكسي إيثانول 30 جزءاً من المليون، والـ 1,2-هكسانديول يقوم بمعظم العمل. وذلك مقصود لشيء يدخل بشرة مُبرّة، ومقابله أن الأمبولة المفتوحة لا تُحفظ. وفي العيادة يمكن تبريد أمبولة نصف مستخدمة حتى الجلسة القادمة؛ وفي المنزل، أكملها.',
+        a: 'لأن الحافظ فيها يكاد لا يوجد - فينوكسي إيثانول 30 جزءاً من المليون، والـ 1,2-هكسانديول يقوم بمعظم العمل. وذلك مقصود لشيء يدخل بشرة مُبرّة، ومقابله أن الأمبولة المفتوحة لا تُحفظ. وفي العيادة يمكن تبريد أمبولة نصف مستخدمة حتى الجلسة القادمة؛ وفي المنزل، أكملها.',
       },
       {
         q: 'أيمكن استخدامه أثناء الحمل؟',
@@ -618,7 +618,7 @@ const LEGACY_HAIR_SOLUTION_AR: HairSolutionCopy = {
       },
       {
         q: 'كيف يختلف عن تونيك الشعر؟',
-        a: 'وظيفتان مختلفتان. فالتونيك بخّاخ يومي 70 مل يُترك، وفعّالاته الثلاثة كلها مقيسة على الدفعة، ومنها حمض ساليسيليك 0.25% — لكنه يحمل قائمة تجنّب حقيقية. وهذا أمبولة أسبوعية بخمسة أضعاف الببتيد النحاسي، مبنية لتُدخَل بالإبر. ومعظم من يستخدم الاثنين يجعل التونيك يومياً وهذا مرة أو مرتين أسبوعياً. وإن كان لك واحد فقط ولستِ تستخدمين الإبر الدقيقة، فاشتري التونيك.',
+        a: 'وظيفتان مختلفتان. فالتونيك بخّاخ يومي 70 مل يُترك، وفعّالاته الثلاثة كلها مقيسة على الدفعة، ومنها حمض ساليسيليك 0.25% - لكنه يحمل قائمة تجنّب حقيقية. وهذا أمبولة أسبوعية بخمسة أضعاف الببتيد النحاسي، مبنية لتُدخَل بالإبر. ومعظم من يستخدم الاثنين يجعل التونيك يومياً وهذا مرة أو مرتين أسبوعياً. وإن كان لك واحد فقط ولستِ تستخدمين الإبر الدقيقة، فاشتري التونيك.',
       },
       {
         q: '4 مل أم 5 مل في الأمبولة؟',
@@ -634,10 +634,10 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
   eyebrow: 'HR³ MATRIX Hair Solution α · 4 мл × 8 ампул',
   headline: 'Тот, что создан вводиться иглами.',
   subheadline:
-    'Всё остальное в этой линии наносится и распределяется. Это — прокатывается роллером или вбивается штампом в кожу головы, и это меняет то, что важно: носитель и есть большая часть формулы. Пропиленгликоль 9,995%, солюбилизатор и карбомер 0,450% дают тонкий непрозрачный гель, который остаётся там, куда его нанесли на обработанную кожу, а не стекает. Ментол 0,200% для охлаждения и медный трипептид-1 в самой высокой концентрации во всей линейке.',
+    'Всё остальное в этой линии наносится и распределяется. Это - прокатывается роллером или вбивается штампом в кожу головы, и это меняет то, что важно: носитель и есть большая часть формулы. Пропиленгликоль 9,995%, солюбилизатор и карбомер 0,450% дают тонкий непрозрачный гель, который остаётся там, куда его нанесли на обработанную кожу, а не стекает. Ментол 0,200% для охлаждения и медный трипептид-1 в самой высокой концентрации во всей линейке.',
   heroBullets: [
     'Составлен как носитель для микронидлинга, а не как несмываемая сыворотка',
-    'Медный трипептид-1 при 5 ppm — в пять раз больше тоника, в пятьсот раз больше шампуня',
+    'Медный трипептид-1 при 5 ppm - в пять раз больше тоника, в пятьсот раз больше шампуня',
     'Четыре фактора роста с коробки в сумме дают 1,2 части на миллион. Это реальная цифра',
     'Одноразовые ампулы 4 мл · избегать при беременности и кормлении',
   ],
@@ -663,7 +663,7 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
     eyebrow: 'Цифра, которую никто не печатает',
     title: 'Четыре фактора роста и их сумма',
     intro:
-      'Факторы роста — причина цены этой ампулы и первое, что написано на коробке. Они действительно присутствуют, действительно рекомбинантные и действительно дорогое сырьё. Вот сколько каждого во флаконе.',
+      'Факторы роста - причина цены этой ампулы и первое, что написано на коробке. Они действительно присутствуют, действительно рекомбинантные и действительно дорогое сырьё. Вот сколько каждого во флаконе.',
     rows: [
       { name: 'sh-Polypeptide-9', alias: 'последовательность VEGF', dose: '0,5 ppm' },
       { name: 'sh-Polypeptide-7', alias: 'последовательность соматотропина', dose: '0,5 ppm' },
@@ -673,7 +673,7 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
     total: '1,2 ppm',
     totalLabel: 'суммарно',
     body:
-      'Одна и одна пятая части на миллион на все четыре. Мы могли бы описать, что каждый пептид делает в лаборатории, и позволить вам предположить, что это происходит на вашей голове; литература самого производителя именно так и делает, причём заходит значительно дальше. Вместо этого: они есть, сырьё настоящее, а доза такая, какая есть. Что эта ампула надёжно делает — охлаждает обработанную кожу головы, кондиционирует её и доставляет вещества в кожу, только что открытую иглой. Это стоит покупать. Механизм при 1,2 ppm — не то, что вы покупаете.',
+      'Одна и одна пятая части на миллион на все четыре. Мы могли бы описать, что каждый пептид делает в лаборатории, и позволить вам предположить, что это происходит на вашей голове; литература самого производителя именно так и делает, причём заходит значительно дальше. Вместо этого: они есть, сырьё настоящее, а доза такая, какая есть. Что эта ампула надёжно делает - охлаждает обработанную кожу головы, кондиционирует её и доставляет вещества в кожу, только что открытую иглой. Это стоит покупать. Механизм при 1,2 ppm - не то, что вы покупаете.',
   },
 
   vehicle: {
@@ -705,22 +705,22 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
       {
         name: 'Niacinamide',
         dose: '0.100%',
-        body: 'Витамин B3 в скромной, но реальной дозе — поддержка барьера кожи головы сразу после процедуры.',
+        body: 'Витамин B3 в скромной, но реальной дозе - поддержка барьера кожи головы сразу после процедуры.',
       },
       {
         name: 'Panthenol',
         dose: '0.100%',
-        body: 'Витамин B5, для удержания влаги и эластичности волоса. Половина концентрации тоника — если пантенол и есть цель, то это другой продукт.',
+        body: 'Витамин B5, для удержания влаги и эластичности волоса. Половина концентрации тоника - если пантенол и есть цель, то это другой продукт.',
       },
       {
         name: 'Экстракт брокколи',
         dose: '0.010%',
-        body: 'При 100 ppm — самый весомый растительный экстракт здесь, в десять раз, и единственный, присутствующий в количестве, которое стоит называть. Антиоксидант с сульфорафаном.',
+        body: 'При 100 ppm - самый весомый растительный экстракт здесь, в десять раз, и единственный, присутствующий в количестве, которое стоит называть. Антиоксидант с сульфорафаном.',
       },
       {
         name: '1,2-Hexanediol',
         dose: '2.042%',
-        body: 'Растворитель, который выполняет и большую часть консервации. Здесь это важно, потому что феноксиэтанола всего 30 ppm — отчасти поэтому ампулу нужно использовать сразу после открытия.',
+        body: 'Растворитель, который выполняет и большую часть консервации. Здесь это важно, потому что феноксиэтанола всего 30 ppm - отчасти поэтому ампулу нужно использовать сразу после открытия.',
       },
     ],
   },
@@ -731,12 +731,12 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
     intro:
       'Медный трипептид-1 назван на трёх коробках этой линии. Концентрации не имеют между собой ничего общего, и список ингредиентов вам этого никогда не скажет. Если вы пришли в эту линию за медным пептидом, стоит увидеть все три рядом.',
     rows: [
-      { product: 'Hair Solution α — этот', dose: '5 ppm', note: '0,0005%', here: true },
+      { product: 'Hair Solution α - этот', dose: '5 ppm', note: '0,0005%', here: true },
       { product: 'Тоник для кожи головы α', dose: '1 ppm', note: '0,0001%' },
       { product: 'MEDI шампунь α', dose: '0,01 ppm', note: '0,000001%' },
     ],
     body:
-      'Пять частей на миллион — по-прежнему скромная доза в абсолютном выражении, и мы не станем приписывать ей механизм. Но это в пять раз больше тоника и в пятьсот раз больше шампуня, и это честная причина считать именно этот продукт тем, где медный пептид что-то делает, а не просто присутствует на этикетке.',
+      'Пять частей на миллион - по-прежнему скромная доза в абсолютном выражении, и мы не станем приписывать ей механизм. Но это в пять раз больше тоника и в пятьсот раз больше шампуня, и это честная причина считать именно этот продукт тем, где медный пептид что-то делает, а не просто присутствует на этикетке.',
   },
 
   howTo: {
@@ -745,33 +745,33 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
     frequency: 'Раз или два в неделю · ампулу использовать сразу после открытия',
     proTitle: 'В клинике, роллером или штампом',
     proSteps: [
-      'Встряхните ампулу перед открытием — этого требует профессиональная коробка и не требует домашняя.',
-      'Разделите зону обработки расчёской. Русская панель производителя даёт интервал, который английская опускает: 1–2 см между проборами.',
-      'Выберите роллер или штамп 0,25–0,5 мм и работайте 10–15 минут.',
-      'Половина ампулы покрывает небольшую зону, целая — большую. Если использовали половину, охладите остаток до следующего сеанса.',
+      'Встряхните ампулу перед открытием - этого требует профессиональная коробка и не требует домашняя.',
+      'Разделите зону обработки расчёской. Русская панель производителя даёт интервал, который английская опускает: 1-2 см между проборами.',
+      'Выберите роллер или штамп 0,25-0,5 мм и работайте 10-15 минут.',
+      'Половина ампулы покрывает небольшую зону, целая - большую. Если использовали половину, охладите остаток до следующего сеанса.',
     ],
     homeTitle: 'Дома, аппликатором',
     homeSteps: [
       'Сдвиньте колпачок вверх по направлению стрелки, чтобы снять колпачок и металлическую крышку.',
       'Установите аппликатор на горлышко ампулы.',
-      'Вбивайте вертикально с ровным постоянным нажимом — не ведите его в сторону.',
+      'Вбивайте вертикально с ровным постоянным нажимом - не ведите его в сторону.',
       'Приподнимите один край, чтобы снять аппликатор, промойте его под струёй воды, затем смочите спонж в дезинфицирующей баночке со спиртом и прижмите к нему рабочую часть.',
       'Дайте высохнуть и храните с надетым колпачком.',
     ],
     note:
-      'Используйте ампулу сразу после открытия: консерванта в ней почти нет, и это плата за настолько чистую формулу, входящую в обработанную иглами кожу. Держите подальше от глаз. И прочтите предостережения до покупки — на коробке указано избегать этого продукта при беременности и кормлении.',
+      'Используйте ампулу сразу после открытия: консерванта в ней почти нет, и это плата за настолько чистую формулу, входящую в обработанную иглами кожу. Держите подальше от глаз. И прочтите предостережения до покупки - на коробке указано избегать этого продукта при беременности и кормлении.',
   },
 
   quality: {
     eyebrow: 'Качество',
     title: 'Что говорит сертификат',
     intro:
-      'Сделано в Корее и выпущено против письменной спецификации. Зарегистрировано не как средство лечения, а как несмываемый кондиционер для волос — это стоит знать, прежде чем читать чей-либо маркетинг.',
+      'Сделано в Корее и выпущено против письменной спецификации. Зарегистрировано не как средство лечения, а как несмываемый кондиционер для волос - это стоит знать, прежде чем читать чей-либо маркетинг.',
     rows: [
       { label: 'Внешний вид', value: 'Непрозрачная жидкость' },
-      { label: 'pH', value: '6,65 при 25 °C, в пределах спецификации 6,00–7,00' },
-      { label: 'Вязкость', value: '800, по нижней границе спецификации 800–1 600' },
-      { label: 'Удельный вес', value: '1,0101, в пределах 0,9900–1,0300' },
+      { label: 'pH', value: '6,65 при 25 °C, в пределах спецификации 6,00-7,00' },
+      { label: 'Вязкость', value: '800, по нижней границе спецификации 800-1 600' },
+      { label: 'Удельный вес', value: '1,0101, в пределах 0,9900-1,0300' },
       { label: 'Чистота', value: 'Менее 10 КОЕ/мл при допустимых 100' },
       { label: 'Срок годности', value: 'Три года невскрытым, дата на коробке' },
       { label: 'После открытия', value: 'Использовать сразу' },
@@ -779,7 +779,7 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
       { label: 'Функция', value: 'Питание и кондиционирование волос' },
     ],
     patch:
-      'Тест в деле — патч-тест на кожное раздражение, проведённый независимой лабораторией, и он вернулся как «не раздражающий», что и подкрепляет строку «дерматологически протестировано» на коробке. Оценщик добавляет оговорку, которую стоит передать: число добровольцев не было статистически значимым. В остальном оценка фиксирует «другие тесты: не представлены» и «литературные данные: не применимо» — то есть исследования эффективности за этим продуктом нет, и мы не будем намекать на обратное.',
+      'Тест в деле - патч-тест на кожное раздражение, проведённый независимой лабораторией, и он вернулся как «не раздражающий», что и подкрепляет строку «дерматологически протестировано» на коробке. Оценщик добавляет оговорку, которую стоит передать: число добровольцев не было статистически значимым. В остальном оценка фиксирует «другие тесты: не представлены» и «литературные данные: не применимо» - то есть исследования эффективности за этим продуктом нет, и мы не будем намекать на обратное.',
   },
 
   inci: {
@@ -815,10 +815,10 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
       { label: 'Функция', value: 'Питание и кондиционирование волос' },
       { label: 'Носитель', value: 'Пропиленгликоль 9,995%, 1,2-гександиол 2,042%, PEG-40 гидрогенизированное касторовое масло 1,000%, карбомер 0,450%' },
       { label: 'В дозе', value: 'Ментол 0,200%, ниацинамид 0,100%, пантенол 0,100%' },
-      { label: 'Медный трипептид-1', value: '0,0005% (5 ppm) — больше всех в линейке' },
+      { label: 'Медный трипептид-1', value: '0,0005% (5 ppm) - больше всех в линейке' },
       { label: 'Факторы роста', value: 'sh-Polypeptide-9 и -7 по 0,5 ppm, sh-Oligopeptide-1 0,15 ppm, sh-Polypeptide-71 0,05 ppm. Всего 1,2 ppm' },
       { label: 'Растительные', value: 'Брокколи 100 ppm, сереноа 10 ppm, девять экстрактов Black Complex по 1 ppm' },
-      { label: 'pH', value: '6,00–7,00 (6,65 в измеренной партии)' },
+      { label: 'pH', value: '6,00-7,00 (6,65 в измеренной партии)' },
       { label: 'Тестирование', value: 'Патч-тест, не раздражающий. Исследования эффективности нет' },
       { label: 'Частота', value: 'Раз или два в неделю' },
       { label: 'Не для', value: 'Беременности и кормления. Не рядом с глазами' },
@@ -834,19 +834,19 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
     items: [
       {
         q: 'Это вернёт мне волосы?',
-        a: 'Нет, и тот, кто говорит, что косметическая ампула это сделает, вам что-то продаёт. За пределами Кореи это зарегистрировано как несмываемый кондиционер для волос, а строка функции на коробке гласит «питание и кондиционирование волос». Что он делает хорошо — охлаждает и кондиционирует кожу головы сразу после микронидлинга, в носителе, созданном держаться на обработанной коже. Если вы теряете волосы, обратитесь к врачу: для этого есть настоящие лекарства, и они работают по механизму, заявлять который косметике не позволено.',
+        a: 'Нет, и тот, кто говорит, что косметическая ампула это сделает, вам что-то продаёт. За пределами Кореи это зарегистрировано как несмываемый кондиционер для волос, а строка функции на коробке гласит «питание и кондиционирование волос». Что он делает хорошо - охлаждает и кондиционирует кожу головы сразу после микронидлинга, в носителе, созданном держаться на обработанной коже. Если вы теряете волосы, обратитесь к врачу: для этого есть настоящие лекарства, и они работают по механизму, заявлять который косметике не позволено.',
       },
       {
         q: 'Тогда почему факторы роста на лицевой стороне коробки?',
-        a: 'Потому что они в ней и потому что они дорогие. Все четыре — настоящие рекомбинантные пептиды. В сумме они дают 1,2 части на миллион, и мы предпочтём сказать это, а не позволить вам додумать. Считайте их частью того, за что вы платите в премиальной ампуле, а не причиной, по которой она работает.',
+        a: 'Потому что они в ней и потому что они дорогие. Все четыре - настоящие рекомбинантные пептиды. В сумме они дают 1,2 части на миллион, и мы предпочтём сказать это, а не позволить вам додумать. Считайте их частью того, за что вы платите в премиальной ампуле, а не причиной, по которой она работает.',
       },
       {
         q: 'Нужен ли прибор для микронидлинга?',
-        a: 'Он для этого и создан, и именно там формула обретает смысл. Домашний набор включает аппликатор, которым вбивают вертикально в кожу головы, плюс щётку для очистки и дезинфицирующую баночку. В клинике это роллер или штамп 0,25–0,5 мм на 10–15 минут. Можно вбить и на нетронутую кожу, но тогда вы платите цену ампулы за кондиционер.',
+        a: 'Он для этого и создан, и именно там формула обретает смысл. Домашний набор включает аппликатор, которым вбивают вертикально в кожу головы, плюс щётку для очистки и дезинфицирующую баночку. В клинике это роллер или штамп 0,25-0,5 мм на 10-15 минут. Можно вбить и на нетронутую кожу, но тогда вы платите цену ампулы за кондиционер.',
       },
       {
         q: 'Почему ампулу нужно использовать сразу?',
-        a: 'Потому что консерванта в ней почти нет — феноксиэтанол 30 частей на миллион, а основную работу делает 1,2-гександиол. Это осознанно для того, что вводится в обработанную иглами кожу, и плата за это — открытая ампула не хранится. В клинике наполовину использованную ампулу можно охладить до следующего сеанса; дома — доиспользуйте.',
+        a: 'Потому что консерванта в ней почти нет - феноксиэтанол 30 частей на миллион, а основную работу делает 1,2-гександиол. Это осознанно для того, что вводится в обработанную иглами кожу, и плата за это - открытая ампула не хранится. В клинике наполовину использованную ампулу можно охладить до следующего сеанса; дома - доиспользуйте.',
       },
       {
         q: 'Можно при беременности?',
@@ -854,11 +854,11 @@ const LEGACY_HAIR_SOLUTION_RU: HairSolutionCopy = {
       },
       {
         q: 'Чем он отличается от тоника?',
-        a: 'Разные задачи. Тоник — ежедневный несмываемый спрей 70 мл, у которого все три актива измерены в партии, включая салициловую кислоту 0,25%, — но он несёт реальный список ограничений. Это недельная ампула с пятикратным медным пептидом, созданная вводиться иглами. Большинство, кто использует оба, делает тоник ежедневно, а это раз или два в неделю. Если можно только одно и вы не занимаетесь микронидлингом, берите тоник.',
+        a: 'Разные задачи. Тоник - ежедневный несмываемый спрей 70 мл, у которого все три актива измерены в партии, включая салициловую кислоту 0,25%, - но он несёт реальный список ограничений. Это недельная ампула с пятикратным медным пептидом, созданная вводиться иглами. Большинство, кто использует оба, делает тоник ежедневно, а это раз или два в неделю. Если можно только одно и вы не занимаетесь микронидлингом, берите тоник.',
       },
       {
         q: '4 мл или 5 мл в ампуле?',
-        a: 'Четыре. Обе зарегистрированные коробки говорят 4 мл × 8 ампул, по-английски и по-русски. Маркетинговая презентация производителя говорит 5 мл, и мы считаем её устаревшей: когда презентация и зарегистрированная коробка расходятся, побеждает коробка. Восемь ампул при одном-двух применениях в неделю — это примерно от месяца до двух.',
+        a: 'Четыре. Обе зарегистрированные коробки говорят 4 мл × 8 ампул, по-английски и по-русски. Маркетинговая презентация производителя говорит 5 мл, и мы считаем её устаревшей: когда презентация и зарегистрированная коробка расходятся, побеждает коробка. Восемь ампул при одном-двух применениях в неделю - это примерно от месяца до двух.',
       },
     ],
   },

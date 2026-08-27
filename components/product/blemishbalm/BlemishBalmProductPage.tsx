@@ -13,7 +13,7 @@
  * redness after a dermatological treatment. So the page opens on the clinic use
  * case rather than on "premium natural coverage cream".
  *
- * Second, it completes an inverted pattern across the three SPF products — 6
+ * Second, it completes an inverted pattern across the three SPF products - 6
  * filters at 17.10% gives SPF50+/PA++++, 4 at 18.50% gives SPF40/PA++, and this
  * one's 3 at 19.70% gives SPF30/PA++. Most filter, lowest grade. The comparison
  * table and the explanation underneath it are the most interesting thing here.

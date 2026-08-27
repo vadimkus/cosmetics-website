@@ -151,7 +151,7 @@ export default function CartClient() {
   const [saleProgress, setSaleProgress] = useState(0)
   const [isSaleActive, setIsSaleActive] = useState(false)
 
-  // Emirates list with shipping costs — single source of truth shared with
+  // Emirates list with shipping costs - single source of truth shared with
   // checkout and the mobile backend (rates drift = display vs charge mismatch)
   const emirates = MOBILE_CHECKOUT_CONFIG.emirates
 
@@ -199,7 +199,7 @@ export default function CartClient() {
       cancelled = true
     }
   }, [user])
-  // Earn basis is products-only (shipping never earns points) — matches
+  // Earn basis is products-only (shipping never earns points) - matches
   // awardPointsForDeliveredOrder in lib/loyalty.ts.
   const earnPreviewPoints = user && loyaltyMultiplier > 0 ? Math.floor(subtotal * loyaltyMultiplier) : 0
   
@@ -222,7 +222,7 @@ export default function CartClient() {
     ? getCartRetailTotal(items, user)
     : subtotal
 
-  // Black Friday countdown timer — only runs while the sale window is active
+  // Black Friday countdown timer - only runs while the sale window is active
   // (isBlackFridaySaleActive gates the UI; no reason to tick every second
   // year-round for an expired campaign).
   useEffect(() => {
@@ -583,7 +583,7 @@ export default function CartClient() {
           <div className="flex flex-col gap-4 lg:w-2/3">
             <div className="cera-card overflow-visible md:overflow-hidden" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
               {isAppLikeMode ? (
-                // Compact inline counter on mobile/PWA — page title is already in the sticky header
+                // Compact inline counter on mobile/PWA - page title is already in the sticky header
                 <div className={`flex items-center gap-2 border-b border-[var(--cera-line)] px-3 py-2.5 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <ShoppingBag className="h-4 w-4 text-[var(--cera-rose)]" aria-hidden="true" />
                   <span className="text-[14px] font-medium text-[var(--cera-body)]">
@@ -799,14 +799,14 @@ export default function CartClient() {
                 </div>
               )}
 
-            {/* Free Mask Promotion — its own block */}
+            {/* Free Mask Promotion - its own block */}
             {user && (
               <div className="cera-card p-4 md:p-6">
                 <FreeMaskPromotion subtotal={subtotal} />
               </div>
             )}
 
-            {/* Free delivery meter — its own block */}
+            {/* Free delivery meter - its own block */}
             {user && (
               <div className={`cera-card p-4 md:p-6 ${dir === 'rtl' ? 'text-right' : ''}`}>
                 <div className={`mb-2 flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -952,7 +952,7 @@ export default function CartClient() {
                       <span className="cera-serif text-[19px] text-[var(--cera-ink)]">{t('cart.total')}</span>
                       {/* Only the figure gets display size. The signed-out
                           string is a sentence, and at 22px serif it crowds the
-                          label it sits beside — worse in Arabic and Russian,
+                          label it sits beside - worse in Arabic and Russian,
                           where it is longer still. */}
                       {user ? (
                         <span className="cera-serif cera-numeral text-[22px] text-[var(--cera-ink)]">
@@ -964,7 +964,7 @@ export default function CartClient() {
                     </div>
                   </div>
 
-                  {/* GENOSYS Rewards — earn preview */}
+                  {/* GENOSYS Rewards - earn preview */}
                   {earnPreviewPoints > 0 && (
                     <div className={`mt-2 flex items-center gap-2 rounded-xl border border-[var(--cera-line)] bg-[var(--cera-cream)] px-3 py-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                       <Award className="h-3.5 w-3.5 shrink-0 text-[var(--cera-rose)]" />

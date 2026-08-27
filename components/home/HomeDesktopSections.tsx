@@ -1,19 +1,19 @@
 'use client'
 
 /**
- * HomeDesktopSections — sections rendered BELOW the hero on the homepage.
+ * HomeDesktopSections - sections rendered BELOW the hero on the homepage.
  *
  * Mobile users are redirected to `/products` by `MobileRedirect` unless they
  * explicitly open `?full=true` from the Home menu. Sections therefore remain
  * responsive so that opt-in full-home experience works at every viewport.
  *
  * Sections (top → bottom):
- *  1. Bestsellers rail        — 4 up, real sales data (units sold, 180d)
- *  2. New arrivals rail       — newest products (≤120d old), aids indexing too
- *  3. Category rail           — 6 categories, image tile grid + product counts
- *  4. Shop-by-concern grid    — 8 concerns + product counts + analysis CTA
- *  5. Why GENOSYS 3-up        — brand credibility
- *  6. Newsletter CTA          — email capture → /api/newsletter/subscribe (live)
+ *  1. Bestsellers rail        - 4 up, real sales data (units sold, 180d)
+ *  2. New arrivals rail       - newest products (≤120d old), aids indexing too
+ *  3. Category rail           - 6 categories, image tile grid + product counts
+ *  4. Shop-by-concern grid    - 8 concerns + product counts + analysis CTA
+ *  5. Why GENOSYS 3-up        - brand credibility
+ *  6. Newsletter CTA          - email capture → /api/newsletter/subscribe (live)
  *
  * Reworked onto the editorial system in Aug 2026. Before that these six
  * sections carried three serif stacks (Georgia inline, Times New Roman inline
@@ -84,7 +84,7 @@ const CATEGORY_DESCRIPTORS: Record<string, { en: string; ar: string; ru: string 
   microneedling: {
     en: 'In-clinic & at-home needling systems',
     ar: 'رولرات الميكرونيدلينغ للعيادة والمنزل',
-    ru: 'Системы микронидлинга — клиника и дом',
+    ru: 'Системы микронидлинга - клиника и дом',
   },
   'pro-solution': {
     en: 'Ampoule concentrates used by dermatologists',
@@ -179,7 +179,7 @@ function formatProductCount(count: number, locale: Locale): string {
 }
 
 function pickFirstImage(product: Product): string {
-  // The main `image` field is the curated hero shot — always prefer it over
+  // The main `image` field is the curated hero shot - always prefer it over
   // the gallery, whose first entry is often an infographic or box shot.
   if (product.image) return product.image
   if (product.images) {
@@ -214,7 +214,7 @@ function RailProductCard({
 }) {
   const imgSrc = pickFirstImage(product)
   const { messages } = useTranslation()
-  // Product names are never translated (brand identity) — English everywhere.
+  // Product names are never translated (brand identity) - English everywhere.
   // Categories ARE translated (they're UI labels, not brand names).
   const name = product.name
   const displayName = formatProductDisplayName(name)
@@ -235,7 +235,7 @@ function RailProductCard({
           className="home-tile__image h-full w-full object-contain"
           quality={80}
         />
-        {/* Badges live on the category line below, never over the image —
+        {/* Badges live on the category line below, never over the image -
             the studio-style product shots must stay clean. */}
       </div>
       <div className={`p-4 ${isRtl ? 'text-right' : ''}`}>
@@ -374,7 +374,7 @@ export default function HomeDesktopSections({
         return (
           productCat === cat.slug ||
           productCat === categoryKey ||
-          // multi-category products like "Cushion BB, Sun, Cream" — substring
+          // multi-category products like "Cushion BB, Sun, Cream" - substring
           productCat.includes(categoryKey)
         )
       })
@@ -386,7 +386,7 @@ export default function HomeDesktopSections({
   return (
     <div className="block" dir={dir} data-home-reveals>
       <HomeScrollReveals />
-      {/* ── 1. Bestsellers rail — driven by real sales data (homeData) ───── */}
+      {/* ── 1. Bestsellers rail - driven by real sales data (homeData) ───── */}
       {featuredProducts.length > 0 && (
         <section className="reveal-on-view home-band home-band--white px-4">
           <div className="mx-auto max-w-[1200px]">
@@ -427,7 +427,7 @@ export default function HomeDesktopSections({
         </section>
       )}
 
-      {/* ── 2. New arrivals rail — newest products, also feeds Google fresh
+      {/* ── 2. New arrivals rail - newest products, also feeds Google fresh
              internal links so new PDPs get crawled and indexed quickly ───── */}
       {newArrivals && newArrivals.length > 0 && (
         <section className="reveal-on-view home-band px-4">
@@ -492,10 +492,10 @@ export default function HomeDesktopSections({
             </h2>
             <p className="mx-auto mt-4 max-w-[56ch] text-[15px] leading-relaxed text-[var(--cera-muted)]">
               {locale === 'ar'
-                ? 'من بروتوكولات العيادة إلى العناية اليومية — مصنوعة في كوريا ومعتمدة في الإمارات'
+                ? 'من بروتوكولات العيادة إلى العناية اليومية - مصنوعة في كوريا ومعتمدة في الإمارات'
                 : locale === 'ru'
-                ? 'От клинических процедур до ежедневного ухода — сделано в Корее, сертифицировано в ОАЭ'
-                : 'From in-clinic treatments to everyday essentials — made in Korea, certified in the UAE.'}
+                ? 'От клинических процедур до ежедневного ухода - сделано в Корее, сертифицировано в ОАЭ'
+                : 'From in-clinic treatments to everyday essentials - made in Korea, certified in the UAE.'}
             </p>
           </div>
 
@@ -611,7 +611,7 @@ export default function HomeDesktopSections({
 
 function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
   const [email, setEmail] = useState('')
-  const [website, setWebsite] = useState('') // honeypot — bots will fill this; real users won't see it
+  const [website, setWebsite] = useState('') // honeypot - bots will fill this; real users won't see it
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'already' | 'error'>('idle')
   const [errorMsg, setErrorMsg] = useState('')
 
@@ -622,10 +622,10 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
     : 'Join the GENOSYS insiders'
 
   const description = locale === 'ar'
-    ? 'بريد إلكتروني واحد شهرياً. أدلة العناية بالبشرة من المتخصصين، الإطلاقات الجديدة، وعروض حصرية للمشتركين — من فريقنا في دبي.'
+    ? 'بريد إلكتروني واحد شهرياً. أدلة العناية بالبشرة من المتخصصين، الإطلاقات الجديدة، وعروض حصرية للمشتركين - من فريقنا في دبي.'
     : locale === 'ru'
-    ? 'Одно письмо в месяц. Советы от специалистов по уходу, новинки и эксклюзивные предложения для подписчиков — от нашей команды в Дубае.'
-    : 'One email a month. Skincare guides written by clinicians, new product launches, and subscriber-only offers — from our Dubai team.'
+    ? 'Одно письмо в месяц. Советы от специалистов по уходу, новинки и эксклюзивные предложения для подписчиков - от нашей команды в Дубае.'
+    : 'One email a month. Skincare guides written by clinicians, new product launches, and subscriber-only offers - from our Dubai team.'
 
   const kicker = locale === 'ar'
     ? 'النشرة البريدية · رسالة واحدة شهرياً'
@@ -663,8 +663,8 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
   const successMsg = locale === 'ar'
     ? 'شكراً لك! تحقق من بريدك الإلكتروني للتأكيد.'
     : locale === 'ru'
-    ? 'Спасибо! Проверьте почту — мы отправили подтверждение.'
-    : 'Thanks — check your inbox for a welcome email.'
+    ? 'Спасибо! Проверьте почту - мы отправили подтверждение.'
+    : 'Thanks - check your inbox for a welcome email.'
 
   const alreadySubscribedMsg = locale === 'ar'
     ? 'أنت مشترك بالفعل. إذا لم تجد رسالة الترحيب، تحقق من البريد غير المرغوب أو العروض الترويجية.'
@@ -784,7 +784,7 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
                     aria-describedby={status === 'error' ? 'home-newsletter-error' : undefined}
                   />
 
-                  {/* Honeypot — hidden from a11y tree; only bots fill it. */}
+                  {/* Honeypot - hidden from a11y tree; only bots fill it. */}
                   <input
                     type="text"
                     name="website"
@@ -855,11 +855,11 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
                 ))}
               </ul>
 
-              {/* Frequency promise — handles the #1 objection */}
+              {/* Frequency promise - handles the #1 objection */}
               <div className="mt-6 border-t border-[var(--cera-line)] pt-5">
                 <p className="text-[12.5px] leading-relaxed text-[var(--cera-muted)]">
                   {locale === 'ar'
-                    ? 'نرسل بريداً إلكترونياً واحداً في الشهر فقط — لا رسائل غير مرغوب فيها، ولا مشاركة بياناتك مع أي طرف ثالث.'
+                    ? 'نرسل بريداً إلكترونياً واحداً في الشهر فقط - لا رسائل غير مرغوب فيها، ولا مشاركة بياناتك مع أي طرف ثالث.'
                     : locale === 'ru'
                     ? 'Только одно письмо в месяц. Без спама. Не передаём ваши данные третьим лицам.'
                     : 'One email a month. No spam. We never share your data with third parties.'}

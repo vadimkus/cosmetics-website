@@ -87,9 +87,9 @@ function formatRelativeTime(dateStr: string | null | undefined): string {
 
 // Helper function to format a date/time stamp in short format
 function formatDateTime(dateStr: string | null | undefined): string {
-  if (!dateStr) return '—'
+  if (!dateStr) return ' - '
   const date = new Date(dateStr)
-  if (isNaN(date.getTime())) return '—'
+  if (isNaN(date.getTime())) return ' - '
   
   const now = new Date()
   const isThisYear = date.getFullYear() === now.getFullYear()

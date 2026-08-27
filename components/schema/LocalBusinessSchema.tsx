@@ -107,7 +107,7 @@ export default function LocalBusinessSchema() {
         }
       ]
     },
-    // NOTE: aggregateRating intentionally removed — Google penalizes fabricated
+    // NOTE: aggregateRating intentionally removed - Google penalizes fabricated
     // ratings without real user reviews. When a real review system is implemented,
     // re-add aggregateRating here with actual data from the database.
     "sameAs": [

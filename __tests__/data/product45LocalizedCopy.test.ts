@@ -58,11 +58,11 @@ describe('product 45 RU/AR localized copy', () => {
   })
 
   it('includes professional/home protocols and pregnancy precautions', () => {
-    expect(combined).toContain('0,25–0,5')
-    expect(combined).toContain('0.25–0.5')
-    expect(combined).toContain('10–15')
-    expect(combined).toContain('1–2 см')
-    expect(combined).toContain('1–2 سم')
+    expect(combined).toContain('0,25-0,5')
+    expect(combined).toContain('0.25-0.5')
+    expect(combined).toContain('10-15')
+    expect(combined).toContain('1-2 см')
+    expect(combined).toContain('1-2 سم')
     expect(combined).toContain('беременности')
     expect(combined).toContain('الحمل')
   })

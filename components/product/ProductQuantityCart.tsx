@@ -107,7 +107,7 @@ export default function ProductQuantityCart({
 
   return (
     <div className="space-y-3 md:space-y-4" dir={dir}>
-      {/* Quantity Selector — hidden once the item is in the cart, because the
+      {/* Quantity Selector - hidden once the item is in the cart, because the
           stepper below then controls the cart quantity directly. */}
       {!isInCart && (
         <div className={`flex items-center gap-3 md:gap-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -140,12 +140,12 @@ export default function ProductQuantityCart({
       <div className={`flex gap-2 md:gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
         {isInCart ? (
           /* In-cart state: [-] [In Cart (N)] [+] stepper that adjusts the cart
-             line directly — same pattern as the product-grid cards and the
+             line directly - same pattern as the product-grid cards and the
              mobile app. */
           <div
             className="flex-1 flex items-center justify-between gap-2 rounded-lg font-medium min-h-[44px] px-1.5 py-1 bg-[var(--status-green-deep)] text-white transition-colors"
             role="group"
-            aria-label={`${useBagText ? t('product.inBag') : t('product.inCart')} (${inCartQty}) — ${productName}`}
+            aria-label={`${useBagText ? t('product.inBag') : t('product.inCart')} (${inCartQty}) - ${productName}`}
           >
             <button
               type="button"

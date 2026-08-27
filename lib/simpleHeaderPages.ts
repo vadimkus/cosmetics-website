@@ -59,7 +59,7 @@ const PRODUCT_DETAIL_PATTERN = /\/products\/[a-zA-Z0-9_-]+$/
  * simple/light header. Site-wide headers should hide on these routes.
  *
  * Accepts a nullable pathname (useRouter().pathname can be null during SSR)
- * and treats null as "not a simple header page" — same behavior the three
+ * and treats null as "not a simple header page" - same behavior the three
  * original components had individually.
  */
 export function isSimpleHeaderPage(pathname: string | null | undefined): boolean {

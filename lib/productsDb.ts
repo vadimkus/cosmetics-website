@@ -121,7 +121,7 @@ const getProductByIdFromDb = unstable_cache(
  * This used to be declared inline in app/products/page.tsx, so only the English route
  * had it: /ar/products and /ru/products rendered the client component with no products
  * and let it fetch /api/products from the browser instead. That cost those two locales a
- * round trip and a visible delay, and it caused a real bug — the client writes the URL
+ * round trip and a visible delay, and it caused a real bug - the client writes the URL
  * from filter state on a 300ms debounce, which fired while the request was still in
  * flight and wiped any ?categories=, ?search=, ?rating= or ?inStock= the visitor
  * arrived with. See filtersInitialisedFromUrlRef in ProductsPageClient.
@@ -138,8 +138,8 @@ export const getProductsListCached = unstable_cache(
 /**
  * Preferred product fetch for page.tsx + generateMetadata + opengraph-image +
  * twitter-image. Composes two cache layers:
- *   1. `unstable_cache` — cross-request ISR with tag revalidation
- *   2. `react.cache()` — intra-request dedup so all four callers share one DB hit
+ *   1. `unstable_cache` - cross-request ISR with tag revalidation
+ *   2. `react.cache()` - intra-request dedup so all four callers share one DB hit
  */
 export const getProductByIdCached = cache(
   async (id: string): Promise<Product | null> => getProductByIdFromDb(id)
@@ -328,7 +328,7 @@ const GENOSYS_PRODUCT_CONCERNS: Record<string, string[]> = {
   'Needle Pen-K': ['anti-aging', 'acne-blemishes', 'page-acne', 'scar-repair'],
   'GENO-LED IR II': ['anti-aging', 'acne-blemishes', 'sensitivity', 'page-acne'],
 
-  // Products without full curated entries — page-specific keys only
+  // Products without full curated entries - page-specific keys only
   'REVITA GLOW BLEMISH BALM CREAM [SPF 38 PA+++]': ['sun-protection', 'brightening', 'hydration', 'anti-aging'],
   'Bio Meso PDRN Ampoule 60000': ['anti-aging', 'hydration', 'brightening', 'page-anti-aging'],
   'SENSITIVE SKIN BEAUTY BOX': ['sensitivity', 'hydration', 'page-sensitivity'],
@@ -364,7 +364,7 @@ const GENOSYS_PRODUCT_SKIN_TYPES: Record<string, string[]> = {
   'PEPTIDE GEL MASK': ['sensitive'],
 }
 
-// Score weights for recommendation ranking — tuned for sharp, focused results
+// Score weights for recommendation ranking - tuned for sharp, focused results
 const SCORE_WEIGHTS = {
   genosysMapping: 40,       // Per matching concern in curated mapping
   exactSkinType: 30,        // Exact skin type match from curated mapping
@@ -550,7 +550,7 @@ export async function getSkinRecommendations(filters: {
     
     debugLog('📋 Enhanced concerns:', enhancedConcerns)
     
-    // Score each product — only generic concern keys participate (page-* keys are excluded)
+    // Score each product - only generic concern keys participate (page-* keys are excluded)
     const scoredProducts: ScoredProduct[] = allProducts.map(product => {
       let score = 0
       const matchedConcerns: string[] = []

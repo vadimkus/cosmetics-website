@@ -3,7 +3,7 @@
  *
  * Previously, verifyAdminAuth fell back to trusting an unsigned
  * `x-admin-email` header (or `admin-email` cookie) when no signed
- * session cookie was present — allowing full admin access with a
+ * session cookie was present - allowing full admin access with a
  * spoofable header. These tests assert that the only accepted
  * credential is a valid HMAC-signed `admin-session` cookie.
  */
@@ -80,7 +80,7 @@ beforeEach(() => {
   )
 })
 
-describe('verifyAdminAuth — legacy bypass removed (SEC-1 regression)', () => {
+describe('verifyAdminAuth - legacy bypass removed (SEC-1 regression)', () => {
   it('rejects a request whose only credential is the x-admin-email header', async () => {
     const request = makeRequest({ headers: { 'x-admin-email': ADMIN_EMAIL } })
 
@@ -88,7 +88,7 @@ describe('verifyAdminAuth — legacy bypass removed (SEC-1 regression)', () => {
 
     expect(result.user).toBeNull()
     expect(result.error).toBeTruthy()
-    // The legacy path looked the user up by the header value — it must not anymore
+    // The legacy path looked the user up by the header value - it must not anymore
     expect(mockFindUserByEmail).not.toHaveBeenCalled()
   })
 

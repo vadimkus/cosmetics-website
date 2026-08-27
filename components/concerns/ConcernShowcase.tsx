@@ -1,10 +1,10 @@
 /**
- * The "Shop by skin concern" showcase — header, eight tiles and the skin
+ * The "Shop by skin concern" showcase - header, eight tiles and the skin
  * analysis call to action.
  *
  * Shared deliberately. This block used to exist twice: the editorial version on
  * the homepage, and a second, older grid on /products that sat outside the
- * editorial shell entirely and so was styled in raw hex — emoji icons, no
+ * editorial shell entirely and so was styled in raw hex - emoji icons, no
  * product counts, no Explore link, no CTA, and long SEO headings in Georgia.
  * Two implementations of one section drift, exactly as the two login forms did.
  *
@@ -44,8 +44,8 @@ export interface SkinConcernCard {
   icon: LucideIcon
   /**
    * Kept on the type because the concern pages read it, but no longer used on
-   * the homepage tile. Eight concerns each carried their own colour — gold,
-   * green, purple, blue, teal, pink — with no rule a reader could infer from
+   * the homepage tile. Eight concerns each carried their own colour - gold,
+   * green, purple, blue, teal, pink - with no rule a reader could infer from
    * them, the same problem /contact had with its six channel tiles. The icon
    * already distinguishes the concerns; the colour was only noise.
    */
@@ -184,7 +184,7 @@ const SECTION_COPY: Record<
     eyebrow: 'Targeted solutions',
     heading: 'Shop by skin concern',
     support:
-      'Pick a concern and we’ll route you to the right products and step-by-step routine — backed by GENOSYS clinical research.',
+      'Pick a concern and we’ll route you to the right products and step-by-step routine - backed by GENOSYS clinical research.',
     explore: 'Explore',
     ctaTitle: 'Not sure where to start?',
     ctaBody: 'Get a personalised routine in under a minute.',

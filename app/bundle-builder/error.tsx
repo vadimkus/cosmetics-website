@@ -27,7 +27,7 @@ export default function BundleBuilderError({
         Something went wrong
       </h2>
       <p className="text-[var(--cera-muted)] text-sm text-center mb-8 max-w-sm">
-        We couldn&apos;t load the Bundle Builder. This is usually temporary — please try again.
+        We couldn&apos;t load the Bundle Builder. This is usually temporary - please try again.
       </p>
 
       <div className="flex flex-col gap-3 w-full max-w-xs">

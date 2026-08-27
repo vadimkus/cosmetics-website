@@ -10,7 +10,7 @@
  * One product card can carry both tiers: the small size is retail, the big
  * size is professional (e.g. Snow O₂ Cleanser 180ml retail / 500ml pro).
  *
- * TO ADJUST THE MAPPING simply edit the three constants below — they are the
+ * TO ADJUST THE MAPPING simply edit the three constants below - they are the
  * single source of truth used by the portal UI and both partner order APIs.
  */
 
@@ -56,7 +56,7 @@ export function isEquipmentCategory(category?: string | null): boolean {
 
 /**
  * Classify one order line (product + optional selected size).
- * Works with any object exposing id/category — server product or client type.
+ * Works with any object exposing id/category - server product or client type.
  */
 export function classifyPartnerLine(
   product: { id: string; category?: string | null },
@@ -78,13 +78,13 @@ export function consignmentBlockReason(
   if (cls === 'retail') return null
   const label = size ? `${product.name || product.id} (${size})` : product.name || product.id
   return cls === 'equipment'
-    ? `${label} is equipment — not available for consignment stock.`
-    : `${label} is a professional product — not available for consignment stock.`
+    ? `${label} is equipment - not available for consignment stock.`
+    : `${label} is a professional product - not available for consignment stock.`
 }
 
 /**
  * Category groups for the partner order screen (web + mirrored in the
- * mobile app's partner-portal screen — keep both in sync when editing).
+ * mobile app's partner-portal screen - keep both in sync when editing).
  * Display order = array order. First matching keyword rule wins.
  */
 export interface PartnerCategoryGroup {
@@ -113,7 +113,7 @@ export const PARTNER_CATEGORY_GROUPS: PartnerCategoryGroup[] = [
   { key: 'other', en: 'Other', ru: 'Другое', ar: 'أخرى' },
 ]
 
-/** Match priority (checked in this order — multi-category strings resolve here). */
+/** Match priority (checked in this order - multi-category strings resolve here). */
 const GROUP_MATCH_RULES: Array<[string, string[]]> = [
   ['devices', ['device']],
   ['pro_solutions', ['pro solution']],

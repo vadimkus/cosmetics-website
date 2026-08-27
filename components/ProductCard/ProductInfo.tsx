@@ -137,7 +137,7 @@ const ProductInfo = memo(function ProductInfo({
         </span>
       </div>
       
-      {/* Description — clamped to 2 lines on all breakpoints (was 4 on mobile, too noisy) */}
+      {/* Description - clamped to 2 lines on all breakpoints (was 4 on mobile, too noisy) */}
       <p 
         id={descriptionId}
         className="product-card__desc text-[var(--color-text-secondary)] text-xs md:text-sm mb-3 md:mb-4 line-clamp-2"

@@ -8,7 +8,7 @@ import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
 export const metadata: Metadata = {
-  title: 'GENOSYS в ОАЭ — доставка по всем эмиратам',
+  title: 'GENOSYS в ОАЭ - доставка по всем эмиратам',
   description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ: Дубай, Абу-Даби, Шарджа, Аджман, Рас-эль-Хайма, Фуджейра и Умм-эль-Кайвайн.',
   keywords: 'GENOSYS ОАЭ, корейская дерматокосметика Дубай, GENOSYS Абу-Даби, GENOSYS Шарджа, доставка дерматокосметики ОАЭ',
   robots: {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'GENOSYS в ОАЭ — доставка по всем эмиратам',
+    title: 'GENOSYS в ОАЭ - доставка по всем эмиратам',
     description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ.',
     type: 'website',
     images: [
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'GENOSYS в ОАЭ — доставка по всем эмиратам',
+    title: 'GENOSYS в ОАЭ - доставка по всем эмиратам',
     description: 'GENOSYS доставляет профессиональную корейскую дерматокосметику во все эмираты ОАЭ.',
     images: ['https://genosys.ae/images/genosys-products.jpg'],
   },

@@ -7,7 +7,7 @@ import type { Product } from '@/types'
  * Product counts for the concern tiles.
  *
  * One implementation, because the homepage and /products render the same
- * showcase and would otherwise print different numbers for the same concern —
+ * showcase and would otherwise print different numbers for the same concern -
  * which is exactly what happened when /products fell back to the hardcoded
  * defaults on the cards.
  *

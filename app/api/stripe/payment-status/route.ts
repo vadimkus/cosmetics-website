@@ -289,7 +289,7 @@ export async function GET(request: NextRequest) {
     // handle it. We atomically claim the pending -> paid transition so that
     // exactly one path marks the order paid AND sends the emails. Previously this
     // route marked the order paid but deferred emails to the webhook; if the poll
-    // won, the webhook then saw the order "already paid" and skipped ALL emails —
+    // won, the webhook then saw the order "already paid" and skipped ALL emails -
     // so neither the customer nor the admin got notified for a paid order.
     const justBecamePaid = paymentStatus === 'paid' && order.paymentStatus !== 'paid'
 

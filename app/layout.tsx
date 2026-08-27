@@ -254,7 +254,7 @@ export default async function RootLayout({
         {/* Browser auto-translation mutates React-owned text nodes and can crash route transitions. */}
         <meta name="google" content="notranslate" />
         {/* Preconnect to external domains for faster resource loading.
-            NOTE: no fonts.googleapis/gstatic preconnect — next/font self-hosts
+            NOTE: no fonts.googleapis/gstatic preconnect - next/font self-hosts
             fonts at build time, so those origins are never fetched at runtime. */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />

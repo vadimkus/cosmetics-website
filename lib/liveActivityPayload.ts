@@ -14,7 +14,7 @@
  * push that APNs accepts with a 200 and that displays nothing at all, because ActivityKit
  * fails to decode and says so to no one.
  *
- * `attributes-type` is likewise `LiveActivityAttributes` — the generic type — and not the
+ * `attributes-type` is likewise `LiveActivityAttributes` - the generic type - and not the
  * name of our layout. `OrderActivity` is the *name* field inside the content state.
  */
 
@@ -32,7 +32,7 @@ export type OrderActivityProps = {
   cancelled?: boolean
   /**
    * The delivery promise, already translated and naming the destination. Absent before
-   * the order is accepted and once it is delivered or cancelled — see `etaFor`.
+   * the order is accepted and once it is delivered or cancelled - see `etaFor`.
    */
   eta?: string
 }
@@ -69,10 +69,10 @@ const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
     awaiting: 'Waiting to be confirmed',
     preparing: 'We are preparing your order',
     onItsWay: 'On its way to you',
-    complete: 'Delivered — thank you',
+    complete: 'Delivered - thank you',
     cancelled: 'This order was cancelled',
-    etaDubai: 'Arriving in {place} within 1–2 hours',
-    etaOther: 'Arriving in {place} within 24–36 hours',
+    etaDubai: 'Arriving in {place} within 1-2 hours',
+    etaOther: 'Arriving in {place} within 24-36 hours',
     orderLabel: 'Order #{orderNumber}',
   },
   ru: {
@@ -83,13 +83,13 @@ const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
     awaiting: 'Ожидает подтверждения',
     preparing: 'Собираем ваш заказ',
     onItsWay: 'В пути к вам',
-    complete: 'Доставлен — спасибо',
+    complete: 'Доставлен - спасибо',
     cancelled: 'Заказ отменён',
     // Russian leads with the place and a colon rather than "в {place}", which would need
     // the accusative: Шарджа becomes Шарджу, Фуджейра becomes Фуджейру. Three of the seven
     // decline, and a format string cannot do grammar.
-    etaDubai: '{place}: доставим за 1–2 часа',
-    etaOther: '{place}: доставим за 24–36 часов',
+    etaDubai: '{place}: доставим за 1-2 часа',
+    etaOther: '{place}: доставим за 24-36 часов',
     orderLabel: 'Заказ №{orderNumber}',
   },
   ar: {
@@ -100,10 +100,10 @@ const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
     awaiting: 'في انتظار التأكيد',
     preparing: 'نُجهّز طلبك',
     onItsWay: 'في طريقه إليك',
-    complete: 'تم التوصيل — شكرًا لك',
+    complete: 'تم التوصيل - شكرًا لك',
     cancelled: 'تم إلغاء هذا الطلب',
-    etaDubai: '{place}: يصل خلال 1–2 ساعة',
-    etaOther: '{place}: يصل خلال 24–36 ساعة',
+    etaDubai: '{place}: يصل خلال 1-2 ساعة',
+    etaOther: '{place}: يصل خلال 24-36 ساعة',
     // No hash and no №: a leading # in right-to-left text lands on the wrong end of the
     // digits. Same rule the order push notifications follow.
     orderLabel: 'الطلب {orderNumber}',
@@ -312,7 +312,7 @@ export type ActivityEvent = 'start' | 'update' | 'end'
  * The full APNs body.
  *
  * `timestamp` is seconds, and ActivityKit uses it to drop updates that arrive out of
- * order — a later push with an earlier timestamp is ignored rather than applied.
+ * order - a later push with an earlier timestamp is ignored rather than applied.
  */
 export function buildActivityPayload(params: {
   event: ActivityEvent

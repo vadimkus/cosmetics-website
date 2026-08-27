@@ -4,7 +4,7 @@ import { partnersData } from '@/lib/partners'
 /**
  * GET /api/mobile/partners
  * Returns all partner locations for the native mobile app.
- * Partners are sourced from lib/partners.ts — add a partner there
+ * Partners are sourced from lib/partners.ts - add a partner there
  * and it automatically appears in the app.
  */
 export async function GET(request: NextRequest) {

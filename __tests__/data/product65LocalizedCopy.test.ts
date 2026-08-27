@@ -84,7 +84,7 @@ describe('product 65 source-grounded RU/AR copy', () => {
       '3 ml',
       '30 секунд',
       '30 ثانية',
-      '10–15',
+      '10-15',
     ]) {
       expect(copy).toContain(value)
     }

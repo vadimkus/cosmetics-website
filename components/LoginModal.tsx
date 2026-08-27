@@ -285,17 +285,17 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
             </div>
           )}
 
-          {/* Value-prop strip for Create Account — keeps the modal clean and
+          {/* Value-prop strip for Create Account - keeps the modal clean and
               brand-led while the user fills the form (no auth shortcuts or
               app-store CTAs to distract them from registering). */}
           {!isLoginMode && (
             <div className={`rounded-lg border border-primary-100 bg-primary-50/60 px-3.5 py-2.5 ${dir === 'rtl' ? 'text-right' : ''}`}>
               <p className="text-[10.5px] font-semibold uppercase tracking-wider text-primary-700">
                 {locale === 'ar'
-                  ? 'إنشاء حساب — دقيقة واحدة'
+                  ? 'إنشاء حساب - دقيقة واحدة'
                   : locale === 'ru'
-                  ? 'Создание аккаунта — 1 минута'
-                  : 'Create account — 1 minute'}
+                  ? 'Создание аккаунта - 1 минута'
+                  : 'Create account - 1 minute'}
               </p>
               <p className="mt-1 text-[11px] md:text-xs text-gray-700 leading-relaxed">
                 {locale === 'ar'
@@ -307,7 +307,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
             </div>
           )}
 
-          {/* Social + app-store buttons — only on Sign In. Create Account is
+          {/* Social + app-store buttons - only on Sign In. Create Account is
               form-only so users commit to one clear path. */}
           {isLoginMode && (
             <>
@@ -689,7 +689,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 {isLoginMode ? t('login.switchToCreate') : t('login.switchToLogin')}
               </button>
             </div>
-            {/* Partner access (clinics & salons) — dedicated login on /login */}
+            {/* Partner access (clinics & salons) - dedicated login on /login */}
             {isLoginMode && (
               <Link
                 href={`${getLocalizedPath('/login', locale)}?partner=1`}
@@ -697,7 +697,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 className={`mt-3 w-full flex items-center justify-center gap-2 bg-gray-900 hover:bg-black text-white py-3 rounded-lg font-bold text-xs uppercase tracking-wide transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
               >
                 <span className="w-2 h-2 rounded-full bg-red-500" />
-                {locale === 'ru' ? 'Вход для партнёров — клиники' : locale === 'ar' ? 'دخول الشركاء — العيادات' : 'Partner Access — Clinics'}
+                {locale === 'ru' ? 'Вход для партнёров - клиники' : locale === 'ar' ? 'دخول الشركاء - العيادات' : 'Partner Access - Clinics'}
               </Link>
             )}
           </div>

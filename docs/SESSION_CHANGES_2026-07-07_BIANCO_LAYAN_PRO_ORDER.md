@@ -51,4 +51,4 @@ No commission contract on this counterparty (same as prior Layan pro orders).
 
 `scripts/moysklad-create-bianco-layan-order-invoice-demand-20260707.js`
 
-No paymentin created (await transfer).
+Paymentin **06130** / **1,320 AED** posted 27 Aug 2026 (RAK `E2E00402608269556961`). SO → **Доставлен**. See `docs/SESSION_CHANGES_2026-08-27_BIANCO_LAYAN_04782_PAY.md`.

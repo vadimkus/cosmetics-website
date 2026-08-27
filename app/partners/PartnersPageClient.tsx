@@ -164,7 +164,7 @@ export default function PartnersPageClient() {
               {labels.subhead}
             </p>
 
-            {/* Stats strip — desktop */}
+            {/* Stats strip - desktop */}
             <dl className="mt-8 hidden md:grid md:grid-cols-3 gap-px overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-[var(--cera-cream-deep)]">
               <div className="bg-white px-6 py-5">
                 <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-[var(--cera-muted)]">
@@ -212,7 +212,7 @@ export default function PartnersPageClient() {
               </div>
             </dl>
 
-            {/* Mobile stats — compact pill row */}
+            {/* Mobile stats - compact pill row */}
             <div className="mt-6 flex flex-wrap gap-2 md:hidden">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--cera-ink)] px-3 py-1 text-[11px] font-semibold text-white">
                 <Sparkles className="h-3 w-3" />
@@ -236,7 +236,7 @@ export default function PartnersPageClient() {
           {/* Partners grid + filters */}
           <PartnersList />
 
-          {/* Become a partner CTA — editorial */}
+          {/* Become a partner CTA - editorial */}
           <section className="relative overflow-hidden rounded-2xl md:rounded-3xl border border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white">
             <div
               aria-hidden

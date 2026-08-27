@@ -141,10 +141,10 @@ export default function CollectionPageSchema({
               ? item.image 
               : `${baseUrl}${item.image}`
           }
-          // Merchant listings require Product.description — never omit it.
+          // Merchant listings require Product.description - never omit it.
           product.description =
             (item.description || '').trim() ||
-            `${item.name} — GENOSYS professional Korean dermacosmetics.`
+            `${item.name} - GENOSYS professional Korean dermacosmetics.`
           listItem.item = product
         }
 

@@ -5,7 +5,7 @@
  *
  * Reworked onto the editorial system in Aug 2026, as a styling pass only. The
  * Stripe flow, the order payload, the address and emirate handling, the free
- * mask lines, the loyalty preview and every total are untouched — same
+ * mask lines, the loyalty preview and every total are untouched - same
  * reasoning as /cart: this page takes money, so the look moved and the
  * arithmetic did not.
  *
@@ -75,7 +75,7 @@ export default function CheckoutClient() {
   const [paymentOrderId, setPaymentOrderId] = useState<string | null>(null)
   const [paymentTotal, setPaymentTotal] = useState<number>(0)
 
-  // GENOSYS Rewards — points redemption + earn preview (retail track only)
+  // GENOSYS Rewards - points redemption + earn preview (retail track only)
   const [loyaltyBalance, setLoyaltyBalance] = useState(0)
   const [loyaltyMultiplier, setLoyaltyMultiplier] = useState(0)
   const [loyaltyTrack, setLoyaltyTrack] = useState<'REWARDS' | 'PARTNER' | null>(null)
@@ -130,7 +130,7 @@ export default function CheckoutClient() {
     })
   }, [])
 
-  // GA4 begin_checkout — fire once when the checkout page has hydrated with items
+  // GA4 begin_checkout - fire once when the checkout page has hydrated with items
   const beginCheckoutFiredRef = useRef(false)
   useEffect(() => {
     if (beginCheckoutFiredRef.current) return
@@ -257,13 +257,13 @@ export default function CheckoutClient() {
     })
   }, [redeemablePoints, blockPoints])
 
-  // Shipping & VAT — single source of truth from mobileCheckoutConfig (matches backend).
+  // Shipping & VAT - single source of truth from mobileCheckoutConfig (matches backend).
   // Shipping threshold uses the pre-redemption subtotal (points never cost free shipping).
   const shippingCost = calculateMobileShipping(subtotal, selectedEmirate)
   const total = Math.round((subtotal + shippingCost - loyaltyDiscount) * 100) / 100 // VAT-inclusive
   const vatAmount = Math.round(calculateVatIncluded(total) * 100) / 100
   // Earn basis is products-only (after points redemption, excluding shipping)
-  // — matches awardPointsForDeliveredOrder in lib/loyalty.ts.
+  // - matches awardPointsForDeliveredOrder in lib/loyalty.ts.
   const earnPreviewPoints = loyaltyMultiplier > 0
     ? Math.floor(Math.max(0, subtotal - loyaltyDiscount) * loyaltyMultiplier)
     : 0
@@ -1092,7 +1092,7 @@ export default function CheckoutClient() {
                       type="button"
                       onClick={() => router.push(getLocalizedPath('/cart', locale))}
                       className={`ed-field !text-[16px] flex min-h-[44px] w-full items-center justify-between transition-colors hover:bg-[var(--cera-cream)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
-                      aria-label={`${t('checkout.deliveryLocation')}: ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : 'Dubai'} — ${t('common.change') || 'Change'}`}
+                      aria-label={`${t('checkout.deliveryLocation')}: ${selectedEmirate ? getEmirateDisplayName(selectedEmirate) : 'Dubai'} - ${t('common.change') || 'Change'}`}
                     >
                       <span className={`flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <MapPin className="h-4 w-4 flex-shrink-0 text-[var(--cera-rose)]" aria-hidden="true" />
@@ -1151,7 +1151,7 @@ export default function CheckoutClient() {
                   />
                 </div>
 
-                {/* Submit Button — hidden on mobile/PWA (replaced by sticky bottom CTA below) */}
+                {/* Submit Button - hidden on mobile/PWA (replaced by sticky bottom CTA below) */}
                 {!isAppLikeMode && (
                   <button
                     type="submit"
@@ -1498,7 +1498,7 @@ export default function CheckoutClient() {
         </div>
       </div>
 
-      {/* Sticky Bottom CTA — mobile + PWA */}
+      {/* Sticky Bottom CTA - mobile + PWA */}
       {isAppLikeMode && !isPaymentSheetOpen && (
         <div
           className="fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur border-t border-[var(--cera-line)]"

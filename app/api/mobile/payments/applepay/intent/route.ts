@@ -47,7 +47,7 @@ interface CheckoutItem {
   selectedSize?: string | undefined
   selectedColor?: string | undefined
   isPromotionItem?: boolean | undefined
-  // Bundle ("Build Your Set") fields — sent by native app per item
+  // Bundle ("Build Your Set") fields - sent by native app per item
   fromBundle?: boolean | undefined
   bundleDiscountPercent?: number | undefined
   originalPrice?: number | undefined
@@ -374,7 +374,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Reuse existing PaymentIntent when possible (avoid creating duplicates).
-    // Only reuse when the amount still matches — a changed redemption or cart
+    // Only reuse when the amount still matches - a changed redemption or cart
     // must never charge a stale amount.
     if (order.stripePaymentIntentId) {
       try {

@@ -3,8 +3,8 @@
 /**
  * Bespoke product page for EPI TURNOVER BOOSTING PEELING GEL (product 12).
  *
- * Shares the editorial design system built for product 66 — the primitives, the
- * gallery and the structural CSS all come from ../cerabarrier — and layers a
+ * Shares the editorial design system built for product 66 - the primitives, the
+ * gallery and the structural CSS all come from ../cerabarrier - and layers a
  * mint/forest palette on top via epi.css, taken from the tube.
  *
  * Section order:

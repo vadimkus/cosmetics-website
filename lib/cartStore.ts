@@ -10,7 +10,7 @@ import {
   safeLocalStorageSetItem,
 } from '@/lib/browserStorage'
 
-// Upper bound per cart line — prevents absurd/scripted quantities from
+// Upper bound per cart line - prevents absurd/scripted quantities from
 // reaching the order APIs (matches the mobile app's cap).
 export const MAX_LINE_QUANTITY = 99
 

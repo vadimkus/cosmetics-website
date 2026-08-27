@@ -1,7 +1,7 @@
 /**
  * Black Friday Sale Utilities
  * Manages Black Friday promotion timing and status
- * Sale period: Starts in 10 hours, runs for 3 days (Nov 26th — Nov 28th equivalent)
+ * Sale period: Starts in 10 hours, runs for 3 days (Nov 26th - Nov 28th equivalent)
  */
 
 /**

@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * Interactive face map — a SECONDARY aid on the skin-concern view.
+ * Interactive face map - a SECONDARY aid on the skin-concern view.
  *
  * REBUILT 17 Aug 2026 after an audit of /products?categories=skin-concern. What was
  * wrong, and what each fix addresses:
@@ -10,8 +10,8 @@
  *     page around it is on the editorial --cera-* palette with a serif display face, so
  *     it read as a different website. Now on cera tokens and cera-serif throughout.
  *
- *  2. IT LED THE PAGE. The concern cards — which carry imagery, descriptions and live
- *     product counts — sat two screens below it. The cards now lead and this sits under
+ *  2. IT LED THE PAGE. The concern cards - which carry imagery, descriptions and live
+ *     product counts - sat two screens below it. The cards now lead and this sits under
  *     them, which is the owner decision of 17 Aug.
  *
  *  3. DESKTOP GAVE NOTHING UNTIL HOVER. The result panel was `md:hidden` while idle, so
@@ -27,7 +27,7 @@
  *     not Tailwind's ping or framer. Both are now gated on useReducedMotion().
  *
  *  6. DUPLICATE NAVIGATION. Its chip list stayed in the DOM on desktop, so the page
- *     carried 16 links to 8 destinations. The chip list is gone — the concern cards
+ *     carried 16 links to 8 destinations. The chip list is gone - the concern cards
  *     directly above are the canonical set.
  *
  *  7. ARBITRARY ANATOMY. One eye had a hotspot, which read as a blemish rather than a
@@ -37,7 +37,7 @@
  *
  *  8. "Hover or tap" ON MOBILE, where hover does not exist. Copy is now device-neutral.
  *
- * The native app has its own face map — do not mirror layout changes there.
+ * The native app has its own face map - do not mirror layout changes there.
  */
 
 import { useId, useMemo, useState } from 'react'
@@ -135,12 +135,12 @@ const COPY = {
   subtitle: {
     en: 'Nine areas, mapped to the same eight concerns as the cards above. Choose one and we will name the protocol for it.',
     ar: 'تسع مناطق، مرتبطة بالمخاوف الثمانية نفسها في البطاقات أعلاه. اختاري واحدة وسنسمّي البروتوكول الخاص بها.',
-    ru: 'Девять зон, связанных с теми же восемью задачами, что и карточки выше. Выберите зону — и мы назовём протокол для неё.',
+    ru: 'Девять зон, связанных с теми же восемью задачами, что и карточки выше. Выберите зону - и мы назовём протокол для неё.',
   },
   resting: {
     en: 'Select an area on the face and the matching concern appears here.',
     ar: 'اختاري منطقة على الوجه وسيظهر هنا ما يناسبها.',
-    ru: 'Выберите зону на лице — и соответствующая задача появится здесь.',
+    ru: 'Выберите зону на лице - и соответствующая задача появится здесь.',
   },
   explore: { en: 'See the protocol', ar: 'اطّلعي على البروتوكول', ru: 'Смотреть протокол' },
   zoneLabel: { en: 'Selected area', ar: 'المنطقة المحددة', ru: 'Выбранная зона' },
@@ -308,7 +308,7 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
                   className="space-y-3"
                 >
                   <p className="cera-eyebrow">
-                    {COPY.zoneLabel[locale]} — <span className="text-[var(--cera-ink)]">{activeZone?.label[locale]}</span>
+                    {COPY.zoneLabel[locale]} - <span className="text-[var(--cera-ink)]">{activeZone?.label[locale]}</span>
                   </p>
                   {activeConcerns.map(concern => {
                     const seo = seoFor(concern)

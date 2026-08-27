@@ -18,14 +18,14 @@ export default function ArabicNotFound() {
   return (
     <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[70vh] items-center justify-center px-4 py-16`} dir="rtl">
       <div className="max-w-2xl w-full text-center">
-        {/* "نهاية الطريق" — رمز ماتريكس للاختيار بين زرّي الإجراء بالأسفل */}
+        {/* "نهاية الطريق" - رمز ماتريكس للاختيار بين زرّي الإجراء بالأسفل */}
         <p className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--cera-muted)]">
           خطأ · 404
         </p>
         <div className="mb-8">
           <Image
             src="/images/Wrong/roadend.png"
-            alt="نهاية الطريق — هنا ينتهي المسار"
+            alt="نهاية الطريق - هنا ينتهي المسار"
             width={1698}
             height={838}
             className="mx-auto w-full max-w-2xl rounded-[20px] border border-[var(--cera-line)] shadow-[0_24px_60px_-40px_rgba(23,20,15,0.5)]"
@@ -71,13 +71,13 @@ export default function ArabicNotFound() {
           </div>
         </div>
 
-        {/* Get the app — App Store + Google Play (RTL) */}
+        {/* Get the app - App Store + Google Play (RTL) */}
         <div className="mt-2 border-t border-[var(--cera-line)] pt-8">
           <h3 className="cera-eyebrow mb-1">
             حمّل تطبيق GENOSYS UAE
           </h3>
           <p className="mb-6 text-sm text-[var(--cera-muted)]">
-            امسح أحد الرموز للتحميل — أو اضغط على شارة المتجر إذا كنت على الجوال.
+            امسح أحد الرموز للتحميل - أو اضغط على شارة المتجر إذا كنت على الجوال.
           </p>
           <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
             {/* App Store */}
@@ -91,7 +91,7 @@ export default function ArabicNotFound() {
               >
                 <Image
                   src="/images/qr-appstore.svg"
-                  alt="رمز QR — Genosys UAE على App Store"
+                  alt="رمز QR - Genosys UAE على App Store"
                   width={140}
                   height={140}
                   className="rounded-lg"
@@ -122,7 +122,7 @@ export default function ArabicNotFound() {
               >
                 <Image
                   src="/images/qr-playstore.svg"
-                  alt="رمز QR — Genosys UAE على Google Play"
+                  alt="رمز QR - Genosys UAE على Google Play"
                   width={140}
                   height={140}
                   className="rounded-lg"

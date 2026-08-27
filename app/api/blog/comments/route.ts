@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Identity comes ONLY from the session cookie — never the request body or
+    // Identity comes ONLY from the session cookie - never the request body or
     // headers. Previously `userEmail` was read from the body, letting a scripted
     // caller post comments as any user by supplying their email.
     void bodyUserEmail

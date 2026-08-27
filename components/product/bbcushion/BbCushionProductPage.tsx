@@ -3,7 +3,7 @@
 /**
  * Bespoke product page for SKIN CARING BLEMISH BALM CUSHION (product 41).
  *
- * Rebuilt on the editorial system every other bespoke page uses — the
+ * Rebuilt on the editorial system every other bespoke page uses - the
  * primitives, the gallery, the closing band and the structural CSS all come
  * from ../cerabarrier, with a camel palette layered on in bbcushion.css. The
  * first version of this page was a 365-line one-column layout that skipped the
@@ -374,7 +374,7 @@ export default function BbCushionProductPage({
             ? copy.added
             : copy.addToBag
 
-  /** The shade picker, rendered in the hero and reused by nothing else — kept
+  /** The shade picker, rendered in the hero and reused by nothing else - kept
    *  inline so the buy column stays readable. */
   const shadePicker = (
     <div ref={shadeGroupRef} className="mt-7 scroll-mt-28">
@@ -809,7 +809,7 @@ export default function BbCushionProductPage({
         />
 
         {/* The manufacturer's guide answers depth and undertone in one picture,
-            which is more use than any wording we could add — but only at a size
+            which is more use than any wording we could add - but only at a size
             where its own type is legible, so it runs wide above the cards. */}
         <CeraReveal className="mx-auto mt-10 max-w-[860px] lg:mt-14">
           <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">

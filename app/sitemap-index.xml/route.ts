@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function GET(_request: NextRequest) {
   try {
     const baseUrl = 'https://genosys.ae'
-    // Stable lastmod — a value that changes on every request makes Google
+    // Stable lastmod - a value that changes on every request makes Google
     // treat the sitemap-index signal as noise. Bump when the sitemap set changes.
     const lastmod = '2026-07-06T00:00:00.000Z'
     

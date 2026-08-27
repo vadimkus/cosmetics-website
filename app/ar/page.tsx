@@ -10,7 +10,7 @@ import { getHomeData, HOME_CATEGORY_SLUGS } from '@/lib/homeData'
 import { ceraSerif } from '@/components/product/cerabarrier/ceraFont'
 import type { Metadata } from 'next'
 
-// Revalidate every 5 minutes — matches `/` so all three locale homepages
+// Revalidate every 5 minutes - matches `/` so all three locale homepages
 // hit the same cached product data.
 export const revalidate = 300
 
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ArabicHome() {
-  // Same cached payload as `/` — featured products + category tile imagery.
+  // Same cached payload as `/` - featured products + category tile imagery.
   const { featured, newArrivals, categoryImages, categoryCounts, concernCounts } = await getHomeData()
 
   return (

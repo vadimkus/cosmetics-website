@@ -100,11 +100,11 @@ interface ActiveIngredient {
  *  re-export; the editorial copy does not repeat it. */
 /* The in-body figures, from the same set as the gallery. The slides they used
    to point at are still on disk under mist/, but two of them carry garbled
-   lettering on the bottle — an artefact of how they were made — which is part
+   lettering on the bottle - an artefact of how they were made - which is part
    of why the set was reshot. */
 const EFFECTS_IMAGE = '/images/mist_0/S8.jpeg' // "Shake. Spray. Over makeup."
 const HOWTO_IMAGE = '/images/mist_0/S7.jpeg' // "Shake. Then spray."
-const ENGINE_IMAGE = '/images/mist_0/S3.jpeg' // "Shea is why you shake." — the slide says it too
+const ENGINE_IMAGE = '/images/mist_0/S3.jpeg' // "Shea is why you shake." - the slide says it too
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

@@ -71,7 +71,7 @@ export default async function FAQPage() {
 
   // NOTE: the FAQPage JSON-LD is emitted once inside FAQClient, built from the
   // actual (visible) DB questions. We intentionally do NOT also render the
-  // hardcoded GeoFaqSchema here — two FAQPage blocks on one URL, and marking up
+  // hardcoded GeoFaqSchema here - two FAQPage blocks on one URL, and marking up
   // questions that aren't visible on the page, both violate Google's rich-result
   // guidelines and risk the markup being ignored.
   return <FAQClient faqItems={faqItems} />

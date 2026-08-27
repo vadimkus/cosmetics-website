@@ -1,6 +1,6 @@
 /**
  * Client-safe display helpers for the "N+ sold" social-proof badge.
- * (The DB query lives in lib/salesStats.ts — server only.)
+ * (The DB query lives in lib/salesStats.ts - server only.)
  */
 
 /** Minimum units before we show the badge (avoid "3+ sold" looking weak). */

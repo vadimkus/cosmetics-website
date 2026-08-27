@@ -45,7 +45,7 @@ interface SubmittedPartnerItem {
  * Mobile (Apple/Android app) partner-order endpoint.
  * Same logic as the cookie-based /api/partners/order, but authenticated with
  * the app's `x-api-key` + `Authorization: Bearer <token>` (no cookies). Ships
- * via Vercel deploy — the app screen that calls it ships via Expo OTA.
+ * via Vercel deploy - the app screen that calls it ships via Expo OTA.
  */
 export async function POST(request: NextRequest) {
   try {
@@ -110,7 +110,7 @@ export async function POST(request: NextRequest) {
       }
       const size = line.size ? String(line.size) : undefined
       const color = line.color ? String(line.color) : undefined
-      // Consignment stock is retail products only — professional sizes,
+      // Consignment stock is retail products only - professional sizes,
       // PRO Solutions and equipment must go on credit/paid orders.
       if (paymentOption === 'consignment') {
         const blocked = consignmentBlockReason(product, size)
@@ -172,7 +172,7 @@ export async function POST(request: NextRequest) {
       : paymentOption === 'credit'
         ? `CREDIT ${creditDays} DAYS (due ${paymentDueDate!.toLocaleDateString('en-GB')})`
         : paymentOption === 'online' ? 'ONLINE CARD PAYMENT' : 'CASH ON DELIVERY'
-    const partnerTag = `PARTNER ORDER — ${user.name || user.email}\nSettlement: ${settlementLabel}`
+    const partnerTag = `PARTNER ORDER - ${user.name || user.email}\nSettlement: ${settlementLabel}`
     const orderNotes = orderNotesInput ? `${partnerTag}\n${orderNotesInput}` : partnerTag
 
     const dbOrder: OrderData = {
@@ -275,7 +275,7 @@ export async function POST(request: NextRequest) {
           vat,
           emirate,
           paymentStatus: total === 0 ? 'PAID' : 'PENDING',
-          paymentMethod: `Partner (App) — ${settlementLabel}`,
+          paymentMethod: `Partner (App) - ${settlementLabel}`,
           discountPercentage: Number(user.discountPercentage || 0) || undefined,
           clinicPointsDiscountAmount: clinicPointsRedeemed || undefined,
         })

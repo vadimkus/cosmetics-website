@@ -24,7 +24,7 @@ interface ProductContentDisplayProps {
  * productDetails keys that must never reach the spec table. `pdfBrochure` is a
  * raw /documents/... path (the brochure is offered via the Product Documentation
  * buttons) and the `perfectCombination*` keys duplicate the localised pairing
- * block rendered by ProductRecommendation — `perfectCombinationId` was leaking a
+ * block rendered by ProductRecommendation - `perfectCombinationId` was leaking a
  * bare product id as a spec row. They are also English-only, so hiding them keeps
  * the Arabic and Russian spec tables consistent with the English one.
  */
@@ -132,7 +132,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
   // The single-paragraph descriptions often end with a full INCI-style dump
   // ("Key ingredients: …"). That list is already presented properly in the
   // Key Ingredients accordion, so strip it from the intro to keep the
-  // description scannable. Only applies when the accordion has data — no
+  // description scannable. Only applies when the accordion has data - no
   // information is ever lost.
   const stripIngredientDump = (text: string): string => {
     if (!ingredients || !(Array.isArray(ingredients) ? ingredients.length > 0 : true)) return text
@@ -671,7 +671,7 @@ export default function ProductContentDisplay({ product }: ProductContentDisplay
           )}
 
           {/* Fallback: If no kit items parsed, show full description
-              (minus the ingredient dump — it lives in the accordion below) */}
+              (minus the ingredient dump - it lives in the accordion below) */}
           {kitItems.length === 0 && sanitizedDescription && (
             <p 
               className="text-[var(--color-text-secondary)] mb-2 lg:mb-4 text-xs lg:text-sm whitespace-pre-line"

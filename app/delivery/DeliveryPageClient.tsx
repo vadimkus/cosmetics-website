@@ -38,14 +38,14 @@ export default function DeliveryPageClient() {
      in three separate blocks, so a change had to be made in three places. */
   const facts = [
     { label: pick('In Dubai', 'في دبي', 'В Дубае'), value: pick('1 hour', 'ساعة واحدة', '1 час') },
-    { label: pick('Across the UAE', 'في الإمارات', 'По ОАЭ'), value: pick('24–36 hr', '24-36 ساعة', '24–36 ч') },
+    { label: pick('Across the UAE', 'في الإمارات', 'По ОАЭ'), value: pick('24-36 hr', '24-36 ساعة', '24-36 ч') },
     { label: pick('Free shipping over', 'شحن مجاني فوق', 'Бесплатно от'), value: 'AED 1,000' },
     { label: pick('Returns window', 'مدة الإرجاع', 'Срок возврата'), value: pick('10 days', '10 أيام', '10 дней') },
   ]
 
   const returns = [
     { term: pick('Window', 'المدة', 'Период'), detail: pick('10 days from delivery', '10 أيام من الاستلام', '10 дней с момента доставки') },
-    { term: pick('Refund', 'الاسترداد', 'Возврат средств'), detail: pick('3–5 days once received', '3-5 أيام بعد الاستلام', '3–5 дней после получения') },
+    { term: pick('Refund', 'الاسترداد', 'Возврат средств'), detail: pick('3-5 days once received', '3-5 أيام بعد الاستلام', '3-5 дней после получения') },
     { term: pick('Condition', 'الحالة', 'Состояние'), detail: pick('Unused, in its original packaging', 'غير مستخدم، بالتغليف الأصلي', 'Не использовано, в оригинальной упаковке') },
     { term: pick('To start', 'للبدء', 'Как начать'), detail: pick('Message us on WhatsApp or email', 'راسلنا على واتساب أو بالبريد', 'Напишите нам в WhatsApp или на почту') },
   ]
@@ -144,7 +144,7 @@ export default function DeliveryPageClient() {
               body: pick(
                 'One hour inside Dubai and 24 to 36 hours to the rest of the Emirates. Orders placed before the afternoon cut-off go out the same day.',
                 'ساعة واحدة داخل دبي و24 إلى 36 ساعة لبقية الإمارات. الطلبات قبل موعد الإغلاق بعد الظهر تخرج في اليوم نفسه.',
-                'Час внутри Дубая и 24–36 часов до остальных эмиратов. Заказы до дневного отсечения уходят в тот же день.',
+                'Час внутри Дубая и 24-36 часов до остальных эмиратов. Заказы до дневного отсечения уходят в тот же день.',
               ),
             },
             {
@@ -201,7 +201,7 @@ export default function DeliveryPageClient() {
               {pick(
                 'Sealed skincare cannot be resold once it is opened, so returns are for unopened product. Tell us what went wrong either way and we will sort it out.',
                 'مستحضرات العناية المختومة لا يمكن إعادة بيعها بعد فتحها، لذا الإرجاع للمنتج غير المفتوح. أخبرنا بما حدث في كل الأحوال وسنجد حلاً.',
-                'Запечатанную косметику нельзя перепродать после вскрытия, поэтому возврат — для невскрытого товара. В любом случае напишите нам, и мы разберёмся.',
+                'Запечатанную косметику нельзя перепродать после вскрытия, поэтому возврат - для невскрытого товара. В любом случае напишите нам, и мы разберёмся.',
               )}
             </p>
           </header>

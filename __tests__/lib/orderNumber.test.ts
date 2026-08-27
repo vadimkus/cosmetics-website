@@ -109,7 +109,7 @@ describe('orderNumber', () => {
     describe('uniqueness', () => {
       it('generates unique order numbers on subsequent calls', async () => {
         // This test used to fail about one run in fifty. The suffix is four digits, so twenty
-        // draws from 10,000 values collide 1.88% of the time by the birthday problem — and the
+        // draws from 10,000 values collide 1.88% of the time by the birthday problem - and the
         // default mock returns null for every lookup, which switches off the retry loop that
         // actually guarantees uniqueness. The assertion was left to the dice.
         //

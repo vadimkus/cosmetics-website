@@ -337,7 +337,7 @@ function HomecareScriptsInner() {
             <div className="grid sm:grid-cols-2 gap-4 mb-5">
               <label className="block">
                 <span className="text-sm font-medium text-[var(--cera-body)]">{t('Patient reference (optional)', 'Метка пациента (необязательно)', 'مرجع المريض (اختياري)')}</span>
-                <input value={patientLabel} onChange={event => setPatientLabel(event.target.value)} maxLength={80} placeholder={t('e.g. Anna — July visit', 'напр. Анна — визит в июле', 'مثال: سارة — زيارة يوليو')} className="mt-1.5 w-full rounded-xl border border-[var(--cera-line)] px-4 py-3 outline-none focus:border-[var(--cera-rose)]" />
+                <input value={patientLabel} onChange={event => setPatientLabel(event.target.value)} maxLength={80} placeholder={t('e.g. Anna - July visit', 'напр. Анна - визит в июле', 'مثال: سارة - زيارة يوليو')} className="mt-1.5 w-full rounded-xl border border-[var(--cera-line)] px-4 py-3 outline-none focus:border-[var(--cera-rose)]" />
               </label>
               <label className="block">
                 <span className="text-sm font-medium text-[var(--cera-body)]">{t('Product-use notes (optional)', 'Инструкции по применению', 'ملاحظات استخدام المنتجات')}</span>

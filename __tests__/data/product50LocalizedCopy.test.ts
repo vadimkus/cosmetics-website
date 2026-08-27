@@ -112,7 +112,7 @@ describe('product 50 RU/AR localized copy', () => {
     expect(text).toContain('под бровями')
     expect(text).toContain('تحت العينين')
     expect(text).toContain('أسفل الحاجبين')
-    expect(text).toContain('20–40')
+    expect(text).toContain('20-40')
     expect(text).toContain('крем')
     expect(text).toContain('الكريم')
     expect(text).toContain('не устанавливает универсальную частоту')

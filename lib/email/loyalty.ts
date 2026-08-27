@@ -1,5 +1,5 @@
 /**
- * GENOSYS Rewards — loyalty program emails.
+ * GENOSYS Rewards - loyalty program emails.
  *
  * - Launch announcement (retail track): personal balance, tier, member number
  * - Partner recognition (professional track): partner status confirmation
@@ -110,7 +110,7 @@ export const sendLoyaltyLaunchEmail = async (data: LoyaltyLaunchEmailData) => {
     </tr>
     <tr>
       <td style="font-family: ${FONT_TEXT}; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: center; padding-bottom: 28px;">
-        Hi ${firstName}, thank you for being part of GENOSYS. From today, every order earns you points — and your history with us already counts.
+        Hi ${firstName}, thank you for being part of GENOSYS. From today, every order earns you points - and your history with us already counts.
       </td>
     </tr>
     <tr>
@@ -130,7 +130,7 @@ export const sendLoyaltyLaunchEmail = async (data: LoyaltyLaunchEmailData) => {
     <tr>
       <td style="font-family: ${FONT_TEXT}; font-size: 15px; line-height: 1.6; color: #1d1d1f; padding-bottom: 20px;">
         <strong>How it works</strong><br/>
-        Earn 1 point for every 1 AED you spend on products (delivery fees don't earn points). 100 points = AED 5 off — and you can redeem them at checkout right now, on the website and in the app.
+        Earn 1 point for every 1 AED you spend on products (delivery fees don't earn points). 100 points = AED 5 off - and you can redeem them at checkout right now, on the website and in the app.
       </td>
     </tr>
     <tr>
@@ -153,7 +153,7 @@ export const sendLoyaltyLaunchEmail = async (data: LoyaltyLaunchEmailData) => {
   `
   return sendEmail(
     data.customerEmail,
-    `Welcome to GENOSYS Rewards — you have ${data.points.toLocaleString('en-US')} points`,
+    `Welcome to GENOSYS Rewards - you have ${data.points.toLocaleString('en-US')} points`,
     emailShell('GENOSYS Rewards', inner, data.locale || 'en'),
   )
 }
@@ -182,7 +182,7 @@ export const sendLoyaltyPartnerLaunchEmail = async (data: LoyaltyPartnerEmailDat
     </tr>
     <tr>
       <td style="font-family: ${FONT_TEXT}; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: center; padding-bottom: 28px;">
-        Hi ${firstName}, today we are launching GENOSYS Rewards for retail customers — and we want to recognize you as one of our Professional Partners.
+        Hi ${firstName}, today we are launching GENOSYS Rewards for retail customers - and we want to recognize you as one of our Professional Partners.
       </td>
     </tr>
     <tr>
@@ -200,7 +200,7 @@ export const sendLoyaltyPartnerLaunchEmail = async (data: LoyaltyPartnerEmailDat
     </tr>
     <tr>
       <td style="font-family: ${FONT_TEXT}; font-size: 15px; line-height: 1.6; color: #1d1d1f; text-align: center; padding-bottom: 32px;">
-        Your partner pricing already goes beyond what the rewards program offers, so your account stays on the professional track — nothing changes for you. Thank you for building with GENOSYS.
+        Your partner pricing already goes beyond what the rewards program offers, so your account stays on the professional track - nothing changes for you. Thank you for building with GENOSYS.
       </td>
     </tr>
     <tr>
@@ -213,7 +213,7 @@ export const sendLoyaltyPartnerLaunchEmail = async (data: LoyaltyPartnerEmailDat
   `
   return sendEmail(
     data.customerEmail,
-    'GENOSYS Professional Partner — your status',
+    'GENOSYS Professional Partner - your status',
     emailShell('GENOSYS Professional Partner', inner, data.locale || 'en'),
   )
 }
@@ -314,7 +314,7 @@ export const sendLoyaltyTierUpgradeEmail = async (data: LoyaltyTierUpgradeEmailD
     </tr>
     <tr>
       <td style="font-family: ${FONT_TEXT}; font-size: 17px; line-height: 1.5; color: #1d1d1f; text-align: center; padding-bottom: 28px;">
-        Congratulations ${firstName} — your loyalty just moved you up to the ${s.label} tier. ${perks[data.tier]}
+        Congratulations ${firstName} - your loyalty just moved you up to the ${s.label} tier. ${perks[data.tier]}
       </td>
     </tr>
     <tr>

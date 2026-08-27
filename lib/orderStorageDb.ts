@@ -70,7 +70,7 @@ export type OrderWithItems = Order & {
 // Read all orders
 // Default cap for the admin "all orders" query. Bounds the worst case as the
 // order table grows (currently a few hundred rows) without changing the UI
-// contract — callers still receive a plain array, newest first. Pass an
+// contract - callers still receive a plain array, newest first. Pass an
 // explicit limit/offset to page through older orders.
 export const READ_ORDERS_DEFAULT_LIMIT = 500
 
@@ -236,7 +236,7 @@ export const updateOrderStatus = async (orderId: string, status: string): Promis
         updatedAt: new Date()
       }
     })
-    // Stamp the first DELIVERED transition — drives the post-delivery
+    // Stamp the first DELIVERED transition - drives the post-delivery
     // review-request email timing. Never moved on re-marking.
     if (status === 'DELIVERED') {
       await prisma.order.updateMany({

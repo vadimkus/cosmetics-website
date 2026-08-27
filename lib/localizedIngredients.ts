@@ -41,7 +41,7 @@ function localisedInciLabel(englishName: string | undefined, locale: string): st
   const qualifier = englishName?.match(/\(([^)]+)\)\s*$/)?.[1]?.trim()
   if (!qualifier) return base
   const translated = INCI_QUALIFIER[lang]?.[qualifier.toLowerCase()] ?? qualifier
-  return `${base} — ${translated}`
+  return `${base} - ${translated}`
 }
 
 /** Matches "Full INCI", "INCI", and the Arabic/Russian labels above. */

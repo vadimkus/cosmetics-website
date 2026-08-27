@@ -1,9 +1,9 @@
 /**
- * UAE emirate list — a single source of truth for <select> dropdowns in
+ * UAE emirate list - a single source of truth for <select> dropdowns in
  * signup / address / checkout forms.
  *
  * Rules:
- *  - `value` is ALWAYS the English name — this is what gets persisted to the
+ *  - `value` is ALWAYS the English name - this is what gets persisted to the
  *    backend and echoed back in orders / shipping labels. Do not translate.
  *  - `label.{en,ar,ru}` is what's shown to the user in the dropdown.
  *

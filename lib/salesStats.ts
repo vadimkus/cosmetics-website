@@ -4,7 +4,7 @@ import { errorLog } from '@/lib/logger'
 
 /**
  * Total units sold for a product across all non-cancelled orders.
- * Powers the "N+ sold" social proof on PDPs — real numbers only, cached 1h.
+ * Powers the "N+ sold" social proof on PDPs - real numbers only, cached 1h.
  */
 export const getUnitsSold = unstable_cache(
   async (productId: string): Promise<number> => {
@@ -23,5 +23,5 @@ export const getUnitsSold = unstable_cache(
   { revalidate: 3600, tags: ['products'] }
 )
 
-// Display helpers live in lib/salesDisplay.ts (client-safe — this module
+// Display helpers live in lib/salesDisplay.ts (client-safe - this module
 // imports prisma and must stay server-only).

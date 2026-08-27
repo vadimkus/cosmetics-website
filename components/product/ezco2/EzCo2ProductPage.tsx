@@ -3,8 +3,8 @@
 /**
  * Bespoke product page for EZ CO₂ MASK KIT (product 38).
  *
- * Shares the editorial design system built for product 66 — the primitives, the
- * gallery and the structural CSS all come from ../cerabarrier — and layers a
+ * Shares the editorial design system built for product 66 - the primitives, the
+ * gallery and the structural CSS all come from ../cerabarrier - and layers a
  * teal palette on top via ezco2.css, taken from the mask sachet.
  *
  * Section order:

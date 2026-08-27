@@ -35,7 +35,7 @@ describe('WhyGenosysSection', () => {
     expect(screen.getByText('Seoul, Korea')).toBeInTheDocument()
     expect(
       screen.getByText(
-        'Certified by Dubai Municipality and VAT-registered. Every product is sourced directly from GENOSYS Korea — never gray-market.'
+        'Certified by Dubai Municipality and VAT-registered. Every product is sourced directly from GENOSYS Korea - never gray-market.'
       )
     ).toBeInTheDocument()
   })

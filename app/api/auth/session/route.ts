@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ user: null })
     }
 
-    // Track web user activity (throttled — updates DB at most once per minute)
+    // Track web user activity (throttled - updates DB at most once per minute)
     // This serves as a heartbeat since UserRefreshWrapper calls this endpoint periodically
     trackUserActivity(user.id)
 

@@ -6,7 +6,7 @@ import { buildUrl } from '@/lib/siteConfig'
  *
  * File-based opengraph-image.tsx / twitter-image.tsx routes import these so
  * every locale and content type shares one branded design instead of falling
- * back to the generic site logo. Pure render helpers — no runtime side effects.
+ * back to the generic site logo. Pure render helpers - no runtime side effects.
  */
 
 export const OG_SIZE = { width: 1200, height: 630 }
@@ -14,7 +14,7 @@ export const TWITTER_SIZE = { width: 1200, height: 600 }
 export const OG_CONTENT_TYPE = 'image/png'
 
 // ImageResponse sets its own Cache-Control that overrides route segment
-// config (`export const revalidate`), leaving dynamic cards at max-age=0 —
+// config (`export const revalidate`), leaving dynamic cards at max-age=0 -
 // every crawler fetch was a 1-4s cold render and WhatsApp's short preview
 // timeout intermittently dropped the image. Explicit headers let the Vercel
 // CDN cache the PNG (s-maxage) while deploys still bust the URL via the
@@ -26,7 +26,7 @@ const CACHE_HEADERS = {
 type OgLocale = 'en' | 'ar' | 'ru'
 
 // NOTE: ImageResponse's default bundled font (Noto Sans) only covers Latin
-// glyphs — Arabic/Cyrillic text renders as tofu boxes. Product names are
+// glyphs - Arabic/Cyrillic text renders as tofu boxes. Product names are
 // stored in English, so all locale cards use English labels until we bundle
 // Noto Sans Arabic/Cyrillic subsets and pass them via the `fonts` option.
 const FREE_SHIPPING_LABEL: Record<OgLocale, string> = {

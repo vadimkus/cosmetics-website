@@ -186,13 +186,13 @@ export default function LocationsPageClient() {
               </h1>
               <p className={`mt-4 max-w-2xl text-base md:text-lg leading-relaxed text-[var(--cera-body)] ${isRTL ? 'text-right' : ''}`}>
                 {locale === 'ar'
-                  ? 'التوصيل إلى جميع الإمارات السبع — من مكتبينا في دبي ورأس الخيمة، عبر Careem و Quiqup.'
+                  ? 'التوصيل إلى جميع الإمارات السبع - من مكتبينا في دبي ورأس الخيمة، عبر Careem و Quiqup.'
                   : locale === 'ru'
-                    ? 'Доставка во все 7 эмиратов ОАЭ — из наших офисов в Дубае и Рас-эль-Хайме, через Careem и Quiqup.'
-                    : 'Delivering to all 7 UAE emirates — from our Dubai and Ras Al Khaimah offices, via Careem and Quiqup.'}
+                    ? 'Доставка во все 7 эмиратов ОАЭ - из наших офисов в Дубае и Рас-эль-Хайме, через Careem и Quiqup.'
+                    : 'Delivering to all 7 UAE emirates - from our Dubai and Ras Al Khaimah offices, via Careem and Quiqup.'}
               </p>
 
-              {/* Stats strip — mirrors About / FAQ */}
+              {/* Stats strip - mirrors About / FAQ */}
               <dl className="mt-8 hidden md:grid md:grid-cols-3 gap-px overflow-hidden rounded-2xl border border-[var(--cera-line)] bg-[var(--cera-cream-deep)]">
                 <div className="bg-white px-6 py-5">
                   <dt className="flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.2em] text-[var(--cera-muted)]">
@@ -207,7 +207,7 @@ export default function LocationsPageClient() {
                     {locale === 'ar' ? 'أسرع توصيل' : locale === 'ru' ? 'самая быстрая доставка' : 'fastest delivery'}
                   </dt>
                   <dd className="mt-2 flex items-baseline gap-2 text-3xl font-semibold tracking-tight text-[var(--cera-ink)]">
-                    <span>1–2h</span>
+                    <span>1-2h</span>
                     <span className="text-sm font-medium text-[var(--cera-muted)]">{locale === 'ar' ? 'دبي' : locale === 'ru' ? 'Дубай' : 'Dubai'}</span>
                   </dd>
                 </div>
@@ -257,7 +257,7 @@ export default function LocationsPageClient() {
             ))}
           </div>
 
-          {/* Free-shipping CTA — editorial dark panel, matching About / Delivery
+          {/* Free-shipping CTA - editorial dark panel, matching About / Delivery
               / Contact / FAQ (replaces the old pink-gradient block). */}
           <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-ink)] text-white">
             <span aria-hidden className="pointer-events-none absolute -top-32 -left-20 h-72 w-72 rounded-full bg-[var(--cera-ink)]/25 blur-3xl" />

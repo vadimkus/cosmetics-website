@@ -28,7 +28,7 @@ export const getAnalyticsData = async (days: number | null = 30) => {
       by: ['ipAddress'],
       where: { ...(startDate ? { timestamp: { gte: startDate } } : {}) }
     }).then(result => result.length),
-    // Orders placed: everything except cancelled — matches the ux-metrics
+    // Orders placed: everything except cancelled - matches the ux-metrics
     // endpoint so the two admin cards describe the same population.
     prisma.order.count({
       where: { 
@@ -36,7 +36,7 @@ export const getAnalyticsData = async (days: number | null = 30) => {
         status: { not: 'CANCELLED' }
       }
     }),
-    // Revenue: money actually collected — card orders are paid up-front
+    // Revenue: money actually collected - card orders are paid up-front
     // (paymentStatus 'paid'), COD is collected on delivery (status DELIVERED).
     // Previously both metrics counted DELIVERED only, which zeroed out every
     // paid-but-not-yet-delivered card order.

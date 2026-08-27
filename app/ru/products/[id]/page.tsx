@@ -97,7 +97,7 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
       type: 'website',
       url: productUrl,
       siteName: 'GENOSYS',
-      // og:image intentionally omitted — file-based opengraph-image.tsx
+      // og:image intentionally omitted - file-based opengraph-image.tsx
       // renders the branded localized 1200x630 product card instead.
       locale: 'ru_RU',
       countryName: 'United Arab Emirates',

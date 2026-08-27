@@ -69,7 +69,7 @@ export async function GET(request: NextRequest) {
       .filter(Boolean)
       .sort((a, b) => a.localeCompare(b))
     
-    // Category New badges — single source of truth in lib/productBadges.ts
+    // Category New badges - single source of truth in lib/productBadges.ts
     const categoriesWithBadges = categories.map(cat => ({
       name: cat,
       badge: isNewCategoryDisplayName(cat) ? 'new' as const : null

@@ -187,7 +187,7 @@ export default function AdminPage() {
   }, [isAuthenticated])
 
   // Helper function to get admin auth headers with CSRF.
-  // Auth itself rides on the httpOnly admin-session cookie — no headers needed.
+  // Auth itself rides on the httpOnly admin-session cookie - no headers needed.
   const getAdminHeaders = useCallback((additionalHeaders: Record<string, string> = {}): HeadersInit => {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
@@ -598,7 +598,7 @@ export default function AdminPage() {
       localStorage.removeItem('admin_session')
     }
 
-    // Expire the httpOnly admin-session cookie server-side — without this
+    // Expire the httpOnly admin-session cookie server-side - without this
     // the cookie stays valid for up to 24h after "logout"
     fetch('/api/auth/admin-logout', { method: 'POST' }).catch(() => {
       /* cookie will still expire naturally after 24h */

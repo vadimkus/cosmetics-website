@@ -163,7 +163,7 @@ export const findUserByEmail = async (email: string, maxRetries = 2): Promise<Us
           })
           if (insensitive) return sanitizeUserDiscount(insensitive)
         } catch {
-          // Some Prisma providers/versions might not support mode: 'insensitive' — fall through.
+          // Some Prisma providers/versions might not support mode: 'insensitive' - fall through.
         }
 
         // 3) Raw SQL fallback (Postgres)
@@ -184,7 +184,7 @@ export const findUserByEmail = async (email: string, maxRetries = 2): Promise<Us
     } catch (error) {
       const isTimeout = error instanceof Error && error.message === 'Database query timeout'
       if (isTimeout && attempt < maxRetries) {
-        // Neon cold start — wait briefly and retry
+        // Neon cold start - wait briefly and retry
         debugLog(`⏳ Database query timed out for ${email}, retrying (attempt ${attempt + 1}/${maxRetries})...`)
         await new Promise(resolve => setTimeout(resolve, 2000))
         continue
@@ -420,7 +420,7 @@ export const anonymizeUser = async (userId: string): Promise<boolean> => {
         tokenVersion: { increment: 1 },
       }
     })
-    // Erasure must cover related PII too — saved addresses (name, phone,
+    // Erasure must cover related PII too - saved addresses (name, phone,
     // street address) and PWA push subscriptions belong to the person.
     await prisma.address.deleteMany({ where: { userId } })
     await prisma.pushSubscription.deleteMany({ where: { userId } })

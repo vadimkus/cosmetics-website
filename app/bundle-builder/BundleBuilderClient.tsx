@@ -44,7 +44,7 @@ function StepIndicator({
   return (
     // The scroll container centres its content with `w-max mx-auto` on the inner row rather
     // than `justify-center` on the scroller itself. Centring content that overflows leaves
-    // the first steps unreachable — the overflow spills both ways and browsers will not
+    // the first steps unreachable - the overflow spills both ways and browsers will not
     // scroll back past the start edge. This keeps the row centred while it fits and lets it
     // scroll from the first step once it does not.
     <div className="overflow-x-auto py-2 px-4 -mx-4 scrollbar-hide">
@@ -211,9 +211,9 @@ function BundleProductCard({
         </div>
       )}
       
-      {/* No VIP discount badge in bundle builder — only bundle discount applies at checkout */}
+      {/* No VIP discount badge in bundle builder - only bundle discount applies at checkout */}
       
-      {/* Product Image — same presentation as the products-page card: white
+      {/* Product Image - same presentation as the products-page card: white
           square frame, photo edge-to-edge. object-cover center-crops the
           956×662 landscape studio shots to fill the tile (verified safe:
           products are centered), so no white letterbox bands appear. */}
@@ -247,7 +247,7 @@ function BundleProductCard({
         <div className="mt-2">
           {showPrices ? (
             <div className="flex flex-col">
-              {/* Bundle builder: show retail price only — no VIP discount */}
+              {/* Bundle builder: show retail price only - no VIP discount */}
               {(
                 <span className="text-base font-semibold text-[var(--cera-ink)]">
                   {getBundleRetailPrice(product).toFixed(2)} {t('common.aed')}
@@ -393,7 +393,7 @@ function BundleSummary({
       {showPrices ? (
         <div className="border-t border-[var(--cera-line)] pt-4 space-y-2">
           {(() => {
-            // Bundle builder: no VIP discount — only bundle tier discount on retail price
+            // Bundle builder: no VIP discount - only bundle tier discount on retail price
             const totalSavings = pricing.subtotal - pricing.total
             
             return (
@@ -412,7 +412,7 @@ function BundleSummary({
                   </div>
                 )}
                 
-                {/* Discount row — label follows the discount that actually won (bundle vs VIP) */}
+                {/* Discount row - label follows the discount that actually won (bundle vs VIP) */}
                 {pricing.discountPercent > 0 && (
                   <div className="flex justify-between text-sm">
                     <span className="text-green-700">
@@ -650,7 +650,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
   // Selected product IDs across ALL steps. Must be global, not per-step:
   // multi-category products (e.g. cushions tagged "Cushion BB, Sun, Cream")
   // appear in more than one step, and addItem() toggles by product id
-  // globally — a per-step indicator made the same product look unselected
+  // globally - a per-step indicator made the same product look unselected
   // in the sibling step, where "Add to Set" would silently REMOVE it.
   const selectedProductIds = useMemo(() => {
     return items.map(i => i.product.id)
@@ -897,7 +897,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 {t('bundleBuilder.previous')}
               </button>
               
-              {/* Skip Button (any step without items — steps are recommendations, not gates) */}
+              {/* Skip Button (any step without items - steps are recommendations, not gates) */}
               {!hasItemForStep(currentStepData?.id || '') && (
                 <button
                   onClick={handleNextStep}
@@ -1015,7 +1015,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               {t('bundleBuilder.previous')}
             </button>
             
-            {/* Skip (any step without items — steps are recommendations, not gates) */}
+            {/* Skip (any step without items - steps are recommendations, not gates) */}
             {!hasItemForStep(currentStepData?.id || '') && currentStep < ROUTINE_STEPS.length - 1 && (
               <button
                 onClick={handleNextStep}
@@ -1316,7 +1316,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   </div>
                 )}
                 
-                {/* Price — retail only in bundle builder (no VIP discount) */}
+                {/* Price - retail only in bundle builder (no VIP discount) */}
                 <div className="mb-4">
                   {showPrices ? (
                     <div className="flex flex-col">

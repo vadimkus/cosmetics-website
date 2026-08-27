@@ -221,7 +221,7 @@ export async function GET(request: NextRequest) {
         descriptionAr: true,
         image: true,
         images: true,
-        videoUrl: true, // Product video (e.g., /videos/bio.mp4) — dynamic, no app update needed
+        videoUrl: true, // Product video (e.g., /videos/bio.mp4) - dynamic, no app update needed
         category: true,
         inStock: true,
         rating: true,

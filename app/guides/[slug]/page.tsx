@@ -50,7 +50,7 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
       url,
       siteName: 'GENOSYS',
       locale: 'en_AE',
-      // og:image intentionally omitted — file-based opengraph-image.tsx
+      // og:image intentionally omitted - file-based opengraph-image.tsx
       // renders a per-guide branded title card instead of the shared stock photo.
     },
     twitter: {

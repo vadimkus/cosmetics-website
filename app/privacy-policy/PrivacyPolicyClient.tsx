@@ -156,7 +156,7 @@ export default function PrivacyPolicyClient() {
     s7Text: locale === 'ar'
       ? 'نحن لا نخزّن بيانات بطاقتك المصرفية. جميع المدفوعات بالبطاقة تتم عبر Stripe، مزود خدمة دفع معتمد ومتوافق مع معايير PCI DSS. عند اختيار الدفع عند الاستلام، لا يتم جمع أي بيانات مالية.'
       : locale === 'ru'
-        ? 'Мы не храним данные вашей банковской карты. Все карточные платежи обрабатываются через Stripe — сертифицированного платёжного провайдера, соответствующего стандарту PCI DSS. При оплате наложенным платежом финансовые данные не собираются.'
+        ? 'Мы не храним данные вашей банковской карты. Все карточные платежи обрабатываются через Stripe - сертифицированного платёжного провайдера, соответствующего стандарту PCI DSS. При оплате наложенным платежом финансовые данные не собираются.'
         : 'We do not store your card details. All card payments are processed through Stripe, a PCI DSS-compliant payment provider. When you choose Cash on Delivery, no financial data is collected.',
     s7Methods: locale === 'ar' ? 'طرق الدفع المتاحة: بطاقة ائتمان/خصم (Visa، Mastercard، Amex)، Apple Pay، Google Pay، والدفع عند الاستلام.' : locale === 'ru' ? 'Доступные способы оплаты: карта (Visa, Mastercard, Amex), Apple Pay, Google Pay и наложенный платёж.' : 'Available payment methods: Credit/debit card (Visa, Mastercard, Amex), Apple Pay, Google Pay, and Cash on Delivery.',
 
@@ -194,8 +194,8 @@ export default function PrivacyPolicyClient() {
     s9Text: locale === 'ar'
       ? 'نستخدم ملفات تعريف الارتباط الأساسية للحفاظ على جلسة تسجيل الدخول وسلة التسوق وتفضيلات اللغة. بموافقتك فقط، نستخدم أيضاً Google Analytics (ملفات _ga) وملف تعريف ارتباط تحليلي خاص بنا (genosys_session_id) لفهم استخدام الموقع، وقد يشمل ذلك عنوان IP والموقع التقريبي (عبر خدمة ipapi.co) ونوع الجهاز. يمكنك القبول أو الرفض عبر شريط الموافقة على ملفات تعريف الارتباط، ولن يتم تفعيل التحليلات قبل موافقتك. لا نستخدم إعلانات مستهدفة.'
       : locale === 'ru'
-        ? 'Мы используем необходимые файлы cookie для сессии входа, корзины и языковых настроек. Только с вашего согласия мы также используем Google Analytics (cookie _ga) и наш собственный аналитический cookie (genosys_session_id) для анализа использования сайта — это может включать IP-адрес, приблизительную геолокацию (через сервис ipapi.co) и тип устройства. Вы можете принять или отклонить это в баннере согласия; аналитика не активируется до вашего согласия. Мы не используем таргетированную рекламу.'
-        : 'We use essential cookies to maintain your login session, shopping cart, and language preferences. With your consent only, we also use Google Analytics (the _ga cookies) and our own first-party analytics cookie (genosys_session_id) to understand site usage — this may include your IP address, approximate location (via the ipapi.co service), and device type. You can accept or decline via the cookie consent banner; analytics does not activate before you consent. We do not use targeted advertising.',
+        ? 'Мы используем необходимые файлы cookie для сессии входа, корзины и языковых настроек. Только с вашего согласия мы также используем Google Analytics (cookie _ga) и наш собственный аналитический cookie (genosys_session_id) для анализа использования сайта - это может включать IP-адрес, приблизительную геолокацию (через сервис ipapi.co) и тип устройства. Вы можете принять или отклонить это в баннере согласия; аналитика не активируется до вашего согласия. Мы не используем таргетированную рекламу.'
+        : 'We use essential cookies to maintain your login session, shopping cart, and language preferences. With your consent only, we also use Google Analytics (the _ga cookies) and our own first-party analytics cookie (genosys_session_id) to understand site usage - this may include your IP address, approximate location (via the ipapi.co service), and device type. You can accept or decline via the cookie consent banner; analytics does not activate before you consent. We do not use targeted advertising.',
 
     // 10. Data Security
     s10Title: locale === 'ar' ? '10. أمن البيانات' : locale === 'ru' ? '10. Безопасность данных' : '10. Data Security',
@@ -230,10 +230,10 @@ export default function PrivacyPolicyClient() {
     // 11. Data Retention
     s11Title: locale === 'ar' ? '11. الاحتفاظ بالبيانات' : locale === 'ru' ? '11. Хранение данных' : '11. Data Retention',
     s11Text: locale === 'ar'
-      ? 'نحتفظ ببياناتك الشخصية طالما حسابك نشط أو حسب الحاجة لتقديم خدماتنا. يتم الاحتفاظ ببيانات الطلبات لمدة 5 سنوات للامتثال للمتطلبات المحاسبية والضريبية في الإمارات. يمكنك طلب حذف حسابك في أي وقت عبر التواصل معنا — سيتم حذف بياناتك الشخصية خلال 30 يوماً، مع الاحتفاظ بسجلات المعاملات حسب ما يقتضيه القانون.'
+      ? 'نحتفظ ببياناتك الشخصية طالما حسابك نشط أو حسب الحاجة لتقديم خدماتنا. يتم الاحتفاظ ببيانات الطلبات لمدة 5 سنوات للامتثال للمتطلبات المحاسبية والضريبية في الإمارات. يمكنك طلب حذف حسابك في أي وقت عبر التواصل معنا - سيتم حذف بياناتك الشخصية خلال 30 يوماً، مع الاحتفاظ بسجلات المعاملات حسب ما يقتضيه القانون.'
       : locale === 'ru'
-        ? 'Мы храним персональные данные, пока ваш аккаунт активен или пока это необходимо для предоставления услуг. Данные заказов хранятся 5 лет для соблюдения бухгалтерских и налоговых требований ОАЭ. Вы можете запросить удаление аккаунта в любое время — персональные данные будут удалены в течение 30 дней, за исключением записей о транзакциях, требуемых законом.'
-        : 'We retain personal data as long as your account is active or as needed to provide our services. Order data is kept for 5 years to comply with UAE accounting and tax requirements. You can request account deletion at any time by contacting us — personal data will be removed within 30 days, except transaction records required by law.',
+        ? 'Мы храним персональные данные, пока ваш аккаунт активен или пока это необходимо для предоставления услуг. Данные заказов хранятся 5 лет для соблюдения бухгалтерских и налоговых требований ОАЭ. Вы можете запросить удаление аккаунта в любое время - персональные данные будут удалены в течение 30 дней, за исключением записей о транзакциях, требуемых законом.'
+        : 'We retain personal data as long as your account is active or as needed to provide our services. Order data is kept for 5 years to comply with UAE accounting and tax requirements. You can request account deletion at any time by contacting us - personal data will be removed within 30 days, except transaction records required by law.',
 
     // 12. Children's Privacy
     s12Title: locale === 'ar' ? '12. خصوصية الأطفال' : locale === 'ru' ? '12. Конфиденциальность детей' : "12. Children's Privacy",
@@ -291,7 +291,7 @@ export default function PrivacyPolicyClient() {
 
     return (
       <>
-        {/* Last Updated — pill badge (mobile/PWA only; the desktop editorial
+        {/* Last Updated - pill badge (mobile/PWA only; the desktop editorial
             header already shows it, so we avoid a duplicate there). */}
         {compact && (
           <div className={`flex ${isRTL ? 'justify-end' : 'justify-start'} mb-4`}>
@@ -306,7 +306,7 @@ export default function PrivacyPolicyClient() {
           </div>
         )}
 
-        {/* Rights Highlight — uses side-specific full classes (avoid template-literal JIT pitfall) */}
+        {/* Rights Highlight - uses side-specific full classes (avoid template-literal JIT pitfall) */}
         <div
           className={`bg-[var(--cera-blush)] ${calloutPad} rounded-xl ${calloutMb} ${rtl} ${
             isRTL ? 'border-r-4 border-red-600' : 'border-l-4 border-red-600'
@@ -316,7 +316,7 @@ export default function PrivacyPolicyClient() {
           <p className={textClass}>{t.rightsText}</p>
         </div>
 
-        {/* 1. Personal Information — divided rows for scannability */}
+        {/* 1. Personal Information - divided rows for scannability */}
         <div className={sectionClass}>
           <h2 className={`${headingClass} ${rtl}`}>{t.s1Title}</h2>
           <div className={`bg-[var(--cera-cream-deep)] rounded-lg p-4 ${listClass}`}>
@@ -513,7 +513,7 @@ export default function PrivacyPolicyClient() {
           <span>{t.backToHome}</span>
         </Link>
 
-        {/* Editorial header — kicker → headline → subhead → last-updated pill,
+        {/* Editorial header - kicker → headline → subhead → last-updated pill,
             consistent with About / Delivery / Contact / Terms / FAQ. */}
         <header className={`mb-8 md:mb-12 ${isRTL ? 'text-right' : ''}`}>
           <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-[var(--cera-muted)]">

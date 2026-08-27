@@ -5,7 +5,7 @@
  * Source of truth stays in lib/productRoutines.ts (same map the website PDP
  * renders), including beauty boxes, Revita Glow 63, and Cerabarrier 66.
  *
- * The app renders whatever this returns — new/changed routines need NO app
+ * The app renders whatever this returns - new/changed routines need NO app
  * update (API-driven, same as product images/video).
  */
 import { PRODUCT_ROUTINES } from '@/lib/productRoutines'

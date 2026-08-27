@@ -1,7 +1,7 @@
 /**
  * The 51 bespoke product pages each hand-rolled the same breadcrumb trail, even
  * though PageBreadcrumb's own docstring calls it "the one breadcrumb on the
- * site". They now go through the component, and these keep them there — a page
+ * site". They now go through the component, and these keep them there - a page
  * that reintroduces its own `<nav aria-label="Breadcrumb">` puts the trail back
  * outside the one place that controls it.
  */

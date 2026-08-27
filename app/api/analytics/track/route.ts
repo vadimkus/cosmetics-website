@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
       // Track page view and session in parallel. They write to independent
       // tables (pageView vs userSession) with no ordering dependency, and both
       // helpers swallow their own errors, so running them sequentially only
-      // added a wasted DB round-trip on this hot (every-pageview) path —
+      // added a wasted DB round-trip on this hot (every-pageview) path -
       // which Sentry flagged as an N+1 (JAVASCRIPT-NEXTJS-19).
       await Promise.all([
         trackPageViewToDatabase({

@@ -41,7 +41,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
       {canUserSeePrices(user) ? (
         <>
           {(() => {
-            // Pass the selected variant through — buildPricingContract falls
+            // Pass the selected variant through - buildPricingContract falls
             // back to the DEFAULT DB variant's price when no size/color is
             // given, which silently overrides basePrice (bug: size switch
             // didn't change the displayed price).

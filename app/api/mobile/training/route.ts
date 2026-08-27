@@ -268,7 +268,7 @@ export async function GET(request: NextRequest) {
       category: doc.category,
     }))
 
-    // Product docs (titles are product names — same across locales)
+    // Product docs (titles are product names - same across locales)
     const localizedProductDocs = productDocuments.map(doc => ({
       id: doc.id,
       title: doc.title,

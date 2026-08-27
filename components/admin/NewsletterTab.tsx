@@ -100,7 +100,7 @@ export default function NewsletterTab({ getAdminHeaders, showToast }: Newsletter
   const [activeCampaignId, setActiveCampaignId] = useState<string | null>(null)
   const pollRef = useRef<NodeJS.Timeout | null>(null)
 
-  // Debounce search input — 300ms feels responsive without hammering the API.
+  // Debounce search input - 300ms feels responsive without hammering the API.
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(search.trim()), 300)
     return () => clearTimeout(t)
@@ -249,7 +249,7 @@ export default function NewsletterTab({ getAdminHeaders, showToast }: Newsletter
     if (filterLocale !== 'all') params.set('locale', filterLocale)
     if (filterActive !== 'all') params.set('isActive', filterActive)
     // The export endpoint authenticates via the httpOnly `admin-session` cookie
-    // set on admin login — window.open automatically sends cookies with GETs.
+    // set on admin login - window.open automatically sends cookies with GETs.
     const url = `/api/admin/newsletter/subscribers/export?${params.toString()}`
     window.open(url, '_blank', 'noopener')
   }
@@ -322,7 +322,7 @@ export default function NewsletterTab({ getAdminHeaders, showToast }: Newsletter
         showToast(data.error || 'Failed to start campaign', 'error')
         return
       }
-      showToast(`Campaign started — sending to ${data.campaign.totalRecipients} subscribers`, 'success')
+      showToast(`Campaign started - sending to ${data.campaign.totalRecipients} subscribers`, 'success')
       setActiveCampaignId(data.campaign.id)
       setCampaigns(prev => [data.campaign, ...prev])
       // Clear composer so the admin doesn't accidentally re-send
@@ -428,7 +428,7 @@ export default function NewsletterTab({ getAdminHeaders, showToast }: Newsletter
               value={bodyMarkdown}
               onChange={e => setBodyMarkdown(e.target.value)}
               rows={12}
-              placeholder={`# Great skin starts here\n\nHey there,\n\nWe just launched our new **ND Cell Anti-Wrinkle Cream**. Here's why it matters:\n\n- Clinically tested in Korea\n- 15+ years of research\n- Official UAE distributor — [shop now](https://genosys.ae/products)\n\n> "Best cream I've used in years." — Dr Shadrina, UAE\n`}
+              placeholder={`# Great skin starts here\n\nHey there,\n\nWe just launched our new **ND Cell Anti-Wrinkle Cream**. Here's why it matters:\n\n- Clinically tested in Korea\n- 15+ years of research\n- Official UAE distributor - [shop now](https://genosys.ae/products)\n\n> "Best cream I've used in years." - Dr Shadrina, UAE\n`}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
             <p className="mt-1 text-xs text-gray-500">
@@ -484,7 +484,7 @@ export default function NewsletterTab({ getAdminHeaders, showToast }: Newsletter
                 type="email"
                 value={testEmail}
                 onChange={e => setTestEmail(e.target.value)}
-                placeholder="your@email.com — always test before sending to everyone"
+                placeholder="your@email.com - always test before sending to everyone"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
               />
             </div>
@@ -684,10 +684,10 @@ export default function NewsletterTab({ getAdminHeaders, showToast }: Newsletter
                       )}
                     </td>
                     <td className="py-3 pr-4 text-xs text-gray-600 whitespace-nowrap">
-                      {s.subscribedAt ? new Date(s.subscribedAt).toLocaleDateString() : '—'}
+                      {s.subscribedAt ? new Date(s.subscribedAt).toLocaleDateString() : ' - '}
                     </td>
                     <td className="py-3 pr-4 text-xs text-gray-600 whitespace-nowrap">
-                      {s.lastSentAt ? new Date(s.lastSentAt).toLocaleDateString() : '—'}
+                      {s.lastSentAt ? new Date(s.lastSentAt).toLocaleDateString() : ' - '}
                     </td>
                     <td className="py-3 pr-4">
                       {s.isActive && (
@@ -722,7 +722,7 @@ export default function NewsletterTab({ getAdminHeaders, showToast }: Newsletter
               <div className="flex items-center gap-2 min-w-0">
                 <Eye className="h-4 w-4 text-gray-500 flex-shrink-0" />
                 <div className="text-sm font-semibold text-gray-900 truncate">
-                  Preview — <span className="text-gray-600 font-normal">{subject || '(no subject)'}</span>
+                  Preview - <span className="text-gray-600 font-normal">{subject || '(no subject)'}</span>
                 </div>
               </div>
               <button

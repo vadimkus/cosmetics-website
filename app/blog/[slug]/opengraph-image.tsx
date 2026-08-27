@@ -9,7 +9,7 @@ export const contentType = OG_CONTENT_TYPE
 // ISR: CDN-cache the rendered card (see /products/[id]/opengraph-image.tsx)
 export const revalidate = 3600
 
-// Only used for posts WITHOUT a featured image — generateMetadata's explicit
+// Only used for posts WITHOUT a featured image - generateMetadata's explicit
 // openGraph.images (the featured photo) overrides this file-based card.
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params

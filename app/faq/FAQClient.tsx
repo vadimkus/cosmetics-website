@@ -85,7 +85,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
       category: (item.category || 'general') as CategoryKey,
       question,
       answer,
-      // Plain-text copy of the answer for search — matching against raw HTML
+      // Plain-text copy of the answer for search - matching against raw HTML
       // would let tag/attribute names (e.g. "strong", "href") count as hits.
       answerText: stripHtml(answer),
     }
@@ -243,7 +243,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
           )}
 
           {/* Page Header.
-           *  Mobile/PWA: tight single-row h1 + subtitle cut to one line — header
+           *  Mobile/PWA: tight single-row h1 + subtitle cut to one line - header
            *  already announces "Help & Support", so we avoid a 4-line hero above
            *  the fold and show the FAQ list sooner.
            *  Desktop: editorial hero (kicker → big headline → subhead → stats). */}
@@ -346,7 +346,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
               )}
             </div>
 
-            {/* Category Tabs — with edge-fade signalling horizontal scroll */}
+            {/* Category Tabs - with edge-fade signalling horizontal scroll */}
             <div className="relative mb-3 md:mb-8">
               <div className="overflow-x-auto scrollbar-hide -mx-3 px-3 md:mx-0 md:px-0">
                 <div className={`flex gap-2 pb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`} role="tablist">
@@ -421,7 +421,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
 
           {/* FAQ Sections.
            *  Mobile/PWA: one card per category with hairline dividers between
-           *  questions (iOS-native list style) — much denser than separate
+           *  questions (iOS-native list style) - much denser than separate
            *  shadowed cards per question.
            *  Desktop: preserves the existing per-question card with shadow. */}
           <div className={`${isAppLikeMode ? 'space-y-5' : 'space-y-6 md:space-y-8'} mb-6 md:mb-12`}>
@@ -511,7 +511,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                   </div>
                 ) : (
                   // Desktop: single editorial container per group with hairline
-                  // dividers between rows — denser and less "shadow soup" than
+                  // dividers between rows - denser and less "shadow soup" than
                   // per-question cards.
                   <div className="overflow-hidden rounded-[22px] border border-[var(--cera-line)] bg-white">
                     {items.map((faq, idx) => {
@@ -529,7 +529,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                             aria-expanded={isOpen}
                             aria-controls={`faq-answer-d-${faq.id}`}
                           >
-                            {/* Number marker — editorial detail */}
+                            {/* Number marker - editorial detail */}
                             <span className="cera-numeral mt-1 hidden h-6 min-w-[2.25rem] flex-shrink-0 items-center justify-center rounded-full bg-[var(--cera-cream-deep)] px-2 text-[11px] text-[var(--cera-muted)] md:inline-flex">
                               {String(idx + 1).padStart(2, '0')}
                             </span>
@@ -596,7 +596,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
             )}
           </div>
 
-          {/* App Download Banner — editorial dark panel with red accent blurs.
+          {/* App Download Banner - editorial dark panel with red accent blurs.
               Mobile keeps the centered layout; desktop uses an asymmetric
               two-column composition (kicker → headline → CTAs left,
               decorative phone glyph right) to feel less like a generic banner. */}
@@ -620,10 +620,10 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                 </h3>
                 <p className="mt-3 max-w-md text-sm md:text-base leading-relaxed text-gray-300">
                   {locale === 'ar'
-                    ? 'تسوّق، تتبّع طلباتك، وادردش مع فريق الدعم — كل شيء في تطبيق واحد.'
+                    ? 'تسوّق، تتبّع طلباتك، وادردش مع فريق الدعم - كل شيء في تطبيق واحد.'
                     : locale === 'ru'
-                      ? 'Покупайте, отслеживайте заказы и общайтесь с поддержкой — всё в одном приложении.'
-                      : 'Shop, track orders, and chat with support — all in one place.'}
+                      ? 'Покупайте, отслеживайте заказы и общайтесь с поддержкой - всё в одном приложении.'
+                      : 'Shop, track orders, and chat with support - all in one place.'}
                 </p>
 
                 <div className={`mt-6 flex flex-row flex-wrap gap-3 ${dir === 'rtl' ? 'justify-end' : ''}`}>
@@ -662,7 +662,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                 </div>
               </div>
 
-              {/* Official app icon — desktop only */}
+              {/* Official app icon - desktop only */}
               <div className="hidden md:flex justify-center">
                 <div className="relative">
                   <div
@@ -690,7 +690,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
             </div>
           </section>
 
-          {/* Contact CTA — editorial dark panel matching /partners "Become a
+          {/* Contact CTA - editorial dark panel matching /partners "Become a
               partner" style. Replaces the previous pink-gradient block. */}
           <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-ink)] text-white">
             <span aria-hidden className="pointer-events-none absolute -top-32 right-0 h-72 w-72 rounded-full bg-[var(--cera-rose)]/28 blur-3xl" />
@@ -710,10 +710,10 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                 </h3>
                 <p className="mt-3 max-w-md text-sm md:text-base leading-relaxed text-gray-300">
                   {locale === 'ar'
-                    ? 'فريق الدعم في دبي يجيب باللغات الإنجليزية والعربية والروسية — عادة في أقل من 4 ساعات.'
+                    ? 'فريق الدعم في دبي يجيب باللغات الإنجليزية والعربية والروسية - عادة في أقل من 4 ساعات.'
                     : locale === 'ru'
-                      ? 'Команда поддержки в Дубае отвечает на английском, арабском и русском — обычно менее чем за 4 часа.'
-                      : 'Our Dubai support desk replies in English, Arabic & Russian — typically under 4 hours.'}
+                      ? 'Команда поддержки в Дубае отвечает на английском, арабском и русском - обычно менее чем за 4 часа.'
+                      : 'Our Dubai support desk replies in English, Arabic & Russian - typically under 4 hours.'}
                 </p>
               </div>
 

@@ -149,7 +149,7 @@ ${categories.map(category => `- ${category}: ${buildUrl(`/products?categories=${
 
 ## Skin Concern Pages
 
-${CONCERN_PAGES.map(concern => `- ${concern.seo.en.h1}: ${buildUrl(`/products/concern/${concern.slug}`)} — ${concern.seo.en.intro}`).join('\n')}
+${CONCERN_PAGES.map(concern => `- ${concern.seo.en.h1}: ${buildUrl(`/products/concern/${concern.slug}`)} - ${concern.seo.en.intro}`).join('\n')}
 
 ## Commercial Guides
 

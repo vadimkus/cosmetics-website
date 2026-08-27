@@ -422,7 +422,7 @@ export default function MobileWebHeader() {
             
             {/* Sectioned Navigation.
                 Note: Orders / Favorites / Profile / Home are intentionally NOT
-                duplicated here — they already live in first-class spots of the
+                duplicated here - they already live in first-class spots of the
                 mobile chrome (Orders + Home in the bottom tab bar; Favorites
                 as the heart in the top header; Profile as the avatar in the
                 top-right). Duplicating them just made the menu noisier. */}
@@ -446,7 +446,7 @@ export default function MobileWebHeader() {
                 </Link>
               </div>
 
-              {/* AI Skin Analysis — highlighted CTA */}
+              {/* AI Skin Analysis - highlighted CTA */}
               <Link
                 href={getLocalizedPath('/skin-recommendation', locale)}
                 onClick={() => setShowMobileMenu(false)}

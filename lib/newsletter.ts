@@ -1,5 +1,5 @@
 /**
- * Newsletter helpers — token generation, email normalization, and source/locale validation.
+ * Newsletter helpers - token generation, email normalization, and source/locale validation.
  * Kept framework-agnostic so it can be imported from both API routes and server actions.
  */
 import crypto from 'crypto'
@@ -10,7 +10,7 @@ export type NewsletterSource = 'homepage' | 'footer' | 'checkout' | 'admin' | 'i
 const ALLOWED_LOCALES: readonly NewsletterLocale[] = ['en', 'ar', 'ru'] as const
 const ALLOWED_SOURCES: readonly NewsletterSource[] = ['homepage', 'footer', 'checkout', 'admin', 'import'] as const
 
-// RFC-pragmatic email check — rejects obvious junk, accepts everything Gmail/Outlook will.
+// RFC-pragmatic email check - rejects obvious junk, accepts everything Gmail/Outlook will.
 // Don't use regex to enforce strict RFC 5322; SMTP will tell us the truth if we try to deliver.
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 

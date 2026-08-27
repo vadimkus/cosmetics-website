@@ -20,7 +20,7 @@ import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
 export const revalidate = 3600
-// Unknown slugs return a genuine 404 (not a soft 404) — matches the EN route.
+// Unknown slugs return a genuine 404 (not a soft 404) - matches the EN route.
 export const dynamicParams = false
 
 export function generateStaticParams() {
@@ -137,10 +137,10 @@ export default async function RussianConcernPage({ params }: { params: Promise<{
 
       <ConcernHero concern={concern} locale="ru" />
 
-      {/* Why Section — Collapsible on mobile */}
+      {/* Why Section - Collapsible on mobile */}
       {why && <ConcernWhySection title={why.title} items={why.items} />}
 
-      {/* Protocol PDF Download — collapsible */}
+      {/* Protocol PDF Download - collapsible */}
       {concern.protocolPdf && (
         <section className="px-4 pb-8 sm:pb-10">
           <div className="max-w-4xl mx-auto">
@@ -229,7 +229,7 @@ export default async function RussianConcernPage({ params }: { params: Promise<{
         </section>
       )}
 
-      {/* Products Grid — collapsible */}
+      {/* Products Grid - collapsible */}
       <section className="py-8 sm:py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <details className="group" open>

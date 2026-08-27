@@ -1,9 +1,9 @@
 /**
- * GENOSYS Rewards — loyalty points engine.
+ * GENOSYS Rewards - loyalty points engine.
  *
  * Program rules (decided 2026-07-08; earn basis switched to products-only same day):
  * - Retail accounts earn 1 point per 1 AED paid for PRODUCTS (order total minus
- *   shipping — delivery fees never earn points), credited on DELIVERED.
+ *   shipping - delivery fees never earn points), credited on DELIVERED.
  * - Tier multipliers boost earning: MEMBER 1x, SILVER 1.25x, GOLD 1.5x, PLATINUM 2x.
  * - Birthday month: earning doubled on top of the tier multiplier.
  * - 100 points = 5 AED redemption value (redemption ships in Phase 2).
@@ -22,7 +22,7 @@ export const POINT_VALUE_AED = 0.05 // 100 points = 5 AED
 export const WELCOME_BONUS_POINTS = 100
 export const REVIEW_BONUS_POINTS = 50 // once per user per product
 
-// Phase 2 — redemption at checkout
+// Phase 2 - redemption at checkout
 export const REDEEM_BLOCK_POINTS = 100 // redeem in blocks of 100 points
 export const REDEEM_BLOCK_AED = 5 // each block is worth AED 5
 export const REDEEM_MAX_ORDER_FRACTION = 0.2 // max 20% of the discounted product subtotal
@@ -45,7 +45,7 @@ interface DiscountFields {
  * A discount only APPLIES at checkout when both discountType and a positive
  * percentage are set (see lib/discountUtils.ts). Records with an orphan
  * percentage but no type get NO pricing benefit and must not be treated as
- * discounted here either — otherwise the loyalty track and the actual
+ * discounted here either - otherwise the loyalty track and the actual
  * pricing disagree (bug found 2026-07-08: 3 accounts misclassified).
  */
 export function hasActiveDiscount(user: DiscountFields): boolean {
@@ -62,7 +62,7 @@ export function loyaltyTrackForUser(user: DiscountFields): LoyaltyTrack {
 
 export function isBirthdayMonth(birthday: string | null | undefined, now = new Date()): boolean {
   if (!birthday) return false
-  // Stored as YYYY-MM-DD (free-text legacy possible — parse defensively)
+  // Stored as YYYY-MM-DD (free-text legacy possible - parse defensively)
   const match = String(birthday).match(/^\d{4}-(\d{2})-\d{2}/)
   if (!match?.[1]) return false
   return parseInt(match[1], 10) === now.getMonth() + 1
@@ -71,7 +71,7 @@ export function isBirthdayMonth(birthday: string | null | undefined, now = new D
 /**
  * Points for an amount of PRODUCT spend (AED, after all discounts and
  * redemption, excluding shipping). Callers are responsible for passing the
- * products-only basis — see awardPointsForDeliveredOrder.
+ * products-only basis - see awardPointsForDeliveredOrder.
  */
 export function computeOrderPoints(
   productSpendAed: number,
@@ -104,7 +104,7 @@ export function estimateOrderPoints(params: {
   return computeOrderPoints(productSpend, tier, isBirthdayMonth(params.user.birthday))
 }
 
-/** Sum of a user's ledger — the authoritative points balance. */
+/** Sum of a user's ledger - the authoritative points balance. */
 export async function getLedgerBalance(userId: string): Promise<number> {
   const agg = await prisma.loyaltyTransaction.aggregate({
     where: { userId },
@@ -195,7 +195,7 @@ export async function awardPointsForDeliveredOrder(orderId: string): Promise<Awa
           points,
           type: 'ORDER_EARN',
           orderId: order.id,
-          description: `Order ${order.orderNumber} delivered — AED ${productSpend.toFixed(2)} in products`,
+          description: `Order ${order.orderNumber} delivered - AED ${productSpend.toFixed(2)} in products`,
         },
       })
       awarded = true
@@ -248,7 +248,7 @@ export async function awardReviewBonus(params: {
         points: REVIEW_BONUS_POINTS,
         type: 'REVIEW_BONUS',
         orderId: `review:${productId}:${userId}`,
-        description: `Review bonus — ${productName || 'product review'}`,
+        description: `Review bonus - ${productName || 'product review'}`,
       },
     })
   } catch (err: unknown) {
@@ -320,7 +320,7 @@ export async function resolveRedemptionForCheckout(params: {
 
 /**
  * Write the REDEEM ledger entry for an order and refresh the materialized
- * balance. Idempotent via the (orderId, 'REDEEM') unique constraint —
+ * balance. Idempotent via the (orderId, 'REDEEM') unique constraint -
  * safe to call from both order creation and payment webhooks.
  */
 export async function recordRedemption(params: {
@@ -340,7 +340,7 @@ export async function recordRedemption(params: {
         points: -points,
         type: 'REDEEM',
         orderId,
-        description: `Redeemed on order ${orderNumber} — AED ${amountAed.toFixed(2)} off`,
+        description: `Redeemed on order ${orderNumber} - AED ${amountAed.toFixed(2)} off`,
       },
     })
     recorded = true
@@ -372,7 +372,7 @@ export async function reverseRedemptionForOrder(orderId: string): Promise<boolea
         points: -redeemTx.points, // REDEEM is negative, reversal is positive
         type: 'REDEEM_REVERSAL',
         orderId,
-        description: 'Points returned — order cancelled',
+        description: 'Points returned - order cancelled',
       },
     })
     reversed = true

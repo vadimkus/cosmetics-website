@@ -90,7 +90,7 @@ export default function MobileWebFooterNav() {
 
   /**
    * A rule above the active tab. Colour alone was the only cue before, which WCAG 1.4.1
-   * does not accept and which disappears for anyone with a red-green deficiency — the old
+   * does not accept and which disappears for anyone with a red-green deficiency - the old
    * palette leaned on exactly that pair.
    */
   const marker = (tab: string) =>

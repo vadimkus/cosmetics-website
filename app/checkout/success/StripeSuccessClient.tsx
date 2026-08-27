@@ -102,7 +102,7 @@ export default function StripeSuccessClient() {
           }, 4000)
         }
 
-        // Track successful payment in Google Analytics — once per order
+        // Track successful payment in Google Analytics - once per order
         // (guarded so a reload/back-nav to this URL doesn't double-count).
         if (typeof window !== 'undefined' && data.paymentStatus === 'paid') {
           try {

@@ -7,7 +7,7 @@
  * The multiplication check is the important one. Before the stepper existed the
  * bar could only ever add one, so printing the unit price was correct. With a
  * stepper, a bar that still prints the unit price tells a shopper ordering six
- * that it costs 300 and then charges 1,800 — the same bug the mobile app hit and
+ * that it costs 300 and then charges 1,800 - the same bug the mobile app hit and
  * fixed.
  */
 import fs from 'fs'

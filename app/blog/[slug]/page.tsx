@@ -50,7 +50,7 @@ type BlogPostWithComments = {
 }
 
 // Wrapped in React.cache so generateMetadata() and the page component share a
-// single call per request — otherwise the view-count increment fired twice per
+// single call per request - otherwise the view-count increment fired twice per
 // render (once for each), inflating views 2x.
 const getBlogPost = cache(async (slug: string): Promise<BlogPostWithComments | null> => {
   try {
@@ -256,7 +256,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         <div className="container mx-auto px-4 py-8 md:py-16">
           <div className="max-w-4xl mx-auto">
-          {/* Prominent back-to-articles link — visible on all viewports */}
+          {/* Prominent back-to-articles link - visible on all viewports */}
           <Link
             href="/blog"
             className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] mb-6 md:mb-8 transition-colors"

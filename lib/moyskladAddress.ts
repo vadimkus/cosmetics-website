@@ -66,7 +66,7 @@ export function streetForMoySklad(
   return parts.join(', ').trim()
 }
 
-/** Structured MoySklad address fragment (no addInfo — avoids street duplication). */
+/** Structured MoySklad address fragment (no addInfo - avoids street duplication). */
 export function buildMoySkladAddressFull(
   customerAddress: string | undefined,
   customerEmirate: string | undefined,

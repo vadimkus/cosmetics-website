@@ -7,14 +7,14 @@
  * multisun.css.
  *
  * The page is organised around one genuinely interesting fact: this cream
- * carries MORE filter by weight than the SPF50+ in the range — 18.50% against
- * 17.10% — and rates lower, because three of its four filters absorb UVB and
+ * carries MORE filter by weight than the SPF50+ in the range - 18.50% against
+ * 17.10% - and rates lower, because three of its four filters absorb UVB and
  * the only UVA cover is titanium dioxide. Explaining that is better selling
  * than pretending the two products differ only in size.
  *
  * It also does two things a sunscreen page normally avoids. It states that the
  * product contains octinoxate at 7.50%, with the EU cap, the SCCS endocrine
- * finding and the fact that the SCCS did not assess environmental effects —
+ * finding and the fact that the SCCS did not assess environmental effects -
  * and then points anyone avoiding octinoxate at product 39, which is the more
  * expensive tube. And it names all five fragrance allergens rather than
  * leaving them on the carton.

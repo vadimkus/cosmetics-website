@@ -141,7 +141,7 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
     billingAddressHint: locale === 'ar' ? 'يظهر على فواتيرك وإيصالاتك الضريبية' : locale === 'ru' ? 'Отображается в счетах и налоговых документах' : 'Shown on invoices and tax receipts',
     vatNumber: locale === 'ar' ? 'رقم ضريبة القيمة المضافة (TRN)' : locale === 'ru' ? 'Номер НДС (TRN)' : 'VAT Number (TRN)',
     vatNumberPlaceholder: '100000000000000',
-    vatNumberHint: locale === 'ar' ? '15 رقمًا — للفواتير الضريبية في الإمارات' : locale === 'ru' ? '15 цифр — для налоговых счетов ОАЭ' : '15 digits — for UAE tax invoices',
+    vatNumberHint: locale === 'ar' ? '15 رقمًا - للفواتير الضريبية في الإمارات' : locale === 'ru' ? '15 цифр - для налоговых счетов ОАЭ' : '15 digits - for UAE tax invoices',
     vatInvalid: locale === 'ar' ? 'يجب أن يتكون من 15 رقمًا' : locale === 'ru' ? 'Должно быть 15 цифр' : 'Must be exactly 15 digits',
     saved: locale === 'ar' ? 'تم الحفظ' : locale === 'ru' ? 'Сохранено' : 'Saved',
     saveFailed: locale === 'ar' ? 'فشل الحفظ' : locale === 'ru' ? 'Ошибка сохранения' : 'Failed to save',

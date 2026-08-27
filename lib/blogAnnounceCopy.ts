@@ -74,7 +74,7 @@ function escapeHtml(s: string): string {
 
 /**
  * Email body for the announcement. Built directly rather than through
- * `renderNewsletterMarkdown`, which deliberately drops images — and the featured
+ * `renderNewsletterMarkdown`, which deliberately drops images - and the featured
  * image is most of why a blog announcement gets opened.
  */
 export function buildAnnouncementHtml(copy: PostCopy, featuredImage: string | null, locale: Locale): string {

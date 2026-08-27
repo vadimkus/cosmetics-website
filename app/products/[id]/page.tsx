@@ -101,12 +101,12 @@ export async function generateMetadata({ params }: ProductPageProps): Promise<Me
     openGraph: {
       title: productTitle,
       description: productDescription,
-      // 'product' OG type + product:price (below) — prices are now exposed for
+      // 'product' OG type + product:price (below) - prices are now exposed for
       // Shopping/social rich results (decision 2026-07-07).
       type: 'website',
       url: productUrl,
       siteName: 'GENOSYS',
-      // og:image intentionally omitted — the file-based opengraph-image.tsx
+      // og:image intentionally omitted - the file-based opengraph-image.tsx
       // (branded 1200x630 product card) is used instead of raw 800x800 photos,
       // which crop badly in link previews.
       locale: 'en_AE',

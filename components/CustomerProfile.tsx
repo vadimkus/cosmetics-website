@@ -873,7 +873,7 @@ export default function CustomerProfile({
               <div className="flex items-center justify-between">
                 <div>
                   <span className="text-sm font-medium text-gray-700">Credit terms</span>
-                  <p className="text-[11px] text-gray-400">Professional orders on 30–90 day payment terms</p>
+                  <p className="text-[11px] text-gray-400">Professional orders on 30-90 day payment terms</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <select

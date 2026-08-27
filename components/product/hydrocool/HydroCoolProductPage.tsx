@@ -3,8 +3,8 @@
 /**
  * Bespoke product page for HYDRO COOL MODELING MASK (product 35).
  *
- * Shares the editorial design system built for product 66 — the primitives, the
- * gallery and the structural CSS all come from ../cerabarrier — and layers an
+ * Shares the editorial design system built for product 66 - the primitives, the
+ * gallery and the structural CSS all come from ../cerabarrier - and layers an
  * ice-blue palette on top via hydrocool.css, taken from the blue powder.
  *
  * Section order:

@@ -1,7 +1,7 @@
 /**
  * Bespoke copy for ULTRA SHIELD SUN CREAM [SPF50+ / PA++++] (product 39).
  *
- * SOURCING — every figure traces to the audit in
+ * SOURCING - every figure traces to the audit in
  * docs/SESSION_CHANGES_2026-08-17_PRODUCT_39_ULTRA_SHIELD_SOURCE_AUDIT.md:
  *   - EU safety assessment (QACS Lab, EC 1223/2009, Feb 2025, ID 24 06 01975):
  *     in-vivo SPF 65.9 +/- 4.74 and UVA-PF 23.13 / 24.3, both by Dr Koziej;
@@ -212,21 +212,21 @@ const EN: UltraShieldCopy = {
     rows: [
       { name: 'Homosalate', amount: '4.00%', role: 'UVB, and it keeps the others in solution' },
       { name: 'Ethylhexyl Salicylate', amount: '3.50%', role: 'UVB, and a photostabiliser for the rest' },
-      { name: 'Terephthalylidene Dicamphor Sulfonic Acid', amount: '3.07%', role: 'Short UVA — the reason this scores as it does' },
+      { name: 'Terephthalylidene Dicamphor Sulfonic Acid', amount: '3.07%', role: 'Short UVA - the reason this scores as it does' },
       { name: 'Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine', amount: '3.00%', role: 'Broad spectrum, UVB through long UVA' },
       { name: 'Ethylhexyl Triazone', amount: '2.00%', role: 'UVB, the most efficient filter per gram there is' },
       { name: 'Titanium Dioxide', amount: '1.53%', role: 'Mineral, reflects UVB and short UVA' },
     ],
     total: 'Combined filter load: 17.10% of the tube.',
     seventh:
-      'You may see this described as a seven-filter system. It is six. The seventh is butyloctyl salicylate, which at 5% is the largest single ingredient of the group but is not an approved filter — it is a solvent that keeps the real filters dissolved and stable. It raises the SPF, it just does not do it by absorbing UV. The manufacturer\u2019s own technical deck lists six.',
+      'You may see this described as a seven-filter system. It is six. The seventh is butyloctyl salicylate, which at 5% is the largest single ingredient of the group but is not an approved filter - it is a solvent that keeps the real filters dissolved and stable. It raises the SPF, it just does not do it by absorbing UV. The manufacturer\u2019s own technical deck lists six.',
   },
 
   actives: {
     eyebrow: 'Beyond the filters',
     title: 'Two actives at doses that count',
     intro:
-      'Korea licenses this as a triple-function cosmetic — protection, brightening and wrinkle improvement — and each function has an ingredient behind it at the concentration the licence requires.',
+      'Korea licenses this as a triple-function cosmetic - protection, brightening and wrinkle improvement - and each function has an ingredient behind it at the concentration the licence requires.',
     items: [
       {
         name: 'Niacinamide',
@@ -236,7 +236,7 @@ const EN: UltraShieldCopy = {
       {
         name: 'Adenosine',
         dose: '0.04%',
-        body: 'The exact dose Korea licenses for wrinkle improvement — the same figure that appears in every functional anti-ageing product registered there. Small number, specific meaning.',
+        body: 'The exact dose Korea licenses for wrinkle improvement - the same figure that appears in every functional anti-ageing product registered there. Small number, specific meaning.',
       },
       {
         name: 'The six filters',
@@ -250,7 +250,7 @@ const EN: UltraShieldCopy = {
     eyebrow: 'About the recovery complex',
     title: 'The soothing story is thinner than the protection',
     body:
-      'This product is also sold on after-sun recovery: a Sunburn Care Complex, MicroHA™, ProbioMETA™, a tropical antioxidant complex. Here are the doses. Ceramide NP is at 0.00000001% — one part in ten billion, about five nanograms in a 50 g tube. The hyaluronic acid and the Lactobacillus ferment are around one part per million each. The four fruit extracts are 25 parts per billion apiece.',
+      'This product is also sold on after-sun recovery: a Sunburn Care Complex, MicroHA™, ProbioMETA™, a tropical antioxidant complex. Here are the doses. Ceramide NP is at 0.00000001% - one part in ten billion, about five nanograms in a 50 g tube. The hyaluronic acid and the Lactobacillus ferment are around one part per million each. The four fruit extracts are 25 parts per billion apiece.',
     aside:
       'We are not going to build a page on that. The reason to buy this tube is a filter system measured at SPF 65.9 with UVA cover to match, plus niacinamide and adenosine at real doses. That is more than enough of a product without the nanograms.',
   },
@@ -266,7 +266,7 @@ const EN: UltraShieldCopy = {
     eyebrow: 'One limitation, stated plainly',
     title: 'This is not a water-resistant sunscreen',
     body:
-      'There is no water-resistance test in this product\u2019s file, so we will not imply one. Swim in it, sweat in it or towel off, and you have to reapply — that is true of any sunscreen without a water-resistance claim, and most beach failures come from assuming otherwise. For a day by the water, take the tube with you.',
+      'There is no water-resistance test in this product\u2019s file, so we will not imply one. Swim in it, sweat in it or towel off, and you have to reapply - that is true of any sunscreen without a water-resistance claim, and most beach failures come from assuming otherwise. For a day by the water, take the tube with you.',
   },
 
   howTo: {
@@ -305,7 +305,7 @@ const EN: UltraShieldCopy = {
       'Silky rather than heavy, so it is wearable at 45 °C',
       'No white cast to speak of: only 1.53% of the filter load is mineral',
       'Niacinamide 2%, which is the right ingredient to be wearing on high-UV days',
-      'Fifty grams — a size you can afford to use at the right thickness',
+      'Fifty grams - a size you can afford to use at the right thickness',
     ],
   },
 
@@ -328,10 +328,10 @@ const EN: UltraShieldCopy = {
     title: 'What the batch sheet says',
     intro: 'Made in Korea under GMP and released against a specification. The microbiology on this one is as clean as a sheet gets.',
     rows: [
-      { label: 'pH', value: '7.23, inside a 7.20 ± 1.00 specification — higher than most skincare, because the tromethamine neutralises an acidic filter' },
+      { label: 'pH', value: '7.23, inside a 7.20 ± 1.00 specification - higher than most skincare, because the tromethamine neutralises an acidic filter' },
       { label: 'Fill', value: '50.9 g against a 50 g declaration' },
       { label: 'Purity', value: 'Total aerobic count not detected, against a permitted 100 CFU/g' },
-      { label: 'Pathogens', value: 'E. coli, P. aeruginosa, S. aureus and C. albicans — all four not detected' },
+      { label: 'Pathogens', value: 'E. coli, P. aeruginosa, S. aureus and C. albicans - all four not detected' },
       { label: 'After opening', value: 'Twelve months, marked on the carton' },
       { label: 'Assessment', value: 'Full EU safety assessment under EC Regulation 1223/2009' },
     ],
@@ -356,11 +356,11 @@ const EN: UltraShieldCopy = {
     title: 'Specification',
     rows: [
       { label: 'Size', value: '50 g' },
-      { label: 'Grade', value: 'SPF50+ / PA++++ (measured SPF 65.9, UVA-PF 23.1–24.3)' },
-      { label: 'Filters', value: 'Six — five organic, one mineral, 17.10% combined' },
+      { label: 'Grade', value: 'SPF50+ / PA++++ (measured SPF 65.9, UVA-PF 23.1-24.3)' },
+      { label: 'Filters', value: 'Six - five organic, one mineral, 17.10% combined' },
       { label: 'Actives', value: 'Niacinamide 2.00%, adenosine 0.04%' },
       { label: 'Free from', value: 'Oxybenzone and octinoxate' },
-      { label: 'Water resistance', value: 'None claimed — reapply after water or sweat' },
+      { label: 'Water resistance', value: 'None claimed - reapply after water or sweat' },
       { label: 'Licence', value: 'Korean triple-function: UV protection, brightening, wrinkle improvement' },
       { label: 'Origin', value: 'Made in Korea' },
     ],
@@ -376,7 +376,7 @@ const EN: UltraShieldCopy = {
       },
       {
         q: 'Is it six filters or seven?',
-        a: 'Six. Some of our own older material says seven, which we are correcting. The extra one being counted is butyloctyl salicylate at 5% — a solvent that keeps the real filters dissolved and stable. It does raise the SPF, but it does not absorb UV, and neither the manufacturer\u2019s technical deck nor the registration counts it as a filter.',
+        a: 'Six. Some of our own older material says seven, which we are correcting. The extra one being counted is butyloctyl salicylate at 5% - a solvent that keeps the real filters dissolved and stable. It does raise the SPF, but it does not absorb UV, and neither the manufacturer\u2019s technical deck nor the registration counts it as a filter.',
       },
       {
         q: 'Can I swim in it?',
@@ -464,7 +464,7 @@ const AR: UltraShieldCopy = {
     rows: [
       { name: 'Homosalate', amount: '4.00%', role: 'UVB، ويُبقي البقية ذائبة' },
       { name: 'Ethylhexyl Salicylate', amount: '3.50%', role: 'UVB، ومثبّت ضوئي للبقية' },
-      { name: 'Terephthalylidene Dicamphor Sulfonic Acid', amount: '3.07%', role: 'UVA القصير — وسبب هذه النتيجة' },
+      { name: 'Terephthalylidene Dicamphor Sulfonic Acid', amount: '3.07%', role: 'UVA القصير - وسبب هذه النتيجة' },
       { name: 'Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine', amount: '3.00%', role: 'طيف واسع، من UVB إلى UVA الطويل' },
       { name: 'Ethylhexyl Triazone', amount: '2.00%', role: 'UVB، أكفأ مرشّح لكل غرام على الإطلاق' },
       { name: 'Titanium Dioxide', amount: '1.53%', role: 'معدني، يعكس UVB وUVA القصير' },
@@ -478,7 +478,7 @@ const AR: UltraShieldCopy = {
     eyebrow: 'ما بعد المرشحات',
     title: 'فعّالان بجرعتين تُحتسبان',
     intro:
-      'ترخّص كوريا هذا المستحضر كثلاثي الوظيفة — حماية وتفتيح وتحسين التجاعيد — ولكل وظيفة مكوّن خلفها بالتركيز الذي يشترطه الترخيص.',
+      'ترخّص كوريا هذا المستحضر كثلاثي الوظيفة - حماية وتفتيح وتحسين التجاعيد - ولكل وظيفة مكوّن خلفها بالتركيز الذي يشترطه الترخيص.',
     items: [
       {
         name: 'Niacinamide',
@@ -518,7 +518,7 @@ const AR: UltraShieldCopy = {
     eyebrow: 'قيد واحد، بصراحة',
     title: 'هذا ليس واقياً مقاوماً للماء',
     body:
-      'لا يوجد اختبار مقاومة للماء في ملف هذا المنتج، فلن نلمّح إلى واحد. اسبحي به أو تعرّقي أو جفّفي بالمنشفة، وعليكِ إعادة الوضع — وهذا يصحّ على أي واقٍ بلا ادعاء مقاومة للماء، ومعظم إخفاقات الشاطئ تأتي من افتراض العكس. ليوم قرب الماء، خذي الأنبوب معك.',
+      'لا يوجد اختبار مقاومة للماء في ملف هذا المنتج، فلن نلمّح إلى واحد. اسبحي به أو تعرّقي أو جفّفي بالمنشفة، وعليكِ إعادة الوضع - وهذا يصحّ على أي واقٍ بلا ادعاء مقاومة للماء، ومعظم إخفاقات الشاطئ تأتي من افتراض العكس. ليوم قرب الماء، خذي الأنبوب معك.',
   },
 
   howTo: {
@@ -557,7 +557,7 @@ const AR: UltraShieldCopy = {
       'حريري لا ثقيل، فيمكن ارتداؤه عند 45 درجة',
       'لا أثر أبيض يُذكر: 1.53% فقط من حمل المرشحات معدني',
       'نياسيناميد 2%، وهو المكوّن الصحيح لارتدائه في أيام الأشعة العالية',
-      'خمسون غراماً — حجم يسمح لكِ باستخدامه بالسماكة الصحيحة',
+      'خمسون غراماً - حجم يسمح لكِ باستخدامه بالسماكة الصحيحة',
     ],
   },
 
@@ -580,10 +580,10 @@ const AR: UltraShieldCopy = {
     title: 'قيم مقاسة لكل عبوة',
     intro: 'صُنع في كوريا وفق ممارسات التصنيع الجيد، مع فحوص للخصائص الفيزيائية والنقاء الميكروبي.',
     rows: [
-      { label: 'الحموضة', value: '7.23 ضمن مواصفة 7.20 ± 1.00 — أعلى من معظم مستحضرات العناية، لأن التروميثامين يعادل مرشّحاً حمضياً' },
+      { label: 'الحموضة', value: '7.23 ضمن مواصفة 7.20 ± 1.00 - أعلى من معظم مستحضرات العناية، لأن التروميثامين يعادل مرشّحاً حمضياً' },
       { label: 'الحجم', value: '50 غ؛ أظهر فحص الجودة 50.9 غ' },
       { label: 'النقاء', value: 'العدّ الهوائي الكلي غير مكتشف، مقابل 100 وحدة/غ مسموحة' },
-      { label: 'الممرضات', value: 'الإشريكية القولونية والزائفة والمكوّرة العنقودية والمبيضّات — الأربعة غير مكتشفة' },
+      { label: 'الممرضات', value: 'الإشريكية القولونية والزائفة والمكوّرة العنقودية والمبيضّات - الأربعة غير مكتشفة' },
       { label: 'بعد الفتح', value: 'اثنا عشر شهراً، مذكورة على العلبة' },
       { label: 'التقييم', value: 'تقييم سلامة أوروبي كامل وفق اللائحة EC 1223/2009' },
     ],
@@ -608,11 +608,11 @@ const AR: UltraShieldCopy = {
     title: 'المواصفات',
     rows: [
       { label: 'الحجم', value: '50 غ' },
-      { label: 'الدرجة', value: 'SPF50+ / PA++++ (SPF مقيس 65.9، وUVA-PF 23.1–24.3)' },
-      { label: 'المرشحات', value: 'ستة — خمسة عضوية وواحد معدني، 17.10% مجتمعة' },
+      { label: 'الدرجة', value: 'SPF50+ / PA++++ (SPF مقيس 65.9، وUVA-PF 23.1-24.3)' },
+      { label: 'المرشحات', value: 'ستة - خمسة عضوية وواحد معدني، 17.10% مجتمعة' },
       { label: 'الفعّالات', value: 'نياسيناميد 2.00%، أدينوزين 0.04%' },
       { label: 'خالٍ من', value: 'الأوكسيبنزون والأوكتينوكسات' },
-      { label: 'مقاومة الماء', value: 'غير مُدّعاة — أعيدي الوضع بعد الماء أو العرق' },
+      { label: 'مقاومة الماء', value: 'غير مُدّعاة - أعيدي الوضع بعد الماء أو العرق' },
       { label: 'الترخيص', value: 'ثلاثي الوظيفة الكوري: حماية من الأشعة، تفتيح، تحسين التجاعيد' },
       { label: 'المنشأ', value: 'صُنع في كوريا' },
     ],
@@ -660,7 +660,7 @@ const RU: UltraShieldCopy = {
   heroBullets: [
     'SPF измерен in vivo на 65,9 · UVA-PF 23,1 и 24,3',
     'Шесть фильтров, 17,1% формулы, химические и минеральный',
-    'Ниацинамид 2% и аденозин 0,04% — обе дозы лицензионные',
+    'Ниацинамид 2% и аденозин 0,04% - обе дозы лицензионные',
     'Без оксибензона и октиноксата',
   ],
   badges: ['Сделано в Корее', '50 г', 'Оценка безопасности ЕС', 'Дерматологически тестировано'],
@@ -677,7 +677,7 @@ const RU: UltraShieldCopy = {
   stats: [
     { value: '65,9', label: 'Измеренный SPF, in vivo' },
     { value: '24,3', label: 'Фактор UVA при требуемых 22,0' },
-    { value: '17,1%', label: 'Тюбика — это УФ-фильтры' },
+    { value: '17,1%', label: 'Тюбика - это УФ-фильтры' },
     { value: '2%', label: 'Ниацинамида, лицензионная доза' },
   ],
 
@@ -711,12 +711,12 @@ const RU: UltraShieldCopy = {
     eyebrow: 'Система фильтров',
     title: 'Шесть фильтров и что закрывает каждый',
     intro:
-      'Пять органических фильтров и один минеральный. Вместе они покрывают UVB и обе половины UVA — так одно средство и достигает этой степени.',
+      'Пять органических фильтров и один минеральный. Вместе они покрывают UVB и обе половины UVA - так одно средство и достигает этой степени.',
     columns: { name: 'Фильтр', amount: 'Концентрация', role: 'Что закрывает' },
     rows: [
       { name: 'Homosalate', amount: '4,00%', role: 'UVB, и держит остальные в растворе' },
       { name: 'Ethylhexyl Salicylate', amount: '3,50%', role: 'UVB и фотостабилизатор для остальных' },
-      { name: 'Terephthalylidene Dicamphor Sulfonic Acid', amount: '3,07%', role: 'Короткий UVA — причина такого результата' },
+      { name: 'Terephthalylidene Dicamphor Sulfonic Acid', amount: '3,07%', role: 'Короткий UVA - причина такого результата' },
       { name: 'Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine', amount: '3,00%', role: 'Широкий спектр, от UVB до длинного UVA' },
       { name: 'Ethylhexyl Triazone', amount: '2,00%', role: 'UVB, самый эффективный фильтр на грамм' },
       { name: 'Titanium Dioxide', amount: '1,53%', role: 'Минеральный, отражает UVB и короткий UVA' },
@@ -730,7 +730,7 @@ const RU: UltraShieldCopy = {
     eyebrow: 'Помимо фильтров',
     title: 'Два актива в дозах, которые считаются',
     intro:
-      'Корея лицензирует это как средство тройного действия — защита, осветление и уменьшение морщин — и за каждой функцией стоит ингредиент в той концентрации, которой требует лицензия.',
+      'Корея лицензирует это как средство тройного действия - защита, осветление и уменьшение морщин - и за каждой функцией стоит ингредиент в той концентрации, которой требует лицензия.',
     items: [
       {
         name: 'Niacinamide',
@@ -763,14 +763,14 @@ const RU: UltraShieldCopy = {
     eyebrow: 'Стоит знать',
     title: 'О гомосалате',
     body:
-      'В формуле 4,00% гомосалата — ниже действующего европейского предела 7,34%. Европейская оценка безопасности охватывает эту концентрацию и фиксирует запас безопасности выше 100.',
+      'В формуле 4,00% гомосалата - ниже действующего европейского предела 7,34%. Европейская оценка безопасности охватывает эту концентрацию и фиксирует запас безопасности выше 100.',
   },
 
   water: {
     eyebrow: 'Одно ограничение, прямо',
     title: 'Это не водостойкий санскрин',
     body:
-      'В досье этого продукта нет теста на водостойкость, и мы не станем её подразумевать. Поплавали, вспотели, вытерлись полотенцем — нужно нанести заново. Это верно для любого санскрина без заявленной водостойкости, и большинство пляжных провалов происходит из-за обратного допущения. На день у воды берите тюбик с собой.',
+      'В досье этого продукта нет теста на водостойкость, и мы не станем её подразумевать. Поплавали, вспотели, вытерлись полотенцем - нужно нанести заново. Это верно для любого санскрина без заявленной водостойкости, и большинство пляжных провалов происходит из-за обратного допущения. На день у воды берите тюбик с собой.',
   },
 
   howTo: {
@@ -780,7 +780,7 @@ const RU: UltraShieldCopy = {
     steps: [
       {
         title: 'Последний шаг, до макияжа',
-        body: 'После крема и до всего, в чём есть цвет. Санскрин — это финальный слой ухода, а не первый слой макияжа.',
+        body: 'После крема и до всего, в чём есть цвет. Санскрин - это финальный слой ухода, а не первый слой макияжа.',
       },
       {
         title: 'Достаточное и равномерное покрытие',
@@ -806,10 +806,10 @@ const RU: UltraShieldCopy = {
     items: [
       'Степень, которая держится при индексе 11 и выше',
       'Покрытие UVA выше европейского порога, а UVA проходит через оконное стекло',
-      'Шелковистый, а не тяжёлый, — носится и при 45 °C',
+      'Шелковистый, а не тяжёлый, - носится и при 45 °C',
       'Белёсости практически нет: минеральных всего 1,53% из всей загрузки',
-      'Ниацинамид 2% — правильный ингредиент для дней с высоким УФ',
-      'Пятьдесят граммов — объём, который позволяет наносить нужным слоем',
+      'Ниацинамид 2% - правильный ингредиент для дней с высоким УФ',
+      'Пятьдесят граммов - объём, который позволяет наносить нужным слоем',
     ],
   },
 
@@ -832,10 +832,10 @@ const RU: UltraShieldCopy = {
     title: 'Измеренные показатели продукта',
     intro: 'Произведено в Корее по стандартам GMP с контролем физических параметров и микробиологической чистоты.',
     rows: [
-      { label: 'pH', value: '7,23 при спецификации 7,20 ± 1,00 — выше, чем у большинства ухода, потому что трометамин нейтрализует кислотный фильтр' },
+      { label: 'pH', value: '7,23 при спецификации 7,20 ± 1,00 - выше, чем у большинства ухода, потому что трометамин нейтрализует кислотный фильтр' },
       { label: 'Размер', value: '50 г; при контроле измерено 50,9 г' },
       { label: 'Чистота', value: 'Общее аэробное число не обнаружено при допустимых 100 КОЕ/г' },
-      { label: 'Патогены', value: 'E. coli, P. aeruginosa, S. aureus и C. albicans — все четыре не обнаружены' },
+      { label: 'Патогены', value: 'E. coli, P. aeruginosa, S. aureus и C. albicans - все четыре не обнаружены' },
       { label: 'После вскрытия', value: 'Двенадцать месяцев, указано на коробке' },
       { label: 'Оценка', value: 'Полная оценка безопасности ЕС по регламенту EC 1223/2009' },
     ],
@@ -848,7 +848,7 @@ const RU: UltraShieldCopy = {
       'Только для наружного применения. Избегайте глаз и слизистых, при попадании тщательно промойте прохладной водой.',
       'Не наносите непосредственно вокруг глаз.',
       'Прекратите использование и обратитесь к врачу при покраснении, отёке или раздражении.',
-      'Не находитесь на солнце слишком долго даже с санскрином. Избыточное облучение — серьёзный риск, и никакой SPF его не убирает.',
+      'Не находитесь на солнце слишком долго даже с санскрином. Избыточное облучение - серьёзный риск, и никакой SPF его не убирает.',
       'Содержит отдушку, 0,5%.',
       'Храните в прохладном сухом месте, недоступном для детей.',
     ],
@@ -860,11 +860,11 @@ const RU: UltraShieldCopy = {
     title: 'Характеристики',
     rows: [
       { label: 'Объём', value: '50 г' },
-      { label: 'Степень', value: 'SPF50+ / PA++++ (измеренный SPF 65,9, UVA-PF 23,1–24,3)' },
-      { label: 'Фильтры', value: 'Шесть — пять органических, один минеральный, 17,10% суммарно' },
+      { label: 'Степень', value: 'SPF50+ / PA++++ (измеренный SPF 65,9, UVA-PF 23,1-24,3)' },
+      { label: 'Фильтры', value: 'Шесть - пять органических, один минеральный, 17,10% суммарно' },
       { label: 'Активы', value: 'Ниацинамид 2,00%, аденозин 0,04%' },
       { label: 'Без', value: 'Оксибензона и октиноксата' },
-      { label: 'Водостойкость', value: 'Не заявлена — наносите заново после воды или пота' },
+      { label: 'Водостойкость', value: 'Не заявлена - наносите заново после воды или пота' },
       { label: 'Лицензия', value: 'Корейское тройное действие: защита от УФ, осветление, уменьшение морщин' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
     ],
@@ -876,7 +876,7 @@ const RU: UltraShieldCopy = {
     items: [
       {
         q: 'Если измерено 65,9, почему на коробке 50+?',
-        a: 'Потому что 50+ — максимальное число, которое санскрину разрешено указывать в Европе, независимо от результата. Регулятор ставит потолок намеренно: разница между SPF 50 и SPF 70 на практике невелика, а более крупная цифра побуждает дольше оставаться на солнце. Измерено 65,9; этикетка говорит правду единственным разрешённым ей способом.',
+        a: 'Потому что 50+ - максимальное число, которое санскрину разрешено указывать в Европе, независимо от результата. Регулятор ставит потолок намеренно: разница между SPF 50 и SPF 70 на практике невелика, а более крупная цифра побуждает дольше оставаться на солнце. Измерено 65,9; этикетка говорит правду единственным разрешённым ей способом.',
       },
       {
         q: 'Сколько УФ-фильтров в формуле?',
@@ -888,11 +888,11 @@ const RU: UltraShieldCopy = {
       },
       {
         q: 'Оставляет ли белёсость?',
-        a: 'Почти нет. Минеральный только диоксид титана при 1,53%, остальные 15,6% загрузки — органические и бесцветные, так что он гораздо ближе к корейскому химическому санскрину, чем к минеральному. По той же причине текстура шелковистая, а не плотная.',
+        a: 'Почти нет. Минеральный только диоксид титана при 1,53%, остальные 15,6% загрузки - органические и бесцветные, так что он гораздо ближе к корейскому химическому санскрину, чем к минеральному. По той же причине текстура шелковистая, а не плотная.',
       },
       {
         q: 'А церамиды и гиалуроновая кислота, которыми его рекламируют?',
-        a: 'Они присутствуют в следовых количествах, поэтому мы не связываем с ними барьерный уход, увлажнение или восстановление. Главные компоненты здесь — шесть фильтров 17,10%, ниацинамид 2% и аденозин 0,04%.',
+        a: 'Они присутствуют в следовых количествах, поэтому мы не связываем с ними барьерный уход, увлажнение или восстановление. Главные компоненты здесь - шесть фильтров 17,10%, ниацинамид 2% и аденозин 0,04%.',
       },
       {
         q: 'Подойдёт ли для чувствительной кожи?',

@@ -14,7 +14,7 @@ const AtomFieldScene = dynamic(() => import('./AtomFieldScene'), {
 /**
  * Desktop hero visual:
  *   1. Static portrait (petri-dish + baked-in translucent molecules) renders
- *      immediately — instant LCP, no blank frame.
+ *      immediately - instant LCP, no blank frame.
  *   2. <video> preloads in the background. Once it can play through it
  *      cross-fades over the static image, plays through end-to-end
  *      PLAYS_PER_CYCLE times, then fades back to the static image.
@@ -71,7 +71,7 @@ export default function DesktopHero3DVisual() {
     }
     setVideoActive(true)
     v.play().catch(() => {
-      // Autoplay blocked — revert to static and let the user click again.
+      // Autoplay blocked - revert to static and let the user click again.
       setVideoActive(false)
     })
   }, [videoReady])
@@ -80,7 +80,7 @@ export default function DesktopHero3DVisual() {
   useEffect(() => {
     if (reduceMotion) return
     // Wait for the browser to go idle (post-LCP) before fetching the ~12MB
-    // hero loop — with preload="none" the fetch only starts when we call
+    // hero loop - with preload="none" the fetch only starts when we call
     // load(), so it no longer competes with LCP images / hydration.
     if (!idleReady) return
     const v = videoRef.current
@@ -126,7 +126,7 @@ export default function DesktopHero3DVisual() {
     }
   }, [])
 
-  // Click handler on the outer container — clicks anywhere inside bubble up
+  // Click handler on the outer container - clicks anywhere inside bubble up
   // (including from the R3F canvas, since R3F doesn't stopPropagation by
   // default). Gated so clicks only do something when the static is showing.
   const onContainerClick = useCallback(() => {
@@ -157,10 +157,10 @@ export default function DesktopHero3DVisual() {
       tabIndex={isReplayable ? 0 : undefined}
       aria-label={isReplayable ? 'Play GENOSYS hero video' : undefined}
     >
-      {/* Layer 1: static portrait — instant LCP, fades when video is active */}
+      {/* Layer 1: static portrait - instant LCP, fades when video is active */}
       <Image
         src={STATIC_SRC}
-        alt="GENOSYS — clinical-grade Korean dermacosmetics with photorealistic skincare science"
+        alt="GENOSYS - clinical-grade Korean dermacosmetics with photorealistic skincare science"
         fill
         priority
         sizes="(min-width: 768px) 896px, 100vw"
@@ -169,7 +169,7 @@ export default function DesktopHero3DVisual() {
         }`}
       />
 
-      {/* Layer 2: video — fades in when active, plays PLAYS_PER_CYCLE times */}
+      {/* Layer 2: video - fades in when active, plays PLAYS_PER_CYCLE times */}
       {!reduceMotion ? (
         <video
           ref={videoRef}
@@ -188,7 +188,7 @@ export default function DesktopHero3DVisual() {
       {/* Soft side vignette so the floating atoms read against the photo / video */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[var(--cera-blush)]/25 via-transparent to-[var(--cera-blush)]/30" />
 
-      {/* Layer 3: R3F atom field — cursor parallax, floats on top of both.
+      {/* Layer 3: R3F atom field - cursor parallax, floats on top of both.
           Clicks bubble up through the canvas to the container's onClick. */}
       {experience.enabled && idleReady ? (
         <div className="absolute inset-0">

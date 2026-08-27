@@ -48,7 +48,7 @@ interface CheckoutItem {
   selectedSize?: string | undefined
   selectedColor?: string | undefined
   isPromotionItem?: boolean | undefined
-  // Bundle ("Build Your Set") fields — sent by native app per item
+  // Bundle ("Build Your Set") fields - sent by native app per item
   fromBundle?: boolean | undefined
   bundleDiscountPercent?: number | undefined
   originalPrice?: number | undefined
@@ -224,7 +224,7 @@ export async function POST(request: NextRequest) {
       // NOTE: Order item prices are already server-authoritative at time of order creation.
       const serverSubtotal = existing.items.reduce((sum, it) => sum + (Number(it.price) || 0) * (Number(it.quantity) || 0), 0)
       const emirateFromOrder = String(existing.customerEmirate || emirate || 'Dubai')
-      // Partner orders (PART…) always ship free — don't re-derive retail shipping.
+      // Partner orders (PART…) always ship free - don't re-derive retail shipping.
       const isPartnerOrder = String(existing.orderNumber || '').startsWith('PART')
       const serverShipping = isPartnerOrder ? 0 : calculateMobileShipping(serverSubtotal, emirateFromOrder)
       // Preserve a loyalty redemption captured at order creation (points are

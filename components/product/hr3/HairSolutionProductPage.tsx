@@ -11,7 +11,7 @@
  * MUST NEVER BE ADDED, and this product has the worst claim set in the line because
  * it is DTS MG's own English deck rather than a translated panel:
  *   - "It helps to inhibit the formation of 5α-reductases, the key enzyme which
- *     converts testosterone to dihydrotestosterone" — the mechanism of finasteride, a
+ *     converts testosterone to dihydrotestosterone" - the mechanism of finasteride, a
  *     prescription medicine. The deck asserts it on three separate slides (concept,
  *     copper tripeptide, saw palmetto).
  *   - Angiogenesis, vasculogenesis, vasodilation, endothelial cell proliferation.
@@ -34,7 +34,7 @@
  *      one is nearly 10% propylene glycol with carbomer at 0.450%. That is a real,
  *      defensible reason to buy it over a normal scalp serum.
  *   3. The copper peptide comparison. 5 ppm here against 1 ppm in the tonic and
- *      0.01 ppm in the shampoo — the one measure on which this product genuinely
+ *      0.01 ppm in the shampoo - the one measure on which this product genuinely
  *      leads the range, and invisible from any label.
  *
  * Both usage techniques are documented and worth having: the professional roller /

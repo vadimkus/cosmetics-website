@@ -4,7 +4,7 @@ import BreadcrumbSchema from '@/components/schema/BreadcrumbSchema'
 
 export const metadata: Metadata = {
   title: 'История бренда GENOSYS - Gene Re-Birth System',
-  description: 'Откройте для себя GENOSYS — первый в мире бренд, специализирующийся на микронидлинге. Система Gene Re-Birth объединяет микронидлинг и специально разработанную дерматокосметику для более выраженных результатов ухода.',
+  description: 'Откройте для себя GENOSYS - первый в мире бренд, специализирующийся на микронидлинге. Система Gene Re-Birth объединяет микронидлинг и специально разработанную дерматокосметику для более выраженных результатов ухода.',
   keywords: [
     'бренд GENOSYS',
     'Gene Re-Birth System',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'История бренда GENOSYS - Gene Re-Birth System',
-    description: 'Откройте для себя GENOSYS — первый в мире бренд, специализирующийся на микронидлинге. Система Gene Re-Birth объединяет микронидлинг и специально разработанную дерматокосметику.',
+    description: 'Откройте для себя GENOSYS - первый в мире бренд, специализирующийся на микронидлинге. Система Gene Re-Birth объединяет микронидлинг и специально разработанную дерматокосметику.',
     type: 'website',
     url: 'https://genosys.ae/ru/brand',
     siteName: 'GENOSYS',
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     site: '@genosys_official',
     creator: '@genosys_official',
     title: 'История бренда GENOSYS - Gene Re-Birth System',
-    description: 'Откройте для себя GENOSYS — первый в мире бренд, специализирующийся на микронидлинге.',
+    description: 'Откройте для себя GENOSYS - первый в мире бренд, специализирующийся на микронидлинге.',
     images: ['/images/genosys-products.jpg'],
   },
   alternates: {

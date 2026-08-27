@@ -740,7 +740,7 @@ const AUDITED_EN: CollagenMaskCopy = {
   eyebrow: 'Sheet mask · Moisture and comfort',
   headline: 'A moisture-rich mask for a softer feel.',
   subheadline:
-    'One 23g sheet saturated with a humectant-rich essence. Glycerin 10.052% and butylene glycol 8.010% form the base, supported by betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2%. Leave on for 15–20 minutes, then pat in the remaining essence.',
+    'One 23g sheet saturated with a humectant-rich essence. Glycerin 10.052% and butylene glycol 8.010% form the base, supported by betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2%. Leave on for 15-20 minutes, then pat in the remaining essence.',
   heroBullets: [
     'Glycerin and butylene glycol at a combined 18.062%',
     'Betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2%',
@@ -749,10 +749,10 @@ const AUDITED_EN: CollagenMaskCopy = {
   ],
   badges: ['Dermatologically tested', 'Made in Korea', 'One 23g sheet', 'Single use'],
   packSize: '1 sheet · 23g',
-  usageNote: '15–20 minutes · use immediately after opening',
+  usageNote: '15-20 minutes · use immediately after opening',
   stats: [
     { value: '18.062%', label: 'Glycerin and butylene glycol together' },
-    { value: '15–20 min', label: 'Wear time printed on the pack' },
+    { value: '15-20 min', label: 'Wear time printed on the pack' },
     { value: '23g', label: 'One single-use sheet' },
     { value: '6.67 / 6.96', label: 'pH measured in two COAs' },
   ],
@@ -786,12 +786,12 @@ const AUDITED_EN: CollagenMaskCopy = {
   },
   howTo: {
     eyebrow: 'How to use',
-    title: 'One sheet, 15–20 minutes.',
+    title: 'One sheet, 15-20 minutes.',
     frequency: 'The pack does not set a weekly frequency',
     steps: [
       { title: 'Open', body: 'Remove and unfold the sheet. Use immediately after opening.' },
       { title: 'Apply', body: 'Place on clean skin, avoiding the eyes and mouth.' },
-      { title: 'Wait', body: 'Leave on for 15–20 minutes, as directed on the pack.' },
+      { title: 'Wait', body: 'Leave on for 15-20 minutes, as directed on the pack.' },
       { title: 'Remove', body: 'Lift off the sheet and gently pat in the essence left on the skin. Do not rinse.' },
       { title: 'Discard', body: 'This is a single-use sheet. Do not store the opened sachet or reuse the mask.' },
     ],
@@ -806,7 +806,7 @@ const AUDITED_EN: CollagenMaskCopy = {
   suited: {
     ...EN.suited,
     forList: [
-      'You want a 15–20-minute moisture-focused sheet-mask step',
+      'You want a 15-20-minute moisture-focused sheet-mask step',
       'You prefer a formula led by glycerin and butylene glycol',
       'You want one individually sealed sheet for one application',
     ],
@@ -823,8 +823,8 @@ const AUDITED_EN: CollagenMaskCopy = {
     ...EN.faq,
     items: [
       { q: 'How often should I use it?', a: 'The pack does not set a weekly frequency. Use according to your routine and skin tolerance.' },
-      { q: 'Do I rinse afterwards?', a: 'No. Remove after 15–20 minutes and gently pat in the essence left on the skin.' },
-      { q: 'Can I leave it on overnight?', a: 'No. The printed directions set a 15–20-minute wear time.' },
+      { q: 'Do I rinse afterwards?', a: 'No. Remove after 15-20 minutes and gently pat in the essence left on the skin.' },
+      { q: 'Can I leave it on overnight?', a: 'No. The printed directions set a 15-20-minute wear time.' },
       { q: 'Is it fragranced?', a: 'Yes. The formula contains Parfum (Fragrance) at 0.01% and Alcohol at 0.1%.' },
       { q: 'Can I use it after a procedure?', a: 'The pack does not claim post-procedure use. Follow the instructions of the clinician who treated your skin.' },
       { q: 'What about pregnancy?', a: 'The pack gives no pregnancy claim. Ask your doctor if you need individual guidance.' },
@@ -836,9 +836,9 @@ const AUDITED_EN: CollagenMaskCopy = {
     rows: [
       { label: 'Format', value: 'Single-use non-woven sheet mask' },
       { label: 'Net weight', value: '23g (0.8 oz) / one sheet' },
-      { label: 'Wear time', value: '15–20 minutes' },
+      { label: 'Wear time', value: '15-20 minutes' },
       { label: 'Frequency', value: 'Not specified on the pack' },
-      { label: 'pH', value: '6.67 and 6.96 in two COAs; specification 5.50–7.50' },
+      { label: 'pH', value: '6.67 and 6.96 in two COAs; specification 5.50-7.50' },
       { label: 'Testing', value: 'Dermatologically tested' },
       { label: 'After opening', value: 'Use immediately; single use' },
       { label: 'Disclosure', value: 'Alcohol 0.1%; Parfum (Fragrance) 0.01%; soybean extract' },
@@ -848,7 +848,7 @@ const AUDITED_EN: CollagenMaskCopy = {
   },
   closing: {
     title: 'Moisture in one measured step.',
-    body: 'One 23g sheet, 15–20 minutes, then softly pat in the remaining essence.',
+    body: 'One 23g sheet, 15-20 minutes, then softly pat in the remaining essence.',
   },
 }
 
@@ -857,7 +857,7 @@ const AUDITED_AR: CollagenMaskCopy = {
   eyebrow: 'قناع ورقي · ترطيب وراحة',
   headline: 'قناع غني بالمرطبات لبشرة أكثر نعومة.',
   subheadline:
-    'قناع واحد بوزن 23 غ مشبع بخلاصة مرطبة. يشكل الغليسرين 10.052% وبيوتيلين غلايكول 8.010% قاعدة التركيبة، ويكملها البيتايين 0.8% وهيالورونات الصوديوم 0.5% والألانتوين 0.2%. يترك 15–20 دقيقة ثم تربت الخلاصة المتبقية.',
+    'قناع واحد بوزن 23 غ مشبع بخلاصة مرطبة. يشكل الغليسرين 10.052% وبيوتيلين غلايكول 8.010% قاعدة التركيبة، ويكملها البيتايين 0.8% وهيالورونات الصوديوم 0.5% والألانتوين 0.2%. يترك 15-20 دقيقة ثم تربت الخلاصة المتبقية.',
   heroBullets: [
     'غليسرين وبيوتيلين غلايكول بتركيز إجمالي 18.062%',
     'بيتايين 0.8% وهيالورونات الصوديوم 0.5% وألانتوين 0.2%',
@@ -866,10 +866,10 @@ const AUDITED_AR: CollagenMaskCopy = {
   ],
   badges: ['مختبر جلدياً', 'صنع في كوريا', 'قناع واحد 23 غ', 'أحادي الاستخدام'],
   packSize: 'قناع واحد · 23 غ',
-  usageNote: '15–20 دقيقة · يستخدم مباشرة بعد الفتح',
+  usageNote: '15-20 دقيقة · يستخدم مباشرة بعد الفتح',
   stats: [
     { value: '18.062%', label: 'غليسرين وبيوتيلين غلايكول معاً' },
-    { value: '15–20 دقيقة', label: 'مدة الاستخدام على العبوة' },
+    { value: '15-20 دقيقة', label: 'مدة الاستخدام على العبوة' },
     { value: '23 غ', label: 'قناع واحد أحادي الاستخدام' },
     { value: '6.67 / 6.96', label: 'درجتا pH في شهادتي تحليل' },
   ],
@@ -880,7 +880,7 @@ const AUDITED_AR: CollagenMaskCopy = {
     cards: [
       { title: 'إحساس غني بالترطيب', body: 'يشكل الغليسرين وبيوتيلين غلايكول 18.062% من الخلاصة.' },
       { title: 'ملمس أكثر نعومة', body: 'يكمل البيتايين وهيالورونات الصوديوم والألانتوين قاعدة المرطبات.' },
-      { title: '15–20 دقيقة', body: 'خطوة محددة المدة بعد التنظيف أو التونر وقبل العناية التي تترك على البشرة.' },
+      { title: '15-20 دقيقة', body: 'خطوة محددة المدة بعد التنظيف أو التونر وقبل العناية التي تترك على البشرة.' },
       { title: 'قناع طازج واحد', body: 'يفتح كيس 23 غ ويستخدم مباشرة ثم يتخلص منه بعد تطبيق واحد.' },
     ],
   },
@@ -902,12 +902,12 @@ const AUDITED_AR: CollagenMaskCopy = {
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',
-    title: 'قناع واحد، 15–20 دقيقة.',
+    title: 'قناع واحد، 15-20 دقيقة.',
     frequency: 'لا تحدد العبوة وتيرة أسبوعية',
     steps: [
       { title: 'افتحي', body: 'أخرجي القناع وافرديه، واستخدميه مباشرة بعد الفتح.' },
       { title: 'ضعيه', body: 'وزعيه على بشرة نظيفة مع تجنب العينين والفم.' },
-      { title: 'انتظري', body: 'اتركيه 15–20 دقيقة وفق تعليمات العبوة.' },
+      { title: 'انتظري', body: 'اتركيه 15-20 دقيقة وفق تعليمات العبوة.' },
       { title: 'ارفعيه', body: 'ارفعي القناع وربتي بلطف على الخلاصة المتبقية. لا تشطفيها.' },
       { title: 'تخلصي منه', body: 'القناع أحادي الاستخدام. لا تحفظي الكيس بعد فتحه ولا تعيدي استخدامه.' },
     ],
@@ -922,7 +922,7 @@ const AUDITED_AR: CollagenMaskCopy = {
   suited: {
     ...AR.suited,
     forList: [
-      'تريدين خطوة قناع مرطبة مدتها 15–20 دقيقة',
+      'تريدين خطوة قناع مرطبة مدتها 15-20 دقيقة',
       'تفضلين تركيبة أساسها الغليسرين وبيوتيلين غلايكول',
       'تريدين قناعاً فردياً محكم الإغلاق لاستخدام واحد',
     ],
@@ -939,8 +939,8 @@ const AUDITED_AR: CollagenMaskCopy = {
     ...AR.faq,
     items: [
       { q: 'كم مرة أستخدمه؟', a: 'لا تحدد العبوة وتيرة أسبوعية. استخدميه بحسب روتينك ومدى تحمل بشرتك.' },
-      { q: 'هل أشطف وجهي بعده؟', a: 'لا. ارفعيه بعد 15–20 دقيقة وربتي بلطف على الخلاصة المتبقية.' },
-      { q: 'هل أتركه طوال الليل؟', a: 'لا. تحدد التعليمات المطبوعة مدة 15–20 دقيقة.' },
+      { q: 'هل أشطف وجهي بعده؟', a: 'لا. ارفعيه بعد 15-20 دقيقة وربتي بلطف على الخلاصة المتبقية.' },
+      { q: 'هل أتركه طوال الليل؟', a: 'لا. تحدد التعليمات المطبوعة مدة 15-20 دقيقة.' },
       { q: 'هل يحتوي على عطر؟', a: 'نعم. يحتوي على Parfum (Fragrance) ‏0.01% وAlcohol ‏0.1%.' },
       { q: 'هل أستخدمه بعد جلسة؟', a: 'لا تدعي العبوة استخدامه بعد الإجراءات. اتبعي تعليمات المختص الذي عالج بشرتك.' },
       { q: 'ماذا عن الحمل؟', a: 'لا تتضمن العبوة ادعاء خاصاً بالحمل. اسألي طبيبك عند الحاجة إلى إرشاد فردي.' },
@@ -952,9 +952,9 @@ const AUDITED_AR: CollagenMaskCopy = {
     rows: [
       { label: 'الشكل', value: 'قناع ورقي غير منسوج أحادي الاستخدام' },
       { label: 'الوزن الصافي', value: '23 غ / قناع واحد' },
-      { label: 'مدة الاستخدام', value: '15–20 دقيقة' },
+      { label: 'مدة الاستخدام', value: '15-20 دقيقة' },
       { label: 'الوتيرة', value: 'غير محددة على العبوة' },
-      { label: 'pH', value: '‏6.67 و6.96 في شهادتي التحليل؛ المواصفة 5.50–7.50' },
+      { label: 'pH', value: '‏6.67 و6.96 في شهادتي التحليل؛ المواصفة 5.50-7.50' },
       { label: 'الاختبار', value: 'مختبر جلدياً' },
       { label: 'بعد الفتح', value: 'يستخدم مباشرة؛ أحادي الاستخدام' },
       { label: 'الإفصاح', value: 'Alcohol ‏0.1% وParfum (Fragrance) ‏0.01% ومستخلص الصويا' },
@@ -964,7 +964,7 @@ const AUDITED_AR: CollagenMaskCopy = {
   },
   closing: {
     title: 'ترطيب في خطوة محددة.',
-    body: 'قناع واحد بوزن 23 غ لمدة 15–20 دقيقة، ثم تربت الخلاصة المتبقية بلطف.',
+    body: 'قناع واحد بوزن 23 غ لمدة 15-20 دقيقة، ثم تربت الخلاصة المتبقية بلطف.',
   },
 }
 
@@ -973,7 +973,7 @@ const AUDITED_RU: CollagenMaskCopy = {
   eyebrow: 'Тканевая маска · Увлажнение и комфорт',
   headline: 'Насыщенная эссенция для мягкости кожи.',
   subheadline:
-    'Одна тканевая маска 23 г с увлажняющей эссенцией. Глицерин 10,052% и бутиленгликоль 8,010% образуют основу формулы, а бетаин 0,8%, гиалуронат натрия 0,5% и аллантоин 0,2% дополняют её. Оставьте на 15–20 минут и мягко вбейте остатки эссенции.',
+    'Одна тканевая маска 23 г с увлажняющей эссенцией. Глицерин 10,052% и бутиленгликоль 8,010% образуют основу формулы, а бетаин 0,8%, гиалуронат натрия 0,5% и аллантоин 0,2% дополняют её. Оставьте на 15-20 минут и мягко вбейте остатки эссенции.',
   heroBullets: [
     'Глицерин и бутиленгликоль в общей концентрации 18,062%',
     'Бетаин 0,8%, гиалуронат натрия 0,5% и аллантоин 0,2%',
@@ -982,10 +982,10 @@ const AUDITED_RU: CollagenMaskCopy = {
   ],
   badges: ['Дерматологически протестировано', 'Сделано в Корее', 'Одна маска 23 г', 'Одноразовая'],
   packSize: '1 маска · 23 г',
-  usageNote: '15–20 минут · использовать сразу после вскрытия',
+  usageNote: '15-20 минут · использовать сразу после вскрытия',
   stats: [
     { value: '18,062%', label: 'Глицерин и бутиленгликоль вместе' },
-    { value: '15–20 мин', label: 'Время применения на упаковке' },
+    { value: '15-20 мин', label: 'Время применения на упаковке' },
     { value: '23 г', label: 'Одна одноразовая маска' },
     { value: '6,67 / 6,96', label: 'pH в двух COA' },
   ],
@@ -997,7 +997,7 @@ const AUDITED_RU: CollagenMaskCopy = {
     cards: [
       { title: 'Насыщенное увлажнение', body: 'Глицерин и бутиленгликоль составляют 18,062% эссенции.' },
       { title: 'Более мягкая кожа', body: 'Бетаин, гиалуронат натрия и аллантоин дополняют увлажняющую основу.' },
-      { title: '15–20 минут', body: 'Точно рассчитанный этап после очищения или тоника и до несмываемого ухода.' },
+      { title: '15-20 минут', body: 'Точно рассчитанный этап после очищения или тоника и до несмываемого ухода.' },
       { title: 'Одна свежая маска', body: 'Саше 23 г открывают, используют сразу и утилизируют после одного применения.' },
     ],
   },
@@ -1019,12 +1019,12 @@ const AUDITED_RU: CollagenMaskCopy = {
   },
   howTo: {
     eyebrow: 'Как использовать',
-    title: 'Одна маска, 15–20 минут.',
+    title: 'Одна маска, 15-20 минут.',
     frequency: 'Недельная частота на упаковке не указана',
     steps: [
       { title: 'Откройте', body: 'Достаньте и расправьте маску. Используйте сразу после вскрытия.' },
       { title: 'Наложите', body: 'Распределите по чистому лицу, не заходя на область глаз и рта.' },
-      { title: 'Подождите', body: 'Оставьте на 15–20 минут, как указано на упаковке.' },
+      { title: 'Подождите', body: 'Оставьте на 15-20 минут, как указано на упаковке.' },
       { title: 'Снимите', body: 'Снимите маску и мягко вбейте эссенцию, оставшуюся на коже. Не смывайте.' },
       { title: 'Утилизируйте', body: 'Маска одноразовая. Не храните вскрытое саше и не используйте маску повторно.' },
     ],
@@ -1039,7 +1039,7 @@ const AUDITED_RU: CollagenMaskCopy = {
   suited: {
     ...RU.suited,
     forList: [
-      'Вам нужен 15–20-минутный этап ухода с акцентом на увлажнение',
+      'Вам нужен 15-20-минутный этап ухода с акцентом на увлажнение',
       'Вы предпочитаете формулу на основе глицерина и бутиленгликоля',
       'Вам удобна одна герметично упакованная маска на одно применение',
     ],
@@ -1056,8 +1056,8 @@ const AUDITED_RU: CollagenMaskCopy = {
     ...RU.faq,
     items: [
       { q: 'Как часто использовать?', a: 'Упаковка не устанавливает недельную частоту. Ориентируйтесь на свой уход и переносимость кожи.' },
-      { q: 'Нужно ли смывать?', a: 'Нет. Снимите через 15–20 минут и мягко вбейте эссенцию, оставшуюся на коже.' },
-      { q: 'Можно оставить на ночь?', a: 'Нет. В печатной инструкции указано время 15–20 минут.' },
+      { q: 'Нужно ли смывать?', a: 'Нет. Снимите через 15-20 минут и мягко вбейте эссенцию, оставшуюся на коже.' },
+      { q: 'Можно оставить на ночь?', a: 'Нет. В печатной инструкции указано время 15-20 минут.' },
       { q: 'Есть ли отдушка?', a: 'Да. Формула содержит Parfum (Fragrance) 0,01% и Alcohol 0,1%.' },
       { q: 'Можно после процедуры?', a: 'Упаковка не заявляет постпроцедурное применение. Следуйте инструкции специалиста, проводившего процедуру.' },
       { q: 'Что насчёт беременности?', a: 'На упаковке нет отдельного заявления для беременности. За индивидуальной рекомендацией обратитесь к врачу.' },
@@ -1069,9 +1069,9 @@ const AUDITED_RU: CollagenMaskCopy = {
     rows: [
       { label: 'Формат', value: 'Одноразовая тканевая маска из нетканого материала' },
       { label: 'Масса нетто', value: '23 г / 1 маска' },
-      { label: 'Время применения', value: '15–20 минут' },
+      { label: 'Время применения', value: '15-20 минут' },
       { label: 'Частота', value: 'На упаковке не указана' },
-      { label: 'pH', value: '6,67 и 6,96 в двух COA; спецификация 5,50–7,50' },
+      { label: 'pH', value: '6,67 и 6,96 в двух COA; спецификация 5,50-7,50' },
       { label: 'Тестирование', value: 'Дерматологически протестировано' },
       { label: 'После вскрытия', value: 'Использовать сразу; одноразовая' },
       { label: 'Состав содержит', value: 'Alcohol 0,1%; Parfum (Fragrance) 0,01%; экстракт сои' },
@@ -1081,7 +1081,7 @@ const AUDITED_RU: CollagenMaskCopy = {
   },
   closing: {
     title: 'Увлажнение в одном точном этапе.',
-    body: 'Одна маска 23 г на 15–20 минут, затем мягко вбейте остатки эссенции.',
+    body: 'Одна маска 23 г на 15-20 минут, затем мягко вбейте остатки эссенции.',
   },
 }
 

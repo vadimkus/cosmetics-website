@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Filename is required' }, { status: 400 })
     }
 
-    // Identity is derived from the session cookie, NOT the request body —
+    // Identity is derived from the session cookie, NOT the request body -
     // otherwise anyone could associate arbitrary emails with download events.
     let userId: string | null = null
     let userEmail: string | null = null

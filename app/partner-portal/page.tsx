@@ -328,7 +328,7 @@ function PartnerDashboardInner() {
               </div>
             </div>
 
-            {/* Active trade agreements — spelled out so the partner knows
+            {/* Active trade agreements - spelled out so the partner knows
                 exactly what each term covers */}
             {(user?.consignmentActive || (user?.creditActive && Number(user?.creditDays) > 0)) && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
@@ -338,7 +338,7 @@ function PartnerDashboardInner() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2 flex-wrap">
                         <p className="text-xs font-bold uppercase tracking-wide text-amber-300">
-                          {t('Consignment Agreement — Active', 'Договор консигнации — активен', 'اتفاقية الأمانة — مفعّلة')}
+                          {t('Consignment Agreement - Active', 'Договор консигнации - активен', 'اتفاقية الأمانة - مفعّلة')}
                         </p>
                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${outstanding.consignment > 0 ? 'bg-amber-400 text-[var(--cera-ink)]' : 'bg-white/10 text-[var(--cera-blush-deep)]'}`}>
                           {outstanding.consignment > 0
@@ -358,7 +358,7 @@ function PartnerDashboardInner() {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-2 flex-wrap">
                         <p className="text-xs font-bold uppercase tracking-wide text-blue-300">
-                          {t(`Credit ${user.creditDays} days — Active`, `Кредит ${user.creditDays} дней — активен`, `أجل ${user.creditDays} يومًا — مفعّل`)}
+                          {t(`Credit ${user.creditDays} days - Active`, `Кредит ${user.creditDays} дней - активен`, `أجل ${user.creditDays} يومًا - مفعّل`)}
                         </p>
                         <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${outstanding.credit > 0 ? 'bg-[var(--cera-muted)] text-[var(--cera-ink)]' : 'bg-white/10 text-[var(--cera-blush-deep)]'}`}>
                           {outstanding.credit > 0
@@ -381,8 +381,8 @@ function PartnerDashboardInner() {
             {[
               { icon: Package, value: String(stats.count), label: t('Orders', 'Заказов', 'الطلبات') },
               { icon: TrendingUp, value: stats.spent.toFixed(0), label: t('Total AED', 'Всего AED', 'إجمالي AED') },
-              { icon: Clock, value: stats.daysSince === null ? '—' : `${stats.daysSince}d`, label: t('Since last order', 'С посл. заказа', 'منذ آخر طلب') },
-              { icon: ShieldCheck, value: discountPct > 0 ? `−${discountPct}%` : '—', label: t('Partner price', 'Партнёрская цена', 'سعر الشريك') },
+              { icon: Clock, value: stats.daysSince === null ? ' - ' : `${stats.daysSince}d`, label: t('Since last order', 'С посл. заказа', 'منذ آخر طلب') },
+              { icon: ShieldCheck, value: discountPct > 0 ? `−${discountPct}%` : ' - ', label: t('Partner price', 'Партнёрская цена', 'سعر الشريك') },
             ].map((s, i) => (
               <div key={i} className="bg-white rounded-2xl border border-[var(--cera-line)] shadow-sm px-5 py-4">
                 <s.icon className="w-4 h-4 text-[var(--cera-blush-deep)] mb-2" />
@@ -396,7 +396,7 @@ function PartnerDashboardInner() {
             <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 mb-6">
               <RefreshCw className="w-4 h-4 text-amber-600 flex-shrink-0" />
               <p className="text-sm text-amber-800">
-                {t(`It's been ${stats.daysSince} days since your last order — time to restock?`, `С последнего заказа прошло ${stats.daysSince} дн. — пора пополнить?`, `مرّ ${stats.daysSince} يومًا على آخر طلب`)}
+                {t(`It's been ${stats.daysSince} days since your last order - time to restock?`, `С последнего заказа прошло ${stats.daysSince} дн. - пора пополнить?`, `مرّ ${stats.daysSince} يومًا على آخر طلب`)}
               </p>
             </div>
           )}
@@ -573,7 +573,7 @@ function PartnerDashboardInner() {
             </div>
           </div>
 
-          {/* Active trade agreements — spelled out so the partner knows
+          {/* Active trade agreements - spelled out so the partner knows
               exactly what each term covers */}
           {(user?.consignmentActive || (user?.creditActive && Number(user?.creditDays) > 0)) && (
             <div className="space-y-2.5 mt-4">
@@ -583,7 +583,7 @@ function PartnerDashboardInner() {
                   <div className="flex-1 min-w-0">
                     <div className={`flex items-center justify-between gap-2 flex-wrap ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <p className="text-xs font-bold uppercase tracking-wide text-amber-300">
-                        {t('Consignment Agreement — Active', 'Договор консигнации — активен', 'اتفاقية الأمانة — مفعّلة')}
+                        {t('Consignment Agreement - Active', 'Договор консигнации - активен', 'اتفاقية الأمانة - مفعّلة')}
                       </p>
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${outstanding.consignment > 0 ? 'bg-amber-400 text-[var(--cera-ink)]' : 'bg-white/10 text-[var(--cera-blush-deep)]'}`}>
                         {outstanding.consignment > 0
@@ -603,7 +603,7 @@ function PartnerDashboardInner() {
                   <div className="flex-1 min-w-0">
                     <div className={`flex items-center justify-between gap-2 flex-wrap ${isRTL ? 'flex-row-reverse' : ''}`}>
                       <p className="text-xs font-bold uppercase tracking-wide text-blue-300">
-                        {t(`Credit ${user.creditDays} days — Active`, `Кредит ${user.creditDays} дней — активен`, `أجل ${user.creditDays} يومًا — مفعّل`)}
+                        {t(`Credit ${user.creditDays} days - Active`, `Кредит ${user.creditDays} дней - активен`, `أجل ${user.creditDays} يومًا - مفعّل`)}
                       </p>
                       <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${outstanding.credit > 0 ? 'bg-[var(--cera-muted)] text-[var(--cera-ink)]' : 'bg-white/10 text-[var(--cera-blush-deep)]'}`}>
                         {outstanding.credit > 0
@@ -628,7 +628,7 @@ function PartnerDashboardInner() {
           {[
             { icon: Package, value: String(stats.count), label: t('Orders', 'Заказов', 'الطلبات') },
             { icon: TrendingUp, value: `${stats.spent.toFixed(0)}`, label: t('Total AED', 'Всего AED', 'إجمالي AED') },
-            { icon: Clock, value: stats.daysSince === null ? '—' : `${stats.daysSince}d`, label: t('Since last', 'С посл.', 'منذ الأخير') },
+            { icon: Clock, value: stats.daysSince === null ? ' - ' : `${stats.daysSince}d`, label: t('Since last', 'С посл.', 'منذ الأخير') },
           ].map((s, i) => (
             <div key={i} className="bg-white rounded-2xl border border-[var(--cera-line)] shadow-sm px-3 py-4 text-center">
               <s.icon className="w-5 h-5 text-[var(--cera-blush-deep)] mx-auto mb-1.5" />
@@ -644,9 +644,9 @@ function PartnerDashboardInner() {
             <RefreshCw className="w-5 h-5 text-amber-600 flex-shrink-0" />
             <p className="text-sm text-amber-800 flex-1">
               {t(
-                `It's been ${stats.daysSince} days since your last order — time to restock?`,
-                `С последнего заказа прошло ${stats.daysSince} дн. — пора пополнить запас?`,
-                `مرّ ${stats.daysSince} يومًا على آخر طلب — حان وقت إعادة التخزين؟`
+                `It's been ${stats.daysSince} days since your last order - time to restock?`,
+                `С последнего заказа прошло ${stats.daysSince} дн. - пора пополнить запас?`,
+                `مرّ ${stats.daysSince} يومًا على آخر طلب - حان وقت إعادة التخزين؟`
               )}
             </p>
           </div>

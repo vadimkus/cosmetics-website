@@ -299,7 +299,7 @@ export const products: Product[] = [
     id: '19',
     name: 'ALL FOR SENSITIVE SERUM',
     price: 330,
-    description: '30ml. Serum for sensitive, reactive skin. Relieves, protects and moisturizes — MultiEx BSASM® Plus at 1%, with betaine, allantoin and hyaluronic acid. Morning and night. Dermatologically tested.',
+    description: '30ml. Serum for sensitive, reactive skin. Relieves, protects and moisturizes - MultiEx BSASM® Plus at 1%, with betaine, allantoin and hyaluronic acid. Morning and night. Dermatologically tested.',
     image: '/images/sensitive_serum/main.jpeg',
     images: JSON.stringify([
       '/images/sensitive_serum/s1.jpeg',
@@ -348,7 +348,7 @@ export const products: Product[] = [
     id: '22',
     name: 'MULTI FUNCTIONAL ANTI-WRINKLE SERUM',
     price: 330,
-    description: '30ml. Anti-aging serum with bakuchiol, a natural alternative to retinol and anti-wrinkle peptide complex. It is an anti-aging serum that helps visibly smooth the signs of wrinkles and reinforces skin firmness with a nourishing ingredient – bakuchiol, a natural alternative to retinol and anti-wrinkle peptide complex. Clinical study on improvement of skin age index, P&K Skin Research Center, Feb. 22 to May 13, 2024, 24 adult women aged 30~59 years. Key ingredients: Bakuchiol, Anti-aging Peptide 6, Lipid Barrier Liposome (Ceramide NP, Cholesterol, Phytosphingosine), Collagen, Elastin, Propolis Extract, Adenosine, Niacinamide. Dermatologically tested. Efficacy test on improving wrinkles and skin tone balance.',
+    description: '30ml. Anti-aging serum with bakuchiol, a natural alternative to retinol and anti-wrinkle peptide complex. It is an anti-aging serum that helps visibly smooth the signs of wrinkles and reinforces skin firmness with a nourishing ingredient - bakuchiol, a natural alternative to retinol and anti-wrinkle peptide complex. Clinical study on improvement of skin age index, P&K Skin Research Center, Feb. 22 to May 13, 2024, 24 adult women aged 30~59 years. Key ingredients: Bakuchiol, Anti-aging Peptide 6, Lipid Barrier Liposome (Ceramide NP, Cholesterol, Phytosphingosine), Collagen, Elastin, Propolis Extract, Adenosine, Niacinamide. Dermatologically tested. Efficacy test on improving wrinkles and skin tone balance.',
     image: '/images/multif_serum/main.jpeg',
     images: JSON.stringify([
       '/images/multif_serum/main.jpeg',
@@ -407,7 +407,7 @@ export const products: Product[] = [
     id: '26',
     name: 'EGF REPAIR OXYMASK CREAM',
     price: 290,
-    description: '50g. Oxygen bubbling mask cream with skin regenerating ingredients – EGF and madecassoside. It is a unique oxygen bubbling mask cream which makes dull & stressed skin healthy with skin regenerating ingredients such as EGF and madecassoside. It is a "S.O.S" cream that can be effectively used for damaged skin by various causes. Key ingredients: sh-Oligopeptide-1 (EGF), Madecassoside, Copper Tripeptide-1, SEPITONIC M3 (Mineral Complex), Salmon Oil, Adenosine. Dermatologically tested. Efficacy test on skin soothing effect against external stimulus.',
+    description: '50g. Oxygen bubbling mask cream with skin regenerating ingredients - EGF and madecassoside. It is a unique oxygen bubbling mask cream which makes dull & stressed skin healthy with skin regenerating ingredients such as EGF and madecassoside. It is a "S.O.S" cream that can be effectively used for damaged skin by various causes. Key ingredients: sh-Oligopeptide-1 (EGF), Madecassoside, Copper Tripeptide-1, SEPITONIC M3 (Mineral Complex), Salmon Oil, Adenosine. Dermatologically tested. Efficacy test on skin soothing effect against external stimulus.',
     image: '/images/EGF.jpg',
     images: null,
     category: 'Cream',
@@ -705,7 +705,7 @@ export const products: Product[] = [
     id: '48',
     name: 'Hair-GENTRON',
     price: 3300,
-    description: 'An LED helmet for the scalp with air-pressure massage and a heating function, on a separate controller. Four light modes — red with infrared, blue, off, or all three together — and a timer set to ten, twenty or thirty minutes; the helmet switches itself off at the end. It weighs 1.0 kg and runs from the USB-C adaptor in the box or from four AA batteries, which are not included. Korea and the EU certify it as a household massage appliance under IEC/EN 60335-2-32; it is not a medical or phototherapy device, and it is not registered to treat hair loss. No efficacy study for this device is held, and the sales brochure\'s claims about the hair cycle are not carried. Model HGHY01, DTS MG Co., Ltd., made in Korea.',
+    description: 'An LED helmet for the scalp with air-pressure massage and a heating function, on a separate controller. Four light modes - red with infrared, blue, off, or all three together - and a timer set to ten, twenty or thirty minutes; the helmet switches itself off at the end. It weighs 1.0 kg and runs from the USB-C adaptor in the box or from four AA batteries, which are not included. Korea and the EU certify it as a household massage appliance under IEC/EN 60335-2-32; it is not a medical or phototherapy device, and it is not registered to treat hair loss. No efficacy study for this device is held, and the sales brochure\'s claims about the hair cycle are not carried. Model HGHY01, DTS MG Co., Ltd., made in Korea.',
     image: '/images/gen.jpg',
     images: null,
     videoUrl: '/videos/gentron.mp4',
@@ -716,7 +716,7 @@ export const products: Product[] = [
     id: '49',
     name: 'GENO-LED IR II',
     price: 5500,
-    description: 'LED device that resolves complicated skin problems. It is a LLLT device which resolves complicated skin problems by irradiating lights with various wave lengths - 640nm (red), 423nm (blue), 532nm (green), 583nm (yellow) and 830nm (infrared). Features: Dome shape for less light loss, Excellent and powerful high-brightness and special near-infrared light SMD LED element, Light of different lengths (423nm~830nm) - Blue light, Green light, Yellow light, Red light + Infrared light, Available for the treatment of whole body – total care device, Effective for various types of skin problems, Gentle and safe treatment without pain, side effects and downtime. LED Specifications: Red (640nm) - 380ea, Blue (423nm) - 380ea, Green (532nm) - 380ea, Yellow (583nm) - 380ea, Infrared (830nm) - 190ea. Total: 1,710 LED and IR lamps. Effects: Cell regeneration, Anti-aging, Brightening, Soothing, Acne treatment, Improvement in edema/erythema, Hair loss care, Improvement in blood circulation. Face, Scalp, Body Total Care device.',
+    description: 'LED device that resolves complicated skin problems. It is a LLLT device which resolves complicated skin problems by irradiating lights with various wave lengths - 640nm (red), 423nm (blue), 532nm (green), 583nm (yellow) and 830nm (infrared). Features: Dome shape for less light loss, Excellent and powerful high-brightness and special near-infrared light SMD LED element, Light of different lengths (423nm~830nm) - Blue light, Green light, Yellow light, Red light + Infrared light, Available for the treatment of whole body - total care device, Effective for various types of skin problems, Gentle and safe treatment without pain, side effects and downtime. LED Specifications: Red (640nm) - 380ea, Blue (423nm) - 380ea, Green (532nm) - 380ea, Yellow (583nm) - 380ea, Infrared (830nm) - 190ea. Total: 1,710 LED and IR lamps. Effects: Cell regeneration, Anti-aging, Brightening, Soothing, Acne treatment, Improvement in edema/erythema, Hair loss care, Improvement in blood circulation. Face, Scalp, Body Total Care device.',
     image: '/images/LEDD.jpg',
     images: null,
     videoUrl: '/videos/led.mp4',
@@ -739,7 +739,7 @@ export const products: Product[] = [
     id: '51',
     name: 'BIO-FERMENT AGE DEFYING POWDER MASK',
     price: 250,
-    description: '300g. Professional modeling mask. Mix 40g of powder with water at 1 : 1.5, leave 15–20 minutes, peel. Diatomaceous earth base that holds moisture instead of drying out. Skin moisture nearly tripled in the DTS MG clinical trial, from 17.27 to 48.513. Dermatologically tested.',
+    description: '300g. Professional modeling mask. Mix 40g of powder with water at 1 : 1.5, leave 15-20 minutes, peel. Diatomaceous earth base that holds moisture instead of drying out. Skin moisture nearly tripled in the DTS MG clinical trial, from 17.27 to 48.513. Dermatologically tested.',
     image: '/images/bio_ferment2/main.jpeg',
     images: JSON.stringify([
       '/images/bio_ferment2/s1.jpeg',
@@ -773,7 +773,7 @@ export const products: Product[] = [
     name: 'INTENSIVE REPAIR COLLAGEN MASK',
     price: 36,
     description:
-      'One 23g single-use non-woven sheet with a moisture-focused essence. Glycerin 10.052% and butylene glycol 8.010% form an 18.062% humectant base, supported by betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2%. Apply for 15–20 minutes. Dermatologically tested. Contains Alcohol 0.1%, Parfum (Fragrance) 0.01% and soybean extract.',
+      'One 23g single-use non-woven sheet with a moisture-focused essence. Glycerin 10.052% and butylene glycol 8.010% form an 18.062% humectant base, supported by betaine 0.8%, sodium hyaluronate 0.5% and allantoin 0.2%. Apply for 15-20 minutes. Dermatologically tested. Contains Alcohol 0.1%, Parfum (Fragrance) 0.01% and soybean extract.',
     image: '/images/collagen_mask/Main.jpeg',
     images: null,
     category: 'Mask',
@@ -853,11 +853,11 @@ The ampoule functions as a spicule peeling or bio-meso peeling treatment, induci
     productNumber: '64',
     name: 'Hair Stamp For HAIRGEN BOOSTER',
     price: 460,
-    description: `The applicator the GENOSYS HairGen Booster runs on. Each stamp head carries 52 ultra-fine microneedles that open temporary micro-channels in the scalp, and it screws onto a sealed HR³ MATRIX HAIR SOLUTION α vial so the solution feeds through the head while the device works — the liquid goes in as the needles open the way, rather than being rubbed on afterwards.
+    description: `The applicator the GENOSYS HairGen Booster runs on. Each stamp head carries 52 ultra-fine microneedles that open temporary micro-channels in the scalp, and it screws onto a sealed HR³ MATRIX HAIR SOLUTION α vial so the solution feeds through the head while the device works - the liquid goes in as the needles open the way, rather than being rubbed on afterwards.
 
 Mounted on the Booster it stamps automatically, at a rate you set rather than one your hand drifts into, which is the practical difference between a powered handpiece and a hand roller.
 
-Eight stamps per box. One stamp and one fresh ampoule per treatment — it is single use, it is not a cleanable part, and it is personal. Made in South Korea.`,
+Eight stamps per box. One stamp and one fresh ampoule per treatment - it is single use, it is not a cleanable part, and it is personal. Made in South Korea.`,
     image: '/images/needles2/Main.jpeg',
     images: JSON.stringify([
       '/images/needles2/s1b.jpeg',
@@ -879,7 +879,7 @@ Eight stamps per box. One stamp and one fresh ampoule per treatment — it is si
     price: 300,
     description: `A specialized homecare treatment ampoule, enriched with the uniquely formulated BIO-MESO™ PDRN, panthenol, and an anti-aging complex to regenerate skin and strengthen the skin barrier.
 
-BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables direct skin penetration, providing a bio-peeling effect that promotes skin turnover and delivers excellent skin regeneration benefits — all without classic needles. Designed for ongoing, gentle home care to maintain and reinforce results between professional treatments.`,
+BIO-MESO™ PDRN coated spicules have a needle-shaped structure that enables direct skin penetration, providing a bio-peeling effect that promotes skin turnover and delivers excellent skin regeneration benefits - all without classic needles. Designed for ongoing, gentle home care to maintain and reinforce results between professional treatments.`,
     image: '/images/pdrn_5000_new/Main.jpeg',
     images: null,
     category: 'Bio Meso',

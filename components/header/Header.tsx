@@ -43,7 +43,7 @@ const Header = memo(function Header() {
     }
   }
   
-  // Shared "simple header page" helper — see lib/simpleHeaderPages.ts.
+  // Shared "simple header page" helper - see lib/simpleHeaderPages.ts.
   // Previously this component, MobileWebHeader, and PWAHeader each had
   // their own hardcoded list that had drifted out of sync.
   const isOnSimpleHeaderPage = isSimpleHeaderPage(pathname)

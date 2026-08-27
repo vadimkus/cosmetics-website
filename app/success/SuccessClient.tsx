@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * /success — the confirmation step, step 3 of the checkout progress.
+ * /success - the confirmation step, step 3 of the checkout progress.
  *
  * Reworked onto the editorial system in Aug 2026, following /cart and
  * /checkout. This is a styling and structure pass: the order fetch, the GA4
@@ -12,7 +12,7 @@
  *
  * The page was previously a green-to-white gradient with a green headline, a
  * blue "what happens next" slab, a blue rewards card and a rose primary button
- * — four palettes fighting on the one screen a customer sees straight after
+ * - four palettes fighting on the one screen a customer sees straight after
  * paying. It is now cream and rose like the two pages leading into it.
  *
  * Colour that carries meaning is kept, the same call /cart and /orders made:
@@ -132,7 +132,7 @@ function SuccessContent() {
 
         if (result.success && result.data) {
           setOrderData(result.data)
-          // GA4 purchase event — fire once per order (COD + card both land here;
+          // GA4 purchase event - fire once per order (COD + card both land here;
           // previously only Stripe-hosted-checkout tracked purchases). Guarded
           // by sessionStorage so a reload/back-nav doesn't double-count.
           try {

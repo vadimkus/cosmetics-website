@@ -10,6 +10,15 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Sales bonus 4,000 Sagatdinov](./SESSION_CHANGES_2026-08-27_SALES_BONUS_PAYMENTOUT_4000.md) | Paymentout **00691** / **4,000 AED** → Vadim Sagatdinov (expense Sales Bonus). |
+| 🟡 **Important** | [NEW YOU STAR cons sales 01444 + 06748](./SESSION_CHANGES_2026-08-27_NEW_YOU_STAR_CONS_SALES.md) | Report **01444** + matching demand **06748** / **2,990 AED** clinic / agr. **37**. 29 pcs WhatsApp sheet. Not paid. PDFs `~/Desktop/orders/`. |
+| 🟡 **Important** | [NEW YOU STAR camel + Snow 06747](./SESSION_CHANGES_2026-08-27_NEW_YOU_STAR_CAMEL_SNOW.md) | Demand into agr. **37** / **945 AED** clinic — camel ×3, Snow O₂ 180 ×3. Stock note `~/Desktop/orders/`. |
+| 🟡 **Important** | [Shakirovna BB cons sales 01442+01443](./SESSION_CHANGES_2026-08-27_SHAKIROVNA_BB_CONS_SALES.md) | Oxana 11–26 Aug. Elite **01442** / **784 AED** agr. **21**. Clinic **01443** / **650 AED** agr. **26**. Not paid. PDFs `~/Desktop/orders/`. |
+| 🟡 **Important** | [Viktoriia Klymenko clinic 04980](./SESSION_CHANGES_2026-08-27_VIKTORIIA_KLYMENKO_CLINIC.md) | Unpaid clinic SO **GENCardM260827VIKT** / INV **04980** / SHIP **06746** / **700 AED**. Ivory, PDRN 5000, mist ×5. PDF `~/Desktop/orders/`. |
+| 🟡 **Important** | [Shakirovna Poly Clinic cons sales 01441](./SESSION_CHANGES_2026-08-27_SHAKIROVNA_POLY_CONS_SALES.md) | First report on agr. **41**. Alteg 1–26 Aug. **01441** / **280 AED** clinic. Toner 200 + beige. Not paid. PDF `~/Desktop/orders/`. |
+| 🟡 **Important** | [Shakirovna Marina cons sales 01440](./SESSION_CHANGES_2026-08-27_SHAKIROVNA_MARINA_CONS_SALES.md) | Report **01440** / **1,072 AED** clinic / agr. **00030**. 10 pcs from spreadsheet. Not paid. PDF `~/Desktop/orders/`. |
+| 🟡 **Important** | [Bianco Layan 04782 paid](./SESSION_CHANGES_2026-08-27_BIANCO_LAYAN_04782_PAY.md) | RAK **E2E00402608269556961** / paymentin **06130** / **1,320 AED** on SHIP **06494**. INV **04782** paid. SO **GENCardM2607077589** → **Доставлен**. INV **04976** still unpaid. |
+| 🟡 **Important** | [Brau SOA 12 invoice PDFs](./SESSION_CHANGES_2026-08-27_BRAU_SOA_INVOICE_PDFS.md) | Legal_TAX exports of SOA **04975–04865** / **8,200 AED** → `~/Desktop/orders/`. Not printed. |
 | 🟡 **Important** | [Sagatdinov Aug salary + bonus](./SESSION_CHANGES_2026-08-26_SAGATDINOV_AUG_PAY_TOTAL.md) | Live MS: salary **30,000** + bonus cash in Aug **44,949.80** = **74,949.80**. Includes July bonus **00671** / 7,600 paid 7 Aug. August-period bonus **37,349.80**. |
 | 🟡 **Important** | [Sales bonus 6,000 Sagatdinov](./SESSION_CHANGES_2026-08-26_SALES_BONUS_PAYMENTOUT_6000.md) | Paymentout **00690** / **6,000 AED** → Vadim Sagatdinov (expense Sales Bonus). |
 | 🟡 **Important** | [Cordoba rent August 00689](./SESSION_CHANGES_2026-08-26_CORDOBA_OFFICE_RENT.md) | Paymentout **00689** / **14,208.30 AED** → Cordoba. Same as July **00666**. No company bank. YTD rent due to owner **111,081.80**. |

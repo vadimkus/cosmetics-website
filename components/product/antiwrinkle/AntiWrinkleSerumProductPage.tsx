@@ -10,8 +10,8 @@
  * of the bottle is glycerin and the site never mentioned it, while the
  * description led on a six-peptide complex present at roughly 1.4 parts per
  * million. So the page opens on the humectant load and the niacinamide, then
- * handles bakuchiol precisely — 0.100% here against the 0.5% twice daily used in
- * the study behind the retinol comparison — then credits the peptide sourcing
+ * handles bakuchiol precisely - 0.100% here against the 0.5% twice daily used in
+ * the study behind the retinol comparison - then credits the peptide sourcing
  * while printing the real concentrations.
  *
  * Do not add: any result from the P&K clinical study (the citation is specific

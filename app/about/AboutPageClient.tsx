@@ -49,7 +49,7 @@ export default function AboutPageClient() {
       {/* ── Mobile web + PWA: denser app-like layout ─────────────────────── */}
       {isAppLikeMode ? (
         <div className="px-4 py-4">
-          {/* Compact hero — the sticky header already says "About Genosys"
+          {/* Compact hero - the sticky header already says "About Genosys"
               so we don't need a repeat h1. Keep the logo + a single-line
               legal name as a subtle caption for brand reinforcement. */}
           <div className="flex flex-col items-center text-center mb-4">
@@ -59,7 +59,7 @@ export default function AboutPageClient() {
             </p>
           </div>
 
-          {/* About + Mission — single divided card (was two cards). */}
+          {/* About + Mission - single divided card (was two cards). */}
           <div className="bg-white rounded-2xl border border-[var(--cera-line)] shadow-sm overflow-hidden mb-4">
             <div className="p-4">
               <h2 className={`cera-serif text-sm text-[var(--cera-ink)] mb-1.5 ${dir === 'rtl' ? 'text-right' : ''}`}>{t('about.aboutUs')}</h2>
@@ -173,7 +173,7 @@ export default function AboutPageClient() {
             </div>
           </div>
 
-          {/* CTA — full-width stacked buttons feel native on mobile. */}
+          {/* CTA - full-width stacked buttons feel native on mobile. */}
           <div className="bg-white rounded-2xl border border-[var(--cera-line)] shadow-sm p-5 text-center">
             <h2 className="cera-serif text-base text-[var(--cera-ink)] mb-1.5">{t('about.getInTouch')}</h2>
             <p className="text-xs text-[var(--cera-muted)] mb-4 leading-relaxed">{t('about.getInTouchDescription')}</p>
@@ -316,7 +316,7 @@ export default function AboutPageClient() {
             </aside>
           </section>
 
-          {/* ── Trust & Compliance — single editorial panel ─────────────── */}
+          {/* ── Trust & Compliance - single editorial panel ─────────────── */}
           <section className="mb-12 md:mb-16">
             <div className={`mb-6 flex items-end justify-between gap-4 ${dir === 'rtl' ? 'flex-row-reverse text-right' : ''}`}>
               <div className={dir === 'rtl' ? 'text-right' : ''}>
@@ -447,7 +447,7 @@ export default function AboutPageClient() {
             </div>
           </section>
 
-          {/* ── Closing CTA — dark editorial panel ──────────────────────── */}
+          {/* ── Closing CTA - dark editorial panel ──────────────────────── */}
           <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-ink)] text-white">
             <span aria-hidden className="pointer-events-none absolute -top-32 -left-20 h-72 w-72 rounded-full bg-[var(--cera-rose)]/25 blur-3xl" />
             <span aria-hidden className="pointer-events-none absolute -bottom-32 right-0 h-72 w-72 rounded-full bg-[var(--cera-rose)]/15 blur-3xl" />

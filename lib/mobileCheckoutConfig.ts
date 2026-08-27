@@ -30,7 +30,7 @@ export function normalizeEmirateName(emirate: string): string {
   return String(emirate || '').trim().toLowerCase();
 }
 
-/** Highest configured shipping rate — used as the fail-closed default. */
+/** Highest configured shipping rate - used as the fail-closed default. */
 const MAX_SHIPPING_COST = Math.max(
   ...MOBILE_CHECKOUT_CONFIG.emirates.map((e) => e.shippingCost)
 );
@@ -67,7 +67,7 @@ export function calculateMobileShipping(subtotal: number, emirate: string): numb
  * We store VAT as the included portion for transparency.
  *
  * Returns the VAT portion rounded to 2 decimal places (AED fils precision).
- * FTA requires exact AED amounts on invoices — no fractional fils.
+ * FTA requires exact AED amounts on invoices - no fractional fils.
  */
 export function calculateVatIncluded(total: number): number {
   const t = Number(total) || 0;

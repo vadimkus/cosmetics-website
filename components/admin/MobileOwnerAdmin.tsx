@@ -56,7 +56,7 @@ const formatCurrency = (amount: number) =>
 
 const formatShortDate = (value: Date | string) => {
   const date = new Date(value)
-  if (Number.isNaN(date.getTime())) return '—'
+  if (Number.isNaN(date.getTime())) return ' - '
   return date.toLocaleDateString('en-AE', {
     month: 'short',
     day: 'numeric',
@@ -466,7 +466,7 @@ function UserCard({ user, onOpen }: { user: MobileUser; onOpen: () => void }) {
           <div className="mt-3 grid grid-cols-3 gap-2 text-center">
             <UserStat label="Orders" value={user.orderCount || 0} />
             <UserStat label="Spent" value={formatCurrency(user.totalSpent || 0)} />
-            <UserStat label="Last" value={user.lastOrderDate ? formatShortDate(user.lastOrderDate) : '—'} />
+            <UserStat label="Last" value={user.lastOrderDate ? formatShortDate(user.lastOrderDate) : ' - '} />
           </div>
 
           <button onClick={onOpen} className="mt-3 w-full rounded-2xl bg-slate-100 px-3 py-3 text-sm font-semibold text-slate-800 active:bg-slate-200">

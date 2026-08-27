@@ -11,7 +11,7 @@ import { getLocaleFromPath, switchLocaleHardNav, type Locale } from '@/lib/i18n'
  *
  * The three site-wide headers all hide themselves on those routes
  * (`lib/simpleHeaderPages.ts`), which left mobile readers with no way to change
- * language once they opened a product or an article — the switcher only existed
+ * language once they opened a product or an article - the switcher only existed
  * in the header they had just navigated away from.
  *
  * `LanguageSwitcher` is not reusable here: it is a bare `EN` in green sized for

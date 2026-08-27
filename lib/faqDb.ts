@@ -4,7 +4,7 @@ import { prisma } from './prisma'
 import { withPrismaRetry } from './prismaRetry'
 
 /**
- * Shape returned to FAQClient — matches all three locale pages' `select`.
+ * Shape returned to FAQClient - matches all three locale pages' `select`.
  * Keep this in sync with FAQClient.tsx's `faqItems` prop typing.
  */
 export type FaqItem = {

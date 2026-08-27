@@ -149,12 +149,12 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
         </div>
       </div>
 
-      {/* Desktop card — editorial, uniform brand styling, grid-friendly */}
+      {/* Desktop card - editorial, uniform brand styling, grid-friendly */}
       <article
         className="group hidden md:flex relative h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-gray-300 hover:shadow-[0_24px_60px_-30px_rgba(15,23,42,0.25)]"
         dir={dir}
       >
-        {/* Brand accent rail — grows on hover */}
+        {/* Brand accent rail - grows on hover */}
         <span
           aria-hidden
           className={`pointer-events-none absolute top-0 ${dir === 'rtl' ? 'right-0' : 'left-0'} h-full w-[3px] bg-gradient-to-b from-red-500 via-red-500 to-red-600 opacity-0 transition-all duration-300 group-hover:w-1 group-hover:opacity-100`}

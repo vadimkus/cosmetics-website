@@ -10,7 +10,7 @@
  * boxes, Revita Glow 63, and Cerabarrier 66. Website and mobile API render the
  * same definitions.
  * Professional clinic lines (Power Solutions, SRS, devices 48/49) are excluded.
- * Bio Meso Expert 60000 (60) is included — retail SKU with a clinic protocol card.
+ * Bio Meso Expert 60000 (60) is included - retail SKU with a clinic protocol card.
  */
 export interface RoutineStep {
   titleKey: string
@@ -397,7 +397,7 @@ export const PRODUCT_ROUTINES: Record<string, ProductRoutine> = {
     ],
   },
 
-  // ── Retail kits — how the components work together ───────────────────
+  // ── Retail kits - how the components work together ───────────────────
   '47': {
     headingKey: 'recommendedHairCareRoutine',
     steps: [

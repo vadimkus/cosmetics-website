@@ -9,7 +9,7 @@
  * the formula table does elsewhere: model HGHY01, 1.0 kg, four LED modes, 10/20/30-minute
  * timer, 5 V 1.5 A or four AA cells, 24-month warranty.
  *
- * ★ THE RECORD USED TO SAY WE HELD NO DOCUMENTS FOR THIS DEVICE. We do — a user manual,
+ * ★ THE RECORD USED TO SAY WE HELD NO DOCUMENTS FOR THIS DEVICE. We do - a user manual,
  * an EU Declaration of Conformity, an IEC/EN 60335-2-32 test report and a sales brochure,
  * all in ~/Desktop/Drive/Genosys/Registration/Gentron/. Everything on this page comes
  * from the manual or the certificates. See hairGentronCopy.ts for the full sourcing note.
@@ -25,7 +25,7 @@
  *
  * THE "NUMBERS WE WILL NOT INVENT" SECTION replaces product 3's needle-depth block.
  * Wavelengths appear on a sales slide only; no irradiance, no LED count, so no dosimetry
- * table. Do not borrow product 49's — that is a different machine.
+ * table. Do not borrow product 49's - that is a different machine.
  *
  * MUST NEVER BE ADDED: alopecia in any form, hair growth, anagen/telogen/catagen,
  * mitochondria, blood circulation, nutrients to the follicle, an LED count, an

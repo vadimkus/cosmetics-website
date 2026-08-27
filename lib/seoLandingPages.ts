@@ -43,7 +43,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     description: 'A practical guide to choosing authentic Korean skincare in Dubai for UV exposure, air-conditioning, humidity, dehydration, pigmentation, and sensitive skin.',
     h1: 'How to Choose Korean Skincare in Dubai',
     eyebrow: 'Professional Korean Dermacosmetics',
-    intro: 'The best Korean skincare routine for Dubai is not the longest one. It is a consistent routine built around gentle cleansing, barrier support, targeted treatment, and daily sun protection—selected for your skin rather than copied from a trend.',
+    intro: 'The best Korean skincare routine for Dubai is not the longest one. It is a consistent routine built around gentle cleansing, barrier support, targeted treatment, and daily sun protection - selected for your skin rather than copied from a trend.',
     takeaways: [
       'Start with three essentials: a gentle cleanser, a moisturizer matched to your barrier needs, and daily broad-spectrum sunscreen.',
       'Dubai heat, outdoor UV, indoor air-conditioning, travel, and frequent cleansing can create a mix of oiliness and dehydration.',
@@ -86,8 +86,8 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { question: 'Should I use the same routine after a professional treatment?', answer: 'Not automatically. Follow the treating professional’s aftercare plan because recently treated skin may react differently to acids, retinoids, fragrance, sunscreen, or makeup.' },
     ],
     sources: [
-      { label: 'American Academy of Dermatology — How to select a sunscreen', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen' },
-      { label: 'American Academy of Dermatology — How to apply sunscreen', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen' },
+      { label: 'American Academy of Dermatology - How to select a sunscreen', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen' },
+      { label: 'American Academy of Dermatology - How to apply sunscreen', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen' },
     ],
     keywords: ['Korean skincare Dubai', 'Korean dermacosmetics UAE', 'GENOSYS Dubai'],
   },
@@ -205,7 +205,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       },
       {
         heading: 'Turn Home Care Into Continuity of Care',
-        body: 'Retail should extend the treatment plan rather than add unrelated products. A short regimen—cleanse, calm or treat, moisturize, protect—is easier to follow and replenish. Recommendations should reflect skin condition, procedure intensity, allergies, current prescriptions, and the client’s ability to use the routine consistently.',
+        body: 'Retail should extend the treatment plan rather than add unrelated products. A short regimen - cleanse, calm or treat, moisturize, protect - is easier to follow and replenish. Recommendations should reflect skin condition, procedure intensity, allergies, current prescriptions, and the client’s ability to use the routine consistently.',
       },
       {
         heading: 'Manage Supply and Team Knowledge',
@@ -224,8 +224,8 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { question: 'Is product training a substitute for medical licensing?', answer: 'No. Brand education explains products and protocols; it does not replace professional qualifications, device training, local licensing, medical oversight, or the manufacturer’s instructions.' },
     ],
     sources: [
-      { label: 'U.S. FDA — Microneedling devices: benefits, risks and safety', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
-      { label: 'American Academy of Dermatology — Microneedling overview and aftercare', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
+      { label: 'U.S. FDA - Microneedling devices: benefits, risks and safety', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
+      { label: 'American Academy of Dermatology - Microneedling overview and aftercare', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
     ],
     keywords: ['dermacosmetics for clinics UAE', 'clinic skincare UAE', 'professional dermacosmetics Dubai'],
   },
@@ -263,7 +263,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       },
       {
         heading: 'Connect SPF to Pigmentation and Procedures',
-        body: 'UV and visible light can worsen uneven pigmentation in susceptible skin, and recently treated skin may be more sun-sensitive. Follow your dermatologist or practitioner’s aftercare instructions after procedures. If sunscreen stings recently treated skin, do not improvise with strong products—ask the treating professional what and when to apply.',
+        body: 'UV and visible light can worsen uneven pigmentation in susceptible skin, and recently treated skin may be more sun-sensitive. Follow your dermatologist or practitioner’s aftercare instructions after procedures. If sunscreen stings recently treated skin, do not improvise with strong products - ask the treating professional what and when to apply.',
       },
     ],
     links: [
@@ -278,8 +278,8 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { question: 'Do I need sunscreen while driving or working near windows?', answer: 'UVA can pass through ordinary window glass to varying degrees. Consider your distance from windows, commute, time outdoors, and dermatologist guidance when planning protection.' },
     ],
     sources: [
-      { label: 'American Academy of Dermatology — How to select a sunscreen', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen' },
-      { label: 'American Academy of Dermatology — How to apply sunscreen', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen' },
+      { label: 'American Academy of Dermatology - How to select a sunscreen', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-select-sunscreen' },
+      { label: 'American Academy of Dermatology - How to apply sunscreen', href: 'https://www.aad.org/public/everyday-care/sun-protection/shade-clothing-sunscreen/how-to-apply-sunscreen' },
     ],
     keywords: ['Korean sunscreen UAE', 'sunscreen Dubai', 'SPF UAE'],
   },
@@ -292,7 +292,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     intro: 'Aftercare should protect healing skin, not overwhelm it. Your treating professional’s written instructions always come first because needle depth, treatment area, combined procedures, medical history, and skin response change what is appropriate.',
     takeaways: [
       'Use only the cleanser, moisturizer, and other products approved by the treating professional during early recovery.',
-      'Pause potentially irritating actives—such as retinoids, exfoliating acids, scrubs, and alcohol-heavy products—until the provider clears them.',
+      'Pause potentially irritating actives - such as retinoids, exfoliating acids, scrubs, and alcohol-heavy products - until the provider clears them.',
       'Protect treated skin from sun and heat; use sunscreen according to the provider’s timing and product advice.',
       'Contact the clinic promptly for worsening pain, spreading redness, pus, blistering, fever, or other symptoms outside the expected recovery plan.',
     ],
@@ -309,7 +309,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       },
       {
         heading: 'Keep the Routine Deliberately Short',
-        body: 'Once cleansing is permitted, use clean hands, lukewarm water, and the gentle product recommended by the clinic. Pat—do not rub—the skin dry. Use only an approved bland moisturizer or post-care product. More layers do not mean faster recovery, and products tolerated before treatment may sting afterward.',
+        body: 'Once cleansing is permitted, use clean hands, lukewarm water, and the gentle product recommended by the clinic. Pat - do not rub - the skin dry. Use only an approved bland moisturizer or post-care product. More layers do not mean faster recovery, and products tolerated before treatment may sting afterward.',
       },
       {
         heading: 'Pause Heat, Friction, and Strong Actives',
@@ -332,9 +332,9 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { question: 'Which sunscreen should I use afterward?', answer: 'Use the type and timing recommended by your provider. Recently treated skin can be sensitive, so do not assume your usual sunscreen will feel the same immediately after treatment.' },
     ],
     sources: [
-      { label: 'U.S. FDA — Microneedling devices: benefits, risks and safety', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
-      { label: 'American Academy of Dermatology — Microneedling overview and aftercare', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
-      { label: 'American Academy of Dermatology — Skin care after acne-scar treatment', href: 'https://www.aad.org/public/diseases/acne/derm-treat/scars/self-care' },
+      { label: 'U.S. FDA - Microneedling devices: benefits, risks and safety', href: 'https://www.fda.gov/consumers/consumer-updates/microneedling-devices-getting-point-benefits-risks-and-safety' },
+      { label: 'American Academy of Dermatology - Microneedling overview and aftercare', href: 'https://www.aad.org/public/cosmetic/scars-stretch-marks/microneedling-fade-scars' },
+      { label: 'American Academy of Dermatology - Skin care after acne-scar treatment', href: 'https://www.aad.org/public/diseases/acne/derm-treat/scars/self-care' },
     ],
     keywords: ['microneedling aftercare products', 'post microneedling skincare routine', 'microneedling aftercare UAE'],
   },
@@ -348,7 +348,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     takeaways: [
       'PDRN and PN refer to related DNA-derived materials, but terminology and molecular size are not standardized consistently across every product or study.',
       'Evidence from injectable or medical PDRN cannot automatically be transferred to a topical cosmetic serum or mask.',
-      'Topical products are best framed as supportive hydration, barrier, and appearance-focused care—not as substitutes for medical treatment.',
+      'Topical products are best framed as supportive hydration, barrier, and appearance-focused care - not as substitutes for medical treatment.',
       'Professional spicule, microneedling, or injectable procedures require appropriate assessment, training, hygiene, and aftercare.',
     ],
     featuredProducts: [
@@ -387,8 +387,8 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { question: 'Can PDRN products replace dermatological treatment?', answer: 'No. Cosmetic products do not replace diagnosis or medical treatment for wounds, dermatitis, acne, pigmentation disorders, or other skin disease.' },
     ],
     sources: [
-      { label: 'PubMed — From PDRNs to PNs: molecular definitions and clinical applications', href: 'https://pubmed.ncbi.nlm.nih.gov/39858543/' },
-      { label: 'PMC — Comparison of PN and PDRN in dermatology', href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12388916/' },
+      { label: 'PubMed - From PDRNs to PNs: molecular definitions and clinical applications', href: 'https://pubmed.ncbi.nlm.nih.gov/39858543/' },
+      { label: 'PMC - Comparison of PN and PDRN in dermatology', href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC12388916/' },
     ],
     keywords: ['PDRN skincare benefits', 'PDRN serum UAE', 'PDRN skincare Dubai', 'topical PDRN'],
   },
@@ -398,7 +398,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     description: 'A practical guide to ceramides, gentle cleansing, moisturizers, signs of an impaired skin barrier, UAE climate stress, and a simple recovery routine.',
     h1: 'Ceramides and Cleansing for a Damaged Skin Barrier',
     eyebrow: 'Gentle Barrier-Care Routine',
-    intro: 'Ceramides are important lipids in the outer skin barrier, but barrier care is a complete routine—not a single hero ingredient. Gentle cleansing, suitable moisturization, fewer irritants, and sun protection work together while the cause of persistent symptoms is assessed.',
+    intro: 'Ceramides are important lipids in the outer skin barrier, but barrier care is a complete routine - not a single hero ingredient. Gentle cleansing, suitable moisturization, fewer irritants, and sun protection work together while the cause of persistent symptoms is assessed.',
     takeaways: [
       'Ceramides help form the lipid structure that limits water loss and helps protect skin from external irritants.',
       'A cleanser should remove soil, makeup, and sunscreen without leaving skin persistently tight, stinging, or over-stripped.',
@@ -407,7 +407,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Cerabarrier Biome Gel Cleanser', href: '/products/66', image: '/images/cera_o/Main.jpeg', imageAlt: 'GENOSYS Cerabarrier Biome Gel Cleanser', description: 'A gel cleanser positioned for microbiome- and barrier-conscious cleansing.' },
-      { name: 'Microbiome Energy Infusing Mist', href: '/products/14', image: '/images/mist_0/Main.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'A light hydration step that can complement—not replace—moisturizer.' },
+      { name: 'Microbiome Energy Infusing Mist', href: '/products/14', image: '/images/mist_0/Main.jpeg', imageAlt: 'GENOSYS Microbiome Energy Infusing Mist', description: 'A light hydration step that can complement - not replace - moisturizer.' },
       { name: 'All For Sensitive Serum', href: '/products/19', image: '/images/sensitive_serum/main.jpeg', imageAlt: 'GENOSYS All For Sensitive Serum', description: 'A moisture-support serum for sensitive-looking skin.' },
       { name: 'Skin Barrier Protecting Cream', href: '/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'A leave-on cream with ceramide, amino acids, and emollient oils.' },
     ],
@@ -417,7 +417,7 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
         body: 'The stratum corneum is often compared to bricks and mortar: corneocytes sit within a lipid matrix rich in ceramides, cholesterol, and fatty acids. When this structure is disturbed, transepidermal water loss can rise and skin may feel dry, tight, rough, itchy, or unusually reactive.',
       },
       {
-        heading: 'How Cleansing Can Help—or Hurt',
+        heading: 'How Cleansing Can Help - or Hurt',
         body: 'Cleansing frequency, water temperature, surfactants, scrubbing, and the number of wash steps all matter. Use lukewarm water, avoid abrasive tools, and cleanse only as much as needed to remove sunscreen, makeup, sweat, and soil. A product that repeatedly causes burning or lasting tightness is not a good match, regardless of its marketing category.',
       },
       {
@@ -441,9 +441,9 @@ export const SEO_LANDING_PAGES: SeoLandingPage[] = [
       { question: 'Are ceramides suitable for acne-prone skin?', answer: 'Ceramides themselves are normal skin lipids, but suitability depends on the entire formula and individual response. Choose texture and ingredients according to your skin and acne treatment plan.' },
     ],
     sources: [
-      { label: 'PubMed — Ceramide-dominant cream and cleanser randomized trial', href: 'https://pubmed.ncbi.nlm.nih.gov/33984185/' },
-      { label: 'International Journal of Cosmetic Science — Ceramides in skin barrier function and formulation', href: 'https://onlinelibrary.wiley.com/doi/10.1111/ics.12972' },
-      { label: 'PMC — Topical lipids and the epidermal barrier', href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC9321633/' },
+      { label: 'PubMed - Ceramide-dominant cream and cleanser randomized trial', href: 'https://pubmed.ncbi.nlm.nih.gov/33984185/' },
+      { label: 'International Journal of Cosmetic Science - Ceramides in skin barrier function and formulation', href: 'https://onlinelibrary.wiley.com/doi/10.1111/ics.12972' },
+      { label: 'PMC - Topical lipids and the epidermal barrier', href: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC9321633/' },
     ],
     keywords: ['ceramide cleanser damaged skin barrier', 'skin barrier repair UAE', 'ceramide skincare Dubai'],
   },

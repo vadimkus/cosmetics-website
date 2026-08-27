@@ -213,7 +213,7 @@ export async function POST(
       })
     }
 
-    // GENOSYS Rewards — +50 pts per review, once per user per product
+    // GENOSYS Rewards - +50 pts per review, once per user per product
     // (retail track only; idempotent). Never blocks review creation.
     let pointsAwarded = 0
     try {

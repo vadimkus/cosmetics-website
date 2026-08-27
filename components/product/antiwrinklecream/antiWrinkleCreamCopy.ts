@@ -1,7 +1,7 @@
 /**
  * Bespoke copy for MULTI FUNCTIONAL ANTI-WRINKLE CREAM (product 32).
  *
- * SOURCING — every figure traces to the audit in
+ * SOURCING - every figure traces to the audit in
  * docs/SESSION_CHANGES_2026-08-17_PRODUCT_32_ANTI_WRINKLE_CREAM_SOURCE_AUDIT.md:
  *   - DTS MG signed formula: glycerin 8.00%, niacinamide 2.00%, mango seed
  *     butter 0.800%, dimethicone 0.800%, hydroxyacetophenone 0.500%, allantoin
@@ -56,7 +56,7 @@ export interface AntiWrinkleCreamCopy {
   vatIncluded: string
 
   /* Two sizes, 50 g and 250 g, both real SKUs with their own prices. A size has to
-     travel with every cart call — see the product page component. */
+     travel with every cart call - see the product page component. */
   chooseSize: string
   sizes: {
     homecareLabel: string
@@ -161,12 +161,12 @@ const EN: AntiWrinkleCreamCopy = {
   eyebrow: 'Multi Functional Anti-Wrinkle Cream · 50 g',
   headline: 'The lid on the serum. Not a thicker version of it.',
   subheadline:
-    'Around 13% of this tube is oils and butters — including mango seed butter at 0.8% — over glycerin at 8%, niacinamide at 2% and adenosine at the dose Korea licenses for wrinkle improvement. Where the serum draws water into skin, this holds it there. Different formula, different job, and the certificates show it.',
+    'Around 13% of this tube is oils and butters - including mango seed butter at 0.8% - over glycerin at 8%, niacinamide at 2% and adenosine at the dose Korea licenses for wrinkle improvement. Where the serum draws water into skin, this holds it there. Different formula, different job, and the certificates show it.',
   heroBullets: [
     'Niacinamide 2%, measured at 101.30% of declaration on the batch',
-    'Adenosine 0.04%, measured at 95.50% — the licensed wrinkle dose',
+    'Adenosine 0.04%, measured at 95.50% - the licensed wrinkle dose',
     'Mango seed butter at 0.8%, a real emollient dose',
-    'No peptides at all — nothing here sold at parts per million',
+    'No peptides at all - nothing here sold at parts per million',
   ],
   badges: ['Made in Korea', '50 g', 'EU safety assessed', 'Graded Non Irritant'],
 
@@ -190,7 +190,7 @@ const EN: AntiWrinkleCreamCopy = {
     { value: '13%', label: 'Oils and butters, against the serum\u2019s 2.4%' },
     { value: '2%', label: 'Niacinamide, assayed at 101.30%' },
     { value: '0.8%', label: 'Mango seed butter' },
-    { value: '0.9860', label: 'Specific gravity — lighter than water' },
+    { value: '0.9860', label: 'Specific gravity - lighter than water' },
   ],
 
   pair: {
@@ -210,7 +210,7 @@ const EN: AntiWrinkleCreamCopy = {
       { label: 'Specific gravity', serum: '1.0689', cream: '0.9860', highlight: true },
     ],
     body:
-      'Look at the last row. The serum weighs more than water because a quarter of it is glycerin. This cream weighs less than water because it is loaded with oils. Two certificates of analysis, two numbers either side of 1.000, and between them a physical fingerprint of the difference — not a marketing distinction.',
+      'Look at the last row. The serum weighs more than water because a quarter of it is glycerin. This cream weighs less than water because it is loaded with oils. Two certificates of analysis, two numbers either side of 1.000, and between them a physical fingerprint of the difference - not a marketing distinction.',
     aside:
       'Which gives the only honest reason to own both: a humectant pulls water into the top layers of skin, and an occlusive stops it leaving again. The serum\u2019s own instructions say to follow it with a moisturiser. This is that moisturiser. If you only want one, take the cream in winter or on dry skin and the serum in humidity or on oily skin.',
   },
@@ -234,12 +234,12 @@ const EN: AntiWrinkleCreamCopy = {
       {
         name: 'Niacinamide',
         dose: '2.00%',
-        body: 'Vitamin B3 for uneven tone and barrier support. Assayed on this batch at 101.30% of declaration — slightly over, comfortably inside spec.',
+        body: 'Vitamin B3 for uneven tone and barrier support. Assayed on this batch at 101.30% of declaration - slightly over, comfortably inside spec.',
       },
       {
         name: 'Mango seed butter',
         dose: '0.800%',
-        body: 'A genuine emollient dose. The safety assessment checked it against a maximum reported use of 5% in leave-on products, so it sits well inside that. It is also the ingredient the serum\u2019s deck listed by mistake — it belongs here.',
+        body: 'A genuine emollient dose. The safety assessment checked it against a maximum reported use of 5% in leave-on products, so it sits well inside that. It is also the ingredient the serum\u2019s deck listed by mistake - it belongs here.',
       },
       {
         name: 'Adenosine',
@@ -258,14 +258,14 @@ const EN: AntiWrinkleCreamCopy = {
     eyebrow: 'A point in its favour',
     title: 'There are no peptides in here at all',
     body:
-      'The matching serum carries six peptides from genuinely premium materials, at between 0.05 and 1.1 parts per million, and its deck attributes a separate mechanism to each. This cream simply does not contain them — so there is nothing here being sold to you at a millionth of a gram. What remains at trace is smaller and we will name it anyway: the ceramide, cholesterol and phytosphingosine sold as a barrier liposome sit at 0.1 ppm each, hydrolyzed collagen at 0.1 ppm, elastin at 1 ppm and propolis at 10 ppm. Buy this tube for the 13% of emollients, the glycerin, the niacinamide and the adenosine.',
+      'The matching serum carries six peptides from genuinely premium materials, at between 0.05 and 1.1 parts per million, and its deck attributes a separate mechanism to each. This cream simply does not contain them - so there is nothing here being sold to you at a millionth of a gram. What remains at trace is smaller and we will name it anyway: the ceramide, cholesterol and phytosphingosine sold as a barrier liposome sit at 0.1 ppm each, hydrolyzed collagen at 0.1 ppm, elastin at 1 ppm and propolis at 10 ppm. Buy this tube for the 13% of emollients, the glycerin, the niacinamide and the adenosine.',
   },
 
   bakuchiol: {
     eyebrow: 'The same caveat as the serum',
     title: 'Bakuchiol at 0.1%',
     body:
-      'Identical to the serum: 0.100%, genuinely present, photostable and gentle in a way retinol is not. And identically, the study behind the retinol comparison — Dhaliwal and colleagues, British Journal of Dermatology 2019 — used bakuchiol at 0.5% applied twice daily, five times this concentration. Neither this cream nor the serum has its bakuchiol assayed on the certificate, unlike the niacinamide and the adenosine. Treat it as a welcome extra rather than a retinoid replacement, and buy the tube for the ingredients that were measured.',
+      'Identical to the serum: 0.100%, genuinely present, photostable and gentle in a way retinol is not. And identically, the study behind the retinol comparison - Dhaliwal and colleagues, British Journal of Dermatology 2019 - used bakuchiol at 0.5% applied twice daily, five times this concentration. Neither this cream nor the serum has its bakuchiol assayed on the certificate, unlike the niacinamide and the adenosine. Treat it as a welcome extra rather than a retinoid replacement, and buy the tube for the ingredients that were measured.',
   },
 
   quality: {
@@ -274,18 +274,18 @@ const EN: AntiWrinkleCreamCopy = {
     intro:
       'Made in Korea, released against a written specification, and assessed under European cosmetics law in a 42-page dossier submitted alongside the serum\u2019s.',
     rows: [
-      { label: 'pH', value: '6.23 at 25 °C, inside a 5.00–7.00 specification' },
+      { label: 'pH', value: '6.23 at 25 °C, inside a 5.00-7.00 specification' },
       { label: 'Fill', value: '51.11 g against a 50 g declaration' },
-      { label: 'Specific gravity', value: '0.9860 — lighter than water, because of the oil load' },
+      { label: 'Specific gravity', value: '0.9860 - lighter than water, because of the oil load' },
       { label: 'Viscosity', value: '12,930 fresh and 19,900 after 24 hours, both inside spec' },
       { label: 'Niacinamide', value: 'Assayed at 101.30% of the declared 2%' },
       { label: 'Adenosine', value: 'Assayed at 95.50% of the declared 0.04%' },
       { label: 'Purity', value: 'Under 10 cfu/g, against a permitted 100' },
-      { label: 'Pathogens', value: 'S. aureus, P. aeruginosa and C. albicans — all not detected' },
+      { label: 'Pathogens', value: 'S. aureus, P. aeruginosa and C. albicans - all not detected' },
       { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the box' },
     ],
     patch:
-      'The patch test behind the "dermatologically tested" line came back graded Non Irritant rather than simply passing — the same result the serum got, from the same laboratory. The assessor notes the volunteer count is small, so read it as reassurance about the formula rather than proof about your skin.',
+      'The patch test behind the "dermatologically tested" line came back graded Non Irritant rather than simply passing - the same result the serum got, from the same laboratory. The assessor notes the volunteer count is small, so read it as reassurance about the formula rather than proof about your skin.',
   },
 
   reformulation: {
@@ -320,7 +320,7 @@ const EN: AntiWrinkleCreamCopy = {
     steps: [
       {
         title: 'Serum first, if you use one',
-        body: 'Apply the Anti-Wrinkle Serum to damp skin, then this over the top. The serum brings water in and the cream keeps it there — in that order the pair does something neither does alone.',
+        body: 'Apply the Anti-Wrinkle Serum to damp skin, then this over the top. The serum brings water in and the cream keeps it there - in that order the pair does something neither does alone.',
       },
       {
         title: 'A pea-sized amount, warmed',
@@ -328,7 +328,7 @@ const EN: AntiWrinkleCreamCopy = {
       },
       {
         title: 'Massage gently upward',
-        body: 'The manufacturer specifies a gentle massage, which is worth doing for the 30 seconds it takes — it helps the oil phase spread evenly rather than sitting in patches.',
+        body: 'The manufacturer specifies a gentle massage, which is worth doing for the 30 seconds it takes - it helps the oil phase spread evenly rather than sitting in patches.',
       },
       {
         title: 'Sunscreen over it in the morning',
@@ -336,7 +336,7 @@ const EN: AntiWrinkleCreamCopy = {
       },
     ],
     note:
-      'No acids, no retinoids and no exfoliants, so it does not compete with anything else in a routine. On very oily skin the 13% oil phase may be more than you want in humidity — the serum alone is the lighter half of the pair.',
+      'No acids, no retinoids and no exfoliants, so it does not compete with anything else in a routine. On very oily skin the 13% oil phase may be more than you want in humidity - the serum alone is the lighter half of the pair.',
   },
 
   inci: {
@@ -355,7 +355,7 @@ const EN: AntiWrinkleCreamCopy = {
       'For external use only. Do not use near the eyes. Avoid the eyes and mucous membranes, and rinse thoroughly with cool water on contact.',
       'Stop and see a doctor if redness, swelling or irritation appears.',
       'Assessed as safe under EC Regulation 1223/2009 and graded Non Irritant on patch test.',
-      'If you are pregnant, ask your doctor before starting any new active — bakuchiol is not retinol, but that conversation is theirs to have with you.',
+      'If you are pregnant, ask your doctor before starting any new active - bakuchiol is not retinol, but that conversation is theirs to have with you.',
       'Store cool and dry, out of reach of children.',
     ],
     note: 'Precautions as printed on the GENOSYS box, plus the fragrance disclosure from the quantitative formula.',
@@ -368,10 +368,10 @@ const EN: AntiWrinkleCreamCopy = {
       { label: 'Size', value: '50 g homecare · a 250 g professional size also exists' },
       { label: 'Texture', value: 'Opaque white cream, rich' },
       { label: 'Actives at dose', value: 'Glycerin 8.00%, niacinamide 2.00%, mango seed butter 0.800%, adenosine 0.040%' },
-      { label: 'Bakuchiol', value: '0.100% — one fifth of the concentration in the retinol comparison study' },
+      { label: 'Bakuchiol', value: '0.100% - one fifth of the concentration in the retinol comparison study' },
       { label: 'Peptides', value: 'None' },
-      { label: 'Fragranced', value: 'Yes — lavender oil 0.0413%, with linalool and limonene declared' },
-      { label: 'pH', value: '5.00–7.00 (6.23 on the batch tested)' },
+      { label: 'Fragranced', value: 'Yes - lavender oil 0.0413%, with linalool and limonene declared' },
+      { label: 'pH', value: '5.00-7.00 (6.23 on the batch tested)' },
       { label: 'Licence', value: 'Korean dual-function: wrinkle improvement and brightening' },
       { label: 'Assessment', value: 'EU safety assessment; patch test graded Non Irritant' },
       { label: 'Origin', value: 'Made in Korea' },
@@ -388,15 +388,15 @@ const EN: AntiWrinkleCreamCopy = {
       },
       {
         q: 'How is this different from the serum, really?',
-        a: 'The certificates answer it best. The serum has a specific gravity of 1.0689 — heavier than water, because a quarter of it is glycerin. This cream is 0.9860 — lighter than water, because of the oil load. Same niacinamide at 2%, same adenosine at 0.04%, same bakuchiol at 0.1%. Different bases doing opposite jobs, and this one has no peptides.',
+        a: 'The certificates answer it best. The serum has a specific gravity of 1.0689 - heavier than water, because a quarter of it is glycerin. This cream is 0.9860 - lighter than water, because of the oil load. Same niacinamide at 2%, same adenosine at 0.04%, same bakuchiol at 0.1%. Different bases doing opposite jobs, and this one has no peptides.',
       },
       {
         q: 'Why is having no peptides a good thing?',
-        a: 'It is not that peptides are bad — it is that the serum\u2019s six are present at between 0.05 and 1.1 parts per million while being sold as six separate mechanisms. This tube does not have that problem because it does not have them. What you are buying here is 13% emollients, 8% glycerin, 2% niacinamide and 0.04% adenosine, and all of those are real.',
+        a: 'It is not that peptides are bad - it is that the serum\u2019s six are present at between 0.05 and 1.1 parts per million while being sold as six separate mechanisms. This tube does not have that problem because it does not have them. What you are buying here is 13% emollients, 8% glycerin, 2% niacinamide and 0.04% adenosine, and all of those are real.',
       },
       {
         q: 'Is the bakuchiol enough to replace retinol?',
-        a: 'At 0.1%, no. The study everyone cites for bakuchiol matching retinol used 0.5% twice daily. It is genuinely in here, it is photostable so you can wear it in daylight, and it is gentler than a retinoid — but if replacing a retinoid is the goal, this is not the concentration to do it with. Note the certificate assays the niacinamide and adenosine but not the bakuchiol.',
+        a: 'At 0.1%, no. The study everyone cites for bakuchiol matching retinol used 0.5% twice daily. It is genuinely in here, it is photostable so you can wear it in daylight, and it is gentler than a retinoid - but if replacing a retinoid is the goal, this is not the concentration to do it with. Note the certificate assays the niacinamide and adenosine but not the bakuchiol.',
       },
       {
         q: 'Does it have a fragrance?',
@@ -416,12 +416,12 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
   eyebrow: 'كريم متعدد الوظائف لمكافحة التجاعيد · 50 غ',
   headline: 'الغطاء على السيروم. لا نسخة أسمك منه.',
   subheadline:
-    'نحو 13% من هذا الأنبوب زيوت وزُبد — منها زبدة بذور المانجو بنسبة 0.8% — فوق غليسرين بنسبة 8% ونياسيناميد بنسبة 2% وأدينوزين بالجرعة التي ترخّصها كوريا لتحسين التجاعيد. وحيث يجذب السيروم الماء إلى البشرة، يحتفظ هذا به. تركيبة مختلفة ومهمّة مختلفة، والشهادات تُظهر ذلك.',
+    'نحو 13% من هذا الأنبوب زيوت وزُبد - منها زبدة بذور المانجو بنسبة 0.8% - فوق غليسرين بنسبة 8% ونياسيناميد بنسبة 2% وأدينوزين بالجرعة التي ترخّصها كوريا لتحسين التجاعيد. وحيث يجذب السيروم الماء إلى البشرة، يحتفظ هذا به. تركيبة مختلفة ومهمّة مختلفة، والشهادات تُظهر ذلك.',
   heroBullets: [
     'نياسيناميد 2%، مقيس عند 101.30% من المعلن على الدفعة',
-    'أدينوزين 0.04%، مقيس عند 95.50% — جرعة التجاعيد المرخّصة',
+    'أدينوزين 0.04%، مقيس عند 95.50% - جرعة التجاعيد المرخّصة',
     'زبدة بذور المانجو بنسبة 0.8%، جرعة تلطيف حقيقية',
-    'بلا أي ببتيدات — لا شيء هنا يُبَاع بأجزاء من المليون',
+    'بلا أي ببتيدات - لا شيء هنا يُبَاع بأجزاء من المليون',
   ],
   badges: ['صُنع في كوريا', '50 غ', 'تقييم سلامة أوروبي', 'مصنّف غير مهيّج'],
 
@@ -445,7 +445,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
     { value: '13%', label: 'زيوت وزُبد، مقابل 2.4% في السيروم' },
     { value: '2%', label: 'نياسيناميد، مقيس عند 101.30%' },
     { value: '0.8%', label: 'زبدة بذور المانجو' },
-    { value: '0.9860', label: 'الكثافة النوعية — أخفّ من الماء' },
+    { value: '0.9860', label: 'الكثافة النوعية - أخفّ من الماء' },
   ],
 
   pair: {
@@ -465,7 +465,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
       { label: 'الكثافة النوعية', serum: '1.0689', cream: '0.9860', highlight: true },
     ],
     body:
-      'انظري إلى السطر الأخير. السيروم أثقل من الماء لأن ربعه غليسرين. وهذا الكريم أخفّ من الماء لأنه محمّل بالزيوت. شهادتا تحليل، ورقمان على جانبَي 1.000، وبينهما بصمة فيزيائية للفارق — لا تمييز تسويقي.',
+      'انظري إلى السطر الأخير. السيروم أثقل من الماء لأن ربعه غليسرين. وهذا الكريم أخفّ من الماء لأنه محمّل بالزيوت. شهادتا تحليل، ورقمان على جانبَي 1.000، وبينهما بصمة فيزيائية للفارق - لا تمييز تسويقي.',
     aside:
       'وهذا يمنح السبب الصريح الوحيد لامتلاك الاثنين: المرطّب الجاذب يجذب الماء إلى الطبقات العليا، والعازل يمنعه من المغادرة. وتعليمات السيروم نفسها تقول أن يُتبَع بمرطّب. وهذا هو ذلك المرطّب. وإن أردتِ واحداً فقط، فخذي الكريم شتاءً أو للبشرة الجافة، والسيروم في الرطوبة أو للبشرة الدهنية.',
   },
@@ -489,12 +489,12 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
       {
         name: 'Niacinamide',
         dose: '2.00%',
-        body: 'فيتامين B3 لتفاوت اللون ودعم الحاجز. مقيس على هذه الدفعة عند 101.30% من المعلن — أعلى قليلاً، وضمن المواصفة بارتياح.',
+        body: 'فيتامين B3 لتفاوت اللون ودعم الحاجز. مقيس على هذه الدفعة عند 101.30% من المعلن - أعلى قليلاً، وضمن المواصفة بارتياح.',
       },
       {
         name: 'زبدة بذور المانجو',
         dose: '0.800%',
-        body: 'جرعة تلطيف حقيقية. وقد فحصها تقييم السلامة مقابل أقصى استخدام مُبلَّغ عنه بنسبة 5% في المستحضرات الباقية على البشرة، فهي داخله بارتياح. وهي أيضاً المكوّن الذي أدرجه عرض السيروم بالخطأ — وموضعه هنا.',
+        body: 'جرعة تلطيف حقيقية. وقد فحصها تقييم السلامة مقابل أقصى استخدام مُبلَّغ عنه بنسبة 5% في المستحضرات الباقية على البشرة، فهي داخله بارتياح. وهي أيضاً المكوّن الذي أدرجه عرض السيروم بالخطأ - وموضعه هنا.',
       },
       {
         name: 'Adenosine',
@@ -513,14 +513,14 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
     eyebrow: 'نقطة لصالحه',
     title: 'لا ببتيدات هنا إطلاقاً',
     body:
-      'السيروم المطابق يحمل ستة ببتيدات من مواد ممتازة فعلاً، بين 0.05 و1.1 جزء من المليون، وعرضه ينسب آلية منفصلة لكل منها. وهذا الكريم لا يحتويها ببساطة — فلا شيء هنا يُبَاع لك بجزء من مليون من الغرام. وما يبقى بجرعات أثرية أصغر وسنسمّيه على أي حال: السيراميد والكوليسترول والفيتوسفينغوزين المبيعة كليبوسوم للحاجز عند 0.1 جزء من المليون لكل منها، والكولاجين المتحلّل عند 0.1، والإيلاستين عند 1، والبروبوليس عند 10. اشتري هذا الأنبوب من أجل 13% من الملطّفات والغليسرين والنياسيناميد والأدينوزين.',
+      'السيروم المطابق يحمل ستة ببتيدات من مواد ممتازة فعلاً، بين 0.05 و1.1 جزء من المليون، وعرضه ينسب آلية منفصلة لكل منها. وهذا الكريم لا يحتويها ببساطة - فلا شيء هنا يُبَاع لك بجزء من مليون من الغرام. وما يبقى بجرعات أثرية أصغر وسنسمّيه على أي حال: السيراميد والكوليسترول والفيتوسفينغوزين المبيعة كليبوسوم للحاجز عند 0.1 جزء من المليون لكل منها، والكولاجين المتحلّل عند 0.1، والإيلاستين عند 1، والبروبوليس عند 10. اشتري هذا الأنبوب من أجل 13% من الملطّفات والغليسرين والنياسيناميد والأدينوزين.',
   },
 
   bakuchiol: {
     eyebrow: 'التحفّظ نفسه كالسيروم',
     title: 'الباكوتشيول بنسبة 0.1%',
     body:
-      'مطابق للسيروم: 0.100%، موجود فعلاً، وثابت ضوئياً ولطيف بطريقة لا يكون الريتينول عليها. وبالمثل تماماً، الدراسة التي تقف خلف مقارنة الريتينول — دالِيوال وزملاؤه، المجلة البريطانية للأمراض الجلدية 2019 — استخدمت الباكوتشيول بنسبة 0.5% مرتين يومياً، أي خمسة أضعاف هذا التركيز. ولا هذا الكريم ولا السيروم يقيس الباكوتشيول على الشهادة، بخلاف النياسيناميد والأدينوزين. اعتبريه إضافة مرحّباً بها لا بديلاً عن الريتينويد، واشتري الأنبوب من أجل المكوّنات التي قيست.',
+      'مطابق للسيروم: 0.100%، موجود فعلاً، وثابت ضوئياً ولطيف بطريقة لا يكون الريتينول عليها. وبالمثل تماماً، الدراسة التي تقف خلف مقارنة الريتينول - دالِيوال وزملاؤه، المجلة البريطانية للأمراض الجلدية 2019 - استخدمت الباكوتشيول بنسبة 0.5% مرتين يومياً، أي خمسة أضعاف هذا التركيز. ولا هذا الكريم ولا السيروم يقيس الباكوتشيول على الشهادة، بخلاف النياسيناميد والأدينوزين. اعتبريه إضافة مرحّباً بها لا بديلاً عن الريتينويد، واشتري الأنبوب من أجل المكوّنات التي قيست.',
   },
 
   quality: {
@@ -529,18 +529,18 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
     intro:
       'صُنع في كوريا وأُفرج عنه مقابل مواصفة مكتوبة، وقُيّم وفق قانون مستحضرات التجميل الأوروبي في ملف من 42 صفحة قُدّم مع ملف السيروم.',
     rows: [
-      { label: 'الحموضة', value: '6.23 عند 25 درجة، ضمن مواصفة 5.00–7.00' },
+      { label: 'الحموضة', value: '6.23 عند 25 درجة، ضمن مواصفة 5.00-7.00' },
       { label: 'التعبئة', value: '51.11 غ مقابل 50 غ معلنة' },
-      { label: 'الكثافة النوعية', value: '0.9860 — أخفّ من الماء بسبب حمل الزيوت' },
+      { label: 'الكثافة النوعية', value: '0.9860 - أخفّ من الماء بسبب حمل الزيوت' },
       { label: 'اللزوجة', value: '12,930 طازجاً و19,900 بعد 24 ساعة، وكلاهما ضمن المواصفة' },
       { label: 'النياسيناميد', value: 'مقيس عند 101.30% من الـ 2% المعلنة' },
       { label: 'الأدينوزين', value: 'مقيس عند 95.50% من الـ 0.04% المعلنة' },
       { label: 'النقاء', value: 'أقل من 10 وحدات/غ، مقابل 100 مسموحة' },
-      { label: 'الممرضات', value: 'المكوّرة العنقودية والزائفة والمبيضّات — كلها غير مكتشفة' },
+      { label: 'الممرضات', value: 'المكوّرة العنقودية والزائفة والمبيضّات - كلها غير مكتشفة' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات مغلقاً، وتاريخ الانتهاء على العلبة' },
     ],
     patch:
-      'اختبار اللصقة الذي يقف خلف عبارة «مختبر جلدياً» عاد مصنّفاً «غير مهيّج» لا مجرّد ناجح — وهي النتيجة نفسها التي حصل عليها السيروم، من المختبر نفسه. ويلاحظ المقيّم أن عدد المتطوّعين صغير، فاقرئيها كطمأنة بشأن التركيبة لا كبرهان بشأن بشرتك.',
+      'اختبار اللصقة الذي يقف خلف عبارة «مختبر جلدياً» عاد مصنّفاً «غير مهيّج» لا مجرّد ناجح - وهي النتيجة نفسها التي حصل عليها السيروم، من المختبر نفسه. ويلاحظ المقيّم أن عدد المتطوّعين صغير، فاقرئيها كطمأنة بشأن التركيبة لا كبرهان بشأن بشرتك.',
   },
 
   reformulation: {
@@ -575,7 +575,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
     steps: [
       {
         title: 'السيروم أولاً إن كنتِ تستخدمينه',
-        body: 'ضعي سيروم مكافحة التجاعيد على بشرة رطبة، ثم هذا فوقه. فالسيروم يُدخل الماء والكريم يُبقيه — وبهذا الترتيب يفعل الزوج شيئاً لا يفعله أيّهما وحده.',
+        body: 'ضعي سيروم مكافحة التجاعيد على بشرة رطبة، ثم هذا فوقه. فالسيروم يُدخل الماء والكريم يُبقيه - وبهذا الترتيب يفعل الزوج شيئاً لا يفعله أيّهما وحده.',
       },
       {
         title: 'كمية بحجم حبة البازلاء، مُدفَّأة',
@@ -583,7 +583,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
       },
       {
         title: 'امسحي بلطف إلى أعلى',
-        body: 'تحدّد الشركة تدليكاً لطيفاً، وهو يستحق الثلاثين ثانية التي يستغرقها — فهو يساعد الطور الزيتي على الانتشار بالتساوي بدل التجمّع في بقع.',
+        body: 'تحدّد الشركة تدليكاً لطيفاً، وهو يستحق الثلاثين ثانية التي يستغرقها - فهو يساعد الطور الزيتي على الانتشار بالتساوي بدل التجمّع في بقع.',
       },
       {
         title: 'واقي الشمس فوقه صباحاً',
@@ -591,7 +591,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
       },
     ],
     note:
-      'لا أحماض ولا ريتينويدات ولا مقشّرات، فهو لا ينافس أي شيء آخر في الروتين. وعلى البشرة الدهنية جداً قد يكون طور الزيت بنسبة 13% أكثر مما تريدين في الرطوبة — والسيروم وحده هو النصف الأخفّ من الزوج.',
+      'لا أحماض ولا ريتينويدات ولا مقشّرات، فهو لا ينافس أي شيء آخر في الروتين. وعلى البشرة الدهنية جداً قد يكون طور الزيت بنسبة 13% أكثر مما تريدين في الرطوبة - والسيروم وحده هو النصف الأخفّ من الزوج.',
   },
 
   inci: {
@@ -610,7 +610,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
       'للاستعمال الخارجي فقط. لا يُستخدم قرب العينين. تجنّبي العينين والأغشية المخاطية، واشطفي جيداً بالماء البارد عند الملامسة.',
       'أوقفي الاستخدام واستشيري طبيباً عند ظهور احمرار أو تورّم أو تهيّج.',
       'قُيّم آمناً وفق اللائحة EC 1223/2009 وصُنّف «غير مهيّج» في اختبار اللصقة.',
-      'إن كنتِ حاملاً فاستشيري طبيبك قبل بدء أي فعّال جديد — فالباكوتشيول ليس ريتينولاً، لكن ذلك الحديث حديثهم معك.',
+      'إن كنتِ حاملاً فاستشيري طبيبك قبل بدء أي فعّال جديد - فالباكوتشيول ليس ريتينولاً، لكن ذلك الحديث حديثهم معك.',
       'يُحفظ بارداً وجافاً وبعيداً عن متناول الأطفال.',
     ],
     note: 'الاحتياطات كما هي مطبوعة على علبة جينوسيس، مع إفصاح العطر من التركيبة الكمّية.',
@@ -623,10 +623,10 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
       { label: 'الحجم', value: '50 غ للمنزل · ويوجد أيضاً حجم احترافي 250 غ' },
       { label: 'الملمس', value: 'كريم أبيض معتم، غنيّ' },
       { label: 'الفعّالات بجرعة', value: 'غليسرين 8.00%، نياسيناميد 2.00%، زبدة مانجو 0.800%، أدينوزين 0.040%' },
-      { label: 'الباكوتشيول', value: '0.100% — خُمس التركيز في دراسة مقارنة الريتينول' },
+      { label: 'الباكوتشيول', value: '0.100% - خُمس التركيز في دراسة مقارنة الريتينول' },
       { label: 'الببتيدات', value: 'لا شيء' },
-      { label: 'معطّر', value: 'نعم — زيت لافندر 0.0413%، مع اللينالول والليمونين معلنَين' },
-      { label: 'الحموضة', value: '5.00–7.00 (6.23 على الدفعة المختبرة)' },
+      { label: 'معطّر', value: 'نعم - زيت لافندر 0.0413%، مع اللينالول والليمونين معلنَين' },
+      { label: 'الحموضة', value: '5.00-7.00 (6.23 على الدفعة المختبرة)' },
       { label: 'الترخيص', value: 'مزدوج الوظيفة الكوري: تحسين التجاعيد والتفتيح' },
       { label: 'التقييم', value: 'تقييم سلامة أوروبي؛ اختبار لصقة مصنّف غير مهيّج' },
       { label: 'المنشأ', value: 'صُنع في كوريا' },
@@ -643,15 +643,15 @@ export const LEGACY_ANTI_WRINKLE_CREAM_AR_COPY: AntiWrinkleCreamCopy = {
       },
       {
         q: 'كيف يختلف عن السيروم فعلاً؟',
-        a: 'الشهادتان تجيبان أفضل. فالسيروم كثافته النوعية 1.0689 — أثقل من الماء لأن ربعه غليسرين. وهذا الكريم 0.9860 — أخفّ من الماء بسبب حمل الزيوت. النياسيناميد نفسه بنسبة 2%، والأدينوزين نفسه بنسبة 0.04%، والباكوتشيول نفسه بنسبة 0.1%. قاعدتان مختلفتان تؤدّيان مهمّتين متعاكستين، وهذا بلا ببتيدات.',
+        a: 'الشهادتان تجيبان أفضل. فالسيروم كثافته النوعية 1.0689 - أثقل من الماء لأن ربعه غليسرين. وهذا الكريم 0.9860 - أخفّ من الماء بسبب حمل الزيوت. النياسيناميد نفسه بنسبة 2%، والأدينوزين نفسه بنسبة 0.04%، والباكوتشيول نفسه بنسبة 0.1%. قاعدتان مختلفتان تؤدّيان مهمّتين متعاكستين، وهذا بلا ببتيدات.',
       },
       {
         q: 'ولماذا يكون غياب الببتيدات أمراً جيداً؟',
-        a: 'ليس أن الببتيدات سيئة — بل أن ستة ببتيدات السيروم موجودة بين 0.05 و1.1 جزء من المليون وتُبَاع كستّ آليات منفصلة. وهذا الأنبوب لا يعاني ذلك لأنه لا يحتويها. وما تشترينه هنا 13% ملطّفات و8% غليسرين و2% نياسيناميد و0.04% أدينوزين، وكلها حقيقية.',
+        a: 'ليس أن الببتيدات سيئة - بل أن ستة ببتيدات السيروم موجودة بين 0.05 و1.1 جزء من المليون وتُبَاع كستّ آليات منفصلة. وهذا الأنبوب لا يعاني ذلك لأنه لا يحتويها. وما تشترينه هنا 13% ملطّفات و8% غليسرين و2% نياسيناميد و0.04% أدينوزين، وكلها حقيقية.',
       },
       {
         q: 'هل الباكوتشيول كافٍ ليحلّ محلّ الريتينول؟',
-        a: 'عند 0.1%، لا. فالدراسة التي يستشهد بها الجميع لمطابقة الباكوتشيول للريتينول استخدمت 0.5% مرتين يومياً. وهو موجود فعلاً هنا، وثابت ضوئياً فيمكنك ارتداؤه في النهار، وألطف من الريتينويد — لكن إن كان استبدال الريتينويد هو الهدف، فهذا ليس التركيز المناسب. ولاحظي أن الشهادة تقيس النياسيناميد والأدينوزين لا الباكوتشيول.',
+        a: 'عند 0.1%، لا. فالدراسة التي يستشهد بها الجميع لمطابقة الباكوتشيول للريتينول استخدمت 0.5% مرتين يومياً. وهو موجود فعلاً هنا، وثابت ضوئياً فيمكنك ارتداؤه في النهار، وألطف من الريتينويد - لكن إن كان استبدال الريتينويد هو الهدف، فهذا ليس التركيز المناسب. ولاحظي أن الشهادة تقيس النياسيناميد والأدينوزين لا الباكوتشيول.',
       },
       {
         q: 'هل له عطر؟',
@@ -671,12 +671,12 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
   eyebrow: 'Мультифункциональный крем против морщин · 50 г',
   headline: 'Крышка для сыворотки. А не её загущённая версия.',
   subheadline:
-    'Около 13% этой тубы — масла и баттеры, включая масло семян манго 0,8%, поверх глицерина 8%, ниацинамида 2% и аденозина в дозе, под которую Корея лицензирует уменьшение морщин. Где сыворотка втягивает воду в кожу, этот крем её удерживает. Другая формула, другая задача, и сертификаты это показывают.',
+    'Около 13% этой тубы - масла и баттеры, включая масло семян манго 0,8%, поверх глицерина 8%, ниацинамида 2% и аденозина в дозе, под которую Корея лицензирует уменьшение морщин. Где сыворотка втягивает воду в кожу, этот крем её удерживает. Другая формула, другая задача, и сертификаты это показывают.',
   heroBullets: [
     'Ниацинамид 2%, измерено 101,30% от заявленного в партии',
-    'Аденозин 0,04%, измерено 95,50% — лицензионная доза для морщин',
-    'Масло семян манго 0,8% — настоящая эмолентная доза',
-    'Пептидов нет вовсе — здесь ничего не продают в частях на миллион',
+    'Аденозин 0,04%, измерено 95,50% - лицензионная доза для морщин',
+    'Масло семян манго 0,8% - настоящая эмолентная доза',
+    'Пептидов нет вовсе - здесь ничего не продают в частях на миллион',
   ],
   badges: ['Сделано в Корее', '50 г', 'Оценка безопасности ЕС', 'Оценка: не раздражает'],
 
@@ -700,14 +700,14 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
     { value: '13%', label: 'Масел и баттеров против 2,4% у сыворотки' },
     { value: '2%', label: 'Ниацинамида, измерено 101,30%' },
     { value: '0,8%', label: 'Масла семян манго' },
-    { value: '0,9860', label: 'Удельный вес — легче воды' },
+    { value: '0,9860', label: 'Удельный вес - легче воды' },
   ],
 
   pair: {
     eyebrow: 'Сыворотка или крем',
     title: 'Две разные формулы, и доказательство в документах',
     intro:
-      'Люди считают, что парные сыворотка и крем — это одно и то же в двух плотностях. Это не так. Положите две количественные формулы рядом, и они собраны под противоположные половины одной задачи.',
+      'Люди считают, что парные сыворотка и крем - это одно и то же в двух плотностях. Это не так. Положите две количественные формулы рядом, и они собраны под противоположные половины одной задачи.',
     columns: { row: '', serum: 'Сыворотка против морщин', cream: 'Этот крем' },
     rows: [
       { label: 'Глицерин', serum: '25,45%', cream: '8,00%', highlight: true },
@@ -720,7 +720,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
       { label: 'Удельный вес', serum: '1,0689', cream: '0,9860', highlight: true },
     ],
     body:
-      'Посмотрите на последнюю строку. Сыворотка тяжелее воды, потому что четверть её — глицерин. Этот крем легче воды, потому что он загружен маслами. Два сертификата анализа, два числа по обе стороны от 1,000, и между ними физический отпечаток разницы — не маркетинговое различие.',
+      'Посмотрите на последнюю строку. Сыворотка тяжелее воды, потому что четверть её - глицерин. Этот крем легче воды, потому что он загружен маслами. Два сертификата анализа, два числа по обе стороны от 1,000, и между ними физический отпечаток разницы - не маркетинговое различие.',
     aside:
       'Отсюда единственная честная причина иметь оба: увлажнитель втягивает воду в верхние слои кожи, а окклюзив не даёт ей уйти. В инструкции самой сыворотки сказано наносить сверху крем. Это тот крем. Если нужен один: крем на сухую кожу или зимой, сыворотку на жирную кожу или во влажность.',
   },
@@ -739,17 +739,17 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
       {
         name: 'Glycerin',
         dose: '8,00%',
-        body: 'Серьёзная увлажняющая загрузка для крема, хотя это треть того, что несёт сыворотка. Достаточно, чтобы удерживать воду самому, и лучше — под сывороткой.',
+        body: 'Серьёзная увлажняющая загрузка для крема, хотя это треть того, что несёт сыворотка. Достаточно, чтобы удерживать воду самому, и лучше - под сывороткой.',
       },
       {
         name: 'Niacinamide',
         dose: '2,00%',
-        body: 'Витамин B3 для неровного тона и барьера. Измерено в этой партии: 101,30% от заявленного — чуть выше, спокойно внутри спецификации.',
+        body: 'Витамин B3 для неровного тона и барьера. Измерено в этой партии: 101,30% от заявленного - чуть выше, спокойно внутри спецификации.',
       },
       {
         name: 'Масло семян манго',
         dose: '0,800%',
-        body: 'Настоящая эмолентная доза. Оценка безопасности сверила её с максимальным зафиксированным применением 5% в несмываемых средствах, так что это хорошо внутри. Это же и есть ингредиент, который презентация сыворотки указала по ошибке, — его место здесь.',
+        body: 'Настоящая эмолентная доза. Оценка безопасности сверила её с максимальным зафиксированным применением 5% в несмываемых средствах, так что это хорошо внутри. Это же и есть ингредиент, который презентация сыворотки указала по ошибке, - его место здесь.',
       },
       {
         name: 'Adenosine',
@@ -768,14 +768,14 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
     eyebrow: 'Пункт в его пользу',
     title: 'Пептидов здесь нет совсем',
     body:
-      'Парная сыворотка несёт шесть пептидов из действительно премиальных материалов, в концентрациях от 0,05 до 1,1 части на миллион, и её презентация приписывает каждому отдельный механизм. Этот крем их просто не содержит — значит, здесь вам ничего не продают в миллионных долях грамма. Что остаётся следовым, меньше, и мы всё равно это назовём: церамид, холестерин и фитосфингозин, продаваемые как барьерная липосома, по 0,1 ppm каждый, гидролизованный коллаген 0,1 ppm, эластин 1 ppm, прополис 10 ppm. Покупайте эту тубу за 13% эмолентов, глицерин, ниацинамид и аденозин.',
+      'Парная сыворотка несёт шесть пептидов из действительно премиальных материалов, в концентрациях от 0,05 до 1,1 части на миллион, и её презентация приписывает каждому отдельный механизм. Этот крем их просто не содержит - значит, здесь вам ничего не продают в миллионных долях грамма. Что остаётся следовым, меньше, и мы всё равно это назовём: церамид, холестерин и фитосфингозин, продаваемые как барьерная липосома, по 0,1 ppm каждый, гидролизованный коллаген 0,1 ppm, эластин 1 ppm, прополис 10 ppm. Покупайте эту тубу за 13% эмолентов, глицерин, ниацинамид и аденозин.',
   },
 
   bakuchiol: {
     eyebrow: 'Та же оговорка, что у сыворотки',
     title: 'Бакучиол 0,1%',
     body:
-      'Идентично сыворотке: 0,100%, реально присутствует, фотостабилен и мягок так, как ретинол не бывает. И точно так же исследование, стоящее за сравнением с ретинолом, — Dhaliwal и соавторы, British Journal of Dermatology 2019 — использовало бакучиол 0,5% дважды в день, в пять раз больше этой концентрации. Ни в этом креме, ни в сыворотке бакучиол не измеряется в сертификате, в отличие от ниацинамида и аденозина. Считайте его приятным дополнением, а не заменой ретиноида, и покупайте тубу за те ингредиенты, которые измерили.',
+      'Идентично сыворотке: 0,100%, реально присутствует, фотостабилен и мягок так, как ретинол не бывает. И точно так же исследование, стоящее за сравнением с ретинолом, - Dhaliwal и соавторы, British Journal of Dermatology 2019 - использовало бакучиол 0,5% дважды в день, в пять раз больше этой концентрации. Ни в этом креме, ни в сыворотке бакучиол не измеряется в сертификате, в отличие от ниацинамида и аденозина. Считайте его приятным дополнением, а не заменой ретиноида, и покупайте тубу за те ингредиенты, которые измерили.',
   },
 
   quality: {
@@ -784,18 +784,18 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
     intro:
       'Сделано в Корее, выпущено против письменной спецификации и оценено по европейскому косметическому закону в досье на 42 страницы, поданном вместе с досье сыворотки.',
     rows: [
-      { label: 'pH', value: '6,23 при 25 °C, в пределах спецификации 5,00–7,00' },
+      { label: 'pH', value: '6,23 при 25 °C, в пределах спецификации 5,00-7,00' },
       { label: 'Наполнение', value: '51,11 г при заявленных 50 г' },
-      { label: 'Удельный вес', value: '0,9860 — легче воды из-за масляной загрузки' },
+      { label: 'Удельный вес', value: '0,9860 - легче воды из-за масляной загрузки' },
       { label: 'Вязкость', value: '12 930 свежая и 19 900 через 24 часа, обе внутри спецификации' },
       { label: 'Ниацинамид', value: 'Измерено 101,30% от заявленных 2%' },
       { label: 'Аденозин', value: 'Измерено 95,50% от заявленных 0,04%' },
       { label: 'Чистота', value: 'Менее 10 КОЕ/г при допустимых 100' },
-      { label: 'Патогены', value: 'S. aureus, P. aeruginosa и C. albicans — все не обнаружены' },
+      { label: 'Патогены', value: 'S. aureus, P. aeruginosa и C. albicans - все не обнаружены' },
       { label: 'Срок годности', value: 'Три года закрытым, дата на коробке' },
     ],
     patch:
-      'Патч-тест, стоящий за строкой «дерматологически протестировано», вернулся с оценкой «не раздражает», а не просто «пройден» — тот же результат, что и у сыворотки, из той же лаборатории. Оценщик отмечает, что число добровольцев невелико, так что читайте это как уверенность в формуле, а не как доказательство про вашу кожу.',
+      'Патч-тест, стоящий за строкой «дерматологически протестировано», вернулся с оценкой «не раздражает», а не просто «пройден» - тот же результат, что и у сыворотки, из той же лаборатории. Оценщик отмечает, что число добровольцев невелико, так что читайте это как уверенность в формуле, а не как доказательство про вашу кожу.',
   },
 
   reformulation: {
@@ -820,7 +820,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
     eyebrow: 'Если вы читаете составы',
     title: 'Ароматизирован сильнее сыворотки',
     body:
-      'Лавандовое масло 0,0413%, что более чем вдвое больше 0,0186% у сыворотки, и два заявленных аллергена вместо одного: линалоол 0,0266% и лимонен 0,0021%. Оба названы, потому что европейский закон это требует. Это эфирное масло, а не синтетическая отдушка, и количества малы, но если с сывороткой у вас по аромату всё сложилось, знайте, что в этой тубе его больше. Наш Blemish Balm Cream — вариант линейки без отдушки.',
+      'Лавандовое масло 0,0413%, что более чем вдвое больше 0,0186% у сыворотки, и два заявленных аллергена вместо одного: линалоол 0,0266% и лимонен 0,0021%. Оба названы, потому что европейский закон это требует. Это эфирное масло, а не синтетическая отдушка, и количества малы, но если с сывороткой у вас по аромату всё сложилось, знайте, что в этой тубе его больше. Наш Blemish Balm Cream - вариант линейки без отдушки.',
   },
 
   howTo: {
@@ -830,7 +830,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
     steps: [
       {
         title: 'Сначала сыворотка, если вы её используете',
-        body: 'Нанесите сыворотку против морщин на влажную кожу, затем этот крем сверху. Сыворотка втягивает воду, крем её удерживает — в таком порядке пара делает то, чего не делает ни одна по отдельности.',
+        body: 'Нанесите сыворотку против морщин на влажную кожу, затем этот крем сверху. Сыворотка втягивает воду, крем её удерживает - в таком порядке пара делает то, чего не делает ни одна по отдельности.',
       },
       {
         title: 'Количество с горошину, согрев',
@@ -838,7 +838,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
       },
       {
         title: 'Мягко массируйте вверх',
-        body: 'Производитель указывает мягкий массаж, и эти тридцать секунд стоит потратить — он помогает масляной фазе распределиться ровно, а не остаться пятнами.',
+        body: 'Производитель указывает мягкий массаж, и эти тридцать секунд стоит потратить - он помогает масляной фазе распределиться ровно, а не остаться пятнами.',
       },
       {
         title: 'Утром сверху санскрин',
@@ -846,7 +846,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
       },
     ],
     note:
-      'Без кислот, ретиноидов и эксфолиантов, поэтому он не конкурирует ни с чем в уходе. На очень жирной коже 13% масляной фазы может оказаться больше, чем вам нужно во влажности, — сыворотка отдельно и есть более лёгкая половина пары.',
+      'Без кислот, ретиноидов и эксфолиантов, поэтому он не конкурирует ни с чем в уходе. На очень жирной коже 13% масляной фазы может оказаться больше, чем вам нужно во влажности, - сыворотка отдельно и есть более лёгкая половина пары.',
   },
 
   inci: {
@@ -865,7 +865,7 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
       'Только для наружного применения. Не наносите рядом с глазами. Избегайте глаз и слизистых, при попадании тщательно промойте прохладной водой.',
       'Прекратите использование и обратитесь к врачу при покраснении, отёке или раздражении.',
       'Оценено как безопасное по регламенту EC 1223/2009 и получило оценку «не раздражает» в патч-тесте.',
-      'При беременности спросите врача перед началом любого нового актива — бакучиол не ретинол, но этот разговор им вести с вами.',
+      'При беременности спросите врача перед началом любого нового актива - бакучиол не ретинол, но этот разговор им вести с вами.',
       'Храните в прохладном сухом месте, недоступном для детей.',
     ],
     note: 'Предостережения как напечатаны на коробке GENOSYS, плюс раскрытие отдушки из количественной формулы.',
@@ -878,10 +878,10 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
       { label: 'Объём', value: '50 г для дома · существует также профессиональный 250 г' },
       { label: 'Текстура', value: 'Непрозрачный белый крем, богатый' },
       { label: 'Активы в дозе', value: 'Глицерин 8,00%, ниацинамид 2,00%, масло манго 0,800%, аденозин 0,040%' },
-      { label: 'Бакучиол', value: '0,100% — пятая часть концентрации в исследовании с ретинолом' },
+      { label: 'Бакучиол', value: '0,100% - пятая часть концентрации в исследовании с ретинолом' },
       { label: 'Пептиды', value: 'Нет' },
-      { label: 'Отдушка', value: 'Да — лавандовое масло 0,0413%, линалоол и лимонен заявлены' },
-      { label: 'pH', value: '5,00–7,00 (6,23 в измеренной партии)' },
+      { label: 'Отдушка', value: 'Да - лавандовое масло 0,0413%, линалоол и лимонен заявлены' },
+      { label: 'pH', value: '5,00-7,00 (6,23 в измеренной партии)' },
       { label: 'Лицензия', value: 'Корейское двойное действие: уменьшение морщин и осветление' },
       { label: 'Оценка', value: 'Оценка безопасности ЕС; патч-тест «не раздражает»' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
@@ -894,23 +894,23 @@ export const LEGACY_ANTI_WRINKLE_CREAM_RU_COPY: AntiWrinkleCreamCopy = {
     items: [
       {
         q: 'Нужны ли мне и сыворотка, и крем?',
-        a: 'Не обязательно, но они действительно спроектированы работать вместе, а не как апгрейд объёма. Сыворотка — 25,45% глицерина, она втягивает воду в кожу; этот крем — около 13% масел и баттеров, он не даёт ей уйти. Если покупать одно: крем на сухую кожу или зимой, сыворотку на жирную кожу или во влажность.',
+        a: 'Не обязательно, но они действительно спроектированы работать вместе, а не как апгрейд объёма. Сыворотка - 25,45% глицерина, она втягивает воду в кожу; этот крем - около 13% масел и баттеров, он не даёт ей уйти. Если покупать одно: крем на сухую кожу или зимой, сыворотку на жирную кожу или во влажность.',
       },
       {
         q: 'Чем он на самом деле отличается от сыворотки?',
-        a: 'Лучше всего отвечают сертификаты. У сыворотки удельный вес 1,0689 — тяжелее воды, потому что четверть её глицерин. У этого крема 0,9860 — легче воды из-за масляной загрузки. Тот же ниацинамид 2%, тот же аденозин 0,04%, тот же бакучиол 0,1%. Разные основы, выполняющие противоположные задачи, и в этом нет пептидов.',
+        a: 'Лучше всего отвечают сертификаты. У сыворотки удельный вес 1,0689 - тяжелее воды, потому что четверть её глицерин. У этого крема 0,9860 - легче воды из-за масляной загрузки. Тот же ниацинамид 2%, тот же аденозин 0,04%, тот же бакучиол 0,1%. Разные основы, выполняющие противоположные задачи, и в этом нет пептидов.',
       },
       {
-        q: 'Почему отсутствие пептидов — это плюс?',
-        a: 'Дело не в том, что пептиды плохи, — а в том, что шесть пептидов сыворотки присутствуют в концентрациях от 0,05 до 1,1 части на миллион, а продаются как шесть отдельных механизмов. У этой тубы такой проблемы нет, потому что их в ней нет. Вы покупаете здесь 13% эмолентов, 8% глицерина, 2% ниацинамида и 0,04% аденозина, и всё это реально.',
+        q: 'Почему отсутствие пептидов - это плюс?',
+        a: 'Дело не в том, что пептиды плохи, - а в том, что шесть пептидов сыворотки присутствуют в концентрациях от 0,05 до 1,1 части на миллион, а продаются как шесть отдельных механизмов. У этой тубы такой проблемы нет, потому что их в ней нет. Вы покупаете здесь 13% эмолентов, 8% глицерина, 2% ниацинамида и 0,04% аденозина, и всё это реально.',
       },
       {
         q: 'Достаточно ли бакучиола, чтобы заменить ретинол?',
-        a: 'При 0,1% — нет. Исследование, на которое все ссылаются, использовало 0,5% дважды в день. Он действительно здесь есть, он фотостабилен, так что его можно носить днём, и он мягче ретиноида, — но если цель заменить ретиноид, это не та концентрация. Заметьте, сертификат измеряет ниацинамид и аденозин, но не бакучиол.',
+        a: 'При 0,1% - нет. Исследование, на которое все ссылаются, использовало 0,5% дважды в день. Он действительно здесь есть, он фотостабилен, так что его можно носить днём, и он мягче ретиноида, - но если цель заменить ретиноид, это не та концентрация. Заметьте, сертификат измеряет ниацинамид и аденозин, но не бакучиол.',
       },
       {
         q: 'Есть ли отдушка?',
-        a: 'Да, и больше, чем у сыворотки: лавандовое масло 0,0413% против 0,0186%, с заявленными линалоолом и лимоненом. Натуральное эфирное масло, а не синтетическая отдушка, но оно есть. Если отдушка решает, наш Blemish Balm Cream — без неё.',
+        a: 'Да, и больше, чем у сыворотки: лавандовое масло 0,0413% против 0,0186%, с заявленными линалоолом и лимоненом. Натуральное эфирное масло, а не синтетическая отдушка, но оно есть. Если отдушка решает, наш Blemish Balm Cream - без неё.',
       },
       {
         q: 'Я пользовалась старым Intensive Multi Functional Cream. Это то же самое?',

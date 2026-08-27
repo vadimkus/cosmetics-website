@@ -301,7 +301,7 @@ function buildInvoiceDataFromOrder(order: OrderWithItems, requestedLocale?: stri
   }
 }
 
-// Exported for preview/testing (scripts) — not a route handler.
+// Exported for preview/testing (scripts) - not a route handler.
 export function generateInvoiceHTML(data: InvoiceData, t: Translations): string {
   const {
     orderNumber,
@@ -635,7 +635,7 @@ export function generateInvoiceHTML(data: InvoiceData, t: Translations): string 
                 <td style="padding-top: 56px;">
                   <div style="height: 1px; background-color: #e5e7eb; margin-bottom: 20px;"></div>
                   <div style="font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, sans-serif; font-size: 12px; color: #86868b; line-height: 1.8; text-align: center;">
-                    <strong style="color: #6e6e73;">${LEGAL_INFO.companyName}</strong> — ${t.officialDistributor}<br>
+                    <strong style="color: #6e6e73;">${LEGAL_INFO.companyName}</strong> - ${t.officialDistributor}<br>
                     ${t.trnLabel}: ${LEGAL_INFO.trn} &nbsp;·&nbsp; ${t.licenseLabel}: ${LEGAL_INFO.license}<br>
                     ${LEGAL_INFO.registeredAddress}<br>
                     ${t.bankLabel}: ${LEGAL_INFO.bankName} &nbsp;·&nbsp; ${t.ibanLabel}: ${LEGAL_INFO.iban} &nbsp;·&nbsp; ${t.accountLabel}: ${LEGAL_INFO.accountNo}<br><br>

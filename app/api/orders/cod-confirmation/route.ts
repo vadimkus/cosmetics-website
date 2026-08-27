@@ -309,7 +309,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Loyalty redemption (GENOSYS Rewards): requires a logged-in session that
-    // matches the customer email — guests or mismatched sessions get no redemption.
+    // matches the customer email - guests or mismatched sessions get no redemption.
     // Shipping stays based on the pre-redemption subtotal (points never cost you
     // your free-shipping threshold); points reduce the final total.
     let loyaltyRedemption = { points: 0, amountAed: 0 }
@@ -666,7 +666,7 @@ export async function POST(request: NextRequest) {
 
     // Schedule all background tasks with after() so Vercel keeps the function alive.
     // Without after(), fire-and-forget promises get killed when the serverless function
-    // terminates after sending the response — causing missed admin notifications.
+    // terminates after sending the response - causing missed admin notifications.
     after(async () => {
       // 1. Send order confirmation email to customer (HIGHEST PRIORITY)
       try {
@@ -759,7 +759,7 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // Return success response immediately — after() keeps the function alive for emails
+    // Return success response immediately - after() keeps the function alive for emails
     return NextResponse.json({ 
       success: true, 
       message: 'COD order confirmation sent successfully',

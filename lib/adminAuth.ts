@@ -96,7 +96,7 @@ export async function verifyAdminAuth(request: NextRequest): Promise<{
   try {
     // Verify using the signed session token (set by /api/auth/admin-login).
     // NOTE: The legacy email-only fallback (x-admin-email header / admin-email
-    // cookie) was removed — it allowed full admin access with a spoofable header.
+    // cookie) was removed - it allowed full admin access with a spoofable header.
     const sessionToken = request.cookies.get('admin-session')?.value
     
     if (!sessionToken) {

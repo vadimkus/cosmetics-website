@@ -143,18 +143,18 @@ async function moySkladFetch(
 
 /**
  * Maps emirates to MoySklad delivery service UUIDs.
- * These are services (not products) in MoySklad — referenced as entity/service.
+ * These are services (not products) in MoySklad - referenced as entity/service.
  */
 const DELIVERY_SERVICE_MAP: Record<string, string> = {
-  'dubai':    'a97cfeeb-814e-11ea-0a80-004a001516bd', // Excellent Delivery Dubai — 45 AED
-  'sharjah':  '52864050-59a7-11eb-0a80-022e00579624', // Delivery Sharjah — 70 AED
-  'abu dhabi':'212036af-814f-11ea-0a80-011700157c7d', // Delivery Abu Dhabi — 70 AED
-  'al ain':   '41b80390-814f-11ea-0a80-03ae0014ec85', // Delivery Al Ain — 80 AED
-  'fujairah': '557d2277-814f-11ea-0a80-03ae0014ed65', // Delivery Fujairah — 80 AED
-  'rak':      'a9d199bf-b909-11ea-0a80-03ec0015b2d7', // Delivery RAK — 80 AED
+  'dubai':    'a97cfeeb-814e-11ea-0a80-004a001516bd', // Excellent Delivery Dubai - 45 AED
+  'sharjah':  '52864050-59a7-11eb-0a80-022e00579624', // Delivery Sharjah - 70 AED
+  'abu dhabi':'212036af-814f-11ea-0a80-011700157c7d', // Delivery Abu Dhabi - 70 AED
+  'al ain':   '41b80390-814f-11ea-0a80-03ae0014ec85', // Delivery Al Ain - 80 AED
+  'fujairah': '557d2277-814f-11ea-0a80-03ae0014ed65', // Delivery Fujairah - 80 AED
+  'rak':      'a9d199bf-b909-11ea-0a80-03ec0015b2d7', // Delivery RAK - 80 AED
   'ras al khaimah': 'a9d199bf-b909-11ea-0a80-03ec0015b2d7', // alias for RAK
   // Website ships Ajman / UAQ at 70 AED (same as Sharjah). MoySklad has no
-  // dedicated Ajman/UAQ services — reuse Delivery Sharjah; line price still
+  // dedicated Ajman/UAQ services - reuse Delivery Sharjah; line price still
   // comes from the website order.shipping amount.
   'ajman':    '52864050-59a7-11eb-0a80-022e00579624',
   'umm al quwain': '52864050-59a7-11eb-0a80-022e00579624',
@@ -190,13 +190,13 @@ function isPaidOnlinePayment(paymentMethod: string): boolean {
  * uses longer names with "Box" suffix for box products (e.g., "POWER SOLUTION CVS Box").
  * 
  * This mapping was built by querying both databases and matching products.
- * Products are matched by name similarity — MoySklad product data is NEVER modified.
+ * Products are matched by name similarity - MoySklad product data is NEVER modified.
  * 
  * Prices in MoySklad are in kopecks (value × 100), but since we use AED,
  * our prices need to be multiplied by 100 when sending to MoySklad.
  */
 const PRODUCT_MAP: Record<string, string> = {
-  // === Power Solutions — vials (used when box lines explode on push; codes 00018/00020/…) ===
+  // === Power Solutions - vials (used when box lines explode on push; codes 00018/00020/…) ===
   'POWER SOLUTION AWS 1 VIAL 2ML': '68872ebb-3447-11ea-0a80-03f90001c5cc', // 00018
   'POWER SOLUTION SWS 1 VIAL 2ML': 'e0ff2439-3448-11ea-0a80-044a00018f60', // 00020
   'POWER SOLUTION CVS 1 VIAL 2ML': 'febec033-45d4-11ea-0a80-00ab0015bfa1', // 00067
@@ -204,7 +204,7 @@ const PRODUCT_MAP: Record<string, string> = {
   'POWER SOLUTION PCS 1 VIAL 2ML': '8a43a8e9-45d4-11ea-0a80-048a00166b96', // 00065
   'POWER SOLUTION CTS 1 VIAL 2ML': 'c4784fc1-45d5-11ea-0a80-02fd001636a2', // 00069
 
-  // === Power Solutions — boxes (legacy fallback only; push explodes to vials above) ===
+  // === Power Solutions - boxes (legacy fallback only; push explodes to vials above) ===
   'POWER SOLUTION AWS': '05507ec8-3447-11ea-0a80-05dc00016a6b',       // 00017 Box
   'POWER SOLUTION SWS': '662f268a-3448-11ea-0a80-00e60001a228',       // 00019 Box
   'POWER SOLUTION CVS': 'cd352a84-45d4-11ea-0a80-01f800166866',       // 00066 Box
@@ -246,7 +246,7 @@ const PRODUCT_MAP: Record<string, string> = {
   // === Peeling & Masks ===
   'SKIN RENEWAL PEELING SYSTEM (SRS)': '62225706-3445-11ea-0a80-05dc000156b3', // Box
   'EPI TURNOVER BOOSTING PEELING GEL': 'cd901a4e-e88b-11ea-0a80-05ae00007806', // 100g
-  // Pack on website (5 masks) — push explodes to singles below; keep pack key unused after explode
+  // Pack on website (5 masks) - push explodes to singles below; keep pack key unused after explode
   'PEPTIDE GEL MASK': '3068531d-3444-11ea-0a80-06a300016deb',                 // 00012 single (legacy fallback)
   [PEPTIDE_GEL_MASK_SINGLE_PRODUCT_NAME]: '3068531d-3444-11ea-0a80-06a300016deb', // 00012 after pack explode
   'EZ CO₂ MASK KIT': 'f34ed25a-343f-11ea-0a80-05dc0001110e',                  // Box (5 treatments)
@@ -317,7 +317,7 @@ const COLOR_VARIANT_MAP: Record<string, string> = {
  * Always include BOTH sizes for multi-size products so the default doesn't silently win.
  *
  * Example of bug this fixes: ordering "Intensive Problem Control Cream 250g" on the site
- * would previously send the 50g MoySklad product (because PRODUCT_MAP only had 50g) —
+ * would previously send the 50g MoySklad product (because PRODUCT_MAP only had 50g) -
  * mismatching price, stock, and fulfillment.
  */
 const SIZE_VARIANT_MAP: Record<string, string> = {
@@ -357,7 +357,7 @@ const SIZE_VARIANT_MAP: Record<string, string> = {
   'MULTI FUNCTIONAL ANTI-WRINKLE CREAM | 50g':  '6b2a342c-bf06-11ed-0a80-02f30003ffc8', // code 00190
   'MULTI FUNCTIONAL ANTI-WRINKLE CREAM | 250g': '0cf0e298-42b7-11ea-0a80-0475000b95ca', // code 00034
 
-  // === Microneedle Roller (product 1) — needle-length variants ===
+  // === Microneedle Roller (product 1) - needle-length variants ===
   'MICRONEEDLE ROLLER | 0.25mm': 'e6bfaf3b-33ce-11ea-0a80-020c000b009b', // code 00001
   'MICRONEEDLE ROLLER | 0.5mm':  'b4acb301-343a-11ea-0a80-06a300010999', // code 00002
   'MICRONEEDLE ROLLER | 1.0mm':  'fca27ce5-343a-11ea-0a80-01b500011297', // code 00003
@@ -381,9 +381,9 @@ function normalizeSize(size: string): string {
  * Resolve MoySklad product ID from webapp product name, optional color, and optional size.
  *
  * Lookup precedence:
- *   1. SIZE_VARIANT_MAP    (name + size)   — highest priority for multi-size products
+ *   1. SIZE_VARIANT_MAP    (name + size)   - highest priority for multi-size products
  *   2. COLOR_VARIANT_MAP   (name + color)
- *   3. PRODUCT_MAP         (name only)     — fallback default
+ *   3. PRODUCT_MAP         (name only)     - fallback default
  *
  * Returns null if no mapping exists (beauty boxes, bundles, etc.)
  */
@@ -391,7 +391,7 @@ function getMoySkladProductId(productName: string, color?: string | null, size?:
   // Strip suffixes like "(FREE)", "(GIFT)", "(BONUS)" that the checkout may append
   const normalized = productName.trim().replace(/\s*\((?:FREE|GIFT|BONUS|SAMPLE)\)\s*$/i, '').trim()
 
-  // 1) Size-specific match — highest priority for multi-size products.
+  // 1) Size-specific match - highest priority for multi-size products.
   //    Ignore the special "__PROMO__" size sentinel used by promotional/free items.
   if (size && size !== '__PROMO__') {
     const normalizedSize = normalizeSize(size)
@@ -451,7 +451,7 @@ interface CounterpartyResult {
 /**
  * Build a structured actualAddressFull for a counterparty, matching the
  * order-level shipmentAddressFull shape. Emirate → city, free-form address
- * → street (street-only — website canonical "Street, City, UAE" is stripped
+ * → street (street-only - website canonical "Street, City, UAE" is stripped
  * so MoySklad UI does not print Dubai/UAE twice), country → UAE reference.
  * Never set addInfo to the same text as street.
  */
@@ -474,10 +474,10 @@ function buildCounterpartyAddressFull(
  * Searches by phone first, then by email. Creates if not found.
  *
  * When CREATING a new counterparty we also set actualAddressFull so the
- * customer card, delivery slips, and printed invoices populate correctly —
+ * customer card, delivery slips, and printed invoices populate correctly -
  * otherwise admin has to type the address manually in MoySklad's UI.
  *
- * NEVER modifies existing counterparties — if admin curated the address on
+ * NEVER modifies existing counterparties - if admin curated the address on
  * a returning customer, we preserve it.
  */
 async function findOrCreateCounterparty(
@@ -531,7 +531,7 @@ async function findOrCreateCounterparty(
     }
   }
 
-  // Create new counterparty — include structured address so MoySklad UI,
+  // Create new counterparty - include structured address so MoySklad UI,
   // delivery slips and invoices don't have a blank address field.
   debugLog('🆕 MoySklad: Creating new counterparty:', name)
   const createResult = await moySkladFetch('/entity/counterparty', {
@@ -580,7 +580,7 @@ export interface MoySkladOrderData {
   items: MoySkladOrderItem[]
   total: number
   shipping: number
-  /** GENOSYS Rewards redeemed — AED off merchandise (not shipping). */
+  /** GENOSYS Rewards redeemed - AED off merchandise (not shipping). */
   loyaltyDiscountAmount?: number
   loyaltyPointsRedeemed?: number
   paymentMethod: string // 'cod', 'stripe', 'apple_pay'
@@ -648,7 +648,7 @@ interface CreatedMoySkladEntity {
  * Returns { success, moySkladOrderId?, moySkladInvoiceId?, moySkladDemandId?, moySkladPaymentInId?, error? }
  * 
  * SAFETY: This function is designed to be called fire-and-forget.
- * It never throws — all errors are caught and logged.
+ * It never throws - all errors are caught and logged.
  * It never blocks the main checkout flow.
  */
 export async function createMoySkladOrder(
@@ -665,7 +665,7 @@ export async function createMoySkladOrder(
     debugLog('🔄 MoySklad: Creating order', orderData.orderNumber)
 
     // Step 1: Find or create counterparty (pass address so new counterparties
-    // get a populated address card in MoySklad — existing counterparties are
+    // get a populated address card in MoySklad - existing counterparties are
     // left untouched to preserve admin-curated addresses).
     const counterparty = await findOrCreateCounterparty(
       orderData.customerName,
@@ -811,11 +811,11 @@ export async function createMoySkladOrder(
     if (unmappedItems.length > 0) {
       return {
         success: false,
-        error: `Cannot sync to MoySklad — unmapped line items: ${unmappedItems.join('; ')}`,
+        error: `Cannot sync to MoySklad - unmapped line items: ${unmappedItems.join('; ')}`,
       }
     }
 
-    // Step 2b: GENOSYS Rewards — fold loyalty AED into product line discounts
+    // Step 2b: GENOSYS Rewards - fold loyalty AED into product line discounts
     // before shipping, so mapped total matches website (merchandise − loyalty + shipping).
     const loyaltyDiscountAed = Number(orderData.loyaltyDiscountAmount || 0)
     if (loyaltyDiscountAed > 0) {
@@ -829,7 +829,7 @@ export async function createMoySkladOrder(
     }
 
     // Step 2c: Add shipping as a service line item (if applicable)
-    // UAE delivery is taxable at 5% VAT (inclusive in the charge) — matches the
+    // UAE delivery is taxable at 5% VAT (inclusive in the charge) - matches the
     // website's checkout VAT calc which treats shipping as VAT-inclusive.
     if (orderData.shipping > 0) {
       const deliveryServiceId = getMoySkladDeliveryServiceId(orderData.customerEmirate)
@@ -837,7 +837,7 @@ export async function createMoySkladOrder(
         return {
           success: false,
           error:
-            `Cannot sync to MoySklad — no delivery service mapping for emirate ` +
+            `Cannot sync to MoySklad - no delivery service mapping for emirate ` +
             `"${orderData.customerEmirate}" (shipping AED ${orderData.shipping.toFixed(2)})`,
         }
       }
@@ -860,7 +860,7 @@ export async function createMoySkladOrder(
       return {
         success: false,
         error:
-          `Cannot sync to MoySklad — mapped total AED ${mappedTotalAed.toFixed(2)} ` +
+          `Cannot sync to MoySklad - mapped total AED ${mappedTotalAed.toFixed(2)} ` +
           `does not match order total AED ${orderData.total.toFixed(2)}`,
       }
     }
@@ -925,9 +925,9 @@ export async function createMoySkladOrder(
       // string). MoySklad's UI reads the delivery-address fields from the
       // structured object; a plain-string shipmentAddress gets silently dumped
       // into addInfo only, which is why the main address was showing blank.
-      // The two fields are mutually exclusive — MoySklad rejects both at once.
+      // The two fields are mutually exclusive - MoySklad rejects both at once.
       // Street must be street-only: website stores "Street, City, UAE" but
-      // city/country already live in structured fields — otherwise UI shows
+      // city/country already live in structured fields - otherwise UI shows
       // "UAE, Dubai, Street, Dubai, UAE".
       shipmentAddressFull: buildMoySkladAddressFull(
         orderData.customerAddress,

@@ -95,7 +95,7 @@ export default function BlackFridayCountdown() {
         <div className="text-center mb-3 sm:mb-4">
           <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-black mb-1.5 sm:mb-2 break-words">
             {locale === 'ar' ? (
-              <>عرض الجمعة السوداء — <span className="text-[var(--cera-rose-ink)]">خصم 20%</span></>
+              <>عرض الجمعة السوداء - <span className="text-[var(--cera-rose-ink)]">خصم 20%</span></>
             ) : locale === 'ru' ? (
               <>{t('common.blackFriday20Off')}</>
             ) : (
@@ -103,7 +103,7 @@ export default function BlackFridayCountdown() {
             )}
           </h3>
           <p className="text-xs sm:text-sm md:text-base text-gray-700 font-semibold break-words">
-            {locale === 'ar' ? '26 نوفمبر — 28 نوفمبر' : locale === 'ru' ? t('common.nov26to28') : 'Nov 26th — Nov 28th'}
+            {locale === 'ar' ? '26 نوفمبر - 28 نوفمبر' : locale === 'ru' ? t('common.nov26to28') : 'Nov 26th - Nov 28th'}
           </p>
         </div>
 

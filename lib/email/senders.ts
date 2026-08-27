@@ -43,7 +43,7 @@ export const sendNewsletterWelcomeEmail = async (params: { email: string; locale
 }
 
 export const sendNewsletterCampaignEmail = async (params: { to: string; subject: string; bodyHtml: string; unsubscribeUrl: string; locale?: string }) => {
-  // Build the template args with `locale` only if it's a defined string — TS
+  // Build the template args with `locale` only if it's a defined string - TS
   // `exactOptionalPropertyTypes` treats `locale: undefined` as an explicit undefined,
   // which isn't the same as an omitted optional property.
   const templateArgs: { subject: string; bodyHtml: string; unsubscribeUrl: string; locale?: string } = {

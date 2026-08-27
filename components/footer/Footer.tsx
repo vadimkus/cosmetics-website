@@ -233,7 +233,7 @@ export default function Footer() {
     )
   }
 
-  // Reusable class for column link items — consistent hit area and focus ring.
+  // Reusable class for column link items - consistent hit area and focus ring.
   const colLinkClass =
     'text-sm text-[var(--cera-body)] hover:text-[var(--cera-rose-ink)] transition-colors py-1 inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 rounded'
 
@@ -241,7 +241,7 @@ export default function Footer() {
     <footer role="contentinfo" className="cera-page genosys-page border-t border-[var(--cera-line)] pt-10" suppressHydrationWarning>
       <div className="container mx-auto px-4">
         {/* ── Trust badges strip ───────────────────────────────────────
-            Custom GENOSYS pictograms — see components/icons/BrandIcons. */}
+            Custom GENOSYS pictograms - see components/icons/BrandIcons. */}
         <div className="hidden md:block border-b border-[var(--cera-line)] pb-8 mb-10">
           <div className="grid grid-cols-4 gap-x-8 lg:gap-x-12 gap-y-6 max-w-6xl mx-auto">
             <div className="flex items-start gap-3 min-w-0">
@@ -311,7 +311,7 @@ export default function Footer() {
               {/* Transparent, tightly-cropped wordmark. upLOGO.png is fully opaque with
                   pure white corners, and 58% of its height is dead padding, so on the
                   cream footer it read as a white sticker rather than a logo. Same mark,
-                  white keyed out — see scripts/make-logo-transparent-20260818.py.
+                  white keyed out - see scripts/make-logo-transparent-20260818.py.
                   No blur placeholder: it renders a solid rectangle behind the image while
                   loading, which is the white box again for the moment it is on screen. */}
               <Image
@@ -511,7 +511,7 @@ export default function Footer() {
               </li>
             </ul>
 
-            {/* App download pair — condensed */}
+            {/* App download pair - condensed */}
             <div className="mt-6">
               <p className="text-[11px] tracking-[0.14em] font-semibold text-[var(--cera-muted)] uppercase mb-2">
                 {copy.links.app}
@@ -548,7 +548,7 @@ export default function Footer() {
 
         {/* ── Bottom strip: payments + copyright ─────────────────────── */}
         <div className="hidden md:flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-[var(--cera-line)] pb-8">
-          {/* Payment methods — accepted cards + wallets. Checkout is powered
+          {/* Payment methods - accepted cards + wallets. Checkout is powered
               by Stripe; we surface the Stripe trust mark on the right. */}
           <div className={`flex flex-wrap items-center gap-x-3 gap-y-2 ${locale === 'ar' ? 'flex-row-reverse' : ''}`}>
             <div className="flex items-center gap-2" aria-label="Accepted payment methods">
@@ -558,7 +558,7 @@ export default function Footer() {
               {/* Payment-method chips. Shared base class for symmetry; each
                   chip lifts + shadows on hover (desktop only, the whole
                   bottom strip is `hidden md:flex`). Honors prefers-reduced
-                  motion — animation collapses to a no-op for users who set
+                  motion - animation collapses to a no-op for users who set
                   the OS-level setting. */}
               {/* Visa */}
               <span

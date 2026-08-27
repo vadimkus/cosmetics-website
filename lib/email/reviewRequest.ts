@@ -1,5 +1,5 @@
 /**
- * Post-delivery review request — "How was your order?"
+ * Post-delivery review request - "How was your order?"
  *
  * Sent ~5 days after DELIVERED by /api/cron/review-requests. Lists the
  * products from the order that the customer hasn't reviewed yet, each with
@@ -90,7 +90,7 @@ export const sendReviewRequestEmail = async (data: ReviewRequestEmailData) => {
               </tr>
               <tr>
                 <td style="font-family: ${FONT_TEXT}; font-size: 15px; line-height: 1.5; color: #86868b; text-align: center; padding-bottom: 28px;">
-                  Share a quick review and earn <strong style="color: #1d1d1f;">50 GENOSYS Rewards points per product</strong> — that's up to ${totalPoints} points (AED ${(totalPoints * 0.05).toFixed(0)} off your next order).
+                  Share a quick review and earn <strong style="color: #1d1d1f;">50 GENOSYS Rewards points per product</strong> - that's up to ${totalPoints} points (AED ${(totalPoints * 0.05).toFixed(0)} off your next order).
                 </td>
               </tr>
               <tr>

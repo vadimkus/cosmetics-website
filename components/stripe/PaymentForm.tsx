@@ -29,7 +29,7 @@ export default function PaymentForm({
   // The PaymentElement iframe loads asynchronously after the sheet opens. If
   // the user taps Pay before it emits `ready`, stripe.confirmPayment() throws
   // IntegrationError ("Element ... is mounted and the ready event has been
-  // emitted") — seen in Sentry 2026-06-12 on iPhone (tap 3.5s after the
+  // emitted") - seen in Sentry 2026-06-12 on iPhone (tap 3.5s after the
   // payment intent was created). Keep the button disabled until then.
   const [isElementReady, setIsElementReady] = useState(false)
 

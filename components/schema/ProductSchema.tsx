@@ -27,7 +27,7 @@ interface ProductSchemaProps {
  * - Added countryOfOrigin (Korea) for cosmetics provenance
  * - gtin13 emitted from data/productBarcodes.ts where a manufacturer EAN-13 exists
  * - AggregateRating only included when real data exists
- * - audience: single PeopleAudience (Merchant Center / Search expects suggestedGender + age — not generic Audience or arrays)
+ * - audience: single PeopleAudience (Merchant Center / Search expects suggestedGender + age - not generic Audience or arrays)
  */
 // Google requires offers.priceValidUntil for Product rich-result eligibility.
 // Roll it ~1 year forward so it never goes stale (prices are re-checked far
@@ -46,7 +46,7 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
   const productName = getLocalizedProductName(product, locale)
   const productDescription =
     getLocalizedProductDescription(product, locale).trim() ||
-    `${productName} — GENOSYS professional Korean dermacosmetics.`
+    `${productName} - GENOSYS professional Korean dermacosmetics.`
   const targetConcerns = parseStringArray(product.targetConcerns)
   const gtin13 = getProductBarcode(product.productNumber ?? product.id)
   const productImages = getProductImageUrls(product)
@@ -70,7 +70,7 @@ export default function ProductSchema({ product, locale = 'en', canonicalUrl }: 
       "logo": `${SITE_URL}/images/genosys-logo.png`
     },
     "category": product.category,
-    // https://support.google.com/merchants/answer/6386198 — Product.audience must be PeopleAudience with gender/age, not @type Audience.
+    // https://support.google.com/merchants/answer/6386198 - Product.audience must be PeopleAudience with gender/age, not @type Audience.
     "audience": {
       "@type": "PeopleAudience",
       "suggestedGender": "unisex",

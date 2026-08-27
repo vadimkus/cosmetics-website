@@ -4,10 +4,10 @@ export const PRODUCT_40_AR_NAME =
   'كريم MULTI SUN الواقي من الشمس SPF 40 PA++'
 
 export const PRODUCT_40_RU_DESCRIPTION =
-  'Лёгкий ежедневный солнцезащитный крем SPF 40 PA++ для города, офиса и нанесения под макияж. Четыре УФ-фильтра составляют 18,50% формулы: октиноксат 7,50%, октилсалицилат 5,00%, диоксид титана 3,00% и амилоксат 3,00%. Маркировка PA++ означает умеренную защиту от UVA. pH 6,71 при спецификации 5,00–7,00. Без парабенов, сушащего спирта и красителей. С отдушкой 0,25% и пятью заявленными аллергенами. Водостойкость не заявлена. 40 г.'
+  'Лёгкий ежедневный солнцезащитный крем SPF 40 PA++ для города, офиса и нанесения под макияж. Четыре УФ-фильтра составляют 18,50% формулы: октиноксат 7,50%, октилсалицилат 5,00%, диоксид титана 3,00% и амилоксат 3,00%. Маркировка PA++ означает умеренную защиту от UVA. pH 6,71 при спецификации 5,00-7,00. Без парабенов, сушащего спирта и красителей. С отдушкой 0,25% и пятью заявленными аллергенами. Водостойкость не заявлена. 40 г.'
 
 export const PRODUCT_40_AR_DESCRIPTION =
-  'كريم يومي خفيف للوقاية من الشمس بتصنيف SPF 40 PA++، مناسب للمدينة والمكتب وتحت المكياج. تشكل أربعة مرشحات للأشعة فوق البنفسجية 18.50% من التركيبة: أوكتينوكسات 7.50%، وأوكتيل ساليسيلات 5.00%، وثاني أكسيد التيتانيوم 3.00%، وأميلوكسات 3.00%. يشير تصنيف PA++ إلى حماية متوسطة من UVA. الأس الهيدروجيني 6.71 ضمن مواصفة 5.00–7.00. من دون بارابين أو كحول مجفف أو ملونات. يحتوي على عطر بنسبة 0.25% وخمسة مسببات حساسية معلنة. لا يدعي مقاومة الماء. 40 غ.'
+  'كريم يومي خفيف للوقاية من الشمس بتصنيف SPF 40 PA++، مناسب للمدينة والمكتب وتحت المكياج. تشكل أربعة مرشحات للأشعة فوق البنفسجية 18.50% من التركيبة: أوكتينوكسات 7.50%، وأوكتيل ساليسيلات 5.00%، وثاني أكسيد التيتانيوم 3.00%، وأميلوكسات 3.00%. يشير تصنيف PA++ إلى حماية متوسطة من UVA. الأس الهيدروجيني 6.71 ضمن مواصفة 5.00-7.00. من دون بارابين أو كحول مجفف أو ملونات. يحتوي على عطر بنسبة 0.25% وخمسة مسببات حساسية معلنة. لا يدعي مقاومة الماء. 40 غ.'
 
 export const PRODUCT_40_FULL_INCI =
   'Aqua (Water), Ethylhexyl Methoxycinnamate, Butylene Glycol, Ethylhexyl Salicylate, Titanium Dioxide, Isoamyl p-Methoxycinnamate, Dimethicone, Polysorbate 60, Glyceryl Stearate, Glycerin, Palmitoyl Pentapeptide-4, Sodium Hyaluronate, Rosa Damascena Callus Culture Extract, Vitis Vinifera (Grape) Callus Culture Extract, Centella Asiatica Extract, Scutellaria Baicalensis Root Extract, Lactobacillus/Soymilk Ferment Filtrate, Stearyl Alcohol, Cetyl Alcohol, PEG-100 Stearate, VP/Eicosene Copolymer, Palmitic Acid, Isohexadecane, Stearic Acid, Sorbitan Stearate, Phytosterols, Polysorbate 80, Xanthan Gum, Magnesium Aluminum Silicate, Sorbitan Oleate, 1,2-Hexanediol, Disodium EDTA, Amorphophallus Konjac Root Extract, Myristic Acid, Myristyl Alcohol, Lauryl Alcohol, Dimethicone/Vinyl Dimethicone Crosspolymer, Sodium Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, Parfum, Caprylyl Glycol, Ethylhexylglycerin, Tropolone, Benzyl Benzoate, Citronellol, Hexyl Cinnamal, Limonene, Alpha-Isomethyl Ionone'
@@ -23,7 +23,7 @@ export const PRODUCT_40_RU_TRANSLATION = {
     application: 'Наносить обильно и равномерно минимум за 15 минут до выхода',
     reapplication: 'Обновлять не реже чем каждые два часа на улице',
     waterResistance: 'Не заявлена; после воды, пота или полотенца нанести заново',
-    ph: 'Измеренный pH 6,71 · спецификация 5,00–7,00',
+    ph: 'Измеренный pH 6,71 · спецификация 5,00-7,00',
     fragrance: 'Отдушка 0,25% · пять заявленных аллергенов',
     freeFrom: 'Без парабенов, сушащего спирта и красителей',
     testing: 'Дерматологически протестировано',
@@ -63,12 +63,12 @@ export const PRODUCT_40_RU_TRANSLATION = {
     {
       name: 'Октиноксат · 7,50%',
       description:
-        'Ethylhexyl Methoxycinnamate — основной UVB-фильтр формулы. Измеренное содержание 7,21%; европейский предел применения в солнцезащитных средствах — 10%.',
+        'Ethylhexyl Methoxycinnamate - основной UVB-фильтр формулы. Измеренное содержание 7,21%; европейский предел применения в солнцезащитных средствах - 10%.',
     },
     {
       name: 'Октилсалицилат · 5,00%',
       description:
-        'Ethylhexyl Salicylate — UVB-фильтр. Измеренное содержание 4,96%; заявленная концентрация соответствует европейскому пределу 5%.',
+        'Ethylhexyl Salicylate - UVB-фильтр. Измеренное содержание 4,96%; заявленная концентрация соответствует европейскому пределу 5%.',
     },
     {
       name: 'Диоксид титана · 3,00%',
@@ -78,7 +78,7 @@ export const PRODUCT_40_RU_TRANSLATION = {
     {
       name: 'Амилоксат · 3,00%',
       description:
-        'Isoamyl p-Methoxycinnamate — UVB-фильтр. Измеренное содержание 2,98%.',
+        'Isoamyl p-Methoxycinnamate - UVB-фильтр. Измеренное содержание 2,98%.',
     },
     {
       name: 'Отдушка · 0,25%',
@@ -127,7 +127,7 @@ export const PRODUCT_40_AR_TRANSLATION = {
     application: 'يوزع بكمية كافية وبالتساوي قبل الخروج بـ15 دقيقة على الأقل',
     reapplication: 'يجدد كل ساعتين على الأقل أثناء البقاء في الخارج',
     waterResistance: 'غير مدعاة؛ يجدد بعد الماء أو التعرق أو التجفيف بالمنشفة',
-    ph: 'الأس الهيدروجيني المقاس 6.71 · المواصفة 5.00–7.00',
+    ph: 'الأس الهيدروجيني المقاس 6.71 · المواصفة 5.00-7.00',
     fragrance: 'عطر 0.25% · خمسة مسببات حساسية معلنة',
     freeFrom: 'من دون بارابين أو كحول مجفف أو ملونات',
     testing: 'مختبر جلدياً',

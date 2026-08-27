@@ -1,7 +1,7 @@
 /**
  * Bespoke copy for MULTI FUNCTIONAL ANTI-WRINKLE SERUM (product 22).
  *
- * SOURCING — every figure traces to the audit in
+ * SOURCING - every figure traces to the audit in
  * docs/SESSION_CHANGES_2026-08-17_PRODUCT_22_ANTI_WRINKLE_SERUM_SOURCE_AUDIT.md:
  *   - DTS MG signed formula: glycerin 25.45%, niacinamide 2.00%, bakuchiol
  *     0.100%, betaine 0.50%, allantoin and panthenol 0.100% each, adenosine
@@ -32,7 +32,7 @@
  *     so no result from it appears anywhere.
  *   - Mechanisms for the six peptides, the ceramide liposome, collagen, elastin
  *     or propolis. All between 0.05 and 10 ppm.
- *   - "Mango seed butter" (deck slide 3) — not in the formula at all.
+ *   - "Mango seed butter" (deck slide 3) - not in the formula at all.
  *   - "Safe without side effects" and the acne claims from deck slide 5.
  *   - The contract manufacturer's name, and the lot code.
  */
@@ -146,9 +146,9 @@ const EN: AntiWrinkleCopy = {
   subheadline:
     'The label sells a six-peptide complex. The formula sells something more useful: glycerin at 25.45%, niacinamide at 2%, betaine, panthenol and allantoin, with adenosine at the dose Korea licenses for wrinkle improvement and bakuchiol at 0.1%. It is a serious humectant serum with two real actives in it, and it was never described that way.',
   heroBullets: [
-    'Glycerin 25.45% — the second ingredient, and the largest by far',
+    'Glycerin 25.45% - the second ingredient, and the largest by far',
     'Niacinamide 2%, measured at 96.72% of declaration on the batch',
-    'Adenosine 0.04%, measured at 101% — the licensed wrinkle dose',
+    'Adenosine 0.04%, measured at 101% - the licensed wrinkle dose',
     'Patch tested and graded Non Irritant, not merely "tested"',
   ],
   badges: ['Made in Korea', '30 ml', 'EU safety assessed', 'Graded Non Irritant'],
@@ -163,7 +163,7 @@ const EN: AntiWrinkleCopy = {
   freeDelivery: 'Free delivery over AED 1,000 · Dispatched from Dubai',
 
   stats: [
-    { value: '25.45%', label: 'Glycerin — a quarter of the bottle' },
+    { value: '25.45%', label: 'Glycerin - a quarter of the bottle' },
     { value: '2%', label: 'Niacinamide, assayed at 96.72%' },
     { value: '0.04%', label: 'Adenosine, assayed at 101%' },
     { value: '30.17', label: 'Millilitres in a 30 ml bottle' },
@@ -197,7 +197,7 @@ const EN: AntiWrinkleCopy = {
       {
         label: 'What the study found',
         value: 'No significant difference',
-        note: 'Both reduced wrinkle surface area and pigmentation, with retinol causing more scaling and stinging. Good evidence — for 0.5%, which is five times what is in this bottle.',
+        note: 'Both reduced wrinkle surface area and pigmentation, with retinol causing more scaling and stinging. Good evidence - for 0.5%, which is five times what is in this bottle.',
       },
     ],
     verdict:
@@ -208,7 +208,7 @@ const EN: AntiWrinkleCopy = {
     eyebrow: 'Credit where it is due',
     title: 'Excellent peptides, in very small amounts',
     intro:
-      'The safety assessment names the raw materials, and somebody chose well — these are respected, expensive actives from Sederma, DSM and Corum, not commodity substitutes. Each was bought in at 0.1% of the formula, which is what the concentrations in the right-hand column work out to.',
+      'The safety assessment names the raw materials, and somebody chose well - these are respected, expensive actives from Sederma, DSM and Corum, not commodity substitutes. Each was bought in at 0.1% of the formula, which is what the concentrations in the right-hand column work out to.',
     columns: { brand: 'Raw material', supplier: 'Supplier', peptide: 'Peptide', amount: 'In the bottle' },
     rows: [
       { brand: 'Syn-Coll', supplier: 'DSM', peptide: 'Palmitoyl Tripeptide-5', amount: '1.1 ppm' },
@@ -216,10 +216,10 @@ const EN: AntiWrinkleCopy = {
       { brand: 'Matrixyl 3000', supplier: 'Sederma', peptide: 'Palmitoyl Tetrapeptide-7', amount: '0.08 ppm' },
       { brand: 'Elastyl', supplier: 'Corum', peptide: 'Palmitoyl Hexapeptide-12', amount: '0.1 ppm' },
       { brand: 'AH PEP 50', supplier: 'Danjoungbio', peptide: 'Acetyl Hexapeptide-8', amount: '0.05 ppm' },
-      { brand: '—', supplier: '—', peptide: 'Dipeptide-2', amount: '0.1 ppm' },
+      { brand: ' - ', supplier: ' - ', peptide: 'Dipeptide-2', amount: '0.1 ppm' },
     ],
     note:
-      'Six peptides, about 1.4 parts per million between them. The same applies to the ceramide, cholesterol and phytosphingosine sold as a barrier liposome — 0.1 ppm each — and to the collagen, elastin and propolis. They are on the ingredient list and they are not what this serum does. We would rather tell you that than describe six mechanisms you cannot get from a millionth of a gram.',
+      'Six peptides, about 1.4 parts per million between them. The same applies to the ceramide, cholesterol and phytosphingosine sold as a barrier liposome - 0.1 ppm each - and to the collagen, elastin and propolis. They are on the ingredient list and they are not what this serum does. We would rather tell you that than describe six mechanisms you cannot get from a millionth of a gram.',
   },
 
   working: {
@@ -246,7 +246,7 @@ const EN: AntiWrinkleCopy = {
       {
         name: 'Betaine',
         dose: '0.50%',
-        body: 'A second humectant, and a gentle one — it works alongside the glycerin rather than duplicating it.',
+        body: 'A second humectant, and a gentle one - it works alongside the glycerin rather than duplicating it.',
       },
       {
         name: 'Allantoin and panthenol',
@@ -262,13 +262,13 @@ const EN: AntiWrinkleCopy = {
     intro:
       'Made in Korea, released against a written specification, and assessed under European cosmetics law in a 46-page dossier.',
     rows: [
-      { label: 'pH', value: '6.78 at 25 °C, inside a 5.60–7.60 specification' },
+      { label: 'pH', value: '6.78 at 25 °C, inside a 5.60-7.60 specification' },
       { label: 'Fill', value: '30.17 ml against a 30 ml declaration' },
-      { label: 'Specific gravity', value: '1.0689 — the weight of a quarter-glycerin serum' },
+      { label: 'Specific gravity', value: '1.0689 - the weight of a quarter-glycerin serum' },
       { label: 'Niacinamide', value: 'Assayed at 96.72% of the declared 2%' },
       { label: 'Adenosine', value: 'Assayed at 101.00% of the declared 0.04%' },
       { label: 'Purity', value: 'Under 10 cfu/ml, against a permitted 100' },
-      { label: 'Pathogens', value: 'S. aureus, P. aeruginosa and C. albicans — all not detected' },
+      { label: 'Pathogens', value: 'S. aureus, P. aeruginosa and C. albicans - all not detected' },
       { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the box' },
     ],
     patch:
@@ -289,7 +289,7 @@ const EN: AntiWrinkleCopy = {
     steps: [
       {
         title: 'Apply to skin that is still damp',
-        body: 'This matters more here than with most serums. A quarter-glycerin formula works by holding water, so give it water to hold — press it on within a minute of cleansing rather than onto a dry face.',
+        body: 'This matters more here than with most serums. A quarter-glycerin formula works by holding water, so give it water to hold - press it on within a minute of cleansing rather than onto a dry face.',
       },
       {
         title: 'Three or four drops, pressed not rubbed',
@@ -324,7 +324,7 @@ const EN: AntiWrinkleCopy = {
       'For external use only. Avoid the eyes and mucous membranes, and rinse thoroughly with cool water on contact.',
       'Stop and see a doctor if redness, swelling or irritation appears.',
       'Assessed as safe under EC Regulation 1223/2009 and graded Non Irritant on patch test.',
-      'If you are pregnant, ask your doctor before starting any new active — bakuchiol is not retinol, but that conversation is theirs to have with you.',
+      'If you are pregnant, ask your doctor before starting any new active - bakuchiol is not retinol, but that conversation is theirs to have with you.',
       'Store cool and dry, out of reach of children.',
     ],
     note: 'Precautions as printed on the GENOSYS box, plus the fragrance disclosure from the quantitative formula.',
@@ -337,10 +337,10 @@ const EN: AntiWrinkleCopy = {
       { label: 'Size', value: '30 ml' },
       { label: 'Texture', value: 'Opaque, light yellow to white, viscous serum' },
       { label: 'Actives at dose', value: 'Glycerin 25.45%, niacinamide 2.00%, adenosine 0.04%, betaine 0.50%' },
-      { label: 'Bakuchiol', value: '0.100% — one fifth of the concentration in the retinol comparison study' },
+      { label: 'Bakuchiol', value: '0.100% - one fifth of the concentration in the retinol comparison study' },
       { label: 'Peptides', value: 'Six, roughly 1.4 ppm combined, from Sederma, DSM and Corum materials' },
-      { label: 'Fragranced', value: 'Yes — lavender oil 0.0186%, with linalool declared' },
-      { label: 'pH', value: '5.60–7.60 (6.78 on the batch tested)' },
+      { label: 'Fragranced', value: 'Yes - lavender oil 0.0186%, with linalool declared' },
+      { label: 'pH', value: '5.60-7.60 (6.78 on the batch tested)' },
       { label: 'Assessment', value: 'EU safety assessment; patch test graded Non Irritant' },
       { label: 'Origin', value: 'Made in Korea' },
     ],
@@ -352,7 +352,7 @@ const EN: AntiWrinkleCopy = {
     items: [
       {
         q: 'Is the bakuchiol enough to work like retinol?',
-        a: 'Not at the level the famous comparison was run at. That study used 0.5% twice daily; this serum has 0.100%. Bakuchiol is still a sensible, photostable, well-tolerated ingredient and it is genuinely in here — but if you are buying specifically to replace a retinoid, this is not the concentration to do it with, and we would rather say so.',
+        a: 'Not at the level the famous comparison was run at. That study used 0.5% twice daily; this serum has 0.100%. Bakuchiol is still a sensible, photostable, well-tolerated ingredient and it is genuinely in here - but if you are buying specifically to replace a retinoid, this is not the concentration to do it with, and we would rather say so.',
       },
       {
         q: 'So what does it actually do?',
@@ -360,11 +360,11 @@ const EN: AntiWrinkleCopy = {
       },
       {
         q: 'Why list six peptides if they are at parts per million?',
-        a: 'Because they are in the formula and we would rather show you the numbers than hide them. Worth knowing that the raw materials are the good ones — Matrixyl 3000 from Sederma, Syn-Coll from DSM, Elastyl from Corum — bought in at 0.1% each. Somebody chose well and then used very little. Do not buy this bottle for the peptides.',
+        a: 'Because they are in the formula and we would rather show you the numbers than hide them. Worth knowing that the raw materials are the good ones - Matrixyl 3000 from Sederma, Syn-Coll from DSM, Elastyl from Corum - bought in at 0.1% each. Somebody chose well and then used very little. Do not buy this bottle for the peptides.',
       },
       {
         q: 'Can I use it in the morning?',
-        a: 'Yes, and that is one of bakuchiol\u2019s genuine advantages over retinol — it is photostable, so it does not need to be an evening-only product. Apply to damp skin, follow with moisturiser, then sunscreen.',
+        a: 'Yes, and that is one of bakuchiol\u2019s genuine advantages over retinol - it is photostable, so it does not need to be an evening-only product. Apply to damp skin, follow with moisturiser, then sunscreen.',
       },
       {
         q: 'Does it have a fragrance?',
@@ -386,7 +386,7 @@ const AR: AntiWrinkleCopy = {
   subheadline:
     'يجمع السيروم بين الغليسرين 25.45% والنياسيناميد 2% والأدينوزين 0.04% والباكوتشيول 0.1% ليمنح البشرة ترطيباً غنياً، وملمساً أكثر نعومة، ومظهراً أكثر تجانساً وإشراقاً.',
   heroBullets: [
-    'غليسرين 25.45% — المكوّن الثاني، والأكبر بفارق كبير',
+    'غليسرين 25.45% - المكوّن الثاني، والأكبر بفارق كبير',
     'نياسيناميد 2% لتوحيد مظهر اللون ودعم حاجز البشرة',
     'أدينوزين 0.04% للعناية الوظيفية بالتجاعيد المسجلة في كوريا',
     'مختبر جلدياً، وأظهر اختبار اللصقة أنه غير مهيج',
@@ -403,7 +403,7 @@ const AR: AntiWrinkleCopy = {
   freeDelivery: 'توصيل مجاني للطلبات فوق 1,000 درهم · يُشحن من دبي',
 
   stats: [
-    { value: '25.45%', label: 'غليسرين — ربع العبوة' },
+    { value: '25.45%', label: 'غليسرين - ربع العبوة' },
     { value: '2%', label: 'نياسيناميد، مقيس عند 96.72%' },
     { value: '0.04%', label: 'أدينوزين، مقيس عند 101%' },
     { value: '30.17', label: 'مليلتر في عبوة 30 مل' },
@@ -456,7 +456,7 @@ const AR: AntiWrinkleCopy = {
       { brand: 'Matrixyl 3000', supplier: 'Sederma', peptide: 'Palmitoyl Tetrapeptide-7', amount: '0.08 ppm' },
       { brand: 'Elastyl', supplier: 'Corum', peptide: 'Palmitoyl Hexapeptide-12', amount: '0.1 ppm' },
       { brand: 'AH PEP 50', supplier: 'Danjoungbio', peptide: 'Acetyl Hexapeptide-8', amount: '0.05 ppm' },
-      { brand: '—', supplier: '—', peptide: 'Dipeptide-2', amount: '0.1 ppm' },
+      { brand: ' - ', supplier: ' - ', peptide: 'Dipeptide-2', amount: '0.1 ppm' },
     ],
     note:
       'توجد الببتيدات كمركب داعم بتراكيز أثرية؛ أما العناية الأساسية فترتكز على الغليسرين 25.45% والنياسيناميد 2% والأدينوزين 0.04% والباكوتشيول 0.1%.',
@@ -486,7 +486,7 @@ const AR: AntiWrinkleCopy = {
       {
         name: 'Betaine',
         dose: '0.50%',
-        body: 'مرطّب ثانٍ، ولطيف — يعمل مع الغليسرين لا يكرّره.',
+        body: 'مرطّب ثانٍ، ولطيف - يعمل مع الغليسرين لا يكرّره.',
       },
       {
         name: 'Allantoin و Panthenol',
@@ -502,13 +502,13 @@ const AR: AntiWrinkleCopy = {
     intro:
       'صُنع في كوريا، واختُبرت جودة التركيبة وثبات مواصفاتها وسلامتها للاستخدام التجميلي.',
     rows: [
-      { label: 'الحموضة', value: '6.78 عند 25 درجة، ضمن مواصفة 5.60–7.60' },
+      { label: 'الحموضة', value: '6.78 عند 25 درجة، ضمن مواصفة 5.60-7.60' },
       { label: 'التعبئة', value: '30.17 مل للحجم الاسمي 30 مل' },
-      { label: 'الكثافة النوعية', value: '1.0689 — وزن سيروم ربعه غليسرين' },
+      { label: 'الكثافة النوعية', value: '1.0689 - وزن سيروم ربعه غليسرين' },
       { label: 'النياسيناميد', value: 'مقيس عند 96.72% من القيمة المستهدفة 2%' },
       { label: 'الأدينوزين', value: 'مقيس عند 101.00% من القيمة المستهدفة 0.04%' },
       { label: 'النقاء', value: 'أقل من 10 وحدات/مل، مقابل 100 مسموحة' },
-      { label: 'الممرضات', value: 'المكوّرة العنقودية والزائفة والمبيضّات — كلها غير مكتشفة' },
+      { label: 'الممرضات', value: 'المكوّرة العنقودية والزائفة والمبيضّات - كلها غير مكتشفة' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات مغلقاً، وتاريخ الانتهاء على العلبة' },
     ],
     patch:
@@ -529,7 +529,7 @@ const AR: AntiWrinkleCopy = {
     steps: [
       {
         title: 'ضعيه على بشرة ما زالت رطبة',
-        body: 'هذا أهمّ هنا من معظم السيرومات. فتركيبة ربعها غليسرين تعمل بالاحتفاظ بالماء، فامنحيها ماءً تحتفظ به — اضغطيها خلال دقيقة من التنظيف لا على وجه جاف.',
+        body: 'هذا أهمّ هنا من معظم السيرومات. فتركيبة ربعها غليسرين تعمل بالاحتفاظ بالماء، فامنحيها ماءً تحتفظ به - اضغطيها خلال دقيقة من التنظيف لا على وجه جاف.',
       },
       {
         title: 'ثلاث أو أربع قطرات، بالضغط لا بالفرك',
@@ -564,7 +564,7 @@ const AR: AntiWrinkleCopy = {
       'للاستعمال الخارجي فقط. تجنّبي العينين والأغشية المخاطية، واشطفي جيداً بالماء البارد عند الملامسة.',
       'أوقفي الاستخدام واستشيري طبيباً عند ظهور احمرار أو تورّم أو تهيّج.',
       'قُيّم آمناً وفق اللائحة EC 1223/2009 وصُنّف «غير مهيّج» في اختبار اللصقة.',
-      'إن كنتِ حاملاً فاستشيري طبيبك قبل بدء أي فعّال جديد — فالباكوتشيول ليس ريتينولاً، لكن ذلك الحديث حديثهم معك.',
+      'إن كنتِ حاملاً فاستشيري طبيبك قبل بدء أي فعّال جديد - فالباكوتشيول ليس ريتينولاً، لكن ذلك الحديث حديثهم معك.',
       'يُحفظ بارداً وجافاً وبعيداً عن متناول الأطفال.',
     ],
     note: 'الاحتياطات كما هي مطبوعة على علبة جينوسيس، مع إفصاح العطر من التركيبة الكمّية.',
@@ -577,10 +577,10 @@ const AR: AntiWrinkleCopy = {
       { label: 'الحجم', value: '30 مل' },
       { label: 'الملمس', value: 'سيروم لزج معتم، أصفر فاتح إلى أبيض' },
       { label: 'الفعّالات بجرعة', value: 'غليسرين 25.45%، نياسيناميد 2.00%، أدينوزين 0.04%، بيتايين 0.50%' },
-      { label: 'الباكوتشيول', value: '0.100% — خُمس التركيز في دراسة مقارنة الريتينول' },
+      { label: 'الباكوتشيول', value: '0.100% - خُمس التركيز في دراسة مقارنة الريتينول' },
       { label: 'الببتيدات', value: 'ستة، نحو 1.4 جزء من المليون مجتمعة، من مواد Sederma وDSM وCorum' },
-      { label: 'معطّر', value: 'نعم — زيت لافندر 0.0186%، مع اللينالول معلناً' },
-      { label: 'الحموضة', value: '5.60–7.60 (6.78 على الدفعة المختبرة)' },
+      { label: 'معطّر', value: 'نعم - زيت لافندر 0.0186%، مع اللينالول معلناً' },
+      { label: 'الحموضة', value: '5.60-7.60 (6.78 على الدفعة المختبرة)' },
       { label: 'التقييم', value: 'تقييم سلامة أوروبي؛ اختبار لصقة مصنّف غير مهيّج' },
       { label: 'المنشأ', value: 'صُنع في كوريا' },
     ],
@@ -604,7 +604,7 @@ const AR: AntiWrinkleCopy = {
       },
       {
         q: 'أستطيع استخدامه صباحاً؟',
-        a: 'نعم، وهذه إحدى مزايا الباكوتشيول الحقيقية على الريتينول — فهو ثابت ضوئياً، ولا يحتاج أن يكون منتجاً مسائياً فقط. ضعيه على بشرة رطبة، واتبعيه بمرطّب، ثم واقي الشمس.',
+        a: 'نعم، وهذه إحدى مزايا الباكوتشيول الحقيقية على الريتينول - فهو ثابت ضوئياً، ولا يحتاج أن يكون منتجاً مسائياً فقط. ضعيه على بشرة رطبة، واتبعيه بمرطّب، ثم واقي الشمس.',
       },
       {
         q: 'هل له عطر؟',
@@ -626,7 +626,7 @@ const RU: AntiWrinkleCopy = {
   subheadline:
     'Глицерин 25,45%, ниацинамид 2%, аденозин 0,04% и бакучиол 0,1% объединены в комфортную формулу для более гладкой, увлажнённой, ровной и сияющей кожи.',
   heroBullets: [
-    'Глицерин 25,45% — второй ингредиент и крупнейший с большим отрывом',
+    'Глицерин 25,45% - второй ингредиент и крупнейший с большим отрывом',
     'Ниацинамид 2% для более ровного тона и поддержки барьера',
     'Аденозин 0,04% для зарегистрированного в Корее ухода против морщин',
     'Дерматологически протестировано; патч-тест: не раздражает',
@@ -643,7 +643,7 @@ const RU: AntiWrinkleCopy = {
   freeDelivery: 'Бесплатная доставка от 1 000 AED · Отправка из Дубая',
 
   stats: [
-    { value: '25,45%', label: 'Глицерина — четверть флакона' },
+    { value: '25,45%', label: 'Глицерина - четверть флакона' },
     { value: '2%', label: 'Ниацинамида, измерено 96,72%' },
     { value: '0,04%', label: 'Аденозина, измерено 101%' },
     { value: '30,17', label: 'Миллилитра во флаконе на 30 мл' },
@@ -662,7 +662,7 @@ const RU: AntiWrinkleCopy = {
     eyebrow: 'Ежедневный уход за текстурой',
     title: 'Бакучиол, 0,1%',
     body:
-      'Бакучиол — фотостабильная растительная альтернатива ретинолу, которая дополняет ежедневный уход за гладкостью кожи утром и вечером.',
+      'Бакучиол - фотостабильная растительная альтернатива ретинолу, которая дополняет ежедневный уход за гладкостью кожи утром и вечером.',
     rows: [
       {
         label: 'В этой сыворотке',
@@ -696,7 +696,7 @@ const RU: AntiWrinkleCopy = {
       { brand: 'Matrixyl 3000', supplier: 'Sederma', peptide: 'Palmitoyl Tetrapeptide-7', amount: '0,08 ppm' },
       { brand: 'Elastyl', supplier: 'Corum', peptide: 'Palmitoyl Hexapeptide-12', amount: '0,1 ppm' },
       { brand: 'AH PEP 50', supplier: 'Danjoungbio', peptide: 'Acetyl Hexapeptide-8', amount: '0,05 ppm' },
-      { brand: '—', supplier: '—', peptide: 'Dipeptide-2', amount: '0,1 ppm' },
+      { brand: ' - ', supplier: ' - ', peptide: 'Dipeptide-2', amount: '0,1 ppm' },
     ],
     note:
       'Пептиды дополняют формулу в следовых концентрациях; основу ухода создают глицерин 25,45%, ниацинамид 2%, аденозин 0,04% и бакучиол 0,1%.',
@@ -726,7 +726,7 @@ const RU: AntiWrinkleCopy = {
       {
         name: 'Betaine',
         dose: '0,50%',
-        body: 'Второй увлажнитель, и мягкий — работает вместе с глицерином, а не дублирует его.',
+        body: 'Второй увлажнитель, и мягкий - работает вместе с глицерином, а не дублирует его.',
       },
       {
         name: 'Allantoin и Panthenol',
@@ -742,13 +742,13 @@ const RU: AntiWrinkleCopy = {
     intro:
       'Сделано в Корее. Формула проверена по показателям качества, стабильности и безопасности косметического применения.',
     rows: [
-      { label: 'pH', value: '6,78 при 25 °C, в пределах спецификации 5,60–7,60' },
+      { label: 'pH', value: '6,78 при 25 °C, в пределах спецификации 5,60-7,60' },
       { label: 'Наполнение', value: '30,17 мл при номинальном объёме 30 мл' },
-      { label: 'Удельный вес', value: '1,0689 — вес сыворотки, на четверть состоящей из глицерина' },
+      { label: 'Удельный вес', value: '1,0689 - вес сыворотки, на четверть состоящей из глицерина' },
       { label: 'Ниацинамид', value: 'Измерено 96,72% от целевых 2%' },
       { label: 'Аденозин', value: 'Измерено 101,00% от целевых 0,04%' },
       { label: 'Чистота', value: 'Менее 10 КОЕ/мл при допустимых 100' },
-      { label: 'Патогены', value: 'S. aureus, P. aeruginosa и C. albicans — все не обнаружены' },
+      { label: 'Патогены', value: 'S. aureus, P. aeruginosa и C. albicans - все не обнаружены' },
       { label: 'Срок годности', value: 'Три года закрытой, дата на коробке' },
     ],
     patch:
@@ -759,7 +759,7 @@ const RU: AntiWrinkleCopy = {
     eyebrow: 'Если вы читаете составы',
     title: 'Он с ароматом, лавандовым',
     body:
-      'Лавандовое масло 0,0186%, с линалоолом, указанным отдельно как 0,0114%, потому что европейский закон требует называть этот аллерген. Это эфирное масло, а не синтетическая отдушка, и количество мало, но если вы избегаете ароматизаторов или реагируете именно на линалоол, он здесь, и знать об этом стоит до открытия коробки, а не после. Наш Blemish Balm Cream — вариант без отдушки, если это решающий фактор.',
+      'Лавандовое масло 0,0186%, с линалоолом, указанным отдельно как 0,0114%, потому что европейский закон требует называть этот аллерген. Это эфирное масло, а не синтетическая отдушка, и количество мало, но если вы избегаете ароматизаторов или реагируете именно на линалоол, он здесь, и знать об этом стоит до открытия коробки, а не после. Наш Blemish Balm Cream - вариант без отдушки, если это решающий фактор.',
   },
 
   howTo: {
@@ -769,7 +769,7 @@ const RU: AntiWrinkleCopy = {
     steps: [
       {
         title: 'Наносите на кожу, которая ещё влажная',
-        body: 'Здесь это важнее, чем для большинства сывороток. Формула на четверть из глицерина работает удержанием воды, так дайте ей воду для удержания — нанесите в течение минуты после очищения, а не на сухое лицо.',
+        body: 'Здесь это важнее, чем для большинства сывороток. Формула на четверть из глицерина работает удержанием воды, так дайте ей воду для удержания - нанесите в течение минуты после очищения, а не на сухое лицо.',
       },
       {
         title: 'Три-четыре капли, вдавливая, а не растирая',
@@ -804,7 +804,7 @@ const RU: AntiWrinkleCopy = {
       'Только для наружного применения. Избегайте глаз и слизистых, при попадании тщательно промойте прохладной водой.',
       'Прекратите использование и обратитесь к врачу при покраснении, отёке или раздражении.',
       'Оценено как безопасное по регламенту EC 1223/2009 и получило оценку «не раздражает» в патч-тесте.',
-      'При беременности спросите врача перед началом любого нового актива — бакучиол не ретинол, но этот разговор им вести с вами.',
+      'При беременности спросите врача перед началом любого нового актива - бакучиол не ретинол, но этот разговор им вести с вами.',
       'Храните в прохладном сухом месте, недоступном для детей.',
     ],
     note: 'Предостережения как напечатаны на коробке GENOSYS, плюс раскрытие отдушки из количественной формулы.',
@@ -817,10 +817,10 @@ const RU: AntiWrinkleCopy = {
       { label: 'Объём', value: '30 мл' },
       { label: 'Текстура', value: 'Непрозрачная вязкая сыворотка, от светло-жёлтой до белой' },
       { label: 'Активы в дозе', value: 'Глицерин 25,45%, ниацинамид 2,00%, аденозин 0,04%, бетаин 0,50%' },
-      { label: 'Бакучиол', value: '0,100% — пятая часть концентрации в исследовании с ретинолом' },
+      { label: 'Бакучиол', value: '0,100% - пятая часть концентрации в исследовании с ретинолом' },
       { label: 'Пептиды', value: 'Шесть, около 1,4 ppm суммарно, из материалов Sederma, DSM и Corum' },
-      { label: 'Отдушка', value: 'Да — лавандовое масло 0,0186%, линалоол указан в INCI' },
-      { label: 'pH', value: '5,60–7,60 (6,78 в измеренной партии)' },
+      { label: 'Отдушка', value: 'Да - лавандовое масло 0,0186%, линалоол указан в INCI' },
+      { label: 'pH', value: '5,60-7,60 (6,78 в измеренной партии)' },
       { label: 'Оценка', value: 'Оценка безопасности ЕС; патч-тест «не раздражает»' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
     ],
@@ -836,7 +836,7 @@ const RU: AntiWrinkleCopy = {
       },
       {
         q: 'Так что он делает?',
-        a: 'Сильно увлажняет. Четверть флакона — глицерин, рядом бетаин и пантенол, поэтому кожа выглядит полнее, а линии мельче, пока она удерживает воду. Сверху — ниацинамид 2% для тона и барьера и аденозин ровно в той дозе, которую Корея лицензирует для уменьшения морщин. Это реально, и оба измерены в партии.',
+        a: 'Сильно увлажняет. Четверть флакона - глицерин, рядом бетаин и пантенол, поэтому кожа выглядит полнее, а линии мельче, пока она удерживает воду. Сверху - ниацинамид 2% для тона и барьера и аденозин ровно в той дозе, которую Корея лицензирует для уменьшения морщин. Это реально, и оба измерены в партии.',
       },
       {
         q: 'Зачем перечислять шесть пептидов, если они в частях на миллион?',
@@ -844,7 +844,7 @@ const RU: AntiWrinkleCopy = {
       },
       {
         q: 'Можно утром?',
-        a: 'Да, и это одно из настоящих преимуществ бакучиола перед ретинолом — он фотостабилен, поэтому не обязан быть только вечерним продуктом. Нанесите на влажную кожу, сверху крем, затем санскрин.',
+        a: 'Да, и это одно из настоящих преимуществ бакучиола перед ретинолом - он фотостабилен, поэтому не обязан быть только вечерним продуктом. Нанесите на влажную кожу, сверху крем, затем санскрин.',
       },
       {
         q: 'Есть ли отдушка?',
@@ -852,7 +852,7 @@ const RU: AntiWrinkleCopy = {
       },
       {
         q: 'Будет ли щипать или шелушить?',
-        a: 'Не должно. В формуле нет кислот, ретиноидов и эксфолиантов, а патч-тест вернулся с оценкой «не раздражает», а не просто «пройден». Следить стоит за лавандой, а сделать правильно — нанести сверху крем, чтобы глицерину было под чем удерживать воду.',
+        a: 'Не должно. В формуле нет кислот, ретиноидов и эксфолиантов, а патч-тест вернулся с оценкой «не раздражает», а не просто «пройден». Следить стоит за лавандой, а сделать правильно - нанести сверху крем, чтобы глицерину было под чем удерживать воду.',
       },
     ],
   },

@@ -56,7 +56,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
 
   const getProductImages = () => {
     // Always start with the main image (packshot). Config galleries sometimes
-    // list slide assets only — never drop the main if it is absent there.
+    // list slide assets only - never drop the main if it is absent there.
     const mainImage = product.image
 
     // First check productConfig for images (takes priority)
@@ -136,7 +136,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
     <div className="space-y-2 md:space-y-3 lg:space-y-0 lg:flex lg:gap-4 lg:items-start">
       {/* Main Image or Video */}
       <div className="w-full max-w-[280px] md:max-w-[360px] lg:max-w-[420px] xl:max-w-[480px] 2xl:max-w-[560px] mx-auto lg:mx-0 lg:order-2 lg:flex-1">
-        {/* Stock Badge — above the picture so it never overlaps the photo */}
+        {/* Stock Badge - above the picture so it never overlaps the photo */}
         <div className={`flex mb-2 ${dir === 'rtl' ? 'justify-start' : 'justify-end'}`}>
           {product.inStock ? (
             <span className={`inline-flex items-center px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-[var(--status-green-deep)] text-white font-medium text-xs md:text-sm shadow-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>

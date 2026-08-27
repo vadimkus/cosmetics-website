@@ -3,8 +3,8 @@ import { User } from 'lucide-react'
 /**
  * The account control at the end of every mobile bar.
  *
- * Fifteen hand-rolled copies of this had drifted into two colours — twelve on ink, three
- * on rose — which is how the blog index and the article one tap away from it ended up
+ * Fifteen hand-rolled copies of this had drifted into two colours - twelve on ink, three
+ * on rose - which is how the blog index and the article one tap away from it ended up
  * looking like different sites.
  *
  * The app is the reference, and its rule is not "pick a colour". It is that the avatar
@@ -18,7 +18,7 @@ import { User } from 'lucide-react'
  *
  * Colours are the app's, token for token: `cta` is `--cera-ink`, `subtleBg` is
  * `--cera-cream-deep`, `separator` is `--cera-line`, `secondaryLabel` is `--cera-muted`,
- * and `green` is `--status-green` — which is the same #2e7d4f the app uses, where the old
+ * and `green` is `--status-green` - which is the same #2e7d4f the app uses, where the old
  * copies had Tailwind's `green-500`.
  */
 export default function AccountAvatar({

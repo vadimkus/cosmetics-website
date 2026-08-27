@@ -38,7 +38,7 @@ export default function PWAHeader() {
   // Check if we're on profile page
   const isOnProfilePage = pathname?.includes('/profile')
   
-  // Shared "simple header page" helper — see lib/simpleHeaderPages.ts.
+  // Shared "simple header page" helper - see lib/simpleHeaderPages.ts.
   // Previously this header had its own hardcoded list that had drifted
   // out of sync with MobileWebHeader and Header.
   const isOnSimpleHeaderPage = isSimpleHeaderPage(pathname)

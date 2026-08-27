@@ -3,8 +3,8 @@
 /**
  * Bespoke product page for BIO-FERMENT AGE DEFYING POWDER MASK (product 51).
  *
- * Shares the editorial design system built for product 66 — the primitives, the
- * gallery and the structural CSS all come from ../cerabarrier — and layers a
+ * Shares the editorial design system built for product 66 - the primitives, the
+ * gallery and the structural CSS all come from ../cerabarrier - and layers a
  * peach/terracotta palette on top via bioferment.css, taken from the pack.
  *
  * Section order:

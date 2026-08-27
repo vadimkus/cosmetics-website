@@ -1,5 +1,5 @@
 /**
- * Cookie / analytics consent — first-party, lightweight.
+ * Cookie / analytics consent - first-party, lightweight.
  *
  * Stored in localStorage under `genosys_cookie_consent`:
  *   'accepted' → GA + first-party analytics enabled
@@ -25,7 +25,7 @@ export function setConsent(value: ConsentValue): void {
   try {
     window.localStorage.setItem(CONSENT_KEY, value)
   } catch {
-    /* storage blocked — nothing to persist */
+    /* storage blocked - nothing to persist */
   }
   // Update Google Consent Mode v2 live so the current pageview is honored.
   const granted = value === 'accepted' ? 'granted' : 'denied'

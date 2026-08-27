@@ -76,7 +76,7 @@ export function PartnerGuard({ children }: { children: ReactNode }) {
                 ? 'Раздел для клиник и салонов-партнёров GENOSYS с ценой −50%. Свяжитесь с нами, чтобы открыть доступ.'
                 : locale === 'ar'
                   ? 'قسم مخصص لعيادات وصالونات شركاء GENOSYS بسعر −50٪. تواصل معنا لفتح الوصول.'
-                  : 'For GENOSYS partner clinics & salons — order at −50%. Contact us to unlock access.'}
+                  : 'For GENOSYS partner clinics & salons - order at −50%. Contact us to unlock access.'}
             </p>
             <a
               href="https://wa.me/971585487665?text=Hi%2C%20I%27d%20like%20partner%20clinic%20access%20on%20genosys.ae"

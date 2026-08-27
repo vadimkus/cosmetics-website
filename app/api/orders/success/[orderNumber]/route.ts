@@ -10,7 +10,7 @@ import { estimateOrderPoints } from '@/lib/loyalty'
  * GET /api/orders/success/[orderNumber]
  * 
  * Endpoint for the success page to get full order details.
- * Returns complete order PII (name/email/phone/address) — so it is
+ * Returns complete order PII (name/email/phone/address) - so it is
  * authenticated: the caller must either own the order (session email matches
  * order.customerEmail) or be an admin. Previously this was fully open and
  * allowed enumerating customer PII by order number.

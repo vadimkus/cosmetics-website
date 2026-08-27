@@ -321,7 +321,7 @@ export async function POST(request: NextRequest) {
                         'Unknown'
       
       // Resolve device information. This is a mobile-only endpoint (gated by the
-      // mobile x-api-key), so any request is from the app — never "desktop".
+      // mobile x-api-key), so any request is from the app - never "desktop".
       const deviceInfo = resolveDeviceInfo(request.headers, { fallbackDeviceType: 'mobile' })
       
       // Get geolocation data

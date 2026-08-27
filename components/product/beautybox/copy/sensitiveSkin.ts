@@ -64,7 +64,7 @@ const EN: BeautyBoxCopy = {
         quantity: 1,
         step: 'Step 3 - Calm',
         body:
-          'The calming step, and the reason this is the sensitive box rather than a hydration one. It is built on a botanical complex at a full 1% of the bottle carrying seven plants — centella, polygonum, scutellaria, green tea, licorice, chamomile and rosemary — with allantoin and betaine behind them.',
+          'The calming step, and the reason this is the sensitive box rather than a hydration one. It is built on a botanical complex at a full 1% of the bottle carrying seven plants - centella, polygonum, scutellaria, green tea, licorice, chamomile and rosemary - with allantoin and betaine behind them.',
         facts: ['Botanical complex 1.0000%', 'Allantoin 0.1000%', 'pH 5.77', 'Fragranced · orange peel oil'],
       },
       {
@@ -168,7 +168,7 @@ const EN: BeautyBoxCopy = {
         value: '5,000 ppm',
         title: 'Ceramide NP in the barrier cream',
         body:
-          'Not a trial, a declaration — and an unusually checkable one. The Korean carton panel prints the ceramide dose in brackets next to the ingredient, which most brands never do, and 5,000 ppm is well above where ceramide creams normally sit.',
+          'Not a trial, a declaration - and an unusually checkable one. The Korean carton panel prints the ceramide dose in brackets next to the ingredient, which most brands never do, and 5,000 ppm is well above where ceramide creams normally sit.',
       },
     ],
     footnote:
@@ -180,13 +180,13 @@ const EN: BeautyBoxCopy = {
     forTitle: 'A good match if',
     forList: [
       'Your skin flushes, stings or reddens easily and you want the sequence rather than another single product',
-      'Your barrier is worn down — from over-exfoliating, retinoids, hard water or a Dubai summer of air conditioning',
+      'Your barrier is worn down - from over-exfoliating, retinoids, hard water or a Dubai summer of air conditioning',
       'You want a night that is a treatment rather than a cream, once or twice a week',
       'You are rebuilding after a course of treatments and need comfort rather than actives',
     ],
     notForTitle: 'Look elsewhere if',
     notForList: [
-      'Fragrance is what sets your skin off. Three of the six are fragranced: the cleanser has parfum and limonene, the serum has orange peel oil, the cream has parfum, linalool and coumarin. Only the toner and the two masks are free of it. No GENOSYS box avoids this, because all six are built around the same cleanser — buy the toner, the masks and the cream individually instead',
+      'Fragrance is what sets your skin off. Three of the six are fragranced: the cleanser has parfum and limonene, the serum has orange peel oil, the cream has parfum, linalool and coumarin. Only the toner and the two masks are free of it. No GENOSYS box avoids this, because all six are built around the same cleanser - buy the toner, the masks and the cream individually instead',
       'Your skin is broken, weeping or open. Nothing here is for use on a wound, and the overnight mask says to avoid the eye area',
       'You are treating acne or congestion rather than reactivity. The Problem Skin Care box is built for that',
       'Pigmentation or uneven tone is the goal. The Skin Brightening box targets it directly',
@@ -198,7 +198,7 @@ const EN: BeautyBoxCopy = {
       { productNumber: '56', label: 'Skin Brightening Beauty Box' },
     ],
     note:
-      'The cleanser, toner, serum and cream are all dermatologically tested. Skin is individual, though, so if one product does not agree with yours, drop that one rather than the whole routine — and patch test behind the ear first if you know you react.',
+      'The cleanser, toner, serum and cream are all dermatologically tested. Skin is individual, though, so if one product does not agree with yours, drop that one rather than the whole routine - and patch test behind the ear first if you know you react.',
   },
   details: {
     eyebrow: 'Specifications',
@@ -224,7 +224,7 @@ const EN: BeautyBoxCopy = {
     items: [
       {
         q: 'It is called the sensitive box, so why is anything in it fragranced?',
-        a: 'A fair question and we would rather answer it than bury it. Three of the six carry fragrance: the cleanser, the serum and the barrier cream. The toner and both masks do not. Every one of those ingredients is named on the label, and the amounts are small — the cream\u2019s parfum is around a hundredth of a per cent — but small is not zero, and if fragrance is your trigger then this box is the wrong purchase. The honest route in that case is to buy the toner, the two masks and skip the rest, because all six GENOSYS boxes are built around the same fragranced cleanser.',
+        a: 'A fair question and we would rather answer it than bury it. Three of the six carry fragrance: the cleanser, the serum and the barrier cream. The toner and both masks do not. Every one of those ingredients is named on the label, and the amounts are small - the cream\u2019s parfum is around a hundredth of a per cent - but small is not zero, and if fragrance is your trigger then this box is the wrong purchase. The honest route in that case is to buy the toner, the two masks and skip the rest, because all six GENOSYS boxes are built around the same fragranced cleanser.',
       },
       {
         q: 'What happened to the EGF Repair Oxymask that used to be in this box?',
@@ -240,7 +240,7 @@ const EN: BeautyBoxCopy = {
       },
       {
         q: 'Can I use it while pregnant or breastfeeding?',
-        a: 'We cannot answer that for this box. None of the six carries a pregnancy clearance in its paperwork, and the overnight mask\u2019s English carton carries no pregnancy warning either way — an absence is not a clearance. Take the ingredient lists to your doctor, who can also tell you whether niacinamide at 2% is something they are comfortable with.',
+        a: 'We cannot answer that for this box. None of the six carries a pregnancy clearance in its paperwork, and the overnight mask\u2019s English carton carries no pregnancy warning either way - an absence is not a clearance. Take the ingredient lists to your doctor, who can also tell you whether niacinamide at 2% is something they are comfortable with.',
       },
       {
         q: 'My skin is red right now. Should I start with everything at once?',
@@ -283,7 +283,7 @@ const RU: BeautyBoxCopy = {
     { value: '6', label: 'полноразмерных продуктов' },
     { value: '1%', label: 'MultiEx BSASM® Plus в сыворотке' },
     { value: '5 000 ppm', label: 'церамида NP в креме' },
-    { value: '15–20 мин', label: 'время тканевой маски' },
+    { value: '15-20 мин', label: 'время тканевой маски' },
   ],
   contents: {
     ...EN.contents,
@@ -294,10 +294,10 @@ const RU: BeautyBoxCopy = {
       const localized = [
         ['Шаг 1 · Очищение', 'Нанесите на сухое лицо, избегая глаз. Дождитесь образования пены, мягко помассируйте круговыми движениями и смойте тёплой водой.', ['180 мл', 'Эфир 8%', 'SLES 2,4%', 'Parfum 0,15% · лимонен 0,108%']],
         ['Шаг 2 · Бустер', 'Наносите руками или распыляйте на чистую кожу утром и вечером. Parfum и эфирных масел нет, но в INCI есть экстракт семян грейпфрута.', ['200 мл', 'Бетаин 3%', 'Без Parfum и эфирных масел', 'Экстракт семян грейпфрута']],
-        ['Шаг 3 · Сыворотка', 'Мягко вбейте по лицу перед кремом. MultiEx BSASM® Plus 1% объединяет семь растительных экстрактов; бетаин — 0,5%, аллантоин — 0,1%.', ['30 мл', 'MultiEx BSASM® Plus 1%', 'Масло апельсиновой цедры · лимонен']],
-        ['Шаг 4 · Крем', 'Наносите после сыворотки утром и вечером, мягко прижимая пальцами. Церамид, глицерин и масло ши — факты формулы, а не результат набора.', ['100 г', 'Церамид NP 0,5%', 'Глицерин 17,49%', 'Parfum · линалоол · кумарин']],
-        ['1–2 раза в неделю · Последний шаг', 'Используйте вместо крема последним вечерним шагом, избегайте области глаз и оставляйте на ночь. Четырёхнедельные показатели относятся только к этой маске.', ['100 г', 'Ниацинамид 2%', 'Аденозин 0,04%', 'TEWL −15% · покраснение −26%', 'Эфирные масла · цитраль · гераниол · лимонен']],
-        ['Отдельный вечер с маской', 'После бустера наложите одну маску Eucalace® на 15–20 минут, снимите и мягко вбейте остатки, затем нанесите сыворотку и крем.', ['1 маска · 25 г', '15–20 минут', 'Масло мяты перечной', 'Использовать сразу после вскрытия']],
+        ['Шаг 3 · Сыворотка', 'Мягко вбейте по лицу перед кремом. MultiEx BSASM® Plus 1% объединяет семь растительных экстрактов; бетаин - 0,5%, аллантоин - 0,1%.', ['30 мл', 'MultiEx BSASM® Plus 1%', 'Масло апельсиновой цедры · лимонен']],
+        ['Шаг 4 · Крем', 'Наносите после сыворотки утром и вечером, мягко прижимая пальцами. Церамид, глицерин и масло ши - факты формулы, а не результат набора.', ['100 г', 'Церамид NP 0,5%', 'Глицерин 17,49%', 'Parfum · линалоол · кумарин']],
+        ['1-2 раза в неделю · Последний шаг', 'Используйте вместо крема последним вечерним шагом, избегайте области глаз и оставляйте на ночь. Четырёхнедельные показатели относятся только к этой маске.', ['100 г', 'Ниацинамид 2%', 'Аденозин 0,04%', 'TEWL −15% · покраснение −26%', 'Эфирные масла · цитраль · гераниол · лимонен']],
+        ['Отдельный вечер с маской', 'После бустера наложите одну маску Eucalace® на 15-20 минут, снимите и мягко вбейте остатки, затем нанесите сыворотку и крем.', ['1 маска · 25 г', '15-20 минут', 'Масло мяты перечной', 'Использовать сразу после вскрытия']],
       ] as const
       return { ...item, step: localized[index]![0], body: localized[index]![1], facts: [...localized[index]![2]] }
     }),
@@ -314,12 +314,12 @@ const RU: BeautyBoxCopy = {
   howTo: {
     eyebrow: 'Схема ухода',
     title: 'Вводите шесть продуктов поэтапно',
-    intro: 'Ежедневный порядок: очищение, бустер, сыворотка и крем. Две маски — отдельные вечерние варианты, а не дополнительные ежедневные слои.',
+    intro: 'Ежедневный порядок: очищение, бустер, сыворотка и крем. Две маски - отдельные вечерние варианты, а не дополнительные ежедневные слои.',
     steps: [
       { title: 'Утро', body: 'Очищение → бустер → сыворотка → крем → подходящее солнцезащитное средство.' },
       { title: 'Вечер', body: 'Очищение → бустер → сыворотка → крем.' },
-      { title: 'Вечер с ночной маской', body: 'Очищение → бустер → сыворотка → ночная маска вместо крема. Используйте 1–2 раза в неделю и не смывайте.' },
-      { title: 'Вечер с тканевой маской', body: 'Очищение → бустер → тканевая маска на 15–20 минут → сыворотка → крем. Недельная частота не указана.' },
+      { title: 'Вечер с ночной маской', body: 'Очищение → бустер → сыворотка → ночная маска вместо крема. Используйте 1-2 раза в неделю и не смывайте.' },
+      { title: 'Вечер с тканевой маской', body: 'Очищение → бустер → тканевая маска на 15-20 минут → сыворотка → крем. Недельная частота не указана.' },
       { title: 'Вводите постепенно', body: 'Проверяйте каждое средство на небольшом участке и добавляйте по одному. Отмените продукт при стойком жжении, покраснении, отёке или раздражении.' },
     ],
     note: 'Не наносите на повреждённую кожу. Упаковка SNOW O₂ предписывает избегать применения при беременности и грудном вскармливании. После процедур следуйте назначению специалиста.',
@@ -365,8 +365,8 @@ const RU: BeautyBoxCopy = {
       { label: 'Формат', value: '1 набор · 6 единиц' },
       { label: 'Состав', value: 'Очищение 180 мл · бустер 200 мл · сыворотка 30 мл · крем 100 г · ночная маска 100 г · тканевая маска 25 г' },
       { label: 'Ежедневно', value: 'Очищение → бустер → сыворотка → крем; утром SPF' },
-      { label: 'Ночная маска', value: 'Вместо крема последним шагом, 1–2 раза в неделю' },
-      { label: 'Тканевая маска', value: '15–20 минут; недельная частота не указана' },
+      { label: 'Ночная маска', value: 'Вместо крема последним шагом, 1-2 раза в неделю' },
+      { label: 'Тканевая маска', value: '15-20 минут; недельная частота не указана' },
       { label: 'Цена', value: 'Стоимость компонентов и экономия рассчитываются live' },
     ],
   },
@@ -374,9 +374,9 @@ const RU: BeautyBoxCopy = {
     eyebrow: 'Вопросы',
     title: 'Что важно до начала ухода',
     items: [
-      { q: 'Весь набор без отдушек?', a: 'Нет. В очищающем средстве и креме есть Parfum. Сыворотка содержит масло апельсиновой цедры и лимонен, ночная маска — несколько эфирных масел, цитраль, гераниол и лимонен, тканевая маска — масло мяты. В бустере нет Parfum и эфирных масел, но есть экстракт семян грейпфрута.' },
+      { q: 'Весь набор без отдушек?', a: 'Нет. В очищающем средстве и креме есть Parfum. Сыворотка содержит масло апельсиновой цедры и лимонен, ночная маска - несколько эфирных масел, цитраль, гераниол и лимонен, тканевая маска - масло мяты. В бустере нет Parfum и эфирных масел, но есть экстракт семян грейпфрута.' },
       { q: 'Показатели 15% и 26% относятся ко всему набору?', a: 'Нет. Оба показателя относятся только к четырёхнедельному исследованию ночной маски Skin Rescue.' },
-      { q: 'Как часто использовать тканевую маску?', a: 'Оставьте её на 15–20 минут и используйте сразу после вскрытия. Недельная частота на упаковке не указана.' },
+      { q: 'Как часто использовать тканевую маску?', a: 'Оставьте её на 15-20 минут и используйте сразу после вскрытия. Недельная частота на упаковке не указана.' },
       { q: 'Начинать сразу со всех шести?', a: 'Нет. Сделайте пробу и вводите продукты по одному, чтобы распознать возможную реакцию.' },
     ],
   },
@@ -410,7 +410,7 @@ const AR: BeautyBoxCopy = {
     { value: '6', label: 'منتجات كاملة الحجم' },
     { value: '1%', label: 'MultiEx BSASM® Plus في السيروم' },
     { value: '5,000 ppm', label: 'سيراميد NP في الكريم' },
-    { value: '15–20 دقيقة', label: 'مدة القناع الورقي' },
+    { value: '15-20 دقيقة', label: 'مدة القناع الورقي' },
   ],
   contents: {
     ...EN.contents,
@@ -423,8 +423,8 @@ const AR: BeautyBoxCopy = {
         ['الخطوة 2 · المعزز', 'يوضع باليدين أو يرش على بشرة نظيفة صباحاً ومساءً. لا يحتوي على Parfum أو زيوت عطرية، لكن INCI يتضمن مستخلص بذور الجريب فروت.', ['200 مل', 'بيتايين 3%', 'من دون Parfum أو زيوت عطرية', 'مستخلص بذور الجريب فروت']],
         ['الخطوة 3 · السيروم', 'يربت على الوجه قبل الكريم. يجمع MultiEx BSASM® Plus بنسبة 1% سبعة مستخلصات نباتية؛ والبيتايين 0.5% والألانتوين 0.1%.', ['30 مل', 'MultiEx BSASM® Plus ‏1%', 'زيت قشر البرتقال · الليمونين']],
         ['الخطوة 4 · الكريم', 'يوضع بعد السيروم صباحاً ومساءً ويربت بلطف. السيراميد والغليسرين وزبدة الشيا حقائق تخص التركيبة وليست نتيجة للمجموعة.', ['100 غ', 'سيراميد NP ‏0.5%', 'غليسرين 17.49%', 'Parfum · لينالول · كومارين']],
-        ['1–2 مرة أسبوعياً · الخطوة الأخيرة', 'يستخدم بدلاً من الكريم كخطوة مسائية أخيرة مع تجنب محيط العينين، ويترك طوال الليل. تخص قياسات الأربعة أسابيع هذا القناع وحده.', ['100 غ', 'نياسيناميد 2%', 'أدينوزين 0.04%', 'TEWL ‏−15% · الاحمرار −26%', 'زيوت عطرية · سيترال · جيرانيول · ليمونين']],
-        ['مساء منفصل للقناع', 'بعد المعزز، يوضع قناع Eucalace® واحد لمدة 15–20 دقيقة، ثم يرفع وتربت الخلاصة المتبقية ويتبع بالسيروم والكريم.', ['قناع واحد · 25 غ', '15–20 دقيقة', 'زيت النعناع الفلفلي', 'يستخدم فور فتحه']],
+        ['1-2 مرة أسبوعياً · الخطوة الأخيرة', 'يستخدم بدلاً من الكريم كخطوة مسائية أخيرة مع تجنب محيط العينين، ويترك طوال الليل. تخص قياسات الأربعة أسابيع هذا القناع وحده.', ['100 غ', 'نياسيناميد 2%', 'أدينوزين 0.04%', 'TEWL ‏−15% · الاحمرار −26%', 'زيوت عطرية · سيترال · جيرانيول · ليمونين']],
+        ['مساء منفصل للقناع', 'بعد المعزز، يوضع قناع Eucalace® واحد لمدة 15-20 دقيقة، ثم يرفع وتربت الخلاصة المتبقية ويتبع بالسيروم والكريم.', ['قناع واحد · 25 غ', '15-20 دقيقة', 'زيت النعناع الفلفلي', 'يستخدم فور فتحه']],
       ] as const
       return { ...item, step: localized[index]![0], body: localized[index]![1], facts: [...localized[index]![2]] }
     }),
@@ -446,7 +446,7 @@ const AR: BeautyBoxCopy = {
       { title: 'الصباح', body: 'منظف ← معزز ← سيروم ← كريم ← واقي شمس مناسب.' },
       { title: 'المساء', body: 'منظف ← معزز ← سيروم ← كريم.' },
       { title: 'مساء القناع الليلي', body: 'منظف ← معزز ← سيروم ← القناع الليلي بدلاً من الكريم. يستخدم مرة أو مرتين أسبوعياً ولا يشطف.' },
-      { title: 'مساء القناع الورقي', body: 'منظف ← معزز ← قناع ورقي 15–20 دقيقة ← سيروم ← كريم. لا تحدد العبوة وتيرة أسبوعية.' },
+      { title: 'مساء القناع الورقي', body: 'منظف ← معزز ← قناع ورقي 15-20 دقيقة ← سيروم ← كريم. لا تحدد العبوة وتيرة أسبوعية.' },
       { title: 'الإدخال التدريجي', body: 'اختبري كل منتج على رقعة صغيرة وأضيفي منتجاً واحداً في كل مرة. أوقفي المنتج عند استمرار الحرقان أو الاحمرار أو التورم أو التهيج.' },
     ],
     note: 'لا يطبق على بشرة متضررة. تنص عبوة SNOW O₂ على تجنب الاستخدام أثناء الحمل والرضاعة. بعد الإجراءات، اتبعي تعليمات المختص ولا تفترضي ملاءمة المجموعة.',
@@ -493,7 +493,7 @@ const AR: BeautyBoxCopy = {
       { label: 'المحتويات', value: 'منظف 180 مل · معزز 200 مل · سيروم 30 مل · كريم 100 غ · قناع ليلي 100 غ · قناع ورقي 25 غ' },
       { label: 'يومياً', value: 'منظف ← معزز ← سيروم ← كريم؛ واقي الشمس صباحاً' },
       { label: 'القناع الليلي', value: 'بدلاً من الكريم كخطوة أخيرة، مرة أو مرتين أسبوعياً' },
-      { label: 'القناع الورقي', value: '15–20 دقيقة؛ لا توجد وتيرة أسبوعية محددة' },
+      { label: 'القناع الورقي', value: '15-20 دقيقة؛ لا توجد وتيرة أسبوعية محددة' },
       { label: 'السعر', value: 'تحسب قيمة المكونات والتوفير مباشرة' },
     ],
   },
@@ -503,7 +503,7 @@ const AR: BeautyBoxCopy = {
     items: [
       { q: 'هل المجموعة كلها خالية من العطر؟', a: 'لا. يحتوي المنظف والكريم على Parfum. يحتوي السيروم على زيت قشر البرتقال والليمونين، والقناع الليلي على عدة زيوت عطرية وسيترال وجيرانيول وليمونين، والقناع الورقي على زيت النعناع. لا يحتوي المعزز على Parfum أو زيوت عطرية، لكنه يتضمن مستخلص بذور الجريب فروت.' },
       { q: 'هل تنطبق نتيجتا 15% و26% على المجموعة؟', a: 'لا. تخص النتيجتان الدراسة الممتدة أربعة أسابيع لقناع Skin Rescue الليلي وحده.' },
-      { q: 'كم مرة يستخدم القناع الورقي؟', a: 'يترك 15–20 دقيقة ويستخدم فور فتحه. لا تحدد العبوة وتيرة أسبوعية.' },
+      { q: 'كم مرة يستخدم القناع الورقي؟', a: 'يترك 15-20 دقيقة ويستخدم فور فتحه. لا تحدد العبوة وتيرة أسبوعية.' },
       { q: 'هل أبدأ بالمنتجات الستة معاً؟', a: 'لا. اختبري كل منتج وأدخلي منتجاً واحداً في كل مرة حتى يمكن تمييز أي تفاعل.' },
     ],
   },

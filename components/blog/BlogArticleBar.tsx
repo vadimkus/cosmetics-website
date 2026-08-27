@@ -14,7 +14,7 @@ import AccountAvatar from '@/components/AccountAvatar'
  *
  * It lived inside `BlogPostClient`, which only the English route goes through: `/ar` and
  * `/ru` have their own article clients and reached for `PdpLocaleBar` instead, so the same
- * page had one bar in English and a different one in Arabic and Russian — the latter with
+ * page had one bar in English and a different one in Arabic and Russian - the latter with
  * no account control at all.
  *
  * Nothing here was ever English-only; the back label has always carried all three

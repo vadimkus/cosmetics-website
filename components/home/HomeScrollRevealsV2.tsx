@@ -11,7 +11,7 @@ function supportsNativeViewTimeline() {
 }
 
 /**
- * Home section scroll reveals — bidirectional.
+ * Home section scroll reveals - bidirectional.
  *
  * Prefer CSS view() timelines when supported (scroll up/down both animate).
  * Fallback: IntersectionObserver that resets after either viewport exit.
@@ -38,7 +38,7 @@ export default function HomeScrollRevealsV2() {
       return
     }
 
-    // Native CSS view() path — platform-phase-a.v2.css owns the animation.
+    // Native CSS view() path - platform-phase-a.v2.css owns the animation.
     if (supportsNativeViewTimeline()) {
       sections.forEach((section) => {
         section.classList.remove('reveal-ready', 'is-in-view')

@@ -10,7 +10,7 @@
  * and volume claims. They are not carried here: there is no product-specific
  * test behind them. Current gallery slides additionally print circulation,
  * exfoliation, absorption, treatment preparation, daily use, tonic pairing and
- * a 2–3 minute duration. Those are artwork corrections, not copy sources.
+ * a 2-3 minute duration. Those are artwork corrections, not copy sources.
  */
 
 export const PRODUCT_61_RU_NAME = 'Силиконовая щётка для кожи головы HR³ MATRIX'

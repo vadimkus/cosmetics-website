@@ -1,14 +1,14 @@
 'use client'
 
 /**
- * /login — sign in and create account.
+ * /login - sign in and create account.
  *
  * Reworked onto the editorial system in Aug 2026, after /cart, /checkout and
  * /success.
  *
  * THE REAL DEFECT HERE WAS NOT THE COLOUR. The page carried two complete and
- * separately maintained implementations of the same form — a mobile branch
- * gated on useIsMobile and a desktop branch — roughly 450 duplicated lines
+ * separately maintained implementations of the same form - a mobile branch
+ * gated on useIsMobile and a desktop branch - roughly 450 duplicated lines
  * that had drifted apart in ways a user could feel:
  *
  *   - mobile put labels above the fields, desktop was placeholder-only;
@@ -25,7 +25,7 @@
  * ONE DELIBERATE BEHAVIOUR CHANGE: privacy consent is now required for
  * REGISTRATION ONLY, which is what the desktop branch always did. Asking an
  * existing customer to re-consent before they can sign in is friction that
- * collects nothing meaningful — they consented when they registered. Consent
+ * collects nothing meaningful - they consented when they registered. Consent
  * remains mandatory to create an account, and the OAuth buttons no longer
  * refuse to run in sign-in mode.
  *
@@ -90,7 +90,7 @@ export default function LoginClient() {
   const normalizedPromo = String(promoCode || '').trim().toUpperCase()
   const maxBirthday = getLocalTodayYmd()
 
-  // Dedicated partner (clinic) login modal — same credentials, lands in the
+  // Dedicated partner (clinic) login modal - same credentials, lands in the
   // Partner Portal instead of the shop.
   const [showPartnerLogin, setShowPartnerLogin] = useState(false)
   const [partnerForm, setPartnerForm] = useState({ email: '', password: '' })
@@ -259,7 +259,7 @@ export default function LoginClient() {
 
   // Must be a hard navigation, not router.push. MessagesProvider is populated by the
   // root layout, which App Router does not re-render when navigating between routes
-  // that share it — so a soft nav to /ru/login leaves the page holding the previous
+  // that share it - so a soft nav to /ru/login leaves the page holding the previous
   // locale's messages. iOS Safari swallows the navigation outright. Same reason the
   // mobile web and PWA headers use this helper; it also sets NEXT_LOCALE so the
   // preference survives.
@@ -271,14 +271,14 @@ export default function LoginClient() {
   const currentLangCode = locale === 'ar' ? 'AR' : locale === 'ru' ? 'RU' : 'EN'
 
   const copy = {
-    valuePropTitle: locale === 'ar' ? 'إنشاء حساب — دقيقة واحدة'
-      : locale === 'ru' ? 'Создание аккаунта — 1 минута'
-      : 'Create account — 1 minute',
+    valuePropTitle: locale === 'ar' ? 'إنشاء حساب - دقيقة واحدة'
+      : locale === 'ru' ? 'Создание аккаунта - 1 минута'
+      : 'Create account - 1 minute',
     valuePropBody: locale === 'ar' ? 'تتبّع الطلبات، شحن مجاني فوق 1000 درهم، وعروض حصرية للعملاء المحترفين.'
       : locale === 'ru' ? 'Отслеживание заказов, бесплатная доставка от 1000 AED и закрытые цены для профи.'
       : 'Order tracking, free shipping over AED 1,000, and exclusive pricing for pros.',
     partnerPortal: locale === 'ru' ? 'Портал партнёра' : locale === 'ar' ? 'بوابة الشركاء' : 'Partner Portal',
-    partnerAccess: locale === 'ru' ? 'Вход для партнёров — клиники' : locale === 'ar' ? 'دخول الشركاء — العيادات' : 'Partner Access — Clinics',
+    partnerAccess: locale === 'ru' ? 'Вход для партнёров - клиники' : locale === 'ar' ? 'دخول الشركاء - العيادات' : 'Partner Access - Clinics',
   }
 
   // ─────────────────────── Partner login modal ────────────────────────
@@ -320,10 +320,10 @@ export default function LoginClient() {
         </h2>
         <p className="mb-5 mt-2 text-center text-[13px] leading-relaxed text-[var(--cera-muted)]">
           {locale === 'ru'
-            ? 'Войдите с данными вашего аккаунта GENOSYS. Доступ к порталу предоставляется индивидуально — для подключения напишите на sales@genosys.ae.'
+            ? 'Войдите с данными вашего аккаунта GENOSYS. Доступ к порталу предоставляется индивидуально - для подключения напишите на sales@genosys.ae.'
             : locale === 'ar'
-              ? 'سجّل الدخول ببيانات حساب GENOSYS الخاص بك. يُمنح الوصول إلى البوابة بشكل فردي — للتفعيل راسلنا على sales@genosys.ae.'
-              : 'Sign in with your GENOSYS account credentials. Partner access is assigned individually — to request access, contact sales@genosys.ae.'}
+              ? 'سجّل الدخول ببيانات حساب GENOSYS الخاص بك. يُمنح الوصول إلى البوابة بشكل فردي - للتفعيل راسلنا على sales@genosys.ae.'
+              : 'Sign in with your GENOSYS account credentials. Partner access is assigned individually - to request access, contact sales@genosys.ae.'}
         </p>
 
         <form onSubmit={handlePartnerSubmit} className="space-y-3">
@@ -376,10 +376,10 @@ export default function LoginClient() {
           className="mt-4 block text-center text-[12.5px] text-[var(--cera-muted)] transition-colors hover:text-[var(--cera-rose-ink)]"
         >
           {locale === 'ru'
-            ? 'Запросить партнёрский доступ — sales@genosys.ae'
+            ? 'Запросить партнёрский доступ - sales@genosys.ae'
             : locale === 'ar'
-              ? 'طلب وصول الشركاء — sales@genosys.ae'
-              : 'Request partner access — sales@genosys.ae'}
+              ? 'طلب وصول الشركاء - sales@genosys.ae'
+              : 'Request partner access - sales@genosys.ae'}
         </a>
       </div>
     </div>
@@ -531,10 +531,10 @@ export default function LoginClient() {
           </h2>
           <p className="mt-5 text-[15.5px] leading-relaxed text-white/65">
             {locale === 'ar'
-              ? 'مستحضرات تجميل كورية احترافية، تتبع الطلبات، ومزايا حصرية — من موزّع GENOSYS الرسمي في الإمارات.'
+              ? 'مستحضرات تجميل كورية احترافية، تتبع الطلبات، ومزايا حصرية - من موزّع GENOSYS الرسمي في الإمارات.'
               : locale === 'ru'
-              ? 'Профессиональная корейская косметика, отслеживание заказов и эксклюзивные привилегии — от официального дистрибьютора GENOSYS в ОАЭ.'
-              : 'Professional Korean dermacosmetics, order tracking, and insider perks — from the official GENOSYS distributor in the UAE.'}
+              ? 'Профессиональная корейская косметика, отслеживание заказов и эксклюзивные привилегии - от официального дистрибьютора GENOSYS в ОАЭ.'
+              : 'Professional Korean dermacosmetics, order tracking, and insider perks - from the official GENOSYS distributor in the UAE.'}
           </p>
 
           <ul className="mt-9 space-y-3.5">

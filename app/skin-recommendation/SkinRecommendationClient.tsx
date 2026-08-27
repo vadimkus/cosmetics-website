@@ -661,7 +661,7 @@ export default function SkinRecommendationClient() {
         ]}
       />
 
-      {/* Unified sticky nav header — matches the /profile stack and
+      {/* Unified sticky nav header - matches the /profile stack and
           Privacy/Terms/About. Stays visible so the reader can always back out
           or jump to profile. */}
       {isAppLikeMode && (
@@ -679,7 +679,7 @@ export default function SkinRecommendationClient() {
           <h1 className="text-[17px] font-semibold text-[var(--cera-ink)] text-center flex-1 truncate px-2">
             {locale === 'ar' ? 'تحليل البشرة' : locale === 'ru' ? 'Анализ кожи' : 'Skin Analysis'}
           </h1>
-          {/* Profile avatar — green dot only when logged in */}
+          {/* Profile avatar - green dot only when logged in */}
           <button
             onClick={() => router.push(getLocalizedPath('/profile', locale))}
             className="min-w-[80px] flex justify-end"
@@ -1318,7 +1318,7 @@ export default function SkinRecommendationClient() {
         </div>
       ) : !showResults ? (
         <>
-          {/* Page hero — on mobile/PWA the sticky header already shows the page
+          {/* Page hero - on mobile/PWA the sticky header already shows the page
               title ("Skin Analysis"), so the body lead is smaller and the
               description is clamped to 2 lines to preserve above-the-fold
               real estate. Desktop keeps the original large hero. */}
@@ -1344,7 +1344,7 @@ export default function SkinRecommendationClient() {
             </p>
           </div>
 
-          {/* Camera Analysis Option — tighter on mobile (smaller icon, thinner
+          {/* Camera Analysis Option - tighter on mobile (smaller icon, thinner
               padding, single-line captions) so it takes less above-the-fold
               space before the form questions. */}
           <div className={isAppLikeMode ? 'mb-4' : 'mb-6 md:mb-10'}>
@@ -1363,7 +1363,7 @@ export default function SkinRecommendationClient() {
                   </div>
                 </div>
 
-                {/* Two Action Buttons — Power Animal + Live AR. On mobile the
+                {/* Two Action Buttons - Power Animal + Live AR. On mobile the
                     buttons use tighter vertical padding and the captions are
                     clipped to one line so the pair fits on one screen. */}
                 <div className={isAppLikeMode ? 'mt-3' : 'mt-4 mb-4'}>
@@ -1435,7 +1435,7 @@ export default function SkinRecommendationClient() {
               </div>
             </div>
 
-          {/* Progress Indicator — on mobile/PWA we pin this just below the
+          {/* Progress Indicator - on mobile/PWA we pin this just below the
               sticky nav header (top-[60px] matches the ~60px header height)
               so the user always sees which step they're on while scrolling
               long option lists. Desktop keeps the original non-sticky layout. */}

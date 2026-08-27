@@ -12,7 +12,7 @@
  * Behaviour is unchanged: the PWA login branch, the login modal, the 3D visual
  * and the store badges all work as they did. Only the styling moved.
  *
- * The mobile block still exists for `?full=true` — MobileRedirect sends phone
+ * The mobile block still exists for `?full=true` - MobileRedirect sends phone
  * traffic to /products, but the opt-in full homepage has to hold up.
  */
 
@@ -179,7 +179,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
           >
             <p className="cera-eyebrow mb-3">{eyebrowText}</p>
             {/*
-              Mobile Hero heading — intentionally an H2 (not H1) so the page
+              Mobile Hero heading - intentionally an H2 (not H1) so the page
               has a single authoritative H1, which lives in the desktop block
               below. Mobile visitors are redirected to /products by
               MobileRedirect before this matters; keeping H2 here avoids a
@@ -205,7 +205,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             </motion.h2>
           </motion.div>
 
-          {/* Hero visual — mobile.
+          {/* Hero visual - mobile.
               Intentionally a static image (not a <video>) to keep
               mobile LCP fast on 4G. The desktop layout below still
               renders the 12 MB loop video; mobile users generally
@@ -230,7 +230,7 @@ export default function Hero({ initialLocale = 'en', initialDir = 'ltr' }: HeroP
             <div className="mb-4 flex justify-center">
               <Image
                 src="/images/genosys-logo.png"
-                alt="GENOSYS — Official Korean Dermacosmetics Distributor UAE"
+                alt="GENOSYS - Official Korean Dermacosmetics Distributor UAE"
                 width={120}
                 height={48}
                 className="h-11 w-auto"

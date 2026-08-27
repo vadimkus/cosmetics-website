@@ -10,15 +10,15 @@ import {
 /**
  * Sends Live Activity pushes straight to Apple.
  *
- * Expo's push service cannot carry these. A Live Activity update is not a notification —
+ * Expo's push service cannot carry these. A Live Activity update is not a notification -
  * it is addressed to an ActivityKit token, on a topic of its own
  * (`<bundleId>.push-type.liveactivity`), with `apns-push-type: liveactivity`. There is no
  * field in the Expo API that produces that request, so this talks HTTP/2 to APNs directly.
  *
  * Three tokens are easy to confuse and only one is right here:
- *   - the Expo push token — for ordinary notifications, not this
- *   - the **push-to-start** token — app-wide, starts a card when nothing is running
- *   - the **per-activity** token — updates or ends one card that already exists
+ *   - the Expo push token - for ordinary notifications, not this
+ *   - the **push-to-start** token - app-wide, starts a card when nothing is running
+ *   - the **per-activity** token - updates or ends one card that already exists
  *
  * Configuration, all from the environment:
  *   APNS_KEY_ID      the .p8 key's ten-character id

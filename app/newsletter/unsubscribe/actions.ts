@@ -7,7 +7,7 @@ import { errorLog } from '@/lib/logger'
 /**
  * Server actions for the unsubscribe page.
  * Both actions are idempotent and intentionally fail silently if the token is
- * bogus — we don't want to leak token validity to whoever clicked the link.
+ * bogus - we don't want to leak token validity to whoever clicked the link.
  */
 
 export async function unsubscribeAction(formData: FormData) {

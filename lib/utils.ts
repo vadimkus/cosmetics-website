@@ -114,7 +114,7 @@ export const isValidEmail = (email: string): boolean => {
  * with a dash or brackets failed, and it required a leading 1-9, so every local
  * number starting 0 failed too.
  *
- * Registration accepts any international number on purpose — customers sign up
+ * Registration accepts any international number on purpose - customers sign up
  * from anywhere and the only server-side rule is a 20-character cap. Delivery
  * is the place that needs a reachable UAE number, and checkout enforces that
  * separately.

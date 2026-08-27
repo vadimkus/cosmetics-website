@@ -43,9 +43,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticDate = new Date('2026-02-12T00:00:00.000Z')
   // Stable lastmod for editorial landing pages (guides, concern + category
   // pages). Their content is code-defined and rarely changes, so they must
-  // NOT report `now` on every sitemap regeneration — a constantly-moving
+  // NOT report `now` on every sitemap regeneration - a constantly-moving
   // lastmod trains Google to ignore the signal and deprioritise crawling
-  // (a known driver of "Discovered – currently not indexed"). Bump this date
+  // (a known driver of "Discovered - currently not indexed"). Bump this date
   // only when the landing-page copy actually changes.
   const contentDate = new Date('2026-07-13T00:00:00.000Z')
 
@@ -118,7 +118,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   // Category landing pages (static editorial content → stable lastmod).
-  // Only advertise categories that actually contain products — an empty
+  // Only advertise categories that actually contain products - an empty
   // category page returns a 404 (see app/products/category/[slug]) and would
   // otherwise show up as a Soft 404 / "Not found" in Search Console. This is
   // data-driven so it self-heals: e.g. bio-meso reappears once a product is

@@ -3,8 +3,8 @@
 /**
  * Bespoke product page for the HR³ MATRIX HAIR STAMP (product 64).
  *
- * Shares the editorial design system built for product 66 — the primitives,
- * the gallery and the structural CSS all come from ../cerabarrier — and layers
+ * Shares the editorial design system built for product 66 - the primitives,
+ * the gallery and the structural CSS all come from ../cerabarrier - and layers
  * a graphite/steel palette on top via hairstamp.css.
  *
  * Where it deliberately diverges from the other two bespoke layouts:
@@ -22,7 +22,7 @@
  *
  * See hairstampCopy.ts for the sourcing rules. Needle count is 52 (leaflet).
  * Needle depth is 0.3 mm per the product artwork, with the same caveat as
- * product 3. Needle material is not stated — "medical-grade" is in no
+ * product 3. Needle material is not stated - "medical-grade" is in no
  * manufacturer document.
  */
 
@@ -133,7 +133,7 @@ export default function HairStampProductPage({
   const specImage = localizeProductImage(SPEC_IMAGE, locale)
   const closingImage = localizeProductImage(CLOSING_IMAGE, locale)
 
-  // Single SKU — one box of eight — so no size is ever passed to the cart.
+  // Single SKU - one box of eight - so no size is ever passed to the cart.
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [justAdded, setJustAdded] = useState(false)
@@ -171,7 +171,7 @@ export default function HairStampProductPage({
       const pid = ROUTINE_STEP_PRODUCT_IDS[s.titleKey]
       const linked = pid ? routineProductByNumber.get(pid) ?? null : null
       // Any routine product sold in more than one size gets a link to its own
-      // page rather than a one-tap add that would silently pick a size — and a
+      // page rather than a one-tap add that would silently pick a size - and a
       // "from" price off the cheapest variant rather than the base record.
       const sizes = linked ? getProductSizeOptions(linked.productNumber || linked.id, linked) : []
       const lowestPrice = linked

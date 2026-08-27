@@ -454,7 +454,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   },
   '34': {
     id: '34',
-    // Gallery migrated to DB `images` (2026-07-12) — do not re-add here.
+    // Gallery migrated to DB `images` (2026-07-12) - do not re-add here.
     pricing: {
       basePrice: 340
     },
@@ -762,7 +762,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
   '60': {
     id: '60',
     // Gallery migrated to DB-only (product.image /images/6000/main.jpg + images
-    // S1-S6). Config gallery removed 2026-07-10 — it still pointed at the
+    // S1-S6). Config gallery removed 2026-07-10 - it still pointed at the
     // deleted /images/Second/Prof_Meso.jpg and config wins over DB.
     videoUrl: '/videos/60000.mp4',
     pricing: {

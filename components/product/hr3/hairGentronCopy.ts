@@ -2,7 +2,7 @@
  * Bespoke copy for Hair-GENTRON (product 48), the LED helmet in the HR³ MATRIX
  * hair range.
  *
- * SOURCING — we do have documents. An earlier record said otherwise. They sit in
+ * SOURCING - we do have documents. An earlier record said otherwise. They sit in
  * `~/Desktop/Drive/Genosys/Registration/Gentron/`:
  *   - User's manual-HAIR GENTRON.pdf (EN / KR / JP)
  *   - Declaration of Conformity-HAIR GENTRON.pdf (17 Dec 2019)
@@ -41,7 +41,7 @@ const EN: HairGenBoosterCopy = {
   subheadline:
     'A one-kilogram helmet for the scalp, with a separate controller. Four LED modes, air-pressure massage and heat that you can run together or leave off, and a ten-minute preset that starts all of them plus music. Korea certifies it as a household massage appliance. The manufacturer brochure claims it treats the hair cycle. We do not.',
   heroBullets: [
-    'Hands-free — it sits on the head, so a session needs no technique',
+    'Hands-free - it sits on the head, so a session needs no technique',
     'Four LED modes: red + infrared, blue, off, or all three lights together',
     'Ten, twenty or thirty minutes, then it stops itself. Never more than thirty',
     'Runs on four AA batteries or the USB-C adaptor in the box',
@@ -70,7 +70,7 @@ const EN: HairGenBoosterCopy = {
     body:
       'It is a helmet you put on after you have washed the scalp. You set a time, you pick a light mode, and you can add air-pressure massage and heat. The session ends itself. That is the whole of the useful fact, and it is enough: a clinic or a home user can run a timed session without standing over someone with a handpiece.',
     items: [
-      'Korea and the EU tested it as a household massage appliance — IEC 60335-2-32 — not as a medical or phototherapy device',
+      'Korea and the EU tested it as a household massage appliance - IEC 60335-2-32 - not as a medical or phototherapy device',
       'The user manual calls the session a supplement after a medical or aesthetic procedure, not a treatment of its own',
       'No efficacy study for this device is held by us',
       'It is not registered to treat hair loss',
@@ -78,7 +78,7 @@ const EN: HairGenBoosterCopy = {
     detail:
       'Buy it if you want a timed, hands-free session of light, massage and optional heat. Do not buy it as a substitute for seeing a doctor about hair loss.',
     leaflet:
-      'We are saying that plainly because the manufacturer brochure does not. It claims the lights are absorbed by the mitochondria of the hair follicles, that they extend the growth phase, and that they stimulate anagen re-entry, prolong anagen and prevent premature catagen — the same hair-cycle mechanics we refused on the HairGen BOOSTER leaflet. It also claims improved blood flow and more nutrients reaching the follicle. None of that is on this page. If you are losing hair, the first appointment is with a doctor, and this is something you might sit under alongside what they advise.',
+      'We are saying that plainly because the manufacturer brochure does not. It claims the lights are absorbed by the mitochondria of the hair follicles, that they extend the growth phase, and that they stimulate anagen re-entry, prolong anagen and prevent premature catagen - the same hair-cycle mechanics we refused on the HairGen BOOSTER leaflet. It also claims improved blood flow and more nutrients reaching the follicle. None of that is on this page. If you are losing hair, the first appointment is with a doctor, and this is something you might sit under alongside what they advise.',
   },
 
   build: {
@@ -110,7 +110,7 @@ const EN: HairGenBoosterCopy = {
       {
         name: 'Power',
         dose: '5 V / 1.5 A',
-        body: 'USB-C adaptor in the box, 100–240 V in. Or four AA batteries in the controller — they are not included. The helmet itself is rated 6 V on batteries. Unplug the adaptor when you are not using it, and take the batteries out if the adaptor is connected.',
+        body: 'USB-C adaptor in the box, 100-240 V in. Or four AA batteries in the controller - they are not included. The helmet itself is rated 6 V on batteries. Unplug the adaptor when you are not using it, and take the batteries out if the adaptor is connected.',
       },
       {
         name: 'Warranty',
@@ -171,7 +171,7 @@ const EN: HairGenBoosterCopy = {
     eyebrow: 'The numbers we will not invent',
     title: 'Wavelengths are on the brochure. Irradiance is on nothing.',
     body:
-      'The sales brochure prints 840 nm infrared, 640 nm red and 420 nm blue. The user manual does not print a wavelength, an LED count or a power density. Product 49, GENO-LED IR II, publishes a full dosimetry table; this helmet does not. Third-party listings also disagree with the brochure — one quotes 850 / 620 / 470 nm and sixty LEDs — which is why we will not build a table from anyone except DTS MG, and DTS MG only printed those three numbers on a sales slide.',
+      'The sales brochure prints 840 nm infrared, 640 nm red and 420 nm blue. The user manual does not print a wavelength, an LED count or a power density. Product 49, GENO-LED IR II, publishes a full dosimetry table; this helmet does not. Third-party listings also disagree with the brochure - one quotes 850 / 620 / 470 nm and sixty LEDs - which is why we will not build a table from anyone except DTS MG, and DTS MG only printed those three numbers on a sales slide.',
     note: 'If a protocol asks for irradiance or an LED count, we do not have them. Ask DTS MG in writing and both this page and the record change together.',
   },
 
@@ -184,10 +184,10 @@ const EN: HairGenBoosterCopy = {
       { label: 'Contents', value: 'Helmet, stand, controller, USB-C cable and adaptor' },
       { label: 'LED modes', value: 'Red + infrared · Blue · Off · Red + blue + infrared' },
       { label: 'Session', value: '10 / 20 / 30 minutes · maximum 30 minutes at a time' },
-      { label: 'Power', value: 'Adaptor 5 V 1.5 A, 100–240 V in · or 4 × AA (not included)' },
+      { label: 'Power', value: 'Adaptor 5 V 1.5 A, 100-240 V in · or 4 × AA (not included)' },
       { label: 'Size', value: 'Helmet 230 × 240 × 300 mm · controller 158 × 68 × 42 mm · 1.0 kg' },
       { label: 'Certification', value: 'CE, EMC 2014/30/EU and LVD 2014/35/EU · tested as IEC 60335-2-32 massage appliance' },
-      { label: 'Patent', value: 'Korea 10-2151442 · bronze, 2020 Korea Invention Patent Exhibition — an award, not evidence of efficacy' },
+      { label: 'Patent', value: 'Korea 10-2151442 · bronze, 2020 Korea Invention Patent Exhibition - an award, not evidence of efficacy' },
       { label: 'Origin', value: 'DTS MG Co., Ltd., Seoul · Made in Korea' },
     ],
   },
@@ -205,7 +205,7 @@ const EN: HairGenBoosterCopy = {
       'Circulation problems from diabetes or another disease',
       'Body temperature over 38 °C',
     ],
-    note: 'Keep it away from children, liquid and heat. Do not use a damaged adaptor, or operate it with wet hands. Do not run it longer than thirty minutes. Heat-insensitive users should turn the heating off. Stop and see a doctor if anything feels wrong. Store at 5–40 °C, humidity at or below 80%.',
+    note: 'Keep it away from children, liquid and heat. Do not use a damaged adaptor, or operate it with wet hands. Do not run it longer than thirty minutes. Heat-insensitive users should turn the heating off. Stop and see a doctor if anything feels wrong. Store at 5-40 °C, humidity at or below 80%.',
   },
 
   video: {
@@ -257,7 +257,7 @@ const AR: HairGenBoosterCopy = {
   subheadline:
     'خوذة مساج خفيفة لفروة الرأس بوزن 1.0 كغ، مع جهاز تحكم منفصل. اختاري من أربعة أوضاع لإضاءة LED، وشغّلي المساج بضغط الهواء والدفء معاً أو كل وظيفة على حدة، مع مؤقت وإيقاف تلقائي.',
   heroBullets: [
-    'بلا يدين — تُوضع على الرأس، فلا تحتاج الجلسة إلى مهارة',
+    'بلا يدين - تُوضع على الرأس، فلا تحتاج الجلسة إلى مهارة',
     'أربعة أوضاع للإضاءة: أحمر + تحت الأحمر، أزرق، إطفاء، أو الأضواء الثلاثة معاً',
     'عشر أو عشرون أو ثلاثون دقيقة ثم تتوقف وحدها. لا أكثر من ثلاثين',
     'تعمل بأربع بطاريات AA أو بمحوّل USB-C الموجود في العلبة',
@@ -326,7 +326,7 @@ const AR: HairGenBoosterCopy = {
       {
         name: 'التغذية',
         dose: '5 ف / 1.5 أ',
-        body: 'محوّل USB-C في العلبة، 100–240 فولت دخولاً. أو أربع بطاريات AA في جهاز التحكّم — وهي غير مرفقة. الخوذة نفسها مُصنَّفة 6 فولت على البطاريات. افصلي المحوّل عند عدم الاستعمال، وأخرجي البطاريات إن كان المحوّل موصولاً.',
+        body: 'محوّل USB-C في العلبة، 100-240 فولت دخولاً. أو أربع بطاريات AA في جهاز التحكّم - وهي غير مرفقة. الخوذة نفسها مُصنَّفة 6 فولت على البطاريات. افصلي المحوّل عند عدم الاستعمال، وأخرجي البطاريات إن كان المحوّل موصولاً.',
       },
       {
         name: 'الضمان',
@@ -400,10 +400,10 @@ const AR: HairGenBoosterCopy = {
       { label: 'المحتويات', value: 'خوذة، حامل، جهاز تحكّم، كابل USB-C ومحوّل' },
       { label: 'أوضاع الإضاءة', value: 'أحمر + تحت الأحمر · أزرق · إطفاء · أحمر + أزرق + تحت الأحمر' },
       { label: 'الجلسة', value: '10 / 20 / 30 دقيقة · حد أقصى 30 دقيقة في المرّة' },
-      { label: 'التغذية', value: 'محوّل 5 ف 1.5 أ، 100–240 ف دخولاً · أو 4 × AA (غير مرفقة)' },
+      { label: 'التغذية', value: 'محوّل 5 ف 1.5 أ، 100-240 ف دخولاً · أو 4 × AA (غير مرفقة)' },
       { label: 'الحجم', value: 'الخوذة 230 × 240 × 300 مم · التحكّم 158 × 68 × 42 مم · 1.0 كغ' },
       { label: 'المطابقة والسلامة', value: 'إعلان مطابقة للاتحاد الأوروبي: EMC 2014/30/EU وLVD 2014/35/EU · مختبر وفق IEC/EN 60335-2-32 كجهاز مساج منزلي محمول من الفئة الثالثة' },
-      { label: 'البراءة', value: 'كوريا 10-2151442 · برونزية معرض الاختراع الكوري 2020 — جائزة، لا دليل فعالية' },
+      { label: 'البراءة', value: 'كوريا 10-2151442 · برونزية معرض الاختراع الكوري 2020 - جائزة، لا دليل فعالية' },
       { label: 'المنشأ', value: 'DTS MG Co., Ltd.، سيول · صُنع في كوريا' },
     ],
   },
@@ -421,7 +421,7 @@ const AR: HairGenBoosterCopy = {
       'اضطراب الدورة من السكري أو مرض آخر',
       'حرارة الجسم فوق 38 °م',
     ],
-    note: 'أبعديها عن الأطفال والسوائل والحرارة. لا تستعملي محوّلاً تالفاً ولا تشغّليها بيد مبتلّة. لا تشغّليها أكثر من ثلاثين دقيقة. من لا يحسّ بالحرارة جيداً فليطفئ التسخين. أوقفي الجهاز وراجعي طبيباً إن شعرت بأي شيء غير طبيعي. التخزين 5–40 °م، رطوبة 80% أو أقل.',
+    note: 'أبعديها عن الأطفال والسوائل والحرارة. لا تستعملي محوّلاً تالفاً ولا تشغّليها بيد مبتلّة. لا تشغّليها أكثر من ثلاثين دقيقة. من لا يحسّ بالحرارة جيداً فليطفئ التسخين. أوقفي الجهاز وراجعي طبيباً إن شعرت بأي شيء غير طبيعي. التخزين 5-40 °م، رطوبة 80% أو أقل.',
   },
 
   video: {
@@ -468,11 +468,11 @@ const AR: HairGenBoosterCopy = {
 
 const RU: HairGenBoosterCopy = {
   eyebrow: 'Hair-GENTRON · LED-шлем · модель HGHY01',
-  headline: 'Надевается на голову. Свет, массаж воздушным давлением и необязательное тепло — десять, двадцать или тридцать минут.',
+  headline: 'Надевается на голову. Свет, массаж воздушным давлением и необязательное тепло - десять, двадцать или тридцать минут.',
   subheadline:
     'Лёгкий массажный шлем для кожи головы весом 1,0 кг с отдельным пультом. Четыре режима LED, массаж воздушным давлением и регулируемый нагрев работают вместе или независимо, а таймер завершает сеанс автоматически.',
   heroBullets: [
-    'Без рук — сидит на голове, сеанс не требует техники',
+    'Без рук - сидит на голове, сеанс не требует техники',
     'Четыре режима света: красный + ИК, синий, выкл., или все три сразу',
     'Десять, двадцать или тридцать минут, затем выключается сам. Не больше тридцати',
     'Питание от четырёх батареек AA или от USB-C адаптера в коробке',
@@ -507,7 +507,7 @@ const RU: HairGenBoosterCopy = {
       'Клинические данные эффективности именно этого устройства не представлены, поэтому мы описываем только документированные функции комфорта и массажа',
     ],
     detail:
-      'Hair-GENTRON — немедицинский прибор для ухода и массажа. При заметном или продолжающемся выпадении начните с диагностики и уточните у врача, подходит ли вам устройство.',
+      'Hair-GENTRON - немедицинский прибор для ухода и массажа. При заметном или продолжающемся выпадении начните с диагностики и уточните у врача, подходит ли вам устройство.',
     leaflet:
       'В официальной брошюре указаны длины волн 840 нм для инфракрасного, 640 нм для красного и 420 нм для синего света. Руководство не приводит число светодиодов или облучённость, поэтому эти значения не превращаются в лечебную дозу или обещание результата.',
   },
@@ -526,7 +526,7 @@ const RU: HairGenBoosterCopy = {
       {
         name: 'Размер и вес',
         dose: '230 × 240 × 300',
-        body: 'Миллиметры, шлем. Пульт 158 × 68 × 42 мм. Нетто 1,0 кг — сидит на голове, а не висит над кушеткой.',
+        body: 'Миллиметры, шлем. Пульт 158 × 68 × 42 мм. Нетто 1,0 кг - сидит на голове, а не висит над кушеткой.',
       },
       {
         name: 'Длительность',
@@ -541,7 +541,7 @@ const RU: HairGenBoosterCopy = {
       {
         name: 'Питание',
         dose: '5 В / 1,5 А',
-        body: 'USB-C адаптер в коробке, вход 100–240 В. Или четыре батарейки AA в пульте — в комплект не входят. Сам шлем на батарейках рассчитан на 6 В. Вынимайте адаптер, когда не пользуетесь, и вынимайте батарейки, если адаптер подключён.',
+        body: 'USB-C адаптер в коробке, вход 100-240 В. Или четыре батарейки AA в пульте - в комплект не входят. Сам шлем на батарейках рассчитан на 6 В. Вынимайте адаптер, когда не пользуетесь, и вынимайте батарейки, если адаптер подключён.',
       },
       {
         name: 'Гарантия',
@@ -562,7 +562,7 @@ const RU: HairGenBoosterCopy = {
       { label: 'Mesopecia Kit', value: 'AED 1,100', note: 'роллер + пилинг + шесть флаконов' },
     ],
     body:
-      'HairGen BOOSTER и Mesopecia Kit — отдельные системы со своими расходниками и инструкциями. Hair-GENTRON — многоразовый массажный шлем, который не заменяет их этапы и протоколы.',
+      'HairGen BOOSTER и Mesopecia Kit - отдельные системы со своими расходниками и инструкциями. Hair-GENTRON - многоразовый массажный шлем, который не заменяет их этапы и протоколы.',
   },
 
   howTo: {
@@ -588,7 +588,7 @@ const RU: HairGenBoosterCopy = {
       },
       {
         title: 'Выберите свет, массаж и нагрев',
-        body: 'Четыре режима света на одной кнопке. У массажа и нагрева свои. Музыка: две секунды — вкл/выкл, короткое нажатие — следующий трек. Одна песня уже записана; свои файлы копируют на пульт по USB-C.',
+        body: 'Четыре режима света на одной кнопке. У массажа и нагрева свои. Музыка: две секунды - вкл/выкл, короткое нажатие - следующий трек. Одна песня уже записана; свои файлы копируют на пульт по USB-C.',
       },
       {
         title: 'Выключается сам',
@@ -615,10 +615,10 @@ const RU: HairGenBoosterCopy = {
       { label: 'Комплектация', value: 'Шлем, подставка, пульт, кабель USB-C и адаптер' },
       { label: 'Режимы света', value: 'Красный + ИК · Синий · Выкл. · Красный + синий + ИК' },
       { label: 'Сеанс', value: '10 / 20 / 30 минут · максимум 30 минут за раз' },
-      { label: 'Питание', value: 'Адаптер 5 В 1,5 А, вход 100–240 В · или 4 × AA (не в комплекте)' },
+      { label: 'Питание', value: 'Адаптер 5 В 1,5 А, вход 100-240 В · или 4 × AA (не в комплекте)' },
       { label: 'Размер', value: 'Шлем 230 × 240 × 300 мм · пульт 158 × 68 × 42 мм · 1,0 кг' },
       { label: 'Соответствие и безопасность', value: 'Декларация соответствия ЕС: EMC 2014/30/EU и LVD 2014/35/EU · испытан по IEC/EN 60335-2-32 как портативный бытовой массажный прибор класса III' },
-      { label: 'Патент', value: 'Корея 10-2151442 · бронза выставки изобретений Кореи 2020 — награда, не доказательство эффективности' },
+      { label: 'Патент', value: 'Корея 10-2151442 · бронза выставки изобретений Кореи 2020 - награда, не доказательство эффективности' },
       { label: 'Происхождение', value: 'DTS MG Co., Ltd., Сеул · Сделано в Корее' },
     ],
   },
@@ -636,7 +636,7 @@ const RU: HairGenBoosterCopy = {
       'Нарушения кровообращения при диабете или другом заболевании',
       'Температура тела выше 38 °C',
     ],
-    note: 'Держите вдали от детей, жидкости и жары. Не используйте повреждённый адаптер и не работайте мокрыми руками. Не дольше тридцати минут. Тем, кто плохо чувствует тепло, нагрев лучше выключить. Остановитесь и обратитесь к врачу при любом необычном ощущении. Хранение 5–40 °C, влажность не выше 80%.',
+    note: 'Держите вдали от детей, жидкости и жары. Не используйте повреждённый адаптер и не работайте мокрыми руками. Не дольше тридцати минут. Тем, кто плохо чувствует тепло, нагрев лучше выключить. Остановитесь и обратитесь к врачу при любом необычном ощущении. Хранение 5-40 °C, влажность не выше 80%.',
   },
 
   video: {
@@ -655,11 +655,11 @@ const RU: HairGenBoosterCopy = {
       },
       {
         q: 'Чем это отличается от HairGen BOOSTER?',
-        a: 'HairGen BOOSTER — ручной аппарат со специальными штампом и ампулой для каждого сеанса. Hair-GENTRON — многоразовый шлем с режимами LED, массажем и нагревом, без игл и одноразовых насадок.',
+        a: 'HairGen BOOSTER - ручной аппарат со специальными штампом и ампулой для каждого сеанса. Hair-GENTRON - многоразовый шлем с режимами LED, массажем и нагревом, без игл и одноразовых насадок.',
       },
       {
         q: 'Чем это отличается от GENO-LED IR II?',
-        a: 'GENO-LED — купол на 1,710 светодиодов над кушеткой, с опубликованной таблицей дозиметрии, для лица и тела. Это килограммовый шлем для кожи головы с четырьмя режимами света и без опубликованной облучённости. Это не один и тот же прибор.',
+        a: 'GENO-LED - купол на 1,710 светодиодов над кушеткой, с опубликованной таблицей дозиметрии, для лица и тела. Это килограммовый шлем для кожи головы с четырьмя режимами света и без опубликованной облучённости. Это не один и тот же прибор.',
       },
       {
         q: 'Сколько стоит сеанс после покупки?',
@@ -672,7 +672,7 @@ const RU: HairGenBoosterCopy = {
       },
       {
         q: 'Можно ли добавить свою музыку?',
-        a: 'Да. Один трек уже записан. Подключите пульт к компьютеру по USB-C и скопируйте файлы. Короткое нажатие — следующий трек; удержание две секунды выключает музыку.',
+        a: 'Да. Один трек уже записан. Подключите пульт к компьютеру по USB-C и скопируйте файлы. Короткое нажатие - следующий трек; удержание две секунды выключает музыку.',
       },
     ],
   },

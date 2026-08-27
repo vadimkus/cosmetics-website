@@ -17,7 +17,7 @@ export const metadata: Metadata = {
         url: 'https://genosys.ae/images/genosys-products.jpg',
         width: 1200,
         height: 630,
-        alt: 'GENOSYS Middle East FZ-LLC — official UAE distributor',
+        alt: 'GENOSYS Middle East FZ-LLC - official UAE distributor',
       },
     ],
   },

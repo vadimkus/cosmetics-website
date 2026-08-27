@@ -7,7 +7,7 @@ const FREE_GIFT_PRODUCT_KEYS = new Set([
   'cmgj9ifoi00008o07p4eqmfb7', // INTENSIVE REPAIR COLLAGEN MASK db id in native promo config
 ])
 
-// No name-level exclusions currently — SRS was re-admitted to the bundle
+// No name-level exclusions currently - SRS was re-admitted to the bundle
 // builder on 2026-07-06. Category-level exclusions below still apply.
 const EXCLUDED_BUNDLE_PRODUCT_NAMES: string[] = []
 const EXCLUDED_BUNDLE_CATEGORIES = ['beauty boxes', 'pro solution']

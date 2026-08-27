@@ -4,7 +4,7 @@ import type { Product } from '@/types'
 import ConcernProductPrice from './ConcernProductPrice'
 import ConcernAddToCart from './ConcernAddToCart'
 import { translateCategory } from '@/utils/categoryTranslations'
-// Server component — static locale bundles stay out of client JS.
+// Server component - static locale bundles stay out of client JS.
 import enMessages from '@/messages/en.json'
 import arMessages from '@/messages/ar.json'
 import ruMessages from '@/messages/ru.json'
@@ -45,7 +45,7 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
     )
   }
 
-  // Product names are never translated (brand identity) — English everywhere.
+  // Product names are never translated (brand identity) - English everywhere.
   const getName = (product: Product): string => product.name
 
   // Get localized product description

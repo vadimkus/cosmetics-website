@@ -16,7 +16,7 @@ import {
 } from '@/lib/loyalty'
 
 /**
- * GET /api/user/membership — GENOSYS Rewards status for the website profile.
+ * GET /api/user/membership - GENOSYS Rewards status for the website profile.
  * Session-cookie auth (same pattern as /api/user/profile).
  */
 export async function GET() {

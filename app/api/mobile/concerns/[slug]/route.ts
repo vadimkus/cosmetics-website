@@ -12,9 +12,9 @@ import { ApiUser } from '@/types/user'
 import { localizeProductImage, localizeProductImagesJson } from '@/lib/localizedProductImages'
 
 const ROUTINE_ESSENTIALS = [
-  { productId: '10', name: 'SNOW O₂ CLEANSER', icon: '🫧', description: { en: 'Oxygen bubble cleanser — gentle yet thorough. Use morning & evening.', ar: 'غسول فقاعات الأكسجين — لطيف وعميق. للاستخدام صباحاً ومساءً.', ru: 'Кислородная пенка — мягкое и тщательное очищение. Утром и вечером.' }, price: '330 AED' },
-  { productId: '16', name: 'SNOW BOOSTER', icon: '💦', description: { en: 'Hydrating toner that preps skin for serums & actives.', ar: 'تونر مرطب يحضّر البشرة للسيرومات والمواد الفعالة.', ru: 'Увлажняющий тоник — подготовка кожи к сывороткам и активам.' }, price: '260 AED' },
-  { productId: '39', name: 'ULTRA SHIELD SPF 50+', icon: '☀️', description: { en: 'Broad-spectrum SPF 50+ — essential in the UAE sun. Apply every morning.', ar: 'واقي شمس واسع الطيف SPF 50+ — ضروري لشمس الإمارات. ضعيه كل صباح.', ru: 'SPF 50+ широкого спектра — необходим под солнцем ОАЭ. Каждое утро.' }, price: '250 AED' },
+  { productId: '10', name: 'SNOW O₂ CLEANSER', icon: '🫧', description: { en: 'Oxygen bubble cleanser - gentle yet thorough. Use morning & evening.', ar: 'غسول فقاعات الأكسجين - لطيف وعميق. للاستخدام صباحاً ومساءً.', ru: 'Кислородная пенка - мягкое и тщательное очищение. Утром и вечером.' }, price: '330 AED' },
+  { productId: '16', name: 'SNOW BOOSTER', icon: '💦', description: { en: 'Hydrating toner that preps skin for serums & actives.', ar: 'تونر مرطب يحضّر البشرة للسيرومات والمواد الفعالة.', ru: 'Увлажняющий тоник - подготовка кожи к сывороткам и активам.' }, price: '260 AED' },
+  { productId: '39', name: 'ULTRA SHIELD SPF 50+', icon: '☀️', description: { en: 'Broad-spectrum SPF 50+ - essential in the UAE sun. Apply every morning.', ar: 'واقي شمس واسع الطيف SPF 50+ - ضروري لشمس الإمارات. ضعيه كل صباح.', ru: 'SPF 50+ широкого спектра - необходим под солнцем ОАЭ. Каждое утро.' }, price: '250 AED' },
 ]
 
 type Locale = 'en' | 'ar' | 'ru'

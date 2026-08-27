@@ -143,7 +143,7 @@ export async function POST(
     // Invalidate all other tokens for this user (security best practice)
     await invalidateUserTokens(verification.userId)
     
-    // Revoke ALL existing sessions/tokens on every device — if the reset was
+    // Revoke ALL existing sessions/tokens on every device - if the reset was
     // triggered because the account was compromised, the attacker's session
     // must not survive the password change.
     await bumpTokenVersion(verification.userId)

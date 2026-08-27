@@ -186,7 +186,7 @@ const ProductImage = memo(function ProductImage({
         />
       </button>
       
-      {/* Sold Out / Restock Badge — always top-left: the favorite button owns
+      {/* Sold Out / Restock Badge - always top-left: the favorite button owns
           the top-right corner, so the badge must not share it. */}
       {!product.inStock && (
         <div className="absolute top-2 left-2 z-30">
@@ -197,7 +197,7 @@ const ProductImage = memo(function ProductImage({
       )}
 
       {/* NOTE: the "New" badge for recent launches renders in ProductInfo's
-          category row — never over the image, which uses studio-style shots. */}
+          category row - never over the image, which uses studio-style shots. */}
     </div>
   )
 })

@@ -8,8 +8,8 @@
  *
  * The page has an unusual job. The product is named after an ingredient that
  * is dosed at 10 ppm, and every piece of copy the brand ships leads on it. So
- * this page leads on what is actually at a functional dose — glycerin 5.04%,
- * methylpropanediol 10%, betaine 0.5%, allantoin and panthenol at 0.1% — and
+ * this page leads on what is actually at a functional dose - glycerin 5.04%,
+ * methylpropanediol 10%, betaine 0.5%, allantoin and panthenol at 0.1% - and
  * on the Eucalace® sheet, which is the genuine engineering. The algae gets its
  * own section stating the dose plainly, because GENOSYS already print "(10ppm)"
  * on the back of the pouch and papering over it would be the only dishonest
@@ -17,7 +17,7 @@
  *
  * Do not add: "dermatologically tested" (not on the pouch, no report in the
  * dossier), any hydration percentage (no efficacy study exists), the deck's
- * ingredient-dictionary claims at 1–10 ppm, the contract manufacturer, or the
+ * ingredient-dictionary claims at 1-10 ppm, the contract manufacturer, or the
  * lot code. See the source audit for the full list.
  */
 

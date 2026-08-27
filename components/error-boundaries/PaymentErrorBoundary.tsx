@@ -20,7 +20,7 @@ export function PaymentErrorBoundary({ children, onError }: PaymentErrorBoundary
   const config: ErrorBoundaryConfig = {
     featureName: 'Payment',
     title: 'Unable to load payment details',
-    description: "We couldn't load the payment information. Your payment may have been processed successfully — please check your email for confirmation or contact support.",
+    description: "We couldn't load the payment information. Your payment may have been processed successfully - please check your email for confirmation or contact support.",
     icon: (
       <div className="relative">
         <CreditCard className="h-16 w-16 text-gray-400 mx-auto" />

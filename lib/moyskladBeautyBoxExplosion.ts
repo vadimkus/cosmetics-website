@@ -1,5 +1,5 @@
 /**
- * Beauty boxes on genosys.ae are web-only bundles — no 1:1 MoySklad SKU.
+ * Beauty boxes on genosys.ae are web-only bundles - no 1:1 MoySklad SKU.
  * Explode each box into individual retail products for warehouse picks + accounting.
  *
  * Retail list prices match product descriptions (sum = box regular price before 15% off).

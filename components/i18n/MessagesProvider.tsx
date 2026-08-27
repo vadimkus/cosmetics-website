@@ -14,7 +14,7 @@ import type { Messages } from '@/types/translations'
  * instead of re-importing every locale JSON bundle.
  *
  * Net effect: the client payload ships ~1/3 of the previous translation
- * data (~124–196 KB instead of ~488 KB).
+ * data (~124-196 KB instead of ~488 KB).
  */
 interface MessagesContextValue {
   messages: Messages

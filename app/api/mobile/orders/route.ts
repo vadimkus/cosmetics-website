@@ -18,7 +18,7 @@ import { estimateOrderPoints, resolveRedemptionForCheckout, recordRedemption, lo
  * Points earned per order for display in order history.
  * Real ORDER_EARN ledger entries win; delivered orders from before the
  * program launch (covered by the aggregate BACKFILL credit) fall back to
- * the backfill formula (1 pt per AED of total) — rewards-track users only.
+ * the backfill formula (1 pt per AED of total) - rewards-track users only.
  */
 async function getEarnedPointsByOrder(
   orders: Array<{ id: string; status: string; total: number }>,
@@ -653,7 +653,7 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // COD orders are committed immediately — deduct the redeemed points now.
+    // COD orders are committed immediately - deduct the redeemed points now.
     // Card orders defer the ledger write to the Stripe webhook (payment success).
     if (loyaltyRedemption.points > 0 && (orderData.paymentMethod || 'cod') === 'cod') {
       try {
@@ -670,7 +670,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Schedule background tasks with after() — emails
+    // Schedule background tasks with after() - emails
     // MoySklad sync is done manually via admin panel "Push to MoySklad" button
     after(async () => {
       // 1. Send order confirmation email to customer (HIGHEST PRIORITY)

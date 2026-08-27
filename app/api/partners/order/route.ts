@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
       const size = line.size ? String(line.size) : undefined
       const color = line.color ? String(line.color) : undefined
 
-      // Consignment stock is retail products only — professional sizes,
+      // Consignment stock is retail products only - professional sizes,
       // PRO Solutions and equipment must go on credit/paid orders.
       if (paymentOption === 'consignment') {
         const blocked = consignmentBlockReason(product, size)
@@ -189,7 +189,7 @@ export async function POST(request: NextRequest) {
       : paymentOption === 'credit'
         ? `CREDIT ${creditDays} DAYS (due ${paymentDueDate!.toLocaleDateString('en-GB')})`
         : paymentOption === 'online' ? 'ONLINE CARD PAYMENT' : 'CASH ON DELIVERY'
-    const partnerTag = `PARTNER ORDER — ${user.name || user.email}\nSettlement: ${settlementLabel}`
+    const partnerTag = `PARTNER ORDER - ${user.name || user.email}\nSettlement: ${settlementLabel}`
     const orderNotes = orderNotesInput ? `${partnerTag}\n${orderNotesInput}` : partnerTag
 
     const dbOrder: OrderData = {
@@ -272,7 +272,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Notify admin (Vadim) — same channel as retail orders. He then pushes to MoySklad.
+    // Notify admin (Vadim) - same channel as retail orders. He then pushes to MoySklad.
     after(async () => {
       try {
         await sendAdminNewOrderNotification({
@@ -295,7 +295,7 @@ export async function POST(request: NextRequest) {
           vat,
           emirate,
           paymentStatus: total === 0 ? 'PAID' : 'PENDING',
-          paymentMethod: `Partner — ${settlementLabel}`,
+          paymentMethod: `Partner - ${settlementLabel}`,
           discountPercentage: discountPct > 0 ? discountPct : undefined,
           clinicPointsDiscountAmount: clinicPointsRedeemed || undefined,
         })

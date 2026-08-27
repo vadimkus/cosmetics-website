@@ -325,7 +325,7 @@ export default function EditProfilePage() {
     saving: locale === 'ar' ? 'جارٍ الحفظ...' : locale === 'ru' ? 'Сохранение...' : 'Saving...',
     profilePicture: locale === 'ar' ? 'الصورة' : locale === 'ru' ? 'Фото' : 'Photo',
     tapToChange: locale === 'ar' ? 'اضغط لتغيير الصورة' : locale === 'ru' ? 'Нажмите для изменения' : 'Tap to change photo',
-    // Section heading below h1 — renamed from "Personal Information" to
+    // Section heading below h1 - renamed from "Personal Information" to
     // avoid duplicating the page title (a11y: two identical headings).
     personalInfo: locale === 'ar' ? 'الاسم والتواصل' : locale === 'ru' ? 'Имя и контакты' : 'Name & Contact',
     firstName: locale === 'ar' ? 'الاسم الأول' : locale === 'ru' ? 'Имя' : 'First Name',
@@ -422,7 +422,7 @@ export default function EditProfilePage() {
       </div>
 
       {/*
-       * Unified nav header — matches addresses/language/billing/passkeys/promo
+       * Unified nav header - matches addresses/language/billing/passkeys/promo
        * exactly: z-10 (not z-50), no `safe-area-top` padding. The previous
        * `safe-area-top` double-padded the header on notched devices, making
        * it visibly taller than every other profile-stack page. The toast
@@ -557,7 +557,7 @@ export default function EditProfilePage() {
                   placeholder={translations.lastName}
                 />
               </div>
-              {/* Email (read-only) — lock icon + hint tells users why it's
+              {/* Email (read-only) - lock icon + hint tells users why it's
                    shown but not editable, clarifying the two-email UX. */}
               <div className="px-4 py-3 border-b border-[var(--cera-line)]">
                 <label htmlFor="email" className={`text-sm font-medium text-[var(--cera-body)] mb-1 flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
@@ -595,7 +595,7 @@ export default function EditProfilePage() {
                   placeholder={translations.contactEmail}
                   dir="ltr"
                 />
-                {/* Neutral gray hint — previous amber pill read as a warning
+                {/* Neutral gray hint - previous amber pill read as a warning
                      when it's just informational. */}
                 <p className={`text-xs text-[var(--cera-muted)] mt-1 flex items-center gap-1.5 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
                   <Mail className="w-3 h-3" aria-hidden="true" />

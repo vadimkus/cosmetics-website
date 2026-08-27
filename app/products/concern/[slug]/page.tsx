@@ -20,7 +20,7 @@ import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
 export const revalidate = 3600 // Revalidate every hour
-// Unknown concern slugs return a genuine 404 (not a soft 404) — see the
+// Unknown concern slugs return a genuine 404 (not a soft 404) - see the
 // category page for the rationale.
 export const dynamicParams = false
 
@@ -135,7 +135,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
   return (
     <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
       {/* Structured Data */}
-      {/* Breadcrumb JSON-LD points to indexable pages only — the previous
+      {/* Breadcrumb JSON-LD points to indexable pages only - the previous
           intermediate `/products?categories=skin-concern` is a client-filtered
           view with no canonical, which mislead Google's breadcrumb graph. */}
       <BreadcrumbSchema
@@ -157,10 +157,10 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
 
       <ConcernHero concern={concern} locale="en" />
 
-      {/* Why Section — Collapsible on mobile */}
+      {/* Why Section - Collapsible on mobile */}
       {why && <ConcernWhySection title={why.title} items={why.items} />}
 
-      {/* Protocol PDF Download — collapsible */}
+      {/* Protocol PDF Download - collapsible */}
       {concern.protocolPdf && (
         <section className="px-4 pb-8 sm:pb-10">
           <div className="max-w-4xl mx-auto">
@@ -212,7 +212,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* Skincare Routine — collapsible steps */}
+      {/* Skincare Routine - collapsible steps */}
       {routine && routine.length > 0 && (
         <section className="px-4 pb-8 sm:pb-12">
           <div className="max-w-4xl mx-auto">
@@ -266,7 +266,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* Products Grid — collapsible */}
+      {/* Products Grid - collapsible */}
       <section className="py-8 sm:py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <details className="group" open>
@@ -286,7 +286,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
       {/* Start Your Routine CTA */}
       <ConcernCTA locale="en" />
 
-      {/* Full Intro (below products for SEO — detailed content for crawlers and interested readers) */}
+      {/* Full Intro (below products for SEO - detailed content for crawlers and interested readers) */}
       <section className="px-4 pb-8">
         <div className="max-w-3xl mx-auto">
           <p className="text-sm text-[var(--cera-muted)] leading-relaxed">

@@ -5,7 +5,7 @@
  *
  * The only device in the catalogue and the most expensive thing on the site at
  * AED 5,500, and until now the one big-ticket item still rendering the generic
- * PDP. Built on the shared editorial system — cerabarrier.css for structure,
+ * PDP. Built on the shared editorial system - cerabarrier.css for structure,
  * genoled.css for a cooler instrument palette.
  *
  * Where it diverges from the cosmetics pages, and why:
@@ -17,7 +17,7 @@
  *   - A protocol section instead of a routine rail, because the manufacturer
  *     documents the device inside sequences built on five products we stock.
  *   - A citation block. GENO-LED is the LLLT device named in Gentile et al.,
- *     Biomedicines 2019 — stated precisely, since the light was an adjunct to
+ *     Biomedicines 2019 - stated precisely, since the light was an adjunct to
  *     the injections rather than the intervention measured.
  *
  * Every figure comes from genoLedCopy.ts, which traces to the source audit in
@@ -886,7 +886,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
             <div className="min-w-0">
               <p className="cera-serif truncate text-[16px] text-[var(--cera-ink)]">{product.name}</p>
               <p dir="ltr" className={`truncate text-[11px] text-[var(--cera-muted)] ${isRtl ? 'text-right' : ''}`}>
-                1,710 LED · 423–830 nm · 70 W
+                1,710 LED · 423-830 nm · 70 W
               </p>
             </div>
           </div>

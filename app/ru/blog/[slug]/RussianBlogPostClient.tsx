@@ -62,7 +62,7 @@ export default function RussianBlogPostClient({
 
       <div className="container mx-auto px-3 md:px-4 py-4 md:py-16">
         <div className="max-w-4xl mx-auto">
-          {/* Prominent back-to-articles link — visible on all viewports */}
+          {/* Prominent back-to-articles link - visible on all viewports */}
           <Link
             href={getLocalizedPath('/blog', locale)}
             className="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] mb-6 md:mb-8 transition-colors"

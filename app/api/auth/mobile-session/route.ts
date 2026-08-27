@@ -15,7 +15,7 @@ import { debugLog, errorLog } from '@/lib/logger'
  *
  * The mobile JWT already contains userId, email, name, isAdmin, canSeePrices
  * (set at login time), so we create the session directly from the verified token
- * payload — no database query needed. This makes the route fast and immune to
+ * payload - no database query needed. This makes the route fast and immune to
  * DB cold-start issues.
  *
  * Query params:
@@ -25,7 +25,7 @@ import { debugLog, errorLog } from '@/lib/logger'
  *   - locale: Locale prefix (optional, e.g. "ar", "ru")
  */
 export async function GET(request: NextRequest) {
-  // Default redirect target — set BEFORE any parsing so it's always available
+  // Default redirect target - set BEFORE any parsing so it's always available
   let targetPath = '/bundle-builder'
 
   try {
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
       return htmlRedirect(targetPath)
     }
 
-    // Verify mobile JWT token — this also checks expiration
+    // Verify mobile JWT token - this also checks expiration
     const payload = verifyMobileToken(token)
     if (!payload) {
       debugLog('[MOBILE-SESSION] Invalid or expired mobile token')
@@ -63,7 +63,7 @@ export async function GET(request: NextRequest) {
     debugLog('[MOBILE-SESSION] Token valid for userId:', payload.userId)
 
     // Create a web session token directly from the verified JWT payload.
-    // No DB lookup needed — the mobile JWT was signed by us and contains
+    // No DB lookup needed - the mobile JWT was signed by us and contains
     // all the fields we need (userId, email, name, isAdmin, canSeePrices).
     const sessionToken = createSessionToken({
       id: payload.userId,
@@ -78,7 +78,7 @@ export async function GET(request: NextRequest) {
 
     debugLog('[MOBILE-SESSION] Session created for user:', payload.email)
 
-    // Return HTML page that will navigate to the target — cookie is set via header
+    // Return HTML page that will navigate to the target - cookie is set via header
     const response = htmlRedirect(targetPath)
     response.cookies.set('genosys_session', sessionToken, {
       httpOnly: true,
@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
     return response
   } catch (error) {
     errorLog('[MOBILE-SESSION] Unexpected error:', error)
-    // ALWAYS return a redirect — never let this route return 500
+    // ALWAYS return a redirect - never let this route return 500
     return htmlRedirect(targetPath)
   }
 }

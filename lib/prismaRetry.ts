@@ -4,7 +4,7 @@ import { errorLog, debugLog, warnLog } from '@/lib/logger'
 /**
  * Transient error codes from the Node.js / libuv layer that Prisma Accelerate
  * (HTTP-based) and the pg driver can surface during ephemeral network issues.
- * A retry is safe because these occur *before* the query lands in Postgres —
+ * A retry is safe because these occur *before* the query lands in Postgres -
  * the DB has not processed anything.
  */
 const TRANSIENT_ERROR_CODES = new Set([
@@ -18,21 +18,21 @@ const TRANSIENT_ERROR_CODES = new Set([
   // Prisma error codes (PrismaClientKnownRequestError.code) that indicate a
   // transient transport/engine problem, not a data problem. Safe to retry on
   // idempotent reads.
-  //   P1001 — Can't reach database server
-  //   P1002 — Database server timed out
-  //   P1008 — Operations timed out after Nms
-  //   P1017 — Server has closed the connection
+  //   P1001 - Can't reach database server
+  //   P1002 - Database server timed out
+  //   P1008 - Operations timed out after Nms
+  //   P1017 - Server has closed the connection
   'P1001',
   'P1002',
   'P1008',
   'P1017',
-  //   P5000 — Generic server error from Accelerate
-  //   P5008 — Accelerate healthcheck failed / unhealthy server
-  //   P5009 — Accelerate request timeout
-  //   P5011 — Request timed out (Accelerate proxy → engine)
-  //   P6000 — Accelerate proxy/engine transport failure
-  //   P6004 — Accelerate query timeout
-  //   P6008 — Connection / engine start error in Accelerate
+  //   P5000 - Generic server error from Accelerate
+  //   P5008 - Accelerate healthcheck failed / unhealthy server
+  //   P5009 - Accelerate request timeout
+  //   P5011 - Request timed out (Accelerate proxy → engine)
+  //   P6000 - Accelerate proxy/engine transport failure
+  //   P6004 - Accelerate query timeout
+  //   P6008 - Connection / engine start error in Accelerate
   'P5000',
   'P5008',
   'P5009',
@@ -51,7 +51,7 @@ const TRANSIENT_ERROR_CODES = new Set([
  * Two groups:
  * 1. Socket / transport (undici, pg driver, Prisma Accelerate HTTP transport)
  * 2. Prisma query engine panics (Rust binary state corruption on serverless
- *    cold starts or connection reuse — next attempt with a fresh engine
+ *    cold starts or connection reuse - next attempt with a fresh engine
  *    almost always succeeds)
  */
 const TRANSIENT_MESSAGE_PATTERNS = [
@@ -70,17 +70,17 @@ const TRANSIENT_MESSAGE_PATTERNS = [
   // prod via Sentry (JAVASCRIPT-NEXTJS-1M, 2026-08-05, `getProductById`) with
   // `@prisma/adapter-pg`. The pooler is reachable; the upstream Postgres
   // compute is briefly unavailable (wake/suspend race or pooler flap). Safe
-  // to retry on idempotent reads — without this pattern the error is treated
+  // to retry on idempotent reads - without this pattern the error is treated
   // as permanent (`transient=false`), skips retries, and bypasses the static
   // product catalog fallback.
   /Failed to connect to upstream database/i,
 
-  // 2. Prisma query engine panics — observed in prod via Sentry
+  // 2. Prisma query engine panics - observed in prod via Sentry
   //    (JAVASCRIPT-NEXTJS-4, 2026-04-18, `getProductById`)
   /null pointer passed to rust/i,
   /Rust panic/i,
 
-  // 3. Prisma Accelerate proxy ↔ query engine transport failures —
+  // 3. Prisma Accelerate proxy ↔ query engine transport failures -
   //    observed in prod via Sentry (2026-04-20, `getProductById`).
   //    Accelerate's HTTP proxy could not reach the remote Rust engine for
   //    this request; the DB itself was never touched, so retrying an
@@ -168,7 +168,7 @@ interface RetryOpts<T> {
 /**
  * Wraps a Prisma read with bounded retries for transient network errors.
  *
- * Suitable for **idempotent** operations only — reads, and writes that
+ * Suitable for **idempotent** operations only - reads, and writes that
  * tolerate re-execution (upserts with natural keys). Do NOT wrap multi-step
  * transactions or non-idempotent writes without careful review.
  *

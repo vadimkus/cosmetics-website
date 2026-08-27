@@ -89,9 +89,9 @@ describe('ScrollToTop', () => {
   })
 
   /**
-   * The bug this was reported for: the buy bar grew after the last scroll — prices
+   * The bug this was reported for: the buy bar grew after the last scroll - prices
    * resolving for a signed-in customer, or the quantity passing one and adding a per-unit
-   * line — and the control stayed where a shorter bar had put it, on top of the price.
+   * line - and the control stayed where a shorter bar had put it, on top of the price.
    */
   it('re-measures when the bar changes height without a scroll', async () => {
     const observed: Element[] = []
@@ -121,7 +121,7 @@ describe('ScrollToTop', () => {
     await waitFor(() => expect(button).toHaveStyle({ bottom: '96px' }))
     expect(observed).toContain(bar)
 
-    // The bar grows. No scroll, no resize — only the observer can catch this.
+    // The bar grows. No scroll, no resize - only the observer can catch this.
     height = 130
     act(() => fire?.())
 

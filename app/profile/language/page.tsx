@@ -38,12 +38,12 @@ export default function LanguagePage() {
   const fromPage = searchParams?.get('from')
 
   // Track which specific option the user tapped so we can spin only that
-  // card while the locale switch is in flight — previously every card
+  // card while the locale switch is in flight - previously every card
   // faded to 50% opacity during the transition, which looked like the
   // whole list had been disabled.
   const [switchingTo, setSwitchingTo] = useState<string | null>(null)
 
-  // Native names are self-identifying — Apple's iOS Settings pattern.
+  // Native names are self-identifying - Apple's iOS Settings pattern.
   // We dropped the second "Russian" / "Arabic" label line so all three
   // cards render at identical heights.
   const options = [
@@ -73,7 +73,7 @@ export default function LanguagePage() {
 
   // Hard navigation, not router.replace. MessagesProvider is populated by the root
   // layout, which App Router does not re-render when navigating between routes that
-  // share it, so a soft nav leaves this page rendering the previous locale — the very
+  // share it, so a soft nav leaves this page rendering the previous locale - the very
   // thing the page exists to change. The helper also writes NEXT_LOCALE so the choice
   // persists, which the old implementation never did.
   const handleLanguageChange = async (newLocale: 'en' | 'ar' | 'ru') => {

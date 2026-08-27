@@ -12,7 +12,7 @@ import type { OrderHTMLData } from './types'
  */
 /**
  * Check if an item name indicates a product that is excluded from user VIP discounts.
- * Devices and Hydro Cool Mask have fixed pricing — no discount display at all.
+ * Devices and Hydro Cool Mask have fixed pricing - no discount display at all.
  */
 function isFixedPriceItem(itemName: string): boolean {
   const name = (itemName || '').trim().toLowerCase()

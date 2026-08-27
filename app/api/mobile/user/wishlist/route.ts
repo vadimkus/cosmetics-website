@@ -5,7 +5,7 @@ import { debugLog, errorLog } from '@/lib/logger'
 import { prisma } from '@/lib/database'
 
 /**
- * Mobile User Wishlist Endpoint (DB-backed — wishlist_items table)
+ * Mobile User Wishlist Endpoint (DB-backed - wishlist_items table)
  *
  * GET    /api/mobile/user/wishlist                    - Get user's wishlist
  * POST   /api/mobile/user/wishlist                    - Add item to wishlist
@@ -159,7 +159,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Idempotent add — @@unique([userId, productId]) makes duplicates a no-op
+    // Idempotent add - @@unique([userId, productId]) makes duplicates a no-op
     const existing = await prisma.wishlistItem.findUnique({
       where: { userId_productId: { userId: user.id, productId } },
     })

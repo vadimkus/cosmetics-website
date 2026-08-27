@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
   try {
     // Admin-only: triggers outbound requests to search engines.
     // NOTE: the previous check only verified the header *format*
-    // ("Bearer " prefix) — any token value passed.
+    // ("Bearer " prefix) - any token value passed.
     const auth = await requireAdminAuth(request)
     if (!auth.authorized) {
       return auth.response

@@ -31,7 +31,7 @@ export type Locale = 'en' | 'ar' | 'ru'
  * line says what happens next or what the customer can do, rather than celebrating.
  *
  * `{orderNumber}` is the placeholder. It used to be `#{orderNumber}`, where the `#` was
- * silently eaten by the substitution — so every message read "your order 46125502" while
+ * silently eaten by the substitution - so every message read "your order 46125502" while
  * the source looked like it said "#46125502". Each language now places the number the way
  * it should: Russian takes № , Arabic takes none, since a leading # in right-to-left text
  * lands on the wrong end of the digits.
@@ -91,7 +91,7 @@ const ORDER_STATUS_MESSAGES: Record<OrderStatus, Record<Locale, NotificationCont
     ru: {
       title: 'Оплата получена',
       subtitle: 'Заказ № {orderNumber}',
-      body: 'Больше ничего не нужно — собираем заказ к отправке.',
+      body: 'Больше ничего не нужно - собираем заказ к отправке.',
     },
   },
   SHIPPED: {
@@ -142,7 +142,7 @@ const ORDER_STATUS_MESSAGES: Record<OrderStatus, Record<Locale, NotificationCont
     ru: {
       title: 'Заказ отменён',
       subtitle: 'Заказ № {orderNumber}',
-      body: 'Если это неожиданно — напишите нам, и мы всё поправим.',
+      body: 'Если это неожиданно - напишите нам, и мы всё поправим.',
     },
   },
 }
@@ -300,8 +300,8 @@ export async function sendBatchPushNotifications(
  *
  * `sendBatchPushNotifications` above counts successes but throws the mapping
  * back to tokens away, so a caller cannot prune stale rows. This one keeps the
- * positional link between a chunk and its tickets — Expo returns tickets in
- * request order — and hands back every token the service rejected as
+ * positional link between a chunk and its tickets - Expo returns tickets in
+ * request order - and hands back every token the service rejected as
  * `DeviceNotRegistered` so the caller can clear it.
  */
 export async function sendExpoPushToTokens(

@@ -5,12 +5,12 @@ import { getLocalizedPath } from '@/lib/i18n'
 import type { Locale } from '@/lib/i18n'
 
 /**
- * HomeItemListSchema — Server Component (pure JSON-LD emitter)
+ * HomeItemListSchema - Server Component (pure JSON-LD emitter)
  *
  * Emits three `ItemList` JSON-LD blobs that mirror the visible homepage rails:
- *   1. Category rail      (6 items — "Shop by category")
- *   2. Concern grid       (8 items — "Shop by skin concern")
- *   3. Featured products  (4 items — "What's popular right now")
+ *   1. Category rail      (6 items - "Shop by category")
+ *   2. Concern grid       (8 items - "Shop by skin concern")
+ *   3. Featured products  (4 items - "What's popular right now")
  *
  * Why ItemList (not Breadcrumb / CollectionPage):
  *   - The homepage rails are curated index lists, not a hierarchical breadcrumb
@@ -20,26 +20,26 @@ import type { Locale } from '@/lib/i18n'
  *     "what categories / concerns / bestsellers does X sell?" with structured
  *     output instead of inference
  *
- * Localized — the URLs and names honor `/ar` / `/ru` prefixes so each locale
+ * Localized - the URLs and names honor `/ar` / `/ru` prefixes so each locale
  * homepage gets its own ItemList pointing at its own URLs.
  *
  * Featured items include a complete Offer for Merchant listings:
- *   - `price` / `priceValidUntil` (critical Product snippets — fixed 2026-07-11)
+ *   - `price` / `priceValidUntil` (critical Product snippets - fixed 2026-07-11)
  *   - `shippingDetails` + `hasMerchantReturnPolicy` + Product `description`
- *     (non-critical Merchant listings — fixed 2026-07-28)
+ *     (non-critical Merchant listings - fixed 2026-07-28)
  * Products without a valid price (price ≤ 0 or price-on-request) are emitted
  * as URL-only ListItems, which is Google's recommended summary-page pattern.
  */
 
 // Google requires offers.priceValidUntil for Product rich-result eligibility.
-// Same convention as ProductSchema.tsx — rolled ~1 year forward.
+// Same convention as ProductSchema.tsx - rolled ~1 year forward.
 const PRICE_VALID_UNTIL = `${new Date().getFullYear() + 1}-12-31`
 
 interface HomeItemListSchemaProps {
   locale: Locale
   /** Same 6 slugs rendered on the homepage category rail, in display order. */
   featuredCategorySlugs: readonly string[]
-  /** Featured products rail — usually 4 items. */
+  /** Featured products rail - usually 4 items. */
   featuredProducts: Product[]
 }
 
@@ -71,7 +71,7 @@ function localizedH1(seo: {
 }
 
 function localizedProductName(p: Product, _locale: Locale): string {
-  // Product names are never translated (brand identity) — English everywhere.
+  // Product names are never translated (brand identity) - English everywhere.
   return p.name
 }
 
@@ -96,16 +96,16 @@ export default function HomeItemListSchema({
     '@type': 'ItemList',
     name:
       locale === 'ar'
-        ? 'تسوق حسب الفئة — GENOSYS'
+        ? 'تسوق حسب الفئة - GENOSYS'
         : locale === 'ru'
-        ? 'Категории — GENOSYS'
-        : 'Shop by category — GENOSYS',
+        ? 'Категории - GENOSYS'
+        : 'Shop by category - GENOSYS',
     itemListOrder: 'https://schema.org/ItemListOrderAscending',
     numberOfItems: categoryItems.length,
     itemListElement: categoryItems,
   }
 
-  // 2. Concern grid — always all 8 concerns (matches UI)
+  // 2. Concern grid - always all 8 concerns (matches UI)
   const concernItems = CONCERN_PAGES.map((concern, idx) => ({
     '@type': 'ListItem',
     position: idx + 1,
@@ -118,10 +118,10 @@ export default function HomeItemListSchema({
     '@type': 'ItemList',
     name:
       locale === 'ar'
-        ? 'تسوق حسب مشكلة البشرة — GENOSYS'
+        ? 'تسوق حسب مشكلة البشرة - GENOSYS'
         : locale === 'ru'
-        ? 'Подбор по задаче кожи — GENOSYS'
-        : 'Shop by skin concern — GENOSYS',
+        ? 'Подбор по задаче кожи - GENOSYS'
+        : 'Shop by skin concern - GENOSYS',
     itemListOrder: 'https://schema.org/ItemListOrderAscending',
     numberOfItems: concernItems.length,
     itemListElement: concernItems,
@@ -144,7 +144,7 @@ export default function HomeItemListSchema({
       const productName = localizedProductName(product, locale)
       const description =
         (product.description || '').trim() ||
-        `${productName} — GENOSYS professional Korean dermacosmetics.`
+        `${productName} - GENOSYS professional Korean dermacosmetics.`
       const nested: Record<string, unknown> = {
         '@type': 'Product',
         name: productName,
@@ -215,10 +215,10 @@ export default function HomeItemListSchema({
     '@type': 'ItemList',
     name:
       locale === 'ar'
-        ? 'الأكثر مبيعاً — GENOSYS'
+        ? 'الأكثر مبيعاً - GENOSYS'
         : locale === 'ru'
-        ? 'Хиты сезона — GENOSYS'
-        : 'What\u2019s popular right now — GENOSYS',
+        ? 'Хиты сезона - GENOSYS'
+        : 'What\u2019s popular right now - GENOSYS',
     itemListOrder: 'https://schema.org/ItemListOrderAscending',
     numberOfItems: featuredItems.length,
     itemListElement: featuredItems,

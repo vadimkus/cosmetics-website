@@ -1,6 +1,6 @@
 /**
  * Power Solution boxes on genosys.ae are sold as 10-vial kits.
- * MoySklad often has vial stock but no box stock — explode each box line
+ * MoySklad often has vial stock but no box stock - explode each box line
  * into individual vials (1 box = 10 vials) on admin push.
  *
  * Retail: box price ÷ 10 per vial (e.g. 580 AED box → 10 × 58 AED vials).

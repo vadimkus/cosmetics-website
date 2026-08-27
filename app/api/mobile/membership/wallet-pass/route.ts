@@ -8,7 +8,7 @@ import { errorLog } from '@/lib/logger'
  * GET /api/mobile/membership/wallet-pass
  *
  * Returns a .pkpass file that iOS can add to Apple Wallet.
- * On the mobile app, call: Linking.openURL(passUrl) — iOS handles the rest.
+ * On the mobile app, call: Linking.openURL(passUrl) - iOS handles the rest.
  *
  * SETUP REQUIRED:
  * 1. Apple Developer Portal → Certificates → Pass Type IDs → create one (e.g. pass.ae.genosys.membership)

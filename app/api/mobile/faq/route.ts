@@ -1,7 +1,7 @@
 /**
  * Mobile FAQ API - GET /api/mobile/faq
  * Returns FAQ content for the native mobile app.
- * Reads from the faq_items database table — add/edit/reorder
+ * Reads from the faq_items database table - add/edit/reorder
  * FAQ items in the admin panel and they appear in the app automatically.
  *
  * Accepts x-locale header: 'en' | 'ar' | 'ru' (defaults to 'en')

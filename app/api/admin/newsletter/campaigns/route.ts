@@ -11,11 +11,11 @@ import { sendNewsletterCampaignEmail } from '@/lib/email'
 type LocaleFilter = 'en' | 'ar' | 'ru' | null
 type Status = 'draft' | 'sending' | 'sent' | 'failed' | 'cancelled'
 
-// Delay between emails — keeps us well under Gmail SMTP bursts (60+/sec headroom).
+// Delay between emails - keeps us well under Gmail SMTP bursts (60+/sec headroom).
 const SEND_DELAY_MS = 150
 // Max rows per campaign in a single invocation. On Vercel Pro (60s timeout) this is
 // ~400 recipients @ 150ms; bump MAX_SEND_CAP or split across invocations if you
-// cross that threshold. Serverless limits are real — don't pretend otherwise.
+// cross that threshold. Serverless limits are real - don't pretend otherwise.
 const MAX_SEND_CAP = 2000
 
 function isLocaleFilter(v: unknown): v is LocaleFilter {
@@ -25,7 +25,7 @@ function isLocaleFilter(v: unknown): v is LocaleFilter {
 /**
  * GET /api/admin/newsletter/campaigns
  * Query: limit? (default 20), offset? (default 0)
- * Lists campaigns newest first — used for the "History" panel.
+ * Lists campaigns newest first - used for the "History" panel.
  */
 export async function GET(request: NextRequest) {
   const auth = await requireAdminAuth(request)
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
 
     const bodyHtml = renderNewsletterMarkdown(bodyMarkdown)
     if (!bodyHtml) {
-      return NextResponse.json({ success: false, error: 'Body rendered empty — check your markdown.' }, { status: 400 })
+      return NextResponse.json({ success: false, error: 'Body rendered empty - check your markdown.' }, { status: 400 })
     }
 
     // Count recipients BEFORE creating the campaign so we can refuse bad requests early.
@@ -200,7 +200,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: result.success, campaign: final })
     }
 
-    // Production send — kick off in background, return campaign immediately.
+    // Production send - kick off in background, return campaign immediately.
     after(async () => {
       await runProductionSend(campaign.id, { localeFilter, sourceFilter, subject, bodyHtml })
     })
@@ -217,7 +217,7 @@ export async function POST(request: NextRequest) {
  * sends one email per subscriber, and updates the campaign row in batches of 10
  * so the admin UI sees live progress.
  *
- * If the serverless function dies mid-send, the campaign stays in 'sending' —
+ * If the serverless function dies mid-send, the campaign stays in 'sending' -
  * that's a known failure mode, flagged by a stale `startedAt` on the frontend.
  */
 async function runProductionSend(

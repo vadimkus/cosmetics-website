@@ -134,7 +134,7 @@ export default function PartnersList() {
 
   return (
     <div className="mb-10 md:mb-14" dir={dir}>
-      {/* Filter bar — desktop only */}
+      {/* Filter bar - desktop only */}
       <div className="hidden md:block sticky top-0 z-10 -mx-4 mb-8 border-y border-gray-100 bg-white/90 px-4 py-4 backdrop-blur supports-[backdrop-filter]:bg-white/70">
         <div className="flex flex-wrap items-center gap-3">
           {/* Search */}

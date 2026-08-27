@@ -229,7 +229,7 @@ export async function GET(
         descriptionAr: true,
         image: true,
         images: true,
-        videoUrl: true, // Product video (e.g., /videos/bio.mp4) — dynamic, no app update needed
+        videoUrl: true, // Product video (e.g., /videos/bio.mp4) - dynamic, no app update needed
         category: true,
         inStock: true,
         rating: true,
@@ -331,13 +331,13 @@ export async function GET(
       isPriceOnRequest: typedProduct.isPriceOnRequest ?? false,
       pricing: buildPricingContract(typedProduct, user),
       documentation: getProductDocumentation(productIdForTranslation, locale),
-      // Recommended Routine (same data the website PDP renders) — localized,
+      // Recommended Routine (same data the website PDP renders) - localized,
       // with per-step productId deep links. null when the product has none.
       routine: getMobileRoutine(productIdForTranslation, locale),
       // Localized PDP Quick Facts from the same curated catalog as web/PWA.
       quickFacts: getCatalogQuickFacts(productIdForTranslation, getQuickFactLocale(locale)),
-      // The editorial copy the website's bespoke pages render — the checked
-      // claims, the ingredient figures, the FAQ — flattened into blocks the app
+      // The editorial copy the website's bespoke pages render - the checked
+      // claims, the ingredient figures, the FAQ - flattened into blocks the app
       // can draw. Read from the same modules the pages use, so there is nothing
       // to keep in sync. null for products without a bespoke page.
       bespokeContent: getBespokeContent(productIdForTranslation, locale),

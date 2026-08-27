@@ -8,7 +8,7 @@ import { handleApiError, handleNotFoundError } from '@/lib/apiErrorHandler'
  *
  * Returns the CURRENT session user's latest data (used by AuthProvider to
  * pick up discount/profile changes). Identity comes exclusively from the
- * `genosys_session` cookie — the request body is ignored.
+ * `genosys_session` cookie - the request body is ignored.
  *
  * Previously this accepted an arbitrary `{ email }` in the body and returned
  * full user PII for anyone, enabling customer-list enumeration. Now it is

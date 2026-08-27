@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { isIgnorableBrowserNavigationError } from '@/lib/browserErrorNoise'
 
 /**
- * Global error boundary — catches rendering errors that escape per-route
+ * Global error boundary - catches rendering errors that escape per-route
  * `error.tsx` boundaries (root layout crashes, errors in providers, etc.).
  *
  * Renders plain HTML without app providers because the root layout has failed

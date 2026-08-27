@@ -8,8 +8,8 @@
  * Product 65 (Homecare 5000) is the default export; product 60 (Expert 60000)
  * wraps the same layout in BioMesoExpertProductPage.
  *
- * Shares the editorial design system built for product 66 — the primitives,
- * the gallery and the structural CSS all come from ../cerabarrier — and layers
+ * Shares the editorial design system built for product 66 - the primitives,
+ * the gallery and the structural CSS all come from ../cerabarrier - and layers
  * a pearl/violet palette on top via biomeso.css.
  *
  * Where it deliberately diverges from the Cerabarrier layout:
@@ -172,7 +172,7 @@ export default function BioMesoProductPage({
   const isRtl = dir === 'rtl'
   const copy = config.getCopy(locale)
 
-  // Single 50 ml SKU — no variants, so no size is ever passed to the cart.
+  // Single 50 ml SKU - no variants, so no size is ever passed to the cart.
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [justAdded, setJustAdded] = useState(false)

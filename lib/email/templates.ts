@@ -1087,7 +1087,7 @@ export const emailTemplates = {
   // Admin notification for new order
   adminNewOrder: (orderData: AdminNewOrderEmailData) => {
     // Partner settlement wording, derived from paymentMethod. Handles both
-    // labelled strings ("Partner — CREDIT 30 DAYS (due 15/08/2026)") and raw
+    // labelled strings ("Partner - CREDIT 30 DAYS (due 15/08/2026)") and raw
     // stored methods ("partner_credit") so resends stay consistent.
     const pm = String(orderData.paymentMethod || '')
     const pmLower = pm.toLowerCase()
@@ -1100,7 +1100,7 @@ export const emailTemplates = {
       : isCredit
         ? creditMatch
           ? `Credit ${creditMatch[1]} days ${creditMatch[2] || ''}`.trim()
-          : 'Credit terms — payment due per agreement'
+          : 'Credit terms - payment due per agreement'
         : 'Cash on delivery'
     const subjectTag = isConsignment
       ? '🏬 PARTNER CONSIGNMENT'
@@ -1139,7 +1139,7 @@ export const emailTemplates = {
                 <tr>
                   <td style="background-color: #b45309; padding: 18px 20px; text-align: center;">
                     <p style="margin: 0; color: #ffffff; font-size: 18px; font-weight: 800; letter-spacing: 1px;">🏬 PARTNER CONSIGNMENT</p>
-                    <p style="margin: 6px 0 0 0; color: #fef3c7; font-size: 13px; font-weight: 600;">Add to consignment stock · Same-day delivery · Settle via monthly sales report — NO invoice payment due now</p>
+                    <p style="margin: 6px 0 0 0; color: #fef3c7; font-size: 13px; font-weight: 600;">Add to consignment stock · Same-day delivery · Settle via monthly sales report - NO invoice payment due now</p>
                   </td>
                 </tr>
                 ` : isPartner && isCredit ? `
@@ -1183,7 +1183,7 @@ export const emailTemplates = {
                 </tr>
                 ` : ''}
 
-                <!-- Order Source (ADMIN ONLY — app vs website) -->
+                <!-- Order Source (ADMIN ONLY - app vs website) -->
                 ${orderData.orderSource ? `
                 <tr>
                   <td style="padding: 0 20px 20px 20px; text-align: center;">
@@ -1521,7 +1521,7 @@ export const emailTemplates = {
 
   // Password reset email
   blackFridaySale: (userName: string, blogLink: string) => ({
-    subject: '✨ BLACK FRIDAY SALE — 20% OFF ✨',
+    subject: '✨ BLACK FRIDAY SALE - 20% OFF ✨',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
         <div style="text-align: center; margin-bottom: 30px;">
@@ -1539,7 +1539,7 @@ export const emailTemplates = {
         <div style="background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); padding: 30px; border-radius: 10px; margin-bottom: 20px; text-align: center; color: white;">
           <h2 style="color: white; margin: 0 0 10px 0; font-size: 32px;">✨ BLACK FRIDAY SALE ✨</h2>
           <p style="color: white; font-size: 24px; font-weight: bold; margin: 10px 0;">20% OFF</p>
-          <p style="color: white; font-size: 18px; margin: 10px 0;">Nov 26th — Nov 28th</p>
+          <p style="color: white; font-size: 18px; margin: 10px 0;">Nov 26th - Nov 28th</p>
         </div>
         
         <div style="background: white; padding: 30px; border-radius: 10px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
@@ -1550,7 +1550,7 @@ export const emailTemplates = {
             This year, we're giving you something special.
           </p>
           <p style="color: #dc2626; font-size: 18px; font-weight: bold; margin: 0 0 20px 0;">
-            –20% on ALL GENOSYS products, exclusively for online purchases.
+            -20% on ALL GENOSYS products, exclusively for online purchases.
           </p>
         </div>
         
@@ -1564,7 +1564,7 @@ export const emailTemplates = {
             No promo codes. No minimum spend.
           </p>
           <p style="color: #374151; font-size: 14px; margin: 5px 0 0 0;">
-            Just premium professional skincare — now with a rare Black Friday offer.
+            Just premium professional skincare - now with a rare Black Friday offer.
           </p>
         </div>
         
@@ -1601,7 +1601,7 @@ export const emailTemplates = {
             💥 Valid for online purchases only.
           </p>
           <p style="color: #374151; font-size: 14px; margin: 10px 0 0 0;">
-            Don't miss it — our biggest yearly offer ends Nov 28th.
+            Don't miss it - our biggest yearly offer ends Nov 28th.
           </p>
         </div>
         
@@ -1764,7 +1764,7 @@ export const emailTemplates = {
     }
   },
 
-  // Newsletter campaign email — wraps admin-composed markdown body in branded shell.
+  // Newsletter campaign email - wraps admin-composed markdown body in branded shell.
   // Subject + bodyHtml are inserted verbatim (bodyHtml is already sanitized via renderNewsletterMarkdown).
   newsletterCampaign: (params: { subject: string; bodyHtml: string; unsubscribeUrl: string; locale?: string }) => {
     const locale = params.locale === 'ar' ? 'ar' : params.locale === 'ru' ? 'ru' : 'en'
@@ -1838,7 +1838,7 @@ export const emailTemplates = {
     }
   },
 
-  // Newsletter confirmation email — sent when someone subscribes via homepage/footer form.
+  // Newsletter confirmation email - sent when someone subscribes via homepage/footer form.
   // Clean Apple-style wrapper to match the rest of the email system.
   newsletterWelcome: (params: { email: string; locale?: string; unsubscribeUrl: string }) => {
     const locale = params.locale === 'ar' ? 'ar' : params.locale === 'ru' ? 'ru' : 'en'
@@ -1848,10 +1848,10 @@ export const emailTemplates = {
 
     const copy = {
       en: {
-        subject: 'You\u2019re on the list — GENOSYS insiders',
+        subject: 'You\u2019re on the list - GENOSYS insiders',
         heading: 'You\u2019re in.',
         subheading: 'Welcome to the GENOSYS insiders.',
-        body: 'Expect expert skin tips, new launches, and pro-only offers — straight to your inbox. No spam. Never shared.',
+        body: 'Expect expert skin tips, new launches, and pro-only offers - straight to your inbox. No spam. Never shared.',
         cta: 'Shop the catalog',
         footerNote: 'You\u2019re receiving this because you subscribed at genosys.ae.',
         unsubscribe: 'Unsubscribe',
@@ -1870,7 +1870,7 @@ export const emailTemplates = {
         copyright: '\u00A9 2026 جميع الحقوق محفوظة.',
       },
       ru: {
-        subject: 'Вы в списке — GENOSYS insiders',
+        subject: 'Вы в списке - GENOSYS insiders',
         heading: 'Вы подписаны.',
         subheading: 'Добро пожаловать в сообщество GENOSYS.',
         body: 'Советы экспертов, новинки и закрытые предложения для профи \u2014 прямо на вашу почту. Без спама. Не передаём третьим лицам.',

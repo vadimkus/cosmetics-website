@@ -40,7 +40,7 @@ export const MOBILE_WEB_NAV_COLORS = {
 
 /**
  * Active tab derived from pathname. "home" covers /products and the three
- * locale roots — matching the prior (duplicated) behavior in both footers.
+ * locale roots - matching the prior (duplicated) behavior in both footers.
  */
 export type MobileBottomNavTab = 'home' | 'orders' | 'bag'
 
@@ -66,7 +66,7 @@ export function useCartCount(): number {
     }
     updateCount()
     const unsubscribe = useCartStore.subscribe(updateCount)
-    // Hydration safety net — pick up post-hydration cart
+    // Hydration safety net - pick up post-hydration cart
     const timer = setTimeout(updateCount, 100)
     return () => {
       unsubscribe()
@@ -144,7 +144,7 @@ export function useHideBottomNav(
 
 /*
  * --------------------------------------------------------------------------
- * SVG Icons — single source of truth (PWA + web footers share these)
+ * SVG Icons - single source of truth (PWA + web footers share these)
  * --------------------------------------------------------------------------
  * Two rendering modes:
  *   - `mode="class"` returns a Tailwind-friendly icon that inherits
@@ -226,7 +226,7 @@ export const BagIcon = (props: IconProps) => {
   const { stroke, fill } = resolveIconProps(props)
   const className = 'className' in props ? props.className : undefined
   // Bag's interior "handles" should be white when filled so they pop against
-  // the red/green body — matching both previous implementations.
+  // the red/green body - matching both previous implementations.
   const interiorStroke = 'color' in props && props.color !== undefined && props.filled ? '#ffffff' : stroke
   return (
     <svg

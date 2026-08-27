@@ -13,7 +13,7 @@ import '@/components/product/cerabarrier/cerabarrier.css'
 import '@/components/editorial/editorial.css'
 
 export const revalidate = 3600
-// Unknown slugs return a genuine 404 (not a soft 404) — matches the EN route.
+// Unknown slugs return a genuine 404 (not a soft 404) - matches the EN route.
 export const dynamicParams = false
 
 export function generateStaticParams() {

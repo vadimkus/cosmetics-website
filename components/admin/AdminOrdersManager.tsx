@@ -200,7 +200,7 @@ export default function AdminOrdersManager({
           </div>
         </div>
 
-        {/* Filter tabs — All / Partner / Consignment / Credit */}
+        {/* Filter tabs - All / Partner / Consignment / Credit */}
         {partnerCount > 0 && (
           <div className="mt-4 flex gap-2 flex-wrap">
             <button
@@ -315,7 +315,7 @@ export default function AdminOrdersManager({
                             ) : (
                               <div className={`text-[11px] font-semibold mt-0.5 ${isOverdue(order) ? 'text-red-600' : 'text-amber-700'}`}>
                                 {isCreditOrder(order) && order.paymentDueDate
-                                  ? `${isOverdue(order) ? 'OVERDUE — due' : 'Due'} ${new Date(order.paymentDueDate).toLocaleDateString('en-GB')}`
+                                  ? `${isOverdue(order) ? 'OVERDUE - due' : 'Due'} ${new Date(order.paymentDueDate).toLocaleDateString('en-GB')}`
                                   : 'Payment pending'}
                               </div>
                             )
@@ -329,7 +329,7 @@ export default function AdminOrdersManager({
                         </td>
                         <td className="px-2 sm:px-3 md:px-6 py-4 whitespace-nowrap">
                           {/* Fulfillment stays primary. Credit/consignment payment
-                              is a second badge — never overwrite order.status. */}
+                              is a second badge - never overwrite order.status. */}
                           <div className="flex flex-col items-start gap-1">
                             <StatusBadge status={order.status} />
                             {isSettlementOrder(order) && order.status !== 'CANCELLED' && (

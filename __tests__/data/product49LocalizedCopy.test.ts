@@ -69,11 +69,11 @@ describe('product 49 RU/AR localized copy', () => {
       '11',
       '28',
       '12',
-      '1–186',
-      '1–152',
-      '1–52',
-      '1–39',
-      '1–56',
+      '1-186',
+      '1-152',
+      '1-52',
+      '1-39',
+      '1-56',
       '20 ±5',
       '520 × 220 × 315',
       '2,6 кг',
@@ -86,16 +86,16 @@ describe('product 49 RU/AR localized copy', () => {
   it('keeps electrical power, mode behaviour and panel timing precise', () => {
     const text = JSON.stringify(liveCopy)
 
-    expect(text).toContain('70 Вт — номинальная электрическая мощность')
+    expect(text).toContain('70 Вт - номинальная электрическая мощность')
     expect(text).toContain('70 واط قدرة كهربائية مقدرة')
     expect(text).toContain('каждые три секунды')
     expect(text).toContain('كل ثلاث ثوانٍ')
-    expect(text).toContain('5–30 минут')
+    expect(text).toContain('5-30 минут')
     expect(text).toContain('5 إلى 30 دقيقة')
-    expect(text).toContain('5–60 минут')
-    expect(text).toContain('5–60 دقيقة')
-    expect(text).toContain('1–10 минут')
-    expect(text).toContain('1–10 دقائق')
+    expect(text).toContain('5-60 минут')
+    expect(text).toContain('5-60 دقيقة')
+    expect(text).toContain('1-10 минут')
+    expect(text).toContain('1-10 دقائق')
   })
 
   it('does not convert the old GENO LED certificate into IR II certification', () => {

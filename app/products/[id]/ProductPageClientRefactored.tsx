@@ -50,7 +50,7 @@ import '@/components/editorial/editorial.css'
 
 interface ProductPageClientProps {
   product: Product
-  /** Real units sold (non-cancelled orders) — 0/undefined hides the badge. */
+  /** Real units sold (non-cancelled orders) - 0/undefined hides the badge. */
   unitsSold?: number
 }
 
@@ -81,7 +81,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   // Mobile footer state
   const [mobileQuantity, setMobileQuantity] = useState(1)
   const [isAddingMobile, setIsAddingMobile] = useState(false)
-  // Video player mounts only after the user taps play — until then a compact
+  // Video player mounts only after the user taps play - until then a compact
   // play button keeps the layout tight and avoids loading video bytes.
   const [videoOpen, setVideoOpen] = useState(false)
   const [isAddedMobile, setIsAddedMobile] = useState(false)
@@ -90,7 +90,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle')
   const displayName = formatProductDisplayName(product.name)
 
-  // Live review aggregate — source of truth for stars (seeded product.rating is not trusted)
+  // Live review aggregate - source of truth for stars (seeded product.rating is not trusted)
   const [reviewAggregate, setReviewAggregate] = useState<{ averageRating: number | null; reviewCount: number } | null>(null)
 
   useEffect(() => {
@@ -105,7 +105,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
           })
         }
       })
-      .catch(() => { /* silent — rating just won't show */ })
+      .catch(() => { /* silent - rating just won't show */ })
     return () => { cancelled = true }
   }, [product.id])
 
@@ -257,7 +257,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
     )
   }
 
-  // GA4 view_item — fire once per product view
+  // GA4 view_item - fire once per product view
   useEffect(() => {
     if (!product?.id) return
     try {
@@ -457,7 +457,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 </span>
               </div>
 
-              {/* Product Name — larger at lg+, tracking-tight for tighter line economy.
+              {/* Product Name - larger at lg+, tracking-tight for tighter line economy.
                   Share sits inline after the title, standard PDP placement. */}
               <div className={`flex items-start gap-2 mb-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                 <h1 className={`cera-serif text-3xl xl:text-4xl text-[var(--cera-ink)] leading-tight tracking-tight ${dir === 'rtl' ? 'text-right' : 'text-left'}`}>
@@ -535,7 +535,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               </div>
             )}
 
-            {/* Customer-facing quick facts — kept high in the PDP hierarchy,
+            {/* Customer-facing quick facts - kept high in the PDP hierarchy,
                 directly below the product heading. */}
             <div className="mb-3 md:mb-4" data-product-quick-facts-slot="header">
               <ProductQuickFactsHelper
@@ -551,7 +551,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               <ProductImageGallery product={product} />
             </div>
 
-            {/* Product Video — dynamic from DB videoUrl field. The player sizes
+            {/* Product Video - dynamic from DB videoUrl field. The player sizes
                 itself to the video's intrinsic aspect ratio (portrait clips
                 stay tall and centered instead of letterboxing in a 16:9 box);
                 max-h caps portrait videos so they don't dominate the page. */}
@@ -895,7 +895,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               </div>
             )}
 
-            {/* Data-driven + Revita 63 + Cerabarrier 66 — desktop left column.
+            {/* Data-driven + Revita 63 + Cerabarrier 66 - desktop left column.
                 Mobile web: same card after Product Details in ProductContentDisplay. */}
             <ProductRoutineCard product={product} className="hidden md:block mt-4" />
 
@@ -1582,12 +1582,12 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 <span className="text-sm sm:text-base">{t('products.requestQuote') || 'Request Quote'}</span>
               </a>
             ) : inCartQty > 0 && product.inStock && user ? (
-              /* In-cart stepper: [-] [In Bag (N)] [+] — adjusts the cart line
+              /* In-cart stepper: [-] [In Bag (N)] [+] - adjusts the cart line
                  directly, same pattern as the mobile app and the grid cards. */
               <div
                 className={`flex-1 flex items-center justify-between gap-2 rounded-lg font-semibold min-h-[44px] px-1.5 py-1 bg-green-600 text-white ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                 role="group"
-                aria-label={`${isAppLikeMode ? t('product.inBag') : t('product.inCart')} (${inCartQty}) — ${product.name}`}
+                aria-label={`${isAppLikeMode ? t('product.inBag') : t('product.inCart')} (${inCartQty}) - ${product.name}`}
                 style={{ touchAction: 'manipulation' }}
               >
                 <button

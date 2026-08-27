@@ -189,7 +189,7 @@ const EN: PowerSolutionCopy = {
   eyebrow: 'Professional ampoule · Ten sealed vials',
   headline: 'The hyaluronic acid most serums cannot use.',
   subheadline:
-    'Heavier hyaluronic acid holds more water. It also cannot get through skin on its own, which is why ordinary serums settle for the small kind. HES runs it at 1.65 million Dalton — just under the grade used in dermal fillers — and pairs it with a roller, so the weight becomes the advantage instead of the obstacle. A full 1% of it, niacinamide at 2%, and a six-botanical firming complex underneath. Ten sealed glass vials, one per treatment.',
+    'Heavier hyaluronic acid holds more water. It also cannot get through skin on its own, which is why ordinary serums settle for the small kind. HES runs it at 1.65 million Dalton - just under the grade used in dermal fillers - and pairs it with a roller, so the weight becomes the advantage instead of the obstacle. A full 1% of it, niacinamide at 2%, and a six-botanical firming complex underneath. Ten sealed glass vials, one per treatment.',
   heroBullets: [
     'Hyaluronic acid at 1.65 million Dalton, chosen to hold more water than a serum’s can',
     'A full 1% of it, over a 12% floor of glycerin and betaine so that water stays put',
@@ -219,7 +219,7 @@ const EN: PowerSolutionCopy = {
     eyebrow: 'What HES is',
     title: 'Three letters, and a molecular weight.',
     body:
-      'HES is HA Volume Enhancing Solution, and Korea registers it for two things: firming and hydrating. Everything interesting about it comes down to one decision — which grade of hyaluronic acid to put in the vial — and GENOSYS made the harder choice, then built the delivery to match it.',
+      'HES is HA Volume Enhancing Solution, and Korea registers it for two things: firming and hydrating. Everything interesting about it comes down to one decision - which grade of hyaluronic acid to put in the vial - and GENOSYS made the harder choice, then built the delivery to match it.',
     points: [
       {
         title: 'Firming and hydrating',
@@ -268,7 +268,7 @@ const EN: PowerSolutionCopy = {
         grade: 'In an ordinary serum',
         weight: 'Under 1 million Dalton',
         delivery: 'Absorbed',
-        effect: 'Moisturising, as far as a small molecule gets on its own — and it holds less water.',
+        effect: 'Moisturising, as far as a small molecule gets on its own - and it holds less water.',
       },
     ],
     note:
@@ -298,7 +298,7 @@ const EN: PowerSolutionCopy = {
       'Niacinamide at 2% and hyaluronic acid at 1% are both working doses rather than a sprinkle for the ingredient list. The phytosphingosine arrives inside a lecithin liposome, so it is carried rather than simply stirred in, and escin, butcher’s broom and centella are three of the six botanicals BIOPHYTEX brings.',
     traceTitle: 'Four peptides, and where the scent comes from',
     traceBody:
-      'sh-Polypeptide-7, copper tripeptide-1, palmitoyl oligopeptide and palmitoyl tetrapeptide-7, one part per million each — the last two together are MATRIXYL 3000, one of the most widely used peptide pairs in cosmetics. The scent is six essential oils at 0.06% between them: lavender, sweet orange, sage, sandalwood, pine and lemongrass. That is a real scent from real oils rather than a synthetic one, and it is little enough that no single fragrance allergen reaches a declarable level.',
+      'sh-Polypeptide-7, copper tripeptide-1, palmitoyl oligopeptide and palmitoyl tetrapeptide-7, one part per million each - the last two together are MATRIXYL 3000, one of the most widely used peptide pairs in cosmetics. The scent is six essential oils at 0.06% between them: lavender, sweet orange, sage, sandalwood, pine and lemongrass. That is a real scent from real oils rather than a synthetic one, and it is little enough that no single fragrance allergen reaches a declarable level.',
   },
   freeFrom: {
     eyebrow: 'What is not in it',
@@ -307,14 +307,14 @@ const EN: PowerSolutionCopy = {
       'A professional ampoule goes on skin a roller has just opened, so what has been left out matters as much as what went in. Most brands say “free from” and leave you guessing. These five are named.',
     items: ['Formaldehyde', 'Artificial fragrance', 'Artificial colourant', 'Ethanol', 'Artificial pigment'],
     note:
-      'The solution is a pale brown liquid, and that colour is the botanicals’ own — there is no colourant in the formula to give it. The scent is six essential oils. With no ethanol in it there is nothing to sting freshly rolled skin.',
+      'The solution is a pale brown liquid, and that colour is the botanicals’ own - there is no colourant in the formula to give it. The scent is six essential oils. With no ethanol in it there is nothing to sting freshly rolled skin.',
     figureAlt: 'The GENOSYS POWER SOLUTION HES carton, showing the five no-additions badge',
   },
   range: {
     eyebrow: 'The range',
     title: 'Six vials, one problem each.',
     intro:
-      'The Power Solutions are a set, and each one is chosen for the skin in front of you. Same format, same price, same 2 ml sealed vial — a different job in each one. HES is the one for skin that has gone flat and thirsty.',
+      'The Power Solutions are a set, and each one is chosen for the skin in front of you. Same format, same price, same 2 ml sealed vial - a different job in each one. HES is the one for skin that has gone flat and thirsty.',
     thisOne: 'This one',
     entries: [
       { name: 'HA Volume Enhancing Solution', forWhat: 'Plumping and instant hydration' },
@@ -335,7 +335,7 @@ const EN: PowerSolutionCopy = {
       { title: 'Cleanse', body: 'Wash the face and pat it dry.' },
       { title: 'Open', body: 'Break the seal on one vial. Each 2 ml vial is a single dose.' },
       { title: 'Apply', body: 'Pat the solution over the face.' },
-      { title: 'Absorb', body: 'Let it sink in. This one stays on — it is not rinsed off.' },
+      { title: 'Absorb', body: 'Let it sink in. This one stays on - it is not rinsed off.' },
       {
         title: 'Or roll it in',
         body:
@@ -355,7 +355,7 @@ const EN: PowerSolutionCopy = {
       {
         name: 'Sodium hyaluronate · 1%',
         body:
-          'At 1.65 million Dalton this is heavier than the hyaluronic acid in an ordinary serum, so it binds more water — and at 1% it is the largest active in the vial. The reason the product exists.',
+          'At 1.65 million Dalton this is heavier than the hyaluronic acid in an ordinary serum, so it binds more water - and at 1% it is the largest active in the vial. The reason the product exists.',
       },
       {
         name: 'Niacinamide · 2%',
@@ -421,11 +421,11 @@ const EN: PowerSolutionCopy = {
     ],
     notTitle: 'Buy a sibling instead if',
     notList: [
-      'Skin is tired and undernourished more than thirsty — that is CVS',
-      'The concern is pigmentation or uneven tone — that is SWS',
-      'The concern is oil and blemishes — that is PCS',
-      'The concern is lines and loss of firmness — that is AWS',
-      'You want texture and elasticity remodelled — that is CTS',
+      'Skin is tired and undernourished more than thirsty - that is CVS',
+      'The concern is pigmentation or uneven tone - that is SWS',
+      'The concern is oil and blemishes - that is PCS',
+      'The concern is lines and loss of firmness - that is AWS',
+      'You want texture and elasticity remodelled - that is CTS',
       'Botanical essential oils are something your skin reacts to',
     ],
     note:
@@ -437,7 +437,7 @@ const EN: PowerSolutionCopy = {
     items: [
       {
         q: 'Do I need a roller for this to be worth it?',
-        a: 'No, but it is what the heavy hyaluronic acid was chosen for. Cleanse, open, apply, absorb, and used that way it is a 1% hyaluronic acid leave-on over a 12% humectant base with niacinamide at 2% — a strong treatment by any standard. With a roller, in a practitioner’s hands, the molecule gets past the surface instead of holding water on it, and that is the difference the product was built for.',
+        a: 'No, but it is what the heavy hyaluronic acid was chosen for. Cleanse, open, apply, absorb, and used that way it is a 1% hyaluronic acid leave-on over a 12% humectant base with niacinamide at 2% - a strong treatment by any standard. With a roller, in a practitioner’s hands, the molecule gets past the surface instead of holding water on it, and that is the difference the product was built for.',
       },
       {
         q: 'Why is the liquid brown?',
@@ -445,7 +445,7 @@ const EN: PowerSolutionCopy = {
       },
       {
         q: 'Can I use it at home?',
-        a: 'Yes, on your practitioner’s advice, and it is worth asking rather than guessing — they will know whether your skin wants HES or one of the other five. Applied by hand it needs nothing but clean skin. Do not use a roller on yourself without being shown how.',
+        a: 'Yes, on your practitioner’s advice, and it is worth asking rather than guessing - they will know whether your skin wants HES or one of the other five. Applied by hand it needs nothing but clean skin. Do not use a roller on yourself without being shown how.',
       },
       {
         q: 'Will it sting?',
@@ -618,7 +618,7 @@ const AR: PowerSolutionCopy = {
     eyebrow: 'المجموعة',
     title: 'ست قوارير، لكل واحدة مشكلتها.',
     intro:
-      'مستحضرات Power Solution مجموعة واحدة، وكل واحدة منها تُختار حسب البشرة التي أمامك. الشكل نفسه والسعر نفسه والقارورة المُحكمة نفسها سعة 2 مل — ومهمة مختلفة في كل واحدة. وHES هي المخصّصة للبشرة التي فقدت امتلاءها وعطشت.',
+      'مستحضرات Power Solution مجموعة واحدة، وكل واحدة منها تُختار حسب البشرة التي أمامك. الشكل نفسه والسعر نفسه والقارورة المُحكمة نفسها سعة 2 مل - ومهمة مختلفة في كل واحدة. وHES هي المخصّصة للبشرة التي فقدت امتلاءها وعطشت.',
     thisOne: 'هذا المنتج',
     entries: [
       { name: 'HA Volume Enhancing Solution', forWhat: 'امتلاء وترطيب فوري' },
@@ -723,11 +723,11 @@ const AR: PowerSolutionCopy = {
     ],
     notTitle: 'قد يكون محلول آخر أنسب',
     notList: [
-      'كانت البشرة متعبة وناقصة التغذية أكثر من كونها عطشى — فهذه CVS',
-      'كان الهمّ هو التصبّغ أو تفاوت اللون — فهذه SWS',
-      'كان الهمّ هو الدهون والبثور — فهذه PCS',
-      'كان الهمّ هو الخطوط وفقدان الشد — فهذه AWS',
-      'أردت إعادة بناء الملمس والمرونة — فهذه CTS',
+      'كانت البشرة متعبة وناقصة التغذية أكثر من كونها عطشى - فهذه CVS',
+      'كان الهمّ هو التصبّغ أو تفاوت اللون - فهذه SWS',
+      'كان الهمّ هو الدهون والبثور - فهذه PCS',
+      'كان الهمّ هو الخطوط وفقدان الشد - فهذه AWS',
+      'أردت إعادة بناء الملمس والمرونة - فهذه CTS',
       'عند وجود حساسية معروفة تجاه الزيوت العطرية النباتية',
     ],
     note:
@@ -817,7 +817,7 @@ const RU: PowerSolutionCopy = {
   freeDelivery: 'Бесплатная доставка по ОАЭ',
   decimalSeparator: ',',
   stats: [
-    { value: '1,65 ± 0,35 млн', label: 'дальтон — молекулярная масса гиалуроната натрия' },
+    { value: '1,65 ± 0,35 млн', label: 'дальтон - молекулярная масса гиалуроната натрия' },
     { value: '1%', label: 'гиалуроната натрия в каждом флаконе' },
     { value: '12%', label: 'глицерина и бетаина в увлажняющей основе' },
     { value: '10 × 2 мл', label: 'герметичных доз, по одной на процедуру' },
@@ -826,7 +826,7 @@ const RU: PowerSolutionCopy = {
     eyebrow: 'Что такое HES',
     title: 'Профессиональный концентрат с ясной задачей.',
     body:
-      'HES — HA Volume Enhancing Solution, созданный для интенсивного увлажнения и более плотного, наполненного вида кожи. Его отличает высокомолекулярный гиалуронат натрия в сочетании с точно указанными концентрациями увлажняющих и поддерживающих компонентов.',
+      'HES - HA Volume Enhancing Solution, созданный для интенсивного увлажнения и более плотного, наполненного вида кожи. Его отличает высокомолекулярный гиалуронат натрия в сочетании с точно указанными концентрациями увлажняющих и поддерживающих компонентов.',
     points: [
       {
         title: 'Увлажнение и наполненный вид',
@@ -834,7 +834,7 @@ const RU: PowerSolutionCopy = {
           'Гиалуронат натрия помогает удерживать влагу, а растительный комплекс с эсцином поддерживает более плотный вид кожи.',
       },
       {
-        title: 'Высокая молекулярная масса — намеренно',
+        title: 'Высокая молекулярная масса - намеренно',
         body:
           'Молекулярная масса 1,65 ± 0,35 млн дальтон выбрана для выраженного удержания влаги в системе HES.',
       },
@@ -853,7 +853,7 @@ const RU: PowerSolutionCopy = {
   },
   ladder: {
     eyebrow: 'Почему масса важна',
-    title: 'Три молекулярные категории, HES — посередине.',
+    title: 'Три молекулярные категории, HES - посередине.',
     intro:
       'GENOSYS сравнивает филлерную категорию свыше 2 млн дальтон, HES с массой 1,65 ± 0,35 млн и категории ниже 1 млн дальтон в обычном уходе. Для HES выбрана высокая молекулярная масса, рассчитанная на интенсивное удержание влаги.',
     columns: [
@@ -878,7 +878,7 @@ const RU: PowerSolutionCopy = {
       },
     ],
     note:
-      'Молекулярная масса — ключевая особенность HES, но формула не ограничивается одним компонентом: 1% гиалуроната натрия дополнен 12% увлажняющей основой и ниацинамидом 2%.',
+      'Молекулярная масса - ключевая особенность HES, но формула не ограничивается одним компонентом: 1% гиалуроната натрия дополнен 12% увлажняющей основой и ниацинамидом 2%.',
   },
   formula: {
     eyebrow: 'Формула',
@@ -901,7 +901,7 @@ const RU: PowerSolutionCopy = {
       'Центелла азиатская',
     ],
     activesNote:
-      'Ниацинамид представлен в концентрации 2%, гиалуронат натрия — 1%. Фитосфингозин включён в систему на основе лецитина, а BIOPHYTEX объединяет шесть растительных компонентов.',
+      'Ниацинамид представлен в концентрации 2%, гиалуронат натрия - 1%. Фитосфингозин включён в систему на основе лецитина, а BIOPHYTEX объединяет шесть растительных компонентов.',
     traceTitle: 'Четыре пептида и лёгкий растительный аромат',
     traceBody:
       'sh-Polypeptide-7, Copper Tripeptide-1, Palmitoyl Oligopeptide и Palmitoyl Tetrapeptide-7 представлены по 1 ppm каждый; последние два образуют MATRIXYL 3000. Лёгкий аромат создают шесть эфирных масел в суммарной концентрации 0,06%.',
@@ -913,14 +913,14 @@ const RU: PowerSolutionCopy = {
       'HES создан без формальдегида, искусственных ароматизаторов, искусственных красителей, этанола и искусственных пигментов.',
     items: ['Формальдегид', 'Искусственные ароматизаторы', 'Искусственные красители', 'Этанол', 'Искусственные пигменты'],
     note:
-      'Светло-коричневый оттенок формуле придают растительные компоненты, а лёгкий аромат — смесь шести эфирных масел. Этанола и добавленного красителя нет.',
+      'Светло-коричневый оттенок формуле придают растительные компоненты, а лёгкий аромат - смесь шести эфирных масел. Этанола и добавленного красителя нет.',
     figureAlt: 'Коробка GENOSYS POWER SOLUTION HES со значком «5 без добавлений»',
   },
   range: {
     eyebrow: 'Линия',
     title: 'Шесть флаконов, по одной задаче на каждый.',
     intro:
-      'Power Solution — это набор, и каждый выбирают под ту кожу, что перед вами. Один формат, одна цена, один и тот же запаянный флакон 2 мл — и своя задача у каждого. HES — для кожи, которая потеряла наполненность и хочет пить.',
+      'Power Solution - это набор, и каждый выбирают под ту кожу, что перед вами. Один формат, одна цена, один и тот же запаянный флакон 2 мл - и своя задача у каждого. HES - для кожи, которая потеряла наполненность и хочет пить.',
     thisOne: 'Этот',
     entries: [
       { name: 'HA Volume Enhancing Solution', forWhat: 'Наполненность и мгновенное увлажнение' },
@@ -931,7 +931,7 @@ const RU: PowerSolutionCopy = {
       { name: 'Anti-Wrinkle Solution', forWhat: 'Морщины и потеря упругости' },
     ],
     viewProduct: 'Открыть',
-    note: 'Все шесть — 2 мл × 10 флаконов по одной цене, так что выбор о коже, а не о бюджете.',
+    note: 'Все шесть - 2 мл × 10 флаконов по одной цене, так что выбор о коже, а не о бюджете.',
   },
   howTo: {
     eyebrow: 'Как использовать',
@@ -956,7 +956,7 @@ const RU: PowerSolutionCopy = {
     eyebrow: 'Активная формула',
     title: 'Десять активных компонентов в точных концентрациях.',
     intro:
-      'Все значения ниже — конечные концентрации во флаконе. Фирменные комплексы указаны вместе с составляющими, чтобы формула читалась прозрачно.',
+      'Все значения ниже - конечные концентрации во флаконе. Фирменные комплексы указаны вместе с составляющими, чтобы формула читалась прозрачно.',
     cards: [
       {
         name: 'Гиалуронат натрия · 1%',
@@ -1017,7 +1017,7 @@ const RU: PowerSolutionCopy = {
     forTitle: 'HES подойдёт, если',
     forList: [
       'Коже не хватает влаги и она выглядит менее наполненной',
-      'Главная цель — свежесть, комфорт и более плотный вид',
+      'Главная цель - свежесть, комфорт и более плотный вид',
       'Специалист выбирает высокомолекулярный гиалуронат натрия для профессионального протокола',
       'На состояние кожи влияют кондиционер, перелёты или сухой климат',
       'Зрелой коже нужна дополнительная поддержка удержания влаги',
@@ -1025,11 +1025,11 @@ const RU: PowerSolutionCopy = {
     ],
     notTitle: 'Другой концентрат может подойти лучше, если',
     notList: [
-      'Коже прежде всего не хватает питания — тогда стоит рассмотреть CVS',
-      'Вопрос в пигментации или неровном тоне — это SWS',
-      'Вопрос в себуме и высыпаниях — это PCS',
-      'Вопрос в морщинах и потере упругости — это AWS',
-      'Нужно перестроить текстуру и упругость — это CTS',
+      'Коже прежде всего не хватает питания - тогда стоит рассмотреть CVS',
+      'Вопрос в пигментации или неровном тоне - это SWS',
+      'Вопрос в себуме и высыпаниях - это PCS',
+      'Вопрос в морщинах и потере упругости - это AWS',
+      'Нужно перестроить текстуру и упругость - это CTS',
       'Есть известная чувствительность к растительным эфирным маслам',
     ],
     note:
@@ -1041,7 +1041,7 @@ const RU: PowerSolutionCopy = {
     items: [
       {
         q: 'Нужен ли роллер, чтобы это имело смысл?',
-        a: 'Нет. HES можно наносить на очищенную кожу и оставлять до полного впитывания. Применение с роллером GENOSYS — отдельный профессиональный протокол для квалифицированного специалиста.',
+        a: 'Нет. HES можно наносить на очищенную кожу и оставлять до полного впитывания. Применение с роллером GENOSYS - отдельный профессиональный протокол для квалифицированного специалиста.',
       },
       {
         q: 'Почему жидкость коричневая?',
@@ -1061,7 +1061,7 @@ const RU: PowerSolutionCopy = {
       },
       {
         q: 'На сколько хватает коробки?',
-        a: 'В коробке десять флаконов, по одному на процедуру. Срок хранения в невскрытой упаковке — три года; точная дата указана на коробке.',
+        a: 'В коробке десять флаконов, по одному на процедуру. Срок хранения в невскрытой упаковке - три года; точная дата указана на коробке.',
       },
     ],
   },
@@ -1078,7 +1078,7 @@ const RU: PowerSolutionCopy = {
       { label: 'Комплексы', value: 'BIOPHYTEX 3%, MATRIXYL 3000, sh-Polypeptide-7 и Copper Tripeptide-1 по одной части на миллион' },
       { label: 'Внешний вид', value: 'Светло-коричневая жидкость; цвет принадлежит самим растениям' },
       { label: 'pH', value: '5,75, в пределах спецификации от 4,50 до 6,50' },
-      { label: 'Удельный вес', value: '1,0272, в пределах 0,9950–1,0350' },
+      { label: 'Удельный вес', value: '1,0272, в пределах 0,9950-1,0350' },
       { label: 'Микробиология', value: 'Менее 10 КОЕ/мл при пределе 100' },
       { label: 'Без добавления', value: 'Формальдегида, искусственных ароматизаторов, искусственных красителей, этанола, искусственных пигментов' },
       { label: 'Срок годности', value: 'Три года невскрытым, срок годности напечатан на коробке' },

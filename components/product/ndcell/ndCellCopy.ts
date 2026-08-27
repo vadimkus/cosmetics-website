@@ -2,7 +2,7 @@
  * Bespoke copy for ND Cell ANTI-WRINKLE CREAM (product 23), the neck and
  * décolleté cream.
  *
- * SOURCING — every figure traces to the audit in
+ * SOURCING - every figure traces to the audit in
  * docs/SESSION_CHANGES_2026-08-17_PRODUCT_23_ND_CELL_SOURCE_AUDIT.md:
  *   - DTS MG signed formula: squalane 5.000%, dimethicone 3.000%, tocopheryl
  *     acetate 1.000%, phenyl trimethicone 1.000%, jojoba 0.500%, panthenol
@@ -162,12 +162,12 @@ const EN: NdCellCopy = {
   eyebrow: 'ND Cell Anti-Wrinkle Cream · Neck & Décolleté · 50 g',
   headline: 'Built for the skin people stop moisturising at the jawline.',
   subheadline:
-    'Squalane at 5% over dimethicone at 3% and vitamin E at a full 1%, with adenosine at the dose Korea licenses for wrinkle improvement. Glycerin is only 0.7%, so this is an occlusive cream rather than a hydrating one — it seals thin neck and chest skin rather than watering it. Contains peanut oil and lavender oil; both are declared below.',
+    'Squalane at 5% over dimethicone at 3% and vitamin E at a full 1%, with adenosine at the dose Korea licenses for wrinkle improvement. Glycerin is only 0.7%, so this is an occlusive cream rather than a hydrating one - it seals thin neck and chest skin rather than watering it. Contains peanut oil and lavender oil; both are declared below.',
   heroBullets: [
-    'Squalane 5% — the ingredient actually carrying this formula',
+    'Squalane 5% - the ingredient actually carrying this formula',
     'Vitamin E at 1% and B5 at 0.3%, both real working doses',
-    'Adenosine 0.04%, measured at 92.60% — the licensed wrinkle dose',
-    'Contains peanut oil and linalool — declared in full below',
+    'Adenosine 0.04%, measured at 92.60% - the licensed wrinkle dose',
+    'Contains peanut oil and linalool - declared in full below',
   ],
   badges: ['Made in Korea', '50 g', 'EU safety assessed', 'Graded Non Irritant'],
 
@@ -184,14 +184,14 @@ const EN: NdCellCopy = {
     { value: '5%', label: 'Squalane' },
     { value: '1%', label: 'Vitamin E, a genuinely strong dose' },
     { value: '0.04%', label: 'Adenosine, assayed at 92.60%' },
-    { value: '0.7%', label: 'Glycerin — this seals rather than hydrates' },
+    { value: '0.7%', label: 'Glycerin - this seals rather than hydrates' },
   ],
 
   peanut: {
     eyebrow: 'Read this first',
     title: 'This cream contains peanut oil',
     body:
-      'Arachis hypogaea seed oil at 0.0087%. It is not there as a feature — it is the oil the vitamin A arrives in, and it stays in the finished formula. The refined oil is held below 0.5 parts per million of peanut protein under the European rule that governs it, which is why it can be used at all, and the safety assessment addresses it directly.',
+      'Arachis hypogaea seed oil at 0.0087%. It is not there as a feature - it is the oil the vitamin A arrives in, and it stays in the finished formula. The refined oil is held below 0.5 parts per million of peanut protein under the European rule that governs it, which is why it can be used at all, and the safety assessment addresses it directly.',
     detail:
       'If you or the person you are buying for has a peanut allergy, do not use this product, and speak to your doctor before using anything with peanut-derived oil on a large area of skin. We are putting this at the top of the page rather than at the bottom of an ingredient list because the neck and chest is a large area, and because our EyeCell eye cream already declares its peanut oil while this page previously did not. That was our omission and this corrects it.',
   },
@@ -225,7 +225,7 @@ const EN: NdCellCopy = {
       {
         name: 'Adenosine',
         dose: '0.040%',
-        body: 'The exact dose Korea licenses for wrinkle improvement, and the reason this can be sold as an anti-wrinkle cream at all. Measured on the batch at 92.60% of declaration — the only active on the certificate that gets assayed.',
+        body: 'The exact dose Korea licenses for wrinkle improvement, and the reason this can be sold as an anti-wrinkle cream at all. Measured on the batch at 92.60% of declaration - the only active on the certificate that gets assayed.',
       },
       {
         name: 'Ceramide NP and jojoba',
@@ -258,12 +258,12 @@ const EN: NdCellCopy = {
     rows: [
       { name: 'Copper Tripeptide-1', value: '50 ppm', note: 'The one with genuine literature behind it, and the only one present in a meaningful amount', highlight: true },
       { name: 'Palmitoyl Hexapeptide-12', value: '1 ppm', note: 'Present, not deliverable' },
-      { name: 'Acetyl Hexapeptide-8', value: '0.25 ppm', note: 'Studied at 5–10% in the literature. This is a quarter of one part per million' },
+      { name: 'Acetyl Hexapeptide-8', value: '0.25 ppm', note: 'Studied at 5-10% in the literature. This is a quarter of one part per million' },
       { name: 'Palmitoyl Tripeptide-1', value: '0.2 ppm', note: 'Present, not deliverable' },
       { name: 'sh-Polypeptide-7', value: '0.01 ppm', note: 'Ten parts per billion' },
     ],
     body:
-      'About 51.5 parts per million of peptide in total, and copper tripeptide-1 is 97% of it. So one peptide is worth mentioning and four are on the list because they are in the formula. Buy this cream for the squalane, the vitamin E and the adenosine — all three are real, and one of them is measured on every batch.',
+      'About 51.5 parts per million of peptide in total, and copper tripeptide-1 is 97% of it. So one peptide is worth mentioning and four are on the list because they are in the formula. Buy this cream for the squalane, the vitamin E and the adenosine - all three are real, and one of them is measured on every batch.',
   },
 
   vitamins: {
@@ -272,10 +272,10 @@ const EN: NdCellCopy = {
     intro:
       '"Vitamin A, B5, C and E" reads like four equal contributions. Two of them are at doses that do something and two are at doses that fill out a sentence, so we have marked which is which.',
     rows: [
-      { name: 'Vitamin E — tocopheryl acetate', value: '1.000%', verdict: 'A strong, genuine dose', real: true },
-      { name: 'Vitamin B5 — panthenol', value: '0.300%', verdict: 'A real working dose', real: true },
-      { name: 'Vitamin C — ascorbyl glucoside', value: '0.025%', verdict: 'Around one eightieth of the concentration used in efficacy work' },
-      { name: 'Vitamin A — retinyl palmitate', value: '0.0111%', verdict: 'Low, and the gentlest and weakest of the retinoid esters' },
+      { name: 'Vitamin E - tocopheryl acetate', value: '1.000%', verdict: 'A strong, genuine dose', real: true },
+      { name: 'Vitamin B5 - panthenol', value: '0.300%', verdict: 'A real working dose', real: true },
+      { name: 'Vitamin C - ascorbyl glucoside', value: '0.025%', verdict: 'Around one eightieth of the concentration used in efficacy work' },
+      { name: 'Vitamin A - retinyl palmitate', value: '0.0111%', verdict: 'Low, and the gentlest and weakest of the retinoid esters' },
     ],
     body:
       'The vitamin A figure has a story worth telling: an earlier version of this formula carried 0.02%, and the safety assessor capped body-area products at 0.025% and asked for a reduction. The current formula is at 0.0111%, comfortably under. That is the assessment process working as it should, and it is also why nobody should buy this expecting retinoid results.',
@@ -289,22 +289,22 @@ const EN: NdCellCopy = {
     rows: [
       { label: 'pH', value: '6.32 at 25 °C, inside a 6.00 ± 1.00 specification' },
       { label: 'Fill', value: '50.3 g against a 50 g declaration' },
-      { label: 'Specific gravity', value: '0.981 — lighter than water, from the oil and silicone load' },
+      { label: 'Specific gravity', value: '0.981 - lighter than water, from the oil and silicone load' },
       { label: 'Hardness', value: '35, inside a 30 ± 10 specification' },
       { label: 'Adenosine', value: 'Assayed at 92.60% of the declared 0.04%' },
       { label: 'Purity', value: 'Under 100 cfu/g total count' },
-      { label: 'Pathogens', value: 'S. aureus, P. aeruginosa, E. coli and C. albicans — four screened, all not detected' },
+      { label: 'Pathogens', value: 'S. aureus, P. aeruginosa, E. coli and C. albicans - four screened, all not detected' },
       { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the box' },
     ],
     patch:
-      'The patch test behind the "dermatologically tested" line came back graded Non Irritant rather than simply passing. The assessor notes the volunteer count is small, so read it as reassurance about the formula rather than proof about your skin — particularly given the peanut oil and the lavender.',
+      'The patch test behind the "dermatologically tested" line came back graded Non Irritant rather than simply passing. The assessor notes the volunteer count is small, so read it as reassurance about the formula rather than proof about your skin - particularly given the peanut oil and the lavender.',
   },
 
   fragrance: {
     eyebrow: 'If you screen your ingredients',
     title: 'Lavender oil, and a note about the box',
     body:
-      'Lavender oil at 0.0265%, with linalool at 0.0235%. There is no synthetic perfume in the formula, which is what the carton\u2019s "no artificial fragrance" line refers to — but it is scented, and free of synthetic fragrance is not the same as fragrance-free. One thing you should know: European law requires linalool to be declared above 0.001%, this is twenty-three times that, and the printed carton\u2019s ingredient list does not name it. The safety assessment does. We are declaring it here because anyone screening the box for it would not find it, and we have asked the manufacturer to correct the artwork. Our Blemish Balm Cream is the genuinely fragrance-free option in the range.',
+      'Lavender oil at 0.0265%, with linalool at 0.0235%. There is no synthetic perfume in the formula, which is what the carton\u2019s "no artificial fragrance" line refers to - but it is scented, and free of synthetic fragrance is not the same as fragrance-free. One thing you should know: European law requires linalool to be declared above 0.001%, this is twenty-three times that, and the printed carton\u2019s ingredient list does not name it. The safety assessment does. We are declaring it here because anyone screening the box for it would not find it, and we have asked the manufacturer to correct the artwork. Our Blemish Balm Cream is the genuinely fragrance-free option in the range.',
   },
 
   howTo: {
@@ -330,7 +330,7 @@ const EN: NdCellCopy = {
       },
     ],
     note:
-      'Do not use it near the eyes — the carton says so explicitly, and our EyeCell cream is the product formulated for that skin. It layers happily under or over anything without acids or retinoids, and if you want water-binding as well, put the Anti-Wrinkle Serum underneath.',
+      'Do not use it near the eyes - the carton says so explicitly, and our EyeCell cream is the product formulated for that skin. It layers happily under or over anything without acids or retinoids, and if you want water-binding as well, put the Anti-Wrinkle Serum underneath.',
   },
 
   inci: {
@@ -365,10 +365,10 @@ const EN: NdCellCopy = {
       { label: 'For', value: 'Neck and décolleté' },
       { label: 'Texture', value: 'White cream, rich and sealing' },
       { label: 'Actives at dose', value: 'Squalane 5.00%, dimethicone 3.00%, vitamin E 1.00%, panthenol 0.300%, allantoin 0.200%, adenosine 0.040%' },
-      { label: 'Glycerin', value: '0.700% — occlusive rather than hydrating' },
+      { label: 'Glycerin', value: '0.700% - occlusive rather than hydrating' },
       { label: 'Peptides', value: 'Five, totalling ~51.5 ppm; copper tripeptide-1 is 97% of that' },
       { label: 'Allergens', value: 'Contains peanut oil 0.0087% and linalool 0.0235%' },
-      { label: 'Fragranced', value: 'Yes — lavender oil 0.0265%. No synthetic perfume' },
+      { label: 'Fragranced', value: 'Yes - lavender oil 0.0265%. No synthetic perfume' },
       { label: 'pH', value: '6.00 ± 1.00 (6.32 on the batch tested)' },
       { label: 'Licence', value: 'Korean single-function: wrinkle improvement, via adenosine' },
       { label: 'Assessment', value: 'EU safety assessment; patch test graded Non Irritant' },
@@ -386,7 +386,7 @@ const EN: NdCellCopy = {
       },
       {
         q: 'Will it brighten pigmentation on my chest?',
-        a: 'We are not going to claim that. Our own description used to say it had an excellent depigmentation effect and we have removed it: Korea licenses this product for wrinkle improvement only, and there is no brightening active in it at a working dose — the vitamin C is at 0.025%, roughly an eightieth of what efficacy studies use. For sun damage on the décolleté the honest answer is daily sunscreen, and a product built for pigment.',
+        a: 'We are not going to claim that. Our own description used to say it had an excellent depigmentation effect and we have removed it: Korea licenses this product for wrinkle improvement only, and there is no brightening active in it at a working dose - the vitamin C is at 0.025%, roughly an eightieth of what efficacy studies use. For sun damage on the décolleté the honest answer is daily sunscreen, and a product built for pigment.',
       },
       {
         q: 'How is this different from a normal face cream?',
@@ -402,7 +402,7 @@ const EN: NdCellCopy = {
       },
       {
         q: 'Can I use it around my eyes?',
-        a: 'No — the carton says not to, explicitly. The skin there is thinner again and this is a rich, sealing cream with vitamin A and lavender oil in it. Our EyeCell Eye Contour Cream is the product formulated for that area.',
+        a: 'No - the carton says not to, explicitly. The skin there is thinner again and this is a rich, sealing cream with vitamin A and lavender oil in it. Our EyeCell Eye Contour Cream is the product formulated for that area.',
       },
     ],
   },
@@ -414,12 +414,12 @@ const _AR: NdCellCopy = {
   eyebrow: 'كريم إن دي سيل المضادّ للتجاعيد · الرقبة والصدر · 50 غ',
   headline: 'مصمّم للبشرة التي يتوقّف الناس عن ترطيبها عند خط الفكّ.',
   subheadline:
-    'سكوالان بنسبة 5% فوق دايميثيكون بنسبة 3% وفيتامين E بنسبة 1% كاملة، مع أدينوزين بالجرعة التي ترخّصها كوريا لتحسين التجاعيد. أما الغليسرين فبنسبة 0.7% فقط، فهذا كريم عازل لا مرطّب — يُحكم إغلاق بشرة الرقبة والصدر الرقيقة لا يسقيها. يحتوي زيت الفول السوداني وزيت اللافندر؛ وكلاهما مُفصح عنه أدناه.',
+    'سكوالان بنسبة 5% فوق دايميثيكون بنسبة 3% وفيتامين E بنسبة 1% كاملة، مع أدينوزين بالجرعة التي ترخّصها كوريا لتحسين التجاعيد. أما الغليسرين فبنسبة 0.7% فقط، فهذا كريم عازل لا مرطّب - يُحكم إغلاق بشرة الرقبة والصدر الرقيقة لا يسقيها. يحتوي زيت الفول السوداني وزيت اللافندر؛ وكلاهما مُفصح عنه أدناه.',
   heroBullets: [
-    'سكوالان 5% — المكوّن الذي يحمل هذه التركيبة فعلاً',
+    'سكوالان 5% - المكوّن الذي يحمل هذه التركيبة فعلاً',
     'فيتامين E بنسبة 1% وB5 بنسبة 0.3%، وكلتاهما جرعتان عاملتان حقيقيتان',
-    'أدينوزين 0.04%، مقيس عند 92.60% — جرعة التجاعيد المرخّصة',
-    'يحتوي زيت الفول السوداني واللينالول — مُفصح عنهما كاملاً أدناه',
+    'أدينوزين 0.04%، مقيس عند 92.60% - جرعة التجاعيد المرخّصة',
+    'يحتوي زيت الفول السوداني واللينالول - مُفصح عنهما كاملاً أدناه',
   ],
   badges: ['صُنع في كوريا', '50 غ', 'تقييم سلامة أوروبي', 'مصنّف غير مهيّج'],
 
@@ -436,14 +436,14 @@ const _AR: NdCellCopy = {
     { value: '5%', label: 'سكوالان' },
     { value: '1%', label: 'فيتامين E، جرعة قوية فعلاً' },
     { value: '0.04%', label: 'أدينوزين، مقيس عند 92.60%' },
-    { value: '0.7%', label: 'غليسرين — هذا يُحكم الإغلاق لا يرطّب' },
+    { value: '0.7%', label: 'غليسرين - هذا يُحكم الإغلاق لا يرطّب' },
   ],
 
   peanut: {
     eyebrow: 'اقرئي هذا أولاً',
     title: 'هذا الكريم يحتوي زيت الفول السوداني',
     body:
-      'زيت بذور الفول السوداني بنسبة 0.0087%. وهو ليس موجوداً كميزة — بل هو الزيت الذي يأتي فيه فيتامين A، ويبقى في التركيبة النهائية. ويُحفظ الزيت المكرّر تحت 0.5 جزء من المليون من بروتين الفول السوداني بموجب القاعدة الأوروبية التي تحكمه، ولهذا يمكن استخدامه أصلاً، ويتناوله تقييم السلامة مباشرة.',
+      'زيت بذور الفول السوداني بنسبة 0.0087%. وهو ليس موجوداً كميزة - بل هو الزيت الذي يأتي فيه فيتامين A، ويبقى في التركيبة النهائية. ويُحفظ الزيت المكرّر تحت 0.5 جزء من المليون من بروتين الفول السوداني بموجب القاعدة الأوروبية التي تحكمه، ولهذا يمكن استخدامه أصلاً، ويتناوله تقييم السلامة مباشرة.',
     detail:
       'إن كان لديك أو لدى من تشترين له حساسية من الفول السوداني، فلا تستخدمي هذا المنتج، واستشيري طبيبك قبل استخدام أي شيء يحتوي زيتاً مشتقاً من الفول السوداني على منطقة واسعة من الجلد. ونضع هذا في أعلى الصفحة لا في أسفل قائمة مكوّنات، لأن الرقبة والصدر منطقة واسعة، ولأن كريم العيون EyeCell لدينا يُفصح عن زيت الفول السوداني فيه بينما لم تكن هذه الصفحة تفعل. كان ذلك تقصيراً منّا وهذا يصحّحه.',
   },
@@ -477,7 +477,7 @@ const _AR: NdCellCopy = {
       {
         name: 'Adenosine',
         dose: '0.040%',
-        body: 'الجرعة التي ترخّصها كوريا لتحسين التجاعيد تحديداً، وسبب إمكان بيع هذا ككريم مضادّ للتجاعيد أصلاً. مقيس على الدفعة عند 92.60% من المعلن — وهو الفعّال الوحيد على الشهادة الذي يُقاس.',
+        body: 'الجرعة التي ترخّصها كوريا لتحسين التجاعيد تحديداً، وسبب إمكان بيع هذا ككريم مضادّ للتجاعيد أصلاً. مقيس على الدفعة عند 92.60% من المعلن - وهو الفعّال الوحيد على الشهادة الذي يُقاس.',
       },
       {
         name: 'Ceramide NP و Jojoba',
@@ -510,12 +510,12 @@ const _AR: NdCellCopy = {
     rows: [
       { name: 'Copper Tripeptide-1', value: '50 ppm', note: 'الوحيد الذي له أدبيات حقيقية خلفه، والوحيد الموجود بكمّية ذات معنى', highlight: true },
       { name: 'Palmitoyl Hexapeptide-12', value: '1 ppm', note: 'موجود، غير قابل للإيصال' },
-      { name: 'Acetyl Hexapeptide-8', value: '0.25 ppm', note: 'يُدرَس عند 5–10% في الأدبيات. وهذا ربع جزء من المليون' },
+      { name: 'Acetyl Hexapeptide-8', value: '0.25 ppm', note: 'يُدرَس عند 5-10% في الأدبيات. وهذا ربع جزء من المليون' },
       { name: 'Palmitoyl Tripeptide-1', value: '0.2 ppm', note: 'موجود، غير قابل للإيصال' },
       { name: 'sh-Polypeptide-7', value: '0.01 ppm', note: 'عشرة أجزاء من المليار' },
     ],
     body:
-      'نحو 51.5 جزءاً من المليون من الببتيد إجمالاً، والكوبر ترايببتايد-1 يمثّل 97% منه. فببتيد واحد يستحق الذكر وأربعة على القائمة لأنها في التركيبة. اشتري هذا الكريم من أجل السكوالان وفيتامين E والأدينوزين — فالثلاثة حقيقية، وواحد منها يُقاس على كل دفعة.',
+      'نحو 51.5 جزءاً من المليون من الببتيد إجمالاً، والكوبر ترايببتايد-1 يمثّل 97% منه. فببتيد واحد يستحق الذكر وأربعة على القائمة لأنها في التركيبة. اشتري هذا الكريم من أجل السكوالان وفيتامين E والأدينوزين - فالثلاثة حقيقية، وواحد منها يُقاس على كل دفعة.',
   },
 
   vitamins: {
@@ -524,10 +524,10 @@ const _AR: NdCellCopy = {
     intro:
       '«فيتامين A وB5 وC وE» يُقرأ كأربع مساهمات متساوية. اثنان منها بجرعات تفعل شيئاً واثنان بجرعات تكمل جملة، فأشّرنا أيّها أيّ.',
     rows: [
-      { name: 'فيتامين E — Tocopheryl Acetate', value: '1.000%', verdict: 'جرعة قوية حقيقية', real: true },
-      { name: 'فيتامين B5 — Panthenol', value: '0.300%', verdict: 'جرعة عاملة حقيقية', real: true },
-      { name: 'فيتامين C — Ascorbyl Glucoside', value: '0.025%', verdict: 'نحو واحد على ثمانين من التركيز المستخدم في أعمال الفاعلية' },
-      { name: 'فيتامين A — Retinyl Palmitate', value: '0.0111%', verdict: 'منخفض، وهو ألطف إسترات الريتينويد وأضعفها' },
+      { name: 'فيتامين E - Tocopheryl Acetate', value: '1.000%', verdict: 'جرعة قوية حقيقية', real: true },
+      { name: 'فيتامين B5 - Panthenol', value: '0.300%', verdict: 'جرعة عاملة حقيقية', real: true },
+      { name: 'فيتامين C - Ascorbyl Glucoside', value: '0.025%', verdict: 'نحو واحد على ثمانين من التركيز المستخدم في أعمال الفاعلية' },
+      { name: 'فيتامين A - Retinyl Palmitate', value: '0.0111%', verdict: 'منخفض، وهو ألطف إسترات الريتينويد وأضعفها' },
     ],
     body:
       'ولرقم فيتامين A حكاية تستحق السرد: فنسخة أقدم من هذه التركيبة حملت 0.02%، وقد حدّد مقيّم السلامة سقف منتجات الجسم عند 0.025% وطلب تخفيضاً. والتركيبة الحالية عند 0.0111%، أي تحته بارتياح. وهذا هو عمل التقييم كما ينبغي، وهو أيضاً سبب ألّا يشتري أحد هذا متوقّعاً نتائج ريتينويد.',
@@ -541,22 +541,22 @@ const _AR: NdCellCopy = {
     rows: [
       { label: 'الحموضة', value: '6.32 عند 25 درجة، ضمن مواصفة 6.00 ± 1.00' },
       { label: 'التعبئة', value: '50.3 غ مقابل 50 غ معلنة' },
-      { label: 'الكثافة النوعية', value: '0.981 — أخفّ من الماء، بسبب حمل الزيوت والسيليكون' },
+      { label: 'الكثافة النوعية', value: '0.981 - أخفّ من الماء، بسبب حمل الزيوت والسيليكون' },
       { label: 'الصلادة', value: '35، ضمن مواصفة 30 ± 10' },
       { label: 'الأدينوزين', value: 'مقيس عند 92.60% من الـ 0.04% المعلنة' },
       { label: 'النقاء', value: 'أقل من 100 وحدة/غ للعدّ الكلي' },
-      { label: 'الممرضات', value: 'المكوّرة العنقودية والزائفة والإشريكية القولونية والمبيضّات — أربعة مفحوصة وكلها غير مكتشفة' },
+      { label: 'الممرضات', value: 'المكوّرة العنقودية والزائفة والإشريكية القولونية والمبيضّات - أربعة مفحوصة وكلها غير مكتشفة' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات مغلقاً، وتاريخ الانتهاء على العلبة' },
     ],
     patch:
-      'اختبار اللصقة الذي يقف خلف عبارة «مختبر جلدياً» عاد مصنّفاً «غير مهيّج» لا مجرّد ناجح. ويلاحظ المقيّم أن عدد المتطوّعين صغير، فاقرئيها كطمأنة بشأن التركيبة لا كبرهان بشأن بشرتك — خصوصاً مع وجود زيت الفول السوداني واللافندر.',
+      'اختبار اللصقة الذي يقف خلف عبارة «مختبر جلدياً» عاد مصنّفاً «غير مهيّج» لا مجرّد ناجح. ويلاحظ المقيّم أن عدد المتطوّعين صغير، فاقرئيها كطمأنة بشأن التركيبة لا كبرهان بشأن بشرتك - خصوصاً مع وجود زيت الفول السوداني واللافندر.',
   },
 
   fragrance: {
     eyebrow: 'إن كنتِ تفحصين المكوّنات',
     title: 'زيت اللافندر، وملاحظة عن العلبة',
     body:
-      'زيت اللافندر بنسبة 0.0265%، مع لينالول بنسبة 0.0235%. ولا عطر صناعي في التركيبة، وهذا ما تشير إليه عبارة «بلا عطر صناعي» على العلبة — لكنه معطّر، والخلوّ من العطر الصناعي ليس كالخلوّ من العطر. وأمر ينبغي أن تعرفيه: يوجب القانون الأوروبي الإفصاح عن اللينالول فوق 0.001%، وهذا ثلاثة وعشرون ضعف ذلك، وقائمة مكوّنات العلبة المطبوعة لا تسمّيه. أما تقييم السلامة فيسمّيه. ونحن نُفصح عنه هنا لأن من يفحص العلبة بحثاً عنه لن يجده، وقد طلبنا من الشركة تصحيح التصميم. وكريم البلسم للعيوب لدينا هو الخيار الخالي من العطر فعلاً في المجموعة.',
+      'زيت اللافندر بنسبة 0.0265%، مع لينالول بنسبة 0.0235%. ولا عطر صناعي في التركيبة، وهذا ما تشير إليه عبارة «بلا عطر صناعي» على العلبة - لكنه معطّر، والخلوّ من العطر الصناعي ليس كالخلوّ من العطر. وأمر ينبغي أن تعرفيه: يوجب القانون الأوروبي الإفصاح عن اللينالول فوق 0.001%، وهذا ثلاثة وعشرون ضعف ذلك، وقائمة مكوّنات العلبة المطبوعة لا تسمّيه. أما تقييم السلامة فيسمّيه. ونحن نُفصح عنه هنا لأن من يفحص العلبة بحثاً عنه لن يجده، وقد طلبنا من الشركة تصحيح التصميم. وكريم البلسم للعيوب لدينا هو الخيار الخالي من العطر فعلاً في المجموعة.',
   },
 
   howTo: {
@@ -582,7 +582,7 @@ const _AR: NdCellCopy = {
       },
     ],
     note:
-      'لا تستخدميه قرب العينين — تقول العلبة ذلك صراحةً، وكريم EyeCell لدينا هو المنتج المصمّم لتلك البشرة. ويتراكب بسلاسة تحت أي شيء أو فوقه بلا أحماض أو ريتينويدات، وإن أردتِ ربط الماء أيضاً فضعي سيروم مكافحة التجاعيد تحته.',
+      'لا تستخدميه قرب العينين - تقول العلبة ذلك صراحةً، وكريم EyeCell لدينا هو المنتج المصمّم لتلك البشرة. ويتراكب بسلاسة تحت أي شيء أو فوقه بلا أحماض أو ريتينويدات، وإن أردتِ ربط الماء أيضاً فضعي سيروم مكافحة التجاعيد تحته.',
   },
 
   inci: {
@@ -617,10 +617,10 @@ const _AR: NdCellCopy = {
       { label: 'لأجل', value: 'الرقبة والصدر' },
       { label: 'الملمس', value: 'كريم أبيض، غنيّ وعازل' },
       { label: 'الفعّالات بجرعة', value: 'سكوالان 5.00%، دايميثيكون 3.00%، فيتامين E 1.00%، بانثينول 0.300%، ألانتوين 0.200%، أدينوزين 0.040%' },
-      { label: 'الغليسرين', value: '0.700% — عازل لا مرطّب' },
+      { label: 'الغليسرين', value: '0.700% - عازل لا مرطّب' },
       { label: 'الببتيدات', value: 'خمسة، بإجمالي ~51.5 جزءاً من المليون؛ والكوبر ترايببتايد-1 يمثّل 97% منها' },
       { label: 'مسبّبات الحساسية', value: 'يحتوي زيت الفول السوداني 0.0087% ولينالول 0.0235%' },
-      { label: 'معطّر', value: 'نعم — زيت لافندر 0.0265%. ولا عطر صناعي' },
+      { label: 'معطّر', value: 'نعم - زيت لافندر 0.0265%. ولا عطر صناعي' },
       { label: 'الحموضة', value: '6.00 ± 1.00 (6.32 على الدفعة المختبرة)' },
       { label: 'الترخيص', value: 'مفرد الوظيفة الكوري: تحسين التجاعيد، عبر الأدينوزين' },
       { label: 'التقييم', value: 'تقييم سلامة أوروبي؛ اختبار لصقة مصنّف غير مهيّج' },
@@ -638,7 +638,7 @@ const _AR: NdCellCopy = {
       },
       {
         q: 'هل سيفتّح التصبّغ على صدري؟',
-        a: 'لن نزعم ذلك. كان وصفنا نفسه يقول إن له أثراً ممتازاً في إزالة التصبّغ وقد حذفناه: فكوريا ترخّص هذا المنتج لتحسين التجاعيد فقط، ولا فعّال مفتّح فيه بجرعة عاملة — ففيتامين C عند 0.025%، أي نحو ثُمن العشر مما تستخدمه دراسات الفاعلية. وللتلف الشمسي على الصدر، الجواب الصريح هو واقي شمس يومي ومنتج مبني للتصبّغ.',
+        a: 'لن نزعم ذلك. كان وصفنا نفسه يقول إن له أثراً ممتازاً في إزالة التصبّغ وقد حذفناه: فكوريا ترخّص هذا المنتج لتحسين التجاعيد فقط، ولا فعّال مفتّح فيه بجرعة عاملة - ففيتامين C عند 0.025%، أي نحو ثُمن العشر مما تستخدمه دراسات الفاعلية. وللتلف الشمسي على الصدر، الجواب الصريح هو واقي شمس يومي ومنتج مبني للتصبّغ.',
       },
       {
         q: 'كيف يختلف عن كريم وجه عادي؟',
@@ -654,7 +654,7 @@ const _AR: NdCellCopy = {
       },
       {
         q: 'هل أستخدمه حول عينيّ؟',
-        a: 'لا — تقول العلبة صراحةً ألّا تفعلي. فالبشرة هناك أرقّ مرة أخرى وهذا كريم غنيّ عازل فيه فيتامين A وزيت لافندر. وكريم EyeCell لمحيط العين لدينا هو المنتج المصمّم لتلك المنطقة.',
+        a: 'لا - تقول العلبة صراحةً ألّا تفعلي. فالبشرة هناك أرقّ مرة أخرى وهذا كريم غنيّ عازل فيه فيتامين A وزيت لافندر. وكريم EyeCell لمحيط العين لدينا هو المنتج المصمّم لتلك المنطقة.',
       },
     ],
   },
@@ -666,12 +666,12 @@ const _RU: NdCellCopy = {
   eyebrow: 'ND Cell крем против морщин · Шея и декольте · 50 г',
   headline: 'Для кожи, которую перестают увлажнять на линии челюсти.',
   subheadline:
-    'Сквалан 5% поверх диметикона 3% и витамина E в полный 1%, с аденозином в дозе, под которую Корея лицензирует уменьшение морщин. Глицерина всего 0,7%, так что это окклюзивный крем, а не увлажняющий: он запечатывает тонкую кожу шеи и груди, а не поит её. Содержит арахисовое и лавандовое масло — оба раскрыты ниже.',
+    'Сквалан 5% поверх диметикона 3% и витамина E в полный 1%, с аденозином в дозе, под которую Корея лицензирует уменьшение морщин. Глицерина всего 0,7%, так что это окклюзивный крем, а не увлажняющий: он запечатывает тонкую кожу шеи и груди, а не поит её. Содержит арахисовое и лавандовое масло - оба раскрыты ниже.',
   heroBullets: [
-    'Сквалан 5% — ингредиент, который реально несёт эту формулу',
-    'Витамин E 1% и B5 0,3%, обе — реальные рабочие дозы',
-    'Аденозин 0,04%, измерено 92,60% — лицензионная доза для морщин',
-    'Содержит арахисовое масло и линалоол — полностью раскрыто ниже',
+    'Сквалан 5% - ингредиент, который реально несёт эту формулу',
+    'Витамин E 1% и B5 0,3%, обе - реальные рабочие дозы',
+    'Аденозин 0,04%, измерено 92,60% - лицензионная доза для морщин',
+    'Содержит арахисовое масло и линалоол - полностью раскрыто ниже',
   ],
   badges: ['Сделано в Корее', '50 г', 'Оценка безопасности ЕС', 'Оценка: не раздражает'],
 
@@ -686,18 +686,18 @@ const _RU: NdCellCopy = {
 
   stats: [
     { value: '5%', label: 'Сквалана' },
-    { value: '1%', label: 'Витамина E — действительно сильная доза' },
+    { value: '1%', label: 'Витамина E - действительно сильная доза' },
     { value: '0,04%', label: 'Аденозина, измерено 92,60%' },
-    { value: '0,7%', label: 'Глицерина — он запечатывает, а не увлажняет' },
+    { value: '0,7%', label: 'Глицерина - он запечатывает, а не увлажняет' },
   ],
 
   peanut: {
     eyebrow: 'Сначала прочтите это',
     title: 'Этот крем содержит арахисовое масло',
     body:
-      'Масло семян арахиса, 0,0087%. Оно здесь не как достоинство — это масло, в котором приходит витамин A, и оно остаётся в готовой формуле. Рафинированное масло держат ниже 0,5 части на миллион арахисового белка по европейскому правилу, которое им управляет, — именно поэтому его вообще можно использовать, и оценка безопасности разбирает это прямо.',
+      'Масло семян арахиса, 0,0087%. Оно здесь не как достоинство - это масло, в котором приходит витамин A, и оно остаётся в готовой формуле. Рафинированное масло держат ниже 0,5 части на миллион арахисового белка по европейскому правилу, которое им управляет, - именно поэтому его вообще можно использовать, и оценка безопасности разбирает это прямо.',
     detail:
-      'Если у вас или у того, кому вы покупаете, аллергия на арахис — не используйте этот продукт и поговорите с врачом прежде, чем наносить что-либо с маслом из арахиса на большую площадь кожи. Мы ставим это в начало страницы, а не в конец состава, потому что шея и грудь — большая площадь и потому что наш крем для глаз EyeCell уже раскрывает своё арахисовое масло, а эта страница не раскрывала ничего. Это было нашим упущением, и здесь оно исправлено.',
+      'Если у вас или у того, кому вы покупаете, аллергия на арахис - не используйте этот продукт и поговорите с врачом прежде, чем наносить что-либо с маслом из арахиса на большую площадь кожи. Мы ставим это в начало страницы, а не в конец состава, потому что шея и грудь - большая площадь и потому что наш крем для глаз EyeCell уже раскрывает своё арахисовое масло, а эта страница не раскрывала ничего. Это было нашим упущением, и здесь оно исправлено.',
   },
 
   working: {
@@ -719,7 +719,7 @@ const _RU: NdCellCopy = {
       {
         name: 'Tocopheryl Acetate (витамин E)',
         dose: '1.000%',
-        body: 'Действительно сильная доза, а не символическая. Антиоксидант, и он заслуживает своего места в витаминном заявлении — чего нельзя сказать обо всех четырёх витаминах.',
+        body: 'Действительно сильная доза, а не символическая. Антиоксидант, и он заслуживает своего места в витаминном заявлении - чего нельзя сказать обо всех четырёх витаминах.',
       },
       {
         name: 'Panthenol (витамин B5)',
@@ -729,12 +729,12 @@ const _RU: NdCellCopy = {
       {
         name: 'Adenosine',
         dose: '0.040%',
-        body: 'Ровно та доза, которую Корея лицензирует для уменьшения морщин, и причина, по которой это вообще можно продавать как крем против морщин. Измерено в партии: 92,60% от заявленного — единственный актив в сертификате, который измеряют.',
+        body: 'Ровно та доза, которую Корея лицензирует для уменьшения морщин, и причина, по которой это вообще можно продавать как крем против морщин. Измерено в партии: 92,60% от заявленного - единственный актив в сертификате, который измеряют.',
       },
       {
         name: 'Ceramide NP и Jojoba',
         dose: '0.020% + 0.500%',
-        body: 'Церамида скромно — 200 частей на миллион, но это стоит отметить: примерно в две тысячи раз больше, чем церамида в нашем Multi Functional креме. Масло жожоба дополняет липидную фазу.',
+        body: 'Церамида скромно - 200 частей на миллион, но это стоит отметить: примерно в две тысячи раз больше, чем церамида в нашем Multi Functional креме. Масло жожоба дополняет липидную фазу.',
       },
     ],
   },
@@ -743,7 +743,7 @@ const _RU: NdCellCopy = {
     eyebrow: 'Какой из трёх вам нужен',
     title: 'Этот запечатывает. Два других увлажняют.',
     intro:
-      'Теперь у нас три средства против морщин с одинаковым аденозином 0,04%, и различает их не активы. А соотношение связывающего воду увлажнителя к запечатывающему маслу — и все три стоят в совершенно разных точках.',
+      'Теперь у нас три средства против морщин с одинаковым аденозином 0,04%, и различает их не активы. А соотношение связывающего воду увлажнителя к запечатывающему маслу - и все три стоят в совершенно разных точках.',
     columns: { row: '', glycerin: 'Глицерин', oils: 'Масла и силиконы' },
     rows: [
       { label: 'Сыворотка против морщин', glycerin: '25,45%', oils: '~2,4%' },
@@ -751,7 +751,7 @@ const _RU: NdCellCopy = {
       { label: 'ND Cell, этот крем', glycerin: '0,70%', oils: '~9,6% плюс 5% сквалана', highlight: true },
     ],
     body:
-      'При 0,7% глицерина это едва ли увлажнитель вовсе, и мы предпочтём сказать это, чем позволить вам ждать наполненности от сыворотки. Он создан удерживать влагу в коже, которой трудно сохранить свою, — а это справедливое описание большинства шей после сорока. Если хотите связывать воду и на шее, сыворотка под ним даст и то, и другое.',
+      'При 0,7% глицерина это едва ли увлажнитель вовсе, и мы предпочтём сказать это, чем позволить вам ждать наполненности от сыворотки. Он создан удерживать влагу в коже, которой трудно сохранить свою, - а это справедливое описание большинства шей после сорока. Если хотите связывать воду и на шее, сыворотка под ним даст и то, и другое.',
   },
 
   peptides: {
@@ -762,27 +762,27 @@ const _RU: NdCellCopy = {
     rows: [
       { name: 'Copper Tripeptide-1', value: '50 ppm', note: 'Единственный с реальной литературой за спиной и единственный в осмысленном количестве', highlight: true },
       { name: 'Palmitoyl Hexapeptide-12', value: '1 ppm', note: 'Присутствует, но не доставляется' },
-      { name: 'Acetyl Hexapeptide-8', value: '0,25 ppm', note: 'В литературе изучается при 5–10%. Здесь — четверть части на миллион' },
+      { name: 'Acetyl Hexapeptide-8', value: '0,25 ppm', note: 'В литературе изучается при 5-10%. Здесь - четверть части на миллион' },
       { name: 'Palmitoyl Tripeptide-1', value: '0,2 ppm', note: 'Присутствует, но не доставляется' },
       { name: 'sh-Polypeptide-7', value: '0,01 ppm', note: 'Десять частей на миллиард' },
     ],
     body:
-      'Итого около 51,5 части на миллион пептидов, и copper tripeptide-1 — это 97% от них. То есть один пептид стоит упоминания, а четыре в списке потому, что они в формуле. Покупайте этот крем за сквалан, витамин E и аденозин: все три реальны, а один из них измеряют в каждой партии.',
+      'Итого около 51,5 части на миллион пептидов, и copper tripeptide-1 - это 97% от них. То есть один пептид стоит упоминания, а четыре в списке потому, что они в формуле. Покупайте этот крем за сквалан, витамин E и аденозин: все три реальны, а один из них измеряют в каждой партии.',
   },
 
   vitamins: {
     eyebrow: 'Пропорция',
     title: 'Витаминный комплекс: два реальных и два символических',
     intro:
-      '«Витамины A, B5, C и E» читаются как четыре равных вклада. Два из них в дозах, которые что-то делают, и два — в дозах, которые дополняют фразу, так что мы отметили, что есть что.',
+      '«Витамины A, B5, C и E» читаются как четыре равных вклада. Два из них в дозах, которые что-то делают, и два - в дозах, которые дополняют фразу, так что мы отметили, что есть что.',
     rows: [
-      { name: 'Витамин E — tocopheryl acetate', value: '1.000%', verdict: 'Сильная, настоящая доза', real: true },
-      { name: 'Витамин B5 — panthenol', value: '0.300%', verdict: 'Реальная рабочая доза', real: true },
-      { name: 'Витамин C — ascorbyl glucoside', value: '0.025%', verdict: 'Примерно одна восьмидесятая от концентрации в работах по эффективности' },
-      { name: 'Витамин A — retinyl palmitate', value: '0.0111%', verdict: 'Мало, и это самый мягкий и слабый из ретиноидных эфиров' },
+      { name: 'Витамин E - tocopheryl acetate', value: '1.000%', verdict: 'Сильная, настоящая доза', real: true },
+      { name: 'Витамин B5 - panthenol', value: '0.300%', verdict: 'Реальная рабочая доза', real: true },
+      { name: 'Витамин C - ascorbyl glucoside', value: '0.025%', verdict: 'Примерно одна восьмидесятая от концентрации в работах по эффективности' },
+      { name: 'Витамин A - retinyl palmitate', value: '0.0111%', verdict: 'Мало, и это самый мягкий и слабый из ретиноидных эфиров' },
     ],
     body:
-      'У цифры витамина A есть история, которую стоит рассказать: более ранняя версия формулы несла 0,02%, а оценщик безопасности ограничил средства для тела 0,025% и попросил снизить. Текущая формула — 0,0111%, спокойно ниже. Это процесс оценки, работающий как должно, и это же причина, по которой никому не стоит покупать это, ожидая результатов ретиноида.',
+      'У цифры витамина A есть история, которую стоит рассказать: более ранняя версия формулы несла 0,02%, а оценщик безопасности ограничил средства для тела 0,025% и попросил снизить. Текущая формула - 0,0111%, спокойно ниже. Это процесс оценки, работающий как должно, и это же причина, по которой никому не стоит покупать это, ожидая результатов ретиноида.',
   },
 
   quality: {
@@ -793,22 +793,22 @@ const _RU: NdCellCopy = {
     rows: [
       { label: 'pH', value: '6,32 при 25 °C, в пределах спецификации 6,00 ± 1,00' },
       { label: 'Наполнение', value: '50,3 г при заявленных 50 г' },
-      { label: 'Удельный вес', value: '0,981 — легче воды, из-за загрузки маслами и силиконами' },
+      { label: 'Удельный вес', value: '0,981 - легче воды, из-за загрузки маслами и силиконами' },
       { label: 'Твёрдость', value: '35, в пределах спецификации 30 ± 10' },
       { label: 'Аденозин', value: 'Измерено 92,60% от заявленных 0,04%' },
       { label: 'Чистота', value: 'Менее 100 КОЕ/г по общему счёту' },
-      { label: 'Патогены', value: 'S. aureus, P. aeruginosa, E. coli и C. albicans — четыре проверены, все не обнаружены' },
+      { label: 'Патогены', value: 'S. aureus, P. aeruginosa, E. coli и C. albicans - четыре проверены, все не обнаружены' },
       { label: 'Срок годности', value: 'Три года закрытым, дата на коробке' },
     ],
     patch:
-      'Патч-тест, стоящий за строкой «дерматологически протестировано», вернулся с оценкой «не раздражает», а не просто «пройден». Оценщик отмечает, что число добровольцев невелико, так что читайте это как уверенность в формуле, а не как доказательство про вашу кожу — тем более при наличии арахисового масла и лаванды.',
+      'Патч-тест, стоящий за строкой «дерматологически протестировано», вернулся с оценкой «не раздражает», а не просто «пройден». Оценщик отмечает, что число добровольцев невелико, так что читайте это как уверенность в формуле, а не как доказательство про вашу кожу - тем более при наличии арахисового масла и лаванды.',
   },
 
   fragrance: {
     eyebrow: 'Если вы читаете составы',
     title: 'Лавандовое масло и замечание о коробке',
     body:
-      'Лавандовое масло 0,0265%, с линалоолом 0,0235%. Синтетической отдушки в формуле нет — именно об этом строка «без искусственного ароматизатора» на коробке, — но он ароматизирован, а отсутствие синтетической отдушки не то же самое, что отсутствие аромата. Что вам стоит знать: европейский закон требует заявлять линалоол выше 0,001%, здесь его в двадцать три раза больше, и печатный состав на коробке его не называет. Оценка безопасности называет. Мы раскрываем его здесь, потому что тот, кто ищет его на коробке, не найдёт, и мы попросили производителя исправить макет. Наш Blemish Balm Cream — действительно вариант без отдушки в линейке.',
+      'Лавандовое масло 0,0265%, с линалоолом 0,0235%. Синтетической отдушки в формуле нет - именно об этом строка «без искусственного ароматизатора» на коробке, - но он ароматизирован, а отсутствие синтетической отдушки не то же самое, что отсутствие аромата. Что вам стоит знать: европейский закон требует заявлять линалоол выше 0,001%, здесь его в двадцать три раза больше, и печатный состав на коробке его не называет. Оценка безопасности называет. Мы раскрываем его здесь, потому что тот, кто ищет его на коробке, не найдёт, и мы попросили производителя исправить макет. Наш Blemish Balm Cream - действительно вариант без отдушки в линейке.',
   },
 
   howTo: {
@@ -818,7 +818,7 @@ const _RU: NdCellCopy = {
     steps: [
       {
         title: 'Начинайте ниже, чем кажется',
-        body: 'Начните от ключиц и идите вверх. Большинство относится к шее как к дополнению к лицу и останавливается на линии челюсти — именно поэтому декольте старится по собственному графику.',
+        body: 'Начните от ключиц и идите вверх. Большинство относится к шее как к дополнению к лицу и останавливается на линии челюсти - именно поэтому декольте старится по собственному графику.',
       },
       {
         title: 'Движения вверх, плоскими руками',
@@ -834,7 +834,7 @@ const _RU: NdCellCopy = {
       },
     ],
     note:
-      'Не наносите рядом с глазами — коробка говорит это прямо, а наш крем EyeCell и есть средство для той кожи. Он спокойно слоится под и над чем угодно без кислот и ретиноидов, а если хотите ещё и связывать воду, положите под него сыворотку против морщин.',
+      'Не наносите рядом с глазами - коробка говорит это прямо, а наш крем EyeCell и есть средство для той кожи. Он спокойно слоится под и над чем угодно без кислот и ретиноидов, а если хотите ещё и связывать воду, положите под него сыворотку против морщин.',
   },
 
   inci: {
@@ -843,14 +843,14 @@ const _RU: NdCellCopy = {
     intro: 'Названные ингредиенты с концентрациями, затем полный список.',
     fullInci: 'Полный список ингредиентов (INCI)',
     fullInciNote:
-      'Перенесено из текущей подписанной производственной формулы. Если сравните со старой коробкой, найдёте расхождения: печатный список всё ещё несёт несколько ингредиентов, которые с тех пор убрали, и не содержит токоферол и линалоол. Список здесь — тот, что соответствует содержимому флакона.',
+      'Перенесено из текущей подписанной производственной формулы. Если сравните со старой коробкой, найдёте расхождения: печатный список всё ещё несёт несколько ингредиентов, которые с тех пор убрали, и не содержит токоферол и линалоол. Список здесь - тот, что соответствует содержимому флакона.',
   },
 
   safety: {
     eyebrow: 'Перед применением',
     title: 'Меры предосторожности',
     points: [
-      'Содержит арахисовое масло (Arachis Hypogaea). Не используйте при аллергии на арахис, а если не уверены — сначала спросите врача.',
+      'Содержит арахисовое масло (Arachis Hypogaea). Не используйте при аллергии на арахис, а если не уверены - сначала спросите врача.',
       'Содержит лавандовое масло с линалоолом 0,0235%. Сделайте пробу, если реагируете на ароматизаторы.',
       'Только для наружного применения. Не наносите рядом с глазами. Избегайте глаз и слизистых, при попадании тщательно промойте прохладной водой.',
       'Содержит ретинил палмитат. При беременности и кормлении спросите врача перед применением любого средства с витамином A.',
@@ -869,10 +869,10 @@ const _RU: NdCellCopy = {
       { label: 'Для', value: 'Шеи и декольте' },
       { label: 'Текстура', value: 'Белый крем, богатый и запечатывающий' },
       { label: 'Активы в дозе', value: 'Сквалан 5,00%, диметикон 3,00%, витамин E 1,00%, пантенол 0,300%, аллантоин 0,200%, аденозин 0,040%' },
-      { label: 'Глицерин', value: '0,700% — окклюзивный, а не увлажняющий' },
-      { label: 'Пептиды', value: 'Пять, всего ~51,5 ppm; copper tripeptide-1 — 97% из них' },
+      { label: 'Глицерин', value: '0,700% - окклюзивный, а не увлажняющий' },
+      { label: 'Пептиды', value: 'Пять, всего ~51,5 ppm; copper tripeptide-1-97% из них' },
       { label: 'Аллергены', value: 'Содержит арахисовое масло 0,0087% и линалоол 0,0235%' },
-      { label: 'Отдушка', value: 'Да — лавандовое масло 0,0265%. Синтетической отдушки нет' },
+      { label: 'Отдушка', value: 'Да - лавандовое масло 0,0265%. Синтетической отдушки нет' },
       { label: 'pH', value: '6,00 ± 1,00 (6,32 в измеренной партии)' },
       { label: 'Лицензия', value: 'Корейское одинарное действие: уменьшение морщин, через аденозин' },
       { label: 'Оценка', value: 'Оценка безопасности ЕС; патч-тест «не раздражает»' },
@@ -886,27 +886,27 @@ const _RU: NdCellCopy = {
     items: [
       {
         q: 'Он действительно содержит арахисовое масло?',
-        a: 'Да, 0,0087%, и оно там потому, что это носитель, в котором приходит витамин A, а не потому, что его кто-то выбрал. Рафинированное масло держат ниже 0,5 части на миллион арахисового белка — это европейский предел, который позволяет его применять. При аллергии на арахис не используйте. Мы вынесли это в начало страницы, потому что шея и грудь — большая площадь кожи и потому что раньше на этой странице этого не было вовсе.',
+        a: 'Да, 0,0087%, и оно там потому, что это носитель, в котором приходит витамин A, а не потому, что его кто-то выбрал. Рафинированное масло держат ниже 0,5 части на миллион арахисового белка - это европейский предел, который позволяет его применять. При аллергии на арахис не используйте. Мы вынесли это в начало страницы, потому что шея и грудь - большая площадь кожи и потому что раньше на этой странице этого не было вовсе.',
       },
       {
         q: 'Он осветлит пигментацию на груди?',
-        a: 'Мы не станем этого утверждать. В нашем же описании раньше говорилось об отличном эффекте депигментации, и мы его убрали: Корея лицензирует это средство только для уменьшения морщин, и осветляющего актива в рабочей дозе в нём нет — витамин C на 0,025%, примерно одна восьмидесятая от того, что используют исследования эффективности. Для фотоповреждений на декольте честный ответ — ежедневный санскрин и средство, построенное под пигмент.',
+        a: 'Мы не станем этого утверждать. В нашем же описании раньше говорилось об отличном эффекте депигментации, и мы его убрали: Корея лицензирует это средство только для уменьшения морщин, и осветляющего актива в рабочей дозе в нём нет - витамин C на 0,025%, примерно одна восьмидесятая от того, что используют исследования эффективности. Для фотоповреждений на декольте честный ответ - ежедневный санскрин и средство, построенное под пигмент.',
       },
       {
         q: 'Чем он отличается от обычного крема для лица?',
-        a: 'Соотношением. Это 0,7% глицерина против примерно 15% масел, силиконов и сквалана, тогда как наш Multi Functional крем — 8% глицерина, а сыворотка — 25%. Кожа шеи и груди тоньше, сальных желёз в ней меньше, поэтому он построен запечатывать, а не поить. Это же значит, что некоторым лицам он покажется слишком богатым.',
+        a: 'Соотношением. Это 0,7% глицерина против примерно 15% масел, силиконов и сквалана, тогда как наш Multi Functional крем - 8% глицерина, а сыворотка - 25%. Кожа шеи и груди тоньше, сальных желёз в ней меньше, поэтому он построен запечатывать, а не поить. Это же значит, что некоторым лицам он покажется слишком богатым.',
       },
       {
         q: 'Пять пептидов звучит внушительно. Так ли это?',
-        a: 'Один из них — да. Copper tripeptide-1 на 50 частях на миллион, и за ним есть реальная литература. Остальные четыре идут от одной части на миллион до десяти частей на миллиард, а acetyl hexapeptide-8 в литературе изучают при 5–10%, тогда как здесь он на четверти части на миллион. Вместе все пять дают около 51,5 ppm, и copper tripeptide — 97% из этого. Причины купить — сквалан, витамин E и аденозин.',
+        a: 'Один из них - да. Copper tripeptide-1 на 50 частях на миллион, и за ним есть реальная литература. Остальные четыре идут от одной части на миллион до десяти частей на миллиард, а acetyl hexapeptide-8 в литературе изучают при 5-10%, тогда как здесь он на четверти части на миллион. Вместе все пять дают около 51,5 ppm, и copper tripeptide - 97% из этого. Причины купить - сквалан, витамин E и аденозин.',
       },
       {
         q: 'В нём витамин A. Это ретиноидная терапия?',
-        a: 'Нет. Ретинил палмитат на 0,0111% — самый мягкий и слабый эфир в семействе ретиноидов, в низкой концентрации. У этой цифры есть причина: более ранняя формула имела 0,02%, а оценщик безопасности ограничил средства для тела 0,025% и попросил снизить, и её снизили. При беременности и кормлении спросите врача перед применением любого средства с витамином A, какой бы малой ни была доза.',
+        a: 'Нет. Ретинил палмитат на 0,0111% - самый мягкий и слабый эфир в семействе ретиноидов, в низкой концентрации. У этой цифры есть причина: более ранняя формула имела 0,02%, а оценщик безопасности ограничил средства для тела 0,025% и попросил снизить, и её снизили. При беременности и кормлении спросите врача перед применением любого средства с витамином A, какой бы малой ни была доза.',
       },
       {
         q: 'Можно вокруг глаз?',
-        a: 'Нет — коробка прямо это запрещает. Кожа там ещё тоньше, а это богатый запечатывающий крем с витамином A и лавандовым маслом. Наш EyeCell Eye Contour Cream и есть средство для этой зоны.',
+        a: 'Нет - коробка прямо это запрещает. Кожа там ещё тоньше, а это богатый запечатывающий крем с витамином A и лавандовым маслом. Наш EyeCell Eye Contour Cream и есть средство для этой зоны.',
       },
     ],
   },

@@ -1,5 +1,5 @@
 /**
- * BrandIcons — a small set of custom, GENOSYS-specific pictograms.
+ * BrandIcons - a small set of custom, GENOSYS-specific pictograms.
  *
  * Why they exist: everywhere on the site we were using the stock Lucide
  * `BadgeCheck / Truck / ShieldCheck` glyphs, which ship on every Shopify
@@ -13,7 +13,7 @@
  *   - 1.6 px strokes, rounded caps + joins
  *   - stroke="currentColor" so the callers keep controlling tint with
  *     Tailwind `text-*` classes
- *   - no fills by default — these glyphs sit on already-tinted
+ *   - no fills by default - these glyphs sit on already-tinted
  *     pastel circles, so the line art needs to remain crisp
  *   - each icon has a distinctive motif tied to GENOSYS:
  *       - serum bottle for "authentic product"
@@ -24,14 +24,14 @@
  *       - stamp/ribbon seal for "official UAE distributor"
  *       - Seoul skyline + droplet for "made in Korea"
  *
- * Everything is plain inline SVG — no runtime dependency, no icon
+ * Everything is plain inline SVG - no runtime dependency, no icon
  * font, fully tree-shakeable.
  */
 
 import { SVGProps } from 'react'
 
 type IconProps = SVGProps<SVGSVGElement> & {
-  /** Optional — pixel size, defaults to currentColor font-size via 1em. */
+  /** Optional - pixel size, defaults to currentColor font-size via 1em. */
   size?: number | string
   /** Extra class overrides. */
   className?: string
@@ -71,7 +71,7 @@ function Base({
 /* ─── Trust strip icons ─────────────────────────────────────────────── */
 
 /**
- * Authentic — serum bottle silhouette with a small hallmark sparkle on the
+ * Authentic - serum bottle silhouette with a small hallmark sparkle on the
  * neck. Reads "product you can trust" without defaulting to the ubiquitous
  * check-in-a-circle.
  */
@@ -96,7 +96,7 @@ export function IconAuthentic(props: IconProps) {
 }
 
 /**
- * Free shipping — a parcel with a routed dashed arc ending in a pin.
+ * Free shipping - a parcel with a routed dashed arc ending in a pin.
  * Clearly "delivery" but not the stock truck.
  */
 export function IconShipping(props: IconProps) {
@@ -117,7 +117,7 @@ export function IconShipping(props: IconProps) {
 }
 
 /**
- * Secure checkout — credit card with an integrated padlock and a chip hint.
+ * Secure checkout - credit card with an integrated padlock and a chip hint.
  * More specific than the stock shield.
  */
 export function IconSecureCheckout(props: IconProps) {
@@ -138,7 +138,7 @@ export function IconSecureCheckout(props: IconProps) {
 }
 
 /**
- * TDRA certified — rosette medal with ribbons + a small star. Distinct from
+ * TDRA certified - rosette medal with ribbons + a small star. Distinct from
  * the shield/check used everywhere else.
  */
 export function IconCertified(props: IconProps) {
@@ -158,7 +158,7 @@ export function IconCertified(props: IconProps) {
 /* ─── Why GENOSYS (homepage 3-up) icons ─────────────────────────────── */
 
 /**
- * Clinical dermacosmetics — microscope with a droplet on the slide.
+ * Clinical dermacosmetics - microscope with a droplet on the slide.
  */
 export function IconClinical(props: IconProps) {
   return (
@@ -183,7 +183,7 @@ export function IconClinical(props: IconProps) {
 }
 
 /**
- * Official UAE distributor — wax stamp/seal with ribbons.
+ * Official UAE distributor - wax stamp/seal with ribbons.
  */
 export function IconOfficialDistributor(props: IconProps) {
   return (
@@ -202,7 +202,7 @@ export function IconOfficialDistributor(props: IconProps) {
 }
 
 /**
- * Heritage / since — calendar leaf with a sweep underline, used to signal
+ * Heritage / since - calendar leaf with a sweep underline, used to signal
  * "trading since X" in trust rows.
  */
 export function IconHeritage(props: IconProps) {
@@ -223,7 +223,7 @@ export function IconHeritage(props: IconProps) {
 }
 
 /**
- * Made in South Korea — stylised Seoul tower (geometric) + a small droplet
+ * Made in South Korea - stylised Seoul tower (geometric) + a small droplet
  * (Korean dermacosmetics / beauty cue).
  */
 export function IconMadeInKorea(props: IconProps) {
@@ -300,7 +300,7 @@ export function WhatsApp(props: IconProps) {
    chips. Each document now has its own motif, built on the same 24×24 sheet
    with a 1.6 px stroke as the rest of this file. */
 
-/** Trade licence — a sheet with a wax seal stamped clear of its edge.
+/** Trade licence - a sheet with a wax seal stamped clear of its edge.
  *  The first draft overlapped the seal with the page border, which turned to
  *  mush at 16 px; the sheet is shorter now so the seal sits in open space. */
 export function IconTradeLicence(props: IconProps) {
@@ -315,7 +315,7 @@ export function IconTradeLicence(props: IconProps) {
   )
 }
 
-/** TRN — a tax sheet carrying a percent sign.
+/** TRN - a tax sheet carrying a percent sign.
  *  The percent is drawn large and the folded corner dropped, because at 16 px
  *  the two together left no clear space between the strokes. */
 export function IconTaxNumber(props: IconProps) {
@@ -329,7 +329,7 @@ export function IconTaxNumber(props: IconProps) {
   )
 }
 
-/** Montaji — Dubai Municipality product registration, so a shield and a tick. */
+/** Montaji - Dubai Municipality product registration, so a shield and a tick. */
 export function IconRegistered(props: IconProps) {
   return (
     <Base {...props}>
@@ -339,7 +339,7 @@ export function IconRegistered(props: IconProps) {
   )
 }
 
-/** TDRA — the telecoms regulator, so a transmitter throwing two arcs. */
+/** TDRA - the telecoms regulator, so a transmitter throwing two arcs. */
 export function IconTelecomApproval(props: IconProps) {
   return (
     <Base {...props}>
@@ -354,7 +354,7 @@ export function IconTelecomApproval(props: IconProps) {
   )
 }
 
-/** D-U-N-S — an international business identifier, so a globe with a tag. */
+/** D-U-N-S - an international business identifier, so a globe with a tag. */
 export function IconBusinessIdentifier(props: IconProps) {
   return (
     <Base {...props}>

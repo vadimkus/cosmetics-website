@@ -51,7 +51,7 @@ export default function BrandPageClient() {
     subhead: locale === 'ar'
       ? 'GENOSYS هي أول علامة تجارية في العالم مكرّسة للعلاج بالإبر الدقيقة، تجمع بين الأجهزة والمستحضرات الصيدلية المصممة خصيصاً لتعزيز نتائج العلاج.'
       : locale === 'ru'
-        ? 'GENOSYS — первый в мире бренд, посвящённый микронидлингу: роллеры, дерматокосметика, разработанная специально для усиления эффекта процедур.'
+        ? 'GENOSYS - первый в мире бренд, посвящённый микронидлингу: роллеры, дерматокосметика, разработанная специально для усиления эффекта процедур.'
         : 'GENOSYS is the world\'s first microneedling-dedicated brand. Devices and cosmeceuticals formulated specifically to amplify treatment results.',
     stats: {
       worldFirst: locale === 'ar' ? 'الأول عالمياً' : locale === 'ru' ? 'мировой первый' : 'world first',
@@ -66,10 +66,10 @@ export default function BrandPageClient() {
     grsKicker: locale === 'ar' ? '01 · مفهوم G.R.S' : locale === 'ru' ? '01 · КОНЦЕПЦИЯ G.R.S' : '01 · THE G.R.S CONCEPT',
     grsTitle: locale === 'ar' ? 'الجينات + إعادة الولادة + النظام.' : locale === 'ru' ? 'Гены + перерождение + система.' : 'Genes + Re-birth + System.',
     grsBody: locale === 'ar'
-      ? 'يمر الجلد بعملية شفاء محفّزة عند تنشيط آلية إعادة بناء الكولاجين. يعمل GENOSYS على هذا المسار ذاته من خلال نظام متكامل من ثلاثة عناصر — الأجهزة، والمستحضرات الصيدلية، والبروتوكولات — لاستعادة بشرة أصغر سناً وأكثر صحة.'
+      ? 'يمر الجلد بعملية شفاء محفّزة عند تنشيط آلية إعادة بناء الكولاجين. يعمل GENOSYS على هذا المسار ذاته من خلال نظام متكامل من ثلاثة عناصر - الأجهزة، والمستحضرات الصيدلية، والبروتوكولات - لاستعادة بشرة أصغر سناً وأكثر صحة.'
       : locale === 'ru'
-        ? 'Кожа способна запускать собственный процесс восстановления коллагена. GENOSYS работает с этим механизмом через систему из трёх элементов — роллеры, дерматокосметика и протоколы, — чтобы вернуть коже молодость и здоровье.'
-        : 'Skin can trigger its own collagen-rebuilding process. GENOSYS works with that biology through a three-part system — devices, cosmeceuticals, and protocols — to restore younger, healthier skin.',
+        ? 'Кожа способна запускать собственный процесс восстановления коллагена. GENOSYS работает с этим механизмом через систему из трёх элементов - роллеры, дерматокосметика и протоколы, - чтобы вернуть коже молодость и здоровье.'
+        : 'Skin can trigger its own collagen-rebuilding process. GENOSYS works with that biology through a three-part system - devices, cosmeceuticals, and protocols - to restore younger, healthier skin.',
     pillarsKicker: locale === 'ar' ? '02 · ثلاث ركائز' : locale === 'ru' ? '02 · ТРИ ОПОРЫ' : '02 · THREE PILLARS',
     pillarsTitle: locale === 'ar' ? 'نظام واحد، ثلاث طبقات.' : locale === 'ru' ? 'Одна система. Три слоя.' : 'One system. Three layers.',
     pillarDevices: locale === 'ar' ? 'الأجهزة' : locale === 'ru' ? 'Устройства' : 'Devices',
@@ -82,8 +82,8 @@ export default function BrandPageClient() {
     pillarFormulasBody: locale === 'ar'
       ? 'تركيبات صيدلية بمكونات نشطة قوية مصممة خصيصاً للتطبيق فور الإبر الدقيقة لتعزيز الامتصاص والنتائج.'
       : locale === 'ru'
-        ? 'Космецевтика с мощными активными компонентами, разработанная для нанесения сразу после микронидлинга — для глубокого усвоения и видимого результата.'
-        : 'Cosmeceutical formulas with potent actives, designed for immediate post-needling application — maximizing absorption and visible results.',
+        ? 'Космецевтика с мощными активными компонентами, разработанная для нанесения сразу после микронидлинга - для глубокого усвоения и видимого результата.'
+        : 'Cosmeceutical formulas with potent actives, designed for immediate post-needling application - maximizing absorption and visible results.',
     pillarProtocols: locale === 'ar' ? 'البروتوكولات' : locale === 'ru' ? 'Протоколы' : 'Protocols',
     pillarProtocolsBody: locale === 'ar'
       ? 'بروتوكولات قبل وبعد العلاج طوّرها أطباء الجلد، تربط بين الجلسات الاحترافية والعناية المنزلية اليومية.'
@@ -95,15 +95,15 @@ export default function BrandPageClient() {
     proBody: locale === 'ar'
       ? 'نتائج بصرية ومستدامة. يعزز الخط الاحترافي فعالية كل علاج، بينما يحافظ خط العناية المنزلية على المكاسب بين الجلسات.'
       : locale === 'ru'
-        ? 'Видимые и стойкие результаты. Профессиональная линия усиливает эффективность процедур, а домашняя — закрепляет результат между визитами.'
+        ? 'Видимые и стойкие результаты. Профессиональная линия усиливает эффективность процедур, а домашняя - закрепляет результат между визитами.'
         : 'Long-lasting, visible results. The professional line amplifies every in-clinic treatment, while the homecare line locks the gains in between sessions.',
     catalogueKicker: locale === 'ar' ? 'الكتالوج' : locale === 'ru' ? 'КАТАЛОГ' : 'THE LINEUP',
     catalogueTitle: locale === 'ar' ? 'مجموعة كاملة لكل خطوة.' : locale === 'ru' ? 'Полная линейка для каждого этапа.' : 'A full lineup for every step.',
     catalogueBody: locale === 'ar'
-      ? 'أمصال، كريمات، أقنعة، ومنتجات منزلية وأجهزة احترافية — كلها مصممة للعمل معاً.'
+      ? 'أمصال، كريمات، أقنعة، ومنتجات منزلية وأجهزة احترافية - كلها مصممة للعمل معاً.'
       : locale === 'ru'
-        ? 'Сыворотки, кремы, маски, домашние и профессиональные устройства — всё работает вместе.'
-        : 'Serums, creams, masks, homecare devices and professional kits — all designed to work together.',
+        ? 'Сыворотки, кремы, маски, домашние и профессиональные устройства - всё работает вместе.'
+        : 'Serums, creams, masks, homecare devices and professional kits - all designed to work together.',
     ctaKicker: locale === 'ar' ? 'اكتشف' : locale === 'ru' ? 'ИЗУЧИТЕ' : 'EXPLORE',
     ctaTitle: locale === 'ar' ? 'شاهدها أثناء العمل.' : locale === 'ru' ? 'Посмотрите в действии.' : 'See it in action.',
     ctaBody: locale === 'ar'
@@ -369,7 +369,7 @@ export default function BrandPageClient() {
               <div className="relative aspect-[16/8] w-full">
                 <Image
                   src="/images/genosys-products.jpg"
-                  alt="GENOSYS Professional Korean Dermacosmetics — Microneedling Devices and Skincare Solutions"
+                  alt="GENOSYS Professional Korean Dermacosmetics - Microneedling Devices and Skincare Solutions"
                   fill
                   sizes="(min-width: 1024px) 1024px, 100vw"
                   className="object-cover"
@@ -397,7 +397,7 @@ export default function BrandPageClient() {
             </div>
           </section>
 
-          {/* ── Closing CTA — dark editorial panel ──────────────────────── */}
+          {/* ── Closing CTA - dark editorial panel ──────────────────────── */}
           <section className="relative overflow-hidden rounded-xl md:rounded-3xl bg-[var(--cera-ink)] text-white">
             <span aria-hidden className="pointer-events-none absolute -top-32 right-0 h-72 w-72 rounded-full bg-[var(--cera-rose)]/25 blur-3xl" />
             <span aria-hidden className="pointer-events-none absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-[var(--cera-rose)]/15 blur-3xl" />

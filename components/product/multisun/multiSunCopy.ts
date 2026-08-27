@@ -3,7 +3,7 @@ import { MULTI_SUN_AR_COPY, MULTI_SUN_RU_COPY } from './multiSunLocalizedCopy'
 /**
  * Bespoke copy for MULTI SUN CREAM [SPF40 / PA++] (product 40).
  *
- * SOURCING — every figure traces to the audit in
+ * SOURCING - every figure traces to the audit in
  * docs/SESSION_CHANGES_2026-08-17_PRODUCT_40_MULTI_SUN_SOURCE_AUDIT.md:
  *   - DTS MG signed formula: four filters totalling 18.50%, and the trace
  *     complex running from 100 ppm down to a declared zero.
@@ -15,7 +15,7 @@ import { MULTI_SUN_AR_COPY, MULTI_SUN_RU_COPY } from './multiSunLocalizedCopy'
  *     SCCS/1671/24 (June 2025, corrigendum March 2026) for octinoxate.
  *
  * THE SPINE OF THIS PAGE. This cream carries MORE filter by weight than its
- * bigger sibling — 18.50% against 17.10% — and lands a lower grade, SPF40/PA++
+ * bigger sibling - 18.50% against 17.10% - and lands a lower grade, SPF40/PA++
  * against SPF50+/PA++++. That is not a flaw, it is the whole explanation: three
  * of its four filters are UVB absorbers and the only UVA cover is titanium
  * dioxide, which reaches short UVA and stops. Explaining that honestly is more
@@ -25,7 +25,7 @@ import { MULTI_SUN_AR_COPY, MULTI_SUN_RU_COPY } from './multiSunLocalizedCopy'
  * OCTINOXATE. This contains it at 7.50%, and product 39's page advertises being
  * free of it. The page states the figure, the 10% cap, the SCCS endocrine
  * finding and the fact that the SCCS did not assess environmental effects, then
- * sends anyone avoiding octinoxate to product 39 — which costs more. Say it
+ * sends anyone avoiding octinoxate to product 39 - which costs more. Say it
  * anyway.
  *
  * MUST STAY OUT:
@@ -164,10 +164,10 @@ const EN: MultiSunCopy = {
   eyebrow: 'Multi Sun Cream · SPF40 / PA++',
   headline: 'More filter than the strong one. Lower grade. Here is why.',
   subheadline:
-    'Four UV filters at a combined 18.5% — actually a heavier load than the SPF50+ in the range — but three of them absorb UVB and only the titanium dioxide reaches into UVA. That is what a PA++ rating means, and it is why this is the light everyday cream rather than the one for a day outdoors.',
+    'Four UV filters at a combined 18.5% - actually a heavier load than the SPF50+ in the range - but three of them absorb UVB and only the titanium dioxide reaches into UVA. That is what a PA++ rating means, and it is why this is the light everyday cream rather than the one for a day outdoors.',
   heroBullets: [
     'Four filters, 18.5% of the tube, every one assayed on the batch',
-    'SPF40 / PA++ — moderate UVA, strong UVB',
+    'SPF40 / PA++ - moderate UVA, strong UVB',
     'Light enough to wear under make-up every morning',
     'Contains octinoxate at 7.5%, stated plainly below',
   ],
@@ -186,7 +186,7 @@ const EN: MultiSunCopy = {
     { value: '18.5%', label: 'Of the tube is UV filter' },
     { value: '4', label: 'Filters, all assayed on the batch' },
     { value: '40 g', label: 'Filled at 41.07 g' },
-    { value: 'pH 6.7', label: 'Inside a 5.0–7.0 specification' },
+    { value: 'pH 6.7', label: 'Inside a 5.0-7.0 specification' },
   ],
 
   filters: {
@@ -202,27 +202,27 @@ const EN: MultiSunCopy = {
       { name: 'Isoamyl p-Methoxycinnamate', amount: '3.00%', role: 'UVB', cap: '10%' },
     ],
     total:
-      'Combined: 18.50%. The octisalate sits exactly on its 5% ceiling — at the limit, not over it. Caps from Regulation (EC) 1223/2009, Annex VI.',
+      'Combined: 18.50%. The octisalate sits exactly on its 5% ceiling - at the limit, not over it. Caps from Regulation (EC) 1223/2009, Annex VI.',
   },
 
   grade: {
     eyebrow: 'Why PA++ and not PA++++',
     title: 'The missing wavelength',
     body:
-      'Compare the two GENOSYS sunscreens and something looks wrong: this one holds 18.5% filter and rates SPF40 / PA++, while Ultra Shield holds 17.1% and rates SPF50+ / PA++++. Less filter, better grade. The reason is which wavelengths those filters absorb. Three of the four here — the methoxycinnamate, the salicylate and the amiloxate — are UVB absorbers, and the only thing reaching UVA is the titanium dioxide, which covers the short end and stops. There is no dedicated long-UVA filter in this tube.',
+      'Compare the two GENOSYS sunscreens and something looks wrong: this one holds 18.5% filter and rates SPF40 / PA++, while Ultra Shield holds 17.1% and rates SPF50+ / PA++++. Less filter, better grade. The reason is which wavelengths those filters absorb. Three of the four here - the methoxycinnamate, the salicylate and the amiloxate - are UVB absorbers, and the only thing reaching UVA is the titanium dioxide, which covers the short end and stops. There is no dedicated long-UVA filter in this tube.',
     aside:
-      'SPF is a UVB number and PA is a UVA number. This cream is strong on the first and moderate on the second, which is a perfectly sensible way to build a light daily cream — and a poor way to build one for a beach day.',
+      'SPF is a UVB number and PA is a UVA number. This cream is strong on the first and moderate on the second, which is a perfectly sensible way to build a light daily cream - and a poor way to build one for a beach day.',
   },
 
   octinoxate: {
     eyebrow: 'Read this before you buy',
     title: 'This one contains octinoxate',
     body:
-      'Ethylhexyl methoxycinnamate, better known as octinoxate, is the largest filter in this formula at 7.50%. Our Ultra Shield page states that product contains no octinoxate, and that is true of it — but not of this one, so here is the position in full rather than in a footnote.',
+      'Ethylhexyl methoxycinnamate, better known as octinoxate, is the largest filter in this formula at 7.50%. Our Ultra Shield page states that product contains no octinoxate, and that is true of it - but not of this one, so here is the position in full rather than in a footnote.',
     points: [
       'European law permits it up to 10% as a UV filter. This formula uses 7.50%.',
       'The EU\u2019s scientific committee reviewed it and concluded in June 2025 that it is safe at up to 10% in a face cream, and safe for children on margin-of-safety grounds.',
-      'The same opinion confirms it is endocrine-active — estrogenic and weakly anti-androgenic. That finding was not withdrawn; it was accounted for in the exposure modelling behind the 10% figure.',
+      'The same opinion confirms it is endocrine-active - estrogenic and weakly anti-androgenic. That finding was not withdrawn; it was accounted for in the exposure modelling behind the 10% figure.',
       'That review explicitly did not cover environmental effects. So it is not an answer to the coral question, and nobody should present it as one.',
     ],
     verdict:
@@ -249,7 +249,7 @@ const EN: MultiSunCopy = {
     eyebrow: 'About the soothing ingredients',
     title: 'One of them is dosed at zero',
     body:
-      'The carton credits the calming to palmitoyl pentapeptide-4, centella and scutellaria. On the manufacturer\u2019s own quantitative formula the peptide is at 0.0000001% — one part per billion — and the two botanicals are at 10 ppm each. The rose and grape stem-cell extracts are 3 ppm and 1 ppm. And the Lactobacillus/Soymilk ferment filtrate, which our own product page used to list as a key ingredient, is declared at 0.0000000%.',
+      'The carton credits the calming to palmitoyl pentapeptide-4, centella and scutellaria. On the manufacturer\u2019s own quantitative formula the peptide is at 0.0000001% - one part per billion - and the two botanicals are at 10 ppm each. The rose and grape stem-cell extracts are 3 ppm and 1 ppm. And the Lactobacillus/Soymilk ferment filtrate, which our own product page used to list as a key ingredient, is declared at 0.0000000%.',
     aside:
       'What is genuinely in here at a working level is the filter system, butylene glycol at 5%, dimethicone at 2.3% and glycerin at 1%. That makes a light, comfortable, non-greasy sunscreen. It does not make a treatment, and we are not going to sell it as one.',
   },
@@ -260,11 +260,11 @@ const EN: MultiSunCopy = {
     body:
       'A lavender fragrance at 0.25%, carrying five allergens that European law requires to be named. They are printed on the carton and repeated here, because a sunscreen sold partly on soothing should be honest with the people most likely to react to it. If you are choosing specifically for reactive skin, a fragrance-free sunscreen may suit you better.',
     allergens: [
-      'Benzyl Benzoate — 0.025%',
-      'Citronellol — 0.011%',
-      'Hexyl Cinnamal — 0.011%',
-      'Alpha-Isomethyl Ionone — 0.011%',
-      'Limonene — 0.004%',
+      'Benzyl Benzoate - 0.025%',
+      'Citronellol - 0.011%',
+      'Hexyl Cinnamal - 0.011%',
+      'Alpha-Isomethyl Ionone - 0.011%',
+      'Limonene - 0.004%',
     ],
   },
 
@@ -276,7 +276,7 @@ const EN: MultiSunCopy = {
       title: 'Multi Sun Cream, SPF40 / PA++',
       items: [
         'Weekdays, the commute, the office, the school run',
-        'Under make-up — it is the lighter of the two',
+        'Under make-up - it is the lighter of the two',
         'When most of your UV is incidental rather than deliberate',
         '40 g, and the more affordable of the pair',
       ],
@@ -285,7 +285,7 @@ const EN: MultiSunCopy = {
       title: 'Ultra Shield, SPF50+ / PA++++',
       items: [
         'A day actually spent outdoors, or a UV index of 11 and up',
-        'When long-UVA cover matters — it is measured, this one is not',
+        'When long-UVA cover matters - it is measured, this one is not',
         'If you are avoiding octinoxate',
         '50 g, and the stronger of the pair',
       ],
@@ -311,7 +311,7 @@ const EN: MultiSunCopy = {
       },
       {
         title: 'Again every two hours in the sun',
-        body: 'The carton says so, and it is right. Also after sweating or towelling — there is no water-resistance claim on this product.',
+        body: 'The carton says so, and it is right. Also after sweating or towelling - there is no water-resistance claim on this product.',
       },
     ],
     note:
@@ -337,7 +337,7 @@ const EN: MultiSunCopy = {
     title: 'What the certificate says',
     intro: 'Made in Korea and released against a written specification.',
     rows: [
-      { label: 'pH', value: '6.71 at 25 °C, inside a 5.00–7.00 specification' },
+      { label: 'pH', value: '6.71 at 25 °C, inside a 5.00-7.00 specification' },
       { label: 'Fill', value: '41.07 g against a 40 g declaration' },
       { label: 'Bacteria', value: 'Under 10 cfu/ml, against a permitted 100' },
       { label: 'Moulds and yeasts', value: 'Under 10 cfu/ml, against a permitted 100' },
@@ -355,7 +355,7 @@ const EN: MultiSunCopy = {
       'Do not apply directly around the eyes.',
       'Stop and see a doctor if redness, swelling or irritation appears.',
       'Contains fragrance with five declared allergens. Patch test first if you react easily.',
-      'No water-resistance claim — reapply after swimming, sweating or towelling.',
+      'No water-resistance claim - reapply after swimming, sweating or towelling.',
       'Store cool and dry, out of reach of children.',
     ],
     note: 'Precautions as printed on the GENOSYS carton.',
@@ -366,12 +366,12 @@ const EN: MultiSunCopy = {
     title: 'Specification',
     rows: [
       { label: 'Size', value: '40 g' },
-      { label: 'Grade', value: 'SPF40 / PA++ — strong UVB, moderate UVA' },
+      { label: 'Grade', value: 'SPF40 / PA++ - strong UVB, moderate UVA' },
       { label: 'Filters', value: 'Four, 18.50% combined, all assayed on the batch' },
       { label: 'Contains', value: 'Octinoxate at 7.50%, within the 10% European limit' },
       { label: 'Free from', value: 'Parabens, drying alcohol and colourants' },
       { label: 'Fragranced', value: 'Yes, 0.25%, with five declared allergens' },
-      { label: 'Water resistance', value: 'None claimed — reapply after water or sweat' },
+      { label: 'Water resistance', value: 'None claimed - reapply after water or sweat' },
       { label: 'Licence', value: 'Korean single-function: UV protection' },
       { label: 'Origin', value: 'Made in Korea' },
     ],
@@ -387,7 +387,7 @@ const EN: MultiSunCopy = {
       },
       {
         q: 'Does it really contain octinoxate?',
-        a: 'Yes, at 7.50%, and it is the largest single filter in the formula. European law allows up to 10% and the EU\u2019s scientific committee concluded in 2025 that it is safe at that level in a face cream. The same review confirmed it is endocrine-active and did not look at environmental effects at all. If that is a dealbreaker, buy the Ultra Shield — it has none, and it costs more than this.',
+        a: 'Yes, at 7.50%, and it is the largest single filter in the formula. European law allows up to 10% and the EU\u2019s scientific committee concluded in 2025 that it is safe at that level in a face cream. The same review confirmed it is endocrine-active and did not look at environmental effects at all. If that is a dealbreaker, buy the Ultra Shield - it has none, and it costs more than this.',
       },
       {
         q: 'Which of the two should I actually buy?',
@@ -415,10 +415,10 @@ const AR: MultiSunCopy = {
   eyebrow: 'واقي الشمس مالتي صن · SPF40 / PA++',
   headline: 'مرشحات أكثر من الأقوى. ودرجة أقل. وإليك السبب.',
   subheadline:
-    'أربعة مرشحات بمجموع 18.5% — أي حمل أثقل فعلياً من واقي SPF50+ في المجموعة — لكن ثلاثة منها تمتصّ UVB، ولا يصل إلى UVA سوى ثاني أكسيد التيتانيوم. هذا ما تعنيه درجة PA++، ولهذا فهو الكريم اليومي الخفيف لا كريم يوم في الخارج.',
+    'أربعة مرشحات بمجموع 18.5% - أي حمل أثقل فعلياً من واقي SPF50+ في المجموعة - لكن ثلاثة منها تمتصّ UVB، ولا يصل إلى UVA سوى ثاني أكسيد التيتانيوم. هذا ما تعنيه درجة PA++، ولهذا فهو الكريم اليومي الخفيف لا كريم يوم في الخارج.',
   heroBullets: [
     'أربعة مرشحات، 18.5% من الأنبوب، جميعها مقيسة على الدفعة',
-    'SPF40 / PA++ — حماية قوية من UVB ومتوسطة من UVA',
+    'SPF40 / PA++ - حماية قوية من UVB ومتوسطة من UVA',
     'خفيف بما يكفي لوضعه تحت المكياج كل صباح',
     'يحتوي أوكتينوكسات بنسبة 7.5%، مذكورة بوضوح أدناه',
   ],
@@ -437,7 +437,7 @@ const AR: MultiSunCopy = {
     { value: '18.5%', label: 'من الأنبوب مرشحات' },
     { value: '4', label: 'مرشحات، كلها مقيسة على الدفعة' },
     { value: '40 غ', label: 'معبّأ عند 41.07 غ' },
-    { value: 'pH 6.7', label: 'ضمن مواصفة 5.0–7.0' },
+    { value: 'pH 6.7', label: 'ضمن مواصفة 5.0-7.0' },
   ],
 
   filters: {
@@ -453,27 +453,27 @@ const AR: MultiSunCopy = {
       { name: 'Isoamyl p-Methoxycinnamate', amount: '3.00%', role: 'UVB', cap: '10%' },
     ],
     total:
-      'المجموع: 18.50%. والأوكتيساليت عند سقفه تماماً 5% — عند الحدّ لا فوقه. الحدود من اللائحة (EC) 1223/2009، الملحق السادس.',
+      'المجموع: 18.50%. والأوكتيساليت عند سقفه تماماً 5% - عند الحدّ لا فوقه. الحدود من اللائحة (EC) 1223/2009، الملحق السادس.',
   },
 
   grade: {
     eyebrow: 'لماذا PA++ لا PA++++',
     title: 'الطول الموجي الغائب',
     body:
-      'قارني بين واقيَي جينوسيس وسيبدو شيء غريباً: هذا يحمل 18.5% مرشحات ودرجته SPF40 / PA++، بينما ألترا شيلد يحمل 17.1% ودرجته SPF50+ / PA++++. مرشحات أقل، ودرجة أفضل. والسبب هو أي الأطوال الموجية تمتصّها تلك المرشحات. فثلاثة من الأربعة هنا — الميثوكسي سينامات والساليسيلات والأميلوكسات — تمتصّ UVB، والوحيد الذي يصل إلى UVA هو ثاني أكسيد التيتانيوم، وهو يغطّي الطرف القصير ويتوقف. لا يوجد في هذا الأنبوب مرشّح مخصّص لـ UVA الطويل.',
+      'قارني بين واقيَي جينوسيس وسيبدو شيء غريباً: هذا يحمل 18.5% مرشحات ودرجته SPF40 / PA++، بينما ألترا شيلد يحمل 17.1% ودرجته SPF50+ / PA++++. مرشحات أقل، ودرجة أفضل. والسبب هو أي الأطوال الموجية تمتصّها تلك المرشحات. فثلاثة من الأربعة هنا - الميثوكسي سينامات والساليسيلات والأميلوكسات - تمتصّ UVB، والوحيد الذي يصل إلى UVA هو ثاني أكسيد التيتانيوم، وهو يغطّي الطرف القصير ويتوقف. لا يوجد في هذا الأنبوب مرشّح مخصّص لـ UVA الطويل.',
     aside:
-      'الـ SPF رقم يخصّ UVB، والـ PA رقم يخصّ UVA. وهذا الكريم قويّ في الأول ومتوسط في الثاني، وهي طريقة منطقية تماماً لبناء كريم يومي خفيف — وطريقة رديئة لبناء كريم ليوم على الشاطئ.',
+      'الـ SPF رقم يخصّ UVB، والـ PA رقم يخصّ UVA. وهذا الكريم قويّ في الأول ومتوسط في الثاني، وهي طريقة منطقية تماماً لبناء كريم يومي خفيف - وطريقة رديئة لبناء كريم ليوم على الشاطئ.',
   },
 
   octinoxate: {
     eyebrow: 'اقرئي هذا قبل الشراء',
     title: 'هذا المنتج يحتوي أوكتينوكسات',
     body:
-      'الإيثيل هكسيل ميثوكسي سينامات، المعروف بالأوكتينوكسات، هو أكبر مرشّح في هذه التركيبة بنسبة 7.50%. وصفحة ألترا شيلد لدينا تذكر أن ذلك المنتج خالٍ من الأوكتينوكسات، وهذا صحيح بشأنه — لكن ليس بشأن هذا، ولذلك نعرض الموقف كاملاً لا في هامش.',
+      'الإيثيل هكسيل ميثوكسي سينامات، المعروف بالأوكتينوكسات، هو أكبر مرشّح في هذه التركيبة بنسبة 7.50%. وصفحة ألترا شيلد لدينا تذكر أن ذلك المنتج خالٍ من الأوكتينوكسات، وهذا صحيح بشأنه - لكن ليس بشأن هذا، ولذلك نعرض الموقف كاملاً لا في هامش.',
     points: [
       'القانون الأوروبي يسمح به حتى 10% كمرشّح. وهذه التركيبة تستخدم 7.50%.',
       'راجعته اللجنة العلمية الأوروبية وخلصت في يونيو 2025 إلى أنه آمن حتى 10% في كريم للوجه، وآمن للأطفال استناداً إلى هامش الأمان.',
-      'والرأي نفسه يؤكّد أنه نشط هرمونياً — إستروجيني ومضادّ ضعيف للأندروجين. ولم يُسحب هذا الاستنتاج، بل جرت مراعاته في نمذجة التعرّض التي بُني عليها رقم الـ 10%.',
+      'والرأي نفسه يؤكّد أنه نشط هرمونياً - إستروجيني ومضادّ ضعيف للأندروجين. ولم يُسحب هذا الاستنتاج، بل جرت مراعاته في نمذجة التعرّض التي بُني عليها رقم الـ 10%.',
       'وتلك المراجعة لم تتناول الآثار البيئية إطلاقاً. فهي ليست إجابة عن سؤال الشعاب المرجانية، ولا ينبغي تقديمها كذلك.',
     ],
     verdict:
@@ -500,7 +500,7 @@ const AR: MultiSunCopy = {
     eyebrow: 'عن المكوّنات المهدّئة',
     title: 'أحدها بجرعة صفر',
     body:
-      'العلبة تنسب التهدئة إلى بالميتويل بنتابيبتايد-4 والقنطورية والقبعية. وفي التركيبة الكمّية للشركة نفسها، البيبتايد عند 0.0000001% — جزء واحد من المليار — والنباتان عند 10 أجزاء من المليون لكل منهما. ومستخلصا الخلايا الجذعية للورد والعنب عند 3 و1 جزء من المليون. أما مرشَّح تخمّر اللاكتوباسيلوس/حليب الصويا، الذي كانت صفحة منتجنا تدرجه كمكوّن رئيسي، فمُعلَن عند 0.0000000%.',
+      'العلبة تنسب التهدئة إلى بالميتويل بنتابيبتايد-4 والقنطورية والقبعية. وفي التركيبة الكمّية للشركة نفسها، البيبتايد عند 0.0000001% - جزء واحد من المليار - والنباتان عند 10 أجزاء من المليون لكل منهما. ومستخلصا الخلايا الجذعية للورد والعنب عند 3 و1 جزء من المليون. أما مرشَّح تخمّر اللاكتوباسيلوس/حليب الصويا، الذي كانت صفحة منتجنا تدرجه كمكوّن رئيسي، فمُعلَن عند 0.0000000%.',
     aside:
       'الموجود هنا فعلاً بمستوى فعّال هو منظومة المرشحات، والبيوتيلين غلايكول بنسبة 5%، والدايميثيكون بنسبة 2.3%، والغليسرين بنسبة 1%. وهذا يصنع واقياً خفيفاً مريحاً غير دهني. لكنه لا يصنع علاجاً، ولن نبيعه على هذا الأساس.',
   },
@@ -511,11 +511,11 @@ const AR: MultiSunCopy = {
     body:
       'عطر لافندر بنسبة 0.25%، يحمل خمسة مسبّبات حساسية يوجب القانون الأوروبي ذكرها بالاسم. وهي مطبوعة على العلبة ومكرّرة هنا، لأن واقياً يُباع جزئياً على التهدئة ينبغي أن يكون صريحاً مع أكثر الناس عرضة للتفاعل معه. وإن كنتِ تختارين تحديداً لبشرة تفاعلية، فقد يناسبك واقٍ خالٍ من العطر أكثر.',
     allergens: [
-      'Benzyl Benzoate — 0.025%',
-      'Citronellol — 0.011%',
-      'Hexyl Cinnamal — 0.011%',
-      'Alpha-Isomethyl Ionone — 0.011%',
-      'Limonene — 0.004%',
+      'Benzyl Benzoate - 0.025%',
+      'Citronellol - 0.011%',
+      'Hexyl Cinnamal - 0.011%',
+      'Alpha-Isomethyl Ionone - 0.011%',
+      'Limonene - 0.004%',
     ],
   },
 
@@ -527,7 +527,7 @@ const AR: MultiSunCopy = {
       title: 'مالتي صن كريم، SPF40 / PA++',
       items: [
         'أيام الأسبوع، والتنقّل، والمكتب، وتوصيل الأطفال',
-        'تحت المكياج — فهو الأخفّ بين الاثنين',
+        'تحت المكياج - فهو الأخفّ بين الاثنين',
         'حين يكون معظم تعرّضك عارضاً لا مقصوداً',
         '40 غ، وهو الأيسر سعراً في الزوج',
       ],
@@ -536,7 +536,7 @@ const AR: MultiSunCopy = {
       title: 'ألترا شيلد، SPF50+ / PA++++',
       items: [
         'يوم يُقضى فعلاً في الخارج، أو مؤشر UV عند 11 فما فوق',
-        'حين تهمّ تغطية UVA الطويل — فهي مقيسة هناك وغير مقيسة هنا',
+        'حين تهمّ تغطية UVA الطويل - فهي مقيسة هناك وغير مقيسة هنا',
         'إن كنتِ تتجنّبين الأوكتينوكسات',
         '50 غ، وهو الأقوى في الزوج',
       ],
@@ -562,7 +562,7 @@ const AR: MultiSunCopy = {
       },
       {
         title: 'ثم كل ساعتين في الشمس',
-        body: 'العلبة تقول ذلك وهي محقّة. وكذلك بعد التعرّق أو التجفيف — فلا ادعاء لمقاومة الماء في هذا المنتج.',
+        body: 'العلبة تقول ذلك وهي محقّة. وكذلك بعد التعرّق أو التجفيف - فلا ادعاء لمقاومة الماء في هذا المنتج.',
       },
     ],
     note:
@@ -588,7 +588,7 @@ const AR: MultiSunCopy = {
     title: 'ما تقوله الشهادة',
     intro: 'صُنع في كوريا وأُفرج عنه مقابل مواصفة مكتوبة.',
     rows: [
-      { label: 'الحموضة', value: '6.71 عند 25 درجة، ضمن مواصفة 5.00–7.00' },
+      { label: 'الحموضة', value: '6.71 عند 25 درجة، ضمن مواصفة 5.00-7.00' },
       { label: 'التعبئة', value: '41.07 غ مقابل 40 غ معلنة' },
       { label: 'البكتيريا', value: 'أقل من 10 وحدات/مل، مقابل 100 مسموحة' },
       { label: 'العفن والخمائر', value: 'أقل من 10 وحدات/مل، مقابل 100 مسموحة' },
@@ -606,7 +606,7 @@ const AR: MultiSunCopy = {
       'لا تضعيه مباشرة حول العينين.',
       'أوقفي الاستخدام واستشيري طبيباً عند ظهور احمرار أو تورّم أو تهيّج.',
       'يحتوي عطراً بخمسة مسبّبات حساسية معلنة. اختبريه على بقعة صغيرة أولاً إن كنتِ سريعة التفاعل.',
-      'لا ادعاء لمقاومة الماء — أعيدي الوضع بعد السباحة أو التعرّق أو التجفيف.',
+      'لا ادعاء لمقاومة الماء - أعيدي الوضع بعد السباحة أو التعرّق أو التجفيف.',
       'يُحفظ بارداً وجافاً وبعيداً عن متناول الأطفال.',
     ],
     note: 'الاحتياطات كما هي مطبوعة على علبة جينوسيس.',
@@ -617,12 +617,12 @@ const AR: MultiSunCopy = {
     title: 'المواصفات',
     rows: [
       { label: 'الحجم', value: '40 غ' },
-      { label: 'الدرجة', value: 'SPF40 / PA++ — قوي على UVB، متوسط على UVA' },
+      { label: 'الدرجة', value: 'SPF40 / PA++ - قوي على UVB، متوسط على UVA' },
       { label: 'المرشحات', value: 'أربعة، 18.50% مجتمعة، وكلها مقيسة على الدفعة' },
       { label: 'يحتوي', value: 'أوكتينوكسات بنسبة 7.50%، ضمن الحدّ الأوروبي 10%' },
       { label: 'خالٍ من', value: 'البارابين والكحول المجفّف والملوّنات' },
       { label: 'معطّر', value: 'نعم، 0.25%، بخمسة مسبّبات حساسية معلنة' },
-      { label: 'مقاومة الماء', value: 'غير مُدّعاة — أعيدي الوضع بعد الماء أو العرق' },
+      { label: 'مقاومة الماء', value: 'غير مُدّعاة - أعيدي الوضع بعد الماء أو العرق' },
       { label: 'الترخيص', value: 'وظيفة كورية واحدة: الحماية من الأشعة فوق البنفسجية' },
       { label: 'المنشأ', value: 'صُنع في كوريا' },
     ],
@@ -638,7 +638,7 @@ const AR: MultiSunCopy = {
       },
       {
         q: 'هل يحتوي فعلاً على أوكتينوكسات؟',
-        a: 'نعم، بنسبة 7.50%، وهو أكبر مرشّح مفرد في التركيبة. والقانون الأوروبي يسمح حتى 10%، وخلصت اللجنة العلمية الأوروبية في 2025 إلى أنه آمن عند هذا المستوى في كريم للوجه. والمراجعة نفسها أكّدت أنه نشط هرمونياً ولم تتناول الآثار البيئية إطلاقاً. فإن كان ذلك مانعاً حاسماً لديك، فاشتري ألترا شيلد — فهو خالٍ منه، وسعره أعلى من هذا.',
+        a: 'نعم، بنسبة 7.50%، وهو أكبر مرشّح مفرد في التركيبة. والقانون الأوروبي يسمح حتى 10%، وخلصت اللجنة العلمية الأوروبية في 2025 إلى أنه آمن عند هذا المستوى في كريم للوجه. والمراجعة نفسها أكّدت أنه نشط هرمونياً ولم تتناول الآثار البيئية إطلاقاً. فإن كان ذلك مانعاً حاسماً لديك، فاشتري ألترا شيلد - فهو خالٍ منه، وسعره أعلى من هذا.',
       },
       {
         q: 'أيّهما أشتري فعلاً؟',
@@ -666,12 +666,12 @@ const RU: MultiSunCopy = {
   eyebrow: 'Multi Sun Cream · SPF40 / PA++',
   headline: 'Фильтров больше, чем у сильного. Степень ниже. Вот почему.',
   subheadline:
-    'Четыре УФ-фильтра общей массой 18,5% — фактически больше, чем у SPF50+ в линейке, — но три из них поглощают UVB, а до UVA дотягивается только диоксид титана. Это и означает степень PA++, и поэтому перед вами лёгкий крем на каждый день, а не крем для дня на улице.',
+    'Четыре УФ-фильтра общей массой 18,5% - фактически больше, чем у SPF50+ в линейке, - но три из них поглощают UVB, а до UVA дотягивается только диоксид титана. Это и означает степень PA++, и поэтому перед вами лёгкий крем на каждый день, а не крем для дня на улице.',
   heroBullets: [
     'Четыре фильтра, 18,5% тюбика, и каждый измерен в партии',
-    'SPF40 / PA++ — сильно по UVB, умеренно по UVA',
+    'SPF40 / PA++ - сильно по UVB, умеренно по UVA',
     'Достаточно лёгкий, чтобы носить под макияжем каждое утро',
-    'Содержит октиноксат 7,5% — прямо сказано ниже',
+    'Содержит октиноксат 7,5% - прямо сказано ниже',
   ],
   badges: ['Сделано в Корее', '40 г', 'Дерматологически тестирован', 'Без парабенов, спирта и красителей'],
 
@@ -685,10 +685,10 @@ const RU: MultiSunCopy = {
   freeDelivery: 'Бесплатная доставка от 1 000 AED · Отправка из Дубая',
 
   stats: [
-    { value: '18,5%', label: 'Тюбика — это УФ-фильтры' },
+    { value: '18,5%', label: 'Тюбика - это УФ-фильтры' },
     { value: '4', label: 'Фильтра, все измерены в партии' },
     { value: '40 г', label: 'Налито 41,07 г' },
-    { value: 'pH 6,7', label: 'При спецификации 5,0–7,0' },
+    { value: 'pH 6,7', label: 'При спецификации 5,0-7,0' },
   ],
 
   filters: {
@@ -704,27 +704,27 @@ const RU: MultiSunCopy = {
       { name: 'Isoamyl p-Methoxycinnamate', amount: '3,00%', role: 'UVB', cap: '10%' },
     ],
     total:
-      'Суммарно: 18,50%. Октисалат стоит ровно на своём потолке в 5% — на пределе, но не выше. Пределы по регламенту (EC) 1223/2009, Приложение VI.',
+      'Суммарно: 18,50%. Октисалат стоит ровно на своём потолке в 5% - на пределе, но не выше. Пределы по регламенту (EC) 1223/2009, Приложение VI.',
   },
 
   grade: {
     eyebrow: 'Почему PA++, а не PA++++',
     title: 'Недостающая длина волны',
     body:
-      'Сравните два санскрина GENOSYS, и что-то покажется неправильным: здесь 18,5% фильтров и степень SPF40 / PA++, а у Ultra Shield 17,1% и SPF50+ / PA++++. Фильтров меньше, степень выше. Причина в том, какие длины волн эти фильтры поглощают. Три из четырёх здесь — метоксициннамат, салицилат и амилоксат — поглощают UVB, а до UVA дотягивается только диоксид титана, который закрывает короткий край и на этом останавливается. Специального фильтра длинного UVA в этом тюбике нет.',
+      'Сравните два санскрина GENOSYS, и что-то покажется неправильным: здесь 18,5% фильтров и степень SPF40 / PA++, а у Ultra Shield 17,1% и SPF50+ / PA++++. Фильтров меньше, степень выше. Причина в том, какие длины волн эти фильтры поглощают. Три из четырёх здесь - метоксициннамат, салицилат и амилоксат - поглощают UVB, а до UVA дотягивается только диоксид титана, который закрывает короткий край и на этом останавливается. Специального фильтра длинного UVA в этом тюбике нет.',
     aside:
-      'SPF — это число про UVB, PA — про UVA. Этот крем силён в первом и умерен во втором, и это вполне разумный способ собрать лёгкий ежедневный крем — и плохой способ собрать крем для пляжа.',
+      'SPF - это число про UVB, PA - про UVA. Этот крем силён в первом и умерен во втором, и это вполне разумный способ собрать лёгкий ежедневный крем - и плохой способ собрать крем для пляжа.',
   },
 
   octinoxate: {
     eyebrow: 'Прочитайте перед покупкой',
     title: 'Здесь есть октиноксат',
     body:
-      'Этилгексил метоксициннамат, он же октиноксат, — самый крупный фильтр в этой формуле, 7,50%. На странице Ultra Shield написано, что тот продукт октиноксата не содержит, и для него это правда — но не для этого. Поэтому позиция изложена целиком, а не сноской.',
+      'Этилгексил метоксициннамат, он же октиноксат, - самый крупный фильтр в этой формуле, 7,50%. На странице Ultra Shield написано, что тот продукт октиноксата не содержит, и для него это правда - но не для этого. Поэтому позиция изложена целиком, а не сноской.',
     points: [
-      'Европейский закон разрешает его как фильтр до 10%. В этой формуле — 7,50%.',
+      'Европейский закон разрешает его как фильтр до 10%. В этой формуле - 7,50%.',
       'Научный комитет ЕС рассмотрел его и в июне 2025 года заключил, что он безопасен до 10% в креме для лица и безопасен для детей исходя из запаса безопасности.',
-      'То же заключение подтверждает, что он эндокринно активен — эстрогенен и слабо антиандрогенен. Этот вывод не отменён, он учтён в моделировании воздействия, на котором построена цифра 10%.',
+      'То же заключение подтверждает, что он эндокринно активен - эстрогенен и слабо антиандрогенен. Этот вывод не отменён, он учтён в моделировании воздействия, на котором построена цифра 10%.',
       'Тот пересмотр вообще не рассматривал воздействие на окружающую среду. Значит, он не ответ на вопрос о кораллах, и подавать его так нельзя.',
     ],
     verdict:
@@ -751,9 +751,9 @@ const RU: MultiSunCopy = {
     eyebrow: 'Об успокаивающих компонентах',
     title: 'Один из них в дозе ноль',
     body:
-      'Коробка приписывает успокоение пальмитоил пентапептиду-4, центелле и шлемнику. В количественной формуле самого производителя пептид стоит на 0,0000001% — одна часть на миллиард, — а два растения по 10 ppm каждое. Экстракты стволовых клеток розы и винограда — 3 и 1 ppm. А фильтрат ферментации лактобактерий и соевого молока, который наша же страница указывала как ключевой компонент, заявлен на 0,0000000%.',
+      'Коробка приписывает успокоение пальмитоил пентапептиду-4, центелле и шлемнику. В количественной формуле самого производителя пептид стоит на 0,0000001% - одна часть на миллиард, - а два растения по 10 ppm каждое. Экстракты стволовых клеток розы и винограда - 3 и 1 ppm. А фильтрат ферментации лактобактерий и соевого молока, который наша же страница указывала как ключевой компонент, заявлен на 0,0000000%.',
     aside:
-      'Что действительно здесь на рабочем уровне — система фильтров, бутиленгликоль 5%, диметикон 2,3% и глицерин 1%. Из этого получается лёгкий, комфортный, нежирный санскрин. Лечения из этого не получается, и продавать его так мы не будем.',
+      'Что действительно здесь на рабочем уровне - система фильтров, бутиленгликоль 5%, диметикон 2,3% и глицерин 1%. Из этого получается лёгкий, комфортный, нежирный санскрин. Лечения из этого не получается, и продавать его так мы не будем.',
   },
 
   fragrance: {
@@ -762,11 +762,11 @@ const RU: MultiSunCopy = {
     body:
       'Лавандовая отдушка 0,25%, несущая пять аллергенов, которые европейский закон обязывает назвать поимённо. Они напечатаны на коробке и повторены здесь, потому что санскрин, который отчасти продают за успокоение, обязан быть честным с теми, кто скорее всего на него отреагирует. Если вы выбираете именно под реактивную кожу, санскрин без отдушки подойдёт лучше.',
     allergens: [
-      'Benzyl Benzoate — 0,025%',
-      'Citronellol — 0,011%',
-      'Hexyl Cinnamal — 0,011%',
-      'Alpha-Isomethyl Ionone — 0,011%',
-      'Limonene — 0,004%',
+      'Benzyl Benzoate - 0,025%',
+      'Citronellol - 0,011%',
+      'Hexyl Cinnamal - 0,011%',
+      'Alpha-Isomethyl Ionone - 0,011%',
+      'Limonene - 0,004%',
     ],
   },
 
@@ -778,7 +778,7 @@ const RU: MultiSunCopy = {
       title: 'Multi Sun Cream, SPF40 / PA++',
       items: [
         'Будни, дорога, офис, школа',
-        'Под макияж — он легче из двух',
+        'Под макияж - он легче из двух',
         'Когда большая часть УФ достаётся вам мимоходом',
         '40 г, и он доступнее в паре',
       ],
@@ -787,7 +787,7 @@ const RU: MultiSunCopy = {
       title: 'Ultra Shield, SPF50+ / PA++++',
       items: [
         'День, действительно проведённый на улице, или УФ-индекс 11 и выше',
-        'Когда важен длинный UVA — там он измерен, здесь нет',
+        'Когда важен длинный UVA - там он измерен, здесь нет',
         'Если вы избегаете октиноксата',
         '50 г, и он сильнее в паре',
       ],
@@ -801,11 +801,11 @@ const RU: MultiSunCopy = {
     steps: [
       {
         title: 'После крема',
-        body: 'Санскрин — последний шаг ухода и шаг перед макияжем, а не часть того или другого. Коробка прямо говорит, что он хорошо ложится под тональное средство.',
+        body: 'Санскрин - последний шаг ухода и шаг перед макияжем, а не часть того или другого. Коробка прямо говорит, что он хорошо ложится под тональное средство.',
       },
       {
         title: 'Два пальца на лицо и шею',
-        body: 'Полоска по указательному и среднему — примерно то количество, на котором тестируют SPF. Нанесёте треть — получите примерно треть защиты, и именно так люди обгорают в работающем средстве.',
+        body: 'Полоска по указательному и среднему - примерно то количество, на котором тестируют SPF. Нанесёте треть - получите примерно треть защиты, и именно так люди обгорают в работающем средстве.',
       },
       {
         title: 'Дайте схватиться перед выходом',
@@ -813,11 +813,11 @@ const RU: MultiSunCopy = {
       },
       {
         title: 'И каждые два часа на солнце',
-        body: 'Коробка так говорит, и она права. А также после пота или полотенца — водостойкости у этого продукта не заявлено.',
+        body: 'Коробка так говорит, и она права. А также после пота или полотенца - водостойкости у этого продукта не заявлено.',
       },
     ],
     note:
-      'Без парабенов, без сушащего спирта и без красителей — это указано на русской панели коробки и подтверждается формулой.',
+      'Без парабенов, без сушащего спирта и без красителей - это указано на русской панели коробки и подтверждается формулой.',
   },
 
   video: {
@@ -839,7 +839,7 @@ const RU: MultiSunCopy = {
     title: 'Что говорит сертификат',
     intro: 'Сделано в Корее и выпущено против письменной спецификации.',
     rows: [
-      { label: 'pH', value: '6,71 при 25 °C, в пределах спецификации 5,00–7,00' },
+      { label: 'pH', value: '6,71 при 25 °C, в пределах спецификации 5,00-7,00' },
       { label: 'Наполнение', value: '41,07 г при заявленных 40 г' },
       { label: 'Бактерии', value: 'Менее 10 КОЕ/мл при допустимых 100' },
       { label: 'Плесени и дрожжи', value: 'Менее 10 КОЕ/мл при допустимых 100' },
@@ -857,7 +857,7 @@ const RU: MultiSunCopy = {
       'Не наносите непосредственно вокруг глаз.',
       'Прекратите использование и обратитесь к врачу при покраснении, отёке или раздражении.',
       'Содержит отдушку с пятью заявленными аллергенами. Сделайте пробу, если легко реагируете.',
-      'Водостойкость не заявлена — наносите заново после плавания, пота или полотенца.',
+      'Водостойкость не заявлена - наносите заново после плавания, пота или полотенца.',
       'Храните в прохладном сухом месте, недоступном для детей.',
     ],
     note: 'Предостережения как напечатаны на коробке GENOSYS.',
@@ -868,12 +868,12 @@ const RU: MultiSunCopy = {
     title: 'Характеристики',
     rows: [
       { label: 'Объём', value: '40 г' },
-      { label: 'Степень', value: 'SPF40 / PA++ — сильно по UVB, умеренно по UVA' },
+      { label: 'Степень', value: 'SPF40 / PA++ - сильно по UVB, умеренно по UVA' },
       { label: 'Фильтры', value: 'Четыре, 18,50% суммарно, все измерены в партии' },
       { label: 'Содержит', value: 'Октиноксат 7,50%, в пределах европейского лимита 10%' },
       { label: 'Без', value: 'Парабенов, сушащего спирта и красителей' },
       { label: 'Отдушка', value: 'Да, 0,25%, с пятью заявленными аллергенами' },
-      { label: 'Водостойкость', value: 'Не заявлена — наносите заново после воды или пота' },
+      { label: 'Водостойкость', value: 'Не заявлена - наносите заново после воды или пота' },
       { label: 'Лицензия', value: 'Одна корейская функция: защита от УФ' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
     ],
@@ -885,15 +885,15 @@ const RU: MultiSunCopy = {
     items: [
       {
         q: 'Как он слабее Ultra Shield, если фильтров в нём больше?',
-        a: 'Потому что степень зависит от того, какие длины волн поглощают фильтры, а не от их количества. Здесь 18,5% фильтров против 17,1% у Ultra Shield, но три из четырёх поглощают UVB, а единственное покрытие UVA — диоксид титана, который дотягивается до короткого UVA и останавливается. У Ultra Shield есть специальные фильтры длинного UVA, и именно это даёт ему PA++++ вместо PA++.',
+        a: 'Потому что степень зависит от того, какие длины волн поглощают фильтры, а не от их количества. Здесь 18,5% фильтров против 17,1% у Ultra Shield, но три из четырёх поглощают UVB, а единственное покрытие UVA - диоксид титана, который дотягивается до короткого UVA и останавливается. У Ultra Shield есть специальные фильтры длинного UVA, и именно это даёт ему PA++++ вместо PA++.',
       },
       {
         q: 'В нём правда есть октиноксат?',
-        a: 'Да, 7,50%, и это крупнейший фильтр формулы. Европейский закон разрешает до 10%, и научный комитет ЕС в 2025 году заключил, что на этом уровне он безопасен в креме для лица. То же заключение подтвердило, что он эндокринно активен, и вообще не рассматривало воздействие на среду. Если для вас это принципиально, берите Ultra Shield — там его нет, и он дороже этого.',
+        a: 'Да, 7,50%, и это крупнейший фильтр формулы. Европейский закон разрешает до 10%, и научный комитет ЕС в 2025 году заключил, что на этом уровне он безопасен в креме для лица. То же заключение подтвердило, что он эндокринно активен, и вообще не рассматривало воздействие на среду. Если для вас это принципиально, берите Ultra Shield - там его нет, и он дороже этого.',
       },
       {
         q: 'Какой из двух брать?',
-        a: 'Этот — на будни, под макияж, когда солнце достаётся мимоходом. Ultra Shield — на день, реально проведённый снаружи, или когда УФ-индекс на верхней отметке. Если нужен один тюбик и вы живёте в Заливе, берите Ultra Shield.',
+        a: 'Этот - на будни, под макияж, когда солнце достаётся мимоходом. Ultra Shield - на день, реально проведённый снаружи, или когда УФ-индекс на верхней отметке. Если нужен один тюбик и вы живёте в Заливе, берите Ultra Shield.',
       },
       {
         q: 'Можно в нём плавать?',
@@ -905,7 +905,7 @@ const RU: MultiSunCopy = {
       },
       {
         q: 'А пептид и стволовые клетки, которыми его рекламируют?',
-        a: 'Они в формуле в дозах, слишком малых, чтобы что-то делать: пальмитоил пентапептид-4 — одна часть на миллиард, экстракты розы и винограда — 3 и 1 ppm, фермент лактобактерий — заявленный ноль. Покупайте ради системы фильтров: она реальна и её измерили.',
+        a: 'Они в формуле в дозах, слишком малых, чтобы что-то делать: пальмитоил пентапептид-4 - одна часть на миллиард, экстракты розы и винограда - 3 и 1 ppm, фермент лактобактерий - заявленный ноль. Покупайте ради системы фильтров: она реальна и её измерили.',
       },
     ],
   },

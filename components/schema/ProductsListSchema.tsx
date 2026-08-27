@@ -17,7 +17,7 @@ interface ProductsListSchemaProps {
 export default function ProductsListSchema({ products, category }: ProductsListSchemaProps) {
   const baseUrl = SITE_URL
   
-  // Filter to only products with valid prices — Google requires "offers", "review",
+  // Filter to only products with valid prices - Google requires "offers", "review",
   // or "aggregateRating" for @type:Product. Products with price=0 or isPriceOnRequest
   // generate invalid Product snippets (GSC error: "Either offers, review, or aggregateRating should be specified").
   const validProducts = products.filter(p => p.price > 0 && !p.isPriceOnRequest)
@@ -45,7 +45,7 @@ export default function ProductsListSchema({ products, category }: ProductsListS
             "name": product.name,
             "description":
               (product.description || '').trim() ||
-              `${product.name} — GENOSYS professional Korean dermacosmetics.`,
+              `${product.name} - GENOSYS professional Korean dermacosmetics.`,
             "image": getProductImageUrls(product),
             "brand": {
               "@type": "Brand",

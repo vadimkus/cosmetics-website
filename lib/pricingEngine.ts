@@ -76,7 +76,7 @@ export interface EnhancedProductData {
   description: string
   image: string
   images?: string | null          // Additional product images (JSON array)
-  videoUrl?: string | null        // Video URL (e.g., /videos/egf.mp4) – dynamic, no app update needed
+  videoUrl?: string | null        // Video URL (e.g., /videos/egf.mp4) - dynamic, no app update needed
   category: string
   stock: boolean
   rating: number
@@ -338,7 +338,7 @@ export function generateProductBadges(
     })
   }
   
-  // New product badge — single source of truth in lib/productBadges.ts
+  // New product badge - single source of truth in lib/productBadges.ts
   if (isNewLaunchProduct(product.id, badgeKey)) {
     badges.push({
       text: 'NEW',
@@ -508,7 +508,7 @@ export function generateEnhancedProductData(
   
   // Merge images: prioritize productConfig images (like the website does),
   // then fall back to DB product.images (combined with main image), then just the main image.
-  // Config galleries sometimes list slide assets only — always ensure product.image
+  // Config galleries sometimes list slide assets only - always ensure product.image
   // (packshot) is first, matching ProductImageGallery on the web PDP.
   // DB product.images is gallery-only (main not duplicated).
   const configImages = getProductImages(configKey)
@@ -520,7 +520,7 @@ export function generateEnhancedProductData(
       : configImages
     mergedImages = JSON.stringify(combined)
   } else if (product.images) {
-    // DB images are gallery-only — combine main image + gallery, avoiding duplicates
+    // DB images are gallery-only - combine main image + gallery, avoiding duplicates
     try {
       const galleryImages = JSON.parse(product.images)
       if (Array.isArray(galleryImages) && galleryImages.length > 0) {

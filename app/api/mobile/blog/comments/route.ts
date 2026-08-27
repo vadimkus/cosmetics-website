@@ -1,7 +1,7 @@
 /**
  * Mobile Blog Comments API
- * GET  /api/mobile/blog/comments?postId=xxx — fetch comments for a post
- * POST /api/mobile/blog/comments — submit a comment (requires JWT auth)
+ * GET  /api/mobile/blog/comments?postId=xxx - fetch comments for a post
+ * POST /api/mobile/blog/comments - submit a comment (requires JWT auth)
  */
 
 import { NextRequest, NextResponse } from 'next/server'

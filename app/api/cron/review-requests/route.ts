@@ -10,9 +10,9 @@ export const dynamic = 'force-dynamic'
 export const maxDuration = 60
 
 /**
- * Post-delivery review request cron — runs daily (see vercel.json).
+ * Post-delivery review request cron - runs daily (see vercel.json).
  *
- * Finds orders first marked DELIVERED 5–21 days ago that haven't had a
+ * Finds orders first marked DELIVERED 5-21 days ago that haven't had a
  * review-request email yet, and asks the customer to rate the products
  * they haven't reviewed (+50 GENOSYS Rewards points each).
  *
@@ -25,8 +25,8 @@ export const maxDuration = 60
  * - Orders older than the window never send (no blast on first rollout).
  *
  * Query params (secret-protected like the run itself):
- * - ?dryRun=1            — report what would be sent, change nothing
- * - ?testEmail=a@b.com   — send the first candidate's email to this address
+ * - ?dryRun=1            - report what would be sent, change nothing
+ * - ?testEmail=a@b.com   - send the first candidate's email to this address
  *                          instead of customers; nothing is stamped
  */
 const WINDOW_MIN_DAYS = 5
@@ -93,14 +93,14 @@ export async function GET(request: NextRequest) {
       const orderNumbers = orders.map(o => o.orderNumber)
 
       const user = await findUserByEmail(email)
-      // Guests can't leave reviews (login required) — stamp and move on.
+      // Guests can't leave reviews (login required) - stamp and move on.
       if (!user) {
         await stampOrders(orderIds)
         skipped++
         results.push({ email, orders: orderNumbers, action: 'skipped: no account' })
         continue
       }
-      // Partner accounts don't earn points — the pitch doesn't apply.
+      // Partner accounts don't earn points - the pitch doesn't apply.
       if (loyaltyTrackForUser(user) !== 'REWARDS') {
         await stampOrders(orderIds)
         skipped++

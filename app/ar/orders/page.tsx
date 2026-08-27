@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 
 /**
  * The English route is kept out of the index by app/orders/layout.tsx, but that layout
- * does not wrap this file — /ar/orders sits outside the app/orders/ subtree, so without
+ * does not wrap this file - /ar/orders sits outside the app/orders/ subtree, so without
  * its own metadata it inherited the root layout's `index: true` and a customer's order
  * history was crawlable. Same for /ru/orders.
  */

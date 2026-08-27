@@ -64,7 +64,7 @@ export default function ArabicBlogPostClient({
 
       <div className="container mx-auto px-4 py-8 md:py-16">
         <div className="max-w-4xl mx-auto">
-          {/* Prominent back-to-articles link — visible on all viewports */}
+          {/* Prominent back-to-articles link - visible on all viewports */}
           <Link
             href={getLocalizedPath('/blog', locale)}
             className={`group inline-flex items-center gap-2 text-sm font-semibold text-[var(--cera-rose-ink)] hover:text-[var(--cera-rose-ink)] mb-6 md:mb-8 transition-colors ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}

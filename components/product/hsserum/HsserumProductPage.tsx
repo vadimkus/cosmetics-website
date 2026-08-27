@@ -3,8 +3,8 @@
 /**
  * Bespoke product page for MOISTURE REPLENISHING HYALURON SERUM (product 18).
  *
- * Shares the editorial design system built for product 66 — the primitives, the
- * gallery and the structural CSS all come from ../cerabarrier — and layers a
+ * Shares the editorial design system built for product 66 - the primitives, the
+ * gallery and the structural CSS all come from ../cerabarrier - and layers a
  * navy / sea-glass palette on top via hsserum.css, taken from the bottle glass, not the Snow Booster cyan.
  *
  * Section order:

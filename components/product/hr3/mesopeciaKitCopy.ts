@@ -5,10 +5,10 @@
  * WHAT THIS PRODUCT IS: products 46 and 45 in one box with a 0.5 mm roller. The bottle
  * is HR³ MATRIX SCALP PEELING α 100 ml, the vials are HR³ MATRIX HAIR SOLUTION α at
  * 4 ml × 6, and both are sold separately here with their own pages, formulas and
- * certificates. So this page deliberately does NOT restate the chemistry — it covers
+ * certificates. So this page deliberately does NOT restate the chemistry - it covers
  * what the box adds, and sends the reader to 45 and 46 for the rest.
  *
- * SOURCING — the registration artwork,
+ * SOURCING - the registration artwork,
  * `Registration DOC/Artwork/[GENOSYS]HAIR MATRIX MESOPECIA KIT.pdf`. Concentrations, pH
  * figures and test results are carried across from the audits already done on 45 and
  * 46; nothing was measured on the kit and there is no efficacy study behind it as a set.
@@ -17,7 +17,7 @@
  * product photograph plainly shows a drum roller on a handle. The carton uses both words
  * and cannot decide either:
  *   - Contents line:  "GENOSYS STAMP(ROLLER)"
- *   - Korean contents: "제노시스 스템프(롤러)" — GENOSYS stamp (roller)
+ *   - Korean contents: "제노시스 스템프(롤러)" - GENOSYS stamp (roller)
  *   - Precaution:     "Do not use roller(stamp) if you have metal allergy…"
  *   - Step 3:         "roll (stamp) on the scalp directly. While rolling(stamping)…"
  *   - French:         "L'utilisation de roller est interdite…"
@@ -27,9 +27,9 @@
  * roll, not press: a page telling someone to press a roller is a page written from a
  * spec sheet instead of from the product.
  *
- * ★ THE 0.5 mm FIGURE IS ON THE RUSSIAN PANEL ONLY — "Дермаштамп 0,5 мм". The English
+ * ★ THE 0.5 mm FIGURE IS ON THE RUSSIAN PANEL ONLY - "Дермаштамп 0,5 мм". The English
  * panel gives no needle depth at all. Same recovered-from-a-translated-panel pattern as
- * the shampoo's three-minute dwell (44) and the ampoule's 1–2 cm partings (45). Said on
+ * the shampoo's three-minute dwell (44) and the ampoule's 1-2 cm partings (45). Said on
  * the page, because a depth is the one number that decides whether a device is cosmetic.
  *
  * ★ THE ENGLISH PANEL OF THIS CARTON MAKES THE DRUG CLAIM. Verbatim:
@@ -37,7 +37,7 @@
  *    to prevent hair loss and promote hair regrowth and restoration by inhibiting the
  *    fundamental causes of hair loss."
  * That is where our record's "prevent hair loss and promote healthy hair regrowth" came
- * from — not from a translation, from the box, in English. The page refuses it out loud
+ * from - not from a translation, from the box, in English. The page refuses it out loud
  * rather than staying silent, exactly as product 44's page refuses the carton's dandruff
  * claim, because the customer will be holding the carton that makes it.
  * The Russian panel is worse again: the kit is titled "Набор для борьбы с выпадением
@@ -47,18 +47,18 @@
  * Gentle and disinfecting were both already refused on product 46's page.
  *
  * RECOVERED FROM THE ARABIC PANEL, absent from the English one: dry with a hair dryer
- * for 2–5 minutes after the peeling, and repeat the sequence after 10 minutes if needed.
+ * for 2-5 minutes after the peeling, and repeat the sequence after 10 minutes if needed.
  *
  * THE ARITHMETIC SECTION is gated behind price visibility in the page, and it is not a
  * saving. Peeling 290 + six vials pro-rata 555 = 845 against a 1,100 kit, so the roller
  * is 255. But 290 + 740 = 1,030 buys both liquids with EIGHT vials for less than the kit
  * costs. Both halves have to stay: the second is why a customer wanting a full course
  * should buy product 45 instead. The 230 anchor is product 1, the standalone 0.25 mm
- * Microneedle Roller, confirmed live in the catalogue — it is quoted as a price
+ * Microneedle Roller, confirmed live in the catalogue - it is quoted as a price
  * comparison and explicitly NOT as a substitute, because it is a shallower face tool.
  * If any of those four list prices move, recalculate in all three languages.
  *
- * MUST NEVER BE ADDED — every one of these was on the kit's own record until 18 Aug,
+ * MUST NEVER BE ADDED - every one of these was on the kit's own record until 18 Aug,
  * having survived the audits that stripped them from 45 and 46:
  *   - "5α-reductase inhibition to suppress DHT conversion". The mechanism of a
  *     prescription medicine, on a cosmetic.
@@ -185,9 +185,9 @@ const EN: MesopeciaKitCopy = {
   eyebrow: 'HR³ MATRIX Mesopecia Kit · Peeling 100 ml · Solution 4 ml × 6 · Roller 0.5 mm',
   headline: 'Two liquids you can already buy, and the half-millimetre roller that turns them into a protocol.',
   subheadline:
-    'The bottle in this box is HR³ MATRIX Scalp Peeling α, the vials are HR³ MATRIX Hair Solution α, and both have their own page here with the full formula behind them. What the kit adds is the roller and the order things happen in: clear the scalp, open the way, put the solution in behind it. Korea registers the peeling as a scalp refresher and the solution for nutrition supply and hair conditioning — neither is registered to treat hair loss, whatever the box says, and there is a section below about that.',
+    'The bottle in this box is HR³ MATRIX Scalp Peeling α, the vials are HR³ MATRIX Hair Solution α, and both have their own page here with the full formula behind them. What the kit adds is the roller and the order things happen in: clear the scalp, open the way, put the solution in behind it. Korea registers the peeling as a scalp refresher and the solution for nutrition supply and hair conditioning - neither is registered to treat hair loss, whatever the box says, and there is a section below about that.',
   heroBullets: [
-    'Scalp Peeling α 100 ml and Hair Solution α 4 ml × 6 — the same two products sold separately here',
+    'Scalp Peeling α 100 ml and Hair Solution α 4 ml × 6 - the same two products sold separately here',
     'A 0.5 mm roller, which is the only part of this box you cannot buy on its own',
     'Six vials, against eight in the standalone Hair Solution box: a shorter course',
     'The contraindications for the roller are printed on the carton and set out below',
@@ -214,17 +214,17 @@ const EN: MesopeciaKitCopy = {
     eyebrow: 'Read this first',
     title: 'This is two products you can already buy, plus a roller.',
     body:
-      'The kit has no formula of its own, and the honest way to read this page is that everything chemical about it lives on two other pages. The peeling is product 46 and the solution is product 45, at the same strengths, from the same batches, with the same certificates and the same precautions. What you are deciding here is whether you want the applicator and the shorter course — not whether you want a different product.',
+      'The kit has no formula of its own, and the honest way to read this page is that everything chemical about it lives on two other pages. The peeling is product 46 and the solution is product 45, at the same strengths, from the same batches, with the same certificates and the same precautions. What you are deciding here is whether you want the applicator and the shorter course - not whether you want a different product.',
     items: [
       'The peeling is a third denatured alcohol. It degreases the scalp fast, and it is not a gentle exfoliant',
       'The solution\u2019s four growth factors come to 1.2 parts per million between them; the carrier is what does the delivering',
       'Six vials here against eight in the standalone box, so this is the shorter course of the two',
-      'Registered as a scalp refresher and a hair conditioner — not as a treatment for hair loss',
+      'Registered as a scalp refresher and a hair conditioner - not as a treatment for hair loss',
     ],
     detail:
       'Worth saying plainly, because our own description of this kit said otherwise until today. It claimed the set inhibited an enzyme to suppress a hormone, promoted the growth of new blood vessels, stimulated hair growth and prevented hair loss. Those are the claims of a prescription medicine. They were taken off the two liquids when each was checked against its paperwork, and the kit had quietly kept every one of them.',
     carton:
-      'And we know exactly where they came from, because the box says it too. In English, on the carton you will receive: an "innovative hair and scalp treatment system invented to prevent hair loss and promote hair regrowth and restoration by inhibiting the fundamental causes of hair loss". The Russian panel goes further and calls the whole kit a hair-loss kit. We are not carrying any of it. What Korea actually registered these two liquids for is a scalp refresher and a hair conditioner, and inhibiting the fundamental causes of hair loss is a thing medicines do. If hair loss is what you are dealing with, see a doctor about it — then, if you want, use this alongside whatever they give you.',
+      'And we know exactly where they came from, because the box says it too. In English, on the carton you will receive: an "innovative hair and scalp treatment system invented to prevent hair loss and promote hair regrowth and restoration by inhibiting the fundamental causes of hair loss". The Russian panel goes further and calls the whole kit a hair-loss kit. We are not carrying any of it. What Korea actually registered these two liquids for is a scalp refresher and a hair conditioner, and inhibiting the fundamental causes of hair loss is a thing medicines do. If hair loss is what you are dealing with, see a doctor about it - then, if you want, use this alongside whatever they give you.',
   },
 
   contents: {
@@ -257,21 +257,21 @@ const EN: MesopeciaKitCopy = {
     intro:
       'The kit is not a bundle discount, and you should hear that from us rather than work it out at home. Here is the same box priced from what its contents cost on their own.',
     rows: [
-      { label: 'Scalp Peeling α, 100 ml — bought on its own', value: '290', note: 'product 46' },
+      { label: 'Scalp Peeling α, 100 ml - bought on its own', value: '290', note: 'product 46' },
       { label: 'Hair Solution α, six vials at the standalone rate', value: '555', note: '740 for eight, so 92.50 each' },
       { label: 'The two liquids together', value: '845', note: '' },
       { label: 'This kit', value: '1,100', note: 'as sold', here: true },
       { label: 'Which puts the roller at', value: '255', note: '' },
     ],
     body:
-      'Two things follow. If you need the applicator, AED 255 is what it costs you here, and this is the only way to get this particular roller — for scale, the 0.25 mm Microneedle Roller we sell on its own is AED 230, though that is a shallower needle meant for the face, so read it as a price comparison rather than a substitute. But if what you actually want is a full course, buy the peeling and the standalone Hair Solution box separately: that is AED 1,030 for eight vials rather than six — less money and more product than the kit, without the roller. Neither answer is wrong. It comes down entirely to whether you already have something to needle with.',
+      'Two things follow. If you need the applicator, AED 255 is what it costs you here, and this is the only way to get this particular roller - for scale, the 0.25 mm Microneedle Roller we sell on its own is AED 230, though that is a shallower needle meant for the face, so read it as a price comparison rather than a substitute. But if what you actually want is a full course, buy the peeling and the standalone Hair Solution box separately: that is AED 1,030 for eight vials rather than six - less money and more product than the kit, without the roller. Neither answer is wrong. It comes down entirely to whether you already have something to needle with.',
   },
 
   roller: {
     eyebrow: 'The roller',
     title: 'Half a millimetre, and the people who should not use it',
     body:
-      'Needle depth is the whole argument for this box, and it had never appeared anywhere on our site — nor, for that matter, on the English side of the carton, which gives no depth at all. The Russian panel of the same box is where the 0.5 mm comes from. That is a cosmetic depth: enough to open a path through the outer scalp so a water-thin solution goes in rather than sitting on top of it, and short of the depth a clinic works at. The carton also carries an avoid-list that we were not passing on, which matters more than usual on a product whose entire mechanism is puncturing skin.',
+      'Needle depth is the whole argument for this box, and it had never appeared anywhere on our site - nor, for that matter, on the English side of the carton, which gives no depth at all. The Russian panel of the same box is where the 0.5 mm comes from. That is a cosmetic depth: enough to open a path through the outer scalp so a water-thin solution goes in rather than sitting on top of it, and short of the depth a clinic works at. The carton also carries an avoid-list that we were not passing on, which matters more than usual on a product whose entire mechanism is puncturing skin.',
     items: [
       { name: 'Needle depth', dose: '0.5 mm', note: 'from the Russian panel; the English one gives none' },
       { name: 'Metal allergy', dose: 'Do not use', note: 'the needles are steel' },
@@ -279,7 +279,7 @@ const EN: MesopeciaKitCopy = {
       { name: 'Dermatitis', dose: 'Do not use', note: 'wait until the scalp has settled' },
     ],
     footnote:
-      'One thing the carton does not tell you, so we will: it gives no number of sessions for the roller. Treat it as a personal item, never share it, and stop using it as soon as the needles stop feeling sharp — a blunt needle does not go in cleanly, it drags. And if you have seen this called a stamp, including in our own description of it until today, that is the carton\u2019s doing: its contents line reads "GENOSYS STAMP(ROLLER)" and its instructions say "roll (stamp)". It is a roller.',
+      'One thing the carton does not tell you, so we will: it gives no number of sessions for the roller. Treat it as a personal item, never share it, and stop using it as soon as the needles stop feeling sharp - a blunt needle does not go in cleanly, it drags. And if you have seen this called a stamp, including in our own description of it until today, that is the carton\u2019s doing: its contents line reads "GENOSYS STAMP(ROLLER)" and its instructions say "roll (stamp)". It is a roller.',
   },
 
   howTo: {
@@ -289,11 +289,11 @@ const EN: MesopeciaKitCopy = {
     steps: [
       {
         title: 'Rub the peeling in',
-        body: 'Decant a little Scalp Peeling α, soak a cotton swab properly, and rub it over the treatment area — the carton\u2019s own word is "powerfully", and it means it. It is not rinsed off. Expect it to feel very cold, and expect it to sting anywhere the skin is broken.',
+        body: 'Decant a little Scalp Peeling α, soak a cotton swab properly, and rub it over the treatment area - the carton\u2019s own word is "powerfully", and it means it. It is not rinsed off. Expect it to feel very cold, and expect it to sting anywhere the skin is broken.',
       },
       {
         title: 'Dry the scalp and the hair',
-        body: 'The carton says to dry it, and its Arabic panel puts a number on it: two to five minutes with a dryer. Give the alcohol a moment to flash off before you bring heat near it, because a third of that bottle is alcohol and it is flammable while wet. Dry is what the next step needs — on a damp scalp the solution runs off the parting instead of staying where you put it.',
+        body: 'The carton says to dry it, and its Arabic panel puts a number on it: two to five minutes with a dryer. Give the alcohol a moment to flash off before you bring heat near it, because a third of that bottle is alcohol and it is flammable while wet. Dry is what the next step needs - on a damp scalp the solution runs off the parting instead of staying where you put it.',
       },
       {
         title: 'Part the hair with a comb, and roll',
@@ -305,7 +305,7 @@ const EN: MesopeciaKitCopy = {
       },
     ],
     note:
-      'The carton adds that the sequence can be repeated after ten minutes if needed. Use each vial the moment you open it and throw away whatever is left — this formula is preserved with only 30 parts per million of phenoxyethanol and is not built to sit half-used on a shelf. What the carton does not give is an interval between sessions, so we are not going to invent one: space them enough that the scalp is calm again before you start the next.',
+      'The carton adds that the sequence can be repeated after ten minutes if needed. Use each vial the moment you open it and throw away whatever is left - this formula is preserved with only 30 parts per million of phenoxyethanol and is not built to sit half-used on a shelf. What the carton does not give is an interval between sessions, so we are not going to invent one: space them enough that the scalp is calm again before you start the next.',
   },
 
   quality: {
@@ -314,14 +314,14 @@ const EN: MesopeciaKitCopy = {
     intro:
       'Both liquids are made in Korea and released to a written specification, and each has its own page here carrying the full set of figures. These are the ones worth seeing next to each other. Nothing was measured on the kit as a set, because there is nothing to measure that is not one of these two.',
     rows: [
-      { label: 'Peeling — appearance', value: 'Transparent liquid' },
-      { label: 'Peeling — pH', value: '4.31, inside a 4.00–5.00 specification' },
-      { label: 'Peeling — stability', value: 'Passes at 50 °C' },
-      { label: 'Peeling — purity', value: 'Under 10 cfu/ml for bacteria and for moulds, against 100 permitted for each' },
-      { label: 'Solution — appearance', value: 'Opaque liquid' },
-      { label: 'Solution — pH', value: '6.65, inside a 6.00–7.00 specification' },
-      { label: 'Solution — viscosity', value: '800, at the floor of an 800–1,600 specification' },
-      { label: 'Solution — purity', value: 'Under 10 cfu/ml' },
+      { label: 'Peeling - appearance', value: 'Transparent liquid' },
+      { label: 'Peeling - pH', value: '4.31, inside a 4.00-5.00 specification' },
+      { label: 'Peeling - stability', value: 'Passes at 50 °C' },
+      { label: 'Peeling - purity', value: 'Under 10 cfu/ml for bacteria and for moulds, against 100 permitted for each' },
+      { label: 'Solution - appearance', value: 'Opaque liquid' },
+      { label: 'Solution - pH', value: '6.65, inside a 6.00-7.00 specification' },
+      { label: 'Solution - viscosity', value: '800, at the floor of an 800-1,600 specification' },
+      { label: 'Solution - purity', value: 'Under 10 cfu/ml' },
       { label: 'Shelf life', value: 'Three years unopened, both liquids' },
       { label: 'Registered function', value: 'Peeling: scalp refresher. Solution: nutrition supply and hair conditioning' },
     ],
@@ -334,8 +334,8 @@ const EN: MesopeciaKitCopy = {
     title: 'Everything in both bottles',
     intro:
       'Two liquids, two lists, both transcribed from the carton in the order they are printed. The concentrations behind them are on the pages for products 46 and 45.',
-    peeling: 'Scalp Peeling α — full ingredient list (INCI)',
-    solution: 'Hair Solution α — full ingredient list (INCI)',
+    peeling: 'Scalp Peeling α - full ingredient list (INCI)',
+    solution: 'Hair Solution α - full ingredient list (INCI)',
     fullInciNote: 'Every ingredient, in the same order as the carton in your hand.',
   },
 
@@ -346,7 +346,7 @@ const EN: MesopeciaKitCopy = {
       'Do not use the roller if you have a metal allergy, keloid-prone skin, or dermatitis.',
       'Do not roll over scalp that is broken, wounded, sunburned, freshly shaved or inflamed.',
       'For external use only, on the scalp.',
-      'The peeling contains 33.6% denatured alcohol. It is flammable — let it flash off before a dryer or a styling iron.',
+      'The peeling contains 33.6% denatured alcohol. It is flammable - let it flash off before a dryer or a styling iron.',
       'Both liquids contain menthol and will feel strongly cold; the peeling carries 0.900% of it.',
       'Keep both well away from the eyes and mucous membranes, and rinse thoroughly with cool water on contact.',
       'Use each vial immediately after opening and discard what is left.',
@@ -367,12 +367,12 @@ const EN: MesopeciaKitCopy = {
       { label: 'Applicator', value: 'Drum roller. The carton also calls it a stamp' },
       { label: 'Sessions', value: 'Six, one vial each' },
       { label: 'Registered function', value: 'Peeling: scalp refresher. Solution: nutrition supply, hair conditioning' },
-      { label: 'Peeling — alcohol', value: 'Alcohol denat. 33.600% — flammable' },
-      { label: 'Peeling — cooling', value: 'Menthol 0.900% with menthyl lactate 0.800%' },
-      { label: 'Peeling — salicylic acid', value: '99 ppm — not a keratolytic dose' },
-      { label: 'Solution — growth factors', value: '1.2 ppm in total, across four peptides' },
-      { label: 'Solution — copper tripeptide-1', value: '5 ppm' },
-      { label: 'Solution — carrier', value: 'Propylene glycol 9.995% with carbomer 0.450%' },
+      { label: 'Peeling - alcohol', value: 'Alcohol denat. 33.600% - flammable' },
+      { label: 'Peeling - cooling', value: 'Menthol 0.900% with menthyl lactate 0.800%' },
+      { label: 'Peeling - salicylic acid', value: '99 ppm - not a keratolytic dose' },
+      { label: 'Solution - growth factors', value: '1.2 ppm in total, across four peptides' },
+      { label: 'Solution - copper tripeptide-1', value: '5 ppm' },
+      { label: 'Solution - carrier', value: 'Propylene glycol 9.995% with carbomer 0.450%' },
       { label: 'Application', value: 'Peeling on a swab, then roll each parting with the solution. Not rinsed' },
       { label: 'Also sold separately', value: 'The peeling on its own; the solution in a box of eight' },
       { label: 'Shelf life', value: 'Three years unopened' },
@@ -386,7 +386,7 @@ const EN: MesopeciaKitCopy = {
     items: [
       {
         q: 'Is the kit cheaper than buying the two liquids separately?',
-        a: 'No, and we would rather say so. The peeling is AED 290 on its own and the six vials work out at AED 555 against the standalone box, so the liquids come to AED 845 inside a kit that costs AED 1,100 — the roller is the AED 255 difference. Buying the peeling and the full eight-vial box separately is AED 1,030, which is less money for more product, minus the roller. Buy the kit if you need something to needle with; buy the two products if you already do.',
+        a: 'No, and we would rather say so. The peeling is AED 290 on its own and the six vials work out at AED 555 against the standalone box, so the liquids come to AED 845 inside a kit that costs AED 1,100 - the roller is the AED 255 difference. Buying the peeling and the full eight-vial box separately is AED 1,030, which is less money for more product, minus the roller. Buy the kit if you need something to needle with; buy the two products if you already do.',
         needsPrices: true,
       },
       {
@@ -395,7 +395,7 @@ const EN: MesopeciaKitCopy = {
       },
       {
         q: 'The box says it prevents hair loss. Why does this page not?',
-        a: 'Because the two liquids inside it are registered as a scalp refresher and a hair conditioner, and that is the claim we can stand behind. The carton\u2019s English blurb describes a system that prevents hair loss and promotes regrowth by inhibiting the fundamental causes of hair loss, and the Russian panel is stronger still. Inhibiting the causes of hair loss is what a medicine does; a cosmetic registered for conditioning does not get to borrow the sentence. Everything else on this page — the doses, the depth, the certificates — is there so you can judge it without needing that claim to be true.',
+        a: 'Because the two liquids inside it are registered as a scalp refresher and a hair conditioner, and that is the claim we can stand behind. The carton\u2019s English blurb describes a system that prevents hair loss and promotes regrowth by inhibiting the fundamental causes of hair loss, and the Russian panel is stronger still. Inhibiting the causes of hair loss is what a medicine does; a cosmetic registered for conditioning does not get to borrow the sentence. Everything else on this page - the doses, the depth, the certificates - is there so you can judge it without needing that claim to be true.',
       },
       {
         q: 'Is it a stamp or a roller?',
@@ -403,7 +403,7 @@ const EN: MesopeciaKitCopy = {
       },
       {
         q: 'Does 0.5 mm hurt?',
-        a: 'It is felt rather than painful for most people, and the peeling that comes first will register more strongly — it is a third alcohol with 0.9% menthol going onto skin that has just been degreased. The roller itself is a cosmetic depth. If you are pressing hard enough that it genuinely hurts, you are pressing too hard.',
+        a: 'It is felt rather than painful for most people, and the peeling that comes first will register more strongly - it is a third alcohol with 0.9% menthol going onto skin that has just been degreased. The roller itself is a cosmetic depth. If you are pressing hard enough that it genuinely hurts, you are pressing too hard.',
       },
       {
         q: 'Can I use the roller with something else afterwards?',
@@ -426,7 +426,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
   subheadline:
     'يجمع الطقم مقشّر HR³ MATRIX Scalp Peeling α بحجم 100 مل، وست أمبولات Hair Solution α سعة 4 مل، ورولر بعمق 0.5 مم في بروتوكول مرتب للعناية بفروة الرأس. وظيفة المحلول المسجلة هي إمداد الشعر بالتغذية وتكييفه، ولا يقدم الطقم كعلاج لتساقط الشعر أو لتحفيز نموه.',
   heroBullets: [
-    'مقشّر فروة الرأس α بحجم 100 مل و Hair Solution α بحجم 4 مل × 6 — المنتجان نفساهما يُباعان منفردين هنا',
+    'مقشّر فروة الرأس α بحجم 100 مل و Hair Solution α بحجم 4 مل × 6 - المنتجان نفساهما يُباعان منفردين هنا',
     'رولر بعمق 0.5 مم، وهو الجزء الوحيد في هذا الصندوق الذي لا يُباع وحده',
     'ست أمبولات، مقابل ثماني في علبة Hair Solution المنفردة: دورة أقصر',
     'موانع استعمال الرولر مطبوعة على العلبة ومذكورة بالكامل أدناه',
@@ -458,7 +458,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
       'ثلث المقشّر كحول مُمَوَّه. يزيل دهن الفروة بسرعة، وهو ليس مقشّراً لطيفاً',
       'الببتيدات المؤتلفة الأربعة في المحلول تبلغ مجتمعة 1.2 جزء في المليون، من دون نسبة تأثير على نمو الشعر إليها',
       'ست أمبولات هنا مقابل ثماني في العلبة المنفردة، فهذه الدورة الأقصر بينهما',
-      'مسجّل كمنعش لفروة الرأس ومكيّف للشعر — لا كعلاج لتساقط الشعر',
+      'مسجّل كمنعش لفروة الرأس ومكيّف للشعر - لا كعلاج لتساقط الشعر',
     ],
     detail:
       'وظيفة السائلين تجميلية: تنظيف وإنعاش فروة الرأس، ثم إمداد الشعر بالتغذية وتكييفه. لا ننسب إلى الطقم تثبيط DHT أو تكوين أوعية دموية أو منع التساقط أو إعادة النمو.',
@@ -496,7 +496,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
     intro:
       'يوضح هذا التفصيل قيمة كل جزء ليسهل الاختيار بين الطقم والمنتجات المنفردة.',
     rows: [
-      { label: 'مقشّر الفروة α، 100 مل — مشترى وحده', value: '290', note: 'المنتج 46' },
+      { label: 'مقشّر الفروة α، 100 مل - مشترى وحده', value: '290', note: 'المنتج 46' },
       { label: 'Hair Solution α، ست أمبولات بسعر العلبة المنفردة', value: '555', note: '740 لثماني، أي 92.50 للواحدة' },
       { label: 'السائلان معاً', value: '845', note: '' },
       { label: 'هذا الطقم', value: '1,100', note: 'كما يُباع', here: true },
@@ -510,7 +510,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
     eyebrow: 'الرولر',
     title: 'نصف مليمتر، ومن لا ينبغي له استعماله',
     body:
-      'عمق الإبرة هو كل الحجّة لهذا الصندوق، ولم يكن قد ظهر في أي مكان على موقعنا — ولا، في الواقع، على الجانب الإنجليزي من العلبة، الذي لا يذكر عمقاً إطلاقاً. واللوحة الروسية للعلبة نفسها هي مصدر الـ0.5 مم. وهو عمق تجميلي: يكفي لفتح مسار عبر الطبقة الخارجية من الفروة حتى يدخل محلول مائي القوام بدل أن يجلس فوقها، ويقلّ عن العمق الذي تعمل عنده العيادة. كما تحمل العلبة قائمة موانع لم نكن ننقلها، وهي تهمّ أكثر من المعتاد في منتج آليّته كلها ثقب البشرة.',
+      'عمق الإبرة هو كل الحجّة لهذا الصندوق، ولم يكن قد ظهر في أي مكان على موقعنا - ولا، في الواقع، على الجانب الإنجليزي من العلبة، الذي لا يذكر عمقاً إطلاقاً. واللوحة الروسية للعلبة نفسها هي مصدر الـ0.5 مم. وهو عمق تجميلي: يكفي لفتح مسار عبر الطبقة الخارجية من الفروة حتى يدخل محلول مائي القوام بدل أن يجلس فوقها، ويقلّ عن العمق الذي تعمل عنده العيادة. كما تحمل العلبة قائمة موانع لم نكن ننقلها، وهي تهمّ أكثر من المعتاد في منتج آليّته كلها ثقب البشرة.',
     items: [
       { name: 'عمق الإبرة', dose: '0.5 mm', note: 'من اللوحة الروسية؛ والإنجليزية لا تذكر عمقاً' },
       { name: 'حساسية المعادن', dose: 'لا تستعمليه', note: 'الإبر من الفولاذ' },
@@ -518,7 +518,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
       { name: 'التهاب الجلد', dose: 'لا تستعمليه', note: 'انتظري حتى تهدأ الفروة' },
     ],
     footnote:
-      'وأمر لا تخبرك به العلبة، فسنقوله نحن: لا تذكر عدداً للجلسات التي يحتملها الرولر. تعاملي معه كغرض شخصي، لا تشاركيه أبداً، وتوقّفي عن استعماله فور أن تفقد الإبر إحساس الحدّة — فالإبرة الكليلة لا تدخل بنظافة، بل تسحب. وإن كنت قد رأيته موصوفاً بالختم، بما في ذلك في وصفنا نحن حتى اليوم، فذلك صنيع العلبة: سطر المحتويات فيها يقرأ «GENOSYS STAMP(ROLLER)» وتعليماتها تقول «roll (stamp)». إنه رولر.',
+      'وأمر لا تخبرك به العلبة، فسنقوله نحن: لا تذكر عدداً للجلسات التي يحتملها الرولر. تعاملي معه كغرض شخصي، لا تشاركيه أبداً، وتوقّفي عن استعماله فور أن تفقد الإبر إحساس الحدّة - فالإبرة الكليلة لا تدخل بنظافة، بل تسحب. وإن كنت قد رأيته موصوفاً بالختم، بما في ذلك في وصفنا نحن حتى اليوم، فذلك صنيع العلبة: سطر المحتويات فيها يقرأ «GENOSYS STAMP(ROLLER)» وتعليماتها تقول «roll (stamp)». إنه رولر.',
   },
 
   howTo: {
@@ -528,11 +528,11 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
     steps: [
       {
         title: 'افركي المقشّر',
-        body: 'اسكبي قليلاً من Scalp Peeling α، وبلّلي عوداً قطنياً جيداً، وافركيه على المنطقة — وكلمة العلبة نفسها هي «بقوة». لا يُشطف ويمنح إحساساً شديد البرودة. يوضع فقط بينما فروة الرأس سليمة؛ ولا يوضع أبداً بعد تمرير الرولر أو على جلد سبق وخزه.',
+        body: 'اسكبي قليلاً من Scalp Peeling α، وبلّلي عوداً قطنياً جيداً، وافركيه على المنطقة - وكلمة العلبة نفسها هي «بقوة». لا يُشطف ويمنح إحساساً شديد البرودة. يوضع فقط بينما فروة الرأس سليمة؛ ولا يوضع أبداً بعد تمرير الرولر أو على جلد سبق وخزه.',
       },
       {
         title: 'جفّفي الفروة والشعر',
-        body: 'تقول العلبة أن تجفّفيهما، وتضع لوحتها العربية رقماً لذلك: من دقيقتين إلى خمس بالمجفّف. امنحي الكحول لحظة ليتبخّر قبل تقريب الحرارة، فثلث تلك العبوة كحول وهو قابل للاشتعال وهو رطب. والجفاف هو ما تحتاجه الخطوة التالية — فعلى فروة رطبة ينزلق المحلول عن الفرق بدل أن يبقى حيث وضعته.',
+        body: 'تقول العلبة أن تجفّفيهما، وتضع لوحتها العربية رقماً لذلك: من دقيقتين إلى خمس بالمجفّف. امنحي الكحول لحظة ليتبخّر قبل تقريب الحرارة، فثلث تلك العبوة كحول وهو قابل للاشتعال وهو رطب. والجفاف هو ما تحتاجه الخطوة التالية - فعلى فروة رطبة ينزلق المحلول عن الفرق بدل أن يبقى حيث وضعته.',
       },
       {
         title: 'افرقي الشعر بمشط، ثم مرّري الرولر',
@@ -544,7 +544,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
       },
     ],
     note:
-      'وتضيف العلبة أنه يمكن تكرار التسلسل بعد عشر دقائق عند الحاجة. استعملي كل أمبولة فور فتحها وتخلّصي ممّا يتبقّى — فهذه التركيبة محفوظة بثلاثين جزءاً من المليون فقط من الفينوكسي إيثانول، ولم تُصمَّم لتبقى نصف مستعملة على الرفّ. أما ما لا تعطيه العلبة فهو الفاصل بين الجلسات، ولن نخترعه: باعدي بينها بما يكفي لتهدأ الفروة قبل الجلسة التالية.',
+      'وتضيف العلبة أنه يمكن تكرار التسلسل بعد عشر دقائق عند الحاجة. استعملي كل أمبولة فور فتحها وتخلّصي ممّا يتبقّى - فهذه التركيبة محفوظة بثلاثين جزءاً من المليون فقط من الفينوكسي إيثانول، ولم تُصمَّم لتبقى نصف مستعملة على الرفّ. أما ما لا تعطيه العلبة فهو الفاصل بين الجلسات، ولن نخترعه: باعدي بينها بما يكفي لتهدأ الفروة قبل الجلسة التالية.',
   },
 
   quality: {
@@ -553,14 +553,14 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
     intro:
       'كلا السائلين مصنوع في كوريا وصادر وفق مواصفة مكتوبة، ولكلٍّ منهما صفحته هنا بكامل الأرقام. وهذه هي الأرقام التي تستحق أن تُرى جنباً إلى جنب. ولم يُقَس شيء على الطقم كمجموعة، لأنه لا يوجد فيه ما يُقاس ولا ينتمي إلى أحد هذين.',
     rows: [
-      { label: 'المقشّر — المظهر', value: 'سائل شفاف' },
-      { label: 'المقشّر — الحموضة', value: '4.31، داخل مواصفة 4.00–5.00' },
-      { label: 'المقشّر — الثبات', value: 'يجتاز عند 50 °م' },
-      { label: 'المقشّر — النقاء', value: 'أقل من 10 وحدة/مل للبكتيريا وللعفن، مقابل 100 مسموح لكلٍّ منهما' },
-      { label: 'المحلول — المظهر', value: 'سائل معتم' },
-      { label: 'المحلول — الحموضة', value: '6.65، داخل مواصفة 6.00–7.00' },
-      { label: 'المحلول — اللزوجة', value: '800، عند الحدّ الأدنى لمواصفة 800–1,600' },
-      { label: 'المحلول — النقاء', value: 'أقل من 10 وحدة/مل' },
+      { label: 'المقشّر - المظهر', value: 'سائل شفاف' },
+      { label: 'المقشّر - الحموضة', value: '4.31، داخل مواصفة 4.00-5.00' },
+      { label: 'المقشّر - الثبات', value: 'يجتاز عند 50 °م' },
+      { label: 'المقشّر - النقاء', value: 'أقل من 10 وحدة/مل للبكتيريا وللعفن، مقابل 100 مسموح لكلٍّ منهما' },
+      { label: 'المحلول - المظهر', value: 'سائل معتم' },
+      { label: 'المحلول - الحموضة', value: '6.65، داخل مواصفة 6.00-7.00' },
+      { label: 'المحلول - اللزوجة', value: '800، عند الحدّ الأدنى لمواصفة 800-1,600' },
+      { label: 'المحلول - النقاء', value: 'أقل من 10 وحدة/مل' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات غير مفتوح، للسائلين معاً' },
       { label: 'الوظيفة المسجّلة', value: 'المقشّر: منعش لفروة الرأس. المحلول: إمداد التغذية وتكييف الشعر' },
     ],
@@ -573,8 +573,8 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
     title: 'كل ما في العبوتين',
     intro:
       'سائلان، قائمتان، كلتاهما منقولة عن العلبة بالترتيب المطبوع عليها. والتراكيز خلفهما موجودة على صفحتَي المنتجين 46 و45.',
-    peeling: 'مقشّر الفروة α — قائمة المكوّنات الكاملة (INCI)',
-    solution: 'Hair Solution α — قائمة المكوّنات الكاملة (INCI)',
+    peeling: 'مقشّر الفروة α - قائمة المكوّنات الكاملة (INCI)',
+    solution: 'Hair Solution α - قائمة المكوّنات الكاملة (INCI)',
     fullInciNote: 'كل مكوّن، بالترتيب نفسه الموجود على العلبة التي بين يديك.',
   },
 
@@ -585,7 +585,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
       'لا تستعملي الرولر إن كانت لديك حساسية من المعادن، أو بشرة معرّضة للجدرة، أو التهاب جلدي.',
       'لا تمرّري الرولر على فروة مجروحة أو مصابة أو محروقة بالشمس أو محلوقة حديثاً أو ملتهبة.',
       'للاستعمال الخارجي فقط، على فروة الرأس.',
-      'يحتوي المقشّر على 33.6% كحول مُمَوَّه. وهو قابل للاشتعال — اتركيه يتبخّر قبل المجفّف أو مكواة الشعر.',
+      'يحتوي المقشّر على 33.6% كحول مُمَوَّه. وهو قابل للاشتعال - اتركيه يتبخّر قبل المجفّف أو مكواة الشعر.',
       'يحتوي السائلان على المنثول وسيُحدثان إحساساً بارداً قوياً؛ ويحمل المقشّر 0.900% منه.',
       'أبقيهما بعيداً عن العينين والأغشية المخاطية، واشطفي جيداً بماء بارد عند الملامسة.',
       'استعملي كل أمبولة فور فتحها وتخلّصي ممّا يتبقّى.',
@@ -606,12 +606,12 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
       { label: 'أداة الوضع', value: 'رولر أسطواني. والعلبة تسمّيه ختماً أيضاً' },
       { label: 'الجلسات', value: 'ست، أمبولة لكل جلسة' },
       { label: 'الوظيفة المسجّلة', value: 'المقشّر: منعش لفروة الرأس. المحلول: إمداد التغذية وتكييف الشعر' },
-      { label: 'المقشّر — الكحول', value: 'كحول مُمَوَّه 33.600% — قابل للاشتعال' },
-      { label: 'المقشّر — التبريد', value: 'منثول 0.900% مع منثيل لاكتات 0.800%' },
-      { label: 'المقشّر — حمض الساليسيليك', value: '99 جزءاً من المليون — ليست جرعة تقشير' },
-      { label: 'المحلول — عوامل النمو', value: '1.2 جزء من المليون إجمالاً، عبر أربعة ببتيدات' },
-      { label: 'المحلول — كوبر ترايببتايد-1', value: '5 أجزاء من المليون' },
-      { label: 'المحلول — الحامل', value: 'بروبيلين جليكول 9.995% مع كاربومر 0.450%' },
+      { label: 'المقشّر - الكحول', value: 'كحول مُمَوَّه 33.600% - قابل للاشتعال' },
+      { label: 'المقشّر - التبريد', value: 'منثول 0.900% مع منثيل لاكتات 0.800%' },
+      { label: 'المقشّر - حمض الساليسيليك', value: '99 جزءاً من المليون - ليست جرعة تقشير' },
+      { label: 'المحلول - عوامل النمو', value: '1.2 جزء من المليون إجمالاً، عبر أربعة ببتيدات' },
+      { label: 'المحلول - كوبر ترايببتايد-1', value: '5 أجزاء من المليون' },
+      { label: 'المحلول - الحامل', value: 'بروبيلين جليكول 9.995% مع كاربومر 0.450%' },
       { label: 'الاستعمال', value: 'المقشّر بعود قطني، ثم تمرير الرولر على كل فرق مع المحلول. لا يُشطف' },
       { label: 'يُباعان منفردين أيضاً', value: 'المقشّر وحده؛ والمحلول في علبة من ثماني أمبولات' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات غير مفتوح' },
@@ -625,7 +625,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
     items: [
       {
         q: 'هل الطقم أرخص من شراء السائلين منفصلين؟',
-        a: 'لا، ونفضّل قول ذلك. فالمقشّر 290 درهماً وحده، والأمبولات الست تساوي 555 درهماً مقابل العلبة المنفردة، فيصير السائلان 845 درهماً داخل طقم سعره 1,100 — والرولر هو فارق الـ255 درهماً. أما شراء المقشّر وعلبة الأمبولات الثماني منفصلين فهو 1,030 درهماً، أي مال أقل لمنتج أكثر، ناقص الرولر. اشتري الطقم إن كنت تحتاجين ما تستعملينه للوخز؛ واشتري المنتجين إن كان لديك ذلك أصلاً.',
+        a: 'لا، ونفضّل قول ذلك. فالمقشّر 290 درهماً وحده، والأمبولات الست تساوي 555 درهماً مقابل العلبة المنفردة، فيصير السائلان 845 درهماً داخل طقم سعره 1,100 - والرولر هو فارق الـ255 درهماً. أما شراء المقشّر وعلبة الأمبولات الثماني منفصلين فهو 1,030 درهماً، أي مال أقل لمنتج أكثر، ناقص الرولر. اشتري الطقم إن كنت تحتاجين ما تستعملينه للوخز؛ واشتري المنتجين إن كان لديك ذلك أصلاً.',
         needsPrices: true,
       },
       {
@@ -634,7 +634,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
       },
       {
         q: 'العلبة تقول إنه يمنع تساقط الشعر. فلماذا لا تقول هذه الصفحة ذلك؟',
-        a: 'لأن السائلين داخلها مسجّلان كمنعش لفروة الرأس ومكيّف للشعر، وذلك هو الادّعاء الذي نستطيع الوقوف خلفه. أما نصّ العلبة الإنجليزي فيصف نظاماً يمنع التساقط ويعزّز إعادة النمو عبر تثبيط الأسباب الجذرية للتساقط، واللوحة الروسية أقوى منه. وتثبيط أسباب التساقط شيء يفعله الدواء؛ ومستحضر تجميل مسجّل للتكييف لا يستعير تلك الجملة. وكل ما عدا ذلك على هذه الصفحة — الجرعات والعمق والشهادات — موجود لتحكمي بنفسك من دون أن تحتاجي إلى صحّة ذلك الادّعاء.',
+        a: 'لأن السائلين داخلها مسجّلان كمنعش لفروة الرأس ومكيّف للشعر، وذلك هو الادّعاء الذي نستطيع الوقوف خلفه. أما نصّ العلبة الإنجليزي فيصف نظاماً يمنع التساقط ويعزّز إعادة النمو عبر تثبيط الأسباب الجذرية للتساقط، واللوحة الروسية أقوى منه. وتثبيط أسباب التساقط شيء يفعله الدواء؛ ومستحضر تجميل مسجّل للتكييف لا يستعير تلك الجملة. وكل ما عدا ذلك على هذه الصفحة - الجرعات والعمق والشهادات - موجود لتحكمي بنفسك من دون أن تحتاجي إلى صحّة ذلك الادّعاء.',
       },
       {
         q: 'أهو ختم أم رولر؟',
@@ -642,7 +642,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
       },
       {
         q: 'هل يؤلم عمق 0.5 مم؟',
-        a: 'يُحسّ به أكثر ممّا يؤلم عند معظم الناس، والمقشّر الذي يسبقه سيُسجَّل أقوى — فهو ثلثه كحول مع 0.9% منثول على بشرة أُزيل دهنها للتوّ. أما الرولر نفسه فعمق تجميلي. وإن كنت تضغطين بما يكفي ليؤلم فعلاً، فأنت تضغطين أكثر من اللازم.',
+        a: 'يُحسّ به أكثر ممّا يؤلم عند معظم الناس، والمقشّر الذي يسبقه سيُسجَّل أقوى - فهو ثلثه كحول مع 0.9% منثول على بشرة أُزيل دهنها للتوّ. أما الرولر نفسه فعمق تجميلي. وإن كنت تضغطين بما يكفي ليؤلم فعلاً، فأنت تضغطين أكثر من اللازم.',
       },
       {
         q: 'هل أستطيع استعمال الرولر مع شيء آخر بعده؟',
@@ -650,7 +650,7 @@ export const LEGACY_MESOPECIA_KIT_AR: MesopeciaKitCopy = {
       },
       {
         q: 'هل ما زلت أحتاج الشامبو أو التونر؟',
-        a: 'لهما دور مختلف. فهذا الطقم جلسة منفصلة تُجرى من حين إلى آخر؛ أما شامبو MEDI α وHair Tonic α فهما خطوتا العناية بين الجلسات. لا يستخدم التونيك مع الرولر: يرش على فروة الرأس ويدلك بالأصابع ويترك 3–4 ساعات على الأقل.',
+        a: 'لهما دور مختلف. فهذا الطقم جلسة منفصلة تُجرى من حين إلى آخر؛ أما شامبو MEDI α وHair Tonic α فهما خطوتا العناية بين الجلسات. لا يستخدم التونيك مع الرولر: يرش على فروة الرأس ويدلك بالأصابع ويترك 3-4 ساعات على الأقل.',
       },
     ],
   },
@@ -663,10 +663,10 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
   eyebrow: 'HR³ MATRIX набор Mesopecia · Пилинг 100 мл · Раствор 4 мл × 6 · Роллер 0,5 мм',
   headline: 'Три этапа ухода за кожей головы в одном наборе.',
   subheadline:
-    'Набор объединяет HR³ MATRIX Scalp Peeling α 100 мл, шесть ампул Hair Solution α по 4 мл и роллер 0,5 мм в последовательный протокол ухода за кожей головы. Зарегистрированная функция раствора — питание и кондиционирование волос; набор не позиционируется как лечение выпадения или средство стимуляции роста.',
+    'Набор объединяет HR³ MATRIX Scalp Peeling α 100 мл, шесть ампул Hair Solution α по 4 мл и роллер 0,5 мм в последовательный протокол ухода за кожей головы. Зарегистрированная функция раствора - питание и кондиционирование волос; набор не позиционируется как лечение выпадения или средство стимуляции роста.',
   heroBullets: [
-    'Пилинг α 100 мл и Hair Solution α 4 мл × 6 — те же два продукта, которые продаются здесь отдельно',
-    'Роллер 0,5 мм — единственная часть этой коробки, которую нельзя купить саму по себе',
+    'Пилинг α 100 мл и Hair Solution α 4 мл × 6 - те же два продукта, которые продаются здесь отдельно',
+    'Роллер 0,5 мм - единственная часть этой коробки, которую нельзя купить саму по себе',
     'Шесть ампул против восьми в отдельной упаковке Hair Solution: курс короче',
     'Противопоказания к роллеру напечатаны на коробке и полностью изложены ниже',
   ],
@@ -684,7 +684,7 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
   stats: [
     { value: '0,5 мм', label: 'глубина игл роллера' },
     { value: '6 × 4 мл', label: 'ампул против восьми в отдельной упаковке' },
-    { value: '100 мл', label: 'пилинга — полноразмерный флакон' },
+    { value: '100 мл', label: 'пилинга - полноразмерный флакон' },
     { value: '4', label: 'шага протокола, напечатанные на коробке' },
   ],
 
@@ -694,10 +694,10 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
     body:
       'Набор объединяет продукты 46 и 45 с роллером GENOSYS. Каждая формула сохраняет свою функцию, инструкцию и меры предосторожности, а набор задаёт порядок применения и число процедур.',
     items: [
-      'Треть пилинга — денатурированный спирт. Он быстро обезжиривает кожу головы и не является мягким отшелушивающим средством',
+      'Треть пилинга - денатурированный спирт. Он быстро обезжиривает кожу головы и не является мягким отшелушивающим средством',
       'Четыре рекомбинантных пептида в растворе дают вместе 1,2 ppm, без заявления об их влиянии на рост волос',
       'Здесь шесть ампул против восьми в отдельной упаковке, так что это более короткий курс из двух',
-      'Зарегистрировано как средство для освежения кожи головы и кондиционирования волос — не как лечение выпадения',
+      'Зарегистрировано как средство для освежения кожи головы и кондиционирования волос - не как лечение выпадения',
     ],
     detail:
       'Функции двух жидкостей косметические: очищение и освежение кожи головы, затем питание и кондиционирование волос. Мы не приписываем набору подавление DHT, образование сосудов, предотвращение выпадения или отрастание волос.',
@@ -719,7 +719,7 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
       {
         name: 'HR³ MATRIX Hair Solution α',
         dose: '4 мл × 6',
-        body: 'Четыре фактора роста суммарно 1,2 части на миллион, медный трипептид-1 5 ppm, ниацинамид и пантенол по 0,100%, в носителе из почти 10% пропиленгликоля, загущённом карбомером, чтобы средство оставалось на проборе, а не стекало с него. Отдельно продаётся в упаковке по восемь. Вскрыли ампулу — используйте сразу.',
+        body: 'Четыре фактора роста суммарно 1,2 части на миллион, медный трипептид-1 5 ppm, ниацинамид и пантенол по 0,100%, в носителе из почти 10% пропиленгликоля, загущённом карбомером, чтобы средство оставалось на проборе, а не стекало с него. Отдельно продаётся в упаковке по восемь. Вскрыли ампулу - используйте сразу.',
       },
       {
         name: 'Роллер GENOSYS',
@@ -735,7 +735,7 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
     intro:
       'Разбивка показывает стоимость каждого компонента и помогает выбрать между набором и отдельными продуктами.',
     rows: [
-      { label: 'Пилинг α, 100 мл — куплен отдельно', value: '290', note: 'продукт 46' },
+      { label: 'Пилинг α, 100 мл - куплен отдельно', value: '290', note: 'продукт 46' },
       { label: 'Hair Solution α, шесть ампул по цене отдельной упаковки', value: '555', note: '740 за восемь, то есть 92,50 за ампулу' },
       { label: 'Две жидкости вместе', value: '845', note: '' },
       { label: 'Этот набор', value: '1 100', note: 'как продаётся', here: true },
@@ -749,7 +749,7 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
     eyebrow: 'Роллер',
     title: 'Полмиллиметра и те, кому им пользоваться не следует',
     body:
-      'Глубина иглы — это весь аргумент в пользу этой коробки, и её нигде не было на нашем сайте — как, впрочем, и на английской стороне упаковки, которая глубины не указывает вовсе. Цифра 0,5 мм взята с русской панели той же коробки. Это косметическая глубина: достаточно, чтобы открыть путь через наружный слой кожи головы и раствор консистенции воды вошёл, а не лежал сверху, и меньше той глубины, на которой работает клиника. На коробке есть и список противопоказаний, который мы не передавали, а он важнее обычного на продукте, весь механизм которого — прокол кожи.',
+      'Глубина иглы - это весь аргумент в пользу этой коробки, и её нигде не было на нашем сайте - как, впрочем, и на английской стороне упаковки, которая глубины не указывает вовсе. Цифра 0,5 мм взята с русской панели той же коробки. Это косметическая глубина: достаточно, чтобы открыть путь через наружный слой кожи головы и раствор консистенции воды вошёл, а не лежал сверху, и меньше той глубины, на которой работает клиника. На коробке есть и список противопоказаний, который мы не передавали, а он важнее обычного на продукте, весь механизм которого - прокол кожи.',
     items: [
       { name: 'Глубина иглы', dose: '0,5 мм', note: 'с русской панели; английская глубины не даёт' },
       { name: 'Аллергия на металл', dose: 'Не использовать', note: 'иглы стальные' },
@@ -757,7 +757,7 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
       { name: 'Дерматит', dose: 'Не использовать', note: 'дождитесь, пока кожа головы успокоится' },
     ],
     footnote:
-      'Кое-чего коробка не говорит, поэтому скажем мы: в ней не указано, на сколько процедур рассчитан роллер. Относитесь к нему как к личной вещи, никогда его не передавайте и прекратите пользоваться, как только иглы перестанут ощущаться острыми: тупая игла не входит чисто, она тянет. А если вы встречали его под названием «штамп», в том числе в нашем собственном описании до сегодняшнего дня, — это заслуга коробки: в строке состава у неё «GENOSYS STAMP(ROLLER)», а в инструкции «roll (stamp)». Это роллер.',
+      'Кое-чего коробка не говорит, поэтому скажем мы: в ней не указано, на сколько процедур рассчитан роллер. Относитесь к нему как к личной вещи, никогда его не передавайте и прекратите пользоваться, как только иглы перестанут ощущаться острыми: тупая игла не входит чисто, она тянет. А если вы встречали его под названием «штамп», в том числе в нашем собственном описании до сегодняшнего дня, - это заслуга коробки: в строке состава у неё «GENOSYS STAMP(ROLLER)», а в инструкции «roll (stamp)». Это роллер.',
   },
 
   howTo: {
@@ -767,11 +767,11 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
     steps: [
       {
         title: 'Втереть пилинг',
-        body: 'Отлейте немного Scalp Peeling α, как следует пропитайте ватную палочку и втирайте её в обрабатываемую зону — слово самой коробки здесь «энергично». Не смывается и ощущается интенсивно холодным. Наносите только пока кожа головы неповреждённая; никогда не наносите раствор после роллера или на уже проколотую кожу.',
+        body: 'Отлейте немного Scalp Peeling α, как следует пропитайте ватную палочку и втирайте её в обрабатываемую зону - слово самой коробки здесь «энергично». Не смывается и ощущается интенсивно холодным. Наносите только пока кожа головы неповреждённая; никогда не наносите раствор после роллера или на уже проколотую кожу.',
       },
       {
         title: 'Высушить кожу головы и волосы',
-        body: 'Коробка велит высушить, а её арабская панель даёт и цифру: две-пять минут феном. Дайте спирту минуту улетучиться, прежде чем подносить тепло, — треть того флакона спирт, и во влажном виде он горюч. Следующему шагу нужна сухость: на влажной коже раствор стекает с пробора вместо того, чтобы остаться там, куда вы его нанесли.',
+        body: 'Коробка велит высушить, а её арабская панель даёт и цифру: две-пять минут феном. Дайте спирту минуту улетучиться, прежде чем подносить тепло, - треть того флакона спирт, и во влажном виде он горюч. Следующему шагу нужна сухость: на влажной коже раствор стекает с пробора вместо того, чтобы остаться там, куда вы его нанесли.',
       },
       {
         title: 'Разделить волосы расчёской и прокатать',
@@ -783,7 +783,7 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
       },
     ],
     note:
-      'Коробка добавляет, что при необходимости последовательность можно повторить через десять минут. Используйте каждую ампулу сразу после вскрытия, остаток выбрасывайте: эта формула консервируется всего тридцатью частями на миллион феноксиэтанола и не рассчитана стоять наполовину использованной. Чего коробка не даёт — это интервала между процедурами, и мы не станем его выдумывать: разносите их настолько, чтобы кожа головы успела успокоиться до следующей.',
+      'Коробка добавляет, что при необходимости последовательность можно повторить через десять минут. Используйте каждую ампулу сразу после вскрытия, остаток выбрасывайте: эта формула консервируется всего тридцатью частями на миллион феноксиэтанола и не рассчитана стоять наполовину использованной. Чего коробка не даёт - это интервала между процедурами, и мы не станем его выдумывать: разносите их настолько, чтобы кожа головы успела успокоиться до следующей.',
   },
 
   quality: {
@@ -792,14 +792,14 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
     intro:
       'Обе жидкости сделаны в Корее и выпущены по письменной спецификации, и у каждой здесь своя страница со всеми цифрами. Это те, которые стоит увидеть рядом. По набору как комплекту не измерялось ничего, потому что в нём нечего измерять, кроме этих двух.',
     rows: [
-      { label: 'Пилинг — внешний вид', value: 'Прозрачная жидкость' },
-      { label: 'Пилинг — pH', value: '4,31, в пределах спецификации 4,00–5,00' },
-      { label: 'Пилинг — стабильность', value: 'Проходит при 50 °C' },
-      { label: 'Пилинг — чистота', value: 'Менее 10 КОЕ/мл по бактериям и по плесеням при допустимых 100 для каждого' },
-      { label: 'Раствор — внешний вид', value: 'Непрозрачная жидкость' },
-      { label: 'Раствор — pH', value: '6,65, в пределах спецификации 6,00–7,00' },
-      { label: 'Раствор — вязкость', value: '800, по нижней границе спецификации 800–1 600' },
-      { label: 'Раствор — чистота', value: 'Менее 10 КОЕ/мл' },
+      { label: 'Пилинг - внешний вид', value: 'Прозрачная жидкость' },
+      { label: 'Пилинг - pH', value: '4,31, в пределах спецификации 4,00-5,00' },
+      { label: 'Пилинг - стабильность', value: 'Проходит при 50 °C' },
+      { label: 'Пилинг - чистота', value: 'Менее 10 КОЕ/мл по бактериям и по плесеням при допустимых 100 для каждого' },
+      { label: 'Раствор - внешний вид', value: 'Непрозрачная жидкость' },
+      { label: 'Раствор - pH', value: '6,65, в пределах спецификации 6,00-7,00' },
+      { label: 'Раствор - вязкость', value: '800, по нижней границе спецификации 800-1 600' },
+      { label: 'Раствор - чистота', value: 'Менее 10 КОЕ/мл' },
       { label: 'Срок годности', value: 'Три года невскрытыми, обе жидкости' },
       { label: 'Зарегистрированная функция', value: 'Пилинг: освежение кожи головы. Раствор: питание и кондиционирование волос' },
     ],
@@ -811,9 +811,9 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
     eyebrow: 'Составы',
     title: 'Всё, что в обоих флаконах',
     intro:
-      'Две жидкости, два списка, оба переписаны с коробки в том порядке, в каком они напечатаны. Концентрации за ними — на страницах продуктов 46 и 45.',
-    peeling: 'Пилинг α — полный список ингредиентов (INCI)',
-    solution: 'Hair Solution α — полный список ингредиентов (INCI)',
+      'Две жидкости, два списка, оба переписаны с коробки в том порядке, в каком они напечатаны. Концентрации за ними - на страницах продуктов 46 и 45.',
+    peeling: 'Пилинг α - полный список ингредиентов (INCI)',
+    solution: 'Hair Solution α - полный список ингредиентов (INCI)',
     fullInciNote: 'Каждый ингредиент, в том же порядке, что и на коробке у вас в руках.',
   },
 
@@ -824,7 +824,7 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
       'Не используйте роллер при аллергии на металл, склонности к келоидным рубцам или дерматите.',
       'Не прокатывайте по повреждённой, раненой, обожжённой солнцем, свежевыбритой или воспалённой коже головы.',
       'Только для наружного применения, на кожу головы.',
-      'Пилинг содержит 33,6% денатурированного спирта. Он горюч — дайте ему улетучиться до фена или утюжка.',
+      'Пилинг содержит 33,6% денатурированного спирта. Он горюч - дайте ему улетучиться до фена или утюжка.',
       'Обе жидкости содержат ментол и дадут сильное ощущение холода; в пилинге его 0,900%.',
       'Держите обе подальше от глаз и слизистых, при попадании тщательно промойте прохладной водой.',
       'Используйте каждую ампулу сразу после вскрытия, остаток выбрасывайте.',
@@ -845,14 +845,14 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
       { label: 'Аппликатор', value: 'Барабанный роллер. Коробка называет его и штампом' },
       { label: 'Процедуры', value: 'Шесть, по одной ампуле на каждую' },
       { label: 'Зарегистрированная функция', value: 'Пилинг: освежение кожи головы. Раствор: питание, кондиционирование волос' },
-      { label: 'Пилинг — спирт', value: 'Alcohol denat. 33,600% — горюч' },
-      { label: 'Пилинг — охлаждение', value: 'Ментол 0,900% с ментил лактатом 0,800%' },
-      { label: 'Пилинг — салициловая кислота', value: '99 ppm — не кератолитическая доза' },
-      { label: 'Раствор — факторы роста', value: '1,2 ppm суммарно, четыре пептида' },
-      { label: 'Раствор — медный трипептид-1', value: '5 ppm' },
-      { label: 'Раствор — носитель', value: 'Пропиленгликоль 9,995% с карбомером 0,450%' },
+      { label: 'Пилинг - спирт', value: 'Alcohol denat. 33,600% - горюч' },
+      { label: 'Пилинг - охлаждение', value: 'Ментол 0,900% с ментил лактатом 0,800%' },
+      { label: 'Пилинг - салициловая кислота', value: '99 ppm - не кератолитическая доза' },
+      { label: 'Раствор - факторы роста', value: '1,2 ppm суммарно, четыре пептида' },
+      { label: 'Раствор - медный трипептид-1', value: '5 ppm' },
+      { label: 'Раствор - носитель', value: 'Пропиленгликоль 9,995% с карбомером 0,450%' },
       { label: 'Нанесение', value: 'Пилинг палочкой, затем прокатывание каждого пробора с раствором. Не смывается' },
-      { label: 'Продаются и отдельно', value: 'Пилинг сам по себе; раствор — в упаковке по восемь' },
+      { label: 'Продаются и отдельно', value: 'Пилинг сам по себе; раствор - в упаковке по восемь' },
       { label: 'Срок годности', value: 'Три года невскрытыми' },
       { label: 'Происхождение', value: 'Сделано в Корее' },
     ],
@@ -864,7 +864,7 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
     items: [
       {
         q: 'Набор дешевле, чем купить две жидкости отдельно?',
-        a: 'Нет, и мы предпочитаем сказать это прямо. Пилинг сам по себе — 290 AED, шесть ампул по цене отдельной упаковки — 555 AED, так что жидкости дают 845 AED внутри набора за 1 100: роллер и есть эта разница в 255 AED. А купить пилинг и полную упаковку из восьми ампул отдельно — это 1 030 AED, то есть меньше денег за больший объём, но без роллера. Берите набор, если вам нужно чем работать с иглами; берите два продукта, если уже есть.',
+        a: 'Нет, и мы предпочитаем сказать это прямо. Пилинг сам по себе - 290 AED, шесть ампул по цене отдельной упаковки - 555 AED, так что жидкости дают 845 AED внутри набора за 1 100: роллер и есть эта разница в 255 AED. А купить пилинг и полную упаковку из восьми ампул отдельно - это 1 030 AED, то есть меньше денег за больший объём, но без роллера. Берите набор, если вам нужно чем работать с иглами; берите два продукта, если уже есть.',
         needsPrices: true,
       },
       {
@@ -873,23 +873,23 @@ export const LEGACY_MESOPECIA_KIT_RU: MesopeciaKitCopy = {
       },
       {
         q: 'На коробке написано, что это предотвращает выпадение волос. Почему на странице этого нет?',
-        a: 'Потому что две жидкости внутри зарегистрированы как средство для освежения кожи головы и кондиционер для волос, и это то заявление, за которым мы можем стоять. Английский текст коробки описывает систему, которая предотвращает выпадение и способствует повторному росту, подавляя фундаментальные причины выпадения, а русская панель ещё сильнее. Подавление причин выпадения — это то, что делает лекарство; косметика, зарегистрированная для кондиционирования, эту фразу не одалживает. Всё остальное на этой странице — дозы, глубина, сертификаты — здесь для того, чтобы вы могли судить сами, не нуждаясь в том, чтобы это заявление было правдой.',
+        a: 'Потому что две жидкости внутри зарегистрированы как средство для освежения кожи головы и кондиционер для волос, и это то заявление, за которым мы можем стоять. Английский текст коробки описывает систему, которая предотвращает выпадение и способствует повторному росту, подавляя фундаментальные причины выпадения, а русская панель ещё сильнее. Подавление причин выпадения - это то, что делает лекарство; косметика, зарегистрированная для кондиционирования, эту фразу не одалживает. Всё остальное на этой странице - дозы, глубина, сертификаты - здесь для того, чтобы вы могли судить сами, не нуждаясь в том, чтобы это заявление было правдой.',
       },
       {
         q: 'Это штамп или роллер?',
-        a: 'Роллер. Путаница — заслуга коробки: в строке состава у неё «GENOSYS STAMP(ROLLER)», а инструкция велит «roll (stamp)» по коже головы. Наше собственное описание называло его штампом до сегодняшнего дня. Приходит барабанный роллер на ручке, и его прокатывают по каждому пробору, а не прижимают.',
+        a: 'Роллер. Путаница - заслуга коробки: в строке состава у неё «GENOSYS STAMP(ROLLER)», а инструкция велит «roll (stamp)» по коже головы. Наше собственное описание называло его штампом до сегодняшнего дня. Приходит барабанный роллер на ручке, и его прокатывают по каждому пробору, а не прижимают.',
       },
       {
         q: 'Больно ли на 0,5 мм?',
-        a: 'Для большинства это скорее ощутимо, чем больно, и предшествующий пилинг отзовётся сильнее — он на треть спирт с 0,9% ментола и попадает на только что обезжиренную кожу. Сам роллер — косметическая глубина. Если вы давите настолько, что действительно больно, вы давите слишком сильно.',
+        a: 'Для большинства это скорее ощутимо, чем больно, и предшествующий пилинг отзовётся сильнее - он на треть спирт с 0,9% ментола и попадает на только что обезжиренную кожу. Сам роллер - косметическая глубина. Если вы давите настолько, что действительно больно, вы давите слишком сильно.',
       },
       {
         q: 'Можно ли после роллера нанести что-то своё?',
-        a: 'Только то, что предназначено для кожи после игл. Это реальное ограничение, а не рекламная фраза: формула, совершенно безопасная на поверхности кожи головы, — это уже другой разговор, когда вы открыли путь мимо неё. Раствор в этой коробке для этого и составлен, поэтому именно он лежит рядом с роллером.',
+        a: 'Только то, что предназначено для кожи после игл. Это реальное ограничение, а не рекламная фраза: формула, совершенно безопасная на поверхности кожи головы, - это уже другой разговор, когда вы открыли путь мимо неё. Раствор в этой коробке для этого и составлен, поэтому именно он лежит рядом с роллером.',
       },
       {
         q: 'Нужны ли мне ещё шампунь или тоник?',
-        a: 'У них другая роль. Этот набор — отдельная периодическая процедура, а шампунь MEDI α и Hair Tonic α — уход между сеансами. Тоник не используют с роллером: его распыляют на кожу головы, распределяют пальцами и оставляют минимум на 3–4 часа.',
+        a: 'У них другая роль. Этот набор - отдельная периодическая процедура, а шампунь MEDI α и Hair Tonic α - уход между сеансами. Тоник не используют с роллером: его распыляют на кожу головы, распределяют пальцами и оставляют минимум на 3-4 часа.',
       },
     ],
   },

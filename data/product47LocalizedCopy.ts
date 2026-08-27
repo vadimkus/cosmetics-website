@@ -13,10 +13,10 @@ const ruIngredients = JSON.stringify([
   {
     name: 'HR³ MATRIX HAIR SOLUTION α · 4 мл × 6',
     description:
-      'Несмываемый кондиционирующий раствор с ментолом 0,200%, ниацинамидом и пантенолом по 0,100%. Copper Tripeptide-1 — 5 ppm; четыре рекомбинантных пептида — 1,2 ppm суммарно, без обещаний роста волос.',
+      'Несмываемый кондиционирующий раствор с ментолом 0,200%, ниацинамидом и пантенолом по 0,100%. Copper Tripeptide-1-5 ppm; четыре рекомбинантных пептида - 1,2 ppm суммарно, без обещаний роста волос.',
   },
-  { name: 'Full INCI — Scalp Peeling α', description: PRODUCT_46_FULL_INCI },
-  { name: 'Full INCI — Hair Solution α', description: PRODUCT_45_FULL_INCI },
+  { name: 'Full INCI - Scalp Peeling α', description: PRODUCT_46_FULL_INCI },
+  { name: 'Full INCI - Hair Solution α', description: PRODUCT_45_FULL_INCI },
 ])
 
 const arIngredients = JSON.stringify([
@@ -30,8 +30,8 @@ const arIngredients = JSON.stringify([
     description:
       'محلول تكييف يترك على الفروة مع منثول 0.200% ونياسيناميد وبانثينول 0.100% لكل منهما. يحتوي Copper Tripeptide-1 على 5 أجزاء في المليون، وأربعة ببتيدات مؤتلفة بمجموع 1.2 جزء في المليون، من دون وعود لنمو الشعر.',
   },
-  { name: 'Full INCI — Scalp Peeling α', description: PRODUCT_46_FULL_INCI },
-  { name: 'Full INCI — Hair Solution α', description: PRODUCT_45_FULL_INCI },
+  { name: 'Full INCI - Scalp Peeling α', description: PRODUCT_46_FULL_INCI },
+  { name: 'Full INCI - Hair Solution α', description: PRODUCT_45_FULL_INCI },
 ])
 
 export const PRODUCT_47_RU_TRANSLATION = {
@@ -46,7 +46,7 @@ export const PRODUCT_47_RU_TRANSLATION = {
     needleDepth: '0,5 мм · указано на русской панели зарегистрированной коробки',
     rollerHandling: 'Использовать из новой упаковки один раз, не передавать другому человеку, после применения безопасно утилизировать',
     peelingMethod: 'Только на неповреждённой коже: ватная палочка, массаж, 5 минут без смывания',
-    drying: 'После пятиминутной выдержки полностью высушить кожу головы; арабская панель указывает 2–5 минут',
+    drying: 'После пятиминутной выдержки полностью высушить кожу головы; арабская панель указывает 2-5 минут',
     solutionMethod: 'Наносить пипеткой по проборам во время медленных прямых проходов роллера, затем мягко помассировать',
     afterOpening: 'Ампулу использовать сразу после вскрытия; остаток утилизировать',
     frequency: 'Частота и длительность курса для этого набора на коробке не установлены',
@@ -96,7 +96,7 @@ export const PRODUCT_47_RU_TRANSLATION = {
     {
       step: 'Полностью высушите',
       instruction:
-        'После выдержки высушите кожу головы и волосы. Арабская панель коробки указывает 2–5 минут. Не подносите источник тепла, пока спиртовой раствор остаётся влажным.',
+        'После выдержки высушите кожу головы и волосы. Арабская панель коробки указывает 2-5 минут. Не подносите источник тепла, пока спиртовой раствор остаётся влажным.',
     },
     {
       step: 'Откройте свежую ампулу',
@@ -129,7 +129,7 @@ export const PRODUCT_47_AR_TRANSLATION = {
     needleDepth: '0.5 مم · مثبت على اللوحة الروسية للعبوة المسجلة',
     rollerHandling: 'يفتح جديداً ويستخدم مرة واحدة، ولا يشارك، ثم يتخلص منه بأمان',
     peelingMethod: 'على فروة سليمة فقط: عود قطني، تدليك، 5 دقائق من دون شطف',
-    drying: 'بعد مدة الخمس دقائق تجفف الفروة تماماً؛ تحدد اللوحة العربية 2–5 دقائق',
+    drying: 'بعد مدة الخمس دقائق تجفف الفروة تماماً؛ تحدد اللوحة العربية 2-5 دقائق',
     solutionMethod: 'يوزع بالقطارة على الفروق أثناء تمرير الرولر ببطء في خطوط مستقيمة، ثم تدلك الفروة بلطف',
     afterOpening: 'تستخدم الأمبولة فور فتحها ويُتخلص من المتبقي',
     frequency: 'لا تحدد عبوة الطقم وتيرة الاستخدام أو مدة دورة',

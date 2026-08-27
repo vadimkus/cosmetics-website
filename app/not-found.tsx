@@ -26,7 +26,7 @@ export default function NotFound() {
   return (
     <div className={`cera-page genosys-page ${ceraSerif.variable} flex min-h-[70vh] items-center justify-center px-4 py-16`}>
       <div className="max-w-2xl w-full text-center">
-        {/* Matrix-style "Road End" — the user is at the fork; the two CTAs
+        {/* Matrix-style "Road End" - the user is at the fork; the two CTAs
             below are the choice (homepage = the way back, products = the
             rabbit hole). The "ERROR · 404" kicker preserves the SEO/a11y
             signal that this is a 404 page without competing with the image. */}
@@ -36,7 +36,7 @@ export default function NotFound() {
         <div className="mb-8">
           <Image
             src="/images/Wrong/roadend.png"
-            alt="Road End — the path stops here"
+            alt="Road End - the path stops here"
             width={1698}
             height={838}
             className="mx-auto w-full max-w-2xl rounded-[20px] border border-[var(--cera-line)] shadow-[0_24px_60px_-40px_rgba(23,20,15,0.5)]"
@@ -102,7 +102,7 @@ export default function NotFound() {
           </div>
         </div>
 
-        {/* Get the app — App Store + Google Play
+        {/* Get the app - App Store + Google Play
             Two-platform block. QR codes only show on >=sm because you can't
             scan a QR with the same phone you're holding; mobile users get
             tappable badges instead. */}
@@ -111,7 +111,7 @@ export default function NotFound() {
             Get the GENOSYS UAE app
           </h3>
           <p className="mb-6 text-sm text-[var(--cera-muted)]">
-            Scan a code to download — or tap a badge if you&apos;re on mobile.
+            Scan a code to download - or tap a badge if you&apos;re on mobile.
           </p>
           <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
             {/* App Store */}
@@ -125,7 +125,7 @@ export default function NotFound() {
               >
                 <Image
                   src="/images/qr-appstore.svg"
-                  alt="QR code — Genosys UAE on the App Store"
+                  alt="QR code - Genosys UAE on the App Store"
                   width={140}
                   height={140}
                   className="rounded-lg"
@@ -156,7 +156,7 @@ export default function NotFound() {
               >
                 <Image
                   src="/images/qr-playstore.svg"
-                  alt="QR code — Genosys UAE on Google Play"
+                  alt="QR code - Genosys UAE on Google Play"
                   width={140}
                   height={140}
                   className="rounded-lg"

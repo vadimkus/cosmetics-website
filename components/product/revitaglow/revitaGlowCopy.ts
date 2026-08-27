@@ -5,12 +5,12 @@
  * layout ships EN/AR/RU without adding ~140 keys to the shared messages
  * bundles.
  *
- * SOURCING RULE FOR THIS FILE — every figure below traces to one of:
+ * SOURCING RULE FOR THIS FILE - every figure below traces to one of:
  *   - Intertek formula PDFs (Registration/Intertek/GENOSYS REVITA GLOW BB
  *     CREAM/{Bright_01,Natural_02}/Formula-...pdf): the four UV filters and
  *     their percentages, Niacinamide 2.00001%, Adenosine 0.04%, Tocopheryl
  *     Acetate 0.1%, Butylene Glycol 10.06%, the eight botanical extracts at
- *     0.005% (Tremella 0.001%), and the ten vitamins — eight of which sit at
+ *     0.005% (Tremella 0.001%), and the ten vitamins - eight of which sit at
  *     0.000001%.
  *   - Intertek artwork PDF (outer carton, #01 and #02): "A natural coverage
  *     cream (SPF38 PA+++)", the Korean triple-functional registration
@@ -27,7 +27,7 @@
  *     CPRE-280126-193239, both Approved, valid to Jan 2031. The page states the
  *     registration without the CPRE codes; a shopper cannot use them.
  *
- * DELIBERATE OMISSIONS AND CORRECTIONS — read before editing:
+ * DELIBERATE OMISSIONS AND CORRECTIONS - read before editing:
  *
  *   - "SEVEN HERBS" AND "EIGHT EXTRACTS" ARE BOTH RIGHT. Do not "fix" either.
  *     The INCI declares eight botanical extracts: Camellia Sinensis,
@@ -35,7 +35,7 @@
  *     Chamomilla Recutita, Polygonum Cuspidatum, Scutellaria Baicalensis and
  *     Glycyrrhiza Uralensis. The manufacturer brands the marketing complex
  *     "7 Herb Complex" (DTS MG product deck, comparison table) because it
- *     files Tremella under hydrating actives, not herbs — the deck's own
+ *     files Tremella under hydrating actives, not herbs - the deck's own
  *     ingredient pages list Tremella twice, once under Skin Revitalizing and
  *     again under Hydrating, which is the only arithmetic that reconciles the
  *     two numbers. So the gallery graphics saying "7 Herbs" are quoting the
@@ -44,15 +44,15 @@
  *
  *   - THE PUFF IS REAL BUT IS NOT IN THIS BOX. The DTS MG deck promotes a
  *     "dedicated puff" with a micro air-cell structure for this product, so do
- *     not claim the puff language belongs to the cushion — it does not. What
+ *     not claim the puff language belongs to the cushion - it does not. What
  *     the carton artwork shows is a 50 g tube and nothing else: no accessory,
  *     no applicator, net weight 50 g, cap PP. The official application text is
  *     "apply to the face after skincare, blend well", and the Korean adds
- *     "가볍게 두드려" — lightly tap to finish. So: tapping is a legitimate
+ *     "가볍게 두드려" - lightly tap to finish. So: tapping is a legitimate
  *     motion, the puff is a real accessory the brand sells around the product,
  *     and neither is included here. Say that, and do not promise a puff.
  *
- *   - Eight of the ten vitamins are dosed at 0.000001% — one part per billion.
+ *   - Eight of the ten vitamins are dosed at 0.000001% - one part per billion.
  *     The vitamin complex is therefore described as a formulation feature and
  *     never credited with an effect. The two vitamins at functional levels
  *     (Niacinamide 2%, Tocopheryl Acetate 0.1%) are named with their numbers.
@@ -84,7 +84,7 @@
 export type RevitaGlowLocale = 'en' | 'ar' | 'ru'
 
 export interface RevitaGlowShade {
-  /** Must match the `colors` values in data/productConfig.ts — the cart keys
+  /** Must match the `colors` values in data/productConfig.ts - the cart keys
    *  its lines on this string. */
   value: 'Bright' | 'Natural'
   code: string
@@ -725,11 +725,11 @@ const RU: RevitaGlowCopy = {
   eyebrow: 'Revita Glow · VBC Professional',
   headline: 'Защита от солнца, которую действительно хочется наносить каждый день.',
   subheadline:
-    'Тонирующая дневная база, зарегистрированная в Корее как средство тройного функционального действия: защита от УФ, осветление и коррекция морщин — в одной тубе 50 г. Четыре фильтра обеспечивают SPF 38 PA+++, ниацинамид — 2%, а покрытие остаётся достаточно лёгким, чтобы выглядеть кожей, а не макияжем.',
+    'Тонирующая дневная база, зарегистрированная в Корее как средство тройного функционального действия: защита от УФ, осветление и коррекция морщин - в одной тубе 50 г. Четыре фильтра обеспечивают SPF 38 PA+++, ниацинамид - 2%, а покрытие остаётся достаточно лёгким, чтобы выглядеть кожей, а не макияжем.',
   heroBullets: [
-    'SPF 38 PA+++ на четырёх фильтрах — два органических, два минеральных',
-    'Ниацинамид 2% и аденозин 0,04% — оба зарегистрированные функциональные активы',
-    'Два оттенка, одна и та же формула — различается только пигмент',
+    'SPF 38 PA+++ на четырёх фильтрах - два органических, два минеральных',
+    'Ниацинамид 2% и аденозин 0,04% - оба зарегистрированные функциональные активы',
+    'Два оттенка, одна и та же формула - различается только пигмент',
     'Дерматологически протестировано · 50 г · 12 месяцев после вскрытия',
   ],
   badges: ['Сделано в Корее', '50 г · 12 мес. после вскрытия', 'Тройное функциональное средство', 'Официальный дистрибьютор в ОАЭ'],
@@ -767,7 +767,7 @@ const RU: RevitaGlowCopy = {
   stats: [
     { value: 'SPF 38', label: 'PA+++ широкий спектр, каждый день' },
     { value: '4', label: 'УФ-фильтра: два органических и два минеральных' },
-    { value: '2%', label: 'Ниацинамид — зарегистрированный актив для осветления' },
+    { value: '2%', label: 'Ниацинамид - зарегистрированный актив для осветления' },
     { value: '10', label: 'Витаминов в комплексе плюс восемь растительных экстрактов' },
   ],
   functions: {
@@ -782,11 +782,11 @@ const RU: RevitaGlowCopy = {
       },
       {
         title: 'Помогает осветлить тон',
-        body: 'Ниацинамид 2% — актив для осветления, указанный в регистрации. Это же самая высокая концентрация активного компонента во всей формуле, и параллельно он поддерживает барьер.',
+        body: 'Ниацинамид 2% - актив для осветления, указанный в регистрации. Это же самая высокая концентрация активного компонента во всей формуле, и параллельно он поддерживает барьер.',
       },
       {
         title: 'Помогает уменьшить морщины',
-        body: 'Аденозин 0,04% — именно эту концентрацию Корея устанавливает для заявления об уменьшении морщин. Он усиливает синтез коллагена и стимулирует фибробласты, то есть под покрытием идёт работа с кожей.',
+        body: 'Аденозин 0,04% - именно эту концентрацию Корея устанавливает для заявления об уменьшении морщин. Он усиливает синтез коллагена и стимулирует фибробласты, то есть под покрытием идёт работа с кожей.',
       },
       {
         title: 'Выравнивает тон сразу',
@@ -822,7 +822,7 @@ const RU: RevitaGlowCopy = {
     eyebrow: 'Система фильтров',
     title: 'Два поглощают, два отражают',
     intro:
-      'Гибридные системы комфортнее полностью минеральных и гораздо реже дают белёсый след — а это важно, когда база должна раствориться в коже. Вот что даёт каждый из четырёх фильтров.',
+      'Гибридные системы комфортнее полностью минеральных и гораздо реже дают белёсый след - а это важно, когда база должна раствориться в коже. Вот что даёт каждый из четырёх фильтров.',
     columns: { name: 'Фильтр', amount: 'Концентрация', role: 'Тип' },
     rows: [
       { name: 'Ethylhexyl Methoxycinnamate', amount: '7,50%', role: 'Органический УФ-абсорбер' },
@@ -831,15 +831,15 @@ const RU: RevitaGlowCopy = {
       { name: 'Zinc Oxide', amount: '1,96%', role: 'Минеральный фильтр широкого спектра' },
     ],
     note:
-      'Диоксид титана — единственный компонент, который отличается у двух оттенков: 7,13% в #01 Bright против 6,18% в #02 Natural, потому что он одновременно служит белым пигментом. Всё остальное в обеих формулах идентично, включая фильтры.',
+      'Диоксид титана - единственный компонент, который отличается у двух оттенков: 7,13% в #01 Bright против 6,18% в #02 Natural, потому что он одновременно служит белым пигментом. Всё остальное в обеих формулах идентично, включая фильтры.',
   },
   shadeSection: {
     eyebrow: 'Два оттенка',
     title: 'Bright или Natural',
     intro: 'Оба тёплые и оба наращиваемые. Выбор идёт по глубине, а не по подтону.',
     sameFormula:
-      'Идентичные активы, идентичный SPF, идентичные растительные экстракты. Единственное различие между #01 и #02 — доля оксидов железа, слюды и диоксида титана.',
-    figureAlt: 'GENOSYS REVITA GLOW BB CREAM — сравнение оттенков #01 Bright и #02 Natural',
+      'Идентичные активы, идентичный SPF, идентичные растительные экстракты. Единственное различие между #01 и #02 - доля оксидов железа, слюды и диоксида титана.',
+    figureAlt: 'GENOSYS REVITA GLOW BB CREAM - сравнение оттенков #01 Bright и #02 Natural',
   },
   howTo: {
     eyebrow: 'Как использовать',
@@ -864,7 +864,7 @@ const RU: RevitaGlowCopy = {
       },
     ],
     note:
-      'Рейтинг SPF измеряется при более толстом слое, чем кто-либо наносит тонирующую базу, поэтому для повседневного солнца — дорога на работу, дела, стол у окна — этого достаточно. Если предстоят часы под прямым солнцем, нанесите под низ отдельный солнцезащитный крем и обновляйте его. Это верно для любой тонирующей базы, не только для этой.',
+      'Рейтинг SPF измеряется при более толстом слое, чем кто-либо наносит тонирующую базу, поэтому для повседневного солнца - дорога на работу, дела, стол у окна - этого достаточно. Если предстоят часы под прямым солнцем, нанесите под низ отдельный солнцезащитный крем и обновляйте его. Это верно для любой тонирующей базы, не только для этой.',
   },
   video: {
     eyebrow: 'В движении',
@@ -890,12 +890,12 @@ const RU: RevitaGlowCopy = {
       'Ни одна партия не покидает завод, не пройдя проверку, и до Дубая она доезжает с допуском к продаже и здесь, и в Корее.',
     rows: [
       { label: 'Кожные тесты', value: 'Дерматологически протестировано' },
-      { label: 'Чистота', value: 'В десять раз чище допустимого — менее 10 КОЕ/г при разрешённых 100' },
+      { label: 'Чистота', value: 'В десять раз чище допустимого - менее 10 КОЕ/г при разрешённых 100' },
       { label: 'Срок годности', value: 'Три года в закрытой упаковке · 12 месяцев после вскрытия' },
       { label: 'Допуск в ОАЭ', value: 'Зарегистрирован Муниципалитетом Дубая в системе Montaji, плюс корейский сертификат свободной продажи' },
     ],
     disclaimer:
-      'Ежедневная защита от солнца — это то, что сохраняет достигнутый результат. Стойкая пигментация и мелазма лучше всего отвечают, когда рядом с вашим уходом работает дерматолог.',
+      'Ежедневная защита от солнца - это то, что сохраняет достигнутый результат. Стойкая пигментация и мелазма лучше всего отвечают, когда рядом с вашим уходом работает дерматолог.',
   },
   safety: {
     eyebrow: 'Перед использованием',
@@ -914,7 +914,7 @@ const RU: RevitaGlowCopy = {
     eyebrow: 'Завершите routine',
     title: 'С чем это работает',
     intro:
-      'Revita Glow — последний шаг. Это средства, которые протокол GENOSYS ставит перед ним, чтобы базе было на что лечь.',
+      'Revita Glow - последний шаг. Это средства, которые протокол GENOSYS ставит перед ним, чтобы базе было на что лечь.',
     thisProduct: 'Вы здесь',
     viewProduct: 'Открыть продукт',
     chooseOptions: 'Выбрать вариант',
@@ -930,7 +930,7 @@ const RU: RevitaGlowCopy = {
       },
       {
         q: 'Хватает ли этой защиты от солнца?',
-        a: 'Для повседневного солнца — да. SPF 38 PA+++ — настоящий рейтинг, и его хватает на дорогу, дела в городе и стол у окна. Если предстоят часы под прямым солнцем, нанесите под низ отдельный солнцезащитный крем и обновляйте его в течение дня. Это касается любой тонирующей базы, не только этой.',
+        a: 'Для повседневного солнца - да. SPF 38 PA+++ - настоящий рейтинг, и его хватает на дорогу, дела в городе и стол у окна. Если предстоят часы под прямым солнцем, нанесите под низ отдельный солнцезащитный крем и обновляйте его в течение дня. Это касается любой тонирующей базы, не только этой.',
       },
       {
         q: 'Есть ли в составе отдушка?',
@@ -938,7 +938,7 @@ const RU: RevitaGlowCopy = {
       },
       {
         q: 'Это то же самое, что кушон GENOSYS?',
-        a: 'Нет, это разные продукты. Здесь туба 50 г, а Skin Caring Blemish Balm Cushion — кушон в компактном футляре со сменным блоком и более плотной формулой SPF 50+ PA++++. У GENOSYS действительно есть отдельная пуховка с микроячеистой структурой, рассчитанная на этот крем, и вбить ею последний слой — тот финиш, который рекомендует марка. Пуховка продаётся отдельно, а сама туба прекрасно растушёвывается пальцами, спонжем или кистью.',
+        a: 'Нет, это разные продукты. Здесь туба 50 г, а Skin Caring Blemish Balm Cushion - кушон в компактном футляре со сменным блоком и более плотной формулой SPF 50+ PA++++. У GENOSYS действительно есть отдельная пуховка с микроячеистой структурой, рассчитанная на этот крем, и вбить ею последний слой - тот финиш, который рекомендует марка. Пуховка продаётся отдельно, а сама туба прекрасно растушёвывается пальцами, спонжем или кистью.',
       },
       {
         q: 'Чем оттенки различаются по формуле?',
@@ -970,7 +970,7 @@ const RU: RevitaGlowCopy = {
 
 const AUDITED_RU: RevitaGlowCopy = {
   ...RU,
-  headline: 'Естественный тон и мягкое сияние — с SPF 38 PA+++.',
+  headline: 'Естественный тон и мягкое сияние - с SPF 38 PA+++.',
   subheadline:
     'Естественное покрытие в двух оттенках, SPF 38 PA+++, ниацинамид 2% и аденозин 0,04% с подтверждённой регистрационной основой.',
   heroBullets: [
@@ -999,14 +999,14 @@ const AUDITED_RU: RevitaGlowCopy = {
   ],
   stats: [
     { value: '38', label: 'SPF на зарегистрированной упаковке' },
-    { value: 'PA+++', label: 'высокая UVA-защита · PFA 8–<16' },
+    { value: 'PA+++', label: 'высокая UVA-защита · PFA 8 - <16' },
     { value: '2%', label: 'ниацинамид' },
     { value: '0,04%', label: 'аденозин' },
   ],
   functions: {
     ...RU.functions,
     intro:
-      'Корейская регистрация подтверждает три функции. Покрытие и оттенок — косметический результат, а не доказательство солнцезащитной эффективности.',
+      'Корейская регистрация подтверждает три функции. Покрытие и оттенок - косметический результат, а не доказательство солнцезащитной эффективности.',
     cards: [
       {
         title: 'Защита от УФ · SPF 38 PA+++',
@@ -1154,7 +1154,7 @@ const AUDITED_AR: RevitaGlowCopy = {
   ],
   stats: [
     { value: '38', label: 'قيمة SPF على العبوة المسجّلة' },
-    { value: 'PA+++', label: 'حماية UVA مرتفعة · PFA ‏8–<16' },
+    { value: 'PA+++', label: 'حماية UVA مرتفعة · PFA ‏8 - <16' },
     { value: '2%', label: 'نياسيناميد' },
     { value: '0.04%', label: 'أدينوزين' },
   ],

@@ -25,7 +25,7 @@ interface SendWhatsAppRequest {
 export async function POST(request: NextRequest) {
   try {
     // Verify internal API key or signed admin session.
-    // NOTE: The legacy x-admin-email header was removed — any non-empty
+    // NOTE: The legacy x-admin-email header was removed - any non-empty
     // value passed the check, allowing unauthenticated WhatsApp sends.
     const authHeader = request.headers.get('x-api-key')
     const internalKey = process.env.INTERNAL_API_KEY

@@ -6,8 +6,8 @@ import { errorLog } from '@/lib/logger'
  * Verifies the current admin session.
  *
  * Auth comes exclusively from the signed `admin-session` cookie (set by
- * /api/auth/admin-login). The legacy behavior — accepting any email in the
- * request body and answering whether that account is an admin — was an
+ * /api/auth/admin-login). The legacy behavior - accepting any email in the
+ * request body and answering whether that account is an admin - was an
  * admin-account enumeration oracle and was removed.
  */
 export async function POST(request: NextRequest) {

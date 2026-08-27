@@ -90,7 +90,7 @@ export const WHATSAPP_TEMPLATES: Record<WhatsAppMessageType, WhatsAppTemplate> =
       `Hi ${vars.customerName},\n\n` +
       `Order #${vars.orderNumber} has been cancelled.\n\n` +
       `${vars.reason ? `Reason: ${vars.reason}\n\n` : ''}` +
-      `If this wasn't expected, just reply here — we'll make it right and can place a new order for you in minutes.\n\n` +
+      `If this wasn't expected, just reply here - we'll make it right and can place a new order for you in minutes.\n\n` +
       `_GENOSYS Middle East_`
   },
   payment_received: {

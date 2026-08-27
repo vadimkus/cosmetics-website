@@ -9,7 +9,7 @@ import type { NextRequest } from 'next/server'
  * The mobile app calls this on every cold start to decide whether
  * to show a "Force Update" screen.
  *
- * No authentication required — this must be reachable even from
+ * No authentication required - this must be reachable even from
  * very old app versions that may not have valid API keys.
  *
  * To force users to update after a new release:
@@ -34,7 +34,7 @@ const UPDATE_MESSAGE = {
  *
  * CRITICAL: `minimumVersion` must NEVER exceed the newest build that is
  * actually live on that platform's store. If it does, users get hard-locked
- * out — the force-update screen opens the store, but there is nothing newer
+ * out - the force-update screen opens the store, but there is nothing newer
  * to install, so the "Update" button does nothing and the user can never
  * get back into the app.
  *

@@ -6,14 +6,14 @@
  *
  * IMPORTANT: figures come from the CURRENT-generation dossier in
  * Intertek/MEDI SHAMPOO ALPHA/. The Formula_up file elsewhere in the archive
- * describes a superseded product ("SCALP & HAIR SHAMPOO") and must not be used —
+ * describes a superseded product ("SCALP & HAIR SHAMPOO") and must not be used -
  * among other differences it contains salicylic acid, which this formula does not.
  *
  * FRAMING (owner decision, 17 Aug): follow the English panel, whose function line
  * reads "Scalp & hair cleansing". No hair-loss claim, and no mention of the Korean
  * functional designation.
  *
- * MUST NEVER BE ADDED — the Russian panel claims this shampoo "has antibacterial
+ * MUST NEVER BE ADDED - the Russian panel claims this shampoo "has antibacterial
  * and antifungal action", "effectively fights dandruff" and "reduces loss and
  * accelerates hair growth". The only antifungal present is piroctone olamine at
  * 0.010%, roughly 10-100x below an anti-dandruff working dose. The page refuses the
@@ -28,7 +28,7 @@
  * SLES, and pH 5.6.
  *
  * Against that, biotin at 2 ppm and copper tripeptide-1 at 10 ppb are named on the
- * carton and do nothing — the proportion block says so plainly.
+ * carton and do nothing - the proportion block says so plainly.
  *
  * The three-minute dwell in the how-to is real and worth having: it appears on the
  * manufacturer's Russian panel and is missing from the English one, and without it

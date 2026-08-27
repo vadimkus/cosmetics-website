@@ -15,7 +15,7 @@ function getJwtSecret(): string {
     // forge session cookies and mobile tokens. Vercel has JWT_SECRET set in
     // all environments, so this only fires on misconfiguration.
     if (process.env.NODE_ENV === 'production') {
-      errorLog('⚠️ FATAL: JWT_SECRET not set in production — refusing to sign/verify tokens.')
+      errorLog('⚠️ FATAL: JWT_SECRET not set in production - refusing to sign/verify tokens.')
       throw new Error('JWT_SECRET must be set in production')
     }
     if (!_jwtSecretWarned) {
@@ -48,7 +48,7 @@ export interface TokenPayload {
   name: string
   isAdmin: boolean
   canSeePrices: boolean
-  /** Token version — must match users.tokenVersion; bumped to revoke all tokens */
+  /** Token version - must match users.tokenVersion; bumped to revoke all tokens */
   tv?: number
   iat?: number
   exp?: number
@@ -178,7 +178,7 @@ export function verifyMobileTokenIgnoreExpiration(token: string): (TokenPayload 
 
     const [headerEncoded, payloadEncoded, signature] = parts
 
-    // Verify signature (proves the token was issued by us) — timing-safe
+    // Verify signature (proves the token was issued by us) - timing-safe
     const data = `${headerEncoded}.${payloadEncoded}`
     const expectedSignature = crypto
       .createHmac('sha256', getJwtSecret())
@@ -297,7 +297,7 @@ export interface SessionPayload {
   isAdmin: boolean
   canSeePrices: boolean
   profilePicture: string | null
-  /** Token version — must match users.tokenVersion; bumped to revoke all sessions */
+  /** Token version - must match users.tokenVersion; bumped to revoke all sessions */
   tv?: number
   iat?: number
   exp?: number

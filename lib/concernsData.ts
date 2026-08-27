@@ -97,9 +97,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ru: 'Ежедневный уход: защита от солнца',
       },
       description: {
-        en: 'Step-by-step morning & evening skincare routine designed for UAE climate — with product recommendations, reapplication schedule, and tips from our specialists.',
-        ar: 'روتين العناية بالبشرة خطوة بخطوة صباحي ومسائي مصمم لمناخ الإمارات — مع توصيات المنتجات وجدول إعادة التطبيق ونصائح المتخصصين.',
-        ru: 'Пошаговый утренний и вечерний уход за кожей для климата ОАЭ — с рекомендациями продуктов, графиком повторного нанесения и советами специалистов.',
+        en: 'Step-by-step morning & evening skincare routine designed for UAE climate - with product recommendations, reapplication schedule, and tips from our specialists.',
+        ar: 'روتين العناية بالبشرة خطوة بخطوة صباحي ومسائي مصمم لمناخ الإمارات - مع توصيات المنتجات وجدول إعادة التطبيق ونصائح المتخصصين.',
+        ru: 'Пошаговый утренний и вечерний уход за кожей для климата ОАЭ - с рекомендациями продуктов, графиком повторного нанесения и советами специалистов.',
       },
       fileSize: '257 KB',
     },
@@ -107,24 +107,24 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         {
           title: 'Morning Routine',
-          subtitle: 'Daily sun defence — takes just 5 minutes',
+          subtitle: 'Daily sun defence - takes just 5 minutes',
           steps: [
             {
               step: 1, title: 'Cleanse', duration: '1 min',
               summary: 'Remove overnight oils so sunscreen adheres properly.',
-              detail: 'Apply to a dry face, let the oxygen bubbles form naturally — they lift impurities from pores without rubbing. Rinse with lukewarm water and pat dry.',
+              detail: 'Apply to a dry face, let the oxygen bubbles form naturally - they lift impurities from pores without rubbing. Rinse with lukewarm water and pat dry.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
               step: 2, title: 'Tone & Hydrate', duration: '30 sec',
               summary: 'Restore pH and create a hydrated base. Sunscreen spreads more evenly on hydrated skin.',
-              detail: 'Apply with hands or cotton pad, gently pressing into skin. Move to the next step immediately — no wait needed.',
+              detail: 'Apply with hands or cotton pad, gently pressing into skin. Move to the next step immediately - no wait needed.',
               products: [{ name: 'SNOW BOOSTER', url: '/products/16', price: '260 AED' }],
             },
             {
               step: 3, title: 'Serum', duration: '30 sec',
               summary: 'Add an active treatment layer. Antioxidants work synergistically with SPF against UV and pollution.',
-              detail: 'Apply 2–3 drops and pat gently into the skin. Wait 30 seconds for absorption. Choose based on your concern: Hyaluron Serum for dehydration, Sensitive Serum for redness, Radiance Serum for dark spots, Anti-Wrinkle Serum for fine lines.',
+              detail: 'Apply 2-3 drops and pat gently into the skin. Wait 30 seconds for absorption. Choose based on your concern: Hyaluron Serum for dehydration, Sensitive Serum for redness, Radiance Serum for dark spots, Anti-Wrinkle Serum for fine lines.',
               products: [
                 { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
                 { name: 'ALL FOR SENSITIVE SERUM', url: '/products/19', price: '330 AED' },
@@ -134,8 +134,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'Sun Protection', duration: '30 sec',
-              summary: 'The most critical step. Apply generously — most people under-apply sunscreen by 50%.',
-              detail: 'Option A: Sun cream only (ULTRA SHIELD SPF 50+ or MULTI SUN SPF 40) — apply a 2-finger length strip to face and neck. Option B: BB cream/cushion for coverage + SPF. Option C: Layer both — sun cream base, wait 1 minute, then BB on top for maximum protection with a flawless finish.',
+              summary: 'The most critical step. Apply generously - most people under-apply sunscreen by 50%.',
+              detail: 'Option A: Sun cream only (ULTRA SHIELD SPF 50+ or MULTI SUN SPF 40) - apply a 2-finger length strip to face and neck. Option B: BB cream/cushion for coverage + SPF. Option C: Layer both - sun cream base, wait 1 minute, then BB on top for maximum protection with a flawless finish.',
               products: [
                 { name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' },
                 { name: 'MULTI SUN CREAM SPF 40', url: '/products/40', price: '210 AED' },
@@ -146,7 +146,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 5, title: 'Refresh During the Day', duration: 'as needed',
               summary: 'Mist over sunscreen and makeup to rehydrate. UAE heat strips moisture rapidly.',
-              detail: 'Spray 2–3 times from 20 cm distance. Can be used over makeup throughout the day. Contains pre/probiotics to support the skin microbiome.',
+              detail: 'Spray 2-3 times from 20 cm distance. Can be used over makeup throughout the day. Contains pre/probiotics to support the skin microbiome.',
               products: [{ name: 'MICROBIOME ENERGY INFUSING MIST', url: '/products/14', price: '160 AED' }],
             },
           ],
@@ -157,7 +157,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'Double Cleanse', duration: '2 min',
-              summary: 'Remove sunscreen thoroughly — SPF residue left on skin clogs pores.',
+              summary: 'Remove sunscreen thoroughly - SPF residue left on skin clogs pores.',
               detail: 'First cleanse: Makeup remover to dissolve SPF on eye/lip area. Second cleanse: Oxygen cleanser to deep-clean residual SPF and impurities.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -167,7 +167,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 2, title: 'Tone', duration: '30 sec',
               summary: 'Rebalance pH after cleansing.',
-              detail: 'Same toner as morning — apply with hands or cotton pad.',
+              detail: 'Same toner as morning - apply with hands or cotton pad.',
               products: [{ name: 'SNOW BOOSTER', url: '/products/16', price: '260 AED' }],
             },
             {
@@ -196,12 +196,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ar: [
         {
           title: 'الروتين الصباحي',
-          subtitle: 'حماية يومية من الشمس — 5 دقائق فقط',
+          subtitle: 'حماية يومية من الشمس - 5 دقائق فقط',
           steps: [
             {
               step: 1, title: 'التنظيف', duration: 'دقيقة واحدة',
               summary: 'إزالة الزيوت الليلية حتى يلتصق واقي الشمس بشكل صحيح.',
-              detail: 'ضعي على الوجه الجاف، دعي فقاعات الأكسجين تتشكل طبيعياً — ترفع الشوائب من المسام بدون فرك. اشطفي بماء فاتر وجففي بالتربيت.',
+              detail: 'ضعي على الوجه الجاف، دعي فقاعات الأكسجين تتشكل طبيعياً - ترفع الشوائب من المسام بدون فرك. اشطفي بماء فاتر وجففي بالتربيت.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
@@ -223,7 +223,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'الحماية من الشمس', duration: '30 ثانية',
-              summary: 'الخطوة الأهم. ضعي بكمية كافية — معظم الناس يضعون كمية أقل بنسبة 50% من المطلوب.',
+              summary: 'الخطوة الأهم. ضعي بكمية كافية - معظم الناس يضعون كمية أقل بنسبة 50% من المطلوب.',
               detail: 'الخيار الأول: واقي الشمس وحده، مثل ULTRA SHIELD SPF 50+ أو MULTI SUN SPF 40. الخيار الثاني: كريم BB أو الكوشن للتغطية مع SPF. ويمكن وضع واقي الشمس أولاً، وتركه ليستقر، ثم إضافة BB. يوضع قبل الخروج بـ15 دقيقة على الأقل، ويجدد كل ساعتين على الأقل في الخارج وبعد السباحة أو التعرق أو التجفيف بالمنشفة.',
               products: [
                 { name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' },
@@ -246,7 +246,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'التنظيف المزدوج', duration: 'دقيقتان',
-              summary: 'إزالة واقي الشمس بالكامل — بقايا SPF على البشرة تسد المسام.',
+              summary: 'إزالة واقي الشمس بالكامل - بقايا SPF على البشرة تسد المسام.',
               detail: 'التنظيف الأول: مزيل المكياج لإذابة SPF من منطقة العين والشفاه. التنظيف الثاني: منظف الأكسجين لتنظيف عميق لبقايا SPF والشوائب.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -285,12 +285,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ru: [
         {
           title: 'Утренний уход',
-          subtitle: 'Ежедневная защита от солнца — всего 5 минут',
+          subtitle: 'Ежедневная защита от солнца - всего 5 минут',
           steps: [
             {
               step: 1, title: 'Очищение', duration: '1 мин',
               summary: 'Удалите ночные масла, чтобы солнцезащитный крем лучше держался.',
-              detail: 'Нанесите на сухое лицо, дайте кислородным пузырькам образоваться естественно — они поднимают загрязнения из пор без трения. Смойте тёплой водой и промокните полотенцем.',
+              detail: 'Нанесите на сухое лицо, дайте кислородным пузырькам образоваться естественно - они поднимают загрязнения из пор без трения. Смойте тёплой водой и промокните полотенцем.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
@@ -302,7 +302,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 3, title: 'Сыворотка', duration: '30 сек',
               summary: 'Добавьте лёгкую сыворотку, подобранную под потребности кожи.',
-              detail: 'Нанесите 2–3 капли и мягко вбейте до впитывания. Для сухой или обезвоженной кожи выбирайте гиалуроновую сыворотку с гидролизованной гиалуроновой кислотой 2 000 ppm и PENTAVITIN 0,615%.',
+              detail: 'Нанесите 2-3 капли и мягко вбейте до впитывания. Для сухой или обезвоженной кожи выбирайте гиалуроновую сыворотку с гидролизованной гиалуроновой кислотой 2 000 ppm и PENTAVITIN 0,615%.',
               products: [
                 { name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' },
                 { name: 'ALL FOR SENSITIVE SERUM', url: '/products/19', price: '330 AED' },
@@ -312,7 +312,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 4, title: 'Защита от солнца', duration: '30 сек',
-              summary: 'Самый важный шаг. Наносите щедро — большинство людей наносят на 50% меньше нужного.',
+              summary: 'Самый важный шаг. Наносите щедро - большинство людей наносят на 50% меньше нужного.',
               detail: 'Вариант А: солнцезащитный крем ULTRA SHIELD SPF 50+ или MULTI SUN SPF 40 PA++. Вариант Б: BB-крем или кушон для покрытия с SPF. Можно сначала нанести санскрин, дать ему впитаться, а затем добавить BB. Наносите защиту минимум за 15 минут до выхода, обновляйте не реже чем каждые два часа на улице и после плавания, сильного потоотделения или полотенца.',
               products: [
                 { name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' },
@@ -324,7 +324,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 5, title: 'Освежение в течение дня', duration: 'по мере необходимости',
               summary: 'Распылите поверх санскрина и макияжа для увлажнения. Жара ОАЭ быстро лишает кожу влаги.',
-              detail: 'Распылите 2–3 раза с расстояния 20 см. Можно использовать поверх макияжа в течение дня. Содержит пре/пробиотики для поддержки микробиома кожи.',
+              detail: 'Распылите 2-3 раза с расстояния 20 см. Можно использовать поверх макияжа в течение дня. Содержит пре/пробиотики для поддержки микробиома кожи.',
               products: [{ name: 'MICROBIOME ENERGY INFUSING MIST', url: '/products/14', price: '160 AED' }],
             },
           ],
@@ -335,7 +335,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'Двойное очищение', duration: '2 мин',
-              summary: 'Тщательно удалите санскрин — остатки SPF на коже забивают поры.',
+              summary: 'Тщательно удалите санскрин - остатки SPF на коже забивают поры.',
               detail: 'Первое очищение: средство для снятия макияжа для растворения SPF в зоне глаз и губ. Второе очищение: кислородный очиститель для глубокой очистки от остатков SPF и загрязнений.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -376,7 +376,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: {
         title: 'Why Sun Protection Is Essential in the UAE',
         items: [
-          { icon: '☀️', label: 'UV Index 11+', detail: 'Dubai\'s UV regularly exceeds "extreme" levels year-round — not just in summer' },
+          { icon: '☀️', label: 'UV Index 11+', detail: 'Dubai\'s UV regularly exceeds "extreme" levels year-round - not just in summer' },
           { icon: '🛡️', label: 'Broad Spectrum', detail: 'UVA causes aging, UVB causes burns. Our SPF products block both.' },
           { icon: '💧', label: 'Lightweight Formulas', detail: 'Non-greasy textures that stay comfortable in 40°C+ heat and humidity' },
           { icon: '🧪', label: 'Korean Technology', detail: 'Dermatologically tested formulas with active repair ingredients, not just UV filters' },
@@ -395,7 +395,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Почему защита от солнца необходима в ОАЭ',
         items: [
           { icon: '☀️', label: 'УФ-индекс 11+', detail: 'УФ-излучение в Дубае регулярно превышает «экстремальный» уровень круглый год' },
-          { icon: '🛡️', label: 'Широкий спектр', detail: 'UVA вызывает старение, UVB — ожоги. Наши SPF-средства блокируют оба типа.' },
+          { icon: '🛡️', label: 'Широкий спектр', detail: 'UVA вызывает старение, UVB - ожоги. Наши SPF-средства блокируют оба типа.' },
           { icon: '💧', label: 'Лёгкие текстуры', detail: 'Нежирные формулы, комфортные при 40°C+ и высокой влажности' },
           { icon: '🧪', label: 'Корейские технологии', detail: 'Дерматологически протестированные формулы с активными восстанавливающими ингредиентами' },
         ],
@@ -406,8 +406,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Sun Protection Products UAE | SPF Sunscreen Dubai | GENOSYS',
         description: 'Professional Korean sun protection for UAE climate. GENOSYS SPF sunscreens protect against intense UV exposure in Dubai, Abu Dhabi & all emirates. Dermatologically tested, lightweight formulas. Free shipping over 1000 AED.',
         h1: 'Sun Protection for UAE Climate',
-        heroShort: 'Professional-grade Korean sunscreens and BB cushions with SPF — lightweight, non-greasy formulas designed for the intense UAE sun.',
-        intro: 'The UAE receives some of the highest UV radiation levels globally, making daily sun protection essential. GENOSYS professional sun creams are formulated with advanced Korean technology to provide broad-spectrum UV defense while keeping skin hydrated in hot, arid conditions. Our lightweight, non-greasy formulas are dermatologically tested and suitable for all skin types — designed specifically for professionals and consumers in Dubai, Abu Dhabi, Sharjah, and across the emirates.',
+        heroShort: 'Professional-grade Korean sunscreens and BB cushions with SPF - lightweight, non-greasy formulas designed for the intense UAE sun.',
+        intro: 'The UAE receives some of the highest UV radiation levels globally, making daily sun protection essential. GENOSYS professional sun creams are formulated with advanced Korean technology to provide broad-spectrum UV defense while keeping skin hydrated in hot, arid conditions. Our lightweight, non-greasy formulas are dermatologically tested and suitable for all skin types - designed specifically for professionals and consumers in Dubai, Abu Dhabi, Sharjah, and across the emirates.',
         keywords: ['sun protection UAE', 'sunscreen Dubai', 'SPF cream UAE', 'Korean sunscreen Dubai', 'UV protection UAE', 'sun cream Abu Dhabi', 'professional sunscreen UAE', 'GENOSYS sun cream'],
       },
       ar: {
@@ -427,10 +427,10 @@ export const CONCERN_PAGES: ConcernPage[] = [
     },
     faq: {
       en: [
-        { question: 'What SPF level is recommended for UAE sun protection?', answer: 'In the UAE, dermatologists recommend SPF 50+ with broad-spectrum UVA/UVB protection for daily use. The UV index in Dubai regularly exceeds 11 (extreme), making high SPF essential year-round — not just in summer. GENOSYS sun creams provide professional-grade SPF protection designed for the intense Middle Eastern climate.' },
+        { question: 'What SPF level is recommended for UAE sun protection?', answer: 'In the UAE, dermatologists recommend SPF 50+ with broad-spectrum UVA/UVB protection for daily use. The UV index in Dubai regularly exceeds 11 (extreme), making high SPF essential year-round - not just in summer. GENOSYS sun creams provide professional-grade SPF protection designed for the intense Middle Eastern climate.' },
         { question: 'Can I use Korean sunscreen in hot UAE weather?', answer: 'Yes, Korean sunscreens are specifically engineered for hot, humid climates. GENOSYS sun creams use lightweight, non-greasy formulas that absorb quickly and stay effective even during perspiration. They are dermatologically tested and suitable for use under makeup or alone in UAE temperatures.' },
-        { question: 'What is the difference between sun cream and BB cushion with SPF?', answer: 'Sun creams (like ULTRA SHIELD SPF 50+) focus purely on maximum UV protection with skin-repairing ingredients. BB cushions and BB creams add natural coverage to conceal blemishes and even out skin tone while also providing SPF protection. Many people layer both — sun cream as a base, BB cushion on top for a flawless finish with double protection.' },
-        { question: 'How often should I reapply sunscreen in Dubai?', answer: 'Indoors with air conditioning: every 4–5 hours. Outdoors with shade: every 2–3 hours. Direct sun exposure (beach, pool, sports): every 90 minutes. Always reapply immediately after swimming, heavy sweating, or towelling your face. The GENOSYS BB Cushion compact is ideal for on-the-go touch-ups.' },
+        { question: 'What is the difference between sun cream and BB cushion with SPF?', answer: 'Sun creams (like ULTRA SHIELD SPF 50+) focus purely on maximum UV protection with skin-repairing ingredients. BB cushions and BB creams add natural coverage to conceal blemishes and even out skin tone while also providing SPF protection. Many people layer both - sun cream as a base, BB cushion on top for a flawless finish with double protection.' },
+        { question: 'How often should I reapply sunscreen in Dubai?', answer: 'Indoors with air conditioning: every 4-5 hours. Outdoors with shade: every 2-3 hours. Direct sun exposure (beach, pool, sports): every 90 minutes. Always reapply immediately after swimming, heavy sweating, or towelling your face. The GENOSYS BB Cushion compact is ideal for on-the-go touch-ups.' },
       ],
       ar: [
         { question: 'ما مستوى SPF الموصى به للحماية من الشمس في الإمارات؟', answer: 'في الإمارات، يوصي أطباء الجلدية باستخدام واقي شمس SPF 50+ مع حماية واسعة الطيف من الأشعة فوق البنفسجية للاستخدام اليومي. مؤشر الأشعة فوق البنفسجية في دبي يتجاوز بانتظام 11 (شديد)، مما يجعل الحماية العالية ضرورية طوال العام.' },
@@ -458,9 +458,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ru: 'Протокол домашнего ухода при акне',
       },
       description: {
-        en: 'Complete morning & evening routine for acne-prone skin — Problem Control system, exfoliation schedule, product sets by severity, and UAE-specific tips.',
-        ar: 'روتين صباحي ومسائي كامل للبشرة المعرضة لحب الشباب — نظام التحكم في المشاكل، جدول التقشير، مجموعات المنتجات حسب الشدة، ونصائح خاصة بالإمارات.',
-        ru: 'Полный утренний и вечерний уход для кожи, склонной к акне — система Problem Control, график пилинга, наборы по степени тяжести и советы для климата ОАЭ.',
+        en: 'Complete morning & evening routine for acne-prone skin - Problem Control system, exfoliation schedule, product sets by severity, and UAE-specific tips.',
+        ar: 'روتين صباحي ومسائي كامل للبشرة المعرضة لحب الشباب - نظام التحكم في المشاكل، جدول التقشير، مجموعات المنتجات حسب الشدة، ونصائح خاصة بالإمارات.',
+        ru: 'Полный утренний и вечерний уход для кожи, склонной к акне - система Problem Control, график пилинга, наборы по степени тяжести и советы для климата ОАЭ.',
       },
       fileSize: '282 KB',
     },
@@ -468,9 +468,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: {
         title: 'Why Acne Needs a Targeted Approach in the UAE',
         items: [
-          { icon: '🌡️', label: 'Heat & Humidity', detail: 'UAE\'s 40°C+ climate and high humidity supercharge sebum production — generic cleansers can\'t keep up' },
+          { icon: '🌡️', label: 'Heat & Humidity', detail: 'UAE\'s 40°C+ climate and high humidity supercharge sebum production - generic cleansers can\'t keep up' },
           { icon: '🔬', label: 'Salicylic Acid + Niacinamide', detail: 'GENOSYS Problem Control line uses BHA to unclog pores and niacinamide to calm inflammation simultaneously' },
-          { icon: '🛡️', label: 'Barrier-Safe Formula', detail: 'Treats acne without stripping the skin barrier — no dryness, no rebound oiliness' },
+          { icon: '🛡️', label: 'Barrier-Safe Formula', detail: 'Treats acne without stripping the skin barrier - no dryness, no rebound oiliness' },
           { icon: '🧪', label: 'Clinic-Grade at Home', detail: 'The same formulas used by dermatologists in Dubai clinics, now available for your daily routine' },
         ],
       },
@@ -487,7 +487,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Почему склонной к высыпаниям коже нужен сбалансированный уход в ОАЭ',
         items: [
           { icon: '🌡️', label: 'Жара и влажность', detail: 'Жаркий и влажный климат ОАЭ может усиливать блеск и избыток себума, поэтому особенно удобны лёгкие быстро впитывающиеся текстуры' },
-          { icon: '🔬', label: 'Понятные активы', detail: 'В тонике есть BHA, а в сыворотке и креме — цинк PCA для ухода за избытком себума' },
+          { icon: '🔬', label: 'Понятные активы', detail: 'В тонике есть BHA, а в сыворотке и креме - цинк PCA для ухода за избытком себума' },
           { icon: '🛡️', label: 'Комфорт кожи', detail: 'Трегалоза, ксилитол, пантенол и аллантоин поддерживают увлажнение и комфорт в рамках ежедневного ухода' },
           { icon: '🧪', label: 'Полный ритуал', detail: 'Очищение, затем тоник, сыворотка и крем с текстурами для утреннего и вечернего применения' },
         ],
@@ -497,36 +497,36 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         {
           title: 'Morning Routine',
-          subtitle: 'Control oil & prevent new breakouts — takes 5 minutes',
+          subtitle: 'Control oil & prevent new breakouts - takes 5 minutes',
           steps: [
             {
               step: 1, title: 'Gentle Cleanse', duration: '1 min',
               summary: 'Remove overnight oil without stripping the skin barrier. A damaged barrier makes acne worse.',
-              detail: 'Apply SNOW O₂ CLEANSER to dry face. Let the oxygen bubbles lift impurities from pores naturally — no rubbing needed. This avoids spreading bacteria from active breakouts. Rinse with lukewarm water (never hot) and pat dry with a clean towel.',
+              detail: 'Apply SNOW O₂ CLEANSER to dry face. Let the oxygen bubbles lift impurities from pores naturally - no rubbing needed. This avoids spreading bacteria from active breakouts. Rinse with lukewarm water (never hot) and pat dry with a clean towel.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
               step: 2, title: 'Acne Control Toner', duration: '30 sec',
               summary: 'Balance pH and begin sebum regulation. This is the foundation of the Problem Control system.',
-              detail: 'Soak a cotton pad and sweep across the T-zone, chin, and jawline — areas where breakouts concentrate in the UAE climate. The toner contains salicylic acid to dissolve pore-clogging debris and niacinamide to calm redness. Can also be used as a spot compress: hold a soaked pad on a cystic spot for 30 seconds.',
+              detail: 'Soak a cotton pad and sweep across the T-zone, chin, and jawline - areas where breakouts concentrate in the UAE climate. The toner contains salicylic acid to dissolve pore-clogging debris and niacinamide to calm redness. Can also be used as a spot compress: hold a soaked pad on a cystic spot for 30 seconds.',
               products: [{ name: 'INTENSIVE PROBLEM CONTROL TONER', url: '/products/15', price: '260 AED' }],
             },
             {
               step: 3, title: 'Problem Control Serum', duration: '30 sec',
               summary: 'Targeted treatment that reduces inflammation and prevents new lesions from forming.',
-              detail: 'Apply 2–3 drops to the entire face, concentrating on active breakout zones. The serum penetrates deeper than the toner, delivering anti-inflammatory and sebum-regulating actives into the follicle. Wait 30 seconds for absorption before the next step. For severe breakouts, apply an extra drop directly onto each lesion.',
+              detail: 'Apply 2-3 drops to the entire face, concentrating on active breakout zones. The serum penetrates deeper than the toner, delivering anti-inflammatory and sebum-regulating actives into the follicle. Wait 30 seconds for absorption before the next step. For severe breakouts, apply an extra drop directly onto each lesion.',
               products: [{ name: 'PROBLEM CONTROL SERUM', url: '/products/20', price: '330 AED' }],
             },
             {
               step: 4, title: 'Lightweight Moisturiser', duration: '30 sec',
               summary: 'Even oily, acne-prone skin needs hydration. Skipping moisturiser triggers more oil production.',
-              detail: 'Apply a thin layer of Problem Control Cream. It\'s oil-free and non-comedogenic — formulated specifically for acne-prone skin. It seals in the serum actives while controlling shine throughout the day. Avoid heavy creams or oils that clog pores.',
+              detail: 'Apply a thin layer of Problem Control Cream. It\'s oil-free and non-comedogenic - formulated specifically for acne-prone skin. It seals in the serum actives while controlling shine throughout the day. Avoid heavy creams or oils that clog pores.',
               products: [{ name: 'INTENSIVE PROBLEM CONTROL CREAM', url: '/products/30', price: '290 AED' }],
             },
             {
               step: 5, title: 'Sun Protection', duration: '30 sec',
               summary: 'UV exposure darkens acne marks and causes post-inflammatory hyperpigmentation (PIH). SPF is non-negotiable.',
-              detail: 'Apply ULTRA SHIELD SUN CREAM generously to face and neck. Its lightweight, non-greasy formula won\'t clog pores or trigger breakouts. This is especially critical in the UAE where UV index exceeds 11 year-round — without SPF, every cleared blemish leaves a dark mark.',
+              detail: 'Apply ULTRA SHIELD SUN CREAM generously to face and neck. Its lightweight, non-greasy formula won\'t clog pores or trigger breakouts. This is especially critical in the UAE where UV index exceeds 11 year-round - without SPF, every cleared blemish leaves a dark mark.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
           ],
@@ -545,21 +545,21 @@ export const CONCERN_PAGES: ConcernPage[] = [
               ],
             },
             {
-              step: 2, title: 'Exfoliate (2–3× per week)', duration: '2 min',
+              step: 2, title: 'Exfoliate (2-3× per week)', duration: '2 min',
               summary: 'Remove dead skin cells that trap sebum and bacteria inside pores. Essential for preventing new breakouts.',
-              detail: 'Apply EPI TURNOVER PEELING GEL to dry skin. Massage in circular motions for 1–2 minutes — you\'ll see dead skin cells ball up. This gentle chemical + physical exfoliation unclogs pores without micro-tears. Skip this step on nights when your skin feels irritated or if you have open lesions. Use 2–3 times per week maximum.',
+              detail: 'Apply EPI TURNOVER PEELING GEL to dry skin. Massage in circular motions for 1-2 minutes - you\'ll see dead skin cells ball up. This gentle chemical + physical exfoliation unclogs pores without micro-tears. Skip this step on nights when your skin feels irritated or if you have open lesions. Use 2-3 times per week maximum.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
             {
               step: 3, title: 'Acne Control Toner', duration: '30 sec',
               summary: 'Second application resets skin pH after cleansing and delivers another dose of BHA.',
-              detail: 'Same technique as morning — sweep across problem areas with a soaked cotton pad. The evening application is particularly effective because the actives work overnight without UV interference.',
+              detail: 'Same technique as morning - sweep across problem areas with a soaked cotton pad. The evening application is particularly effective because the actives work overnight without UV interference.',
               products: [{ name: 'INTENSIVE PROBLEM CONTROL TONER', url: '/products/15', price: '260 AED' }],
             },
             {
               step: 4, title: 'Problem Control Serum', duration: '30 sec',
               summary: 'Overnight treatment when skin repair is most active. Actives work 2× harder during sleep.',
-              detail: 'Apply 3–4 drops (slightly more than morning). The serum works with your skin\'s natural overnight repair cycle. For stubborn spots, apply an extra drop as a spot treatment after the full-face application.',
+              detail: 'Apply 3-4 drops (slightly more than morning). The serum works with your skin\'s natural overnight repair cycle. For stubborn spots, apply an extra drop as a spot treatment after the full-face application.',
               products: [{ name: 'PROBLEM CONTROL SERUM', url: '/products/20', price: '330 AED' }],
             },
             {
@@ -577,12 +577,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ar: [
         {
           title: 'الروتين الصباحي',
-          subtitle: 'التحكم في الدهون ومنع البثور الجديدة — 5 دقائق',
+          subtitle: 'التحكم في الدهون ومنع البثور الجديدة - 5 دقائق',
           steps: [
             {
               step: 1, title: 'تنظيف لطيف', duration: 'دقيقة واحدة',
               summary: 'إزالة الزيوت الليلية دون تجريد حاجز البشرة. الحاجز التالف يزيد حب الشباب سوءاً.',
-              detail: 'ضعي SNOW O₂ CLEANSER على الوجه الجاف. دعي فقاعات الأكسجين ترفع الشوائب من المسام طبيعياً — بدون فرك. هذا يتجنب نشر البكتيريا من البثور النشطة. اشطفي بماء فاتر (ليس ساخناً أبداً) وجففي بمنشفة نظيفة.',
+              detail: 'ضعي SNOW O₂ CLEANSER على الوجه الجاف. دعي فقاعات الأكسجين ترفع الشوائب من المسام طبيعياً - بدون فرك. هذا يتجنب نشر البكتيريا من البثور النشطة. اشطفي بماء فاتر (ليس ساخناً أبداً) وجففي بمنشفة نظيفة.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
@@ -627,7 +627,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 2, title: 'التقشير (2-3 مرات أسبوعياً)', duration: 'دقيقتان',
               summary: 'إزالة خلايا الجلد الميتة التي تحبس الدهون والبكتيريا داخل المسام. ضروري لمنع البثور الجديدة.',
-              detail: 'ضعي EPI TURNOVER PEELING GEL على البشرة الجافة. دلكي بحركات دائرية لمدة 1-2 دقيقة — سترين خلايا الجلد الميتة تتكور. تقشير كيميائي وفيزيائي لطيف ينظف المسام بدون تمزقات دقيقة. تجاوزي هذه الخطوة في الليالي التي تشعرين فيها بتهيج البشرة. بحد أقصى 3 مرات أسبوعياً.',
+              detail: 'ضعي EPI TURNOVER PEELING GEL على البشرة الجافة. دلكي بحركات دائرية لمدة 1-2 دقيقة - سترين خلايا الجلد الميتة تتكور. تقشير كيميائي وفيزيائي لطيف ينظف المسام بدون تمزقات دقيقة. تجاوزي هذه الخطوة في الليالي التي تشعرين فيها بتهيج البشرة. بحد أقصى 3 مرات أسبوعياً.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
             {
@@ -657,12 +657,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ru: [
         {
           title: 'Утренний уход',
-          subtitle: 'Контроль жирности и предотвращение новых высыпаний — 5 минут',
+          subtitle: 'Контроль жирности и предотвращение новых высыпаний - 5 минут',
           steps: [
             {
               step: 1, title: 'Бережное очищение', duration: '1 мин',
               summary: 'Удалите ночной жир, не повреждая защитный барьер. Повреждённый барьер усиливает акне.',
-              detail: 'Нанесите SNOW O₂ CLEANSER на сухое лицо. Дайте кислородным пузырькам поднять загрязнения из пор естественным образом — без трения. Это предотвращает распространение бактерий от активных воспалений. Смойте тёплой водой (никогда горячей) и промокните чистым полотенцем.',
+              detail: 'Нанесите SNOW O₂ CLEANSER на сухое лицо. Дайте кислородным пузырькам поднять загрязнения из пор естественным образом - без трения. Это предотвращает распространение бактерий от активных воспалений. Смойте тёплой водой (никогда горячей) и промокните чистым полотенцем.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
@@ -674,7 +674,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 3, title: 'Сыворотка Intensive Problem Control', duration: '30 сек',
               summary: 'Лёгкий слой с цинком PCA 0,05% помогает контролировать избыток себума.',
-              detail: 'Нанесите 2–3 капли на лицо после тоника и мягко вбейте до впитывания. Трегалоза 1%, ксилитол 0,5%, пантенол 0,2% и аллантоин 0,1% поддерживают увлажнение и комфорт без жирного финиша.',
+              detail: 'Нанесите 2-3 капли на лицо после тоника и мягко вбейте до впитывания. Трегалоза 1%, ксилитол 0,5%, пантенол 0,2% и аллантоин 0,1% поддерживают увлажнение и комфорт без жирного финиша.',
               products: [{ name: 'PROBLEM CONTROL SERUM', url: '/products/20', price: '330 AED' }],
             },
             {
@@ -697,7 +697,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'Двойное очищение', duration: '2 мин',
-              summary: 'Удалите SPF, пот и загрязнения. Остатки санскрина с себумом — триггер высыпаний.',
+              summary: 'Удалите SPF, пот и загрязнения. Остатки санскрина с себумом - триггер высыпаний.',
               detail: 'Первое очищение: средство для снятия макияжа для зоны глаз и губ, чтобы растворить SPF и макияж. Второе очищение: SNOW O₂ CLEANSER на всё лицо для удаления остатков санскрина, пота и частиц загрязнений, застрявших в порах за день.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -705,9 +705,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
               ],
             },
             {
-              step: 2, title: 'Пилинг (2–3 раза в неделю)', duration: '2 мин',
+              step: 2, title: 'Пилинг (2-3 раза в неделю)', duration: '2 мин',
               summary: 'Удалите мёртвые клетки кожи, которые удерживают себум и бактерии в порах. Необходимо для профилактики.',
-              detail: 'Нанесите EPI TURNOVER PEELING GEL на сухую кожу. Массируйте круговыми движениями 1–2 минуты — вы увидите, как мёртвые клетки скатываются. Мягкий химический + физический пилинг очищает поры без микроповреждений. Пропустите этот шаг, если кожа раздражена или есть открытые воспаления. Максимум 3 раза в неделю.',
+              detail: 'Нанесите EPI TURNOVER PEELING GEL на сухую кожу. Массируйте круговыми движениями 1-2 минуты - вы увидите, как мёртвые клетки скатываются. Мягкий химический + физический пилинг очищает поры без микроповреждений. Пропустите этот шаг, если кожа раздражена или есть открытые воспаления. Максимум 3 раза в неделю.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
             {
@@ -719,7 +719,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 4, title: 'Сыворотка Intensive Problem Control', duration: '30 сек',
               summary: 'Тот же лёгкий вечерний этап для поддержания баланса себума.',
-              detail: 'Используйте 2–3 капли после тоника, как и утром, избегая области вокруг глаз. Мягко вбейте сыворотку, затем нанесите крем.',
+              detail: 'Используйте 2-3 капли после тоника, как и утром, избегая области вокруг глаз. Мягко вбейте сыворотку, затем нанесите крем.',
               products: [{ name: 'PROBLEM CONTROL SERUM', url: '/products/20', price: '330 AED' }],
             },
             {
@@ -740,15 +740,15 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Acne Treatment Products UAE | Blemish Control Dubai | GENOSYS',
         description: 'Professional Korean acne treatment solutions for UAE. GENOSYS problem control serums, creams & toners target breakouts, blemishes & oily skin. Dermatologically tested. Free shipping over 1000 AED.',
         h1: 'Acne & Blemish Treatment',
-        heroShort: 'Professional-grade Korean acne treatment — clinically proven toner, serum & cream that control breakouts without damaging your skin barrier.',
-        intro: 'Acne and blemishes are among the most common skin concerns in the UAE, worsened by heat, humidity, and environmental factors. GENOSYS Intensive Problem Control line offers a clinically proven approach to acne management — professional-grade toners, serums, and creams that target breakouts at the source while protecting the skin barrier. Our Korean dermacosmetics use active ingredients like salicylic acid and niacinamide to control excess sebum, reduce inflammation, and prevent post-acne marks.',
+        heroShort: 'Professional-grade Korean acne treatment - clinically proven toner, serum & cream that control breakouts without damaging your skin barrier.',
+        intro: 'Acne and blemishes are among the most common skin concerns in the UAE, worsened by heat, humidity, and environmental factors. GENOSYS Intensive Problem Control line offers a clinically proven approach to acne management - professional-grade toners, serums, and creams that target breakouts at the source while protecting the skin barrier. Our Korean dermacosmetics use active ingredients like salicylic acid and niacinamide to control excess sebum, reduce inflammation, and prevent post-acne marks.',
         keywords: ['acne treatment UAE', 'acne skincare Dubai', 'blemish control UAE', 'Korean acne products', 'problem control serum', 'acne cream Dubai', 'professional acne treatment UAE'],
       },
       ar: {
         title: 'العناية بالبشرة المعرّضة للشوائب في الإمارات | GENOSYS',
         description: 'روتين كوري تجميلي للبشرة الدهنية أو المختلطة أو المعرّضة للشوائب في الإمارات، بقوامات خفيفة وترتيب صباحي ومسائي واضح.',
         h1: 'العناية بالبشرة الدهنية والمُعرّضة للشوائب',
-        heroShort: 'روتين كوري متوازن للبشرة الدهنية والمختلطة — تنظيف وتونر وسيروم وكريم لتنظيم اللمعان ودعم الراحة.',
+        heroShort: 'روتين كوري متوازن للبشرة الدهنية والمختلطة - تنظيف وتونر وسيروم وكريم لتنظيم اللمعان ودعم الراحة.',
         intro: 'قد يزيد مناخ الإمارات الحار والرطب من اللمعان وفائض الزهم. يجمع روتين GENOSYS Intensive Problem Control بين خطوات خفيفة للعناية بالبشرة الدهنية والمختلطة والمعرضة للبثور من دون تحويلها إلى روتين قاسٍ أو مجفف.',
         keywords: ['علاج حب الشباب الإمارات', 'مكافحة البثور دبي', 'سيروم حب الشباب', 'منتجات كورية للبثور'],
       },
@@ -765,10 +765,10 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         { question: 'What is the best Korean treatment for acne in UAE?', answer: 'GENOSYS Intensive Problem Control line is specifically formulated for acne-prone skin. The Problem Control Serum and Problem Control Cream work together to reduce breakouts, control oil production, and minimize pore appearance. These products are used by professional dermatologists in Dubai clinics and are available for home use through genosys.ae.' },
         { question: 'Does humidity in Dubai make acne worse?', answer: 'Yes, high humidity combined with heat increases sebum production, clogging pores and triggering breakouts. GENOSYS Problem Control products contain oil-regulating active ingredients that work effectively in the UAE climate. The Intensive Problem Control Toner is particularly effective as a daily prep step to balance skin pH and deliver salicylic acid to congested pores.' },
-        { question: 'How long does it take to see results with the Problem Control line?', answer: 'Most users notice reduced oiliness and fewer new breakouts within 1–2 weeks of consistent use. Existing blemishes begin to flatten and fade within 2–4 weeks. For full clearing and post-acne mark reduction, expect 6–8 weeks. The key is consistency: use the Toner → Serum → Cream system both morning and evening without skipping steps.' },
+        { question: 'How long does it take to see results with the Problem Control line?', answer: 'Most users notice reduced oiliness and fewer new breakouts within 1-2 weeks of consistent use. Existing blemishes begin to flatten and fade within 2-4 weeks. For full clearing and post-acne mark reduction, expect 6-8 weeks. The key is consistency: use the Toner → Serum → Cream system both morning and evening without skipping steps.' },
         { question: 'Can I use acne products if I have sensitive skin?', answer: 'Yes. The GENOSYS Problem Control line is formulated to be effective against acne while protecting the skin barrier. The concentrations of salicylic acid and niacinamide are calibrated to treat without causing irritation, peeling, or dryness. If you have very sensitive skin, start with the Toner and Cream first, then introduce the Serum after one week once your skin has adjusted.' },
         { question: 'Should I still moisturise if I have oily, acne-prone skin?', answer: 'Absolutely. Skipping moisturiser sends a signal to your skin to produce even more oil, making breakouts worse. The Intensive Problem Control Cream is oil-free, non-comedogenic, and specifically designed for oily/combination skin. It hydrates without clogging pores and helps maintain the skin barrier that acne treatments can compromise.' },
-        { question: 'What is the difference between Problem Control Toner, Serum, and Cream?', answer: 'The Toner (260 AED) is a pH-balancing first step that delivers salicylic acid across the entire face to dissolve pore-clogging debris. The Serum (330 AED) is a concentrated treatment that penetrates deeper into the follicle to reduce inflammation and prevent new lesions. The Cream (290 AED) is a lightweight, oil-free moisturiser that seals in the actives and controls shine. All three work as a system — each step amplifies the next.' },
+        { question: 'What is the difference between Problem Control Toner, Serum, and Cream?', answer: 'The Toner (260 AED) is a pH-balancing first step that delivers salicylic acid across the entire face to dissolve pore-clogging debris. The Serum (330 AED) is a concentrated treatment that penetrates deeper into the follicle to reduce inflammation and prevent new lesions. The Cream (290 AED) is a lightweight, oil-free moisturiser that seals in the actives and controls shine. All three work as a system - each step amplifies the next.' },
       ],
       ar: [
         { question: 'لمن يناسب روتين Intensive Problem Control؟', answer: 'يناسب البشرة الدهنية والمختلطة والمعرضة للبثور واللمعان. يساعد السيروم بزنك PCA بتركيز 0.05% على تنظيم فائض الزهم، بينما تدعم مكونات الترطيب راحة البشرة.' },
@@ -800,9 +800,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ru: 'Протокол домашнего ухода при пигментации и осветлении',
       },
       description: {
-        en: 'Complete morning & evening routine for pigmentation — Radiance brightening system, tyrosinase inhibition steps, product sets by pigmentation type, and UAE sun-exposure tips.',
-        ar: 'روتين صباحي ومسائي كامل للتصبغات — نظام Radiance للتفتيح، خطوات تثبيط التيروزيناز، مجموعات منتجات حسب نوع التصبغ، ونصائح للتعرض للشمس في الإمارات.',
-        ru: 'Полный утренний и вечерний уход при пигментации — система Radiance, подавление тирозиназы, наборы по типу пигментации и советы по защите от солнца в ОАЭ.',
+        en: 'Complete morning & evening routine for pigmentation - Radiance brightening system, tyrosinase inhibition steps, product sets by pigmentation type, and UAE sun-exposure tips.',
+        ar: 'روتين صباحي ومسائي كامل للتصبغات - نظام Radiance للتفتيح، خطوات تثبيط التيروزيناز، مجموعات منتجات حسب نوع التصبغ، ونصائح للتعرض للشمس في الإمارات.',
+        ru: 'Полный утренний и вечерний уход при пигментации - система Radiance, подавление тирозиназы, наборы по типу пигментации и советы по защите от солнца в ОАЭ.',
       },
       fileSize: '270 KB',
     },
@@ -810,10 +810,10 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: {
         title: 'Why Pigmentation Needs a Targeted Approach in the UAE',
         items: [
-          { icon: '☀️', label: 'UV & Melanin', detail: 'Dubai\'s UV index regularly exceeds 11 — triggering melanin overproduction that causes stubborn dark spots and uneven tone' },
+          { icon: '☀️', label: 'UV & Melanin', detail: 'Dubai\'s UV index regularly exceeds 11 - triggering melanin overproduction that causes stubborn dark spots and uneven tone' },
           { icon: '🧪', label: 'Vitamin C + Niacinamide + Arbutin', detail: 'GENOSYS Multi Vita Radiance line uses a triple-action brightening complex to inhibit tyrosinase and fade existing pigmentation' },
-          { icon: '🤝', label: 'Safe for All Skin Tones', detail: 'Works by regulating melanin, not bleaching — safe for Fitzpatrick types IV–VI common in the Middle East' },
-          { icon: '🛡️', label: 'SPF Synergy', detail: 'Brightening actives work best when paired with SPF 50+ — prevents new spots while fading existing ones' },
+          { icon: '🤝', label: 'Safe for All Skin Tones', detail: 'Works by regulating melanin, not bleaching - safe for Fitzpatrick types IV - VI common in the Middle East' },
+          { icon: '🛡️', label: 'SPF Synergy', detail: 'Brightening actives work best when paired with SPF 50+ - prevents new spots while fading existing ones' },
         ],
       },
       ar: {
@@ -840,7 +840,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Pigmentation Treatment UAE | Dark Spots & Brightening Dubai | GENOSYS',
         description: 'Professional Korean pigmentation treatment for UAE. GENOSYS brightening serums & creams reduce dark spots, hyperpigmentation & uneven skin tone. Dermatologically tested. Free shipping over 1000 AED.',
         h1: 'Pigmentation & Skin Brightening Treatment',
-        heroShort: 'Professional Korean brightening serums & creams — fade dark spots, even skin tone and restore radiance with vitamin C, niacinamide & arbutin.',
+        heroShort: 'Professional Korean brightening serums & creams - fade dark spots, even skin tone and restore radiance with vitamin C, niacinamide & arbutin.',
         intro: 'Hyperpigmentation and dark spots are extremely common in the UAE due to intense sun exposure throughout the year. GENOSYS Multi Vita Radiance line combines Korean brightening technology with powerful ingredients like vitamin C, niacinamide, and arbutin to visibly reduce melanin overproduction, even skin tone, and restore natural radiance. Our professional-grade brightening products are safe for all skin tones, including darker Fitzpatrick types common in the Middle East.',
         keywords: ['pigmentation treatment UAE', 'dark spots Dubai', 'skin brightening UAE', 'hyperpigmentation cream', 'Korean brightening serum', 'uneven skin tone Dubai', 'melasma treatment UAE'],
       },
@@ -865,18 +865,18 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         {
           title: 'Morning Routine',
-          subtitle: 'Brighten & protect — takes just 5 minutes',
+          subtitle: 'Brighten & protect - takes just 5 minutes',
           steps: [
             {
               step: 1, title: 'Cleanse', duration: '1 min',
               summary: 'Remove overnight oils so brightening actives can penetrate effectively.',
-              detail: 'Apply to a dry face, let the oxygen bubbles form naturally — they lift impurities and dullness from pores without rubbing. Rinse with lukewarm water and pat dry.',
+              detail: 'Apply to a dry face, let the oxygen bubbles form naturally - they lift impurities and dullness from pores without rubbing. Rinse with lukewarm water and pat dry.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
               step: 2, title: 'Tone & Hydrate', duration: '30 sec',
               summary: 'Restore pH and create a hydrated base. Brightening serums absorb more evenly on prepped skin.',
-              detail: 'Spray mist or apply toner with hands, gently pressing into skin. Move to the next step immediately — no wait needed.',
+              detail: 'Spray mist or apply toner with hands, gently pressing into skin. Move to the next step immediately - no wait needed.',
               products: [
                 { name: 'SNOW BOOSTER', url: '/products/16', price: '260 AED' },
                 { name: 'MICROBIOME ENERGY INFUSING MIST', url: '/products/14', price: '160 AED' },
@@ -884,8 +884,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 3, title: 'Brightening Serum', duration: '30 sec',
-              summary: 'Core brightening step — vitamin C, niacinamide and arbutin inhibit melanin production.',
-              detail: 'Apply 2–3 drops of Multi Vita Radiance Serum and pat gently into the skin, focusing on areas with dark spots or uneven tone. Wait 30 seconds for absorption.',
+              summary: 'Core brightening step - vitamin C, niacinamide and arbutin inhibit melanin production.',
+              detail: 'Apply 2-3 drops of Multi Vita Radiance Serum and pat gently into the skin, focusing on areas with dark spots or uneven tone. Wait 30 seconds for absorption.',
               products: [{ name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' }],
             },
             {
@@ -899,7 +899,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 5, title: 'Sun Protection', duration: '30 sec',
-              summary: 'The most critical step for pigmentation — UV exposure undoes all brightening progress.',
+              summary: 'The most critical step for pigmentation - UV exposure undoes all brightening progress.',
               detail: 'Apply a 2-finger length strip of ULTRA SHIELD SPF 50+ to face and neck. Without daily SPF, dark spots will return regardless of serums and creams used.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
@@ -911,7 +911,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'Double Cleanse', duration: '2 min',
-              summary: 'Remove SPF and makeup thoroughly — residue blocks brightening actives from penetrating.',
+              summary: 'Remove SPF and makeup thoroughly - residue blocks brightening actives from penetrating.',
               detail: 'First cleanse: Makeup remover to dissolve SPF and makeup from eye/lip area. Second cleanse: Oxygen cleanser to deep-clean residual sunscreen and impurities.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -919,15 +919,15 @@ export const CONCERN_PAGES: ConcernPage[] = [
               ],
             },
             {
-              step: 2, title: 'Exfoliate (2–3× per week)', duration: '1 min',
-              summary: 'Remove dead skin cells that trap melanin — reveals brighter skin underneath.',
-              detail: 'Apply peeling gel to dry skin and massage gently in circular motions for 30 seconds. Dead cells roll off visibly. Rinse thoroughly. Use 2–3 times per week, not daily.',
+              step: 2, title: 'Exfoliate (2-3× per week)', duration: '1 min',
+              summary: 'Remove dead skin cells that trap melanin - reveals brighter skin underneath.',
+              detail: 'Apply peeling gel to dry skin and massage gently in circular motions for 30 seconds. Dead cells roll off visibly. Rinse thoroughly. Use 2-3 times per week, not daily.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
             {
               step: 3, title: 'Brightening Serum', duration: '30 sec',
-              summary: 'Night is when skin regenerates — brightening actives work harder while you sleep.',
-              detail: 'Apply 2–3 drops of Multi Vita Radiance Serum, focusing on pigmented areas. Night-time application allows vitamin C and niacinamide to work without UV interference.',
+              summary: 'Night is when skin regenerates - brightening actives work harder while you sleep.',
+              detail: 'Apply 2-3 drops of Multi Vita Radiance Serum, focusing on pigmented areas. Night-time application allows vitamin C and niacinamide to work without UV interference.',
               products: [{ name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' }],
             },
             {
@@ -946,12 +946,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ar: [
         {
           title: 'الروتين الصباحي',
-          subtitle: 'تفتيح وحماية — 5 دقائق فقط',
+          subtitle: 'تفتيح وحماية - 5 دقائق فقط',
           steps: [
             {
               step: 1, title: 'التنظيف', duration: 'دقيقة واحدة',
               summary: 'إزالة الزيوت الليلية حتى تتغلغل المكونات المفتحة بفعالية.',
-              detail: 'ضعي على الوجه الجاف، دعي فقاعات الأكسجين تتشكل طبيعياً — ترفع الشوائب والبهتان من المسام بدون فرك. اشطفي بماء فاتر وجففي بالتربيت.',
+              detail: 'ضعي على الوجه الجاف، دعي فقاعات الأكسجين تتشكل طبيعياً - ترفع الشوائب والبهتان من المسام بدون فرك. اشطفي بماء فاتر وجففي بالتربيت.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
@@ -980,7 +980,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 5, title: 'الحماية من الشمس', duration: '30 ثانية',
-              summary: 'الخطوة الأهم للتصبغات — التعرض للأشعة فوق البنفسجية يلغي كل تقدم التفتيح.',
+              summary: 'الخطوة الأهم للتصبغات - التعرض للأشعة فوق البنفسجية يلغي كل تقدم التفتيح.',
               detail: 'يوزع ULTRA SHIELD SPF 50+ بسخاء وبالتساوي قبل الخروج بـ15 دقيقة على الأقل، ويجدد كل ساعتين على الأقل في الخارج وبعد الماء أو التعرق.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
@@ -992,7 +992,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'التنظيف المزدوج', duration: 'دقيقتان',
-              summary: 'إزالة واقي الشمس والمكياج بالكامل — البقايا تمنع المكونات المفتحة من التغلغل.',
+              summary: 'إزالة واقي الشمس والمكياج بالكامل - البقايا تمنع المكونات المفتحة من التغلغل.',
               detail: 'التنظيف الأول: مزيل المكياج لإذابة SPF والمكياج. التنظيف الثاني: منظف الأكسجين لتنظيف عميق لبقايا واقي الشمس والشوائب.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -1001,7 +1001,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 2, title: 'التقشير (2-3 مرات أسبوعياً)', duration: 'دقيقة واحدة',
-              summary: 'إزالة خلايا الجلد الميتة التي تحبس الميلانين — يكشف عن بشرة أكثر إشراقاً.',
+              summary: 'إزالة خلايا الجلد الميتة التي تحبس الميلانين - يكشف عن بشرة أكثر إشراقاً.',
               detail: 'ضعي جل التقشير على البشرة الجافة ودلكي برفق بحركات دائرية لمدة 30 ثانية. الخلايا الميتة تتقشر بشكل واضح. اشطفي جيداً. استخدمي 2-3 مرات أسبوعياً وليس يومياً.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
@@ -1027,12 +1027,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ru: [
         {
           title: 'Утренний уход',
-          subtitle: 'Осветление и защита — всего 5 минут',
+          subtitle: 'Осветление и защита - всего 5 минут',
           steps: [
             {
               step: 1, title: 'Очищение', duration: '1 мин',
               summary: 'Удалите ночные масла, чтобы осветляющие активы могли эффективно проникнуть.',
-              detail: 'Нанесите на сухое лицо, дайте кислородным пузырькам образоваться естественно — они поднимают загрязнения и тусклость из пор без трения. Смойте тёплой водой и промокните полотенцем.',
+              detail: 'Нанесите на сухое лицо, дайте кислородным пузырькам образоваться естественно - они поднимают загрязнения и тусклость из пор без трения. Смойте тёплой водой и промокните полотенцем.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
@@ -1047,7 +1047,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 3, title: 'Осветляющая сыворотка', duration: '30 сек',
               summary: 'Главный шаг для сияния с ниацинамидом 2%, стабильным витамином C 0,1% и MELAZERO®.',
-              detail: 'Мягко вбейте 2–3 капли сыворотки Multi Vita Radiance, избегая области вокруг глаз. При чувствительной коже начните с небольшого количества и наращивайте применение постепенно.',
+              detail: 'Мягко вбейте 2-3 капли сыворотки Multi Vita Radiance, избегая области вокруг глаз. При чувствительной коже начните с небольшого количества и наращивайте применение постепенно.',
               products: [{ name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' }],
             },
             {
@@ -1061,7 +1061,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 5, title: 'Защита от солнца', duration: '30 сек',
-              summary: 'Самый важный шаг при пигментации — УФ-воздействие сводит на нет весь прогресс осветления.',
+              summary: 'Самый важный шаг при пигментации - УФ-воздействие сводит на нет весь прогресс осветления.',
               detail: 'Равномерно и щедро нанесите ULTRA SHIELD SPF 50+ минимум за 15 минут до выхода. Обновляйте не реже чем каждые два часа на улице, а также после воды или пота.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
@@ -1073,7 +1073,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'Двойное очищение', duration: '2 мин',
-              summary: 'Тщательно удалите SPF и макияж — остатки блокируют проникновение осветляющих активов.',
+              summary: 'Тщательно удалите SPF и макияж - остатки блокируют проникновение осветляющих активов.',
               detail: 'Первое очищение: средство для снятия макияжа для растворения SPF с зон глаз и губ. Второе очищение: кислородный гель для глубокой очистки от остатков санскрина и загрязнений.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -1081,15 +1081,15 @@ export const CONCERN_PAGES: ConcernPage[] = [
               ],
             },
             {
-              step: 2, title: 'Пилинг (2–3 раза в неделю)', duration: '1 мин',
-              summary: 'Удалите мёртвые клетки кожи, которые задерживают меланин — открывает более светлую кожу.',
-              detail: 'Нанесите пилинг-гель на сухую кожу и массируйте мягкими круговыми движениями 30 секунд. Мёртвые клетки скатываются визуально. Тщательно смойте. Используйте 2–3 раза в неделю, не ежедневно.',
+              step: 2, title: 'Пилинг (2-3 раза в неделю)', duration: '1 мин',
+              summary: 'Удалите мёртвые клетки кожи, которые задерживают меланин - открывает более светлую кожу.',
+              detail: 'Нанесите пилинг-гель на сухую кожу и массируйте мягкими круговыми движениями 30 секунд. Мёртвые клетки скатываются визуально. Тщательно смойте. Используйте 2-3 раза в неделю, не ежедневно.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
             {
               step: 3, title: 'Осветляющая сыворотка', duration: '30 сек',
               summary: 'Целенаправленный вечерний уход за неровным тоном и заметными тёмными пятнами.',
-              detail: 'После тоника мягко вбейте 2–3 капли сыворотки Multi Vita Radiance, затем нанесите крем. Если пощипывание не проходит или появляется раздражение, прекратите применение.',
+              detail: 'После тоника мягко вбейте 2-3 капли сыворотки Multi Vita Radiance, затем нанесите крем. Если пощипывание не проходит или появляется раздражение, прекратите применение.',
               products: [{ name: 'MULTI VITA RADIANCE SERUM', url: '/products/21', price: '330 AED' }],
             },
             {
@@ -1108,12 +1108,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
     },
     faq: {
       en: [
-        { question: 'What causes pigmentation in the UAE and how to treat it?', answer: 'Pigmentation in the UAE is primarily caused by intense UV exposure (UV index regularly exceeds 11), hormonal changes (especially during pregnancy or with contraceptives), and post-inflammatory hyperpigmentation from acne. GENOSYS Multi Vita Radiance Serum and Cream contain vitamin C, niacinamide, and arbutin — a triple-action Korean brightening complex that inhibits tyrosinase enzyme activity and gradually fades existing dark spots. For best results, always combine with SPF 50+ sun protection to prevent new melanin production.' },
-        { question: 'Are Korean brightening products safe for dark skin tones?', answer: 'Yes, GENOSYS brightening products are formulated to be safe for all skin tones, including Fitzpatrick types IV–VI common in the Middle East, South Asia, and Africa. They work by regulating melanin production through tyrosinase inhibition rather than bleaching or stripping, making them safer and more effective for long-term use. All products are dermatologically tested and free from hydroquinone.' },
-        { question: 'How long does it take to see results from brightening products?', answer: 'Most users notice a visible improvement in skin radiance within 2–3 weeks of consistent use. Significant fading of dark spots typically takes 6–8 weeks with twice-daily application of Multi Vita Radiance Serum + Cream. Deeper melasma or long-standing pigmentation may take 3–4 months. Consistency and daily SPF 50+ are the two biggest factors for faster results.' },
-        { question: 'Can I combine brightening products with retinol?', answer: 'Yes, but introduce them separately. Use vitamin C / niacinamide-based brightening products (Multi Vita Radiance Serum) in the morning under SPF, and retinol in the evening. Do not layer vitamin C and retinol in the same routine as they work best at different pH levels. If you experience sensitivity, alternate evenings — brightening serum one night, retinol the next.' },
-        { question: 'What SPF should I use with a brightening routine?', answer: 'SPF 50+ broad-spectrum is non-negotiable when treating pigmentation. UV exposure is the #1 trigger for melanin overproduction, so even the best brightening serum will not work without daily sun protection. ULTRA SHIELD SUN CREAM SPF 50+ is specifically designed to complement the Multi Vita Radiance line — lightweight, non-greasy, and suitable for use under makeup in UAE heat.' },
-        { question: 'What is the difference between the brightening serum and cream?', answer: 'Multi Vita Radiance Serum (330 AED) delivers concentrated brightening actives — vitamin C, niacinamide, arbutin — in a lightweight, fast-absorbing formula that penetrates deep into the skin. Multi Vita Radiance Cream (290 AED) provides the same brightening complex in a richer, moisturising base that seals in actives and provides lasting hydration. For best results, use both: serum first for treatment, cream on top to lock in and nourish.' },
+        { question: 'What causes pigmentation in the UAE and how to treat it?', answer: 'Pigmentation in the UAE is primarily caused by intense UV exposure (UV index regularly exceeds 11), hormonal changes (especially during pregnancy or with contraceptives), and post-inflammatory hyperpigmentation from acne. GENOSYS Multi Vita Radiance Serum and Cream contain vitamin C, niacinamide, and arbutin - a triple-action Korean brightening complex that inhibits tyrosinase enzyme activity and gradually fades existing dark spots. For best results, always combine with SPF 50+ sun protection to prevent new melanin production.' },
+        { question: 'Are Korean brightening products safe for dark skin tones?', answer: 'Yes, GENOSYS brightening products are formulated to be safe for all skin tones, including Fitzpatrick types IV - VI common in the Middle East, South Asia, and Africa. They work by regulating melanin production through tyrosinase inhibition rather than bleaching or stripping, making them safer and more effective for long-term use. All products are dermatologically tested and free from hydroquinone.' },
+        { question: 'How long does it take to see results from brightening products?', answer: 'Most users notice a visible improvement in skin radiance within 2-3 weeks of consistent use. Significant fading of dark spots typically takes 6-8 weeks with twice-daily application of Multi Vita Radiance Serum + Cream. Deeper melasma or long-standing pigmentation may take 3-4 months. Consistency and daily SPF 50+ are the two biggest factors for faster results.' },
+        { question: 'Can I combine brightening products with retinol?', answer: 'Yes, but introduce them separately. Use vitamin C / niacinamide-based brightening products (Multi Vita Radiance Serum) in the morning under SPF, and retinol in the evening. Do not layer vitamin C and retinol in the same routine as they work best at different pH levels. If you experience sensitivity, alternate evenings - brightening serum one night, retinol the next.' },
+        { question: 'What SPF should I use with a brightening routine?', answer: 'SPF 50+ broad-spectrum is non-negotiable when treating pigmentation. UV exposure is the #1 trigger for melanin overproduction, so even the best brightening serum will not work without daily sun protection. ULTRA SHIELD SUN CREAM SPF 50+ is specifically designed to complement the Multi Vita Radiance line - lightweight, non-greasy, and suitable for use under makeup in UAE heat.' },
+        { question: 'What is the difference between the brightening serum and cream?', answer: 'Multi Vita Radiance Serum (330 AED) delivers concentrated brightening actives - vitamin C, niacinamide, arbutin - in a lightweight, fast-absorbing formula that penetrates deep into the skin. Multi Vita Radiance Cream (290 AED) provides the same brightening complex in a richer, moisturising base that seals in actives and provides lasting hydration. For best results, use both: serum first for treatment, cream on top to lock in and nourish.' },
       ],
       ar: [
         { question: 'لماذا تبدو البقع الداكنة أوضح في الإمارات؟', answer: 'قد يزيد التعرض القوي والمتكرر للشمس من وضوح تفاوت اللون. يُستخدم سيروم Multi Vita Radiance صباحاً ومساءً للعناية بمظهر البقع، مع واقي شمس واسع الطيف كل صباح.' },
@@ -1145,9 +1145,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ru: 'Протокол домашнего ухода при рубцах и восстановлении кожи',
       },
       description: {
-        en: 'Complete morning & evening routine for scar treatment — EGF regeneration, micro-exfoliation schedule, product sets by scar type, and post-procedure care tips.',
-        ar: 'روتين صباحي ومسائي كامل لعلاج الندبات — تجديد EGF، جدول التقشير الدقيق، مجموعات منتجات حسب نوع الندبة، ونصائح العناية بعد الإجراءات.',
-        ru: 'Полный утренний и вечерний уход при рубцах — EGF-регенерация, график микроэксфолиации, наборы по типу рубца и уход после процедур.',
+        en: 'Complete morning & evening routine for scar treatment - EGF regeneration, micro-exfoliation schedule, product sets by scar type, and post-procedure care tips.',
+        ar: 'روتين صباحي ومسائي كامل لعلاج الندبات - تجديد EGF، جدول التقشير الدقيق، مجموعات منتجات حسب نوع الندبة، ونصائح العناية بعد الإجراءات.',
+        ru: 'Полный утренний и вечерний уход при рубцах - EGF-регенерация, график микроэксфолиации, наборы по типу рубца и уход после процедур.',
       },
       fileSize: '263 KB',
     },
@@ -1155,27 +1155,27 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: {
         title: 'Why Scars Need a Specialised Repair Strategy',
         items: [
-          { icon: '🧬', label: 'Collagen Remodelling', detail: 'Scars are collagen disruptions — flat, raised or pitted, they all result from abnormal wound healing. Effective treatment must trigger controlled collagen remodelling to rebuild smooth, even texture' },
+          { icon: '🧬', label: 'Collagen Remodelling', detail: 'Scars are collagen disruptions - flat, raised or pitted, they all result from abnormal wound healing. Effective treatment must trigger controlled collagen remodelling to rebuild smooth, even texture' },
           { icon: '🔬', label: 'EGF Technology', detail: 'Epidermal Growth Factor (EGF) accelerates skin cell turnover and repair. GENOSYS Soothing Repair Postcream delivers concentrated EGF directly to scar tissue for faster regeneration' },
-          { icon: '🪡', label: 'Microneedling Synergy', detail: 'GENOSYS professional microneedling devices create thousands of micro-channels that trigger the body\'s wound-healing cascade — when paired with EGF repair serums, results multiply significantly' },
+          { icon: '🪡', label: 'Microneedling Synergy', detail: 'GENOSYS professional microneedling devices create thousands of micro-channels that trigger the body\'s wound-healing cascade - when paired with EGF repair serums, results multiply significantly' },
           { icon: '☀️', label: 'UV Protection Critical', detail: 'Sun exposure darkens scars permanently by stimulating excess melanin in damaged tissue. Daily SPF 50+ is non-negotiable during any scar treatment protocol' },
         ],
       },
       ar: {
         title: 'لماذا تحتاج الندبات استراتيجية إصلاح متخصصة',
         items: [
-          { icon: '🧬', label: 'إعادة بناء الكولاجين', detail: 'الندبات هي اضطرابات في الكولاجين — مسطحة أو بارزة أو غائرة، كلها ناتجة عن التئام غير طبيعي للجروح. العلاج الفعال يجب أن يحفز إعادة بناء الكولاجين بشكل متحكم' },
+          { icon: '🧬', label: 'إعادة بناء الكولاجين', detail: 'الندبات هي اضطرابات في الكولاجين - مسطحة أو بارزة أو غائرة، كلها ناتجة عن التئام غير طبيعي للجروح. العلاج الفعال يجب أن يحفز إعادة بناء الكولاجين بشكل متحكم' },
           { icon: '🔬', label: 'تقنية عامل نمو البشرة', detail: 'عامل نمو البشرة (EGF) يسرّع تجديد خلايا الجلد وإصلاحها. كريم GENOSYS للإصلاح المهدئ وقناع EGF يوصلان تركيزات عالية من EGF مباشرة إلى أنسجة الندبات' },
-          { icon: '🪡', label: 'تآزر الوخز بالإبر الدقيقة', detail: 'أجهزة GENOSYS للوخز بالإبر الدقيقة تُنشئ آلاف القنوات الدقيقة التي تحفز آلية التئام الجروح الطبيعية — عند دمجها مع سيرومات EGF تتضاعف النتائج بشكل ملحوظ' },
+          { icon: '🪡', label: 'تآزر الوخز بالإبر الدقيقة', detail: 'أجهزة GENOSYS للوخز بالإبر الدقيقة تُنشئ آلاف القنوات الدقيقة التي تحفز آلية التئام الجروح الطبيعية - عند دمجها مع سيرومات EGF تتضاعف النتائج بشكل ملحوظ' },
           { icon: '☀️', label: 'الحماية من الشمس ضرورية', detail: 'التعرض للشمس يغمّق الندبات بشكل دائم عن طريق تحفيز الميلانين الزائد في الأنسجة المتضررة. واقي الشمس SPF 50+ يومياً أمر لا يقبل التفاوض أثناء أي بروتوكول لعلاج الندبات' },
         ],
       },
       ru: {
         title: 'Почему рубцы требуют специализированной стратегии восстановления',
         items: [
-          { icon: '🧬', label: 'Ремоделирование коллагена', detail: 'Рубцы — это нарушения коллагена: плоские, выпуклые или атрофические — все они результат аномального заживления ран. Эффективное лечение должно запускать контролируемое ремоделирование коллагена для восстановления гладкой текстуры' },
+          { icon: '🧬', label: 'Ремоделирование коллагена', detail: 'Рубцы - это нарушения коллагена: плоские, выпуклые или атрофические - все они результат аномального заживления ран. Эффективное лечение должно запускать контролируемое ремоделирование коллагена для восстановления гладкой текстуры' },
           { icon: '🔬', label: 'Технология EGF', detail: 'Эпидермальный фактор роста (EGF) ускоряет обновление и восстановление клеток кожи. Крем GENOSYS Soothing Repair Postcream доставляет концентрированный EGF непосредственно в рубцовую ткань' },
-          { icon: '🪡', label: 'Синергия с микронидлингом', detail: 'Профессиональные роллеры GENOSYS для микронидлинга создают тысячи микроканалов, запускающих каскад заживления — в сочетании с восстанавливающими сыворотками EGF результаты значительно усиливаются' },
+          { icon: '🪡', label: 'Синергия с микронидлингом', detail: 'Профессиональные роллеры GENOSYS для микронидлинга создают тысячи микроканалов, запускающих каскад заживления - в сочетании с восстанавливающими сыворотками EGF результаты значительно усиливаются' },
           { icon: '☀️', label: 'УФ-защита критична', detail: 'Солнце навсегда затемняет рубцы, стимулируя избыточный меланин в повреждённых тканях. Ежедневный SPF 50+ обязателен при любом протоколе ухода при рубцах' },
         ],
       },
@@ -1185,7 +1185,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Scars Treatment UAE | Acne Scars & Microneedling Dubai | GENOSYS',
         description: 'Professional scar treatment solutions in UAE. GENOSYS microneedling devices & repair serums for acne scars, surgical scars & skin texture. Used by Dubai dermatologists. Free shipping over 1000 AED.',
         h1: 'Scar Treatment & Skin Repair',
-        heroShort: 'Professional EGF repair creams & microneedling serums — rebuild collagen, smooth scar tissue and restore even skin texture with epidermal growth factor technology.',
+        heroShort: 'Professional EGF repair creams & microneedling serums - rebuild collagen, smooth scar tissue and restore even skin texture with epidermal growth factor technology.',
         intro: 'Scar treatment requires a multi-faceted approach combining professional devices with targeted skincare. GENOSYS offers industry-leading microneedling devices (Needle Pen-K, Microneedle Roller) alongside repair serums and post-treatment creams that accelerate skin regeneration. Our microneedling technology creates controlled micro-channels that trigger the skin\'s natural collagen production, effectively improving the appearance of acne scars, surgical scars, and uneven texture. These same devices and protocols are used by licensed dermatologists across Dubai, Abu Dhabi, and Sharjah.',
         keywords: ['scar treatment UAE', 'acne scars Dubai', 'microneedling scars UAE', 'scar removal Dubai', 'Korean scar treatment', 'microneedling devices UAE', 'post-acne scars treatment'],
       },
@@ -1193,7 +1193,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'علاج الندبات الإمارات | ندبات حب الشباب والوخز بالإبر الدقيقة دبي | GENOSYS',
         description: 'حلول احترافية لعلاج الندبات في الإمارات. رولرات الميكرونيدلينغ وسيرومات الإصلاح من GENOSYS لندبات حب الشباب وتحسين ملمس البشرة. توصيل مجاني فوق 1000 درهم.',
         h1: 'علاج الندبات وإصلاح البشرة',
-        heroShort: 'كريمات إصلاح EGF احترافية وسيرومات الوخز بالإبر الدقيقة — إعادة بناء الكولاجين وتنعيم أنسجة الندبات واستعادة ملمس البشرة المتساوي بتقنية عامل نمو البشرة.',
+        heroShort: 'كريمات إصلاح EGF احترافية وسيرومات الوخز بالإبر الدقيقة - إعادة بناء الكولاجين وتنعيم أنسجة الندبات واستعادة ملمس البشرة المتساوي بتقنية عامل نمو البشرة.',
         intro: 'يتطلب علاج الندبات نهجاً متعدد الجوانب يجمع بين أدوات الميكرونيدلينغ الاحترافية والعناية المستهدفة بالبشرة. تقدم GENOSYS رولرات ميكرونيدلينغ مع سيرومات إصلاح وكريمات ما بعد العلاج لتسريع تجديد البشرة.',
         keywords: ['علاج الندبات الإمارات', 'ندبات حب الشباب دبي', 'الوخز بالإبر الدقيقة للندبات', 'إزالة الندبات دبي'],
       },
@@ -1201,7 +1201,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Уход при рубцах ОАЭ | Постакне и микронидлинг Дубай | GENOSYS',
         description: 'Профессиональный уход при рубцах в ОАЭ. Роллеры для микронидлинга и восстанавливающие сыворотки GENOSYS для постакне и неровной текстуры кожи. Бесплатная доставка от 1000 дирхамов.',
         h1: 'Уход при рубцах и восстановление кожи',
-        heroShort: 'Профессиональные восстанавливающие кремы с EGF и сыворотки для микронидлинга — восстановление коллагена, разглаживание рубцовой ткани и выравнивание текстуры кожи с технологией эпидермального фактора роста.',
+        heroShort: 'Профессиональные восстанавливающие кремы с EGF и сыворотки для микронидлинга - восстановление коллагена, разглаживание рубцовой ткани и выравнивание текстуры кожи с технологией эпидермального фактора роста.',
         intro: 'Уход при рубцах требует комплексного подхода, сочетающего профессиональные роллеры и целенаправленный уход. GENOSYS предлагает профессиональные роллеры для микронидлинга вместе с восстанавливающими сыворотками и кремами для ускорения регенерации кожи.',
         keywords: ['лечение рубцов ОАЭ', 'постакне Дубай', 'микронидлинг рубцы ОАЭ', 'удаление рубцов Дубай'],
       },
@@ -1210,12 +1210,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         {
           title: 'Morning Routine',
-          subtitle: 'Repair, hydrate & protect — 5 steps to shield healing skin',
+          subtitle: 'Repair, hydrate & protect - 5 steps to shield healing skin',
           steps: [
             {
               step: 1, title: 'Gentle Cleanse', duration: '1 min',
               summary: 'Remove overnight oils without irritating scar tissue.',
-              detail: 'Apply SNOW O₂ CLEANSER to a dry face, let the oxygen bubbles form naturally — they lift impurities gently without rubbing or aggravating sensitive scar areas. Rinse with lukewarm water and pat dry.',
+              detail: 'Apply SNOW O₂ CLEANSER to a dry face, let the oxygen bubbles form naturally - they lift impurities gently without rubbing or aggravating sensitive scar areas. Rinse with lukewarm water and pat dry.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
@@ -1226,20 +1226,20 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 3, title: 'Hyaluron Serum', duration: '30 sec',
-              summary: 'Keep scar tissue hydrated — dehydrated scars appear more pronounced and heal slower.',
-              detail: 'Apply 2–3 drops of Hyaluron Serum and pat gently over the entire face with emphasis on scarred areas. Hyaluronic acid draws moisture into the tissue, plumping indented scars and creating an optimal environment for repair.',
+              summary: 'Keep scar tissue hydrated - dehydrated scars appear more pronounced and heal slower.',
+              detail: 'Apply 2-3 drops of Hyaluron Serum and pat gently over the entire face with emphasis on scarred areas. Hyaluronic acid draws moisture into the tissue, plumping indented scars and creating an optimal environment for repair.',
               products: [{ name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' }],
             },
             {
               step: 4, title: 'Soothing Postcream', duration: '30 sec',
-              summary: 'Core EGF repair step — epidermal growth factor accelerates cell regeneration in scar tissue.',
+              summary: 'Core EGF repair step - epidermal growth factor accelerates cell regeneration in scar tissue.',
               detail: 'Apply a pea-sized amount of Soothing Repair Postcream, focusing on scarred areas. EGF signals skin cells to regenerate faster, gradually replacing disorganised scar collagen with healthy tissue. Use daily for cumulative results.',
               products: [{ name: 'SOOTHING REPAIR POSTCREAM', url: '/products/25', price: '204 AED' }],
             },
             {
               step: 5, title: 'Sun Protection', duration: '30 sec',
-              summary: 'Critical to prevent scar darkening — UV permanently pigments healing tissue.',
-              detail: 'Apply a 2-finger length strip of ULTRA SHIELD SPF 50+ to face and neck. Scar tissue is especially vulnerable to UV damage — unprotected sun exposure causes scars to darken permanently, undoing all repair progress.',
+              summary: 'Critical to prevent scar darkening - UV permanently pigments healing tissue.',
+              detail: 'Apply a 2-finger length strip of ULTRA SHIELD SPF 50+ to face and neck. Scar tissue is especially vulnerable to UV damage - unprotected sun exposure causes scars to darken permanently, undoing all repair progress.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
           ],
@@ -1250,7 +1250,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'Double Cleanse', duration: '2 min',
-              summary: 'Remove SPF and impurities thoroughly — residue blocks repair actives from penetrating scar tissue.',
+              summary: 'Remove SPF and impurities thoroughly - residue blocks repair actives from penetrating scar tissue.',
               detail: 'First cleanse: SKIN DEFENDER removes SPF and makeup from eye/lip area. Second cleanse: SNOW O₂ CLEANSER deep-cleans residual sunscreen and environmental buildup without stripping the skin barrier.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -1258,21 +1258,21 @@ export const CONCERN_PAGES: ConcernPage[] = [
               ],
             },
             {
-              step: 2, title: 'Exfoliate (2–3× per week)', duration: '1 min',
-              summary: 'Remove dead cells that trap discoloured scar tissue — reveals smoother skin underneath.',
-              detail: 'Apply EPI TURNOVER Peeling Gel to dry skin and massage gently in circular motions for 30 seconds. Dead cells roll off visibly. Rinse thoroughly. Use 2–3 times per week — not daily, as over-exfoliation can irritate healing scars.',
+              step: 2, title: 'Exfoliate (2-3× per week)', duration: '1 min',
+              summary: 'Remove dead cells that trap discoloured scar tissue - reveals smoother skin underneath.',
+              detail: 'Apply EPI TURNOVER Peeling Gel to dry skin and massage gently in circular motions for 30 seconds. Dead cells roll off visibly. Rinse thoroughly. Use 2-3 times per week - not daily, as over-exfoliation can irritate healing scars.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
             {
-              step: 3, title: 'PDRN Repair Mask', duration: '15–20 min',
-              summary: 'Intensive PDRN repair — salmon DNA stimulates collagen remodelling in scar tissue.',
-              detail: 'Apply SKIN REBOOT PDRN MASK PACK 2–3 times per week in the evening. PDRN (salmon DNA) promotes tissue regeneration and collagen synthesis in scar tissue, while the spicule texture boosts absorption. Remove after 15–20 minutes and pat in the remaining essence.',
+              step: 3, title: 'PDRN Repair Mask', duration: '15-20 min',
+              summary: 'Intensive PDRN repair - salmon DNA stimulates collagen remodelling in scar tissue.',
+              detail: 'Apply SKIN REBOOT PDRN MASK PACK 2-3 times per week in the evening. PDRN (salmon DNA) promotes tissue regeneration and collagen synthesis in scar tissue, while the spicule texture boosts absorption. Remove after 15-20 minutes and pat in the remaining essence.',
               products: [{ name: 'SKIN REBOOT PDRN MASK PACK', url: '/products/52', price: '400 AED' }],
             },
             {
               step: 4, title: 'Barrier Cream', duration: '30 sec',
               summary: 'Seal in repair actives and protect the skin barrier overnight.',
-              detail: 'Apply SKIN BARRIER PROTECTING CREAM to lock in the repair actives and prevent transepidermal water loss while you sleep. A strong barrier is essential for scar healing — compromised barriers slow collagen production.',
+              detail: 'Apply SKIN BARRIER PROTECTING CREAM to lock in the repair actives and prevent transepidermal water loss while you sleep. A strong barrier is essential for scar healing - compromised barriers slow collagen production.',
               products: [{ name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' }],
             },
           ],
@@ -1281,12 +1281,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ar: [
         {
           title: 'الروتين الصباحي',
-          subtitle: 'إصلاح وترطيب وحماية — 5 خطوات لحماية البشرة أثناء التعافي',
+          subtitle: 'إصلاح وترطيب وحماية - 5 خطوات لحماية البشرة أثناء التعافي',
           steps: [
             {
               step: 1, title: 'التنظيف اللطيف', duration: 'دقيقة واحدة',
               summary: 'إزالة الزيوت الليلية دون تهييج أنسجة الندبات.',
-              detail: 'ضعي SNOW O₂ CLEANSER على الوجه الجاف، دعي فقاعات الأكسجين تتشكل طبيعياً — ترفع الشوائب برفق دون فرك المناطق الحساسة. اشطفي بماء فاتر وجففي بالتربيت.',
+              detail: 'ضعي SNOW O₂ CLEANSER على الوجه الجاف، دعي فقاعات الأكسجين تتشكل طبيعياً - ترفع الشوائب برفق دون فرك المناطق الحساسة. اشطفي بماء فاتر وجففي بالتربيت.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
@@ -1309,7 +1309,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 5, title: 'واقي الشمس', duration: '30 ثانية',
-              summary: 'ضروري لمنع تغمّق الندبات — الأشعة فوق البنفسجية تصبّغ الأنسجة المتعافية بشكل دائم.',
+              summary: 'ضروري لمنع تغمّق الندبات - الأشعة فوق البنفسجية تصبّغ الأنسجة المتعافية بشكل دائم.',
               detail: 'يوزع ULTRA SHIELD SPF 50+ بسخاء وبالتساوي قبل الخروج بـ15 دقيقة على الأقل، ويجدد كل ساعتين على الأقل في الخارج وبعد الماء أو التعرق.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
@@ -1321,7 +1321,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'التنظيف المزدوج', duration: 'دقيقتان',
-              summary: 'إزالة واقي الشمس والشوائب بالكامل — البقايا تمنع المكونات الإصلاحية من التغلغل.',
+              summary: 'إزالة واقي الشمس والشوائب بالكامل - البقايا تمنع المكونات الإصلاحية من التغلغل.',
               detail: 'التنظيف الأول: SKIN DEFENDER لإزالة واقي الشمس والمكياج. التنظيف الثاني: SNOW O₂ CLEANSER لتنظيف عميق للبقايا دون تجريد حاجز البشرة.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -1330,8 +1330,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 2, title: 'التقشير (2-3 مرات أسبوعياً)', duration: 'دقيقة واحدة',
-              summary: 'إزالة الخلايا الميتة التي تحبس أنسجة الندبات المتغيرة اللون — يكشف عن بشرة أنعم.',
-              detail: 'ضعي جل التقشير على البشرة الجافة ودلكي بحركات دائرية لمدة 30 ثانية. الخلايا الميتة تتساقط بشكل مرئي. اشطفي جيداً. استخدمي 2-3 مرات أسبوعياً — ليس يومياً لتجنب تهييج الندبات.',
+              summary: 'إزالة الخلايا الميتة التي تحبس أنسجة الندبات المتغيرة اللون - يكشف عن بشرة أنعم.',
+              detail: 'ضعي جل التقشير على البشرة الجافة ودلكي بحركات دائرية لمدة 30 ثانية. الخلايا الميتة تتساقط بشكل مرئي. اشطفي جيداً. استخدمي 2-3 مرات أسبوعياً - ليس يومياً لتجنب تهييج الندبات.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
             {
@@ -1346,12 +1346,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ru: [
         {
           title: 'Утренний уход',
-          subtitle: 'Восстановление, увлажнение и защита — 5 шагов для заживающей кожи',
+          subtitle: 'Восстановление, увлажнение и защита - 5 шагов для заживающей кожи',
           steps: [
             {
               step: 1, title: 'Бережное очищение', duration: '1 мин',
               summary: 'Удалите ночные выделения, не раздражая рубцовую ткань.',
-              detail: 'Нанесите SNOW O₂ CLEANSER на сухое лицо, дайте кислородным пузырькам сформироваться — они мягко поднимают загрязнения без трения чувствительных зон. Смойте тёплой водой и промокните.',
+              detail: 'Нанесите SNOW O₂ CLEANSER на сухое лицо, дайте кислородным пузырькам сформироваться - они мягко поднимают загрязнения без трения чувствительных зон. Смойте тёплой водой и промокните.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
@@ -1363,7 +1363,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 3, title: 'Гиалуроновая сыворотка', duration: '30 сек',
               summary: 'Лёгкое увлажнение помогает коже выглядеть более гладкой и чувствовать себя комфортнее.',
-              detail: 'Нанесите 2–3 капли на лицо и мягко вбейте, не растирая чувствительные участки. Гидролизованная гиалуроновая кислота 2 000 ppm и PENTAVITIN 0,615% поддерживают увлажнение, не обещая заполнить рубцы.',
+              detail: 'Нанесите 2-3 капли на лицо и мягко вбейте, не растирая чувствительные участки. Гидролизованная гиалуроновая кислота 2 000 ppm и PENTAVITIN 0,615% поддерживают увлажнение, не обещая заполнить рубцы.',
               products: [{ name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' }],
             },
             {
@@ -1374,7 +1374,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 5, title: 'Солнцезащита', duration: '30 сек',
-              summary: 'Критически важно для предотвращения потемнения рубцов — УФ навсегда пигментирует заживающую ткань.',
+              summary: 'Критически важно для предотвращения потемнения рубцов - УФ навсегда пигментирует заживающую ткань.',
               detail: 'Равномерно и щедро нанесите ULTRA SHIELD SPF 50+ минимум за 15 минут до выхода. Обновляйте не реже чем каждые два часа на улице, а также после воды или пота.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
@@ -1386,7 +1386,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'Двойное очищение', duration: '2 мин',
-              summary: 'Тщательно удалите SPF и загрязнения — остатки блокируют проникновение восстанавливающих активов.',
+              summary: 'Тщательно удалите SPF и загрязнения - остатки блокируют проникновение восстанавливающих активов.',
               detail: 'Первый этап: SKIN DEFENDER удаляет SPF и макияж. Второй этап: SNOW O₂ CLEANSER глубоко очищает от остатков санскрина и загрязнений, не нарушая барьер кожи.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -1394,9 +1394,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
               ],
             },
             {
-              step: 2, title: 'Пилинг (2–3 раза в неделю)', duration: '1 мин',
-              summary: 'Удалите мёртвые клетки, удерживающие обесцвеченную рубцовую ткань — открывает более гладкую кожу.',
-              detail: 'Нанесите пилинг-гель на сухую кожу и массируйте круговыми движениями 30 секунд. Мёртвые клетки скатываются. Тщательно смойте. Используйте 2–3 раза в неделю — не ежедневно, чтобы не раздражать рубцы.',
+              step: 2, title: 'Пилинг (2-3 раза в неделю)', duration: '1 мин',
+              summary: 'Удалите мёртвые клетки, удерживающие обесцвеченную рубцовую ткань - открывает более гладкую кожу.',
+              detail: 'Нанесите пилинг-гель на сухую кожу и массируйте круговыми движениями 30 секунд. Мёртвые клетки скатываются. Тщательно смойте. Используйте 2-3 раза в неделю - не ежедневно, чтобы не раздражать рубцы.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
             {
@@ -1413,9 +1413,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         { question: 'Can microneedling remove acne scars?', answer: 'Yes, microneedling is one of the most effective treatments for acne scars. GENOSYS microneedling devices create thousands of micro-channels in the skin, triggering natural collagen and elastin production that fills in scar tissue over multiple sessions. Clinical studies show 60-80% improvement in scar appearance after 3-6 sessions. GENOSYS also provides post-treatment serums (Power Solutions) that accelerate healing and maximize results.' },
         { question: 'What GENOSYS products are best for scar treatment at home?', answer: 'For home scar treatment, we recommend the GENOSYS Microneedle Roller combined with the Soothing Repair Postcream (204 AED) and SKIN REBOOT PDRN MASK PACK (400 AED). The roller creates micro-channels for better product absorption, while the Postcream contains EGF (Epidermal Growth Factor) and the PDRN mask delivers salmon DNA that promotes skin cell regeneration. Pair with Hyaluron Serum (330 AED) for hydration and ULTRA SHIELD SPF 50+ (250 AED) to prevent scar darkening.' },
-        { question: 'How long does it take to see improvement in scars?', answer: 'Results depend on scar type and severity. Surface-level post-acne marks may start fading within 4–6 weeks of consistent EGF use. Deeper atrophic (pitted) scars typically show noticeable improvement after 8–12 weeks with a combined routine of daily EGF Postcream, twice-weekly exfoliation, and a PDRN repair mask in the evening. Professional microneedling can accelerate results — most patients see 40–60% improvement after 3 sessions spaced 4 weeks apart.' },
-        { question: 'Can I treat old scars that are several years old?', answer: 'Yes, even mature scars respond to treatment — though they require more patience. Old scars have settled collagen structures, but EGF (Epidermal Growth Factor) can still stimulate new cell turnover and gradual remodelling. The Soothing Repair Postcream and SKIN REBOOT PDRN MASK PACK work over time to soften rigid scar tissue and improve texture. Microneedling is especially effective for old scars because it forces the skin to restart the wound-healing cascade. Expect 3–6 months of consistent use for visible improvement on scars older than 2 years.' },
-        { question: 'How does sun exposure affect scar treatment?', answer: 'Sun exposure is the single biggest threat to scar recovery. UV radiation stimulates melanocytes in scar tissue to overproduce melanin, causing scars to darken permanently — a process called post-inflammatory hyperpigmentation. This is especially problematic in the UAE where UV index regularly exceeds 11. Always apply ULTRA SHIELD SPF 50+ (250 AED) every morning and reapply every 2 hours when outdoors. Even on cloudy days, up to 80% of UV rays penetrate — skipping SPF can undo months of repair progress.' },
+        { question: 'How long does it take to see improvement in scars?', answer: 'Results depend on scar type and severity. Surface-level post-acne marks may start fading within 4-6 weeks of consistent EGF use. Deeper atrophic (pitted) scars typically show noticeable improvement after 8-12 weeks with a combined routine of daily EGF Postcream, twice-weekly exfoliation, and a PDRN repair mask in the evening. Professional microneedling can accelerate results - most patients see 40-60% improvement after 3 sessions spaced 4 weeks apart.' },
+        { question: 'Can I treat old scars that are several years old?', answer: 'Yes, even mature scars respond to treatment - though they require more patience. Old scars have settled collagen structures, but EGF (Epidermal Growth Factor) can still stimulate new cell turnover and gradual remodelling. The Soothing Repair Postcream and SKIN REBOOT PDRN MASK PACK work over time to soften rigid scar tissue and improve texture. Microneedling is especially effective for old scars because it forces the skin to restart the wound-healing cascade. Expect 3-6 months of consistent use for visible improvement on scars older than 2 years.' },
+        { question: 'How does sun exposure affect scar treatment?', answer: 'Sun exposure is the single biggest threat to scar recovery. UV radiation stimulates melanocytes in scar tissue to overproduce melanin, causing scars to darken permanently - a process called post-inflammatory hyperpigmentation. This is especially problematic in the UAE where UV index regularly exceeds 11. Always apply ULTRA SHIELD SPF 50+ (250 AED) every morning and reapply every 2 hours when outdoors. Even on cloudy days, up to 80% of UV rays penetrate - skipping SPF can undo months of repair progress.' },
       ],
       ar: [
         { question: 'هل يمكن للوخز بالإبر الدقيقة إزالة ندبات حب الشباب؟', answer: 'نعم، الوخز بالإبر الدقيقة من أكثر العلاجات فعالية لندبات حب الشباب. أجهزة GENOSYS تنشئ آلاف القنوات الدقيقة في الجلد، مما يحفز إنتاج الكولاجين والإيلاستين الطبيعي لملء أنسجة الندبات. الدراسات السريرية تُظهر تحسناً بنسبة 60-80٪ بعد 3-6 جلسات. كما توفر GENOSYS سيرومات ما بعد العلاج لتسريع الشفاء.' },
@@ -1423,9 +1423,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
         { question: 'كيف يؤثر التعرض للشمس على علاج الندبات؟', answer: 'التعرض للشمس هو أكبر تهديد لتعافي الندبات. الأشعة فوق البنفسجية تحفز الخلايا الصبغية في أنسجة الندبات على إنتاج الميلانين بإفراط، مما يغمّق الندبات بشكل دائم. هذا مشكلة خاصة في الإمارات حيث مؤشر UV يتجاوز 11 بانتظام. استخدمي ULTRA SHIELD SPF 50+ كل صباح وأعيدي التطبيق كل ساعتين عند الخروج.' },
       ],
       ru: [
-        { question: 'Может ли микронидлинг убрать рубцы от акне?', answer: 'Да, микронидлинг — одна из самых эффективных процедур для лечения рубцов от акне. Устройства GENOSYS создают тысячи микроканалов в коже, стимулируя естественную выработку коллагена и эластина для заполнения рубцовой ткани. Клинические исследования показывают улучшение на 60-80% после 3-6 сеансов. GENOSYS также предоставляет сыворотки для ускорения заживления.' },
+        { question: 'Может ли микронидлинг убрать рубцы от акне?', answer: 'Да, микронидлинг - одна из самых эффективных процедур для лечения рубцов от акне. Устройства GENOSYS создают тысячи микроканалов в коже, стимулируя естественную выработку коллагена и эластина для заполнения рубцовой ткани. Клинические исследования показывают улучшение на 60-80% после 3-6 сеансов. GENOSYS также предоставляет сыворотки для ускорения заживления.' },
         { question: 'Сколько времени нужно для улучшения рубцов?', answer: 'Срок зависит от типа, глубины и возраста рубца, поэтому оценку и план лучше получить у дерматолога. SKIN REBOOT PDRN MASK PACK может быть только дополнительным увлажняющим уходом для целой кожи: клинических данных об изменении рубцовой ткани у неё нет.' },
-        { question: 'Как солнце влияет на лечение рубцов?', answer: 'Солнце — главная угроза восстановлению рубцов. УФ-излучение стимулирует меланоциты в рубцовой ткани к избыточной выработке меланина, навсегда затемняя рубцы. Это особенно проблематично в ОАЭ, где УФ-индекс регулярно превышает 11. Наносите ULTRA SHIELD SPF 50+ (250 дирхамов) каждое утро и обновляйте каждые 2 часа на открытом воздухе.' },
+        { question: 'Как солнце влияет на лечение рубцов?', answer: 'Солнце - главная угроза восстановлению рубцов. УФ-излучение стимулирует меланоциты в рубцовой ткани к избыточной выработке меланина, навсегда затемняя рубцы. Это особенно проблематично в ОАЭ, где УФ-индекс регулярно превышает 11. Наносите ULTRA SHIELD SPF 50+ (250 дирхамов) каждое утро и обновляйте каждые 2 часа на открытом воздухе.' },
       ],
     },
   },
@@ -1458,9 +1458,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: {
         title: 'Why Hair Loss Needs a Targeted Approach in the UAE',
         items: [
-          { icon: '🌡️', label: 'UAE Hair Loss Triggers', detail: 'Extreme heat, hard water with high mineral content, the vitamin D paradox (indoor lifestyles despite year-round sun), and chronic stress — all accelerate hair thinning in the Gulf' },
+          { icon: '🌡️', label: 'UAE Hair Loss Triggers', detail: 'Extreme heat, hard water with high mineral content, the vitamin D paradox (indoor lifestyles despite year-round sun), and chronic stress - all accelerate hair thinning in the Gulf' },
           { icon: '🔬', label: 'Follicle Activation Technology', detail: 'GENOSYS HR3 MATRIX line delivers peptides, biotin and caffeine directly into the follicle to reactivate the anagen (growth) phase' },
-          { icon: '🌿', label: 'Scalp Ecosystem Approach', detail: 'Healthy hair starts with a healthy scalp — our system exfoliates build-up, balances sebum and restores the microbiome for optimal follicle function' },
+          { icon: '🌿', label: 'Scalp Ecosystem Approach', detail: 'Healthy hair starts with a healthy scalp - our system exfoliates build-up, balances sebum and restores the microbiome for optimal follicle function' },
           { icon: '🧪', label: 'Clinic-Grade at Home', detail: 'The same HR3 MATRIX formulas used by trichologists and dermatology clinics in Dubai, now available for your daily home routine' },
         ],
       },
@@ -1489,12 +1489,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       // claimed it was "recommended by Dubai trichologists". None of the HR³ MATRIX
       // products is registered to treat hair loss, no efficacy study exists behind any
       // of them, and no trichologist endorsement is on file. The page still targets the
-      // concern — someone searching for it should find us — without claiming to treat it.
+      // concern - someone searching for it should find us - without claiming to treat it.
       en: {
         title: 'Hair Loss & Scalp Care UAE | Korean Scalp Range Dubai | GENOSYS',
-        description: 'Professional Korean scalp care in the UAE. The GENOSYS HR³ MATRIX range — shampoo, tonic, ampoule and scalp peeling — with the measured concentration behind every ingredient we name. Free shipping over 1000 AED.',
+        description: 'Professional Korean scalp care in the UAE. The GENOSYS HR³ MATRIX range - shampoo, tonic, ampoule and scalp peeling - with the measured concentration behind every ingredient we name. Free shipping over 1000 AED.',
         h1: 'Hair Loss & Scalp Care',
-        heroShort: 'Professional Korean scalp care — the HR³ MATRIX shampoo, tonic and ampoule, registered for scalp cleansing, scalp nourishing and hair conditioning.',
+        heroShort: 'Professional Korean scalp care - the HR³ MATRIX shampoo, tonic and ampoule, registered for scalp cleansing, scalp nourishing and hair conditioning.',
         intro: 'Thinning and shedding are common concerns in the UAE, where stress, vitamin D deficiency from indoor lifestyles, heat and hard water all work against the scalp. GENOSYS offers a professional Korean scalp range that cleanses, cools and conditions the skin your hair grows out of, and we publish the measured concentration behind every ingredient we name. What we do not do is call it a treatment: none of these products is registered to treat hair loss, and if you are losing hair the first step is a doctor, because several causes are treatable with things a cosmetic cannot replace.',
         keywords: ['hair loss UAE', 'scalp care UAE', 'Korean scalp products', 'hair thinning Dubai', 'scalp shampoo Dubai', 'HR3 MATRIX'],
       },
@@ -1511,7 +1511,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         description: 'Профессиональный корейский уход за кожей головы в ОАЭ: средства HR³ MATRIX, силиконовая щётка для этапа шампуня и массажный шлем Hair-GENTRON. Без заявления о лечении выпадения.',
         h1: 'Выпадение волос и уход за кожей головы',
         heroShort: 'Косметические средства для кожи головы и массажный шлем с таймером, в ясных границах и без обещаний лечить выпадение.',
-        intro: 'Когда истончение или выпадение волос вызывает беспокойство, линия HR³ MATRIX решает понятные косметические задачи: шампунь очищает, силиконовая щётка по желанию используется на этапе вспененного шампуня, тоник питает кожу головы и кондиционирует волосы, а Hair Solution в восьми одноразовых флаконах по 4 мл обеспечивает питание и кондиционирование. Щётка остаётся только в этапе мытья; несмываемые средства после него наносят пальцами. Для процедуры HairGen Booster новый Hair Stamp с 52 микроиглами устанавливают на новый флакон Hair Solution; через 10 минут аппарат останавливается автоматически. Штамп индивидуальный и одноразовый, в коробке восемь штук. Глубина 0,3 мм указана только на текущем макете и отсутствует в буклете и руководстве производителя. Mesopecia Kit объединяет пилинг 100 мл, шесть флаконов раствора и одноразовый роллер 0,5 мм. Hair-GENTRON — отдельный немедицинский массажный шлем с четырьмя режимами LED, воздушным массажем, регулируемым нагревом и таймером на 10, 20 или 30 минут; клинических данных эффективности именно устройства нет. Ни один из этих вариантов не лечит выпадение и не стимулирует рост. Если выпадение продолжается, первым шагом должна быть медицинская диагностика.',
+        intro: 'Когда истончение или выпадение волос вызывает беспокойство, линия HR³ MATRIX решает понятные косметические задачи: шампунь очищает, силиконовая щётка по желанию используется на этапе вспененного шампуня, тоник питает кожу головы и кондиционирует волосы, а Hair Solution в восьми одноразовых флаконах по 4 мл обеспечивает питание и кондиционирование. Щётка остаётся только в этапе мытья; несмываемые средства после него наносят пальцами. Для процедуры HairGen Booster новый Hair Stamp с 52 микроиглами устанавливают на новый флакон Hair Solution; через 10 минут аппарат останавливается автоматически. Штамп индивидуальный и одноразовый, в коробке восемь штук. Глубина 0,3 мм указана только на текущем макете и отсутствует в буклете и руководстве производителя. Mesopecia Kit объединяет пилинг 100 мл, шесть флаконов раствора и одноразовый роллер 0,5 мм. Hair-GENTRON - отдельный немедицинский массажный шлем с четырьмя режимами LED, воздушным массажем, регулируемым нагревом и таймером на 10, 20 или 30 минут; клинических данных эффективности именно устройства нет. Ни один из этих вариантов не лечит выпадение и не стимулирует рост. Если выпадение продолжается, первым шагом должна быть медицинская диагностика.',
         keywords: ['выпадение волос ОАЭ', 'уход за кожей головы ОАЭ', 'корейские средства для кожи головы', 'истончение волос Дубай'],
       },
     },
@@ -1519,24 +1519,24 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         {
           title: 'Morning Routine',
-          subtitle: 'Cleanse, nourish & protect — takes just 5 minutes',
+          subtitle: 'Cleanse, nourish & protect - takes just 5 minutes',
           steps: [
             {
               step: 1, title: 'Shampoo', duration: '2 min',
-              summary: 'Gently cleanse the scalp without stripping natural oils — removes overnight sebum and product residue.',
-              detail: 'Wet hair thoroughly. Apply a small amount of HR3 Matrix Shampoo to the scalp (not lengths) and massage with fingertips for 60 seconds. The sulfate-free formula cleanses without disrupting the scalp barrier. Rinse with lukewarm water — hot water worsens hair loss.',
+              summary: 'Gently cleanse the scalp without stripping natural oils - removes overnight sebum and product residue.',
+              detail: 'Wet hair thoroughly. Apply a small amount of HR3 Matrix Shampoo to the scalp (not lengths) and massage with fingertips for 60 seconds. The sulfate-free formula cleanses without disrupting the scalp barrier. Rinse with lukewarm water - hot water worsens hair loss.',
               products: [{ name: 'HR3 MATRIX SHAMPOO', url: '/products/44', price: '340 AED' }],
             },
             {
               step: 2, title: 'Tonic', duration: '1 min',
-              summary: 'Core follicle activation step — delivers peptides and caffeine directly to the scalp.',
-              detail: 'Part hair into sections and apply HR3 Matrix Tonic directly to the scalp using the nozzle. Massage gently for 30 seconds. Do not rinse — the tonic absorbs and works throughout the day.',
+              summary: 'Core follicle activation step - delivers peptides and caffeine directly to the scalp.',
+              detail: 'Part hair into sections and apply HR3 Matrix Tonic directly to the scalp using the nozzle. Massage gently for 30 seconds. Do not rinse - the tonic absorbs and works throughout the day.',
               products: [{ name: 'HR3 MATRIX TONIC', url: '/products/43', price: '290 AED' }],
             },
             {
               step: 3, title: 'Protect & Style', duration: '2 min',
-              summary: 'Style as usual — avoid tight hairstyles and excessive heat tools that stress fragile hair.',
-              detail: 'Allow hair to air-dry when possible. If using heat tools, keep temperature below 180°C. Avoid tight ponytails and braids that cause traction alopecia — especially common in the UAE.',
+              summary: 'Style as usual - avoid tight hairstyles and excessive heat tools that stress fragile hair.',
+              detail: 'Allow hair to air-dry when possible. If using heat tools, keep temperature below 180°C. Avoid tight ponytails and braids that cause traction alopecia - especially common in the UAE.',
               products: [],
             },
           ],
@@ -1547,8 +1547,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'Scalp Massage with Solution', duration: '3 min',
-              summary: 'Intensive growth treatment — the solution delivers high-concentration actives while massage boosts blood flow to follicles.',
-              detail: 'Apply HR3 Matrix Solution to dry or towel-dried scalp using the dropper. Use the Scalp Brush to massage in circular motions for 2–3 minutes — this increases microcirculation by up to 300%. Focus on thinning areas: temples, crown, and hairline.',
+              summary: 'Intensive growth treatment - the solution delivers high-concentration actives while massage boosts blood flow to follicles.',
+              detail: 'Apply HR3 Matrix Solution to dry or towel-dried scalp using the dropper. Use the Scalp Brush to massage in circular motions for 2-3 minutes - this increases microcirculation by up to 300%. Focus on thinning areas: temples, crown, and hairline.',
               products: [
                 { name: 'HR3 MATRIX SOLUTION', url: '/products/45', price: '740 AED' },
                 { name: 'SCALP BRUSH', url: '/products/61', price: '50 AED' },
@@ -1556,26 +1556,26 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 2, title: 'Tonic', duration: '1 min',
-              summary: 'Second daily application of the tonic — night-time is when hair follicles are most active in regeneration.',
-              detail: 'Part hair into sections and apply HR3 Matrix Tonic directly to the scalp. Pat gently — do not rub. The tonic layers over the solution to provide sustained nourishment overnight.',
+              summary: 'Second daily application of the tonic - night-time is when hair follicles are most active in regeneration.',
+              detail: 'Part hair into sections and apply HR3 Matrix Tonic directly to the scalp. Pat gently - do not rub. The tonic layers over the solution to provide sustained nourishment overnight.',
               products: [{ name: 'HR3 MATRIX TONIC', url: '/products/43', price: '290 AED' }],
             },
             {
               step: 3, title: 'Sleep Overnight', duration: 'overnight',
-              summary: 'Let the actives work while you sleep — no rinsing required.',
-              detail: 'Use a silk or satin pillowcase to minimize friction. The solution and tonic absorb fully overnight. Hair follicles enter their most active repair phase during sleep — the HR3 actives synergize with this natural cycle.',
+              summary: 'Let the actives work while you sleep - no rinsing required.',
+              detail: 'Use a silk or satin pillowcase to minimize friction. The solution and tonic absorb fully overnight. Hair follicles enter their most active repair phase during sleep - the HR3 actives synergize with this natural cycle.',
               products: [],
             },
           ],
         },
         {
           title: 'Weekly Treatment',
-          subtitle: 'Deep exfoliation — once per week before shampoo',
+          subtitle: 'Deep exfoliation - once per week before shampoo',
           steps: [
             {
               step: 1, title: 'Scalp Peeling', duration: '5 min',
-              summary: 'Remove product build-up, dead skin cells and excess sebum that suffocate follicles — the foundation of a healthy scalp.',
-              detail: 'Apply HR3 Scalp Peeling to dry scalp before shampooing. Massage gently for 2 minutes and leave on for 3 minutes. Rinse thoroughly, then proceed with HR3 Matrix Shampoo. Use once per week — over-exfoliation can irritate the scalp. Hard water in the UAE leaves mineral deposits that this step specifically targets.',
+              summary: 'Remove product build-up, dead skin cells and excess sebum that suffocate follicles - the foundation of a healthy scalp.',
+              detail: 'Apply HR3 Scalp Peeling to dry scalp before shampooing. Massage gently for 2 minutes and leave on for 3 minutes. Rinse thoroughly, then proceed with HR3 Matrix Shampoo. Use once per week - over-exfoliation can irritate the scalp. Hard water in the UAE leaves mineral deposits that this step specifically targets.',
               products: [{ name: 'HR3 SCALP PEELING', url: '/products/46', price: '290 AED' }],
             },
           ],
@@ -1584,12 +1584,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ar: [
         {
           title: 'الروتين الصباحي',
-          subtitle: 'تنظيف وتغذية وحماية — 5 دقائق فقط',
+          subtitle: 'تنظيف وتغذية وحماية - 5 دقائق فقط',
           steps: [
             {
               step: 1, title: 'الشامبو', duration: 'نحو 3 دقائق',
               summary: 'تنظيف دقيق لفروة الرأس والشعر مع انتعاش واضح.',
-              detail: 'بللي الشعر جيداً. كوّني رغوة من 3–5 مل من شامبو HR3 Matrix على فروة الرأس. يمكن تمرير فرشاة السيليكون بلطف بضغط متحكم فيه في هذه الخطوة فقط، ثم تترك الرغوة نحو ثلاث دقائق وتشطف جيداً. لا تستخدمي الفرشاة لتطبيق التونيك أو أي مستحضر يترك على الفروة. لا يحتوي الشامبو على SLS أو SLES؛ والمنظف الرئيسي سلفونات وليس سلفات.',
+              detail: 'بللي الشعر جيداً. كوّني رغوة من 3-5 مل من شامبو HR3 Matrix على فروة الرأس. يمكن تمرير فرشاة السيليكون بلطف بضغط متحكم فيه في هذه الخطوة فقط، ثم تترك الرغوة نحو ثلاث دقائق وتشطف جيداً. لا تستخدمي الفرشاة لتطبيق التونيك أو أي مستحضر يترك على الفروة. لا يحتوي الشامبو على SLS أو SLES؛ والمنظف الرئيسي سلفونات وليس سلفات.',
               products: [
                 { name: 'HR3 MATRIX SHAMPOO', url: '/products/44', price: '340 AED' },
                 { name: 'HR3 MATRIX SCALP BRUSH', url: '/products/61', price: '50 AED' },
@@ -1598,12 +1598,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 2, title: 'التونيك', duration: 'دقيقة واحدة',
               summary: 'تونيك خفيف لتغذية فروة الرأس وتكييف الشعر مع إحساس منعش.',
-              detail: 'قسمي الشعر ورشي HR3 Matrix Hair Tonic α مباشرة على فروة الرأس. دلكي بحركات دائرية واتركيه 3–4 ساعات على الأقل من دون شطف. يحتوي على 9.5% من الكحول المحوّل؛ راجعي موانع الساليسيلات قبل الاستخدام.',
+              detail: 'قسمي الشعر ورشي HR3 Matrix Hair Tonic α مباشرة على فروة الرأس. دلكي بحركات دائرية واتركيه 3-4 ساعات على الأقل من دون شطف. يحتوي على 9.5% من الكحول المحوّل؛ راجعي موانع الساليسيلات قبل الاستخدام.',
               products: [{ name: 'HR3 MATRIX TONIC', url: '/products/43', price: '290 AED' }],
             },
             {
               step: 3, title: 'الحماية والتصفيف', duration: 'دقيقتان',
-              summary: 'صففي كالمعتاد — تجنبي التسريحات المشدودة وأدوات الحرارة المفرطة.',
+              summary: 'صففي كالمعتاد - تجنبي التسريحات المشدودة وأدوات الحرارة المفرطة.',
               detail: 'اتركي الشعر يجف طبيعياً قدر الإمكان. عند استخدام أدوات الحرارة حافظي على درجة حرارة أقل من 180 درجة مئوية. تجنبي الذيل المشدود والضفائر التي تسبب تساقط الشعر الشدّي.',
               products: [],
             },
@@ -1625,7 +1625,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 2, title: 'التونيك', duration: 'دقيقة واحدة',
               summary: 'التطبيق اليومي الثاني للعناية بفروة الرأس وتكييف الشعر.',
-              detail: 'رشي التونيك مباشرة على فروة الرأس ودلكيه بحركات دائرية. اتركيه 3–4 ساعات على الأقل أو طوال الليل، من دون ادعاء علاج التساقط أو تحفيز النمو.',
+              detail: 'رشي التونيك مباشرة على فروة الرأس ودلكيه بحركات دائرية. اتركيه 3-4 ساعات على الأقل أو طوال الليل، من دون ادعاء علاج التساقط أو تحفيز النمو.',
               products: [{ name: 'HR3 MATRIX TONIC', url: '/products/43', price: '290 AED' }],
             },
             {
@@ -1638,7 +1638,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         },
         {
           title: 'العلاج الأسبوعي',
-          subtitle: 'تقشير عميق — مرة واحدة أسبوعياً قبل الشامبو',
+          subtitle: 'تقشير عميق - مرة واحدة أسبوعياً قبل الشامبو',
           steps: [
             {
               step: 1, title: 'تنظيف يترك على فروة الرأس', duration: '5 دقائق',
@@ -1652,12 +1652,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ru: [
         {
           title: 'Утренний уход',
-          subtitle: 'Очищение, питание и защита — всего 5 минут',
+          subtitle: 'Очищение, питание и защита - всего 5 минут',
           steps: [
             {
               step: 1, title: 'Шампунь', duration: 'около 3 мин',
               summary: 'Тщательное очищение кожи головы и волос с выраженной свежестью.',
-              detail: 'Тщательно намочите волосы. Вспеньте 3–5 мл шампуня HR3 Matrix на коже головы. На этом этапе можно мягко провести силиконовой щёткой с контролируемым нажимом, затем оставить пену примерно на три минуты и тщательно смыть. Не используйте щётку для тоника или другого несмываемого средства. В составе шампуня нет SLS и SLES; основной ПАВ — сульфонат, а не сульфат.',
+              detail: 'Тщательно намочите волосы. Вспеньте 3-5 мл шампуня HR3 Matrix на коже головы. На этом этапе можно мягко провести силиконовой щёткой с контролируемым нажимом, затем оставить пену примерно на три минуты и тщательно смыть. Не используйте щётку для тоника или другого несмываемого средства. В составе шампуня нет SLS и SLES; основной ПАВ - сульфонат, а не сульфат.',
               products: [
                 { name: 'HR3 MATRIX SHAMPOO', url: '/products/44', price: '340 AED' },
                 { name: 'HR3 MATRIX SCALP BRUSH', url: '/products/61', price: '50 AED' },
@@ -1666,13 +1666,13 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 2, title: 'Тоник', duration: '1 мин',
               summary: 'Лёгкий уход для питания кожи головы, кондиционирования волос и ощущения свежести.',
-              detail: 'Разделите волосы на проборы и распылите HR3 Matrix Hair Tonic α непосредственно на кожу головы. Распределите круговыми движениями и не смывайте минимум 3–4 часа. Формула содержит 9,5% денатурированного спирта; перед применением проверьте противопоказания по салицилатам.',
+              detail: 'Разделите волосы на проборы и распылите HR3 Matrix Hair Tonic α непосредственно на кожу головы. Распределите круговыми движениями и не смывайте минимум 3-4 часа. Формула содержит 9,5% денатурированного спирта; перед применением проверьте противопоказания по салицилатам.',
               products: [{ name: 'HR3 MATRIX TONIC', url: '/products/43', price: '290 AED' }],
             },
             {
               step: 3, title: 'Защита и укладка', duration: '2 мин',
-              summary: 'Укладывайте как обычно — избегайте тугих причёсок и чрезмерного использования термоинструментов.',
-              detail: 'По возможности сушите волосы естественным путём. При использовании термоинструментов держите температуру ниже 180°C. Избегайте тугих хвостов и кос, вызывающих тракционную алопецию — особенно распространённую в ОАЭ.',
+              summary: 'Укладывайте как обычно - избегайте тугих причёсок и чрезмерного использования термоинструментов.',
+              detail: 'По возможности сушите волосы естественным путём. При использовании термоинструментов держите температуру ниже 180°C. Избегайте тугих хвостов и кос, вызывающих тракционную алопецию - особенно распространённую в ОАЭ.',
               products: [],
             },
           ],
@@ -1693,7 +1693,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 2, title: 'Тоник', duration: '1 мин',
               summary: 'Второе ежедневное нанесение для ухода за кожей головы и кондиционирования волос.',
-              detail: 'Распылите тоник непосредственно на кожу головы и распределите круговыми движениями. Оставьте минимум на 3–4 часа или на ночь, без обещаний лечения выпадения или стимуляции роста.',
+              detail: 'Распылите тоник непосредственно на кожу головы и распределите круговыми движениями. Оставьте минимум на 3-4 часа или на ночь, без обещаний лечения выпадения или стимуляции роста.',
               products: [{ name: 'HR3 MATRIX TONIC', url: '/products/43', price: '290 AED' }],
             },
             {
@@ -1706,7 +1706,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         },
         {
           title: 'Еженедельный уход',
-          subtitle: 'Глубокое отшелушивание — раз в неделю перед шампунем',
+          subtitle: 'Глубокое отшелушивание - раз в неделю перед шампунем',
           steps: [
             {
               step: 1, title: 'Несмываемое очищение кожи головы', duration: '5 мин',
@@ -1722,9 +1722,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         { question: 'What causes hair loss in UAE and how to treat it?', answer: 'Hair loss in the UAE is commonly caused by extreme heat exposure, vitamin D deficiency (ironically, due to indoor lifestyles avoiding the sun), hard water with high mineral content, stress, and hormonal factors. GENOSYS scalp care products address these issues with Korean formulations that nourish hair follicles, improve scalp circulation, and strengthen existing hair. The HR3 MATRIX system (shampoo, tonic and solution) delivers peptides, biotin and caffeine directly into the follicle to reactivate the growth phase.' },
         { question: 'Can microneedling help with hair growth?', answer: 'Yes, scalp microneedling is clinically proven to stimulate hair growth. Micro-channels in the scalp increase blood flow to hair follicles and enhance absorption of growth-stimulating ingredients like those in the HR3 MATRIX Solution. Studies show microneedling combined with topical treatments can increase hair count by up to 20% after 12 weeks of regular use. For at-home scalp stimulation, the GENOSYS Scalp Brush provides similar micro-circulation benefits when used daily with the HR3 system.' },
-        { question: 'How long does it take to see results from hair loss treatment?', answer: 'Most people notice reduced hair fall within 4–6 weeks of consistent use of the HR3 MATRIX system (shampoo + tonic daily, solution nightly). Visible new growth typically appears at 8–12 weeks, with significant improvement by 4–6 months. The hair growth cycle is naturally slow — follicles need time to shift from the resting (telogen) phase back to the active growth (anagen) phase. Consistency is key: skipping days resets the stimulation cycle.' },
-        { question: 'What is the difference between HR3 Matrix Shampoo, Tonic and Solution?', answer: 'Each product targets a different layer of the scalp ecosystem. The HR3 Matrix Shampoo (340 AED) is a sulfate-free cleanser that removes build-up without stripping natural oils — use it daily. The HR3 Matrix Tonic (290 AED) is a leave-in treatment applied directly to the scalp twice daily, delivering peptides and caffeine that stimulate follicle activity. The HR3 Matrix Solution (740 AED) is the most concentrated product — an intensive night serum with the highest active-ingredient payload, designed for targeted application on thinning areas. Together, they form a complete follicle activation system.' },
-        { question: 'Does hair loss treatment work for women too?', answer: 'Absolutely. Female pattern hair loss (FPHL) affects up to 40% of women by age 50, and is especially prevalent in the UAE due to heat stress, tight hairstyles, hormonal changes, and hard water. The GENOSYS HR3 MATRIX system is formulated for both men and women. Women typically see results faster because female hair loss is often driven by scalp environment factors (inflammation, build-up, poor circulation) rather than genetics alone — exactly what the HR3 system targets.' },
+        { question: 'How long does it take to see results from hair loss treatment?', answer: 'Most people notice reduced hair fall within 4-6 weeks of consistent use of the HR3 MATRIX system (shampoo + tonic daily, solution nightly). Visible new growth typically appears at 8-12 weeks, with significant improvement by 4-6 months. The hair growth cycle is naturally slow - follicles need time to shift from the resting (telogen) phase back to the active growth (anagen) phase. Consistency is key: skipping days resets the stimulation cycle.' },
+        { question: 'What is the difference between HR3 Matrix Shampoo, Tonic and Solution?', answer: 'Each product targets a different layer of the scalp ecosystem. The HR3 Matrix Shampoo (340 AED) is a sulfate-free cleanser that removes build-up without stripping natural oils - use it daily. The HR3 Matrix Tonic (290 AED) is a leave-in treatment applied directly to the scalp twice daily, delivering peptides and caffeine that stimulate follicle activity. The HR3 Matrix Solution (740 AED) is the most concentrated product - an intensive night serum with the highest active-ingredient payload, designed for targeted application on thinning areas. Together, they form a complete follicle activation system.' },
+        { question: 'Does hair loss treatment work for women too?', answer: 'Absolutely. Female pattern hair loss (FPHL) affects up to 40% of women by age 50, and is especially prevalent in the UAE due to heat stress, tight hairstyles, hormonal changes, and hard water. The GENOSYS HR3 MATRIX system is formulated for both men and women. Women typically see results faster because female hair loss is often driven by scalp environment factors (inflammation, build-up, poor circulation) rather than genetics alone - exactly what the HR3 system targets.' },
         { question: 'Does hard water in UAE cause hair loss and what can I do?', answer: 'Yes, the UAE\'s hard water contains high levels of calcium, magnesium and chlorine that coat hair strands, block follicles and disrupt the scalp microbiome. Over time this leads to dryness, breakage and accelerated thinning. The HR3 Scalp Peeling (used weekly) is specifically designed to dissolve mineral deposits and deep-clean follicle openings. Pairing it with the HR3 Matrix Shampoo (sulfate-free, pH-balanced) minimizes further mineral damage. For best results, consider a shower filter to reduce hardness at the source.' },
       ],
       ar: [
@@ -1736,8 +1736,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
         { question: 'ما هو Hair Stamp الخاص بجهاز HairGen Booster؟', answer: 'رأس فردي أحادي الاستخدام يحمل 52 إبرة ميكروية، ويثبت على قارورة HR³ MATRIX HAIR SOLUTION α قبل تركيبها في الجهاز. تحتوي العلبة على ثمانية رؤوس، ويستخدم رأس جديد وقارورة جديدة في كل جلسة. لا تتوفر دراسة فعالية خاصة بالرأس، ولا تؤكد النشرة أو الدليل عمق 0.3 مم الظاهر في العمل الفني.' },
       ],
       ru: [
-        { question: 'Что вызывает выпадение волос в ОАЭ и как его лечить?', answer: 'У выпадения много причин: наследственность, гормональные изменения, дефицит железа или витамина D, заболевания и стресс. Правильный первый шаг — диагностика. Линия HR3 MATRIX обеспечивает косметическое очищение и питание кожи головы и кондиционирование волос, но не заменяет медицинское лечение.' },
-        { question: 'В чём разница между шампунем, тоником и раствором HR3 Matrix?', answer: 'Шампунь (340 AED) смывается и зарегистрирован для очищения кожи головы и волос; в нём кофеин 1,000% и ментол 1,120%. Тоник (290 AED) оставляют для питания кожи головы и кондиционирования волос. Hair Solution (740 AED) — восемь ампул по 4 мл для питания и кондиционирования один или два раза в неделю; вскрытую ампулу используют сразу. Эти продукты не заявлены как лечение выпадения.' },
+        { question: 'Что вызывает выпадение волос в ОАЭ и как его лечить?', answer: 'У выпадения много причин: наследственность, гормональные изменения, дефицит железа или витамина D, заболевания и стресс. Правильный первый шаг - диагностика. Линия HR3 MATRIX обеспечивает косметическое очищение и питание кожи головы и кондиционирование волос, но не заменяет медицинское лечение.' },
+        { question: 'В чём разница между шампунем, тоником и раствором HR3 Matrix?', answer: 'Шампунь (340 AED) смывается и зарегистрирован для очищения кожи головы и волос; в нём кофеин 1,000% и ментол 1,120%. Тоник (290 AED) оставляют для питания кожи головы и кондиционирования волос. Hair Solution (740 AED) - восемь ампул по 4 мл для питания и кондиционирования один или два раза в неделю; вскрытую ампулу используют сразу. Эти продукты не заявлены как лечение выпадения.' },
         { question: 'Бывает ли выпадение волос у женщин?', answer: 'Да, и причины могут быть наследственными, гормональными, пищевыми или медицинскими. При заметном или продолжающемся выпадении первым шагом должна быть оценка врача; HR3 MATRIX остаётся косметическим уходом за кожей головы и волосами.' },
         { question: 'Вызывает ли жёсткая вода в ОАЭ выпадение волос?', answer: 'Жёсткая вода может оставлять минеральный налёт на волосах и менять их ощущение, но это не диагноз причины выпадения. Шампунь HR3 Matrix помогает очищать кожу головы и волосы. Точно говорить, что в нём нет SLS и SLES, а не называть всю формулу бессульфатной.' },
         { question: 'Что такое Hair-GENTRON?', answer: 'Немедицинский массажный шлем модели HGHY01 с четырьмя режимами LED, воздушным массажем, регулируемым нагревом и таймером на 10, 20 или 30 минут. Его безопасность проверена по IEC/EN 60335-2-32 как бытового массажного прибора; клинических данных эффективности именно устройства нет. Не используйте сразу после медицинской или эстетической процедуры без разрешения специалиста.' },
@@ -1761,7 +1761,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ru: 'Протокол домашнего антивозрастного ухода',
       },
       description: {
-        en: 'Complete morning & evening routine for anti-aging — EGF + peptide system, collagen-rebuilding steps, product sets by age group, and UAE climate tips.',
+        en: 'Complete morning & evening routine for anti-aging - EGF + peptide system, collagen-rebuilding steps, product sets by age group, and UAE climate tips.',
         ar: 'روتين صباحي ومسائي متكامل للعناية بمظهر الخطوط، مع ترتيب المنتجات ونصائح للترطيب والحماية في مناخ الإمارات.',
         ru: 'Полный утренний и вечерний уход за линиями: порядок нанесения, увлажнение и защита с учётом климата ОАЭ.',
       },
@@ -1771,10 +1771,10 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: {
         title: 'Why Anti-Aging Needs a Professional Approach in the UAE',
         items: [
-          { icon: '☀️', label: 'UAE Accelerated Aging', detail: 'Extreme UV (index 11+), constant air conditioning, and desert winds break down collagen up to 40 % faster than in temperate climates — making early intervention essential' },
+          { icon: '☀️', label: 'UAE Accelerated Aging', detail: 'Extreme UV (index 11+), constant air conditioning, and desert winds break down collagen up to 40 % faster than in temperate climates - making early intervention essential' },
           { icon: '🧬', label: 'EGF + Peptide Technology', detail: 'GENOSYS harnesses Epidermal Growth Factor and multi-peptide complexes to signal fibroblasts to produce new collagen and elastin at clinical concentrations' },
-          { icon: '🔬', label: 'Collagen Rebuilding', detail: 'ND Cell and Multi Functional Anti-Wrinkle ranges rebuild the dermal matrix from within — reducing fine lines, deep wrinkles, and loss of firmness over 4–8 weeks' },
-          { icon: '🏥', label: 'Clinical-Grade at Home', detail: 'The same formulations used by licensed dermatologists in Dubai clinics are available for your daily home routine — no prescription needed' },
+          { icon: '🔬', label: 'Collagen Rebuilding', detail: 'ND Cell and Multi Functional Anti-Wrinkle ranges rebuild the dermal matrix from within - reducing fine lines, deep wrinkles, and loss of firmness over 4-8 weeks' },
+          { icon: '🏥', label: 'Clinical-Grade at Home', detail: 'The same formulations used by licensed dermatologists in Dubai clinics are available for your daily home routine - no prescription needed' },
         ],
       },
       ar: {
@@ -1801,8 +1801,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Anti-Aging Skincare UAE | Wrinkle Treatment Dubai | GENOSYS',
         description: 'Professional Korean anti-aging skincare for UAE. GENOSYS anti-wrinkle serums, creams & EGF treatments with peptides and growth factors. Used by Dubai dermatologists. Free shipping over 1000 AED.',
         h1: 'Anti-Aging & Wrinkle Treatment',
-        heroShort: 'Professional Korean anti-wrinkle serums & creams — reduce fine lines, rebuild collagen and restore firmness with EGF, peptides & growth factors.',
-        intro: 'Premature aging is accelerated in the UAE by intense UV radiation, air conditioning, and desert climate. GENOSYS anti-aging line harnesses breakthrough Korean ingredients — EGF (Epidermal Growth Factor), peptide complexes, and advanced retinoid alternatives — to visibly reduce fine lines, deep wrinkles, and loss of firmness. Our ND Cell and Multi Functional Anti-Wrinkle ranges are used by licensed dermatologists in professional settings and are also available for home use, delivering clinical-grade results.',
+        heroShort: 'Professional Korean anti-wrinkle serums & creams - reduce fine lines, rebuild collagen and restore firmness with EGF, peptides & growth factors.',
+        intro: 'Premature aging is accelerated in the UAE by intense UV radiation, air conditioning, and desert climate. GENOSYS anti-aging line harnesses breakthrough Korean ingredients - EGF (Epidermal Growth Factor), peptide complexes, and advanced retinoid alternatives - to visibly reduce fine lines, deep wrinkles, and loss of firmness. Our ND Cell and Multi Functional Anti-Wrinkle ranges are used by licensed dermatologists in professional settings and are also available for home use, delivering clinical-grade results.',
         keywords: ['anti-aging skincare UAE', 'wrinkle treatment Dubai', 'Korean anti-aging cream', 'EGF skincare UAE', 'peptide serum Dubai', 'anti-wrinkle products UAE', 'GENOSYS anti-aging'],
       },
       ar: {
@@ -1826,30 +1826,30 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         {
           title: 'Morning Routine',
-          subtitle: 'Protect & prevent — takes just 5 minutes',
+          subtitle: 'Protect & prevent - takes just 5 minutes',
           steps: [
             {
               step: 1, title: 'Cleanse', duration: '1 min',
               summary: 'Remove overnight oils so anti-aging actives can penetrate effectively.',
-              detail: 'Apply SNOW O₂ CLEANSER to a dry face, let the oxygen bubbles form naturally — they lift impurities from pores without rubbing. Rinse with lukewarm water and pat dry.',
+              detail: 'Apply SNOW O₂ CLEANSER to a dry face, let the oxygen bubbles form naturally - they lift impurities from pores without rubbing. Rinse with lukewarm water and pat dry.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
               step: 2, title: 'Tone & Hydrate', duration: '30 sec',
               summary: 'Restore pH and create a hydrated base so serums absorb more evenly.',
-              detail: 'Apply SNOW BOOSTER with hands, gently pressing into skin. Move to the next step immediately — no wait needed.',
+              detail: 'Apply SNOW BOOSTER with hands, gently pressing into skin. Move to the next step immediately - no wait needed.',
               products: [{ name: 'SNOW BOOSTER', url: '/products/16', price: '260 AED' }],
             },
             {
               step: 3, title: 'Anti-Wrinkle Serum', duration: '30 sec',
-              summary: 'Core anti-aging step — peptides and EGF stimulate collagen production and cell renewal.',
-              detail: 'Apply 2–3 drops of Multi Functional Anti-Wrinkle Serum and pat gently into the skin, focusing on areas with fine lines, crow\'s feet, and forehead. Wait 30 seconds for absorption.',
+              summary: 'Core anti-aging step - peptides and EGF stimulate collagen production and cell renewal.',
+              detail: 'Apply 2-3 drops of Multi Functional Anti-Wrinkle Serum and pat gently into the skin, focusing on areas with fine lines, crow\'s feet, and forehead. Wait 30 seconds for absorption.',
               products: [{ name: 'MULTI FUNCTIONAL ANTI-WRINKLE SERUM', url: '/products/22', price: '330 AED' }],
             },
             {
               step: 4, title: 'Anti-Wrinkle Cream', duration: '30 sec',
               summary: 'Seal in anti-aging actives and provide lasting firmness with peptide-rich moisture.',
-              detail: 'Apply a pea-sized amount of Multi Functional Anti-Wrinkle Cream over the serum. For premium results, use ND Cell Anti-Wrinkle Cream instead — it contains a higher concentration of growth factors.',
+              detail: 'Apply a pea-sized amount of Multi Functional Anti-Wrinkle Cream over the serum. For premium results, use ND Cell Anti-Wrinkle Cream instead - it contains a higher concentration of growth factors.',
               products: [
                 { name: 'MULTI FUNCTIONAL ANTI-WRINKLE CREAM', url: '/products/32', price: '290 AED' },
                 { name: 'ND Cell ANTI-WRINKLE CREAM', url: '/products/23', price: '370 AED' },
@@ -1857,7 +1857,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 5, title: 'Sun Protection', duration: '30 sec',
-              summary: 'The most critical anti-aging step — UV is the #1 cause of wrinkles and collagen breakdown.',
+              summary: 'The most critical anti-aging step - UV is the #1 cause of wrinkles and collagen breakdown.',
               detail: 'Apply a 2-finger length strip of ULTRA SHIELD SPF 50+ to face and neck. Without daily SPF, collagen breaks down faster than any serum can rebuild it.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
@@ -1869,7 +1869,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
           steps: [
             {
               step: 1, title: 'Double Cleanse', duration: '2 min',
-              summary: 'Remove SPF and makeup thoroughly — residue blocks anti-aging actives from penetrating.',
+              summary: 'Remove SPF and makeup thoroughly - residue blocks anti-aging actives from penetrating.',
               detail: 'First cleanse: Makeup remover to dissolve SPF and makeup from eye/lip area. Second cleanse: Oxygen cleanser to deep-clean residual sunscreen and impurities.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
@@ -1877,29 +1877,29 @@ export const CONCERN_PAGES: ConcernPage[] = [
               ],
             },
             {
-              step: 2, title: 'Exfoliate (2–3× per week)', duration: '1 min',
-              summary: 'Remove dead skin cells that block serum absorption — reveals smoother, younger-looking skin.',
-              detail: 'Apply peeling gel to dry skin and massage gently in circular motions for 30 seconds. Dead cells roll off visibly. Rinse thoroughly. Use 2–3 times per week, not daily.',
+              step: 2, title: 'Exfoliate (2-3× per week)', duration: '1 min',
+              summary: 'Remove dead skin cells that block serum absorption - reveals smoother, younger-looking skin.',
+              detail: 'Apply peeling gel to dry skin and massage gently in circular motions for 30 seconds. Dead cells roll off visibly. Rinse thoroughly. Use 2-3 times per week, not daily.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
             {
               step: 3, title: 'Anti-Wrinkle Serum', duration: '30 sec',
-              summary: 'Night is peak regeneration time — peptides and EGF work harder while you sleep.',
-              detail: 'Apply 2–3 drops of Multi Functional Anti-Wrinkle Serum, focusing on wrinkle-prone areas. Night-time application allows growth factors to work without UV interference.',
+              summary: 'Night is peak regeneration time - peptides and EGF work harder while you sleep.',
+              detail: 'Apply 2-3 drops of Multi Functional Anti-Wrinkle Serum, focusing on wrinkle-prone areas. Night-time application allows growth factors to work without UV interference.',
               products: [{ name: 'MULTI FUNCTIONAL ANTI-WRINKLE SERUM', url: '/products/22', price: '330 AED' }],
             },
             {
               step: 4, title: 'Night Cream', duration: '30 sec',
-              summary: 'Intensive overnight repair — growth factors accelerate cell turnover and collagen synthesis.',
+              summary: 'Intensive overnight repair - growth factors accelerate cell turnover and collagen synthesis.',
               detail: 'Apply ND Cell Anti-Wrinkle Cream as your final evening step for deep wrinkle targeting and maximum growth factor delivery while you sleep.',
               products: [
                 { name: 'ND Cell ANTI-WRINKLE CREAM', url: '/products/23', price: '370 AED' },
               ],
             },
             {
-              step: 5, title: 'Weekly Mask (1–2× per week)', duration: '20 min',
+              step: 5, title: 'Weekly Mask (1-2× per week)', duration: '20 min',
               summary: 'Deep overnight treatment that floods skin with hydration and repair actives.',
-              detail: 'Apply SKIN RESCUE Overnight Cream Mask as the last step 1–2 times per week. Leave on overnight — no rinsing needed. Provides intensive hydration and barrier repair while you sleep.',
+              detail: 'Apply SKIN RESCUE Overnight Cream Mask as the last step 1-2 times per week. Leave on overnight - no rinsing needed. Provides intensive hydration and barrier repair while you sleep.',
               products: [{ name: 'SKIN RESCUE OVERNIGHT CREAM MASK', url: '/products/34', price: '340 AED' }],
             },
           ],
@@ -1908,7 +1908,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ar: [
         {
           title: 'الروتين الصباحي',
-          subtitle: 'حماية ووقاية — 5 دقائق فقط',
+          subtitle: 'حماية ووقاية - 5 دقائق فقط',
           steps: [
             {
               step: 1, title: 'التنظيف', duration: '1 دقيقة',
@@ -1939,7 +1939,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 5, title: 'الحماية من الشمس', duration: '30 ثانية',
-              summary: 'أهم خطوة لمكافحة الشيخوخة — الأشعة فوق البنفسجية السبب الأول لتكسر الكولاجين.',
+              summary: 'أهم خطوة لمكافحة الشيخوخة - الأشعة فوق البنفسجية السبب الأول لتكسر الكولاجين.',
               detail: 'يوزع ULTRA SHIELD SPF 50+ بسخاء وبالتساوي قبل الخروج بـ15 دقيقة على الأقل، ويجدد كل ساعتين على الأقل في الخارج.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
@@ -1990,7 +1990,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ru: [
         {
           title: 'Утренний уход',
-          subtitle: 'Защита и профилактика — всего 5 минут',
+          subtitle: 'Защита и профилактика - всего 5 минут',
           steps: [
             {
               step: 1, title: 'Очищение', duration: '1 мин',
@@ -2021,7 +2021,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 5, title: 'Защита от солнца', duration: '30 сек',
-              summary: 'Самый важный антивозрастной шаг — УФ является причиной №1 разрушения коллагена.',
+              summary: 'Самый важный антивозрастной шаг - УФ является причиной №1 разрушения коллагена.',
               detail: 'Равномерно и щедро нанесите ULTRA SHIELD SPF 50+ минимум за 15 минут до выхода и обновляйте не реже чем каждые два часа на улице.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
@@ -2041,9 +2041,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
               ],
             },
             {
-              step: 2, title: 'Эксфолиация (2–3 раза в неделю)', duration: '1 мин',
+              step: 2, title: 'Эксфолиация (2-3 раза в неделю)', duration: '1 мин',
               summary: 'Удалите мёртвые клетки, блокирующие впитывание сыворотки.',
-              detail: 'Нанесите пилинг-гель на сухую кожу и массируйте круговыми движениями 30 секунд. Тщательно смойте. Используйте 2–3 раза в неделю.',
+              detail: 'Нанесите пилинг-гель на сухую кожу и массируйте круговыми движениями 30 секунд. Тщательно смойте. Используйте 2-3 раза в неделю.',
               products: [{ name: 'EPI TURNOVER BOOSTING PEELING GEL', url: '/products/12', price: '250 AED' }],
             },
             {
@@ -2061,7 +2061,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
               ],
             },
             {
-              step: 5, title: 'Ночная маска (1–2 раза в неделю)', duration: '1 мин',
+              step: 5, title: 'Ночная маска (1-2 раза в неделю)', duration: '1 мин',
               summary: 'Несмываемый кремовый уход для увлажнения, более ровного тона и отдохнувшего вида кожи.',
               detail: 'Нанесите SKIN RESCUE последним шагом вечером и мягко распределите до растворения капсул. Оставьте на ночь, не смывайте.',
               products: [{ name: 'SKIN RESCUE OVERNIGHT CREAM MASK', url: '/products/34', price: '340 AED' }],
@@ -2072,12 +2072,12 @@ export const CONCERN_PAGES: ConcernPage[] = [
     },
     faq: {
       en: [
-        { question: 'What Korean ingredients are best for anti-aging?', answer: 'The most effective Korean anti-aging ingredients include EGF (Epidermal Growth Factor) which stimulates cell renewal, peptide complexes that boost collagen production, adenosine for wrinkle reduction, and snail mucin for deep hydration and repair. GENOSYS products feature clinical concentrations of these ingredients — particularly the ND Cell Anti-Wrinkle Cream (370 AED) and Multi Functional Anti-Wrinkle Serum (330 AED), which are among the strongest professional formulations available in the UAE.' },
+        { question: 'What Korean ingredients are best for anti-aging?', answer: 'The most effective Korean anti-aging ingredients include EGF (Epidermal Growth Factor) which stimulates cell renewal, peptide complexes that boost collagen production, adenosine for wrinkle reduction, and snail mucin for deep hydration and repair. GENOSYS products feature clinical concentrations of these ingredients - particularly the ND Cell Anti-Wrinkle Cream (370 AED) and Multi Functional Anti-Wrinkle Serum (330 AED), which are among the strongest professional formulations available in the UAE.' },
         { question: 'Why does skin age faster in UAE?', answer: 'Skin ages faster in the UAE due to three main factors: extreme UV radiation (UV index 11+ most of the year) which breaks down collagen, constant air conditioning that dehydrates skin, and desert winds with fine particles. Professional-grade sun protection combined with EGF and peptide treatments can significantly slow this process. GENOSYS recommends a daily routine of SPF 50+ sunscreen, antioxidant serum, and anti-wrinkle cream.' },
-        { question: 'When should I start using anti-aging products?', answer: 'Prevention is easier than correction. In the UAE, dermatologists recommend starting a basic anti-aging routine (antioxidant serum + SPF) in your mid-20s. By 30, adding a peptide serum like the Multi Functional Anti-Wrinkle Serum (330 AED) is ideal. After 35, a full routine with EGF and growth factors — such as the ND Cell Anti-Wrinkle Cream (370 AED) — delivers the best results. However, it is never too late: visible improvement occurs at any age with consistent use.' },
-        { question: 'What is the difference between EGF and retinol for anti-aging?', answer: 'Retinol increases cell turnover but often causes irritation, peeling, and sun sensitivity — a significant drawback in the UAE climate. EGF (Epidermal Growth Factor) achieves similar collagen-boosting results by signalling fibroblasts to produce new collagen and elastin, without the irritation. GENOSYS chose EGF-based formulations specifically because they are effective in high-UV environments and suitable for sensitive skin. The ND Cell Anti-Wrinkle Cream (370 AED) is a standout product for overnight renewal.' },
-        { question: 'Can I combine anti-aging products with brightening treatments?', answer: 'Absolutely — and GENOSYS recommends it. Pigmentation and wrinkles often occur together, especially in the UAE. You can use the Multi Functional Anti-Wrinkle Serum (330 AED) in the morning for collagen support and the Multi Vita Radiance Serum in the evening for brightening, or layer them both. The Hyaluron Serum (330 AED) pairs well with both lines to boost hydration. Always finish with SPF 50+ in the morning.' },
-        { question: 'What is the difference between ND Cell Anti-Wrinkle Cream and Multi Functional Anti-Wrinkle Cream?', answer: 'Both are professional-grade anti-aging creams but at different intensity levels. The Multi Functional Anti-Wrinkle Cream (290 AED) is the everyday workhorse — peptide-rich, lightweight, and suitable for all skin types from your late 20s onward. The ND Cell Anti-Wrinkle Cream (370 AED) is the premium option — it contains a higher concentration of growth factors and EGF, targets deeper wrinkles and significant loss of firmness, and is ideal for ages 35+ or for use as an intensive night cream. Many clients use the Multi Functional daily and the ND Cell at night or on alternating days.' },
+        { question: 'When should I start using anti-aging products?', answer: 'Prevention is easier than correction. In the UAE, dermatologists recommend starting a basic anti-aging routine (antioxidant serum + SPF) in your mid-20s. By 30, adding a peptide serum like the Multi Functional Anti-Wrinkle Serum (330 AED) is ideal. After 35, a full routine with EGF and growth factors - such as the ND Cell Anti-Wrinkle Cream (370 AED) - delivers the best results. However, it is never too late: visible improvement occurs at any age with consistent use.' },
+        { question: 'What is the difference between EGF and retinol for anti-aging?', answer: 'Retinol increases cell turnover but often causes irritation, peeling, and sun sensitivity - a significant drawback in the UAE climate. EGF (Epidermal Growth Factor) achieves similar collagen-boosting results by signalling fibroblasts to produce new collagen and elastin, without the irritation. GENOSYS chose EGF-based formulations specifically because they are effective in high-UV environments and suitable for sensitive skin. The ND Cell Anti-Wrinkle Cream (370 AED) is a standout product for overnight renewal.' },
+        { question: 'Can I combine anti-aging products with brightening treatments?', answer: 'Absolutely - and GENOSYS recommends it. Pigmentation and wrinkles often occur together, especially in the UAE. You can use the Multi Functional Anti-Wrinkle Serum (330 AED) in the morning for collagen support and the Multi Vita Radiance Serum in the evening for brightening, or layer them both. The Hyaluron Serum (330 AED) pairs well with both lines to boost hydration. Always finish with SPF 50+ in the morning.' },
+        { question: 'What is the difference between ND Cell Anti-Wrinkle Cream and Multi Functional Anti-Wrinkle Cream?', answer: 'Both are professional-grade anti-aging creams but at different intensity levels. The Multi Functional Anti-Wrinkle Cream (290 AED) is the everyday workhorse - peptide-rich, lightweight, and suitable for all skin types from your late 20s onward. The ND Cell Anti-Wrinkle Cream (370 AED) is the premium option - it contains a higher concentration of growth factors and EGF, targets deeper wrinkles and significant loss of firmness, and is ideal for ages 35+ or for use as an intensive night cream. Many clients use the Multi Functional daily and the ND Cell at night or on alternating days.' },
       ],
       ar: [
         { question: 'ما هي أفضل المكونات الكورية للعناية بمظهر التجاعيد؟', answer: 'الأدينوزين والنياسيناميد والمرطبات ومضادات الأكسدة مكونات عملية للروتين اليومي. يحتوي ND Cell على الأدينوزين 0.04% مع السكوالان 5% وفيتامين E بتركيز 1% للعناية الغنية بالرقبة وأعلى الصدر، بينما يوفر Multi Functional Anti-Wrinkle Serum ترطيباً مائياً أخف للوجه.' },
@@ -2087,9 +2087,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ],
       ru: [
         { question: 'Какие корейские ингредиенты подходят для ухода за морщинами?', answer: 'Для ежедневного ухода практичны аденозин, ниацинамид, увлажняющие и антиоксидантные компоненты. ND Cell сочетает аденозин 0,04%, сквалан 5% и витамин E 1% в насыщенном уходе за шеей и декольте, а Multi Functional Anti-Wrinkle Serum даёт лицу более лёгкое водное увлажнение.' },
-        { question: 'Когда начинать уход за возрастными изменениями?', answer: 'Ориентируйтесь не на цифру в паспорте, а на потребности кожи: сухость, тонкие линии и потерю гладкости. Основа в любом возрасте — ежедневный SPF и подходящее увлажнение; направленные средства добавляют по зоне и задаче.' },
+        { question: 'Когда начинать уход за возрастными изменениями?', answer: 'Ориентируйтесь не на цифру в паспорте, а на потребности кожи: сухость, тонкие линии и потерю гладкости. Основа в любом возрасте - ежедневный SPF и подходящее увлажнение; направленные средства добавляют по зоне и задаче.' },
         { question: 'В чём разница между EGF и ретиноидами?', answer: 'Это разные классы компонентов, и один нельзя считать прямой заменой другого. ND Cell не является ретиноидным курсом: ретинилпальмитат присутствует в низкой концентрации 0,0111%, а основную работу в текстуре выполняют сквалан, витамин E и аденозин.' },
-        { question: 'В чём разница между кремами ND Cell и Multi Functional Anti-Wrinkle?', answer: 'Multi Functional Anti-Wrinkle Cream — крем для лица с глицерином 8%, смягчающей фазой около 13% и ниацинамидом 2% для ухода за неровным тоном. ND Cell создан для шеи и декольте: его более насыщенная текстура опирается на сквалан 5%. Каждое средство лучше использовать в своей зоне.' },
+        { question: 'В чём разница между кремами ND Cell и Multi Functional Anti-Wrinkle?', answer: 'Multi Functional Anti-Wrinkle Cream - крем для лица с глицерином 8%, смягчающей фазой около 13% и ниацинамидом 2% для ухода за неровным тоном. ND Cell создан для шеи и декольте: его более насыщенная текстура опирается на сквалан 5%. Каждое средство лучше использовать в своей зоне.' },
       ],
     },
   },
@@ -2109,8 +2109,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ru: 'Протокол домашнего ухода: увлажнение и восстановление барьера',
       },
       description: {
-        en: 'Complete morning & evening hydration routine — hyaluronic acid layering, moisture barrier repair, product sets by dehydration level, and UAE climate tips.',
-        ar: 'روتين صباحي ومسائي للبشرة المفتقرة إلى الماء — سيروم بحمض الهيالورونيك المتحلل 2,000 جزء في المليون، وكريم مناسب، وواقي شمس صباحاً.',
+        en: 'Complete morning & evening hydration routine - hyaluronic acid layering, moisture barrier repair, product sets by dehydration level, and UAE climate tips.',
+        ar: 'روتين صباحي ومسائي للبشرة المفتقرة إلى الماء - سيروم بحمض الهيالورونيك المتحلل 2,000 جزء في المليون، وكريم مناسب، وواقي شمس صباحاً.',
         ru: 'Утренний и вечерний уход для обезвоженной кожи: сыворотка с гидролизованной гиалуроновой кислотой 2 000 ppm, подходящий крем и SPF утром.',
       },
       fileSize: '264 KB',
@@ -2120,8 +2120,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Hydrating Skincare UAE | Moisturizer & Hyaluronic Acid Dubai | GENOSYS',
         description: 'Professional Korean hydrating skincare for UAE dry climate. GENOSYS hyaluronic acid serums, moisture creams & hydrating masks. Combat air conditioning dehydration. Free shipping over 1000 AED.',
         h1: 'Hydrating Skincare for Dry UAE Climate',
-        heroShort: 'Triple-weight hyaluronic acid serums & barrier-lock creams — Korean hydration technology engineered for the UAE\'s desert-meets-AC dehydration cycle.',
-        intro: 'The UAE\'s desert climate combined with constant air conditioning creates a dual dehydration challenge that strips skin of moisture throughout the day. GENOSYS Moisture Replenishing line uses multi-weight hyaluronic acid technology — combining low, medium, and high molecular weight HA — to deliver hydration to every layer of the skin. Our Korean formulations go beyond surface-level moisturizing, reinforcing the skin barrier to lock in moisture even in the most arid conditions.',
+        heroShort: 'Triple-weight hyaluronic acid serums & barrier-lock creams - Korean hydration technology engineered for the UAE\'s desert-meets-AC dehydration cycle.',
+        intro: 'The UAE\'s desert climate combined with constant air conditioning creates a dual dehydration challenge that strips skin of moisture throughout the day. GENOSYS Moisture Replenishing line uses multi-weight hyaluronic acid technology - combining low, medium, and high molecular weight HA - to deliver hydration to every layer of the skin. Our Korean formulations go beyond surface-level moisturizing, reinforcing the skin barrier to lock in moisture even in the most arid conditions.',
         keywords: ['hydrating skincare UAE', 'moisturizer Dubai', 'hyaluronic acid UAE', 'dry skin Dubai', 'Korean moisturizer UAE', 'dehydrated skin treatment', 'GENOSYS hydration'],
       },
       ar: {
@@ -2145,10 +2145,10 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: {
         title: 'Why UAE Skin Craves Deep Hydration',
         items: [
-          { icon: '🏜️', label: 'Desert + AC Dual Challenge', detail: 'Outdoor desert heat pulls moisture from the surface while indoor air conditioning drops humidity below 20% — your skin is under dehydration attack from both sides, all day long' },
-          { icon: '💧', label: 'Triple-Weight Hyaluronic Acid', detail: 'GENOSYS uses low, medium, and high molecular weight HA in a single serum — low weight penetrates deep, medium plumps the middle layers, high weight forms a moisture-locking film on the surface' },
+          { icon: '🏜️', label: 'Desert + AC Dual Challenge', detail: 'Outdoor desert heat pulls moisture from the surface while indoor air conditioning drops humidity below 20% - your skin is under dehydration attack from both sides, all day long' },
+          { icon: '💧', label: 'Triple-Weight Hyaluronic Acid', detail: 'GENOSYS uses low, medium, and high molecular weight HA in a single serum - low weight penetrates deep, medium plumps the middle layers, high weight forms a moisture-locking film on the surface' },
           { icon: '🛡️', label: 'Barrier Lock Technology', detail: 'Hydration means nothing if it evaporates. Skin Barrier Protecting Cream seals in every drop by reinforcing the lipid barrier against AC-driven transepidermal water loss' },
-          { icon: '⏱️', label: 'All-Day Moisture', detail: 'The layered system — mist, serum, cream — creates a moisture reservoir that releases hydration steadily for 12+ hours, even in 18°C office air conditioning' },
+          { icon: '⏱️', label: 'All-Day Moisture', detail: 'The layered system - mist, serum, cream - creates a moisture reservoir that releases hydration steadily for 12+ hours, even in 18°C office air conditioning' },
         ],
       },
       ar: {
@@ -2174,30 +2174,30 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         {
           title: 'Morning Routine',
-          subtitle: 'Layer hydration & seal it in before the AC hits — takes 5 minutes',
+          subtitle: 'Layer hydration & seal it in before the AC hits - takes 5 minutes',
           steps: [
             {
               step: 1, title: 'Gentle Cleanse', duration: '1 min',
               summary: 'Remove overnight residue without stripping moisture. A clean canvas absorbs hydration better.',
-              detail: 'Apply SNOW O₂ CLEANSER to damp face. The oxygen-bubble formula lifts impurities gently without harsh surfactants that dissolve your skin\'s natural oils. Rinse with lukewarm water and pat dry — never rub, rubbing increases transepidermal water loss.',
+              detail: 'Apply SNOW O₂ CLEANSER to damp face. The oxygen-bubble formula lifts impurities gently without harsh surfactants that dissolve your skin\'s natural oils. Rinse with lukewarm water and pat dry - never rub, rubbing increases transepidermal water loss.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
               step: 2, title: 'Hydrating Mist', duration: '15 sec',
               summary: 'Damp skin absorbs actives 2× better. This primes every layer for the serum that follows.',
-              detail: 'Hold MICROBIOME ENERGY INFUSING MIST 15 cm from the face and spray 3–4 times in a circular motion. The microbiome-balancing formula creates a moisture cushion and slightly acidic environment that helps hyaluronic acid bind more water. Do not pat dry — let the mist sit on the skin.',
+              detail: 'Hold MICROBIOME ENERGY INFUSING MIST 15 cm from the face and spray 3-4 times in a circular motion. The microbiome-balancing formula creates a moisture cushion and slightly acidic environment that helps hyaluronic acid bind more water. Do not pat dry - let the mist sit on the skin.',
               products: [{ name: 'MICROBIOME ENERGY INFUSING MIST', url: '/products/14', price: '160 AED' }],
             },
             {
               step: 3, title: 'Hyaluronic Acid Serum', duration: '30 sec',
-              summary: 'The hydration engine — triple-weight HA draws and holds water at every skin level.',
-              detail: 'While the mist is still damp on the face, press 3–4 drops of MOISTURE REPLENISHING HYALURON SERUM between your palms and press onto cheeks, forehead, and chin. Applying on damp skin is critical — HA pulls moisture from whatever is nearby, so if your skin is dry, it can pull water out instead of in. The low-weight HA penetrates to the dermis, the medium-weight plumps the epidermis, and the high-weight forms a surface film that slows evaporation.',
+              summary: 'The hydration engine - triple-weight HA draws and holds water at every skin level.',
+              detail: 'While the mist is still damp on the face, press 3-4 drops of MOISTURE REPLENISHING HYALURON SERUM between your palms and press onto cheeks, forehead, and chin. Applying on damp skin is critical - HA pulls moisture from whatever is nearby, so if your skin is dry, it can pull water out instead of in. The low-weight HA penetrates to the dermis, the medium-weight plumps the epidermis, and the high-weight forms a surface film that slows evaporation.',
               products: [{ name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' }],
             },
             {
               step: 4, title: 'Hydrating Cream', duration: '30 sec',
               summary: 'Seal the serum layers and provide sustained cream-based hydration throughout the day.',
-              detail: 'Apply MOISTURE REPLENISHING HYALURON CREAM for lightweight everyday hydration — it extends the serum\'s effects with a ceramide-enriched base. For very dry or sensitive skin, swap to INTENSIVE HYDRO SOOTHING CREAM, which has a richer texture and added calming agents. Either way, use upward strokes and include the neck.',
+              detail: 'Apply MOISTURE REPLENISHING HYALURON CREAM for lightweight everyday hydration - it extends the serum\'s effects with a ceramide-enriched base. For very dry or sensitive skin, swap to INTENSIVE HYDRO SOOTHING CREAM, which has a richer texture and added calming agents. Either way, use upward strokes and include the neck.',
               products: [
                 { name: 'MOISTURE REPLENISHING HYALURON CREAM', url: '/products/29', price: '290 AED' },
                 { name: 'INTENSIVE HYDRO SOOTHING CREAM', url: '/products/28', price: '290 AED' },
@@ -2206,7 +2206,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 5, title: 'Sun Protection', duration: '30 sec',
               summary: 'UV damage accelerates moisture loss and breaks down hyaluronic acid in the skin. SPF is the final seal.',
-              detail: 'Apply ULTRA SHIELD SUN CREAM SPF 50+ generously — two finger-lengths for face and neck. This sits on top of your moisture layers as a physical barrier against UV-driven free radicals that degrade HA and collagen. Its lightweight formula won\'t feel heavy over the hydration layers underneath.',
+              detail: 'Apply ULTRA SHIELD SUN CREAM SPF 50+ generously - two finger-lengths for face and neck. This sits on top of your moisture layers as a physical barrier against UV-driven free radicals that degrade HA and collagen. Its lightweight formula won\'t feel heavy over the hydration layers underneath.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
           ],
@@ -2218,7 +2218,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 1, title: 'Double Cleanse', duration: '2 min',
               summary: 'Remove SPF and daily grime completely. Leftover sunscreen blocks overnight absorption.',
-              detail: 'First pass: SKIN DEFENDER LIP & EYE MAKEUP REMOVER on eyes and lips to dissolve waterproof SPF and makeup. Second pass: SNOW O₂ CLEANSER over the entire face to remove remaining sunscreen, sweat, and pollution particles. Double cleansing ensures a perfectly clean base for overnight repair — any residue creates a film that blocks the serum from penetrating.',
+              detail: 'First pass: SKIN DEFENDER LIP & EYE MAKEUP REMOVER on eyes and lips to dissolve waterproof SPF and makeup. Second pass: SNOW O₂ CLEANSER over the entire face to remove remaining sunscreen, sweat, and pollution particles. Double cleansing ensures a perfectly clean base for overnight repair - any residue creates a film that blocks the serum from penetrating.',
               products: [
                 { name: 'SKIN DEFENDER LIP & EYE MAKEUP REMOVER', url: '/products/11', price: '290 AED' },
                 { name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' },
@@ -2227,19 +2227,19 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 2, title: 'Hyaluronic Acid Serum', duration: '30 sec',
               summary: 'Night-time application lets HA work uninterrupted for 8 hours while the skin\'s repair cycle peaks.',
-              detail: 'Apply 4–5 drops of MOISTURE REPLENISHING HYALURON SERUM to damp skin (splash water or mist first). Use slightly more than morning because the serum has all night to work without SPF or makeup competition. Press into cheeks, forehead, chin, and don\'t forget the neck — it dehydrates just as fast.',
+              detail: 'Apply 4-5 drops of MOISTURE REPLENISHING HYALURON SERUM to damp skin (splash water or mist first). Use slightly more than morning because the serum has all night to work without SPF or makeup competition. Press into cheeks, forehead, chin, and don\'t forget the neck - it dehydrates just as fast.',
               products: [{ name: 'MOISTURE REPLENISHING HYALURON SERUM', url: '/products/18', price: '330 AED' }],
             },
             {
               step: 3, title: 'Barrier Cream', duration: '30 sec',
-              summary: 'The overnight lock — a rich barrier cream prevents moisture from escaping into dry bedroom air.',
-              detail: 'Apply SKIN BARRIER PROTECTING CREAM in a generous layer. This is the richest cream in the routine and it\'s intentional — overnight, there\'s no SPF or makeup on top, so the barrier cream is the only thing between your hydrated skin and the dry air-conditioned bedroom. Its lipid-replenishing complex rebuilds the skin barrier while you sleep.',
+              summary: 'The overnight lock - a rich barrier cream prevents moisture from escaping into dry bedroom air.',
+              detail: 'Apply SKIN BARRIER PROTECTING CREAM in a generous layer. This is the richest cream in the routine and it\'s intentional - overnight, there\'s no SPF or makeup on top, so the barrier cream is the only thing between your hydrated skin and the dry air-conditioned bedroom. Its lipid-replenishing complex rebuilds the skin barrier while you sleep.',
               products: [{ name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' }],
             },
             {
-              step: 4, title: 'Weekly Overnight Mask (2–3× per week)', duration: '1 min',
-              summary: 'A surge of concentrated moisture that works while you sleep — for when daily hydration isn\'t enough.',
-              detail: 'On 2–3 nights per week, replace or layer on top of the barrier cream with SKIN RESCUE OVERNIGHT CREAM MASK. Apply a thick, even layer and leave on overnight — no rinsing needed. The mask creates an occlusive seal that supercharges overnight hydration. Especially recommended during peak summer months (June–September) when AC runs at maximum and during winter when humidity drops further.',
+              step: 4, title: 'Weekly Overnight Mask (2-3× per week)', duration: '1 min',
+              summary: 'A surge of concentrated moisture that works while you sleep - for when daily hydration isn\'t enough.',
+              detail: 'On 2-3 nights per week, replace or layer on top of the barrier cream with SKIN RESCUE OVERNIGHT CREAM MASK. Apply a thick, even layer and leave on overnight - no rinsing needed. The mask creates an occlusive seal that supercharges overnight hydration. Especially recommended during peak summer months (June - September) when AC runs at maximum and during winter when humidity drops further.',
               products: [{ name: 'SKIN RESCUE OVERNIGHT CREAM MASK', url: '/products/34', price: '340 AED' }],
             },
           ],
@@ -2248,7 +2248,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ar: [
         {
           title: 'الروتين الصباحي',
-          subtitle: 'روتين صباحي مرتب قبل بدء اليوم — 5 دقائق',
+          subtitle: 'روتين صباحي مرتب قبل بدء اليوم - 5 دقائق',
           steps: [
             {
               step: 1, title: 'تنظيف لطيف', duration: 'دقيقة واحدة',
@@ -2322,7 +2322,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
       ru: [
         {
           title: 'Утренний уход',
-          subtitle: 'Последовательный утренний уход — 5 минут',
+          subtitle: 'Последовательный утренний уход - 5 минут',
           steps: [
             {
               step: 1, title: 'Бережное очищение', duration: '1 мин',
@@ -2385,7 +2385,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
               products: [{ name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' }],
             },
             {
-              step: 4, title: 'Ночная маска (1–2 раза в неделю)', duration: '1 мин',
+              step: 4, title: 'Ночная маска (1-2 раза в неделю)', duration: '1 мин',
               summary: 'Несмываемый кремовый уход для вечеров, когда коже особенно нужны влага, мягкость и комфорт.',
               detail: 'Один-два раза в неделю используйте SKIN RESCUE вместо ночного крема последним шагом. Нанесите комфортный слой, мягко распределите до растворения капсул и оставьте на ночь, не смывая.',
               products: [{ name: 'SKIN RESCUE OVERNIGHT CREAM MASK', url: '/products/34', price: '340 AED' }],
@@ -2399,9 +2399,9 @@ export const CONCERN_PAGES: ConcernPage[] = [
         { question: 'Why is skin so dry in UAE despite the humidity?', answer: 'While coastal UAE cities have outdoor humidity, the real dehydration comes from spending 80%+ of time in air-conditioned environments that have humidity below 20%. This constant cycle of hot outdoor air and cold dry indoor air disrupts the skin barrier. GENOSYS Moisture Replenishing Hyaluron Serum uses triple-weight hyaluronic acid to hydrate all skin layers, while the Skin Barrier Protecting Cream seals in moisture to withstand the air conditioning cycle.' },
         { question: 'What is the best Korean moisturizer for Dubai climate?', answer: 'For Dubai\'s unique climate, we recommend a layered approach: GENOSYS Moisture Replenishing Hyaluron Serum (lightweight, penetrating hydration) under GENOSYS Intensive Hydro Soothing Cream (rich barrier protection). This combination provides all-day moisture even in heavily air-conditioned offices. For extra hydration, the Skin Rescue Overnight Cream Mask can be used 2-3 times weekly.' },
         { question: 'How does hyaluronic acid work for skin hydration?', answer: 'Hyaluronic acid (HA) is a humectant that can hold up to 1,000 times its weight in water. It naturally occurs in your skin but depletes with age and UV exposure. GENOSYS uses triple-weight HA: low molecular weight (penetrates deep into the dermis for long-lasting internal hydration), medium molecular weight (plumps the mid-layers of the epidermis), and high molecular weight (sits on the surface to form a moisture-locking film). This multi-layer approach ensures hydration reaches every level rather than just sitting on top.' },
-        { question: 'How should I layer hydration products for maximum effect?', answer: 'Layer from thinnest to thickest consistency: start with Microbiome Energy Infusing Mist on clean skin to create a damp base, then apply Moisture Replenishing Hyaluron Serum while the mist is still wet (HA needs water to work), follow with Hyaluron Cream or Intensive Hydro Soothing Cream to seal everything in, and finish with SPF in the morning or Skin Barrier Protecting Cream at night. Each layer locks in the previous one — skipping steps means moisture escapes.' },
-        { question: 'Does oily skin still need hydration products?', answer: 'Absolutely — oily and dehydrated are not opposites. In the UAE, many people have oily yet dehydrated skin because air conditioning strips water from all skin types. When dehydrated, skin often overproduces oil to compensate, creating a greasy-but-tight feeling. The fix is water-based hydration, not skipping moisturizer. Use the Hyaluron Serum (water-based, oil-free) under a lightweight cream like Moisture Replenishing Hyaluron Cream. You\'ll actually notice less oiliness once the skin is properly hydrated.' },
-        { question: 'What are the best overnight hydration tips for dry skin in UAE?', answer: 'Nighttime is when skin repair peaks, making it the best window for deep hydration. After double cleansing, apply Hyaluron Serum on damp skin (splash water first), then seal with Skin Barrier Protecting Cream — the richest formula in the line that prevents overnight moisture loss. Add Skin Rescue Overnight Cream Mask 2–3 nights per week for an extra surge. Keep bedroom humidity above 40% with a humidifier if possible, and avoid sleeping with AC pointed directly at your face. This combination can reverse even severely dehydrated skin within 2–3 weeks.' },
+        { question: 'How should I layer hydration products for maximum effect?', answer: 'Layer from thinnest to thickest consistency: start with Microbiome Energy Infusing Mist on clean skin to create a damp base, then apply Moisture Replenishing Hyaluron Serum while the mist is still wet (HA needs water to work), follow with Hyaluron Cream or Intensive Hydro Soothing Cream to seal everything in, and finish with SPF in the morning or Skin Barrier Protecting Cream at night. Each layer locks in the previous one - skipping steps means moisture escapes.' },
+        { question: 'Does oily skin still need hydration products?', answer: 'Absolutely - oily and dehydrated are not opposites. In the UAE, many people have oily yet dehydrated skin because air conditioning strips water from all skin types. When dehydrated, skin often overproduces oil to compensate, creating a greasy-but-tight feeling. The fix is water-based hydration, not skipping moisturizer. Use the Hyaluron Serum (water-based, oil-free) under a lightweight cream like Moisture Replenishing Hyaluron Cream. You\'ll actually notice less oiliness once the skin is properly hydrated.' },
+        { question: 'What are the best overnight hydration tips for dry skin in UAE?', answer: 'Nighttime is when skin repair peaks, making it the best window for deep hydration. After double cleansing, apply Hyaluron Serum on damp skin (splash water first), then seal with Skin Barrier Protecting Cream - the richest formula in the line that prevents overnight moisture loss. Add Skin Rescue Overnight Cream Mask 2-3 nights per week for an extra surge. Keep bedroom humidity above 40% with a humidifier if possible, and avoid sleeping with AC pointed directly at your face. This combination can reverse even severely dehydrated skin within 2-3 weeks.' },
       ],
       ar: [
         { question: 'لماذا تشعر البشرة بالجفاف مع التكييف؟', answer: 'قد تشعر البشرة بمزيد من الجفاف أو الشد مع الهواء المكيف، لذلك يمكن ترتيب الروتين من سيروم مائي ثم كريم مناسب.' },
@@ -2433,7 +2433,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         ru: 'Протокол домашнего ухода для чувствительной кожи',
       },
       description: {
-        en: 'Complete morning & evening routine for sensitive skin — barrier repair, calming actives, product sets by sensitivity level, and UAE climate protection tips.',
+        en: 'Complete morning & evening routine for sensitive skin - barrier repair, calming actives, product sets by sensitivity level, and UAE climate protection tips.',
         ar: 'دليل لترتيب روتين صباحي ومسائي تدريجي، واختبار التحمل، وقراءة العطور والزيوت العطرية، وإضافة واقي الشمس في مناخ الإمارات.',
         ru: 'Руководство по поэтапному утреннему и вечернему уходу, проверке переносимости, ароматическим компонентам и солнцезащите в климате ОАЭ.',
       },
@@ -2443,10 +2443,10 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: {
         title: 'Why Sensitive Skin Is So Common in the UAE',
         items: [
-          { icon: '🌡️', label: 'Temperature Shock', detail: 'Walking from 40°C outside into 18°C air conditioning dozens of times a day forces capillaries to contract and expand — breaking down the skin barrier over weeks' },
+          { icon: '🌡️', label: 'Temperature Shock', detail: 'Walking from 40°C outside into 18°C air conditioning dozens of times a day forces capillaries to contract and expand - breaking down the skin barrier over weeks' },
           { icon: '🧬', label: 'Barrier Repair Technology', detail: 'Centella asiatica + ceramide complex rebuilds the lipid matrix that temperature cycling destroys, sealing moisture in and irritants out' },
           { icon: '🦠', label: 'Microbiome Balance', detail: 'Hard water and harsh cleansers strip beneficial bacteria. Our probiotic mist and gentle formulas restore the protective microbiome layer' },
-          { icon: '🧴', label: 'Zero-Irritation Formula', detail: 'No fragrance, no alcohol, no essential oils — every product in the sensitive line is dermatologically tested for reactive skin' },
+          { icon: '🧴', label: 'Zero-Irritation Formula', detail: 'No fragrance, no alcohol, no essential oils - every product in the sensitive line is dermatologically tested for reactive skin' },
         ],
       },
       ar: {
@@ -2462,7 +2462,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Почему чувствительная кожа так распространена в ОАЭ',
         items: [
           { icon: '🌡️', label: 'Смена условий', detail: 'Частые переходы между жарой и кондиционированным воздухом могут менять ощущения кожи и потребность в более лёгкой или насыщенной текстуре.' },
-          { icon: '🧬', label: 'Выбор формулы', detail: 'В сыворотке MultiEx BSASM® Plus 1%, а в креме Skin Barrier Protecting — церамид NP 5 000 ppm и глицерин 17,49%.' },
+          { icon: '🧬', label: 'Выбор формулы', detail: 'В сыворотке MultiEx BSASM® Plus 1%, а в креме Skin Barrier Protecting - церамид NP 5 000 ppm и глицерин 17,49%.' },
           { icon: '☀️', label: 'Дневная защита', detail: 'Утренний уход завершайте подходящим солнцезащитным средством и проверяйте его состав, если ароматизаторы вызывают у вас реакцию.' },
           { icon: '🧴', label: 'Ароматические компоненты', detail: 'Не вся линия свободна от отдушек: в нескольких продуктах есть Parfum, эфирные масла или ароматические растительные компоненты. Нужны проба и постепенное введение.' },
         ],
@@ -2472,30 +2472,30 @@ export const CONCERN_PAGES: ConcernPage[] = [
       en: [
         {
           title: 'Morning Routine',
-          subtitle: 'Calm, protect and strengthen — 5 gentle steps',
+          subtitle: 'Calm, protect and strengthen - 5 gentle steps',
           steps: [
             {
               step: 1, title: 'Gentle Cleanse', duration: '1 min',
               summary: 'Remove overnight oils without stripping the barrier.',
-              detail: 'Apply to a dry face and let the oxygen bubbles lift impurities gently — no rubbing needed. Rinse with lukewarm water (never hot) and pat dry. One single cleanse in the morning is enough for sensitive skin.',
+              detail: 'Apply to a dry face and let the oxygen bubbles lift impurities gently - no rubbing needed. Rinse with lukewarm water (never hot) and pat dry. One single cleanse in the morning is enough for sensitive skin.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
               step: 2, title: 'Microbiome Mist', duration: '15 sec',
               summary: 'Restore beneficial bacteria and prep the skin to absorb actives.',
-              detail: 'Spray 2–3 pumps from 20 cm distance. The pre/probiotic formula rebalances the microbiome disrupted by hard water and AC. Press gently with palms — do not rub.',
+              detail: 'Spray 2-3 pumps from 20 cm distance. The pre/probiotic formula rebalances the microbiome disrupted by hard water and AC. Press gently with palms - do not rub.',
               products: [{ name: 'MICROBIOME ENERGY INFUSING MIST', url: '/products/14', price: '160 AED' }],
             },
             {
               step: 3, title: 'Sensitive Serum', duration: '30 sec',
-              summary: 'Core calming treatment — centella + panthenol soothe inflammation and start barrier repair.',
-              detail: 'Apply 2–3 drops and press gently into the skin with flat palms. Wait 30 seconds for full absorption. This is the cornerstone of the sensitive routine — it calms redness and reduces reactivity with every application.',
+              summary: 'Core calming treatment - centella + panthenol soothe inflammation and start barrier repair.',
+              detail: 'Apply 2-3 drops and press gently into the skin with flat palms. Wait 30 seconds for full absorption. This is the cornerstone of the sensitive routine - it calms redness and reduces reactivity with every application.',
               products: [{ name: 'ALL FOR SENSITIVE SERUM', url: '/products/19', price: '330 AED' }],
             },
             {
               step: 4, title: 'Day Cream', duration: '30 sec',
               summary: 'Lock in actives and provide all-day hydration without heaviness.',
-              detail: 'Choose by preference: Intensive Hydro Soothing Cream for a lighter daytime feel, or Skin Barrier Protecting Cream for maximum barrier defence if your skin is very reactive. Apply in gentle patting motions — never drag across sensitive skin.',
+              detail: 'Choose by preference: Intensive Hydro Soothing Cream for a lighter daytime feel, or Skin Barrier Protecting Cream for maximum barrier defence if your skin is very reactive. Apply in gentle patting motions - never drag across sensitive skin.',
               products: [
                 { name: 'INTENSIVE HYDRO SOOTHING CREAM', url: '/products/28', price: '290 AED' },
                 { name: 'SKIN BARRIER PROTECTING CREAM', url: '/products/27', price: '450 AED' },
@@ -2503,26 +2503,26 @@ export const CONCERN_PAGES: ConcernPage[] = [
             },
             {
               step: 5, title: 'Sun Protection', duration: '30 sec',
-              summary: 'UV is a top trigger for sensitive skin — never skip SPF, even indoors near windows.',
-              detail: 'Apply a 2-finger length strip to face and neck. This formula is fragrance-free and designed for reactive skin. In the UAE, UV index stays above 8 even in winter — unprotected exposure causes chronic micro-inflammation that keeps sensitivity active.',
+              summary: 'UV is a top trigger for sensitive skin - never skip SPF, even indoors near windows.',
+              detail: 'Apply a 2-finger length strip to face and neck. This formula is fragrance-free and designed for reactive skin. In the UAE, UV index stays above 8 even in winter - unprotected exposure causes chronic micro-inflammation that keeps sensitivity active.',
               products: [{ name: 'ULTRA SHIELD SUN CREAM SPF 50+', url: '/products/39', price: '250 AED' }],
             },
           ],
         },
         {
           title: 'Evening Routine',
-          subtitle: 'Repair and rebuild overnight — 4 soothing steps',
+          subtitle: 'Repair and rebuild overnight - 4 soothing steps',
           steps: [
             {
               step: 1, title: 'Gentle Cleanse', duration: '1 min',
-              summary: 'One single cleanse to remove SPF and impurities — no double cleanse to minimize contact on reactive skin.',
+              summary: 'One single cleanse to remove SPF and impurities - no double cleanse to minimize contact on reactive skin.',
               detail: 'Apply the oxygen cleanser to a dry face and let it work for 30 seconds. The micro-bubbles dissolve sunscreen and pollution without a second cleansing step, reducing friction and irritation. Rinse with lukewarm water.',
               products: [{ name: 'SNOW O₂ CLEANSER', url: '/products/10', price: '330 AED' }],
             },
             {
               step: 2, title: 'Sensitive Serum', duration: '30 sec',
-              summary: 'Second dose of calming actives — night-time is when your skin barrier repairs most actively.',
-              detail: 'Apply 2–3 drops and press into the skin. The centella and panthenol work synergistically with your skin\'s overnight repair cycle to accelerate barrier rebuilding.',
+              summary: 'Second dose of calming actives - night-time is when your skin barrier repairs most actively.',
+              detail: 'Apply 2-3 drops and press into the skin. The centella and panthenol work synergistically with your skin\'s overnight repair cycle to accelerate barrier rebuilding.',
               products: [{ name: 'ALL FOR SENSITIVE SERUM', url: '/products/19', price: '330 AED' }],
             },
             {
@@ -2557,7 +2557,7 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 2, title: 'رذاذ الميكروبيوم', duration: '15 ثانية',
               summary: 'رذاذ خفيف قبل السيروم.',
-              detail: 'رشي 2–3 مرات من مسافة نحو 20 سم وربتي بلطف. أدخليه منفرداً حتى يمكن تقييم التحمل.',
+              detail: 'رشي 2-3 مرات من مسافة نحو 20 سم وربتي بلطف. أدخليه منفرداً حتى يمكن تقييم التحمل.',
               products: [{ name: 'MICROBIOME ENERGY INFUSING MIST', url: '/products/14', price: '160 AED' }],
             },
             {
@@ -2631,13 +2631,13 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 2, title: 'Мист с пробиотиками', duration: '15 сек',
               summary: 'Лёгкий мист перед сывороткой.',
-              detail: 'Распылите 2–3 нажатия примерно с 20 см и мягко прижмите ладонями. Вводите его отдельно, чтобы оценить переносимость.',
+              detail: 'Распылите 2-3 нажатия примерно с 20 см и мягко прижмите ладонями. Вводите его отдельно, чтобы оценить переносимость.',
               products: [{ name: 'MICROBIOME ENERGY INFUSING MIST', url: '/products/14', price: '160 AED' }],
             },
             {
               step: 3, title: 'Сыворотка для чувствительной кожи', duration: '30 сек',
               summary: 'MultiEx BSASM® Plus 1%, бетаин 0,5% и аллантоин 0,1% для лёгкого увлажнения и комфорта.',
-              detail: 'Нанесите 2–3 капли и мягко вбейте кончиками пальцев до впитывания, не растирая реактивную кожу.',
+              detail: 'Нанесите 2-3 капли и мягко вбейте кончиками пальцев до впитывания, не растирая реактивную кожу.',
               products: [{ name: 'ALL FOR SENSITIVE SERUM', url: '/products/19', price: '330 AED' }],
             },
             {
@@ -2670,13 +2670,13 @@ export const CONCERN_PAGES: ConcernPage[] = [
             {
               step: 2, title: 'Сыворотка для чувствительной кожи', duration: '30 сек',
               summary: 'Лёгкий слой увлажнения и комфорта перед вечерним кремом.',
-              detail: 'Нанесите 2–3 капли на чистую кожу, мягко вбейте до впитывания и завершите уход кремом.',
+              detail: 'Нанесите 2-3 капли на чистую кожу, мягко вбейте до впитывания и завершите уход кремом.',
               products: [{ name: 'ALL FOR SENSITIVE SERUM', url: '/products/19', price: '330 AED' }],
             },
             {
               step: 3, title: 'Успокаивающий посткрем', duration: '30 сек',
               summary: 'Комфортный слой помогает увлажнить кожу и уменьшить вечернее чувство стянутости.',
-              detail: 'Нанесите комфортный слой поверх сыворотки на целую кожу. Крем сочетает увлажняющую базу 18,39% с дикалия глицирризинатом, экстрактом шлемника и аллантоином — по 0,2% каждого.',
+              detail: 'Нанесите комфортный слой поверх сыворотки на целую кожу. Крем сочетает увлажняющую базу 18,39% с дикалия глицирризинатом, экстрактом шлемника и аллантоином - по 0,2% каждого.',
               products: [{ name: 'SOOTHING REPAIR POSTCREAM', url: '/products/25', price: '204 AED' }],
             },
             {
@@ -2697,8 +2697,8 @@ export const CONCERN_PAGES: ConcernPage[] = [
         title: 'Sensitive Skin Care UAE | Soothing Skincare Dubai | GENOSYS',
         description: 'Professional Korean sensitive skin care for UAE. GENOSYS soothing serums, barrier creams & calming masks for reactive and irritated skin. Dermatologically tested. Free shipping over 1000 AED.',
         h1: 'Sensitive Skin Care & Soothing Treatment',
-        heroShort: 'Professional Korean soothing serums, barrier creams & calming care — formulated for UAE temperature shock, hard water and year-round UV exposure.',
-        intro: 'Sensitive and reactive skin is increasingly common in the UAE due to extreme temperature shifts (hot outdoors, cold air conditioning), pollution, hard water, and harsh UV exposure. GENOSYS offers a dedicated range of soothing and barrier-repair products designed for even the most reactive skin types. Our All For Sensitive line uses gentle yet effective Korean ingredients — centella asiatica, panthenol, and ceramides — to calm inflammation, reduce redness, and rebuild the skin barrier without irritation.',
+        heroShort: 'Professional Korean soothing serums, barrier creams & calming care - formulated for UAE temperature shock, hard water and year-round UV exposure.',
+        intro: 'Sensitive and reactive skin is increasingly common in the UAE due to extreme temperature shifts (hot outdoors, cold air conditioning), pollution, hard water, and harsh UV exposure. GENOSYS offers a dedicated range of soothing and barrier-repair products designed for even the most reactive skin types. Our All For Sensitive line uses gentle yet effective Korean ingredients - centella asiatica, panthenol, and ceramides - to calm inflammation, reduce redness, and rebuild the skin barrier without irritation.',
         keywords: ['sensitive skin care UAE', 'soothing skincare Dubai', 'reactive skin treatment UAE', 'Korean sensitive skin products', 'calming cream Dubai', 'skin barrier repair UAE'],
       },
       ar: {
@@ -2721,10 +2721,10 @@ export const CONCERN_PAGES: ConcernPage[] = [
     faq: {
       en: [
         { question: 'Why is sensitive skin so common in UAE?', answer: 'Sensitive skin is extremely prevalent in the UAE due to the constant cycle of extreme heat outdoors (40-50°C in summer) and cold air conditioning indoors (18-22°C). This temperature shock weakens the skin barrier over time. Additionally, hard water in many areas of Dubai and Abu Dhabi strips natural oils, and high UV index causes chronic low-grade inflammation. GENOSYS sensitive skin products are specifically formulated to address these UAE-specific triggers.' },
-        { question: 'What Korean products are best for sensitive skin?', answer: 'GENOSYS All For Sensitive Serum is the cornerstone product — it contains centella asiatica and panthenol to calm inflammation without irritating active ingredients. Follow with the Soothing Repair Postcream for barrier repair, and the Skin Barrier Protecting Cream for daily protection. The GENOSYS Hydro Cool Modeling Mask provides instant soothing relief for acute sensitivity episodes.' },
-        { question: 'Can I exfoliate if I have sensitive skin?', answer: 'Yes, but with caution. Avoid physical scrubs and harsh chemical peels — these damage an already compromised barrier. Instead, use a very gentle enzyme exfoliant no more than once a week, and only when your skin is in a calm phase (no active redness or stinging). On exfoliation days, skip other actives and focus on barrier repair with the Soothing Repair Postcream and Skin Barrier Protecting Cream. Always follow with SPF the next morning.' },
+        { question: 'What Korean products are best for sensitive skin?', answer: 'GENOSYS All For Sensitive Serum is the cornerstone product - it contains centella asiatica and panthenol to calm inflammation without irritating active ingredients. Follow with the Soothing Repair Postcream for barrier repair, and the Skin Barrier Protecting Cream for daily protection. The GENOSYS Hydro Cool Modeling Mask provides instant soothing relief for acute sensitivity episodes.' },
+        { question: 'Can I exfoliate if I have sensitive skin?', answer: 'Yes, but with caution. Avoid physical scrubs and harsh chemical peels - these damage an already compromised barrier. Instead, use a very gentle enzyme exfoliant no more than once a week, and only when your skin is in a calm phase (no active redness or stinging). On exfoliation days, skip other actives and focus on barrier repair with the Soothing Repair Postcream and Skin Barrier Protecting Cream. Always follow with SPF the next morning.' },
         { question: 'Why does my skin turn red after sun exposure in the UAE?', answer: 'Post-sun redness in sensitive skin is caused by UV-triggered inflammation and histamine release in weakened skin barriers. The UAE\'s extreme UV index (often 11+) penetrates compromised barriers faster than healthy skin. To manage this: always wear SPF 50+ (ULTRA SHIELD Sun Cream), reapply every 2 hours outdoors, and apply the All For Sensitive Serum immediately after sun exposure to calm the inflammatory cascade. The Microbiome Energy Infusing Mist can provide instant cooling relief.' },
-        { question: 'How do I build tolerance and strengthen my sensitive skin over time?', answer: 'Building tolerance requires consistent barrier repair, not aggressive treatment. Start with a minimal routine: gentle cleanser, sensitive serum, and barrier cream for 2–4 weeks. Once redness episodes decrease, gradually introduce one new product at a time with a 7-day gap between additions. The GENOSYS barrier repair system — Sensitive Serum plus Skin Barrier Protecting Cream — is designed for exactly this: each week, the ceramide and centella complex rebuilds another layer of barrier strength. Most clients see a measurable reduction in reactivity within 6–8 weeks.' },
+        { question: 'How do I build tolerance and strengthen my sensitive skin over time?', answer: 'Building tolerance requires consistent barrier repair, not aggressive treatment. Start with a minimal routine: gentle cleanser, sensitive serum, and barrier cream for 2-4 weeks. Once redness episodes decrease, gradually introduce one new product at a time with a 7-day gap between additions. The GENOSYS barrier repair system - Sensitive Serum plus Skin Barrier Protecting Cream - is designed for exactly this: each week, the ceramide and centella complex rebuilds another layer of barrier strength. Most clients see a measurable reduction in reactivity within 6-8 weeks.' },
         { question: 'Does hard water in Dubai make sensitive skin worse?', answer: 'Yes, hard water is a significant and often overlooked trigger. Dubai\'s tap water has high mineral content (calcium and magnesium) that disrupts the skin\'s acid mantle, raises pH, and strips the protective lipid layer. This leaves skin more vulnerable to irritants and allergens. To counteract this: use a gentle, pH-balanced cleanser like the SNOW O₂ Cleanser (it works without excessive water contact), follow immediately with the Microbiome Energy Infusing Mist to restore pH and microbiome balance, and always apply a barrier cream to lock in hydration after cleansing.' },
       ],
       ar: [

@@ -124,7 +124,7 @@ export default function NetworkStatus() {
         <span className="text-sm font-medium">
           {isOnline 
             ? '✓ Back online' 
-            : 'You\'re offline — browsing cached content'
+            : 'You\'re offline - browsing cached content'
           }
         </span>
       </div>

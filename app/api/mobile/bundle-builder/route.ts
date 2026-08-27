@@ -40,7 +40,7 @@ const DISCOUNT_TIERS = [
   { minItems: 5, discount: 20 },
 ]
 
-// Products excluded from bundle builder by name (none currently — SRS was
+// Products excluded from bundle builder by name (none currently - SRS was
 // re-admitted 2026-07-06; category-level exclusions in the query still apply)
 const EXCLUDED_PRODUCTS: string[] = []
 
@@ -126,7 +126,7 @@ export async function GET(request: NextRequest) {
         else if (p.nameRu) name = p.nameRu
       }
 
-      // Bundle builder: NO user/VIP discount — only bundle tier discount applies.
+      // Bundle builder: NO user/VIP discount - only bundle tier discount applies.
       // Display price = retail price (bundle discount is applied at checkout based on item count).
       const displayPrice = p.price
       const variants = p.variants

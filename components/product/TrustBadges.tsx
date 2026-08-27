@@ -25,10 +25,10 @@ const TRUST_COPY = {
 
 type Props = {
   /**
-   * `horizontal` — single row, centered (good for full-width mobile placement).
-   * `stacked`    — vertical list in a bordered white card with tinted icon wells.
+   * `horizontal` - single row, centered (good for full-width mobile placement).
+   * `stacked`    - vertical list in a bordered white card with tinted icon wells.
    *                Designed for narrow desktop columns (~590px) where a single
-   *                horizontal row can't fit three whitespace-nowrap badges —
+   *                horizontal row can't fit three whitespace-nowrap badges -
    *                e.g. the PDP left column under the Add to Cart button.
    * Defaults to `horizontal`.
    */
@@ -40,7 +40,7 @@ export default function TrustBadges({ layout = 'horizontal' }: Props) {
   const copy = TRUST_COPY[locale as keyof typeof TRUST_COPY] ?? TRUST_COPY.en
 
   if (layout === 'stacked') {
-    // Premium trust card — used under the PDP Add to Cart on desktop. Icon wells
+    // Premium trust card - used under the PDP Add to Cart on desktop. Icon wells
     // + short copy + muted caption reads as a conversion-anchor reassurance block
     // rather than the previous plain gray strip.
     return (

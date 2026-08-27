@@ -8,7 +8,7 @@ import type { Locale } from '@/lib/i18n'
  * Compact newsletter signup card. Posts to the same /api/newsletter/subscribe
  * endpoint as the homepage hero form (honeypot + rate-limit protected).
  *
- * Used where the rich homepage dark-band form isn't shown — primarily the
+ * Used where the rich homepage dark-band form isn't shown - primarily the
  * /products page on mobile/PWA, where mobile visitors land (the homepage
  * redirects them here and the content footer is hidden on mobile).
  */
@@ -36,7 +36,7 @@ export default function NewsletterSignup({
     body:
       locale === 'ar' ? 'بريد إلكتروني واحد شهرياً: نصائح العناية بالبشرة، إطلاقات جديدة وعروض حصرية.'
       : locale === 'ru' ? 'Одно письмо в месяц: советы по уходу, новинки и эксклюзивные предложения.'
-      : 'One email a month — skincare tips, new launches and subscriber-only offers.',
+      : 'One email a month - skincare tips, new launches and subscriber-only offers.',
     placeholder:
       locale === 'ar' ? 'أدخل بريدك الإلكتروني'
       : locale === 'ru' ? 'Введите email'
@@ -47,8 +47,8 @@ export default function NewsletterSignup({
       locale === 'ar' ? 'جارٍ الإرسال…' : locale === 'ru' ? 'Отправляем…' : 'Subscribing…',
     success:
       locale === 'ar' ? 'شكراً لك! تحقق من بريدك الإلكتروني للتأكيد.'
-      : locale === 'ru' ? 'Спасибо! Проверьте почту — мы отправили подтверждение.'
-      : 'Thanks — check your inbox for a welcome email.',
+      : locale === 'ru' ? 'Спасибо! Проверьте почту - мы отправили подтверждение.'
+      : 'Thanks - check your inbox for a welcome email.',
     already:
       locale === 'ar' ? 'أنت مشترك بالفعل. تحقق من البريد غير المرغوب أو العروض الترويجية.'
       : locale === 'ru' ? 'Вы уже подписаны. Проверьте папки «Спам» и «Промоакции».'
@@ -142,7 +142,7 @@ export default function NewsletterSignup({
               aria-invalid={status === 'error'}
               aria-describedby={status === 'error' ? 'products-newsletter-error' : undefined}
             />
-            {/* Honeypot — hidden from a11y tree; only bots fill it */}
+            {/* Honeypot - hidden from a11y tree; only bots fill it */}
             <input
               type="text"
               name="website"

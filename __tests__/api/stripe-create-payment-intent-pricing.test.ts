@@ -75,13 +75,13 @@ jest.mock('@/lib/productsDb', () => ({
 }))
 
 // DB-backed rate limiter (added 2026-07-06) pulls in the real Prisma client
-// and reads request.headers — mock both sides.
+// and reads request.headers - mock both sides.
 jest.mock('@/lib/rateLimitSimple', () => ({
   rateLimitSimple: jest.fn(() => jest.fn(async () => ({ success: true }))),
   getClientIdentifierFromNextRequest: jest.fn(() => 'test-client'),
 }))
 
-// Loyalty engine pulls in the real Prisma client — mock the whole module
+// Loyalty engine pulls in the real Prisma client - mock the whole module
 jest.mock('@/lib/loyalty', () => ({
   estimateOrderPoints: jest.fn(() => 0),
   resolveRedemptionForCheckout: jest.fn(async () => ({ points: 0, amountAed: 0 })),

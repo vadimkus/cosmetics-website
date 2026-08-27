@@ -29,7 +29,7 @@ export function resolveOrderChannel(input: {
       if (source === 'mobile_app' || source === 'app') return 'app'
       if (source === 'website' || source === 'web') return 'website'
     } catch {
-      /* not JSON — ignore */
+      /* not JSON - ignore */
     }
   }
 

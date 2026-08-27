@@ -7,12 +7,12 @@ import { NextResponse } from 'next/server'
  * Change the values below to swap the video/image without rebuilding the app.
  *
  * Fields:
- *   type        — "video" | "image"  (image = static branded screen, no download)
- *   videoUrl    — absolute URL to an mp4 (only used when type = "video")
- *   posterUrl   — optional still image shown while video buffers
- *   duration    — max playback time in ms (video auto-advances on finish or on timeout)
- *   cacheTTL    — how long (seconds) the client should cache the video file locally
- *   enabled     — master kill-switch; false = skip video entirely
+ *   type        - "video" | "image"  (image = static branded screen, no download)
+ *   videoUrl    - absolute URL to an mp4 (only used when type = "video")
+ *   posterUrl   - optional still image shown while video buffers
+ *   duration    - max playback time in ms (video auto-advances on finish or on timeout)
+ *   cacheTTL    - how long (seconds) the client should cache the video file locally
+ *   enabled     - master kill-switch; false = skip video entirely
  */
 
 const SPLASH_CONFIG = {

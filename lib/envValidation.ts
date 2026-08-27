@@ -158,7 +158,7 @@ function validateEnvironment(): EnvConfig {
   // Module-level dedup (`hasEmittedWarnings`) below: `validateEnvironment()`
   // runs once per container cold start on Vercel, but a single cold start can
   // serve many requests. We still only emit each missing-config warning once
-  // per process lifetime — no per-request spam.
+  // per process lifetime - no per-request spam.
   const isBuildPhase = process.env.NEXT_PHASE === 'phase-production-build'
   if (!isClient && requiredVars.NODE_ENV === 'production' && !isBuildPhase && !hasEmittedWarnings) {
     hasEmittedWarnings = true
@@ -186,7 +186,7 @@ function validateEnvironment(): EnvConfig {
       )
     }
 
-    // JWT_SECRET is critical — lib/jwt.ts hard-fails if missing, but we still
+    // JWT_SECRET is critical - lib/jwt.ts hard-fails if missing, but we still
     // surface a length warning here so it's visible in prod logs on first boot.
     if (!optionalVars.JWT_SECRET) {
       warnLog(

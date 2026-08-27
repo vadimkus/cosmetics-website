@@ -252,10 +252,10 @@ function getContent(locale: string) {
       number: 11,
       title: locale === 'ar' ? 'الاحتفاظ بالبيانات' : locale === 'ru' ? 'Хранение данных' : 'Data Retention',
       content: locale === 'ar'
-        ? 'نحتفظ ببياناتك طالما حسابك نشط. يتم الاحتفاظ ببيانات الطلبات لمدة 5 سنوات للمتطلبات الضريبية. يمكنك طلب حذف حسابك — سيتم حذف بياناتك خلال 30 يوماً، مع الاحتفاظ بسجلات المعاملات حسب القانون.'
+        ? 'نحتفظ ببياناتك طالما حسابك نشط. يتم الاحتفاظ ببيانات الطلبات لمدة 5 سنوات للمتطلبات الضريبية. يمكنك طلب حذف حسابك - سيتم حذف بياناتك خلال 30 يوماً، مع الاحتفاظ بسجلات المعاملات حسب القانون.'
         : locale === 'ru'
-          ? 'Мы храним данные, пока аккаунт активен. Данные заказов хранятся 5 лет для налоговых требований. Вы можете запросить удаление — данные удаляются за 30 дней, кроме записей о транзакциях по закону.'
-          : 'We retain personal data as long as your account is active. Order data is kept for 5 years for UAE tax requirements. You can request account deletion — personal data removed within 30 days, except transaction records required by law.',
+          ? 'Мы храним данные, пока аккаунт активен. Данные заказов хранятся 5 лет для налоговых требований. Вы можете запросить удаление - данные удаляются за 30 дней, кроме записей о транзакциях по закону.'
+          : 'We retain personal data as long as your account is active. Order data is kept for 5 years for UAE tax requirements. You can request account deletion - personal data removed within 30 days, except transaction records required by law.',
     },
     {
       id: 'children',

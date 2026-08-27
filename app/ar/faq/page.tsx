@@ -74,7 +74,7 @@ export default async function ArabicFAQPage() {
         ]}
       />
       {/* FAQPage JSON-LD is emitted once inside FAQClient from the visible DB
-          questions — no duplicate hardcoded GeoFaqSchema here. */}
+          questions - no duplicate hardcoded GeoFaqSchema here. */}
       <FAQClient faqItems={faqItems} />
     </>
   )

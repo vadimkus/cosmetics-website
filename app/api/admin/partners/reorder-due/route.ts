@@ -54,7 +54,7 @@ export async function GET(request: NextRequest) {
           daysSince === null ? 'never' : daysSince >= thresholdDays ? 'overdue' : 'ok'
 
         const phoneDigits = String(p.phone || '').replace(/\D/g, '')
-        const reminderText = `Hi ${p.name || ''}, it's time to restock your GENOSYS products. Reply and I'll prepare your order at your partner price. — GENOSYS`
+        const reminderText = `Hi ${p.name || ''}, it's time to restock your GENOSYS products. Reply and I'll prepare your order at your partner price. - GENOSYS`
         const whatsappUrl = phoneDigits
           ? `https://wa.me/${phoneDigits}?text=${encodeURIComponent(reminderText)}`
           : null

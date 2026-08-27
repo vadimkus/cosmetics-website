@@ -3,8 +3,8 @@
 /**
  * Bespoke product page for ALL FOR SENSITIVE SERUM (product 19).
  *
- * Shares the editorial design system built for product 66 — the primitives, the
- * gallery and the structural CSS all come from ../cerabarrier — and layers a
+ * Shares the editorial design system built for product 66 - the primitives, the
+ * gallery and the structural CSS all come from ../cerabarrier - and layers a
  * lime/charcoal palette on top via afs.css, taken from the pack.
  *
  * Section order:

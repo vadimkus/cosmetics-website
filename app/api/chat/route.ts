@@ -23,7 +23,7 @@ interface MessagePart {
 
 // Per-minute burst limit + a daily per-IP cap. Uses the shared DB-backed
 // limiter so it survives serverless cold starts (the old in-memory Map reset
-// on every new instance, so the limit was effectively bypassable — and every
+// on every new instance, so the limit was effectively bypassable - and every
 // message costs an OpenAI call).
 const chatBurstLimiter = rateLimitSimple({
   windowMs: 60 * 1000,

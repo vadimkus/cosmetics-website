@@ -1519,7 +1519,7 @@ export function ARSkinAnalysisCamera({
                         ? (locale === 'ar' ? 'ذكر ♂' : locale === 'ru' ? 'Муж ♂' : 'Male ♂')
                         : liveMetrics.gender === 'female'
                         ? (locale === 'ar' ? 'أنثى ♀' : locale === 'ru' ? 'Жен ♀' : 'Female ♀')
-                        : '—'}
+                        : ' - '}
                     </span>
                   </div>
                 </div>

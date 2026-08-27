@@ -212,11 +212,11 @@ export default function TermsClient() {
     </div>
   )
 
-  // Mobile Web + PWA — unified app-like layout
+  // Mobile Web + PWA - unified app-like layout
   if (isAppLikeMode) {
     return (
       <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] pb-32`} dir={dir}>
-        {/* Unified nav header — matches /profile and Privacy Policy exactly:
+        {/* Unified nav header - matches /profile and Privacy Policy exactly:
             sticky, z-10, bg-white/95 + backdrop-blur, border-b border-[var(--cera-line)]. */}
         <div className={`mweb-float-sticky-top sticky top-0 z-10 bg-[var(--cera-cream)]/95 backdrop-blur flex items-center justify-between px-5 py-4 border-b border-[var(--cera-line)] ${isRTL ? 'flex-row-reverse' : ''}`}>
           <button
@@ -245,7 +245,7 @@ export default function TermsClient() {
 
         <div className="px-4 py-4">
           <div className="bg-white rounded-2xl px-5 shadow-sm border border-[var(--cera-line)]">
-            {/* Last Updated — tight pill badge (same treatment as Privacy Policy). */}
+            {/* Last Updated - tight pill badge (same treatment as Privacy Policy). */}
             <div className={`flex pt-4 ${isRTL ? 'justify-end' : 'justify-start'}`}>
               <span
                 className="inline-flex items-center gap-1.5 rounded-full bg-[var(--cera-cream-deep)] text-[var(--cera-body)] px-2.5 py-1 text-xs font-medium"
@@ -258,7 +258,7 @@ export default function TermsClient() {
             </div>
 
             {/* All 10 sections. Previously the PWA branch silently dropped
-                Shipping, Returns and Disclaimers — now at parity with desktop. */}
+                Shipping, Returns and Disclaimers - now at parity with desktop. */}
             <AppSection
               title={translations.agreementTitle}
               text={translations.agreementText}
@@ -292,7 +292,7 @@ export default function TermsClient() {
               title={translations.returnsTitle}
               text={translations.returnsText}
             />
-            {/* Disclaimers — first paragraph then amber callout for the
+            {/* Disclaimers - first paragraph then amber callout for the
                 health/skin safety note (same highlight treatment as desktop). */}
             <div className="py-5 border-b border-[var(--cera-line)]">
               <h2 className={`text-base font-bold text-[var(--cera-ink)] mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.disclaimersTitle}</h2>
@@ -306,7 +306,7 @@ export default function TermsClient() {
               text={translations.governingLawText}
             />
 
-            {/* Contact — with mail, phone, address in a grouped gray box
+            {/* Contact - with mail, phone, address in a grouped gray box
                 (parity with desktop and Privacy Policy). */}
             <div className="py-5">
               <h2 className={`text-base font-bold text-[var(--cera-ink)] mb-2 ${isRTL ? 'text-right' : ''}`}>{translations.contactTitle}</h2>
@@ -348,7 +348,7 @@ export default function TermsClient() {
       />
 
       <div className="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
-        {/* Back to home — gray editorial style, matching About / FAQ. */}
+        {/* Back to home - gray editorial style, matching About / FAQ. */}
         <Link 
           href={getLocalizedPath('/', locale)}
           className={`inline-flex items-center gap-1 text-xs md:text-sm text-[var(--cera-body)] hover:text-[var(--cera-ink)] mb-6 md:mb-10 transition-colors group ${isRTL ? 'flex-row-reverse' : ''}`}
@@ -357,7 +357,7 @@ export default function TermsClient() {
           <span>{translations.backToHome}</span>
         </Link>
 
-        {/* Editorial header — kicker → headline → last-updated pill, consistent
+        {/* Editorial header - kicker → headline → last-updated pill, consistent
             with About / Delivery / Contact / FAQ. */}
         <header className={`mb-8 md:mb-12 ${isRTL ? 'text-right' : ''}`}>
           <p className="text-[11px] md:text-xs font-mono uppercase tracking-[0.32em] text-[var(--cera-muted)]">

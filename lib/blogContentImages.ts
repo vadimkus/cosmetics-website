@@ -3,7 +3,7 @@
  * the Next.js image optimizer (resized + AVIF/WebP) instead of the raw,
  * multi-megabyte originals in /public.
  *
- * Run this AFTER sanitizeHtml() — the sanitizer strips srcset/sizes/decoding
+ * Run this AFTER sanitizeHtml() - the sanitizer strips srcset/sizes/decoding
  * attributes, so the transform must be the last step before rendering.
  */
 

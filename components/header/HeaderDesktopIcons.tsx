@@ -34,7 +34,7 @@ export default function HeaderDesktopIcons({
   // Badge position for RTL
   const badgePosition = isRTL ? "-top-1 -left-1" : "-top-1 -right-1"
 
-  // Shared icon button shell — gives every header icon a consistent circular
+  // Shared icon button shell - gives every header icon a consistent circular
   // hover surface, a keyboard `focus-visible` ring, and the 44x44 touch target
   // that was previously duplicated across some (but not all) links/buttons.
   const iconShell =

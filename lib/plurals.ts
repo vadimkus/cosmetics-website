@@ -34,7 +34,7 @@ function getRules(locale: string): Intl.PluralRules {
 }
 
 /**
- * Lazy resolver version — only calls `resolve` for categories the runtime
+ * Lazy resolver version - only calls `resolve` for categories the runtime
  * actually needs. Falls back through `other` → `one` on misses.
  */
 export function plural(
@@ -46,7 +46,7 @@ export function plural(
   try {
     picked = getRules(locale).select(count) as PluralCategory
   } catch {
-    // Intl.PluralRules not available — use fallback.
+    // Intl.PluralRules not available - use fallback.
   }
   const primary = resolve(picked)
   if (primary && !looksLikeMissingKey(primary)) return primary

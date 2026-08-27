@@ -25,7 +25,7 @@
  *   - Salicylic acid as the exfoliating active: it is 99 ppm, a twenty-fifth of the
  *     hair tonic's 0.250%. The alcohol and glycol do the work.
  *   - The deck repeats the 5α-reductase / DHT, angiogenesis, anagen-follicle and
- *     dermal-papilla claims on its copper tripeptide and saw palmetto slides — for
+ *     dermal-papilla claims on its copper tripeptide and saw palmetto slides - for
  *     ingredients here at 5 PARTS PER BILLION and 0.1 ppm. Six documents in this line
  *     now assert a prescription-drug mechanism.
  *   - Anti-inflammatory or blood-circulation claims.

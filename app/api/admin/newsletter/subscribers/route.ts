@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
     if (filters.isActive !== undefined) where.isActive = filters.isActive
     if (filters.source) where.source = filters.source
     if (filters.search) {
-      // email contains — Prisma supports `contains` with mode: insensitive on Postgres
+      // email contains - Prisma supports `contains` with mode: insensitive on Postgres
       where.email = { contains: filters.search.toLowerCase(), mode: 'insensitive' }
     }
 
@@ -118,7 +118,7 @@ export async function GET(request: NextRequest) {
 
 /**
  * POST /api/admin/newsletter/subscribers
- * Body: { email, locale?, source? } — admin manually adds a subscriber.
+ * Body: { email, locale?, source? } - admin manually adds a subscriber.
  */
 export async function POST(request: NextRequest) {
   const auth = await requireAdminAuth(request)

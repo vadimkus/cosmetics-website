@@ -8,18 +8,18 @@
  *
  * THE SPINE IS THE COMPARISON WITH THE SERUM (product 22), because the two are
  * genuinely different formulas and the certificates prove it. The serum is
- * 25.45% glycerin and has a specific gravity of 1.0689 — heavier than water.
+ * 25.45% glycerin and has a specific gravity of 1.0689 - heavier than water.
  * This cream is 8% glycerin with roughly 13% oils and butters, and comes in at
- * 0.9860 — lighter than water. One draws water in, the other holds it there.
+ * 0.9860 - lighter than water. One draws water in, the other holds it there.
  * Two numbers either side of 1.000 on two certificates: a physical fingerprint
  * of the difference rather than a marketing distinction.
  *
  * The cream is also the more honest of the pair, because it contains NO peptides
- * at all — so nothing here is being sold as six mechanisms at parts per million.
+ * at all - so nothing here is being sold as six mechanisms at parts per million.
  *
  * Do not add: any result from the P&K clinical study (same citation as the serum,
  * still no report on the drive), barrier or dermal mechanisms from the ceramide
- * liposome, collagen or elastin (0.1–1 ppm), the deck's "safe without side
+ * liposome, collagen or elastin (0.1-1 ppm), the deck's "safe without side
  * effects" and "prevents acne" bakuchiol claims, any suggestion the bakuchiol
  * matches retinol at 0.1%, the contract manufacturer, or the lot code.
  */

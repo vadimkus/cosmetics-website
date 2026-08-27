@@ -244,7 +244,7 @@ export const BESPOKE_PDP_LAYOUTS = {
   // specific gravities either side of water. See the source audit.
   '32': AntiWrinkleCreamProductPage,
   // 48 is the LED helmet. Same device shape as 3, but the running-cost table is
-  // inverted — this is the one with no consumable — and there is no dosimetry to
+  // inverted - this is the one with no consumable - and there is no dosimetry to
   // publish: wavelengths appear on a sales slide only, irradiance nowhere.
   '48': HairGentronProductPage,
   // 49 is the canopy LED: no INCI, no routine, and a dosimetry table where the

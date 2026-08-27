@@ -69,9 +69,9 @@ interface ActiveIngredient {
 /**
  * The Aug 2026 studio set, `/images/cera_o/`. Each slide sits beside the section it
  * actually illustrates rather than being left to the gallery thumbs, per the bespoke-PDP
- * slides audit. Every claim printed on these slides is already in cerabarrierCopy.ts —
+ * slides audit. Every claim printed on these slides is already in cerabarrierCopy.ts -
  * +145.8%, 2.4×, the five ceramides, the pro/prebiotic list, and the "clinical testing on
- * a single use, individual results vary" footnote — so nothing here introduces a claim the
+ * a single use, individual results vary" footnote - so nothing here introduces a claim the
  * page does not already make.
  */
 const TEXTURE_IMAGE = '/images/cera_o/s3.jpeg' // GEL. WATER. FOAM.
@@ -145,7 +145,7 @@ export default function CerabarrierProductPage({
   // The DB `images` field is the single source of truth for the gallery; the
   // main image is prepended here (it is never stored inside `images`).
   // Slides carry their claims as printed text, so they are swapped for the
-  // translated file where one exists — see lib/localizedProductImages.ts.
+  // translated file where one exists - see lib/localizedProductImages.ts.
   const galleryImages: CeraGalleryImage[] = useMemo(() => {
     const list = Array.from(
       new Set([product.image, ...parseJsonArray<string>(product.images)].filter(Boolean))
@@ -837,8 +837,8 @@ export default function CerabarrierProductPage({
           />
 
           {/* The section used to open straight into the ingredient list. This slide is the
-              same list drawn as an architecture — lipids, ceramides, microbiome complex,
-              cholesterol and phytosphingosine — so it earns the space above it. */}
+              same list drawn as an architecture - lipids, ceramides, microbiome complex,
+              cholesterol and phytosphingosine - so it earns the space above it. */}
           <CeraReveal className="mx-auto mt-10 max-w-[540px] lg:mt-12">
             <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-[var(--cera-cream)]">
               <Image

@@ -7,12 +7,12 @@
  * WHAT MAKES THIS PAGE DIFFERENT FROM ITS FOUR SIBLINGS: the kit has no formula of its
  * own. It is product 46 (Scalp Peeling α 100 ml) and product 45 (Hair Solution α, six
  * of the eight vials) in a box with a 0.5 mm roller. So this page deliberately does NOT
- * restate the chemistry the other two pages already carry — it covers what the box
+ * restate the chemistry the other two pages already carry - it covers what the box
  * adds, and sends the reader to 45 and 46 for the rest.
  *
  * THE AMBER BLOCK LEADS, as it does on 46, and for the same reason: it corrects our own
  * copy. Every claim stripped from 45 and 46 during their audits had survived on the
- * kit's record — 5α-reductase inhibition to suppress DHT, angiogenesis, "stimulates
+ * kit's record - 5α-reductase inhibition to suppress DHT, angiogenesis, "stimulates
  * hair growth", "prevent hair loss and promote healthy hair regrowth". A bundle page
  * contradicting the two products inside it is the worst version of that error, so it is
  * said first. It then quotes the carton, because the last of those four claims is
@@ -30,7 +30,7 @@
  * If any of the three list prices move, recalculate it in all three languages.
  *
  * TWO INCI LISTS, not one. The kit carries two liquids, so the accordion renders both,
- * looked up from the ingredients record by a "Full INCI — …" name prefix rather than
+ * looked up from the ingredients record by a "Full INCI - …" name prefix rather than
  * the single exact "Full INCI" key the sibling pages use.
  *
  * MUST NEVER BE ADDED:
@@ -124,8 +124,8 @@ export default function MesopeciaKitProductPage({ product, unitsSold = 0, routin
   const cartLine = findSelectedStandardCartLine(cartItems, product.id, '', '')
   const inCartQty = cartLine?.quantity || 0
 
-  // Two liquids, so two lists. Stored as "Full INCI — Scalp Peeling α" and
-  // "Full INCI — Hair Solution α" rather than the single key the sibling pages use.
+  // Two liquids, so two lists. Stored as "Full INCI - Scalp Peeling α" and
+  // "Full INCI - Hair Solution α" rather than the single key the sibling pages use.
   const inciLists = useMemo(() => {
     const list = parseJsonArray<{ name?: string; description?: string }>(product.ingredients)
     const pick = (needle: string) =>
@@ -668,7 +668,7 @@ export default function MesopeciaKitProductPage({ product, unitsSold = 0, routin
         </div>
       </section>
 
-      {/* ──────────────── Full INCI — two liquids, two lists ─────────────── */}
+      {/* ──────────────── Full INCI - two liquids, two lists ─────────────── */}
       {inciLists.peeling || inciLists.solution ? (
         <section className="bg-white py-16 lg:py-20">
           <div className="mx-auto max-w-[900px] px-4 sm:px-6">

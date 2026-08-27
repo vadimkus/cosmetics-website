@@ -105,8 +105,8 @@ const ProductActions = memo(function ProductActions({
   const requiresOptions = isProductOptionSelectionRequired(product)
 
   if (isInCart) {
-    const decLabel = `${t('cart.decreaseQuantity') || 'Decrease quantity'} — ${product.name}`
-    const incLabel = `${t('cart.increaseQuantity') || 'Increase quantity'} — ${product.name}`
+    const decLabel = `${t('cart.decreaseQuantity') || 'Decrease quantity'} - ${product.name}`
+    const incLabel = `${t('cart.increaseQuantity') || 'Increase quantity'} - ${product.name}`
     const isBusy = isAdding
 
     if (isAdding) {
@@ -131,7 +131,7 @@ const ProductActions = memo(function ProductActions({
             type="button"
             onClick={onOpenCart}
             className="flex min-h-12 w-full items-center justify-center gap-2 rounded-full border border-[var(--cera-line)] bg-white px-3 text-body-xs font-semibold text-[var(--cera-ink)] transition-colors hover:border-[var(--cera-blush-deep)] hover:bg-[var(--cera-cream)]"
-            aria-label={`${t('product.viewBag')} — ${product.name}`}
+            aria-label={`${t('product.viewBag')} - ${product.name}`}
             style={touchStyles}
           >
             <ShoppingCart className="h-4 w-4 text-[var(--cera-rose)]" aria-hidden="true" />
@@ -146,7 +146,7 @@ const ProductActions = memo(function ProductActions({
         <div
           className="flex min-h-12 w-full items-stretch overflow-hidden rounded-lg border border-[var(--status-green-deep)] bg-[var(--status-green-deep)] font-medium text-white shadow-sm"
           role="group"
-          aria-label={`${inStateLabel} (${inCartQty}) — ${product.name}`}
+          aria-label={`${inStateLabel} (${inCartQty}) - ${product.name}`}
           style={touchStyles}
         >
           <button
@@ -204,7 +204,7 @@ const ProductActions = memo(function ProductActions({
         type="button"
         onClick={requiresOptions ? onChooseOptions : onAddToCart}
         disabled={isDisabled}
-        aria-label={`${buttonText} — ${product.name}`}
+        aria-label={`${buttonText} - ${product.name}`}
         aria-live="polite"
         className={buttonClasses}
         style={touchStyles}

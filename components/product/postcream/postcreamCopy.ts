@@ -2,7 +2,7 @@
  * Bespoke copy for SOOTHING REPAIR POSTCREAM (product 25), the post-procedure
  * cream clinics hand a client after microneedling.
  *
- * SOURCING — every figure traces to the audit in
+ * SOURCING - every figure traces to the audit in
  * docs/SESSION_CHANGES_2026-08-17_PRODUCT_25_POSTCREAM_SOURCE_AUDIT.md:
  *   - DTS MG signed formula: butylene glycol 12.000%, glycerin 6.390%,
  *     dimethicone 2.000%, squalane 1.500%, caprylic/capric triglyceride 1.500%,
@@ -25,7 +25,7 @@
  * THIS PAGE IS A RE-ATTRIBUTION, NOT A DEBUNKING. The soothing claim holds up
  * well. It is carried by 18.4% humectants plus licorice-derived dipotassium
  * glycyrrhizate at 0.200%, baicalin-bearing scutellaria at 0.200%, allantoin at
- * 0.200%, vitamin E at 0.500% and bisabolol — none of which our record led with.
+ * 0.200%, vitamin E at 0.500% and bisabolol - none of which our record led with.
  * Meanwhile sh-polypeptide-7, which DID lead the list, is at 10 parts per billion.
  *
  * MUST STAY OUT:
@@ -66,7 +66,7 @@ export interface PostcreamCopy {
 
   /* Two tubes: the 20 g retail tube and the 100 g professional one. Both are real
      SKUs with their own MoySklad codes (00038 and 54465), so a size has to travel
-     with every cart call — see PostcreamProductPage. */
+     with every cart call - see PostcreamProductPage. */
   chooseSize: string
   sizes: {
     homecareLabel: string
@@ -162,9 +162,9 @@ const EN: PostcreamCopy = {
   eyebrow: 'Soothing Repair Postcream · 20 g homecare · 100 g professional',
   headline: 'The cream your practitioner hands you on the way out.',
   subheadline:
-    'Nearly a fifth of this tube is humectant — butylene glycol at 12% and glycerin at 6.4% — over licorice-derived dipotassium glycyrrhizate, baicalin-bearing scutellaria and allantoin, each at 0.2%. That combination is why skin that has just been needled or lasered settles down under it. Its registered function is one word: soothing.',
+    'Nearly a fifth of this tube is humectant - butylene glycol at 12% and glycerin at 6.4% - over licorice-derived dipotassium glycyrrhizate, baicalin-bearing scutellaria and allantoin, each at 0.2%. That combination is why skin that has just been needled or lasered settles down under it. Its registered function is one word: soothing.',
   heroBullets: [
-    '18.4% humectants — the most useful thing for freshly treated skin',
+    '18.4% humectants - the most useful thing for freshly treated skin',
     'Licorice, scutellaria and allantoin, all three at a full 0.2%',
     'May be reapplied several times a day, per the manufacturer',
     'Contains beeswax and lavender oil. Not for broken skin',
@@ -188,7 +188,7 @@ const EN: PostcreamCopy = {
   },
 
   stats: [
-    { value: '18.4%', label: 'Humectants — butylene glycol plus glycerin' },
+    { value: '18.4%', label: 'Humectants - butylene glycol plus glycerin' },
     { value: '0.2%', label: 'Each of licorice, scutellaria and allantoin' },
     { value: '6M', label: 'Period after opening' },
     { value: '4', label: 'Pathogens screened on the batch, all absent' },
@@ -218,7 +218,7 @@ const EN: PostcreamCopy = {
       {
         name: 'Allantoin and bisabolol',
         dose: '0.200% + 0.050%',
-        body: 'Allantoin at a full working dose for comfort, and bisabolol — the calming fraction of chamomile — at the low end of its typical range but genuinely there.',
+        body: 'Allantoin at a full working dose for comfort, and bisabolol - the calming fraction of chamomile - at the low end of its typical range but genuinely there.',
       },
       {
         name: 'Vitamin E and arginine',
@@ -237,26 +237,26 @@ const EN: PostcreamCopy = {
     eyebrow: 'A correction',
     title: 'Our own ingredient list was in the wrong order',
     intro:
-      'Until this page, our description named seven key ingredients. Set against the manufacturing formula, the order was almost exactly inverted — so here is the same list with what is actually in the tube.',
+      'Until this page, our description named seven key ingredients. Set against the manufacturing formula, the order was almost exactly inverted - so here is the same list with what is actually in the tube.',
     columns: { name: 'Ingredient', listed: 'We listed it', actual: 'Actual concentration' },
     rows: [
       { name: 'sh-Polypeptide-7', listed: '1st', actual: '10 parts per billion' },
       { name: 'Centella triterpenes, combined', listed: '2nd', actual: '200 ppm' },
-      { name: 'Dipotassium glycyrrhizate', listed: '3rd', actual: '0.200% — a proper dose', real: true },
-      { name: 'Panthenol', listed: '4th', actual: '0.050% — low' },
+      { name: 'Dipotassium glycyrrhizate', listed: '3rd', actual: '0.200% - a proper dose', real: true },
+      { name: 'Panthenol', listed: '4th', actual: '0.050% - low' },
       { name: 'Grape callus culture extract', listed: '5th', actual: '60 ppm' },
       { name: 'Rosa damascena callus culture extract', listed: '6th', actual: '60 ppm' },
-      { name: 'Scutellaria baicalensis root extract', listed: '7th', actual: '0.200% — a proper dose', real: true },
+      { name: 'Scutellaria baicalensis root extract', listed: '7th', actual: '0.200% - a proper dose', real: true },
     ],
     body:
-      'The two ingredients genuinely at anti-irritant doses were at positions three and seven, a peptide present at ten parts per billion led the list, and the 18.4% humectant load that does most of the work was not mentioned at all. Nothing here was invented — the ingredients are all in the tube. They were simply ranked by how good they sound rather than by how much of them there is. The good news is that the product did not need the help: it is a properly built calming cream on its own merits.',
+      'The two ingredients genuinely at anti-irritant doses were at positions three and seven, a peptide present at ten parts per billion led the list, and the 18.4% humectant load that does most of the work was not mentioned at all. Nothing here was invented - the ingredients are all in the tube. They were simply ranked by how good they sound rather than by how much of them there is. The good news is that the product did not need the help: it is a properly built calming cream on its own merits.',
   },
 
   centella: {
     eyebrow: 'Being precise',
     title: 'The centella complex, at 200 ppm',
     body:
-      'Asiaticoside at 0.008%, madecassic acid at 0.006% and asiatic acid at 0.006% — 0.020% combined. Worth being exact about this one, because it is neither a headline nor a decoration. These are purified triterpenes rather than a crude centella extract, which is a deliberate and comparatively expensive choice. But the wound-healing literature on asiaticoside works at 0.1% to 1%, so this sits somewhere between five and fifty times below it. Read it as a supporting note in a calming formula, not as the reason the formula works.',
+      'Asiaticoside at 0.008%, madecassic acid at 0.006% and asiatic acid at 0.006% - 0.020% combined. Worth being exact about this one, because it is neither a headline nor a decoration. These are purified triterpenes rather than a crude centella extract, which is a deliberate and comparatively expensive choice. But the wound-healing literature on asiaticoside works at 0.1% to 1%, so this sits somewhere between five and fifty times below it. Read it as a supporting note in a calming formula, not as the reason the formula works.',
   },
 
   brokenSkin: {
@@ -265,7 +265,7 @@ const EN: PostcreamCopy = {
     body:
       'The Korean panel on the carton says to refrain from using this on wounded areas of skin. That is worth repeating clearly, because "post-procedure cream" can easily be read as permission to apply it to anything a procedure leaves behind.',
     detail:
-      'This is for skin that is intact but irritated, red, tight or warm — the day after microneedling, after a laser, after a peel that has finished shedding. It is not a wound dressing and it is not for weeping, bleeding or crusted skin. Your practitioner decides when the barrier has closed enough to start; follow their timing rather than ours, and ask them if you are unsure.',
+      'This is for skin that is intact but irritated, red, tight or warm - the day after microneedling, after a laser, after a peel that has finished shedding. It is not a wound dressing and it is not for weeping, bleeding or crusted skin. Your practitioner decides when the barrier has closed enough to start; follow their timing rather than ours, and ask them if you are unsure.',
   },
 
   quality: {
@@ -275,23 +275,23 @@ const EN: PostcreamCopy = {
       'Made in Korea, released against a written specification, and assessed under European cosmetics law in a 42-page dossier. Both batches on file test the same way.',
     rows: [
       { label: 'pH', value: '6.65 and 6.67 across two batches, inside a 6.80 ± 1.00 specification' },
-      { label: 'Specific gravity', value: '1.004 and 1.009 — just heavier than water, from the humectant load' },
+      { label: 'Specific gravity', value: '1.004 and 1.009 - just heavier than water, from the humectant load' },
       { label: 'Hardness', value: '38 and 45, inside a 35 ± 10 specification' },
       { label: 'Purity', value: 'Under 100 cfu/g total count' },
-      { label: 'Pathogens', value: 'S. aureus, P. aeruginosa, E. coli and C. albicans — four screened, all not detected' },
+      { label: 'Pathogens', value: 'S. aureus, P. aeruginosa, E. coli and C. albicans - four screened, all not detected' },
       { label: 'Shelf life', value: 'Three years unopened, with the expiry date on the box' },
-      { label: 'After opening', value: 'Six months — the 6M symbol is on the carton' },
+      { label: 'After opening', value: 'Six months - the 6M symbol is on the carton' },
       { label: 'Assay', value: 'None, because there is no functional active to assay. Its registered function is soothing' },
     ],
     patch:
-      'Two things worth knowing about the assessment. The patch test came back graded Non Irritant rather than simply passing. And the conclusion reads "the product is considered safe for human health" without the "with restrictions" qualifier that several other products in the range carry — the cleanest wording we have seen on a GENOSYS dossier.',
+      'Two things worth knowing about the assessment. The patch test came back graded Non Irritant rather than simply passing. And the conclusion reads "the product is considered safe for human health" without the "with restrictions" qualifier that several other products in the range carry - the cleanest wording we have seen on a GENOSYS dossier.',
   },
 
   fragrance: {
     eyebrow: 'If you screen your ingredients',
     title: 'Lavender oil, beeswax, and no functional actives',
     body:
-      'Lavender oil at 0.0053%, with linalool declared at 0.0047% — and unusually, the assessment also had the finished cream analysed for it, measuring 0.0032%, so this is a tested figure rather than a calculated one. It also contains beeswax at 0.500%, so it is not vegan. What it does not contain is any functional active: no retinoid, no acid, no arbutin, no adenosine, no UV filter. On skin that has just been treated, that absence is a feature — there is nothing in here to react with whatever your practitioner has just done.',
+      'Lavender oil at 0.0053%, with linalool declared at 0.0047% - and unusually, the assessment also had the finished cream analysed for it, measuring 0.0032%, so this is a tested figure rather than a calculated one. It also contains beeswax at 0.500%, so it is not vegan. What it does not contain is any functional active: no retinoid, no acid, no arbutin, no adenosine, no UV filter. On skin that has just been treated, that absence is a feature - there is nothing in here to react with whatever your practitioner has just done.',
   },
 
   howTo: {
@@ -305,7 +305,7 @@ const EN: PostcreamCopy = {
       },
       {
         title: 'A generous layer, pressed not rubbed',
-        body: 'Warm it briefly and press it on with flat fingers. Freshly treated skin does not want friction, so resist the urge to massage it in properly — the carton says gentle for a reason.',
+        body: 'Warm it briefly and press it on with flat fingers. Freshly treated skin does not want friction, so resist the urge to massage it in properly - the carton says gentle for a reason.',
       },
       {
         title: 'Reapply whenever it feels tight',
@@ -317,7 +317,7 @@ const EN: PostcreamCopy = {
       },
     ],
     note:
-      'Keep it away from the eyes, and skip it entirely during pregnancy and breastfeeding — that instruction is on the carton. The 100 g size is the professional one clinics keep in the treatment room; the 20 g is the tube you take home.',
+      'Keep it away from the eyes, and skip it entirely during pregnancy and breastfeeding - that instruction is on the carton. The 100 g size is the professional one clinics keep in the treatment room; the 20 g is the tube you take home.',
   },
 
   inci: {
@@ -333,7 +333,7 @@ const EN: PostcreamCopy = {
     title: 'Precautions',
     points: [
       'Do not use on wounded or broken skin. The carton says so, and it matters more on this product than most.',
-      'Avoid use during pregnancy and breastfeeding — this instruction is printed on the carton.',
+      'Avoid use during pregnancy and breastfeeding - this instruction is printed on the carton.',
       'Contains beeswax, so it is not suitable if you avoid animal-derived ingredients.',
       'Contains lavender oil with linalool declared. Patch test if you react to fragrance.',
       'For external use only. Do not use near the eyes, and rinse thoroughly with cool water on contact.',
@@ -351,12 +351,12 @@ const EN: PostcreamCopy = {
       { label: 'Size', value: '20 g homecare tube · 100 g professional' },
       { label: 'Texture', value: 'Light yellow cream, medium weight' },
       { label: 'Registered function', value: 'Soothing. No Korean functional licence, and none claimed' },
-      { label: 'Humectants', value: 'Butylene glycol 12.000% and glycerin 6.390% — 18.4% combined' },
+      { label: 'Humectants', value: 'Butylene glycol 12.000% and glycerin 6.390% - 18.4% combined' },
       { label: 'Calming actives', value: 'Dipotassium glycyrrhizate 0.200%, scutellaria 0.200%, allantoin 0.200%, bisabolol 0.050%' },
       { label: 'Centella', value: 'Purified triterpenes, 0.020% combined' },
       { label: 'Also contains', value: 'Vitamin E 0.500%, arginine 0.500%, beeswax 0.500%, squalane 1.500%' },
       { label: 'Not vegan', value: 'Contains beeswax' },
-      { label: 'Fragranced', value: 'Yes — lavender oil 0.0053%, with linalool declared' },
+      { label: 'Fragranced', value: 'Yes - lavender oil 0.0053%, with linalool declared' },
       { label: 'pH', value: '6.80 ± 1.00 (6.65 and 6.67 on the batches tested)' },
       { label: 'After opening', value: 'Six months' },
       { label: 'Assessment', value: 'EU safety assessment; patch test graded Non Irritant' },
@@ -370,11 +370,11 @@ const EN: PostcreamCopy = {
     items: [
       {
         q: 'When can I start using it after a treatment?',
-        a: 'Ask your practitioner — it depends on what was done and how your skin responded. The general principle is once skin is intact and no longer weeping. The carton is explicit that it should not go on wounded or broken skin, so this is a cream for the irritated, red, tight phase rather than the raw one.',
+        a: 'Ask your practitioner - it depends on what was done and how your skin responded. The general principle is once skin is intact and no longer weeping. The carton is explicit that it should not go on wounded or broken skin, so this is a cream for the irritated, red, tight phase rather than the raw one.',
       },
       {
         q: 'What is actually doing the soothing?',
-        a: 'Three ingredients at 0.2% each — licorice-derived dipotassium glycyrrhizate, scutellaria root extract for its baicalin, and allantoin — plus bisabolol, vitamin E at 0.5%, and an 18.4% humectant base of butylene glycol and glycerin. Our own description used to lead with a peptide present at ten parts per billion, and we have corrected that on this page.',
+        a: 'Three ingredients at 0.2% each - licorice-derived dipotassium glycyrrhizate, scutellaria root extract for its baicalin, and allantoin - plus bisabolol, vitamin E at 0.5%, and an 18.4% humectant base of butylene glycol and glycerin. Our own description used to lead with a peptide present at ten parts per billion, and we have corrected that on this page.',
       },
       {
         q: 'Does it contain any active ingredients?',
@@ -382,7 +382,7 @@ const EN: PostcreamCopy = {
       },
       {
         q: 'How often can I use it?',
-        a: 'Morning and evening as standard, and the manufacturer explicitly permits several applications a day if your skin wants them. In the first 48 hours after a treatment, tightness is the cue to reapply. Once opened, use it within six months — the 6M symbol is on the carton.',
+        a: 'Morning and evening as standard, and the manufacturer explicitly permits several applications a day if your skin wants them. In the first 48 hours after a treatment, tightness is the cue to reapply. Once opened, use it within six months - the 6M symbol is on the carton.',
       },
       {
         q: 'Is it vegan?',
@@ -515,12 +515,12 @@ const AR: PostcreamCopy = {
       'كريم مصنوع في كوريا، مختبر جلدياً، وتؤكد اختبارات الجودة ثبات القوام والحموضة والنقاء الميكروبي.',
     rows: [
       { label: 'الحموضة', value: '6.65 و6.67 عبر دفعتين، ضمن مواصفة 6.80 ± 1.00' },
-      { label: 'الكثافة النوعية', value: '1.004 و1.009 — أثقل قليلاً من الماء، بسبب حمل المرطّبات' },
+      { label: 'الكثافة النوعية', value: '1.004 و1.009 - أثقل قليلاً من الماء، بسبب حمل المرطّبات' },
       { label: 'الصلادة', value: '38 و45، ضمن مواصفة 35 ± 10' },
       { label: 'النقاء', value: 'أقل من 100 وحدة/غ للعدّ الكلي' },
-      { label: 'الممرضات', value: 'المكوّرة العنقودية والزائفة والإشريكية القولونية والمبيضّات — أربعة مفحوصة وكلها غير مكتشفة' },
+      { label: 'الممرضات', value: 'المكوّرة العنقودية والزائفة والإشريكية القولونية والمبيضّات - أربعة مفحوصة وكلها غير مكتشفة' },
       { label: 'مدة الصلاحية', value: 'ثلاث سنوات مغلقاً، وتاريخ الانتهاء على العلبة' },
-      { label: 'بعد الفتح', value: 'ستة أشهر — ورمز 6M على العلبة' },
+      { label: 'بعد الفتح', value: 'ستة أشهر - ورمز 6M على العلبة' },
       { label: 'طبيعة العناية', value: 'ترطيب وتهدئة من دون ريتينويدات أو أحماض أو فلاتر UV' },
     ],
     patch:
@@ -545,7 +545,7 @@ const AR: PostcreamCopy = {
       },
       {
         title: 'طبقة سخيّة، بالضغط لا بالفرك',
-        body: 'دفّئيه قليلاً واضغطيه بأصابع مسطّحة. فالبشرة المعالجة حديثاً لا تريد احتكاكاً، فقاومي رغبة تدليكه بإحكام — تقول العلبة «بلطف» لسبب.',
+        body: 'دفّئيه قليلاً واضغطيه بأصابع مسطّحة. فالبشرة المعالجة حديثاً لا تريد احتكاكاً، فقاومي رغبة تدليكه بإحكام - تقول العلبة «بلطف» لسبب.',
       },
       {
         title: 'أعيدي التطبيق كلما شعرتِ بالشدّ',
@@ -557,7 +557,7 @@ const AR: PostcreamCopy = {
       },
     ],
     note:
-      'أبعديه عن العينين، وتجاوزيه تماماً أثناء الحمل والإرضاع — وهذه التعليمة على العلبة. أما حجم 100 غ فهو الاحترافي الذي تُبقيه العيادات في غرفة العلاج؛ و20 غ هو الأنبوب الذي تأخذينه معك.',
+      'أبعديه عن العينين، وتجاوزيه تماماً أثناء الحمل والإرضاع - وهذه التعليمة على العلبة. أما حجم 100 غ فهو الاحترافي الذي تُبقيه العيادات في غرفة العلاج؛ و20 غ هو الأنبوب الذي تأخذينه معك.',
   },
 
   inci: {
@@ -573,7 +573,7 @@ const AR: PostcreamCopy = {
     title: 'احتياطات',
     points: [
       'لا يُستخدم على بشرة مجروحة أو مفتوحة. تقول العلبة ذلك، وهو أهمّ في هذا المنتج من معظم غيره.',
-      'يُتجنّب الاستخدام أثناء الحمل والإرضاع — وهذه التعليمة مطبوعة على العلبة.',
+      'يُتجنّب الاستخدام أثناء الحمل والإرضاع - وهذه التعليمة مطبوعة على العلبة.',
       'يحتوي شمع العسل، فهو غير مناسب إن كنتِ تتجنّبين المكوّنات الحيوانية.',
       'يحتوي زيت اللافندر مع لينالول معلن. اختبريه على بقعة إن كنتِ تتفاعلين مع العطر.',
       'للاستعمال الخارجي فقط. لا يُستخدم قرب العينين، واشطفي جيداً بالماء البارد عند الملامسة.',
@@ -591,12 +591,12 @@ const AR: PostcreamCopy = {
       { label: 'الحجم', value: 'أنبوب منزلي 20 غ · واحترافي 100 غ' },
       { label: 'الملمس', value: 'كريم أصفر فاتح، متوسط الثقل' },
       { label: 'الوظيفة المسجّلة', value: 'التهدئة. ولا ترخيص وظيفي كوري، ولا ادّعاء به' },
-      { label: 'المرطّبات الجاذبة', value: 'بيوتيلين غلايكول 12.000% وغليسرين 6.390% — 18.4% مجتمعةً' },
+      { label: 'المرطّبات الجاذبة', value: 'بيوتيلين غلايكول 12.000% وغليسرين 6.390% - 18.4% مجتمعةً' },
       { label: 'الفعّالات المهدّئة', value: 'دايبوتاسيوم غليسيرايزينات 0.200%، قُبّعية 0.200%، ألانتوين 0.200%، بيسابولول 0.050%' },
       { label: 'السنتيلا', value: 'ثلاثيات تربين منقّاة، 0.020% مجتمعةً' },
       { label: 'ويحتوي أيضاً', value: 'فيتامين E 0.500%، أرجينين 0.500%، شمع عسل 0.500%، سكوالان 1.500%' },
       { label: 'ليس نباتياً', value: 'يحتوي شمع العسل' },
-      { label: 'معطّر', value: 'نعم — زيت لافندر 0.0053%، مع لينالول معلن' },
+      { label: 'معطّر', value: 'نعم - زيت لافندر 0.0053%، مع لينالول معلن' },
       { label: 'الحموضة', value: '6.80 ± 1.00 (6.65 و6.67 على الدفعتين المختبرتين)' },
       { label: 'بعد الفتح', value: 'ستة أشهر' },
       { label: 'اختبار البشرة', value: 'مختبر جلدياً؛ وصُنّف اختبار الرقعة بأنه غير مهيّج' },
@@ -610,7 +610,7 @@ const AR: PostcreamCopy = {
     items: [
       {
         q: 'متى أبدأ استخدامه بعد الجلسة؟',
-        a: 'اسألي أخصائيك — فالأمر يتوقّف على ما أُجري وكيف استجابت بشرتك. والمبدأ العام أن تصبح البشرة سليمة ولم تعد راشحة. والعلبة صريحة بأنه لا يوضع على بشرة مجروحة أو مفتوحة، فهذا كريم لمرحلة التهيّج والاحمرار والشدّ لا للمرحلة المكشوفة.',
+        a: 'اسألي أخصائيك - فالأمر يتوقّف على ما أُجري وكيف استجابت بشرتك. والمبدأ العام أن تصبح البشرة سليمة ولم تعد راشحة. والعلبة صريحة بأنه لا يوضع على بشرة مجروحة أو مفتوحة، فهذا كريم لمرحلة التهيّج والاحمرار والشدّ لا للمرحلة المكشوفة.',
       },
       {
         q: 'ما الذي يهدّئ فعلاً؟',
@@ -642,10 +642,10 @@ const RU: PostcreamCopy = {
   eyebrow: 'Успокаивающий крем после процедур · 20 г домашний · 100 г профессиональный',
   headline: 'Продуманный комфорт для кожи после процедуры.',
   subheadline:
-    'Увлажняющая база 18,39% насыщает целую кожу влагой и возвращает комфорт после процедуры. Дикалия глицирризинат, экстракт корня шлемника и аллантоин — по 0,2% каждого — помогают уменьшить ощущение стянутости и дискомфорта. Начинайте применение в срок, рекомендованный специалистом.',
+    'Увлажняющая база 18,39% насыщает целую кожу влагой и возвращает комфорт после процедуры. Дикалия глицирризинат, экстракт корня шлемника и аллантоин - по 0,2% каждого - помогают уменьшить ощущение стянутости и дискомфорта. Начинайте применение в срок, рекомендованный специалистом.',
   heroBullets: [
     'Увлажняющая база 18,39% из бутиленгликоля и глицерина',
-    'Три успокаивающих компонента — по 0,2% каждого',
+    'Три успокаивающих компонента - по 0,2% каждого',
     'Можно повторно наносить несколько раз в день',
     'Содержит пчелиный воск и лавандовое масло. Не для повреждённой кожи',
   ],
@@ -729,7 +729,7 @@ const RU: PostcreamCopy = {
       { name: 'Scutellaria Baicalensis Root Extract', listed: 'Ключевой успокаивающий компонент', actual: '0,200%', real: true },
     ],
     body:
-      'Основа характера крема — увлажняющая база 18,39%, дополненная дикалия глицирризинатом, экстрактом шлемника и аллантоином по 0,2%. Пептид, каллусные экстракты и тритерпены центеллы выступают поддерживающими деталями сбалансированной формулы.',
+      'Основа характера крема - увлажняющая база 18,39%, дополненная дикалия глицирризинатом, экстрактом шлемника и аллантоином по 0,2%. Пептид, каллусные экстракты и тритерпены центеллы выступают поддерживающими деталями сбалансированной формулы.',
   },
 
   centella: {
@@ -755,12 +755,12 @@ const RU: PostcreamCopy = {
       'Крем сделан в Корее и дерматологически протестирован. Контроль качества подтверждает стабильность текстуры, pH и микробиологическую чистоту.',
     rows: [
       { label: 'pH', value: '6,65 и 6,67 в двух партиях, в пределах спецификации 6,80 ± 1,00' },
-      { label: 'Удельный вес', value: '1,004 и 1,009 — чуть тяжелее воды, из-за увлажнителей' },
+      { label: 'Удельный вес', value: '1,004 и 1,009 - чуть тяжелее воды, из-за увлажнителей' },
       { label: 'Твёрдость', value: '38 и 45, в пределах спецификации 35 ± 10' },
       { label: 'Чистота', value: 'Менее 100 КОЕ/г по общему счёту' },
-      { label: 'Патогены', value: 'S. aureus, P. aeruginosa, E. coli и C. albicans — четыре проверены, все не обнаружены' },
+      { label: 'Патогены', value: 'S. aureus, P. aeruginosa, E. coli и C. albicans - четыре проверены, все не обнаружены' },
       { label: 'Срок годности', value: 'Три года закрытым, дата на коробке' },
-      { label: 'После вскрытия', value: 'Шесть месяцев — символ 6M есть на коробке' },
+      { label: 'После вскрытия', value: 'Шесть месяцев - символ 6M есть на коробке' },
       { label: 'Характер ухода', value: 'Увлажнение и успокоение без ретиноидов, кислот и UV-фильтров' },
     ],
     patch:
@@ -771,7 +771,7 @@ const RU: PostcreamCopy = {
     eyebrow: 'Если вы читаете составы',
     title: 'Лавандовое масло, пчелиный воск и деликатная формула',
     body:
-      'Содержит лавандовое масло 0,0053% и линалоол, обнаруженный в готовом креме на уровне 0,0032%, а также пчелиный воск 0,500%. Поэтому крем не веганский и не относится к средствам без ароматических компонентов. При этом в нём нет ретиноидов, кислот, арбутина, аденозина и UV-фильтров — деликатный выбор для спокойного ухода.',
+      'Содержит лавандовое масло 0,0053% и линалоол, обнаруженный в готовом креме на уровне 0,0032%, а также пчелиный воск 0,500%. Поэтому крем не веганский и не относится к средствам без ароматических компонентов. При этом в нём нет ретиноидов, кислот, арбутина, аденозина и UV-фильтров - деликатный выбор для спокойного ухода.',
   },
 
   howTo: {
@@ -781,11 +781,11 @@ const RU: PostcreamCopy = {
     steps: [
       {
         title: 'Начинайте, когда скажет специалист',
-        body: 'Срок после процедуры — его решение, а не решение этикетки. В общем виде: когда кожа цела и больше не мокнет. Если не уверены, что готовы, спросите до нанесения.',
+        body: 'Срок после процедуры - его решение, а не решение этикетки. В общем виде: когда кожа цела и больше не мокнет. Если не уверены, что готовы, спросите до нанесения.',
       },
       {
         title: 'Щедрый слой, вдавливая, а не растирая',
-        body: 'Слегка согрейте и вдавите плоскими пальцами. Только что обработанная кожа не хочет трения, так что не поддавайтесь желанию как следует его вмассировать — коробка не зря говорит «мягко».',
+        body: 'Слегка согрейте и вдавите плоскими пальцами. Только что обработанная кожа не хочет трения, так что не поддавайтесь желанию как следует его вмассировать - коробка не зря говорит «мягко».',
       },
       {
         title: 'Наносите заново, когда чувствуете стянутость',
@@ -793,11 +793,11 @@ const RU: PostcreamCopy = {
       },
       {
         title: 'Никаких активов сверху несколько дней',
-        body: 'Ни кислот, ни ретиноидов, ни витамина C, пока кожа успокаивается. Санскрин — когда разрешит специалист, потому что свежеобработанная кожа легко пигментирует.',
+        body: 'Ни кислот, ни ретиноидов, ни витамина C, пока кожа успокаивается. Санскрин - когда разрешит специалист, потому что свежеобработанная кожа легко пигментирует.',
       },
     ],
     note:
-      'Держите его подальше от глаз и полностью пропустите при беременности и кормлении — это указание есть на коробке. Размер 100 г — профессиональный, для кабинета; 20 г — та туба, которую забирают домой.',
+      'Держите его подальше от глаз и полностью пропустите при беременности и кормлении - это указание есть на коробке. Размер 100 г - профессиональный, для кабинета; 20 г - та туба, которую забирают домой.',
   },
 
   inci: {
@@ -813,12 +813,12 @@ const RU: PostcreamCopy = {
     title: 'Меры предосторожности',
     points: [
       'Не наносите на повреждённую или открытую кожу. Это указано на коробке и здесь важнее, чем у большинства средств.',
-      'Избегайте применения при беременности и кормлении — это указание напечатано на коробке.',
+      'Избегайте применения при беременности и кормлении - это указание напечатано на коробке.',
       'Содержит пчелиный воск, поэтому не подходит, если вы избегаете ингредиентов животного происхождения.',
       'Содержит лавандовое масло с заявленным линалоолом. Сделайте пробу, если реагируете на ароматизаторы.',
       'Только для наружного применения. Не наносите рядом с глазами, при попадании тщательно промойте прохладной водой.',
       'Избегайте прямого солнца на обработанных участках; прекратите использование и обратитесь к врачу при покраснении, отёке или зуде.',
-      'Оценено как безопасное для здоровья человека по регламенту EC 1223/2009, патч-тест — «не раздражает».',
+      'Оценено как безопасное для здоровья человека по регламенту EC 1223/2009, патч-тест - «не раздражает».',
       'Использовать в течение шести месяцев после вскрытия. Хранить в прохладном сухом месте, недоступном для детей.',
     ],
     note: 'Перед применением внимательно прочитайте меры предосторожности и следуйте рекомендациям специалиста после профессиональных процедур.',
@@ -831,12 +831,12 @@ const RU: PostcreamCopy = {
       { label: 'Объём', value: 'Домашняя туба 20 г · профессиональный 100 г' },
       { label: 'Текстура', value: 'Светло-жёлтый крем, средней плотности' },
       { label: 'Зарегистрированная функция', value: 'Успокоение. Корейской функциональной лицензии нет, и она не заявляется' },
-      { label: 'Увлажнители', value: 'Бутиленгликоль 12,000% и глицерин 6,390% — суммарно 18,4%' },
+      { label: 'Увлажнители', value: 'Бутиленгликоль 12,000% и глицерин 6,390% - суммарно 18,4%' },
       { label: 'Успокаивающие активы', value: 'Дикалия глицирризинат 0,200%, шлемник 0,200%, аллантоин 0,200%, бисаболол 0,050%' },
       { label: 'Центелла', value: 'Очищенные тритерпены, суммарно 0,020%' },
       { label: 'Также содержит', value: 'Витамин E 0,500%, аргинин 0,500%, пчелиный воск 0,500%, сквалан 1,500%' },
       { label: 'Не веганский', value: 'Содержит пчелиный воск' },
-      { label: 'Отдушка', value: 'Да — лавандовое масло 0,0053%, линалоол заявлен' },
+      { label: 'Отдушка', value: 'Да - лавандовое масло 0,0053%, линалоол заявлен' },
       { label: 'pH', value: '6,80 ± 1,00 (6,65 и 6,67 в измеренных партиях)' },
       { label: 'После вскрытия', value: 'Шесть месяцев' },
       { label: 'Тестирование', value: 'Дерматологически протестировано; патч-тест «не раздражает»' },
@@ -850,11 +850,11 @@ const RU: PostcreamCopy = {
     items: [
       {
         q: 'Когда можно начинать после процедуры?',
-        a: 'Спросите специалиста — это зависит от того, что делали и как отреагировала кожа. Общий принцип: когда кожа цела и больше не мокнет. Коробка прямо указывает, что средство не наносят на повреждённую кожу, так что это крем для стадии раздражения, покраснения и стянутости, а не для открытой.',
+        a: 'Спросите специалиста - это зависит от того, что делали и как отреагировала кожа. Общий принцип: когда кожа цела и больше не мокнет. Коробка прямо указывает, что средство не наносят на повреждённую кожу, так что это крем для стадии раздражения, покраснения и стянутости, а не для открытой.',
       },
       {
         q: 'Что на самом деле успокаивает?',
-        a: 'Три ингредиента по 0,2% — производное солодки дикалия глицирризинат, экстракт корня шлемника и аллантоин, — плюс бисаболол, витамин E 0,5% и увлажняющая база 18,39% из бутиленгликоля и глицерина.',
+        a: 'Три ингредиента по 0,2% - производное солодки дикалия глицирризинат, экстракт корня шлемника и аллантоин, - плюс бисаболол, витамин E 0,5% и увлажняющая база 18,39% из бутиленгликоля и глицерина.',
       },
       {
         q: 'Есть ли в нём активные ингредиенты?',
@@ -870,7 +870,7 @@ const RU: PostcreamCopy = {
       },
       {
         q: 'Зачем брать 100 г?',
-        a: 'Это профессиональный размер, для кабинета, где им пользуются на многих клиентах. Туба 20 г — домашняя, её забирают с собой. Формула одна и та же. В любом случае предел — шесть месяцев после вскрытия.',
+        a: 'Это профессиональный размер, для кабинета, где им пользуются на многих клиентах. Туба 20 г - домашняя, её забирают с собой. Формула одна и та же. В любом случае предел - шесть месяцев после вскрытия.',
       },
     ],
   },

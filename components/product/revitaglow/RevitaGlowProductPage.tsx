@@ -3,8 +3,8 @@
 /**
  * Bespoke product page for REVITA GLOW BB CREAM (product 63).
  *
- * Shares the editorial design system built for product 66 — the primitives,
- * the gallery and the structural CSS all come from ../cerabarrier — and layers
+ * Shares the editorial design system built for product 66 - the primitives,
+ * the gallery and the structural CSS all come from ../cerabarrier - and layers
  * a champagne/bronze palette on top via revitaglow.css. Only the palette and
  * the section set differ.
  *
@@ -17,7 +17,7 @@
  *     system is the actual substance of the product and the only gallery
  *     graphic that could have illustrated it carries factual errors.
  *   - The shade section leads with the manufacturer swatch video, which shows
- *     No. 1 and No. 2 drawn down side by side — the single most useful thing a
+ *     No. 1 and No. 2 drawn down side by side - the single most useful thing a
  *     shade-shopper can see.
  *   - Laboratory specification instead of clinical claims. No efficacy study
  *     exists for this product, so there are no percentages anywhere on it.
@@ -407,7 +407,7 @@ export default function RevitaGlowProductPage({
             ? copy.added
             : copy.addToBag
 
-  /** The shade picker, rendered in the hero and reused by nothing else — kept
+  /** The shade picker, rendered in the hero and reused by nothing else - kept
    *  inline so the buy column stays readable. */
   const shadePicker = (
     <div ref={shadeGroupRef} className="mt-7 scroll-mt-28">

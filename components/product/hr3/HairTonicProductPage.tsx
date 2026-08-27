@@ -6,7 +6,7 @@
  * are sold as a system and the pages cross-reference each other.
  *
  * FRAMING (owner decision, 17 Aug): this is a SCALP TONER. No hair-loss claim, and
- * no mention of the Korean functional designation — we do not hold that filing and
+ * no mention of the Korean functional designation - we do not hold that filing and
  * it appears only on the Korean, Russian and Arabic panels. The English carton
  * function is "scalp nourishing, hair conditioning" and that is what the page says.
  *
@@ -18,14 +18,14 @@
  * amber, before the formula.
  *
  * THE HONEST SELLING POINT is the certificate: THREE functional actives assayed on
- * the batch — dexpanthenol 103.40% of 0.2%, L-menthol 99.37% of 0.3%, salicylic
- * acid 101.28% of 0.25% — which no other product in the GENOSYS range manages. The
+ * the batch - dexpanthenol 103.40% of 0.2%, L-menthol 99.37% of 0.3%, salicylic
+ * acid 101.28% of 0.25% - which no other product in the GENOSYS range manages. The
  * sensitisation test is also a full HRIPT rather than a single-application patch
  * test. Both are real differentiators and neither was being used.
  *
  * MUST NEVER BE ADDED: the Russian panel's claim that the tonic "inhibits
  * 5α-reductase activation, suppresses dihydrotestosterone production" and
- * "stimulates the growth of new hair" — the mechanism of finasteride, a
+ * "stimulates the growth of new hair" - the mechanism of finasteride, a
  * prescription medicine. Nor any hair-loss, regrowth, density or shedding claim of
  * any kind. Nor a mechanism from caffeine (10 ppm), copper tripeptide-1 (1 ppm) or
  * the botanicals. Nor the contract manufacturer or the lot code.

@@ -73,7 +73,7 @@ export async function PUT(
   }
 
   // Request body size limit check (DoS prevention).
-  // Admin may upload a base64-encoded profile picture in the JSON body —
+  // Admin may upload a base64-encoded profile picture in the JSON body -
   // default 1 MB JSON limit was rejecting real-world phone photos with 413.
   // Mirrors app/api/profile/update/route.ts (customer-facing self-edit).
   const sizeCheck = requireBodySizeLimit(request, REQUEST_SIZE_LIMITS.FORM_DATA)
@@ -159,7 +159,7 @@ export async function PUT(
     }
 
     // Check if discount is being assigned (either newly assigned or changed).
-    // Discounts are assigned manually per partner — no automatic default.
+    // Discounts are assigned manually per partner - no automatic default.
     const isDiscountBeingAssigned = (discountType !== undefined && discountType !== null && discountPercentage !== undefined && discountPercentage !== null && discountPercentage > 0) &&
       (currentUser.discountType !== discountType || currentUser.discountPercentage !== discountPercentage)
 

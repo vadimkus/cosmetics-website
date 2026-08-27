@@ -443,7 +443,7 @@ export default function PWAProfilePage() {
 
   return (
     // No pb-* here: MobileFooterNav (PWA) renders its own h-[117px] spacer and
-    // MobileWebFooterNav is 80px sticky — both already reserve space below main.
+    // MobileWebFooterNav is 80px sticky - both already reserve space below main.
     // Adding pb-20 here created ~80px of visible empty gray at the bottom of
     // the page (the "white space" reported on mobile web).
     <div className={`cera-page genosys-page ${ceraSerif.variable} min-h-screen`}>
@@ -522,7 +522,7 @@ export default function PWAProfilePage() {
               <h2 className="cera-serif truncate text-[23px] leading-tight text-[var(--cera-ink)]">
                 {user?.name || 'Loading...'}
               </h2>
-              {/* Email — rendered as plain text (no auto-linkification on iOS
+              {/* Email - rendered as plain text (no auto-linkification on iOS
                   Safari thanks to site-wide `formatDetection: { email: false }`
                   in app/layout.tsx). `dir="ltr"` keeps the domain left-to-right
                   even inside the RTL Arabic layout. */}
@@ -543,7 +543,7 @@ export default function PWAProfilePage() {
               </button>
             </div>
 
-            {/* Notification badge — only render when there is something to show.
+            {/* Notification badge - only render when there is something to show.
                 Prevents visual clutter on a card that's already busy. */}
             {unreadNotifications > 0 && (
               <button
@@ -615,7 +615,7 @@ export default function PWAProfilePage() {
           </div>
         </div>
 
-        {/* Partner Portal — only for clinic / wholesale accounts */}
+        {/* Partner Portal - only for clinic / wholesale accounts */}
         {['CLINIC', 'VIP'].includes(String(user?.discountType || '').toUpperCase()) && (
           <div className="px-5 pb-4">
             <button
@@ -645,7 +645,7 @@ export default function PWAProfilePage() {
         {/* ─────────────────────────────────────────────────────────────────
             Sections are ordered iOS-Settings-style:
               1. Account (who you are)
-              2. Beauty Tools (what makes this app unique — promoted)
+              2. Beauty Tools (what makes this app unique - promoted)
               3. Preferences (how the app behaves)
               4. Privacy & Security (trust)
               5. Support (help)
@@ -679,7 +679,7 @@ export default function PWAProfilePage() {
           </div>
         </div>
 
-        {/* 2. Beauty Tools — promoted to their own section so the hero features
+        {/* 2. Beauty Tools - promoted to their own section so the hero features
                are not buried under "General". */}
         <div className="py-4">
           <h3 className={`text-[22px] font-bold text-[var(--cera-ink)] mb-2 px-5 ${isRTL ? 'text-right' : ''}`}>
@@ -716,7 +716,7 @@ export default function PWAProfilePage() {
           </div>
         </div>
 
-        {/* 3. Preferences — language + appearance. */}
+        {/* 3. Preferences - language + appearance. */}
         <div className="py-4">
           <h3 className={`text-[22px] font-bold text-[var(--cera-ink)] mb-2 px-5 ${isRTL ? 'text-right' : ''}`}>
             {t('pwaProfile.preferences')}

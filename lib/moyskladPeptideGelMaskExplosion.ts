@@ -25,7 +25,7 @@ function normalizeProductName(name: string): string {
 
 export function isPeptideGelMaskPackProductName(productName: string): boolean {
   const normalized = normalizeProductName(productName)
-  // Pack only — not the exploded single-piece alias, not eye peptide patch
+  // Pack only - not the exploded single-piece alias, not eye peptide patch
   if (normalized.includes('EYE') || normalized.includes('PATCH')) return false
   if (normalized.includes('39G SINGLE')) return false
   return (

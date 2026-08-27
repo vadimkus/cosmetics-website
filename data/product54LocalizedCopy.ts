@@ -11,7 +11,7 @@ export const PRODUCT_54_RU_TRANSLATION = {
     availability: 'Снят с продажи; отсутствует в наличии',
     contents:
       'SNOW O₂ Cleanser 180 мл + Multi Vita Radiance Serum 30 мл + Multi Vita Radiance Cream 50 г + зеркало GENOSYS',
-    useOrder: 'Очищающее средство → сыворотка → крем; зеркало — аксессуар',
+    useOrder: 'Очищающее средство → сыворотка → крем; зеркало - аксессуар',
     testing: 'Все три косметических средства дерматологически протестированы',
     origin: 'Косметические средства сделаны в Корее',
   }),
@@ -74,7 +74,7 @@ export const PRODUCT_54_RU_TRANSLATION = {
     {
       step: '2. Сыворотка',
       instruction:
-        'Нанесите 2–3 капли Multi Vita Radiance Serum, избегая области вокруг глаз, и мягко вбейте. Утром завершайте уход SPF.',
+        'Нанесите 2-3 капли Multi Vita Radiance Serum, избегая области вокруг глаз, и мягко вбейте. Утром завершайте уход SPF.',
     },
     {
       step: '3. Крем',

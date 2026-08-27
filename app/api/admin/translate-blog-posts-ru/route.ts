@@ -10,12 +10,12 @@ const blogTranslations: Record<string, {
   contentRu: string
 }> = {
   'black-friday-sale-20-off': {
-    titleRu: '✨ Черная пятница — скидка 20% ✨',
+    titleRu: '✨ Черная пятница - скидка 20% ✨',
     excerptRu: 'В этом году мы предлагаем вам что-то особенное. Скидка 20% на все продукты GENOSYS, эксклюзивно для онлайн-покупок.',
     contentRu: `<div class="blog-content">
   <div class="intro-section bg-gradient-to-br from-red-50 to-pink-50 border-2 border-red-200 rounded-xl p-6 md:p-8 mb-8">
-    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">✨ Черная пятница — скидка 20% ✨</h2>
-    <p class="text-xl md:text-2xl text-gray-700 font-semibold text-center mb-2">26 ноября — 29 ноября</p>
+    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">✨ Черная пятница - скидка 20% ✨</h2>
+    <p class="text-xl md:text-2xl text-gray-700 font-semibold text-center mb-2">26 ноября - 29 ноября</p>
   </div>
 
   <div class="feature-section mb-8">
@@ -37,7 +37,7 @@ const blogTranslations: Record<string, {
       Нет промокодов. Нет минимальной суммы заказа.
     </p>
     <p class="text-lg text-gray-700 mt-2 font-semibold">
-      Только премиальные профессиональные средства по уходу за кожей — теперь с редким предложением Черной пятницы.
+      Только премиальные профессиональные средства по уходу за кожей - теперь с редким предложением Черной пятницы.
     </p>
   </div>
 
@@ -52,18 +52,18 @@ const blogTranslations: Record<string, {
   <div class="cta-section bg-gradient-to-r from-red-600 to-pink-600 text-white rounded-xl p-6 md:p-8 text-center">
     <p class="text-lg md:text-xl font-bold mb-2">💥 Действительно только для онлайн-покупок.</p>
     <p class="text-base md:text-lg">
-      Не упустите — наше самое большое годовое предложение заканчивается 29 ноября.
+      Не упустите - наше самое большое годовое предложение заканчивается 29 ноября.
     </p>
   </div>
 </div>`
   },
   'what-are-growth-factors-in-skincare': {
-    titleRu: 'Что такое факторы роста в уходе за кожей — и почему ваша кожа их любит',
+    titleRu: 'Что такое факторы роста в уходе за кожей - и почему ваша кожа их любит',
     excerptRu: 'Узнайте, как работают факторы роста в продуктах по уходу за кожей и почему они являются мощными компонентами против старения.',
     contentRu: `<div class="blog-content">
   <div class="feature-section mb-8">
     <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-      Факторы роста — это естественные белки, которые играют жизненно важную роль в восстановлении и обновлении клеток кожи. В продуктах по уходу за кожей эти мощные факторы помогают стимулировать выработку коллагена, улучшать эластичность кожи и уменьшать признаки старения.
+      Факторы роста - это естественные белки, которые играют жизненно важную роль в восстановлении и обновлении клеток кожи. В продуктах по уходу за кожей эти мощные факторы помогают стимулировать выработку коллагена, улучшать эластичность кожи и уменьшать признаки старения.
     </p>
   </div>
 
@@ -89,12 +89,12 @@ const blogTranslations: Record<string, {
 </div>`
   },
   'genosys-skin-reboot-pdrn-mask-pack-launch': {
-    titleRu: 'Укрепление кожного барьера и эффект лифтинга — маска GENOSYS Skin Reboot PDRN',
+    titleRu: 'Укрепление кожного барьера и эффект лифтинга - маска GENOSYS Skin Reboot PDRN',
     excerptRu: 'Откройте силу PDRN в новой маске GENOSYS, которая укрепляет кожный барьер и обеспечивает заметный эффект лифтинга.',
     contentRu: `<div class="blog-content">
   <div class="feature-section mb-8">
     <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-      С гордостью представляем новую маску GENOSYS Skin Reboot PDRN — революционный продукт, который сочетает силу PDRN (полидезоксирибонуклеотидной кислоты) с передовыми технологиями ухода за кожей.
+      С гордостью представляем новую маску GENOSYS Skin Reboot PDRN - революционный продукт, который сочетает силу PDRN (полидезоксирибонуклеотидной кислоты) с передовыми технологиями ухода за кожей.
     </p>
   </div>
 
@@ -118,12 +118,12 @@ const blogTranslations: Record<string, {
 </div>`
   },
   '2025-genosys-new-products-bio-meso-pdrn-ampoule-mask-pack': {
-    titleRu: 'Новый продукт GENOSYS 2025 — ампула BIO-MESO PDRN',
-    excerptRu: 'Откройте для себя новый инновационный продукт GENOSYS — ампулу BIO-MESO PDRN, разработанную для обновления кожи и усиления сияния.',
+    titleRu: 'Новый продукт GENOSYS 2025 - ампула BIO-MESO PDRN',
+    excerptRu: 'Откройте для себя новый инновационный продукт GENOSYS - ампулу BIO-MESO PDRN, разработанную для обновления кожи и усиления сияния.',
     contentRu: `<div class="blog-content">
   <div class="feature-section mb-8">
     <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-      С гордостью представляем новый продукт GENOSYS на 2025 год — ампулу BIO-MESO PDRN. Этот инновационный продукт сочетает в себе новейшие корейские технологии ухода за кожей с мощными компонентами PDRN.
+      С гордостью представляем новый продукт GENOSYS на 2025 год - ампулу BIO-MESO PDRN. Этот инновационный продукт сочетает в себе новейшие корейские технологии ухода за кожей с мощными компонентами PDRN.
     </p>
   </div>
 
@@ -147,12 +147,12 @@ const blogTranslations: Record<string, {
 </div>`
   },
   'bio-ferment-age-defying-powder-mask-launch': {
-    titleRu: 'BIO-FERMENT AGE DEFYING POWDER MASK — антивозрастная пудровая маска с факторами роста',
+    titleRu: 'BIO-FERMENT AGE DEFYING POWDER MASK - антивозрастная пудровая маска с факторами роста',
     excerptRu: 'Пудровая маска GENOSYS BIO-FERMENT AGE DEFYING POWDER MASK сочетает ферментированные компоненты и факторы роста, чтобы успокаивать кожу, питать её и поддерживать восстановление после стресса.',
     contentRu: `<div class="blog-content">
   <div class="feature-section mb-8">
     <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">
-      Представляем BIO-FERMENT AGE DEFYING POWDER MASK — пудровую маску с ферментированными компонентами и факторами роста для профессионального антивозрастного ухода.
+      Представляем BIO-FERMENT AGE DEFYING POWDER MASK - пудровую маску с ферментированными компонентами и факторами роста для профессионального антивозрастного ухода.
     </p>
   </div>
 

@@ -10,7 +10,7 @@
  *  - `# Heading`, `## Subheading`, `### Small heading`
  *  - `**bold**`, `__bold__`
  *  - `*italic*`, `_italic_`
- *  - `[text](https://url)` — only http(s)/mailto schemes allowed
+ *  - `[text](https://url)` - only http(s)/mailto schemes allowed
  *  - `> quote`
  *  - `- item` bulleted lists
  *  - Horizontal rule `---`
@@ -48,13 +48,13 @@ function sanitizeUrl(url: string): string | null {
 }
 
 /**
- * Inline transforms applied after HTML escaping — order matters.
+ * Inline transforms applied after HTML escaping - order matters.
  * Each transform runs over already-escaped text, so we emit raw `<a>`, `<strong>`, etc.
  */
 function applyInline(escaped: string): string {
   let out = escaped
 
-  // Links: [text](url) — allow only safe schemes. Text has already been escaped.
+  // Links: [text](url) - allow only safe schemes. Text has already been escaped.
   out = out.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, (_m, text: string, url: string) => {
     const safe = sanitizeUrl(url)
     if (!safe) return `[${text}]`
@@ -71,7 +71,7 @@ function applyInline(escaped: string): string {
   out = out.replace(/(?<![*\w])\*([^*\s][^*]*?)\*(?!\w)/g, '<em>$1</em>')
   out = out.replace(/(?<![_\w])_([^_\s][^_]*?)_(?!\w)/g, '<em>$1</em>')
 
-  // Bare URL autolink — skip if it's already inside an <a href=...>
+  // Bare URL autolink - skip if it's already inside an <a href=...>
   out = out.replace(
     /(^|[^"'>])(https?:\/\/[^\s<]+)/g,
     (_m, pre: string, url: string) => `${pre}<a href="${url.replace(/"/g, '&quot;')}" style="color:#0071e3; text-decoration:underline;">${url}</a>`
@@ -137,7 +137,7 @@ export function renderNewsletterMarkdown(source: string): string {
       continue
     }
 
-    // Plain paragraph — single newlines become <br />
+    // Plain paragraph - single newlines become <br />
     const joined = lines.map(l => applyInline(escapeHtml(l))).join('<br />')
     htmlBlocks.push(
       `<p style="font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Roboto,sans-serif; font-size:15px; color:#1d1d1f; line-height:1.6; margin:12px 0;">${joined}</p>`

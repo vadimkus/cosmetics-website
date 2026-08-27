@@ -268,7 +268,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Soothing Repair Postcream', href: '/ru/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'Поддержка увлажнения после процедуры в домашнем и профессиональном объёме.' },
-      { name: 'Intensive Hydro Soothing Cream', href: '/ru/products/28', image: '/images/HSC.jpg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'Успокаивающий гель-крем для увлажнения, если он разрешён протоколом.' },
+      { name: 'Intensive Hydro Soothing Cream', href: '/ru/products/28', image: '/images/hydro_soothing_o/Main.jpeg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'Успокаивающий гель-крем для увлажнения, если он разрешён протоколом.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ru/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'Более насыщенная поддержка барьера на позднем этапе восстановления.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'Высокая UV-защита после разрешения специалиста возобновить санскрин.' },
     ],

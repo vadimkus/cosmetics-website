@@ -32,6 +32,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import time
 
 from PIL import Image
 
@@ -91,6 +92,10 @@ REPAIR = {
 REVISION = {
     "65": 2,
     "66": 2,
+    # New campaign packshot: two tubes rather than the single one the first
+    # cut-out was traced from. A new number, because /images/* is served
+    # immutable for a year and anyone who has seen the old file keeps it.
+    "28": 2,
 }
 
 
@@ -176,13 +181,54 @@ def coverage(image):
     return opaque / float(image.width * image.height)
 
 
+PRODUCTS_JSON = "/tmp/imgs.json"
+PRODUCTS_EXPORT = (
+    "npx tsx --env-file=.env.local -e \""
+    "import { prisma } from './lib/prisma';"
+    "import { writeFileSync } from 'fs';"
+    "(async () => {"
+    "  const rows = await prisma.product.findMany({"
+    "    select: { productNumber: true, name: true, image: true, images: true },"
+    "    orderBy: { productNumber: 'asc' } });"
+    "  writeFileSync('/tmp/imgs.json', JSON.stringify(rows, null, 2));"
+    "  await prisma.\\$disconnect(); })();\""
+)
+
+
+def load_products():
+    """The catalogue, exported from the database beforehand.
+
+    This lives in /tmp, which makes it easy to reuse a stale copy without
+    noticing. That is not hypothetical: product 28's packshot was replaced, this
+    ran against the previous day's export, and it rebuilt a cut-out of the
+    *old* photograph and reported success. Nothing in the output said otherwise.
+
+    So: refuse an export older than an hour, and print the source for every
+    product it builds, so the file being traced is visible rather than assumed.
+    """
+    if not os.path.exists(PRODUCTS_JSON):
+        sys.exit(
+            f"{PRODUCTS_JSON} is missing. Export the catalogue first:\n\n"
+            f"  {PRODUCTS_EXPORT}\n"
+        )
+
+    age = time.time() - os.path.getmtime(PRODUCTS_JSON)
+    if age > 3600:
+        sys.exit(
+            f"{PRODUCTS_JSON} is {int(age / 60)} minutes old, so it may not have the\n"
+            "packshot you just changed. Re-export it:\n\n"
+            f"  {PRODUCTS_EXPORT}\n"
+        )
+
+    with open(PRODUCTS_JSON) as handle:
+        return json.load(handle)
+
+
 def main():
     ensure_tool()
     os.makedirs(OUT_DIR, exist_ok=True)
 
-    with open(os.path.join(ROOT, "/tmp/imgs.json")) as handle:
-        products = json.load(handle)
-
+    products = load_products()
     wanted = set(sys.argv[1:])
 
     # Building a subset must not drop the rest of the catalogue from the report,
@@ -202,6 +248,7 @@ def main():
             continue
 
         source = row.get("image") or ""
+        print(f"  {number:>3}  {source}")
         disk = os.path.join(ROOT, "public", source.lstrip("/"))
         if not source or not os.path.exists(disk):
             report.append({"product": number, "status": "missing-source", "source": source})

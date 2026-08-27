@@ -75,7 +75,7 @@ const CUTOUTS: Record<string, string> = {
   // 27 SKIN BARRIER PROTECTING CREAM
   '/images/skin_barr/main.jpeg': '/images/cutout/27.webp',
   // 28 INTENSIVE HYDRO SOOTHING CREAM
-  '/images/HSC.jpg': '/images/cutout/28.webp',
+  '/images/hydro_soothing_o/Main.jpeg': '/images/cutout/28-v2.webp',
   // 29 MOISTURE REPLENISHING HYALURON CREAM
   '/images/hyaluron/main.jpeg': '/images/cutout/29.webp',
   // 30 INTENSIVE PROBLEM CONTROL CREAM

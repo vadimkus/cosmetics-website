@@ -2,11 +2,11 @@
 
 **Customer:** Viktoriia Klymenko `fadad040-1090-11f1-0a80-00c800748f51`  
 **Phone:** +971 52 545 1403 (WhatsApp: Viktoriya Cosmetologist Genosys)  
-**Clinic list.** Unpaid. SO → INV → SHIP (invoice-only demand). No delivery. No print.
+**Clinic list.** Paid 27 Aug (paymentin **06133**). SO → INV → SHIP (invoice-only demand). No delivery. No print.
 
 | | |
 |---|---|
-| SO | **GENCardM260827VIKT** → Доставлен - Ждем оплату |
+| SO | **GENCardM260827VIKT** → **Доставлен** |
 | INV | **04980** |
 | SHIP | **06746** |
 | Total | **700.00 AED** |
@@ -24,3 +24,5 @@ Not on agreement **33** (this is a regular clinic sale, not consignment).
 PDF: `~/Desktop/orders/GENOSYS_Viktoriia_Klymenko_04980.pdf`
 
 Script: `scripts/moysklad-create-viktoriia-klymenko-clinic-20260827.js`
+
+Paid 27 Aug: paymentin **06133** on SHIP **06746**. See `docs/SESSION_CHANGES_2026-08-27_VIKTORIIA_KLYMENKO_04980_PAY.md`.

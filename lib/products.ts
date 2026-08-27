@@ -440,7 +440,7 @@ export const products: Product[] = [
     name: 'INTENSIVE HYDRO SOOTHING CREAM',
     price: 290,
     description: '50g (Homecare) / 250g (Professional). Soothing and moisturizing gel with aloe vera, snail secretion filtrate. It calms down skin irritation and provides long-lasting hydration to the skin with aloe vera, snail secretion filtrate and hyaluronic acid. Key ingredients: Aloe Barbadensis Leaf Extract, Snail Secretion Filtrate, Hyaluronic Acid, Lactobacillus/Pumpkin Ferment Extract, Beta-Glucan, Phytolex SC. Dermatologically tested. Efficacy test on skin hydration.',
-    image: '/images/HSC.jpg',
+    image: '/images/hydro_soothing_o/Main.jpeg',
     images: null,
     category: 'Cream',
     inStock: true,

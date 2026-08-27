@@ -268,7 +268,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
     ],
     featuredProducts: [
       { name: 'Soothing Repair Postcream', href: '/ar/products/25', image: '/images/SRC.jpg', imageAlt: 'GENOSYS Soothing Repair Postcream', description: 'دعم رطوبة ما بعد الإجراء بأحجام منزلية واحترافية.' },
-      { name: 'Intensive Hydro Soothing Cream', href: '/ar/products/28', image: '/images/HSC.jpg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'جل كريم مهدئ للترطيب عند اعتماده في البروتوكول.' },
+      { name: 'Intensive Hydro Soothing Cream', href: '/ar/products/28', image: '/images/hydro_soothing_o/Main.jpeg', imageAlt: 'GENOSYS Intensive Hydro Soothing Cream', description: 'جل كريم مهدئ للترطيب عند اعتماده في البروتوكول.' },
       { name: 'Skin Barrier Protecting Cream', href: '/ar/products/27', image: '/images/skin_barr/main.jpeg', imageAlt: 'GENOSYS Skin Barrier Protecting Cream', description: 'دعم أغنى للحاجز في مراحل التعافي اللاحقة.' },
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'حماية عالية بعد سماح المختص باستئناف الواقي.' },
     ],

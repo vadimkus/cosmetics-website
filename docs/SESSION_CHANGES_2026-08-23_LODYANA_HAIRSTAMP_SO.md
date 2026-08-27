@@ -2,8 +2,9 @@
 
 **Customer:** LODY ANA.SPA. LLC (`5746700f-455a-11f1-0a80-03c5003a244c`)  
 **SO:** **GENCardM260823LODY** / **670 AED**  
-**INV:** **04969** / **670 AED** unpaid  
-**State:** Новый — no shipment  
+**INV:** **04969** / **670 AED** — paid 27 Aug (paymentin **06132**, see `docs/SESSION_CHANGES_2026-08-27_LODYANA_04969_PAY.md`)  
+**State:** **Доставлен** (paid 27 Aug, paymentin **06132**)  
+**SHIP:** **06733**  
 **Ship:** Al Sahel Towers, Block A, 1st Floor, Al Bateen W12, office LODYana Ladies Spa, Abu Dhabi  
 **Receiver:** Miss LIZA · +971556534118
 
@@ -23,3 +24,5 @@ Earlier: first posted Hair Stamp at stale CSV **370**, then amended to MoySklad 
 - PDF printed landscape: `~/Desktop/orders/GENOSYS_LODYANA_04969.pdf`
 - Card filled 23 Aug from receiver slip; INV 04969 reprinted landscape
 - Script: `scripts/moysklad-update-lodyana-card-reprint-04969-20260823.js --commit`
+
+Paid 27 Aug: paymentin **06132** on SHIP **06733**. See `docs/SESSION_CHANGES_2026-08-27_LODYANA_04969_PAY.md`.

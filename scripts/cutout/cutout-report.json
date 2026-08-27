@@ -202,11 +202,11 @@
   {
     "product": "28",
     "status": "ok",
-    "source": "/images/HSC.jpg",
-    "file": "/images/cutout/28.webp",
+    "source": "/images/hydro_soothing_o/Main.jpeg",
+    "file": "/images/cutout/28-v2.webp",
     "name": "INTENSIVE HYDRO SOOTHING CREAM",
-    "coverage": 0.151,
-    "bytes": 35672,
+    "coverage": 0.344,
+    "bytes": 53096,
     "review": false
   },
   {

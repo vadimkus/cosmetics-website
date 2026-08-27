@@ -69,22 +69,22 @@ Dead tokens are cleared when Apple says `410`, `BadDeviceToken` or `Unregistered
 
 ## Configuration
 
-Four environment variables, none of which exist yet:
+Four environment variables, now set on Vercel Production (27 Aug 2026):
 
 ```
-APNS_KEY_ID       the .p8 key's ten-character id
+APNS_KEY_ID       6G72QT5T37
 APNS_TEAM_ID      2842PLB7CS
-APNS_KEY_P8       the .p8 contents, newlines escaped or real
-APNS_PRODUCTION   "true" for App Store builds, otherwise sandbox
+APNS_KEY_P8       AuthKey_6G72QT5T37.p8 (Apple folder; PEM)
+APNS_PRODUCTION   true   (TestFlight and App Store both use production APNs)
 ```
 
-Everything no-ops safely until they are set: `isApnsConfigured()` gates every call, so the
-site behaves exactly as it does today with them absent.
+Probed against both Apple hosts with a dummy device token: `400 BadDeviceToken`
+on sandbox and production. That is the success signal — Apple accepted the JWT
+and rejected only the fake token. `403 InvalidProviderToken` would have meant
+the wrong key or a Sign in with Apple key.
 
-The key is made once at
-[developer.apple.com → Keys](https://developer.apple.com/account/resources/authkeys/list),
-enabling **Apple Push Notifications service (APNs)**. It downloads once and cannot be
-downloaded again.
+The `.p8` lives at `~/Desktop/Drive/Genosys/Apple/AuthKey_6G72QT5T37.p8`.
+It downloads once and cannot be downloaded again.
 
 ## Database
 

@@ -31,6 +31,7 @@ export async function syncOrderLiveActivity(params: {
       paymentMethod: true,
       paymentStatus: true,
       locale: true,
+      customerEmirate: true,
       liveActivityToken: true,
     },
   })
@@ -42,6 +43,7 @@ export async function syncOrderLiveActivity(params: {
     paymentMethod: order.paymentMethod,
     paymentStatus: order.paymentStatus,
     locale: order.locale,
+    customerEmirate: order.customerEmirate,
   }
 
   const finished = !shouldTrackOrder(forActivity)

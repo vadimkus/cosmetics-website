@@ -131,6 +131,65 @@ describe('progress, matching the app', () => {
   })
 })
 
+/**
+ * The one thing on the card that is a commitment rather than a report. The same rules are
+ * pinned in the app's `scripts/smoke-order-progress.js`, because a card that promises one
+ * window when the app touches it and another when the server does is worse than a card
+ * that promises nothing.
+ */
+describe('the delivery promise', () => {
+  const at = (customerEmirate: string, status: string, locale?: string) =>
+    buildOrderActivityProps({
+      orderNumber: '1',
+      status,
+      paymentMethod: 'cod',
+      customerEmirate,
+      ...(locale ? { locale } : {}),
+    })
+
+  it('gives Dubai the hours it is actually promised', () => {
+    expect(at('Dubai', 'CONFIRMED').eta).toBe('Arriving within 1–2 hours')
+    expect(at('dubai', 'SHIPPED').eta).toBe('Arriving within 1–2 hours')
+  })
+
+  it('does not promise the rest of the country a Dubai courier', () => {
+    expect(at('Abu Dhabi', 'CONFIRMED').eta).toBe('Arriving within 24–36 hours')
+    expect(at('Sharjah', 'SHIPPED').eta).toBe('Arriving within 24–36 hours')
+    expect(at('Fujairah', 'CONFIRMED').eta).toBe('Arriving within 24–36 hours')
+  })
+
+  it.each([
+    ['before we have accepted it', 'PENDING'],
+    ['once it has arrived', 'DELIVERED'],
+    ['once it is cancelled', 'CANCELLED'],
+  ])('promises nothing %s', (_why, status) => {
+    expect(at('Dubai', status).eta).toBeUndefined()
+  })
+
+  it('promises nothing when we do not know where it is going', () => {
+    expect(buildOrderActivityProps({ orderNumber: '1', status: 'CONFIRMED' }).eta).toBeUndefined()
+    expect(at('   ', 'CONFIRMED').eta).toBeUndefined()
+  })
+
+  it('translates', () => {
+    expect(at('Dubai', 'CONFIRMED', 'ru').eta).toBe('Доставим за 1–2 часа')
+    expect(at('Dubai', 'CONFIRMED', 'ar').eta).toBe('يصل خلال 1–2 ساعة')
+  })
+
+  it('is left out of the payload rather than sent empty', () => {
+    const body = buildActivityPayload({ event: 'update', order: at2('PENDING') })
+    const state = (body as { aps: { 'content-state': { props: string } } }).aps['content-state']
+    expect(JSON.parse(state.props)).not.toHaveProperty('eta')
+  })
+
+  const at2 = (status: string) => ({
+    orderNumber: '1',
+    status,
+    paymentMethod: 'cod',
+    customerEmirate: 'Dubai',
+  })
+})
+
 describe('what gets a card', () => {
   it('an order on its way does', () => {
     expect(shouldTrackOrder({ orderNumber: '1', status: 'SHIPPED' })).toBe(true)

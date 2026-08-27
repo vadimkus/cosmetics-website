@@ -31,6 +31,20 @@ const TABLE = messages()
 const STATUSES = Object.keys(TABLE)
 const LOCALES = ['en', 'ar', 'ru'] as const
 
+type Copy = { title: string; subtitle: string; body: string }
+
+/**
+ * The table is parsed out of a source file, so every lookup is `undefined` as far as the
+ * type system is concerned. A missing entry is a failure whichever way it surfaces, so it
+ * fails here with the name of what is missing rather than as a null dereference further
+ * down each loop.
+ */
+function copy(status: string, locale: string): Copy {
+  const entry = TABLE[status]?.[locale]
+  if (!entry) throw new Error(`no notification copy for ${status} in ${locale}`)
+  return entry as unknown as Copy
+}
+
 describe('order notification copy', () => {
   it('covers every status in every language', () => {
     expect(STATUSES).toEqual(
@@ -38,8 +52,7 @@ describe('order notification copy', () => {
     )
     for (const status of STATUSES) {
       for (const locale of LOCALES) {
-        const entry = TABLE[status]?.[locale]
-        expect({ status, locale, has: Boolean(entry) }).toEqual({ status, locale, has: true })
+        const entry = copy(status, locale)
         expect(entry.title.length).toBeGreaterThan(0)
         expect(entry.subtitle.length).toBeGreaterThan(0)
         expect(entry.body.length).toBeGreaterThan(0)
@@ -55,7 +68,7 @@ describe('order notification copy', () => {
   it('substitutes the order number, leaving no placeholder behind', () => {
     for (const status of STATUSES) {
       for (const locale of LOCALES) {
-        const { subtitle, body } = TABLE[status][locale]
+        const { subtitle, body } = copy(status, locale)
         const filled = [subtitle, body]
           .map(line => line.split('{orderNumber}').join('46125502'))
           .join(' ')
@@ -69,16 +82,16 @@ describe('order notification copy', () => {
     for (const status of STATUSES) {
       // English takes a hash, Russian takes № , Arabic takes neither: a leading # in
       // right-to-left text lands on the wrong end of the digits.
-      expect(TABLE[status].en.subtitle).toContain('#{orderNumber}')
-      expect(TABLE[status].ru.subtitle).toContain('№')
-      expect(TABLE[status].ar.subtitle).not.toContain('#')
+      expect(copy(status, 'en').subtitle).toContain('#{orderNumber}')
+      expect(copy(status, 'ru').subtitle).toContain('№')
+      expect(copy(status, 'ar').subtitle).not.toContain('#')
     }
   })
 
   it('does not shout', () => {
     for (const status of STATUSES) {
       for (const locale of LOCALES) {
-        const { title, subtitle, body } = TABLE[status][locale]
+        const { title, subtitle, body } = copy(status, locale)
         const all = `${title} ${subtitle} ${body}`
         // No exclamation marks: the app icon carries the brand and the word "confirmed"
         // does not need help.
@@ -101,7 +114,7 @@ describe('order notification copy', () => {
     for (const status of STATUSES) {
       for (const locale of LOCALES) {
         // iOS truncates a notification title around the mid twenties at common widths.
-        expect({ status, locale, length: TABLE[status][locale].title.length <= 26 }).toEqual({
+        expect({ status, locale, length: copy(status, locale).title.length <= 26 }).toEqual({
           status,
           locale,
           length: true,

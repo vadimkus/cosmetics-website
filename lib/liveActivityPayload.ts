@@ -28,6 +28,11 @@ export type OrderActivityProps = {
   status: string
   steps: [string, string, string]
   cancelled?: boolean
+  /**
+   * The delivery promise, already translated. Absent before the order is accepted and
+   * once it is delivered or cancelled — see `etaFor`.
+   */
+  eta?: string
 }
 
 export type ActivityLocale = 'en' | 'ar' | 'ru'
@@ -49,6 +54,8 @@ type StringKey =
   | 'onItsWay'
   | 'complete'
   | 'cancelled'
+  | 'etaDubai'
+  | 'etaOther'
 
 const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
   en: {
@@ -61,6 +68,8 @@ const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
     onItsWay: 'On its way to you',
     complete: 'Delivered — thank you',
     cancelled: 'This order was cancelled',
+    etaDubai: 'Arriving within 1–2 hours',
+    etaOther: 'Arriving within 24–36 hours',
   },
   ru: {
     paid: 'Оплачено',
@@ -72,6 +81,8 @@ const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
     onItsWay: 'В пути к вам',
     complete: 'Доставлен — спасибо',
     cancelled: 'Заказ отменён',
+    etaDubai: 'Доставим за 1–2 часа',
+    etaOther: 'Доставим за 24–36 часов',
   },
   ar: {
     paid: 'تم الدفع',
@@ -83,6 +94,8 @@ const STRINGS: Record<ActivityLocale, Record<StringKey, string>> = {
     onItsWay: 'في طريقه إليك',
     complete: 'تم التوصيل — شكرًا لك',
     cancelled: 'تم إلغاء هذا الطلب',
+    etaDubai: 'يصل خلال 1–2 ساعة',
+    etaOther: 'يصل خلال 24–36 ساعة',
   },
 }
 
@@ -109,6 +122,37 @@ export type OrderForActivity = {
   paymentMethod?: string | null
   paymentStatus?: string | null
   locale?: string | null
+  /** Decides which delivery promise applies. Without it, no promise is printed. */
+  customerEmirate?: string | null
+}
+
+/**
+ * The delivery promise, or nothing.
+ *
+ * Three rules, and each one is there to stop the card saying something we have not
+ * agreed to:
+ *
+ * 1. **Dubai only gets the hours.** One to two hours is the Careem service inside Dubai.
+ *    Everywhere else is 24 to 36. Printing the Dubai window nationwide would promise
+ *    an Al Ain customer something no courier is going to do.
+ * 2. **Nothing before we accept.** While an order is still waiting to be confirmed we
+ *    have not taken it on, and the courier clock has not started. A window there is a
+ *    promise made by a form, not by us.
+ * 3. **Nothing once it is over.** Delivered or cancelled, an estimate is noise.
+ *
+ * The wording matches what the customer already read at checkout, deliberately: the card
+ * restates the promise, it does not invent a second one.
+ */
+function etaFor(
+  emirate: string | null | undefined,
+  done: number,
+  cancelled: boolean,
+  s: Record<StringKey, string>
+): string | undefined {
+  if (cancelled || done < 1 || done >= 3) return undefined
+  const name = String(emirate || '').trim().toLowerCase()
+  if (!name) return undefined
+  return name === 'dubai' ? s.etaDubai : s.etaOther
 }
 
 const isCod = (order: OrderForActivity) => {
@@ -152,12 +196,16 @@ export function buildOrderActivityProps(order: OrderForActivity): OrderActivityP
   const running = open === 0 ? s.awaiting : open === 1 ? s.preparing : s.onItsWay
   const status = cancelled ? s.cancelled : done === 3 ? s.complete : running
 
+  const eta = etaFor(order.customerEmirate, done, cancelled, s)
+
   return {
     orderNumber: String(order.orderNumber),
     done,
     status,
     steps: [cod ? s.confirmed : s.paid, s.shipped, s.delivered],
     cancelled,
+    // Omitted rather than sent empty: the widget hides the line when the key is absent.
+    ...(eta ? { eta } : {}),
   }
 }
 

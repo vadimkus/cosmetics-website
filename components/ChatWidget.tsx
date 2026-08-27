@@ -238,7 +238,7 @@ function ChatProductCard({
               transition-all duration-200 whitespace-nowrap
               ${added 
                 ? 'bg-green-500 text-white' 
-                : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-body)]'
+                : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)]'
               }
             `}
           >
@@ -681,7 +681,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
         onClick={handleOpen}
         className={`
           fixed z-50 p-4 rounded-full shadow-lg
-          bg-[var(--cera-ink)] hover:bg-[var(--cera-body)]
+          bg-[var(--cera-cta)] hover:bg-[var(--cera-rose-ink)]
           text-white transition-all duration-300
           hover:scale-110 active:scale-95
           ${isRTL ? 'left-4 md:left-6' : 'right-4 md:right-6'}
@@ -950,7 +950,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                 disabled={isLoading || !inputValue.trim()}
                 className="
                   p-2.5 rounded-full
-                  bg-[var(--cera-ink)] hover:bg-[var(--cera-body)]
+                  bg-[var(--cera-cta)] hover:bg-[var(--cera-rose-ink)]
                   text-white
                   transition-colors
                   disabled:opacity-50 disabled:cursor-not-allowed
@@ -1005,7 +1005,7 @@ function QuickActionButton({
         hover:scale-105 active:scale-95
         flex items-center gap-1
         ${highlight 
-          ? 'bg-[var(--cera-cta)] text-white shadow-md hover:bg-[var(--cera-body)] border border-[var(--cera-cta)]'
+          ? 'bg-[var(--cera-cta)] text-white shadow-md hover:bg-[var(--cera-rose-ink)] border border-[var(--cera-cta)]'
           : 'bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-600 text-[var(--cera-body,#3c3733)] dark:text-gray-200 hover:bg-[var(--cera-blush)] hover:text-[var(--cera-rose-ink)] dark:hover:bg-gray-700 dark:hover:text-[var(--cera-rose)] border border-transparent hover:border-[var(--cera-blush-deep)] dark:hover:border-gray-600'
         }
       `}

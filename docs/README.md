@@ -11,6 +11,7 @@
 | Priority | Document | Description |
 |----------|----------|-------------|
 | 🟡 **Important** | [Elvina Genesis protocol pack](./SESSION_CHANGES_2026-08-27_ELVINA_GENESIS_PROTOCOL_PACK.md) | Desktop folder `Genesis_Healthcare_Elvina`: brand + 5 chair protocols from INV **04830**, website videos, catalogue. English. Not printed. |
+| 🟡 **Important** | [Shakirovna Clinic BB Defender 04982](./SESSION_CHANGES_2026-08-27_SHAKIROVNA_CLINIC_DEFENDER.md) | Unpaid clinic SO **GENCardM260827SHKDEF** / INV **04982** / SHIP **06750** / **145 AED**. Defender ×1 @145, delivery free. PDF `~/Desktop/orders/`. |
 | 🟡 **Important** | [Viktoriia Klymenko 04980 paid](./SESSION_CHANGES_2026-08-27_VIKTORIIA_KLYMENKO_04980_PAY.md) | Paymentin **06133** / **700 AED** on SHIP **06746**. INV **04980** paid. SO **GENCardM260827VIKT** → **Доставлен**. |
 | 🟡 **Important** | [Lodyana 04969 paid](./SESSION_CHANGES_2026-08-27_LODYANA_04969_PAY.md) | Paymentin **06132** / **670 AED** on SHIP **06733**. INV **04969** paid. SO **GENCardM260823LODY** → **Доставлен**. |
 | 🟡 **Important** | [Sales bonus 4,000 Sagatdinov](./SESSION_CHANGES_2026-08-27_SALES_BONUS_PAYMENTOUT_4000.md) | Paymentout **00691** / **4,000 AED** → Vadim Sagatdinov (expense Sales Bonus). |

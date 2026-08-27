@@ -17,115 +17,132 @@ export type OrderStatus = 'PENDING' | 'CONFIRMED' | 'PAID' | 'SHIPPED' | 'DELIVE
 // Supported locales
 export type Locale = 'en' | 'ar' | 'ru'
 
-// Notification content by status and locale
+/**
+ * What each status says, in each language.
+ *
+ * Three fields, because that is the shape iOS actually renders on the Lock Screen:
+ * a bold **title** for the event, a **subtitle** for which order it is, and a **body** for
+ * what happens next. Cramming all three into one line, as this used to, wastes the
+ * structure the platform gives you and reads as one long sentence.
+ *
+ * No emoji and no exclamation marks. The app icon is already on the notification carrying
+ * the brand, a red tick adds nothing next to the word "confirmed", and a company selling
+ * professional dermacosmetics does not shout. What it can do is be specific: every body
+ * line says what happens next or what the customer can do, rather than celebrating.
+ *
+ * `{orderNumber}` is the placeholder. It used to be `#{orderNumber}`, where the `#` was
+ * silently eaten by the substitution — so every message read "your order 46125502" while
+ * the source looked like it said "#46125502". Each language now places the number the way
+ * it should: Russian takes № , Arabic takes none, since a leading # in right-to-left text
+ * lands on the wrong end of the digits.
+ */
 interface NotificationContent {
   title: string
+  subtitle: string
   body: string
-  emoji: string
 }
 
-// Beautiful notification messages for each order status
 const ORDER_STATUS_MESSAGES: Record<OrderStatus, Record<Locale, NotificationContent>> = {
   PENDING: {
     en: {
-      title: '🛒 Order Received!',
-      body: 'We\'ve received your order #{orderNumber}. We\'ll confirm it shortly.',
-      emoji: '🛒',
+      title: 'Order received',
+      subtitle: 'Order #{orderNumber}',
+      body: 'We have it. You will hear from us as soon as it is confirmed.',
     },
     ar: {
-      title: '🛒 تم استلام طلبك!',
-      body: 'لقد استلمنا طلبك رقم #{orderNumber}. سنقوم بتأكيده قريباً.',
-      emoji: '🛒',
+      title: 'استلمنا طلبك',
+      subtitle: 'الطلب {orderNumber}',
+      body: 'وصلنا طلبك، وسنُعلمك فور تأكيده.',
     },
     ru: {
-      title: '🛒 Заказ получен!',
-      body: 'Мы получили ваш заказ #{orderNumber}. Скоро подтвердим его.',
-      emoji: '🛒',
+      title: 'Заказ получен',
+      subtitle: 'Заказ № {orderNumber}',
+      body: 'Заказ у нас. Сообщим, как только подтвердим.',
     },
   },
   CONFIRMED: {
     en: {
-      title: '✅ Order Confirmed!',
-      body: 'Great news! Your order #{orderNumber} has been confirmed and is being prepared.',
-      emoji: '✅',
+      title: 'Order confirmed',
+      subtitle: 'Order #{orderNumber}',
+      body: 'We are preparing it for dispatch.',
     },
     ar: {
-      title: '✅ تم تأكيد طلبك!',
-      body: 'أخبار رائعة! تم تأكيد طلبك رقم #{orderNumber} ويتم تجهيزه الآن.',
-      emoji: '✅',
+      title: 'تم تأكيد الطلب',
+      subtitle: 'الطلب {orderNumber}',
+      body: 'نُجهّز طلبك للشحن الآن.',
     },
     ru: {
-      title: '✅ Заказ подтверждён!',
-      body: 'Отличные новости! Ваш заказ #{orderNumber} подтверждён и готовится.',
-      emoji: '✅',
+      title: 'Заказ подтверждён',
+      subtitle: 'Заказ № {orderNumber}',
+      body: 'Собираем его к отправке.',
     },
   },
   PAID: {
     en: {
-      title: '💳 Payment Received!',
-      body: 'Thank you! Payment for order #{orderNumber} has been received. Preparing your items now.',
-      emoji: '💳',
+      title: 'Payment received',
+      subtitle: 'Order #{orderNumber}',
+      body: 'Nothing more to do. We are preparing it for dispatch.',
     },
     ar: {
-      title: '💳 تم استلام الدفعة!',
-      body: 'شكراً لك! تم استلام الدفعة للطلب رقم #{orderNumber}. جاري تجهيز منتجاتك.',
-      emoji: '💳',
+      title: 'تم استلام الدفعة',
+      subtitle: 'الطلب {orderNumber}',
+      body: 'لا شيء عليك بعد الآن. نُجهّز طلبك للشحن.',
     },
     ru: {
-      title: '💳 Оплата получена!',
-      body: 'Спасибо! Оплата заказа #{orderNumber} получена. Готовим ваши товары.',
-      emoji: '💳',
+      title: 'Оплата получена',
+      subtitle: 'Заказ № {orderNumber}',
+      body: 'Больше ничего не нужно — собираем заказ к отправке.',
     },
   },
   SHIPPED: {
     en: {
-      title: '📦 Order Shipped!',
-      body: 'Your order #{orderNumber} is on its way! Track your delivery in the app.',
-      emoji: '📦',
+      title: 'On its way',
+      subtitle: 'Order #{orderNumber}',
+      body: 'With the courier now. Follow it in the app.',
     },
     ar: {
-      title: '📦 تم شحن طلبك!',
-      body: 'طلبك رقم #{orderNumber} في الطريق إليك! تتبع التوصيل عبر التطبيق.',
-      emoji: '📦',
+      title: 'طلبك في الطريق',
+      subtitle: 'الطلب {orderNumber}',
+      body: 'الطلب مع المندوب. تابِع التوصيل من التطبيق.',
     },
     ru: {
-      title: '📦 Заказ отправлен!',
-      body: 'Ваш заказ #{orderNumber} в пути! Отслеживайте доставку в приложении.',
-      emoji: '📦',
+      title: 'Заказ в пути',
+      subtitle: 'Заказ № {orderNumber}',
+      body: 'Уже у курьера. Следите за доставкой в приложении.',
     },
   },
   DELIVERED: {
     en: {
-      title: '🎉 Order Delivered!',
-      body: 'Your order #{orderNumber} has been delivered. Enjoy your GENOSYS products!',
-      emoji: '🎉',
+      title: 'Delivered',
+      subtitle: 'Order #{orderNumber}',
+      body: 'Enjoy it. We would love to hear how you get on.',
     },
     ar: {
-      title: '🎉 تم توصيل طلبك!',
-      body: 'تم توصيل طلبك رقم #{orderNumber}. استمتع بمنتجات جينوسيس!',
-      emoji: '🎉',
+      title: 'تم التوصيل',
+      subtitle: 'الطلب {orderNumber}',
+      body: 'نتمنى لك تجربة رائعة، ويسعدنا أن نسمع رأيك.',
     },
     ru: {
-      title: '🎉 Заказ доставлен!',
-      body: 'Ваш заказ #{orderNumber} доставлен. Наслаждайтесь продуктами GENOSYS!',
-      emoji: '🎉',
+      title: 'Заказ доставлен',
+      subtitle: 'Заказ № {orderNumber}',
+      body: 'Пользуйтесь с удовольствием. Будем рады отзыву.',
     },
   },
   CANCELLED: {
     en: {
-      title: '❌ Order Cancelled',
-      body: 'Your order #{orderNumber} was cancelled. If this wasn\u2019t expected, message us — we\u2019ll make it right.',
-      emoji: '❌',
+      title: 'Order cancelled',
+      subtitle: 'Order #{orderNumber}',
+      body: 'If that was not expected, message us and we will put it right.',
     },
     ar: {
-      title: '❌ تم إلغاء الطلب',
-      body: 'تم إلغاء طلبك رقم #{orderNumber}. إذا لم يكن ذلك متوقعاً، راسلنا وسنصحح الأمر فوراً.',
-      emoji: '❌',
+      title: 'تم إلغاء الطلب',
+      subtitle: 'الطلب {orderNumber}',
+      body: 'إن لم يكن ذلك متوقعاً، راسِلنا وسنتكفّل بالأمر.',
     },
     ru: {
-      title: '❌ Заказ отменён',
-      body: 'Ваш заказ #{orderNumber} отменён. Если это неожиданно — напишите нам, и мы всё исправим.',
-      emoji: '❌',
+      title: 'Заказ отменён',
+      subtitle: 'Заказ № {orderNumber}',
+      body: 'Если это неожиданно — напишите нам, и мы всё поправим.',
     },
   },
 }
@@ -140,11 +157,12 @@ function getNotificationContent(
 ): NotificationContent {
   const messages = ORDER_STATUS_MESSAGES[status]
   const content = messages[locale] || messages.en
+  const fill = (line: string) => line.split('{orderNumber}').join(orderNumber)
 
   return {
     title: content.title,
-    body: content.body.replace('#{orderNumber}', orderNumber),
-    emoji: content.emoji,
+    subtitle: fill(content.subtitle),
+    body: fill(content.body),
   }
 }
 
@@ -181,6 +199,9 @@ export async function sendOrderStatusPushNotification(params: {
     to: expoPushToken,
     sound: 'default',
     title: content.title,
+    // iOS only; Android ignores it and shows title + body, which still reads correctly
+    // because the body never depends on the subtitle to make sense.
+    subtitle: content.subtitle,
     body: content.body,
     data: {
       type: 'order_status',

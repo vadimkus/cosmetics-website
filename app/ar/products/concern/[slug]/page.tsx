@@ -193,7 +193,7 @@ export default async function ArabicConcernPage({ params }: { params: Promise<{ 
                   {section.steps.map((step) => (
                     <details key={step.step} className="bg-white rounded-xl border border-[var(--cera-line)] overflow-hidden group open:border-[var(--cera-blush-deep)] open:ring-1 open:ring-[var(--cera-blush)] transition-all">
                       <summary className="px-5 py-4 cursor-pointer list-none flex items-center gap-3 hover:bg-[var(--cera-cream-deep)] group-open:bg-[var(--cera-blush)]/40 transition-colors">
-                        <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[var(--cera-ink)] group-open:bg-[var(--cera-rose)] text-white text-xs font-bold flex items-center justify-center transition-colors">{step.step}</span>
+                        <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[var(--cera-cta)] group-open:bg-[var(--cera-rose)] text-white text-xs font-bold flex items-center justify-center transition-colors">{step.step}</span>
                         <div className="flex-1 min-w-0">
                           <span className="font-medium text-[var(--cera-ink)] group-open:text-[var(--cera-rose-ink)] transition-colors">{step.title}</span>
                           <span className="text-[var(--cera-muted)] text-sm mr-2">({step.duration})</span>

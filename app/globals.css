@@ -120,6 +120,10 @@
   --cera-blush-deep: #efd9d9;
   --cera-rose: #c98b8b;
   --cera-rose-ink: #8f5a5a;
+  /* Fills primary buttons, which used to be ink. Never text: 4.55:1 under the
+     white label on a filled button is fine, but on cream it drops to 4.27:1
+     and fails. --cera-rose-ink is the same family and carries text at 5.21:1. */
+  --cera-cta: #9c686d;
   --cera-ink: #191716;
   --cera-body: #3d3734;
   --cera-muted: #665e59;

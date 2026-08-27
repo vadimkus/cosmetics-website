@@ -361,7 +361,7 @@ export default function FAQClient({ faqItems }: { faqItems: FaqItemData[] }) {
                         onClick={() => handleCategoryChange(cat)}
                         className={`flex items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 md:px-4 py-1.5 md:py-2 text-[12.5px] md:text-[13.5px] font-semibold transition-all duration-200 ${
                           isActive
-                            ? 'border border-transparent bg-[var(--cera-ink)] text-white'
+                            ? 'border border-transparent bg-[var(--cera-cta)] text-white'
                             : 'border border-[var(--cera-line)] bg-white text-[var(--cera-muted)] hover:border-[var(--cera-blush-deep)] hover:text-[var(--cera-rose-ink)]'
                         }`}
                       >

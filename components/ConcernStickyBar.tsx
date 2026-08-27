@@ -185,7 +185,7 @@ export default function ConcernStickyBar({ locale = 'en' }: ConcernStickyBarProp
             <button
               type="button"
               onClick={handleViewBag}
-              className="flex-shrink-0 bg-[var(--cera-ink)] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[var(--cera-rose-ink)] active:scale-95 transition-all"
+              className="flex-shrink-0 bg-[var(--cera-cta)] text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-[var(--cera-rose-ink)] active:scale-95 transition-all"
             >
               {t.viewBag}
             </button>

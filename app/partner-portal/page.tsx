@@ -258,7 +258,7 @@ function PartnerDashboardInner() {
       <div className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)]`} dir={dir}>
         {welcome && (
           <div className="fixed top-4 right-6 z-50 max-w-sm">
-            <div className="flex items-center gap-3 bg-[var(--cera-ink)] text-white rounded-xl px-4 py-3 shadow-lg">
+            <div className="flex items-center gap-3 bg-[var(--cera-cta)] text-white rounded-xl px-4 py-3 shadow-lg">
               <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
                 <Check className="w-4 h-4" />
               </div>
@@ -311,7 +311,7 @@ function PartnerDashboardInner() {
                 </button>
                 <button
                   onClick={() => router.push(getLocalizedPath('/partner-portal/order', locale))}
-                  className="inline-flex items-center gap-2 bg-[var(--cera-ink)] hover:bg-[var(--cera-rose-ink)] text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors"
+                  className="inline-flex items-center gap-2 bg-[var(--cera-cta)] hover:bg-[var(--cera-rose-ink)] text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors"
                 >
                   <Plus className="w-4 h-4" /> {t('New Order', 'Новый заказ', 'طلب جديد')}
                 </button>
@@ -454,7 +454,7 @@ function PartnerDashboardInner() {
                           <td className="px-6 py-3.5 text-right">
                             <button
                               onClick={e => { e.stopPropagation(); reorder(order) }}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--cera-ink)] text-white text-xs font-semibold hover:bg-black transition-colors"
+                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--cera-cta)] text-white text-xs font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors"
                             >
                               <RefreshCw className="w-3.5 h-3.5" /> {t('Reorder', 'Повторить', 'إعادة')}
                             </button>
@@ -505,7 +505,7 @@ function PartnerDashboardInner() {
       {/* Welcome toast */}
       {welcome && (
         <div className="fixed top-4 inset-x-4 z-50 mx-auto max-w-sm">
-          <div className={`flex items-center gap-3 bg-[var(--cera-ink)] text-white rounded-xl px-4 py-3 shadow-lg ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+          <div className={`flex items-center gap-3 bg-[var(--cera-cta)] text-white rounded-xl px-4 py-3 shadow-lg ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
             <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
               <Check className="w-4 h-4" />
             </div>
@@ -515,7 +515,7 @@ function PartnerDashboardInner() {
       )}
 
       {/* ── Corporate hero header (dark) ── */}
-      <div className="bg-[var(--cera-ink)] text-white">
+      <div className="bg-[var(--cera-cta)] text-white">
         <div className={`${isAppLikeMode ? 'px-5' : 'container mx-auto px-6 max-w-5xl'} pt-6 pb-8`}>
           <div className={`flex items-center justify-between mb-6 ${isRTL ? 'flex-row-reverse' : ''}`}>
             <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
@@ -559,7 +559,7 @@ function PartnerDashboardInner() {
                   <ShieldCheck className="w-3.5 h-3.5 text-green-400" />
                   {t('Verified Partner', 'Проверенный партнёр', 'شريك موثّق')}
                 </span>
-                <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-[var(--cera-ink)] text-white text-xs font-bold">
+                <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-[var(--cera-cta)] text-white text-xs font-bold">
                   {discountPct > 0 ? `−${discountPct}% ${t('pricing', 'цена', 'سعر')}` : t('Partner pricing', 'Партнёрская цена', 'سعر الشريك')}
                 </span>
               </div>
@@ -756,7 +756,7 @@ function PartnerDashboardInner() {
                         </div>
                         <button
                           onClick={() => reorder(order)}
-                          className={`mt-3 w-full flex items-center justify-center gap-2 bg-[var(--cera-ink)] text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-black transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
+                          className={`mt-3 w-full flex items-center justify-center gap-2 bg-[var(--cera-cta)] text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors ${isRTL ? 'flex-row-reverse' : ''}`}
                         >
                           <RefreshCw className="w-4 h-4" />
                           {t('Reorder these items', 'Повторить заказ', 'إعادة طلب هذه المنتجات')}

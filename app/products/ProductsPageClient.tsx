@@ -516,7 +516,7 @@ export default function ProductsPageClient({
                   }}
                   className={`relative flex min-h-[40px] min-w-[48px] flex-shrink-0 snap-start select-none items-center justify-center whitespace-nowrap rounded-full border px-3.5 py-1.5 text-xs font-medium transition-all duration-150 active:scale-95 ${
                     isActive
-                      ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
+                      ? 'border-[var(--cera-ink)] bg-[var(--cera-cta)] text-white'
                       : 'border-[var(--cera-line)] bg-white text-[var(--cera-body)] active:bg-[var(--cera-cream-deep)]'
                   }`}
                   style={{ 

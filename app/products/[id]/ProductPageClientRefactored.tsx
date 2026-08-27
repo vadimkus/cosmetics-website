@@ -229,7 +229,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
   const RoutineStepMarker = ({ n, titleKey }: { n: number; titleKey: string }) => {
     const img = getRoutineStepImage(titleKey)
     const numberCircle = (
-      <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-[var(--cera-ink)] text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">{n}</span>
+      <span className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-[var(--cera-cta)] text-white rounded-full flex items-center justify-center font-bold text-xs sm:text-sm md:text-base mt-0.5">{n}</span>
     )
     if (!img) return numberCircle
     const pid = ROUTINE_STEP_PRODUCT_IDS[titleKey]

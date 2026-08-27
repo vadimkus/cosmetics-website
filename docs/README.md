@@ -10,6 +10,7 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Elvina Genesis protocol pack](./SESSION_CHANGES_2026-08-27_ELVINA_GENESIS_PROTOCOL_PACK.md) | Desktop folder `Genesis_Healthcare_Elvina`: brand + 5 chair protocols from INV **04830**, website videos, catalogue. English. Not printed. |
 | 🟡 **Important** | [Sales bonus 4,000 Sagatdinov](./SESSION_CHANGES_2026-08-27_SALES_BONUS_PAYMENTOUT_4000.md) | Paymentout **00691** / **4,000 AED** → Vadim Sagatdinov (expense Sales Bonus). |
 | 🟡 **Important** | [NEW YOU STAR cons sales 01444 + 06748](./SESSION_CHANGES_2026-08-27_NEW_YOU_STAR_CONS_SALES.md) | Report **01444** + matching demand **06748** / **2,990 AED** clinic / agr. **37**. 29 pcs WhatsApp sheet. Not paid. PDFs `~/Desktop/orders/`. |
 | 🟡 **Important** | [NEW YOU STAR camel + Snow 06747](./SESSION_CHANGES_2026-08-27_NEW_YOU_STAR_CAMEL_SNOW.md) | Demand into agr. **37** / **945 AED** clinic — camel ×3, Snow O₂ 180 ×3. Stock note `~/Desktop/orders/`. |

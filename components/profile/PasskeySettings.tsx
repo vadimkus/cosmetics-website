@@ -188,7 +188,7 @@ export default function PasskeySettings() {
         <button
           onClick={handleAddPasskey}
           disabled={isLoading}
-          className={`flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] py-3 font-semibold text-white transition-colors hover:bg-[var(--cera-rose-ink)] disabled:cursor-not-allowed disabled:opacity-50 md:gap-3 md:py-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+          className={`flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-[var(--cera-cta)] py-3 font-semibold text-white transition-colors hover:bg-[var(--cera-rose-ink)] disabled:cursor-not-allowed disabled:opacity-50 md:gap-3 md:py-4 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
         >
           {isLoading ? (
             <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

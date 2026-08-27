@@ -254,7 +254,7 @@ export default function ProfileForm({
           <div className="flex gap-2 md:gap-3 mt-4 md:mt-8 pt-3 md:pt-6 border-t border-[var(--cera-line)]">
             <button
               onClick={onSave}
-              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-8 py-2.5 md:py-3 bg-[var(--cera-ink)] text-white rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-[var(--cera-rose-ink)] active:scale-[0.99] transition-all min-h-[40px] md:min-h-[44px] touch-manipulation shadow-sm"
+              className="flex-1 md:flex-none flex items-center justify-center gap-1.5 md:gap-2 px-4 md:px-8 py-2.5 md:py-3 bg-[var(--cera-cta)] text-white rounded-lg md:rounded-xl text-sm md:text-base font-semibold hover:bg-[var(--cera-rose-ink)] active:scale-[0.99] transition-all min-h-[40px] md:min-h-[44px] touch-manipulation shadow-sm"
             >
               <CheckCircle className="h-4 w-4 md:h-5 md:w-5" />
               {t('profile.saveChanges')}
@@ -306,7 +306,7 @@ export default function ProfileForm({
                 <CheckCircle className="h-4 w-4 md:h-5 md:w-5 text-[var(--cera-muted)]" aria-hidden="true" />
                 <h3 className="text-xs md:text-sm font-medium text-[var(--cera-body)]">{t('profile.discountLevel')}</h3>
               </div>
-              <span className="inline-flex items-center px-2.5 py-1 bg-[var(--cera-ink)] text-white rounded-full text-[10px] md:text-xs font-semibold">
+              <span className="inline-flex items-center px-2.5 py-1 bg-[var(--cera-cta)] text-white rounded-full text-[10px] md:text-xs font-semibold">
                 {user.discountPercentage}% {t('product.off')}
               </span>
             </div>

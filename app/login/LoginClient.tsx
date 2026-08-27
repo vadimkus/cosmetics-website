@@ -497,7 +497,7 @@ export default function LoginClient() {
           full ink panel reads as the same family rather than a stock SaaS
           hero. */}
       <aside
-        className="relative hidden flex-col justify-between overflow-hidden bg-[var(--cera-ink)] p-12 text-white lg:flex xl:p-16"
+        className="relative hidden flex-col justify-between overflow-hidden bg-[var(--cera-cta)] p-12 text-white lg:flex xl:p-16"
         aria-hidden="true"
       >
         <div>

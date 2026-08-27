@@ -752,7 +752,7 @@ export default function SkinRecommendationClient() {
           {/* Main Results Card */}
           <div className="cera-card overflow-hidden mb-6">
             {/* Skin Type Header */}
-            <div className="bg-[var(--cera-ink)] px-4 sm:px-6 py-4 sm:py-5 text-white">
+            <div className="bg-[var(--cera-cta)] px-4 sm:px-6 py-4 sm:py-5 text-white">
               {/* Mobile: Stack vertically, Desktop: Row */}
               <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 ${dir === 'rtl' ? 'sm:flex-row-reverse' : ''}`}>
                 {/* Skin Type - Always on top/first */}
@@ -1039,7 +1039,7 @@ export default function SkinRecommendationClient() {
                   <button
                     onClick={handleAIExpertAnalysis}
                     disabled={aiAnalysisLoading}
-                    className={`inline-flex items-center gap-2 bg-[var(--cera-ink)] hover:bg-[var(--cera-rose-ink)] text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg shadow-primary-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-wait ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                    className={`inline-flex items-center gap-2 bg-[var(--cera-cta)] hover:bg-[var(--cera-rose-ink)] text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg shadow-primary-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-wait ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                   >
                     {aiAnalysisLoading ? (
                       <>
@@ -1062,7 +1062,7 @@ export default function SkinRecommendationClient() {
           {showAiAnalysis && aiAnalysisResult && (
             <div className="mb-8 ed-panel rounded-2xl overflow-hidden border border-[var(--cera-blush-deep)]">
               {/* Header */}
-              <div className="bg-[var(--cera-ink)] px-6 py-4 text-white">
+              <div className="bg-[var(--cera-cta)] px-6 py-4 text-white">
                 <div className={`flex items-center justify-between ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                   <div className={`flex items-center gap-3 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <Brain className="w-6 h-6" />

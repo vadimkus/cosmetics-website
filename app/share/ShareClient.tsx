@@ -59,7 +59,7 @@ function ShareContent() {
           </p>
           <Link 
             href="/"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--cera-ink)] text-white rounded-full hover:bg-[var(--cera-rose-ink)] transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--cera-cta)] text-white rounded-full hover:bg-[var(--cera-rose-ink)] transition-colors"
           >
             <Home className="w-5 h-5" />
             {t('share.goToHomepage')}
@@ -133,7 +133,7 @@ function ShareContent() {
             
             <Link 
               href="/products"
-              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[var(--cera-ink)] text-white rounded-lg hover:bg-[var(--cera-rose-ink)] transition-colors"
+              className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3 bg-[var(--cera-cta)] text-white rounded-lg hover:bg-[var(--cera-rose-ink)] transition-colors"
             >
               {t('share.browseProducts')}
             </Link>

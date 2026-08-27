@@ -97,7 +97,7 @@ export default function HomecareRecommendationClient({ token }: { token: string 
           <p className="text-sm text-[var(--cera-muted)] mt-2">{error || 'This private link is invalid.'}</p>
           <button
             onClick={() => router.push('/products')}
-            className="mt-6 rounded-xl bg-[var(--cera-ink)] px-5 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-ink)] hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
+            className="mt-6 rounded-xl bg-[var(--cera-cta)] px-5 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-rose-ink)] hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
           >
             Browse GENOSYS
           </button>
@@ -110,7 +110,7 @@ export default function HomecareRecommendationClient({ token }: { token: string 
 
   return (
     <main className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] pb-28`}>
-      <header className="bg-[var(--cera-ink)] text-white">
+      <header className="bg-[var(--cera-cta)] text-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 py-7 sm:py-9">
           <div className="flex items-center justify-between gap-4 mb-7">
             <Image src="/images/genosys-wordmark-transparent.png" alt="GENOSYS" width={977} height={210} className="h-6 w-auto brightness-0 invert" />
@@ -168,7 +168,7 @@ export default function HomecareRecommendationClient({ token }: { token: string 
                     className={`mt-3 inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold shadow-sm transition-all duration-200 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2 disabled:translate-y-0 disabled:cursor-not-allowed disabled:bg-[var(--cera-cream-deep)] disabled:text-[var(--cera-muted)] disabled:shadow-none ${
                       isAdded
                         ? 'bg-green-50 text-green-700'
-                        : 'bg-[var(--cera-ink)] text-white hover:-translate-y-0.5 hover:bg-[var(--cera-ink)] hover:shadow-lg hover:shadow-red-600/20'
+                        : 'bg-[var(--cera-cta)] text-white hover:-translate-y-0.5 hover:bg-[var(--cera-rose-ink)] hover:shadow-lg hover:shadow-red-600/20'
                     }`}
                   >
                     {isAdded ? <Check className="w-4 h-4" /> : <ShoppingBag className="w-4 h-4" />}
@@ -190,7 +190,7 @@ export default function HomecareRecommendationClient({ token }: { token: string 
           <div className="max-w-3xl mx-auto">
             <button
               onClick={addAll}
-              className="group w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] py-3.5 font-bold text-white shadow-lg shadow-red-600/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-rose-ink)] hover:shadow-xl hover:shadow-red-600/30 active:translate-y-0 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
+              className="group w-full inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-cta)] py-3.5 font-bold text-white shadow-lg shadow-red-600/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-rose-ink)] hover:shadow-xl hover:shadow-red-600/30 active:translate-y-0 active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
             >
               <ShoppingBag className="w-5 h-5" /> Add routine and view cart
             </button>

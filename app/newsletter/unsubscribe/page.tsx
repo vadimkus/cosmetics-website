@@ -150,7 +150,7 @@ export default async function UnsubscribePage({
                   </form>
                   <Link
                     href="/"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] transition-colors"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-cta)] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] transition-colors"
                   >
                     {t.backHome}
                   </Link>
@@ -165,7 +165,7 @@ export default async function UnsubscribePage({
                 <div className="mt-8 flex justify-center">
                   <Link
                     href="/"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] transition-colors"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-cta)] px-5 py-2.5 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] transition-colors"
                   >
                     {t.backHome}
                   </Link>
@@ -187,7 +187,7 @@ export default async function UnsubscribePage({
               <input type="hidden" name="token" value={token} />
               <button
                 type="submit"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] px-6 py-3 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] transition-colors"
+                className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-cta)] px-6 py-3 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] transition-colors"
               >
                 {t.confirm}
               </button>

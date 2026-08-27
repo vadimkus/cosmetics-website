@@ -82,7 +82,7 @@ export default function DesktopProfileShell({
   const navClass = (active = false) =>
     `group flex min-h-11 w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2 ${
       active
-        ? 'bg-[var(--cera-ink)] text-white shadow-sm'
+        ? 'bg-[var(--cera-cta)] text-white shadow-sm'
         : 'text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)] hover:text-[var(--cera-ink)]'
     } ${isRTL ? 'flex-row-reverse text-right' : ''}`
 

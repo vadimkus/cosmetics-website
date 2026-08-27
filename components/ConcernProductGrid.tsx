@@ -86,7 +86,7 @@ export default function ConcernProductGrid({ products, locale = 'en', dir = 'ltr
               </div>
             )}
             {!product.inStock && (
-              <div className="absolute top-2 left-2 bg-[var(--cera-ink)] text-white text-xs px-2 py-1 rounded">
+              <div className="absolute top-2 left-2 bg-[var(--cera-cta)] text-white text-xs px-2 py-1 rounded">
                 {t.outOfStock}
               </div>
             )}

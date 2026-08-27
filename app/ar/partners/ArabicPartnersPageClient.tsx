@@ -98,7 +98,7 @@ export default function ArabicPartnersPageClient() {
               </dl>
 
               <div className="mt-6 flex flex-wrap gap-2 md:hidden">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--cera-ink)] px-3 py-1 text-[11px] font-semibold text-white">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--cera-cta)] px-3 py-1 text-[11px] font-semibold text-white">
                   <Sparkles className="h-3 w-3" />
                   {partnerCount}+ شريك
                 </span>

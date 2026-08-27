@@ -59,7 +59,7 @@ export default function ConcernCTA({ locale = 'en' }: ConcernCTAProps) {
             disabled={totalItems === 0}
             className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all ${
               totalItems > 0
-                ? 'bg-[var(--cera-ink)] text-white hover:bg-[var(--cera-rose-ink)] active:scale-95'
+                ? 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)] active:scale-95'
                 : 'bg-[var(--cera-cream-deep)] text-[var(--cera-muted)] cursor-not-allowed'
             }`}
           >

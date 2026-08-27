@@ -63,7 +63,7 @@ function StepIndicator({
               flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-full text-xs sm:text-sm font-medium
               transition-all duration-300 whitespace-nowrap min-w-fit
               ${isActive 
-                ? 'bg-[var(--cera-ink)] text-white shadow-lg scale-105' 
+                ? 'bg-[var(--cera-cta)] text-white shadow-lg scale-105' 
                 : hasItem 
                   ? 'bg-green-50 text-green-700 border border-green-200' 
                   : isPast
@@ -206,7 +206,7 @@ function BundleProductCard({
     >
       {/* Selection Badge */}
       {isSelected && (
-        <div className="absolute top-3 right-3 z-10 bg-[var(--cera-ink)] text-white rounded-full p-1.5">
+        <div className="absolute top-3 right-3 z-10 bg-[var(--cera-cta)] text-white rounded-full p-1.5">
           <Check className="w-3 h-3" />
         </div>
       )}
@@ -731,7 +731,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             >
               <ShoppingBag className="w-5 h-5" />
               {items.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 bg-[var(--cera-ink)] text-white text-[10px] font-medium rounded-full flex items-center justify-center">
+                <span className="absolute -top-1.5 -right-1.5 min-w-[16px] h-4 px-1 bg-[var(--cera-cta)] text-white text-[10px] font-medium rounded-full flex items-center justify-center">
                   {items.length}
                 </span>
               )}
@@ -915,7 +915,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   transition-all duration-200
                   ${currentStep === ROUTINE_STEPS.length - 1
                     ? 'text-[var(--cera-blush-deep)] cursor-not-allowed'
-                    : 'bg-[var(--cera-ink)] text-white hover:bg-[var(--cera-rose-ink)] active:scale-[0.98]'
+                    : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)] active:scale-[0.98]'
                   }
                 `}
               >
@@ -1155,7 +1155,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                             sizes="250px"
                           />
                           {isProductSelected && (
-                            <div className="absolute top-3 right-3 bg-[var(--cera-ink)] text-white rounded-full p-1.5">
+                            <div className="absolute top-3 right-3 bg-[var(--cera-cta)] text-white rounded-full p-1.5">
                               <Check className="w-4 h-4" />
                             </div>
                           )}
@@ -1214,7 +1214,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                               w-full py-3.5 rounded-xl font-medium text-sm transition-all hover:scale-[1.02] active:scale-[0.98]
                               ${isProductSelected
                                 ? 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)]'
-                                : 'bg-[var(--cera-ink)] text-white hover:bg-[var(--cera-rose-ink)]'
+                                : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)]'
                               }
                             `}
                           >
@@ -1274,7 +1274,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   />
                   {/* Selected Badge */}
                   {isProductSelected && (
-                    <div className="absolute top-3 right-3 bg-[var(--cera-ink)] text-white rounded-full p-1.5">
+                    <div className="absolute top-3 right-3 bg-[var(--cera-cta)] text-white rounded-full p-1.5">
                       <Check className="w-4 h-4" />
                     </div>
                   )}
@@ -1345,7 +1345,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                       w-full py-3.5 rounded-xl font-medium text-sm transition-all active:scale-[0.98]
                       ${isProductSelected
                         ? 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)]'
-                        : 'bg-[var(--cera-ink)] text-white hover:bg-[var(--cera-rose-ink)]'
+                        : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)]'
                       }
                     `}
                   >

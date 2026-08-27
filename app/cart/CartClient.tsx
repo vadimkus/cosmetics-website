@@ -435,7 +435,7 @@ export default function CartClient() {
             initial={animationsEnabled ? { opacity: 0, y: 16 } : false}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className={`fixed z-[70] flex max-w-[calc(100vw-2rem)] items-center gap-4 rounded-full bg-[var(--cera-ink)] px-5 py-3 text-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)] ${
+            className={`fixed z-[70] flex max-w-[calc(100vw-2rem)] items-center gap-4 rounded-full bg-[var(--cera-cta)] px-5 py-3 text-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)] ${
               isAppLikeMode ? 'bottom-24' : 'bottom-6'
             } ${isRTL ? 'left-4 flex-row-reverse' : 'right-4'}`}
             role="status"
@@ -1075,7 +1075,7 @@ export default function CartClient() {
             initial={animationsEnabled ? { opacity: 0, y: 16 } : false}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 12 }}
-            className={`fixed z-[70] flex max-w-[calc(100vw-2rem)] items-center gap-4 rounded-full bg-[var(--cera-ink)] px-5 py-3 text-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)] ${
+            className={`fixed z-[70] flex max-w-[calc(100vw-2rem)] items-center gap-4 rounded-full bg-[var(--cera-cta)] px-5 py-3 text-white shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)] ${
               isAppLikeMode ? 'bottom-24' : 'bottom-6'
             } ${isRTL ? 'left-4 flex-row-reverse' : 'right-4'}`}
             role="status"

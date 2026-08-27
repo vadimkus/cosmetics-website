@@ -71,7 +71,7 @@ function StoreBadges({ locale, size = 'default' }: { locale: Locale; size?: 'def
         href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full bg-[var(--cera-ink)] px-4 py-2 text-white transition-colors hover:bg-black"
+        className="inline-flex items-center gap-2 rounded-full bg-[var(--cera-cta)] px-4 py-2 text-white transition-colors hover:bg-[var(--cera-rose-ink)]"
         aria-label={
           locale === 'ar'
             ? 'حمّل تطبيق جينوسيس من App Store'
@@ -94,7 +94,7 @@ function StoreBadges({ locale, size = 'default' }: { locale: Locale; size?: 'def
         href="https://play.google.com/store/apps/details?id=ae.genosys.app"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full bg-[var(--cera-ink)] px-4 py-2 text-white transition-colors hover:bg-black"
+        className="inline-flex items-center gap-2 rounded-full bg-[var(--cera-cta)] px-4 py-2 text-white transition-colors hover:bg-[var(--cera-rose-ink)]"
         aria-label={
           locale === 'ar'
             ? 'حمّل تطبيق جينوسيس من Google Play'

@@ -33,7 +33,7 @@ export default function BundleBuilderError({
       <div className="flex flex-col gap-3 w-full max-w-xs">
         <button
           onClick={() => reset()}
-          className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[var(--cera-ink)] text-white rounded-xl font-medium text-sm hover:bg-[var(--cera-rose-ink)] active:scale-[0.98] transition-all"
+          className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[var(--cera-cta)] text-white rounded-xl font-medium text-sm hover:bg-[var(--cera-rose-ink)] active:scale-[0.98] transition-all"
         >
           <RefreshCw className="w-4 h-4" />
           Try Again

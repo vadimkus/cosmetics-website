@@ -140,7 +140,7 @@ export default function CertificatesIndexPage() {
             </a>
             <a
               href="tel:+971585487665"
-              className="bg-[var(--cera-ink)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors"
+              className="bg-[var(--cera-cta)] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors"
             >
               📞 Call Us
             </a>

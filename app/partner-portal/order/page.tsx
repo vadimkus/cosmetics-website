@@ -384,7 +384,7 @@ function PartnerOrderInner() {
           </p>
           <button
             onClick={() => router.push(getLocalizedPath('/partner-portal', locale))}
-            className="w-full bg-[var(--cera-ink)] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors"
+            className="w-full bg-[var(--cera-cta)] text-white px-6 py-3 rounded-xl font-semibold hover:bg-[var(--cera-rose-ink)] transition-colors"
           >
             {t('Back to Partner Portal', 'В портал партнёра', 'العودة إلى بوابة الشركاء')}
           </button>
@@ -429,7 +429,7 @@ function PartnerOrderInner() {
       {/* Product list */}
       <div className={`${isAppLikeMode ? 'px-4 py-3' : 'container mx-auto px-4 py-4 max-w-3xl'}`}>
         {reorderLoaded > 0 && (
-          <div className={`flex items-center gap-2 bg-[var(--cera-ink)] text-white rounded-xl px-4 py-3 mb-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
+          <div className={`flex items-center gap-2 bg-[var(--cera-cta)] text-white rounded-xl px-4 py-3 mb-3 ${isRTL ? 'flex-row-reverse text-right' : ''}`}>
             <RefreshCw className="w-4 h-4 flex-shrink-0" />
             <p className="text-sm flex-1">
               {t(
@@ -530,10 +530,10 @@ function PartnerOrderInner() {
                             </>
                           )}
                           {productClass === 'professional' && (
-                            <span className="text-[9px] font-bold text-white bg-[var(--cera-ink)] px-1.5 py-0.5 rounded uppercase tracking-wide">PRO</span>
+                            <span className="text-[9px] font-bold text-white bg-[var(--cera-cta)] px-1.5 py-0.5 rounded uppercase tracking-wide">PRO</span>
                           )}
                           {productClass === 'equipment' && (
-                            <span className="text-[9px] font-bold text-white bg-[var(--cera-ink)] px-1.5 py-0.5 rounded uppercase tracking-wide">
+                            <span className="text-[9px] font-bold text-white bg-[var(--cera-cta)] px-1.5 py-0.5 rounded uppercase tracking-wide">
                               {t('Equipment', 'Оборудование', 'أجهزة')}
                             </span>
                           )}
@@ -550,7 +550,7 @@ function PartnerOrderInner() {
                       productQty > 0 ? (
                         <button
                           onClick={() => toggleCard(product.id)}
-                          className="px-3 h-8 rounded-full bg-[var(--cera-ink)] text-white text-sm font-bold flex-shrink-0"
+                          className="px-3 h-8 rounded-full bg-[var(--cera-cta)] text-white text-sm font-bold flex-shrink-0"
                         >
                           ×{productQty}
                         </button>
@@ -620,7 +620,7 @@ function PartnerOrderInner() {
                                 <div className={`flex-1 min-w-0 ${isRTL ? 'text-right' : ''}`}>
                                   <span className="text-sm font-semibold text-[var(--cera-ink)]">{v.size}</span>
                                   {rowClass === 'professional' && (
-                                    <span className={`text-[9px] font-bold text-white bg-[var(--cera-ink)] px-1.5 py-0.5 rounded uppercase tracking-wide ${isRTL ? 'mr-1.5' : 'ml-1.5'}`}>PRO</span>
+                                    <span className={`text-[9px] font-bold text-white bg-[var(--cera-cta)] px-1.5 py-0.5 rounded uppercase tracking-wide ${isRTL ? 'mr-1.5' : 'ml-1.5'}`}>PRO</span>
                                   )}
                                   <div className={`flex items-center gap-2 ${isRTL ? 'flex-row-reverse' : ''}`}>
                                     <span className="text-sm font-bold text-[var(--cera-rose-ink)]">{vInfo.discountedPrice.toFixed(2)} AED</span>
@@ -701,7 +701,7 @@ function PartnerOrderInner() {
                           <span className="text-sm font-bold text-[var(--cera-ink)]">{label}</span>
                           <span className="text-[11px] font-semibold text-[var(--cera-muted)] bg-[var(--cera-cream-deep)] px-2 py-0.5 rounded-full">{items.length}</span>
                           {selectedInGroup > 0 && (
-                            <span className="text-[11px] font-bold text-white bg-[var(--cera-ink)] px-2 py-0.5 rounded-full">×{selectedInGroup}</span>
+                            <span className="text-[11px] font-bold text-white bg-[var(--cera-cta)] px-2 py-0.5 rounded-full">×{selectedInGroup}</span>
                           )}
                         </span>
                         <ChevronDown className={`w-4 h-4 text-[var(--cera-muted)] transition-transform ${isOpenGroup ? 'rotate-180' : ''}`} />
@@ -791,7 +791,7 @@ function PartnerOrderInner() {
                   onClick={() => setPayOption('credit')}
                   className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                     payOption === 'credit'
-                      ? 'bg-[var(--cera-ink)] border-[var(--cera-ink)] text-white'
+                      ? 'bg-[var(--cera-cta)] border-[var(--cera-cta)] text-white'
                       : 'bg-white border-[var(--cera-line)] text-[var(--cera-body)] hover:border-[var(--cera-blush-deep)]'
                   }`}
                 >
@@ -802,7 +802,7 @@ function PartnerOrderInner() {
                 onClick={() => setPayOption('online')}
                 className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                   payOption === 'online'
-                    ? 'bg-[var(--cera-ink)] border-[var(--cera-ink)] text-white'
+                    ? 'bg-[var(--cera-cta)] border-[var(--cera-cta)] text-white'
                     : 'bg-white border-[var(--cera-line)] text-[var(--cera-body)] hover:border-[var(--cera-blush-deep)]'
                 }`}
               >
@@ -812,7 +812,7 @@ function PartnerOrderInner() {
                 onClick={() => setPayOption('cod')}
                 className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${
                   payOption === 'cod'
-                    ? 'bg-[var(--cera-ink)] border-[var(--cera-ink)] text-white'
+                    ? 'bg-[var(--cera-cta)] border-[var(--cera-cta)] text-white'
                     : 'bg-white border-[var(--cera-line)] text-[var(--cera-body)] hover:border-[var(--cera-blush-deep)]'
                 }`}
               >
@@ -841,7 +841,7 @@ function PartnerOrderInner() {
             <button
               onClick={submit}
               disabled={submitting}
-              className={`flex-1 flex items-center justify-center gap-2 bg-[var(--cera-ink)] text-white py-3.5 rounded-xl font-semibold hover:bg-[var(--cera-rose-ink)] active:bg-[var(--cera-rose-ink)] transition-colors disabled:opacity-60 ${isRTL ? 'flex-row-reverse' : ''}`}
+              className={`flex-1 flex items-center justify-center gap-2 bg-[var(--cera-cta)] text-white py-3.5 rounded-xl font-semibold hover:bg-[var(--cera-rose-ink)] active:bg-[var(--cera-rose-ink)] transition-colors disabled:opacity-60 ${isRTL ? 'flex-row-reverse' : ''}`}
             >
               {submitting ? (
                 <>

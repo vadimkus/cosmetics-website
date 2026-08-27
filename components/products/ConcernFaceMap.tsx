@@ -284,7 +284,7 @@ export default function ConcernFaceMap({ locale }: ConcernFaceMapProps) {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 6, scale: 0.95 }}
                       transition={{ duration: reduceMotion ? 0 : 0.18 }}
-                      className="inline-block whitespace-nowrap rounded-full bg-[var(--cera-ink)]/88 px-3 py-1.5 text-[11px] font-medium text-white shadow-lg backdrop-blur-sm"
+                      className="inline-block whitespace-nowrap rounded-full bg-[var(--cera-cta)]/88 px-3 py-1.5 text-[11px] font-medium text-white shadow-lg backdrop-blur-sm"
                     >
                       {activeZone.label[locale]}
                     </motion.span>

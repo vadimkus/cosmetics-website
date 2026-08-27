@@ -518,7 +518,7 @@ export default function ProfilePageRefactored() {
                 type="button"
                 onClick={() => (isEditing ? handleCancel() : setIsEditing(true))}
                 aria-pressed={isEditing}
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--cera-ink)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--cera-rose-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--cera-cta)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--cera-rose-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
               >
                 <Edit3 className="h-4 w-4" aria-hidden="true" />
                 {isEditing ? t('profileActions.cancel') : t('profileActions.edit')}

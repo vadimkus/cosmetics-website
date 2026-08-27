@@ -84,7 +84,7 @@ const SKINS = {
     accent: 'text-[var(--cera-rose-ink)]',
     iconBtn: 'text-[var(--cera-muted)] hover:text-[var(--cera-rose-ink)]',
     divider: 'sm:border-[var(--cera-line)]',
-    cta: 'bg-[var(--cera-ink)] text-white hover:bg-black',
+    cta: 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)]',
     ctaGhost: 'border border-[var(--cera-line)] text-[var(--cera-body)] hover:border-[var(--cera-rose)]',
     input: 'rounded-2xl border border-[var(--cera-line)] bg-white text-[var(--cera-ink)] placeholder:text-[var(--cera-muted)] focus:ring-2 focus:ring-[var(--cera-rose)]',
     formPanel: 'cera-card p-5 sm:p-6 lg:p-7',

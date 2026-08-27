@@ -37,9 +37,18 @@ FOC Derma block on the invoice: 50 catalogues, leaflets (facial / eye / HR3 / ro
 
 DTSMG letter (19 Aug, ref **Z2E15**) tells Dubai Customs goods are **display/marketing only and will return to Korea**. Use it only for HQ temporary-import cargo. Do **not** mix it with 260810, which already entered as a commercial GENOSYS ME import.
 
+## Booth staff (badge list, 27 Aug)
+
+1. Vadim Sagatdinov
+2. Natalia Kormishina
+3. Yana Kochetkova (bank wires also show Iana Kochetkova — match passport)
+4. Tatyana Malashevich (user typed Tatyaana)
+
+18 sqm allotment is 9 badges. Four names only.
+
 ## Open items (as of 27 Aug)
 
-1. Exhibitor e-badges (deadline missed — escalate to cx@dubaiderma.com).
+1. Exhibitor e-badges (deadline missed — escalate to cx@dubaiderma.com). Draft sent to Vadim 27 Aug.
 2. DWTC Access Pass for Mon 7 Sep (AED 30/person/day, EID + white-bg photo).
 3. Receive 260810 once EDE/customs release.
 4. Confirm Korea team names, visas, who staffs Z2E15.

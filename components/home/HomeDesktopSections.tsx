@@ -241,7 +241,7 @@ function RailProductCard({
       <div className={`p-4 ${isRtl ? 'text-right' : ''}`}>
         <p className={`mb-2 flex items-center gap-2 ${isRtl ? 'flex-row-reverse' : ''}`}>
           {badge === 'new' ? (
-            <span className="inline-flex items-center rounded-full bg-[var(--cera-ink)] px-2.5 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-white">
+            <span className="inline-flex items-center rounded-full bg-[var(--cera-cta)] px-2.5 py-0.5 text-[9.5px] font-semibold uppercase tracking-[0.1em] text-white">
               {locale === 'ar' ? 'جديد' : locale === 'ru' ? 'Новинка' : 'New'}
             </span>
           ) : (

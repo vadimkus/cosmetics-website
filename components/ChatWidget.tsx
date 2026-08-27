@@ -238,7 +238,7 @@ function ChatProductCard({
               transition-all duration-200 whitespace-nowrap
               ${added 
                 ? 'bg-green-500 text-white' 
-                : 'bg-[var(--cera-ink)] text-white hover:bg-[var(--cera-body)]'
+                : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-body)]'
               }
             `}
           >
@@ -714,7 +714,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
       dir={dir}
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 bg-[var(--cera-ink)] text-white">
+      <div className="flex items-center justify-between px-4 py-3 bg-[var(--cera-cta)] text-white">
         <div className="flex items-center gap-2">
           <Sparkles className="w-5 h-5" />
           <span className="font-semibold text-sm">{chatTitle}</span>
@@ -887,7 +887,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
                   </div>
                   <div className={`flex-1 max-w-[80%] rounded-2xl px-4 py-3 shadow-sm ${
                     message.role === 'user'
-                      ? 'bg-[var(--cera-ink)] text-white rounded-tr-none'
+                      ? 'bg-[var(--cera-cta)] text-white rounded-tr-none'
                       : 'bg-white dark:bg-gray-700 text-[var(--cera-body,#3c3733)] dark:text-gray-200 rounded-tl-none'
                   }`}>
                     <div className="text-sm whitespace-pre-wrap">
@@ -1005,7 +1005,7 @@ function QuickActionButton({
         hover:scale-105 active:scale-95
         flex items-center gap-1
         ${highlight 
-          ? 'bg-[var(--cera-ink)] text-white shadow-md hover:bg-[var(--cera-body)] border border-[var(--cera-ink)]'
+          ? 'bg-[var(--cera-cta)] text-white shadow-md hover:bg-[var(--cera-body)] border border-[var(--cera-cta)]'
           : 'bg-[var(--cera-cream-deep,#f2eceb)] dark:bg-gray-600 text-[var(--cera-body,#3c3733)] dark:text-gray-200 hover:bg-[var(--cera-blush)] hover:text-[var(--cera-rose-ink)] dark:hover:bg-gray-700 dark:hover:text-[var(--cera-rose)] border border-transparent hover:border-[var(--cera-blush-deep)] dark:hover:border-gray-600'
         }
       `}

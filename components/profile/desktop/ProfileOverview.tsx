@@ -228,7 +228,7 @@ export default function ProfileOverview({
               <div className={`mt-6 flex flex-wrap items-center gap-3 ${isRTL ? 'flex-row-reverse' : ''}`}>
                 <Link
                   href={getLocalizedPath(`/track/${latestOrder.orderNumber || latestOrder.id}`, locale)}
-                  className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--cera-ink)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--cera-rose-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
+                  className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--cera-cta)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--cera-rose-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
                 >
                   {t('profile.trackOrder')}
                   <Arrow rtl={isRTL} />
@@ -247,7 +247,7 @@ export default function ProfileOverview({
               <p className="mt-1 text-sm leading-6 text-[var(--cera-muted)]">{t('profile.noOrdersDescription')}</p>
               <Link
                 href={getLocalizedPath('/products', locale)}
-                className="mt-5 inline-flex min-h-11 items-center rounded-xl bg-[var(--cera-ink)] px-4 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)]"
+                className="mt-5 inline-flex min-h-11 items-center rounded-xl bg-[var(--cera-cta)] px-4 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)]"
               >
                 {t('profile.browseProducts')}
               </Link>
@@ -300,7 +300,7 @@ export default function ProfileOverview({
         <button
           type="button"
           onClick={onStartSkinAnalysis}
-          className="min-h-11 rounded-xl bg-[var(--cera-ink)] px-5 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
+          className="min-h-11 rounded-xl bg-[var(--cera-cta)] px-5 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2"
         >
           {t('profile.startSkinAnalysis')}
         </button>

@@ -446,7 +446,7 @@ export default function PWALoginPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-4 bg-[var(--cera-ink)] text-white font-semibold rounded-xl hover:bg-[var(--cera-rose-ink)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full py-4 bg-[var(--cera-cta)] text-white font-semibold rounded-xl hover:bg-[var(--cera-rose-ink)] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto" />

@@ -9,7 +9,7 @@ const TIER_STYLES: Record<MembershipTier, { badge: string; bar: string }> = {
   MEMBER: { badge: 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)]', bar: 'bg-[var(--cera-blush-deep)]' },
   SILVER: { badge: 'bg-slate-200 text-slate-700', bar: 'bg-slate-400' },
   GOLD: { badge: 'bg-amber-100 text-amber-800', bar: 'bg-amber-400' },
-  PLATINUM: { badge: 'bg-[var(--cera-ink)] text-white', bar: 'bg-[var(--cera-ink)]' },
+  PLATINUM: { badge: 'bg-[var(--cera-cta)] text-white', bar: 'bg-[var(--cera-cta)]' },
 }
 
 const TIERS: MembershipTier[] = ['MEMBER', 'SILVER', 'GOLD', 'PLATINUM']

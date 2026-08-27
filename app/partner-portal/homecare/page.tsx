@@ -257,7 +257,7 @@ function HomecareScriptsInner() {
 
   return (
     <main className={`cera-page genosys-page ${ceraSerif.variable} cera-page genosys-page ${ceraSerif.variable} min-h-screen bg-[var(--cera-cream-deep)] pb-24`} dir={dir}>
-      <div className="bg-[var(--cera-ink)] text-white">
+      <div className="bg-[var(--cera-cta)] text-white">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 py-5">
           <button onClick={() => router.push('/partner-portal')} className="mb-5 inline-flex items-center gap-2 rounded-lg px-2 py-1 text-sm text-[var(--cera-muted)] transition-all duration-200 hover:-translate-x-0.5 hover:bg-white/10 hover:text-white active:translate-x-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]">
             <ArrowLeft className="w-4 h-4" /> {t('Partner portal', 'Портал партнёра', 'بوابة الشريك')}
@@ -369,7 +369,7 @@ function HomecareScriptsInner() {
                         <span className="block text-sm font-semibold text-[var(--cera-ink)] truncate">{product.name}</span>
                         <span className="block text-xs text-[var(--cera-muted)]">{option.size ? `${option.size} · ` : ''}{Number(option.price).toFixed(2)} AED</span>
                       </span>
-                      <span className={`w-6 h-6 rounded-full border flex items-center justify-center ${active ? 'bg-[var(--cera-ink)] border-[var(--cera-rose)] text-white' : 'border-[var(--cera-line)]'}`}>
+                      <span className={`w-6 h-6 rounded-full border flex items-center justify-center ${active ? 'bg-[var(--cera-cta)] border-[var(--cera-rose)] text-white' : 'border-[var(--cera-line)]'}`}>
                         {active && <Check className="w-4 h-4" />}
                       </span>
                     </button>
@@ -396,7 +396,7 @@ function HomecareScriptsInner() {
                   </>
                 )}
               </div>
-              <button onClick={save} disabled={saving || selectionSummary.count === 0} className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-ink)] px-6 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-ink)] hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none">
+              <button onClick={save} disabled={saving || selectionSummary.count === 0} className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--cera-cta)] px-6 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-rose-ink)] hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none">
                 {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
                 {editingId ? t('Save new version', 'Сохранить новую версию', 'حفظ نسخة جديدة') : t('Create private link', 'Создать приватную ссылку', 'إنشاء رابط خاص')}
               </button>
@@ -445,7 +445,7 @@ function HomecareScriptsInner() {
                         <button onClick={() => whatsapp(script)} className="inline-flex items-center justify-center gap-2 rounded-lg bg-green-600 px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-green-700 hover:shadow-lg hover:shadow-green-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">
                           <MessageCircle className="w-4 h-4" /> WhatsApp
                         </button>
-                        <button onClick={() => shareScript(script)} className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--cera-ink)] px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-ink)] hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2">
+                        <button onClick={() => shareScript(script)} className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--cera-cta)] px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-rose-ink)] hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2">
                           <Copy className="w-4 h-4" /> {t('Share', 'Поделиться', 'مشاركة')}
                         </button>
                         <a href={publicUrl(script.publicToken)} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--cera-cream-deep)] px-3 py-2.5 text-sm font-semibold text-[var(--cera-body)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-cream-deep)] hover:text-[var(--cera-ink)] hover:shadow-md active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2">
@@ -454,7 +454,7 @@ function HomecareScriptsInner() {
                         <button onClick={() => startEdit(script)} className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--cera-cream-deep)] px-3 py-2.5 text-sm font-semibold text-[var(--cera-body)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-cream-deep)] hover:text-[var(--cera-ink)] hover:shadow-md active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2">
                           <Pencil className="w-4 h-4" /> {t('Edit', 'Изменить', 'تعديل')}
                         </button>
-                        <button onClick={() => revoke(script)} aria-label="Revoke" className="inline-flex items-center justify-center rounded-lg bg-[var(--cera-blush)] px-3 py-2.5 text-[var(--cera-rose-ink)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-ink)] hover:text-white hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2">
+                        <button onClick={() => revoke(script)} aria-label="Revoke" className="inline-flex items-center justify-center rounded-lg bg-[var(--cera-blush)] px-3 py-2.5 text-[var(--cera-rose-ink)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-cta)] hover:text-white hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.96] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2">
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </div>

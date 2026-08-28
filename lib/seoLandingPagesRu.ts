@@ -215,7 +215,7 @@ export const SEO_LANDING_PAGES_RU: SeoLandingPage[] = [
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ru/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'Крем с высокой степенью защиты для ежедневного использования.' },
       { name: 'MULTI SUN SPF 40 PA++', href: '/ru/products/40', image: '/images/sun/main.jpeg', imageAlt: 'Солнцезащитный крем GENOSYS MULTI SUN SPF 40 PA++', description: 'Лёгкий ежедневный санскрин с умеренной защитой от UVA.' },
       { name: 'BB-кушон Skin Caring SPF 50+ PA++++', href: '/ru/products/41', image: '/images/cushion_2/main.jpeg', imageAlt: 'BB-кушон GENOSYS Skin Caring SPF 50+ PA++++', description: 'Регулируемое покрытие, пять УФ-фильтров и сменный блок 15 г в комплекте.' },
-      { name: 'Тонирующий крем Intensive Blemish Balm SPF 30 PA++', href: '/ru/products/42', image: '/images/BLEM.jpg', imageAlt: 'Тонирующий крем GENOSYS Intensive Blemish Balm SPF 30 PA++', description: 'Естественное покрытие, три УФ-фильтра, арбутин 2% и один оттенок; водостойкость не заявлена.' },
+      { name: 'Тонирующий крем Intensive Blemish Balm SPF 30 PA++', href: '/ru/products/42', image: '/images/blemish_o/Main.jpeg', imageAlt: 'Тонирующий крем GENOSYS Intensive Blemish Balm SPF 30 PA++', description: 'Естественное покрытие, три УФ-фильтра, арбутин 2% и один оттенок; водостойкость не заявлена.' },
       { name: 'Набор CHARMING LOOK BEAUTY BOX', href: '/ru/products/57', image: '/images/bbbox_charming/main.jpeg', imageAlt: 'Набор GENOSYS CHARMING LOOK BEAUTY BOX', description: 'Кушон в оттенке Ivory, Beige или Camel с рефиллом 15 г, очищением, тоником, ремувером и ночной маской; выгода рассчитывается по актуальным ценам.' },
     ],
     sections: [

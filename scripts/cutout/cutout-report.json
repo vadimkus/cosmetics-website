@@ -362,11 +362,11 @@
   {
     "product": "42",
     "status": "ok",
-    "source": "/images/BLEM.jpg",
-    "file": "/images/cutout/42.webp",
+    "source": "/images/blemish_o/Main.jpeg",
+    "file": "/images/cutout/42-v2.webp",
     "name": "INTENSIVE BLEMISH BALM CREAM [SPF 30 PA++]",
-    "coverage": 0.186,
-    "bytes": 28154,
+    "coverage": 0.258,
+    "bytes": 33480,
     "review": false
   },
   {

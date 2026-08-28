@@ -215,7 +215,7 @@ export const SEO_LANDING_PAGES_AR: SeoLandingPage[] = [
       { name: 'Ultra Shield Sun Cream SPF 50+', href: '/ar/products/39', image: '/images/ultra/main.jpeg', imageAlt: 'GENOSYS Ultra Shield Sun Cream SPF 50+', description: 'كريم عالي الحماية من الأشعة للاستخدام اليومي.' },
       { name: 'MULTI SUN SPF 40 PA++', href: '/ar/products/40', image: '/images/sun/main.jpeg', imageAlt: 'كريم GENOSYS MULTI SUN الواقي من الشمس SPF 40 PA++', description: 'واقي يومي خفيف بحماية متوسطة من UVA.' },
       { name: 'كوشن Skin Caring BB بعامل SPF 50+ PA++++', href: '/ar/products/41', image: '/images/cushion_2/main.jpeg', imageAlt: 'كوشن GENOSYS Skin Caring BB بعامل SPF 50+ PA++++', description: 'تغطية قابلة للبناء بخمسة مرشحات وعبوة إعادة تعبئة 15 غ ضمن العلبة.' },
-      { name: 'كريم Intensive Blemish Balm الملون SPF 30 PA++', href: '/ar/products/42', image: '/images/BLEM.jpg', imageAlt: 'كريم GENOSYS Intensive Blemish Balm الملون SPF 30 PA++', description: 'تغطية طبيعية مع ثلاثة مرشحات وأربوتين 2% بدرجة واحدة؛ من دون ادعاء مقاومة الماء.' },
+      { name: 'كريم Intensive Blemish Balm الملون SPF 30 PA++', href: '/ar/products/42', image: '/images/blemish_o/Main.jpeg', imageAlt: 'كريم GENOSYS Intensive Blemish Balm الملون SPF 30 PA++', description: 'تغطية طبيعية مع ثلاثة مرشحات وأربوتين 2% بدرجة واحدة؛ من دون ادعاء مقاومة الماء.' },
       { name: 'مجموعة CHARMING LOOK BEAUTY BOX', href: '/ar/products/57', image: '/images/bbbox_charming/main.jpeg', imageAlt: 'مجموعة GENOSYS CHARMING LOOK BEAUTY BOX', description: 'كوشن بدرجة Ivory أو Beige أو Camel مع عبوة إعادة تعبئة 15 غ، ومنظف وتونر ومزيل وقناع ليلي؛ ويحسب التوفير وفق الأسعار الحالية.' },
     ],
     sections: [

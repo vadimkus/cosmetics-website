@@ -96,6 +96,8 @@ REVISION = {
     # cut-out was traced from. A new number, because /images/* is served
     # immutable for a year and anyone who has seen the old file keeps it.
     "28": 2,
+    # New campaign packshot, traced from a different frame than the original.
+    "42": 2,
 }
 
 

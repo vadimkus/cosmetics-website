@@ -43,7 +43,7 @@ export const ROUTINE_STEP_IMAGE_BY_PRODUCT_ID: Readonly<Record<string, string>> 
   '39': '/images/ultra/main.jpeg',
   '40': '/images/sun/main.jpeg',
   '41': '/images/cushion_2/main.jpeg',
-  '42': '/images/BLEM.jpg',
+  '42': '/images/blemish_o/Main.jpeg',
   '43': '/images/hair_tonic/main-v2.jpeg',
   '44': '/images/shampoo/Main.jpg',
   '45': '/images/HHR.jpg',

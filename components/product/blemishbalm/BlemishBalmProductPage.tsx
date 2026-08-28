@@ -696,6 +696,45 @@ export default function BlemishBalmProductPage({ product, unitsSold = 0, routine
         </div>
       </section>
 
+      {/* ──────────────────────────── Video ─────────────────────────────── */}
+      {product.videoUrl ? (
+        <section className="border-t border-[var(--cera-line)] py-16 lg:py-24">
+          <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
+            <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+              <CeraReveal>
+                {/* The export is 1080x1920, so the frame is held portrait.
+                    A square or widescreen crop would throw away most of it. */}
+                <div className="mx-auto w-full max-w-[340px] lg:mx-0">
+                  <div className="cera-stage relative aspect-[9/16] overflow-hidden rounded-[28px]">
+                    <video
+                      className="h-full w-full object-cover"
+                      src={product.videoUrl}
+                      poster={product.image}
+                      controls
+                      playsInline
+                      preload="metadata"
+                      aria-label={`${product.name} - ${copy.video.title}`}
+                    >
+                      {copy.video.unsupported}
+                    </video>
+                  </div>
+                </div>
+              </CeraReveal>
+
+              <CeraReveal>
+                <p className="cera-eyebrow">{copy.video.eyebrow}</p>
+                <h2 className="cera-serif mt-3 text-[30px] leading-[1.12] sm:text-[40px]">
+                  {copy.video.title}
+                </h2>
+                <p className="mt-4 max-w-[46ch] text-[15.5px] leading-relaxed text-[var(--cera-body)]">
+                  {copy.video.body}
+                </p>
+              </CeraReveal>
+            </div>
+          </div>
+        </section>
+      ) : null}
+
       {/* ─────────────────── Laboratory specification ───────────────────── */}
       <section className="mx-auto max-w-[1200px] px-4 py-16 sm:px-6 lg:py-24">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1fr)] lg:gap-16">

@@ -138,6 +138,13 @@ export interface BlemishBalmCopy {
     note: string
   }
 
+  video: {
+    eyebrow: string
+    title: string
+    body: string
+    unsupported: string
+  }
+
   inci: {
     eyebrow: string
     title: string
@@ -349,6 +356,13 @@ const EN: BlemishBalmCopy = {
       'If your clinic gave you a waiting period before makeup over a treated area, that instruction comes from them and overrides anything on this page.',
   },
 
+  video: {
+    eyebrow: 'See it',
+    title: 'One shade, and the way it moves',
+    body: 'Thirty seconds of the tube and the texture. One universal shade, and a finish that stays looking like skin rather than sitting on top of it.',
+    unsupported: 'Your browser cannot play this video.',
+  },
+
   inci: {
     eyebrow: 'The formula',
     title: 'Everything in the tube',
@@ -438,7 +452,7 @@ const EN: BlemishBalmCopy = {
   backToProducts: 'Products',
 }
 
-const _AR: BlemishBalmCopy = {
+const _AR: Partial<BlemishBalmCopy> = {
   eyebrow: 'كريم البلسم المكثف للعيوب · SPF30 / PA++',
   headline: 'الأنبوب الذي تضعينه لتخرجي من العيادة.',
   subheadline:
@@ -700,7 +714,7 @@ const _AR: BlemishBalmCopy = {
   backToProducts: 'المنتجات',
 }
 
-const _RU: BlemishBalmCopy = {
+const _RU: Partial<BlemishBalmCopy> = {
   eyebrow: 'Intensive Blemish Balm Cream · SPF30 / PA++',
   headline: 'Тюбик, который наносят, чтобы выйти из клиники.',
   subheadline:
@@ -962,9 +976,15 @@ const _RU: BlemishBalmCopy = {
   backToProducts: 'Продукты',
 }
 
+/**
+ * `_AR` and `_RU` are the pre-audit wording, kept readable rather than deleted.
+ * They are never rendered, so they are typed as partial snapshots: a section
+ * added to the live copy afterwards has no legacy counterpart to write, and
+ * inventing one would misrepresent what the page used to say.
+ */
 const auditedCopy = (
   copy: BlemishBalmCopy,
-  _supersededLegacyCopy: BlemishBalmCopy,
+  _supersededLegacyCopy: Partial<BlemishBalmCopy>,
 ) => copy
 
 export const BLEMISH_BALM_COPY: Record<Locale, BlemishBalmCopy> = {

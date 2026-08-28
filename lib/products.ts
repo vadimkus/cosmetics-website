@@ -647,6 +647,7 @@ export const products: Product[] = [
       '/images/blemish_o/S7.jpeg',
       '/images/blemish_o/Closing.jpeg',
     ]),
+    videoUrl: '/videos/blemish_story.mp4',
     category: 'Cushion BB',
     inStock: true,
   },

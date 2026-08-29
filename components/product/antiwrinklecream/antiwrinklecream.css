@@ -19,6 +19,14 @@
   --cera-body: #403c31;
   --cera-muted: #6a6455;
   --cera-line: #e8e2d4;
+
+  /* The closing band. cerabarrier.css defaults this to #eeeeee, the studio grey
+     the catalogue was photographed on, so that a raw packshot would sit on it
+     without showing an edge. This page seats a cut-out, which carries no
+     background to match, so that reasoning no longer applies and the grey was
+     left reading as a cool slab under a warm page. Tinted to this page's own
+     cream instead. Carries the muted body text at 4.94:1. */
+  --cera-shot: #f0ebdc;
 }
 
 .awc-page .cera-stage {

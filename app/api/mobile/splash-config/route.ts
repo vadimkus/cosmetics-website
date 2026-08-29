@@ -18,7 +18,7 @@ import { NextResponse } from 'next/server'
 const SPLASH_CONFIG = {
   enabled: true,
   type: 'video' as const,
-  videoUrl: 'https://genosys.ae/videos/Splash.mp4',
+  videoUrl: 'https://genosys.ae/videos/Splash-v2.mp4',
   posterUrl: null as string | null,
   duration: 5000,
   cacheTTL: 86400,

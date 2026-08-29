@@ -67,6 +67,18 @@ FLOOR = {
     # bottle's reflection away but kept the small one's whole, which rendered as
     # a second, upside-down bottle hanging under it.
     "66": 0.866,
+    # Two tubes on the same glossy floor, the small one in front. Vision tore the
+    # rear tube's reflection away but kept the front one's whole, so the packshot
+    # carried a pale upside-down cap hanging under it, ending in a flat cut where
+    # the mask ran out. Invisible on the original white sweep; plainly visible
+    # once the closing band was tinted.
+    #
+    # The two contact edges differ because the rear tube stands further back: it
+    # meets the floor at 83.59% of frame height, the front tube at 91.60%. The
+    # rule has to be the front one, the lower of the two, or it would cut through
+    # the tube it is meant to keep. Measured by mirror symmetry about the contact
+    # line, which is what a reflection is: r=0.82 for the front tube.
+    "32": 0.916,
 }
 
 # Regions Vision drops that are part of the product, as fractions of the source
@@ -101,6 +113,8 @@ REVISION = {
     # New campaign packshot: the 1kg pouch square on white, where the previous
     # source was a lifestyle frame with a powder dish beside it.
     "35": 2,
+    # The front tube's floor reflection is no longer kept as part of the product.
+    "32": 2,
 }
 
 

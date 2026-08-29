@@ -253,10 +253,10 @@
     "product": "32",
     "status": "ok",
     "source": "/images/multifunc_cream/main.jpeg",
-    "file": "/images/cutout/32.webp",
+    "file": "/images/cutout/32-v2.webp",
     "name": "MULTI FUNCTIONAL ANTI-WRINKLE CREAM",
-    "coverage": 0.299,
-    "bytes": 48040,
+    "coverage": 0.348,
+    "bytes": 46318,
     "review": false
   },
   {
@@ -282,11 +282,11 @@
   {
     "product": "35",
     "status": "ok",
-    "source": "/images/HYDR.jpg",
-    "file": "/images/cutout/35.webp",
+    "source": "/images/hydro_o/Main.jpeg",
+    "file": "/images/cutout/35-v2.webp",
     "name": "HYDRO COOL MODELING MASK",
-    "coverage": 0.464,
-    "bytes": 30052,
+    "coverage": 0.539,
+    "bytes": 87804,
     "review": false
   },
   {

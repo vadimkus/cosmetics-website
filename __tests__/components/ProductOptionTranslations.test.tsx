@@ -45,7 +45,7 @@ const coreLabels = {
     'product.color': 'Color',
     'product.quantity': 'Quantity',
     'common.cancel': 'Cancel',
-    'product.addToBag': 'Add to Bag',
+    'product.addToBag': 'Add to bag',
   },
   ru: {
     'product.chooseOptions': 'Выбрать вариант',

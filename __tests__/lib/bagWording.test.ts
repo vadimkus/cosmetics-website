@@ -49,10 +49,24 @@ describe('shopping container is called a bag, in one voice', () => {
       const get = (key: string) =>
         key.split('.').reduce<unknown>((acc, k) => (acc as Record<string, unknown>)?.[k], en)
 
-      expect(get('product.addToBag')).toBe('Add to Bag')
-      expect(get('product.addToCart')).toBe('Add to Bag')
-      expect(get('product.inBag')).toBe('In Bag')
-      expect(get('product.inCart')).toBe('In Bag')
+      // Sentence case, matching the 92 bespoke product pages, which use it for
+      // every control they own - "Out of stock", "Log in to shop", "Choose
+      // options". The card and the sticky bar sit on the same screen, so they
+      // have to agree.
+      expect(get('product.addToBag')).toBe('Add to bag')
+      expect(get('product.addToCart')).toBe('Add to bag')
+      expect(get('product.inBag')).toBe('In bag')
+      expect(get('product.inCart')).toBe('In bag')
+      expect(get('product.viewBag')).toBe('View bag')
+    })
+
+    it('keeps the bag labels in sentence case', () => {
+      // "Bag" alone is a nav label and keeps its capital; it is the start of a
+      // label, not a word inside a sentence.
+      const offenders = flatten(messages('en')).filter(
+        ([, value]) => value !== 'Bag' && /\bBag\b/.test(value)
+      )
+      expect(offenders).toEqual([])
     })
   })
 

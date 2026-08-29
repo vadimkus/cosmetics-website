@@ -86,7 +86,7 @@ export default function ServiceWorkerUpdateNotification({
         {/* Content */}
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-            Update Available
+            Update available
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
             A new version of the app is ready to install. Update now for the latest features and improvements.

@@ -69,7 +69,7 @@ export default class ErrorBoundary extends Component<Props, State> {
                 className="w-full bg-primary-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors flex items-center justify-center gap-2"
               >
                 <RefreshCw className="h-4 w-4" />
-                Try Again
+                Try again
               </button>
               
               <Link
@@ -77,7 +77,7 @@ export default class ErrorBoundary extends Component<Props, State> {
                 className="w-full border border-primary-600 text-primary-600 px-6 py-3 rounded-lg font-semibold hover:bg-primary-50 transition-colors flex items-center justify-center gap-2"
               >
                 <Home className="h-4 w-4" />
-                Go Home
+                Go home
               </Link>
             </div>
 

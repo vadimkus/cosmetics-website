@@ -1,11 +1,11 @@
 # Shakirovna Clinic BB — Defender SO 04982 — 2026-08-27
 
 **Customer:** SHAKIROVNA ESTHETIC CLINIC L.L.C `a187255f-a9b6-11f0-0a80-09900022125b`  
-**Clinic list.** Unpaid. SO → INV → SHIP (invoice-only demand). Delivery free. Not printed.
+**Clinic list.** Paid 28 Aug (paymentin **06134**). SO → INV → SHIP (invoice-only demand). Delivery free. Not printed.
 
 | | |
 |---|---|
-| SO | **GENCardM260827SHKDEF** → Доставлен - Ждем оплату |
+| SO | **GENCardM260827SHKDEF** → **Доставлен** |
 | INV | **04982** |
 | SHIP | **06750** |
 | Total | **145.00 AED** |
@@ -24,3 +24,5 @@ PDF: `~/Desktop/orders/GENOSYS_Shakirovna_Esthetic_Clinic_04982.pdf`
 https://online.moysklad.ru/app/#customerorder/edit?id=800b7297-a231-11f1-0a80-087b007732f5
 
 Script: `scripts/moysklad-create-shakirovna-clinic-defender-20260827.js`
+
+Paid 28 Aug: paymentin **06134** on SHIP **06750**. See `docs/SESSION_CHANGES_2026-08-28_SHAKIROVNA_CLINIC_04982_PAY.md`.

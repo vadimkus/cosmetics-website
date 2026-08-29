@@ -135,7 +135,7 @@ export default function BlogComments({ postId, initialComments }: BlogCommentsPr
             href={getLocalizedPath('/login', locale)}
             className="inline-block bg-primary-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-primary-700 transition-colors"
           >
-            Log In
+            Log in
           </a>
         </div>
       )}

@@ -33,7 +33,7 @@ function PDFViewerContent() {
             onClick={() => window.history.back()}
             className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
           >
-            Go Back
+            Go back
           </button>
         </div>
       </div>

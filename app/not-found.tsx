@@ -56,39 +56,39 @@ export default function NotFound() {
             href="/"
             className="ed-cta px-6 py-3.5 text-[15px]"
           >
-            Go to Homepage
+            Go to homepage
           </Link>
           <Link
             href="/products"
             className="ed-ghost px-6 py-3.5 text-[15px]"
           >
-            Browse Products
+            Browse products
           </Link>
         </div>
 
         {/* Popular Pages - Internal links for SEO equity */}
         <div className="border-t border-[var(--cera-line)] pt-8">
           <h3 className="cera-eyebrow mb-4">
-            Popular Pages
+            Popular pages
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             <Link href="/products" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
-              All Products
+              All products
             </Link>
             <Link href="/blog" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
-              Skincare Blog
+              Skincare blog
             </Link>
             <Link href="/about" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
-              About Us
+              About us
             </Link>
             <Link href="/training" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
-              Professional Training
+              Professional training
             </Link>
             <Link href="/locations" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               UAE Locations
             </Link>
             <Link href="/contact" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
-              Contact Us
+              Contact us
             </Link>
             <Link href="/faq" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
               FAQ
@@ -97,7 +97,7 @@ export default function NotFound() {
               GENOSYS Brand
             </Link>
             <Link href="/delivery" className="py-2 text-sm text-[var(--cera-body)] transition-colors hover:text-[var(--cera-rose-ink)] hover:underline">
-              Delivery Info
+              Delivery info
             </Link>
           </div>
         </div>

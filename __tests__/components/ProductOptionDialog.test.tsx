@@ -19,7 +19,7 @@ const labelsByLocale = {
     unavailable: 'Unavailable',
     selectSizeRequired: 'Select size',
     selectColorRequired: 'Select color',
-    tryAgain: 'Try Again',
+    tryAgain: 'Try again',
     off: 'OFF',
     adding: 'Adding...',
     outOfStock: 'Out of Stock',

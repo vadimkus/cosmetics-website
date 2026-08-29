@@ -604,7 +604,7 @@ export default function PowerAnimalGame({ locale, onClose }: PowerAnimalGameProp
                   className="py-3.5 px-4 rounded-xl bg-white text-gray-700 font-semibold flex items-center justify-center gap-2 active:scale-[0.98] transition-transform shadow-md border border-gray-200"
                 >
                   <RefreshCw className="w-4 h-4" />
-                  Try Again
+                  Try again
                 </button>
               </div>
             </div>

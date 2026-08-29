@@ -158,13 +158,13 @@ export default function PDFViewerClient({ filename, pdfUrl }: PDFViewerClientPro
                   onClick={handleDownload}
                   className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
                 >
-                  Open in Browser
+                  Open in browser
                 </button>
                 <button
                   onClick={handleClose}
                   className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors text-sm font-medium"
                 >
-                  Go Back
+                  Go back
                 </button>
               </div>
             </div>

@@ -59,7 +59,7 @@ export default function GenosysPageClient() {
 
           <div className="bg-white border border-[var(--cera-line)] rounded-lg p-6 md:p-8 mb-8">
             <h2 className="cera-serif text-2xl md:text-3xl text-[var(--cera-ink)] mb-4">
-              Our Mission
+              Our mission
             </h2>
             <p className="text-[var(--cera-body)] mb-4 leading-relaxed">
               GENOSYS Middle East FZ-LLC is committed to bringing the highest quality Korean dermacosmetics 

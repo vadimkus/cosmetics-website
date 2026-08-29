@@ -41,7 +41,7 @@ export default function ProductRecommendations({}: ProductRecommendationsProps) 
           <div className="p-3 bg-gradient-to-r from-purple-100 to-pink-100 rounded-xl">
             <Sparkles className="h-6 w-6 text-purple-600" />
           </div>
-          <h2 className="text-2xl font-bold text-[var(--cera-ink)]">Recommended for You</h2>
+          <h2 className="text-2xl font-bold text-[var(--cera-ink)]">Recommended for you</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -104,7 +104,7 @@ export default function ProductRecommendations({}: ProductRecommendationsProps) 
             className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold rounded-xl hover:from-red-700 hover:to-pink-700 transition-all duration-200"
           >
             <Zap className="h-5 w-5" />
-            View All Products
+            View all products
           </Link>
         </div>
       </div>

@@ -223,13 +223,13 @@ export default function CertificateClient({
               <div className="inline-flex items-center justify-center gap-3 mb-4">
                 <Gift className="text-rose-500" size={32} />
                 <h1 className="text-4xl sm:text-5xl font-serif text-[var(--cera-ink)] tracking-wide">
-                  Gift Certificate
+                  Gift certificate
                 </h1>
                 <Gift className="text-rose-500" size={32} />
               </div>
               <div className="flex items-center justify-center gap-2 text-[var(--cera-body)]">
                 <Award size={20} className="text-gold-500" />
-                <p className="text-lg font-light italic">Professional Korean Dermacosmetics</p>
+                <p className="text-lg font-light italic">Professional Korean dermacosmetics</p>
               </div>
             </div>
 
@@ -243,7 +243,7 @@ export default function CertificateClient({
             {/* Certificate Number */}
             <div className="text-center mb-8 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               <p className="text-sm text-[var(--cera-muted)] uppercase tracking-widest mb-2 font-medium">
-                Certificate Number
+                Certificate number
               </p>
               <div className="inline-block px-8 py-4 bg-gradient-to-r from-gold-50 to-yellow-50 rounded-lg border-2 border-gold-300 shadow-lg">
                 <p className="text-3xl sm:text-4xl font-bold text-[var(--cera-ink)] tracking-wider font-mono">
@@ -290,7 +290,7 @@ export default function CertificateClient({
                   <div className="flex items-start gap-3 text-sm text-[var(--cera-body)]">
                     <Calendar className="text-purple-500 flex-shrink-0 mt-0.5" size={20} />
                     <div>
-                      <p className="font-medium mb-1">Validity Period</p>
+                      <p className="font-medium mb-1">Validity period</p>
                       <p className="text-[var(--cera-body)]">
                         Valid for <span className="font-semibold text-purple-600">{validityMonths} months</span> from date of issue.
                         <br />
@@ -306,7 +306,7 @@ export default function CertificateClient({
                 <div className="bg-gradient-to-r from-rose-50 to-pink-50 rounded-lg p-6 border border-rose-200 flex flex-col items-center justify-center">
                   <div className="flex items-center gap-2 mb-3">
                     <QrCode className="text-rose-500" size={20} />
-                    <p className="font-medium text-sm text-[var(--cera-body)]">Scan to View</p>
+                    <p className="font-medium text-sm text-[var(--cera-body)]">Scan to view</p>
                   </div>
                   {qrCodeUrl && (
                     <div className="bg-white p-2 rounded-lg shadow-sm">

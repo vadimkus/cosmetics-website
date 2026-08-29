@@ -25,7 +25,7 @@ export default function CertificatesIndexPage() {
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white rounded-xl p-6 shadow-lg text-center">
             <div className="text-4xl mb-3">🎁</div>
-            <h3 className="cera-serif  text-lg mb-2">Perfect Gift</h3>
+            <h3 className="cera-serif  text-lg mb-2">Perfect gift</h3>
             <p className="text-sm text-[var(--cera-body)]">
               Ideal for birthdays, holidays, or any special occasion
             </p>
@@ -33,7 +33,7 @@ export default function CertificatesIndexPage() {
           
           <div className="bg-white rounded-xl p-6 shadow-lg text-center">
             <div className="text-4xl mb-3">💎</div>
-            <h3 className="cera-serif  text-lg mb-2">Premium Products</h3>
+            <h3 className="cera-serif  text-lg mb-2">Premium products</h3>
             <p className="text-sm text-[var(--cera-body)]">
               Valid for all professional Korean dermacosmetics
             </p>
@@ -50,7 +50,7 @@ export default function CertificatesIndexPage() {
 
         {/* How it Works */}
         <div className="bg-white rounded-xl p-8 shadow-lg mb-12">
-          <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-6">How It Works</h2>
+          <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-6">How it works</h2>
           
           <div className="space-y-6">
             <div className="flex gap-4">
@@ -58,7 +58,7 @@ export default function CertificatesIndexPage() {
                 1
               </div>
               <div>
-                <h3 className="cera-serif  mb-1">Purchase Certificate</h3>
+                <h3 className="cera-serif  mb-1">Purchase certificate</h3>
                 <p className="text-[var(--cera-body)] text-sm">
                   Contact us at sales@genosys.ae or +971 58 548 76 65 to purchase a gift certificate
                 </p>
@@ -70,7 +70,7 @@ export default function CertificatesIndexPage() {
                 2
               </div>
               <div>
-                <h3 className="cera-serif  mb-1">Receive Your Certificate</h3>
+                <h3 className="cera-serif  mb-1">Receive your certificate</h3>
                 <p className="text-[var(--cera-body)] text-sm">
                   Get a unique certificate code and beautiful digital certificate via email
                 </p>
@@ -82,7 +82,7 @@ export default function CertificatesIndexPage() {
                 3
               </div>
               <div>
-                <h3 className="cera-serif  mb-1">Share the Gift</h3>
+                <h3 className="cera-serif  mb-1">Share the gift</h3>
                 <p className="text-[var(--cera-body)] text-sm">
                   Send the certificate URL or code to your recipient via email, WhatsApp, or print it
                 </p>
@@ -106,7 +106,7 @@ export default function CertificatesIndexPage() {
         {/* Example Certificate */}
         <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-8 border-2 border-purple-200 mb-12">
           <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-4 text-center">
-            View Sample Certificate
+            View sample certificate
           </h2>
           <p className="text-center text-[var(--cera-body)] mb-6">
             See what your gift certificate will look like
@@ -158,7 +158,7 @@ export default function CertificatesIndexPage() {
         {/* FAQ */}
         <div className="mt-12 bg-gradient-to-r from-[var(--cera-cream-deep)] to-[var(--cera-cream-deep)] rounded-xl p-8">
           <h2 className="cera-serif text-2xl text-[var(--cera-ink)] mb-6">
-            Frequently Asked Questions
+            Frequently asked questions
           </h2>
           
           <div className="space-y-4">

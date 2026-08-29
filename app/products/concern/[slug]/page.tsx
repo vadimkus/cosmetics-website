@@ -300,7 +300,7 @@ export default async function ConcernPage({ params }: { params: Promise<{ slug: 
         <section className="py-8 sm:py-12 px-4 bg-[var(--cera-cream-deep)]">
           <div className="max-w-4xl mx-auto">
             <h2 className="cera-serif mb-6 text-[24px] leading-tight text-[var(--cera-ink)] sm:text-[30px]">
-              Frequently Asked Questions
+              Frequently asked questions
             </h2>
             <div className="space-y-4">
               {faq.map((item, i) => (

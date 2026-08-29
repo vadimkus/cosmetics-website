@@ -10,8 +10,19 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| 🟡 **Important** | [Miss Ekaterina Odessa 04984 paid](./SESSION_CHANGES_2026-08-29_EKATERINA_ODESSA_04984_PAY.md) | Paymentin **06137** / **639 AED** on SHIP **06751**. INV **04984** paid. SO **GENCardM2608280763** → **Доставлен**. |
+| 🟡 **Important** | [Khadija Faidar 04985 paid](./SESSION_CHANGES_2026-08-29_KHADIJA_FAIDAR_04985_PAY.md) | Paymentin **06136** / **2,040 AED** on SHIP **06752**. INV **04985** paid. SO **CODM2608295345** → **Доставлен**. |
+| 🟡 **Important** | [Miss Ekaterina Odessa retail 04984](./SESSION_CHANGES_2026-08-28_EKATERINA_ODESSA_RETAIL.md) | New customer. SO **GENCardM2608280763** / inv **04984** / ship **06751** / **639 AED** unpaid (−10% + delivery 45). PDF `~/Desktop/orders/`. |
+| 🟡 **Important** | [Shakirovna Clinic BB 04982 paid](./SESSION_CHANGES_2026-08-28_SHAKIROVNA_CLINIC_04982_PAY.md) | Paymentin **06134** / **145 AED** on SHIP **06750**. INV **04982** paid. SO **GENCardM260827SHKDEF** → **Доставлен**. |
+| 🟡 **Important** | [Shakirovna Marina final stock 01445 corrected](./SESSION_CHANGES_2026-08-28_SHAKIROVNA_MARINA_FINAL_STOCK_01445.md) | Physical count aligned: moisture cream **5**, serum **1**, camel **1**, beige **5**, SPF40 **4**, Intensive Blemish **10**. Corrected PDF in `~/Desktop/orders/`. |
+| 🟡 **Important** | [Product 42 BBC IG caption](./SESSION_CHANGES_2026-08-28_PRODUCT_42_BBC_IG_CAPTION.md) | Ready-to-post. Hook **WHEN SKIN STILL SHOWS IT.** Clinic walk-out. SPF 30, one shade, arbutin 2% patch test. |
+| ⚪ Desktop | [BBC Instagram 4:5 exports](./SESSION_CHANGES_2026-08-28_BLEMISH_INSTA_FORMAT.md) | `~/Desktop/Insta_Olga/blemish_insta` — carousel 1080×1350, Story 1080×1920 + both Reels. Originals in `blemish_o`. |
+| 🟡 **Important** | [Product 14 mist IG caption](./SESSION_CHANGES_2026-08-27_PRODUCT_14_MIST_IG_CAPTION.md) | Ready-to-post. Hook **SHAKE. THEN SPRAY.** Engine shea **1.2%**. No derm-tested, no clinical %, no peptide lead. |
+| ⚪ Desktop | [Mist Instagram 4:5 exports](./SESSION_CHANGES_2026-08-27_MIST_INSTA_FORMAT.md) | `~/Desktop/Insta_Olga/mist_insta` — carousel 1080×1350, Story 1080×1920 + 10s video. Originals in `mist_0`. |
 | 🟡 **Important** | [Elvina Genesis protocol pack](./SESSION_CHANGES_2026-08-27_ELVINA_GENESIS_PROTOCOL_PACK.md) | Desktop folder `Genesis_Healthcare_Elvina`: brand + 5 chair protocols from INV **04830**, website videos, catalogue. English. Not printed. |
-| 🟡 **Important** | [Shakirovna Clinic BB Defender 04982](./SESSION_CHANGES_2026-08-27_SHAKIROVNA_CLINIC_DEFENDER.md) | Unpaid clinic SO **GENCardM260827SHKDEF** / INV **04982** / SHIP **06750** / **145 AED**. Defender ×1 @145, delivery free. PDF `~/Desktop/orders/`. |
+| 🟡 **Important** | [Sales bonus 1,000 Sagatdinov](./SESSION_CHANGES_2026-08-28_SALES_BONUS_PAYMENTOUT_1000.md) | Paymentout **00692** / **1,000 AED** → Vadim Sagatdinov (expense Sales Bonus). |
+| 🟡 **Important** | [August MTD profitability 27 Aug](./SESSION_CHANGES_2026-08-27_AUGUST_PROFITABILITY.md) | 1–27 Aug: rev **154,476** · net clean **−8,742** · cash **+11,352**. Product 67.8%. Bonus cash **48,950** vs 24k cap. |
+| 🟡 **Important** | [Shakirovna Clinic BB Defender 04982](./SESSION_CHANGES_2026-08-27_SHAKIROVNA_CLINIC_DEFENDER.md) | Clinic SO **GENCardM260827SHKDEF** / INV **04982** / SHIP **06750** / **145 AED** paid 28 Aug (paymentin **06134**). Defender ×1 @145, delivery free. PDF `~/Desktop/orders/`. |
 | 🟡 **Important** | [Viktoriia Klymenko 04980 paid](./SESSION_CHANGES_2026-08-27_VIKTORIIA_KLYMENKO_04980_PAY.md) | Paymentin **06133** / **700 AED** on SHIP **06746**. INV **04980** paid. SO **GENCardM260827VIKT** → **Доставлен**. |
 | 🟡 **Important** | [Lodyana 04969 paid](./SESSION_CHANGES_2026-08-27_LODYANA_04969_PAY.md) | Paymentin **06132** / **670 AED** on SHIP **06733**. INV **04969** paid. SO **GENCardM260823LODY** → **Доставлен**. |
 | 🟡 **Important** | [Sales bonus 4,000 Sagatdinov](./SESSION_CHANGES_2026-08-27_SALES_BONUS_PAYMENTOUT_4000.md) | Paymentout **00691** / **4,000 AED** → Vadim Sagatdinov (expense Sales Bonus). |

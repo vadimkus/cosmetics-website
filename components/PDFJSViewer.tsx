@@ -308,13 +308,13 @@ export default function PDFJSViewer({ pdfUrl, filename, onClose }: PDFJSViewerPr
                   onClick={handleDownload}
                   className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
                 >
-                  Download Instead
+                  Download instead
                 </button>
                 <button
                   onClick={handleClose}
                   className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors text-sm"
                 >
-                  Go Back
+                  Go back
                 </button>
               </div>
             </div>

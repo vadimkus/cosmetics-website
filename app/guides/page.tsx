@@ -42,7 +42,7 @@ export default function GuidesPage() {
           UAE Skincare Guides
         </p>
         <h1 className="cera-serif mt-3 max-w-3xl text-4xl tracking-tight text-[var(--cera-ink)] md:text-5xl">
-          Professional Korean Dermacosmetics Guides
+          Professional Korean dermacosmetics guides
         </h1>
         <p className="mt-5 max-w-3xl text-lg leading-8 text-[var(--cera-body)]">
           Focused guides for Dubai and UAE customers, clinics, salons, and skincare professionals researching GENOSYS products and routines.

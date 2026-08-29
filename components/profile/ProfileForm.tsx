@@ -128,7 +128,7 @@ export default function ProfileForm({
             <div className="space-y-1 md:space-y-2 md:col-span-2">
               <label className="text-xs md:text-sm font-medium text-[var(--cera-body)] flex items-center gap-2">
                 <Mail className="h-4 w-4 text-green-600" />
-                Contact Email
+                Contact email
                 <span className="text-xs text-[var(--cera-muted)]">(for order confirmation)</span>
               </label>
               {isEditing ? (

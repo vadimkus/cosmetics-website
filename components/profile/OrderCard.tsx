@@ -142,7 +142,7 @@ export default function OrderCard({
             href={`/products/${order.items[0]?.productId || ''}`}
             className="px-3 py-1 text-sm text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-colors"
           >
-            View Product
+            View product
           </Link>
         </div>
       </div>

@@ -36,7 +36,7 @@ export default function BundleBuilderError({
           className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-xl font-medium text-sm hover:bg-gray-800 active:scale-[0.98] transition-all"
         >
           <RefreshCw className="w-4 h-4" />
-          Try Again
+          Try again
         </button>
 
         <Link
@@ -44,7 +44,7 @@ export default function BundleBuilderError({
           className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-gray-200 text-gray-700 rounded-xl font-medium text-sm hover:bg-gray-50 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Products
+          Back to products
         </Link>
       </div>
     </div>

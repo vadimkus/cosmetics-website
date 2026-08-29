@@ -48,7 +48,7 @@ export default function DocumentsPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
-              Professional Documents
+              Professional documents
             </h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Download product documentation, presentations, and technical data sheets for GENOSYS professional Korean dermacosmetics.

@@ -36,7 +36,7 @@ export default function BundleBuilderError({
           className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-[var(--cera-cta)] text-white rounded-xl font-medium text-sm hover:bg-[var(--cera-rose-ink)] active:scale-[0.98] transition-all"
         >
           <RefreshCw className="w-4 h-4" />
-          Try Again
+          Try again
         </button>
 
         <Link
@@ -44,7 +44,7 @@ export default function BundleBuilderError({
           className="w-full flex items-center justify-center gap-2 px-6 py-3 border border-[var(--cera-line)] text-[var(--cera-body)] rounded-xl font-medium text-sm hover:bg-[var(--cera-cream-deep)] transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Products
+          Back to products
         </Link>
       </div>
     </div>

@@ -343,7 +343,7 @@ export default function OfflineClient() {
           </p>
           <Link href="/" style={styles.buttonPrimary}>
             <HomeIcon />
-            Go to Homepage
+            Go to homepage
           </Link>
         </div>
       </div>
@@ -408,12 +408,12 @@ export default function OfflineClient() {
 
           <Link href="/products" style={styles.buttonSecondary}>
             <ShoppingBagIcon />
-            Browse Cached Products
+            Browse cached products
           </Link>
 
           <Link href="/" style={styles.buttonOutline}>
             <HomeIcon />
-            Go to Homepage
+            Go to homepage
           </Link>
         </div>
 
@@ -427,7 +427,7 @@ export default function OfflineClient() {
         {/* Footer */}
         <div style={styles.footer}>
           <p style={styles.footerText}>Genosys</p>
-          <p style={styles.footerText}>Premium Korean Dermacosmetics</p>
+          <p style={styles.footerText}>Premium Korean dermacosmetics</p>
           <p style={{ ...styles.footerText, marginTop: '0.5rem' }}>
             🇦🇪 UAE • 🇰🇷 Korea
           </p>

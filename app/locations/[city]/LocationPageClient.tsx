@@ -131,7 +131,7 @@ export default function LocationPageClient({ city, location }: LocationPageClien
                 </div>
                 <div>
                   <h2 className="cera-serif text-2xl text-[var(--cera-ink)]">
-                    Official Exclusive Authorized Reseller
+                    Official exclusive authorized reseller
                   </h2>
                   <p className="text-[var(--cera-rose-ink)] font-medium">{location.authorizedReseller.territory}</p>
                 </div>
@@ -179,7 +179,7 @@ export default function LocationPageClient({ city, location }: LocationPageClien
                       className="inline-flex items-center gap-2 bg-[var(--cera-rose)] text-white px-5 py-3 rounded-lg hover:bg-[var(--cera-rose-ink)] transition-colors font-semibold shadow-md"
                     >
                       <FileText className="h-5 w-5" />
-                      View Certificate
+                      View certificate
                     </a>
                   </div>
                 </div>

@@ -129,7 +129,7 @@ export default function ShareButton({
                 className="w-full flex items-center gap-3 px-3 py-2 text-sm hover:bg-gray-50 rounded-md transition-colors"
               >
                 <Copy className="h-4 w-4 text-gray-500" />
-                Copy Link
+                Copy link
               </button>
               <button
                 onClick={shareViaWhatsApp}
@@ -263,7 +263,7 @@ export default function ShareButton({
               className="w-full flex items-center gap-3 px-3 py-2 text-sm hover:bg-gray-50 rounded-md transition-colors"
             >
               <Copy className="h-4 w-4 text-gray-500" />
-              Copy Link
+              Copy link
             </button>
             <button
               onClick={shareViaWhatsApp}

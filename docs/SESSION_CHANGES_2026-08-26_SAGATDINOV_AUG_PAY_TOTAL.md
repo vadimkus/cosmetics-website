@@ -1,6 +1,6 @@
 # Sagatdinov — August 2026 salary + sales bonus (live MoySklad)
 
-Pulled 26 Aug 2026 from paymentouts to **Vadim Sagatdinov**.
+Pulled 26 Aug 2026 from paymentouts to **Vadim Sagatdinov**. Updated 28 Aug with **00691** / 4,000 and **00692** / 1,000.
 
 ## Salary (August period)
 
@@ -24,8 +24,10 @@ Pulled 26 Aug 2026 from paymentouts to **Vadim Sagatdinov**.
 | 00683 | 23 Aug | August | 200.00 |
 | 00684 | 24 Aug | August | 9,400.00 |
 | 00690 | 26 Aug | August | 6,000.00 |
-| **Bonus cash in August** | | | **44,949.80** |
-| of which August-period | | | **37,349.80** |
+| 00691 | 27 Aug | August | 4,000.00 |
+| 00692 | 28 Aug | August | 1,000.00 |
+| **Bonus cash in August** | | | **49,949.80** |
+| of which August-period | | | **42,349.80** |
 | of which July-period (00671) | | | **7,600.00** |
 
 ## Totals
@@ -33,6 +35,6 @@ Pulled 26 Aug 2026 from paymentouts to **Vadim Sagatdinov**.
 | | AED |
 |---|---:|
 | Salary August | 30,000.00 |
-| Bonus cash posted in August | 44,949.80 |
-| **Cash to Sagatdinov in August** | **74,949.80** |
-| Salary + August-period bonus only | 67,349.80 |
+| Bonus cash posted in August | 49,949.80 |
+| **Cash to Sagatdinov in August** | **79,949.80** |
+| Salary + August-period bonus only | 72,349.80 |

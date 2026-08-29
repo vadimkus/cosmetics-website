@@ -11,7 +11,7 @@ jest.mock('@/hooks/useTranslation', () => ({
     locale: 'en',
     t: (key: string) => {
       const translations: Record<string, string> = {
-        'common.goBack': 'Go Back',
+        'common.goBack': 'Go back',
         'common.loading': 'Loading...',
       }
       return translations[key] || key
@@ -77,7 +77,7 @@ describe('PDF Viewer Pages', () => {
       render(<PDFViewerPage />)
 
       expect(screen.getByText('No file specified!')).toBeInTheDocument()
-      expect(screen.getByText('Go Back')).toBeInTheDocument()
+      expect(screen.getByText('Go back')).toBeInTheDocument()
     })
   })
 

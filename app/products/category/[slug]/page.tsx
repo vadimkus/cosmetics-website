@@ -152,7 +152,7 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
             <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Browse All Products
+            Browse all products
           </Link>
         </div>
       </section>

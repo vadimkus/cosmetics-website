@@ -101,6 +101,36 @@ describe('shopping container is called a bag, in one voice', () => {
     })
   })
 
+  describe('route metadata', () => {
+    // The bag page kept saying "Shopping Cart" in its <title> and its Open
+    // Graph card long after the buttons changed, because metadata is
+    // hard-coded per route and never passes through the message catalogue.
+    // That string is the browser tab and the WhatsApp share preview.
+    it('never titles a page or an image with cart', () => {
+      const offenders: string[] = []
+
+      const walk = (dir: string) => {
+        for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+          const rel = `${dir}/${entry.name}`
+          if (entry.isDirectory()) {
+            walk(rel)
+          } else if (/^(page|layout)\.tsx$/.test(entry.name)) {
+            for (const line of read(rel).split('\n')) {
+              // `canonical: '.../cart'` is a URL and has to keep working;
+              // `keywords` are the words customers type into search, not our
+              // own label for the thing.
+              if (!/^\s*(title|alt):/.test(line)) continue
+              if (/\bcarts?\b/i.test(line)) offenders.push(`${rel}: ${line.trim()}`)
+            }
+          }
+        }
+      }
+      walk('app')
+
+      expect(offenders).toEqual([])
+    })
+  })
+
   describe('the viewport switch is gone', () => {
     it('no component picks its wording from screen width', () => {
       const offenders: string[] = []

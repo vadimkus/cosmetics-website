@@ -4,11 +4,11 @@ import { CartErrorBoundary } from '@/components/error-boundaries'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Shopping Cart - GENOSYS Professional Korean Dermacosmetics',
+  title: 'Shopping Bag - GENOSYS Professional Korean Dermacosmetics',
   description: 'Review your selected GENOSYS professional Korean dermacosmetics products. Secure checkout with professional discounts and UAE delivery.',
   keywords: 'GENOSYS cart, Korean dermacosmetics cart, professional skincare cart, UAE cosmetics shopping, GENOSYS checkout',
   openGraph: {
-    title: 'Shopping Cart - GENOSYS Professional Korean Dermacosmetics',
+    title: 'Shopping Bag - GENOSYS Professional Korean Dermacosmetics',
     description: 'Review your selected GENOSYS professional Korean dermacosmetics products. Secure checkout with professional discounts.',
     type: 'website',
     images: [
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
         url: '/images/genosys-products.jpg',
         width: 1200,
         height: 630,
-        alt: 'GENOSYS Shopping Cart',
+        alt: 'GENOSYS Shopping Bag',
       },
     ],
   },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@genosys_official',
     creator: '@genosys_official',
-    title: 'Shopping Cart - GENOSYS Professional Korean Dermacosmetics',
+    title: 'Shopping Bag - GENOSYS Professional Korean Dermacosmetics',
     description: 'Review your selected GENOSYS professional Korean dermacosmetics products.',
     images: ['/images/genosys-products.jpg'],
   },

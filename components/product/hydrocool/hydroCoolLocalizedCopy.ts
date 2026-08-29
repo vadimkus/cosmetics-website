@@ -76,7 +76,7 @@ export const HYDRO_COOL_RU: HydroCoolCopy = {
         body: 'Обеспечивают освежающее ощущение прохлады во время процедуры.',
       },
     ],
-    figureAlt: 'Профессиональная маска GENOSYS HYDRO COOL и голубая альгинатная пудра',
+    figureAlt: 'Диатомит - минеральная основа, 65,165% состава',
   },
   howTo: {
     eyebrow: 'Применение',
@@ -271,7 +271,7 @@ export const HYDRO_COOL_AR: HydroCoolCopy = {
         body: 'يوفران إحساساً منعشاً بالبرودة أثناء الجلسة.',
       },
     ],
-    figureAlt: 'قناع GENOSYS HYDRO COOL الاحترافي ومسحوق الألجينات الأزرق',
+    figureAlt: 'تراب دياتومي، القاعدة المعدنية بنسبة ٦٥٫١٦٥٪ من التركيبة',
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',

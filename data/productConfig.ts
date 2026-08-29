@@ -471,7 +471,16 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
     pricing: {
       basePrice: 300
     },
-    images: ['/images/Second/hmask_big.jpg'],
+    images: [
+      '/images/hydro_o/S1.jpeg',
+      '/images/hydro_o/S2.jpeg',
+      '/images/hydro_o/S3.jpeg',
+      '/images/hydro_o/S4.jpeg',
+      '/images/hydro_o/S5.jpeg',
+      '/images/hydro_o/S6.jpeg',
+      '/images/hydro_o/S7.jpeg',
+      '/images/hydro_o/Closing.jpeg',
+    ],
     videoUrl: '/videos/hydro.mp4',
   },
   '36': {

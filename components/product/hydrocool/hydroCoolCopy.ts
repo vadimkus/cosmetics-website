@@ -284,7 +284,7 @@ const EN: HydroCoolCopy = {
         body: 'Centella, Ceramide NP, Allantoin and Sodium Hyaluronate each sit at 0.01%. In the formula. Not the engine. Do not build a card on collagen or pores from those four.',
       },
     ],
-    figureAlt: 'GENOSYS Hydro Cool Modeling Mask 1kg pouch with a dish of blue powder',
+    figureAlt: 'Diatomaceous earth, the mineral base at 65.165% of the formula',
   },
   howTo: {
     eyebrow: 'How to use',
@@ -490,7 +490,7 @@ const _AR: HydroCoolCopy = {
         body: 'القنطورية وسيراميد NP والألانتوين وهيالورونات الصوديوم كلّ منها عند ٠٫٠١٪. في التركيبة. ليست المحرّك. لا تُبنَ بطاقة كولاجين أو مسام من هذه الأربعة.',
       },
     ],
-    figureAlt: 'كيس GENOSYS Hydro Cool Modeling Mask وزن ١ كغ مع طبق من البودرة الزرقاء',
+    figureAlt: 'تراب دياتومي، القاعدة المعدنية بنسبة ٦٥٫١٦٥٪ من التركيبة',
   },
   howTo: {
     eyebrow: 'طريقة الاستخدام',
@@ -694,7 +694,7 @@ const _RU: HydroCoolCopy = {
         body: 'Центелла, церамид NP, аллантоин и гиалуронат натрия - каждый по 0,01%. В формуле. Не двигатель. Не строй карточку про коллаген или поры на этих четырёх.',
       },
     ],
-    figureAlt: 'Пакет GENOSYS Hydro Cool Modeling Mask 1 кг и чашка голубой пудры',
+    figureAlt: 'Диатомит - минеральная основа, 65,165% состава',
   },
   howTo: {
     eyebrow: 'Как использовать',

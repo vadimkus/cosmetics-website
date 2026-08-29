@@ -89,7 +89,7 @@ const CUTOUTS: Record<string, string> = {
   // 34 SKIN RESCUE OVERNIGHT CREAM MASK
   '/images/overnight/main.jpeg': '/images/cutout/34.webp',
   // 35 HYDRO COOL MODELING MASK
-  '/images/HYDR.jpg': '/images/cutout/35.webp',
+  '/images/hydro_o/Main.jpeg': '/images/cutout/35-v2.webp',
   // 36 SOOTHING BOMB SEA ALGAE MASK
   '/images/sea_algae/Main.jpeg': '/images/cutout/36.webp',
   // 37 PEPTIDE GEL MASK

@@ -98,6 +98,9 @@ REVISION = {
     "28": 2,
     # New campaign packshot, traced from a different frame than the original.
     "42": 2,
+    # New campaign packshot: the 1kg pouch square on white, where the previous
+    # source was a lifestyle frame with a powder dish beside it.
+    "35": 2,
 }
 
 

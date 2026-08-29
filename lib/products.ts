@@ -525,7 +525,7 @@ export const products: Product[] = [
     name: 'HYDRO COOL MODELING MASK',
     price: 300,
     description: '1kg. Professional cooling modeling mask. Mix 30g of powder with water at 1 : 0.8, leave 15-20 minutes, peel. Diatomaceous earth 65% is the pouch. Peppermint cool until it comes off. Dermatologically tested.',
-    image: '/images/HYDR.jpg',
+    image: '/images/hydro_o/Main.jpeg',
     images: null,
     category: 'Mask',
     inStock: true,

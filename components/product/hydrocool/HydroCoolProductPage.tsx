@@ -93,9 +93,10 @@ interface ActiveIngredient {
   description: string
 }
 
-/** Studio dish of blue powder from the hero, so the engine section shows
- *  the jar rather than another cropped packshot. */
-const ENGINE_IMAGE = '/images/HYDR.jpg'
+/** The campaign slide for the mineral base. This section is about what the
+ *  powder is made of, so it shows the powder and its share of the formula
+ *  rather than a second packshot. */
+const ENGINE_IMAGE = '/images/hydro_o/S3.jpeg'
 
 function parseJsonArray<T>(raw: string | null | undefined): T[] {
   if (!raw) return []

@@ -403,8 +403,8 @@ const AR: BeautyBoxCopy = {
   added: 'تمت الإضافة',
   outOfStock: 'غير متوفر',
   loginToShop: 'سجلي الدخول للشراء',
-  inBag: 'في حقيبتك',
-  viewBag: 'عرض الحقيبة',
+  inBag: 'في سلتك',
+  viewBag: 'عرض السلة',
   badges: ['GENOSYS أصلي', 'صنع في كوريا', 'ست قطع كاملة الحجم', 'جمعت في الإمارات'],
   stats: [
     { value: '6', label: 'منتجات كاملة الحجم' },

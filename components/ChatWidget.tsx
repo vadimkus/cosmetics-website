@@ -341,7 +341,7 @@ export default function ChatWidget({ className = '' }: ChatWidgetProps) {
     }
   }, [addItem, showToast, toastText])
   
-  // Render text with markdown links and Add to Cart buttons
+  // Render text with markdown links and Add to Bag buttons
   // Parses: [Product Name](url){{id:NUMBER}} format (with optional ** markdown bold)
   const renderMessageWithLinks = useCallback((text: string): React.ReactNode => {
     // First, clean up the text - remove {{id:NUMBER}} that appears separately and extract IDs

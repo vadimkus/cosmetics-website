@@ -412,7 +412,7 @@ export default function CheckoutClient() {
             if (!acc.includes(item.product.name)) acc.push(item.product.name)
             return acc
           }, [] as string[])
-        alert(t('checkout.variantRequiredMessage').replace('{products}', names.join(', ')) || `Please select color/size for: ${names.join(', ')}. Go back to your cart to choose.`)
+        alert(t('checkout.variantRequiredMessage').replace('{products}', names.join(', ')) || `Please select color/size for: ${names.join(', ')}. Go back to your bag to choose.`)
         isSubmittingRef.current = false
         setIsProcessing(false)
         return

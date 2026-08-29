@@ -487,7 +487,7 @@ const AR: BbCushionCopy = {
   shadeLabel: 'اختاري درجتك',
   shadeHelp: 'التركيبة نفسها في الدرجات الثلاث. اللون وحده هو ما يتغيّر.',
   shadeSelected: 'مختارة',
-  shadeRequired: 'اختاري درجة قبل الإضافة إلى الحقيبة.',
+  shadeRequired: 'اختاري درجة قبل الإضافة إلى السلة.',
   shades: [
     {
       value: 'Ivory',
@@ -515,11 +515,11 @@ const AR: BbCushionCopy = {
     },
   ],
 
-  addToBag: 'أضيفي إلى الحقيبة',
+  addToBag: 'أضيفي إلى السلة',
   adding: 'جارٍ الإضافة…',
-  added: 'أُضيف إلى الحقيبة',
-  inBag: 'في الحقيبة',
-  viewBag: 'عرض الحقيبة',
+  added: 'أُضيف إلى السلة',
+  inBag: 'في السلة',
+  viewBag: 'عرض السلة',
   loginToShop: 'سجّلي الدخول للشراء',
   outOfStock: 'غير متوفر',
   vatIncluded: 'شامل الضريبة',

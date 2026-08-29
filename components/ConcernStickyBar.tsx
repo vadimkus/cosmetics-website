@@ -56,7 +56,7 @@ export default function ConcernStickyBar({ locale = 'en' }: ConcernStickyBarProp
 
   const labels = {
     en: { viewBag: 'View Bag', items: 'items', item: 'item', youSave: 'You save', aed: 'AED', freeShipping: 'Free shipping over AED 200' },
-    ar: { viewBag: 'عرض الحقيبة', items: 'عناصر', item: 'عنصر', youSave: 'توفير', aed: 'درهم', freeShipping: 'شحن مجاني فوق 200 درهم' },
+    ar: { viewBag: 'عرض السلة', items: 'عناصر', item: 'عنصر', youSave: 'توفير', aed: 'درهم', freeShipping: 'شحن مجاني فوق 200 درهم' },
     ru: { viewBag: 'Корзина', items: 'товаров', item: 'товар', youSave: 'Экономия', aed: 'AED', freeShipping: 'Бесплатная доставка от 200 AED' },
   }
   const t = labels[locale] || labels.en

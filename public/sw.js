@@ -1,4 +1,4 @@
-// BUILD: v0.1.0-86346784 @ 2026-08-27T05:40:41.362Z
+// BUILD: v0.1.0-490e1a01 @ 2026-08-29T08:07:48.572Z
 /**
  * Service Worker for Genosys Cosmetics Website
  * Provides offline functionality and caching strategies
@@ -31,7 +31,7 @@ if (IS_LOCAL_DEVELOPMENT) {
 }
 
 // Cache versioning - generated at build time via npm run build
-const CACHE_VERSION = self.__SW_VERSION || 'v0.1.0-86346784';
+const CACHE_VERSION = self.__SW_VERSION || 'v0.1.0-490e1a01';
 const CACHE_NAMES = {
   static: `genosys-static-${CACHE_VERSION}`,
   dynamic: `genosys-dynamic-${CACHE_VERSION}`,
@@ -1067,14 +1067,14 @@ function getDefaultActions(type) {
     ],
     'cart-reminder': [
       { action: 'checkout', title: '✨ Complete Purchase' },
-      { action: 'view-cart', title: '🛒 View Cart' }
+      { action: 'view-cart', title: '🛒 View Bag' }
     ],
     'price-drop': [
       { action: 'buy-now', title: '💰 Buy Now' },
       { action: 'view-product', title: '👁️ View Product' }
     ],
     'back-in-stock': [
-      { action: 'add-to-cart', title: '🛒 Add to Cart' },
+      { action: 'add-to-cart', title: '🛒 Add to Bag' },
       { action: 'view-product', title: '👁️ View Product' }
     ],
     'general': [

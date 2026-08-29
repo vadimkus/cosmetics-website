@@ -38,7 +38,6 @@ function renderActions(
     product,
     user,
     isAdding: false,
-    useBagText: true,
     inCartQty: 0,
     canAdjustInline: false,
     onAddToCart: jest.fn(),

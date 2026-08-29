@@ -374,7 +374,7 @@ const _AR: BeautyBoxCopy = {
   added: 'تمت الإضافة',
   outOfStock: 'غير متوفر',
   loginToShop: 'سجّل الدخول للشراء',
-  inBag: 'في سلّتك',
+  inBag: 'في سلتك',
   viewBag: 'عرض السلة',
   badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'كوشن ثلاثي الوظيفة', 'دبي خلال ساعة إلى ساعتين'],
   stats: [

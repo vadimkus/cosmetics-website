@@ -44,7 +44,6 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
     // Derived values
     productPath,
     description,
-    useBagText,
     useAnimations,
     productAriaLabel,
     prefetchProps,
@@ -177,7 +176,6 @@ const ProductCard = memo(function ProductCard({ product }: ProductCardProps) {
           product={product}
           user={user}
           isAdding={isAdding}
-          useBagText={useBagText}
           inCartQty={inCartQty}
           canAdjustInline={canAdjustInline}
           onAddToCart={handleAddToCart}

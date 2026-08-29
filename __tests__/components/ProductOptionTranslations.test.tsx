@@ -65,7 +65,7 @@ const coreLabels = {
     'product.color': 'اللون',
     'product.quantity': 'الكمية',
     'common.cancel': 'إلغاء',
-    'product.addToBag': 'أضف إلى الحقيبة',
+    'product.addToBag': 'أضف إلى السلة',
   },
 } as const
 

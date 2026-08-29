@@ -53,7 +53,6 @@ export function useProductCard(product: Product): UseProductCardReturn {
   const [showLoginModal, setShowLoginModal] = useState(false)
   const [isLoginMode, setIsLoginMode] = useState(true)
   const [showOptionDialog, setShowOptionDialog] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
   const [addedToCartMessage, setAddedToCartMessage] = useState('')
   const addTimerRef = useRef<NodeJS.Timeout | null>(null)
   const messageTimerRef = useRef<NodeJS.Timeout | null>(null)
@@ -76,17 +75,6 @@ export function useProductCard(product: Product): UseProductCardReturn {
   const descriptionId = `product-desc-${productId}`
   const priceId = `product-price-${productId}`
   const stockId = `product-stock-${productId}`
-  
-  // Detect mobile for "Add to Bag" text
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  // Use "Add to Bag" for PWA and mobile web
-  const useBagText = isPWA || isMobile
 
   const matchingCartLines = cartItems.filter(item => item?.product?.id === product.id)
   const inCartQty = matchingCartLines.reduce(
@@ -268,7 +256,6 @@ export function useProductCard(product: Product): UseProductCardReturn {
     showLoginModal,
     isLoginMode,
     showOptionDialog,
-    isMobile,
     addedToCartMessage,
     inCartQty,
     canAdjustInline,
@@ -277,7 +264,6 @@ export function useProductCard(product: Product): UseProductCardReturn {
     productId,
     productPath,
     description,
-    useBagText,
     useAnimations,
     productAriaLabel,
     prefetchProps,

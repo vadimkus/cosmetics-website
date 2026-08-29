@@ -300,7 +300,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
           <Link href={`/products/${product.id}`} className="relative w-20 h-20 md:w-24 md:h-24 hover:opacity-80 transition-opacity">
             <Image
               src={product.image}
-              alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} product in cart`}
+              alt={`${product.name} - GENOSYS Korean ${product.category || 'dermacosmetics'} product in bag`}
               fill
               className="object-cover rounded-lg cursor-pointer"
               sizes="(max-width: 640px) 80px, 96px"

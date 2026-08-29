@@ -55,7 +55,7 @@ const labelsByLocale = {
     size: 'الحجم',
     color: 'اللون',
     quantity: 'الكمية',
-    add: 'أضف إلى الحقيبة',
+    add: 'أضف إلى السلة',
     cancel: 'إلغاء',
     close: 'إغلاق اختيار الخيارات',
     refreshing: 'جارٍ التحقق من الخيارات الحالية…',

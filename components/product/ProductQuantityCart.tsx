@@ -2,9 +2,8 @@
 
 import { User } from '@/types/user'
 import { ShoppingCart, Heart, Minus, Plus, MessageCircle, Check } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslation } from '@/hooks/useTranslation'
-import { usePWAMode } from '@/hooks/usePWAMode'
 
 interface ProductQuantityCartProps {
   user: User | null
@@ -32,21 +31,8 @@ export default function ProductQuantityCart({
   onDecrementFromCart
 }: ProductQuantityCartProps) {
   const { t, dir } = useTranslation()
-  const { isPWA } = usePWAMode()
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-  
-  // Detect mobile for "Add to Bag" text
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  // Use "Add to Bag" for PWA and mobile web
-  const useBagText = isPWA || isMobile
 
   const handleIncrease = () => setQuantity(prev => Math.min(prev + 1, 99))
   const handleDecrease = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1))
@@ -145,7 +131,7 @@ export default function ProductQuantityCart({
           <div
             className="flex-1 flex items-center justify-between gap-2 rounded-lg font-medium min-h-[44px] px-1.5 py-1 bg-[var(--status-green-deep)] text-white transition-colors"
             role="group"
-            aria-label={`${useBagText ? t('product.inBag') : t('product.inCart')} (${inCartQty}) - ${productName}`}
+            aria-label={`${t('product.inBag')} (${inCartQty}) - ${productName}`}
           >
             <button
               type="button"
@@ -158,7 +144,7 @@ export default function ProductQuantityCart({
             </button>
             <span className="flex-1 flex items-center justify-center gap-1.5 text-sm md:text-base tabular-nums select-none" aria-live="polite">
               <Check className="h-4 w-4" aria-hidden="true" />
-              {`${useBagText ? t('product.inBag') : t('product.inCart')} (${inCartQty})`}
+              {`${t('product.inBag')} (${inCartQty})`}
             </span>
             <button
               type="button"
@@ -189,7 +175,7 @@ export default function ProductQuantityCart({
             ? t('product.adding')
             : !user
             ? t('product.loginToShop')
-            : (useBagText ? t('product.addToBag') : t('product.addToCart'))}
+            : (t('product.addToBag'))}
         </button>
         )}
         

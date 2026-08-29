@@ -33,7 +33,6 @@ const ProductActions = memo(function ProductActions({
   product,
   user,
   isAdding,
-  useBagText,
   inCartQty,
   canAdjustInline,
   onAddToCart,
@@ -100,8 +99,8 @@ const ProductActions = memo(function ProductActions({
   // - Multiple variants/bundle lines → View Bag; never mutate an ambiguous
   //   aggregate from a compact product card.
   const isInCart = inCartQty > 0
-  const inStateLabel = useBagText ? t('product.inBag') : t('product.inCart')
-  const addStateLabel = useBagText ? t('product.addToBag') : t('product.addToCart')
+  const inStateLabel = t('product.inBag')
+  const addStateLabel = t('product.addToBag')
   const requiresOptions = isProductOptionSelectionRequired(product)
 
   if (isInCart) {

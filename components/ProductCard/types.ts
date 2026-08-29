@@ -59,7 +59,6 @@ export interface ProductActionsProps {
   product: Product
   user: User | null
   isAdding: boolean
-  useBagText: boolean
   inCartQty: number
   canAdjustInline: boolean
   onAddToCart: () => void
@@ -82,7 +81,6 @@ export interface UseProductCardReturn {
   showLoginModal: boolean
   isLoginMode: boolean
   showOptionDialog: boolean
-  isMobile: boolean
   addedToCartMessage: string
   inCartQty: number
   canAdjustInline: boolean
@@ -91,7 +89,6 @@ export interface UseProductCardReturn {
   productId: string
   productPath: string
   description: string
-  useBagText: boolean
   useAnimations: boolean
   productAriaLabel: string
   prefetchProps: Record<string, unknown>

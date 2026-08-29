@@ -338,8 +338,8 @@ const AR: BeautyBoxCopy = {
   added: 'تمت الإضافة',
   outOfStock: 'غير متوفر',
   loginToShop: 'سجّلي الدخول للشراء',
-  inBag: 'في حقيبتك',
-  viewBag: 'عرض الحقيبة',
+  inBag: 'في سلتك',
+  viewBag: 'عرض السلة',
   badges: ['GENOSYS أصلي', 'صُنع في كوريا', 'أحجام كاملة', 'دبي خلال ساعة إلى ساعتين'],
   stats: [
     { value: '7', label: 'قطع: أربعة منتجات كاملة وثلاثة أقنعة' },

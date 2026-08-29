@@ -110,7 +110,7 @@ export const WHATSAPP_TEMPLATES: Record<WhatsAppMessageType, WhatsAppTemplate> =
     fallbackMessage: (vars) =>
       `👋 *Did you forget something?*\n\n` +
       `Hi ${vars.customerName},\n\n` +
-      `You left ${vars.itemCount} item(s) in your cart.\n\n` +
+      `You left ${vars.itemCount} item(s) in your bag.\n\n` +
       `Complete your order: ${vars.cartUrl}\n\n` +
       `_GENOSYS Middle East_`
   },

@@ -12,7 +12,6 @@ import { getPricingDisplay } from '@/lib/pricingDisplay'
 import { errorLog } from '@/lib/logger'
 import { useTranslation } from '@/hooks/useTranslation'
 import { translateSize } from '@/utils/sizeTranslations'
-import { usePWAMode } from '@/hooks/usePWAMode'
 import { getLocalizedPath } from '@/lib/i18n'
 
 interface ProductInfoProps {
@@ -33,27 +32,14 @@ export default function ProductInfo({
   const { user } = useAuth()
   const router = useRouter()
   const { t, locale } = useTranslation()
-  const { isPWA } = usePWAMode()
   const { addItem } = useCart()
   const { toggleFavorite, isFavorite } = useFavorites()
   const [isAdding, setIsAdding] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
   const [shareStatus, setShareStatus] = useState<'idle' | 'copied'>('idle')
   const shareTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Clean up timer on unmount
   useEffect(() => () => { if (shareTimerRef.current) clearTimeout(shareTimerRef.current) }, [])
-  
-  // Detect mobile for "Add to Bag" text
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  // Use "Add to Bag" for PWA and mobile web
-  const useBagText = isPWA || isMobile
 
   const getPriceForSize = useCallback((size: string) => {
     if (product.id === '1') {
@@ -409,7 +395,7 @@ export default function ProductInfo({
             ) : (
               <>
                 <ShoppingCart className="h-5 w-5" aria-hidden="true" />
-                {useBagText ? t('product.addToBag') : t('product.addToCart')}
+                {t('product.addToBag')}
               </>
             )}
           </button>

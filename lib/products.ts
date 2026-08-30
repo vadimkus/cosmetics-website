@@ -810,6 +810,9 @@ export const products: Product[] = [
     images: null,
     category: 'kits',
     inStock: false,
+    // Retired Aug 2026; the seasonal box is not coming back. The row itself
+    // stays so anything that still references it can resolve a name and image.
+    isHidden: true,
     size: '1 box',
   },
   {

@@ -81,7 +81,10 @@ const getCategories = (t: (key: string) => string): Array<{ id: string; name: st
   { id: 'scalp-hair', name: t('products.scalpHair') },
   { id: 'bio-meso', name: t('products.bioMeso') },
   { id: 'beauty-boxes', name: t('products.beautyBoxes') },
-  { id: 'kits', name: t('products.holidayKits') },
+  // No Holiday kits entry: the seasonal box was the only product in that
+  // category and was retired in Aug 2026. This list is written out by hand
+  // rather than derived from what is in stock, so a category with nothing left
+  // in it would still offer the filter and then return an empty grid.
   { id: 'device', name: t('products.device') },
 ]
 

@@ -152,11 +152,11 @@
   {
     "product": "23",
     "status": "ok",
-    "source": "/images/ND.jpg",
-    "file": "/images/cutout/23.webp",
+    "source": "/images/nd_cell_o/Main.jpeg",
+    "file": "/images/cutout/23-v2.webp",
     "name": "ND Cell ANTI-WRINKLE CREAM",
-    "coverage": 0.164,
-    "bytes": 30350,
+    "coverage": 0.216,
+    "bytes": 40728,
     "review": false
   },
   {

@@ -65,7 +65,7 @@ const CUTOUTS: Record<string, string> = {
   // 22 MULTI FUNCTIONAL ANTI-WRINKLE SERUM
   '/images/multif_serum/main.jpeg': '/images/cutout/22.webp',
   // 23 ND Cell ANTI-WRINKLE CREAM
-  '/images/ND.jpg': '/images/cutout/23.webp',
+  '/images/nd_cell_o/Main.jpeg': '/images/cutout/23-v2.webp',
   // 24 EyeCell EYE CONTOUR CREAM
   '/images/eye_cream/main.jpeg': '/images/cutout/24.webp',
   // 25 SOOTHING REPAIR POSTCREAM

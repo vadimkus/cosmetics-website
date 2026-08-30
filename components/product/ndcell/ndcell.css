@@ -19,6 +19,15 @@
   --cera-body: #37474a;
   --cera-muted: #5f7376;
   --cera-line: #dde8e9;
+
+  /* The closing band. cerabarrier.css defaults this to #eeeeee, the studio grey
+     the catalogue was shot on, so that a raw packshot would sit on it without
+     showing an edge. This page seats a cut-out, which carries no background to
+     match, so a neutral grey is left reading as a dirty patch under a cool
+     slate-teal page. Same tone as .cera-stage, since both are surfaces a
+     packshot sits on. Also lifts the small print off the grey it was failing
+     on: muted goes from 4.31:1 to 4.50:1. */
+  --cera-shot: #eef4f5;
 }
 
 .ndc-page .cera-stage {

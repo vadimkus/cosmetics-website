@@ -135,7 +135,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
       'ALL FOR SENSITIVE SERUM': '/images/sensitive_serum/main.jpeg',
       'PROBLEM CONTROL SERUM': '/images/problems_serum/main.jpeg',
       'HR³ MATRIX HAIR TONIC α': '/images/hair_tonic/main-v2.jpeg',
-      'ND Cell ANTI-WRINKLE CREAM': '/images/ND.jpg',
+      'ND Cell ANTI-WRINKLE CREAM': '/images/nd_cell_o/Main.jpeg',
       'SOOTHING REPAIR POSTCREAM': '/images/SRC.jpg',
       'SKIN RENEWAL PEELING SYSTEM (SRS)': '/images/srs_2_new/main.jpeg',
       'PEPTIDE GEL MASK': '/images/peptide_mask/main.jpeg',

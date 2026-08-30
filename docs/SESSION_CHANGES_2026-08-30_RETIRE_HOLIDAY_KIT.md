@@ -45,8 +45,24 @@ The translations, quick facts, MoySklad mapping and the app's name-based
 holiday badge. All of it is either needed to render a name for an existing
 reference or is generic enough to apply to a future seasonal box.
 
-## Note
+## Two things worth knowing next time
 
-The static fallback in `lib/products.ts` is not what the live site reads. The
-July retirement of product 26 set the flag there, and it was the database write
-that actually took it out of the listings. Both need doing.
+**The static fallback is not what the live site reads.** `lib/products.ts` is
+only served during a database outage. The July retirement of product 26 set the
+flag there, and it was the database write that actually took it out of the
+listings. Both need doing.
+
+**A direct database write does not clear the cache.** The listing comes from
+`getProductsListCached`, an `unstable_cache` entry tagged `products`. The admin
+product routes call `revalidateTag('products')` after a write; a script does
+not, so the grid and its JSON-LD kept serving the product for several minutes
+after the row was hidden while the API next to it was already correct. It
+cleared on its own via the 60 second stale-while-revalidate, but the clean way
+is `POST /api/revalidate` with `{ tag: 'products', secret }`, which needs
+`REVALIDATE_SECRET` from Vercel — it is not in `.env.local`.
+
+## Verified live
+
+Gone from the grid and its structured data in all three locales, from the
+product feed and from the mobile API. `/products/54` still resolves, exactly as
+`/products/26` does.

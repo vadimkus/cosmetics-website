@@ -127,7 +127,7 @@ export default function ProfileForm({
           {isApplePrivateRelay && (
             <div className="space-y-1 md:space-y-2 md:col-span-2">
               <label className="text-xs md:text-sm font-medium text-[var(--cera-body)] flex items-center gap-2">
-                <Mail className="h-4 w-4 text-green-600" />
+                <Mail className="h-4 w-4 text-[var(--cera-ok)]" />
                 Contact email
                 <span className="text-xs text-[var(--cera-muted)]">(for order confirmation)</span>
               </label>
@@ -287,7 +287,7 @@ export default function ProfileForm({
               <h3 className="text-xs md:text-sm font-medium text-[var(--cera-body)]">{t('profile.priceAccess')}</h3>
             </div>
             {user.canSeePrices ? (
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full text-[10px] md:text-xs font-semibold">
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-[var(--cera-ok-bg)] text-[var(--cera-ok)] border border-[var(--cera-ok-line)] rounded-full text-[10px] md:text-xs font-semibold">
                 <CheckCircle className="h-3 w-3 md:h-3.5 md:w-3.5" />
                 {t('profile.allowed')}
               </span>

@@ -129,7 +129,7 @@ const ProductInfo = memo(function ProductInfo({
         <span 
           id={stockId}
           className={`inline-flex items-center px-2 py-1 rounded-full text-[10px] md:text-xs font-medium ${
-            product.inStock ? 'bg-[var(--status-green-bg)] text-[var(--status-green-deep)]' : 'sr-only'
+            product.inStock ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]' : 'sr-only'
           }`}
           aria-label={product.inStock ? t('product.inStock') : t('product.soldOut')}
         >

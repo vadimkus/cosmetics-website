@@ -347,7 +347,7 @@ function PartnerOrderInner() {
             </span>
           )}
           {placed.paymentOption === 'online' && placed.paid && (
-            <span className="inline-block text-[11px] font-bold uppercase tracking-wide bg-green-100 text-green-800 px-2.5 py-1 rounded-full mb-3">
+            <span className="inline-block text-[11px] font-bold uppercase tracking-wide bg-[var(--cera-ok-bg)] text-[var(--cera-ok)] px-2.5 py-1 rounded-full mb-3">
               {t('Paid', 'Оплачено', 'مدفوع')}
             </span>
           )}
@@ -524,7 +524,7 @@ function PartnerOrderInner() {
                               {info.hasDiscount && (
                                 <>
                                   <span className="text-xs text-[var(--cera-muted)] line-through">{info.originalPrice.toFixed(2)}</span>
-                                  <span className="text-[10px] font-bold text-green-700 bg-green-50 px-1.5 py-0.5 rounded">−{Math.round(info.discountPercentage)}%</span>
+                                  <span className="text-[10px] font-bold text-[var(--cera-ok)] bg-[var(--cera-ok-bg)] px-1.5 py-0.5 rounded">−{Math.round(info.discountPercentage)}%</span>
                                 </>
                               )}
                             </>

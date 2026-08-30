@@ -83,7 +83,7 @@ export default function RoutineProductChip({
     if (pricing?.hasDiscount) {
       return (
         <>
-          <span className={showCheck ? 'text-green-600 font-semibold' : 'text-primary-600 font-semibold'}>
+          <span className={showCheck ? 'text-[var(--cera-ok)] font-semibold' : 'text-primary-600 font-semibold'}>
             AED {pricing.displayPrice.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
           </span>
           {pricing.originalPrice ? (
@@ -97,14 +97,14 @@ export default function RoutineProductChip({
 
     if (pricing) {
       return (
-        <span className={showCheck ? 'text-green-600' : 'text-gray-500'}>
+        <span className={showCheck ? 'text-[var(--cera-ok)]' : 'text-gray-500'}>
           AED {pricing.displayPrice.toLocaleString()}
         </span>
       )
     }
 
     return (
-      <span className={showCheck ? 'text-green-600' : 'text-gray-500'}>
+      <span className={showCheck ? 'text-[var(--cera-ok)]' : 'text-gray-500'}>
         {price}
       </span>
     )
@@ -117,20 +117,20 @@ export default function RoutineProductChip({
       onContextMenu={handleContextMenu}
       className={`inline-flex items-center gap-1.5 text-xs rounded-lg px-3 py-2 transition-all duration-200 cursor-pointer border select-none ${
         showCheck
-          ? 'bg-green-50 border-green-200 ring-1 ring-green-100'
+          ? 'bg-[var(--cera-ok-bg)] border-[var(--cera-ok-line)] ring-1 ring-[var(--cera-ok-line)]'
           : 'bg-gray-50 hover:bg-gray-100 border-gray-200'
       }`}
       title={product ? (showCheck ? 'Click to remove · Hold to view product' : 'Click to add to bag · Hold to view product') : ''}
     >
       {showCheck && (
-        <Check className="h-3 w-3 text-green-600 flex-shrink-0" />
+        <Check className="h-3 w-3 text-[var(--cera-ok)] flex-shrink-0" />
       )}
       <span
-        className={`font-medium ${showCheck ? 'text-green-700' : 'text-gray-800'}`}
+        className={`font-medium ${showCheck ? 'text-[var(--cera-ok)]' : 'text-gray-800'}`}
       >
         {name}
       </span>
-      <span className={showCheck ? 'text-green-400' : 'text-gray-400'}>·</span>
+      <span className={showCheck ? 'text-[var(--cera-ok)]' : 'text-gray-400'}>·</span>
       {renderPrice()}
     </button>
   )

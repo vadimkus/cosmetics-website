@@ -671,18 +671,18 @@ export default function CartClient() {
                         </div>
                       </div>
                       <div className="text-[20px] text-[var(--cera-muted)]">=</div>
-                      <div className="flex flex-col items-center rounded-2xl border border-[var(--status-green-line)] bg-[var(--status-green-bg)] px-4 py-3">
-                        <div className="cera-numeral whitespace-nowrap text-[22px] text-[var(--status-green-deep)]">
+                      <div className="flex flex-col items-center rounded-2xl border border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)] px-4 py-3">
+                        <div className="cera-numeral whitespace-nowrap text-[22px] text-[var(--cera-ok)]">
                           {beautyBoxSavings.toFixed(2)} {locale === 'ar' ? 'درهم' : locale === 'ru' ? 'AED' : 'AED'}
                         </div>
-                        <div className="whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--status-green-deep)]">
+                        <div className="whitespace-nowrap text-[11px] font-medium uppercase tracking-[0.08em] text-[var(--cera-ok)]">
                           {locale === 'ar' ? 'وفرت' : locale === 'ru' ? 'СЭКОНОМЛЕНО' : 'SAVED'}
                         </div>
                       </div>
                     </div>
 
                     <div className={`mt-3 border-t border-[var(--cera-line)] pt-3 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                      <p className="text-center text-[13.5px] font-semibold text-[var(--status-green-deep)]">
+                      <p className="text-center text-[13.5px] font-semibold text-[var(--cera-ok)]">
                         ✅ {t('products.beautyBoxSavings', { amount: beautyBoxSavings.toFixed(2) })}
                       </p>
                     </div>
@@ -788,7 +788,7 @@ export default function CartClient() {
                     </div>
                     {originalSubtotal > subtotal && (
                       <div className={`mt-3 pt-3 border-t border-red-200 ${dir === 'rtl' ? 'text-right' : ''}`}>
-                        <p className={`text-sm font-semibold text-[var(--status-green-deep)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                        <p className={`text-sm font-semibold text-[var(--cera-ok)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                           {locale === 'ar' 
                             ? `✅ وفرت ${(originalSubtotal - subtotal).toFixed(2)} درهم`
                             : `✅ You saved AED ${(originalSubtotal - subtotal).toFixed(2)}`}
@@ -815,7 +815,7 @@ export default function CartClient() {
                       {t('cart.freeDelivery')}
                     </h3>
                     {subtotal >= freeShippingThreshold ? (
-                      <span className={`flex items-center gap-1 text-[12px] font-semibold text-[var(--status-green-deep)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+                      <span className={`flex items-center gap-1 text-[12px] font-semibold text-[var(--cera-ok)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                         <Check className="h-3.5 w-3.5" aria-hidden="true" />
                         {t('cart.unlocked')}
                       </span>
@@ -830,7 +830,7 @@ export default function CartClient() {
                 <div className="mb-2 h-2 w-full overflow-hidden rounded-full bg-[var(--cera-cream-deep)]">
                   <div
                     className={`h-full rounded-full transition-all duration-500 ${
-                      subtotal >= freeShippingThreshold ? 'bg-[var(--status-green-deep)]' : 'bg-[var(--cera-rose)]'
+                      subtotal >= freeShippingThreshold ? 'bg-[var(--cera-ink)]' : 'bg-[var(--cera-rose)]'
                     }`}
                     style={{ width: `${Math.min(100, (subtotal / freeShippingThreshold) * 100)}%` }}
                   />
@@ -908,7 +908,7 @@ export default function CartClient() {
                         <span className="ml-1 bg-red-600 text-white px-2 py-0.5 rounded text-xs md:text-sm">-20%</span>
                       </div>
                       {originalSubtotal > subtotal && (
-                        <div className="text-xs md:text-sm text-[var(--status-green-deep)] font-medium">
+                        <div className="text-xs md:text-sm text-[var(--cera-ok)] font-medium">
                           {locale === 'ar' 
                             ? `✓ وفرت ${(originalSubtotal - subtotal).toFixed(2)} درهم`
                             : `✓ You saved AED ${(originalSubtotal - subtotal).toFixed(2)}`}
@@ -935,7 +935,7 @@ export default function CartClient() {
                   
                   <div className={`flex justify-between text-[14px] text-[var(--cera-body)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
                     <span>{t('cart.shippingTo')} {selectedEmirate ? getEmirateDisplayName(selectedEmirate) : ''}</span>
-                    <span>{user ? (shippingCost === 0 ? <span className="text-[var(--status-green-deep)] font-semibold">{t('cart.freeDelivery')}</span> : `AED ${shippingCost}`) : t('cart.loginToSeePrice')}</span>
+                    <span>{user ? (shippingCost === 0 ? <span className="text-[var(--cera-ok)] font-semibold">{t('cart.freeDelivery')}</span> : `AED ${shippingCost}`) : t('cart.loginToSeePrice')}</span>
                   </div>
                   
                   <div className={`flex justify-between text-[14px] text-[var(--cera-body)] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
@@ -977,27 +977,27 @@ export default function CartClient() {
 
                 {/* Free Masks Notice */}
                 {user && subtotal >= 700 && (
-                  <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-[var(--status-green-bg)] border border-[var(--status-green-line)] rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-[var(--cera-ok-bg)] border border-[var(--cera-ok-line)] rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-[var(--status-green-deep)]" />
-                      <span className="text-xs md:text-sm font-semibold text-[var(--status-green-deep)]">
+                      <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-[var(--cera-ok)]" />
+                      <span className="text-xs md:text-sm font-semibold text-[var(--cera-ok)]">
                         {t('cart.twoFreeMasksAdded')}
                       </span>
                     </div>
-                    <p className={`text-[10px] md:text-xs text-[var(--status-green-deep)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`text-[10px] md:text-xs text-[var(--cera-ok)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('cart.seaAlgaeCollagenMasks')}
                     </p>
                   </div>
                 )}
                 {user && subtotal >= 500 && subtotal < 700 && (
-                  <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-[var(--status-green-bg)] border border-[var(--status-green-line)] rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
+                  <div className={`mb-4 md:mb-6 p-2.5 md:p-3 bg-[var(--cera-ok-bg)] border border-[var(--cera-ok-line)] rounded-lg ${dir === 'rtl' ? 'text-right' : ''}`}>
                     <div className={`flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-[var(--status-green-deep)]" />
-                      <span className="text-xs md:text-sm font-semibold text-[var(--status-green-deep)]">
+                      <Gift className="h-3.5 w-3.5 md:h-4 md:w-4 text-[var(--cera-ok)]" />
+                      <span className="text-xs md:text-sm font-semibold text-[var(--cera-ok)]">
                         {t('cart.oneFreeMaskAdded')}
                       </span>
                     </div>
-                    <p className={`text-[10px] md:text-xs text-[var(--status-green-deep)] ${dir === 'rtl' ? 'text-right' : ''}`}>
+                    <p className={`text-[10px] md:text-xs text-[var(--cera-ok)] ${dir === 'rtl' ? 'text-right' : ''}`}>
                       {t('cart.collagenMaskAdded')}
                     </p>
                   </div>

@@ -52,7 +52,7 @@ export default function PaymentSuccessClient() {
       <div className="w-full max-w-[440px]">
         <div className="rounded-[28px] border border-[var(--cera-line)] bg-white p-7 shadow-[0_24px_60px_-40px_rgba(23,20,15,0.45)] md:p-9">
           {/* Green is kept throughout this page: it reports the payment succeeded. */}
-          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-green-200 bg-green-50 text-green-700">
+          <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]">
             <CheckCircle className="h-7 w-7" aria-hidden="true" />
           </span>
 
@@ -88,7 +88,7 @@ export default function PaymentSuccessClient() {
                   )}
                   {row(
                     t('paySuccess.status'),
-                    <span className="rounded-full border border-green-200 bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700">
+                    <span className="rounded-full border border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)] px-2.5 py-1 text-xs font-semibold text-[var(--cera-ok)]">
                       {orderDetails.paymentStatus === 'paid' ? t('paySuccess.paid') : t('paySuccess.processing')}
                     </span>
                   )}

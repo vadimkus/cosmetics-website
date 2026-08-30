@@ -340,7 +340,7 @@ export default function PrivacyPolicyClient() {
         <div className={sectionClass}>
           <h2 className={`${headingClass} ${rtl}`}>{t.s3Title}</h2>
           <p className={`${textClass} mb-3 ${rtl}`}>{t.s3Intro}</p>
-          <div className={`bg-green-50 border border-green-200 rounded-lg p-4 ${listClass}`}>
+          <div className={`bg-[var(--cera-ok-bg)] border border-[var(--cera-ok-line)] rounded-lg p-4 ${listClass}`}>
             <LabelRow label={t.s3DeviceLabel} text={t.s3DeviceText} divider={false} />
             <LabelRow label={t.s3PushLabel} text={t.s3PushText} divider={true} />
             <LabelRow label={t.s3BiometricLabel} text={t.s3BiometricText} divider={true} />

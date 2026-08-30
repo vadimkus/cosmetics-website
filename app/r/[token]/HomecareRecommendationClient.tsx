@@ -167,7 +167,7 @@ export default function HomecareRecommendationClient({ token }: { token: string 
                     onClick={() => addRecommendedItem(item)}
                     className={`mt-3 inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold shadow-sm transition-all duration-200 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2 disabled:translate-y-0 disabled:cursor-not-allowed disabled:bg-[var(--cera-cream-deep)] disabled:text-[var(--cera-muted)] disabled:shadow-none ${
                       isAdded
-                        ? 'bg-green-50 text-green-700'
+                        ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]'
                         : 'bg-[var(--cera-cta)] text-white hover:-translate-y-0.5 hover:bg-[var(--cera-rose-ink)] hover:shadow-lg hover:shadow-red-600/20'
                     }`}
                   >

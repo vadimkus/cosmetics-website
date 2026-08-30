@@ -560,7 +560,7 @@ export default function ProductRecommendation({
                         {pricing.originalPrice.toFixed(2)} {dir === 'rtl' ? 'درهم' : 'AED'}
                       </span>
                     ) : null}
-                    <span className="text-[10px] lg:text-xs px-1 lg:px-1.5 py-0.5 bg-[var(--status-green-bg)] text-[var(--status-green-deep)] rounded">
+                    <span className="text-[10px] lg:text-xs px-1 lg:px-1.5 py-0.5 bg-[var(--cera-ok-bg)] text-[var(--cera-ok)] rounded">
                       {pricing.discountPercentage}% {t('product.off')}
                     </span>
                   </>

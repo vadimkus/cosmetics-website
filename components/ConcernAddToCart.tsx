@@ -61,7 +61,7 @@ export default function ConcernAddToCart({
       onClick={handleClick}
       className={`mt-2 w-full flex items-center justify-center gap-1 py-1.5 rounded-lg text-[10px] sm:text-xs font-medium transition-all duration-200 ${
         added
-          ? 'bg-green-50 text-green-600 border border-green-200'
+          ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)] border border-[var(--cera-ok-line)]'
           : 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)] border border-[var(--cera-line)] hover:bg-[var(--cera-blush)] hover:text-[var(--cera-rose)] hover:border-[var(--cera-blush-deep)] active:scale-95'
       }`}
     >

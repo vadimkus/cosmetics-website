@@ -95,8 +95,8 @@ export default function BlogComments({ postId, initialComments }: BlogCommentsPr
       {user ? (
         <form onSubmit={handleSubmit} className="bg-gray-50 rounded-lg p-6">
           <div className="flex items-start gap-4">
-            <div className="bg-green-100 rounded-full p-3 flex items-center justify-center">
-              <Smile className="h-6 w-6 text-green-600" />
+            <div className="bg-[var(--cera-ok-bg)] rounded-full p-3 flex items-center justify-center">
+              <Smile className="h-6 w-6 text-[var(--cera-ok)]" />
             </div>
             <div className="flex-1">
               <label htmlFor="comment" className="block text-sm font-medium text-gray-700 mb-2">

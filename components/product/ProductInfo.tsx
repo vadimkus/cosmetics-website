@@ -172,7 +172,7 @@ export default function ProductInfo({
                         ) : null}
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-sm text-[var(--status-green-deep)] font-medium">
+                        <span className="text-sm text-[var(--cera-ok)] font-medium">
                           {pricing.discountPercentage}% {t('product.off')}
                         </span>
                         <span className="text-sm text-[var(--color-text-secondary)]">({t('product.vatIncluded')})</span>
@@ -415,7 +415,7 @@ export default function ProductInfo({
           onClick={handleShare}
           className={`p-3 rounded-lg border transition-colors flex items-center justify-center ${
             shareStatus === 'copied'
-              ? 'border-[var(--status-green-deep)] bg-[var(--status-green-bg)] text-[var(--status-green-deep)]'
+              ? 'border-[var(--cera-ok)] bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]'
               : 'border-[var(--color-border-secondary)] text-[var(--color-text-secondary)] hover:border-[var(--color-border-strong)]'
           }`}
           aria-label={t('product.shareProduct')}

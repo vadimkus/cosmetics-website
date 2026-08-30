@@ -62,7 +62,7 @@ export const AnimationToggle = ({ className = '', size = 'sm' }: AnimationToggle
       onClick={toggleAnimation}
       className={`
         ${padding} transition-colors flex items-center justify-center ml-2
-        ${enabled ? 'text-green-600 hover:text-green-700' : 'text-gray-700 hover:text-primary-600'}
+        ${enabled ? 'text-[var(--cera-ok)] hover:text-[var(--cera-ok)]' : 'text-gray-700 hover:text-primary-600'}
         touch-manipulation ${size === 'lg' ? 'min-h-[44px] min-w-[44px]' : ''}
         ${className}
       `}

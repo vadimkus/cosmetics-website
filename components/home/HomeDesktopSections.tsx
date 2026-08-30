@@ -295,7 +295,7 @@ function RailProductCard({
                   {/* Green is the one colour kept off the palette here: a saving
                       is information, not decoration, the same call /orders made
                       for its status badges. */}
-                  <span dir="ltr" className="mt-1 inline-block text-[10.5px] font-semibold text-emerald-700">
+                  <span dir="ltr" className="mt-1 inline-block text-[10.5px] font-semibold text-[var(--cera-ok)]">
                     −{pricing.discountPercentage}%{' '}
                     {locale === 'ar' ? 'خصم' : locale === 'ru' ? 'скидка' : 'off'}
                   </span>
@@ -751,7 +751,7 @@ function HomeNewsletter({ locale, isRtl }: { locale: Locale; isRtl: boolean }) {
 
             {status === 'success' || status === 'already' ? (
               <div
-                className={`mt-8 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-5 py-3 text-emerald-700 ${
+                className={`mt-8 inline-flex items-center gap-2 rounded-full border border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)] px-5 py-3 text-[var(--cera-ok)] ${
                   isRtl ? 'flex-row-reverse' : ''
                 }`}
               >

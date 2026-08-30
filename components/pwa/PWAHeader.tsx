@@ -141,7 +141,7 @@ export default function PWAHeader() {
               disabled={!isReady}
             >
               {showMobileMenu ? (
-                <X className="w-5 h-5 text-green-600" />
+                <X className="w-5 h-5 text-[var(--cera-ok)]" />
               ) : (
                 <Menu className="w-5 h-5" />
               )}
@@ -156,7 +156,7 @@ export default function PWAHeader() {
                   if (isReady) setShowLangMenu(prev => !prev)
                 }}
                 disabled={!isReady}
-                className="flex items-center gap-0.5 text-green-600 font-semibold text-sm px-2 py-1.5 touch-manipulation select-none active:bg-green-50 rounded-md transition-colors"
+                className="flex items-center gap-0.5 text-[var(--cera-ok)] font-semibold text-sm px-2 py-1.5 touch-manipulation select-none active:bg-[var(--cera-ok-bg)] rounded-md transition-colors"
                 style={{ 
                   WebkitTapHighlightColor: 'transparent',
                   touchAction: 'manipulation'
@@ -197,7 +197,7 @@ export default function PWAHeader() {
                             e.preventDefault()
                             handleSelect()
                           }}
-                          className={`block w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 active:bg-gray-100 touch-manipulation ${locale === l ? 'text-green-600 font-semibold bg-green-50' : 'text-gray-700'}`}
+                          className={`block w-full text-left px-4 py-2.5 text-sm hover:bg-gray-50 active:bg-gray-100 touch-manipulation ${locale === l ? 'text-[var(--cera-ok)] font-semibold bg-[var(--cera-ok-bg)]' : 'text-gray-700'}`}
                           style={{ WebkitTapHighlightColor: 'transparent', touchAction: 'manipulation' }}
                         >
                           {label}

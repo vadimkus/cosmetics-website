@@ -97,16 +97,16 @@ export function SyncStatusIndicator({
               <RefreshCw className="w-4 h-4 text-primary-600 animate-spin" />
             </div>
           ) : showSuccess ? (
-            <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-              <Check className="w-4 h-4 text-green-600" />
+            <div className="w-8 h-8 rounded-full bg-[var(--cera-ok-bg)] flex items-center justify-center">
+              <Check className="w-4 h-4 text-[var(--cera-ok)]" />
             </div>
           ) : pendingCount > 0 ? (
             <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center">
               <Cloud className="w-4 h-4 text-amber-600" />
             </div>
           ) : (
-            <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
-              <Cloud className="w-4 h-4 text-green-600" />
+            <div className="w-8 h-8 rounded-full bg-[var(--cera-ok-bg)] flex items-center justify-center">
+              <Cloud className="w-4 h-4 text-[var(--cera-ok)]" />
             </div>
           )}
         </div>
@@ -121,7 +121,7 @@ export function SyncStatusIndicator({
                 : !isOnline
                 ? 'text-gray-700'
                 : showSuccess
-                ? 'text-green-900'
+                ? 'text-[var(--cera-ok)]'
                 : 'text-gray-900'
             )}
           >

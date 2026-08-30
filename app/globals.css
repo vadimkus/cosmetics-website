@@ -153,6 +153,33 @@
   --status-red-bg: #f6eae8;
   --status-red-line: #e0bdb7;
 
+  /* The affirmative state, in brand colour rather than green. Green was doing
+     two different jobs across the site: telling apart the stages of an order,
+     where several states sit in one list and the hue is the only thing
+     separating them at a glance, and confirming a single thing went right,
+     where the tick and the words already say so. The second job never needed
+     green, and a green pill on a cream page reads like a shipping tracker.
+
+     So --status-green stays for the first job and these take the second: in
+     stock, added to bag, applied, saved, unlocked. The palette already had the
+     right colour; what it lacked was a name saying which of the two jobs is
+     meant. Text holds 4.81:1 on its own background, matching the 4.79:1 of the
+     green-700-on-green-50 pair it replaces, so nothing gets harder to read.
+
+     Filled confirmations go to --cera-ink instead. A filled button flipping
+     from --cera-cta to --cera-ok would be two tones of one hue and barely
+     register as a change; against ink it plainly has.
+
+     Literals rather than var(--cera-rose-ink), though that is the same value.
+     The 45 bespoke product pages each retint the cera tokens to their own
+     product: rose-ink is teal on the hyaluron cream and plum on the overnight
+     mask. An alias would inherit that, so "In stock" would be a different
+     colour on every page and each of the 45 pairs would need its own contrast
+     check. One fixed pair instead, checked once. */
+  --cera-ok: #8f5a5a;
+  --cera-ok-bg: #f7ecec;
+  --cera-ok-line: #efd9d9;
+
   /* Third-party marks. Not ours to retune, so kept apart from the status set.
      The recognised WhatsApp green only reaches 1.98:1 under white and cannot
      back a filled button; the deep variant is the official answer to that. */

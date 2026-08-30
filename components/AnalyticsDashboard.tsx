@@ -86,7 +86,7 @@ interface MetricCardProps {
 const MetricCard = ({ title, value, icon, trend, subtitle, color = 'blue', onClick }: MetricCardProps) => {
   const colorClasses = {
     blue: 'bg-blue-50 text-blue-600 border-blue-200',
-    green: 'bg-green-50 text-green-600 border-green-200',
+    green: 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)] border-[var(--cera-ok-line)]',
     purple: 'bg-purple-50 text-purple-600 border-purple-200',
     orange: 'bg-orange-50 text-orange-600 border-orange-200',
     red: 'bg-red-50 text-red-600 border-red-200',
@@ -106,7 +106,7 @@ const MetricCard = ({ title, value, icon, trend, subtitle, color = 'blue', onCli
           {icon}
         </div>
         {trend && (
-          <div className={`flex items-center gap-1 text-xs font-medium ${trend.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+          <div className={`flex items-center gap-1 text-xs font-medium ${trend.isPositive ? 'text-[var(--cera-ok)]' : 'text-red-600'}`}>
             {trend.isPositive ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
             {Math.abs(trend.value)}%
           </div>
@@ -419,7 +419,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Smartphone className="h-4 w-4 text-green-600" />
+                    <Smartphone className="h-4 w-4 text-[var(--cera-ok)]" />
                     <span className="text-sm font-medium text-gray-700">Mobile</span>
                   </div>
                   <span className="text-sm font-bold text-gray-900">{analytics.deviceAnalytics.mobile}</span>
@@ -427,7 +427,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
                 {deviceStats && (
                   <div className="w-full bg-gray-200 rounded-full h-2.5">
                     <div 
-                      className="bg-green-600 h-2.5 rounded-full transition-all duration-500"
+                      className="bg-[var(--cera-ink)] h-2.5 rounded-full transition-all duration-500"
                       style={{ width: `${deviceStats.mobile}%` }}
                     ></div>
                   </div>
@@ -506,8 +506,8 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
                   <div className="text-sm font-medium text-gray-700">Avg Session Duration</div>
                   <div className="text-xs text-gray-500 mt-1">Time on site</div>
                 </div>
-                <div className="text-center p-4 bg-green-50 rounded-lg border border-green-100">
-                  <div className="text-2xl md:text-3xl font-bold text-green-600 mb-1">
+                <div className="text-center p-4 bg-[var(--cera-ok-bg)] rounded-lg border border-[var(--cera-ok-line)]">
+                  <div className="text-2xl md:text-3xl font-bold text-[var(--cera-ok)] mb-1">
                     {analytics.uxMetrics.avgPageViewsPerSession.toFixed(1)}
                   </div>
                   <div className="text-sm font-medium text-gray-700">Pages per Session</div>
@@ -655,7 +655,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
                           <div className="flex items-center gap-2 mt-2">
                             <div className="flex-1 bg-gray-200 rounded-full h-2 overflow-hidden">
                               <div 
-                                className="bg-gradient-to-r from-green-500 to-green-600 h-2 rounded-full transition-all duration-700 ease-out"
+                                className="bg-gradient-to-r from-green-500 to-[var(--cera-rose-ink)] h-2 rounded-full transition-all duration-700 ease-out"
                                 style={{ width: `${percentage}%` }}
                               ></div>
                             </div>
@@ -697,7 +697,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
                       <div>
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-2">
-                            <Smartphone className="h-4 w-4 text-green-600" />
+                            <Smartphone className="h-4 w-4 text-[var(--cera-ok)]" />
                             <span className="text-sm font-medium text-gray-700">Mobile</span>
                           </div>
                           <div className="text-right">
@@ -707,7 +707,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                           <div 
-                            className="bg-gradient-to-r from-green-500 to-green-600 h-3 rounded-full transition-all duration-700"
+                            className="bg-gradient-to-r from-green-500 to-[var(--cera-rose-ink)] h-3 rounded-full transition-all duration-700"
                             style={{ width: `${deviceStats.mobile}%` }}
                           ></div>
                         </div>
@@ -826,43 +826,43 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl border border-green-200 p-4 md:p-6">
+            <div className="bg-gradient-to-br from-[var(--cera-ok-bg)] to-[var(--cera-ok-bg)] rounded-xl border border-[var(--cera-ok-line)] p-4 md:p-6">
               <div className="flex items-center justify-between mb-2">
-                <h4 className="text-sm font-semibold text-green-900">Session Quality</h4>
-                <Clock className="h-5 w-5 text-green-600" />
+                <h4 className="text-sm font-semibold text-[var(--cera-ok)]">Session Quality</h4>
+                <Clock className="h-5 w-5 text-[var(--cera-ok)]" />
               </div>
-              <div className="text-3xl font-bold text-green-900 mb-1">
+              <div className="text-3xl font-bold text-[var(--cera-ok)] mb-1">
                 {analytics.uxMetrics.avgSessionDuration > 60 ? 'High' : analytics.uxMetrics.avgSessionDuration > 30 ? 'Medium' : 'Low'}
               </div>
-              <p className="text-xs text-green-700">
+              <p className="text-xs text-[var(--cera-ok)]">
                 Avg {Math.floor(analytics.uxMetrics.avgSessionDuration / 60)}m {analytics.uxMetrics.avgSessionDuration % 60}s per session
               </p>
             </div>
 
             <div className={`bg-gradient-to-br rounded-xl border p-4 md:p-6 ${
               analytics.uxMetrics.bounceRate < 40 
-                ? 'from-green-50 to-green-100 border-green-200' 
+                ? 'from-[var(--cera-ok-bg)] to-[var(--cera-ok-bg)] border-[var(--cera-ok-line)]' 
                 : analytics.uxMetrics.bounceRate < 60 
                 ? 'from-yellow-50 to-yellow-100 border-yellow-200'
                 : 'from-red-50 to-red-100 border-red-200'
             }`}>
               <div className="flex items-center justify-between mb-2">
                 <h4 className={`text-sm font-semibold ${
-                  analytics.uxMetrics.bounceRate < 40 ? 'text-green-900' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-900' : 'text-red-900'
+                  analytics.uxMetrics.bounceRate < 40 ? 'text-[var(--cera-ok)]' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-900' : 'text-red-900'
                 }`}>
                   Bounce Rate
                 </h4>
                 <TrendingUp className={`h-5 w-5 ${
-                  analytics.uxMetrics.bounceRate < 40 ? 'text-green-600' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-600' : 'text-red-600'
+                  analytics.uxMetrics.bounceRate < 40 ? 'text-[var(--cera-ok)]' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-600' : 'text-red-600'
                 }`} />
               </div>
               <div className={`text-3xl font-bold mb-1 ${
-                analytics.uxMetrics.bounceRate < 40 ? 'text-green-900' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-900' : 'text-red-900'
+                analytics.uxMetrics.bounceRate < 40 ? 'text-[var(--cera-ok)]' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-900' : 'text-red-900'
               }`}>
                 {analytics.uxMetrics.bounceRate.toFixed(1)}%
               </div>
               <p className={`text-xs ${
-                analytics.uxMetrics.bounceRate < 40 ? 'text-green-700' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-700' : 'text-red-700'
+                analytics.uxMetrics.bounceRate < 40 ? 'text-[var(--cera-ok)]' : analytics.uxMetrics.bounceRate < 60 ? 'text-yellow-700' : 'text-red-700'
               }`}>
                 {analytics.uxMetrics.bounceRate < 40 ? 'Excellent engagement' : analytics.uxMetrics.bounceRate < 60 ? 'Good engagement' : 'Needs improvement'}
               </p>
@@ -887,7 +887,7 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-4">
                   <div 
-                    className="bg-gradient-to-r from-blue-600 to-green-600 h-4 rounded-full transition-all duration-500 flex items-center justify-end pr-2"
+                    className="bg-gradient-to-r from-blue-600 to-[var(--cera-rose-ink)] h-4 rounded-full transition-all duration-500 flex items-center justify-end pr-2"
                     style={{ width: `${Math.min(analytics.conversionRate, 100)}%` }}
                   >
                     {analytics.conversionRate > 5 && (
@@ -903,8 +903,8 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
 
               {analytics.totalRevenue && (
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
-                  <div className="text-center p-4 bg-green-50 rounded-lg">
-                    <div className="text-2xl md:text-3xl font-bold text-green-600 mb-1">
+                  <div className="text-center p-4 bg-[var(--cera-ok-bg)] rounded-lg">
+                    <div className="text-2xl md:text-3xl font-bold text-[var(--cera-ok)] mb-1">
                       {formatCurrency(analytics.totalRevenue)}
                     </div>
                     <div className="text-sm font-medium text-gray-700">Total Revenue</div>
@@ -1015,8 +1015,8 @@ export default function AnalyticsDashboard({ onCustomerClick }: AnalyticsDashboa
                   <div className="text-sm font-medium text-gray-700">Total Downloads</div>
                 </div>
                 {Object.entries(pdfDownloads.downloadsByDevice).map(([device, count]) => (
-                  <div key={device} className="text-center p-4 bg-green-50 rounded-lg border border-green-100">
-                    <div className="text-2xl md:text-3xl font-bold text-green-600 mb-1">{count}</div>
+                  <div key={device} className="text-center p-4 bg-[var(--cera-ok-bg)] rounded-lg border border-[var(--cera-ok-line)]">
+                    <div className="text-2xl md:text-3xl font-bold text-[var(--cera-ok)] mb-1">{count}</div>
                     <div className="text-sm font-medium text-gray-700">{device}</div>
               </div>
             ))}

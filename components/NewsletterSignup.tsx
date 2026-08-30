@@ -119,7 +119,7 @@ export default function NewsletterSignup({
       <p className="mt-2 text-sm text-gray-600 leading-relaxed">{t.body}</p>
 
       {status === 'success' || status === 'already' ? (
-        <div className={`mt-4 inline-flex items-center gap-2 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-2.5 ${isRtl ? 'flex-row-reverse' : ''}`}>
+        <div className={`mt-4 inline-flex items-center gap-2 rounded-full bg-[var(--cera-ok-bg)] border border-[var(--cera-ok-line)] text-[var(--cera-ok)] px-4 py-2.5 ${isRtl ? 'flex-row-reverse' : ''}`}>
           <Check className="h-4 w-4 flex-shrink-0" aria-hidden="true" />
           <span className="text-sm font-semibold">{status === 'already' ? t.already : t.success}</span>
         </div>

@@ -47,7 +47,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         </span>
         <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
           product.inStock
-            ? 'bg-[var(--status-green-bg)] text-[var(--status-green-deep)]'
+            ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]'
             : restockNote(product.id, locale)
               ? 'bg-[var(--status-orange-bg)] text-[var(--status-orange)]'
               : 'bg-red-100 text-red-800'

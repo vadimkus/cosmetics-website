@@ -311,7 +311,7 @@ export default function ProductQuickFactsHelper({
             </div>
 
             <div className={`mt-3 flex items-center gap-2 rounded-xl bg-[var(--color-bg-secondary)]/80 px-3 py-2 text-xs text-[var(--color-text-tertiary)] ${isRtl ? 'flex-row-reverse' : ''}`}>
-              <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-600" aria-hidden="true" />
+              <ShieldCheck className="h-4 w-4 shrink-0 text-[var(--cera-ok)]" aria-hidden="true" />
               <p>{isBeautyBox ? text.boxSource : text.source}</p>
             </div>
           </div>

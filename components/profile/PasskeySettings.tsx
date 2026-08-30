@@ -95,9 +95,9 @@ export default function PasskeySettings() {
 
       {/* Success Message */}
       {successMessage && (
-        <div className={`mb-4 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-          <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
-          <span className="text-sm text-green-700">{successMessage}</span>
+        <div className={`mb-4 p-3 bg-[var(--cera-ok-bg)] border border-[var(--cera-ok-line)] rounded-lg flex items-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+          <CheckCircle className="h-5 w-5 text-[var(--cera-ok)] flex-shrink-0" />
+          <span className="text-sm text-[var(--cera-ok)]">{successMessage}</span>
         </div>
       )}
 
@@ -136,8 +136,8 @@ export default function PasskeySettings() {
                   </p>
                   {passkey.backedUp && (
                     <div className={`flex items-center gap-1 mt-1 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <Shield className="h-3 w-3 text-green-600" />
-                      <span className="text-xs text-green-600">Synced to iCloud</span>
+                      <Shield className="h-3 w-3 text-[var(--cera-ok)]" />
+                      <span className="text-xs text-[var(--cera-ok)]">Synced to iCloud</span>
                     </div>
                   )}
                 </div>

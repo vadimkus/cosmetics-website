@@ -413,7 +413,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
             )}
             {/* Promo banner (when opening via /signup?promo=XXXX) */}
             {!isLoginMode && normalizedPromo ? (
-              <div className={`bg-green-50 border border-green-200 text-green-700 px-3 py-2 rounded-lg text-xs md:text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
+              <div className={`bg-[var(--cera-ok-bg)] border border-[var(--cera-ok-line)] text-[var(--cera-ok)] px-3 py-2 rounded-lg text-xs md:text-sm ${dir === 'rtl' ? 'text-right' : ''}`}>
                 <div className="font-semibold">
                   {locale === 'ar'
                     ? 'تم تطبيق العرض'

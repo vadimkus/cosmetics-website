@@ -74,7 +74,7 @@ export function ServiceWorkerStatus() {
       )}
       
       {isRegistered && isOnline && (
-        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-lg shadow-lg">
+        <div className="bg-[var(--cera-ok-bg)] border border-[var(--cera-ok-line)] text-[var(--cera-ok)] px-4 py-2 rounded-lg shadow-lg">
           <div className="flex items-center">
             <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
             <span className="text-sm font-medium">App ready for offline use</span>

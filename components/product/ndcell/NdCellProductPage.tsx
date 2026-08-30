@@ -312,7 +312,7 @@ export default function NdCellProductPage({ product, unitsSold = 0, routineProdu
                       <span className="text-[15px] tabular-nums text-[var(--cera-muted)] line-through">
                         {pricing.originalPrice.toFixed(2)}
                       </span>
-                      <span dir="ltr" className="rounded-full bg-emerald-50 px-2.5 py-1 text-[12px] font-semibold text-emerald-700">
+                      <span dir="ltr" className="rounded-full bg-[var(--cera-ok-bg)] px-2.5 py-1 text-[12px] font-semibold text-[var(--cera-ok)]">
                         −{pricing.discountPercentage}%
                       </span>
                     </>
@@ -352,7 +352,7 @@ export default function NdCellProductPage({ product, unitsSold = 0, routineProdu
                   disabled={!product.inStock || isAdding}
                   className={`inline-flex h-[54px] min-w-[220px] flex-1 items-center justify-center gap-2.5 rounded-full px-8 text-[15px] font-semibold tracking-wide transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-45 ${
                     justAdded
-                      ? 'bg-emerald-600 text-white'
+                      ? 'bg-[var(--cera-ink)] text-white'
                       : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)] hover:shadow-[0_18px_38px_-20px_rgba(27,25,19,0.8)]'
                   }`}
                 >
@@ -376,7 +376,7 @@ export default function NdCellProductPage({ product, unitsSold = 0, routineProdu
               </div>
 
               {inCartQty > 0 ? (
-                <div className="mt-3 flex items-center gap-2 text-[13px] text-emerald-700">
+                <div className="mt-3 flex items-center gap-2 text-[13px] text-[var(--cera-ok)]">
                   <Check className="h-4 w-4" />
                   <span>
                     {copy.inBag} · {inCartQty}
@@ -384,7 +384,7 @@ export default function NdCellProductPage({ product, unitsSold = 0, routineProdu
                   <button
                     type="button"
                     onClick={() => router.push(getLocalizedPath('/cart', locale))}
-                    className="underline underline-offset-2 hover:text-emerald-800"
+                    className="underline underline-offset-2 hover:text-[var(--cera-ok)]"
                   >
                     {copy.viewBag}
                   </button>
@@ -806,7 +806,7 @@ export default function NdCellProductPage({ product, unitsSold = 0, routineProdu
             disabled={!product.inStock || isAdding}
             className={`inline-flex h-[54px] min-w-[220px] items-center justify-center gap-2.5 rounded-full px-8 text-[15px] font-semibold tracking-wide transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-45 ${
               justAdded
-                ? 'bg-emerald-600 text-white'
+                ? 'bg-[var(--cera-ink)] text-white'
                 : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)] hover:shadow-[0_18px_38px_-20px_rgba(27,25,19,0.8)]'
             }`}
           >
@@ -866,7 +866,7 @@ export default function NdCellProductPage({ product, unitsSold = 0, routineProdu
           <div aria-hidden="true" className="w-full md:hidden" />
 
           {inCartQty > 0 && product.inStock && user ? (
-            <div className="flex h-12 flex-1 items-center justify-between rounded-full bg-emerald-600 px-1.5 text-white md:w-[280px] md:flex-none">
+            <div className="flex h-12 flex-1 items-center justify-between rounded-full bg-[var(--cera-ink)] px-1.5 text-white md:w-[280px] md:flex-none">
               <button
                 type="button"
                 onClick={handleDecrement}
@@ -898,7 +898,7 @@ export default function NdCellProductPage({ product, unitsSold = 0, routineProdu
               onClick={handleAdd}
               disabled={!product.inStock || isAdding}
               className={`flex h-12 flex-1 items-center justify-center gap-2 rounded-full text-[15px] font-semibold transition-colors disabled:opacity-45 md:w-[240px] md:flex-none ${
-                justAdded ? 'bg-emerald-600 text-white' : 'bg-[var(--cera-cta)] text-white active:bg-[var(--cera-rose-ink)]'
+                justAdded ? 'bg-[var(--cera-ink)] text-white' : 'bg-[var(--cera-cta)] text-white active:bg-[var(--cera-rose-ink)]'
               }`}
             >
               {justAdded ? <Check className="h-[18px] w-[18px]" /> : <ShoppingBag className="h-[18px] w-[18px]" />}

@@ -516,7 +516,7 @@ export default function BioMesoProductPage({
                       <span
                         /* dir=ltr so the minus stays in front of the number in Arabic. */
                         dir="ltr"
-                        className="rounded-full bg-emerald-50 px-2.5 py-1 text-[12px] font-semibold text-emerald-700"
+                        className="rounded-full bg-[var(--cera-ok-bg)] px-2.5 py-1 text-[12px] font-semibold text-[var(--cera-ok)]"
                       >
                         −{pricing.discountPercentage}%
                       </span>
@@ -557,7 +557,7 @@ export default function BioMesoProductPage({
                   disabled={!product.inStock || isAdding}
                   className={`inline-flex h-[54px] min-w-[220px] flex-1 items-center justify-center gap-2.5 rounded-full px-8 text-[15px] font-semibold tracking-wide transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-45 ${
                     justAdded
-                      ? 'bg-emerald-600 text-white'
+                      ? 'bg-[var(--cera-ink)] text-white'
                       : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)] hover:shadow-[0_18px_38px_-20px_rgba(23,21,28,0.8)]'
                   }`}
                 >
@@ -581,13 +581,13 @@ export default function BioMesoProductPage({
               </div>
 
               {inCartQty > 0 ? (
-                <div className="mt-3 flex items-center gap-2 text-[13px] text-emerald-700">
+                <div className="mt-3 flex items-center gap-2 text-[13px] text-[var(--cera-ok)]">
                   <Check className="h-4 w-4" />
                   <span>{copy.inBag} · {inCartQty}</span>
                   <button
                     type="button"
                     onClick={() => router.push(getLocalizedPath('/cart', locale))}
-                    className="underline underline-offset-2 hover:text-emerald-800"
+                    className="underline underline-offset-2 hover:text-[var(--cera-ok)]"
                   >
                     {copy.viewBag}
                   </button>
@@ -1124,7 +1124,7 @@ export default function BioMesoProductPage({
                             disabled={!product.inStock || isAdding}
                             className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                               justAdded
-                                ? 'border-emerald-600 bg-emerald-600 text-white'
+                                ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                 : 'border-[var(--cera-ink)] text-[var(--cera-ink)] hover:bg-[var(--cera-cta)] hover:text-white'
                             }`}
                           >
@@ -1138,7 +1138,7 @@ export default function BioMesoProductPage({
                             disabled={!item.inStock || busy}
                             className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                               done
-                                ? 'border-emerald-600 bg-emerald-600 text-white'
+                                ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                 : 'border-[var(--cera-ink)] text-[var(--cera-ink)] hover:bg-[var(--cera-cta)] hover:text-white'
                             }`}
                           >
@@ -1158,7 +1158,7 @@ export default function BioMesoProductPage({
                             disabled={!item.inStock || busy}
                             className={`flex h-10 w-full items-center justify-center gap-1.5 rounded-full border text-[12.5px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
                               done
-                                ? 'border-emerald-600 bg-emerald-600 text-white'
+                                ? 'border-[var(--cera-ink)] bg-[var(--cera-ink)] text-white'
                                 : 'border-[var(--cera-line)] text-[var(--cera-rose-ink)] hover:border-[var(--cera-rose)]'
                             }`}
                           >
@@ -1182,7 +1182,7 @@ export default function BioMesoProductPage({
                         )}
 
                         {inBag > 0 ? (
-                          <p className="mt-2 flex items-center justify-center gap-1.5 text-[11.5px] text-emerald-700">
+                          <p className="mt-2 flex items-center justify-center gap-1.5 text-[11.5px] text-[var(--cera-ok)]">
                             <Check className="h-3.5 w-3.5 flex-none" />
                             {copy.inBag} · {inBag}
                           </p>
@@ -1264,7 +1264,7 @@ export default function BioMesoProductPage({
             disabled={!product.inStock || isAdding}
             className={`inline-flex h-[54px] min-w-[220px] items-center justify-center gap-2.5 rounded-full px-8 text-[15px] font-semibold tracking-wide transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-45 ${
               justAdded
-                ? 'bg-emerald-600 text-white'
+                ? 'bg-[var(--cera-ink)] text-white'
                 : 'bg-[var(--cera-cta)] text-white hover:bg-[var(--cera-rose-ink)] hover:shadow-[0_18px_38px_-20px_rgba(17,23,24,0.8)]'
             }`}
           >
@@ -1329,7 +1329,7 @@ export default function BioMesoProductPage({
           <div aria-hidden="true" className="w-full md:hidden" />
 
           {inCartQty > 0 && product.inStock && user ? (
-            <div className="flex h-12 flex-1 items-center justify-between rounded-full bg-emerald-600 px-1.5 text-white md:w-[280px] md:flex-none">
+            <div className="flex h-12 flex-1 items-center justify-between rounded-full bg-[var(--cera-ink)] px-1.5 text-white md:w-[280px] md:flex-none">
               <button
                 type="button"
                 onClick={handleDecrement}
@@ -1361,7 +1361,7 @@ export default function BioMesoProductPage({
               onClick={handleAdd}
               disabled={!product.inStock || isAdding}
               className={`flex h-12 flex-1 items-center justify-center gap-2 rounded-full text-[15px] font-semibold transition-colors disabled:opacity-45 md:w-[240px] md:flex-none ${
-                justAdded ? 'bg-emerald-600 text-white' : 'bg-[var(--cera-cta)] text-white active:bg-[var(--cera-rose-ink)]'
+                justAdded ? 'bg-[var(--cera-ink)] text-white' : 'bg-[var(--cera-cta)] text-white active:bg-[var(--cera-rose-ink)]'
               }`}
             >
               {justAdded ? <Check className="h-[18px] w-[18px]" /> : <ShoppingBag className="h-[18px] w-[18px]" />}

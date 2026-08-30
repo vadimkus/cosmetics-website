@@ -171,7 +171,7 @@ export const QuickReorderButton = React.memo(function QuickReorderButton({
           'w-10 h-10 rounded-full flex items-center justify-center transition-all',
           status === 'idle' && 'bg-primary-50 text-primary-600 hover:bg-primary-100 active:scale-95',
           status === 'loading' && 'bg-primary-50 text-primary-600',
-          status === 'success' && 'bg-green-50 text-green-600',
+          status === 'success' && 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]',
           status === 'partial' && 'bg-amber-50 text-amber-600',
           status === 'error' && 'bg-red-50 text-red-600',
           className
@@ -202,7 +202,7 @@ export const QuickReorderButton = React.memo(function QuickReorderButton({
           'text-sm font-medium transition-colors',
           status === 'idle' && 'text-primary-600 hover:text-primary-700',
           status === 'loading' && 'text-primary-600',
-          status === 'success' && 'text-green-600',
+          status === 'success' && 'text-[var(--cera-ok)]',
           status === 'partial' && 'text-amber-600',
           status === 'error' && 'text-red-600',
           className
@@ -248,7 +248,7 @@ export const QuickReorderButton = React.memo(function QuickReorderButton({
           'flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all',
           status === 'idle' && 'bg-primary-600 text-white hover:bg-primary-700 active:scale-[0.98]',
           status === 'loading' && 'bg-primary-600 text-white cursor-wait',
-          status === 'success' && 'bg-green-600 text-white',
+          status === 'success' && 'bg-[var(--cera-ink)] text-white',
           status === 'partial' && 'bg-amber-500 text-white',
           status === 'error' && 'bg-red-600 text-white',
           isRTL && 'flex-row-reverse'

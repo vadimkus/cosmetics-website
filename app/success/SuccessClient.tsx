@@ -369,7 +369,7 @@ function SuccessContent() {
                               </p>
                               <div dir="ltr" className={`whitespace-nowrap ${isRtl ? 'text-left' : 'text-right'}`}>
                                 {isFreeItem ? (
-                                  <span className="text-[13.5px] font-semibold text-emerald-700">
+                                  <span className="text-[13.5px] font-semibold text-[var(--cera-ok)]">
                                     {t('cart.free') || 'FREE'}
                                   </span>
                                 ) : showDiscount ? (
@@ -377,7 +377,7 @@ function SuccessContent() {
                                     <span className="block text-[11.5px] tabular-nums text-[var(--cera-muted)] line-through">
                                       AED {originalTotal.toFixed(2)}
                                     </span>
-                                    <span className="text-[14px] font-semibold tabular-nums text-emerald-700">
+                                    <span className="text-[14px] font-semibold tabular-nums text-[var(--cera-ok)]">
                                       AED {itemTotal.toFixed(2)}
                                     </span>
                                   </>
@@ -402,7 +402,7 @@ function SuccessContent() {
                                     −{BEAUTY_BOX_DISCOUNT_PCT}% Box
                                   </span>
                                 ) : discountType === 'bundle' ? (
-                                  <span dir="ltr" className="inline-block rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                                  <span dir="ltr" className="inline-block rounded-full bg-[var(--cera-ok-bg)] px-2 py-0.5 text-[10px] font-semibold text-[var(--cera-ok)]">
                                     −{itemDiscountPct}% Bundle
                                   </span>
                                 ) : discountType === 'vip' ? (
@@ -470,7 +470,7 @@ function SuccessContent() {
                             <span dir="ltr" className="tabular-nums">{afterVipSubtotal.toFixed(2)} AED</span>
                           </div>
                         )}
-                        <div className={`flex justify-between text-emerald-700 ${row}`}>
+                        <div className={`flex justify-between text-[var(--cera-ok)] ${row}`}>
                           <span>{t('cart.bundleDiscount') || 'Bundle Discount'} {orderData.bundleDiscountPercentage ? `(${orderData.bundleDiscountPercentage}%)` : ''}</span>
                           <span dir="ltr" className="tabular-nums">−{orderData.bundleDiscountAmount.toFixed(2)} AED</span>
                         </div>
@@ -492,7 +492,7 @@ function SuccessContent() {
                         <Truck className="h-4 w-4" aria-hidden="true" />
                         {t('cart.shipping') || 'Shipping'} ({orderData.customerEmirate})
                       </span>
-                      <span dir="ltr" className={`tabular-nums ${orderData.shipping > 0 ? 'text-[var(--cera-ink)]' : 'font-semibold text-emerald-700'}`}>
+                      <span dir="ltr" className={`tabular-nums ${orderData.shipping > 0 ? 'text-[var(--cera-ink)]' : 'font-semibold text-[var(--cera-ok)]'}`}>
                         {orderData.shipping > 0 ? `${orderData.shipping.toFixed(2)} AED` : (t('cart.free') || 'Free')}
                       </span>
                     </div>
@@ -520,7 +520,7 @@ function SuccessContent() {
                     </div>
 
                     {hasAnySavings && (
-                      <p dir="ltr" className="rounded-xl bg-emerald-50 px-3 py-2 text-center text-[13.5px] font-semibold text-emerald-700">
+                      <p dir="ltr" className="rounded-xl bg-[var(--cera-ok-bg)] px-3 py-2 text-center text-[13.5px] font-semibold text-[var(--cera-ok)]">
                         {t('cart.youSaved') || 'You saved'}: {totalSaved.toFixed(2)} AED
                       </p>
                     )}

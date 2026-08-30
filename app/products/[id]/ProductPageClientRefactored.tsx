@@ -339,7 +339,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               aria-label={t('product.shareProduct') || 'Share'}
             >
               {shareStatus === 'copied' ? (
-                <Check className="h-5 w-5 text-green-600" />
+                <Check className="h-5 w-5 text-[var(--cera-ok)]" />
               ) : (
                 <Share2 className="h-5 w-5" />
               )}
@@ -375,7 +375,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               onClick={handleShare}
               className={`md:hidden p-2 rounded-full flex-shrink-0 transition-colors ${
                 shareStatus === 'copied'
-                  ? 'text-green-600 bg-green-50'
+                  ? 'text-[var(--cera-ok)] bg-[var(--cera-ok-bg)]'
                   : 'text-[var(--cera-muted)] hover:text-[var(--cera-rose-ink)] hover:bg-[var(--cera-cream-deep)]'
               }`}
               aria-label={t('product.shareProduct') || 'Share'}
@@ -467,7 +467,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                   onClick={handleShare}
                   className={`p-2 mt-1 rounded-full flex-shrink-0 transition-colors ${
                     shareStatus === 'copied'
-                      ? 'text-green-600 bg-green-50'
+                      ? 'text-[var(--cera-ok)] bg-[var(--cera-ok-bg)]'
                       : 'text-[var(--cera-muted)] hover:text-[var(--cera-rose-ink)] hover:bg-[var(--cera-cream-deep)]'
                   }`}
                   aria-label={t('product.shareProduct') || 'Share'}
@@ -1575,7 +1575,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
                 href={`https://wa.me/971585487665?text=${encodeURIComponent(`Hi, I'm interested in ${product.name}. Could you please provide pricing information?`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 py-3 rounded-lg font-semibold bg-green-500 text-white hover:bg-green-600 active:bg-green-700 flex items-center justify-center gap-2 touch-manipulation min-h-[44px]"
+                className="flex-1 py-3 rounded-lg font-semibold bg-green-500 text-white hover:bg-[var(--cera-ink)] active:bg-[var(--cera-ink)] flex items-center justify-center gap-2 touch-manipulation min-h-[44px]"
                 style={{ touchAction: 'manipulation' }}
               >
                 <MessageCircle className={`h-5 w-5 flex-shrink-0 ${dir === 'rtl' ? 'order-last' : ''}`} />
@@ -1585,7 +1585,7 @@ export default function ProductPageClientRefactored({ product, unitsSold = 0 }: 
               /* In-cart stepper: [-] [In Bag (N)] [+] - adjusts the cart line
                  directly, same pattern as the mobile app and the grid cards. */
               <div
-                className={`flex-1 flex items-center justify-between gap-2 rounded-lg font-semibold min-h-[44px] px-1.5 py-1 bg-green-600 text-white ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                className={`flex-1 flex items-center justify-between gap-2 rounded-lg font-semibold min-h-[44px] px-1.5 py-1 bg-[var(--cera-ink)] text-white ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
                 role="group"
                 aria-label={`${isAppLikeMode ? t('product.inBag') : t('product.inCart')} (${inCartQty}) - ${product.name}`}
                 style={{ touchAction: 'manipulation' }}

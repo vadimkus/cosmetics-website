@@ -376,7 +376,7 @@ export default function ProductOptionDialog({
                   {formatAed(pricing.displayPrice)}
                 </span>
                 {pricing.discountPercentage > 0 ? (
-                  <span className="rounded-full bg-[var(--status-green-bg)] px-2 py-0.5 text-[10px] font-bold text-[var(--status-green-deep)]">
+                  <span className="rounded-full bg-[var(--cera-ok-bg)] px-2 py-0.5 text-[10px] font-bold text-[var(--cera-ok)]">
                     {Math.round(pricing.discountPercentage)}% {t('product.off')}
                   </span>
                 ) : null}

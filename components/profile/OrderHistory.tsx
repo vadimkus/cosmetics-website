@@ -388,7 +388,7 @@ export default function OrderHistory({ orders, loadingOrders, onCancelOrder }: O
                         disabled={generatingInvoiceId === order.id}
                         className={`inline-flex items-center gap-1.5 md:gap-2 px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm rounded-lg transition-colors font-medium min-h-[36px] md:min-h-[44px] touch-manipulation ${
                           invoiceSuccess === order.id 
-                            ? 'bg-green-100 text-green-700 border border-green-200'
+                            ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)] border border-[var(--cera-ok-line)]'
                             : invoiceError === order.id
                             ? 'bg-red-100 text-red-700 border border-red-200'
                             : 'bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200'

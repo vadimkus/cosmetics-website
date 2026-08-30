@@ -653,17 +653,17 @@ export default function ProfilePageRefactored() {
           <div
             key={toast.id}
             className={`flex items-start gap-3 p-4 rounded-xl shadow-lg backdrop-blur-sm transition-all duration-300 animate-slide-in ${
-              toast.type === 'success' ? 'bg-green-50/95 border border-green-200' :
+              toast.type === 'success' ? 'bg-green-50/95 border border-[var(--cera-ok-line)]' :
               toast.type === 'error' ? 'bg-red-50/95 border border-red-200' :
               'bg-yellow-50/95 border border-yellow-200'
             }`}
           >
-            {toast.type === 'success' && <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />}
+            {toast.type === 'success' && <CheckCircle className="h-5 w-5 text-[var(--cera-ok)] flex-shrink-0 mt-0.5" />}
             {toast.type === 'error' && <XCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />}
             {toast.type === 'warning' && <AlertCircle className="h-5 w-5 text-yellow-600 flex-shrink-0 mt-0.5" />}
             
             <p className={`text-sm flex-1 ${
-              toast.type === 'success' ? 'text-green-800' :
+              toast.type === 'success' ? 'text-[var(--cera-ok)]' :
               toast.type === 'error' ? 'text-red-800' :
               'text-yellow-800'
             }`}>

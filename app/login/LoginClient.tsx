@@ -659,9 +659,9 @@ export default function LoginClient() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 {!isLoginMode && normalizedPromo && (
-                  <div className="rounded-xl border border-emerald-200 bg-emerald-50 px-3.5 py-2.5">
-                    <p className="text-[12.5px] font-semibold text-emerald-800">{t('errors.promoApplied')}</p>
-                    <p dir="ltr" className="text-[12.5px] text-emerald-700">{normalizedPromo}</p>
+                  <div className="rounded-xl border border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)] px-3.5 py-2.5">
+                    <p className="text-[12.5px] font-semibold text-[var(--cera-ok)]">{t('errors.promoApplied')}</p>
+                    <p dir="ltr" className="text-[12.5px] text-[var(--cera-ok)]">{normalizedPromo}</p>
                   </div>
                 )}
 

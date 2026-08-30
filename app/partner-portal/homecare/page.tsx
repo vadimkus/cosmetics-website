@@ -279,7 +279,7 @@ function HomecareScriptsInner() {
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 py-6">
         {notice && (
-          <div className="flex items-center gap-2 rounded-xl bg-green-50 border border-green-200 text-green-800 px-4 py-3 mb-5">
+          <div className="flex items-center gap-2 rounded-xl bg-[var(--cera-ok-bg)] border border-[var(--cera-ok-line)] text-[var(--cera-ok)] px-4 py-3 mb-5">
             <Check className="w-4 h-4" /> <span className="text-sm">{notice}</span>
           </div>
         )}
@@ -289,7 +289,7 @@ function HomecareScriptsInner() {
 
         <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6">
           <div className="rounded-2xl bg-white border border-[var(--cera-line)] p-4 sm:p-5 shadow-sm">
-            <Gift className="w-5 h-5 text-green-600 mb-2" />
+            <Gift className="w-5 h-5 text-[var(--cera-ok)] mb-2" />
             <p className="text-2xl font-bold text-[var(--cera-ink)]">{Number(data?.points.available || 0).toFixed(2)}</p>
             <p className="text-xs text-[var(--cera-muted)]">{t('Available Clinic Points', 'Доступные баллы клиники', 'نقاط العيادة المتاحة')}</p>
           </div>
@@ -319,7 +319,7 @@ function HomecareScriptsInner() {
                       {transaction.status.toLowerCase()}
                     </p>
                   </div>
-                  <span className={`shrink-0 text-sm font-bold ${transaction.points >= 0 ? 'text-green-700' : 'text-[var(--cera-rose-ink)]'}`}>
+                  <span className={`shrink-0 text-sm font-bold ${transaction.points >= 0 ? 'text-[var(--cera-ok)]' : 'text-[var(--cera-rose-ink)]'}`}>
                     {transaction.points >= 0 ? '+' : ''}{Number(transaction.points).toFixed(2)}
                   </span>
                 </div>
@@ -427,7 +427,7 @@ function HomecareScriptsInner() {
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
                           <h3 className="cera-serif  text-[var(--cera-ink)]">{script.patientLabel || t('Patient recommendation', 'Рекомендация пациенту', 'توصية المريض')}</h3>
-                          <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${active ? 'bg-green-50 text-green-700' : 'bg-[var(--cera-cream-deep)] text-[var(--cera-muted)]'}`}>
+                          <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${active ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]' : 'bg-[var(--cera-cream-deep)] text-[var(--cera-muted)]'}`}>
                             {script.effectiveStatus}
                           </span>
                         </div>
@@ -442,7 +442,7 @@ function HomecareScriptsInner() {
                     </div>
                     {active && (
                       <div className="grid grid-cols-2 sm:flex gap-2 mt-4 pt-4 border-t border-[var(--cera-line)]">
-                        <button onClick={() => whatsapp(script)} className="inline-flex items-center justify-center gap-2 rounded-lg bg-green-600 px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-green-700 hover:shadow-lg hover:shadow-green-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">
+                        <button onClick={() => whatsapp(script)} className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--cera-ink)] px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-ink)] hover:shadow-lg hover:shadow-green-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-green-500 focus-visible:ring-offset-2">
                           <MessageCircle className="w-4 h-4" /> WhatsApp
                         </button>
                         <button onClick={() => shareScript(script)} className="inline-flex items-center justify-center gap-2 rounded-lg bg-[var(--cera-cta)] px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[var(--cera-rose-ink)] hover:shadow-lg hover:shadow-red-600/20 active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)] focus-visible:ring-offset-2">

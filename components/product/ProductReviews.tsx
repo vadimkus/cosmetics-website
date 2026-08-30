@@ -317,7 +317,7 @@ export default function ProductReviews({ productId, variant = 'default' }: Produ
           role="status"
           className={`mt-5 flex items-start gap-2.5 rounded-2xl border p-4 text-sm ${
             notice.kind === 'success'
-              ? 'border-emerald-200 bg-emerald-50 text-emerald-800'
+              ? 'border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]'
               : 'border-red-200 bg-red-50 text-red-700'
           }`}
         >

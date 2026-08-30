@@ -129,7 +129,7 @@ export default function ProductQuantityCart({
              line directly - same pattern as the product-grid cards and the
              mobile app. */
           <div
-            className="flex-1 flex items-center justify-between gap-2 rounded-lg font-medium min-h-[44px] px-1.5 py-1 bg-[var(--status-green-deep)] text-white transition-colors"
+            className="flex-1 flex items-center justify-between gap-2 rounded-lg font-medium min-h-[44px] px-1.5 py-1 bg-[var(--cera-ink)] text-white transition-colors"
             role="group"
             aria-label={`${t('product.inBag')} (${inCartQty}) - ${productName}`}
           >

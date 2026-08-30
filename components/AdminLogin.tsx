@@ -115,7 +115,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
   }
 
   // const getSecurityLevel = () => {
-  //   if (attempts === 0) return { level: "🟢 Low", color: "text-green-600" }
+  //   if (attempts === 0) return { level: "🟢 Low", color: "text-[var(--cera-ok)]" }
   //   if (attempts < 3) return { level: "🟡 Medium", color: "text-yellow-600" }
   //   if (attempts < 5) return { level: "🟠 High", color: "text-orange-600" }
   //   return { level: "🔴 Maximum", color: "text-red-600" }
@@ -142,8 +142,8 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Email Field */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-green-400 font-mono">
-                <Database className="h-4 w-4 text-green-400" />
+              <label className="flex items-center gap-2 text-sm font-medium text-[var(--cera-ok)] font-mono">
+                <Database className="h-4 w-4 text-[var(--cera-ok)]" />
                 &gt; USER_ID
               </label>
               <div className="relative">
@@ -152,17 +152,17 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 pl-12 border border-green-500/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-black/50 text-green-400 font-mono placeholder-green-600"
+                  className="w-full px-4 py-3 pl-12 border border-green-500/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-black/50 text-[var(--cera-ok)] font-mono placeholder-green-600"
                   placeholder="admin@genosys.ae"
                 />
-                <Database className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-green-400" />
+                <Database className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[var(--cera-ok)]" />
               </div>
             </div>
 
             {/* Password Field */}
             <div className="space-y-2">
-              <label className="flex items-center gap-2 text-sm font-medium text-green-400 font-mono">
-                <Lock className="h-4 w-4 text-green-400" />
+              <label className="flex items-center gap-2 text-sm font-medium text-[var(--cera-ok)] font-mono">
+                <Lock className="h-4 w-4 text-[var(--cera-ok)]" />
                 &gt; ACCESS_KEY
               </label>
               <div className="relative">
@@ -171,14 +171,14 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pl-12 pr-12 border border-green-500/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-black/50 text-green-400 font-mono placeholder-green-600"
+                  className="w-full px-4 py-3 pl-12 pr-12 border border-green-500/50 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 bg-black/50 text-[var(--cera-ok)] font-mono placeholder-green-600"
                   placeholder="Enter quantum key..."
                 />
-                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-green-400" />
+                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-[var(--cera-ok)]" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-green-400 hover:text-green-300 transition-colors"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 text-[var(--cera-ok)] hover:text-[var(--cera-ok)] transition-colors"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -197,7 +197,7 @@ export default function AdminLogin({ onLogin }: AdminLoginProps) {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-gradient-to-r from-green-600 to-green-800 text-white font-semibold rounded-lg hover:from-green-700 hover:to-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 active:scale-95 font-mono border border-green-500/50"
+              className="w-full flex items-center justify-center gap-2 py-3 px-6 bg-gradient-to-r from-[var(--cera-cta)] to-[var(--cera-ink)] text-white font-semibold rounded-lg hover:from-[var(--cera-rose-ink)] hover:to-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-105 active:scale-95 font-mono border border-green-500/50"
             >
               {loading ? (
                 <>

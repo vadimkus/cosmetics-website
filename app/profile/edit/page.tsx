@@ -405,16 +405,16 @@ export default function EditProfilePage() {
             className={`
               pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-xl shadow-lg
               transform transition-all duration-300 animate-spring-in
-              ${toast.type === 'success' ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}
+              ${toast.type === 'success' ? 'bg-[var(--cera-ok-bg)] border border-[var(--cera-ok-line)]' : 'bg-red-50 border border-red-200'}
             `}
             onClick={() => removeToast(toast.id)}
           >
             {toast.type === 'success' ? (
-              <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
+              <CheckCircle className="w-5 h-5 text-[var(--cera-ok)] flex-shrink-0" />
             ) : (
               <AlertCircle className="w-5 h-5 text-[var(--cera-rose-ink)] flex-shrink-0" />
             )}
-            <span className={`text-sm font-medium ${toast.type === 'success' ? 'text-green-800' : 'text-red-800'}`}>
+            <span className={`text-sm font-medium ${toast.type === 'success' ? 'text-[var(--cera-ok)]' : 'text-red-800'}`}>
               {toast.message}
             </span>
           </div>

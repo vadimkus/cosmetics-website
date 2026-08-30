@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
         <h4 class="text-xl font-semibold mb-3">🔗 Link by Stripe</h4>
         <p class="text-gray-700">Save your payment information securely with Link and enjoy lightning-fast checkout across all your favorite stores. One-click payments, maximum security.</p>
       </div>
-      <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+      <div class="bg-gradient-to-br from-[var(--cera-ok-bg)] to-[var(--cera-ok-bg)] p-6 rounded-lg">
         <h4 class="text-xl font-semibold mb-3">💳 Credit & Debit Cards</h4>
         <p class="text-gray-700">All major credit and debit cards are accepted, including Visa, Mastercard, American Express, and local UAE banking cards. Your transactions are protected by bank-level security.</p>
       </div>
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
         <h4 class="text-xl font-semibold mb-3">🔗 Link от Stripe</h4>
         <p class="text-gray-700">Сохраните свою платёжную информацию безопасно с Link и наслаждайтесь молниеносной оплатой во всех ваших любимых магазинах. Оплата одним кликом, максимальная безопасность.</p>
       </div>
-      <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+      <div class="bg-gradient-to-br from-[var(--cera-ok-bg)] to-[var(--cera-ok-bg)] p-6 rounded-lg">
         <h4 class="text-xl font-semibold mb-3">💳 Кредитные и дебетовые карты</h4>
         <p class="text-gray-700">Принимаются все основные кредитные и дебетовые карты, включая Visa, Mastercard, American Express и местные банковские карты ОАЭ. Ваши транзакции защищены банковским уровнем безопасности.</p>
       </div>
@@ -120,7 +120,7 @@ export async function POST(request: NextRequest) {
         <h4 class="text-xl font-semibold mb-3">🔗 Link من Stripe</h4>
         <p class="text-gray-700">احفظ معلومات الدفع الخاصة بك بأمان مع Link واستمتع بتجربة دفع سريعة البرق في جميع متاجرك المفضلة. دفع بنقرة واحدة، أمان أقصى.</p>
       </div>
-      <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+      <div class="bg-gradient-to-br from-[var(--cera-ok-bg)] to-[var(--cera-ok-bg)] p-6 rounded-lg">
         <h4 class="text-xl font-semibold mb-3">💳 البطاقات الائتمانية والمدينة</h4>
         <p class="text-gray-700">جميع البطاقات الائتمانية والمدينة الرئيسية مقبولة، بما في ذلك Visa و Mastercard و American Express وبطاقات البنوك المحلية في دولة الإمارات. معاملاتك محمية بأمان مصرفي المستوى.</p>
       </div>

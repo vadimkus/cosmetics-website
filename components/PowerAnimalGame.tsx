@@ -94,7 +94,7 @@ const POWER_ANIMALS = [
     traits: ['Glamorous', 'Confident', 'Show-stopper'],
     skinRoutine: 'Display your feathers for 4 hours daily - confidence is the best serum. Apply iridescent shimmer everywhere. Strut around the garden - posture prevents wrinkles. Eat only the finest grains.',
     habitat: 'Royal Gardens',
-    color: 'from-teal-500 to-emerald-600',
+    color: 'from-teal-500 to-[var(--cera-rose-ink)]',
     bgColor: 'bg-teal-50',
   },
   {

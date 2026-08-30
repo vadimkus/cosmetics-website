@@ -120,8 +120,8 @@ export default function ConcernStickyBar({ locale = 'en' }: ConcernStickyBarProp
             </div>
             {canSee && savings > 0 && (
               <div className="mt-3 pt-2 border-t border-[var(--cera-line)] flex items-center justify-between text-sm">
-                <span className="text-green-600 font-medium">{t.youSave}</span>
-                <span className="text-green-600 font-semibold">{t.aed} {savings.toLocaleString()}</span>
+                <span className="text-[var(--cera-ok)] font-medium">{t.youSave}</span>
+                <span className="text-[var(--cera-ok)] font-semibold">{t.aed} {savings.toLocaleString()}</span>
               </div>
             )}
             {canSee && discountTotal < 200 && (
@@ -154,7 +154,7 @@ export default function ConcernStickyBar({ locale = 'en' }: ConcernStickyBarProp
                     <span className="text-xs text-[var(--cera-muted)] line-through">
                       {retailTotal.toLocaleString()}
                     </span>
-                    <span className="text-[10px] bg-green-100 text-green-700 px-1.5 py-0.5 rounded-full font-medium">
+                    <span className="text-[10px] bg-[var(--cera-ok-bg)] text-[var(--cera-ok)] px-1.5 py-0.5 rounded-full font-medium">
                       -{Math.round((savings / retailTotal) * 100)}%
                     </span>
                   </div>

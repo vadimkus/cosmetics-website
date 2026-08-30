@@ -63,7 +63,7 @@ export default function ProductPriceDisplay({ product, basePrice, user, selected
                       ) : null}
                     </div>
                     <div className={`w-full flex items-center justify-center gap-2 ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
-                      <span className="text-xs md:text-sm text-[var(--status-green-deep)] font-medium">
+                      <span className="text-xs md:text-sm text-[var(--cera-ok)] font-medium">
                         {pricing.discountPercentage}% {t('product.off')}
                         {pricing.discountLabel && ` (${pricing.discountLabel})`}
                       </span>

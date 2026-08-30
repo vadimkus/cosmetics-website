@@ -65,7 +65,7 @@ function StepIndicator({
               ${isActive 
                 ? 'bg-[var(--cera-cta)] text-white shadow-lg scale-105' 
                 : hasItem 
-                  ? 'bg-green-50 text-green-700 border border-green-200' 
+                  ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)] border border-[var(--cera-ok-line)]' 
                   : isPast
                     ? 'bg-[var(--cera-cream-deep)] text-[var(--cera-muted)]'
                     : 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)] hover:bg-[var(--cera-cream-deep)]'
@@ -357,7 +357,7 @@ function BundleSummary({
                 </p>
                 {/* Bundle discount badge per item */}
                 {showPrices && hasDiscount && (
-                  <span className="inline-flex items-center gap-1 text-[10px] text-green-700 font-medium mt-0.5">
+                  <span className="inline-flex items-center gap-1 text-[10px] text-[var(--cera-ok)] font-medium mt-0.5">
                     <Sparkles className="w-2.5 h-2.5" />
                     -{linePricing.discountPercentage}%
                   </span>
@@ -415,14 +415,14 @@ function BundleSummary({
                 {/* Discount row - label follows the discount that actually won (bundle vs VIP) */}
                 {pricing.discountPercent > 0 && (
                   <div className="flex justify-between text-sm">
-                    <span className="text-green-700">
+                    <span className="text-[var(--cera-ok)]">
                       {(pricing.appliedDiscountType === 'user' || pricing.appliedDiscountType === 'black_friday')
                         ? t('bundleBuilder.vipDiscount')
                         : pricing.appliedDiscountType === 'mixed'
                           ? t('bundleBuilder.discountApplied')
                           : t('bundleBuilder.discount')} ({pricing.discountPercent}%)
                     </span>
-                    <span className="text-green-700">-{pricing.discountAmount.toFixed(2)} {t('common.aed')}</span>
+                    <span className="text-[var(--cera-ok)]">-{pricing.discountAmount.toFixed(2)} {t('common.aed')}</span>
                   </div>
                 )}
                 
@@ -453,7 +453,7 @@ function BundleSummary({
                 {/* Total Savings Badge */}
                 {totalSavings > 0.01 && (
                   <div className="text-center pt-1">
-                    <span className="inline-block bg-green-100 text-green-700 text-xs font-medium px-3 py-1 rounded-full">
+                    <span className="inline-block bg-[var(--cera-ok-bg)] text-[var(--cera-ok)] text-xs font-medium px-3 py-1 rounded-full">
                       {t('bundleBuilder.youSave', { amount: totalSavings.toFixed(2) })}
                     </span>
                   </div>
@@ -758,7 +758,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
             <div className="h-1.5 bg-[var(--cera-cream-deep)] rounded-full overflow-hidden">
               {/* Progress Fill - animate to current discount level */}
               <motion.div 
-                className="h-full bg-gradient-to-r from-green-400 to-green-600 rounded-full"
+                className="h-full bg-gradient-to-r from-[var(--cera-ok)] to-[var(--cera-rose-ink)] rounded-full"
                 initial={{ width: 0 }}
                 animate={{ 
                   width: `${Math.min((items.length / 5) * 100, 100)}%` 
@@ -800,7 +800,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                     key={tier.items}
                     className={`transition-colors duration-300 ${
                       items.length >= tier.items 
-                        ? 'text-green-700 font-medium' 
+                        ? 'text-[var(--cera-ok)] font-medium' 
                         : 'text-[var(--cera-muted)]'
                     }`}
                     style={{ 
@@ -819,12 +819,12 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
               <div className="absolute -top-6 right-0">
                 <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full ${
                   (pricing.bundleDiscountPercent ?? 0) > 0 
-                    ? 'bg-green-100 text-green-700' 
+                    ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]' 
                     : 'bg-[var(--cera-cream-deep)] text-[var(--cera-body)]'
                 }`}>
                   {items.length} {items.length === 1 ? 'item' : 'items'}
                   {(pricing.bundleDiscountPercent ?? 0) > 0 && (
-                    <span className="text-green-700">• {pricing.bundleDiscountPercent}% off</span>
+                    <span className="text-[var(--cera-ok)]">• {pricing.bundleDiscountPercent}% off</span>
                   )}
                 </span>
               </div>
@@ -959,7 +959,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                 <div className="flex items-center gap-2">
                   <span className="font-medium">{items.length} {t('bundleBuilder.items')}</span>
                   {showPrices && (pricing.bundleDiscountPercent ?? 0) > 0 && (
-                    <span className="text-xs text-green-700 font-medium">
+                    <span className="text-xs text-[var(--cera-ok)] font-medium">
                       {pricing.bundleDiscountPercent}% {t('bundleBuilder.off')}
                     </span>
                   )}
@@ -970,7 +970,7 @@ export default function BundleBuilderClient({ products }: BundleBuilderClientPro
                   const totalSavings = originalRetailTotal - pricing.total
                   if (totalSavings > 0.01) {
                     return (
-                      <span className="text-[10px] text-green-700">
+                      <span className="text-[10px] text-[var(--cera-ok)]">
                         {t('bundleBuilder.youSave', { amount: totalSavings.toFixed(0) })}
                       </span>
                     )

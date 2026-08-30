@@ -11,12 +11,12 @@ interface PartnerCardProps {
 
 const themeClasses = {
   emerald: {
-    bg: "from-emerald-50 to-teal-50",
-    border: "border-emerald-200",
-    icon: "text-emerald-600",
-    button: "bg-emerald-600 hover:bg-emerald-700",
-    buttonBorder: "border-emerald-600 text-emerald-600 hover:bg-emerald-50",
-    badge: "bg-emerald-100 text-emerald-700"
+    bg: "from-[var(--cera-ok-bg)] to-teal-50",
+    border: "border-[var(--cera-ok-line)]",
+    icon: "text-[var(--cera-ok)]",
+    button: "bg-[var(--cera-ink)] hover:bg-[var(--cera-ink)]",
+    buttonBorder: "border-[var(--cera-ink)] text-[var(--cera-ok)] hover:bg-[var(--cera-ok-bg)]",
+    badge: "bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]"
   },
   pink: {
     bg: "from-pink-50 to-rose-50",

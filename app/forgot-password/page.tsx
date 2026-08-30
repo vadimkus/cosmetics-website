@@ -94,7 +94,7 @@ export default function ForgotPasswordClient() {
     return shell(
       <div className="text-center">
         {/* Green is kept here on purpose: it is the success state, not brand accent. */}
-        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-green-200 bg-green-50 text-green-700">
+        <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full border border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]">
           <CheckCircle2 className="h-7 w-7" aria-hidden="true" />
         </span>
         <h1 className="cera-serif mt-6 text-[26px] leading-tight text-[var(--cera-ink)] md:text-[30px]">

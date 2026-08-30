@@ -274,7 +274,7 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
                 <span className="px-2.5 py-1 bg-white rounded-md text-xs font-semibold text-[var(--cera-body)] border border-[var(--cera-line)]">Google Pay</span>
               </div>
               <div className={`flex items-center gap-2 text-sm text-[var(--cera-body)] ${isRTL ? 'flex-row-reverse' : ''}`}>
-                <Check className="w-4 h-4 text-green-600 flex-shrink-0" />
+                <Check className="w-4 h-4 text-[var(--cera-ok)] flex-shrink-0" />
                 <span>{translations.cashOnDelivery}</span>
               </div>
             </div>
@@ -310,7 +310,7 @@ export function BillingContent({ embedded = false }: BillingPageProps) {
         >
           <div
             className={`flex items-center gap-2 px-4 py-3 rounded-full shadow-lg text-sm font-medium text-white ${
-              toast.type === 'success' ? 'bg-[var(--status-green)]' : 'bg-[var(--status-red)]'
+              toast.type === 'success' ? 'bg-[var(--cera-ink)]' : 'bg-[var(--status-red)]'
             }`}
           >
             {toast.type === 'success' ? (

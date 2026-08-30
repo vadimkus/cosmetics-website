@@ -120,7 +120,7 @@ function ShareContent() {
             >
               {copied ? (
                 <>
-                  <Check className="w-5 h-5 text-green-600" />
+                  <Check className="w-5 h-5 text-[var(--cera-ok)]" />
                   {t('share.copied')}
                 </>
               ) : (

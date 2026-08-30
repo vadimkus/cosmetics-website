@@ -73,7 +73,7 @@ export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
                   Checking install status...
                 </div>
               ) : isInstalled ? (
-                <div className="flex items-center gap-2 text-green-600 text-sm">
+                <div className="flex items-center gap-2 text-[var(--cera-ok)] text-sm">
                   <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                   App is installed
                 </div>
@@ -157,7 +157,7 @@ export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
               ) : isShareSupported ? (
                 <button
                   onClick={handleShareTest}
-                  className="px-3 py-1.5 bg-green-500 text-white text-sm rounded-lg hover:bg-green-600 transition-colors flex items-center gap-2"
+                  className="px-3 py-1.5 bg-green-500 text-white text-sm rounded-lg hover:bg-[var(--cera-ink)] transition-colors flex items-center gap-2"
                 >
                   <Share2 className="w-3 h-3" />
                   Share Page
@@ -181,11 +181,11 @@ export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
         <div className="space-y-2 text-sm">
           <div className="flex justify-between">
             <span>Service Worker:</span>
-            <span className="text-green-600">✓ Active</span>
+            <span className="text-[var(--cera-ok)]">✓ Active</span>
           </div>
           <div className="flex justify-between">
             <span>Offline Support:</span>
-            <span className="text-green-600">✓ Available</span>
+            <span className="text-[var(--cera-ok)]">✓ Available</span>
           </div>
           <div className="flex justify-between">
             <span>Install Prompt:</span>
@@ -195,7 +195,7 @@ export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
                 Checking...
               </span>
             ) : (
-              <span className={isInstallable ? 'text-green-600' : 'text-gray-500'}>
+              <span className={isInstallable ? 'text-[var(--cera-ok)]' : 'text-gray-500'}>
                 {isInstallable ? '✓ Ready' : '⊝ Not available'}
               </span>
             )}
@@ -208,7 +208,7 @@ export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
                 Checking...
               </span>
             ) : (
-              <span className={isBadgeSupported ? 'text-green-600' : 'text-gray-500'}>
+              <span className={isBadgeSupported ? 'text-[var(--cera-ok)]' : 'text-gray-500'}>
                 {isBadgeSupported ? '✓ Supported' : '⊝ Not supported'}
               </span>
             )}
@@ -221,7 +221,7 @@ export default function PWAFeaturesDemo({ className }: PWAFeaturesDemoProps) {
                 Checking...
               </span>
             ) : (
-              <span className={isShareSupported ? 'text-green-600' : 'text-gray-500'}>
+              <span className={isShareSupported ? 'text-[var(--cera-ok)]' : 'text-gray-500'}>
                 {isShareSupported ? '✓ Supported' : '⊝ Fallback only'}
               </span>
             )}

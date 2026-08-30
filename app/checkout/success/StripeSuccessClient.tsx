@@ -200,10 +200,10 @@ export default function StripeSuccessClient() {
         {/* Success Header */}
         <div className="text-center mb-8">
           <div className={`w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center ${
-            isPaymentSuccessful ? 'border border-[var(--status-green-line)] bg-[var(--status-green-bg)]' : 'border border-[var(--status-orange-line)] bg-[var(--status-orange-bg)]'
+            isPaymentSuccessful ? 'border border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)]' : 'border border-[var(--status-orange-line)] bg-[var(--status-orange-bg)]'
           }`}>
             {isPaymentSuccessful ? (
-              <CheckCircle className="h-10 w-10 text-[var(--status-green-deep)]" />
+              <CheckCircle className="h-10 w-10 text-[var(--cera-ok)]" />
             ) : (
               <RefreshCw className="h-10 w-10 text-[var(--status-orange)]" />
             )}

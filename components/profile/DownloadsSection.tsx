@@ -12,18 +12,18 @@ export default function DownloadsSection() {
       {/* Training Documents Section */}
       <div className="mb-8">
         <h3 className="text-xl font-semibold text-[var(--cera-ink)] mb-6 flex items-center justify-center gap-2">
-          <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
-            <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="w-8 h-8 bg-[var(--cera-ok-bg)] rounded-lg flex items-center justify-center">
+            <svg className="w-4 h-4 text-[var(--cera-ok)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
             </svg>
           </div>
           Training documents
         </h3>
         <div className="space-y-2">
-          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-[var(--cera-ok-line)] hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
-                <Download className="h-5 w-5 text-green-600" />
+              <div className="w-10 h-10 bg-[var(--cera-ok-bg)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-[var(--cera-ok-bg)] transition-colors">
+                <Download className="h-5 w-5 text-[var(--cera-ok)]" />
               </div>
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
@@ -37,7 +37,7 @@ export default function DownloadsSection() {
                 href="https://genosys.ae/documents/GENOSYS%20Catalogue_2026.pdf"
                 filename="Product Catalogue 2026"
                 external={true}
-                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-[var(--cera-cta)] to-[var(--cera-rose-ink)] text-white rounded-md hover:from-[var(--cera-rose-ink)] hover:to-[var(--cera-ink)] transition-colors text-xs font-medium flex-shrink-0"
               >
                 <Download className="h-3 w-3 mr-1" />
                 View PDF
@@ -45,10 +45,10 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-[var(--cera-ok-line)] hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
-                <Download className="h-5 w-5 text-green-600" />
+              <div className="w-10 h-10 bg-[var(--cera-ok-bg)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-[var(--cera-ok-bg)] transition-colors">
+                <Download className="h-5 w-5 text-[var(--cera-ok)]" />
               </div>
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
@@ -62,7 +62,7 @@ export default function DownloadsSection() {
                 href="https://genosys.ae/documents/Genosys-Home-Care-Guide.pdf"
                 filename="Home Care Guide 2026"
                 external={true}
-                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-[var(--cera-cta)] to-[var(--cera-rose-ink)] text-white rounded-md hover:from-[var(--cera-rose-ink)] hover:to-[var(--cera-ink)] transition-colors text-xs font-medium flex-shrink-0"
               >
                 <Download className="h-3 w-3 mr-1" />
                 View PDF
@@ -70,10 +70,10 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-[var(--cera-ok-line)] hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
-                <Download className="h-5 w-5 text-green-600" />
+              <div className="w-10 h-10 bg-[var(--cera-ok-bg)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-[var(--cera-ok-bg)] transition-colors">
+                <Download className="h-5 w-5 text-[var(--cera-ok)]" />
               </div>
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
@@ -87,7 +87,7 @@ export default function DownloadsSection() {
                 href="https://genosys.ae/documents/Genosys-Professional-Manual.pdf"
                 filename="Professional Manual 2026"
                 external={true}
-                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-[var(--cera-cta)] to-[var(--cera-rose-ink)] text-white rounded-md hover:from-[var(--cera-rose-ink)] hover:to-[var(--cera-ink)] transition-colors text-xs font-medium flex-shrink-0"
               >
                 <Download className="h-3 w-3 mr-1" />
                 View PDF
@@ -95,10 +95,10 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-[var(--cera-ok-line)] hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
-                <Download className="h-5 w-5 text-green-600" />
+              <div className="w-10 h-10 bg-[var(--cera-ok-bg)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-[var(--cera-ok-bg)] transition-colors">
+                <Download className="h-5 w-5 text-[var(--cera-ok)]" />
               </div>
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
@@ -112,7 +112,7 @@ export default function DownloadsSection() {
                 href="/documents/PPT/GENOSYS%20FACIAL%20TREATMENT_Homecare_2025.pdf"
                 filename="Facial Treatment Homecare 2026"
                 external={true}
-                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-[var(--cera-cta)] to-[var(--cera-rose-ink)] text-white rounded-md hover:from-[var(--cera-rose-ink)] hover:to-[var(--cera-ink)] transition-colors text-xs font-medium flex-shrink-0"
               >
                 <Download className="h-3 w-3 mr-1" />
                 View PDF
@@ -120,10 +120,10 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-[var(--cera-ok-line)] hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
-                <Download className="h-5 w-5 text-green-600" />
+              <div className="w-10 h-10 bg-[var(--cera-ok-bg)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-[var(--cera-ok-bg)] transition-colors">
+                <Download className="h-5 w-5 text-[var(--cera-ok)]" />
               </div>
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
@@ -137,7 +137,7 @@ export default function DownloadsSection() {
                 href="/documents/PPT/GENOSYS%20FACIAL%20TREATMENT_Professional_2025.pdf"
                 filename="Facial Treatment Professional 2026"
                 external={true}
-                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-[var(--cera-cta)] to-[var(--cera-rose-ink)] text-white rounded-md hover:from-[var(--cera-rose-ink)] hover:to-[var(--cera-ink)] transition-colors text-xs font-medium flex-shrink-0"
               >
                 <Download className="h-3 w-3 mr-1" />
                 View PDF
@@ -145,10 +145,10 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-[var(--cera-ok-line)] hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
-                <Download className="h-5 w-5 text-green-600" />
+              <div className="w-10 h-10 bg-[var(--cera-ok-bg)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-[var(--cera-ok-bg)] transition-colors">
+                <Download className="h-5 w-5 text-[var(--cera-ok)]" />
               </div>
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
@@ -162,7 +162,7 @@ export default function DownloadsSection() {
                 href="/documents/PPT/Achieve%20Korean%20Glass%20Skin%20with%20GENOSYS%20approach_F.pdf"
                 filename="Achieve Korean Glass Skin with GENOSYS approach"
                 external={true}
-                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-[var(--cera-cta)] to-[var(--cera-rose-ink)] text-white rounded-md hover:from-[var(--cera-rose-ink)] hover:to-[var(--cera-ink)] transition-colors text-xs font-medium flex-shrink-0"
               >
                 <Download className="h-3 w-3 mr-1" />
                 View PDF
@@ -170,10 +170,10 @@ export default function DownloadsSection() {
             </div>
           </div>
           
-          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-green-300 hover:shadow-lg transition-all duration-200">
+          <div className="group border border-[var(--cera-line)] rounded-lg p-3 hover:border-[var(--cera-ok-line)] hover:shadow-lg transition-all duration-200">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-green-50 rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-green-100 transition-colors">
-                <Download className="h-5 w-5 text-green-600" />
+              <div className="w-10 h-10 bg-[var(--cera-ok-bg)] rounded-lg flex items-center justify-center overflow-hidden flex-shrink-0 group-hover:bg-[var(--cera-ok-bg)] transition-colors">
+                <Download className="h-5 w-5 text-[var(--cera-ok)]" />
               </div>
               <div className="flex-1 min-w-0">
                 <h4 className="text-sm font-semibold text-[var(--cera-ink)] truncate">
@@ -187,7 +187,7 @@ export default function DownloadsSection() {
                 href="/documents/PPT/Bio-Meso%20PDRN%20Expert_Treatment%20guide_for%20print_S.pdf"
                 filename="Bio-Meso PDRN Expert Treatment Guide"
                 external={true}
-                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-md hover:from-green-700 hover:to-green-800 transition-colors text-xs font-medium flex-shrink-0"
+                className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-[var(--cera-cta)] to-[var(--cera-rose-ink)] text-white rounded-md hover:from-[var(--cera-rose-ink)] hover:to-[var(--cera-ink)] transition-colors text-xs font-medium flex-shrink-0"
               >
                 <Download className="h-3 w-3 mr-1" />
                 View PDF

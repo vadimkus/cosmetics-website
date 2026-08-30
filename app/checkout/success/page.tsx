@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function CheckoutSuccessPage() {
   return (
-    <div className="bg-gradient-to-b from-green-50 to-white min-h-screen">
+    <div className="bg-gradient-to-b from-[var(--cera-ok-bg)] to-white min-h-screen">
       <BreadcrumbSchema
         items={[
           { name: 'Home', url: '/' },

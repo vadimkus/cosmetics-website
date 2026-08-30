@@ -139,7 +139,7 @@ export default function ProductImageGallery({ product }: ProductImageGalleryProp
         {/* Stock Badge - above the picture so it never overlaps the photo */}
         <div className={`flex mb-2 ${dir === 'rtl' ? 'justify-start' : 'justify-end'}`}>
           {product.inStock ? (
-            <span className={`inline-flex items-center px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-[var(--status-green-deep)] text-white font-medium text-xs md:text-sm shadow-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
+            <span className={`inline-flex items-center px-2 py-1 md:px-3 md:py-1.5 rounded-full bg-[var(--cera-rose-ink)] text-white font-medium text-xs md:text-sm shadow-sm ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
               <span className={`w-1.5 h-1.5 bg-white rounded-full animate-pulse ${dir === 'rtl' ? 'ml-1.5' : 'mr-1.5'}`}></span>
               {t('product.inStock')}
             </span>

@@ -49,7 +49,7 @@ export default function HeaderDesktopIcons({
         href="https://wa.me/971585487665" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="text-sm text-gray-600 hover:text-green-600 transition-colors flex items-center gap-1 header-contact-link"
+        className="text-sm text-gray-600 hover:text-[var(--cera-ok)] transition-colors flex items-center gap-1 header-contact-link"
       >
         {isRTL ? (
           <><span aria-hidden="true">📱</span> +971 58 548 76 65</>
@@ -75,7 +75,7 @@ export default function HeaderDesktopIcons({
           className={iconShell}
           aria-label={`${t('common.cart')} with ${isClient ? cartCount : 0} items`}
         >
-          <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && cartCount > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
+          <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && cartCount > 0 ? 'text-[var(--cera-ok)]' : ''}`} aria-hidden="true" />
           {isClient && cartCount > 0 && (
             <span className={`absolute ${badgePosition} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge`} aria-hidden="true">
               {cartCount}
@@ -107,7 +107,7 @@ export default function HeaderDesktopIcons({
             className={iconShell}
             aria-label={t('common.profile')}
           >
-            <User className="h-6 w-6 text-green-600" aria-hidden="true" />
+            <User className="h-6 w-6 text-[var(--cera-ok)]" aria-hidden="true" />
           </Link>
           <button
             type="button"
@@ -139,7 +139,7 @@ export default function HeaderDesktopIcons({
           className={iconShell}
           aria-label={`${t('common.cart')} with ${isClient ? cartCount : 0} items`}
         >
-          <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && cartCount > 0 ? 'text-green-600' : ''}`} aria-hidden="true" />
+          <ShoppingCart className={`h-6 w-6 transition-colors ${isClient && cartCount > 0 ? 'text-[var(--cera-ok)]' : ''}`} aria-hidden="true" />
           {isClient && cartCount > 0 && (
             <span className={`absolute ${badgePosition} bg-primary-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center header-badge`} aria-hidden="true">
               {cartCount}

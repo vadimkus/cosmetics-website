@@ -112,7 +112,7 @@ const ProductActions = memo(function ProductActions({
       return (
         <div className="mt-2">
           <div
-            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-[var(--status-green-line)] bg-[var(--status-green-bg)] px-3 text-body-xs font-semibold text-[var(--status-green-deep)]"
+            className="flex min-h-12 w-full items-center justify-center gap-2 rounded-lg border border-[var(--cera-ok-line)] bg-[var(--cera-ok-bg)] px-3 text-body-xs font-semibold text-[var(--cera-ok)]"
             role="status"
             aria-live="polite"
           >
@@ -143,7 +143,7 @@ const ProductActions = memo(function ProductActions({
     return (
       <div className="mt-2">
         <div
-          className="flex min-h-12 w-full items-stretch overflow-hidden rounded-lg border border-[var(--status-green-deep)] bg-[var(--status-green-deep)] font-medium text-white shadow-sm"
+          className="flex min-h-12 w-full items-stretch overflow-hidden rounded-lg border border-[var(--cera-ok)] bg-[var(--cera-ok)] font-medium text-white shadow-sm"
           role="group"
           aria-label={`${inStateLabel} (${inCartQty}) - ${product.name}`}
           style={touchStyles}

@@ -188,7 +188,7 @@ export default function PWALoginPage() {
         <div className="relative inline-block">
           <button
             onClick={() => setShowLangDropdown(!showLangDropdown)}
-            className="flex items-center gap-1 text-green-600 font-medium text-sm"
+            className="flex items-center gap-1 text-[var(--cera-ok)] font-medium text-sm"
           >
             {currentLangCode}
             <ChevronDown className="w-4 h-4" />
@@ -198,19 +198,19 @@ export default function PWALoginPage() {
             <div className={`absolute top-full mt-1 bg-white shadow-lg rounded-lg border overflow-hidden z-50 ${isRTL ? 'right-0' : 'left-0'}`}>
               <button
                 onClick={() => handleLanguageChange('en')}
-                className={`w-full px-4 py-2 text-sm hover:bg-[var(--cera-cream-deep)] ${locale === 'en' ? 'bg-green-50 text-green-600' : ''}`}
+                className={`w-full px-4 py-2 text-sm hover:bg-[var(--cera-cream-deep)] ${locale === 'en' ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]' : ''}`}
               >
                 EN
               </button>
               <button
                 onClick={() => handleLanguageChange('ar')}
-                className={`w-full px-4 py-2 text-sm hover:bg-[var(--cera-cream-deep)] ${locale === 'ar' ? 'bg-green-50 text-green-600' : ''}`}
+                className={`w-full px-4 py-2 text-sm hover:bg-[var(--cera-cream-deep)] ${locale === 'ar' ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]' : ''}`}
               >
                 AR
               </button>
               <button
                 onClick={() => handleLanguageChange('ru')}
-                className={`w-full px-4 py-2 text-sm hover:bg-[var(--cera-cream-deep)] ${locale === 'ru' ? 'bg-green-50 text-green-600' : ''}`}
+                className={`w-full px-4 py-2 text-sm hover:bg-[var(--cera-cream-deep)] ${locale === 'ru' ? 'bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]' : ''}`}
               >
                 RU
               </button>

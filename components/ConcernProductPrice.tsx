@@ -34,7 +34,7 @@ export default function ConcernProductPrice({
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium text-[var(--cera-body)]">{priceOnRequestLabel}</span>
         {product.inStock && (
-          <span className="text-xs text-green-600">{inStockLabel}</span>
+          <span className="text-xs text-[var(--cera-ok)]">{inStockLabel}</span>
         )}
       </div>
     )
@@ -58,11 +58,11 @@ export default function ConcernProductPrice({
             ) : null}
           </div>
           <div className="flex items-center justify-between mt-0.5">
-            <span className="text-[10px] text-green-600 font-medium">
+            <span className="text-[10px] text-[var(--cera-ok)] font-medium">
               {pricing.discountPercentage}% {offLabel}
             </span>
             {product.inStock && (
-              <span className="text-xs text-green-600">{inStockLabel}</span>
+              <span className="text-xs text-[var(--cera-ok)]">{inStockLabel}</span>
             )}
           </div>
         </div>
@@ -76,7 +76,7 @@ export default function ConcernProductPrice({
           {aedLabel} {pricing.displayPrice.toLocaleString()}
         </span>
         {product.inStock && (
-          <span className="text-xs text-green-600">{inStockLabel}</span>
+          <span className="text-xs text-[var(--cera-ok)]">{inStockLabel}</span>
         )}
       </div>
     )
@@ -89,7 +89,7 @@ export default function ConcernProductPrice({
         {aedLabel} {product.price.toLocaleString()}
       </span>
       {product.inStock && (
-        <span className="text-xs text-green-600">{inStockLabel}</span>
+        <span className="text-xs text-[var(--cera-ok)]">{inStockLabel}</span>
       )}
     </div>
   )

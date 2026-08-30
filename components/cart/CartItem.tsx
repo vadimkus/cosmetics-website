@@ -205,7 +205,7 @@ function CartItemComponent({ item, loyaltyMultiplier = 0, onRemove }: CartItemPr
         <div className={`mt-0.5 flex items-center flex-nowrap ${compact ? 'justify-end' : ''} ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}>
           <span className="text-[10px] whitespace-nowrap">
             {hasDiscount && (
-              <span className="font-medium text-green-600">
+              <span className="font-medium text-[var(--cera-ok)]">
                 {linePricing.discountPercentage}% {t('product.off')}
               </span>
             )}

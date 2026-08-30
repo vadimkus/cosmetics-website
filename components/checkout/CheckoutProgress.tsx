@@ -71,7 +71,7 @@ export default function CheckoutProgress({
       dir={isRtl ? 'rtl' : 'ltr'}
     >
       <div className="mb-2 flex items-center justify-between gap-3">
-        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700 md:text-xs">
+        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[var(--cera-ok)] md:text-xs">
           <LockKeyhole className="h-3.5 w-3.5" aria-hidden="true" />
           {text.secure}
         </span>

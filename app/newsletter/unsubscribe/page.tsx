@@ -124,7 +124,7 @@ export default async function UnsubscribePage({
         ) : done || !subscriber!.isActive ? (
           <>
             <div className="flex justify-center mb-4">
-              <span className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-green-50 text-green-700">
+              <span className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-[var(--cera-ok-bg)] text-[var(--cera-ok)]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M20 6 9 17l-5-5" />
                 </svg>

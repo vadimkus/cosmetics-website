@@ -60,8 +60,8 @@ export default function TrustBadges({ layout = 'horizontal' }: Props) {
             <span className="text-sm font-medium text-[var(--color-text-primary)] leading-snug pt-1.5">{copy.shipping}</span>
           </li>
           <li className="flex items-start gap-3">
-            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-emerald-50">
-              <svg className="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true">
+            <span className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[var(--cera-ok-bg)]">
+              <svg className="h-4 w-4 text-[var(--cera-ok)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </span>

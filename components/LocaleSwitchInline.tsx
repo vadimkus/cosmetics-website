@@ -14,8 +14,8 @@ import { getLocaleFromPath, switchLocaleHardNav, type Locale } from '@/lib/i18n'
  * language once they opened a product or an article - the switcher only existed
  * in the header they had just navigated away from.
  *
- * `LanguageSwitcher` is not reusable here: it is a bare `EN` in green sized for
- * a dense desktop icon row, and it disappears against these bars. This one is a
+ * `LanguageSwitcher` is not reusable here: it is a bare `EN` sized for a dense
+ * desktop icon row, and it disappears against these bars. This one is a
  * bordered pill with a globe, tall enough to hit with a thumb, and painted in
  * the cera tokens the bars already use.
  *

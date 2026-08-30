@@ -10,6 +10,18 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| ⚪ Desktop | [ND Cell Instagram 4:5 exports](./SESSION_CHANGES_2026-08-30_ND_CELL_INSTA_FORMAT.md) | `~/Desktop/Insta_Olga/nd_cell_insta` — carousel 1080×1350, Story 1080×1920. Originals in `nd_cell_o`. |
+| ⚪ Desktop | [Product 23 ND Cell IG caption](./SESSION_CHANGES_2026-08-30_PRODUCT_23_IG_CAPTION.md) | Ready-to-post. Hook **YOUR FACE DOESN'T END AT THE JAWLINE.** Squalane 5%, adenosine 0.04%, peanut line. Three checks passed. |
+| 🟡 **Important** | [Anjana SPA 04990 paid](./SESSION_CHANGES_2026-08-30_ANJANA_SPA_MASKS.md) | Paymentin **06146** / **1,450 AED** on SHIP **06758**. INV **04990** paid. SO **GENCardM260830ANJ** → **Доставлен**. |
+| 🟡 **Important** | [Three orders MS delivered only](./SESSION_CHANGES_2026-08-30_THREE_ORDERS_MS_DELIVERED.md) | Nacim **695**, Denise **585**, Svetlana **730** → MoySklad **Доставлен**. Website unchanged. |
+| ⚪ Desktop | [Product 25 IG slide ideas](./SESSION_CHANGES_2026-08-29_PRODUCT_25_IG_SLIDE_IDEAS.md) | Idea only. Soothing Repair Postcream carousel 1–8, Hydro Cool shape. No artwork. |
+| ⚪ Desktop | [Insta_Olga folder ingest](./SESSION_CHANGES_2026-08-29_INSTA_OLGA_FOLDER_INGEST.md) | Full read of `~/Desktop/Insta_Olga`: MPS 4.0, Account Bible 8.0, IG audit + bios, Derma Z2E15 letter, 13 product folders. |
+| 🟡 **Important** | [Aniskina EGF + mist 01446 paid](./SESSION_CHANGES_2026-08-29_ANISKINA_EGF_MIST_SALES.md) | Report **01446** + paymentin **06139** / **225 AED**. EGF Oxymask ×1 @145 + mist ×1 @80. Agr. **00025**. PDF `~/Desktop/orders/`. |
+| 🟡 **Important** | [Milena JBR 04957 paid](./SESSION_CHANGES_2026-08-29_MILENA_JBR_04957_PAY.md) | Paymentin **06138** / **440 AED** on SHIP **06719**. INV **04957** paid. SO **GENCardM260820MILJPC2** → **Доставлен**. |
+| 🟡 **Important** | [Hydro Cool + masks write-off](./SESSION_CHANGES_2026-08-29_HYDROCOOL_MASKS_WRITEOFF.md) | Loss **00008-00506** / **224.03 AED** buy — Hydro Cool ×1, collagen ×10, sea algae ×10, peptide ×10. |
+| 🟡 **Important** | [Ilmira blemish replenish 06754](./SESSION_CHANGES_2026-08-29_ILMIRA_BLEMISH_DEMAND.md) | Demand **06754** / **250 AED** into agr. **00003** — Intensive Blemish Balm ×2 @125. Stock note `~/Desktop/orders/`. |
+| 🟡 **Important** | [Tasjeel hosting + domain 00693](./SESSION_CHANGES_2026-08-29_TASJEEL_HOSTING_PAYMENTOUT.md) | Paymentout **00693** / **530.25 AED** → Tasjeel.ae (inv **497124**, genosys.ae hosting + domain 25 Sep 2026–24 Sep 2027). |
+| ⚪ Desktop | [Hydro Cool Main5 label](./SESSION_CHANGES_2026-08-29_HYDRO_COOL_MAIN5_LABEL.md) | Official artwork warped onto the pouch plate. Readable 15–20 min / DTS MG lockup. `~/Desktop/HH/Main5.jpeg` + `hydro_o`. Originals in `Main5_before.jpeg`. Not on genosys.ae. |
 | 🟡 **Important** | [Miss Ekaterina Odessa 04984 paid](./SESSION_CHANGES_2026-08-29_EKATERINA_ODESSA_04984_PAY.md) | Paymentin **06137** / **639 AED** on SHIP **06751**. INV **04984** paid. SO **GENCardM2608280763** → **Доставлен**. |
 | 🟡 **Important** | [Khadija Faidar 04985 paid](./SESSION_CHANGES_2026-08-29_KHADIJA_FAIDAR_04985_PAY.md) | Paymentin **06136** / **2,040 AED** on SHIP **06752**. INV **04985** paid. SO **CODM2608295345** → **Доставлен**. |
 | 🟡 **Important** | [Miss Ekaterina Odessa retail 04984](./SESSION_CHANGES_2026-08-28_EKATERINA_ODESSA_RETAIL.md) | New customer. SO **GENCardM2608280763** / inv **04984** / ship **06751** / **639 AED** unpaid (−10% + delivery 45). PDF `~/Desktop/orders/`. |

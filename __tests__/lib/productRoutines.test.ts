@@ -172,3 +172,125 @@ describe('recommended routine catalog', () => {
     expect(getMobileRoutine('62', 'en')?.steps.some((step) => step.title.includes('EGF'))).toBe(false)
   })
 })
+
+/**
+ * The August 2026 localization pass rewrote Russian and Arabic against the
+ * Intertek dossier while English was deliberately frozen, and the routine steps
+ * ended up saying different things in different languages: English invented
+ * weekly frequencies for three masks whose cartons print none, and Russian
+ * drifted into reciting the formula. These guard the repair.
+ */
+describe('recommended routine copy', () => {
+  const LOCALE_MESSAGES = {
+    en: (enMessages as { product: Record<string, string> }).product,
+    ru: (ruMessages as { product: Record<string, string> }).product,
+    ar: (arMessages as { product: Record<string, string> }).product,
+  }
+  const LOCALES = ['en', 'ru', 'ar'] as const
+
+  const descKeys = [
+    ...new Set(Object.values(PRODUCT_ROUTINES).flatMap((r) => r.steps.map((s) => s.descKey))),
+  ]
+
+  /** Arabic may use Arabic-Indic numerals, which are the same figures. */
+  const figuresIn = (text: string): Set<string> => {
+    const western = text.replace(/[\u0660-\u0669]/g, (d) => String(d.charCodeAt(0) - 0x0660))
+    const normalized = western
+      .replace(/(\d)[\u00a0\u202f ](?=\d)/g, '$1')
+      .replace(/(\d),(?=\d{3}\b)/g, '$1')
+    return new Set((normalized.match(/\d+[.,]?\d*/g) || []).map((d) => d.replace(',', '.')))
+  }
+
+  it('quotes the same figures in every language', () => {
+    const divergent: string[] = []
+    for (const key of descKeys) {
+      const en = figuresIn(LOCALE_MESSAGES.en[key] ?? '')
+      for (const locale of ['ru', 'ar'] as const) {
+        const other = figuresIn(LOCALE_MESSAGES[locale][key] ?? '')
+        const added = [...other].filter((f) => !en.has(f))
+        const dropped = [...en].filter((f) => !other.has(f))
+        if (added.length || dropped.length) {
+          divergent.push(`${key} (${locale}): +${added.join(',')} -${dropped.join(',')}`)
+        }
+      }
+    }
+    expect(divergent).toEqual([])
+  })
+
+  it('keeps dossier vocabulary out of customer-facing steps', () => {
+    // One named active in plain prose is fine. An ingredient welded to its
+    // concentration, a ppm figure, or a stack of percentages is not.
+    const inciWithFigure =
+      /(Sodium Cocoyl Glutamate|Cocamidopropyl Betaine|Decyl Glucoside|PENTAVITIN|Butylene Glycol|Sodium Hyaluronate|Niacinamide|Adenosine|Panthenol|Allantoin|Glycerin|Squalane|Ceramide NP)[^.!?]{0,24}?\d/i
+    const offenders: string[] = []
+    for (const key of descKeys) {
+      for (const locale of LOCALES) {
+        const text = LOCALE_MESSAGES[locale][key] ?? ''
+        if (inciWithFigure.test(text)) offenders.push(`${key} (${locale}): ingredient with a concentration`)
+        if (/\bppm\b|جزء في المليون/i.test(text)) offenders.push(`${key} (${locale}): ppm`)
+        if ((text.match(/\d+[.,]?\d*\s?%/g) || []).length >= 2) {
+          offenders.push(`${key} (${locale}): stacked percentages`)
+        }
+        if (/\b[A-Z]\d{3,4}[A-Z]\b/.test(text)) offenders.push(`${key} (${locale}): lot code`)
+      }
+    }
+    expect(offenders).toEqual([])
+  })
+
+  it('does not reinstate the usage frequencies the cartons never printed', () => {
+    // Verified against the registered artwork: the collagen mask, the PDRN mask
+    // and the soothing bomb mask print a wear time and no weekly frequency.
+    const noPrintedFrequency = [
+      'routineCollagenMaskDesc',
+      'routinePDRNMaskDesc',
+      'routineSoothingBombMaskDesc',
+      'routineSoothingBombMaskDescProblem',
+      'routineSoothingBombMaskDescSensitive',
+      'routineSoothingBombMaskDescBrightening',
+    ]
+    for (const key of noPrintedFrequency) {
+      for (const locale of LOCALES) {
+        const text = LOCALE_MESSAGES[locale][key] ?? ''
+        expect(text).not.toMatch(/times? (a|per) week|раз в неделю|أسبوعياً/i)
+      }
+    }
+  })
+
+  it('does not reinstate claims that appear in no document', () => {
+    // "Skin age index" and "seven plants" are deliberately absent from this
+    // list: both have sources (a P&K clinical study and the sensitive box copy
+    // naming all seven botanicals). They are simply not what a two-line step
+    // needs. These four have no source anywhere.
+    const unsupported = [
+      /causes of hair (thinning|loss)/i,
+      /multipl(y|ies|ying) [^.!?]*absorption/i,
+      /dramatically improve/i,
+      /refresh follicles/i,
+    ]
+    for (const key of descKeys) {
+      const text = LOCALE_MESSAGES.en[key] ?? ''
+      for (const pattern of unsupported) expect(text).not.toMatch(pattern)
+    }
+  })
+
+  it('reserves the micro-channel mechanism for the microneedle roller', () => {
+    // A roller genuinely perforates the surface. The hair stamp and the spicule
+    // ampoule were borrowing the same language with nothing behind it.
+    for (const key of descKeys) {
+      if (key === 'routineMicroneedleRollerDesc') continue
+      for (const locale of LOCALES) {
+        expect(LOCALE_MESSAGES[locale][key] ?? '').not.toMatch(
+          /micro-?channels?|микроканал|قنوات دقيقة/i
+        )
+      }
+    }
+  })
+
+  it('ends every step as a finished sentence', () => {
+    for (const key of descKeys) {
+      for (const locale of LOCALES) {
+        expect(LOCALE_MESSAGES[locale][key] ?? '').toMatch(/[.!?…]\s*$/)
+      }
+    }
+  })
+})

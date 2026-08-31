@@ -156,7 +156,7 @@ export default function NewsletterSignup({
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="inline-flex items-center justify-center gap-1.5 rounded-full bg-gray-900 text-white px-5 py-2 font-semibold text-sm hover:bg-gray-800 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
+              className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[var(--cera-cta)] text-white px-5 py-2 font-semibold text-sm hover:bg-[var(--cera-rose-ink)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap"
             >
               {status === 'loading' ? t.subscribing : t.subscribe}
               {status !== 'loading' && (

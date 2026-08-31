@@ -556,7 +556,7 @@ export default function MobileWebHeader() {
                   href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center justify-center gap-2 py-2 px-3 bg-black text-white rounded-lg transition-colors active:bg-[#333] ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`flex items-center justify-center gap-2 py-2 px-3 bg-[var(--cera-cta)] text-white rounded-lg transition-colors active:bg-[var(--cera-rose-ink)] ${isRTL ? 'flex-row-reverse' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                   aria-label={locale === 'ar' ? 'حمّل من App Store' : locale === 'ru' ? 'Загрузите в App Store' : 'Download on the App Store'}
                 >
@@ -576,7 +576,7 @@ export default function MobileWebHeader() {
                   href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`flex items-center justify-center gap-2 py-2 px-3 bg-black text-white rounded-lg transition-colors active:bg-[#333] ${isRTL ? 'flex-row-reverse' : ''}`}
+                  className={`flex items-center justify-center gap-2 py-2 px-3 bg-[var(--cera-cta)] text-white rounded-lg transition-colors active:bg-[var(--cera-rose-ink)] ${isRTL ? 'flex-row-reverse' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                   aria-label={locale === 'ar' ? 'احصل عليه من Google Play' : locale === 'ru' ? 'Доступно в Google Play' : 'Get it on Google Play'}
                 >

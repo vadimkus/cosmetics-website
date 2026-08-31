@@ -10,8 +10,10 @@
 
 | Priority | Document | Description |
 |----------|----------|-------------|
+| ⚪ Desktop | [Hydro Cool Instagram 4:5 exports](./SESSION_CHANGES_2026-08-31_HYDRO_COOL_INSTA_FORMAT.md) | `~/Desktop/Insta_Olga/hydro_insta` — carousel 1080×1350, Story 1080×1920. Originals in `hydro_o`. |
 | ⚪ Desktop | [ND Cell Instagram 4:5 exports](./SESSION_CHANGES_2026-08-30_ND_CELL_INSTA_FORMAT.md) | `~/Desktop/Insta_Olga/nd_cell_insta` — carousel 1080×1350, Story 1080×1920. Originals in `nd_cell_o`. |
 | ⚪ Desktop | [Product 23 ND Cell IG caption](./SESSION_CHANGES_2026-08-30_PRODUCT_23_IG_CAPTION.md) | Ready-to-post. Hook **YOUR FACE DOESN'T END AT THE JAWLINE.** Squalane 5%, adenosine 0.04%, peanut line. Three checks passed. |
+| 🟡 **Important** | [August close profitability](./SESSION_CHANGES_2026-08-30_AUGUST_PROFITABILITY.md) | 1–30 Aug: rev **139,759** · net clean **−19,341** · cash **+19,386**. Product 68.3%. Bonus cash **49,950** vs 24k cap. |
 | 🟡 **Important** | [Anjana SPA 04990 paid](./SESSION_CHANGES_2026-08-30_ANJANA_SPA_MASKS.md) | Paymentin **06146** / **1,450 AED** on SHIP **06758**. INV **04990** paid. SO **GENCardM260830ANJ** → **Доставлен**. |
 | 🟡 **Important** | [Three orders MS delivered only](./SESSION_CHANGES_2026-08-30_THREE_ORDERS_MS_DELIVERED.md) | Nacim **695**, Denise **585**, Svetlana **730** → MoySklad **Доставлен**. Website unchanged. |
 | ⚪ Desktop | [Product 25 IG slide ideas](./SESSION_CHANGES_2026-08-29_PRODUCT_25_IG_SLIDE_IDEAS.md) | Idea only. Soothing Repair Postcream carousel 1–8, Hydro Cool shape. No artwork. |
@@ -33,7 +35,7 @@
 | ⚪ Desktop | [Mist Instagram 4:5 exports](./SESSION_CHANGES_2026-08-27_MIST_INSTA_FORMAT.md) | `~/Desktop/Insta_Olga/mist_insta` — carousel 1080×1350, Story 1080×1920 + 10s video. Originals in `mist_0`. |
 | 🟡 **Important** | [Elvina Genesis protocol pack](./SESSION_CHANGES_2026-08-27_ELVINA_GENESIS_PROTOCOL_PACK.md) | Desktop folder `Genesis_Healthcare_Elvina`: brand + 5 chair protocols from INV **04830**, website videos, catalogue. English. Not printed. |
 | 🟡 **Important** | [Sales bonus 1,000 Sagatdinov](./SESSION_CHANGES_2026-08-28_SALES_BONUS_PAYMENTOUT_1000.md) | Paymentout **00692** / **1,000 AED** → Vadim Sagatdinov (expense Sales Bonus). |
-| 🟡 **Important** | [August MTD profitability 27 Aug](./SESSION_CHANGES_2026-08-27_AUGUST_PROFITABILITY.md) | 1–27 Aug: rev **154,476** · net clean **−8,742** · cash **+11,352**. Product 67.8%. Bonus cash **48,950** vs 24k cap. |
+| ⚪ Desktop | [August MTD 27 Aug (superseded)](./SESSION_CHANGES_2026-08-27_AUGUST_PROFITABILITY.md) | Stale. 154k included Marina stock 01445. Use 30 Aug close. |
 | 🟡 **Important** | [Shakirovna Clinic BB Defender 04982](./SESSION_CHANGES_2026-08-27_SHAKIROVNA_CLINIC_DEFENDER.md) | Clinic SO **GENCardM260827SHKDEF** / INV **04982** / SHIP **06750** / **145 AED** paid 28 Aug (paymentin **06134**). Defender ×1 @145, delivery free. PDF `~/Desktop/orders/`. |
 | 🟡 **Important** | [Viktoriia Klymenko 04980 paid](./SESSION_CHANGES_2026-08-27_VIKTORIIA_KLYMENKO_04980_PAY.md) | Paymentin **06133** / **700 AED** on SHIP **06746**. INV **04980** paid. SO **GENCardM260827VIKT** → **Доставлен**. |
 | 🟡 **Important** | [Lodyana 04969 paid](./SESSION_CHANGES_2026-08-27_LODYANA_04969_PAY.md) | Paymentin **06132** / **670 AED** on SHIP **06733**. INV **04969** paid. SO **GENCardM260823LODY** → **Доставлен**. |

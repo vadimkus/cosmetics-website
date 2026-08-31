@@ -231,7 +231,7 @@ export default function PartnerCard({ partner }: PartnerCardProps) {
               href={partner.directions}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-gray-900 px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-black"
+              className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-[var(--cera-cta)] px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-[var(--cera-rose-ink)]"
             >
               <MapPin className="h-3.5 w-3.5" />
               {t('common.directions')}

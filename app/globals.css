@@ -210,13 +210,20 @@
   /* ========================================================================
      BRAND CTA - Semantic tokens for the primary action
      ========================================================================
-     Ink, not red. This is what the product pages put on "Add to bag" and what
-     the app uses for every filled button, so the cart and the product page now
-     agree. The `--brand-red-*` names are kept as aliases because a stylesheet
-     and the shared Button still reach for them; they no longer hold a red. */
-  --brand-cta: #191716;            /* default solid CTA, cera ink */
-  --brand-cta-hover: #332e2b;      /* hover state */
-  --brand-cta-active: #4a423e;     /* pressed state */
+     The same colour the product pages put on "Add to bag" and the app puts on
+     every filled button, so the cart and the product page agree. The
+     `--brand-red-*` names are kept as aliases because a stylesheet and the
+     shared Button still reach for them; they no longer hold a red.
+
+     This was ink until Aug 2026, from the pass that took the red out. Ink and
+     --cera-cta then split the same job between them by accident, so a shopper
+     met a black button in one place and a rose one in the next. Ink keeps the
+     job it does well, which is the state a filled button changes *to*: added,
+     saved, applied. Flipping rose to ink plainly registers as something having
+     happened, where rose to a second rose would not. */
+  --brand-cta: var(--cera-cta);    /* default solid CTA, cera rose */
+  --brand-cta-hover: #8f5a5a;      /* hover, = --cera-rose-ink */
+  --brand-cta-active: #7d4e4e;     /* pressed, one step deeper again */
   --brand-cta-soft: #f7ecec;       /* tinted backgrounds / badges, cera blush */
   --brand-cta-ink: #8f5a5a;        /* text on soft, cera rose-ink */
   --brand-cta-ring: rgba(143, 90, 90, 0.24); /* focus ring tint */

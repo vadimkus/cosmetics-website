@@ -521,7 +521,7 @@ export default function Footer() {
                   href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-black text-white px-3 py-1.5 rounded-md hover:bg-[#333] transition-colors text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                  className="inline-flex items-center gap-2 bg-[var(--cera-cta)] text-white px-3 py-1.5 rounded-md hover:bg-[var(--cera-rose-ink)] transition-colors text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                   aria-label="Download on the App Store"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -533,7 +533,7 @@ export default function Footer() {
                   href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 bg-black text-white px-3 py-1.5 rounded-md hover:bg-[#333] transition-colors text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
+                  className="inline-flex items-center gap-2 bg-[var(--cera-cta)] text-white px-3 py-1.5 rounded-md hover:bg-[var(--cera-rose-ink)] transition-colors text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40 focus-visible:ring-offset-2"
                   aria-label="Get it on Google Play"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

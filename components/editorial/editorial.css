@@ -5,8 +5,21 @@
  * cerabarrier.css supplies the structure (`cera-page`, `cera-serif`,
  * `cera-eyebrow`, `cera-rule`, `cera-card`, `cera-numeral`). A bespoke product
  * page then tints those tokens to its own colour. A brand page is not one
- * product's story, so it takes the house red instead, which is what
- * `.genosys-page` sets.
+ * product's story, so it takes the palette in globals.css as it stands.
+ *
+ * `.genosys-page` used to redeclare that palette here, from back when the house
+ * colour was red and only the product pages were on cera. Nine of its ten
+ * tokens were the globals value off by a digit or two; the two that were not,
+ * `--cera-rose` and `--cera-rose-ink`, held a vivid red. Since the class sits on
+ * 85 pages, that quietly put the whole shopping path, the blog and the footer on
+ * a red-tinted fork of the palette while the product pages and the app ran on
+ * the real one, and `npm run verify:tokens` could not see it because it checks
+ * globals.css against design-tokens.json, not a second copy hidden in a
+ * component stylesheet.
+ *
+ * The declarations are gone rather than corrected, because a second copy of the
+ * palette is the thing that drifts. The class stays in the markup as a hook if a
+ * brand-level tint is ever wanted again.
  *
  * Import this alongside cerabarrier.css and put both classes on the root:
  *
@@ -16,19 +29,6 @@
  * second page would also want belong here.
  */
 
-.cera-page.genosys-page {
-  --cera-cream: #faf8f7;
-  --cera-cream-deep: #f2eceb;
-  --cera-blush: #fbeceb;
-  --cera-blush-deep: #f0cfcd;
-  --cera-rose: #c0392f;
-  --cera-rose-ink: #97281f;
-  --cera-ink: #17140f;
-  --cera-body: #3c3733;
-  --cera-muted: #6a625d;
-  --cera-line: #e9e1de;
-}
-
 /* --- Actions ------------------------------------------------------------ */
 
 .ed-cta {
@@ -37,7 +37,13 @@
   justify-content: center;
   gap: 8px;
   border-radius: 999px;
-  background: var(--cera-ink);
+  /* --cera-cta, not --cera-ink. This class is the primary action on 19 pages,
+     including the home hero, login, checkout and the order flow, and it was the
+     one filled button on the site still sitting on ink while everything a
+     shopper sees next to it -- Add to bag, the app-store links in the hero --
+     was already on cera. On a bespoke product page it picks up that product's
+     tint, which is the same thing every other button there does. */
+  background: var(--cera-cta);
   color: #fff;
   font-weight: 600;
   transition: background-color 240ms ease, box-shadow 260ms ease;
@@ -45,7 +51,7 @@
 
 @media (hover: hover) {
   .ed-cta:not(:disabled):hover {
-    background: #000;
+    background: var(--cera-rose-ink);
     box-shadow: 0 16px 34px -18px rgba(17, 20, 15, 0.8);
   }
 }

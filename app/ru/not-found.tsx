@@ -103,7 +103,7 @@ export default function RussianNotFound() {
                 href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md transition-colors hover:bg-[#333] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 bg-[var(--cera-cta)] text-white px-4 py-2 rounded-md transition-colors hover:bg-[var(--cera-rose-ink)] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="Загрузите в App Store"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -134,7 +134,7 @@ export default function RussianNotFound() {
                 href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-black text-white px-4 py-2 rounded-md transition-colors hover:bg-[#333] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
+                className="inline-flex items-center gap-2 bg-[var(--cera-cta)] text-white px-4 py-2 rounded-md transition-colors hover:bg-[var(--cera-rose-ink)] text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cera-rose)]/40 focus-visible:ring-offset-2"
                 aria-label="Доступно в Google Play"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

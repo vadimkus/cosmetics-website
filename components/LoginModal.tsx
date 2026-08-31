@@ -360,7 +360,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 href="https://apps.apple.com/ae/app/genosys-uae/id6756648064"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-black text-white py-2 rounded-system font-semibold hover:bg-black/90 transition-all duration-200 elevation-2 hover:elevation-3 min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-[var(--cera-cta)] text-white py-2 rounded-system font-semibold hover:bg-[var(--cera-rose-ink)] transition-all duration-200 elevation-2 hover:elevation-3 min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
               >
                 <svg className="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 814 1000" aria-hidden="true">
                   <path
@@ -376,7 +376,7 @@ export default function LoginModal({ isOpen, onClose, isLoginMode, setIsLoginMod
                 href="https://play.google.com/store/apps/details?id=ae.genosys.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-black text-white py-2 rounded-system font-semibold hover:bg-black/90 transition-all duration-200 elevation-2 hover:elevation-3 min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
+                className={`w-full flex items-center justify-center gap-2 md:gap-3 bg-[var(--cera-cta)] text-white py-2 rounded-system font-semibold hover:bg-[var(--cera-rose-ink)] transition-all duration-200 elevation-2 hover:elevation-3 min-h-[44px] ${dir === 'rtl' ? 'flex-row-reverse' : ''}`}
               >
                 <svg className="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.199l2.807 1.626a1 1 0 0 1 0 1.732l-2.808 1.626L15.206 12l2.492-2.492zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>

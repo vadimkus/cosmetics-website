@@ -242,7 +242,7 @@ export default function PartnersList() {
               setArea('all')
               setType('all')
             }}
-            className="mt-3 inline-flex items-center rounded-full bg-gray-900 px-5 py-2 text-xs font-semibold text-white hover:bg-black"
+            className="mt-3 inline-flex items-center rounded-full bg-[var(--cera-cta)] px-5 py-2 text-xs font-semibold text-white hover:bg-[var(--cera-rose-ink)]"
           >
             {NO_RESULTS[lang].cta}
           </button>

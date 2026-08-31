@@ -87,8 +87,8 @@ export default function MobileFooterNav() {
     return null
   }
 
-  const activeColor = 'text-[#17140f]' // --cera-ink
-  const inactiveColor = 'text-[#6a625d]' // --cera-muted
+  const activeColor = 'text-[#191716]' // --cera-ink
+  const inactiveColor = 'text-[#665e59]' // --cera-muted
   
   return (
     <>
@@ -97,10 +97,10 @@ export default function MobileFooterNav() {
       
       {/* Mobile Footer Navigation - PWA Only */}
       <nav 
-        className="fixed bottom-0 left-0 right-0 z-50 bg-[#faf8f7]/95 backdrop-blur-sm md:hidden"
+        className="fixed bottom-0 left-0 right-0 z-50 bg-[#faf7f5]/95 backdrop-blur-sm md:hidden"
         style={{ 
           paddingBottom: 'env(safe-area-inset-bottom, 0px)',
-          borderTop: '1px solid #e9e1de'
+          borderTop: '1px solid #e8e0db'
         }}
         dir={dir}
         role="navigation"
@@ -122,7 +122,7 @@ export default function MobileFooterNav() {
             aria-current={activeTab === 'home' ? 'page' : undefined}
           >
             {activeTab === 'home' && (
-              <span aria-hidden="true" className="absolute top-0 h-[2px] w-[26px] rounded-full bg-[#17140f]" />
+              <span aria-hidden="true" className="absolute top-0 h-[2px] w-[26px] rounded-full bg-[#191716]" />
             )}
             <HomeIcon 
               filled={activeTab === 'home'} 
@@ -148,7 +148,7 @@ export default function MobileFooterNav() {
             aria-current={activeTab === 'orders' ? 'page' : undefined}
           >
             {activeTab === 'orders' && (
-              <span aria-hidden="true" className="absolute top-0 h-[2px] w-[26px] rounded-full bg-[#17140f]" />
+              <span aria-hidden="true" className="absolute top-0 h-[2px] w-[26px] rounded-full bg-[#191716]" />
             )}
             <ListIcon 
               filled={activeTab === 'orders'} 
@@ -174,7 +174,7 @@ export default function MobileFooterNav() {
             aria-current={activeTab === 'bag' ? 'page' : undefined}
           >
             {activeTab === 'bag' && (
-              <span aria-hidden="true" className="absolute top-0 h-[2px] w-[26px] rounded-full bg-[#17140f]" />
+              <span aria-hidden="true" className="absolute top-0 h-[2px] w-[26px] rounded-full bg-[#191716]" />
             )}
             <div className="relative">
               <BagIcon 
@@ -184,7 +184,7 @@ export default function MobileFooterNav() {
               {/* Badge for cart count */}
               {hasItemsInCart && (
                 <span 
-                  className="absolute -top-1.5 -right-2.5 bg-[#c0392f] text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-[#faf8f7]"
+                  className="absolute -top-1.5 -right-2.5 bg-[var(--cera-rose-ink)] text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center border-2 border-[#faf7f5]"
                   aria-label={`${cartCount} items in cart`}
                 >
                   {cartCount > 99 ? '99+' : cartCount}

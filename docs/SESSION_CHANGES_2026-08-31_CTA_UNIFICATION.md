@@ -38,6 +38,18 @@ as `rgba(151, 40, 31, …)`, which survived the token removal. They now carry
 that mattered visibly was the selected tile on the skin quiz, which was throwing
 a red glow onto an otherwise rose page.
 
+Then another 46 copies of the forked values in TypeScript, where a token cannot
+be used or where someone wrote a `var(--cera-x, #fallback)` and pasted the wrong
+palette's value into the fallback: the two mobile cart badges, the order-success
+confetti, the cookie banner, the chat widget and the breadcrumb. All now hold
+the globals value.
+
+One of those was a real bug rather than tidying. The mobile cart badge was
+`#c0392f` with a comment claiming it was `--cera-rose`. Had anyone believed the
+comment and swapped in the real `--cera-rose`, white on `#c98b8b` is 2.78:1,
+illegible at 10px bold in an 18px circle. It is `--cera-rose-ink` now, 5.56:1,
+slightly better than the 5.43:1 the vivid red gave.
+
 `npm run verify:tokens` could not catch it: it checks `globals.css` against
 `design-tokens.json`, and this was a third copy hidden in a component
 stylesheet. The declarations are deleted rather than corrected, because a second
@@ -91,11 +103,12 @@ itself as the replacement for "ad-hoc `bg-red-600`/`bg-primary-600` button
 classes", which is exactly the problem this change had to fix by hand across 18
 sites. Either adopt it or delete it; leaving it is how the next fork starts.
 
-`npm run verify:tokens` only reads `globals.css`. Nothing stops a fifth copy of
-the palette appearing in a component stylesheet tomorrow. The check that would
-catch it is a scan for `--cera-` declarations outside `globals.css` and
-`components/product/`, which is a short script and would have caught all four of
-these on the day they were written.
+~~`npm run verify:tokens` only reads `globals.css`.~~ Done. The script now also
+walks every stylesheet under `app/` and `components/` and fails if a `--cera-*`
+declaration appears outside `globals.css`, which defines them, or
+`components/product/`, which is allowed to retint them per product. Confirmed by
+reintroducing a fork in `blog.css` and watching the check fail, then removing it
+again. All four of these would have been caught on the day they were written.
 
 The shadow tints still use `rgba(23, 20, 15, …)`, the forked ink, where the real
 one is `rgb(25, 23, 22)`. Left alone deliberately: at 4% alpha the two are

@@ -63,9 +63,9 @@ interface PageBreadcrumbProps {
   hideOnMobile?: boolean
 }
 
-const MUTED = 'text-[color:var(--cera-muted,#6a625d)]'
-const INK = 'text-[color:var(--cera-ink,#17140f)]'
-const HOVER = 'hover:text-[color:var(--cera-rose-ink,#97281f)]'
+const MUTED = 'text-[color:var(--cera-muted,#665e59)]'
+const INK = 'text-[color:var(--cera-ink,#191716)]'
+const HOVER = 'hover:text-[color:var(--cera-rose-ink,#8f5a5a)]'
 
 export default function PageBreadcrumb({
   items,

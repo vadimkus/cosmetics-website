@@ -1417,8 +1417,8 @@ html[dir="rtl"] {
   height: var(--mweb-nav-bar);
   min-height: var(--mweb-nav-bar);
   flex-shrink: 0;
-  background-color: #faf8f7;
-  border: 1px solid #e9e1de;
+  background-color: #faf7f5;
+  border: 1px solid #e8e0db;
   border-radius: var(--mweb-chrome-radius);
   box-shadow: var(--mweb-chrome-shadow);
   z-index: 9999;
@@ -1574,8 +1574,8 @@ html[dir="rtl"] {
   left: 0;
   right: 0;
   width: 100%;
-  background-color: #faf8f7;
-  border-top: 1px solid #e9e1de;
+  background-color: #faf7f5;
+  border-top: 1px solid #e8e0db;
   z-index: 40;
   padding: 12px 16px;
   padding-bottom: calc(12px + env(safe-area-inset-bottom));

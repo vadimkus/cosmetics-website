@@ -9,7 +9,7 @@
  * Run: npm run verify:tokens
  */
 
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -116,6 +116,44 @@ if (!h2) {
   if (floorPx !== expectedPx) {
     failures.push(
       `--text-h2 floor is ${floor} (${floorPx}px) but design-tokens.json says phones get ${expectedPx}px`
+    );
+  }
+}
+
+/* ── No second copy of the palette ────────────────────────────────────────
+   This file used to check globals.css alone, which is how four stylesheets got
+   away with redeclaring the whole cera block for themselves: editorial.css and
+   the blog, training and skin-recommendation pages. Nine of the ten tokens in
+   each were the globals value off by a digit, and the other two held a vivid red
+   from before the site moved to cera. Between them those classes covered the
+   home page, the shopping path, the blog and the footer, so most of the site was
+   quietly running on a fork.
+
+   A --cera-* declaration is legitimate in exactly two places: globals.css, which
+   defines them, and components/product/, where each bespoke page tints them to
+   its own product on purpose. Anywhere else is a second copy, and a second copy
+   drifts. */
+
+const paletteHomes = ['app/globals.css', 'components/product/'];
+const cssFiles = [];
+const walk = (dir) => {
+  for (const entry of readdirSync(join(root, dir), { withFileTypes: true })) {
+    if (entry.name === 'node_modules' || entry.name.startsWith('.')) continue;
+    const rel = `${dir}/${entry.name}`;
+    if (entry.isDirectory()) walk(rel);
+    else if (entry.name.endsWith('.css')) cssFiles.push(rel);
+  }
+};
+for (const dir of ['app', 'components']) walk(dir);
+
+for (const file of cssFiles) {
+  if (paletteHomes.some((home) => file === home || file.startsWith(home))) continue;
+  const declared = [...read(file).matchAll(/^\s*(--cera-[a-z-]+)\s*:/gm)].map((m) => m[1]);
+  if (declared.length > 0) {
+    const unique = [...new Set(declared)];
+    failures.push(
+      `${file} declares ${unique.join(', ')}. Only app/globals.css defines the ` +
+        `cera palette, and only components/product/ may retint it.`
     );
   }
 }

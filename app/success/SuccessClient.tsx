@@ -209,7 +209,7 @@ function SuccessContent() {
         trigger={showConfetti}
         duration={3000}
         particleCount={60}
-        colors={['#97281f', '#c0392f', '#e8c9c5', '#d8a24a', '#ffffff']}
+        colors={['#8f5a5a', '#c98b8b', '#e8c9c5', '#d8a24a', '#ffffff']}
       />
 
       {!isAppLikeMode && (

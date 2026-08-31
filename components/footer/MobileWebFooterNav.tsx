@@ -150,7 +150,7 @@ export default function MobileWebFooterNav() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              border: '2px solid #faf8f7',
+              border: '2px solid #faf7f5',
             }}>
               {cartCount > 99 ? '99+' : cartCount}
             </span>

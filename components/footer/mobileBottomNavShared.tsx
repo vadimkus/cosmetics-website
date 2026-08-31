@@ -33,9 +33,13 @@ import { isProductDetailPage } from '@/lib/simpleHeaderPages'
  * attribute, not a CSS property, so a custom property would not resolve.
  */
 export const MOBILE_WEB_NAV_COLORS = {
-  active: '#17140f', // --cera-ink
-  inactive: '#6a625d', // --cera-muted
-  badge: '#c0392f', // --cera-rose
+  active: '#191716', // --cera-ink
+  inactive: '#665e59', // --cera-muted
+  // --cera-rose-ink, not --cera-rose as the old comment claimed. Rose itself is
+  // a surface tone: white on it is 2.78:1, which is illegible at 10px bold in an
+  // 18px circle. Rose-ink carries the count at 5.56:1, a shade better than the
+  // 5.43:1 the vivid red managed before the palette was unified.
+  badge: '#8f5a5a', // --cera-rose-ink
 } as const
 
 /**

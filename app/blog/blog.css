@@ -90,7 +90,7 @@
 
 .blog-skeleton {
   border-radius: 18px;
-  background: var(--cera-cream-deep, #f2eceb);
+  background: var(--cera-cream-deep, #f3ece8);
   animation: blog-pulse 1.6s ease-in-out infinite;
 }
 

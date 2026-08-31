@@ -51,16 +51,16 @@ export default function CookieConsentBanner() {
       role="dialog"
       aria-label={t.privacy}
       dir={dir}
-      className="fixed z-[60] inset-x-[var(--mweb-chrome-inset)] bottom-[var(--mobile-nav-height)] rounded-[var(--mweb-chrome-radius)] border border-[var(--cera-line,#e9e1de)] bg-white/95 backdrop-blur px-4 py-3 shadow-[var(--mweb-chrome-shadow)] print:hidden md:inset-x-0 md:bottom-0 md:rounded-none md:border-0 md:border-t md:shadow-[0_-4px_20px_-8px_rgba(0,0,0,0.15)]"
+      className="fixed z-[60] inset-x-[var(--mweb-chrome-inset)] bottom-[var(--mobile-nav-height)] rounded-[var(--mweb-chrome-radius)] border border-[var(--cera-line,#e8e0db)] bg-white/95 backdrop-blur px-4 py-3 shadow-[var(--mweb-chrome-shadow)] print:hidden md:inset-x-0 md:bottom-0 md:rounded-none md:border-0 md:border-t md:shadow-[0_-4px_20px_-8px_rgba(0,0,0,0.15)]"
     >
       <div
         className={`container mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between ${isRtl ? 'sm:flex-row-reverse text-right' : ''}`}
       >
-        <p className="text-sm text-[var(--cera-body,#3c3733)] leading-relaxed max-w-2xl">
+        <p className="text-sm text-[var(--cera-body,#3d3734)] leading-relaxed max-w-2xl">
           {t.text}{' '}
           <Link
             href={getLocalizedPath('/privacy-policy', locale)}
-            className="font-semibold text-[var(--cera-rose-ink,#97281f)] underline hover:text-[var(--cera-rose-ink,#97281f)]"
+            className="font-semibold text-[var(--cera-rose-ink,#8f5a5a)] underline hover:text-[var(--cera-rose-ink,#8f5a5a)]"
           >
             {t.privacy}
           </Link>
@@ -69,14 +69,14 @@ export default function CookieConsentBanner() {
           <button
             type="button"
             onClick={() => choose('declined')}
-            className="rounded-full border border-[var(--cera-line,#e9e1de)] px-4 py-2 text-sm font-semibold text-[var(--cera-body,#3c3733)] hover:bg-[var(--cera-cream-deep,#f2eceb)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
+            className="rounded-full border border-[var(--cera-line,#e8e0db)] px-4 py-2 text-sm font-semibold text-[var(--cera-body,#3d3734)] hover:bg-[var(--cera-cream-deep,#f3ece8)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500/40"
           >
             {t.decline}
           </button>
           <button
             type="button"
             onClick={() => choose('accepted')}
-            className="rounded-full bg-[var(--cera-ink,#17140f)] px-5 py-2 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink,#97281f)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+            className="rounded-full bg-[var(--cera-cta,#9c686d)] px-5 py-2 text-sm font-semibold text-white hover:bg-[var(--cera-rose-ink,#8f5a5a)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
           >
             {t.accept}
           </button>

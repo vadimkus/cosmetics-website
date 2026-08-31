@@ -533,7 +533,7 @@ export default function HairGentronProductPage({ product, unitsSold = 0, routine
               <CeraReveal>
                 {product.videoUrl ? (
                   <figure>
-                    <div className="overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+                    <div className="mx-auto aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                       <video
                         className="h-full w-full object-cover"
                         src={product.videoUrl}

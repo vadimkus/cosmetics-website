@@ -28,9 +28,13 @@ def rewrite(cls: str) -> str | None:
     """Return the corrected class string, or None if it is already fine."""
     if 'aspect-[9/16]' in cls:
         return None
+
     if 'aspect-square' not in cls:
-        # No ratio at all: the video keeps its own, nothing to crop.
-        return None
+        # No ratio on the box does not mean no crop. The <video> inside carries
+        # `h-full w-full object-cover`, so it stretches to whatever height the
+        # grid row gives the container and crops to that. On the six pages in
+        # this state it measured 513x513 and 513x355 against a 720x1280 source.
+        return f'{PORTRAIT} {cls}'.strip()
 
     out = cls
     # Drop the desktop widescreen override and the square base together.

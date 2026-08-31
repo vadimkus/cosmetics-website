@@ -24,7 +24,7 @@ today — which is where the corrected markup came from.
 
 ## Scope
 
-25 pages. Audited with `scripts/audit-product-video-aspect.ts`, which maps every
+31 pages. Audited with `scripts/audit-product-video-aspect.ts`, which maps every
 product number through `bespokePdp.tsx` to the page that renders it and probes
 the video file it resolves to.
 
@@ -34,8 +34,15 @@ The three landscape files that exist (`allserum.mp4`, `barrier.mp4`,
 `hydrocream.mp4`) are not referenced by any page.
 
 Six pages (BB Cushion, GenoLed, HairGentron, MultiSun, SeaAlgae, UltraShield)
-put no ratio on the container at all, so their videos already rendered at their
-own aspect. Left alone.
+put no ratio on the container at all. I first read that as safe, on the
+assumption the video would fall back to its own aspect. It does not: the
+`<video>` carries `h-full w-full object-cover`, so it stretches to whatever
+height the grid row gives the container and crops to that. Measured live they
+were 513x513 on four pages and 513x355 on GenoLed, against a 720x1280 source —
+the worst crops on the site. Fixed in a second pass, and the test was tightened
+to require the ratio be stated rather than merely not wrong.
+
+31 pages in total.
 
 ## The change
 

@@ -735,7 +735,7 @@ export default function GenoLedProductPage({ product, unitsSold = 0, routineProd
           <div className="lg:sticky lg:top-24 lg:self-start">
             {product.videoUrl ? (
               <CeraReveal>
-                <div className="overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+                <div className="mx-auto aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                   <video
                     className="h-full w-full object-cover"
                     src={product.videoUrl}

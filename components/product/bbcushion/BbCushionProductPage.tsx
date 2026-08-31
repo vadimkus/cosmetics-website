@@ -931,7 +931,7 @@ export default function BbCushionProductPage({
 
             {product.videoUrl ? (
               <CeraReveal delay={90}>
-                <div className="mt-4 overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+                <div className="mx-auto aspect-[9/16] w-full max-w-[340px] mt-4 overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                   <video
                     className="h-full w-full object-cover"
                     src={product.videoUrl}

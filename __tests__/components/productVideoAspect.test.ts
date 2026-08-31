@@ -29,7 +29,8 @@ function videoContainers(file: string): string[] {
   const out: string[] = []
   for (const m of src.matchAll(/<video\b/g)) {
     const divs = [...src.slice(0, m.index).matchAll(/<div\s+className="([^"]*)"/g)]
-    if (divs.length) out.push(divs[divs.length - 1][1])
+    const nearest = divs[divs.length - 1]?.[1]
+    if (nearest !== undefined) out.push(nearest)
   }
   return out
 }
@@ -41,11 +42,14 @@ describe('bespoke product video containers', () => {
     expect(pages.length).toBeGreaterThan(20)
   })
 
-  it.each(pages)('%s does not crop its video to a square or 16:9 box', (file) => {
+  it.each(pages)('%s holds its video to the 9:16 of the source', (file) => {
     for (const cls of videoContainers(file)) {
-      // A container with no ratio at all is fine: the video keeps its own.
-      if (!cls.includes('aspect-')) continue
-
+      // Leaving the ratio off does not mean leaving the video uncropped: the
+      // <video> carries `h-full w-full object-cover`, so without a ratio it
+      // stretches to whatever height its grid row happens to be and crops to
+      // that. Six pages sat in exactly that state, measuring 513x513 against
+      // a 720x1280 source. So the ratio has to be stated, not merely correct.
+      expect(cls).toContain('aspect-[9/16]')
       expect(cls).not.toContain('aspect-square')
       expect(cls).not.toContain('aspect-video')
     }
@@ -66,7 +70,7 @@ describe('bespoke product video containers', () => {
       const full = path.join(ROOT, v)
       if (!existsSync(full)) return false
       try {
-        const [w, h] = execFileSync(
+        const dims = execFileSync(
           'ffprobe',
           ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', full],
           { encoding: 'utf8' }
@@ -74,6 +78,8 @@ describe('bespoke product video containers', () => {
           .trim()
           .split(',')
           .map(Number)
+        const [w, h] = dims
+        if (typeof w !== 'number' || typeof h !== 'number' || !w || !h) return false
         return w >= h
       } catch {
         return false

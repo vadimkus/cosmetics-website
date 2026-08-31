@@ -695,7 +695,13 @@ export default function HydroCoolProductPage({
           {product.videoUrl ? (
             <CeraReveal className="mt-10">
               <p className="cera-eyebrow">{copy.howTo.videoTitle}</p>
-              <div className="hc-video relative mt-4 aspect-square overflow-hidden rounded-[28px] sm:aspect-video">
+              {/* 9:16, not the square-then-widescreen pair used elsewhere. The
+                  clip is a 720x1280 portrait export, so a cover crop to 16:9
+                  kept a horizontal band through the middle of the bowl and
+                  threw away the rest of the height. Held to the source ratio
+                  nothing is cropped and no letterbox appears, and the width is
+                  capped so it cannot outgrow the steps above it. */}
+              <div className="hc-video relative mx-auto mt-4 aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px]">
                 <video
                   src={product.videoUrl}
                   controls

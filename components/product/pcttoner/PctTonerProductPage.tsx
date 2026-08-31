@@ -770,7 +770,7 @@ export default function PctTonerProductPage({
           {product.videoUrl ? (
             <CeraReveal className="mt-10">
               <p className="cera-eyebrow">{copy.howTo.videoTitle}</p>
-              <div className="pct-video relative mt-4 aspect-square overflow-hidden rounded-[28px] sm:aspect-video">
+              <div className="pct-video relative mt-4 mx-auto aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px]">
                 <video
                   src={product.videoUrl}
                   controls

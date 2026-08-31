@@ -742,7 +742,7 @@ export default function ScalpBrushProductPage({
                 {/* Square frame with a cover crop, matching the other product
                     videos: every clip in /public/videos is a 720x1280 social
                     export, so the page never lets one set its own shape. */}
-                <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+                <div className="relative mx-auto aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                   <video
                     className="h-full w-full object-cover"
                     src={product.videoUrl}

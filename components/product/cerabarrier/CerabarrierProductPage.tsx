@@ -800,7 +800,7 @@ export default function CerabarrierProductPage({
           <div className="mx-auto max-w-[1200px] px-4 sm:px-6">
             <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
               <CeraReveal>
-                <div className="relative aspect-square overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
+                <div className="relative mx-auto aspect-[9/16] w-full max-w-[340px] overflow-hidden rounded-[28px] border border-[var(--cera-line)] bg-white">
                   <video
                     className="h-full w-full object-cover"
                     src={product.videoUrl}

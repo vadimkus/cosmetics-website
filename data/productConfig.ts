@@ -481,7 +481,7 @@ export const PRODUCT_CONFIG: Record<string, ProductConfig> = {
       '/images/hydro_o/S7.jpeg',
       '/images/hydro_o/Closing.jpeg',
     ],
-    videoUrl: '/videos/hydro.mp4',
+    videoUrl: '/videos/hydro-cool-modeling-mask-20260831.mp4',
   },
   '36': {
     id: '36',

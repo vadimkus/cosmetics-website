@@ -538,7 +538,7 @@ export const products: Product[] = [
     images: null,
     category: 'Mask',
     inStock: true,
-    videoUrl: '/videos/hydro.mp4',
+    videoUrl: '/videos/hydro-cool-modeling-mask-20260831.mp4',
   },
   {
     id: '36',
